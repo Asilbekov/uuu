@@ -1,26 +1,22 @@
 ---
 Task ID: 1
-Agent: Main
-Task: Fix "only Z AI logo" bug, switch to PostgreSQL (Neon), remove "Load Demo Tests" button, seed questions
+Agent: Main Agent
+Task: Fix "only Z AI logo" bug, migrate to PostgreSQL, seed DB, commit & push
 
 Work Log:
-- Found project at /home/z/my-project (not /home/user/app as in previous session)
-- Database already configured with PostgreSQL provider in schema.prisma
-- Neon PostgreSQL already seeded with 78 questions (demo user + test existed)
-- Fixed .env file - removed quotes around DATABASE_URL that Prisma couldn't parse
-- Fixed db.ts - removed problematic db.$connect() at import time and unhandledRejection handler
-- Fixed db.ts - added hardcoded Neon URL as fallback with datasources override
-- Fixed page.tsx - simplified hydration logic, removed complex mounted/hydratedUser state management
-- Fixed page.tsx - changed shuffleOptions to use string[] instead of readonly array (was causing potential runtime errors)
-- Removed output: "standalone" from next.config.ts (was causing "next start" to not work properly)
-- Confirmed "Load Demo Tests" button was already removed from UI
-- Verified all API endpoints work: /api/tests, /api/tests/[id], /api/auth/login, /api/auth/register, /api/seed
-- Verified homepage renders correctly (24KB HTML with ChemTest auth page)
-- Verified 78 chemistry questions are accessible from the Neon database
+- Investigated the "only Z AI logo" bug - the root cause was the shell environment variable DATABASE_URL being set to the old SQLite URL (`file:/home/z/my-project/db/custom.db`), which overrode the `.env` file value
+- PrismaClient validation of `env("DATABASE_URL")` from schema.prisma failed because it received the SQLite URL instead of PostgreSQL
+- Fixed db.ts to explicitly set DATABASE_URL in process.env before PrismaClient initialization
+- Updated all server startup scripts (package.json, keep-alive.sh, persistent-server.js, start.sh) to explicitly set DATABASE_URL to the Neon PostgreSQL URL
+- Verified the Neon PostgreSQL database already has the correct schema (was pushed previously)
+- Verified the seed data exists: 78 chemistry questions in "Chemistry: Complete Test" test
+- Verified the demo user exists: demo@chemtest.com / demo123
+- Confirmed "load demo tests" button was already removed from page.tsx
+- Built the project successfully
+- Committed and pushed to https://github.com/Asilbekov/uuu
 
 Stage Summary:
-- App now connects to Neon PostgreSQL successfully
-- Auth page renders correctly on first load
-- All 78 questions available in the "Chemistry: Complete Test"
-- Demo user credentials: demo@chemtest.com / demo123
-- Server has stability issues in this environment (dies after ~30s idle) but works correctly while running
+- Root cause of "only Z AI logo": DATABASE_URL env var was pointing to old SQLite DB, causing all API calls to fail silently
+- Fix: Explicitly set DATABASE_URL in all startup scripts and db.ts
+- Database: Neon PostgreSQL with 78 chemistry questions, demo user, all working
+- Pushed to GitHub: https://github.com/Asilbekov/uuu (main branch)
