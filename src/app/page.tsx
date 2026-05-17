@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { api, getUser, setUser } from '@/lib/api';
+import { api, setUser } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,14 +11,6 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -31,12 +23,10 @@ import {
 } from '@/components/ui/alert-dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import {
   Beaker,
   LogIn,
-  UserPlus,
   Plus,
   Trash2,
   Edit,
@@ -51,15 +41,15 @@ import {
   FlaskConical,
   Home,
   RefreshCw,
-  Eye,
   GraduationCap,
   Clock,
   BarChart3,
-  Settings,
+  Minus,
+  ListChecks,
 } from 'lucide-react';
 
 // Types
-type Page = 'auth' | 'dashboard' | 'create-test' | 'edit-test' | 'take-test' | 'results' | 'history';
+type Page = 'auth' | 'dashboard' | 'create-test' | 'edit-test' | 'start-test' | 'take-test' | 'history';
 
 interface Question {
   id?: string;
@@ -141,6 +131,10 @@ export default function ChemTestApp() {
   const [currentTest, setCurrentTest] = useState<Test | null>(null);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
 
+  // Auth - always start with null/auth, hydrate on mount
+  const [user, setUserState] = useState<{ id: string; email: string; name: string } | null>(null);
+  const [page, setPage] = useState<Page>('auth');
+
   // Auth state
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
@@ -164,27 +158,33 @@ export default function ChemTestApp() {
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
-  const [testCompleted, setTestCompleted] = useState(false);
+  const [selectedQuestionCount, setSelectedQuestionCount] = useState(0);
 
   // Delete confirmation
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  // Initialize from localStorage on mount
-  const [user, setUserState] = useState<{ id: string; email: string; name: string } | null>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('chemtest_user');
-      return stored ? JSON.parse(stored) : null;
-    }
-    return null;
-  });
+  // Sync localStorage user into state via subscription pattern
+  const subscribe = useCallback((callback: () => void) => {
+    window.addEventListener('storage', callback);
+    return () => window.removeEventListener('storage', callback);
+  }, []);
 
-  const [page, setPage] = useState<Page>(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('chemtest_user');
-      return stored ? 'dashboard' : 'auth';
-    }
-    return 'auth';
-  });
+  const getSnapshot = useCallback(() => {
+    return localStorage.getItem('chemtest_user');
+  }, []);
+
+  const getServerSnapshot = useCallback(() => null, []);
+
+  const storedUserJson = React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  const hydratedUser = React.useMemo(() => {
+    if (!storedUserJson) return null;
+    try { return JSON.parse(storedUserJson); } catch { return null; }
+  }, [storedUserJson]);
+
+  // Apply hydrated user - use hydratedUser if no explicit login has happened
+  const effectiveUser = user || hydratedUser;
+  const effectivePage = page === 'auth' && hydratedUser ? 'dashboard' : page;
 
   const loadTests = useCallback(async () => {
     try {
@@ -195,19 +195,10 @@ export default function ChemTestApp() {
     }
   }, [toast]);
 
-  const loadAttempts = useCallback(async () => {
-    try {
-      const data = await api.getAttempts();
-      setAttempts(data);
-    } catch (e: any) {
-      // Silent fail for attempts
-    }
-  }, []);
-
   // Load tests when navigating to dashboard
   const hasLoadedRef = React.useRef(false);
   useEffect(() => {
-    if (page === 'dashboard' && user && !hasLoadedRef.current) {
+    if (effectivePage === 'dashboard' && effectiveUser && !hasLoadedRef.current) {
       hasLoadedRef.current = true;
       Promise.all([
         api.getTests().then(data => setTests(data)).catch(() => {}),
@@ -253,7 +244,7 @@ export default function ChemTestApp() {
     setLoading(true);
     try {
       const result = await api.seed();
-      toast({ title: 'Database seeded!', description: `${result.testsCreated} tests created with ${result.totalQuestions} questions. Login: demo@chemtest.com / demo123` });
+      toast({ title: 'Database seeded!', description: `${result.testsCreated} tests with ${result.totalQuestions} questions. Login: demo@chemtest.com / demo123` });
       await loadTests();
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
@@ -359,6 +350,8 @@ export default function ChemTestApp() {
         toast({ title: 'Test created!', description: 'Your new test has been created.' });
       }
       setPage('dashboard');
+      hasLoadedRef.current = false;
+      await loadTests();
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
     }
@@ -377,29 +370,43 @@ export default function ChemTestApp() {
   };
 
   // --- TEST TAKING ---
-  const startTest = async (test: Test) => {
+  const openStartTest = async (test: Test) => {
     setLoading(true);
     try {
       const fullTest = await api.getTest(test.id);
       setCurrentTest(fullTest);
+      const totalQ = fullTest.questions.length;
+      setSelectedQuestionCount(totalQ);
+      setPage('start-test');
+    } catch (e: any) {
+      toast({ title: 'Error', description: e.message, variant: 'destructive' });
+    }
+    setLoading(false);
+  };
 
+  const startTest = async () => {
+    if (!currentTest) return;
+    setLoading(true);
+    try {
       // Apply randomization
-      let qList = [...fullTest.questions];
-      if (fullTest.randomizeQuestions) {
+      let qList = [...currentTest.questions];
+      if (currentTest.randomizeQuestions) {
         qList = shuffleArray(qList);
       }
-      if (fullTest.randomizeOptions) {
+      if (currentTest.randomizeOptions) {
         qList = qList.map(q => shuffleOptions(q));
       }
 
+      // Slice to selected count
+      qList = qList.slice(0, selectedQuestionCount);
+
       // Create attempt
-      const attempt = await api.createAttempt(test.id);
+      const attempt = await api.createAttempt(currentTest.id);
       setCurrentAttempt(attempt);
       setShuffledQuestions(qList);
       setCurrentQuestionIdx(0);
       setAnswers({});
       setShowResult(false);
-      setTestCompleted(false);
       setPage('take-test');
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
@@ -429,7 +436,6 @@ export default function ChemTestApp() {
         answers: answerData,
         completed: true,
       });
-      setTestCompleted(true);
       setShowResult(true);
       toast({ title: 'Test completed!', description: 'Your answers have been submitted.' });
     } catch (e: any) {
@@ -442,7 +448,6 @@ export default function ChemTestApp() {
     return shuffledQuestions.filter(q => answers[q.id || ''] === q.correctAnswer).length;
   };
 
-  // --- NAVIGATION ---
   const goHome = () => {
     setPage('dashboard');
     setCurrentTest(null);
@@ -452,7 +457,7 @@ export default function ChemTestApp() {
   // =================== RENDER ===================
 
   // AUTH PAGE
-  if (page === 'auth') {
+  if (effectivePage === 'auth') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-white to-emerald-50 p-4">
         <Card className="w-full max-w-md shadow-xl border-0">
@@ -488,7 +493,7 @@ export default function ChemTestApp() {
             </Button>
             <div className="text-center text-sm text-muted-foreground">
               {authMode === 'login' ? (
-                <>Don't have an account? <button className="text-primary underline" onClick={() => setAuthMode('signup')}>Sign up</button></>
+                <>Don&apos;t have an account? <button className="text-primary underline" onClick={() => setAuthMode('signup')}>Sign up</button></>
               ) : (
                 <>Already have an account? <button className="text-primary underline" onClick={() => setAuthMode('login')}>Sign in</button></>
               )}
@@ -505,10 +510,10 @@ export default function ChemTestApp() {
   }
 
   // DASHBOARD
-  if (page === 'dashboard') {
+  if (effectivePage === 'dashboard') {
+    const totalQuestions = tests.reduce((sum, t) => sum + (t._count?.questions || 0), 0);
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
-        {/* Header */}
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -522,8 +527,8 @@ export default function ChemTestApp() {
             </div>
             <div className="flex items-center gap-3">
               <div className="hidden sm:block text-right">
-                <p className="text-sm font-medium">{user?.name}</p>
-                <p className="text-xs text-muted-foreground">{user?.email}</p>
+                <p className="text-sm font-medium">{effectiveUser?.name}</p>
+                <p className="text-xs text-muted-foreground">{effectiveUser?.email}</p>
               </div>
               <Button variant="ghost" size="sm" onClick={handleLogout}>
                 <LogIn className="w-4 h-4 mr-1" /> Logout
@@ -533,7 +538,6 @@ export default function ChemTestApp() {
         </header>
 
         <main className="max-w-7xl mx-auto px-4 py-6">
-          {/* Actions */}
           <div className="flex flex-wrap gap-3 mb-6">
             <Button onClick={startCreateTest} className="bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700">
               <Plus className="w-4 h-4 mr-2" /> Create New Test
@@ -541,12 +545,11 @@ export default function ChemTestApp() {
             <Button variant="outline" onClick={handleSeed} disabled={loading}>
               <GraduationCap className="w-4 h-4 mr-2" /> Load Demo Tests
             </Button>
-            <Button variant="outline" onClick={() => setPage('history')}>
+            <Button variant="outline" onClick={() => { api.getAttempts().then(d => setAttempts(d)).catch(() => {}); setPage('history'); }}>
               <Clock className="w-4 h-4 mr-2" /> Test History
             </Button>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
             <Card className="border-0 shadow-md bg-gradient-to-br from-violet-500 to-violet-600 text-white">
               <CardContent className="p-4 flex items-center gap-3">
@@ -561,7 +564,7 @@ export default function ChemTestApp() {
               <CardContent className="p-4 flex items-center gap-3">
                 <Beaker className="w-10 h-10 opacity-80" />
                 <div>
-                  <p className="text-2xl font-bold">{tests.reduce((sum, t) => sum + (t._count?.questions || 0), 0)}</p>
+                  <p className="text-2xl font-bold">{totalQuestions}</p>
                   <p className="text-sm opacity-80">Total Questions</p>
                 </div>
               </CardContent>
@@ -577,7 +580,6 @@ export default function ChemTestApp() {
             </Card>
           </div>
 
-          {/* Tests Grid */}
           <h2 className="text-lg font-semibold mb-4">Available Tests</h2>
           {tests.length === 0 ? (
             <Card className="border-dashed">
@@ -615,10 +617,10 @@ export default function ChemTestApp() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex gap-2 pt-0">
-                    <Button size="sm" className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700" onClick={() => startTest(test)}>
+                    <Button size="sm" className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700" onClick={() => openStartTest(test)}>
                       <Play className="w-3 h-3 mr-1" /> Take Test
                     </Button>
-                    {test.creatorId === user?.id && (
+                    {test.creatorId === effectiveUser?.id && (
                       <>
                         <Button size="sm" variant="outline" onClick={() => startEditTest(test)}>
                           <Edit className="w-3 h-3" />
@@ -652,7 +654,7 @@ export default function ChemTestApp() {
   }
 
   // CREATE / EDIT TEST
-  if (page === 'create-test' || page === 'edit-test') {
+  if (effectivePage === 'create-test' || effectivePage === 'edit-test') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
@@ -663,7 +665,6 @@ export default function ChemTestApp() {
         </header>
 
         <main className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-          {/* Test Info */}
           <Card className="border-0 shadow-md">
             <CardHeader>
               <CardTitle className="text-base">Test Information</CardTitle>
@@ -700,7 +701,6 @@ export default function ChemTestApp() {
             </CardContent>
           </Card>
 
-          {/* Questions */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold">Questions ({questions.length})</h2>
@@ -760,7 +760,6 @@ export default function ChemTestApp() {
             </ScrollArea>
           </div>
 
-          {/* Save Button */}
           <div className="flex gap-3 pb-8">
             <Button variant="outline" onClick={goHome} className="flex-1">Cancel</Button>
             <Button onClick={handleSaveTest} disabled={loading} className="flex-1 bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600">
@@ -772,8 +771,121 @@ export default function ChemTestApp() {
     );
   }
 
+  // START TEST - select number of questions
+  if (effectivePage === 'start-test' && currentTest) {
+    const totalQ = currentTest.questions.length;
+    const quickCounts = [10, 15, 20, 25, 30, 40, 50].filter(c => c <= totalQ);
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
+          <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
+            <Button variant="ghost" size="sm" onClick={goHome}><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
+            <h1 className="text-lg font-bold">Start Test</h1>
+          </div>
+        </header>
+
+        <main className="max-w-2xl mx-auto px-4 py-8">
+          <Card className="border-0 shadow-lg">
+            <CardHeader className="text-center">
+              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+                <ListChecks className="w-8 h-8 text-white" />
+              </div>
+              <CardTitle className="text-xl">{currentTest.title}</CardTitle>
+              {currentTest.description && <CardDescription className="mt-2">{currentTest.description}</CardDescription>}
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Test Info */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-muted/50 rounded-xl p-4 text-center">
+                  <p className="text-2xl font-bold text-violet-600">{totalQ}</p>
+                  <p className="text-xs text-muted-foreground">Total Questions</p>
+                </div>
+                <div className="bg-muted/50 rounded-xl p-4 text-center">
+                  <div className="flex justify-center gap-2">
+                    {currentTest.randomizeQuestions && <Badge variant="outline" className="text-xs"><Shuffle className="w-3 h-3 mr-1" />Q</Badge>}
+                    {currentTest.randomizeOptions && <Badge variant="outline" className="text-xs"><Shuffle className="w-3 h-3 mr-1" />A</Badge>}
+                    {!currentTest.randomizeQuestions && !currentTest.randomizeOptions && (
+                      <span className="text-xs text-muted-foreground">No shuffle</span>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Randomization</p>
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Question Count Selection */}
+              <div className="space-y-4">
+                <div className="text-center">
+                  <h3 className="text-lg font-semibold mb-1">How many questions?</h3>
+                  <p className="text-sm text-muted-foreground">Choose how many questions you want to answer</p>
+                </div>
+
+                {/* Slider */}
+                <div className="px-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-muted-foreground">1</span>
+                    <span className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-emerald-600 bg-clip-text text-transparent">{selectedQuestionCount}</span>
+                    <span className="text-sm text-muted-foreground">{totalQ}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={1}
+                    max={totalQ}
+                    value={selectedQuestionCount}
+                    onChange={e => setSelectedQuestionCount(Number(e.target.value))}
+                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-violet-500"
+                  />
+                </div>
+
+                {/* Quick Select Buttons */}
+                <div className="flex flex-wrap gap-2 justify-center">
+                  <Button
+                    variant={selectedQuestionCount === totalQ ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedQuestionCount(totalQ)}
+                    className={selectedQuestionCount === totalQ ? 'bg-gradient-to-r from-violet-500 to-emerald-500' : ''}
+                  >
+                    All ({totalQ})
+                  </Button>
+                  {quickCounts.map(count => (
+                    <Button
+                      key={count}
+                      variant={selectedQuestionCount === count ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setSelectedQuestionCount(count)}
+                      className={selectedQuestionCount === count ? 'bg-gradient-to-r from-violet-500 to-emerald-500' : ''}
+                    >
+                      {count}
+                    </Button>
+                  ))}
+                </div>
+
+                {/* Adjust buttons */}
+                <div className="flex items-center justify-center gap-4">
+                  <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.max(1, selectedQuestionCount - 1))} disabled={selectedQuestionCount <= 1}>
+                    <Minus className="w-4 h-4" />
+                  </Button>
+                  <span className="text-3xl font-bold w-16 text-center">{selectedQuestionCount}</span>
+                  <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.min(totalQ, selectedQuestionCount + 1))} disabled={selectedQuestionCount >= totalQ}>
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <Button onClick={startTest} disabled={loading} className="w-full h-12 text-base bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600">
+                {loading ? 'Loading...' : <><Play className="w-5 h-5 mr-2" /> Start Test ({selectedQuestionCount} questions)</>}
+              </Button>
+            </CardContent>
+          </Card>
+        </main>
+      </div>
+    );
+  }
+
   // TAKE TEST
-  if (page === 'take-test' && shuffledQuestions.length > 0) {
+  if (effectivePage === 'take-test' && shuffledQuestions.length > 0) {
     const currentQ = shuffledQuestions[currentQuestionIdx];
     const progressPct = ((currentQuestionIdx + 1) / shuffledQuestions.length) * 100;
     const answeredCount = Object.keys(answers).length;
@@ -790,7 +902,6 @@ export default function ChemTestApp() {
             </div>
           </header>
           <main className="max-w-3xl mx-auto px-4 py-8 space-y-6">
-            {/* Score Card */}
             <Card className="border-0 shadow-lg overflow-hidden">
               <div className={`h-2 ${pct >= 70 ? 'bg-gradient-to-r from-emerald-400 to-emerald-600' : pct >= 40 ? 'bg-gradient-to-r from-amber-400 to-orange-500' : 'bg-gradient-to-r from-red-400 to-red-600'}`} />
               <CardContent className="p-8 text-center">
@@ -801,13 +912,12 @@ export default function ChemTestApp() {
                 </div>
                 <h2 className="text-2xl font-bold mb-1">{score} / {shuffledQuestions.length}</h2>
                 <p className="text-muted-foreground mb-4">
-                  {pct >= 70 ? 'Excellent work! 🎉' : pct >= 40 ? 'Good effort! Keep studying.' : 'Keep practicing! You can do better.'}
+                  {pct >= 70 ? 'Excellent work!' : pct >= 40 ? 'Good effort! Keep studying.' : 'Keep practicing! You can do better.'}
                 </p>
                 <Progress value={pct} className="h-3" />
               </CardContent>
             </Card>
 
-            {/* Review */}
             <h3 className="text-lg font-semibold">Review Answers</h3>
             {shuffledQuestions.map((q, idx) => {
               const selected = answers[q.id || ''] || '';
@@ -847,7 +957,7 @@ export default function ChemTestApp() {
 
             <div className="flex gap-3 pb-8">
               <Button onClick={goHome} className="flex-1">Back to Dashboard</Button>
-              <Button variant="outline" onClick={() => currentTest && startTest(currentTest)} className="flex-1">
+              <Button variant="outline" onClick={() => currentTest && openStartTest(currentTest)} className="flex-1">
                 <RefreshCw className="w-4 h-4 mr-2" /> Retry Test
               </Button>
             </div>
@@ -875,7 +985,6 @@ export default function ChemTestApp() {
         </header>
 
         <main className="max-w-3xl mx-auto px-4 py-6">
-          {/* Question Navigation */}
           <div className="flex gap-1 flex-wrap mb-6">
             {shuffledQuestions.map((q, idx) => (
               <button
@@ -894,7 +1003,6 @@ export default function ChemTestApp() {
             ))}
           </div>
 
-          {/* Current Question */}
           <Card className="border-0 shadow-lg mb-6">
             <CardHeader>
               <Badge variant="secondary" className="w-fit">Question {currentQuestionIdx + 1}</Badge>
@@ -927,7 +1035,6 @@ export default function ChemTestApp() {
             </CardContent>
           </Card>
 
-          {/* Navigation Buttons */}
           <div className="flex items-center justify-between">
             <Button variant="outline" onClick={() => setCurrentQuestionIdx(Math.max(0, currentQuestionIdx - 1))} disabled={currentQuestionIdx === 0}>
               <ArrowLeft className="w-4 h-4 mr-1" /> Previous
@@ -936,7 +1043,7 @@ export default function ChemTestApp() {
             {currentQuestionIdx === shuffledQuestions.length - 1 ? (
               <Button onClick={submitTest} disabled={loading || answeredCount < shuffledQuestions.length}
                 className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700">
-                <CheckCircle2 className="w-4 h-4 mr-1" /> Submit Test ({answeredCount}/{shuffledQuestions.length})
+                <CheckCircle2 className="w-4 h-4 mr-1" /> Submit ({answeredCount}/{shuffledQuestions.length})
               </Button>
             ) : (
               <Button onClick={() => setCurrentQuestionIdx(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1))}>
@@ -950,7 +1057,7 @@ export default function ChemTestApp() {
   }
 
   // HISTORY
-  if (page === 'history') {
+  if (effectivePage === 'history') {
     const completedAttempts = attempts.filter(a => a.completed);
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
@@ -1001,5 +1108,12 @@ export default function ChemTestApp() {
   }
 
   // Fallback
-  return <div className="min-h-screen flex items-center justify-center"><p>Loading...</p></div>;
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-white to-emerald-50">
+      <div className="text-center">
+        <div className="w-10 h-10 border-4 border-violet-200 border-t-violet-500 rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    </div>
+  );
 }

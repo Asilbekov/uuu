@@ -112,46 +112,51 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Create tests from seed data
-    const createdTests = [];
-    for (const [topic, questions] of Object.entries(SEED_QUESTIONS)) {
-      const existingTest = await db.test.findFirst({
-        where: { title: `Chemistry: ${topic}`, creatorId: user.id },
-      });
+    // Create ONE combined test with all questions
+    const existingTest = await db.test.findFirst({
+      where: { title: 'Chemistry: Complete Test', creatorId: user.id },
+    });
 
-      if (!existingTest) {
-        const test = await db.test.create({
-          data: {
-            title: `Chemistry: ${topic}`,
-            description: `A comprehensive test covering ${topic.toLowerCase()} concepts`,
-            topic,
-            creatorId: user.id,
-            isPublic: true,
-            randomizeQuestions: true,
-            randomizeOptions: true,
-            questions: {
-              create: questions.map((q, index) => ({
-                text: q.question,
-                optionA: q.options.A,
-                optionB: q.options.B,
-                optionC: q.options.C,
-                optionD: q.options.D,
-                optionE: q.options.E || null,
-                correctAnswer: q.correct,
-                orderNum: index,
-              })),
-            },
-          },
-          include: { questions: true },
-        });
-        createdTests.push(test.id);
+    let createdTests = 0;
+    if (!existingTest) {
+      // Combine all questions from all topics into one test
+      const allQuestions: { question: string; options: { A: string; B: string; C: string; D: string; E?: string }; correct: string; topic: string }[] = [];
+      for (const [topic, qs] of Object.entries(SEED_QUESTIONS)) {
+        for (const q of qs) {
+          allQuestions.push({ ...q, topic });
+        }
       }
+
+      await db.test.create({
+        data: {
+          title: 'Chemistry: Complete Test',
+          description: `Complete chemistry test with ${allQuestions.length} questions covering all topics. Choose how many questions you want to answer!`,
+          topic: 'Chemistry (All Topics)',
+          creatorId: user.id,
+          isPublic: true,
+          randomizeQuestions: true,
+          randomizeOptions: true,
+          questions: {
+            create: allQuestions.map((q, index) => ({
+              text: q.question,
+              optionA: q.options.A,
+              optionB: q.options.B,
+              optionC: q.options.C,
+              optionD: q.options.D,
+              optionE: q.options.E || null,
+              correctAnswer: q.correct,
+              orderNum: index,
+            })),
+          },
+        },
+      });
+      createdTests = 1;
     }
 
     return NextResponse.json({
       success: true,
       userId: user.id,
-      testsCreated: createdTests.length,
+      testsCreated: createdTests,
       totalQuestions: Object.values(SEED_QUESTIONS).reduce((sum, qs) => sum + qs.length, 0),
     });
   } catch (error) {

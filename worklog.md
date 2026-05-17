@@ -24,3 +24,23 @@ Stage Summary:
 - Complete chemistry test platform built with Next.js 16, TypeScript, Tailwind CSS, shadcn/ui, Prisma
 - All features working: auth, test CRUD, randomization, test-taking with progress bar, results, history
 - 70 unique questions extracted from 85 images and seeded into database
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Combine all questions into one test with selectable question count + fix hydration error
+
+Work Log:
+- Fixed hydration mismatch error by replacing typeof window checks in useState initializers with useSyncExternalStore
+- Combined all 70 questions from 7 topic tests into ONE single "Chemistry: Complete Test"
+- Added "Start Test" screen where user selects how many questions to answer (1 to total)
+- Added slider, quick-select buttons (10, 15, 20, 25, 30, 40, 50), and +/- buttons for question count
+- Questions are randomized (shuffled) and sliced to the selected count before starting
+- Retry test goes back to the start screen so user can choose different question count
+- Reset database to apply the new single-test seed structure
+
+Stage Summary:
+- Hydration error fixed using useSyncExternalStore for localStorage sync
+- All 70 questions now in ONE test with selectable question count
+- User can choose 1-70 questions per test session
+- Randomize questions and randomize options still work per test
