@@ -13,8 +13,14 @@ function log(msg) {
 function startServer() {
   log('Starting Next.js server...');
   
+  const env = {
+    ...process.env,
+    DATABASE_URL: 'postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'
+  };
+  
   const child = spawn('node', ['node_modules/.bin/next', 'dev', '--port', '3000', '-H', '0.0.0.0'], {
     cwd: '/home/z/my-project',
+    env,
     stdio: ['ignore', 'pipe', 'pipe'],
     detached: false
   });

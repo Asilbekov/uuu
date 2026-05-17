@@ -1,3 +1,4 @@
 #!/bin/bash
 cd /home/z/my-project
+export DATABASE_URL='postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'
 node .next/standalone/server.js
