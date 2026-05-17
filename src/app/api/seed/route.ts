@@ -45,12 +45,15 @@ const SEED_QUESTIONS: Record<string, { question: string; options: { A: string; B
     { question: "A quantity of an ideal gas is compressed isothermally to 3 times its initial pressure. What happens to its volume?", options: { A: "Volume becomes 1/3 of original", B: "Volume triples", C: "Volume stays the same", D: "Volume becomes 9 times original" }, correct: "A" },
     { question: "Under conditions of fixed volume and amount of gas, which of the following properties is proportional to temperature?", options: { A: "Pressure", B: "Volume", C: "Density", D: "Molar mass", E: "All of the above" }, correct: "A" },
     { question: "At given temperature and pressure, which of the following gases has the lowest thermal conductivity?", options: { A: "Xe", B: "He", C: "H₂", D: "Ne" }, correct: "A" },
+    { question: "At given temperature and pressure which of the following gases has the lowest the most probable speed?", options: { A: "Chlorine", B: "Nitrogen", C: "Neon", D: "Fluorine" }, correct: "A" },
     { question: "If I have 7.7 moles of gas at a pressure of 0.09 atm and at a temperature of 56°C, what is the volume of the container that the gas is in?", options: { A: "2340 L", B: "1170 L", C: "4680 L", D: "585 L", E: "3510 L" }, correct: "A" },
     { question: "If I contain 3 moles of gas in a container with a volume of 60 liters and at a temperature of 400 K, what is the pressure inside the container?", options: { A: "1.64 atm", B: "3.28 atm", C: "0.82 atm", D: "6.56 atm", E: "4.92 atm" }, correct: "A" },
     { question: "What is the total pressure (in atm) exerted by a mixture of 2.00 g of H₂ and 8.00 g of N₂ in a 5.00 L flask at 25°C?", options: { A: "5.09 atm", B: "2.55 atm", C: "10.2 atm", D: "7.63 atm", E: "1.27 atm" }, correct: "A" },
     { question: "Calculate the ratio of rates of ²³⁸UF₆ and ²³⁹PuF₆ upon pumping through a series of chambers", options: { A: "1.004:1", B: "1.001:1", C: "0.996:1", D: "1.008:1" }, correct: "A" },
     { question: "Uranium is converted to gaseous UF₆ and pumped through a series of chambers with porous barriers. Which compound effuses faster?", options: { A: "²³⁵UF₆ effuses faster", B: "²³⁸UF₆ effuses faster", C: "Both effuse at the same rate", D: "Cannot be determined" }, correct: "A" },
+    { question: "Calculate the ratio of rates of ²³⁸UF₆ and ²³⁹PuF₆ upon pumping through a series of chambers with porous barriers", options: { A: "None of these choices is correct", B: "1.5203", C: "2.1043", D: "1.3987", E: "1.0014" }, correct: "E" },
     { question: "What volume (in L) of CO₂ will be obtained upon burning of 2.5 moles of 3-methylpentane?", options: { A: "1.00 × 10¹", B: "1.50 × 10¹", C: "7.50", D: "2.50", E: "1.25 × 10¹" }, correct: "A" },
+    { question: "What volume (in L) of CO₂ will be obtained upon burning of 2.5 moles of 3-methylpentane? (Volumes are measured under standard conditions)", options: { A: "336", B: "224", C: "24", D: "136" }, correct: "A" },
     { question: "A 6.0-L flask contains a mixture of methane, argon, and helium at 45°C and 1.50 atm. If the mole fraction of methane is 0.25, what is the partial pressure of methane?", options: { A: "0.375 atm", B: "0.75 atm", C: "1.125 atm", D: "0.50 atm", E: "1.50 atm" }, correct: "A" },
     { question: "A 6.0-L flask contains a mixture of methane, argon, and helium at 45°C and 1.50 atm. What is the total number of moles of gas in the flask?", options: { A: "0.342 mol", B: "0.171 mol", C: "0.684 mol", D: "0.513 mol", E: "1.026 mol" }, correct: "A" },
     { question: "What is the name of a movement of solvent through the semi-permeable membrane into a solution of higher solute concentration?", options: { A: "Osmosis", B: "Diffusion", C: "Effusion", D: "Active transport" }, correct: "A" },
@@ -85,6 +88,10 @@ const SEED_QUESTIONS: Record<string, { question: string; options: { A: string; B
     { question: "Calculate the change in energy (ΔE) of a system (in kcal) when expanding gases do 1.58 × 10³ J of work on surroundings and 52.5 kJ of heat is absorbed.", options: { A: "12.2 kcal", B: "6.1 kcal", C: "24.4 kcal", D: "3.05 kcal", E: "48.8 kcal" }, correct: "A" },
     { question: "Select the maximum amount of water obtainable by reaction of 1 mole of gaseous hydrogen and 1 mole of gaseous oxygen.", options: { A: "18 g", B: "36 g", C: "9 g", D: "2 g", E: "1 g" }, correct: "A" },
   ],
+  "Reaction Rates & Chemical Equilibrium": [
+    { question: "Which of the following factors doesn't affect the reaction rate?", options: { A: "All the factors in this list affect the reaction rate", B: "Temperature", C: "Presence of catalyst", D: "Particle size of solid reactants", E: "Effective collision between reactant molecules" }, correct: "A" },
+    { question: "In a study of the chemistry of glass etching, an inorganic chemist examines the reaction between sand and hydrogen fluoride. What happens to the equilibrium?", options: { A: "to the right and [SiF4] increases", B: "to the right and [SiF4] decreases", C: "to the left and [SiF4] increases", D: "to the left and [SiF4] decreases", E: "None of these choices is correct" }, correct: "A" },
+  ],
   "Atomic Structure & Bonding": [
     { question: "Rydberg equation was found to predict the wavelength of any line at the spectrum of atomic hydrogen. Calculate the wavelength (in nm) of the line corresponding to n₁ = 2 and n₂ = 4.", options: { A: "486", B: "434", C: "656", D: "45", E: "None of these choices is correct" }, correct: "A" },
     { question: "Which of the following compounds contains covalent bonds?", options: { A: "Na₂O", B: "KBr", C: "CH₄", D: "MgO" }, correct: "C" },
@@ -94,6 +101,7 @@ const SEED_QUESTIONS: Record<string, { question: string; options: { A: string; B
     { question: "What is the molar concentration of chloride ions in 2 liters of an aqueous solution containing 1 mole of CaCl₂?", options: { A: "1 M", B: "0.5 M", C: "2 M", D: "0.25 M" }, correct: "A" },
     { question: "Select the correct definition of a mole of argon.", options: { A: "Avogadro's number of argon atoms.", B: "40 × 6.022 g of argon.", C: "The amount of argon that reacts with one mole of O₂.", D: "6.022 × 10²³ molecules of argon.", E: "Both A and D" }, correct: "A" },
     { question: "The atomic weight of an atom is...", options: { A: "The weighted average mass of the naturally occurring isotopes", B: "The mass of the most abundant isotope", C: "Always a whole number", D: "Equal to the mass number" }, correct: "A" },
+    { question: "The atom weight of an atom is...", options: { A: "The product between the atomic number and the Avogadro constant", B: "The mass in grams of the atom", C: "The mass in kilograms of the atom", D: "The ratio between the atomic mass and 1/12 of the mass of 12C" }, correct: "D" },
   ],
 };
 
@@ -112,46 +120,53 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Create ONE combined test with all questions
+    // Delete existing test to recreate with updated questions
     const existingTest = await db.test.findFirst({
       where: { title: 'Chemistry: Complete Test', creatorId: user.id },
     });
-
-    let createdTests = 0;
-    if (!existingTest) {
-      // Combine all questions from all topics into one test
-      const allQuestions: { question: string; options: { A: string; B: string; C: string; D: string; E?: string }; correct: string; topic: string }[] = [];
-      for (const [topic, qs] of Object.entries(SEED_QUESTIONS)) {
-        for (const q of qs) {
-          allQuestions.push({ ...q, topic });
-        }
-      }
-
-      await db.test.create({
-        data: {
-          title: 'Chemistry: Complete Test',
-          description: `Complete chemistry test with ${allQuestions.length} questions covering all topics. Choose how many questions you want to answer!`,
-          topic: 'Chemistry (All Topics)',
-          creatorId: user.id,
-          isPublic: true,
-          randomizeQuestions: true,
-          randomizeOptions: true,
-          questions: {
-            create: allQuestions.map((q, index) => ({
-              text: q.question,
-              optionA: q.options.A,
-              optionB: q.options.B,
-              optionC: q.options.C,
-              optionD: q.options.D,
-              optionE: q.options.E || null,
-              correctAnswer: q.correct,
-              orderNum: index,
-            })),
-          },
-        },
+    if (existingTest) {
+      // Delete related attempts first (cascade doesn't always work automatically)
+      await db.attemptAnswer.deleteMany({
+        where: { attempt: { testId: existingTest.id } },
       });
-      createdTests = 1;
+      await db.testAttempt.deleteMany({
+        where: { testId: existingTest.id },
+      });
+      await db.test.delete({ where: { id: existingTest.id } });
     }
+
+    // Combine all questions from all topics into one test
+    const allQuestions: { question: string; options: { A: string; B: string; C: string; D: string; E?: string }; correct: string; topic: string }[] = [];
+    for (const [topic, qs] of Object.entries(SEED_QUESTIONS)) {
+      for (const q of qs) {
+        allQuestions.push({ ...q, topic });
+      }
+    }
+
+    await db.test.create({
+      data: {
+        title: 'Chemistry: Complete Test',
+        description: `Complete chemistry test with ${allQuestions.length} questions covering all topics. Choose how many questions you want to answer!`,
+        topic: 'Chemistry (All Topics)',
+        creatorId: user.id,
+        isPublic: true,
+        randomizeQuestions: true,
+        randomizeOptions: true,
+        questions: {
+          create: allQuestions.map((q, index) => ({
+            text: q.question,
+            optionA: q.options.A,
+            optionB: q.options.B,
+            optionC: q.options.C,
+            optionD: q.options.D,
+            optionE: q.options.E || null,
+            correctAnswer: q.correct,
+            orderNum: index,
+          })),
+        },
+      },
+    });
+    const createdTests = 1;
 
     return NextResponse.json({
       success: true,
