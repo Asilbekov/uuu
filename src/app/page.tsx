@@ -100,9 +100,9 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 function shuffleOptions(question: Question): Question {
-  const optionKeys = ['A', 'B', 'C', 'D'] as const;
+  const optionKeys: string[] = ['A', 'B', 'C', 'D'];
   const optionE = question.optionE;
-  if (optionE) optionKeys.push('E' as any);
+  if (optionE) optionKeys.push('E');
 
   const options = optionKeys.map(key => ({
     key,
@@ -130,15 +130,11 @@ export default function ChemTestApp() {
   const [currentTest, setCurrentTest] = useState<Test | null>(null);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
 
-  // Auth - always start with null/auth, hydrate on mount
+  // Auth state
   const [user, setUserState] = useState<{ id: string; email: string; name: string } | null>(null);
   const [page, setPage] = useState<Page>('auth');
 
-  // Mount guard to prevent hydration mismatch
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-
-  // Auth state
+  // Auth form state
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -166,22 +162,21 @@ export default function ChemTestApp() {
   // Delete confirmation
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  // Read user from localStorage only after mount (prevents hydration mismatch)
-  const [hydratedUser, setHydratedUser] = useState<{ id: string; email: string; name: string } | null>(null);
+  // Hydrate user from localStorage on mount
   useEffect(() => {
-    const stored = localStorage.getItem('chemtest_user');
-    if (stored) {
-      try {
+    try {
+      const stored = localStorage.getItem('chemtest_user');
+      if (stored) {
         const parsed = JSON.parse(stored);
-        setHydratedUser(parsed);
-      } catch { /* ignore */ }
-    }
+        setUserState(parsed);
+        setUser(parsed);
+        setPage('dashboard');
+      }
+    } catch { /* ignore */ }
   }, []);
 
-  // Apply hydrated user - use hydratedUser if no explicit login has happened
-  // Only use hydratedUser after mount to avoid hydration mismatch
-  const effectiveUser = user || (mounted ? hydratedUser : null);
-  const effectivePage = page === 'auth' && mounted && hydratedUser ? 'dashboard' : page;
+  const effectiveUser = user;
+  const effectivePage = page;
 
   const loadTests = useCallback(async () => {
     try {
@@ -202,7 +197,7 @@ export default function ChemTestApp() {
         api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
       ]);
     }
-  }, [page, user, mounted, hydratedUser]);
+  }, [page, user]);
 
   const handleAuth = async () => {
     if (!email || !password || (authMode === 'signup' && !name)) {

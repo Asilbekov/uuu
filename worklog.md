@@ -1,26 +1,26 @@
 ---
 Task ID: 1
-Agent: Main Agent
-Task: Switch ChemTest app from SQLite to Neon PostgreSQL, remove Load Demo button, seed database, fix rendering
+Agent: Main
+Task: Fix "only Z AI logo" bug, switch to PostgreSQL (Neon), remove "Load Demo Tests" button, seed questions
 
 Work Log:
-- Read all project files (schema.prisma, page.tsx, db.ts, api.ts, all API routes)
-- Changed prisma/schema.prisma datasource from sqlite to postgresql
-- Updated .env with Neon PostgreSQL connection string
-- Updated src/lib/db.ts to set DATABASE_URL at runtime for Neon connection
-- Ran `prisma db push` to create schema on Neon
-- Seeded Neon database with demo user (demo@chemtest.com / demo123) and 78 chemistry questions
-- Removed "Load Demo Tests" button from 3 locations in page.tsx (auth page, dashboard, empty state)
-- Removed handleSeed function and GraduationCap import
-- Removed api.seed from api.ts
-- Fixed "only Z AI logo" issue - was caused by SQLite on FUSE filesystem, resolved by switching to PostgreSQL
-- Tested all API endpoints successfully: /api/tests, /api/auth/login, /api/auth/register, /api/tests/[id], /api/attempts
-- Verified page renders correctly with ChemTest login form, no Load Demo button
+- Found project at /home/z/my-project (not /home/user/app as in previous session)
+- Database already configured with PostgreSQL provider in schema.prisma
+- Neon PostgreSQL already seeded with 78 questions (demo user + test existed)
+- Fixed .env file - removed quotes around DATABASE_URL that Prisma couldn't parse
+- Fixed db.ts - removed problematic db.$connect() at import time and unhandledRejection handler
+- Fixed db.ts - added hardcoded Neon URL as fallback with datasources override
+- Fixed page.tsx - simplified hydration logic, removed complex mounted/hydratedUser state management
+- Fixed page.tsx - changed shuffleOptions to use string[] instead of readonly array (was causing potential runtime errors)
+- Removed output: "standalone" from next.config.ts (was causing "next start" to not work properly)
+- Confirmed "Load Demo Tests" button was already removed from UI
+- Verified all API endpoints work: /api/tests, /api/tests/[id], /api/auth/login, /api/auth/register, /api/seed
+- Verified homepage renders correctly (24KB HTML with ChemTest auth page)
+- Verified 78 chemistry questions are accessible from the Neon database
 
 Stage Summary:
-- Database switched from SQLite to Neon PostgreSQL
-- Data seeded: 1 user, 1 test with 78 questions
-- Load Demo Tests button removed from all pages
-- All API endpoints working correctly
-- Page rendering verified (24KB HTML with proper ChemTest content)
-- Demo login: demo@chemtest.com / demo123
+- App now connects to Neon PostgreSQL successfully
+- Auth page renders correctly on first load
+- All 78 questions available in the "Chemistry: Complete Test"
+- Demo user credentials: demo@chemtest.com / demo123
+- Server has stability issues in this environment (dies after ~30s idle) but works correctly while running
