@@ -77,12 +77,15 @@ export async function PUT(
         score = answers.filter((a: any) => a.isCorrect).length;
       }
 
+      // Use the number of answers as totalQuestions (may be less than full test if user selected fewer)
+      const totalQ = answers ? answers.length : attempt.totalQuestions;
+
       await db.testAttempt.update({
         where: { id },
         data: {
           completed: true,
           score,
-          totalQuestions: attempt.test.questions.length,
+          totalQuestions: totalQ,
           completedAt: new Date(),
         },
       });

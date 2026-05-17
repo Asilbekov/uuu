@@ -135,6 +135,10 @@ export default function ChemTestApp() {
   const [user, setUserState] = useState<{ id: string; email: string; name: string } | null>(null);
   const [page, setPage] = useState<Page>('auth');
 
+  // Mount guard to prevent hydration mismatch
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
   // Auth state
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
@@ -163,28 +167,22 @@ export default function ChemTestApp() {
   // Delete confirmation
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  // Sync localStorage user into state via subscription pattern
-  const subscribe = useCallback((callback: () => void) => {
-    window.addEventListener('storage', callback);
-    return () => window.removeEventListener('storage', callback);
+  // Read user from localStorage only after mount (prevents hydration mismatch)
+  const [hydratedUser, setHydratedUser] = useState<{ id: string; email: string; name: string } | null>(null);
+  useEffect(() => {
+    const stored = localStorage.getItem('chemtest_user');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        setHydratedUser(parsed);
+      } catch { /* ignore */ }
+    }
   }, []);
-
-  const getSnapshot = useCallback(() => {
-    return localStorage.getItem('chemtest_user');
-  }, []);
-
-  const getServerSnapshot = useCallback(() => null, []);
-
-  const storedUserJson = React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-
-  const hydratedUser = React.useMemo(() => {
-    if (!storedUserJson) return null;
-    try { return JSON.parse(storedUserJson); } catch { return null; }
-  }, [storedUserJson]);
 
   // Apply hydrated user - use hydratedUser if no explicit login has happened
-  const effectiveUser = user || hydratedUser;
-  const effectivePage = page === 'auth' && hydratedUser ? 'dashboard' : page;
+  // Only use hydratedUser after mount to avoid hydration mismatch
+  const effectiveUser = user || (mounted ? hydratedUser : null);
+  const effectivePage = page === 'auth' && mounted && hydratedUser ? 'dashboard' : page;
 
   const loadTests = useCallback(async () => {
     try {
@@ -205,7 +203,7 @@ export default function ChemTestApp() {
         api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
       ]);
     }
-  }, [page, user]);
+  }, [page, user, mounted, hydratedUser]);
 
   const handleAuth = async () => {
     if (!email || !password || (authMode === 'signup' && !name)) {
@@ -400,8 +398,8 @@ export default function ChemTestApp() {
       // Slice to selected count
       qList = qList.slice(0, selectedQuestionCount);
 
-      // Create attempt
-      const attempt = await api.createAttempt(currentTest.id);
+      // Create attempt with the actual number of questions being answered
+      const attempt = await api.createAttempt(currentTest.id, selectedQuestionCount);
       setCurrentAttempt(attempt);
       setShuffledQuestions(qList);
       setCurrentQuestionIdx(0);
@@ -930,8 +928,9 @@ export default function ChemTestApp() {
                       <p className="font-medium text-sm">{idx + 1}. {q.text}</p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 ml-7">
-                      {['A', 'B', 'C', 'D'].map(letter => {
+                      {['A', 'B', 'C', 'D', 'E'].map(letter => {
                         const optionText = q[`option${letter}` as keyof Question] as string;
+                        if (!optionText) return null;
                         const isCorrectOption = letter === q.correctAnswer;
                         const isSelected = letter === selected;
                         return (
@@ -1011,7 +1010,7 @@ export default function ChemTestApp() {
             <CardContent>
               <RadioGroup value={answers[currentQ.id || ''] || ''} onValueChange={val => selectAnswer(currentQ.id || '', val)}>
                 <div className="space-y-3">
-                  {['A', 'B', 'C', 'D'].map(letter => {
+                  {['A', 'B', 'C', 'D', 'E'].map(letter => {
                     const optionText = currentQ[`option${letter}` as keyof Question] as string;
                     if (!optionText) return null;
                     return (
@@ -1041,7 +1040,7 @@ export default function ChemTestApp() {
             </Button>
 
             {currentQuestionIdx === shuffledQuestions.length - 1 ? (
-              <Button onClick={submitTest} disabled={loading || answeredCount < shuffledQuestions.length}
+              <Button onClick={submitTest} disabled={loading}
                 className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700">
                 <CheckCircle2 className="w-4 h-4 mr-1" /> Submit ({answeredCount}/{shuffledQuestions.length})
               </Button>

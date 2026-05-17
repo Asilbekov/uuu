@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
     }
 
-    const { testId } = await request.json();
+    const { testId, totalQuestions: requestedTotal } = await request.json();
     if (!testId) {
       return NextResponse.json({ error: 'Test ID is required' }, { status: 400 });
     }
@@ -46,11 +46,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Test not found' }, { status: 404 });
     }
 
+    // Use the requested total if provided and valid, otherwise fall back to full test length
+    const totalQ = (requestedTotal && requestedTotal > 0 && requestedTotal <= test.questions.length)
+      ? requestedTotal
+      : test.questions.length;
+
     const attempt = await db.testAttempt.create({
       data: {
         testId,
         userId,
-        totalQuestions: test.questions.length,
+        totalQuestions: totalQ,
       },
     });
 
