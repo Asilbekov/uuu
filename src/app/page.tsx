@@ -41,7 +41,6 @@ import {
   FlaskConical,
   Home,
   RefreshCw,
-  GraduationCap,
   Clock,
   BarChart3,
   Minus,
@@ -238,17 +237,7 @@ export default function ChemTestApp() {
     setName('');
   };
 
-  const handleSeed = async () => {
-    setLoading(true);
-    try {
-      const result = await api.seed();
-      toast({ title: 'Database seeded!', description: `${result.testsCreated} tests with ${result.totalQuestions} questions. Login: demo@chemtest.com / demo123` });
-      await loadTests();
-    } catch (e: any) {
-      toast({ title: 'Error', description: e.message, variant: 'destructive' });
-    }
-    setLoading(false);
-  };
+
 
   // --- TEST CREATION ---
   const addQuestion = () => {
@@ -496,11 +485,7 @@ export default function ChemTestApp() {
                 <>Already have an account? <button className="text-primary underline" onClick={() => setAuthMode('login')}>Sign in</button></>
               )}
             </div>
-            <Separator />
-            <Button variant="outline" className="w-full" onClick={handleSeed} disabled={loading}>
-              <GraduationCap className="w-4 h-4 mr-2" />
-              Load Demo Tests (Seed Database)
-            </Button>
+
           </CardContent>
         </Card>
       </div>
@@ -540,9 +525,7 @@ export default function ChemTestApp() {
             <Button onClick={startCreateTest} className="bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700">
               <Plus className="w-4 h-4 mr-2" /> Create New Test
             </Button>
-            <Button variant="outline" onClick={handleSeed} disabled={loading}>
-              <GraduationCap className="w-4 h-4 mr-2" /> Load Demo Tests
-            </Button>
+
             <Button variant="outline" onClick={() => { api.getAttempts().then(d => setAttempts(d)).catch(() => {}); setPage('history'); }}>
               <Clock className="w-4 h-4 mr-2" /> Test History
             </Button>
@@ -584,10 +567,9 @@ export default function ChemTestApp() {
               <CardContent className="py-12 text-center">
                 <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="text-lg font-medium mb-2">No tests yet</h3>
-                <p className="text-muted-foreground mb-4">Create your first test or load demo tests to get started</p>
+                <p className="text-muted-foreground mb-4">Create your first test to get started</p>
                 <div className="flex gap-3 justify-center">
                   <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> Create Test</Button>
-                  <Button variant="outline" onClick={handleSeed}><GraduationCap className="w-4 h-4 mr-2" /> Load Demos</Button>
                 </div>
               </CardContent>
             </Card>

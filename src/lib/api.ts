@@ -64,6 +64,4 @@ export const api = {
   createAttempt: (testId: string, totalQuestions?: number) => apiFetch('/attempts', { method: 'POST', body: JSON.stringify({ testId, totalQuestions }) }),
   updateAttempt: (id: string, data: any) => apiFetch(`/attempts/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
 
-  // Seed
-  seed: () => apiFetch('/seed', { method: 'POST' }),
 };

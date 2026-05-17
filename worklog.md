@@ -1,25 +1,26 @@
 ---
 Task ID: 1
 Agent: Main Agent
-Task: Fix hydration mismatch, start test error, and option E display
+Task: Switch ChemTest app from SQLite to Neon PostgreSQL, remove Load Demo button, seed database, fix rendering
 
 Work Log:
-- Read all application files (page.tsx, api routes, schema, seed data)
-- Identified hydration mismatch caused by useSyncExternalStore returning different values on server vs client
-- Fixed hydration error by replacing useSyncExternalStore with useState + useEffect mount guard pattern
-- Fixed start test error by passing selectedQuestionCount to api.createAttempt()
-- Updated attempts POST route to accept and use totalQuestions parameter
-- Updated attempts PUT route to use answers.length for totalQuestions instead of hardcoded test.questions.length
-- Fixed option E not showing in test-taking page (changed ['A','B','C','D'] to ['A','B','C','D','E'] with null check)
-- Fixed option E not showing in review answers section
-- Allowed test submission without requiring all questions answered
-- Verified build compiles successfully with no errors
-- Verified API endpoints work (login, tests, attempt creation with totalQuestions)
+- Read all project files (schema.prisma, page.tsx, db.ts, api.ts, all API routes)
+- Changed prisma/schema.prisma datasource from sqlite to postgresql
+- Updated .env with Neon PostgreSQL connection string
+- Updated src/lib/db.ts to set DATABASE_URL at runtime for Neon connection
+- Ran `prisma db push` to create schema on Neon
+- Seeded Neon database with demo user (demo@chemtest.com / demo123) and 78 chemistry questions
+- Removed "Load Demo Tests" button from 3 locations in page.tsx (auth page, dashboard, empty state)
+- Removed handleSeed function and GraduationCap import
+- Removed api.seed from api.ts
+- Fixed "only Z AI logo" issue - was caused by SQLite on FUSE filesystem, resolved by switching to PostgreSQL
+- Tested all API endpoints successfully: /api/tests, /api/auth/login, /api/auth/register, /api/tests/[id], /api/attempts
+- Verified page renders correctly with ChemTest login form, no Load Demo button
 
 Stage Summary:
-- Hydration mismatch error is fixed using mounted state guard
-- Start test error is fixed by correctly passing totalQuestions to attempt creation
-- Option E questions now display correctly in both test-taking and review
-- All questions are in one combined test (Chemistry: Complete Test) with 78 questions
-- User can select how many questions to answer via the start-test page
-- Build compiles successfully
+- Database switched from SQLite to Neon PostgreSQL
+- Data seeded: 1 user, 1 test with 78 questions
+- Load Demo Tests button removed from all pages
+- All API endpoints working correctly
+- Page rendering verified (24KB HTML with proper ChemTest content)
+- Demo login: demo@chemtest.com / demo123
