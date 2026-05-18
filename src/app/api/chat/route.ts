@@ -98,7 +98,7 @@ Help the student understand the concepts behind this question. Do NOT reveal the
     const completion = await zai.chat.completions.create({
       messages: conversationMessages,
       temperature: 0.5,
-      max_tokens: 500,
+      max_tokens: 800,
     });
 
     const aiResponse = completion.choices[0]?.message?.content || 'Sorry, I could not generate a response.';

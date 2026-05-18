@@ -21,14 +21,32 @@ export async function GET(request: NextRequest) {
       where.isPublic = true;
     }
 
-    const tests = await db.test.findMany({
+    // Get tests - we'll strip coverImage from response to keep it small
+    const testsRaw = await db.test.findMany({
       where,
-      include: {
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        topic: true,
+        creatorId: true,
+        isPublic: true,
+        randomizeQuestions: true,
+        randomizeOptions: true,
+        coverImage: true,
+        createdAt: true,
+        updatedAt: true,
         creator: { select: { id: true, name: true, email: true } },
         _count: { select: { questions: true, attempts: true } },
       },
       orderBy: { createdAt: 'desc' },
     });
+
+    // Transform: replace coverImage data with hasCoverImage boolean to keep response small
+    const tests = testsRaw.map(({ coverImage, ...rest }) => ({
+      ...rest,
+      hasCoverImage: !!coverImage,
+    }));
 
     return NextResponse.json(tests);
   } catch (error) {

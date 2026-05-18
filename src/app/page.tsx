@@ -79,6 +79,7 @@ interface Test {
   isPublic: boolean;
   randomizeQuestions: boolean;
   randomizeOptions: boolean;
+  hasCoverImage?: boolean;
   questions: Question[];
   _count?: { questions: number; attempts: number };
   createdAt: string;
@@ -183,6 +184,10 @@ export default function ChemTestApp() {
   const [chatUserAnswer, setChatUserAnswer] = useState<string>('');
   const chatEndRef = React.useRef<HTMLDivElement>(null);
 
+  // Cover images state
+  const [coverImages, setCoverImages] = useState<Record<string, string>>({});
+  const [generatingCovers, setGeneratingCovers] = useState<Record<string, boolean>>({});
+
   // Delete confirmation
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
@@ -212,13 +217,46 @@ export default function ChemTestApp() {
     }
   }, [toast]);
 
+  // Generate cover image for a test
+  const generateCover = async (testId: string, retryCount = 0) => {
+    if (coverImages[testId] || generatingCovers[testId]) return;
+    setGeneratingCovers(prev => ({ ...prev, [testId]: true }));
+    try {
+      const result = await api.generateCover(testId);
+      if (result.coverImage) {
+        setCoverImages(prev => ({ ...prev, [testId]: result.coverImage }));
+      }
+    } catch (e: any) {
+      console.error('Failed to generate cover for test', testId, e);
+      // If rate limited, retry after a delay
+      if (e?.message?.includes('429') || e?.message?.includes('Rate limited') || e?.message?.includes('Too many requests')) {
+        if (retryCount < 3) {
+          const delay = (retryCount + 1) * 30000; // 30s, 60s, 90s
+          setTimeout(() => {
+            generateCover(testId, retryCount + 1);
+          }, delay);
+        }
+      }
+    }
+    setGeneratingCovers(prev => ({ ...prev, [testId]: false }));
+  };
+
   // Load tests when navigating to dashboard
   const hasLoadedRef = React.useRef(false);
   useEffect(() => {
     if (effectivePage === 'dashboard' && effectiveUser && !hasLoadedRef.current) {
       hasLoadedRef.current = true;
       Promise.all([
-        api.getTests().then(data => setTests(data)).catch(() => {}),
+        api.getTests().then(data => {
+          setTests(data);
+          // Auto-generate covers for tests that don't have them yet (staggered to avoid rate limiting)
+          const testsNeedingCovers = data.filter((test: Test) => !test.hasCoverImage);
+          testsNeedingCovers.forEach((test: Test, index: number) => {
+            setTimeout(() => {
+              generateCover(test.id);
+            }, index * 10000); // 10 seconds between each generation
+          });
+        }).catch(() => {}),
         api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
       ]);
     }
@@ -257,17 +295,7 @@ export default function ChemTestApp() {
     setName('');
   };
 
-  const handleSeed = async () => {
-    setLoading(true);
-    try {
-      const result = await api.seed();
-      toast({ title: 'Database seeded!', description: `${result.testsCreated} tests with ${result.totalQuestions} questions.` });
-      await loadTests();
-    } catch (e: any) {
-      toast({ title: 'Error', description: e.message, variant: 'destructive' });
-    }
-    setLoading(false);
-  };
+
 
   // --- TEST CREATION ---
   const addQuestion = () => {
@@ -700,21 +728,60 @@ export default function ChemTestApp() {
               <CardContent className="py-12 text-center">
                 <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="text-lg font-medium mb-2">No tests yet</h3>
-                <p className="text-muted-foreground mb-4">Create your first test or load demo tests to get started</p>
+                <p className="text-muted-foreground mb-4">Create your first test to get started</p>
                 <div className="flex gap-3 justify-center">
                   <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> Create Test</Button>
-
                 </div>
               </CardContent>
             </Card>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {tests.map(test => (
-                <Card key={test.id} className="border-0 shadow-md hover:shadow-lg transition-shadow">
-                  <CardHeader className="pb-2">
+                <Card key={test.id} className="border-0 shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+                  {/* Cover Image */}
+                  <div className="relative h-40 overflow-hidden">
+                    {coverImages[test.id] ? (
+                      <img
+                        src={coverImages[test.id]}
+                        alt={test.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : generatingCovers[test.id] ? (
+                      <div className="w-full h-full bg-gradient-to-br from-violet-200 via-purple-100 to-emerald-200 flex flex-col items-center justify-center gap-2">
+                        <div className="w-8 h-8 border-3 border-violet-500 border-t-transparent rounded-full animate-spin" />
+                        <p className="text-xs text-violet-600 font-medium">Generating AI cover...</p>
+                      </div>
+                    ) : (
+                      <div className={`w-full h-full flex items-center justify-center ${
+                        test.topic === 'Physics' ? 'bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600' :
+                        test.topic === 'Chemistry' ? 'bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600' :
+                        test.topic === 'Mathematics' ? 'bg-gradient-to-br from-amber-400 via-orange-500 to-red-500' :
+                        'bg-gradient-to-br from-violet-400 via-purple-500 to-pink-500'
+                      }`}>
+                        <div className="text-center text-white/90">
+                          <div className="text-3xl mb-1">
+                            {test.topic === 'Physics' ? '⚛️' :
+                             test.topic === 'Chemistry' ? '🧪' :
+                             test.topic === 'Mathematics' ? '📐' : '📚'}
+                          </div>
+                          <p className="text-xs font-medium opacity-80">{test.topic}</p>
+                          <button
+                            onClick={() => generateCover(test.id)}
+                            className="mt-2 text-[10px] underline opacity-70 hover:opacity-100 transition-opacity"
+                          >
+                            Generate AI Cover
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    {/* Topic badge overlay */}
+                    <div className="absolute top-2 left-2">
+                      <Badge variant="secondary" className="bg-white/90 text-violet-700 backdrop-blur-sm shadow-sm">{test.topic}</Badge>
+                    </div>
+                  </div>
+                  <CardHeader className="pb-2 pt-3">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <Badge variant="secondary" className="mb-2 bg-violet-100 text-violet-700">{test.topic}</Badge>
                         <CardTitle className="text-base leading-tight">{test.title}</CardTitle>
                       </div>
                     </div>
@@ -1154,8 +1221,8 @@ export default function ChemTestApp() {
 
               {/* AI Chat Panel in Results */}
               {chatOpen && (
-                <div className="w-full lg:w-96 shrink-0">
-                  <Card className="border-0 shadow-lg flex flex-col h-[calc(100vh-200px)] lg:h-[600px]">
+                <div className="w-full lg:w-[420px] shrink-0">
+                  <Card className="border-0 shadow-lg flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
                     <CardHeader className="pb-3 shrink-0">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -1414,6 +1481,21 @@ export default function ChemTestApp() {
                       )}
                     </div>
                   )}
+
+                  {/* Exam mode: Ask AI button always visible after answering */}
+                  {!practiceMode && answers[qId] && !chatOpen && (
+                    <div className="mt-4">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full border-violet-200 text-violet-600 hover:bg-violet-50 hover:text-violet-700"
+                        onClick={() => openChat(qId, answers[qId])}
+                      >
+                        <MessageSquare className="w-4 h-4 mr-2" />
+                        Ask AI Tutor about this question
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -1457,8 +1539,8 @@ export default function ChemTestApp() {
 
             {/* AI Chat Panel */}
             {chatOpen && (
-              <div className="w-full lg:w-96 shrink-0">
-                <Card className="border-0 shadow-lg flex flex-col h-[calc(100vh-200px)] lg:h-[600px]">
+              <div className="w-full lg:w-[420px] shrink-0">
+                <Card className="border-0 shadow-lg flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
                   <CardHeader className="pb-3 shrink-0">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -1467,7 +1549,13 @@ export default function ChemTestApp() {
                         </div>
                         <div>
                           <CardTitle className="text-sm">AI Tutor</CardTitle>
-                          <p className="text-xs text-muted-foreground">Ask about this question</p>
+                          <p className="text-xs text-muted-foreground">
+                            {chatUserAnswer ? (
+                              chatUserAnswer === shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer
+                                ? '✓ You answered correctly'
+                                : `✗ You chose ${chatUserAnswer} — correct is ${shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer}`
+                            ) : 'Ask about this question'}
+                          </p>
                         </div>
                       </div>
                       <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={closeChat}>

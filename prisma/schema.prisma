@@ -30,6 +30,7 @@ model Test {
   isPublic    Boolean  @default(true)
   randomizeQuestions Boolean @default(false)
   randomizeOptions   Boolean @default(false)
+  coverImage  String?  // Base64 data URL for AI-generated cover image
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

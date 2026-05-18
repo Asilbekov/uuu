@@ -72,4 +72,8 @@ export const api = {
   chat: (questionId: string, messages: { role: 'user' | 'assistant'; content: string }[], userAnswer?: string) =>
     apiFetch('/chat', { method: 'POST', body: JSON.stringify({ questionId, messages, userAnswer }) }),
 
+  // Generate Cover Image
+  generateCover: (testId: string) =>
+    apiFetch('/generate-cover', { method: 'POST', body: JSON.stringify({ testId }) }),
+
 };
