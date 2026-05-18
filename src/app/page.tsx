@@ -46,6 +46,11 @@ import {
   BarChart3,
   Minus,
   ListChecks,
+  MessageSquare,
+  Send,
+  X,
+  Bot,
+  Sparkles,
 } from 'lucide-react';
 
 // Types
@@ -168,6 +173,15 @@ export default function ChemTestApp() {
   const [revealedAnswers, setRevealedAnswers] = useState<Record<string, boolean>>({});
   const [explanations, setExplanations] = useState<Record<string, string>>({});
   const [loadingExplanations, setLoadingExplanations] = useState(false);
+
+  // AI Chat state
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([]);
+  const [chatInput, setChatInput] = useState('');
+  const [chatLoading, setChatLoading] = useState(false);
+  const [chatQuestionId, setChatQuestionId] = useState<string>('');
+  const [chatUserAnswer, setChatUserAnswer] = useState<string>('');
+  const chatEndRef = React.useRef<HTMLDivElement>(null);
 
   // Delete confirmation
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -446,8 +460,66 @@ export default function ChemTestApp() {
     // In practice mode, reveal the correct answer immediately
     if (practiceMode) {
       setRevealedAnswers(prev => ({ ...prev, [questionId]: true }));
+      // Find the current question to check if answer is wrong
+      const currentQ = shuffledQuestions.find(q => q.id === questionId);
+      if (currentQ && answer !== currentQ.correctAnswer) {
+        // Auto-open AI chat on wrong answer
+        openChat(questionId, answer);
+      }
     }
   };
+
+  const openChat = (questionId: string, userAnswer?: string) => {
+    // Only reset chat if it's a different question
+    if (chatQuestionId !== questionId) {
+      setChatMessages([]);
+      setChatInput('');
+      setChatQuestionId(questionId);
+      setChatUserAnswer(userAnswer || '');
+      // Auto-send initial question to AI
+      sendChatMessage(questionId, [], userAnswer);
+    }
+    setChatOpen(true);
+  };
+
+  const sendChatMessage = async (questionId?: string, existingMessages?: { role: 'user' | 'assistant'; content: string }[], userAnswer?: string) => {
+    const qId = questionId || chatQuestionId;
+    const msgs = existingMessages || chatMessages;
+    const uAns = userAnswer !== undefined ? userAnswer : chatUserAnswer;
+
+    if (!chatInput.trim() && existingMessages) {
+      // Initial auto-message
+    } else if (!chatInput.trim()) {
+      return;
+    }
+
+    const userMsg = existingMessages ? undefined : { role: 'user' as const, content: chatInput };
+    const newMsgs = userMsg ? [...msgs, userMsg] : msgs;
+    if (userMsg) setChatMessages(newMsgs);
+    setChatInput('');
+    setChatLoading(true);
+
+    try {
+      const result = await api.chat(qId, newMsgs, uAns);
+      const assistantMsg = { role: 'assistant' as const, content: result.response };
+      setChatMessages(prev => [...prev, assistantMsg]);
+    } catch (e) {
+      console.error('Chat error:', e);
+      setChatMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }]);
+    }
+    setChatLoading(false);
+  };
+
+  const closeChat = () => {
+    setChatOpen(false);
+  };
+
+  // Auto-scroll chat to bottom
+  useEffect(() => {
+    if (chatOpen && chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [chatMessages, chatOpen]);
 
   const submitTest = async () => {
     if (!currentAttempt || !currentTest) return;
@@ -546,11 +618,7 @@ export default function ChemTestApp() {
                 <>Already have an account? <button className="text-primary underline" onClick={() => setAuthMode('login')}>Sign in</button></>
               )}
             </div>
-            <Separator />
-            <Button variant="outline" className="w-full" onClick={handleSeed} disabled={loading}>
-              <GraduationCap className="w-4 h-4 mr-2" />
-              Load Demo Tests (Seed Database)
-            </Button>
+
           </CardContent>
         </Card>
       </div>
@@ -590,9 +658,7 @@ export default function ChemTestApp() {
             <Button onClick={startCreateTest} className="bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700">
               <Plus className="w-4 h-4 mr-2" /> Create New Test
             </Button>
-            <Button variant="outline" onClick={handleSeed} disabled={loading}>
-              <GraduationCap className="w-4 h-4 mr-2" /> Load Demo Tests
-            </Button>
+
             <Button variant="outline" onClick={() => { api.getAttempts().then(d => setAttempts(d)).catch(() => {}); setPage('history'); }}>
               <Clock className="w-4 h-4 mr-2" /> Test History
             </Button>
@@ -637,7 +703,7 @@ export default function ChemTestApp() {
                 <p className="text-muted-foreground mb-4">Create your first test or load demo tests to get started</p>
                 <div className="flex gap-3 justify-center">
                   <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> Create Test</Button>
-                  <Button variant="outline" onClick={handleSeed}><GraduationCap className="w-4 h-4 mr-2" /> Load Demos</Button>
+
                 </div>
               </CardContent>
             </Card>
@@ -984,12 +1050,27 @@ export default function ChemTestApp() {
       return (
         <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-            <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
-              <Button variant="ghost" size="sm" onClick={goHome}><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
-              <h1 className="text-lg font-bold">Test Results</h1>
+            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Button variant="ghost" size="sm" onClick={goHome}><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
+                <h1 className="text-lg font-bold">Test Results</h1>
+              </div>
+              {!chatOpen && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || ''])}
+                  className="gap-1.5"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  AI Tutor
+                </Button>
+              )}
             </div>
           </header>
-          <main className="max-w-3xl mx-auto px-4 py-8 space-y-6">
+          <main className="max-w-7xl mx-auto px-4 py-8">
+            <div className={`flex gap-6 ${chatOpen ? 'flex-col lg:flex-row' : ''}`}>
+              <div className="flex-1 min-w-0 space-y-6">
             <Card className="border-0 shadow-lg overflow-hidden">
               <div className={`h-2 ${pct >= 70 ? 'bg-gradient-to-r from-emerald-400 to-emerald-600' : pct >= 40 ? 'bg-gradient-to-r from-amber-400 to-orange-500' : 'bg-gradient-to-r from-red-400 to-red-600'}`} />
               <CardContent className="p-8 text-center">
@@ -1042,6 +1123,22 @@ export default function ChemTestApp() {
                     {explanations[q.id || ''] && (
                       <p className="text-xs text-muted-foreground mt-2 ml-7 italic">{explanations[q.id || '']}</p>
                     )}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="mt-2 ml-7 text-violet-600 hover:text-violet-700 hover:bg-violet-50 text-xs"
+                      onClick={() => {
+                        setChatMessages([]);
+                        setChatInput('');
+                        setChatQuestionId(q.id || '');
+                        setChatUserAnswer(selected);
+                        setChatOpen(true);
+                        sendChatMessage(q.id || '', [], selected);
+                      }}
+                    >
+                      <Sparkles className="w-3 h-3 mr-1" />
+                      Ask AI Tutor
+                    </Button>
                   </CardContent>
                 </Card>
               );
@@ -1052,6 +1149,108 @@ export default function ChemTestApp() {
               <Button onClick={() => openStartTest(currentTest!)} className="flex-1 bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600">
                 <RefreshCw className="w-4 h-4 mr-2" /> Retry Test
               </Button>
+            </div>
+              </div>
+
+              {/* AI Chat Panel in Results */}
+              {chatOpen && (
+                <div className="w-full lg:w-96 shrink-0">
+                  <Card className="border-0 shadow-lg flex flex-col h-[calc(100vh-200px)] lg:h-[600px]">
+                    <CardHeader className="pb-3 shrink-0">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                            <Bot className="w-4 h-4 text-white" />
+                          </div>
+                          <div>
+                            <CardTitle className="text-sm">AI Tutor</CardTitle>
+                            <p className="text-xs text-muted-foreground">Ask about any question</p>
+                          </div>
+                        </div>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={closeChat}>
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="flex-1 overflow-hidden p-0">
+                      <ScrollArea className="h-full px-4">
+                        <div className="space-y-3 py-2">
+                          {chatMessages.length === 0 && chatLoading && (
+                            <div className="flex gap-2 items-start">
+                              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                                <Bot className="w-3.5 h-3.5 text-white" />
+                              </div>
+                              <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
+                                <div className="flex items-center gap-1">
+                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          {chatMessages.map((msg, idx) => (
+                            <div key={idx} className={`flex gap-2 items-start ${msg.role === 'user' ? 'justify-end' : ''}`}>
+                              {msg.role === 'assistant' && (
+                                <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                                  <Bot className="w-3.5 h-3.5 text-white" />
+                                </div>
+                              )}
+                              <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
+                                msg.role === 'user'
+                                  ? 'bg-violet-500 text-white rounded-tr-sm'
+                                  : 'bg-muted rounded-tl-sm'
+                              }`}>
+                                {msg.content}
+                              </div>
+                            </div>
+                          ))}
+                          {chatLoading && chatMessages.length > 0 && (
+                            <div className="flex gap-2 items-start">
+                              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                                <Bot className="w-3.5 h-3.5 text-white" />
+                              </div>
+                              <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
+                                <div className="flex items-center gap-1">
+                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                          <div ref={chatEndRef} />
+                        </div>
+                      </ScrollArea>
+                    </CardContent>
+                    <CardFooter className="pt-3 pb-4 shrink-0">
+                      <div className="flex w-full gap-2">
+                        <Input
+                          placeholder="Ask a follow-up..."
+                          value={chatInput}
+                          onChange={(e) => setChatInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                              e.preventDefault();
+                              sendChatMessage();
+                            }
+                          }}
+                          disabled={chatLoading}
+                          className="flex-1 text-sm"
+                        />
+                        <Button
+                          size="sm"
+                          onClick={() => sendChatMessage()}
+                          disabled={chatLoading || !chatInput.trim()}
+                          className="bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600 shrink-0"
+                        >
+                          <Send className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </div>
+              )}
             </div>
           </main>
         </div>
@@ -1065,20 +1264,33 @@ export default function ChemTestApp() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-3xl mx-auto px-4 py-3">
+          <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <Button variant="ghost" size="sm" onClick={goHome}><Home className="w-4 h-4" /></Button>
                 <span className="text-sm font-medium">{currentTest?.title}</span>
                 {practiceMode && <Badge variant="outline" className="text-xs bg-emerald-50 text-emerald-700 border-emerald-200">Practice Mode</Badge>}
               </div>
-              <span className="text-sm text-muted-foreground">{answeredCount}/{shuffledQuestions.length} answered</span>
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-muted-foreground">{answeredCount}/{shuffledQuestions.length} answered</span>
+                {!chatOpen && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => openChat(qId, answers[qId])}
+                    className="gap-1.5"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span className="hidden sm:inline">AI Tutor</span>
+                  </Button>
+                )}
+              </div>
             </div>
             <Progress value={progressPct} className="h-2" />
           </div>
         </header>
 
-        <main className="max-w-3xl mx-auto px-4 py-6">
+        <main className="max-w-7xl mx-auto px-4 py-6">
           {/* Question navigation pills */}
           <div className="flex flex-wrap gap-1.5 mb-6">
             {shuffledQuestions.map((q, idx) => {
@@ -1092,7 +1304,15 @@ export default function ChemTestApp() {
               return (
                 <button
                   key={idx}
-                  onClick={() => setCurrentQuestionIdx(idx)}
+                  onClick={() => {
+                    setCurrentQuestionIdx(idx);
+                    // Close chat when navigating to a different question
+                    if (chatOpen) {
+                      setChatOpen(false);
+                      setChatMessages([]);
+                      setChatQuestionId('');
+                    }
+                  }}
                   className={`w-8 h-8 rounded-full text-xs font-bold transition-all flex items-center justify-center ${
                     isCurrent ? 'ring-2 ring-violet-500 ring-offset-2' :
                     isCorrectAnswer ? 'bg-emerald-500 text-white' :
@@ -1106,113 +1326,235 @@ export default function ChemTestApp() {
             })}
           </div>
 
-          {/* Current Question */}
-          <Card className="border-0 shadow-lg mb-6">
-            <CardHeader>
+          {/* Main content: Question + Chat side by side */}
+          <div className={`flex gap-6 ${chatOpen ? 'flex-col lg:flex-row' : ''}`}>
+            {/* Current Question */}
+            <div className={`flex-1 min-w-0`}>
+              <Card className="border-0 shadow-lg mb-6">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <Badge variant="secondary" className="text-sm">Question {currentQuestionIdx + 1} of {shuffledQuestions.length}</Badge>
+                    {practiceMode && isRevealed && (
+                      answers[qId] === currentQ.correctAnswer ? (
+                        <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200"><CheckCircle2 className="w-3 h-3 mr-1" /> Correct!</Badge>
+                      ) : (
+                        <Badge className="bg-red-100 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> Wrong</Badge>
+                      )
+                    )}
+                  </div>
+                  <p className="text-lg font-medium mt-2">{currentQ.text}</p>
+                </CardHeader>
+                <CardContent>
+                  <RadioGroup
+                    value={answers[qId] || ''}
+                    onValueChange={(value) => selectAnswer(qId, value)}
+                    disabled={practiceMode && revealedAnswers[qId]}
+                  >
+                    <div className="space-y-3">
+                      {['A', 'B', 'C', 'D', 'E'].map(letter => {
+                        const optionText = currentQ[`option${letter}` as keyof Question] as string;
+                        if (!optionText) return null;
+                        const isRevealedOption = practiceMode && revealedAnswers[qId];
+                        const isCorrectOption = letter === currentQ.correctAnswer;
+                        const isSelectedOption = letter === answers[qId];
+
+                        let optionClass = 'border hover:border-violet-300 hover:bg-violet-50/50';
+                        if (isRevealedOption) {
+                          if (isCorrectOption) {
+                            optionClass = 'border-emerald-500 bg-emerald-50';
+                          } else if (isSelectedOption && !isCorrectOption) {
+                            optionClass = 'border-red-500 bg-red-50';
+                          } else {
+                            optionClass = 'border-muted opacity-60';
+                          }
+                        } else if (isSelectedOption) {
+                          optionClass = 'border-violet-500 bg-violet-50';
+                        }
+
+                        return (
+                          <div key={letter} className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${optionClass}`}>
+                            <RadioGroupItem value={letter} id={`q-${qId}-${letter}`} />
+                            <Label htmlFor={`q-${qId}-${letter}`} className="flex items-center gap-2 cursor-pointer flex-1">
+                              <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                                isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
+                                isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
+                                isSelectedOption ? 'bg-violet-500 text-white' : 'bg-muted text-muted-foreground'
+                              }`}>
+                                {letter}
+                              </span>
+                              <span className="text-sm">{optionText}</span>
+                            </Label>
+                            {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />}
+                            {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0" />}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </RadioGroup>
+
+                  {/* Practice mode: show result and explanation + Ask AI button */}
+                  {practiceMode && revealedAnswers[qId] && (
+                    <div className="mt-4 p-3 rounded-xl bg-muted/50">
+                      <p className="text-sm font-medium mb-1">
+                        Correct answer: <span className="text-emerald-600">{currentQ.correctAnswer}</span>
+                      </p>
+                      {explanations[qId] && (
+                        <p className="text-xs text-muted-foreground mt-1 ml-7">{explanations[qId]}</p>
+                      )}
+                      {!chatOpen && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="mt-2 text-violet-600 hover:text-violet-700 hover:bg-violet-50"
+                          onClick={() => openChat(qId, answers[qId])}
+                        >
+                          <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+                          Ask AI Tutor about this question
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Navigation */}
               <div className="flex items-center justify-between">
-                <Badge variant="secondary" className="text-sm">Question {currentQuestionIdx + 1} of {shuffledQuestions.length}</Badge>
-                {practiceMode && isRevealed && (
-                  answers[qId] === currentQ.correctAnswer ? (
-                    <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200"><CheckCircle2 className="w-3 h-3 mr-1" /> Correct!</Badge>
-                  ) : (
-                    <Badge className="bg-red-100 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> Wrong</Badge>
-                  )
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setCurrentQuestionIdx(Math.max(0, currentQuestionIdx - 1));
+                    if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); }
+                  }}
+                  disabled={currentQuestionIdx === 0}
+                >
+                  <ArrowLeft className="w-4 h-4 mr-1" /> Previous
+                </Button>
+
+                {currentQuestionIdx === shuffledQuestions.length - 1 ? (
+                  <Button
+                    onClick={submitTest}
+                    disabled={loading || answeredCount < shuffledQuestions.length}
+                    className="bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600"
+                  >
+                    {loading ? 'Submitting...' : 'Submit Test'}
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      setCurrentQuestionIdx(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1));
+                      if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); }
+                    }}
+                  >
+                    Next <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
                 )}
               </div>
-              <p className="text-lg font-medium mt-2">{currentQ.text}</p>
-            </CardHeader>
-            <CardContent>
-              <RadioGroup
-                value={answers[qId] || ''}
-                onValueChange={(value) => selectAnswer(qId, value)}
-                disabled={practiceMode && revealedAnswers[qId]}
-              >
-                <div className="space-y-3">
-                  {['A', 'B', 'C', 'D', 'E'].map(letter => {
-                    const optionText = currentQ[`option${letter}` as keyof Question] as string;
-                    if (!optionText) return null;
-                    const isRevealedOption = practiceMode && revealedAnswers[qId];
-                    const isCorrectOption = letter === currentQ.correctAnswer;
-                    const isSelectedOption = letter === answers[qId];
 
-                    let optionClass = 'border hover:border-violet-300 hover:bg-violet-50/50';
-                    if (isRevealedOption) {
-                      if (isCorrectOption) {
-                        optionClass = 'border-emerald-500 bg-emerald-50';
-                      } else if (isSelectedOption && !isCorrectOption) {
-                        optionClass = 'border-red-500 bg-red-50';
-                      } else {
-                        optionClass = 'border-muted opacity-60';
-                      }
-                    } else if (isSelectedOption) {
-                      optionClass = 'border-violet-500 bg-violet-50';
-                    }
-
-                    return (
-                      <div key={letter} className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${optionClass}`}>
-                        <RadioGroupItem value={letter} id={`q-${qId}-${letter}`} />
-                        <Label htmlFor={`q-${qId}-${letter}`} className="flex items-center gap-2 cursor-pointer flex-1">
-                          <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                            isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
-                            isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
-                            isSelectedOption ? 'bg-violet-500 text-white' : 'bg-muted text-muted-foreground'
-                          }`}>
-                            {letter}
-                          </span>
-                          <span className="text-sm">{optionText}</span>
-                        </Label>
-                        {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />}
-                        {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0" />}
-                      </div>
-                    );
-                  })}
-                </div>
-              </RadioGroup>
-
-              {/* Practice mode: show result and explanation */}
-              {practiceMode && revealedAnswers[qId] && (
-                <div className="mt-4 p-3 rounded-xl bg-muted/50">
-                  <p className="text-sm font-medium mb-1">
-                    Correct answer: <span className="text-emerald-600">{currentQ.correctAnswer}</span>
-                  </p>
-                  {explanations[qId] && (
-                    <p className="text-xs text-muted-foreground mt-1 ml-7">{explanations[qId]}</p>
-                  )}
-                </div>
+              {loadingExplanations && (
+                <p className="text-xs text-center text-muted-foreground mt-4">Loading explanations...</p>
               )}
-            </CardContent>
-          </Card>
+            </div>
 
-          {/* Navigation */}
-          <div className="flex items-center justify-between">
-            <Button
-              variant="outline"
-              onClick={() => setCurrentQuestionIdx(Math.max(0, currentQuestionIdx - 1))}
-              disabled={currentQuestionIdx === 0}
-            >
-              <ArrowLeft className="w-4 h-4 mr-1" /> Previous
-            </Button>
-
-            {currentQuestionIdx === shuffledQuestions.length - 1 ? (
-              <Button
-                onClick={submitTest}
-                disabled={loading || answeredCount < shuffledQuestions.length}
-                className="bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600"
-              >
-                {loading ? 'Submitting...' : 'Submit Test'}
-              </Button>
-            ) : (
-              <Button
-                onClick={() => setCurrentQuestionIdx(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1))}
-              >
-                Next <ArrowRight className="w-4 h-4 ml-1" />
-              </Button>
+            {/* AI Chat Panel */}
+            {chatOpen && (
+              <div className="w-full lg:w-96 shrink-0">
+                <Card className="border-0 shadow-lg flex flex-col h-[calc(100vh-200px)] lg:h-[600px]">
+                  <CardHeader className="pb-3 shrink-0">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                          <Bot className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-sm">AI Tutor</CardTitle>
+                          <p className="text-xs text-muted-foreground">Ask about this question</p>
+                        </div>
+                      </div>
+                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={closeChat}>
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex-1 overflow-hidden p-0">
+                    <ScrollArea className="h-full px-4">
+                      <div className="space-y-3 py-2">
+                        {chatMessages.length === 0 && chatLoading && (
+                          <div className="flex gap-2 items-start">
+                            <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                              <Bot className="w-3.5 h-3.5 text-white" />
+                            </div>
+                            <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
+                              <div className="flex items-center gap-1">
+                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        {chatMessages.map((msg, idx) => (
+                          <div key={idx} className={`flex gap-2 items-start ${msg.role === 'user' ? 'justify-end' : ''}`}>
+                            {msg.role === 'assistant' && (
+                              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                                <Bot className="w-3.5 h-3.5 text-white" />
+                              </div>
+                            )}
+                            <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
+                              msg.role === 'user'
+                                ? 'bg-violet-500 text-white rounded-tr-sm'
+                                : 'bg-muted rounded-tl-sm'
+                            }`}>
+                              {msg.content}
+                            </div>
+                          </div>
+                        ))}
+                        {chatLoading && chatMessages.length > 0 && (
+                          <div className="flex gap-2 items-start">
+                            <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                              <Bot className="w-3.5 h-3.5 text-white" />
+                            </div>
+                            <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
+                              <div className="flex items-center gap-1">
+                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        <div ref={chatEndRef} />
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
+                  <CardFooter className="pt-3 pb-4 shrink-0">
+                    <div className="flex w-full gap-2">
+                      <Input
+                        placeholder="Ask a follow-up..."
+                        value={chatInput}
+                        onChange={(e) => setChatInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            sendChatMessage();
+                          }
+                        }}
+                        disabled={chatLoading}
+                        className="flex-1 text-sm"
+                      />
+                      <Button
+                        size="sm"
+                        onClick={() => sendChatMessage()}
+                        disabled={chatLoading || !chatInput.trim()}
+                        className="bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600 shrink-0"
+                      >
+                        <Send className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </CardFooter>
+                </Card>
+              </div>
             )}
           </div>
-
-          {loadingExplanations && (
-            <p className="text-xs text-center text-muted-foreground mt-4">Loading explanations...</p>
-          )}
         </main>
       </div>
     );

@@ -68,4 +68,8 @@ export const api = {
   generateExplanations: (questionIds: string[]) =>
     apiFetch('/explain', { method: 'POST', body: JSON.stringify({ questionIds }) }),
 
+  // AI Chat
+  chat: (questionId: string, messages: { role: 'user' | 'assistant'; content: string }[], userAnswer?: string) =>
+    apiFetch('/chat', { method: 'POST', body: JSON.stringify({ questionId, messages, userAnswer }) }),
+
 };
