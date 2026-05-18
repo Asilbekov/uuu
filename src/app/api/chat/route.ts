@@ -7,6 +7,30 @@ interface ChatMessage {
   content: string;
 }
 
+const MAX_RETRIES = 3;
+const RETRY_DELAYS = [2000, 5000, 10000]; // 2s, 5s, 10s
+
+async function callAIWithRetry(conversationMessages: { role: 'system' | 'user' | 'assistant'; content: string }[], retries = MAX_RETRIES): Promise<string> {
+  try {
+    const zai = await ZAI.create();
+    const completion = await zai.chat.completions.create({
+      messages: conversationMessages,
+      temperature: 0.5,
+      max_tokens: 800,
+    });
+    return completion.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
+  } catch (error: any) {
+    const isRateLimit = error?.message?.includes('429') || error?.message?.includes('Too many requests') || error?.message?.includes('rate');
+    if (isRateLimit && retries > 0) {
+      const delay = RETRY_DELAYS[MAX_RETRIES - retries];
+      console.log(`Chat API rate limited, retrying in ${delay}ms... (${retries} retries left)`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return callAIWithRetry(conversationMessages, retries - 1);
+    }
+    throw error;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const userId = request.headers.get('x-user-id');
@@ -94,18 +118,18 @@ Help the student understand the concepts behind this question. Do NOT reveal the
       })),
     ];
 
-    const zai = await ZAI.create();
-    const completion = await zai.chat.completions.create({
-      messages: conversationMessages,
-      temperature: 0.5,
-      max_tokens: 800,
-    });
-
-    const aiResponse = completion.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
+    const aiResponse = await callAIWithRetry(conversationMessages);
 
     return NextResponse.json({ response: aiResponse });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Chat API error:', error);
+    const isRateLimit = error?.message?.includes('429') || error?.message?.includes('Too many requests') || error?.message?.includes('rate');
+    if (isRateLimit) {
+      return NextResponse.json({
+        error: 'AI is currently busy. Please wait a moment and try again.',
+        rateLimited: true,
+      }, { status: 429 });
+    }
     return NextResponse.json({ error: 'Failed to generate response' }, { status: 500 });
   }
 }

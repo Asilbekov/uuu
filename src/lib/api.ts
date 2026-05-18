@@ -39,6 +39,10 @@ async function apiFetch(path: string, options: RequestInit = {}) {
   });
   if (!res.ok) {
     const error = await res.json().catch(() => ({ error: 'Request failed' }));
+    // For rate limit responses, return the body so callers can handle it
+    if (res.status === 429) {
+      return { ...error, rateLimited: true };
+    }
     throw new Error(error.error || 'Request failed');
   }
   return res.json();

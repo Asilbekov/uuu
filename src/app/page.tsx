@@ -504,36 +504,54 @@ export default function ChemTestApp() {
       setChatInput('');
       setChatQuestionId(questionId);
       setChatUserAnswer(userAnswer || '');
-      // Auto-send initial question to AI
-      sendChatMessage(questionId, [], userAnswer);
+      // Auto-send initial question to AI with a contextual message
+      const initialMsg = userAnswer
+        ? `I chose answer ${userAnswer}. Can you explain this question?`
+        : 'Can you help me understand this question?';
+      sendChatMessage(questionId, [{ role: 'user', content: initialMsg }], userAnswer);
     }
     setChatOpen(true);
   };
 
   const sendChatMessage = async (questionId?: string, existingMessages?: { role: 'user' | 'assistant'; content: string }[], userAnswer?: string) => {
     const qId = questionId || chatQuestionId;
-    const msgs = existingMessages || chatMessages;
     const uAns = userAnswer !== undefined ? userAnswer : chatUserAnswer;
 
-    if (!chatInput.trim() && existingMessages) {
-      // Initial auto-message
-    } else if (!chatInput.trim()) {
-      return;
+    let newMsgs: { role: 'user' | 'assistant'; content: string }[];
+
+    if (existingMessages) {
+      // Initial auto-message from openChat - show it in the chat UI
+      newMsgs = existingMessages;
+      setChatMessages(existingMessages);
+    } else {
+      // User typed a message
+      if (!chatInput.trim()) return;
+      const userMsg = { role: 'user' as const, content: chatInput };
+      newMsgs = [...chatMessages, userMsg];
+      setChatMessages(newMsgs);
+      setChatInput('');
     }
 
-    const userMsg = existingMessages ? undefined : { role: 'user' as const, content: chatInput };
-    const newMsgs = userMsg ? [...msgs, userMsg] : msgs;
-    if (userMsg) setChatMessages(newMsgs);
-    setChatInput('');
     setChatLoading(true);
 
     try {
       const result = await api.chat(qId, newMsgs, uAns);
-      const assistantMsg = { role: 'assistant' as const, content: result.response };
-      setChatMessages(prev => [...prev, assistantMsg]);
-    } catch (e) {
+      if (result.response) {
+        const assistantMsg = { role: 'assistant' as const, content: result.response };
+        setChatMessages(prev => [...prev, assistantMsg]);
+      } else if (result.rateLimited) {
+        setChatMessages(prev => [...prev, { role: 'assistant', content: '⏳ AI is currently busy. Please wait a moment and try sending your message again.' }]);
+      } else {
+        setChatMessages(prev => [...prev, { role: 'assistant', content: result.error || 'Sorry, something went wrong. Please try again.' }]);
+      }
+    } catch (e: any) {
       console.error('Chat error:', e);
-      setChatMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }]);
+      const errMsg = e?.message || '';
+      if (errMsg.includes('429') || errMsg.includes('rate') || errMsg.includes('Too many')) {
+        setChatMessages(prev => [...prev, { role: 'assistant', content: '⏳ AI is currently busy. Please wait a moment and try sending your message again.' }]);
+      } else {
+        setChatMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }]);
+      }
     }
     setChatLoading(false);
   };
@@ -1200,7 +1218,10 @@ export default function ChemTestApp() {
                         setChatQuestionId(q.id || '');
                         setChatUserAnswer(selected);
                         setChatOpen(true);
-                        sendChatMessage(q.id || '', [], selected);
+                        const initialMsg = selected
+                          ? `I chose answer ${selected}. Can you explain this question?`
+                          : 'Can you help me understand this question?';
+                        sendChatMessage(q.id || '', [{ role: 'user', content: initialMsg }], selected);
                       }}
                     >
                       <Sparkles className="w-3 h-3 mr-1" />
