@@ -41,6 +41,7 @@ import {
   FlaskConical,
   Home,
   RefreshCw,
+  GraduationCap,
   Clock,
   BarChart3,
   Minus,
@@ -59,6 +60,7 @@ interface Question {
   optionD: string;
   optionE?: string | null;
   correctAnswer: string;
+  explanation?: string | null;
   orderNum?: number;
 }
 
@@ -130,11 +132,15 @@ export default function ChemTestApp() {
   const [currentTest, setCurrentTest] = useState<Test | null>(null);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
 
-  // Auth state
+  // Auth - always start with null/auth, hydrate on mount
   const [user, setUserState] = useState<{ id: string; email: string; name: string } | null>(null);
   const [page, setPage] = useState<Page>('auth');
 
-  // Auth form state
+  // Mount guard to prevent hydration mismatch
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  // Auth state
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -158,25 +164,30 @@ export default function ChemTestApp() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
   const [selectedQuestionCount, setSelectedQuestionCount] = useState(0);
+  const [practiceMode, setPracticeMode] = useState(false);
+  const [revealedAnswers, setRevealedAnswers] = useState<Record<string, boolean>>({});
+  const [explanations, setExplanations] = useState<Record<string, string>>({});
+  const [loadingExplanations, setLoadingExplanations] = useState(false);
 
   // Delete confirmation
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  // Hydrate user from localStorage on mount
+  // Read user from localStorage only after mount (prevents hydration mismatch)
+  const [hydratedUser, setHydratedUser] = useState<{ id: string; email: string; name: string } | null>(null);
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem('chemtest_user');
-      if (stored) {
+    const stored = localStorage.getItem('chemtest_user');
+    if (stored) {
+      try {
         const parsed = JSON.parse(stored);
-        setUserState(parsed);
-        setUser(parsed);
-        setPage('dashboard');
-      }
-    } catch { /* ignore */ }
+        setHydratedUser(parsed);
+      } catch { /* ignore */ }
+    }
   }, []);
 
-  const effectiveUser = user;
-  const effectivePage = page;
+  // Apply hydrated user - use hydratedUser if no explicit login has happened
+  // Only use hydratedUser after mount to avoid hydration mismatch
+  const effectiveUser = user || (mounted ? hydratedUser : null);
+  const effectivePage = page === 'auth' && mounted && hydratedUser ? 'dashboard' : page;
 
   const loadTests = useCallback(async () => {
     try {
@@ -197,7 +208,7 @@ export default function ChemTestApp() {
         api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
       ]);
     }
-  }, [page, user]);
+  }, [page, user, mounted, hydratedUser]);
 
   const handleAuth = async () => {
     if (!email || !password || (authMode === 'signup' && !name)) {
@@ -232,7 +243,17 @@ export default function ChemTestApp() {
     setName('');
   };
 
-
+  const handleSeed = async () => {
+    setLoading(true);
+    try {
+      const result = await api.seed();
+      toast({ title: 'Database seeded!', description: `${result.testsCreated} tests with ${result.totalQuestions} questions.` });
+      await loadTests();
+    } catch (e: any) {
+      toast({ title: 'Error', description: e.message, variant: 'destructive' });
+    }
+    setLoading(false);
+  };
 
   // --- TEST CREATION ---
   const addQuestion = () => {
@@ -359,6 +380,7 @@ export default function ChemTestApp() {
       setCurrentTest(fullTest);
       const totalQ = fullTest.questions.length;
       setSelectedQuestionCount(totalQ);
+      setPracticeMode(false);
       setPage('start-test');
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
@@ -389,7 +411,30 @@ export default function ChemTestApp() {
       setCurrentQuestionIdx(0);
       setAnswers({});
       setShowResult(false);
+      setRevealedAnswers({});
+      setExplanations({});
       setPage('take-test');
+
+      // If practice mode, pre-fetch explanations
+      if (practiceMode) {
+        setLoadingExplanations(true);
+        try {
+          const ids = qList.map(q => q.id).filter(Boolean) as string[];
+          if (ids.length > 0) {
+            const result = await api.generateExplanations(ids);
+            const explMap: Record<string, string> = {};
+            if (result.explanations) {
+              for (const item of result.explanations) {
+                if (item.explanation) explMap[item.id] = item.explanation;
+              }
+            }
+            setExplanations(explMap);
+          }
+        } catch (e) {
+          console.error('Failed to load explanations:', e);
+        }
+        setLoadingExplanations(false);
+      }
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
     }
@@ -398,6 +443,10 @@ export default function ChemTestApp() {
 
   const selectAnswer = (questionId: string, answer: string) => {
     setAnswers(prev => ({ ...prev, [questionId]: answer }));
+    // In practice mode, reveal the correct answer immediately
+    if (practiceMode) {
+      setRevealedAnswers(prev => ({ ...prev, [questionId]: true }));
+    }
   };
 
   const submitTest = async () => {
@@ -420,6 +469,23 @@ export default function ChemTestApp() {
       });
       setShowResult(true);
       toast({ title: 'Test completed!', description: 'Your answers have been submitted.' });
+
+      // Load explanations for the review section
+      try {
+        const ids = shuffledQuestions.map(q => q.id).filter(Boolean) as string[];
+        if (ids.length > 0) {
+          const result = await api.generateExplanations(ids);
+          const explMap: Record<string, string> = {};
+          if (result.explanations) {
+            for (const item of result.explanations) {
+              if (item.explanation) explMap[item.id] = item.explanation;
+            }
+          }
+          setExplanations(explMap);
+        }
+      } catch (e) {
+        console.error('Failed to load explanations for review:', e);
+      }
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
     }
@@ -480,7 +546,11 @@ export default function ChemTestApp() {
                 <>Already have an account? <button className="text-primary underline" onClick={() => setAuthMode('login')}>Sign in</button></>
               )}
             </div>
-
+            <Separator />
+            <Button variant="outline" className="w-full" onClick={handleSeed} disabled={loading}>
+              <GraduationCap className="w-4 h-4 mr-2" />
+              Load Demo Tests (Seed Database)
+            </Button>
           </CardContent>
         </Card>
       </div>
@@ -520,7 +590,9 @@ export default function ChemTestApp() {
             <Button onClick={startCreateTest} className="bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700">
               <Plus className="w-4 h-4 mr-2" /> Create New Test
             </Button>
-
+            <Button variant="outline" onClick={handleSeed} disabled={loading}>
+              <GraduationCap className="w-4 h-4 mr-2" /> Load Demo Tests
+            </Button>
             <Button variant="outline" onClick={() => { api.getAttempts().then(d => setAttempts(d)).catch(() => {}); setPage('history'); }}>
               <Clock className="w-4 h-4 mr-2" /> Test History
             </Button>
@@ -562,9 +634,10 @@ export default function ChemTestApp() {
               <CardContent className="py-12 text-center">
                 <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="text-lg font-medium mb-2">No tests yet</h3>
-                <p className="text-muted-foreground mb-4">Create your first test to get started</p>
+                <p className="text-muted-foreground mb-4">Create your first test or load demo tests to get started</p>
                 <div className="flex gap-3 justify-center">
                   <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> Create Test</Button>
+                  <Button variant="outline" onClick={handleSeed}><GraduationCap className="w-4 h-4 mr-2" /> Load Demos</Button>
                 </div>
               </CardContent>
             </Card>
@@ -746,7 +819,7 @@ export default function ChemTestApp() {
     );
   }
 
-  // START TEST - select number of questions
+  // START TEST - select number of questions + mode selection
   if (effectivePage === 'start-test' && currentTest) {
     const totalQ = currentTest.questions.length;
     const quickCounts = [10, 15, 20, 25, 30, 40, 50].filter(c => c <= totalQ);
@@ -785,6 +858,46 @@ export default function ChemTestApp() {
                     )}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">Randomization</p>
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Mode Selection */}
+              <div className="space-y-3">
+                <div className="text-center">
+                  <h3 className="text-lg font-semibold mb-1">Test Mode</h3>
+                  <p className="text-sm text-muted-foreground">Choose how you want to take the test</p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setPracticeMode(false)}
+                    className={`p-4 rounded-xl border-2 transition-all text-left ${
+                      !practiceMode
+                        ? 'border-violet-500 bg-violet-50 shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <ListChecks className="w-5 h-5 text-violet-600" />
+                      <span className="font-semibold text-sm">Exam Mode</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">See results at the end</p>
+                  </button>
+                  <button
+                    onClick={() => setPracticeMode(true)}
+                    className={`p-4 rounded-xl border-2 transition-all text-left ${
+                      practiceMode
+                        ? 'border-emerald-500 bg-emerald-50 shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <BookOpen className="w-5 h-5 text-emerald-600" />
+                      <span className="font-semibold text-sm">Practice Mode</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">See correct answer right away</p>
+                  </button>
                 </div>
               </div>
 
@@ -850,7 +963,7 @@ export default function ChemTestApp() {
               </div>
 
               <Button onClick={startTest} disabled={loading} className="w-full h-12 text-base bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600">
-                {loading ? 'Loading...' : <><Play className="w-5 h-5 mr-2" /> Start Test ({selectedQuestionCount} questions)</>}
+                {loading ? 'Loading...' : <><Play className="w-5 h-5 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
               </Button>
             </CardContent>
           </Card>
@@ -926,14 +1039,17 @@ export default function ChemTestApp() {
                         );
                       })}
                     </div>
+                    {explanations[q.id || ''] && (
+                      <p className="text-xs text-muted-foreground mt-2 ml-7 italic">{explanations[q.id || '']}</p>
+                    )}
                   </CardContent>
                 </Card>
               );
             })}
 
             <div className="flex gap-3 pb-8">
-              <Button onClick={goHome} className="flex-1">Back to Dashboard</Button>
-              <Button variant="outline" onClick={() => currentTest && openStartTest(currentTest)} className="flex-1">
+              <Button variant="outline" onClick={goHome} className="flex-1">Back to Dashboard</Button>
+              <Button onClick={() => openStartTest(currentTest!)} className="flex-1 bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600">
                 <RefreshCw className="w-4 h-4 mr-2" /> Retry Test
               </Button>
             </div>
@@ -942,91 +1058,161 @@ export default function ChemTestApp() {
       );
     }
 
+    // Active test-taking UI
+    const qId = currentQ.id || '';
+    const isRevealed = practiceMode && revealedAnswers[qId];
+
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-3xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <Button variant="ghost" size="sm" onClick={goHome}><Home className="w-4 h-4" /></Button>
-                <div>
-                  <h1 className="text-sm font-bold">{currentTest?.title}</h1>
-                  <p className="text-xs text-muted-foreground">Question {currentQuestionIdx + 1} of {shuffledQuestions.length}</p>
-                </div>
+                <span className="text-sm font-medium">{currentTest?.title}</span>
+                {practiceMode && <Badge variant="outline" className="text-xs bg-emerald-50 text-emerald-700 border-emerald-200">Practice Mode</Badge>}
               </div>
-              <Badge variant="secondary">{answeredCount}/{shuffledQuestions.length} answered</Badge>
+              <span className="text-sm text-muted-foreground">{answeredCount}/{shuffledQuestions.length} answered</span>
             </div>
             <Progress value={progressPct} className="h-2" />
           </div>
         </header>
 
         <main className="max-w-3xl mx-auto px-4 py-6">
-          <div className="flex gap-1 flex-wrap mb-6">
-            {shuffledQuestions.map((q, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentQuestionIdx(idx)}
-                className={`w-8 h-8 rounded-lg text-xs font-medium transition-all ${
-                  idx === currentQuestionIdx
-                    ? 'bg-gradient-to-r from-violet-500 to-emerald-500 text-white shadow-md'
-                    : answers[q.id || '']
-                    ? 'bg-emerald-100 text-emerald-700 border border-emerald-200'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-              >
-                {idx + 1}
-              </button>
-            ))}
+          {/* Question navigation pills */}
+          <div className="flex flex-wrap gap-1.5 mb-6">
+            {shuffledQuestions.map((q, idx) => {
+              const qIdNav = q.id || '';
+              const isAnswered = !!answers[qIdNav];
+              const isRevealedNav = practiceMode && revealedAnswers[qIdNav];
+              const isCurrent = idx === currentQuestionIdx;
+              const isCorrectAnswer = isRevealedNav && answers[qIdNav] === q.correctAnswer;
+              const isWrongAnswer = isRevealedNav && answers[qIdNav] && answers[qIdNav] !== q.correctAnswer;
+
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentQuestionIdx(idx)}
+                  className={`w-8 h-8 rounded-full text-xs font-bold transition-all flex items-center justify-center ${
+                    isCurrent ? 'ring-2 ring-violet-500 ring-offset-2' :
+                    isCorrectAnswer ? 'bg-emerald-500 text-white' :
+                    isWrongAnswer ? 'bg-red-500 text-white' :
+                    isAnswered ? 'bg-violet-100 text-violet-700' : 'bg-muted text-muted-foreground'
+                  }`}
+                >
+                  {idx + 1}
+                </button>
+              );
+            })}
           </div>
 
+          {/* Current Question */}
           <Card className="border-0 shadow-lg mb-6">
             <CardHeader>
-              <Badge variant="secondary" className="w-fit">Question {currentQuestionIdx + 1}</Badge>
-              <CardTitle className="text-base leading-relaxed mt-2">{currentQ.text}</CardTitle>
+              <div className="flex items-center justify-between">
+                <Badge variant="secondary" className="text-sm">Question {currentQuestionIdx + 1} of {shuffledQuestions.length}</Badge>
+                {practiceMode && isRevealed && (
+                  answers[qId] === currentQ.correctAnswer ? (
+                    <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200"><CheckCircle2 className="w-3 h-3 mr-1" /> Correct!</Badge>
+                  ) : (
+                    <Badge className="bg-red-100 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> Wrong</Badge>
+                  )
+                )}
+              </div>
+              <p className="text-lg font-medium mt-2">{currentQ.text}</p>
             </CardHeader>
             <CardContent>
-              <RadioGroup value={answers[currentQ.id || ''] || ''} onValueChange={val => selectAnswer(currentQ.id || '', val)}>
+              <RadioGroup
+                value={answers[qId] || ''}
+                onValueChange={(value) => selectAnswer(qId, value)}
+                disabled={practiceMode && revealedAnswers[qId]}
+              >
                 <div className="space-y-3">
                   {['A', 'B', 'C', 'D', 'E'].map(letter => {
                     const optionText = currentQ[`option${letter}` as keyof Question] as string;
                     if (!optionText) return null;
+                    const isRevealedOption = practiceMode && revealedAnswers[qId];
+                    const isCorrectOption = letter === currentQ.correctAnswer;
+                    const isSelectedOption = letter === answers[qId];
+
+                    let optionClass = 'border hover:border-violet-300 hover:bg-violet-50/50';
+                    if (isRevealedOption) {
+                      if (isCorrectOption) {
+                        optionClass = 'border-emerald-500 bg-emerald-50';
+                      } else if (isSelectedOption && !isCorrectOption) {
+                        optionClass = 'border-red-500 bg-red-50';
+                      } else {
+                        optionClass = 'border-muted opacity-60';
+                      }
+                    } else if (isSelectedOption) {
+                      optionClass = 'border-violet-500 bg-violet-50';
+                    }
+
                     return (
-                      <label key={letter} className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-all border-2 ${
-                        answers[currentQ.id || ''] === letter
-                          ? 'border-violet-400 bg-violet-50 shadow-sm'
-                          : 'border-transparent bg-muted/50 hover:bg-muted'
-                      }`}>
-                        <RadioGroupItem value={letter} id={`q-${currentQuestionIdx}-${letter}`} />
-                        <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                          answers[currentQ.id || ''] === letter ? 'bg-violet-500 text-white' : 'bg-muted text-muted-foreground'
-                        }`}>
-                          {letter}
-                        </span>
-                        <span className="text-sm">{optionText}</span>
-                      </label>
+                      <div key={letter} className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${optionClass}`}>
+                        <RadioGroupItem value={letter} id={`q-${qId}-${letter}`} />
+                        <Label htmlFor={`q-${qId}-${letter}`} className="flex items-center gap-2 cursor-pointer flex-1">
+                          <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                            isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
+                            isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
+                            isSelectedOption ? 'bg-violet-500 text-white' : 'bg-muted text-muted-foreground'
+                          }`}>
+                            {letter}
+                          </span>
+                          <span className="text-sm">{optionText}</span>
+                        </Label>
+                        {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />}
+                        {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0" />}
+                      </div>
                     );
                   })}
                 </div>
               </RadioGroup>
+
+              {/* Practice mode: show result and explanation */}
+              {practiceMode && revealedAnswers[qId] && (
+                <div className="mt-4 p-3 rounded-xl bg-muted/50">
+                  <p className="text-sm font-medium mb-1">
+                    Correct answer: <span className="text-emerald-600">{currentQ.correctAnswer}</span>
+                  </p>
+                  {explanations[qId] && (
+                    <p className="text-xs text-muted-foreground mt-1 ml-7">{explanations[qId]}</p>
+                  )}
+                </div>
+              )}
             </CardContent>
           </Card>
 
+          {/* Navigation */}
           <div className="flex items-center justify-between">
-            <Button variant="outline" onClick={() => setCurrentQuestionIdx(Math.max(0, currentQuestionIdx - 1))} disabled={currentQuestionIdx === 0}>
+            <Button
+              variant="outline"
+              onClick={() => setCurrentQuestionIdx(Math.max(0, currentQuestionIdx - 1))}
+              disabled={currentQuestionIdx === 0}
+            >
               <ArrowLeft className="w-4 h-4 mr-1" /> Previous
             </Button>
 
             {currentQuestionIdx === shuffledQuestions.length - 1 ? (
-              <Button onClick={submitTest} disabled={loading}
-                className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700">
-                <CheckCircle2 className="w-4 h-4 mr-1" /> Submit ({answeredCount}/{shuffledQuestions.length})
+              <Button
+                onClick={submitTest}
+                disabled={loading || answeredCount < shuffledQuestions.length}
+                className="bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600"
+              >
+                {loading ? 'Submitting...' : 'Submit Test'}
               </Button>
             ) : (
-              <Button onClick={() => setCurrentQuestionIdx(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1))}>
+              <Button
+                onClick={() => setCurrentQuestionIdx(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1))}
+              >
                 Next <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
             )}
           </div>
+
+          {loadingExplanations && (
+            <p className="text-xs text-center text-muted-foreground mt-4">Loading explanations...</p>
+          )}
         </main>
       </div>
     );
@@ -1034,7 +1220,6 @@ export default function ChemTestApp() {
 
   // HISTORY
   if (effectivePage === 'history') {
-    const completedAttempts = attempts.filter(a => a.completed);
     return (
       <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
@@ -1045,37 +1230,46 @@ export default function ChemTestApp() {
         </header>
 
         <main className="max-w-4xl mx-auto px-4 py-6">
-          {completedAttempts.length === 0 ? (
+          {attempts.length === 0 ? (
             <Card className="border-dashed">
               <CardContent className="py-12 text-center">
-                <BarChart3 className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-medium mb-2">No completed tests yet</h3>
-                <p className="text-muted-foreground">Take a test to see your results here</p>
+                <Clock className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-lg font-medium mb-2">No attempts yet</h3>
+                <p className="text-muted-foreground mb-4">Take a test to see your history here</p>
+                <Button onClick={goHome}>Browse Tests</Button>
               </CardContent>
             </Card>
           ) : (
             <div className="space-y-3">
-              {completedAttempts.map(attempt => {
-                const pct = attempt.totalQuestions > 0 ? Math.round((attempt.score / attempt.totalQuestions) * 100) : 0;
-                return (
-                  <Card key={attempt.id} className="border-0 shadow-sm">
-                    <CardContent className="p-4 flex items-center justify-between">
-                      <div className="flex-1">
-                        <h3 className="font-medium">{attempt.test?.title || 'Unknown Test'}</h3>
-                        <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
-                          <span className="flex items-center gap-1"><Trophy className="w-3 h-3" /> {attempt.score}/{attempt.totalQuestions}</span>
-                          <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {new Date(attempt.completedAt || attempt.startedAt).toLocaleDateString()}</span>
-                        </div>
-                      </div>
-                      <div className={`w-14 h-14 rounded-full flex items-center justify-center text-lg font-bold text-white ${
-                        pct >= 70 ? 'bg-gradient-to-br from-emerald-400 to-emerald-600' : pct >= 40 ? 'bg-gradient-to-br from-amber-400 to-orange-500' : 'bg-gradient-to-br from-red-400 to-red-600'
-                      }`}>
-                        {pct}%
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+              {attempts.map(attempt => (
+                <Card key={attempt.id} className="border-0 shadow-sm">
+                  <CardContent className="p-4 flex items-center justify-between">
+                    <div>
+                      <p className="font-medium">{attempt.test?.title || 'Unknown Test'}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {new Date(attempt.startedAt).toLocaleDateString()} at {new Date(attempt.startedAt).toLocaleTimeString()}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      {attempt.completed ? (
+                        <>
+                          <p className={`text-lg font-bold ${
+                            attempt.totalQuestions > 0 && (attempt.score / attempt.totalQuestions) >= 0.7 ? 'text-emerald-600' :
+                            attempt.totalQuestions > 0 && (attempt.score / attempt.totalQuestions) >= 0.4 ? 'text-amber-600' : 'text-red-600'
+                          }`}>
+                            {attempt.score}/{attempt.totalQuestions}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {attempt.totalQuestions > 0 ? Math.round((attempt.score / attempt.totalQuestions) * 100) : 0}%
+                          </p>
+                        </>
+                      ) : (
+                        <Badge variant="outline">In Progress</Badge>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           )}
         </main>
@@ -1083,13 +1277,5 @@ export default function ChemTestApp() {
     );
   }
 
-  // Fallback
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-white to-emerald-50">
-      <div className="text-center">
-        <div className="w-10 h-10 border-4 border-violet-200 border-t-violet-500 rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-muted-foreground">Loading...</p>
-      </div>
-    </div>
-  );
+  return null;
 }

@@ -45,6 +45,7 @@ model Question {
   optionD   String
   optionE   String?
   correctAnswer String @default("A")
+  explanation   String?
   imageNumber   Int?
   orderNum      Int    @default(0)
   answers   AttemptAnswer[]
