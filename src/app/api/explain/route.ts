@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
+import { mistralChat } from '@/lib/mistral';
 import { NextRequest, NextResponse } from 'next/server';
-import ZAI from 'z-ai-web-dev-sdk';
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,9 +33,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ explanations: allQuestions });
     }
 
-    // Generate explanations using LLM
-    const zai = await ZAI.create();
-
+    // Generate explanations using Mistral
     // Build prompt with all questions
     const questionsText = questions.map((q, i) => {
       const options = [`A) ${q.optionA}`, `B) ${q.optionB}`, `C) ${q.optionC}`, `D) ${q.optionD}`];
@@ -43,7 +41,7 @@ export async function POST(request: NextRequest) {
       return `Q${i + 1}: ${q.text}\nOptions: ${options.join(', ')}\nCorrect: ${q.correctAnswer}`;
     }).join('\n\n');
 
-    const completion = await zai.chat.completions.create({
+    const explanationText = await mistralChat({
       messages: [
         {
           role: 'system',
@@ -57,8 +55,6 @@ export async function POST(request: NextRequest) {
       temperature: 0.3,
       max_tokens: 1000,
     });
-
-    const explanationText = completion.choices[0]?.message?.content || '';
 
     // Parse explanations from LLM response
     const explanations: Record<string, string> = {};

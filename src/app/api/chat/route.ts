@@ -1,6 +1,6 @@
 import { db } from '@/lib/db';
+import { mistralChat } from '@/lib/mistral';
 import { NextRequest, NextResponse } from 'next/server';
-import ZAI from 'z-ai-web-dev-sdk';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -12,13 +12,12 @@ const RETRY_DELAYS = [2000, 5000, 10000]; // 2s, 5s, 10s
 
 async function callAIWithRetry(conversationMessages: { role: 'system' | 'user' | 'assistant'; content: string }[], retries = MAX_RETRIES): Promise<string> {
   try {
-    const zai = await ZAI.create();
-    const completion = await zai.chat.completions.create({
+    const response = await mistralChat({
       messages: conversationMessages,
       temperature: 0.5,
       max_tokens: 800,
     });
-    return completion.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
+    return response || 'Sorry, I could not generate a response.';
   } catch (error: any) {
     const isRateLimit = error?.message?.includes('429') || error?.message?.includes('Too many requests') || error?.message?.includes('rate');
     if (isRateLimit && retries > 0) {
