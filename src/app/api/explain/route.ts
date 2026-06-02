@@ -36,9 +36,14 @@ export async function POST(request: NextRequest) {
     // Generate explanations using Mistral
     // Build prompt with all questions
     const questionsText = questions.map((q, i) => {
-      const options = [`A) ${q.optionA}`, `B) ${q.optionB}`, `C) ${q.optionC}`, `D) ${q.optionD}`];
-      if (q.optionE) options.push(`E) ${q.optionE}`);
-      return `Q${i + 1}: ${q.text}\nOptions: ${options.join(', ')}\nCorrect: ${q.correctAnswer}`;
+      const optionLabels = ['A', 'B', 'C', 'D', 'E'];
+      const options: string[] = [];
+      for (const label of optionLabels) {
+        const val = q[`option${label}` as keyof typeof q] as string | null;
+        if (val) options.push(`${label}) ${val}`);
+      }
+      const correctOptionText = q[`option${q.correctAnswer}` as keyof typeof q] as string | null;
+      return `Q${i + 1}: ${q.text}\nOptions: ${options.join(', ')}\nCorrect: ${q.correctAnswer}) ${correctOptionText || 'Unknown'}`;
     }).join('\n\n');
 
     const explanationText = await mistralChat({
