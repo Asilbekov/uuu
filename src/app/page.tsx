@@ -1206,17 +1206,17 @@ export default function ChemTestApp() {
                         const isCorrectOption = letter === q.correctAnswer;
                         const isSelected = letter === selected;
                         return (
-                          <div key={letter} className={`px-3 py-2 rounded-lg text-[15px] sm:text-sm flex items-center gap-2 ${
+                          <div key={letter} className={`px-3 py-2 rounded-lg text-[15px] sm:text-sm flex items-start gap-2 ${
                             isCorrectOption ? 'bg-emerald-50 text-emerald-700 font-medium' :
                             isSelected ? 'bg-red-50 text-red-700' : 'bg-muted/50'
                           }`}>
-                            <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                            <span className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                               isCorrectOption ? 'bg-emerald-500 text-white' :
                               isSelected ? 'bg-red-500 text-white' : 'bg-muted text-muted-foreground'
                             }`}>
                               {letter}
                             </span>
-                            <MathText text={optionText} />
+                            <span className="min-w-0 break-words"><MathText text={optionText} /></span>
                           </div>
                         );
                       })}
@@ -1467,20 +1467,20 @@ export default function ChemTestApp() {
                         }
 
                         return (
-                          <div key={letter} className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${optionClass}`}>
+                          <div key={letter} className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all ${optionClass}`}>
                             <RadioGroupItem value={letter} id={`q-${qId}-${letter}`} className="sr-only" />
-                            <Label htmlFor={`q-${qId}-${letter}`} className="flex items-center gap-2.5 cursor-pointer flex-1 min-w-0">
-                              <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                            <Label htmlFor={`q-${qId}-${letter}`} className="flex items-start gap-2.5 cursor-pointer flex-1 min-w-0">
+                              <span className={`mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                                 isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
                                 isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
                                 isSelectedOption ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
                               }`}>
                                 {letter}
                               </span>
-                              <span className="text-[15px] leading-relaxed min-w-0"><MathText text={optionText} /></span>
+                              <span className="text-[16px] sm:text-[15px] leading-relaxed min-w-0 break-words"><MathText text={optionText} /></span>
                             </Label>
-                            {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />}
-                            {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0" />}
+                            {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-1" />}
+                            {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-1" />}
                           </div>
                         );
                       })}

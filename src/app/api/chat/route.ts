@@ -23,14 +23,15 @@ const RETRY_DELAYS = [2000, 5000, 10000]; // 2s, 5s, 10s
  */
 function normalizeMathNotation(text: string): string {
   if (!text) return text;
-  return text
+  // Protect LaTeX row separators "\\" (pmatrix rows) BEFORE delimiter
+  // conversion, so "\\(" (rowsep + paren) is not mistaken for "\( ".
+  const ROWSEP = '\u0002';
+  let out = text.replace(/\\\\/g, ROWSEP);
+  out = out
     .replace(/\\\(/g, '$')
     .replace(/\\\)/g, '$')
-    .replace(/\\\[([\s\S]*?)\\\]/g, (_m, inner: string) => `$$${inner}$$`)
-    // Some models double-escape: \\( x \\)
-    .replace(/\\\\\(/g, '$')
-    .replace(/\\\\\)/g, '$')
-    .replace(/\\\\\[([\s\S]*?)\\\\\]/g, (_m, inner: string) => `$$${inner}$$`);
+    .replace(/\\\[([\s\S]*?)\\\]/g, (_m, inner: string) => `$$${inner}$$`);
+  return out.split(ROWSEP).join('\\\\');
 }
 
 async function callAIWithRetry(conversationMessages: { role: 'system' | 'user' | 'assistant'; content: string }[], retries = MAX_RETRIES): Promise<string> {

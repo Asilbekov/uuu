@@ -8,13 +8,15 @@ import { NextRequest, NextResponse } from 'next/server';
  */
 function normalizeMathNotation(text: string): string {
   if (!text) return text;
-  return text
+  // Protect LaTeX row separators "\\" (pmatrix rows) BEFORE delimiter
+  // conversion, so "\\(" (rowsep + paren) is not mistaken for "\( ".
+  const ROWSEP = '\u0002';
+  let out = text.replace(/\\\\/g, ROWSEP);
+  out = out
     .replace(/\\\(/g, '$')
     .replace(/\\\)/g, '$')
-    .replace(/\\\[([\s\S]*?)\\\]/g, (_m, inner: string) => `$$${inner}$$`)
-    .replace(/\\\\\(/g, '$')
-    .replace(/\\\\\)/g, '$')
-    .replace(/\\\\\[([\s\S]*?)\\\\\]/g, (_m, inner: string) => `$$${inner}$$`);
+    .replace(/\\\[([\s\S]*?)\\\]/g, (_m, inner: string) => `$$${inner}$$`);
+  return out.split(ROWSEP).join('\\\\');
 }
 
 export async function POST(request: NextRequest) {
