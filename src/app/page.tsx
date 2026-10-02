@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { api, setUser } from '@/lib/api';
+import MathText from '@/components/math-text';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -1181,7 +1182,7 @@ export default function ChemTestApp() {
                   <CardContent className="p-4">
                     <div className="flex items-start gap-2 mb-3">
                       {isCorrect ? <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /> : <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />}
-                      <p className="font-medium text-sm">{idx + 1}. {q.text}</p>
+                      <p className="font-medium text-sm">{idx + 1}. <MathText text={q.text} /></p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 ml-7">
                       {['A', 'B', 'C', 'D', 'E'].map(letter => {
@@ -1200,13 +1201,13 @@ export default function ChemTestApp() {
                             }`}>
                               {letter}
                             </span>
-                            {optionText}
+                            <MathText text={optionText} />
                           </div>
                         );
                       })}
                     </div>
                     {explanations[q.id || ''] && (
-                      <p className="text-xs text-muted-foreground mt-2 ml-7 italic">{explanations[q.id || '']}</p>
+                      <p className="text-xs text-muted-foreground mt-2 ml-7 italic"><MathText text={explanations[q.id || ''] || ''} /></p>
                     )}
                     <Button
                       variant="ghost"
@@ -1289,7 +1290,7 @@ export default function ChemTestApp() {
                                   ? 'bg-primary text-white rounded-tr-sm'
                                   : 'bg-muted rounded-tl-sm'
                               }`}>
-                                {msg.content}
+                                <MathText text={msg.content} />
                               </div>
                             </div>
                           ))}
@@ -1430,7 +1431,7 @@ export default function ChemTestApp() {
                       )
                     )}
                   </div>
-                  <p className="text-lg font-medium mt-2">{currentQ.text}</p>
+                  <p className="text-lg font-medium mt-2"><MathText text={currentQ.text} /></p>
                 </CardHeader>
                 <CardContent>
                   <RadioGroup
@@ -1470,7 +1471,7 @@ export default function ChemTestApp() {
                               }`}>
                                 {letter}
                               </span>
-                              <span className="text-sm">{optionText}</span>
+                              <span className="text-sm"><MathText text={optionText} /></span>
                             </Label>
                             {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />}
                             {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0" />}
@@ -1487,7 +1488,7 @@ export default function ChemTestApp() {
                         Correct answer: <span className="text-emerald-600">{currentQ.correctAnswer}</span>
                       </p>
                       {explanations[qId] && (
-                        <p className="text-xs text-muted-foreground mt-1 ml-7">{explanations[qId]}</p>
+                        <p className="text-xs text-muted-foreground mt-1 ml-7"><MathText text={explanations[qId]} /></p>
                       )}
                       {!chatOpen && (
                         <Button
@@ -1613,7 +1614,7 @@ export default function ChemTestApp() {
                                 ? 'bg-primary text-white rounded-tr-sm'
                                 : 'bg-muted rounded-tl-sm'
                             }`}>
-                              {msg.content}
+                              <MathText text={msg.content} />
                             </div>
                           </div>
                         ))}

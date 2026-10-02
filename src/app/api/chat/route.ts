@@ -15,7 +15,7 @@ async function callAIWithRetry(conversationMessages: { role: 'system' | 'user' |
     const response = await mistralChat({
       messages: conversationMessages,
       temperature: 0.5,
-      max_tokens: 800,
+      max_tokens: 1600,
     });
     return response || 'Sorry, I could not generate a response.';
   } catch (error: any) {
@@ -69,6 +69,8 @@ export async function POST(request: NextRequest) {
     const isCorrect = userAnswer === question.correctAnswer;
     const userOptionText = userAnswer ? question[`option${userAnswer}` as keyof typeof question] as string : 'No answer';
 
+    const LATEX_RULE = `FORMATTING RULE: Write ALL math, formulas, and equations using LaTeX wrapped in dollar signs: inline math like $x^2 + 1$, $\\frac{a}{b}$, $A^{-1}$, and display equations on their own line like $$\\int_0^1 x^2 dx = \\frac{1}{3}$$. Never write math as plain text (no "x^2", no "a/b" for fractions). Matrices use \\begin{pmatrix} ... \\end{pmatrix}. This is required because the interface renders LaTeX.`;
+
     let systemPrompt: string;
 
     if (userAnswer && !isCorrect) {
@@ -85,7 +87,9 @@ The student chose the WRONG answer. Explain:
 1. Why the student's answer (${userAnswer}) is incorrect - what misconception or mistake led them there
 2. Why the correct answer (${question.correctAnswer}) is the right choice - the key reasoning or fact
 
-Be clear, educational, and supportive. Use the same language as the question. If it's a calculation, show the steps. If it's a concept, explain the underlying principle. Keep your initial response concise (2-3 sentences for each point), but be ready to elaborate if the student asks follow-up questions.`;
+Be clear, educational, and supportive. Use the same language as the question. If it's a calculation, show the steps. If it's a concept, explain the underlying principle. Keep your initial response concise (2-3 sentences for each point), but be ready to elaborate if the student asks follow-up questions.
+
+${LATEX_RULE}`;
     } else if (userAnswer && isCorrect) {
       // User answered correctly - explain why it's correct
       systemPrompt = `You are an expert AI tutor helping a student understand a test question. The student answered CORRECTLY.
@@ -96,7 +100,9 @@ Correct Answer: ${question.correctAnswer}) ${question[`option${question.correctA
 Student's Answer: ${userAnswer}) ${userOptionText} (Correct!)
 Test Topic: ${question.test?.topic || 'General'}
 
-The student chose the CORRECT answer. Confirm they are right and briefly explain WHY this answer is correct. Reinforce the key concept or principle. Keep it concise (1-2 sentences), but be ready to elaborate on follow-up questions.`;
+The student chose the CORRECT answer. Confirm they are right and briefly explain WHY this answer is correct. Reinforce the key concept or principle. Keep it concise (1-2 sentences), but be ready to elaborate on follow-up questions.
+
+${LATEX_RULE}`;
     } else {
       // No answer yet - just explain the question context
       systemPrompt = `You are an expert AI tutor. The student is looking at this test question:
@@ -105,7 +111,9 @@ Question: ${question.text}
 Options: ${options.join(', ')}
 Test Topic: ${question.test?.topic || 'General'}
 
-Help the student understand the concepts behind this question. Do NOT reveal the correct answer directly. Instead, guide them to think through it. Be educational and supportive.`;
+Help the student understand the concepts behind this question. Do NOT reveal the correct answer directly. Instead, guide them to think through it. Be educational and supportive.
+
+${LATEX_RULE}`;
     }
 
     // Prepare the conversation for the LLM
