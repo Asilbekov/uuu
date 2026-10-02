@@ -20,7 +20,7 @@ export async function mistralChat(options: ChatCompletionOptions): Promise<strin
     messages,
     temperature = 0.5,
     max_tokens = 800,
-    model = process.env.MISTRAL_MODEL || 'ministral-8b-latest',
+    model = process.env.MISTRAL_MODEL || 'mistral-small-latest',
     responseFormat,
   } = options;
 

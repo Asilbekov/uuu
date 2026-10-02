@@ -183,6 +183,7 @@ export default function ChemTestApp() {
   const [chatLoading, setChatLoading] = useState(false);
   const [chatQuestionId, setChatQuestionId] = useState<string>('');
   const [chatUserAnswer, setChatUserAnswer] = useState<string>('');
+  const [chatQuestionObj, setChatQuestionObj] = useState<Question | null>(null);
   const chatEndRef = React.useRef<HTMLDivElement>(null);
 
   // Cover images state
@@ -486,37 +487,51 @@ export default function ChemTestApp() {
 
   const selectAnswer = (questionId: string, answer: string) => {
     setAnswers(prev => ({ ...prev, [questionId]: answer }));
-    // In practice mode, reveal the correct answer immediately
+    // In practice mode, reveal the correct answer immediately.
+    // NOTE: the AI tutor chat is ONLY opened manually via the
+    // "Ask AI Tutor about this question" button.
     if (practiceMode) {
       setRevealedAnswers(prev => ({ ...prev, [questionId]: true }));
-      // Find the current question to check if answer is wrong
-      const currentQ = shuffledQuestions.find(q => q.id === questionId);
-      if (currentQ && answer !== currentQ.correctAnswer) {
-        // Auto-open AI chat on wrong answer
-        openChat(questionId, answer);
-      }
     }
   };
 
-  const openChat = (questionId: string, userAnswer?: string) => {
-    // Only reset chat if it's a different question
-    if (chatQuestionId !== questionId) {
+  const buildQuestionContext = (q?: Question | null) => {
+    if (!q) return undefined;
+    const options: Record<string, string> = {};
+    for (const letter of ['A', 'B', 'C', 'D', 'E']) {
+      const val = q[`option${letter}` as keyof Question] as string | undefined | null;
+      if (val) options[letter] = val;
+    }
+    return {
+      text: q.text,
+      options,
+      correctAnswer: q.correctAnswer,
+      topic: currentTest?.topic || 'General',
+    };
+  };
+
+  const openChat = (questionId: string, userAnswer?: string, opts?: { force?: boolean }) => {
+    const q = shuffledQuestions.find(x => x.id === questionId) || null;
+    // Reset chat if it's a different question, or when explicitly forced
+    if (opts?.force || chatQuestionId !== questionId) {
       setChatMessages([]);
       setChatInput('');
       setChatQuestionId(questionId);
+      setChatQuestionObj(q);
       setChatUserAnswer(userAnswer || '');
       // Auto-send initial question to AI with a contextual message
       const initialMsg = userAnswer
         ? `I chose answer ${userAnswer}. Can you explain this question?`
         : 'Can you help me understand this question?';
-      sendChatMessage(questionId, [{ role: 'user', content: initialMsg }], userAnswer);
+      sendChatMessage(questionId, [{ role: 'user', content: initialMsg }], userAnswer, q);
     }
     setChatOpen(true);
   };
 
-  const sendChatMessage = async (questionId?: string, existingMessages?: { role: 'user' | 'assistant'; content: string }[], userAnswer?: string) => {
+  const sendChatMessage = async (questionId?: string, existingMessages?: { role: 'user' | 'assistant'; content: string }[], userAnswer?: string, question?: Question | null) => {
     const qId = questionId || chatQuestionId;
     const uAns = userAnswer !== undefined ? userAnswer : chatUserAnswer;
+    const qObj = question !== undefined ? question : (chatQuestionObj || shuffledQuestions.find(x => x.id === qId) || null);
 
     let newMsgs: { role: 'user' | 'assistant'; content: string }[];
 
@@ -536,7 +551,7 @@ export default function ChemTestApp() {
     setChatLoading(true);
 
     try {
-      const result = await api.chat(qId, newMsgs, uAns);
+      const result = await api.chat(qId, newMsgs, uAns, buildQuestionContext(qObj));
       if (result.response) {
         const assistantMsg = { role: 'assistant' as const, content: result.response };
         setChatMessages(prev => [...prev, assistantMsg]);
@@ -1213,17 +1228,7 @@ export default function ChemTestApp() {
                       variant="ghost"
                       size="sm"
                       className="mt-2 ml-7 text-primary hover:bg-[#FFE8DE] text-xs"
-                      onClick={() => {
-                        setChatMessages([]);
-                        setChatInput('');
-                        setChatQuestionId(q.id || '');
-                        setChatUserAnswer(selected);
-                        setChatOpen(true);
-                        const initialMsg = selected
-                          ? `I chose answer ${selected}. Can you explain this question?`
-                          : 'Can you help me understand this question?';
-                        sendChatMessage(q.id || '', [{ role: 'user', content: initialMsg }], selected);
-                      }}
+                      onClick={() => openChat(q.id || '', selected, { force: true })}
                     >
                       <Sparkles className="w-3 h-3 mr-1" />
                       Ask AI Tutor
@@ -1269,7 +1274,7 @@ export default function ChemTestApp() {
                               <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                                 <Bot className="w-3.5 h-3.5 text-white" />
                               </div>
-                              <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
+                              <div className="bg-[#F4F4F5] border border-black/10 rounded-2xl rounded-tl-sm px-3.5 py-3">
                                 <div className="flex items-center gap-1">
                                   <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                                   <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
@@ -1285,10 +1290,10 @@ export default function ChemTestApp() {
                                   <Bot className="w-3.5 h-3.5 text-white" />
                                 </div>
                               )}
-                              <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
+                              <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                                 msg.role === 'user'
                                   ? 'bg-primary text-white rounded-tr-sm'
-                                  : 'bg-muted rounded-tl-sm'
+                                  : 'bg-[#F4F4F5] border border-black/10 rounded-tl-sm'
                               }`}>
                                 <MathText text={msg.content} />
                               </div>
@@ -1299,7 +1304,7 @@ export default function ChemTestApp() {
                               <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                                 <Bot className="w-3.5 h-3.5 text-white" />
                               </div>
-                              <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
+                              <div className="bg-[#F4F4F5] border border-black/10 rounded-2xl rounded-tl-sm px-3.5 py-3">
                                 <div className="flex items-center gap-1">
                                   <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                                   <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
@@ -1400,6 +1405,7 @@ export default function ChemTestApp() {
                       setChatOpen(false);
                       setChatMessages([]);
                       setChatQuestionId('');
+                      setChatQuestionObj(null);
                     }
                   }}
                   className={`w-8 h-8 rounded-full text-xs font-bold transition-all flex items-center justify-center ${
@@ -1471,7 +1477,7 @@ export default function ChemTestApp() {
                               }`}>
                                 {letter}
                               </span>
-                              <span className="text-sm"><MathText text={optionText} /></span>
+                              <span className="text-sm leading-relaxed"><MathText text={optionText} /></span>
                             </Label>
                             {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />}
                             {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0" />}
@@ -1527,7 +1533,7 @@ export default function ChemTestApp() {
                   variant="outline"
                   onClick={() => {
                     setCurrentQuestionIdx(Math.max(0, currentQuestionIdx - 1));
-                    if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); }
+                    if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); }
                   }}
                   disabled={currentQuestionIdx === 0}
                 >
@@ -1546,7 +1552,7 @@ export default function ChemTestApp() {
                   <Button
                     onClick={() => {
                       setCurrentQuestionIdx(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1));
-                      if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); }
+                      if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); }
                     }}
                   >
                     Next <ArrowRight className="w-4 h-4 ml-1" />
@@ -1593,7 +1599,7 @@ export default function ChemTestApp() {
                             <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                               <Bot className="w-3.5 h-3.5 text-white" />
                             </div>
-                            <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
+                            <div className="bg-[#F4F4F5] border border-black/10 rounded-2xl rounded-tl-sm px-3.5 py-3">
                               <div className="flex items-center gap-1">
                                 <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                                 <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
@@ -1609,10 +1615,10 @@ export default function ChemTestApp() {
                                 <Bot className="w-3.5 h-3.5 text-white" />
                               </div>
                             )}
-                            <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
+                            <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                               msg.role === 'user'
                                 ? 'bg-primary text-white rounded-tr-sm'
-                                : 'bg-muted rounded-tl-sm'
+                                : 'bg-[#F4F4F5] border border-black/10 rounded-tl-sm'
                             }`}>
                               <MathText text={msg.content} />
                             </div>
@@ -1623,7 +1629,7 @@ export default function ChemTestApp() {
                             <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                               <Bot className="w-3.5 h-3.5 text-white" />
                             </div>
-                            <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
+                            <div className="bg-[#F4F4F5] border border-black/10 rounded-2xl rounded-tl-sm px-3.5 py-3">
                               <div className="flex items-center gap-1">
                                 <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                                 <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>

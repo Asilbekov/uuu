@@ -113,8 +113,10 @@ function renderStyled(text: string, keyPrefix: string, bold: boolean): React.Rea
 }
 
 function renderPlain(text: string, keyPrefix: string): React.ReactNode[] {
-  // Strip markdown headings at line starts
-  const cleaned = text.replace(/^[ \t]*#{1,6}[ \t]+/gm, '');
+  // Strip markdown headings at line starts + convert markdown bullets to •
+  const cleaned = text
+    .replace(/^[ \t]*#{1,6}[ \t]+/gm, '')
+    .replace(/^[ \t]*[-*][ \t]+/gm, '• ');
   const out: React.ReactNode[] = [];
   const boldParts = cleaned.split('**');
   boldParts.forEach((part, bi) => {
@@ -128,7 +130,16 @@ function renderPlain(text: string, keyPrefix: string): React.ReactNode[] {
 export function MathText({ text, className }: { text: string; className?: string }) {
   const nodes = useMemo(() => {
     if (!text) return null;
-    const protectedText0 = protectEscapedDollars(text);
+    let protectedText0 = protectEscapedDollars(text);
+    // Normalize alternate LaTeX delimiters some models emit:
+    // \(...\) -> $...$  and  \[...\] -> $$...$$
+    protectedText0 = protectedText0
+      .replace(/\\\(/g, '$')
+      .replace(/\\\)/g, '$')
+      .replace(/\\\[([\s\S]*?)\\\]/g, (_m, inner: string) => `$$${inner}$$`)
+      .replace(/\\\\\(/g, '$')
+      .replace(/\\\\\)/g, '$')
+      .replace(/\\\\\[([\s\S]*?)\\\\\]/g, (_m, inner: string) => `$$${inner}$$`);
     // Tolerate an unclosed $$ block (e.g. truncated AI answer): close it so the
     // completed parts still render instead of showing raw $$ markers.
     const displayCount = (protectedText0.match(/\$\$/g) || []).length;

@@ -2,6 +2,21 @@ import { db } from '@/lib/db';
 import { mistralChat } from '@/lib/mistral';
 import { NextRequest, NextResponse } from 'next/server';
 
+/**
+ * Normalize math delimiters coming from the LLM.
+ * Many models emit \( ... \) and \[ ... \] while the frontend renders $...$ / $$...$$.
+ */
+function normalizeMathNotation(text: string): string {
+  if (!text) return text;
+  return text
+    .replace(/\\\(/g, '$')
+    .replace(/\\\)/g, '$')
+    .replace(/\\\[([\s\S]*?)\\\]/g, (_m, inner: string) => `$$${inner}$$`)
+    .replace(/\\\\\(/g, '$')
+    .replace(/\\\\\)/g, '$')
+    .replace(/\\\\\[([\s\S]*?)\\\\\]/g, (_m, inner: string) => `$$${inner}$$`);
+}
+
 export async function POST(request: NextRequest) {
   try {
     const userId = request.headers.get('x-user-id');
@@ -50,7 +65,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: 'system',
-          content: 'You are a concise tutor. For each question, provide a very brief one-line explanation of why the correct answer is right. Keep it to ONE short sentence max. For math: show the key calculation step. For science: state the key fact or formula. Format: Q1: <explanation>, Q2: <explanation>, etc. Use the same language as the question. FORMATTING RULE: write all math/formulas in LaTeX wrapped in single dollar signs like $x^2$, $\\frac{a}{b}$, $A^{-1}$ — the interface renders LaTeX, never use plain-text notation like x^2.',
+          content: 'You are a concise tutor. For each question, provide a very brief one-line explanation of why the correct answer is right. Keep it to ONE short sentence max. For math: show the key calculation step. For science: state the key fact or formula. Format: Q1: <explanation>, Q2: <explanation>, etc. Use the same language as the question. FORMATTING RULES: write all math/formulas in LaTeX wrapped in single dollar signs like $x^2$, $\\frac{a}{b}$, $A^{-1}$ — the interface renders LaTeX, never use plain-text notation like x^2. NEVER use \\( \\) or \\[ \\] delimiters — only $...$.',
         },
         {
           role: 'user',
@@ -85,7 +100,7 @@ export async function POST(request: NextRequest) {
 
     // Save generated explanations to DB
     const updatePromises = Object.entries(explanations).map(([id, explanation]) =>
-      db.question.update({ where: { id }, data: { explanation } })
+      db.question.update({ where: { id }, data: { explanation: normalizeMathNotation(explanation) } })
     );
     await Promise.all(updatePromises);
 

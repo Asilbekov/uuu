@@ -73,8 +73,15 @@ export const api = {
     apiFetch('/explain', { method: 'POST', body: JSON.stringify({ questionIds }) }),
 
   // AI Chat
-  chat: (questionId: string, messages: { role: 'user' | 'assistant'; content: string }[], userAnswer?: string) =>
-    apiFetch('/chat', { method: 'POST', body: JSON.stringify({ questionId, messages, userAnswer }) }),
+  // questionContext carries the question EXACTLY as displayed to the student
+  // (options may have been shuffled client-side, so DB labels are not enough)
+  chat: (
+    questionId: string,
+    messages: { role: 'user' | 'assistant'; content: string }[],
+    userAnswer?: string,
+    questionContext?: { text: string; options: Record<string, string>; correctAnswer: string; topic: string }
+  ) =>
+    apiFetch('/chat', { method: 'POST', body: JSON.stringify({ questionId, messages, userAnswer, questionContext }) }),
 
   // Generate Cover Image
   generateCover: (testId: string) =>

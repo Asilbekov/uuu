@@ -157,3 +157,18 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--foreground);
 }
+
+/* KaTeX rendering polish (questions, options, chat, explanations) */
+.katex {
+  font-size: 1.06em;
+}
+.katex-display {
+  margin: 0.45em 0;
+  padding: 2px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+.katex-display > .katex {
+  white-space: nowrap;
+}
