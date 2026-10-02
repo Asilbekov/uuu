@@ -625,13 +625,13 @@ export default function ChemTestApp() {
   // AUTH PAGE
   if (effectivePage === 'auth') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-50 via-white to-emerald-50 p-4">
-        <Card className="w-full max-w-md shadow-xl border-0">
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <Card className="w-full max-w-md rounded-4xl border border-black shadow-lg bg-white">
           <CardHeader className="text-center pb-2">
-            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+            <div className="mx-auto w-16 h-16 bg-cta rounded-2xl flex items-center justify-center mb-4 shadow-lg">
               <FlaskConical className="w-8 h-8 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-emerald-600 bg-clip-text text-transparent">
+            <CardTitle className="text-2xl font-bold">
               ChemTest
             </CardTitle>
             <CardDescription>
@@ -654,7 +654,7 @@ export default function ChemTestApp() {
               <Input id="password" type="password" placeholder="Min 6 characters" value={password} onChange={e => setPassword(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleAuth()} />
             </div>
-            <Button className="w-full" onClick={handleAuth} disabled={loading}>
+            <Button className="w-full h-11 rounded-full text-base font-semibold" onClick={handleAuth} disabled={loading}>
               {loading ? 'Loading...' : authMode === 'login' ? 'Sign In' : 'Sign Up'}
             </Button>
             <div className="text-center text-sm text-muted-foreground">
@@ -675,15 +675,15 @@ export default function ChemTestApp() {
   if (effectivePage === 'dashboard') {
     const totalQuestions = tests.reduce((sum, t) => sum + (t._count?.questions || 0), 0);
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
+      <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-cta rounded-xl flex items-center justify-center">
                 <FlaskConical className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-violet-600 to-emerald-600 bg-clip-text text-transparent">ChemTest</h1>
+                <h1 className="text-xl font-bold">ChemTest</h1>
                 <p className="text-xs text-muted-foreground">Chemistry Test Platform</p>
               </div>
             </div>
@@ -692,7 +692,7 @@ export default function ChemTestApp() {
                 <p className="text-sm font-medium">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground">{effectiveUser?.email}</p>
               </div>
-              <Button variant="ghost" size="sm" onClick={handleLogout}>
+              <Button variant="ghost" size="sm" onClick={handleLogout} className="rounded-full border border-black hover:bg-muted">
                 <LogIn className="w-4 h-4 mr-1" /> Logout
               </Button>
             </div>
@@ -701,17 +701,17 @@ export default function ChemTestApp() {
 
         <main className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-wrap gap-3 mb-6">
-            <Button onClick={startCreateTest} className="bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700">
+            <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90">
               <Plus className="w-4 h-4 mr-2" /> Create New Test
             </Button>
 
-            <Button variant="outline" onClick={() => { api.getAttempts().then(d => setAttempts(d)).catch(() => {}); setPage('history'); }}>
+            <Button variant="outline" className="rounded-full border-black" onClick={() => { api.getAttempts().then(d => setAttempts(d)).catch(() => {}); setPage('history'); }}>
               <Clock className="w-4 h-4 mr-2" /> Test History
             </Button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-            <Card className="border-0 shadow-md bg-gradient-to-br from-violet-500 to-violet-600 text-white">
+            <Card className="rounded-4xl border border-black bg-[#FFF0D9]">
               <CardContent className="p-4 flex items-center gap-3">
                 <BookOpen className="w-10 h-10 opacity-80" />
                 <div>
@@ -720,7 +720,7 @@ export default function ChemTestApp() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border-0 shadow-md bg-gradient-to-br from-emerald-500 to-emerald-600 text-white">
+            <Card className="rounded-4xl border border-black bg-[#DFF3E8]">
               <CardContent className="p-4 flex items-center gap-3">
                 <Beaker className="w-10 h-10 opacity-80" />
                 <div>
@@ -729,7 +729,7 @@ export default function ChemTestApp() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="border-0 shadow-md bg-gradient-to-br from-amber-500 to-orange-500 text-white">
+            <Card className="rounded-4xl border border-black bg-[#FCE8F2]">
               <CardContent className="p-4 flex items-center gap-3">
                 <Trophy className="w-10 h-10 opacity-80" />
                 <div>
@@ -740,9 +740,9 @@ export default function ChemTestApp() {
             </Card>
           </div>
 
-          <h2 className="text-lg font-semibold mb-4">Available Tests</h2>
+          <h2 className="text-2xl font-bold mb-4">Available Tests</h2>
           {tests.length === 0 ? (
-            <Card className="border-dashed">
+            <Card className="rounded-4xl border-dashed border-black/30 bg-white">
               <CardContent className="py-12 text-center">
                 <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="text-lg font-medium mb-2">No tests yet</h3>
@@ -755,7 +755,7 @@ export default function ChemTestApp() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {tests.map(test => (
-                <Card key={test.id} className="border-0 shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+                <Card key={test.id} className="rounded-4xl border border-black bg-white hover:shadow-lg transition-shadow overflow-hidden">
                   {/* Cover Image */}
                   <div className="relative h-40 overflow-hidden">
                     {coverImages[test.id] ? (
@@ -765,18 +765,18 @@ export default function ChemTestApp() {
                         className="w-full h-full object-cover"
                       />
                     ) : generatingCovers[test.id] ? (
-                      <div className="w-full h-full bg-gradient-to-br from-violet-200 via-purple-100 to-emerald-200 flex flex-col items-center justify-center gap-2">
-                        <div className="w-8 h-8 border-3 border-violet-500 border-t-transparent rounded-full animate-spin" />
-                        <p className="text-xs text-violet-600 font-medium">Generating AI cover...</p>
+                      <div className="w-full h-full bg-[#FFF0D9] flex flex-col items-center justify-center gap-2">
+                        <div className="w-8 h-8 border-3 border-cta border-t-transparent rounded-full animate-spin" />
+                        <p className="text-xs text-cta font-medium">Generating AI cover...</p>
                       </div>
                     ) : (
                       <div className={`w-full h-full flex items-center justify-center ${
-                        test.topic === 'Physics' ? 'bg-gradient-to-br from-blue-400 via-indigo-500 to-purple-600' :
-                        test.topic === 'Chemistry' ? 'bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600' :
-                        test.topic === 'Mathematics' ? 'bg-gradient-to-br from-amber-400 via-orange-500 to-red-500' :
-                        'bg-gradient-to-br from-violet-400 via-purple-500 to-pink-500'
+                        test.topic === 'Physics' ? 'bg-[#E3EEFF]' :
+                        test.topic === 'Chemistry' ? 'bg-[#DFF3E8]' :
+                        test.topic === 'Mathematics' ? 'bg-[#FFF0D9]' :
+                        'bg-[#FCE8F2]'
                       }`}>
-                        <div className="text-center text-white/90">
+                        <div className="text-center text-cta">
                           <div className="text-3xl mb-1">
                             {test.topic === 'Physics' ? '⚛️' :
                              test.topic === 'Chemistry' ? '🧪' :
@@ -794,7 +794,7 @@ export default function ChemTestApp() {
                     )}
                     {/* Topic badge overlay */}
                     <div className="absolute top-2 left-2">
-                      <Badge variant="secondary" className="bg-white/90 text-violet-700 backdrop-blur-sm shadow-sm">{test.topic}</Badge>
+                      <Badge variant="secondary" className="bg-cta text-white border border-black rounded-full backdrop-blur-sm shadow-sm">{test.topic}</Badge>
                     </div>
                   </div>
                   <CardHeader className="pb-2 pt-3">
@@ -816,15 +816,15 @@ export default function ChemTestApp() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex gap-2 pt-0">
-                    <Button size="sm" className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700" onClick={() => openStartTest(test)}>
+                    <Button size="sm" className="flex-1 rounded-full bg-cta hover:bg-cta/90 text-white" onClick={() => openStartTest(test)}>
                       <Play className="w-3 h-3 mr-1" /> Take Test
                     </Button>
                     {test.creatorId === effectiveUser?.id && (
                       <>
-                        <Button size="sm" variant="outline" onClick={() => startEditTest(test)}>
+                        <Button size="sm" variant="outline" className="rounded-full border-black" onClick={() => startEditTest(test)}>
                           <Edit className="w-3 h-3" />
                         </Button>
-                        <Button size="sm" variant="outline" className="text-destructive hover:bg-destructive/10" onClick={() => setDeleteId(test.id)}>
+                        <Button size="sm" variant="outline" className="rounded-full border-black text-destructive hover:bg-destructive/10" onClick={() => setDeleteId(test.id)}>
                           <Trash2 className="w-3 h-3" />
                         </Button>
                       </>
@@ -855,16 +855,16 @@ export default function ChemTestApp() {
   // CREATE / EDIT TEST
   if (effectivePage === 'create-test' || effectivePage === 'edit-test') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
+      <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome}><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
+            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
             <h1 className="text-lg font-bold">{editingTestId ? 'Edit Test' : 'Create New Test'}</h1>
           </div>
         </header>
 
         <main className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-          <Card className="border-0 shadow-md">
+          <Card className="rounded-4xl border border-black bg-white">
             <CardHeader>
               <CardTitle className="text-base">Test Information</CardTitle>
             </CardHeader>
@@ -916,7 +916,7 @@ export default function ChemTestApp() {
             <ScrollArea className="max-h-[65vh]">
               <div className="space-y-4 pr-4">
                 {questions.map((q, idx) => (
-                  <Card key={idx} className="border-0 shadow-sm">
+                  <Card key={idx} className="rounded-3xl border border-black bg-white">
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between">
                         <Badge variant="secondary">Question {idx + 1}</Badge>
@@ -931,7 +931,7 @@ export default function ChemTestApp() {
                         {['A', 'B', 'C', 'D'].map(letter => (
                           <div key={letter} className="flex items-center gap-2">
                             <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                              q.correctAnswer === letter ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground'
+                              q.correctAnswer === letter ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'
                             }`}>
                               {letter}
                             </div>
@@ -946,7 +946,7 @@ export default function ChemTestApp() {
                               name={`correct-${idx}`}
                               checked={q.correctAnswer === letter}
                               onChange={() => updateQuestion(idx, 'correctAnswer', letter)}
-                              className="shrink-0 accent-emerald-500"
+                              className="shrink-0 accent-[#fe5933]"
                               title="Mark as correct"
                             />
                           </div>
@@ -960,8 +960,8 @@ export default function ChemTestApp() {
           </div>
 
           <div className="flex gap-3 pb-8">
-            <Button variant="outline" onClick={goHome} className="flex-1">Cancel</Button>
-            <Button onClick={handleSaveTest} disabled={loading} className="flex-1 bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600">
+            <Button variant="outline" onClick={goHome} className="flex-1 rounded-full border-black">Cancel</Button>
+            <Button onClick={handleSaveTest} disabled={loading} className="flex-1 rounded-full bg-primary hover:bg-primary/90">
               {loading ? 'Saving...' : editingTestId ? 'Update Test' : 'Create Test'}
             </Button>
           </div>
@@ -976,10 +976,10 @@ export default function ChemTestApp() {
     const quickCounts = [10, 15, 20, 25, 30, 40, 50].filter(c => c <= totalQ);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
+      <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome}><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
+            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
             <h1 className="text-lg font-bold">Start Test</h1>
           </div>
         </header>
@@ -987,7 +987,7 @@ export default function ChemTestApp() {
         <main className="max-w-2xl mx-auto px-4 py-8">
           <Card className="border-0 shadow-lg">
             <CardHeader className="text-center">
-              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+              <div className="mx-auto w-16 h-16 bg-cta rounded-2xl flex items-center justify-center mb-4 shadow-lg">
                 <ListChecks className="w-8 h-8 text-white" />
               </div>
               <CardTitle className="text-xl">{currentTest.title}</CardTitle>
@@ -996,11 +996,11 @@ export default function ChemTestApp() {
             <CardContent className="space-y-6">
               {/* Test Info */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-muted/50 rounded-xl p-4 text-center">
-                  <p className="text-2xl font-bold text-violet-600">{totalQ}</p>
+                <div className="rounded-2xl border border-black bg-white p-4 text-center">
+                  <p className="text-2xl font-bold text-primary">{totalQ}</p>
                   <p className="text-xs text-muted-foreground">Total Questions</p>
                 </div>
-                <div className="bg-muted/50 rounded-xl p-4 text-center">
+                <div className="rounded-2xl border border-black bg-white p-4 text-center">
                   <div className="flex justify-center gap-2">
                     {currentTest.randomizeQuestions && <Badge variant="outline" className="text-xs"><Shuffle className="w-3 h-3 mr-1" />Q</Badge>}
                     {currentTest.randomizeOptions && <Badge variant="outline" className="text-xs"><Shuffle className="w-3 h-3 mr-1" />A</Badge>}
@@ -1025,12 +1025,12 @@ export default function ChemTestApp() {
                     onClick={() => setPracticeMode(false)}
                     className={`p-4 rounded-xl border-2 transition-all text-left ${
                       !practiceMode
-                        ? 'border-violet-500 bg-violet-50 shadow-md'
+                        ? 'border-cta bg-[#FFF0D9] shadow-md'
                         : 'border-transparent bg-muted/50 hover:bg-muted'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <ListChecks className="w-5 h-5 text-violet-600" />
+                      <ListChecks className="w-5 h-5 text-cta" />
                       <span className="font-semibold text-sm">Exam Mode</span>
                     </div>
                     <p className="text-xs text-muted-foreground">See results at the end</p>
@@ -1039,12 +1039,12 @@ export default function ChemTestApp() {
                     onClick={() => setPracticeMode(true)}
                     className={`p-4 rounded-xl border-2 transition-all text-left ${
                       practiceMode
-                        ? 'border-emerald-500 bg-emerald-50 shadow-md'
+                        ? 'border-primary bg-[#FFE8DE] shadow-md'
                         : 'border-transparent bg-muted/50 hover:bg-muted'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <BookOpen className="w-5 h-5 text-emerald-600" />
+                      <BookOpen className="w-5 h-5 text-primary" />
                       <span className="font-semibold text-sm">Practice Mode</span>
                     </div>
                     <p className="text-xs text-muted-foreground">See correct answer right away</p>
@@ -1065,7 +1065,7 @@ export default function ChemTestApp() {
                 <div className="px-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-muted-foreground">1</span>
-                    <span className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-emerald-600 bg-clip-text text-transparent">{selectedQuestionCount}</span>
+                    <span className="text-2xl font-bold">{selectedQuestionCount}</span>
                     <span className="text-sm text-muted-foreground">{totalQ}</span>
                   </div>
                   <input
@@ -1074,7 +1074,7 @@ export default function ChemTestApp() {
                     max={totalQ}
                     value={selectedQuestionCount}
                     onChange={e => setSelectedQuestionCount(Number(e.target.value))}
-                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-violet-500"
+                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-[#fe5933]"
                   />
                 </div>
 
@@ -1084,7 +1084,7 @@ export default function ChemTestApp() {
                     variant={selectedQuestionCount === totalQ ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedQuestionCount(totalQ)}
-                    className={selectedQuestionCount === totalQ ? 'bg-gradient-to-r from-violet-500 to-emerald-500' : ''}
+                    className={selectedQuestionCount === totalQ ? 'bg-cta hover:bg-cta/90 text-white border border-cta' : ''}
                   >
                     All ({totalQ})
                   </Button>
@@ -1094,7 +1094,7 @@ export default function ChemTestApp() {
                       variant={selectedQuestionCount === count ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setSelectedQuestionCount(count)}
-                      className={selectedQuestionCount === count ? 'bg-gradient-to-r from-violet-500 to-emerald-500' : ''}
+                      className={selectedQuestionCount === count ? 'bg-cta hover:bg-cta/90 text-white border border-cta' : ''}
                     >
                       {count}
                     </Button>
@@ -1113,8 +1113,8 @@ export default function ChemTestApp() {
                 </div>
               </div>
 
-              <Button onClick={startTest} disabled={loading} className="w-full h-12 text-base bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600">
-                {loading ? 'Loading...' : <><Play className="w-5 h-5 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
+              <Button onClick={startTest} disabled={loading} className="w-full h-12 text-base rounded-full bg-cta hover:bg-cta/90 text-white">
+                {loading ? 'Loading...' : <><Play className="w-5 h-5 mr-2 text-cta-gold" /> Start {practiceMode ? 'Practice' : 'Test'} (<span className="bg-cta-gold text-black rounded-full px-2 py-0.5 text-xs font-bold">{selectedQuestionCount}</span> questions)</>}
               </Button>
             </CardContent>
           </Card>
@@ -1133,11 +1133,11 @@ export default function ChemTestApp() {
       const score = getScore();
       const pct = Math.round((score / shuffledQuestions.length) * 100);
       return (
-        <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
+        <div className="min-h-screen bg-background">
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Button variant="ghost" size="sm" onClick={goHome}><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
+                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
                 <h1 className="text-lg font-bold">Test Results</h1>
               </div>
               {!chatOpen && (
@@ -1156,11 +1156,11 @@ export default function ChemTestApp() {
           <main className="max-w-7xl mx-auto px-4 py-8">
             <div className={`flex gap-6 ${chatOpen ? 'flex-col lg:flex-row' : ''}`}>
               <div className="flex-1 min-w-0 space-y-6">
-            <Card className="border-0 shadow-lg overflow-hidden">
-              <div className={`h-2 ${pct >= 70 ? 'bg-gradient-to-r from-emerald-400 to-emerald-600' : pct >= 40 ? 'bg-gradient-to-r from-amber-400 to-orange-500' : 'bg-gradient-to-r from-red-400 to-red-600'}`} />
+            <Card className="rounded-4xl border border-black bg-white overflow-hidden">
+              <div className={`h-2 ${pct >= 70 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-red-500'}`} />
               <CardContent className="p-8 text-center">
                 <div className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold text-white ${
-                  pct >= 70 ? 'bg-gradient-to-br from-emerald-400 to-emerald-600' : pct >= 40 ? 'bg-gradient-to-br from-amber-400 to-orange-500' : 'bg-gradient-to-br from-red-400 to-red-600'
+                  pct >= 70 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-red-500'
                 }`}>
                   {pct}%
                 </div>
@@ -1177,7 +1177,7 @@ export default function ChemTestApp() {
               const selected = answers[q.id || ''] || '';
               const isCorrect = selected === q.correctAnswer;
               return (
-                <Card key={idx} className={`border-0 shadow-sm ${isCorrect ? 'ring-2 ring-emerald-200' : 'ring-2 ring-red-200'}`}>
+                <Card key={idx} className={`rounded-4xl border border-black bg-white ${isCorrect ? 'ring-2 ring-emerald-300' : 'ring-2 ring-red-300'}`}>
                   <CardContent className="p-4">
                     <div className="flex items-start gap-2 mb-3">
                       {isCorrect ? <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /> : <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />}
@@ -1211,7 +1211,7 @@ export default function ChemTestApp() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="mt-2 ml-7 text-violet-600 hover:text-violet-700 hover:bg-violet-50 text-xs"
+                      className="mt-2 ml-7 text-primary hover:bg-[#FFE8DE] text-xs"
                       onClick={() => {
                         setChatMessages([]);
                         setChatInput('');
@@ -1233,8 +1233,8 @@ export default function ChemTestApp() {
             })}
 
             <div className="flex gap-3 pb-8">
-              <Button variant="outline" onClick={goHome} className="flex-1">Back to Dashboard</Button>
-              <Button onClick={() => openStartTest(currentTest!)} className="flex-1 bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600">
+              <Button variant="outline" onClick={goHome} className="flex-1 rounded-full border-black">Back to Dashboard</Button>
+              <Button onClick={() => openStartTest(currentTest!)} className="flex-1 rounded-full bg-primary hover:bg-primary/90">
                 <RefreshCw className="w-4 h-4 mr-2" /> Retry Test
               </Button>
             </div>
@@ -1243,11 +1243,11 @@ export default function ChemTestApp() {
               {/* AI Chat Panel in Results */}
               {chatOpen && (
                 <div className="w-full lg:w-[420px] shrink-0">
-                  <Card className="border-0 shadow-lg flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
+                  <Card className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
                     <CardHeader className="pb-3 shrink-0">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                          <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">
                             <Bot className="w-4 h-4 text-white" />
                           </div>
                           <div>
@@ -1265,14 +1265,14 @@ export default function ChemTestApp() {
                         <div className="space-y-3 py-2">
                           {chatMessages.length === 0 && chatLoading && (
                             <div className="flex gap-2 items-start">
-                              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                              <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                                 <Bot className="w-3.5 h-3.5 text-white" />
                               </div>
                               <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
                                 <div className="flex items-center gap-1">
-                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                                 </div>
                               </div>
                             </div>
@@ -1280,13 +1280,13 @@ export default function ChemTestApp() {
                           {chatMessages.map((msg, idx) => (
                             <div key={idx} className={`flex gap-2 items-start ${msg.role === 'user' ? 'justify-end' : ''}`}>
                               {msg.role === 'assistant' && (
-                                <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                                <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                                   <Bot className="w-3.5 h-3.5 text-white" />
                                 </div>
                               )}
                               <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
                                 msg.role === 'user'
-                                  ? 'bg-violet-500 text-white rounded-tr-sm'
+                                  ? 'bg-primary text-white rounded-tr-sm'
                                   : 'bg-muted rounded-tl-sm'
                               }`}>
                                 {msg.content}
@@ -1295,14 +1295,14 @@ export default function ChemTestApp() {
                           ))}
                           {chatLoading && chatMessages.length > 0 && (
                             <div className="flex gap-2 items-start">
-                              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                              <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                                 <Bot className="w-3.5 h-3.5 text-white" />
                               </div>
                               <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
                                 <div className="flex items-center gap-1">
-                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                  <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                                 </div>
                               </div>
                             </div>
@@ -1330,7 +1330,7 @@ export default function ChemTestApp() {
                           size="sm"
                           onClick={() => sendChatMessage()}
                           disabled={chatLoading || !chatInput.trim()}
-                          className="bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600 shrink-0"
+                          className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
                         >
                           <Send className="w-4 h-4" />
                         </Button>
@@ -1350,14 +1350,14 @@ export default function ChemTestApp() {
     const isRevealed = practiceMode && revealedAnswers[qId];
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
+      <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <Button variant="ghost" size="sm" onClick={goHome}><Home className="w-4 h-4" /></Button>
                 <span className="text-sm font-medium">{currentTest?.title}</span>
-                {practiceMode && <Badge variant="outline" className="text-xs bg-emerald-50 text-emerald-700 border-emerald-200">Practice Mode</Badge>}
+                {practiceMode && <Badge variant="outline" className="text-xs rounded-full bg-[#FFE8DE] text-primary border-primary/40">Practice Mode</Badge>}
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-sm text-muted-foreground">{answeredCount}/{shuffledQuestions.length} answered</span>
@@ -1402,10 +1402,10 @@ export default function ChemTestApp() {
                     }
                   }}
                   className={`w-8 h-8 rounded-full text-xs font-bold transition-all flex items-center justify-center ${
-                    isCurrent ? 'ring-2 ring-violet-500 ring-offset-2' :
+                    isCurrent ? 'ring-2 ring-cta ring-offset-2' :
                     isCorrectAnswer ? 'bg-emerald-500 text-white' :
                     isWrongAnswer ? 'bg-red-500 text-white' :
-                    isAnswered ? 'bg-violet-100 text-violet-700' : 'bg-muted text-muted-foreground'
+                    isAnswered ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
                   }`}
                 >
                   {idx + 1}
@@ -1418,15 +1418,15 @@ export default function ChemTestApp() {
           <div className={`flex gap-6 ${chatOpen ? 'flex-col lg:flex-row' : ''}`}>
             {/* Current Question */}
             <div className={`flex-1 min-w-0`}>
-              <Card className="border-0 shadow-lg mb-6">
+              <Card className="rounded-4xl border border-black bg-white shadow-lg mb-6">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <Badge variant="secondary" className="text-sm">Question {currentQuestionIdx + 1} of {shuffledQuestions.length}</Badge>
+                    <Badge variant="secondary" className="text-sm rounded-full">Question {currentQuestionIdx + 1} of {shuffledQuestions.length}</Badge>
                     {practiceMode && isRevealed && (
                       answers[qId] === currentQ.correctAnswer ? (
-                        <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200"><CheckCircle2 className="w-3 h-3 mr-1" /> Correct!</Badge>
+                        <Badge className="rounded-full bg-emerald-100 text-emerald-700 border-emerald-200"><CheckCircle2 className="w-3 h-3 mr-1" /> Correct!</Badge>
                       ) : (
-                        <Badge className="bg-red-100 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> Wrong</Badge>
+                        <Badge className="rounded-full bg-red-100 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> Wrong</Badge>
                       )
                     )}
                   </div>
@@ -1446,7 +1446,7 @@ export default function ChemTestApp() {
                         const isCorrectOption = letter === currentQ.correctAnswer;
                         const isSelectedOption = letter === answers[qId];
 
-                        let optionClass = 'border hover:border-violet-300 hover:bg-violet-50/50';
+                        let optionClass = 'border-black/15 hover:border-black hover:bg-[#FFF0D9]/40';
                         if (isRevealedOption) {
                           if (isCorrectOption) {
                             optionClass = 'border-emerald-500 bg-emerald-50';
@@ -1456,7 +1456,7 @@ export default function ChemTestApp() {
                             optionClass = 'border-muted opacity-60';
                           }
                         } else if (isSelectedOption) {
-                          optionClass = 'border-violet-500 bg-violet-50';
+                          optionClass = 'border-cta bg-[#FFF0D9]';
                         }
 
                         return (
@@ -1466,7 +1466,7 @@ export default function ChemTestApp() {
                               <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                                 isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
                                 isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
-                                isSelectedOption ? 'bg-violet-500 text-white' : 'bg-muted text-muted-foreground'
+                                isSelectedOption ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
                               }`}>
                                 {letter}
                               </span>
@@ -1493,7 +1493,7 @@ export default function ChemTestApp() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="mt-2 text-violet-600 hover:text-violet-700 hover:bg-violet-50"
+                          className="mt-2 text-primary hover:bg-[#FFE8DE]"
                           onClick={() => openChat(qId, answers[qId])}
                         >
                           <Sparkles className="w-3.5 h-3.5 mr-1.5" />
@@ -1509,7 +1509,7 @@ export default function ChemTestApp() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="w-full border-violet-200 text-violet-600 hover:bg-violet-50 hover:text-violet-700"
+                        className="w-full rounded-full border-black text-foreground hover:bg-[#FFF0D9]"
                         onClick={() => openChat(qId, answers[qId])}
                       >
                         <MessageSquare className="w-4 h-4 mr-2" />
@@ -1537,7 +1537,7 @@ export default function ChemTestApp() {
                   <Button
                     onClick={submitTest}
                     disabled={loading || answeredCount < shuffledQuestions.length}
-                    className="bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600"
+                    className="rounded-full bg-primary hover:bg-primary/90"
                   >
                     {loading ? 'Submitting...' : 'Submit Test'}
                   </Button>
@@ -1561,11 +1561,11 @@ export default function ChemTestApp() {
             {/* AI Chat Panel */}
             {chatOpen && (
               <div className="w-full lg:w-[420px] shrink-0">
-                <Card className="border-0 shadow-lg flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
+                <Card className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
                   <CardHeader className="pb-3 shrink-0">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                        <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">
                           <Bot className="w-4 h-4 text-white" />
                         </div>
                         <div>
@@ -1589,14 +1589,14 @@ export default function ChemTestApp() {
                       <div className="space-y-3 py-2">
                         {chatMessages.length === 0 && chatLoading && (
                           <div className="flex gap-2 items-start">
-                            <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                            <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                               <Bot className="w-3.5 h-3.5 text-white" />
                             </div>
                             <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
                               <div className="flex items-center gap-1">
-                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                               </div>
                             </div>
                           </div>
@@ -1604,13 +1604,13 @@ export default function ChemTestApp() {
                         {chatMessages.map((msg, idx) => (
                           <div key={idx} className={`flex gap-2 items-start ${msg.role === 'user' ? 'justify-end' : ''}`}>
                             {msg.role === 'assistant' && (
-                              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                              <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                                 <Bot className="w-3.5 h-3.5 text-white" />
                               </div>
                             )}
                             <div className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm ${
                               msg.role === 'user'
-                                ? 'bg-violet-500 text-white rounded-tr-sm'
+                                ? 'bg-primary text-white rounded-tr-sm'
                                 : 'bg-muted rounded-tl-sm'
                             }`}>
                               {msg.content}
@@ -1619,14 +1619,14 @@ export default function ChemTestApp() {
                         ))}
                         {chatLoading && chatMessages.length > 0 && (
                           <div className="flex gap-2 items-start">
-                            <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                            <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
                               <Bot className="w-3.5 h-3.5 text-white" />
                             </div>
                             <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2 text-sm">
                               <div className="flex items-center gap-1">
-                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                <div className="w-1.5 h-1.5 bg-violet-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                               </div>
                             </div>
                           </div>
@@ -1654,7 +1654,7 @@ export default function ChemTestApp() {
                         size="sm"
                         onClick={() => sendChatMessage()}
                         disabled={chatLoading || !chatInput.trim()}
-                        className="bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600 shrink-0"
+                        className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
                       >
                         <Send className="w-4 h-4" />
                       </Button>
@@ -1672,17 +1672,17 @@ export default function ChemTestApp() {
   // HISTORY
   if (effectivePage === 'history') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-emerald-50">
+      <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome}><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
+            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
             <h1 className="text-lg font-bold">Test History</h1>
           </div>
         </header>
 
         <main className="max-w-4xl mx-auto px-4 py-6">
           {attempts.length === 0 ? (
-            <Card className="border-dashed">
+            <Card className="rounded-4xl border-dashed border-black/30 bg-white">
               <CardContent className="py-12 text-center">
                 <Clock className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="text-lg font-medium mb-2">No attempts yet</h3>
@@ -1693,7 +1693,7 @@ export default function ChemTestApp() {
           ) : (
             <div className="space-y-3">
               {attempts.map(attempt => (
-                <Card key={attempt.id} className="border-0 shadow-sm">
+                <Card key={attempt.id} className="rounded-4xl border border-black bg-white">
                   <CardContent className="p-4 flex items-center justify-between">
                     <div>
                       <p className="font-medium">{attempt.test?.title || 'Unknown Test'}</p>
