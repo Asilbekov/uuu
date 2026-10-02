@@ -1206,7 +1206,7 @@ export default function ChemTestApp() {
                         const isCorrectOption = letter === q.correctAnswer;
                         const isSelected = letter === selected;
                         return (
-                          <div key={letter} className={`px-3 py-2 rounded-lg text-sm flex items-center gap-2 ${
+                          <div key={letter} className={`px-3 py-2 rounded-lg text-[15px] sm:text-sm flex items-center gap-2 ${
                             isCorrectOption ? 'bg-emerald-50 text-emerald-700 font-medium' :
                             isSelected ? 'bg-red-50 text-red-700' : 'bg-muted/50'
                           }`}>
@@ -1359,14 +1359,14 @@ export default function ChemTestApp() {
       <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="sm" onClick={goHome}><Home className="w-4 h-4" /></Button>
-                <span className="text-sm font-medium">{currentTest?.title}</span>
-                {practiceMode && <Badge variant="outline" className="text-xs rounded-full bg-[#FFE8DE] text-primary border-primary/40">Practice Mode</Badge>}
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2 min-w-0 flex-1">
+                <Button variant="ghost" size="sm" onClick={goHome} className="shrink-0"><Home className="w-4 h-4" /></Button>
+                <span className="text-sm font-medium line-clamp-2 leading-snug min-w-0">{currentTest?.title}</span>
+                {practiceMode && <Badge variant="outline" className="text-xs rounded-full bg-[#FFE8DE] text-primary border-primary/40 shrink-0">Practice Mode</Badge>}
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-muted-foreground">{answeredCount}/{shuffledQuestions.length} answered</span>
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="text-sm text-muted-foreground hidden sm:inline">{answeredCount}/{shuffledQuestions.length} answered</span>
                 {!chatOpen && (
                   <Button
                     variant="outline"
@@ -1468,8 +1468,8 @@ export default function ChemTestApp() {
 
                         return (
                           <div key={letter} className={`flex items-center gap-3 p-3 rounded-xl border-2 transition-all ${optionClass}`}>
-                            <RadioGroupItem value={letter} id={`q-${qId}-${letter}`} />
-                            <Label htmlFor={`q-${qId}-${letter}`} className="flex items-center gap-2 cursor-pointer flex-1">
+                            <RadioGroupItem value={letter} id={`q-${qId}-${letter}`} className="sr-only" />
+                            <Label htmlFor={`q-${qId}-${letter}`} className="flex items-center gap-2.5 cursor-pointer flex-1 min-w-0">
                               <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                                 isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
                                 isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
@@ -1477,7 +1477,7 @@ export default function ChemTestApp() {
                               }`}>
                                 {letter}
                               </span>
-                              <span className="text-sm leading-relaxed"><MathText text={optionText} /></span>
+                              <span className="text-[15px] leading-relaxed min-w-0"><MathText text={optionText} /></span>
                             </Label>
                             {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />}
                             {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0" />}
