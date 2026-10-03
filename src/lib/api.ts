@@ -83,6 +83,14 @@ export const api = {
   ) =>
     apiFetch('/chat', { method: 'POST', body: JSON.stringify({ questionId, messages, userAnswer, questionContext }) }),
 
+  // Attachments (files attached to a test)
+  getAttachments: (testId: string) => apiFetch(`/tests/${testId}/attachments`),
+  addAttachment: (testId: string, data: { title: string; type: string; url: string; size?: number | null }) =>
+    apiFetch(`/tests/${testId}/attachments`, { method: 'POST', body: JSON.stringify(data) }),
+  updateAttachment: (id: string, data: { title?: string; type?: string; url?: string; orderNum?: number }) =>
+    apiFetch(`/attachments/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteAttachment: (id: string) => apiFetch(`/attachments/${id}`, { method: 'DELETE' }),
+
   // Generate Cover Image
   generateCover: (testId: string) =>
     apiFetch('/generate-cover', { method: 'POST', body: JSON.stringify({ testId }) }),

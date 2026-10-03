@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
       where,
       include: {
         creator: { select: { id: true, name: true, email: true } },
-        _count: { select: { questions: true, attempts: true } },
+        _count: { select: { questions: true, attempts: true, attachments: true } },
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions } = body;
+    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments } = body;
 
     if (!title) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
@@ -79,9 +79,21 @@ export async function POST(request: NextRequest) {
             orderNum: index,
           })),
         },
+        ...(Array.isArray(attachments) && attachments.length > 0 && {
+          attachments: {
+            create: attachments.map((a: any, index: number) => ({
+              title: a.title || 'Attachment',
+              type: a.type || 'link',
+              url: a.url,
+              size: a.size ?? null,
+              orderNum: a.orderNum ?? index,
+            })),
+          },
+        }),
       },
       include: {
         questions: true,
+        attachments: { orderBy: { orderNum: 'asc' } },
         creator: { select: { id: true, name: true } },
       },
     });

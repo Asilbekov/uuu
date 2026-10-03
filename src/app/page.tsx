@@ -25,6 +25,7 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
+import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel, PdfViewerModal } from '@/components/attachments';
 import {
   Beaker,
   LogIn,
@@ -52,6 +53,7 @@ import {
   X,
   Bot,
   Sparkles,
+  Paperclip,
 } from 'lucide-react';
 
 // Types
@@ -70,6 +72,16 @@ interface Question {
   orderNum?: number;
 }
 
+interface Attachment {
+  id: string;
+  testId: string;
+  title: string;
+  type: 'audio' | 'video' | 'pdf' | 'image' | 'link';
+  url: string;
+  size?: number | null;
+  orderNum: number;
+}
+
 interface Test {
   id: string;
   title: string;
@@ -82,7 +94,8 @@ interface Test {
   randomizeOptions: boolean;
   hasCoverImage?: boolean;
   questions: Question[];
-  _count?: { questions: number; attempts: number };
+  attachments?: Attachment[];
+  _count?: { questions: number; attempts: number; attachments?: number };
   createdAt: string;
 }
 
@@ -164,6 +177,9 @@ export default function ChemTestApp() {
   ]);
   const [editingTestId, setEditingTestId] = useState<string | null>(null);
 
+  // Attachments editor state (create / edit test)
+  const [formAttachments, setFormAttachments] = useState<AttachmentItem[]>([]);
+
   // Test taking state
   const [currentAttempt, setCurrentAttempt] = useState<Attempt | null>(null);
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
@@ -185,6 +201,9 @@ export default function ChemTestApp() {
   const [chatUserAnswer, setChatUserAnswer] = useState<string>('');
   const [chatQuestionObj, setChatQuestionObj] = useState<Question | null>(null);
   const chatEndRef = React.useRef<HTMLDivElement>(null);
+
+  // Attached files panel (take test)
+  const [filesOpen, setFilesOpen] = useState(false);
 
   // Cover images state
   const [coverImages, setCoverImages] = useState<Record<string, string>>({});
@@ -322,6 +341,7 @@ export default function ChemTestApp() {
     setRandomizeQ(true);
     setRandomizeO(true);
     setQuestions([{ text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' }]);
+    setFormAttachments([]);
     setEditingTestId(null);
   };
 
@@ -349,6 +369,14 @@ export default function ChemTestApp() {
         optionE: q.optionE,
         correctAnswer: q.correctAnswer,
         id: q.id,
+      })));
+      setFormAttachments((fullTest.attachments || []).map(a => ({
+        id: a.id,
+        title: a.title,
+        type: a.type,
+        url: a.url,
+        size: a.size ?? null,
+        orderNum: a.orderNum,
       })));
       setEditingTestId(fullTest.id);
       setPage('edit-test');
@@ -385,6 +413,13 @@ export default function ChemTestApp() {
           optionD: q.optionD,
           optionE: q.optionE || null,
           correctAnswer: q.correctAnswer,
+          orderNum: i,
+        })),
+        attachments: formAttachments.map((a, i) => ({
+          title: a.title,
+          type: a.type,
+          url: a.url,
+          size: a.size ?? null,
           orderNum: i,
         })),
       };
@@ -425,6 +460,7 @@ export default function ChemTestApp() {
       const totalQ = fullTest.questions.length;
       setSelectedQuestionCount(totalQ);
       setPracticeMode(false);
+      setFilesOpen(false);
       setPage('start-test');
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
@@ -457,6 +493,7 @@ export default function ChemTestApp() {
       setShowResult(false);
       setRevealedAnswers({});
       setExplanations({});
+      setFilesOpen(false);
       setPage('take-test');
 
       // If practice mode, pre-fetch explanations
@@ -916,6 +953,22 @@ export default function ChemTestApp() {
             </CardContent>
           </Card>
 
+          <Card className="rounded-4xl border border-black bg-white">
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <Paperclip className="w-4 h-4" /> Attached Files ({formAttachments.length})
+              </CardTitle>
+              <CardDescription>
+                Audio, video, PDF or links students can open while taking this test.
+                Students see them in the &quot;Attached Files&quot; tab — audio and video play
+                right inside the test; large files are best added by link.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <AttachmentsEditor items={formAttachments} onChange={setFormAttachments} />
+            </CardContent>
+          </Card>
+
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold">Questions ({questions.length})</h2>
@@ -1027,6 +1080,21 @@ export default function ChemTestApp() {
                   <p className="text-xs text-muted-foreground mt-1">Randomization</p>
                 </div>
               </div>
+
+              <Separator />
+
+              {/* Attached files preview */}
+              {(currentTest.attachments?.length || 0) > 0 && (
+                <div className="rounded-2xl border border-black bg-white p-4">
+                  <h3 className="font-semibold text-sm flex items-center gap-1.5 mb-1">
+                    <Paperclip className="w-4 h-4" /> Attached Files ({currentTest.attachments!.length})
+                  </h3>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Audio, video and study files for this test — also available during the test via the up arrow at the bottom.
+                  </p>
+                  <AttachmentsList items={currentTest.attachments as AttachmentItem[]} />
+                </div>
+              )}
 
               <Separator />
 
@@ -1347,6 +1415,12 @@ export default function ChemTestApp() {
               )}
             </div>
           </main>
+          {/* Attached files bottom sheet (mobile) — results */}
+          <AttachmentsBottomSheet
+            items={(currentTest?.attachments || []) as AttachmentItem[]}
+            open={filesOpen}
+            onOpenChange={setFilesOpen}
+          />
         </div>
       );
     }
@@ -1365,13 +1439,25 @@ export default function ChemTestApp() {
                 <span className="text-sm font-medium line-clamp-2 leading-snug min-w-0">{currentTest?.title}</span>
                 {practiceMode && <Badge variant="outline" className="text-xs rounded-full bg-[#FFE8DE] text-primary border-primary/40 shrink-0">Practice Mode</Badge>}
               </div>
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center gap-2 shrink-0">
                 <span className="text-sm text-muted-foreground hidden sm:inline">{answeredCount}/{shuffledQuestions.length} answered</span>
+                {(currentTest?.attachments?.length || 0) > 0 && (
+                  <Button
+                    variant={filesOpen ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next && chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); } }}
+                    className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                  >
+                    <Paperclip className="w-4 h-4" />
+                    <span className="hidden sm:inline">Files ({currentTest!.attachments!.length})</span>
+                    <span className="sm:hidden">{currentTest!.attachments!.length}</span>
+                  </Button>
+                )}
                 {!chatOpen && (
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => openChat(qId, answers[qId])}
+                    onClick={() => { setChatOpen(true); setFilesOpen(false); openChat(qId, answers[qId]); }}
                     className="gap-1.5"
                   >
                     <MessageSquare className="w-4 h-4" />
@@ -1421,8 +1507,8 @@ export default function ChemTestApp() {
             })}
           </div>
 
-          {/* Main content: Question + Chat side by side */}
-          <div className={`flex gap-6 ${chatOpen ? 'flex-col lg:flex-row' : ''}`}>
+          {/* Main content: Question + Chat/Files side by side */}
+          <div className={`flex gap-6 ${chatOpen || filesOpen ? 'flex-col lg:flex-row' : ''}`}>
             {/* Current Question */}
             <div className={`flex-1 min-w-0`}>
               <Card className="rounded-4xl border border-black bg-white shadow-lg mb-6">
@@ -1670,8 +1756,25 @@ export default function ChemTestApp() {
                 </Card>
               </div>
             )}
+
+            {/* Attached files side panel (desktop) */}
+            {filesOpen && !chatOpen && (
+              <div className="hidden lg:block">
+                <AttachmentsSidePanel
+                  items={(currentTest?.attachments || []) as AttachmentItem[]}
+                  onClose={() => setFilesOpen(false)}
+                />
+              </div>
+            )}
           </div>
         </main>
+
+        {/* Attached files: mobile bottom sheet with up-arrow */}
+        <AttachmentsBottomSheet
+          items={(currentTest?.attachments || []) as AttachmentItem[]}
+          open={filesOpen}
+          onOpenChange={setFilesOpen}
+        />
       </div>
     );
   }

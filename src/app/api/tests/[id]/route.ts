@@ -12,6 +12,7 @@ export async function GET(
       include: {
         creator: { select: { id: true, name: true, email: true } },
         questions: { orderBy: { orderNum: 'asc' } },
+        attachments: { orderBy: { orderNum: 'asc' } },
         _count: { select: { attempts: true } },
       },
     });
@@ -47,7 +48,24 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions } = body;
+    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments } = body;
+
+    // Replace attachments if provided (full list from the editor)
+    if (Array.isArray(attachments)) {
+      await db.attachment.deleteMany({ where: { testId: id } });
+      if (attachments.length > 0) {
+        await db.attachment.createMany({
+          data: attachments.map((a: any, index: number) => ({
+            testId: id,
+            title: a.title || 'Attachment',
+            type: a.type || 'link',
+            url: a.url,
+            size: a.size ?? null,
+            orderNum: a.orderNum ?? index,
+          })),
+        });
+      }
+    }
 
     // Delete existing questions and recreate
     if (questions) {
@@ -81,6 +99,7 @@ export async function PUT(
       },
       include: {
         questions: { orderBy: { orderNum: 'asc' } },
+        attachments: { orderBy: { orderNum: 'asc' } },
         creator: { select: { id: true, name: true } },
       },
     });
