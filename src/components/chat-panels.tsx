@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Bot, ChevronDown, Send, Users, X } from 'lucide-react';
 import MathText from '@/components/math-text';
+import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
 
 /**
  * Chat panels (AI Tutor + per-test group chat).
@@ -66,6 +67,7 @@ function MobileChatSheet({
   subtitle,
   body,
   footer,
+  switcher,
 }: {
   onClose: () => void;
   icon: React.ReactNode;
@@ -73,26 +75,37 @@ function MobileChatSheet({
   subtitle?: React.ReactNode;
   body: React.ReactNode;
   footer: React.ReactNode;
+  switcher?: SheetSwitcher;
 }) {
   return (
     <div className="fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       <div className="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col h-[78vh] animate-in slide-in-from-bottom duration-200">
         <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
-          <div className="flex items-center gap-2 min-w-0">
-            <button
-              onClick={onClose}
-              aria-label="Close chat"
-              className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform shrink-0"
-            >
-              <ChevronDown className="w-5 h-5" />
-            </button>
-            <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center shrink-0">{icon}</div>
-            <div className="min-w-0">
-              <p className="font-semibold text-sm leading-tight">{title}</p>
-              {subtitle ? <p className="text-xs text-muted-foreground leading-tight truncate">{subtitle}</p> : null}
+          {switcher ? (
+            <SheetHeaderSwitcher
+              icon={icon}
+              title={title}
+              subtitle={subtitle}
+              options={switcher.options}
+              onSelect={switcher.onSelect}
+            />
+          ) : (
+            <div className="flex items-center gap-2 min-w-0">
+              <button
+                onClick={onClose}
+                aria-label="Close chat"
+                className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform shrink-0"
+              >
+                <ChevronDown className="w-5 h-5" />
+              </button>
+              <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center shrink-0">{icon}</div>
+              <div className="min-w-0">
+                <p className="font-semibold text-sm leading-tight">{title}</p>
+                {subtitle ? <p className="text-xs text-muted-foreground leading-tight truncate">{subtitle}</p> : null}
+              </div>
             </div>
-          </div>
+          )}
           <Button variant="ghost" size="sm" className="h-8 w-8 p-0 shrink-0" onClick={onClose}>
             <X className="w-4 h-4" />
           </Button>
@@ -123,6 +136,7 @@ export function AiChatPanel({
   onInputChange,
   onSend,
   endRef,
+  switcher,
 }: {
   open: boolean;
   onClose: () => void;
@@ -133,6 +147,7 @@ export function AiChatPanel({
   onInputChange: (v: string) => void;
   onSend: () => void;
   endRef: React.RefObject<HTMLDivElement | null>;
+  switcher?: SheetSwitcher;
 }) {
   const isDesktop = useIsDesktopLg();
   if (!open) return null;
@@ -224,6 +239,7 @@ export function AiChatPanel({
       subtitle={subtitle}
       body={body}
       footer={footer}
+      switcher={switcher}
     />
   );
 }
@@ -243,6 +259,7 @@ export function GroupChatPanel({
   onSend,
   sending,
   endRef,
+  switcher,
 }: {
   open: boolean;
   onClose: () => void;
@@ -254,6 +271,7 @@ export function GroupChatPanel({
   onSend: () => void;
   sending: boolean;
   endRef: React.RefObject<HTMLDivElement | null>;
+  switcher?: SheetSwitcher;
 }) {
   const isDesktop = useIsDesktopLg();
   if (!open) return null;
@@ -350,6 +368,7 @@ export function GroupChatPanel({
       subtitle={subtitle}
       body={body}
       footer={footer}
+      switcher={switcher}
     />
   );
 }

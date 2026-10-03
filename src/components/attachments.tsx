@@ -25,6 +25,7 @@ import {
   MonitorPlay,
 } from 'lucide-react';
 import { PdfCanvasViewer } from '@/components/pdf-canvas-viewer';
+import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
 
 export interface AttachmentItem {
   id?: string; // present only after the test is saved
@@ -236,10 +237,13 @@ export function AttachmentsBottomSheet({
   items,
   open: openProp,
   onOpenChange,
+  switcher,
 }: {
   items: AttachmentItem[];
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  /** When provided, the header arrow merges with the title and opens a window switcher */
+  switcher?: SheetSwitcher;
 }) {
   const [openState, setOpenState] = useState(false);
   const open = openProp !== undefined ? openProp : openState;
@@ -269,18 +273,27 @@ export function AttachmentsBottomSheet({
           <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
           <div className="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col max-h-[78vh] animate-in slide-in-from-bottom duration-200">
             <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setOpen(false)}
-                  aria-label="Close attached files"
-                  className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform"
-                >
-                  <ChevronDown className="w-5 h-5" />
-                </button>
-                <span className="font-semibold text-sm flex items-center gap-1.5">
-                  <Paperclip className="w-4 h-4" /> Attached Files ({items.length})
-                </span>
-              </div>
+              {switcher ? (
+                <SheetHeaderSwitcher
+                  icon={<Paperclip className="w-4 h-4" />}
+                  title={`Attached Files (${items.length})`}
+                  options={switcher.options}
+                  onSelect={switcher.onSelect}
+                />
+              ) : (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setOpen(false)}
+                    aria-label="Close attached files"
+                    className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform"
+                  >
+                    <ChevronDown className="w-5 h-5" />
+                  </button>
+                  <span className="font-semibold text-sm flex items-center gap-1.5">
+                    <Paperclip className="w-4 h-4" /> Attached Files ({items.length})
+                  </span>
+                </div>
+              )}
               <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => setOpen(false)}>
                 <X className="w-4 h-4" />
               </Button>

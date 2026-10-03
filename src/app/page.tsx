@@ -183,6 +183,8 @@ export default function ChemTestApp() {
     { text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' },
   ]);
   const [editingTestId, setEditingTestId] = useState<string | null>(null);
+  // Dashboard "Edit Test" mode: when ON, clicking a test opens it in the editor
+  const [editMode, setEditMode] = useState(false);
 
   // Attachments editor state (create / edit test)
   const [formAttachments, setFormAttachments] = useState<AttachmentItem[]>([]);
@@ -823,7 +825,19 @@ export default function ChemTestApp() {
             <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90">
               <Plus className="w-4 h-4 mr-2" /> Create New Test
             </Button>
+            <Button
+              variant="outline"
+              onClick={() => setEditMode(v => !v)}
+              className={`rounded-full ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
+            >
+              <Edit className="w-4 h-4 mr-2" /> Edit Test
+            </Button>
           </div>
+          {editMode && (
+            <p className="text-xs text-muted-foreground mb-4 -mt-3">
+              Edit mode is on — select a test below to edit it
+            </p>
+          )}
 
           {tests.length > 0 && (
             <h2 className="text-2xl font-bold mb-4">Available Tests</h2>
@@ -903,17 +917,25 @@ export default function ChemTestApp() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex gap-2 pt-0">
-                    <Button size="sm" className="flex-1 rounded-full bg-cta hover:bg-cta/90 text-white" onClick={() => openStartTest(test)}>
-                      <Play className="w-3 h-3 mr-1" /> Take Test
-                    </Button>
-                    {test.creatorId === effectiveUser?.id && (
+                    {editMode ? (
+                      <Button size="sm" className="flex-1 rounded-full bg-cta hover:bg-cta/90 text-white" onClick={() => startEditTest(test)}>
+                        <Edit className="w-3 h-3 mr-1" /> Edit Test
+                      </Button>
+                    ) : (
                       <>
-                        <Button size="sm" variant="outline" className="rounded-full border-black" onClick={() => startEditTest(test)}>
-                          <Edit className="w-3 h-3" />
+                        <Button size="sm" className="flex-1 rounded-full bg-cta hover:bg-cta/90 text-white" onClick={() => openStartTest(test)}>
+                          <Play className="w-3 h-3 mr-1" /> Take Test
                         </Button>
-                        <Button size="sm" variant="outline" className="rounded-full border-black text-destructive hover:bg-destructive/10" onClick={() => setDeleteId(test.id)}>
-                          <Trash2 className="w-3 h-3" />
-                        </Button>
+                        {test.creatorId === effectiveUser?.id && (
+                          <>
+                            <Button size="sm" variant="outline" className="rounded-full border-black" onClick={() => startEditTest(test)}>
+                              <Edit className="w-3 h-3" />
+                            </Button>
+                            <Button size="sm" variant="outline" className="rounded-full border-black text-destructive hover:bg-destructive/10" onClick={() => setDeleteId(test.id)}>
+                              <Trash2 className="w-3 h-3" />
+                            </Button>
+                          </>
+                        )}
                       </>
                     )}
                   </CardFooter>
@@ -1063,9 +1085,8 @@ export default function ChemTestApp() {
           </div>
 
           <div className="flex gap-3 pb-8">
-            <Button variant="outline" onClick={goHome} className="flex-1 rounded-full border-black">Cancel</Button>
             <Button onClick={handleSaveTest} disabled={loading} className="flex-1 rounded-full bg-primary hover:bg-primary/90">
-              {loading ? 'Saving...' : editingTestId ? 'Update Test' : 'Create Test'}
+              {loading ? 'Saving...' : editingTestId ? 'Save' : 'Create Test'}
             </Button>
           </div>
         </main>
@@ -1230,6 +1251,34 @@ export default function ChemTestApp() {
     if (showResult) {
       const score = getScore();
       const pct = Math.round((score / shuffledQuestions.length) * 100);
+
+      // Bottom-sheet window switcher (Attached Files / AI Tutor / Test Chat)
+      const sheetOptions = [
+        ...(currentTest?.attachments?.length ? [{
+          key: 'files',
+          label: `Attached Files (${currentTest.attachments.length})`,
+          icon: <Paperclip className="w-3.5 h-3.5" />,
+          active: filesOpen,
+        }] : []),
+        { key: 'ai', label: 'AI Tutor', icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
+        { key: 'group', label: 'Test Chat', icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
+      ];
+      const switchSheet = (key: string) => {
+        if (key === 'files') {
+          setFilesOpen(true);
+          setChatOpen(false);
+          setGroupOpen(false);
+        } else if (key === 'ai') {
+          setFilesOpen(false);
+          setGroupOpen(false);
+          openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']);
+        } else if (key === 'group') {
+          setFilesOpen(false);
+          setChatOpen(false);
+          setGroupOpen(true);
+        }
+      };
+      const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
       return (
         <div className="min-h-screen bg-background">
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
@@ -1238,29 +1287,27 @@ export default function ChemTestApp() {
                 <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
                 <h1 className="text-lg font-bold">Test Results</h1>
               </div>
-              {!chatOpen && !groupOpen && (
-                <>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => { setChatOpen(true); setFilesOpen(false); openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']); }}
-                    className="gap-1.5"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    AI Tutor
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={openGroupChat}
-                    className="gap-1.5"
-                    title="Chat with everyone who took this test"
-                  >
-                    <Users className="w-4 h-4" />
-                    Chat
-                  </Button>
-                </>
-              )}
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']); }}
+                  className="gap-1.5"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  AI Tutor
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={openGroupChat}
+                  className="gap-1.5"
+                  title="Chat with everyone who took this test"
+                >
+                  <Users className="w-4 h-4" />
+                  Chat
+                </Button>
+              </>
             </div>
           </header>
           <main className="max-w-7xl mx-auto px-4 py-8">
@@ -1352,6 +1399,7 @@ export default function ChemTestApp() {
                   onInputChange={setChatInput}
                   onSend={() => sendChatMessage()}
                   endRef={chatEndRef}
+                  switcher={sheetSwitcher}
                 />
               )}
 
@@ -1368,6 +1416,7 @@ export default function ChemTestApp() {
                   onSend={sendGroupMessage}
                   sending={groupSending}
                   endRef={groupEndRef}
+                  switcher={sheetSwitcher}
                 />
               )}
             </div>
@@ -1377,6 +1426,7 @@ export default function ChemTestApp() {
             items={(currentTest?.attachments || []) as AttachmentItem[]}
             open={filesOpen}
             onOpenChange={setFilesOpen}
+            switcher={sheetSwitcher}
           />
         </div>
       );
@@ -1385,6 +1435,34 @@ export default function ChemTestApp() {
     // Active test-taking UI
     const qId = currentQ.id || '';
     const isRevealed = practiceMode && revealedAnswers[qId];
+
+    // Bottom-sheet window switcher (Attached Files / AI Tutor / Test Chat)
+    const sheetOptions = [
+      ...(currentTest?.attachments?.length ? [{
+        key: 'files',
+        label: `Attached Files (${currentTest.attachments.length})`,
+        icon: <Paperclip className="w-3.5 h-3.5" />,
+        active: filesOpen,
+      }] : []),
+      { key: 'ai', label: 'AI Tutor', icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
+      { key: 'group', label: 'Test Chat', icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
+    ];
+    const switchSheet = (key: string) => {
+      if (key === 'files') {
+        setFilesOpen(true);
+        setChatOpen(false);
+        setGroupOpen(false);
+      } else if (key === 'ai') {
+        setFilesOpen(false);
+        setGroupOpen(false);
+        openChat(qId, answers[qId]);
+      } else if (key === 'group') {
+        setFilesOpen(false);
+        setChatOpen(false);
+        setGroupOpen(true);
+      }
+    };
+    const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
 
     return (
       <div className="min-h-screen bg-background">
@@ -1402,7 +1480,7 @@ export default function ChemTestApp() {
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next && chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); } }}
+                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); } } }}
                     className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   >
                     <Paperclip className="w-4 h-4" />
@@ -1410,29 +1488,27 @@ export default function ChemTestApp() {
                     <span className="sm:hidden">{currentTest!.attachments!.length}</span>
                   </Button>
                 )}
-                {!chatOpen && !groupOpen && (
-                  <>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => { setChatOpen(true); setFilesOpen(false); openChat(qId, answers[qId]); }}
-                      className="gap-1.5"
-                    >
-                      <MessageSquare className="w-4 h-4" />
-                      <span className="hidden sm:inline">AI Tutor</span>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={openGroupChat}
-                      className="gap-1.5"
-                      title="Chat with everyone taking this test"
-                    >
-                      <Users className="w-4 h-4" />
-                      <span className="hidden sm:inline">Chat</span>
-                    </Button>
-                  </>
-                )}
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); openChat(qId, answers[qId]); }}
+                    className="gap-1.5"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    <span className="hidden sm:inline">AI Tutor</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={openGroupChat}
+                    className="gap-1.5"
+                    title="Chat with everyone taking this test"
+                  >
+                    <Users className="w-4 h-4" />
+                    <span className="hidden sm:inline">Chat</span>
+                  </Button>
+                </>
               </div>
             </div>
             <Progress value={progressPct} className="h-2" />
@@ -1636,6 +1712,7 @@ export default function ChemTestApp() {
                 onInputChange={setChatInput}
                 onSend={() => sendChatMessage()}
                 endRef={chatEndRef}
+                switcher={sheetSwitcher}
               />
             )}
 
@@ -1652,6 +1729,7 @@ export default function ChemTestApp() {
                 onSend={sendGroupMessage}
                 sending={groupSending}
                 endRef={groupEndRef}
+                switcher={sheetSwitcher}
               />
             )}
 
@@ -1672,6 +1750,7 @@ export default function ChemTestApp() {
           items={(currentTest?.attachments || []) as AttachmentItem[]}
           open={filesOpen}
           onOpenChange={setFilesOpen}
+          switcher={sheetSwitcher}
         />
       </div>
     );
