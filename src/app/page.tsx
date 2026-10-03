@@ -298,13 +298,11 @@ export default function ChemTestApp() {
     }
   }, [page, user, mounted, hydratedUser]);
 
-  // Auto-scroll the question list to a newly added question (create/edit test pages)
-  const questionsViewportRef = React.useRef<HTMLDivElement | null>(null);
+  // Scroll the page down to the newly added question (questions scroll with the whole page)
   const prevQuestionCountRef = React.useRef(questions.length);
   useEffect(() => {
     if (questions.length > prevQuestionCountRef.current) {
-      const el = questionsViewportRef.current;
-      if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
     }
     prevQuestionCountRef.current = questions.length;
   }, [questions.length]);
@@ -1048,8 +1046,7 @@ export default function ChemTestApp() {
               </div>
             </div>
 
-            <div ref={questionsViewportRef} className="max-h-[65vh] overflow-y-auto overscroll-contain">
-              <div className="space-y-4 pr-4">
+            <div className="space-y-4">
                 {questions.map((q, idx) => (
                   <Card key={idx} className="rounded-3xl border border-black bg-white">
                     <CardHeader className="pb-2">
@@ -1090,7 +1087,6 @@ export default function ChemTestApp() {
                     </CardContent>
                   </Card>
                 ))}
-              </div>
             </div>
           </div>
         </main>
