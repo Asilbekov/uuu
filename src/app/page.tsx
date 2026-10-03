@@ -28,7 +28,6 @@ import { useToast } from '@/hooks/use-toast';
 import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel } from '@/components/attachments';
 import { AiChatPanel, GroupChatPanel } from '@/components/chat-panels';
 import {
-  Beaker,
   LogIn,
   Plus,
   Trash2,
@@ -46,7 +45,6 @@ import {
   RefreshCw,
   GraduationCap,
   Clock,
-  BarChart3,
   Minus,
   ListChecks,
   MessageSquare,
@@ -795,12 +793,6 @@ export default function ChemTestApp() {
 
   // DASHBOARD
   if (effectivePage === 'dashboard') {
-    const totalQuestions = tests.reduce((sum, t) => sum + (t._count?.questions || 0), 0);
-    const bestScoreFor = (testId: string): number | null => {
-      const done = attempts.filter(a => a.testId === testId && a.completed && a.totalQuestions > 0);
-      if (!done.length) return null;
-      return Math.max(...done.map(a => Math.round((a.score / a.totalQuestions) * 100)));
-    };
     return (
       <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
@@ -831,40 +823,6 @@ export default function ChemTestApp() {
             <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90">
               <Plus className="w-4 h-4 mr-2" /> Create New Test
             </Button>
-
-            <Button variant="outline" className="rounded-full border-black" onClick={() => { api.getAttempts().then(d => setAttempts(d)).catch(() => {}); setPage('history'); }}>
-              <Clock className="w-4 h-4 mr-2" /> Test History
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-            <Card className="rounded-4xl border border-black bg-[#FFF0D9]">
-              <CardContent className="p-4 flex items-center gap-3">
-                <BookOpen className="w-10 h-10 opacity-80" />
-                <div>
-                  <p className="text-2xl font-bold">{tests.length}</p>
-                  <p className="text-sm opacity-80">Total Tests</p>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="rounded-4xl border border-black bg-[#DFF3E8]">
-              <CardContent className="p-4 flex items-center gap-3">
-                <Beaker className="w-10 h-10 opacity-80" />
-                <div>
-                  <p className="text-2xl font-bold">{totalQuestions}</p>
-                  <p className="text-sm opacity-80">Total Questions</p>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="rounded-4xl border border-black bg-[#FCE8F2]">
-              <CardContent className="p-4 flex items-center gap-3">
-                <Trophy className="w-10 h-10 opacity-80" />
-                <div>
-                  <p className="text-2xl font-bold">{attempts.filter(a => a.completed).length}</p>
-                  <p className="text-sm opacity-80">Tests Completed</p>
-                </div>
-              </CardContent>
-            </Card>
           </div>
 
           {tests.length > 0 && (
