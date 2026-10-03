@@ -806,17 +806,20 @@ export default function ChemTestApp() {
     return (
       <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-cta rounded-xl flex items-center justify-center">
-                <FlaskConical className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold">ChemTest</h1>
-                <p className="text-xs text-muted-foreground">Chemistry Test Platform</p>
-              </div>
+          <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0">
+                <Plus className="w-4 h-4 mr-2" /> Create Test
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setEditMode(v => !v)}
+                className={`rounded-full shrink-0 ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
+              >
+                <Edit className="w-4 h-4 mr-2" /> Edit Test
+              </Button>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 shrink-0">
               <div className="hidden sm:block text-right">
                 <p className="text-sm font-medium">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground">{effectiveUser?.email}</p>
@@ -829,20 +832,8 @@ export default function ChemTestApp() {
         </header>
 
         <main className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex flex-wrap gap-3 mb-6">
-            <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90">
-              <Plus className="w-4 h-4 mr-2" /> Create New Test
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setEditMode(v => !v)}
-              className={`rounded-full ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
-            >
-              <Edit className="w-4 h-4 mr-2" /> Edit Test
-            </Button>
-          </div>
           {editMode && (
-            <p className="text-xs text-muted-foreground mb-4 -mt-3">
+            <p className="text-xs text-muted-foreground mb-4">
               Edit mode is on — select a test below to edit it
             </p>
           )}
