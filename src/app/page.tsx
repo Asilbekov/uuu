@@ -26,6 +26,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel } from '@/components/attachments';
+import { AiChatPanel, GroupChatPanel } from '@/components/chat-panels';
 import {
   Beaker,
   LogIn,
@@ -49,9 +50,6 @@ import {
   Minus,
   ListChecks,
   MessageSquare,
-  Send,
-  X,
-  Bot,
   Sparkles,
   Paperclip,
   Users,
@@ -1404,183 +1402,35 @@ export default function ChemTestApp() {
             </div>
               </div>
 
-              {/* AI Chat Panel in Results */}
+              {/* AI Chat Panel in Results — bottom sheet on mobile, side panel on desktop */}
               {chatOpen && (
-                <div className="w-full lg:w-[420px] shrink-0">
-                  <Card className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
-                    <CardHeader className="pb-3 shrink-0">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">
-                            <Bot className="w-4 h-4 text-white" />
-                          </div>
-                          <div>
-                            <CardTitle className="text-sm">AI Tutor</CardTitle>
-                            <p className="text-xs text-muted-foreground">Ask about any question</p>
-                          </div>
-                        </div>
-                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={closeChat}>
-                          <X className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="flex-1 overflow-hidden p-0">
-                      <ScrollArea className="h-full px-4">
-                        <div className="space-y-3 py-2">
-                          {chatMessages.length === 0 && chatLoading && (
-                            <div className="flex gap-2 items-start">
-                              <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
-                                <Bot className="w-3.5 h-3.5 text-white" />
-                              </div>
-                              <div className="bg-[#F4F4F5] border border-black/10 rounded-2xl rounded-tl-sm px-3.5 py-3">
-                                <div className="flex items-center gap-1">
-                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                          {chatMessages.map((msg, idx) => (
-                            <div key={idx} className={`flex gap-2 items-start ${msg.role === 'user' ? 'justify-end' : ''}`}>
-                              {msg.role === 'assistant' && (
-                                <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
-                                  <Bot className="w-3.5 h-3.5 text-white" />
-                                </div>
-                              )}
-                              <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-                                msg.role === 'user'
-                                  ? 'bg-primary text-white rounded-tr-sm'
-                                  : 'bg-[#F4F4F5] border border-black/10 rounded-tl-sm'
-                              }`}>
-                                <MathText text={msg.content} />
-                              </div>
-                            </div>
-                          ))}
-                          {chatLoading && chatMessages.length > 0 && (
-                            <div className="flex gap-2 items-start">
-                              <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
-                                <Bot className="w-3.5 h-3.5 text-white" />
-                              </div>
-                              <div className="bg-[#F4F4F5] border border-black/10 rounded-2xl rounded-tl-sm px-3.5 py-3">
-                                <div className="flex items-center gap-1">
-                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                  <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                          <div ref={chatEndRef} />
-                        </div>
-                      </ScrollArea>
-                    </CardContent>
-                    <CardFooter className="pt-3 pb-4 shrink-0">
-                      <div className="flex w-full gap-2">
-                        <Input
-                          placeholder="Ask a follow-up..."
-                          value={chatInput}
-                          onChange={(e) => setChatInput(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' && !e.shiftKey) {
-                              e.preventDefault();
-                              sendChatMessage();
-                            }
-                          }}
-                          disabled={chatLoading}
-                          className="flex-1 text-sm"
-                        />
-                        <Button
-                          size="sm"
-                          onClick={() => sendChatMessage()}
-                          disabled={chatLoading || !chatInput.trim()}
-                          className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
-                        >
-                          <Send className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </div>
+                <AiChatPanel
+                  open={chatOpen}
+                  onClose={closeChat}
+                  subtitle="Ask about any question"
+                  messages={chatMessages}
+                  loading={chatLoading}
+                  input={chatInput}
+                  onInputChange={setChatInput}
+                  onSend={() => sendChatMessage()}
+                  endRef={chatEndRef}
+                />
               )}
 
-              {/* Group chat panel in Results */}
+              {/* Group chat panel in Results — bottom sheet on mobile, side panel on desktop */}
               {groupOpen && (
-                <div className="w-full lg:w-[420px] shrink-0">
-                  <Card className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
-                    <CardHeader className="pb-3 shrink-0">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">
-                            <Users className="w-4 h-4 text-white" />
-                          </div>
-                          <div>
-                            <CardTitle className="text-sm">Test Chat</CardTitle>
-                            <p className="text-xs text-muted-foreground">Everyone who took this test</p>
-                          </div>
-                        </div>
-                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={closeGroupChat}>
-                          <X className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="flex-1 overflow-hidden p-0">
-                      <ScrollArea className="h-full px-4">
-                        <div className="space-y-3 py-2">
-                          {groupMessages.length === 0 && (
-                            <p className="text-sm text-muted-foreground text-center py-8">
-                              No messages yet — say hi to your group!
-                            </p>
-                          )}
-                          {groupMessages.map(msg => {
-                            const own = msg.userId === effectiveUser?.id;
-                            return (
-                              <div key={msg.id} className={`flex ${own ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-                                  own
-                                    ? 'bg-primary text-white rounded-tr-sm'
-                                    : 'bg-[#F4F4F5] border border-black/10 rounded-tl-sm'
-                                }`}>
-                                  {!own && <p className="text-[11px] font-semibold text-primary mb-0.5">{msg.userName}</p>}
-                                  <p className="whitespace-pre-wrap break-words">{msg.text}</p>
-                                  <p className={`text-[10px] mt-1 ${own ? 'text-white/70' : 'text-muted-foreground'}`}>
-                                    {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                  </p>
-                                </div>
-                              </div>
-                            );
-                          })}
-                          <div ref={groupEndRef} />
-                        </div>
-                      </ScrollArea>
-                    </CardContent>
-                    <CardFooter className="pt-3 pb-4 shrink-0">
-                      <div className="flex w-full gap-2">
-                        <Input
-                          placeholder="Message the group..."
-                          value={groupInput}
-                          onChange={(e) => setGroupInput(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' && !e.shiftKey) {
-                              e.preventDefault();
-                              sendGroupMessage();
-                            }
-                          }}
-                          maxLength={2000}
-                          className="flex-1 text-sm"
-                        />
-                        <Button
-                          size="sm"
-                          onClick={sendGroupMessage}
-                          disabled={groupSending || !groupInput.trim()}
-                          className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
-                        >
-                          <Send className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </div>
+                <GroupChatPanel
+                  open={groupOpen}
+                  onClose={closeGroupChat}
+                  subtitle="Everyone who took this test"
+                  messages={groupMessages}
+                  currentUserId={effectiveUser?.id}
+                  input={groupInput}
+                  onInputChange={setGroupInput}
+                  onSend={sendGroupMessage}
+                  sending={groupSending}
+                  endRef={groupEndRef}
+                />
               )}
             </div>
           </main>
@@ -1832,189 +1682,39 @@ export default function ChemTestApp() {
               )}
             </div>
 
-            {/* AI Chat Panel */}
+            {/* AI Chat Panel — bottom sheet on mobile, side panel on desktop */}
             {chatOpen && (
-              <div className="w-full lg:w-[420px] shrink-0">
-                <Card className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
-                  <CardHeader className="pb-3 shrink-0">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">
-                          <Bot className="w-4 h-4 text-white" />
-                        </div>
-                        <div>
-                          <CardTitle className="text-sm">AI Tutor</CardTitle>
-                          <p className="text-xs text-muted-foreground">
-                            {chatUserAnswer ? (
-                              chatUserAnswer === shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer
-                                ? '✓ You answered correctly'
-                                : `✗ You chose ${chatUserAnswer} — correct is ${shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer}`
-                            ) : 'Ask about this question'}
-                          </p>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={closeChat}>
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="flex-1 overflow-hidden p-0">
-                    <ScrollArea className="h-full px-4">
-                      <div className="space-y-3 py-2">
-                        {chatMessages.length === 0 && chatLoading && (
-                          <div className="flex gap-2 items-start">
-                            <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
-                              <Bot className="w-3.5 h-3.5 text-white" />
-                            </div>
-                            <div className="bg-[#F4F4F5] border border-black/10 rounded-2xl rounded-tl-sm px-3.5 py-3">
-                              <div className="flex items-center gap-1">
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                        {chatMessages.map((msg, idx) => (
-                          <div key={idx} className={`flex gap-2 items-start ${msg.role === 'user' ? 'justify-end' : ''}`}>
-                            {msg.role === 'assistant' && (
-                              <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
-                                <Bot className="w-3.5 h-3.5 text-white" />
-                              </div>
-                            )}
-                            <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-                              msg.role === 'user'
-                                ? 'bg-primary text-white rounded-tr-sm'
-                                : 'bg-[#F4F4F5] border border-black/10 rounded-tl-sm'
-                            }`}>
-                              <MathText text={msg.content} />
-                            </div>
-                          </div>
-                        ))}
-                        {chatLoading && chatMessages.length > 0 && (
-                          <div className="flex gap-2 items-start">
-                            <div className="w-7 h-7 bg-cta rounded-lg flex items-center justify-center shrink-0">
-                              <Bot className="w-3.5 h-3.5 text-white" />
-                            </div>
-                            <div className="bg-[#F4F4F5] border border-black/10 rounded-2xl rounded-tl-sm px-3.5 py-3">
-                              <div className="flex items-center gap-1">
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                        <div ref={chatEndRef} />
-                      </div>
-                    </ScrollArea>
-                  </CardContent>
-                  <CardFooter className="pt-3 pb-4 shrink-0">
-                    <div className="flex w-full gap-2">
-                      <Input
-                        placeholder="Ask a follow-up..."
-                        value={chatInput}
-                        onChange={(e) => setChatInput(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            sendChatMessage();
-                          }
-                        }}
-                        disabled={chatLoading}
-                        className="flex-1 text-sm"
-                      />
-                      <Button
-                        size="sm"
-                        onClick={() => sendChatMessage()}
-                        disabled={chatLoading || !chatInput.trim()}
-                        className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
-                      >
-                        <Send className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </CardFooter>
-                </Card>
-              </div>
+              <AiChatPanel
+                open={chatOpen}
+                onClose={closeChat}
+                subtitle={chatUserAnswer ? (
+                  chatUserAnswer === shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer
+                    ? '✓ You answered correctly'
+                    : `✗ You chose ${chatUserAnswer} — correct is ${shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer}`
+                ) : 'Ask about this question'}
+                messages={chatMessages}
+                loading={chatLoading}
+                input={chatInput}
+                onInputChange={setChatInput}
+                onSend={() => sendChatMessage()}
+                endRef={chatEndRef}
+              />
             )}
 
-            {/* Group chat panel — everyone taking this test */}
+            {/* Group chat panel — bottom sheet on mobile, side panel on desktop */}
             {groupOpen && (
-              <div className="w-full lg:w-[420px] shrink-0">
-                <Card className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
-                  <CardHeader className="pb-3 shrink-0">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">
-                          <Users className="w-4 h-4 text-white" />
-                        </div>
-                        <div>
-                          <CardTitle className="text-sm">Test Chat</CardTitle>
-                          <p className="text-xs text-muted-foreground">Everyone taking this test</p>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={closeGroupChat}>
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="flex-1 overflow-hidden p-0">
-                    <ScrollArea className="h-full px-4">
-                      <div className="space-y-3 py-2">
-                        {groupMessages.length === 0 && (
-                          <p className="text-sm text-muted-foreground text-center py-8">
-                            No messages yet — say hi to your group!
-                          </p>
-                        )}
-                        {groupMessages.map(msg => {
-                          const own = msg.userId === effectiveUser?.id;
-                          return (
-                            <div key={msg.id} className={`flex ${own ? 'justify-end' : 'justify-start'}`}>
-                              <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
-                                own
-                                  ? 'bg-primary text-white rounded-tr-sm'
-                                  : 'bg-[#F4F4F5] border border-black/10 rounded-tl-sm'
-                              }`}>
-                                {!own && <p className="text-[11px] font-semibold text-primary mb-0.5">{msg.userName}</p>}
-                                <p className="whitespace-pre-wrap break-words">{msg.text}</p>
-                                <p className={`text-[10px] mt-1 ${own ? 'text-white/70' : 'text-muted-foreground'}`}>
-                                  {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                </p>
-                              </div>
-                            </div>
-                          );
-                        })}
-                        <div ref={groupEndRef} />
-                      </div>
-                    </ScrollArea>
-                  </CardContent>
-                  <CardFooter className="pt-3 pb-4 shrink-0">
-                    <div className="flex w-full gap-2">
-                      <Input
-                        placeholder="Message the group..."
-                        value={groupInput}
-                        onChange={(e) => setGroupInput(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            sendGroupMessage();
-                          }
-                        }}
-                        maxLength={2000}
-                        className="flex-1 text-sm"
-                      />
-                      <Button
-                        size="sm"
-                        onClick={sendGroupMessage}
-                        disabled={groupSending || !groupInput.trim()}
-                        className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
-                      >
-                        <Send className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </CardFooter>
-                </Card>
-              </div>
+              <GroupChatPanel
+                open={groupOpen}
+                onClose={closeGroupChat}
+                subtitle="Everyone taking this test"
+                messages={groupMessages}
+                currentUserId={effectiveUser?.id}
+                input={groupInput}
+                onInputChange={setGroupInput}
+                onSend={sendGroupMessage}
+                sending={groupSending}
+                endRef={groupEndRef}
+              />
             )}
 
             {/* Attached files side panel (desktop) */}
