@@ -238,12 +238,15 @@ export function AttachmentsBottomSheet({
   open: openProp,
   onOpenChange,
   switcher,
+  hideLauncher = false,
 }: {
   items: AttachmentItem[];
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   /** When provided, the header arrow merges with the title and opens a window switcher */
   switcher?: SheetSwitcher;
+  /** Hide the floating bottom launcher button (window still opens via header / switcher) */
+  hideLauncher?: boolean;
 }) {
   const [openState, setOpenState] = useState(false);
   const open = openProp !== undefined ? openProp : openState;
@@ -256,7 +259,7 @@ export function AttachmentsBottomSheet({
   return (
     <>
       {/* Floating up-arrow button (mobile / tablet) */}
-      {!open && (
+      {!hideLauncher && !open && (
         <button
           onClick={() => setOpen(true)}
           aria-label="Open attached files"

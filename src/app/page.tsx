@@ -1745,12 +1745,13 @@ export default function ChemTestApp() {
           </div>
         </main>
 
-        {/* Attached files: mobile bottom sheet with up-arrow */}
+        {/* Attached files: mobile bottom sheet (launcher hidden — header Files button opens it) */}
         <AttachmentsBottomSheet
           items={(currentTest?.attachments || []) as AttachmentItem[]}
           open={filesOpen}
           onOpenChange={setFilesOpen}
           switcher={sheetSwitcher}
+          hideLauncher
         />
       </div>
     );
