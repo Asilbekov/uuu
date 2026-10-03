@@ -63,9 +63,6 @@ export const api = {
   updateTest: (id: string, data: any) => apiFetch(`/tests/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteTest: (id: string) => apiFetch(`/tests/${id}`, { method: 'DELETE' }),
 
-  // Test sets (named groups of tests, e.g. English Weeks 1-4)
-  getTestSets: () => apiFetch('/test-sets'),
-
   // Per-test group chat (user ↔ user, polled)
   getGroupMessages: (testId: string, after?: string) =>
     apiFetch(`/tests/${testId}/chat${after ? `?after=${encodeURIComponent(after)}` : ''}`),

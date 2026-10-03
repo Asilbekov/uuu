@@ -94,20 +94,10 @@ interface Test {
   randomizeQuestions: boolean;
   randomizeOptions: boolean;
   hasCoverImage?: boolean;
-  setId?: string | null;
   questions: Question[];
   attachments?: Attachment[];
   _count?: { questions: number; attempts: number; attachments?: number };
   createdAt: string;
-}
-
-// Lighter shape of tests returned inside GET /api/test-sets
-interface TestSetInfo {
-  id: string;
-  title: string;
-  description: string;
-  topic: string;
-  tests: Test[];
 }
 
 // Per-test group chat message (see /api/tests/[id]/chat)
@@ -226,9 +216,6 @@ export default function ChemTestApp() {
   // Attached files panel (take test)
   const [filesOpen, setFilesOpen] = useState(false);
 
-  // Test sets (dashboard grouping)
-  const [testSets, setTestSets] = useState<TestSetInfo[]>([]);
-
   // Per-test group chat (everyone taking the same test)
   const [groupOpen, setGroupOpen] = useState(false);
   const [groupMessages, setGroupMessages] = useState<GroupMessage[]>([]);
@@ -310,7 +297,6 @@ export default function ChemTestApp() {
           });
         }).catch(() => {}),
         api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
-        api.getTestSets().then(data => setTestSets(data)).catch(() => {}),
       ]);
     }
   }, [page, user, mounted, hydratedUser]);
@@ -812,7 +798,6 @@ export default function ChemTestApp() {
   // DASHBOARD
   if (effectivePage === 'dashboard') {
     const totalQuestions = tests.reduce((sum, t) => sum + (t._count?.questions || 0), 0);
-    const standaloneTests = tests.filter(t => !t.setId);
     const bestScoreFor = (testId: string): number | null => {
       const done = attempts.filter(a => a.testId === testId && a.completed && a.totalQuestions > 0);
       if (!done.length) return null;
@@ -884,71 +869,10 @@ export default function ChemTestApp() {
             </Card>
           </div>
 
-          {/* Test Sets — named groups (e.g. English Weeks 1-4) */}
-          {testSets.length > 0 && (
-            <div className="mb-10">
-              <h2 className="text-2xl font-bold mb-4">Test Sets</h2>
-              <div className="space-y-5">
-                {testSets.map(set => {
-                  const setQuestions = set.tests.reduce((s, t) => s + (t._count?.questions || 0), 0);
-                  return (
-                    <Card key={set.id} className="rounded-4xl border border-black bg-white overflow-hidden">
-                      <div className="bg-cta text-white px-5 py-4">
-                        <div className="flex items-start justify-between gap-3 flex-wrap">
-                          <div className="min-w-0">
-                            <h3 className="font-bold text-lg leading-tight">{set.title}</h3>
-                            {set.description && <p className="text-xs text-white/85 mt-1 max-w-2xl">{set.description}</p>}
-                          </div>
-                          <Badge className="rounded-full bg-white/20 text-white border border-white/40 shrink-0">
-                            {set.tests.length} tests · {setQuestions} questions
-                          </Badge>
-                        </div>
-                      </div>
-                      <CardContent className="p-2 sm:p-3">
-                        {set.tests.map((t, i) => {
-                          const best = bestScoreFor(t.id);
-                          return (
-                            <div key={t.id} className="flex flex-wrap items-center gap-2 sm:gap-3 px-2 sm:px-3 py-3 rounded-2xl hover:bg-muted/50 transition-colors border-b last:border-b-0">
-                              <div className="w-8 h-8 rounded-full bg-[#FFF0D9] text-cta font-bold text-sm flex items-center justify-center shrink-0">
-                                {i + 1}
-                              </div>
-                              <div className="min-w-0 flex-1">
-                                <p className="text-sm font-medium leading-snug break-words">{t.title}</p>
-                                <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5 flex-wrap">
-                                  <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {t._count?.questions || 0} questions</span>
-                                  <span className="flex items-center gap-1"><Paperclip className="w-3 h-3" /> {t._count?.attachments || 0} files</span>
-                                  {best !== null && (
-                                    <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 rounded-full text-[10px]">
-                                      <Trophy className="w-3 h-3 mr-1" /> Best {best}%
-                                    </Badge>
-                                  )}
-                                </div>
-                              </div>
-                              <div className="flex items-center gap-2 shrink-0">
-                                <Button size="sm" className="rounded-full bg-cta hover:bg-cta/90 text-white" onClick={() => openStartTest(t)}>
-                                  <Play className="w-3 h-3 mr-1" /> Take Test
-                                </Button>
-                                {t.creatorId === effectiveUser?.id && (
-                                  <Button size="sm" variant="outline" className="rounded-full border-black" onClick={() => startEditTest(t)}>
-                                    <Edit className="w-3 h-3 mr-1" /> Edit
-                                  </Button>
-                                )}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {standaloneTests.length > 0 && (
+          {tests.length > 0 && (
             <h2 className="text-2xl font-bold mb-4">Available Tests</h2>
           )}
-          {standaloneTests.length === 0 && testSets.length === 0 ? (
+          {tests.length === 0 ? (
             <Card className="rounded-4xl border-dashed border-black/30 bg-white">
               <CardContent className="py-12 text-center">
                 <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
@@ -961,7 +885,7 @@ export default function ChemTestApp() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {standaloneTests.map(test => (
+              {tests.map(test => (
                 <Card key={test.id} className="rounded-4xl border border-black bg-white hover:shadow-lg transition-shadow overflow-hidden">
                   {/* Cover Image */}
                   <div className="relative h-40 overflow-hidden">

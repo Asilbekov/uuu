@@ -29,8 +29,6 @@ model Test {
   questions   Question[]
   attempts    TestAttempt[]
   attachments Attachment[]
-  set         TestSet? @relation(fields: [setId], references: [id], onDelete: SetNull)
-  setId       String?
   chatMessages ChatMessage[]
   isPublic    Boolean  @default(true)
   randomizeQuestions Boolean @default(false)
@@ -38,17 +36,6 @@ model Test {
   coverImage  String?  // Base64 data URL for AI-generated cover image
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-}
-
-// A named group of tests (e.g. "English for Engineering I — Weeks 1-4") shown
-// as one block on the dashboard, with the member tests kept in order.
-model TestSet {
-  id          String   @id @default(cuid())
-  title       String
-  description String   @default("")
-  topic       String   @default("")
-  tests       Test[]
-  createdAt   DateTime @default(now())
 }
 
 // Per-test group chat: every signed-in user can talk to everyone else

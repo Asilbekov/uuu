@@ -1,7 +1,8 @@
 /**
- * Seed English for Engineering tests (Weeks 1-4) + attach study guides to the math test.
- * Run: DATABASE_URL=<neon url> bun scripts/seed/seed_all.cjs
- * Idempotent: deletes and recreates tests with the same exact titles.
+ * Seed English for Engineering as ONE merged test (Weeks 1-4, all questions)
+ * + attach study guides to the math test.
+ * Run: DATABASE_URL=<neon url> node scripts/seed/seed_all.cjs
+ * Idempotent: deletes and recreates the test with the same exact title.
  */
 const { PrismaClient } = require('@prisma/client');
 const db = new PrismaClient();
@@ -21,6 +22,42 @@ const STUDY_GUIDES = [
   { title: 'Study Guide (RU) — Линейная алгебра и математика I, недели 1-4', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/Study_Guide_Weeks_1-4_RU.pdf', size: 518478 },
   { title: 'Study Guide (UZ) — Chiziqli algebra, 1-4 haftalar', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/Study_Guide_Weeks_1-4_UZ.pdf', size: 479869 },
 ];
+
+// One single English test: all weeks merged (per user request — no per-week tests, no test sets)
+const ENGLISH_MERGED = {
+  title: 'English for Engineering I — Weeks 1-4: Complete Test',
+  description:
+    'All four weeks in one test: Week 1 Present Simple & "Getting to know you" + TED "Stereotypes"; ' +
+    'Week 2 Present Simple vs Continuous, Articles & Business Grammar; Week 3 Quantifiers, Numbers & Digital Life; ' +
+    'Week 4 Prepositions of movement, "The power of numbers" & Test 1 prep. ' +
+    'The full study-guide PDF and all course audio/video players are attached to the test.',
+  topic: 'English for Engineering',
+  attachments: dedupeByUrl([
+    ...week1.attachments,
+    ...week2a.attachments || [],
+    ...week2b.attachments || [],
+    ...week3a.attachments || [],
+    ...week3b.attachments || [],
+    ...week4.attachments,
+  ]),
+  questions: [...week1.questions, ...week2a, ...week2b, ...week3a, ...week3b, ...week4.questions],
+};
+
+// week2/week3 data modules export plain question arrays; attachment arrays live on
+// the wrapper objects used previously. Guard against undefined entries above and
+// filter math/linear-algebra guides here — they belong to the math test only.
+function dedupeByUrl(list) {
+  const MATH_GUIDE_MARKERS = ['Study_Guide_Weeks_1-4_EN.pdf', 'Study_Guide_Weeks_1-4_RU.pdf', 'Study_Guide_Weeks_1-4_UZ.pdf'];
+  const seen = new Set();
+  const out = [];
+  for (const a of list) {
+    if (!a || MATH_GUIDE_MARKERS.some(mk => (a.url || '').includes(mk))) continue;
+    if (seen.has(a.url)) continue;
+    seen.add(a.url);
+    out.push(a);
+  }
+  return out;
+}
 
 // Deterministic option shuffle: first option is always the correct one in the source data
 function shuffleOptionsSeeded(options, seed) {
@@ -89,53 +126,8 @@ async function upsertTest(def, seedBase) {
 }
 
 (async () => {
-  // 4 English tests
-  await upsertTest(week1, 11);
-  await upsertTest({
-    title: 'English for Engineering I — Week 2: Present Simple vs Continuous; Articles',
-    description: 'All Week 2 tasks: opinion and generalizing boxes, reading "Generalize, but don\'t stereotype!", articles in quotes and dialogues, Business Grammar & Practice (5 exercises) and the Present Simple & adverbs worksheet.',
-    topic: 'English for Engineering',
-    attachments: [
-      { title: 'Full Study Guide PDF: English for Engineering I, Weeks 1-4 — Rules, Questions & Answers', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/English_for_Engineering_I_Weeks_1-4_Rules_Questions_Answers.pdf', size: 456982 },
-      { title: 'Week 2 Video: Stephen Fry — "What Makes Us Human" (BBC Radio 2)', type: 'video', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/course-files/english-for-engineering/Stephen_Fry_-_What_Makes_Us_Human__BBC_Radio_2___1_.mp4', size: 32625433 },
-      { title: 'Extra listening: BBC Learning English — 6 Minute English', type: 'link', url: 'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english' },
-    ],
-    questions: [...week2a, ...week2b],
-  }, 23);
-  await upsertTest({
-    title: 'English for Engineering I — Week 3: Quantifiers, Numbers & Digital Life',
-    description: 'All Week 3 tasks: quantifiers lead-in and activities, reading "8 ways to tidy up your digital life", Numbers practice (Sections B & C) and the Quantifiers worksheet (exercises 1-7). The Week 3 forum audio is attached.',
-    topic: 'English for Engineering',
-    attachments: [
-      { title: 'Full Study Guide PDF: English for Engineering I, Weeks 1-4 — Rules, Questions & Answers', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/English_for_Engineering_I_Weeks_1-4_Rules_Questions_Answers.pdf', size: 456982 },
-      { title: 'Week 3 Audio: 60-second forum extract on exchange & development (audio player)', type: 'audio', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/course-files/english-for-engineering/Forum60sec__Exchange_leaders_of_deve.mp3', size: 2474785 },
-      { title: 'Extra listening: BBC Learning English — 6 Minute English', type: 'link', url: 'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english' },
-    ],
-    questions: [...week3a, ...week3b],
-  }, 37);
-  await upsertTest(week4, 51);
-
-  // Group the four English tests into one named set (dashboard "Test Sets" block)
-  const SET_TITLE = 'English for Engineering I — Weeks 1-4';
-  let engSet = await db.testSet.findFirst({ where: { title: SET_TITLE } });
-  if (!engSet) {
-    engSet = await db.testSet.create({
-      data: {
-        title: SET_TITLE,
-        description: 'All four weekly tests in one set: Present Simple & Getting to Know You, Present Simple vs Continuous & Articles, Quantifiers & Numbers & Digital Life, and Prepositions & "The power of numbers". Full study-guide PDF and all audio/video are attached to each test.',
-        topic: 'English for Engineering',
-      },
-    });
-    console.log(`created set: ${SET_TITLE}`);
-  }
-  const engTests = await db.test.findMany({
-    where: { topic: 'English for Engineering' },
-    orderBy: { createdAt: 'asc' },
-  });
-  for (const t of engTests.sort((a, b) => a.title.localeCompare(b.title, 'en', { numeric: true }))) {
-    await db.test.update({ where: { id: t.id }, data: { setId: engSet.id } });
-  }
-  console.log(`${engTests.length} English tests assigned to the set`);
+  // ONE merged English test (Weeks 1-4)
+  await upsertTest(ENGLISH_MERGED, 11);
 
   // Attach the 3 study guides (EN/RU/UZ) to the existing math test
   const math = await db.test.findUnique({

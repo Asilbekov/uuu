@@ -1,13 +1,10 @@
 // Week 4 — Prepositions, "The power of numbers", speed of change & cause-effect, Test 1 prep
 module.exports = {
   title: 'English for Engineering I — Week 4: Prepositions, "The power of numbers" & Test 1 Prep',
-  description: 'Week 4 tasks: prepositions of movement and dependent prepositions, reading comprehension of "The power of numbers", speed-of-change and cause-effect language. The three study guides (EN/RU/UZ) for Weeks 1-4 are attached as files.',
+  description: 'Week 4 tasks: prepositions of movement and dependent prepositions, reading comprehension of "The power of numbers", speed-of-change and cause-effect language. The full course study guide PDF is attached as a file.',
   topic: 'English for Engineering',
   attachments: [
     { title: 'Full Study Guide PDF: English for Engineering I, Weeks 1-4 — Rules, Questions & Answers', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/English_for_Engineering_I_Weeks_1-4_Rules_Questions_Answers.pdf', size: 456982 },
-    { title: 'Study Guide (EN) — Linear Algebra Math I & English Weeks 1-4', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/Study_Guide_Weeks_1-4_EN.pdf', size: 500393 },
-    { title: 'Study Guide (RU) — Weeks 1-4', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/Study_Guide_Weeks_1-4_RU.pdf', size: 518478 },
-    { title: 'Study Guide (UZ) — Weeks 1-4', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/Study_Guide_Weeks_1-4_UZ.pdf', size: 479869 },
     { title: 'Week 3 Audio (used for listening practice): 60-second forum extract on exchange & development', type: 'audio', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/course-files/english-for-engineering/Forum60sec__Exchange_leaders_of_deve.mp3', size: 2474785 },
   ],
   questions: [
