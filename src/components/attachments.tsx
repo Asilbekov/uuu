@@ -24,6 +24,7 @@ import {
   Check,
   MonitorPlay,
 } from 'lucide-react';
+import { PdfCanvasViewer } from '@/components/pdf-canvas-viewer';
 
 export interface AttachmentItem {
   id?: string; // present only after the test is saved
@@ -126,16 +127,13 @@ function EmbedPreview({ item }: { item: AttachmentItem }) {
   );
 }
 
-/** Native inline PDF rendering (same-origin proxy iframe keeps iOS Safari happy). */
+/**
+ * True native inline PDF rendering via PDF.js canvas — works on every browser,
+ * including Android Chrome where <iframe> PDFs are not supported (they render
+ * as an "Open" placeholder and navigate away).
+ */
 function PdfInline({ item }: { item: AttachmentItem }) {
-  return (
-    <iframe
-      src={`${attachmentFileUrl(item)}#view=FitH`}
-      title={item.title}
-      className="mt-2 w-full h-96 rounded-lg border border-black/10 bg-white"
-      loading="lazy"
-    />
-  );
+  return <PdfCanvasViewer url={attachmentFileUrl(item)} heightClass="h-[560px]" />;
 }
 
 export function PdfViewerModal({ item, onClose }: { item: AttachmentItem | null; onClose: () => void }) {
@@ -164,11 +162,9 @@ export function PdfViewerModal({ item, onClose }: { item: AttachmentItem | null;
             <Button variant="ghost" size="sm" onClick={onClose}><X className="w-4 h-4" /></Button>
           </div>
         </div>
-        <iframe
-          src={attachmentFileUrl(item)}
-          className="flex-1 w-full"
-          title={item.title}
-        />
+        <div className="flex-1 min-h-0 px-2 pb-2">
+          <PdfCanvasViewer url={attachmentFileUrl(item)} heightClass="h-full" />
+        </div>
       </div>
     </div>
   );
