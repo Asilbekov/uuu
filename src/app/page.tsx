@@ -1097,26 +1097,6 @@ export default function ChemTestApp() {
               {currentTest.description && <CardDescription className="mt-2">{currentTest.description}</CardDescription>}
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Test Info */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-2xl border border-black bg-white p-4 text-center">
-                  <p className="text-2xl font-bold text-primary">{totalQ}</p>
-                  <p className="text-xs text-muted-foreground">Total Questions</p>
-                </div>
-                <div className="rounded-2xl border border-black bg-white p-4 text-center">
-                  <div className="flex justify-center gap-2">
-                    {currentTest.randomizeQuestions && <Badge variant="outline" className="text-xs"><Shuffle className="w-3 h-3 mr-1" />Q</Badge>}
-                    {currentTest.randomizeOptions && <Badge variant="outline" className="text-xs"><Shuffle className="w-3 h-3 mr-1" />A</Badge>}
-                    {!currentTest.randomizeQuestions && !currentTest.randomizeOptions && (
-                      <span className="text-xs text-muted-foreground">No shuffle</span>
-                    )}
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-1">Randomization</p>
-                </div>
-              </div>
-
-              <Separator />
-
               {/* Attached files preview */}
               {(currentTest.attachments?.length || 0) > 0 && (
                 <div className="rounded-2xl border border-black bg-white p-4">
