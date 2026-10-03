@@ -23,7 +23,6 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel } from '@/components/attachments';
 import { AiChatPanel, GroupChatPanel } from '@/components/chat-panels';
@@ -298,6 +297,17 @@ export default function ChemTestApp() {
       ]);
     }
   }, [page, user, mounted, hydratedUser]);
+
+  // Auto-scroll the question list to a newly added question (create/edit test pages)
+  const questionsViewportRef = React.useRef<HTMLDivElement | null>(null);
+  const prevQuestionCountRef = React.useRef(questions.length);
+  useEffect(() => {
+    if (questions.length > prevQuestionCountRef.current) {
+      const el = questionsViewportRef.current;
+      if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+    }
+    prevQuestionCountRef.current = questions.length;
+  }, [questions.length]);
 
   const handleAuth = async () => {
     if (!email || !password || (authMode === 'signup' && !name)) {
@@ -1038,7 +1048,7 @@ export default function ChemTestApp() {
               </div>
             </div>
 
-            <ScrollArea className="max-h-[65vh]">
+            <div ref={questionsViewportRef} className="max-h-[65vh] overflow-y-auto overscroll-contain">
               <div className="space-y-4 pr-4">
                 {questions.map((q, idx) => (
                   <Card key={idx} className="rounded-3xl border border-black bg-white">
@@ -1081,15 +1091,21 @@ export default function ChemTestApp() {
                   </Card>
                 ))}
               </div>
-            </ScrollArea>
+            </div>
           </div>
+        </main>
 
-          <div className="flex gap-3 pb-8">
-            <Button onClick={handleSaveTest} disabled={loading} className="flex-1 rounded-full bg-primary hover:bg-primary/90">
+        {/* Sticky bottom action bar — Create/Save button always visible, never pushed below the fold */}
+        <div className="sticky bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+          <div
+            className="max-w-4xl mx-auto px-4 pt-3"
+            style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+          >
+            <Button onClick={handleSaveTest} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
               {loading ? 'Saving...' : editingTestId ? 'Save' : 'Create Test'}
             </Button>
           </div>
-        </main>
+        </div>
       </div>
     );
   }
