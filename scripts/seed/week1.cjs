@@ -4,6 +4,7 @@ module.exports = {
   description: 'All Week 1 tasks: "Getting to know you" questions (Activity 1), sentence building, word order, and the TED Talk "Stereotypes" comprehension. Audio/video for the week are attached as files.',
   topic: 'English for Engineering',
   attachments: [
+    { title: 'Full Study Guide PDF: English for Engineering I, Weeks 1-4 — Rules, Questions & Answers', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/English_for_Engineering_I_Weeks_1-4_Rules_Questions_Answers.pdf', size: 456982 },
     { title: 'Week 1 Video: English File 5e Pre-Int 1A — five people answer "Getting to know you"', type: 'video', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/course-files/english-for-engineering/ef5e_preint_1a_1_vocabulary.mp4', size: 84332647 },
     { title: 'TED Talk (ted.com): Olivia Markaryan — "Stereotypes: How do we break the cycle?"', type: 'link', url: 'https://www.ted.com/talks/olivia_markaryan_stereotypes_how_do_we_break_the_cycle' },
     { title: 'Extra listening: BBC Learning English — 6 Minute English', type: 'link', url: 'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english' },

@@ -4,6 +4,7 @@ module.exports = {
   description: 'Week 4 tasks: prepositions of movement and dependent prepositions, reading comprehension of "The power of numbers", speed-of-change and cause-effect language. The three study guides (EN/RU/UZ) for Weeks 1-4 are attached as files.',
   topic: 'English for Engineering',
   attachments: [
+    { title: 'Full Study Guide PDF: English for Engineering I, Weeks 1-4 — Rules, Questions & Answers', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/English_for_Engineering_I_Weeks_1-4_Rules_Questions_Answers.pdf', size: 456982 },
     { title: 'Study Guide (EN) — Linear Algebra Math I & English Weeks 1-4', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/Study_Guide_Weeks_1-4_EN.pdf', size: 500393 },
     { title: 'Study Guide (RU) — Weeks 1-4', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/Study_Guide_Weeks_1-4_RU.pdf', size: 518478 },
     { title: 'Study Guide (UZ) — Weeks 1-4', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/Study_Guide_Weeks_1-4_UZ.pdf', size: 479869 },

@@ -96,6 +96,7 @@ async function upsertTest(def, seedBase) {
     description: 'All Week 2 tasks: opinion and generalizing boxes, reading "Generalize, but don\'t stereotype!", articles in quotes and dialogues, Business Grammar & Practice (5 exercises) and the Present Simple & adverbs worksheet.',
     topic: 'English for Engineering',
     attachments: [
+      { title: 'Full Study Guide PDF: English for Engineering I, Weeks 1-4 — Rules, Questions & Answers', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/English_for_Engineering_I_Weeks_1-4_Rules_Questions_Answers.pdf', size: 456982 },
       { title: 'Week 2 Video: Stephen Fry — "What Makes Us Human" (BBC Radio 2)', type: 'video', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/course-files/english-for-engineering/Stephen_Fry_-_What_Makes_Us_Human__BBC_Radio_2___1_.mp4', size: 32625433 },
       { title: 'Extra listening: BBC Learning English — 6 Minute English', type: 'link', url: 'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english' },
     ],
@@ -106,6 +107,7 @@ async function upsertTest(def, seedBase) {
     description: 'All Week 3 tasks: quantifiers lead-in and activities, reading "8 ways to tidy up your digital life", Numbers practice (Sections B & C) and the Quantifiers worksheet (exercises 1-7). The Week 3 forum audio is attached.',
     topic: 'English for Engineering',
     attachments: [
+      { title: 'Full Study Guide PDF: English for Engineering I, Weeks 1-4 — Rules, Questions & Answers', type: 'pdf', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/study-guides/English_for_Engineering_I_Weeks_1-4_Rules_Questions_Answers.pdf', size: 456982 },
       { title: 'Week 3 Audio: 60-second forum extract on exchange & development (audio player)', type: 'audio', url: 'https://raw.githubusercontent.com/Asilbekov/uuu/main/course-files/english-for-engineering/Forum60sec__Exchange_leaders_of_deve.mp3', size: 2474785 },
       { title: 'Extra listening: BBC Learning English — 6 Minute English', type: 'link', url: 'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english' },
     ],
