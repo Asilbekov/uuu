@@ -1295,9 +1295,22 @@ export default function ChemTestApp() {
         <div className="min-h-screen bg-background">
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
-                <h1 className="text-lg font-bold">Test Results</h1>
+              <div className="flex items-center gap-3 min-w-0">
+                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
+                {(currentTest?.attachments?.length || 0) > 0 ? (
+                  <Button
+                    variant={filesOpen ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); if (chatOpen) closeChat(); } }}
+                    className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                  >
+                    <Paperclip className="w-4 h-4" />
+                    <span className="hidden sm:inline">Files ({currentTest!.attachments!.length})</span>
+                    <span className="sm:hidden">{currentTest!.attachments!.length}</span>
+                  </Button>
+                ) : (
+                  <h1 className="text-lg font-bold">Test Results</h1>
+                )}
               </div>
               <>
                 <Button
@@ -1390,13 +1403,6 @@ export default function ChemTestApp() {
                 </Card>
               );
             })}
-
-            <div className="flex gap-3 pb-8">
-              <Button variant="outline" onClick={goHome} className="flex-1 rounded-full border-black">Back to Dashboard</Button>
-              <Button onClick={() => openStartTest(currentTest!)} className="flex-1 rounded-full bg-primary hover:bg-primary/90">
-                <RefreshCw className="w-4 h-4 mr-2" /> Retry Test
-              </Button>
-            </div>
               </div>
 
               {/* AI Chat Panel in Results — bottom sheet on mobile, side panel on desktop */}
@@ -1433,12 +1439,26 @@ export default function ChemTestApp() {
               )}
             </div>
           </main>
-          {/* Attached files bottom sheet (mobile) — results */}
+
+          {/* Sticky bottom action bar — Retry Test always visible (same pattern as test editor) */}
+          <div className="sticky bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+            <div
+              className="max-w-7xl mx-auto px-4 pt-3"
+              style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+            >
+              <Button onClick={() => openStartTest(currentTest!)} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                <RefreshCw className="w-4 h-4 mr-2" /> Retry Test
+              </Button>
+            </div>
+          </div>
+
+          {/* Attached files bottom sheet (mobile) — launcher hidden, opens via header Files button */}
           <AttachmentsBottomSheet
             items={(currentTest?.attachments || []) as AttachmentItem[]}
             open={filesOpen}
             onOpenChange={setFilesOpen}
             switcher={sheetSwitcher}
+            hideLauncher
           />
         </div>
       );
