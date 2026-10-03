@@ -16,6 +16,7 @@ model User {
   updatedAt DateTime @updatedAt
   tests     Test[]
   attempts  TestAttempt[]
+  chatMessages ChatMessage[]
 }
 
 model Test {
@@ -28,12 +29,41 @@ model Test {
   questions   Question[]
   attempts    TestAttempt[]
   attachments Attachment[]
+  set         TestSet? @relation(fields: [setId], references: [id], onDelete: SetNull)
+  setId       String?
+  chatMessages ChatMessage[]
   isPublic    Boolean  @default(true)
   randomizeQuestions Boolean @default(false)
   randomizeOptions   Boolean @default(false)
   coverImage  String?  // Base64 data URL for AI-generated cover image
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+// A named group of tests (e.g. "English for Engineering I — Weeks 1-4") shown
+// as one block on the dashboard, with the member tests kept in order.
+model TestSet {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @default("")
+  topic       String   @default("")
+  tests       Test[]
+  createdAt   DateTime @default(now())
+}
+
+// Per-test group chat: every signed-in user can talk to everyone else
+// taking the same test. Polled client-side (serverless-safe).
+model ChatMessage {
+  id        String   @id @default(cuid())
+  testId    String
+  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userName  String
+  text      String
+  createdAt DateTime @default(now())
+
+  @@index([testId, createdAt])
 }
 
 // Files attached to a test (audio/video/PDF/link). Small uploaded files are

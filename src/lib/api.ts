@@ -63,6 +63,15 @@ export const api = {
   updateTest: (id: string, data: any) => apiFetch(`/tests/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteTest: (id: string) => apiFetch(`/tests/${id}`, { method: 'DELETE' }),
 
+  // Test sets (named groups of tests, e.g. English Weeks 1-4)
+  getTestSets: () => apiFetch('/test-sets'),
+
+  // Per-test group chat (user ↔ user, polled)
+  getGroupMessages: (testId: string, after?: string) =>
+    apiFetch(`/tests/${testId}/chat${after ? `?after=${encodeURIComponent(after)}` : ''}`),
+  sendGroupMessage: (testId: string, text: string) =>
+    apiFetch(`/tests/${testId}/chat`, { method: 'POST', body: JSON.stringify({ text }) }),
+
   // Attempts
   getAttempts: () => apiFetch('/attempts'),
   createAttempt: (testId: string, totalQuestions?: number) => apiFetch('/attempts', { method: 'POST', body: JSON.stringify({ testId, totalQuestions }) }),

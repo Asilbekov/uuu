@@ -115,6 +115,28 @@ async function upsertTest(def, seedBase) {
   }, 37);
   await upsertTest(week4, 51);
 
+  // Group the four English tests into one named set (dashboard "Test Sets" block)
+  const SET_TITLE = 'English for Engineering I — Weeks 1-4';
+  let engSet = await db.testSet.findFirst({ where: { title: SET_TITLE } });
+  if (!engSet) {
+    engSet = await db.testSet.create({
+      data: {
+        title: SET_TITLE,
+        description: 'All four weekly tests in one set: Present Simple & Getting to Know You, Present Simple vs Continuous & Articles, Quantifiers & Numbers & Digital Life, and Prepositions & "The power of numbers". Full study-guide PDF and all audio/video are attached to each test.',
+        topic: 'English for Engineering',
+      },
+    });
+    console.log(`created set: ${SET_TITLE}`);
+  }
+  const engTests = await db.test.findMany({
+    where: { topic: 'English for Engineering' },
+    orderBy: { createdAt: 'asc' },
+  });
+  for (const t of engTests.sort((a, b) => a.title.localeCompare(b.title, 'en', { numeric: true }))) {
+    await db.test.update({ where: { id: t.id }, data: { setId: engSet.id } });
+  }
+  console.log(`${engTests.length} English tests assigned to the set`);
+
   // Attach the 3 study guides (EN/RU/UZ) to the existing math test
   const math = await db.test.findUnique({
     where: { id: MATH_TEST_ID },

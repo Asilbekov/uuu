@@ -25,7 +25,7 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
-import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel, PdfViewerModal } from '@/components/attachments';
+import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel } from '@/components/attachments';
 import {
   Beaker,
   LogIn,
@@ -54,6 +54,7 @@ import {
   Bot,
   Sparkles,
   Paperclip,
+  Users,
 } from 'lucide-react';
 
 // Types
@@ -76,7 +77,7 @@ interface Attachment {
   id: string;
   testId: string;
   title: string;
-  type: 'audio' | 'video' | 'pdf' | 'image' | 'link';
+  type: 'audio' | 'video' | 'pdf' | 'image' | 'embed' | 'link';
   url: string;
   size?: number | null;
   orderNum: number;
@@ -93,9 +94,29 @@ interface Test {
   randomizeQuestions: boolean;
   randomizeOptions: boolean;
   hasCoverImage?: boolean;
+  setId?: string | null;
   questions: Question[];
   attachments?: Attachment[];
   _count?: { questions: number; attempts: number; attachments?: number };
+  createdAt: string;
+}
+
+// Lighter shape of tests returned inside GET /api/test-sets
+interface TestSetInfo {
+  id: string;
+  title: string;
+  description: string;
+  topic: string;
+  tests: Test[];
+}
+
+// Per-test group chat message (see /api/tests/[id]/chat)
+interface GroupMessage {
+  id: string;
+  testId: string;
+  userId: string;
+  userName: string;
+  text: string;
   createdAt: string;
 }
 
@@ -205,6 +226,16 @@ export default function ChemTestApp() {
   // Attached files panel (take test)
   const [filesOpen, setFilesOpen] = useState(false);
 
+  // Test sets (dashboard grouping)
+  const [testSets, setTestSets] = useState<TestSetInfo[]>([]);
+
+  // Per-test group chat (everyone taking the same test)
+  const [groupOpen, setGroupOpen] = useState(false);
+  const [groupMessages, setGroupMessages] = useState<GroupMessage[]>([]);
+  const [groupInput, setGroupInput] = useState('');
+  const [groupSending, setGroupSending] = useState(false);
+  const groupEndRef = React.useRef<HTMLDivElement>(null);
+
   // Cover images state
   const [coverImages, setCoverImages] = useState<Record<string, string>>({});
   const [generatingCovers, setGeneratingCovers] = useState<Record<string, boolean>>({});
@@ -279,6 +310,7 @@ export default function ChemTestApp() {
           });
         }).catch(() => {}),
         api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
+        api.getTestSets().then(data => setTestSets(data)).catch(() => {}),
       ]);
     }
   }, [page, user, mounted, hydratedUser]);
@@ -461,6 +493,8 @@ export default function ChemTestApp() {
       setSelectedQuestionCount(totalQ);
       setPracticeMode(false);
       setFilesOpen(false);
+      setChatOpen(false);
+      setGroupOpen(false);
       setPage('start-test');
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
@@ -494,6 +528,7 @@ export default function ChemTestApp() {
       setRevealedAnswers({});
       setExplanations({});
       setFilesOpen(false);
+      setGroupOpen(false);
       setPage('take-test');
 
       // If practice mode, pre-fetch explanations
@@ -620,6 +655,56 @@ export default function ChemTestApp() {
     }
   }, [chatMessages, chatOpen]);
 
+  // ---------- Group chat (everyone taking this test) ----------
+  const closeGroupChat = () => {
+    setGroupOpen(false);
+    setGroupMessages([]);
+    setGroupInput('');
+  };
+
+  const openGroupChat = () => {
+    setGroupOpen(true);
+    setFilesOpen(false);
+    if (chatOpen) closeChat();
+  };
+
+  // Poll the group chat while the panel is open (serverless-safe, no WebSockets)
+  useEffect(() => {
+    if (!groupOpen || !currentTest) return;
+    let stop = false;
+    const poll = async () => {
+      try {
+        const msgs = await api.getGroupMessages(currentTest.id);
+        if (!stop && Array.isArray(msgs)) setGroupMessages(msgs);
+      } catch { /* transient network errors are fine — next tick retries */ }
+    };
+    poll();
+    const timer = setInterval(poll, 4000);
+    return () => { stop = true; clearInterval(timer); };
+  }, [groupOpen, currentTest]);
+
+  // Auto-scroll group chat to bottom on new messages
+  useEffect(() => {
+    if (groupOpen && groupEndRef.current) {
+      groupEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [groupMessages, groupOpen]);
+
+  const sendGroupMessage = async () => {
+    if (!currentTest || !groupInput.trim() || groupSending) return;
+    const text = groupInput.trim();
+    setGroupInput('');
+    setGroupSending(true);
+    try {
+      const saved = await api.sendGroupMessage(currentTest.id, text);
+      setGroupMessages(prev => (prev.some(m => m.id === saved.id) ? prev : [...prev, saved]));
+    } catch (e: any) {
+      toast({ title: 'Error', description: e.message || 'Failed to send message', variant: 'destructive' });
+      setGroupInput(text); // restore the typed text so nothing is lost
+    }
+    setGroupSending(false);
+  };
+
   const submitTest = async () => {
     if (!currentAttempt || !currentTest) return;
 
@@ -727,6 +812,12 @@ export default function ChemTestApp() {
   // DASHBOARD
   if (effectivePage === 'dashboard') {
     const totalQuestions = tests.reduce((sum, t) => sum + (t._count?.questions || 0), 0);
+    const standaloneTests = tests.filter(t => !t.setId);
+    const bestScoreFor = (testId: string): number | null => {
+      const done = attempts.filter(a => a.testId === testId && a.completed && a.totalQuestions > 0);
+      if (!done.length) return null;
+      return Math.max(...done.map(a => Math.round((a.score / a.totalQuestions) * 100)));
+    };
     return (
       <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
@@ -793,8 +884,71 @@ export default function ChemTestApp() {
             </Card>
           </div>
 
-          <h2 className="text-2xl font-bold mb-4">Available Tests</h2>
-          {tests.length === 0 ? (
+          {/* Test Sets — named groups (e.g. English Weeks 1-4) */}
+          {testSets.length > 0 && (
+            <div className="mb-10">
+              <h2 className="text-2xl font-bold mb-4">Test Sets</h2>
+              <div className="space-y-5">
+                {testSets.map(set => {
+                  const setQuestions = set.tests.reduce((s, t) => s + (t._count?.questions || 0), 0);
+                  return (
+                    <Card key={set.id} className="rounded-4xl border border-black bg-white overflow-hidden">
+                      <div className="bg-cta text-white px-5 py-4">
+                        <div className="flex items-start justify-between gap-3 flex-wrap">
+                          <div className="min-w-0">
+                            <h3 className="font-bold text-lg leading-tight">{set.title}</h3>
+                            {set.description && <p className="text-xs text-white/85 mt-1 max-w-2xl">{set.description}</p>}
+                          </div>
+                          <Badge className="rounded-full bg-white/20 text-white border border-white/40 shrink-0">
+                            {set.tests.length} tests · {setQuestions} questions
+                          </Badge>
+                        </div>
+                      </div>
+                      <CardContent className="p-2 sm:p-3">
+                        {set.tests.map((t, i) => {
+                          const best = bestScoreFor(t.id);
+                          return (
+                            <div key={t.id} className="flex flex-wrap items-center gap-2 sm:gap-3 px-2 sm:px-3 py-3 rounded-2xl hover:bg-muted/50 transition-colors border-b last:border-b-0">
+                              <div className="w-8 h-8 rounded-full bg-[#FFF0D9] text-cta font-bold text-sm flex items-center justify-center shrink-0">
+                                {i + 1}
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="text-sm font-medium leading-snug break-words">{t.title}</p>
+                                <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5 flex-wrap">
+                                  <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {t._count?.questions || 0} questions</span>
+                                  <span className="flex items-center gap-1"><Paperclip className="w-3 h-3" /> {t._count?.attachments || 0} files</span>
+                                  {best !== null && (
+                                    <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 rounded-full text-[10px]">
+                                      <Trophy className="w-3 h-3 mr-1" /> Best {best}%
+                                    </Badge>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2 shrink-0">
+                                <Button size="sm" className="rounded-full bg-cta hover:bg-cta/90 text-white" onClick={() => openStartTest(t)}>
+                                  <Play className="w-3 h-3 mr-1" /> Take Test
+                                </Button>
+                                {t.creatorId === effectiveUser?.id && (
+                                  <Button size="sm" variant="outline" className="rounded-full border-black" onClick={() => startEditTest(t)}>
+                                    <Edit className="w-3 h-3 mr-1" /> Edit
+                                  </Button>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {standaloneTests.length > 0 && (
+            <h2 className="text-2xl font-bold mb-4">Available Tests</h2>
+          )}
+          {standaloneTests.length === 0 && testSets.length === 0 ? (
             <Card className="rounded-4xl border-dashed border-black/30 bg-white">
               <CardContent className="py-12 text-center">
                 <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
@@ -807,7 +961,7 @@ export default function ChemTestApp() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {tests.map(test => (
+              {standaloneTests.map(test => (
                 <Card key={test.id} className="rounded-4xl border border-black bg-white hover:shadow-lg transition-shadow overflow-hidden">
                   {/* Cover Image */}
                   <div className="relative h-40 overflow-hidden">
@@ -1224,21 +1378,33 @@ export default function ChemTestApp() {
                 <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
                 <h1 className="text-lg font-bold">Test Results</h1>
               </div>
-              {!chatOpen && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || ''])}
-                  className="gap-1.5"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  AI Tutor
-                </Button>
+              {!chatOpen && !groupOpen && (
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => { setChatOpen(true); setFilesOpen(false); openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']); }}
+                    className="gap-1.5"
+                  >
+                    <MessageSquare className="w-4 h-4" />
+                    AI Tutor
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={openGroupChat}
+                    className="gap-1.5"
+                    title="Chat with everyone who took this test"
+                  >
+                    <Users className="w-4 h-4" />
+                    Chat
+                  </Button>
+                </>
               )}
             </div>
           </header>
           <main className="max-w-7xl mx-auto px-4 py-8">
-            <div className={`flex gap-6 ${chatOpen ? 'flex-col lg:flex-row' : ''}`}>
+            <div className={`flex gap-6 ${chatOpen || groupOpen ? 'flex-col lg:flex-row' : ''}`}>
               <div className="flex-1 min-w-0 space-y-6">
             <Card className="rounded-4xl border border-black bg-white overflow-hidden">
               <div className={`h-2 ${pct >= 70 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-red-500'}`} />
@@ -1413,6 +1579,85 @@ export default function ChemTestApp() {
                   </Card>
                 </div>
               )}
+
+              {/* Group chat panel in Results */}
+              {groupOpen && (
+                <div className="w-full lg:w-[420px] shrink-0">
+                  <Card className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
+                    <CardHeader className="pb-3 shrink-0">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">
+                            <Users className="w-4 h-4 text-white" />
+                          </div>
+                          <div>
+                            <CardTitle className="text-sm">Test Chat</CardTitle>
+                            <p className="text-xs text-muted-foreground">Everyone who took this test</p>
+                          </div>
+                        </div>
+                        <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={closeGroupChat}>
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="flex-1 overflow-hidden p-0">
+                      <ScrollArea className="h-full px-4">
+                        <div className="space-y-3 py-2">
+                          {groupMessages.length === 0 && (
+                            <p className="text-sm text-muted-foreground text-center py-8">
+                              No messages yet — say hi to your group!
+                            </p>
+                          )}
+                          {groupMessages.map(msg => {
+                            const own = msg.userId === effectiveUser?.id;
+                            return (
+                              <div key={msg.id} className={`flex ${own ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                                  own
+                                    ? 'bg-primary text-white rounded-tr-sm'
+                                    : 'bg-[#F4F4F5] border border-black/10 rounded-tl-sm'
+                                }`}>
+                                  {!own && <p className="text-[11px] font-semibold text-primary mb-0.5">{msg.userName}</p>}
+                                  <p className="whitespace-pre-wrap break-words">{msg.text}</p>
+                                  <p className={`text-[10px] mt-1 ${own ? 'text-white/70' : 'text-muted-foreground'}`}>
+                                    {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                          <div ref={groupEndRef} />
+                        </div>
+                      </ScrollArea>
+                    </CardContent>
+                    <CardFooter className="pt-3 pb-4 shrink-0">
+                      <div className="flex w-full gap-2">
+                        <Input
+                          placeholder="Message the group..."
+                          value={groupInput}
+                          onChange={(e) => setGroupInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                              e.preventDefault();
+                              sendGroupMessage();
+                            }
+                          }}
+                          maxLength={2000}
+                          className="flex-1 text-sm"
+                        />
+                        <Button
+                          size="sm"
+                          onClick={sendGroupMessage}
+                          disabled={groupSending || !groupInput.trim()}
+                          className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
+                        >
+                          <Send className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </div>
+              )}
             </div>
           </main>
           {/* Attached files bottom sheet (mobile) — results */}
@@ -1453,16 +1698,28 @@ export default function ChemTestApp() {
                     <span className="sm:hidden">{currentTest!.attachments!.length}</span>
                   </Button>
                 )}
-                {!chatOpen && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => { setChatOpen(true); setFilesOpen(false); openChat(qId, answers[qId]); }}
-                    className="gap-1.5"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span className="hidden sm:inline">AI Tutor</span>
-                  </Button>
+                {!chatOpen && !groupOpen && (
+                  <>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => { setChatOpen(true); setFilesOpen(false); openChat(qId, answers[qId]); }}
+                      className="gap-1.5"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      <span className="hidden sm:inline">AI Tutor</span>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={openGroupChat}
+                      className="gap-1.5"
+                      title="Chat with everyone taking this test"
+                    >
+                      <Users className="w-4 h-4" />
+                      <span className="hidden sm:inline">Chat</span>
+                    </Button>
+                  </>
                 )}
               </div>
             </div>
@@ -1508,7 +1765,7 @@ export default function ChemTestApp() {
           </div>
 
           {/* Main content: Question + Chat/Files side by side */}
-          <div className={`flex gap-6 ${chatOpen || filesOpen ? 'flex-col lg:flex-row' : ''}`}>
+          <div className={`flex gap-6 ${chatOpen || groupOpen || filesOpen ? 'flex-col lg:flex-row' : ''}`}>
             {/* Current Question */}
             <div className={`flex-1 min-w-0`}>
               <Card className="rounded-4xl border border-black bg-white shadow-lg mb-6">
@@ -1757,8 +2014,87 @@ export default function ChemTestApp() {
               </div>
             )}
 
+            {/* Group chat panel — everyone taking this test */}
+            {groupOpen && (
+              <div className="w-full lg:w-[420px] shrink-0">
+                <Card className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px]">
+                  <CardHeader className="pb-3 shrink-0">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">
+                          <Users className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-sm">Test Chat</CardTitle>
+                          <p className="text-xs text-muted-foreground">Everyone taking this test</p>
+                        </div>
+                      </div>
+                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={closeGroupChat}>
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex-1 overflow-hidden p-0">
+                    <ScrollArea className="h-full px-4">
+                      <div className="space-y-3 py-2">
+                        {groupMessages.length === 0 && (
+                          <p className="text-sm text-muted-foreground text-center py-8">
+                            No messages yet — say hi to your group!
+                          </p>
+                        )}
+                        {groupMessages.map(msg => {
+                          const own = msg.userId === effectiveUser?.id;
+                          return (
+                            <div key={msg.id} className={`flex ${own ? 'justify-end' : 'justify-start'}`}>
+                              <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                                own
+                                  ? 'bg-primary text-white rounded-tr-sm'
+                                  : 'bg-[#F4F4F5] border border-black/10 rounded-tl-sm'
+                              }`}>
+                                {!own && <p className="text-[11px] font-semibold text-primary mb-0.5">{msg.userName}</p>}
+                                <p className="whitespace-pre-wrap break-words">{msg.text}</p>
+                                <p className={`text-[10px] mt-1 ${own ? 'text-white/70' : 'text-muted-foreground'}`}>
+                                  {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                        <div ref={groupEndRef} />
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
+                  <CardFooter className="pt-3 pb-4 shrink-0">
+                    <div className="flex w-full gap-2">
+                      <Input
+                        placeholder="Message the group..."
+                        value={groupInput}
+                        onChange={(e) => setGroupInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            sendGroupMessage();
+                          }
+                        }}
+                        maxLength={2000}
+                        className="flex-1 text-sm"
+                      />
+                      <Button
+                        size="sm"
+                        onClick={sendGroupMessage}
+                        disabled={groupSending || !groupInput.trim()}
+                        className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
+                      >
+                        <Send className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </CardFooter>
+                </Card>
+              </div>
+            )}
+
             {/* Attached files side panel (desktop) */}
-            {filesOpen && !chatOpen && (
+            {filesOpen && !chatOpen && !groupOpen && (
               <div className="hidden lg:block">
                 <AttachmentsSidePanel
                   items={(currentTest?.attachments || []) as AttachmentItem[]}

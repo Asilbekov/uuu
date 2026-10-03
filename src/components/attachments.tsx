@@ -22,12 +22,13 @@ import {
   ExternalLink,
   Paperclip,
   Check,
+  MonitorPlay,
 } from 'lucide-react';
 
 export interface AttachmentItem {
   id?: string; // present only after the test is saved
   title: string;
-  type: 'audio' | 'video' | 'pdf' | 'image' | 'link';
+  type: 'audio' | 'video' | 'pdf' | 'image' | 'embed' | 'link';
   url: string; // external URL or data: URL for small uploads
   size?: number | null;
   orderNum?: number;
@@ -35,7 +36,7 @@ export interface AttachmentItem {
   blobUrl?: string; // preview URL for just-picked files
 }
 
-export const ATTACHMENT_TYPES: AttachmentItem['type'][] = ['audio', 'video', 'pdf', 'image', 'link'];
+export const ATTACHMENT_TYPES: AttachmentItem['type'][] = ['audio', 'video', 'pdf', 'image', 'embed', 'link'];
 
 export function typeIcon(type: AttachmentItem['type'], className = 'w-4 h-4') {
   switch (type) {
@@ -43,6 +44,7 @@ export function typeIcon(type: AttachmentItem['type'], className = 'w-4 h-4') {
     case 'video': return <Video className={className} />;
     case 'pdf': return <FileText className={className} />;
     case 'image': return <ImageIcon className={className} />;
+    case 'embed': return <MonitorPlay className={className} />;
     default: return <LinkIcon className={className} />;
   }
 }
@@ -98,6 +100,44 @@ function VideoPreview({ item }: { item: AttachmentItem }) {
   );
 }
 
+/** Embedded external player (TED, YouTube, SoundCloud, VK ... via their official embed URL). */
+function EmbedPreview({ item }: { item: AttachmentItem }) {
+  return (
+    <div className="mt-2">
+      <div className="relative w-full overflow-hidden rounded-lg bg-black" style={{ aspectRatio: '16 / 9' }}>
+        <iframe
+          src={item.url}
+          title={item.title}
+          className="absolute inset-0 w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+          allowFullScreen
+          loading="lazy"
+        />
+      </div>
+      <div className="flex justify-end mt-1">
+        <button
+          onClick={() => window.open(item.url, '_blank')}
+          className="text-[11px] text-muted-foreground hover:text-foreground underline flex items-center gap-1"
+        >
+          <ExternalLink className="w-3 h-3" /> Player not loading? Open externally
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/** Native inline PDF rendering (same-origin proxy iframe keeps iOS Safari happy). */
+function PdfInline({ item }: { item: AttachmentItem }) {
+  return (
+    <iframe
+      src={`${attachmentFileUrl(item)}#view=FitH`}
+      title={item.title}
+      className="mt-2 w-full h-96 rounded-lg border border-black/10 bg-white"
+      loading="lazy"
+    />
+  );
+}
+
 export function PdfViewerModal({ item, onClose }: { item: AttachmentItem | null; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -136,7 +176,7 @@ export function PdfViewerModal({ item, onClose }: { item: AttachmentItem | null;
 
 /** One attachment row with preview, used in start / take / results panels. */
 function ViewerRow({ item }: { item: AttachmentItem }) {
-  const [pdfOpen, setPdfOpen] = useState(false);
+  const [pdfExpanded, setPdfExpanded] = useState(false);
   return (
     <div className="py-2.5 border-b last:border-b-0">
       <div className="flex items-start gap-2.5">
@@ -151,27 +191,31 @@ function ViewerRow({ item }: { item: AttachmentItem }) {
           </div>
           {item.type === 'audio' && <AudioPreview item={item} />}
           {item.type === 'video' && <VideoPreview item={item} />}
+          {item.type === 'embed' && <EmbedPreview item={item} />}
           {item.type === 'pdf' && (
-            <div className="mt-2 flex gap-2">
-              <Button size="sm" variant="outline" className="h-7 text-xs rounded-full" onClick={() => setPdfOpen(true)}>
-                <FileText className="w-3 h-3 mr-1" /> Open viewer
-              </Button>
-              <Button size="sm" variant="ghost" className="h-7 text-xs rounded-full" onClick={() => window.open(attachmentOpenUrl(item), '_blank')}>
-                <ExternalLink className="w-3 h-3 mr-1" /> New tab
-              </Button>
+            <div className="mt-2">
+              <div className="flex flex-wrap gap-2">
+                <Button size="sm" variant="outline" className="h-7 text-xs rounded-full" onClick={() => setPdfExpanded(v => !v)}>
+                  {pdfExpanded ? <ChevronUp className="w-3 h-3 mr-1" /> : <ChevronDown className="w-3 h-3 mr-1" />}
+                  {pdfExpanded ? 'Hide PDF' : 'Show PDF'}
+                </Button>
+                <Button size="sm" variant="ghost" className="h-7 text-xs rounded-full" onClick={() => window.open(attachmentOpenUrl(item), '_blank')}>
+                  <ExternalLink className="w-3 h-3 mr-1" /> New tab
+                </Button>
+              </div>
+              {pdfExpanded && <PdfInline item={item} />}
             </div>
           )}
           {item.type === 'image' && (
             <img src={attachmentFileUrl(item)} alt={item.title} className="mt-2 max-h-48 rounded-lg" />
           )}
-          {(item.type === 'link' || !['audio', 'video', 'pdf', 'image'].includes(item.type)) && (
+          {item.type === 'link' && (
             <Button size="sm" variant="outline" className="mt-1.5 h-7 text-xs rounded-full" onClick={() => window.open(item.url, '_blank')}>
               <ExternalLink className="w-3 h-3 mr-1" /> Open link
             </Button>
           )}
         </div>
       </div>
-      <PdfViewerModal item={pdfOpen ? item : null} onClose={() => setPdfOpen(false)} />
     </div>
   );
 }
@@ -357,7 +401,8 @@ function EditorRow({ item, index, count, onUpdate, onRemove, onMove }: EditorRow
               </div>
               {item.type === 'audio' && <AudioPreview item={item} />}
               {item.type === 'video' && <VideoPreview item={item} />}
-              {(item.type === 'pdf' || item.type === 'link') && item.id && (
+              {item.type === 'embed' && <EmbedPreview item={item} />}
+              {item.type === 'pdf' && item.id && (
                 <Button
                   size="sm"
                   variant="outline"
