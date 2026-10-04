@@ -285,6 +285,10 @@ export default function ChemTestApp() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
 
+  // Boot splash: while the stored session and initial data restore on reload,
+  // show a branded loading screen instead of the auth / empty dashboard flash
+  const [booting, setBooting] = useState(true);
+
   // Auth state
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
@@ -341,14 +345,46 @@ export default function ChemTestApp() {
   const [drumInputMode, setDrumInputMode] = useState(false);
   const [drumInputValue, setDrumInputValue] = useState('');
   const drumRef = React.useRef<HTMLDivElement>(null);
+  const drumScaleRafRef = React.useRef(0);
+  const drumProgrammaticRef = React.useRef(0);
+  const drumSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Keep the current question pill centered in the drum
+  // Magnifier-style drum: pills shrink and fade with distance from the center ("under glass")
+  const applyDrumScales = React.useCallback(() => {
+    const c = drumRef.current;
+    if (!c || c.clientWidth === 0) return;
+    const mid = c.getBoundingClientRect().left + c.clientWidth / 2;
+    const radius = Math.max(90, c.clientWidth * 0.28);
+    for (const cell of Array.from(c.children) as HTMLElement[]) {
+      const el = (cell.firstElementChild as HTMLElement) || cell;
+      const r = el.getBoundingClientRect();
+      const dist = Math.abs(r.left + r.width / 2 - mid);
+      const t = Math.max(0, 1 - (dist / radius) ** 2); // 1 at the center, 0 at the falloff radius
+      el.style.transform = `scale(${(0.55 + 0.45 * t).toFixed(3)})`;
+      el.style.opacity = (0.3 + 0.7 * t).toFixed(3);
+    }
+  }, []);
+
+  // Stable ref: apply the magnification right after the drum mounts
+  const drumRefCb = React.useCallback((el: HTMLDivElement | null) => {
+    drumRef.current = el;
+    if (el) requestAnimationFrame(() => applyDrumScales());
+  }, [applyDrumScales]);
+
+  // Keep the current question pill centered in the drum (under the glass)
   useEffect(() => {
     const c = drumRef.current;
     if (!c) return;
     const el = c.querySelector<HTMLElement>('[data-current="true"]');
-    if (el) c.scrollTo({ left: el.offsetLeft - (c.clientWidth - el.clientWidth) / 2, behavior: 'smooth' });
-  }, [currentQuestionIdx, drumInputMode]);
+    if (el) {
+      const target = el.offsetLeft - (c.clientWidth - el.offsetWidth) / 2;
+      if (Math.abs(c.scrollLeft - target) > 2) {
+        drumProgrammaticRef.current = Date.now();
+        c.scrollTo({ left: target, behavior: 'smooth' });
+      }
+    }
+    applyDrumScales();
+  }, [currentQuestionIdx, drumInputMode, applyDrumScales]);
 
   // AI Chat state
   const [chatOpen, setChatOpen] = useState(false);
@@ -375,14 +411,29 @@ export default function ChemTestApp() {
 
   // Read user from localStorage only after mount (prevents hydration mismatch)
   const [hydratedUser, setHydratedUser] = useState<{ id: string; email: string; name: string } | null>(null);
+  // "Initial data loaded" guard — shared by the boot restore and the dashboard effect
+  const hasLoadedRef = React.useRef(false);
   useEffect(() => {
     const stored = localStorage.getItem('chemtest_user');
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        setHydratedUser(parsed);
-      } catch { /* ignore */ }
+    if (!stored) {
+      // Fresh visitor — nothing to restore, show the login screen right away
+      setBooting(false);
+      return;
     }
+    let parsed: { id: string; email: string; name: string } | null = null;
+    try {
+      parsed = JSON.parse(stored);
+    } catch {
+      setBooting(false);
+      return;
+    }
+    setHydratedUser(parsed);
+    // Restore the session data BEFORE revealing the UI — no empty dashboard flash
+    hasLoadedRef.current = true;
+    Promise.all([
+      api.getTests().then(data => setTests(data)).catch(() => { hasLoadedRef.current = false; }),
+      api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
+    ]).finally(() => setBooting(false));
   }, []);
 
   // Apply hydrated user - use hydratedUser if no explicit login has happened
@@ -399,8 +450,7 @@ export default function ChemTestApp() {
     }
   }, [toast]);
 
-  // Load tests when navigating to dashboard
-  const hasLoadedRef = React.useRef(false);
+  // Load tests when navigating to dashboard (skipped when boot already restored the data)
   useEffect(() => {
     if (effectivePage === 'dashboard' && effectiveUser && !hasLoadedRef.current) {
       hasLoadedRef.current = true;
@@ -477,6 +527,14 @@ export default function ChemTestApp() {
       }
       setUser(result);
       setUserState(result);
+      // Load the user's data BEFORE switching to the dashboard — no empty flash
+      hasLoadedRef.current = true;
+      const [userTests, userAttempts] = await Promise.all([
+        api.getTests().catch(() => [] as Test[]),
+        api.getAttempts().catch(() => [] as Attempt[]),
+      ]);
+      setTests(userTests);
+      setAttempts(userAttempts);
       setPage('dashboard');
       toast({ title: 'Success', description: authMode === 'signup' ? 'Account created!' : 'Welcome back!' });
     } catch (e: any) {
@@ -975,6 +1033,19 @@ export default function ChemTestApp() {
   };
 
   // =================== RENDER ===================
+
+  // BOOT SPLASH — covers the auth / empty-dashboard flash while the session restores
+  if (booting) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background">
+        <div className="w-20 h-20 bg-cta rounded-3xl flex items-center justify-center shadow-lg animate-pulse">
+          <FlaskConical className="w-10 h-10 text-white" />
+        </div>
+        <h1 className="text-2xl font-bold mt-5 mb-8">ChemTest</h1>
+        <div className="w-7 h-7 rounded-full border-4 border-black/10 border-t-cta animate-spin" />
+      </div>
+    );
+  }
 
   // AUTH PAGE
   if (effectivePage === 'auth') {
@@ -1792,6 +1863,31 @@ export default function ChemTestApp() {
       setDrumInputValue('');
     };
 
+    // Drum scroll: magnify around the center in real time; when the strip settles,
+    // select the number closest to the glass (skips programmatic scrolls)
+    const onDrumScroll = () => {
+      if (!drumScaleRafRef.current) {
+        drumScaleRafRef.current = requestAnimationFrame(() => {
+          drumScaleRafRef.current = 0;
+          applyDrumScales();
+        });
+      }
+      if (drumSettleTimerRef.current) clearTimeout(drumSettleTimerRef.current);
+      drumSettleTimerRef.current = setTimeout(() => {
+        const c = drumRef.current;
+        if (!c || Date.now() - drumProgrammaticRef.current < 300) return;
+        const mid = c.getBoundingClientRect().left + c.clientWidth / 2;
+        let best = 0;
+        let bestDist = Infinity;
+        (Array.from(c.children) as HTMLElement[]).forEach((k, i) => {
+          const r = k.getBoundingClientRect();
+          const d = Math.abs(r.left + r.width / 2 - mid);
+          if (d < bestDist) { bestDist = d; best = i; }
+        });
+        if (best !== currentQuestionIdx && best >= 0 && best < shuffledQuestions.length) goToQuestion(best);
+      }, 150);
+    };
+
     if (showResult) {
       const score = getScore();
       const pct = Math.round((score / shuffledQuestions.length) * 100);
@@ -2079,7 +2175,7 @@ export default function ChemTestApp() {
           </div>
         </header>
 
-        <main className="max-w-7xl mx-auto px-4 py-6">
+        <main className="max-w-7xl mx-auto px-4 pt-6 pb-32">
           {/* Main content: Question + Chat/Files side by side */}
           <div className={`flex gap-6 ${chatOpen || groupOpen || filesOpen ? 'flex-col lg:flex-row' : ''}`}>
             {/* Current Question */}
@@ -2240,8 +2336,8 @@ export default function ChemTestApp() {
           </div>
         </main>
 
-        {/* Sticky bottom navigation bar — question drum + prev/next (same pattern as create-test bottom bar) */}
-        <div className="sticky bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+        {/* Fixed bottom navigation bar — glued to the screen edge, never moves with content */}
+        <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
           <div
             className="max-w-7xl mx-auto px-4 pt-3"
             style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
@@ -2278,42 +2374,57 @@ export default function ChemTestApp() {
                   />
                 </form>
               ) : (
-                <div
-                  ref={drumRef}
-                  className="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto flex-nowrap py-1 px-0.5 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
-                >
-                  {shuffledQuestions.map((q, idx) => {
-                    const qIdNav = q.id || '';
-                    const isAnswered = !!answers[qIdNav];
-                    const isRevealedNav = practiceMode && revealedAnswers[qIdNav];
-                    const isCurrent = idx === currentQuestionIdx;
-                    const isCorrectAnswer = isRevealedNav && answers[qIdNav] === q.correctAnswer;
-                    const isWrongAnswer = isRevealedNav && answers[qIdNav] && answers[qIdNav] !== q.correctAnswer;
+                <div className="relative flex-1 min-w-0 h-11">
+                  <div
+                    ref={drumRefCb}
+                    onScroll={onDrumScroll}
+                    className="h-full flex items-center overflow-x-auto flex-nowrap [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
+                    style={{
+                      scrollSnapType: 'x mandatory',
+                      paddingLeft: 'calc(50% - 1.5rem)',
+                      paddingRight: 'calc(50% - 1.5rem)',
+                    }}
+                  >
+                    {shuffledQuestions.map((q, idx) => {
+                      const qIdNav = q.id || '';
+                      const isAnswered = !!answers[qIdNav];
+                      const isRevealedNav = practiceMode && revealedAnswers[qIdNav];
+                      const isCurrent = idx === currentQuestionIdx;
+                      const isCorrectAnswer = isRevealedNav && answers[qIdNav] === q.correctAnswer;
+                      const isWrongAnswer = isRevealedNav && answers[qIdNav] && answers[qIdNav] !== q.correctAnswer;
 
-                    return (
-                      <button
-                        key={idx}
-                        data-current={isCurrent}
-                        onClick={() => {
-                          if (isCurrent) {
-                            setDrumInputValue(String(currentQuestionIdx + 1));
-                            setDrumInputMode(true);
-                          } else {
-                            goToQuestion(idx);
-                          }
-                        }}
-                        title={isCurrent ? 'Tap to type a question number' : `Go to question ${idx + 1}`}
-                        className={`w-8 h-8 shrink-0 rounded-full text-xs font-bold transition-all flex items-center justify-center ${
-                          isCurrent ? 'ring-2 ring-cta ring-offset-2' :
-                          isCorrectAnswer ? 'bg-emerald-500 text-white' :
-                          isWrongAnswer ? 'bg-red-500 text-white' :
-                          isAnswered ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
-                        }`}
-                      >
-                        {idx + 1}
-                      </button>
-                    );
-                  })}
+                      return (
+                        <button
+                          key={idx}
+                          data-current={isCurrent}
+                          onClick={() => {
+                            if (isCurrent) {
+                              setDrumInputValue(String(currentQuestionIdx + 1));
+                              setDrumInputMode(true);
+                            } else {
+                              goToQuestion(idx);
+                            }
+                          }}
+                          title={isCurrent ? 'Tap to type a question number' : `Go to question ${idx + 1}`}
+                          className="w-12 h-full shrink-0 flex items-center justify-center"
+                          style={{ scrollSnapAlign: 'center' }}
+                        >
+                          <span
+                            className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center transition-colors ${
+                              isCorrectAnswer ? 'bg-emerald-500 text-white' :
+                              isWrongAnswer ? 'bg-red-500 text-white' :
+                              isCurrent ? 'bg-cta text-white ring-2 ring-black/20 shadow-md' :
+                              isAnswered ? 'bg-cta/80 text-white' : 'bg-muted text-muted-foreground'
+                            }`}
+                          >
+                            {idx + 1}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {/* The glass — magnifier lens over the current number */}
+                  <div className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[3.75rem] rounded-full border border-black/15 bg-gradient-to-b from-white/60 via-white/5 to-white/50 shadow-[inset_0_2px_10px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.06)]" />
                 </div>
               )}
 
