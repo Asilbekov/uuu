@@ -1063,46 +1063,6 @@ export default function ChemTestApp() {
 
               <Separator />
 
-              {/* Mode Selection */}
-              <div className="space-y-3">
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-1">Test Mode</h3>
-                  <p className="text-sm text-muted-foreground">Choose how you want to take the test</p>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    onClick={() => setPracticeMode(false)}
-                    className={`p-4 rounded-xl border-2 transition-all text-left ${
-                      !practiceMode
-                        ? 'border-cta bg-[#FFF0D9] shadow-md'
-                        : 'border-transparent bg-muted/50 hover:bg-muted'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <ListChecks className="w-5 h-5 text-cta" />
-                      <span className="font-semibold text-sm">Exam Mode</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">See results at the end</p>
-                  </button>
-                  <button
-                    onClick={() => setPracticeMode(true)}
-                    className={`p-4 rounded-xl border-2 transition-all text-left ${
-                      practiceMode
-                        ? 'border-primary bg-[#FFE8DE] shadow-md'
-                        : 'border-transparent bg-muted/50 hover:bg-muted'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <BookOpen className="w-5 h-5 text-primary" />
-                      <span className="font-semibold text-sm">Practice Mode</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">See correct answer right away</p>
-                  </button>
-                </div>
-              </div>
-
-              <Separator />
-
               {/* Question Count Selection */}
               <div className="space-y-4">
                 <div className="text-center">
@@ -1148,6 +1108,46 @@ export default function ChemTestApp() {
                     onChange={e => setSelectedQuestionCount(Number(e.target.value))}
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-[#fe5933]"
                   />
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Mode Selection */}
+              <div className="space-y-3">
+                <div className="text-center">
+                  <h3 className="text-lg font-semibold mb-1">Test Mode</h3>
+                  <p className="text-sm text-muted-foreground">Choose how you want to take the test</p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setPracticeMode(false)}
+                    className={`p-4 rounded-xl border-2 transition-all text-left ${
+                      !practiceMode
+                        ? 'border-cta bg-[#FFF0D9] shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <ListChecks className="w-5 h-5 text-cta" />
+                      <span className="font-semibold text-sm">Exam Mode</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">See results at the end</p>
+                  </button>
+                  <button
+                    onClick={() => setPracticeMode(true)}
+                    className={`p-4 rounded-xl border-2 transition-all text-left ${
+                      practiceMode
+                        ? 'border-primary bg-[#FFE8DE] shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <BookOpen className="w-5 h-5 text-primary" />
+                      <span className="font-semibold text-sm">Practice Mode</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">See correct answer right away</p>
+                  </button>
                 </div>
               </div>
 
