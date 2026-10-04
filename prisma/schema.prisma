@@ -35,6 +35,8 @@ model Test {
   randomizeOptions   Boolean @default(false)
   tags        String[] @default([])
   coverImage  String?  // Base64 data URL for AI-generated cover image
+  coverIcon   String?  // emoji picked in the editor from the science icon pack
+  coverColor  String?  // hex color picked in the editor (card/cover background)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -52,13 +52,15 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments, tags } = body;
+    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments, tags, coverIcon, coverColor } = body;
 
     if (!title) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
     }
 
     const cleanTags = sanitizeTags(tags);
+    const cleanIcon = typeof coverIcon === 'string' && [...coverIcon.trim()].length >= 1 && [...coverIcon.trim()].length <= 8 ? coverIcon.trim() : null;
+    const cleanColor = typeof coverColor === 'string' && /^#[0-9a-fA-F]{6}$/.test(coverColor) ? coverColor : null;
 
     const test = await db.test.create({
       data: {
@@ -66,6 +68,8 @@ export async function POST(request: NextRequest) {
         description: description || '',
         topic: topic || 'Chemistry',
         tags: cleanTags,
+        coverIcon: cleanIcon,
+        coverColor: cleanColor,
         creatorId: userId,
         isPublic: isPublic !== false,
         randomizeQuestions: randomizeQuestions || false,

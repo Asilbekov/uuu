@@ -53,6 +53,7 @@ import {
   ChevronRight,
   X,
   Hash,
+  Palette,
 } from 'lucide-react';
 
 // Types
@@ -92,6 +93,8 @@ interface Test {
   randomizeQuestions: boolean;
   randomizeOptions: boolean;
   tags?: string[];
+  coverIcon?: string | null;
+  coverColor?: string | null;
   hasCoverImage?: boolean;
   questions: Question[];
   attachments?: Attachment[];
@@ -138,6 +141,26 @@ function coverEmojiFor(test: { topic?: string | null; tags?: string[] | null }) 
          test.topic === 'Chemistry' ? '🧪' :
          test.topic === 'Mathematics' ? '📐' : '📚';
 }
+
+// Science-subject icon pack for the test card cover (picked in the editor)
+const COVER_ICONS = [
+  '⚛️', '🧪', '⚗️', '🧬', '🔬', '🔭', '🧲', '🪐',
+  '🌍', '🌋', '🌊', '🧭', '🌿', '🦠', '🧠', '🧮',
+  '📐', '📏', '📊', '💻', '⚙️', '🤖', '⚡', '🩺',
+  '💊', '📚', '🎓', '📝',
+];
+
+// Pastel palette for the test card background (picked in the editor)
+const COVER_COLORS = [
+  { hex: '#E3EEFF', name: 'Ice blue' },
+  { hex: '#DFF3E8', name: 'Mint green' },
+  { hex: '#FFF0D9', name: 'Warm cream' },
+  { hex: '#FCE8F2', name: 'Soft pink' },
+  { hex: '#ECE6FF', name: 'Lavender' },
+  { hex: '#DFF6F0', name: 'Aqua' },
+  { hex: '#FFE8DE', name: 'Peach' },
+  { hex: '#E8E8E8', name: 'Light gray' },
+];
 
 // Per-test group chat message (see /api/tests/[id]/chat)
 interface GroupMessage {
@@ -224,6 +247,9 @@ export default function ChemTestApp() {
   const [tagInput, setTagInput] = useState('');
   const [allTags, setAllTags] = useState<string[]>([]);
   const [tagsOpen, setTagsOpen] = useState(false);
+  // Cover customization (create / edit test): '' = auto (derived from tags/topic)
+  const [testCoverIcon, setTestCoverIcon] = useState('');
+  const [testCoverColor, setTestCoverColor] = useState('');
   const [randomizeQ, setRandomizeQ] = useState(true);
   const [randomizeO, setRandomizeO] = useState(true);
   // Randomization chosen at test START (Start Test page), not in the editor
@@ -336,6 +362,7 @@ export default function ChemTestApp() {
   const [dashFullTests, setDashFullTests] = useState<Record<string, Test>>({});
   const dashFeedRef = React.useRef<HTMLDivElement>(null);
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
+  const dashLastScrollTsRef = React.useRef(0);
 
   // When the visible test changes (swipe): apply its defaults, sync feed scroll, lazy-fetch full test for attachments
   useEffect(() => {
@@ -349,10 +376,16 @@ export default function ChemTestApp() {
     setStartRandomizeQ(t.randomizeQuestions !== false);
     setStartRandomizeO(t.randomizeOptions !== false);
     setStartFilesExpanded(false);
-    // Sync feed position (e.g. when returning to the dashboard)
+    // Sync feed position (e.g. when returning to the dashboard).
+    // Skipped right after user scrolling — otherwise this teleport-fights the
+    // native snap mid-swipe and makes the swipe feel janky.
     const el = dashFeedRef.current;
-    if (el && el.clientHeight > 0 && Math.abs(el.scrollTop - safeIdx * el.clientHeight) > 2) {
-      el.scrollTo({ top: safeIdx * el.clientHeight });
+    if (
+      el && el.clientHeight > 0 &&
+      Math.abs(el.scrollTop - safeIdx * el.clientHeight) > 2 &&
+      Date.now() - dashLastScrollTsRef.current > 200
+    ) {
+      el.scrollTo({ top: safeIdx * el.clientHeight, behavior: 'instant' as ScrollBehavior });
     }
     // Lazy-fetch the full test (for the attached files list)
     if (!dashFetchedRef.current.has(t.id)) {
@@ -429,6 +462,8 @@ export default function ChemTestApp() {
     setTestTags([]);
     setTagInput('');
     setTagsOpen(false);
+    setTestCoverIcon('');
+    setTestCoverColor('');
     setRandomizeQ(true);
     setRandomizeO(true);
     setQuestions([{ text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' }]);
@@ -468,6 +503,8 @@ export default function ChemTestApp() {
       setTestTitle(fullTest.title);
       setTestDescription(fullTest.description);
       setTestTags(fullTest.tags || []);
+      setTestCoverIcon(fullTest.coverIcon || '');
+      setTestCoverColor(fullTest.coverColor || '');
       setRandomizeQ(fullTest.randomizeQuestions);
       setRandomizeO(fullTest.randomizeOptions);
       setQuestions(fullTest.questions.map(q => ({
@@ -512,6 +549,8 @@ export default function ChemTestApp() {
         title: testTitle,
         description: testDescription,
         tags: testTags,
+        coverIcon: testCoverIcon || null,
+        coverColor: testCoverColor || null,
         isPublic: true,
         randomizeQuestions: randomizeQ,
         randomizeOptions: randomizeO,
@@ -666,6 +705,7 @@ export default function ChemTestApp() {
   const onDashScroll = () => {
     const el = dashFeedRef.current;
     if (!el || el.clientHeight === 0) return;
+    dashLastScrollTsRef.current = Date.now();
     const idx = Math.round(el.scrollTop / el.clientHeight);
     setDashTestIdx(Math.min(tests.length - 1, Math.max(0, idx)));
   };
@@ -981,20 +1021,21 @@ export default function ChemTestApp() {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
                 const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
-                const coverBg = coverBgFor(test);
+                // Explicitly picked color wins; otherwise derive from the first tag / topic
+                const bgClass = test.coverColor ? '' : coverBgFor(test);
+                const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
                 return (
-                  <section key={test.id} className={`h-full snap-start snap-always overflow-y-auto [scrollbar-width:none] ${coverBg}`}>
+                  <section key={test.id} style={bgStyle} className={`h-full snap-start snap-always overflow-y-auto [scrollbar-width:none] ${bgClass}`}>
                     <div className="min-h-full flex flex-col items-center justify-center px-4 py-4">
                       <div className="w-full max-w-md space-y-4">
-                        {/* Default cover — the test title is part of the cover */}
-                        <div className="relative h-44 rounded-3xl overflow-hidden shadow-lg ring-4 ring-white/80">
-                          <div className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${coverBg}`}>
-                            <div className="text-5xl mb-3">
-                              {coverEmojiFor(test)}
+                        {/* Cover header — no borders, blends seamlessly with the card */}
+                        <div className="relative h-44 overflow-hidden">
+                          <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
+                            <div className="text-6xl">
+                              {test.coverIcon || coverEmojiFor(test)}
                             </div>
-                            <p className="text-lg font-bold text-cta leading-snug line-clamp-2 px-2">{test.title}</p>
                           </div>
-                          {/* Topic badge overlay */}
+                          {/* Tag badge overlay */}
                           <div className="absolute top-2 left-2">
                             <Badge variant="secondary" className="bg-cta text-white border border-black rounded-full backdrop-blur-sm shadow-sm max-w-[75%] truncate">{test.tags?.[0] || test.topic}</Badge>
                           </div>
@@ -1011,7 +1052,8 @@ export default function ChemTestApp() {
                           </div>
                         )}
 
-                        {isCur && !editMode && (
+                        {/* Controls on every slide — nothing pops in mid-swipe */}
+                        {!editMode && (
                           <>
                             {/* Question count — editable counter + slider */}
                             <div className="space-y-3">
@@ -1299,6 +1341,75 @@ export default function ChemTestApp() {
                 <AttachmentsEditor items={formAttachments} onChange={setFormAttachments} />
               </CardContent>
             )}
+          </Card>
+
+          {/* Cover customization: science icon pack + card color */}
+          <Card className="rounded-4xl border border-black bg-white">
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <Palette className="w-4 h-4" /> Cover
+              </CardTitle>
+              <CardDescription>
+                Pick an icon and a card color for the test card in the feed.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground uppercase tracking-wide">Icon</Label>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setTestCoverIcon('')}
+                    title="Auto — based on the first tag"
+                    className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${
+                      testCoverIcon === '' ? 'border-cta bg-[#FFF0D9] shadow-md' : 'border-black/10 bg-muted/30 hover:bg-muted'
+                    }`}
+                  >
+                    <Sparkles className="w-4 h-4 text-cta" />
+                  </button>
+                  {COVER_ICONS.map(ic => (
+                    <button
+                      key={ic}
+                      type="button"
+                      onClick={() => setTestCoverIcon(ic)}
+                      className={`w-10 h-10 rounded-xl border-2 text-xl flex items-center justify-center transition-all ${
+                        testCoverIcon === ic ? 'border-cta bg-[#FFF0D9] shadow-md' : 'border-black/10 bg-muted/30 hover:bg-muted'
+                      }`}
+                    >
+                      {ic}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground uppercase tracking-wide">Card Color</Label>
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setTestCoverColor('')}
+                    title="Auto — based on the first tag"
+                    className={`w-9 h-9 rounded-full border border-black/10 bg-muted/30 flex items-center justify-center transition-all ${
+                      testCoverColor === '' ? 'ring-2 ring-offset-2 ring-cta' : ''
+                    }`}
+                  >
+                    <Sparkles className="w-4 h-4 text-cta" />
+                  </button>
+                  {COVER_COLORS.map(c => (
+                    <button
+                      key={c.hex}
+                      type="button"
+                      onClick={() => setTestCoverColor(c.hex)}
+                      title={c.name}
+                      aria-label={c.name}
+                      style={{ backgroundColor: c.hex }}
+                      className={`w-9 h-9 rounded-full border border-black/10 transition-all ${
+                        testCoverColor === c.hex ? 'ring-2 ring-offset-2 ring-cta' : ''
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </CardContent>
           </Card>
 
           <div className="space-y-4">

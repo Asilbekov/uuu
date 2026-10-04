@@ -49,7 +49,15 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments, tags } = body;
+    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments, tags, coverIcon, coverColor } = body;
+
+    // Clean optional cover overrides: empty string clears the stored value
+    const cleanIcon = coverIcon !== undefined
+      ? (typeof coverIcon === 'string' && [...coverIcon.trim()].length >= 1 && [...coverIcon.trim()].length <= 8 ? coverIcon.trim() : null)
+      : undefined;
+    const cleanColor = coverColor !== undefined
+      ? (typeof coverColor === 'string' && /^#[0-9a-fA-F]{6}$/.test(coverColor) ? coverColor : null)
+      : undefined;
 
     // Replace attachments if provided (full list from the editor)
     if (Array.isArray(attachments)) {
@@ -80,6 +88,8 @@ export async function PUT(
         ...(description !== undefined && { description }),
         ...(topic && { topic }),
         ...(Array.isArray(tags) && { tags: sanitizeTags(tags) }),
+        ...(cleanIcon !== undefined && { coverIcon: cleanIcon }),
+        ...(cleanColor !== undefined && { coverColor: cleanColor }),
         ...(isPublic !== undefined && { isPublic }),
         ...(randomizeQuestions !== undefined && { randomizeQuestions }),
         ...(randomizeOptions !== undefined && { randomizeOptions }),
