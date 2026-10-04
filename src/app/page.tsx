@@ -238,6 +238,8 @@ export default function ChemTestApp() {
 
   // Attachments editor state (create / edit test)
   const [formAttachments, setFormAttachments] = useState<AttachmentItem[]>([]);
+  // Attached Files collapse in the editor — same behavior as on the test card
+  const [editorFilesExpanded, setEditorFilesExpanded] = useState(false);
 
   // Test taking state
   const [currentAttempt, setCurrentAttempt] = useState<Attempt | null>(null);
@@ -431,6 +433,7 @@ export default function ChemTestApp() {
     setRandomizeO(true);
     setQuestions([{ text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' }]);
     setFormAttachments([]);
+    setEditorFilesExpanded(false);
     setEditingTestId(null);
   };
 
@@ -997,15 +1000,6 @@ export default function ChemTestApp() {
                           </div>
                         </div>
 
-                        {test.description && (
-                          <p className="text-xs text-muted-foreground text-center line-clamp-2">{test.description}</p>
-                        )}
-
-                        <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {totalQ} questions</span>
-                          <span className="flex items-center gap-1"><Trophy className="w-3 h-3" /> {test._count?.attempts || 0} attempts</span>
-                        </div>
-
                         {isCur && editMode && (
                           <div className="space-y-2 text-center">
                             <p className="text-xs text-muted-foreground">Edit mode is on — swipe up/down to choose a test</p>
@@ -1281,20 +1275,30 @@ export default function ChemTestApp() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-4xl border border-black bg-white">
-            <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <Paperclip className="w-4 h-4" /> Attached Files ({formAttachments.length})
-              </CardTitle>
-              <CardDescription>
-                Audio, video, PDF or links students can open while taking this test.
-                Students see them in the &quot;Attached Files&quot; tab — audio and video play
-                right inside the test; large files are best added by link.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <AttachmentsEditor items={formAttachments} onChange={setFormAttachments} />
-            </CardContent>
+          {/* Attached files — collapsed to one line by default, same expand/collapse as the test card */}
+          <Card className="rounded-4xl border border-black bg-white overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setEditorFilesExpanded(v => !v)}
+              className="w-full flex items-center gap-1.5 px-6 py-4 text-left hover:bg-muted/50 transition-colors"
+            >
+              <Paperclip className="w-4 h-4 shrink-0" />
+              <span className="font-semibold text-base">Attached Files ({formAttachments.length})</span>
+              {editorFilesExpanded ? (
+                <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
+              ) : (
+                <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
+              )}
+            </button>
+            {editorFilesExpanded && (
+              <CardContent className="pt-0">
+                <p className="text-xs text-muted-foreground mb-3">
+                  Audio, video, PDF or links students can open while taking this test —
+                  audio and video play right inside the test; large files are best added by link.
+                </p>
+                <AttachmentsEditor items={formAttachments} onChange={setFormAttachments} />
+              </CardContent>
+            )}
           </Card>
 
           <div className="space-y-4">
