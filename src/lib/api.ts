@@ -63,6 +63,12 @@ export const api = {
   updateTest: (id: string, data: any) => apiFetch(`/tests/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteTest: (id: string) => apiFetch(`/tests/${id}`, { method: 'DELETE' }),
 
+  // Global tag dictionary (autocomplete in the test editor)
+  getTags: async (): Promise<string[]> => {
+    const res = await apiFetch('/tags');
+    return Array.isArray(res?.tags) ? res.tags : [];
+  },
+
   // Per-test group chat (user ↔ user, polled)
   getGroupMessages: (testId: string, after?: string) =>
     apiFetch(`/tests/${testId}/chat${after ? `?after=${encodeURIComponent(after)}` : ''}`),

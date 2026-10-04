@@ -9,7 +9,6 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -52,6 +51,8 @@ import {
   Users,
   ChevronDown,
   ChevronRight,
+  X,
+  Hash,
 } from 'lucide-react';
 
 // Types
@@ -90,6 +91,7 @@ interface Test {
   isPublic: boolean;
   randomizeQuestions: boolean;
   randomizeOptions: boolean;
+  tags?: string[];
   hasCoverImage?: boolean;
   questions: Question[];
   attachments?: Attachment[];
@@ -105,6 +107,36 @@ function topicBgClass(topic?: string | null) {
     case 'Mathematics': return 'bg-[#FFF0D9]';
     default: return 'bg-[#FCE8F2]';
   }
+}
+
+// Stable hash of a string (for tag-based cover styling)
+function tagHash(s: string) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 99991;
+  return h;
+}
+
+// Cover background: derived from the first tag when present (tests created
+// after tags replaced topic), otherwise from the legacy topic field
+function coverBgFor(test: { topic?: string | null; tags?: string[] | null }) {
+  const tag = test.tags?.[0];
+  if (tag) {
+    const palette = ['bg-[#E3EEFF]', 'bg-[#DFF3E8]', 'bg-[#FFF0D9]', 'bg-[#FCE8F2]'];
+    return palette[tagHash(tag) % palette.length];
+  }
+  return topicBgClass(test.topic);
+}
+
+// Cover emoji: derived from the first tag when present, otherwise from topic
+function coverEmojiFor(test: { topic?: string | null; tags?: string[] | null }) {
+  const tag = test.tags?.[0];
+  if (tag) {
+    const emojis = ['🧪', '⚛️', '📐', '📚', '🔬', '🧬', '🪐', '⚗️', '🧫', '📊'];
+    return emojis[tagHash(tag.split('').reverse().join('')) % emojis.length];
+  }
+  return test.topic === 'Physics' ? '⚛️' :
+         test.topic === 'Chemistry' ? '🧪' :
+         test.topic === 'Mathematics' ? '📐' : '📚';
 }
 
 // Per-test group chat message (see /api/tests/[id]/chat)
@@ -187,7 +219,11 @@ export default function ChemTestApp() {
   // Test creation state
   const [testTitle, setTestTitle] = useState('');
   const [testDescription, setTestDescription] = useState('');
-  const [testTopic, setTestTopic] = useState('Chemistry');
+  // Tags (replace the old topic field): chips + autocomplete from the global tag dictionary
+  const [testTags, setTestTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState('');
+  const [allTags, setAllTags] = useState<string[]>([]);
+  const [tagsOpen, setTagsOpen] = useState(false);
   const [randomizeQ, setRandomizeQ] = useState(true);
   const [randomizeO, setRandomizeO] = useState(true);
   // Randomization chosen at test START (Start Test page), not in the editor
@@ -388,7 +424,9 @@ export default function ChemTestApp() {
   const resetTestForm = () => {
     setTestTitle('');
     setTestDescription('');
-    setTestTopic('Chemistry');
+    setTestTags([]);
+    setTagInput('');
+    setTagsOpen(false);
     setRandomizeQ(true);
     setRandomizeO(true);
     setQuestions([{ text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' }]);
@@ -401,6 +439,24 @@ export default function ChemTestApp() {
     setPage('create-test');
   };
 
+  // ----- Tags editor helpers -----
+  const addTag = (raw: string) => {
+    const t = raw.trim().replace(/\s+/g, ' ').slice(0, 30);
+    if (!t) return;
+    if (!testTags.some(x => x.toLowerCase() === t.toLowerCase()) && testTags.length < 10) {
+      setTestTags([...testTags, t]);
+    }
+    setTagInput('');
+  };
+
+  const removeTag = (t: string) => setTestTags(testTags.filter(x => x !== t));
+
+  // Autocomplete: dictionary tags matching the typed text, minus already-added ones
+  const tagSuggestions = allTags
+    .filter(t => !testTags.some(x => x.toLowerCase() === t.toLowerCase()))
+    .filter(t => !tagInput.trim() || t.toLowerCase().includes(tagInput.trim().toLowerCase()))
+    .slice(0, 8);
+
   const startEditTest = async (test: Test) => {
     setLoading(true);
     try {
@@ -408,7 +464,7 @@ export default function ChemTestApp() {
       setCurrentTest(fullTest);
       setTestTitle(fullTest.title);
       setTestDescription(fullTest.description);
-      setTestTopic(fullTest.topic);
+      setTestTags(fullTest.tags || []);
       setRandomizeQ(fullTest.randomizeQuestions);
       setRandomizeO(fullTest.randomizeOptions);
       setQuestions(fullTest.questions.map(q => ({
@@ -452,7 +508,7 @@ export default function ChemTestApp() {
       const data = {
         title: testTitle,
         description: testDescription,
-        topic: testTopic,
+        tags: testTags,
         isPublic: true,
         randomizeQuestions: randomizeQ,
         randomizeOptions: randomizeO,
@@ -922,7 +978,7 @@ export default function ChemTestApp() {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
                 const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
-                const coverBg = topicBgClass(test.topic);
+                const coverBg = coverBgFor(test);
                 return (
                   <section key={test.id} className={`h-full snap-start snap-always overflow-y-auto [scrollbar-width:none] ${coverBg}`}>
                     <div className="min-h-full flex flex-col items-center justify-center px-4 py-4">
@@ -931,15 +987,13 @@ export default function ChemTestApp() {
                         <div className="relative h-44 rounded-3xl overflow-hidden shadow-lg ring-4 ring-white/80">
                           <div className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${coverBg}`}>
                             <div className="text-5xl mb-3">
-                              {test.topic === 'Physics' ? '⚛️' :
-                               test.topic === 'Chemistry' ? '🧪' :
-                               test.topic === 'Mathematics' ? '📐' : '📚'}
+                              {coverEmojiFor(test)}
                             </div>
                             <p className="text-lg font-bold text-cta leading-snug line-clamp-2 px-2">{test.title}</p>
                           </div>
                           {/* Topic badge overlay */}
                           <div className="absolute top-2 left-2">
-                            <Badge variant="secondary" className="bg-cta text-white border border-black rounded-full backdrop-blur-sm shadow-sm">{test.topic}</Badge>
+                            <Badge variant="secondary" className="bg-cta text-white border border-black rounded-full backdrop-blur-sm shadow-sm max-w-[75%] truncate">{test.tags?.[0] || test.topic}</Badge>
                           </div>
                         </div>
 
@@ -1035,20 +1089,38 @@ export default function ChemTestApp() {
                               </button>
                             </div>
 
-                            {/* Randomization */}
-                            <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
-                              <div className="flex items-center gap-2">
-                                <Switch id="dash-rand-q" checked={startRandomizeQ} onCheckedChange={setStartRandomizeQ} />
-                                <Label htmlFor="dash-rand-q" className="flex items-center gap-1 cursor-pointer">
-                                  <Shuffle className="w-4 h-4" /> Randomize Questions
-                                </Label>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Switch id="dash-rand-o" checked={startRandomizeO} onCheckedChange={setStartRandomizeO} />
-                                <Label htmlFor="dash-rand-o" className="flex items-center gap-1 cursor-pointer">
-                                  <Shuffle className="w-4 h-4" /> Randomize Answers
-                                </Label>
-                              </div>
+                            {/* Randomization — tap a card to toggle, styled like the mode cards */}
+                            <div className="grid grid-cols-2 gap-2">
+                              <button
+                                type="button"
+                                onClick={() => setStartRandomizeQ(v => !v)}
+                                className={`p-3 rounded-xl border-2 transition-all text-left ${
+                                  startRandomizeQ
+                                    ? 'border-cta bg-[#FFF0D9] shadow-md'
+                                    : 'border-transparent bg-muted/50 hover:bg-muted'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <Shuffle className="w-4 h-4 text-cta shrink-0" />
+                                  <span className="font-semibold text-sm">Randomize Questions</span>
+                                </div>
+                                <p className="text-xs text-muted-foreground">{startRandomizeQ ? 'Question order is shuffled' : 'Questions in original order'}</p>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setStartRandomizeO(v => !v)}
+                                className={`p-3 rounded-xl border-2 transition-all text-left ${
+                                  startRandomizeO
+                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
+                                    : 'border-transparent bg-muted/50 hover:bg-muted'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <Shuffle className="w-4 h-4 text-primary shrink-0" />
+                                  <span className="font-semibold text-sm">Randomize Answers</span>
+                                </div>
+                                <p className="text-xs text-muted-foreground">{startRandomizeO ? 'Answer order is shuffled' : 'Answers in original order'}</p>
+                              </button>
                             </div>
 
                             {/* Attached files — collapsed to one line; arrow expands/collapses */}
@@ -1144,8 +1216,62 @@ export default function ChemTestApp() {
                   <Input value={testTitle} onChange={e => setTestTitle(e.target.value)} placeholder="e.g., Chemistry: Acids & Bases" />
                 </div>
                 <div className="space-y-2">
-                  <Label>Topic</Label>
-                  <Input value={testTopic} onChange={e => setTestTopic(e.target.value)} placeholder="e.g., Chemistry" />
+                  <Label>Tags</Label>
+                  <div className="relative">
+                    <div
+                      className="flex flex-wrap items-center gap-1.5 min-h-[42px] w-full rounded-md border border-input bg-transparent px-2 py-1.5 text-sm cursor-text"
+                      onClick={() => document.getElementById('tag-input-field')?.focus()}
+                    >
+                      {testTags.map(tag => (
+                        <span key={tag} className="inline-flex items-center gap-1 rounded-full bg-[#FFF0D9] border border-black/15 px-2 py-0.5 text-xs font-medium">
+                          {tag}
+                          <button
+                            type="button"
+                            onClick={() => removeTag(tag)}
+                            aria-label={`Remove tag ${tag}`}
+                            className="text-muted-foreground hover:text-destructive"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </span>
+                      ))}
+                      <input
+                        id="tag-input-field"
+                        value={tagInput}
+                        onChange={e => setTagInput(e.target.value)}
+                        onFocus={() => {
+                          setTagsOpen(true);
+                          api.getTags().then(setAllTags).catch(() => {});
+                        }}
+                        onBlur={() => setTimeout(() => setTagsOpen(false), 150)}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter' || e.key === ',' || e.key === ';') {
+                            e.preventDefault();
+                            addTag(tagInput);
+                          } else if (e.key === 'Backspace' && !tagInput && testTags.length > 0) {
+                            setTestTags(testTags.slice(0, -1));
+                          }
+                        }}
+                        placeholder={testTags.length === 0 ? 'Type a tag and press Enter…' : ''}
+                        className="flex-1 min-w-[7rem] bg-transparent outline-none text-sm py-1"
+                      />
+                    </div>
+                    {tagsOpen && tagSuggestions.length > 0 && (
+                      <div className="absolute z-50 left-0 right-0 mt-1 bg-white border border-black/10 rounded-xl shadow-lg max-h-44 overflow-y-auto">
+                        {tagSuggestions.map(t => (
+                          <button
+                            key={t}
+                            type="button"
+                            onMouseDown={e => { e.preventDefault(); addTag(t); }}
+                            className="w-full text-left px-3 py-2 text-sm hover:bg-muted flex items-center gap-2"
+                          >
+                            <Hash className="w-3.5 h-3.5 text-muted-foreground shrink-0" /> {t}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-xs text-muted-foreground">Press Enter to add your own tag (max 10) — tags you use are offered as suggestions next time</p>
                 </div>
               </div>
               <div className="space-y-2">
@@ -1363,19 +1489,37 @@ export default function ChemTestApp() {
                   <h3 className="text-lg font-semibold mb-1">Randomization</h3>
                   <p className="text-sm text-muted-foreground">Choose the order of questions and answers</p>
                 </div>
-                <div className="flex flex-wrap gap-x-8 gap-y-3 justify-center">
-                  <div className="flex items-center gap-2">
-                    <Switch id="rand-questions" checked={startRandomizeQ} onCheckedChange={setStartRandomizeQ} />
-                    <Label htmlFor="rand-questions" className="flex items-center gap-1 cursor-pointer">
-                      <Shuffle className="w-4 h-4" /> Randomize Questions
-                    </Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Switch id="rand-answers" checked={startRandomizeO} onCheckedChange={setStartRandomizeO} />
-                    <Label htmlFor="rand-answers" className="flex items-center gap-1 cursor-pointer">
-                      <Shuffle className="w-4 h-4" /> Randomize Answers
-                    </Label>
-                  </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setStartRandomizeQ(v => !v)}
+                    className={`p-3 rounded-xl border-2 transition-all text-left ${
+                      startRandomizeQ
+                        ? 'border-cta bg-[#FFF0D9] shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <Shuffle className="w-4 h-4 text-cta shrink-0" />
+                      <span className="font-semibold text-sm">Randomize Questions</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{startRandomizeQ ? 'Question order is shuffled' : 'Questions in original order'}</p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setStartRandomizeO(v => !v)}
+                    className={`p-3 rounded-xl border-2 transition-all text-left ${
+                      startRandomizeO
+                        ? 'border-primary bg-[#FFE8DE] shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <Shuffle className="w-4 h-4 text-primary shrink-0" />
+                      <span className="font-semibold text-sm">Randomize Answers</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{startRandomizeO ? 'Answer order is shuffled' : 'Answers in original order'}</p>
+                  </button>
                 </div>
               </div>
 

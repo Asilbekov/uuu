@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { sanitizeTags, ensureTagsExist } from '@/lib/tags';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
@@ -48,7 +49,7 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments } = body;
+    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments, tags } = body;
 
     // Replace attachments if provided (full list from the editor)
     if (Array.isArray(attachments)) {
@@ -78,6 +79,7 @@ export async function PUT(
         ...(title && { title }),
         ...(description !== undefined && { description }),
         ...(topic && { topic }),
+        ...(Array.isArray(tags) && { tags: sanitizeTags(tags) }),
         ...(isPublic !== undefined && { isPublic }),
         ...(randomizeQuestions !== undefined && { randomizeQuestions }),
         ...(randomizeOptions !== undefined && { randomizeOptions }),
@@ -103,6 +105,9 @@ export async function PUT(
         creator: { select: { id: true, name: true } },
       },
     });
+
+    // Store new tags in the global dictionary for future autocomplete suggestions
+    if (Array.isArray(tags)) await ensureTagsExist(test.tags);
 
     return NextResponse.json(test);
   } catch (error) {

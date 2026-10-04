@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { sanitizeTags, ensureTagsExist } from '@/lib/tags';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -51,17 +52,20 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments } = body;
+    const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments, tags } = body;
 
     if (!title) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
     }
+
+    const cleanTags = sanitizeTags(tags);
 
     const test = await db.test.create({
       data: {
         title,
         description: description || '',
         topic: topic || 'Chemistry',
+        tags: cleanTags,
         creatorId: userId,
         isPublic: isPublic !== false,
         randomizeQuestions: randomizeQuestions || false,
@@ -97,6 +101,9 @@ export async function POST(request: NextRequest) {
         creator: { select: { id: true, name: true } },
       },
     });
+
+    // Store new tags in the global dictionary for future autocomplete suggestions
+    await ensureTagsExist(cleanTags);
 
     return NextResponse.json(test, { status: 201 });
   } catch (error) {
