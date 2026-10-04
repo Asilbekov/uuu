@@ -54,7 +54,40 @@ import {
   X,
   Hash,
   Palette,
+  Atom,
+  Magnet,
+  Zap,
+  Telescope,
+  Rocket,
+  Orbit,
+  Globe,
+  Mountain,
+  Waves,
+  Thermometer,
+  FlaskConical as FlaskConicalIcon,
+  FlaskRound,
+  TestTubes,
+  Dna,
+  Microscope,
+  Bug,
+  Leaf,
+  Brain,
+  Stethoscope,
+  HeartPulse,
+  Pill,
+  Calculator,
+  Sigma,
+  Ruler,
+  Shapes,
+  Cpu,
+  Cog,
+  Bot,
+  Binary,
+  BookOpen as BookOpenIcon,
+  GraduationCap as GraduationCapIcon,
+  Languages,
 } from 'lucide-react';
+import { PhotoshopColorPicker } from '@/components/color-picker';
 
 // Types
 type Page = 'auth' | 'dashboard' | 'create-test' | 'edit-test' | 'start-test' | 'take-test' | 'history';
@@ -130,37 +163,55 @@ function coverBgFor(test: { topic?: string | null; tags?: string[] | null }) {
   return topicBgClass(test.topic);
 }
 
-// Cover emoji: derived from the first tag when present, otherwise from topic
-function coverEmojiFor(test: { topic?: string | null; tags?: string[] | null }) {
+// Professional science icon pack (Lucide vector icons) for the test card cover
+const COVER_ICONS: { name: string; Icon: React.ComponentType<{ className?: string; strokeWidth?: number }> }[] = [
+  { name: 'Atom', Icon: Atom },
+  { name: 'Magnet', Icon: Magnet },
+  { name: 'Zap', Icon: Zap },
+  { name: 'Telescope', Icon: Telescope },
+  { name: 'Rocket', Icon: Rocket },
+  { name: 'Orbit', Icon: Orbit },
+  { name: 'Globe', Icon: Globe },
+  { name: 'Mountain', Icon: Mountain },
+  { name: 'Waves', Icon: Waves },
+  { name: 'Thermometer', Icon: Thermometer },
+  { name: 'FlaskConical', Icon: FlaskConicalIcon },
+  { name: 'FlaskRound', Icon: FlaskRound },
+  { name: 'TestTubes', Icon: TestTubes },
+  { name: 'Dna', Icon: Dna },
+  { name: 'Microscope', Icon: Microscope },
+  { name: 'Bug', Icon: Bug },
+  { name: 'Leaf', Icon: Leaf },
+  { name: 'Brain', Icon: Brain },
+  { name: 'Stethoscope', Icon: Stethoscope },
+  { name: 'HeartPulse', Icon: HeartPulse },
+  { name: 'Pill', Icon: Pill },
+  { name: 'Calculator', Icon: Calculator },
+  { name: 'Sigma', Icon: Sigma },
+  { name: 'Ruler', Icon: Ruler },
+  { name: 'Shapes', Icon: Shapes },
+  { name: 'Cpu', Icon: Cpu },
+  { name: 'Cog', Icon: Cog },
+  { name: 'Bot', Icon: Bot },
+  { name: 'Binary', Icon: Binary },
+  { name: 'BookOpen', Icon: BookOpenIcon },
+  { name: 'GraduationCap', Icon: GraduationCapIcon },
+  { name: 'Languages', Icon: Languages },
+];
+const COVER_ICON_MAP: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> =
+  Object.fromEntries(COVER_ICONS.map(i => [i.name, i.Icon]));
+
+// Auto icon for the cover: derived from the first tag, otherwise from the legacy topic
+function autoCoverIconName(test: { topic?: string | null; tags?: string[] | null }): string {
   const tag = test.tags?.[0];
-  if (tag) {
-    const emojis = ['🧪', '⚛️', '📐', '📚', '🔬', '🧬', '🪐', '⚗️', '🧫', '📊'];
-    return emojis[tagHash(tag.split('').reverse().join('')) % emojis.length];
+  if (tag) return COVER_ICONS[tagHash(tag) % COVER_ICONS.length].name;
+  switch (test.topic) {
+    case 'Physics': return 'Atom';
+    case 'Chemistry': return 'FlaskConical';
+    case 'Mathematics': return 'Calculator';
+    default: return 'BookOpen';
   }
-  return test.topic === 'Physics' ? '⚛️' :
-         test.topic === 'Chemistry' ? '🧪' :
-         test.topic === 'Mathematics' ? '📐' : '📚';
 }
-
-// Science-subject icon pack for the test card cover (picked in the editor)
-const COVER_ICONS = [
-  '⚛️', '🧪', '⚗️', '🧬', '🔬', '🔭', '🧲', '🪐',
-  '🌍', '🌋', '🌊', '🧭', '🌿', '🦠', '🧠', '🧮',
-  '📐', '📏', '📊', '💻', '⚙️', '🤖', '⚡', '🩺',
-  '💊', '📚', '🎓', '📝',
-];
-
-// Pastel palette for the test card background (picked in the editor)
-const COVER_COLORS = [
-  { hex: '#E3EEFF', name: 'Ice blue' },
-  { hex: '#DFF3E8', name: 'Mint green' },
-  { hex: '#FFF0D9', name: 'Warm cream' },
-  { hex: '#FCE8F2', name: 'Soft pink' },
-  { hex: '#ECE6FF', name: 'Lavender' },
-  { hex: '#DFF6F0', name: 'Aqua' },
-  { hex: '#FFE8DE', name: 'Peach' },
-  { hex: '#E8E8E8', name: 'Light gray' },
-];
 
 // Per-test group chat message (see /api/tests/[id]/chat)
 interface GroupMessage {
@@ -1031,13 +1082,14 @@ export default function ChemTestApp() {
                         {/* Cover header — no borders, blends seamlessly with the card */}
                         <div className="relative h-44 overflow-hidden">
                           <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
-                            <div className="text-6xl">
-                              {test.coverIcon || coverEmojiFor(test)}
-                            </div>
-                          </div>
-                          {/* Tag badge overlay */}
-                          <div className="absolute top-2 left-2">
-                            <Badge variant="secondary" className="bg-cta text-white border border-black rounded-full backdrop-blur-sm shadow-sm max-w-[75%] truncate">{test.tags?.[0] || test.topic}</Badge>
+                            {(() => {
+                              const Picked = test.coverIcon ? COVER_ICON_MAP[test.coverIcon] : null;
+                              if (Picked) return <Picked className="w-16 h-16 text-cta" strokeWidth={1.5} />;
+                              if (test.coverIcon) return <span className="text-6xl leading-none">{test.coverIcon}</span>; // legacy emoji
+                              const AutoIcon = COVER_ICON_MAP[autoCoverIconName(test)] || BookOpenIcon;
+                              return <AutoIcon className="w-16 h-16 text-cta" strokeWidth={1.5} />;
+                            })()}
+                            <p className="text-lg font-bold text-cta leading-snug line-clamp-2 px-2 mt-3">{test.title}</p>
                           </div>
                         </div>
 
@@ -1367,47 +1419,36 @@ export default function ChemTestApp() {
                   >
                     <Sparkles className="w-4 h-4 text-cta" />
                   </button>
-                  {COVER_ICONS.map(ic => (
+                  {COVER_ICONS.map(({ name, Icon }) => (
                     <button
-                      key={ic}
+                      key={name}
                       type="button"
-                      onClick={() => setTestCoverIcon(ic)}
-                      className={`w-10 h-10 rounded-xl border-2 text-xl flex items-center justify-center transition-all ${
-                        testCoverIcon === ic ? 'border-cta bg-[#FFF0D9] shadow-md' : 'border-black/10 bg-muted/30 hover:bg-muted'
+                      onClick={() => setTestCoverIcon(name)}
+                      title={name}
+                      className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${
+                        testCoverIcon === name ? 'border-cta bg-[#FFF0D9] shadow-md' : 'border-black/10 bg-muted/30 hover:bg-muted'
                       }`}
                     >
-                      {ic}
+                      <Icon className="w-5 h-5" strokeWidth={1.75} />
                     </button>
                   ))}
                 </div>
               </div>
               <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wide">Card Color</Label>
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex items-center justify-between">
+                  <Label className="text-xs text-muted-foreground uppercase tracking-wide">Card Color</Label>
                   <button
                     type="button"
                     onClick={() => setTestCoverColor('')}
                     title="Auto — based on the first tag"
-                    className={`w-9 h-9 rounded-full border border-black/10 bg-muted/30 flex items-center justify-center transition-all ${
-                      testCoverColor === '' ? 'ring-2 ring-offset-2 ring-cta' : ''
+                    className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border-2 transition-all ${
+                      testCoverColor === '' ? 'border-cta bg-[#FFF0D9] text-cta font-semibold' : 'border-black/10 text-muted-foreground hover:bg-muted'
                     }`}
                   >
-                    <Sparkles className="w-4 h-4 text-cta" />
+                    <Sparkles className="w-3.5 h-3.5" /> Auto
                   </button>
-                  {COVER_COLORS.map(c => (
-                    <button
-                      key={c.hex}
-                      type="button"
-                      onClick={() => setTestCoverColor(c.hex)}
-                      title={c.name}
-                      aria-label={c.name}
-                      style={{ backgroundColor: c.hex }}
-                      className={`w-9 h-9 rounded-full border border-black/10 transition-all ${
-                        testCoverColor === c.hex ? 'ring-2 ring-offset-2 ring-cta' : ''
-                      }`}
-                    />
-                  ))}
                 </div>
+                <PhotoshopColorPicker value={testCoverColor || '#E3EEFF'} onChange={setTestCoverColor} />
               </div>
             </CardContent>
           </Card>
