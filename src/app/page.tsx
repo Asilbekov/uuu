@@ -1168,7 +1168,7 @@ export default function ChemTestApp() {
     const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
 
     return (
-      <div className="h-[100dvh] flex flex-col bg-background overflow-hidden">
+      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 min-w-0">
@@ -1231,7 +1231,7 @@ export default function ChemTestApp() {
                 const bgClass = test.coverColor ? '' : coverBgFor(test);
                 const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
                 return (
-                  <section key={test.id} style={bgStyle} className={`h-full snap-start snap-always overflow-y-auto [scrollbar-width:none] ${bgClass}`}>
+                  <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-y-auto [scrollbar-width:none] ${bgClass}`}>
                     <div className="min-h-full flex flex-col items-center justify-center px-4 py-4">
                       <div className="w-full max-w-md space-y-4">
                         {/* Cover header — no borders, blends seamlessly with the card */}
@@ -2229,7 +2229,7 @@ export default function ChemTestApp() {
     const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
 
     return (
-      <div className="h-[100dvh] flex flex-col bg-background overflow-hidden">
+      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
         <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between gap-2 mb-2">
@@ -2291,13 +2291,17 @@ export default function ChemTestApp() {
               onTouchEnd={onFeedTouchEnd}
               onTouchCancel={onFeedTouchEnd}
               onWheel={onFeedWheel}
-              className="flex-1 min-w-0 h-full overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="relative flex-1 min-w-0 h-full overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {shuffledQuestions.map((q, idx) => {
                 const slideQId = q.id || '';
                 const slideRevealed = practiceMode && revealedAnswers[slideQId];
+                // relative = containing block for sr-only radios inside the card,
+                // otherwise they anchor to the document and stretch it into a
+                // huge white void below the feed (position:absolute escapes the
+                // feed's overflow clipping when no ancestor is positioned)
                 return (
-              <section key={idx} className="h-full w-full snap-start snap-always overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <section key={idx} className="relative h-full w-full snap-start snap-always overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="min-h-full flex flex-col px-4 py-4">
                   <div className="max-w-3xl w-full mx-auto my-auto">
               <Card className="rounded-4xl border border-black bg-white shadow-lg">
