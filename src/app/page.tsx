@@ -322,10 +322,10 @@ export default function ChemTestApp() {
   const [formAttachments, setFormAttachments] = useState<AttachmentItem[]>([]);
   // Attached Files collapse in the editor — same behavior as on the test card
   const [editorFilesExpanded, setEditorFilesExpanded] = useState(false);
-  // Other editor sections fold the same way: Test Information / Cover / Questions
-  const [editorInfoExpanded, setEditorInfoExpanded] = useState(true);
+  // All editor sections start collapsed — the page opens as a compact list of one-line cards
+  const [editorInfoExpanded, setEditorInfoExpanded] = useState(false);
   const [editorCoverExpanded, setEditorCoverExpanded] = useState(false);
-  const [editorQuestionsExpanded, setEditorQuestionsExpanded] = useState(true);
+  const [editorQuestionsExpanded, setEditorQuestionsExpanded] = useState(false);
 
   // Test taking state
   const [currentAttempt, setCurrentAttempt] = useState<Attempt | null>(null);
@@ -354,14 +354,14 @@ export default function ChemTestApp() {
     const c = drumRef.current;
     if (!c || c.clientWidth === 0) return;
     const mid = c.getBoundingClientRect().left + c.clientWidth / 2;
-    const radius = Math.max(90, c.clientWidth * 0.28);
+    const radius = Math.max(110, c.clientWidth * 0.3);
     for (const cell of Array.from(c.children) as HTMLElement[]) {
       const el = (cell.firstElementChild as HTMLElement) || cell;
       const r = el.getBoundingClientRect();
       const dist = Math.abs(r.left + r.width / 2 - mid);
       const t = Math.max(0, 1 - (dist / radius) ** 2); // 1 at the center, 0 at the falloff radius
-      el.style.transform = `scale(${(0.55 + 0.45 * t).toFixed(3)})`;
-      el.style.opacity = (0.3 + 0.7 * t).toFixed(3);
+      el.style.transform = `scale(${(0.5 + 0.5 * t).toFixed(3)})`;
+      el.style.opacity = (0.25 + 0.75 * t).toFixed(3);
     }
   }, []);
 
@@ -385,6 +385,19 @@ export default function ChemTestApp() {
     }
     applyDrumScales();
   }, [currentQuestionIdx, drumInputMode, applyDrumScales]);
+
+  // Take-test vertical feed of question cards (TikTok-style) + its scroll position
+  const takeFeedRef = React.useRef<HTMLDivElement>(null);
+  const takeFeedLastScrollTsRef = React.useRef(0);
+
+  // Sync the feed when the current question changes from the drum / arrows
+  useEffect(() => {
+    const el = takeFeedRef.current;
+    if (!el || el.clientHeight === 0) return;
+    if (Math.abs(el.scrollTop - currentQuestionIdx * el.clientHeight) > 2 && Date.now() - takeFeedLastScrollTsRef.current > 200) {
+      el.scrollTo({ top: currentQuestionIdx * el.clientHeight, behavior: 'instant' as ScrollBehavior });
+    }
+  }, [currentQuestionIdx, shuffledQuestions.length]);
 
   // AI Chat state
   const [chatOpen, setChatOpen] = useState(false);
@@ -583,9 +596,9 @@ export default function ChemTestApp() {
     setQuestions([{ text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' }]);
     setFormAttachments([]);
     setEditorFilesExpanded(false);
-    setEditorInfoExpanded(true);
+    setEditorInfoExpanded(false);
     setEditorCoverExpanded(false);
-    setEditorQuestionsExpanded(true);
+    setEditorQuestionsExpanded(false);
     setEditingTestId(null);
   };
 
@@ -615,9 +628,9 @@ export default function ChemTestApp() {
   const startEditTest = async (test: Test) => {
     setLoading(true);
     setEditorFilesExpanded(false);
-    setEditorInfoExpanded(true);
+    setEditorInfoExpanded(false);
     setEditorCoverExpanded(false);
-    setEditorQuestionsExpanded(true);
+    setEditorQuestionsExpanded(false);
     try {
       const fullTest = await api.getTest(test.id);
       setCurrentTest(fullTest);
@@ -1375,7 +1388,7 @@ export default function ChemTestApp() {
           </div>
         </header>
 
-        <main className="max-w-4xl mx-auto px-4 py-6 space-y-6">
+        <main className="max-w-4xl mx-auto px-4 pt-6 pb-32 space-y-6">
           <Card className="rounded-4xl border border-black bg-white overflow-hidden">
             <button
               type="button"
@@ -1630,8 +1643,8 @@ export default function ChemTestApp() {
           </Card>
         </main>
 
-        {/* Sticky bottom action bar — Create/Save button always visible, never pushed below the fold */}
-        <div className="sticky bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+        {/* Bottom action bar — fixed to the screen edge, never rises with content */}
+        <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
           <div
             className="max-w-4xl mx-auto px-4 pt-3"
             style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
@@ -1658,7 +1671,7 @@ export default function ChemTestApp() {
           </div>
         </header>
 
-        <main className="max-w-2xl mx-auto px-4 py-8">
+        <main className="max-w-2xl mx-auto px-4 pt-8 pb-32">
           <Card className="border-0 shadow-lg">
             <CardHeader className="text-center">
               <div className="mx-auto w-16 h-16 bg-cta rounded-2xl flex items-center justify-center mb-4 shadow-lg">
@@ -1830,8 +1843,8 @@ export default function ChemTestApp() {
           </Card>
         </main>
 
-        {/* Sticky bottom bar — Start button, same pattern as the Create Test bar */}
-        <div className="sticky bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+        {/* Bottom bar — fixed to the screen edge, never rises with content */}
+        <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
           <div
             className="max-w-2xl mx-auto px-4 pt-3"
             style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
@@ -1886,6 +1899,15 @@ export default function ChemTestApp() {
         });
         if (best !== currentQuestionIdx && best >= 0 && best < shuffledQuestions.length) goToQuestion(best);
       }, 150);
+    };
+
+    // Feed scroll: pick the question whose slide is centered (TikTok-style swipe)
+    const onFeedScroll = () => {
+      const el = takeFeedRef.current;
+      if (!el || el.clientHeight === 0) return;
+      takeFeedLastScrollTsRef.current = Date.now();
+      const idx = Math.round(el.scrollTop / el.clientHeight);
+      if (idx !== currentQuestionIdx && idx >= 0 && idx < shuffledQuestions.length) goToQuestion(idx);
     };
 
     if (showResult) {
@@ -1963,7 +1985,7 @@ export default function ChemTestApp() {
               </>
             </div>
           </header>
-          <main className="max-w-7xl mx-auto px-4 py-8">
+          <main className="max-w-7xl mx-auto px-4 pt-8 pb-32">
             <div className={`flex gap-6 ${chatOpen || groupOpen ? 'flex-col lg:flex-row' : ''}`}>
               <div className="flex-1 min-w-0 space-y-6">
             <Card className="rounded-4xl border border-black bg-white overflow-hidden">
@@ -2068,8 +2090,8 @@ export default function ChemTestApp() {
             </div>
           </main>
 
-          {/* Sticky bottom action bar — Retry Test always visible (same pattern as test editor) */}
-          <div className="sticky bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+          {/* Bottom action bar — fixed to the screen edge, never rises with content */}
+          <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
             <div
               className="max-w-7xl mx-auto px-4 pt-3"
               style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
@@ -2094,7 +2116,6 @@ export default function ChemTestApp() {
 
     // Active test-taking UI
     const qId = currentQ.id || '';
-    const isRevealed = practiceMode && revealedAnswers[qId];
 
     // Bottom-sheet window switcher (Attached Files / AI Tutor / Test Chat)
     const sheetOptions = [
@@ -2125,8 +2146,8 @@ export default function ChemTestApp() {
     const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
 
     return (
-      <div className="min-h-screen bg-background">
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
+      <div className="h-[100dvh] flex flex-col bg-background overflow-hidden">
+        <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -2175,38 +2196,49 @@ export default function ChemTestApp() {
           </div>
         </header>
 
-        <main className="max-w-7xl mx-auto px-4 pt-6 pb-32">
-          {/* Main content: Question + Chat/Files side by side */}
-          <div className={`flex gap-6 ${chatOpen || groupOpen || filesOpen ? 'flex-col lg:flex-row' : ''}`}>
-            {/* Current Question */}
-            <div className={`flex-1 min-w-0`}>
-              <Card className="rounded-4xl border border-black bg-white shadow-lg mb-6">
+        <main className="flex-1 min-h-0">
+          {/* Question card + Chat/Files side by side (desktop) */}
+          <div className={`h-full max-w-7xl mx-auto flex gap-6 ${chatOpen || groupOpen || filesOpen ? 'flex-col lg:flex-row' : ''}`}>
+            {/* Questions feed — one full-height card per question, TikTok-style swipe */}
+            <div
+              ref={takeFeedRef}
+              onScroll={onFeedScroll}
+              className="flex-1 min-w-0 h-full overflow-y-auto snap-y snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {shuffledQuestions.map((q, idx) => {
+                const slideQId = q.id || '';
+                const slideRevealed = practiceMode && revealedAnswers[slideQId];
+                return (
+              <section key={idx} className="h-full w-full snap-start snap-always overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="min-h-full flex flex-col px-4 py-4">
+                  <div className="max-w-3xl w-full mx-auto my-auto">
+              <Card className="rounded-4xl border border-black bg-white shadow-lg">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <Badge variant="secondary" className="text-sm rounded-full">Question {currentQuestionIdx + 1} of {shuffledQuestions.length}</Badge>
-                    {practiceMode && isRevealed && (
-                      answers[qId] === currentQ.correctAnswer ? (
+                    <Badge variant="secondary" className="text-sm rounded-full">Question {idx + 1} of {shuffledQuestions.length}</Badge>
+                    {practiceMode && slideRevealed && (
+                      answers[slideQId] === q.correctAnswer ? (
                         <Badge className="rounded-full bg-emerald-100 text-emerald-700 border-emerald-200"><CheckCircle2 className="w-3 h-3 mr-1" /> Correct!</Badge>
                       ) : (
                         <Badge className="rounded-full bg-red-100 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> Wrong</Badge>
                       )
                     )}
                   </div>
-                  <p className="text-lg font-medium mt-2"><MathText text={currentQ.text} /></p>
+                  <p className="text-lg font-medium mt-2"><MathText text={q.text} /></p>
                 </CardHeader>
                 <CardContent>
                   <RadioGroup
-                    value={answers[qId] || ''}
-                    onValueChange={(value) => selectAnswer(qId, value)}
-                    disabled={practiceMode && revealedAnswers[qId]}
+                    value={answers[slideQId] || ''}
+                    onValueChange={(value) => selectAnswer(slideQId, value)}
+                    disabled={practiceMode && revealedAnswers[slideQId]}
                   >
                     <div className="space-y-3">
                       {['A', 'B', 'C', 'D', 'E'].map(letter => {
-                        const optionText = currentQ[`option${letter}` as keyof Question] as string;
+                        const optionText = q[`option${letter}` as keyof Question] as string;
                         if (!optionText) return null;
-                        const isRevealedOption = practiceMode && revealedAnswers[qId];
-                        const isCorrectOption = letter === currentQ.correctAnswer;
-                        const isSelectedOption = letter === answers[qId];
+                        const isRevealedOption = practiceMode && revealedAnswers[slideQId];
+                        const isCorrectOption = letter === q.correctAnswer;
+                        const isSelectedOption = letter === answers[slideQId];
 
                         let optionClass = 'border-black/15 hover:border-black hover:bg-[#FFF0D9]/40';
                         if (isRevealedOption) {
@@ -2223,8 +2255,8 @@ export default function ChemTestApp() {
 
                         return (
                           <div key={letter} className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all ${optionClass}`}>
-                            <RadioGroupItem value={letter} id={`q-${qId}-${letter}`} className="sr-only" />
-                            <Label htmlFor={`q-${qId}-${letter}`} className="flex items-start gap-2.5 cursor-pointer flex-1 min-w-0">
+                            <RadioGroupItem value={letter} id={`q-${slideQId}-${letter}`} className="sr-only" />
+                            <Label htmlFor={`q-${slideQId}-${letter}`} className="flex items-start gap-2.5 cursor-pointer flex-1 min-w-0">
                               <span className={`mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                                 isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
                                 isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
@@ -2243,20 +2275,20 @@ export default function ChemTestApp() {
                   </RadioGroup>
 
                   {/* Practice mode: show result and explanation + Ask AI button */}
-                  {practiceMode && revealedAnswers[qId] && (
+                  {practiceMode && revealedAnswers[slideQId] && (
                     <div className="mt-4 p-3 rounded-xl bg-muted/50">
                       <p className="text-sm font-medium mb-1">
-                        Correct answer: <span className="text-emerald-600">{currentQ.correctAnswer}</span>
+                        Correct answer: <span className="text-emerald-600">{q.correctAnswer}</span>
                       </p>
-                      {explanations[qId] && (
-                        <p className="text-xs text-muted-foreground mt-1 ml-7"><MathText text={explanations[qId]} /></p>
+                      {explanations[slideQId] && (
+                        <p className="text-xs text-muted-foreground mt-1 ml-7"><MathText text={explanations[slideQId]} /></p>
                       )}
                       {!chatOpen && (
                         <Button
                           variant="ghost"
                           size="sm"
                           className="mt-2 text-primary hover:bg-[#FFE8DE]"
-                          onClick={() => openChat(qId, answers[qId])}
+                          onClick={() => openChat(slideQId, answers[slideQId])}
                         >
                           <Sparkles className="w-3.5 h-3.5 mr-1.5" />
                           Ask AI Tutor about this question
@@ -2266,13 +2298,13 @@ export default function ChemTestApp() {
                   )}
 
                   {/* Exam mode: Ask AI button always visible after answering */}
-                  {!practiceMode && answers[qId] && !chatOpen && (
+                  {!practiceMode && answers[slideQId] && !chatOpen && (
                     <div className="mt-4">
                       <Button
                         variant="outline"
                         size="sm"
                         className="w-full rounded-full border-black text-foreground hover:bg-[#FFF0D9]"
-                        onClick={() => openChat(qId, answers[qId])}
+                        onClick={() => openChat(slideQId, answers[slideQId])}
                       >
                         <MessageSquare className="w-4 h-4 mr-2" />
                         Ask AI Tutor about this question
@@ -2285,6 +2317,11 @@ export default function ChemTestApp() {
               {loadingExplanations && (
                 <p className="text-xs text-center text-muted-foreground mt-4">Loading explanations...</p>
               )}
+                  </div>
+                </div>
+              </section>
+                );
+              })}
             </div>
 
             {/* AI Chat Panel — bottom sheet on mobile, side panel on desktop */}
@@ -2336,11 +2373,11 @@ export default function ChemTestApp() {
           </div>
         </main>
 
-        {/* Fixed bottom navigation bar — glued to the screen edge, never moves with content */}
-        <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
+        {/* Bottom navigation bar — flex footer, permanently glued to the bottom edge */}
+        <div className="shrink-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
           <div
-            className="max-w-7xl mx-auto px-4 pt-3"
-            style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+            className="max-w-7xl mx-auto px-4 pt-2"
+            style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
           >
             <div className="flex items-center gap-2">
               <Button
@@ -2374,15 +2411,15 @@ export default function ChemTestApp() {
                   />
                 </form>
               ) : (
-                <div className="relative flex-1 min-w-0 h-11">
+                <div className="relative flex-1 min-w-0 h-16">
                   <div
                     ref={drumRefCb}
                     onScroll={onDrumScroll}
                     className="h-full flex items-center overflow-x-auto flex-nowrap [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
                     style={{
                       scrollSnapType: 'x mandatory',
-                      paddingLeft: 'calc(50% - 1.5rem)',
-                      paddingRight: 'calc(50% - 1.5rem)',
+                      paddingLeft: 'calc(50% - 1.75rem)',
+                      paddingRight: 'calc(50% - 1.75rem)',
                     }}
                   >
                     {shuffledQuestions.map((q, idx) => {
@@ -2406,15 +2443,15 @@ export default function ChemTestApp() {
                             }
                           }}
                           title={isCurrent ? 'Tap to type a question number' : `Go to question ${idx + 1}`}
-                          className="w-12 h-full shrink-0 flex items-center justify-center"
+                          className="w-14 h-full shrink-0 flex items-center justify-center"
                           style={{ scrollSnapAlign: 'center' }}
                         >
                           <span
-                            className={`w-8 h-8 rounded-full text-xs font-bold flex items-center justify-center transition-colors ${
-                              isCorrectAnswer ? 'bg-emerald-500 text-white' :
-                              isWrongAnswer ? 'bg-red-500 text-white' :
-                              isCurrent ? 'bg-cta text-white ring-2 ring-black/20 shadow-md' :
-                              isAnswered ? 'bg-cta/80 text-white' : 'bg-muted text-muted-foreground'
+                            className={`text-2xl font-bold tabular-nums leading-none select-none transition-colors ${
+                              isCorrectAnswer ? 'text-emerald-500' :
+                              isWrongAnswer ? 'text-red-500' :
+                              isCurrent ? (isAnswered ? 'text-cta font-extrabold' : 'text-foreground font-extrabold') :
+                              isAnswered ? 'text-cta/70' : 'text-muted-foreground/50'
                             }`}
                           >
                             {idx + 1}
@@ -2423,8 +2460,8 @@ export default function ChemTestApp() {
                       );
                     })}
                   </div>
-                  {/* The glass — magnifier lens over the current number */}
-                  <div className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-[3.75rem] rounded-full border border-black/15 bg-gradient-to-b from-white/60 via-white/5 to-white/50 shadow-[inset_0_2px_10px_rgba(0,0,0,0.12),0_1px_2px_rgba(0,0,0,0.06)]" />
+                  {/* Glass window — the current number sits under the lens */}
+                  <div className="pointer-events-none absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 rounded-xl border border-black/15 bg-gradient-to-b from-white/70 via-white/5 to-white/60 shadow-[inset_0_2px_10px_rgba(0,0,0,0.10),0_1px_3px_rgba(0,0,0,0.08)]" />
                 </div>
               )}
 
