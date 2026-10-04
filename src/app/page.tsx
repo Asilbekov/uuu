@@ -1205,12 +1205,21 @@ export default function ChemTestApp() {
                 </div>
               )}
 
-              <Button onClick={startTest} disabled={loading} className="w-full h-12 text-base rounded-full bg-cta hover:bg-cta/90 text-white">
-                {loading ? 'Loading...' : <><Play className="w-5 h-5 mr-2 text-cta-gold" /> Start {practiceMode ? 'Practice' : 'Test'} (<span className="bg-cta-gold text-black rounded-full px-2 py-0.5 text-xs font-bold">{selectedQuestionCount}</span> questions)</>}
-              </Button>
             </CardContent>
           </Card>
         </main>
+
+        {/* Sticky bottom bar — Start button, same pattern as the Create Test bar */}
+        <div className="sticky bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+          <div
+            className="max-w-2xl mx-auto px-4 pt-3"
+            style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+          >
+            <Button onClick={startTest} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
+              {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
+            </Button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -1684,8 +1693,8 @@ export default function ChemTestApp() {
         {/* Sticky bottom navigation bar — question drum + prev/next (same pattern as create-test bottom bar) */}
         <div className="sticky bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
           <div
-            className="max-w-7xl mx-auto px-4 pt-2.5"
-            style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
+            className="max-w-7xl mx-auto px-4 pt-3"
+            style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
           >
             <div className="flex items-center gap-2">
               <Button
