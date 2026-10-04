@@ -386,15 +386,22 @@ export default function ChemTestApp() {
     applyDrumScales();
   }, [currentQuestionIdx, drumInputMode, applyDrumScales]);
 
-  // Take-test vertical feed of question cards (TikTok-style) + its scroll position
+  // Take-test vertical feed of question cards (TikTok-style) + its scroll position.
+  // takeFeedTouchUntilRef: timestamp until which the feed counts as actively
+  // manipulated (finger down / wheel spinning) — the sync effect must never
+  // fight an in-progress gesture, and the swipe commit waits for a settle.
   const takeFeedRef = React.useRef<HTMLDivElement>(null);
-  const takeFeedLastScrollTsRef = React.useRef(0);
+  const takeFeedTouchUntilRef = React.useRef(0);
+  const takeFeedSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Sync the feed when the current question changes from the drum / arrows
+  // Sync the feed when the current question changes from the drum / arrows.
+  // Skipped while the user is actively touching/scrolling the feed — an instant
+  // scroll during a swipe would yank the card out from under the finger.
   useEffect(() => {
     const el = takeFeedRef.current;
     if (!el || el.clientHeight === 0) return;
-    if (Math.abs(el.scrollTop - currentQuestionIdx * el.clientHeight) > 2 && Date.now() - takeFeedLastScrollTsRef.current > 200) {
+    if (Date.now() < takeFeedTouchUntilRef.current) return;
+    if (Math.abs(el.scrollTop - currentQuestionIdx * el.clientHeight) > 2) {
       el.scrollTo({ top: currentQuestionIdx * el.clientHeight, behavior: 'instant' as ScrollBehavior });
     }
   }, [currentQuestionIdx, shuffledQuestions.length]);
@@ -481,7 +488,8 @@ export default function ChemTestApp() {
   const [dashFullTests, setDashFullTests] = useState<Record<string, Test>>({});
   const dashFeedRef = React.useRef<HTMLDivElement>(null);
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
-  const dashLastScrollTsRef = React.useRef(0);
+  const dashFeedTouchUntilRef = React.useRef(0);
+  const dashFeedSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // When the visible test changes (swipe): apply its defaults, sync feed scroll, lazy-fetch full test for attachments
   useEffect(() => {
@@ -502,7 +510,7 @@ export default function ChemTestApp() {
     if (
       el && el.clientHeight > 0 &&
       Math.abs(el.scrollTop - safeIdx * el.clientHeight) > 2 &&
-      Date.now() - dashLastScrollTsRef.current > 200
+      Date.now() >= dashFeedTouchUntilRef.current
     ) {
       el.scrollTo({ top: safeIdx * el.clientHeight, behavior: 'instant' as ScrollBehavior });
     }
@@ -835,13 +843,34 @@ export default function ChemTestApp() {
     }
   };
 
-  // Track which test is on screen while swiping the dashboard feed
+  // Track which test is on screen while swiping the dashboard feed.
+  // Same rule as the take-test feed: commit only after the swipe settles —
+  // mid-gesture setState re-renders every cover slide while the card moves.
+  const dashSettleCommit = () => {
+    dashFeedSettleTimerRef.current = null;
+    const el = dashFeedRef.current;
+    if (!el || el.clientHeight === 0) return;
+    if (Date.now() < dashFeedTouchUntilRef.current) return;
+    const idx = Math.round(el.scrollTop / el.clientHeight);
+    setDashTestIdx(Math.min(tests.length - 1, Math.max(0, idx)));
+  };
+  const armDashSettle = (delay = 140) => {
+    if (dashFeedSettleTimerRef.current) clearTimeout(dashFeedSettleTimerRef.current);
+    dashFeedSettleTimerRef.current = setTimeout(dashSettleCommit, delay);
+  };
   const onDashScroll = () => {
     const el = dashFeedRef.current;
     if (!el || el.clientHeight === 0) return;
-    dashLastScrollTsRef.current = Date.now();
-    const idx = Math.round(el.scrollTop / el.clientHeight);
-    setDashTestIdx(Math.min(tests.length - 1, Math.max(0, idx)));
+    armDashSettle(140);
+  };
+  const onDashTouchStart = () => { dashFeedTouchUntilRef.current = Date.now() + 600; };
+  const onDashTouchEnd = () => {
+    dashFeedTouchUntilRef.current = Date.now() + 150;
+    armDashSettle(180);
+  };
+  const onDashWheel = () => {
+    dashFeedTouchUntilRef.current = Date.now() + 250;
+    armDashSettle(220);
   };
 
   const selectAnswer = (questionId: string, answer: string) => {
@@ -1162,7 +1191,12 @@ export default function ChemTestApp() {
             <div
               ref={dashFeedRef}
               onScroll={onDashScroll}
-              className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory [scrollbar-width:none] [scrollbar-width:none]"
+              onTouchStart={onDashTouchStart}
+              onTouchMove={onDashTouchStart}
+              onTouchEnd={onDashTouchEnd}
+              onTouchCancel={onDashTouchEnd}
+              onWheel={onDashWheel}
+              className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {tests.map((test, idx) => {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
@@ -1901,13 +1935,36 @@ export default function ChemTestApp() {
       }, 150);
     };
 
-    // Feed scroll: pick the question whose slide is centered (TikTok-style swipe)
+    // Feed scroll: commit the question switch only AFTER the swipe settles.
+    // Switching mid-gesture re-renders every slide while the card is still
+    // moving (visible stutter) and lets the sync effect yank the card under
+    // the finger — so we wait until scrolling comes to rest and the finger
+    // is up, then select the slide closest to the viewport (TikTok-style).
+    const feedSettleCommit = () => {
+      takeFeedSettleTimerRef.current = null;
+      const c = takeFeedRef.current;
+      if (!c || c.clientHeight === 0) return;
+      if (Date.now() < takeFeedTouchUntilRef.current) return;
+      const idx = Math.round(c.scrollTop / c.clientHeight);
+      if (idx !== currentQuestionIdx && idx >= 0 && idx < shuffledQuestions.length) goToQuestion(idx);
+    };
+    const armFeedSettle = (delay = 140) => {
+      if (takeFeedSettleTimerRef.current) clearTimeout(takeFeedSettleTimerRef.current);
+      takeFeedSettleTimerRef.current = setTimeout(feedSettleCommit, delay);
+    };
     const onFeedScroll = () => {
       const el = takeFeedRef.current;
       if (!el || el.clientHeight === 0) return;
-      takeFeedLastScrollTsRef.current = Date.now();
-      const idx = Math.round(el.scrollTop / el.clientHeight);
-      if (idx !== currentQuestionIdx && idx >= 0 && idx < shuffledQuestions.length) goToQuestion(idx);
+      armFeedSettle(140);
+    };
+    const onFeedTouchStart = () => { takeFeedTouchUntilRef.current = Date.now() + 600; };
+    const onFeedTouchEnd = () => {
+      takeFeedTouchUntilRef.current = Date.now() + 150;
+      armFeedSettle(180); // final commit if the release produced no snap animation
+    };
+    const onFeedWheel = () => {
+      takeFeedTouchUntilRef.current = Date.now() + 250;
+      armFeedSettle(220);
     };
 
     if (showResult) {
@@ -2203,7 +2260,12 @@ export default function ChemTestApp() {
             <div
               ref={takeFeedRef}
               onScroll={onFeedScroll}
-              className="flex-1 min-w-0 h-full overflow-y-auto snap-y snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              onTouchStart={onFeedTouchStart}
+              onTouchMove={onFeedTouchStart}
+              onTouchEnd={onFeedTouchEnd}
+              onTouchCancel={onFeedTouchEnd}
+              onWheel={onFeedWheel}
+              className="flex-1 min-w-0 h-full overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {shuffledQuestions.map((q, idx) => {
                 const slideQId = q.id || '';
