@@ -86,6 +86,7 @@ import {
   BookOpen as BookOpenIcon,
   GraduationCap as GraduationCapIcon,
   Languages,
+  ClipboardList,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
 
@@ -317,6 +318,10 @@ export default function ChemTestApp() {
   const [formAttachments, setFormAttachments] = useState<AttachmentItem[]>([]);
   // Attached Files collapse in the editor — same behavior as on the test card
   const [editorFilesExpanded, setEditorFilesExpanded] = useState(false);
+  // Other editor sections fold the same way: Test Information / Cover / Questions
+  const [editorInfoExpanded, setEditorInfoExpanded] = useState(true);
+  const [editorCoverExpanded, setEditorCoverExpanded] = useState(false);
+  const [editorQuestionsExpanded, setEditorQuestionsExpanded] = useState(true);
 
   // Test taking state
   const [currentAttempt, setCurrentAttempt] = useState<Attempt | null>(null);
@@ -520,6 +525,9 @@ export default function ChemTestApp() {
     setQuestions([{ text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' }]);
     setFormAttachments([]);
     setEditorFilesExpanded(false);
+    setEditorInfoExpanded(true);
+    setEditorCoverExpanded(false);
+    setEditorQuestionsExpanded(true);
     setEditingTestId(null);
   };
 
@@ -548,6 +556,10 @@ export default function ChemTestApp() {
 
   const startEditTest = async (test: Test) => {
     setLoading(true);
+    setEditorFilesExpanded(false);
+    setEditorInfoExpanded(true);
+    setEditorCoverExpanded(false);
+    setEditorQuestionsExpanded(true);
     try {
       const fullTest = await api.getTest(test.id);
       setCurrentTest(fullTest);
@@ -1293,11 +1305,22 @@ export default function ChemTestApp() {
         </header>
 
         <main className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-          <Card className="rounded-4xl border border-black bg-white">
-            <CardHeader>
-              <CardTitle className="text-base">Test Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <Card className="rounded-4xl border border-black bg-white overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setEditorInfoExpanded(v => !v)}
+              className="w-full flex items-center gap-1.5 px-6 py-4 text-left hover:bg-muted/50 transition-colors"
+            >
+              <ClipboardList className="w-4 h-4 shrink-0" />
+              <span className="font-semibold text-base">Test Information</span>
+              {editorInfoExpanded ? (
+                <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
+              ) : (
+                <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
+              )}
+            </button>
+            {editorInfoExpanded && (
+            <CardContent className="space-y-4 pt-0">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Test Title</Label>
@@ -1367,6 +1390,7 @@ export default function ChemTestApp() {
                 <Textarea value={testDescription} onChange={e => setTestDescription(e.target.value)} placeholder="Brief description of this test..." rows={2} />
               </div>
             </CardContent>
+            )}
           </Card>
 
           {/* Attached files — collapsed to one line by default, same expand/collapse as the test card */}
@@ -1396,16 +1420,25 @@ export default function ChemTestApp() {
           </Card>
 
           {/* Cover customization: science icon pack + card color */}
-          <Card className="rounded-4xl border border-black bg-white">
-            <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <Palette className="w-4 h-4" /> Cover
-              </CardTitle>
-              <CardDescription>
+          <Card className="rounded-4xl border border-black bg-white overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setEditorCoverExpanded(v => !v)}
+              className="w-full flex items-center gap-1.5 px-6 py-4 text-left hover:bg-muted/50 transition-colors"
+            >
+              <Palette className="w-4 h-4 shrink-0" />
+              <span className="font-semibold text-base">Cover</span>
+              {editorCoverExpanded ? (
+                <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
+              ) : (
+                <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
+              )}
+            </button>
+            {editorCoverExpanded && (
+            <CardContent className="space-y-4 pt-0">
+              <p className="text-xs text-muted-foreground">
                 Pick an icon and a card color for the test card in the feed.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+              </p>
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground uppercase tracking-wide">Icon</Label>
                 <div className="flex flex-wrap gap-2">
@@ -1451,12 +1484,26 @@ export default function ChemTestApp() {
                 <PhotoshopColorPicker value={testCoverColor || '#E3EEFF'} onChange={setTestCoverColor} />
               </div>
             </CardContent>
+            )}
           </Card>
 
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold">Questions ({questions.length})</h2>
-              <div className="flex gap-2">
+          <Card className="rounded-4xl border border-black bg-white overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setEditorQuestionsExpanded(v => !v)}
+              className="w-full flex items-center gap-1.5 px-6 py-4 text-left hover:bg-muted/50 transition-colors"
+            >
+              <ListChecks className="w-4 h-4 shrink-0" />
+              <span className="font-semibold text-base">Questions ({questions.length})</span>
+              {editorQuestionsExpanded ? (
+                <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
+              ) : (
+                <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
+              )}
+            </button>
+            {editorQuestionsExpanded && (
+            <CardContent className="pt-0">
+              <div className="flex justify-end gap-2 mb-4">
                 <Button variant="outline" size="sm" onClick={() => setQuestions(shuffleArray(questions))}>
                   <Shuffle className="w-3 h-3 mr-1" /> Shuffle All
                 </Button>
@@ -1464,9 +1511,8 @@ export default function ChemTestApp() {
                   <Plus className="w-3 h-3 mr-1" /> Add Question
                 </Button>
               </div>
-            </div>
 
-            <div className="space-y-4">
+              <div className="space-y-4">
                 {questions.map((q, idx) => (
                   <Card key={idx} className="rounded-3xl border border-black bg-white">
                     <CardHeader className="pb-2">
@@ -1507,8 +1553,10 @@ export default function ChemTestApp() {
                     </CardContent>
                   </Card>
                 ))}
-            </div>
-          </div>
+              </div>
+            </CardContent>
+            )}
+          </Card>
         </main>
 
         {/* Sticky bottom action bar — Create/Save button always visible, never pushed below the fold */}
