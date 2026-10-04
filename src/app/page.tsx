@@ -50,6 +50,8 @@ import {
   Sparkles,
   Paperclip,
   Users,
+  ChevronDown,
+  ChevronRight,
 } from 'lucide-react';
 
 // Types
@@ -199,6 +201,8 @@ export default function ChemTestApp() {
   const [showResult, setShowResult] = useState(false);
   const [selectedQuestionCount, setSelectedQuestionCount] = useState(0);
   const [practiceMode, setPracticeMode] = useState(false);
+  // Start Test: attached files section — collapsed to one line by default, expandable via arrow
+  const [startFilesExpanded, setStartFilesExpanded] = useState(false);
   const [revealedAnswers, setRevealedAnswers] = useState<Record<string, boolean>>({});
   const [explanations, setExplanations] = useState<Record<string, string>>({});
   const [loadingExplanations, setLoadingExplanations] = useState(false);
@@ -1048,21 +1052,6 @@ export default function ChemTestApp() {
               {currentTest.description && <CardDescription className="mt-2">{currentTest.description}</CardDescription>}
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Attached files preview */}
-              {(currentTest.attachments?.length || 0) > 0 && (
-                <div className="rounded-2xl border border-black bg-white p-4">
-                  <h3 className="font-semibold text-sm flex items-center gap-1.5 mb-1">
-                    <Paperclip className="w-4 h-4" /> Attached Files ({currentTest.attachments!.length})
-                  </h3>
-                  <p className="text-xs text-muted-foreground mb-2">
-                    Audio, video and study files for this test — also available during the test via the up arrow at the bottom.
-                  </p>
-                  <AttachmentsList items={currentTest.attachments as AttachmentItem[]} />
-                </div>
-              )}
-
-              <Separator />
-
               {/* Question Count Selection */}
               <div className="space-y-4">
                 <div className="text-center">
@@ -1174,6 +1163,34 @@ export default function ChemTestApp() {
                   </div>
                 </div>
               </div>
+
+              <Separator />
+
+              {/* Attached files — collapsed to a one-line header by default; arrow expands/collapses */}
+              {(currentTest.attachments?.length || 0) > 0 && (
+                <div className="rounded-2xl border border-black bg-white overflow-hidden">
+                  <button
+                    onClick={() => setStartFilesExpanded(v => !v)}
+                    className="w-full flex items-center gap-1.5 px-4 py-3 text-left hover:bg-muted/50 transition-colors"
+                  >
+                    <Paperclip className="w-4 h-4 shrink-0" />
+                    <span className="font-semibold text-sm">Attached Files ({currentTest.attachments!.length})</span>
+                    {startFilesExpanded ? (
+                      <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
+                    )}
+                  </button>
+                  {startFilesExpanded && (
+                    <div className="px-4 pb-4">
+                      <p className="text-xs text-muted-foreground mb-2">
+                        Audio, video and study files for this test — also available during the test via the up arrow at the bottom.
+                      </p>
+                      <AttachmentsList items={currentTest.attachments as AttachmentItem[]} />
+                    </div>
+                  )}
+                </div>
+              )}
 
               <Button onClick={startTest} disabled={loading} className="w-full h-12 text-base rounded-full bg-cta hover:bg-cta/90 text-white">
                 {loading ? 'Loading...' : <><Play className="w-5 h-5 mr-2 text-cta-gold" /> Start {practiceMode ? 'Practice' : 'Test'} (<span className="bg-cta-gold text-black rounded-full px-2 py-0.5 text-xs font-bold">{selectedQuestionCount}</span> questions)</>}
