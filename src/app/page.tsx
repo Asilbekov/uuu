@@ -283,6 +283,38 @@ export default function ChemTestApp() {
     }
   }, [page, user, mounted, hydratedUser]);
 
+  // Dashboard: TikTok-style vertical feed of tests
+  const [dashTestIdx, setDashTestIdx] = useState(0);
+  const [dashFullTests, setDashFullTests] = useState<Record<string, Test>>({});
+  const dashFeedRef = React.useRef<HTMLDivElement>(null);
+  const dashFetchedRef = React.useRef<Set<string>>(new Set());
+
+  // When the visible test changes (swipe): apply its defaults, sync feed scroll, lazy-fetch full test for attachments
+  useEffect(() => {
+    if (effectivePage !== 'dashboard') return;
+    if (tests.length === 0) return;
+    const safeIdx = Math.min(Math.max(0, dashTestIdx), tests.length - 1);
+    if (safeIdx !== dashTestIdx) { setDashTestIdx(safeIdx); return; }
+    const t = tests[safeIdx];
+    const totalQ = t._count?.questions || t.questions?.length || 0;
+    setSelectedQuestionCount(Math.max(1, totalQ));
+    setStartRandomizeQ(t.randomizeQuestions !== false);
+    setStartRandomizeO(t.randomizeOptions !== false);
+    setStartFilesExpanded(false);
+    // Sync feed position (e.g. when returning to the dashboard)
+    const el = dashFeedRef.current;
+    if (el && el.clientHeight > 0 && Math.abs(el.scrollTop - safeIdx * el.clientHeight) > 2) {
+      el.scrollTo({ top: safeIdx * el.clientHeight });
+    }
+    // Lazy-fetch the full test (for the attached files list)
+    if (!dashFetchedRef.current.has(t.id)) {
+      dashFetchedRef.current.add(t.id);
+      api.getTest(t.id)
+        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t.id]: full })))
+        .catch(() => { dashFetchedRef.current.delete(t.id); });
+    }
+  }, [dashTestIdx, effectivePage, tests]);
+
   // Scroll the page down to the newly added question (questions scroll with the whole page)
   const prevQuestionCountRef = React.useRef(questions.length);
   useEffect(() => {
@@ -481,12 +513,11 @@ export default function ChemTestApp() {
     setLoading(false);
   };
 
-  const startTest = async () => {
-    if (!currentTest) return;
+  const startTestWith = async (test: Test, count: number) => {
     setLoading(true);
     try {
-      // Apply randomization (chosen on the Start Test page)
-      let qList = [...currentTest.questions];
+      // Apply randomization (chosen on the Start Test page / dashboard feed)
+      let qList = [...test.questions];
       if (startRandomizeQ) {
         qList = shuffleArray(qList);
       }
@@ -495,10 +526,10 @@ export default function ChemTestApp() {
       }
 
       // Slice to selected count
-      qList = qList.slice(0, selectedQuestionCount);
+      qList = qList.slice(0, count);
 
       // Create attempt with the actual number of questions being answered
-      const attempt = await api.createAttempt(currentTest.id, selectedQuestionCount);
+      const attempt = await api.createAttempt(test.id, count);
       setCurrentAttempt(attempt);
       setShuffledQuestions(qList);
       setCurrentQuestionIdx(0);
@@ -534,6 +565,40 @@ export default function ChemTestApp() {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
     }
     setLoading(false);
+  };
+
+  const startTest = async () => {
+    if (!currentTest) return;
+    await startTestWith(currentTest, selectedQuestionCount);
+  };
+
+  // Start directly from the dashboard feed (fetch the full test first)
+  const startFromDashboard = async () => {
+    const t = tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)];
+    if (!t || loading) return;
+    setLoading(true);
+    try {
+      const fullTest = dashFullTests[t.id] || await api.getTest(t.id);
+      setCurrentTest(fullTest);
+      const totalQ = fullTest.questions.length;
+      const count = Math.min(Math.max(1, selectedQuestionCount || totalQ), totalQ);
+      setSelectedQuestionCount(count);
+      setFilesOpen(false);
+      setChatOpen(false);
+      setGroupOpen(false);
+      await startTestWith(fullTest, count);
+    } catch (e: any) {
+      toast({ title: 'Error', description: e.message, variant: 'destructive' });
+      setLoading(false);
+    }
+  };
+
+  // Track which test is on screen while swiping the dashboard feed
+  const onDashScroll = () => {
+    const el = dashFeedRef.current;
+    if (!el || el.clientHeight === 0) return;
+    const idx = Math.round(el.scrollTop / el.clientHeight);
+    setDashTestIdx(Math.min(tests.length - 1, Math.max(0, idx)));
   };
 
   const selectAnswer = (questionId: string, answer: string) => {
@@ -790,8 +855,10 @@ export default function ChemTestApp() {
 
   // DASHBOARD
   if (effectivePage === 'dashboard') {
+    const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
+
     return (
-      <div className="min-h-screen bg-background">
+      <div className="h-[100dvh] flex flex-col bg-background overflow-hidden">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 min-w-0">
@@ -818,90 +885,219 @@ export default function ChemTestApp() {
           </div>
         </header>
 
-        <main className="max-w-7xl mx-auto px-4 py-6">
-          {editMode && (
-            <p className="text-xs text-muted-foreground mb-4">
-              Edit mode is on — select a test below to edit it
-            </p>
-          )}
-
-          {tests.length > 0 && (
-            <h2 className="text-2xl font-bold mb-4">Available Tests</h2>
-          )}
-          {tests.length === 0 ? (
-            <Card className="rounded-4xl border-dashed border-black/30 bg-white">
-              <CardContent className="py-12 text-center">
-                <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-medium mb-2">No tests yet</h3>
-                <p className="text-muted-foreground mb-4">Create your first test to get started</p>
-                <div className="flex gap-3 justify-center">
-                  <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> Create Test</Button>
-                </div>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {tests.map(test => (
-                <Card key={test.id} className="rounded-4xl border border-black bg-white hover:shadow-lg transition-shadow overflow-hidden">
-                  {/* Default cover — the test title is part of the cover */}
-                  <div className="relative h-40 overflow-hidden">
-                    <div className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${
-                      test.topic === 'Physics' ? 'bg-[#E3EEFF]' :
-                      test.topic === 'Chemistry' ? 'bg-[#DFF3E8]' :
-                      test.topic === 'Mathematics' ? 'bg-[#FFF0D9]' :
-                      'bg-[#FCE8F2]'
-                    }`}>
-                      <div className="text-3xl mb-2">
-                        {test.topic === 'Physics' ? '⚛️' :
-                         test.topic === 'Chemistry' ? '🧪' :
-                         test.topic === 'Mathematics' ? '📐' : '📚'}
-                      </div>
-                      <p className="text-sm font-bold text-cta leading-snug line-clamp-2">{test.title}</p>
-                    </div>
-                    {/* Topic badge overlay */}
-                    <div className="absolute top-2 left-2">
-                      <Badge variant="secondary" className="bg-cta text-white border border-black rounded-full backdrop-blur-sm shadow-sm">{test.topic}</Badge>
-                    </div>
+        {tests.length === 0 ? (
+          <main className="flex-1 min-h-0 overflow-y-auto">
+            <div className="max-w-7xl mx-auto px-4 py-6">
+              <Card className="rounded-4xl border-dashed border-black/30 bg-white">
+                <CardContent className="py-12 text-center">
+                  <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-medium mb-2">No tests yet</h3>
+                  <p className="text-muted-foreground mb-4">Create your first test to get started</p>
+                  <div className="flex gap-3 justify-center">
+                    <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> Create Test</Button>
                   </div>
-                  {test.description && (
-                    <CardHeader className="pb-2 pt-3">
-                      <CardDescription className="text-xs">{test.description}</CardDescription>
-                    </CardHeader>
-                  )}
-                  <CardContent className="pb-2">
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {test._count?.questions || 0} questions</span>
-                      <span className="flex items-center gap-1"><Trophy className="w-3 h-3" /> {test._count?.attempts || 0} attempts</span>
-                    </div>
-                  </CardContent>
-                  <CardFooter className="flex gap-2 pt-0">
-                    {editMode ? (
-                      <Button size="sm" className="flex-1 rounded-full bg-cta hover:bg-cta/90 text-white" onClick={() => startEditTest(test)}>
-                        <Edit className="w-3 h-3 mr-1" /> Edit Test
-                      </Button>
-                    ) : (
-                      <>
-                        <Button size="sm" className="flex-1 rounded-full bg-cta hover:bg-cta/90 text-white" onClick={() => openStartTest(test)}>
-                          <Play className="w-3 h-3 mr-1" /> Take Test
-                        </Button>
-                        {test.creatorId === effectiveUser?.id && (
+                </CardContent>
+              </Card>
+            </div>
+          </main>
+        ) : (
+          <>
+            {/* TikTok-style vertical feed — swipe up/down between tests */}
+            <div
+              ref={dashFeedRef}
+              onScroll={onDashScroll}
+              className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory [scrollbar-width:none] [scrollbar-width:none]"
+            >
+              {tests.map((test, idx) => {
+                const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
+                const totalQ = test._count?.questions || test.questions?.length || 0;
+                const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
+                return (
+                  <section key={test.id} className="h-full snap-start snap-always overflow-y-auto [scrollbar-width:none]">
+                    <div className="min-h-full flex flex-col items-center justify-center px-4 py-4">
+                      <div className="w-full max-w-md space-y-4">
+                        {/* Default cover — the test title is part of the cover */}
+                        <div className="relative h-44 rounded-3xl overflow-hidden shadow-lg border border-black/10">
+                          <div className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${
+                            test.topic === 'Physics' ? 'bg-[#E3EEFF]' :
+                            test.topic === 'Chemistry' ? 'bg-[#DFF3E8]' :
+                            test.topic === 'Mathematics' ? 'bg-[#FFF0D9]' :
+                            'bg-[#FCE8F2]'
+                          }`}>
+                            <div className="text-5xl mb-3">
+                              {test.topic === 'Physics' ? '⚛️' :
+                               test.topic === 'Chemistry' ? '🧪' :
+                               test.topic === 'Mathematics' ? '📐' : '📚'}
+                            </div>
+                            <p className="text-lg font-bold text-cta leading-snug line-clamp-2 px-2">{test.title}</p>
+                          </div>
+                          {/* Topic badge overlay */}
+                          <div className="absolute top-2 left-2">
+                            <Badge variant="secondary" className="bg-cta text-white border border-black rounded-full backdrop-blur-sm shadow-sm">{test.topic}</Badge>
+                          </div>
+                        </div>
+
+                        {test.description && (
+                          <p className="text-xs text-muted-foreground text-center line-clamp-2">{test.description}</p>
+                        )}
+
+                        <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {totalQ} questions</span>
+                          <span className="flex items-center gap-1"><Trophy className="w-3 h-3" /> {test._count?.attempts || 0} attempts</span>
+                        </div>
+
+                        {isCur && editMode && (
+                          <div className="space-y-2 text-center">
+                            <p className="text-xs text-muted-foreground">Edit mode is on — swipe up/down to choose a test</p>
+                            {test.creatorId === effectiveUser?.id && (
+                              <Button size="sm" variant="outline" className="rounded-full border-black text-destructive hover:bg-destructive/10" onClick={() => setDeleteId(test.id)}>
+                                <Trash2 className="w-3 h-3 mr-1" /> Delete Test
+                              </Button>
+                            )}
+                          </div>
+                        )}
+
+                        {isCur && !editMode && (
                           <>
-                            <Button size="sm" variant="outline" className="rounded-full border-black" onClick={() => startEditTest(test)}>
-                              <Edit className="w-3 h-3" />
-                            </Button>
-                            <Button size="sm" variant="outline" className="rounded-full border-black text-destructive hover:bg-destructive/10" onClick={() => setDeleteId(test.id)}>
-                              <Trash2 className="w-3 h-3" />
-                            </Button>
+                            {/* Question count — editable counter + slider */}
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-center gap-4">
+                                <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.max(1, selectedQuestionCount - 1))} disabled={selectedQuestionCount <= 1}>
+                                  <Minus className="w-4 h-4" />
+                                </Button>
+                                <input
+                                  type="number"
+                                  inputMode="numeric"
+                                  min={1}
+                                  max={totalQ}
+                                  value={selectedQuestionCount}
+                                  onChange={e => {
+                                    if (e.target.value === '') return;
+                                    const v = Math.round(Number(e.target.value));
+                                    if (Number.isNaN(v)) return;
+                                    setSelectedQuestionCount(Math.min(totalQ, Math.max(1, v)));
+                                  }}
+                                  onBlur={e => { if (e.target.value === '') setSelectedQuestionCount(1); }}
+                                  aria-label="Number of questions"
+                                  className="text-3xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                />
+                                <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.min(totalQ, selectedQuestionCount + 1))} disabled={selectedQuestionCount >= totalQ}>
+                                  <Plus className="w-4 h-4" />
+                                </Button>
+                              </div>
+                              <div className="px-6">
+                                <input
+                                  type="range"
+                                  min={1}
+                                  max={totalQ}
+                                  value={selectedQuestionCount}
+                                  onChange={e => setSelectedQuestionCount(Number(e.target.value))}
+                                  className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-[#fe5933]"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Test mode */}
+                            <div className="grid grid-cols-2 gap-2">
+                              <button
+                                onClick={() => setPracticeMode(false)}
+                                className={`p-3 rounded-xl border-2 transition-all text-left ${
+                                  !practiceMode
+                                    ? 'border-cta bg-[#FFF0D9] shadow-md'
+                                    : 'border-transparent bg-muted/50 hover:bg-muted'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <ListChecks className="w-4 h-4 text-cta" />
+                                  <span className="font-semibold text-sm">Exam Mode</span>
+                                </div>
+                                <p className="text-xs text-muted-foreground">See results at the end</p>
+                              </button>
+                              <button
+                                onClick={() => setPracticeMode(true)}
+                                className={`p-3 rounded-xl border-2 transition-all text-left ${
+                                  practiceMode
+                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
+                                    : 'border-transparent bg-muted/50 hover:bg-muted'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <BookOpen className="w-4 h-4 text-primary" />
+                                  <span className="font-semibold text-sm">Practice Mode</span>
+                                </div>
+                                <p className="text-xs text-muted-foreground">See correct answer right away</p>
+                              </button>
+                            </div>
+
+                            {/* Randomization */}
+                            <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
+                              <div className="flex items-center gap-2">
+                                <Switch id="dash-rand-q" checked={startRandomizeQ} onCheckedChange={setStartRandomizeQ} />
+                                <Label htmlFor="dash-rand-q" className="flex items-center gap-1 cursor-pointer">
+                                  <Shuffle className="w-4 h-4" /> Randomize Questions
+                                </Label>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Switch id="dash-rand-o" checked={startRandomizeO} onCheckedChange={setStartRandomizeO} />
+                                <Label htmlFor="dash-rand-o" className="flex items-center gap-1 cursor-pointer">
+                                  <Shuffle className="w-4 h-4" /> Randomize Answers
+                                </Label>
+                              </div>
+                            </div>
+
+                            {/* Attached files — collapsed to one line; arrow expands/collapses */}
+                            {files.length > 0 && (
+                              <div className="rounded-2xl border border-black bg-white overflow-hidden">
+                                <button
+                                  onClick={() => setStartFilesExpanded(v => !v)}
+                                  className="w-full flex items-center gap-1.5 px-3 py-2.5 text-left hover:bg-muted/50 transition-colors"
+                                >
+                                  <Paperclip className="w-4 h-4 shrink-0" />
+                                  <span className="font-semibold text-sm">Attached Files ({files.length})</span>
+                                  {startFilesExpanded ? (
+                                    <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
+                                  ) : (
+                                    <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
+                                  )}
+                                </button>
+                                {startFilesExpanded && (
+                                  <div className="px-3 pb-3">
+                                    <AttachmentsList items={files} />
+                                  </div>
+                                )}
+                              </div>
+                            )}
                           </>
                         )}
-                      </>
-                    )}
-                  </CardFooter>
-                </Card>
-              ))}
+                      </div>
+                    </div>
+                  </section>
+                );
+              })}
             </div>
-          )}
-        </main>
+
+            {/* Bottom bar — Start Test for the test on screen */}
+            <div className="shrink-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+              <div
+                className="max-w-2xl mx-auto px-4 pt-3"
+                style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+              >
+                {editMode ? (
+                  <Button
+                    onClick={() => curDashTest && startEditTest(curDashTest)}
+                    className="w-full rounded-full bg-cta hover:bg-cta/90 text-white"
+                  >
+                    <Edit className="w-4 h-4 mr-2" /> Edit This Test
+                  </Button>
+                ) : (
+                  <Button onClick={startFromDashboard} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                    {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
+                  </Button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
 
         <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
           <AlertDialogContent>
