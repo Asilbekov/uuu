@@ -343,7 +343,10 @@ export default function ChemTestApp() {
 
   // Take-test bottom drum: one-line question strip + tap-to-type jump
   const [drumInputMode, setDrumInputMode] = useState(false);
-  const [drumInputValue, setDrumInputValue] = useState('');
+  // The number input is UNCONTROLLED (read via ref on submit): typing must not
+  // re-render the take-test tree — a controlled value re-rendered EVERY question
+  // slide (KaTeX-heavy) on each keystroke, which made typing feel slow/buggy.
+  const numInputRef = React.useRef<HTMLInputElement>(null);
   const drumRef = React.useRef<HTMLDivElement>(null);
   const drumScaleRafRef = React.useRef(0);
   const drumProgrammaticRef = React.useRef(0);
@@ -1926,10 +1929,11 @@ export default function ChemTestApp() {
       if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); }
     };
     const jumpToQuestion = (raw: string) => {
-      const n = Math.round(Number(raw));
+      const digits = (raw || '').replace(/[^0-9]/g, '');
+      const n = digits ? parseInt(digits, 10) : NaN;
       if (!Number.isNaN(n) && n >= 1 && n <= shuffledQuestions.length) goToQuestion(n - 1);
       setDrumInputMode(false);
-      setDrumInputValue('');
+      if (numInputRef.current) numInputRef.current.value = '';
     };
 
     // Drum scroll: magnify around the center in real time; when the strip settles,
@@ -2477,22 +2481,34 @@ export default function ChemTestApp() {
 
               {drumInputMode ? (
                 <form
-                  onSubmit={e => { e.preventDefault(); jumpToQuestion(drumInputValue); }}
-                  className="flex-1 min-w-0 h-16 flex items-center justify-center"
+                  onSubmit={e => { e.preventDefault(); jumpToQuestion(numInputRef.current?.value || ''); }}
+                  className="flex-1 min-w-0 h-16 flex items-center justify-center gap-2"
                 >
                   <Input
+                    ref={numInputRef}
                     autoFocus
-                    type="number"
+                    type="text"
                     inputMode="numeric"
-                    min={1}
-                    max={shuffledQuestions.length}
-                    value={drumInputValue}
-                    onChange={e => setDrumInputValue(e.target.value)}
-                    onBlur={() => { setDrumInputMode(false); setDrumInputValue(''); }}
+                    pattern="[0-9]*"
+                    autoComplete="off"
+                    enterKeyHint="go"
+                    defaultValue={String(currentQuestionIdx + 1)}
+                    onFocus={e => e.currentTarget.select()}
                     placeholder={`1–${shuffledQuestions.length}`}
                     aria-label="Question number"
                     className="w-32 text-center font-bold rounded-full"
                   />
+                  <Button
+                    type="submit"
+                    size="icon"
+                    aria-label="Go to question"
+                    className="rounded-full shrink-0"
+                    // Keep focus on the input: a plain click would blur it first
+                    // and the blur handler unmounts the form before the submit.
+                    onPointerDown={e => e.preventDefault()}
+                  >
+                    <ArrowRight className="w-4 h-4" />
+                  </Button>
                 </form>
               ) : (
                 <div className="relative flex-1 min-w-0 h-16">
@@ -2520,8 +2536,7 @@ export default function ChemTestApp() {
                           data-current={isCurrent}
                           onClick={() => {
                             if (isCurrent) {
-                              setDrumInputValue(String(currentQuestionIdx + 1));
-                              setDrumInputMode(true);
+                              setDrumInputMode(true); // input pre-fills via defaultValue on mount
                             } else {
                               goToQuestion(idx);
                             }
