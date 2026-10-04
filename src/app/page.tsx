@@ -1028,7 +1028,6 @@ export default function ChemTestApp() {
   // START TEST - select number of questions + mode selection
   if (effectivePage === 'start-test' && currentTest) {
     const totalQ = currentTest.questions.length;
-    const quickCounts = [10, 15, 20, 25, 30, 40, 50].filter(c => c <= totalQ);
 
     return (
       <div className="min-h-screen bg-background">
@@ -1111,13 +1110,36 @@ export default function ChemTestApp() {
                   <p className="text-sm text-muted-foreground">Choose how many questions you want to answer</p>
                 </div>
 
+                {/* Counter — tap the number to type an exact value */}
+                <div className="flex items-center justify-center gap-4">
+                  <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.max(1, selectedQuestionCount - 1))} disabled={selectedQuestionCount <= 1}>
+                    <Minus className="w-4 h-4" />
+                  </Button>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min={1}
+                    max={totalQ}
+                    value={selectedQuestionCount}
+                    onChange={e => {
+                      if (e.target.value === '') return;
+                      const v = Math.round(Number(e.target.value));
+                      if (Number.isNaN(v)) return;
+                      setSelectedQuestionCount(Math.min(totalQ, Math.max(1, v)));
+                    }}
+                    onBlur={e => {
+                      if (e.target.value === '') setSelectedQuestionCount(1);
+                    }}
+                    aria-label="Number of questions"
+                    className="text-3xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                  <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.min(totalQ, selectedQuestionCount + 1))} disabled={selectedQuestionCount >= totalQ}>
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
+
                 {/* Slider */}
                 <div className="px-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-muted-foreground">1</span>
-                    <span className="text-2xl font-bold">{selectedQuestionCount}</span>
-                    <span className="text-sm text-muted-foreground">{totalQ}</span>
-                  </div>
                   <input
                     type="range"
                     min={1}
@@ -1126,40 +1148,6 @@ export default function ChemTestApp() {
                     onChange={e => setSelectedQuestionCount(Number(e.target.value))}
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-[#fe5933]"
                   />
-                </div>
-
-                {/* Quick Select Buttons */}
-                <div className="flex flex-wrap gap-2 justify-center">
-                  <Button
-                    variant={selectedQuestionCount === totalQ ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => setSelectedQuestionCount(totalQ)}
-                    className={selectedQuestionCount === totalQ ? 'bg-cta hover:bg-cta/90 text-white border border-cta' : ''}
-                  >
-                    All ({totalQ})
-                  </Button>
-                  {quickCounts.map(count => (
-                    <Button
-                      key={count}
-                      variant={selectedQuestionCount === count ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setSelectedQuestionCount(count)}
-                      className={selectedQuestionCount === count ? 'bg-cta hover:bg-cta/90 text-white border border-cta' : ''}
-                    >
-                      {count}
-                    </Button>
-                  ))}
-                </div>
-
-                {/* Adjust buttons */}
-                <div className="flex items-center justify-center gap-4">
-                  <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.max(1, selectedQuestionCount - 1))} disabled={selectedQuestionCount <= 1}>
-                    <Minus className="w-4 h-4" />
-                  </Button>
-                  <span className="text-3xl font-bold w-16 text-center">{selectedQuestionCount}</span>
-                  <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.min(totalQ, selectedQuestionCount + 1))} disabled={selectedQuestionCount >= totalQ}>
-                    <Plus className="w-4 h-4" />
-                  </Button>
                 </div>
               </div>
 
