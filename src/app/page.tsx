@@ -97,6 +97,16 @@ interface Test {
   createdAt: string;
 }
 
+// Cover background color per topic — shared by the cover block and the whole swipe card
+function topicBgClass(topic?: string | null) {
+  switch (topic) {
+    case 'Physics': return 'bg-[#E3EEFF]';
+    case 'Chemistry': return 'bg-[#DFF3E8]';
+    case 'Mathematics': return 'bg-[#FFF0D9]';
+    default: return 'bg-[#FCE8F2]';
+  }
+}
+
 // Per-test group chat message (see /api/tests/[id]/chat)
 interface GroupMessage {
   id: string;
@@ -912,18 +922,14 @@ export default function ChemTestApp() {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
                 const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
+                const coverBg = topicBgClass(test.topic);
                 return (
-                  <section key={test.id} className="h-full snap-start snap-always overflow-y-auto [scrollbar-width:none]">
+                  <section key={test.id} className={`h-full snap-start snap-always overflow-y-auto [scrollbar-width:none] ${coverBg}`}>
                     <div className="min-h-full flex flex-col items-center justify-center px-4 py-4">
                       <div className="w-full max-w-md space-y-4">
                         {/* Default cover — the test title is part of the cover */}
-                        <div className="relative h-44 rounded-3xl overflow-hidden shadow-lg border border-black/10">
-                          <div className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${
-                            test.topic === 'Physics' ? 'bg-[#E3EEFF]' :
-                            test.topic === 'Chemistry' ? 'bg-[#DFF3E8]' :
-                            test.topic === 'Mathematics' ? 'bg-[#FFF0D9]' :
-                            'bg-[#FCE8F2]'
-                          }`}>
+                        <div className="relative h-44 rounded-3xl overflow-hidden shadow-lg ring-4 ring-white/80">
+                          <div className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${coverBg}`}>
                             <div className="text-5xl mb-3">
                               {test.topic === 'Physics' ? '⚛️' :
                                test.topic === 'Chemistry' ? '🧪' :
