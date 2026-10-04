@@ -270,6 +270,11 @@ function shuffleOptions(question: Question): Question {
   return newQ as Question;
 }
 
+// Frosted-glass tile shared by the take-test bottom bar: the lens over the
+// current question number AND the prev/next arrow buttons use the SAME material
+// (same border, gradient and shadows), so the whole bar reads as one glass set.
+const GLASS_TILE = 'rounded-xl border border-black/15 bg-gradient-to-b from-white/70 via-white/5 to-white/60 shadow-[inset_0_2px_10px_rgba(0,0,0,0.10),0_1px_3px_rgba(0,0,0,0.08)]';
+
 export default function ChemTestApp() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
@@ -2472,16 +2477,17 @@ export default function ChemTestApp() {
             style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
           >
             <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full shrink-0"
+              {/* Glass arrows — same tile as the number lens (w-14, rounded-xl,
+                  same border/gradient/shadows); h-14 aligns edges with the lens. */}
+              <button
+                type="button"
                 onClick={() => goToQuestion(Math.max(0, currentQuestionIdx - 1))}
                 disabled={currentQuestionIdx === 0}
                 aria-label="Previous question"
+                className={`w-14 h-14 shrink-0 flex items-center justify-center text-foreground transition-transform active:scale-95 disabled:opacity-40 disabled:pointer-events-none ${GLASS_TILE}`}
               >
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
+                <ArrowLeft className="w-6 h-6" />
+              </button>
 
               {drumInputMode ? (
                 <form
@@ -2509,7 +2515,7 @@ export default function ChemTestApp() {
                     }`}
                   />
                   {/* Glass window — identical lens to drum mode */}
-                  <div className="pointer-events-none absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 rounded-xl border border-black/15 bg-gradient-to-b from-white/70 via-white/5 to-white/60 shadow-[inset_0_2px_10px_rgba(0,0,0,0.10),0_1px_3px_rgba(0,0,0,0.08)]" />
+                  <div className={`pointer-events-none absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 ${GLASS_TILE}`} />
                 </form>
               ) : (
                 <div className="relative flex-1 min-w-0 h-16">
@@ -2561,7 +2567,7 @@ export default function ChemTestApp() {
                     })}
                   </div>
                   {/* Glass window — the current number sits under the lens */}
-                  <div className="pointer-events-none absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 rounded-xl border border-black/15 bg-gradient-to-b from-white/70 via-white/5 to-white/60 shadow-[inset_0_2px_10px_rgba(0,0,0,0.10),0_1px_3px_rgba(0,0,0,0.08)]" />
+                  <div className={`pointer-events-none absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 ${GLASS_TILE}`} />
                 </div>
               )}
 
@@ -2574,14 +2580,14 @@ export default function ChemTestApp() {
                   {loading ? 'Submitting...' : 'Submit Test'}
                 </Button>
               ) : (
-                <Button
-                  size="icon"
-                  className="rounded-full shrink-0"
+                <button
+                  type="button"
                   onClick={() => goToQuestion(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1))}
                   aria-label="Next question"
+                  className={`w-14 h-14 shrink-0 flex items-center justify-center text-foreground transition-transform active:scale-95 disabled:opacity-40 disabled:pointer-events-none ${GLASS_TILE}`}
                 >
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
+                  <ArrowRight className="w-6 h-6" />
+                </button>
               )}
             </div>
           </div>
