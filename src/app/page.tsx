@@ -178,6 +178,9 @@ export default function ChemTestApp() {
   const [testTopic, setTestTopic] = useState('Chemistry');
   const [randomizeQ, setRandomizeQ] = useState(true);
   const [randomizeO, setRandomizeO] = useState(true);
+  // Randomization chosen at test START (Start Test page), not in the editor
+  const [startRandomizeQ, setStartRandomizeQ] = useState(true);
+  const [startRandomizeO, setStartRandomizeO] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([
     { text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' },
   ]);
@@ -220,10 +223,6 @@ export default function ChemTestApp() {
   const [groupSending, setGroupSending] = useState(false);
   const groupEndRef = React.useRef<HTMLDivElement>(null);
 
-  // Cover images state
-  const [coverImages, setCoverImages] = useState<Record<string, string>>({});
-  const [generatingCovers, setGeneratingCovers] = useState<Record<string, boolean>>({});
-
   // Delete confirmation
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
@@ -253,30 +252,6 @@ export default function ChemTestApp() {
     }
   }, [toast]);
 
-  // Generate cover image for a test
-  const generateCover = async (testId: string, retryCount = 0) => {
-    if (coverImages[testId] || generatingCovers[testId]) return;
-    setGeneratingCovers(prev => ({ ...prev, [testId]: true }));
-    try {
-      const result = await api.generateCover(testId);
-      if (result.coverImage) {
-        setCoverImages(prev => ({ ...prev, [testId]: result.coverImage }));
-      }
-    } catch (e: any) {
-      console.error('Failed to generate cover for test', testId, e);
-      // If rate limited, retry after a delay
-      if (e?.message?.includes('429') || e?.message?.includes('Rate limited') || e?.message?.includes('Too many requests')) {
-        if (retryCount < 3) {
-          const delay = (retryCount + 1) * 30000; // 30s, 60s, 90s
-          setTimeout(() => {
-            generateCover(testId, retryCount + 1);
-          }, delay);
-        }
-      }
-    }
-    setGeneratingCovers(prev => ({ ...prev, [testId]: false }));
-  };
-
   // Load tests when navigating to dashboard
   const hasLoadedRef = React.useRef(false);
   useEffect(() => {
@@ -285,13 +260,6 @@ export default function ChemTestApp() {
       Promise.all([
         api.getTests().then(data => {
           setTests(data);
-          // Auto-generate covers for tests that don't have them yet (staggered to avoid rate limiting)
-          const testsNeedingCovers = data.filter((test: Test) => !test.hasCoverImage);
-          testsNeedingCovers.forEach((test: Test, index: number) => {
-            setTimeout(() => {
-              generateCover(test.id);
-            }, index * 10000); // 10 seconds between each generation
-          });
         }).catch(() => {}),
         api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
       ]);
@@ -483,6 +451,8 @@ export default function ChemTestApp() {
       setCurrentTest(fullTest);
       const totalQ = fullTest.questions.length;
       setSelectedQuestionCount(totalQ);
+      setStartRandomizeQ(fullTest.randomizeQuestions !== false);
+      setStartRandomizeO(fullTest.randomizeOptions !== false);
       setPracticeMode(false);
       setFilesOpen(false);
       setChatOpen(false);
@@ -498,12 +468,12 @@ export default function ChemTestApp() {
     if (!currentTest) return;
     setLoading(true);
     try {
-      // Apply randomization
+      // Apply randomization (chosen on the Start Test page)
       let qList = [...currentTest.questions];
-      if (currentTest.randomizeQuestions) {
+      if (startRandomizeQ) {
         qList = shuffleArray(qList);
       }
-      if (currentTest.randomizeOptions) {
+      if (startRandomizeO) {
         qList = qList.map(q => shuffleOptions(q));
       }
 
@@ -856,63 +826,35 @@ export default function ChemTestApp() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {tests.map(test => (
                 <Card key={test.id} className="rounded-4xl border border-black bg-white hover:shadow-lg transition-shadow overflow-hidden">
-                  {/* Cover Image */}
+                  {/* Default cover — the test title is part of the cover */}
                   <div className="relative h-40 overflow-hidden">
-                    {coverImages[test.id] ? (
-                      <img
-                        src={coverImages[test.id]}
-                        alt={test.title}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : generatingCovers[test.id] ? (
-                      <div className="w-full h-full bg-[#FFF0D9] flex flex-col items-center justify-center gap-2">
-                        <div className="w-8 h-8 border-3 border-cta border-t-transparent rounded-full animate-spin" />
-                        <p className="text-xs text-cta font-medium">Generating AI cover...</p>
+                    <div className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${
+                      test.topic === 'Physics' ? 'bg-[#E3EEFF]' :
+                      test.topic === 'Chemistry' ? 'bg-[#DFF3E8]' :
+                      test.topic === 'Mathematics' ? 'bg-[#FFF0D9]' :
+                      'bg-[#FCE8F2]'
+                    }`}>
+                      <div className="text-3xl mb-2">
+                        {test.topic === 'Physics' ? '⚛️' :
+                         test.topic === 'Chemistry' ? '🧪' :
+                         test.topic === 'Mathematics' ? '📐' : '📚'}
                       </div>
-                    ) : (
-                      <div className={`w-full h-full flex items-center justify-center ${
-                        test.topic === 'Physics' ? 'bg-[#E3EEFF]' :
-                        test.topic === 'Chemistry' ? 'bg-[#DFF3E8]' :
-                        test.topic === 'Mathematics' ? 'bg-[#FFF0D9]' :
-                        'bg-[#FCE8F2]'
-                      }`}>
-                        <div className="text-center text-cta">
-                          <div className="text-3xl mb-1">
-                            {test.topic === 'Physics' ? '⚛️' :
-                             test.topic === 'Chemistry' ? '🧪' :
-                             test.topic === 'Mathematics' ? '📐' : '📚'}
-                          </div>
-                          <p className="text-xs font-medium opacity-80">{test.topic}</p>
-                          <button
-                            onClick={() => generateCover(test.id)}
-                            className="mt-2 text-[10px] underline opacity-70 hover:opacity-100 transition-opacity"
-                          >
-                            Generate AI Cover
-                          </button>
-                        </div>
-                      </div>
-                    )}
+                      <p className="text-sm font-bold text-cta leading-snug line-clamp-2">{test.title}</p>
+                    </div>
                     {/* Topic badge overlay */}
                     <div className="absolute top-2 left-2">
                       <Badge variant="secondary" className="bg-cta text-white border border-black rounded-full backdrop-blur-sm shadow-sm">{test.topic}</Badge>
                     </div>
                   </div>
-                  <CardHeader className="pb-2 pt-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <CardTitle className="text-base leading-tight">{test.title}</CardTitle>
-                      </div>
-                    </div>
-                    {test.description && <CardDescription className="mt-1 text-xs">{test.description}</CardDescription>}
-                  </CardHeader>
+                  {test.description && (
+                    <CardHeader className="pb-2 pt-3">
+                      <CardDescription className="text-xs">{test.description}</CardDescription>
+                    </CardHeader>
+                  )}
                   <CardContent className="pb-2">
                     <div className="flex items-center gap-4 text-xs text-muted-foreground">
                       <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" /> {test._count?.questions || 0} questions</span>
                       <span className="flex items-center gap-1"><Trophy className="w-3 h-3" /> {test._count?.attempts || 0} attempts</span>
-                    </div>
-                    <div className="flex items-center gap-2 mt-2">
-                      {test.randomizeQuestions && <Badge variant="outline" className="text-xs"><Shuffle className="w-3 h-3 mr-1" />Random Q</Badge>}
-                      {test.randomizeOptions && <Badge variant="outline" className="text-xs"><Shuffle className="w-3 h-3 mr-1" />Random A</Badge>}
                     </div>
                   </CardContent>
                   <CardFooter className="flex gap-2 pt-0">
@@ -990,20 +932,6 @@ export default function ChemTestApp() {
               <div className="space-y-2">
                 <Label>Description</Label>
                 <Textarea value={testDescription} onChange={e => setTestDescription(e.target.value)} placeholder="Brief description of this test..." rows={2} />
-              </div>
-              <div className="flex flex-wrap gap-6">
-                <div className="flex items-center gap-2">
-                  <Switch checked={randomizeQ} onCheckedChange={setRandomizeQ} />
-                  <Label className="flex items-center gap-1 cursor-pointer">
-                    <Shuffle className="w-4 h-4" /> Randomize Questions
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Switch checked={randomizeO} onCheckedChange={setRandomizeO} />
-                  <Label className="flex items-center gap-1 cursor-pointer">
-                    <Shuffle className="w-4 h-4" /> Randomize Options
-                  </Label>
-                </div>
               </div>
             </CardContent>
           </Card>
@@ -1232,6 +1160,30 @@ export default function ChemTestApp() {
                   <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.min(totalQ, selectedQuestionCount + 1))} disabled={selectedQuestionCount >= totalQ}>
                     <Plus className="w-4 h-4" />
                   </Button>
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Randomization Settings */}
+              <div className="space-y-3">
+                <div className="text-center">
+                  <h3 className="text-lg font-semibold mb-1">Randomization</h3>
+                  <p className="text-sm text-muted-foreground">Choose the order of questions and answers</p>
+                </div>
+                <div className="flex flex-wrap gap-x-8 gap-y-3 justify-center">
+                  <div className="flex items-center gap-2">
+                    <Switch id="rand-questions" checked={startRandomizeQ} onCheckedChange={setStartRandomizeQ} />
+                    <Label htmlFor="rand-questions" className="flex items-center gap-1 cursor-pointer">
+                      <Shuffle className="w-4 h-4" /> Randomize Questions
+                    </Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Switch id="rand-answers" checked={startRandomizeO} onCheckedChange={setStartRandomizeO} />
+                    <Label htmlFor="rand-answers" className="flex items-center gap-1 cursor-pointer">
+                      <Shuffle className="w-4 h-4" /> Randomize Answers
+                    </Label>
+                  </div>
                 </div>
               </div>
 

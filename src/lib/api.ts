@@ -96,9 +96,4 @@ export const api = {
   updateAttachment: (id: string, data: { title?: string; type?: string; url?: string; orderNum?: number }) =>
     apiFetch(`/attachments/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteAttachment: (id: string) => apiFetch(`/attachments/${id}`, { method: 'DELETE' }),
-
-  // Generate Cover Image
-  generateCover: (testId: string) =>
-    apiFetch('/generate-cover', { method: 'POST', body: JSON.stringify({ testId }) }),
-
 };
