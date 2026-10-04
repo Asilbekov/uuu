@@ -397,6 +397,8 @@ export default function ChemTestApp() {
   // Sync the feed when the current question changes from the drum / arrows.
   // Skipped while the user is actively touching/scrolling the feed — an instant
   // scroll during a swipe would yank the card out from under the finger.
+  // Also re-runs when the drum number input opens/closes: the on-screen keyboard
+  // changes the visible geometry, so the feed must re-snap after it closes.
   useEffect(() => {
     const el = takeFeedRef.current;
     if (!el || el.clientHeight === 0) return;
@@ -404,7 +406,27 @@ export default function ChemTestApp() {
     if (Math.abs(el.scrollTop - currentQuestionIdx * el.clientHeight) > 2) {
       el.scrollTo({ top: currentQuestionIdx * el.clientHeight, behavior: 'instant' as ScrollBehavior });
     }
-  }, [currentQuestionIdx, shuffledQuestions.length]);
+  }, [currentQuestionIdx, shuffledQuestions.length, drumInputMode]);
+
+  // When the drum number input closes, the keyboard that opened for it may leave
+  // the window scrolled up (the page shifts and a white gap stays below it).
+  // Restore the window position immediately and again after the keyboard-close
+  // animation settles.
+  const prevDrumInputModeRef = React.useRef(false);
+  useEffect(() => {
+    if (prevDrumInputModeRef.current && !drumInputMode) {
+      const restore = () => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      };
+      restore();
+      const t = setTimeout(restore, 350);
+      prevDrumInputModeRef.current = drumInputMode;
+      return () => clearTimeout(t);
+    }
+    prevDrumInputModeRef.current = drumInputMode;
+  }, [drumInputMode]);
 
   // AI Chat state
   const [chatOpen, setChatOpen] = useState(false);
@@ -2456,7 +2478,7 @@ export default function ChemTestApp() {
               {drumInputMode ? (
                 <form
                   onSubmit={e => { e.preventDefault(); jumpToQuestion(drumInputValue); }}
-                  className="flex-1 min-w-0 flex justify-center"
+                  className="flex-1 min-w-0 h-16 flex items-center justify-center"
                 >
                   <Input
                     autoFocus
