@@ -275,6 +275,69 @@ function shuffleOptions(question: Question): Question {
 // (same border, gradient and shadows), so the whole bar reads as one glass set.
 const GLASS_TILE = 'rounded-xl border border-black/15 bg-gradient-to-b from-white/70 via-white/5 to-white/60 shadow-[inset_0_2px_10px_rgba(0,0,0,0.10),0_1px_3px_rgba(0,0,0,0.08)]';
 
+// =================== SAVED TEST PROGRESS ("Continue Test") ===================
+// While a test is being taken, its full state is persisted to localStorage per
+// user+test: the exact shuffled question order, answers, practice reveals and
+// position, plus the open attempt. A reload (or leaving and coming back) then
+// offers "Continue Test" instead of starting over. Cleared on submit.
+interface SavedTestProgress {
+  v: 1;
+  testId: string;
+  savedAt: number;
+  attempt: Attempt | null;
+  currentQuestionIdx: number;
+  answers: Record<string, string>;
+  practiceMode: boolean;
+  revealedAnswers: Record<string, boolean>;
+  shuffledQuestions: Question[];
+}
+const PROGRESS_PREFIX = 'chemtest_progress_v1';
+const PROGRESS_MAX_CHARS = 2_500_000; // stay far below the ~5MB localStorage quota
+const progressCache = new Map<string, SavedTestProgress | null>();
+
+const progressKey = (userId: string, testId: string) => `${PROGRESS_PREFIX}:${userId || 'anon'}:${testId}`;
+
+function readTestProgress(userId: string, testId: string): SavedTestProgress | null {
+  const key = progressKey(userId, testId);
+  if (progressCache.has(key)) return progressCache.get(key)!;
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) { progressCache.set(key, null); return null; }
+    const p = JSON.parse(raw) as SavedTestProgress;
+    if (!p || p.v !== 1 || p.testId !== testId || !Array.isArray(p.shuffledQuestions) || p.shuffledQuestions.length === 0) {
+      progressCache.set(key, null);
+      return null;
+    }
+    if (!p.answers || typeof p.answers !== 'object') p.answers = {};
+    progressCache.set(key, p);
+    return p;
+  } catch {
+    progressCache.set(key, null);
+    return null;
+  }
+}
+
+function writeTestProgress(userId: string, p: SavedTestProgress) {
+  const key = progressKey(userId, p.testId);
+  try {
+    const raw = JSON.stringify(p);
+    if (raw.length > PROGRESS_MAX_CHARS) return; // huge test — skip silently
+    localStorage.setItem(key, raw);
+    progressCache.set(key, p);
+  } catch {
+    // quota / private mode — progress simply won't persist
+  }
+}
+
+function clearTestProgress(userId: string, testId: string) {
+  const key = progressKey(userId, testId);
+  try { localStorage.removeItem(key); } catch {}
+  progressCache.set(key, null);
+}
+
+const countAnsweredProgress = (p: SavedTestProgress | null) =>
+  p ? Object.keys(p.answers || {}).filter(k => k && p.answers[k]).length : 0;
+
 export default function ChemTestApp() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
@@ -490,6 +553,15 @@ export default function ChemTestApp() {
   // Only use hydratedUser after mount to avoid hydration mismatch
   const effectiveUser = user || (mounted ? hydratedUser : null);
   const effectivePage = page === 'auth' && mounted && hydratedUser ? 'dashboard' : page;
+
+  // --- Saved test progress ("Continue Test") ---
+  const progressUserId = effectiveUser?.id || 'anon';
+  const [savedProgress, setSavedProgress] = useState<SavedTestProgress | null>(null);
+  // Re-check saved progress whenever the screen or the current test changes —
+  // the start-test page uses it to swap "Start Test" for "Continue Test".
+  useEffect(() => {
+    setSavedProgress(currentTest ? readTestProgress(progressUserId, currentTest.id) : null);
+  }, [currentTest?.id, effectivePage, progressUserId]);
 
   const loadTests = useCallback(async () => {
     try {
@@ -860,6 +932,8 @@ export default function ChemTestApp() {
     try {
       const fullTest = dashFullTests[t.id] || await api.getTest(t.id);
       setCurrentTest(fullTest);
+      // Saved progress in this browser? Resume that attempt instead of a fresh start
+      if (continueTestWith(fullTest)) { setLoading(false); return; }
       const totalQ = fullTest.questions.length;
       const count = Math.min(Math.max(1, selectedQuestionCount || totalQ), totalQ);
       setSelectedQuestionCount(count);
@@ -872,6 +946,56 @@ export default function ChemTestApp() {
       setLoading(false);
     }
   };
+
+  // Resume a saved attempt: restore the exact shuffled order, answers, practice
+  // reveals and position, and reuse the original attempt so history stays clean.
+  // Returns true when there was progress to resume.
+  const continueTestWith = (test: Test): boolean => {
+    const saved = readTestProgress(progressUserId, test.id);
+    if (!saved) return false;
+    const qList = saved.shuffledQuestions;
+    setCurrentTest(test);
+    setShuffledQuestions(qList);
+    setCurrentQuestionIdx(Math.min(Math.max(0, saved.currentQuestionIdx || 0), qList.length - 1));
+    setAnswers(saved.answers || {});
+    setPracticeMode(!!saved.practiceMode);
+    setRevealedAnswers(saved.revealedAnswers || {});
+    setExplanations({});
+    setShowResult(false);
+    setSelectedQuestionCount(qList.length);
+    if (saved.attempt && saved.attempt.id) {
+      setCurrentAttempt(saved.attempt);
+    } else {
+      // Attempt object missing (old/corrupted save) — open a new one, same count
+      api.createAttempt(test.id, qList.length).then(setCurrentAttempt).catch(() => {});
+    }
+    setFilesOpen(false);
+    setChatOpen(false);
+    setGroupOpen(false);
+    setDrumInputMode(false);
+    setPage('take-test');
+    return true;
+  };
+
+  // Persist take-test progress (debounced 400ms): position, answers, practice
+  // reveals and the exact shuffled order — everything needed to continue later.
+  useEffect(() => {
+    if (effectivePage !== 'take-test' || showResult || !currentTest || shuffledQuestions.length === 0) return;
+    const t = setTimeout(() => {
+      writeTestProgress(progressUserId, {
+        v: 1,
+        testId: currentTest.id,
+        savedAt: Date.now(),
+        attempt: currentAttempt,
+        currentQuestionIdx,
+        answers,
+        practiceMode,
+        revealedAnswers,
+        shuffledQuestions,
+      });
+    }, 400);
+    return () => clearTimeout(t);
+  }, [effectivePage, showResult, currentTest, currentAttempt, currentQuestionIdx, answers, practiceMode, revealedAnswers, shuffledQuestions, progressUserId]);
 
   // Track which test is on screen while swiping the dashboard feed.
   // Same rule as the take-test feed: commit only after the swipe settles —
@@ -1069,6 +1193,9 @@ export default function ChemTestApp() {
         answers: answerData,
         completed: true,
       });
+      // Attempt submitted — the saved "continue" progress is no longer needed
+      clearTestProgress(progressUserId, currentTest.id);
+      setSavedProgress(null);
       setShowResult(true);
       toast({ title: 'Test completed!', description: 'Your answers have been submitted.' });
 
@@ -1171,6 +1298,8 @@ export default function ChemTestApp() {
   // DASHBOARD
   if (effectivePage === 'dashboard') {
     const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
+    // Saved progress for the test on screen (cached read) — drives the Continue button
+    const dashSaved = curDashTest ? readTestProgress(progressUserId, curDashTest.id) : null;
 
     return (
       <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
@@ -1417,7 +1546,11 @@ export default function ChemTestApp() {
                   </Button>
                 ) : (
                   <Button onClick={startFromDashboard} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                    {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
+                    {loading ? 'Loading...' : dashSaved ? (
+                      <><Play className="w-4 h-4 mr-2" /> Continue Test ({countAnsweredProgress(dashSaved)}/{dashSaved.shuffledQuestions.length} answered)</>
+                    ) : (
+                      <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>
+                    )}
                   </Button>
                 )}
               </div>
@@ -1913,9 +2046,30 @@ export default function ChemTestApp() {
             className="max-w-2xl mx-auto px-4 pt-3"
             style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
           >
-            <Button onClick={startTest} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
-              {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
-            </Button>
+            {savedProgress && savedProgress.shuffledQuestions.length > 0 ? (
+              <div className="flex items-center gap-2">
+                <Button
+                  onClick={() => continueTestWith(currentTest!)}
+                  disabled={loading}
+                  className="flex-1 rounded-full bg-primary hover:bg-primary/90"
+                >
+                  {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Continue Test ({countAnsweredProgress(savedProgress)}/{savedProgress.shuffledQuestions.length} answered)</>}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={startTest}
+                  disabled={loading}
+                  className="rounded-full shrink-0"
+                  aria-label="Start over from the beginning"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" /> Restart
+                </Button>
+              </div>
+            ) : (
+              <Button onClick={startTest} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
+              </Button>
+            )}
           </div>
         </div>
       </div>
