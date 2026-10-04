@@ -2486,7 +2486,7 @@ export default function ChemTestApp() {
               {drumInputMode ? (
                 <form
                   onSubmit={e => { e.preventDefault(); jumpToQuestion(numInputRef.current?.value || ''); }}
-                  className="flex-1 min-w-0 h-16 flex items-center justify-center gap-2"
+                  className="flex-1 min-w-0 h-16 flex items-center justify-center"
                 >
                   <Input
                     ref={numInputRef}
@@ -2502,17 +2502,6 @@ export default function ChemTestApp() {
                     aria-label="Question number"
                     className="w-32 text-center font-bold rounded-full"
                   />
-                  <Button
-                    type="submit"
-                    size="icon"
-                    aria-label="Go to question"
-                    className="rounded-full shrink-0"
-                    // Keep focus on the input: a plain click would blur it first
-                    // and the blur handler unmounts the form before the submit.
-                    onPointerDown={e => e.preventDefault()}
-                  >
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
                 </form>
               ) : (
                 <div className="relative flex-1 min-w-0 h-16">
