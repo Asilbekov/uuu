@@ -925,7 +925,8 @@ export default function ChemTestApp() {
   };
 
   // Start directly from the dashboard feed (fetch the full test first)
-  const startFromDashboard = async () => {
+  // fresh=true (Restart button) — skip any saved progress and start over
+  const startFromDashboard = async (fresh = false) => {
     const t = tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)];
     if (!t || loading) return;
     setLoading(true);
@@ -933,7 +934,7 @@ export default function ChemTestApp() {
       const fullTest = dashFullTests[t.id] || await api.getTest(t.id);
       setCurrentTest(fullTest);
       // Saved progress in this browser? Resume that attempt instead of a fresh start
-      if (continueTestWith(fullTest)) { setLoading(false); return; }
+      if (!fresh && continueTestWith(fullTest)) { setLoading(false); return; }
       const totalQ = fullTest.questions.length;
       const count = Math.min(Math.max(1, selectedQuestionCount || totalQ), totalQ);
       setSelectedQuestionCount(count);
@@ -1544,13 +1545,18 @@ export default function ChemTestApp() {
                   >
                     <Edit className="w-4 h-4 mr-2" /> Edit This Test
                   </Button>
+                ) : dashSaved ? (
+                  <div className="flex flex-col gap-2">
+                    <Button variant="outline" onClick={() => startFromDashboard(true)} disabled={loading || !curDashTest} className="w-full rounded-full">
+                      <RefreshCw className="w-4 h-4 mr-2" /> Restart
+                    </Button>
+                    <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                      {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Continue Test ({countAnsweredProgress(dashSaved)}/{dashSaved.shuffledQuestions.length} answered)</>}
+                    </Button>
+                  </div>
                 ) : (
-                  <Button onClick={startFromDashboard} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                    {loading ? 'Loading...' : dashSaved ? (
-                      <><Play className="w-4 h-4 mr-2" /> Continue Test ({countAnsweredProgress(dashSaved)}/{dashSaved.shuffledQuestions.length} answered)</>
-                    ) : (
-                      <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>
-                    )}
+                  <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                    {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
                   </Button>
                 )}
               </div>
@@ -2047,22 +2053,22 @@ export default function ChemTestApp() {
             style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
           >
             {savedProgress && savedProgress.shuffledQuestions.length > 0 ? (
-              <div className="flex items-center gap-2">
-                <Button
-                  onClick={() => continueTestWith(currentTest!)}
-                  disabled={loading}
-                  className="flex-1 rounded-full bg-primary hover:bg-primary/90"
-                >
-                  {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Continue Test ({countAnsweredProgress(savedProgress)}/{savedProgress.shuffledQuestions.length} answered)</>}
-                </Button>
+              <div className="flex flex-col gap-2">
                 <Button
                   variant="outline"
                   onClick={startTest}
                   disabled={loading}
-                  className="rounded-full shrink-0"
+                  className="w-full rounded-full"
                   aria-label="Start over from the beginning"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" /> Restart
+                </Button>
+                <Button
+                  onClick={() => continueTestWith(currentTest!)}
+                  disabled={loading}
+                  className="w-full rounded-full bg-primary hover:bg-primary/90"
+                >
+                  {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Continue Test ({countAnsweredProgress(savedProgress)}/{savedProgress.shuffledQuestions.length} answered)</>}
                 </Button>
               </div>
             ) : (
