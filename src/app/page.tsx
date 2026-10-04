@@ -207,6 +207,19 @@ export default function ChemTestApp() {
   const [explanations, setExplanations] = useState<Record<string, string>>({});
   const [loadingExplanations, setLoadingExplanations] = useState(false);
 
+  // Take-test bottom drum: one-line question strip + tap-to-type jump
+  const [drumInputMode, setDrumInputMode] = useState(false);
+  const [drumInputValue, setDrumInputValue] = useState('');
+  const drumRef = React.useRef<HTMLDivElement>(null);
+
+  // Keep the current question pill centered in the drum
+  useEffect(() => {
+    const c = drumRef.current;
+    if (!c) return;
+    const el = c.querySelector<HTMLElement>('[data-current="true"]');
+    if (el) c.scrollTo({ left: el.offsetLeft - (c.clientWidth - el.clientWidth) / 2, behavior: 'smooth' });
+  }, [currentQuestionIdx, drumInputMode]);
+
   // AI Chat state
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([]);
@@ -1208,6 +1221,18 @@ export default function ChemTestApp() {
     const progressPct = ((currentQuestionIdx + 1) / shuffledQuestions.length) * 100;
     const answeredCount = Object.keys(answers).length;
 
+    // Navigate to a question and close any open chat sheet
+    const goToQuestion = (idx: number) => {
+      setCurrentQuestionIdx(idx);
+      if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); }
+    };
+    const jumpToQuestion = (raw: string) => {
+      const n = Math.round(Number(raw));
+      if (!Number.isNaN(n) && n >= 1 && n <= shuffledQuestions.length) goToQuestion(n - 1);
+      setDrumInputMode(false);
+      setDrumInputValue('');
+    };
+
     if (showResult) {
       const score = getScore();
       const pct = Math.round((score / shuffledQuestions.length) * 100);
@@ -1496,42 +1521,6 @@ export default function ChemTestApp() {
         </header>
 
         <main className="max-w-7xl mx-auto px-4 py-6">
-          {/* Question navigation pills */}
-          <div className="flex flex-wrap gap-1.5 mb-6">
-            {shuffledQuestions.map((q, idx) => {
-              const qIdNav = q.id || '';
-              const isAnswered = !!answers[qIdNav];
-              const isRevealedNav = practiceMode && revealedAnswers[qIdNav];
-              const isCurrent = idx === currentQuestionIdx;
-              const isCorrectAnswer = isRevealedNav && answers[qIdNav] === q.correctAnswer;
-              const isWrongAnswer = isRevealedNav && answers[qIdNav] && answers[qIdNav] !== q.correctAnswer;
-
-              return (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    setCurrentQuestionIdx(idx);
-                    // Close chat when navigating to a different question
-                    if (chatOpen) {
-                      setChatOpen(false);
-                      setChatMessages([]);
-                      setChatQuestionId('');
-                      setChatQuestionObj(null);
-                    }
-                  }}
-                  className={`w-8 h-8 rounded-full text-xs font-bold transition-all flex items-center justify-center ${
-                    isCurrent ? 'ring-2 ring-cta ring-offset-2' :
-                    isCorrectAnswer ? 'bg-emerald-500 text-white' :
-                    isWrongAnswer ? 'bg-red-500 text-white' :
-                    isAnswered ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
-                  }`}
-                >
-                  {idx + 1}
-                </button>
-              );
-            })}
-          </div>
-
           {/* Main content: Question + Chat/Files side by side */}
           <div className={`flex gap-6 ${chatOpen || groupOpen || filesOpen ? 'flex-col lg:flex-row' : ''}`}>
             {/* Current Question */}
@@ -1638,39 +1627,6 @@ export default function ChemTestApp() {
                 </CardContent>
               </Card>
 
-              {/* Navigation */}
-              <div className="flex items-center justify-between">
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setCurrentQuestionIdx(Math.max(0, currentQuestionIdx - 1));
-                    if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); }
-                  }}
-                  disabled={currentQuestionIdx === 0}
-                >
-                  <ArrowLeft className="w-4 h-4 mr-1" /> Previous
-                </Button>
-
-                {currentQuestionIdx === shuffledQuestions.length - 1 ? (
-                  <Button
-                    onClick={submitTest}
-                    disabled={loading || answeredCount < shuffledQuestions.length}
-                    className="rounded-full bg-primary hover:bg-primary/90"
-                  >
-                    {loading ? 'Submitting...' : 'Submit Test'}
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => {
-                      setCurrentQuestionIdx(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1));
-                      if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); }
-                    }}
-                  >
-                    Next <ArrowRight className="w-4 h-4 ml-1" />
-                  </Button>
-                )}
-              </div>
-
               {loadingExplanations && (
                 <p className="text-xs text-center text-muted-foreground mt-4">Loading explanations...</p>
               )}
@@ -1724,6 +1680,105 @@ export default function ChemTestApp() {
             )}
           </div>
         </main>
+
+        {/* Sticky bottom navigation bar — question drum + prev/next (same pattern as create-test bottom bar) */}
+        <div className="sticky bottom-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+          <div
+            className="max-w-7xl mx-auto px-4 pt-2.5"
+            style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
+          >
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full shrink-0"
+                onClick={() => goToQuestion(Math.max(0, currentQuestionIdx - 1))}
+                disabled={currentQuestionIdx === 0}
+                aria-label="Previous question"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+
+              {drumInputMode ? (
+                <form
+                  onSubmit={e => { e.preventDefault(); jumpToQuestion(drumInputValue); }}
+                  className="flex-1 min-w-0 flex justify-center"
+                >
+                  <Input
+                    autoFocus
+                    type="number"
+                    inputMode="numeric"
+                    min={1}
+                    max={shuffledQuestions.length}
+                    value={drumInputValue}
+                    onChange={e => setDrumInputValue(e.target.value)}
+                    onBlur={() => { setDrumInputMode(false); setDrumInputValue(''); }}
+                    placeholder={`1–${shuffledQuestions.length}`}
+                    aria-label="Question number"
+                    className="w-32 text-center font-bold rounded-full"
+                  />
+                </form>
+              ) : (
+                <div
+                  ref={drumRef}
+                  className="flex-1 min-w-0 flex items-center gap-1.5 overflow-x-auto flex-nowrap py-1 px-0.5 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
+                >
+                  {shuffledQuestions.map((q, idx) => {
+                    const qIdNav = q.id || '';
+                    const isAnswered = !!answers[qIdNav];
+                    const isRevealedNav = practiceMode && revealedAnswers[qIdNav];
+                    const isCurrent = idx === currentQuestionIdx;
+                    const isCorrectAnswer = isRevealedNav && answers[qIdNav] === q.correctAnswer;
+                    const isWrongAnswer = isRevealedNav && answers[qIdNav] && answers[qIdNav] !== q.correctAnswer;
+
+                    return (
+                      <button
+                        key={idx}
+                        data-current={isCurrent}
+                        onClick={() => {
+                          if (isCurrent) {
+                            setDrumInputValue(String(currentQuestionIdx + 1));
+                            setDrumInputMode(true);
+                          } else {
+                            goToQuestion(idx);
+                          }
+                        }}
+                        title={isCurrent ? 'Tap to type a question number' : `Go to question ${idx + 1}`}
+                        className={`w-8 h-8 shrink-0 rounded-full text-xs font-bold transition-all flex items-center justify-center ${
+                          isCurrent ? 'ring-2 ring-cta ring-offset-2' :
+                          isCorrectAnswer ? 'bg-emerald-500 text-white' :
+                          isWrongAnswer ? 'bg-red-500 text-white' :
+                          isAnswered ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
+                        }`}
+                      >
+                        {idx + 1}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {currentQuestionIdx === shuffledQuestions.length - 1 ? (
+                <Button
+                  onClick={submitTest}
+                  disabled={loading || answeredCount < shuffledQuestions.length}
+                  className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
+                >
+                  {loading ? 'Submitting...' : 'Submit Test'}
+                </Button>
+              ) : (
+                <Button
+                  size="icon"
+                  className="rounded-full shrink-0"
+                  onClick={() => goToQuestion(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1))}
+                  aria-label="Next question"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
 
         {/* Attached files: mobile bottom sheet (launcher hidden — header Files button opens it) */}
         <AttachmentsBottomSheet
