@@ -2486,9 +2486,13 @@ export default function ChemTestApp() {
               {drumInputMode ? (
                 <form
                   onSubmit={e => { e.preventDefault(); jumpToQuestion(numInputRef.current?.value || ''); }}
-                  className="flex-1 min-w-0 h-16 flex items-center justify-center"
+                  className="relative flex-1 min-w-0 h-16"
                 >
-                  <Input
+                  {/* Typing mode keeps the bar's look EXACTLY as in drum mode: the
+                      input occupies the current pill's slot (w-14, centered) and the
+                      same glass lens stays on top — no oval pill swap. The number
+                      color also mirrors the current pill (cta when answered). */}
+                  <input
                     ref={numInputRef}
                     autoFocus
                     type="text"
@@ -2500,8 +2504,12 @@ export default function ChemTestApp() {
                     onFocus={e => e.currentTarget.select()}
                     placeholder={`1–${shuffledQuestions.length}`}
                     aria-label="Question number"
-                    className="w-32 text-center font-bold rounded-full"
+                    className={`absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 bg-transparent border-0 outline-none text-center text-2xl font-extrabold tabular-nums caret-black/40 placeholder:text-base placeholder:font-semibold placeholder:text-muted-foreground/60 ${
+                      answers[shuffledQuestions[currentQuestionIdx]?.id || ''] ? 'text-cta' : 'text-foreground'
+                    }`}
                   />
+                  {/* Glass window — identical lens to drum mode */}
+                  <div className="pointer-events-none absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 rounded-xl border border-black/15 bg-gradient-to-b from-white/70 via-white/5 to-white/60 shadow-[inset_0_2px_10px_rgba(0,0,0,0.10),0_1px_3px_rgba(0,0,0,0.08)]" />
                 </form>
               ) : (
                 <div className="relative flex-1 min-w-0 h-16">
