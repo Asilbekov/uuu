@@ -24,6 +24,7 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
 import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel } from '@/components/attachments';
+import { SheetHeaderSwitcher } from '@/components/sheet-switcher';
 import { AiChatPanel, GroupChatPanel } from '@/components/chat-panels';
 import {
   LogIn,
@@ -48,6 +49,7 @@ import {
   MessageSquare,
   Sparkles,
   Paperclip,
+  Pencil,
   Users,
   ChevronDown,
   ChevronRight,
@@ -514,6 +516,8 @@ export default function ChemTestApp() {
 
   // Per-test group chat (everyone taking the same test)
   const [groupOpen, setGroupOpen] = useState(false);
+  // Take-test "Edit Test" bottom sheet (opens the shared editor over the taking screen)
+  const [editOpen, setEditOpen] = useState(false);
   const [groupMessages, setGroupMessages] = useState<GroupMessage[]>([]);
   const [groupInput, setGroupInput] = useState('');
   const [groupSending, setGroupSending] = useState(false);
@@ -777,7 +781,44 @@ export default function ChemTestApp() {
     setLoading(false);
   };
 
-  const handleSaveTest = async () => {
+  // Take-screen "Edit Test": fill the shared editor form from the CURRENT test
+  // and open the edit bottom sheet without leaving the taking screen.
+  const startEditTestInTake = () => {
+    if (!currentTest) return;
+    setEditorFilesExpanded(false);
+    setEditorInfoExpanded(false);
+    setEditorCoverExpanded(false);
+    setEditorQuestionsExpanded(false);
+    setTestTitle(currentTest.title);
+    setTestDescription(currentTest.description);
+    setTestTags(currentTest.tags || []);
+    setTestCoverIcon(currentTest.coverIcon || '');
+    setTestCoverColor(currentTest.coverColor || '');
+    setRandomizeQ(!!currentTest.randomizeQuestions);
+    setRandomizeO(!!currentTest.randomizeOptions);
+    setQuestions(currentTest.questions.map(q => ({
+      text: q.text,
+      optionA: q.optionA,
+      optionB: q.optionB,
+      optionC: q.optionC,
+      optionD: q.optionD,
+      optionE: q.optionE,
+      correctAnswer: q.correctAnswer,
+      id: q.id,
+    })));
+    setFormAttachments((currentTest.attachments || []).map(a => ({
+      id: a.id,
+      title: a.title,
+      type: a.type,
+      url: a.url,
+      size: a.size ?? null,
+      orderNum: a.orderNum,
+    })));
+    setEditingTestId(currentTest.id);
+    setEditOpen(true);
+  };
+
+  const handleSaveTest = async (fromTake = false) => {
     if (!testTitle) {
       toast({ title: 'Error', description: 'Test title is required', variant: 'destructive' });
       return;
@@ -820,6 +861,43 @@ export default function ChemTestApp() {
       if (editingTestId) {
         await api.updateTest(editingTestId, data);
         toast({ title: 'Test updated!', description: 'Your test has been updated successfully.' });
+        if (fromTake) {
+          // Saved from the take-test "Edit Test" sheet: reload the test and
+          // restart the session on the new questions — editing recreates every
+          // question with a NEW id, so the old attempt cannot be submitted.
+          // Answers/practice reveals are carried over by matching text.
+          const full = await api.getTest(editingTestId);
+          const textToOldId = new Map<string, string>();
+          shuffledQuestions.forEach(q => { if (q.text && !textToOldId.has(q.text)) textToOldId.set(q.text, q.id || ''); });
+          let qList = [...full.questions];
+          if (startRandomizeQ) qList = shuffleArray(qList);
+          if (startRandomizeO) qList = qList.map(q => shuffleOptions(q));
+          const count = Math.min(Math.max(1, selectedQuestionCount || qList.length), qList.length);
+          qList = qList.slice(0, count);
+          const carriedAnswers: Record<string, string> = {};
+          const carriedReveals: Record<string, boolean> = {};
+          qList.forEach(q => {
+            const oldId = q.text ? textToOldId.get(q.text) : undefined;
+            if (oldId) {
+              if (answers[oldId]) carriedAnswers[q.id || ''] = answers[oldId];
+              if (revealedAnswers[oldId]) carriedReveals[q.id || ''] = true;
+            }
+          });
+          const attempt = await api.createAttempt(full.id, count);
+          setCurrentTest(full);
+          setCurrentAttempt(attempt);
+          setShuffledQuestions(qList);
+          setAnswers(carriedAnswers);
+          setRevealedAnswers(carriedReveals);
+          setExplanations({});
+          setSelectedQuestionCount(count);
+          setCurrentQuestionIdx(0);
+          setShowResult(false);
+          setEditOpen(false);
+          setDrumInputMode(false);
+          setLoading(false);
+          return;
+        }
       } else {
         await api.createTest(data);
         toast({ title: 'Test created!', description: 'Your new test has been created.' });
@@ -858,6 +936,7 @@ export default function ChemTestApp() {
       setFilesOpen(false);
       setChatOpen(false);
       setGroupOpen(false);
+      setEditOpen(false);
       setPage('start-test');
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
@@ -891,6 +970,7 @@ export default function ChemTestApp() {
       setExplanations({});
       setFilesOpen(false);
       setGroupOpen(false);
+      setEditOpen(false);
       setPage('take-test');
 
       // If practice mode, pre-fetch explanations
@@ -941,6 +1021,7 @@ export default function ChemTestApp() {
       setFilesOpen(false);
       setChatOpen(false);
       setGroupOpen(false);
+      setEditOpen(false);
       await startTestWith(fullTest, count);
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
@@ -973,6 +1054,7 @@ export default function ChemTestApp() {
     setFilesOpen(false);
     setChatOpen(false);
     setGroupOpen(false);
+    setEditOpen(false);
     setDrumInputMode(false);
     setPage('take-test');
     return true;
@@ -1136,6 +1218,7 @@ export default function ChemTestApp() {
   const openGroupChat = () => {
     setGroupOpen(true);
     setFilesOpen(false);
+    setEditOpen(false);
     if (chatOpen) closeChat();
   };
 
@@ -1580,18 +1663,10 @@ export default function ChemTestApp() {
     );
   }
 
-  // CREATE / EDIT TEST
-  if (effectivePage === 'create-test' || effectivePage === 'edit-test') {
-    return (
-      <div className="min-h-screen bg-background">
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
-            <h1 className="text-lg font-bold">{editingTestId ? 'Edit Test' : 'Create New Test'}</h1>
-          </div>
-        </header>
-
-        <main className="max-w-4xl mx-auto px-4 pt-6 pb-32 space-y-6">
+  // Editor form body — shared by the full-page editor AND the take-test
+  // "Edit Test" bottom sheet: one source of truth, identical form in both.
+  const editorBody = (
+    <>
           <Card className="rounded-4xl border border-black bg-white overflow-hidden">
             <button
               type="button"
@@ -1844,6 +1919,22 @@ export default function ChemTestApp() {
             </CardContent>
             )}
           </Card>
+    </>
+  );
+
+  // CREATE / EDIT TEST
+  if (effectivePage === 'create-test' || effectivePage === 'edit-test') {
+    return (
+      <div className="min-h-screen bg-background">
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
+          <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
+            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
+            <h1 className="text-lg font-bold">{editingTestId ? 'Edit Test' : 'Create New Test'}</h1>
+          </div>
+        </header>
+
+        <main className="max-w-4xl mx-auto px-4 pt-6 pb-32 space-y-6">
+          {editorBody}
         </main>
 
         {/* Bottom action bar — fixed to the screen edge, never rises with content */}
@@ -1852,7 +1943,7 @@ export default function ChemTestApp() {
             className="max-w-4xl mx-auto px-4 pt-3"
             style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
           >
-            <Button onClick={handleSaveTest} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
+            <Button onClick={() => handleSaveTest()} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
               {loading ? 'Saving...' : editingTestId ? 'Save' : 'Create Test'}
             </Button>
           </div>
@@ -2375,20 +2466,29 @@ export default function ChemTestApp() {
       }] : []),
       { key: 'ai', label: 'AI Tutor', icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
       { key: 'group', label: 'Test Chat', icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
+      { key: 'edit', label: 'Edit Test', icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
     ];
     const switchSheet = (key: string) => {
       if (key === 'files') {
         setFilesOpen(true);
         setChatOpen(false);
         setGroupOpen(false);
+        setEditOpen(false);
       } else if (key === 'ai') {
         setFilesOpen(false);
         setGroupOpen(false);
+        setEditOpen(false);
         openChat(qId, answers[qId]);
       } else if (key === 'group') {
         setFilesOpen(false);
         setChatOpen(false);
         setGroupOpen(true);
+        setEditOpen(false);
+      } else if (key === 'edit') {
+        setFilesOpen(false);
+        setChatOpen(false);
+        setGroupOpen(false);
+        startEditTestInTake();
       }
     };
     const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
@@ -2409,7 +2509,7 @@ export default function ChemTestApp() {
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); } } }}
+                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); setEditOpen(false); if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); } } }}
                     className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   >
                     <Paperclip className="w-4 h-4" />
@@ -2421,7 +2521,7 @@ export default function ChemTestApp() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); openChat(qId, answers[qId]); }}
+                    onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); setEditOpen(false); openChat(qId, answers[qId]); }}
                     className="gap-1.5"
                   >
                     <MessageSquare className="w-4 h-4" />
@@ -2436,6 +2536,16 @@ export default function ChemTestApp() {
                   >
                     <Users className="w-4 h-4" />
                     <span className="hidden sm:inline">Chat</span>
+                  </Button>
+                  <Button
+                    variant={editOpen ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={startEditTestInTake}
+                    className={`gap-1.5 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                    title="Edit this test"
+                  >
+                    <Pencil className="w-4 h-4" />
+                    <span className="hidden sm:inline">Edit Test</span>
                   </Button>
                 </>
               </div>
@@ -2625,6 +2735,38 @@ export default function ChemTestApp() {
                   items={(currentTest?.attachments || []) as AttachmentItem[]}
                   onClose={() => setFilesOpen(false)}
                 />
+              </div>
+            )}
+
+            {/* Edit Test window — bottom sheet, same chrome as the chat windows;
+                its header switcher jumps to Files / AI Tutor / Test Chat and back */}
+            {editOpen && (
+              <div className="fixed inset-0 z-50">
+                <div className="absolute inset-0 bg-black/50" onClick={() => setEditOpen(false)} />
+                <div className="absolute inset-x-0 bottom-0 mx-auto max-w-3xl bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col h-[85vh] animate-in slide-in-from-bottom duration-200">
+                  <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
+                    <SheetHeaderSwitcher
+                      icon={<Pencil className="w-4 h-4 text-white" />}
+                      title="Edit Test"
+                      subtitle={currentTest?.title}
+                      options={sheetOptions}
+                      onSelect={switchSheet}
+                    />
+                    <Button variant="ghost" size="sm" className="h-7 w-7 p-0 shrink-0" onClick={() => setEditOpen(false)}>
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  <div className="flex-1 overflow-y-auto px-4 py-4">
+                    <div className="max-w-3xl mx-auto space-y-6">
+                      {editorBody}
+                    </div>
+                  </div>
+                  <div className="shrink-0 border-t bg-white/95 backdrop-blur-md px-4 pt-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
+                    <Button onClick={() => handleSaveTest(true)} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                      {loading ? 'Saving...' : 'Save Test'}
+                    </Button>
+                  </div>
+                </div>
               </div>
             )}
           </div>
