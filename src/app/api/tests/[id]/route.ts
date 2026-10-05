@@ -44,9 +44,8 @@ export async function PUT(
     if (!existing) {
       return NextResponse.json({ error: 'Test not found' }, { status: 404 });
     }
-    if (existing.creatorId !== userId) {
-      return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
-    }
+    // Editing is open to EVERY authenticated user — anyone can improve any test
+    // on the site (collaborative editing). Deletion stays creator-only below.
 
     const body = await request.json();
     const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments, tags, coverIcon, coverColor } = body;

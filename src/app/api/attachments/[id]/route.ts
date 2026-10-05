@@ -3,7 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 type RouteContext = { params: Promise<{ id: string }> };
 
-// Load attachment + verify the requester is the test creator
+// Load attachment + verify the requester is authenticated (editing is open to
+// every user — same open policy as test editing)
 async function requireOwnedAttachment(request: NextRequest, ctx: RouteContext) {
   const userId = request.headers.get('x-user-id');
   if (!userId) {
@@ -12,18 +13,14 @@ async function requireOwnedAttachment(request: NextRequest, ctx: RouteContext) {
   const { id } = await ctx.params;
   const attachment = await db.attachment.findUnique({
     where: { id },
-    include: { test: { select: { creatorId: true } } },
   });
   if (!attachment) {
     return { error: NextResponse.json({ error: 'Attachment not found' }, { status: 404 }) };
   }
-  if (attachment.test.creatorId !== userId) {
-    return { error: NextResponse.json({ error: 'Not authorized' }, { status: 403 }) };
-  }
   return { attachment };
 }
 
-// PUT /api/attachments/[id] — edit title/type/url (creator only)
+// PUT /api/attachments/[id] — edit title/type/url (any authenticated user)
 export async function PUT(request: NextRequest, ctx: RouteContext) {
   try {
     const { error, attachment } = await requireOwnedAttachment(request, ctx);
@@ -49,7 +46,7 @@ export async function PUT(request: NextRequest, ctx: RouteContext) {
   }
 }
 
-// DELETE /api/attachments/[id] — remove an attachment (creator only)
+// DELETE /api/attachments/[id] — remove an attachment (any authenticated user)
 export async function DELETE(request: NextRequest, ctx: RouteContext) {
   try {
     const { error, attachment } = await requireOwnedAttachment(request, ctx);

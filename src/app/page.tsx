@@ -862,37 +862,64 @@ export default function ChemTestApp() {
         await api.updateTest(editingTestId, data);
         toast({ title: 'Test updated!', description: 'Your test has been updated successfully.' });
         if (fromTake) {
-          // Saved from the take-test "Edit Test" sheet: reload the test and
-          // restart the session on the new questions — editing recreates every
-          // question with a NEW id, so the old attempt cannot be submitted.
-          // Answers/practice reveals are carried over by matching text.
+          // Saved from the take-test / results "Edit Test" sheet: reload the
+          // test and rebuild the session in place. Editing recreates every
+          // question with a NEW id (the old attempt cannot be submitted), so:
+          //  - the OLD question order is restored by matching texts — the
+          //    session continues on the very SAME question the user was on;
+          //  - answers carry over by OPTION TEXT (not letter), so a re-shuffle
+          //    of options can never move someone's answer to another option;
+          //  - practice reveals carry over by question text.
           const full = await api.getTest(editingTestId);
-          const textToOldId = new Map<string, string>();
-          shuffledQuestions.forEach(q => { if (q.text && !textToOldId.has(q.text)) textToOldId.set(q.text, q.id || ''); });
-          let qList = [...full.questions];
-          if (startRandomizeQ) qList = shuffleArray(qList);
+          const oldByText = new Map<string, Question>();
+          shuffledQuestions.forEach(q => { if (q.text && !oldByText.has(q.text)) oldByText.set(q.text, q); });
+          const matched: Question[] = [];
+          const usedNewIds = new Set<string>();
+          shuffledQuestions.forEach(oq => {
+            if (!oq.text) return;
+            const nq = full.questions.find((n: Question) => n.text === oq.text && !usedNewIds.has(n.id || ''));
+            if (nq) { matched.push(nq); usedNewIds.add(nq.id || ''); }
+          });
+          let rest = full.questions.filter((n: Question) => !usedNewIds.has(n.id || ''));
+          if (startRandomizeQ) rest = shuffleArray(rest);
+          let qList = [...matched, ...rest];
           if (startRandomizeO) qList = qList.map(q => shuffleOptions(q));
           const count = Math.min(Math.max(1, selectedQuestionCount || qList.length), qList.length);
           qList = qList.slice(0, count);
           const carriedAnswers: Record<string, string> = {};
           const carriedReveals: Record<string, boolean> = {};
           qList.forEach(q => {
-            const oldId = q.text ? textToOldId.get(q.text) : undefined;
-            if (oldId) {
-              if (answers[oldId]) carriedAnswers[q.id || ''] = answers[oldId];
-              if (revealedAnswers[oldId]) carriedReveals[q.id || ''] = true;
+            const oq = q.text ? oldByText.get(q.text) : undefined;
+            if (!oq) return;
+            const oldId = oq.id || '';
+            const letter = answers[oldId];
+            if (letter) {
+              const optText = (oq as any)[`option${letter}`];
+              const newLetter = ['A', 'B', 'C', 'D', 'E'].find(L => (q as any)[`option${L}`] === optText);
+              if (newLetter) carriedAnswers[q.id || ''] = newLetter;
             }
+            if (revealedAnswers[oldId]) carriedReveals[q.id || ''] = true;
           });
-          const attempt = await api.createAttempt(full.id, count);
+          const wasOnResults = showResult;
+          if (!wasOnResults) {
+            // Fresh open attempt for the recreated questions
+            const attempt = await api.createAttempt(full.id, count);
+            setCurrentAttempt(attempt);
+          }
           setCurrentTest(full);
-          setCurrentAttempt(attempt);
           setShuffledQuestions(qList);
           setAnswers(carriedAnswers);
           setRevealedAnswers(carriedReveals);
           setExplanations({});
           setSelectedQuestionCount(count);
-          setCurrentQuestionIdx(0);
-          setShowResult(false);
+          if (!wasOnResults) {
+            // Continue on the SAME question the user was on (clamped — the
+            // editor may have removed some of the questions)
+            setCurrentQuestionIdx(Math.min(currentQuestionIdx, qList.length - 1));
+          }
+          // From the results screen: stay on the (updated) results; from the
+          // taking screen: keep taking.
+          setShowResult(wasOnResults);
           setEditOpen(false);
           setDrumInputMode(false);
           setLoading(false);
@@ -2253,7 +2280,7 @@ export default function ChemTestApp() {
       const score = getScore();
       const pct = Math.round((score / shuffledQuestions.length) * 100);
 
-      // Bottom-sheet window switcher (Attached Files / AI Tutor / Test Chat)
+      // Bottom-sheet window switcher (Attached Files / AI Tutor / Test Chat / Edit Test)
       const sheetOptions = [
         ...(currentTest?.attachments?.length ? [{
           key: 'files',
@@ -2263,20 +2290,29 @@ export default function ChemTestApp() {
         }] : []),
         { key: 'ai', label: 'AI Tutor', icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
         { key: 'group', label: 'Test Chat', icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
+        { key: 'edit', label: 'Edit Test', icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
       ];
       const switchSheet = (key: string) => {
         if (key === 'files') {
           setFilesOpen(true);
           setChatOpen(false);
           setGroupOpen(false);
+          setEditOpen(false);
         } else if (key === 'ai') {
           setFilesOpen(false);
           setGroupOpen(false);
+          setEditOpen(false);
           openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']);
         } else if (key === 'group') {
           setFilesOpen(false);
           setChatOpen(false);
           setGroupOpen(true);
+          setEditOpen(false);
+        } else if (key === 'edit') {
+          setFilesOpen(false);
+          setChatOpen(false);
+          setGroupOpen(false);
+          startEditTestInTake();
         }
       };
       const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
@@ -2290,7 +2326,7 @@ export default function ChemTestApp() {
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); if (chatOpen) closeChat(); } }}
+                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); setEditOpen(false); if (chatOpen) closeChat(); } }}
                     className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   >
                     <Paperclip className="w-4 h-4" />
@@ -2305,7 +2341,7 @@ export default function ChemTestApp() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']); }}
+                  onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); setEditOpen(false); openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']); }}
                   className="gap-1.5"
                 >
                   <MessageSquare className="w-4 h-4" />
@@ -2320,6 +2356,16 @@ export default function ChemTestApp() {
                 >
                   <Users className="w-4 h-4" />
                   Chat
+                </Button>
+                <Button
+                  variant={editOpen ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={startEditTestInTake}
+                  className={`gap-1.5 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                  title="Edit this test"
+                >
+                  <Pencil className="w-4 h-4" />
+                  <span className="hidden sm:inline">Edit Test</span>
                 </Button>
               </>
             </div>
@@ -2425,6 +2471,39 @@ export default function ChemTestApp() {
                   endRef={groupEndRef}
                   switcher={sheetSwitcher}
                 />
+              )}
+
+              {/* Edit Test window in Results — bottom sheet, same chrome as the
+                  chat windows; its header switcher jumps to Files / AI Tutor /
+                  Test Chat and back. Saving stays on the updated results. */}
+              {editOpen && (
+                <div className="fixed inset-0 z-50">
+                  <div className="absolute inset-0 bg-black/50" onClick={() => setEditOpen(false)} />
+                  <div className="absolute inset-x-0 bottom-0 mx-auto max-w-3xl bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col h-[85vh] animate-in slide-in-from-bottom duration-200">
+                    <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
+                      <SheetHeaderSwitcher
+                        icon={<Pencil className="w-4 h-4 text-white" />}
+                        title="Edit Test"
+                        subtitle={currentTest?.title}
+                        options={sheetOptions}
+                        onSelect={switchSheet}
+                      />
+                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 shrink-0" onClick={() => setEditOpen(false)}>
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    <div className="flex-1 overflow-y-auto px-4 py-4">
+                      <div className="max-w-3xl mx-auto space-y-6">
+                        {editorBody}
+                      </div>
+                    </div>
+                    <div className="shrink-0 border-t bg-white/95 backdrop-blur-md px-4 pt-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
+                      <Button onClick={() => handleSaveTest(true)} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                        {loading ? 'Saving...' : 'Save Test'}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           </main>

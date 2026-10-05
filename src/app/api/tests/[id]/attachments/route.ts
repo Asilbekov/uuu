@@ -29,7 +29,8 @@ export async function GET(
   }
 }
 
-// POST /api/tests/[id]/attachments — add an attachment (creator only)
+// POST /api/tests/[id]/attachments — add an attachment (any authenticated user,
+// matching the open test-editing policy)
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -45,9 +46,7 @@ export async function POST(
     if (!test) {
       return NextResponse.json({ error: 'Test not found' }, { status: 404 });
     }
-    if (test.creatorId !== userId) {
-      return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
-    }
+    // Any authenticated user may attach files to any test (open editing policy)
 
     const body = await request.json();
     const { title, type, url, size } = body;
