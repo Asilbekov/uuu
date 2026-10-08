@@ -157,17 +157,47 @@ function unicodeToLatex(latex: string): string {
   return out;
 }
 
+const MD_IMAGE_RE = /(!\[[^\]]*\]\([^)\s]+\))/g;
+
 function renderPlain(text: string, keyPrefix: string): React.ReactNode[] {
   // Strip markdown headings at line starts + convert markdown bullets to •
   const cleaned = text
     .replace(/^[ \t]*#{1,6}[ \t]+/gm, '')
     .replace(/^[ \t]*[-*][ \t]+/gm, '• ');
   const out: React.ReactNode[] = [];
-  const boldParts = cleaned.split('**');
-  boldParts.forEach((part, bi) => {
-    if (part === '') return;
-    const bold = bi % 2 === 1;
-    out.push(...renderStyled(part, `${keyPrefix}-${bi}`, bold));
+  // Markdown images first: ![alt](src) — only http(s):// or site-absolute URLs
+  // render as clickable diagrams; anything else falls through as plain text.
+  cleaned.split(MD_IMAGE_RE).forEach((piece, pi) => {
+    if (pi % 2 === 1) {
+      const m = piece.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+      const src = m ? m[2] : '';
+      if (/^(https?:\/\/|\/)/.test(src)) {
+        out.push(
+          <a
+            key={`${keyPrefix}-img-${pi}`}
+            href={src}
+            target="_blank"
+            rel="noreferrer"
+            className="block my-2 max-w-full"
+            title="Open diagram full size"
+          >
+            <img
+              src={src}
+              alt={(m![1] || 'diagram').trim() || 'diagram'}
+              className="max-h-72 sm:max-h-80 w-auto max-w-full rounded-xl border border-neutral-200 bg-white shadow-sm cursor-zoom-in"
+              loading="lazy"
+            />
+          </a>
+        );
+        return;
+      }
+    }
+    const boldParts = piece.split('**');
+    boldParts.forEach((part, bi) => {
+      if (part === '') return;
+      const bold = bi % 2 === 1;
+      out.push(...renderStyled(part, `${keyPrefix}-${pi}-${bi}`, bold));
+    });
   });
   return out;
 }
