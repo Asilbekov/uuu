@@ -1,5 +1,6 @@
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
+import { bumpAffinity } from '@/lib/affinity';
 
 export async function GET(request: NextRequest) {
   try {
@@ -58,6 +59,9 @@ export async function POST(request: NextRequest) {
         totalQuestions: totalQ,
       },
     });
+
+    // Recommendation signal: starting a test is a strong interest indicator
+    bumpAffinity(userId, (test.tags || []).concat(test.topic ? [test.topic] : []), 4).catch(() => {});
 
     return NextResponse.json(attempt, { status: 201 });
   } catch (error) {

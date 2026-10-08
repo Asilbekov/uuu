@@ -1,5 +1,6 @@
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
+import { bumpAffinity } from '@/lib/affinity';
 
 export async function GET(
   request: NextRequest,
@@ -89,6 +90,15 @@ export async function PUT(
           completedAt: new Date(),
         },
       });
+
+      // Recommendation signal: completing a test is the strongest interest indicator
+      if (attempt.test) {
+        bumpAffinity(
+          userId,
+          (attempt.test.tags || []).concat(attempt.test.topic ? [attempt.test.topic] : []),
+          6
+        ).catch(() => {});
+      }
     }
 
     const updated = await db.testAttempt.findUnique({

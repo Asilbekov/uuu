@@ -63,6 +63,32 @@ export const api = {
   updateTest: (id: string, data: any) => apiFetch(`/tests/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteTest: (id: string) => apiFetch(`/tests/${id}`, { method: 'DELETE' }),
 
+  // Personalized feed (keyset-paginated, tag-affinity ranked)
+  getFeed: (params: { tab?: string; cursor?: string | null; limit?: number; tag?: string | null; q?: string | null; creatorId?: string | null }) => {
+    const sp = new URLSearchParams();
+    if (params.tab) sp.set('tab', params.tab);
+    if (params.cursor) sp.set('cursor', params.cursor);
+    if (params.limit) sp.set('limit', String(params.limit));
+    if (params.tag) sp.set('tag', params.tag);
+    if (params.q) sp.set('q', params.q);
+    if (params.creatorId) sp.set('creatorId', params.creatorId);
+    return apiFetch(`/feed?${sp.toString()}`);
+  },
+  // Engagement signal: the current feed card stayed on screen
+  feedSignal: (testId: string, kind: 'view') =>
+    apiFetch('/feed', { method: 'POST', body: JSON.stringify({ testId, kind }) }),
+
+  // Interests (onboarding + settings) — seeds the For You feed
+  getInterests: () => apiFetch('/me/interests'),
+  saveInterests: (interests: string[]) =>
+    apiFetch('/me/interests', { method: 'PUT', body: JSON.stringify({ interests }) }),
+
+  // Popular tags across public tests (feed filter chips)
+  getPopularTags: async (): Promise<{ tag: string; count: number }[]> => {
+    const res = await apiFetch('/tags/popular');
+    return Array.isArray(res?.tags) ? res.tags : [];
+  },
+
   // Global tag dictionary (autocomplete in the test editor)
   getTags: async (): Promise<string[]> => {
     const res = await apiFetch('/tags');

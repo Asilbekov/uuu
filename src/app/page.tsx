@@ -91,6 +91,8 @@ import {
   Languages,
   ClipboardList,
   Loader2,
+  Flame,
+  Search,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
@@ -381,6 +383,30 @@ export default function ChemTestApp() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [tests, setTests] = useState<Test[]>([]);
+
+  // --- Personalized, paginated feed state (TikTok-style) ---
+  type FeedTab = 'foryou' | 'trending' | 'new';
+  const [feedTab, setFeedTab] = useState<FeedTab>('foryou');
+  const [feedTag, setFeedTag] = useState<string | null>(null);
+  const [searchQ, setSearchQ] = useState('');
+  const [feedQ, setFeedQ] = useState(''); // debounced searchQ
+  const [feedHasMore, setFeedHasMore] = useState(false);
+  const [feedLoading, setFeedLoading] = useState(false);      // first page
+  const [feedLoadingMore, setFeedLoadingMore] = useState(false); // next pages
+  const [popularTags, setPopularTags] = useState<{ tag: string; count: number }[]>([]);
+  const [userInterests, setUserInterests] = useState<string[]>([]);
+  const [showInterests, setShowInterests] = useState(false);
+  const [pendingInterests, setPendingInterests] = useState<string[]>([]);
+  const feedTabRef = useRef<FeedTab>('foryou');
+  const feedTagRef = useRef<string | null>(null);
+  const feedQRef = useRef('');
+  const feedCursorRef = useRef<string | null>(null);
+  const feedHasMoreRef = useRef(false);
+  const feedLoadingMoreRef = useRef(false);
+  const feedReqIdRef = useRef(0);
+  const seenIdsRef = useRef<Set<string>>(new Set());
+  const viewSignaledRef = useRef<Set<string>>(new Set());
+  const feedSentinelRef = useRef<HTMLDivElement | null>(null);
   const [currentTest, setCurrentTest] = useState<Test | null>(null);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
 
@@ -615,7 +641,7 @@ export default function ChemTestApp() {
     // Restore the session data BEFORE revealing the UI — no empty dashboard flash
     hasLoadedRef.current = true;
     Promise.all([
-      api.getTests().then(data => setTests(data)).catch(() => { hasLoadedRef.current = false; }),
+      loadFeedRef.current().catch(() => { hasLoadedRef.current = false; }),
       api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
     ]).finally(() => setBooting(false));
   }, []);
@@ -634,23 +660,142 @@ export default function ChemTestApp() {
     setSavedProgress(currentTest ? readTestProgress(progressUserId, currentTest.id) : null);
   }, [currentTest?.id, effectivePage, progressUserId]);
 
-  const loadTests = useCallback(async () => {
+  // --- Feed engine: first page / next pages / tab-tag-search reloads ---
+  const loadFeed = useCallback(async (): Promise<void> => {
+    const reqId = ++feedReqIdRef.current;
+    setFeedLoading(true);
     try {
-      const data = await api.getTests();
-      setTests(data);
+      const res = await api.getFeed({
+        tab: feedTabRef.current,
+        tag: feedTagRef.current,
+        q: (feedQRef.current || '').trim() || null,
+        cursor: null,
+        limit: 10,
+      });
+      if (reqId !== feedReqIdRef.current) return; // a newer request superseded this one
+      const items: Test[] = res?.items || [];
+      seenIdsRef.current = new Set(items.map(i => i.id));
+      setTests(items);
+      setDashTestIdx(0);
+      feedCursorRef.current = res?.nextCursor ?? null;
+      feedHasMoreRef.current = !!res?.nextCursor;
+      setFeedHasMore(!!res?.nextCursor);
+    } catch {
+      // keep the previous feed on transient errors
+    } finally {
+      if (reqId === feedReqIdRef.current) setFeedLoading(false);
+    }
+  }, []);
+
+  // Stable handle for code that runs before/without re-render (boot restore, login)
+  const loadFeedRef = useRef(loadFeed);
+  loadFeedRef.current = loadFeed;
+
+  const loadMoreFeed = useCallback(async (): Promise<void> => {
+    if (feedLoadingMoreRef.current || !feedHasMoreRef.current || !feedCursorRef.current) return;
+    feedLoadingMoreRef.current = true;
+    setFeedLoadingMore(true);
+    try {
+      const res = await api.getFeed({
+        tab: feedTabRef.current,
+        tag: feedTagRef.current,
+        q: (feedQRef.current || '').trim() || null,
+        cursor: feedCursorRef.current,
+        limit: 10,
+      });
+      const fresh: Test[] = (res?.items || []).filter(i => !seenIdsRef.current.has(i.id));
+      fresh.forEach(i => seenIdsRef.current.add(i.id));
+      if (fresh.length) setTests(prev => [...prev, ...fresh]);
+      feedCursorRef.current = res?.nextCursor ?? null;
+      feedHasMoreRef.current = !!res?.nextCursor;
+      setFeedHasMore(!!res?.nextCursor);
+    } catch {
+      // transient error — stop silently, the user can scroll again
+    } finally {
+      feedLoadingMoreRef.current = false;
+      setFeedLoadingMore(false);
+    }
+  }, []);
+
+  // Legacy alias — create/edit/delete flows call loadTests() to refresh the feed
+  const loadTests = loadFeed;
+
+  // Reload the feed whenever tab / tag / search change (skips the boot-loaded first run)
+  const lastFeedKeyRef = useRef<string | null>(null);
+  const feedParamsKey = `${feedTab}|${feedTag || ''}|${feedQ}`;
+  useEffect(() => {
+    if (effectivePage !== 'dashboard') return;
+    const boot = lastFeedKeyRef.current === null;
+    lastFeedKeyRef.current = feedParamsKey;
+    if (boot && hasLoadedRef.current) return; // boot restore already fetched with these params
+    if (!boot) {
+      loadFeedRef.current();
+      dashFeedRef.current?.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [feedParamsKey, effectivePage]);
+
+  // Debounce the search input
+  useEffect(() => {
+    const id = setTimeout(() => setFeedQ(searchQ.trim()), 350);
+    return () => clearTimeout(id);
+  }, [searchQ]);
+
+  // Infinite scroll: sentinel just below the last card inside the snap container
+  useEffect(() => {
+    if (effectivePage !== 'dashboard') return;
+    const el = feedSentinelRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      entries => { if (entries.some(e => e.isIntersecting)) loadMoreFeed(); },
+      { root: dashFeedRef.current, rootMargin: '700px 0px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [effectivePage, feedHasMore, tests.length, loadMoreFeed]);
+
+  // Interests (onboarding) + popular tag chips for the feed controls
+  useEffect(() => {
+    if (effectivePage !== 'dashboard' || !effectiveUser) return;
+    api.getPopularTags().then(setPopularTags).catch(() => {});
+    if (localStorage.getItem('uuu_interests_dismissed')) return;
+    api.getInterests().then(res => {
+      const ints: string[] = res?.interests || [];
+      setUserInterests(ints);
+      if (Array.isArray(res?.suggestions) && res.suggestions.length) {
+        setPopularTags(prev => (prev.length ? prev : res.suggestions.map((s: string) => ({ tag: s, count: 0 }))));
+      }
+      if (ints.length === 0) setShowInterests(true);
+    }).catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [effectivePage, effectiveUser?.id]);
+
+  const saveInterestsNow = async () => {
+    const picks = pendingInterests.length ? pendingInterests : userInterests;
+    try {
+      await api.saveInterests(picks);
+      setUserInterests(picks);
+      setShowInterests(false);
+      toast({ title: t('interestsSaved') });
+      lastFeedKeyRef.current = null; // force a reload with the new profile
+      feedTabRef.current = 'foryou'; setFeedTab('foryou');
+      loadFeedRef.current();
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
     }
-  }, [toast]);
+  };
+
+  const dismissInterests = () => {
+    setShowInterests(false);
+    try { localStorage.setItem('uuu_interests_dismissed', '1'); } catch {}
+  };
 
   // Load tests when navigating to dashboard (skipped when boot already restored the data)
   useEffect(() => {
     if (effectivePage === 'dashboard' && effectiveUser && !hasLoadedRef.current) {
       hasLoadedRef.current = true;
       Promise.all([
-        api.getTests().then(data => {
-          setTests(data);
-        }).catch(() => {}),
+        loadFeedRef.current().catch(() => {}),
         api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
       ]);
     }
@@ -723,11 +868,10 @@ export default function ChemTestApp() {
       setUserState(result);
       // Load the user's data BEFORE switching to the dashboard — no empty flash
       hasLoadedRef.current = true;
-      const [userTests, userAttempts] = await Promise.all([
-        api.getTests().catch(() => [] as Test[]),
+      const [, userAttempts] = await Promise.all([
+        loadFeedRef.current().catch(() => {}),
         api.getAttempts().catch(() => [] as Attempt[]),
       ]);
-      setTests(userTests);
       setAttempts(userAttempts);
       setPage('dashboard');
       if (authMode === 'signup') {
@@ -1249,7 +1393,15 @@ export default function ChemTestApp() {
     if (!el || el.clientHeight === 0) return;
     if (Date.now() < dashFeedTouchUntilRef.current) return;
     const idx = Math.round(el.scrollTop / el.clientHeight);
-    setDashTestIdx(Math.min(tests.length - 1, Math.max(0, idx)));
+    const clamped = Math.min(tests.length - 1, Math.max(0, idx));
+    setDashTestIdx(clamped);
+    // Recommendation signal: this card stayed on screen — record a view
+    // (once per test per session; logged-in users only)
+    const t = tests[clamped];
+    if (t && effectiveUser && !viewSignaledRef.current.has(t.id)) {
+      viewSignaledRef.current.add(t.id);
+      api.feedSignal(t.id, 'view').catch(() => {});
+    }
   };
   const armDashSettle = (delay = 140) => {
     if (dashFeedSettleTimerRef.current) clearTimeout(dashFeedSettleTimerRef.current);
@@ -1574,19 +1726,111 @@ export default function ChemTestApp() {
           </div>
         </header>
 
+        {/* Feed controls: ranking tabs + search + tag filter chips */}
+        <div className="shrink-0 z-40 bg-white/80 backdrop-blur-md border-b border-black/5">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2 space-y-2">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 rounded-full bg-muted/70 p-1 shrink-0">
+                {([
+                  { id: 'foryou' as FeedTab, icon: Sparkles, label: t('tabForYou') },
+                  { id: 'trending' as FeedTab, icon: Flame, label: t('tabTrending') },
+                  { id: 'new' as FeedTab, icon: Clock, label: t('tabNew') },
+                ]).map(({ id, icon: Icon, label }) => (
+                  <button
+                    key={id}
+                    onClick={() => { feedTabRef.current = id; setFeedTab(id); }}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                      feedTab === id ? 'bg-white shadow text-cta' : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span className="hidden min-[420px]:inline">{label}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="relative flex-1 max-w-xs ml-auto">
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+                <Input
+                  value={searchQ}
+                  onChange={e => setSearchQ(e.target.value)}
+                  placeholder={t('searchTests')}
+                  className="pl-9 h-9 rounded-full border-black/15 bg-white"
+                />
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                title={t('pickInterestsTitle')}
+                onClick={() => { setPendingInterests(userInterests); setShowInterests(true); }}
+                className="rounded-full border border-black/15 shrink-0 w-9 h-9"
+              >
+                <Sparkles className={`w-4 h-4 ${userInterests.length ? 'text-cta' : 'text-muted-foreground'}`} />
+              </Button>
+            </div>
+            {popularTags.length > 0 && (
+              <div className="flex items-center gap-1.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <button
+                  onClick={() => { feedTagRef.current = null; setFeedTag(null); }}
+                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                    !feedTag ? 'bg-cta text-white border-cta' : 'bg-white border-black/15 text-muted-foreground hover:border-black/40'
+                  }`}
+                >
+                  <Hash className="w-3 h-3 inline mr-0.5" />All
+                </button>
+                {popularTags.map(({ tag, count }) => {
+                  const active = feedTag === tag;
+                  return (
+                    <button
+                      key={tag}
+                      onClick={() => { feedTagRef.current = active ? null : tag; setFeedTag(active ? null : tag); }}
+                      className={`shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                        active ? 'bg-cta text-white border-cta' : 'bg-white border-black/15 text-muted-foreground hover:border-black/40'
+                      }`}
+                    >
+                      {tag}{count > 0 && <span className="ml-1 opacity-60">{count}</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+
         {tests.length === 0 ? (
           <main className="flex-1 min-h-0 overflow-y-auto">
             <div className="max-w-7xl mx-auto px-4 py-6">
-              <Card className="rounded-4xl border-dashed border-black/30 bg-white">
-                <CardContent className="py-12 text-center">
-                  <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">{t('noTestsYet')}</h3>
-                  <p className="text-muted-foreground mb-4">{t('createFirst')}</p>
-                  <div className="flex gap-3 justify-center">
-                    <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
-                  </div>
-                </CardContent>
-              </Card>
+              {feedLoading ? (
+                <div className="flex items-center justify-center py-16 text-muted-foreground">
+                  <Loader2 className="w-7 h-7 animate-spin" />
+                </div>
+              ) : (feedTag || feedQ) ? (
+                <Card className="rounded-4xl border-dashed border-black/30 bg-white">
+                  <CardContent className="py-12 text-center">
+                    <Search className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium mb-2">{t('noResults')}</h3>
+                    <p className="text-muted-foreground mb-4">{t('noResultsHint')}</p>
+                    <div className="flex gap-3 justify-center">
+                      <Button
+                        variant="outline"
+                        onClick={() => { setSearchQ(''); setFeedQ(''); feedQRef.current = ''; feedTagRef.current = null; setFeedTag(null); }}
+                      >
+                        {t('clearFilters')}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ) : (
+                <Card className="rounded-4xl border-dashed border-black/30 bg-white">
+                  <CardContent className="py-12 text-center">
+                    <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                    <h3 className="text-lg font-medium mb-2">{t('noTestsYet')}</h3>
+                    <p className="text-muted-foreground mb-4">{t('createFirst')}</p>
+                    <div className="flex gap-3 justify-center">
+                      <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </main>
         ) : (
@@ -1624,6 +1868,32 @@ export default function ChemTestApp() {
                               return <AutoIcon className="w-16 h-16 text-cta" strokeWidth={1.5} />;
                             })()}
                             <p className="text-lg font-bold text-cta leading-snug line-clamp-2 px-2 mt-3">{test.title}</p>
+                            {/* Author + popularity line */}
+                            <div className="flex items-center justify-center gap-2 px-4 mt-1.5 text-xs text-foreground/70">
+                              {test.creator?.name && <span className="truncate max-w-[180px]">{t('byAuthor', { name: test.creator.name })}</span>}
+                              {!!test._count?.attempts && (
+                                <>
+                                  {test.creator?.name && <span className="opacity-50">·</span>}
+                                  <span className="shrink-0">{t('playsCount', { n: test._count.attempts })}</span>
+                                </>
+                              )}
+                            </div>
+                            {/* Tag chips — tap to filter the whole feed by the tag */}
+                            {!!test.tags?.length && (
+                              <div className="flex items-center justify-center gap-1.5 px-4 mt-2 flex-wrap">
+                                {test.tags.slice(0, 4).map(tag => (
+                                  <button
+                                    key={tag}
+                                    onClick={() => { feedTagRef.current = tag; setFeedTag(tag); }}
+                                    className={`px-2.5 py-0.5 rounded-full text-xs font-medium border transition-colors ${
+                                      feedTag === tag ? 'bg-cta text-white border-cta' : 'bg-white/80 border-black/15 text-foreground/80 hover:border-black/40'
+                                    }`}
+                                  >
+                                    #{tag}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
 
@@ -1774,6 +2044,14 @@ export default function ChemTestApp() {
                   </section>
                 );
               })}
+
+              {/* Infinite scroll: loader slide + sentinel observed by the IntersectionObserver */}
+              {feedLoadingMore && (
+                <div className="h-full snap-start snap-always flex items-center justify-center text-muted-foreground">
+                  <Loader2 className="w-6 h-6 animate-spin" />
+                </div>
+              )}
+              <div ref={feedSentinelRef} className="h-px w-full" />
             </div>
 
             {/* Bottom bar — Start Test for the test on screen */}
@@ -1806,6 +2084,63 @@ export default function ChemTestApp() {
               </div>
             </div>
           </>
+        )}
+
+        {/* Interests onboarding / settings — bottom sheet with tag chips */}
+        {showInterests && (
+          <div className="fixed inset-0 z-[90] flex items-end justify-center" onClick={dismissInterests}>
+            <div className="absolute inset-0 bg-black/40" />
+            <div
+              className="relative w-full max-w-lg bg-white rounded-t-4xl rounded-t-[2rem] max-h-[80dvh] flex flex-col"
+              onClick={e => e.stopPropagation()}
+              style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
+            >
+              <div className="px-6 pt-5 pb-3 text-center border-b border-black/5">
+                <div className="w-10 h-1.5 rounded-full bg-muted mx-auto mb-4" />
+                <h3 className="text-lg font-bold flex items-center justify-center gap-2">
+                  <Sparkles className="w-5 h-5 text-cta" /> {t('pickInterestsTitle')}
+                </h3>
+                <p className="text-sm text-muted-foreground mt-1.5">{t('pickInterestsSub')}</p>
+              </div>
+              <div className="flex-1 overflow-y-auto px-5 py-4">
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {popularTags.length === 0 && (
+                    <p className="text-sm text-muted-foreground py-6">{t('loading')}</p>
+                  )}
+                  {popularTags.map(({ tag }) => {
+                    const active = pendingInterests.includes(tag);
+                    return (
+                      <button
+                        key={tag}
+                        onClick={() => setPendingInterests(prev =>
+                          active ? prev.filter(x => x !== tag) : [...prev, tag]
+                        )}
+                        className={`px-3.5 py-1.5 rounded-full text-sm font-medium border transition-all ${
+                          active
+                            ? 'bg-cta text-white border-cta shadow'
+                            : 'bg-white border-black/15 text-foreground/80 hover:border-black/40'
+                        }`}
+                      >
+                        #{tag}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="px-5 py-3 border-t border-black/5 flex items-center gap-3">
+                <Button variant="ghost" onClick={dismissInterests} className="rounded-full flex-1">
+                  {t('pickInterestsSkip')}
+                </Button>
+                <Button
+                  onClick={saveInterestsNow}
+                  disabled={pendingInterests.length < 3}
+                  className="rounded-full flex-1 bg-cta hover:bg-cta/90 text-white"
+                >
+                  {t('pickInterestsSave', { n: pendingInterests.length })}
+                </Button>
+              </div>
+            </div>
+          </div>
         )}
 
         <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>

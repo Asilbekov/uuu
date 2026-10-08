@@ -163,6 +163,22 @@ const en: Dict = {
   iChose: 'I chose answer {a}. Can you explain this question?',
   helpUnderstand: 'Can you help me understand this question?',
   translating: 'Translating questions…',
+  // feed: tabs / search / tags / recommendations
+  tabForYou: 'For You',
+  tabTrending: 'Trending',
+  tabNew: 'New',
+  searchTests: 'Search tests…',
+  noResults: 'Nothing found',
+  noResultsHint: 'Try another query or clear the filters',
+  clearFilters: 'Clear filters',
+  byAuthor: 'by {name}',
+  playsCount: '{n} plays',
+  pickInterestsTitle: 'What are you interested in?',
+  pickInterestsSub: 'Pick a few topics — we will build your personal feed around them. You can change this later.',
+  pickInterestsSave: 'Save ({n})',
+  pickInterestsSkip: 'Skip for now',
+  interestsSaved: 'Interests saved — your feed is now personal',
+  recommendedTag: 'Recommended',
 };
 
 const ru: Dict = {
@@ -297,6 +313,22 @@ const ru: Dict = {
   iChose: 'Я выбрал ответ {a}. Можешь объяснить этот вопрос?',
   helpUnderstand: 'Можешь помочь мне разобраться в этом вопросе?',
   translating: 'Переводим вопросы…',
+  // feed: tabs / search / tags / recommendations
+  tabForYou: 'Для вас',
+  tabTrending: 'Популярное',
+  tabNew: 'Новое',
+  searchTests: 'Поиск тестов…',
+  noResults: 'Ничего не найдено',
+  noResultsHint: 'Попробуйте другой запрос или сбросьте фильтры',
+  clearFilters: 'Сбросить фильтры',
+  byAuthor: 'от {name}',
+  playsCount: '{n} прохождений',
+  pickInterestsTitle: 'Что вам интересно?',
+  pickInterestsSub: 'Выберите несколько тем — мы соберём вашу личную ленту вокруг них. Позже можно изменить.',
+  pickInterestsSave: 'Сохранить ({n})',
+  pickInterestsSkip: 'Пока пропустить',
+  interestsSaved: 'Интересы сохранены — лента теперь персональная',
+  recommendedTag: 'Рекомендуем',
 };
 
 const uz: Dict = {
@@ -431,6 +463,22 @@ const uz: Dict = {
   iChose: 'Men {a} javobini tanladim. Bu savolni tushuntira olasizmi?',
   helpUnderstand: 'Bu savolni tushunishimga yordam bera olasizmi?',
   translating: 'Savollar tarjima qilinmoqda…',
+  // feed: tabs / search / tags / recommendations
+  tabForYou: 'Siz uchun',
+  tabTrending: 'Trend',
+  tabNew: 'Yangi',
+  searchTests: 'Testlarni qidirish…',
+  noResults: 'Hech narsa topilmadi',
+  noResultsHint: 'Boshqa soʻrov kiriting yoki filtrlarni tozalang',
+  clearFilters: 'Filtrlarni tozalash',
+  byAuthor: '{name} tomonidan',
+  playsCount: '{n} marta o‘ynaldi',
+  pickInterestsTitle: 'Sizni nima qiziqtiradi?',
+  pickInterestsSub: 'Bir nechta mavzu tanlang — shaxsiy lentangizni ular atrofida quramiz. Keyin o‘zgartirish mumkin.',
+  pickInterestsSave: 'Saqlash ({n})',
+  pickInterestsSkip: 'Hozir o‘tkazib yuborish',
+  interestsSaved: 'Qiziqishlar saqlandi — lenta endi shaxsiy',
+  recommendedTag: 'Tavsiya etamiz',
 };
 
 const UI: Record<Lang, Dict> = { en, ru, uz };
