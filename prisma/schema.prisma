@@ -91,6 +91,8 @@ model Question {
   optionE   String?
   correctAnswer String @default("A")
   explanation   String?
+  // Interface-language translations: { ru: { text, options: {A..E}, explanation }, uz: {...} }
+  translations  Json?
   imageNumber   Int?
   orderNum      Int    @default(0)
   answers   AttemptAnswer[]

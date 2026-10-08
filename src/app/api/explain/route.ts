@@ -1,6 +1,7 @@
 import { db } from '@/lib/db';
 import { mistralChat } from '@/lib/mistral';
 import { NextRequest, NextResponse } from 'next/server';
+import { isLang, LANG_FULL, Lang } from '@/lib/i18n';
 
 /**
  * Normalize math delimiters coming from the LLM.
@@ -28,6 +29,9 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const { questionIds } = body as { questionIds: string[] };
+    // Optional UI language: freshly generated explanations are written in this
+    // language (stored in translations[lang].explanation for non-English).
+    const lang: Lang = isLang(body.lang) ? body.lang : 'en';
 
     if (!questionIds || !Array.isArray(questionIds) || questionIds.length === 0) {
       return NextResponse.json({ error: 'questionIds required' }, { status: 400 });
@@ -67,7 +71,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: 'system',
-          content: 'You are a concise tutor. For each question, provide a very brief one-line explanation of why the correct answer is right. Keep it to ONE short sentence max. For math: show the key calculation step. For science: state the key fact or formula. Format: Q1: <explanation>, Q2: <explanation>, etc. Use the same language as the question. FORMATTING RULES: write all math/formulas in LaTeX wrapped in single dollar signs like $x^2$, $\\frac{a}{b}$, $A^{-1}$ — the interface renders LaTeX, never use plain-text notation like x^2. NEVER use \\( \\) or \\[ \\] delimiters — only $...$.',
+          content: 'You are a concise tutor. For each question, provide a very brief one-line explanation of why the correct answer is right. Keep it to ONE short sentence max. For math: show the key calculation step. For science: state the key fact or formula. Format: Q1: <explanation>, Q2: <explanation>, etc.' + (lang === 'en' ? ' Use the same language as the question.' : ` Write EVERY explanation in ${LANG_FULL[lang]} — no exceptions.`) + ' FORMATTING RULES: write all math/formulas in LaTeX wrapped in single dollar signs like $x^2$, $\\frac{a}{b}$, $A^{-1}$ — the interface renders LaTeX, never use plain-text notation like x^2. NEVER use \\( \\) or \\[ \\] delimiters — only $...$.',
         },
         {
           role: 'user',
@@ -100,11 +104,24 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Save generated explanations to DB
-    const updatePromises = Object.entries(explanations).map(([id, explanation]) =>
-      db.question.update({ where: { id }, data: { explanation: normalizeMathNotation(explanation) } })
-    );
-    await Promise.all(updatePromises);
+    // Save generated explanations to DB. English goes to the classic column;
+    // other languages additionally land in translations[lang].explanation so
+    // the language switcher can pick them up later.
+    if (lang === 'en') {
+      const updatePromises = Object.entries(explanations).map(([id, explanation]) =>
+        db.question.update({ where: { id }, data: { explanation: normalizeMathNotation(explanation) } })
+      );
+      await Promise.all(updatePromises);
+    } else {
+      const updatePromises = Object.entries(explanations).map(async ([id, explanation]) => {
+        const norm = normalizeMathNotation(explanation);
+        const row = await db.question.findUnique({ where: { id }, select: { translations: true } });
+        const tr = (row?.translations as Record<string, any> | null) || {};
+        tr[lang] = { ...(tr[lang] || {}), explanation: norm };
+        return db.question.update({ where: { id }, data: { translations: tr } });
+      });
+      await Promise.all(updatePromises);
+    }
 
     // Return all explanations (including pre-existing ones)
     const allQuestions = await db.question.findMany({

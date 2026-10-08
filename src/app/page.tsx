@@ -91,6 +91,28 @@ import {
   ClipboardList,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
+import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
+
+// localStorage key for the interface language (EN -> RU -> UZ cycle button)
+const LANG_STORAGE_KEY = 'chemtest-lang';
+
+// Language switcher button — same outline style as the other header buttons.
+// Shown in the dashboard header and in the test header (instead of the old
+// "Practice Mode" badge). One tap advances EN -> RU -> UZ -> EN.
+function LangButton({ lang, onChange, className = '' }: { lang: Lang; onChange: () => void; className?: string }) {
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={onChange}
+      title="English · Русский · Oʻzbekcha"
+      className={`gap-1.5 shrink-0 rounded-full font-semibold ${className}`}
+    >
+      <Languages className="w-4 h-4" />
+      {LANG_LABEL[lang]}
+    </Button>
+  );
+}
 
 // Types
 type Page = 'auth' | 'dashboard' | 'create-test' | 'edit-test' | 'start-test' | 'take-test' | 'history';
@@ -105,6 +127,7 @@ interface Question {
   optionE?: string | null;
   correctAnswer: string;
   explanation?: string | null;
+  translations?: Record<string, { text?: string; options?: Record<string, string>; explanation?: string }> | null;
   orderNum?: number;
 }
 
@@ -359,6 +382,17 @@ export default function ChemTestApp() {
   // show a branded loading screen instead of the auth / empty dashboard flash
   const [booting, setBooting] = useState(true);
 
+  // Interface language (en/ru/uz) — cycles with the header button, persisted
+  const [lang, setLang] = useState<Lang>('en');
+  const cycleLang = useCallback(() => {
+    setLang(prev => {
+      const next = NEXT_LANG[prev];
+      try { localStorage.setItem(LANG_STORAGE_KEY, next); } catch {}
+      return next;
+    });
+  }, []);
+  const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+
   // Auth state
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
@@ -531,6 +565,17 @@ export default function ChemTestApp() {
   // "Initial data loaded" guard — shared by the boot restore and the dashboard effect
   const hasLoadedRef = React.useRef(false);
   useEffect(() => {
+    // Restore the interface language (or detect it from the browser on first visit)
+    try {
+      const saved = localStorage.getItem(LANG_STORAGE_KEY);
+      if (saved === 'ru' || saved === 'uz' || saved === 'en') {
+        setLang(saved);
+      } else {
+        const nav = (navigator.language || '').toLowerCase();
+        if (nav.startsWith('ru')) setLang('ru');
+        else if (nav.startsWith('uz')) setLang('uz');
+      }
+    } catch {}
     const stored = localStorage.getItem('chemtest_user');
     if (!stored) {
       // Fresh visitor — nothing to restore, show the login screen right away
@@ -663,7 +708,11 @@ export default function ChemTestApp() {
       setTests(userTests);
       setAttempts(userAttempts);
       setPage('dashboard');
-      toast({ title: 'Success', description: authMode === 'signup' ? 'Account created!' : 'Welcome back!' });
+      if (authMode === 'signup') {
+        toast({ title: t('accountCreated'), description: t('welcomeBack') });
+      } else {
+        toast({ title: t('welcomeBack') });
+      }
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
     }
@@ -763,6 +812,8 @@ export default function ChemTestApp() {
         optionD: q.optionD,
         optionE: q.optionE,
         correctAnswer: q.correctAnswer,
+        explanation: q.explanation ?? null,
+        translations: q.translations ?? null,
         id: q.id,
       })));
       setFormAttachments((fullTest.attachments || []).map(a => ({
@@ -804,6 +855,8 @@ export default function ChemTestApp() {
       optionD: q.optionD,
       optionE: q.optionE,
       correctAnswer: q.correctAnswer,
+      explanation: q.explanation ?? null,
+      translations: q.translations ?? null,
       id: q.id,
     })));
     setFormAttachments((currentTest.attachments || []).map(a => ({
@@ -820,11 +873,11 @@ export default function ChemTestApp() {
 
   const handleSaveTest = async (fromTake = false) => {
     if (!testTitle) {
-      toast({ title: 'Error', description: 'Test title is required', variant: 'destructive' });
+      toast({ title: t('error'), description: t('titleRequired'), variant: 'destructive' });
       return;
     }
     if (questions.some(q => !q.text || !q.optionA || !q.optionB || !q.optionC || !q.optionD)) {
-      toast({ title: 'Error', description: 'All questions must have text and options A-D', variant: 'destructive' });
+      toast({ title: t('error'), description: t('allQuestionsNeed'), variant: 'destructive' });
       return;
     }
 
@@ -847,6 +900,8 @@ export default function ChemTestApp() {
           optionD: q.optionD,
           optionE: q.optionE || null,
           correctAnswer: q.correctAnswer,
+          explanation: q.explanation ?? null,
+          translations: q.translations ?? null,
           orderNum: i,
         })),
         attachments: formAttachments.map((a, i) => ({
@@ -860,7 +915,7 @@ export default function ChemTestApp() {
 
       if (editingTestId) {
         await api.updateTest(editingTestId, data);
-        toast({ title: 'Test updated!', description: 'Your test has been updated successfully.' });
+        toast({ title: t('testUpdated'), description: t('testUpdatedDesc') });
         if (fromTake) {
           // Saved from the take-test / results "Edit Test" sheet: reload the
           // test and rebuild the session in place. Editing recreates every
@@ -1000,13 +1055,13 @@ export default function ChemTestApp() {
       setEditOpen(false);
       setPage('take-test');
 
-      // If practice mode, pre-fetch explanations
+      // If practice mode, pre-fetch explanations (in the current UI language)
       if (practiceMode) {
         setLoadingExplanations(true);
         try {
           const ids = qList.map(q => q.id).filter(Boolean) as string[];
           if (ids.length > 0) {
-            const result = await api.generateExplanations(ids);
+            const result = await api.generateExplanations(ids, lang);
             const explMap: Record<string, string> = {};
             if (result.explanations) {
               for (const item of result.explanations) {
@@ -1151,11 +1206,11 @@ export default function ChemTestApp() {
     if (!q) return undefined;
     const options: Record<string, string> = {};
     for (const letter of ['A', 'B', 'C', 'D', 'E']) {
-      const val = q[`option${letter}` as keyof Question] as string | undefined | null;
+      const val = trOption(q, letter, lang);
       if (val) options[letter] = val;
     }
     return {
-      text: q.text,
+      text: trText(q, lang),
       options,
       correctAnswer: q.correctAnswer,
       topic: currentTest?.topic || 'General',
@@ -1173,8 +1228,8 @@ export default function ChemTestApp() {
       setChatUserAnswer(userAnswer || '');
       // Auto-send initial question to AI with a contextual message
       const initialMsg = userAnswer
-        ? `I chose answer ${userAnswer}. Can you explain this question?`
-        : 'Can you help me understand this question?';
+        ? t('iChose', { a: userAnswer })
+        : t('helpUnderstand');
       sendChatMessage(questionId, [{ role: 'user', content: initialMsg }], userAnswer, q);
     }
     setChatOpen(true);
@@ -1208,17 +1263,17 @@ export default function ChemTestApp() {
         const assistantMsg = { role: 'assistant' as const, content: result.response };
         setChatMessages(prev => [...prev, assistantMsg]);
       } else if (result.rateLimited) {
-        setChatMessages(prev => [...prev, { role: 'assistant', content: '⏳ AI is currently busy. Please wait a moment and try sending your message again.' }]);
+        setChatMessages(prev => [...prev, { role: 'assistant', content: t('aiBusy') }]);
       } else {
-        setChatMessages(prev => [...prev, { role: 'assistant', content: result.error || 'Sorry, something went wrong. Please try again.' }]);
+        setChatMessages(prev => [...prev, { role: 'assistant', content: result.error || t('aiError') }]);
       }
     } catch (e: any) {
       console.error('Chat error:', e);
       const errMsg = e?.message || '';
       if (errMsg.includes('429') || errMsg.includes('rate') || errMsg.includes('Too many')) {
-        setChatMessages(prev => [...prev, { role: 'assistant', content: '⏳ AI is currently busy. Please wait a moment and try sending your message again.' }]);
+        setChatMessages(prev => [...prev, { role: 'assistant', content: t('aiBusy') }]);
       } else {
-        setChatMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }]);
+        setChatMessages(prev => [...prev, { role: 'assistant', content: t('aiError') }]);
       }
     }
     setChatLoading(false);
@@ -1308,13 +1363,13 @@ export default function ChemTestApp() {
       clearTestProgress(progressUserId, currentTest.id);
       setSavedProgress(null);
       setShowResult(true);
-      toast({ title: 'Test completed!', description: 'Your answers have been submitted.' });
+      toast({ title: t('testCompleted'), description: t('answersSubmitted') });
 
       // Load explanations for the review section
       try {
         const ids = shuffledQuestions.map(q => q.id).filter(Boolean) as string[];
         if (ids.length > 0) {
-          const result = await api.generateExplanations(ids);
+          const result = await api.generateExplanations(ids, lang);
           const explMap: Record<string, string> = {};
           if (result.explanations) {
             for (const item of result.explanations) {
@@ -1370,33 +1425,33 @@ export default function ChemTestApp() {
               ChemTest
             </CardTitle>
             <CardDescription>
-              {authMode === 'login' ? 'Sign in to your account' : 'Create a new account'}
+              {authMode === 'login' ? t('signInToAccount') : t('createNewAccount')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {authMode === 'signup' && (
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">{t('fullName')}</Label>
                 <Input id="name" placeholder="John Doe" value={name} onChange={e => setName(e.target.value)} />
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('email')}</Label>
               <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" placeholder="Min 6 characters" value={password} onChange={e => setPassword(e.target.value)}
+              <Label htmlFor="password">{t('password')}</Label>
+              <Input id="password" type="password" placeholder={t('min6chars')} value={password} onChange={e => setPassword(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleAuth()} />
             </div>
             <Button className="w-full h-11 rounded-full text-base font-semibold" onClick={handleAuth} disabled={loading}>
-              {loading ? 'Loading...' : authMode === 'login' ? 'Sign In' : 'Sign Up'}
+              {loading ? t('loading') : authMode === 'login' ? t('signIn') : t('signUp')}
             </Button>
             <div className="text-center text-sm text-muted-foreground">
               {authMode === 'login' ? (
-                <>Don&apos;t have an account? <button className="text-primary underline" onClick={() => setAuthMode('signup')}>Sign up</button></>
+                <>{t('noAccount')} <button className="text-primary underline" onClick={() => setAuthMode('signup')}>{t('signUpLink')}</button></>
               ) : (
-                <>Already have an account? <button className="text-primary underline" onClick={() => setAuthMode('login')}>Sign in</button></>
+                <>{t('haveAccount')} <button className="text-primary underline" onClick={() => setAuthMode('login')}>{t('signInLink')}</button></>
               )}
             </div>
 
@@ -1418,23 +1473,24 @@ export default function ChemTestApp() {
           <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 min-w-0">
               <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0">
-                <Plus className="w-4 h-4 mr-2" /> Create Test
+                <Plus className="w-4 h-4 mr-2" /> {t('createTest')}
               </Button>
               <Button
                 variant="outline"
                 onClick={() => setEditMode(v => !v)}
                 className={`rounded-full shrink-0 ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
               >
-                <Edit className="w-4 h-4 mr-2" /> Edit Test
+                <Edit className="w-4 h-4 mr-2" /> {t('editTest')}
               </Button>
             </div>
             <div className="flex items-center gap-3 shrink-0">
+              <LangButton lang={lang} onChange={cycleLang} className="border-black" />
               <div className="hidden sm:block text-right">
                 <p className="text-sm font-medium">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground">{effectiveUser?.email}</p>
               </div>
               <Button variant="ghost" size="sm" onClick={handleLogout} className="rounded-full border border-black hover:bg-muted">
-                <LogIn className="w-4 h-4 mr-1" /> Logout
+                <LogIn className="w-4 h-4 mr-1" /> {t('logout')}
               </Button>
             </div>
           </div>
@@ -1446,10 +1502,10 @@ export default function ChemTestApp() {
               <Card className="rounded-4xl border-dashed border-black/30 bg-white">
                 <CardContent className="py-12 text-center">
                   <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">No tests yet</h3>
-                  <p className="text-muted-foreground mb-4">Create your first test to get started</p>
+                  <h3 className="text-lg font-medium mb-2">{t('noTestsYet')}</h3>
+                  <p className="text-muted-foreground mb-4">{t('createFirst')}</p>
                   <div className="flex gap-3 justify-center">
-                    <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> Create Test</Button>
+                    <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
                   </div>
                 </CardContent>
               </Card>
@@ -1495,10 +1551,10 @@ export default function ChemTestApp() {
 
                         {isCur && editMode && (
                           <div className="space-y-2 text-center">
-                            <p className="text-xs text-muted-foreground">Edit mode is on — swipe up/down to choose a test</p>
+                            <p className="text-xs text-muted-foreground">{t('editModeOn')}</p>
                             {test.creatorId === effectiveUser?.id && (
                               <Button size="sm" variant="outline" className="rounded-full border-black text-destructive hover:bg-destructive/10" onClick={() => setDeleteId(test.id)}>
-                                <Trash2 className="w-3 h-3 mr-1" /> Delete Test
+                                <Trash2 className="w-3 h-3 mr-1" /> {t('deleteTest')}
                               </Button>
                             )}
                           </div>
@@ -1557,9 +1613,9 @@ export default function ChemTestApp() {
                               >
                                 <div className="flex items-center gap-2 mb-0.5">
                                   <ListChecks className="w-4 h-4 text-cta" />
-                                  <span className="font-semibold text-sm">Exam Mode</span>
+                                  <span className="font-semibold text-sm">{t('examMode')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">See results at the end</p>
+                                <p className="text-xs text-muted-foreground">{t('seeResultsEnd')}</p>
                               </button>
                               <button
                                 onClick={() => setPracticeMode(true)}
@@ -1571,9 +1627,9 @@ export default function ChemTestApp() {
                               >
                                 <div className="flex items-center gap-2 mb-0.5">
                                   <BookOpen className="w-4 h-4 text-primary" />
-                                  <span className="font-semibold text-sm">Practice Mode</span>
+                                  <span className="font-semibold text-sm">{t('practiceMode')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">See correct answer right away</p>
+                                <p className="text-xs text-muted-foreground">{t('seeAnswerNow')}</p>
                               </button>
                             </div>
 
@@ -1590,9 +1646,9 @@ export default function ChemTestApp() {
                               >
                                 <div className="flex items-center gap-2 mb-0.5">
                                   <Shuffle className="w-4 h-4 text-cta shrink-0" />
-                                  <span className="font-semibold text-sm">Randomize Questions</span>
+                                  <span className="font-semibold text-sm">{t('randomizeQuestions')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">{startRandomizeQ ? 'Question order is shuffled' : 'Questions in original order'}</p>
+                                <p className="text-xs text-muted-foreground">{startRandomizeQ ? t('qShuffled') : t('qOriginal')}</p>
                               </button>
                               <button
                                 type="button"
@@ -1605,9 +1661,9 @@ export default function ChemTestApp() {
                               >
                                 <div className="flex items-center gap-2 mb-0.5">
                                   <Shuffle className="w-4 h-4 text-primary shrink-0" />
-                                  <span className="font-semibold text-sm">Randomize Answers</span>
+                                  <span className="font-semibold text-sm">{t('randomizeAnswers')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">{startRandomizeO ? 'Answer order is shuffled' : 'Answers in original order'}</p>
+                                <p className="text-xs text-muted-foreground">{startRandomizeO ? t('aShuffled') : t('aOriginal')}</p>
                               </button>
                             </div>
 
@@ -1619,7 +1675,7 @@ export default function ChemTestApp() {
                                   className="w-full flex items-center gap-1.5 px-3 py-2.5 text-left hover:bg-muted/50 transition-colors"
                                 >
                                   <Paperclip className="w-4 h-4 shrink-0" />
-                                  <span className="font-semibold text-sm">Attached Files ({files.length})</span>
+                                  <span className="font-semibold text-sm">{t('attachedFiles', { n: files.length })}</span>
                                   {startFilesExpanded ? (
                                     <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
                                   ) : (
@@ -1653,20 +1709,20 @@ export default function ChemTestApp() {
                     onClick={() => curDashTest && startEditTest(curDashTest)}
                     className="w-full rounded-full bg-cta hover:bg-cta/90 text-white"
                   >
-                    <Edit className="w-4 h-4 mr-2" /> Edit This Test
+                    <Edit className="w-4 h-4 mr-2" /> {t('editThisTest')}
                   </Button>
                 ) : dashSaved ? (
                   <div className="flex flex-col gap-2">
                     <Button variant="outline" onClick={() => startFromDashboard(true)} disabled={loading || !curDashTest} className="w-full rounded-full">
-                      <RefreshCw className="w-4 h-4 mr-2" /> Restart
+                      <RefreshCw className="w-4 h-4 mr-2" /> {t('restart')}
                     </Button>
                     <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                      {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Continue Test ({countAnsweredProgress(dashSaved)}/{dashSaved.shuffledQuestions.length} answered)</>}
+                      {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {t('continueTest', { n: countAnsweredProgress(dashSaved), m: dashSaved.shuffledQuestions.length })}</>}
                     </Button>
                   </div>
                 ) : (
                   <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                    {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
+                    {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {practiceMode ? t('startPractice', { count: selectedQuestionCount }) : t('startTestN', { count: selectedQuestionCount })}</>}
                   </Button>
                 )}
               </div>
@@ -1677,12 +1733,12 @@ export default function ChemTestApp() {
         <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Delete Test?</AlertDialogTitle>
-              <AlertDialogDescription>This action cannot be undone. All questions and attempts will be deleted.</AlertDialogDescription>
+              <AlertDialogTitle>{t('deleteTestQ')}</AlertDialogTitle>
+              <AlertDialogDescription>{t('deleteWarning')}</AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={() => deleteId && handleDeleteTest(deleteId)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
+              <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
+              <AlertDialogAction onClick={() => deleteId && handleDeleteTest(deleteId)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">{t('delete')}</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -1701,7 +1757,7 @@ export default function ChemTestApp() {
               className="w-full flex items-center gap-1.5 px-6 py-4 text-left hover:bg-muted/50 transition-colors"
             >
               <ClipboardList className="w-4 h-4 shrink-0" />
-              <span className="font-semibold text-base">Test Information</span>
+              <span className="font-semibold text-base">{t('testInformation')}</span>
               {editorInfoExpanded ? (
                 <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
               ) : (
@@ -1712,11 +1768,11 @@ export default function ChemTestApp() {
             <CardContent className="space-y-4 pt-0">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Test Title</Label>
-                  <Input value={testTitle} onChange={e => setTestTitle(e.target.value)} placeholder="e.g., Chemistry: Acids & Bases" />
+                  <Label>{t('testTitle')}</Label>
+                  <Input value={testTitle} onChange={e => setTestTitle(e.target.value)} placeholder={t('testTitlePh')} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Tags</Label>
+                  <Label>{t('tags')}</Label>
                   <div className="relative">
                     <div
                       className="flex flex-wrap items-center gap-1.5 min-h-[42px] w-full rounded-md border border-input bg-transparent px-2 py-1.5 text-sm cursor-text"
@@ -1752,7 +1808,7 @@ export default function ChemTestApp() {
                             setTestTags(testTags.slice(0, -1));
                           }
                         }}
-                        placeholder={testTags.length === 0 ? 'Type a tag and press Enter…' : ''}
+                        placeholder={testTags.length === 0 ? t('tagPh') : ''}
                         className="flex-1 min-w-[7rem] bg-transparent outline-none text-sm py-1"
                       />
                     </div>
@@ -1771,12 +1827,12 @@ export default function ChemTestApp() {
                       </div>
                     )}
                   </div>
-                  <p className="text-xs text-muted-foreground">Press Enter to add your own tag (max 10) — tags you use are offered as suggestions next time</p>
+                  <p className="text-xs text-muted-foreground">{t('tagHint')}</p>
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Description</Label>
-                <Textarea value={testDescription} onChange={e => setTestDescription(e.target.value)} placeholder="Brief description of this test..." rows={2} />
+                <Label>{t('description')}</Label>
+                <Textarea value={testDescription} onChange={e => setTestDescription(e.target.value)} placeholder={t('descriptionPh')} rows={2} />
               </div>
             </CardContent>
             )}
@@ -1790,7 +1846,7 @@ export default function ChemTestApp() {
               className="w-full flex items-center gap-1.5 px-6 py-4 text-left hover:bg-muted/50 transition-colors"
             >
               <Paperclip className="w-4 h-4 shrink-0" />
-              <span className="font-semibold text-base">Attached Files ({formAttachments.length})</span>
+              <span className="font-semibold text-base">{t('attachedFiles', { n: formAttachments.length })}</span>
               {editorFilesExpanded ? (
                 <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
               ) : (
@@ -1800,8 +1856,7 @@ export default function ChemTestApp() {
             {editorFilesExpanded && (
               <CardContent className="pt-0">
                 <p className="text-xs text-muted-foreground mb-3">
-                  Audio, video, PDF or links students can open while taking this test —
-                  audio and video play right inside the test; large files are best added by link.
+                  {t('editorFilesHint')}
                 </p>
                 <AttachmentsEditor items={formAttachments} onChange={setFormAttachments} />
               </CardContent>
@@ -1816,7 +1871,7 @@ export default function ChemTestApp() {
               className="w-full flex items-center gap-1.5 px-6 py-4 text-left hover:bg-muted/50 transition-colors"
             >
               <Palette className="w-4 h-4 shrink-0" />
-              <span className="font-semibold text-base">Cover</span>
+              <span className="font-semibold text-base">{t('cover')}</span>
               {editorCoverExpanded ? (
                 <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
               ) : (
@@ -1826,15 +1881,15 @@ export default function ChemTestApp() {
             {editorCoverExpanded && (
             <CardContent className="space-y-4 pt-0">
               <p className="text-xs text-muted-foreground">
-                Pick an icon and a card color for the test card in the feed.
+                {t('coverHint')}
               </p>
               <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wide">Icon</Label>
+                <Label className="text-xs text-muted-foreground uppercase tracking-wide">{t('icon')}</Label>
                 <div className="flex flex-wrap gap-2">
                   <button
                     type="button"
                     onClick={() => setTestCoverIcon('')}
-                    title="Auto — based on the first tag"
+                    title={t('autoIcon')}
                     className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${
                       testCoverIcon === '' ? 'border-cta bg-[#FFF0D9] shadow-md' : 'border-black/10 bg-muted/30 hover:bg-muted'
                     }`}
@@ -1858,16 +1913,16 @@ export default function ChemTestApp() {
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label className="text-xs text-muted-foreground uppercase tracking-wide">Card Color</Label>
+                  <Label className="text-xs text-muted-foreground uppercase tracking-wide">{t('cardColor')}</Label>
                   <button
                     type="button"
                     onClick={() => setTestCoverColor('')}
-                    title="Auto — based on the first tag"
+                    title={t('autoIcon')}
                     className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border-2 transition-all ${
                       testCoverColor === '' ? 'border-cta bg-[#FFF0D9] text-cta font-semibold' : 'border-black/10 text-muted-foreground hover:bg-muted'
                     }`}
                   >
-                    <Sparkles className="w-3.5 h-3.5" /> Auto
+                    <Sparkles className="w-3.5 h-3.5" /> {t('auto')}
                   </button>
                 </div>
                 <PhotoshopColorPicker value={testCoverColor || '#E3EEFF'} onChange={setTestCoverColor} />
@@ -1883,7 +1938,7 @@ export default function ChemTestApp() {
               className="w-full flex items-center gap-1.5 px-6 py-4 text-left hover:bg-muted/50 transition-colors"
             >
               <ListChecks className="w-4 h-4 shrink-0" />
-              <span className="font-semibold text-base">Questions ({questions.length})</span>
+              <span className="font-semibold text-base">{t('questionsN', { n: questions.length })}</span>
               {editorQuestionsExpanded ? (
                 <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
               ) : (
@@ -1894,10 +1949,10 @@ export default function ChemTestApp() {
             <CardContent className="pt-0">
               <div className="flex justify-end gap-2 mb-4">
                 <Button variant="outline" size="sm" onClick={() => setQuestions(shuffleArray(questions))}>
-                  <Shuffle className="w-3 h-3 mr-1" /> Shuffle All
+                  <Shuffle className="w-3 h-3 mr-1" /> {t('shuffleAll')}
                 </Button>
                 <Button size="sm" onClick={addQuestion}>
-                  <Plus className="w-3 h-3 mr-1" /> Add Question
+                  <Plus className="w-3 h-3 mr-1" /> {t('addQuestion')}
                 </Button>
               </div>
 
@@ -1906,14 +1961,14 @@ export default function ChemTestApp() {
                   <Card key={idx} className="rounded-3xl border border-black bg-white">
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between">
-                        <Badge variant="secondary">Question {idx + 1}</Badge>
+                        <Badge variant="secondary">{t('questionN', { n: idx + 1 })}</Badge>
                         <Button variant="ghost" size="sm" className="text-destructive h-7 w-7 p-0" onClick={() => removeQuestion(idx)}>
                           <Trash2 className="w-3 h-3" />
                         </Button>
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                      <Textarea value={q.text} onChange={e => updateQuestion(idx, 'text', e.target.value)} placeholder="Enter question text..." rows={2} />
+                      <Textarea value={q.text} onChange={e => updateQuestion(idx, 'text', e.target.value)} placeholder={t('questionTextPh')} rows={2} />
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {['A', 'B', 'C', 'D'].map(letter => (
                           <div key={letter} className="flex items-center gap-2">
@@ -1925,7 +1980,7 @@ export default function ChemTestApp() {
                             <Input
                               value={q[`option${letter}` as keyof Question] as string}
                               onChange={e => updateQuestion(idx, `option${letter}`, e.target.value)}
-                              placeholder={`Option ${letter}`}
+                              placeholder={t('optionL', { letter })}
                               className="text-sm"
                             />
                             <input
@@ -1934,7 +1989,7 @@ export default function ChemTestApp() {
                               checked={q.correctAnswer === letter}
                               onChange={() => updateQuestion(idx, 'correctAnswer', letter)}
                               className="shrink-0 accent-[#fe5933]"
-                              title="Mark as correct"
+                              title={t('markCorrect')}
                             />
                           </div>
                         ))}
@@ -1955,8 +2010,8 @@ export default function ChemTestApp() {
       <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
-            <h1 className="text-lg font-bold">{editingTestId ? 'Edit Test' : 'Create New Test'}</h1>
+            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
+            <h1 className="text-lg font-bold">{editingTestId ? t('editTest') : t('createNewTest')}</h1>
           </div>
         </header>
 
@@ -1971,7 +2026,7 @@ export default function ChemTestApp() {
             style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
           >
             <Button onClick={() => handleSaveTest()} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
-              {loading ? 'Saving...' : editingTestId ? 'Save' : 'Create Test'}
+              {loading ? t('saving') : editingTestId ? t('save') : t('createTest')}
             </Button>
           </div>
         </div>
@@ -1987,8 +2042,8 @@ export default function ChemTestApp() {
       <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
-            <h1 className="text-lg font-bold">Start Test</h1>
+            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
+            <h1 className="text-lg font-bold">{t('startTest')}</h1>
           </div>
         </header>
 
@@ -2005,8 +2060,8 @@ export default function ChemTestApp() {
               {/* Question Count Selection */}
               <div className="space-y-4">
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-1">How many questions?</h3>
-                  <p className="text-sm text-muted-foreground">Choose how many questions you want to answer</p>
+                  <h3 className="text-lg font-semibold mb-1">{t('howMany')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('chooseHowMany')}</p>
                 </div>
 
                 {/* Counter — tap the number to type an exact value */}
@@ -2029,7 +2084,7 @@ export default function ChemTestApp() {
                     onBlur={e => {
                       if (e.target.value === '') setSelectedQuestionCount(1);
                     }}
-                    aria-label="Number of questions"
+                    aria-label={t('numQuestions')}
                     className="text-3xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.min(totalQ, selectedQuestionCount + 1))} disabled={selectedQuestionCount >= totalQ}>
@@ -2055,8 +2110,8 @@ export default function ChemTestApp() {
               {/* Mode Selection */}
               <div className="space-y-3">
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-1">Test Mode</h3>
-                  <p className="text-sm text-muted-foreground">Choose how you want to take the test</p>
+                  <h3 className="text-lg font-semibold mb-1">{t('testMode')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('chooseHowTake')}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <button
@@ -2069,9 +2124,9 @@ export default function ChemTestApp() {
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <ListChecks className="w-5 h-5 text-cta" />
-                      <span className="font-semibold text-sm">Exam Mode</span>
+                      <span className="font-semibold text-sm">{t('examMode')}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">See results at the end</p>
+                    <p className="text-xs text-muted-foreground">{t('seeResultsEnd')}</p>
                   </button>
                   <button
                     onClick={() => setPracticeMode(true)}
@@ -2083,9 +2138,9 @@ export default function ChemTestApp() {
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <BookOpen className="w-5 h-5 text-primary" />
-                      <span className="font-semibold text-sm">Practice Mode</span>
+                      <span className="font-semibold text-sm">{t('practiceMode')}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">See correct answer right away</p>
+                    <p className="text-xs text-muted-foreground">{t('seeAnswerNow')}</p>
                   </button>
                 </div>
               </div>
@@ -2095,8 +2150,8 @@ export default function ChemTestApp() {
               {/* Randomization Settings */}
               <div className="space-y-3">
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-1">Randomization</h3>
-                  <p className="text-sm text-muted-foreground">Choose the order of questions and answers</p>
+                  <h3 className="text-lg font-semibold mb-1">{t('randomization')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('chooseOrder')}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <button
@@ -2110,9 +2165,9 @@ export default function ChemTestApp() {
                   >
                     <div className="flex items-center gap-2 mb-0.5">
                       <Shuffle className="w-4 h-4 text-cta shrink-0" />
-                      <span className="font-semibold text-sm">Randomize Questions</span>
+                      <span className="font-semibold text-sm">{t('randomizeQuestions')}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">{startRandomizeQ ? 'Question order is shuffled' : 'Questions in original order'}</p>
+                    <p className="text-xs text-muted-foreground">{startRandomizeQ ? t('qShuffled') : t('qOriginal')}</p>
                   </button>
                   <button
                     type="button"
@@ -2125,9 +2180,9 @@ export default function ChemTestApp() {
                   >
                     <div className="flex items-center gap-2 mb-0.5">
                       <Shuffle className="w-4 h-4 text-primary shrink-0" />
-                      <span className="font-semibold text-sm">Randomize Answers</span>
+                      <span className="font-semibold text-sm">{t('randomizeAnswers')}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">{startRandomizeO ? 'Answer order is shuffled' : 'Answers in original order'}</p>
+                    <p className="text-xs text-muted-foreground">{startRandomizeO ? t('aShuffled') : t('aOriginal')}</p>
                   </button>
                 </div>
               </div>
@@ -2142,7 +2197,7 @@ export default function ChemTestApp() {
                     className="w-full flex items-center gap-1.5 px-4 py-3 text-left hover:bg-muted/50 transition-colors"
                   >
                     <Paperclip className="w-4 h-4 shrink-0" />
-                    <span className="font-semibold text-sm">Attached Files ({currentTest.attachments!.length})</span>
+                    <span className="font-semibold text-sm">{t('attachedFiles', { n: currentTest.attachments!.length })}</span>
                     {startFilesExpanded ? (
                       <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
                     ) : (
@@ -2152,7 +2207,7 @@ export default function ChemTestApp() {
                   {startFilesExpanded && (
                     <div className="px-4 pb-4">
                       <p className="text-xs text-muted-foreground mb-2">
-                        Audio, video and study files for this test — also available during the test via the up arrow at the bottom.
+                        {t('startFilesHint')}
                       </p>
                       <AttachmentsList items={currentTest.attachments as AttachmentItem[]} />
                     </div>
@@ -2177,21 +2232,21 @@ export default function ChemTestApp() {
                   onClick={startTest}
                   disabled={loading}
                   className="w-full rounded-full"
-                  aria-label="Start over from the beginning"
+                  aria-label={t('startOver')}
                 >
-                  <RefreshCw className="w-4 h-4 mr-2" /> Restart
+                  <RefreshCw className="w-4 h-4 mr-2" /> {t('restart')}
                 </Button>
                 <Button
                   onClick={() => continueTestWith(currentTest!)}
                   disabled={loading}
                   className="w-full rounded-full bg-primary hover:bg-primary/90"
                 >
-                  {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Continue Test ({countAnsweredProgress(savedProgress)}/{savedProgress.shuffledQuestions.length} answered)</>}
+                  {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {t('continueTest', { n: countAnsweredProgress(savedProgress), m: savedProgress.shuffledQuestions.length })}</>}
                 </Button>
               </div>
             ) : (
               <Button onClick={startTest} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                {loading ? 'Loading...' : <><Play className="w-4 h-4 mr-2" /> Start {practiceMode ? 'Practice' : 'Test'} ({selectedQuestionCount} questions)</>}
+                {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {practiceMode ? t('startPractice', { count: selectedQuestionCount }) : t('startTestN', { count: selectedQuestionCount })}</>}
               </Button>
             )}
           </div>
@@ -2284,13 +2339,13 @@ export default function ChemTestApp() {
       const sheetOptions = [
         ...(currentTest?.attachments?.length ? [{
           key: 'files',
-          label: `Attached Files (${currentTest.attachments.length})`,
+          label: t('attachedFiles', { n: currentTest.attachments.length }),
           icon: <Paperclip className="w-3.5 h-3.5" />,
           active: filesOpen,
         }] : []),
-        { key: 'ai', label: 'AI Tutor', icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
-        { key: 'group', label: 'Test Chat', icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
-        { key: 'edit', label: 'Edit Test', icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
+        { key: 'ai', label: t('aiTutor'), icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
+        { key: 'group', label: t('testChat'), icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
+        { key: 'edit', label: t('editTest'), icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
       ];
       const switchSheet = (key: string) => {
         if (key === 'files') {
@@ -2321,7 +2376,7 @@ export default function ChemTestApp() {
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-3 min-w-0">
-                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
+                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
                 {(currentTest?.attachments?.length || 0) > 0 ? (
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
@@ -2330,14 +2385,15 @@ export default function ChemTestApp() {
                     className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   >
                     <Paperclip className="w-4 h-4" />
-                    <span className="hidden sm:inline">Files ({currentTest!.attachments!.length})</span>
+                    <span className="hidden sm:inline">{t('files', { n: currentTest!.attachments!.length })}</span>
                     <span className="sm:hidden">{currentTest!.attachments!.length}</span>
                   </Button>
                 ) : (
-                  <h1 className="text-lg font-bold">Test Results</h1>
+                  <h1 className="text-lg font-bold">{t('testResults')}</h1>
                 )}
               </div>
-              <>
+              <div className="flex items-center gap-2">
+                <LangButton lang={lang} onChange={cycleLang} className="border-black" />
                 <Button
                   variant="outline"
                   size="sm"
@@ -2345,29 +2401,29 @@ export default function ChemTestApp() {
                   className="gap-1.5"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  AI Tutor
+                  {t('aiTutor')}
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={openGroupChat}
                   className="gap-1.5"
-                  title="Chat with everyone who took this test"
+                  title={t('chatWithTook')}
                 >
                   <Users className="w-4 h-4" />
-                  Chat
+                  {t('chat')}
                 </Button>
                 <Button
                   variant={editOpen ? 'default' : 'outline'}
                   size="sm"
                   onClick={startEditTestInTake}
                   className={`gap-1.5 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
-                  title="Edit this test"
+                  title={t('editThisTestTitle')}
                 >
                   <Pencil className="w-4 h-4" />
-                  <span className="hidden sm:inline">Edit Test</span>
+                  <span className="hidden sm:inline">{t('editTest')}</span>
                 </Button>
-              </>
+              </div>
             </div>
           </header>
           <main className="max-w-7xl mx-auto px-4 pt-8 pb-32">
@@ -2383,13 +2439,13 @@ export default function ChemTestApp() {
                 </div>
                 <h2 className="text-2xl font-bold mb-1">{score} / {shuffledQuestions.length}</h2>
                 <p className="text-muted-foreground mb-4">
-                  {pct >= 70 ? 'Excellent work!' : pct >= 40 ? 'Good effort! Keep studying.' : 'Keep practicing! You can do better.'}
+                  {pct >= 70 ? t('excellent') : pct >= 40 ? t('goodEffort') : t('keepPracticing')}
                 </p>
                 <Progress value={pct} className="h-3" />
               </CardContent>
             </Card>
 
-            <h3 className="text-lg font-semibold">Review Answers</h3>
+            <h3 className="text-lg font-semibold">{t('reviewAnswers')}</h3>
             {shuffledQuestions.map((q, idx) => {
               const selected = answers[q.id || ''] || '';
               const isCorrect = selected === q.correctAnswer;
@@ -2398,11 +2454,11 @@ export default function ChemTestApp() {
                   <CardContent className="p-4">
                     <div className="flex items-start gap-2 mb-3">
                       {isCorrect ? <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /> : <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />}
-                      <p className="font-medium text-sm">{idx + 1}. <MathText text={q.text} /></p>
+                      <p className="font-medium text-sm">{idx + 1}. <MathText text={trText(q, lang)} /></p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 ml-7">
                       {['A', 'B', 'C', 'D', 'E'].map(letter => {
-                        const optionText = q[`option${letter}` as keyof Question] as string;
+                        const optionText = trOption(q, letter, lang);
                         if (!optionText) return null;
                         const isCorrectOption = letter === q.correctAnswer;
                         const isSelected = letter === selected;
@@ -2422,8 +2478,8 @@ export default function ChemTestApp() {
                         );
                       })}
                     </div>
-                    {explanations[q.id || ''] && (
-                      <p className="text-xs text-muted-foreground mt-2 ml-7 italic"><MathText text={explanations[q.id || ''] || ''} /></p>
+                    {trExpl(q, lang, explanations[q.id || '']) && (
+                      <p className="text-xs text-muted-foreground mt-2 ml-7 italic"><MathText text={trExpl(q, lang, explanations[q.id || '']) || ''} /></p>
                     )}
                     <Button
                       variant="ghost"
@@ -2432,7 +2488,7 @@ export default function ChemTestApp() {
                       onClick={() => openChat(q.id || '', selected, { force: true })}
                     >
                       <Sparkles className="w-3 h-3 mr-1" />
-                      Ask AI Tutor
+                      {t('askAi')}
                     </Button>
                   </CardContent>
                 </Card>
@@ -2445,7 +2501,7 @@ export default function ChemTestApp() {
                 <AiChatPanel
                   open={chatOpen}
                   onClose={closeChat}
-                  subtitle="Ask about any question"
+                  subtitle={t('askAboutAny')}
                   messages={chatMessages}
                   loading={chatLoading}
                   input={chatInput}
@@ -2461,7 +2517,7 @@ export default function ChemTestApp() {
                 <GroupChatPanel
                   open={groupOpen}
                   onClose={closeGroupChat}
-                  subtitle="Everyone who took this test"
+                  subtitle={t('everyoneTook')}
                   messages={groupMessages}
                   currentUserId={effectiveUser?.id}
                   input={groupInput}
@@ -2483,7 +2539,7 @@ export default function ChemTestApp() {
                     <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
                       <SheetHeaderSwitcher
                         icon={<Pencil className="w-4 h-4 text-white" />}
-                        title="Edit Test"
+                        title={t('editTest')}
                         subtitle={currentTest?.title}
                         options={sheetOptions}
                         onSelect={switchSheet}
@@ -2499,7 +2555,7 @@ export default function ChemTestApp() {
                     </div>
                     <div className="shrink-0 border-t bg-white/95 backdrop-blur-md px-4 pt-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
                       <Button onClick={() => handleSaveTest(true)} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                        {loading ? 'Saving...' : 'Save Test'}
+                        {loading ? t('saving') : t('saveTest')}
                       </Button>
                     </div>
                   </div>
@@ -2515,7 +2571,7 @@ export default function ChemTestApp() {
               style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
             >
               <Button onClick={() => openStartTest(currentTest!)} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                <RefreshCw className="w-4 h-4 mr-2" /> Retry Test
+                <RefreshCw className="w-4 h-4 mr-2" /> {t('retryTest')}
               </Button>
             </div>
           </div>
@@ -2527,6 +2583,7 @@ export default function ChemTestApp() {
             onOpenChange={setFilesOpen}
             switcher={sheetSwitcher}
             hideLauncher
+            title={t('attachedFiles', { n: currentTest?.attachments?.length || 0 })}
           />
         </div>
       );
@@ -2539,13 +2596,13 @@ export default function ChemTestApp() {
     const sheetOptions = [
       ...(currentTest?.attachments?.length ? [{
         key: 'files',
-        label: `Attached Files (${currentTest.attachments.length})`,
+        label: t('attachedFiles', { n: currentTest.attachments.length }),
         icon: <Paperclip className="w-3.5 h-3.5" />,
         active: filesOpen,
       }] : []),
-      { key: 'ai', label: 'AI Tutor', icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
-      { key: 'group', label: 'Test Chat', icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
-      { key: 'edit', label: 'Edit Test', icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
+      { key: 'ai', label: t('aiTutor'), icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
+      { key: 'group', label: t('testChat'), icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
+      { key: 'edit', label: t('editTest'), icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
     ];
     const switchSheet = (key: string) => {
       if (key === 'files') {
@@ -2580,10 +2637,10 @@ export default function ChemTestApp() {
               <div className="flex items-center gap-2 min-w-0 flex-1">
                 <Button variant="ghost" size="sm" onClick={goHome} className="shrink-0"><Home className="w-4 h-4" /></Button>
                 <span className="text-sm font-medium line-clamp-2 leading-snug min-w-0">{currentTest?.title}</span>
-                {practiceMode && <Badge variant="outline" className="text-xs rounded-full bg-[#FFE8DE] text-primary border-primary/40 shrink-0">Practice Mode</Badge>}
+                <LangButton lang={lang} onChange={cycleLang} className="border-black" />
               </div>
               <div className="flex items-center gap-2 shrink-0">
-                <span className="text-sm text-muted-foreground hidden sm:inline">{answeredCount}/{shuffledQuestions.length} answered</span>
+                <span className="text-sm text-muted-foreground hidden sm:inline">{t('xOfYAnswered', { n: answeredCount, m: shuffledQuestions.length })}</span>
                 {(currentTest?.attachments?.length || 0) > 0 && (
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
@@ -2592,7 +2649,7 @@ export default function ChemTestApp() {
                     className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   >
                     <Paperclip className="w-4 h-4" />
-                    <span className="hidden sm:inline">Files ({currentTest!.attachments!.length})</span>
+                    <span className="hidden sm:inline">{t('files', { n: currentTest!.attachments!.length })}</span>
                     <span className="sm:hidden">{currentTest!.attachments!.length}</span>
                   </Button>
                 )}
@@ -2604,27 +2661,27 @@ export default function ChemTestApp() {
                     className="gap-1.5"
                   >
                     <MessageSquare className="w-4 h-4" />
-                    <span className="hidden sm:inline">AI Tutor</span>
+                    <span className="hidden sm:inline">{t('aiTutor')}</span>
                   </Button>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={openGroupChat}
                     className="gap-1.5"
-                    title="Chat with everyone taking this test"
+                    title={t('chatWithAll')}
                   >
                     <Users className="w-4 h-4" />
-                    <span className="hidden sm:inline">Chat</span>
+                    <span className="hidden sm:inline">{t('chat')}</span>
                   </Button>
                   <Button
                     variant={editOpen ? 'default' : 'outline'}
                     size="sm"
                     onClick={startEditTestInTake}
                     className={`gap-1.5 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
-                    title="Edit this test"
+                    title={t('editThisTestTitle')}
                   >
                     <Pencil className="w-4 h-4" />
-                    <span className="hidden sm:inline">Edit Test</span>
+                    <span className="hidden sm:inline">{t('editTest')}</span>
                   </Button>
                 </>
               </div>
@@ -2661,16 +2718,16 @@ export default function ChemTestApp() {
               <Card className="rounded-4xl border border-black bg-white shadow-lg">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <Badge variant="secondary" className="text-sm rounded-full">Question {idx + 1} of {shuffledQuestions.length}</Badge>
+                    <Badge variant="secondary" className="text-sm rounded-full">{t('questionXofY', { n: idx + 1, m: shuffledQuestions.length })}</Badge>
                     {practiceMode && slideRevealed && (
                       answers[slideQId] === q.correctAnswer ? (
-                        <Badge className="rounded-full bg-emerald-100 text-emerald-700 border-emerald-200"><CheckCircle2 className="w-3 h-3 mr-1" /> Correct!</Badge>
+                        <Badge className="rounded-full bg-emerald-100 text-emerald-700 border-emerald-200"><CheckCircle2 className="w-3 h-3 mr-1" /> {t('correct')}</Badge>
                       ) : (
-                        <Badge className="rounded-full bg-red-100 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> Wrong</Badge>
+                        <Badge className="rounded-full bg-red-100 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> {t('wrong')}</Badge>
                       )
                     )}
                   </div>
-                  <p className="text-lg font-medium mt-2"><MathText text={q.text} /></p>
+                  <p className="text-lg font-medium mt-2"><MathText text={trText(q, lang)} /></p>
                 </CardHeader>
                 <CardContent>
                   <RadioGroup
@@ -2680,7 +2737,7 @@ export default function ChemTestApp() {
                   >
                     <div className="space-y-3">
                       {['A', 'B', 'C', 'D', 'E'].map(letter => {
-                        const optionText = q[`option${letter}` as keyof Question] as string;
+                        const optionText = trOption(q, letter, lang);
                         if (!optionText) return null;
                         const isRevealedOption = practiceMode && revealedAnswers[slideQId];
                         const isCorrectOption = letter === q.correctAnswer;
@@ -2724,10 +2781,10 @@ export default function ChemTestApp() {
                   {practiceMode && revealedAnswers[slideQId] && (
                     <div className="mt-4 p-3 rounded-xl bg-muted/50">
                       <p className="text-sm font-medium mb-1">
-                        Correct answer: <span className="text-emerald-600">{q.correctAnswer}</span>
+                        {t('correctAnswerIs', { letter: q.correctAnswer })}
                       </p>
-                      {explanations[slideQId] && (
-                        <p className="text-xs text-muted-foreground mt-1 ml-7"><MathText text={explanations[slideQId]} /></p>
+                      {trExpl(q, lang, explanations[slideQId]) && (
+                        <p className="text-xs text-muted-foreground mt-1 ml-7"><MathText text={trExpl(q, lang, explanations[slideQId]) || ''} /></p>
                       )}
                       {!chatOpen && (
                         <Button
@@ -2737,7 +2794,7 @@ export default function ChemTestApp() {
                           onClick={() => openChat(slideQId, answers[slideQId])}
                         >
                           <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                          Ask AI Tutor about this question
+                          {t('askAiAbout')}
                         </Button>
                       )}
                     </div>
@@ -2753,7 +2810,7 @@ export default function ChemTestApp() {
                         onClick={() => openChat(slideQId, answers[slideQId])}
                       >
                         <MessageSquare className="w-4 h-4 mr-2" />
-                        Ask AI Tutor about this question
+                        {t('askAiAbout')}
                       </Button>
                     </div>
                   )}
@@ -2761,7 +2818,7 @@ export default function ChemTestApp() {
               </Card>
 
               {loadingExplanations && (
-                <p className="text-xs text-center text-muted-foreground mt-4">Loading explanations...</p>
+                <p className="text-xs text-center text-muted-foreground mt-4">{t('loadingExpl')}</p>
               )}
                   </div>
                 </div>
@@ -2777,9 +2834,9 @@ export default function ChemTestApp() {
                 onClose={closeChat}
                 subtitle={chatUserAnswer ? (
                   chatUserAnswer === shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer
-                    ? '✓ You answered correctly'
-                    : `✗ You chose ${chatUserAnswer} — correct is ${shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer}`
-                ) : 'Ask about this question'}
+                    ? t('answeredCorrectly')
+                    : t('choseX', { a: chatUserAnswer, b: shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer || '' })
+                ) : t('askAboutThis')}
                 messages={chatMessages}
                 loading={chatLoading}
                 input={chatInput}
@@ -2787,6 +2844,7 @@ export default function ChemTestApp() {
                 onSend={() => sendChatMessage()}
                 endRef={chatEndRef}
                 switcher={sheetSwitcher}
+                inputPlaceholder={t('askFollowUp')}
               />
             )}
 
@@ -2795,7 +2853,8 @@ export default function ChemTestApp() {
               <GroupChatPanel
                 open={groupOpen}
                 onClose={closeGroupChat}
-                subtitle="Everyone taking this test"
+                title={t('testChat')}
+                subtitle={t('everyoneTaking')}
                 messages={groupMessages}
                 currentUserId={effectiveUser?.id}
                 input={groupInput}
@@ -2804,6 +2863,7 @@ export default function ChemTestApp() {
                 sending={groupSending}
                 endRef={groupEndRef}
                 switcher={sheetSwitcher}
+                inputPlaceholder={t('messageGroup')}
               />
             )}
 
@@ -2813,6 +2873,7 @@ export default function ChemTestApp() {
                 <AttachmentsSidePanel
                   items={(currentTest?.attachments || []) as AttachmentItem[]}
                   onClose={() => setFilesOpen(false)}
+                  title={t('attachedFiles', { n: currentTest?.attachments?.length || 0 })}
                 />
               </div>
             )}
@@ -2826,7 +2887,7 @@ export default function ChemTestApp() {
                   <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
                     <SheetHeaderSwitcher
                       icon={<Pencil className="w-4 h-4 text-white" />}
-                      title="Edit Test"
+                      title={t('editTest')}
                       subtitle={currentTest?.title}
                       options={sheetOptions}
                       onSelect={switchSheet}
@@ -2842,7 +2903,7 @@ export default function ChemTestApp() {
                   </div>
                   <div className="shrink-0 border-t bg-white/95 backdrop-blur-md px-4 pt-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
                     <Button onClick={() => handleSaveTest(true)} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                      {loading ? 'Saving...' : 'Save Test'}
+                      {loading ? t('saving') : t('saveTest')}
                     </Button>
                   </div>
                 </div>
@@ -2890,7 +2951,7 @@ export default function ChemTestApp() {
                     defaultValue={String(currentQuestionIdx + 1)}
                     onFocus={e => e.currentTarget.select()}
                     placeholder={`1–${shuffledQuestions.length}`}
-                    aria-label="Question number"
+                    aria-label={t('numQuestions')}
                     className={`absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 bg-transparent border-0 outline-none text-center text-2xl font-extrabold tabular-nums caret-black/40 placeholder:text-base placeholder:font-semibold placeholder:text-muted-foreground/60 ${
                       answers[shuffledQuestions[currentQuestionIdx]?.id || ''] ? 'text-cta' : 'text-foreground'
                     }`}
@@ -2929,7 +2990,7 @@ export default function ChemTestApp() {
                               goToQuestion(idx);
                             }
                           }}
-                          title={isCurrent ? 'Tap to type a question number' : `Go to question ${idx + 1}`}
+                          title={isCurrent ? t('tapToType') : t('goToQuestion', { n: idx + 1 })}
                           className="w-14 h-full shrink-0 flex items-center justify-center"
                           style={{ scrollSnapAlign: 'center' }}
                         >
@@ -2958,7 +3019,7 @@ export default function ChemTestApp() {
                   disabled={loading || answeredCount < shuffledQuestions.length}
                   className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
                 >
-                  {loading ? 'Submitting...' : 'Submit Test'}
+                  {loading ? t('submitting') : t('submitTest')}
                 </Button>
               ) : (
                 <button
@@ -2981,6 +3042,7 @@ export default function ChemTestApp() {
           onOpenChange={setFilesOpen}
           switcher={sheetSwitcher}
           hideLauncher
+          title={t('attachedFiles', { n: currentTest?.attachments?.length || 0 })}
         />
       </div>
     );
@@ -2992,8 +3054,8 @@ export default function ChemTestApp() {
       <div className="min-h-screen bg-background">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> Back</Button>
-            <h1 className="text-lg font-bold">Test History</h1>
+            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
+            <h1 className="text-lg font-bold">{t('testHistory')}</h1>
           </div>
         </header>
 
@@ -3002,9 +3064,9 @@ export default function ChemTestApp() {
             <Card className="rounded-4xl border-dashed border-black/30 bg-white">
               <CardContent className="py-12 text-center">
                 <Clock className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-medium mb-2">No attempts yet</h3>
-                <p className="text-muted-foreground mb-4">Take a test to see your history here</p>
-                <Button onClick={goHome}>Browse Tests</Button>
+                <h3 className="text-lg font-medium mb-2">{t('noAttempts')}</h3>
+                <p className="text-muted-foreground mb-4">{t('takeTestHint')}</p>
+                <Button onClick={goHome}>{t('browseTests')}</Button>
               </CardContent>
             </Card>
           ) : (
@@ -3013,9 +3075,9 @@ export default function ChemTestApp() {
                 <Card key={attempt.id} className="rounded-4xl border border-black bg-white">
                   <CardContent className="p-4 flex items-center justify-between">
                     <div>
-                      <p className="font-medium">{attempt.test?.title || 'Unknown Test'}</p>
+                      <p className="font-medium">{attempt.test?.title || t('unknownTest')}</p>
                       <p className="text-xs text-muted-foreground">
-                        {new Date(attempt.startedAt).toLocaleDateString()} at {new Date(attempt.startedAt).toLocaleTimeString()}
+                        {new Date(attempt.startedAt).toLocaleDateString()} {t('at')} {new Date(attempt.startedAt).toLocaleTimeString()}
                       </p>
                     </div>
                     <div className="text-right">
@@ -3032,7 +3094,7 @@ export default function ChemTestApp() {
                           </p>
                         </>
                       ) : (
-                        <Badge variant="outline">In Progress</Badge>
+                        <Badge variant="outline">{t('inProgress')}</Badge>
                       )}
                     </div>
                   </CardContent>

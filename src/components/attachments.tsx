@@ -239,6 +239,7 @@ export function AttachmentsBottomSheet({
   onOpenChange,
   switcher,
   hideLauncher = false,
+  title,
 }: {
   items: AttachmentItem[];
   open?: boolean;
@@ -247,6 +248,8 @@ export function AttachmentsBottomSheet({
   switcher?: SheetSwitcher;
   /** Hide the floating bottom launcher button (window still opens via header / switcher) */
   hideLauncher?: boolean;
+  /** Localized header label, defaults to "Attached Files (N)" */
+  title?: string;
 }) {
   const [openState, setOpenState] = useState(false);
   const open = openProp !== undefined ? openProp : openState;
@@ -266,7 +269,7 @@ export function AttachmentsBottomSheet({
           className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 rounded-full bg-cta text-white pl-3 pr-4 py-3 shadow-xl border border-black/10 active:scale-95 transition-transform"
         >
           <ChevronUp className="w-5 h-5" />
-          <span className="text-sm font-semibold">Attached Files ({items.length})</span>
+          <span className="text-sm font-semibold">{title || `Attached Files (${items.length})`}</span>
         </button>
       )}
 
@@ -279,7 +282,7 @@ export function AttachmentsBottomSheet({
               {switcher ? (
                 <SheetHeaderSwitcher
                   icon={<Paperclip className="w-4 h-4" />}
-                  title={`Attached Files (${items.length})`}
+                  title={title || `Attached Files (${items.length})`}
                   options={switcher.options}
                   onSelect={switcher.onSelect}
                 />
@@ -293,7 +296,7 @@ export function AttachmentsBottomSheet({
                     <ChevronDown className="w-5 h-5" />
                   </button>
                   <span className="font-semibold text-sm flex items-center gap-1.5">
-                    <Paperclip className="w-4 h-4" /> Attached Files ({items.length})
+                    <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
                   </span>
                 </div>
               )}
@@ -314,13 +317,13 @@ export function AttachmentsBottomSheet({
 }
 
 /** Desktop side panel version (paired with the flex layout of take-test). */
-export function AttachmentsSidePanel({ items, onClose }: { items: AttachmentItem[]; onClose: () => void }) {
+export function AttachmentsSidePanel({ items, onClose, title }: { items: AttachmentItem[]; onClose: () => void; title?: string }) {
   return (
     <div className="w-full lg:w-[400px] shrink-0">
       <div className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px] overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
           <span className="font-semibold text-sm flex items-center gap-1.5">
-            <Paperclip className="w-4 h-4" /> Attached Files ({items.length})
+            <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
           </span>
           <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={onClose}>
             <X className="w-4 h-4" />

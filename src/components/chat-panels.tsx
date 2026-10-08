@@ -137,6 +137,7 @@ export function AiChatPanel({
   onSend,
   endRef,
   switcher,
+  inputPlaceholder,
 }: {
   open: boolean;
   onClose: () => void;
@@ -148,6 +149,7 @@ export function AiChatPanel({
   onSend: () => void;
   endRef: React.RefObject<HTMLDivElement | null>;
   switcher?: SheetSwitcher;
+  inputPlaceholder?: string;
 }) {
   const isDesktop = useIsDesktopLg();
   if (!open) return null;
@@ -183,7 +185,7 @@ export function AiChatPanel({
   const footer = (
     <div className="flex w-full gap-2">
       <Input
-        placeholder="Ask a follow-up..."
+        placeholder={inputPlaceholder || 'Ask a follow-up...'}
         value={input}
         onChange={(e) => onInputChange(e.target.value)}
         onKeyDown={(e) => {
@@ -251,6 +253,7 @@ export function AiChatPanel({
 export function GroupChatPanel({
   open,
   onClose,
+  title,
   subtitle,
   messages,
   currentUserId,
@@ -260,9 +263,11 @@ export function GroupChatPanel({
   sending,
   endRef,
   switcher,
+  inputPlaceholder,
 }: {
   open: boolean;
   onClose: () => void;
+  title?: string;
   subtitle?: React.ReactNode;
   messages: GroupChatMessage[];
   currentUserId?: string;
@@ -272,6 +277,7 @@ export function GroupChatPanel({
   sending: boolean;
   endRef: React.RefObject<HTMLDivElement | null>;
   switcher?: SheetSwitcher;
+  inputPlaceholder?: string;
 }) {
   const isDesktop = useIsDesktopLg();
   if (!open) return null;
@@ -312,7 +318,7 @@ export function GroupChatPanel({
   const footer = (
     <div className="flex w-full gap-2">
       <Input
-        placeholder="Message the group..."
+        placeholder={inputPlaceholder || 'Message the group...'}
         value={input}
         onChange={(e) => onInputChange(e.target.value)}
         onKeyDown={(e) => {
@@ -364,7 +370,7 @@ export function GroupChatPanel({
     <MobileChatSheet
       onClose={onClose}
       icon={icon}
-      title="Test Chat"
+      title={title || 'Test Chat'}
       subtitle={subtitle}
       body={body}
       footer={footer}

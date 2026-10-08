@@ -102,6 +102,8 @@ export async function PUT(
               optionD: q.optionD,
               optionE: q.optionE || null,
               correctAnswer: q.correctAnswer || 'A',
+              explanation: q.explanation ?? null,
+              translations: q.translations ?? undefined,
               imageNumber: q.imageNumber || null,
               orderNum: index,
             })),
