@@ -78,6 +78,10 @@ export const api = {
   feedSignal: (testId: string, kind: 'view') =>
     apiFetch('/feed', { method: 'POST', body: JSON.stringify({ testId, kind }) }),
 
+  // Sharing: make the user's own test public ("whole community" option)
+  shareTest: (id: string, scope: 'link' | 'community') =>
+    apiFetch(`/tests/${id}/share`, { method: 'POST', body: JSON.stringify({ scope }) }),
+
   // Interests (onboarding + settings) — seeds the For You feed
   getInterests: () => apiFetch('/me/interests'),
   saveInterests: (interests: string[]) =>

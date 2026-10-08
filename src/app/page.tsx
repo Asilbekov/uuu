@@ -91,8 +91,8 @@ import {
   Languages,
   ClipboardList,
   Loader2,
-  Flame,
-  Search,
+  Share2,
+  Link2,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
@@ -383,23 +383,18 @@ export default function ChemTestApp() {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [tests, setTests] = useState<Test[]>([]);
+  const [currentTest, setCurrentTest] = useState<Test | null>(null);
 
-  // --- Personalized, paginated feed state (TikTok-style) ---
-  type FeedTab = 'foryou' | 'trending' | 'new';
-  const [feedTab, setFeedTab] = useState<FeedTab>('foryou');
-  const [feedTag, setFeedTag] = useState<string | null>(null);
-  const [searchQ, setSearchQ] = useState('');
-  const [feedQ, setFeedQ] = useState(''); // debounced searchQ
+  // --- Personalized recommendation feed ("under the hood") ---
+  // The dashboard looks exactly like before, but invisibly it is powered by
+  // /api/feed: tag-affinity ranking (views / starts / completions / time spent
+  // / difficult tests), keyset pagination and silent infinite append, so the
+  // list stays fast at any test volume and surfaces what the user cares about.
   const [feedHasMore, setFeedHasMore] = useState(false);
-  const [feedLoading, setFeedLoading] = useState(false);      // first page
-  const [feedLoadingMore, setFeedLoadingMore] = useState(false); // next pages
-  const [popularTags, setPopularTags] = useState<{ tag: string; count: number }[]>([]);
-  const [userInterests, setUserInterests] = useState<string[]>([]);
-  const [showInterests, setShowInterests] = useState(false);
-  const [pendingInterests, setPendingInterests] = useState<string[]>([]);
-  const feedTabRef = useRef<FeedTab>('foryou');
-  const feedTagRef = useRef<string | null>(null);
-  const feedQRef = useRef('');
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareScope, setShareScope] = useState<'link' | 'community'>('link');
+  const [shareBusy, setShareBusy] = useState(false);
   const feedCursorRef = useRef<string | null>(null);
   const feedHasMoreRef = useRef(false);
   const feedLoadingMoreRef = useRef(false);
@@ -407,7 +402,7 @@ export default function ChemTestApp() {
   const seenIdsRef = useRef<Set<string>>(new Set());
   const viewSignaledRef = useRef<Set<string>>(new Set());
   const feedSentinelRef = useRef<HTMLDivElement | null>(null);
-  const [currentTest, setCurrentTest] = useState<Test | null>(null);
+  const sharedTestHandledRef = useRef(false);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
 
   // Auth - always start with null/auth, hydrate on mount
@@ -660,49 +655,35 @@ export default function ChemTestApp() {
     setSavedProgress(currentTest ? readTestProgress(progressUserId, currentTest.id) : null);
   }, [currentTest?.id, effectivePage, progressUserId]);
 
-  // --- Feed engine: first page / next pages / tab-tag-search reloads ---
+  const FEED_PAGE_LIMIT = 12;
+
+  // First page of the personalized feed (replaces the old full /api/tests dump)
   const loadFeed = useCallback(async (): Promise<void> => {
     const reqId = ++feedReqIdRef.current;
-    setFeedLoading(true);
     try {
-      const res = await api.getFeed({
-        tab: feedTabRef.current,
-        tag: feedTagRef.current,
-        q: (feedQRef.current || '').trim() || null,
-        cursor: null,
-        limit: 10,
-      });
+      const res = await api.getFeed({ tab: 'foryou', cursor: null, limit: FEED_PAGE_LIMIT });
       if (reqId !== feedReqIdRef.current) return; // a newer request superseded this one
       const items: Test[] = res?.items || [];
       seenIdsRef.current = new Set(items.map(i => i.id));
       setTests(items);
-      setDashTestIdx(0);
       feedCursorRef.current = res?.nextCursor ?? null;
       feedHasMoreRef.current = !!res?.nextCursor;
       setFeedHasMore(!!res?.nextCursor);
     } catch {
-      // keep the previous feed on transient errors
-    } finally {
-      if (reqId === feedReqIdRef.current) setFeedLoading(false);
+      // keep the previous list on transient errors
     }
   }, []);
 
-  // Stable handle for code that runs before/without re-render (boot restore, login)
+  // Stable handle for code that runs before/without re-render (boot, login)
   const loadFeedRef = useRef(loadFeed);
   loadFeedRef.current = loadFeed;
 
+  // Next pages, appended silently when the user approaches the end of the feed
   const loadMoreFeed = useCallback(async (): Promise<void> => {
     if (feedLoadingMoreRef.current || !feedHasMoreRef.current || !feedCursorRef.current) return;
     feedLoadingMoreRef.current = true;
-    setFeedLoadingMore(true);
     try {
-      const res = await api.getFeed({
-        tab: feedTabRef.current,
-        tag: feedTagRef.current,
-        q: (feedQRef.current || '').trim() || null,
-        cursor: feedCursorRef.current,
-        limit: 10,
-      });
+      const res = await api.getFeed({ tab: 'foryou', cursor: feedCursorRef.current, limit: FEED_PAGE_LIMIT });
       const fresh: Test[] = (res?.items || []).filter(i => !seenIdsRef.current.has(i.id));
       fresh.forEach(i => seenIdsRef.current.add(i.id));
       if (fresh.length) setTests(prev => [...prev, ...fresh]);
@@ -713,35 +694,13 @@ export default function ChemTestApp() {
       // transient error — stop silently, the user can scroll again
     } finally {
       feedLoadingMoreRef.current = false;
-      setFeedLoadingMore(false);
     }
   }, []);
 
-  // Legacy alias — create/edit/delete flows call loadTests() to refresh the feed
+  // Legacy alias — create/edit/delete flows call loadTests() to refresh the list
   const loadTests = loadFeed;
 
-  // Reload the feed whenever tab / tag / search change (skips the boot-loaded first run)
-  const lastFeedKeyRef = useRef<string | null>(null);
-  const feedParamsKey = `${feedTab}|${feedTag || ''}|${feedQ}`;
-  useEffect(() => {
-    if (effectivePage !== 'dashboard') return;
-    const boot = lastFeedKeyRef.current === null;
-    lastFeedKeyRef.current = feedParamsKey;
-    if (boot && hasLoadedRef.current) return; // boot restore already fetched with these params
-    if (!boot) {
-      loadFeedRef.current();
-      dashFeedRef.current?.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [feedParamsKey, effectivePage]);
-
-  // Debounce the search input
-  useEffect(() => {
-    const id = setTimeout(() => setFeedQ(searchQ.trim()), 350);
-    return () => clearTimeout(id);
-  }, [searchQ]);
-
-  // Infinite scroll: sentinel just below the last card inside the snap container
+  // Silent infinite scroll: observe the sentinel below the last card
   useEffect(() => {
     if (effectivePage !== 'dashboard') return;
     const el = feedSentinelRef.current;
@@ -752,43 +711,37 @@ export default function ChemTestApp() {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [effectivePage, feedHasMore, tests.length, loadMoreFeed]);
+  });
 
-  // Interests (onboarding) + popular tag chips for the feed controls
+  // Shared test link (?test=<id>): open that exact test on the dashboard.
+  // Powers the "share by link" option — recipients land directly on the test.
   useEffect(() => {
-    if (effectivePage !== 'dashboard' || !effectiveUser) return;
-    api.getPopularTags().then(setPopularTags).catch(() => {});
-    if (localStorage.getItem('uuu_interests_dismissed')) return;
-    api.getInterests().then(res => {
-      const ints: string[] = res?.interests || [];
-      setUserInterests(ints);
-      if (Array.isArray(res?.suggestions) && res.suggestions.length) {
-        setPopularTags(prev => (prev.length ? prev : res.suggestions.map((s: string) => ({ tag: s, count: 0 }))));
-      }
-      if (ints.length === 0) setShowInterests(true);
-    }).catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [effectivePage, effectiveUser?.id]);
-
-  const saveInterestsNow = async () => {
-    const picks = pendingInterests.length ? pendingInterests : userInterests;
-    try {
-      await api.saveInterests(picks);
-      setUserInterests(picks);
-      setShowInterests(false);
-      toast({ title: t('interestsSaved') });
-      lastFeedKeyRef.current = null; // force a reload with the new profile
-      feedTabRef.current = 'foryou'; setFeedTab('foryou');
-      loadFeedRef.current();
-    } catch (e: any) {
-      toast({ title: 'Error', description: e.message, variant: 'destructive' });
+    if (sharedTestHandledRef.current || booting || effectivePage !== 'dashboard') return;
+    let raw: string | null = null;
+    try { raw = new URLSearchParams(window.location.search).get('test'); } catch { raw = null; }
+    if (!raw) return;
+    sharedTestHandledRef.current = true;
+    const id = raw.trim().slice(0, 40);
+    const cleanUrl = () => { try { window.history.replaceState({}, '', window.location.pathname); } catch {} };
+    const idx = tests.findIndex(x => x.id === id);
+    const jump = (i: number) => {
+      setDashTestIdx(i);
+      const el = dashFeedRef.current;
+      if (el && el.clientHeight > 0) el.scrollTo({ top: i * el.clientHeight, behavior: 'instant' as ScrollBehavior });
+    };
+    if (idx >= 0) {
+      jump(idx);
+      cleanUrl();
+      return;
     }
-  };
-
-  const dismissInterests = () => {
-    setShowInterests(false);
-    try { localStorage.setItem('uuu_interests_dismissed', '1'); } catch {}
-  };
+    // Not in the loaded pages — fetch the full test and pin it to the top
+    api.getTest(id).then((full: Test) => {
+      seenIdsRef.current.add(full.id);
+      setTests(prev => (prev.some(x => x.id === full.id) ? prev : [full, ...prev]));
+      jump(0);
+      cleanUrl();
+    }).catch(() => { cleanUrl(); });
+  });
 
   // Load tests when navigating to dashboard (skipped when boot already restored the data)
   useEffect(() => {
@@ -1147,8 +1100,19 @@ export default function ChemTestApp() {
           return;
         }
       } else {
-        await api.createTest(data);
+        const created = await api.createTest(data);
         toast({ title: 'Test created!', description: 'Your new test has been created.' });
+        // Show the new test right away: pin it to the top of the personal feed
+        if (created?.id) {
+          seenIdsRef.current.add(created.id);
+          setTests(prev => [created, ...prev.filter(x => x.id !== created.id)]);
+          feedReqIdRef.current++; // invalidate any in-flight feed fetch
+          hasLoadedRef.current = true;
+          setPage('dashboard');
+          setDashTestIdx(0);
+          setLoading(false);
+          return;
+        }
       }
       setPage('dashboard');
       hasLoadedRef.current = false;
@@ -1395,12 +1359,11 @@ export default function ChemTestApp() {
     const idx = Math.round(el.scrollTop / el.clientHeight);
     const clamped = Math.min(tests.length - 1, Math.max(0, idx));
     setDashTestIdx(clamped);
-    // Recommendation signal: this card stayed on screen — record a view
-    // (once per test per session; logged-in users only)
-    const t = tests[clamped];
-    if (t && effectiveUser && !viewSignaledRef.current.has(t.id)) {
-      viewSignaledRef.current.add(t.id);
-      api.feedSignal(t.id, 'view').catch(() => {});
+    // Recommendation signal (invisible): this card stayed on screen — count a view
+    const shown = tests[clamped];
+    if (shown && effectiveUser && !viewSignaledRef.current.has(shown.id)) {
+      viewSignaledRef.current.add(shown.id);
+      api.feedSignal(shown.id, 'view').catch(() => {});
     }
   };
   const armDashSettle = (delay = 140) => {
@@ -1691,6 +1654,58 @@ export default function ChemTestApp() {
     );
   }
 
+  // Round avatar initials for the dashboard header
+  const userName = effectiveUser?.name || effectiveUser?.email || '';
+  const userInitials = (() => {
+    const parts = userName.trim().split(/\s+/).filter(Boolean);
+    const s = parts.length >= 2 ? parts[0][0] + parts[parts.length - 1][0] : userName.slice(0, 2);
+    return (s || '?').toUpperCase();
+  })();
+
+  const openShareSheet = () => {
+    setProfileOpen(false);
+    setShareScope('link');
+    setShareOpen(true);
+  };
+
+  // Share the test currently on screen (or the platform) via the native
+  // share sheet — Android: app chooser, Windows: share flyout, fallback: copy.
+  const doShare = async () => {
+    const cur = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
+    const community = shareScope === 'community';
+    const origin = window.location.origin;
+    const url = community || !cur ? origin : `${origin}/?test=${cur.id}`;
+    const text = community
+      ? t('shareTextCommunity')
+      : (cur ? t('shareTextTest', { title: cur.title }) : t('shareTextCommunity'));
+    setShareBusy(true);
+    try {
+      // "Whole community": the user's own private test becomes public
+      if (community && cur && effectiveUser && cur.creatorId === effectiveUser.id && cur.isPublic === false) {
+        try {
+          const r = await api.shareTest(cur.id, 'community');
+          if (r?.isPublic) {
+            setTests(prev => prev.map(x => (x.id === cur.id ? { ...x, isPublic: true } : x)));
+            toast({ title: t('shareMadePublic') });
+          }
+        } catch { /* visibility flip is best-effort */ }
+      }
+      if (typeof navigator !== 'undefined' && typeof (navigator as any).share === 'function') {
+        await (navigator as any).share({ title: cur?.title || 'UUU', text, url });
+      } else {
+        await navigator.clipboard.writeText(url);
+        toast({ title: t('linkCopied') });
+      }
+      setShareOpen(false);
+    } catch (e: any) {
+      if (e?.name !== 'AbortError') {
+        try { await navigator.clipboard.writeText(url); toast({ title: t('linkCopied') }); setShareOpen(false); } catch {}
+      }
+    } finally {
+      setShareBusy(false);
+    }
+  };
+
   // DASHBOARD
   if (effectivePage === 'dashboard') {
     const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
@@ -1719,118 +1734,60 @@ export default function ChemTestApp() {
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground truncate max-w-[180px]">{effectiveUser?.email}</p>
               </div>
-              <Button variant="ghost" size="sm" onClick={handleLogout} title={t('logout')} className="rounded-full border border-black hover:bg-muted shrink-0">
-                <LogIn className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('logout')}</span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={openShareSheet}
+                title={t('share')}
+                className="rounded-full border border-black hover:bg-muted shrink-0"
+              >
+                <Share2 className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('share')}</span>
               </Button>
+              <div className="relative shrink-0">
+                <button
+                  onClick={() => setProfileOpen(v => !v)}
+                  title={effectiveUser?.name || 'Profile'}
+                  className="w-9 h-9 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform"
+                >
+                  {userInitials}
+                </button>
+                {profileOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
+                    <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-xl border border-black/10 p-4 z-50">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shrink-0">
+                          {userInitials}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold truncate">{effectiveUser?.name}</p>
+                          <p className="text-xs text-muted-foreground truncate">{effectiveUser?.email}</p>
+                        </div>
+                      </div>
+                      <Button variant="outline" onClick={handleLogout} className="w-full mt-3 rounded-full border-black">
+                        <LogIn className="w-4 h-4 mr-2" /> {t('logout')}
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </header>
 
-        {/* Feed controls: ranking tabs + search + tag filter chips */}
-        <div className="shrink-0 z-40 bg-white/80 backdrop-blur-md border-b border-black/5">
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2 space-y-2">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1 rounded-full bg-muted/70 p-1 shrink-0">
-                {([
-                  { id: 'foryou' as FeedTab, icon: Sparkles, label: t('tabForYou') },
-                  { id: 'trending' as FeedTab, icon: Flame, label: t('tabTrending') },
-                  { id: 'new' as FeedTab, icon: Clock, label: t('tabNew') },
-                ]).map(({ id, icon: Icon, label }) => (
-                  <button
-                    key={id}
-                    onClick={() => { feedTabRef.current = id; setFeedTab(id); }}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                      feedTab === id ? 'bg-white shadow text-cta' : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span className="hidden min-[420px]:inline">{label}</span>
-                  </button>
-                ))}
-              </div>
-              <div className="relative flex-1 max-w-xs ml-auto">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-                <Input
-                  value={searchQ}
-                  onChange={e => setSearchQ(e.target.value)}
-                  placeholder={t('searchTests')}
-                  className="pl-9 h-9 rounded-full border-black/15 bg-white"
-                />
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                title={t('pickInterestsTitle')}
-                onClick={() => { setPendingInterests(userInterests); setShowInterests(true); }}
-                className="rounded-full border border-black/15 shrink-0 w-9 h-9"
-              >
-                <Sparkles className={`w-4 h-4 ${userInterests.length ? 'text-cta' : 'text-muted-foreground'}`} />
-              </Button>
-            </div>
-            {popularTags.length > 0 && (
-              <div className="flex items-center gap-1.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <button
-                  onClick={() => { feedTagRef.current = null; setFeedTag(null); }}
-                  className={`shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
-                    !feedTag ? 'bg-cta text-white border-cta' : 'bg-white border-black/15 text-muted-foreground hover:border-black/40'
-                  }`}
-                >
-                  <Hash className="w-3 h-3 inline mr-0.5" />All
-                </button>
-                {popularTags.map(({ tag, count }) => {
-                  const active = feedTag === tag;
-                  return (
-                    <button
-                      key={tag}
-                      onClick={() => { feedTagRef.current = active ? null : tag; setFeedTag(active ? null : tag); }}
-                      className={`shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
-                        active ? 'bg-cta text-white border-cta' : 'bg-white border-black/15 text-muted-foreground hover:border-black/40'
-                      }`}
-                    >
-                      {tag}{count > 0 && <span className="ml-1 opacity-60">{count}</span>}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </div>
-
         {tests.length === 0 ? (
           <main className="flex-1 min-h-0 overflow-y-auto">
             <div className="max-w-7xl mx-auto px-4 py-6">
-              {feedLoading ? (
-                <div className="flex items-center justify-center py-16 text-muted-foreground">
-                  <Loader2 className="w-7 h-7 animate-spin" />
-                </div>
-              ) : (feedTag || feedQ) ? (
-                <Card className="rounded-4xl border-dashed border-black/30 bg-white">
-                  <CardContent className="py-12 text-center">
-                    <Search className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-lg font-medium mb-2">{t('noResults')}</h3>
-                    <p className="text-muted-foreground mb-4">{t('noResultsHint')}</p>
-                    <div className="flex gap-3 justify-center">
-                      <Button
-                        variant="outline"
-                        onClick={() => { setSearchQ(''); setFeedQ(''); feedQRef.current = ''; feedTagRef.current = null; setFeedTag(null); }}
-                      >
-                        {t('clearFilters')}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ) : (
-                <Card className="rounded-4xl border-dashed border-black/30 bg-white">
-                  <CardContent className="py-12 text-center">
-                    <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-lg font-medium mb-2">{t('noTestsYet')}</h3>
-                    <p className="text-muted-foreground mb-4">{t('createFirst')}</p>
-                    <div className="flex gap-3 justify-center">
-                      <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
+              <Card className="rounded-4xl border-dashed border-black/30 bg-white">
+                <CardContent className="py-12 text-center">
+                  <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-medium mb-2">{t('noTestsYet')}</h3>
+                  <p className="text-muted-foreground mb-4">{t('createFirst')}</p>
+                  <div className="flex gap-3 justify-center">
+                    <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </main>
         ) : (
@@ -1868,32 +1825,6 @@ export default function ChemTestApp() {
                               return <AutoIcon className="w-16 h-16 text-cta" strokeWidth={1.5} />;
                             })()}
                             <p className="text-lg font-bold text-cta leading-snug line-clamp-2 px-2 mt-3">{test.title}</p>
-                            {/* Author + popularity line */}
-                            <div className="flex items-center justify-center gap-2 px-4 mt-1.5 text-xs text-foreground/70">
-                              {test.creator?.name && <span className="truncate max-w-[180px]">{t('byAuthor', { name: test.creator.name })}</span>}
-                              {!!test._count?.attempts && (
-                                <>
-                                  {test.creator?.name && <span className="opacity-50">·</span>}
-                                  <span className="shrink-0">{t('playsCount', { n: test._count.attempts })}</span>
-                                </>
-                              )}
-                            </div>
-                            {/* Tag chips — tap to filter the whole feed by the tag */}
-                            {!!test.tags?.length && (
-                              <div className="flex items-center justify-center gap-1.5 px-4 mt-2 flex-wrap">
-                                {test.tags.slice(0, 4).map(tag => (
-                                  <button
-                                    key={tag}
-                                    onClick={() => { feedTagRef.current = tag; setFeedTag(tag); }}
-                                    className={`px-2.5 py-0.5 rounded-full text-xs font-medium border transition-colors ${
-                                      feedTag === tag ? 'bg-cta text-white border-cta' : 'bg-white/80 border-black/15 text-foreground/80 hover:border-black/40'
-                                    }`}
-                                  >
-                                    #{tag}
-                                  </button>
-                                ))}
-                              </div>
-                            )}
                           </div>
                         </div>
 
@@ -2045,13 +1976,8 @@ export default function ChemTestApp() {
                 );
               })}
 
-              {/* Infinite scroll: loader slide + sentinel observed by the IntersectionObserver */}
-              {feedLoadingMore && (
-                <div className="h-full snap-start snap-always flex items-center justify-center text-muted-foreground">
-                  <Loader2 className="w-6 h-6 animate-spin" />
-                </div>
-              )}
-              <div ref={feedSentinelRef} className="h-px w-full" />
+              {/* Invisible pagination sentinel — silently appends more tests */}
+              <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
             </div>
 
             {/* Bottom bar — Start Test for the test on screen */}
@@ -2086,57 +2012,66 @@ export default function ChemTestApp() {
           </>
         )}
 
-        {/* Interests onboarding / settings — bottom sheet with tag chips */}
-        {showInterests && (
-          <div className="fixed inset-0 z-[90] flex items-end justify-center" onClick={dismissInterests}>
-            <div className="absolute inset-0 bg-black/40" />
+        {/* Share bottom sheet — same design as the attachments bottom sheet */}
+        {shareOpen && (
+          <div className="fixed inset-0 z-50 flex items-end justify-center">
+            <div className="absolute inset-0 bg-black/50" onClick={() => setShareOpen(false)} />
             <div
-              className="relative w-full max-w-lg bg-white rounded-t-4xl rounded-t-[2rem] max-h-[80dvh] flex flex-col"
-              onClick={e => e.stopPropagation()}
-              style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
+              className="relative w-full max-w-md bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col animate-in slide-in-from-bottom duration-200"
+              style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
             >
-              <div className="px-6 pt-5 pb-3 text-center border-b border-black/5">
-                <div className="w-10 h-1.5 rounded-full bg-muted mx-auto mb-4" />
-                <h3 className="text-lg font-bold flex items-center justify-center gap-2">
-                  <Sparkles className="w-5 h-5 text-cta" /> {t('pickInterestsTitle')}
-                </h3>
-                <p className="text-sm text-muted-foreground mt-1.5">{t('pickInterestsSub')}</p>
+              <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setShareOpen(false)}
+                    aria-label="Close share"
+                    className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform"
+                  >
+                    <ChevronDown className="w-5 h-5" />
+                  </button>
+                  <span className="font-semibold text-sm flex items-center gap-1.5">
+                    <Share2 className="w-4 h-4" /> {t('shareTitle')}
+                  </span>
+                </div>
+                <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => setShareOpen(false)}>
+                  <X className="w-4 h-4" />
+                </Button>
               </div>
-              <div className="flex-1 overflow-y-auto px-5 py-4">
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {popularTags.length === 0 && (
-                    <p className="text-sm text-muted-foreground py-6">{t('loading')}</p>
-                  )}
-                  {popularTags.map(({ tag }) => {
-                    const active = pendingInterests.includes(tag);
-                    return (
-                      <button
-                        key={tag}
-                        onClick={() => setPendingInterests(prev =>
-                          active ? prev.filter(x => x !== tag) : [...prev, tag]
-                        )}
-                        className={`px-3.5 py-1.5 rounded-full text-sm font-medium border transition-all ${
-                          active
-                            ? 'bg-cta text-white border-cta shadow'
-                            : 'bg-white border-black/15 text-foreground/80 hover:border-black/40'
-                        }`}
-                      >
-                        #{tag}
-                      </button>
-                    );
-                  })}
+              <div className="px-4 pt-4 pb-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setShareScope('link')}
+                    className={`p-3 rounded-xl border-2 transition-all text-left ${
+                      shareScope === 'link'
+                        ? 'border-cta bg-[#FFF0D9] shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <Link2 className="w-4 h-4 text-cta" />
+                      <span className="font-semibold text-sm">{t('shareOptLink')}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{t('shareOptLinkSub')}</p>
+                  </button>
+                  <button
+                    onClick={() => setShareScope('community')}
+                    className={`p-3 rounded-xl border-2 transition-all text-left ${
+                      shareScope === 'community'
+                        ? 'border-primary bg-[#FFE8DE] shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <Users className="w-4 h-4 text-primary" />
+                      <span className="font-semibold text-sm">{t('shareOptCommunity')}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{t('shareOptCommunitySub')}</p>
+                  </button>
                 </div>
               </div>
-              <div className="px-5 py-3 border-t border-black/5 flex items-center gap-3">
-                <Button variant="ghost" onClick={dismissInterests} className="rounded-full flex-1">
-                  {t('pickInterestsSkip')}
-                </Button>
-                <Button
-                  onClick={saveInterestsNow}
-                  disabled={pendingInterests.length < 3}
-                  className="rounded-full flex-1 bg-cta hover:bg-cta/90 text-white"
-                >
-                  {t('pickInterestsSave', { n: pendingInterests.length })}
+              <div className="px-4 pt-1">
+                <Button onClick={doShare} disabled={shareBusy} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                  {shareBusy ? t('loading') : <><Share2 className="w-4 h-4 mr-2" /> {t('shareLinkBtn')}</>}
                 </Button>
               </div>
             </div>

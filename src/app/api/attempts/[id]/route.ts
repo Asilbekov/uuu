@@ -91,12 +91,23 @@ export async function PUT(
         },
       });
 
-      // Recommendation signal: completing a test is the strongest interest indicator
+      // Recommendation signal: completing a test is the strongest interest
+      // indicator. Weighted by HOW LONG the user stayed engaged and HOW HARD
+      // the test was (the profile must reflect subjects, difficult tests and
+      // time spent — not just raw counts):
+      //   base +6, +up to 4 for minutes spent (long engagement = real interest),
+      //   +2 when the user struggled (accuracy < 60% on a finished attempt).
       if (attempt.test) {
+        const minutes = attempt.startedAt
+          ? (Date.now() - new Date(attempt.startedAt).getTime()) / 60000
+          : 0;
+        const answered = answers ? answers.length : (attempt.totalQuestions || 0);
+        const accuracy = answered > 0 ? score / answered : 1;
+        const delta = Math.min(12, 6 + Math.min(4, minutes / 3) + (accuracy < 0.6 ? 2 : 0));
         bumpAffinity(
           userId,
           (attempt.test.tags || []).concat(attempt.test.topic ? [attempt.test.topic] : []),
-          6
+          delta
         ).catch(() => {});
       }
     }
