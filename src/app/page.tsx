@@ -91,7 +91,6 @@ import {
   Languages,
   ClipboardList,
   Loader2,
-  Share2,
   Link2,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
@@ -392,8 +391,6 @@ export default function ChemTestApp() {
   // list stays fast at any test volume and surfaces what the user cares about.
   const [feedHasMore, setFeedHasMore] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [shareOpen, setShareOpen] = useState(false);
-  const [shareScope, setShareScope] = useState<'link' | 'community'>('link');
   const [shareBusy, setShareBusy] = useState(false);
   const feedCursorRef = useRef<string | null>(null);
   const feedHasMoreRef = useRef(false);
@@ -1662,44 +1659,37 @@ export default function ChemTestApp() {
     return (s || '?').toUpperCase();
   })();
 
-  const openShareSheet = () => {
-    setProfileOpen(false);
-    setShareScope('link');
-    setShareOpen(true);
-  };
-
-  // Share the test currently on screen (or the platform) via the native
-  // share sheet — Android: app chooser, Windows: share flyout, fallback: copy.
-  const doShare = async () => {
-    const cur = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
-    const community = shareScope === 'community';
+  // Share a test via the native share sheet — Android: app chooser,
+  // Windows: share flyout, fallback: copy to clipboard.
+  // scope 'link'      → direct link to that test (works even for private ones)
+  // scope 'community' → invite text + the creator's own private test goes public
+  const doShare = async (test: Test | null, scope: 'link' | 'community') => {
+    const community = scope === 'community';
     const origin = window.location.origin;
-    const url = community || !cur ? origin : `${origin}/?test=${cur.id}`;
+    const url = community || !test ? origin : `${origin}/?test=${test.id}`;
     const text = community
       ? t('shareTextCommunity')
-      : (cur ? t('shareTextTest', { title: cur.title }) : t('shareTextCommunity'));
+      : (test ? t('shareTextTest', { title: test.title }) : t('shareTextCommunity'));
     setShareBusy(true);
     try {
-      // "Whole community": the user's own private test becomes public
-      if (community && cur && effectiveUser && cur.creatorId === effectiveUser.id && cur.isPublic === false) {
+      if (community && test && effectiveUser && test.creatorId === effectiveUser.id && test.isPublic === false) {
         try {
-          const r = await api.shareTest(cur.id, 'community');
+          const r = await api.shareTest(test.id, 'community');
           if (r?.isPublic) {
-            setTests(prev => prev.map(x => (x.id === cur.id ? { ...x, isPublic: true } : x)));
+            setTests(prev => prev.map(x => (x.id === test.id ? { ...x, isPublic: true } : x)));
             toast({ title: t('shareMadePublic') });
           }
         } catch { /* visibility flip is best-effort */ }
       }
       if (typeof navigator !== 'undefined' && typeof (navigator as any).share === 'function') {
-        await (navigator as any).share({ title: cur?.title || 'UUU', text, url });
+        await (navigator as any).share({ title: test?.title || 'UUU', text, url });
       } else {
         await navigator.clipboard.writeText(url);
         toast({ title: t('linkCopied') });
       }
-      setShareOpen(false);
     } catch (e: any) {
       if (e?.name !== 'AbortError') {
-        try { await navigator.clipboard.writeText(url); toast({ title: t('linkCopied') }); setShareOpen(false); } catch {}
+        try { await navigator.clipboard.writeText(url); toast({ title: t('linkCopied') }); } catch {}
       }
     } finally {
       setShareBusy(false);
@@ -1734,15 +1724,6 @@ export default function ChemTestApp() {
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground truncate max-w-[180px]">{effectiveUser?.email}</p>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={openShareSheet}
-                title={t('share')}
-                className="rounded-full border border-black hover:bg-muted shrink-0"
-              >
-                <Share2 className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('share')}</span>
-              </Button>
               <div className="relative shrink-0">
                 <button
                   onClick={() => setProfileOpen(v => !v)}
@@ -1946,6 +1927,34 @@ export default function ChemTestApp() {
                               </button>
                             </div>
 
+                            {/* Share — direct actions, same card style as the mode/randomize cards */}
+                            <div className="grid grid-cols-2 gap-2">
+                              <button
+                                type="button"
+                                onClick={() => doShare(test, 'link')}
+                                disabled={!!shareBusy}
+                                className="p-3 rounded-xl border-2 border-transparent bg-muted/50 hover:bg-muted transition-all text-left disabled:opacity-60"
+                              >
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <Link2 className="w-4 h-4 text-cta shrink-0" />
+                                  <span className="font-semibold text-sm">{t('shareOptLink')}</span>
+                                </div>
+                                <p className="text-xs text-muted-foreground">{t('shareOptLinkSub')}</p>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => doShare(test, 'community')}
+                                disabled={!!shareBusy}
+                                className="p-3 rounded-xl border-2 border-transparent bg-muted/50 hover:bg-muted transition-all text-left disabled:opacity-60"
+                              >
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <Users className="w-4 h-4 text-primary shrink-0" />
+                                  <span className="font-semibold text-sm">{t('shareOptCommunity')}</span>
+                                </div>
+                                <p className="text-xs text-muted-foreground">{t('shareOptCommunitySub')}</p>
+                              </button>
+                            </div>
+
                             {/* Attached files — collapsed to one line; arrow expands/collapses */}
                             {files.length > 0 && (
                               <div className="rounded-2xl border border-black bg-white overflow-hidden">
@@ -2010,72 +2019,6 @@ export default function ChemTestApp() {
               </div>
             </div>
           </>
-        )}
-
-        {/* Share bottom sheet — same design as the attachments bottom sheet */}
-        {shareOpen && (
-          <div className="fixed inset-0 z-50 flex items-end justify-center">
-            <div className="absolute inset-0 bg-black/50" onClick={() => setShareOpen(false)} />
-            <div
-              className="relative w-full max-w-md bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col animate-in slide-in-from-bottom duration-200"
-              style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
-            >
-              <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setShareOpen(false)}
-                    aria-label="Close share"
-                    className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform"
-                  >
-                    <ChevronDown className="w-5 h-5" />
-                  </button>
-                  <span className="font-semibold text-sm flex items-center gap-1.5">
-                    <Share2 className="w-4 h-4" /> {t('shareTitle')}
-                  </span>
-                </div>
-                <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => setShareOpen(false)}>
-                  <X className="w-4 h-4" />
-                </Button>
-              </div>
-              <div className="px-4 pt-4 pb-2">
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => setShareScope('link')}
-                    className={`p-3 rounded-xl border-2 transition-all text-left ${
-                      shareScope === 'link'
-                        ? 'border-cta bg-[#FFF0D9] shadow-md'
-                        : 'border-transparent bg-muted/50 hover:bg-muted'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <Link2 className="w-4 h-4 text-cta" />
-                      <span className="font-semibold text-sm">{t('shareOptLink')}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">{t('shareOptLinkSub')}</p>
-                  </button>
-                  <button
-                    onClick={() => setShareScope('community')}
-                    className={`p-3 rounded-xl border-2 transition-all text-left ${
-                      shareScope === 'community'
-                        ? 'border-primary bg-[#FFE8DE] shadow-md'
-                        : 'border-transparent bg-muted/50 hover:bg-muted'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <Users className="w-4 h-4 text-primary" />
-                      <span className="font-semibold text-sm">{t('shareOptCommunity')}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">{t('shareOptCommunitySub')}</p>
-                  </button>
-                </div>
-              </div>
-              <div className="px-4 pt-1">
-                <Button onClick={doShare} disabled={shareBusy} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                  {shareBusy ? t('loading') : <><Share2 className="w-4 h-4 mr-2" /> {t('shareLinkBtn')}</>}
-                </Button>
-              </div>
-            </div>
-          </div>
         )}
 
         <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
