@@ -162,6 +162,7 @@ const en: Dict = {
   startOver: 'Start over from the beginning',
   iChose: 'I chose answer {a}. Can you explain this question?',
   helpUnderstand: 'Can you help me understand this question?',
+  translating: 'Translating questions…',
 };
 
 const ru: Dict = {
@@ -295,6 +296,7 @@ const ru: Dict = {
   startOver: 'Начать с самого начала',
   iChose: 'Я выбрал ответ {a}. Можешь объяснить этот вопрос?',
   helpUnderstand: 'Можешь помочь мне разобраться в этом вопросе?',
+  translating: 'Переводим вопросы…',
 };
 
 const uz: Dict = {
@@ -428,6 +430,7 @@ const uz: Dict = {
   startOver: 'Boshidan boshlash',
   iChose: 'Men {a} javobini tanladim. Bu savolni tushuntira olasizmi?',
   helpUnderstand: 'Bu savolni tushunishimga yordam bera olasizmi?',
+  translating: 'Savollar tarjima qilinmoqda…',
 };
 
 const UI: Record<Lang, Dict> = { en, ru, uz };

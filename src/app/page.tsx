@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { api, setUser } from '@/lib/api';
+import { autoTranslateQuestions, QTranslationsV } from '@/lib/qtrans';
 import MathText from '@/components/math-text';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -89,6 +90,7 @@ import {
   GraduationCap as GraduationCapIcon,
   Languages,
   ClipboardList,
+  Loader2,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
@@ -111,6 +113,18 @@ function LangButton({ lang, onChange, className = '' }: { lang: Lang; onChange: 
       <Languages className="w-4 h-4" />
       {LANG_LABEL[lang]}
     </Button>
+  );
+}
+
+// Small floating pill shown while on-the-fly question translation is running
+// (auto-translation only kicks in for questions with no stored translation).
+function TranslatingPill({ show, label }: { show: boolean; label: string }) {
+  if (!show) return null;
+  return (
+    <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[55] flex items-center gap-1.5 rounded-full bg-white border border-black/10 shadow-lg px-3 py-1.5 text-xs font-medium text-muted-foreground pointer-events-none">
+      <Loader2 className="w-3.5 h-3.5 animate-spin text-cta" />
+      {label}
+    </div>
   );
 }
 
@@ -392,6 +406,14 @@ export default function ChemTestApp() {
     });
   }, []);
   const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+
+  // On-the-fly question translation (see lib/qtrans): questions without a
+  // stored translation for the selected language are machine-translated while
+  // the test is being taken / reviewed, cached in localStorage and persisted
+  // to the DB best-effort. `autoTranslating` drives the small progress pill.
+  const [autoTranslating, setAutoTranslating] = useState(false);
+  const trGenRef = useRef(0);
+  const trTriedRef = useRef<Set<string>>(new Set());
 
   // Auth state
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
@@ -1117,7 +1139,21 @@ export default function ChemTestApp() {
   const continueTestWith = (test: Test): boolean => {
     const saved = readTestProgress(progressUserId, test.id);
     if (!saved) return false;
-    const qList = saved.shuffledQuestions;
+    // The snapshot may predate stored translations (e.g. the session was saved
+    // before a translation update). Merge fresh translation/explanation data
+    // from the DB copy by question id — WITHOUT touching the shuffled option
+    // order or correct answers, so carried answers stay valid. Edits recreate
+    // question ids, so mismatched ids are simply left untouched.
+    const freshById = new Map(test.questions.map(q => [q.id, q]));
+    const qList = saved.shuffledQuestions.map(q => {
+      const fresh = q.id ? freshById.get(q.id) : undefined;
+      if (!fresh) return q;
+      return {
+        ...q,
+        explanation: q.explanation ?? fresh.explanation ?? null,
+        translations: { ...(fresh.translations || {}), ...(q.translations || {}) } || null,
+      };
+    });
     setCurrentTest(test);
     setShuffledQuestions(qList);
     setCurrentQuestionIdx(Math.min(Math.max(0, saved.currentQuestionIdx || 0), qList.length - 1));
@@ -1161,6 +1197,48 @@ export default function ChemTestApp() {
     }, 400);
     return () => clearTimeout(t);
   }, [effectivePage, showResult, currentTest, currentAttempt, currentQuestionIdx, answers, practiceMode, revealedAnswers, shuffledQuestions, progressUserId]);
+
+  // On-the-fly translation: while taking / reviewing a test, translate any
+  // question that has no stored translation for the selected interface
+  // language (user-created tests, old continue-snapshots, languages the test
+  // was never translated to). Each result is applied to the state immediately,
+  // cached in localStorage and persisted to the DB best-effort so everyone
+  // loads it instantly afterwards. Generation counter guards against overlap:
+  // a new run (deps changed) cancels the previous one; per-question failure
+  // markers prevent infinite retry loops.
+  useEffect(() => {
+    if (!mounted || effectivePage !== 'take-test' || editOpen || !currentTest || shuffledQuestions.length === 0) return;
+    const missing = shuffledQuestions.filter(
+      q => q.text && q.id && !q.translations?.[lang] && !trTriedRef.current.has(`${currentTest.id}|${lang}|${q.id}`)
+    );
+    if (!missing.length) return;
+    const testId = currentTest.id;
+    const gen = ++trGenRef.current;
+    const cancelled = () => trGenRef.current !== gen;
+    setAutoTranslating(true);
+    (async () => {
+      const applyOne = (id: string, tr: QTranslationsV) => {
+        if (cancelled()) return;
+        const patch = (q: Question) => ({ ...q, translations: { ...(q.translations || {}), [lang]: tr } });
+        setShuffledQuestions(prev => prev.map(q => (q.id === id ? patch(q) : q)));
+        setCurrentTest(prev => (prev && prev.id === testId ? { ...prev, questions: prev.questions.map(q => (q.id === id ? patch(q) : q)) } : prev));
+      };
+      try {
+        const map = await autoTranslateQuestions(missing, lang, applyOne);
+        if (cancelled()) return;
+        // Questions that failed stay unmarked by success — record them so the
+        // effect doesn't retry them forever (e.g. when the MT service is down).
+        missing.forEach(q => {
+          if (q.id && !map.has(q.id)) trTriedRef.current.add(`${testId}|${lang}|${q.id}`);
+        });
+        const items = [...map.entries()].map(([id, tr]) => ({ id, ...tr }));
+        if (items.length) api.saveTranslations(testId, lang, items).catch(() => {});
+      } finally {
+        if (!cancelled()) setAutoTranslating(false);
+      }
+    })();
+  }, [mounted, effectivePage, editOpen, currentTest, shuffledQuestions, lang]);
+
 
   // Track which test is on screen while swiping the dashboard feed.
   // Same rule as the take-test feed: commit only after the swipe settles —
@@ -1470,27 +1548,27 @@ export default function ChemTestApp() {
     return (
       <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2 min-w-0">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
               <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0">
-                <Plus className="w-4 h-4 mr-2" /> {t('createTest')}
+                <Plus className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('createTest')}</span>
               </Button>
               <Button
                 variant="outline"
                 onClick={() => setEditMode(v => !v)}
                 className={`rounded-full shrink-0 ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
               >
-                <Edit className="w-4 h-4 mr-2" /> {t('editTest')}
+                <Edit className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('editTest')}</span>
               </Button>
             </div>
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               <LangButton lang={lang} onChange={cycleLang} className="border-black" />
-              <div className="hidden sm:block text-right">
-                <p className="text-sm font-medium">{effectiveUser?.name}</p>
-                <p className="text-xs text-muted-foreground">{effectiveUser?.email}</p>
+              <div className="hidden md:block text-right min-w-0">
+                <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
+                <p className="text-xs text-muted-foreground truncate max-w-[180px]">{effectiveUser?.email}</p>
               </div>
-              <Button variant="ghost" size="sm" onClick={handleLogout} className="rounded-full border border-black hover:bg-muted">
-                <LogIn className="w-4 h-4 mr-1" /> {t('logout')}
+              <Button variant="ghost" size="sm" onClick={handleLogout} title={t('logout')} className="rounded-full border border-black hover:bg-muted shrink-0">
+                <LogIn className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('logout')}</span>
               </Button>
             </div>
           </div>
@@ -2373,10 +2451,11 @@ export default function ChemTestApp() {
       const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
       return (
         <div className="min-h-screen bg-background">
+          <TranslatingPill show={autoTranslating} label={t('translating')} />
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-3 min-w-0">
-                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
+            <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
+                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0"><ArrowLeft className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('back')}</span></Button>
                 {(currentTest?.attachments?.length || 0) > 0 ? (
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
@@ -2392,16 +2471,17 @@ export default function ChemTestApp() {
                   <h1 className="text-lg font-bold">{t('testResults')}</h1>
                 )}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 <LangButton lang={lang} onChange={cycleLang} className="border-black" />
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); setEditOpen(false); openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']); }}
                   className="gap-1.5"
+                  title={t('aiTutor')}
                 >
                   <MessageSquare className="w-4 h-4" />
-                  {t('aiTutor')}
+                  <span className="hidden sm:inline">{t('aiTutor')}</span>
                 </Button>
                 <Button
                   variant="outline"
@@ -2411,7 +2491,7 @@ export default function ChemTestApp() {
                   title={t('chatWithTook')}
                 >
                   <Users className="w-4 h-4" />
-                  {t('chat')}
+                  <span className="hidden sm:inline">{t('chat')}</span>
                 </Button>
                 <Button
                   variant={editOpen ? 'default' : 'outline'}
@@ -2631,6 +2711,7 @@ export default function ChemTestApp() {
 
     return (
       <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
+        <TranslatingPill show={autoTranslating} label={t('translating')} />
         <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between gap-2 mb-2">

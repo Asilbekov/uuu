@@ -4,18 +4,51 @@ import { NextRequest } from 'next/server';
 /**
  * GET /api/attachments/[id]/file
  * Serves the attachment's file bytes from the same origin so that:
- *  - PDFs can be shown in an <iframe> viewer (raw.githubusercontent.com blocks framing);
- *  - uploaded files (stored as data: URLs) can be played/viewed (data: URLs are blocked
- *    for PDF rendering and top-level navigation by browsers);
+ *  - PDFs can be shown in the PDF.js canvas viewer and in <iframe> viewers
+ *    (raw.githubusercontent.com blocks framing; data: URLs are blocked for
+ *    PDF rendering and top-level navigation by browsers);
  *  - HTTP Range requests work for audio/video seeking.
- * External URLs are proxied from a strict host allowlist only.
+ *
+ * Host policy (fixes the old "Host not allowed for file proxying" error):
+ *  - URLs pointing at THIS site's own origin are 307-redirected to the file
+ *    directly (no self-proxying) — study-guide PDFs served from /public use this;
+ *  - any other PUBLIC http(s) host is proxied (GitHub, Google Drive, Dropbox,
+ *    Wikimedia, S3, ... whatever the teacher attaches);
+ *  - private / link-local / loopback targets are still refused (SSRF guard).
  */
 
-const ALLOWED_HOSTS = new Set([
-  'raw.githubusercontent.com',
-  'github.com',
-  'objects.githubusercontent.com',
-]);
+function isPrivateHost(hostname: string): boolean {
+  const h = hostname.toLowerCase().replace(/\.$/, '');
+  if (h === 'localhost' || h.endsWith('.localhost') || h.endsWith('.local') || h.endsWith('.internal') || h.endsWith('.home.arpa')) return true;
+  // IPv4 literal — block loopback / private / link-local / carrier NAT ranges
+  const m = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(h);
+  if (m) {
+    const [a, b] = [Number(m[1]), Number(m[2])];
+    if (a === 0 || a === 10 || a === 127) return true;
+    if (a === 169 && b === 254) return true; // link-local (incl. cloud metadata)
+    if (a === 172 && b >= 16 && b <= 31) return true;
+    if (a === 192 && b === 168) return true;
+    if (a === 100 && b >= 64 && b <= 127) return true; // CGNAT
+    return false;
+  }
+  // IPv6 literal — block loopback, link-local, unique-local
+  if (h.includes(':')) {
+    const clean = h.replace(/^\[|\]$/g, '');
+    if (clean === '::' || clean === '::1') return true;
+    if (/^f[cd]/.test(clean)) return true; // fc00::/7 unique-local
+    if (/^fe[89ab]/.test(clean)) return true; // fe80::/10 link-local
+    return false;
+  }
+  return false;
+}
+
+/** Origin of THIS deployment, derived from the incoming request headers. */
+function requestOrigin(request: NextRequest): string {
+  const host = request.headers.get('x-forwarded-host') || request.headers.get('host');
+  if (!host) return request.nextUrl.origin;
+  const proto = request.headers.get('x-forwarded-proto') || (host.startsWith('localhost') || host.startsWith('127.') ? 'http' : 'https');
+  return `${proto}://${host}`;
+}
 
 function guessContentType(attachment: { type: string; url: string }): string {
   const url = attachment.url;
@@ -101,14 +134,23 @@ export async function GET(
       });
     }
 
-    // --- external URL (proxy with host allowlist) ---
+    // --- same-origin URL: redirect straight to the file (no self-proxying) ---
     let target: URL;
     try {
       target = new URL(attachment.url);
     } catch {
       return new Response('Invalid attachment URL', { status: 500 });
     }
-    if (!/^https?:$/.test(target.protocol) || !ALLOWED_HOSTS.has(target.hostname)) {
+    const origin = requestOrigin(request);
+    if (target.origin === origin) {
+      return new Response(null, {
+        status: 307,
+        headers: { Location: target.toString(), 'Cache-Control': 'private, max-age=300' },
+      });
+    }
+
+    // --- external URL: proxy any PUBLIC host; refuse private targets (SSRF) ---
+    if (!/^https?:$/.test(target.protocol) || isPrivateHost(target.hostname)) {
       return new Response('Host not allowed for file proxying', { status: 403 });
     }
 

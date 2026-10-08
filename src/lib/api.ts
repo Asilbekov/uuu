@@ -102,4 +102,8 @@ export const api = {
   updateAttachment: (id: string, data: { title?: string; type?: string; url?: string; orderNum?: number }) =>
     apiFetch(`/attachments/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteAttachment: (id: string) => apiFetch(`/attachments/${id}`, { method: 'DELETE' }),
+
+  // Persist on-the-fly question translations (machine-translated in the browser)
+  saveTranslations: (testId: string, lang: string, items: { id: string; text?: string; options?: Record<string, string>; explanation?: string }[]) =>
+    apiFetch(`/tests/${testId}/translations`, { method: 'POST', body: JSON.stringify({ lang, items }) }),
 };
