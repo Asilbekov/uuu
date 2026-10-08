@@ -57,6 +57,7 @@ import {
   X,
   Hash,
   Palette,
+  Languages,
   ClipboardList,
   Loader2,
   Link2,
