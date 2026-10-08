@@ -57,38 +57,6 @@ import {
   X,
   Hash,
   Palette,
-  Atom,
-  Magnet,
-  Zap,
-  Telescope,
-  Rocket,
-  Orbit,
-  Globe,
-  Mountain,
-  Waves,
-  Thermometer,
-  FlaskConical as FlaskConicalIcon,
-  FlaskRound,
-  TestTubes,
-  Dna,
-  Microscope,
-  Bug,
-  Leaf,
-  Brain,
-  Stethoscope,
-  HeartPulse,
-  Pill,
-  Calculator,
-  Sigma,
-  Ruler,
-  Shapes,
-  Cpu,
-  Cog,
-  Bot,
-  Binary,
-  BookOpen as BookOpenIcon,
-  GraduationCap as GraduationCapIcon,
-  Languages,
   ClipboardList,
   Loader2,
   Link2,
@@ -202,56 +170,6 @@ function coverBgFor(test: { topic?: string | null; tags?: string[] | null }) {
     return palette[tagHash(tag) % palette.length];
   }
   return topicBgClass(test.topic);
-}
-
-// Professional science icon pack (Lucide vector icons) for the test card cover
-const COVER_ICONS: { name: string; Icon: React.ComponentType<{ className?: string; strokeWidth?: number }> }[] = [
-  { name: 'Atom', Icon: Atom },
-  { name: 'Magnet', Icon: Magnet },
-  { name: 'Zap', Icon: Zap },
-  { name: 'Telescope', Icon: Telescope },
-  { name: 'Rocket', Icon: Rocket },
-  { name: 'Orbit', Icon: Orbit },
-  { name: 'Globe', Icon: Globe },
-  { name: 'Mountain', Icon: Mountain },
-  { name: 'Waves', Icon: Waves },
-  { name: 'Thermometer', Icon: Thermometer },
-  { name: 'FlaskConical', Icon: FlaskConicalIcon },
-  { name: 'FlaskRound', Icon: FlaskRound },
-  { name: 'TestTubes', Icon: TestTubes },
-  { name: 'Dna', Icon: Dna },
-  { name: 'Microscope', Icon: Microscope },
-  { name: 'Bug', Icon: Bug },
-  { name: 'Leaf', Icon: Leaf },
-  { name: 'Brain', Icon: Brain },
-  { name: 'Stethoscope', Icon: Stethoscope },
-  { name: 'HeartPulse', Icon: HeartPulse },
-  { name: 'Pill', Icon: Pill },
-  { name: 'Calculator', Icon: Calculator },
-  { name: 'Sigma', Icon: Sigma },
-  { name: 'Ruler', Icon: Ruler },
-  { name: 'Shapes', Icon: Shapes },
-  { name: 'Cpu', Icon: Cpu },
-  { name: 'Cog', Icon: Cog },
-  { name: 'Bot', Icon: Bot },
-  { name: 'Binary', Icon: Binary },
-  { name: 'BookOpen', Icon: BookOpenIcon },
-  { name: 'GraduationCap', Icon: GraduationCapIcon },
-  { name: 'Languages', Icon: Languages },
-];
-const COVER_ICON_MAP: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> =
-  Object.fromEntries(COVER_ICONS.map(i => [i.name, i.Icon]));
-
-// Auto icon for the cover: derived from the first tag, otherwise from the legacy topic
-function autoCoverIconName(test: { topic?: string | null; tags?: string[] | null }): string {
-  const tag = test.tags?.[0];
-  if (tag) return COVER_ICONS[tagHash(tag) % COVER_ICONS.length].name;
-  switch (test.topic) {
-    case 'Physics': return 'Atom';
-    case 'Chemistry': return 'FlaskConical';
-    case 'Mathematics': return 'Calculator';
-    default: return 'BookOpen';
-  }
 }
 
 // Per-test group chat message (see /api/tests/[id]/chat)
@@ -1800,17 +1718,10 @@ export default function ChemTestApp() {
                   <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
-                        {/* Cover header — shrinks on small screens so the card fits */}
-                        <div className="relative h-28 shrink min-h-16 sm:h-40 md:h-44 overflow-hidden">
+                        {/* Cover header — title on the colored band (logo picker removed) */}
+                        <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden">
                           <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
-                            {(() => {
-                              const Picked = test.coverIcon ? COVER_ICON_MAP[test.coverIcon] : null;
-                              if (Picked) return <Picked className="w-12 h-12 sm:w-16 sm:h-16 text-cta shrink-0" strokeWidth={1.5} />;
-                              if (test.coverIcon) return <span className="text-5xl sm:text-6xl leading-none shrink-0">{test.coverIcon}</span>; // legacy emoji
-                              const AutoIcon = COVER_ICON_MAP[autoCoverIconName(test)] || BookOpenIcon;
-                              return <AutoIcon className="w-12 h-12 sm:w-16 sm:h-16 text-cta shrink-0" strokeWidth={1.5} />;
-                            })()}
-                            <p className="text-base sm:text-lg font-bold text-cta leading-snug line-clamp-2 px-2 mt-2 sm:mt-3">{test.title}</p>
+                            <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{test.title}</p>
                           </div>
                         </div>
 
@@ -1972,7 +1883,7 @@ export default function ChemTestApp() {
 
                             {/* Attached files — collapsed to one line; arrow expands/collapses */}
                             {files.length > 0 && (
-                              <div className="shrink-0 rounded-2xl border border-black bg-white overflow-hidden">
+                              <div className="relative shrink-0 rounded-2xl border border-black bg-white">
                                 <button
                                   onClick={() => setStartFilesExpanded(v => !v)}
                                   className="w-full flex items-center gap-1.5 px-3 py-2.5 text-left hover:bg-muted/50 transition-colors"
@@ -1986,7 +1897,11 @@ export default function ChemTestApp() {
                                   )}
                                 </button>
                                 {startFilesExpanded && (
-                                  <div className="px-3 pb-3 max-h-44 sm:max-h-56 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                                  /* Floating panel above the row: expanding must not
+                                  shift the card layout (no auto-scroll jump) — the
+                                  panel simply overlays the controls and scrolls
+                                  internally */
+                                  <div className="absolute bottom-full left-0 right-0 mb-2 z-30 rounded-2xl border border-black bg-white shadow-xl p-3 max-h-44 sm:max-h-56 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                                     <AttachmentsList items={files} />
                                   </div>
                                 )}
@@ -2189,34 +2104,6 @@ export default function ChemTestApp() {
               <p className="text-xs text-muted-foreground">
                 {t('coverHint')}
               </p>
-              <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wide">{t('icon')}</Label>
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setTestCoverIcon('')}
-                    title={t('autoIcon')}
-                    className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${
-                      testCoverIcon === '' ? 'border-cta bg-[#FFF0D9] shadow-md' : 'border-black/10 bg-muted/30 hover:bg-muted'
-                    }`}
-                  >
-                    <Sparkles className="w-4 h-4 text-cta" />
-                  </button>
-                  {COVER_ICONS.map(({ name, Icon }) => (
-                    <button
-                      key={name}
-                      type="button"
-                      onClick={() => setTestCoverIcon(name)}
-                      title={name}
-                      className={`w-10 h-10 rounded-xl border-2 flex items-center justify-center transition-all ${
-                        testCoverIcon === name ? 'border-cta bg-[#FFF0D9] shadow-md' : 'border-black/10 bg-muted/30 hover:bg-muted'
-                      }`}
-                    >
-                      <Icon className="w-5 h-5" strokeWidth={1.75} />
-                    </button>
-                  ))}
-                </div>
-              </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label className="text-xs text-muted-foreground uppercase tracking-wide">{t('cardColor')}</Label>
