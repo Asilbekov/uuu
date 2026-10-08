@@ -1792,7 +1792,7 @@ export default function ChemTestApp() {
                                   <ListChecks className="w-4 h-4 text-cta" />
                                   <span className="font-semibold text-sm">{t('examMode')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">{t('seeResultsEnd')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('seeResultsEnd')}</p>
                               </button>
                               <button
                                 onClick={() => setPracticeMode(true)}
@@ -1806,7 +1806,7 @@ export default function ChemTestApp() {
                                   <BookOpen className="w-4 h-4 text-primary" />
                                   <span className="font-semibold text-sm">{t('practiceMode')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">{t('seeAnswerNow')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('seeAnswerNow')}</p>
                               </button>
                             </div>
 
@@ -1825,7 +1825,7 @@ export default function ChemTestApp() {
                                   <Shuffle className="w-4 h-4 text-cta shrink-0" />
                                   <span className="font-semibold text-sm">{t('randomizeQuestions')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">{startRandomizeQ ? t('qShuffled') : t('qOriginal')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{startRandomizeQ ? t('qShuffled') : t('qOriginal')}</p>
                               </button>
                               <button
                                 type="button"
@@ -1840,7 +1840,7 @@ export default function ChemTestApp() {
                                   <Shuffle className="w-4 h-4 text-primary shrink-0" />
                                   <span className="font-semibold text-sm">{t('randomizeAnswers')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">{startRandomizeO ? t('aShuffled') : t('aOriginal')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{startRandomizeO ? t('aShuffled') : t('aOriginal')}</p>
                               </button>
                             </div>
 
@@ -1862,7 +1862,7 @@ export default function ChemTestApp() {
                                   <Link2 className="w-4 h-4 text-cta shrink-0" />
                                   <span className="font-semibold text-sm">{t('shareOptLink')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">{t('shareOptLinkSub')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptLinkSub')}</p>
                               </button>
                               <button
                                 type="button"
@@ -1878,7 +1878,7 @@ export default function ChemTestApp() {
                                   <Users className="w-4 h-4 text-primary shrink-0" />
                                   <span className="font-semibold text-sm">{t('shareOptCommunity')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground">{t('shareOptCommunitySub')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptCommunitySub')}</p>
                               </button>
                             </div>
 
