@@ -392,6 +392,9 @@ export default function ChemTestApp() {
   const [feedHasMore, setFeedHasMore] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [shareBusy, setShareBusy] = useState(false);
+  // Per-card share scope selection: exactly one of the two share buttons on a
+  // card can be highlighted at a time (radio behaviour, like the mode cards).
+  const [shareScopeByTest, setShareScopeByTest] = useState<Record<string, 'link' | 'community'>>({});
   const feedCursorRef = useRef<string | null>(null);
   const feedHasMoreRef = useRef(false);
   const feedLoadingMoreRef = useRef(false);
@@ -1792,25 +1795,27 @@ export default function ChemTestApp() {
                 const bgClass = test.coverColor ? '' : coverBgFor(test);
                 const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
                 return (
-                  <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-y-auto [scrollbar-width:none] ${bgClass}`}>
-                    <div className="min-h-full flex flex-col items-center justify-center px-4 py-4">
-                      <div className="w-full max-w-md space-y-4">
-                        {/* Cover header — no borders, blends seamlessly with the card */}
-                        <div className="relative h-44 overflow-hidden">
+                  // overflow-hidden: the card always fits the screen — no scrolling
+                  // inside a card, swipes only move between cards
+                  <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
+                    <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
+                      <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
+                        {/* Cover header — shrinks on small screens so the card fits */}
+                        <div className="relative h-28 shrink min-h-16 sm:h-40 md:h-44 overflow-hidden">
                           <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
                             {(() => {
                               const Picked = test.coverIcon ? COVER_ICON_MAP[test.coverIcon] : null;
-                              if (Picked) return <Picked className="w-16 h-16 text-cta" strokeWidth={1.5} />;
-                              if (test.coverIcon) return <span className="text-6xl leading-none">{test.coverIcon}</span>; // legacy emoji
+                              if (Picked) return <Picked className="w-12 h-12 sm:w-16 sm:h-16 text-cta shrink-0" strokeWidth={1.5} />;
+                              if (test.coverIcon) return <span className="text-5xl sm:text-6xl leading-none shrink-0">{test.coverIcon}</span>; // legacy emoji
                               const AutoIcon = COVER_ICON_MAP[autoCoverIconName(test)] || BookOpenIcon;
-                              return <AutoIcon className="w-16 h-16 text-cta" strokeWidth={1.5} />;
+                              return <AutoIcon className="w-12 h-12 sm:w-16 sm:h-16 text-cta shrink-0" strokeWidth={1.5} />;
                             })()}
-                            <p className="text-lg font-bold text-cta leading-snug line-clamp-2 px-2 mt-3">{test.title}</p>
+                            <p className="text-base sm:text-lg font-bold text-cta leading-snug line-clamp-2 px-2 mt-2 sm:mt-3">{test.title}</p>
                           </div>
                         </div>
 
                         {isCur && editMode && (
-                          <div className="space-y-2 text-center">
+                          <div className="shrink-0 space-y-2 text-center">
                             <p className="text-xs text-muted-foreground">{t('editModeOn')}</p>
                             {test.creatorId === effectiveUser?.id && (
                               <Button size="sm" variant="outline" className="rounded-full border-black text-destructive hover:bg-destructive/10" onClick={() => setDeleteId(test.id)}>
@@ -1824,7 +1829,7 @@ export default function ChemTestApp() {
                         {!editMode && (
                           <>
                             {/* Question count — editable counter + slider */}
-                            <div className="space-y-3">
+                            <div className="shrink-0 space-y-2 sm:space-y-3">
                               <div className="flex items-center justify-center gap-4">
                                 <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.max(1, selectedQuestionCount - 1))} disabled={selectedQuestionCount <= 1}>
                                   <Minus className="w-4 h-4" />
@@ -1843,13 +1848,13 @@ export default function ChemTestApp() {
                                   }}
                                   onBlur={e => { if (e.target.value === '') setSelectedQuestionCount(1); }}
                                   aria-label="Number of questions"
-                                  className="text-3xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                  className="text-2xl sm:text-3xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-0.5 sm:py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                 />
                                 <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.min(totalQ, selectedQuestionCount + 1))} disabled={selectedQuestionCount >= totalQ}>
                                   <Plus className="w-4 h-4" />
                                 </Button>
                               </div>
-                              <div className="px-6">
+                              <div className="px-4 sm:px-6">
                                 <input
                                   type="range"
                                   min={1}
@@ -1862,10 +1867,10 @@ export default function ChemTestApp() {
                             </div>
 
                             {/* Test mode */}
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="shrink-0 grid grid-cols-2 gap-2">
                               <button
                                 onClick={() => setPracticeMode(false)}
-                                className={`p-3 rounded-xl border-2 transition-all text-left ${
+                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                                   !practiceMode
                                     ? 'border-cta bg-[#FFF0D9] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
@@ -1879,7 +1884,7 @@ export default function ChemTestApp() {
                               </button>
                               <button
                                 onClick={() => setPracticeMode(true)}
-                                className={`p-3 rounded-xl border-2 transition-all text-left ${
+                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                                   practiceMode
                                     ? 'border-primary bg-[#FFE8DE] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
@@ -1894,11 +1899,11 @@ export default function ChemTestApp() {
                             </div>
 
                             {/* Randomization — tap a card to toggle, styled like the mode cards */}
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="shrink-0 grid grid-cols-2 gap-2">
                               <button
                                 type="button"
                                 onClick={() => setStartRandomizeQ(v => !v)}
-                                className={`p-3 rounded-xl border-2 transition-all text-left ${
+                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                                   startRandomizeQ
                                     ? 'border-cta bg-[#FFF0D9] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
@@ -1913,7 +1918,7 @@ export default function ChemTestApp() {
                               <button
                                 type="button"
                                 onClick={() => setStartRandomizeO(v => !v)}
-                                className={`p-3 rounded-xl border-2 transition-all text-left ${
+                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                                   startRandomizeO
                                     ? 'border-primary bg-[#FFE8DE] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
@@ -1927,13 +1932,19 @@ export default function ChemTestApp() {
                               </button>
                             </div>
 
-                            {/* Share — direct actions, same card style as the mode/randomize cards */}
-                            <div className="grid grid-cols-2 gap-2">
+                            {/* Share — radio-style scope selector: the chosen option
+                            lights up red (like the randomize cards) and the share
+                            fires for this test; only one option can be lit */}
+                            <div className="shrink-0 grid grid-cols-2 gap-2">
                               <button
                                 type="button"
-                                onClick={() => doShare(test, 'link')}
+                                onClick={() => { setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                 disabled={!!shareBusy}
-                                className="p-3 rounded-xl border-2 border-transparent bg-muted/50 hover:bg-muted transition-all text-left disabled:opacity-60"
+                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left disabled:opacity-60 ${
+                                  shareScopeByTest[test.id] === 'link'
+                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
+                                    : 'border-transparent bg-muted/50 hover:bg-muted'
+                                }`}
                               >
                                 <div className="flex items-center gap-2 mb-0.5">
                                   <Link2 className="w-4 h-4 text-cta shrink-0" />
@@ -1943,9 +1954,13 @@ export default function ChemTestApp() {
                               </button>
                               <button
                                 type="button"
-                                onClick={() => doShare(test, 'community')}
+                                onClick={() => { setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                 disabled={!!shareBusy}
-                                className="p-3 rounded-xl border-2 border-transparent bg-muted/50 hover:bg-muted transition-all text-left disabled:opacity-60"
+                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left disabled:opacity-60 ${
+                                  shareScopeByTest[test.id] === 'community'
+                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
+                                    : 'border-transparent bg-muted/50 hover:bg-muted'
+                                }`}
                               >
                                 <div className="flex items-center gap-2 mb-0.5">
                                   <Users className="w-4 h-4 text-primary shrink-0" />
@@ -1957,7 +1972,7 @@ export default function ChemTestApp() {
 
                             {/* Attached files — collapsed to one line; arrow expands/collapses */}
                             {files.length > 0 && (
-                              <div className="rounded-2xl border border-black bg-white overflow-hidden">
+                              <div className="shrink-0 rounded-2xl border border-black bg-white overflow-hidden">
                                 <button
                                   onClick={() => setStartFilesExpanded(v => !v)}
                                   className="w-full flex items-center gap-1.5 px-3 py-2.5 text-left hover:bg-muted/50 transition-colors"
@@ -1971,7 +1986,7 @@ export default function ChemTestApp() {
                                   )}
                                 </button>
                                 {startFilesExpanded && (
-                                  <div className="px-3 pb-3">
+                                  <div className="px-3 pb-3 max-h-44 sm:max-h-56 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                                     <AttachmentsList items={files} />
                                   </div>
                                 )}
@@ -2448,7 +2463,7 @@ export default function ChemTestApp() {
                   <button
                     type="button"
                     onClick={() => setStartRandomizeQ(v => !v)}
-                    className={`p-3 rounded-xl border-2 transition-all text-left ${
+                    className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                       startRandomizeQ
                         ? 'border-cta bg-[#FFF0D9] shadow-md'
                         : 'border-transparent bg-muted/50 hover:bg-muted'
@@ -2463,7 +2478,7 @@ export default function ChemTestApp() {
                   <button
                     type="button"
                     onClick={() => setStartRandomizeO(v => !v)}
-                    className={`p-3 rounded-xl border-2 transition-all text-left ${
+                    className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                       startRandomizeO
                         ? 'border-primary bg-[#FFE8DE] shadow-md'
                         : 'border-transparent bg-muted/50 hover:bg-muted'
