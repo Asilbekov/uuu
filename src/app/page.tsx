@@ -58,6 +58,7 @@ import {
   Hash,
   Palette,
   Languages,
+  Search,
   ClipboardList,
   Loader2,
   Link2,
@@ -314,6 +315,20 @@ export default function ChemTestApp() {
   // Per-card share scope selection: exactly one of the two share buttons on a
   // card can be highlighted at a time (radio behaviour, like the mode cards).
   const [shareScopeByTest, setShareScopeByTest] = useState<Record<string, 'link' | 'community'>>({});
+  // Dedicated attached-files card: when set, the feed shows a full files card
+  // INSTEAD of that test's card (same slide position — index math stays 1:1).
+  const [filesCardTestId, setFilesCardTestId] = useState<string | null>(null);
+  const filesCardTestIdRef = useRef<string | null>(null);
+  useEffect(() => { filesCardTestIdRef.current = filesCardTestId; }, [filesCardTestId]);
+  // Context-sensitive header search: on the files card it filters the file list,
+  // otherwise it searches tests server-side (/api/feed?q=) with a dropdown.
+  const [dashSearch, setDashSearch] = useState('');
+  const [dashSearchOpen, setDashSearchOpen] = useState(false);
+  const [dashSearchResults, setDashSearchResults] = useState<Test[] | null>(null);
+  const [dashSearching, setDashSearching] = useState(false);
+  // Take-test header search: filters the questions of the running test.
+  const [qSearchOpen, setQSearchOpen] = useState(false);
+  const [qSearch, setQSearch] = useState('');
   const feedCursorRef = useRef<string | null>(null);
   const feedHasMoreRef = useRef(false);
   const feedLoadingMoreRef = useRef(false);
@@ -661,6 +676,22 @@ export default function ChemTestApp() {
       cleanUrl();
     }).catch(() => { cleanUrl(); });
   });
+
+  // Header search (tests context): debounce 350ms, server-side /api/feed?q=
+  useEffect(() => {
+    if (effectivePage !== 'dashboard') return;
+    if (filesCardTestId) { setDashSearchResults(null); setDashSearching(false); return; }
+    const q = dashSearch.trim();
+    if (q.length < 2) { setDashSearchResults(null); setDashSearching(false); return; }
+    setDashSearching(true);
+    let alive = true;
+    const t = setTimeout(() => {
+      api.getFeed({ tab: 'foryou', q, limit: 8 })
+        .then((res: { items?: Test[] }) => { if (alive) { setDashSearchResults(res?.items || []); setDashSearching(false); } })
+        .catch(() => { if (alive) { setDashSearchResults([]); setDashSearching(false); } });
+    }, 350);
+    return () => { alive = false; clearTimeout(t); };
+  }, [dashSearch, filesCardTestId, effectivePage]);
 
   // Load tests when navigating to dashboard (skipped when boot already restored the data)
   useEffect(() => {
@@ -1278,6 +1309,8 @@ export default function ChemTestApp() {
     const idx = Math.round(el.scrollTop / el.clientHeight);
     const clamped = Math.min(tests.length - 1, Math.max(0, idx));
     setDashTestIdx(clamped);
+    // The files card belongs to its test: swiping to a different test closes it
+    if (filesCardTestIdRef.current && tests[clamped]?.id !== filesCardTestIdRef.current) setFilesCardTestId(null);
     // Recommendation signal (invisible): this card stayed on screen — count a view
     const shown = tests[clamped];
     if (shown && effectiveUser && !viewSignaledRef.current.has(shown.id)) {
@@ -1618,16 +1651,69 @@ export default function ChemTestApp() {
     }
   };
 
+  // Jump to a test from the search dropdown: scroll to it if already loaded,
+  // otherwise fetch the full test and pin it to the top (same as deep-link)
+  const jumpToTest = (id: string) => {
+    setFilesCardTestId(null);
+    setDashSearch(''); setDashSearchResults(null); setDashSearchOpen(false);
+    const idx = tests.findIndex(x => x.id === id);
+    const go = (i: number) => {
+      setDashTestIdx(i);
+      const el = dashFeedRef.current;
+      if (el && el.clientHeight > 0) el.scrollTo({ top: i * el.clientHeight, behavior: 'instant' as ScrollBehavior });
+    };
+    if (idx >= 0) { go(idx); return; }
+    api.getTest(id).then((full: Test) => {
+      seenIdsRef.current.add(full.id);
+      setTests(prev => (prev.some(x => x.id === full.id) ? prev : [full, ...prev]));
+      go(0);
+    }).catch(() => {});
+  };
+
+  // Open the dedicated attached-files card for a test (replaces its card)
+  const openFilesCard = (test: Test) => {
+    setFilesCardTestId(test.id);
+    setDashSearch(''); setDashSearchResults(null); setDashSearchOpen(false);
+    if (!dashFetchedRef.current.has(test.id)) {
+      dashFetchedRef.current.add(test.id);
+      api.getTest(test.id)
+        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [test.id]: full })))
+        .catch(() => { dashFetchedRef.current.delete(test.id); });
+    }
+  };
+  const closeFilesCard = () => {
+    setFilesCardTestId(null);
+    setDashSearch(''); setDashSearchResults(null);
+  };
+
   // DASHBOARD
   if (effectivePage === 'dashboard') {
     const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
     // Saved progress for the test on screen (cached read) — drives the Continue button
     const dashSaved = curDashTest ? readTestProgress(progressUserId, curDashTest.id) : null;
+    const filesCardShown = !!filesCardTestId && curDashTest?.id === filesCardTestId;
+    const searchQ = dashSearch.trim();
+    const dashSearchDropdown = filesCardTestId || searchQ.length < 2 ? null : (
+      <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
+        {dashSearching ? (
+          <p className="px-3 py-3 text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}</p>
+        ) : (dashSearchResults?.length || 0) === 0 ? (
+          <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
+        ) : (
+          (dashSearchResults || []).map(r => (
+            <button key={r.id} type="button" onClick={() => jumpToTest(r.id)} className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0">
+              <p className="text-sm font-medium truncate">{r.title}</p>
+              <p className="text-xs text-muted-foreground">{t('qCount', { n: r._count?.questions || r.questions?.length || 0 })}</p>
+            </button>
+          ))
+        )}
+      </div>
+    );
 
     return (
       <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between gap-2">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
               <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0">
                 <Plus className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('createTest')}</span>
@@ -1640,7 +1726,26 @@ export default function ChemTestApp() {
                 <Edit className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('editTest')}</span>
               </Button>
             </div>
+            <div className="hidden sm:block flex-1 min-w-0 max-w-sm mx-2 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+              <Input
+                value={dashSearch}
+                onChange={e => setDashSearch(e.target.value)}
+                placeholder={filesCardTestId ? t('searchFiles') : t('searchTests')}
+                className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
+              />
+              {dashSearchDropdown}
+            </div>
             <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="sm:hidden shrink-0"
+                onClick={() => { if (dashSearchOpen) { setDashSearch(''); setDashSearchResults(null); } setDashSearchOpen(!dashSearchOpen); }}
+                title={t('searchTests')}
+              >
+                <Search className="w-4 h-4" />
+              </Button>
               <LangButton lang={lang} onChange={cycleLang} className="border-black" />
               <div className="hidden md:block text-right min-w-0">
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
@@ -1675,6 +1780,19 @@ export default function ChemTestApp() {
                 )}
               </div>
             </div>
+            {dashSearchOpen && (
+              <div className="sm:hidden w-full relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Input
+                  autoFocus
+                  value={dashSearch}
+                  onChange={e => setDashSearch(e.target.value)}
+                  placeholder={filesCardTestId ? t('searchFiles') : t('searchTests')}
+                  className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
+                />
+                {dashSearchDropdown}
+              </div>
+            )}
           </div>
         </header>
 
@@ -1710,6 +1828,8 @@ export default function ChemTestApp() {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
                 const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
+                const showFilesCard = test.id === filesCardTestId;
+                const loadingFiles = showFilesCard && !dashFullTests[test.id] && !test.attachments?.length;
                 // Explicitly picked color wins; otherwise derive from the first tag / topic
                 const bgClass = test.coverColor ? '' : coverBgFor(test);
                 const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
@@ -1717,6 +1837,35 @@ export default function ChemTestApp() {
                   // overflow-hidden: the card always fits the screen — no scrolling
                   // inside a card, swipes only move between cards
                   <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
+                    {showFilesCard ? (
+                      /* Dedicated attached-files card: replaces the test card on
+                      its slide; the header search filters the list while open */
+                      <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
+                        <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
+                          <div style={bgStyle} className={`shrink-0 h-20 sm:h-24 flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
+                            <p className="text-xs font-semibold text-cta/70 line-clamp-1 max-w-full">{test.title}</p>
+                            <p className="text-lg sm:text-xl font-bold text-cta leading-snug">{t('attachedFiles', { n: files.length })}</p>
+                          </div>
+                          <div className="flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                            {loadingFiles ? (
+                              <p className="text-sm text-muted-foreground text-center py-6 flex items-center justify-center gap-2">
+                                <Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}
+                              </p>
+                            ) : files.length === 0 ? (
+                              <p className="text-sm text-muted-foreground text-center py-6">{t('filesEmpty')}</p>
+                            ) : (() => {
+                              const flc = dashSearch.trim().toLowerCase();
+                              const shownFiles = flc ? files.filter(f => (f.title || '').toLowerCase().includes(flc)) : files;
+                              if (shownFiles.length === 0) return <p className="text-sm text-muted-foreground text-center py-6">{t('noResults')}</p>;
+                              return <AttachmentsList items={shownFiles} />;
+                            })()}
+                          </div>
+                          <Button onClick={closeFilesCard} variant="outline" className="shrink-0 w-full rounded-full border-black">
+                            <ArrowLeft className="w-4 h-4 mr-2" /> {t('backToTest')}
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
                         {/* Cover header — title on the colored band (logo picker removed) */}
@@ -1882,36 +2031,24 @@ export default function ChemTestApp() {
                               </button>
                             </div>
 
-                            {/* Attached files — collapsed to one line; arrow expands/collapses */}
+                            {/* Attached files — opens the dedicated files card
+                            (replaces this test's card on its slide) */}
                             {files.length > 0 && (
-                              <div className="relative shrink-0 rounded-2xl border border-black bg-white">
-                                <button
-                                  onClick={() => setStartFilesExpanded(v => !v)}
-                                  className="w-full flex items-center gap-1.5 px-3 py-2.5 text-left hover:bg-muted/50 transition-colors"
-                                >
-                                  <Paperclip className="w-4 h-4 shrink-0" />
-                                  <span className="font-semibold text-sm">{t('attachedFiles', { n: files.length })}</span>
-                                  {startFilesExpanded ? (
-                                    <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
-                                  ) : (
-                                    <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
-                                  )}
-                                </button>
-                                {startFilesExpanded && (
-                                  /* Floating panel above the row: expanding must not
-                                  shift the card layout (no auto-scroll jump) — the
-                                  panel simply overlays the controls and scrolls
-                                  internally */
-                                  <div className="absolute bottom-full left-0 right-0 mb-2 z-30 rounded-2xl border border-black bg-white shadow-xl p-3 max-h-44 sm:max-h-56 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                                    <AttachmentsList items={files} />
-                                  </div>
-                                )}
-                              </div>
+                              <button
+                                type="button"
+                                onClick={() => openFilesCard(test)}
+                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors"
+                              >
+                                <Paperclip className="w-4 h-4 shrink-0" />
+                                <span className="font-semibold text-sm">{t('attachedFiles', { n: files.length })}</span>
+                                <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
+                              </button>
                             )}
                           </>
                         )}
                       </div>
                     </div>
+                    )}
                   </section>
                 );
               })}
@@ -1926,7 +2063,11 @@ export default function ChemTestApp() {
                 className="max-w-2xl mx-auto px-4 pt-3"
                 style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
               >
-                {editMode ? (
+                {filesCardShown ? (
+                  <Button onClick={closeFilesCard} className="w-full rounded-full bg-cta hover:bg-cta/90 text-white">
+                    <ArrowLeft className="w-4 h-4 mr-2" /> {t('backToTest')}
+                  </Button>
+                ) : editMode ? (
                   <Button
                     onClick={() => curDashTest && startEditTest(curDashTest)}
                     className="w-full rounded-full bg-cta hover:bg-cta/90 text-white"
@@ -2460,6 +2601,34 @@ export default function ChemTestApp() {
       setCurrentQuestionIdx(idx);
       if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); }
     };
+
+    // Question search (take-test header): filter this test's questions by text
+    // or option content; selecting a result jumps straight to that question.
+    const qlc = qSearch.trim().toLowerCase();
+    const qResults = qSearchOpen && qlc ? shuffledQuestions
+      .map((q: any, qIdx: number) => ({ q, qIdx }))
+      .filter(({ q }) =>
+        trText(q, lang).toLowerCase().includes(qlc) ||
+        ['A', 'B', 'C', 'D', 'E'].some(L => (trOption(q, L, lang) || '').toLowerCase().includes(qlc))
+      )
+      .slice(0, 12) : [];
+    const qSearchDropdown = !qSearchOpen || !qlc ? null : (
+      <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
+        {qResults.length === 0 ? (
+          <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
+        ) : qResults.map(({ q, qIdx }) => (
+          <button
+            key={q.id || qIdx}
+            type="button"
+            onClick={() => { goToQuestion(qIdx); setQSearchOpen(false); setQSearch(''); }}
+            className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0 flex items-start gap-2"
+          >
+            <Badge variant="secondary" className="rounded-full shrink-0">{qIdx + 1}</Badge>
+            <span className="text-sm line-clamp-2"><MathText text={trText(q, lang)} /></span>
+          </button>
+        ))}
+      </div>
+    );
     const jumpToQuestion = (raw: string) => {
       const digits = (raw || '').replace(/[^0-9]/g, '');
       const n = digits ? parseInt(digits, 10) : NaN;
@@ -2838,6 +3007,15 @@ export default function ChemTestApp() {
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <span className="text-sm text-muted-foreground hidden sm:inline">{t('xOfYAnswered', { n: answeredCount, m: shuffledQuestions.length })}</span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => { if (qSearchOpen) setQSearch(''); setQSearchOpen(!qSearchOpen); }}
+                  className="shrink-0"
+                  title={t('searchQuestions')}
+                >
+                  <Search className="w-4 h-4" />
+                </Button>
                 {(currentTest?.attachments?.length || 0) > 0 && (
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
@@ -2883,6 +3061,19 @@ export default function ChemTestApp() {
                 </>
               </div>
             </div>
+            {qSearchOpen && (
+              <div className="relative mb-2">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Input
+                  autoFocus
+                  value={qSearch}
+                  onChange={e => setQSearch(e.target.value)}
+                  placeholder={t('searchQuestions')}
+                  className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
+                />
+                {qSearchDropdown}
+              </div>
+            )}
             <Progress value={progressPct} className="h-2" />
           </div>
         </header>
