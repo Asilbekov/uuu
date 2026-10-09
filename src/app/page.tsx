@@ -2059,7 +2059,7 @@ export default function ChemTestApp() {
           <>
             {/* LIBRARY / SHELF views — endless shelves, 3 per screen, scrolling down */}
             {dashView === 'library' || dashView === 'shelf' ? (
-              <div ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div key="feed-grid" ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="max-w-5xl mx-auto h-full">
                   {gridRows.map((row, ri) => (
                     <div
@@ -2140,6 +2140,7 @@ export default function ChemTestApp() {
               test's files, then continues into the next recommended test's files.
               Header and bottom bar stay untouched; the paperclip button toggles back. */
               <div
+                key="feed-files"
                 ref={dashFeedRef}
                 onScroll={onDashScroll}
                 onTouchStart={onDashTouchStart}
@@ -2191,6 +2192,7 @@ export default function ChemTestApp() {
             ) : (
             /* TikTok-style vertical feed — swipe up/down between tests */
             <div
+              key="feed-tiktok"
               ref={dashFeedRef}
               onScroll={onDashScroll}
               onTouchStart={onDashTouchStart}
