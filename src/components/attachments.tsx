@@ -51,8 +51,11 @@ export function typeIcon(type: AttachmentItem['type'], className = 'w-4 h-4') {
   }
 }
 
-// Upload limit: keeps the JSON payload under Vercel's request size cap
-export const MAX_UPLOAD_BYTES = 3.5 * 1024 * 1024;
+// Upload limit: files are stored in the Telegram channel via
+// /api/attachments/upload — Bot API accepts up to 50 MB per document. When
+// the Telegram bot is NOT connected the server falls back to storing small
+// files (≤3.5 MB) as data: URLs in the DB and refuses bigger ones.
+export const MAX_UPLOAD_BYTES = 50 * 1024 * 1024;
 
 export function formatSize(bytes?: number | null) {
   if (!bytes && bytes !== 0) return '';
@@ -486,21 +489,40 @@ export function AttachmentsEditor({
       });
       return;
     }
-    const dataUrl = await new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
     const guessed = file.type.startsWith('audio/') ? 'audio'
       : file.type.startsWith('video/') ? 'video'
       : file.type === 'application/pdf' ? 'pdf'
       : file.type.startsWith('image/') ? 'image' : 'link';
     const blobUrl = URL.createObjectURL(file);
+    // Upload to the Telegram channel storage (/api/attachments/upload). The
+    // server returns a lightweight `tg:<file_id>` reference — the bytes live
+    // ONLY in the owner's Telegram channel. If the bot is not connected yet,
+    // the server falls back to a data: URL (in-DB) for small files.
+    let finalUrl = '';
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/attachments/upload', { method: 'POST', body: fd });
+      const body = await res.json().catch(() => null);
+      if (res.ok && body?.ok && body?.url) {
+        finalUrl = body.url as string;
+      } else {
+        const desc = body?.error === 'FILE_STORAGE_UNAVAILABLE'
+          ? 'Telegram storage is not connected yet and the file is too large for the built-in fallback. Connect the bot (TELEGRAM_BOT_TOKEN / TELEGRAM_CHANNEL_ID) or pick a smaller file.'
+          : (body?.detail || body?.error || `Upload failed (${res.status})`);
+        toast({ title: 'Upload failed', description: desc, variant: 'destructive' });
+        URL.revokeObjectURL(blobUrl);
+        return;
+      }
+    } catch {
+      toast({ title: 'Upload failed', description: 'Network error while uploading the file', variant: 'destructive' });
+      URL.revokeObjectURL(blobUrl);
+      return;
+    }
     onChange([...items, {
       title: file.name.replace(/\.[^.]+$/, ''),
       type: guessed as AttachmentItem['type'],
-      url: dataUrl,
+      url: finalUrl,
       size: file.size,
       blobUrl,
     }]);

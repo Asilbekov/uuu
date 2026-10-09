@@ -66,6 +66,9 @@ import {
   Library,
   Rows3,
   ExternalLink,
+  Compass,
+  BookmarkPlus,
+  BookmarkCheck,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
@@ -88,6 +91,40 @@ function LangButton({ lang, onChange, className = '' }: { lang: Lang; onChange: 
       <Languages className="w-4 h-4" />
       {LANG_LABEL[lang]}
     </Button>
+  );
+}
+
+// Card header for the DISCOVER mode: author avatar + name on the left and a
+// bookmark toggle on the right. Shown ONLY in Discover (tests of other
+// authors); the personal library keeps the cards clean.
+function CreatorStrip({ name, bookmarked, onToggleBookmark, addLabel, removeLabel }: {
+  name: string;
+  bookmarked: boolean;
+  onToggleBookmark: () => void;
+  addLabel: string;
+  removeLabel: string;
+}) {
+  const initial = (name || '?').trim().slice(0, 1).toUpperCase() || '?';
+  return (
+    <div className="shrink-0 flex items-center gap-1.5 min-w-0">
+      <span className="w-5 h-5 rounded-full bg-cta text-white flex items-center justify-center text-[9px] font-bold shrink-0">
+        {initial}
+      </span>
+      <span className="text-[11px] font-semibold text-muted-foreground truncate min-w-0" title={name}>{name}</span>
+      <button
+        type="button"
+        onClick={e => { e.stopPropagation(); onToggleBookmark(); }}
+        title={bookmarked ? removeLabel : addLabel}
+        aria-label={bookmarked ? removeLabel : addLabel}
+        className={`ml-auto shrink-0 w-6 h-6 rounded-full flex items-center justify-center border transition-colors ${
+          bookmarked
+            ? 'bg-primary text-white border-primary hover:bg-primary/90'
+            : 'bg-white border-black/20 text-black hover:border-black/50'
+        }`}
+      >
+        {bookmarked ? <BookmarkCheck className="w-3.5 h-3.5" /> : <BookmarkPlus className="w-3.5 h-3.5" />}
+      </button>
+    </div>
   );
 }
 
@@ -314,8 +351,15 @@ export default function ChemTestApp() {
   // / difficult tests), keyset pagination and silent infinite append, so the
   // list stays fast at any test volume and surfaces what the user cares about.
   const [feedHasMore, setFeedHasMore] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
   const [shareBusy, setShareBusy] = useState(false);
+  // Dashboard CONTENT MODE — toggled by the account button (like the language
+  // button cycles): personal library (own tests + bookmarks) ↔ discover (public
+  // tests of other authors). Session-only: reload returns to the library.
+  const [discoverMode, setDiscoverMode] = useState(false);
+  // Mirrors discoverMode for callbacks with stale closures (feed loaders)
+  const discoverModeRef = useRef(false);
+  // Test ids saved into my personal library via the bookmark button
+  const [bookmarkIds, setBookmarkIds] = useState<Set<string>>(new Set());
   // Per-card share scope selection: exactly one of the two share buttons on a
   // card can be highlighted at a time (radio behaviour, like the mode cards).
   const [shareScopeByTest, setShareScopeByTest] = useState<Record<string, 'link' | 'community'>>({});
@@ -619,12 +663,19 @@ export default function ChemTestApp() {
 
   const FEED_PAGE_LIMIT = 12;
 
-  // First page of the personalized feed (replaces the old full /api/tests dump)
+  // First page of the personalized feed (replaces the old full /api/tests dump).
+  // The scope follows the content mode: personal library (own + bookmarks) or
+  // discover (public tests of other authors). Bookmarks are refreshed in the
+  // same breath so the mode switch sees a fresh set.
   const loadFeed = useCallback(async (): Promise<void> => {
     const reqId = ++feedReqIdRef.current;
     try {
-      const res = await api.getFeed({ tab: 'foryou', cursor: null, limit: FEED_PAGE_LIMIT });
+      const [res, bm] = await Promise.all([
+        api.getFeed({ tab: 'foryou', cursor: null, limit: FEED_PAGE_LIMIT, scope: discoverModeRef.current ? 'discover' : 'mine' }),
+        api.getBookmarks().catch(() => null),
+      ]);
       if (reqId !== feedReqIdRef.current) return; // a newer request superseded this one
+      if (bm?.ids) setBookmarkIds(new Set(bm.ids));
       const items: Test[] = res?.items || [];
       seenIdsRef.current = new Set(items.map(i => i.id));
       setTests(items);
@@ -645,7 +696,7 @@ export default function ChemTestApp() {
     if (feedLoadingMoreRef.current || !feedHasMoreRef.current || !feedCursorRef.current) return;
     feedLoadingMoreRef.current = true;
     try {
-      const res = await api.getFeed({ tab: 'foryou', cursor: feedCursorRef.current, limit: FEED_PAGE_LIMIT });
+      const res = await api.getFeed({ tab: 'foryou', cursor: feedCursorRef.current, limit: FEED_PAGE_LIMIT, scope: discoverModeRef.current ? 'discover' : 'mine' });
       const fresh: Test[] = (res?.items || []).filter(i => !seenIdsRef.current.has(i.id));
       fresh.forEach(i => seenIdsRef.current.add(i.id));
       if (fresh.length) setTests(prev => [...prev, ...fresh]);
@@ -755,7 +806,8 @@ export default function ChemTestApp() {
     window.addEventListener('resize', sync);
     return () => window.removeEventListener('resize', sync);
   }, []);
-  const [viewMenuOpen, setViewMenuOpen] = useState(false);
+  // Dashboard CONTENT MODE lives with the other dashboard state above; the
+  // bookmark ids are loaded together with the feed (see loadFeed).
   const gridScrollTopRef = useRef(0);
   const libReturnViewRef = useRef<'library' | 'shelf'>('library');
 
@@ -922,15 +974,10 @@ export default function ChemTestApp() {
     }
     setLoading(false);
   };
+  // NOTE: the header account button no longer hosts a logout dropdown — it
+  // toggles the dashboard content modes now (see toggleDiscoverMode). Logout
+  // happens through clearing the session (browser data).
 
-  const handleLogout = () => {
-    setUser(null);
-    setUserState(null);
-    setPage('auth');
-    setEmail('');
-    setPassword('');
-    setName('');
-  };
 
 
 
@@ -994,6 +1041,23 @@ export default function ChemTestApp() {
     .slice(0, 8);
 
   const startEditTest = async (test: Test) => {
+    // Somebody else's test is NEVER edited in place: "Edit" makes a private
+    // copy with a unique name in the user's own library and opens THAT copy.
+    if (effectiveUser && test.creatorId && test.creatorId !== effectiveUser.id) {
+      setLoading(true);
+      try {
+        toast({ title: t('copyCreating') });
+        const copy = await api.copyTest(test.id);
+        await loadFeedRef.current(); // the copy joins the personal library list
+        toast({ title: t('copyCreated') });
+        setLoading(false);
+        return startEditTest(copy as Test); // now it's mine — normal edit path
+      } catch (e: any) {
+        setLoading(false);
+        toast({ title: t('error'), description: e.message, variant: 'destructive' });
+        return;
+      }
+    }
     setLoading(true);
     setEditorFilesExpanded(false);
     setEditorInfoExpanded(false);
@@ -1042,6 +1106,51 @@ export default function ChemTestApp() {
   // and open the edit bottom sheet without leaving the taking screen.
   const startEditTestInTake = () => {
     if (!currentTest) return;
+    // A test owned by somebody else cannot be edited in place — make a copy
+    // into my library and keep editing THAT copy (the sheet opens on it).
+    if (effectiveUser && (currentTest as any).creatorId && (currentTest as any).creatorId !== effectiveUser.id) {
+      setLoading(true);
+      api.copyTest((currentTest as any).id)
+        .then(async (copy: any) => {
+          toast({ title: t('copyCreated') });
+          loadFeedRef.current().catch(() => {});
+          // Fill the editor form from the copy — the sheet opens on it
+          setTestTitle(copy.title);
+          setTestDescription(copy.description);
+          setTestTags(copy.tags || []);
+          setTestCoverIcon(copy.coverIcon || '');
+          setTestCoverColor(copy.coverColor || '');
+          setRandomizeQ(!!copy.randomizeQuestions);
+          setRandomizeO(!!copy.randomizeOptions);
+          setTestIsPublic(copy.isPublic !== false);
+          setQuestions((copy.questions || []).map((q: any) => ({
+            text: q.text,
+            optionA: q.optionA,
+            optionB: q.optionB,
+            optionC: q.optionC,
+            optionD: q.optionD,
+            optionE: q.optionE,
+            correctAnswer: q.correctAnswer,
+            explanation: q.explanation ?? null,
+            translations: q.translations ?? null,
+            id: q.id,
+          })));
+          setFormAttachments((copy.attachments || []).map((a: any) => ({
+            id: a.id,
+            title: a.title,
+            type: a.type,
+            url: a.url,
+            size: a.size ?? null,
+            orderNum: a.orderNum,
+          })));
+          setCurrentTest(copy);
+          setEditingTestId(copy.id);
+          setEditOpen(true);
+        })
+        .catch((e: any) => toast({ title: t('error'), description: e.message, variant: 'destructive' }))
+        .finally(() => setLoading(false));
+      return;
+    }
     setEditorFilesExpanded(false);
     setEditorInfoExpanded(false);
     setEditorCoverExpanded(false);
@@ -1209,7 +1318,13 @@ export default function ChemTestApp() {
       hasLoadedRef.current = false;
       await loadTests();
     } catch (e: any) {
-      toast({ title: 'Error', description: e.message, variant: 'destructive' });
+      // Publishing rule: a public test must have a title that no other public
+      // test uses — the server rejects the save with PUBLISH_NAME_TAKEN.
+      if (e?.message === 'PUBLISH_NAME_TAKEN') {
+        toast({ title: t('error'), description: t('publishNameTaken'), variant: 'destructive' });
+      } else {
+        toast({ title: 'Error', description: e.message, variant: 'destructive' });
+      }
     }
     setLoading(false);
   };
@@ -1788,7 +1903,13 @@ export default function ChemTestApp() {
             setTests(prev => prev.map(x => (x.id === test.id ? { ...x, isPublic: r.isPublic } : x)));
             toast({ title: r.isPublic ? t('shareMadePublic') : t('shareMadeLink') });
           }
-        } catch { /* visibility flip is best-effort */ }
+        } catch (e: any) {
+          // Publishing rule: the community flip requires a unique public title
+          if (e?.message === 'PUBLISH_NAME_TAKEN') {
+            toast({ title: t('error'), description: t('publishNameTaken'), variant: 'destructive' });
+          }
+          /* other visibility-flip failures stay best-effort */
+        }
       }
       if (typeof navigator !== 'undefined' && typeof (navigator as any).share === 'function') {
         await (navigator as any).share({ title: test?.title || 'UUU', text, url });
@@ -1863,7 +1984,6 @@ export default function ChemTestApp() {
   // View switcher: TikTok swipe feed / Library shelves (3 cards per shelf) /
   // Shelf view (1 card per shelf). Leaving the feed resets files mode.
   const switchDashView = (v: 'tiktok1' | 'library' | 'shelf') => {
-    setViewMenuOpen(false);
     if (v === dashView) return;
     if (v === 'tiktok1') {
       if (filesFeedMode) { pendingFilesJumpRef.current = null; setFilesFeedMode(false); setDashSlideIdx(0); }
@@ -1875,6 +1995,56 @@ export default function ChemTestApp() {
     // Grid files view never survives a view switch
     setGridFilesMode(false); setGridFilesTestId(null);
   };
+  // View button cycles the three layouts (like the language button cycles
+  // EN → RU → UZ): TikTok feed → Library → Shelf → TikTok feed …
+  const cycleDashView = () => {
+    const order: Array<'tiktok1' | 'library' | 'shelf'> = ['tiktok1', 'library', 'shelf'];
+    const cur = dashView === 'tiktok2' ? 'tiktok1' : dashView;
+    const next = order[(order.indexOf(cur) + 1) % order.length];
+    switchDashView(next);
+  };
+
+  // Account button: one tap switches the dashboard between the two content
+  // modes — personal library (own tests + bookmarks) and discover (public
+  // tests from other authors). The badge icon on the avatar shows the mode.
+  const toggleDiscoverMode = () => {
+    const next = !discoverModeRef.current;
+    discoverModeRef.current = next; // update BEFORE the async reload picks its scope
+    setDiscoverMode(next);
+    // Reset feed positions: the new mode starts from its own top card
+    setDashTestIdx(0); setDashSlideIdx(0);
+    setFilesFeedMode(false); pendingFilesJumpRef.current = null;
+    setGridFilesMode(false); setGridFilesTestId(null);
+    setShareScopeByTest({});
+    loadFeedRef.current().catch(() => {});
+  };
+
+  // Bookmark toggle (the bookmark button lives on the cards in Discover mode):
+  // bookmarked tests join the user's personal library next to their own tests.
+  const toggleBookmark = async (test: Test) => {
+    const has = bookmarkIds.has(test.id);
+    // Optimistic flip — revert on failure
+    setBookmarkIds(prev => {
+      const n = new Set(prev);
+      if (has) n.delete(test.id); else n.add(test.id);
+      return n;
+    });
+    try {
+      if (has) await api.removeBookmark(test.id); else await api.addBookmark(test.id);
+      toast({ title: has ? t('bookmarkRemoved') : t('bookmarkAdded') });
+      // Refresh the list quietly: a removed bookmark drops out of the library
+      // view, a new one will be visible when switching back to the library.
+      loadFeedRef.current().catch(() => {});
+    } catch (e: any) {
+      setBookmarkIds(prev => {
+        const n = new Set(prev);
+        if (has) n.add(test.id); else n.delete(test.id);
+        return n;
+      });
+      toast({ title: t('error'), description: e.message, variant: 'destructive' });
+    }
+  };
+
   // A card in library/shelf opens the swipe feed at that test (tiktok2 = feed
   // with a back button that returns to the grid at its scroll position)
   const openFromLibrary = (idx: number) => {
@@ -2062,75 +2232,47 @@ export default function ChemTestApp() {
               >
                 <Search className="w-4 h-4" />
               </Button>
-              <div className="relative shrink-0">
-                <Button
-                  variant="outline"
-                  onClick={() => setViewMenuOpen(v => !v)}
-                  className={`rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 ${viewMenuOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
-                  title={t('viewMode')}
-                  aria-label={t('viewMode')}
-                >
-                  <LayoutGrid className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('viewMode')}</span>
-                </Button>
-                {viewMenuOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setViewMenuOpen(false)} />
-                    <div className="absolute right-0 top-full mt-2 w-52 bg-white rounded-2xl shadow-xl border border-black/10 p-1.5 z-50">
-                      {([
-                        { key: 'tiktok1' as const, label: t('viewTikTok'), icon: <Play className="w-4 h-4" /> },
-                        { key: 'library' as const, label: t('viewLibrary'), icon: <Library className="w-4 h-4" /> },
-                        { key: 'shelf' as const, label: t('viewShelf'), icon: <Rows3 className="w-4 h-4" /> },
-                      ]).map(o => {
-                        const activeView = dashView === 'tiktok2' ? 'tiktok1' : dashView;
-                        return (
-                        <button
-                          key={o.key}
-                          type="button"
-                          onClick={() => switchDashView(o.key)}
-                          className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-left hover:bg-muted/60 transition-colors ${activeView === o.key ? 'bg-primary/10 font-semibold' : ''}`}
-                        >
-                          {o.icon} {o.label}
-                          {activeView === o.key && <CheckCircle2 className="w-4 h-4 ml-auto text-primary" />}
-                        </button>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
-              </div>
+              {/* View button — cycles the three layouts with one tap (like the
+              language button): TikTok feed → Library → Shelf → … The icon and
+              the label always show the CURRENT view. */}
+              <Button
+                variant="outline"
+                onClick={cycleDashView}
+                className="rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4"
+                title={t('viewMode')}
+                aria-label={t('viewMode')}
+              >
+                {dashView === 'library'
+                  ? <LayoutGrid className="w-4 h-4 sm:mr-2" />
+                  : dashView === 'shelf'
+                    ? <Rows3 className="w-4 h-4 sm:mr-2" />
+                    : <Play className="w-4 h-4 sm:mr-2" />}
+                <span className="hidden sm:inline">
+                  {dashView === 'library' ? t('viewLibrary') : dashView === 'shelf' ? t('viewShelf') : t('viewTikTok')}
+                </span>
+              </Button>
               <LangButton lang={lang} onChange={cycleLang} className="border-black px-2 sm:px-3" />
               <div className="hidden md:block text-right min-w-0">
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground truncate max-w-[180px]">{effectiveUser?.email}</p>
               </div>
-              <div className="relative shrink-0">
-                <button
-                  onClick={() => setProfileOpen(v => !v)}
-                  title={effectiveUser?.name || 'Profile'}
-                  className="w-9 h-9 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform"
-                >
-                  {userInitials}
-                </button>
-                {profileOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setProfileOpen(false)} />
-                    <div className="absolute right-0 top-full mt-2 w-60 bg-white rounded-2xl shadow-xl border border-black/10 p-4 z-50">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shrink-0">
-                          {userInitials}
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-semibold truncate">{effectiveUser?.name}</p>
-                          <p className="text-xs text-muted-foreground truncate">{effectiveUser?.email}</p>
-                        </div>
-                      </div>
-                      <Button variant="outline" onClick={handleLogout} className="w-full mt-3 rounded-full border-black">
-                        <LogIn className="w-4 h-4 mr-2" /> {t('logout')}
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </div>
+              {/* Account button — one tap switches the content mode between the
+              personal library (Library badge) and Discover (Compass badge).
+              The avatar keeps the user's initials on top of the badge. */}
+              <button
+                onClick={toggleDiscoverMode}
+                disabled={loading}
+                title={discoverMode ? `${t('modeDiscover')} · ${t('modeDiscoverHint')}` : `${t('modeMine')} · ${t('modeMineHint')}`}
+                aria-label={discoverMode ? t('modeDiscover') : t('modeMine')}
+                className="relative w-9 h-9 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform shrink-0 disabled:opacity-70"
+              >
+                {userInitials}
+                <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-white border border-black/15 flex items-center justify-center">
+                  {discoverMode
+                    ? <Compass className="w-2.5 h-2.5 text-cta" aria-hidden="true" />
+                    : <Library className="w-2.5 h-2.5 text-cta" aria-hidden="true" />}
+                </span>
+              </button>
             </div>
           </div>
         </header>
@@ -2141,11 +2283,13 @@ export default function ChemTestApp() {
               <Card className="rounded-4xl border-dashed border-black/30 bg-white">
                 <CardContent className="py-12 text-center">
                   <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">{t('noTestsYet')}</h3>
-                  <p className="text-muted-foreground mb-4">{t('createFirst')}</p>
-                  <div className="flex gap-3 justify-center">
-                    <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
-                  </div>
+                  <h3 className="text-lg font-medium mb-2">{discoverMode ? t('discoverEmptyTitle') : t('noTestsYet')}</h3>
+                  <p className="text-muted-foreground mb-4">{discoverMode ? t('discoverEmptyDesc') : t('createFirst')}</p>
+                  {!discoverMode && (
+                    <div className="flex gap-3 justify-center">
+                      <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
@@ -2265,6 +2409,17 @@ export default function ChemTestApp() {
                               onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
                               className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
+                              {/* Discover mode: author header + bookmark. The personal
+                              library keeps the card clean (you know it's yours). */}
+                              {discoverMode && (
+                                <CreatorStrip
+                                  name={(test as any).creator?.name || ''}
+                                  bookmarked={bookmarkIds.has(test.id)}
+                                  onToggleBookmark={() => toggleBookmark(test)}
+                                  addLabel={t('bookmarkAdd')}
+                                  removeLabel={t('bookmarkRemove')}
+                                />
+                              )}
                               <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
                               {/* Full-name action buttons, one per line. Start resumes
                               saved progress; Restart always begins over; the paperclip
@@ -2293,6 +2448,9 @@ export default function ChemTestApp() {
                                     <Paperclip className="size-3 shrink-0" /> <span className="truncate [@media(max-width:399px)]:text-[9px]">{t('attachedFiles', { n: fcnt })}</span>
                                   </Button>
                                 )}
+                                {/* Share buttons live in the personal library only —
+                                in Discover these tests belong to other authors */}
+                                {!discoverMode && (
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                   title={t('shareOptLink')} aria-label={t('shareOptLink')}
@@ -2300,6 +2458,8 @@ export default function ChemTestApp() {
                                 >
                                   <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                 </Button>
+                                )}
+                                {!discoverMode && (
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                   title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
@@ -2307,6 +2467,7 @@ export default function ChemTestApp() {
                                 >
                                   <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
                                 </Button>
+                                )}
                                 <Button size="sm" variant="outline"
                                   onClick={e => { e.stopPropagation(); startEditTest(test); }}
                                   title={t('editTest')} aria-label={t('editTest')}
@@ -2328,6 +2489,16 @@ export default function ChemTestApp() {
                                 <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
                               </div>
                               <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
+                                {/* Discover mode: author header + bookmark on the shelf card too */}
+                                {discoverMode && (
+                                  <CreatorStrip
+                                    name={(test as any).creator?.name || ''}
+                                    bookmarked={bookmarkIds.has(test.id)}
+                                    onToggleBookmark={() => toggleBookmark(test)}
+                                    addLabel={t('bookmarkAdd')}
+                                    removeLabel={t('bookmarkRemove')}
+                                  />
+                                )}
                                 {/* Title lives on the spine only — no duplicate text in
                                 the content area */}
                                 <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
@@ -2358,6 +2529,8 @@ export default function ChemTestApp() {
                                       <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
                                     </Button>
                                   )}
+                                  {/* Share buttons live in the personal library only */}
+                                  {!discoverMode && (
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
                                     onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                     title={t('shareOptLink')} aria-label={t('shareOptLink')}
@@ -2365,6 +2538,8 @@ export default function ChemTestApp() {
                                   >
                                     <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                   </Button>
+                                  )}
+                                  {!discoverMode && (
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
                                     onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                     title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
@@ -2372,6 +2547,7 @@ export default function ChemTestApp() {
                                   >
                                     <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
                                   </Button>
+                                  )}
                                   <Button size="sm" variant="outline"
                                     onClick={e => { e.stopPropagation(); startEditTest(test); }}
                                     title={t('editTest')} aria-label={t('editTest')}
@@ -2476,6 +2652,17 @@ export default function ChemTestApp() {
                   <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
+                        {/* Discover mode: author header with the bookmark toggle,
+                        right above the cover. Personal library stays clean. */}
+                        {discoverMode && (
+                          <CreatorStrip
+                            name={(test as any).creator?.name || ''}
+                            bookmarked={bookmarkIds.has(test.id)}
+                            onToggleBookmark={() => toggleBookmark(test)}
+                            addLabel={t('bookmarkAdd')}
+                            removeLabel={t('bookmarkRemove')}
+                          />
+                        )}
                         {/* Cover header — title on the colored band (logo picker removed) */}
                         <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden">
                           <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
@@ -2603,7 +2790,10 @@ export default function ChemTestApp() {
 
                             {/* Share — radio-style scope selector: the chosen option
                             lights up red (like the randomize cards) and the share
-                            fires for this test; only one option can be lit */}
+                            fires for this test; only one option can be lit.
+                            Discover mode hides it: other authors' tests are only
+                            browsed here, not published. */}
+                            {!discoverMode && (
                             <div className="shrink-0 grid grid-cols-2 gap-2">
                               <button
                                 type="button"
@@ -2638,6 +2828,7 @@ export default function ChemTestApp() {
                                 <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptCommunitySub')}</p>
                               </button>
                             </div>
+                            )}
 
                             {/* Attached files — flips the feed to the FILES mode:
                             one attachment per slide, flowing into the next test's
@@ -3730,45 +3921,23 @@ export default function ChemTestApp() {
                 </div>
               )}
               <div className="flex items-center gap-2 shrink-0 ml-auto">
-                {/* View switcher (present on every page header): pick the
-                dashboard feed layout, apply it and return home */}
-                <div className="relative shrink-0">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setViewMenuOpen(v => !v)}
-                    className={`shrink-0 w-9 p-0 ${viewMenuOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
-                    title={t('viewMode')}
-                    aria-label={t('viewMode')}
-                  >
-                    <LayoutGrid className="w-4 h-4" />
-                  </Button>
-                  {viewMenuOpen && (
-                    <>
-                      <div className="fixed inset-0 z-40" onClick={() => setViewMenuOpen(false)} />
-                      <div className="absolute right-0 top-full mt-2 w-52 bg-white rounded-2xl shadow-xl border border-black/10 p-1.5 z-50">
-                        {([
-                          { key: 'tiktok1' as const, label: t('viewTikTok'), icon: <Play className="w-4 h-4" /> },
-                          { key: 'library' as const, label: t('viewLibrary'), icon: <Library className="w-4 h-4" /> },
-                          { key: 'shelf' as const, label: t('viewShelf'), icon: <Rows3 className="w-4 h-4" /> },
-                        ]).map(o => {
-                          const activeView = dashView === 'tiktok2' ? 'tiktok1' : dashView;
-                          return (
-                          <button
-                            key={o.key}
-                            type="button"
-                            onClick={() => { switchDashView(o.key); goHome(); }}
-                            className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-left hover:bg-muted/60 transition-colors ${activeView === o.key ? 'bg-primary/10 font-semibold' : ''}`}
-                          >
-                            {o.icon} {o.label}
-                            {activeView === o.key && <CheckCircle2 className="w-4 h-4 ml-auto text-primary" />}
-                          </button>
-                          );
-                        })}
-                      </div>
-                    </>
-                  )}
-                </div>
+                {/* View switcher (present on every page header): one tap advances
+                to the NEXT dashboard layout (TikTok feed → Library → Shelf → …)
+                and returns home. The icon shows the current view. */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => { cycleDashView(); goHome(); }}
+                  className="shrink-0 w-9 p-0"
+                  title={t('viewMode')}
+                  aria-label={t('viewMode')}
+                >
+                  {dashView === 'library'
+                    ? <LayoutGrid className="w-4 h-4" />
+                    : dashView === 'shelf'
+                      ? <Rows3 className="w-4 h-4" />
+                      : <Play className="w-4 h-4" />}
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"

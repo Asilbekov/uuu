@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { findPublicTitleClash } from '@/lib/publish';
 import { NextRequest, NextResponse } from 'next/server';
 
 /**
@@ -37,6 +38,13 @@ export async function POST(
 
     if (test.creatorId === userId) {
       if (scope === 'community' && !test.isPublic) {
+        // Publishing rule: a test can go PUBLIC only under a title that no
+        // other public test in the community library uses.
+        const full = await db.test.findUnique({ where: { id }, select: { title: true } });
+        const clash = await findPublicTitleClash(full?.title || '', id);
+        if (clash) {
+          return NextResponse.json({ error: 'PUBLISH_NAME_TAKEN' }, { status: 409 });
+        }
         await db.test.update({ where: { id }, data: { isPublic: true } });
         return NextResponse.json({ ok: true, isPublic: true });
       }

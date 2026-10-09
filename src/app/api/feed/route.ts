@@ -56,16 +56,37 @@ export async function GET(request: NextRequest) {
 
     const tabRaw = searchParams.get('tab') || 'foryou';
     const tab = ['foryou', 'trending', 'new'].includes(tabRaw) ? tabRaw : 'foryou';
+    // Content scope (dashboard modes):
+    //   all      — public tests + the user's own (default, legacy behaviour)
+    //   mine     — the user's OWN tests + the tests bookmarked into their library
+    //   discover — public tests of OTHER authors (search for new knowledge)
+    const scopeRaw = searchParams.get('scope') || 'all';
+    const scope = ['mine', 'discover'].includes(scopeRaw) ? scopeRaw : 'all';
+    // Bookmarks for the "mine" scope (empty list → only the user's own tests)
+    const bookmarkIds = scope === 'mine' && userId
+      ? (await db.bookmark.findMany({ where: { userId }, select: { testId: true } })).map(r => r.testId)
+      : [];
     const limit = Math.min(MAX_LIMIT, Math.max(2, parseInt(searchParams.get('limit') || '', 10) || PAGE_LIMIT));
     const tag = (searchParams.get('tag') || '').trim().slice(0, 30) || null;
     const q = (searchParams.get('q') || '').trim().slice(0, 80) || null;
     const creatorId = (searchParams.get('creatorId') || '').trim() || null;
     const cursor = parseCursor(searchParams.get('cursor'));
 
-    // ---- visibility: public tests + the user's own (private) ones ----
-    const visibility = userId
-      ? { OR: [{ isPublic: true }, { creatorId: userId }] }
-      : { isPublic: true };
+    // ---- visibility: public tests + the user's own (legacy "all" scope) ----
+    let visibility: any;
+    if (scope === 'mine') {
+      visibility = userId
+        ? { OR: [{ creatorId: userId }, ...(bookmarkIds.length ? [{ id: { in: bookmarkIds } }] : [])] }
+        : { id: { in: [] } };
+    } else if (scope === 'discover') {
+      visibility = userId
+        ? { AND: [{ isPublic: true }, { creatorId: { not: userId } }] }
+        : { isPublic: true };
+    } else {
+      visibility = userId
+        ? { OR: [{ isPublic: true }, { creatorId: userId }] }
+        : { isPublic: true };
+    }
 
     // ---- shared filters (tag / search / author) ----
     const filters: any[] = [visibility];
@@ -189,8 +210,21 @@ export async function GET(request: NextRequest) {
       const offset = cursor?.mode === 'offset' ? cursor.offset : 0;
       if (offset > 2000) return NextResponse.json({ items: [], nextCursor: null, tab });
 
-      const conds: string[] = ['t."isPublic" = TRUE'];
+      const conds: string[] = [];
       const params: any[] = [];
+      if (scope === 'mine') {
+        // Own tests + bookmarked ones (regardless of isPublic — a bookmark
+        // stays readable in the library even if the author later privatizes it)
+        const bmIdx = params.push(bookmarkIds);
+        const meIdx = params.push(userId || '');
+        conds.push(`(t."creatorId" = $${meIdx} OR t."id" = ANY($${bmIdx}::text[]))`);
+      } else {
+        conds.push('t."isPublic" = TRUE');
+        if (scope === 'discover' && userId) {
+          const meIdx = params.push(userId);
+          conds.push(`t."creatorId" <> $${meIdx}`);
+        }
+      }
       if (tag) { params.push(tag); conds.push(`$${params.length} = ANY(t.tags)`); }
       if (q) { params.push(`%${q}%`); conds.push(`EXISTS (SELECT 1 FROM unnest(t.tags) tg WHERE tg ILIKE $${params.length})`); }
       if (creatorId) { params.push(creatorId); conds.push(`t."creatorId" = $${params.length}`); }
@@ -226,12 +260,15 @@ export async function GET(request: NextRequest) {
     //    the FORYOU_HOT_POOL hottest ones.
     //    score = 3*min(affinity,30) + 2*sqrt(hot rank) + 1.5*freshness + jitter
     // 3) Cache the ranked id list for 90 s; cursor = offset into the pool.
+    //    NOT cached for scope='mine': bookmarks change the personal library
+    //    instantly, a 90 s stale "empty" list right after bookmarking would
+    //    look like the bookmark didn't work.
     // 4) Past the pool → keyset continuation on (createdAt, id), still infinite.
     let poolIds: string[] = [];
     let baseCursor: { createdAt: Date; id: string } | null = null;
 
-    const cacheKey = `${userId || 'anon'}:${tag || ''}:${q || ''}:${creatorId || ''}`;
-    const cached = foryouCache.get(cacheKey);
+    const cacheKey = `${userId || 'anon'}:${scope}:${tag || ''}:${q || ''}:${creatorId || ''}`;
+    const cached = scope === 'mine' ? null : foryouCache.get(cacheKey);
     if (cached && Date.now() - cached.rankedAt < FORYOU_TTL_MS) {
       poolIds = cached.ids;
       baseCursor = cached.base;
@@ -299,7 +336,7 @@ export async function GET(request: NextRequest) {
       const lastCandidate = scored[scored.length - 1];
       baseCursor = lastCandidate ? { createdAt: lastCandidate.createdAt, id: lastCandidate.id } : null;
       if (foryouCache.size > 500) foryouCache.clear();
-      foryouCache.set(cacheKey, { ids: poolIds, rankedAt: Date.now(), base: baseCursor });
+      if (scope !== 'mine') foryouCache.set(cacheKey, { ids: poolIds, rankedAt: Date.now(), base: baseCursor });
     }
 
     const offset = cursor?.mode === 'offset' ? cursor.offset : 0;

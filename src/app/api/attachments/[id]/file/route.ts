@@ -1,5 +1,6 @@
 import { db } from '@/lib/db';
 import { NextRequest } from 'next/server';
+import { telegramFileUrl } from '@/lib/telegram';
 
 /**
  * GET /api/attachments/[id]/file
@@ -132,6 +133,39 @@ export async function GET(
           'Cache-Control': 'private, max-age=3600',
         },
       });
+    }
+
+    // --- Telegram storage: tg:<file_id> — stream the bytes from the owner's
+    // channel (Bot API getFile → short-lived direct URL, proxied here so the
+    // bot token never reaches the client; Range requests pass through) ---
+    if (attachment.url.startsWith('tg:')) {
+      const fileId = attachment.url.slice(3);
+      if (!fileId) return new Response('Invalid attachment reference', { status: 500 });
+      try {
+        const direct = await telegramFileUrl(fileId);
+        const upstreamHeaders: Record<string, string> = {};
+        if (rangeHeader) upstreamHeaders['Range'] = rangeHeader;
+        const upstream = await fetch(direct, { headers: upstreamHeaders, redirect: 'follow' });
+        if (!upstream.ok && upstream.status !== 206) {
+          return new Response(`Telegram fetch failed (${upstream.status})`, { status: 502 });
+        }
+        const headers: Record<string, string> = {
+          'Content-Type': guessContentType(attachment),
+          'Cache-Control': 'private, max-age=300',
+        };
+        const contentRange = upstream.headers.get('content-range');
+        if (contentRange) headers['Content-Range'] = contentRange;
+        const contentLength = upstream.headers.get('content-length');
+        if (contentLength) headers['Content-Length'] = contentLength;
+        if (upstream.headers.get('accept-ranges')) headers['Accept-Ranges'] = 'bytes';
+        return new Response(upstream.body, { status: upstream.status, headers });
+      } catch (e: any) {
+        if (String(e?.message || '').startsWith('TELEGRAM_NOT_CONFIGURED')) {
+          return new Response('Telegram storage is not configured', { status: 503 });
+        }
+        console.error('Telegram file fetch error:', e);
+        return new Response('Failed to fetch Telegram file', { status: 502 });
+      }
     }
 
     // --- same-origin URL: redirect straight to the file (no self-proxying) ---

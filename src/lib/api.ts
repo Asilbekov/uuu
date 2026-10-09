@@ -64,7 +64,7 @@ export const api = {
   deleteTest: (id: string) => apiFetch(`/tests/${id}`, { method: 'DELETE' }),
 
   // Personalized feed (keyset-paginated, tag-affinity ranked)
-  getFeed: (params: { tab?: string; cursor?: string | null; limit?: number; tag?: string | null; q?: string | null; creatorId?: string | null }) => {
+  getFeed: (params: { tab?: string; cursor?: string | null; limit?: number; tag?: string | null; q?: string | null; creatorId?: string | null; scope?: 'all' | 'mine' | 'discover' }) => {
     const sp = new URLSearchParams();
     if (params.tab) sp.set('tab', params.tab);
     if (params.cursor) sp.set('cursor', params.cursor);
@@ -72,6 +72,7 @@ export const api = {
     if (params.tag) sp.set('tag', params.tag);
     if (params.q) sp.set('q', params.q);
     if (params.creatorId) sp.set('creatorId', params.creatorId);
+    if (params.scope && params.scope !== 'all') sp.set('scope', params.scope);
     return apiFetch(`/feed?${sp.toString()}`);
   },
   // Engagement signal: the current feed card stayed on screen
@@ -81,6 +82,19 @@ export const api = {
   // Sharing: make the user's own test public ("whole community" option)
   shareTest: (id: string, scope: 'link' | 'community') =>
     apiFetch(`/tests/${id}/share`, { method: 'POST', body: JSON.stringify({ scope }) }),
+
+  // Personal-library bookmarks (the bookmark button lives on the cards in the
+  // Discover mode; bookmarked tests appear in the user's library)
+  getBookmarks: () => apiFetch('/bookmarks') as Promise<{ ids: string[] }>,
+  addBookmark: (testId: string) =>
+    apiFetch('/bookmarks', { method: 'POST', body: JSON.stringify({ testId }) }),
+  removeBookmark: (testId: string) =>
+    apiFetch(`/bookmarks?testId=${encodeURIComponent(testId)}`, { method: 'DELETE' }),
+
+  // "Edit" on somebody else's test: copies it into the requester's library
+  // (private, unique name) and returns the full copy to open in the editor
+  copyTest: (id: string) =>
+    apiFetch(`/tests/${id}/copy`, { method: 'POST' }),
 
   // Interests (onboarding + settings) — seeds the For You feed
   getInterests: () => apiFetch('/me/interests'),

@@ -1,5 +1,6 @@
 import { db } from '@/lib/db';
 import { sanitizeTags, ensureTagsExist } from '@/lib/tags';
+import { findPublicTitleClash } from '@/lib/publish';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -61,6 +62,15 @@ export async function POST(request: NextRequest) {
     const cleanTags = sanitizeTags(tags);
     const cleanIcon = typeof coverIcon === 'string' && [...coverIcon.trim()].length >= 1 && [...coverIcon.trim()].length <= 8 ? coverIcon.trim() : null;
     const cleanColor = typeof coverColor === 'string' && /^#[0-9a-fA-F]{6}$/.test(coverColor) ? coverColor : null;
+
+    // Publishing rule: a NEW test can be created as public only under a title
+    // that no other public test in the community library uses.
+    if (isPublic !== false && title) {
+      const clash = await findPublicTitleClash(title);
+      if (clash) {
+        return NextResponse.json({ error: 'PUBLISH_NAME_TAKEN' }, { status: 409 });
+      }
+    }
 
     const test = await db.test.create({
       data: {

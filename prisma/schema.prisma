@@ -17,9 +17,23 @@ model User {
   tests     Test[]
   attempts  TestAttempt[]
   chatMessages ChatMessage[]
+  // Tests the user saved to their personal library via the bookmark button
+  bookmarks Bookmark[]
   // Tag-based interests picked during onboarding — seeds the For You feed
   interests String[] @default([])
   affinities TagAffinity[]
+}
+
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  testId    String
+  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, testId])
+  @@index([userId])
 }
 
 model Test {
@@ -37,6 +51,7 @@ model Test {
   randomizeQuestions Boolean @default(false)
   randomizeOptions   Boolean @default(false)
   tags        String[] @default([])
+  bookmarkedBy Bookmark[]
   coverImage  String?  // Base64 data URL for AI-generated cover image
   coverIcon   String?  // emoji picked in the editor from the science icon pack
   coverColor  String?  // hex color picked in the editor (card/cover background)

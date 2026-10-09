@@ -1,5 +1,6 @@
 import { db } from '@/lib/db';
 import { sanitizeTags, ensureTagsExist } from '@/lib/tags';
+import { findPublicTitleClash } from '@/lib/publish';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
@@ -44,11 +45,25 @@ export async function PUT(
     if (!existing) {
       return NextResponse.json({ error: 'Test not found' }, { status: 404 });
     }
-    // Editing is open to EVERY authenticated user — anyone can improve any test
-    // on the site (collaborative editing). Deletion stays creator-only below.
+    // Editing is CREATOR-ONLY: a test that belongs to somebody else can never
+    // be changed in place — the client copies it into the requester's own
+    // library first (POST /api/tests/[id]/copy) and edits that copy.
+    if (existing.creatorId !== userId) {
+      return NextResponse.json({ error: 'Not allowed: this test belongs to another author — edit your copy of it' }, { status: 403 });
+    }
 
     const body = await request.json();
     const { title, description, topic, isPublic, randomizeQuestions, randomizeOptions, questions, attachments, tags, coverIcon, coverColor } = body;
+
+    // Publishing rule: a test can go PUBLIC only under a title that no other
+    // public test in the community library currently uses.
+    const effectivePublic = isPublic !== undefined ? isPublic === true : existing.isPublic;
+    if (effectivePublic && title) {
+      const clash = await findPublicTitleClash(title, id);
+      if (clash) {
+        return NextResponse.json({ error: 'PUBLISH_NAME_TAKEN' }, { status: 409 });
+      }
+    }
 
     // Clean optional cover overrides: empty string clears the stored value
     const cleanIcon = coverIcon !== undefined
