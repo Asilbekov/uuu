@@ -1706,7 +1706,10 @@ export default function ChemTestApp() {
           (dashSearchResults || []).map(r => (
             <button key={r.id} type="button" onClick={() => jumpToTest(r.id)} className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0">
               <p className="text-sm font-medium truncate">{r.title}</p>
-              <p className="text-xs text-muted-foreground">{t('qCount', { n: r._count?.questions || r.questions?.length || 0 })}</p>
+              <p className="text-xs text-muted-foreground truncate">
+                {(r.tags || []).length > 0 && <span className="text-primary font-medium">{(r.tags || []).slice(0, 3).join(' · ')} · </span>}
+                {t('qCount', { n: r._count?.questions || r.questions?.length || 0 })}
+              </p>
             </button>
           ))
         )}
@@ -1736,7 +1739,7 @@ export default function ChemTestApp() {
               <Input
                 value={dashSearch}
                 onChange={e => setDashSearch(e.target.value)}
-                placeholder={filesCardTestId ? t('searchFiles') : t('searchTests')}
+                placeholder={filesCardTestId ? t('searchFiles') : t('searchByTags')}
                 className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
               />
               {dashSearchDropdown}

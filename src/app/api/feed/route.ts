@@ -10,7 +10,8 @@ import { affinityMap, bumpAffinity } from '@/lib/affinity';
 //                            trending, "createdAt|id" keyset for new)
 // &limit=10                  page size (max 20)
 // &tag=...                   filter by one tag
-// &q=...                     search in title/description/tags
+// &q=...                     search by TAGS (partial, case-insensitive;
+//                            tests that carry at least one matching tag)
 // &creatorId=...             only tests of one author ("my tests")
 //
 // Design goals (TikTok-scale readiness):
@@ -69,14 +70,16 @@ export async function GET(request: NextRequest) {
     // ---- shared filters (tag / search / author) ----
     const filters: any[] = [visibility];
     if (tag) filters.push({ tags: { has: tag } });
+    // Search is TAG-based: resolve the query to matching tag names (partial,
+    // case-insensitive) first, then keep tests carrying any of those tags.
+    // Title/description are intentionally NOT searched (per product decision).
     if (q) {
-      filters.push({
-        OR: [
-          { title: { contains: q, mode: 'insensitive' } },
-          { description: { contains: q, mode: 'insensitive' } },
-          { tags: { has: q } },
-        ],
-      });
+      const tagRows = await db.$queryRawUnsafe<{ tag: string }[]>(
+        `SELECT DISTINCT tg.tag FROM "Test" t CROSS JOIN LATERAL unnest(t.tags) AS tg(tag) WHERE tg.tag ILIKE $1 LIMIT 25`,
+        `%${q}%`
+      );
+      const matchedTags = tagRows.map(r => r.tag);
+      filters.push(matchedTags.length ? { tags: { hasSome: matchedTags } } : { id: { in: [] } });
     }
     if (creatorId) filters.push({ creatorId });
 
@@ -151,7 +154,7 @@ export async function GET(request: NextRequest) {
       const conds: string[] = ['t."isPublic" = TRUE'];
       const params: any[] = [];
       if (tag) { params.push(tag); conds.push(`$${params.length} = ANY(t.tags)`); }
-      if (q) { params.push(`%${q}%`); conds.push(`(t.title ILIKE $${params.length} OR t.description ILIKE $${params.length})`); }
+      if (q) { params.push(`%${q}%`); conds.push(`EXISTS (SELECT 1 FROM unnest(t.tags) tg WHERE tg ILIKE $${params.length})`); }
       if (creatorId) { params.push(creatorId); conds.push(`t."creatorId" = $${params.length}`); }
       params.push(limit + 1, offset);
       const lim = `$${params.length - 1}`;
