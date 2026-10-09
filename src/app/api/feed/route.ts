@@ -235,7 +235,7 @@ export async function GET(request: NextRequest) {
       const missingHot = [...hotRank.keys()].filter(id => !recentMap.has(id));
       const extraRows = missingHot.length
         ? await db.test.findMany({
-            where: { id: { in: missingHot }, ...(userId ? { OR: [{ isPublic: true }, { creatorId: userId }] } : { isPublic: true }) },
+            where: { AND: [...filters, { id: { in: missingHot } }] },
             select: { id: true, tags: true, createdAt: true },
           })
         : [];
