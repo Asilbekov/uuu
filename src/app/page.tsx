@@ -2293,14 +2293,14 @@ export default function ChemTestApp() {
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                   title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                  className={`h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                 >
                                   <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                 </Button>
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                   title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                  className={`h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                 >
                                   <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
                                 </Button>
@@ -2358,14 +2358,14 @@ export default function ChemTestApp() {
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
                                     onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                     title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                    className={`h-7 rounded-full text-xs sm:text-sm px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                   >
                                     <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                   </Button>
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
                                     onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                     title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                    className={`h-7 rounded-full text-xs sm:text-sm px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                   >
                                     <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
                                   </Button>
