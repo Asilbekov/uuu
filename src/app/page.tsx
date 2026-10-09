@@ -1778,12 +1778,15 @@ export default function ChemTestApp() {
       : (test ? t('shareTextTest', { title: test.title }) : t('shareTextCommunity'));
     setShareBusy(true);
     try {
-      if (community && test && effectiveUser && test.creatorId === effectiveUser.id && test.isPublic === false) {
+      // The share buttons double as a MODE SWITCH for the creator's own test:
+      // whichever option is tapped is SAVED as the test's publication variant
+      // (link-only hides it from the community feed; community makes it public).
+      if (test && effectiveUser && test.creatorId === effectiveUser.id) {
         try {
-          const r = await api.shareTest(test.id, 'community');
-          if (r?.isPublic) {
-            setTests(prev => prev.map(x => (x.id === test.id ? { ...x, isPublic: true } : x)));
-            toast({ title: t('shareMadePublic') });
+          const r = await api.shareTest(test.id, scope);
+          if (r && typeof r.isPublic === 'boolean' && r.isPublic !== test.isPublic) {
+            setTests(prev => prev.map(x => (x.id === test.id ? { ...x, isPublic: r.isPublic } : x)));
+            toast({ title: r.isPublic ? t('shareMadePublic') : t('shareMadeLink') });
           }
         } catch { /* visibility flip is best-effort */ }
       }

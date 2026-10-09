@@ -175,6 +175,7 @@ const en: Dict = {
   shareTextCommunity: 'Join our exam-prep community — lots of tests in one place!',
   linkCopied: 'Link copied to clipboard',
   shareMadePublic: 'The test is now visible to the whole community',
+  shareMadeLink: 'Now the test opens only via its link',
   // feed: tabs / search / tags / recommendations
   tabForYou: 'For You',
   tabTrending: 'Trending',
@@ -366,6 +367,7 @@ const ru: Dict = {
   shareTextCommunity: 'Присоединяйся к нашему сообществу подготовки к экзаменам — куча тестов в одном месте!',
   linkCopied: 'Ссылка скопирована',
   shareMadePublic: 'Тест теперь виден всему сообществу',
+  shareMadeLink: 'Теперь тест открывается только по ссылке',
   // feed: tabs / search / tags / recommendations
   tabForYou: 'Для вас',
   tabTrending: 'Популярное',
@@ -554,6 +556,7 @@ const uz: Dict = {
   shareTextCommunity: 'Imtihonlarga tayyorgarlik hamjamiyatiga qo‘shiling — barcha testlar bir joyda!',
   linkCopied: 'Havola nusxalandi',
   shareMadePublic: 'Test endi butun hamjamiyatga ko‘rinadi',
+  shareMadeLink: 'Endi test faqat havola orqali ochiladi',
   // feed: tabs / search / tags / recommendations
   tabForYou: 'Siz uchun',
   tabTrending: 'Trend',
