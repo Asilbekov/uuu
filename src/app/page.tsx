@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
-import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel } from '@/components/attachments';
+import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel, typeIcon, attachmentFileUrl, formatSize } from '@/components/attachments';
 import { SheetHeaderSwitcher } from '@/components/sheet-switcher';
 import { AiChatPanel, GroupChatPanel } from '@/components/chat-panels';
 import {
@@ -65,6 +65,7 @@ import {
   LayoutGrid,
   Library,
   Rows3,
+  ExternalLink,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
@@ -325,6 +326,11 @@ export default function ChemTestApp() {
   const [filesFeedMode, setFilesFeedMode] = useState(false);
   const filesFeedModeRef = useRef(false);
   useEffect(() => { filesFeedModeRef.current = filesFeedMode; }, [filesFeedMode]);
+  // Grid files mode (Library/Shelf): the grid KEEPS its layout but swaps the
+  // test cards for the attachment cards of ONE test (the one whose paperclip
+  // was tapped). The header back arrow returns to the test cards.
+  const [gridFilesMode, setGridFilesMode] = useState(false);
+  const [gridFilesTestId, setGridFilesTestId] = useState<string | null>(null);
   const [dashSlideIdx, setDashSlideIdx] = useState(0);
   // Dashboard header search: searches tests server-side (/api/feed?q=) by
   // TAGS with a dropdown. Hidden behind a search BUTTON; tapping it opens an
@@ -417,6 +423,12 @@ export default function ChemTestApp() {
 
   // Attachments editor state (create / edit test)
   const [formAttachments, setFormAttachments] = useState<AttachmentItem[]>([]);
+  // Publication variant of the test — saved WITH the test and applies to the
+  // test AND its attached files: false = only people with the link can open,
+  // true = the whole community sees it in their feed. Edited in the
+  // "Test Information" section of the editor, same option-card style as the
+  // share selector on the test card.
+  const [testIsPublic, setTestIsPublic] = useState(true);
   // Attached Files collapse in the editor — same behavior as on the test card
   const [editorFilesExpanded, setEditorFilesExpanded] = useState(false);
   // All editor sections start collapsed — the page opens as a compact list of one-line cards
@@ -940,6 +952,7 @@ export default function ChemTestApp() {
     setRandomizeO(true);
     setQuestions([{ text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' }]);
     setFormAttachments([]);
+    setTestIsPublic(true);
     setEditorFilesExpanded(false);
     setEditorInfoExpanded(false);
     setEditorCoverExpanded(false);
@@ -986,6 +999,7 @@ export default function ChemTestApp() {
       setTestCoverColor(fullTest.coverColor || '');
       setRandomizeQ(fullTest.randomizeQuestions);
       setRandomizeO(fullTest.randomizeOptions);
+      setTestIsPublic(fullTest.isPublic !== false);
       setQuestions(fullTest.questions.map(q => ({
         text: q.text,
         optionA: q.optionA,
@@ -1029,6 +1043,7 @@ export default function ChemTestApp() {
     setTestCoverColor(currentTest.coverColor || '');
     setRandomizeQ(!!currentTest.randomizeQuestions);
     setRandomizeO(!!currentTest.randomizeOptions);
+    setTestIsPublic(currentTest.isPublic !== false);
     setQuestions(currentTest.questions.map(q => ({
       text: q.text,
       optionA: q.optionA,
@@ -1071,7 +1086,10 @@ export default function ChemTestApp() {
         tags: testTags,
         coverIcon: testCoverIcon || null,
         coverColor: testCoverColor || null,
-        isPublic: true,
+        // Publication variant chosen in the "Test Information" section:
+        // false = share only with those who have the link,
+        // true = public — the test AND its attached files are visible to everyone
+        isPublic: testIsPublic,
         randomizeQuestions: randomizeQ,
         randomizeOptions: randomizeO,
         questions: questions.map((q, i) => ({
@@ -1779,6 +1797,8 @@ export default function ChemTestApp() {
   const jumpToTest = (id: string) => {
     pendingFilesJumpRef.current = null;
     if (filesFeedMode) setFilesFeedMode(false);
+    // Leaving the grid files view (if open) — the search jump goes to the test itself
+    setGridFilesMode(false); setGridFilesTestId(null);
     setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
     // From the grid views a search result opens the swipe feed with a back
     // button that returns to the grid at its remembered scroll position
@@ -1839,6 +1859,8 @@ export default function ChemTestApp() {
       if (filesFeedMode) { pendingFilesJumpRef.current = null; setFilesFeedMode(false); setDashSlideIdx(0); }
       setDashView(v);
     }
+    // Grid files view never survives a view switch
+    setGridFilesMode(false); setGridFilesTestId(null);
   };
   // A card in library/shelf opens the swipe feed at that test (tiktok2 = feed
   // with a back button that returns to the grid at its scroll position)
@@ -1850,13 +1872,33 @@ export default function ChemTestApp() {
     setDashView('tiktok2');
     scrollDashTo(idx);
   };
-  // The per-card paperclip on a grid card: open the FILES feed (tiktok2) so
-  // the header back button still returns to the grid — files mode + views work together
-  const openFilesFromGrid = (test: Test) => {
-    libReturnViewRef.current = dashView === 'shelf' ? 'shelf' : 'library';
+  // The per-card paperclip on a grid card: the SAME grid view (library or
+  // shelf) keeps its layout but shows the ATTACHED-FILES cards of this test
+  // instead of the test cards. The header back arrow (and every file card's
+  // "К тестам" button) returns to the test cards at the remembered scroll.
+  const openGridFiles = (test: Test) => {
     gridScrollTopRef.current = dashFeedRef.current?.scrollTop || 0;
-    setDashView('tiktok2');
-    openFilesCard(test);
+    setGridFilesTestId(test.id);
+    setGridFilesMode(true);
+    // Make sure the attachments are actually loaded (the list payload only
+    // carries the attachment COUNT)
+    if (!dashFetchedRef.current.has(test.id)) {
+      dashFetchedRef.current.add(test.id);
+      api.getTest(test.id)
+        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [test.id]: full })))
+        .catch(() => { dashFetchedRef.current.delete(test.id); });
+    }
+  };
+  const closeGridFiles = () => {
+    setGridFilesMode(false);
+    setGridFilesTestId(null);
+    const top = gridScrollTopRef.current;
+    if (top > 0) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const el = dashFeedRef.current;
+        if (el && el.clientHeight > 0) el.scrollTo({ top, behavior: 'instant' as ScrollBehavior });
+      }));
+    }
   };
   const backToLibrary = () => {
     // Leaving the files feed back to the grid also resets files mode
@@ -1886,6 +1928,15 @@ export default function ChemTestApp() {
     const gridPerRow = dashView === 'shelf' ? 1 : 3;
     const gridRows: Test[][] = [];
     for (let i = 0; i < tests.length; i += gridPerRow) gridRows.push(tests.slice(i, i + gridPerRow));
+    // Grid files mode: attachments of the ONE test whose paperclip was tapped
+    const gridFilesTest = gridFilesMode && gridFilesTestId
+      ? (tests.find(x => x.id === gridFilesTestId) || null)
+      : null;
+    const gridFiles: AttachmentItem[] = gridFilesTest
+      ? (((dashFullTests[gridFilesTest.id]?.attachments ?? gridFilesTest.attachments) || []) as AttachmentItem[]).filter(Boolean)
+      : [];
+    const gridFileRows: AttachmentItem[][] = [];
+    for (let i = 0; i < gridFiles.length; i += gridPerRow) gridFileRows.push(gridFiles.slice(i, i + gridPerRow));
     const searchQ = dashSearch.trim();
     const dashSearchDropdown = searchQ.length < 2 ? null : (
       <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
@@ -1963,14 +2014,14 @@ export default function ChemTestApp() {
               </div>
             )}
             <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-              {dashView === 'tiktok2' && (
+              {(dashView === 'tiktok2' || gridFilesMode) && (
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={backToLibrary}
+                  onClick={gridFilesMode ? closeGridFiles : backToLibrary}
                   className="rounded-full shrink-0 border-black"
-                  title={t('backToLibrary')}
-                  aria-label={t('backToLibrary')}
+                  title={gridFilesMode ? t('backToTests') : t('backToLibrary')}
+                  aria-label={gridFilesMode ? t('backToTests') : t('backToLibrary')}
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </Button>
@@ -2086,136 +2137,244 @@ export default function ChemTestApp() {
           </main>
         ) : (
           <>
-            {/* LIBRARY / SHELF views — endless shelves, 3 per screen, scrolling down */}
+            {/* LIBRARY / SHELF views — endless shelves, 3 per screen, scrolling down.
+                minHeight (not fixed height): rows never clip their content — with six
+                full-name action buttons a row simply grows a bit on short screens. */}
             {dashView === 'library' || dashView === 'shelf' ? (
               <div key="feed-grid" ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="max-w-5xl mx-auto h-full">
-                  {gridRows.map((row, ri) => (
-                    <div
-                      key={ri}
-                      className={`grid ${dashView === 'library' ? 'grid-cols-3' : 'grid-cols-1'} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
-                      style={{ height: 'calc(100% / 3)' }}
-                    >
-                      {row.map((test, ci) => {
-                        const idx = ri * gridPerRow + ci;
-                        const totalQ = test._count?.questions || test.questions?.length || 0;
-                        const fcnt = (dashFullTests[test.id]?.attachments as AttachmentItem[] | undefined)?.length || test._count?.attachments || 0;
-                        const bgClass = test.coverColor ? '' : coverBgFor(test);
-                        const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
-                        return dashView === 'library' ? (
-                          <div
-                            key={test.id}
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => openFromLibrary(idx)}
-                            className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
-                          >
-                            <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
-                            {/* Same per-card actions as the TikTok card, icon-only so
-                            everything fits the small tile: Start on top, Restart under
-                            it, then files + share options below. Start resumes saved
-                            progress; Restart always begins over. */}
-                            <div className="mt-auto pt-1.5 flex flex-col gap-1">
-                              <Button size="sm" disabled={loading}
-                                onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
-                                title={t('miniStart')} aria-label={t('miniStart')}
-                                className="h-7 rounded-full"
-                              >
-                                <Play className="w-3.5 h-3.5" />
-                              </Button>
-                              <Button size="sm" variant="outline" disabled={loading}
-                                onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
-                                title={t('restart')} aria-label={t('restart')}
-                                className="h-7 rounded-full border-black"
-                              >
-                                <RefreshCw className="w-3.5 h-3.5" />
-                              </Button>
-                              <div className="flex items-center gap-1">
-                                {fcnt > 0 && (
-                                  <Button size="sm" variant="outline" title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                    onClick={e => { e.stopPropagation(); openFilesFromGrid(test); }}
-                                    className="h-7 flex-1 min-w-0 rounded-full border-black"
-                                  >
-                                    <Paperclip className="w-3.5 h-3.5" />
-                                  </Button>
-                                )}
-                                <Button size="sm" variant="outline" disabled={!!shareBusy} title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
-                                  className="h-7 flex-1 min-w-0 rounded-full border-black"
+                  {gridFilesMode ? (
+                    /* ATTACHED-FILES cards in the SAME grid layout — the view does not
+                    change, only the cards do: one card per attachment of the test whose
+                    paperclip was tapped. Back arrow (header) / «К тестам» returns. */
+                    gridFiles.length === 0 ? (
+                      <p className="px-4 py-6 text-sm text-muted-foreground">{t('filesEmpty')}</p>
+                    ) : (
+                      gridFileRows.map((row, ri) => (
+                        <div
+                          key={ri}
+                          className={`grid ${dashView === 'library' ? 'grid-cols-3' : 'grid-cols-1'} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
+                          style={{ minHeight: 'calc(100% / 3)' }}
+                        >
+                          {row.map((f, ci) => dashView === 'library' ? (
+                            <div
+                              key={`${f.id || f.url}-${ci}`}
+                              role="button"
+                              tabIndex={0}
+                              onClick={() => window.open(attachmentFileUrl(f), '_blank')}
+                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                            >
+                              <div className="flex items-center gap-1.5 shrink-0">
+                                <span className="w-7 h-7 rounded-lg bg-[#FFF0D9] text-cta flex items-center justify-center shrink-0">
+                                  {typeIcon(f.type, 'w-4 h-4')}
+                                </span>
+                                {f.size ? <span className="text-[10px] text-muted-foreground">{formatSize(f.size)}</span> : null}
+                              </div>
+                              <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2 mt-1">{f.title}</p>
+                              <div className="mt-auto pt-1.5 flex flex-col gap-1">
+                                <Button size="sm"
+                                  onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
+                                  title={t('openFile')} aria-label={t('openFile')}
+                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1.5 justify-start"
                                 >
-                                  <Link2 className="w-3.5 h-3.5" />
+                                  <ExternalLink className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('openFile')}</span>
                                 </Button>
-                                <Button size="sm" variant="outline" disabled={!!shareBusy} title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
-                                  className="h-7 flex-1 min-w-0 rounded-full border-black"
+                                <Button size="sm" variant="outline"
+                                  onClick={e => { e.stopPropagation(); closeGridFiles(); }}
+                                  title={t('backToTests')} aria-label={t('backToTests')}
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
                                 >
-                                  <Users className="w-3.5 h-3.5" />
+                                  <ArrowLeft className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
                                 </Button>
                               </div>
                             </div>
-                          </div>
-                        ) : (
-                          <div
-                            key={test.id}
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => openFromLibrary(idx)}
-                            className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
-                          >
-                            <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
-                              <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
+                          ) : (
+                            <div
+                              key={`${f.id || f.url}-${ci}`}
+                              role="button"
+                              tabIndex={0}
+                              onClick={() => window.open(attachmentFileUrl(f), '_blank')}
+                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                            >
+                              <div className="w-20 sm:w-36 shrink-0 h-full flex flex-col items-center justify-center gap-1 p-2 text-center bg-[#FFF0D9]">
+                                <span className="text-cta">{typeIcon(f.type, 'w-6 h-6 sm:w-8 sm:h-8')}</span>
+                                <span className="text-[10px] sm:text-xs font-semibold uppercase text-cta">{f.type}</span>
+                              </div>
+                              <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
+                                <p className="text-sm sm:text-base font-bold line-clamp-2">{f.title}</p>
+                                {f.size ? <p className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">{formatSize(f.size)}</p> : null}
+                                <div className="mt-auto pt-1.5 flex flex-col gap-1">
+                                  <Button size="sm"
+                                    onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
+                                    title={t('openFile')} aria-label={t('openFile')}
+                                    className="h-7 rounded-full text-xs sm:text-sm px-2 justify-start"
+                                  >
+                                    <ExternalLink className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('openFile')}</span>
+                                  </Button>
+                                  <Button size="sm" variant="outline"
+                                    onClick={e => { e.stopPropagation(); closeGridFiles(); }}
+                                    title={t('backToTests')} aria-label={t('backToTests')}
+                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                  >
+                                    <ArrowLeft className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
+                                  </Button>
+                                </div>
+                              </div>
                             </div>
-                            <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
-                              {/* Title lives on the spine only — no duplicate text in
-                              the content area */}
-                              <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
-                              <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
-                              {/* Full TikTok-card action set, icon-only: Start (resumes
-                              saved progress), Restart (starts over), files, share by
-                              link, share to community */}
-                              <div className="mt-auto pt-1.5 flex items-center gap-1.5">
+                          ))}
+                        </div>
+                      ))
+                    )
+                  ) : (
+                    /* TEST cards — every card carries the FULL action set of the TikTok
+                    card with its full name, one button per line (never two on one line):
+                    Start / Restart / Attached files / Share by link / Share to community /
+                    Edit. */
+                    gridRows.map((row, ri) => (
+                      <div
+                        key={ri}
+                        className={`grid ${dashView === 'library' ? 'grid-cols-3' : 'grid-cols-1'} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
+                        style={{ minHeight: 'calc(100% / 3)' }}
+                      >
+                        {row.map((test, ci) => {
+                          const idx = ri * gridPerRow + ci;
+                          const totalQ = test._count?.questions || test.questions?.length || 0;
+                          const fcnt = (dashFullTests[test.id]?.attachments as AttachmentItem[] | undefined)?.length || test._count?.attachments || 0;
+                          const bgClass = test.coverColor ? '' : coverBgFor(test);
+                          const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
+                          return dashView === 'library' ? (
+                            <div
+                              key={test.id}
+                              role="button"
+                              tabIndex={0}
+                              onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
+                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                            >
+                              <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
+                              {/* Full-name action buttons, one per line. Start resumes
+                              saved progress; Restart always begins over; the paperclip
+                              flips this grid to the files cards of THIS test. */}
+                              <div className="mt-auto pt-1.5 flex flex-col gap-1">
                                 <Button size="sm" disabled={loading}
                                   onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
-                                  title={t('miniStart')} aria-label={t('miniStart')}
-                                  className="h-7 flex-1 rounded-full"
+                                  title={t('startTestBtn')} aria-label={t('startTestBtn')}
+                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1.5 justify-start"
                                 >
-                                  <Play className="w-3.5 h-3.5" />
+                                  <Play className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
                                 </Button>
                                 <Button size="sm" variant="outline" disabled={loading}
                                   onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
                                   title={t('restart')} aria-label={t('restart')}
-                                  className="h-7 flex-1 rounded-full border-black"
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
                                 >
-                                  <RefreshCw className="w-3.5 h-3.5" />
+                                  <RefreshCw className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('restart')}</span>
                                 </Button>
                                 {fcnt > 0 && (
-                                  <Button size="sm" variant="outline" title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                    onClick={e => { e.stopPropagation(); openFilesFromGrid(test); }}
-                                    className="h-7 w-7 p-0 rounded-full border-black shrink-0"
+                                  <Button size="sm" variant="outline"
+                                    onClick={e => { e.stopPropagation(); openGridFiles(test); }}
+                                    title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
+                                    className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
                                   >
-                                    <Paperclip className="w-3.5 h-3.5" />
+                                    <Paperclip className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
                                   </Button>
                                 )}
-                                <Button size="sm" variant="outline" disabled={!!shareBusy} title={t('shareOptLink')} aria-label={t('shareOptLink')}
+                                <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
-                                  className="h-7 w-7 p-0 rounded-full border-black shrink-0"
+                                  title={t('shareOptLink')} aria-label={t('shareOptLink')}
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
                                 >
-                                  <Link2 className="w-3.5 h-3.5" />
+                                  <Link2 className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                 </Button>
-                                <Button size="sm" variant="outline" disabled={!!shareBusy} title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
+                                <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
-                                  className="h-7 w-7 p-0 rounded-full border-black shrink-0"
+                                  title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
                                 >
-                                  <Users className="w-3.5 h-3.5" />
+                                  <Users className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
+                                </Button>
+                                <Button size="sm" variant="outline"
+                                  onClick={e => { e.stopPropagation(); startEditTest(test); }}
+                                  title={t('editTest')} aria-label={t('editTest')}
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
+                                >
+                                  <Pencil className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('editTest')}</span>
                                 </Button>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ))}
-                  <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
+                          ) : (
+                            <div
+                              key={test.id}
+                              role="button"
+                              tabIndex={0}
+                              onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
+                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                            >
+                              <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
+                                <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
+                              </div>
+                              <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
+                                {/* Title lives on the spine only — no duplicate text in
+                                the content area */}
+                                <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
+                                <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
+                                {/* Full-name action buttons, one per line — the whole
+                                TikTok-card action set on every shelf card */}
+                                <div className="mt-auto pt-1.5 flex flex-col gap-1">
+                                  <Button size="sm" disabled={loading}
+                                    onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
+                                    title={t('startTestBtn')} aria-label={t('startTestBtn')}
+                                    className="h-7 rounded-full text-xs sm:text-sm px-2 justify-start"
+                                  >
+                                    <Play className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
+                                  </Button>
+                                  <Button size="sm" variant="outline" disabled={loading}
+                                    onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
+                                    title={t('restart')} aria-label={t('restart')}
+                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                  >
+                                    <RefreshCw className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('restart')}</span>
+                                  </Button>
+                                  {fcnt > 0 && (
+                                    <Button size="sm" variant="outline"
+                                      onClick={e => { e.stopPropagation(); openGridFiles(test); }}
+                                      title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
+                                      className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                    >
+                                      <Paperclip className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
+                                    </Button>
+                                  )}
+                                  <Button size="sm" variant="outline" disabled={!!shareBusy}
+                                    onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
+                                    title={t('shareOptLink')} aria-label={t('shareOptLink')}
+                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                  >
+                                    <Link2 className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
+                                  </Button>
+                                  <Button size="sm" variant="outline" disabled={!!shareBusy}
+                                    onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
+                                    title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
+                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                  >
+                                    <Users className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
+                                  </Button>
+                                  <Button size="sm" variant="outline"
+                                    onClick={e => { e.stopPropagation(); startEditTest(test); }}
+                                    title={t('editTest')} aria-label={t('editTest')}
+                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                  >
+                                    <Pencil className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('editTest')}</span>
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ))
+                  )}
+                  {!gridFilesMode && (
+                    <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
+                  )}
                 </div>
               </div>
             ) : filesFeedMode ? (
@@ -2289,6 +2448,10 @@ export default function ChemTestApp() {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
                 const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
+                // Publication variant SAVED with the test drives the share selector's
+                // initial highlight; a share tap re-highlights the last used option
+                const savedScope: 'link' | 'community' = test.isPublic === false ? 'link' : 'community';
+                const activeScope = shareScopeByTest[test.id] || savedScope;
                 // Explicitly picked color wins; otherwise derive from the first tag / topic
                 const bgClass = test.coverColor ? '' : coverBgFor(test);
                 const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
@@ -2432,7 +2595,7 @@ export default function ChemTestApp() {
                                 onClick={() => { setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                 disabled={!!shareBusy}
                                 className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left disabled:opacity-60 ${
-                                  shareScopeByTest[test.id] === 'link'
+                                  activeScope === 'link'
                                     ? 'border-primary bg-[#FFE8DE] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
                                 }`}
@@ -2448,7 +2611,7 @@ export default function ChemTestApp() {
                                 onClick={() => { setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                 disabled={!!shareBusy}
                                 className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left disabled:opacity-60 ${
-                                  shareScopeByTest[test.id] === 'community'
+                                  activeScope === 'community'
                                     ? 'border-primary bg-[#FFE8DE] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
                                 }`}
@@ -2627,6 +2790,47 @@ export default function ChemTestApp() {
               <div className="space-y-2">
                 <Label>{t('description')}</Label>
                 <Textarea value={testDescription} onChange={e => setTestDescription(e.target.value)} placeholder={t('descriptionPh')} rows={2} />
+              </div>
+              {/* Publication variant — the SAME option-card style as the share
+              selector on the test card. The choice is SAVED with the test and
+              applies to the test AND its attached files: «Только по ссылке» keeps
+              it out of the community feed (link opens it for anyone who has it),
+              «Всему сообществу» makes test + files public. */}
+              <div className="space-y-2">
+                <Label>{t('publishVariant')}</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setTestIsPublic(false)}
+                    className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
+                      !testIsPublic
+                        ? 'border-primary bg-[#FFE8DE] shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <Link2 className="w-4 h-4 text-cta shrink-0" />
+                      <span className="font-semibold text-sm">{t('shareOptLink')}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{t('shareOptLinkSub')}</p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setTestIsPublic(true)}
+                    className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
+                      testIsPublic
+                        ? 'border-primary bg-[#FFE8DE] shadow-md'
+                        : 'border-transparent bg-muted/50 hover:bg-muted'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <Users className="w-4 h-4 text-primary shrink-0" />
+                      <span className="font-semibold text-sm">{t('shareOptCommunity')}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{t('shareOptCommunitySub')}</p>
+                  </button>
+                </div>
+                <p className="text-xs text-muted-foreground">{t('publishNote')}</p>
               </div>
             </CardContent>
             )}

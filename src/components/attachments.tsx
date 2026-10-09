@@ -54,7 +54,7 @@ export function typeIcon(type: AttachmentItem['type'], className = 'w-4 h-4') {
 // Upload limit: keeps the JSON payload under Vercel's request size cap
 export const MAX_UPLOAD_BYTES = 3.5 * 1024 * 1024;
 
-function formatSize(bytes?: number | null) {
+export function formatSize(bytes?: number | null) {
   if (!bytes && bytes !== 0) return '';
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;

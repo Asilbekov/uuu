@@ -212,6 +212,14 @@ const en: Dict = {
   fileOf: 'File {i} of {n}',
   swipeNextFile: 'Swipe up — next file',
   swipeNextTestFiles: 'Last file — swipe up for the next test\'s files',
+  // Grid (Library/Shelf) cards: full-name action buttons, one per line
+  startTestBtn: 'Start Test',
+  backToTests: 'Back to tests',
+  openFile: 'Open',
+  // Editor: per-test publication variant (saved with the test, applies to it
+  // AND its attached files)
+  publishVariant: 'Publication',
+  publishNote: 'Applies to the test and its attached files',
 };
 
 const ru: Dict = {
@@ -255,7 +263,7 @@ const ru: Dict = {
   randomizeAnswers: 'Перемешать ответы',
   aShuffled: 'Порядок ответов перемешан',
   aOriginal: 'Ответы в исходном порядке',
-  attachedFiles: 'Файлы ({n})',
+  attachedFiles: 'Прикреплённые файлы ({n})',
   back: 'Назад',
   startTest: 'Начало теста',
   howMany: 'Сколько вопросов?',
@@ -392,6 +400,14 @@ const ru: Dict = {
   fileOf: 'Файл {i} из {n}',
   swipeNextFile: 'Свайп вверх — следующий файл',
   swipeNextTestFiles: 'Последний файл — свайп вверх к файлам следующего теста',
+  // Grid (Library/Shelf) cards: full-name action buttons, one per line
+  startTestBtn: 'Начать тест',
+  backToTests: 'К тестам',
+  openFile: 'Открыть',
+  // Editor: per-test publication variant (saved with the test, applies to it
+  // AND its attached files)
+  publishVariant: 'Вариант публикации',
+  publishNote: 'Относится к тесту и его прикреплённым файлам',
 };
 
 const uz: Dict = {
@@ -572,6 +588,14 @@ const uz: Dict = {
   fileOf: '{n} fayldan {i}',
   swipeNextFile: 'Yuqori suring — keyingi fayl',
   swipeNextTestFiles: 'Oxirgi fayl — keyingi test fayllariga suring',
+  // Grid (Library/Shelf) cards: full-name action buttons, one per line
+  startTestBtn: 'Testni boshlash',
+  backToTests: 'Testlarga qaytish',
+  openFile: 'Ochish',
+  // Editor: per-test publication variant (saved with the test, applies to it
+  // AND its attached files)
+  publishVariant: 'Nashr varianti',
+  publishNote: 'Test va unga ilova qilingan fayllarga taalluqli',
 };
 
 const UI: Record<Lang, Dict> = { en, ru, uz };
