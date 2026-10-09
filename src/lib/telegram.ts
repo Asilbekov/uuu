@@ -29,7 +29,7 @@ export function telegramConfigured(): boolean {
   return !!(BOT_TOKEN && CHANNEL_ID);
 }
 
-export type TgUploadResult = { fileId: string; name: string; size: number };
+export type TgUploadResult = { fileId: string; name: string; size: number; messageId: number | null };
 
 /** Upload one file into the configured channel as a document (no compression). */
 export async function telegramUpload(opts: {
@@ -62,7 +62,30 @@ export async function telegramUpload(opts: {
     fileId: doc.file_id as string,
     name: (doc.file_name as string) || opts.name,
     size: Number(doc.file_size) || opts.buffer.length,
+    // The channel post carrying the file — required to delete it later.
+    messageId: typeof body?.result?.message_id === 'number' ? body.result.message_id : null,
   };
+}
+
+/**
+ * Delete a previously uploaded file's channel post. Only posts uploaded after
+ * tgMessageId bookkeeping was introduced can be removed (older rows have no
+ * message id — Bot API offers no lookup by file_id, so those stay in the
+ * channel as harmless orphans).
+ */
+export async function telegramDeleteFile(fileId: string, messageId: number | null): Promise<boolean> {
+  if (!telegramConfigured() || !messageId) return false;
+  try {
+    const res = await fetch(`${BOT_API_BASE()}/deleteMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: CHANNEL_ID, message_id: messageId }),
+    });
+    const body: any = await res.json().catch(() => null);
+    return !!(res.ok && body?.ok);
+  } catch {
+    return false;
+  }
 }
 
 function BOT_API_BASE() {

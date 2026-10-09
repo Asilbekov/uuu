@@ -84,6 +84,7 @@ export async function POST(
                 type: a.type,
                 url: a.url, // tg: references / data: URLs / external links — all reusable
                 size: a.size,
+                tgMessageId: a.tgMessageId, // keeps the channel post traceable in the copy
                 orderNum: a.orderNum ?? index,
               })),
             }

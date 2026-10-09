@@ -52,6 +52,9 @@ export async function POST(request: NextRequest) {
           url: `tg:${up.fileId}`,
           name: up.name,
           size: up.size,
+          // Channel post id — flows back with the save payload so the file can
+          // be deleted from the channel when it is removed from the test.
+          tgMessageId: up.messageId,
         });
       } catch (e: any) {
         // Telegram hiccup: fall through to the data: fallback when possible,

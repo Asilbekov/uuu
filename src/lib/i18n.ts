@@ -188,6 +188,8 @@ const en: Dict = {
   bookmarkRemoved: 'Removed from your library',
   bookmarkAddShort: 'Bookmark',
   bookmarkRemoveShort: 'Saved',
+  chatHistory: 'Chat history',
+  noChatsYet: 'No AI chats yet — open a test and ask the tutor something',
   avatarUpload: 'Upload profile photo',
   avatarSaved: 'Profile photo updated',
   copyCreating: 'Creating a copy in your library…',
@@ -231,7 +233,7 @@ const en: Dict = {
   // Files feed mode: one attachment per slide, flowing into the next test
   fileOf: 'File {i} of {n}',
   swipeNextFile: 'Swipe up — next file',
-  swipeNextTestFiles: 'Last file — swipe up for the next test\'s files',
+  swipeNextTestFiles: 'Swipe up — next test\'s files',
   // Grid (Library/Shelf) cards: full-name action buttons, one per line
   startTestBtn: 'Start Test',
   backToTests: 'Back to tests',
@@ -398,6 +400,8 @@ const ru: Dict = {
   bookmarkRemoved: 'Удалено из вашей библиотеки',
   bookmarkAddShort: 'В закладки',
   bookmarkRemoveShort: 'В закладках',
+  chatHistory: 'История чатов',
+  noChatsYet: 'AI-чатов пока нет — откройте тест и задайте вопрос репетитору',
   avatarUpload: 'Загрузить фото профиля',
   avatarSaved: 'Фото профиля обновлено',
   copyCreating: 'Создаём копию в вашей библиотеке…',
@@ -438,7 +442,7 @@ const ru: Dict = {
   similarTags: 'Похожие теги',
   fileOf: 'Файл {i} из {n}',
   swipeNextFile: 'Свайп вверх — следующий файл',
-  swipeNextTestFiles: 'Последний файл — свайп вверх к файлам следующего теста',
+  swipeNextTestFiles: 'Свайп вверх — файлы следующего теста',
   // Grid (Library/Shelf) cards: full-name action buttons, one per line
   startTestBtn: 'Начать тест',
   backToTests: 'К тестам',
@@ -605,6 +609,8 @@ const uz: Dict = {
   bookmarkRemoved: 'Kutubxonangizdan olib tashlandi',
   bookmarkAddShort: 'Saqlash',
   bookmarkRemoveShort: 'Saqlangan',
+  chatHistory: 'Suhbatlar tarixi',
+  noChatsYet: 'AI-suhbatlar hozircha yo‘q — testni oching va murabbiydan so‘rang',
   avatarUpload: 'Profil rasmini yuklash',
   avatarSaved: 'Profil rasmi yangilandi',
   copyCreating: 'Kutubxonangizda nusxa yaratilmoqda…',
@@ -645,7 +651,7 @@ const uz: Dict = {
   similarTags: 'Oʻxshash teglar',
   fileOf: '{n} fayldan {i}',
   swipeNextFile: 'Yuqori suring — keyingi fayl',
-  swipeNextTestFiles: 'Oxirgi fayl — keyingi test fayllariga suring',
+  swipeNextTestFiles: 'Suring yuqoriga — keyingi test fayllari',
   // Grid (Library/Shelf) cards: full-name action buttons, one per line
   startTestBtn: 'Testni boshlash',
   backToTests: 'Testlarga qaytish',

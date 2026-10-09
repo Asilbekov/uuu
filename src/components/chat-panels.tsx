@@ -1,21 +1,25 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, ChevronDown, Send, Users, X } from 'lucide-react';
+import { Bot, ChevronDown, Menu, MessageSquare, Send, Users, X } from 'lucide-react';
 import MathText from '@/components/math-text';
 import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
+import { DragHandle, useResizableSheet } from '@/components/resize-sheet';
 
 /**
  * Chat panels (AI Tutor + per-test group chat).
  *
  * Mirrors the "Attached Files" behaviour:
- *  - Mobile / tablet (< lg): slides up from the bottom as a bottom sheet
- *    with a dimmed backdrop (same look as AttachmentsBottomSheet).
+ *  - Mobile / tablet (< lg): slides up from the bottom as a RESIZABLE bottom
+ *    sheet (drag the top bar up to full screen, down to close).
  *  - Desktop (>= lg): stays as the side panel card next to the question.
+ *
+ * The AI panel additionally carries a LEFT HISTORY DRAWER (opened with the
+ * ☰ button in the top-left corner): one separate chat thread per test.
  */
 
 /* true when viewport >= lg (1024px). Panels only mount after a user click,
@@ -24,7 +28,7 @@ function useIsDesktopLg() {
   const [isDesktop, setIsDesktop] = useState(
     () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
   );
-  useEffect(() => {
+  React.useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
     const update = () => setIsDesktop(mq.matches);
     mq.addEventListener('change', update);
@@ -39,6 +43,14 @@ export interface GroupChatMessage {
   userName: string;
   text: string;
   createdAt: string;
+}
+
+/** One entry of the AI chat history drawer — a separate thread per test. */
+export interface AiThreadMeta {
+  testId: string;
+  title: string;
+  preview: string;
+  updatedAt: number;
 }
 
 /* Typing indicator (three bouncing dots) */
@@ -59,7 +71,91 @@ function TypingBubble() {
   );
 }
 
-/* Bottom sheet chrome — identical styling to AttachmentsBottomSheet */
+/* ------------------------------------------------------------------ */
+/* AI chat history drawer (left panel, ☰ button)                        */
+/* ------------------------------------------------------------------ */
+
+function HistoryDrawer({
+  open,
+  onClose,
+  threads,
+  activeThreadId,
+  onSelect,
+  historyLabel,
+  noChatsLabel,
+}: {
+  open: boolean;
+  onClose: () => void;
+  threads: AiThreadMeta[];
+  activeThreadId?: string;
+  onSelect: (testId: string) => void;
+  historyLabel: string;
+  noChatsLabel: string;
+}) {
+  if (!open) return null;
+  return (
+    <div className="absolute inset-0 z-30 flex">
+      <div className="absolute inset-0 bg-black/30" onClick={onClose} />
+      <div className="relative h-full w-64 sm:w-72 bg-white border-r-2 border-black/10 shadow-2xl rounded-l-3xl flex flex-col animate-in slide-in-from-left duration-200">
+        <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
+          <p className="font-bold text-sm flex items-center gap-2">
+            <MessageSquare className="w-4 h-4 text-cta" /> {historyLabel}
+          </p>
+          <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={onClose}>
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
+        <ScrollArea className="flex-1">
+          <div className="p-2 space-y-1">
+            {threads.length === 0 && (
+              <p className="text-xs text-muted-foreground text-center py-6 px-2">{noChatsLabel}</p>
+            )}
+            {threads.map(th => {
+              const active = th.testId === activeThreadId;
+              return (
+                <button
+                  key={th.testId}
+                  type="button"
+                  onClick={() => onSelect(th.testId)}
+                  className={`w-full text-left px-3 py-2.5 rounded-2xl border transition-colors ${
+                    active
+                      ? 'bg-[#FFE8DE] border-primary/60'
+                      : 'bg-white border-black/10 hover:bg-muted/60'
+                  }`}
+                >
+                  <p className="text-[13px] font-bold leading-snug line-clamp-1">{th.title}</p>
+                  <p className="text-[11px] text-muted-foreground line-clamp-1 mt-0.5">{th.preview || '…'}</p>
+                  <p className="text-[10px] text-muted-foreground mt-1">
+                    {new Date(th.updatedAt).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        </ScrollArea>
+      </div>
+    </div>
+  );
+}
+
+/** The ☰ button that opens the history drawer (top-left corner of the AI chat). */
+function HistoryButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={e => { e.stopPropagation(); onClick(); }}
+      aria-label="Chat history"
+      className="w-8 h-8 rounded-xl bg-muted hover:bg-black/10 border border-black/10 flex items-center justify-center shrink-0 transition-colors active:scale-90"
+    >
+      <Menu className="w-4 h-4" />
+    </button>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Resizable bottom sheet chrome                                        */
+/* ------------------------------------------------------------------ */
+
 function MobileChatSheet({
   onClose,
   icon,
@@ -68,6 +164,8 @@ function MobileChatSheet({
   body,
   footer,
   switcher,
+  hamburger,
+  history,
 }: {
   onClose: () => void;
   icon: React.ReactNode;
@@ -76,41 +174,56 @@ function MobileChatSheet({
   body: React.ReactNode;
   footer: React.ReactNode;
   switcher?: SheetSwitcher;
+  /** When set, a ☰ button appears top-left and opens the AI history drawer. */
+  hamburger?: React.ReactNode;
+  history?: React.ReactNode;
 }) {
+  const sheet = useResizableSheet({ initialVh: 0.78, minVh: 0.35, onClose });
   return (
     <div className="fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black/50" onClick={onClose} />
-      <div className="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col h-[78vh] animate-in slide-in-from-bottom duration-200">
-        <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
-          {switcher ? (
-            <SheetHeaderSwitcher
-              icon={icon}
-              title={title}
-              subtitle={subtitle}
-              options={switcher.options}
-              onSelect={switcher.onSelect}
-            />
-          ) : (
-            <div className="flex items-center gap-2 min-w-0">
-              <button
-                onClick={onClose}
-                aria-label="Close chat"
-                className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform shrink-0"
-              >
-                <ChevronDown className="w-5 h-5" />
-              </button>
-              <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center shrink-0">{icon}</div>
-              <div className="min-w-0">
-                <p className="font-semibold text-sm leading-tight">{title}</p>
-                {subtitle ? <p className="text-xs text-muted-foreground leading-tight truncate">{subtitle}</p> : null}
-              </div>
-            </div>
-          )}
+      <div
+        className="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col animate-in slide-in-from-bottom duration-200"
+        style={{ ...sheet.style, maxHeight: '100dvh' }}
+      >
+        {/* Drag bar — pull up to full screen, pull down to close */}
+        <DragHandle handleProps={sheet.handleProps} dragging={sheet.dragging} />
+        <div className="flex items-center justify-between px-4 py-2 border-b shrink-0">
+          <div className="flex items-center gap-2 min-w-0">
+            {hamburger}
+            {switcher ? (
+              <SheetHeaderSwitcher
+                icon={icon}
+                title={title}
+                subtitle={subtitle}
+                options={switcher.options}
+                onSelect={switcher.onSelect}
+              />
+            ) : (
+              <>
+                <button
+                  onClick={onClose}
+                  aria-label="Close chat"
+                  className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform shrink-0"
+                >
+                  <ChevronDown className="w-5 h-5" />
+                </button>
+                <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center shrink-0">{icon}</div>
+                <div className="min-w-0">
+                  <p className="font-semibold text-sm leading-tight">{title}</p>
+                  {subtitle ? <p className="text-xs text-muted-foreground leading-tight truncate">{subtitle}</p> : null}
+                </div>
+              </>
+            )}
+          </div>
           <Button variant="ghost" size="sm" className="h-8 w-8 p-0 shrink-0" onClick={onClose}>
             <X className="w-4 h-4" />
           </Button>
         </div>
-        <div className="flex-1 min-h-0">{body}</div>
+        <div className="relative flex-1 min-h-0">
+          {body}
+          {history}
+        </div>
         <div
           className="border-t shrink-0 bg-white px-3 py-3"
           style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
@@ -123,7 +236,7 @@ function MobileChatSheet({
 }
 
 /* ------------------------------------------------------------------ */
-/* AI Tutor chat                                                       */
+/* AI Tutor chat                                                        */
 /* ------------------------------------------------------------------ */
 
 export function AiChatPanel({
@@ -138,6 +251,13 @@ export function AiChatPanel({
   endRef,
   switcher,
   inputPlaceholder,
+  historyOpen,
+  onToggleHistory,
+  threads,
+  activeThreadId,
+  onSelectThread,
+  historyLabel,
+  noChatsLabel,
 }: {
   open: boolean;
   onClose: () => void;
@@ -150,11 +270,30 @@ export function AiChatPanel({
   endRef: React.RefObject<HTMLDivElement | null>;
   switcher?: SheetSwitcher;
   inputPlaceholder?: string;
+  historyOpen: boolean;
+  onToggleHistory: () => void;
+  threads: AiThreadMeta[];
+  activeThreadId?: string;
+  onSelectThread: (testId: string) => void;
+  historyLabel: string;
+  noChatsLabel: string;
 }) {
   const isDesktop = useIsDesktopLg();
   if (!open) return null;
 
   const icon = <Bot className="w-4 h-4 text-white" />;
+
+  const historyDrawer = (
+    <HistoryDrawer
+      open={historyOpen}
+      onClose={onToggleHistory}
+      threads={threads}
+      activeThreadId={activeThreadId}
+      onSelect={onSelectThread}
+      historyLabel={historyLabel}
+      noChatsLabel={noChatsLabel}
+    />
+  );
 
   const body = (
     <ScrollArea className="h-full px-4">
@@ -214,11 +353,13 @@ export function AiChatPanel({
         <Card className="rounded-4xl border border-black bg-white flex flex-col h-[680px]">
           <CardHeader className="pb-3 shrink-0">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                {/* ☰ — per-test chat history drawer */}
+                <HistoryButton onClick={onToggleHistory} />
                 <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">{icon}</div>
-                <div>
+                <div className="min-w-0">
                   <CardTitle className="text-sm">AI Tutor</CardTitle>
-                  {subtitle ? <p className="text-xs text-muted-foreground">{subtitle}</p> : null}
+                  {subtitle ? <p className="text-xs text-muted-foreground truncate">{subtitle}</p> : null}
                 </div>
               </div>
               <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={onClose}>
@@ -226,7 +367,10 @@ export function AiChatPanel({
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="flex-1 overflow-hidden p-0">{body}</CardContent>
+          <CardContent className="relative flex-1 overflow-hidden p-0">
+            {body}
+            {historyDrawer}
+          </CardContent>
           <CardFooter className="pt-3 pb-4 shrink-0">{footer}</CardFooter>
         </Card>
       </div>
@@ -242,6 +386,8 @@ export function AiChatPanel({
       body={body}
       footer={footer}
       switcher={switcher}
+      hamburger={<HistoryButton onClick={onToggleHistory} />}
+      history={historyDrawer}
     />
   );
 }

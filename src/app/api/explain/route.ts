@@ -1,5 +1,5 @@
 import { db } from '@/lib/db';
-import { mistralChat } from '@/lib/mistral';
+import { aiChat } from '@/lib/ai';
 import { NextRequest, NextResponse } from 'next/server';
 import { isLang, LANG_FULL, Lang } from '@/lib/i18n';
 
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
       return `Q${i + 1}: ${q.text}\nOptions: ${options.join(', ')}\nCorrect: ${q.correctAnswer}) ${correctOptionText || 'Unknown'}`;
     }).join('\n\n');
 
-    const explanationText = await mistralChat({
+    const explanationText = await aiChat({
       messages: [
         {
           role: 'system',
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
       ],
       temperature: 0.3,
       max_tokens: 2500,
-    });
+    }).then(r => r.text);
 
     // Parse explanations from LLM response
     const explanations: Record<string, string> = {};

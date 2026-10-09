@@ -1,6 +1,7 @@
 import { db } from '@/lib/db';
 import { sanitizeTags, ensureTagsExist } from '@/lib/tags';
 import { findPublicTitleClash } from '@/lib/publish';
+import { telegramDeleteFile } from '@/lib/telegram';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
@@ -75,6 +76,15 @@ export async function PUT(
 
     // Replace attachments if provided (full list from the editor)
     if (Array.isArray(attachments)) {
+      // Diff BEFORE the wipe: attachments the user removed in the editor must
+      // ALSO disappear from the Telegram channel, not just from the DB.
+      const existing = await db.attachment.findMany({
+        where: { testId: id },
+        select: { url: true, tgMessageId: true },
+      });
+      const keptUrls = new Set<string>(attachments.map((a: any) => String(a.url || '')));
+      const removedTg = existing.filter(a => a.url.startsWith('tg:') && !keptUrls.has(a.url));
+
       await db.attachment.deleteMany({ where: { testId: id } });
       if (attachments.length > 0) {
         await db.attachment.createMany({
@@ -84,10 +94,17 @@ export async function PUT(
             type: a.type || 'link',
             url: a.url,
             size: a.size ?? null,
+            tgMessageId: typeof a.tgMessageId === 'number' ? a.tgMessageId : null,
             orderNum: a.orderNum ?? index,
           })),
         });
       }
+
+      // Best-effort channel cleanup (rows saved before tgMessageId bookkeeping
+      // cannot be removed — the Bot API cannot look up a message by file_id).
+      await Promise.allSettled(
+        removedTg.map(a => telegramDeleteFile(a.url.slice(3), a.tgMessageId))
+      );
     }
 
     // Delete existing questions and recreate

@@ -26,7 +26,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
 import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel, typeIcon, attachmentFileUrl, formatSize } from '@/components/attachments';
 import { SheetHeaderSwitcher } from '@/components/sheet-switcher';
-import { AiChatPanel, GroupChatPanel } from '@/components/chat-panels';
+import { AiChatPanel, GroupChatPanel, AiThreadMeta } from '@/components/chat-panels';
+import { ResizableSheetFrame } from '@/components/resize-sheet';
 import {
   LogIn,
   Plus,
@@ -95,9 +96,9 @@ function LangButton({ lang, onChange, className = '' }: { lang: Lang; onChange: 
   );
 }
 
-// Card header for the DISCOVER mode — a distinct band across the top of the
-// card: the author's photo pinned top-left, the name centered on its own
-// lighter pill, and a BIG bookmark toggle on the right. Shown ONLY in
+// Card header for the DISCOVER mode — a bold, tall band across the top of the
+// card: the author's photo pinned top-left in a white ring, the name centered
+// on its own white pill, and a BIG bookmark toggle on the right. Shown ONLY in
 // Discover (tests of other authors); the personal library keeps cards clean.
 function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, addLabel, removeLabel, addShort, removeShort }: {
   name: string;
@@ -119,32 +120,35 @@ function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, ad
         : (image.startsWith('data:') || image.startsWith('http') ? image : null))
     : null;
   return (
-    <div className="shrink-0 relative flex items-center h-11 rounded-2xl bg-[#FFE8DE] border border-black/10 pl-1 pr-1.5 shadow-sm">
-      {/* Author photo — pinned top-left of the header band */}
-      <span className="w-8 h-8 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-xs font-bold ring-2 ring-white shadow-sm shrink-0" title={name}>
+    <div className="shrink-0 relative flex items-center h-14 sm:h-16 rounded-3xl bg-gradient-to-r from-[#FFE3D6] via-[#FFF4EE] to-[#FFE3D6] border-2 border-black/10 pl-1.5 pr-1.5 shadow-md">
+      {/* Author photo — pinned top-left of the header band, big and ringed */}
+      <span
+        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-base sm:text-lg font-extrabold ring-[3px] ring-white shadow-md shrink-0"
+        title={name}
+      >
         {avatarSrc ? <img src={avatarSrc} alt="" className="w-full h-full object-cover" /> : initial}
       </span>
-      {/* Name centered on its own white pill (a background of its own) */}
+      {/* Name centered on its own big white pill (a background of its own) */}
       <span
-        className="absolute left-1/2 -translate-x-1/2 max-w-[44%] px-3 py-1 rounded-full bg-white border border-black/10 shadow-sm text-[11px] font-bold text-black truncate pointer-events-none"
+        className="absolute left-1/2 -translate-x-1/2 max-w-[46%] px-4 py-1.5 rounded-full bg-white border-2 border-black/10 shadow-md text-[13px] sm:text-sm font-extrabold text-black truncate pointer-events-none"
         title={name}
       >
         {name}
       </span>
-      {/* The bookmark button — bigger and prettier: icon + short label on wide screens */}
+      {/* The bookmark button — big and pretty: large icon + label on wide screens */}
       <button
         type="button"
         onClick={e => { e.stopPropagation(); onToggleBookmark(); }}
         title={bookmarked ? removeLabel : addLabel}
         aria-label={bookmarked ? removeLabel : addLabel}
-        className={`ml-auto shrink-0 relative z-10 h-9 min-w-9 px-2 rounded-full flex items-center justify-center gap-1 border-2 text-[11px] font-bold transition-all active:scale-90 ${
+        className={`ml-auto shrink-0 relative z-10 h-10 sm:h-11 min-w-10 sm:min-w-11 px-2.5 rounded-2xl flex items-center justify-center gap-1.5 border-2 text-xs font-bold transition-all active:scale-90 shadow-sm ${
           bookmarked
             ? 'bg-primary text-white border-primary shadow-md hover:bg-primary/90'
-            : 'bg-white border-black/25 text-black hover:border-black'
+            : 'bg-white border-black/20 text-black hover:border-black hover:shadow-md'
         }`}
       >
-        {bookmarked ? <BookmarkCheck className="w-[18px] h-[18px]" /> : <BookmarkPlus className="w-[18px] h-[18px]" />}
-        <span className="hidden min-[430px]:inline max-w-[92px] truncate">{bookmarked ? removeShort : addShort}</span>
+        {bookmarked ? <BookmarkCheck className="w-5 h-5" /> : <BookmarkPlus className="w-5 h-5" />}
+        <span className="hidden min-[430px]:inline max-w-[96px] truncate">{bookmarked ? removeShort : addShort}</span>
       </button>
     </div>
   );
@@ -610,7 +614,9 @@ export default function ChemTestApp() {
     prevDrumInputModeRef.current = drumInputMode;
   }, [drumInputMode]);
 
-  // AI Chat state
+  // AI Chat state — ONE SEPARATE conversation per test. Threads persist in
+  // localStorage (per user) and are listed in the ☰ history drawer of the
+  // chat window; opening the chat on a test resumes THAT test's thread.
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([]);
   const [chatInput, setChatInput] = useState('');
@@ -618,6 +624,10 @@ export default function ChemTestApp() {
   const [chatQuestionId, setChatQuestionId] = useState<string>('');
   const [chatUserAnswer, setChatUserAnswer] = useState<string>('');
   const [chatQuestionObj, setChatQuestionObj] = useState<Question | null>(null);
+  const [chatThreadId, setChatThreadId] = useState<string>(''); // test id whose thread is in chatMessages
+  const [chatThreads, setChatThreads] = useState<Record<string, { title: string; messages: { role: 'user' | 'assistant'; content: string }[]; updatedAt: number }>>({});
+  const [chatHistoryOpen, setChatHistoryOpen] = useState(false);
+  const chatThreadsLoadedRef = useRef(false);
   const chatEndRef = React.useRef<HTMLDivElement>(null);
 
   // Attached files panel (take test)
@@ -879,22 +889,26 @@ export default function ChemTestApp() {
   const libReturnViewRef = useRef<'library' | 'shelf'>('library');
 
   // Flattened file slides for files feed mode: every loaded test contributes
-  // one slide per attachment, in recommendation order (tests without files
-  // are skipped — the swipe flows from this test's files to the next test's).
+  // ONE slide listing ALL of its attachments, in recommendation order (tests
+  // without files are skipped — the swipe flows from this test's files card
+  // to the next test's).
   // A test's slides join ONLY once every earlier loaded test is fetched too,
   // so resolving fetches APPEND slides and never shift the visible position.
+  // ONE slide per test — the card lists ALL of the test's attached files
+  // (scrollable), not one file per slide.
   const fileSlides = React.useMemo(() => {
-    if (!filesFeedMode) return [] as { test: Test; file: AttachmentItem; count: number; fIdx: number }[];
-    const out: { test: Test; file: AttachmentItem; count: number; fIdx: number }[] = [];
+    if (!filesFeedMode) return [] as { test: Test; files: AttachmentItem[]; count: number }[];
+    const out: { test: Test; files: AttachmentItem[]; count: number }[] = [];
     for (const t of tests) {
       const full = dashFullTests[t.id];
       if (!full) break; // earlier test's attachments still loading — stop here
       const fl = ((full.attachments ?? []) as AttachmentItem[]).filter(Boolean);
-      fl.forEach((f, i) => out.push({ test: t, file: f, count: fl.length, fIdx: i }));
+      if (fl.length === 0) continue; // tests without files don't contribute a card
+      out.push({ test: t, files: fl, count: fl.length });
     }
     return out;
   }, [filesFeedMode, tests, dashFullTests]);
-  const fileSlidesRef = useRef<{ test: Test; file: AttachmentItem; count: number; fIdx: number }[]>([]);
+  const fileSlidesRef = useRef<{ test: Test; files: AttachmentItem[]; count: number }[]>([]);
   const fileSlidesCountRef = useRef(0);
   useEffect(() => { fileSlidesRef.current = fileSlides; fileSlidesCountRef.current = fileSlides.length; }, [fileSlides]);
 
@@ -1160,6 +1174,7 @@ export default function ChemTestApp() {
         url: a.url,
         size: a.size ?? null,
         orderNum: a.orderNum,
+        tgMessageId: (a as any).tgMessageId ?? null,
       })));
       setEditingTestId(fullTest.id);
       setPage('edit-test');
@@ -1209,6 +1224,7 @@ export default function ChemTestApp() {
             url: a.url,
             size: a.size ?? null,
             orderNum: a.orderNum,
+            tgMessageId: a.tgMessageId ?? null,
           })));
           setCurrentTest(copy);
           setEditingTestId(copy.id);
@@ -1295,6 +1311,7 @@ export default function ChemTestApp() {
           type: a.type,
           url: a.url,
           size: a.size ?? null,
+          tgMessageId: a.tgMessageId ?? null,
           orderNum: i,
         })),
       };
@@ -1533,7 +1550,7 @@ export default function ChemTestApp() {
       return {
         ...q,
         explanation: q.explanation ?? fresh.explanation ?? null,
-        translations: { ...(fresh.translations || {}), ...(q.translations || {}) } || null,
+        translations: { ...(fresh.translations || {}), ...(q.translations || {}) },
       };
     });
     setCurrentTest(test);
@@ -1695,20 +1712,77 @@ export default function ChemTestApp() {
     };
   };
 
+  // Load the per-user AI chat threads once (after the user is known)
+  useEffect(() => {
+    if (!effectiveUser || chatThreadsLoadedRef.current) return;
+    chatThreadsLoadedRef.current = true;
+    try {
+      const raw = localStorage.getItem(`ai_threads_${effectiveUser.id}`);
+      if (raw) setChatThreads(JSON.parse(raw));
+    } catch { /* corrupted cache — start fresh */ }
+  }, [effectiveUser?.id]);
+
+  // Mirror the visible conversation into the CURRENT test's thread
+  useEffect(() => {
+    if (!chatOpen || !currentTest || chatMessages.length === 0 || !chatThreadId || chatThreadId !== currentTest.id) return;
+    setChatThreads(prev => ({
+      ...prev,
+      [currentTest.id]: { title: currentTest.title, messages: chatMessages, updatedAt: Date.now() },
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatMessages, chatOpen]);
+
+  // Persist threads (per user) whenever they change
+  useEffect(() => {
+    if (!effectiveUser || !chatThreadsLoadedRef.current) return;
+    try {
+      localStorage.setItem(`ai_threads_${effectiveUser.id}`, JSON.stringify(chatThreads));
+    } catch { /* storage full — the in-memory copy still works */ }
+  }, [chatThreads, effectiveUser?.id]);
+
+  // History drawer entries: every test that has at least one message
+  const aiThreadMetas: AiThreadMeta[] = React.useMemo(() => Object.entries(chatThreads)
+    .filter(([, th]) => th.messages.length > 0)
+    .map(([testId, th]) => ({
+      testId,
+      title: th.title || 'Test',
+      preview: th.messages[th.messages.length - 1]?.content?.slice(0, 90) || '',
+      updatedAt: th.updatedAt || 0,
+    }))
+    .sort((a, b) => b.updatedAt - a.updatedAt), [chatThreads]);
+
+  const selectChatThread = (testId: string) => {
+    setChatHistoryOpen(false);
+    if (testId === chatThreadId) return;
+    const th = chatThreads[testId];
+    setChatThreadId(testId);
+    setChatMessages(th ? [...th.messages] : []);
+    setChatInput('');
+  };
+
   const openChat = (questionId: string, userAnswer?: string, opts?: { force?: boolean }) => {
     const q = shuffledQuestions.find(x => x.id === questionId) || null;
-    // Reset chat if it's a different question, or when explicitly forced
-    if (opts?.force || chatQuestionId !== questionId) {
-      setChatMessages([]);
+    setChatQuestionId(questionId);
+    setChatQuestionObj(q);
+    setChatUserAnswer(userAnswer || '');
+    const tid = (currentTest as any)?.id || '';
+    // First open on this test → resume THAT test's saved thread (per-test chats)
+    const alreadyLoaded = chatThreadId === tid;
+    if (!alreadyLoaded) {
+      const th = chatThreads[tid];
+      setChatThreadId(tid);
+      setChatMessages(th ? [...th.messages] : []);
       setChatInput('');
-      setChatQuestionId(questionId);
-      setChatQuestionObj(q);
-      setChatUserAnswer(userAnswer || '');
-      // Auto-send initial question to AI with a contextual message
+    }
+    const threadLen = alreadyLoaded ? chatMessages.length : (chatThreads[tid]?.messages.length || 0);
+    // Auto-send the context message when the conversation is still empty, or
+    // when the user explicitly tapped "Ask AI" on a question (force).
+    if (opts?.force || threadLen === 0) {
       const initialMsg = userAnswer
         ? t('iChose', { a: userAnswer })
         : t('helpUnderstand');
-      sendChatMessage(questionId, [{ role: 'user', content: initialMsg }], userAnswer, q);
+      const base = alreadyLoaded ? chatMessages : (chatThreads[tid]?.messages || []);
+      sendChatMessage(questionId, [...base, { role: 'user', content: initialMsg }], userAnswer, q);
     }
     setChatOpen(true);
   };
@@ -2487,6 +2561,10 @@ export default function ChemTestApp() {
                         {row.map((test, ci) => {
                           const idx = ri * gridPerRow + ci;
                           const totalQ = test._count?.questions || test.questions?.length || 0;
+                          // "Own" = created by THIS user. Bookmarked tests (saved
+                          // via the bookmark button) are NOT own: they show no
+                          // share buttons — pressing Edit makes an editable copy.
+                          const own = !!effectiveUser && test.creatorId === effectiveUser.id;
                           const fcnt = (dashFullTests[test.id]?.attachments as AttachmentItem[] | undefined)?.length || test._count?.attachments || 0;
                           const bgClass = test.coverColor ? '' : coverBgFor(test);
                           const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
@@ -2541,9 +2619,9 @@ export default function ChemTestApp() {
                                     <Paperclip className="size-3 shrink-0" /> <span className="truncate [@media(max-width:399px)]:text-[9px]">{t('attachedFiles', { n: fcnt })}</span>
                                   </Button>
                                 )}
-                                {/* Share buttons live in the personal library only —
-                                in Discover these tests belong to other authors */}
-                                {!discoverMode && (
+                                {/* Share buttons — OWN tests only. Bookmarked tests
+                                are read-only references: Edit makes a copy first. */}
+                                {!discoverMode && own && (
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                   title={t('shareOptLink')} aria-label={t('shareOptLink')}
@@ -2552,7 +2630,7 @@ export default function ChemTestApp() {
                                   <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                 </Button>
                                 )}
-                                {!discoverMode && (
+                                {!discoverMode && own && (
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                   title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
@@ -2626,8 +2704,9 @@ export default function ChemTestApp() {
                                       <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
                                     </Button>
                                   )}
-                                  {/* Share buttons live in the personal library only */}
-                                  {!discoverMode && (
+                                  {/* Share buttons — OWN tests only (bookmarked tests
+                                  get an editable copy via Edit first) */}
+                                  {!discoverMode && own && (
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
                                     onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                     title={t('shareOptLink')} aria-label={t('shareOptLink')}
@@ -2636,7 +2715,7 @@ export default function ChemTestApp() {
                                     <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                   </Button>
                                   )}
-                                  {!discoverMode && (
+                                  {!discoverMode && own && (
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
                                     onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                     title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
@@ -2689,16 +2768,16 @@ export default function ChemTestApp() {
                   const bgClass = test.coverColor ? '' : coverBgFor(test);
                   const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
                   return (
-                    <section key={`${test.id}-${s.fIdx}`} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
+                    <section key={`${test.id}`} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
                       <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                         <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
                           <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
                             <p className="text-xs font-semibold text-foreground/70 line-clamp-1">{test.title}</p>
                             <p className="text-base sm:text-lg font-bold leading-snug">{t('attachedFiles', { n: s.count })}</p>
-                            <p className="text-[11px] sm:text-xs text-foreground/70">{t('fileOf', { i: s.fIdx + 1, n: s.count })}</p>
                           </div>
+                          {/* ALL of the test's files in ONE scrollable card */}
                           <div className="flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                            <AttachmentsList items={[s.file]} />
+                            <AttachmentsList items={s.files} />
                           </div>
                           <button
                             type="button"
@@ -2710,7 +2789,7 @@ export default function ChemTestApp() {
                             <span className="ml-auto text-xs text-muted-foreground">{t('backToTest')}</span>
                           </button>
                           <p className="shrink-0 text-center text-[11px] text-foreground/70">
-                            {s.fIdx === s.count - 1 ? t('swipeNextTestFiles') : t('swipeNextFile')}
+                            {t('swipeNextTestFiles')}
                           </p>
                         </div>
                       </div>
@@ -2735,6 +2814,9 @@ export default function ChemTestApp() {
               {tests.map((test, idx) => {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
+                // Own test vs a bookmarked one (saved from Discover): bookmarked
+                // tests show no share controls — Edit copies them first.
+                const own = !!effectiveUser && test.creatorId === effectiveUser.id;
                 const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
                 // Publication variant SAVED with the test drives the share selector's
                 // initial highlight; a share tap re-highlights the last used option
@@ -2892,9 +2974,9 @@ export default function ChemTestApp() {
                             {/* Share — radio-style scope selector: the chosen option
                             lights up red (like the randomize cards) and the share
                             fires for this test; only one option can be lit.
-                            Discover mode hides it: other authors' tests are only
-                            browsed here, not published. */}
-                            {!discoverMode && (
+                            Discover mode and BOOKMARKED tests hide it: others'
+                            tests are browsed, not published — Edit copies first. */}
+                            {!discoverMode && own && (
                             <div className="shrink-0 grid grid-cols-2 gap-2">
                               <button
                                 type="button"
@@ -3541,7 +3623,7 @@ export default function ChemTestApp() {
     // Navigate to a question and close any open chat sheet
     const goToQuestion = (idx: number) => {
       setCurrentQuestionIdx(idx);
-      if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); }
+      if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); setChatThreadId(''); }
     };
 
     // Question search (take-test header): filter this test's questions by text
@@ -3862,6 +3944,13 @@ export default function ChemTestApp() {
                   onSend={() => sendChatMessage()}
                   endRef={chatEndRef}
                   switcher={sheetSwitcher}
+                  historyOpen={chatHistoryOpen}
+                  onToggleHistory={() => setChatHistoryOpen(v => !v)}
+                  threads={aiThreadMetas}
+                  activeThreadId={chatThreadId}
+                  onSelectThread={selectChatThread}
+                  historyLabel={t('chatHistory')}
+                  noChatsLabel={t('noChatsYet')}
                 />
               )}
 
@@ -3882,14 +3971,18 @@ export default function ChemTestApp() {
                 />
               )}
 
-              {/* Edit Test window in Results — bottom sheet, same chrome as the
-                  chat windows; its header switcher jumps to Files / AI Tutor /
-                  Test Chat and back. Saving stays on the updated results. */}
+              {/* Edit Test window in Results — RESIZABLE bottom sheet (drag the
+                  top bar up to full screen), same chrome as the chat windows;
+                  its header switcher jumps to Files / AI Tutor / Test Chat and
+                  back. Saving stays on the updated results. */}
               {editOpen && (
-                <div className="fixed inset-0 z-50">
-                  <div className="absolute inset-0 bg-black/50" onClick={() => setEditOpen(false)} />
-                  <div className="absolute inset-x-0 bottom-0 mx-auto max-w-3xl bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col h-[85vh] animate-in slide-in-from-bottom duration-200">
-                    <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
+                <ResizableSheetFrame
+                  onClose={() => setEditOpen(false)}
+                  initialVh={0.85}
+                  minVh={0.4}
+                  maxW="max-w-3xl"
+                  header={
+                    <div className="flex items-center justify-between px-4 py-2 border-b shrink-0">
                       <SheetHeaderSwitcher
                         icon={<Pencil className="w-4 h-4 text-white" />}
                         title={t('editTest')}
@@ -3901,18 +3994,22 @@ export default function ChemTestApp() {
                         <X className="w-4 h-4" />
                       </Button>
                     </div>
-                    <div className="flex-1 overflow-y-auto px-4 py-4">
+                  }
+                  body={
+                    <div className="px-4 py-4">
                       <div className="max-w-3xl mx-auto space-y-6">
                         {editorBody}
                       </div>
                     </div>
+                  }
+                  footer={
                     <div className="shrink-0 border-t bg-white/95 backdrop-blur-md px-4 pt-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
                       <Button onClick={() => handleSaveTest(true)} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
                         {loading ? t('saving') : t('saveTest')}
                       </Button>
                     </div>
-                  </div>
-                </div>
+                  }
+                />
               )}
             </div>
           </main>
@@ -4054,7 +4151,7 @@ export default function ChemTestApp() {
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); setEditOpen(false); if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); } } }}
+                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); setEditOpen(false); if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); setChatThreadId(''); } } }}
                     className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   >
                     <Paperclip className="w-4 h-4" />
@@ -4254,6 +4351,13 @@ export default function ChemTestApp() {
                 endRef={chatEndRef}
                 switcher={sheetSwitcher}
                 inputPlaceholder={t('askFollowUp')}
+                historyOpen={chatHistoryOpen}
+                onToggleHistory={() => setChatHistoryOpen(v => !v)}
+                threads={aiThreadMetas}
+                activeThreadId={chatThreadId}
+                onSelectThread={selectChatThread}
+                historyLabel={t('chatHistory')}
+                noChatsLabel={t('noChatsYet')}
               />
             )}
 
@@ -4290,10 +4394,13 @@ export default function ChemTestApp() {
             {/* Edit Test window — bottom sheet, same chrome as the chat windows;
                 its header switcher jumps to Files / AI Tutor / Test Chat and back */}
             {editOpen && (
-              <div className="fixed inset-0 z-50">
-                <div className="absolute inset-0 bg-black/50" onClick={() => setEditOpen(false)} />
-                <div className="absolute inset-x-0 bottom-0 mx-auto max-w-3xl bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col h-[85vh] animate-in slide-in-from-bottom duration-200">
-                  <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
+              <ResizableSheetFrame
+                onClose={() => setEditOpen(false)}
+                initialVh={0.85}
+                minVh={0.4}
+                maxW="max-w-3xl"
+                header={
+                  <div className="flex items-center justify-between px-4 py-2 border-b shrink-0">
                     <SheetHeaderSwitcher
                       icon={<Pencil className="w-4 h-4 text-white" />}
                       title={t('editTest')}
@@ -4305,18 +4412,22 @@ export default function ChemTestApp() {
                       <X className="w-4 h-4" />
                     </Button>
                   </div>
-                  <div className="flex-1 overflow-y-auto px-4 py-4">
+                }
+                body={
+                  <div className="px-4 py-4">
                     <div className="max-w-3xl mx-auto space-y-6">
                       {editorBody}
                     </div>
                   </div>
+                }
+                footer={
                   <div className="shrink-0 border-t bg-white/95 backdrop-blur-md px-4 pt-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
                     <Button onClick={() => handleSaveTest(true)} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
                       {loading ? t('saving') : t('saveTest')}
                     </Button>
                   </div>
-                </div>
-              </div>
+                }
+              />
             )}
           </div>
         </main>

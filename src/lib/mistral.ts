@@ -2,12 +2,12 @@
 const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY || 'mstrl_naalPY3i3Et7CiwdCYCPFJhONOFzt0qI_13UuG1';
 const MISTRAL_BASE_URL = 'https://api.mistral.ai/v1';
 
-interface ChatMessage {
+export interface ChatMessage {
   role: 'system' | 'user' | 'assistant';
   content: string;
 }
 
-interface ChatCompletionOptions {
+export interface ChatCompletionOptions {
   messages: ChatMessage[];
   temperature?: number;
   max_tokens?: number;

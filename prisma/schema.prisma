@@ -91,16 +91,19 @@ model ChatMessage {
 // Files attached to a test (audio/video/PDF/link). Small uploaded files are
 // stored inline as data: URLs; larger course media is referenced by external URL.
 model Attachment {
-  id        String   @id @default(cuid())
-  testId    String
-  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
-  title     String
-  type      String   @default("link") // "audio" | "video" | "pdf" | "image" | "link"
-  url       String   // external URL or data: URL (small uploads)
-  size      Int?     // bytes, when known
-  orderNum  Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  testId      String
+  test        Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  title       String
+  type        String   @default("link") // "audio" | "video" | "pdf" | "image" | "link"
+  url         String   // external URL or data: URL (small uploads)
+  size        Int?     // bytes, when known
+  // Telegram channel bookkeeping: the channel post that carries this file.
+  // Needed to DELETE the file from the channel when it is removed from the test.
+  tgMessageId Int?
+  orderNum    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Question {

@@ -106,6 +106,7 @@ export async function POST(request: NextRequest) {
               type: a.type || 'link',
               url: a.url,
               size: a.size ?? null,
+              tgMessageId: typeof a.tgMessageId === 'number' ? a.tgMessageId : null,
               orderNum: a.orderNum ?? index,
             })),
           },

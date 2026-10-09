@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { PdfCanvasViewer } from '@/components/pdf-canvas-viewer';
 import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
+import { DragHandle, useResizableSheet } from '@/components/resize-sheet';
 
 export interface AttachmentItem {
   id?: string; // present only after the test is saved
@@ -34,6 +35,9 @@ export interface AttachmentItem {
   url: string; // external URL or data: URL for small uploads
   size?: number | null;
   orderNum?: number;
+  // Telegram channel post that carries the file (upload response). Enables
+  // real deletion from the channel when the attachment is removed.
+  tgMessageId?: number | null;
   // client-only helpers for unsaved uploads
   blobUrl?: string; // preview URL for just-picked files
 }
@@ -276,46 +280,72 @@ export function AttachmentsBottomSheet({
         </button>
       )}
 
-      {/* Bottom sheet */}
+      {/* Bottom sheet — resizable: drag the bar up to full screen, down to close */}
       {open && (
-        <div className="lg:hidden fixed inset-0 z-50">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
-          <div className="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col max-h-[78vh] animate-in slide-in-from-bottom duration-200">
-            <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
-              {switcher ? (
-                <SheetHeaderSwitcher
-                  icon={<Paperclip className="w-4 h-4" />}
-                  title={title || `Attached Files (${items.length})`}
-                  options={switcher.options}
-                  onSelect={switcher.onSelect}
-                />
-              ) : (
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setOpen(false)}
-                    aria-label="Close attached files"
-                    className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform"
-                  >
-                    <ChevronDown className="w-5 h-5" />
-                  </button>
-                  <span className="font-semibold text-sm flex items-center gap-1.5">
-                    <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
-                  </span>
-                </div>
-              )}
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={() => setOpen(false)}>
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
-            <ScrollArea className="flex-1 overflow-y-auto max-h-[66vh]">
-              <div className="px-4 pb-8">
-                <AttachmentsList items={items} />
-              </div>
-            </ScrollArea>
-          </div>
-        </div>
+        <ResizableAttachmentsSheet
+          items={items}
+          onClose={() => setOpen(false)}
+          switcher={switcher}
+          title={title}
+        />
       )}
     </>
+  );
+}
+
+function ResizableAttachmentsSheet({
+  items,
+  onClose,
+  switcher,
+  title,
+}: {
+  items: AttachmentItem[];
+  onClose: () => void;
+  switcher?: SheetSwitcher;
+  title?: string;
+}) {
+  const sheet = useResizableSheet({ initialVh: 0.78, minVh: 0.35, onClose });
+  return (
+    <div className="lg:hidden fixed inset-0 z-50">
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div
+        className="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col animate-in slide-in-from-bottom duration-200"
+        style={{ ...sheet.style, maxHeight: '100dvh' }}
+      >
+        <DragHandle handleProps={sheet.handleProps} dragging={sheet.dragging} />
+        <div className="flex items-center justify-between px-4 py-2 border-b shrink-0">
+          {switcher ? (
+            <SheetHeaderSwitcher
+              icon={<Paperclip className="w-4 h-4" />}
+              title={title || `Attached Files (${items.length})`}
+              options={switcher.options}
+              onSelect={switcher.onSelect}
+            />
+          ) : (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onClose}
+                aria-label="Close attached files"
+                className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform"
+              >
+                <ChevronDown className="w-5 h-5" />
+              </button>
+              <span className="font-semibold text-sm flex items-center gap-1.5">
+                <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
+              </span>
+            </div>
+          )}
+          <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={onClose}>
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
+        <ScrollArea className="flex-1 min-h-0">
+          <div className="px-4 pb-8">
+            <AttachmentsList items={items} />
+          </div>
+        </ScrollArea>
+      </div>
+    </div>
   );
 }
 
@@ -499,6 +529,7 @@ export function AttachmentsEditor({
     // ONLY in the owner's Telegram channel. If the bot is not connected yet,
     // the server falls back to a data: URL (in-DB) for small files.
     let finalUrl = '';
+    let tgMessageId: number | null = null;
     try {
       const fd = new FormData();
       fd.append('file', file);
@@ -506,6 +537,7 @@ export function AttachmentsEditor({
       const body = await res.json().catch(() => null);
       if (res.ok && body?.ok && body?.url) {
         finalUrl = body.url as string;
+        tgMessageId = typeof body.tgMessageId === 'number' ? body.tgMessageId : null;
       } else {
         const desc = body?.error === 'FILE_STORAGE_UNAVAILABLE'
           ? 'Telegram storage is not connected yet and the file is too large for the built-in fallback. Connect the bot (TELEGRAM_BOT_TOKEN / TELEGRAM_CHANNEL_ID) or pick a smaller file.'
@@ -524,6 +556,7 @@ export function AttachmentsEditor({
       type: guessed as AttachmentItem['type'],
       url: finalUrl,
       size: file.size,
+      tgMessageId,
       blobUrl,
     }]);
   };

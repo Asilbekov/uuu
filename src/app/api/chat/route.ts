@@ -1,5 +1,5 @@
 import { db } from '@/lib/db';
-import { mistralChat } from '@/lib/mistral';
+import { aiChat } from '@/lib/ai';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface ChatMessage {
@@ -36,12 +36,13 @@ function normalizeMathNotation(text: string): string {
 
 async function callAIWithRetry(conversationMessages: { role: 'system' | 'user' | 'assistant'; content: string }[], retries = MAX_RETRIES): Promise<string> {
   try {
-    const response = await mistralChat({
+    // Provider chain: Gemini → Google AI Mode → Mistral (see src/lib/ai.ts)
+    const { text } = await aiChat({
       messages: conversationMessages,
       temperature: 0.5,
       max_tokens: 1600,
     });
-    return response || 'Sorry, I could not generate a response.';
+    return text || 'Sorry, I could not generate a response.';
   } catch (error: any) {
     const isRateLimit = error?.message?.includes('429') || error?.message?.includes('Too many requests') || error?.message?.includes('rate');
     if (isRateLimit && retries > 0) {
