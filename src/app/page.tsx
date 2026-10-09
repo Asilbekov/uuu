@@ -3036,7 +3036,6 @@ export default function ChemTestApp() {
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2 min-w-0">
                 <Button variant="ghost" size="sm" onClick={goHome} className="shrink-0"><Home className="w-4 h-4" /></Button>
-                <span className="text-sm font-medium line-clamp-2 leading-snug min-w-0 flex-1">{currentTest?.title}</span>
                 <LangButton lang={lang} onChange={cycleLang} className="border-black shrink-0" />
               </div>
               <div className="flex-1 min-w-[110px] sm:max-w-sm relative mx-1 sm:mx-2">
