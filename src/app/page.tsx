@@ -1280,9 +1280,10 @@ export default function ChemTestApp() {
   };
 
   // Start directly from the dashboard feed (fetch the full test first)
-  // fresh=true (Restart button) — skip any saved progress and start over
-  const startFromDashboard = async (fresh = false) => {
-    const t = tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)];
+  // fresh=true (Restart button) — skip any saved progress and start over;
+  // override — start THIS test (grid cards), otherwise the test on screen
+  const startFromDashboard = async (fresh = false, override?: Test) => {
+    const t = override || tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)];
     if (!t || loading) return;
     setLoading(true);
     try {
@@ -2110,20 +2111,47 @@ export default function ChemTestApp() {
                             className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                           >
                             <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
-                            <p className="text-[10px] sm:text-[11px] text-muted-foreground mt-1 line-clamp-1">{(test.tags || []).slice(0, 2).join(' · ') || test.topic}</p>
-                            <p className="text-[10px] sm:text-[11px] text-muted-foreground">{t('qCount', { n: totalQ })}</p>
-                            <div className="mt-auto pt-1.5 flex items-center gap-1.5">
-                              <Button size="sm" onClick={e => { e.stopPropagation(); openFromLibrary(idx); }} className="h-7 px-2.5 rounded-full text-xs flex-1">
-                                <Play className="w-3 h-3 mr-1" /> {t('miniStart')}
+                            {/* Same per-card actions as the TikTok card, icon-only so
+                            everything fits the small tile: Start on top, Restart under
+                            it, then files + share options below. Start resumes saved
+                            progress; Restart always begins over. */}
+                            <div className="mt-auto pt-1.5 flex flex-col gap-1">
+                              <Button size="sm" disabled={loading}
+                                onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
+                                title={t('miniStart')} aria-label={t('miniStart')}
+                                className="h-7 rounded-full"
+                              >
+                                <Play className="w-3.5 h-3.5" />
                               </Button>
-                              {fcnt > 0 && (
-                                <Button size="sm" variant="outline" title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                  onClick={e => { e.stopPropagation(); openFilesFromGrid(test); }}
-                                  className="h-7 w-7 p-0 rounded-full border-black shrink-0"
+                              <Button size="sm" variant="outline" disabled={loading}
+                                onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
+                                title={t('restart')} aria-label={t('restart')}
+                                className="h-7 rounded-full border-black"
+                              >
+                                <RefreshCw className="w-3.5 h-3.5" />
+                              </Button>
+                              <div className="flex items-center gap-1">
+                                {fcnt > 0 && (
+                                  <Button size="sm" variant="outline" title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
+                                    onClick={e => { e.stopPropagation(); openFilesFromGrid(test); }}
+                                    className="h-7 flex-1 min-w-0 rounded-full border-black"
+                                  >
+                                    <Paperclip className="w-3.5 h-3.5" />
+                                  </Button>
+                                )}
+                                <Button size="sm" variant="outline" disabled={!!shareBusy} title={t('shareOptLink')} aria-label={t('shareOptLink')}
+                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
+                                  className="h-7 flex-1 min-w-0 rounded-full border-black"
                                 >
-                                  <Paperclip className="w-3.5 h-3.5" />
+                                  <Link2 className="w-3.5 h-3.5" />
                                 </Button>
-                              )}
+                                <Button size="sm" variant="outline" disabled={!!shareBusy} title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
+                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
+                                  className="h-7 flex-1 min-w-0 rounded-full border-black"
+                                >
+                                  <Users className="w-3.5 h-3.5" />
+                                </Button>
+                              </div>
                             </div>
                           </div>
                         ) : (
@@ -2138,12 +2166,27 @@ export default function ChemTestApp() {
                               <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
                             </div>
                             <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
-                              <p className="text-sm sm:text-base font-bold line-clamp-1">{test.title}</p>
-                              <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1 mt-0.5">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
+                              {/* Title lives on the spine only — no duplicate text in
+                              the content area */}
+                              <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
                               <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
+                              {/* Full TikTok-card action set, icon-only: Start (resumes
+                              saved progress), Restart (starts over), files, share by
+                              link, share to community */}
                               <div className="mt-auto pt-1.5 flex items-center gap-1.5">
-                                <Button size="sm" onClick={e => { e.stopPropagation(); openFromLibrary(idx); }} className="h-7 px-3 rounded-full text-xs">
-                                  <Play className="w-3 h-3 mr-1" /> {t('miniStart')}
+                                <Button size="sm" disabled={loading}
+                                  onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
+                                  title={t('miniStart')} aria-label={t('miniStart')}
+                                  className="h-7 flex-1 rounded-full"
+                                >
+                                  <Play className="w-3.5 h-3.5" />
+                                </Button>
+                                <Button size="sm" variant="outline" disabled={loading}
+                                  onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
+                                  title={t('restart')} aria-label={t('restart')}
+                                  className="h-7 flex-1 rounded-full border-black"
+                                >
+                                  <RefreshCw className="w-3.5 h-3.5" />
                                 </Button>
                                 {fcnt > 0 && (
                                   <Button size="sm" variant="outline" title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
@@ -2153,6 +2196,18 @@ export default function ChemTestApp() {
                                     <Paperclip className="w-3.5 h-3.5" />
                                   </Button>
                                 )}
+                                <Button size="sm" variant="outline" disabled={!!shareBusy} title={t('shareOptLink')} aria-label={t('shareOptLink')}
+                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
+                                  className="h-7 w-7 p-0 rounded-full border-black shrink-0"
+                                >
+                                  <Link2 className="w-3.5 h-3.5" />
+                                </Button>
+                                <Button size="sm" variant="outline" disabled={!!shareBusy} title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
+                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
+                                  className="h-7 w-7 p-0 rounded-full border-black shrink-0"
+                                >
+                                  <Users className="w-3.5 h-3.5" />
+                                </Button>
                               </div>
                             </div>
                           </div>
