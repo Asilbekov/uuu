@@ -197,6 +197,21 @@ const en: Dict = {
   pickInterestsSkip: 'Skip for now',
   interestsSaved: 'Interests saved — your feed is now personal',
   recommendedTag: 'Recommended',
+  // View switcher (header): dashboard feed layouts
+  viewMode: 'View',
+  viewTikTok: 'TikTok feed',
+  viewLibrary: 'Library',
+  viewShelf: 'Shelf',
+  backToLibrary: 'Back to library',
+  miniStart: 'Start',
+  // Tag search fallback: tag is new → created + close tags offered
+  tagNotFound: 'Tag "{q}" does not exist yet',
+  tagCreated: 'created it for you',
+  similarTags: 'Close tags',
+  // Files feed mode: one attachment per slide, flowing into the next test
+  fileOf: 'File {i} of {n}',
+  swipeNextFile: 'Swipe up — next file',
+  swipeNextTestFiles: 'Last file — swipe up for the next test\'s files',
 };
 
 const ru: Dict = {
@@ -365,6 +380,18 @@ const ru: Dict = {
   pickInterestsSkip: 'Пока пропустить',
   interestsSaved: 'Интересы сохранены — лента теперь персональная',
   recommendedTag: 'Рекомендуем',
+  viewMode: 'Вид',
+  viewTikTok: 'ТикТок (лента)',
+  viewLibrary: 'Библиотека',
+  viewShelf: 'Полочный',
+  backToLibrary: 'К библиотеке',
+  miniStart: 'Начать',
+  tagNotFound: 'Тега «{q}» ещё не существует',
+  tagCreated: 'создали его для вас',
+  similarTags: 'Похожие теги',
+  fileOf: 'Файл {i} из {n}',
+  swipeNextFile: 'Свайп вверх — следующий файл',
+  swipeNextTestFiles: 'Последний файл — свайп вверх к файлам следующего теста',
 };
 
 const uz: Dict = {
@@ -533,6 +560,18 @@ const uz: Dict = {
   pickInterestsSkip: 'Hozir o‘tkazib yuborish',
   interestsSaved: 'Qiziqishlar saqlandi — lenta endi shaxsiy',
   recommendedTag: 'Tavsiya etamiz',
+  viewMode: 'Koʻrinish',
+  viewTikTok: 'TikTok (lenta)',
+  viewLibrary: 'Kutubxona',
+  viewShelf: 'Polka',
+  backToLibrary: 'Kutubxonaga qaytish',
+  miniStart: 'Boshlash',
+  tagNotFound: '«{q}» tegi hali mavjud emas',
+  tagCreated: 'siz uchun yaratildi',
+  similarTags: 'Oʻxshash teglar',
+  fileOf: '{n} fayldan {i}',
+  swipeNextFile: 'Yuqori suring — keyingi fayl',
+  swipeNextTestFiles: 'Oxirgi fayl — keyingi test fayllariga suring',
 };
 
 const UI: Record<Lang, Dict> = { en, ru, uz };

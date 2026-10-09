@@ -73,12 +73,36 @@ export async function GET(request: NextRequest) {
     // Search is TAG-based: resolve the query to matching tag names (partial,
     // case-insensitive) first, then keep tests carrying any of those tags.
     // Title/description are intentionally NOT searched (per product decision).
+    // Fallback (product decision): when the exact tag does not exist yet, it is
+    // CREATED in the global Tag dictionary on the fly, the user is told so via
+    // tagInfo, and tests carrying CLOSE (partial-match) tags are still shown.
+    let tagInfo: { query: string; exists: boolean; created: boolean; similar: string[] } | null = null;
     if (q) {
       const tagRows = await db.$queryRawUnsafe<{ tag: string }[]>(
         `SELECT DISTINCT tg.tag FROM "Test" t CROSS JOIN LATERAL unnest(t.tags) AS tg(tag) WHERE tg.tag ILIKE $1 LIMIT 25`,
         `%${q}%`
       );
       const matchedTags = tagRows.map(r => r.tag);
+      // Exact (case-insensitive) existence: Tag dictionary OR any test's tags
+      const exactRows = await db.$queryRawUnsafe<{ ok: boolean }[]>(
+        `SELECT (EXISTS (SELECT 1 FROM "Tag" WHERE name ILIKE $1) OR EXISTS (
+           SELECT 1 FROM "Test" t CROSS JOIN LATERAL unnest(t.tags) tg WHERE tg ILIKE $1)) AS ok`,
+        q
+      );
+      const exists = !!exactRows[0]?.ok;
+      let created = false;
+      if (!exists && q.length >= 2) {
+        try {
+          await db.tag.upsert({ where: { name: q }, update: {}, create: { name: q } });
+          created = true;
+        } catch { /* dictionary write is best-effort — search still works */ }
+      }
+      tagInfo = {
+        query: q,
+        exists,          // existed BEFORE this search
+        created,         // we just created it in the dictionary
+        similar: matchedTags.filter(t => t.toLowerCase() !== q.toLowerCase()).slice(0, 8),
+      };
       filters.push(matchedTags.length ? { tags: { hasSome: matchedTags } } : { id: { in: [] } });
     }
     if (creatorId) filters.push({ creatorId });
@@ -142,6 +166,7 @@ export async function GET(request: NextRequest) {
         items: page.map(toCard),
         nextCursor: hasMore && last ? `${new Date(last.createdAt).toISOString()}|${last.id}` : null,
         tab,
+        tagInfo,
       });
     }
 
@@ -178,6 +203,7 @@ export async function GET(request: NextRequest) {
         items,
         nextCursor: hasMore ? `o:${offset + limit}` : null,
         tab,
+        tagInfo,
       });
     }
 
@@ -294,7 +320,7 @@ export async function GET(request: NextRequest) {
     }
 
     const items = await slimByIds(pageIds);
-    return NextResponse.json({ items, nextCursor, tab, personalized: !!userId });
+    return NextResponse.json({ items, nextCursor, tab, tagInfo, personalized: !!userId });
   } catch (error) {
     console.error('Feed error:', error);
     return NextResponse.json({ error: 'Failed to load feed' }, { status: 500 });

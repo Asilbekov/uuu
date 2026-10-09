@@ -62,6 +62,9 @@ import {
   ClipboardList,
   Loader2,
   Link2,
+  LayoutGrid,
+  Library,
+  Rows3,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
@@ -315,16 +318,22 @@ export default function ChemTestApp() {
   // Per-card share scope selection: exactly one of the two share buttons on a
   // card can be highlighted at a time (radio behaviour, like the mode cards).
   const [shareScopeByTest, setShareScopeByTest] = useState<Record<string, 'link' | 'community'>>({});
-  // Dedicated attached-files card: when set, the feed shows a full files card
-  // INSTEAD of that test's card (same slide position — index math stays 1:1).
-  const [filesCardTestId, setFilesCardTestId] = useState<string | null>(null);
-  const filesCardTestIdRef = useRef<string | null>(null);
-  useEffect(() => { filesCardTestIdRef.current = filesCardTestId; }, [filesCardTestId]);
-  // Context-sensitive header search: on the files card it filters the file list,
-  // otherwise it searches tests server-side (/api/feed?q=) with a dropdown.
-  // The input is ALWAYS visible inline between the header buttons (no separate row).
+  // Files feed mode: the TikTok feed flips from one-slide-per-test to one-
+  // slide-per-ATTACHMENT (flattened across the recommended tests). Swiping
+  // runs through this test's files, then the next recommended test's files.
+  // Header and bottom bar stay untouched; the paperclip button toggles back.
+  const [filesFeedMode, setFilesFeedMode] = useState(false);
+  const filesFeedModeRef = useRef(false);
+  useEffect(() => { filesFeedModeRef.current = filesFeedMode; }, [filesFeedMode]);
+  const [dashSlideIdx, setDashSlideIdx] = useState(0);
+  // Context-sensitive header search: searches tests server-side (/api/feed?q=)
+  // by TAGS with a dropdown. The input is ALWAYS visible inline between the
+  // header buttons (no separate row).
   const [dashSearch, setDashSearch] = useState('');
   const [dashSearchResults, setDashSearchResults] = useState<Test[] | null>(null);
+  // Tag dictionary feedback for the current search: whether the exact tag
+  // exists, whether we just created it, and similar tags to offer instead.
+  const [dashTagInfo, setDashTagInfo] = useState<{ query: string; exists: boolean; created: boolean; similar: string[] } | null>(null);
   const [dashSearching, setDashSearching] = useState(false);
   // Take-test header search: filters the questions of the running test.
   // Hidden behind a search BUTTON; tapping it opens an input overlay that
@@ -664,6 +673,8 @@ export default function ChemTestApp() {
     const cleanUrl = () => { try { window.history.replaceState({}, '', window.location.pathname); } catch {} };
     const idx = tests.findIndex(x => x.id === id);
     const jump = (i: number) => {
+      // Deep links always open the swipe feed, never the grid views
+      if (dashView !== 'tiktok1' && dashView !== 'tiktok2') setDashView('tiktok1');
       setDashTestIdx(i);
       const el = dashFeedRef.current;
       if (el && el.clientHeight > 0) el.scrollTo({ top: i * el.clientHeight, behavior: 'instant' as ScrollBehavior });
@@ -685,18 +696,17 @@ export default function ChemTestApp() {
   // Header search (tests context): debounce 350ms, server-side /api/feed?q=
   useEffect(() => {
     if (effectivePage !== 'dashboard') return;
-    if (filesCardTestId) { setDashSearchResults(null); setDashSearching(false); return; }
     const q = dashSearch.trim();
-    if (q.length < 2) { setDashSearchResults(null); setDashSearching(false); return; }
+    if (q.length < 2) { setDashSearchResults(null); setDashTagInfo(null); setDashSearching(false); return; }
     setDashSearching(true);
     let alive = true;
     const t = setTimeout(() => {
       api.getFeed({ tab: 'foryou', q, limit: 8 })
-        .then((res: { items?: Test[] }) => { if (alive) { setDashSearchResults(res?.items || []); setDashSearching(false); } })
-        .catch(() => { if (alive) { setDashSearchResults([]); setDashSearching(false); } });
+        .then((res: { items?: Test[]; tagInfo?: { query: string; exists: boolean; created: boolean; similar: string[] } | null }) => { if (alive) { setDashSearchResults(res?.items || []); setDashTagInfo(res?.tagInfo || null); setDashSearching(false); } })
+        .catch(() => { if (alive) { setDashSearchResults([]); setDashTagInfo(null); setDashSearching(false); } });
     }, 350);
     return () => { alive = false; clearTimeout(t); };
-  }, [dashSearch, filesCardTestId, effectivePage]);
+  }, [dashSearch, effectivePage]);
 
   // Load tests when navigating to dashboard (skipped when boot already restored the data)
   useEffect(() => {
@@ -716,11 +726,93 @@ export default function ChemTestApp() {
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
   const dashFeedTouchUntilRef = React.useRef(0);
   const dashFeedSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Dashboard VIEW modes: tiktok1 = card swipe feed, tiktok2 = the same feed
+  // opened from the library (back button in the header), library = shelves of
+  // 3 mini cards per shelf, shelf = one card per shelf. Library & shelf scroll
+  // endlessly downwards while tests remain.
+  const [dashView, setDashView] = useState<'tiktok1' | 'tiktok2' | 'library' | 'shelf'>('tiktok1');
+  const [viewMenuOpen, setViewMenuOpen] = useState(false);
+  const gridScrollTopRef = useRef(0);
+  const libReturnViewRef = useRef<'library' | 'shelf'>('library');
 
-  // When the visible test changes (swipe): apply its defaults, sync feed scroll, lazy-fetch full test for attachments
+  // Flattened file slides for files feed mode: every loaded test contributes
+  // one slide per attachment, in recommendation order (tests without files
+  // are skipped — the swipe flows from this test's files to the next test's).
+  // A test's slides join ONLY once every earlier loaded test is fetched too,
+  // so resolving fetches APPEND slides and never shift the visible position.
+  const fileSlides = React.useMemo(() => {
+    if (!filesFeedMode) return [] as { test: Test; file: AttachmentItem; count: number; fIdx: number }[];
+    const out: { test: Test; file: AttachmentItem; count: number; fIdx: number }[] = [];
+    for (const t of tests) {
+      const full = dashFullTests[t.id];
+      if (!full) break; // earlier test's attachments still loading — stop here
+      const fl = ((full.attachments ?? []) as AttachmentItem[]).filter(Boolean);
+      fl.forEach((f, i) => out.push({ test: t, file: f, count: fl.length, fIdx: i }));
+    }
+    return out;
+  }, [filesFeedMode, tests, dashFullTests]);
+  const fileSlidesRef = useRef<{ test: Test; file: AttachmentItem; count: number; fIdx: number }[]>([]);
+  const fileSlidesCountRef = useRef(0);
+  useEffect(() => { fileSlidesRef.current = fileSlides; fileSlidesCountRef.current = fileSlides.length; }, [fileSlides]);
+
+  // Instantly align the dashboard feed with slide/test index i (post-commit)
+  const scrollDashTo = useCallback((i: number) => {
+    dashFeedTouchUntilRef.current = 0;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const el = dashFeedRef.current;
+      if (el && el.clientHeight > 0) el.scrollTo({ top: i * el.clientHeight, behavior: 'instant' as ScrollBehavior });
+    }));
+  }, []);
+
+  // Entering files mode: remember which test's files to land on; once its
+  // slides exist (attachments may still be loading), scroll to the first one.
+  const pendingFilesJumpRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!filesFeedMode || !pendingFilesJumpRef.current) return;
+    const idx = fileSlides.findIndex(s => s.test.id === pendingFilesJumpRef.current);
+    if (idx < 0) return;
+    pendingFilesJumpRef.current = null;
+    setDashSlideIdx(idx);
+    scrollDashTo(idx);
+  }, [fileSlides, filesFeedMode, scrollDashTo]);
+
+  // When the visible test/slide changes: apply its defaults, lazy-fetch the
+  // full test for attachments, sync feed scroll (test mode only — in files
+  // mode the settle handler is the single source of truth for the position).
   useEffect(() => {
     if (effectivePage !== 'dashboard') return;
     if (tests.length === 0) return;
+    if (dashView !== 'tiktok1' && dashView !== 'tiktok2') return; // grid views have no "current test"
+    if (filesFeedMode) {
+      const s = fileSlides[Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1))];
+      if (!s) return;
+      const t = s.test;
+      // Keep dashTestIdx on the test whose files are visible — the bottom bar
+      // (Start Test etc.) then stays EXACTLY as it is in the normal feed
+      const tIdx = tests.findIndex(x => x.id === t.id);
+      if (tIdx >= 0 && tIdx !== dashTestIdx) setDashTestIdx(tIdx);
+      const totalQ = t._count?.questions || t.questions?.length || 0;
+      setSelectedQuestionCount(Math.max(1, totalQ));
+      setStartRandomizeQ(t.randomizeQuestions !== false);
+      setStartRandomizeO(t.randomizeOptions !== false);
+      setStartFilesExpanded(false);
+      if (!dashFetchedRef.current.has(t.id)) {
+        dashFetchedRef.current.add(t.id);
+        api.getTest(t.id)
+          .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t.id]: full })))
+          .catch(() => { dashFetchedRef.current.delete(t.id); });
+      }
+      // Preload upcoming tests' attachments so swiping past the last file of
+      // this test can continue into the next recommended test's files
+      for (const t2 of tests) {
+        if (dashFetchedRef.current.has(t2.id)) continue;
+        dashFetchedRef.current.add(t2.id);
+        api.getTest(t2.id)
+          .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t2.id]: full })))
+          .catch(() => { dashFetchedRef.current.delete(t2.id); });
+      }
+      return;
+    }
     const safeIdx = Math.min(Math.max(0, dashTestIdx), tests.length - 1);
     if (safeIdx !== dashTestIdx) { setDashTestIdx(safeIdx); return; }
     const t = tests[safeIdx];
@@ -747,7 +839,21 @@ export default function ChemTestApp() {
         .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t.id]: full })))
         .catch(() => { dashFetchedRef.current.delete(t.id); });
     }
-  }, [dashTestIdx, effectivePage, tests]);
+  }, [dashTestIdx, dashSlideIdx, filesFeedMode, dashView, effectivePage, tests, fileSlides]);
+
+  // Grid views (library / shelf): prefetch the full tests of every loaded card
+  // so the per-card attached-files button knows the real file count
+  useEffect(() => {
+    if (effectivePage !== 'dashboard') return;
+    if (dashView !== 'library' && dashView !== 'shelf') return;
+    for (const t of tests) {
+      if (dashFetchedRef.current.has(t.id)) continue;
+      dashFetchedRef.current.add(t.id);
+      api.getTest(t.id)
+        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t.id]: full })))
+        .catch(() => { dashFetchedRef.current.delete(t.id); });
+    }
+  }, [dashView, effectivePage, tests]);
 
   // Scroll the page down to the newly added question (questions scroll with the whole page)
   const prevQuestionCountRef = React.useRef(questions.length);
@@ -1313,16 +1419,24 @@ export default function ChemTestApp() {
     if (!el || el.clientHeight === 0) return;
     if (Date.now() < dashFeedTouchUntilRef.current) return;
     const idx = Math.round(el.scrollTop / el.clientHeight);
+    const signal = (shown?: Test) => {
+      if (shown && effectiveUser && !viewSignaledRef.current.has(shown.id)) {
+        viewSignaledRef.current.add(shown.id);
+        api.feedSignal(shown.id, 'view').catch(() => {});
+      }
+    };
+    if (filesFeedModeRef.current) {
+      // Files mode: commit the visible FILE slide
+      if (fileSlidesCountRef.current === 0) return;
+      const clamped = Math.min(fileSlidesCountRef.current - 1, Math.max(0, idx));
+      setDashSlideIdx(clamped);
+      signal(fileSlidesRef.current[clamped]?.test);
+      return;
+    }
     const clamped = Math.min(tests.length - 1, Math.max(0, idx));
     setDashTestIdx(clamped);
-    // The files card belongs to its test: swiping to a different test closes it
-    if (filesCardTestIdRef.current && tests[clamped]?.id !== filesCardTestIdRef.current) setFilesCardTestId(null);
     // Recommendation signal (invisible): this card stayed on screen — count a view
-    const shown = tests[clamped];
-    if (shown && effectiveUser && !viewSignaledRef.current.has(shown.id)) {
-      viewSignaledRef.current.add(shown.id);
-      api.feedSignal(shown.id, 'view').catch(() => {});
-    }
+    signal(tests[clamped]);
   };
   const armDashSettle = (delay = 140) => {
     if (dashFeedSettleTimerRef.current) clearTimeout(dashFeedSettleTimerRef.current);
@@ -1660,14 +1774,18 @@ export default function ChemTestApp() {
   // Jump to a test from the search dropdown: scroll to it if already loaded,
   // otherwise fetch the full test and pin it to the top (same as deep-link)
   const jumpToTest = (id: string) => {
-    setFilesCardTestId(null);
-    setDashSearch(''); setDashSearchResults(null);
+    pendingFilesJumpRef.current = null;
+    if (filesFeedMode) setFilesFeedMode(false);
+    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null);
+    // From the grid views a search result opens the swipe feed with a back
+    // button that returns to the grid at its remembered scroll position
+    if (dashView === 'library' || dashView === 'shelf') {
+      libReturnViewRef.current = dashView;
+      gridScrollTopRef.current = dashFeedRef.current?.scrollTop || 0;
+      setDashView('tiktok2');
+    }
     const idx = tests.findIndex(x => x.id === id);
-    const go = (i: number) => {
-      setDashTestIdx(i);
-      const el = dashFeedRef.current;
-      if (el && el.clientHeight > 0) el.scrollTo({ top: i * el.clientHeight, behavior: 'instant' as ScrollBehavior });
-    };
+    const go = (i: number) => { setDashTestIdx(i); scrollDashTo(i); };
     if (idx >= 0) { go(idx); return; }
     api.getTest(id).then((full: Test) => {
       seenIdsRef.current.add(full.id);
@@ -1676,20 +1794,83 @@ export default function ChemTestApp() {
     }).catch(() => {});
   };
 
-  // Open the dedicated attached-files card for a test (replaces its card)
+  // Flip the feed to files mode: every slide is one attachment, flowing into
+  // the next recommended test's files. Header/bottom bar stay untouched.
   const openFilesCard = (test: Test) => {
-    setFilesCardTestId(test.id);
-    setDashSearch(''); setDashSearchResults(null);
-    if (!dashFetchedRef.current.has(test.id)) {
-      dashFetchedRef.current.add(test.id);
-      api.getTest(test.id)
-        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [test.id]: full })))
-        .catch(() => { dashFetchedRef.current.delete(test.id); });
+    pendingFilesJumpRef.current = test.id;
+    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null);
+    setFilesFeedMode(true);
+    // Prefetch attachments for ALL loaded tests so the flattened slide list
+    // stabilizes quickly (each test's slides appear as its fetch resolves)
+    for (const t of tests) {
+      if (dashFetchedRef.current.has(t.id)) continue;
+      dashFetchedRef.current.add(t.id);
+      api.getTest(t.id)
+        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t.id]: full })))
+        .catch(() => { dashFetchedRef.current.delete(t.id); });
     }
   };
+  // Back to the regular test card of the test whose files are on screen
   const closeFilesCard = () => {
-    setFilesCardTestId(null);
-    setDashSearch(''); setDashSearchResults(null);
+    const cur = fileSlides[Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1))];
+    const tid = cur?.test.id;
+    pendingFilesJumpRef.current = null;
+    setFilesFeedMode(false);
+    setDashSlideIdx(0);
+    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null);
+    if (tid) {
+      const idx = tests.findIndex(x => x.id === tid);
+      if (idx >= 0) { setDashTestIdx(idx); scrollDashTo(idx); }
+    }
+  };
+
+  // View switcher: TikTok swipe feed / Library shelves (3 cards per shelf) /
+  // Shelf view (1 card per shelf). Leaving the feed resets files mode.
+  const switchDashView = (v: 'tiktok1' | 'library' | 'shelf') => {
+    setViewMenuOpen(false);
+    if (v === dashView) return;
+    if (v === 'tiktok1') {
+      if (filesFeedMode) { pendingFilesJumpRef.current = null; setFilesFeedMode(false); setDashSlideIdx(0); }
+      setDashView('tiktok1');
+    } else {
+      if (filesFeedMode) { pendingFilesJumpRef.current = null; setFilesFeedMode(false); setDashSlideIdx(0); }
+      setDashView(v);
+    }
+  };
+  // A card in library/shelf opens the swipe feed at that test (tiktok2 = feed
+  // with a back button that returns to the grid at its scroll position)
+  const openFromLibrary = (idx: number) => {
+    libReturnViewRef.current = dashView === 'shelf' ? 'shelf' : 'library';
+    gridScrollTopRef.current = dashFeedRef.current?.scrollTop || 0;
+    if (filesFeedMode) { pendingFilesJumpRef.current = null; setFilesFeedMode(false); setDashSlideIdx(0); }
+    setDashTestIdx(idx);
+    setDashView('tiktok2');
+    scrollDashTo(idx);
+  };
+  // The per-card paperclip on a grid card: open the FILES feed (tiktok2) so
+  // the header back button still returns to the grid — files mode + views work together
+  const openFilesFromGrid = (test: Test) => {
+    libReturnViewRef.current = dashView === 'shelf' ? 'shelf' : 'library';
+    gridScrollTopRef.current = dashFeedRef.current?.scrollTop || 0;
+    setDashView('tiktok2');
+    openFilesCard(test);
+  };
+  const backToLibrary = () => {
+    // Leaving the files feed back to the grid also resets files mode
+    if (filesFeedModeRef.current) {
+      pendingFilesJumpRef.current = null;
+      setFilesFeedMode(false);
+      setDashSlideIdx(0);
+    }
+    const target = libReturnViewRef.current === 'shelf' ? 'shelf' : 'library';
+    const top = gridScrollTopRef.current;
+    setDashView(target);
+    if (top > 0) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const el = dashFeedRef.current;
+        if (el && el.clientHeight > 0) el.scrollTo({ top, behavior: 'instant' as ScrollBehavior });
+      }));
+    }
   };
 
   // DASHBOARD
@@ -1697,24 +1878,50 @@ export default function ChemTestApp() {
     const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
     // Saved progress for the test on screen (cached read) — drives the Continue button
     const dashSaved = curDashTest ? readTestProgress(progressUserId, curDashTest.id) : null;
-    const filesCardShown = !!filesCardTestId && curDashTest?.id === filesCardTestId;
+    // Library / shelf grids: slice the loaded tests into shelf rows
+    // (library = 3 cards per shelf, shelf = 1 card per shelf); rows scroll endlessly
+    const gridPerRow = dashView === 'shelf' ? 1 : 3;
+    const gridRows: Test[][] = [];
+    for (let i = 0; i < tests.length; i += gridPerRow) gridRows.push(tests.slice(i, i + gridPerRow));
     const searchQ = dashSearch.trim();
-    const dashSearchDropdown = filesCardTestId || searchQ.length < 2 ? null : (
+    const dashSearchDropdown = searchQ.length < 2 ? null : (
       <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
         {dashSearching ? (
           <p className="px-3 py-3 text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}</p>
-        ) : (dashSearchResults?.length || 0) === 0 ? (
-          <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
         ) : (
-          (dashSearchResults || []).map(r => (
-            <button key={r.id} type="button" onClick={() => jumpToTest(r.id)} className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0">
-              <p className="text-sm font-medium truncate">{r.title}</p>
-              <p className="text-xs text-muted-foreground truncate">
-                {(r.tags || []).length > 0 && <span className="text-primary font-medium">{(r.tags || []).slice(0, 3).join(' · ')} · </span>}
-                {t('qCount', { n: r._count?.questions || r.questions?.length || 0 })}
-              </p>
-            </button>
-          ))
+          <>
+            {dashTagInfo && !dashTagInfo.exists && (
+              <div className="px-3 py-2.5 border-b border-black/10 bg-muted/40">
+                <p className="text-sm font-medium">
+                  {t('tagNotFound', { q: dashTagInfo.query })}
+                  {dashTagInfo.created ? <span className="text-muted-foreground font-normal"> · {t('tagCreated')}</span> : null}
+                </p>
+                {(dashTagInfo.similar || []).length > 0 && (
+                  <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                    <span className="text-xs text-muted-foreground">{t('similarTags')}:</span>
+                    {dashTagInfo.similar.map(tg => (
+                      <button key={tg} type="button" onClick={() => setDashSearch(tg)} className="text-xs px-2 py-0.5 rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-colors">
+                        {tg}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+            {(dashSearchResults?.length || 0) === 0 ? (
+              <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
+            ) : (
+              (dashSearchResults || []).map(r => (
+                <button key={r.id} type="button" onClick={() => jumpToTest(r.id)} className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0">
+                  <p className="text-sm font-medium truncate">{r.title}</p>
+                  <p className="text-xs text-muted-foreground truncate">
+                    {(r.tags || []).length > 0 && <span className="text-primary font-medium">{(r.tags || []).slice(0, 3).join(' · ')} · </span>}
+                    {t('qCount', { n: r._count?.questions || r.questions?.length || 0 })}
+                  </p>
+                </button>
+              ))
+            )}
+          </>
         )}
       </div>
     );
@@ -1724,6 +1931,18 @@ export default function ChemTestApp() {
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+              {dashView === 'tiktok2' && (
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={backToLibrary}
+                  className="rounded-full shrink-0 border-black"
+                  title={t('backToLibrary')}
+                  aria-label={t('backToLibrary')}
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </Button>
+              )}
               <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0">
                 <Plus className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('createTest')}</span>
               </Button>
@@ -1742,12 +1961,48 @@ export default function ChemTestApp() {
               <Input
                 value={dashSearch}
                 onChange={e => setDashSearch(e.target.value)}
-                placeholder={filesCardTestId ? t('searchFiles') : t('searchByTags')}
+                placeholder={t('searchByTags')}
                 className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
               />
               {dashSearchDropdown}
             </div>
             <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 ml-auto">
+              <div className="relative shrink-0">
+                <Button
+                  variant="outline"
+                  onClick={() => setViewMenuOpen(v => !v)}
+                  className={`rounded-full shrink-0 border-black ${viewMenuOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                  title={t('viewMode')}
+                  aria-label={t('viewMode')}
+                >
+                  <LayoutGrid className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('viewMode')}</span>
+                </Button>
+                {viewMenuOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setViewMenuOpen(false)} />
+                    <div className="absolute right-0 top-full mt-2 w-52 bg-white rounded-2xl shadow-xl border border-black/10 p-1.5 z-50">
+                      {([
+                        { key: 'tiktok1' as const, label: t('viewTikTok'), icon: <Play className="w-4 h-4" /> },
+                        { key: 'library' as const, label: t('viewLibrary'), icon: <Library className="w-4 h-4" /> },
+                        { key: 'shelf' as const, label: t('viewShelf'), icon: <Rows3 className="w-4 h-4" /> },
+                      ]).map(o => {
+                        const activeView = dashView === 'tiktok2' ? 'tiktok1' : dashView;
+                        return (
+                        <button
+                          key={o.key}
+                          type="button"
+                          onClick={() => switchDashView(o.key)}
+                          className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-left hover:bg-muted/60 transition-colors ${activeView === o.key ? 'bg-primary/10 font-semibold' : ''}`}
+                        >
+                          {o.icon} {o.label}
+                          {activeView === o.key && <CheckCircle2 className="w-4 h-4 ml-auto text-primary" />}
+                        </button>
+                        );
+                      })}
+                    </div>
+                  </>
+                )}
+              </div>
               <LangButton lang={lang} onChange={cycleLang} className="border-black" />
               <div className="hidden md:block text-right min-w-0">
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
@@ -1802,7 +2057,139 @@ export default function ChemTestApp() {
           </main>
         ) : (
           <>
-            {/* TikTok-style vertical feed — swipe up/down between tests */}
+            {/* LIBRARY / SHELF views — endless shelves, 3 per screen, scrolling down */}
+            {dashView === 'library' || dashView === 'shelf' ? (
+              <div ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="max-w-5xl mx-auto h-full">
+                  {gridRows.map((row, ri) => (
+                    <div
+                      key={ri}
+                      className={`grid ${dashView === 'library' ? 'grid-cols-3' : 'grid-cols-1'} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
+                      style={{ height: 'calc(100% / 3)' }}
+                    >
+                      {row.map((test, ci) => {
+                        const idx = ri * gridPerRow + ci;
+                        const totalQ = test._count?.questions || test.questions?.length || 0;
+                        const fcnt = (dashFullTests[test.id]?.attachments as AttachmentItem[] | undefined)?.length || test._count?.attachments || 0;
+                        const bgClass = test.coverColor ? '' : coverBgFor(test);
+                        const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
+                        return dashView === 'library' ? (
+                          <div
+                            key={test.id}
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => openFromLibrary(idx)}
+                            className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                          >
+                            <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
+                            <p className="text-[10px] sm:text-[11px] text-muted-foreground mt-1 line-clamp-1">{(test.tags || []).slice(0, 2).join(' · ') || test.topic}</p>
+                            <p className="text-[10px] sm:text-[11px] text-muted-foreground">{t('qCount', { n: totalQ })}</p>
+                            <div className="mt-auto pt-1.5 flex items-center gap-1.5">
+                              <Button size="sm" onClick={e => { e.stopPropagation(); openFromLibrary(idx); }} className="h-7 px-2.5 rounded-full text-xs flex-1">
+                                <Play className="w-3 h-3 mr-1" /> {t('miniStart')}
+                              </Button>
+                              {fcnt > 0 && (
+                                <Button size="sm" variant="outline" title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
+                                  onClick={e => { e.stopPropagation(); openFilesFromGrid(test); }}
+                                  className="h-7 w-7 p-0 rounded-full border-black shrink-0"
+                                >
+                                  <Paperclip className="w-3.5 h-3.5" />
+                                </Button>
+                              )}
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            key={test.id}
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => openFromLibrary(idx)}
+                            className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                          >
+                            <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
+                              <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
+                            </div>
+                            <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
+                              <p className="text-sm sm:text-base font-bold line-clamp-1">{test.title}</p>
+                              <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1 mt-0.5">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
+                              <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
+                              <div className="mt-auto pt-1.5 flex items-center gap-1.5">
+                                <Button size="sm" onClick={e => { e.stopPropagation(); openFromLibrary(idx); }} className="h-7 px-3 rounded-full text-xs">
+                                  <Play className="w-3 h-3 mr-1" /> {t('miniStart')}
+                                </Button>
+                                {fcnt > 0 && (
+                                  <Button size="sm" variant="outline" title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
+                                    onClick={e => { e.stopPropagation(); openFilesFromGrid(test); }}
+                                    className="h-7 w-7 p-0 rounded-full border-black shrink-0"
+                                  >
+                                    <Paperclip className="w-3.5 h-3.5" />
+                                  </Button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ))}
+                  <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
+                </div>
+              </div>
+            ) : filesFeedMode ? (
+              /* FILES feed — one attachment per slide; the flow runs through this
+              test's files, then continues into the next recommended test's files.
+              Header and bottom bar stay untouched; the paperclip button toggles back. */
+              <div
+                ref={dashFeedRef}
+                onScroll={onDashScroll}
+                onTouchStart={onDashTouchStart}
+                onTouchMove={onDashTouchStart}
+                onTouchEnd={onDashTouchEnd}
+                onTouchCancel={onDashTouchEnd}
+                onWheel={onDashWheel}
+                className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {fileSlides.length === 0 ? (
+                  <section className="h-full snap-start snap-always flex items-center justify-center">
+                    <p className="text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}</p>
+                  </section>
+                ) : fileSlides.map((s, i) => {
+                  const test = s.test;
+                  const bgClass = test.coverColor ? '' : coverBgFor(test);
+                  const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
+                  return (
+                    <section key={`${test.id}-${s.fIdx}`} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
+                      <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
+                        <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
+                          <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
+                            <p className="text-xs font-semibold text-foreground/70 line-clamp-1">{test.title}</p>
+                            <p className="text-base sm:text-lg font-bold leading-snug">{t('attachedFiles', { n: s.count })}</p>
+                            <p className="text-[11px] sm:text-xs text-foreground/70">{t('fileOf', { i: s.fIdx + 1, n: s.count })}</p>
+                          </div>
+                          <div className="flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                            <AttachmentsList items={[s.file]} />
+                          </div>
+                          <button
+                            type="button"
+                            onClick={closeFilesCard}
+                            className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors"
+                          >
+                            <Paperclip className="w-4 h-4 shrink-0 text-cta" />
+                            <span className="font-semibold text-sm">{t('attachedFiles', { n: s.count })}</span>
+                            <span className="ml-auto text-xs text-muted-foreground">{t('backToTest')}</span>
+                          </button>
+                          <p className="shrink-0 text-center text-[11px] text-foreground/70">
+                            {s.fIdx === s.count - 1 ? t('swipeNextTestFiles') : t('swipeNextFile')}
+                          </p>
+                        </div>
+                      </div>
+                    </section>
+                  );
+                })}
+                <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
+              </div>
+            ) : (
+            /* TikTok-style vertical feed — swipe up/down between tests */
             <div
               ref={dashFeedRef}
               onScroll={onDashScroll}
@@ -1817,8 +2204,6 @@ export default function ChemTestApp() {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
                 const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
-                const showFilesCard = test.id === filesCardTestId;
-                const loadingFiles = showFilesCard && !dashFullTests[test.id] && !test.attachments?.length;
                 // Explicitly picked color wins; otherwise derive from the first tag / topic
                 const bgClass = test.coverColor ? '' : coverBgFor(test);
                 const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
@@ -1826,35 +2211,6 @@ export default function ChemTestApp() {
                   // overflow-hidden: the card always fits the screen — no scrolling
                   // inside a card, swipes only move between cards
                   <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
-                    {showFilesCard ? (
-                      /* Dedicated attached-files card: replaces the test card on
-                      its slide; the header search filters the list while open */
-                      <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
-                        <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
-                          <div style={bgStyle} className={`shrink-0 h-20 sm:h-24 flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
-                            <p className="text-xs font-semibold text-cta/70 line-clamp-1 max-w-full">{test.title}</p>
-                            <p className="text-lg sm:text-xl font-bold text-cta leading-snug">{t('attachedFiles', { n: files.length })}</p>
-                          </div>
-                          <div className="flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                            {loadingFiles ? (
-                              <p className="text-sm text-muted-foreground text-center py-6 flex items-center justify-center gap-2">
-                                <Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}
-                              </p>
-                            ) : files.length === 0 ? (
-                              <p className="text-sm text-muted-foreground text-center py-6">{t('filesEmpty')}</p>
-                            ) : (() => {
-                              const flc = dashSearch.trim().toLowerCase();
-                              const shownFiles = flc ? files.filter(f => (f.title || '').toLowerCase().includes(flc)) : files;
-                              if (shownFiles.length === 0) return <p className="text-sm text-muted-foreground text-center py-6">{t('noResults')}</p>;
-                              return <AttachmentsList items={shownFiles} />;
-                            })()}
-                          </div>
-                          <Button onClick={closeFilesCard} variant="outline" className="shrink-0 w-full rounded-full border-black">
-                            <ArrowLeft className="w-4 h-4 mr-2" /> {t('backToTest')}
-                          </Button>
-                        </div>
-                      </div>
-                    ) : (
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
                         {/* Cover header — title on the colored band (logo picker removed) */}
@@ -2020,8 +2376,9 @@ export default function ChemTestApp() {
                               </button>
                             </div>
 
-                            {/* Attached files — opens the dedicated files card
-                            (replaces this test's card on its slide) */}
+                            {/* Attached files — flips the feed to the FILES mode:
+                            one attachment per slide, flowing into the next test's
+                            files; the button toggles back to this card */}
                             {files.length > 0 && (
                               <button
                                 type="button"
@@ -2037,7 +2394,6 @@ export default function ChemTestApp() {
                         )}
                       </div>
                     </div>
-                    )}
                   </section>
                 );
               })}
@@ -2045,18 +2401,18 @@ export default function ChemTestApp() {
               {/* Invisible pagination sentinel — silently appends more tests */}
               <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
             </div>
+            )}
 
-            {/* Bottom bar — Start Test for the test on screen */}
+            {/* Bottom bar — Start Test for the test on screen. In files mode it
+            stays EXACTLY the same (dashTestIdx follows the visible slide's test);
+            hidden in the grid views where each card carries its own Start. */}
+            {dashView !== 'library' && dashView !== 'shelf' && (
             <div className="shrink-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
               <div
                 className="max-w-2xl mx-auto px-4 pt-3"
                 style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
               >
-                {filesCardShown ? (
-                  <Button onClick={closeFilesCard} className="w-full rounded-full bg-cta hover:bg-cta/90 text-white">
-                    <ArrowLeft className="w-4 h-4 mr-2" /> {t('backToTest')}
-                  </Button>
-                ) : editMode ? (
+                {editMode ? (
                   <Button
                     onClick={() => curDashTest && startEditTest(curDashTest)}
                     className="w-full rounded-full bg-cta hover:bg-cta/90 text-white"
@@ -2079,6 +2435,7 @@ export default function ChemTestApp() {
                 )}
               </div>
             </div>
+            )}
           </>
         )}
 
@@ -3069,6 +3426,45 @@ export default function ChemTestApp() {
                 </div>
               )}
               <div className="flex items-center gap-2 shrink-0 ml-auto">
+                {/* View switcher (present on every page header): pick the
+                dashboard feed layout, apply it and return home */}
+                <div className="relative shrink-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setViewMenuOpen(v => !v)}
+                    className={`shrink-0 w-9 p-0 ${viewMenuOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                    title={t('viewMode')}
+                    aria-label={t('viewMode')}
+                  >
+                    <LayoutGrid className="w-4 h-4" />
+                  </Button>
+                  {viewMenuOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setViewMenuOpen(false)} />
+                      <div className="absolute right-0 top-full mt-2 w-52 bg-white rounded-2xl shadow-xl border border-black/10 p-1.5 z-50">
+                        {([
+                          { key: 'tiktok1' as const, label: t('viewTikTok'), icon: <Play className="w-4 h-4" /> },
+                          { key: 'library' as const, label: t('viewLibrary'), icon: <Library className="w-4 h-4" /> },
+                          { key: 'shelf' as const, label: t('viewShelf'), icon: <Rows3 className="w-4 h-4" /> },
+                        ]).map(o => {
+                          const activeView = dashView === 'tiktok2' ? 'tiktok1' : dashView;
+                          return (
+                          <button
+                            key={o.key}
+                            type="button"
+                            onClick={() => { switchDashView(o.key); goHome(); }}
+                            className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm text-left hover:bg-muted/60 transition-colors ${activeView === o.key ? 'bg-primary/10 font-semibold' : ''}`}
+                          >
+                            {o.icon} {o.label}
+                            {activeView === o.key && <CheckCircle2 className="w-4 h-4 ml-auto text-primary" />}
+                          </button>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+                </div>
                 <Button
                   variant="outline"
                   size="sm"
