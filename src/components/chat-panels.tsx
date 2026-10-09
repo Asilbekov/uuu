@@ -41,6 +41,9 @@ export interface GroupChatMessage {
   id: string;
   userId: string;
   userName: string;
+  // Author's profile photo (tg:/data:/http reference) — rendered as a
+  // clickable avatar that opens that user's library.
+  userImage?: string | null;
   text: string;
   createdAt: string;
 }
@@ -410,6 +413,8 @@ export function GroupChatPanel({
   endRef,
   switcher,
   inputPlaceholder,
+  onOpenProfile,
+  openProfileLabel,
 }: {
   open: boolean;
   onClose: () => void;
@@ -424,6 +429,9 @@ export function GroupChatPanel({
   endRef: React.RefObject<HTMLDivElement | null>;
   switcher?: SheetSwitcher;
   inputPlaceholder?: string;
+  // Tapping another user's avatar opens THEIR library (dashboard swap)
+  onOpenProfile?: (u: { id: string; name: string; image: string | null }) => void;
+  openProfileLabel?: string;
 }) {
   const isDesktop = useIsDesktopLg();
   if (!open) return null;
@@ -440,8 +448,25 @@ export function GroupChatPanel({
         )}
         {messages.map(msg => {
           const own = msg.userId === currentUserId;
+          const initial = (msg.userName || '?').trim().slice(0, 1).toUpperCase() || '?';
+          const imgSrc = msg.userImage
+            ? (msg.userImage.startsWith('tg:') ? `/api/users/${msg.userId}/avatar`
+              : (msg.userImage.startsWith('data:') || msg.userImage.startsWith('http') ? msg.userImage : null))
+            : null;
+          const avatar = (
+            <button
+              type="button"
+              onClick={() => { if (!own && onOpenProfile) onOpenProfile({ id: msg.userId, name: msg.userName, image: msg.userImage || null }); }}
+              title={own ? msg.userName : (openProfileLabel || msg.userName)}
+              aria-label={own ? msg.userName : (openProfileLabel || msg.userName)}
+              className={`w-8 h-8 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-xs font-extrabold shrink-0 ring-2 ring-white shadow ${own ? 'order-2 ml-2 cursor-default' : 'order-1 mr-2 hover:scale-105 active:scale-95 transition-transform'}`}
+            >
+              {imgSrc ? <img src={imgSrc} alt="" className="w-full h-full object-cover" /> : initial}
+            </button>
+          );
           return (
-            <div key={msg.id} className={`flex ${own ? 'justify-end' : 'justify-start'}`}>
+            <div key={msg.id} className={`flex items-end ${own ? 'justify-end' : 'justify-start'}`}>
+              {!own && avatar}
               <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 own
                   ? 'bg-primary text-white rounded-tr-sm'
@@ -453,6 +478,7 @@ export function GroupChatPanel({
                   {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
+              {own && avatar}
             </div>
           );
         })}

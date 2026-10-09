@@ -100,7 +100,7 @@ function LangButton({ lang, onChange, className = '' }: { lang: Lang; onChange: 
 // card: the author's photo pinned top-left in a white ring, the name centered
 // on its own white pill, and a BIG bookmark toggle on the right. Shown ONLY in
 // Discover (tests of other authors); the personal library keeps cards clean.
-function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, addLabel, removeLabel, addShort, removeShort }: {
+function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, addLabel, removeLabel, addShort, removeShort, onOpenProfile, openLabel }: {
   name: string;
   creatorId?: string | null;
   image?: string | null;
@@ -110,6 +110,10 @@ function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, ad
   removeLabel: string;
   addShort: string;
   removeShort: string;
+  // Tapping the author's photo / name opens THAT user's library (dashboard
+  // swaps to their public tests with a back arrow in the header)
+  onOpenProfile?: () => void;
+  openLabel?: string;
 }) {
   const initial = (name || '?').trim().slice(0, 1).toUpperCase() || '?';
   // tg: references resolve through the same-origin avatar route; data:/http
@@ -119,6 +123,15 @@ function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, ad
         ? `/api/users/${creatorId}/avatar`
         : (image.startsWith('data:') || image.startsWith('http') ? image : null))
     : null;
+  const identity = onOpenProfile ? (
+    <button
+      type="button"
+      onClick={e => { e.stopPropagation(); onOpenProfile(); }}
+      title={openLabel || name}
+      aria-label={openLabel || name}
+      className="absolute inset-0 z-10 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+    />
+  ) : null;
   return (
     <div className="shrink-0 relative flex items-center h-14 sm:h-16 rounded-3xl bg-gradient-to-r from-[#FFE3D6] via-[#FFF4EE] to-[#FFE3D6] border-2 border-black/10 pl-1.5 pr-1.5 shadow-md">
       {/* Author photo — pinned top-left of the header band, big and ringed */}
@@ -135,6 +148,7 @@ function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, ad
       >
         {name}
       </span>
+      {identity}
       {/* The bookmark button — big and pretty: large icon + label on wide screens */}
       <button
         type="button"
@@ -247,6 +261,7 @@ interface GroupMessage {
   testId: string;
   userId: string;
   userName: string;
+  userImage?: string | null;
   text: string;
   createdAt: string;
 }
@@ -393,18 +408,26 @@ export default function ChemTestApp() {
   // Per-card share scope selection: exactly one of the two share buttons on a
   // card can be highlighted at a time (radio behaviour, like the mode cards).
   const [shareScopeByTest, setShareScopeByTest] = useState<Record<string, 'link' | 'community'>>({});
-  // Files feed mode: the TikTok feed flips from one-slide-per-test to one-
-  // slide-per-ATTACHMENT (flattened across the recommended tests). Swiping
-  // runs through this test's files, then the next recommended test's files.
+  // Files feed mode: the TikTok feed flips from one-slide-per-test to the
+  // files card(s). When filesFeedTestId is set the feed shows THAT test's
+  // files (per-test files mode); null keeps the legacy flattened flow.
   // Header and bottom bar stay untouched; the paperclip button toggles back.
   const [filesFeedMode, setFilesFeedMode] = useState(false);
+  const [filesFeedTestId, setFilesFeedTestId] = useState<string | null>(null);
   const filesFeedModeRef = useRef(false);
   useEffect(() => { filesFeedModeRef.current = filesFeedMode; }, [filesFeedMode]);
   // Grid files mode (Library/Shelf): the grid KEEPS its layout but swaps the
   // test cards for the attachment cards of ONE test (the one whose paperclip
-  // was tapped). The header back arrow returns to the test cards.
+  // was tapped). The header back arrow / files toggle returns to the test cards.
   const [gridFilesMode, setGridFilesMode] = useState(false);
   const [gridFilesTestId, setGridFilesTestId] = useState<string | null>(null);
+  // Another user's library (opened from their profile photo or a chat avatar):
+  // the dashboard shows THEIR public tests; every card carries their name and
+  // photo; the header back arrow returns to the viewer's own feed.
+  const [viewingUser, setViewingUser] = useState<{ id: string; name: string; image: string | null } | null>(null);
+  const [viewingLoading, setViewingLoading] = useState(false);
+  const viewingUserRef = useRef(false);
+  useEffect(() => { viewingUserRef.current = !!viewingUser; }, [viewingUser]);
   const [dashSlideIdx, setDashSlideIdx] = useState(0);
   // Dashboard header search: searches tests server-side (/api/feed?q=) by
   // TAGS with a dropdown. Hidden behind a search BUTTON; tapping it opens an
@@ -770,6 +793,7 @@ export default function ChemTestApp() {
 
   // Next pages, appended silently when the user approaches the end of the feed
   const loadMoreFeed = useCallback(async (): Promise<void> => {
+    if (viewingUserRef.current) return; // another user's library: no pagination
     if (feedLoadingMoreRef.current || !feedHasMoreRef.current || !feedCursorRef.current) return;
     feedLoadingMoreRef.current = true;
     try {
@@ -899,6 +923,17 @@ export default function ChemTestApp() {
   const fileSlides = React.useMemo(() => {
     if (!filesFeedMode) return [] as { test: Test; files: AttachmentItem[]; count: number }[];
     const out: { test: Test; files: AttachmentItem[]; count: number }[] = [];
+    // Per-test files mode: exactly ONE slide with that test's files (even if
+    // the test has left the loaded list — the cached full payload covers it).
+    if (filesFeedTestId) {
+      const t = tests.find(x => x.id === filesFeedTestId) || (dashFullTests[filesFeedTestId] as Test | undefined);
+      if (!t) return out;
+      const full = dashFullTests[t.id];
+      if (!full) return out; // attachments still loading
+      const fl = ((full.attachments ?? []) as AttachmentItem[]).filter(Boolean);
+      if (fl.length > 0) out.push({ test: t, files: fl, count: fl.length });
+      return out;
+    }
     for (const t of tests) {
       const full = dashFullTests[t.id];
       if (!full) break; // earlier test's attachments still loading — stop here
@@ -907,7 +942,7 @@ export default function ChemTestApp() {
       out.push({ test: t, files: fl, count: fl.length });
     }
     return out;
-  }, [filesFeedMode, tests, dashFullTests]);
+  }, [filesFeedMode, filesFeedTestId, tests, dashFullTests]);
   const fileSlidesRef = useRef<{ test: Test; files: AttachmentItem[]; count: number }[]>([]);
   const fileSlidesCountRef = useRef(0);
   useEffect(() => { fileSlidesRef.current = fileSlides; fileSlidesCountRef.current = fileSlides.length; }, [fileSlides]);
@@ -1099,6 +1134,7 @@ export default function ChemTestApp() {
   };
 
   const startCreateTest = () => {
+    setViewingUser(null); // creating always happens in the user's own library
     resetTestForm();
     setPage('create-test');
   };
@@ -1124,6 +1160,7 @@ export default function ChemTestApp() {
   const startEditTest = async (test: Test) => {
     // Somebody else's test is NEVER edited in place: "Edit" makes a private
     // copy with a unique name in the user's own library and opens THAT copy.
+    setViewingUser(null); // after editing, the user lands back in their own library
     if (effectiveUser && test.creatorId && test.creatorId !== effectiveUser.id) {
       setLoading(true);
       try {
@@ -2092,20 +2129,21 @@ export default function ChemTestApp() {
     }).catch(() => {});
   };
 
-  // Flip the feed to files mode: every slide is one attachment, flowing into
-  // the next recommended test's files. Header/bottom bar stay untouched.
+  // Flip the feed to files mode: the feed shows the files of the tapped test
+  // (per-test files card — every attachment of THIS test in one scrollable
+  // card). The header/bottom bar stay untouched; the files toggle exits.
   const openFilesCard = (test: Test) => {
     pendingFilesJumpRef.current = test.id;
     setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
+    setFilesFeedTestId(test.id);
     setFilesFeedMode(true);
-    // Prefetch attachments for ALL loaded tests so the flattened slide list
-    // stabilizes quickly (each test's slides appear as its fetch resolves)
-    for (const t of tests) {
-      if (dashFetchedRef.current.has(t.id)) continue;
-      dashFetchedRef.current.add(t.id);
-      api.getTest(t.id)
-        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t.id]: full })))
-        .catch(() => { dashFetchedRef.current.delete(t.id); });
+    // Make sure this test's attachments are actually loaded (the list payload
+    // only carries the attachment COUNT)
+    if (!dashFetchedRef.current.has(test.id)) {
+      dashFetchedRef.current.add(test.id);
+      api.getTest(test.id)
+        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [test.id]: full })))
+        .catch(() => { dashFetchedRef.current.delete(test.id); });
     }
   };
   // Back to the regular test card of the test whose files are on screen
@@ -2114,6 +2152,7 @@ export default function ChemTestApp() {
     const tid = cur?.test.id;
     pendingFilesJumpRef.current = null;
     setFilesFeedMode(false);
+    setFilesFeedTestId(null);
     setDashSlideIdx(0);
     setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
     if (tid) {
@@ -2121,20 +2160,48 @@ export default function ChemTestApp() {
       if (idx >= 0) { setDashTestIdx(idx); scrollDashTo(idx); }
     }
   };
+  // Files mode is a persistent dashboard state: it survives view switches
+  // (the presentation converts between the feed and the grid) and content-
+  // mode switches. This is the single "off" switch for it.
+  const exitFilesMode = () => {
+    pendingFilesJumpRef.current = null;
+    setFilesFeedMode(false);
+    setFilesFeedTestId(null);
+    setGridFilesMode(false);
+    setGridFilesTestId(null);
+    const top = gridScrollTopRef.current;
+    if (top > 0) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const el = dashFeedRef.current;
+        if (el && el.clientHeight > 0) el.scrollTo({ top, behavior: 'instant' as ScrollBehavior });
+      }));
+    }
+  };
 
   // View switcher: TikTok swipe feed / Library shelves (3 cards per shelf) /
-  // Shelf view (1 card per shelf). Leaving the feed resets files mode.
+  // Shelf view (1 card per shelf). Files mode SURVIVES the switch — only its
+  // presentation changes (grid ⇄ feed) for the same source test.
   const switchDashView = (v: 'tiktok1' | 'library' | 'shelf') => {
     if (v === dashView) return;
+    const filesId = filesFeedTestId || gridFilesTestId;
     if (v === 'tiktok1') {
-      if (filesFeedMode) { pendingFilesJumpRef.current = null; setFilesFeedMode(false); setDashSlideIdx(0); }
+      if (filesFeedMode) { pendingFilesJumpRef.current = null; setDashSlideIdx(0); }
+      else if (gridFilesMode && filesId) {
+        // grid → feed: keep showing the SAME test's files as a feed slide
+        setGridFilesMode(false); setGridFilesTestId(null);
+        setFilesFeedTestId(filesId); setFilesFeedMode(true);
+        pendingFilesJumpRef.current = filesId;
+      }
       setDashView('tiktok1');
     } else {
-      if (filesFeedMode) { pendingFilesJumpRef.current = null; setFilesFeedMode(false); setDashSlideIdx(0); }
+      if (filesFeedMode) {
+        pendingFilesJumpRef.current = null;
+        setFilesFeedMode(false); setFilesFeedTestId(null);
+        setDashSlideIdx(0);
+        if (filesId) { setGridFilesTestId(filesId); setGridFilesMode(true); } // feed → grid
+      }
       setDashView(v);
     }
-    // Grid files view never survives a view switch
-    setGridFilesMode(false); setGridFilesTestId(null);
   };
   // View button cycles the three layouts (like the language button cycles
   // EN → RU → UZ): TikTok feed → Library → Shelf → TikTok feed …
@@ -2149,14 +2216,59 @@ export default function ChemTestApp() {
   // modes — personal library (own tests + bookmarks) and discover (public
   // tests from other authors). The badge icon on the avatar shows the mode.
   const toggleDiscoverMode = () => {
+    // Leaving another user's library always lands in the viewer's own library
+    setViewingUser(null);
     const next = !discoverModeRef.current;
     discoverModeRef.current = next; // update BEFORE the async reload picks its scope
     setDiscoverMode(next);
-    // Reset feed positions: the new mode starts from its own top card
+    // Reset feed positions: the new mode starts from its own top card.
+    // Files mode intentionally SURVIVES the switch — only the list of tests
+    // behind it changes.
     setDashTestIdx(0); setDashSlideIdx(0);
-    setFilesFeedMode(false); pendingFilesJumpRef.current = null;
-    setGridFilesMode(false); setGridFilesTestId(null);
+    setFilesFeedMode(false); setFilesFeedTestId(null); pendingFilesJumpRef.current = null;
     setShareScopeByTest({});
+    loadFeedRef.current().catch(() => {});
+  };
+
+  // --- Another user's library (opened from their profile photo / chat avatar)
+  // The dashboard swaps its test list for that user's public tests; every card
+  // shows their name + photo; the header back arrow returns to the own feed.
+  const openUserLibrary = async (u: { id: string; name?: string; image?: string | null }) => {
+    if (!u.id || !effectiveUser || u.id === effectiveUser.id) return; // own profile → own library
+    if (viewingUserRef.current && viewingUser?.id === u.id) return;   // already there
+    pendingFilesJumpRef.current = null;
+    setFilesFeedMode(false); setFilesFeedTestId(null);
+    setGridFilesMode(false); setGridFilesTestId(null);
+    // Close any open bottom sheet (group chat / AI tutor / files / editor):
+    // the tap happened INSIDE one of them and the dashboard is changing scope
+    setGroupOpen(false);
+    setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); setChatThreadId('');
+    setFilesOpen(false);
+    setEditOpen(false);
+    setViewingUser({ id: u.id, name: u.name || 'User', image: u.image || null });
+    setViewingLoading(true);
+    try {
+      const theirs: Test[] = await api.getTests(u.id); // public-only (server enforces)
+      seenIdsRef.current = new Set(theirs.map(x => x.id));
+      feedCursorRef.current = null;
+      feedHasMoreRef.current = false;
+      setFeedHasMore(false);
+      setTests(theirs);
+      setDashTestIdx(0); setDashSlideIdx(0);
+      setShareScopeByTest({});
+      requestAnimationFrame(() => { const el = dashFeedRef.current; if (el) el.scrollTop = 0; });
+    } catch {
+      toast({ title: t('error'), variant: 'destructive' });
+    } finally {
+      setViewingLoading(false);
+    }
+  };
+  const closeUserLibrary = () => {
+    if (!viewingUserRef.current) return;
+    setViewingUser(null);
+    pendingFilesJumpRef.current = null;
+    setFilesFeedMode(false); setFilesFeedTestId(null);
+    setGridFilesMode(false); setGridFilesTestId(null);
     loadFeedRef.current().catch(() => {});
   };
 
@@ -2191,15 +2303,16 @@ export default function ChemTestApp() {
   const openFromLibrary = (idx: number) => {
     libReturnViewRef.current = dashView === 'shelf' ? 'shelf' : 'library';
     gridScrollTopRef.current = dashFeedRef.current?.scrollTop || 0;
-    if (filesFeedMode) { pendingFilesJumpRef.current = null; setFilesFeedMode(false); setDashSlideIdx(0); }
+    if (filesFeedMode) { pendingFilesJumpRef.current = null; setFilesFeedMode(false); setFilesFeedTestId(null); setDashSlideIdx(0); }
     setDashTestIdx(idx);
     setDashView('tiktok2');
     scrollDashTo(idx);
   };
   // The per-card paperclip on a grid card: the SAME grid view (library or
   // shelf) keeps its layout but shows the ATTACHED-FILES cards of this test
-  // instead of the test cards. The header back arrow (and every file card's
-  // "К тестам" button) returns to the test cards at the remembered scroll.
+  // instead of the test cards. Tapping the paperclip of the SAME test again
+  // returns to the test cards; the header files toggle does the same from
+  // anywhere.
   const openGridFiles = (test: Test) => {
     gridScrollTopRef.current = dashFeedRef.current?.scrollTop || 0;
     setGridFilesTestId(test.id);
@@ -2212,6 +2325,10 @@ export default function ChemTestApp() {
         .then((full: Test) => setDashFullTests(prev => ({ ...prev, [test.id]: full })))
         .catch(() => { dashFetchedRef.current.delete(test.id); });
     }
+  };
+  const toggleGridFiles = (test: Test) => {
+    if (gridFilesMode && gridFilesTestId === test.id) closeGridFiles();
+    else openGridFiles(test);
   };
   const closeGridFiles = () => {
     setGridFilesMode(false);
@@ -2252,12 +2369,14 @@ export default function ChemTestApp() {
     // shelf); rows scroll endlessly
     const gridPerRow = dashView === 'shelf' ? 1 : (dashView === 'library' && libNarrow ? 2 : 3);
     const gridColsClass = dashView === 'shelf' ? 'grid-cols-1' : (dashView === 'library' && libNarrow ? 'grid-cols-2' : 'grid-cols-3');
+    // Grid files mode: attachments of the ONE test whose paperclip was tapped.
+    // If that test has left the loaded list (a mode switch while files mode
+    // was on), the cached full payload still covers it.
+    const gridFilesTest = gridFilesMode && gridFilesTestId
+      ? (tests.find(x => x.id === gridFilesTestId) || (dashFullTests[gridFilesTestId] as Test | undefined) || null)
+      : null;
     const gridRows: Test[][] = [];
     for (let i = 0; i < tests.length; i += gridPerRow) gridRows.push(tests.slice(i, i + gridPerRow));
-    // Grid files mode: attachments of the ONE test whose paperclip was tapped
-    const gridFilesTest = gridFilesMode && gridFilesTestId
-      ? (tests.find(x => x.id === gridFilesTestId) || null)
-      : null;
     const gridFiles: AttachmentItem[] = gridFilesTest
       ? (((dashFullTests[gridFilesTest.id]?.attachments ?? gridFilesTest.attachments) || []) as AttachmentItem[]).filter(Boolean)
       : [];
@@ -2339,18 +2458,35 @@ export default function ChemTestApp() {
                 {dashSearchDropdown}
               </div>
             )}
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-              {(dashView === 'tiktok2' || gridFilesMode) && (
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0 min-w-0">
+              {(dashView === 'tiktok2' || gridFilesMode || filesFeedMode || viewingUser) && (
                 <Button
                   variant="outline"
                   size="icon"
-                  onClick={gridFilesMode ? closeGridFiles : backToLibrary}
+                  onClick={() => {
+                    if (viewingUser) { closeUserLibrary(); return; }
+                    if (gridFilesMode) { closeGridFiles(); return; }
+                    if (filesFeedMode) { closeFilesCard(); return; }
+                    backToLibrary();
+                  }}
                   className="rounded-full shrink-0 border-black"
-                  title={gridFilesMode ? t('backToTests') : t('backToLibrary')}
-                  aria-label={gridFilesMode ? t('backToTests') : t('backToLibrary')}
+                  title={viewingUser ? t('back') : (gridFilesMode || filesFeedMode) ? t('backToTests') : t('backToLibrary')}
+                  aria-label={viewingUser ? t('back') : (gridFilesMode || filesFeedMode) ? t('backToTests') : t('backToLibrary')}
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </Button>
+              )}
+              {/* Viewing another user's library: their identity pill next to the
+              back arrow (photo + name), like the card headers below. */}
+              {viewingUser && (
+                <span className="flex items-center gap-1.5 min-w-0 bg-[#FFE8DE] border border-primary/40 rounded-full pl-0.5 pr-2.5 py-0.5" title={t('userLibraryTitle', { name: viewingUser.name })}>
+                  <span className="w-6 h-6 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-[10px] font-extrabold shrink-0">
+                    {viewingUser.image
+                      ? <img src={viewingUser.image.startsWith('tg:') ? `/api/users/${viewingUser.id}/avatar` : viewingUser.image} alt="" className="w-full h-full object-cover" />
+                      : (viewingUser.name || '?').trim().slice(0, 1).toUpperCase() || '?'}
+                  </span>
+                  <span className="text-xs font-bold text-black truncate max-w-[110px] sm:max-w-[180px]">{viewingUser.name}</span>
+                </span>
               )}
               <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4">
                 <Plus className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('createTest')}</span>
@@ -2373,6 +2509,21 @@ export default function ChemTestApp() {
               >
                 <Search className="w-4 h-4" />
               </Button>
+              {/* Attached-files mode toggle — highlighted while files mode is
+              ON (it survives view & mode switches); one more tap returns to
+              the test cards. */}
+              {(gridFilesMode || filesFeedMode) && (
+                <Button
+                  variant="outline"
+                  onClick={exitFilesMode}
+                  className="rounded-full shrink-0 border-primary bg-[#FFE8DE] text-primary hover:bg-[#FFE8DE] h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4"
+                  title={t('filesModeOn')}
+                  aria-label={t('filesModeOn')}
+                >
+                  <Paperclip className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">{t('filesModeOn')}</span>
+                </Button>
+              )}
               {/* View button — cycles the three layouts with one tap (like the
               language button): TikTok feed → Library → Shelf → … The icon and
               the label always show the CURRENT view. */}
@@ -2440,18 +2591,33 @@ export default function ChemTestApp() {
           </div>
         </header>
 
-        {tests.length === 0 ? (
+        {tests.length === 0 && viewingLoading ? (
+          <main className="flex-1 min-h-0 flex items-center justify-center">
+            <p className="text-sm text-muted-foreground flex items-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}
+            </p>
+          </main>
+        ) : tests.length === 0 ? (
           <main className="flex-1 min-h-0 overflow-y-auto">
             <div className="max-w-7xl mx-auto px-4 py-6">
               <Card className="rounded-4xl border-dashed border-black/30 bg-white">
                 <CardContent className="py-12 text-center">
                   <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-medium mb-2">{discoverMode ? t('discoverEmptyTitle') : t('noTestsYet')}</h3>
-                  <p className="text-muted-foreground mb-4">{discoverMode ? t('discoverEmptyDesc') : t('createFirst')}</p>
-                  {!discoverMode && (
-                    <div className="flex gap-3 justify-center">
-                      <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
-                    </div>
+                  {viewingUser ? (
+                    <>
+                      <h3 className="text-lg font-medium mb-2">{t('userLibraryTitle', { name: viewingUser.name })}</h3>
+                      <p className="text-muted-foreground">{t('theirLibraryEmpty', { name: viewingUser.name })}</p>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="text-lg font-medium mb-2">{discoverMode ? t('discoverEmptyTitle') : t('noTestsYet')}</h3>
+                      <p className="text-muted-foreground mb-4">{discoverMode ? t('discoverEmptyDesc') : t('createFirst')}</p>
+                      {!discoverMode && (
+                        <div className="flex gap-3 justify-center">
+                          <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
+                        </div>
+                      )}
+                    </>
                   )}
                 </CardContent>
               </Card>
@@ -2576,19 +2742,22 @@ export default function ChemTestApp() {
                               onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
                               className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
-                              {/* Discover mode: author header + bookmark. The personal
-                              library keeps the card clean (you know it's yours). */}
-                              {discoverMode && (
+                              {/* Discover mode AND other users' libraries: author
+                              header + bookmark. The personal library keeps the
+                              card clean (you know it's yours). */}
+                              {(discoverMode || viewingUser) && (
                                 <CreatorStrip
-                                  name={(test as any).creator?.name || ''}
+                                  name={(test as any).creator?.name || viewingUser?.name || ''}
                                   creatorId={(test as any).creator?.id || test.creatorId}
-                                  image={(test as any).creator?.image || null}
+                                  image={(test as any).creator?.image || viewingUser?.image || null}
                                   bookmarked={bookmarkIds.has(test.id)}
                                   onToggleBookmark={() => toggleBookmark(test)}
                                   addLabel={t('bookmarkAdd')}
                                   removeLabel={t('bookmarkRemove')}
                                   addShort={t('bookmarkAddShort')}
                                   removeShort={t('bookmarkRemoveShort')}
+                                  onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
+                                  openLabel={t('openProfile')}
                                 />
                               )}
                               <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
@@ -2612,9 +2781,9 @@ export default function ChemTestApp() {
                                 </Button>
                                 {fcnt > 0 && (
                                   <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); openGridFiles(test); }}
+                                    onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
                                     title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                    className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-0.5 has-[>svg]:px-1"
+                                    className={`h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-0.5 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                   >
                                     <Paperclip className="size-3 shrink-0" /> <span className="truncate [@media(max-width:399px)]:text-[9px]">{t('attachedFiles', { n: fcnt })}</span>
                                   </Button>
@@ -2660,18 +2829,21 @@ export default function ChemTestApp() {
                                 <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
                               </div>
                               <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
-                                {/* Discover mode: author header + bookmark on the shelf card too */}
-                                {discoverMode && (
+                                {/* Discover mode AND other users' libraries: author
+                                header + bookmark on the shelf card too */}
+                                {(discoverMode || viewingUser) && (
                                   <CreatorStrip
-                                    name={(test as any).creator?.name || ''}
+                                    name={(test as any).creator?.name || viewingUser?.name || ''}
                                     creatorId={(test as any).creator?.id || test.creatorId}
-                                    image={(test as any).creator?.image || null}
+                                    image={(test as any).creator?.image || viewingUser?.image || null}
                                     bookmarked={bookmarkIds.has(test.id)}
                                     onToggleBookmark={() => toggleBookmark(test)}
                                     addLabel={t('bookmarkAdd')}
                                     removeLabel={t('bookmarkRemove')}
                                     addShort={t('bookmarkAddShort')}
                                     removeShort={t('bookmarkRemoveShort')}
+                                    onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
+                                    openLabel={t('openProfile')}
                                   />
                                 )}
                                 {/* Title lives on the spine only — no duplicate text in
@@ -2697,9 +2869,9 @@ export default function ChemTestApp() {
                                   </Button>
                                   {fcnt > 0 && (
                                     <Button size="sm" variant="outline"
-                                      onClick={e => { e.stopPropagation(); openGridFiles(test); }}
+                                      onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
                                       title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                      className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                      className={`h-7 rounded-full text-xs sm:text-sm px-2 justify-start ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                     >
                                       <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
                                     </Button>
@@ -2789,7 +2961,7 @@ export default function ChemTestApp() {
                             <span className="ml-auto text-xs text-muted-foreground">{t('backToTest')}</span>
                           </button>
                           <p className="shrink-0 text-center text-[11px] text-foreground/70">
-                            {t('swipeNextTestFiles')}
+                            {filesFeedTestId ? t('backToTest') : t('swipeNextTestFiles')}
                           </p>
                         </div>
                       </div>
@@ -2831,19 +3003,22 @@ export default function ChemTestApp() {
                   <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
-                        {/* Discover mode: author header with the bookmark toggle,
-                        right above the cover. Personal library stays clean. */}
-                        {discoverMode && (
+                        {/* Discover mode AND other users' libraries: author header
+                        with the bookmark toggle, right above the cover. Personal
+                        library stays clean. */}
+                        {(discoverMode || viewingUser) && (
                           <CreatorStrip
-                            name={(test as any).creator?.name || ''}
+                            name={(test as any).creator?.name || viewingUser?.name || ''}
                             creatorId={(test as any).creator?.id || test.creatorId}
-                            image={(test as any).creator?.image || null}
+                            image={(test as any).creator?.image || viewingUser?.image || null}
                             bookmarked={bookmarkIds.has(test.id)}
                             onToggleBookmark={() => toggleBookmark(test)}
                             addLabel={t('bookmarkAdd')}
                             removeLabel={t('bookmarkRemove')}
                             addShort={t('bookmarkAddShort')}
                             removeShort={t('bookmarkRemoveShort')}
+                            onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
+                            openLabel={t('openProfile')}
                           />
                         )}
                         {/* Cover header — title on the colored band (logo picker removed) */}
@@ -3014,13 +3189,13 @@ export default function ChemTestApp() {
                             )}
 
                             {/* Attached files — flips the feed to the FILES mode:
-                            one attachment per slide, flowing into the next test's
-                            files; the button toggles back to this card */}
+                            this test's files in one card; the button (and the
+                            header files toggle) returns to this card */}
                             {files.length > 0 && (
                               <button
                                 type="button"
-                                onClick={() => openFilesCard(test)}
-                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors"
+                                onClick={() => { if (filesFeedMode && filesFeedTestId === test.id) closeFilesCard(); else openFilesCard(test); }}
+                                className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 text-left transition-colors ${filesFeedMode && filesFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
                               >
                                 <Paperclip className="w-4 h-4 shrink-0" />
                                 <span className="font-semibold text-sm">{t('attachedFiles', { n: files.length })}</span>
@@ -3796,43 +3971,60 @@ export default function ChemTestApp() {
         <div className="min-h-screen bg-background">
           <TranslatingPill show={autoTranslating} label={t('translating')} />
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-            {/* Search lives BETWEEN the button groups in the same row; on narrow
-                screens the right icon group wraps onto its own row below it. */}
-            <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
-                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0"><ArrowLeft className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('back')}</span></Button>
+            {/* ONE row on EVERY viewport (flex-nowrap): buttons compress to
+                icon-only pills on narrow screens; the search input shrinks. */}
+            <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
+              <div className="flex items-center gap-1 sm:gap-1.5 min-w-0 shrink">
+                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"><ArrowLeft className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('back')}</span></Button>
                 {(currentTest?.attachments?.length || 0) > 0 ? (
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); setEditOpen(false); if (chatOpen) closeChat(); } }}
-                    className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                    className={`h-8 px-1.5 sm:px-3 gap-1 shrink-0 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   >
                     <Paperclip className="w-4 h-4" />
                     <span className="hidden sm:inline">{t('files', { n: currentTest!.attachments!.length })}</span>
                     <span className="sm:hidden">{currentTest!.attachments!.length}</span>
                   </Button>
                 ) : (
-                  <h1 className="text-lg font-bold">{t('testResults')}</h1>
+                  <h1 className="text-base sm:text-lg font-bold truncate">{t('testResults')}</h1>
                 )}
               </div>
-              <div className="flex-1 min-w-[110px] sm:max-w-sm relative mx-1 sm:mx-2">
+              <div className="flex-1 min-w-0 sm:max-w-sm relative mx-0.5 sm:mx-2">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                 <Input
                   value={resSearch}
                   onChange={e => setResSearch(e.target.value)}
                   placeholder={t('searchQuestions')}
-                  className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
+                  className="h-8 sm:h-9 rounded-full pl-9 bg-white border-black/15 text-xs sm:text-sm"
                 />
                 {resSearchDropdown}
               </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-auto">
-                <LangButton lang={lang} onChange={cycleLang} className="border-black" />
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 ml-auto">
+                {/* View switcher — the review list follows the selected view:
+                TikTok feed → the regular vertical list; Library → review cards
+                in a grid; Shelf → one full-width card per row. NO navigation. */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={cycleDashView}
+                  className="shrink-0 h-8 w-8 p-0"
+                  title={t('viewMode')}
+                  aria-label={t('viewMode')}
+                >
+                  {dashView === 'library'
+                    ? <LayoutGrid className="w-4 h-4" />
+                    : dashView === 'shelf'
+                      ? <Rows3 className="w-4 h-4" />
+                      : <Play className="w-4 h-4" />}
+                </Button>
+                <LangButton lang={lang} onChange={cycleLang} className="border-black px-1.5 sm:px-3" />
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); setEditOpen(false); openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']); }}
-                  className="gap-1.5"
+                  className="shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"
                   title={t('aiTutor')}
                 >
                   <MessageSquare className="w-4 h-4" />
@@ -3842,7 +4034,7 @@ export default function ChemTestApp() {
                   variant="outline"
                   size="sm"
                   onClick={openGroupChat}
-                  className="gap-1.5"
+                  className="shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"
                   title={t('chatWithTook')}
                 >
                   <Users className="w-4 h-4" />
@@ -3852,7 +4044,7 @@ export default function ChemTestApp() {
                   variant={editOpen ? 'default' : 'outline'}
                   size="sm"
                   onClick={startEditTestInTake}
-                  className={`gap-1.5 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                  className={`shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   title={t('editThisTestTitle')}
                 >
                   <Pencil className="w-4 h-4" />
@@ -3881,6 +4073,11 @@ export default function ChemTestApp() {
             </Card>
 
             <h3 className="text-lg font-semibold">{t('reviewAnswers')}</h3>
+            {/* The View button applies to the review list too: library → the
+            same review cards in a grid, shelf → one full-width card per row. */}
+            <div className={dashView === 'library' || dashView === 'shelf'
+              ? `grid ${dashView === 'shelf' ? 'grid-cols-1' : (libNarrow ? 'grid-cols-2' : 'grid-cols-3')} gap-2 sm:gap-3 items-start`
+              : 'space-y-6'}>
             {shuffledQuestions.map((q, idx) => {
               const selected = answers[q.id || ''] || '';
               const isCorrect = selected === q.correctAnswer;
@@ -3891,7 +4088,7 @@ export default function ChemTestApp() {
                       {isCorrect ? <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /> : <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />}
                       <p className="font-medium text-sm">{idx + 1}. <MathText text={trText(q, lang)} /></p>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 ml-7">
+                    <div className={`grid grid-cols-1 gap-2 ${dashView === 'library' || dashView === 'shelf' ? '' : 'sm:grid-cols-2 ml-7'}`}>
                       {['A', 'B', 'C', 'D', 'E'].map(letter => {
                         const optionText = trOption(q, letter, lang);
                         if (!optionText) return null;
@@ -3929,6 +4126,7 @@ export default function ChemTestApp() {
                 </Card>
               );
             })}
+            </div>
               </div>
 
               {/* AI Chat Panel in Results — bottom sheet on mobile, side panel on desktop */}
@@ -3968,6 +4166,8 @@ export default function ChemTestApp() {
                   sending={groupSending}
                   endRef={groupEndRef}
                   switcher={sheetSwitcher}
+                  onOpenProfile={openUserLibrary}
+                  openProfileLabel={t('openProfile')}
                 />
               )}
 
@@ -4083,15 +4283,15 @@ export default function ChemTestApp() {
       <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
         <TranslatingPill show={autoTranslating} label={t('translating')} />
         <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-7xl mx-auto px-4 py-3">
-            {/* Search is a BUTTON in the action group; tapping it expands an
-                input overlay that covers the whole header row (every button)
-                until dismissed. On narrow screens the action buttons wrap onto
-                their own row below it. */}
-            <div className="relative flex flex-wrap items-center justify-between gap-2 mb-2">
-              <div className="flex items-center gap-2 min-w-0">
-                <Button variant="ghost" size="sm" onClick={goHome} className="shrink-0"><Home className="w-4 h-4" /></Button>
-                <LangButton lang={lang} onChange={cycleLang} className="border-black shrink-0" />
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3">
+            {/* ONE row on EVERY viewport (flex-nowrap): all buttons compress to
+                icon-only pills on narrow screens so the panel never wraps onto
+                a second row. Search is a BUTTON; tapping it expands an input
+                overlay that covers the whole row until dismissed. */}
+            <div className="relative flex flex-nowrap items-center justify-between gap-1 sm:gap-2 mb-2">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0 shrink-0">
+                <Button variant="ghost" size="sm" onClick={goHome} className="shrink-0 h-8 w-8 p-0"><Home className="w-4 h-4" /></Button>
+                <LangButton lang={lang} onChange={cycleLang} className="border-black shrink-0 px-1.5 sm:px-3" />
               </div>
               {qSearchOpen && (
                 <div className="absolute inset-0 z-50 bg-white flex items-center gap-2 px-1 animate-in fade-in duration-150">
@@ -4118,15 +4318,16 @@ export default function ChemTestApp() {
                   {qSearchDropdown}
                 </div>
               )}
-              <div className="flex items-center gap-2 shrink-0 ml-auto">
-                {/* View switcher (present on every page header): one tap advances
-                to the NEXT dashboard layout (TikTok feed → Library → Shelf → …)
-                and returns home. The icon shows the current view. */}
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 ml-auto">
+                {/* View switcher — cycles the layouts and the QUESTION LIST on
+                this page follows the selected view: TikTok feed → the regular
+                one-question-per-slide quiz; Library → question cards in a grid;
+                Shelf → one full-width question card per row. NO navigation. */}
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => { cycleDashView(); goHome(); }}
-                  className="shrink-0 w-9 p-0"
+                  onClick={cycleDashView}
+                  className="shrink-0 h-8 w-8 p-0"
                   title={t('viewMode')}
                   aria-label={t('viewMode')}
                 >
@@ -4140,19 +4341,19 @@ export default function ChemTestApp() {
                   variant="outline"
                   size="sm"
                   onClick={() => setQSearchOpen(true)}
-                  className="shrink-0 w-9 p-0"
+                  className="shrink-0 h-8 w-8 p-0"
                   title={t('searchQuestions')}
                   aria-label={t('searchQuestions')}
                 >
                   <Search className="w-4 h-4" />
                 </Button>
-                <span className="text-sm text-muted-foreground hidden sm:inline">{t('xOfYAnswered', { n: answeredCount, m: shuffledQuestions.length })}</span>
+                <span className="text-xs sm:text-sm text-muted-foreground hidden lg:inline">{t('xOfYAnswered', { n: answeredCount, m: shuffledQuestions.length })}</span>
                 {(currentTest?.attachments?.length || 0) > 0 && (
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); setEditOpen(false); if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); setChatThreadId(''); } } }}
-                    className={`gap-1.5 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                    className={`h-8 px-1.5 sm:px-3 gap-1 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   >
                     <Paperclip className="w-4 h-4" />
                     <span className="hidden sm:inline">{t('files', { n: currentTest!.attachments!.length })}</span>
@@ -4164,7 +4365,8 @@ export default function ChemTestApp() {
                     variant="outline"
                     size="sm"
                     onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); setEditOpen(false); openChat(qId, answers[qId]); }}
-                    className="gap-1.5"
+                    className="shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"
+                    title={t('aiTutor')}
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span className="hidden sm:inline">{t('aiTutor')}</span>
@@ -4173,7 +4375,7 @@ export default function ChemTestApp() {
                     variant="outline"
                     size="sm"
                     onClick={openGroupChat}
-                    className="gap-1.5"
+                    className="shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"
                     title={t('chatWithAll')}
                   >
                     <Users className="w-4 h-4" />
@@ -4183,7 +4385,7 @@ export default function ChemTestApp() {
                     variant={editOpen ? 'default' : 'outline'}
                     size="sm"
                     onClick={startEditTestInTake}
-                    className={`gap-1.5 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                    className={`shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                     title={t('editThisTestTitle')}
                   >
                     <Pencil className="w-4 h-4" />
@@ -4199,7 +4401,82 @@ export default function ChemTestApp() {
         <main className="flex-1 min-h-0">
           {/* Question card + Chat/Files side by side (desktop) */}
           <div className={`h-full max-w-7xl mx-auto flex gap-6 ${chatOpen || groupOpen || filesOpen ? 'flex-col lg:flex-row' : ''}`}>
-            {/* Questions feed — one full-height card per question, TikTok-style swipe */}
+            {/* LIBRARY / SHELF view of the questions — the View button applies to
+                the QUESTIONS here: instead of the TikTok-style slide feed the
+                questions become cards in the same layouts as the dashboard
+                (library = 2/3 per row, shelf = one full-width card per row).
+                Every card is fully answerable right on the spot. */}
+            {(dashView === 'library' || dashView === 'shelf') ? (
+              <div className="flex-1 min-w-0 h-full overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="max-w-5xl mx-auto px-2 sm:px-3 py-3 sm:py-4">
+                  <p className="text-[11px] sm:text-xs text-muted-foreground text-center mb-3">{t('questionsGridHint')}</p>
+                  <div className={`grid ${dashView === 'shelf' ? 'grid-cols-1' : (libNarrow ? 'grid-cols-2' : 'grid-cols-3')} gap-2 sm:gap-3`}>
+                    {shuffledQuestions.map((q, idx) => {
+                      const gqId = q.id || '';
+                      const gAnswered = !!answers[gqId];
+                      const gRevealed = practiceMode && revealedAnswers[gqId];
+                      return (
+                        <Card key={idx} id={`qgrid-${idx}`} className={`rounded-2xl border border-black bg-white overflow-hidden flex flex-col ${gRevealed ? (answers[gqId] === q.correctAnswer ? 'ring-2 ring-emerald-300' : 'ring-2 ring-red-300') : gAnswered ? 'ring-1 ring-emerald-200' : ''}`}>
+                          <CardContent className="p-2.5 sm:p-3 flex flex-col gap-1.5 sm:gap-2 flex-1 min-h-0">
+                            <div className="flex items-center justify-between shrink-0">
+                              <Badge variant="secondary" className="rounded-full text-[10px] sm:text-xs">{idx + 1}</Badge>
+                              {gRevealed ? (
+                                answers[gqId] === q.correctAnswer
+                                  ? <Badge className="rounded-full bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px] sm:text-xs"><CheckCircle2 className="w-3 h-3 mr-1" /> {t('correct')}</Badge>
+                                  : <Badge className="rounded-full bg-red-100 text-red-700 border-red-200 text-[10px] sm:text-xs"><XCircle className="w-3 h-3 mr-1" /> {t('wrong')}</Badge>
+                              ) : gAnswered ? <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> : <span className="w-4 h-4" />}
+                            </div>
+                            <p className="text-[13px] sm:text-sm font-medium leading-snug line-clamp-4 sm:line-clamp-none"><MathText text={trText(q, lang)} /></p>
+                            <div className="mt-auto pt-1 space-y-1">
+                              {['A', 'B', 'C', 'D', 'E'].map(letter => {
+                                const optionText = trOption(q, letter, lang);
+                                if (!optionText) return null;
+                                const isSel = letter === answers[gqId];
+                                const isCorrect = letter === q.correctAnswer;
+                                let cls = 'border-black/15 hover:border-black hover:bg-[#FFF0D9]/40';
+                                if (gRevealed) {
+                                  if (isCorrect) cls = 'border-emerald-500 bg-emerald-50';
+                                  else if (isSel) cls = 'border-red-500 bg-red-50';
+                                  else cls = 'border-muted opacity-60';
+                                } else if (isSel) {
+                                  cls = 'border-cta bg-[#FFF0D9]';
+                                }
+                                return (
+                                  <button
+                                    key={letter}
+                                    type="button"
+                                    onClick={() => selectAnswer(gqId, letter)}
+                                    disabled={gRevealed}
+                                    className={`w-full flex items-start gap-1.5 px-1.5 py-1 rounded-lg border text-left transition-all disabled:cursor-default ${cls}`}
+                                  >
+                                    <span className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                                      gRevealed && isCorrect ? 'bg-emerald-500 text-white' :
+                                      gRevealed && isSel ? 'bg-red-500 text-white' :
+                                      isSel ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
+                                    }`}>
+                                      {letter}
+                                    </span>
+                                    <span className="text-[11px] sm:text-xs leading-snug min-w-0 line-clamp-2 break-words"><MathText text={optionText} /></span>
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                  {/* Finish the test right from the grid — the bottom bar's submit
+                  only appears on the last slide, which the grid replaces */}
+                  <div className="mt-4 mb-6 flex justify-center">
+                    <Button onClick={submitTest} disabled={loading || answeredCount < shuffledQuestions.length} className="rounded-full bg-primary hover:bg-primary/90 px-8">
+                      {loading ? t('submitting') : t('submitTest')}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+            // Questions feed — one full-height card per question, TikTok-style swipe
             <div
               ref={takeFeedRef}
               onScroll={onFeedScroll}
@@ -4332,6 +4609,7 @@ export default function ChemTestApp() {
                 );
               })}
             </div>
+            )}
 
             {/* AI Chat Panel — bottom sheet on mobile, side panel on desktop */}
             {chatOpen && (
@@ -4377,6 +4655,8 @@ export default function ChemTestApp() {
                 endRef={groupEndRef}
                 switcher={sheetSwitcher}
                 inputPlaceholder={t('messageGroup')}
+                onOpenProfile={openUserLibrary}
+                openProfileLabel={t('openProfile')}
               />
             )}
 

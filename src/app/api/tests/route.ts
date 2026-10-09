@@ -11,7 +11,14 @@ export async function GET(request: NextRequest) {
 
     let where: any = {};
     if (creatorId) {
-      where.creatorId = creatorId;
+      // Another user's library: only their PUBLIC tests are visible to the
+      // requester (their private ones stay private). The creator themself
+      // still sees everything they own.
+      if (creatorId === userId) {
+        where.creatorId = creatorId;
+      } else {
+        where = { creatorId, isPublic: true };
+      }
     } else if (userId) {
       where = {
         OR: [
@@ -26,7 +33,7 @@ export async function GET(request: NextRequest) {
     const testsRaw = await db.test.findMany({
       where,
       include: {
-        creator: { select: { id: true, name: true, email: true } },
+        creator: { select: { id: true, name: true, image: true } },
         _count: { select: { questions: true, attempts: true, attachments: true } },
       },
       orderBy: { createdAt: 'desc' },

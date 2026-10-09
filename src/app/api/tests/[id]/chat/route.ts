@@ -25,6 +25,15 @@ export async function GET(
     const { searchParams } = new URL(request.url);
     const after = searchParams.get('after');
 
+    // Messages carry the author's profile photo so the client can render a
+    // clickable avatar that opens the author's library.
+    const withUser = { user: { select: { id: true, name: true, image: true } } } as const;
+    const flatten = (m: any) => ({
+      ...m,
+      userName: m.userName || m.user?.name || 'User',
+      userImage: m.user?.image ?? null,
+    });
+
     if (after) {
       const afterDate = new Date(after);
       if (!isNaN(afterDate.getTime())) {
@@ -32,8 +41,9 @@ export async function GET(
           where: { testId: id, createdAt: { gt: afterDate } },
           orderBy: { createdAt: 'asc' },
           take: HISTORY_LIMIT,
+          include: withUser,
         });
-        return NextResponse.json(messages);
+        return NextResponse.json(messages.map(flatten));
       }
     }
 
@@ -41,9 +51,10 @@ export async function GET(
       where: { testId: id },
       orderBy: { createdAt: 'desc' },
       take: HISTORY_LIMIT,
+      include: withUser,
     });
     // Return oldest → newest for direct rendering
-    return NextResponse.json(messages.reverse());
+    return NextResponse.json(messages.reverse().map(flatten));
   } catch (error) {
     console.error('Get chat messages error:', error);
     return NextResponse.json({ error: 'Failed to get chat messages' }, { status: 500 });
@@ -87,8 +98,13 @@ export async function POST(
         userName: user.name,
         text,
       },
+      include: { user: { select: { id: true, name: true, image: true } } },
     });
-    return NextResponse.json(message, { status: 201 });
+    return NextResponse.json({
+      ...message,
+      userName: message.userName || message.user?.name || 'User',
+      userImage: message.user?.image ?? null,
+    }, { status: 201 });
   } catch (error) {
     console.error('Create chat message error:', error);
     return NextResponse.json({ error: 'Failed to send message' }, { status: 500 });

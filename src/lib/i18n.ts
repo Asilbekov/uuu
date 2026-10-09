@@ -242,6 +242,16 @@ const en: Dict = {
   // AND its attached files)
   publishVariant: 'Publication',
   publishNote: 'Applies to the test and its attached files',
+  // Another user's library (opened from their profile photo / chat avatar)
+  userLibraryTitle: 'Library of {name}',
+  userLibraryBadge: "User's library",
+  openProfile: 'Open library',
+  theirLibraryEmpty: '{name} has no public tests yet',
+  // Files mode is now a persistent dashboard state (header toggle exits it)
+  filesModeOn: 'Attached files',
+  // Question cards (View button on take-test / results pages)
+  questionsGridHint: 'Tap an answer right on the card',
+  openQuestion: 'Open question',
 };
 
 const ru: Dict = {
@@ -451,6 +461,16 @@ const ru: Dict = {
   // AND its attached files)
   publishVariant: 'Вариант публикации',
   publishNote: 'Относится к тесту и его прикреплённым файлам',
+  // Библиотека другого пользователя (открывается по клику на его фото)
+  userLibraryTitle: 'Библиотека: {name}',
+  userLibraryBadge: 'Библиотека пользователя',
+  openProfile: 'Открыть библиотеку',
+  theirLibraryEmpty: 'У пользователя {name} пока нет открытых тестов',
+  // Режим прикреплённых файлов — постоянный (кнопка в шапке выключает его)
+  filesModeOn: 'Прикреплённые файлы',
+  // Карточки вопросов (кнопка «Вид» на страницах теста и результата)
+  questionsGridHint: 'Отвечайте прямо на карточке',
+  openQuestion: 'Открыть вопрос',
 };
 
 const uz: Dict = {
@@ -660,6 +680,14 @@ const uz: Dict = {
   // AND its attached files)
   publishVariant: 'Nashr varianti',
   publishNote: 'Test va unga ilova qilingan fayllarga taalluqli',
+  // Boshqa foydalanuvchining kutubxonasi (uning rasmini bosganda ochiladi)
+  userLibraryTitle: 'Kutubxona: {name}',
+  userLibraryBadge: 'Foydalanuvchi kutubxonasi',
+  openProfile: 'Kutubxonani ochish',
+  theirLibraryEmpty: '{name} foydalanuvchida hali ochiq testlar yoʻq',
+  filesModeOn: 'Ilova qilingan fayllar',
+  questionsGridHint: 'Javobni toʻgʻridan-toʻgʻberi kartochkada bosing',
+  openQuestion: 'Savolni ochish',
 };
 
 const UI: Record<Lang, Dict> = { en, ru, uz };
