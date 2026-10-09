@@ -745,6 +745,16 @@ export default function ChemTestApp() {
   // 3 mini cards per shelf, shelf = one card per shelf. Library & shelf scroll
   // endlessly downwards while tests remain.
   const [dashView, setDashView] = useState<'tiktok1' | 'tiktok2' | 'library' | 'shelf'>('tiktok1');
+  // Library grid: 2 cards per row on phones (full button names need the width),
+  // 3 per row from sm up — matches the Tailwind sm breakpoint (640px)
+  const [libNarrow, setLibNarrow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 639px)');
+    const sync = () => setLibNarrow(mq.matches);
+    sync();
+    window.addEventListener('resize', sync);
+    return () => window.removeEventListener('resize', sync);
+  }, []);
   const [viewMenuOpen, setViewMenuOpen] = useState(false);
   const gridScrollTopRef = useRef(0);
   const libReturnViewRef = useRef<'library' | 'shelf'>('library');
@@ -1924,8 +1934,10 @@ export default function ChemTestApp() {
     // Saved progress for the test on screen (cached read) — drives the Continue button
     const dashSaved = curDashTest ? readTestProgress(progressUserId, curDashTest.id) : null;
     // Library / shelf grids: slice the loaded tests into shelf rows
-    // (library = 3 cards per shelf, shelf = 1 card per shelf); rows scroll endlessly
-    const gridPerRow = dashView === 'shelf' ? 1 : 3;
+    // (library = 2 cards per shelf on phones / 3 from sm up, shelf = 1 card per
+    // shelf); rows scroll endlessly
+    const gridPerRow = dashView === 'shelf' ? 1 : (dashView === 'library' && libNarrow ? 2 : 3);
+    const gridColsClass = dashView === 'shelf' ? 'grid-cols-1' : (dashView === 'library' && libNarrow ? 'grid-cols-2' : 'grid-cols-3');
     const gridRows: Test[][] = [];
     for (let i = 0; i < tests.length; i += gridPerRow) gridRows.push(tests.slice(i, i + gridPerRow));
     // Grid files mode: attachments of the ONE test whose paperclip was tapped
@@ -2153,7 +2165,7 @@ export default function ChemTestApp() {
                       gridFileRows.map((row, ri) => (
                         <div
                           key={ri}
-                          className={`grid ${dashView === 'library' ? 'grid-cols-3' : 'grid-cols-1'} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
+                          className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
                           style={{ minHeight: 'calc(100% / 3)' }}
                         >
                           {row.map((f, ci) => dashView === 'library' ? (
@@ -2175,16 +2187,16 @@ export default function ChemTestApp() {
                                 <Button size="sm"
                                   onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
                                   title={t('openFile')} aria-label={t('openFile')}
-                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1.5 justify-start"
+                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <ExternalLink className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('openFile')}</span>
+                                  <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
                                 </Button>
                                 <Button size="sm" variant="outline"
                                   onClick={e => { e.stopPropagation(); closeGridFiles(); }}
                                   title={t('backToTests')} aria-label={t('backToTests')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <ArrowLeft className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
+                                  <ArrowLeft className="size-3 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
                                 </Button>
                               </div>
                             </div>
@@ -2209,14 +2221,14 @@ export default function ChemTestApp() {
                                     title={t('openFile')} aria-label={t('openFile')}
                                     className="h-7 rounded-full text-xs sm:text-sm px-2 justify-start"
                                   >
-                                    <ExternalLink className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('openFile')}</span>
+                                    <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
                                   </Button>
                                   <Button size="sm" variant="outline"
                                     onClick={e => { e.stopPropagation(); closeGridFiles(); }}
                                     title={t('backToTests')} aria-label={t('backToTests')}
                                     className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
                                   >
-                                    <ArrowLeft className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
+                                    <ArrowLeft className="size-3 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
                                   </Button>
                                 </div>
                               </div>
@@ -2233,7 +2245,7 @@ export default function ChemTestApp() {
                     gridRows.map((row, ri) => (
                       <div
                         key={ri}
-                        className={`grid ${dashView === 'library' ? 'grid-cols-3' : 'grid-cols-1'} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
+                        className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
                         style={{ minHeight: 'calc(100% / 3)' }}
                       >
                         {row.map((test, ci) => {
@@ -2258,46 +2270,46 @@ export default function ChemTestApp() {
                                 <Button size="sm" disabled={loading}
                                   onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
                                   title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1.5 justify-start"
+                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <Play className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
+                                  <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
                                 </Button>
                                 <Button size="sm" variant="outline" disabled={loading}
                                   onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
                                   title={t('restart')} aria-label={t('restart')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <RefreshCw className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('restart')}</span>
+                                  <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
                                 </Button>
                                 {fcnt > 0 && (
                                   <Button size="sm" variant="outline"
                                     onClick={e => { e.stopPropagation(); openGridFiles(test); }}
                                     title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                    className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
+                                    className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-0.5 has-[>svg]:px-1"
                                   >
-                                    <Paperclip className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
+                                    <Paperclip className="size-3 shrink-0" /> <span className="truncate [@media(max-width:399px)]:text-[9px]">{t('attachedFiles', { n: fcnt })}</span>
                                   </Button>
                                 )}
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                   title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <Link2 className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
+                                  <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                 </Button>
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                   title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <Users className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
+                                  <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
                                 </Button>
                                 <Button size="sm" variant="outline"
                                   onClick={e => { e.stopPropagation(); startEditTest(test); }}
                                   title={t('editTest')} aria-label={t('editTest')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1.5 justify-start"
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <Pencil className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('editTest')}</span>
+                                  <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
                                 </Button>
                               </div>
                             </div>
@@ -2325,14 +2337,14 @@ export default function ChemTestApp() {
                                     title={t('startTestBtn')} aria-label={t('startTestBtn')}
                                     className="h-7 rounded-full text-xs sm:text-sm px-2 justify-start"
                                   >
-                                    <Play className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
+                                    <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
                                   </Button>
                                   <Button size="sm" variant="outline" disabled={loading}
                                     onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
                                     title={t('restart')} aria-label={t('restart')}
                                     className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
                                   >
-                                    <RefreshCw className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('restart')}</span>
+                                    <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
                                   </Button>
                                   {fcnt > 0 && (
                                     <Button size="sm" variant="outline"
@@ -2340,7 +2352,7 @@ export default function ChemTestApp() {
                                       title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
                                       className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
                                     >
-                                      <Paperclip className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
+                                      <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
                                     </Button>
                                   )}
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
@@ -2348,21 +2360,21 @@ export default function ChemTestApp() {
                                     title={t('shareOptLink')} aria-label={t('shareOptLink')}
                                     className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
                                   >
-                                    <Link2 className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
+                                    <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                   </Button>
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
                                     onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                     title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
                                     className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
                                   >
-                                    <Users className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
+                                    <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
                                   </Button>
                                   <Button size="sm" variant="outline"
                                     onClick={e => { e.stopPropagation(); startEditTest(test); }}
                                     title={t('editTest')} aria-label={t('editTest')}
                                     className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
                                   >
-                                    <Pencil className="w-3.5 h-3.5 mr-1 shrink-0" /> <span className="truncate">{t('editTest')}</span>
+                                    <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
                                   </Button>
                                 </div>
                               </div>
