@@ -322,13 +322,15 @@ export default function ChemTestApp() {
   useEffect(() => { filesCardTestIdRef.current = filesCardTestId; }, [filesCardTestId]);
   // Context-sensitive header search: on the files card it filters the file list,
   // otherwise it searches tests server-side (/api/feed?q=) with a dropdown.
+  // The input is ALWAYS visible inline between the header buttons (no separate row).
   const [dashSearch, setDashSearch] = useState('');
-  const [dashSearchOpen, setDashSearchOpen] = useState(false);
   const [dashSearchResults, setDashSearchResults] = useState<Test[] | null>(null);
   const [dashSearching, setDashSearching] = useState(false);
   // Take-test header search: filters the questions of the running test.
-  const [qSearchOpen, setQSearchOpen] = useState(false);
   const [qSearch, setQSearch] = useState('');
+  // Results-page header search: filters the review questions after finishing a test.
+  const [resSearch, setResSearch] = useState('');
+  const [resHighlightIdx, setResHighlightIdx] = useState<number | null>(null);
   const feedCursorRef = useRef<string | null>(null);
   const feedHasMoreRef = useRef(false);
   const feedLoadingMoreRef = useRef(false);
@@ -1220,6 +1222,7 @@ export default function ChemTestApp() {
     setRevealedAnswers(saved.revealedAnswers || {});
     setExplanations({});
     setShowResult(false);
+    setQSearch(''); setResSearch(''); setResHighlightIdx(null);
     setSelectedQuestionCount(qList.length);
     if (saved.attempt && saved.attempt.id) {
       setCurrentAttempt(saved.attempt);
@@ -1655,7 +1658,7 @@ export default function ChemTestApp() {
   // otherwise fetch the full test and pin it to the top (same as deep-link)
   const jumpToTest = (id: string) => {
     setFilesCardTestId(null);
-    setDashSearch(''); setDashSearchResults(null); setDashSearchOpen(false);
+    setDashSearch(''); setDashSearchResults(null);
     const idx = tests.findIndex(x => x.id === id);
     const go = (i: number) => {
       setDashTestIdx(i);
@@ -1673,7 +1676,7 @@ export default function ChemTestApp() {
   // Open the dedicated attached-files card for a test (replaces its card)
   const openFilesCard = (test: Test) => {
     setFilesCardTestId(test.id);
-    setDashSearch(''); setDashSearchResults(null); setDashSearchOpen(false);
+    setDashSearch(''); setDashSearchResults(null);
     if (!dashFetchedRef.current.has(test.id)) {
       dashFetchedRef.current.add(test.id);
       api.getTest(test.id)
@@ -1726,7 +1729,9 @@ export default function ChemTestApp() {
                 <Edit className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('editTest')}</span>
               </Button>
             </div>
-            <div className="hidden sm:block flex-1 min-w-0 max-w-sm mx-2 relative">
+            {/* Search lives BETWEEN the button groups in the same row (all viewports);
+                on narrow screens the right icon group wraps to its own row. */}
+            <div className="flex-1 min-w-[110px] sm:min-w-0 sm:max-w-sm mx-1 sm:mx-2 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
               <Input
                 value={dashSearch}
@@ -1736,16 +1741,7 @@ export default function ChemTestApp() {
               />
               {dashSearchDropdown}
             </div>
-            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="sm:hidden shrink-0"
-                onClick={() => { if (dashSearchOpen) { setDashSearch(''); setDashSearchResults(null); } setDashSearchOpen(!dashSearchOpen); }}
-                title={t('searchTests')}
-              >
-                <Search className="w-4 h-4" />
-              </Button>
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 ml-auto">
               <LangButton lang={lang} onChange={cycleLang} className="border-black" />
               <div className="hidden md:block text-right min-w-0">
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
@@ -1780,19 +1776,6 @@ export default function ChemTestApp() {
                 )}
               </div>
             </div>
-            {dashSearchOpen && (
-              <div className="sm:hidden w-full relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                <Input
-                  autoFocus
-                  value={dashSearch}
-                  onChange={e => setDashSearch(e.target.value)}
-                  placeholder={filesCardTestId ? t('searchFiles') : t('searchTests')}
-                  className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
-                />
-                {dashSearchDropdown}
-              </div>
-            )}
           </div>
         </header>
 
@@ -2605,14 +2588,14 @@ export default function ChemTestApp() {
     // Question search (take-test header): filter this test's questions by text
     // or option content; selecting a result jumps straight to that question.
     const qlc = qSearch.trim().toLowerCase();
-    const qResults = qSearchOpen && qlc ? shuffledQuestions
+    const qResults = qlc ? shuffledQuestions
       .map((q: any, qIdx: number) => ({ q, qIdx }))
       .filter(({ q }) =>
         trText(q, lang).toLowerCase().includes(qlc) ||
         ['A', 'B', 'C', 'D', 'E'].some(L => (trOption(q, L, lang) || '').toLowerCase().includes(qlc))
       )
       .slice(0, 12) : [];
-    const qSearchDropdown = !qSearchOpen || !qlc ? null : (
+    const qSearchDropdown = !qlc ? null : (
       <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
         {qResults.length === 0 ? (
           <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
@@ -2620,7 +2603,7 @@ export default function ChemTestApp() {
           <button
             key={q.id || qIdx}
             type="button"
-            onClick={() => { goToQuestion(qIdx); setQSearchOpen(false); setQSearch(''); }}
+            onClick={() => { goToQuestion(qIdx); setQSearch(''); }}
             className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0 flex items-start gap-2"
           >
             <Badge variant="secondary" className="rounded-full shrink-0">{qIdx + 1}</Badge>
@@ -2698,6 +2681,40 @@ export default function ChemTestApp() {
       const score = getScore();
       const pct = Math.round((score / shuffledQuestions.length) * 100);
 
+      // Results header search: filter the review questions by text or option
+      // content; selecting a result scrolls to that question card and highlights it.
+      const rlc = resSearch.trim().toLowerCase();
+      const rResults = rlc ? shuffledQuestions
+        .map((q: any, qIdx: number) => ({ q, qIdx }))
+        .filter(({ q }) =>
+          trText(q, lang).toLowerCase().includes(rlc) ||
+          ['A', 'B', 'C', 'D', 'E'].some(L => (trOption(q, L, lang) || '').toLowerCase().includes(rlc))
+        )
+        .slice(0, 12) : [];
+      const resSearchDropdown = !rlc ? null : (
+        <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
+          {rResults.length === 0 ? (
+            <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
+          ) : rResults.map(({ q, qIdx }) => (
+            <button
+              key={q.id || qIdx}
+              type="button"
+              onClick={() => { jumpToResultQuestion(qIdx); setResSearch(''); }}
+              className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0 flex items-start gap-2"
+            >
+              <Badge variant="secondary" className="rounded-full shrink-0">{qIdx + 1}</Badge>
+              <span className="text-sm line-clamp-2"><MathText text={trText(q, lang)} /></span>
+            </button>
+          ))}
+        </div>
+      );
+      const jumpToResultQuestion = (idx: number) => {
+        const el = typeof document !== 'undefined' ? document.getElementById(`result-q-${idx}`) : null;
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setResHighlightIdx(idx);
+        window.setTimeout(() => setResHighlightIdx(prev => (prev === idx ? null : prev)), 2400);
+      };
+
       // Bottom-sheet window switcher (Attached Files / AI Tutor / Test Chat / Edit Test)
       const sheetOptions = [
         ...(currentTest?.attachments?.length ? [{
@@ -2738,7 +2755,9 @@ export default function ChemTestApp() {
         <div className="min-h-screen bg-background">
           <TranslatingPill show={autoTranslating} label={t('translating')} />
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-            <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between gap-2">
+            {/* Search lives BETWEEN the button groups in the same row; on narrow
+                screens the right icon group wraps onto its own row below it. */}
+            <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
                 <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0"><ArrowLeft className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('back')}</span></Button>
                 {(currentTest?.attachments?.length || 0) > 0 ? (
@@ -2756,7 +2775,17 @@ export default function ChemTestApp() {
                   <h1 className="text-lg font-bold">{t('testResults')}</h1>
                 )}
               </div>
-              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <div className="flex-1 min-w-[110px] sm:max-w-sm relative mx-1 sm:mx-2">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Input
+                  value={resSearch}
+                  onChange={e => setResSearch(e.target.value)}
+                  placeholder={t('searchQuestions')}
+                  className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
+                />
+                {resSearchDropdown}
+              </div>
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-auto">
                 <LangButton lang={lang} onChange={cycleLang} className="border-black" />
                 <Button
                   variant="outline"
@@ -2815,7 +2844,7 @@ export default function ChemTestApp() {
               const selected = answers[q.id || ''] || '';
               const isCorrect = selected === q.correctAnswer;
               return (
-                <Card key={idx} className={`rounded-4xl border border-black bg-white ${isCorrect ? 'ring-2 ring-emerald-300' : 'ring-2 ring-red-300'}`}>
+                <Card key={idx} id={`result-q-${idx}`} className={`rounded-4xl border border-black bg-white scroll-mt-24 ${isCorrect ? 'ring-2 ring-emerald-300' : 'ring-2 ring-red-300'} ${resHighlightIdx === idx ? 'outline outline-2 outline-primary outline-offset-2' : ''}`}>
                   <CardContent className="p-4">
                     <div className="flex items-start gap-2 mb-3">
                       {isCorrect ? <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /> : <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />}
@@ -2999,23 +3028,26 @@ export default function ChemTestApp() {
         <TranslatingPill show={autoTranslating} label={t('translating')} />
         <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3">
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <div className="flex items-center gap-2 min-w-0 flex-1">
+            {/* Search lives BETWEEN the button groups in the same row; on narrow
+                screens the action buttons wrap onto their own row below it. */}
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2 min-w-0">
                 <Button variant="ghost" size="sm" onClick={goHome} className="shrink-0"><Home className="w-4 h-4" /></Button>
-                <span className="text-sm font-medium line-clamp-2 leading-snug min-w-0">{currentTest?.title}</span>
-                <LangButton lang={lang} onChange={cycleLang} className="border-black" />
+                <span className="text-sm font-medium line-clamp-2 leading-snug min-w-0 flex-1">{currentTest?.title}</span>
+                <LangButton lang={lang} onChange={cycleLang} className="border-black shrink-0" />
               </div>
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex-1 min-w-[110px] sm:max-w-sm relative mx-1 sm:mx-2">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Input
+                  value={qSearch}
+                  onChange={e => setQSearch(e.target.value)}
+                  placeholder={t('searchQuestions')}
+                  className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
+                />
+                {qSearchDropdown}
+              </div>
+              <div className="flex items-center gap-2 shrink-0 ml-auto">
                 <span className="text-sm text-muted-foreground hidden sm:inline">{t('xOfYAnswered', { n: answeredCount, m: shuffledQuestions.length })}</span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => { if (qSearchOpen) setQSearch(''); setQSearchOpen(!qSearchOpen); }}
-                  className="shrink-0"
-                  title={t('searchQuestions')}
-                >
-                  <Search className="w-4 h-4" />
-                </Button>
                 {(currentTest?.attachments?.length || 0) > 0 && (
                   <Button
                     variant={filesOpen ? 'default' : 'outline'}
@@ -3061,19 +3093,6 @@ export default function ChemTestApp() {
                 </>
               </div>
             </div>
-            {qSearchOpen && (
-              <div className="relative mb-2">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                <Input
-                  autoFocus
-                  value={qSearch}
-                  onChange={e => setQSearch(e.target.value)}
-                  placeholder={t('searchQuestions')}
-                  className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
-                />
-                {qSearchDropdown}
-              </div>
-            )}
             <Progress value={progressPct} className="h-2" />
           </div>
         </header>
