@@ -326,10 +326,12 @@ export default function ChemTestApp() {
   const filesFeedModeRef = useRef(false);
   useEffect(() => { filesFeedModeRef.current = filesFeedMode; }, [filesFeedMode]);
   const [dashSlideIdx, setDashSlideIdx] = useState(0);
-  // Context-sensitive header search: searches tests server-side (/api/feed?q=)
-  // by TAGS with a dropdown. The input is ALWAYS visible inline between the
-  // header buttons (no separate row).
+  // Dashboard header search: searches tests server-side (/api/feed?q=) by
+  // TAGS with a dropdown. Hidden behind a search BUTTON; tapping it opens an
+  // input overlay that covers the whole header row until dismissed (X / Esc /
+  // test chosen) — same pattern as the take-test search.
   const [dashSearch, setDashSearch] = useState('');
+  const [dashSearchOpen, setDashSearchOpen] = useState(false);
   const [dashSearchResults, setDashSearchResults] = useState<Test[] | null>(null);
   // Tag dictionary feedback for the current search: whether the exact tag
   // exists, whether we just created it, and similar tags to offer instead.
@@ -1776,7 +1778,7 @@ export default function ChemTestApp() {
   const jumpToTest = (id: string) => {
     pendingFilesJumpRef.current = null;
     if (filesFeedMode) setFilesFeedMode(false);
-    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null);
+    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
     // From the grid views a search result opens the swipe feed with a back
     // button that returns to the grid at its remembered scroll position
     if (dashView === 'library' || dashView === 'shelf') {
@@ -1798,7 +1800,7 @@ export default function ChemTestApp() {
   // the next recommended test's files. Header/bottom bar stay untouched.
   const openFilesCard = (test: Test) => {
     pendingFilesJumpRef.current = test.id;
-    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null);
+    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
     setFilesFeedMode(true);
     // Prefetch attachments for ALL loaded tests so the flattened slide list
     // stabilizes quickly (each test's slides appear as its fetch resolves)
@@ -1817,7 +1819,7 @@ export default function ChemTestApp() {
     pendingFilesJumpRef.current = null;
     setFilesFeedMode(false);
     setDashSlideIdx(0);
-    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null);
+    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
     if (tid) {
       const idx = tests.findIndex(x => x.id === tid);
       if (idx >= 0) { setDashTestIdx(idx); scrollDashTo(idx); }
@@ -1929,8 +1931,37 @@ export default function ChemTestApp() {
     return (
       <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+          {/* One row on EVERY viewport, no matter how many buttons: the row
+              never wraps (flex-nowrap); buttons compress to icon-only pills on
+              narrow screens. Search is a button too — when open, its input
+              overlay covers the whole row instead of pushing buttons out. */}
+          <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
+            {dashSearchOpen && (
+              <div className="absolute inset-0 z-50 bg-white flex items-center gap-2 px-3 sm:px-4 animate-in fade-in duration-150">
+                <div className="flex-1 min-w-0 relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                  <Input
+                    autoFocus
+                    value={dashSearch}
+                    onChange={e => setDashSearch(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Escape') { setDashSearchOpen(false); setDashSearch(''); } }}
+                    placeholder={t('searchByTags')}
+                    className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
+                  />
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => { setDashSearchOpen(false); setDashSearch(''); }}
+                  className="shrink-0 h-9 w-9 p-0"
+                  aria-label={t('cancel')}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+                {dashSearchDropdown}
+              </div>
+            )}
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
               {dashView === 'tiktok2' && (
                 <Button
                   variant="outline"
@@ -1943,35 +1974,32 @@ export default function ChemTestApp() {
                   <ArrowLeft className="w-4 h-4" />
                 </Button>
               )}
-              <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0">
+              <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4">
                 <Plus className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('createTest')}</span>
               </Button>
               <Button
                 variant="outline"
                 onClick={() => setEditMode(v => !v)}
-                className={`rounded-full shrink-0 ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
+                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
               >
                 <Edit className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('editTest')}</span>
               </Button>
             </div>
-            {/* Search lives BETWEEN the button groups in the same row (all viewports);
-                on narrow screens the right icon group wraps to its own row. */}
-            <div className="flex-1 min-w-[110px] sm:min-w-0 sm:max-w-sm mx-1 sm:mx-2 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-              <Input
-                value={dashSearch}
-                onChange={e => setDashSearch(e.target.value)}
-                placeholder={t('searchByTags')}
-                className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
-              />
-              {dashSearchDropdown}
-            </div>
-            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0 ml-auto">
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0 ml-auto">
+              <Button
+                variant="outline"
+                onClick={() => setDashSearchOpen(true)}
+                className="rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-9"
+                title={t('searchByTags')}
+                aria-label={t('searchByTags')}
+              >
+                <Search className="w-4 h-4" />
+              </Button>
               <div className="relative shrink-0">
                 <Button
                   variant="outline"
                   onClick={() => setViewMenuOpen(v => !v)}
-                  className={`rounded-full shrink-0 border-black ${viewMenuOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
+                  className={`rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 ${viewMenuOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
                   title={t('viewMode')}
                   aria-label={t('viewMode')}
                 >
@@ -2003,7 +2031,7 @@ export default function ChemTestApp() {
                   </>
                 )}
               </div>
-              <LangButton lang={lang} onChange={cycleLang} className="border-black" />
+              <LangButton lang={lang} onChange={cycleLang} className="border-black px-2 sm:px-3" />
               <div className="hidden md:block text-right min-w-0">
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground truncate max-w-[180px]">{effectiveUser?.email}</p>
