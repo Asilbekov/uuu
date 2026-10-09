@@ -78,11 +78,24 @@ export async function GET(request: NextRequest) {
     // tagInfo, and tests carrying CLOSE (partial-match) tags are still shown.
     let tagInfo: { query: string; exists: boolean; created: boolean; similar: string[] } | null = null;
     if (q) {
-      const tagRows = await db.$queryRawUnsafe<{ tag: string }[]>(
-        `SELECT DISTINCT tg.tag FROM "Test" t CROSS JOIN LATERAL unnest(t.tags) AS tg(tag) WHERE tg.tag ILIKE $1 LIMIT 25`,
-        `%${q}%`
-      );
-      const matchedTags = tagRows.map(r => r.tag);
+      // Close tags = substring matches (ILIKE) PLUS trigram-similar matches
+      // (typo tolerance, pg_trgm), closest first.
+      let matchedTags: string[] = [];
+      try {
+        const rows = await db.$queryRawUnsafe<{ tag: string }[]>(
+          `SELECT tg.tag FROM "Test" t CROSS JOIN LATERAL unnest(t.tags) AS tg(tag)
+           WHERE tg.tag ILIKE $1 OR similarity(tg.tag, $2) > 0.3
+           GROUP BY tg.tag ORDER BY similarity(tg.tag, $2) DESC LIMIT 25`,
+          `%${q}%`, q
+        );
+        matchedTags = rows.map(r => r.tag);
+      } catch {
+        const rows = await db.$queryRawUnsafe<{ tag: string }[]>(
+          `SELECT DISTINCT tg.tag FROM "Test" t CROSS JOIN LATERAL unnest(t.tags) AS tg(tag) WHERE tg.tag ILIKE $1 LIMIT 25`,
+          `%${q}%`
+        );
+        matchedTags = rows.map(r => r.tag);
+      }
       // Exact (case-insensitive) existence: Tag dictionary OR any test's tags
       const exactRows = await db.$queryRawUnsafe<{ ok: boolean }[]>(
         `SELECT (EXISTS (SELECT 1 FROM "Tag" WHERE name ILIKE $1) OR EXISTS (
