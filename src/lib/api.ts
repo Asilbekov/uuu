@@ -101,6 +101,25 @@ export const api = {
   saveInterests: (interests: string[]) =>
     apiFetch('/me/interests', { method: 'PUT', body: JSON.stringify({ interests }) }),
 
+  // Profile photo — raw fetch (FormData must not carry the JSON Content-Type);
+  // the picture is stored IN THE TELEGRAM CHANNEL by /api/me/avatar
+  uploadAvatar: async (file: Blob) => {
+    const user = getUser();
+    if (!user) throw new Error('Not authenticated');
+    const fd = new FormData();
+    fd.append('file', file, 'avatar.jpg');
+    const res = await fetch(`${API_BASE}/me/avatar`, {
+      method: 'POST',
+      headers: { 'x-user-id': user.id },
+      body: fd,
+    });
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({ error: 'Request failed' }));
+      throw new Error(error.error || 'Request failed');
+    }
+    return res.json();
+  },
+
   // Popular tags across public tests (feed filter chips)
   getPopularTags: async (): Promise<{ tag: string; count: number }[]> => {
     const res = await apiFetch('/tags/popular');

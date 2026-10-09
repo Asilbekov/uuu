@@ -69,6 +69,7 @@ import {
   Compass,
   BookmarkPlus,
   BookmarkCheck,
+  Camera,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
@@ -94,35 +95,56 @@ function LangButton({ lang, onChange, className = '' }: { lang: Lang; onChange: 
   );
 }
 
-// Card header for the DISCOVER mode: author avatar + name on the left and a
-// bookmark toggle on the right. Shown ONLY in Discover (tests of other
-// authors); the personal library keeps the cards clean.
-function CreatorStrip({ name, bookmarked, onToggleBookmark, addLabel, removeLabel }: {
+// Card header for the DISCOVER mode — a distinct band across the top of the
+// card: the author's photo pinned top-left, the name centered on its own
+// lighter pill, and a BIG bookmark toggle on the right. Shown ONLY in
+// Discover (tests of other authors); the personal library keeps cards clean.
+function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, addLabel, removeLabel, addShort, removeShort }: {
   name: string;
+  creatorId?: string | null;
+  image?: string | null;
   bookmarked: boolean;
   onToggleBookmark: () => void;
   addLabel: string;
   removeLabel: string;
+  addShort: string;
+  removeShort: string;
 }) {
   const initial = (name || '?').trim().slice(0, 1).toUpperCase() || '?';
+  // tg: references resolve through the same-origin avatar route; data:/http
+  // images render directly. Anything else → the initial-letter avatar.
+  const avatarSrc = image
+    ? (image.startsWith('tg:') && creatorId
+        ? `/api/users/${creatorId}/avatar`
+        : (image.startsWith('data:') || image.startsWith('http') ? image : null))
+    : null;
   return (
-    <div className="shrink-0 flex items-center gap-1.5 min-w-0">
-      <span className="w-5 h-5 rounded-full bg-cta text-white flex items-center justify-center text-[9px] font-bold shrink-0">
-        {initial}
+    <div className="shrink-0 relative flex items-center h-11 rounded-2xl bg-[#FFE8DE] border border-black/10 pl-1 pr-1.5 shadow-sm">
+      {/* Author photo — pinned top-left of the header band */}
+      <span className="w-8 h-8 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-xs font-bold ring-2 ring-white shadow-sm shrink-0" title={name}>
+        {avatarSrc ? <img src={avatarSrc} alt="" className="w-full h-full object-cover" /> : initial}
       </span>
-      <span className="text-[11px] font-semibold text-muted-foreground truncate min-w-0" title={name}>{name}</span>
+      {/* Name centered on its own white pill (a background of its own) */}
+      <span
+        className="absolute left-1/2 -translate-x-1/2 max-w-[44%] px-3 py-1 rounded-full bg-white border border-black/10 shadow-sm text-[11px] font-bold text-black truncate pointer-events-none"
+        title={name}
+      >
+        {name}
+      </span>
+      {/* The bookmark button — bigger and prettier: icon + short label on wide screens */}
       <button
         type="button"
         onClick={e => { e.stopPropagation(); onToggleBookmark(); }}
         title={bookmarked ? removeLabel : addLabel}
         aria-label={bookmarked ? removeLabel : addLabel}
-        className={`ml-auto shrink-0 w-6 h-6 rounded-full flex items-center justify-center border transition-colors ${
+        className={`ml-auto shrink-0 relative z-10 h-9 min-w-9 px-2 rounded-full flex items-center justify-center gap-1 border-2 text-[11px] font-bold transition-all active:scale-90 ${
           bookmarked
-            ? 'bg-primary text-white border-primary hover:bg-primary/90'
-            : 'bg-white border-black/20 text-black hover:border-black/50'
+            ? 'bg-primary text-white border-primary shadow-md hover:bg-primary/90'
+            : 'bg-white border-black/25 text-black hover:border-black'
         }`}
       >
-        {bookmarked ? <BookmarkCheck className="w-3.5 h-3.5" /> : <BookmarkPlus className="w-3.5 h-3.5" />}
+        {bookmarked ? <BookmarkCheck className="w-[18px] h-[18px]" /> : <BookmarkPlus className="w-[18px] h-[18px]" />}
+        <span className="hidden min-[430px]:inline max-w-[92px] truncate">{bookmarked ? removeShort : addShort}</span>
       </button>
     </div>
   );
@@ -360,6 +382,10 @@ export default function ChemTestApp() {
   const discoverModeRef = useRef(false);
   // Test ids saved into my personal library via the bookmark button
   const [bookmarkIds, setBookmarkIds] = useState<Set<string>>(new Set());
+  // My profile photo (served by /api/users/[id]/avatar) + its tiny uploader
+  const [myAvatar, setMyAvatar] = useState<string | null>(null);
+  const [avatarBusy, setAvatarBusy] = useState(false);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
   // Per-card share scope selection: exactly one of the two share buttons on a
   // card can be highlighted at a time (radio behaviour, like the mode cards).
   const [shareScopeByTest, setShareScopeByTest] = useState<Record<string, 'link' | 'community'>>({});
@@ -651,6 +677,47 @@ export default function ChemTestApp() {
   // Only use hydratedUser after mount to avoid hydration mismatch
   const effectiveUser = user || (mounted ? hydratedUser : null);
   const effectivePage = page === 'auth' && mounted && hydratedUser ? 'dashboard' : page;
+
+  // My profile photo: probe the avatar route once per session/user — a 200
+  // means a photo exists (shown on the account button), 404 → initials.
+  useEffect(() => {
+    const uid = effectiveUser?.id;
+    if (!uid) { setMyAvatar(null); return; }
+    let alive = true;
+    fetch(`/api/users/${uid}/avatar`)
+      .then(res => { if (alive) setMyAvatar(res.ok ? `/api/users/${uid}/avatar?t=${Date.now()}` : null); })
+      .catch(() => { if (alive) setMyAvatar(null); });
+    return () => { alive = false; };
+  }, [effectiveUser?.id]);
+
+  // Profile-photo upload: center-cropped 256×256 JPEG (a few dozen KB),
+  // stored IN THE TELEGRAM CHANNEL by /api/me/avatar like every other file.
+  const handleAvatarFile = async (file: File) => {
+    if (!effectiveUser || avatarBusy) return;
+    setAvatarBusy(true);
+    try {
+      let blob: Blob = file;
+      try {
+        const bitmap = await createImageBitmap(file);
+        const side = Math.min(bitmap.width, bitmap.height);
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = 256;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(bitmap, (bitmap.width - side) / 2, (bitmap.height - side) / 2, side, side, 0, 0, 256, 256);
+          blob = await new Promise<Blob>(res => canvas.toBlob(b => res(b || file), 'image/jpeg', 0.85));
+        }
+      } catch { /* keep the original file when the browser cannot decode it */ }
+      await api.uploadAvatar(blob);
+      setMyAvatar(`/api/users/${effectiveUser.id}/avatar?t=${Date.now()}`);
+      toast({ title: t('avatarSaved') });
+    } catch (e: any) {
+      toast({ title: t('error'), description: e.message, variant: 'destructive' });
+    } finally {
+      setAvatarBusy(false);
+    }
+  };
+
 
   // --- Saved test progress ("Continue Test") ---
   const progressUserId = effectiveUser?.id || 'anon';
@@ -2256,17 +2323,39 @@ export default function ChemTestApp() {
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground truncate max-w-[180px]">{effectiveUser?.email}</p>
               </div>
+              {/* Profile-photo uploader — the picture lands in the Telegram
+              channel like every other file and shows up on the account avatar
+              and on the author header of this user's tests in Discover */}
+              <button
+                onClick={() => avatarInputRef.current?.click()}
+                disabled={avatarBusy || !effectiveUser}
+                title={t('avatarUpload')}
+                aria-label={t('avatarUpload')}
+                className="w-9 h-9 rounded-full border border-black/25 bg-white flex items-center justify-center text-black hover:border-black active:scale-95 transition-all shrink-0 disabled:opacity-60"
+              >
+                {avatarBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Camera className="w-4 h-4" />}
+              </button>
+              <input
+                ref={avatarInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={e => { const f = e.target.files?.[0]; e.target.value = ''; if (f) handleAvatarFile(f); }}
+              />
               {/* Account button — one tap switches the content mode between the
               personal library (Library badge) and Discover (Compass badge).
-              The avatar keeps the user's initials on top of the badge. */}
+              The avatar shows the user's profile photo (Telegram-stored) with
+              the initials as the fallback. */}
               <button
                 onClick={toggleDiscoverMode}
                 disabled={loading}
                 title={discoverMode ? `${t('modeDiscover')} · ${t('modeDiscoverHint')}` : `${t('modeMine')} · ${t('modeMineHint')}`}
                 aria-label={discoverMode ? t('modeDiscover') : t('modeMine')}
-                className="relative w-9 h-9 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform shrink-0 disabled:opacity-70"
+                className="relative w-9 h-9 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform shrink-0 disabled:opacity-70 overflow-visible"
               >
-                {userInitials}
+                {myAvatar
+                  ? <img src={myAvatar} alt="" className="absolute inset-0 w-full h-full rounded-full object-cover" />
+                  : userInitials}
                 <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-white border border-black/15 flex items-center justify-center">
                   {discoverMode
                     ? <Compass className="w-2.5 h-2.5 text-cta" aria-hidden="true" />
@@ -2414,10 +2503,14 @@ export default function ChemTestApp() {
                               {discoverMode && (
                                 <CreatorStrip
                                   name={(test as any).creator?.name || ''}
+                                  creatorId={(test as any).creator?.id || test.creatorId}
+                                  image={(test as any).creator?.image || null}
                                   bookmarked={bookmarkIds.has(test.id)}
                                   onToggleBookmark={() => toggleBookmark(test)}
                                   addLabel={t('bookmarkAdd')}
                                   removeLabel={t('bookmarkRemove')}
+                                  addShort={t('bookmarkAddShort')}
+                                  removeShort={t('bookmarkRemoveShort')}
                                 />
                               )}
                               <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
@@ -2493,10 +2586,14 @@ export default function ChemTestApp() {
                                 {discoverMode && (
                                   <CreatorStrip
                                     name={(test as any).creator?.name || ''}
+                                    creatorId={(test as any).creator?.id || test.creatorId}
+                                    image={(test as any).creator?.image || null}
                                     bookmarked={bookmarkIds.has(test.id)}
                                     onToggleBookmark={() => toggleBookmark(test)}
                                     addLabel={t('bookmarkAdd')}
                                     removeLabel={t('bookmarkRemove')}
+                                    addShort={t('bookmarkAddShort')}
+                                    removeShort={t('bookmarkRemoveShort')}
                                   />
                                 )}
                                 {/* Title lives on the spine only — no duplicate text in
@@ -2657,10 +2754,14 @@ export default function ChemTestApp() {
                         {discoverMode && (
                           <CreatorStrip
                             name={(test as any).creator?.name || ''}
+                            creatorId={(test as any).creator?.id || test.creatorId}
+                            image={(test as any).creator?.image || null}
                             bookmarked={bookmarkIds.has(test.id)}
                             onToggleBookmark={() => toggleBookmark(test)}
                             addLabel={t('bookmarkAdd')}
                             removeLabel={t('bookmarkRemove')}
+                            addShort={t('bookmarkAddShort')}
+                            removeShort={t('bookmarkRemoveShort')}
                           />
                         )}
                         {/* Cover header — title on the colored band (logo picker removed) */}

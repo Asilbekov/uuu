@@ -51,11 +51,13 @@ export async function telegramUpload(opts: {
 
   const res = await fetch(`${BOT_API_BASE()}/sendDocument`, { method: 'POST', body: form });
   const body: any = await res.json().catch(() => null);
-  if (!res.ok || !body?.ok || !body?.result?.document?.file_id) {
+  // Telegram auto-detects the content type: an mp3 arrives as result.AUDIO,
+  // an mp4 may arrive as result.VIDEO — every flavour carries file_id.
+  const doc = body?.result?.document || body?.result?.audio || body?.result?.video || body?.result?.voice;
+  if (!res.ok || !body?.ok || !doc?.file_id) {
     const desc = body?.description || `HTTP ${res.status}`;
     throw new Error(`TELEGRAM_UPLOAD_FAILED: ${desc}`);
   }
-  const doc = body.result.document;
   return {
     fileId: doc.file_id as string,
     name: (doc.file_name as string) || opts.name,
@@ -76,5 +78,6 @@ export async function telegramFileUrl(fileId: string): Promise<string> {
     const desc = body?.description || `HTTP ${res.status}`;
     throw new Error(`TELEGRAM_GETFILE_FAILED: ${desc}`);
   }
-  return `${BOT_API_BASE()}/file/${body.result.file_path}`;
+  // Download URL format: https://api.telegram.org/file/bot<token>/<file_path>
+  return `${TG_API}/file/bot${BOT_TOKEN}/${body.result.file_path}`;
 }

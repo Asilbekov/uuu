@@ -147,7 +147,7 @@ export async function GET(request: NextRequest) {
       description: true,
       topic: true,
       creatorId: true,
-      creator: { select: { id: true, name: true } },
+      creator: { select: { id: true, name: true, image: true } },
       isPublic: true,
       tags: true,
       coverIcon: true,
