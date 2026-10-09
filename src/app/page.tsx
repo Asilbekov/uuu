@@ -327,7 +327,10 @@ export default function ChemTestApp() {
   const [dashSearchResults, setDashSearchResults] = useState<Test[] | null>(null);
   const [dashSearching, setDashSearching] = useState(false);
   // Take-test header search: filters the questions of the running test.
+  // Hidden behind a search BUTTON; tapping it opens an input overlay that
+  // covers the whole header row until dismissed (X / Esc / question chosen).
   const [qSearch, setQSearch] = useState('');
+  const [qSearchOpen, setQSearchOpen] = useState(false);
   // Results-page header search: filters the review questions after finishing a test.
   const [resSearch, setResSearch] = useState('');
   const [resHighlightIdx, setResHighlightIdx] = useState<number | null>(null);
@@ -1222,7 +1225,7 @@ export default function ChemTestApp() {
     setRevealedAnswers(saved.revealedAnswers || {});
     setExplanations({});
     setShowResult(false);
-    setQSearch(''); setResSearch(''); setResHighlightIdx(null);
+    setQSearch(''); setQSearchOpen(false); setResSearch(''); setResHighlightIdx(null);
     setSelectedQuestionCount(qList.length);
     if (saved.attempt && saved.attempt.id) {
       setCurrentAttempt(saved.attempt);
@@ -2606,7 +2609,7 @@ export default function ChemTestApp() {
           <button
             key={q.id || qIdx}
             type="button"
-            onClick={() => { goToQuestion(qIdx); setQSearch(''); }}
+            onClick={() => { goToQuestion(qIdx); setQSearch(''); setQSearchOpen(false); }}
             className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0 flex items-start gap-2"
           >
             <Badge variant="secondary" className="rounded-full shrink-0">{qIdx + 1}</Badge>
@@ -3031,24 +3034,51 @@ export default function ChemTestApp() {
         <TranslatingPill show={autoTranslating} label={t('translating')} />
         <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-4 py-3">
-            {/* Search lives BETWEEN the button groups in the same row; on narrow
-                screens the action buttons wrap onto their own row below it. */}
-            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+            {/* Search is a BUTTON in the action group; tapping it expands an
+                input overlay that covers the whole header row (every button)
+                until dismissed. On narrow screens the action buttons wrap onto
+                their own row below it. */}
+            <div className="relative flex flex-wrap items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-2 min-w-0">
                 <Button variant="ghost" size="sm" onClick={goHome} className="shrink-0"><Home className="w-4 h-4" /></Button>
                 <LangButton lang={lang} onChange={cycleLang} className="border-black shrink-0" />
               </div>
-              <div className="flex-1 min-w-[110px] sm:max-w-sm relative mx-1 sm:mx-2">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                <Input
-                  value={qSearch}
-                  onChange={e => setQSearch(e.target.value)}
-                  placeholder={t('searchQuestions')}
-                  className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
-                />
-                {qSearchDropdown}
-              </div>
+              {qSearchOpen && (
+                <div className="absolute inset-0 z-50 bg-white flex items-center gap-2 px-1 animate-in fade-in duration-150">
+                  <div className="flex-1 min-w-0 relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                    <Input
+                      autoFocus
+                      value={qSearch}
+                      onChange={e => setQSearch(e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Escape') { setQSearchOpen(false); setQSearch(''); } }}
+                      placeholder={t('searchQuestions')}
+                      className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
+                    />
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => { setQSearchOpen(false); setQSearch(''); }}
+                    className="shrink-0 h-9 w-9 p-0"
+                    aria-label={t('cancel')}
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                  {qSearchDropdown}
+                </div>
+              )}
               <div className="flex items-center gap-2 shrink-0 ml-auto">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setQSearchOpen(true)}
+                  className="shrink-0 w-9 p-0"
+                  title={t('searchQuestions')}
+                  aria-label={t('searchQuestions')}
+                >
+                  <Search className="w-4 h-4" />
+                </Button>
                 <span className="text-sm text-muted-foreground hidden sm:inline">{t('xOfYAnswered', { n: answeredCount, m: shuffledQuestions.length })}</span>
                 {(currentTest?.attachments?.length || 0) > 0 && (
                   <Button
