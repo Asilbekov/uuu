@@ -15,6 +15,9 @@ model User {
   // Profile photo: `tg:<file_id>` (stored in the Telegram channel) or a small
   // data: URL fallback. Served by GET /api/users/[id]/avatar.
   image     String?
+  // Test-taking background: key of a client-side preset list (TEST_BG_PRESETS).
+  // null/'' = the standard app background. Edited on the profile page.
+  bgStyle   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   tests     Test[]

@@ -101,6 +101,13 @@ export const api = {
   saveInterests: (interests: string[]) =>
     apiFetch('/me/interests', { method: 'PUT', body: JSON.stringify({ interests }) }),
 
+  // Profile page — own profile (name, test-taking background) and account
+  // management (logout is client-side; deletion is permanent)
+  getProfile: () => apiFetch('/me'),
+  updateProfile: (data: { name?: string; bgStyle?: string }) =>
+    apiFetch('/me', { method: 'PUT', body: JSON.stringify(data) }),
+  deleteAccount: () => apiFetch('/me', { method: 'DELETE' }),
+
   // Profile photo — raw fetch (FormData must not carry the JSON Content-Type);
   // the picture is stored IN THE TELEGRAM CHANNEL by /api/me/avatar
   uploadAvatar: async (file: Blob) => {

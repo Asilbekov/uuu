@@ -73,12 +73,29 @@ import {
   BookmarkX,
   ImagePlus,
   Camera,
+  LogOut,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
 
 // localStorage key for the interface language (EN -> RU -> UZ cycle button)
 const LANG_STORAGE_KEY = 'chemtest-lang';
+
+// Test-taking background presets — picked on the profile page, stored on the
+// User row as a preset KEY (the CSS lives here so future presets keep working
+// for everyone). '' / null = the standard app background. Applied to the
+// start-test, take-test and results screens behind the white cards.
+const TEST_BG_PRESETS: { id: string; css: string }[] = [
+  { id: 'aurora',   css: 'linear-gradient(180deg,#dbeafe 0%,#e0e7ff 45%,#ede9fe 100%)' },
+  { id: 'sunset',   css: 'linear-gradient(180deg,#ffedd5 0%,#fecdd3 55%,#fbcfe8 100%)' },
+  { id: 'mint',     css: 'linear-gradient(180deg,#d1fae5 0%,#ccfbf1 50%,#e0f2fe 100%)' },
+  { id: 'lavender', css: 'linear-gradient(180deg,#ede9fe 0%,#f3e8ff 50%,#fce7f3 100%)' },
+  { id: 'peach',    css: 'linear-gradient(180deg,#fef3c7 0%,#ffedd5 55%,#fee2e2 100%)' },
+  { id: 'ocean',    css: 'linear-gradient(180deg,#0c4a6e 0%,#0369a1 55%,#0ea5e9 100%)' },
+  { id: 'midnight', css: 'linear-gradient(180deg,#0f172a 0%,#1e293b 55%,#334155 100%)' },
+  { id: 'rose',     css: 'linear-gradient(180deg,#881337 0%,#9f1239 55%,#be123c 100%)' },
+];
+const testBackgroundCss = (id: string) => TEST_BG_PRESETS.find(p => p.id === id)?.css || '';
 
 // Language switcher button — same outline style as the other header buttons.
 // Shown in the dashboard header and in the test header (instead of the old
@@ -178,7 +195,7 @@ function TranslatingPill({ show, label }: { show: boolean; label: string }) {
 }
 
 // Types
-type Page = 'auth' | 'dashboard' | 'create-test' | 'edit-test' | 'start-test' | 'take-test' | 'history';
+type Page = 'auth' | 'dashboard' | 'create-test' | 'edit-test' | 'start-test' | 'take-test' | 'history' | 'profile';
 
 interface Question {
   id?: string;
@@ -469,6 +486,14 @@ export default function ChemTestApp() {
   const [myAvatar, setMyAvatar] = useState<string | null>(null);
   const [avatarBusy, setAvatarBusy] = useState(false);
   const avatarInputRef = useRef<HTMLInputElement>(null);
+  // --- Profile page state ---
+  // Test-taking background preset key ('' = standard); loaded once per session
+  // from GET /api/me together with the editable display name.
+  const [myBgStyle, setMyBgStyle] = useState('');
+  const [profileName, setProfileName] = useState('');
+  const [profileSaving, setProfileSaving] = useState(false);
+  const [accBusy, setAccBusy] = useState(false);
+  const [deleteAccOpen, setDeleteAccOpen] = useState(false);
   // Per-card share scope selection: exactly one of the two share buttons on a
   // card can be highlighted at a time (radio behaviour, like the mode cards).
   const [shareScopeByTest, setShareScopeByTest] = useState<Record<string, 'link' | 'community'>>({});
@@ -816,6 +841,95 @@ export default function ChemTestApp() {
       toast({ title: t('error'), description: e.message, variant: 'destructive' });
     } finally {
       setAvatarBusy(false);
+    }
+  };
+
+  // --- Profile page ---
+  // Load the profile (name + background preset) once per session/user. The
+  // name also seeds the editable input; bgStyle drives the test-taking
+  // background applied to start-test / take-test / results.
+  useEffect(() => {
+    const uid = effectiveUser?.id;
+    if (!uid) { setMyBgStyle(''); setProfileName(''); return; }
+    let alive = true;
+    api.getProfile()
+      .then((p: any) => {
+        if (!alive) return;
+        setMyBgStyle(typeof p?.bgStyle === 'string' ? p.bgStyle : '');
+        setProfileName(typeof p?.name === 'string' ? p.name : (effectiveUser?.name || ''));
+      })
+      .catch(() => { if (alive) setProfileName(effectiveUser?.name || ''); });
+    return () => { alive = false; };
+  }, [effectiveUser?.id]);
+
+  // Rename: PUT /api/me, then mirror the new name into the client session
+  // (state + localStorage) so the dashboard header picks it up instantly.
+  const saveProfileName = async () => {
+    if (!effectiveUser || profileSaving) return;
+    const name = profileName.trim();
+    if (!name || name === effectiveUser.name) return;
+    setProfileSaving(true);
+    try {
+      const r: any = await api.updateProfile({ name });
+      const next = { id: effectiveUser.id, email: effectiveUser.email, name: r?.name || name };
+      setUserState(next);
+      setUser(next); // persists to localStorage
+      toast({ title: t('profileNameSaved') });
+    } catch (e: any) {
+      toast({ title: t('error'), description: e.message, variant: 'destructive' });
+    } finally {
+      setProfileSaving(false);
+    }
+  };
+
+  // Background preset: optimistic switch — the preview updates instantly and
+  // the choice is persisted silently; the previous preset comes back on error.
+  const saveBgStyle = async (id: string) => {
+    if (!effectiveUser || id === myBgStyle) return;
+    const prev = myBgStyle;
+    setMyBgStyle(id);
+    try {
+      await api.updateProfile({ bgStyle: id });
+    } catch (e: any) {
+      setMyBgStyle(prev);
+      toast({ title: t('error'), description: e.message, variant: 'destructive' });
+    }
+  };
+
+  // Shared cleanup for logout / account deletion: drop the session, the local
+  // caches and all user-scoped UI state, then land on the login screen.
+  const resetSessionState = () => {
+    setUser(null); // clears localStorage session
+    setUserState(null);
+    setHydratedUser(null);
+    setMyAvatar(null);
+    setMyBgStyle('');
+    setProfileName('');
+    setTests([]);
+    setAttempts([]);
+    setBookmarkIds(new Set());
+    setDiscoverMode(false); discoverModeRef.current = false;
+    setViewingUser(null);
+  };
+
+  const handleLogout = () => {
+    resetSessionState();
+    setPage('auth');
+    toast({ title: t('logoutDone') });
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!effectiveUser || accBusy) return;
+    setAccBusy(true);
+    try {
+      await api.deleteAccount();
+      resetSessionState();
+      setPage('auth');
+      toast({ title: t('accountDeleted') });
+    } catch (e: any) {
+      toast({ title: t('error'), description: e.message, variant: 'destructive' });
+    } finally {
+      setAccBusy(false);
     }
   };
 
@@ -2546,6 +2660,175 @@ export default function ChemTestApp() {
     }
   };
 
+  // PROFILE PAGE — opened by tapping the account avatar. Hosts everything
+  // account-related that used to be scattered over the header: the profile
+  // photo, the display name, the test-taking background (affects how the
+  // background looks while taking a test), logout and account deletion.
+  // The back arrow in the top-left of the top panel returns to the dashboard.
+  if (effectivePage === 'profile') {
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
+          <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setPage('dashboard')}
+              className="rounded-full h-8 w-8 p-0 sm:w-auto sm:px-3 shrink-0"
+              title={t('back')}
+              aria-label={t('back')}
+            >
+              <ArrowLeft className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('back')}</span>
+            </Button>
+            <h1 className="text-lg font-bold truncate">{t('profileTitle')}</h1>
+          </div>
+        </header>
+
+        <main className="max-w-2xl w-full mx-auto px-4 py-6 sm:py-8 pb-32 space-y-5">
+          {/* Photo + identity */}
+          <Card className="rounded-4xl border border-black bg-white">
+            <CardContent className="p-6 flex flex-col items-center text-center">
+              <button
+                type="button"
+                onClick={() => avatarInputRef.current?.click()}
+                disabled={avatarBusy || !effectiveUser}
+                className="relative group rounded-full active:scale-95 transition-transform disabled:opacity-60"
+                title={t('avatarUpload')}
+                aria-label={t('avatarUpload')}
+              >
+                {myAvatar ? (
+                  <img src={myAvatar} alt="" className="w-24 h-24 rounded-full object-cover ring-2 ring-black/10" />
+                ) : (
+                  <span className="w-24 h-24 rounded-full bg-cta text-white flex items-center justify-center text-2xl font-extrabold ring-2 ring-black/10">
+                    {userInitials}
+                  </span>
+                )}
+                <span className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border border-black/15 shadow-sm flex items-center justify-center">
+                  {avatarBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Camera className="w-4 h-4" />}
+                </span>
+              </button>
+              <input
+                ref={avatarInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={e => { const f = e.target.files?.[0]; e.target.value = ''; if (f) handleAvatarFile(f); }}
+              />
+              <p className="mt-3 text-base font-semibold">{effectiveUser?.name}</p>
+              <p className="text-sm text-muted-foreground">{effectiveUser?.email}</p>
+              <p className="mt-2 text-xs text-muted-foreground">{t('avatarUpload')}</p>
+            </CardContent>
+          </Card>
+
+          {/* Name */}
+          <Card className="rounded-4xl border border-black bg-white">
+            <CardContent className="p-5 sm:p-6 space-y-3">
+              <Label htmlFor="profile-name" className="text-sm font-semibold">{t('profileNameLabel')}</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="profile-name"
+                  value={profileName}
+                  onChange={e => setProfileName(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') saveProfileName(); }}
+                  maxLength={60}
+                  className="flex-1 rounded-full border-black/20 bg-white"
+                  placeholder={t('profileNameLabel')}
+                />
+                <Button
+                  onClick={saveProfileName}
+                  disabled={profileSaving || !profileName.trim() || profileName.trim() === effectiveUser?.name}
+                  className="rounded-full shrink-0 h-9 px-4"
+                >
+                  {profileSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : t('save')}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Test-taking background */}
+          <Card className="rounded-4xl border border-black bg-white">
+            <CardContent className="p-5 sm:p-6 space-y-3">
+              <div>
+                <h3 className="text-sm font-semibold">{t('profileBgTitle')}</h3>
+                <p className="text-xs text-muted-foreground mt-0.5">{t('profileBgDesc')}</p>
+              </div>
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
+                {/* Standard option — resets to the plain app background */}
+                <button
+                  type="button"
+                  onClick={() => saveBgStyle('')}
+                  className={`relative h-16 rounded-2xl border-2 flex items-center justify-center text-[11px] font-medium transition-all active:scale-95 ${myBgStyle === '' ? 'border-cta ring-2 ring-cta/30' : 'border-black/15 hover:border-black/40'}`}
+                  style={{ background: 'repeating-linear-gradient(45deg,#fafafa,#fafafa 8px,#f0f0f0 8px,#f0f0f0 16px)' }}
+                  title={t('profileBgStandard')}
+                >
+                  <span className="bg-white/85 rounded-full px-2 py-0.5">{t('profileBgStandard')}</span>
+                </button>
+                {TEST_BG_PRESETS.map(p => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => saveBgStyle(p.id)}
+                    className={`relative h-16 rounded-2xl border-2 transition-all active:scale-95 ${myBgStyle === p.id ? 'border-cta ring-2 ring-cta/30' : 'border-black/15 hover:border-black/40'}`}
+                    style={{ background: p.css }}
+                    title={p.id}
+                    aria-label={p.id}
+                  >
+                    {myBgStyle === p.id && (
+                      <span className="absolute inset-0 flex items-center justify-center">
+                        <CheckCircle2 className="w-6 h-6 text-cta drop-shadow" />
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Account actions */}
+          <Card className="rounded-4xl border border-black bg-white">
+            <CardContent className="p-5 sm:p-6 space-y-3">
+              <Button
+                variant="outline"
+                onClick={handleLogout}
+                disabled={accBusy}
+                className="w-full rounded-2xl border-black h-11 justify-start gap-2"
+              >
+                <LogOut className="w-4 h-4" /> {t('logoutBtn')}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setDeleteAccOpen(true)}
+                disabled={accBusy}
+                className="w-full rounded-2xl border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive h-11 justify-start gap-2"
+              >
+                <Trash2 className="w-4 h-4" /> {t('deleteAccountBtn')}
+              </Button>
+            </CardContent>
+          </Card>
+        </main>
+
+        {/* Account deletion confirmation */}
+        <AlertDialog open={deleteAccOpen} onOpenChange={setDeleteAccOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>{t('deleteAccountQ')}</AlertDialogTitle>
+              <AlertDialogDescription>{t('deleteAccountWarning')}</AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteAccount}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                {accBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : t('deleteAccountBtn')}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+    );
+  }
+
   // DASHBOARD
   if (effectivePage === 'dashboard') {
     // Dead share link (?test=<id> of a deleted/removed test): the whole
@@ -2747,44 +3030,35 @@ export default function ChemTestApp() {
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground truncate max-w-[180px]">{effectiveUser?.email}</p>
               </div>
-              {/* Profile-photo uploader — the picture lands in the Telegram
-              channel like every other file and shows up on the account avatar
-              and on the author header of this user's tests in Discover */}
-              <button
-                onClick={() => avatarInputRef.current?.click()}
-                disabled={avatarBusy || !effectiveUser}
-                title={t('avatarUpload')}
-                aria-label={t('avatarUpload')}
-                className="w-9 h-9 rounded-full border border-black/25 bg-white flex items-center justify-center text-black hover:border-black active:scale-95 transition-all shrink-0 disabled:opacity-60"
-              >
-                {avatarBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Camera className="w-4 h-4" />}
-              </button>
-              <input
-                ref={avatarInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={e => { const f = e.target.files?.[0]; e.target.value = ''; if (f) handleAvatarFile(f); }}
-              />
-              {/* Account button — one tap switches the content mode between the
-              personal library (Library badge) and Discover (Compass badge).
-              The avatar shows the user's profile photo (Telegram-stored) with
-              the initials as the fallback. */}
-              <button
+              {/* Content-mode switcher — its own button now (used to live on the
+              account avatar): personal library (Library) ↔ Discover (Compass).
+              The active mode is highlighted like the Edit toggle. */}
+              <Button
+                variant="outline"
                 onClick={toggleDiscoverMode}
                 disabled={loading}
+                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 ${discoverMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
                 title={discoverMode ? `${t('modeDiscover')} · ${t('modeDiscoverHint')}` : `${t('modeMine')} · ${t('modeMineHint')}`}
                 aria-label={discoverMode ? t('modeDiscover') : t('modeMine')}
-                className="relative w-9 h-9 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform shrink-0 disabled:opacity-70 overflow-visible"
+              >
+                {discoverMode
+                  ? <Compass className="w-4 h-4 sm:mr-2" />
+                  : <Library className="w-4 h-4 sm:mr-2" />}
+                <span className="hidden sm:inline">{discoverMode ? t('modeDiscover') : t('modeMine')}</span>
+              </Button>
+              {/* Account button — opens the PROFILE page (photo, name, the
+              test-taking background, logout, account deletion). The avatar
+              shows the user's profile photo (Telegram-stored) with the
+              initials as the fallback. */}
+              <button
+                onClick={() => setPage('profile')}
+                title={t('profileTitle')}
+                aria-label={t('profileTitle')}
+                className="relative w-9 h-9 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform shrink-0 overflow-visible"
               >
                 {myAvatar
                   ? <img src={myAvatar} alt="" className="absolute inset-0 w-full h-full rounded-full object-cover" />
                   : userInitials}
-                <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-white border border-black/15 flex items-center justify-center">
-                  {discoverMode
-                    ? <Compass className="w-2.5 h-2.5 text-cta" aria-hidden="true" />
-                    : <Library className="w-2.5 h-2.5 text-cta" aria-hidden="true" />}
-                </span>
               </button>
             </div>
           </div>
@@ -3934,7 +4208,7 @@ export default function ChemTestApp() {
     const totalQ = currentTest.questions.length;
 
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
             <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
@@ -4329,7 +4603,7 @@ export default function ChemTestApp() {
       };
       const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
       return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-background" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
           <TranslatingPill show={autoTranslating} label={t('translating')} />
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
             {/* ONE row on EVERY viewport (flex-nowrap): buttons compress to
@@ -4653,7 +4927,7 @@ export default function ChemTestApp() {
     const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
 
     return (
-      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
+      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
         <TranslatingPill show={autoTranslating} label={t('translating')} />
         <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3">
