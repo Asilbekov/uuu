@@ -34,6 +34,11 @@ export async function POST(request: NextRequest) {
     if (!(file instanceof File)) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
+    // Photo uploads (question / option photos) ask for kind=image — hard-check
+    // the MIME so the channel never receives non-images through that path
+    if (form.get('kind') === 'image' && !(file.type || '').startsWith('image/')) {
+      return NextResponse.json({ error: 'NOT_AN_IMAGE' }, { status: 400 });
+    }
     if (file.size > TG_MAX_UPLOAD_BYTES) {
       return NextResponse.json({ error: 'FILE_TOO_LARGE', max: TG_MAX_UPLOAD_BYTES }, { status: 413 });
     }

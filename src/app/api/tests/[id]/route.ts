@@ -109,7 +109,44 @@ export async function PUT(
 
     // Delete existing questions and recreate
     if (questions) {
+      // Diff BEFORE the wipe: question photos the user removed/replaced in the
+      // editor must ALSO disappear from the Telegram channel (best-effort), not
+      // just from the DB. Photos whose reference survives the save keep their
+      // channel post — deleting it would break the surviving reference.
+      const oldQs = await db.question.findMany({
+        where: { testId: id },
+        select: { imageUrl: true, imageMsgId: true, optionImages: true },
+      });
+      const keptRefs = new Set<string>();
+      for (const q of questions as any[]) {
+        if (typeof q.imageUrl === 'string' && q.imageUrl.startsWith('tg:')) keptRefs.add(q.imageUrl.slice(3));
+        const oi = q.optionImages;
+        if (oi && typeof oi === 'object') {
+          for (const v of Object.values(oi as Record<string, any>)) {
+            const u = typeof v === 'string' ? v : v?.u;
+            if (typeof u === 'string' && u.startsWith('tg:')) keptRefs.add(u.slice(3));
+          }
+        }
+      }
+      const removedPhotos: { url: string; msgId: number | null }[] = [];
+      for (const q of oldQs) {
+        if (q.imageUrl?.startsWith('tg:') && !keptRefs.has(q.imageUrl.slice(3))) {
+          removedPhotos.push({ url: q.imageUrl.slice(3), msgId: q.imageMsgId });
+        }
+        const oi = q.optionImages as Record<string, any> | null;
+        if (oi && typeof oi === 'object') {
+          for (const v of Object.values(oi)) {
+            const u = typeof v === 'string' ? v : v?.u;
+            if (typeof u === 'string' && u.startsWith('tg:') && !keptRefs.has(u.slice(3))) {
+              removedPhotos.push({ url: u.slice(3), msgId: typeof v === 'object' ? (v?.m ?? null) : null });
+            }
+          }
+        }
+      }
       await db.question.deleteMany({ where: { testId: id } });
+      if (removedPhotos.length) {
+        await Promise.allSettled(removedPhotos.map(p => telegramDeleteFile(p.url, p.msgId)));
+      }
     }
 
     const test = await db.test.update({
@@ -137,6 +174,9 @@ export async function PUT(
               explanation: q.explanation ?? null,
               translations: q.translations ?? undefined,
               imageNumber: q.imageNumber || null,
+              imageUrl: typeof q.imageUrl === 'string' && q.imageUrl ? q.imageUrl : null,
+              imageMsgId: typeof q.imageMsgId === 'number' ? q.imageMsgId : null,
+              optionImages: q.optionImages && typeof q.optionImages === 'object' ? q.optionImages : undefined,
               orderNum: index,
             })),
           },
@@ -187,12 +227,31 @@ export async function DELETE(
       where: { testId: id, url: { startsWith: 'tg:' } },
       select: { url: true, tgMessageId: true },
     });
+    // Question photos and per-option photos live in the channel too
+    const qPhotos = await db.question.findMany({
+      where: { testId: id },
+      select: { imageUrl: true, imageMsgId: true, optionImages: true },
+    });
+    const channelPhotos: { url: string; msgId: number | null }[] = [];
+    for (const q of qPhotos) {
+      if (q.imageUrl?.startsWith('tg:')) channelPhotos.push({ url: q.imageUrl.slice(3), msgId: q.imageMsgId });
+      const oi = q.optionImages as Record<string, any> | null;
+      if (oi && typeof oi === 'object') {
+        for (const v of Object.values(oi)) {
+          const u = typeof v === 'string' ? v : v?.u;
+          if (typeof u === 'string' && u.startsWith('tg:')) {
+            channelPhotos.push({ url: u.slice(3), msgId: typeof v === 'object' ? (v?.m ?? null) : null });
+          }
+        }
+      }
+    }
 
     await db.test.delete({ where: { id } });
 
-    await Promise.allSettled(
-      channelFiles.map(a => telegramDeleteFile(a.url.slice(3), a.tgMessageId))
-    );
+    await Promise.allSettled([
+      ...channelFiles.map(a => telegramDeleteFile(a.url.slice(3), a.tgMessageId)),
+      ...channelPhotos.map(p => telegramDeleteFile(p.url, p.msgId)),
+    ]);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Delete test error:', error);

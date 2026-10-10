@@ -121,6 +121,15 @@ model Question {
   // Interface-language translations: { ru: { text, options: {A..E}, explanation }, uz: {...} }
   translations  Json?
   imageNumber   Int?
+  // Question photo (shown above the answers): stored in the owner's Telegram
+  // channel as `tg:<file_id>` (bytes never touch our DB) or inline `data:` URL
+  // when the bot is not connected. imageMsgId keeps the channel post id so the
+  // photo can be deleted from the channel when it is removed/replaced.
+  imageUrl      String?
+  imageMsgId    Int?
+  // Per-option photos: { "A": { "u": "tg:<file_id>", "m": 12345 }, "C": {...} }.
+  // "u" = url (tg:/data:/https:), "m" = channel post id for cleanup.
+  optionImages  Json?
   orderNum      Int    @default(0)
   answers   AttemptAnswer[]
 }

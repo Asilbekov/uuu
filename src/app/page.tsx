@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { api, setUser } from '@/lib/api';
+import { api, setUser, getUser } from '@/lib/api';
 import { autoTranslateQuestions, QTranslationsV } from '@/lib/qtrans';
 import MathText from '@/components/math-text';
 import { Button } from '@/components/ui/button';
@@ -71,6 +71,7 @@ import {
   BookmarkPlus,
   BookmarkCheck,
   BookmarkX,
+  ImagePlus,
   Camera,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
@@ -190,6 +191,12 @@ interface Question {
   correctAnswer: string;
   explanation?: string | null;
   translations?: Record<string, { text?: string; options?: Record<string, string>; explanation?: string }> | null;
+  // Question photo — lives in the Telegram channel as tg:<file_id> (or a small
+  // data: URL when the bot is not connected); imageMsgId tracks the channel post
+  imageUrl?: string | null;
+  imageMsgId?: number | null;
+  // Per-option photos: { A: { u: 'tg:...', m: 123 }, C: {...} }
+  optionImages?: Record<string, { u: string; m?: number | null }> | null;
   orderNum?: number;
 }
 
@@ -292,6 +299,7 @@ function shuffleOptions(question: Question): Question {
   const options = optionKeys.map(key => ({
     key,
     value: key === 'E' ? optionE! : question[`option${key}` as keyof Question] as string,
+    img: question.optionImages?.[key] || null, // photo travels WITH its answer text
   }));
 
   const shuffled = shuffleArray(options);
@@ -305,7 +313,67 @@ function shuffleOptions(question: Question): Question {
   });
 
   newQ.correctAnswer = keyMap[question.correctAnswer] || question.correctAnswer;
+
+  // Per-option photos follow their option text; absent photos leave null slots
+  if (question.optionImages && Object.keys(question.optionImages).length) {
+    const remapped: Record<string, { u: string; m?: number | null }> = {};
+    shuffled.forEach((opt, idx) => {
+      if (opt.img) remapped[optionKeys[idx]] = opt.img;
+    });
+    newQ.optionImages = remapped;
+  }
+
+  // Stored interface-language translations must follow the SAME shuffle,
+  // otherwise ru/uz users see translated texts pinned to the old letters while
+  // the correct-answer badge (and every option photo) moved on.
+  if (question.translations && typeof question.translations === 'object') {
+    const t: any = { ...question.translations };
+    for (const lg of Object.keys(t)) {
+      const opts = t[lg]?.options;
+      if (opts && typeof opts === 'object') {
+        const remappedOpts: Record<string, string> = {};
+        shuffled.forEach((opt, idx) => {
+          const v = opts[opt.key];
+          if (v) remappedOpts[optionKeys[idx]] = v;
+        });
+        t[lg] = { ...t[lg], options: remappedOpts };
+      }
+    }
+    newQ.translations = t;
+  }
+
   return newQ as Question;
+}
+
+// Resolve a stored photo reference to a browser-visible src:
+//   data:...  → used as-is (small fallback uploads)
+//   tg:<id>   → streamed from the Telegram channel via /api/tgimg/<id>
+//   otherwise → external URL, used as-is
+function imgSrc(u?: string | null): string {
+  if (!u) return '';
+  if (u.startsWith('data:')) return u;
+  if (u.startsWith('tg:')) return `/api/tgimg/${encodeURIComponent(u.slice(3))}`;
+  return u;
+}
+
+// Downscale a picked photo in the browser (max 1600px, JPEG) so uploads stay
+// small and pages stay fast even with big phone-camera pictures.
+async function compressImage(file: File, maxSide = 1600, quality = 0.85): Promise<Blob> {
+  try {
+    if (typeof document === 'undefined') return file;
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+    if (scale >= 1 && file.size < 900 * 1024) return file; // already small enough
+    const w = Math.max(1, Math.round(bitmap.width * scale));
+    const h = Math.max(1, Math.round(bitmap.height * scale));
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    canvas.getContext('2d')!.drawImage(bitmap, 0, 0, w, h);
+    const blob: Blob | null = await new Promise(res => canvas.toBlob(res, 'image/jpeg', quality));
+    return blob && blob.size > 0 && blob.size < file.size ? blob : file;
+  } catch {
+    return file; // any decode hiccup — upload the original bytes
+  }
 }
 
 // Frosted-glass tile shared by the take-test bottom bar: the lens over the
@@ -1119,6 +1187,94 @@ export default function ChemTestApp() {
     setQuestions(updated);
   };
 
+  // Multi-field question patch (photos set url + channel-post id in one go)
+  const patchQuestion = (idx: number, patch: Partial<Question>) => {
+    const updated = [...questions];
+    updated[idx] = { ...updated[idx], ...patch };
+    setQuestions(updated);
+  };
+
+  // --- Question / option photos ---
+  // Photos go to the OWNER'S TELEGRAM CHANNEL via /api/attachments/upload
+  // (kind=image): the DB keeps only a `tg:<file_id>` reference. Small files
+  // fall back to data: URLs when the bot is not connected. The picked image is
+  // downscaled in the browser first (max 1600px JPEG) to keep uploads light.
+  const [photoBusy, setPhotoBusy] = useState<string>('');
+
+  const pickQuestionPhoto = async (idx: number, file: File | undefined) => {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      toast({ title: t('error'), description: t('notAnImage'), variant: 'destructive' });
+      return;
+    }
+    setPhotoBusy(`q-${idx}`);
+    try {
+      const blob = await compressImage(file);
+      const fd = new FormData();
+      fd.append('file', new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type: blob.type || 'image/jpeg' }));
+      fd.append('kind', 'image');
+      const user = getUser();
+      const res = await fetch('/api/attachments/upload', {
+        method: 'POST',
+        body: fd,
+        headers: user ? { 'x-user-id': user.id } : undefined,
+      });
+      const body = await res.json().catch(() => null);
+      if (res.ok && body?.ok && body?.url) {
+        patchQuestion(idx, { imageUrl: body.url as string, imageMsgId: typeof body.tgMessageId === 'number' ? body.tgMessageId : null });
+      } else {
+        toast({ title: t('photoUploadFail'), description: body?.error || `HTTP ${res.status}`, variant: 'destructive' });
+      }
+    } catch {
+      toast({ title: t('photoUploadFail'), variant: 'destructive' });
+    } finally {
+      setPhotoBusy('');
+    }
+  };
+
+  const pickOptionPhoto = async (idx: number, letter: string, file: File | undefined) => {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      toast({ title: t('error'), description: t('notAnImage'), variant: 'destructive' });
+      return;
+    }
+    setPhotoBusy(`o-${idx}-${letter}`);
+    try {
+      const blob = await compressImage(file);
+      const fd = new FormData();
+      fd.append('file', new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type: blob.type || 'image/jpeg' }));
+      fd.append('kind', 'image');
+      const user = getUser();
+      const res = await fetch('/api/attachments/upload', {
+        method: 'POST',
+        body: fd,
+        headers: user ? { 'x-user-id': user.id } : undefined,
+      });
+      const body = await res.json().catch(() => null);
+      if (res.ok && body?.ok && body?.url) {
+        const q = questions[idx];
+        const next = { ...(q.optionImages || {}) };
+        next[letter] = { u: body.url as string, m: typeof body.tgMessageId === 'number' ? body.tgMessageId : null };
+        patchQuestion(idx, { optionImages: next });
+      } else {
+        toast({ title: t('photoUploadFail'), description: body?.error || `HTTP ${res.status}`, variant: 'destructive' });
+      }
+    } catch {
+      toast({ title: t('photoUploadFail'), variant: 'destructive' });
+    } finally {
+      setPhotoBusy('');
+    }
+  };
+
+  const clearQuestionPhoto = (idx: number) => patchQuestion(idx, { imageUrl: null, imageMsgId: null });
+  const clearOptionPhoto = (idx: number, letter: string) => {
+    const q = questions[idx];
+    if (!q.optionImages?.[letter]) return;
+    const next = { ...q.optionImages };
+    delete next[letter];
+    patchQuestion(idx, { optionImages: Object.keys(next).length ? next : null });
+  };
+
   const resetTestForm = () => {
     setTestTitle('');
     setTestDescription('');
@@ -1208,6 +1364,9 @@ export default function ChemTestApp() {
         correctAnswer: q.correctAnswer,
         explanation: q.explanation ?? null,
         translations: q.translations ?? null,
+        imageUrl: q.imageUrl ?? null,
+        imageMsgId: (q as any).imageMsgId ?? null,
+        optionImages: (q as any).optionImages ?? null,
         id: q.id,
       })));
       setFormAttachments((fullTest.attachments || []).map(a => ({
@@ -1258,6 +1417,9 @@ export default function ChemTestApp() {
             correctAnswer: q.correctAnswer,
             explanation: q.explanation ?? null,
             translations: q.translations ?? null,
+            imageUrl: q.imageUrl ?? null,
+            imageMsgId: q.imageMsgId ?? null,
+            optionImages: q.optionImages ?? null,
             id: q.id,
           })));
           setFormAttachments((copy.attachments || []).map((a: any) => ({
@@ -1299,6 +1461,9 @@ export default function ChemTestApp() {
       correctAnswer: q.correctAnswer,
       explanation: q.explanation ?? null,
       translations: q.translations ?? null,
+      imageUrl: q.imageUrl ?? null,
+      imageMsgId: (q as any).imageMsgId ?? null,
+      optionImages: (q as any).optionImages ?? null,
       id: q.id,
     })));
     setFormAttachments((currentTest.attachments || []).map(a => ({
@@ -1347,6 +1512,9 @@ export default function ChemTestApp() {
           correctAnswer: q.correctAnswer,
           explanation: q.explanation ?? null,
           translations: q.translations ?? null,
+          imageUrl: q.imageUrl ?? null,
+          imageMsgId: q.imageMsgId ?? null,
+          optionImages: q.optionImages ?? null,
           orderNum: i,
         })),
         attachments: formAttachments.map((a, i) => ({
@@ -3623,8 +3791,46 @@ export default function ChemTestApp() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <Textarea value={q.text} onChange={e => updateQuestion(idx, 'text', e.target.value)} placeholder={t('questionTextPh')} rows={2} />
+                      {/* Question photo — uploaded to the Telegram channel, shown
+                      above the answers when taking the test */}
+                      <div className="flex items-center gap-2">
+                        <label
+                          className={`h-7 rounded-full border px-2.5 text-xs flex items-center gap-1.5 cursor-pointer select-none ${photoBusy === `q-${idx}` ? 'border-primary bg-[#FFE8DE] text-primary' : 'border-black hover:bg-muted/50'}`}
+                          title={t('qPhotoTip')}
+                        >
+                          {photoBusy === `q-${idx}`
+                            ? <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            : <ImagePlus className="w-3.5 h-3.5" />}
+                          <span className="truncate">{q.imageUrl ? t('changePhoto') : t('addPhoto')}</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onClick={e => { (e.target as HTMLInputElement).value = ''; }}
+                            onChange={e => pickQuestionPhoto(idx, e.target.files?.[0])}
+                          />
+                        </label>
+                        {q.imageUrl && (
+                          <>
+                            <span className="h-9 w-14 rounded-lg overflow-hidden border border-black/15 shrink-0">
+                              <img src={imgSrc(q.imageUrl)} alt="" className="w-full h-full object-cover" />
+                            </span>
+                            <Button
+                              variant="ghost" size="sm"
+                              className="h-7 w-7 p-0 text-destructive shrink-0"
+                              onClick={() => clearQuestionPhoto(idx)}
+                              title={t('removePhoto')} aria-label={t('removePhoto')}
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </Button>
+                          </>
+                        )}
+                        {photoBusy === `q-${idx}` && <span className="text-xs text-muted-foreground truncate">{t('photoUploading')}</span>}
+                      </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {['A', 'B', 'C', 'D'].map(letter => (
+                        {['A', 'B', 'C', 'D'].map(letter => {
+                          const optImg = q.optionImages?.[letter];
+                          return (
                           <div key={letter} className="flex items-center gap-2">
                             <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                               q.correctAnswer === letter ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'
@@ -3637,6 +3843,40 @@ export default function ChemTestApp() {
                               placeholder={t('optionL', { letter })}
                               className="text-sm"
                             />
+                            {/* Option photo chip: empty → plus tile opens the picker;
+                            set → live thumbnail (click replaces) + red dot removes */}
+                            <span className="relative shrink-0" title={t('oPhotoTip', { letter })}>
+                              <label
+                                className={`block w-8 h-8 rounded-lg overflow-hidden cursor-pointer ${photoBusy === `o-${idx}-${letter}` ? 'ring-2 ring-primary' : 'ring-1 ring-black/15'}`}
+                              >
+                                {optImg ? (
+                                  <img src={imgSrc(optImg.u)} alt="" className="w-full h-full object-cover" />
+                                ) : (
+                                  <span className={`w-full h-full flex items-center justify-center ${photoBusy === `o-${idx}-${letter}` ? 'bg-[#FFE8DE]' : 'bg-muted'}`}>
+                                    {photoBusy === `o-${idx}-${letter}`
+                                      ? <Loader2 className="w-3.5 h-3.5 animate-spin text-primary" />
+                                      : <ImagePlus className="w-3.5 h-3.5 text-muted-foreground" />}
+                                  </span>
+                                )}
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onClick={e => { (e.target as HTMLInputElement).value = ''; }}
+                                  onChange={e => pickOptionPhoto(idx, letter, e.target.files?.[0])}
+                                />
+                              </label>
+                              {optImg && (
+                                <button
+                                  type="button"
+                                  onClick={() => clearOptionPhoto(idx, letter)}
+                                  className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-destructive text-white flex items-center justify-center shadow"
+                                  title={t('removePhoto')} aria-label={t('removePhoto')}
+                                >
+                                  <X className="w-2.5 h-2.5" />
+                                </button>
+                              )}
+                            </span>
                             <input
                               type="radio"
                               name={`correct-${idx}`}
@@ -3646,7 +3886,8 @@ export default function ChemTestApp() {
                               title={t('markCorrect')}
                             />
                           </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </CardContent>
                   </Card>
@@ -4206,7 +4447,13 @@ export default function ChemTestApp() {
                   <CardContent className="p-4">
                     <div className="flex items-start gap-2 mb-3">
                       {isCorrect ? <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /> : <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />}
-                      <p className="font-medium text-sm">{idx + 1}. <MathText text={trText(q, lang)} /></p>
+                      <div className="min-w-0">
+                        <p className="font-medium text-sm">{idx + 1}. <MathText text={trText(q, lang)} /></p>
+                        {/* Question photo — same one as during the test */}
+                        {imgSrc(q.imageUrl) && (
+                          <img src={imgSrc(q.imageUrl)} alt="" loading="lazy" className="mt-2 w-full max-h-64 object-contain rounded-xl border border-black/10 bg-white" />
+                        )}
+                      </div>
                     </div>
                     <div className={`grid grid-cols-1 gap-2 ${dashView === 'library' || dashView === 'shelf' ? '' : 'sm:grid-cols-2 ml-7'}`}>
                       {['A', 'B', 'C', 'D', 'E'].map(letter => {
@@ -4225,7 +4472,13 @@ export default function ChemTestApp() {
                             }`}>
                               {letter}
                             </span>
-                            <span className="min-w-0 break-words"><MathText text={optionText} /></span>
+                            <div className="min-w-0">
+                              <span className="min-w-0 break-words"><MathText text={optionText} /></span>
+                              {/* Option photo — shown in the review too */}
+                              {imgSrc(q.optionImages?.[letter]?.u) && (
+                                <img src={imgSrc(q.optionImages[letter].u)} alt="" loading="lazy" className="mt-1.5 w-full max-w-xs max-h-44 object-contain rounded-lg border border-black/10 bg-white" />
+                              )}
+                            </div>
                           </div>
                         );
                       })}
@@ -4547,6 +4800,10 @@ export default function ChemTestApp() {
                               ) : gAnswered ? <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> : <span className="w-4 h-4" />}
                             </div>
                             <p className="text-[13px] sm:text-sm font-medium leading-snug line-clamp-4 sm:line-clamp-none"><MathText text={trText(q, lang)} /></p>
+                            {/* Question photo (compact for the grid) */}
+                            {imgSrc(q.imageUrl) && (
+                              <img src={imgSrc(q.imageUrl)} alt="" loading="lazy" className="w-full max-h-44 object-contain rounded-lg border border-black/10 bg-white" />
+                            )}
                             <div className="mt-auto pt-1 space-y-1">
                               {['A', 'B', 'C', 'D', 'E'].map(letter => {
                                 const optionText = trOption(q, letter, lang);
@@ -4577,6 +4834,9 @@ export default function ChemTestApp() {
                                       {letter}
                                     </span>
                                     <span className="text-[11px] sm:text-xs leading-snug min-w-0 line-clamp-2 break-words"><MathText text={optionText} /></span>
+                                    {imgSrc(q.optionImages?.[letter]?.u) && (
+                                      <img src={imgSrc(q.optionImages[letter].u)} alt="" loading="lazy" className="hidden sm:block w-10 h-10 object-cover rounded-md border border-black/10 shrink-0 ml-auto" />
+                                    )}
                                   </button>
                                 );
                               })}
@@ -4631,6 +4891,15 @@ export default function ChemTestApp() {
                     )}
                   </div>
                   <p className="text-lg font-medium mt-2"><MathText text={trText(q, lang)} /></p>
+                  {/* Question photo — lives in the Telegram channel, streamed on demand */}
+                  {imgSrc(q.imageUrl) && (
+                    <img
+                      src={imgSrc(q.imageUrl)}
+                      alt=""
+                      loading="lazy"
+                      className="mt-3 w-full max-h-72 object-contain rounded-2xl border border-black/10 bg-white"
+                    />
+                  )}
                 </CardHeader>
                 <CardContent>
                   <RadioGroup
@@ -4662,16 +4931,28 @@ export default function ChemTestApp() {
                         return (
                           <div key={letter} className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all ${optionClass}`}>
                             <RadioGroupItem value={letter} id={`q-${slideQId}-${letter}`} className="sr-only" />
-                            <Label htmlFor={`q-${slideQId}-${letter}`} className="flex items-start gap-2.5 cursor-pointer flex-1 min-w-0">
-                              <span className={`mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                                isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
-                                isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
-                                isSelectedOption ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
-                              }`}>
-                                {letter}
-                              </span>
-                              <span className="text-[16px] sm:text-[15px] leading-relaxed min-w-0 break-words"><MathText text={optionText} /></span>
-                            </Label>
+                            <div className="flex-1 min-w-0">
+                              <Label htmlFor={`q-${slideQId}-${letter}`} className="flex items-start gap-2.5 cursor-pointer">
+                                <span className={`mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                                  isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
+                                  isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
+                                  isSelectedOption ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
+                                }`}>
+                                  {letter}
+                                </span>
+                                <span className="text-[16px] sm:text-[15px] leading-relaxed min-w-0 break-words"><MathText text={optionText} /></span>
+                              </Label>
+                              {/* Option photo — part of the answer, travels with it on shuffle */}
+                              {imgSrc(q.optionImages?.[letter]?.u) && (
+                                <img
+                                  src={imgSrc(q.optionImages[letter].u)}
+                                  alt=""
+                                  loading="lazy"
+                                  onClick={() => { if (!(practiceMode && revealedAnswers[slideQId])) selectAnswer(slideQId, letter); }}
+                                  className="mt-2 ml-9.5 w-full max-w-xs max-h-48 object-contain rounded-xl border border-black/10 bg-white cursor-pointer"
+                                />
+                              )}
+                            </div>
                             {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-1" />}
                             {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-1" />}
                           </div>

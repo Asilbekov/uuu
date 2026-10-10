@@ -74,6 +74,11 @@ export async function POST(
             explanation: q.explanation,
             translations: q.translations ?? undefined,
             imageNumber: q.imageNumber,
+            // Photos: same tg: references as attachments — the copy shares the
+            // channel posts with the original (bytes live once in the channel)
+            imageUrl: q.imageUrl,
+            imageMsgId: q.imageMsgId,
+            optionImages: q.optionImages ?? undefined,
             orderNum: index,
           })),
         },

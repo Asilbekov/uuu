@@ -27,6 +27,7 @@ import {
 import { PdfCanvasViewer } from '@/components/pdf-canvas-viewer';
 import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
 import { DragHandle, useResizableSheet } from '@/components/resize-sheet';
+import { getUser } from '@/lib/api';
 
 export interface AttachmentItem {
   id?: string; // present only after the test is saved
@@ -533,7 +534,14 @@ export function AttachmentsEditor({
     try {
       const fd = new FormData();
       fd.append('file', file);
-      const res = await fetch('/api/attachments/upload', { method: 'POST', body: fd });
+      // The upload endpoint is authenticated — x-user-id MUST travel with the
+      // request (raw fetch, so apiFetch's automatic header does not apply)
+      const user = getUser();
+      const res = await fetch('/api/attachments/upload', {
+        method: 'POST',
+        body: fd,
+        headers: user ? { 'x-user-id': user.id } : undefined,
+      });
       const body = await res.json().catch(() => null);
       if (res.ok && body?.ok && body?.url) {
         finalUrl = body.url as string;
