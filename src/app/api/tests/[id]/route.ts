@@ -2,6 +2,7 @@ import { db } from '@/lib/db';
 import { sanitizeTags, ensureTagsExist } from '@/lib/tags';
 import { findPublicTitleClash } from '@/lib/publish';
 import { telegramDeleteFile } from '@/lib/telegram';
+import { uploadTestArchive, deleteTestArchive } from '@/lib/test-archive';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
@@ -192,7 +193,24 @@ export async function PUT(
     // Store new tags in the global dictionary for future autocomplete suggestions
     if (Array.isArray(tags)) await ensureTagsExist(test.tags);
 
-    return NextResponse.json(test);
+    // Content archive: replace the JSON file in the Telegram channel on EVERY
+    // save — the old file's post is deleted so the channel holds exactly one
+    // current archive per test. Best-effort: Telegram problems never fail the
+    // edit; the previous archive stays until the next successful save.
+    try {
+      const archive = await uploadTestArchive(test);
+      await db.test.update({
+        where: { id },
+        data: { archiveId: archive.archiveId, archiveMsgId: archive.archiveMsgId },
+      });
+      const updated = { ...test, archiveId: archive.archiveId, archiveMsgId: archive.archiveMsgId };
+      await deleteTestArchive(existing); // old file (existing row carried the refs)
+      return NextResponse.json(updated);
+    } catch (e) {
+      console.error('Test archive upload failed (update):', e);
+      return NextResponse.json(test);
+    }
+
   } catch (error) {
     console.error('Update test error:', error);
     return NextResponse.json({ error: 'Failed to update test' }, { status: 500 });
@@ -251,6 +269,8 @@ export async function DELETE(
     await Promise.allSettled([
       ...channelFiles.map(a => telegramDeleteFile(a.url.slice(3), a.tgMessageId)),
       ...channelPhotos.map(p => telegramDeleteFile(p.url, p.msgId)),
+      // The content archive is the test's own file — it must not outlive it
+      telegramDeleteFile(existing.archiveId || '', existing.archiveMsgId ?? null),
     ]);
     return NextResponse.json({ success: true });
   } catch (error) {

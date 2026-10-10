@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { uploadTestArchive } from '@/lib/test-archive';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
@@ -103,7 +104,26 @@ export async function POST(
       },
     });
 
-    return NextResponse.json(copy);
+    // The copy gets its OWN content archive in the Telegram channel (the
+    // original's archive keeps describing the original). Best-effort.
+    let finalCopy = copy;
+    try {
+      const archive = await uploadTestArchive(copy);
+      finalCopy = await db.test.update({
+        where: { id: copy.id },
+        data: { archiveId: archive.archiveId, archiveMsgId: archive.archiveMsgId },
+        include: {
+          questions: { orderBy: { orderNum: 'asc' } },
+          attachments: { orderBy: { orderNum: 'asc' } },
+          creator: { select: { id: true, name: true } },
+          _count: { select: { attempts: true } },
+        },
+      });
+    } catch (e) {
+      console.error('Test archive upload failed (copy):', e);
+    }
+
+    return NextResponse.json(finalCopy);
   } catch (error) {
     console.error('Test copy error:', error);
     return NextResponse.json({ error: 'Failed to copy test' }, { status: 500 });

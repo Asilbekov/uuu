@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { uploadTestArchive } from '@/lib/test-archive';
 import { sanitizeTags, ensureTagsExist } from '@/lib/tags';
 import { findPublicTitleClash } from '@/lib/publish';
 import { NextRequest, NextResponse } from 'next/server';
@@ -132,7 +133,21 @@ export async function POST(request: NextRequest) {
     // Store new tags in the global dictionary for future autocomplete suggestions
     await ensureTagsExist(cleanTags);
 
-    return NextResponse.json(test, { status: 201 });
+    // Content archive: the whole test (questions + answers) as a JSON file in
+    // the Telegram channel. Best-effort — a Telegram hiccup must never fail
+    // the creation; the archive will be (re)written by the next edit.
+    try {
+      const archive = await uploadTestArchive(test);
+      const archived = await db.test.update({
+        where: { id: test.id },
+        data: { archiveId: archive.archiveId, archiveMsgId: archive.archiveMsgId },
+      });
+      return NextResponse.json(archived, { status: 201 });
+    } catch (e) {
+      console.error('Test archive upload failed (create):', e);
+      return NextResponse.json(test, { status: 201 });
+    }
+
   } catch (error) {
     console.error('Create test error:', error);
     return NextResponse.json({ error: 'Failed to create test' }, { status: 500 });

@@ -61,6 +61,12 @@ model Test {
   coverImage  String?  // Base64 data URL for AI-generated cover image
   coverIcon   String?  // emoji picked in the editor from the science icon pack
   coverColor  String?  // hex color picked in the editor (card/cover background)
+  // Content archive: every save (create/edit/copy) serializes the whole test
+  // (questions, options, correct answers, explanations, translations, photo
+  // refs) into a JSON document stored IN THE TELEGRAM CHANNEL. The DB keeps
+  // only the reference — the file is the portable/backup copy of the test.
+  archiveId    String?
+  archiveMsgId Int?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

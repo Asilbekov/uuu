@@ -132,6 +132,15 @@ export async function DELETE(request: NextRequest) {
       channelFiles.push({ fileId: profile.image.slice(3), msgId: null });
     }
 
+    // Content archive files (one JSON per test) live in the channel too
+    const archives = await db.test.findMany({
+      where: { creatorId: userId, archiveId: { not: null } },
+      select: { archiveId: true, archiveMsgId: true },
+    });
+    for (const a of archives) {
+      channelFiles.push({ fileId: a.archiveId as string, msgId: a.archiveMsgId ?? null });
+    }
+
     // The Test→User relation is Restrict (no cascade), so the user's own
     // tests must go first — the Test-side cascades wipe their questions,
     // attachments, attempts, bookmarks and chats in the same round.
