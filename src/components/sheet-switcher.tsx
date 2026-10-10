@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
+import { useExitMount } from '@/components/motion';
 
 /** One selectable window in the bottom-sheet switcher dropdown. */
 export interface SheetSwitchOption {
@@ -36,6 +37,7 @@ export function SheetHeaderSwitcher({
   onSelect: (key: string) => void;
 }) {
   const [open, setOpen] = useState(false);
+  const dropMounted = useExitMount(open, 160);
 
   return (
     <div className="relative flex-1 min-w-0">
@@ -52,11 +54,12 @@ export function SheetHeaderSwitcher({
         </span>
       </button>
 
-      {open && (
+      {/* Dropdown: stays mounted ~150ms after close so the fade-out can play */}
+      {dropMounted && (
         <>
           {/* click-away layer */}
           <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
-          <div className="absolute left-0 top-full mt-2 z-20 w-64 max-w-[calc(100vw-4rem)] rounded-2xl border border-black/10 bg-white shadow-2xl py-1.5 overflow-hidden">
+          <div className={`absolute left-0 top-full mt-2 z-20 w-64 max-w-[calc(100vw-4rem)] rounded-2xl border border-black/10 bg-white shadow-2xl py-1.5 overflow-hidden ${open ? 'animate-in fade-in zoom-in-95 slide-in-from-top-1 duration-150' : 'animate-out fade-out zoom-out-95 duration-150'}`}>
             {options.map(o => (
               <button
                 key={o.key}

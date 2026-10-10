@@ -19,7 +19,7 @@ export interface HistoryViewProps {
 
 export default function HistoryView({ attempts, goHome, t }: HistoryViewProps) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
@@ -40,7 +40,7 @@ export default function HistoryView({ attempts, goHome, t }: HistoryViewProps) {
         ) : (
           <div className="space-y-3">
             {attempts.map(attempt => (
-              <Card key={attempt.id} className="rounded-4xl border border-black bg-white cv-auto">
+              <Card key={attempt.id} className="rounded-4xl border border-black bg-white cv-auto card-enter">
                 <CardContent className="p-4 flex items-center justify-between">
                   <div>
                     <p className="font-medium">{attempt.test?.title || t('unknownTest')}</p>

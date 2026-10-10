@@ -36,6 +36,7 @@ import { type Page, type Question, type Test, type GroupMessage } from '@/lib/ap
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
 import { testBackgroundCss } from '@/lib/test-bg';
 import type { AiThreadMeta } from '@/components/chat-panels';
+import { useExitMount } from '@/components/motion';
 
 /**
  * TAKE TEST + RESULTS screens — extracted verbatim from src/app/page.tsx.
@@ -222,6 +223,14 @@ export default function TakeTestView({
   drumInputMode,
   drumRefCb,
 }: TakeTestViewProps) {
+  // Exit-animation holds: when a sheet flag flips to false the panel stays
+  // mounted for ~220ms to play its slide-down/fade-out (nothing vanishes).
+  // The lazy chunks still load on first open only — the holds just delay
+  // unmount AFTER the panel has been shown.
+  const chatMounted = useExitMount(chatOpen, 220);
+  const groupMounted = useExitMount(groupOpen, 220);
+  const filesSideMounted = useExitMount(filesOpen && !chatOpen && !groupOpen, 220);
+  const editMounted = useExitMount(editOpen, 220);
   if (effectivePage === 'take-test' && shuffledQuestions.length > 0) {
     const currentQ = shuffledQuestions[currentQuestionIdx];
     const progressPct = ((currentQuestionIdx + 1) / shuffledQuestions.length) * 100;
@@ -244,7 +253,7 @@ export default function TakeTestView({
       )
       .slice(0, 12) : [];
     const qSearchDropdown = !qlc ? null : (
-      <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
+      <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left animate-in fade-in zoom-in-95 slide-in-from-top-1 duration-150">
         {qResults.length === 0 ? (
           <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
         ) : qResults.map(({ q, qIdx }) => (
@@ -400,7 +409,7 @@ export default function TakeTestView({
       };
       const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
       return (
-        <div className="min-h-screen bg-background" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
+        <div className="min-h-screen bg-background screen-enter" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
           <TranslatingPill show={autoTranslating} label={t('translating')} />
           <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
             {/* ONE row on EVERY viewport (flex-nowrap): buttons compress to
@@ -574,7 +583,7 @@ export default function TakeTestView({
               </div>
 
               {/* AI Chat Panel in Results — bottom sheet on mobile, side panel on desktop */}
-              {chatOpen && (
+              {chatMounted && (
                 <AiChatPanel
                   open={chatOpen}
                   onClose={closeChat}
@@ -597,7 +606,7 @@ export default function TakeTestView({
               )}
 
               {/* Group chat panel in Results — bottom sheet on mobile, side panel on desktop */}
-              {groupOpen && (
+              {groupMounted && (
                 <GroupChatPanel
                   open={groupOpen}
                   onClose={closeGroupChat}
@@ -619,8 +628,9 @@ export default function TakeTestView({
                   top bar up to full screen), same chrome as the chat windows;
                   its header switcher jumps to Files / AI Tutor / Test Chat and
                   back. Saving stays on the updated results. */}
-              {editOpen && (
+              {editMounted && (
                 <ResizableSheetFrame
+                  open={editOpen}
                   onClose={() => setEditOpen(false)}
                   initialVh={0.85}
                   minVh={0.4}
@@ -724,7 +734,7 @@ export default function TakeTestView({
     const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
 
     return (
-      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
+      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden screen-enter" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
         <TranslatingPill show={autoTranslating} label={t('translating')} />
         <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
           <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3">
@@ -1084,7 +1094,7 @@ export default function TakeTestView({
             )}
 
             {/* AI Chat Panel — bottom sheet on mobile, side panel on desktop */}
-            {chatOpen && (
+            {chatMounted && (
               <AiChatPanel
                 open={chatOpen}
                 onClose={closeChat}
@@ -1112,7 +1122,7 @@ export default function TakeTestView({
             )}
 
             {/* Group chat panel — bottom sheet on mobile, side panel on desktop */}
-            {groupOpen && (
+            {groupMounted && (
               <GroupChatPanel
                 open={groupOpen}
                 onClose={closeGroupChat}
@@ -1133,8 +1143,8 @@ export default function TakeTestView({
             )}
 
             {/* Attached files side panel (desktop) */}
-            {filesOpen && !chatOpen && !groupOpen && (
-              <div className="hidden lg:block">
+            {filesSideMounted && !chatOpen && !groupOpen && (
+              <div className="hidden lg:block animate-in fade-in slide-in-from-right-2 duration-300">
                 <AttachmentsSidePanel
                   items={(currentTest?.attachments || []) as AttachmentItem[]}
                   onClose={() => setFilesOpen(false)}
@@ -1145,8 +1155,9 @@ export default function TakeTestView({
 
             {/* Edit Test window — bottom sheet, same chrome as the chat windows;
                 its header switcher jumps to Files / AI Tutor / Test Chat and back */}
-            {editOpen && (
+            {editMounted && (
               <ResizableSheetFrame
+                open={editOpen}
                 onClose={() => setEditOpen(false)}
                 initialVh={0.85}
                 minVh={0.4}

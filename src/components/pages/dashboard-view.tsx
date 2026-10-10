@@ -22,6 +22,7 @@ const PhotoshopColorPicker = dynamic(() => import('@/components/color-picker').t
 import type { Page } from '@/lib/app-types';
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
 import { testBackgroundCss } from '@/lib/test-bg';
+import { useExitMount } from '@/components/motion';
 import type { Lang } from '@/lib/i18n';
 
 /**
@@ -269,13 +270,15 @@ export default function DashboardView({
   pickOptionPhoto,
   clearOptionPhoto,
 }: DashboardViewProps) {
+  // Search overlay: stays mounted ~150ms after close to play its fade-out
+  const searchMounted = useExitMount(dashSearchOpen, 160);
   if (effectivePage === 'dashboard') {
     // Dead share link (?test=<id> of a deleted/removed test): the whole
     // dashboard is replaced by a bare screen — only a message and the way
     // back to the main page, exactly as the share-link promise demands.
     if (deadLink) {
       return (
-        <div className="relative h-[100dvh] flex flex-col items-center justify-center bg-background px-6 text-center">
+        <div className="relative h-[100dvh] flex flex-col items-center justify-center bg-background px-6 text-center screen-enter">
           <span className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center mb-4">
             <Link2 className="w-8 h-8 text-destructive" />
           </span>
@@ -358,15 +361,15 @@ export default function DashboardView({
     );
 
     return (
-      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
+      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden screen-enter">
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
           {/* One row on EVERY viewport, no matter how many buttons: the row
               never wraps (flex-nowrap); buttons compress to icon-only pills on
               narrow screens. Search is a button too — when open, its input
               overlay covers the whole row instead of pushing buttons out. */}
           <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
-            {dashSearchOpen && (
-              <div className="absolute inset-0 z-50 bg-white flex items-center gap-2 px-3 sm:px-4 animate-in fade-in duration-150">
+            {searchMounted && (
+              <div className={`absolute inset-0 z-50 bg-white flex items-center gap-2 px-3 sm:px-4 ${dashSearchOpen ? 'animate-in fade-in duration-150' : 'animate-out fade-out pointer-events-none duration-150'}`}>
                 <div className="flex-1 min-w-0 relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
                   <Input
@@ -541,7 +544,7 @@ export default function DashboardView({
                 minHeight (not fixed height): rows never clip their content — with six
                 full-name action buttons a row simply grows a bit on short screens. */}
             {dashView === 'library' || dashView === 'shelf' ? (
-              <div key="feed-grid" ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div key={`feed-grid-${dashView}`} ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain screen-enter [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="max-w-5xl mx-auto h-full">
                   {gridFilesMode ? (
                     /* ATTACHED-FILES cards in the SAME grid layout — the view does not
@@ -572,7 +575,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => window.open(attachmentFileUrl(f), '_blank')}
-                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left card-enter"
                             >
                               <div className="flex items-center gap-1.5 shrink-0">
                                 <span className="w-7 h-7 rounded-lg bg-[#FFF0D9] text-cta flex items-center justify-center shrink-0">
@@ -604,7 +607,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => window.open(attachmentFileUrl(f), '_blank')}
-                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left card-enter"
                             >
                               <div className="w-20 sm:w-36 shrink-0 h-full flex flex-col items-center justify-center gap-1 p-2 text-center bg-[#FFF0D9]">
                                 <span className="text-cta">{typeIcon(f.type, 'w-6 h-6 sm:w-8 sm:h-8')}</span>
@@ -662,7 +665,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
-                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left card-enter"
                             >
                               {/* Discover mode AND other users' libraries: author
                               header + bookmark. The personal library keeps the
@@ -771,7 +774,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
-                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left card-enter"
                             >
                               <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
                                 <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
@@ -901,7 +904,7 @@ export default function DashboardView({
                 onTouchEnd={onDashTouchEnd}
                 onTouchCancel={onDashTouchEnd}
                 onWheel={onDashWheel}
-                className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden screen-enter"
               >
                 {fileSlides.length === 0 ? (
                   <section className="h-full snap-start snap-always flex items-center justify-center">
@@ -953,7 +956,7 @@ export default function DashboardView({
               onTouchEnd={onDashTouchEnd}
               onTouchCancel={onDashTouchEnd}
               onWheel={onDashWheel}
-              className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden screen-enter"
             >
               {tests.map((test, idx) => {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);

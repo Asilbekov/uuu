@@ -34,6 +34,7 @@ const PdfCanvasViewer = dynamic(
 );
 import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
 import { DragHandle, useResizableSheet } from '@/components/resize-sheet';
+import { useExitMount } from '@/components/motion';
 import { getUser } from '@/lib/api';
 // Perf: shared types/helpers live in the tiny attachment-utils module so the
 // main page can import them statically WITHOUT dragging this heavy editor
@@ -239,16 +240,19 @@ export function AttachmentsBottomSheet({
     setOpenState(v);
     onOpenChange?.(v);
   };
+  // Launcher button: mounted while the sheet is closed, and kept mounted
+  // briefly on open so its fade-out can play instead of vanishing.
+  const launcherMounted = useExitMount(!open, 180);
   if (!items.length) return null;
 
   return (
     <>
       {/* Floating up-arrow button (mobile / tablet) */}
-      {!hideLauncher && !open && (
+      {!hideLauncher && launcherMounted && (
         <button
           onClick={() => setOpen(true)}
           aria-label="Open attached files"
-          className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 rounded-full bg-cta text-white pl-3 pr-4 py-3 shadow-xl border border-black/10 active:scale-95 transition-transform"
+          className={`lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 rounded-full bg-cta text-white pl-3 pr-4 py-3 shadow-xl border border-black/10 active:scale-95 transition-transform ${open ? 'animate-out fade-out slide-out-to-bottom pointer-events-none duration-200' : 'animate-in fade-in slide-in-from-bottom duration-300'}`}
         >
           <ChevronUp className="w-5 h-5" />
           <span className="text-sm font-semibold">{title || `Attached Files (${items.length})`}</span>
@@ -256,35 +260,39 @@ export function AttachmentsBottomSheet({
       )}
 
       {/* Bottom sheet — resizable: drag the bar up to full screen, down to close */}
-      {open && (
-        <ResizableAttachmentsSheet
-          items={items}
-          onClose={() => setOpen(false)}
-          switcher={switcher}
-          title={title}
-        />
-      )}
+      <ResizableAttachmentsSheet
+        open={open}
+        items={items}
+        onClose={() => setOpen(false)}
+        switcher={switcher}
+        title={title}
+      />
     </>
   );
 }
 
 function ResizableAttachmentsSheet({
+  open,
   items,
   onClose,
   switcher,
   title,
 }: {
+  open: boolean;
   items: AttachmentItem[];
   onClose: () => void;
   switcher?: SheetSwitcher;
   title?: string;
 }) {
   const sheet = useResizableSheet({ initialVh: 0.78, minVh: 0.35, onClose });
+  // Stay mounted while the slide-down exit animation plays
+  const mounted = useExitMount(open, 220);
+  if (!mounted) return null;
   return (
     <div className="lg:hidden fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div className={`absolute inset-0 bg-black/50 ${open ? 'animate-in fade-in duration-200' : 'animate-out fade-out pointer-events-none duration-200'}`} onClick={onClose} />
       <div
-        className="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col animate-in slide-in-from-bottom duration-200"
+        className={`absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col ${open ? 'animate-in slide-in-from-bottom duration-200' : 'animate-out slide-out-to-bottom fade-out pointer-events-none duration-200'}`}
         style={{ ...sheet.style, maxHeight: '100dvh' }}
       >
         <DragHandle handleProps={sheet.handleProps} dragging={sheet.dragging} />
@@ -327,7 +335,7 @@ function ResizableAttachmentsSheet({
 /** Desktop side panel version (paired with the flex layout of take-test). */
 export function AttachmentsSidePanel({ items, onClose, title }: { items: AttachmentItem[]; onClose: () => void; title?: string }) {
   return (
-    <div className="w-full lg:w-[400px] shrink-0">
+    <div className="w-full lg:w-[400px] shrink-0 animate-in fade-in slide-in-from-right-2 duration-300">
       <div className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px] overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
           <span className="font-semibold text-sm flex items-center gap-1.5">

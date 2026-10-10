@@ -42,6 +42,7 @@ import type { AiThreadMeta } from '@/components/chat-panels';
 const AiChatPanel = dynamic(() => import('@/components/chat-panels').then(m => m.AiChatPanel), { ssr: false, loading: () => <SheetLoadingPlaceholder /> });
 const GroupChatPanel = dynamic(() => import('@/components/chat-panels').then(m => m.GroupChatPanel), { ssr: false, loading: () => <SheetLoadingPlaceholder /> });
 import { ResizableSheetFrame } from '@/components/resize-sheet';
+import { Collapse } from '@/components/motion';
 import {
   LogIn,
   Plus,
@@ -116,6 +117,12 @@ function SheetLoadingPlaceholder() {
 
 // localStorage key for the interface language (EN -> RU -> UZ cycle button)
 const LANG_STORAGE_KEY = 'chemtest-lang';
+
+// Stale-while-revalidate boot cache: the last feed page + bookmarks + attempts
+// are persisted after every successful load, so a returning user's dashboard
+// paints INSTANTLY from the cache while the network refresh swaps in fresh data.
+const FEED_CACHE_KEY = 'chemtest_cache_feed_v1';
+const ATTEMPTS_CACHE_KEY = 'chemtest_cache_attempts_v1';
 
 
 
@@ -318,6 +325,9 @@ export default function ChemTestApp() {
   // Boot splash: while the stored session and initial data restore on reload,
   // show a branded loading screen instead of the auth / empty dashboard flash
   const [booting, setBooting] = useState(true);
+  // true while the post-boot background refresh is still fetching the first
+  // real data (only when the localStorage cache had nothing to paint)
+  const [bootRefreshing, setBootRefreshing] = useState(false);
 
   // Interface language (en/ru/uz) — cycles with the header button, persisted
   const [lang, setLang] = useState<Lang>('en');
@@ -550,13 +560,50 @@ export default function ChemTestApp() {
       setBooting(false);
       return;
     }
+    void (async () => {
     setHydratedUser(parsed);
-    // Restore the session data BEFORE revealing the UI — no empty dashboard flash
+    // === Stale-while-revalidate boot (TikTok-speed first paint) ===
+    // Paint the dashboard IMMEDIATELY from the localStorage cache (when the
+    // cached scope matches the current content mode), reveal the UI, then
+    // refresh silently in the background — fresh data swaps in without any
+    // layout jump (same card shapes → no CLS).
     hasLoadedRef.current = true;
-    Promise.all([
+    let restored = false;
+    try {
+      const c = JSON.parse(localStorage.getItem(FEED_CACHE_KEY) || 'null');
+      if (c && Array.isArray(c.items) && c.scope === (discoverModeRef.current ? 'discover' : 'mine')) {
+        setTests(c.items);
+        seenIdsRef.current = new Set<string>(c.items.map((i: any) => i.id));
+        if (Array.isArray(c.bm)) setBookmarkIds(new Set<string>(c.bm));
+        restored = c.items.length > 0;
+      }
+      const a = JSON.parse(localStorage.getItem(ATTEMPTS_CACHE_KEY) || 'null');
+      if (Array.isArray(a)) setAttempts(a);
+    } catch {}
+    const refresh = Promise.all([
       loadFeedRef.current().catch(() => { hasLoadedRef.current = false; }),
-      api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
-    ]).finally(() => setBooting(false));
+      api.getAttempts()
+        .then(data => {
+          setAttempts(data);
+          try { localStorage.setItem(ATTEMPTS_CACHE_KEY, JSON.stringify(data)); } catch {}
+        })
+        .catch(() => {}),
+    ]);
+    if (restored) {
+      // Cache hit: the dashboard is already on screen — reveal NOW and let
+      // `refresh` swap in fresh data in the background.
+      setBooting(false);
+    } else {
+      // No cache (first visit on this device): cap the splash at ~2.2s, then
+      // show the dashboard shell (loading skeletons) while the network
+      // finishes — the splash never blocks for the full API round-trip.
+      setBootRefreshing(true);
+      await Promise.race([refresh, new Promise(r => setTimeout(r, 2200))]);
+      setBootRefreshing(false);
+      setBooting(false);
+    }
+    refresh.finally(() => setBootRefreshing(false));
+    })();
   }, []);
 
   // Apply hydrated user - use hydratedUser if no explicit login has happened
@@ -724,6 +771,15 @@ export default function ChemTestApp() {
       feedCursorRef.current = res?.nextCursor ?? null;
       feedHasMoreRef.current = !!res?.nextCursor;
       setFeedHasMore(!!res?.nextCursor);
+      // Persist for the next boot's instant paint (stale-while-revalidate)
+      try {
+        localStorage.setItem(FEED_CACHE_KEY, JSON.stringify({
+          items,
+          bm: bm?.ids || [],
+          scope: discoverModeRef.current ? 'discover' : 'mine',
+          at: Date.now(),
+        }));
+      } catch {}
     } catch {
       // keep the previous list on transient errors
     }
@@ -2053,7 +2109,7 @@ export default function ChemTestApp() {
   // BOOT SPLASH — covers the auth / empty-dashboard flash while the session restores
   if (booting) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background screen-enter">
         <div className="w-20 h-20 bg-cta rounded-3xl flex items-center justify-center shadow-lg animate-pulse">
           <FlaskConical className="w-10 h-10 text-white" />
         </div>
@@ -2433,8 +2489,8 @@ export default function ChemTestApp() {
                 <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
               )}
             </button>
-            {editorInfoExpanded && (
-            <CardContent className="space-y-4 pt-0">
+            <Collapse open={editorInfoExpanded} className="pt-0">
+            <CardContent className="space-y-4 !pt-0">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>{t('testTitle')}</Label>
@@ -2545,7 +2601,7 @@ export default function ChemTestApp() {
                 <p className="text-xs text-muted-foreground">{t('publishNote')}</p>
               </div>
             </CardContent>
-            )}
+            </Collapse>
           </Card>
 
           {/* Attached files — collapsed to one line by default, same expand/collapse as the test card */}
@@ -2563,14 +2619,14 @@ export default function ChemTestApp() {
                 <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
               )}
             </button>
-            {editorFilesExpanded && (
+            <Collapse open={editorFilesExpanded} keepMountedOnceShown>
               <CardContent className="pt-0">
                 <p className="text-xs text-muted-foreground mb-3">
                   {t('editorFilesHint')}
                 </p>
                 <AttachmentsEditor items={formAttachments} onChange={setFormAttachments} />
               </CardContent>
-            )}
+            </Collapse>
           </Card>
 
           {/* Cover customization: science icon pack + card color */}
@@ -2588,8 +2644,8 @@ export default function ChemTestApp() {
                 <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
               )}
             </button>
-            {editorCoverExpanded && (
-            <CardContent className="space-y-4 pt-0">
+            <Collapse open={editorCoverExpanded}>
+            <CardContent className="space-y-4 !pt-0">
               <p className="text-xs text-muted-foreground">
                 {t('coverHint')}
               </p>
@@ -2610,7 +2666,7 @@ export default function ChemTestApp() {
                 <PhotoshopColorPicker value={testCoverColor || '#E3EEFF'} onChange={setTestCoverColor} />
               </div>
             </CardContent>
-            )}
+            </Collapse>
           </Card>
 
           <Card className="rounded-4xl border border-black bg-white overflow-hidden">
@@ -2627,8 +2683,8 @@ export default function ChemTestApp() {
                 <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
               )}
             </button>
-            {editorQuestionsExpanded && (
-            <CardContent className="pt-0">
+            <Collapse open={editorQuestionsExpanded} keepMountedOnceShown>
+            <CardContent className="!pt-0">
               <div className="flex justify-end gap-2 mb-4">
                 <Button variant="outline" size="sm" onClick={() => setQuestions(shuffleArray(questions))}>
                   <Shuffle className="w-3 h-3 mr-1" /> {t('shuffleAll')}
@@ -2754,7 +2810,7 @@ export default function ChemTestApp() {
                 ))}
               </div>
             </CardContent>
-            )}
+            </Collapse>
           </Card>
     </>
   );
@@ -2781,7 +2837,7 @@ export default function ChemTestApp() {
         gridFilesTestId={gridFilesTestId}
         dashSearch={dashSearch}
         dashSearching={dashSearching}
-        loading={loading}
+        loading={loading || bootRefreshing}
         dashTagInfo={dashTagInfo}
         setDashSearch={setDashSearch}
         dashSearchResults={dashSearchResults}

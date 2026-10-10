@@ -1,4 +1,8 @@
 @import "tailwindcss";
+/* Motion primitives for animate-in / animate-out (enter + exit animations).
+   Without this import every animate-in class in the codebase was inert —
+   sheets, dialogs and dropdowns popped in and out instantly. */
+@import "tw-animate-css";
 
 /*
   Design system adopted from adrianhajdin/saas-app (AI Study Companion LMS)
@@ -187,4 +191,61 @@
 .cv-auto {
   content-visibility: auto;
   contain-intrinsic-size: auto 640px;
+}
+
+/* Motion: every view root carries .screen-enter so switching pages fades the
+   new screen in instead of hard-swapping it. Opacity only — no transform, so
+   position:fixed children (bottom bars, sheets) keep their viewport anchor.
+   IMPORTANT: the fade starts at opacity 0.01 (NOT 0) — Chromium excludes
+   content first painted at opacity 0 from FCP/LCP candidates entirely, which
+   would make real-user Core Web Vitals unrecordable. 0.01 is visually
+   identical but fully measurable. */
+.screen-enter {
+  animation: screen-in 280ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@keyframes screen-in {
+  from {
+    opacity: 0.01;
+  }
+}
+
+/* Same principle for cards that mount with content (feed/library/history):
+   subtle rise + fade, starting at 0.01 opacity so the first paint of the
+   dashboard remains a valid LCP candidate. */
+.card-enter {
+  animation: card-in 300ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+@keyframes card-in {
+  from {
+    opacity: 0.01;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Accessibility: honor the OS reduced-motion preference for all UI motion
+   (enter/exit fades, screen fades). Functional spinners (animate-spin/pulse/
+   bounce) keep running. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-in,
+  .animate-out,
+  .screen-enter,
+  .card-enter {
+    animation-duration: 1ms !important;
+  }
+  .collapse-motion {
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Smooth accordion-style expand/collapse (grid-rows 0fr -> 1fr trick).
+   Content stays mounted (inert while closed) so nothing pops in or out. */
+.collapse-motion {
+  transition: grid-template-rows 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.collapse-motion > .collapse-inner {
+  overflow: hidden;
+  min-height: 0;
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useRef, useState } from 'react';
+import { useExitMount } from '@/components/motion';
 
 /**
  * Resizable bottom sheets.
@@ -119,6 +120,7 @@ export function DragHandle({ handleProps, dragging }: { handleProps: ResizableSh
  */
 export function ResizableSheetFrame({
   onClose,
+  open,
   initialVh = 0.85,
   minVh = 0.4,
   maxW = '',
@@ -127,6 +129,10 @@ export function ResizableSheetFrame({
   footer,
 }: {
   onClose: () => void;
+  /** Controlled visibility. Provided → the frame stays mounted while the
+      slide-down exit animation plays (nothing disappears into nowhere).
+      Omitted → always shown (legacy usage). */
+  open?: boolean;
   initialVh?: number;
   minVh?: number;
   /** extra width classes for the panel, e.g. 'max-w-3xl' */
@@ -136,11 +142,14 @@ export function ResizableSheetFrame({
   footer: React.ReactNode;
 }) {
   const sheet = useResizableSheet({ initialVh, minVh, onClose });
+  const mounted = useExitMount(open !== false, 200);
+  if (!mounted) return null;
+  const exiting = open === false;
   return (
     <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div className={`absolute inset-0 bg-black/50 ${exiting ? 'animate-out fade-out pointer-events-none duration-200' : 'animate-in fade-in duration-200'}`} onClick={onClose} />
       <div
-        className={`absolute inset-x-0 bottom-0 mx-auto ${maxW} bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col animate-in slide-in-from-bottom duration-200`}
+        className={`absolute inset-x-0 bottom-0 mx-auto ${maxW} bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col ${exiting ? 'animate-out slide-out-to-bottom fade-out pointer-events-none duration-200' : 'animate-in slide-in-from-bottom duration-200'}`}
         style={{ ...sheet.style, maxHeight: '100dvh' }}
       >
         <DragHandle handleProps={sheet.handleProps} dragging={sheet.dragging} />

@@ -27,7 +27,7 @@ export default function CreateEditView({
   t,
 }: CreateEditViewProps) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>

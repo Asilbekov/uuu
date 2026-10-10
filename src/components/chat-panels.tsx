@@ -9,6 +9,7 @@ import { Bot, ChevronDown, Menu, MessageSquare, Send, Users, X } from 'lucide-re
 import MathText from '@/components/math-text';
 import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
 import { DragHandle, useResizableSheet } from '@/components/resize-sheet';
+import { useExitMount } from '@/components/motion';
 
 /**
  * Chat panels (AI Tutor + per-test group chat).
@@ -95,11 +96,13 @@ function HistoryDrawer({
   historyLabel: string;
   noChatsLabel: string;
 }) {
-  if (!open) return null;
+  // Stay mounted while the slide-out-left exit animation plays
+  const mounted = useExitMount(open, 200);
+  if (!mounted) return null;
   return (
     <div className="absolute inset-0 z-30 flex">
-      <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="relative h-full w-64 sm:w-72 bg-white border-r-2 border-black/10 shadow-2xl rounded-l-3xl flex flex-col animate-in slide-in-from-left duration-200">
+      <div className={`absolute inset-0 bg-black/30 ${open ? 'animate-in fade-in duration-200' : 'animate-out fade-out pointer-events-none duration-200'}`} onClick={onClose} />
+      <div className={`relative h-full w-64 sm:w-72 bg-white border-r-2 border-black/10 shadow-2xl rounded-l-3xl flex flex-col ${open ? 'animate-in slide-in-from-left duration-200' : 'animate-out slide-out-to-left fade-out pointer-events-none duration-200'}`}>
         <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
           <p className="font-bold text-sm flex items-center gap-2">
             <MessageSquare className="w-4 h-4 text-cta" /> {historyLabel}
@@ -169,6 +172,7 @@ function MobileChatSheet({
   switcher,
   hamburger,
   history,
+  exiting,
 }: {
   onClose: () => void;
   icon: React.ReactNode;
@@ -180,13 +184,15 @@ function MobileChatSheet({
   /** When set, a ☰ button appears top-left and opens the AI history drawer. */
   hamburger?: React.ReactNode;
   history?: React.ReactNode;
+  /** true while the parent plays its exit animation — swaps enter classes for exit ones. */
+  exiting?: boolean;
 }) {
   const sheet = useResizableSheet({ initialVh: 0.78, minVh: 0.35, onClose });
   return (
     <div className="fixed inset-0 z-50">
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+      <div className={`absolute inset-0 bg-black/50 ${exiting ? 'animate-out fade-out pointer-events-none duration-200' : 'animate-in fade-in duration-200'}`} onClick={onClose} />
       <div
-        className="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col animate-in slide-in-from-bottom duration-200"
+        className={`absolute inset-x-0 bottom-0 bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col ${exiting ? 'animate-out slide-out-to-bottom fade-out pointer-events-none duration-200' : 'animate-in slide-in-from-bottom duration-200'}`}
         style={{ ...sheet.style, maxHeight: '100dvh' }}
       >
         {/* Drag bar — pull up to full screen, pull down to close */}
@@ -282,7 +288,10 @@ export function AiChatPanel({
   noChatsLabel: string;
 }) {
   const isDesktop = useIsDesktopLg();
-  if (!open) return null;
+  // Stay mounted while the exit animation (fade / slide-down) plays
+  const mounted = useExitMount(open, 200);
+  if (!mounted) return null;
+  const exiting = !open;
 
   const icon = <Bot className="w-4 h-4 text-white" />;
 
@@ -352,7 +361,7 @@ export function AiChatPanel({
 
   if (isDesktop) {
     return (
-      <div className="w-[420px] shrink-0">
+      <div className={`w-[420px] shrink-0 ${exiting ? 'animate-out fade-out pointer-events-none duration-200' : 'animate-in fade-in duration-200'}`}>
         <Card className="rounded-4xl border border-black bg-white flex flex-col h-[680px]">
           <CardHeader className="pb-3 shrink-0">
             <div className="flex items-center justify-between">
@@ -391,6 +400,7 @@ export function AiChatPanel({
       switcher={switcher}
       hamburger={<HistoryButton onClick={onToggleHistory} />}
       history={historyDrawer}
+      exiting={exiting}
     />
   );
 }
@@ -434,7 +444,10 @@ export function GroupChatPanel({
   openProfileLabel?: string;
 }) {
   const isDesktop = useIsDesktopLg();
-  if (!open) return null;
+  // Stay mounted while the exit animation (fade / slide-down) plays
+  const mounted = useExitMount(open, 200);
+  if (!mounted) return null;
+  const exiting = !open;
 
   const icon = <Users className="w-4 h-4 text-white" />;
 
@@ -515,7 +528,7 @@ export function GroupChatPanel({
 
   if (isDesktop) {
     return (
-      <div className="w-[420px] shrink-0">
+      <div className={`w-[420px] shrink-0 ${exiting ? 'animate-out fade-out pointer-events-none duration-200' : 'animate-in fade-in duration-200'}`}>
         <Card className="rounded-4xl border border-black bg-white flex flex-col h-[680px]">
           <CardHeader className="pb-3 shrink-0">
             <div className="flex items-center justify-between">
@@ -547,6 +560,7 @@ export function GroupChatPanel({
       body={body}
       footer={footer}
       switcher={switcher}
+      exiting={exiting}
     />
   );
 }

@@ -25,6 +25,7 @@ import { type AttachmentItem } from '@/components/attachment-utils';
 import { testBackgroundCss } from '@/lib/test-bg';
 import type { SavedTestProgress } from '@/lib/test-progress';
 import { countAnsweredProgress } from '@/lib/test-progress';
+import { Collapse } from '@/components/motion';
 import type { Test } from '@/lib/app-types';
 
 /**
@@ -76,7 +77,7 @@ export default function StartTestView({
   const totalQ = currentTest.questions.length;
 
   return (
-    <div className="min-h-screen bg-background" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
+    <div className="min-h-screen bg-background screen-enter" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
@@ -241,14 +242,14 @@ export default function StartTestView({
                     <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
                   )}
                 </button>
-                {startFilesExpanded && (
+                <Collapse open={startFilesExpanded} keepMountedOnceShown>
                   <div className="px-4 pb-4">
                     <p className="text-xs text-muted-foreground mb-2">
                       {t('startFilesHint')}
                     </p>
                     <AttachmentsList items={currentTest.attachments as AttachmentItem[]} />
                   </div>
-                )}
+                </Collapse>
               </div>
             )}
 

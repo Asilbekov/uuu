@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BookmarkCheck, BookmarkPlus, Loader2 } from 'lucide-react';
+import { useExitMount } from '@/components/motion';
 
 /**
  * Shared module-level UI bits and pure helpers extracted from
@@ -79,9 +80,11 @@ export function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookm
 // Small floating pill shown while on-the-fly question translation is running
 // (auto-translation only kicks in for questions with no stored translation).
 export function TranslatingPill({ show, label }: { show: boolean; label: string }) {
-  if (!show) return null;
+  // Fade in/out instead of popping: the pill stays mounted briefly on hide
+  const mounted = useExitMount(show, 220);
+  if (!mounted) return null;
   return (
-    <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[55] flex items-center gap-1.5 rounded-full bg-white border border-black/10 shadow-lg px-3 py-1.5 text-xs font-medium text-muted-foreground pointer-events-none">
+    <div className={`fixed top-16 left-1/2 -translate-x-1/2 z-[55] flex items-center gap-1.5 rounded-full bg-white border border-black/10 shadow-lg px-3 py-1.5 text-xs font-medium text-muted-foreground pointer-events-none ${show ? 'animate-in fade-in slide-in-from-top-2 duration-200' : 'animate-out fade-out slide-out-to-top-2 duration-200'}`}>
       <Loader2 className="w-3.5 h-3.5 animate-spin text-cta" />
       {label}
     </div>

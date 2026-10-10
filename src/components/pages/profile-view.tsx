@@ -72,7 +72,7 @@ export default function ProfileView({
   t,
 }: ProfileViewProps) {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-2">
           <Button

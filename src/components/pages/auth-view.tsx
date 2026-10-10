@@ -39,7 +39,7 @@ export default function AuthView({
   t,
 }: AuthViewProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+    <div className="min-h-screen flex items-center justify-center bg-background p-4 screen-enter">
       <Card className="w-full max-w-md rounded-4xl border border-black shadow-lg bg-white">
         <CardHeader className="text-center pb-2">
           <div className="mx-auto w-16 h-16 bg-cta rounded-2xl flex items-center justify-center mb-4 shadow-lg">
