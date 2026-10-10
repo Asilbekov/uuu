@@ -424,6 +424,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const [currentAttempt, setCurrentAttempt] = useState<Attempt | null>(null);
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
+
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showResult, setShowResult] = useState(false);
   const [selectedQuestionCount, setSelectedQuestionCount] = useState(0);
@@ -974,6 +975,97 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
   const dashFeedTouchUntilRef = React.useRef(0);
   const dashFeedSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // ── PREDICTION ENGINE (TikTok-style "prepare the next action") ──────────
+  // TikTok never waits for the user to land before it starts working: while
+  // card N is on screen the payloads and media of N+1/N+2 are already in
+  // flight, and the next feed page is loading before the user reaches it.
+  // Same here:
+  //   • fetchFullTest   — deduped GET /tests/<id> → dashFullTests cache
+  //   • prefetchFullTest — same, scheduled in idle time (never janks a frame)
+  //   • prefetchNeighbors — the ±2 window around an anchor, direction-first
+  //   • preheatMedia     — decode-ahead of the images a card will show
+  // The nearest neighbour in the movement direction is fetched URGENTLY
+  // (immediately), the rest go through requestIdleCallback.
+  const dashMoveDirRef = React.useRef<1 | -1>(1);
+  const dashPrevScrollTopRef = React.useRef(0);
+  const dashQueuedRef = React.useRef<Set<string>>(new Set());
+  const mediaPreheatedRef = React.useRef<Set<string>>(new Set());
+
+  const startFullFetch = React.useCallback((id: string) => {
+    if (!id || dashFetchedRef.current.has(id)) return;
+    dashFetchedRef.current.add(id);
+    api.getTest(id)
+      .then((full: Test) => {
+        setDashFullTests(prev => ({ ...prev, [id]: full }));
+        preheatMedia(full);
+      })
+      .catch(() => { dashFetchedRef.current.delete(id); });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Idle scheduler: requestIdleCallback with a deadline so prefetches always
+  // run (max 400ms late), plain timeout fallback elsewhere.
+  const idleSchedule = (fn: () => void, timeout = 400): void => {
+    const w = window as any;
+    if (typeof w.requestIdleCallback === 'function') w.requestIdleCallback(fn, { timeout });
+    else setTimeout(fn, Math.min(timeout, 200));
+  };
+
+  const prefetchFullTest = React.useCallback((id: string, urgent = false) => {
+    if (!id || dashFetchedRef.current.has(id) || dashQueuedRef.current.has(id)) return;
+    if (urgent) { startFullFetch(id); return; }
+    dashQueuedRef.current.add(id);
+    idleSchedule(() => {
+      dashQueuedRef.current.delete(id);
+      startFullFetch(id);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startFullFetch]);
+
+  // Decode-ahead for the images the NEXT cards will render: creator avatar +
+  // up to 3 image attachments. Browser cache + decoded image pool = the card
+  // paints complete on its first visible frame (no half-loaded pop-in).
+  function preheatMedia(full: Test) {
+    idleSchedule(() => {
+      try {
+        const urls: string[] = [];
+        const creator: any = (full as any).creator;
+        if (creator?.image) {
+          urls.push(creator.image.startsWith('tg:') ? `/api/users/${creator.id}/avatar` : creator.image);
+        }
+        const atts = ((full.attachments ?? []) as AttachmentItem[]).filter(Boolean);
+        for (const a of atts) {
+          if (urls.length >= 4) break;
+          if (a.type && a.type.startsWith('image') && a.url) urls.push(attachmentFileUrl(a));
+        }
+        for (const u of urls) {
+          if (mediaPreheatedRef.current.has(u) || mediaPreheatedRef.current.size > 60) continue;
+          mediaPreheatedRef.current.add(u);
+          const img = new Image();
+          img.decoding = 'async';
+          img.onload = () => { try { (img as any).decode?.().catch(() => {}); } catch {} };
+          img.src = u;
+        }
+      } catch { /* preheat is best-effort */ }
+    }, 600);
+  }
+
+  // Direction-weighted neighbourhood prefetch: while card `anchor` is on
+  // screen, prepare the cards the user is most likely to swipe to next.
+  const prefetchNeighbors = React.useCallback((anchor: number, dir: 1 | -1 = 1) => {
+    const n = tests.length;
+    if (n === 0) return;
+    const order = dir === 1
+      ? [anchor + 1, anchor + 2, anchor - 1]
+      : [anchor - 1, anchor - 2, anchor + 1];
+    order.forEach((i, rank) => {
+      if (i < 0 || i >= n) return;
+      // rank 0 = the most likely next card → fetch right now, not in idle
+      prefetchFullTest(tests[i].id, rank === 0);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tests, prefetchFullTest]);
   // Dashboard VIEW modes: tiktok1 = card swipe feed, tiktok2 = the same feed
   // opened from the library (back button in the header), library = shelves of
   // 3 mini cards per shelf, shelf = one card per shelf. Library & shelf scroll
@@ -1080,21 +1172,11 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       setStartRandomizeQ(t.randomizeQuestions !== false);
       setStartRandomizeO(t.randomizeOptions !== false);
       setStartFilesExpanded(false);
-      if (!dashFetchedRef.current.has(t.id)) {
-        dashFetchedRef.current.add(t.id);
-        api.getTest(t.id)
-          .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t.id]: full })))
-          .catch(() => { dashFetchedRef.current.delete(t.id); });
-      }
-      // Preload upcoming tests' attachments so swiping past the last file of
-      // this test can continue into the next recommended test's files
-      for (const t2 of tests) {
-        if (dashFetchedRef.current.has(t2.id)) continue;
-        dashFetchedRef.current.add(t2.id);
-        api.getTest(t2.id)
-          .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t2.id]: full })))
-          .catch(() => { dashFetchedRef.current.delete(t2.id); });
-      }
+      // PREDICTION: files mode needs every loaded test's attachments (slides
+      // append as fetches resolve). Current slide first, the rest in idle time
+      // through the shared dedup engine.
+      startFullFetch(t.id);
+      for (const t2 of tests) prefetchFullTest(t2.id);
       return;
     }
     const safeIdx = Math.min(Math.max(0, dashTestIdx), tests.length - 1);
@@ -1116,28 +1198,21 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     ) {
       el.scrollTo({ top: safeIdx * el.clientHeight, behavior: 'instant' as ScrollBehavior });
     }
-    // Lazy-fetch the full test (for the attached files list)
-    if (!dashFetchedRef.current.has(t.id)) {
-      dashFetchedRef.current.add(t.id);
-      api.getTest(t.id)
-        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t.id]: full })))
-        .catch(() => { dashFetchedRef.current.delete(t.id); });
-    }
-  }, [dashTestIdx, dashSlideIdx, filesFeedMode, dashView, effectivePage, tests, fileSlides]);
+    // PREDICTION: the current card + its direction-weighted neighbours are
+    // prefetched here too (covers non-scroll index changes: return to the
+    // dashboard, jump-to-test, delete, ...). All deduped by the engine.
+    startFullFetch(t.id);
+    prefetchNeighbors(safeIdx, dashMoveDirRef.current);
+  }, [dashTestIdx, dashSlideIdx, filesFeedMode, dashView, effectivePage, tests, fileSlides, startFullFetch, prefetchNeighbors, prefetchFullTest]);
 
   // Grid views (library / shelf): prefetch the full tests of every loaded card
-  // so the per-card attached-files button knows the real file count
+  // so the per-card attached-files button knows the real file count — routed
+  // through the prediction engine (idle-scheduled, deduped, media preheated)
   useEffect(() => {
     if (effectivePage !== 'dashboard') return;
     if (dashView !== 'library' && dashView !== 'shelf') return;
-    for (const t of tests) {
-      if (dashFetchedRef.current.has(t.id)) continue;
-      dashFetchedRef.current.add(t.id);
-      api.getTest(t.id)
-        .then((full: Test) => setDashFullTests(prev => ({ ...prev, [t.id]: full })))
-        .catch(() => { dashFetchedRef.current.delete(t.id); });
-    }
-  }, [dashView, effectivePage, tests]);
+    for (const t of tests) prefetchFullTest(t.id);
+  }, [dashView, effectivePage, tests, prefetchFullTest]);
 
   // Scroll the page down to the newly added question (questions scroll with the whole page)
   const prevQuestionCountRef = React.useRef(questions.length);
@@ -1844,6 +1919,38 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     return () => clearTimeout(t);
   }, [effectivePage, showResult, currentTest, currentAttempt, currentQuestionIdx, answers, practiceMode, revealedAnswers, shuffledQuestions, progressUserId]);
 
+  // PREDICTION in the test runner (TikTok's "prepare the next action"): while
+  // question N is on screen, the images of N+1 and N+2 are fetched and decoded
+  // in idle time — swiping to the next question paints complete on its first
+  // frame instead of lazily popping its picture in afterwards.
+  const questionPreheatedRef = React.useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (effectivePage !== 'take-test' || shuffledQuestions.length === 0) return;
+    const w = window as any;
+    const schedule = (fn: () => void) => {
+      if (typeof w.requestIdleCallback === 'function') w.requestIdleCallback(fn, { timeout: 350 });
+      else setTimeout(fn, 150);
+    };
+    schedule(() => {
+      for (const q of shuffledQuestions.slice(currentQuestionIdx + 1, currentQuestionIdx + 3)) {
+        const urls: string[] = [];
+        if (q.imageUrl) urls.push(imgSrc(q.imageUrl));
+        for (const letter of ['A', 'B', 'C', 'D', 'E']) {
+          const oi: any = (q as any).optionImages?.[letter];
+          if (oi?.u) urls.push(imgSrc(oi.u));
+        }
+        for (const u of urls) {
+          if (questionPreheatedRef.current.has(u)) continue;
+          questionPreheatedRef.current.add(u);
+          const img = new Image();
+          img.decoding = 'async';
+          img.onload = () => { try { (img as any).decode?.().catch(() => {}); } catch {} };
+          img.src = u;
+        }
+      }
+    });
+  }, [currentQuestionIdx, shuffledQuestions, effectivePage]);
+
   // On-the-fly translation: while taking / reviewing a test, translate any
   // question that has no stored translation for the selected interface
   // language (user-created tests, old continue-snapshots, languages the test
@@ -1913,12 +2020,20 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       const clamped = Math.min(fileSlidesCountRef.current - 1, Math.max(0, idx));
       setDashSlideIdx(clamped);
       signal(fileSlidesRef.current[clamped]?.test);
+      // PREDICTION: the next page of tests is already loading before the user
+      // reaches the end of the slides (TikTok preloads the next batch too).
+      if (clamped >= fileSlidesCountRef.current - 3) loadMoreFeed();
       return;
     }
     const clamped = Math.min(tests.length - 1, Math.max(0, idx));
     setDashTestIdx(clamped);
     // Recommendation signal (invisible): this card stayed on screen — count a view
     signal(tests[clamped]);
+    // PREDICTION: while this card is on screen, the neighbours the user is
+    // most likely to swipe to are already fetched (direction-first), and the
+    // next feed page starts loading 3 cards before the end.
+    prefetchNeighbors(clamped, dashMoveDirRef.current);
+    if (clamped >= tests.length - 3) loadMoreFeed();
   };
   const armDashSettle = (delay = 140) => {
     if (dashFeedSettleTimerRef.current) clearTimeout(dashFeedSettleTimerRef.current);
@@ -1934,16 +2049,57 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     // placeholder for a few frames — buttons/texts missing, then popping in.
     // The guard keeps this to ONE sync render per card crossing.
     const live = Math.round(el.scrollTop / el.clientHeight);
+    // Movement direction — drives the direction-weighted prefetches
+    // (scrolling down prepares the cards BELOW first, and vice versa).
+    if (el.scrollTop !== dashPrevScrollTopRef.current) {
+      dashMoveDirRef.current = el.scrollTop > dashPrevScrollTopRef.current ? 1 : -1;
+      dashPrevScrollTopRef.current = el.scrollTop;
+    }
     if (live !== dashLiveIdxRef.current) {
       dashLiveIdxRef.current = live;
-      flushSync(() => setDashLiveIdx(live));
+      flushSync(() => {
+        setDashLiveIdx(live);
+        // PREDICTION: the bottom bar adopts the card under the viewport in the
+        // SAME frame (question count, randomize defaults) — by the time the
+        // user's swipe settles, "Start Test (N questions)" is already exact.
+        if (!filesFeedModeRef.current && tests.length > 0) {
+          const t = tests[Math.min(tests.length - 1, Math.max(0, live))];
+          if (t) {
+            const totalQ = t._count?.questions || t.questions?.length || 0;
+            setSelectedQuestionCount(Math.max(1, totalQ));
+            setStartRandomizeQ(t.randomizeQuestions !== false);
+            setStartRandomizeO(t.randomizeOptions !== false);
+          }
+        }
+      });
+      // PREDICTION: the card the user is moving TOWARD starts loading its full
+      // payload NOW — mid-gesture, before the settle commit ever fires.
+      prefetchNeighbors(live, dashMoveDirRef.current);
     }
     armDashSettle(140);
   };
-  const onDashTouchStart = () => { dashFeedTouchUntilRef.current = Date.now() + 600; };
+  const onDashTouchStart = () => {
+    dashFeedTouchUntilRef.current = Date.now() + 600;
+    // PREDICTION (TikTok's touchstart trick): a finger on the screen is an
+    // intention to swipe — start preparing the neighbouring card before the
+    // scroll event even fires. Deduped, so it's free when already cached.
+    if (!filesFeedModeRef.current) {
+      prefetchNeighbors(Math.min(Math.max(0, dashLiveIdxRef.current), tests.length - 1), dashMoveDirRef.current);
+    }
+  };
   const onDashTouchEnd = () => {
     dashFeedTouchUntilRef.current = Date.now() + 150;
     armDashSettle(180);
+  };
+  // Programmatic card steps (wheel engine / keyboard): set ONLY the settle
+  // guard — never arm a short commit timer. A commit armed at gesture start
+  // (220ms) fired MID-ANIMATION, computed the half-flown position and the
+  // sync effect then teleported the feed back, eating the step. With just
+  // the guard, commits are (re)armed by the animation's own scroll events
+  // and land 140ms after it truly ends — always on the final card. The
+  // guard scales with the jump distance (Home/End fly over many cards).
+  const onDashProgrammatic = (cards = 1) => {
+    dashFeedTouchUntilRef.current = Date.now() + 650 + 150 * Math.max(0, cards - 1);
   };
   const onDashWheel = () => {
     dashFeedTouchUntilRef.current = Date.now() + 250;
@@ -2982,6 +3138,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
         onDashTouchStart={onDashTouchStart}
         onDashTouchEnd={onDashTouchEnd}
         onDashWheel={onDashWheel}
+        onDashProgrammatic={onDashProgrammatic}
         fileSlides={fileSlides}
         filesFeedTestId={filesFeedTestId}
         setSelectedQuestionCount={setSelectedQuestionCount}

@@ -24,6 +24,7 @@ import type { Page } from '@/lib/app-types';
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
 import { testBackgroundCss } from '@/lib/test-bg';
 import { useExitMount } from '@/components/motion';
+import { attachFeedWheel } from '@/lib/feed-wheel';
 import type { Lang } from '@/lib/i18n';
 
 /**
@@ -101,6 +102,7 @@ export interface DashboardViewProps {
   onDashTouchStart: (...args: any[]) => any;
   onDashTouchEnd: (...args: any[]) => any;
   onDashWheel: (...args: any[]) => any;
+  onDashProgrammatic: (...args: any[]) => any;
   fileSlides: any[];
   filesFeedTestId: string | null;
   setSelectedQuestionCount: React.Dispatch<React.SetStateAction<number>>;
@@ -224,6 +226,7 @@ export default function DashboardView({
   onDashTouchStart,
   onDashTouchEnd,
   onDashWheel,
+  onDashProgrammatic,
   fileSlides,
   filesFeedTestId,
   setSelectedQuestionCount,
@@ -279,6 +282,71 @@ export default function DashboardView({
 }: DashboardViewProps) {
   // Search overlay: stays mounted ~150ms after close to play its fade-out
   const searchMounted = useExitMount(dashSearchOpen, 160);
+
+  // ── TIKTOK-WEB GESTURE LAYER ────────────────────────────────────────────
+  // Latest-handler refs: the wheel/keyboard effects attach ONCE per feed
+  // element and always call the freshest handlers — re-attaching on every
+  // parent re-render would reset the wheel accumulator mid-gesture.
+  const gestureRef = React.useRef({ onDashProgrammatic });
+  gestureRef.current = { onDashProgrammatic };
+  const feedCountRef = React.useRef(0);
+  feedCountRef.current = filesFeedMode ? fileSlides.length : tests.length;
+  const feedIsSwipable = dashView === 'tiktok1' || dashView === 'tiktok2';
+
+  // Track the REAL feed DOM node: the effects must re-attach whenever the
+  // feed element instance changes (skeleton → feed, view switches, mode
+  // flips) — a one-shot attach on mount ran while the feed was still a
+  // skeleton and the ref was null, so the wheel engine never engaged.
+  const [feedNode, setFeedNode] = React.useState<HTMLElement | null>(null);
+  const composeFeedRef = React.useCallback((el: HTMLElement | null) => {
+    (dashFeedRef as any).current = el;
+    setFeedNode(el);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // One wheel gesture = exactly one card (the signature TikTok desktop feel;
+  // native half-card wheel + snap-back is gone). Touch scrolling stays native.
+  React.useEffect(() => {
+    if (!feedIsSwipable || !feedNode) return;
+    return attachFeedWheel(feedNode, {
+      getCardCount: () => feedCountRef.current,
+      isInnerScrollTarget: tgt => tgt instanceof Element && !!tgt.closest('[data-inner-scroll]'),
+      onStep: () => gestureRef.current.onDashProgrammatic(1), // guard only — commits re-arm from the animation's scroll events
+    });
+  }, [feedIsSwipable, filesFeedMode, feedNode]);
+
+  // Keyboard parity with TikTok web: ↑/↓/PgUp/PgDn/Space step one card,
+  // Home/End jump to the first/last one. Ignored while typing or in dialogs.
+  React.useEffect(() => {
+    if (!feedIsSwipable) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (deleteId || dashSearchOpen || gridFilesMode || editMode) return;
+      const tgt = e.target as HTMLElement | null;
+      const tag = tgt?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || tgt?.isContentEditable) return;
+      if (tag === 'BUTTON' && e.key === ' ') return; // space activates the focused button
+      let target: number | null = null;
+      const el = dashFeedRef.current as HTMLElement | null;
+      if (!el || el.clientHeight === 0) return;
+      const count = feedCountRef.current;
+      if (count <= 0) return;
+      const cur = Math.round(el.scrollTop / el.clientHeight);
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') target = Math.min(count - 1, cur + 1);
+      else if (e.key === 'ArrowUp' || e.key === 'PageUp') target = Math.max(0, cur - 1);
+      else if (e.key === 'Home') target = 0;
+      else if (e.key === 'End') target = count - 1;
+      else return;
+      if (target === cur) return;
+      e.preventDefault();
+      // Guard only (scaled by distance) — the animation's scroll events arm
+      // the commit, which then lands 140ms after the scroll truly ends.
+      gestureRef.current.onDashProgrammatic(Math.abs(target - cur));
+      el.scrollTo({ top: target * el.clientHeight, behavior: 'smooth' });
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [feedIsSwipable, deleteId, dashSearchOpen, gridFilesMode, editMode, dashFeedRef]);
+
   if (effectivePage === 'dashboard') {
     // Dead share link (?test=<id> of a deleted/removed test): the whole
     // dashboard is replaced by a bare screen — only a message and the way
@@ -954,13 +1022,12 @@ export default function DashboardView({
               Header and bottom bar stay untouched; the on-card button returns. */
               <div
                 key="feed-files"
-                ref={dashFeedRef}
+                ref={composeFeedRef}
                 onScroll={onDashScroll}
                 onTouchStart={onDashTouchStart}
                 onTouchMove={onDashTouchStart}
                 onTouchEnd={onDashTouchEnd}
                 onTouchCancel={onDashTouchEnd}
-                onWheel={onDashWheel}
                 className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden screen-enter"
               >
                 {fileSlides.length === 0 ? (
@@ -993,8 +1060,10 @@ export default function DashboardView({
                             <p className="text-xs font-semibold text-foreground/70 line-clamp-1">{test.title}</p>
                             <p className="text-base sm:text-lg font-bold leading-snug">{t('attachedFiles', { n: s.count })}</p>
                           </div>
-                          {/* ALL of the test's files in ONE scrollable card */}
-                          <div className="flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                          {/* ALL of the test's files in ONE scrollable card.
+                          data-inner-scroll: the wheel engine lets this area
+                          keep its native scrolling. */}
+                          <div data-inner-scroll className="flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                             <AttachmentsList items={s.files} />
                           </div>
                           <button
@@ -1021,13 +1090,12 @@ export default function DashboardView({
             /* TikTok-style vertical feed — swipe up/down between tests */
             <div
               key="feed-tiktok"
-              ref={dashFeedRef}
+              ref={composeFeedRef}
               onScroll={onDashScroll}
               onTouchStart={onDashTouchStart}
               onTouchMove={onDashTouchStart}
               onTouchEnd={onDashTouchEnd}
               onTouchCancel={onDashTouchEnd}
-              onWheel={onDashWheel}
               className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden screen-enter"
             >
               {tests.map((test, idx) => {
