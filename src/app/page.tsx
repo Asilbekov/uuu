@@ -134,19 +134,14 @@ function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, ad
   ) : null;
   return (
     <div className="shrink-0 relative flex items-center h-14 sm:h-16 rounded-3xl bg-gradient-to-r from-[#FFE3D6] via-[#FFF4EE] to-[#FFE3D6] border-2 border-black/10 pl-1.5 pr-1.5 shadow-md">
-      {/* Author photo — pinned top-left of the header band, big and ringed */}
+      {/* Author photo — pinned left of the header band, big and ringed. No
+      name text: the photo alone identifies the author (full name is the
+      hover/long-press tooltip and lives in their library). */}
       <span
         className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-base sm:text-lg font-extrabold ring-[3px] ring-white shadow-md shrink-0"
         title={name}
       >
         {avatarSrc ? <img src={avatarSrc} alt="" className="w-full h-full object-cover" /> : initial}
-      </span>
-      {/* Name centered on its own big white pill (a background of its own) */}
-      <span
-        className="absolute left-1/2 -translate-x-1/2 max-w-[46%] px-4 py-1.5 rounded-full bg-white border-2 border-black/10 shadow-md text-[13px] sm:text-sm font-extrabold text-black truncate pointer-events-none"
-        title={name}
-      >
-        {name}
       </span>
       {identity}
       {/* The bookmark button — big and pretty: large icon + label on wide screens */}
@@ -2131,7 +2126,7 @@ export default function ChemTestApp() {
 
   // Flip the feed to files mode: the feed shows the files of the tapped test
   // (per-test files card — every attachment of THIS test in one scrollable
-  // card). The header/bottom bar stay untouched; the files toggle exits.
+  // card). The header/bottom bar stay untouched; the on-card control exits.
   const openFilesCard = (test: Test) => {
     pendingFilesJumpRef.current = test.id;
     setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
@@ -2311,8 +2306,7 @@ export default function ChemTestApp() {
   // The per-card paperclip on a grid card: the SAME grid view (library or
   // shelf) keeps its layout but shows the ATTACHED-FILES cards of this test
   // instead of the test cards. Tapping the paperclip of the SAME test again
-  // returns to the test cards; the header files toggle does the same from
-  // anywhere.
+  // returns to the test cards; «К тестам» on a files card does the same.
   const openGridFiles = (test: Test) => {
     gridScrollTopRef.current = dashFeedRef.current?.scrollTop || 0;
     setGridFilesTestId(test.id);
@@ -2459,7 +2453,7 @@ export default function ChemTestApp() {
               </div>
             )}
             <div className="flex items-center gap-1 sm:gap-2 shrink-0 min-w-0">
-              {(dashView === 'tiktok2' || gridFilesMode || filesFeedMode || viewingUser) && (
+              {(dashView === 'tiktok2' || viewingUser) && (
                 <Button
                   variant="outline"
                   size="icon"
@@ -2470,22 +2464,23 @@ export default function ChemTestApp() {
                     backToLibrary();
                   }}
                   className="rounded-full shrink-0 border-black"
-                  title={viewingUser ? t('back') : (gridFilesMode || filesFeedMode) ? t('backToTests') : t('backToLibrary')}
-                  aria-label={viewingUser ? t('back') : (gridFilesMode || filesFeedMode) ? t('backToTests') : t('backToLibrary')}
+                  title={viewingUser ? t('back') : t('backToLibrary')}
+                  aria-label={viewingUser ? t('back') : t('backToLibrary')}
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </Button>
               )}
-              {/* Viewing another user's library: their identity pill next to the
-              back arrow (photo + name), like the card headers below. */}
+              {/* Viewing another user's library: just their PHOTO next to the
+              back arrow (no name text — the hover/long-press tooltip carries
+              the full name). */}
               {viewingUser && (
-                <span className="flex items-center gap-1.5 min-w-0 bg-[#FFE8DE] border border-primary/40 rounded-full pl-0.5 pr-2.5 py-0.5" title={t('userLibraryTitle', { name: viewingUser.name })}>
-                  <span className="w-6 h-6 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-[10px] font-extrabold shrink-0">
-                    {viewingUser.image
-                      ? <img src={viewingUser.image.startsWith('tg:') ? `/api/users/${viewingUser.id}/avatar` : viewingUser.image} alt="" className="w-full h-full object-cover" />
-                      : (viewingUser.name || '?').trim().slice(0, 1).toUpperCase() || '?'}
-                  </span>
-                  <span className="text-xs font-bold text-black truncate max-w-[110px] sm:max-w-[180px]">{viewingUser.name}</span>
+                <span
+                  className="w-8 h-8 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-xs font-extrabold shrink-0 ring-2 ring-white shadow-md"
+                  title={t('userLibraryTitle', { name: viewingUser.name })}
+                >
+                  {viewingUser.image
+                    ? <img src={viewingUser.image.startsWith('tg:') ? `/api/users/${viewingUser.id}/avatar` : viewingUser.image} alt="" className="w-full h-full object-cover" />
+                    : (viewingUser.name || '?').trim().slice(0, 1).toUpperCase() || '?'}
                 </span>
               )}
               <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4">
@@ -2509,21 +2504,9 @@ export default function ChemTestApp() {
               >
                 <Search className="w-4 h-4" />
               </Button>
-              {/* Attached-files mode toggle — highlighted while files mode is
-              ON (it survives view & mode switches); one more tap returns to
-              the test cards. */}
-              {(gridFilesMode || filesFeedMode) && (
-                <Button
-                  variant="outline"
-                  onClick={exitFilesMode}
-                  className="rounded-full shrink-0 border-primary bg-[#FFE8DE] text-primary hover:bg-[#FFE8DE] h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4"
-                  title={t('filesModeOn')}
-                  aria-label={t('filesModeOn')}
-                >
-                  <Paperclip className="w-4 h-4 sm:mr-2" />
-                  <span className="hidden sm:inline">{t('filesModeOn')}</span>
-                </Button>
-              )}
+              {/* NO files-mode buttons here on purpose: entering the attached-
+              files mode must NOT add anything to the top panel — every files
+              surface carries its own «К тестам» / back-to-test control. */}
               {/* View button — cycles the three layouts with one tap (like the
               language button): TikTok feed → Library → Shelf → … The icon and
               the label always show the CURRENT view. */}
@@ -2634,9 +2617,19 @@ export default function ChemTestApp() {
                   {gridFilesMode ? (
                     /* ATTACHED-FILES cards in the SAME grid layout — the view does not
                     change, only the cards do: one card per attachment of the test whose
-                    paperclip was tapped. Back arrow (header) / «К тестам» returns. */
+                    paperclip was tapped. «К тестам» on a card (or under the empty
+                    text) returns to the test cards — the header stays untouched. */
                     gridFiles.length === 0 ? (
-                      <p className="px-4 py-6 text-sm text-muted-foreground">{t('filesEmpty')}</p>
+                      <div className="px-4 py-6 flex flex-col items-start gap-2">
+                        <p className="text-sm text-muted-foreground">{t('filesEmpty')}</p>
+                        <Button size="sm" variant="outline"
+                          onClick={exitFilesMode}
+                          title={t('backToTests')} aria-label={t('backToTests')}
+                          className="h-8 rounded-full border-black text-xs px-3"
+                        >
+                          <ArrowLeft className="size-3.5 shrink-0" /> <span>{t('backToTests')}</span>
+                        </Button>
+                      </div>
                     ) : (
                       gridFileRows.map((row, ri) => (
                         <div
@@ -2919,7 +2912,7 @@ export default function ChemTestApp() {
             ) : filesFeedMode ? (
               /* FILES feed — one attachment per slide; the flow runs through this
               test's files, then continues into the next recommended test's files.
-              Header and bottom bar stay untouched; the paperclip button toggles back. */
+              Header and bottom bar stay untouched; the on-card button returns. */
               <div
                 key="feed-files"
                 ref={dashFeedRef}
