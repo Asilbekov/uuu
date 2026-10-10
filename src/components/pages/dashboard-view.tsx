@@ -44,6 +44,8 @@ export interface DashboardViewProps {
   setDeadLink: React.Dispatch<React.SetStateAction<boolean>>;
   tests: Test[];
   dashTestIdx: number;
+  dashLiveIdx: number;
+  dashSlideIdx: number;
   progressUserId: string;
   dashView: 'tiktok1' | 'tiktok2' | 'library' | 'shelf';
   libNarrow: boolean;
@@ -165,6 +167,8 @@ export default function DashboardView({
   setDeadLink,
   tests,
   dashTestIdx,
+  dashLiveIdx,
+  dashSlideIdx,
   progressUserId,
   dashView,
   libNarrow,
@@ -930,11 +934,17 @@ export default function DashboardView({
                   const test = s.test;
                   const bgClass = test.coverColor ? '' : coverBgFor(test);
                   const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
-                  // WINDOWED RENDER: only slides within ±2 of the current one
+                  // WINDOWED RENDER: only slides within ±2 of the visible one
                   // mount their content; distant slides keep the exact same
                   // height and background, so scroll geometry never changes and
                   // nothing pops in mid-swipe (replaces content-visibility).
-                  const near = Math.abs(i - Math.min(dashTestIdx, fileSlides.length - 1)) <= 2;
+                  // Anchor = the LIVE visible slide (tracked from scroll events)
+                  // UNION the committed dashSlideIdx — the slide under the
+                  // viewport therefore ALWAYS renders its content, whatever the
+                  // settle-commit timing does.
+                  const near =
+                    Math.abs(i - Math.min(Math.max(0, dashLiveIdx), Math.max(0, fileSlides.length - 1))) <= 2 ||
+                    Math.abs(i - Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1))) <= 2;
                   return (
                     <section key={`${test.id}`} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
                       {near && (
@@ -985,15 +995,24 @@ export default function DashboardView({
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 // WINDOWED RENDER (same as the files feed): cards beyond ±2 of
                 // the current slide render as same-height, same-background
-                // placeholders — with hundreds of tests the DOM stays light,
-                // and since they mount far outside the viewport the buttons
-                // NEVER appear out of nowhere while scrolling.
-                const near = Math.abs(idx - Math.min(dashTestIdx, tests.length - 1)) <= 2;
+                // placeholders — with hundreds of tests the DOM stays light.
+                // Anchor = the LIVE visible card (tracked from scroll events)
+                // UNION the committed dashTestIdx, so the card the user is
+                // LOOKING at ALWAYS has its buttons and texts rendered — a
+                // dropped/delayed settle commit can never blank the screen.
+                const near =
+                  Math.abs(idx - Math.min(Math.max(0, dashLiveIdx), tests.length - 1)) <= 2 ||
+                  Math.abs(idx - Math.min(Math.max(0, dashTestIdx), tests.length - 1)) <= 2;
                 const totalQ = test._count?.questions || test.questions?.length || 0;
                 // Own test vs a bookmarked one (saved from Discover): bookmarked
                 // tests show no share controls — Edit copies them first.
                 const own = !!effectiveUser && test.creatorId === effectiveUser.id;
                 const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
+                // The attached-files button must NOT pop in a moment later, when
+                // the lazy full-test fetch lands: the feed payload already
+                // carries the attachment COUNT — use it for the button until
+                // the real list arrives. Same fallback the library cards use.
+                const filesCount = files.length || test._count?.attachments || 0;
                 // Publication variant SAVED with the test drives the share selector's
                 // initial highlight; a share tap re-highlights the last used option
                 const savedScope: 'link' | 'community' = test.isPublic === false ? 'link' : 'community';
@@ -1225,14 +1244,14 @@ export default function DashboardView({
                             {/* Attached files — flips the feed to the FILES mode:
                             this test's files in one card; the button (and the
                             header files toggle) returns to this card */}
-                            {files.length > 0 && (
+                            {filesCount > 0 && (
                               <button
                                 type="button"
                                 onClick={() => { if (filesFeedMode && filesFeedTestId === test.id) closeFilesCard(); else openFilesCard(test); }}
                                 className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 text-left transition-colors ${filesFeedMode && filesFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
                               >
                                 <Paperclip className="w-4 h-4 shrink-0" />
-                                <span className="font-semibold text-sm">{t('attachedFiles', { n: files.length })}</span>
+                                <span className="font-semibold text-sm">{t('attachedFiles', { n: filesCount })}</span>
                                 <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
                               </button>
                             )}

@@ -960,6 +960,15 @@ export default function AppRoot({ authed }: { authed: boolean }) {
 
   // Dashboard: TikTok-style vertical feed of tests
   const [dashTestIdx, setDashTestIdx] = useState(0);
+  // LIVE window anchor: the slide actually under the viewport right now
+  // (rounded scrollTop), tracked from scroll events. The rendered window is
+  // the UNION of ±2 around this and the committed dashTestIdx — so the card
+  // the user is LOOKING at always renders its content, whatever the settle
+  // commit timing does (a dropped commit used to leave the settled card
+  // empty: buttons and texts missing until the next scroll).
+  const [dashLiveIdx, setDashLiveIdx] = useState(0);
+  const dashLiveIdxRef = React.useRef(0);
+  const dashLiveRafRef = React.useRef<number | null>(null);
   const [dashFullTests, setDashFullTests] = useState<Record<string, Test>>({});
   const dashFeedRef = React.useRef<HTMLDivElement>(null);
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
@@ -973,6 +982,16 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // Library grid: 2 cards per row on phones (full button names need the width),
   // 3 per row from sm up — matches the Tailwind sm breakpoint (640px)
   const [libNarrow, setLibNarrow] = useState(false);
+  // On every feed (re)mount — page or view switch — the scroll container starts
+  // at scrollTop 0 and the sync effect then places it on the committed card.
+  // Seed the live anchor with that same card so the FIRST paint already
+  // renders the correct window (no one-frame empty card).
+  useEffect(() => {
+    const seed = filesFeedMode ? dashSlideIdx : dashTestIdx;
+    dashLiveIdxRef.current = seed;
+    setDashLiveIdx(seed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dashView, filesFeedMode, effectivePage]);
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 639px)');
     const sync = () => setLibNarrow(mq.matches);
@@ -1874,7 +1893,13 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     dashFeedSettleTimerRef.current = null;
     const el = dashFeedRef.current;
     if (!el || el.clientHeight === 0) return;
-    if (Date.now() < dashFeedTouchUntilRef.current) return;
+    if (Date.now() < dashFeedTouchUntilRef.current) {
+      // The guard outlived the arm delay (wheel/trackpad momentum, coalesced
+      // touch events): RE-ARM instead of dropping — a dropped commit never
+      // re-fires and the settled card stayed outside the rendered window.
+      armDashSettle(dashFeedTouchUntilRef.current - Date.now() + 40);
+      return;
+    }
     const idx = Math.round(el.scrollTop / el.clientHeight);
     const signal = (shown?: Test) => {
       if (shown && effectiveUser && !viewSignaledRef.current.has(shown.id)) {
@@ -1902,6 +1927,20 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const onDashScroll = () => {
     const el = dashFeedRef.current;
     if (!el || el.clientHeight === 0) return;
+    // Track the visible slide (rounded) once per frame — the windowed render
+    // reads this so the card under the viewport ALWAYS renders content.
+    if (dashLiveRafRef.current == null) {
+      dashLiveRafRef.current = requestAnimationFrame(() => {
+        dashLiveRafRef.current = null;
+        const el2 = dashFeedRef.current;
+        if (!el2 || el2.clientHeight === 0) return;
+        const live = Math.round(el2.scrollTop / el2.clientHeight);
+        if (live !== dashLiveIdxRef.current) {
+          dashLiveIdxRef.current = live;
+          setDashLiveIdx(live);
+        }
+      });
+    }
     armDashSettle(140);
   };
   const onDashTouchStart = () => { dashFeedTouchUntilRef.current = Date.now() + 600; };
@@ -2889,6 +2928,8 @@ export default function AppRoot({ authed }: { authed: boolean }) {
         setDeadLink={setDeadLink}
         tests={tests}
         dashTestIdx={dashTestIdx}
+        dashLiveIdx={dashLiveIdx}
+        dashSlideIdx={dashSlideIdx}
         progressUserId={progressUserId}
         dashView={dashView}
         libNarrow={libNarrow}
