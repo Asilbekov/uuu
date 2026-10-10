@@ -1,0 +1,235 @@
+'use client';
+
+import React from 'react';
+import { ArrowLeft, Camera, CheckCircle2, Loader2, LogOut, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { TEST_BG_PRESETS } from '@/lib/test-bg';
+import type { Page } from '@/lib/app-types';
+
+/**
+ * PROFILE PAGE — opened by tapping the account avatar. Hosts everything
+ * account-related that used to be scattered over the header: the profile
+ * photo, the display name, the test-taking background (affects how the
+ * background looks while taking a test), logout and account deletion.
+ * The back arrow in the top-left of the top panel returns to the dashboard.
+ *
+ * State stays in src/app/page.tsx; this view receives it via props.
+ */
+export interface ProfileViewProps {
+  effectiveUser: { id: string; email: string; name: string } | null;
+  myAvatar: string | null;
+  userInitials: string;
+  myBgStyle: string;
+  avatarBusy: boolean;
+  avatarInputRef: React.RefObject<HTMLInputElement | null>;
+  handleAvatarFile: (file: File) => void;
+  profileName: string;
+  setProfileName: (v: string) => void;
+  profileSaving: boolean;
+  saveProfileName: () => void;
+  saveBgStyle: (id: string) => void;
+  handleLogout: () => void;
+  handleDeleteAccount: () => void;
+  accBusy: boolean;
+  deleteAccOpen: boolean;
+  setDeleteAccOpen: (v: boolean) => void;
+  setPage: (p: Page) => void;
+  t: (key: string, vars?: Record<string, string | number>) => string;
+}
+
+export default function ProfileView({
+  effectiveUser,
+  myAvatar,
+  userInitials,
+  myBgStyle,
+  avatarBusy,
+  avatarInputRef,
+  handleAvatarFile,
+  profileName,
+  setProfileName,
+  profileSaving,
+  saveProfileName,
+  saveBgStyle,
+  handleLogout,
+  handleDeleteAccount,
+  accBusy,
+  deleteAccOpen,
+  setDeleteAccOpen,
+  setPage,
+  t,
+}: ProfileViewProps) {
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
+        <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setPage('dashboard')}
+            className="rounded-full h-8 w-8 p-0 sm:w-auto sm:px-3 shrink-0"
+            title={t('back')}
+            aria-label={t('back')}
+          >
+            <ArrowLeft className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('back')}</span>
+          </Button>
+          <h1 className="text-lg font-bold truncate">{t('profileTitle')}</h1>
+        </div>
+      </header>
+
+      <main className="max-w-2xl w-full mx-auto px-4 py-6 sm:py-8 pb-32 space-y-5">
+        {/* Photo + identity */}
+        <Card className="rounded-4xl border border-black bg-white">
+          <CardContent className="p-6 flex flex-col items-center text-center">
+            <button
+              type="button"
+              onClick={() => avatarInputRef.current?.click()}
+              disabled={avatarBusy || !effectiveUser}
+              className="relative group rounded-full active:scale-95 transition-transform disabled:opacity-60"
+              title={t('avatarUpload')}
+              aria-label={t('avatarUpload')}
+            >
+              {myAvatar ? (
+                <img src={myAvatar} alt="" className="w-24 h-24 rounded-full object-cover ring-2 ring-black/10" />
+              ) : (
+                <span className="w-24 h-24 rounded-full bg-cta text-white flex items-center justify-center text-2xl font-extrabold ring-2 ring-black/10">
+                  {userInitials}
+                </span>
+              )}
+              <span className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border border-black/15 shadow-sm flex items-center justify-center">
+                {avatarBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Camera className="w-4 h-4" />}
+              </span>
+            </button>
+            <input
+              ref={avatarInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={e => { const f = e.target.files?.[0]; e.target.value = ''; if (f) handleAvatarFile(f); }}
+            />
+            <p className="mt-3 text-base font-semibold">{effectiveUser?.name}</p>
+            <p className="text-sm text-muted-foreground">{effectiveUser?.email}</p>
+            <p className="mt-2 text-xs text-muted-foreground">{t('avatarUpload')}</p>
+          </CardContent>
+        </Card>
+
+        {/* Name */}
+        <Card className="rounded-4xl border border-black bg-white">
+          <CardContent className="p-5 sm:p-6 space-y-3">
+            <Label htmlFor="profile-name" className="text-sm font-semibold">{t('profileNameLabel')}</Label>
+            <div className="flex gap-2">
+              <Input
+                id="profile-name"
+                value={profileName}
+                onChange={e => setProfileName(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') saveProfileName(); }}
+                maxLength={60}
+                className="flex-1 rounded-full border-black/20 bg-white"
+                placeholder={t('profileNameLabel')}
+              />
+              <Button
+                onClick={saveProfileName}
+                disabled={profileSaving || !profileName.trim() || profileName.trim() === effectiveUser?.name}
+                className="rounded-full shrink-0 h-9 px-4"
+              >
+                {profileSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : t('save')}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Test-taking background */}
+        <Card className="rounded-4xl border border-black bg-white">
+          <CardContent className="p-5 sm:p-6 space-y-3">
+            <div>
+              <h3 className="text-sm font-semibold">{t('profileBgTitle')}</h3>
+              <p className="text-xs text-muted-foreground mt-0.5">{t('profileBgDesc')}</p>
+            </div>
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
+              {/* Standard option — resets to the plain app background */}
+              <button
+                type="button"
+                onClick={() => saveBgStyle('')}
+                className={`relative h-16 rounded-2xl border-2 flex items-center justify-center text-[11px] font-medium transition-all active:scale-95 ${myBgStyle === '' ? 'border-cta ring-2 ring-cta/30' : 'border-black/15 hover:border-black/40'}`}
+                style={{ background: 'repeating-linear-gradient(45deg,#fafafa,#fafafa 8px,#f0f0f0 8px,#f0f0f0 16px)' }}
+                title={t('profileBgStandard')}
+              >
+                <span className="bg-white/85 rounded-full px-2 py-0.5">{t('profileBgStandard')}</span>
+              </button>
+              {TEST_BG_PRESETS.map(p => (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => saveBgStyle(p.id)}
+                  className={`relative h-16 rounded-2xl border-2 transition-all active:scale-95 ${myBgStyle === p.id ? 'border-cta ring-2 ring-cta/30' : 'border-black/15 hover:border-black/40'}`}
+                  style={{ background: p.css }}
+                  title={p.id}
+                  aria-label={p.id}
+                >
+                  {myBgStyle === p.id && (
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <CheckCircle2 className="w-6 h-6 text-cta drop-shadow" />
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Account actions */}
+        <Card className="rounded-4xl border border-black bg-white">
+          <CardContent className="p-5 sm:p-6 space-y-3">
+            <Button
+              variant="outline"
+              onClick={handleLogout}
+              disabled={accBusy}
+              className="w-full rounded-2xl border-black h-11 justify-start gap-2"
+            >
+              <LogOut className="w-4 h-4" /> {t('logoutBtn')}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteAccOpen(true)}
+              disabled={accBusy}
+              className="w-full rounded-2xl border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive h-11 justify-start gap-2"
+            >
+              <Trash2 className="w-4 h-4" /> {t('deleteAccountBtn')}
+            </Button>
+          </CardContent>
+        </Card>
+      </main>
+
+      {/* Account deletion confirmation */}
+      <AlertDialog open={deleteAccOpen} onOpenChange={setDeleteAccOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('deleteAccountQ')}</AlertDialogTitle>
+            <AlertDialogDescription>{t('deleteAccountWarning')}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteAccount}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {accBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : t('deleteAccountBtn')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+}

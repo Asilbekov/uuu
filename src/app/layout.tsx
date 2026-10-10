@@ -3,6 +3,7 @@ import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import "katex/dist/katex.min.css";
 import { Toaster } from "@/components/ui/toaster";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -31,6 +32,8 @@ export default function RootLayout({
       >
         {children}
         <Toaster />
+        {/* Real-user Core Web Vitals (LCP / INP / CLS) → Vercel dashboard */}
+        <SpeedInsights />
       </body>
     </html>
   );

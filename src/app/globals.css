@@ -180,3 +180,11 @@
 .katex-display {
   line-height: 1.2;
 }
+
+/* Perf: native "virtualization" for long lists (feed cards, shelves, history
+   rows) — the browser skips layout/paint of offscreen items entirely.
+   contain-intrinsic-size keeps the scrollbar stable before first render. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 640px;
+}

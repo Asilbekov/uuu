@@ -90,6 +90,18 @@ import {
   LogOut,
 } from 'lucide-react';
 const PhotoshopColorPicker = dynamic(() => import('@/components/color-picker').then(m => m.PhotoshopColorPicker), { ssr: false });
+import type { Page, Question, Attachment, Test, GroupMessage, Attempt } from '@/lib/app-types';
+import { testBackgroundCss } from '@/lib/test-bg';
+import AuthView from '@/components/pages/auth-view';
+import ProfileView from '@/components/pages/profile-view';
+import HistoryView from '@/components/pages/history-view';
+import StartTestView from '@/components/pages/start-test-view';
+import TakeTestView from '@/components/pages/take-test-view';
+import DashboardView from '@/components/pages/dashboard-view';
+import CreateEditView from '@/components/pages/create-edit-view';
+import LangButton from '@/components/lang-button';
+import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
+import { readTestProgress, writeTestProgress, clearTestProgress, countAnsweredProgress, type SavedTestProgress } from '@/lib/test-progress';
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
 
 // Tiny neutral placeholder shown while a lazily-loaded bottom-sheet panel
@@ -105,223 +117,13 @@ function SheetLoadingPlaceholder() {
 // localStorage key for the interface language (EN -> RU -> UZ cycle button)
 const LANG_STORAGE_KEY = 'chemtest-lang';
 
-// Test-taking background presets — picked on the profile page, stored on the
-// User row as a preset KEY (the CSS lives here so future presets keep working
-// for everyone). '' / null = the standard app background. Applied to the
-// start-test, take-test and results screens behind the white cards.
-const TEST_BG_PRESETS: { id: string; css: string }[] = [
-  { id: 'aurora',   css: 'linear-gradient(180deg,#dbeafe 0%,#e0e7ff 45%,#ede9fe 100%)' },
-  { id: 'sunset',   css: 'linear-gradient(180deg,#ffedd5 0%,#fecdd3 55%,#fbcfe8 100%)' },
-  { id: 'mint',     css: 'linear-gradient(180deg,#d1fae5 0%,#ccfbf1 50%,#e0f2fe 100%)' },
-  { id: 'lavender', css: 'linear-gradient(180deg,#ede9fe 0%,#f3e8ff 50%,#fce7f3 100%)' },
-  { id: 'peach',    css: 'linear-gradient(180deg,#fef3c7 0%,#ffedd5 55%,#fee2e2 100%)' },
-  { id: 'ocean',    css: 'linear-gradient(180deg,#0c4a6e 0%,#0369a1 55%,#0ea5e9 100%)' },
-  { id: 'midnight', css: 'linear-gradient(180deg,#0f172a 0%,#1e293b 55%,#334155 100%)' },
-  { id: 'rose',     css: 'linear-gradient(180deg,#881337 0%,#9f1239 55%,#be123c 100%)' },
-];
-const testBackgroundCss = (id: string) => TEST_BG_PRESETS.find(p => p.id === id)?.css || '';
 
-// Language switcher button — same outline style as the other header buttons.
-// Shown in the dashboard header and in the test header (instead of the old
-// "Practice Mode" badge). One tap advances EN -> RU -> UZ -> EN.
-function LangButton({ lang, onChange, className = '' }: { lang: Lang; onChange: () => void; className?: string }) {
-  return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={onChange}
-      title="English · Русский · Oʻzbekcha"
-      className={`gap-1.5 shrink-0 rounded-full font-semibold ${className}`}
-    >
-      <Languages className="w-4 h-4" />
-      {LANG_LABEL[lang]}
-    </Button>
-  );
-}
 
-// Card header for the DISCOVER mode — a bold, tall band across the top of the
-// card: the author's photo pinned top-left in a white ring, the name centered
-// on its own white pill, and a BIG bookmark toggle on the right. Shown ONLY in
-// Discover (tests of other authors); the personal library keeps cards clean.
-function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, addLabel, removeLabel, addShort, removeShort, onOpenProfile, openLabel }: {
-  name: string;
-  creatorId?: string | null;
-  image?: string | null;
-  bookmarked: boolean;
-  onToggleBookmark: () => void;
-  addLabel: string;
-  removeLabel: string;
-  addShort: string;
-  removeShort: string;
-  // Tapping the author's photo / name opens THAT user's library (dashboard
-  // swaps to their public tests with a back arrow in the header)
-  onOpenProfile?: () => void;
-  openLabel?: string;
-}) {
-  const initial = (name || '?').trim().slice(0, 1).toUpperCase() || '?';
-  // tg: references resolve through the same-origin avatar route; data:/http
-  // images render directly. Anything else → the initial-letter avatar.
-  const avatarSrc = image
-    ? (image.startsWith('tg:') && creatorId
-        ? `/api/users/${creatorId}/avatar`
-        : (image.startsWith('data:') || image.startsWith('http') ? image : null))
-    : null;
-  const identity = onOpenProfile ? (
-    <button
-      type="button"
-      onClick={e => { e.stopPropagation(); onOpenProfile(); }}
-      title={openLabel || name}
-      aria-label={openLabel || name}
-      className="absolute inset-0 z-10 rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
-    />
-  ) : null;
-  return (
-    <div className="shrink-0 relative flex items-center h-14 sm:h-16 rounded-3xl bg-gradient-to-r from-[#FFE3D6] via-[#FFF4EE] to-[#FFE3D6] border-2 border-black/10 pl-1.5 pr-1.5 shadow-md">
-      {/* Author photo — pinned left of the header band, big and ringed. No
-      name text: the photo alone identifies the author (full name is the
-      hover/long-press tooltip and lives in their library). */}
-      <span
-        className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-base sm:text-lg font-extrabold ring-[3px] ring-white shadow-md shrink-0"
-        title={name}
-      >
-        {avatarSrc ? <img src={avatarSrc} alt="" className="w-full h-full object-cover" /> : initial}
-      </span>
-      {identity}
-      {/* The bookmark button — big and pretty: large icon + label on wide screens */}
-      <button
-        type="button"
-        onClick={e => { e.stopPropagation(); onToggleBookmark(); }}
-        title={bookmarked ? removeLabel : addLabel}
-        aria-label={bookmarked ? removeLabel : addLabel}
-        className={`ml-auto shrink-0 relative z-10 h-10 sm:h-11 min-w-10 sm:min-w-11 px-2.5 rounded-2xl flex items-center justify-center gap-1.5 border-2 text-xs font-bold transition-all active:scale-90 shadow-sm ${
-          bookmarked
-            ? 'bg-primary text-white border-primary shadow-md hover:bg-primary/90'
-            : 'bg-white border-black/20 text-black hover:border-black hover:shadow-md'
-        }`}
-      >
-        {bookmarked ? <BookmarkCheck className="w-5 h-5" /> : <BookmarkPlus className="w-5 h-5" />}
-        <span className="hidden min-[430px]:inline max-w-[96px] truncate">{bookmarked ? removeShort : addShort}</span>
-      </button>
-    </div>
-  );
-}
 
-// Small floating pill shown while on-the-fly question translation is running
-// (auto-translation only kicks in for questions with no stored translation).
-function TranslatingPill({ show, label }: { show: boolean; label: string }) {
-  if (!show) return null;
-  return (
-    <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[55] flex items-center gap-1.5 rounded-full bg-white border border-black/10 shadow-lg px-3 py-1.5 text-xs font-medium text-muted-foreground pointer-events-none">
-      <Loader2 className="w-3.5 h-3.5 animate-spin text-cta" />
-      {label}
-    </div>
-  );
-}
 
-// Types
-type Page = 'auth' | 'dashboard' | 'create-test' | 'edit-test' | 'start-test' | 'take-test' | 'history' | 'profile';
 
-interface Question {
-  id?: string;
-  text: string;
-  optionA: string;
-  optionB: string;
-  optionC: string;
-  optionD: string;
-  optionE?: string | null;
-  correctAnswer: string;
-  explanation?: string | null;
-  translations?: Record<string, { text?: string; options?: Record<string, string>; explanation?: string }> | null;
-  // Question photo — lives in the Telegram channel as tg:<file_id> (or a small
-  // data: URL when the bot is not connected); imageMsgId tracks the channel post
-  imageUrl?: string | null;
-  imageMsgId?: number | null;
-  // Per-option photos: { A: { u: 'tg:...', m: 123 }, C: {...} }
-  optionImages?: Record<string, { u: string; m?: number | null }> | null;
-  orderNum?: number;
-}
-
-interface Attachment {
-  id: string;
-  testId: string;
-  title: string;
-  type: 'audio' | 'video' | 'pdf' | 'image' | 'embed' | 'link';
-  url: string;
-  size?: number | null;
-  orderNum: number;
-}
-
-interface Test {
-  id: string;
-  title: string;
-  description: string;
-  topic: string;
-  creatorId: string;
-  creator?: { id: string; name: string };
-  isPublic: boolean;
-  randomizeQuestions: boolean;
-  randomizeOptions: boolean;
-  tags?: string[];
-  coverIcon?: string | null;
-  coverColor?: string | null;
-  hasCoverImage?: boolean;
-  questions: Question[];
-  attachments?: Attachment[];
-  _count?: { questions: number; attempts: number; attachments?: number };
-  createdAt: string;
-}
-
-// Cover background color per topic — shared by the cover block and the whole swipe card
-function topicBgClass(topic?: string | null) {
-  switch (topic) {
-    case 'Physics': return 'bg-[#E3EEFF]';
-    case 'Chemistry': return 'bg-[#DFF3E8]';
-    case 'Mathematics': return 'bg-[#FFF0D9]';
-    default: return 'bg-[#FCE8F2]';
-  }
-}
-
-// Stable hash of a string (for tag-based cover styling)
-function tagHash(s: string) {
-  let h = 0;
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 99991;
-  return h;
-}
-
-// Cover background: derived from the first tag when present (tests created
-// after tags replaced topic), otherwise from the legacy topic field
-function coverBgFor(test: { topic?: string | null; tags?: string[] | null }) {
-  const tag = test.tags?.[0];
-  if (tag) {
-    const palette = ['bg-[#E3EEFF]', 'bg-[#DFF3E8]', 'bg-[#FFF0D9]', 'bg-[#FCE8F2]'];
-    return palette[tagHash(tag) % palette.length];
-  }
-  return topicBgClass(test.topic);
-}
 
 // Per-test group chat message (see /api/tests/[id]/chat)
-interface GroupMessage {
-  id: string;
-  testId: string;
-  userId: string;
-  userName: string;
-  userImage?: string | null;
-  text: string;
-  createdAt: string;
-}
-
-interface Attempt {
-  id: string;
-  testId: string;
-  userId: string;
-  score: number;
-  totalQuestions: number;
-  completed: boolean;
-  startedAt: string;
-  completedAt?: string;
-  test?: { id: string; title: string; topic: string };
-}
-
 // Shuffle utility
 function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
@@ -390,12 +192,6 @@ function shuffleOptions(question: Question): Question {
 //   data:...  → used as-is (small fallback uploads)
 //   tg:<id>   → streamed from the Telegram channel via /api/tgimg/<id>
 //   otherwise → external URL, used as-is
-function imgSrc(u?: string | null): string {
-  if (!u) return '';
-  if (u.startsWith('data:')) return u;
-  if (u.startsWith('tg:')) return `/api/tgimg/${encodeURIComponent(u.slice(3))}`;
-  return u;
-}
 
 // Downscale a picked photo in the browser (max 1600px, JPEG) so uploads stay
 // small and pages stay fast even with big phone-camera pictures.
@@ -420,70 +216,10 @@ async function compressImage(file: File, maxSide = 1600, quality = 0.85): Promis
 // Frosted-glass tile shared by the take-test bottom bar: the lens over the
 // current question number AND the prev/next arrow buttons use the SAME material
 // (same border, gradient and shadows), so the whole bar reads as one glass set.
-const GLASS_TILE = 'rounded-xl border border-black/15 bg-gradient-to-b from-white/70 via-white/5 to-white/60 shadow-[inset_0_2px_10px_rgba(0,0,0,0.10),0_1px_3px_rgba(0,0,0,0.08)]';
 
 // =================== SAVED TEST PROGRESS ("Continue Test") ===================
-// While a test is being taken, its full state is persisted to localStorage per
-// user+test: the exact shuffled question order, answers, practice reveals and
-// position, plus the open attempt. A reload (or leaving and coming back) then
-// offers "Continue Test" instead of starting over. Cleared on submit.
-interface SavedTestProgress {
-  v: 1;
-  testId: string;
-  savedAt: number;
-  attempt: Attempt | null;
-  currentQuestionIdx: number;
-  answers: Record<string, string>;
-  practiceMode: boolean;
-  revealedAnswers: Record<string, boolean>;
-  shuffledQuestions: Question[];
-}
-const PROGRESS_PREFIX = 'chemtest_progress_v1';
-const PROGRESS_MAX_CHARS = 2_500_000; // stay far below the ~5MB localStorage quota
-const progressCache = new Map<string, SavedTestProgress | null>();
-
-const progressKey = (userId: string, testId: string) => `${PROGRESS_PREFIX}:${userId || 'anon'}:${testId}`;
-
-function readTestProgress(userId: string, testId: string): SavedTestProgress | null {
-  const key = progressKey(userId, testId);
-  if (progressCache.has(key)) return progressCache.get(key)!;
-  try {
-    const raw = localStorage.getItem(key);
-    if (!raw) { progressCache.set(key, null); return null; }
-    const p = JSON.parse(raw) as SavedTestProgress;
-    if (!p || p.v !== 1 || p.testId !== testId || !Array.isArray(p.shuffledQuestions) || p.shuffledQuestions.length === 0) {
-      progressCache.set(key, null);
-      return null;
-    }
-    if (!p.answers || typeof p.answers !== 'object') p.answers = {};
-    progressCache.set(key, p);
-    return p;
-  } catch {
-    progressCache.set(key, null);
-    return null;
-  }
-}
-
-function writeTestProgress(userId: string, p: SavedTestProgress) {
-  const key = progressKey(userId, p.testId);
-  try {
-    const raw = JSON.stringify(p);
-    if (raw.length > PROGRESS_MAX_CHARS) return; // huge test — skip silently
-    localStorage.setItem(key, raw);
-    progressCache.set(key, p);
-  } catch {
-    // quota / private mode — progress simply won't persist
-  }
-}
-
-function clearTestProgress(userId: string, testId: string) {
-  const key = progressKey(userId, testId);
-  try { localStorage.removeItem(key); } catch {}
-  progressCache.set(key, null);
-}
-
-const countAnsweredProgress = (p: SavedTestProgress | null) =>
-  p ? Object.keys(p.answers || {}).filter(k => k && p.answers[k]).length : 0;
+// Saved test progress helpers (readTestProgress / writeTestProgress /
+// clearTestProgress / countAnsweredProgress) live in src/lib/test-progress.ts.
 
 export default function ChemTestApp() {
   const { toast } = useToast();
@@ -2327,52 +2063,22 @@ export default function ChemTestApp() {
     );
   }
 
-  // AUTH PAGE
+  // AUTH PAGE (view extracted to src/components/pages/auth-view.tsx)
   if (effectivePage === 'auth') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background p-4">
-        <Card className="w-full max-w-md rounded-4xl border border-black shadow-lg bg-white">
-          <CardHeader className="text-center pb-2">
-            <div className="mx-auto w-16 h-16 bg-cta rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-              <FlaskConical className="w-8 h-8 text-white" />
-            </div>
-            <CardTitle className="text-2xl font-bold">
-              ChemTest
-            </CardTitle>
-            <CardDescription>
-              {authMode === 'login' ? t('signInToAccount') : t('createNewAccount')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {authMode === 'signup' && (
-              <div className="space-y-2">
-                <Label htmlFor="name">{t('fullName')}</Label>
-                <Input id="name" placeholder="John Doe" value={name} onChange={e => setName(e.target.value)} />
-              </div>
-            )}
-            <div className="space-y-2">
-              <Label htmlFor="email">{t('email')}</Label>
-              <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">{t('password')}</Label>
-              <Input id="password" type="password" placeholder={t('min6chars')} value={password} onChange={e => setPassword(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && handleAuth()} />
-            </div>
-            <Button className="w-full h-11 rounded-full text-base font-semibold" onClick={handleAuth} disabled={loading}>
-              {loading ? t('loading') : authMode === 'login' ? t('signIn') : t('signUp')}
-            </Button>
-            <div className="text-center text-sm text-muted-foreground">
-              {authMode === 'login' ? (
-                <>{t('noAccount')} <button className="text-primary underline" onClick={() => setAuthMode('signup')}>{t('signUpLink')}</button></>
-              ) : (
-                <>{t('haveAccount')} <button className="text-primary underline" onClick={() => setAuthMode('login')}>{t('signInLink')}</button></>
-              )}
-            </div>
-
-          </CardContent>
-        </Card>
-      </div>
+      <AuthView
+        authMode={authMode}
+        setAuthMode={setAuthMode}
+        name={name}
+        email={email}
+        password={password}
+        setName={setName}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        loading={loading}
+        handleAuth={handleAuth}
+        t={t}
+      />
     );
   }
 
@@ -2684,1177 +2390,33 @@ export default function ChemTestApp() {
     }
   };
 
-  // PROFILE PAGE — opened by tapping the account avatar. Hosts everything
-  // account-related that used to be scattered over the header: the profile
-  // photo, the display name, the test-taking background (affects how the
-  // background looks while taking a test), logout and account deletion.
-  // The back arrow in the top-left of the top panel returns to the dashboard.
+  // PROFILE PAGE (view extracted to src/components/pages/profile-view.tsx)
   if (effectivePage === 'profile') {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setPage('dashboard')}
-              className="rounded-full h-8 w-8 p-0 sm:w-auto sm:px-3 shrink-0"
-              title={t('back')}
-              aria-label={t('back')}
-            >
-              <ArrowLeft className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('back')}</span>
-            </Button>
-            <h1 className="text-lg font-bold truncate">{t('profileTitle')}</h1>
-          </div>
-        </header>
-
-        <main className="max-w-2xl w-full mx-auto px-4 py-6 sm:py-8 pb-32 space-y-5">
-          {/* Photo + identity */}
-          <Card className="rounded-4xl border border-black bg-white">
-            <CardContent className="p-6 flex flex-col items-center text-center">
-              <button
-                type="button"
-                onClick={() => avatarInputRef.current?.click()}
-                disabled={avatarBusy || !effectiveUser}
-                className="relative group rounded-full active:scale-95 transition-transform disabled:opacity-60"
-                title={t('avatarUpload')}
-                aria-label={t('avatarUpload')}
-              >
-                {myAvatar ? (
-                  <img src={myAvatar} alt="" className="w-24 h-24 rounded-full object-cover ring-2 ring-black/10" />
-                ) : (
-                  <span className="w-24 h-24 rounded-full bg-cta text-white flex items-center justify-center text-2xl font-extrabold ring-2 ring-black/10">
-                    {userInitials}
-                  </span>
-                )}
-                <span className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white border border-black/15 shadow-sm flex items-center justify-center">
-                  {avatarBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Camera className="w-4 h-4" />}
-                </span>
-              </button>
-              <input
-                ref={avatarInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={e => { const f = e.target.files?.[0]; e.target.value = ''; if (f) handleAvatarFile(f); }}
-              />
-              <p className="mt-3 text-base font-semibold">{effectiveUser?.name}</p>
-              <p className="text-sm text-muted-foreground">{effectiveUser?.email}</p>
-              <p className="mt-2 text-xs text-muted-foreground">{t('avatarUpload')}</p>
-            </CardContent>
-          </Card>
-
-          {/* Name */}
-          <Card className="rounded-4xl border border-black bg-white">
-            <CardContent className="p-5 sm:p-6 space-y-3">
-              <Label htmlFor="profile-name" className="text-sm font-semibold">{t('profileNameLabel')}</Label>
-              <div className="flex gap-2">
-                <Input
-                  id="profile-name"
-                  value={profileName}
-                  onChange={e => setProfileName(e.target.value)}
-                  onKeyDown={e => { if (e.key === 'Enter') saveProfileName(); }}
-                  maxLength={60}
-                  className="flex-1 rounded-full border-black/20 bg-white"
-                  placeholder={t('profileNameLabel')}
-                />
-                <Button
-                  onClick={saveProfileName}
-                  disabled={profileSaving || !profileName.trim() || profileName.trim() === effectiveUser?.name}
-                  className="rounded-full shrink-0 h-9 px-4"
-                >
-                  {profileSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : t('save')}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Test-taking background */}
-          <Card className="rounded-4xl border border-black bg-white">
-            <CardContent className="p-5 sm:p-6 space-y-3">
-              <div>
-                <h3 className="text-sm font-semibold">{t('profileBgTitle')}</h3>
-                <p className="text-xs text-muted-foreground mt-0.5">{t('profileBgDesc')}</p>
-              </div>
-              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2.5">
-                {/* Standard option — resets to the plain app background */}
-                <button
-                  type="button"
-                  onClick={() => saveBgStyle('')}
-                  className={`relative h-16 rounded-2xl border-2 flex items-center justify-center text-[11px] font-medium transition-all active:scale-95 ${myBgStyle === '' ? 'border-cta ring-2 ring-cta/30' : 'border-black/15 hover:border-black/40'}`}
-                  style={{ background: 'repeating-linear-gradient(45deg,#fafafa,#fafafa 8px,#f0f0f0 8px,#f0f0f0 16px)' }}
-                  title={t('profileBgStandard')}
-                >
-                  <span className="bg-white/85 rounded-full px-2 py-0.5">{t('profileBgStandard')}</span>
-                </button>
-                {TEST_BG_PRESETS.map(p => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => saveBgStyle(p.id)}
-                    className={`relative h-16 rounded-2xl border-2 transition-all active:scale-95 ${myBgStyle === p.id ? 'border-cta ring-2 ring-cta/30' : 'border-black/15 hover:border-black/40'}`}
-                    style={{ background: p.css }}
-                    title={p.id}
-                    aria-label={p.id}
-                  >
-                    {myBgStyle === p.id && (
-                      <span className="absolute inset-0 flex items-center justify-center">
-                        <CheckCircle2 className="w-6 h-6 text-cta drop-shadow" />
-                      </span>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Account actions */}
-          <Card className="rounded-4xl border border-black bg-white">
-            <CardContent className="p-5 sm:p-6 space-y-3">
-              <Button
-                variant="outline"
-                onClick={handleLogout}
-                disabled={accBusy}
-                className="w-full rounded-2xl border-black h-11 justify-start gap-2"
-              >
-                <LogOut className="w-4 h-4" /> {t('logoutBtn')}
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => setDeleteAccOpen(true)}
-                disabled={accBusy}
-                className="w-full rounded-2xl border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive h-11 justify-start gap-2"
-              >
-                <Trash2 className="w-4 h-4" /> {t('deleteAccountBtn')}
-              </Button>
-            </CardContent>
-          </Card>
-        </main>
-
-        {/* Account deletion confirmation */}
-        <AlertDialog open={deleteAccOpen} onOpenChange={setDeleteAccOpen}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>{t('deleteAccountQ')}</AlertDialogTitle>
-              <AlertDialogDescription>{t('deleteAccountWarning')}</AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={handleDeleteAccount}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              >
-                {accBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : t('deleteAccountBtn')}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </div>
+      <ProfileView
+        effectiveUser={effectiveUser}
+        myAvatar={myAvatar}
+        userInitials={userInitials}
+        myBgStyle={myBgStyle}
+        avatarBusy={avatarBusy}
+        avatarInputRef={avatarInputRef}
+        handleAvatarFile={handleAvatarFile}
+        profileName={profileName}
+        setProfileName={setProfileName}
+        profileSaving={profileSaving}
+        saveProfileName={saveProfileName}
+        saveBgStyle={saveBgStyle}
+        handleLogout={handleLogout}
+        handleDeleteAccount={handleDeleteAccount}
+        accBusy={accBusy}
+        deleteAccOpen={deleteAccOpen}
+        setDeleteAccOpen={setDeleteAccOpen}
+        setPage={setPage}
+        t={t}
+      />
     );
   }
 
-  // DASHBOARD
-  if (effectivePage === 'dashboard') {
-    // Dead share link (?test=<id> of a deleted/removed test): the whole
-    // dashboard is replaced by a bare screen — only a message and the way
-    // back to the main page, exactly as the share-link promise demands.
-    if (deadLink) {
-      return (
-        <div className="relative h-[100dvh] flex flex-col items-center justify-center bg-background px-6 text-center">
-          <span className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center mb-4">
-            <Link2 className="w-8 h-8 text-destructive" />
-          </span>
-          <h1 className="text-xl sm:text-2xl font-bold mb-2">{t('deadLinkTitle')}</h1>
-          <p className="text-sm sm:text-base text-muted-foreground max-w-sm mb-6">{t('deadLinkDesc')}</p>
-          <Button
-            onClick={() => {
-              try { window.history.replaceState({}, '', window.location.pathname); } catch {}
-              setDeadLink(false);
-            }}
-            className="rounded-full bg-primary hover:bg-primary/90 h-11 px-6"
-          >
-            <Home className="w-4 h-4 mr-2" /> {t('backHome')}
-          </Button>
-        </div>
-      );
-    }
-    const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
-    // Saved progress for the test on screen (cached read) — drives the Continue button
-    const dashSaved = curDashTest ? readTestProgress(progressUserId, curDashTest.id) : null;
-    // Library / shelf grids: slice the loaded tests into shelf rows
-    // (library = 2 cards per shelf on phones / 3 from sm up, shelf = 1 card per
-    // shelf); rows scroll endlessly
-    const gridPerRow = dashView === 'shelf' ? 1 : (dashView === 'library' && libNarrow ? 2 : 3);
-    const gridColsClass = dashView === 'shelf' ? 'grid-cols-1' : (dashView === 'library' && libNarrow ? 'grid-cols-2' : 'grid-cols-3');
-    // Grid files mode: attachments of the ONE test whose paperclip was tapped.
-    // If that test has left the loaded list (a mode switch while files mode
-    // was on), the cached full payload still covers it.
-    const gridFilesTest = gridFilesMode && gridFilesTestId
-      ? (tests.find(x => x.id === gridFilesTestId) || (dashFullTests[gridFilesTestId] as Test | undefined) || null)
-      : null;
-    const gridRows: Test[][] = [];
-    for (let i = 0; i < tests.length; i += gridPerRow) gridRows.push(tests.slice(i, i + gridPerRow));
-    const gridFiles: AttachmentItem[] = gridFilesTest
-      ? (((dashFullTests[gridFilesTest.id]?.attachments ?? gridFilesTest.attachments) || []) as AttachmentItem[]).filter(Boolean)
-      : [];
-    const gridFileRows: AttachmentItem[][] = [];
-    for (let i = 0; i < gridFiles.length; i += gridPerRow) gridFileRows.push(gridFiles.slice(i, i + gridPerRow));
-    const searchQ = dashSearch.trim();
-    const dashSearchDropdown = searchQ.length < 2 ? null : (
-      <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
-        {dashSearching ? (
-          <p className="px-3 py-3 text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}</p>
-        ) : (
-          <>
-            {dashTagInfo && !dashTagInfo.exists && (
-              <div className="px-3 py-2.5 border-b border-black/10 bg-muted/40">
-                <p className="text-sm font-medium">
-                  {t('tagNotFound', { q: dashTagInfo.query })}
-                  {dashTagInfo.created ? <span className="text-muted-foreground font-normal"> · {t('tagCreated')}</span> : null}
-                </p>
-                {(dashTagInfo.similar || []).length > 0 && (
-                  <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
-                    <span className="text-xs text-muted-foreground">{t('similarTags')}:</span>
-                    {dashTagInfo.similar.map(tg => (
-                      <button key={tg} type="button" onClick={() => setDashSearch(tg)} className="text-xs px-2 py-0.5 rounded-full border border-primary/40 text-primary hover:bg-primary/10 transition-colors">
-                        {tg}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-            {(dashSearchResults?.length || 0) === 0 ? (
-              <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
-            ) : (
-              (dashSearchResults || []).map(r => (
-                <button key={r.id} type="button" onClick={() => jumpToTest(r.id)} className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0">
-                  <p className="text-sm font-medium truncate">{r.title}</p>
-                  <p className="text-xs text-muted-foreground truncate">
-                    {(r.tags || []).length > 0 && <span className="text-primary font-medium">{(r.tags || []).slice(0, 3).join(' · ')} · </span>}
-                    {t('qCount', { n: r._count?.questions || r.questions?.length || 0 })}
-                  </p>
-                </button>
-              ))
-            )}
-          </>
-        )}
-      </div>
-    );
-
-    return (
-      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden">
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          {/* One row on EVERY viewport, no matter how many buttons: the row
-              never wraps (flex-nowrap); buttons compress to icon-only pills on
-              narrow screens. Search is a button too — when open, its input
-              overlay covers the whole row instead of pushing buttons out. */}
-          <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
-            {dashSearchOpen && (
-              <div className="absolute inset-0 z-50 bg-white flex items-center gap-2 px-3 sm:px-4 animate-in fade-in duration-150">
-                <div className="flex-1 min-w-0 relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                  <Input
-                    autoFocus
-                    value={dashSearch}
-                    onChange={e => setDashSearch(e.target.value)}
-                    onKeyDown={e => { if (e.key === 'Escape') { setDashSearchOpen(false); setDashSearch(''); } }}
-                    placeholder={t('searchByTags')}
-                    className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
-                  />
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => { setDashSearchOpen(false); setDashSearch(''); }}
-                  className="shrink-0 h-9 w-9 p-0"
-                  aria-label={t('cancel')}
-                >
-                  <X className="w-4 h-4" />
-                </Button>
-                {dashSearchDropdown}
-              </div>
-            )}
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0 min-w-0">
-              {(dashView === 'tiktok2' || viewingUser) && (
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => {
-                    if (viewingUser) { closeUserLibrary(); return; }
-                    if (gridFilesMode) { closeGridFiles(); return; }
-                    if (filesFeedMode) { closeFilesCard(); return; }
-                    backToLibrary();
-                  }}
-                  className="rounded-full shrink-0 border-black"
-                  title={viewingUser ? t('back') : t('backToLibrary')}
-                  aria-label={viewingUser ? t('back') : t('backToLibrary')}
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </Button>
-              )}
-              {/* Viewing another user's library: just their PHOTO next to the
-              back arrow (no name text — the hover/long-press tooltip carries
-              the full name). */}
-              {viewingUser && (
-                <span
-                  className="w-8 h-8 rounded-full overflow-hidden bg-cta text-white flex items-center justify-center text-xs font-extrabold shrink-0 ring-2 ring-white shadow-md"
-                  title={t('userLibraryTitle', { name: viewingUser.name })}
-                >
-                  {viewingUser.image
-                    ? <img src={viewingUser.image.startsWith('tg:') ? `/api/users/${viewingUser.id}/avatar` : viewingUser.image} alt="" className="w-full h-full object-cover" />
-                    : (viewingUser.name || '?').trim().slice(0, 1).toUpperCase() || '?'}
-                </span>
-              )}
-              <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4">
-                <Plus className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('createTest')}</span>
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => setEditMode(v => !v)}
-                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
-              >
-                <Edit className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('editTest')}</span>
-              </Button>
-            </div>
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0 ml-auto">
-              <Button
-                variant="outline"
-                onClick={() => setDashSearchOpen(true)}
-                className="rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-9"
-                title={t('searchByTags')}
-                aria-label={t('searchByTags')}
-              >
-                <Search className="w-4 h-4" />
-              </Button>
-              {/* NO files-mode buttons here on purpose: entering the attached-
-              files mode must NOT add anything to the top panel — every files
-              surface carries its own «К тестам» / back-to-test control. */}
-              {/* View button — cycles the three layouts with one tap (like the
-              language button): TikTok feed → Library → Shelf → … The icon and
-              the label always show the CURRENT view. */}
-              <Button
-                variant="outline"
-                onClick={cycleDashView}
-                className="rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4"
-                title={t('viewMode')}
-                aria-label={t('viewMode')}
-              >
-                {dashView === 'library'
-                  ? <LayoutGrid className="w-4 h-4 sm:mr-2" />
-                  : dashView === 'shelf'
-                    ? <Rows3 className="w-4 h-4 sm:mr-2" />
-                    : <Play className="w-4 h-4 sm:mr-2" />}
-                <span className="hidden sm:inline">
-                  {dashView === 'library' ? t('viewLibrary') : dashView === 'shelf' ? t('viewShelf') : t('viewTikTok')}
-                </span>
-              </Button>
-              <LangButton lang={lang} onChange={cycleLang} className="border-black px-2 sm:px-3" />
-              <div className="hidden md:block text-right min-w-0">
-                <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
-                <p className="text-xs text-muted-foreground truncate max-w-[180px]">{effectiveUser?.email}</p>
-              </div>
-              {/* Content-mode switcher — its own button now (used to live on the
-              account avatar): personal library (Library) ↔ Discover (Compass).
-              The active mode is highlighted like the Edit toggle. */}
-              <Button
-                variant="outline"
-                onClick={toggleDiscoverMode}
-                disabled={loading}
-                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 ${discoverMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
-                title={discoverMode ? `${t('modeDiscover')} · ${t('modeDiscoverHint')}` : `${t('modeMine')} · ${t('modeMineHint')}`}
-                aria-label={discoverMode ? t('modeDiscover') : t('modeMine')}
-              >
-                {discoverMode
-                  ? <Compass className="w-4 h-4 sm:mr-2" />
-                  : <Library className="w-4 h-4 sm:mr-2" />}
-                <span className="hidden sm:inline">{discoverMode ? t('modeDiscover') : t('modeMine')}</span>
-              </Button>
-              {/* Account button — opens the PROFILE page (photo, name, the
-              test-taking background, logout, account deletion). The avatar
-              shows the user's profile photo (Telegram-stored) with the
-              initials as the fallback. */}
-              <button
-                onClick={() => setPage('profile')}
-                title={t('profileTitle')}
-                aria-label={t('profileTitle')}
-                className="relative w-9 h-9 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform shrink-0 overflow-visible"
-              >
-                {myAvatar
-                  ? <img src={myAvatar} alt="" className="absolute inset-0 w-full h-full rounded-full object-cover" />
-                  : userInitials}
-              </button>
-            </div>
-          </div>
-        </header>
-
-        {tests.length === 0 && viewingLoading ? (
-          <main className="flex-1 min-h-0 flex items-center justify-center">
-            <p className="text-sm text-muted-foreground flex items-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}
-            </p>
-          </main>
-        ) : tests.length === 0 ? (
-          <main className="flex-1 min-h-0 overflow-y-auto">
-            <div className="max-w-7xl mx-auto px-4 py-6">
-              <Card className="rounded-4xl border-dashed border-black/30 bg-white">
-                <CardContent className="py-12 text-center">
-                  <FlaskConical className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                  {viewingUser ? (
-                    <>
-                      <h3 className="text-lg font-medium mb-2">{t('userLibraryTitle', { name: viewingUser.name })}</h3>
-                      <p className="text-muted-foreground">{t('theirLibraryEmpty', { name: viewingUser.name })}</p>
-                    </>
-                  ) : (
-                    <>
-                      <h3 className="text-lg font-medium mb-2">{discoverMode ? t('discoverEmptyTitle') : t('noTestsYet')}</h3>
-                      <p className="text-muted-foreground mb-4">{discoverMode ? t('discoverEmptyDesc') : t('createFirst')}</p>
-                      {!discoverMode && (
-                        <div className="flex gap-3 justify-center">
-                          <Button onClick={startCreateTest}><Plus className="w-4 h-4 mr-2" /> {t('createTest')}</Button>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-          </main>
-        ) : (
-          <>
-            {/* LIBRARY / SHELF views — endless shelves, 3 per screen, scrolling down.
-                minHeight (not fixed height): rows never clip their content — with six
-                full-name action buttons a row simply grows a bit on short screens. */}
-            {dashView === 'library' || dashView === 'shelf' ? (
-              <div key="feed-grid" ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <div className="max-w-5xl mx-auto h-full">
-                  {gridFilesMode ? (
-                    /* ATTACHED-FILES cards in the SAME grid layout — the view does not
-                    change, only the cards do: one card per attachment of the test whose
-                    paperclip was tapped. «К тестам» on a card (or under the empty
-                    text) returns to the test cards — the header stays untouched. */
-                    gridFiles.length === 0 ? (
-                      <div className="px-4 py-6 flex flex-col items-start gap-2">
-                        <p className="text-sm text-muted-foreground">{t('filesEmpty')}</p>
-                        <Button size="sm" variant="outline"
-                          onClick={exitFilesMode}
-                          title={t('backToTests')} aria-label={t('backToTests')}
-                          className="h-8 rounded-full border-black text-xs px-3"
-                        >
-                          <ArrowLeft className="size-3.5 shrink-0" /> <span>{t('backToTests')}</span>
-                        </Button>
-                      </div>
-                    ) : (
-                      gridFileRows.map((row, ri) => (
-                        <div
-                          key={ri}
-                          className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
-                          style={{ minHeight: 'calc(100% / 3)' }}
-                        >
-                          {row.map((f, ci) => dashView === 'library' ? (
-                            <div
-                              key={`${f.id || f.url}-${ci}`}
-                              role="button"
-                              tabIndex={0}
-                              onClick={() => window.open(attachmentFileUrl(f), '_blank')}
-                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
-                            >
-                              <div className="flex items-center gap-1.5 shrink-0">
-                                <span className="w-7 h-7 rounded-lg bg-[#FFF0D9] text-cta flex items-center justify-center shrink-0">
-                                  {typeIcon(f.type, 'w-4 h-4')}
-                                </span>
-                                {f.size ? <span className="text-[10px] text-muted-foreground">{formatSize(f.size)}</span> : null}
-                              </div>
-                              <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2 mt-1">{f.title}</p>
-                              <div className="mt-auto pt-1.5 flex flex-col gap-1">
-                                <Button size="sm"
-                                  onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
-                                  title={t('openFile')} aria-label={t('openFile')}
-                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
-                                </Button>
-                                <Button size="sm" variant="outline"
-                                  onClick={e => { e.stopPropagation(); closeGridFiles(); }}
-                                  title={t('backToTests')} aria-label={t('backToTests')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <ArrowLeft className="size-3 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
-                                </Button>
-                              </div>
-                            </div>
-                          ) : (
-                            <div
-                              key={`${f.id || f.url}-${ci}`}
-                              role="button"
-                              tabIndex={0}
-                              onClick={() => window.open(attachmentFileUrl(f), '_blank')}
-                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
-                            >
-                              <div className="w-20 sm:w-36 shrink-0 h-full flex flex-col items-center justify-center gap-1 p-2 text-center bg-[#FFF0D9]">
-                                <span className="text-cta">{typeIcon(f.type, 'w-6 h-6 sm:w-8 sm:h-8')}</span>
-                                <span className="text-[10px] sm:text-xs font-semibold uppercase text-cta">{f.type}</span>
-                              </div>
-                              <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
-                                <p className="text-sm sm:text-base font-bold line-clamp-2">{f.title}</p>
-                                {f.size ? <p className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">{formatSize(f.size)}</p> : null}
-                                <div className="mt-auto pt-1.5 flex flex-col gap-1">
-                                  <Button size="sm"
-                                    onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
-                                    title={t('openFile')} aria-label={t('openFile')}
-                                    className="h-7 rounded-full text-xs sm:text-sm px-2 justify-start"
-                                  >
-                                    <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
-                                  </Button>
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); closeGridFiles(); }}
-                                    title={t('backToTests')} aria-label={t('backToTests')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
-                                  >
-                                    <ArrowLeft className="size-3 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
-                                  </Button>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      ))
-                    )
-                  ) : (
-                    /* TEST cards — every card carries the FULL action set of the TikTok
-                    card with its full name, one button per line (never two on one line):
-                    Start / Restart / Attached files / Share by link / Share to community /
-                    Edit. */
-                    gridRows.map((row, ri) => (
-                      <div
-                        key={ri}
-                        className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
-                        style={{ minHeight: 'calc(100% / 3)' }}
-                      >
-                        {row.map((test, ci) => {
-                          const idx = ri * gridPerRow + ci;
-                          const totalQ = test._count?.questions || test.questions?.length || 0;
-                          // "Own" = created by THIS user. Bookmarked tests (saved
-                          // via the bookmark button) are NOT own: they show no
-                          // share buttons — pressing Edit makes an editable copy.
-                          const own = !!effectiveUser && test.creatorId === effectiveUser.id;
-                          const fcnt = (dashFullTests[test.id]?.attachments as AttachmentItem[] | undefined)?.length || test._count?.attachments || 0;
-                          const bgClass = test.coverColor ? '' : coverBgFor(test);
-                          const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
-                          return dashView === 'library' ? (
-                            <div
-                              key={test.id}
-                              role="button"
-                              tabIndex={0}
-                              onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
-                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
-                            >
-                              {/* Discover mode AND other users' libraries: author
-                              header + bookmark. The personal library keeps the
-                              card clean (you know it's yours). */}
-                              {(discoverMode || viewingUser) && (
-                                <CreatorStrip
-                                  name={(test as any).creator?.name || viewingUser?.name || ''}
-                                  creatorId={(test as any).creator?.id || test.creatorId}
-                                  image={(test as any).creator?.image || viewingUser?.image || null}
-                                  bookmarked={bookmarkIds.has(test.id)}
-                                  onToggleBookmark={() => toggleBookmark(test)}
-                                  addLabel={t('bookmarkAdd')}
-                                  removeLabel={t('bookmarkRemove')}
-                                  addShort={t('bookmarkAddShort')}
-                                  removeShort={t('bookmarkRemoveShort')}
-                                  onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
-                                  openLabel={t('openProfile')}
-                                />
-                              )}
-                              <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
-                              {/* Full-name action buttons, one per line. Start resumes
-                              saved progress; Restart always begins over; the paperclip
-                              flips this grid to the files cards of THIS test. */}
-                              <div className="mt-auto pt-1.5 flex flex-col gap-1">
-                                <Button size="sm" disabled={loading}
-                                  onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
-                                  title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
-                                </Button>
-                                <Button size="sm" variant="outline" disabled={loading}
-                                  onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
-                                  title={t('restart')} aria-label={t('restart')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
-                                </Button>
-                                {fcnt > 0 && (
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
-                                    title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                    className={`h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-0.5 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                  >
-                                    <Paperclip className="size-3 shrink-0" /> <span className="truncate [@media(max-width:399px)]:text-[9px]">{t('attachedFiles', { n: fcnt })}</span>
-                                  </Button>
-                                )}
-                                {/* Share buttons — OWN tests only. Bookmarked tests
-                                are read-only references: Edit makes a copy first. */}
-                                {!discoverMode && own && (
-                                <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
-                                  title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                  className={`h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                >
-                                  <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
-                                </Button>
-                                )}
-                                {!discoverMode && own && (
-                                <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
-                                  title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                  className={`h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                >
-                                  <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
-                                </Button>
-                                )}
-                                <Button size="sm" variant="outline"
-                                  onClick={e => { e.stopPropagation(); startEditTest(test); }}
-                                  title={t('editTest')} aria-label={t('editTest')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
-                                </Button>
-                                {/* Unpin — BOOKMARKED tests in the personal library:
-                                the test got here via the bookmark button, this row
-                                takes it back out (Discover keeps its own toggle on
-                                the author strip). */}
-                                {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
-                                <Button size="sm" variant="outline"
-                                  onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
-                                  title={t('unpinBtn')} aria-label={t('unpinBtn')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
-                                </Button>
-                                )}
-                                {/* Delete — own tests only (the server refuses
-                                anyone else): the confirm dialog spells out what
-                                disappears with the test — library and community
-                                entries + the share link. */}
-                                {own && (
-                                <Button size="sm" variant="outline"
-                                  onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
-                                  title={t('deleteTest')} aria-label={t('deleteTest')}
-                                  className="h-7 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
-                                </Button>
-                                )}
-                              </div>
-                            </div>
-                          ) : (
-                            <div
-                              key={test.id}
-                              role="button"
-                              tabIndex={0}
-                              onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
-                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
-                            >
-                              <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
-                                <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
-                              </div>
-                              <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
-                                {/* Discover mode AND other users' libraries: author
-                                header + bookmark on the shelf card too */}
-                                {(discoverMode || viewingUser) && (
-                                  <CreatorStrip
-                                    name={(test as any).creator?.name || viewingUser?.name || ''}
-                                    creatorId={(test as any).creator?.id || test.creatorId}
-                                    image={(test as any).creator?.image || viewingUser?.image || null}
-                                    bookmarked={bookmarkIds.has(test.id)}
-                                    onToggleBookmark={() => toggleBookmark(test)}
-                                    addLabel={t('bookmarkAdd')}
-                                    removeLabel={t('bookmarkRemove')}
-                                    addShort={t('bookmarkAddShort')}
-                                    removeShort={t('bookmarkRemoveShort')}
-                                    onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
-                                    openLabel={t('openProfile')}
-                                  />
-                                )}
-                                {/* Title lives on the spine only — no duplicate text in
-                                the content area */}
-                                <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
-                                <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
-                                {/* Full-name action buttons, one per line — the whole
-                                TikTok-card action set on every shelf card */}
-                                <div className="mt-auto pt-1.5 flex flex-col gap-1">
-                                  <Button size="sm" disabled={loading}
-                                    onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
-                                    title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                                    className="h-7 rounded-full text-xs sm:text-sm px-2 justify-start"
-                                  >
-                                    <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
-                                  </Button>
-                                  <Button size="sm" variant="outline" disabled={loading}
-                                    onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
-                                    title={t('restart')} aria-label={t('restart')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
-                                  >
-                                    <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
-                                  </Button>
-                                  {fcnt > 0 && (
-                                    <Button size="sm" variant="outline"
-                                      onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
-                                      title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                      className={`h-7 rounded-full text-xs sm:text-sm px-2 justify-start ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                    >
-                                      <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
-                                    </Button>
-                                  )}
-                                  {/* Share buttons — OWN tests only (bookmarked tests
-                                  get an editable copy via Edit first) */}
-                                  {!discoverMode && own && (
-                                  <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                    onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
-                                    title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                    className={`h-7 rounded-full text-xs sm:text-sm px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                  >
-                                    <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
-                                  </Button>
-                                  )}
-                                  {!discoverMode && own && (
-                                  <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                    onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
-                                    title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                    className={`h-7 rounded-full text-xs sm:text-sm px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                  >
-                                    <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
-                                  </Button>
-                                  )}
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); startEditTest(test); }}
-                                    title={t('editTest')} aria-label={t('editTest')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
-                                  >
-                                    <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
-                                  </Button>
-                                  {/* Unpin — bookmarked tests in the personal
-                                  library (shelf row): removes the test from the
-                                  personal library, same toggle as Discover */}
-                                  {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
-                                    title={t('unpinBtn')} aria-label={t('unpinBtn')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
-                                  >
-                                    <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
-                                  </Button>
-                                  )}
-                                  {/* Delete — own tests only, same as the library
-                                  card: dialog confirms, then the test leaves the
-                                  library, the community and its link dies. */}
-                                  {own && (
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
-                                    title={t('deleteTest')} aria-label={t('deleteTest')}
-                                    className="h-7 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-xs sm:text-sm px-2 justify-start"
-                                  >
-                                    <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
-                                  </Button>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    ))
-                  )}
-                  {!gridFilesMode && (
-                    <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
-                  )}
-                </div>
-              </div>
-            ) : filesFeedMode ? (
-              /* FILES feed — one attachment per slide; the flow runs through this
-              test's files, then continues into the next recommended test's files.
-              Header and bottom bar stay untouched; the on-card button returns. */
-              <div
-                key="feed-files"
-                ref={dashFeedRef}
-                onScroll={onDashScroll}
-                onTouchStart={onDashTouchStart}
-                onTouchMove={onDashTouchStart}
-                onTouchEnd={onDashTouchEnd}
-                onTouchCancel={onDashTouchEnd}
-                onWheel={onDashWheel}
-                className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-              >
-                {fileSlides.length === 0 ? (
-                  <section className="h-full snap-start snap-always flex items-center justify-center">
-                    <p className="text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}</p>
-                  </section>
-                ) : fileSlides.map((s, i) => {
-                  const test = s.test;
-                  const bgClass = test.coverColor ? '' : coverBgFor(test);
-                  const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
-                  return (
-                    <section key={`${test.id}`} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
-                      <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
-                        <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
-                          <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
-                            <p className="text-xs font-semibold text-foreground/70 line-clamp-1">{test.title}</p>
-                            <p className="text-base sm:text-lg font-bold leading-snug">{t('attachedFiles', { n: s.count })}</p>
-                          </div>
-                          {/* ALL of the test's files in ONE scrollable card */}
-                          <div className="flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                            <AttachmentsList items={s.files} />
-                          </div>
-                          <button
-                            type="button"
-                            onClick={closeFilesCard}
-                            className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors"
-                          >
-                            <Paperclip className="w-4 h-4 shrink-0 text-cta" />
-                            <span className="font-semibold text-sm">{t('attachedFiles', { n: s.count })}</span>
-                            <span className="ml-auto text-xs text-muted-foreground">{t('backToTest')}</span>
-                          </button>
-                          <p className="shrink-0 text-center text-[11px] text-foreground/70">
-                            {filesFeedTestId ? t('backToTest') : t('swipeNextTestFiles')}
-                          </p>
-                        </div>
-                      </div>
-                    </section>
-                  );
-                })}
-                <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
-              </div>
-            ) : (
-            /* TikTok-style vertical feed — swipe up/down between tests */
-            <div
-              key="feed-tiktok"
-              ref={dashFeedRef}
-              onScroll={onDashScroll}
-              onTouchStart={onDashTouchStart}
-              onTouchMove={onDashTouchStart}
-              onTouchEnd={onDashTouchEnd}
-              onTouchCancel={onDashTouchEnd}
-              onWheel={onDashWheel}
-              className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {tests.map((test, idx) => {
-                const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
-                const totalQ = test._count?.questions || test.questions?.length || 0;
-                // Own test vs a bookmarked one (saved from Discover): bookmarked
-                // tests show no share controls — Edit copies them first.
-                const own = !!effectiveUser && test.creatorId === effectiveUser.id;
-                const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
-                // Publication variant SAVED with the test drives the share selector's
-                // initial highlight; a share tap re-highlights the last used option
-                const savedScope: 'link' | 'community' = test.isPublic === false ? 'link' : 'community';
-                const activeScope = shareScopeByTest[test.id] || savedScope;
-                // Explicitly picked color wins; otherwise derive from the first tag / topic
-                const bgClass = test.coverColor ? '' : coverBgFor(test);
-                const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
-                return (
-                  // overflow-hidden: the card always fits the screen — no scrolling
-                  // inside a card, swipes only move between cards
-                  <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
-                    <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
-                      <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
-                        {/* Discover mode AND other users' libraries: author header
-                        with the bookmark toggle, right above the cover. Personal
-                        library stays clean. */}
-                        {(discoverMode || viewingUser) && (
-                          <CreatorStrip
-                            name={(test as any).creator?.name || viewingUser?.name || ''}
-                            creatorId={(test as any).creator?.id || test.creatorId}
-                            image={(test as any).creator?.image || viewingUser?.image || null}
-                            bookmarked={bookmarkIds.has(test.id)}
-                            onToggleBookmark={() => toggleBookmark(test)}
-                            addLabel={t('bookmarkAdd')}
-                            removeLabel={t('bookmarkRemove')}
-                            addShort={t('bookmarkAddShort')}
-                            removeShort={t('bookmarkRemoveShort')}
-                            onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
-                            openLabel={t('openProfile')}
-                          />
-                        )}
-                        {/* Cover header — title on the colored band (logo picker removed) */}
-                        <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden">
-                          <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
-                            <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{test.title}</p>
-                          </div>
-                        </div>
-
-                        {isCur && editMode && (
-                          <div className="shrink-0 space-y-2 text-center">
-                            <p className="text-xs text-muted-foreground">{t('editModeOn')}</p>
-                            {test.creatorId === effectiveUser?.id && (
-                              <Button size="sm" variant="outline" className="rounded-full border-black text-destructive hover:bg-destructive/10" onClick={() => setDeleteId(test.id)}>
-                                <Trash2 className="w-3 h-3 mr-1" /> {t('deleteTest')}
-                              </Button>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Controls on every slide — nothing pops in mid-swipe */}
-                        {!editMode && (
-                          <>
-                            {/* Question count — editable counter + slider */}
-                            <div className="shrink-0 space-y-2 sm:space-y-3">
-                              <div className="flex items-center justify-center gap-4">
-                                <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.max(1, selectedQuestionCount - 1))} disabled={selectedQuestionCount <= 1}>
-                                  <Minus className="w-4 h-4" />
-                                </Button>
-                                <input
-                                  type="number"
-                                  inputMode="numeric"
-                                  min={1}
-                                  max={totalQ}
-                                  value={selectedQuestionCount}
-                                  onChange={e => {
-                                    if (e.target.value === '') return;
-                                    const v = Math.round(Number(e.target.value));
-                                    if (Number.isNaN(v)) return;
-                                    setSelectedQuestionCount(Math.min(totalQ, Math.max(1, v)));
-                                  }}
-                                  onBlur={e => { if (e.target.value === '') setSelectedQuestionCount(1); }}
-                                  aria-label="Number of questions"
-                                  className="text-2xl sm:text-3xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-0.5 sm:py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                />
-                                <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.min(totalQ, selectedQuestionCount + 1))} disabled={selectedQuestionCount >= totalQ}>
-                                  <Plus className="w-4 h-4" />
-                                </Button>
-                              </div>
-                              <div className="px-4 sm:px-6">
-                                <input
-                                  type="range"
-                                  min={1}
-                                  max={totalQ}
-                                  value={selectedQuestionCount}
-                                  onChange={e => setSelectedQuestionCount(Number(e.target.value))}
-                                  className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-[#fe5933]"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Test mode */}
-                            <div className="shrink-0 grid grid-cols-2 gap-2">
-                              <button
-                                onClick={() => setPracticeMode(false)}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
-                                  !practiceMode
-                                    ? 'border-cta bg-[#FFF0D9] shadow-md'
-                                    : 'border-transparent bg-muted/50 hover:bg-muted'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <ListChecks className="w-4 h-4 text-cta" />
-                                  <span className="font-semibold text-sm">{t('examMode')}</span>
-                                </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('seeResultsEnd')}</p>
-                              </button>
-                              <button
-                                onClick={() => setPracticeMode(true)}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
-                                  practiceMode
-                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
-                                    : 'border-transparent bg-muted/50 hover:bg-muted'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <BookOpen className="w-4 h-4 text-primary" />
-                                  <span className="font-semibold text-sm">{t('practiceMode')}</span>
-                                </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('seeAnswerNow')}</p>
-                              </button>
-                            </div>
-
-                            {/* Randomization — tap a card to toggle, styled like the mode cards */}
-                            <div className="shrink-0 grid grid-cols-2 gap-2">
-                              <button
-                                type="button"
-                                onClick={() => setStartRandomizeQ(v => !v)}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
-                                  startRandomizeQ
-                                    ? 'border-cta bg-[#FFF0D9] shadow-md'
-                                    : 'border-transparent bg-muted/50 hover:bg-muted'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <Shuffle className="w-4 h-4 text-cta shrink-0" />
-                                  <span className="font-semibold text-sm">{t('randomizeQuestions')}</span>
-                                </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{startRandomizeQ ? t('qShuffled') : t('qOriginal')}</p>
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => setStartRandomizeO(v => !v)}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
-                                  startRandomizeO
-                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
-                                    : 'border-transparent bg-muted/50 hover:bg-muted'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <Shuffle className="w-4 h-4 text-primary shrink-0" />
-                                  <span className="font-semibold text-sm">{t('randomizeAnswers')}</span>
-                                </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{startRandomizeO ? t('aShuffled') : t('aOriginal')}</p>
-                              </button>
-                            </div>
-
-                            {/* Share — radio-style scope selector: the chosen option
-                            lights up red (like the randomize cards) and the share
-                            fires for this test; only one option can be lit.
-                            Discover mode and BOOKMARKED tests hide it: others'
-                            tests are browsed, not published — Edit copies first. */}
-                            {!discoverMode && own && (
-                            <div className="shrink-0 grid grid-cols-2 gap-2">
-                              <button
-                                type="button"
-                                onClick={() => { setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
-                                disabled={!!shareBusy}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left disabled:opacity-60 ${
-                                  activeScope === 'link'
-                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
-                                    : 'border-transparent bg-muted/50 hover:bg-muted'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <Link2 className="w-4 h-4 text-cta shrink-0" />
-                                  <span className="font-semibold text-sm">{t('shareOptLink')}</span>
-                                </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptLinkSub')}</p>
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => { setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
-                                disabled={!!shareBusy}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left disabled:opacity-60 ${
-                                  activeScope === 'community'
-                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
-                                    : 'border-transparent bg-muted/50 hover:bg-muted'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <Users className="w-4 h-4 text-primary shrink-0" />
-                                  <span className="font-semibold text-sm">{t('shareOptCommunity')}</span>
-                                </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptCommunitySub')}</p>
-                              </button>
-                            </div>
-                            )}
-
-                            {/* Unpin — bookmarked tests viewed in the personal
-                            feed: the test got here via the bookmark button, this
-                            row takes it back out of the personal library */}
-                            {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
-                              <button
-                                type="button"
-                                onClick={() => toggleBookmark(test)}
-                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors"
-                              >
-                                <BookmarkX className="w-4 h-4 shrink-0" />
-                                <span className="font-semibold text-sm">{t('unpinBtn')}</span>
-                              </button>
-                            )}
-
-                            {/* Delete — own tests only, visible in every view
-                            and content mode (an own public test can be deleted
-                            straight from Discover too). The confirm dialog
-                            explains everything that dies with the test. */}
-                            {own && (
-                              <button
-                                type="button"
-                                onClick={() => setDeleteId(test.id)}
-                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-destructive/50 bg-white px-3 py-2 sm:py-2.5 text-left text-destructive hover:bg-destructive/10 transition-colors"
-                              >
-                                <Trash2 className="w-4 h-4 shrink-0" />
-                                <span className="font-semibold text-sm">{t('deleteTest')}</span>
-                              </button>
-                            )}
-
-                            {/* Attached files — flips the feed to the FILES mode:
-                            this test's files in one card; the button (and the
-                            header files toggle) returns to this card */}
-                            {files.length > 0 && (
-                              <button
-                                type="button"
-                                onClick={() => { if (filesFeedMode && filesFeedTestId === test.id) closeFilesCard(); else openFilesCard(test); }}
-                                className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 text-left transition-colors ${filesFeedMode && filesFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
-                              >
-                                <Paperclip className="w-4 h-4 shrink-0" />
-                                <span className="font-semibold text-sm">{t('attachedFiles', { n: files.length })}</span>
-                                <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
-                              </button>
-                            )}
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </section>
-                );
-              })}
-
-              {/* Invisible pagination sentinel — silently appends more tests */}
-              <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
-            </div>
-            )}
-
-            {/* Bottom bar — Start Test for the test on screen. In files mode it
-            stays EXACTLY the same (dashTestIdx follows the visible slide's test);
-            hidden in the grid views where each card carries its own Start. */}
-            {dashView !== 'library' && dashView !== 'shelf' && (
-            <div className="shrink-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
-              <div
-                className="max-w-2xl mx-auto px-4 pt-3"
-                style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
-              >
-                {editMode ? (
-                  <Button
-                    onClick={() => curDashTest && startEditTest(curDashTest)}
-                    className="w-full rounded-full bg-cta hover:bg-cta/90 text-white"
-                  >
-                    <Edit className="w-4 h-4 mr-2" /> {t('editThisTest')}
-                  </Button>
-                ) : dashSaved ? (
-                  <div className="flex flex-col gap-2">
-                    <Button variant="outline" onClick={() => startFromDashboard(true)} disabled={loading || !curDashTest} className="w-full rounded-full">
-                      <RefreshCw className="w-4 h-4 mr-2" /> {t('restart')}
-                    </Button>
-                    <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                      {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {t('continueTest', { n: countAnsweredProgress(dashSaved), m: dashSaved.shuffledQuestions.length })}</>}
-                    </Button>
-                  </div>
-                ) : (
-                  <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                    {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {practiceMode ? t('startPractice', { count: selectedQuestionCount }) : t('startTestN', { count: selectedQuestionCount })}</>}
-                  </Button>
-                )}
-              </div>
-            </div>
-            )}
-          </>
-        )}
-
-        <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>{t('deleteTestQ')}</AlertDialogTitle>
-              <AlertDialogDescription>{t('deleteWarning')}</AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
-              <AlertDialogAction onClick={() => deleteId && handleDeleteTest(deleteId)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">{t('delete')}</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </div>
-    );
-  }
-
-  // Editor form body — shared by the full-page editor AND the take-test
-  // "Edit Test" bottom sheet: one source of truth, identical form in both.
   const editorBody = (
     <>
           <Card className="rounded-4xl border border-black bg-white overflow-hidden">
@@ -4197,1413 +2759,269 @@ export default function ChemTestApp() {
     </>
   );
 
-  // CREATE / EDIT TEST
+  // DASHBOARD (view extracted to src/components/pages/dashboard-view.tsx)
+  if (effectivePage === 'dashboard') {
+    return (
+      <DashboardView
+        effectivePage={effectivePage}
+        dashFullTests={dashFullTests}
+        bookmarkIds={bookmarkIds}
+        shareScopeByTest={shareScopeByTest}
+        setShareScopeByTest={setShareScopeByTest}
+        page={page}
+        deadLink={deadLink}
+        t={t}
+        setDeadLink={setDeadLink}
+        tests={tests}
+        dashTestIdx={dashTestIdx}
+        progressUserId={progressUserId}
+        dashView={dashView}
+        libNarrow={libNarrow}
+        gridFilesMode={gridFilesMode}
+        gridFilesTestId={gridFilesTestId}
+        dashSearch={dashSearch}
+        dashSearching={dashSearching}
+        loading={loading}
+        dashTagInfo={dashTagInfo}
+        setDashSearch={setDashSearch}
+        dashSearchResults={dashSearchResults}
+        jumpToTest={jumpToTest}
+        questions={questions}
+        dashSearchOpen={dashSearchOpen}
+        setDashSearchOpen={setDashSearchOpen}
+        viewingUser={viewingUser}
+        closeUserLibrary={closeUserLibrary}
+        closeGridFiles={closeGridFiles}
+        filesFeedMode={filesFeedMode}
+        closeFilesCard={closeFilesCard}
+        backToLibrary={backToLibrary}
+        user={user}
+        name={name}
+        startCreateTest={startCreateTest}
+        setEditMode={setEditMode}
+        editMode={editMode}
+        cycleDashView={cycleDashView}
+        lang={lang}
+        cycleLang={cycleLang}
+        effectiveUser={effectiveUser}
+        email={email}
+        toggleDiscoverMode={toggleDiscoverMode}
+        discoverMode={discoverMode}
+        setPage={setPage}
+        myAvatar={myAvatar}
+        userInitials={userInitials}
+        viewingLoading={viewingLoading}
+        dashFeedRef={dashFeedRef}
+        exitFilesMode={exitFilesMode}
+        startEditTest={startEditTest}
+        openFromLibrary={openFromLibrary}
+        toggleBookmark={toggleBookmark}
+        openUserLibrary={openUserLibrary}
+        setDashTestIdx={setDashTestIdx}
+        startFromDashboard={startFromDashboard}
+        toggleGridFiles={toggleGridFiles}
+        shareBusy={shareBusy}
+        doShare={doShare}
+        setDeleteId={setDeleteId}
+        feedSentinelRef={feedSentinelRef}
+        onDashScroll={onDashScroll}
+        onDashTouchStart={onDashTouchStart}
+        onDashTouchEnd={onDashTouchEnd}
+        onDashWheel={onDashWheel}
+        fileSlides={fileSlides}
+        filesFeedTestId={filesFeedTestId}
+        setSelectedQuestionCount={setSelectedQuestionCount}
+        selectedQuestionCount={selectedQuestionCount}
+        setPracticeMode={setPracticeMode}
+        practiceMode={practiceMode}
+        setStartRandomizeQ={setStartRandomizeQ}
+        startRandomizeQ={startRandomizeQ}
+        setStartRandomizeO={setStartRandomizeO}
+        startRandomizeO={startRandomizeO}
+        openFilesCard={openFilesCard}
+        shuffledQuestions={shuffledQuestions}
+        deleteId={deleteId}
+        handleDeleteTest={handleDeleteTest}
+        editorBody={editorBody}
+        setEditorInfoExpanded={setEditorInfoExpanded}
+        editorInfoExpanded={editorInfoExpanded}
+        testTitle={testTitle}
+        setTestTitle={setTestTitle}
+        testTags={testTags}
+        removeTag={removeTag}
+        tagInput={tagInput}
+        setTagInput={setTagInput}
+        setTagsOpen={setTagsOpen}
+        setAllTags={setAllTags}
+        addTag={addTag}
+        setTestTags={setTestTags}
+        tagsOpen={tagsOpen}
+        tagSuggestions={tagSuggestions}
+        testDescription={testDescription}
+        setTestDescription={setTestDescription}
+        setTestIsPublic={setTestIsPublic}
+        testIsPublic={testIsPublic}
+        setEditorFilesExpanded={setEditorFilesExpanded}
+        formAttachments={formAttachments}
+        editorFilesExpanded={editorFilesExpanded}
+        setFormAttachments={setFormAttachments}
+        setEditorCoverExpanded={setEditorCoverExpanded}
+        editorCoverExpanded={editorCoverExpanded}
+        setTestCoverColor={setTestCoverColor}
+        testCoverColor={testCoverColor}
+        setEditorQuestionsExpanded={setEditorQuestionsExpanded}
+        editorQuestionsExpanded={editorQuestionsExpanded}
+        setQuestions={setQuestions}
+        addQuestion={addQuestion}
+        removeQuestion={removeQuestion}
+        updateQuestion={updateQuestion}
+        photoBusy={photoBusy}
+        pickQuestionPhoto={pickQuestionPhoto}
+        clearQuestionPhoto={clearQuestionPhoto}
+        pickOptionPhoto={pickOptionPhoto}
+        clearOptionPhoto={clearOptionPhoto}
+      />
+    );
+  }
+
+  // CREATE / EDIT TEST (view extracted to src/components/pages/create-edit-view.tsx)
   if (effectivePage === 'create-test' || effectivePage === 'edit-test') {
     return (
-      <div className="min-h-screen bg-background">
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
-            <h1 className="text-lg font-bold">{editingTestId ? t('editTest') : t('createNewTest')}</h1>
-          </div>
-        </header>
-
-        <main className="max-w-4xl mx-auto px-4 pt-6 pb-32 space-y-6">
-          {editorBody}
-        </main>
-
-        {/* Bottom action bar — fixed to the screen edge, never rises with content */}
-        <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
-          <div
-            className="max-w-4xl mx-auto px-4 pt-3"
-            style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
-          >
-            <Button onClick={() => handleSaveTest()} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
-              {loading ? t('saving') : editingTestId ? t('save') : t('createTest')}
-            </Button>
-          </div>
-        </div>
-      </div>
+      <CreateEditView
+        editingTestId={editingTestId}
+        editorBody={editorBody}
+        handleSaveTest={handleSaveTest}
+        loading={loading}
+        goHome={goHome}
+        t={t}
+      />
     );
   }
 
-  // START TEST - select number of questions + mode selection
+  // START TEST (view extracted to src/components/pages/start-test-view.tsx)
   if (effectivePage === 'start-test' && currentTest) {
-    const totalQ = currentTest.questions.length;
-
     return (
-      <div className="min-h-screen bg-background" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
-            <h1 className="text-lg font-bold">{t('startTest')}</h1>
-          </div>
-        </header>
-
-        <main className="max-w-2xl mx-auto px-4 pt-8 pb-32">
-          <Card className="border-0 shadow-lg">
-            <CardHeader className="text-center">
-              <div className="mx-auto w-16 h-16 bg-cta rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-                <ListChecks className="w-8 h-8 text-white" />
-              </div>
-              <CardTitle className="text-xl">{currentTest.title}</CardTitle>
-              {currentTest.description && <CardDescription className="mt-2">{currentTest.description}</CardDescription>}
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Question Count Selection */}
-              <div className="space-y-4">
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-1">{t('howMany')}</h3>
-                  <p className="text-sm text-muted-foreground">{t('chooseHowMany')}</p>
-                </div>
-
-                {/* Counter — tap the number to type an exact value */}
-                <div className="flex items-center justify-center gap-4">
-                  <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.max(1, selectedQuestionCount - 1))} disabled={selectedQuestionCount <= 1}>
-                    <Minus className="w-4 h-4" />
-                  </Button>
-                  <input
-                    type="number"
-                    inputMode="numeric"
-                    min={1}
-                    max={totalQ}
-                    value={selectedQuestionCount}
-                    onChange={e => {
-                      if (e.target.value === '') return;
-                      const v = Math.round(Number(e.target.value));
-                      if (Number.isNaN(v)) return;
-                      setSelectedQuestionCount(Math.min(totalQ, Math.max(1, v)));
-                    }}
-                    onBlur={e => {
-                      if (e.target.value === '') setSelectedQuestionCount(1);
-                    }}
-                    aria-label={t('numQuestions')}
-                    className="text-3xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  />
-                  <Button variant="outline" size="icon" onClick={() => setSelectedQuestionCount(Math.min(totalQ, selectedQuestionCount + 1))} disabled={selectedQuestionCount >= totalQ}>
-                    <Plus className="w-4 h-4" />
-                  </Button>
-                </div>
-
-                {/* Slider */}
-                <div className="px-4">
-                  <input
-                    type="range"
-                    min={1}
-                    max={totalQ}
-                    value={selectedQuestionCount}
-                    onChange={e => setSelectedQuestionCount(Number(e.target.value))}
-                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-[#fe5933]"
-                  />
-                </div>
-              </div>
-
-              <Separator />
-
-              {/* Mode Selection */}
-              <div className="space-y-3">
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-1">{t('testMode')}</h3>
-                  <p className="text-sm text-muted-foreground">{t('chooseHowTake')}</p>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    onClick={() => setPracticeMode(false)}
-                    className={`p-4 rounded-xl border-2 transition-all text-left ${
-                      !practiceMode
-                        ? 'border-cta bg-[#FFF0D9] shadow-md'
-                        : 'border-transparent bg-muted/50 hover:bg-muted'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <ListChecks className="w-5 h-5 text-cta" />
-                      <span className="font-semibold text-sm">{t('examMode')}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">{t('seeResultsEnd')}</p>
-                  </button>
-                  <button
-                    onClick={() => setPracticeMode(true)}
-                    className={`p-4 rounded-xl border-2 transition-all text-left ${
-                      practiceMode
-                        ? 'border-primary bg-[#FFE8DE] shadow-md'
-                        : 'border-transparent bg-muted/50 hover:bg-muted'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <BookOpen className="w-5 h-5 text-primary" />
-                      <span className="font-semibold text-sm">{t('practiceMode')}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">{t('seeAnswerNow')}</p>
-                  </button>
-                </div>
-              </div>
-
-              <Separator />
-
-              {/* Randomization Settings */}
-              <div className="space-y-3">
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-1">{t('randomization')}</h3>
-                  <p className="text-sm text-muted-foreground">{t('chooseOrder')}</p>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setStartRandomizeQ(v => !v)}
-                    className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
-                      startRandomizeQ
-                        ? 'border-cta bg-[#FFF0D9] shadow-md'
-                        : 'border-transparent bg-muted/50 hover:bg-muted'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <Shuffle className="w-4 h-4 text-cta shrink-0" />
-                      <span className="font-semibold text-sm">{t('randomizeQuestions')}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">{startRandomizeQ ? t('qShuffled') : t('qOriginal')}</p>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setStartRandomizeO(v => !v)}
-                    className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
-                      startRandomizeO
-                        ? 'border-primary bg-[#FFE8DE] shadow-md'
-                        : 'border-transparent bg-muted/50 hover:bg-muted'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <Shuffle className="w-4 h-4 text-primary shrink-0" />
-                      <span className="font-semibold text-sm">{t('randomizeAnswers')}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">{startRandomizeO ? t('aShuffled') : t('aOriginal')}</p>
-                  </button>
-                </div>
-              </div>
-
-              <Separator />
-
-              {/* Attached files — collapsed to a one-line header by default; arrow expands/collapses */}
-              {(currentTest.attachments?.length || 0) > 0 && (
-                <div className="rounded-2xl border border-black bg-white overflow-hidden">
-                  <button
-                    onClick={() => setStartFilesExpanded(v => !v)}
-                    className="w-full flex items-center gap-1.5 px-4 py-3 text-left hover:bg-muted/50 transition-colors"
-                  >
-                    <Paperclip className="w-4 h-4 shrink-0" />
-                    <span className="font-semibold text-sm">{t('attachedFiles', { n: currentTest.attachments!.length })}</span>
-                    {startFilesExpanded ? (
-                      <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 ml-auto shrink-0" />
-                    )}
-                  </button>
-                  {startFilesExpanded && (
-                    <div className="px-4 pb-4">
-                      <p className="text-xs text-muted-foreground mb-2">
-                        {t('startFilesHint')}
-                      </p>
-                      <AttachmentsList items={currentTest.attachments as AttachmentItem[]} />
-                    </div>
-                  )}
-                </div>
-              )}
-
-            </CardContent>
-          </Card>
-        </main>
-
-        {/* Bottom bar — fixed to the screen edge, never rises with content */}
-        <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
-          <div
-            className="max-w-2xl mx-auto px-4 pt-3"
-            style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
-          >
-            {savedProgress && savedProgress.shuffledQuestions.length > 0 ? (
-              <div className="flex flex-col gap-2">
-                <Button
-                  variant="outline"
-                  onClick={startTest}
-                  disabled={loading}
-                  className="w-full rounded-full"
-                  aria-label={t('startOver')}
-                >
-                  <RefreshCw className="w-4 h-4 mr-2" /> {t('restart')}
-                </Button>
-                <Button
-                  onClick={() => continueTestWith(currentTest!)}
-                  disabled={loading}
-                  className="w-full rounded-full bg-primary hover:bg-primary/90"
-                >
-                  {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {t('continueTest', { n: countAnsweredProgress(savedProgress), m: savedProgress.shuffledQuestions.length })}</>}
-                </Button>
-              </div>
-            ) : (
-              <Button onClick={startTest} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {practiceMode ? t('startPractice', { count: selectedQuestionCount }) : t('startTestN', { count: selectedQuestionCount })}</>}
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
+      <StartTestView
+        currentTest={currentTest}
+        myBgStyle={myBgStyle}
+        selectedQuestionCount={selectedQuestionCount}
+        setSelectedQuestionCount={setSelectedQuestionCount}
+        practiceMode={practiceMode}
+        setPracticeMode={setPracticeMode}
+        startRandomizeQ={startRandomizeQ}
+        setStartRandomizeQ={setStartRandomizeQ}
+        startRandomizeO={startRandomizeO}
+        setStartRandomizeO={setStartRandomizeO}
+        startFilesExpanded={startFilesExpanded}
+        setStartFilesExpanded={setStartFilesExpanded}
+        savedProgress={savedProgress}
+        startTest={startTest}
+        continueTestWith={continueTestWith}
+        loading={loading}
+        goHome={goHome}
+        t={t}
+      />
     );
   }
 
-  // TAKE TEST
+  // TAKE TEST + RESULTS (view extracted to src/components/pages/take-test-view.tsx)
   if (effectivePage === 'take-test' && shuffledQuestions.length > 0) {
-    const currentQ = shuffledQuestions[currentQuestionIdx];
-    const progressPct = ((currentQuestionIdx + 1) / shuffledQuestions.length) * 100;
-    const answeredCount = Object.keys(answers).length;
-
-    // Navigate to a question and close any open chat sheet
-    const goToQuestion = (idx: number) => {
-      setCurrentQuestionIdx(idx);
-      if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); setChatThreadId(''); }
-    };
-
-    // Question search (take-test header): filter this test's questions by text
-    // or option content; selecting a result jumps straight to that question.
-    const qlc = qSearch.trim().toLowerCase();
-    const qResults = qlc ? shuffledQuestions
-      .map((q: any, qIdx: number) => ({ q, qIdx }))
-      .filter(({ q }) =>
-        trText(q, lang).toLowerCase().includes(qlc) ||
-        ['A', 'B', 'C', 'D', 'E'].some(L => (trOption(q, L, lang) || '').toLowerCase().includes(qlc))
-      )
-      .slice(0, 12) : [];
-    const qSearchDropdown = !qlc ? null : (
-      <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
-        {qResults.length === 0 ? (
-          <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
-        ) : qResults.map(({ q, qIdx }) => (
-          <button
-            key={q.id || qIdx}
-            type="button"
-            onClick={() => { goToQuestion(qIdx); setQSearch(''); setQSearchOpen(false); }}
-            className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0 flex items-start gap-2"
-          >
-            <Badge variant="secondary" className="rounded-full shrink-0">{qIdx + 1}</Badge>
-            <span className="text-sm line-clamp-2"><MathText text={trText(q, lang)} /></span>
-          </button>
-        ))}
-      </div>
-    );
-    const jumpToQuestion = (raw: string) => {
-      const digits = (raw || '').replace(/[^0-9]/g, '');
-      const n = digits ? parseInt(digits, 10) : NaN;
-      if (!Number.isNaN(n) && n >= 1 && n <= shuffledQuestions.length) goToQuestion(n - 1);
-      setDrumInputMode(false);
-      if (numInputRef.current) numInputRef.current.value = '';
-    };
-
-    // Drum scroll: magnify around the center in real time; when the strip settles,
-    // select the number closest to the glass (skips programmatic scrolls)
-    const onDrumScroll = () => {
-      if (!drumScaleRafRef.current) {
-        drumScaleRafRef.current = requestAnimationFrame(() => {
-          drumScaleRafRef.current = 0;
-          applyDrumScales();
-        });
-      }
-      if (drumSettleTimerRef.current) clearTimeout(drumSettleTimerRef.current);
-      drumSettleTimerRef.current = setTimeout(() => {
-        const c = drumRef.current;
-        if (!c || Date.now() - drumProgrammaticRef.current < 300) return;
-        const mid = c.getBoundingClientRect().left + c.clientWidth / 2;
-        let best = 0;
-        let bestDist = Infinity;
-        (Array.from(c.children) as HTMLElement[]).forEach((k, i) => {
-          const r = k.getBoundingClientRect();
-          const d = Math.abs(r.left + r.width / 2 - mid);
-          if (d < bestDist) { bestDist = d; best = i; }
-        });
-        if (best !== currentQuestionIdx && best >= 0 && best < shuffledQuestions.length) goToQuestion(best);
-      }, 150);
-    };
-
-    // Feed scroll: commit the question switch only AFTER the swipe settles.
-    // Switching mid-gesture re-renders every slide while the card is still
-    // moving (visible stutter) and lets the sync effect yank the card under
-    // the finger — so we wait until scrolling comes to rest and the finger
-    // is up, then select the slide closest to the viewport (TikTok-style).
-    const feedSettleCommit = () => {
-      takeFeedSettleTimerRef.current = null;
-      const c = takeFeedRef.current;
-      if (!c || c.clientHeight === 0) return;
-      if (Date.now() < takeFeedTouchUntilRef.current) return;
-      const idx = Math.round(c.scrollTop / c.clientHeight);
-      if (idx !== currentQuestionIdx && idx >= 0 && idx < shuffledQuestions.length) goToQuestion(idx);
-    };
-    const armFeedSettle = (delay = 140) => {
-      if (takeFeedSettleTimerRef.current) clearTimeout(takeFeedSettleTimerRef.current);
-      takeFeedSettleTimerRef.current = setTimeout(feedSettleCommit, delay);
-    };
-    const onFeedScroll = () => {
-      const el = takeFeedRef.current;
-      if (!el || el.clientHeight === 0) return;
-      armFeedSettle(140);
-    };
-    const onFeedTouchStart = () => { takeFeedTouchUntilRef.current = Date.now() + 600; };
-    const onFeedTouchEnd = () => {
-      takeFeedTouchUntilRef.current = Date.now() + 150;
-      armFeedSettle(180); // final commit if the release produced no snap animation
-    };
-    const onFeedWheel = () => {
-      takeFeedTouchUntilRef.current = Date.now() + 250;
-      armFeedSettle(220);
-    };
-
-    if (showResult) {
-      const score = getScore();
-      const pct = Math.round((score / shuffledQuestions.length) * 100);
-
-      // Results header search: filter the review questions by text or option
-      // content; selecting a result scrolls to that question card and highlights it.
-      const rlc = resSearch.trim().toLowerCase();
-      const rResults = rlc ? shuffledQuestions
-        .map((q: any, qIdx: number) => ({ q, qIdx }))
-        .filter(({ q }) =>
-          trText(q, lang).toLowerCase().includes(rlc) ||
-          ['A', 'B', 'C', 'D', 'E'].some(L => (trOption(q, L, lang) || '').toLowerCase().includes(rlc))
-        )
-        .slice(0, 12) : [];
-      const resSearchDropdown = !rlc ? null : (
-        <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
-          {rResults.length === 0 ? (
-            <p className="px-3 py-3 text-sm text-muted-foreground">{t('noResults')}</p>
-          ) : rResults.map(({ q, qIdx }) => (
-            <button
-              key={q.id || qIdx}
-              type="button"
-              onClick={() => { jumpToResultQuestion(qIdx); setResSearch(''); }}
-              className="w-full text-left px-3 py-2.5 hover:bg-muted/50 border-b border-black/5 last:border-0 flex items-start gap-2"
-            >
-              <Badge variant="secondary" className="rounded-full shrink-0">{qIdx + 1}</Badge>
-              <span className="text-sm line-clamp-2"><MathText text={trText(q, lang)} /></span>
-            </button>
-          ))}
-        </div>
-      );
-      const jumpToResultQuestion = (idx: number) => {
-        const el = typeof document !== 'undefined' ? document.getElementById(`result-q-${idx}`) : null;
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setResHighlightIdx(idx);
-        window.setTimeout(() => setResHighlightIdx(prev => (prev === idx ? null : prev)), 2400);
-      };
-
-      // Bottom-sheet window switcher (Attached Files / AI Tutor / Test Chat / Edit Test)
-      const sheetOptions = [
-        ...(currentTest?.attachments?.length ? [{
-          key: 'files',
-          label: t('attachedFiles', { n: currentTest.attachments.length }),
-          icon: <Paperclip className="w-3.5 h-3.5" />,
-          active: filesOpen,
-        }] : []),
-        { key: 'ai', label: t('aiTutor'), icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
-        { key: 'group', label: t('testChat'), icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
-        { key: 'edit', label: t('editTest'), icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
-      ];
-      const switchSheet = (key: string) => {
-        if (key === 'files') {
-          setFilesOpen(true);
-          setChatOpen(false);
-          setGroupOpen(false);
-          setEditOpen(false);
-        } else if (key === 'ai') {
-          setFilesOpen(false);
-          setGroupOpen(false);
-          setEditOpen(false);
-          openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']);
-        } else if (key === 'group') {
-          setFilesOpen(false);
-          setChatOpen(false);
-          setGroupOpen(true);
-          setEditOpen(false);
-        } else if (key === 'edit') {
-          setFilesOpen(false);
-          setChatOpen(false);
-          setGroupOpen(false);
-          startEditTestInTake();
-        }
-      };
-      const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
-      return (
-        <div className="min-h-screen bg-background" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
-          <TranslatingPill show={autoTranslating} label={t('translating')} />
-          <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-            {/* ONE row on EVERY viewport (flex-nowrap): buttons compress to
-                icon-only pills on narrow screens; the search input shrinks. */}
-            <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
-              <div className="flex items-center gap-1 sm:gap-1.5 min-w-0 shrink">
-                <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"><ArrowLeft className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('back')}</span></Button>
-                {(currentTest?.attachments?.length || 0) > 0 ? (
-                  <Button
-                    variant={filesOpen ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); setEditOpen(false); if (chatOpen) closeChat(); } }}
-                    className={`h-8 px-1.5 sm:px-3 gap-1 shrink-0 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
-                  >
-                    <Paperclip className="w-4 h-4" />
-                    <span className="hidden sm:inline">{t('files', { n: currentTest!.attachments!.length })}</span>
-                    <span className="sm:hidden">{currentTest!.attachments!.length}</span>
-                  </Button>
-                ) : (
-                  <h1 className="text-base sm:text-lg font-bold truncate">{t('testResults')}</h1>
-                )}
-              </div>
-              <div className="flex-1 min-w-0 sm:max-w-sm relative mx-0.5 sm:mx-2">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                <Input
-                  value={resSearch}
-                  onChange={e => setResSearch(e.target.value)}
-                  placeholder={t('searchQuestions')}
-                  className="h-8 sm:h-9 rounded-full pl-9 bg-white border-black/15 text-xs sm:text-sm"
-                />
-                {resSearchDropdown}
-              </div>
-              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 ml-auto">
-                {/* View switcher — the review list follows the selected view:
-                TikTok feed → the regular vertical list; Library → review cards
-                in a grid; Shelf → one full-width card per row. NO navigation. */}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={cycleDashView}
-                  className="shrink-0 h-8 w-8 p-0"
-                  title={t('viewMode')}
-                  aria-label={t('viewMode')}
-                >
-                  {dashView === 'library'
-                    ? <LayoutGrid className="w-4 h-4" />
-                    : dashView === 'shelf'
-                      ? <Rows3 className="w-4 h-4" />
-                      : <Play className="w-4 h-4" />}
-                </Button>
-                <LangButton lang={lang} onChange={cycleLang} className="border-black px-1.5 sm:px-3" />
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); setEditOpen(false); openChat(shuffledQuestions[0]?.id || '', answers[shuffledQuestions[0]?.id || '']); }}
-                  className="shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"
-                  title={t('aiTutor')}
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span className="hidden sm:inline">{t('aiTutor')}</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={openGroupChat}
-                  className="shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"
-                  title={t('chatWithTook')}
-                >
-                  <Users className="w-4 h-4" />
-                  <span className="hidden sm:inline">{t('chat')}</span>
-                </Button>
-                <Button
-                  variant={editOpen ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={startEditTestInTake}
-                  className={`shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
-                  title={t('editThisTestTitle')}
-                >
-                  <Pencil className="w-4 h-4" />
-                  <span className="hidden sm:inline">{t('editTest')}</span>
-                </Button>
-              </div>
-            </div>
-          </header>
-          <main className="max-w-7xl mx-auto px-4 pt-8 pb-32">
-            <div className={`flex gap-6 ${chatOpen || groupOpen ? 'flex-col lg:flex-row' : ''}`}>
-              <div className="flex-1 min-w-0 space-y-6">
-            <Card className="rounded-4xl border border-black bg-white overflow-hidden">
-              <div className={`h-2 ${pct >= 70 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-red-500'}`} />
-              <CardContent className="p-8 text-center">
-                <div className={`w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold text-white ${
-                  pct >= 70 ? 'bg-emerald-500' : pct >= 40 ? 'bg-amber-500' : 'bg-red-500'
-                }`}>
-                  {pct}%
-                </div>
-                <h2 className="text-2xl font-bold mb-1">{score} / {shuffledQuestions.length}</h2>
-                <p className="text-muted-foreground mb-4">
-                  {pct >= 70 ? t('excellent') : pct >= 40 ? t('goodEffort') : t('keepPracticing')}
-                </p>
-                <Progress value={pct} className="h-3" />
-              </CardContent>
-            </Card>
-
-            <h3 className="text-lg font-semibold">{t('reviewAnswers')}</h3>
-            {/* The View button applies to the review list too: library → the
-            same review cards in a grid, shelf → one full-width card per row. */}
-            <div className={dashView === 'library' || dashView === 'shelf'
-              ? `grid ${dashView === 'shelf' ? 'grid-cols-1' : (libNarrow ? 'grid-cols-2' : 'grid-cols-3')} gap-2 sm:gap-3 items-start`
-              : 'space-y-6'}>
-            {shuffledQuestions.map((q, idx) => {
-              const selected = answers[q.id || ''] || '';
-              const isCorrect = selected === q.correctAnswer;
-              return (
-                <Card key={idx} id={`result-q-${idx}`} className={`rounded-4xl border border-black bg-white scroll-mt-24 ${isCorrect ? 'ring-2 ring-emerald-300' : 'ring-2 ring-red-300'} ${resHighlightIdx === idx ? 'outline outline-2 outline-primary outline-offset-2' : ''}`}>
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-2 mb-3">
-                      {isCorrect ? <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" /> : <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />}
-                      <div className="min-w-0">
-                        <p className="font-medium text-sm">{idx + 1}. <MathText text={trText(q, lang)} /></p>
-                        {/* Question photo — same one as during the test */}
-                        {imgSrc(q.imageUrl) && (
-                          <img src={imgSrc(q.imageUrl)} alt="" loading="lazy" className="mt-2 w-full max-h-64 object-contain rounded-xl border border-black/10 bg-white" />
-                        )}
-                      </div>
-                    </div>
-                    <div className={`grid grid-cols-1 gap-2 ${dashView === 'library' || dashView === 'shelf' ? '' : 'sm:grid-cols-2 ml-7'}`}>
-                      {['A', 'B', 'C', 'D', 'E'].map(letter => {
-                        const optionText = trOption(q, letter, lang);
-                        if (!optionText) return null;
-                        const isCorrectOption = letter === q.correctAnswer;
-                        const isSelected = letter === selected;
-                        return (
-                          <div key={letter} className={`px-3 py-2 rounded-lg text-[15px] sm:text-sm flex items-start gap-2 ${
-                            isCorrectOption ? 'bg-emerald-50 text-emerald-700 font-medium' :
-                            isSelected ? 'bg-red-50 text-red-700' : 'bg-muted/50'
-                          }`}>
-                            <span className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                              isCorrectOption ? 'bg-emerald-500 text-white' :
-                              isSelected ? 'bg-red-500 text-white' : 'bg-muted text-muted-foreground'
-                            }`}>
-                              {letter}
-                            </span>
-                            <div className="min-w-0">
-                              <span className="min-w-0 break-words"><MathText text={optionText} /></span>
-                              {/* Option photo — shown in the review too */}
-                              {imgSrc(q.optionImages?.[letter]?.u) && (
-                                <img src={imgSrc(q.optionImages[letter].u)} alt="" loading="lazy" className="mt-1.5 w-full max-w-xs max-h-44 object-contain rounded-lg border border-black/10 bg-white" />
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    {trExpl(q, lang, explanations[q.id || '']) && (
-                      <p className="text-xs text-muted-foreground mt-2 ml-7 italic"><MathText text={trExpl(q, lang, explanations[q.id || '']) || ''} /></p>
-                    )}
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="mt-2 ml-7 text-primary hover:bg-[#FFE8DE] text-xs"
-                      onClick={() => openChat(q.id || '', selected, { force: true })}
-                    >
-                      <Sparkles className="w-3 h-3 mr-1" />
-                      {t('askAi')}
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-            </div>
-              </div>
-
-              {/* AI Chat Panel in Results — bottom sheet on mobile, side panel on desktop */}
-              {chatOpen && (
-                <AiChatPanel
-                  open={chatOpen}
-                  onClose={closeChat}
-                  subtitle={t('askAboutAny')}
-                  messages={chatMessages}
-                  loading={chatLoading}
-                  input={chatInput}
-                  onInputChange={setChatInput}
-                  onSend={() => sendChatMessage()}
-                  endRef={chatEndRef}
-                  switcher={sheetSwitcher}
-                  historyOpen={chatHistoryOpen}
-                  onToggleHistory={() => setChatHistoryOpen(v => !v)}
-                  threads={aiThreadMetas}
-                  activeThreadId={chatThreadId}
-                  onSelectThread={selectChatThread}
-                  historyLabel={t('chatHistory')}
-                  noChatsLabel={t('noChatsYet')}
-                />
-              )}
-
-              {/* Group chat panel in Results — bottom sheet on mobile, side panel on desktop */}
-              {groupOpen && (
-                <GroupChatPanel
-                  open={groupOpen}
-                  onClose={closeGroupChat}
-                  subtitle={t('everyoneTook')}
-                  messages={groupMessages}
-                  currentUserId={effectiveUser?.id}
-                  input={groupInput}
-                  onInputChange={setGroupInput}
-                  onSend={sendGroupMessage}
-                  sending={groupSending}
-                  endRef={groupEndRef}
-                  switcher={sheetSwitcher}
-                  onOpenProfile={openUserLibrary}
-                  openProfileLabel={t('openProfile')}
-                />
-              )}
-
-              {/* Edit Test window in Results — RESIZABLE bottom sheet (drag the
-                  top bar up to full screen), same chrome as the chat windows;
-                  its header switcher jumps to Files / AI Tutor / Test Chat and
-                  back. Saving stays on the updated results. */}
-              {editOpen && (
-                <ResizableSheetFrame
-                  onClose={() => setEditOpen(false)}
-                  initialVh={0.85}
-                  minVh={0.4}
-                  maxW="max-w-3xl"
-                  header={
-                    <div className="flex items-center justify-between px-4 py-2 border-b shrink-0">
-                      <SheetHeaderSwitcher
-                        icon={<Pencil className="w-4 h-4 text-white" />}
-                        title={t('editTest')}
-                        subtitle={currentTest?.title}
-                        options={sheetOptions}
-                        onSelect={switchSheet}
-                      />
-                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 shrink-0" onClick={() => setEditOpen(false)}>
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  }
-                  body={
-                    <div className="px-4 py-4">
-                      <div className="max-w-3xl mx-auto space-y-6">
-                        {editorBody}
-                      </div>
-                    </div>
-                  }
-                  footer={
-                    <div className="shrink-0 border-t bg-white/95 backdrop-blur-md px-4 pt-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
-                      <Button onClick={() => handleSaveTest(true)} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                        {loading ? t('saving') : t('saveTest')}
-                      </Button>
-                    </div>
-                  }
-                />
-              )}
-            </div>
-          </main>
-
-          {/* Bottom action bar — fixed to the screen edge, never rises with content */}
-          <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
-            <div
-              className="max-w-7xl mx-auto px-4 pt-3"
-              style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
-            >
-              <Button onClick={() => openStartTest(currentTest!)} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                <RefreshCw className="w-4 h-4 mr-2" /> {t('retryTest')}
-              </Button>
-            </div>
-          </div>
-
-          {/* Attached files bottom sheet (mobile) — launcher hidden, opens via header Files button */}
-          <AttachmentsBottomSheet
-            items={(currentTest?.attachments || []) as AttachmentItem[]}
-            open={filesOpen}
-            onOpenChange={setFilesOpen}
-            switcher={sheetSwitcher}
-            hideLauncher
-            title={t('attachedFiles', { n: currentTest?.attachments?.length || 0 })}
-          />
-        </div>
-      );
-    }
-
-    // Active test-taking UI
-    const qId = currentQ.id || '';
-
-    // Bottom-sheet window switcher (Attached Files / AI Tutor / Test Chat)
-    const sheetOptions = [
-      ...(currentTest?.attachments?.length ? [{
-        key: 'files',
-        label: t('attachedFiles', { n: currentTest.attachments.length }),
-        icon: <Paperclip className="w-3.5 h-3.5" />,
-        active: filesOpen,
-      }] : []),
-      { key: 'ai', label: t('aiTutor'), icon: <MessageSquare className="w-3.5 h-3.5" />, active: chatOpen },
-      { key: 'group', label: t('testChat'), icon: <Users className="w-3.5 h-3.5" />, active: groupOpen },
-      { key: 'edit', label: t('editTest'), icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
-    ];
-    const switchSheet = (key: string) => {
-      if (key === 'files') {
-        setFilesOpen(true);
-        setChatOpen(false);
-        setGroupOpen(false);
-        setEditOpen(false);
-      } else if (key === 'ai') {
-        setFilesOpen(false);
-        setGroupOpen(false);
-        setEditOpen(false);
-        openChat(qId, answers[qId]);
-      } else if (key === 'group') {
-        setFilesOpen(false);
-        setChatOpen(false);
-        setGroupOpen(true);
-        setEditOpen(false);
-      } else if (key === 'edit') {
-        setFilesOpen(false);
-        setChatOpen(false);
-        setGroupOpen(false);
-        startEditTestInTake();
-      }
-    };
-    const sheetSwitcher = { options: sheetOptions, onSelect: switchSheet };
-
     return (
-      <div className="relative h-[100dvh] flex flex-col bg-background overflow-hidden" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
-        <TranslatingPill show={autoTranslating} label={t('translating')} />
-        <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3">
-            {/* ONE row on EVERY viewport (flex-nowrap): all buttons compress to
-                icon-only pills on narrow screens so the panel never wraps onto
-                a second row. Search is a BUTTON; tapping it expands an input
-                overlay that covers the whole row until dismissed. */}
-            <div className="relative flex flex-nowrap items-center justify-between gap-1 sm:gap-2 mb-2">
-              <div className="flex items-center gap-1 sm:gap-2 min-w-0 shrink-0">
-                <Button variant="ghost" size="sm" onClick={goHome} className="shrink-0 h-8 w-8 p-0"><Home className="w-4 h-4" /></Button>
-                <LangButton lang={lang} onChange={cycleLang} className="border-black shrink-0 px-1.5 sm:px-3" />
-              </div>
-              {qSearchOpen && (
-                <div className="absolute inset-0 z-50 bg-white flex items-center gap-2 px-1 animate-in fade-in duration-150">
-                  <div className="flex-1 min-w-0 relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
-                    <Input
-                      autoFocus
-                      value={qSearch}
-                      onChange={e => setQSearch(e.target.value)}
-                      onKeyDown={e => { if (e.key === 'Escape') { setQSearchOpen(false); setQSearch(''); } }}
-                      placeholder={t('searchQuestions')}
-                      className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
-                    />
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => { setQSearchOpen(false); setQSearch(''); }}
-                    className="shrink-0 h-9 w-9 p-0"
-                    aria-label={t('cancel')}
-                  >
-                    <X className="w-4 h-4" />
-                  </Button>
-                  {qSearchDropdown}
-                </div>
-              )}
-              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 ml-auto">
-                {/* View switcher — cycles the layouts and the QUESTION LIST on
-                this page follows the selected view: TikTok feed → the regular
-                one-question-per-slide quiz; Library → question cards in a grid;
-                Shelf → one full-width question card per row. NO navigation. */}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={cycleDashView}
-                  className="shrink-0 h-8 w-8 p-0"
-                  title={t('viewMode')}
-                  aria-label={t('viewMode')}
-                >
-                  {dashView === 'library'
-                    ? <LayoutGrid className="w-4 h-4" />
-                    : dashView === 'shelf'
-                      ? <Rows3 className="w-4 h-4" />
-                      : <Play className="w-4 h-4" />}
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setQSearchOpen(true)}
-                  className="shrink-0 h-8 w-8 p-0"
-                  title={t('searchQuestions')}
-                  aria-label={t('searchQuestions')}
-                >
-                  <Search className="w-4 h-4" />
-                </Button>
-                <span className="text-xs sm:text-sm text-muted-foreground hidden lg:inline">{t('xOfYAnswered', { n: answeredCount, m: shuffledQuestions.length })}</span>
-                {(currentTest?.attachments?.length || 0) > 0 && (
-                  <Button
-                    variant={filesOpen ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => { const next = !filesOpen; setFilesOpen(next); if (next) { setGroupOpen(false); setEditOpen(false); if (chatOpen) { setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); setChatThreadId(''); } } }}
-                    className={`h-8 px-1.5 sm:px-3 gap-1 ${filesOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
-                  >
-                    <Paperclip className="w-4 h-4" />
-                    <span className="hidden sm:inline">{t('files', { n: currentTest!.attachments!.length })}</span>
-                    <span className="sm:hidden">{currentTest!.attachments!.length}</span>
-                  </Button>
-                )}
-                <>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => { setChatOpen(true); setFilesOpen(false); setGroupOpen(false); setEditOpen(false); openChat(qId, answers[qId]); }}
-                    className="shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"
-                    title={t('aiTutor')}
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span className="hidden sm:inline">{t('aiTutor')}</span>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={openGroupChat}
-                    className="shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"
-                    title={t('chatWithAll')}
-                  >
-                    <Users className="w-4 h-4" />
-                    <span className="hidden sm:inline">{t('chat')}</span>
-                  </Button>
-                  <Button
-                    variant={editOpen ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={startEditTestInTake}
-                    className={`shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3 ${editOpen ? 'bg-cta hover:bg-cta/90 text-white border-cta' : ''}`}
-                    title={t('editThisTestTitle')}
-                  >
-                    <Pencil className="w-4 h-4" />
-                    <span className="hidden sm:inline">{t('editTest')}</span>
-                  </Button>
-                </>
-              </div>
-            </div>
-            <Progress value={progressPct} className="h-2" />
-          </div>
-        </header>
-
-        <main className="flex-1 min-h-0">
-          {/* Question card + Chat/Files side by side (desktop) */}
-          <div className={`h-full max-w-7xl mx-auto flex gap-6 ${chatOpen || groupOpen || filesOpen ? 'flex-col lg:flex-row' : ''}`}>
-            {/* LIBRARY / SHELF view of the questions — the View button applies to
-                the QUESTIONS here: instead of the TikTok-style slide feed the
-                questions become cards in the same layouts as the dashboard
-                (library = 2/3 per row, shelf = one full-width card per row).
-                Every card is fully answerable right on the spot. */}
-            {(dashView === 'library' || dashView === 'shelf') ? (
-              <div className="flex-1 min-w-0 h-full overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <div className="max-w-5xl mx-auto px-2 sm:px-3 py-3 sm:py-4">
-                  <p className="text-[11px] sm:text-xs text-muted-foreground text-center mb-3">{t('questionsGridHint')}</p>
-                  <div className={`grid ${dashView === 'shelf' ? 'grid-cols-1' : (libNarrow ? 'grid-cols-2' : 'grid-cols-3')} gap-2 sm:gap-3`}>
-                    {shuffledQuestions.map((q, idx) => {
-                      const gqId = q.id || '';
-                      const gAnswered = !!answers[gqId];
-                      const gRevealed = practiceMode && revealedAnswers[gqId];
-                      return (
-                        <Card key={idx} id={`qgrid-${idx}`} className={`rounded-2xl border border-black bg-white overflow-hidden flex flex-col ${gRevealed ? (answers[gqId] === q.correctAnswer ? 'ring-2 ring-emerald-300' : 'ring-2 ring-red-300') : gAnswered ? 'ring-1 ring-emerald-200' : ''}`}>
-                          <CardContent className="p-2.5 sm:p-3 flex flex-col gap-1.5 sm:gap-2 flex-1 min-h-0">
-                            <div className="flex items-center justify-between shrink-0">
-                              <Badge variant="secondary" className="rounded-full text-[10px] sm:text-xs">{idx + 1}</Badge>
-                              {gRevealed ? (
-                                answers[gqId] === q.correctAnswer
-                                  ? <Badge className="rounded-full bg-emerald-100 text-emerald-700 border-emerald-200 text-[10px] sm:text-xs"><CheckCircle2 className="w-3 h-3 mr-1" /> {t('correct')}</Badge>
-                                  : <Badge className="rounded-full bg-red-100 text-red-700 border-red-200 text-[10px] sm:text-xs"><XCircle className="w-3 h-3 mr-1" /> {t('wrong')}</Badge>
-                              ) : gAnswered ? <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> : <span className="w-4 h-4" />}
-                            </div>
-                            <p className="text-[13px] sm:text-sm font-medium leading-snug line-clamp-4 sm:line-clamp-none"><MathText text={trText(q, lang)} /></p>
-                            {/* Question photo (compact for the grid) */}
-                            {imgSrc(q.imageUrl) && (
-                              <img src={imgSrc(q.imageUrl)} alt="" loading="lazy" className="w-full max-h-44 object-contain rounded-lg border border-black/10 bg-white" />
-                            )}
-                            <div className="mt-auto pt-1 space-y-1">
-                              {['A', 'B', 'C', 'D', 'E'].map(letter => {
-                                const optionText = trOption(q, letter, lang);
-                                if (!optionText) return null;
-                                const isSel = letter === answers[gqId];
-                                const isCorrect = letter === q.correctAnswer;
-                                let cls = 'border-black/15 hover:border-black hover:bg-[#FFF0D9]/40';
-                                if (gRevealed) {
-                                  if (isCorrect) cls = 'border-emerald-500 bg-emerald-50';
-                                  else if (isSel) cls = 'border-red-500 bg-red-50';
-                                  else cls = 'border-muted opacity-60';
-                                } else if (isSel) {
-                                  cls = 'border-cta bg-[#FFF0D9]';
-                                }
-                                return (
-                                  <button
-                                    key={letter}
-                                    type="button"
-                                    onClick={() => selectAnswer(gqId, letter)}
-                                    disabled={gRevealed}
-                                    className={`w-full flex items-start gap-1.5 px-1.5 py-1 rounded-lg border text-left transition-all disabled:cursor-default ${cls}`}
-                                  >
-                                    <span className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
-                                      gRevealed && isCorrect ? 'bg-emerald-500 text-white' :
-                                      gRevealed && isSel ? 'bg-red-500 text-white' :
-                                      isSel ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
-                                    }`}>
-                                      {letter}
-                                    </span>
-                                    <span className="text-[11px] sm:text-xs leading-snug min-w-0 line-clamp-2 break-words"><MathText text={optionText} /></span>
-                                    {imgSrc(q.optionImages?.[letter]?.u) && (
-                                      <img src={imgSrc(q.optionImages[letter].u)} alt="" loading="lazy" className="hidden sm:block w-10 h-10 object-cover rounded-md border border-black/10 shrink-0 ml-auto" />
-                                    )}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      );
-                    })}
-                  </div>
-                  {/* Finish the test right from the grid — the bottom bar's submit
-                  only appears on the last slide, which the grid replaces */}
-                  <div className="mt-4 mb-6 flex justify-center">
-                    <Button onClick={submitTest} disabled={loading || answeredCount < shuffledQuestions.length} className="rounded-full bg-primary hover:bg-primary/90 px-8">
-                      {loading ? t('submitting') : t('submitTest')}
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-            // Questions feed — one full-height card per question, TikTok-style swipe
-            <div
-              ref={takeFeedRef}
-              onScroll={onFeedScroll}
-              onTouchStart={onFeedTouchStart}
-              onTouchMove={onFeedTouchStart}
-              onTouchEnd={onFeedTouchEnd}
-              onTouchCancel={onFeedTouchEnd}
-              onWheel={onFeedWheel}
-              className="relative flex-1 min-w-0 h-full overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {shuffledQuestions.map((q, idx) => {
-                const slideQId = q.id || '';
-                const slideRevealed = practiceMode && revealedAnswers[slideQId];
-                // relative = containing block for sr-only radios inside the card,
-                // otherwise they anchor to the document and stretch it into a
-                // huge white void below the feed (position:absolute escapes the
-                // feed's overflow clipping when no ancestor is positioned)
-                return (
-              <section key={idx} className="relative h-full w-full snap-start snap-always overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <div className="min-h-full flex flex-col px-4 py-4">
-                  <div className="max-w-3xl w-full mx-auto my-auto">
-              <Card className="rounded-4xl border border-black bg-white shadow-lg">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <Badge variant="secondary" className="text-sm rounded-full">{t('questionXofY', { n: idx + 1, m: shuffledQuestions.length })}</Badge>
-                    {practiceMode && slideRevealed && (
-                      answers[slideQId] === q.correctAnswer ? (
-                        <Badge className="rounded-full bg-emerald-100 text-emerald-700 border-emerald-200"><CheckCircle2 className="w-3 h-3 mr-1" /> {t('correct')}</Badge>
-                      ) : (
-                        <Badge className="rounded-full bg-red-100 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> {t('wrong')}</Badge>
-                      )
-                    )}
-                  </div>
-                  <p className="text-lg font-medium mt-2"><MathText text={trText(q, lang)} /></p>
-                  {/* Question photo — lives in the Telegram channel, streamed on demand */}
-                  {imgSrc(q.imageUrl) && (
-                    <img
-                      src={imgSrc(q.imageUrl)}
-                      alt=""
-                      loading="lazy"
-                      className="mt-3 w-full max-h-72 object-contain rounded-2xl border border-black/10 bg-white"
-                    />
-                  )}
-                </CardHeader>
-                <CardContent>
-                  <RadioGroup
-                    value={answers[slideQId] || ''}
-                    onValueChange={(value) => selectAnswer(slideQId, value)}
-                    disabled={practiceMode && revealedAnswers[slideQId]}
-                  >
-                    <div className="space-y-3">
-                      {['A', 'B', 'C', 'D', 'E'].map(letter => {
-                        const optionText = trOption(q, letter, lang);
-                        if (!optionText) return null;
-                        const isRevealedOption = practiceMode && revealedAnswers[slideQId];
-                        const isCorrectOption = letter === q.correctAnswer;
-                        const isSelectedOption = letter === answers[slideQId];
-
-                        let optionClass = 'border-black/15 hover:border-black hover:bg-[#FFF0D9]/40';
-                        if (isRevealedOption) {
-                          if (isCorrectOption) {
-                            optionClass = 'border-emerald-500 bg-emerald-50';
-                          } else if (isSelectedOption && !isCorrectOption) {
-                            optionClass = 'border-red-500 bg-red-50';
-                          } else {
-                            optionClass = 'border-muted opacity-60';
-                          }
-                        } else if (isSelectedOption) {
-                          optionClass = 'border-cta bg-[#FFF0D9]';
-                        }
-
-                        return (
-                          <div key={letter} className={`flex items-start gap-3 p-3 rounded-xl border-2 transition-all ${optionClass}`}>
-                            <RadioGroupItem value={letter} id={`q-${slideQId}-${letter}`} className="sr-only" />
-                            <div className="flex-1 min-w-0">
-                              <Label htmlFor={`q-${slideQId}-${letter}`} className="flex items-start gap-2.5 cursor-pointer">
-                                <span className={`mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                                  isRevealedOption && isCorrectOption ? 'bg-emerald-500 text-white' :
-                                  isRevealedOption && isSelectedOption && !isCorrectOption ? 'bg-red-500 text-white' :
-                                  isSelectedOption ? 'bg-cta text-white' : 'bg-muted text-muted-foreground'
-                                }`}>
-                                  {letter}
-                                </span>
-                                <span className="text-[16px] sm:text-[15px] leading-relaxed min-w-0 break-words"><MathText text={optionText} /></span>
-                              </Label>
-                              {/* Option photo — part of the answer, travels with it on shuffle */}
-                              {imgSrc(q.optionImages?.[letter]?.u) && (
-                                <img
-                                  src={imgSrc(q.optionImages[letter].u)}
-                                  alt=""
-                                  loading="lazy"
-                                  onClick={() => { if (!(practiceMode && revealedAnswers[slideQId])) selectAnswer(slideQId, letter); }}
-                                  className="mt-2 ml-9.5 w-full max-w-xs max-h-48 object-contain rounded-xl border border-black/10 bg-white cursor-pointer"
-                                />
-                              )}
-                            </div>
-                            {isRevealedOption && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-1" />}
-                            {isRevealedOption && isSelectedOption && !isCorrectOption && <XCircle className="w-5 h-5 text-red-500 shrink-0 mt-1" />}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </RadioGroup>
-
-                  {/* Practice mode: show result and explanation + Ask AI button */}
-                  {practiceMode && revealedAnswers[slideQId] && (
-                    <div className="mt-4 p-3 rounded-xl bg-muted/50">
-                      <p className="text-sm font-medium mb-1">
-                        {t('correctAnswerIs', { letter: q.correctAnswer })}
-                      </p>
-                      {trExpl(q, lang, explanations[slideQId]) && (
-                        <p className="text-xs text-muted-foreground mt-1 ml-7"><MathText text={trExpl(q, lang, explanations[slideQId]) || ''} /></p>
-                      )}
-                      {!chatOpen && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="mt-2 text-primary hover:bg-[#FFE8DE]"
-                          onClick={() => openChat(slideQId, answers[slideQId])}
-                        >
-                          <Sparkles className="w-3.5 h-3.5 mr-1.5" />
-                          {t('askAiAbout')}
-                        </Button>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Exam mode: Ask AI button always visible after answering */}
-                  {!practiceMode && answers[slideQId] && !chatOpen && (
-                    <div className="mt-4">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="w-full rounded-full border-black text-foreground hover:bg-[#FFF0D9]"
-                        onClick={() => openChat(slideQId, answers[slideQId])}
-                      >
-                        <MessageSquare className="w-4 h-4 mr-2" />
-                        {t('askAiAbout')}
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-
-              {loadingExplanations && (
-                <p className="text-xs text-center text-muted-foreground mt-4">{t('loadingExpl')}</p>
-              )}
-                  </div>
-                </div>
-              </section>
-                );
-              })}
-            </div>
-            )}
-
-            {/* AI Chat Panel — bottom sheet on mobile, side panel on desktop */}
-            {chatOpen && (
-              <AiChatPanel
-                open={chatOpen}
-                onClose={closeChat}
-                subtitle={chatUserAnswer ? (
-                  chatUserAnswer === shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer
-                    ? t('answeredCorrectly')
-                    : t('choseX', { a: chatUserAnswer, b: shuffledQuestions.find(q => q.id === chatQuestionId)?.correctAnswer || '' })
-                ) : t('askAboutThis')}
-                messages={chatMessages}
-                loading={chatLoading}
-                input={chatInput}
-                onInputChange={setChatInput}
-                onSend={() => sendChatMessage()}
-                endRef={chatEndRef}
-                switcher={sheetSwitcher}
-                inputPlaceholder={t('askFollowUp')}
-                historyOpen={chatHistoryOpen}
-                onToggleHistory={() => setChatHistoryOpen(v => !v)}
-                threads={aiThreadMetas}
-                activeThreadId={chatThreadId}
-                onSelectThread={selectChatThread}
-                historyLabel={t('chatHistory')}
-                noChatsLabel={t('noChatsYet')}
-              />
-            )}
-
-            {/* Group chat panel — bottom sheet on mobile, side panel on desktop */}
-            {groupOpen && (
-              <GroupChatPanel
-                open={groupOpen}
-                onClose={closeGroupChat}
-                title={t('testChat')}
-                subtitle={t('everyoneTaking')}
-                messages={groupMessages}
-                currentUserId={effectiveUser?.id}
-                input={groupInput}
-                onInputChange={setGroupInput}
-                onSend={sendGroupMessage}
-                sending={groupSending}
-                endRef={groupEndRef}
-                switcher={sheetSwitcher}
-                inputPlaceholder={t('messageGroup')}
-                onOpenProfile={openUserLibrary}
-                openProfileLabel={t('openProfile')}
-              />
-            )}
-
-            {/* Attached files side panel (desktop) */}
-            {filesOpen && !chatOpen && !groupOpen && (
-              <div className="hidden lg:block">
-                <AttachmentsSidePanel
-                  items={(currentTest?.attachments || []) as AttachmentItem[]}
-                  onClose={() => setFilesOpen(false)}
-                  title={t('attachedFiles', { n: currentTest?.attachments?.length || 0 })}
-                />
-              </div>
-            )}
-
-            {/* Edit Test window — bottom sheet, same chrome as the chat windows;
-                its header switcher jumps to Files / AI Tutor / Test Chat and back */}
-            {editOpen && (
-              <ResizableSheetFrame
-                onClose={() => setEditOpen(false)}
-                initialVh={0.85}
-                minVh={0.4}
-                maxW="max-w-3xl"
-                header={
-                  <div className="flex items-center justify-between px-4 py-2 border-b shrink-0">
-                    <SheetHeaderSwitcher
-                      icon={<Pencil className="w-4 h-4 text-white" />}
-                      title={t('editTest')}
-                      subtitle={currentTest?.title}
-                      options={sheetOptions}
-                      onSelect={switchSheet}
-                    />
-                    <Button variant="ghost" size="sm" className="h-7 w-7 p-0 shrink-0" onClick={() => setEditOpen(false)}>
-                      <X className="w-4 h-4" />
-                    </Button>
-                  </div>
-                }
-                body={
-                  <div className="px-4 py-4">
-                    <div className="max-w-3xl mx-auto space-y-6">
-                      {editorBody}
-                    </div>
-                  </div>
-                }
-                footer={
-                  <div className="shrink-0 border-t bg-white/95 backdrop-blur-md px-4 pt-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
-                    <Button onClick={() => handleSaveTest(true)} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                      {loading ? t('saving') : t('saveTest')}
-                    </Button>
-                  </div>
-                }
-              />
-            )}
-          </div>
-        </main>
-
-        {/* Bottom navigation bar — flex footer, permanently glued to the bottom edge */}
-        <div className="shrink-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
-          <div
-            className="max-w-7xl mx-auto px-4 pt-2"
-            style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
-          >
-            <div className="flex items-center gap-2">
-              {/* Glass arrows — same tile as the number lens (w-14, rounded-xl,
-                  same border/gradient/shadows); h-14 aligns edges with the lens. */}
-              <button
-                type="button"
-                onClick={() => goToQuestion(Math.max(0, currentQuestionIdx - 1))}
-                disabled={currentQuestionIdx === 0}
-                aria-label="Previous question"
-                className={`w-14 h-14 shrink-0 flex items-center justify-center text-foreground transition-transform active:scale-95 disabled:opacity-40 disabled:pointer-events-none ${GLASS_TILE}`}
-              >
-                <ArrowLeft className="w-6 h-6" />
-              </button>
-
-              {drumInputMode ? (
-                <form
-                  onSubmit={e => { e.preventDefault(); jumpToQuestion(numInputRef.current?.value || ''); }}
-                  className="relative flex-1 min-w-0 h-16"
-                >
-                  {/* Typing mode keeps the bar's look EXACTLY as in drum mode: the
-                      input occupies the current pill's slot (w-14, centered) and the
-                      same glass lens stays on top — no oval pill swap. The number
-                      color also mirrors the current pill (cta when answered). */}
-                  <input
-                    ref={numInputRef}
-                    autoFocus
-                    type="text"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    autoComplete="off"
-                    enterKeyHint="go"
-                    defaultValue={String(currentQuestionIdx + 1)}
-                    onFocus={e => e.currentTarget.select()}
-                    placeholder={`1–${shuffledQuestions.length}`}
-                    aria-label={t('numQuestions')}
-                    className={`absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 bg-transparent border-0 outline-none text-center text-2xl font-extrabold tabular-nums caret-black/40 placeholder:text-base placeholder:font-semibold placeholder:text-muted-foreground/60 ${
-                      answers[shuffledQuestions[currentQuestionIdx]?.id || ''] ? 'text-cta' : 'text-foreground'
-                    }`}
-                  />
-                  {/* Glass window — identical lens to drum mode */}
-                  <div className={`pointer-events-none absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 ${GLASS_TILE}`} />
-                </form>
-              ) : (
-                <div className="relative flex-1 min-w-0 h-16">
-                  <div
-                    ref={drumRefCb}
-                    onScroll={onDrumScroll}
-                    className="h-full flex items-center overflow-x-auto flex-nowrap [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
-                    style={{
-                      scrollSnapType: 'x mandatory',
-                      paddingLeft: 'calc(50% - 1.75rem)',
-                      paddingRight: 'calc(50% - 1.75rem)',
-                    }}
-                  >
-                    {shuffledQuestions.map((q, idx) => {
-                      const qIdNav = q.id || '';
-                      const isAnswered = !!answers[qIdNav];
-                      const isRevealedNav = practiceMode && revealedAnswers[qIdNav];
-                      const isCurrent = idx === currentQuestionIdx;
-                      const isCorrectAnswer = isRevealedNav && answers[qIdNav] === q.correctAnswer;
-                      const isWrongAnswer = isRevealedNav && answers[qIdNav] && answers[qIdNav] !== q.correctAnswer;
-
-                      return (
-                        <button
-                          key={idx}
-                          data-current={isCurrent}
-                          onClick={() => {
-                            if (isCurrent) {
-                              setDrumInputMode(true); // input pre-fills via defaultValue on mount
-                            } else {
-                              goToQuestion(idx);
-                            }
-                          }}
-                          title={isCurrent ? t('tapToType') : t('goToQuestion', { n: idx + 1 })}
-                          className="w-14 h-full shrink-0 flex items-center justify-center"
-                          style={{ scrollSnapAlign: 'center' }}
-                        >
-                          <span
-                            className={`text-2xl font-bold tabular-nums leading-none select-none transition-colors ${
-                              isCorrectAnswer ? 'text-emerald-500' :
-                              isWrongAnswer ? 'text-red-500' :
-                              isCurrent ? (isAnswered ? 'text-cta font-extrabold' : 'text-foreground font-extrabold') :
-                              isAnswered ? 'text-cta/70' : 'text-muted-foreground/50'
-                            }`}
-                          >
-                            {idx + 1}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {/* Glass window — the current number sits under the lens */}
-                  <div className={`pointer-events-none absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 ${GLASS_TILE}`} />
-                </div>
-              )}
-
-              {currentQuestionIdx === shuffledQuestions.length - 1 ? (
-                <Button
-                  onClick={submitTest}
-                  disabled={loading || answeredCount < shuffledQuestions.length}
-                  className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
-                >
-                  {loading ? t('submitting') : t('submitTest')}
-                </Button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => goToQuestion(Math.min(shuffledQuestions.length - 1, currentQuestionIdx + 1))}
-                  aria-label="Next question"
-                  className={`w-14 h-14 shrink-0 flex items-center justify-center text-foreground transition-transform active:scale-95 disabled:opacity-40 disabled:pointer-events-none ${GLASS_TILE}`}
-                >
-                  <ArrowRight className="w-6 h-6" />
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Attached files: mobile bottom sheet (launcher hidden — header Files button opens it) */}
-        <AttachmentsBottomSheet
-          items={(currentTest?.attachments || []) as AttachmentItem[]}
-          open={filesOpen}
-          onOpenChange={setFilesOpen}
-          switcher={sheetSwitcher}
-          hideLauncher
-          title={t('attachedFiles', { n: currentTest?.attachments?.length || 0 })}
-        />
-      </div>
+      <TakeTestView
+        effectivePage={effectivePage}
+        answers={answers}
+        revealedAnswers={revealedAnswers}
+        explanations={explanations}
+        shuffledQuestions={shuffledQuestions}
+        currentQuestionIdx={currentQuestionIdx}
+        setCurrentQuestionIdx={setCurrentQuestionIdx}
+        chatOpen={chatOpen}
+        setChatOpen={setChatOpen}
+        setChatMessages={setChatMessages}
+        setChatQuestionId={setChatQuestionId}
+        setChatQuestionObj={setChatQuestionObj}
+        setChatThreadId={setChatThreadId}
+        questions={questions}
+        qSearch={qSearch}
+        lang={lang}
+        t={t}
+        setQSearch={setQSearch}
+        setQSearchOpen={setQSearchOpen}
+        setDrumInputMode={setDrumInputMode}
+        numInputRef={numInputRef}
+        drumScaleRafRef={drumScaleRafRef}
+        applyDrumScales={applyDrumScales}
+        drumSettleTimerRef={drumSettleTimerRef}
+        drumRef={drumRef}
+        drumProgrammaticRef={drumProgrammaticRef}
+        takeFeedSettleTimerRef={takeFeedSettleTimerRef}
+        takeFeedRef={takeFeedRef}
+        takeFeedTouchUntilRef={takeFeedTouchUntilRef}
+        showResult={showResult}
+        getScore={getScore}
+        resSearch={resSearch}
+        setResSearch={setResSearch}
+        setResHighlightIdx={setResHighlightIdx}
+        currentTest={currentTest}
+        filesOpen={filesOpen}
+        groupOpen={groupOpen}
+        editOpen={editOpen}
+        setFilesOpen={setFilesOpen}
+        setGroupOpen={setGroupOpen}
+        setEditOpen={setEditOpen}
+        openChat={openChat}
+        startEditTestInTake={startEditTestInTake}
+        myBgStyle={myBgStyle}
+        autoTranslating={autoTranslating}
+        goHome={goHome}
+        closeChat={closeChat}
+        cycleDashView={cycleDashView}
+        dashView={dashView}
+        cycleLang={cycleLang}
+        openGroupChat={openGroupChat}
+        libNarrow={libNarrow}
+        resHighlightIdx={resHighlightIdx}
+        loading={loading}
+        chatMessages={chatMessages}
+        chatLoading={chatLoading}
+        chatInput={chatInput}
+        setChatInput={setChatInput}
+        sendChatMessage={sendChatMessage}
+        chatEndRef={chatEndRef}
+        chatHistoryOpen={chatHistoryOpen}
+        setChatHistoryOpen={setChatHistoryOpen}
+        aiThreadMetas={aiThreadMetas}
+        chatThreadId={chatThreadId}
+        selectChatThread={selectChatThread}
+        closeGroupChat={closeGroupChat}
+        groupMessages={groupMessages}
+        effectiveUser={effectiveUser}
+        groupInput={groupInput}
+        setGroupInput={setGroupInput}
+        sendGroupMessage={sendGroupMessage}
+        groupSending={groupSending}
+        groupEndRef={groupEndRef}
+        openUserLibrary={openUserLibrary}
+        editorBody={editorBody}
+        handleSaveTest={handleSaveTest}
+        openStartTest={openStartTest}
+        qSearchOpen={qSearchOpen}
+        page={page}
+        practiceMode={practiceMode}
+        selectAnswer={selectAnswer}
+        submitTest={submitTest}
+        loadingExplanations={loadingExplanations}
+        chatUserAnswer={chatUserAnswer}
+        chatQuestionId={chatQuestionId}
+        drumInputMode={drumInputMode}
+        drumRefCb={drumRefCb}
+      />
     );
   }
 
-  // HISTORY
+  // HISTORY (view extracted to src/components/pages/history-view.tsx)
   if (effectivePage === 'history') {
-    return (
-      <div className="min-h-screen bg-background">
-        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
-            <h1 className="text-lg font-bold">{t('testHistory')}</h1>
-          </div>
-        </header>
-
-        <main className="max-w-4xl mx-auto px-4 py-6">
-          {attempts.length === 0 ? (
-            <Card className="rounded-4xl border-dashed border-black/30 bg-white">
-              <CardContent className="py-12 text-center">
-                <Clock className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                <h3 className="text-lg font-medium mb-2">{t('noAttempts')}</h3>
-                <p className="text-muted-foreground mb-4">{t('takeTestHint')}</p>
-                <Button onClick={goHome}>{t('browseTests')}</Button>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="space-y-3">
-              {attempts.map(attempt => (
-                <Card key={attempt.id} className="rounded-4xl border border-black bg-white">
-                  <CardContent className="p-4 flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">{attempt.test?.title || t('unknownTest')}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {new Date(attempt.startedAt).toLocaleDateString()} {t('at')} {new Date(attempt.startedAt).toLocaleTimeString()}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      {attempt.completed ? (
-                        <>
-                          <p className={`text-lg font-bold ${
-                            attempt.totalQuestions > 0 && (attempt.score / attempt.totalQuestions) >= 0.7 ? 'text-emerald-600' :
-                            attempt.totalQuestions > 0 && (attempt.score / attempt.totalQuestions) >= 0.4 ? 'text-amber-600' : 'text-red-600'
-                          }`}>
-                            {attempt.score}/{attempt.totalQuestions}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {attempt.totalQuestions > 0 ? Math.round((attempt.score / attempt.totalQuestions) * 100) : 0}%
-                          </p>
-                        </>
-                      ) : (
-                        <Badge variant="outline">{t('inProgress')}</Badge>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </main>
-      </div>
-    );
+    return <HistoryView attempts={attempts} goHome={goHome} t={t} />;
   }
 
   return null;
