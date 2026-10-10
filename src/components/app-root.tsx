@@ -819,7 +819,17 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // The scope follows the content mode: personal library (own + bookmarks) or
   // discover (public tests of other authors). Bookmarks are refreshed in the
   // same breath so the mode switch sees a fresh set.
-  const loadFeed = useCallback(async (): Promise<void> => {
+  // "The feed never reorders under the user" (TikTok rule): a quiet refresh
+  // MERGES the fresh server ranking into the list the user is already watching
+  // — existing cards update their fields IN PLACE, brand-new tests append at
+  // the END. The foryou ranking carries random jitter + 90s cache TTL + view
+  // affinity bumps, so a full setTests(items) mid-session swapped the test
+  // under the viewport for a different one a second later (the "I see one
+  // test, then a second later a completely different test" bug). Only
+  // deliberate scope switches (discover toggle, closing a user library) pass
+  // { replace: true } — there the user expects a new list from position 0.
+  const loadFeed = useCallback(async (opts?: { replace?: boolean }): Promise<void> => {
+    const forceReplace = opts?.replace === true;
     const reqId = ++feedReqIdRef.current;
     setFeedLoading(true);
     try {
@@ -830,8 +840,23 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       if (reqId !== feedReqIdRef.current) return; // a newer request superseded this one
       if (bm?.ids) setBookmarkIds(new Set(bm.ids));
       const items: Test[] = res?.items || [];
-      seenIdsRef.current = new Set(items.map(i => i.id));
-      setTests(items);
+      if (forceReplace) {
+        seenIdsRef.current = new Set(items.map(i => i.id));
+        setTests(items);
+      } else {
+        setTests(prev => {
+          if (prev.length === 0) {
+            seenIdsRef.current = new Set(items.map(i => i.id));
+            return items;
+          }
+          const prevIds = new Set(prev.map(t => t.id));
+          const freshById = new Map(items.map(i => [i.id, i]));
+          const additions = items.filter(i => !prevIds.has(i.id) && !seenIdsRef.current.has(i.id));
+          seenIdsRef.current = new Set([...seenIdsRef.current, ...items.map(i => i.id)]);
+          const merged = prev.map(t => freshById.get(t.id) || t);
+          return additions.length ? [...merged, ...additions] : merged;
+        });
+      }
       feedCursorRef.current = res?.nextCursor ?? null;
       feedHasMoreRef.current = !!res?.nextCursor;
       setFeedHasMore(!!res?.nextCursor);
@@ -1735,6 +1760,11 @@ export default function AppRoot({ authed }: { authed: boolean }) {
         setDashSlideIdx(0);
       }
       toast({ title: t('testDeleted'), description: t('testDeletedDesc') });
+      // Drop the deleted card LOCALLY first (deliberate user action — the
+      // card must disappear now, not whenever the reload lands) and only then
+      // quiet-refresh the rest. The merge keeps every other card at its
+      // position, so the cards around the deleted one never swap identity.
+      setTests(prev => prev.filter(x => x.id !== id));
       await loadTests();
     } catch (e: any) {
       toast({ title: t('error'), description: e.message, variant: 'destructive' });
@@ -2563,7 +2593,8 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     setDashTestIdx(0); setDashSlideIdx(0);
     setFilesFeedMode(false); setFilesFeedTestId(null); pendingFilesJumpRef.current = null;
     setShareScopeByTest({});
-    loadFeedRef.current().catch(() => {});
+    // Deliberate scope switch — the NEW mode's own ranking from position 0
+    loadFeedRef.current({ replace: true }).catch(() => {});
   };
 
   // --- Another user's library (opened from their profile photo / chat avatar)
@@ -2605,7 +2636,10 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     pendingFilesJumpRef.current = null;
     setFilesFeedMode(false); setFilesFeedTestId(null);
     setGridFilesMode(false); setGridFilesTestId(null);
-    loadFeedRef.current().catch(() => {});
+    // Deliberate context switch back to the own feed — a full replace, not a
+    // merge (the list currently holds ANOTHER user's tests; merging would
+    // glue their cards onto the bottom of the own feed)
+    loadFeedRef.current({ replace: true }).catch(() => {});
   };
 
   // Bookmark toggle (the bookmark button lives on the cards in Discover mode):
@@ -2621,8 +2655,13 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     try {
       if (has) await api.removeBookmark(test.id); else await api.addBookmark(test.id);
       toast({ title: has ? t('bookmarkRemoved') : t('bookmarkAdded') });
-      // Refresh the list quietly: a removed bookmark drops out of the library
-      // view, a new one will be visible when switching back to the library.
+      // A removed bookmark drops out of the personal library immediately —
+      // as a LOCAL removal (deliberate user action), never as a feed reload:
+      // a reload would reorder the whole feed under the user's eyes. The
+      // quiet merge below only updates fields / appends brand-new tests.
+      if (has && !discoverModeRef.current && !filesFeedModeRef.current) {
+        setTests(prev => prev.filter(x => x.id !== test.id));
+      }
       loadFeedRef.current().catch(() => {});
     } catch (e: any) {
       setBookmarkIds(prev => {
