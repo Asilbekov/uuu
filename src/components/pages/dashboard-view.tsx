@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { api } from '@/lib/api';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Question, Test } from '@/lib/app-types';
 import { countAnsweredProgress, readTestProgress } from '@/lib/test-progress';
 import { ArrowLeft, BookOpen, BookmarkX, ChevronDown, ChevronRight, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, Users, X } from 'lucide-react';
@@ -51,6 +52,7 @@ export interface DashboardViewProps {
   dashSearch: string;
   dashSearching: boolean;
   loading: boolean;
+  dataReady: boolean;
   dashTagInfo: { query: string; exists: boolean; created: boolean; similar: string[] } | null;
   setDashSearch: React.Dispatch<React.SetStateAction<string>>;
   dashSearchResults: Test[] | null;
@@ -125,7 +127,7 @@ export interface DashboardViewProps {
   addTag: (...args: any[]) => any;
   setTestTags: React.Dispatch<React.SetStateAction<string[]>>;
   tagsOpen: boolean;
-  tagSuggestions: (...args: any[]) => any;
+  tagSuggestions: string[];
   testDescription: string;
   setTestDescription: React.Dispatch<React.SetStateAction<string>>;
   setTestIsPublic: React.Dispatch<React.SetStateAction<boolean>>;
@@ -171,6 +173,7 @@ export default function DashboardView({
   dashSearch,
   dashSearching,
   loading,
+  dataReady,
   dashTagInfo,
   setDashSearch,
   dashSearchResults,
@@ -512,6 +515,19 @@ export default function DashboardView({
               <Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}
             </p>
           </main>
+        ) : tests.length === 0 && (loading || !dataReady) ? (
+          /* FIRST-DATA SKELETON — a stable placeholder shaped like a feed card.
+             The server HTML already shows it, so a returning user never sees
+             an empty screen, a splash or a "no tests" flash: cached (or fresh)
+             data simply replaces the skeleton in place, same center position. */
+          <main className="flex-1 min-h-0 flex items-center justify-center px-3" aria-hidden="true">
+            <div className="w-full max-w-md h-[70%] max-h-[560px] rounded-2xl border border-black/10 bg-white p-4 flex flex-col gap-3">
+              <Skeleton className="h-10 w-full rounded-xl" />
+              <Skeleton className="flex-1 w-full rounded-xl" />
+              <Skeleton className="h-9 w-2/3 mx-auto rounded-full" />
+              <Skeleton className="h-9 w-1/2 mx-auto rounded-full" />
+            </div>
+          </main>
         ) : tests.length === 0 ? (
           <main className="flex-1 min-h-0 overflow-y-auto">
             <div className="max-w-7xl mx-auto px-4 py-6">
@@ -575,7 +591,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => window.open(attachmentFileUrl(f), '_blank')}
-                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left card-enter"
+                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
                               <div className="flex items-center gap-1.5 shrink-0">
                                 <span className="w-7 h-7 rounded-lg bg-[#FFF0D9] text-cta flex items-center justify-center shrink-0">
@@ -607,7 +623,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => window.open(attachmentFileUrl(f), '_blank')}
-                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left card-enter"
+                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
                               <div className="w-20 sm:w-36 shrink-0 h-full flex flex-col items-center justify-center gap-1 p-2 text-center bg-[#FFF0D9]">
                                 <span className="text-cta">{typeIcon(f.type, 'w-6 h-6 sm:w-8 sm:h-8')}</span>
@@ -665,7 +681,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
-                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left card-enter"
+                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
                               {/* Discover mode AND other users' libraries: author
                               header + bookmark. The personal library keeps the
@@ -774,7 +790,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
-                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left card-enter"
+                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
                               <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
                                 <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
@@ -914,8 +930,14 @@ export default function DashboardView({
                   const test = s.test;
                   const bgClass = test.coverColor ? '' : coverBgFor(test);
                   const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
+                  // WINDOWED RENDER: only slides within ±2 of the current one
+                  // mount their content; distant slides keep the exact same
+                  // height and background, so scroll geometry never changes and
+                  // nothing pops in mid-swipe (replaces content-visibility).
+                  const near = Math.abs(i - Math.min(dashTestIdx, fileSlides.length - 1)) <= 2;
                   return (
-                    <section key={`${test.id}`} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden cv-auto ${bgClass}`}>
+                    <section key={`${test.id}`} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
+                      {near && (
                       <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                         <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
                           <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
@@ -940,6 +962,7 @@ export default function DashboardView({
                           </p>
                         </div>
                       </div>
+                      )}
                     </section>
                   );
                 })}
@@ -960,6 +983,12 @@ export default function DashboardView({
             >
               {tests.map((test, idx) => {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
+                // WINDOWED RENDER (same as the files feed): cards beyond ±2 of
+                // the current slide render as same-height, same-background
+                // placeholders — with hundreds of tests the DOM stays light,
+                // and since they mount far outside the viewport the buttons
+                // NEVER appear out of nowhere while scrolling.
+                const near = Math.abs(idx - Math.min(dashTestIdx, tests.length - 1)) <= 2;
                 const totalQ = test._count?.questions || test.questions?.length || 0;
                 // Own test vs a bookmarked one (saved from Discover): bookmarked
                 // tests show no share controls — Edit copies them first.
@@ -975,7 +1004,8 @@ export default function DashboardView({
                 return (
                   // overflow-hidden: the card always fits the screen — no scrolling
                   // inside a card, swipes only move between cards
-                  <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden cv-auto ${bgClass}`}>
+                  <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
+                    {near && (
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
                         {/* Discover mode AND other users' libraries: author header
@@ -1210,6 +1240,7 @@ export default function DashboardView({
                         )}
                       </div>
                     </div>
+                    )}
                   </section>
                 );
               })}

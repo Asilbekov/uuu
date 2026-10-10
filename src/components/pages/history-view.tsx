@@ -40,7 +40,7 @@ export default function HistoryView({ attempts, goHome, t }: HistoryViewProps) {
         ) : (
           <div className="space-y-3">
             {attempts.map(attempt => (
-              <Card key={attempt.id} className="rounded-4xl border border-black bg-white cv-auto card-enter">
+              <Card key={attempt.id} className="rounded-4xl border border-black bg-white">
                 <CardContent className="p-4 flex items-center justify-between">
                   <div>
                     <p className="font-medium">{attempt.test?.title || t('unknownTest')}</p>
