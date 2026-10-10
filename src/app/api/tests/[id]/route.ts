@@ -178,7 +178,21 @@ export async function DELETE(
       return NextResponse.json({ error: 'Not authorized' }, { status: 403 });
     }
 
+    // Bookkeeping BEFORE the row disappears: every attachment stored in the
+    // Telegram channel must be removed from the channel too (best-effort —
+    // the same cleanup the editor does for removed attachments). DB rows,
+    // bookmarks, chat messages and attempts all go away with the cascading
+    // delete, so the test also leaves every community library at once.
+    const channelFiles = await db.attachment.findMany({
+      where: { testId: id, url: { startsWith: 'tg:' } },
+      select: { url: true, tgMessageId: true },
+    });
+
     await db.test.delete({ where: { id } });
+
+    await Promise.allSettled(
+      channelFiles.map(a => telegramDeleteFile(a.url.slice(3), a.tgMessageId))
+    );
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Delete test error:', error);

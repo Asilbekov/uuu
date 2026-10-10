@@ -662,6 +662,10 @@ export default function ChemTestApp() {
 
   // Delete confirmation
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  // Dead share link: the ?test=<id> target was deleted (or unshared) — the
+  // dashboard is replaced by a bare "test unavailable" screen with a single
+  // way back to the main page.
+  const [deadLink, setDeadLink] = useState(false);
 
   // Read user from localStorage only after mount (prevents hydration mismatch)
   const [hydratedUser, setHydratedUser] = useState<{ id: string; email: string; name: string } | null>(null);
@@ -851,7 +855,13 @@ export default function ChemTestApp() {
       setTests(prev => (prev.some(x => x.id === full.id) ? prev : [full, ...prev]));
       jump(0);
       cleanUrl();
-    }).catch(() => { cleanUrl(); });
+    }).catch((e: any) => {
+      // The linked test is gone (deleted by its author): keep the URL and
+      // swap the whole dashboard for the dead-link screen — just a message
+      // and the return-home button. Transient failures stay silent.
+      if (String(e?.message || '').toLowerCase().includes('not found')) setDeadLink(true);
+      else cleanUrl();
+    });
   });
 
   // Header search (tests context): debounce 350ms, server-side /api/feed?q=
@@ -1448,10 +1458,24 @@ export default function ChemTestApp() {
   const handleDeleteTest = async (id: string) => {
     try {
       await api.deleteTest(id);
-      toast({ title: 'Deleted', description: 'Test deleted successfully.' });
+      // Purge every cached surface of the deleted test: the full-test cache
+      // and both files modes (a files card of a deleted test would keep
+      // rendering from the cache). The feed reload below drops the card
+      // itself; the community feed loses it through the cascading delete.
+      setDashFullTests(prev => {
+        if (!prev[id]) return prev;
+        const next = { ...prev }; delete next[id]; return next;
+      });
+      if ((gridFilesMode && gridFilesTestId === id) || (filesFeedMode && filesFeedTestId === id)) {
+        pendingFilesJumpRef.current = null;
+        setGridFilesMode(false); setGridFilesTestId(null);
+        setFilesFeedMode(false); setFilesFeedTestId(null);
+        setDashSlideIdx(0);
+      }
+      toast({ title: t('testDeleted'), description: t('testDeletedDesc') });
       await loadTests();
     } catch (e: any) {
-      toast({ title: 'Error', description: e.message, variant: 'destructive' });
+      toast({ title: t('error'), description: e.message, variant: 'destructive' });
     }
     setDeleteId(null);
   };
@@ -2355,6 +2379,29 @@ export default function ChemTestApp() {
 
   // DASHBOARD
   if (effectivePage === 'dashboard') {
+    // Dead share link (?test=<id> of a deleted/removed test): the whole
+    // dashboard is replaced by a bare screen — only a message and the way
+    // back to the main page, exactly as the share-link promise demands.
+    if (deadLink) {
+      return (
+        <div className="relative h-[100dvh] flex flex-col items-center justify-center bg-background px-6 text-center">
+          <span className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center mb-4">
+            <Link2 className="w-8 h-8 text-destructive" />
+          </span>
+          <h1 className="text-xl sm:text-2xl font-bold mb-2">{t('deadLinkTitle')}</h1>
+          <p className="text-sm sm:text-base text-muted-foreground max-w-sm mb-6">{t('deadLinkDesc')}</p>
+          <Button
+            onClick={() => {
+              try { window.history.replaceState({}, '', window.location.pathname); } catch {}
+              setDeadLink(false);
+            }}
+            className="rounded-full bg-primary hover:bg-primary/90 h-11 px-6"
+          >
+            <Home className="w-4 h-4 mr-2" /> {t('backHome')}
+          </Button>
+        </div>
+      );
+    }
     const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
     // Saved progress for the test on screen (cached read) — drives the Continue button
     const dashSaved = curDashTest ? readTestProgress(progressUserId, curDashTest.id) : null;
@@ -2808,6 +2855,19 @@ export default function ChemTestApp() {
                                 >
                                   <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
                                 </Button>
+                                {/* Delete — own tests only (the server refuses
+                                anyone else): the confirm dialog spells out what
+                                disappears with the test — library and community
+                                entries + the share link. */}
+                                {own && (
+                                <Button size="sm" variant="outline"
+                                  onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
+                                  title={t('deleteTest')} aria-label={t('deleteTest')}
+                                  className="h-7 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                >
+                                  <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
+                                </Button>
+                                )}
                               </div>
                             </div>
                           ) : (
@@ -2896,6 +2956,18 @@ export default function ChemTestApp() {
                                   >
                                     <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
                                   </Button>
+                                  {/* Delete — own tests only, same as the library
+                                  card: dialog confirms, then the test leaves the
+                                  library, the community and its link dies. */}
+                                  {own && (
+                                  <Button size="sm" variant="outline"
+                                    onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
+                                    title={t('deleteTest')} aria-label={t('deleteTest')}
+                                    className="h-7 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-xs sm:text-sm px-2 justify-start"
+                                  >
+                                    <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
+                                  </Button>
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -3179,6 +3251,21 @@ export default function ChemTestApp() {
                                 <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptCommunitySub')}</p>
                               </button>
                             </div>
+                            )}
+
+                            {/* Delete — own tests only, visible in every view
+                            and content mode (an own public test can be deleted
+                            straight from Discover too). The confirm dialog
+                            explains everything that dies with the test. */}
+                            {own && (
+                              <button
+                                type="button"
+                                onClick={() => setDeleteId(test.id)}
+                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-destructive/50 bg-white px-3 py-2 sm:py-2.5 text-left text-destructive hover:bg-destructive/10 transition-colors"
+                              >
+                                <Trash2 className="w-4 h-4 shrink-0" />
+                                <span className="font-semibold text-sm">{t('deleteTest')}</span>
+                              </button>
                             )}
 
                             {/* Attached files — flips the feed to the FILES mode:
