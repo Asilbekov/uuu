@@ -70,6 +70,7 @@ import {
   Compass,
   BookmarkPlus,
   BookmarkCheck,
+  BookmarkX,
   Camera,
 } from 'lucide-react';
 import { PhotoshopColorPicker } from '@/components/color-picker';
@@ -2855,6 +2856,19 @@ export default function ChemTestApp() {
                                 >
                                   <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
                                 </Button>
+                                {/* Unpin — BOOKMARKED tests in the personal library:
+                                the test got here via the bookmark button, this row
+                                takes it back out (Discover keeps its own toggle on
+                                the author strip). */}
+                                {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
+                                <Button size="sm" variant="outline"
+                                  onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
+                                  title={t('unpinBtn')} aria-label={t('unpinBtn')}
+                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                >
+                                  <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
+                                </Button>
+                                )}
                                 {/* Delete — own tests only (the server refuses
                                 anyone else): the confirm dialog spells out what
                                 disappears with the test — library and community
@@ -2956,6 +2970,18 @@ export default function ChemTestApp() {
                                   >
                                     <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
                                   </Button>
+                                  {/* Unpin — bookmarked tests in the personal
+                                  library (shelf row): removes the test from the
+                                  personal library, same toggle as Discover */}
+                                  {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
+                                  <Button size="sm" variant="outline"
+                                    onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
+                                    title={t('unpinBtn')} aria-label={t('unpinBtn')}
+                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                  >
+                                    <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
+                                  </Button>
+                                  )}
                                   {/* Delete — own tests only, same as the library
                                   card: dialog confirms, then the test leaves the
                                   library, the community and its link dies. */}
@@ -3251,6 +3277,20 @@ export default function ChemTestApp() {
                                 <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptCommunitySub')}</p>
                               </button>
                             </div>
+                            )}
+
+                            {/* Unpin — bookmarked tests viewed in the personal
+                            feed: the test got here via the bookmark button, this
+                            row takes it back out of the personal library */}
+                            {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
+                              <button
+                                type="button"
+                                onClick={() => toggleBookmark(test)}
+                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors"
+                              >
+                                <BookmarkX className="w-4 h-4 shrink-0" />
+                                <span className="font-semibold text-sm">{t('unpinBtn')}</span>
+                              </button>
                             )}
 
                             {/* Delete — own tests only, visible in every view
