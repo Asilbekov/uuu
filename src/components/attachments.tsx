@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -24,57 +25,30 @@ import {
   Check,
   MonitorPlay,
 } from 'lucide-react';
-import { PdfCanvasViewer } from '@/components/pdf-canvas-viewer';
+// Perf: pdfjs-dist (~345 KB chunk) must NOT be in the initial bundle — it is
+// needed only when a PDF attachment is actually opened. next/dynamic defers
+// the whole pdf-canvas-viewer module into an on-demand chunk.
+const PdfCanvasViewer = dynamic(
+  () => import('@/components/pdf-canvas-viewer').then(m => m.PdfCanvasViewer),
+  { ssr: false, loading: () => <div className="h-[560px] animate-pulse bg-neutral-100 rounded-xl" /> }
+);
 import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
 import { DragHandle, useResizableSheet } from '@/components/resize-sheet';
 import { getUser } from '@/lib/api';
+// Perf: shared types/helpers live in the tiny attachment-utils module so the
+// main page can import them statically WITHOUT dragging this heavy editor
+// module (and pdfjs) into the initial chunk.
+import {
+  ATTACHMENT_TYPES,
+  MAX_UPLOAD_BYTES,
+  attachmentFileUrl,
+  formatSize,
+  typeIcon,
+  type AttachmentItem,
+} from '@/components/attachment-utils';
 
-export interface AttachmentItem {
-  id?: string; // present only after the test is saved
-  title: string;
-  type: 'audio' | 'video' | 'pdf' | 'image' | 'embed' | 'link';
-  url: string; // external URL or data: URL for small uploads
-  size?: number | null;
-  orderNum?: number;
-  // Telegram channel post that carries the file (upload response). Enables
-  // real deletion from the channel when the attachment is removed.
-  tgMessageId?: number | null;
-  // client-only helpers for unsaved uploads
-  blobUrl?: string; // preview URL for just-picked files
-}
-
-export const ATTACHMENT_TYPES: AttachmentItem['type'][] = ['audio', 'video', 'pdf', 'image', 'embed', 'link'];
-
-export function typeIcon(type: AttachmentItem['type'], className = 'w-4 h-4') {
-  switch (type) {
-    case 'audio': return <Music className={className} />;
-    case 'video': return <Video className={className} />;
-    case 'pdf': return <FileText className={className} />;
-    case 'image': return <ImageIcon className={className} />;
-    case 'embed': return <MonitorPlay className={className} />;
-    default: return <LinkIcon className={className} />;
-  }
-}
-
-// Upload limit: files are stored in the Telegram channel via
-// /api/attachments/upload — Bot API accepts up to 50 MB per document. When
-// the Telegram bot is NOT connected the server falls back to storing small
-// files (≤3.5 MB) as data: URLs in the DB and refuses bigger ones.
-export const MAX_UPLOAD_BYTES = 50 * 1024 * 1024;
-
-export function formatSize(bytes?: number | null) {
-  if (!bytes && bytes !== 0) return '';
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-/** Same-origin streaming URL for a saved attachment (PDF framing, audio seeking). */
-export function attachmentFileUrl(a: AttachmentItem): string {
-  if (a.blobUrl) return a.blobUrl;
-  if (a.id) return `/api/attachments/${a.id}/file`;
-  return a.url; // fallback: external URL opened directly
-}
+export type { AttachmentItem } from '@/components/attachment-utils';
+export { ATTACHMENT_TYPES, MAX_UPLOAD_BYTES, attachmentFileUrl, formatSize, typeIcon } from '@/components/attachment-utils';
 
 /** Direct open URL (new tab). For unsaved data: URL items we cannot stream yet. */
 function attachmentOpenUrl(a: AttachmentItem): string {

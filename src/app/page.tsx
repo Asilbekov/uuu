@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import { api, setUser, getUser } from '@/lib/api';
 import { autoTranslateQuestions, QTranslationsV } from '@/lib/qtrans';
 import MathText from '@/components/math-text';
@@ -24,9 +25,22 @@ import {
 } from '@/components/ui/alert-dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
-import { AttachmentItem, AttachmentsEditor, AttachmentsList, AttachmentsBottomSheet, AttachmentsSidePanel, typeIcon, attachmentFileUrl, formatSize } from '@/components/attachments';
+// ---------------------------------------------------------------------------
+// Perf: heavy, on-demand modules are loaded via next/dynamic so the initial
+// bundle (First Load JS) stays small. Only the screens that actually open the
+// attachments editor, a chat panel or the cover-color picker download them.
+// Types + tiny helpers (AttachmentItem, typeIcon, attachmentFileUrl, formatSize)
+// live in the lightweight attachment-utils module and stay static imports.
+// ---------------------------------------------------------------------------
+import { typeIcon, attachmentFileUrl, formatSize, type AttachmentItem } from '@/components/attachment-utils';
+const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsEditor), { ssr: false });
+const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
+const AttachmentsBottomSheet = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsBottomSheet), { ssr: false });
+const AttachmentsSidePanel = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsSidePanel), { ssr: false });
 import { SheetHeaderSwitcher } from '@/components/sheet-switcher';
-import { AiChatPanel, GroupChatPanel, AiThreadMeta } from '@/components/chat-panels';
+import type { AiThreadMeta } from '@/components/chat-panels';
+const AiChatPanel = dynamic(() => import('@/components/chat-panels').then(m => m.AiChatPanel), { ssr: false, loading: () => <SheetLoadingPlaceholder /> });
+const GroupChatPanel = dynamic(() => import('@/components/chat-panels').then(m => m.GroupChatPanel), { ssr: false, loading: () => <SheetLoadingPlaceholder /> });
 import { ResizableSheetFrame } from '@/components/resize-sheet';
 import {
   LogIn,
@@ -75,8 +89,18 @@ import {
   Camera,
   LogOut,
 } from 'lucide-react';
-import { PhotoshopColorPicker } from '@/components/color-picker';
+const PhotoshopColorPicker = dynamic(() => import('@/components/color-picker').then(m => m.PhotoshopColorPicker), { ssr: false });
 import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
+
+// Tiny neutral placeholder shown while a lazily-loaded bottom-sheet panel
+// (chat / attachments) is downloading its chunk — keeps the sheet frame sized.
+function SheetLoadingPlaceholder() {
+  return (
+    <div className="flex items-center justify-center h-full min-h-[240px]">
+      <div className="animate-pulse text-neutral-400 text-sm">…</div>
+    </div>
+  );
+}
 
 // localStorage key for the interface language (EN -> RU -> UZ cycle button)
 const LANG_STORAGE_KEY = 'chemtest-lang';

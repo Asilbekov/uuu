@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
-import katex from 'katex';
+import React, { useEffect, useMemo, useState } from 'react';
 
 /**
  * MathText renders a string that may contain LaTeX math ($...$, $$...$$, \(...\), \[...\]).
@@ -9,9 +8,18 @@ import katex from 'katex';
  *  - markdown cleanup (### headings, **bold**)
  *  - automatic beautification of unicode super/subscripts (x² -> x<sup>2</sup>)
  *  - plain caret exponents (m/s^2 -> m/s<sup>2</sup>)
+ *
+ * Perf: KaTeX (~70 KB gzipped) is NOT bundled with the app — it is dynamically
+ * imported the first time a string actually contains math delimiters. Strings
+ * with plain chemistry notation (H₂SO₄, x², markdown) never pay for it.
+ * Until KaTeX arrives math segments briefly show their raw source, then
+ * upgrade in place — no layout jump for 99% of texts.
  */
+type KatexLib = typeof import('katex')['default'];
 
 const MATH_RE = /(\$\$[\s\S]+?\$\$|\$[^\u0001$\n]+?\$)/g;
+// Non-global twin of MATH_RE for boolean tests (a /g regex is stateful in .test())
+const HAS_MATH_RE = /\$\$[\s\S]+?\$\$|\$[^\u0001$\n]+?\$/;
 const ESC_DOLLAR = '\u0001'; // placeholder for \\$ (literal dollar, e.g. prices)
 
 function protectEscapedDollars(s: string): string {
@@ -202,26 +210,45 @@ function renderPlain(text: string, keyPrefix: string): React.ReactNode[] {
   return out;
 }
 
+/**
+ * Shared preprocessing: protect escaped dollars, normalize \(...\) / \[...\]
+ * delimiters to $ / $$, tolerate an unclosed $$ block. Used both for the
+ * cheap "does this need KaTeX at all?" probe and for the real rendering.
+ */
+function prepareMathText(text: string): string {
+  let p = protectEscapedDollars(text);
+  // Protect LaTeX row separators "\\" (e.g. pmatrix rows) BEFORE converting
+  // alternate delimiters, otherwise "\\(" (rowsep + open paren) is wrongly
+  // treated as a "\( " math delimiter and corrupts the formula.
+  const ROWSEP = '\u0002';
+  p = p.replace(/\\\\/g, ROWSEP);
+  p = p
+    .replace(/\\\(/g, '$')
+    .replace(/\\\)/g, '$')
+    .replace(/\\\[([\s\S]*?)\\\]/g, (_m, inner: string) => `$$${inner}$$`);
+  p = p.split(ROWSEP).join('\\\\');
+  const displayCount = (p.match(/\$\$/g) || []).length;
+  return displayCount % 2 === 1 ? p + '$$' : p;
+}
+
 export function MathText({ text, className }: { text: string; className?: string }) {
+  // Lazy KaTeX: loaded only when math is actually present in this string.
+  const [katexLib, setKatexLib] = useState<KatexLib | null>(null);
+  const prepared = useMemo(() => (text ? prepareMathText(text) : ''), [text]);
+  const needsMath = useMemo(() => HAS_MATH_RE.test(prepared), [prepared]);
+
+  useEffect(() => {
+    if (!needsMath || katexLib) return;
+    let alive = true;
+    import('katex')
+      .then(m => { if (alive) setKatexLib(m.default); })
+      .catch(() => { /* rendering falls back to raw math source */ });
+    return () => { alive = false; };
+  }, [needsMath, katexLib]);
+
   const nodes = useMemo(() => {
     if (!text) return null;
-    let protectedText0 = protectEscapedDollars(text);
-    // Protect LaTeX row separators "\\" (e.g. pmatrix rows) BEFORE converting
-    // alternate delimiters, otherwise "\\(" (rowsep + open paren) is wrongly
-    // treated as a "\( " math delimiter and corrupts the formula.
-    const ROWSEP = '\u0002';
-    protectedText0 = protectedText0.replace(/\\\\/g, ROWSEP);
-    // Normalize alternate LaTeX delimiters some models emit:
-    // \(...\) -> $...$  and  \[...\] -> $$...$$
-    protectedText0 = protectedText0
-      .replace(/\\\(/g, '$')
-      .replace(/\\\)/g, '$')
-      .replace(/\\\[([\s\S]*?)\\\]/g, (_m, inner: string) => `$$${inner}$$`);
-    protectedText0 = protectedText0.split(ROWSEP).join('\\\\');
-    // Tolerate an unclosed $$ block (e.g. truncated AI answer): close it so the
-    // completed parts still render instead of showing raw $$ markers.
-    const displayCount = (protectedText0.match(/\$\$/g) || []).length;
-    const protectedText = displayCount % 2 === 1 ? protectedText0 + '$$' : protectedText0;
+    const protectedText = prepared;
     // IMPORTANT: split() with a capturing group guarantees math segments land at
     // ODD indexes — even when some parts are empty strings (e.g. text that
     // STARTS with a formula yields a leading ''). Do NOT filter() before the
@@ -245,8 +272,17 @@ export function MathText({ text, className }: { text: string; className?: string
         }
         latex = restoreDollars(latex);
         latex = unicodeToLatex(latex);
+        // KaTeX not loaded yet (first paint of a math string): show the raw
+        // source styled as plain text — it upgrades the moment the chunk lands.
+        if (!katexLib) {
+          return (
+            <span key={`m${i}`} className={displayMode ? 'block my-1.5 overflow-x-auto text-center' : 'inline-block'}>
+              {latex.trim()}
+            </span>
+          );
+        }
         try {
-          const html = katex.renderToString(latex.trim(), {
+          const html = katexLib.renderToString(latex.trim(), {
             throwOnError: false,
             strict: false,
             displayMode,
@@ -268,7 +304,7 @@ export function MathText({ text, className }: { text: string; className?: string
         }
       })
       .filter(Boolean);
-  }, [text]);
+  }, [text, prepared, katexLib]);
 
   return <span className={`whitespace-pre-wrap ${className || ''}`}>{nodes}</span>;
 }

@@ -36,7 +36,9 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
             'Content-Type': upstream.headers.get('content-type')?.includes('image')
               ? (upstream.headers.get('content-type') as string)
               : 'image/jpeg',
-            'Cache-Control': 'public, max-age=600',
+            // Perf: browser 5 min + Vercel edge CDN 24 h + SWR a week — avatars
+            // change rarely; the client cache-busts with ?t= after an upload.
+            'Cache-Control': 'public, max-age=300, s-maxage=86400, stale-while-revalidate=604800',
           },
         });
       } catch (e: any) {
@@ -57,12 +59,12 @@ export async function GET(_request: NextRequest, { params }: { params: Promise<{
         : Buffer.from(decodeURIComponent(m[3]), 'utf-8');
       return new Response(new Uint8Array(buffer), {
         status: 200,
-        headers: { 'Content-Type': contentType, 'Cache-Control': 'public, max-age=600' },
+        headers: { 'Content-Type': contentType, 'Cache-Control': 'public, max-age=300, s-maxage=86400, stale-while-revalidate=604800' },
       });
     }
 
     if (/^https?:\/\//.test(ref)) {
-      return new Response(null, { status: 302, headers: { Location: ref, 'Cache-Control': 'public, max-age=600' } });
+      return new Response(null, { status: 302, headers: { Location: ref, 'Cache-Control': 'public, max-age=300, s-maxage=86400, stale-while-revalidate=604800' } });
     }
 
     return new Response('Unsupported avatar reference', { status: 500 });
