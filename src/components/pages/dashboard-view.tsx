@@ -303,7 +303,44 @@ export default function DashboardView({
         </div>
       );
     }
-    const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
+    const fileSlidesCount = fileSlides.length;
+  // MONOTONIC RENDER SET — once a card has rendered its content it NEVER
+  // reverts to a placeholder: scrolling back shows exactly what was there
+  // before (no re-mount pop-in), and fast flicks can never flash an empty
+  // card that was already on screen. Ref (not state): the windowed-render
+  // anchors drive re-renders; the set only WIDENS what stays mounted.
+  const everShownRef = React.useRef<Set<string>>(new Set());
+  // LIVE anchor — read the REAL scroll position of the mounted feed during
+  // render. Scroll handlers only TRIGGER a re-render; the render then reads
+  // the fresh position, so the rendered window can never lag behind reality —
+  // even after an instant (non-smooth) wheel jump that lands several cards
+  // away in a single frame. Before the feed mounts, fall back to the
+  // state-tracked index from app-root.
+  const liveFeedEl = dashFeedRef.current as HTMLDivElement | null;
+  const liveIdx = liveFeedEl && liveFeedEl.clientHeight > 0
+    ? Math.round(liveFeedEl.scrollTop / liveFeedEl.clientHeight)
+    : dashLiveIdx;
+  // Mark everything currently inside the ±2 union window as shown (both feeds
+  // share this logic, so it runs before the branches below).
+  {
+    const a1 = Math.min(Math.max(0, liveIdx), Math.max(0, tests.length - 1));
+    const a2 = Math.min(Math.max(0, dashTestIdx), Math.max(0, tests.length - 1));
+    for (const a of new Set([a1, a2])) {
+      for (let d = -2; d <= 2; d++) {
+        const i = a + d;
+        if (i >= 0 && i < tests.length) everShownRef.current.add(tests[i].id);
+      }
+    }
+    const s1 = Math.min(Math.max(0, liveIdx), Math.max(0, fileSlidesCount - 1));
+    const s2 = Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlidesCount - 1));
+    for (const a of new Set([s1, s2])) {
+      for (let d = -2; d <= 2; d++) {
+        const i = a + d;
+        if (i >= 0 && i < fileSlidesCount) everShownRef.current.add(fileSlides[i].test.id);
+      }
+    }
+  }
+  const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
     // Saved progress for the test on screen (cached read) — drives the Continue button
     const dashSaved = curDashTest ? readTestProgress(progressUserId, curDashTest.id) : null;
     // Library / shelf grids: slice the loaded tests into shelf rows
@@ -943,11 +980,13 @@ export default function DashboardView({
                   // viewport therefore ALWAYS renders its content, whatever the
                   // settle-commit timing does.
                   const near =
-                    Math.abs(i - Math.min(Math.max(0, dashLiveIdx), Math.max(0, fileSlides.length - 1))) <= 2 ||
+                    Math.abs(i - Math.min(Math.max(0, liveIdx), Math.max(0, fileSlides.length - 1))) <= 2 ||
                     Math.abs(i - Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1))) <= 2;
+                  if (near) everShownRef.current.add(test.id);
+                  const show = near || everShownRef.current.has(test.id);
                   return (
                     <section key={`${test.id}`} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
-                      {near && (
+                      {show && (
                       <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                         <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
                           <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
@@ -1001,8 +1040,10 @@ export default function DashboardView({
                 // LOOKING at ALWAYS has its buttons and texts rendered — a
                 // dropped/delayed settle commit can never blank the screen.
                 const near =
-                  Math.abs(idx - Math.min(Math.max(0, dashLiveIdx), tests.length - 1)) <= 2 ||
+                  Math.abs(idx - Math.min(Math.max(0, liveIdx), tests.length - 1)) <= 2 ||
                   Math.abs(idx - Math.min(Math.max(0, dashTestIdx), tests.length - 1)) <= 2;
+                if (near) everShownRef.current.add(test.id);
+                const show = near || everShownRef.current.has(test.id);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
                 // Own test vs a bookmarked one (saved from Discover): bookmarked
                 // tests show no share controls — Edit copies them first.
@@ -1024,7 +1065,7 @@ export default function DashboardView({
                   // overflow-hidden: the card always fits the screen — no scrolling
                   // inside a card, swipes only move between cards
                   <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
-                    {near && (
+                    {show && (
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
                         {/* Discover mode AND other users' libraries: author header

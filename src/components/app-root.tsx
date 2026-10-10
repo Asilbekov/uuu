@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { flushSync } from 'react-dom';
 import dynamic from 'next/dynamic';
 import { api, setUser, getUser } from '@/lib/api';
 import { autoTranslateQuestions, QTranslationsV } from '@/lib/qtrans';
@@ -968,7 +969,6 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // empty: buttons and texts missing until the next scroll).
   const [dashLiveIdx, setDashLiveIdx] = useState(0);
   const dashLiveIdxRef = React.useRef(0);
-  const dashLiveRafRef = React.useRef<number | null>(null);
   const [dashFullTests, setDashFullTests] = useState<Record<string, Test>>({});
   const dashFeedRef = React.useRef<HTMLDivElement>(null);
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
@@ -1927,19 +1927,16 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const onDashScroll = () => {
     const el = dashFeedRef.current;
     if (!el || el.clientHeight === 0) return;
-    // Track the visible slide (rounded) once per frame — the windowed render
-    // reads this so the card under the viewport ALWAYS renders content.
-    if (dashLiveRafRef.current == null) {
-      dashLiveRafRef.current = requestAnimationFrame(() => {
-        dashLiveRafRef.current = null;
-        const el2 = dashFeedRef.current;
-        if (!el2 || el2.clientHeight === 0) return;
-        const live = Math.round(el2.scrollTop / el2.clientHeight);
-        if (live !== dashLiveIdxRef.current) {
-          dashLiveIdxRef.current = live;
-          setDashLiveIdx(live);
-        }
-      });
+    // Track the visible slide (rounded) and commit the re-render SYNCHRONOUSLY
+    // (flushSync): the windowed render slides WITHIN the scroll event, before
+    // the browser paints this frame. Any async indirection (rAF, scheduler
+    // task) let a fast wheel flick paint the landing card as an empty
+    // placeholder for a few frames — buttons/texts missing, then popping in.
+    // The guard keeps this to ONE sync render per card crossing.
+    const live = Math.round(el.scrollTop / el.clientHeight);
+    if (live !== dashLiveIdxRef.current) {
+      dashLiveIdxRef.current = live;
+      flushSync(() => setDashLiveIdx(live));
     }
     armDashSettle(140);
   };
