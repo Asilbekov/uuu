@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { flushSync } from 'react-dom';
 import dynamic from 'next/dynamic';
 import { api, setUser, getUser } from '@/lib/api';
 import { autoTranslateQuestions, QTranslationsV } from '@/lib/qtrans';
@@ -962,13 +961,13 @@ export default function AppRoot({ authed }: { authed: boolean }) {
 
   // Dashboard: TikTok-style vertical feed of tests
   const [dashTestIdx, setDashTestIdx] = useState(0);
-  // LIVE window anchor: the slide actually under the viewport right now
-  // (rounded scrollTop), tracked from scroll events. The rendered window is
-  // the UNION of ±2 around this and the committed dashTestIdx — so the card
-  // the user is LOOKING at always renders its content, whatever the settle
-  // commit timing does (a dropped commit used to leave the settled card
-  // empty: buttons and texts missing until the next scroll).
-  const [dashLiveIdx, setDashLiveIdx] = useState(0);
+  // LIVE index of the slide actually under the viewport (rounded scrollTop),
+  // tracked synchronously from scroll events. NOT React state: scrolling must
+  // never trigger a render — every loaded card is permanently mounted (feed
+  // pages of 12), so a swipe runs on pure native scrolling and React only
+  // hears about the final position when the settle commit lands. The ref
+  // drives the direction-weighted prediction prefetches (touchstart and
+  // mid-gesture); data-only — resolving fetches never change a visible pixel.
   const dashLiveIdxRef = React.useRef(0);
   const [dashFullTests, setDashFullTests] = useState<Record<string, Test>>({});
   const dashFeedRef = React.useRef<HTMLDivElement>(null);
@@ -1074,14 +1073,12 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // Library grid: 2 cards per row on phones (full button names need the width),
   // 3 per row from sm up — matches the Tailwind sm breakpoint (640px)
   const [libNarrow, setLibNarrow] = useState(false);
-  // On every feed (re)mount — page or view switch — the scroll container starts
-  // at scrollTop 0 and the sync effect then places it on the committed card.
-  // Seed the live anchor with that same card so the FIRST paint already
-  // renders the correct window (no one-frame empty card).
+  // On every feed (re)mount — page or view switch — the scroll container
+  // starts at scrollTop 0 and the sync effect then places it on the committed
+  // card. Seed the live anchor with that same card so the first prediction
+  // prefetches (touchstart, mid-gesture) aim at the right neighbourhood.
   useEffect(() => {
-    const seed = filesFeedMode ? dashSlideIdx : dashTestIdx;
-    dashLiveIdxRef.current = seed;
-    setDashLiveIdx(seed);
+    dashLiveIdxRef.current = filesFeedMode ? dashSlideIdx : dashTestIdx;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dashView, filesFeedMode, effectivePage]);
   useEffect(() => {
@@ -2027,6 +2024,20 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     }
     const clamped = Math.min(tests.length - 1, Math.max(0, idx));
     setDashTestIdx(clamped);
+    // Adopt the landed card's start defaults IN THE SAME BATCHED RENDER: the
+    // freshly committed card switches from its own defaults (exactly what it
+    // showed mid-swipe) to the shared start-params — they must be IDENTICAL
+    // in that frame, or the counter/highlights would visibly flip right
+    // after landing. The sync effect below keeps covering non-scroll paths
+    // (jump-to-test, return to dashboard) — setting the same values twice is
+    // a no-op for React.
+    const landed = tests[clamped];
+    if (landed) {
+      const landedTotalQ = landed._count?.questions || landed.questions?.length || 0;
+      setSelectedQuestionCount(Math.max(1, landedTotalQ));
+      setStartRandomizeQ(landed.randomizeQuestions !== false);
+      setStartRandomizeO(landed.randomizeOptions !== false);
+    }
     // Recommendation signal (invisible): this card stayed on screen — count a view
     signal(tests[clamped]);
     // PREDICTION: while this card is on screen, the neighbours the user is
@@ -2042,12 +2053,12 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const onDashScroll = () => {
     const el = dashFeedRef.current;
     if (!el || el.clientHeight === 0) return;
-    // Track the visible slide (rounded) and commit the re-render SYNCHRONOUSLY
-    // (flushSync): the windowed render slides WITHIN the scroll event, before
-    // the browser paints this frame. Any async indirection (rAF, scheduler
-    // task) let a fast wheel flick paint the landing card as an empty
-    // placeholder for a few frames — buttons/texts missing, then popping in.
-    // The guard keeps this to ONE sync render per card crossing.
+    // SCROLLING IS RENDER-FREE: every loaded card is permanently mounted, so
+    // the swipe animation runs on pure native scrolling — no React work in
+    // any scroll frame (this is what kills the mid-swipe flicker: counters,
+    // highlights and render windows used to mutate DURING the animation).
+    // The ref below is all the tracking needed; the settle commit is the
+    // single state transition — one clean render after the card truly lands.
     const live = Math.round(el.scrollTop / el.clientHeight);
     // Movement direction — drives the direction-weighted prefetches
     // (scrolling down prepares the cards BELOW first, and vice versa).
@@ -2057,23 +2068,9 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     }
     if (live !== dashLiveIdxRef.current) {
       dashLiveIdxRef.current = live;
-      flushSync(() => {
-        setDashLiveIdx(live);
-        // PREDICTION: the bottom bar adopts the card under the viewport in the
-        // SAME frame (question count, randomize defaults) — by the time the
-        // user's swipe settles, "Start Test (N questions)" is already exact.
-        if (!filesFeedModeRef.current && tests.length > 0) {
-          const t = tests[Math.min(tests.length - 1, Math.max(0, live))];
-          if (t) {
-            const totalQ = t._count?.questions || t.questions?.length || 0;
-            setSelectedQuestionCount(Math.max(1, totalQ));
-            setStartRandomizeQ(t.randomizeQuestions !== false);
-            setStartRandomizeO(t.randomizeOptions !== false);
-          }
-        }
-      });
       // PREDICTION: the card the user is moving TOWARD starts loading its full
       // payload NOW — mid-gesture, before the settle commit ever fires.
+      // Data-only (deduped): resolving prefetches change no visible pixel.
       prefetchNeighbors(live, dashMoveDirRef.current);
     }
     armDashSettle(140);
@@ -3081,8 +3078,6 @@ export default function AppRoot({ authed }: { authed: boolean }) {
         setDeadLink={setDeadLink}
         tests={tests}
         dashTestIdx={dashTestIdx}
-        dashLiveIdx={dashLiveIdx}
-        dashSlideIdx={dashSlideIdx}
         progressUserId={progressUserId}
         dashView={dashView}
         libNarrow={libNarrow}
