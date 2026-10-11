@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { AttachmentItem, attachmentFileUrl, formatSize, typeIcon } from '@/components/attachment-utils';
 import LangButton from '@/components/lang-button';
@@ -36,6 +36,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel } from 'swiper/modules';
 import type { Swiper as SwiperClass } from 'swiper';
 import type { Lang } from '@/lib/i18n';
+import { useSessionStore } from '@/stores/session-store';
+import { useProfileStore } from '@/stores/profile-store';
+import { useNavStore } from '@/stores/nav-store';
+import { useDashboardStore } from '@/stores/dashboard-store';
+import { useEditorStore } from '@/stores/editor-store';
+import { useTakeStore } from '@/stores/take-store';
+import { tUI } from '@/lib/i18n';
 
 /** Imperative handle the dashboard exposes to app-root for programmatic jumps. */
 export interface FeedApi {
@@ -50,244 +57,129 @@ export interface FeedApi {
  * is passed via props (list generated mechanically from block usage).
  */
 export interface DashboardViewProps {
-  dashFullTests: Record<string, Test>;
-  bookmarkIds: Set<string>;
-  shareScopeByTest: Record<string, 'link' | 'community'>;
-  setShareScopeByTest: React.Dispatch<React.SetStateAction<Record<string, 'link' | 'community'>>>;
-  effectivePage: Page;
-  page: Page;
-  deadLink: boolean;
-  t: (key: string, vars?: Record<string, string | number>) => string;
-  setDeadLink: React.Dispatch<React.SetStateAction<boolean>>;
   tests: Test[];
-  dashTestIdx: number;
-  dashSlideIdx: number;
-  progressUserId: string;
-  dashView: 'tiktok1' | 'tiktok2' | 'library' | 'shelf';
-  libNarrow: boolean;
-  gridFilesMode: boolean;
-  gridFilesTestId: string | null;
-  dashSearch: string;
-  dashSearching: boolean;
+  bookmarkIds: Set<string>;
   loading: boolean;
-  dataReady: boolean;
-  dashTagInfo: { query: string; exists: boolean; created: boolean; similar: string[] } | null;
-  setDashSearch: React.Dispatch<React.SetStateAction<string>>;
-  dashSearchResults: Test[] | null;
-  jumpToTest: (...args: any[]) => any;
-  questions: Question[];
-  dashSearchOpen: boolean;
-  setDashSearchOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  viewingUser: { id: string; name: string; image: string | null } | null;
-  closeUserLibrary: (...args: any[]) => any;
-  closeGridFiles: (...args: any[]) => any;
-  filesFeedMode: boolean;
-  closeFilesCard: (...args: any[]) => any;
-  backToLibrary: (...args: any[]) => any;
-  user: { id: string; email: string; name: string } | null;
-  name: string;
-  startCreateTest: (...args: any[]) => any;
-  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
-  editMode: boolean;
-  cycleDashView: (...args: any[]) => any;
-  lang: Lang;
-  cycleLang: (...args: any[]) => any;
-  effectiveUser: { id: string; email: string; name: string } | null;
-  email: string;
-  toggleDiscoverMode: (...args: any[]) => any;
-  discoverMode: boolean;
-  setPage: React.Dispatch<React.SetStateAction<Page>>;
-  myAvatar: string | null;
-  userInitials: string;
   viewingLoading: boolean;
+  fileSlides: any[];
   dashFeedRef: { current: any };
   feedApiRef: { current: FeedApi | null };
-  exitFilesMode: (...args: any[]) => any;
+  feedSentinelRef: { current: any };
+  onDashCommit: (idx: number, mode: 'tests' | 'files') => void;
+  jumpToTest: (...args: any[]) => any;
+  closeUserLibrary: (...args: any[]) => any;
+  closeGridFiles: (...args: any[]) => any;
+  closeFilesCard: (...args: any[]) => any;
+  backToLibrary: (...args: any[]) => any;
+  startCreateTest: (...args: any[]) => any;
   startEditTest: (...args: any[]) => any;
   openFromLibrary: (...args: any[]) => any;
   toggleBookmark: (...args: any[]) => any;
   openUserLibrary: (...args: any[]) => any;
-  setDashTestIdx: React.Dispatch<React.SetStateAction<number>>;
   startFromDashboard: (...args: any[]) => any;
   toggleGridFiles: (...args: any[]) => any;
-  shareBusy: boolean;
   doShare: (...args: any[]) => any;
-  setDeleteId: React.Dispatch<React.SetStateAction<string | null>>;
-  feedSentinelRef: { current: any };
-  onDashCommit: (idx: number, mode: 'tests' | 'files') => void;
-  fileSlides: any[];
-  filesFeedTestId: string | null;
-  setSelectedQuestionCount: React.Dispatch<React.SetStateAction<number>>;
-  selectedQuestionCount: number;
-  setPracticeMode: React.Dispatch<React.SetStateAction<boolean>>;
-  practiceMode: boolean;
-  setStartRandomizeQ: React.Dispatch<React.SetStateAction<boolean>>;
-  startRandomizeQ: boolean;
-  setStartRandomizeO: React.Dispatch<React.SetStateAction<boolean>>;
-  startRandomizeO: boolean;
-  openFilesCard: (...args: any[]) => any;
-  shuffledQuestions: Question[];
-  deleteId: string | null;
   handleDeleteTest: (...args: any[]) => any;
-  editorBody: React.ReactNode;
-  setEditorInfoExpanded: React.Dispatch<React.SetStateAction<boolean>>;
-  editorInfoExpanded: boolean;
-  testTitle: string;
-  setTestTitle: React.Dispatch<React.SetStateAction<string>>;
-  testTags: string[];
-  removeTag: (...args: any[]) => any;
-  tagInput: string;
-  setTagInput: React.Dispatch<React.SetStateAction<string>>;
-  setTagsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setAllTags: React.Dispatch<React.SetStateAction<string[]>>;
-  addTag: (...args: any[]) => any;
-  setTestTags: React.Dispatch<React.SetStateAction<string[]>>;
-  tagsOpen: boolean;
-  tagSuggestions: string[];
-  testDescription: string;
-  setTestDescription: React.Dispatch<React.SetStateAction<string>>;
-  setTestIsPublic: React.Dispatch<React.SetStateAction<boolean>>;
-  testIsPublic: boolean;
-  setEditorFilesExpanded: React.Dispatch<React.SetStateAction<boolean>>;
-  formAttachments: AttachmentItem[];
-  editorFilesExpanded: boolean;
-  setFormAttachments: React.Dispatch<React.SetStateAction<AttachmentItem[]>>;
-  setEditorCoverExpanded: React.Dispatch<React.SetStateAction<boolean>>;
-  editorCoverExpanded: boolean;
-  setTestCoverColor: React.Dispatch<React.SetStateAction<string>>;
-  testCoverColor: string;
-  setEditorQuestionsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
-  editorQuestionsExpanded: boolean;
-  setQuestions: React.Dispatch<React.SetStateAction<Question[]>>;
-  addQuestion: (...args: any[]) => any;
-  removeQuestion: (...args: any[]) => any;
-  updateQuestion: (...args: any[]) => any;
-  photoBusy: string;
-  pickQuestionPhoto: (...args: any[]) => any;
-  clearQuestionPhoto: (...args: any[]) => any;
-  pickOptionPhoto: (...args: any[]) => any;
-  clearOptionPhoto: (...args: any[]) => any;
+  exitFilesMode: (...args: any[]) => any;
+  openFilesCard: (...args: any[]) => any;
+  cycleDashView: (...args: any[]) => any;
+  toggleDiscoverMode: (...args: any[]) => any;
 }
 
 export default function DashboardView({
-  effectivePage,
-  dashFullTests,
-  bookmarkIds,
-  shareScopeByTest,
-  setShareScopeByTest,
-  page,
-  deadLink,
-  t,
-  setDeadLink,
   tests,
-  dashTestIdx,
-  dashSlideIdx,
-  progressUserId,
-  dashView,
-  libNarrow,
-  gridFilesMode,
-  gridFilesTestId,
-  dashSearch,
-  dashSearching,
+  bookmarkIds,
   loading,
-  dataReady,
-  dashTagInfo,
-  setDashSearch,
-  dashSearchResults,
-  jumpToTest,
-  questions,
-  dashSearchOpen,
-  setDashSearchOpen,
-  viewingUser,
-  closeUserLibrary,
-  closeGridFiles,
-  filesFeedMode,
-  closeFilesCard,
-  backToLibrary,
-  user,
-  name,
-  startCreateTest,
-  setEditMode,
-  editMode,
-  cycleDashView,
-  lang,
-  cycleLang,
-  effectiveUser,
-  email,
-  toggleDiscoverMode,
-  discoverMode,
-  setPage,
-  myAvatar,
-  userInitials,
   viewingLoading,
+  fileSlides,
   dashFeedRef,
   feedApiRef,
-  exitFilesMode,
+  feedSentinelRef,
+  onDashCommit,
+  jumpToTest,
+  closeUserLibrary,
+  closeGridFiles,
+  closeFilesCard,
+  backToLibrary,
+  startCreateTest,
   startEditTest,
   openFromLibrary,
   toggleBookmark,
   openUserLibrary,
-  setDashTestIdx,
   startFromDashboard,
   toggleGridFiles,
-  shareBusy,
   doShare,
-  setDeleteId,
-  feedSentinelRef,
-  onDashCommit,
-  fileSlides,
-  filesFeedTestId,
-  setSelectedQuestionCount,
-  selectedQuestionCount,
-  setPracticeMode,
-  practiceMode,
-  setStartRandomizeQ,
-  startRandomizeQ,
-  setStartRandomizeO,
-  startRandomizeO,
-  openFilesCard,
-  shuffledQuestions,
-  deleteId,
   handleDeleteTest,
-  editorBody,
-  setEditorInfoExpanded,
-  editorInfoExpanded,
-  testTitle,
-  setTestTitle,
-  testTags,
-  removeTag,
-  tagInput,
-  setTagInput,
-  setTagsOpen,
-  setAllTags,
-  addTag,
-  setTestTags,
-  tagsOpen,
-  tagSuggestions,
-  testDescription,
-  setTestDescription,
-  setTestIsPublic,
-  testIsPublic,
-  setEditorFilesExpanded,
-  formAttachments,
-  editorFilesExpanded,
-  setFormAttachments,
-  setEditorCoverExpanded,
-  editorCoverExpanded,
-  setTestCoverColor,
-  testCoverColor,
-  setEditorQuestionsExpanded,
-  editorQuestionsExpanded,
-  setQuestions,
-  addQuestion,
-  removeQuestion,
-  updateQuestion,
-  photoBusy,
-  pickQuestionPhoto,
-  clearQuestionPhoto,
-  pickOptionPhoto,
-  clearOptionPhoto,
+  exitFilesMode,
+  openFilesCard,
+  cycleDashView,
+  toggleDiscoverMode,
 }: DashboardViewProps) {
+  // ── State: read straight from the zustand domain stores ─────────────────
+  // app-root keeps the ACTION handlers (they orchestrate the query cache);
+  // the state itself is consumed here directly — no more ~90-prop drilling.
+  const sessionUser = useSessionStore(s => s.user);
+  const hydratedUser = useSessionStore(s => s.hydratedUser);
+  const dataReady = useSessionStore(s => s.dataReady);
+  const lang = useSessionStore(s => s.lang);
+  const cycleLang = useSessionStore(s => s.cycleLang);
+  // app-root only mounts this view when effectivePage === 'dashboard'
+  const effectivePage: Page = 'dashboard';
+  const effectiveUser = sessionUser || hydratedUser;
+  const progressUserId = effectiveUser?.id || 'anon';
+  const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+  // Round avatar initials for the dashboard header (same rule as app-root)
+  const userInitials = (() => {
+    const userName = effectiveUser?.name || effectiveUser?.email || '';
+    const parts = userName.trim().split(/\s+/).filter(Boolean);
+    const s = parts.length >= 2 ? parts[0][0] + parts[parts.length - 1][0] : userName.slice(0, 2);
+    return (s || '?').toUpperCase();
+  })();
+  // profile store
+  const myAvatar = useProfileStore(s => s.myAvatar);
+  // nav store
+  const deadLink = useNavStore(s => s.deadLink);
+  const setDeadLink = useNavStore(s => s.setDeadLink);
+  const viewingUser = useNavStore(s => s.viewingUser);
+  const dashView = useNavStore(s => s.dashView);
+  const dashSlideIdx = useNavStore(s => s.dashSlideIdx);
+  const gridFilesMode = useNavStore(s => s.gridFilesMode);
+  const gridFilesTestId = useNavStore(s => s.gridFilesTestId);
+  const filesFeedMode = useNavStore(s => s.filesFeedMode);
+  const filesFeedTestId = useNavStore(s => s.filesFeedTestId);
+  const deleteId = useNavStore(s => s.deleteId);
+  const setDeleteId = useNavStore(s => s.setDeleteId);
+  const discoverMode = useNavStore(s => s.discoverMode);
+  const setPage = useNavStore(s => s.setPage);
+  // dashboard store
+  const dashFullTests = useDashboardStore(s => s.dashFullTests);
+  const shareScopeByTest = useDashboardStore(s => s.shareScopeByTest);
+  const setShareScopeByTest = useDashboardStore(s => s.setShareScopeByTest);
+  const dashTestIdx = useDashboardStore(s => s.dashTestIdx);
+  const setDashTestIdx = useDashboardStore(s => s.setDashTestIdx);
+  const libNarrow = useDashboardStore(s => s.libNarrow);
+  const dashSearch = useDashboardStore(s => s.dashSearch);
+  const setDashSearch = useDashboardStore(s => s.setDashSearch);
+  const dashSearchOpen = useDashboardStore(s => s.dashSearchOpen);
+  const setDashSearchOpen = useDashboardStore(s => s.setDashSearchOpen);
+  const dashSearchResults = useDashboardStore(s => s.dashSearchResults);
+  const dashSearching = useDashboardStore(s => s.dashSearching);
+  const dashTagInfo = useDashboardStore(s => s.dashTagInfo);
+  const shareBusy = useDashboardStore(s => s.shareBusy);
+  // editor store
+  const editMode = useEditorStore(s => s.editMode);
+  const setEditMode = useEditorStore(s => s.setEditMode);
+  const questions = useEditorStore(s => s.questions);
+  // take store
+  const selectedQuestionCount = useTakeStore(s => s.selectedQuestionCount);
+  const setSelectedQuestionCount = useTakeStore(s => s.setSelectedQuestionCount);
+  const practiceMode = useTakeStore(s => s.practiceMode);
+  const setPracticeMode = useTakeStore(s => s.setPracticeMode);
+  const startRandomizeQ = useTakeStore(s => s.startRandomizeQ);
+  const setStartRandomizeQ = useTakeStore(s => s.setStartRandomizeQ);
+  const startRandomizeO = useTakeStore(s => s.startRandomizeO);
+  const setStartRandomizeO = useTakeStore(s => s.setStartRandomizeO);
+  const shuffledQuestions = useTakeStore(s => s.shuffledQuestions);
   // Search overlay: stays mounted ~150ms after close to play its fade-out
   const searchMounted = useExitMount(dashSearchOpen, 160);
 
