@@ -3094,24 +3094,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
   if (effectivePage === 'start-test' && currentTest) {
     return (
       <StartTestView
-        currentTest={currentTest}
-        myBgStyle={myBgStyle}
-        selectedQuestionCount={selectedQuestionCount}
-        setSelectedQuestionCount={setSelectedQuestionCount}
-        practiceMode={practiceMode}
-        setPracticeMode={setPracticeMode}
-        startRandomizeQ={startRandomizeQ}
-        setStartRandomizeQ={setStartRandomizeQ}
-        startRandomizeO={startRandomizeO}
-        setStartRandomizeO={setStartRandomizeO}
-        startFilesExpanded={startFilesExpanded}
-        setStartFilesExpanded={setStartFilesExpanded}
-        savedProgress={savedProgress}
         startTest={startTest}
         continueTestWith={continueTestWith}
-        loading={loading}
         goHome={goHome}
-        t={t}
       />
     );
   }

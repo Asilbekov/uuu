@@ -599,7 +599,7 @@ export default function TakeTestView({
                               <span className="min-w-0 break-words"><MathText text={optionText} /></span>
                               {/* Option photo — shown in the review too */}
                               {imgSrc(q.optionImages?.[letter]?.u) && (
-                                <img src={imgSrc(q.optionImages[letter].u)} alt="" loading="lazy" className="mt-1.5 w-full max-w-xs max-h-44 object-contain rounded-lg border border-black/10 bg-white" />
+                                <img src={imgSrc(q.optionImages?.[letter]?.u)} alt="" loading="lazy" className="mt-1.5 w-full max-w-xs max-h-44 object-contain rounded-lg border border-black/10 bg-white" />
                               )}
                             </div>
                           </div>
@@ -959,7 +959,7 @@ export default function TakeTestView({
                                     </span>
                                     <span className="text-[11px] sm:text-xs leading-snug min-w-0 line-clamp-2 break-words"><MathText text={optionText} /></span>
                                     {imgSrc(q.optionImages?.[letter]?.u) && (
-                                      <img src={imgSrc(q.optionImages[letter].u)} alt="" loading="lazy" className="hidden sm:block w-10 h-10 object-cover rounded-md border border-black/10 shrink-0 ml-auto" />
+                                      <img src={imgSrc(q.optionImages?.[letter]?.u)} alt="" loading="lazy" className="hidden sm:block w-10 h-10 object-cover rounded-md border border-black/10 shrink-0 ml-auto" />
                                     )}
                                   </button>
                                 );
@@ -1076,7 +1076,7 @@ export default function TakeTestView({
                               {/* Option photo — part of the answer, travels with it on shuffle */}
                               {imgSrc(q.optionImages?.[letter]?.u) && (
                                 <img
-                                  src={imgSrc(q.optionImages[letter].u)}
+                                  src={imgSrc(q.optionImages?.[letter]?.u)}
                                   alt=""
                                   loading="lazy"
                                   onClick={() => { if (!(practiceMode && revealedAnswers[slideQId])) selectAnswer(slideQId, letter); }}

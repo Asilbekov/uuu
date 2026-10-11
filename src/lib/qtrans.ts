@@ -149,7 +149,7 @@ export async function translateStrings(texts: string[], to: Lang): Promise<(stri
 /** Build the translated {text, options, explanation} for ONE question. */
 export async function translateQuestion(q: TranslatableQuestion, to: Lang): Promise<QTranslationsV | null> {
   const letters = ['A', 'B', 'C', 'D', 'E'] as const;
-  const optionTexts = letters.map(L => (q as Record<string, unknown>)[`option${L}`]).map(v => (typeof v === 'string' ? v : ''));
+  const optionTexts = letters.map(L => (q as unknown as Record<string, unknown>)[`option${L}`]).map(v => (typeof v === 'string' ? v : ''));
 
   const protectedText = protect(q.text);
   const protectedOpts = optionTexts.map(t => (t ? protect(t) : null));

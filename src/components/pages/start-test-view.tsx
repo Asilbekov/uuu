@@ -23,58 +23,53 @@ import dynamic from 'next/dynamic';
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
 import { type AttachmentItem } from '@/components/attachment-utils';
 import { testBackgroundCss } from '@/lib/test-bg';
-import type { SavedTestProgress } from '@/lib/test-progress';
 import { countAnsweredProgress } from '@/lib/test-progress';
 import { Collapse } from '@/components/motion';
 import type { Test } from '@/lib/app-types';
+import { useTakeStore } from '@/stores/take-store';
+import { useSessionStore } from '@/stores/session-store';
+import { useProfileStore } from '@/stores/profile-store';
+import { tUI } from '@/lib/i18n';
 
 /**
  * START TEST — question count selection + mode (exam/practice) +
  * randomization toggles + attached files, with the fixed bottom action bar
- * (Start / Restart + Continue when saved progress exists).
+ * (Start / Restart + Continue when saved progress exists). The state lives
+ * in the zustand domain stores and is consumed here directly — app-root
+ * keeps the action handlers (startTest / continueTestWith / goHome).
  */
 export interface StartTestViewProps {
-  currentTest: Test;
-  myBgStyle: string;
-  selectedQuestionCount: number;
-  setSelectedQuestionCount: (v: number) => void;
-  practiceMode: boolean;
-  setPracticeMode: (v: boolean) => void;
-  startRandomizeQ: boolean;
-  setStartRandomizeQ: (updater: (v: boolean) => boolean) => void;
-  startRandomizeO: boolean;
-  setStartRandomizeO: (updater: (v: boolean) => boolean) => void;
-  startFilesExpanded: boolean;
-  setStartFilesExpanded: (updater: (v: boolean) => boolean) => void;
-  savedProgress: SavedTestProgress | null;
   startTest: () => void;
   continueTestWith: (test: Test) => boolean | void;
-  loading: boolean;
   goHome: () => void;
-  t: (key: string, vars?: Record<string, string | number>) => string;
 }
 
 export default function StartTestView({
-  currentTest,
-  myBgStyle,
-  selectedQuestionCount,
-  setSelectedQuestionCount,
-  practiceMode,
-  setPracticeMode,
-  startRandomizeQ,
-  setStartRandomizeQ,
-  startRandomizeO,
-  setStartRandomizeO,
-  startFilesExpanded,
-  setStartFilesExpanded,
-  savedProgress,
   startTest,
   continueTestWith,
-  loading,
   goHome,
-  t,
 }: StartTestViewProps) {
-  const totalQ = currentTest.questions.length;
+  // ── State: read straight from the zustand domain stores ──────────────
+  const currentTest = useTakeStore(s => s.currentTest);
+  const myBgStyle = useProfileStore(s => s.myBgStyle);
+  const selectedQuestionCount = useTakeStore(s => s.selectedQuestionCount);
+  const setSelectedQuestionCount = useTakeStore(s => s.setSelectedQuestionCount);
+  const practiceMode = useTakeStore(s => s.practiceMode);
+  const setPracticeMode = useTakeStore(s => s.setPracticeMode);
+  const startRandomizeQ = useTakeStore(s => s.startRandomizeQ);
+  const setStartRandomizeQ = useTakeStore(s => s.setStartRandomizeQ);
+  const startRandomizeO = useTakeStore(s => s.startRandomizeO);
+  const setStartRandomizeO = useTakeStore(s => s.setStartRandomizeO);
+  const startFilesExpanded = useTakeStore(s => s.startFilesExpanded);
+  const setStartFilesExpanded = useTakeStore(s => s.setStartFilesExpanded);
+  const savedProgress = useTakeStore(s => s.savedProgress);
+  const loading = useSessionStore(s => s.loading);
+  const lang = useSessionStore(s => s.lang);
+  const t = React.useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+  const totalQ = currentTest?.questions.length ?? 0;
+  // app-root mounts this view only with a test on screen — guard for the
+  // store's transient null (all hooks ran above, so this is safe)
+  if (!currentTest) return null;
 
   return (
     <div className="min-h-screen bg-background screen-enter" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
