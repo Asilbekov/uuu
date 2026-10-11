@@ -1,13 +1,13 @@
-import { NextResponse } from 'next/server';
-import { popularTags } from '@/lib/popular';
+// GET /api/tags/popular — top tags across public tests (feed filter chips).
+import { NextResponse } from "next/server";
+import { withApi } from "@/server/http/handler";
+import { getPopularTags } from "@/server/services/tags.service";
 
-// GET /api/tags/popular — top tags across public tests (for the feed filter chips)
-export async function GET() {
+export const GET = withApi(async () => {
   try {
-    const rows = await popularTags(40);
-    return NextResponse.json({ tags: rows });
-  } catch (error) {
-    console.error('Popular tags error:', error);
+    const result = await getPopularTags();
+    return NextResponse.json(result);
+  } catch {
     return NextResponse.json({ tags: [] });
   }
-}
+});

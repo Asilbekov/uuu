@@ -1,11 +1,9 @@
-import { aiStatus } from '@/lib/ai';
-import { NextResponse } from 'next/server';
+// GET /api/ai/status — deployment diagnostics for the AI provider chain
+// (Gemini / Google AI Mode / Mistral). No secrets are returned.
+import { NextResponse } from "next/server";
+import { withApi } from "@/server/http/handler";
+import { aiStatus } from "@/lib/ai";
 
-/**
- * GET /api/ai/status — deployment diagnostics for the AI provider chain
- * (Gemini / Google AI Mode / Mistral). No secrets are returned, just
- * which providers are configured.
- */
-export async function GET() {
+export const GET = withApi(async () => {
   return NextResponse.json(aiStatus());
-}
+});

@@ -1,32 +1,18 @@
-import { db } from '@/lib/db';
-import { NextRequest, NextResponse } from 'next/server';
-import { createHash } from 'crypto';
+// POST /api/auth/login — verify credentials and return the session user.
+// Rate-limited per IP+email (dub's login policy); legacy unsalted-sha256
+// accounts transparently upgrade to bcrypt on this path.
+import { NextResponse } from "next/server";
+import { withApi } from "@/server/http/handler";
+import { assertRateLimit, RATELIMIT_POLICIES } from "@/server/http/rate-limit";
+import { parseBody } from "@/server/http/validation";
+import { loginSchema } from "@/server/schemas";
+import { loginUser } from "@/server/services/auth.service";
 
-export async function POST(request: NextRequest) {
-  try {
-    const { email, password } = await request.json();
-
-    if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
-    }
-
-    const user = await db.user.findUnique({ where: { email } });
-    if (!user) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
-    }
-
-    const hashedPassword = createHash('sha256').update(password).digest('hex');
-    if (user.password !== hashedPassword) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
-    }
-
-    return NextResponse.json({
-      id: user.id,
-      email: user.email,
-      name: user.name,
-    });
-  } catch (error) {
-    console.error('Login error:', error);
-    return NextResponse.json({ error: 'Login failed' }, { status: 500 });
-  }
-}
+export const POST = withApi(async ({ req, ip }) => {
+  const body = await parseBody(req, loginSchema);
+  await assertRateLimit({
+    policy: RATELIMIT_POLICIES.login,
+    identifier: [ip, body.email],
+  });
+  return NextResponse.json(await loginUser(body));
+});
