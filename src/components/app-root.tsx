@@ -147,6 +147,16 @@ function writeProfileCache(v: { avatar: string | null; name: string; bgStyle: st
 const FEED_CACHE_KEY = 'chemtest_cache_feed_v1';
 const ATTEMPTS_CACHE_KEY = 'chemtest_cache_attempts_v1';
 
+// STABLE empty file-slides array. The fileSlides memo recomputes whenever a
+// prefetch resolves (dashFullTests is in its deps) — in the normal test feed
+// it always returns empty. Returning a fresh [] each time gave the memo a new
+// reference on EVERY prefetch resolution, which re-ran the feed sync effect
+// mid-swipe; the effect saw the not-yet-committed index and scrolled the feed
+// back to the previous card for a frame — the user-visible "the PREVIOUS test
+// flashes for a split second during a swipe". A stable constant kills that
+// trigger class entirely.
+const NO_FILE_SLIDES: { test: Test; files: AttachmentItem[]; count: number }[] = [];
+
 
 
 
@@ -999,6 +1009,13 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
   const dashFeedTouchUntilRef = React.useRef(0);
   const dashFeedSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Timestamp of the last real scroll event on the feed. The sync effect's
+  // instant realignment must NEVER fire while the feed is (or just was)
+  // moving: a data fetch resolving mid-gesture re-runs the effect, the
+  // committed index is still the PREVIOUS card, and an instant scrollTo here
+  // would flash that previous card for a frame. Scroll activity is the
+  // gesture-agnostic signal — no timing guess about touch vs wheel vs momentum.
+  const dashLastScrollAtRef = React.useRef(0);
 
   // ── PREDICTION ENGINE (TikTok-style "prepare the next action") ──────────
   // TikTok never waits for the user to land before it starts working: while
@@ -1127,7 +1144,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // ONE slide per test — the card lists ALL of the test's attached files
   // (scrollable), not one file per slide.
   const fileSlides = React.useMemo(() => {
-    if (!filesFeedMode) return [] as { test: Test; files: AttachmentItem[]; count: number }[];
+    if (!filesFeedMode) return NO_FILE_SLIDES;
     const out: { test: Test; files: AttachmentItem[]; count: number }[] = [];
     // Per-test files mode: exactly ONE slide with that test's files (even if
     // the test has left the loaded list — the cached full payload covers it).
@@ -1156,6 +1173,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // Instantly align the dashboard feed with slide/test index i (post-commit)
   const scrollDashTo = useCallback((i: number) => {
     dashFeedTouchUntilRef.current = 0;
+    dashLastScrollAtRef.current = Date.now(); // the jump below owns the position
     requestAnimationFrame(() => requestAnimationFrame(() => {
       const el = dashFeedRef.current;
       if (el && el.clientHeight > 0) el.scrollTo({ top: i * el.clientHeight, behavior: 'instant' as ScrollBehavior });
@@ -1216,7 +1234,12 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     if (
       el && el.clientHeight > 0 &&
       Math.abs(el.scrollTop - safeIdx * el.clientHeight) > 2 &&
-      Date.now() >= dashFeedTouchUntilRef.current
+      Date.now() >= dashFeedTouchUntilRef.current &&
+      // Never fight an active (or just-finished) scroll: if the feed moved
+      // within the last 300ms a gesture or snap animation is in flight — the
+      // settle commit will land on the true card and keep this effect's index
+      // in sync. Realigning here would flash the previous card mid-swipe.
+      Date.now() - dashLastScrollAtRef.current > 300
     ) {
       el.scrollTo({ top: safeIdx * el.clientHeight, behavior: 'instant' as ScrollBehavior });
     }
@@ -2083,6 +2106,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const onDashScroll = () => {
     const el = dashFeedRef.current;
     if (!el || el.clientHeight === 0) return;
+    dashLastScrollAtRef.current = Date.now();
     // SCROLLING IS RENDER-FREE: every loaded card is permanently mounted, so
     // the swipe animation runs on pure native scrolling — no React work in
     // any scroll frame (this is what kills the mid-swipe flicker: counters,
