@@ -2,7 +2,20 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
+import { QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import { api, setUser, getUser } from '@/lib/api';
+import { useFeed } from '@/hooks/use-feed';
+import {
+  feedKey,
+  userLibraryKey,
+  BOOKMARKS_KEY,
+  FEED_PAGE_LIMIT,
+  feedQueryOptions,
+  patchScope,
+  reconcileFeedPage1,
+  type FeedScope,
+} from '@/lib/feed-queries';
+import { initFeedPersistence, teardownFeedPersistence } from '@/lib/feed-persistence';
 import { autoTranslateQuestions, QTranslationsV } from '@/lib/qtrans';
 import MathText from '@/components/math-text';
 import { Button } from '@/components/ui/button';
@@ -261,10 +274,10 @@ async function compressImage(file: File, maxSide = 1600, quality = 0.85): Promis
 // Saved test progress helpers (readTestProgress / writeTestProgress /
 // clearTestProgress / countAnsweredProgress) live in src/lib/test-progress.ts.
 
-export default function AppRoot({ authed }: { authed: boolean }) {
+function AppRootInner({ authed }: { authed: boolean }) {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
   const [loading, setLoading] = useState(false);
-  const [tests, setTests] = useState<Test[]>([]);
   const [currentTest, setCurrentTest] = useState<Test | null>(null);
 
   // --- Personalized recommendation feed ("under the hood") ---
@@ -272,7 +285,6 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // /api/feed: tag-affinity ranking (views / starts / completions / time spent
   // / difficult tests), keyset pagination and silent infinite append, so the
   // list stays fast at any test volume and surfaces what the user cares about.
-  const [feedHasMore, setFeedHasMore] = useState(false);
   const [shareBusy, setShareBusy] = useState(false);
   // Dashboard CONTENT MODE — toggled by the account button (like the language
   // button cycles): personal library (own tests + bookmarks) ↔ discover (public
@@ -280,8 +292,6 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const [discoverMode, setDiscoverMode] = useState(false);
   // Mirrors discoverMode for callbacks with stale closures (feed loaders)
   const discoverModeRef = useRef(false);
-  // Test ids saved into my personal library via the bookmark button
-  const [bookmarkIds, setBookmarkIds] = useState<Set<string>>(new Set());
   // My profile photo (served by /api/users/[id]/avatar) + its tiny uploader
   const [myAvatar, setMyAvatar] = useState<string | null>(null);
   const [avatarBusy, setAvatarBusy] = useState(false);
@@ -314,7 +324,6 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // the dashboard shows THEIR public tests; every card carries their name and
   // photo; the header back arrow returns to the viewer's own feed.
   const [viewingUser, setViewingUser] = useState<{ id: string; name: string; image: string | null } | null>(null);
-  const [viewingLoading, setViewingLoading] = useState(false);
   const viewingUserRef = useRef(false);
   useEffect(() => { viewingUserRef.current = !!viewingUser; }, [viewingUser]);
   const [dashSlideIdx, setDashSlideIdx] = useState(0);
@@ -337,11 +346,6 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // Results-page header search: filters the review questions after finishing a test.
   const [resSearch, setResSearch] = useState('');
   const [resHighlightIdx, setResHighlightIdx] = useState<number | null>(null);
-  const feedCursorRef = useRef<string | null>(null);
-  const feedHasMoreRef = useRef(false);
-  const feedLoadingMoreRef = useRef(false);
-  const feedReqIdRef = useRef(0);
-  const seenIdsRef = useRef<Set<string>>(new Set());
   const viewSignaledRef = useRef<Set<string>>(new Set());
   // Recommendation-signal bookkeeping: which card is currently settled on
   // screen and when it got there. On every card TRANSITION the previous card
@@ -576,8 +580,6 @@ export default function AppRoot({ authed }: { authed: boolean }) {
 
   // Read user from localStorage only after mount (prevents hydration mismatch)
   const [hydratedUser, setHydratedUser] = useState<{ id: string; email: string; name: string } | null>(null);
-  // "Initial data loaded" guard — shared by the boot restore and the dashboard effect
-  const hasLoadedRef = React.useRef(false);
   useEffect(() => {
     // Restore the interface language (or detect it from the browser on first visit)
     try {
@@ -611,6 +613,10 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       return;
     }
     void (async () => {
+    // Professional boot: the per-user TanStack Query cache (both feed scopes,
+    // visited user libraries, bookmarks) is restored FIRST — nothing fetches
+    // or paints before the snapshot is in the cache.
+    await initFeedPersistence(parsed.id, queryClient);
     setHydratedUser(parsed);
     setAuthCookie(); // keep the SSR marker fresh for the next visit
     // Profile snapshot first: avatar / name / background appear with the
@@ -622,24 +628,27 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       setProfileName(pc.name);
     }
     // === Stale-while-revalidate boot (TikTok-speed first paint) ===
-    // The server HTML already painted the full dashboard shell; cached data
-    // fills the feed on this very frame, the network refresh swaps in fresh
-    // data silently — same card shapes → no layout jump, no CLS.
-    hasLoadedRef.current = true;
-    let restored = false;
+    // The server HTML already painted the full dashboard shell; the restored
+    // Query cache fills the feed on this very frame, the network revalidation
+    // swaps in fresh data silently — same card shapes → no layout jump, no CLS.
     try {
-      const c = JSON.parse(localStorage.getItem(FEED_CACHE_KEY) || 'null');
-      if (c && Array.isArray(c.items) && c.scope === (discoverModeRef.current ? 'discover' : 'mine')) {
-        setTests(c.items);
-        seenIdsRef.current = new Set<string>(c.items.map((i: any) => i.id));
-        if (Array.isArray(c.bm)) setBookmarkIds(new Set<string>(c.bm));
-        restored = c.items.length > 0;
-      }
       const a = JSON.parse(localStorage.getItem(ATTEMPTS_CACHE_KEY) || 'null');
       if (Array.isArray(a)) setAttempts(a);
     } catch {}
+    const initialScope: FeedScope = discoverModeRef.current ? 'discover' : 'mine';
+    const cachedFeed = queryClient.getQueryData(feedKey(initialScope)) as { pages?: { items?: Test[] }[] } | undefined;
+    const restored = !!cachedFeed?.pages?.some(p => (p.items || []).length > 0);
+    // With a snapshot the hook stays on the cache (staleTime Infinity) — the
+    // boot revalidation below is the ONLY network touch of a loaded feed, and
+    // it reconciles IN PLACE (see reconcileFeedPage1): cards never change
+    // identity under the user. Without a snapshot, fetchInfiniteQuery shares
+    // the hook's own in-flight fetch (no duplicate request).
     const refresh = Promise.all([
-      loadFeedRef.current().catch(() => { hasLoadedRef.current = false; }),
+      restored
+        ? api.getFeed({ tab: 'foryou', cursor: null, limit: FEED_PAGE_LIMIT, scope: initialScope })
+            .then((res: { items?: Test[] }) => { reconcileFeedPage1(queryClient, feedKey(initialScope), res?.items || []); })
+            .catch(() => {})
+        : queryClient.fetchInfiniteQuery(feedQueryOptions(initialScope)).catch(() => {}),
       api.getAttempts()
         .then(data => {
           setAttempts(data);
@@ -779,21 +788,22 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // Shared cleanup for logout / account deletion: drop the session, the local
   // caches and all user-scoped UI state, then land on the login screen.
   const resetSessionState = () => {
+    const uid = (user || hydratedUser || getUser())?.id || '';
+    teardownFeedPersistence(true, uid);
+    queryClient.clear(); // every scope cache + bookmarks die with the session
     setUser(null); // clears localStorage session
     setUserState(null);
     setHydratedUser(null);
     setMyAvatar(null);
     setMyBgStyle('');
     setProfileName('');
-    setTests([]);
     setAttempts([]);
-    setBookmarkIds(new Set());
     setDiscoverMode(false); discoverModeRef.current = false;
     setViewingUser(null);
     setDataReady(false);
     clearAuthCookie(); // next visit pre-renders the login screen again
     try { localStorage.removeItem(PROFILE_CACHE_KEY); } catch {}
-    try { localStorage.removeItem(FEED_CACHE_KEY); } catch {}
+    try { localStorage.removeItem(FEED_CACHE_KEY); } catch {} // legacy snapshot
     try { localStorage.removeItem(ATTEMPTS_CACHE_KEY); } catch {}
   };
 
@@ -828,113 +838,34 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     setSavedProgress(currentTest ? readTestProgress(progressUserId, currentTest.id) : null);
   }, [currentTest?.id, effectivePage, progressUserId]);
 
-  const FEED_PAGE_LIMIT = 12;
+  // --- Professional feed data layer (TanStack Query) ---
+  // ONE hook owns every dashboard scope. Scopes live under isolated query
+  // keys (['feed', scope] / ['user-library', id] / ['bookmarks']), mutations
+  // patch the cache locally, and no code path can ever merge one scope into
+  // another. See src/lib/feed-queries.ts + src/hooks/use-feed.ts.
+  const feedScope: FeedScope = discoverMode ? 'discover' : 'mine';
+  const {
+    tests,
+    bookmarkIds,
+    feedLoading,
+    viewingLoading,
+    fetchNextFeedPage,
+    libraryError,
+  } = useFeed({
+    scope: feedScope,
+    viewingUserId: viewingUser?.id || null,
+    enabled: !!effectiveUser && effectivePage === 'dashboard',
+  });
 
-  // First page of the personalized feed (replaces the old full /api/tests dump).
-  // The scope follows the content mode: personal library (own + bookmarks) or
-  // discover (public tests of other authors). Bookmarks are refreshed in the
-  // same breath so the mode switch sees a fresh set.
-  // "The feed never reorders under the user" (TikTok rule): a quiet refresh
-  // MERGES the fresh server ranking into the list the user is already watching
-  // — existing cards update their fields IN PLACE, brand-new tests append at
-  // the END. The foryou ranking carries random jitter + 90s cache TTL + view
-  // affinity bumps, so a full setTests(items) mid-session swapped the test
-  // under the viewport for a different one a second later (the "I see one
-  // test, then a second later a completely different test" bug). Only
-  // deliberate scope switches (discover toggle, closing a user library) pass
-  // { replace: true } — there the user expects a new list from position 0.
-  const loadFeed = useCallback(async (opts?: { replace?: boolean }): Promise<void> => {
-    const forceReplace = opts?.replace === true;
-    // Another user's library is a CLOSED SCOPE: while it is open the list
-    // belongs to that author and there is nothing to refresh underneath it.
-    // Any background refresh (boot revalidate, bookmark quiet-merge, edit
-    // save) must be a no-op here — otherwise the For You feed glues itself
-    // under their tests and the viewed library shows other accounts' tests.
-    // Deliberate scope switches clear viewingUser first, so forceReplace
-    // (closeUserLibrary / discover toggle) still works.
-    if (viewingUserRef.current && !forceReplace) return;
-    const reqId = ++feedReqIdRef.current;
-    setFeedLoading(true);
-    try {
-      const [res, bm] = await Promise.all([
-        api.getFeed({ tab: 'foryou', cursor: null, limit: FEED_PAGE_LIMIT, scope: discoverModeRef.current ? 'discover' : 'mine' }),
-        api.getBookmarks().catch(() => null),
-      ]);
-      if (reqId !== feedReqIdRef.current) return; // a newer request superseded this one
-      // Race guard: the user may have OPENED another user's library while
-      // this fetch was in flight — a foreign result must never land there.
-      if (viewingUserRef.current && !forceReplace) return;
-      if (bm?.ids) setBookmarkIds(new Set(bm.ids));
-      const items: Test[] = res?.items || [];
-      if (forceReplace) {
-        seenIdsRef.current = new Set(items.map(i => i.id));
-        setTests(items);
-      } else {
-        setTests(prev => {
-          if (prev.length === 0) {
-            seenIdsRef.current = new Set(items.map(i => i.id));
-            return items;
-          }
-          const prevIds = new Set(prev.map(t => t.id));
-          const freshById = new Map(items.map(i => [i.id, i]));
-          const additions = items.filter(i => !prevIds.has(i.id) && !seenIdsRef.current.has(i.id));
-          seenIdsRef.current = new Set([...seenIdsRef.current, ...items.map(i => i.id)]);
-          const merged = prev.map(t => freshById.get(t.id) || t);
-          return additions.length ? [...merged, ...additions] : merged;
-        });
-      }
-      feedCursorRef.current = res?.nextCursor ?? null;
-      feedHasMoreRef.current = !!res?.nextCursor;
-      setFeedHasMore(!!res?.nextCursor);
-      // Persist for the next boot's instant paint (stale-while-revalidate)
-      try {
-        localStorage.setItem(FEED_CACHE_KEY, JSON.stringify({
-          items,
-          bm: bm?.ids || [],
-          scope: discoverModeRef.current ? 'discover' : 'mine',
-          at: Date.now(),
-        }));
-      } catch {}
-    } catch {
-      // keep the previous list on transient errors
-    } finally {
-      setFeedLoading(false);
-    }
-  }, []);
-
-  // True while the feed is being (re)fetched: empty lists render the skeleton
-  // instead of the "no tests" card — nothing ever flashes empty→full.
-  const [feedLoading, setFeedLoading] = useState(false);
-
-  // Stable handle for code that runs before/without re-render (boot, login)
-  const loadFeedRef = useRef(loadFeed);
-  loadFeedRef.current = loadFeed;
+  // The query key of the list currently on screen (every local patch targets it)
+  const activeScopeKey = () =>
+    viewingUser?.id ? userLibraryKey(viewingUser.id) : feedKey(discoverModeRef.current ? 'discover' : 'mine');
 
   // Next pages, appended silently when the user approaches the end of the feed
-  const loadMoreFeed = useCallback(async (): Promise<void> => {
+  const loadMoreFeed = useCallback(() => {
     if (viewingUserRef.current) return; // another user's library: no pagination
-    if (feedLoadingMoreRef.current || !feedHasMoreRef.current || !feedCursorRef.current) return;
-    feedLoadingMoreRef.current = true;
-    try {
-      const res = await api.getFeed({ tab: 'foryou', cursor: feedCursorRef.current, limit: FEED_PAGE_LIMIT, scope: discoverModeRef.current ? 'discover' : 'mine' });
-      // Race: the user opened another user's library while this page was in
-      // flight — the fresh page belongs to the OLD scope, never append it.
-      if (viewingUserRef.current) return;
-      const fresh: Test[] = (res?.items || []).filter(i => !seenIdsRef.current.has(i.id));
-      fresh.forEach(i => seenIdsRef.current.add(i.id));
-      if (fresh.length) setTests(prev => [...prev, ...fresh]);
-      feedCursorRef.current = res?.nextCursor ?? null;
-      feedHasMoreRef.current = !!res?.nextCursor;
-      setFeedHasMore(!!res?.nextCursor);
-    } catch {
-      // transient error — stop silently, the user can scroll again
-    } finally {
-      feedLoadingMoreRef.current = false;
-    }
-  }, []);
-
-  // Legacy alias — create/edit/delete flows call loadTests() to refresh the list
-  const loadTests = loadFeed;
+    void fetchNextFeedPage();
+  }, [fetchNextFeedPage]);
 
   // Silent infinite scroll: observe the sentinel below the last card
   useEffect(() => {
@@ -974,8 +905,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     }
     // Not in the loaded pages — fetch the full test and pin it to the top
     api.getTest(id).then((full: Test) => {
-      seenIdsRef.current.add(full.id);
-      setTests(prev => (prev.some(x => x.id === full.id) ? prev : [full, ...prev]));
+      patchScope(queryClient, activeScopeKey(), { prepend: [full] });
       jump(0);
       cleanUrl();
     }).catch((e: any) => {
@@ -1002,17 +932,6 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     return () => { alive = false; clearTimeout(t); };
   }, [dashSearch, effectivePage]);
 
-  // Load tests when navigating to dashboard (skipped when boot already restored the data)
-  useEffect(() => {
-    if (effectivePage === 'dashboard' && effectiveUser && !hasLoadedRef.current) {
-      hasLoadedRef.current = true;
-      Promise.all([
-        loadFeedRef.current().catch(() => {}),
-        api.getAttempts().then(data => setAttempts(data)).catch(() => {}),
-      ]);
-    }
-  }, [page, user, mounted, hydratedUser]);
-
   // Dashboard: TikTok-style vertical feed of tests
   const [dashTestIdx, setDashTestIdx] = useState(0);
   // LIVE index of the slide actually under the viewport (rounded scrollTop),
@@ -1025,6 +944,31 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const dashLiveIdxRef = React.useRef(0);
   const [dashFullTests, setDashFullTests] = useState<Record<string, Test>>({});
   const dashFeedRef = React.useRef<HTMLDivElement>(null);
+
+  // The feed container keeps its DOM node across scope switches — snap the
+  // scroll back to the top whenever a foreign library opens. (Hooks must live
+  // ABOVE the first conditional page return — React's rules of hooks.)
+  useEffect(() => {
+    if (!viewingUser) return;
+    const raf = requestAnimationFrame(() => {
+      const el = dashFeedRef.current;
+      if (el) el.scrollTop = 0;
+    });
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewingUser?.id]);
+
+  // Library load failure — surface it once per attempt (v5 has no onError)
+  const libraryErrorSeenRef = useRef('');
+  useEffect(() => {
+    if (!viewingUser || !libraryError) return;
+    const sig = `${viewingUser.id}:${libraryError.message}`;
+    if (libraryErrorSeenRef.current === sig) return;
+    libraryErrorSeenRef.current = sig;
+    toast({ title: t('error'), variant: 'destructive' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewingUser, libraryError]);
+
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
   const dashFeedTouchUntilRef = React.useRef(0);
   const dashFeedSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -1150,7 +1094,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     return () => window.removeEventListener('resize', sync);
   }, []);
   // Dashboard CONTENT MODE lives with the other dashboard state above; the
-  // bookmark ids are loaded together with the feed (see loadFeed).
+  // bookmark ids live in their own query (['bookmarks'], see use-feed).
   const gridScrollTopRef = useRef(0);
   const libReturnViewRef = useRef<'library' | 'shelf'>('library');
 
@@ -1305,10 +1249,13 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       setUserState(result);
       setAuthCookie(); // next visit: the server pre-renders the dashboard shell
       writeProfileCache({ avatar: myAvatar, name: result.name, bgStyle: myBgStyle });
-      // Load the user's data BEFORE switching to the dashboard — no empty flash
-      hasLoadedRef.current = true;
+      // Professional fresh-session boot: per-user persistence + prefetch of
+      // the personal feed BEFORE the dashboard shows — no empty flash. (The
+      // hook then serves the very same cache; no duplicate request.)
+      teardownFeedPersistence(false);
+      await initFeedPersistence(result.id, queryClient);
       const [, userAttempts] = await Promise.all([
-        loadFeedRef.current().catch(() => {}),
+        queryClient.prefetchInfiniteQuery(feedQueryOptions('mine')).catch(() => {}),
         api.getAttempts().catch(() => [] as Attempt[]),
       ]);
       setAttempts(userAttempts);
@@ -1488,10 +1435,14 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       try {
         toast({ title: t('copyCreating') });
         const copy = await api.copyTest(test.id);
-        // viewingUser was cleared above — a deliberate scope switch back to
-        // the own library: REPLACE (the list still holds the other user's
-        // tests; a merge would glue them into the personal library)
-        await loadFeedRef.current({ replace: true }); // the copy joins the personal library list
+        // viewingUser was cleared above — back in the own-library scope. The
+        // copy is pinned into the personal feed cache directly: the feed is
+        // never reloaded mid-session, so it can neither reorder nor leak.
+        if (queryClient.getQueryData(feedKey('mine'))) {
+          patchScope(queryClient, feedKey('mine'), { prepend: [copy as Test] });
+        } else {
+          await queryClient.fetchInfiniteQuery(feedQueryOptions('mine')).catch(() => {});
+        }
         toast({ title: t('copyCreated') });
         setLoading(false);
         return startEditTest(copy as Test); // now it's mine — normal edit path
@@ -1560,7 +1511,10 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       api.copyTest((currentTest as any).id)
         .then(async (copy: any) => {
           toast({ title: t('copyCreated') });
-          loadFeedRef.current().catch(() => {});
+          // The copy joins the personal feed cache directly (no refetch)
+          if (queryClient.getQueryData(feedKey('mine'))) {
+            patchScope(queryClient, feedKey('mine'), { prepend: [copy as Test] });
+          }
           // Fill the editor form from the copy — the sheet opens on it
           setTestTitle(copy.title);
           setTestDescription(copy.description);
@@ -1760,12 +1714,13 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       } else {
         const created = await api.createTest(data);
         toast({ title: 'Test created!', description: 'Your new test has been created.' });
-        // Show the new test right away: pin it to the top of the personal feed
+        // Show the new test right away: pin it to the top of the personal
+        // feed cache (no refetch — the feed never reloads mid-session).
         if (created?.id) {
-          seenIdsRef.current.add(created.id);
-          setTests(prev => [created, ...prev.filter(x => x.id !== created.id)]);
-          feedReqIdRef.current++; // invalidate any in-flight feed fetch
-          hasLoadedRef.current = true;
+          setViewingUser(null); // a fresh test of one's own — land in own library
+          if (queryClient.getQueryData(feedKey('mine'))) {
+            patchScope(queryClient, feedKey('mine'), { prepend: [created as Test] });
+          }
           setPage('dashboard');
           setDashTestIdx(0);
           setLoading(false);
@@ -1773,8 +1728,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
         }
       }
       setPage('dashboard');
-      hasLoadedRef.current = false;
-      await loadTests();
+      await queryClient.refetchQueries({ queryKey: ['feed'] });
     } catch (e: any) {
       // Publishing rule: a public test must have a title that no other public
       // test uses — the server rejects the save with PUBLISH_NAME_TAKEN.
@@ -1805,12 +1759,12 @@ export default function AppRoot({ authed }: { authed: boolean }) {
         setDashSlideIdx(0);
       }
       toast({ title: t('testDeleted'), description: t('testDeletedDesc') });
-      // Drop the deleted card LOCALLY first (deliberate user action — the
-      // card must disappear now, not whenever the reload lands) and only then
-      // quiet-refresh the rest. The merge keeps every other card at its
-      // position, so the cards around the deleted one never swap identity.
-      setTests(prev => prev.filter(x => x.id !== id));
-      await loadTests();
+      // Drop the deleted card LOCALLY (deliberate user action — the card
+      // disappears now, not whenever a reload lands) and purge it from every
+      // cached scope: the cascading delete removed it server-side too.
+      patchScope(queryClient, feedKey('mine'), { removeId: id });
+      patchScope(queryClient, feedKey('discover'), { removeId: id });
+      if (viewingUser?.id) patchScope(queryClient, userLibraryKey(viewingUser.id), { removeId: id });
     } catch (e: any) {
       toast({ title: t('error'), description: e.message, variant: 'destructive' });
     }
@@ -2516,7 +2470,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
         try {
           const r = await api.shareTest(test.id, scope);
           if (r && typeof r.isPublic === 'boolean' && r.isPublic !== test.isPublic) {
-            setTests(prev => prev.map(x => (x.id === test.id ? { ...x, isPublic: r.isPublic } : x)));
+            patchScope(queryClient, activeScopeKey(), { patchId: test.id, patch: x => ({ ...x, isPublic: r.isPublic }) });
             toast({ title: r.isPublic ? t('shareMadePublic') : t('shareMadeLink') });
           }
         } catch (e: any) {
@@ -2561,8 +2515,7 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     const go = (i: number) => { setDashTestIdx(i); scrollDashTo(i); };
     if (idx >= 0) { go(idx); return; }
     api.getTest(id).then((full: Test) => {
-      seenIdsRef.current.add(full.id);
-      setTests(prev => (prev.some(x => x.id === full.id) ? prev : [full, ...prev]));
+      patchScope(queryClient, activeScopeKey(), { prepend: [full] });
       go(0);
     }).catch(() => {});
   };
@@ -2665,14 +2618,14 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     setDashTestIdx(0); setDashSlideIdx(0);
     setFilesFeedMode(false); setFilesFeedTestId(null); pendingFilesJumpRef.current = null;
     setShareScopeByTest({});
-    // Deliberate scope switch — the NEW mode's own ranking from position 0
-    loadFeedRef.current({ replace: true }).catch(() => {});
+    // Deliberate scope switch: the OTHER query key takes over — its cache
+    // paints instantly, an uncached scope fetches fresh from position 0.
   };
 
   // --- Another user's library (opened from their profile photo / chat avatar)
   // The dashboard swaps its test list for that user's public tests; every card
   // shows their name + photo; the header back arrow returns to the own feed.
-  const openUserLibrary = async (u: { id: string; name?: string; image?: string | null }) => {
+  const openUserLibrary = (u: { id: string; name?: string; image?: string | null }) => {
     if (!u.id || !effectiveUser) return; // need a target and a session
     if (u.id === effectiveUser.id) {
       // Own card's «Open library»: Discover shows the author strip on every
@@ -2693,67 +2646,46 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     setChatOpen(false); setChatMessages([]); setChatQuestionId(''); setChatQuestionObj(null); setChatThreadId('');
     setFilesOpen(false);
     setEditOpen(false);
+    // Scope switch = a query-key switch: React Query drops in THAT user's
+    // cache (or fetches it) — the previous scope's list can never bleed in
+    // and an in-flight fetch can never stomp this one. No guards needed.
     setViewingUser({ id: u.id, name: u.name || 'User', image: u.image || null });
-    // Invalidate any in-flight feed fetch (boot revalidate, discover-toggle
-    // replace): when it resolves it must NOT stomp this library with its own
-    // scope's items — the reqId check inside loadFeed discards it as stale.
-    feedReqIdRef.current++;
-    setViewingLoading(true);
-    try {
-      const theirs: Test[] = await api.getTests(u.id); // public-only (server enforces)
-      seenIdsRef.current = new Set(theirs.map(x => x.id));
-      feedCursorRef.current = null;
-      feedHasMoreRef.current = false;
-      setFeedHasMore(false);
-      setTests(theirs);
-      setDashTestIdx(0); setDashSlideIdx(0);
-      setShareScopeByTest({});
-      requestAnimationFrame(() => { const el = dashFeedRef.current; if (el) el.scrollTop = 0; });
-    } catch {
-      toast({ title: t('error'), variant: 'destructive' });
-    } finally {
-      setViewingLoading(false);
-    }
+    setDashTestIdx(0); setDashSlideIdx(0);
+    setShareScopeByTest({});
   };
+
   const closeUserLibrary = () => {
     if (!viewingUserRef.current) return;
     setViewingUser(null);
     pendingFilesJumpRef.current = null;
     setFilesFeedMode(false); setFilesFeedTestId(null);
     setGridFilesMode(false); setGridFilesTestId(null);
-    // Deliberate context switch back to the own feed — a full replace, not a
-    // merge (the list currently holds ANOTHER user's tests; merging would
-    // glue their cards onto the bottom of the own feed)
-    loadFeedRef.current({ replace: true }).catch(() => {});
+    // Back to the viewer's own scope = back to its cached query — instant,
+    // and the foreign list can never merge into it (different query keys).
   };
 
   // Bookmark toggle (the bookmark button lives on the cards in Discover mode):
   // bookmarked tests join the user's personal library next to their own tests.
   const toggleBookmark = async (test: Test) => {
     const has = bookmarkIds.has(test.id);
-    // Optimistic flip — revert on failure
-    setBookmarkIds(prev => {
-      const n = new Set(prev);
-      if (has) n.delete(test.id); else n.add(test.id);
-      return n;
-    });
+    const prevIds = bookmarkIds;
+    const nextIds = new Set(prevIds);
+    if (has) nextIds.delete(test.id); else nextIds.add(test.id);
+    // Optimistic update — the canonical TanStack Query pattern: patch the
+    // caches locally, NEVER refetch. A refetch would reorder the feed under
+    // the user (the original "карточка меняется через секунду" bug) — and
+    // with isolated keys it could even glue foreign cards into this list.
+    patchScope(queryClient, BOOKMARKS_KEY, { setBookmarks: nextIds });
+    // A removed bookmark drops out of the personal library immediately —
+    // as a LOCAL removal (deliberate user action), never as a feed reload.
+    if (has && !discoverModeRef.current && !filesFeedModeRef.current && !viewingUser?.id) {
+      patchScope(queryClient, feedKey('mine'), { removeId: test.id });
+    }
     try {
       if (has) await api.removeBookmark(test.id); else await api.addBookmark(test.id);
       toast({ title: has ? t('bookmarkRemoved') : t('bookmarkAdded') });
-      // A removed bookmark drops out of the personal library immediately —
-      // as a LOCAL removal (deliberate user action), never as a feed reload:
-      // a reload would reorder the whole feed under the user's eyes. The
-      // quiet merge below only updates fields / appends brand-new tests.
-      if (has && !discoverModeRef.current && !filesFeedModeRef.current) {
-        setTests(prev => prev.filter(x => x.id !== test.id));
-      }
-      loadFeedRef.current().catch(() => {});
     } catch (e: any) {
-      setBookmarkIds(prev => {
-        const n = new Set(prev);
-        if (has) n.add(test.id); else n.delete(test.id);
-        return n;
-      });
+      patchScope(queryClient, BOOKMARKS_KEY, { setBookmarks: prevIds }); // revert
       toast({ title: t('error'), description: e.message, variant: 'destructive' });
     }
   };
@@ -3456,3 +3388,28 @@ export default function AppRoot({ authed }: { authed: boolean }) {
 
   return null;
 }
+
+// ---------------------------------------------------------------------------
+// Professional architecture: the entire app runs inside ONE QueryClientProvider.
+// TanStack Query is the industry-standard async state layer — the feed, the
+// user libraries and the bookmarks all live in its keyed cache (see
+// src/lib/feed-queries.ts). The lazy useState keeps the client per-mount and
+// never blocks the server-rendered first paint.
+// ---------------------------------------------------------------------------
+function AppRoot({ authed }: { authed: boolean }) {
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: 1,
+        refetchOnWindowFocus: false,
+      },
+    },
+  }));
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AppRootInner authed={authed} />
+    </QueryClientProvider>
+  );
+}
+
+export default AppRoot;
