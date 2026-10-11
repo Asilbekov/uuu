@@ -2673,7 +2673,16 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // The dashboard swaps its test list for that user's public tests; every card
   // shows their name + photo; the header back arrow returns to the own feed.
   const openUserLibrary = async (u: { id: string; name?: string; image?: string | null }) => {
-    if (!u.id || !effectiveUser || u.id === effectiveUser.id) return; // own profile → own library
+    if (!u.id || !effectiveUser) return; // need a target and a session
+    if (u.id === effectiveUser.id) {
+      // Own card's «Open library»: Discover shows the author strip on every
+      // card — including the user's OWN tests during the scope-switch window
+      // (the fresh list has not landed yet). The destination for one's own
+      // profile is one's OWN library — leave Discover. A silent return here
+      // looked like a dead button: tapped the profile, nothing happened.
+      if (discoverModeRef.current || viewingUserRef.current) toggleDiscoverMode();
+      return;
+    }
     if (viewingUserRef.current && viewingUser?.id === u.id) return;   // already there
     pendingFilesJumpRef.current = null;
     setFilesFeedMode(false); setFilesFeedTestId(null);

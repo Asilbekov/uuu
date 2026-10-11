@@ -401,8 +401,17 @@ export async function GET(request: NextRequest) {
       // Diversity re-rank (MMR-lite): no streaks of same topic/author.
       const ordered = diversify(scored.map(s => s.r));
       poolIds = ordered.map(r => r.id);
-      const lastCandidate = ordered[ordered.length - 1];
-      baseCursor = lastCandidate ? { createdAt: lastCandidate.createdAt, id: lastCandidate.id } : null;
+      // Keyset FLOOR = the OLDEST candidate by (createdAt, id) — NOT the last
+      // element of the score-ordered pool. The pool is ranked by score, so its
+      // tail can be a brand-new test; using it as the continuation cursor made
+      // the "below the pool" query re-fetch tests that ARE in the pool (they
+      // are older than that tail) — duplicates in the same response.
+      baseCursor = ordered.reduce<{ createdAt: Date; id: string } | null>(
+        (min, r) => (!min || r.createdAt < min.createdAt || (r.createdAt === min.createdAt && r.id < min.id)
+          ? { createdAt: r.createdAt, id: r.id }
+          : min),
+        null,
+      );
       if (foryouCache.size > 500) foryouCache.clear();
       if (scope !== 'mine') foryouCache.set(cacheKey, { ids: poolIds, rankedAt: Date.now(), base: baseCursor });
     }
@@ -412,10 +421,13 @@ export async function GET(request: NextRequest) {
     let nextCursor: string | null = null;
 
     if (pageIds.length < limit && baseCursor) {
-      // Pool exhausted → keyset continuation below the pool
+      // Pool exhausted → keyset continuation strictly BELOW the pool floor.
+      // notIn(poolIds): belt-and-suspenders — an already-pooled test must
+      // never appear twice in one response, whatever the cursor says.
       const where: any = {
         AND: [
           ...filters,
+          { id: { notIn: poolIds } },
           {
             OR: [
               { createdAt: { lt: baseCursor.createdAt } },

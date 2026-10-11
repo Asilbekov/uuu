@@ -764,7 +764,7 @@ export default function DashboardView({
                               {/* Discover mode AND other users' libraries: author
                               header + bookmark. The personal library keeps the
                               card clean (you know it's yours). */}
-                              {(discoverMode || viewingUser) && (
+                              {(discoverMode || viewingUser) && !(discoverMode && own) && (
                                 <CreatorStrip
                                   name={(test as any).creator?.name || viewingUser?.name || ''}
                                   creatorId={(test as any).creator?.id || test.creatorId}
@@ -876,7 +876,7 @@ export default function DashboardView({
                               <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
                                 {/* Discover mode AND other users' libraries: author
                                 header + bookmark on the shelf card too */}
-                                {(discoverMode || viewingUser) && (
+                                {(discoverMode || viewingUser) && !(discoverMode && own) && (
                                   <CreatorStrip
                                     name={(test as any).creator?.name || viewingUser?.name || ''}
                                     creatorId={(test as any).creator?.id || test.creatorId}
@@ -1090,7 +1090,7 @@ export default function DashboardView({
                         {/* Discover mode AND other users' libraries: author header
                         with the bookmark toggle, right above the cover. Personal
                         library stays clean. */}
-                        {(discoverMode || viewingUser) && (
+                        {(discoverMode || viewingUser) && !(discoverMode && own) && (
                           <CreatorStrip
                             name={(test as any).creator?.name || viewingUser?.name || ''}
                             creatorId={(test as any).creator?.id || test.creatorId}
