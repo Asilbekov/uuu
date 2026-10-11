@@ -1,6 +1,17 @@
 import { db } from '@/lib/db';
 import { NextRequest, NextResponse } from 'next/server';
 import { affinityMap, bumpAffinity } from '@/lib/affinity';
+import {
+  engagementSeeds,
+  coVisitation,
+  sessionTags,
+  qualityPrior,
+  impressionCounts,
+  seenTests,
+  scoreCandidate,
+  diversify,
+  type RankRow,
+} from '@/lib/recommender';
 
 // ---------------------------------------------------------------------------
 // GET /api/feed — the scalable, personalized test feed.
@@ -18,7 +29,11 @@ import { affinityMap, bumpAffinity } from '@/lib/affinity';
 //   * keyset pagination on (createdAt, id) — constant cost at any depth;
 //   * slim projection: no coverImage blob, no questions, no attachments;
 //   * bounded candidate pools + indexed queries for every ranking mode;
-//   * recommendations = tag affinity (decayed) + recent popularity + freshness.
+//   * For You = the 4-stage funnel (src/lib/recommender.ts, ported from the
+//     open-source production feed systems — x-algorithm, YouTube DNN,
+//     ByteDance Monolith): multi-source retrieval (recent + hot +
+//     CO-VISITATION + interest tags) → seen/skip filtering → engagement
+//     scoring with UCB exploration → diversity re-rank.
 // ---------------------------------------------------------------------------
 
 export const dynamic = 'force-dynamic';
@@ -273,7 +288,11 @@ export async function GET(request: NextRequest) {
       poolIds = cached.ids;
       baseCursor = cached.base;
     } else {
-      const [aff, hotIdsRows, u] = await Promise.all([
+      // ── Multi-source retrieval (x-algorithm / YouTube DNN pattern): every
+      // stream contributes candidates, the ranker decides. Sources: the
+      // long-term affinity profile, hot tests, CO-VISITATION (item-item CF)
+      // and the session-interest window.
+      const [aff, hotIdsRows, u, seeds, session] = await Promise.all([
         userId ? affinityMap(userId) : Promise.resolve(new Map<string, number>()),
         db.$queryRawUnsafe<{ id: string }[]>(`
           SELECT t.id
@@ -290,7 +309,23 @@ export async function GET(request: NextRequest) {
         userId
           ? db.user.findUnique({ where: { id: userId }, select: { interests: true } }).catch(() => null)
           : Promise.resolve(null),
+        userId ? engagementSeeds(userId) : Promise.resolve([] as string[]),
+        userId ? sessionTags(userId) : Promise.resolve(new Map<string, number>()),
       ]);
+
+      const [covis, seen] = await Promise.all([
+        seeds.length ? coVisitation(seeds) : Promise.resolve(new Map<string, number>()),
+        seenTests(userId || ''),
+      ]);
+      // Explicit negative feedback: fast swipe-aways this week.
+      const skippedRows = userId
+        ? await db.feedEvent.findMany({
+            where: { userId, kind: 'skip', createdAt: { gte: new Date(Date.now() - 7 * 86_400_000) } },
+            select: { testId: true },
+            distinct: ['testId'],
+          }).catch(() => [] as { testId: string }[])
+        : [];
+      const skippedThisWeek = new Set(skippedRows.map(r => r.testId));
 
       const seedScore = new Map<string, number>(aff);
       for (const it of u?.interests || []) {
@@ -301,7 +336,7 @@ export async function GET(request: NextRequest) {
       // Candidate pool = newest N (index scan on (isPublic, createdAt, id))
       const recentRows = await db.test.findMany({
         where: { AND: filters },
-        select: { id: true, tags: true, createdAt: true },
+        select: { id: true, tags: true, topic: true, creatorId: true, createdAt: true },
         orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
         take: FORYOU_RECENT_POOL,
       });
@@ -315,25 +350,58 @@ export async function GET(request: NextRequest) {
       const extraRows = missingHot.length
         ? await db.test.findMany({
             where: { AND: [...filters, { id: { in: missingHot } }] },
-            select: { id: true, tags: true, createdAt: true },
+            select: { id: true, tags: true, topic: true, creatorId: true, createdAt: true },
           })
         : [];
 
-      const candidates = [...recentRows, ...extraRows];
-      const scored = candidates.map(r => {
-        const tags = r.tags || [];
-        let affScore = 0;
-        for (const t of tags) affScore += seedScore.get(t) || 0;
-        const hot = hotRank.get(r.id) || 0;
-        const ageDays = Math.max(0, (now - r.createdAt.getTime()) / 86_400_000);
-        const freshness = 1 / (1 + ageDays);
-        const jitter = Math.random() * 0.35; // exploration — keeps the feed alive
-        const score = 3 * Math.min(affScore, 30) + 2 * Math.sqrt(hot) + 1.5 * freshness + jitter;
-        return { id: r.id, createdAt: r.createdAt, score };
-      });
-      scored.sort((a, b) => b.score - a.score || (a.createdAt < b.createdAt ? 1 : -1));
-      poolIds = scored.map(s => s.id);
-      const lastCandidate = scored[scored.length - 1];
+      // CO-VISITATION stream (YouTube watch-next): tests co-engaged by other
+      // users with this user's recent activity, not already in the pool.
+      const extraMap = new Map(extraRows.map(r => [r.id, r]));
+      const covisIds = [...covis.keys()]
+        .filter(id => !recentMap.has(id) && !extraMap.has(id))
+        .slice(0, 100);
+      const covisRows = covisIds.length
+        ? await db.test.findMany({
+            where: { AND: [...filters, { id: { in: covisIds } }] },
+            select: { id: true, tags: true, topic: true, creatorId: true, createdAt: true },
+          })
+        : [];
+
+      const candidates: RankRow[] = [...recentRows, ...extraRows, ...covisRows].map(r => ({
+        id: r.id,
+        tags: r.tags || [],
+        topic: r.topic,
+        creatorId: r.creatorId,
+        createdAt: r.createdAt,
+      }));
+      const allIds = candidates.map(c => c.id);
+      const [quality, impressions] = await Promise.all([
+        qualityPrior(allIds),
+        impressionCounts(allIds),
+      ]);
+
+      const scored = candidates
+        .map(r => ({
+          r,
+          score: scoreCandidate(r, {
+            affinity: seedScore,
+            session,
+            covis,
+            quality,
+            impressions,
+            hotRank,
+            seedTags: seedScore,
+            completed: seen.completed,
+            viewed24h: seen.viewed24h,
+            skippedThisWeek,
+            now,
+          }),
+        }))
+        .sort((a, b) => b.score - a.score || (a.r.createdAt < b.r.createdAt ? 1 : -1));
+      // Diversity re-rank (MMR-lite): no streaks of same topic/author.
+      const ordered = diversify(scored.map(s => s.r));
+      poolIds = ordered.map(r => r.id);
+      const lastCandidate = ordered[ordered.length - 1];
       baseCursor = lastCandidate ? { createdAt: lastCandidate.createdAt, id: lastCandidate.id } : null;
       if (foryouCache.size > 500) foryouCache.clear();
       if (scope !== 'mine') foryouCache.set(cacheKey, { ids: poolIds, rankedAt: Date.now(), base: baseCursor });
@@ -378,16 +446,25 @@ export async function GET(request: NextRequest) {
 }
 
 // ---------------------------------------------------------------------------
-// POST /api/feed — lightweight engagement signal for the recommendation engine.
-// Body: { testId, kind: 'view' } — sent once per test per session after the
-// card stays on screen. start/complete are recorded by the attempts API.
+// POST /api/feed — engagement signals for the recommendation funnel.
+// Body: { testId, kind: 'view'|'skip', ms? }
+//   view  — the card stayed on screen (ms = dwell time). Feeds the long-term
+//           tag profile (+1), the co-visitation graph and the quality prior.
+//   skip  — the user swiped away in under ~1.8 s: the TikTok negative signal.
+//           Writes a skip event (−4 on re-ranking this week) and presses the
+//           tag profile down (−1.5, Monolith's real-time loop).
+// start/complete are recorded by the attempts API.
 // ---------------------------------------------------------------------------
+const SKIP_AFFINITY_DELTA = -1.5;
+const VIEW_AFFINITY_DELTA = 1;
+
 export async function POST(request: NextRequest) {
   try {
     const userId = request.headers.get('x-user-id');
     if (!userId) return NextResponse.json({ ok: false });
-    const { testId, kind } = await request.json();
-    if (kind !== 'view' || !testId) return NextResponse.json({ ok: false });
+    const body: any = await request.json().catch(() => ({}));
+    const { testId, kind, ms } = body || {};
+    if (!testId || (kind !== 'view' && kind !== 'skip')) return NextResponse.json({ ok: false });
     const test = await db.test.findUnique({
       where: { id: testId },
       select: { tags: true, isPublic: true, creatorId: true },
@@ -395,7 +472,25 @@ export async function POST(request: NextRequest) {
     if (!test || (!test.isPublic && test.creatorId !== userId)) {
       return NextResponse.json({ ok: false });
     }
-    await bumpAffinity(userId, test.tags || [], 1);
+    // Raw event stream (co-visitation + quality prior + exploration control).
+    await db.feedEvent.create({
+      data: {
+        userId,
+        testId,
+        kind,
+        ms: kind === 'view' && Number.isFinite(ms) ? Math.min(600000, Math.max(0, Math.round(ms))) : null,
+      },
+    }).catch(() => {});
+    // Tag profile: positive on dwell, negative on fast swipe-away.
+    const delta = kind === 'skip' ? SKIP_AFFINITY_DELTA : VIEW_AFFINITY_DELTA;
+    await bumpAffinity(userId, test.tags || [], delta);
+    // Opportunistic 30-day retention purge (~2% of signal writes — cheap,
+    // index-backed, keeps the co-visitation join fast forever).
+    if (Math.random() < 0.02) {
+      db.$executeRawUnsafe(
+        `DELETE FROM "FeedEvent" WHERE "createdAt" < now() - interval '30 days'`
+      ).catch(() => {});
+    }
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ ok: false });

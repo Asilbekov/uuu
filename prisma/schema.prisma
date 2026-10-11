@@ -175,6 +175,27 @@ model TagAffinity {
   @@index([userId, score])
 }
 
+// Raw engagement stream — the substrate of the recommendation funnel
+// (the same role raw watch events play in YouTube's watch-next / X's
+// candidate sourcing):
+//   * co-visitation (item-item CF): "users who viewed X also viewed Y";
+//   * per-item quality prior (impression → dwell ratio);
+//   * exploration control: how often a test has been TRIED by the feed.
+// kind = "view" (card stayed on screen; ms = dwell) | "skip" (swiped away
+// in under ~1.8 s — the TikTok negative signal). Rows older than 30 days
+// are purged opportunistically.
+model FeedEvent {
+  id        String   @id @default(cuid())
+  userId    String
+  testId    String
+  kind      String   @default("view")
+  ms        Int?
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([testId, createdAt])
+}
+
 model AttemptAnswer {
   id        String   @id @default(cuid())
   attemptId String

@@ -343,6 +343,11 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   const feedReqIdRef = useRef(0);
   const seenIdsRef = useRef<Set<string>>(new Set());
   const viewSignaledRef = useRef<Set<string>>(new Set());
+  // Recommendation-signal bookkeeping: which card is currently settled on
+  // screen and when it got there. On every card TRANSITION the previous card
+  // is scored by dwell time — a fast swipe-away is the TikTok "skip" signal.
+  const dashPrevCardIdRef = useRef<string | null>(null);
+  const dashCardShownAtRef = useRef(0);
   const feedSentinelRef = useRef<HTMLDivElement | null>(null);
   const sharedTestHandledRef = useRef(false);
   const [attempts, setAttempts] = useState<Attempt[]>([]);
@@ -2058,11 +2063,37 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       return;
     }
     const idx = Math.round(el.scrollTop / el.clientHeight);
+    // RECOMMENDATION SIGNALS (invisible to the user): each card TRANSITION
+    // scores the card the user just LEFT — dwell >= 1.8 s counts as a real
+    // view (ms recorded for the quality prior), anything faster is the
+    // TikTok-style skip (negative signal). The freshly landed card only
+    // stamps its "shown at" moment; its own signal fires when it is left.
+    // Guards keep this fire-and-forget: bookkeeping must never throw, never
+    // re-render, never touch the scroll chain.
     const signal = (shown?: Test) => {
-      if (shown && effectiveUser && !viewSignaledRef.current.has(shown.id)) {
-        viewSignaledRef.current.add(shown.id);
-        api.feedSignal(shown.id, 'view').catch(() => {});
-      }
+      if (!effectiveUser || !shown) return;
+      try {
+        const nowMs = Date.now();
+        const prevId = dashPrevCardIdRef.current;
+        if (prevId && shown.id !== prevId) {
+          const dwell = nowMs - dashCardShownAtRef.current;
+          const kind: 'view' | 'skip' = dwell >= 1800 ? 'view' : 'skip';
+          const key = `${prevId}:${kind}`;
+          if (!viewSignaledRef.current.has(key)) {
+            viewSignaledRef.current.add(key);
+            api.feedSignal(prevId, kind, dwell).catch(() => {});
+          }
+        } else if (!prevId && !viewSignaledRef.current.has(`${shown.id}:imp`)) {
+          // Session start: the first card counts the moment it appears —
+          // the user may read it without ever swiping away.
+          viewSignaledRef.current.add(`${shown.id}:imp`);
+          api.feedSignal(shown.id, 'view').catch(() => {});
+        }
+        if (shown.id !== prevId) {
+          dashPrevCardIdRef.current = shown.id;
+          dashCardShownAtRef.current = nowMs;
+        }
+      } catch { /* signal bookkeeping must never break the commit */ }
     };
     if (filesFeedModeRef.current) {
       // Files mode: commit the visible FILE slide

@@ -76,8 +76,8 @@ export const api = {
     return apiFetch(`/feed?${sp.toString()}`);
   },
   // Engagement signal: the current feed card stayed on screen
-  feedSignal: (testId: string, kind: 'view') =>
-    apiFetch('/feed', { method: 'POST', body: JSON.stringify({ testId, kind }) }),
+  feedSignal: (testId: string, kind: 'view' | 'skip', ms?: number) =>
+    apiFetch('/feed', { method: 'POST', body: JSON.stringify({ testId, kind, ...(ms != null ? { ms } : {}) }) }),
 
   // Sharing: make the user's own test public ("whole community" option)
   shareTest: (id: string, scope: 'link' | 'community') =>
