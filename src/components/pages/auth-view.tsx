@@ -6,38 +6,30 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useSessionStore } from '@/stores/session-store';
+import { tUI } from '@/lib/i18n';
 
 /**
- * AUTH PAGE — login / sign-up card. Form state lives in src/app/page.tsx
- * (handleAuth needs the shared toast + session plumbing).
+ * AUTH PAGE — login / sign-up card. The form state lives in the session
+ * store and is consumed here directly; app-root keeps handleAuth (it needs
+ * the shared toast + session plumbing).
  */
 export interface AuthViewProps {
-  authMode: 'login' | 'signup';
-  setAuthMode: (m: 'login' | 'signup') => void;
-  name: string;
-  email: string;
-  password: string;
-  setName: (v: string) => void;
-  setEmail: (v: string) => void;
-  setPassword: (v: string) => void;
-  loading: boolean;
   handleAuth: () => void;
-  t: (key: string, vars?: Record<string, string | number>) => string;
 }
 
-export default function AuthView({
-  authMode,
-  setAuthMode,
-  name,
-  email,
-  password,
-  setName,
-  setEmail,
-  setPassword,
-  loading,
-  handleAuth,
-  t,
-}: AuthViewProps) {
+export default function AuthView({ handleAuth }: AuthViewProps) {
+  const authMode = useSessionStore(s => s.authMode);
+  const setAuthMode = useSessionStore(s => s.setAuthMode);
+  const name = useSessionStore(s => s.name);
+  const email = useSessionStore(s => s.email);
+  const password = useSessionStore(s => s.password);
+  const setName = useSessionStore(s => s.setName);
+  const setEmail = useSessionStore(s => s.setEmail);
+  const setPassword = useSessionStore(s => s.setPassword);
+  const loading = useSessionStore(s => s.loading);
+  const lang = useSessionStore(s => s.lang);
+  const t = React.useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4 screen-enter">
       <Card className="w-full max-w-md rounded-4xl border border-black shadow-lg bg-white">

@@ -2350,17 +2350,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
   if (effectivePage === 'auth') {
     return (
       <AuthView
-        authMode={authMode}
-        setAuthMode={setAuthMode}
-        name={name}
-        email={email}
-        password={password}
-        setName={setName}
-        setEmail={setEmail}
-        setPassword={setPassword}
-        loading={loading}
         handleAuth={handleAuth}
-        t={t}
       />
     );
   }
@@ -2676,25 +2666,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
   if (effectivePage === 'profile') {
     return (
       <ProfileView
-        effectiveUser={effectiveUser}
-        myAvatar={myAvatar}
-        userInitials={userInitials}
-        myBgStyle={myBgStyle}
-        avatarBusy={avatarBusy}
         avatarInputRef={avatarInputRef}
         handleAvatarFile={handleAvatarFile}
-        profileName={profileName}
-        setProfileName={setProfileName}
-        profileSaving={profileSaving}
         saveProfileName={saveProfileName}
         saveBgStyle={saveBgStyle}
         handleLogout={handleLogout}
         handleDeleteAccount={handleDeleteAccount}
-        accBusy={accBusy}
-        deleteAccOpen={deleteAccOpen}
-        setDeleteAccOpen={setDeleteAccOpen}
-        setPage={setPage}
-        t={t}
       />
     );
   }
@@ -3080,12 +3057,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
   if (effectivePage === 'create-test' || effectivePage === 'edit-test') {
     return (
       <CreateEditView
-        editingTestId={editingTestId}
         editorBody={editorBody}
         handleSaveTest={handleSaveTest}
-        loading={loading}
         goHome={goHome}
-        t={t}
       />
     );
   }
@@ -3129,7 +3103,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
   // HISTORY (view extracted to src/components/pages/history-view.tsx)
   if (effectivePage === 'history') {
-    return <HistoryView attempts={attempts} goHome={goHome} t={t} />;
+    return <HistoryView goHome={goHome} />;
   }
 
   return null;

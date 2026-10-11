@@ -3,29 +3,31 @@
 import React from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useEditorStore } from '@/stores/editor-store';
+import { useSessionStore } from '@/stores/session-store';
+import { tUI } from '@/lib/i18n';
 
 /**
  * CREATE / EDIT TEST screen — the full-page editor chrome (header + bottom
  * save bar). The form body itself (`editorBody`) is shared with the take-test
- * "Edit Test" sheet and is composed in src/app/page.tsx.
+ * "Edit Test" sheet and is composed in app-root. The editingTestId/loading
+ * come from the stores directly; app-root keeps the save action + goHome.
  */
 export interface CreateEditViewProps {
-  editingTestId: string | null;
   editorBody: React.ReactNode;
   handleSaveTest: () => void;
-  loading: boolean;
   goHome: () => void;
-  t: (key: string, vars?: Record<string, string | number>) => string;
 }
 
 export default function CreateEditView({
-  editingTestId,
   editorBody,
   handleSaveTest,
-  loading,
   goHome,
-  t,
 }: CreateEditViewProps) {
+  const editingTestId = useEditorStore(s => s.editingTestId);
+  const loading = useSessionStore(s => s.loading);
+  const lang = useSessionStore(s => s.lang);
+  const t = React.useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
   return (
     <div className="min-h-screen bg-background screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">

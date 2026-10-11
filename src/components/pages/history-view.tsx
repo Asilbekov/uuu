@@ -5,19 +5,21 @@ import { ArrowLeft, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import type { Attempt } from '@/lib/app-types';
+import { useSessionStore } from '@/stores/session-store';
+import { tUI } from '@/lib/i18n';
 
 /**
- * HISTORY PAGE — the list of past attempts. Data stays in page.tsx
- * (it shares the attempts state with the results flow).
+ * HISTORY PAGE — the list of past attempts. The attempts live in the
+ * session store and are consumed here directly; app-root keeps goHome.
  */
 export interface HistoryViewProps {
-  attempts: Attempt[];
   goHome: () => void;
-  t: (key: string, vars?: Record<string, string | number>) => string;
 }
 
-export default function HistoryView({ attempts, goHome, t }: HistoryViewProps) {
+export default function HistoryView({ goHome }: HistoryViewProps) {
+  const attempts = useSessionStore(s => s.attempts);
+  const lang = useSessionStore(s => s.lang);
+  const t = React.useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
   return (
     <div className="min-h-screen bg-background screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">

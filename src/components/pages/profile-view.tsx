@@ -17,7 +17,10 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { TEST_BG_PRESETS } from '@/lib/test-bg';
-import type { Page } from '@/lib/app-types';
+import { useProfileStore } from '@/stores/profile-store';
+import { useSessionStore } from '@/stores/session-store';
+import { useNavStore } from '@/stores/nav-store';
+import { tUI } from '@/lib/i18n';
 
 /**
  * PROFILE PAGE — opened by tapping the account avatar. Hosts everything
@@ -26,51 +29,51 @@ import type { Page } from '@/lib/app-types';
  * background looks while taking a test), logout and account deletion.
  * The back arrow in the top-left of the top panel returns to the dashboard.
  *
- * State stays in src/app/page.tsx; this view receives it via props.
+ * The state lives in the zustand domain stores and is consumed here
+ * directly — app-root keeps the action handlers (they orchestrate the
+ * API calls): avatar upload, name save, background save, logout, deletion.
  */
 export interface ProfileViewProps {
-  effectiveUser: { id: string; email: string; name: string } | null;
-  myAvatar: string | null;
-  userInitials: string;
-  myBgStyle: string;
-  avatarBusy: boolean;
   avatarInputRef: React.RefObject<HTMLInputElement | null>;
   handleAvatarFile: (file: File) => void;
-  profileName: string;
-  setProfileName: (v: string) => void;
-  profileSaving: boolean;
   saveProfileName: () => void;
   saveBgStyle: (id: string) => void;
   handleLogout: () => void;
   handleDeleteAccount: () => void;
-  accBusy: boolean;
-  deleteAccOpen: boolean;
-  setDeleteAccOpen: (v: boolean) => void;
-  setPage: (p: Page) => void;
-  t: (key: string, vars?: Record<string, string | number>) => string;
 }
 
 export default function ProfileView({
-  effectiveUser,
-  myAvatar,
-  userInitials,
-  myBgStyle,
-  avatarBusy,
   avatarInputRef,
   handleAvatarFile,
-  profileName,
-  setProfileName,
-  profileSaving,
   saveProfileName,
   saveBgStyle,
   handleLogout,
   handleDeleteAccount,
-  accBusy,
-  deleteAccOpen,
-  setDeleteAccOpen,
-  setPage,
-  t,
 }: ProfileViewProps) {
+  // ── State: read straight from the zustand domain stores ──────────────────
+  const sessionUser = useSessionStore(s => s.user);
+  const hydratedUser = useSessionStore(s => s.hydratedUser);
+  const lang = useSessionStore(s => s.lang);
+  const setPage = useNavStore(s => s.setPage);
+  const myAvatar = useProfileStore(s => s.myAvatar);
+  const myBgStyle = useProfileStore(s => s.myBgStyle);
+  const avatarBusy = useProfileStore(s => s.avatarBusy);
+  const profileName = useProfileStore(s => s.profileName);
+  const setProfileName = useProfileStore(s => s.setProfileName);
+  const profileSaving = useProfileStore(s => s.profileSaving);
+  const accBusy = useProfileStore(s => s.accBusy);
+  const deleteAccOpen = useProfileStore(s => s.deleteAccOpen);
+  const setDeleteAccOpen = useProfileStore(s => s.setDeleteAccOpen);
+  const effectiveUser = sessionUser || hydratedUser;
+  const t = React.useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+  // Round avatar initials (same rule as app-root / dashboard-view)
+  const userInitials = (() => {
+    const userName = effectiveUser?.name || effectiveUser?.email || '';
+    const parts = userName.trim().split(/\s+/).filter(Boolean);
+    const s = parts.length >= 2 ? parts[0][0] + parts[parts.length - 1][0] : userName.slice(0, 2);
+    return (s || '?').toUpperCase();
+  })();
+
   return (
     <div className="min-h-screen bg-background flex flex-col screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
