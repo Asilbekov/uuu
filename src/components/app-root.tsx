@@ -845,6 +845,14 @@ export default function AppRoot({ authed }: { authed: boolean }) {
   // { replace: true } — there the user expects a new list from position 0.
   const loadFeed = useCallback(async (opts?: { replace?: boolean }): Promise<void> => {
     const forceReplace = opts?.replace === true;
+    // Another user's library is a CLOSED SCOPE: while it is open the list
+    // belongs to that author and there is nothing to refresh underneath it.
+    // Any background refresh (boot revalidate, bookmark quiet-merge, edit
+    // save) must be a no-op here — otherwise the For You feed glues itself
+    // under their tests and the viewed library shows other accounts' tests.
+    // Deliberate scope switches clear viewingUser first, so forceReplace
+    // (closeUserLibrary / discover toggle) still works.
+    if (viewingUserRef.current && !forceReplace) return;
     const reqId = ++feedReqIdRef.current;
     setFeedLoading(true);
     try {
@@ -853,6 +861,9 @@ export default function AppRoot({ authed }: { authed: boolean }) {
         api.getBookmarks().catch(() => null),
       ]);
       if (reqId !== feedReqIdRef.current) return; // a newer request superseded this one
+      // Race guard: the user may have OPENED another user's library while
+      // this fetch was in flight — a foreign result must never land there.
+      if (viewingUserRef.current && !forceReplace) return;
       if (bm?.ids) setBookmarkIds(new Set(bm.ids));
       const items: Test[] = res?.items || [];
       if (forceReplace) {
@@ -906,6 +917,9 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     feedLoadingMoreRef.current = true;
     try {
       const res = await api.getFeed({ tab: 'foryou', cursor: feedCursorRef.current, limit: FEED_PAGE_LIMIT, scope: discoverModeRef.current ? 'discover' : 'mine' });
+      // Race: the user opened another user's library while this page was in
+      // flight — the fresh page belongs to the OLD scope, never append it.
+      if (viewingUserRef.current) return;
       const fresh: Test[] = (res?.items || []).filter(i => !seenIdsRef.current.has(i.id));
       fresh.forEach(i => seenIdsRef.current.add(i.id));
       if (fresh.length) setTests(prev => [...prev, ...fresh]);
@@ -1474,7 +1488,10 @@ export default function AppRoot({ authed }: { authed: boolean }) {
       try {
         toast({ title: t('copyCreating') });
         const copy = await api.copyTest(test.id);
-        await loadFeedRef.current(); // the copy joins the personal library list
+        // viewingUser was cleared above — a deliberate scope switch back to
+        // the own library: REPLACE (the list still holds the other user's
+        // tests; a merge would glue them into the personal library)
+        await loadFeedRef.current({ replace: true }); // the copy joins the personal library list
         toast({ title: t('copyCreated') });
         setLoading(false);
         return startEditTest(copy as Test); // now it's mine — normal edit path
@@ -2668,6 +2685,10 @@ export default function AppRoot({ authed }: { authed: boolean }) {
     setFilesOpen(false);
     setEditOpen(false);
     setViewingUser({ id: u.id, name: u.name || 'User', image: u.image || null });
+    // Invalidate any in-flight feed fetch (boot revalidate, discover-toggle
+    // replace): when it resolves it must NOT stomp this library with its own
+    // scope's items — the reqId check inside loadFeed discards it as stale.
+    feedReqIdRef.current++;
     setViewingLoading(true);
     try {
       const theirs: Test[] = await api.getTests(u.id); // public-only (server enforces)
