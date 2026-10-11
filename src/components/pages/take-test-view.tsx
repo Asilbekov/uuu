@@ -33,6 +33,10 @@ const AttachmentsSidePanel = dynamic(() => import('@/components/attachments').th
 const GroupChatPanel = dynamic(() => import('@/components/chat-panels').then(m => m.GroupChatPanel), { ssr: false, loading: () => <SheetLoadingPlaceholder /> });
 
 import { type Page, type Question, type Test } from '@/lib/app-types';
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Mousewheel } from 'swiper/modules';
+import type { Swiper as SwiperClass } from 'swiper';
 import { useTakeStore } from '@/stores/take-store';
 import { useNavStore } from '@/stores/nav-store';
 import { useChatStore } from '@/stores/chat-store';
@@ -72,16 +76,6 @@ export interface TakeTestViewProps {
   editorBody: React.ReactNode;
   chatEndRef: { current: HTMLDivElement | null };
   groupEndRef: { current: HTMLDivElement | null };
-  // ── Drum + question-feed gesture machinery (Swiper replaces it next) ─────
-  drumScaleRafRef: { current: number };
-  applyDrumScales: () => void;
-  drumSettleTimerRef: { current: ReturnType<typeof setTimeout> | null };
-  drumRef: { current: HTMLDivElement | null };
-  drumProgrammaticRef: { current: number };
-  takeFeedSettleTimerRef: { current: ReturnType<typeof setTimeout> | null };
-  takeFeedRef: { current: HTMLDivElement | null };
-  takeFeedTouchUntilRef: { current: number };
-  drumRefCb: (el: HTMLDivElement | null) => void;
 }
 
 export default function TakeTestView({
@@ -105,16 +99,6 @@ export default function TakeTestView({
   editorBody,
   chatEndRef,
   groupEndRef,
-  // drum/take-feed gesture machinery
-  drumScaleRafRef,
-  applyDrumScales,
-  drumSettleTimerRef,
-  drumRef,
-  drumProgrammaticRef,
-  takeFeedSettleTimerRef,
-  takeFeedRef,
-  takeFeedTouchUntilRef,
-  drumRefCb,
 }: TakeTestViewProps) {
   // ── State: read straight from the zustand domain stores ──────────────────
   // session
@@ -200,6 +184,47 @@ export default function TakeTestView({
   const numInputRef = React.useRef<HTMLInputElement>(null);
   // Score is a pure derivation of the take store (same rule as app-root)
   const getScore = () => shuffledQuestions.filter(q => answers[q.id || ''] === q.correctAnswer).length;
+
+  // ── SWIPER QUESTION ENGINE — hook layer (always mounted, Rules of Hooks) ──
+  // Fresh state mirror for the event handlers (no stale closures) and the
+  // swiper handles + sync effects. The handlers themselves live inside the
+  // take-screen branch below.
+  const takeStateRef = React.useRef({ idx: currentQuestionIdx, count: shuffledQuestions.length });
+  takeStateRef.current = { idx: currentQuestionIdx, count: shuffledQuestions.length };
+  const takeSwiperRef = React.useRef<SwiperClass | null>(null);
+  const drumSwiperRef = React.useRef<SwiperClass | null>(null);
+  const takeFeedHostRef = React.useRef<HTMLDivElement | null>(null);
+
+  // External index changes (drum / arrows / jump input / search / new
+  // session) drive the feed swiper; commits flow back through
+  // onSlideChange — the equality check makes the loop settle immediately.
+  React.useEffect(() => {
+    const sw = takeSwiperRef.current;
+    if (!sw) return;
+    if (sw.slides?.length !== shuffledQuestions.length) sw.update();
+    const target = Math.min(Math.max(0, currentQuestionIdx), Math.max(0, shuffledQuestions.length - 1));
+    if (sw.activeIndex !== target) sw.slideTo(target, 0);
+  }, [shuffledQuestions, currentQuestionIdx]);
+
+  // Keyboard/sheet layout shifts resize the feed host (on-screen keyboard,
+  // chat sheets on mobile) — keep the engine's slide bookkeeping in sync.
+  React.useEffect(() => {
+    const el = takeFeedHostRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(() => { takeSwiperRef.current?.update(); });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  // The drum strip drives the same index — remounts (typing mode) re-center
+  // through initialSlide, everything else through this effect.
+  React.useEffect(() => {
+    const sw = drumSwiperRef.current;
+    if (!sw) return;
+    const target = Math.min(Math.max(0, currentQuestionIdx), Math.max(0, shuffledQuestions.length - 1));
+    if (sw.activeIndex !== target) sw.slideTo(target, 260);
+  }, [currentQuestionIdx, shuffledQuestions]);
+
   // Exit-animation holds: when a sheet flag flips to false the panel stays
   // mounted for ~220ms to play its slide-down/fade-out (nothing vanishes).
   // The lazy chunks still load on first open only — the holds just delay
@@ -254,61 +279,93 @@ export default function TakeTestView({
       if (numInputRef.current) numInputRef.current.value = '';
     };
 
-    // Drum scroll: magnify around the center in real time; when the strip settles,
-    // select the number closest to the glass (skips programmatic scrolls)
-    const onDrumScroll = () => {
-      if (!drumScaleRafRef.current) {
-        drumScaleRafRef.current = requestAnimationFrame(() => {
-          drumScaleRafRef.current = 0;
-          applyDrumScales();
-        });
-      }
-      if (drumSettleTimerRef.current) clearTimeout(drumSettleTimerRef.current);
-      drumSettleTimerRef.current = setTimeout(() => {
-        const c = drumRef.current;
-        if (!c || Date.now() - drumProgrammaticRef.current < 300) return;
-        const mid = c.getBoundingClientRect().left + c.clientWidth / 2;
-        let best = 0;
-        let bestDist = Infinity;
-        (Array.from(c.children) as HTMLElement[]).forEach((k, i) => {
-          const r = k.getBoundingClientRect();
-          const d = Math.abs(r.left + r.width / 2 - mid);
-          if (d < bestDist) { bestDist = d; best = i; }
-        });
-        if (best !== currentQuestionIdx && best >= 0 && best < shuffledQuestions.length) goToQuestion(best);
-      }, 150);
+    // ── SWIPER QUESTION ENGINE (TikTok-web gesture layer) ────────────────────
+    // The settle timers, touch-until windows, rAF magnifier and programmatic-
+    // scroll guards all died here — Swiper owns the gestures now (touch
+    // physics, mousewheel, momentum — all upstream-maintained), the same
+    // engine that drives the dashboard feed. What lives in the view:
+    //  · index commits flow out through onSlideChange -> goToQuestion
+    //  · external index changes (drum taps / arrows / jump input / search)
+    //    drive the swipers through the sync effects — the equality checks
+    //    make the loop settle immediately
+    //  · the drum magnifier is a 10-line onProgress transform (same curve as
+    //    the old applyDrumScales: 1 at the center, 0 at the falloff radius)
+    // Shared engine config: one wheel notch / flick = exactly one full-height
+    // question card, zero rubber-banding between cards, no release-to-edges.
+    const takeSwiperParams = {
+      direction: 'vertical' as const,
+      modules: [Mousewheel],
+      slidesPerView: 1,
+      spaceBetween: 0,
+      speed: 320,
+      resistanceRatio: 0,
+      touchReleaseOnEdges: true,
+      longSwipesRatio: 0.35,
+      mousewheel: { forceToAxis: true, sensitivity: 1, thresholdDelta: 12, thresholdTime: 250, releaseOnEdges: false },
+      initialSlide: Math.min(Math.max(0, currentQuestionIdx), Math.max(0, shuffledQuestions.length - 1)),
     };
 
-    // Feed scroll: commit the question switch only AFTER the swipe settles.
-    // Switching mid-gesture re-renders every slide while the card is still
-    // moving (visible stutter) and lets the sync effect yank the card under
-    // the finger — so we wait until scrolling comes to rest and the finger
-    // is up, then select the slide closest to the viewport (TikTok-style).
-    const feedSettleCommit = () => {
-      takeFeedSettleTimerRef.current = null;
-      const c = takeFeedRef.current;
-      if (!c || c.clientHeight === 0) return;
-      if (Date.now() < takeFeedTouchUntilRef.current) return;
-      const idx = Math.round(c.scrollTop / c.clientHeight);
-      if (idx !== currentQuestionIdx && idx >= 0 && idx < shuffledQuestions.length) goToQuestion(idx);
+    // Question feed commit: select the slide Swiper landed on. The ref guard
+    // makes redundant commits (our own programmatic slideTo) no-ops.
+    const onTakeSlideChange = (sw: SwiperClass) => {
+      const { idx, count } = takeStateRef.current;
+      const next = sw.activeIndex;
+      if (next !== idx && next >= 0 && next < count) goToQuestion(next);
     };
-    const armFeedSettle = (delay = 140) => {
-      if (takeFeedSettleTimerRef.current) clearTimeout(takeFeedSettleTimerRef.current);
-      takeFeedSettleTimerRef.current = setTimeout(feedSettleCommit, delay);
+
+    // Wheel gate (capture): a wheel inside a question card that can still
+    // scroll in the wheel direction keeps its NATIVE scrolling — stopped here
+    // so the Swiper mousewheel engine never sees it. At the card's edge the
+    // event falls through to Swiper = scroll chaining into the next question,
+    // exactly like the old snap container.
+    const onFeedWheelCapture = (e: React.WheelEvent) => {
+      const t = e.target as Element | null;
+      const sec = t?.closest?.('section[data-qslide]') as HTMLElement | null;
+      if (!sec || sec.scrollHeight <= sec.clientHeight + 1) return;
+      const canScroll = e.deltaY > 0
+        ? sec.scrollTop + sec.clientHeight < sec.scrollHeight - 1
+        : sec.scrollTop > 1;
+      if (canScroll) e.stopPropagation();
     };
-    const onFeedScroll = () => {
-      const el = takeFeedRef.current;
-      if (!el || el.clientHeight === 0) return;
-      armFeedSettle(140);
+    // Touch gate: Swiper has no built-in nested-scroll handoff, so at
+    // touchstart the card is marked swiper-no-swiping while it can scroll at
+    // all — the whole gesture then belongs to the card's native scrolling.
+    // Cards that fit the viewport swipe between questions as usual.
+    const onFeedTouchStartCapture = (e: React.TouchEvent) => {
+      const t = e.target as Element | null;
+      const sec = t?.closest?.('section[data-qslide]') as HTMLElement | null;
+      if (sec) sec.classList.toggle('swiper-no-swiping', sec.scrollHeight > sec.clientHeight + 1);
     };
-    const onFeedTouchStart = () => { takeFeedTouchUntilRef.current = Date.now() + 600; };
-    const onFeedTouchEnd = () => {
-      takeFeedTouchUntilRef.current = Date.now() + 150;
-      armFeedSettle(180); // final commit if the release produced no snap animation
+
+    // The bottom drum: horizontal Swiper — centered strip, tap-to-slide,
+    // drag-scrub, and the magnifier lens reproduced via watchSlidesProgress
+    // (distance from center in slide widths -> the old 1..0 falloff curve).
+    const applyDrumMagnify = (sw: SwiperClass) => {
+      const radiusPx = Math.max(110, sw.width * 0.3);
+      for (const slide of sw.slides) {
+        const distPx = Math.abs(slide.progress || 0) * 56; // w-14 pills
+        const f = Math.max(0, 1 - (distPx / radiusPx) ** 2);
+        const num = (slide.firstElementChild?.firstElementChild || slide.firstElementChild) as HTMLElement | null;
+        if (num) {
+          num.style.transform = `scale(${(0.5 + 0.5 * f).toFixed(3)})`;
+          num.style.opacity = (0.25 + 0.75 * f).toFixed(3);
+        }
+      }
     };
-    const onFeedWheel = () => {
-      takeFeedTouchUntilRef.current = Date.now() + 250;
-      armFeedSettle(220);
+    const drumSwiperParams = {
+      slidesPerView: 'auto' as const,
+      centeredSlides: true,
+      spaceBetween: 0,
+      speed: 260,
+      slideToClickedSlide: true,
+      watchSlidesProgress: true,
+      grabCursor: false,
+      initialSlide: Math.min(Math.max(0, currentQuestionIdx), Math.max(0, shuffledQuestions.length - 1)),
+    };
+    const onDrumSlideChange = (sw: SwiperClass) => {
+      const { idx, count } = takeStateRef.current;
+      const next = sw.activeIndex;
+      if (next !== idx && next >= 0 && next < count) goToQuestion(next);
     };
 
     if (showResult) {
@@ -914,17 +971,23 @@ export default function TakeTestView({
                 </div>
               </div>
             ) : (
-            // Questions feed — one full-height card per question, TikTok-style swipe
+            // Questions feed — one full-height card per question, TikTok-style swipe.
+            // Engine: Swiper (vertical, one slide per view) — see takeSwiperParams.
+            // The capture gates keep long cards' native scrolling alive (wheel even
+            // chains into the next question at the card's edge, like the old snap
+            // container); the ResizeObserver + sync effects keep slides sized.
             <div
-              ref={takeFeedRef}
-              onScroll={onFeedScroll}
-              onTouchStart={onFeedTouchStart}
-              onTouchMove={onFeedTouchStart}
-              onTouchEnd={onFeedTouchEnd}
-              onTouchCancel={onFeedTouchEnd}
-              onWheel={onFeedWheel}
-              className="relative flex-1 min-w-0 h-full overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              ref={takeFeedHostRef}
+              onWheelCapture={onFeedWheelCapture}
+              onTouchStartCapture={onFeedTouchStartCapture}
+              className="relative flex-1 min-w-0 h-full feed-swiper"
             >
+              <Swiper
+                {...takeSwiperParams}
+                className="h-full"
+                onSwiper={(sw) => { takeSwiperRef.current = sw; }}
+                onSlideChange={onTakeSlideChange}
+              >
               {shuffledQuestions.map((q, idx) => {
                 const slideQId = q.id || '';
                 const slideRevealed = practiceMode && revealedAnswers[slideQId];
@@ -933,7 +996,8 @@ export default function TakeTestView({
                 // huge white void below the feed (position:absolute escapes the
                 // feed's overflow clipping when no ancestor is positioned)
                 return (
-              <section key={idx} className="relative h-full w-full snap-start snap-always overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <SwiperSlide key={idx} className="!h-full">
+              <section data-qslide className="relative h-full w-full overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="min-h-full flex flex-col px-4 py-4">
                   <div className="max-w-3xl w-full mx-auto my-auto">
               <Card className="rounded-4xl border border-black bg-white shadow-lg">
@@ -1065,8 +1129,10 @@ export default function TakeTestView({
                   </div>
                 </div>
               </section>
+              </SwiperSlide>
                 );
               })}
+              </Swiper>
             </div>
             )}
 
@@ -1221,15 +1287,13 @@ export default function TakeTestView({
                 </form>
               ) : (
                 <div className="relative flex-1 min-w-0 h-16">
-                  <div
-                    ref={drumRefCb}
-                    onScroll={onDrumScroll}
-                    className="h-full flex items-center overflow-x-auto flex-nowrap [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
-                    style={{
-                      scrollSnapType: 'x mandatory',
-                      paddingLeft: 'calc(50% - 1.75rem)',
-                      paddingRight: 'calc(50% - 1.75rem)',
-                    }}
+                  <Swiper
+                    {...drumSwiperParams}
+                    className="drum-swiper h-full w-full"
+                    onSwiper={(sw) => { drumSwiperRef.current = sw; applyDrumMagnify(sw); }}
+                    onAfterInit={(sw) => applyDrumMagnify(sw)}
+                    onProgress={(sw) => applyDrumMagnify(sw)}
+                    onSlideChange={onDrumSlideChange}
                   >
                     {shuffledQuestions.map((q, idx) => {
                       const qIdNav = q.id || '';
@@ -1240,34 +1304,35 @@ export default function TakeTestView({
                       const isWrongAnswer = isRevealedNav && answers[qIdNav] && answers[qIdNav] !== q.correctAnswer;
 
                       return (
-                        <button
-                          key={idx}
-                          data-current={isCurrent}
-                          onClick={() => {
-                            if (isCurrent) {
-                              setDrumInputMode(true); // input pre-fills via defaultValue on mount
-                            } else {
-                              goToQuestion(idx);
-                            }
-                          }}
-                          title={isCurrent ? t('tapToType') : t('goToQuestion', { n: idx + 1 })}
-                          className="w-14 h-full shrink-0 flex items-center justify-center"
-                          style={{ scrollSnapAlign: 'center' }}
-                        >
-                          <span
-                            className={`text-2xl font-bold tabular-nums leading-none select-none transition-colors ${
-                              isCorrectAnswer ? 'text-emerald-500' :
-                              isWrongAnswer ? 'text-red-500' :
-                              isCurrent ? (isAnswered ? 'text-cta font-extrabold' : 'text-foreground font-extrabold') :
-                              isAnswered ? 'text-cta/70' : 'text-muted-foreground/50'
-                            }`}
+                        <SwiperSlide key={idx} className="!h-full !w-14">
+                          <button
+                            type="button"
+                            data-current={isCurrent}
+                            onClick={() => {
+                              if (isCurrent) {
+                                setDrumInputMode(true); // input pre-fills via defaultValue on mount
+                              }
+                              // other pills: Swiper's slideToClickedSlide slides
+                              // there and the commit flows through onDrumSlideChange
+                            }}
+                            title={isCurrent ? t('tapToType') : t('goToQuestion', { n: idx + 1 })}
+                            className="w-14 h-full flex items-center justify-center"
                           >
-                            {idx + 1}
-                          </span>
-                        </button>
+                            <span
+                              className={`text-2xl font-bold tabular-nums leading-none select-none transition-colors ${
+                                isCorrectAnswer ? 'text-emerald-500' :
+                                isWrongAnswer ? 'text-red-500' :
+                                isCurrent ? (isAnswered ? 'text-cta font-extrabold' : 'text-foreground font-extrabold') :
+                                isAnswered ? 'text-cta/70' : 'text-muted-foreground/50'
+                              }`}
+                            >
+                              {idx + 1}
+                            </span>
+                          </button>
+                        </SwiperSlide>
                       );
                     })}
-                  </div>
+                  </Swiper>
                   {/* Glass window — the current number sits under the lens */}
                   <div className={`pointer-events-none absolute inset-y-1 left-1/2 -translate-x-1/2 w-14 ${GLASS_TILE}`} />
                 </div>

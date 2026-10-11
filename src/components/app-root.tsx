@@ -523,72 +523,14 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const loadingExplanations = useTakeStore(s => s.loadingExplanations);
   const setLoadingExplanations = useTakeStore(s => s.setLoadingExplanations);
 
-  // Take-test bottom drum: one-line question strip + tap-to-type jump
+  // Take-test bottom drum: one-line question strip + tap-to-type jump.
+  // The drum strip and the question feed are a Swiper engine inside
+  // take-test-view.tsx now — the hand-rolled settle/magnify/sync machinery
+  // (drumRef, rAF scales, programmatic-scroll guards, touch-until windows)
+  // died with it. What stays here: the typing-mode flag (also reset by the
+  // start flows) and the keyboard-close window-scroll restore.
   const drumInputMode = useTakeStore(s => s.drumInputMode);
   const setDrumInputMode = useTakeStore(s => s.setDrumInputMode);
-  const drumRef = React.useRef<HTMLDivElement>(null);
-  const drumScaleRafRef = React.useRef(0);
-  const drumProgrammaticRef = React.useRef(0);
-  const drumSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Magnifier-style drum: pills shrink and fade with distance from the center ("under glass")
-  const applyDrumScales = React.useCallback(() => {
-    const c = drumRef.current;
-    if (!c || c.clientWidth === 0) return;
-    const mid = c.getBoundingClientRect().left + c.clientWidth / 2;
-    const radius = Math.max(110, c.clientWidth * 0.3);
-    for (const cell of Array.from(c.children) as HTMLElement[]) {
-      const el = (cell.firstElementChild as HTMLElement) || cell;
-      const r = el.getBoundingClientRect();
-      const dist = Math.abs(r.left + r.width / 2 - mid);
-      const t = Math.max(0, 1 - (dist / radius) ** 2); // 1 at the center, 0 at the falloff radius
-      el.style.transform = `scale(${(0.5 + 0.5 * t).toFixed(3)})`;
-      el.style.opacity = (0.25 + 0.75 * t).toFixed(3);
-    }
-  }, []);
-
-  // Stable ref: apply the magnification right after the drum mounts
-  const drumRefCb = React.useCallback((el: HTMLDivElement | null) => {
-    drumRef.current = el;
-    if (el) requestAnimationFrame(() => applyDrumScales());
-  }, [applyDrumScales]);
-
-  // Keep the current question pill centered in the drum (under the glass)
-  useEffect(() => {
-    const c = drumRef.current;
-    if (!c) return;
-    const el = c.querySelector<HTMLElement>('[data-current="true"]');
-    if (el) {
-      const target = el.offsetLeft - (c.clientWidth - el.offsetWidth) / 2;
-      if (Math.abs(c.scrollLeft - target) > 2) {
-        drumProgrammaticRef.current = Date.now();
-        c.scrollTo({ left: target, behavior: 'smooth' });
-      }
-    }
-    applyDrumScales();
-  }, [currentQuestionIdx, drumInputMode, applyDrumScales]);
-
-  // Take-test vertical feed of question cards (TikTok-style) + its scroll position.
-  // takeFeedTouchUntilRef: timestamp until which the feed counts as actively
-  // manipulated (finger down / wheel spinning) — the sync effect must never
-  // fight an in-progress gesture, and the swipe commit waits for a settle.
-  const takeFeedRef = React.useRef<HTMLDivElement>(null);
-  const takeFeedTouchUntilRef = React.useRef(0);
-  const takeFeedSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // Sync the feed when the current question changes from the drum / arrows.
-  // Skipped while the user is actively touching/scrolling the feed — an instant
-  // scroll during a swipe would yank the card out from under the finger.
-  // Also re-runs when the drum number input opens/closes: the on-screen keyboard
-  // changes the visible geometry, so the feed must re-snap after it closes.
-  useEffect(() => {
-    const el = takeFeedRef.current;
-    if (!el || el.clientHeight === 0) return;
-    if (Date.now() < takeFeedTouchUntilRef.current) return;
-    if (Math.abs(el.scrollTop - currentQuestionIdx * el.clientHeight) > 2) {
-      el.scrollTo({ top: currentQuestionIdx * el.clientHeight, behavior: 'instant' as ScrollBehavior });
-    }
-  }, [currentQuestionIdx, shuffledQuestions.length, drumInputMode]);
 
   // When the drum number input closes, the keyboard that opened for it may leave
   // the window scrolled up (the page shifts and a white gap stays below it).
@@ -3196,15 +3138,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
         editorBody={editorBody}
         chatEndRef={chatEndRef}
         groupEndRef={groupEndRef}
-        drumScaleRafRef={drumScaleRafRef}
-        applyDrumScales={applyDrumScales}
-        drumSettleTimerRef={drumSettleTimerRef}
-        drumRef={drumRef}
-        drumProgrammaticRef={drumProgrammaticRef}
-        takeFeedSettleTimerRef={takeFeedSettleTimerRef}
-        takeFeedRef={takeFeedRef}
-        takeFeedTouchUntilRef={takeFeedTouchUntilRef}
-        drumRefCb={drumRefCb}
       />
     );
   }
