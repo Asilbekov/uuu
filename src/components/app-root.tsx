@@ -526,10 +526,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // Take-test bottom drum: one-line question strip + tap-to-type jump
   const drumInputMode = useTakeStore(s => s.drumInputMode);
   const setDrumInputMode = useTakeStore(s => s.setDrumInputMode);
-  // The number input is UNCONTROLLED (read via ref on submit): typing must not
-  // re-render the take-test tree — a controlled value re-rendered EVERY question
-  // slide (KaTeX-heavy) on each keystroke, which made typing feel slow/buggy.
-  const numInputRef = React.useRef<HTMLInputElement>(null);
   const drumRef = React.useRef<HTMLDivElement>(null);
   const drumScaleRafRef = React.useRef(0);
   const drumProgrammaticRef = React.useRef(0);
@@ -2400,10 +2396,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
     setLoading(false);
   };
 
-  const getScore = () => {
-    return shuffledQuestions.filter(q => answers[q.id || ''] === q.correctAnswer).length;
-  };
-
   const goHome = () => {
     setPage('dashboard');
     setCurrentTest(null);
@@ -3186,27 +3178,24 @@ function AppRootInner({ authed }: { authed: boolean }) {
   if (effectivePage === 'take-test' && shuffledQuestions.length > 0) {
     return (
       <TakeTestView
-        effectivePage={effectivePage}
-        answers={answers}
-        revealedAnswers={revealedAnswers}
-        explanations={explanations}
-        shuffledQuestions={shuffledQuestions}
-        currentQuestionIdx={currentQuestionIdx}
-        setCurrentQuestionIdx={setCurrentQuestionIdx}
-        chatOpen={chatOpen}
-        setChatOpen={setChatOpen}
-        setChatMessages={setChatMessages}
-        setChatQuestionId={setChatQuestionId}
-        setChatQuestionObj={setChatQuestionObj}
-        setChatThreadId={setChatThreadId}
-        questions={questions}
-        qSearch={qSearch}
-        lang={lang}
-        t={t}
-        setQSearch={setQSearch}
-        setQSearchOpen={setQSearchOpen}
-        setDrumInputMode={setDrumInputMode}
-        numInputRef={numInputRef}
+        goHome={goHome}
+        openChat={openChat}
+        closeChat={closeChat}
+        openGroupChat={openGroupChat}
+        closeGroupChat={closeGroupChat}
+        selectChatThread={selectChatThread}
+        sendChatMessage={sendChatMessage}
+        sendGroupMessage={sendGroupMessage}
+        openUserLibrary={openUserLibrary}
+        startEditTestInTake={startEditTestInTake}
+        selectAnswer={selectAnswer}
+        submitTest={submitTest}
+        openStartTest={openStartTest}
+        handleSaveTest={handleSaveTest}
+        cycleDashView={cycleDashView}
+        editorBody={editorBody}
+        chatEndRef={chatEndRef}
+        groupEndRef={groupEndRef}
         drumScaleRafRef={drumScaleRafRef}
         applyDrumScales={applyDrumScales}
         drumSettleTimerRef={drumSettleTimerRef}
@@ -3215,63 +3204,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
         takeFeedSettleTimerRef={takeFeedSettleTimerRef}
         takeFeedRef={takeFeedRef}
         takeFeedTouchUntilRef={takeFeedTouchUntilRef}
-        showResult={showResult}
-        getScore={getScore}
-        resSearch={resSearch}
-        setResSearch={setResSearch}
-        setResHighlightIdx={setResHighlightIdx}
-        currentTest={currentTest}
-        filesOpen={filesOpen}
-        groupOpen={groupOpen}
-        editOpen={editOpen}
-        setFilesOpen={setFilesOpen}
-        setGroupOpen={setGroupOpen}
-        setEditOpen={setEditOpen}
-        openChat={openChat}
-        startEditTestInTake={startEditTestInTake}
-        myBgStyle={myBgStyle}
-        autoTranslating={autoTranslating}
-        goHome={goHome}
-        closeChat={closeChat}
-        cycleDashView={cycleDashView}
-        dashView={dashView}
-        cycleLang={cycleLang}
-        openGroupChat={openGroupChat}
-        libNarrow={libNarrow}
-        resHighlightIdx={resHighlightIdx}
-        loading={loading}
-        chatMessages={chatMessages}
-        chatLoading={chatLoading}
-        chatInput={chatInput}
-        setChatInput={setChatInput}
-        sendChatMessage={sendChatMessage}
-        chatEndRef={chatEndRef}
-        chatHistoryOpen={chatHistoryOpen}
-        setChatHistoryOpen={setChatHistoryOpen}
-        aiThreadMetas={aiThreadMetas}
-        chatThreadId={chatThreadId}
-        selectChatThread={selectChatThread}
-        closeGroupChat={closeGroupChat}
-        groupMessages={groupMessages}
-        effectiveUser={effectiveUser}
-        groupInput={groupInput}
-        setGroupInput={setGroupInput}
-        sendGroupMessage={sendGroupMessage}
-        groupSending={groupSending}
-        groupEndRef={groupEndRef}
-        openUserLibrary={openUserLibrary}
-        editorBody={editorBody}
-        handleSaveTest={handleSaveTest}
-        openStartTest={openStartTest}
-        qSearchOpen={qSearchOpen}
-        page={page}
-        practiceMode={practiceMode}
-        selectAnswer={selectAnswer}
-        submitTest={submitTest}
-        loadingExplanations={loadingExplanations}
-        chatUserAnswer={chatUserAnswer}
-        chatQuestionId={chatQuestionId}
-        drumInputMode={drumInputMode}
         drumRefCb={drumRefCb}
       />
     );

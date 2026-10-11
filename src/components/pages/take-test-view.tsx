@@ -32,130 +32,80 @@ const AttachmentsBottomSheet = dynamic(() => import('@/components/attachments').
 const AttachmentsSidePanel = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsSidePanel), { ssr: false });
 const GroupChatPanel = dynamic(() => import('@/components/chat-panels').then(m => m.GroupChatPanel), { ssr: false, loading: () => <SheetLoadingPlaceholder /> });
 
-import { type Page, type Question, type Test, type GroupMessage } from '@/lib/app-types';
+import { type Page, type Question, type Test } from '@/lib/app-types';
+import { useTakeStore } from '@/stores/take-store';
+import { useNavStore } from '@/stores/nav-store';
+import { useChatStore } from '@/stores/chat-store';
+import { useSessionStore } from '@/stores/session-store';
+import { useProfileStore } from '@/stores/profile-store';
+import { useDashboardStore } from '@/stores/dashboard-store';
+import { tUI } from '@/lib/i18n';
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
 import { testBackgroundCss } from '@/lib/test-bg';
 import type { AiThreadMeta } from '@/components/chat-panels';
 import { useExitMount } from '@/components/motion';
 
 /**
- * TAKE TEST + RESULTS screens — extracted verbatim from src/app/page.tsx.
- * All state stays in page.tsx; this view receives it via props (generated
- * mechanically — the identifier list comes from actual block usage).
- * Types marked any are internal handler signatures to be tightened later.
+ * TAKE TEST + RESULTS screens. The state lives in the zustand domain stores
+ * and is consumed here directly through fine-grained selectors — app-root
+ * keeps only the ACTION handlers (they orchestrate the query cache and
+ * cross-store flows), the editor sheet body and the gesture refs.
  */
 export interface TakeTestViewProps {
-  answers: Record<string, string>;
-  revealedAnswers: Record<string, boolean>;
-  explanations: Record<string, string>;
-  effectivePage: Page;
-  shuffledQuestions: Question[];
-  currentQuestionIdx: number;
-  setCurrentQuestionIdx: React.Dispatch<React.SetStateAction<number>>;
-  chatOpen: boolean;
-  setChatOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setChatMessages: React.Dispatch<React.SetStateAction<{ role: 'user' | 'assistant'; content: string }[]>>;
-  setChatQuestionId: React.Dispatch<React.SetStateAction<string>>;
-  setChatQuestionObj: React.Dispatch<React.SetStateAction<Question | null>>;
-  setChatThreadId: React.Dispatch<React.SetStateAction<string>>;
-  questions: Question[];
-  qSearch: string;
-  lang: Lang;
-  t: (key: string, vars?: Record<string, string | number>) => string;
-  setQSearch: React.Dispatch<React.SetStateAction<string>>;
-  setQSearchOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setDrumInputMode: React.Dispatch<React.SetStateAction<boolean>>;
-  numInputRef: { current: any };
-  drumScaleRafRef: { current: any };
-  applyDrumScales: (...args: any[]) => any;
-  drumSettleTimerRef: { current: any };
-  drumRef: { current: any };
-  drumProgrammaticRef: { current: any };
-  takeFeedSettleTimerRef: { current: any };
-  takeFeedRef: { current: any };
-  takeFeedTouchUntilRef: { current: any };
-  showResult: boolean;
-  getScore: (...args: any[]) => any;
-  resSearch: string;
-  setResSearch: React.Dispatch<React.SetStateAction<string>>;
-  setResHighlightIdx: React.Dispatch<React.SetStateAction<number | null>>;
-  currentTest: Test | null;
-  filesOpen: boolean;
-  groupOpen: boolean;
-  editOpen: boolean;
-  setFilesOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setGroupOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  openChat: (...args: any[]) => any;
-  startEditTestInTake: (...args: any[]) => any;
-  myBgStyle: string;
-  autoTranslating: boolean;
-  goHome: (...args: any[]) => any;
-  closeChat: (...args: any[]) => any;
-  cycleDashView: (...args: any[]) => any;
-  dashView: 'tiktok1' | 'tiktok2' | 'library' | 'shelf';
-  cycleLang: (...args: any[]) => any;
-  openGroupChat: (...args: any[]) => any;
-  libNarrow: boolean;
-  resHighlightIdx: number | null;
-  loading: boolean;
-  chatMessages: { role: 'user' | 'assistant'; content: string }[];
-  chatLoading: boolean;
-  chatInput: string;
-  setChatInput: React.Dispatch<React.SetStateAction<string>>;
-  sendChatMessage: (...args: any[]) => any;
-  chatEndRef: { current: any };
-  chatHistoryOpen: boolean;
-  setChatHistoryOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  aiThreadMetas: AiThreadMeta[];
-  chatThreadId: string;
-  selectChatThread: (...args: any[]) => any;
-  closeGroupChat: (...args: any[]) => any;
-  groupMessages: GroupMessage[];
-  effectiveUser: { id: string; email: string; name: string } | null;
-  groupInput: string;
-  setGroupInput: React.Dispatch<React.SetStateAction<string>>;
-  sendGroupMessage: (...args: any[]) => any;
-  groupSending: boolean;
-  groupEndRef: { current: any };
-  openUserLibrary: (...args: any[]) => any;
+  // ── Action handlers (app-root orchestrates queries / cross-store flows) ──
+  goHome: () => void;
+  openChat: (questionId: string, userAnswer?: string, opts?: { force?: boolean }) => void;
+  closeChat: () => void;
+  openGroupChat: () => void;
+  closeGroupChat: () => void;
+  selectChatThread: (testId: string) => void;
+  sendChatMessage: (questionId?: string, existingMessages?: { role: 'user' | 'assistant'; content: string }[], userAnswer?: string, question?: Question | null) => void;
+  sendGroupMessage: () => void;
+  openUserLibrary: (u: { id: string; name?: string; image?: string | null }) => void;
+  startEditTestInTake: () => void;
+  selectAnswer: (questionId: string, answer: string) => void;
+  submitTest: () => void;
+  openStartTest: (test: Test) => void;
+  handleSaveTest: (fromTake?: boolean) => void;
+  cycleDashView: () => void;
+  // ── Editor sheet body + chat DOM refs owned by app-root ──────────────────
   editorBody: React.ReactNode;
-  handleSaveTest: (...args: any[]) => any;
-  openStartTest: (...args: any[]) => any;
-  qSearchOpen: boolean;
-  page: Page;
-  practiceMode: boolean;
-  selectAnswer: (...args: any[]) => any;
-  submitTest: (...args: any[]) => any;
-  loadingExplanations: boolean;
-  chatUserAnswer: string;
-  chatQuestionId: string;
-  drumInputMode: boolean;
-  drumRefCb: (...args: any[]) => any;
+  chatEndRef: { current: HTMLDivElement | null };
+  groupEndRef: { current: HTMLDivElement | null };
+  // ── Drum + question-feed gesture machinery (Swiper replaces it next) ─────
+  drumScaleRafRef: { current: number };
+  applyDrumScales: () => void;
+  drumSettleTimerRef: { current: ReturnType<typeof setTimeout> | null };
+  drumRef: { current: HTMLDivElement | null };
+  drumProgrammaticRef: { current: number };
+  takeFeedSettleTimerRef: { current: ReturnType<typeof setTimeout> | null };
+  takeFeedRef: { current: HTMLDivElement | null };
+  takeFeedTouchUntilRef: { current: number };
+  drumRefCb: (el: HTMLDivElement | null) => void;
 }
 
 export default function TakeTestView({
-  effectivePage,
-  answers,
-  revealedAnswers,
-  explanations,
-  shuffledQuestions,
-  currentQuestionIdx,
-  setCurrentQuestionIdx,
-  chatOpen,
-  setChatOpen,
-  setChatMessages,
-  setChatQuestionId,
-  setChatQuestionObj,
-  setChatThreadId,
-  questions,
-  qSearch,
-  lang,
-  t,
-  setQSearch,
-  setQSearchOpen,
-  setDrumInputMode,
-  numInputRef,
+  // actions
+  goHome,
+  openChat,
+  closeChat,
+  openGroupChat,
+  closeGroupChat,
+  selectChatThread,
+  sendChatMessage,
+  sendGroupMessage,
+  openUserLibrary,
+  startEditTestInTake,
+  selectAnswer,
+  submitTest,
+  openStartTest,
+  handleSaveTest,
+  cycleDashView,
+  // app-root-owned body + refs
+  editorBody,
+  chatEndRef,
+  groupEndRef,
+  // drum/take-feed gesture machinery
   drumScaleRafRef,
   applyDrumScales,
   drumSettleTimerRef,
@@ -164,65 +114,92 @@ export default function TakeTestView({
   takeFeedSettleTimerRef,
   takeFeedRef,
   takeFeedTouchUntilRef,
-  showResult,
-  getScore,
-  resSearch,
-  setResSearch,
-  setResHighlightIdx,
-  currentTest,
-  filesOpen,
-  groupOpen,
-  editOpen,
-  setFilesOpen,
-  setGroupOpen,
-  setEditOpen,
-  openChat,
-  startEditTestInTake,
-  myBgStyle,
-  autoTranslating,
-  goHome,
-  closeChat,
-  cycleDashView,
-  dashView,
-  cycleLang,
-  openGroupChat,
-  libNarrow,
-  resHighlightIdx,
-  loading,
-  chatMessages,
-  chatLoading,
-  chatInput,
-  setChatInput,
-  sendChatMessage,
-  chatEndRef,
-  chatHistoryOpen,
-  setChatHistoryOpen,
-  aiThreadMetas,
-  chatThreadId,
-  selectChatThread,
-  closeGroupChat,
-  groupMessages,
-  effectiveUser,
-  groupInput,
-  setGroupInput,
-  sendGroupMessage,
-  groupSending,
-  groupEndRef,
-  openUserLibrary,
-  editorBody,
-  handleSaveTest,
-  openStartTest,
-  qSearchOpen,
-  page,
-  practiceMode,
-  selectAnswer,
-  submitTest,
-  loadingExplanations,
-  chatUserAnswer,
-  chatQuestionId,
-  drumInputMode,
   drumRefCb,
 }: TakeTestViewProps) {
+  // ── State: read straight from the zustand domain stores ──────────────────
+  // session
+  const sessionUser = useSessionStore(s => s.user);
+  const hydratedUser = useSessionStore(s => s.hydratedUser);
+  const lang = useSessionStore(s => s.lang);
+  const cycleLang = useSessionStore(s => s.cycleLang);
+  const loading = useSessionStore(s => s.loading);
+  // app-root only mounts this view when effectivePage === 'take-test'
+  const effectivePage: Page = 'take-test';
+  const effectiveUser = sessionUser || hydratedUser;
+  const t = React.useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+  // profile
+  const myBgStyle = useProfileStore(s => s.myBgStyle);
+  // dashboard
+  const libNarrow = useDashboardStore(s => s.libNarrow);
+  // nav
+  const dashView = useNavStore(s => s.dashView);
+  const chatOpen = useNavStore(s => s.chatOpen);
+  const setChatOpen = useNavStore(s => s.setChatOpen);
+  const filesOpen = useNavStore(s => s.filesOpen);
+  const setFilesOpen = useNavStore(s => s.setFilesOpen);
+  const groupOpen = useNavStore(s => s.groupOpen);
+  const setGroupOpen = useNavStore(s => s.setGroupOpen);
+  const editOpen = useNavStore(s => s.editOpen);
+  const setEditOpen = useNavStore(s => s.setEditOpen);
+  const chatHistoryOpen = useNavStore(s => s.chatHistoryOpen);
+  const setChatHistoryOpen = useNavStore(s => s.setChatHistoryOpen);
+  // take
+  const currentTest = useTakeStore(s => s.currentTest);
+  const shuffledQuestions = useTakeStore(s => s.shuffledQuestions);
+  const currentQuestionIdx = useTakeStore(s => s.currentQuestionIdx);
+  const setCurrentQuestionIdx = useTakeStore(s => s.setCurrentQuestionIdx);
+  const answers = useTakeStore(s => s.answers);
+  const showResult = useTakeStore(s => s.showResult);
+  const practiceMode = useTakeStore(s => s.practiceMode);
+  const revealedAnswers = useTakeStore(s => s.revealedAnswers);
+  const explanations = useTakeStore(s => s.explanations);
+  const loadingExplanations = useTakeStore(s => s.loadingExplanations);
+  const autoTranslating = useTakeStore(s => s.autoTranslating);
+  const qSearch = useTakeStore(s => s.qSearch);
+  const setQSearch = useTakeStore(s => s.setQSearch);
+  const qSearchOpen = useTakeStore(s => s.qSearchOpen);
+  const setQSearchOpen = useTakeStore(s => s.setQSearchOpen);
+  const resSearch = useTakeStore(s => s.resSearch);
+  const setResSearch = useTakeStore(s => s.setResSearch);
+  const resHighlightIdx = useTakeStore(s => s.resHighlightIdx);
+  const setResHighlightIdx = useTakeStore(s => s.setResHighlightIdx);
+  const drumInputMode = useTakeStore(s => s.drumInputMode);
+  const setDrumInputMode = useTakeStore(s => s.setDrumInputMode);
+  // chat
+  const chatMessages = useChatStore(s => s.chatMessages);
+  const setChatMessages = useChatStore(s => s.setChatMessages);
+  const chatInput = useChatStore(s => s.chatInput);
+  const setChatInput = useChatStore(s => s.setChatInput);
+  const chatLoading = useChatStore(s => s.chatLoading);
+  const chatQuestionId = useChatStore(s => s.chatQuestionId);
+  const setChatQuestionId = useChatStore(s => s.setChatQuestionId);
+  const setChatQuestionObj = useChatStore(s => s.setChatQuestionObj);
+  const chatThreadId = useChatStore(s => s.chatThreadId);
+  const setChatThreadId = useChatStore(s => s.setChatThreadId);
+  const chatUserAnswer = useChatStore(s => s.chatUserAnswer);
+  const chatThreads = useChatStore(s => s.chatThreads);
+  const groupMessages = useChatStore(s => s.groupMessages);
+  const groupInput = useChatStore(s => s.groupInput);
+  const setGroupInput = useChatStore(s => s.setGroupInput);
+  const groupSending = useChatStore(s => s.groupSending);
+  // History drawer entries: every test that has at least one message
+  // (same derivation as app-root's memo — the AI tutor sheet's ☰ list)
+  const aiThreadMetas: AiThreadMeta[] = React.useMemo(() => Object.entries(chatThreads)
+    .filter(([, th]) => th.messages.length > 0)
+    .map(([testId, th]) => ({
+      testId,
+      title: th.title || 'Test',
+      preview: th.messages[th.messages.length - 1]?.content?.slice(0, 90) || '',
+      updatedAt: th.updatedAt || 0,
+    }))
+    .sort((a, b) => b.updatedAt - a.updatedAt), [chatThreads]);
+  // The jump-to-number input is UNCONTROLLED (read via ref on submit): typing
+  // must not re-render the take-test tree — a controlled value re-rendered
+  // EVERY question slide (KaTeX-heavy) on each keystroke, which made typing
+  // feel slow/buggy.
+  const numInputRef = React.useRef<HTMLInputElement>(null);
+  // Score is a pure derivation of the take store (same rule as app-root)
+  const getScore = () => shuffledQuestions.filter(q => answers[q.id || ''] === q.correctAnswer).length;
   // Exit-animation holds: when a sheet flag flips to false the panel stays
   // mounted for ~220ms to play its slide-down/fade-out (nothing vanishes).
   // The lazy chunks still load on first open only — the holds just delay
