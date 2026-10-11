@@ -39,6 +39,20 @@ import {
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
 // ---------------------------------------------------------------------------
+// Zustand domain stores — the professional state layer (zustand.com, used by
+// TikTok-adjacent products, Vercel templates and most serious Next.js apps).
+// Every `useState` of the old soup moved into ONE of these domain stores and
+// is consumed here through fine-grained selectors with the SAME identifiers,
+// so all ~300 call sites in this file keep compiling unchanged.
+// ---------------------------------------------------------------------------
+import { useSessionStore, LANG_STORAGE_KEY } from '@/stores/session-store';
+import { useProfileStore } from '@/stores/profile-store';
+import { useNavStore, navNow } from '@/stores/nav-store';
+import { useDashboardStore } from '@/stores/dashboard-store';
+import { useEditorStore, resetTestForm as resetTestFormStore } from '@/stores/editor-store';
+import { useTakeStore } from '@/stores/take-store';
+import { useChatStore } from '@/stores/chat-store';
+// ---------------------------------------------------------------------------
 // Perf: heavy, on-demand modules are loaded via next/dynamic so the initial
 // bundle (First Load JS) stays small. Only the screens that actually open the
 // attachments editor, a chat panel or the cover-color picker download them.
@@ -127,9 +141,6 @@ function SheetLoadingPlaceholder() {
     </div>
   );
 }
-
-// localStorage key for the interface language (EN -> RU -> UZ cycle button)
-const LANG_STORAGE_KEY = 'chemtest-lang';
 
 // Server-rendered boot: after the first login the client drops a lightweight
 // marker cookie; the server page reads it and pre-renders the DASHBOARD shell
@@ -277,75 +288,96 @@ async function compressImage(file: File, maxSide = 1600, quality = 0.85): Promis
 function AppRootInner({ authed }: { authed: boolean }) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const [loading, setLoading] = useState(false);
-  const [currentTest, setCurrentTest] = useState<Test | null>(null);
+  const loading = useSessionStore(s => s.loading);
+  const setLoading = useSessionStore(s => s.setLoading);
+  const currentTest = useTakeStore(s => s.currentTest);
+  const setCurrentTest = useTakeStore(s => s.setCurrentTest);
 
   // --- Personalized recommendation feed ("under the hood") ---
   // The dashboard looks exactly like before, but invisibly it is powered by
   // /api/feed: tag-affinity ranking (views / starts / completions / time spent
   // / difficult tests), keyset pagination and silent infinite append, so the
   // list stays fast at any test volume and surfaces what the user cares about.
-  const [shareBusy, setShareBusy] = useState(false);
+  const shareBusy = useDashboardStore(s => s.shareBusy);
+  const setShareBusy = useDashboardStore(s => s.setShareBusy);
   // Dashboard CONTENT MODE — toggled by the account button (like the language
   // button cycles): personal library (own tests + bookmarks) ↔ discover (public
   // tests of other authors). Session-only: reload returns to the library.
-  const [discoverMode, setDiscoverMode] = useState(false);
-  // Mirrors discoverMode for callbacks with stale closures (feed loaders)
-  const discoverModeRef = useRef(false);
+  const discoverMode = useNavStore(s => s.discoverMode);
+  const setDiscoverMode = useNavStore(s => s.setDiscoverMode);
   // My profile photo (served by /api/users/[id]/avatar) + its tiny uploader
-  const [myAvatar, setMyAvatar] = useState<string | null>(null);
-  const [avatarBusy, setAvatarBusy] = useState(false);
+  const myAvatar = useProfileStore(s => s.myAvatar);
+  const setMyAvatar = useProfileStore(s => s.setMyAvatar);
+  const avatarBusy = useProfileStore(s => s.avatarBusy);
+  const setAvatarBusy = useProfileStore(s => s.setAvatarBusy);
   const avatarInputRef = useRef<HTMLInputElement>(null);
   // --- Profile page state ---
   // Test-taking background preset key ('' = standard); loaded once per session
   // from GET /api/me together with the editable display name.
-  const [myBgStyle, setMyBgStyle] = useState('');
-  const [profileName, setProfileName] = useState('');
-  const [profileSaving, setProfileSaving] = useState(false);
-  const [accBusy, setAccBusy] = useState(false);
-  const [deleteAccOpen, setDeleteAccOpen] = useState(false);
+  const myBgStyle = useProfileStore(s => s.myBgStyle);
+  const setMyBgStyle = useProfileStore(s => s.setMyBgStyle);
+  const profileName = useProfileStore(s => s.profileName);
+  const setProfileName = useProfileStore(s => s.setProfileName);
+  const profileSaving = useProfileStore(s => s.profileSaving);
+  const setProfileSaving = useProfileStore(s => s.setProfileSaving);
+  const accBusy = useProfileStore(s => s.accBusy);
+  const setAccBusy = useProfileStore(s => s.setAccBusy);
+  const deleteAccOpen = useProfileStore(s => s.deleteAccOpen);
+  const setDeleteAccOpen = useProfileStore(s => s.setDeleteAccOpen);
   // Per-card share scope selection: exactly one of the two share buttons on a
   // card can be highlighted at a time (radio behaviour, like the mode cards).
-  const [shareScopeByTest, setShareScopeByTest] = useState<Record<string, 'link' | 'community'>>({});
+  const shareScopeByTest = useDashboardStore(s => s.shareScopeByTest);
+  const setShareScopeByTest = useDashboardStore(s => s.setShareScopeByTest);
   // Files feed mode: the TikTok feed flips from one-slide-per-test to the
   // files card(s). When filesFeedTestId is set the feed shows THAT test's
   // files (per-test files mode); null keeps the legacy flattened flow.
   // Header and bottom bar stay untouched; the paperclip button toggles back.
-  const [filesFeedMode, setFilesFeedMode] = useState(false);
-  const [filesFeedTestId, setFilesFeedTestId] = useState<string | null>(null);
-  const filesFeedModeRef = useRef(false);
-  useEffect(() => { filesFeedModeRef.current = filesFeedMode; }, [filesFeedMode]);
+  const filesFeedMode = useNavStore(s => s.filesFeedMode);
+  const setFilesFeedMode = useNavStore(s => s.setFilesFeedMode);
+  const filesFeedTestId = useNavStore(s => s.filesFeedTestId);
+  const setFilesFeedTestId = useNavStore(s => s.setFilesFeedTestId);
   // Grid files mode (Library/Shelf): the grid KEEPS its layout but swaps the
   // test cards for the attachment cards of ONE test (the one whose paperclip
   // was tapped). The header back arrow / files toggle returns to the test cards.
-  const [gridFilesMode, setGridFilesMode] = useState(false);
-  const [gridFilesTestId, setGridFilesTestId] = useState<string | null>(null);
+  const gridFilesMode = useNavStore(s => s.gridFilesMode);
+  const setGridFilesMode = useNavStore(s => s.setGridFilesMode);
+  const gridFilesTestId = useNavStore(s => s.gridFilesTestId);
+  const setGridFilesTestId = useNavStore(s => s.setGridFilesTestId);
   // Another user's library (opened from their profile photo or a chat avatar):
   // the dashboard shows THEIR public tests; every card carries their name and
   // photo; the header back arrow returns to the viewer's own feed.
-  const [viewingUser, setViewingUser] = useState<{ id: string; name: string; image: string | null } | null>(null);
-  const viewingUserRef = useRef(false);
-  useEffect(() => { viewingUserRef.current = !!viewingUser; }, [viewingUser]);
-  const [dashSlideIdx, setDashSlideIdx] = useState(0);
+  const viewingUser = useNavStore(s => s.viewingUser);
+  const setViewingUser = useNavStore(s => s.setViewingUser);
+  const dashSlideIdx = useNavStore(s => s.dashSlideIdx);
+  const setDashSlideIdx = useNavStore(s => s.setDashSlideIdx);
   // Dashboard header search: searches tests server-side (/api/feed?q=) by
   // TAGS with a dropdown. Hidden behind a search BUTTON; tapping it opens an
   // input overlay that covers the whole header row until dismissed (X / Esc /
   // test chosen) — same pattern as the take-test search.
-  const [dashSearch, setDashSearch] = useState('');
-  const [dashSearchOpen, setDashSearchOpen] = useState(false);
-  const [dashSearchResults, setDashSearchResults] = useState<Test[] | null>(null);
+  const dashSearch = useDashboardStore(s => s.dashSearch);
+  const setDashSearch = useDashboardStore(s => s.setDashSearch);
+  const dashSearchOpen = useDashboardStore(s => s.dashSearchOpen);
+  const setDashSearchOpen = useDashboardStore(s => s.setDashSearchOpen);
+  const dashSearchResults = useDashboardStore(s => s.dashSearchResults);
+  const setDashSearchResults = useDashboardStore(s => s.setDashSearchResults);
   // Tag dictionary feedback for the current search: whether the exact tag
   // exists, whether we just created it, and similar tags to offer instead.
-  const [dashTagInfo, setDashTagInfo] = useState<{ query: string; exists: boolean; created: boolean; similar: string[] } | null>(null);
-  const [dashSearching, setDashSearching] = useState(false);
+  const dashTagInfo = useDashboardStore(s => s.dashTagInfo);
+  const setDashTagInfo = useDashboardStore(s => s.setDashTagInfo);
+  const dashSearching = useDashboardStore(s => s.dashSearching);
+  const setDashSearching = useDashboardStore(s => s.setDashSearching);
   // Take-test header search: filters the questions of the running test.
   // Hidden behind a search BUTTON; tapping it opens an input overlay that
   // covers the whole header row until dismissed (X / Esc / question chosen).
-  const [qSearch, setQSearch] = useState('');
-  const [qSearchOpen, setQSearchOpen] = useState(false);
+  const qSearch = useTakeStore(s => s.qSearch);
+  const setQSearch = useTakeStore(s => s.setQSearch);
+  const qSearchOpen = useTakeStore(s => s.qSearchOpen);
+  const setQSearchOpen = useTakeStore(s => s.setQSearchOpen);
   // Results-page header search: filters the review questions after finishing a test.
-  const [resSearch, setResSearch] = useState('');
-  const [resHighlightIdx, setResHighlightIdx] = useState<number | null>(null);
+  const resSearch = useTakeStore(s => s.resSearch);
+  const setResSearch = useTakeStore(s => s.setResSearch);
+  const resHighlightIdx = useTakeStore(s => s.resHighlightIdx);
+  const setResHighlightIdx = useTakeStore(s => s.setResHighlightIdx);
   const viewSignaledRef = useRef<Set<string>>(new Set());
   // Recommendation-signal bookkeeping: which card is currently settled on
   // screen and when it got there. On every card TRANSITION the previous card
@@ -354,14 +386,19 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const dashCardShownAtRef = useRef(0);
   const feedSentinelRef = useRef<HTMLDivElement | null>(null);
   const sharedTestHandledRef = useRef(false);
-  const [attempts, setAttempts] = useState<Attempt[]>([]);
+  const attempts = useSessionStore(s => s.attempts);
+  const setAttempts = useSessionStore(s => s.setAttempts);
 
   // Auth - start from the state the SERVER already knows: with the auth cookie
   // the very first HTML paints the dashboard shell, otherwise the login screen.
   // Both sides render the SAME thing on the first pass — zero hydration
   // mismatch, zero splash screen, zero "screen loading" flash.
-  const [user, setUserState] = useState<{ id: string; email: string; name: string } | null>(null);
-  const [page, setPage] = useState<Page>(authed ? 'dashboard' : 'auth');
+  const user = useSessionStore(s => s.user);
+  const setUserState = useSessionStore(s => s.setUser);
+  // `page` is seeded by AppRoot from the SSR-known auth cookie BEFORE this
+  // component takes its first store snapshot — see the useState-seed there.
+  const page = useNavStore(s => s.page);
+  const setPage = useNavStore(s => s.setPage);
 
   // Mount guard to prevent hydration mismatch
   const [mounted, setMounted] = useState(false);
@@ -370,91 +407,124 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // "First data restore finished" — while false, empty lists render the feed
   // SKELETON (never a "no tests" card, never a splash): the shell the server
   // sent stays visually stable until real (or cached) data swaps in.
-  const [dataReady, setDataReady] = useState(false);
+  const dataReady = useSessionStore(s => s.dataReady);
+  const setDataReady = useSessionStore(s => s.setDataReady);
   // true while the post-boot background refresh is still fetching the first
   // real data (only when the localStorage cache had nothing to paint)
-  const [bootRefreshing, setBootRefreshing] = useState(false);
+  const bootRefreshing = useSessionStore(s => s.bootRefreshing);
+  const setBootRefreshing = useSessionStore(s => s.setBootRefreshing);
 
   // Interface language (en/ru/uz) — cycles with the header button, persisted
-  const [lang, setLang] = useState<Lang>('en');
-  const cycleLang = useCallback(() => {
-    setLang(prev => {
-      const next = NEXT_LANG[prev];
-      try { localStorage.setItem(LANG_STORAGE_KEY, next); } catch {}
-      return next;
-    });
-  }, []);
+  const lang = useSessionStore(s => s.lang);
+  const setLang = useSessionStore(s => s.setLang);
+  const cycleLang = useSessionStore(s => s.cycleLang);
   const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
 
   // On-the-fly question translation (see lib/qtrans): questions without a
   // stored translation for the selected language are machine-translated while
   // the test is being taken / reviewed, cached in localStorage and persisted
   // to the DB best-effort. `autoTranslating` drives the small progress pill.
-  const [autoTranslating, setAutoTranslating] = useState(false);
+  const autoTranslating = useTakeStore(s => s.autoTranslating);
+  const setAutoTranslating = useTakeStore(s => s.setAutoTranslating);
   const trGenRef = useRef(0);
   const trTriedRef = useRef<Set<string>>(new Set());
 
   // Auth state
-  const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+  const authMode = useSessionStore(s => s.authMode);
+  const setAuthMode = useSessionStore(s => s.setAuthMode);
+  const email = useSessionStore(s => s.email);
+  const setEmail = useSessionStore(s => s.setEmail);
+  const name = useSessionStore(s => s.name);
+  const setName = useSessionStore(s => s.setName);
+  const password = useSessionStore(s => s.password);
+  const setPassword = useSessionStore(s => s.setPassword);
 
   // Test creation state
-  const [testTitle, setTestTitle] = useState('');
-  const [testDescription, setTestDescription] = useState('');
+  const testTitle = useEditorStore(s => s.testTitle);
+  const setTestTitle = useEditorStore(s => s.setTestTitle);
+  const testDescription = useEditorStore(s => s.testDescription);
+  const setTestDescription = useEditorStore(s => s.setTestDescription);
   // Tags (replace the old topic field): chips + autocomplete from the global tag dictionary
-  const [testTags, setTestTags] = useState<string[]>([]);
-  const [tagInput, setTagInput] = useState('');
-  const [allTags, setAllTags] = useState<string[]>([]);
-  const [tagsOpen, setTagsOpen] = useState(false);
+  const testTags = useEditorStore(s => s.testTags);
+  const setTestTags = useEditorStore(s => s.setTestTags);
+  const tagInput = useEditorStore(s => s.tagInput);
+  const setTagInput = useEditorStore(s => s.setTagInput);
+  const allTags = useEditorStore(s => s.allTags);
+  const setAllTags = useEditorStore(s => s.setAllTags);
+  const tagsOpen = useEditorStore(s => s.tagsOpen);
+  const setTagsOpen = useEditorStore(s => s.setTagsOpen);
   // Cover customization (create / edit test): '' = auto (derived from tags/topic)
-  const [testCoverIcon, setTestCoverIcon] = useState('');
-  const [testCoverColor, setTestCoverColor] = useState('');
-  const [randomizeQ, setRandomizeQ] = useState(true);
-  const [randomizeO, setRandomizeO] = useState(true);
+  const testCoverIcon = useEditorStore(s => s.testCoverIcon);
+  const setTestCoverIcon = useEditorStore(s => s.setTestCoverIcon);
+  const testCoverColor = useEditorStore(s => s.testCoverColor);
+  const setTestCoverColor = useEditorStore(s => s.setTestCoverColor);
+  const randomizeQ = useEditorStore(s => s.randomizeQ);
+  const setRandomizeQ = useEditorStore(s => s.setRandomizeQ);
+  const randomizeO = useEditorStore(s => s.randomizeO);
+  const setRandomizeO = useEditorStore(s => s.setRandomizeO);
   // Randomization chosen at test START (Start Test page), not in the editor
-  const [startRandomizeQ, setStartRandomizeQ] = useState(true);
-  const [startRandomizeO, setStartRandomizeO] = useState(true);
-  const [questions, setQuestions] = useState<Question[]>([
-    { text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' },
-  ]);
-  const [editingTestId, setEditingTestId] = useState<string | null>(null);
+  const startRandomizeQ = useTakeStore(s => s.startRandomizeQ);
+  const setStartRandomizeQ = useTakeStore(s => s.setStartRandomizeQ);
+  const startRandomizeO = useTakeStore(s => s.startRandomizeO);
+  const setStartRandomizeO = useTakeStore(s => s.setStartRandomizeO);
+  const questions = useEditorStore(s => s.questions);
+  const setQuestions = useEditorStore(s => s.setQuestions);
+  const editingTestId = useEditorStore(s => s.editingTestId);
+  const setEditingTestId = useEditorStore(s => s.setEditingTestId);
   // Dashboard "Edit Test" mode: when ON, clicking a test opens it in the editor
-  const [editMode, setEditMode] = useState(false);
+  const editMode = useEditorStore(s => s.editMode);
+  const setEditMode = useEditorStore(s => s.setEditMode);
 
   // Attachments editor state (create / edit test)
-  const [formAttachments, setFormAttachments] = useState<AttachmentItem[]>([]);
+  const formAttachments = useEditorStore(s => s.formAttachments);
+  const setFormAttachments = useEditorStore(s => s.setFormAttachments);
   // Publication variant of the test — saved WITH the test and applies to the
   // test AND its attached files: false = only people with the link can open,
   // true = the whole community sees it in their feed. Edited in the
   // "Test Information" section of the editor, same option-card style as the
   // share selector on the test card.
-  const [testIsPublic, setTestIsPublic] = useState(true);
+  const testIsPublic = useEditorStore(s => s.testIsPublic);
+  const setTestIsPublic = useEditorStore(s => s.setTestIsPublic);
   // Attached Files collapse in the editor — same behavior as on the test card
-  const [editorFilesExpanded, setEditorFilesExpanded] = useState(false);
+  const editorFilesExpanded = useEditorStore(s => s.editorFilesExpanded);
+  const setEditorFilesExpanded = useEditorStore(s => s.setEditorFilesExpanded);
   // All editor sections start collapsed — the page opens as a compact list of one-line cards
-  const [editorInfoExpanded, setEditorInfoExpanded] = useState(false);
-  const [editorCoverExpanded, setEditorCoverExpanded] = useState(false);
-  const [editorQuestionsExpanded, setEditorQuestionsExpanded] = useState(false);
+  const editorInfoExpanded = useEditorStore(s => s.editorInfoExpanded);
+  const setEditorInfoExpanded = useEditorStore(s => s.setEditorInfoExpanded);
+  const editorCoverExpanded = useEditorStore(s => s.editorCoverExpanded);
+  const setEditorCoverExpanded = useEditorStore(s => s.setEditorCoverExpanded);
+  const editorQuestionsExpanded = useEditorStore(s => s.editorQuestionsExpanded);
+  const setEditorQuestionsExpanded = useEditorStore(s => s.setEditorQuestionsExpanded);
 
   // Test taking state
-  const [currentAttempt, setCurrentAttempt] = useState<Attempt | null>(null);
-  const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
-  const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
+  const currentAttempt = useTakeStore(s => s.currentAttempt);
+  const setCurrentAttempt = useTakeStore(s => s.setCurrentAttempt);
+  const shuffledQuestions = useTakeStore(s => s.shuffledQuestions);
+  const setShuffledQuestions = useTakeStore(s => s.setShuffledQuestions);
+  const currentQuestionIdx = useTakeStore(s => s.currentQuestionIdx);
+  const setCurrentQuestionIdx = useTakeStore(s => s.setCurrentQuestionIdx);
 
-  const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [showResult, setShowResult] = useState(false);
-  const [selectedQuestionCount, setSelectedQuestionCount] = useState(0);
-  const [practiceMode, setPracticeMode] = useState(false);
+  const answers = useTakeStore(s => s.answers);
+  const setAnswers = useTakeStore(s => s.setAnswers);
+  const showResult = useTakeStore(s => s.showResult);
+  const setShowResult = useTakeStore(s => s.setShowResult);
+  const selectedQuestionCount = useTakeStore(s => s.selectedQuestionCount);
+  const setSelectedQuestionCount = useTakeStore(s => s.setSelectedQuestionCount);
+  const practiceMode = useTakeStore(s => s.practiceMode);
+  const setPracticeMode = useTakeStore(s => s.setPracticeMode);
   // Start Test: attached files section — collapsed to one line by default, expandable via arrow
-  const [startFilesExpanded, setStartFilesExpanded] = useState(false);
-  const [revealedAnswers, setRevealedAnswers] = useState<Record<string, boolean>>({});
-  const [explanations, setExplanations] = useState<Record<string, string>>({});
-  const [loadingExplanations, setLoadingExplanations] = useState(false);
+  const startFilesExpanded = useTakeStore(s => s.startFilesExpanded);
+  const setStartFilesExpanded = useTakeStore(s => s.setStartFilesExpanded);
+  const revealedAnswers = useTakeStore(s => s.revealedAnswers);
+  const setRevealedAnswers = useTakeStore(s => s.setRevealedAnswers);
+  const explanations = useTakeStore(s => s.explanations);
+  const setExplanations = useTakeStore(s => s.setExplanations);
+  const loadingExplanations = useTakeStore(s => s.loadingExplanations);
+  const setLoadingExplanations = useTakeStore(s => s.setLoadingExplanations);
 
   // Take-test bottom drum: one-line question strip + tap-to-type jump
-  const [drumInputMode, setDrumInputMode] = useState(false);
+  const drumInputMode = useTakeStore(s => s.drumInputMode);
+  const setDrumInputMode = useTakeStore(s => s.setDrumInputMode);
   // The number input is UNCONTROLLED (read via ref on submit): typing must not
   // re-render the take-test tree — a controlled value re-rendered EVERY question
   // slide (KaTeX-heavy) on each keystroke, which made typing feel slow/buggy.
@@ -546,40 +616,59 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // AI Chat state — ONE SEPARATE conversation per test. Threads persist in
   // localStorage (per user) and are listed in the ☰ history drawer of the
   // chat window; opening the chat on a test resumes THAT test's thread.
-  const [chatOpen, setChatOpen] = useState(false);
-  const [chatMessages, setChatMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([]);
-  const [chatInput, setChatInput] = useState('');
-  const [chatLoading, setChatLoading] = useState(false);
-  const [chatQuestionId, setChatQuestionId] = useState<string>('');
-  const [chatUserAnswer, setChatUserAnswer] = useState<string>('');
-  const [chatQuestionObj, setChatQuestionObj] = useState<Question | null>(null);
-  const [chatThreadId, setChatThreadId] = useState<string>(''); // test id whose thread is in chatMessages
-  const [chatThreads, setChatThreads] = useState<Record<string, { title: string; messages: { role: 'user' | 'assistant'; content: string }[]; updatedAt: number }>>({});
-  const [chatHistoryOpen, setChatHistoryOpen] = useState(false);
+  const chatOpen = useNavStore(s => s.chatOpen);
+  const setChatOpen = useNavStore(s => s.setChatOpen);
+  const chatMessages = useChatStore(s => s.chatMessages);
+  const setChatMessages = useChatStore(s => s.setChatMessages);
+  const chatInput = useChatStore(s => s.chatInput);
+  const setChatInput = useChatStore(s => s.setChatInput);
+  const chatLoading = useChatStore(s => s.chatLoading);
+  const setChatLoading = useChatStore(s => s.setChatLoading);
+  const chatQuestionId = useChatStore(s => s.chatQuestionId);
+  const setChatQuestionId = useChatStore(s => s.setChatQuestionId);
+  const chatUserAnswer = useChatStore(s => s.chatUserAnswer);
+  const setChatUserAnswer = useChatStore(s => s.setChatUserAnswer);
+  const chatQuestionObj = useChatStore(s => s.chatQuestionObj);
+  const setChatQuestionObj = useChatStore(s => s.setChatQuestionObj);
+  const chatThreadId = useChatStore(s => s.chatThreadId);
+  const setChatThreadId = useChatStore(s => s.setChatThreadId); // test id whose thread is in chatMessages
+  const chatThreads = useChatStore(s => s.chatThreads);
+  const setChatThreads = useChatStore(s => s.setChatThreads);
+  const chatHistoryOpen = useNavStore(s => s.chatHistoryOpen);
+  const setChatHistoryOpen = useNavStore(s => s.setChatHistoryOpen);
   const chatThreadsLoadedRef = useRef(false);
   const chatEndRef = React.useRef<HTMLDivElement>(null);
 
   // Attached files panel (take test)
-  const [filesOpen, setFilesOpen] = useState(false);
+  const filesOpen = useNavStore(s => s.filesOpen);
+  const setFilesOpen = useNavStore(s => s.setFilesOpen);
 
   // Per-test group chat (everyone taking the same test)
-  const [groupOpen, setGroupOpen] = useState(false);
+  const groupOpen = useNavStore(s => s.groupOpen);
+  const setGroupOpen = useNavStore(s => s.setGroupOpen);
   // Take-test "Edit Test" bottom sheet (opens the shared editor over the taking screen)
-  const [editOpen, setEditOpen] = useState(false);
-  const [groupMessages, setGroupMessages] = useState<GroupMessage[]>([]);
-  const [groupInput, setGroupInput] = useState('');
-  const [groupSending, setGroupSending] = useState(false);
+  const editOpen = useNavStore(s => s.editOpen);
+  const setEditOpen = useNavStore(s => s.setEditOpen);
+  const groupMessages = useChatStore(s => s.groupMessages);
+  const setGroupMessages = useChatStore(s => s.setGroupMessages);
+  const groupInput = useChatStore(s => s.groupInput);
+  const setGroupInput = useChatStore(s => s.setGroupInput);
+  const groupSending = useChatStore(s => s.groupSending);
+  const setGroupSending = useChatStore(s => s.setGroupSending);
   const groupEndRef = React.useRef<HTMLDivElement>(null);
 
   // Delete confirmation
-  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const deleteId = useNavStore(s => s.deleteId);
+  const setDeleteId = useNavStore(s => s.setDeleteId);
   // Dead share link: the ?test=<id> target was deleted (or unshared) — the
   // dashboard is replaced by a bare "test unavailable" screen with a single
   // way back to the main page.
-  const [deadLink, setDeadLink] = useState(false);
+  const deadLink = useNavStore(s => s.deadLink);
+  const setDeadLink = useNavStore(s => s.setDeadLink);
 
   // Read user from localStorage only after mount (prevents hydration mismatch)
-  const [hydratedUser, setHydratedUser] = useState<{ id: string; email: string; name: string } | null>(null);
+  const hydratedUser = useSessionStore(s => s.hydratedUser);
+  const setHydratedUser = useSessionStore(s => s.setHydratedUser);
   useEffect(() => {
     // Restore the interface language (or detect it from the browser on first visit)
     try {
@@ -635,7 +724,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
       const a = JSON.parse(localStorage.getItem(ATTEMPTS_CACHE_KEY) || 'null');
       if (Array.isArray(a)) setAttempts(a);
     } catch {}
-    const initialScope: FeedScope = discoverModeRef.current ? 'discover' : 'mine';
+    const initialScope: FeedScope = navNow().discoverMode ? 'discover' : 'mine';
     const cachedFeed = queryClient.getQueryData(feedKey(initialScope)) as { pages?: { items?: Test[] }[] } | undefined;
     const restored = !!cachedFeed?.pages?.some(p => (p.items || []).length > 0);
     // With a snapshot the hook stays on the cache (staleTime Infinity) — the
@@ -798,7 +887,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
     setMyBgStyle('');
     setProfileName('');
     setAttempts([]);
-    setDiscoverMode(false); discoverModeRef.current = false;
+    setDiscoverMode(false);
     setViewingUser(null);
     setDataReady(false);
     clearAuthCookie(); // next visit pre-renders the login screen again
@@ -831,7 +920,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
   // --- Saved test progress ("Continue Test") ---
   const progressUserId = effectiveUser?.id || 'anon';
-  const [savedProgress, setSavedProgress] = useState<SavedTestProgress | null>(null);
+  const savedProgress = useTakeStore(s => s.savedProgress);
+  const setSavedProgress = useTakeStore(s => s.setSavedProgress);
   // Re-check saved progress whenever the screen or the current test changes —
   // the start-test page uses it to swap "Start Test" for "Continue Test".
   useEffect(() => {
@@ -859,11 +949,11 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
   // The query key of the list currently on screen (every local patch targets it)
   const activeScopeKey = () =>
-    viewingUser?.id ? userLibraryKey(viewingUser.id) : feedKey(discoverModeRef.current ? 'discover' : 'mine');
+    viewingUser?.id ? userLibraryKey(viewingUser.id) : feedKey(navNow().discoverMode ? 'discover' : 'mine');
 
   // Next pages, appended silently when the user approaches the end of the feed
   const loadMoreFeed = useCallback(() => {
-    if (viewingUserRef.current) return; // another user's library: no pagination
+    if (navNow().viewingUser) return; // another user's library: no pagination
     void fetchNextFeedPage();
   }, [fetchNextFeedPage]);
 
@@ -933,7 +1023,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
   }, [dashSearch, effectivePage]);
 
   // Dashboard: TikTok-style vertical feed of tests
-  const [dashTestIdx, setDashTestIdx] = useState(0);
+  const dashTestIdx = useDashboardStore(s => s.dashTestIdx);
+  const setDashTestIdx = useDashboardStore(s => s.setDashTestIdx);
   // LIVE index of the slide actually under the viewport (rounded scrollTop),
   // tracked synchronously from scroll events. NOT React state: scrolling must
   // never trigger a render — every loaded card is permanently mounted (feed
@@ -942,7 +1033,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // drives the direction-weighted prediction prefetches (touchstart and
   // mid-gesture); data-only — resolving fetches never change a visible pixel.
   const dashLiveIdxRef = React.useRef(0);
-  const [dashFullTests, setDashFullTests] = useState<Record<string, Test>>({});
+  const dashFullTests = useDashboardStore(s => s.dashFullTests);
+  const setDashFullTests = useDashboardStore(s => s.setDashFullTests);
   const dashFeedRef = React.useRef<HTMLDivElement>(null);
 
   // The feed container keeps its DOM node across scope switches — snap the
@@ -1074,10 +1166,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // opened from the library (back button in the header), library = shelves of
   // 3 mini cards per shelf, shelf = one card per shelf. Library & shelf scroll
   // endlessly downwards while tests remain.
-  const [dashView, setDashView] = useState<'tiktok1' | 'tiktok2' | 'library' | 'shelf'>('tiktok1');
+  const dashView = useNavStore(s => s.dashView);
+  const setDashView = useNavStore(s => s.setDashView);
   // Library grid: 2 cards per row on phones (full button names need the width),
   // 3 per row from sm up — matches the Tailwind sm breakpoint (640px)
-  const [libNarrow, setLibNarrow] = useState(false);
+  const libNarrow = useDashboardStore(s => s.libNarrow);
+  const setLibNarrow = useDashboardStore(s => s.setLibNarrow);
   // On every feed (re)mount — page or view switch — the scroll container
   // starts at scrollTop 0 and the sync effect then places it on the committed
   // card. Seed the live anchor with that same card so the first prediction
@@ -1306,7 +1400,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // (kind=image): the DB keeps only a `tg:<file_id>` reference. Small files
   // fall back to data: URLs when the bot is not connected. The picked image is
   // downscaled in the browser first (max 1600px JPEG) to keep uploads light.
-  const [photoBusy, setPhotoBusy] = useState<string>('');
+  const photoBusy = useEditorStore(s => s.photoBusy);
+  const setPhotoBusy = useEditorStore(s => s.setPhotoBusy);
 
   const pickQuestionPhoto = async (idx: number, file: File | undefined) => {
     if (!file) return;
@@ -1383,23 +1478,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
   };
 
   const resetTestForm = () => {
-    setTestTitle('');
-    setTestDescription('');
-    setTestTags([]);
-    setTagInput('');
-    setTagsOpen(false);
-    setTestCoverIcon('');
-    setTestCoverColor('');
-    setRandomizeQ(true);
-    setRandomizeO(true);
-    setQuestions([{ text: '', optionA: '', optionB: '', optionC: '', optionD: '', correctAnswer: 'A' }]);
-    setFormAttachments([]);
-    setTestIsPublic(true);
-    setEditorFilesExpanded(false);
-    setEditorInfoExpanded(false);
-    setEditorCoverExpanded(false);
-    setEditorQuestionsExpanded(false);
-    setEditingTestId(null);
+    resetTestFormStore();
   };
 
   const startCreateTest = () => {
@@ -2066,7 +2145,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
         }
       } catch { /* signal bookkeeping must never break the commit */ }
     };
-    if (filesFeedModeRef.current) {
+    if (navNow().filesFeedMode) {
       // Files mode: commit the visible FILE slide
       if (fileSlidesCountRef.current === 0) return;
       const clamped = Math.min(fileSlidesCountRef.current - 1, Math.max(0, idx));
@@ -2136,7 +2215,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
     // PREDICTION (TikTok's touchstart trick): a finger on the screen is an
     // intention to swipe — start preparing the neighbouring card before the
     // scroll event even fires. Deduped, so it's free when already cached.
-    if (!filesFeedModeRef.current) {
+    if (!navNow().filesFeedMode) {
       prefetchNeighbors(Math.min(Math.max(0, dashLiveIdxRef.current), tests.length - 1), dashMoveDirRef.current);
     }
   };
@@ -2609,9 +2688,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const toggleDiscoverMode = () => {
     // Leaving another user's library always lands in the viewer's own library
     setViewingUser(null);
-    const next = !discoverModeRef.current;
-    discoverModeRef.current = next; // update BEFORE the async reload picks its scope
-    setDiscoverMode(next);
+    const next = !navNow().discoverMode;
+    setDiscoverMode(next); // the store IS the source — getState() readers see it immediately
     // Reset feed positions: the new mode starts from its own top card.
     // Files mode intentionally SURVIVES the switch — only the list of tests
     // behind it changes.
@@ -2633,10 +2711,10 @@ function AppRootInner({ authed }: { authed: boolean }) {
       // (the fresh list has not landed yet). The destination for one's own
       // profile is one's OWN library — leave Discover. A silent return here
       // looked like a dead button: tapped the profile, nothing happened.
-      if (discoverModeRef.current || viewingUserRef.current) toggleDiscoverMode();
+      if (navNow().discoverMode || navNow().viewingUser) toggleDiscoverMode();
       return;
     }
-    if (viewingUserRef.current && viewingUser?.id === u.id) return;   // already there
+    if (navNow().viewingUser && viewingUser?.id === u.id) return;   // already there
     pendingFilesJumpRef.current = null;
     setFilesFeedMode(false); setFilesFeedTestId(null);
     setGridFilesMode(false); setGridFilesTestId(null);
@@ -2655,7 +2733,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
   };
 
   const closeUserLibrary = () => {
-    if (!viewingUserRef.current) return;
+    if (!navNow().viewingUser) return;
     setViewingUser(null);
     pendingFilesJumpRef.current = null;
     setFilesFeedMode(false); setFilesFeedTestId(null);
@@ -2678,7 +2756,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
     patchScope(queryClient, BOOKMARKS_KEY, { setBookmarks: nextIds });
     // A removed bookmark drops out of the personal library immediately —
     // as a LOCAL removal (deliberate user action), never as a feed reload.
-    if (has && !discoverModeRef.current && !filesFeedModeRef.current && !viewingUser?.id) {
+    if (has && !navNow().discoverMode && !navNow().filesFeedMode && !viewingUser?.id) {
       patchScope(queryClient, feedKey('mine'), { removeId: test.id });
     }
     try {
@@ -2734,7 +2812,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
   };
   const backToLibrary = () => {
     // Leaving the files feed back to the grid also resets files mode
-    if (filesFeedModeRef.current) {
+    if (navNow().filesFeedMode) {
       pendingFilesJumpRef.current = null;
       setFilesFeedMode(false);
       setDashSlideIdx(0);
@@ -3405,6 +3483,15 @@ function AppRoot({ authed }: { authed: boolean }) {
       },
     },
   }));
+  // SSR parity seed: the auth cookie decides the landing page server-side.
+  // The useState initializer runs on EVERY server render (fresh per request)
+  // and once per client mount — always BEFORE AppRootInner takes its first
+  // store snapshot, so the server HTML and the first client frame agree and
+  // no cross-request state can leak between SSR renders.
+  useState(() => {
+    useNavStore.setState({ page: authed ? 'dashboard' : 'auth' });
+    return 0;
+  });
   return (
     <QueryClientProvider client={queryClient}>
       <AppRootInner authed={authed} />
