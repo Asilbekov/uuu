@@ -34,8 +34,9 @@ const GroupChatPanel = dynamic(() => import('@/components/chat-panels').then(m =
 
 import { type Page, type Question, type Test } from '@/lib/app-types';
 import 'swiper/css';
+import 'swiper/css/virtual';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Mousewheel } from 'swiper/modules';
+import { Mousewheel, Virtual } from 'swiper/modules';
 import type { Swiper as SwiperClass } from 'swiper';
 import { useTakeStore } from '@/stores/take-store';
 import { useNavStore } from '@/stores/nav-store';
@@ -198,10 +199,13 @@ export default function TakeTestView({
   // External index changes (drum / arrows / jump input / search / new
   // session) drive the feed swiper; commits flow back through
   // onSlideChange — the equality check makes the loop settle immediately.
+  // With virtual slides the DOM holds only the visible window — the full
+  // count lives in swiper.virtual.slides (kept in sync by the react wrapper).
   React.useEffect(() => {
     const sw = takeSwiperRef.current;
     if (!sw) return;
-    if (sw.slides?.length !== shuffledQuestions.length) sw.update();
+    const mountedCount = sw.virtual?.slides?.length ?? sw.slides?.length ?? 0;
+    if (mountedCount && mountedCount !== shuffledQuestions.length) sw.update();
     const target = Math.min(Math.max(0, currentQuestionIdx), Math.max(0, shuffledQuestions.length - 1));
     if (sw.activeIndex !== target) sw.slideTo(target, 0);
   }, [shuffledQuestions, currentQuestionIdx]);
@@ -294,7 +298,7 @@ export default function TakeTestView({
     // question card, zero rubber-banding between cards, no release-to-edges.
     const takeSwiperParams = {
       direction: 'vertical' as const,
-      modules: [Mousewheel],
+      modules: [Mousewheel, Virtual],
       slidesPerView: 1,
       spaceBetween: 0,
       speed: 320,
@@ -302,6 +306,11 @@ export default function TakeTestView({
       touchReleaseOnEdges: true,
       longSwipesRatio: 0.35,
       mousewheel: { forceToAxis: true, sensitivity: 1, thresholdDelta: 12, thresholdTime: 250, releaseOnEdges: false },
+      // Virtual slides: only the visible card + a 2-card buffer mounts. A
+      // 300-question test no longer renders 300 KaTeX cards on open (and no
+      // longer re-renders them on every answer) — Swiper mounts/unmounts
+      // cards around the active index and slides to any target on demand.
+      virtual: { enabled: true, addSlidesBefore: 2, addSlidesAfter: 2 },
       initialSlide: Math.min(Math.max(0, currentQuestionIdx), Math.max(0, shuffledQuestions.length - 1)),
     };
 
@@ -996,7 +1005,7 @@ export default function TakeTestView({
                 // huge white void below the feed (position:absolute escapes the
                 // feed's overflow clipping when no ancestor is positioned)
                 return (
-              <SwiperSlide key={idx} className="!h-full">
+              <SwiperSlide key={idx} className="!h-full" virtualIndex={idx}>
               <section data-qslide className="relative h-full w-full overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="min-h-full flex flex-col px-4 py-4">
                   <div className="max-w-3xl w-full mx-auto my-auto">
