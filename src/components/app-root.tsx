@@ -126,6 +126,7 @@ import HistoryView from '@/components/pages/history-view';
 import StartTestView from '@/components/pages/start-test-view';
 import TakeTestView from '@/components/pages/take-test-view';
 import DashboardView from '@/components/pages/dashboard-view';
+import type { FeedApi } from '@/components/pages/dashboard-view';
 import CreateEditView from '@/components/pages/create-edit-view';
 import LangButton from '@/components/lang-button';
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
@@ -957,9 +958,13 @@ function AppRootInner({ authed }: { authed: boolean }) {
     void fetchNextFeedPage();
   }, [fetchNextFeedPage]);
 
-  // Silent infinite scroll: observe the sentinel below the last card
+  // Silent infinite scroll (LIBRARY/SHELF grids only): observe the sentinel
+  // below the last card. The Swiper feeds append their next page in
+  // onDashCommit (3 cards before the end) — no sentinel there: Swiper's
+  // wrapper must contain nothing but slides.
   useEffect(() => {
     if (effectivePage !== 'dashboard') return;
+    if (dashView !== 'library' && dashView !== 'shelf') return;
     const el = feedSentinelRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -985,8 +990,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
       // Deep links always open the swipe feed, never the grid views
       if (dashView !== 'tiktok1' && dashView !== 'tiktok2') setDashView('tiktok1');
       setDashTestIdx(i);
-      const el = dashFeedRef.current;
-      if (el && el.clientHeight > 0) el.scrollTo({ top: i * el.clientHeight, behavior: 'instant' as ScrollBehavior });
+      scrollDashTo(i);
     };
     if (idx >= 0) {
       jump(idx);
@@ -1025,26 +1029,27 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // Dashboard: TikTok-style vertical feed of tests
   const dashTestIdx = useDashboardStore(s => s.dashTestIdx);
   const setDashTestIdx = useDashboardStore(s => s.setDashTestIdx);
-  // LIVE index of the slide actually under the viewport (rounded scrollTop),
-  // tracked synchronously from scroll events. NOT React state: scrolling must
-  // never trigger a render — every loaded card is permanently mounted (feed
-  // pages of 12), so a swipe runs on pure native scrolling and React only
-  // hears about the final position when the settle commit lands. The ref
-  // drives the direction-weighted prediction prefetches (touchstart and
-  // mid-gesture); data-only — resolving fetches never change a visible pixel.
-  const dashLiveIdxRef = React.useRef(0);
+  // Dashboard: TikTok-style vertical feed of tests (Swiper engine; see
+  // dashboard-view — commits arrive through onDashCommit after the slide
+  // settles, external jumps go out through the feedApiRef handle).
   const dashFullTests = useDashboardStore(s => s.dashFullTests);
   const setDashFullTests = useDashboardStore(s => s.setDashFullTests);
   const dashFeedRef = React.useRef<HTMLDivElement>(null);
+  // Imperative handle to the Swiper feed engine (dashboard-view registers it)
+  const feedApiRef = React.useRef<FeedApi | null>(null);
 
   // The feed container keeps its DOM node across scope switches — snap the
-  // scroll back to the top whenever a foreign library opens. (Hooks must live
-  // ABOVE the first conditional page return — React's rules of hooks.)
+  // swiper (feed) or the scroll (grid) back to the top whenever a foreign
+  // library opens. (Hooks must live ABOVE the first conditional page return.)
   useEffect(() => {
     if (!viewingUser) return;
     const raf = requestAnimationFrame(() => {
-      const el = dashFeedRef.current;
-      if (el) el.scrollTop = 0;
+      if (navNow().filesFeedMode || navNow().dashView === 'tiktok1' || navNow().dashView === 'tiktok2') {
+        feedApiRef.current?.slideTo(0, 0);
+      } else {
+        const el = dashFeedRef.current;
+        if (el) el.scrollTop = 0;
+      }
     });
     return () => cancelAnimationFrame(raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1062,15 +1067,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
   }, [viewingUser, libraryError]);
 
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
-  const dashFeedTouchUntilRef = React.useRef(0);
-  const dashFeedSettleTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-  // Timestamp of the last real scroll event on the feed. The sync effect's
-  // instant realignment must NEVER fire while the feed is (or just was)
-  // moving: a data fetch resolving mid-gesture re-runs the effect, the
-  // committed index is still the PREVIOUS card, and an instant scrollTo here
-  // would flash that previous card for a frame. Scroll activity is the
-  // gesture-agnostic signal — no timing guess about touch vs wheel vs momentum.
-  const dashLastScrollAtRef = React.useRef(0);
 
   // ── PREDICTION ENGINE (TikTok-style "prepare the next action") ──────────
   // TikTok never waits for the user to land before it starts working: while
@@ -1084,7 +1080,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // The nearest neighbour in the movement direction is fetched URGENTLY
   // (immediately), the rest go through requestIdleCallback.
   const dashMoveDirRef = React.useRef<1 | -1>(1);
-  const dashPrevScrollTopRef = React.useRef(0);
   const dashQueuedRef = React.useRef<Set<string>>(new Set());
   const mediaPreheatedRef = React.useRef<Set<string>>(new Set());
 
@@ -1172,14 +1167,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // 3 per row from sm up — matches the Tailwind sm breakpoint (640px)
   const libNarrow = useDashboardStore(s => s.libNarrow);
   const setLibNarrow = useDashboardStore(s => s.setLibNarrow);
-  // On every feed (re)mount — page or view switch — the scroll container
-  // starts at scrollTop 0 and the sync effect then places it on the committed
-  // card. Seed the live anchor with that same card so the first prediction
-  // prefetches (touchstart, mid-gesture) aim at the right neighbourhood.
-  useEffect(() => {
-    dashLiveIdxRef.current = filesFeedMode ? dashSlideIdx : dashTestIdx;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashView, filesFeedMode, effectivePage]);
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 639px)');
     const sync = () => setLibNarrow(mq.matches);
@@ -1229,11 +1216,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
   // Instantly align the dashboard feed with slide/test index i (post-commit)
   const scrollDashTo = useCallback((i: number) => {
-    dashFeedTouchUntilRef.current = 0;
-    dashLastScrollAtRef.current = Date.now(); // the jump below owns the position
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      const el = dashFeedRef.current;
-      if (el && el.clientHeight > 0) el.scrollTo({ top: i * el.clientHeight, behavior: 'instant' as ScrollBehavior });
+      feedApiRef.current?.slideTo(i, 0);
     }));
   }, []);
 
@@ -1284,22 +1268,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
     setStartRandomizeQ(t.randomizeQuestions !== false);
     setStartRandomizeO(t.randomizeOptions !== false);
     setStartFilesExpanded(false);
-    // Sync feed position (e.g. when returning to the dashboard).
-    // Skipped right after user scrolling — otherwise this teleport-fights the
-    // native snap mid-swipe and makes the swipe feel janky.
-    const el = dashFeedRef.current;
-    if (
-      el && el.clientHeight > 0 &&
-      Math.abs(el.scrollTop - safeIdx * el.clientHeight) > 2 &&
-      Date.now() >= dashFeedTouchUntilRef.current &&
-      // Never fight an active (or just-finished) scroll: if the feed moved
-      // within the last 300ms a gesture or snap animation is in flight — the
-      // settle commit will land on the true card and keep this effect's index
-      // in sync. Realigning here would flash the previous card mid-swipe.
-      Date.now() - dashLastScrollAtRef.current > 300
-    ) {
-      el.scrollTo({ top: safeIdx * el.clientHeight, behavior: 'instant' as ScrollBehavior });
-    }
+    // Feed position: the Swiper engine owns it (dashboard-view syncs the
+    // swiper to dashTestIdx / dashSlideIdx — including the return-to-dashboard
+    // remount via initialSlide). No native scrollTo left to fight gestures.
     // PREDICTION: the current card + its direction-weighted neighbours are
     // prefetched here too (covers non-scroll index changes: return to the
     // dashboard, jump-to-test, delete, ...). All deduped by the engine.
@@ -2098,21 +2069,17 @@ function AppRootInner({ authed }: { authed: boolean }) {
   }, [mounted, effectivePage, editOpen, currentTest, shuffledQuestions, lang]);
 
 
-  // Track which test is on screen while swiping the dashboard feed.
-  // Same rule as the take-test feed: commit only after the swipe settles —
-  // mid-gesture setState re-renders every cover slide while the card moves.
-  const dashSettleCommit = () => {
-    dashFeedSettleTimerRef.current = null;
-    const el = dashFeedRef.current;
-    if (!el || el.clientHeight === 0) return;
-    if (Date.now() < dashFeedTouchUntilRef.current) {
-      // The guard outlived the arm delay (wheel/trackpad momentum, coalesced
-      // touch events): RE-ARM instead of dropping — a dropped commit never
-      // re-fires and the settled card stayed outside the rendered window.
-      armDashSettle(dashFeedTouchUntilRef.current - Date.now() + 40);
-      return;
+  // ── FEED COMMIT (Swiper onSlideChange → here) ────────────────────────────
+  // The gesture engine itself is Swiper's now; this is the single state
+  // transition when a card SETTLES: commit the index, adopt the landed card's
+  // start defaults, score the recommendation signal, prefetch the
+  // direction-weighted neighbours and append the next feed page near the end.
+  const dashLastCommittedRef = React.useRef(0);
+  const onDashCommit = React.useCallback((idx: number, mode: 'tests' | 'files') => {
+    if (idx !== dashLastCommittedRef.current) {
+      dashMoveDirRef.current = idx > dashLastCommittedRef.current ? 1 : -1;
+      dashLastCommittedRef.current = idx;
     }
-    const idx = Math.round(el.scrollTop / el.clientHeight);
     // RECOMMENDATION SIGNALS (invisible to the user): each card TRANSITION
     // scores the card the user just LEFT — dwell >= 1.8 s counts as a real
     // view (ms recorded for the quality prior), anything faster is the
@@ -2145,7 +2112,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
         }
       } catch { /* signal bookkeeping must never break the commit */ }
     };
-    if (navNow().filesFeedMode) {
+    if (mode === 'files') {
       // Files mode: commit the visible FILE slide
       if (fileSlidesCountRef.current === 0) return;
       const clamped = Math.min(fileSlidesCountRef.current - 1, Math.max(0, idx));
@@ -2156,15 +2123,15 @@ function AppRootInner({ authed }: { authed: boolean }) {
       if (clamped >= fileSlidesCountRef.current - 3) loadMoreFeed();
       return;
     }
+    if (tests.length === 0) return;
     const clamped = Math.min(tests.length - 1, Math.max(0, idx));
     setDashTestIdx(clamped);
-    // Adopt the landed card's start defaults IN THE SAME BATCHED RENDER: the
+    // Adopt the landed card's start defaults in the same batched render: the
     // freshly committed card switches from its own defaults (exactly what it
     // showed mid-swipe) to the shared start-params — they must be IDENTICAL
     // in that frame, or the counter/highlights would visibly flip right
-    // after landing. The sync effect below keeps covering non-scroll paths
-    // (jump-to-test, return to dashboard) — setting the same values twice is
-    // a no-op for React.
+    // after landing. dashboard-view keeps every NON-current card on its own
+    // defaults, so nothing can flip while the swipe is still moving either.
     const landed = tests[clamped];
     if (landed) {
       const landedTotalQ = landed._count?.questions || landed.questions?.length || 0;
@@ -2179,64 +2146,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
     // next feed page starts loading 3 cards before the end.
     prefetchNeighbors(clamped, dashMoveDirRef.current);
     if (clamped >= tests.length - 3) loadMoreFeed();
-  };
-  const armDashSettle = (delay = 140) => {
-    if (dashFeedSettleTimerRef.current) clearTimeout(dashFeedSettleTimerRef.current);
-    dashFeedSettleTimerRef.current = setTimeout(dashSettleCommit, delay);
-  };
-  const onDashScroll = () => {
-    const el = dashFeedRef.current;
-    if (!el || el.clientHeight === 0) return;
-    dashLastScrollAtRef.current = Date.now();
-    // SCROLLING IS RENDER-FREE: every loaded card is permanently mounted, so
-    // the swipe animation runs on pure native scrolling — no React work in
-    // any scroll frame (this is what kills the mid-swipe flicker: counters,
-    // highlights and render windows used to mutate DURING the animation).
-    // The ref below is all the tracking needed; the settle commit is the
-    // single state transition — one clean render after the card truly lands.
-    const live = Math.round(el.scrollTop / el.clientHeight);
-    // Movement direction — drives the direction-weighted prefetches
-    // (scrolling down prepares the cards BELOW first, and vice versa).
-    if (el.scrollTop !== dashPrevScrollTopRef.current) {
-      dashMoveDirRef.current = el.scrollTop > dashPrevScrollTopRef.current ? 1 : -1;
-      dashPrevScrollTopRef.current = el.scrollTop;
-    }
-    if (live !== dashLiveIdxRef.current) {
-      dashLiveIdxRef.current = live;
-      // PREDICTION: the card the user is moving TOWARD starts loading its full
-      // payload NOW — mid-gesture, before the settle commit ever fires.
-      // Data-only (deduped): resolving prefetches change no visible pixel.
-      prefetchNeighbors(live, dashMoveDirRef.current);
-    }
-    armDashSettle(140);
-  };
-  const onDashTouchStart = () => {
-    dashFeedTouchUntilRef.current = Date.now() + 600;
-    // PREDICTION (TikTok's touchstart trick): a finger on the screen is an
-    // intention to swipe — start preparing the neighbouring card before the
-    // scroll event even fires. Deduped, so it's free when already cached.
-    if (!navNow().filesFeedMode) {
-      prefetchNeighbors(Math.min(Math.max(0, dashLiveIdxRef.current), tests.length - 1), dashMoveDirRef.current);
-    }
-  };
-  const onDashTouchEnd = () => {
-    dashFeedTouchUntilRef.current = Date.now() + 150;
-    armDashSettle(180);
-  };
-  // Programmatic card steps (wheel engine / keyboard): set ONLY the settle
-  // guard — never arm a short commit timer. A commit armed at gesture start
-  // (220ms) fired MID-ANIMATION, computed the half-flown position and the
-  // sync effect then teleported the feed back, eating the step. With just
-  // the guard, commits are (re)armed by the animation's own scroll events
-  // and land 140ms after it truly ends — always on the final card. The
-  // guard scales with the jump distance (Home/End fly over many cards).
-  const onDashProgrammatic = (cards = 1) => {
-    dashFeedTouchUntilRef.current = Date.now() + 650 + 150 * Math.max(0, cards - 1);
-  };
-  const onDashWheel = () => {
-    dashFeedTouchUntilRef.current = Date.now() + 250;
-    armDashSettle(220);
-  };
+  }, [tests, effectiveUser, prefetchNeighbors, loadMoreFeed, setDashTestIdx, setDashSlideIdx, setSelectedQuestionCount, setStartRandomizeQ, setStartRandomizeO]);
 
   const selectAnswer = (questionId: string, answer: string) => {
     setAnswers(prev => ({ ...prev, [questionId]: answer }));
@@ -3212,6 +3122,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
         setDeadLink={setDeadLink}
         tests={tests}
         dashTestIdx={dashTestIdx}
+        dashSlideIdx={dashSlideIdx}
         progressUserId={progressUserId}
         dashView={dashView}
         libNarrow={libNarrow}
@@ -3263,11 +3174,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
         doShare={doShare}
         setDeleteId={setDeleteId}
         feedSentinelRef={feedSentinelRef}
-        onDashScroll={onDashScroll}
-        onDashTouchStart={onDashTouchStart}
-        onDashTouchEnd={onDashTouchEnd}
-        onDashWheel={onDashWheel}
-        onDashProgrammatic={onDashProgrammatic}
+        feedApiRef={feedApiRef}
+        onDashCommit={onDashCommit}
         fileSlides={fileSlides}
         filesFeedTestId={filesFeedTestId}
         setSelectedQuestionCount={setSelectedQuestionCount}

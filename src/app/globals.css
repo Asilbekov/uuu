@@ -224,3 +224,19 @@
   overflow: hidden;
   min-height: 0;
 }
+
+/* ── Swiper TikTok feed (dashboard) ──────────────────────────────────────
+   The feed is a vertical Swiper filling the flex column; every slide is one
+   full-height card. Core swiper.css sizes the wrapper; these rules pin the
+   container and slide heights to the flex box so slides never overflow. */
+.feed-swiper {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.feed-swiper .swiper-wrapper {
+  height: 100%;
+}
+.feed-swiper .swiper-slide {
+  height: 100%;
+}

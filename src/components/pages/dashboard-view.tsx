@@ -24,8 +24,24 @@ import type { Page } from '@/lib/app-types';
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
 import { testBackgroundCss } from '@/lib/test-bg';
 import { useExitMount } from '@/components/motion';
-import { attachFeedWheel } from '@/lib/feed-wheel';
+// ---------------------------------------------------------------------------
+// Professional feed engine: Swiper (swiper.com — the industry-standard
+// carousel/gesture library behind countless TikTok/Reels clones) replaces the
+// hand-rolled snap-scroll + attachFeedWheel wheel accumulator. One gesture =
+// exactly one full-height card, native-feel touch physics, trackpad/wheel
+// support and momentum handling — all maintained upstream instead of here.
+// ---------------------------------------------------------------------------
+import 'swiper/css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Mousewheel } from 'swiper/modules';
+import type { Swiper as SwiperClass } from 'swiper';
 import type { Lang } from '@/lib/i18n';
+
+/** Imperative handle the dashboard exposes to app-root for programmatic jumps. */
+export interface FeedApi {
+  /** Slide the ACTIVE feed (files mode or test feed) to card `idx`. */
+  slideTo: (idx: number, speed?: number) => void;
+}
 
 /**
  * DASHBOARD screen — TikTok feed / library grid / shelf / files modes, the
@@ -45,6 +61,7 @@ export interface DashboardViewProps {
   setDeadLink: React.Dispatch<React.SetStateAction<boolean>>;
   tests: Test[];
   dashTestIdx: number;
+  dashSlideIdx: number;
   progressUserId: string;
   dashView: 'tiktok1' | 'tiktok2' | 'library' | 'shelf';
   libNarrow: boolean;
@@ -84,6 +101,7 @@ export interface DashboardViewProps {
   userInitials: string;
   viewingLoading: boolean;
   dashFeedRef: { current: any };
+  feedApiRef: { current: FeedApi | null };
   exitFilesMode: (...args: any[]) => any;
   startEditTest: (...args: any[]) => any;
   openFromLibrary: (...args: any[]) => any;
@@ -96,11 +114,7 @@ export interface DashboardViewProps {
   doShare: (...args: any[]) => any;
   setDeleteId: React.Dispatch<React.SetStateAction<string | null>>;
   feedSentinelRef: { current: any };
-  onDashScroll: (...args: any[]) => any;
-  onDashTouchStart: (...args: any[]) => any;
-  onDashTouchEnd: (...args: any[]) => any;
-  onDashWheel: (...args: any[]) => any;
-  onDashProgrammatic: (...args: any[]) => any;
+  onDashCommit: (idx: number, mode: 'tests' | 'files') => void;
   fileSlides: any[];
   filesFeedTestId: string | null;
   setSelectedQuestionCount: React.Dispatch<React.SetStateAction<number>>;
@@ -167,6 +181,7 @@ export default function DashboardView({
   setDeadLink,
   tests,
   dashTestIdx,
+  dashSlideIdx,
   progressUserId,
   dashView,
   libNarrow,
@@ -206,6 +221,7 @@ export default function DashboardView({
   userInitials,
   viewingLoading,
   dashFeedRef,
+  feedApiRef,
   exitFilesMode,
   startEditTest,
   openFromLibrary,
@@ -218,11 +234,7 @@ export default function DashboardView({
   doShare,
   setDeleteId,
   feedSentinelRef,
-  onDashScroll,
-  onDashTouchStart,
-  onDashTouchEnd,
-  onDashWheel,
-  onDashProgrammatic,
+  onDashCommit,
   fileSlides,
   filesFeedTestId,
   setSelectedQuestionCount,
@@ -279,42 +291,90 @@ export default function DashboardView({
   // Search overlay: stays mounted ~150ms after close to play its fade-out
   const searchMounted = useExitMount(dashSearchOpen, 160);
 
-  // ── TIKTOK-WEB GESTURE LAYER ────────────────────────────────────────────
-  // Latest-handler refs: the wheel/keyboard effects attach ONCE per feed
-  // element and always call the freshest handlers — re-attaching on every
-  // parent re-render would reset the wheel accumulator mid-gesture.
-  const gestureRef = React.useRef({ onDashProgrammatic });
-  gestureRef.current = { onDashProgrammatic };
+  // ── SWIPER FEED ENGINE (TikTok-web gesture layer) ────────────────────────
+  // The one-gesture-one-card wheel accumulator, the snap-scroll container and
+  // the settle timers all died with feed-wheel.ts — Swiper owns the gestures
+  // now (touch physics, mousewheel, momentum — all upstream-maintained).
+  // What lives here: index commits flow out through onDashCommit
+  // (onSlideChange), keyboard parity keeps its app-specific guards, and an
+  // imperative FeedApi handle lets app-root jump to a card programmatically.
+  const onDashCommitRef = React.useRef(onDashCommit);
+  onDashCommitRef.current = onDashCommit;
   const feedCountRef = React.useRef(0);
   feedCountRef.current = filesFeedMode ? fileSlides.length : tests.length;
   const feedIsSwipable = dashView === 'tiktok1' || dashView === 'tiktok2';
 
-  // Track the REAL feed DOM node: the effects must re-attach whenever the
-  // feed element instance changes (skeleton → feed, view switches, mode
-  // flips) — a one-shot attach on mount ran while the feed was still a
-  // skeleton and the ref was null, so the wheel engine never engaged.
-  const [feedNode, setFeedNode] = React.useState<HTMLElement | null>(null);
-  const composeFeedRef = React.useCallback((el: HTMLElement | null) => {
-    (dashFeedRef as any).current = el;
-    setFeedNode(el);
+  const testsSwiperRef = React.useRef<SwiperClass | null>(null);
+  const filesSwiperRef = React.useRef<SwiperClass | null>(null);
+  const pendingSlideRef = React.useRef<number | null>(null);
+
+  // Shared engine config: one wheel notch / flick = exactly one full-height
+  // card, zero rubber-banding between cards, no release-to-edges drift.
+  const swiperParams = {
+    direction: 'vertical' as const,
+    modules: [Mousewheel],
+    slidesPerView: 1,
+    spaceBetween: 0,
+    speed: 320,
+    resistanceRatio: 0,
+    touchReleaseOnEdges: true,
+    longSwipesRatio: 0.35,
+    mousewheel: { forceToAxis: true, sensitivity: 1, thresholdDelta: 12, thresholdTime: 250, releaseOnEdges: false },
+  };
+
+  // Imperative handle for app-root (jump-to-test / deep links / scope resets).
+  // Exactly one of the two swipers is mounted at any time — slide the live one.
+  React.useEffect(() => {
+    feedApiRef.current = {
+      slideTo: (idx, speed = 0) => {
+        const sw = filesSwiperRef.current || testsSwiperRef.current;
+        if (sw) sw.slideTo(Math.max(0, Math.min(idx, (sw.slides?.length || 1) - 1)), speed);
+        else pendingSlideRef.current = idx; // feed not mounted yet — apply on init
+      },
+    };
+    return () => { feedApiRef.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // One wheel gesture = exactly one card (the signature TikTok desktop feel;
-  // native half-card wheel + snap-back is gone). Touch scrolling stays native.
+  const applyPendingSlide = (sw: SwiperClass) => {
+    if (pendingSlideRef.current == null) return;
+    const i = pendingSlideRef.current;
+    pendingSlideRef.current = null;
+    requestAnimationFrame(() => sw.slideTo(Math.max(0, Math.min(i, (sw.slides?.length || 1) - 1)), 0));
+  };
+
+  // Wheel gate: events originating inside an inner scrollable (the attached-
+  // files list) keep their NATIVE scrolling — stopped here in the capture
+  // phase so the Swiper mousewheel engine never sees them.
+  const onWheelCapture = (e: React.WheelEvent) => {
+    const t = e.target as Element | null;
+    if (t?.closest?.('[data-inner-scroll]')) e.stopPropagation();
+  };
+
+  // External index changes (jump-to-test, deep link, scope reset) drive the
+  // swiper; slide commits flow back through onSlideChange — the equality
+  // check makes the loop settle immediately.
   React.useEffect(() => {
-    if (!feedIsSwipable || !feedNode) return;
-    return attachFeedWheel(feedNode, {
-      getCardCount: () => feedCountRef.current,
-      isInnerScrollTarget: tgt => tgt instanceof Element && !!tgt.closest('[data-inner-scroll]'),
-      onStep: () => gestureRef.current.onDashProgrammatic(1), // guard only — commits re-arm from the animation's scroll events
-    });
-  }, [feedIsSwipable, filesFeedMode, feedNode]);
+    const sw = testsSwiperRef.current;
+    if (!sw || filesFeedMode || tests.length === 0) return;
+    const target = Math.min(Math.max(0, dashTestIdx), tests.length - 1);
+    if (sw.activeIndex !== target) sw.slideTo(target, 0);
+  }, [dashTestIdx, tests.length, filesFeedMode]);
+  React.useEffect(() => {
+    const sw = filesSwiperRef.current;
+    if (!sw || !filesFeedMode) return;
+    const target = Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1));
+    if (sw.activeIndex !== target) sw.slideTo(target, 0);
+  }, [dashSlideIdx, fileSlides.length, filesFeedMode]);
+  // Appended/removed slides (silent pagination, unpins, deletes) — keep the
+  // engine's internal slide bookkeeping in sync.
+  React.useEffect(() => { testsSwiperRef.current?.update(); }, [tests.length]);
+  React.useEffect(() => { filesSwiperRef.current?.update(); }, [fileSlides.length]);
 
   // Keyboard parity with TikTok web: ↑/↓/PgUp/PgDn/Space step one card,
   // Home/End jump to the first/last one. Ignored while typing or in dialogs.
   React.useEffect(() => {
-    if (!feedIsSwipable) return;
+    if (!feedIsSwipable && !filesFeedMode) return;
     const onKey = (e: KeyboardEvent) => {
       if (deleteId || dashSearchOpen || gridFilesMode || editMode) return;
       const tgt = e.target as HTMLElement | null;
@@ -322,11 +382,10 @@ export default function DashboardView({
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || tgt?.isContentEditable) return;
       if (tag === 'BUTTON' && e.key === ' ') return; // space activates the focused button
       let target: number | null = null;
-      const el = dashFeedRef.current as HTMLElement | null;
-      if (!el || el.clientHeight === 0) return;
+      const sw = filesFeedMode ? filesSwiperRef.current : testsSwiperRef.current;
       const count = feedCountRef.current;
-      if (count <= 0) return;
-      const cur = Math.round(el.scrollTop / el.clientHeight);
+      if (!sw || count <= 0) return;
+      const cur = sw.activeIndex;
       if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') target = Math.min(count - 1, cur + 1);
       else if (e.key === 'ArrowUp' || e.key === 'PageUp') target = Math.max(0, cur - 1);
       else if (e.key === 'Home') target = 0;
@@ -334,14 +393,11 @@ export default function DashboardView({
       else return;
       if (target === cur) return;
       e.preventDefault();
-      // Guard only (scaled by distance) — the animation's scroll events arm
-      // the commit, which then lands 140ms after the scroll truly ends.
-      gestureRef.current.onDashProgrammatic(Math.abs(target - cur));
-      el.scrollTo({ top: target * el.clientHeight, behavior: 'smooth' });
+      sw.slideTo(target);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [feedIsSwipable, deleteId, dashSearchOpen, gridFilesMode, editMode, dashFeedRef]);
+  }, [feedIsSwipable, filesFeedMode, deleteId, dashSearchOpen, gridFilesMode, editMode]);
 
   if (effectivePage === 'dashboard') {
     // Dead share link (?test=<id> of a deleted/removed test): the whole
@@ -988,27 +1044,27 @@ export default function DashboardView({
             ) : filesFeedMode ? (
               /* FILES feed — one attachment per slide; the flow runs through this
               test's files, then continues into the next recommended test's files.
-              Header and bottom bar stay untouched; the on-card button returns. */
-              <div
-                key="feed-files"
-                ref={composeFeedRef}
-                onScroll={onDashScroll}
-                onTouchStart={onDashTouchStart}
-                onTouchMove={onDashTouchStart}
-                onTouchEnd={onDashTouchEnd}
-                onTouchCancel={onDashTouchEnd}
-                className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden screen-enter"
-              >
-                {fileSlides.length === 0 ? (
-                  <section className="h-full snap-start snap-always flex items-center justify-center">
-                    <p className="text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}</p>
-                  </section>
-                ) : fileSlides.map((s) => {
-                  const test = s.test;
-                  const bgClass = test.coverColor ? '' : coverBgFor(test);
-                  const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
-                  return (
-                    <section key={`${test.id}`} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
+              Header and bottom bar stay untouched; the on-card button returns.
+              Engine: Swiper (vertical, one slide per view) — see swiperParams. */
+              <div className="flex-1 min-h-0 min-w-0" onWheelCapture={onWheelCapture}>
+                <Swiper
+                  key="feed-files-swiper"
+                  {...swiperParams}
+                  className="feed-swiper h-full screen-enter"
+                  initialSlide={Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1))}
+                  onSwiper={(sw) => { filesSwiperRef.current = sw; applyPendingSlide(sw); }}
+                  onSlideChange={(sw) => onDashCommitRef.current(sw.activeIndex, 'files')}
+                >
+                  {fileSlides.length === 0 ? (
+                    <SwiperSlide className="!h-full flex items-center justify-center">
+                      <p className="text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}</p>
+                    </SwiperSlide>
+                  ) : fileSlides.map((s) => {
+                    const test = s.test;
+                    const bgClass = test.coverColor ? '' : coverBgFor(test);
+                    const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
+                    return (
+                      <SwiperSlide key={`${test.id}`} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
                       <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                         <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
                           <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
@@ -1016,9 +1072,10 @@ export default function DashboardView({
                             <p className="text-base sm:text-lg font-bold leading-snug">{t('attachedFiles', { n: s.count })}</p>
                           </div>
                           {/* ALL of the test's files in ONE scrollable card.
-                          data-inner-scroll: the wheel engine lets this area
-                          keep its native scrolling. */}
-                          <div data-inner-scroll className="flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                          data-inner-scroll + swiper-no-swiping: the wheel gate
+                          lets this area keep its native scrolling and Swiper
+                          never starts a drag from inside it. */}
+                          <div data-inner-scroll className="swiper-no-swiping flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                             <AttachmentsList items={s.files} />
                           </div>
                           <button
@@ -1035,23 +1092,23 @@ export default function DashboardView({
                           </p>
                         </div>
                       </div>
-                    </section>
-                  );
-                })}
-                <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
               </div>
             ) : (
-            /* TikTok-style vertical feed — swipe up/down between tests */
-            <div
-              key="feed-tiktok"
-              ref={composeFeedRef}
-              onScroll={onDashScroll}
-              onTouchStart={onDashTouchStart}
-              onTouchMove={onDashTouchStart}
-              onTouchEnd={onDashTouchEnd}
-              onTouchCancel={onDashTouchEnd}
-              className="flex-1 min-h-0 overflow-y-auto snap-y snap-mandatory overscroll-contain [overflow-anchor:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden screen-enter"
-            >
+            /* TikTok-style vertical feed — swipe up/down between tests.
+            Engine: Swiper (vertical, one slide per view) — see swiperParams. */
+            <div className="flex-1 min-h-0 min-w-0" onWheelCapture={onWheelCapture}>
+              <Swiper
+                key="feed-tiktok-swiper"
+                {...swiperParams}
+                className="feed-swiper h-full screen-enter"
+                initialSlide={Math.min(Math.max(0, dashTestIdx), Math.max(0, tests.length - 1))}
+                onSwiper={(sw) => { testsSwiperRef.current = sw; applyPendingSlide(sw); }}
+                onSlideChange={(sw) => onDashCommitRef.current(sw.activeIndex, 'tests')}
+              >
               {tests.map((test, idx) => {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
@@ -1084,7 +1141,7 @@ export default function DashboardView({
                 return (
                   // overflow-hidden: the card always fits the screen — no scrolling
                   // inside a card, swipes only move between cards
-                  <section key={test.id} style={bgStyle} className={`relative h-full snap-start snap-always overflow-hidden ${bgClass}`}>
+                  <SwiperSlide key={test.id} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
                         {/* Discover mode AND other users' libraries: author header
@@ -1319,12 +1376,10 @@ export default function DashboardView({
                         )}
                       </div>
                     </div>
-                  </section>
+                  </SwiperSlide>
                 );
               })}
-
-              {/* Invisible pagination sentinel — silently appends more tests */}
-              <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
+              </Swiper>
             </div>
             )}
 
