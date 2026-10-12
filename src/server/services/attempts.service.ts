@@ -85,36 +85,59 @@ export async function updateAttempt(
   attemptId: string,
   userId: string,
   input: {
-    answers?: { questionId: string; selectedAnswer: string; isCorrect: boolean }[];
+    answers?: { questionId: string; selectedAnswer: string; isCorrect?: boolean }[];
     completed?: boolean;
   }
 ) {
   const attempt = await requireOwnedAttempt(attemptId, userId);
   const { answers, completed } = input;
 
-  // Save answers
+  // Grade on the SERVER. The client's `isCorrect` is accepted for backward
+  // compatibility but IGNORED — a tampered client must not be able to write
+  // a perfect score. Answers that do not belong to this attempt's test are
+  // dropped (cross-test injection guard).
+  let graded: {
+    attemptId: string;
+    questionId: string;
+    selectedAnswer: string;
+    isCorrect: boolean;
+  }[] = [];
   if (answers && answers.length > 0) {
-    await db.attemptAnswer.deleteMany({ where: { attemptId } });
-    await db.attemptAnswer.createMany({
-      data: answers.map((a) => ({
+    const qs = await db.question.findMany({
+      where: {
+        id: { in: answers.map((a) => a.questionId) },
+        testId: attempt.testId,
+      },
+      select: { id: true, correctAnswer: true },
+    });
+    const correctById = new Map(qs.map((q) => [q.id, q.correctAnswer]));
+    graded = answers
+      .filter((a) => correctById.has(a.questionId))
+      .map((a) => ({
         attemptId,
         questionId: a.questionId,
         selectedAnswer: a.selectedAnswer,
-        isCorrect: a.isCorrect,
-      })),
-    });
+        isCorrect: a.selectedAnswer === correctById.get(a.questionId),
+      }));
+    await db.$transaction([
+      db.attemptAnswer.deleteMany({ where: { attemptId } }),
+      db.attemptAnswer.createMany({ data: graded }),
+    ]);
   }
 
   // Complete the attempt
   if (completed) {
-    let score = 0;
-    if (answers) {
-      score = answers.filter((a) => a.isCorrect).length;
-    }
+    // Fresh answers submitted → grade them; otherwise re-count the stored
+    // rows (server-graded since this change).
+    const score = graded.length
+      ? graded.filter((g) => g.isCorrect).length
+      : await db.attemptAnswer.count({ where: { attemptId, isCorrect: true } });
 
     // Use the number of answers as totalQuestions (may be less than the full
     // test when the user selected fewer questions)
-    const totalQ = answers ? answers.length : attempt.totalQuestions;
+    const totalQ = graded.length
+      ? graded.length
+      : attempt.totalQuestions;
 
     await db.testAttempt.update({
       where: { id: attemptId },
@@ -132,7 +155,9 @@ export async function updateAttempt(
       const minutes = attempt.startedAt
         ? (Date.now() - new Date(attempt.startedAt).getTime()) / 60000
         : 0;
-      const answered = answers ? answers.length : attempt.totalQuestions || 0;
+      const answered = graded.length
+        ? graded.length
+        : attempt.totalQuestions || 0;
       const accuracy = answered > 0 ? score / answered : 1;
       const delta = Math.min(
         12,

@@ -168,7 +168,7 @@ export const updateAttemptSchema = z.object({
       z.object({
         questionId: z.string().min(1).max(64),
         selectedAnswer: z.string().min(1).max(10),
-        isCorrect: z.boolean(),
+        isCorrect: z.boolean().optional(), // ignored — graded server-side
       })
     )
     .max(1000)

@@ -9,6 +9,7 @@
 // ---------------------------------------------------------------------------
 
 import { db } from "@/lib/db";
+import { Prisma } from "@prisma/client";
 import { hashPassword, verifyPassword } from "@/server/auth/password";
 import { ApiError } from "@/server/http/errors";
 
@@ -28,13 +29,26 @@ export async function registerUser(input: {
     throw ApiError.conflict("Email already registered");
   }
 
-  const user = await db.user.create({
-    data: {
-      email,
-      name,
-      password: hashPassword(password),
-    },
-  });
+  // Concurrent registers with the same email race past the check above —
+  // the unique constraint is the source of truth. Map P2002 → 409.
+  let user;
+  try {
+    user = await db.user.create({
+      data: {
+        email,
+        name,
+        password: hashPassword(password),
+      },
+    });
+  } catch (e) {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === "P2002"
+    ) {
+      throw ApiError.conflict("Email already registered");
+    }
+    throw e;
+  }
 
   return { id: user.id, email: user.email, name: user.name };
 }

@@ -67,6 +67,13 @@ export async function sessionUserId(req: NextRequest): Promise<string | null> {
     db.session.delete({ where: { id: token } }).catch(() => {});
     return null;
   }
+  // Opportunistic purge of ALL expired rows (~2% of authenticated requests —
+  // index-backed, keeps the table from growing unboundedly between deploys)
+  if (Math.random() < 0.02) {
+    db.session
+      .deleteMany({ where: { expiresAt: { lt: new Date() } } })
+      .catch(() => {});
+  }
   return session.userId;
 }
 

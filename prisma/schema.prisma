@@ -49,6 +49,7 @@ model Session {
   expiresAt DateTime
 
   @@index([userId])
+  @@index([expiresAt]) // opportunistic purge of expired rows
 }
 
 // AI-tutor thread per (user, test) — full conversation history.
@@ -177,6 +178,8 @@ model Attachment {
   orderNum    Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@index([testId]) // FK index
 }
 
 model Question {
@@ -205,6 +208,8 @@ model Question {
   optionImages  Json?
   orderNum      Int    @default(0)
   answers   AttemptAnswer[]
+
+  @@index([testId]) // FK index — Postgres does not auto-index FK columns
 }
 
 model TestAttempt {
@@ -258,6 +263,7 @@ model FeedEvent {
 
   @@index([userId, createdAt])
   @@index([testId, createdAt])
+  @@index([createdAt]) // serves the opportunistic 30-day purge DELETE
 }
 
 model AttemptAnswer {
@@ -268,4 +274,7 @@ model AttemptAnswer {
   question  Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   selectedAnswer String
   isCorrect Boolean
+
+  @@index([attemptId]) // FK index — every attempt page load scans by it
+  @@index([questionId]) // FK index
 }
