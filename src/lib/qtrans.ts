@@ -101,6 +101,162 @@ function restore(text: string, frags: string[]): string {
   return out.replace(/ {2,}/g, ' ').trim();
 }
 
+// ---------- batched + debounced translation queue ----------
+//
+// The naive implementation fired one POST per question (7 strings) with 4
+// concurrent workers: entering a 78-question test launched ~78 requests in a
+// couple of seconds and ran straight into the 30/min rate limit (429 flood).
+//
+// The queue instead collects strings for a short debounce window, sends them
+// in large sequential batches (≤380 strings ≈ 2 requests for that same test),
+// deduplicates identical in-flight strings, backs off exponentially on
+// failure/429 and gives up after a few attempts (caller falls back to the
+// source text — same contract as before, just without the flood).
+
+const DEBOUNCE_MS = 250; // collect strings this long before the first send
+const BATCH_MAX = 380; // server accepts 500; keep headroom
+const BATCH_CHARS = 28000; // encoded-size headroom per request
+const BACKOFF_START = 1500;
+const BACKOFF_MAX = 30000;
+const MAX_ATTEMPTS = 5; // per batch; then resolve nulls (caller falls back)
+
+interface Deferred {
+  promise: Promise<string | null>;
+  resolve: (v: string | null) => void;
+}
+
+interface PendingEntry {
+  source: string;
+  deferred: Deferred;
+}
+
+interface LangQueue {
+  pending: Map<string, PendingEntry>; // cacheKey(to, source) -> entry
+  timer: ReturnType<typeof setTimeout> | null;
+  draining: boolean;
+  backoffMs: number;
+}
+
+const queues = new Map<Lang, LangQueue>();
+// Same string asked twice while in flight shares one deferred — and one wire copy.
+const inflight = new Map<string, Deferred>();
+
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+function makeDeferred(): Deferred {
+  let resolve!: (v: string | null) => void;
+  const promise = new Promise<string | null>((r) => {
+    resolve = r;
+  });
+  return { promise, resolve };
+}
+
+function langQueue(to: Lang): LangQueue {
+  let q = queues.get(to);
+  if (!q) {
+    q = { pending: new Map(), timer: null, draining: false, backoffMs: 0 };
+    queues.set(to, q);
+  }
+  return q;
+}
+
+/** Enqueue one string; resolves with the translation (null = failed this run). */
+function enqueueTranslation(to: Lang, source: string): Promise<string | null> {
+  const key = cacheKey(to, source);
+  const existing = inflight.get(key);
+  if (existing) return existing.promise;
+
+  const deferred = makeDeferred();
+  inflight.set(key, deferred);
+  const q = langQueue(to);
+  q.pending.set(key, { source, deferred });
+  if (!q.timer && !q.draining) {
+    q.timer = setTimeout(() => {
+      q.timer = null;
+      void drain(q, to);
+    }, DEBOUNCE_MS);
+  }
+  return deferred.promise;
+}
+
+/** Send pending strings in large sequential batches; retry failures with backoff. */
+async function drain(q: LangQueue, to: Lang) {
+  if (q.draining) return;
+  q.draining = true;
+  try {
+    while (q.pending.size) {
+      if (q.backoffMs) await sleep(q.backoffMs);
+
+      // Take one batch (string count + encoded-size caps)
+      const batch: { key: string; source: string; deferred: Deferred }[] = [];
+      let chars = 0;
+      for (const [key, entry] of q.pending) {
+        const enc = encodeURIComponent(entry.source).length;
+        if (batch.length >= BATCH_MAX || (batch.length > 0 && chars + enc > BATCH_CHARS)) break;
+        batch.push({ key, source: entry.source, deferred: entry.deferred });
+        chars += enc;
+        q.pending.delete(key);
+      }
+
+      let ok = false;
+      let attempts = 1;
+      while (!ok && attempts <= MAX_ATTEMPTS) {
+        if (attempts > 1) await sleep(q.backoffMs);
+        try {
+          const res = await fetch('/api/translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ texts: batch.map((b) => b.source), to }),
+          });
+          if (res.ok) {
+            const data = await res.json().catch(() => null);
+            const trs: string[] = Array.isArray(data?.translations) ? data.translations : [];
+            // body.ok === false means upstream provider failure — retry, and
+            // never cache identity translations of the fallback originals.
+            if (trs.length === batch.length && data?.ok !== false) {
+              ok = true;
+              const cacheMap = readCache();
+              batch.forEach((b, j) => {
+                const tr = typeof trs[j] === 'string' && trs[j].trim() ? trs[j].trim() : null;
+                b.deferred.resolve(tr);
+                inflight.delete(b.key);
+                if (tr) cacheMap[cacheKey(to, b.source)] = tr;
+              });
+              writeCache(cacheMap);
+            }
+          }
+        } catch {
+          // network error — fall through to the retry path
+        }
+        if (!ok) {
+          q.backoffMs = q.backoffMs ? Math.min(q.backoffMs * 2, BACKOFF_MAX) : BACKOFF_START;
+          attempts++;
+        }
+      }
+
+      if (!ok) {
+        // Gave up after MAX_ATTEMPTS: resolve nulls so callers fall back to
+        // the source text (old failure contract) instead of waiting forever.
+        batch.forEach((b) => {
+          b.deferred.resolve(null);
+          inflight.delete(b.key);
+        });
+      } else {
+        q.backoffMs = 0;
+      }
+    }
+  } finally {
+    q.draining = false;
+    if (q.pending.size && !q.timer) {
+      // Strings arrived while the last batch was in the air
+      q.timer = setTimeout(() => {
+        q.timer = null;
+        void drain(q, to);
+      }, DEBOUNCE_MS);
+    }
+  }
+}
+
 // ---------- translation ----------
 
 /** Translate a list of strings, consulting the localStorage cache first. */
@@ -118,29 +274,12 @@ export async function translateStrings(texts: string[], to: Lang): Promise<(stri
   });
 
   if (missing.length) {
-    // Cap the batch — oversized sets simply stay untranslated this round
-    const capped = missing.slice(0, 400);
-    try {
-      const res = await fetch('/api/translate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ texts: capped, to }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        const trs: string[] = Array.isArray(data?.translations) ? data.translations : [];
-        capped.forEach((src, j) => {
-          const tr = typeof trs[j] === 'string' && trs[j].trim() ? trs[j].trim() : null;
-          result[missingIdx[j]] = tr;
-          if (tr) {
-            cache[cacheKey(to, src)] = tr;
-          }
-        });
-        writeCache(cache);
-      }
-    } catch {
-      // network failure — keep nulls (caller falls back to the source text)
-    }
+    // The queue batches these across ALL concurrent callers of this module —
+    // N questions joining within the debounce window share one request.
+    const settled = await Promise.all(missing.map((src) => enqueueTranslation(to, src)));
+    settled.forEach((v, j) => {
+      result[missingIdx[j]] = v;
+    });
   }
 
   return result;
@@ -180,7 +319,10 @@ export async function translateQuestion(q: TranslatableQuestion, to: Lang): Prom
 
 /**
  * Translate every question that lacks a stored translation for `to`.
- * Runs with a small concurrency window; returns a map keyed by question id.
+ * All questions join the shared debounced queue at once (the queue — not a
+ * worker pool — is the throttle now), so a whole test travels in a couple of
+ * large batched requests instead of one request per question. Returns a map
+ * keyed by question id; `onOne` fires as each question's strings settle.
  */
 export async function autoTranslateQuestions(
   questions: TranslatableQuestion[],
@@ -189,23 +331,17 @@ export async function autoTranslateQuestions(
 ): Promise<Map<string, QTranslationsV>> {
   const out = new Map<string, QTranslationsV>();
   const queue = questions.filter(q => q.text && q.id && !q.translations?.[to]);
-  const CONCURRENCY = 4;
-  let cursor = 0;
 
-  const worker = async () => {
-    while (cursor < queue.length) {
-      const q = queue[cursor++];
-      try {
-        const tr = await translateQuestion(q, to);
-        if (tr && q.id) {
-          out.set(q.id, tr);
-          onOne?.(q.id, tr);
-        }
-      } catch {
-        // single-question failure is non-fatal
+  await Promise.all(queue.map(async q => {
+    try {
+      const tr = await translateQuestion(q, to);
+      if (tr && q.id) {
+        out.set(q.id, tr);
+        onOne?.(q.id, tr);
       }
+    } catch {
+      // single-question failure is non-fatal
     }
-  };
-  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, queue.length) }, worker));
+  }));
   return out;
 }

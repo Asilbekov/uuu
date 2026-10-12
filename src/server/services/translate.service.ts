@@ -6,6 +6,15 @@
 //   1. clients5.google.com (Chrome dictionary endpoint) — batched, fast;
 //   2. translate.googleapis.com (gtx) — per-text fallback;
 //   3. api.mymemory.translated.net — per-text last resort.
+//
+// On top of the provider chain the service keeps two upstream-shielding
+// layers (the relay is free and shared — every saved call counts):
+//
+//   * LRU+TTL CACHE — warm instances answer repeat strings from memory, so
+//     N visitors of the same untranslated test cost ONE upstream pass, not N;
+//   * SINGLE-FLIGHT — concurrent requests asking for the same string share
+//     one upstream call instead of hammering the providers in parallel.
+//
 // On total failure the ORIGINAL texts are returned so the UI can fall back
 // to the source language instead of breaking. The endpoint stays public
 // (anonymous test viewers translate too) and is rate-limited per IP.
@@ -19,6 +28,87 @@ const MAX_STRINGS = 500;
 const MAX_STRING_CHARS = 6000;
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
+
+// ---------------------------------------------------------------------------
+// Translation cache (in-memory, per warm instance)
+// ---------------------------------------------------------------------------
+
+const CACHE_CAP = 8000; // max cached strings (~2 MB heap worst case)
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+
+const cache = new Map<string, { v: string; t: number }>();
+
+function cacheGet(key: string): string | undefined {
+  const hit = cache.get(key);
+  if (!hit) return undefined;
+  if (Date.now() - hit.t > CACHE_TTL_MS) {
+    cache.delete(key);
+    return undefined;
+  }
+  // LRU touch: re-insert to move the entry to the eviction-safe tail
+  cache.delete(key);
+  cache.set(key, hit);
+  return hit.v;
+}
+
+function cacheSet(key: string, value: string) {
+  if (cache.size >= CACHE_CAP) {
+    // Evict the least-recently-used head (Map iterates insertion order)
+    const oldest = cache.keys().next().value;
+    if (oldest !== undefined) cache.delete(oldest);
+  }
+  cache.set(key, { v: value, t: Date.now() });
+}
+
+const stringKey = (to: string, source: string) => `${to}|${source}`;
+
+// ---------------------------------------------------------------------------
+// Single-flight registry: concurrent identical strings share one upstream call
+// ---------------------------------------------------------------------------
+
+const inflight = new Map<string, Promise<(string | null)[]>>();
+
+/** Translate a small chunk (≤40 strings) through the provider chain. */
+async function translateChunk(texts: string[], to: string): Promise<(string | null)[]> {
+  let result = await googleClients5(texts, to);
+  if (!result) result = await googleGtx(texts, to);
+  if (!result) result = await myMemory(texts, to);
+  if (!result || result.length !== texts.length) return texts.map(() => null);
+  return result.map((t) => (typeof t === "string" && t.trim() ? t : null));
+}
+
+/**
+ * Translate `work` (non-empty, cache-miss) strings with cache + single-flight
+ * + sequential upstream chunking. Returns the same number of entries; a null
+ * means "upstream failed for this string" (caller falls back to the source).
+ */
+async function translateMisses(work: string[], to: string): Promise<(string | null)[]> {
+  const CHUNK = 40; // mirrors the clients5 URL-size batching
+  const out: (string | null)[] = new Array(work.length).fill(null);
+
+  for (let start = 0; start < work.length; start += CHUNK) {
+    const slice = work.slice(start, start + CHUNK);
+    // Single-flight: every string gets ONE shared promise across all
+    // concurrent requests; the chunk runs only if no identical chunk is
+    // already upstream. Keyed by (to, chunk-content) so overlapping requests
+    // coalesce and non-overlapping ones still translate their own tail.
+    const chunkKey = stringKey(to, JSON.stringify(slice));
+    let chunkPromise = inflight.get(chunkKey);
+    if (!chunkPromise) {
+      chunkPromise = translateChunk(slice, to).finally(() => {
+        // microtask-delayed teardown: same-tick requesters can still join
+        setTimeout(() => inflight.delete(chunkKey), 0);
+      });
+      inflight.set(chunkKey, chunkPromise);
+    }
+    const chunkResult = await chunkPromise;
+    chunkResult.forEach((v, i) => {
+      out[start + i] = v;
+      if (v) cacheSet(stringKey(to, slice[i]), v);
+    });
+  }
+  return out;
+}
 
 async function fetchWithTimeout(url: string, ms = 12000): Promise<Response> {
   return fetch(url, {
@@ -121,24 +211,47 @@ export async function translateTexts(
   // Drop empty strings from translation (they translate to noise) but keep order
   const placeholders = new Map<number, string>(); // index -> original ''
   const work: string[] = [];
+  const workIdx: number[] = [];
   clean.forEach((t, i) => {
-    if (t.trim()) work.push(t);
-    else placeholders.set(i, "");
+    if (t.trim()) {
+      work.push(t);
+      workIdx.push(i);
+    } else placeholders.set(i, "");
   });
 
-  let result = await googleClients5(work, input.to);
-  if (!result) result = await googleGtx(work, input.to);
-  if (!result) result = await myMemory(work, input.to);
-  if (!result || result.length !== work.length) {
-    // Total failure — give back originals so the UI keeps the source text
-    return { translations: clean, ok: false };
+  // Layer 1: serve everything the in-memory cache already knows. Even when
+  // every string hits, identical repeat requests never reach the providers.
+  const missWork: string[] = [];
+  const missAt: number[] = [];
+  const served = new Map<number, string>(); // work-position -> translation
+  work.forEach((t, w) => {
+    const hit = cacheGet(stringKey(input.to, t));
+    if (typeof hit === "string") served.set(w, hit);
+    else {
+      missWork.push(t);
+      missAt.push(w);
+    }
+  });
+
+  // Layer 2: single-flight batched upstream pass for the misses
+  let ok = true;
+  if (missWork.length) {
+    const missResult = await translateMisses(missWork, input.to);
+    missResult.forEach((v, m) => {
+      if (typeof v === "string") served.set(missAt[m], v);
+      else ok = false; // genuine upstream failure for this string
+    });
   }
 
-  const final: string[] = [];
+  const final: string[] = new Array(clean.length).fill("");
+  // positional join (work order == clean order for non-empty entries)
   let w = 0;
   for (let i = 0; i < clean.length; i++) {
-    if (placeholders.has(i)) final.push("");
-    else final.push(result[w++] ?? clean[i]);
+    if (placeholders.has(i)) continue;
+    const translated = served.get(w);
+    // fallback to the original on failure so the UI keeps the source text
+    final[i] = translated ?? clean[i];
+    w++;
   }
-  return { translations: final, ok: true };
+  return { translations: final, ok };
 }
