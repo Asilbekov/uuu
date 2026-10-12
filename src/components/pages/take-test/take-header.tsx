@@ -92,12 +92,15 @@ export function TakeHeader({
 
   return (
     <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3">
+      {/* FIXED h-14 — the uniform 56px top-panel contract (every page, every
+          viewport). The row and the progress bar share the 56px: 32px row +
+          4px gap + 8px bar = 44px, vertically centered. */}
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 h-14 flex flex-col justify-center gap-1">
         {/* ONE row on EVERY viewport (flex-nowrap): all buttons compress to
             icon-only pills on narrow screens so the panel never wraps onto
             a second row. Search is a BUTTON; tapping it expands an input
             overlay that covers the whole row until dismissed. */}
-        <div className="relative flex flex-nowrap items-center justify-between gap-1 sm:gap-2 mb-2">
+        <div className="relative flex flex-nowrap items-center justify-between gap-1 sm:gap-2 w-full">
           <div className="flex items-center gap-1 sm:gap-2 min-w-0 shrink-0">
             <Button variant="ghost" size="sm" onClick={goHome} className="shrink-0 h-8 w-8 p-0"><Home className="w-4 h-4" /></Button>
             <LangButton lang={lang} onChange={cycleLang} className="border-black shrink-0 px-1.5 sm:px-3" />

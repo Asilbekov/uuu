@@ -133,8 +133,10 @@ export function ResultsView({
       <TranslatingPill show={autoTranslating} label={t('translating')} />
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
         {/* ONE row on EVERY viewport (flex-nowrap): buttons compress to
-            icon-only pills on narrow screens; the search input shrinks. */}
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
+            icon-only pills on narrow screens; the search input shrinks.
+            FIXED h-14 — the uniform 56px top-panel contract (same as every
+            other page, every viewport, every state). */}
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 h-14 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
           <div className="flex items-center gap-1 sm:gap-1.5 min-w-0 shrink">
             <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full shrink-0 h-8 w-8 p-0 sm:w-auto sm:px-3"><ArrowLeft className="w-4 h-4 sm:mr-1" /> <span className="hidden sm:inline">{t('back')}</span></Button>
             {(currentTest?.attachments?.length || 0) > 0 ? (
@@ -281,7 +283,7 @@ export function ResultsView({
           className="max-w-7xl mx-auto px-4 pt-3"
           style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
         >
-          <Button onClick={() => openStartTest(currentTest!)} className="w-full rounded-full bg-primary hover:bg-primary/90">
+          <Button onClick={() => openStartTest(currentTest!)} className="w-full h-9 rounded-full bg-primary hover:bg-primary/90">
             <RefreshCw className="w-4 h-4 mr-2" /> {t('retryTest')}
           </Button>
         </div>

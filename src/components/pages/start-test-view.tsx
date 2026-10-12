@@ -74,7 +74,8 @@ export default function StartTestView({
   return (
     <div className="min-h-screen bg-background screen-enter" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-        <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-3">
+        {/* FIXED h-14 — the uniform 56px top-panel contract (every page, every viewport). */}
+        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
           <h1 className="text-lg font-bold">{t('startTest')}</h1>
         </div>
@@ -259,26 +260,28 @@ export default function StartTestView({
           style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
         >
           {savedProgress && savedProgress.shuffledQuestions.length > 0 ? (
-            <div className="flex flex-col gap-2">
+            /* SIDE-BY-SIDE (never stacked): the bottom panel keeps its fixed
+            60px height in EVERY state — Restart | Continue. */
+            <div className="flex gap-2">
               <Button
                 variant="outline"
                 onClick={startTest}
                 disabled={loading}
-                className="w-full rounded-full"
+                className="flex-1 min-w-0 h-9 rounded-full"
                 aria-label={t('startOver')}
               >
-                <RefreshCw className="w-4 h-4 mr-2" /> {t('restart')}
+                <RefreshCw className="w-4 h-4 mr-2 shrink-0" /> <span className="truncate">{t('restart')}</span>
               </Button>
               <Button
                 onClick={() => continueTestWith(currentTest!)}
                 disabled={loading}
-                className="w-full rounded-full bg-primary hover:bg-primary/90"
+                className="flex-1 min-w-0 h-9 rounded-full bg-primary hover:bg-primary/90"
               >
-                {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {t('continueTest', { n: countAnsweredProgress(savedProgress), m: savedProgress.shuffledQuestions.length })}</>}
+                {loading ? t('loading') : <><Play className="w-4 h-4 mr-2 shrink-0" /> <span className="truncate">{t('continueTest', { n: countAnsweredProgress(savedProgress), m: savedProgress.shuffledQuestions.length })}</span></>}
               </Button>
             </div>
           ) : (
-            <Button onClick={startTest} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
+            <Button onClick={startTest} disabled={loading} className="w-full h-9 rounded-full bg-primary hover:bg-primary/90">
               {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {practiceMode ? t('startPractice', { count: selectedQuestionCount }) : t('startTestN', { count: selectedQuestionCount })}</>}
             </Button>
           )}

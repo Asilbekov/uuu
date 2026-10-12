@@ -31,7 +31,8 @@ export default function CreateEditView({
   return (
     <div className="min-h-screen bg-background screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
+        {/* FIXED h-14 — the uniform 56px top-panel contract (every page, every viewport). */}
+        <div className="max-w-4xl mx-auto px-4 h-14 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
           <h1 className="text-lg font-bold">{editingTestId ? t('editTest') : t('createNewTest')}</h1>
         </div>
@@ -47,7 +48,7 @@ export default function CreateEditView({
           className="max-w-4xl mx-auto px-4 pt-3"
           style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
         >
-          <Button onClick={() => handleSaveTest()} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
+          <Button onClick={() => handleSaveTest()} disabled={loading} className="w-full h-9 rounded-full bg-primary hover:bg-primary/90">
             {loading ? t('saving') : editingTestId ? t('save') : t('createTest')}
           </Button>
         </div>

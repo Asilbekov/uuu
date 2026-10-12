@@ -410,8 +410,10 @@ export default function DashboardView({
           {/* One row on EVERY viewport, no matter how many buttons: the row
               never wraps (flex-nowrap); buttons compress to icon-only pills on
               narrow screens. Search is a button too — when open, its input
-              overlay covers the whole row instead of pushing buttons out. */}
-          <div className="relative max-w-7xl mx-auto px-3 sm:px-4 py-3 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
+              overlay covers the whole row instead of pushing buttons out.
+              FIXED h-14: every page's top panel is exactly 56px tall, on every
+              viewport, in every state (uniform top-panel contract). */}
+          <div className="relative max-w-7xl mx-auto px-3 sm:px-4 h-14 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
             {searchMounted && (
               <div className={`absolute inset-0 z-50 bg-white flex items-center gap-2 px-3 sm:px-4 ${dashSearchOpen ? 'animate-in fade-in duration-150' : 'animate-out fade-out pointer-events-none duration-150'}`}>
                 <div className="flex-1 min-w-0 relative">
@@ -564,6 +566,10 @@ export default function DashboardView({
              .skeleton-mirror adds the sweeping light glint (the card reads as
              a mirror plate while the first data loads). */
           <main className="flex-1 min-h-0 flex items-center justify-center px-3" aria-hidden="true">
+            {/* Placeholder shaped like a REAL feed card: feed cards are
+            CONTENT-height columns (centered TikTok style), so the skeleton
+            approximates the typical card height (70%, capped 560px) — when
+            data replaces it the card stays visually in place. */}
             <div className="skeleton-mirror w-full max-w-md h-[70%] max-h-[560px] rounded-2xl border border-black/10 bg-white p-4 flex flex-col gap-3">
               <Skeleton className="h-10 w-full rounded-xl" />
               <Skeleton className="flex-1 w-full rounded-xl" />
@@ -626,7 +632,7 @@ export default function DashboardView({
                         <div
                           key={ri}
                           className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
-                          style={{ minHeight: 'calc(100% / 3)' }}
+                          style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}
                         >
                           {row.map((f, ci) => dashView === 'library' ? (
                             <div
@@ -706,7 +712,7 @@ export default function DashboardView({
                       <div
                         key={ri}
                         className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
-                        style={{ minHeight: 'calc(100% / 3)' }}
+                        style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}
                       >
                         {row.map((test, ci) => {
                           const idx = ri * gridPerRow + ci;
@@ -731,6 +737,7 @@ export default function DashboardView({
                               card clean (you know it's yours). */}
                               {(discoverMode || viewingUser) && !(discoverMode && own) && (
                                 <CreatorStrip
+                                  compact
                                   name={(test as any).creator?.name || viewingUser?.name || ''}
                                   creatorId={(test as any).creator?.id || test.creatorId}
                                   image={(test as any).creator?.image || viewingUser?.image || null}
@@ -843,6 +850,7 @@ export default function DashboardView({
                                 header + bookmark on the shelf card too */}
                                 {(discoverMode || viewingUser) && !(discoverMode && own) && (
                                   <CreatorStrip
+                                    compact
                                     name={(test as any).creator?.name || viewingUser?.name || ''}
                                     creatorId={(test as any).creator?.id || test.creatorId}
                                     image={(test as any).creator?.image || viewingUser?.image || null}
@@ -1304,21 +1312,23 @@ export default function DashboardView({
                 {editMode ? (
                   <Button
                     onClick={() => curDashTest && startEditTest(curDashTest)}
-                    className="w-full rounded-full bg-cta hover:bg-cta/90 text-white"
+                    className="w-full h-9 rounded-full bg-cta hover:bg-cta/90 text-white"
                   >
                     <Edit className="w-4 h-4 mr-2" /> {t('editThisTest')}
                   </Button>
                 ) : dashSaved ? (
-                  <div className="flex flex-col gap-2">
-                    <Button variant="outline" onClick={() => startFromDashboard(true)} disabled={loading || !curDashTest} className="w-full rounded-full">
-                      <RefreshCw className="w-4 h-4 mr-2" /> {t('restart')}
+                  /* SIDE-BY-SIDE (never stacked): the bottom panel keeps its
+                  fixed 60px height in EVERY state — Restart | Continue. */
+                  <div className="flex gap-2">
+                    <Button variant="outline" onClick={() => startFromDashboard(true)} disabled={loading || !curDashTest} className="flex-1 min-w-0 h-9 rounded-full">
+                      <RefreshCw className="w-4 h-4 mr-2 shrink-0" /> <span className="truncate">{t('restart')}</span>
                     </Button>
-                    <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
-                      {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {t('continueTest', { n: countAnsweredProgress(dashSaved), m: dashSaved.shuffledQuestions.length })}</>}
+                    <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="flex-1 min-w-0 h-9 rounded-full bg-primary hover:bg-primary/90">
+                      {loading ? t('loading') : <><Play className="w-4 h-4 mr-2 shrink-0" /> <span className="truncate">{t('continueTest', { n: countAnsweredProgress(dashSaved), m: dashSaved.shuffledQuestions.length })}</span></>}
                     </Button>
                   </div>
                 ) : (
-                  <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                  <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full h-9 rounded-full bg-primary hover:bg-primary/90">
                     {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {practiceMode ? t('startPractice', { count: barCount }) : t('startTestN', { count: barCount })}</>}
                   </Button>
                 )}

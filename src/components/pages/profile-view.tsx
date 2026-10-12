@@ -77,7 +77,8 @@ export default function ProfileView({
   return (
     <div className="min-h-screen bg-background flex flex-col screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-        <div className="max-w-2xl mx-auto px-4 py-3 flex items-center gap-2">
+        {/* FIXED h-14 — the uniform 56px top-panel contract (every page, every viewport). */}
+        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
           <Button
             variant="ghost"
             size="sm"
