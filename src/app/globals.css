@@ -236,9 +236,14 @@
 }
 .feed-swiper .swiper-wrapper {
   height: 100%;
+  /* Compositing hints: keep the wrapper on its own GPU layer so the settle
+     animation never repaints the whole card stack per frame (the main
+     source of the "swipe between cards is not smooth" feel on phones). */
+  will-change: transform;
 }
 .feed-swiper .swiper-slide {
   height: 100%;
+  backface-visibility: hidden;
 }
 
 /* ── Swiper question drum (take-test bottom strip) ────────────────────────

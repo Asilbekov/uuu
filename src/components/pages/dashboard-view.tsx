@@ -217,9 +217,12 @@ export default function DashboardView({
     speed: 320,
     resistanceRatio: 0,
     touchReleaseOnEdges: true,
+    // no gesture interrupts the settle animation mid-flight (stutter source)
+    preventInteractionOnTransition: true,
     longSwipesRatio: 0.35,
     mousewheel: { forceToAxis: true, sensitivity: 1, thresholdDelta: 12, thresholdTime: 250, releaseOnEdges: false },
-    virtual: { enabled: true, addSlidesBefore: 2, addSlidesAfter: 2 },
+    // buffer 3: even a double-slide flick always finds its target pre-mounted
+    virtual: { enabled: true, addSlidesBefore: 3, addSlidesAfter: 3 },
   };
 
   // Imperative handle for app-root (jump-to-test / deep links / scope resets).
@@ -969,8 +972,14 @@ export default function DashboardView({
                     const bgClass = test.coverColor ? '' : coverBgFor(test);
                     const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
                     return (
-                      <SwiperSlide key={`${test.id}`} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`} virtualIndex={idx}>
-                      <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
+                      <SwiperSlide key={`${test.id}`} className={`relative !h-full overflow-hidden ${bgClass}`} virtualIndex={idx}>
+                      {/* bgStyle goes on THIS inner div, NOT on the SwiperSlide:
+                      swiper-react's virtual renderVirtual() cloneElement-injects
+                      its own {top: offset} style onto every slide, silently
+                      REPLACING the slide's own style prop — an inline coverColor
+                      on the slide was being dropped (white cards). Classes
+                      survive the clone, which is why derived colors kept working. */}
+                      <div style={bgStyle} className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                         <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
                           <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
                             <p className="text-xs font-semibold text-foreground/70 line-clamp-1">{test.title}</p>
@@ -1046,8 +1055,11 @@ export default function DashboardView({
                 return (
                   // overflow-hidden: the card always fits the screen — no scrolling
                   // inside a card, swipes only move between cards
-                  <SwiperSlide key={test.id} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`} virtualIndex={idx}>
-                    <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
+                  <SwiperSlide key={test.id} className={`relative !h-full overflow-hidden ${bgClass}`} virtualIndex={idx}>
+                    {/* bgStyle on the inner div — the SwiperSlide style prop is
+                    REPLACED by swiper-react's virtual {top: offset} injection
+                    (see the files-feed comment above). */}
+                    <div style={bgStyle} className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
                         {/* Discover mode AND other users' libraries: author header
                         with the bookmark toggle, right above the cover. Personal
