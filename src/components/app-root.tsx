@@ -623,7 +623,10 @@ function AppRootInner({ authed }: { authed: boolean }) {
     const stored = localStorage.getItem('chemtest_user');
     if (!stored) {
       // Fresh visitor (or the session was cleared): the cookie must not say
-      // "authed" anymore — land on the login screen the server already showed.
+      // "authed" anymore — land on the login screen. The explicit setPage
+      // also retracts the cookie-based pre-mount dashboard landing when the
+      // evidence (no stored user) says this is actually a logged-out visit.
+      setPage('auth');
       clearAuthCookie();
       setDataReady(true);
       return;
@@ -636,6 +639,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
     }
     if (!parsed) {
       // Corrupted session entry — treat it as a fresh visitor
+      setPage('auth');
       clearAuthCookie();
       setDataReady(true);
       return;
@@ -712,7 +716,16 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // Apply hydrated user - use hydratedUser if no explicit login has happened
   // Only use hydratedUser after mount to avoid hydration mismatch
   const effectiveUser = user || (mounted ? hydratedUser : null);
-  const effectivePage = page === 'auth' && mounted && hydratedUser ? 'dashboard' : page;
+  // Landing-page resolution WITHOUT store writes (the render-time store seed
+  // cannot reach the store copy AppRootInner reads — the server kept painting
+  // the LOGIN screen for every returning user, killing the instant dashboard
+  // shell). Before mount, the auth cookie is the only evidence: an authed
+  // visit pre-renders the dashboard (skeleton) — the same rule on server and
+  // client-first-frame, so hydration stays mismatch-free. After mount the
+  // real store page wins again (stale cookie + no stored user falls back to
+  // login via the mount effect below).
+  const landingPage = !mounted && authed && page === 'auth' ? 'dashboard' : page;
+  const effectivePage = landingPage === 'auth' && mounted && hydratedUser ? 'dashboard' : landingPage;
 
   // My profile photo: probe the avatar route once per session/user — a 200
   // means a photo exists (shown on the account button), 404 → initials.
