@@ -32,8 +32,9 @@ import { useExitMount } from '@/components/motion';
 // support and momentum handling — all maintained upstream instead of here.
 // ---------------------------------------------------------------------------
 import 'swiper/css';
+import 'swiper/css/virtual';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Mousewheel } from 'swiper/modules';
+import { Mousewheel, Virtual } from 'swiper/modules';
 import type { Swiper as SwiperClass } from 'swiper';
 import type { Lang } from '@/lib/i18n';
 import { useSessionStore } from '@/stores/session-store';
@@ -202,9 +203,15 @@ export default function DashboardView({
 
   // Shared engine config: one wheel notch / flick = exactly one full-height
   // card, zero rubber-banding between cards, no release-to-edges drift.
+  // Virtual slides: only the visible card + a 2-card buffer mounts — the same
+  // windowing the question feed runs (take-test-view). Cards render from data
+  // already in memory (`tests` / `fileSlides`), so a visible card can never be
+  // a placeholder; Swiper mounts/unmounts cards around the active index and
+  // slides to any target (deep links, jump-to-test) on demand. swiper/react
+  // re-syncs the virtual window when the arrays grow (silent pagination).
   const swiperParams = {
     direction: 'vertical' as const,
-    modules: [Mousewheel],
+    modules: [Mousewheel, Virtual],
     slidesPerView: 1,
     spaceBetween: 0,
     speed: 320,
@@ -212,6 +219,7 @@ export default function DashboardView({
     touchReleaseOnEdges: true,
     longSwipesRatio: 0.35,
     mousewheel: { forceToAxis: true, sensitivity: 1, thresholdDelta: 12, thresholdTime: 250, releaseOnEdges: false },
+    virtual: { enabled: true, addSlidesBefore: 2, addSlidesAfter: 2 },
   };
 
   // Imperative handle for app-root (jump-to-test / deep links / scope resets).
@@ -219,8 +227,11 @@ export default function DashboardView({
   React.useEffect(() => {
     feedApiRef.current = {
       slideTo: (idx, speed = 0) => {
+        // Clamp to the FULL feed count (feedCountRef), never to sw.slides —
+        // with virtual slides the DOM holds only the mounted window, while
+        // deep links / jump-to-test can target any loaded index.
         const sw = filesSwiperRef.current || testsSwiperRef.current;
-        if (sw) sw.slideTo(Math.max(0, Math.min(idx, (sw.slides?.length || 1) - 1)), speed);
+        if (sw) sw.slideTo(Math.max(0, Math.min(idx, Math.max(0, feedCountRef.current - 1))), speed);
         else pendingSlideRef.current = idx; // feed not mounted yet — apply on init
       },
     };
@@ -232,7 +243,8 @@ export default function DashboardView({
     if (pendingSlideRef.current == null) return;
     const i = pendingSlideRef.current;
     pendingSlideRef.current = null;
-    requestAnimationFrame(() => sw.slideTo(Math.max(0, Math.min(i, (sw.slides?.length || 1) - 1)), 0));
+    const total = sw.virtual?.slides?.length || feedCountRef.current;
+    requestAnimationFrame(() => sw.slideTo(Math.max(0, Math.min(i, Math.max(0, total - 1))), 0));
   };
 
   // Wheel gate: events originating inside an inner scrollable (the attached-
@@ -245,23 +257,25 @@ export default function DashboardView({
 
   // External index changes (jump-to-test, deep link, scope reset) drive the
   // swiper; slide commits flow back through onSlideChange — the equality
-  // check makes the loop settle immediately.
+  // check makes the loop settle immediately. Appended/removed slides (silent
+  // pagination, unpins, deletes) keep the virtual bookkeeping in sync: the
+  // mounted-window count must always agree with the full list length.
   React.useEffect(() => {
     const sw = testsSwiperRef.current;
     if (!sw || filesFeedMode || tests.length === 0) return;
+    const mounted = sw.virtual?.slides?.length ?? 0;
+    if (mounted && mounted !== tests.length) sw.update();
     const target = Math.min(Math.max(0, dashTestIdx), tests.length - 1);
     if (sw.activeIndex !== target) sw.slideTo(target, 0);
   }, [dashTestIdx, tests.length, filesFeedMode]);
   React.useEffect(() => {
     const sw = filesSwiperRef.current;
     if (!sw || !filesFeedMode) return;
+    const mounted = sw.virtual?.slides?.length ?? 0;
+    if (mounted && mounted !== fileSlides.length) sw.update();
     const target = Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1));
     if (sw.activeIndex !== target) sw.slideTo(target, 0);
   }, [dashSlideIdx, fileSlides.length, filesFeedMode]);
-  // Appended/removed slides (silent pagination, unpins, deletes) — keep the
-  // engine's internal slide bookkeeping in sync.
-  React.useEffect(() => { testsSwiperRef.current?.update(); }, [tests.length]);
-  React.useEffect(() => { filesSwiperRef.current?.update(); }, [fileSlides.length]);
 
   // Keyboard parity with TikTok web: ↑/↓/PgUp/PgDn/Space step one card,
   // Home/End jump to the first/last one. Ignored while typing or in dialogs.
@@ -315,12 +329,11 @@ export default function DashboardView({
         </div>
       );
     }
-  // CONSTANT CONTENT — every loaded card is fully mounted at all times (the
-  // feed loads in small pages of 12 and appends the next page before the
-  // end), so a visible card can never be an empty placeholder: nothing can
-  // pop in, vanish or re-mount mid-swipe BY CONSTRUCTION. This is the TikTok
-  // "already on screen before you get there" guarantee, without any window
-  // arithmetic or race conditions.
+  // VIRTUAL WINDOW — Swiper Virtual mounts only the visible card + a 2-card
+  // buffer (see swiperParams). Every card renders from data ALREADY loaded in
+  // `tests` (the feed pages in 12s and appends the next page before the end),
+  // so a visible card can never be an empty placeholder: the window moves
+  // synchronously with the slide commit, never mid-gesture.
   const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
     // Saved progress for the test on screen (cached read) — drives the Continue button
     const dashSaved = curDashTest ? readTestProgress(progressUserId, curDashTest.id) : null;
@@ -951,12 +964,12 @@ export default function DashboardView({
                     <SwiperSlide className="!h-full flex items-center justify-center">
                       <p className="text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}</p>
                     </SwiperSlide>
-                  ) : fileSlides.map((s) => {
+                  ) : fileSlides.map((s, idx) => {
                     const test = s.test;
                     const bgClass = test.coverColor ? '' : coverBgFor(test);
                     const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
                     return (
-                      <SwiperSlide key={`${test.id}`} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
+                      <SwiperSlide key={`${test.id}`} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`} virtualIndex={idx}>
                       <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                         <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
                           <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
@@ -1033,7 +1046,7 @@ export default function DashboardView({
                 return (
                   // overflow-hidden: the card always fits the screen — no scrolling
                   // inside a card, swipes only move between cards
-                  <SwiperSlide key={test.id} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
+                  <SwiperSlide key={test.id} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`} virtualIndex={idx}>
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                       <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
                         {/* Discover mode AND other users' libraries: author header
