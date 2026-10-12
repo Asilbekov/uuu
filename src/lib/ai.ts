@@ -12,58 +12,131 @@
  *      fails fast — a circuit breaker skips it for a while after failures.
  *   3. Mistral                          — always-available fallback.
  *
- * All providers speak the same message array the Mistral client used, so the
- * routes stay unchanged apart from the import.
+ * Providers 1 and 3 speak the Vercel AI SDK (github.com/vercel/ai — the
+ * standard LLM runtime for Next.js backends): one `generateText` call per
+ * provider through the official @ai-sdk/google / @ai-sdk/mistral adapters,
+ * which own request marshalling, timeouts and typed API errors. The hand-
+ * rolled REST clients are gone; what stays here is only the chain policy and
+ * the AI Mode scraper (no SDK exists for scraping). All providers speak the
+ * same message array, so the routes stay unchanged apart from the import.
  */
-import { mistralChat, type ChatCompletionOptions } from '@/lib/mistral';
+import { generateText, type ModelMessage } from 'ai';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
+import { createMistral } from '@ai-sdk/mistral';
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+// Legacy fallback: this key was committed to the repo historically, so it is
+// PUBLIC — rotation is pending (move a fresh key into MISTRAL_API_KEY on the
+// host and delete this default).
+const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY || 'mstrl_naalPY3i3Et7CiwdCYCPFJhONOFzt0qI_13UuG1';
+const MISTRAL_MODEL = process.env.MISTRAL_MODEL || 'mistral-small-latest';
 
-/* ------------------------------------------------------------------ */
-/* Provider 1 — Gemini (Google AI Studio)                              */
-/* ------------------------------------------------------------------ */
+const GEMINI_TIMEOUT_MS = 30_000;
+const MISTRAL_TIMEOUT_MS = 45_000;
 
-async function geminiChat(options: ChatCompletionOptions): Promise<string> {
-  if (!GEMINI_API_KEY) throw new Error('GEMINI_NOT_CONFIGURED');
+export interface ChatMessage {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+}
 
+export interface ChatCompletionOptions {
+  messages: ChatMessage[];
+  temperature?: number;
+  max_tokens?: number;
+  model?: string;
+}
+
+/** Normalize SDK failures into messages the chain + routes already grep:
+ *  rate limits must read "429" / "Too many requests" (the /api/chat mapper).
+ *  The SDK wraps attempts in AI_RetryError (no top-level statusCode) — walk
+ *  the per-attempt error list to recover the last HTTP status. */
+function sdkError(label: string, e: unknown): Error {
+  const err = e as {
+    message?: string;
+    statusCode?: number;
+    errors?: Array<{ statusCode?: number; message?: string }>;
+  };
+  let status = typeof err?.statusCode === 'number' ? err.statusCode : undefined;
+  const desc = err?.message || String(e);
+  if (status === undefined && Array.isArray(err?.errors)) {
+    for (let i = err.errors.length - 1; i >= 0; i--) {
+      const inner = err.errors[i];
+      if (inner && typeof inner.statusCode === 'number') { status = inner.statusCode; break; }
+    }
+  }
+  if (status === undefined && /rate limit|too many requests/i.test(desc)) status = 429;
+  const tag =
+    status === 429 ? 'HTTP 429: Too many requests'
+    : status ? `HTTP ${status}`
+    : 'no response';
+  return new Error(`${label}: ${desc} (${tag})`);
+}
+
+/** Split the unified message array into the AI SDK's system + core messages. */
+function toSdkMessages(options: ChatCompletionOptions): {
+  system?: string;
+  messages: ModelMessage[];
+} {
   const system = options.messages
     .filter(m => m.role === 'system')
     .map(m => m.content)
     .join('\n\n');
-  const contents = options.messages
+  const messages: ModelMessage[] = options.messages
     .filter(m => m.role !== 'system')
-    .map(m => ({
-      role: m.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: m.content }],
-    }));
+    .map(m => ({ role: m.role, content: m.content }) as ModelMessage);
+  return system ? { system, messages } : { messages };
+}
 
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents,
-        ...(system ? { systemInstruction: { parts: [{ text: system }] } } : {}),
-        generationConfig: {
-          temperature: options.temperature ?? 0.5,
-          maxOutputTokens: options.max_tokens ?? 1600,
-        },
-      }),
-      signal: AbortSignal.timeout(30000),
-    }
-  );
+/* ------------------------------------------------------------------ */
+/* Provider 1 — Gemini (Google AI Studio) via @ai-sdk/google           */
+/* ------------------------------------------------------------------ */
 
-  const body: any = await res.json().catch(() => null);
-  const text: string | undefined = body?.candidates?.[0]?.content?.parts
-    ?.map((p: any) => p?.text || '')
-    .join('');
-  if (!res.ok || !text) {
-    const desc = body?.error?.message || `HTTP ${res.status}`;
-    throw new Error(`GEMINI_API_ERROR: ${desc}`);
+async function geminiChat(options: ChatCompletionOptions): Promise<string> {
+  if (!GEMINI_API_KEY) throw new Error('GEMINI_NOT_CONFIGURED');
+  const { system, messages } = toSdkMessages(options);
+  try {
+    const google = createGoogleGenerativeAI({ apiKey: GEMINI_API_KEY });
+    const { text } = await generateText({
+      model: google(GEMINI_MODEL),
+      ...(system ? { system } : {}),
+      messages,
+      temperature: options.temperature ?? 0.5,
+      maxOutputTokens: options.max_tokens ?? 1600,
+      // The app layers its own rate-limit retry (callAIWithRetry) — SDK
+      // internal retries would multiply the user-visible latency.
+      maxRetries: 0,
+      abortSignal: AbortSignal.timeout(GEMINI_TIMEOUT_MS),
+    });
+    if (!text) throw new Error('empty completion');
+    return text;
+  } catch (e) {
+    throw sdkError('GEMINI_API_ERROR', e);
   }
-  return text;
+}
+
+/* ------------------------------------------------------------------ */
+/* Provider 3 — Mistral via @ai-sdk/mistral                            */
+/* ------------------------------------------------------------------ */
+
+async function mistralChat(options: ChatCompletionOptions): Promise<string> {
+  const { system, messages } = toSdkMessages(options);
+  try {
+    const mistral = createMistral({ apiKey: MISTRAL_API_KEY });
+    const { text } = await generateText({
+      model: mistral(options.model || MISTRAL_MODEL),
+      ...(system ? { system } : {}),
+      messages,
+      temperature: options.temperature ?? 0.5,
+      maxOutputTokens: options.max_tokens ?? 800,
+      // Same as Gemini: the app's callAIWithRetry owns rate-limit retries.
+      maxRetries: 0,
+      abortSignal: AbortSignal.timeout(MISTRAL_TIMEOUT_MS),
+    });
+    return text || '';
+  } catch (e) {
+    throw sdkError('MISTRAL_API_ERROR', e);
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -232,6 +305,6 @@ export function aiStatus() {
     gemini: !!GEMINI_API_KEY,
     geminiModel: GEMINI_API_KEY ? GEMINI_MODEL : null,
     aiModeBreakerOpen: Date.now() < aiModeBlockedUntil,
-    mistral: true,
+    mistral: !!MISTRAL_API_KEY,
   };
 }
