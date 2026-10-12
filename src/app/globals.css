@@ -210,6 +210,12 @@
   .screen-enter {
     animation-duration: 1ms !important;
   }
+  /* Reduced motion: drop the sweeping glint entirely (a frozen white band
+     would read as a stain on the card); the gray blocks keep their pulse. */
+  .skeleton-mirror::after {
+    animation: none;
+    display: none;
+  }
   .collapse-motion {
     transition-duration: 1ms !important;
   }
@@ -223,6 +229,40 @@
 .collapse-motion > .collapse-inner {
   overflow: hidden;
   min-height: 0;
+}
+
+/* ── Boot skeleton "mirror" ──────────────────────────────────────────────
+   The first-data skeleton card reads as a glass/mirror plate: the gray
+   blocks pulse while a soft light glint sweeps ACROSS the card and back
+   (animation-direction: alternate — the "туда-сюда" shine). Pure CSS
+   overlay: the card itself still paints fully opaque in the server HTML,
+   so the boot paint stays a valid FCP/LCP candidate. */
+.skeleton-mirror {
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-mirror::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 34%,
+    rgba(255, 255, 255, 0.75) 47%,
+    rgba(255, 255, 255, 0.95) 52%,
+    transparent 66%
+  );
+  transform: translateX(-100%);
+  animation: glint-sweep 1.5s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  pointer-events: none;
+}
+@keyframes glint-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
 /* ── Swiper TikTok feed (dashboard) ──────────────────────────────────────

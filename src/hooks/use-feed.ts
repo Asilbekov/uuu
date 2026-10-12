@@ -62,8 +62,16 @@ export function useFeed(args: {
   return {
     tests,
     bookmarkIds,
-    // First load of the active feed scope: empty lists render the skeleton
-    feedLoading: foreign ? false : enabled && feed.isPending,
+    // First load of the active feed scope: empty lists render the skeleton.
+    // isPending covers a scope with no cached data at all; the isFetching
+    // clause covers a scope whose PERSISTED cache holds an empty page (e.g.
+    // discover was opened once while offline) that is being revalidated
+    // right now — the empty-state card must never paint while a request
+    // that may still return tests is in flight.
+    feedLoading:
+      foreign
+        ? false
+        : enabled && (feed.isPending || (feed.isFetching && tests.length === 0)),
     // First load of the foreign library
     viewingLoading: foreign && library.isPending,
     feedHasMore: !foreign && !!feed.hasNextPage,

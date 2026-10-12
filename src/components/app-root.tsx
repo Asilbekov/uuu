@@ -3025,6 +3025,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
         tests={tests}
         bookmarkIds={bookmarkIds}
         loading={loading}
+        feedLoading={feedLoading}
         viewingLoading={viewingLoading}
         fileSlides={fileSlides}
         dashFeedRef={dashFeedRef}

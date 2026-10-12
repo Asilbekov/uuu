@@ -60,6 +60,11 @@ export interface DashboardViewProps {
   tests: Test[];
   bookmarkIds: Set<string>;
   loading: boolean;
+  // First load / revalidation-with-empty-list of the ACTIVE feed scope —
+  // while true an empty `tests` MUST paint the skeleton, never the
+  // "No tests yet" card (the discover scope is uncached right after login,
+  // so its first fetch used to flash the empty state for ~a second).
+  feedLoading: boolean;
   viewingLoading: boolean;
   fileSlides: any[];
   dashFeedRef: { current: any };
@@ -90,6 +95,7 @@ export default function DashboardView({
   tests,
   bookmarkIds,
   loading,
+  feedLoading,
   viewingLoading,
   fileSlides,
   dashFeedRef,
@@ -550,13 +556,15 @@ export default function DashboardView({
               <Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}
             </p>
           </main>
-        ) : tests.length === 0 && (loading || !dataReady) ? (
+        ) : tests.length === 0 && (loading || feedLoading || !dataReady) ? (
           /* FIRST-DATA SKELETON — a stable placeholder shaped like a feed card.
              The server HTML already shows it, so a returning user never sees
              an empty screen, a splash or a "no tests" flash: cached (or fresh)
-             data simply replaces the skeleton in place, same center position. */
+             data simply replaces the skeleton in place, same center position.
+             .skeleton-mirror adds the sweeping light glint (the card reads as
+             a mirror plate while the first data loads). */
           <main className="flex-1 min-h-0 flex items-center justify-center px-3" aria-hidden="true">
-            <div className="w-full max-w-md h-[70%] max-h-[560px] rounded-2xl border border-black/10 bg-white p-4 flex flex-col gap-3">
+            <div className="skeleton-mirror w-full max-w-md h-[70%] max-h-[560px] rounded-2xl border border-black/10 bg-white p-4 flex flex-col gap-3">
               <Skeleton className="h-10 w-full rounded-xl" />
               <Skeleton className="flex-1 w-full rounded-xl" />
               <Skeleton className="h-9 w-2/3 mx-auto rounded-full" />
