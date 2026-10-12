@@ -14,7 +14,7 @@ import {
   patchScope,
   type FeedScope,
 } from '@/lib/feed-queries';
-import { migrateLocalToServer, readLegacyLang } from '@/lib/local-cleanup';
+import { migrateLocalToServer, readLegacyLang } from '@/lib/legacy-migrate';
 import { bindProgressFlush } from '@/lib/test-progress';
 import { autoTranslateQuestions, QTranslationsV } from '@/lib/qtrans';
 import MathText from '@/components/math-text';
