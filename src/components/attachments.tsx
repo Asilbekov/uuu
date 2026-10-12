@@ -516,13 +516,11 @@ export function AttachmentsEditor({
     try {
       const fd = new FormData();
       fd.append('file', file);
-      // The upload endpoint is authenticated — x-user-id MUST travel with the
-      // request (raw fetch, so apiFetch's automatic header does not apply)
-      const user = getUser();
+      // The upload endpoint is authenticated by the httpOnly session cookie —
+      // same-origin fetch carries it automatically (zero identity on the device)
       const res = await fetch('/api/attachments/upload', {
         method: 'POST',
         body: fd,
-        headers: user ? { 'x-user-id': user.id } : undefined,
       });
       const body = await res.json().catch(() => null);
       if (res.ok && body?.ok && body?.url) {

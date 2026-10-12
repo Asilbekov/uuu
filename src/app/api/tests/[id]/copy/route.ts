@@ -11,5 +11,5 @@ export const POST = withApiAuth(
     const copy = await copyTest(userId, params.id);
     return NextResponse.json(copy);
   },
-  { verifyUser: true, rateLimit: "testWrite" }
+  { rateLimit: "testWrite" }
 );

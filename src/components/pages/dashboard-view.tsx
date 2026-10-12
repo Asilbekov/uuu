@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { AttachmentItem, attachmentFileUrl, formatSize, typeIcon } from '@/components/attachment-utils';
 import LangButton from '@/components/lang-button';
@@ -14,7 +14,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { api } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Question, Test } from '@/lib/app-types';
-import { countAnsweredProgress, readTestProgress } from '@/lib/test-progress';
+import { countAnsweredProgress, readTestProgress, type SavedTestProgress } from '@/lib/test-progress';
 import { ArrowLeft, BookOpen, BookmarkX, ChevronDown, ChevronRight, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, Users, X } from 'lucide-react';
 const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsEditor), { ssr: false });
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
@@ -143,7 +143,10 @@ export default function DashboardView({
   })();
   // profile store
   const myAvatar = useProfileStore(s => s.myAvatar);
-  // nav store
+  // Saved progress ("Continue Test") for the test on screen — loaded from the
+  // DATABASE (async) whenever the visible card changes.
+  const [dashSaved, setDashSaved] = useState<SavedTestProgress | null>(null);
+  const dashSavedIdRef = useRef<string | null>(null);
   const deadLink = useNavStore(s => s.deadLink);
   const setDeadLink = useNavStore(s => s.setDeadLink);
   const viewingUser = useNavStore(s => s.viewingUser);
@@ -162,6 +165,23 @@ export default function DashboardView({
   const shareScopeByTest = useDashboardStore(s => s.shareScopeByTest);
   const setShareScopeByTest = useDashboardStore(s => s.setShareScopeByTest);
   const dashTestIdx = useDashboardStore(s => s.dashTestIdx);
+  // Saved progress ("Continue Test") for the card on screen — loaded from the
+  // DATABASE (SavedProgress table) whenever the visible card changes. The
+  // clear-on-switch keeps a stale "Continue N answers" button from ever
+  // appearing under a different card while its snapshot is in flight.
+  const curDashCardId = tests.length > 0
+    ? (tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)]?.id ?? null)
+    : null;
+  useEffect(() => {
+    let alive = true;
+    dashSavedIdRef.current = curDashCardId;
+    setDashSaved(null);
+    if (!curDashCardId) return;
+    readTestProgress(progressUserId, curDashCardId).then(p => {
+      if (alive && dashSavedIdRef.current === curDashCardId) setDashSaved(p);
+    });
+    return () => { alive = false; };
+  }, [curDashCardId, progressUserId]);
   const setDashTestIdx = useDashboardStore(s => s.setDashTestIdx);
   const libNarrow = useDashboardStore(s => s.libNarrow);
   const dashSearch = useDashboardStore(s => s.dashSearch);
@@ -337,8 +357,8 @@ export default function DashboardView({
   // "already on screen before you get there" guarantee, without any window
   // arithmetic or race conditions.
   const curDashTest = tests.length > 0 ? tests[Math.min(Math.max(0, dashTestIdx), tests.length - 1)] : null;
-    // Saved progress for the test on screen (cached read) — drives the Continue button
-    const dashSaved = curDashTest ? readTestProgress(progressUserId, curDashTest.id) : null;
+    // Saved progress for the test on screen — dashSaved STATE (loaded from the
+    // DB by the effect above) drives the Continue button
     // Library / shelf grids: slice the loaded tests into shelf rows
     // (library = 2 cards per shelf on phones / 3 from sm up, shelf = 1 card per
     // shelf); rows scroll endlessly

@@ -8,7 +8,8 @@ import { Lang } from '@/lib/i18n';
  * Tests whose questions have no stored translation for the selected interface
  * language (e.g. a test created by a user, or an old "Continue test" snapshot
  * saved before translations existed) are translated here via /api/translate,
- * cached in localStorage and merged into the React state by the caller.
+ * cached in the session memory (and in OUR DATABASE — TranslationCache
+ * table) and merged into the React state by the caller.
  *
  * Markdown images ![alt](src) and inline $...$ math are protected with
  * placeholders so the translator can't mangle them; if a placeholder is lost
@@ -34,44 +35,11 @@ export interface TranslatableQuestion {
   translations?: Record<string, QTranslationsV> | null;
 }
 
-const CACHE_KEY = 'chemtest-qtrans-v1';
-const CACHE_LIMIT = 3000; // max cached strings
+const memoryCache = new Map<string, string>();
 
-// ---------- localStorage cache (per source-string hash + target lang) ----------
+// ---------- in-memory session cache (server DB holds the persistent copy) ----------
 
-function fnv1a(str: string): string {
-  let h = 0x811c9dc5;
-  for (let i = 0; i < str.length; i++) {
-    h ^= str.charCodeAt(i);
-    h = Math.imul(h, 0x01000193);
-  }
-  return (h >>> 0).toString(36) + '_' + str.length.toString(36);
-}
-
-type CacheMap = Record<string, string>;
-
-function readCache(): CacheMap {
-  try {
-    return JSON.parse(localStorage.getItem(CACHE_KEY) || '{}') as CacheMap;
-  } catch {
-    return {};
-  }
-}
-
-function writeCache(cache: CacheMap) {
-  try {
-    const keys = Object.keys(cache);
-    if (keys.length > CACHE_LIMIT) {
-      // Drop the oldest half (keys have no timestamps — dropping insertion-order head is fine)
-      for (const k of keys.slice(0, keys.length - CACHE_LIMIT / 2)) delete cache[k];
-    }
-    localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
-  } catch {
-    // quota / private mode — cache simply won't persist
-  }
-}
-
-const cacheKey = (to: Lang, source: string) => `${to}|${fnv1a(source)}`;
+const cacheKey = (to: Lang, source: string) => `${to}|${source}`;
 
 // ---------- placeholder protection ----------
 
@@ -215,14 +183,12 @@ async function drain(q: LangQueue, to: Lang) {
             // never cache identity translations of the fallback originals.
             if (trs.length === batch.length && data?.ok !== false) {
               ok = true;
-              const cacheMap = readCache();
               batch.forEach((b, j) => {
                 const tr = typeof trs[j] === 'string' && trs[j].trim() ? trs[j].trim() : null;
                 b.deferred.resolve(tr);
                 inflight.delete(b.key);
-                if (tr) cacheMap[cacheKey(to, b.source)] = tr;
+                if (tr) memoryCache.set(cacheKey(to, b.source), tr);
               });
-              writeCache(cacheMap);
             }
           }
         } catch {
@@ -259,16 +225,17 @@ async function drain(q: LangQueue, to: Lang) {
 
 // ---------- translation ----------
 
-/** Translate a list of strings, consulting the localStorage cache first. */
+/** Translate a list of strings, consulting the in-memory cache first (the
+ * persistent copy of every translation lives in our DATABASE, shared across
+ * devices and visitors — nothing is cached on the phone). */
 export async function translateStrings(texts: string[], to: Lang): Promise<(string | null)[]> {
-  const cache = readCache();
   const result: (string | null)[] = new Array(texts.length).fill(null);
   const missingIdx: number[] = [];
   const missing: string[] = [];
 
   texts.forEach((t, i) => {
     if (!t || !t.trim()) { result[i] = ''; return; }
-    const hit = cache[cacheKey(to, t)];
+    const hit = memoryCache.get(cacheKey(to, t));
     if (typeof hit === 'string' && hit) result[i] = hit;
     else { missingIdx.push(i); missing.push(t); }
   });

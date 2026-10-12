@@ -12,10 +12,10 @@ import {
   FEED_PAGE_LIMIT,
   feedQueryOptions,
   patchScope,
-  reconcileFeedPage1,
   type FeedScope,
 } from '@/lib/feed-queries';
-import { initFeedPersistence, teardownFeedPersistence } from '@/lib/feed-persistence';
+import { migrateLocalToServer, readLegacyLang } from '@/lib/local-cleanup';
+import { bindProgressFlush } from '@/lib/test-progress';
 import { autoTranslateQuestions, QTranslationsV } from '@/lib/qtrans';
 import MathText from '@/components/math-text';
 import { Button } from '@/components/ui/button';
@@ -45,7 +45,7 @@ import { useToast } from '@/hooks/use-toast';
 // is consumed here through fine-grained selectors with the SAME identifiers,
 // so all ~300 call sites in this file keep compiling unchanged.
 // ---------------------------------------------------------------------------
-import { useSessionStore, LANG_STORAGE_KEY } from '@/stores/session-store';
+import { useSessionStore } from '@/stores/session-store';
 import { useProfileStore } from '@/stores/profile-store';
 import { useNavStore, navNow } from '@/stores/nav-store';
 import { useDashboardStore } from '@/stores/dashboard-store';
@@ -131,7 +131,7 @@ import CreateEditView from '@/components/pages/create-edit-view';
 import LangButton from '@/components/lang-button';
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
 import { readTestProgress, writeTestProgress, clearTestProgress, countAnsweredProgress, type SavedTestProgress } from '@/lib/test-progress';
-import { Lang, NEXT_LANG, LANG_LABEL, tUI, trText, trOption, trExpl } from '@/lib/i18n';
+import { Lang, NEXT_LANG, LANG_LABEL, isLang, tUI, trText, trOption, trExpl } from '@/lib/i18n';
 
 // Tiny neutral placeholder shown while a lazily-loaded bottom-sheet panel
 // (chat / attachments) is downloading its chunk — keeps the sheet frame sized.
@@ -143,34 +143,12 @@ function SheetLoadingPlaceholder() {
   );
 }
 
-// Server-rendered boot: after the first login the client drops a lightweight
-// marker cookie; the server page reads it and pre-renders the DASHBOARD shell
-// (header, every button, feed skeletons) directly in the initial HTML — a
-// returning user never sees a splash/loading screen, exactly like TikTok.
-const AUTH_COOKIE = 'uuu_authed';
-function setAuthCookie() {
-  try { document.cookie = `${AUTH_COOKIE}=1; path=/; max-age=31536000; SameSite=Lax`; } catch {}
-}
-function clearAuthCookie() {
-  try { document.cookie = `${AUTH_COOKIE}=; path=/; max-age=0`; } catch {}
-}
-
-// Profile snapshot cache (avatar URL / display name / test background) — read
-// synchronously after mount so the header buttons never "grow" their photo or
-// name a second later (nothing pops in after the first paint).
-const PROFILE_CACHE_KEY = 'chemtest_cache_profile_v1';
-function readProfileCache(): { avatar: string | null; name: string; bgStyle: string } | null {
-  try { return JSON.parse(localStorage.getItem(PROFILE_CACHE_KEY) || 'null'); } catch { return null; }
-}
-function writeProfileCache(v: { avatar: string | null; name: string; bgStyle: string }) {
-  try { localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(v)); } catch {}
-}
-
-// Stale-while-revalidate boot cache: the last feed page + bookmarks + attempts
-// are persisted after every successful load, so a returning user's dashboard
-// paints INSTANTLY from the cache while the network refresh swaps in fresh data.
-const FEED_CACHE_KEY = 'chemtest_cache_feed_v1';
-const ATTEMPTS_CACHE_KEY = 'chemtest_cache_attempts_v1';
+// Server-rendered boot: the SERVER sets the httpOnly session cookie on login
+// (token backed by the Session table); the server page reads its presence and
+// pre-renders the DASHBOARD shell (header, every button, feed skeletons)
+// directly in the initial HTML — a returning user never sees a splash/loading
+// screen, exactly like TikTok. The cookie holds no user data — the client
+// confirms identity via GET /api/me against the database.
 
 // STABLE empty file-slides array. The fileSlides memo recomputes whenever a
 // prefetch resolves (dashFullTests is in its deps) — in the normal test feed
@@ -283,8 +261,9 @@ async function compressImage(file: File, maxSide = 1600, quality = 0.85): Promis
 // (same border, gradient and shadows), so the whole bar reads as one glass set.
 
 // =================== SAVED TEST PROGRESS ("Continue Test") ===================
-// Saved test progress helpers (readTestProgress / writeTestProgress /
-// clearTestProgress / countAnsweredProgress) live in src/lib/test-progress.ts.
+// Saved test progress (readTestProgress / writeTestProgress /
+// clearTestProgress / countAnsweredProgress) lives in src/lib/test-progress.ts
+// and is persisted in the DATABASE (SavedProgress table) — never on the device.
 
 function AppRootInner({ authed }: { authed: boolean }) {
   const { toast } = useToast();
@@ -605,115 +584,84 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const deadLink = useNavStore(s => s.deadLink);
   const setDeadLink = useNavStore(s => s.setDeadLink);
 
-  // Read user from localStorage only after mount (prevents hydration mismatch)
+  // Resolve the session from the DATABASE (httpOnly cookie → GET /api/me).
+  // ZERO-ON-DEVICE: nothing user-related is read from (or written to) the
+  // phone — identity, language, avatar and history all come from the network.
   const hydratedUser = useSessionStore(s => s.hydratedUser);
   const setHydratedUser = useSessionStore(s => s.setHydratedUser);
   useEffect(() => {
-    // Restore the interface language (or detect it from the browser on first visit)
-    try {
-      const saved = localStorage.getItem(LANG_STORAGE_KEY);
-      if (saved === 'ru' || saved === 'uz' || saved === 'en') {
-        setLang(saved);
+    void (async () => {
+      const me = await api.getSession();
+      if (!me?.id) {
+        // No live session (fresh visitor / expired token): land on the login
+        // screen. A stale cookie may have made the server pre-render the
+        // dashboard shell — the logout endpoint clears it for the next visit.
+        setPage('auth');
+        if (authed) api.logout().catch(() => {});
+        setDataReady(true);
+        return;
+      }
+      setUser(me); // in-memory session cache only
+      setHydratedUser(me);
+      // Interface language: DB first (User.lang), then the pre-DB device
+      // choice (one-time migration), then browser detection. The picked
+      // language is PERSISTED TO THE DB, never to the device.
+      const legacyLang = readLegacyLang();
+      if (isLang(me.lang) && me.lang !== 'en') {
+        bootLangRef.current = me.lang;
+        setLang(me.lang);
+      } else if (isLang(legacyLang) && legacyLang !== 'en') {
+        bootLangRef.current = legacyLang;
+        setLang(legacyLang);
+        api.updateProfile({ lang: legacyLang }).catch(() => {});
       } else {
         const nav = (navigator.language || '').toLowerCase();
-        if (nav.startsWith('ru')) setLang('ru');
-        else if (nav.startsWith('uz')) setLang('uz');
+        const detected = nav.startsWith('ru') ? 'ru' : nav.startsWith('uz') ? 'uz' : 'en';
+        bootLangRef.current = detected;
+        setLang(detected);
+        if (me.lang === 'en' && detected !== 'en') {
+          api.updateProfile({ lang: detected }).catch(() => {});
+        }
       }
-    } catch {}
-    const stored = localStorage.getItem('chemtest_user');
-    if (!stored) {
-      // Fresh visitor (or the session was cleared): the cookie must not say
-      // "authed" anymore — land on the login screen. The explicit setPage
-      // also retracts the cookie-based pre-mount dashboard landing when the
-      // evidence (no stored user) says this is actually a logged-out visit.
-      setPage('auth');
-      clearAuthCookie();
-      setDataReady(true);
-      return;
-    }
-    let parsed: { id: string; email: string; name: string } | null = null;
-    try {
-      parsed = JSON.parse(stored);
-    } catch {
-      parsed = null;
-    }
-    if (!parsed) {
-      // Corrupted session entry — treat it as a fresh visitor
-      setPage('auth');
-      clearAuthCookie();
-      setDataReady(true);
-      return;
-    }
-    void (async () => {
-    // Professional boot: the per-user TanStack Query cache (both feed scopes,
-    // visited user libraries, bookmarks) is restored FIRST — nothing fetches
-    // or paints before the snapshot is in the cache.
-    await initFeedPersistence(parsed.id, queryClient);
-    setHydratedUser(parsed);
-    setAuthCookie(); // keep the SSR marker fresh for the next visit
-    // Profile snapshot first: avatar / name / background appear with the
-    // FIRST post-hydration frame (no network) — header buttons never "grow".
-    const pc = readProfileCache();
-    if (pc && pc.name === parsed.name) {
-      setMyAvatar(pc.avatar);
-      setMyBgStyle(pc.bgStyle || '');
-      setProfileName(pc.name);
-    }
-    // === Stale-while-revalidate boot (TikTok-speed first paint) ===
-    // The server HTML already painted the full dashboard shell; the restored
-    // Query cache fills the feed on this very frame, the network revalidation
-    // swaps in fresh data silently — same card shapes → no layout jump, no CLS.
-    try {
-      const a = JSON.parse(localStorage.getItem(ATTEMPTS_CACHE_KEY) || 'null');
-      if (Array.isArray(a)) setAttempts(a);
-    } catch {}
-    const initialScope: FeedScope = navNow().discoverMode ? 'discover' : 'mine';
-    const cachedFeed = queryClient.getQueryData(feedKey(initialScope)) as { pages?: { items?: Test[] }[] } | undefined;
-    const restored = !!cachedFeed?.pages?.some(p => (p.items || []).length > 0);
-    // With a snapshot the hook stays on the cache (staleTime Infinity) — the
-    // boot revalidation below is the ONLY network touch of a loaded feed, and
-    // it reconciles IN PLACE (see reconcileFeedPage1): cards never change
-    // identity under the user. Without a snapshot, fetchInfiniteQuery shares
-    // the hook's own in-flight fetch (no duplicate request).
-    const refresh = Promise.all([
-      restored
-        ? api.getFeed({ tab: 'foryou', cursor: null, limit: FEED_PAGE_LIMIT, scope: initialScope })
-            .then((res: { items?: Test[] }) => { reconcileFeedPage1(queryClient, feedKey(initialScope), res?.items || []); })
-            .catch(() => {})
-        : queryClient.fetchInfiniteQuery(feedQueryOptions(initialScope)).catch(() => {}),
-      api.getAttempts()
-        .then(data => {
-          setAttempts(data);
-          try { localStorage.setItem(ATTEMPTS_CACHE_KEY, JSON.stringify(data)); } catch {}
-        })
-        .catch(() => {}),
-    ]);
-    if (restored) {
-      // Cache hit: feed is on screen already — skeletons never appear.
-      setDataReady(true);
-    } else {
-      // No cache (first visit on this device): keep the skeleton (NOT a splash
-      // screen, NOT the "no tests" card) until the network answers — capped so
-      // a hanging request still lands on an honest empty state.
+      // One-time migration: upload whatever data older versions left on this
+      // device (saved progress, AI threads) into the database, then wipe the
+      // device clean. Runs in the background — never blocks the first paint.
+      void migrateLocalToServer(me.id, api);
+      // Profile identity for the first frames — straight from the DB response.
+      if (me.image && me.image.startsWith('data:')) setMyAvatar(me.image);
+      if (typeof me.bgStyle === 'string') setMyBgStyle(me.bgStyle);
+      setProfileName(me.name);
+      bindProgressFlush();
+      // === Stale-while-revalidate boot (TikTok-speed first paint) ===
+      // The server HTML already painted the full dashboard shell; within a
+      // session the in-memory Query cache fills the feed instantly, and a
+      // cold boot keeps the skeleton (NOT a splash, NOT the "no tests" card)
+      // until the network answers — capped so a hanging request still lands
+      // on an honest empty state.
+      const initialScope: FeedScope = navNow().discoverMode ? 'discover' : 'mine';
+      const refresh = Promise.all([
+        queryClient.fetchInfiniteQuery(feedQueryOptions(initialScope)).catch(() => {}),
+        api.getAttempts()
+          .then(data => { setAttempts(data); })
+          .catch(() => {}),
+      ]);
       setBootRefreshing(true);
       await Promise.race([refresh, new Promise(r => setTimeout(r, 2200))]);
       setBootRefreshing(false);
       setDataReady(true);
-    }
-    refresh.finally(() => setBootRefreshing(false));
-    // Warm the lazily-loaded chunks right after the first paint: when the user
-    // later opens a chat / attachments / color picker the panel appears
-    // instantly — no "…" placeholder, no buttons popping in.
-    const idle = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1200));
-    idle(() => {
-      import('@/components/chat-panels');
-      import('@/components/attachments');
-      import('@/components/color-picker');
-    });
+      refresh.finally(() => setBootRefreshing(false));
+      // Warm the lazily-loaded chunks right after the first paint: when the user
+      // later opens a chat / attachments / color picker the panel appears
+      // instantly — no "…" placeholder, no buttons popping in.
+      const idle = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1200));
+      idle(() => {
+        import('@/components/chat-panels');
+        import('@/components/attachments');
+        import('@/components/color-picker');
+      });
     })();
   }, []);
 
-  // Apply hydrated user - use hydratedUser if no explicit login has happened
   // Only use hydratedUser after mount to avoid hydration mismatch
   const effectiveUser = user || (mounted ? hydratedUser : null);
   // Landing-page resolution WITHOUT store writes (the render-time store seed
@@ -727,10 +675,24 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const landingPage = !mounted && authed && page === 'auth' ? 'dashboard' : page;
   const effectivePage = landingPage === 'auth' && mounted && hydratedUser ? 'dashboard' : landingPage;
 
+  // Persist the interface language to the DATABASE on every change the USER
+  // makes (the cycle button). The value applied during boot is consumed via
+  // bootLangRef — boot already PUT where needed; the login flow PUTs the
+  // language the visitor picked on the auth screen.
+  const bootLangRef = useRef<Lang | null>(null);
+  useEffect(() => {
+    if (!effectiveUser) return;
+    if (bootLangRef.current !== null) {
+      bootLangRef.current = null;
+      return;
+    }
+    api.updateProfile({ lang }).catch(() => {});
+  }, [lang, effectiveUser?.id]);
+
   // My profile photo: probe the avatar route once per session/user — a 200
   // means a photo exists (shown on the account button), 404 → initials.
-  // The last known URL also goes into the profile cache so the next visit
-  // paints the photo on the FIRST frame instead of swapping initials→photo.
+  // (The photo itself lives in the TELEGRAM channel; identity comes from
+  // /api/me on boot.)
   useEffect(() => {
     const uid = effectiveUser?.id;
     if (!uid) { setMyAvatar(null); return; }
@@ -740,11 +702,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
       .catch(() => { if (alive) setMyAvatar(null); });
     return () => { alive = false; };
   }, [effectiveUser?.id]);
-  // Persist the profile snapshot whenever any of its parts change.
-  useEffect(() => {
-    if (!effectiveUser) return;
-    writeProfileCache({ avatar: myAvatar, name: effectiveUser.name, bgStyle: myBgStyle });
-  }, [effectiveUser?.id, effectiveUser?.name, myAvatar, myBgStyle]);
+  // Profile identity now comes from the DB (/api/me on boot) — the old
+  // localStorage profile snapshot effect is gone. The avatar effect above
+  // resolves the Telegram-channel photo right after the user is known.
 
   // Profile-photo upload: center-cropped 256×256 JPEG (a few dozen KB),
   // stored IN THE TELEGRAM CHANNEL by /api/me/avatar like every other file.
@@ -792,8 +752,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
     return () => { alive = false; };
   }, [effectiveUser?.id]);
 
-  // Rename: PUT /api/me, then mirror the new name into the client session
-  // (state + localStorage) so the dashboard header picks it up instantly.
+  // Rename: PUT /api/me, then mirror the new name into the in-memory session
+  // so the dashboard header picks it up instantly.
   const saveProfileName = async () => {
     if (!effectiveUser || profileSaving) return;
     const name = profileName.trim();
@@ -803,7 +763,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
       const r: any = await api.updateProfile({ name });
       const next = { id: effectiveUser.id, email: effectiveUser.email, name: r?.name || name };
       setUserState(next);
-      setUser(next); // persists to localStorage
+      setUser(next); // in-memory session cache
       toast({ title: t('profileNameSaved') });
     } catch (e: any) {
       toast({ title: t('error'), description: e.message, variant: 'destructive' });
@@ -826,13 +786,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
     }
   };
 
-  // Shared cleanup for logout / account deletion: drop the session, the local
-  // caches and all user-scoped UI state, then land on the login screen.
+  // Shared cleanup for logout / account deletion: drop the session, the
+  // in-memory caches and all user-scoped UI state, then land on the login
+  // screen. The device was already storage-free — nothing to wipe here.
   const resetSessionState = () => {
-    const uid = (user || hydratedUser || getUser())?.id || '';
-    teardownFeedPersistence(true, uid);
     queryClient.clear(); // every scope cache + bookmarks die with the session
-    setUser(null); // clears localStorage session
+    setUser(null); // in-memory session cache
     setUserState(null);
     setHydratedUser(null);
     setMyAvatar(null);
@@ -842,13 +801,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
     setDiscoverMode(false);
     setViewingUser(null);
     setDataReady(false);
-    clearAuthCookie(); // next visit pre-renders the login screen again
-    try { localStorage.removeItem(PROFILE_CACHE_KEY); } catch {}
-    try { localStorage.removeItem(FEED_CACHE_KEY); } catch {} // legacy snapshot
-    try { localStorage.removeItem(ATTEMPTS_CACHE_KEY); } catch {}
   };
 
   const handleLogout = () => {
+    // Destroy the DB session + clear the httpOnly cookie server-side, then
+    // drop the in-memory UI state. Next visit pre-renders the login screen.
+    api.logout().catch(() => {});
     resetSessionState();
     setPage('auth');
     toast({ title: t('logoutDone') });
@@ -876,8 +834,15 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const setSavedProgress = useTakeStore(s => s.setSavedProgress);
   // Re-check saved progress whenever the screen or the current test changes —
   // the start-test page uses it to swap "Start Test" for "Continue Test".
+  // The snapshot lives in the DATABASE (async read; in-memory cache serves
+  // repeat views instantly).
   useEffect(() => {
-    setSavedProgress(currentTest ? readTestProgress(progressUserId, currentTest.id) : null);
+    let alive = true;
+    if (!currentTest) { setSavedProgress(null); return; }
+    readTestProgress(progressUserId, currentTest.id).then(p => {
+      if (alive) setSavedProgress(p);
+    });
+    return () => { alive = false; };
   }, [currentTest?.id, effectivePage, progressUserId]);
 
   // --- Professional feed data layer (TanStack Query) ---
@@ -1263,13 +1228,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
       }
       setUser(result);
       setUserState(result);
-      setAuthCookie(); // next visit: the server pre-renders the dashboard shell
-      writeProfileCache({ avatar: myAvatar, name: result.name, bgStyle: myBgStyle });
-      // Professional fresh-session boot: per-user persistence + prefetch of
-      // the personal feed BEFORE the dashboard shows — no empty flash. (The
-      // hook then serves the very same cache; no duplicate request.)
-      teardownFeedPersistence(false);
-      await initFeedPersistence(result.id, queryClient);
+      setHydratedUser(result);
+      // The login/register response already set the httpOnly session cookie
+      // (DB-backed) — the next visit pre-renders the dashboard shell.
+      // Professional fresh-session boot: prefetch of the personal feed BEFORE
+      // the dashboard shows — no empty flash. (The hook then serves the very
+      // same in-memory cache; no duplicate request.)
       const [, userAttempts] = await Promise.all([
         queryClient.prefetchInfiniteQuery(feedQueryOptions('mine')).catch(() => {}),
         api.getAttempts().catch(() => [] as Attempt[]),
@@ -1337,11 +1301,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
       const fd = new FormData();
       fd.append('file', new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type: blob.type || 'image/jpeg' }));
       fd.append('kind', 'image');
-      const user = getUser();
       const res = await fetch('/api/attachments/upload', {
         method: 'POST',
         body: fd,
-        headers: user ? { 'x-user-id': user.id } : undefined,
       });
       const body = await res.json().catch(() => null);
       if (res.ok && body?.ok && body?.url) {
@@ -1368,11 +1330,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
       const fd = new FormData();
       fd.append('file', new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type: blob.type || 'image/jpeg' }));
       fd.append('kind', 'image');
-      const user = getUser();
       const res = await fetch('/api/attachments/upload', {
         method: 'POST',
         body: fd,
-        headers: user ? { 'x-user-id': user.id } : undefined,
       });
       const body = await res.json().catch(() => null);
       if (res.ok && body?.ok && body?.url) {
@@ -1864,8 +1824,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
     try {
       const fullTest = dashFullTests[t.id] || await api.getTest(t.id);
       setCurrentTest(fullTest);
-      // Saved progress in this browser? Resume that attempt instead of a fresh start
-      if (!fresh && continueTestWith(fullTest)) { setLoading(false); return; }
+      // Saved progress (DB)? Resume that attempt instead of a fresh start
+      if (!fresh && (await continueTestWith(fullTest))) { setLoading(false); return; }
       const totalQ = fullTest.questions.length;
       const count = Math.min(Math.max(1, selectedQuestionCount || totalQ), totalQ);
       setSelectedQuestionCount(count);
@@ -1882,9 +1842,10 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
   // Resume a saved attempt: restore the exact shuffled order, answers, practice
   // reveals and position, and reuse the original attempt so history stays clean.
-  // Returns true when there was progress to resume.
-  const continueTestWith = (test: Test): boolean => {
-    const saved = readTestProgress(progressUserId, test.id);
+  // Returns true when there was progress to resume. The snapshot comes from
+  // the DATABASE (async), so this is async too.
+  const continueTestWith = async (test: Test): Promise<boolean> => {
+    const saved = await readTestProgress(progressUserId, test.id);
     if (!saved) return false;
     // The snapshot may predate stored translations (e.g. the session was saved
     // before a translation update). Merge fresh translation/explanation data
@@ -2124,14 +2085,25 @@ function AppRootInner({ authed }: { authed: boolean }) {
     };
   };
 
-  // Load the per-user AI chat threads once (after the user is known)
+  // Load the per-user AI chat threads once (after the user is known) —
+  // from the DATABASE (AiThread table), never from the device.
   useEffect(() => {
     if (!effectiveUser || chatThreadsLoadedRef.current) return;
     chatThreadsLoadedRef.current = true;
-    try {
-      const raw = localStorage.getItem(`ai_threads_${effectiveUser.id}`);
-      if (raw) setChatThreads(JSON.parse(raw));
-    } catch { /* corrupted cache — start fresh */ }
+    let alive = true;
+    api.getAiThreads()
+      .then((res: any) => {
+        if (!alive || !Array.isArray(res?.threads)) return;
+        const map: Record<string, { title: string; messages: any[]; updatedAt: number }> = {};
+        for (const th of res.threads) {
+          if (th?.testId && Array.isArray(th.messages)) {
+            map[th.testId] = { title: String(th.title || ''), messages: th.messages, updatedAt: th.updatedAt || Date.now() };
+          }
+        }
+        setChatThreads(map);
+      })
+      .catch(() => { /* offline — the session just starts with empty threads */ });
+    return () => { alive = false; };
   }, [effectiveUser?.id]);
 
   // Mirror the visible conversation into the CURRENT test's thread
@@ -2144,12 +2116,24 @@ function AppRootInner({ authed }: { authed: boolean }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatMessages, chatOpen]);
 
-  // Persist threads (per user) whenever they change
+  // Persist changed threads to the DATABASE (per user) — debounced 1s,
+  // only the threads whose content actually changed since the last sync.
+  const threadSyncRef = useRef<Map<string, string>>(new Map()); // testId -> serialized snapshot
   useEffect(() => {
     if (!effectiveUser || !chatThreadsLoadedRef.current) return;
-    try {
-      localStorage.setItem(`ai_threads_${effectiveUser.id}`, JSON.stringify(chatThreads));
-    } catch { /* storage full — the in-memory copy still works */ }
+    const t = setTimeout(() => {
+      for (const [testId, th] of Object.entries(chatThreads)) {
+        if (!th || !Array.isArray(th.messages) || th.messages.length === 0) continue;
+        const snap = JSON.stringify([th.title, th.messages]);
+        if (threadSyncRef.current.get(testId) === snap) continue;
+        threadSyncRef.current.set(testId, snap);
+        api.saveAiThread(testId, th.title || '', th.messages).catch(() => {
+          // Offline — the next change retries; the in-memory copy keeps working.
+          threadSyncRef.current.delete(testId);
+        });
+      }
+    }, 1000);
+    return () => clearTimeout(t);
   }, [chatThreads, effectiveUser?.id]);
 
   // History drawer entries: every test that has at least one message

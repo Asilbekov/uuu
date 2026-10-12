@@ -224,6 +224,7 @@ export const translateSchema = z.object({
 export const profileUpdateSchema = z.object({
   name: z.string().max(120).optional(),
   bgStyle: z.string().max(120).optional(),
+  lang: z.enum(["en", "ru", "uz"]).optional(),
 });
 
 export const interestsSchema = z.object({

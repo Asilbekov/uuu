@@ -4,7 +4,7 @@
 // (apps/web/lib/auth/workspace.ts): one place that
 //
 //   * resolves dynamic route params,
-//   * resolves the caller identity (x-user-id header session),
+//   * resolves the caller identity (httpOnly session cookie → DB lookup),
 //   * enforces the route's rate-limit policy,
 //   * enforces authentication,
 //   * runs the handler and maps ANY thrown error to a consistent JSON
@@ -21,12 +21,13 @@ import {
   RatelimitPolicyKey,
   assertRateLimit,
 } from "./rate-limit";
+import { sessionUserId } from "../auth/session";
 
 export type ApiContext = {
   req: NextRequest;
   params: Record<string, string>;
   searchParams: URLSearchParams;
-  /** Session id from the x-user-id header (unverified at this point). */
+  /** User id resolved from the httpOnly session cookie (DB-backed). */
   userId: string | null;
   /** Best-effort client IP for per-IP rate limits. */
   ip: string;
@@ -85,7 +86,7 @@ export function withApi(
 
     try {
       const params = (await routeCtx?.params) || {};
-      const userId = req.headers.get("x-user-id");
+      const userId = await sessionUserId(req);
       const ip = clientIp(req);
 
       if (opts.rateLimit) {
@@ -114,25 +115,17 @@ export function withApi(
 }
 
 /**
- * Wrap an AUTHENTICATED endpoint. When `verifyUser` is true the session id
- * must belong to a real user row (routes that historically double-checked —
- * chat, uploads, copy); otherwise the header check alone is preserved.
+ * Wrap an AUTHENTICATED endpoint. The session resolution in withApi already
+ * proves the user exists (the cookie maps to a live Session row), so no
+ * extra DB round-trip is needed here.
  */
 export function withApiAuth(
   handler: Handler<AuthedApiContext>,
-  opts: WithApiOptions & { verifyUser?: boolean } = {}
+  opts: WithApiOptions = {}
 ) {
   return withApi(async (ctx) => {
     if (!ctx.userId) {
       throw ApiError.unauthorized("Not authenticated");
-    }
-    if (opts.verifyUser) {
-      const { db } = await import("@/lib/db");
-      const user = await db.user.findUnique({
-        where: { id: ctx.userId },
-        select: { id: true },
-      });
-      if (!user) throw ApiError.unauthorized("Not authenticated");
     }
     return handler({ ...ctx, userId: ctx.userId });
   }, opts);

@@ -19,7 +19,7 @@ import { collectUserChannelFiles } from "./telegram-cleanup";
 export async function getProfile(userId: string) {
   const user = await db.user.findUnique({
     where: { id: userId },
-    select: { id: true, email: true, name: true, bgStyle: true },
+    select: { id: true, email: true, name: true, bgStyle: true, lang: true, image: true },
   });
   if (!user) throw ApiError.notFound("User not found");
   return user;
@@ -27,9 +27,9 @@ export async function getProfile(userId: string) {
 
 export async function updateProfile(
   userId: string,
-  body: { name?: string; bgStyle?: string }
+  body: { name?: string; bgStyle?: string; lang?: string }
 ) {
-  const data: { name?: string; bgStyle?: string } = {};
+  const data: { name?: string; bgStyle?: string; lang?: string } = {};
 
   if (typeof body.name === "string") {
     const name = body.name.trim();
@@ -42,6 +42,13 @@ export async function updateProfile(
     // so future presets keep working for everyone.
     data.bgStyle = body.bgStyle.slice(0, 40);
   }
+  if (typeof body.lang === "string") {
+    // Interface language lives in the DB (User.lang) — never on the device.
+    if (!["en", "ru", "uz"].includes(body.lang)) {
+      throw ApiError.badRequest("Unsupported language");
+    }
+    data.lang = body.lang;
+  }
 
   if (Object.keys(data).length === 0) {
     throw ApiError.badRequest("Nothing to update");
@@ -50,7 +57,7 @@ export async function updateProfile(
   return db.user.update({
     where: { id: userId },
     data,
-    select: { id: true, email: true, name: true, bgStyle: true },
+    select: { id: true, email: true, name: true, bgStyle: true, lang: true },
   });
 }
 

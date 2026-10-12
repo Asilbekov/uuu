@@ -16,5 +16,5 @@ export const POST = withApiAuth(
     const result = await uploadAvatar(userId, form.get("file") as File | null);
     return NextResponse.json(result);
   },
-  { verifyUser: true, rateLimit: "upload" }
+  { rateLimit: "upload" }
 );

@@ -1,41 +1,31 @@
-// API helper with auth
+// API helper with auth.
+//
+// ZERO-ON-DEVICE policy: the user identity is resolved from the httpOnly
+// session cookie (server-side DB session) — nothing user-related is ever
+// written to localStorage/IndexedDB. The in-memory `currentUser` below is a
+// session-scope cache only; the source of truth is GET /api/me.
 const API_BASE = '/api';
 
 let currentUser: { id: string; email: string; name: string } | null = null;
 
+/** In-memory session cache ONLY — never persisted to the device. */
 export function setUser(user: { id: string; email: string; name: string } | null) {
   currentUser = user;
-  if (user) {
-    localStorage.setItem('chemtest_user', JSON.stringify(user));
-  } else {
-    localStorage.removeItem('chemtest_user');
-  }
 }
 
 export function getUser() {
-  if (currentUser) return currentUser;
-  if (typeof window !== 'undefined') {
-    const stored = localStorage.getItem('chemtest_user');
-    if (stored) {
-      currentUser = JSON.parse(stored);
-      return currentUser;
-    }
-  }
-  return null;
+  return currentUser;
 }
 
 async function apiFetch(path: string, options: RequestInit = {}) {
-  const user = getUser();
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    ...(options.headers as Record<string, string>),
-  };
-  if (user) {
-    headers['x-user-id'] = user.id;
-  }
+  // Same-origin fetch: the browser attaches the httpOnly session cookie
+  // automatically — no identity header, nothing readable by scripts.
   const res = await fetch(`${API_BASE}${path}`, {
     ...options,
-    headers,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(options.headers as Record<string, string>),
+    },
   });
   if (!res.ok) {
     const error = await res.json().catch(() => ({ error: 'Request failed' }));
@@ -54,6 +44,19 @@ export const api = {
     apiFetch('/auth/register', { method: 'POST', body: JSON.stringify(data) }),
   login: (data: { email: string; password: string }) =>
     apiFetch('/auth/login', { method: 'POST', body: JSON.stringify(data) }),
+  // Destroy the server-side session + clear the httpOnly cookie.
+  logout: () => apiFetch('/auth/logout', { method: 'POST' }),
+  // "Who am I?" — resolves the session cookie against the database.
+  // Returns null (instead of throwing) for visitors without a live session.
+  getSession: async (): Promise<{
+    id: string; email: string; name: string; lang?: string; bgStyle?: string; image?: string | null;
+  } | null> => {
+    try {
+      return await apiFetch('/me');
+    } catch {
+      return null;
+    }
+  },
 
   // Tests
   getTests: (creatorId?: string) =>
@@ -101,25 +104,20 @@ export const api = {
   saveInterests: (interests: string[]) =>
     apiFetch('/me/interests', { method: 'PUT', body: JSON.stringify({ interests }) }),
 
-  // Profile page — own profile (name, test-taking background) and account
-  // management (logout is client-side; deletion is permanent)
+  // Profile page — own profile (name, test-taking background, interface
+  // language) and account management (logout kills the DB session; deletion
+  // is permanent)
   getProfile: () => apiFetch('/me'),
-  updateProfile: (data: { name?: string; bgStyle?: string }) =>
+  updateProfile: (data: { name?: string; bgStyle?: string; lang?: string }) =>
     apiFetch('/me', { method: 'PUT', body: JSON.stringify(data) }),
   deleteAccount: () => apiFetch('/me', { method: 'DELETE' }),
 
   // Profile photo — raw fetch (FormData must not carry the JSON Content-Type);
   // the picture is stored IN THE TELEGRAM CHANNEL by /api/me/avatar
   uploadAvatar: async (file: Blob) => {
-    const user = getUser();
-    if (!user) throw new Error('Not authenticated');
     const fd = new FormData();
     fd.append('file', file, 'avatar.jpg');
-    const res = await fetch(`${API_BASE}/me/avatar`, {
-      method: 'POST',
-      headers: { 'x-user-id': user.id },
-      body: fd,
-    });
+    const res = await fetch(`${API_BASE}/me/avatar`, { method: 'POST', body: fd });
     if (!res.ok) {
       const error = await res.json().catch(() => ({ error: 'Request failed' }));
       throw new Error(error.error || 'Request failed');
@@ -149,6 +147,21 @@ export const api = {
   getAttempts: () => apiFetch('/attempts'),
   createAttempt: (testId: string, totalQuestions?: number) => apiFetch('/attempts', { method: 'POST', body: JSON.stringify({ testId, totalQuestions }) }),
   updateAttempt: (id: string, data: any) => apiFetch(`/attempts/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+
+  // Saved in-test progress ("Continue Test") — stored in the DATABASE
+  // (previously a localStorage blob of up to 2.5 MB per test).
+  getProgress: (testId: string) =>
+    apiFetch(`/progress?testId=${encodeURIComponent(testId)}`) as Promise<{ progress: any | null; savedAt: number | null }>,
+  saveProgress: (testId: string, data: unknown) =>
+    apiFetch('/progress', { method: 'PUT', body: JSON.stringify({ testId, data }) }),
+  deleteProgress: (testId: string) =>
+    apiFetch(`/progress?testId=${encodeURIComponent(testId)}`, { method: 'DELETE' }),
+
+  // AI-tutor threads (one conversation per test) — stored in the DATABASE
+  // (previously `ai_threads_<uid>` in localStorage).
+  getAiThreads: () => apiFetch('/ai/threads') as Promise<{ threads: Record<string, { title: string; messages: any[]; updatedAt: number }>[] | any[] }>,
+  saveAiThread: (testId: string, title: string, messages: unknown[]) =>
+    apiFetch('/ai/threads', { method: 'PUT', body: JSON.stringify({ testId, title, messages }) }),
 
   // Explanations
   generateExplanations: (questionIds: string[], lang?: string) =>

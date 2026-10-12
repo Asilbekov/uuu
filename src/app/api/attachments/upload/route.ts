@@ -12,5 +12,5 @@ export const POST = withApiAuth(
     const form = await req.formData();
     return uploadAttachmentFile(userId, form);
   },
-  { verifyUser: true, rateLimit: "upload" }
+  { rateLimit: "upload" }
 );

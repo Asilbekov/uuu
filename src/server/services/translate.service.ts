@@ -22,6 +22,7 @@
 
 import { translateSchema } from "@/server/schemas";
 import type { z } from "zod";
+import { db } from "@/lib/db";
 
 const LANGS = new Set(["en", "ru", "uz"]);
 const MAX_STRINGS = 500;
@@ -61,6 +62,62 @@ function cacheSet(key: string, value: string) {
 }
 
 const stringKey = (to: string, source: string) => `${to}|${source}`;
+
+// ---------------------------------------------------------------------------
+// Layer 1.5: DATABASE translation cache (TranslationCache table) — replaces
+// the old client-side localStorage cache. Shared by every visitor, survives
+// restarts, and keeps the free relay healthy across cold instances.
+// All DB touches are best-effort: a hiccup must never break the relay.
+// ---------------------------------------------------------------------------
+
+function dbHash(source: string): string {
+  // Same scheme the client cache used (fnv1a + length) — old device caches
+  // migrated through /api/translate stay collision-compatible.
+  let h = 0x811c9dc5;
+  for (let i = 0; i < source.length; i++) {
+    h ^= source.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return (h >>> 0).toString(36) + "_" + source.length.toString(36);
+}
+
+async function dbGetMany(to: string, sources: string[]): Promise<Map<string, string>> {
+  const out = new Map<string, string>();
+  if (!sources.length) return out;
+  try {
+    const hashes = [...new Set(sources.map(dbHash))];
+    const rows = await db.translationCache.findMany({
+      where: { lang: to, hash: { in: hashes } },
+      select: { hash: true, text: true },
+    });
+    const byHash = new Map(rows.map(r => [r.hash, r.text]));
+    for (const s of sources) {
+      const v = byHash.get(dbHash(s));
+      if (typeof v === "string") out.set(s, v);
+    }
+  } catch {
+    // DB hiccup — fall through to the providers
+  }
+  return out;
+}
+
+async function dbPutMany(to: string, pairs: Map<string, string>): Promise<void> {
+  if (!pairs.size) return;
+  try {
+    // The Map dedupes within the batch; the unique(hash,lang) constraint
+    // guards against races across instances.
+    await db.translationCache.createMany({
+      data: [...pairs.entries()].map(([source, text]) => ({
+        hash: dbHash(source),
+        lang: to,
+        text,
+      })),
+      skipDuplicates: true,
+    });
+  } catch {
+    // best-effort — the in-memory cache still serves this instance
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Single-flight registry: concurrent identical strings share one upstream call
@@ -233,14 +290,42 @@ export async function translateTexts(
     }
   });
 
-  // Layer 2: single-flight batched upstream pass for the misses
-  let ok = true;
+  // Layer 1.5: serve the misses from the shared DATABASE cache (this is what
+  // used to live in each visitor's localStorage — now it belongs to us).
+  let upstreamWork = missWork;
+  let upstreamAt = missAt;
   if (missWork.length) {
-    const missResult = await translateMisses(missWork, input.to);
+    const dbHits = await dbGetMany(input.to, missWork);
+    if (dbHits.size) {
+      upstreamWork = [];
+      upstreamAt = [];
+      missWork.forEach((t, m) => {
+        const v = dbHits.get(t);
+        if (typeof v === "string") {
+          served.set(missAt[m], v);
+          cacheSet(stringKey(input.to, t), v); // warm the in-memory layer too
+        } else {
+          upstreamWork.push(t);
+          upstreamAt.push(missAt[m]);
+        }
+      });
+    }
+  }
+
+  // Layer 2: single-flight batched upstream pass for the remaining misses
+  let ok = true;
+  if (upstreamWork.length) {
+    const missResult = await translateMisses(upstreamWork, input.to);
+    const fresh = new Map<string, string>();
     missResult.forEach((v, m) => {
-      if (typeof v === "string") served.set(missAt[m], v);
-      else ok = false; // genuine upstream failure for this string
+      if (typeof v === "string") {
+        served.set(upstreamAt[m], v);
+        fresh.set(upstreamWork[m], v);
+      } else ok = false; // genuine upstream failure for this string
     });
+    if (fresh.size) {
+      void dbPutMany(input.to, fresh); // persist for every future visitor
+    }
   }
 
   const final: string[] = new Array(clean.length).fill("");

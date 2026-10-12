@@ -3,8 +3,8 @@ import type { Question, GroupMessage } from '@/lib/app-types';
 
 // ---------------------------------------------------------------------------
 // CHAT store — the per-test AI tutor conversation (threads persisted per user
-// in localStorage) and the per-test group chat panel. Previously ~15 loose
-// useState hooks inside app-root.tsx.
+// in the DATABASE, AiThread table) and the per-test group chat panel.
+// Previously ~15 loose useState hooks inside app-root.tsx.
 // ---------------------------------------------------------------------------
 
 export interface ChatMessage {

@@ -19,12 +19,13 @@ export interface SessionUser {
   name: string;
 }
 
-// localStorage key for the interface language (EN -> RU -> UZ cycle button)
-export const LANG_STORAGE_KEY = 'chemtest-lang';
+// Interface language lives in the DATABASE (User.lang) — never on the
+// device. cycleLang only flips the in-memory value; the boot effect in
+// AppRoot persists it via PUT /api/me (fire-and-forget).
 
 interface SessionData {
   // The authenticated user (set on login / profile rename) and its
-  // localStorage-restored twin (set once the boot hydration finishes)
+  // boot-confirmed twin (set once /api/me resolves the session cookie)
   user: SessionUser | null;
   hydratedUser: SessionUser | null;
   // Global busy flag shared by the auth / editor / take-test screens
@@ -33,11 +34,12 @@ interface SessionData {
   // SKELETON (never a "no tests" card, never a splash)
   dataReady: boolean;
   // true while the post-boot background refresh is still fetching the first
-  // real data (only when the localStorage cache had nothing to paint)
+  // real data (only when the in-memory cache had nothing to paint)
   bootRefreshing: boolean;
-  // Attempt history (history page) + its localStorage boot cache
+  // Attempt history (history page) — fetched from the DB on boot
   attempts: Attempt[];
   // Interface language (en/ru/uz) — cycles with the header button, persisted
+  // in the DATABASE (User.lang) via PUT /api/me
   lang: Lang;
   // Auth form state
   authMode: 'login' | 'signup';
@@ -80,11 +82,7 @@ export const useSessionStore = create<SessionData & SessionActions>(set => ({
     'password',
   ]),
   cycleLang: () =>
-    set((s: SessionData & SessionActions) => {
-      const next = NEXT_LANG[s.lang];
-      try { localStorage.setItem(LANG_STORAGE_KEY, next); } catch {}
-      return { lang: next };
-    }),
+    set((s: SessionData & SessionActions) => ({ lang: NEXT_LANG[s.lang] })),
 }));
 
 // Non-hook read for code that runs outside React (handlers with stale

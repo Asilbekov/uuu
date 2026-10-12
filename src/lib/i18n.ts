@@ -1,7 +1,8 @@
 // Site-wide interface language: English, Russian, Uzbek.
 // The language cycles with one button (EN -> RU -> UZ -> EN) and is persisted
-// in localStorage. Question/answer translations come from the DB
-// (Question.translations JSON) and are picked by these helpers.
+// in the DATABASE (User.lang) — never on the device. Question/answer
+// translations come from the DB (Question.translations JSON) and are picked
+// by these helpers.
 
 export type Lang = 'en' | 'ru' | 'uz';
 

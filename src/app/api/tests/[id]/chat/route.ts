@@ -21,5 +21,5 @@ export const POST = withApiAuth(
     const message = await sendGroupMessage(params.id, userId, body.text);
     return NextResponse.json(message, { status: 201 });
   },
-  { verifyUser: true, rateLimit: "chatSend" }
+  { rateLimit: "chatSend" }
 );

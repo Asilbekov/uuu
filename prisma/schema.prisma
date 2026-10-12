@@ -28,6 +28,70 @@ model User {
   // Tag-based interests picked during onboarding — seeds the For You feed
   interests String[] @default([])
   affinities TagAffinity[]
+  // Interface language (en/ru/uz) — lives HERE, never on the device
+  lang      String   @default("en")
+  // Server-side sessions: the device holds only an opaque httpOnly cookie
+  // that maps to these rows. Zero user data on the phone.
+  sessions  Session[]
+  // AI-tutor conversations, one per test (previously localStorage)
+  aiThreads AiThread[]
+  // Saved in-test progress ("Continue Test"), previously localStorage
+  savedProgress SavedProgress[]
+}
+
+// Opaque session token → user. The phone stores ONLY the token cookie
+// (httpOnly, unreadable by JS); every user field stays in the database.
+model Session {
+  id        String   @id // 48-char random hex token
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([userId])
+}
+
+// AI-tutor thread per (user, test) — full conversation history.
+// Previously `ai_threads_<uid>` in localStorage.
+model AiThread {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  testId    String
+  title     String   @default("")
+  messages  Json
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  @@unique([userId, testId])
+  @@index([userId])
+}
+
+// Saved in-test progress ("Continue Test") per (user, test) — the exact
+// shuffled order, answers, practice reveals and position.
+// Previously `chemtest_progress_v1:<uid>:<testId>` in localStorage.
+model SavedProgress {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  testId    String
+  data      Json
+  savedAt   DateTime @default(now()) @updatedAt
+
+  @@unique([userId, testId])
+  @@index([userId])
+}
+
+// Server-side machine-translation cache (replaces the client localStorage
+// translation cache — shared by every visitor, survives restarts).
+model TranslationCache {
+  id        String   @id @default(cuid())
+  hash      String // fnv1a(source)+len, same scheme the client used
+  lang      String
+  text      String @db.Text
+  createdAt DateTime @default(now())
+
+  @@unique([hash, lang])
 }
 
 model Bookmark {

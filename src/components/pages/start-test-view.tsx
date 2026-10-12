@@ -40,7 +40,7 @@ import { tUI } from '@/lib/i18n';
  */
 export interface StartTestViewProps {
   startTest: () => void;
-  continueTestWith: (test: Test) => boolean | void;
+  continueTestWith: (test: Test) => boolean | void | Promise<boolean>;
   goHome: () => void;
 }
 
