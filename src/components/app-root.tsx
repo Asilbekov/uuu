@@ -333,6 +333,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const setGridTreeMode = useNavStore(s => s.setGridTreeMode);
   const gridTreeTestId = useNavStore(s => s.gridTreeTestId);
   const setGridTreeTestId = useNavStore(s => s.setGridTreeTestId);
+  // Blocked share/save of a trivial copy → open the NOTE dialog (the
+  // product's alternative to a meaningless version: "create a note about
+  // this test instead"). NOTE: declared with the other hooks — any hook
+  // placed after the first conditional return below would break the
+  // rules of hooks (the auth screen renders a shorter hook sequence).
+  const [noteDialogTest, setNoteDialogTest] = useState<{ id: string; title: string } | null>(null);
   // Another user's library (opened from their profile photo or a chat avatar):
   // the dashboard shows THEIR public tests; every card carries their name and
   // photo; the header back arrow returns to the viewer's own feed.
@@ -2379,11 +2385,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
     const s = parts.length >= 2 ? parts[0][0] + parts[parts.length - 1][0] : userName.slice(0, 2);
     return (s || '?').toUpperCase();
   })();
-
-  // Blocked share/save of a trivial copy → open the NOTE dialog (the
-  // product's alternative to a meaningless version: "create a note about
-  // this test instead")
-  const [noteDialogTest, setNoteDialogTest] = useState<{ id: string; title: string } | null>(null);
 
   // Share a test via the native share sheet — Android: app chooser,
   // Windows: share flyout, fallback: copy to clipboard.

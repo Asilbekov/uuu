@@ -1222,8 +1222,8 @@ export default function DashboardView({
                               </div>
                             </div>
 
-                            {/* Test mode — one row of four on desktop */}
-                            <div className="shrink-0 grid grid-cols-2 lg:grid-cols-4 gap-2">
+                            {/* Test mode */}
+                            <div className="shrink-0 grid grid-cols-2 gap-2">
                               <button
                                 onClick={() => setPracticeMode(false)}
                                 className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
@@ -1254,8 +1254,8 @@ export default function DashboardView({
                               </button>
                             </div>
 
-                            {/* Randomization — tap a card to toggle, styled like the mode cards (one row of four on desktop) */}
-                            <div className="shrink-0 grid grid-cols-2 lg:grid-cols-4 gap-2">
+                            {/* Randomization — tap a card to toggle, styled like the mode cards */}
+                            <div className="shrink-0 grid grid-cols-2 gap-2">
                               <button
                                 type="button"
                                 onClick={() => setStartRandomizeQ(v => !v)}

@@ -131,7 +131,10 @@ export interface VersionTreeProps {
 
 export default function VersionTreeView({ testId, onClose, variant = 'feed' }: VersionTreeProps) {
   const lang = useSessionStore(s => s.lang);
-  const sessionUser = useSessionStore(s => s.user);
+  // `user` is set on login/profile actions; `hydratedUser` is the session
+  // resolved from the httpOnly cookie on boot — either may be the live one
+  // (same rule as dashboard-view's effectiveUser).
+  const sessionUser = useSessionStore(s => s.user || s.hydratedUser);
   const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
 
   // family data + navigation history (apple taps re-root the view)
