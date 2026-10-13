@@ -23,6 +23,9 @@ model User {
   tests     Test[]
   attempts  TestAttempt[]
   chatMessages ChatMessage[]
+  // Notes the user wrote ABOUT tests (the "small contribution" path: when a
+  // copy would change fewer than 2 questions, the app asks for a note instead)
+  notes     TestNote[]
   // Tests the user saved to their personal library via the bookmark button
   bookmarks Bookmark[]
   // Tag-based interests picked during onboarding — seeds the For You feed
@@ -132,11 +135,46 @@ model Test {
   // only the reference — the file is the portable/backup copy of the test.
   archiveId    String?
   archiveMsgId Int?
+  // ---- Version tree -------------------------------------------------
+  // A test created FROM SCRATCH has parentId = null and is the trunk (root)
+  // of its version tree — the only kind of test that may ever be PUBLIC.
+  // A copy made from somebody's test ("Edit") is a VERSION: parentId points
+  // at the direct ancestor, rootId at the tree's trunk. Versions are NEVER
+  // shown in the community library — they are reachable only by direct link
+  // (and inside their owner's personal library).
+  parentId   String?
+  parent     Test?   @relation("TestVersions", fields: [parentId], references: [id], onDelete: SetNull)
+  versions   Test[]  @relation("TestVersions")
+  // Denormalized trunk id (parentId of the whole family chain) — lets the
+  // tree endpoint fetch the whole family in ONE indexed query. Plain string
+  // (no relation) on purpose: the trunk may be deleted while its descendants
+  // stay reachable by link.
+  rootId     String?
+  notes      TestNote[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([isPublic, createdAt, id])
   @@index([creatorId, createdAt])
+  @@index([parentId])
+  @@index([rootId])
+}
+
+// A note ABOUT a test — the product's answer to "I changed almost nothing,
+// I don't deserve a fork": the app blocks trivial copies and asks the user
+// to write a note instead. Notes are visible to everyone who can open the
+// test (they enrich the version-tree view) and stay with the test.
+model TestNote {
+  id        String   @id @default(cuid())
+  testId    String
+  test      Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  text      String   @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([testId, createdAt])
+  @@index([userId])
 }
 
 // Global tag dictionary: every tag used on a test lands here so it can be

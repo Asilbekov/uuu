@@ -4,6 +4,8 @@
 // session cookie (server-side DB session) — nothing user-related is ever
 // written to localStorage/IndexedDB. The in-memory `currentUser` below is a
 // session-scope cache only; the source of truth is GET /api/me.
+import type { TestNote, TreeNode } from '@/lib/app-types';
+
 const API_BASE = '/api';
 
 let currentUser: { id: string; email: string; name: string } | null = null;
@@ -98,6 +100,17 @@ export const api = {
   // (private, unique name) and returns the full copy to open in the editor
   copyTest: (id: string) =>
     apiFetch(`/tests/${id}/copy`, { method: 'POST' }),
+
+  // Version tree: the whole family of a test (trunk + branches), each node
+  // with its creator — the "apples" of the tree view are the creators
+  getTestTree: (id: string) =>
+    apiFetch(`/tests/${id}/tree`) as Promise<{ rootId: string; nodes: TreeNode[] }>,
+
+  // Notes about a test (the alternative to a trivial fork)
+  getNotes: (id: string) =>
+    apiFetch(`/tests/${id}/notes`) as Promise<{ notes: TestNote[] }>,
+  createNote: (id: string, text: string) =>
+    apiFetch(`/tests/${id}/notes`, { method: 'POST', body: JSON.stringify({ text }) }) as Promise<TestNote>,
 
   // Interests (onboarding + settings) — seeds the For You feed
   getInterests: () => apiFetch('/me/interests'),

@@ -129,6 +129,136 @@ export async function getTest(id: string) {
   return test;
 }
 
+// ------------------------------------------------------------------ versions --
+
+// Version-tree product rules (see prisma/schema.prisma — Test.parentId/rootId):
+//   * A test created FROM SCRATCH is a trunk (parentId = null) — the ONLY kind
+//     of test that may be public.
+//   * A copy of somebody's test ("Edit") is a VERSION. Versions are reachable
+//     only by direct link (and their owner's personal library) — they never
+//     appear in the community library and can never be made public.
+//   * A version may only become a SHAREABLE test when it differs from its
+//     direct parent in at least MIN_FORK_CHANGED_QUESTIONS questions/answers.
+//     Smaller contributions are rejected with VERSION_TOO_SIMILAR — the client
+//     then offers to write a NOTE about the test instead.
+export const MIN_FORK_CHANGED_QUESTIONS = 2;
+
+// Normalize a question to its content identity: text + answers + correct
+// letter. Whitespace-only edits do not count as changes; explanation/translation
+// tweaks deliberately do NOT count (they are annotations, not content).
+function questionFingerprint(q: {
+  text: string;
+  optionA: string;
+  optionB: string;
+  optionC: string;
+  optionD: string;
+  optionE?: string | null;
+  correctAnswer: string;
+}): string {
+  const s = (v: string | null | undefined) => String(v ?? "").replace(/\s+/g, " ").trim();
+  return [
+    s(q.text), s(q.optionA), s(q.optionB), s(q.optionC), s(q.optionD), s(q.optionE), s(q.correctAnswer),
+  ].join("\u0000");
+}
+
+/**
+ * How many questions/answers differ between a fork and its parent. An IN-PLACE
+ * edit of one question counts as ONE change (not two): the multiset of
+ * identical fingerprints is matched first, and whatever cannot be matched on
+ * the longer side is the change count — edits, additions and deletions all
+ * count, because any of them makes the fork meaningfully different.
+ */
+export function countChangedQuestions(
+  a: Parameters<typeof questionFingerprint>[0][],
+  b: Parameters<typeof questionFingerprint>[0][]
+): number {
+  const multiset = (arr: Parameters<typeof questionFingerprint>[0][]) => {
+    const m = new Map<string, number>();
+    for (const q of arr) {
+      const f = questionFingerprint(q);
+      m.set(f, (m.get(f) || 0) + 1);
+    }
+    return m;
+  };
+  const ma = multiset(a);
+  const mb = multiset(b);
+  let common = 0;
+  for (const [f, ca] of ma) common += Math.min(ca, mb.get(f) || 0);
+  return Math.max(a.length, b.length) - common;
+}
+
+// Load the question set used for the fork-diff: the candidate new set when the
+// save carries questions, otherwise the set currently stored in the DB.
+async function effectiveQuestionSet(
+  testId: string,
+  incoming: CreateTestInput["questions"] | undefined
+) {
+  if (Array.isArray(incoming)) return incoming;
+  const rows = await db.question.findMany({
+    where: { testId },
+    select: { text: true, optionA: true, optionB: true, optionC: true, optionD: true, optionE: true, correctAnswer: true },
+  });
+  return rows;
+}
+
+/**
+ * The version-tree payload: the WHOLE family of the given test (the trunk
+ * plus every descendant branch), each node with its creator — the client
+ * renders trunk → branches → apples and can re-root the view at any node.
+ */
+export async function getTestTree(id: string) {
+  const test = await db.test.findUnique({
+    where: { id },
+    select: { id: true, rootId: true, parentId: true },
+  });
+  if (!test) throw ApiError.notFound("Test not found");
+  const famRoot = test.rootId || test.id;
+  const nodes = await db.test.findMany({
+    where: { OR: [{ id: famRoot }, { rootId: famRoot }, { id: test.id }] },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      topic: true,
+      coverIcon: true,
+      coverColor: true,
+      parentId: true,
+      rootId: true,
+      createdAt: true,
+      creatorId: true,
+      creator: { select: { id: true, name: true, image: true } },
+      _count: { select: { questions: true } },
+    },
+    orderBy: { createdAt: "asc" },
+    take: 500, // hard cap — a family can never hang the endpoint
+  });
+  return { rootId: famRoot, nodes };
+}
+
+// ---------------------------------------------------------------------- notes --
+
+/** All notes written about a test (they enrich the version-tree view). */
+export async function listTestNotes(testId: string) {
+  return db.testNote.findMany({
+    where: { testId },
+    orderBy: { createdAt: "desc" },
+    take: 100,
+    include: { user: { select: { id: true, name: true, image: true } } },
+  });
+}
+
+/** Create a note about a test — the alternative to a trivial fork. */
+export async function createTestNote(userId: string, testId: string, text: string) {
+  const clean = (text || "").trim().slice(0, 2000);
+  if (!clean) throw ApiError.badRequest("Note text is required");
+  const test = await db.test.findUnique({ where: { id: testId }, select: { id: true } });
+  if (!test) throw ApiError.notFound("Test not found");
+  return db.testNote.create({
+    data: { testId, userId, text: clean },
+    include: { user: { select: { id: true, name: true, image: true } } },
+  });
+}
+
 // -------------------------------------------------------------------- create --
 
 export async function createTest(userId: string, body: CreateTestInput) {
@@ -247,12 +377,43 @@ export async function updateTest(
 
   // Publishing rule: a test can go PUBLIC only under a title that no other
   // public test in the community library currently uses.
+  // Version rule: a VERSION (a copy of somebody's test) is NEVER public —
+  // it lives outside the community library and is shared by link only. The
+  // flag is silently coerced so a stray editor toggle can never leak a
+  // version into the public feed.
+  const isVersion = !!existing.parentId;
   const effectivePublic =
-    isPublic !== undefined ? isPublic === true : existing.isPublic;
+    (isPublic !== undefined ? isPublic === true : existing.isPublic) && !isVersion;
   if (effectivePublic && title) {
     const clash = await findPublicTitleClash(title, id);
     if (clash) {
       throw ApiError.conflict("PUBLISH_NAME_TAKEN");
+    }
+  }
+
+  // Fork-diff gate: a VERSION must differ from its direct parent in at least
+  // MIN_FORK_CHANGED_QUESTIONS questions/answers. Anything smaller is not a
+  // new version — the client catches the VERSION_TOO_SIMILAR error and offers
+  // to write a NOTE about the test instead. (The parent may be gone — a
+  // deleted ancestor — in which case the copy has become its own trunk.)
+  if (isVersion) {
+    const parent = existing.parentId
+      ? await db.test.findUnique({
+          where: { id: existing.parentId },
+          select: {
+            id: true,
+            questions: {
+              select: { text: true, optionA: true, optionB: true, optionC: true, optionD: true, optionE: true, correctAnswer: true },
+            },
+          },
+        })
+      : null;
+    if (parent) {
+      const candidate = await effectiveQuestionSet(id, body.questions);
+      const changed = countChangedQuestions(candidate as any, parent.questions as any);
+      if (changed < MIN_FORK_CHANGED_QUESTIONS) {
+        throw ApiError.forbidden("VERSION_TOO_SIMILAR");
+      }
     }
   }
 
@@ -325,7 +486,7 @@ export async function updateTest(
       ...(Array.isArray(tags) && { tags: sanitizeTags(tags) }),
       ...(cleanIcon !== undefined && { coverIcon: cleanIcon }),
       ...(cleanColor !== undefined && { coverColor: cleanColor }),
-      ...(isPublic !== undefined && { isPublic }),
+      ...(isPublic !== undefined && { isPublic: isVersion ? false : isPublic }),
       ...(randomizeQuestions !== undefined && { randomizeQuestions }),
       ...(randomizeOptions !== undefined && { randomizeOptions }),
       ...(questions && {
@@ -442,6 +603,11 @@ export async function copyTest(userId: string, id: string) {
       coverColor: source.coverColor,
       creatorId: userId,
       isPublic: false, // private until the owner publishes it under its unique name
+      // Version linkage: the copy is a VERSION of the source — it joins the
+      // source's tree (rootId = the family trunk) and never appears in the
+      // community library.
+      parentId: source.id,
+      rootId: source.rootId || source.id,
       randomizeQuestions: source.randomizeQuestions,
       randomizeOptions: source.randomizeOptions,
       questions: {
@@ -514,9 +680,41 @@ export async function shareTest(userId: string, id: string, body: ShareInput) {
 
   const test = await db.test.findUnique({
     where: { id },
-    select: { id: true, creatorId: true, isPublic: true },
+    select: { id: true, creatorId: true, isPublic: true, parentId: true },
   });
   if (!test) throw ApiError.notFound("Test not found");
+
+  // ---- version rules ----------------------------------------------------
+  // A VERSION (a copy of somebody's test) lives OUTSIDE the community library:
+  //   * community publishing is impossible — the error tells the user why;
+  //   * link sharing requires a real contribution: at least
+  //     MIN_FORK_CHANGED_QUESTIONS questions/answers changed vs the direct
+  //     parent, otherwise the client offers to write a NOTE instead.
+  if (test.parentId) {
+    if (scope === "community") {
+      throw ApiError.forbidden("VERSION_NOT_PUBLIC");
+    }
+    const parent = await db.test.findUnique({
+      where: { id: test.parentId },
+      select: {
+        questions: {
+          select: { text: true, optionA: true, optionB: true, optionC: true, optionD: true, optionE: true, correctAnswer: true },
+        },
+      },
+    });
+    if (parent) {
+      const mine = await db.question.findMany({
+        where: { testId: id },
+        select: { text: true, optionA: true, optionB: true, optionC: true, optionD: true, optionE: true, correctAnswer: true },
+      });
+      const changed = countChangedQuestions(mine as any, parent.questions as any);
+      if (changed < MIN_FORK_CHANGED_QUESTIONS) {
+        throw ApiError.forbidden("VERSION_TOO_SIMILAR");
+      }
+    }
+    // Allowed link-share of a version — no isPublic flip (stays private)
+    return { ok: true, isPublic: test.isPublic };
+  }
 
   if (test.creatorId === userId) {
     if (scope === "community" && !test.isPublic) {

@@ -41,6 +41,15 @@ interface NavData {
   // was tapped). The header back arrow / files toggle returns to the test cards.
   gridFilesMode: boolean;
   gridFilesTestId: string | null;
+  // VERSION-TREE modes — the same contract as the files modes above, one
+  // level up: the feed (tiktok) or the grid (library/shelf) swaps its cards
+  // for the version tree of ONE test (the one whose tree button was tapped).
+  // Every apple on the tree is a version; tapping it re-roots the view at
+  // that version (treeFeedTestId/gridTreeTestId change, the fetch refetches).
+  treeFeedMode: boolean;
+  treeFeedTestId: string | null;
+  gridTreeMode: boolean;
+  gridTreeTestId: string | null;
   // Index of the visible slide inside the FILES feed
   dashSlideIdx: number;
   // Delete-confirmation dialog (test id) + dead share-link screen
@@ -63,6 +72,10 @@ const INITIAL: NavData = {
   filesFeedTestId: null,
   gridFilesMode: false,
   gridFilesTestId: null,
+  treeFeedMode: false,
+  treeFeedTestId: null,
+  gridTreeMode: false,
+  gridTreeTestId: null,
   dashSlideIdx: 0,
   deleteId: null,
   deadLink: false,

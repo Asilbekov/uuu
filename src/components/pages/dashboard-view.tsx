@@ -15,9 +15,11 @@ import { api } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Question, Test } from '@/lib/app-types';
 import { countAnsweredProgress, readTestProgress, type SavedTestProgress } from '@/lib/test-progress';
-import { ArrowLeft, BookOpen, BookmarkX, ChevronDown, ChevronRight, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, Users, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, BookmarkX, ChevronDown, ChevronRight, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
 const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsEditor), { ssr: false });
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
+// Version tree — its own on-demand chunk (fetches the family + renders SVG)
+const VersionTreeView = dynamic(() => import('@/components/version-tree').then(m => m.default), { ssr: false, loading: () => <div className="h-full w-full flex items-center justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></div> });
 const PhotoshopColorPicker = dynamic(() => import('@/components/color-picker').then(m => m.PhotoshopColorPicker), { ssr: false });
 
 import type { Page } from '@/lib/app-types';
@@ -83,6 +85,11 @@ export interface DashboardViewProps {
   openUserLibrary: (...args: any[]) => any;
   startFromDashboard: (...args: any[]) => any;
   toggleGridFiles: (...args: any[]) => any;
+  // version-tree modes (same contract as the files handlers)
+  openTreeCard: (...args: any[]) => any;
+  closeTreeCard: (...args: any[]) => any;
+  toggleGridTree: (...args: any[]) => any;
+  closeGridTree: (...args: any[]) => any;
   doShare: (...args: any[]) => any;
   handleDeleteTest: (...args: any[]) => any;
   exitFilesMode: (...args: any[]) => any;
@@ -114,6 +121,10 @@ export default function DashboardView({
   openUserLibrary,
   startFromDashboard,
   toggleGridFiles,
+  openTreeCard,
+  closeTreeCard,
+  toggleGridTree,
+  closeGridTree,
   doShare,
   handleDeleteTest,
   exitFilesMode,
@@ -156,6 +167,11 @@ export default function DashboardView({
   const gridFilesTestId = useNavStore(s => s.gridFilesTestId);
   const filesFeedMode = useNavStore(s => s.filesFeedMode);
   const filesFeedTestId = useNavStore(s => s.filesFeedTestId);
+  // version-tree modes
+  const treeFeedMode = useNavStore(s => s.treeFeedMode);
+  const treeFeedTestId = useNavStore(s => s.treeFeedTestId);
+  const gridTreeMode = useNavStore(s => s.gridTreeMode);
+  const gridTreeTestId = useNavStore(s => s.gridTreeTestId);
   const deleteId = useNavStore(s => s.deleteId);
   const setDeleteId = useNavStore(s => s.setDeleteId);
   const discoverMode = useNavStore(s => s.discoverMode);
@@ -303,7 +319,7 @@ export default function DashboardView({
   React.useEffect(() => {
     if (!feedIsSwipable && !filesFeedMode) return;
     const onKey = (e: KeyboardEvent) => {
-      if (deleteId || dashSearchOpen || gridFilesMode || editMode) return;
+      if (deleteId || dashSearchOpen || gridFilesMode || treeFeedMode || gridTreeMode || editMode) return;
       const tgt = e.target as HTMLElement | null;
       const tag = tgt?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || tgt?.isContentEditable) return;
@@ -468,6 +484,8 @@ export default function DashboardView({
                     if (viewingUser) { closeUserLibrary(); return; }
                     if (gridFilesMode) { closeGridFiles(); return; }
                     if (filesFeedMode) { closeFilesCard(); return; }
+                    if (gridTreeMode) { closeGridTree(); return; }
+                    if (treeFeedMode) { closeTreeCard(); return; }
                     backToLibrary();
                   }}
                   className="rounded-full shrink-0 border-black"
@@ -631,7 +649,19 @@ export default function DashboardView({
             {dashView === 'library' || dashView === 'shelf' ? (
               <div key={`feed-grid-${dashView}`} ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain screen-enter [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="max-w-5xl mx-auto h-full">
-                  {gridFilesMode ? (
+                  {gridTreeMode ? (
+                    /* VERSION-TREE card in the SAME grid layout — the view does
+                    not change, only the content does: the whole version family
+                    of the test whose tree button was tapped. «К тестам» on the
+                    tree header returns to the test cards. */
+                    <div className="px-2 sm:px-3 pb-2 sm:pb-3" style={{ height: 'calc(100% - 0px)' }}>
+                      <VersionTreeView
+                        testId={gridTreeTestId || ''}
+                        variant="grid"
+                        onClose={closeGridTree}
+                      />
+                    </div>
+                  ) : gridFilesMode ? (
                     /* ATTACHED-FILES cards in the SAME grid layout — the view does not
                     change, only the cards do: one card per attachment of the test whose
                     paperclip was tapped. «К тестам» on a card (or under the empty
@@ -673,14 +703,14 @@ export default function DashboardView({
                                 <Button size="sm"
                                   onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
                                   title={t('openFile')} aria-label={t('openFile')}
-                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                  className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
                                   <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
                                 </Button>
                                 <Button size="sm" variant="outline"
                                   onClick={e => { e.stopPropagation(); closeGridFiles(); }}
                                   title={t('backToTests')} aria-label={t('backToTests')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
                                   <ArrowLeft className="size-3 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
                                 </Button>
@@ -705,14 +735,14 @@ export default function DashboardView({
                                   <Button size="sm"
                                     onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
                                     title={t('openFile')} aria-label={t('openFile')}
-                                    className="h-7 rounded-full text-xs sm:text-sm px-2 justify-start"
+                                    className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
                                   >
                                     <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
                                   </Button>
                                   <Button size="sm" variant="outline"
                                     onClick={e => { e.stopPropagation(); closeGridFiles(); }}
                                     title={t('backToTests')} aria-label={t('backToTests')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
                                   >
                                     <ArrowLeft className="size-3 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
                                   </Button>
@@ -779,14 +809,14 @@ export default function DashboardView({
                                 <Button size="sm" disabled={loading}
                                   onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
                                   title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                                  className="h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                  className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
                                   <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
                                 </Button>
                                 <Button size="sm" variant="outline" disabled={loading}
                                   onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
                                   title={t('restart')} aria-label={t('restart')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
                                   <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
                                 </Button>
@@ -794,18 +824,28 @@ export default function DashboardView({
                                   <Button size="sm" variant="outline"
                                     onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
                                     title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                    className={`h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-0.5 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                    className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-0.5 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                   >
                                     <Paperclip className="size-3 shrink-0" /> <span className="truncate [@media(max-width:399px)]:text-[9px]">{t('attachedFiles', { n: fcnt })}</span>
                                   </Button>
                                 )}
+                                {/* Version tree — ALWAYS on every grid card, both
+                                views: the grid swaps to the version tree of THIS
+                                test (same contract as the paperclip → files) */}
+                                <Button size="sm" variant="outline"
+                                  onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
+                                  title={t('versionTree')} aria-label={t('versionTree')}
+                                  className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                >
+                                  <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
+                                </Button>
                                 {/* Share buttons — OWN tests only. Bookmarked tests
                                 are read-only references: Edit makes a copy first. */}
                                 {!discoverMode && own && (
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                   title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                  className={`h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                  className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                 >
                                   <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                 </Button>
@@ -814,7 +854,7 @@ export default function DashboardView({
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
                                   onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                   title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                  className={`h-7 rounded-full text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                  className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                 >
                                   <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
                                 </Button>
@@ -822,7 +862,7 @@ export default function DashboardView({
                                 <Button size="sm" variant="outline"
                                   onClick={e => { e.stopPropagation(); startEditTest(test); }}
                                   title={t('editTest')} aria-label={t('editTest')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
                                   <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
                                 </Button>
@@ -834,7 +874,7 @@ export default function DashboardView({
                                 <Button size="sm" variant="outline"
                                   onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
                                   title={t('unpinBtn')} aria-label={t('unpinBtn')}
-                                  className="h-7 rounded-full border-black text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
                                   <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
                                 </Button>
@@ -847,7 +887,7 @@ export default function DashboardView({
                                 <Button size="sm" variant="outline"
                                   onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
                                   title={t('deleteTest')} aria-label={t('deleteTest')}
-                                  className="h-7 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-xs px-1 justify-start gap-1 has-[>svg]:px-1"
+                                  className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
                                   <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
                                 </Button>
@@ -894,14 +934,14 @@ export default function DashboardView({
                                   <Button size="sm" disabled={loading}
                                     onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
                                     title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                                    className="h-7 rounded-full text-xs sm:text-sm px-2 justify-start"
+                                    className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
                                   >
                                     <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
                                   </Button>
                                   <Button size="sm" variant="outline" disabled={loading}
                                     onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
                                     title={t('restart')} aria-label={t('restart')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
                                   >
                                     <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
                                   </Button>
@@ -909,18 +949,27 @@ export default function DashboardView({
                                     <Button size="sm" variant="outline"
                                       onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
                                       title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                      className={`h-7 rounded-full text-xs sm:text-sm px-2 justify-start ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                      className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                     >
                                       <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
                                     </Button>
                                   )}
+                                  {/* Version tree — ALWAYS on every shelf card:
+                                  the grid swaps to the version tree of THIS test */}
+                                  <Button size="sm" variant="outline"
+                                    onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
+                                    title={t('versionTree')} aria-label={t('versionTree')}
+                                    className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                  >
+                                    <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
+                                  </Button>
                                   {/* Share buttons — OWN tests only (bookmarked tests
                                   get an editable copy via Edit first) */}
                                   {!discoverMode && own && (
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
                                     onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
                                     title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                    className={`h-7 rounded-full text-xs sm:text-sm px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                    className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                   >
                                     <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
                                   </Button>
@@ -929,7 +978,7 @@ export default function DashboardView({
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
                                     onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
                                     title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                    className={`h-7 rounded-full text-xs sm:text-sm px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                    className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                                   >
                                     <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
                                   </Button>
@@ -937,7 +986,7 @@ export default function DashboardView({
                                   <Button size="sm" variant="outline"
                                     onClick={e => { e.stopPropagation(); startEditTest(test); }}
                                     title={t('editTest')} aria-label={t('editTest')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
                                   >
                                     <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
                                   </Button>
@@ -948,7 +997,7 @@ export default function DashboardView({
                                   <Button size="sm" variant="outline"
                                     onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
                                     title={t('unpinBtn')} aria-label={t('unpinBtn')}
-                                    className="h-7 rounded-full border-black text-xs sm:text-sm px-2 justify-start"
+                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
                                   >
                                     <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
                                   </Button>
@@ -960,7 +1009,7 @@ export default function DashboardView({
                                   <Button size="sm" variant="outline"
                                     onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
                                     title={t('deleteTest')} aria-label={t('deleteTest')}
-                                    className="h-7 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-xs sm:text-sm px-2 justify-start"
+                                    className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[11px] sm:text-xs px-2 justify-start"
                                   >
                                     <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
                                   </Button>
@@ -973,10 +1022,22 @@ export default function DashboardView({
                       </div>
                     ))
                   )}
-                  {!gridFilesMode && (
+                  {!gridFilesMode && !gridTreeMode && (
                     <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
                   )}
                 </div>
+              </div>
+            ) : treeFeedMode ? (
+              /* VERSION-TREE feed mode — the feed swaps to the version tree of
+              the test whose tree button was tapped (the same contract as the
+              files mode one level up). Tapping an apple re-roots the view at
+              that version; «К тесту» on the tree header returns to the card. */
+              <div className="flex-1 min-h-0 min-w-0 px-3 py-3 sm:px-4 sm:py-4 screen-enter" onWheelCapture={onWheelCapture}>
+                <VersionTreeView
+                  testId={treeFeedTestId || ''}
+                  variant="feed"
+                  onClose={closeTreeCard}
+                />
               </div>
             ) : filesFeedMode ? (
               /* FILES feed — one attachment per slide; the flow runs through this
@@ -1003,7 +1064,7 @@ export default function DashboardView({
                     return (
                       <SwiperSlide key={`${test.id}`} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
                       <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
-                        <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
+                        <div className="w-full max-w-md lg:max-w-3xl flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
                           <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
                             <p className="text-xs font-semibold text-foreground/70 line-clamp-1">{test.title}</p>
                             <p className="text-base sm:text-lg font-bold leading-snug">{t('attachedFiles', { n: s.count })}</p>
@@ -1080,7 +1141,10 @@ export default function DashboardView({
                   // inside a card, swipes only move between cards
                   <SwiperSlide key={test.id} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
                     <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
-                      <div className="w-full max-w-md flex flex-col gap-2.5 sm:gap-4 min-h-0">
+                      {/* Desktop: the card breathes — the phone-width column widens
+                      on large screens instead of looking like a phone cast onto
+                      the monitor. Every control row spans the wider column. */}
+                      <div className="w-full max-w-md lg:max-w-3xl flex flex-col gap-2.5 sm:gap-4 min-h-0">
                         {/* Discover mode AND other users' libraries: author header
                         with the bookmark toggle, right above the cover. Personal
                         library stays clean. */}
@@ -1158,8 +1222,8 @@ export default function DashboardView({
                               </div>
                             </div>
 
-                            {/* Test mode */}
-                            <div className="shrink-0 grid grid-cols-2 gap-2">
+                            {/* Test mode — one row of four on desktop */}
+                            <div className="shrink-0 grid grid-cols-2 lg:grid-cols-4 gap-2">
                               <button
                                 onClick={() => setPracticeMode(false)}
                                 className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
@@ -1190,8 +1254,8 @@ export default function DashboardView({
                               </button>
                             </div>
 
-                            {/* Randomization — tap a card to toggle, styled like the mode cards */}
-                            <div className="shrink-0 grid grid-cols-2 gap-2">
+                            {/* Randomization — tap a card to toggle, styled like the mode cards (one row of four on desktop) */}
+                            <div className="shrink-0 grid grid-cols-2 lg:grid-cols-4 gap-2">
                               <button
                                 type="button"
                                 onClick={() => setStartRandomizeQ(v => !v)}
@@ -1309,6 +1373,21 @@ export default function DashboardView({
                                 <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
                               </button>
                             )}
+
+                            {/* Version tree — ALWAYS visible (every test has a
+                            tree, even a lonely trunk): flips the feed to the
+                            TREE mode for this test, exactly like the files
+                            button flips it to the FILES mode. Tapping an apple
+                            opens the version created by that user. */}
+                            <button
+                              type="button"
+                              onClick={() => { if (treeFeedMode && treeFeedTestId === test.id) closeTreeCard(); else openTreeCard(test); }}
+                              className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 text-left transition-colors ${treeFeedMode && treeFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
+                            >
+                              <TreeDeciduous className="w-4 h-4 shrink-0" />
+                              <span className="font-semibold text-sm">{t('versionTree')}</span>
+                              <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
+                            </button>
                           </>
                         )}
                       </div>

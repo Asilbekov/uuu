@@ -42,8 +42,11 @@ export interface Test {
   description: string;
   topic: string;
   creatorId: string;
-  creator?: { id: string; name: string };
+  creator?: { id: string; name: string; image?: string | null };
   isPublic: boolean;
+  // Version tree: parentId != null → this test is a VERSION (a copy of
+  // somebody's test). Versions never appear in the community library.
+  parentId?: string | null;
   randomizeQuestions: boolean;
   randomizeOptions: boolean;
   tags?: string[];
@@ -54,6 +57,33 @@ export interface Test {
   attachments?: Attachment[];
   _count?: { questions: number; attempts: number; attachments?: number };
   createdAt: string;
+}
+
+// One node of the version tree (see GET /api/tests/[id]/tree). The creator
+// of a non-root node is the user who made this version — the apple photo.
+export interface TreeNode {
+  id: string;
+  title: string;
+  description: string;
+  topic: string;
+  coverIcon?: string | null;
+  coverColor?: string | null;
+  parentId: string | null;
+  rootId: string | null;
+  createdAt: string;
+  creatorId: string;
+  creator: { id: string; name: string; image?: string | null };
+  _count?: { questions: number };
+}
+
+// A note about a test (the alternative to a trivial fork)
+export interface TestNote {
+  id: string;
+  testId: string;
+  userId: string;
+  text: string;
+  createdAt: string;
+  user?: { id: string; name: string; image?: string | null };
 }
 
 // Per-test group chat message (see /api/tests/[id]/chat)

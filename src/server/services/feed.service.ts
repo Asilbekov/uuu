@@ -97,6 +97,10 @@ export async function getFeed(
       : [];
 
   // ---- visibility: public tests + the user's own (legacy "all" scope) ----
+  // Version rule: a VERSION (Test.parentId != null — a copy of somebody's
+  // test) is NEVER part of the community library. The public feed shows only
+  // trunks (tests created from scratch); versions are reachable by direct
+  // link and inside their owner's personal library ("mine" scope keeps them).
   let visibility: any;
   if (scope === "mine") {
     visibility = userId
@@ -109,12 +113,12 @@ export async function getFeed(
       : { id: { in: [] } };
   } else if (scope === "discover") {
     visibility = userId
-      ? { AND: [{ isPublic: true }, { creatorId: { not: userId } }] }
-      : { isPublic: true };
+      ? { AND: [{ isPublic: true }, { parentId: null }, { creatorId: { not: userId } }] }
+      : { AND: [{ isPublic: true }, { parentId: null }] };
   } else {
     visibility = userId
-      ? { OR: [{ isPublic: true }, { creatorId: userId }] }
-      : { isPublic: true };
+      ? { OR: [{ isPublic: true, parentId: null }, { creatorId: userId }] }
+      : { AND: [{ isPublic: true }, { parentId: null }] };
   }
 
   // ---- shared filters (tag / search / author) ----
@@ -189,6 +193,7 @@ export async function getFeed(
     description: true,
     topic: true,
     creatorId: true,
+    parentId: true,
     creator: { select: { id: true, name: true, image: true } },
     isPublic: true,
     tags: true,

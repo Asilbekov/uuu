@@ -116,6 +116,7 @@ import {
   ImagePlus,
   Camera,
   LogOut,
+  TreeDeciduous,
 } from 'lucide-react';
 const PhotoshopColorPicker = dynamic(() => import('@/components/color-picker').then(m => m.PhotoshopColorPicker), { ssr: false });
 import type { Page, Question, Attachment, Test, GroupMessage, Attempt } from '@/lib/app-types';
@@ -323,6 +324,15 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const setGridFilesMode = useNavStore(s => s.setGridFilesMode);
   const gridFilesTestId = useNavStore(s => s.gridFilesTestId);
   const setGridFilesTestId = useNavStore(s => s.setGridFilesTestId);
+  // version-tree modes (feed + grid) — the same contract as the files modes
+  const treeFeedMode = useNavStore(s => s.treeFeedMode);
+  const setTreeFeedMode = useNavStore(s => s.setTreeFeedMode);
+  const treeFeedTestId = useNavStore(s => s.treeFeedTestId);
+  const setTreeFeedTestId = useNavStore(s => s.setTreeFeedTestId);
+  const gridTreeMode = useNavStore(s => s.gridTreeMode);
+  const setGridTreeMode = useNavStore(s => s.setGridTreeMode);
+  const gridTreeTestId = useNavStore(s => s.gridTreeTestId);
+  const setGridTreeTestId = useNavStore(s => s.setGridTreeTestId);
   // Another user's library (opened from their profile photo or a chat avatar):
   // the dashboard shows THEIR public tests; every card carries their name and
   // photo; the header back arrow returns to the viewer's own feed.
@@ -1695,6 +1705,11 @@ function AppRootInner({ authed }: { authed: boolean }) {
       // test uses — the server rejects the save with PUBLISH_NAME_TAKEN.
       if (e?.message === 'PUBLISH_NAME_TAKEN') {
         toast({ title: t('error'), description: t('publishNameTaken'), variant: 'destructive' });
+      } else if (e?.message === 'VERSION_TOO_SIMILAR') {
+        // Version rule: a copy of somebody's test can only be SAVED as a
+        // shareable version after 2+ questions/answers changed. The editor
+        // opens the NOTE dialog — the small-contribution path.
+        setNoteDialogTest({ id: editingTestId || '', title: testTitle });
       } else {
         toast({ title: 'Error', description: e.message, variant: 'destructive' });
       }
@@ -1718,6 +1733,11 @@ function AppRootInner({ authed }: { authed: boolean }) {
         setGridFilesMode(false); setGridFilesTestId(null);
         setFilesFeedMode(false); setFilesFeedTestId(null);
         setDashSlideIdx(0);
+      }
+      // the deleted test's version tree must not keep rendering from the API
+      if ((gridTreeMode && gridTreeTestId === id) || (treeFeedMode && treeFeedTestId === id)) {
+        setGridTreeMode(false); setGridTreeTestId(null);
+        setTreeFeedMode(false); setTreeFeedTestId(null);
       }
       toast({ title: t('testDeleted'), description: t('testDeletedDesc') });
       // Drop the deleted card LOCALLY (deliberate user action — the card
@@ -2360,6 +2380,11 @@ function AppRootInner({ authed }: { authed: boolean }) {
     return (s || '?').toUpperCase();
   })();
 
+  // Blocked share/save of a trivial copy → open the NOTE dialog (the
+  // product's alternative to a meaningless version: "create a note about
+  // this test instead")
+  const [noteDialogTest, setNoteDialogTest] = useState<{ id: string; title: string } | null>(null);
+
   // Share a test via the native share sheet — Android: app chooser,
   // Windows: share flyout, fallback: copy to clipboard.
   // scope 'link'      → direct link to that test (works even for private ones)
@@ -2387,6 +2412,16 @@ function AppRootInner({ authed }: { authed: boolean }) {
           // Publishing rule: the community flip requires a unique public title
           if (e?.message === 'PUBLISH_NAME_TAKEN') {
             toast({ title: t('error'), description: t('publishNameTaken'), variant: 'destructive' });
+          } else if (e?.message === 'VERSION_NOT_PUBLIC') {
+            // Version rule: versions NEVER join the community library —
+            // the share sheet must not open with a community URL either.
+            toast({ title: t('noteDialogError'), description: t('versionNotPublicToast'), variant: 'destructive' });
+            return;
+          } else if (e?.message === 'VERSION_TOO_SIMILAR') {
+            // Version rule: fewer than 2 changed questions/answers — the
+            // NOTE dialog replaces the share flow ("create a note instead").
+            setNoteDialogTest({ id: test.id, title: test.title });
+            return;
           }
           /* other visibility-flip failures stay best-effort */
         }
@@ -2413,6 +2448,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
     if (filesFeedMode) setFilesFeedMode(false);
     // Leaving the grid files view (if open) — the search jump goes to the test itself
     setGridFilesMode(false); setGridFilesTestId(null);
+    // ...and any open version tree — the jump opens the TEST card itself
+    setTreeFeedMode(false); setTreeFeedTestId(null);
+    setGridTreeMode(false); setGridTreeTestId(null);
     setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
     // From the grid views a search result opens the swipe feed with a back
     // button that returns to the grid at its remembered scroll position
@@ -2640,6 +2678,31 @@ function AppRootInner({ authed }: { authed: boolean }) {
         if (el && el.clientHeight > 0) el.scrollTo({ top, behavior: 'instant' as ScrollBehavior });
       }));
     }
+  };
+
+  // ----- VERSION-TREE modes (the same contract as the files modes) ---------
+  // Feed: the whole feed area swaps to the version tree of ONE test.
+  const openTreeCard = (test: Test) => {
+    setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
+    setTreeFeedTestId(test.id);
+    setTreeFeedMode(true);
+  };
+  const closeTreeCard = () => {
+    setTreeFeedMode(false);
+    setTreeFeedTestId(null);
+  };
+  // Grid (library/shelf): the grid keeps its layout and swaps its cards for
+  // the version tree of ONE test.
+  const toggleGridTree = (test: Test) => {
+    if (gridTreeMode && gridTreeTestId === test.id) closeGridTree();
+    else {
+      setGridTreeTestId(test.id);
+      setGridTreeMode(true);
+    }
+  };
+  const closeGridTree = () => {
+    setGridTreeMode(false);
+    setGridTreeTestId(null);
   };
   const backToLibrary = () => {
     // Leaving the files feed back to the grid also resets files mode
@@ -3018,47 +3081,59 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // DASHBOARD (view extracted to src/components/pages/dashboard-view.tsx)
   if (effectivePage === 'dashboard') {
     return (
-      <DashboardView
-        tests={tests}
-        bookmarkIds={bookmarkIds}
-        loading={loading}
-        feedLoading={feedLoading}
-        viewingLoading={viewingLoading}
-        fileSlides={fileSlides}
-        dashFeedRef={dashFeedRef}
-        feedApiRef={feedApiRef}
-        feedSentinelRef={feedSentinelRef}
-        onDashCommit={onDashCommit}
-        jumpToTest={jumpToTest}
-        closeUserLibrary={closeUserLibrary}
-        closeGridFiles={closeGridFiles}
-        closeFilesCard={closeFilesCard}
-        backToLibrary={backToLibrary}
-        startCreateTest={startCreateTest}
-        startEditTest={startEditTest}
-        openFromLibrary={openFromLibrary}
-        toggleBookmark={toggleBookmark}
-        openUserLibrary={openUserLibrary}
-        startFromDashboard={startFromDashboard}
-        toggleGridFiles={toggleGridFiles}
-        doShare={doShare}
-        handleDeleteTest={handleDeleteTest}
-        exitFilesMode={exitFilesMode}
-        openFilesCard={openFilesCard}
-        cycleDashView={cycleDashView}
-        toggleDiscoverMode={toggleDiscoverMode}
-      />
+      <>
+        <DashboardView
+          tests={tests}
+          bookmarkIds={bookmarkIds}
+          loading={loading}
+          feedLoading={feedLoading}
+          viewingLoading={viewingLoading}
+          fileSlides={fileSlides}
+          dashFeedRef={dashFeedRef}
+          feedApiRef={feedApiRef}
+          feedSentinelRef={feedSentinelRef}
+          onDashCommit={onDashCommit}
+          jumpToTest={jumpToTest}
+          closeUserLibrary={closeUserLibrary}
+          closeGridFiles={closeGridFiles}
+          closeFilesCard={closeFilesCard}
+          backToLibrary={backToLibrary}
+          startCreateTest={startCreateTest}
+          startEditTest={startEditTest}
+          openFromLibrary={openFromLibrary}
+          toggleBookmark={toggleBookmark}
+          openUserLibrary={openUserLibrary}
+          startFromDashboard={startFromDashboard}
+          toggleGridFiles={toggleGridFiles}
+          openTreeCard={openTreeCard}
+          closeTreeCard={closeTreeCard}
+          toggleGridTree={toggleGridTree}
+          closeGridTree={closeGridTree}
+          doShare={doShare}
+          handleDeleteTest={handleDeleteTest}
+          exitFilesMode={exitFilesMode}
+          openFilesCard={openFilesCard}
+          cycleDashView={cycleDashView}
+          toggleDiscoverMode={toggleDiscoverMode}
+        />
+        {/* Blocked trivial copy → the note dialog (dashboard share path) */}
+        <NoteDialog test={noteDialogTest} onClose={() => setNoteDialogTest(null)} />
+      </>
     );
   }
 
   // CREATE / EDIT TEST (view extracted to src/components/pages/create-edit-view.tsx)
   if (effectivePage === 'create-test' || effectivePage === 'edit-test') {
     return (
-      <CreateEditView
-        editorBody={editorBody}
-        handleSaveTest={handleSaveTest}
-        goHome={goHome}
-      />
+      <>
+        <CreateEditView
+          editorBody={editorBody}
+          handleSaveTest={handleSaveTest}
+          goHome={goHome}
+        />
+        {/* Blocked trivial-copy save → the note dialog (editor save path) */}
+        <NoteDialog test={noteDialogTest} onClose={() => setNoteDialogTest(null)} />
+      </>
     );
   }
 
@@ -3140,3 +3215,75 @@ function AppRoot({ authed }: { authed: boolean }) {
 }
 
 export default AppRoot;
+
+// ---------------------------------------------------------------------------
+// NOTE DIALOG — the "small contribution" path. When a copy of somebody's test
+// is saved/shared with fewer than 2 changed questions/answers, the server
+// rejects it (VERSION_TOO_SIMILAR) and THIS dialog explains the rule and
+// offers the alternative the product defines: write a NOTE about the test.
+// The note is stored server-side (TestNote) and is visible in the version
+// tree of that test.
+// ---------------------------------------------------------------------------
+function NoteDialog({ test, onClose }: { test: { id: string; title: string } | null; onClose: () => void }) {
+  const lang = useSessionStore(s => s.lang);
+  const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+  const { toast } = useToast();
+  const [text, setText] = useState('');
+  const [busy, setBusy] = useState(false);
+  const textRef = useRef(text);
+  textRef.current = text;
+
+  // Fresh textarea every time the dialog opens
+  useEffect(() => { if (test) setText(''); }, [test?.id]);
+
+  if (!test) return null;
+
+  const submit = async () => {
+    const clean = textRef.current.trim();
+    if (!clean || busy) return;
+    setBusy(true);
+    try {
+      await api.createNote(test.id, clean);
+      toast({ title: t('noteCreated') });
+      onClose();
+    } catch (e: any) {
+      toast({ title: t('error'), description: e?.message, variant: 'destructive' });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-[90] bg-black/55 flex items-center justify-center px-4" role="dialog" aria-modal="true">
+      <div className="w-full max-w-md rounded-3xl bg-white p-5 shadow-2xl screen-enter">
+        <div className="flex items-start gap-3 mb-3">
+          <span className="w-10 h-10 rounded-2xl bg-[#FFF0D9] text-cta flex items-center justify-center shrink-0">
+            <TreeDeciduous className="w-5 h-5" />
+          </span>
+          <div className="min-w-0">
+            <h3 className="font-bold leading-tight">{t('noteDialogError')}</h3>
+            <p className="text-xs text-muted-foreground truncate">{test.title}</p>
+          </div>
+        </div>
+        <p className="text-sm text-muted-foreground mb-3">{t('noteDialogDesc')}</p>
+        <Textarea
+          autoFocus
+          value={text}
+          onChange={e => setText(e.target.value)}
+          placeholder={t('notePlaceholder')}
+          rows={3}
+          className="text-sm rounded-xl bg-white border-black/15 mb-3"
+        />
+        <div className="flex gap-2 justify-end">
+          <Button variant="outline" className="rounded-full border-black h-9 px-4" onClick={onClose} disabled={busy}>
+            {t('cancel')}
+          </Button>
+          <Button className="rounded-full h-9 px-4 bg-primary hover:bg-primary/90" onClick={submit} disabled={busy || !text.trim()}>
+            {busy && <Loader2 className="w-4 h-4 animate-spin mr-1.5" />}
+            {t('noteCreate')}
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
