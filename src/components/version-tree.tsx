@@ -49,13 +49,14 @@ const VB_W = 400;
 const DEFAULT_VB_H = 560;
 const TRUNK_X = VB_W / 2;
 
-// Palette — warm minimalist: brown wood, soft green leaves, red apples
+// Palette — warm minimalist: brown wood, soft green leaves, red apples.
+// These solids stay UNDER every texture layer: photographic textures are
+// served from /public/textures and drawn as SVG patterns on top — if an
+// image is slow or missing, the flat-color tree still renders fully.
 const C_TRUNK = '#7A5230';
-const C_BRANCH = '#8B6748';
-const C_BRANCH_THIN = '#9A7B58';
+const C_BRANCH = '#6F4A2A';
+const C_BRANCH_THIN = '#7E5B39';
 const C_LEAF = '#4C9A46';
-const C_APPLE = '#E23B2E';
-const C_GROUND = '#CBE3BC';
 const C_INK = '#40634D';
 
 const EMPTY_APPLES: TreeNode[] = [];
@@ -116,7 +117,7 @@ function buildTreeGeometry(appleCount: number, vbH: number): Geometry {
   const trunkD = [
     `M ${TRUNK_X - halfBase} ${groundY}`,
     `C ${TRUNK_X - halfBase + 2} ${groundY - trunkH * 0.42}, ${TRUNK_X - halfTop - lean} ${trunkTopY + trunkH * 0.4}, ${TRUNK_X - halfTop + lean} ${trunkTopY}`,
-    `L ${TRUNK_X + halfTop + lean} ${trunkTopY}`,
+    `Q ${TRUNK_X + lean} ${trunkTopY - Math.max(4, usable * 0.012)}, ${TRUNK_X + halfTop + lean} ${trunkTopY}`,
     `C ${TRUNK_X + halfTop + lean + 4} ${trunkTopY + trunkH * 0.4}, ${TRUNK_X + halfBase - 2} ${groundY - trunkH * 0.42}, ${TRUNK_X + halfBase} ${groundY}`,
     'Z',
   ].join(' ');
@@ -215,6 +216,10 @@ function TreeCanvas({ node, apples, t, onApple }: TreeCanvasProps) {
   // setter — the observer effect re-runs the moment the canvas really mounts.
   const [wrapEl, setWrapEl] = useState<HTMLDivElement | null>(null);
   const [vbH, setVbH] = useState<number>(DEFAULT_VB_H);
+  // Per-instance suffix for every SVG def id (patterns/gradients/filters):
+  // several slides are mounted at once, and duplicated ids would make
+  // browsers resolve url(#…) against the FIRST slide's defs only.
+  const [uid] = useState(() => Math.random().toString(36).slice(2, 8));
   useEffect(() => {
     if (!wrapEl || typeof ResizeObserver === 'undefined') return;
     const ro = new ResizeObserver(entries => {
@@ -239,7 +244,13 @@ function TreeCanvas({ node, apples, t, onApple }: TreeCanvasProps) {
     <div
       ref={setWrapEl}
       className="relative h-full w-full rounded-3xl border border-black/10 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #FAFDf6 0%, #F4FAEF 60%, #EDF6E6 100%)' }}
+      style={{
+        // photographic sky + the brand meadow haze fading in toward the ground
+        backgroundImage:
+          'linear-gradient(180deg, rgba(250,253,246,0.5) 0%, rgba(244,250,239,0.3) 42%, rgba(237,246,230,0.68) 78%, #EDF6E6 100%), url(/textures/sky.jpg)',
+        backgroundSize: 'cover, cover',
+        backgroundPosition: 'center, center',
+      }}
     >
       <svg
         className="absolute inset-0 w-full h-full"
@@ -248,12 +259,55 @@ function TreeCanvas({ node, apples, t, onApple }: TreeCanvasProps) {
         role="img"
         aria-label={t('versionTree')}
       >
-        {/* ground */}
-        <ellipse cx={TRUNK_X} cy={layout.geo.groundY + 10} rx={170} ry={13} fill={C_GROUND} opacity={0.55} />
-        <ellipse cx={TRUNK_X} cy={layout.geo.groundY + 7} rx={112} ry={8} fill={C_GROUND} />
+        <defs>
+          {/* photographic textures (served from /public/textures) — every
+          textured layer sits ON TOP of a solid-color twin so a slow or
+          missing image degrades gracefully to the flat palette */}
+          <pattern id={`vt-bk-${uid}`} patternUnits="userSpaceOnUse" width="72" height="96">
+            <image href="/textures/bark.jpg" width="72" height="96" preserveAspectRatio="xMidYMid slice" />
+          </pattern>
+          <pattern id={`vt-lv-${uid}`} patternUnits="userSpaceOnUse" width="72" height="72">
+            <image href="/textures/leaves.jpg" width="72" height="72" preserveAspectRatio="xMidYMid slice" />
+          </pattern>
+          <pattern id={`vt-gr-${uid}`} patternUnits="userSpaceOnUse" width="96" height="96">
+            <image href="/textures/grass.jpg" width="96" height="96" preserveAspectRatio="xMidYMid slice" />
+          </pattern>
+          {/* cylindrical shading: makes the flat trunk path read as a body */}
+          <linearGradient id={`vt-ts-${uid}`} x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stopColor="#000000" stopOpacity="0.32" />
+            <stop offset="0.22" stopColor="#000000" stopOpacity="0" />
+            <stop offset="0.5" stopColor="#ffffff" stopOpacity="0.14" />
+            <stop offset="0.78" stopColor="#000000" stopOpacity="0" />
+            <stop offset="1" stopColor="#000000" stopOpacity="0.36" />
+          </linearGradient>
+          {/* apple volume: light top-left, deep rim */}
+          <radialGradient id={`vt-ap-${uid}`} cx="0.35" cy="0.3" r="0.85">
+            <stop offset="0" stopColor="#FF7A64" />
+            <stop offset="0.45" stopColor="#E23B2E" />
+            <stop offset="1" stopColor="#A31D12" />
+          </radialGradient>
+          {/* the lawn fades into the meadow color at the rim */}
+          <radialGradient id={`vt-gf-${uid}`} cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0.55" stopColor="#EDF6E6" stopOpacity="0" />
+            <stop offset="1" stopColor="#EDF6E6" stopOpacity="0.85" />
+          </radialGradient>
+          <filter id={`vt-sh-${uid}`} x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#23411F" floodOpacity="0.3" />
+          </filter>
+          <filter id={`vt-ash-${uid}`} x="-60%" y="-60%" width="220%" height="220%">
+            <feDropShadow dx="0" dy="2" stdDeviation="1.8" floodColor="#3A1D07" floodOpacity="0.35" />
+          </filter>
+        </defs>
 
-        {/* trunk */}
+        {/* ground — real grass texture, rim-faded into the meadow color */}
+        <ellipse cx={TRUNK_X} cy={layout.geo.groundY + 10} rx={170} ry={13} fill="#6E9B4E" opacity={0.5} />
+        <ellipse cx={TRUNK_X} cy={layout.geo.groundY + 7} rx={112} ry={9} fill={`url(#vt-gr-${uid})`} />
+        <ellipse cx={TRUNK_X} cy={layout.geo.groundY + 7} rx={112} ry={9} fill={`url(#vt-gf-${uid})`} />
+
+        {/* trunk — bark texture + cylindrical shading over a solid base */}
         <path d={layout.geo.trunkD} fill={C_TRUNK} />
+        <path d={layout.geo.trunkD} fill={`url(#vt-bk-${uid})`} />
+        <path d={layout.geo.trunkD} fill={`url(#vt-ts-${uid})`} />
 
         {/* branches */}
         {layout.geo.branches.map((b, i) => (
@@ -267,24 +321,50 @@ function TreeCanvas({ node, apples, t, onApple }: TreeCanvasProps) {
           />
         ))}
 
-        {/* leaf clusters on every branch tip */}
+        {/* leaf clusters on every branch tip — foliage texture over solid */}
         {layout.geo.branches.map((b, i) => {
-          const lr = layout.appleR * 0.72; // leaf ellipse rx scale
+          const lr = layout.appleR * 0.95; // leaf ellipse rx scale
           const lx = b.p1.x + (b.p1.x < TRUNK_X ? lr * 0.7 : -lr * 0.7);
+          const rot1 = b.p1.x < TRUNK_X ? -24 : 24;
+          const rot2 = b.p1.x < TRUNK_X ? -40 : 40;
+          const ux = b.p1.x * 0.9 + TRUNK_X * 0.1; // third tuft, tucked inward
           return (
-            <g key={`leaf-${i}`} fill={C_LEAF}>
-              <ellipse cx={b.p1.x} cy={b.p1.y - 3} rx={lr} ry={lr * 0.5} transform={`rotate(${b.p1.x < TRUNK_X ? -24 : 24} ${b.p1.x} ${b.p1.y - 3})`} opacity={0.9} />
-              <ellipse cx={lx} cy={b.p1.y - lr * 0.85} rx={lr * 0.68} ry={lr * 0.36} transform={`rotate(${b.p1.x < TRUNK_X ? -40 : 40} ${lx} ${b.p1.y - lr * 0.85})`} opacity={0.75} />
+            <g key={`leaf-${i}`} filter={`url(#vt-sh-${uid})`}>
+              <ellipse cx={b.p1.x} cy={b.p1.y - 3} rx={lr} ry={lr * 0.55} transform={`rotate(${rot1} ${b.p1.x} ${b.p1.y - 3})`} fill={C_LEAF} opacity={0.95} />
+              <ellipse cx={b.p1.x} cy={b.p1.y - 3} rx={lr} ry={lr * 0.55} transform={`rotate(${rot1} ${b.p1.x} ${b.p1.y - 3})`} fill={`url(#vt-lv-${uid})`} />
+              <ellipse cx={lx} cy={b.p1.y - lr * 0.8} rx={lr * 0.72} ry={lr * 0.4} transform={`rotate(${rot2} ${lx} ${b.p1.y - lr * 0.8})`} fill={C_LEAF} opacity={0.85} />
+              <ellipse cx={lx} cy={b.p1.y - lr * 0.8} rx={lr * 0.72} ry={lr * 0.4} transform={`rotate(${rot2} ${lx} ${b.p1.y - lr * 0.8})`} fill={`url(#vt-lv-${uid})`} opacity={0.92} />
+              <ellipse cx={ux} cy={b.p1.y + lr * 0.3} rx={lr * 0.5} ry={lr * 0.3} fill={C_LEAF} opacity={0.8} />
+              <ellipse cx={ux} cy={b.p1.y + lr * 0.3} rx={lr * 0.5} ry={lr * 0.3} fill={`url(#vt-lv-${uid})`} opacity={0.9} />
             </g>
           );
         })}
 
+        {/* crown top: finishes the silhouette and hides the trunk's cut */}
+        {layout.geo.tiers > 0 && (() => {
+          const R = layout.appleR;
+          const ty = layout.geo.trunkTopY;
+          return (
+            <g filter={`url(#vt-sh-${uid})`}>
+              <ellipse cx={TRUNK_X} cy={ty - 4} rx={R * 1.15} ry={R * 0.62} fill={C_LEAF} opacity={0.95} />
+              <ellipse cx={TRUNK_X} cy={ty - 4} rx={R * 1.15} ry={R * 0.62} fill={`url(#vt-lv-${uid})`} />
+              <ellipse cx={TRUNK_X - R * 0.95} cy={ty + 3} rx={R * 0.72} ry={R * 0.42} transform={`rotate(-26 ${TRUNK_X - R * 0.95} ${ty + 3})`} fill={C_LEAF} opacity={0.9} />
+              <ellipse cx={TRUNK_X - R * 0.95} cy={ty + 3} rx={R * 0.72} ry={R * 0.42} transform={`rotate(-26 ${TRUNK_X - R * 0.95} ${ty + 3})`} fill={`url(#vt-lv-${uid})`} opacity={0.94} />
+              <ellipse cx={TRUNK_X + R * 0.95} cy={ty + 3} rx={R * 0.72} ry={R * 0.42} transform={`rotate(26 ${TRUNK_X + R * 0.95} ${ty + 3})`} fill={C_LEAF} opacity={0.9} />
+              <ellipse cx={TRUNK_X + R * 0.95} cy={ty + 3} rx={R * 0.72} ry={R * 0.42} transform={`rotate(26 ${TRUNK_X + R * 0.95} ${ty + 3})`} fill={`url(#vt-lv-${uid})`} opacity={0.94} />
+            </g>
+          );
+        })()}
+
         {/* sprout: no branches yet — leaves right on the trunk top */}
         {layout.geo.tiers === 0 && (
-          <g fill={C_LEAF}>
-            <ellipse cx={TRUNK_X - 12} cy={layout.geo.trunkTopY - 6} rx={13} ry={6} transform={`rotate(-28 ${TRUNK_X - 12} ${layout.geo.trunkTopY - 6})`} />
-            <ellipse cx={TRUNK_X + 12} cy={layout.geo.trunkTopY - 6} rx={13} ry={6} transform={`rotate(28 ${TRUNK_X + 12} ${layout.geo.trunkTopY - 6})`} />
-            <ellipse cx={TRUNK_X} cy={layout.geo.trunkTopY - 13} rx={9} ry={5.5} />
+          <g filter={`url(#vt-sh-${uid})`}>
+            <ellipse cx={TRUNK_X - 12} cy={layout.geo.trunkTopY - 6} rx={13} ry={6} transform={`rotate(-28 ${TRUNK_X - 12} ${layout.geo.trunkTopY - 6})`} fill={C_LEAF} />
+            <ellipse cx={TRUNK_X - 12} cy={layout.geo.trunkTopY - 6} rx={13} ry={6} transform={`rotate(-28 ${TRUNK_X - 12} ${layout.geo.trunkTopY - 6})`} fill={`url(#vt-lv-${uid})`} />
+            <ellipse cx={TRUNK_X + 12} cy={layout.geo.trunkTopY - 6} rx={13} ry={6} transform={`rotate(28 ${TRUNK_X + 12} ${layout.geo.trunkTopY - 6})`} fill={C_LEAF} />
+            <ellipse cx={TRUNK_X + 12} cy={layout.geo.trunkTopY - 6} rx={13} ry={6} transform={`rotate(28 ${TRUNK_X + 12} ${layout.geo.trunkTopY - 6})`} fill={`url(#vt-lv-${uid})`} />
+            <ellipse cx={TRUNK_X} cy={layout.geo.trunkTopY - 13} rx={9} ry={5.5} fill={C_LEAF} />
+            <ellipse cx={TRUNK_X} cy={layout.geo.trunkTopY - 13} rx={9} ry={5.5} fill={`url(#vt-lv-${uid})`} />
           </g>
         )}
 
@@ -302,6 +382,7 @@ function TreeCanvas({ node, apples, t, onApple }: TreeCanvasProps) {
               className="vt-apple"
               role="button"
               tabIndex={0}
+              filter={`url(#vt-ash-${uid})`}
               onClick={() => onApple(a.node.id)}
               onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') onApple(a.node.id); }}
               aria-label={`${firstName} — ${t('treeVersionLabel')}`}
@@ -314,8 +395,8 @@ function TreeCanvas({ node, apples, t, onApple }: TreeCanvasProps) {
               <circle cx={a.x} cy={a.y + R * 0.55} r={R * 1.8} fill="transparent" style={{ pointerEvents: 'all' }} />
               {/* stem */}
               <line x1={a.x} y1={a.hangY + 1} x2={a.x} y2={a.y - R + 2} stroke={C_BRANCH} strokeWidth={1.6} />
-              {/* apple body: photo clipped inside a red circle */}
-              <circle cx={a.x} cy={a.y} r={R} fill={C_APPLE} stroke="#fff" strokeWidth={2.4} />
+              {/* apple body: photo clipped inside a shaded red circle */}
+              <circle cx={a.x} cy={a.y} r={R} fill={`url(#vt-ap-${uid})`} stroke="#fff" strokeWidth={2.4} />
               {src ? (
                 <>
                   <clipPath id={`vt-clip-${a.node.id}`}>
@@ -349,13 +430,13 @@ function TreeCanvas({ node, apples, t, onApple }: TreeCanvasProps) {
         })}
 
         {/* the trunk's own label: whose test / whose version this tree is */}
-        <text x={TRUNK_X} y={layout.geo.groundY + 22} textAnchor="middle" fontSize={11} fontWeight={600} fill={C_INK} opacity={0.85}>
+        <text x={TRUNK_X} y={layout.geo.groundY + 22} textAnchor="middle" fontSize={11} fontWeight={600} fill={C_INK} opacity={0.9} stroke="#F4FAEF" strokeWidth={2.5} strokeLinejoin="round" paintOrder="stroke">
           {rootLabel}
         </text>
 
         {/* empty family: the sprout waits for the first version */}
         {apples.length === 0 && (
-          <text x={TRUNK_X} y={Math.max(24, layout.geo.trunkTopY - 22)} textAnchor="middle" fontSize={9.5} fill={C_INK} opacity={0.8}>
+          <text x={TRUNK_X} y={Math.max(24, layout.geo.trunkTopY - 22)} textAnchor="middle" fontSize={9.5} fill={C_INK} opacity={0.85} stroke="#F4FAEF" strokeWidth={2.2} strokeLinejoin="round" paintOrder="stroke">
             {t('treeEmpty')}
           </text>
         )}
@@ -539,7 +620,12 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
     <div className="h-full w-full flex items-center justify-center p-3 sm:p-4">
       <div
         className="w-full h-full rounded-3xl border border-black/10 flex flex-col items-center justify-center gap-3 text-center"
-        style={{ background: 'linear-gradient(180deg, #FAFDf6 0%, #F4FAEF 60%, #EDF6E6 100%)' }}
+        style={{
+          backgroundImage:
+            'linear-gradient(180deg, rgba(250,253,246,0.55) 0%, rgba(244,250,239,0.35) 55%, rgba(237,246,230,0.8) 100%), url(/textures/sky.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
       >
         <span className="w-16 h-16 rounded-full bg-white border border-black/10 shadow-sm flex items-center justify-center">
           <LayoutGrid className="w-7 h-7 text-[#40634D]" />
