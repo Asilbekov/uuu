@@ -651,9 +651,9 @@ export default function DashboardView({
                 <div className="max-w-5xl mx-auto h-full">
                   {gridTreeMode ? (
                     /* VERSION-TREE card in the SAME grid layout — the view does
-                    not change, only the content does: the whole version family
-                    of the test whose tree button was tapped. «К тестам» on the
-                    tree header returns to the test cards. */
+                    not change, only the content does: an endless vertical
+                    window of the family trees. Swipe up walks the ancestor
+                    trees; past the trunk the window closes itself. */
                     <div className="px-2 sm:px-3 pb-2 sm:pb-3" style={{ height: 'calc(100% - 0px)' }}>
                       <VersionTreeView
                         testId={gridTreeTestId || ''}
@@ -1046,10 +1046,11 @@ export default function DashboardView({
                 </div>
               </div>
             ) : treeFeedMode ? (
-              /* VERSION-TREE feed mode — the feed swaps to the version tree of
-              the test whose tree button was tapped (the same contract as the
-              files mode one level up). Tapping an apple re-roots the view at
-              that version; «К тесту» on the tree header returns to the card. */
+              /* VERSION-TREE feed mode — the feed swaps to an endless vertical
+              window of the family trees of the test whose tree button was
+              tapped (the same contract as the files mode one level up).
+              Tapping an apple re-roots the window at that version; swiping up
+              walks the ancestor trees, past the trunk it returns to the feed. */
               <div className="flex-1 min-h-0 min-w-0 px-3 py-3 sm:px-4 sm:py-4 screen-enter" onWheelCapture={onWheelCapture}>
                 <VersionTreeView
                   testId={treeFeedTestId || ''}
