@@ -39,7 +39,7 @@ import type { TreeNode } from '@/lib/app-types';
 import { useSessionStore } from '@/stores/session-store';
 import { tUI } from '@/lib/i18n';
 import type { Lang } from '@/lib/i18n';
-import { LayoutGrid, RotateCcw, TreeDeciduous } from 'lucide-react';
+import { ArrowLeft, LayoutGrid, RotateCcw, TreeDeciduous } from 'lucide-react';
 
 // ---- SVG canvas -------------------------------------------------------------
 // The world is 400 units wide; the HEIGHT adapts to the card's aspect ratio
@@ -508,11 +508,19 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
 
   const header = (
     <div className="shrink-0 rounded-2xl bg-white/85 border border-black/10 px-3 py-2.5 flex items-center gap-2">
-      {/* NO navigation buttons here — the window itself is the navigation:
-      swipe up walks the ancestor trees, past the trunk it returns to tests. */}
-      <span className="shrink-0 w-8 h-8 rounded-full bg-[#EAF6E4] flex items-center justify-center" aria-hidden="true">
-        <TreeDeciduous className="w-4 h-4 text-[#40634D]" />
-      </span>
+      {/* Universal top-panel back button — one tap returns to the page the
+      tree was opened from (the test cards). The vertical swipe still walks
+      the ancestor trees; the button is the universal way OUT. */}
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={onClose}
+        className="rounded-full shrink-0 border-black w-8 h-8"
+        title={t('back')}
+        aria-label={t('back')}
+      >
+        <ArrowLeft className="w-4 h-4" />
+      </Button>
       <div className="min-w-0 flex-1 text-center">
         <p className="text-sm font-bold leading-tight truncate">{t('versionTree')}</p>
         {activeNode && (

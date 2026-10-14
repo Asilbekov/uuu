@@ -476,16 +476,22 @@ export default function DashboardView({
               </div>
             )}
             <div className="flex items-center gap-1 sm:gap-2 shrink-0 min-w-0">
-              {(dashView === 'tiktok2' || viewingUser) && (
+              {/* Universal top-panel back button — shown whenever the dashboard
+              is deeper than its home state (files/tree overlays, another
+              user's library, the tiktok2 feed). One tap = one level back:
+              the deepest overlay closes first, then the context, then the
+              view mode — i.e. always the PREVIOUS page. */}
+              {(dashView === 'tiktok2' || viewingUser || gridFilesMode || filesFeedMode || gridTreeMode || treeFeedMode) && (
                 <Button
                   variant="outline"
                   size="icon"
                   onClick={() => {
-                    if (viewingUser) { closeUserLibrary(); return; }
-                    if (gridFilesMode) { closeGridFiles(); return; }
-                    if (filesFeedMode) { closeFilesCard(); return; }
+                    // deepest overlay first — the true "previous page"
                     if (gridTreeMode) { closeGridTree(); return; }
                     if (treeFeedMode) { closeTreeCard(); return; }
+                    if (gridFilesMode) { closeGridFiles(); return; }
+                    if (filesFeedMode) { closeFilesCard(); return; }
+                    if (viewingUser) { closeUserLibrary(); return; }
                     backToLibrary();
                   }}
                   className="rounded-full shrink-0 border-black"
