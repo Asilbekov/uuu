@@ -2694,6 +2694,10 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // returns to the test cards; «К тестам» on a files card does the same.
   const openGridFiles = (test: Test) => {
     gridScrollTopRef.current = dashFeedRef.current?.scrollTop || 0;
+    // Files and tree grids are MUTUALLY EXCLUSIVE overlays: opening the files
+    // of a version card while the tree grid is on screen swaps the whole grid
+    // to the files page (the render branch checks tree mode first).
+    setGridTreeMode(false); setGridTreeTestId(null);
     setGridFilesTestId(test.id);
     setGridFilesMode(true);
     // Make sure the attachments are actually loaded (the list payload only
@@ -2751,6 +2755,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const toggleGridTree = (test: Test) => {
     if (gridTreeMode && gridTreeTestId === test.id) closeGridTree();
     else {
+      // Same mutual exclusion, the other way: the tree button on ANY card
+      // (regular or version) replaces whatever files page was open.
+      setGridFilesMode(false); setGridFilesTestId(null);
       setGridTreeTestId(test.id);
       setGridTreeMode(true);
     }

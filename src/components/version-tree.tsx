@@ -30,9 +30,9 @@
 //   branches, the trunk gets taller and the crown wider. Everything is drawn
 //   as pure SVG (no node cards) and scales to fill the whole card.
 //
-//   In the LIBRARY/SHELF grid the tree renders as VersionTreeGrid (below):
-//   the attached-files mechanic — one GRID CARD PER GENERATION of the
-//   family, scrolling walks up the chain, an apple tap re-roots the flow.
+//   In the LIBRARY/SHELF grid the tree renders as ONE FULL TEST CARD PER CELL
+//   (dashboard-view.tsx): the regular card code draws every version — same
+//   шапка, same action set — the SVG tree lives in the feed card (below).
 // ---------------------------------------------------------------------------
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -48,7 +48,7 @@ import { useSessionStore } from '@/stores/session-store';
 import { tUI } from '@/lib/i18n';
 import type { Lang } from '@/lib/i18n';
 import { RotateCcw, TreeDeciduous } from 'lucide-react';
-import { coverBgFor } from '@/components/shared-bits';
+import { CreatorStrip, coverBgFor } from '@/components/shared-bits';
 
 // ---- SVG canvas -------------------------------------------------------------
 // The world is 400 units wide; the HEIGHT adapts to the card's aspect ratio
@@ -459,9 +459,16 @@ function TreeCanvas({ node, apples, t, onApple }: TreeCanvasProps) {
 export interface VersionTreeProps {
   /** The test whose tree is shown (the starting root of the view). */
   testId: string;
+  /** Bookmarked test ids of the viewer — drives the pin button of the
+  STANDARD CARD HEADER (avatar + pin) shown above the cover band. */
+  bookmarkIds?: Set<string> | null;
+  /** The dashboard's bookmark toggle — its absence hides the header strip. */
+  onToggleBookmark?: (test: any) => void;
+  /** The viewing user — the avatar fallback for tests without creator info. */
+  userFallback?: { name?: string | null; image?: string | null } | null;
 }
 
-export default function VersionTreeView({ testId }: VersionTreeProps) {
+export default function VersionTreeView({ testId, bookmarkIds, onToggleBookmark, userFallback }: VersionTreeProps) {
   const lang = useSessionStore(s => s.lang);
   const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
   // This tree card is a SLIDE of the outer tree-card feed — at its own edges
@@ -579,6 +586,23 @@ export default function VersionTreeView({ testId }: VersionTreeProps) {
       {/* NO back button here on purpose: the dashboard's universal top-panel
       back is THE one exit — two back arrows on one screen confused users.
       The vertical swipe still walks the ancestor trees. */}
+      {/* THE STANDARD CARD HEADER — the author avatar + the pin button, the
+      same шапка the regular cards wear. It follows the walk up the chain:
+      the strip always shows the creator of the tree currently on screen. */}
+      {onToggleBookmark && activeNode && (
+        <CreatorStrip
+          name={activeNode.creator?.name || userFallback?.name || ''}
+          creatorId={activeNode.creatorId}
+          image={activeNode.creator?.image || userFallback?.image || null}
+          bookmarked={!!bookmarkIds?.has(activeNode.id)}
+          onToggleBookmark={() => onToggleBookmark({ id: activeNode.id, title: activeNode.title, creatorId: activeNode.creatorId } as any)}
+          addLabel={t('bookmarkAdd')}
+          removeLabel={t('bookmarkRemove')}
+          addShort={t('bookmarkAddShort')}
+          removeShort={t('bookmarkRemoveShort')}
+          openLabel={t('openProfile')}
+        />
+      )}
       <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden rounded-2xl">
         <div style={activeBgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${activeBgClass}`}>
           <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{activeNode?.title || t('versionTree')}</p>
@@ -640,164 +664,5 @@ export default function VersionTreeView({ testId }: VersionTreeProps) {
         .vt-apple:active { transform: scale(.94); }
       `}</style>
     </div>
-  );
-}
-
-// ---- grid (library/shelf): ONE VERSION CARD PER GRID CELL -------------------
-// The attached-files mechanic applied to the tree: tapping the tree button on
-// a grid test card swaps the grid's content to this test's FAMILY CARDS — the
-// tapped version first, then every ancestor up to the trunk, ONE VERSION CARD
-// PER GRID CELL: the exact cells the test and attached-files cards occupy
-// (library = 3 per row / 2 on narrow phones, shelf = 1 per row). Scrolling the
-// grid walks UP the chain (the feed's swipe-up, made scrollable); tapping an
-// apple re-roots the flow at that version and the grid scrolls back to the
-// top. The universal top-panel back returns to the test cards — no per-surface
-// back buttons, no exit slides, no timers.
-
-export function VersionTreeGrid({ testId, onReroot, gridPerRow, gridColsClass }: {
-  testId: string;
-  /** Called after an apple re-roots the flow — the host scrolls the grid up. */
-  onReroot?: () => void;
-  /** The host grid's geometry, passed down so the version cards occupy the
-  SAME cells as the test and attached-files cards (library: 3 per row, 2 on
-  narrow phones; shelf: 1 per row). */
-  gridPerRow: number;
-  /** Tailwind cols class matching gridPerRow (e.g. 'grid-cols-3'). */
-  gridColsClass: string;
-}) {
-  const lang = useSessionStore(s => s.lang);
-  const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
-
-  const [family, setFamily] = useState<{ rootId: string; nodes: TreeNode[] } | null>(null);
-  const [viewRootId, setViewRootId] = useState<string>(testId);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchFamily = useCallback((id: string) => {
-    setLoading(true);
-    setError(null);
-    api.getTestTree(id)
-      .then(data => {
-        setFamily(data);
-        if (!data.nodes.some(n => n.id === id)) setError(t('noResults'));
-      })
-      .catch(e => setError(e?.message || 'Error'))
-      .finally(() => setLoading(false));
-  }, [t]);
-
-  // The tree button of ANOTHER test can be tapped while the mode is open —
-  // follow the new root.
-  useEffect(() => { setViewRootId(testId); }, [testId]);
-  useEffect(() => { fetchFamily(viewRootId); }, [viewRootId, fetchFamily]);
-
-  // The apples of every family member, grouped by parent (sorted oldest first).
-  const applesByParent = useMemo(() => {
-    const m = new Map<string, TreeNode[]>();
-    if (family) {
-      for (const n of family.nodes) {
-        const key = n.parentId || '';
-        const arr = m.get(key);
-        if (arr) arr.push(n);
-        else m.set(key, [n]);
-      }
-      for (const arr of m.values()) arr.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-    }
-    return m;
-  }, [family]);
-
-  // The ancestor chain of the viewed test: card 0 = the tree the user opened,
-  // then parent, grandparent, … up to the family trunk. Scrolling DOWN the
-  // grid walks UP this chain — the scrollable twin of the feed's swipe-up.
-  const chain = useMemo(() => {
-    if (!family) return EMPTY_APPLES;
-    const out: TreeNode[] = [];
-    const seen = new Set<string>();
-    let cur: TreeNode | undefined = family.nodes.find(n => n.id === viewRootId);
-    while (cur && !seen.has(cur.id)) {
-      out.push(cur);
-      seen.add(cur.id);
-      const pid = cur.parentId || '';
-      cur = pid ? family.nodes.find(n => n.id === pid) : undefined;
-    }
-    return out;
-  }, [family, viewRootId]);
-
-  // Apple tap → re-root: the chain rebuilds from THAT version and the host
-  // scrolls the grid back to the top (same recursive navigation as the feed
-  // window, one level of indirection fewer).
-  const navigate = useCallback((id: string) => {
-    if (id === viewRootId) return;
-    setViewRootId(id);
-    onReroot?.();
-  }, [viewRootId, onReroot]);
-
-  if (loading && !family) {
-    return (
-      <div className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`} style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}>
-        <Skeleton className="h-full w-full rounded-3xl min-h-72" />
-      </div>
-    );
-  }
-
-  if (error && !family) {
-    return (
-      <div className="px-4 py-6 flex flex-col items-start gap-2">
-        <p className="text-sm text-muted-foreground">{error}</p>
-        <Button size="sm" variant="outline"
-          onClick={() => fetchFamily(viewRootId)}
-          className="h-8 rounded-full border-black text-xs px-3"
-        >
-          <RotateCcw className="size-3.5 shrink-0" /> <span>{t('restart')}</span>
-        </Button>
-      </div>
-    );
-  }
-
-  // The chain sliced into grid rows — the SAME slicing the host grid applies
-  // to its test cards and attached-file cards (see gridPerRow/gridColsClass).
-  const gridRows: TreeNode[][] = [];
-  for (let i = 0; i < chain.length; i += gridPerRow) gridRows.push(chain.slice(i, i + gridPerRow));
-
-  return (
-    <>
-      {gridRows.map((row, ri) => (
-        <div
-          key={ri}
-          className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
-          style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}
-        >
-          {row.map(node => {
-            const apples = applesByParent.get(node.id) || EMPTY_APPLES;
-            // THE STANDARD CARD HEADER — the same cover band the regular test
-            // cards wear on the main page (colored band + bold title), sized
-            // down for a grid cell. coverColor wins; else tag/topic palette.
-            const bgClass = node.coverColor ? '' : coverBgFor({ topic: node.topic });
-            const bgStyle = node.coverColor ? { backgroundColor: node.coverColor } : undefined;
-            return (
-              <div key={node.id} className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden">
-                <div className="relative h-16 min-h-12 shrink sm:h-20 overflow-hidden rounded-xl">
-                  <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-2 text-center ${bgClass}`}>
-                    <p className="text-sm sm:text-base font-bold text-cta leading-snug line-clamp-2 px-1">{node.title}</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center shrink-0 py-1.5">
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#FFF0D9] text-cta whitespace-nowrap">
-                    {t('treeVersionsCount', { n: apples.length })}
-                  </span>
-                </div>
-                <div className="flex-1 min-h-0">
-                  <TreeCanvas node={node} apples={apples} t={t} onApple={navigate} />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      ))}
-      <style>{`
-        .vt-apple { cursor: pointer; transition: transform .15s ease; transform-box: fill-box; transform-origin: center; outline: none; }
-        .vt-apple:hover { transform: scale(1.14); }
-        .vt-apple:active { transform: scale(.94); }
-      `}</style>
-    </>
   );
 }

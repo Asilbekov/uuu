@@ -65,6 +65,9 @@ export interface Test {
 
 // One node of the version tree (see GET /api/tests/[id]/tree). The creator
 // of a non-root node is the user who made this version — the apple photo.
+// The node carries everything the FULL test cards need (library/shelf grid
+// renders one version per cell through the same card code as the regular
+// tests): tags for the cover palette, _count.attachments for the paperclip.
 export interface TreeNode {
   id: string;
   title: string;
@@ -78,7 +81,8 @@ export interface TreeNode {
   createdAt: string;
   creatorId: string;
   creator: { id: string; name: string; image?: string | null };
-  _count?: { questions: number };
+  tags?: string[];
+  _count?: { questions: number; attachments?: number };
 }
 
 // A note about a test (the alternative to a trivial fork)

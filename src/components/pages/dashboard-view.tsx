@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { AttachmentItem, attachmentFileUrl, formatSize, typeIcon } from '@/components/attachment-utils';
 import LangButton from '@/components/lang-button';
@@ -13,17 +13,16 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { api } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Question, Test } from '@/lib/app-types';
+import { Question } from '@/lib/app-types';
 import { countAnsweredProgress, readTestProgress, type SavedTestProgress } from '@/lib/test-progress';
 import { ArrowLeft, BookOpen, BookmarkX, ChevronDown, ChevronRight, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
 const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsEditor), { ssr: false });
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
 // Version tree — its own on-demand chunk (fetches the family + renders SVG)
 const VersionTreeView = dynamic(() => import('@/components/version-tree').then(m => m.default), { ssr: false, loading: () => <div className="h-full w-full flex items-center justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></div> });
-const VersionTreeGrid = dynamic(() => import('@/components/version-tree').then(m => m.VersionTreeGrid), { ssr: false, loading: () => <div className="h-full w-full flex items-center justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></div> });
 const PhotoshopColorPicker = dynamic(() => import('@/components/color-picker').then(m => m.PhotoshopColorPicker), { ssr: false });
 
-import type { Page } from '@/lib/app-types';
+import type { Page, Test, TreeNode } from '@/lib/app-types';
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
 import { testBackgroundCss } from '@/lib/test-bg';
 import { useExitMount } from '@/components/motion';
@@ -175,8 +174,95 @@ export default function DashboardView({
   const treeFeedTestId = useNavStore(s => s.treeFeedTestId);
   const gridTreeMode = useNavStore(s => s.gridTreeMode);
   const gridTreeTestId = useNavStore(s => s.gridTreeTestId);
+  // ── VERSION-TREE grid data ────────────────────────────────────────────────
+  // The tree grid shows ONE VERSION CARD PER CELL through the SAME card code
+  // as the regular tests — so the dashboard itself owns the family payload
+  // (the old VersionTreeGrid component is gone). The list = the selected test
+  // + every test that is a VERSION of it (the whole descendant subtree,
+  // generation by generation, oldest first); every card carries the full
+  // action set, and the tree button of any card re-roots the grid at THAT
+  // version (gridTreeTestId changes → the effect below refetches).
+  const [treeFamily, setTreeFamily] = useState<{ rootId: string; nodes: TreeNode[] } | null>(null);
+  const [treeLoading, setTreeLoading] = useState(false);
+  const [treeError, setTreeError] = useState<string | null>(null);
+  useEffect(() => {
+    if (!gridTreeMode || !gridTreeTestId) { setTreeFamily(null); setTreeError(null); return; }
+    let alive = true;
+    setTreeLoading(true); setTreeError(null);
+    api.getTestTree(gridTreeTestId)
+      .then(d => { if (alive) setTreeFamily(d); })
+      .catch(e => { if (alive) { setTreeError(e?.message || 'Error'); setTreeFamily(null); } })
+      .finally(() => { if (alive) setTreeLoading(false); });
+    // Re-open / re-root also starts the grid from the top — the tapped test's
+    // card is the first cell of the new list.
+    requestAnimationFrame(() => dashFeedRef.current?.scrollTo({ top: 0 }));
+    return () => { alive = false; };
+  }, [gridTreeMode, gridTreeTestId]);
   const deleteId = useNavStore(s => s.deleteId);
   const setDeleteId = useNavStore(s => s.setDeleteId);
+  // A deleted version must leave the grid at once: the delete dialog always
+  // closes to deleteId=null, so the family refetch rides on that transition.
+  useEffect(() => {
+    if (deleteId === null && gridTreeMode && gridTreeTestId) {
+      api.getTestTree(gridTreeTestId)
+        .then(d => setTreeFamily(d))
+        .catch(() => {});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deleteId]);
+  // The card list of the tree grid: the selected test FIRST, then every test
+  // that IS A VERSION of it — the whole descendant subtree, generation by
+  // generation (BFS), oldest first inside a generation. Every entry renders
+  // through the same full card code as the regular tests; scrolling walks
+  // DOWN the generations, the tree button of any card re-roots the grid.
+  const treeChain: TreeNode[] = useMemo(() => {
+    if (!treeFamily || !gridTreeTestId) return [];
+    const byId = new Map<string, TreeNode>();
+    const kids = new Map<string, TreeNode[]>();
+    for (const n of treeFamily.nodes) {
+      byId.set(n.id, n);
+      const k = n.parentId || '';
+      const arr = kids.get(k);
+      if (arr) arr.push(n); else kids.set(k, [n]);
+    }
+    for (const arr of kids.values()) arr.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    const out: TreeNode[] = [];
+    const seen = new Set<string>();
+    let frontier: string[] = byId.has(gridTreeTestId) ? [gridTreeTestId] : [];
+    while (frontier.length) {
+      const next: string[] = [];
+      for (const id of frontier) {
+        if (seen.has(id)) continue;
+        seen.add(id);
+        const node = byId.get(id);
+        if (node) out.push(node);
+        for (const c of kids.get(id) || []) next.push(c.id);
+      }
+      frontier = next;
+    }
+    return out;
+  }, [treeFamily, gridTreeTestId]);
+  // TreeNode → Test: the version nodes now drive the FULL test-card code,
+  // which expects the Test shape (the fields the cards actually read).
+  const nodeAsTest = (n: TreeNode): Test => ({
+    id: n.id,
+    title: n.title,
+    description: n.description || '',
+    topic: n.topic || '',
+    creatorId: n.creatorId,
+    creator: n.creator,
+    isPublic: true,
+    parentId: n.parentId,
+    changedCount: n.changedCount,
+    randomizeQuestions: true,
+    randomizeOptions: true,
+    tags: n.tags || [],
+    coverIcon: n.coverIcon ?? null,
+    coverColor: n.coverColor ?? null,
+    questions: [],
+    _count: { questions: n._count?.questions || 0, attempts: 0, attachments: n._count?.attachments || 0 },
+    createdAt: n.createdAt,
+  });
   const discoverMode = useNavStore(s => s.discoverMode);
   const setPage = useNavStore(s => s.setPage);
   // dashboard store
@@ -419,6 +505,281 @@ export default function DashboardView({
     // tag/topic palette).
     const gridFilesBgClass = gridFilesTest ? (gridFilesTest.coverColor ? '' : coverBgFor(gridFilesTest)) : '';
     const gridFilesBgStyle = gridFilesTest?.coverColor ? { backgroundColor: gridFilesTest.coverColor } : undefined;
+    // ONE CARD RENDERER for every grid cell of this view — regular tests AND
+    // the version cards of the tree grid (one version per cell, the SAME full
+    // action set, the SAME шапка). idx indexes the loaded feed list; the tree
+    // grid passes idx=null: its cards are not feed entries, so the card body
+    // carries no open action and Start/Restart skip the feed-index commit.
+    const renderGridCard = (test: Test, idx: number | null) => {
+      const totalQ = test._count?.questions || test.questions?.length || 0;
+      // "Own" = created by THIS user. Bookmarked tests (saved
+      // via the bookmark button) are NOT own: they show no
+      // share buttons — pressing Edit makes an editable copy.
+      const own = !!effectiveUser && test.creatorId === effectiveUser.id;
+      // Version state on the card: a VERSION (parentId set)
+      // may share its link only after 2+ questions/answers
+      // changed vs its parent — otherwise the button is
+      // PASSIVE and explains the rule. The count comes
+      // from the server (saved at every version save).
+      const isVersion = !!test.parentId;
+      const canShareLink = !isVersion || (test.changedCount ?? 0) >= 2;
+      const fcnt = (dashFullTests[test.id]?.attachments as AttachmentItem[] | undefined)?.length || test._count?.attachments || 0;
+      const bgClass = test.coverColor ? '' : coverBgFor(test);
+      const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
+      // THE STANDARD CARD HEADER — the author's photo + the pin button, on
+      // EVERY card of EVERY type now (personal library included): the avatar
+      // falls back to the viewer (own tests) or to the owner of the library
+      // being browsed.
+      const strip = (
+        <CreatorStrip
+          compact
+          name={(test as any).creator?.name || (own ? effectiveUser?.name : null) || viewingUser?.name || ''}
+          creatorId={(test as any).creator?.id || test.creatorId}
+          image={(test as any).creator?.image || (own ? myAvatar : null) || viewingUser?.image || null}
+          bookmarked={bookmarkIds.has(test.id)}
+          onToggleBookmark={() => toggleBookmark(test)}
+          addLabel={t('bookmarkAdd')}
+          removeLabel={t('bookmarkRemove')}
+          addShort={t('bookmarkAddShort')}
+          removeShort={t('bookmarkRemoveShort')}
+          onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
+          openLabel={t('openProfile')}
+        />
+      );
+      // Start/Restart from a card: the feed-index commit only makes sense for
+      // feed-backed cards (idx !== null); version cards start by override.
+      const startCard = (fresh: boolean) => {
+        if (idx !== null) setDashTestIdx(idx);
+        startFromDashboard(fresh, test);
+      };
+      const openBody = () => { if (idx !== null) openFromLibrary(idx); };
+      return dashView === 'library' ? (
+        <div
+          key={test.id}
+          role={idx !== null ? 'button' : undefined}
+          tabIndex={idx !== null ? 0 : undefined}
+          onClick={() => { if (editMode) { startEditTest(test); } else { openBody(); } }}
+          className={`h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden hover:border-black/40 active:scale-[0.99] transition-all text-left ${idx !== null ? 'cursor-pointer' : ''}`}
+        >
+          {strip}
+          <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
+          {/* Full-name action buttons, one per line. Start resumes
+          saved progress; Restart always begins over; the paperclip
+          flips this grid to the files cards of THIS test. */}
+          <div className="mt-auto pt-1.5 flex flex-col gap-1">
+            <Button size="sm" disabled={loading}
+              onClick={e => { e.stopPropagation(); startCard(false); }}
+              title={t('startTestBtn')} aria-label={t('startTestBtn')}
+              className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+            >
+              <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
+            </Button>
+            <Button size="sm" variant="outline" disabled={loading}
+              onClick={e => { e.stopPropagation(); startCard(true); }}
+              title={t('restart')} aria-label={t('restart')}
+              className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+            >
+              <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
+            </Button>
+            {fcnt > 0 && (
+              <Button size="sm" variant="outline"
+                onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
+                title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
+                className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-0.5 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+              >
+                <Paperclip className="size-3 shrink-0" /> <span className="truncate [@media(max-width:399px)]:text-[9px]">{t('attachedFiles', { n: fcnt })}</span>
+              </Button>
+            )}
+            {/* Version tree — ALWAYS on every grid card, both views: the grid
+            swaps to the version tree of THIS test (same contract as the
+            paperclip → files). On a tree card the tap of the ACTIVE root
+            closes the mode; any OTHER card re-roots the grid at it. */}
+            <Button size="sm" variant="outline"
+              onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
+              title={t('versionTree')} aria-label={t('versionTree')}
+              className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+            >
+              <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
+            </Button>
+            {/* Share link — EVERY card (own, bookmarked and
+            discover alike). For versions the button is
+            PASSIVE until 2+ questions/answers changed;
+            the passive state shows the rule text. */}
+            <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
+              onClick={e => { e.stopPropagation(); doShareLink(test); }}
+              title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
+              className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+            >
+              <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareLinkBtn')}</span>
+            </Button>
+            {!canShareLink && (
+              <p className="text-[9px] leading-tight text-muted-foreground -mt-0.5">{t('shareNeed2Changes')}</p>
+            )}
+            {/* Make public — OWN from-scratch tests ONLY.
+            A version can never be public, so its card
+            does not carry this button at all. */}
+            {own && !isVersion && (
+            <Button size="sm" variant="outline" disabled={!!shareBusy}
+              onClick={e => { e.stopPropagation(); doMakePublic(test); }}
+              title={t('makePublic')} aria-label={t('makePublic')}
+              className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+            >
+              <Users className="size-3 shrink-0" /> <span className="truncate">{t('makePublic')}</span>
+            </Button>
+            )}
+            <Button size="sm" variant="outline"
+              onClick={e => { e.stopPropagation(); startEditTest(test); }}
+              title={t('editTest')} aria-label={t('editTest')}
+              className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+            >
+              <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
+            </Button>
+            {/* Unpin — BOOKMARKED tests in the personal library:
+            the test got here via the bookmark button, this row
+            takes it back out (Discover keeps its own toggle on
+            the author strip). */}
+            {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
+            <Button size="sm" variant="outline"
+              onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
+              title={t('unpinBtn')} aria-label={t('unpinBtn')}
+              className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+            >
+              <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
+            </Button>
+            )}
+            {/* Delete — own tests only (the server refuses
+            anyone else): the confirm dialog spells out what
+            disappears with the test — library and community
+            entries + the share link. */}
+            {own && (
+            <Button size="sm" variant="outline"
+              onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
+              title={t('deleteTest')} aria-label={t('deleteTest')}
+              className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+            >
+              <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
+            </Button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div
+          key={test.id}
+          role={idx !== null ? 'button' : undefined}
+          tabIndex={idx !== null ? 0 : undefined}
+          onClick={() => { if (editMode) { startEditTest(test); } else { openBody(); } }}
+          className={`h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden hover:border-black/40 active:scale-[0.99] transition-all text-left ${idx !== null ? 'cursor-pointer' : ''}`}
+        >
+          <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
+            <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
+          </div>
+          <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
+            {strip}
+            {/* Title lives on the spine only — no duplicate text in
+            the content area */}
+            <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
+            <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
+            {/* Full-name action buttons, one per line — the whole
+            TikTok-card action set on every shelf card */}
+            <div className="mt-auto pt-1.5 flex flex-col gap-1">
+              <Button size="sm" disabled={loading}
+                onClick={e => { e.stopPropagation(); startCard(false); }}
+                title={t('startTestBtn')} aria-label={t('startTestBtn')}
+                className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
+              >
+                <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
+              </Button>
+              <Button size="sm" variant="outline" disabled={loading}
+                onClick={e => { e.stopPropagation(); startCard(true); }}
+                title={t('restart')} aria-label={t('restart')}
+                className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
+              >
+                <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
+              </Button>
+              {fcnt > 0 && (
+                <Button size="sm" variant="outline"
+                  onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
+                  title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
+                  className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                >
+                  <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
+                </Button>
+              )}
+              {/* Version tree — ALWAYS on every shelf card:
+              the grid swaps to the version tree of THIS test */}
+              <Button size="sm" variant="outline"
+                onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
+                title={t('versionTree')} aria-label={t('versionTree')}
+                className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+              >
+                <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
+              </Button>
+              {/* Share link — EVERY card (own, bookmarked and
+              discover alike); PASSIVE for versions with
+              <2 changed questions, the rule text shows
+              right under the button. */}
+              <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
+                onClick={e => { e.stopPropagation(); doShareLink(test); }}
+                title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
+                className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
+              >
+                <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareLinkBtn')}</span>
+              </Button>
+              {!canShareLink && (
+                <p className="text-[9px] leading-tight text-muted-foreground -mt-0.5">{t('shareNeed2Changes')}</p>
+              )}
+              {/* Make public — OWN from-scratch tests ONLY
+              (a version can never be public). */}
+              {own && !isVersion && (
+              <Button size="sm" variant="outline" disabled={!!shareBusy}
+                onClick={e => { e.stopPropagation(); doMakePublic(test); }}
+                title={t('makePublic')} aria-label={t('makePublic')}
+                className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
+              >
+                <Users className="size-3 shrink-0" /> <span className="truncate">{t('makePublic')}</span>
+              </Button>
+              )}
+              <Button size="sm" variant="outline"
+                onClick={e => { e.stopPropagation(); startEditTest(test); }}
+                title={t('editTest')} aria-label={t('editTest')}
+                className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
+              >
+                <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
+              </Button>
+              {/* Unpin — bookmarked tests in the personal
+              library (shelf row): removes the test from the
+              personal library, same toggle as Discover */}
+              {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
+              <Button size="sm" variant="outline"
+                onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
+                title={t('unpinBtn')} aria-label={t('unpinBtn')}
+                className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
+              >
+                <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
+              </Button>
+              )}
+              {/* Delete — own tests only, same as the library
+              card: dialog confirms, then the test leaves the
+              library, the community and its link dies. */}
+              {own && (
+              <Button size="sm" variant="outline"
+                onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
+                title={t('deleteTest')} aria-label={t('deleteTest')}
+                className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[11px] sm:text-xs px-2 justify-start"
+              >
+                <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
+              </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    };
+    // Tree-grid rows: the SAME slicing/shapes the regular cards use.
+    const treeRows: TreeNode[][] = [];
+    for (let i = 0; i < treeChain.length; i += gridPerRow) treeRows.push(treeChain.slice(i, i + gridPerRow));
+    // Author fallback for the files page header (the test whose files are open)
+    const gridFilesOwn = !!effectiveUser && !!gridFilesTest && gridFilesTest.creatorId === effectiveUser.id;
     const searchQ = dashSearch.trim();
     const dashSearchDropdown = searchQ.length < 2 ? null : (
       <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
@@ -682,23 +1043,42 @@ export default function DashboardView({
               <div key={`feed-grid-${dashView}`} ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain screen-enter [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="max-w-5xl mx-auto h-full">
                   {gridTreeMode ? (
-                    /* VERSION-TREE cards in the SAME grid layout — the exact
-                    attached-files mechanic: ONE VERSION CARD PER GRID CELL of
-                    this test's family (the tapped version first, then every
-                    ancestor up to the trunk), the same cells the test and
-                    file cards occupy — 3 per row in the library (2 on narrow
-                    phones), 1 per row on the shelf. Scrolling the grid walks
-                    UP the chain. Tapping an apple re-roots the flow at that
-                    version and the grid scrolls back to the top. Each card
-                    wears THE STANDARD CARD HEADER — the same cover band as
-                    the regular test cards on the main page. The universal
-                    top-panel back returns to the test cards. */
-                    <VersionTreeGrid
-                      testId={gridTreeTestId || ''}
-                      gridPerRow={gridPerRow}
-                      gridColsClass={gridColsClass}
-                      onReroot={() => requestAnimationFrame(() => requestAnimationFrame(() => dashFeedRef.current?.scrollTo({ top: 0, behavior: 'smooth' })))}
-                    />
+                    /* VERSION-TREE cards in the SAME grid layout — ONE VERSION
+                    CARD PER GRID CELL, but now every cell is a FULL TEST CARD
+                    drawn by the very same renderGridCard as the regular tests:
+                    the шапка (author avatar + pin) and the complete action set
+                    — Start / Restart / Files / Tree / Share / Edit / Delete.
+                    The list = the selected test first, then every test that IS
+                    A VERSION of it (the descendant subtree, generation by
+                    generation) — 3 per row in the library (2 on narrow phones),
+                    1 per row on the shelf. The tree button of any card re-roots
+                    the grid at THAT version; the universal top-panel back
+                    returns to the test cards. */
+                    treeLoading && !treeFamily ? (
+                      <div className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`} style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}>
+                        <Skeleton className="h-full w-full rounded-3xl min-h-72" />
+                      </div>
+                    ) : treeError && !treeFamily ? (
+                      <div className="px-4 py-6 flex flex-col items-start gap-2">
+                        <p className="text-sm text-muted-foreground">{treeError}</p>
+                        <Button size="sm" variant="outline"
+                          onClick={() => { if (gridTreeTestId) api.getTestTree(gridTreeTestId).then(d => { setTreeFamily(d); setTreeError(null); }).catch(e => setTreeError(e?.message || 'Error')); }}
+                          className="h-8 rounded-full border-black text-xs px-3"
+                        >
+                          <RefreshCw className="size-3.5 shrink-0" /> <span>{t('restart')}</span>
+                        </Button>
+                      </div>
+                    ) : (
+                      treeRows.map((row, ri) => (
+                        <div
+                          key={ri}
+                          className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
+                          style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}
+                        >
+                          {row.map(node => renderGridCard(nodeAsTest(node), null))}
+                        </div>
+                      ))
+                    )
                   ) : gridFilesMode ? (
                     /* ATTACHED-FILES cards in the SAME grid layout — the view does not
                     change, only the cards do: one card per attachment of the test whose
@@ -709,7 +1089,23 @@ export default function DashboardView({
                     <>
                       {gridFilesTest && (
                         <div className="px-2 sm:px-3 pb-2 sm:pb-3">
-                          <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden rounded-2xl">
+                          {/* THE STANDARD CARD HEADER — the author avatar + the
+                          pin button above the cover band: the files page of ONE
+                          test wears the same шапка as every other card. */}
+                          <CreatorStrip
+                            name={(gridFilesTest as any).creator?.name || (gridFilesOwn ? effectiveUser?.name : null) || viewingUser?.name || ''}
+                            creatorId={(gridFilesTest as any).creator?.id || gridFilesTest.creatorId}
+                            image={(gridFilesTest as any).creator?.image || (gridFilesOwn ? myAvatar : null) || viewingUser?.image || null}
+                            bookmarked={bookmarkIds.has(gridFilesTest.id)}
+                            onToggleBookmark={() => toggleBookmark(gridFilesTest)}
+                            addLabel={t('bookmarkAdd')}
+                            removeLabel={t('bookmarkRemove')}
+                            addShort={t('bookmarkAddShort')}
+                            removeShort={t('bookmarkRemoveShort')}
+                            onOpenProfile={() => openUserLibrary({ id: (gridFilesTest as any).creator?.id || gridFilesTest.creatorId, name: (gridFilesTest as any).creator?.name, image: (gridFilesTest as any).creator?.image })}
+                            openLabel={t('openProfile')}
+                          />
+                          <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden rounded-2xl mt-2">
                             <div style={gridFilesBgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${gridFilesBgClass}`}>
                               <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{gridFilesTest.title}</p>
                             </div>
@@ -787,286 +1183,15 @@ export default function DashboardView({
                     /* TEST cards — every card carries the FULL action set of the TikTok
                     card with its full name, one button per line (never two on one line):
                     Start / Restart / Attached files / Share by link / Share to community /
-                    Edit. */
+                    Edit. The same renderGridCard also draws the VERSION cards of the
+                    tree grid above (idx = null there). */
                     gridRows.map((row, ri) => (
                       <div
                         key={ri}
                         className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
                         style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}
                       >
-                        {row.map((test, ci) => {
-                          const idx = ri * gridPerRow + ci;
-                          const totalQ = test._count?.questions || test.questions?.length || 0;
-                          // "Own" = created by THIS user. Bookmarked tests (saved
-                          // via the bookmark button) are NOT own: they show no
-                          // share buttons — pressing Edit makes an editable copy.
-                          const own = !!effectiveUser && test.creatorId === effectiveUser.id;
-                          // Version state on the card: a VERSION (parentId set)
-                          // may share its link only after 2+ questions/answers
-                          // changed vs its parent — otherwise the button is
-                          // PASSIVE and explains the rule. The count comes
-                          // from the server (saved at every version save).
-                          const isVersion = !!test.parentId;
-                          const canShareLink = !isVersion || (test.changedCount ?? 0) >= 2;
-                          const fcnt = (dashFullTests[test.id]?.attachments as AttachmentItem[] | undefined)?.length || test._count?.attachments || 0;
-                          const bgClass = test.coverColor ? '' : coverBgFor(test);
-                          const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
-                          return dashView === 'library' ? (
-                            <div
-                              key={test.id}
-                              role="button"
-                              tabIndex={0}
-                              onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
-                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
-                            >
-                              {/* Discover mode AND other users' libraries: author
-                              header + bookmark. The personal library keeps the
-                              card clean (you know it's yours). */}
-                              {(discoverMode || viewingUser) && !(discoverMode && own) && (
-                                <CreatorStrip
-                                  compact
-                                  name={(test as any).creator?.name || viewingUser?.name || ''}
-                                  creatorId={(test as any).creator?.id || test.creatorId}
-                                  image={(test as any).creator?.image || viewingUser?.image || null}
-                                  bookmarked={bookmarkIds.has(test.id)}
-                                  onToggleBookmark={() => toggleBookmark(test)}
-                                  addLabel={t('bookmarkAdd')}
-                                  removeLabel={t('bookmarkRemove')}
-                                  addShort={t('bookmarkAddShort')}
-                                  removeShort={t('bookmarkRemoveShort')}
-                                  onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
-                                  openLabel={t('openProfile')}
-                                />
-                              )}
-                              <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
-                              {/* Full-name action buttons, one per line. Start resumes
-                              saved progress; Restart always begins over; the paperclip
-                              flips this grid to the files cards of THIS test. */}
-                              <div className="mt-auto pt-1.5 flex flex-col gap-1">
-                                <Button size="sm" disabled={loading}
-                                  onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
-                                  title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                                  className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
-                                </Button>
-                                <Button size="sm" variant="outline" disabled={loading}
-                                  onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
-                                  title={t('restart')} aria-label={t('restart')}
-                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
-                                </Button>
-                                {fcnt > 0 && (
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
-                                    title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                    className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-0.5 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                  >
-                                    <Paperclip className="size-3 shrink-0" /> <span className="truncate [@media(max-width:399px)]:text-[9px]">{t('attachedFiles', { n: fcnt })}</span>
-                                  </Button>
-                                )}
-                                {/* Version tree — ALWAYS on every grid card, both
-                                views: the grid swaps to the version tree of THIS
-                                test (same contract as the paperclip → files) */}
-                                <Button size="sm" variant="outline"
-                                  onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
-                                  title={t('versionTree')} aria-label={t('versionTree')}
-                                  className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                >
-                                  <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
-                                </Button>
-                                {/* Share link — EVERY card (own, bookmarked and
-                                discover alike). For versions the button is
-                                PASSIVE until 2+ questions/answers changed;
-                                the passive state shows the rule text. */}
-                                <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
-                                  onClick={e => { e.stopPropagation(); doShareLink(test); }}
-                                  title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
-                                  className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareLinkBtn')}</span>
-                                </Button>
-                                {!canShareLink && (
-                                  <p className="text-[9px] leading-tight text-muted-foreground -mt-0.5">{t('shareNeed2Changes')}</p>
-                                )}
-                                {/* Make public — OWN from-scratch tests ONLY.
-                                A version can never be public, so its card
-                                does not carry this button at all. */}
-                                {own && !isVersion && (
-                                <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                  onClick={e => { e.stopPropagation(); doMakePublic(test); }}
-                                  title={t('makePublic')} aria-label={t('makePublic')}
-                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <Users className="size-3 shrink-0" /> <span className="truncate">{t('makePublic')}</span>
-                                </Button>
-                                )}
-                                <Button size="sm" variant="outline"
-                                  onClick={e => { e.stopPropagation(); startEditTest(test); }}
-                                  title={t('editTest')} aria-label={t('editTest')}
-                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
-                                </Button>
-                                {/* Unpin — BOOKMARKED tests in the personal library:
-                                the test got here via the bookmark button, this row
-                                takes it back out (Discover keeps its own toggle on
-                                the author strip). */}
-                                {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
-                                <Button size="sm" variant="outline"
-                                  onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
-                                  title={t('unpinBtn')} aria-label={t('unpinBtn')}
-                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
-                                </Button>
-                                )}
-                                {/* Delete — own tests only (the server refuses
-                                anyone else): the confirm dialog spells out what
-                                disappears with the test — library and community
-                                entries + the share link. */}
-                                {own && (
-                                <Button size="sm" variant="outline"
-                                  onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
-                                  title={t('deleteTest')} aria-label={t('deleteTest')}
-                                  className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
-                                </Button>
-                                )}
-                              </div>
-                            </div>
-                          ) : (
-                            <div
-                              key={test.id}
-                              role="button"
-                              tabIndex={0}
-                              onClick={() => { if (editMode) { startEditTest(test); } else { openFromLibrary(idx); } }}
-                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
-                            >
-                              <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
-                                <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
-                              </div>
-                              <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
-                                {/* Discover mode AND other users' libraries: author
-                                header + bookmark on the shelf card too */}
-                                {(discoverMode || viewingUser) && !(discoverMode && own) && (
-                                  <CreatorStrip
-                                    compact
-                                    name={(test as any).creator?.name || viewingUser?.name || ''}
-                                    creatorId={(test as any).creator?.id || test.creatorId}
-                                    image={(test as any).creator?.image || viewingUser?.image || null}
-                                    bookmarked={bookmarkIds.has(test.id)}
-                                    onToggleBookmark={() => toggleBookmark(test)}
-                                    addLabel={t('bookmarkAdd')}
-                                    removeLabel={t('bookmarkRemove')}
-                                    addShort={t('bookmarkAddShort')}
-                                    removeShort={t('bookmarkRemoveShort')}
-                                    onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
-                                    openLabel={t('openProfile')}
-                                  />
-                                )}
-                                {/* Title lives on the spine only — no duplicate text in
-                                the content area */}
-                                <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
-                                <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
-                                {/* Full-name action buttons, one per line — the whole
-                                TikTok-card action set on every shelf card */}
-                                <div className="mt-auto pt-1.5 flex flex-col gap-1">
-                                  <Button size="sm" disabled={loading}
-                                    onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(false, test); }}
-                                    title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                                    className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
-                                  >
-                                    <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
-                                  </Button>
-                                  <Button size="sm" variant="outline" disabled={loading}
-                                    onClick={e => { e.stopPropagation(); setDashTestIdx(idx); startFromDashboard(true, test); }}
-                                    title={t('restart')} aria-label={t('restart')}
-                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
-                                  >
-                                    <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
-                                  </Button>
-                                  {fcnt > 0 && (
-                                    <Button size="sm" variant="outline"
-                                      onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
-                                      title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                                      className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                    >
-                                      <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
-                                    </Button>
-                                  )}
-                                  {/* Version tree — ALWAYS on every shelf card:
-                                  the grid swaps to the version tree of THIS test */}
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
-                                    title={t('versionTree')} aria-label={t('versionTree')}
-                                    className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-                                  >
-                                    <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
-                                  </Button>
-                                  {/* Share link — EVERY card (own, bookmarked and
-                                  discover alike); PASSIVE for versions with
-                                  <2 changed questions, the rule text shows
-                                  right under the button. */}
-                                  <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
-                                    onClick={e => { e.stopPropagation(); doShareLink(test); }}
-                                    title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
-                                    className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
-                                  >
-                                    <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareLinkBtn')}</span>
-                                  </Button>
-                                  {!canShareLink && (
-                                    <p className="text-[9px] leading-tight text-muted-foreground -mt-0.5">{t('shareNeed2Changes')}</p>
-                                  )}
-                                  {/* Make public — OWN from-scratch tests ONLY
-                                  (a version can never be public). */}
-                                  {own && !isVersion && (
-                                  <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                    onClick={e => { e.stopPropagation(); doMakePublic(test); }}
-                                    title={t('makePublic')} aria-label={t('makePublic')}
-                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
-                                  >
-                                    <Users className="size-3 shrink-0" /> <span className="truncate">{t('makePublic')}</span>
-                                  </Button>
-                                  )}
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); startEditTest(test); }}
-                                    title={t('editTest')} aria-label={t('editTest')}
-                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
-                                  >
-                                    <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
-                                  </Button>
-                                  {/* Unpin — bookmarked tests in the personal
-                                  library (shelf row): removes the test from the
-                                  personal library, same toggle as Discover */}
-                                  {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
-                                    title={t('unpinBtn')} aria-label={t('unpinBtn')}
-                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
-                                  >
-                                    <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
-                                  </Button>
-                                  )}
-                                  {/* Delete — own tests only, same as the library
-                                  card: dialog confirms, then the test leaves the
-                                  library, the community and its link dies. */}
-                                  {own && (
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
-                                    title={t('deleteTest')} aria-label={t('deleteTest')}
-                                    className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[11px] sm:text-xs px-2 justify-start"
-                                  >
-                                    <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
-                                  </Button>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
+                        {row.map((test, ci) => renderGridCard(test, ri * gridPerRow + ci))}
                       </div>
                     ))
                   )}
@@ -1097,7 +1222,12 @@ export default function DashboardView({
                   {tests.map((test) => (
                     <SwiperSlide key={test.id} className="!h-full">
                       <div className="h-full w-full px-3 py-3 sm:px-4 sm:py-4 min-h-0">
-                        <VersionTreeView testId={test.id} />
+                        <VersionTreeView
+                          testId={test.id}
+                          bookmarkIds={bookmarkIds}
+                          onToggleBookmark={toggleBookmark}
+                          userFallback={effectiveUser ? { name: effectiveUser.name, image: myAvatar } : null}
+                        />
                       </div>
                     </SwiperSlide>
                   ))}
@@ -1129,11 +1259,26 @@ export default function DashboardView({
                       <SwiperSlide key={`${test.id}`} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
                       <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                         <div className="w-full max-w-md lg:max-w-3xl flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
-                          {/* THE STANDARD CARD HEADER — the regular test cards on the
-                          main feed wear their title directly on the cover-colored
-                          background (big bold text-cta), and this slide's own background
-                          IS that cover color — so the header is the same bare title band,
-                          not a small white name strip. */}
+                          {/* THE STANDARD CARD HEADER — the author avatar + the
+                          pin button above the cover band, the same шапка every
+                          feed card wears. */}
+                          <CreatorStrip
+                            name={(test as any).creator?.name || (test.creatorId === effectiveUser?.id ? effectiveUser?.name : null) || viewingUser?.name || ''}
+                            creatorId={(test as any).creator?.id || test.creatorId}
+                            image={(test as any).creator?.image || (test.creatorId === effectiveUser?.id ? myAvatar : null) || viewingUser?.image || null}
+                            bookmarked={bookmarkIds.has(test.id)}
+                            onToggleBookmark={() => toggleBookmark(test)}
+                            addLabel={t('bookmarkAdd')}
+                            removeLabel={t('bookmarkRemove')}
+                            addShort={t('bookmarkAddShort')}
+                            removeShort={t('bookmarkRemoveShort')}
+                            onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
+                            openLabel={t('openProfile')}
+                          />
+                          {/* The regular test cards on the main feed wear their title
+                          directly on the cover-colored background (big bold text-cta),
+                          and this slide's own background IS that cover color — so the
+                          header is the same bare title band, not a white name strip. */}
                           <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 flex flex-col items-center justify-center px-4 text-center">
                             <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{test.title}</p>
                           </div>
@@ -1209,14 +1354,14 @@ export default function DashboardView({
                       on large screens instead of looking like a phone cast onto
                       the monitor. Every control row spans the wider column. */}
                       <div className="w-full max-w-md lg:max-w-3xl flex flex-col gap-2.5 sm:gap-4 min-h-0">
-                        {/* Discover mode AND other users' libraries: author header
-                        with the bookmark toggle, right above the cover. Personal
-                        library stays clean. */}
-                        {(discoverMode || viewingUser) && !(discoverMode && own) && (
+                        {/* THE STANDARD CARD HEADER — the author avatar + the pin
+                        button on EVERY card of EVERY type now: Discover, other
+                        users' libraries AND the personal library alike. */}
+                        {(
                           <CreatorStrip
-                            name={(test as any).creator?.name || viewingUser?.name || ''}
+                            name={(test as any).creator?.name || (own ? effectiveUser?.name : null) || viewingUser?.name || ''}
                             creatorId={(test as any).creator?.id || test.creatorId}
-                            image={(test as any).creator?.image || viewingUser?.image || null}
+                            image={(test as any).creator?.image || (own ? myAvatar : null) || viewingUser?.image || null}
                             bookmarked={bookmarkIds.has(test.id)}
                             onToggleBookmark={() => toggleBookmark(test)}
                             addLabel={t('bookmarkAdd')}

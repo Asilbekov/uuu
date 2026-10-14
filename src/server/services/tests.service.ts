@@ -228,7 +228,8 @@ export async function getTestTree(id: string) {
       createdAt: true,
       creatorId: true,
       creator: { select: { id: true, name: true, image: true } },
-      _count: { select: { questions: true } },
+      tags: true,
+      _count: { select: { questions: true, attachments: true } },
     },
     orderBy: { createdAt: "asc" },
     take: 500, // hard cap — a family can never hang the endpoint
