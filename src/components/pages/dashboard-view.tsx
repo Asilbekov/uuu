@@ -20,6 +20,7 @@ const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
 // Version tree — its own on-demand chunk (fetches the family + renders SVG)
 const VersionTreeView = dynamic(() => import('@/components/version-tree').then(m => m.default), { ssr: false, loading: () => <div className="h-full w-full flex items-center justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></div> });
+const VersionTreeGrid = dynamic(() => import('@/components/version-tree').then(m => m.VersionTreeGrid), { ssr: false, loading: () => <div className="h-full w-full flex items-center justify-center"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></div> });
 const PhotoshopColorPicker = dynamic(() => import('@/components/color-picker').then(m => m.PhotoshopColorPicker), { ssr: false });
 
 import type { Page } from '@/lib/app-types';
@@ -676,17 +677,17 @@ export default function DashboardView({
               <div key={`feed-grid-${dashView}`} ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain screen-enter [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <div className="max-w-5xl mx-auto h-full">
                   {gridTreeMode ? (
-                    /* VERSION-TREE card in the SAME grid layout — the view does
-                    not change, only the content does: an endless vertical
-                    window of the family trees. Swipe up walks the ancestor
-                    trees; past the trunk the window closes itself. */
-                    <div className="px-2 sm:px-3 pb-2 sm:pb-3" style={{ height: 'calc(100% - 0px)' }}>
-                      <VersionTreeView
-                        testId={gridTreeTestId || ''}
-                        variant="grid"
-                        onClose={closeGridTree}
-                      />
-                    </div>
+                    /* VERSION-TREE cards in the SAME grid layout — the exact
+                    attached-files mechanic: one CARD PER GENERATION of this
+                    test's family (the tapped tree first, then every ancestor
+                    up to the trunk), full-width rows — scrolling the grid
+                    walks UP the chain. Tapping an apple re-roots the flow at
+                    that version and the grid scrolls back to the top. The
+                    universal top-panel back returns to the test cards. */
+                    <VersionTreeGrid
+                      testId={gridTreeTestId || ''}
+                      onReroot={() => requestAnimationFrame(() => requestAnimationFrame(() => dashFeedRef.current?.scrollTo({ top: 0, behavior: 'smooth' })))}
+                    />
                   ) : gridFilesMode ? (
                     /* ATTACHED-FILES cards in the SAME grid layout — the view does not
                     change, only the cards do: one card per attachment of the test whose
@@ -1072,11 +1073,7 @@ export default function DashboardView({
                   {tests.map((test) => (
                     <SwiperSlide key={test.id} className="!h-full">
                       <div className="h-full w-full px-3 py-3 sm:px-4 sm:py-4 min-h-0">
-                        <VersionTreeView
-                          testId={test.id}
-                          variant="feed"
-                          onClose={closeTreeCard}
-                        />
+                        <VersionTreeView testId={test.id} />
                       </div>
                     </SwiperSlide>
                   ))}

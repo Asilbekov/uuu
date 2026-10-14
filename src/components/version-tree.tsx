@@ -16,25 +16,23 @@
 //   UP reveals the tree one level above (parent version, grandparent, … up to
 //   the family trunk).
 //
-//   TWO SWIPE SURFACES, ONE GESTURE — in the TikTok feed (variant="feed") the
-//   tree card is a SLIDE of the dashboard's recommendation feed (one tree card
-//   per test, in feed order). The inner level-swiper is `nested`: mid-range it
-//   owns the gesture (walks the ancestors); at its edges it RELEASES the same
-//   gesture to the outer feed swiper — swiping up past the family trunk flows
-//   straight into the NEXT recommended test's tree card, swiping down at the
-//   root goes to the previous one (Swiper 14 nested protocol +
-//   touchReleaseOnEdges for touch, mousewheel releaseOnEdges for the wheel).
-//   The grid variant keeps the standalone exit slide past the trunk
-//   (auto-return to the test cards — there is no outer swiper there).
+//   TWO SWIPE SURFACES, ONE GESTURE — the tree card is a SLIDE of the
+//   dashboard's recommendation feed (one tree card per test, in feed order).
+//   The inner level-swiper is `nested`: mid-range it owns the gesture (walks
+//   the ancestors); at its edges it RELEASES the same gesture to the outer
+//   feed swiper — swiping up past the family trunk flows straight into the
+//   NEXT recommended test's tree card, swiping down at the root goes to the
+//   previous one (Swiper 14 nested protocol + touchReleaseOnEdges for touch,
+//   mousewheel releaseOnEdges for the wheel).
 //
 //   Growth levels ("уровни роста"): the crown develops tier by tier as the
 //   number of apples increases — 0 apples = a sprout, then 1..5 tiers of
 //   branches, the trunk gets taller and the crown wider. Everything is drawn
 //   as pure SVG (no node cards) and scales to fill the whole card.
 //
-// Layout contract mirrors the attached-files modes: `variant="feed"` renders
-// full-height inside the TikTok feed, `variant="grid"` renders inside the
-// library/shelf grid.
+//   In the LIBRARY/SHELF grid the tree renders as VersionTreeGrid (below):
+//   the attached-files mechanic — one GRID CARD PER GENERATION of the
+//   family, scrolling walks up the chain, an apple tap re-roots the flow.
 // ---------------------------------------------------------------------------
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -49,7 +47,7 @@ import type { TreeNode } from '@/lib/app-types';
 import { useSessionStore } from '@/stores/session-store';
 import { tUI } from '@/lib/i18n';
 import type { Lang } from '@/lib/i18n';
-import { LayoutGrid, RotateCcw, TreeDeciduous } from 'lucide-react';
+import { RotateCcw, TreeDeciduous } from 'lucide-react';
 
 // ---- SVG canvas -------------------------------------------------------------
 // The world is 400 units wide; the HEIGHT adapts to the card's aspect ratio
@@ -460,20 +458,14 @@ function TreeCanvas({ node, apples, t, onApple }: TreeCanvasProps) {
 export interface VersionTreeProps {
   /** The test whose tree is shown (the starting root of the view). */
   testId: string;
-  /** Leave the tree (the exit slide past the family trunk lands here). */
-  onClose: () => void;
-  /** feed = full-height TikTok slide; grid = card inside library/shelf. */
-  variant?: 'feed' | 'grid';
 }
 
-export default function VersionTreeView({ testId, onClose, variant = 'feed' }: VersionTreeProps) {
+export default function VersionTreeView({ testId }: VersionTreeProps) {
   const lang = useSessionStore(s => s.lang);
   const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
-  // CHAINED mode (feed): this tree card is a slide of the outer tree-card
-  // feed — at its own edges the inner level-swiper hands the gesture over to
-  // that outer swiper (next/previous recommended test's tree). Standalone
-  // (grid) keeps the exit slide + auto-return instead.
-  const chained = variant === 'feed';
+  // This tree card is a SLIDE of the outer tree-card feed — at its own edges
+  // the inner level-swiper hands the gesture over to that outer swiper (the
+  // next/previous recommended test's tree).
 
   const [family, setFamily] = useState<{ rootId: string; nodes: TreeNode[] } | null>(null);
   const [viewRootId, setViewRootId] = useState<string>(testId);
@@ -482,12 +474,6 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
   // Which slide the window is parked on — drives the header (whose tree /
   // how many versions are on it) while the user walks up the chain.
   const [activeIdx, setActiveIdx] = useState(0);
-  // Swiped past the family trunk → the exit slide is up → auto-return to the
-  // test cards. Swiping back down cancels it.
-  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const onCloseRef = useRef(onClose);
-  useEffect(() => { onCloseRef.current = onClose; }, [onClose]);
-  useEffect(() => () => { if (closeTimerRef.current) clearTimeout(closeTimerRef.current); }, []);
 
   const fetchFamily = useCallback((id: string) => {
     setLoading(true);
@@ -545,38 +531,18 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
   // its tree becomes the first slide and the chain above it rebuilds.
   const navigate = useCallback((id: string) => {
     if (id === viewRootId) return;
-    if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current);
-      closeTimerRef.current = null;
-    }
     setViewRootId(id);
   }, [viewRootId]);
 
   const onSlideChange = useCallback((sw: SwiperClass) => {
-    const i = sw.activeIndex;
-    setActiveIdx(i);
-    // Standalone (grid) only: the exit slide — one beat so the panel is
-    // seen, then back to the tests. Swiping back down cancels the exit.
-    // In CHAINED (feed) mode there IS no exit slide: past the trunk the
-    // gesture is released to the outer feed (the next test's tree card).
-    if (!chained && i >= chain.length) {
-      if (!closeTimerRef.current) {
-        closeTimerRef.current = setTimeout(() => {
-          closeTimerRef.current = null;
-          onCloseRef.current();
-        }, 600);
-      }
-    } else if (closeTimerRef.current) {
-      clearTimeout(closeTimerRef.current);
-      closeTimerRef.current = null;
-    }
-  }, [chain.length, chained]);
+    setActiveIdx(sw.activeIndex);
+  }, []);
 
   // ---- rendering -----------------------------------------------------------
 
   if (loading && !family) {
     return (
-      <div className={`w-full ${variant === 'feed' ? 'h-full max-w-md lg:max-w-3xl mx-auto flex flex-col gap-3' : ''}`}>
+      <div className="w-full h-full max-w-md lg:max-w-3xl mx-auto flex flex-col gap-3">
         <Skeleton className="h-12 w-full rounded-2xl" />
         <Skeleton className="flex-1 w-full rounded-3xl min-h-64" />
       </div>
@@ -585,7 +551,7 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
 
   if (error && !family) {
     return (
-      <div className={`w-full flex flex-col items-center justify-center gap-3 text-center ${variant === 'feed' ? 'h-full' : 'py-10'}`}>
+      <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-center">
         <TreeDeciduous className="w-10 h-10 text-muted-foreground" />
         <p className="text-sm text-muted-foreground px-6">{error}</p>
         <div className="flex gap-2">
@@ -618,41 +584,18 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
     </div>
   );
 
-  // The slide ABOVE the family trunk: swiping up here returns to the tests —
-  // the vertical window never dead-ends.
-  const exitSlide = (
-    <div className="h-full w-full flex items-center justify-center p-3 sm:p-4">
-      <div
-        className="w-full h-full rounded-3xl border border-black/10 flex flex-col items-center justify-center gap-3 text-center"
-        style={{
-          backgroundImage:
-            'linear-gradient(180deg, rgba(250,253,246,0.55) 0%, rgba(244,250,239,0.35) 55%, rgba(237,246,230,0.8) 100%), url(/textures/sky.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <span className="w-16 h-16 rounded-full bg-white border border-black/10 shadow-sm flex items-center justify-center">
-          <LayoutGrid className="w-7 h-7 text-[#40634D]" />
-        </span>
-        <p className="text-base font-bold">{t('treeToTests')}</p>
-        <p className="text-xs text-muted-foreground px-8">{t('treeToTestsHint')}</p>
-      </div>
-    </div>
-  );
-
   return (
-    <div className={`w-full flex flex-col gap-2.5 min-h-0 ${variant === 'feed' ? 'h-full max-w-md lg:max-w-3xl mx-auto' : 'h-full max-h-[560px]'}`}>
+    <div className="w-full h-full flex flex-col gap-2.5 min-h-0 max-w-md lg:max-w-3xl mx-auto">
       {header}
       {/*
         The infinite vertical window. key={viewRootId}: an apple tap re-roots
         the chain and the window restarts on the tapped version's tree — its
         parent (the tree the user came from) is now one swipe above.
 
-        CHAINED (feed): nested:true joins Swiper's nested-release protocol —
-        mid-range this swiper keeps the gesture; at the first/last edge it
-        releases it to the OUTER tree-card feed (touch: touchReleaseOnEdges
-        drops the touch, wheel: releaseOnEdges skips preventDefault). The
-        exit slide exists only in the standalone grid variant.
+        nested:true joins Swiper's nested-release protocol — mid-range this
+        swiper keeps the gesture; at the first/last edge it releases it to the
+        OUTER tree-card feed (touch: touchReleaseOnEdges drops the touch,
+        wheel: releaseOnEdges skips preventDefault).
       */}
       <Swiper
         key={viewRootId}
@@ -664,8 +607,8 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
         resistanceRatio={0}
         touchReleaseOnEdges
         longSwipesRatio={0.35}
-        nested={chained}
-        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 12, thresholdTime: 250, releaseOnEdges: chained }}
+        nested
+        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 12, thresholdTime: 250, releaseOnEdges: true }}
         className="flex-1 min-h-0 w-full"
         onSwiper={sw => setActiveIdx(sw.activeIndex)}
         onSlideChange={onSlideChange}
@@ -680,14 +623,148 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
             />
           </SwiperSlide>
         ))}
-        {!chained && <SwiperSlide className="!h-full">{exitSlide}</SwiperSlide>}
       </Swiper>
-      <p className="shrink-0 text-center text-[11px] text-foreground/70 -mt-1">{chained ? t('treeFeedSwipe') : t('treeSwipeUp')}</p>
+      <p className="shrink-0 text-center text-[11px] text-foreground/70 -mt-1">{t('treeFeedSwipe')}</p>
       <style>{`
         .vt-apple { cursor: pointer; transition: transform .15s ease; transform-box: fill-box; transform-origin: center; outline: none; }
         .vt-apple:hover { transform: scale(1.14); }
         .vt-apple:active { transform: scale(.94); }
       `}</style>
     </div>
+  );
+}
+
+// ---- grid (library/shelf): ONE CARD PER GENERATION ---------------------------
+// The attached-files mechanic applied to the tree: tapping the tree button on
+// a grid test card swaps the grid's content to this test's FAMILY CARDS — the
+// tapped tree first, then every ancestor up to the trunk, one full-width card
+// per generation. Scrolling the grid walks UP the chain (the feed's swipe-up,
+// made scrollable); tapping an apple re-roots the flow at that version and
+// the grid scrolls back to the top. The universal top-panel back returns to
+// the test cards — no per-surface back buttons, no exit slides, no timers.
+
+export function VersionTreeGrid({ testId, onReroot }: {
+  testId: string;
+  /** Called after an apple re-roots the flow — the host scrolls the grid up. */
+  onReroot?: () => void;
+}) {
+  const lang = useSessionStore(s => s.lang);
+  const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+
+  const [family, setFamily] = useState<{ rootId: string; nodes: TreeNode[] } | null>(null);
+  const [viewRootId, setViewRootId] = useState<string>(testId);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchFamily = useCallback((id: string) => {
+    setLoading(true);
+    setError(null);
+    api.getTestTree(id)
+      .then(data => {
+        setFamily(data);
+        if (!data.nodes.some(n => n.id === id)) setError(t('noResults'));
+      })
+      .catch(e => setError(e?.message || 'Error'))
+      .finally(() => setLoading(false));
+  }, [t]);
+
+  // The tree button of ANOTHER test can be tapped while the mode is open —
+  // follow the new root.
+  useEffect(() => { setViewRootId(testId); }, [testId]);
+  useEffect(() => { fetchFamily(viewRootId); }, [viewRootId, fetchFamily]);
+
+  // The apples of every family member, grouped by parent (sorted oldest first).
+  const applesByParent = useMemo(() => {
+    const m = new Map<string, TreeNode[]>();
+    if (family) {
+      for (const n of family.nodes) {
+        const key = n.parentId || '';
+        const arr = m.get(key);
+        if (arr) arr.push(n);
+        else m.set(key, [n]);
+      }
+      for (const arr of m.values()) arr.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    }
+    return m;
+  }, [family]);
+
+  // The ancestor chain of the viewed test: card 0 = the tree the user opened,
+  // then parent, grandparent, … up to the family trunk. Scrolling DOWN the
+  // grid walks UP this chain — the scrollable twin of the feed's swipe-up.
+  const chain = useMemo(() => {
+    if (!family) return EMPTY_APPLES;
+    const out: TreeNode[] = [];
+    const seen = new Set<string>();
+    let cur: TreeNode | undefined = family.nodes.find(n => n.id === viewRootId);
+    while (cur && !seen.has(cur.id)) {
+      out.push(cur);
+      seen.add(cur.id);
+      const pid = cur.parentId || '';
+      cur = pid ? family.nodes.find(n => n.id === pid) : undefined;
+    }
+    return out;
+  }, [family, viewRootId]);
+
+  // Apple tap → re-root: the chain rebuilds from THAT version and the host
+  // scrolls the grid back to the top (same recursive navigation as the feed
+  // window, one level of indirection fewer).
+  const navigate = useCallback((id: string) => {
+    if (id === viewRootId) return;
+    setViewRootId(id);
+    onReroot?.();
+  }, [viewRootId, onReroot]);
+
+  if (loading && !family) {
+    return (
+      <div className="grid grid-cols-1 gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3" style={{ minHeight: 'max(calc(100% / 2), 26rem)' }}>
+        <Skeleton className="h-full w-full rounded-3xl min-h-72" />
+      </div>
+    );
+  }
+
+  if (error && !family) {
+    return (
+      <div className="px-4 py-6 flex flex-col items-start gap-2">
+        <p className="text-sm text-muted-foreground">{error}</p>
+        <Button size="sm" variant="outline"
+          onClick={() => fetchFamily(viewRootId)}
+          className="h-8 rounded-full border-black text-xs px-3"
+        >
+          <RotateCcw className="size-3.5 shrink-0" /> <span>{t('restart')}</span>
+        </Button>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {chain.map(node => {
+        const apples = applesByParent.get(node.id) || EMPTY_APPLES;
+        return (
+          <div key={node.id} className="grid grid-cols-1 gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3" style={{ minHeight: 'max(calc(100% / 2), 26rem)' }}>
+            <div className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden">
+              {/* card head — same anatomy as the attached-files card head */}
+              <div className="flex items-center gap-1.5 shrink-0 pb-2">
+                <span className="w-7 h-7 rounded-lg bg-[#FFF0D9] text-cta flex items-center justify-center shrink-0">
+                  <TreeDeciduous className="w-4 h-4" />
+                </span>
+                <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-1 min-w-0 flex-1">{node.title}</p>
+                <span className="shrink-0 text-[10px] font-semibold px-2 py-1 rounded-full bg-[#FFF0D9] text-cta whitespace-nowrap">
+                  {t('treeVersionsCount', { n: apples.length })}
+                </span>
+              </div>
+              <div className="flex-1 min-h-0">
+                <TreeCanvas node={node} apples={apples} t={t} onApple={navigate} />
+              </div>
+            </div>
+          </div>
+        );
+      })}
+      <style>{`
+        .vt-apple { cursor: pointer; transition: transform .15s ease; transform-box: fill-box; transform-origin: center; outline: none; }
+        .vt-apple:hover { transform: scale(1.14); }
+        .vt-apple:active { transform: scale(.94); }
+      `}</style>
+    </>
   );
 }
