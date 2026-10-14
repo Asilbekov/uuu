@@ -14,8 +14,18 @@
 //   Navigation — NO buttons: the window is a vertical Swiper over the whole
 //   ancestor chain. The tree you opened sits on the first slide; every swipe
 //   UP reveals the tree one level above (parent version, grandparent, … up to
-//   the family trunk). One more swipe past the trunk lands on the exit slide
-//   and carries the user back to the test cards — the swipe never dead-ends.
+//   the family trunk).
+//
+//   TWO SWIPE SURFACES, ONE GESTURE — in the TikTok feed (variant="feed") the
+//   tree card is a SLIDE of the dashboard's recommendation feed (one tree card
+//   per test, in feed order). The inner level-swiper is `nested`: mid-range it
+//   owns the gesture (walks the ancestors); at its edges it RELEASES the same
+//   gesture to the outer feed swiper — swiping up past the family trunk flows
+//   straight into the NEXT recommended test's tree card, swiping down at the
+//   root goes to the previous one (Swiper 14 nested protocol +
+//   touchReleaseOnEdges for touch, mousewheel releaseOnEdges for the wheel).
+//   The grid variant keeps the standalone exit slide past the trunk
+//   (auto-return to the test cards — there is no outer swiper there).
 //
 //   Growth levels ("уровни роста"): the crown develops tier by tier as the
 //   number of apples increases — 0 apples = a sprout, then 1..5 tiers of
@@ -459,6 +469,11 @@ export interface VersionTreeProps {
 export default function VersionTreeView({ testId, onClose, variant = 'feed' }: VersionTreeProps) {
   const lang = useSessionStore(s => s.lang);
   const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+  // CHAINED mode (feed): this tree card is a slide of the outer tree-card
+  // feed — at its own edges the inner level-swiper hands the gesture over to
+  // that outer swiper (next/previous recommended test's tree). Standalone
+  // (grid) keeps the exit slide + auto-return instead.
+  const chained = variant === 'feed';
 
   const [family, setFamily] = useState<{ rootId: string; nodes: TreeNode[] } | null>(null);
   const [viewRootId, setViewRootId] = useState<string>(testId);
@@ -540,9 +555,11 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
   const onSlideChange = useCallback((sw: SwiperClass) => {
     const i = sw.activeIndex;
     setActiveIdx(i);
-    if (i >= chain.length) {
-      // The exit slide: one beat so the panel is seen, then back to the
-      // tests. Swiping back down before the beat cancels the exit.
+    // Standalone (grid) only: the exit slide — one beat so the panel is
+    // seen, then back to the tests. Swiping back down cancels the exit.
+    // In CHAINED (feed) mode there IS no exit slide: past the trunk the
+    // gesture is released to the outer feed (the next test's tree card).
+    if (!chained && i >= chain.length) {
       if (!closeTimerRef.current) {
         closeTimerRef.current = setTimeout(() => {
           closeTimerRef.current = null;
@@ -553,7 +570,7 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
       clearTimeout(closeTimerRef.current);
       closeTimerRef.current = null;
     }
-  }, [chain.length]);
+  }, [chain.length, chained]);
 
   // ---- rendering -----------------------------------------------------------
 
@@ -643,6 +660,12 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
         The infinite vertical window. key={viewRootId}: an apple tap re-roots
         the chain and the window restarts on the tapped version's tree — its
         parent (the tree the user came from) is now one swipe above.
+
+        CHAINED (feed): nested:true joins Swiper's nested-release protocol —
+        mid-range this swiper keeps the gesture; at the first/last edge it
+        releases it to the OUTER tree-card feed (touch: touchReleaseOnEdges
+        drops the touch, wheel: releaseOnEdges skips preventDefault). The
+        exit slide exists only in the standalone grid variant.
       */}
       <Swiper
         key={viewRootId}
@@ -654,7 +677,8 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
         resistanceRatio={0}
         touchReleaseOnEdges
         longSwipesRatio={0.35}
-        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 12, thresholdTime: 250, releaseOnEdges: false }}
+        nested={chained}
+        mousewheel={{ forceToAxis: true, sensitivity: 1, thresholdDelta: 12, thresholdTime: 250, releaseOnEdges: chained }}
         className="flex-1 min-h-0 w-full"
         onSwiper={sw => setActiveIdx(sw.activeIndex)}
         onSlideChange={onSlideChange}
@@ -669,9 +693,9 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
             />
           </SwiperSlide>
         ))}
-        <SwiperSlide className="!h-full">{exitSlide}</SwiperSlide>
+        {!chained && <SwiperSlide className="!h-full">{exitSlide}</SwiperSlide>}
       </Swiper>
-      <p className="shrink-0 text-center text-[11px] text-foreground/70 -mt-1">{t('treeSwipeUp')}</p>
+      <p className="shrink-0 text-center text-[11px] text-foreground/70 -mt-1">{chained ? t('treeFeedSwipe') : t('treeSwipeUp')}</p>
       <style>{`
         .vt-apple { cursor: pointer; transition: transform .15s ease; transform-box: fill-box; transform-origin: center; outline: none; }
         .vt-apple:hover { transform: scale(1.14); }

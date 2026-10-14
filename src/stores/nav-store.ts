@@ -32,8 +32,10 @@ interface NavData {
   // 3 mini cards per shelf, shelf = one card per shelf.
   dashView: DashView;
   // Files feed mode: the TikTok feed flips from one-slide-per-test to the
-  // files card(s). When filesFeedTestId is set the feed shows THAT test's
-  // files (per-test files mode); null keeps the legacy flattened flow.
+  // files flow of the whole recommendation list (one slide per test that has
+  // attachments, in feed order). filesFeedTestId is the LEGACY per-test pin —
+  // always null since the recommendation flow took over (kept for the state
+  // shape; every entry point resets it to null).
   filesFeedMode: boolean;
   filesFeedTestId: string | null;
   // Grid files mode (Library/Shelf): the grid KEEPS its layout but swaps the
@@ -42,15 +44,19 @@ interface NavData {
   gridFilesMode: boolean;
   gridFilesTestId: string | null;
   // VERSION-TREE modes — the same contract as the files modes above, one
-  // level up: the feed (tiktok) or the grid (library/shelf) swaps its cards
-  // for the version tree of ONE test (the one whose tree button was tapped).
-  // Every apple on the tree is a version; tapping it re-roots the view at
-  // that version (treeFeedTestId/gridTreeTestId change, the fetch refetches).
+  // level up: the feed (tiktok) swaps to the TREE FLOW — one tree card per
+  // test of the recommendation list (slide i IS test i); the grid
+  // (library/shelf) swaps its cards for the version tree of ONE test (the
+  // one whose tree button was tapped). treeFeedTestId follows the VISIBLE
+  // tree card's test (updated on every feed commit). Every apple on the
+  // tree is a version; tapping it re-roots that card at the version
+  // (the card's own fetch refetches).
   treeFeedMode: boolean;
   treeFeedTestId: string | null;
   gridTreeMode: boolean;
   gridTreeTestId: string | null;
-  // Index of the visible slide inside the FILES feed
+  // Index of the visible slide inside the FILES / TREE feed (the two modes
+  // are mutually exclusive, so one index serves both).
   dashSlideIdx: number;
   // Delete-confirmation dialog (test id) + dead share-link screen
   deleteId: string | null;

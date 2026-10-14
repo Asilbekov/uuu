@@ -1163,17 +1163,22 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
   // When the visible test/slide changes: apply its defaults, lazy-fetch the
   // full test for attachments, sync feed scroll (test mode only — in files
-  // mode the settle handler is the single source of truth for the position).
+  // or tree mode the settle handler is the single source of truth for the
+  // position; the bottom bar still follows the visible card's test).
   useEffect(() => {
     if (effectivePage !== 'dashboard') return;
     if (tests.length === 0) return;
     if (dashView !== 'tiktok1' && dashView !== 'tiktok2') return; // grid views have no "current test"
-    if (filesFeedMode) {
-      const s = fileSlides[Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1))];
-      if (!s) return;
-      const t = s.test;
-      // Keep dashTestIdx on the test whose files are visible — the bottom bar
-      // (Start Test etc.) then stays EXACTLY as it is in the normal feed
+    if (filesFeedMode || treeFeedMode) {
+      // FILES: the visible slide's test; TREE: the visible tree card's test
+      // (tree cards map 1:1 onto the feed's tests — slide i is test i).
+      const t = filesFeedMode
+        ? fileSlides[Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1))]?.test
+        : tests[Math.min(Math.max(0, dashSlideIdx), Math.max(0, tests.length - 1))];
+      if (!t) return;
+      // Keep dashTestIdx on the test whose files/tree are visible — the
+      // bottom bar (Start Test etc.) then stays EXACTLY as it is in the
+      // normal feed
       const tIdx = tests.findIndex(x => x.id === t.id);
       if (tIdx >= 0 && tIdx !== dashTestIdx) setDashTestIdx(tIdx);
       const totalQ = t._count?.questions || t.questions?.length || 0;
@@ -1182,8 +1187,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
       setStartRandomizeO(t.randomizeOptions !== false);
       setStartFilesExpanded(false);
       // PREDICTION: files mode needs every loaded test's attachments (slides
-      // append as fetches resolve). Current slide first, the rest in idle time
-      // through the shared dedup engine.
+      // append as fetches resolve); tree mode runs the same prefetch so the
+      // bottom bar and a potential Start stay fully backed. Current slide
+      // first, the rest in idle time through the shared dedup engine.
       startFullFetch(t.id);
       for (const t2 of tests) prefetchFullTest(t2.id);
       return;
@@ -1204,7 +1210,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
     // dashboard, jump-to-test, delete, ...). All deduped by the engine.
     startFullFetch(t.id);
     prefetchNeighbors(safeIdx, dashMoveDirRef.current);
-  }, [dashTestIdx, dashSlideIdx, filesFeedMode, dashView, effectivePage, tests, fileSlides, startFullFetch, prefetchNeighbors, prefetchFullTest]);
+  }, [dashTestIdx, dashSlideIdx, filesFeedMode, treeFeedMode, dashView, effectivePage, tests, fileSlides, startFullFetch, prefetchNeighbors, prefetchFullTest]);
 
   // Grid views (library / shelf): prefetch the full tests of every loaded card
   // so the per-card attached-files button knows the real file count — routed
@@ -2009,7 +2015,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // start defaults, score the recommendation signal, prefetch the
   // direction-weighted neighbours and append the next feed page near the end.
   const dashLastCommittedRef = React.useRef(0);
-  const onDashCommit = React.useCallback((idx: number, mode: 'tests' | 'files') => {
+  const onDashCommit = React.useCallback((idx: number, mode: 'tests' | 'files' | 'tree') => {
     if (idx !== dashLastCommittedRef.current) {
       dashMoveDirRef.current = idx > dashLastCommittedRef.current ? 1 : -1;
       dashLastCommittedRef.current = idx;
@@ -2046,6 +2052,21 @@ function AppRootInner({ authed }: { authed: boolean }) {
         }
       } catch { /* signal bookkeeping must never break the commit */ }
     };
+    if (mode === 'tree') {
+      // TREE mode: commit the visible TREE card — one per test, in the same
+      // recommendation order as the test feed (slide i IS test i). The rec
+      // signals and the silent pagination run exactly like the files feed:
+      // the recommendation engine keeps working under every card type.
+      if (tests.length === 0) return;
+      const clamped = Math.min(tests.length - 1, Math.max(0, idx));
+      setDashSlideIdx(clamped);
+      setTreeFeedTestId(tests[clamped]?.id ?? null);
+      signal(tests[clamped]);
+      // PREDICTION: the next page of recommended tests is already loading
+      // before the user reaches the end of the tree cards.
+      if (clamped >= tests.length - 3) loadMoreFeed();
+      return;
+    }
     if (mode === 'files') {
       // Files mode: commit the visible FILE slide
       if (fileSlidesCountRef.current === 0) return;
@@ -2458,13 +2479,18 @@ function AppRootInner({ authed }: { authed: boolean }) {
     }).catch(() => {});
   };
 
-  // Flip the feed to files mode: the feed shows the files of the tapped test
-  // (per-test files card — every attachment of THIS test in one scrollable
-  // card). The header/bottom bar stay untouched; the on-card control exits.
+  // Flip the feed to files mode: the feed shows the FILES flow of the whole
+  // recommendation list — one card per test that has attachments, in feed
+  // order — landing on the tapped test's card (the swipe then continues
+  // into the OTHER recommended tests' files cards). The header/bottom bar
+  // stay untouched; the on-card control exits.
   const openFilesCard = (test: Test) => {
     pendingFilesJumpRef.current = test.id;
     setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
-    setFilesFeedTestId(test.id);
+    // Flattened recommendation flow (filesFeedTestId stays null — the
+    // per-test pin is legacy). The pending jump scrolls to THIS test's
+    // card as soon as its slides exist (attachments resolve async).
+    setFilesFeedTestId(null);
     setFilesFeedMode(true);
     // Make sure this test's attachments are actually loaded (the list payload
     // only carries the attachment COUNT)
@@ -2508,18 +2534,33 @@ function AppRootInner({ authed }: { authed: boolean }) {
   };
 
   // View switcher: TikTok swipe feed / Library shelves (3 cards per shelf) /
-  // Shelf view (1 card per shelf). Files mode SURVIVES the switch — only its
-  // presentation changes (grid ⇄ feed) for the same source test.
+  // Shelf view (1 card per shelf). Files AND tree modes SURVIVE the switch —
+  // only their presentation changes (grid ⇄ feed) for the same source test.
   const switchDashView = (v: 'tiktok1' | 'library' | 'shelf') => {
     if (v === dashView) return;
-    const filesId = filesFeedTestId || gridFilesTestId;
+    // The source test of the visible FILES card: the per-test pin (legacy),
+    // the grid pin, or — in the flattened recommendation flow — the test of
+    // the slide actually on screen.
+    const filesId = filesFeedTestId || gridFilesTestId
+      || (filesFeedMode ? fileSlides[Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1))]?.test.id : null);
+    // The source test of the visible TREE card (the commit keeps
+    // treeFeedTestId on the visible card while the tree feed is open).
+    const treeId = treeFeedTestId || gridTreeTestId;
     if (v === 'tiktok1') {
       if (filesFeedMode) { pendingFilesJumpRef.current = null; setDashSlideIdx(0); }
       else if (gridFilesMode && filesId) {
         // grid → feed: keep showing the SAME test's files as a feed slide
         setGridFilesMode(false); setGridFilesTestId(null);
-        setFilesFeedTestId(filesId); setFilesFeedMode(true);
+        setFilesFeedTestId(null); setFilesFeedMode(true);
         pendingFilesJumpRef.current = filesId;
+      }
+      if (gridTreeMode && treeId) {
+        // grid → feed: the SAME test's tree becomes a feed card of the
+        // tree flow (the swipe then continues through the recommendations)
+        setGridTreeMode(false); setGridTreeTestId(null);
+        const idx = tests.findIndex(x => x.id === treeId);
+        setDashSlideIdx(idx >= 0 ? idx : 0);
+        setTreeFeedTestId(treeId); setTreeFeedMode(true);
       }
       setDashView('tiktok1');
     } else {
@@ -2528,6 +2569,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
         setFilesFeedMode(false); setFilesFeedTestId(null);
         setDashSlideIdx(0);
         if (filesId) { setGridFilesTestId(filesId); setGridFilesMode(true); } // feed → grid
+      }
+      if (treeFeedMode) {
+        // feed → grid: the SAME test's tree keeps rendering inside the grid
+        setTreeFeedMode(false); setTreeFeedTestId(null);
+        setDashSlideIdx(0);
+        if (treeId) { setGridTreeTestId(treeId); setGridTreeMode(true); }
       }
       setDashView(v);
     }
@@ -2550,10 +2597,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
     const next = !navNow().discoverMode;
     setDiscoverMode(next); // the store IS the source — getState() readers see it immediately
     // Reset feed positions: the new mode starts from its own top card.
-    // Files mode intentionally SURVIVES the switch — only the list of tests
-    // behind it changes.
+    // The files/tree special feeds are reset with it — their slide flow
+    // belongs to the scope that is being left.
     setDashTestIdx(0); setDashSlideIdx(0);
     setFilesFeedMode(false); setFilesFeedTestId(null); pendingFilesJumpRef.current = null;
+    setTreeFeedMode(false); setTreeFeedTestId(null);
+    setGridTreeMode(false); setGridTreeTestId(null);
     // Deliberate scope switch: the OTHER query key takes over — its cache
     // paints instantly, an uncached scope fetches fresh from position 0.
   };
@@ -2576,6 +2625,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
     pendingFilesJumpRef.current = null;
     setFilesFeedMode(false); setFilesFeedTestId(null);
     setGridFilesMode(false); setGridFilesTestId(null);
+    setTreeFeedMode(false); setTreeFeedTestId(null);
+    setGridTreeMode(false); setGridTreeTestId(null);
     // Close any open bottom sheet (group chat / AI tutor / files / editor):
     // the tap happened INSIDE one of them and the dashboard is changing scope
     setGroupOpen(false);
@@ -2595,6 +2646,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
     pendingFilesJumpRef.current = null;
     setFilesFeedMode(false); setFilesFeedTestId(null);
     setGridFilesMode(false); setGridFilesTestId(null);
+    setTreeFeedMode(false); setTreeFeedTestId(null);
+    setGridTreeMode(false); setGridTreeTestId(null);
     // Back to the viewer's own scope = back to its cached query — instant,
     // and the foreign list can never merge into it (different query keys).
   };
@@ -2669,15 +2722,29 @@ function AppRootInner({ authed }: { authed: boolean }) {
   };
 
   // ----- VERSION-TREE modes (the same contract as the files modes) ---------
-  // Feed: the whole feed area swaps to the version tree of ONE test.
+  // Feed: the feed swaps to the TREE flow — one tree card per recommended
+  // test, landing on the tapped test's card; swiping continues through the
+  // recommendation list (the inner level-swiper walks ancestors first).
   const openTreeCard = (test: Test) => {
     setDashSearch(''); setDashSearchResults(null); setDashTagInfo(null); setDashSearchOpen(false);
+    // The tree cards map 1:1 onto the feed's tests (slide i = test i), so
+    // the landing index is known synchronously — no pending-jump needed.
+    const idx = tests.findIndex(x => x.id === test.id);
+    setDashSlideIdx(idx >= 0 ? idx : 0);
     setTreeFeedTestId(test.id);
     setTreeFeedMode(true);
   };
+  // Back to the regular test card of the test whose tree is on screen
   const closeTreeCard = () => {
+    const idx = Math.min(Math.max(0, dashSlideIdx), Math.max(0, tests.length - 1));
+    const tid = treeFeedTestId || tests[idx]?.id;
     setTreeFeedMode(false);
     setTreeFeedTestId(null);
+    setDashSlideIdx(0);
+    if (tid) {
+      const tIdx = tests.findIndex(x => x.id === tid);
+      if (tIdx >= 0) { setDashTestIdx(tIdx); scrollDashTo(tIdx); }
+    }
   };
   // Grid (library/shelf): the grid keeps its layout and swaps its cards for
   // the version tree of ONE test.
@@ -2697,6 +2764,13 @@ function AppRootInner({ authed }: { authed: boolean }) {
     if (navNow().filesFeedMode) {
       pendingFilesJumpRef.current = null;
       setFilesFeedMode(false);
+      setDashSlideIdx(0);
+    }
+    // ...and the tree feed (defensive parity — the header back arrow closes
+    // it earlier via closeTreeCard; this covers every other caller)
+    if (navNow().treeFeedMode) {
+      setTreeFeedMode(false);
+      setTreeFeedTestId(null);
       setDashSlideIdx(0);
     }
     const target = libReturnViewRef.current === 'shelf' ? 'shelf' : 'library';

@@ -72,7 +72,7 @@ export interface DashboardViewProps {
   dashFeedRef: { current: any };
   feedApiRef: { current: FeedApi | null };
   feedSentinelRef: { current: any };
-  onDashCommit: (idx: number, mode: 'tests' | 'files') => void;
+  onDashCommit: (idx: number, mode: 'tests' | 'files' | 'tree') => void;
   jumpToTest: (...args: any[]) => any;
   closeUserLibrary: (...args: any[]) => any;
   closeGridFiles: (...args: any[]) => any;
@@ -234,13 +234,25 @@ export default function DashboardView({
   // imperative FeedApi handle lets app-root jump to a card programmatically.
   const onDashCommitRef = React.useRef(onDashCommit);
   onDashCommitRef.current = onDashCommit;
+  // Files and tree feed modes are mutually exclusive — at most one of the
+  // three swipers below is live at any moment (the others may hold STALE
+  // instances of unmounted engines — always check .destroyed).
   const feedCountRef = React.useRef(0);
   feedCountRef.current = filesFeedMode ? fileSlides.length : tests.length;
   const feedIsSwipable = dashView === 'tiktok1' || dashView === 'tiktok2';
 
   const testsSwiperRef = React.useRef<SwiperClass | null>(null);
   const filesSwiperRef = React.useRef<SwiperClass | null>(null);
+  const treeSwiperRef = React.useRef<SwiperClass | null>(null);
   const pendingSlideRef = React.useRef<number | null>(null);
+  // The one LIVE swiper of the three (destroyed instances of unmounted feeds
+  // must never be driven — slideTo on them would silently target dead DOM).
+  const liveFeedSwiper = () => {
+    for (const sw of [treeSwiperRef.current, filesSwiperRef.current, testsSwiperRef.current]) {
+      if (sw && !sw.destroyed) return sw;
+    }
+    return null;
+  };
 
   // Shared engine config: one wheel notch / flick = exactly one full-height
   // card, zero rubber-banding between cards, no release-to-edges drift.
@@ -270,7 +282,7 @@ export default function DashboardView({
   React.useEffect(() => {
     feedApiRef.current = {
       slideTo: (idx, speed = 0) => {
-        const sw = filesSwiperRef.current || testsSwiperRef.current;
+        const sw = liveFeedSwiper();
         if (sw) sw.slideTo(Math.max(0, Math.min(idx, (sw.slides?.length || 1) - 1)), speed);
         else pendingSlideRef.current = idx; // feed not mounted yet — apply on init
       },
@@ -305,27 +317,35 @@ export default function DashboardView({
   }, [dashTestIdx, tests.length, filesFeedMode]);
   React.useEffect(() => {
     const sw = filesSwiperRef.current;
-    if (!sw || !filesFeedMode) return;
+    if (!sw || sw.destroyed || !filesFeedMode) return;
     const target = Math.min(Math.max(0, dashSlideIdx), Math.max(0, fileSlides.length - 1));
     if (sw.activeIndex !== target) sw.slideTo(target, 0);
   }, [dashSlideIdx, fileSlides.length, filesFeedMode]);
+  React.useEffect(() => {
+    const sw = treeSwiperRef.current;
+    if (!sw || sw.destroyed || !treeFeedMode) return;
+    const target = Math.min(Math.max(0, dashSlideIdx), Math.max(0, tests.length - 1));
+    if (sw.activeIndex !== target) sw.slideTo(target, 0);
+  }, [dashSlideIdx, tests.length, treeFeedMode]);
   // Appended/removed slides (silent pagination, unpins, deletes) — keep the
   // engine's internal slide bookkeeping in sync.
-  React.useEffect(() => { testsSwiperRef.current?.update(); }, [tests.length]);
-  React.useEffect(() => { filesSwiperRef.current?.update(); }, [fileSlides.length]);
+  React.useEffect(() => { const sw = testsSwiperRef.current; if (sw && !sw.destroyed) sw.update(); }, [tests.length]);
+  React.useEffect(() => { const sw = filesSwiperRef.current; if (sw && !sw.destroyed) sw.update(); }, [fileSlides.length]);
+  React.useEffect(() => { const sw = treeSwiperRef.current; if (sw && !sw.destroyed) sw.update(); }, [tests.length, treeFeedMode]);
 
   // Keyboard parity with TikTok web: ↑/↓/PgUp/PgDn/Space step one card,
   // Home/End jump to the first/last one. Ignored while typing or in dialogs.
   React.useEffect(() => {
-    if (!feedIsSwipable && !filesFeedMode) return;
+    if (!feedIsSwipable && !filesFeedMode && !treeFeedMode) return;
     const onKey = (e: KeyboardEvent) => {
-      if (deleteId || dashSearchOpen || gridFilesMode || treeFeedMode || gridTreeMode || editMode) return;
+      if (deleteId || dashSearchOpen || gridFilesMode || gridTreeMode || editMode) return;
       const tgt = e.target as HTMLElement | null;
       const tag = tgt?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || tgt?.isContentEditable) return;
       if (tag === 'BUTTON' && e.key === ' ') return; // space activates the focused button
       let target: number | null = null;
-      const sw = filesFeedMode ? filesSwiperRef.current : testsSwiperRef.current;
+      const sw = filesFeedMode ? filesSwiperRef.current : treeFeedMode ? treeSwiperRef.current : testsSwiperRef.current;
+      if (sw && sw.destroyed) return;
       const count = feedCountRef.current;
       if (!sw || count <= 0) return;
       const cur = sw.activeIndex;
@@ -340,7 +360,7 @@ export default function DashboardView({
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [feedIsSwipable, filesFeedMode, deleteId, dashSearchOpen, gridFilesMode, editMode]);
+  }, [feedIsSwipable, filesFeedMode, treeFeedMode, deleteId, dashSearchOpen, gridFilesMode, editMode]);
 
   if (effectivePage === 'dashboard') {
     // Dead share link (?test=<id> of a deleted/removed test): the whole
@@ -1052,17 +1072,36 @@ export default function DashboardView({
                 </div>
               </div>
             ) : treeFeedMode ? (
-              /* VERSION-TREE feed mode — the feed swaps to an endless vertical
-              window of the family trees of the test whose tree button was
-              tapped (the same contract as the files mode one level up).
-              Tapping an apple re-roots the window at that version; swiping up
-              walks the ancestor trees, past the trunk it returns to the feed. */
-              <div className="flex-1 min-h-0 min-w-0 px-3 py-3 sm:px-4 sm:py-4 screen-enter" onWheelCapture={onWheelCapture}>
-                <VersionTreeView
-                  testId={treeFeedTestId || ''}
-                  variant="feed"
-                  onClose={closeTreeCard}
-                />
+              /* VERSION-TREE feed — ONE TREE CARD PER TEST, in the feed's
+              recommendation order (the SAME engine and slide flow as the
+              files feed: every slide carries the test the recommendation
+              system put there). Each card is a full version-tree window:
+              its INNER swiper walks the ancestor versions and RELEASES the
+              gesture at its edges (nested swiper) — swiping up past the
+              family trunk lands on the NEXT recommended test's tree, down
+              at the root on the previous one. Tapping an apple re-roots
+              that card at the tapped version. */
+              <div className="flex-1 min-h-0 min-w-0" onWheelCapture={onWheelCapture}>
+                <Swiper
+                  key="feed-tree-swiper"
+                  {...swiperParams}
+                  className="feed-swiper h-full screen-enter"
+                  initialSlide={Math.min(Math.max(0, dashSlideIdx), Math.max(0, tests.length - 1))}
+                  onSwiper={(sw) => { treeSwiperRef.current = sw; applyPendingSlide(sw); }}
+                  onSlideChange={(sw) => onDashCommitRef.current(sw.activeIndex, 'tree')}
+                >
+                  {tests.map((test) => (
+                    <SwiperSlide key={test.id} className="!h-full">
+                      <div className="h-full w-full px-3 py-3 sm:px-4 sm:py-4 min-h-0">
+                        <VersionTreeView
+                          testId={test.id}
+                          variant="feed"
+                          onClose={closeTreeCard}
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
             ) : filesFeedMode ? (
               /* FILES feed — one attachment per slide; the flow runs through this
