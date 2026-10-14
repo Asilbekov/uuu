@@ -194,6 +194,7 @@ export async function getFeed(
     topic: true,
     creatorId: true,
     parentId: true,
+    changedCount: true,
     creator: { select: { id: true, name: true, image: true } },
     isPublic: true,
     tags: true,

@@ -47,6 +47,10 @@ export interface Test {
   // Version tree: parentId != null → this test is a VERSION (a copy of
   // somebody's test). Versions never appear in the community library.
   parentId?: string | null;
+  // How many questions/answers this version changes vs its direct parent
+  // (server-computed at every save). Drives the share-link button's two
+  // states on the card: passive until changedCount >= 2.
+  changedCount?: number;
   randomizeQuestions: boolean;
   randomizeOptions: boolean;
   tags?: string[];
@@ -70,6 +74,7 @@ export interface TreeNode {
   coverColor?: string | null;
   parentId: string | null;
   rootId: string | null;
+  changedCount?: number;
   createdAt: string;
   creatorId: string;
   creator: { id: string; name: string; image?: string | null };

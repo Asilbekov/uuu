@@ -305,10 +305,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const setAccBusy = useProfileStore(s => s.setAccBusy);
   const deleteAccOpen = useProfileStore(s => s.deleteAccOpen);
   const setDeleteAccOpen = useProfileStore(s => s.setDeleteAccOpen);
-  // Per-card share scope selection: exactly one of the two share buttons on a
-  // card can be highlighted at a time (radio behaviour, like the mode cards).
-  const shareScopeByTest = useDashboardStore(s => s.shareScopeByTest);
-  const setShareScopeByTest = useDashboardStore(s => s.setShareScopeByTest);
   // Files feed mode: the TikTok feed flips from one-slide-per-test to the
   // files card(s). When filesFeedTestId is set the feed shows THAT test's
   // files (per-test files mode); null keeps the legacy flattened flow.
@@ -333,12 +329,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
   const setGridTreeMode = useNavStore(s => s.setGridTreeMode);
   const gridTreeTestId = useNavStore(s => s.gridTreeTestId);
   const setGridTreeTestId = useNavStore(s => s.setGridTreeTestId);
-  // Blocked share/save of a trivial copy → open the NOTE dialog (the
-  // product's alternative to a meaningless version: "create a note about
-  // this test instead"). NOTE: declared with the other hooks — any hook
-  // placed after the first conditional return below would break the
-  // rules of hooks (the auth screen renders a shorter hook sequence).
-  const [noteDialogTest, setNoteDialogTest] = useState<{ id: string; title: string } | null>(null);
+  // Blocked save/share of a trivial copy (fewer than 2 changed questions)
+  // → open the RULE dialog explaining the version gate. NOTE: declared with
+  // the other hooks — any hook placed after the first conditional return
+  // below would break the rules of hooks (the auth screen renders a shorter
+  // hook sequence).
+  const [gateDialogTest, setGateDialogTest] = useState<{ id: string; title: string } | null>(null);
   // Another user's library (opened from their profile photo or a chat avatar):
   // the dashboard shows THEIR public tests; every card carries their name and
   // photo; the header back arrow returns to the viewer's own feed.
@@ -1713,9 +1709,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
         toast({ title: t('error'), description: t('publishNameTaken'), variant: 'destructive' });
       } else if (e?.message === 'VERSION_TOO_SIMILAR') {
         // Version rule: a copy of somebody's test can only be SAVED as a
-        // shareable version after 2+ questions/answers changed. The editor
-        // opens the NOTE dialog — the small-contribution path.
-        setNoteDialogTest({ id: editingTestId || '', title: testTitle });
+        // shareable version after 2+ questions/answers changed. The dialog
+        // explains the rule (the note alternative was removed).
+        setGateDialogTest({ id: editingTestId || '', title: testTitle });
       } else {
         toast({ title: 'Error', description: e.message, variant: 'destructive' });
       }
@@ -2386,56 +2382,49 @@ function AppRootInner({ authed }: { authed: boolean }) {
     return (s || '?').toUpperCase();
   })();
 
-  // Share a test via the native share sheet — Android: app chooser,
-  // Windows: share flyout, fallback: copy to clipboard.
-  // scope 'link'      → direct link to that test (works even for private ones)
-  // scope 'community' → invite text + the creator's own private test goes public
-  const doShare = async (test: Test | null, scope: 'link' | 'community') => {
-    const community = scope === 'community';
-    const origin = window.location.origin;
-    const url = community || !test ? origin : `${origin}/?test=${test.id}`;
-    const text = community
-      ? t('shareTextCommunity')
-      : (test ? t('shareTextTest', { title: test.title }) : t('shareTextCommunity'));
+  // Share = COPY THE LINK to the clipboard. No native share sheet, no window —
+  // the button presses straight through to the clipboard.
+  //   doShareLink   → copies the direct test link (?test=<id>) — available on
+  //                   EVERY card; for versions the card keeps it passive until
+  //                   2+ questions/answers changed (server still re-checks).
+  //   doMakePublic  → own FROM-SCRATCH tests only: flips isPublic=true
+  //                   (server) and copies the link. Versions never get here —
+  //                   the card does not render the button for them at all.
+  const copyTestLink = async (test: Test) => {
+    const url = `${window.location.origin}/?test=${test.id}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast({ title: t('linkCopied') });
+    } catch {
+      toast({ title: t('error'), description: url, variant: 'destructive' });
+    }
+  };
+
+  const doShareLink = async (test: Test) => {
+    await copyTestLink(test);
+  };
+
+  const doMakePublic = async (test: Test) => {
     setShareBusy(true);
     try {
-      // The share buttons double as a MODE SWITCH for the creator's own test:
-      // whichever option is tapped is SAVED as the test's publication variant
-      // (link-only hides it from the community feed; community makes it public).
-      if (test && effectiveUser && test.creatorId === effectiveUser.id) {
-        try {
-          const r = await api.shareTest(test.id, scope);
-          if (r && typeof r.isPublic === 'boolean' && r.isPublic !== test.isPublic) {
-            patchScope(queryClient, activeScopeKey(), { patchId: test.id, patch: x => ({ ...x, isPublic: r.isPublic }) });
-            toast({ title: r.isPublic ? t('shareMadePublic') : t('shareMadeLink') });
-          }
-        } catch (e: any) {
-          // Publishing rule: the community flip requires a unique public title
-          if (e?.message === 'PUBLISH_NAME_TAKEN') {
-            toast({ title: t('error'), description: t('publishNameTaken'), variant: 'destructive' });
-          } else if (e?.message === 'VERSION_NOT_PUBLIC') {
-            // Version rule: versions NEVER join the community library —
-            // the share sheet must not open with a community URL either.
-            toast({ title: t('noteDialogError'), description: t('versionNotPublicToast'), variant: 'destructive' });
-            return;
-          } else if (e?.message === 'VERSION_TOO_SIMILAR') {
-            // Version rule: fewer than 2 changed questions/answers — the
-            // NOTE dialog replaces the share flow ("create a note instead").
-            setNoteDialogTest({ id: test.id, title: test.title });
-            return;
-          }
-          /* other visibility-flip failures stay best-effort */
+      if (effectiveUser && test.creatorId === effectiveUser.id) {
+        const r = await api.shareTest(test.id, 'community');
+        if (r && typeof r.isPublic === 'boolean' && r.isPublic !== test.isPublic) {
+          patchScope(queryClient, activeScopeKey(), { patchId: test.id, patch: x => ({ ...x, isPublic: r.isPublic }) });
         }
+        toast({ title: r?.isPublic ? t('shareMadePublic') : t('shareMadeLink') });
       }
-      if (typeof navigator !== 'undefined' && typeof (navigator as any).share === 'function') {
-        await (navigator as any).share({ title: test?.title || 'UUU', text, url });
-      } else {
-        await navigator.clipboard.writeText(url);
-        toast({ title: t('linkCopied') });
-      }
+      await copyTestLink(test);
     } catch (e: any) {
-      if (e?.name !== 'AbortError') {
-        try { await navigator.clipboard.writeText(url); toast({ title: t('linkCopied') }); } catch {}
+      // Publishing rule: the community flip requires a unique public title
+      if (e?.message === 'PUBLISH_NAME_TAKEN') {
+        toast({ title: t('error'), description: t('publishNameTaken'), variant: 'destructive' });
+      } else if (e?.message === 'VERSION_NOT_PUBLIC') {
+        toast({ title: t('error'), description: t('versionNotPublicToast'), variant: 'destructive' });
+      } else if (e?.message === 'VERSION_TOO_SIMILAR') {
+        setGateDialogTest({ id: test.id, title: test.title });
+      } else {
+        toast({ title: t('error'), description: e?.message, variant: 'destructive' });
       }
     } finally {
       setShareBusy(false);
@@ -2565,7 +2554,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
     // behind it changes.
     setDashTestIdx(0); setDashSlideIdx(0);
     setFilesFeedMode(false); setFilesFeedTestId(null); pendingFilesJumpRef.current = null;
-    setShareScopeByTest({});
     // Deliberate scope switch: the OTHER query key takes over — its cache
     // paints instantly, an uncached scope fetches fresh from position 0.
   };
@@ -2599,7 +2587,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
     // and an in-flight fetch can never stomp this one. No guards needed.
     setViewingUser({ id: u.id, name: u.name || 'User', image: u.image || null });
     setDashTestIdx(0); setDashSlideIdx(0);
-    setShareScopeByTest({});
   };
 
   const closeUserLibrary = () => {
@@ -3110,15 +3097,16 @@ function AppRootInner({ authed }: { authed: boolean }) {
           closeTreeCard={closeTreeCard}
           toggleGridTree={toggleGridTree}
           closeGridTree={closeGridTree}
-          doShare={doShare}
+          doShareLink={doShareLink}
+          doMakePublic={doMakePublic}
           handleDeleteTest={handleDeleteTest}
           exitFilesMode={exitFilesMode}
           openFilesCard={openFilesCard}
           cycleDashView={cycleDashView}
           toggleDiscoverMode={toggleDiscoverMode}
         />
-        {/* Blocked trivial copy → the note dialog (dashboard share path) */}
-        <NoteDialog test={noteDialogTest} onClose={() => setNoteDialogTest(null)} />
+        {/* Blocked trivial copy → the rule dialog (dashboard path) */}
+        <GateDialog test={gateDialogTest} onClose={() => setGateDialogTest(null)} />
       </>
     );
   }
@@ -3132,8 +3120,8 @@ function AppRootInner({ authed }: { authed: boolean }) {
           handleSaveTest={handleSaveTest}
           goHome={goHome}
         />
-        {/* Blocked trivial-copy save → the note dialog (editor save path) */}
-        <NoteDialog test={noteDialogTest} onClose={() => setNoteDialogTest(null)} />
+        {/* Blocked trivial-copy save → the rule dialog (editor save path) */}
+        <GateDialog test={gateDialogTest} onClose={() => setGateDialogTest(null)} />
       </>
     );
   }
@@ -3218,70 +3206,34 @@ function AppRoot({ authed }: { authed: boolean }) {
 export default AppRoot;
 
 // ---------------------------------------------------------------------------
-// NOTE DIALOG — the "small contribution" path. When a copy of somebody's test
-// is saved/shared with fewer than 2 changed questions/answers, the server
-// rejects it (VERSION_TOO_SIMILAR) and THIS dialog explains the rule and
-// offers the alternative the product defines: write a NOTE about the test.
-// The note is stored server-side (TestNote) and is visible in the version
-// tree of that test.
+// GATE DIALOG — the version rule explainer. When a copy of somebody's test is
+// saved/shared with fewer than 2 changed questions/answers, the server
+// rejects it (VERSION_TOO_SIMILAR) and THIS dialog explains why: a version
+// becomes shareable only after a real contribution (2+ questions/answers).
+// The old "write a note instead" alternative was removed from the product.
 // ---------------------------------------------------------------------------
-function NoteDialog({ test, onClose }: { test: { id: string; title: string } | null; onClose: () => void }) {
+function GateDialog({ test, onClose }: { test: { id: string; title: string } | null; onClose: () => void }) {
   const lang = useSessionStore(s => s.lang);
   const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
-  const { toast } = useToast();
-  const [text, setText] = useState('');
-  const [busy, setBusy] = useState(false);
-  const textRef = useRef(text);
-  textRef.current = text;
-
-  // Fresh textarea every time the dialog opens
-  useEffect(() => { if (test) setText(''); }, [test?.id]);
 
   if (!test) return null;
-
-  const submit = async () => {
-    const clean = textRef.current.trim();
-    if (!clean || busy) return;
-    setBusy(true);
-    try {
-      await api.createNote(test.id, clean);
-      toast({ title: t('noteCreated') });
-      onClose();
-    } catch (e: any) {
-      toast({ title: t('error'), description: e?.message, variant: 'destructive' });
-    } finally {
-      setBusy(false);
-    }
-  };
 
   return (
     <div className="fixed inset-0 z-[90] bg-black/55 flex items-center justify-center px-4" role="dialog" aria-modal="true">
       <div className="w-full max-w-md rounded-3xl bg-white p-5 shadow-2xl screen-enter">
         <div className="flex items-start gap-3 mb-3">
-          <span className="w-10 h-10 rounded-2xl bg-[#FFF0D9] text-cta flex items-center justify-center shrink-0">
+          <span className="w-10 h-10 rounded-2xl bg-[#FFE8DE] text-primary flex items-center justify-center shrink-0">
             <TreeDeciduous className="w-5 h-5" />
           </span>
           <div className="min-w-0">
-            <h3 className="font-bold leading-tight">{t('noteDialogError')}</h3>
+            <h3 className="font-bold leading-tight">{t('gateTitle')}</h3>
             <p className="text-xs text-muted-foreground truncate">{test.title}</p>
           </div>
         </div>
-        <p className="text-sm text-muted-foreground mb-3">{t('noteDialogDesc')}</p>
-        <Textarea
-          autoFocus
-          value={text}
-          onChange={e => setText(e.target.value)}
-          placeholder={t('notePlaceholder')}
-          rows={3}
-          className="text-sm rounded-xl bg-white border-black/15 mb-3"
-        />
-        <div className="flex gap-2 justify-end">
-          <Button variant="outline" className="rounded-full border-black h-9 px-4" onClick={onClose} disabled={busy}>
-            {t('cancel')}
-          </Button>
-          <Button className="rounded-full h-9 px-4 bg-primary hover:bg-primary/90" onClick={submit} disabled={busy || !text.trim()}>
-            {busy && <Loader2 className="w-4 h-4 animate-spin mr-1.5" />}
-            {t('noteCreate')}
+        <p className="text-sm text-muted-foreground mb-4">{t('gateDesc')}</p>
+        <div className="flex justify-end">
+          <Button className="rounded-full h-9 px-5 bg-primary hover:bg-primary/90" onClick={onClose}>
+            {t('ok')}
           </Button>
         </div>
       </div>

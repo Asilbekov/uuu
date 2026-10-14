@@ -140,7 +140,7 @@ export async function getTest(id: string) {
 //   * A version may only become a SHAREABLE test when it differs from its
 //     direct parent in at least MIN_FORK_CHANGED_QUESTIONS questions/answers.
 //     Smaller contributions are rejected with VERSION_TOO_SIMILAR — the client
-//     then offers to write a NOTE about the test instead.
+//     shows the rule dialog ("change 2+ questions or answers first").
 export const MIN_FORK_CHANGED_QUESTIONS = 2;
 
 // Normalize a question to its content identity: text + answers + correct
@@ -224,6 +224,7 @@ export async function getTestTree(id: string) {
       coverColor: true,
       parentId: true,
       rootId: true,
+      changedCount: true,
       createdAt: true,
       creatorId: true,
       creator: { select: { id: true, name: true, image: true } },
@@ -237,7 +238,8 @@ export async function getTestTree(id: string) {
 
 // ---------------------------------------------------------------------- notes --
 
-/** All notes written about a test (they enrich the version-tree view). */
+/** All notes written about a test (the API stays for compatibility — the
+ * version-tree UI no longer renders notes). */
 export async function listTestNotes(testId: string) {
   return db.testNote.findMany({
     where: { testId },
@@ -393,9 +395,12 @@ export async function updateTest(
 
   // Fork-diff gate: a VERSION must differ from its direct parent in at least
   // MIN_FORK_CHANGED_QUESTIONS questions/answers. Anything smaller is not a
-  // new version — the client catches the VERSION_TOO_SIMILAR error and offers
-  // to write a NOTE about the test instead. (The parent may be gone — a
-  // deleted ancestor — in which case the copy has become its own trunk.)
+  // new version — the client catches the VERSION_TOO_SIMILAR error and shows
+  // the rule dialog ("change 2+ questions"). The exact change count is ALSO
+  // persisted (Test.changedCount) — it drives the two states of the card's
+  // "Share link" button (active ≥ 2 / passive < 2). (The parent may be gone —
+  // a deleted ancestor — in which case the copy has become its own trunk.)
+  let versionChangedCount: number | null = null;
   if (isVersion) {
     const parent = existing.parentId
       ? await db.test.findUnique({
@@ -414,6 +419,7 @@ export async function updateTest(
       if (changed < MIN_FORK_CHANGED_QUESTIONS) {
         throw ApiError.forbidden("VERSION_TOO_SIMILAR");
       }
+      versionChangedCount = changed;
     }
   }
 
@@ -489,6 +495,9 @@ export async function updateTest(
       ...(isPublic !== undefined && { isPublic: isVersion ? false : isPublic }),
       ...(randomizeQuestions !== undefined && { randomizeQuestions }),
       ...(randomizeOptions !== undefined && { randomizeOptions }),
+      // Persist the fork-diff result so the card can decide the share-link
+      // button state without re-diffing questions on every render.
+      ...(isVersion && versionChangedCount !== null && { changedCount: versionChangedCount }),
       ...(questions && {
         questions: {
           create: questions.map((q, index) => questionCreateData(q, index)),

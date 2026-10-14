@@ -1,45 +1,57 @@
 'use client';
 
 // ---------------------------------------------------------------------------
-// VERSION TREE — the "beautiful tree" view of a test's version family.
+// VERSION TREE — the minimalist SVG tree of a test's version family.
 //
-//   trunk (bottom)  = the original test
-//   branch          = a version created by changing the test (a copy)
-//   branch-on-branch= a version made FROM a version
-//   apple           = the photo of the user who grew that branch — tapping an
-//                     apple re-roots the whole view at THAT version, so its
-//                     own branches/apples become visible ("who took this
-//                     version as a basis").
+//   trunk (bottom) = the test whose tree is open
+//   branch         = a tier of the crown; the tree GROWS with the family
+//   apple          = one version of this test — the photo of the user who
+//                    created it, hanging on a branch. Tapping an apple
+//                    re-roots the view at THAT version (its own branches and
+//                    apples become visible — recursive navigation).
 //
-// The view is self-contained: it fetches the family (GET /api/tests/[id]/tree)
-// and the notes (GET /api/tests/[id]/notes), renders trunk → branches →
-// apples, and carries the notes panel (the "small contribution" path).
+//   Growth levels ("уровни роста"): the crown develops tier by tier as the
+//   number of apples increases — 0 apples = a sprout, then 1..5 tiers of
+//   branches, the trunk gets taller and the crown wider. Everything is drawn
+//   as pure SVG (no node cards) and scales to fill the whole card.
+//
+//   Navigation: ONE universal "Up" button in the header — it always moves the
+//   user one level UP the hierarchy: a version's tree → its parent's tree →
+//   the family trunk → back to the test card. The old appearing/disappearing
+//   back buttons are gone, and so are the notes (removed from the product).
 //
 // Layout contract mirrors the attached-files modes: `variant="feed"` renders
 // full-height inside the TikTok feed, `variant="grid"` renders inside the
-// library/shelf grid. Both scroll internally (data-inner-scroll +
-// swiper-no-swiping) so feed gestures never fight the tree canvas.
+// library/shelf grid. The canvas is inert for swipes (data-inner-scroll +
+// swiper-no-swiping) so feed gestures never fight the tree.
 // ---------------------------------------------------------------------------
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Textarea } from '@/components/ui/textarea';
 import { api } from '@/lib/api';
-import type { TestNote, TreeNode } from '@/lib/app-types';
+import type { TreeNode } from '@/lib/app-types';
 import { useSessionStore } from '@/stores/session-store';
 import { tUI } from '@/lib/i18n';
 import type { Lang } from '@/lib/i18n';
-import { ArrowLeft, Loader2, RotateCcw, StickyNote, TreeDeciduous } from 'lucide-react';
+import { ArrowUp, RotateCcw, TreeDeciduous } from 'lucide-react';
 
-// ---- layout constants -------------------------------------------------------
-const CARD_W = 150;   // branch mini-card width (px)
-const CARD_H = 86;    // uniform node-card height
-const GAP_X = 34;     // horizontal gap between leaf slots
-const ROW_H = 112;    // vertical distance between levels
-const PAD_X = 26;     // canvas side padding
-const PAD_TOP = 30;
-const PAD_BOTTOM = 34;
+// ---- SVG canvas -------------------------------------------------------------
+// The world is 400 units wide; the HEIGHT adapts to the card's aspect ratio
+// (ResizeObserver) so `meet` scaling fills the whole card at every size — the
+// tree is as big as the test card, on the phone and on the desktop alike.
+const VB_W = 400;
+const DEFAULT_VB_H = 560;
+const TRUNK_X = VB_W / 2;
+
+// Palette — warm minimalist: brown wood, soft green leaves, red apples
+const C_TRUNK = '#7A5230';
+const C_BRANCH = '#8B6748';
+const C_BRANCH_THIN = '#9A7B58';
+const C_LEAF = '#4C9A46';
+const C_APPLE = '#E23B2E';
+const C_GROUND = '#CBE3BC';
+const C_INK = '#40634D';
 
 // Avatar resolver — tg: refs go through the same-origin avatar route
 // (same rule as CreatorStrip in shared-bits).
@@ -50,80 +62,137 @@ function avatarSrc(image: string | null | undefined, userId?: string): string {
   return '';
 }
 
-function Avatar({ image, userId, name, className }: { image?: string | null; userId?: string; name?: string; className?: string }) {
-  const src = avatarSrc(image, userId);
-  const initial = (name || '?').trim().slice(0, 1).toUpperCase() || '?';
-  return (
-    <span className={`overflow-hidden rounded-full bg-cta text-white flex items-center justify-center font-bold shrink-0 ${className || ''}`}>
-      {src ? <img src={src} alt="" className="w-full h-full object-cover" /> : initial}
-    </span>
-  );
+interface Branch {
+  d: string;
+  p0: { x: number; y: number };
+  c: { x: number; y: number };
+  p1: { x: number; y: number };
+  tier: number;
 }
 
-interface PlacedNode {
-  node: TreeNode;
-  level: number;
-  x: number; // center x
-  y: number; // TOP y of the card
-  parent: { x: number; y: number } | null; // parent card's top-center (branch start)
-  childBottom: { x: number; y: number } | null; // this card's bottom-center (branch end for its kids)
+interface Geometry {
+  tiers: number;
+  trunkD: string;
+  trunkTopY: number;
+  groundY: number;
+  usable: number;
+  branches: Branch[]; // ordered bottom tier → top, left then right
 }
 
-/**
- * Tidy-tree layout: leaves get sequential slots, parents center over their
- * children. The trunk sits at the BOTTOM (a tree grows upward): level 0 is
- * the deepest row on screen.
- */
-function layoutTree(viewRoot: TreeNode, byParent: Map<string, TreeNode[]>) {
-  let slotCounter = 0;
-  let maxLevel = 0;
-  const slots = new Map<string, { node: TreeNode; level: number; slot: number }>();
+/** Growth levels: how many branch tiers a tree has for a given number of
+ * apples (direct versions of the viewed test). The trunk fraction is the
+ * share of the usable vertical span the trunk occupies at that stage — the
+ * tree literally GROWS stage by stage. */
+function growthStage(apples: number): { tiers: number; trunkFrac: number } {
+  if (apples <= 0) return { tiers: 0, trunkFrac: 0.34 };
+  if (apples <= 2) return { tiers: 1, trunkFrac: 0.50 };
+  if (apples <= 4) return { tiers: 2, trunkFrac: 0.58 };
+  if (apples <= 6) return { tiers: 3, trunkFrac: 0.66 };
+  if (apples <= 8) return { tiers: 4, trunkFrac: 0.73 };
+  return { tiers: 5, trunkFrac: 0.80 };
+}
 
-  const walk = (node: TreeNode, level: number): number => {
-    maxLevel = Math.max(maxLevel, level);
-    const kids = (byParent.get(node.id) || [])
-      .slice()
-      .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-    if (kids.length === 0) {
-      const slot = slotCounter++;
-      slots.set(node.id, { node, level, slot });
-      return slot;
+/** Pure SVG geometry of the tree at its current growth stage. All sizes are
+ * relative to the usable vertical span, so the tree fills any card. */
+function buildTreeGeometry(appleCount: number, vbH: number): Geometry {
+  const groundY = vbH - 24;
+  const usable = groundY - 28; // leave head-room at the top
+  const { tiers, trunkFrac } = growthStage(appleCount);
+  const trunkH = usable * trunkFrac;
+  const trunkTopY = groundY - trunkH;
+
+  // Trunk: a tapered closed path with a gentle S-curve (wider at the base,
+  // a slight lean toward the light).
+  const halfBase = Math.max(8, usable * 0.045);
+  const halfTop = Math.max(3, usable * 0.016);
+  const lean = usable * 0.018;
+  const trunkD = [
+    `M ${TRUNK_X - halfBase} ${groundY}`,
+    `C ${TRUNK_X - halfBase + 2} ${groundY - trunkH * 0.42}, ${TRUNK_X - halfTop - lean} ${trunkTopY + trunkH * 0.4}, ${TRUNK_X - halfTop + lean} ${trunkTopY}`,
+    `L ${TRUNK_X + halfTop + lean} ${trunkTopY}`,
+    `C ${TRUNK_X + halfTop + lean + 4} ${trunkTopY + trunkH * 0.4}, ${TRUNK_X + halfBase - 2} ${groundY - trunkH * 0.42}, ${TRUNK_X + halfBase} ${groundY}`,
+    'Z',
+  ].join(' ');
+
+  // Branches: pairs left/right per tier, bottom tiers reach wider (a real
+  // crown), every tier sits a bit higher and the curve rises toward its tip.
+  const branches: Branch[] = [];
+  if (tiers > 0) {
+    const lowestY = groundY - usable * 0.17;
+    const highestY = Math.max(trunkTopY + usable * 0.08, lowestY - (tiers - 1) * usable * 0.135);
+    const rise = usable * 0.09;
+    for (let i = 0; i < tiers; i++) {
+      const y = tiers === 1
+        ? groundY - trunkH * 0.55
+        : lowestY - (i * (lowestY - highestY)) / (tiers - 1);
+      const spread = Math.min(VB_W / 2 - 16, usable * (0.34 + 0.075 * (tiers - 1 - i)));
+      for (const side of [-1, 1] as const) {
+        const p0 = { x: TRUNK_X, y };
+        const c = { x: TRUNK_X + side * spread * 0.45, y: y - rise * 0.85 };
+        const p1 = { x: TRUNK_X + side * spread, y: y - rise };
+        branches.push({
+          d: `M ${p0.x} ${p0.y} Q ${c.x} ${c.y}, ${p1.x} ${p1.y}`,
+          p0, c, p1, tier: i,
+        });
+      }
     }
-    const kidSlots = kids.map(k => walk(k, level + 1));
-    const slot = (kidSlots[0] + kidSlots[kidSlots.length - 1]) / 2;
-    slots.set(node.id, { node, level, slot });
-    return slot;
+  }
+  return { tiers, trunkD, trunkTopY, branches, groundY, usable };
+}
+
+/** Point on a quadratic bezier at parameter t. */
+function qPoint(p0: { x: number; y: number }, c: { x: number; y: number }, p1: { x: number; y: number }, t: number) {
+  const u = 1 - t;
+  return {
+    x: u * u * p0.x + 2 * u * t * c.x + t * t * p1.x,
+    y: u * u * p0.y + 2 * u * t * c.y + t * t * p1.y,
   };
-  walk(viewRoot, 0);
+}
 
-  const totalSlots = Math.max(1, slotCounter);
-  const contentW = totalSlots * (CARD_W + GAP_X) - GAP_X + PAD_X * 2;
-  const contentH = PAD_TOP + (maxLevel + 1) * ROW_H + PAD_BOTTOM;
+// Hang positions along a branch for stacked apples (1st, 2nd, 3rd…)
+const HANG_T = [0.72, 0.5, 0.88, 0.36];
 
-  const xOf = (slot: number) => PAD_X + slot * (CARD_W + GAP_X) + CARD_W / 2;
-  // root (level 0) at the BOTTOM; deeper levels stack upward
-  const yOf = (level: number) => PAD_TOP + (maxLevel - level) * ROW_H;
+interface PlacedApple {
+  node: TreeNode;
+  x: number;
+  y: number; // apple CENTER
+  hangY: number; // branch point the stem starts from
+}
 
-  const placed: PlacedNode[] = [];
-  for (const { node, level, slot } of slots.values()) {
-    const top = { x: xOf(slot), y: yOf(level) };
-    const parentNode = node.parentId ? slots.get(node.parentId) : null;
-    placed.push({
-      node,
-      level,
-      x: top.x,
-      y: top.y,
-      parent: parentNode ? { x: xOf(parentNode.slot), y: yOf(parentNode.level) } : null,
-      childBottom: { x: top.x, y: top.y + CARD_H },
+interface FullLayout {
+  geo: Geometry;
+  apples: PlacedApple[];
+  appleR: number;
+}
+
+function layoutTree(apples: TreeNode[], vbH: number): FullLayout {
+  const geo = buildTreeGeometry(apples.length, vbH);
+  const appleR = Math.max(11, Math.min(17, geo.usable * 0.05));
+  const placed: PlacedApple[] = [];
+  const slots = geo.branches.length;
+  if (slots > 0) {
+    apples.forEach((node, j) => {
+      if (j >= slots * HANG_T.length) return; // hard cap — 40 apples max
+      const b = geo.branches[j % slots];
+      const sub = Math.floor(j / slots);
+      const pt = qPoint(b.p0, b.c, b.p1, HANG_T[sub] ?? 0.7);
+      placed.push({
+        node,
+        x: pt.x,
+        y: pt.y + appleR * 1.55,
+        hangY: pt.y,
+      });
     });
   }
-  return { placed, contentW, contentH, maxLevel };
+  return { geo, apples: placed, appleR };
 }
+
+// ---- component ----------------------------------------------------------------
 
 export interface VersionTreeProps {
   /** The test whose tree is shown (the starting root of the view). */
   testId: string;
-  /** Back to the test cards (label/icon handled by the caller's context). */
+  /** Leave the tree (from the family trunk the universal Up lands here). */
   onClose: () => void;
   /** feed = full-height TikTok slide; grid = card inside library/shelf. */
   variant?: 'feed' | 'grid';
@@ -131,24 +200,29 @@ export interface VersionTreeProps {
 
 export default function VersionTreeView({ testId, onClose, variant = 'feed' }: VersionTreeProps) {
   const lang = useSessionStore(s => s.lang);
-  // `user` is set on login/profile actions; `hydratedUser` is the session
-  // resolved from the httpOnly cookie on boot — either may be the live one
-  // (same rule as dashboard-view's effectiveUser).
-  const sessionUser = useSessionStore(s => s.user || s.hydratedUser);
   const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
 
-  // family data + navigation history (apple taps re-root the view)
   const [family, setFamily] = useState<{ rootId: string; nodes: TreeNode[] } | null>(null);
   const [viewRootId, setViewRootId] = useState<string>(testId);
-  const [history, setHistory] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // notes for the CURRENT root (they belong to the test being viewed)
-  const [notes, setNotes] = useState<TestNote[]>([]);
-  const [notesLoading, setNotesLoading] = useState(false);
-  const [noteText, setNoteText] = useState('');
-  const [noteBusy, setNoteBusy] = useState(false);
+  // The canvas box drives the SVG world height: the tree always fills the card.
+  // The element arrives LATER than the first effect run (the loading skeleton
+  // renders first), so the ref is a state setter — the observer effect re-runs
+  // the moment the canvas actually mounts.
+  const [wrapEl, setWrapEl] = useState<HTMLDivElement | null>(null);
+  const [vbH, setVbH] = useState<number>(DEFAULT_VB_H);
+  useEffect(() => {
+    if (!wrapEl || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(entries => {
+      const r = entries[0].contentRect;
+      if (r.width > 0 && r.height > 0) {
+        setVbH(Math.round(Math.min(680, Math.max(300, VB_W * r.height / r.width))));
+      }
+    });
+    ro.observe(wrapEl);
+    return () => ro.disconnect();
+  }, [wrapEl]);
 
   const fetchFamily = useCallback((id: string) => {
     setLoading(true);
@@ -156,8 +230,6 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
     api.getTestTree(id)
       .then(data => {
         setFamily(data);
-        // The requested test must be part of the family — it always is
-        // (the endpoint roots the family at it when orphaned).
         if (!data.nodes.some(n => n.id === id)) {
           setError(t('noResults'));
         }
@@ -169,14 +241,6 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
   useEffect(() => {
     fetchFamily(viewRootId);
   }, [viewRootId, fetchFamily]);
-
-  useEffect(() => {
-    setNotesLoading(true);
-    api.getNotes(viewRootId)
-      .then(r => setNotes(r.notes || []))
-      .catch(() => setNotes([]))
-      .finally(() => setNotesLoading(false));
-  }, [viewRootId]);
 
   const byParent = useMemo(() => {
     const m = new Map<string, TreeNode[]>();
@@ -194,52 +258,36 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
     [family, viewRootId]
   );
 
-  const layout = useMemo(() => {
-    if (!viewRoot) return null;
-    return layoutTree(viewRoot, byParent);
-  }, [viewRoot, byParent]);
+  // The apples of the CURRENT tree: the direct versions of the viewed test.
+  const apples = useMemo(
+    () => (byParent.get(viewRootId) || []).slice().sort((a, b) => a.createdAt.localeCompare(b.createdAt)),
+    [byParent, viewRootId]
+  );
 
-  // apple tap → re-root at that version
+  const layout = useMemo(() => layoutTree(apples, vbH), [apples, vbH]);
+
+  // apple tap → re-root the view at THAT version (recursive navigation)
   const navigate = useCallback((id: string) => {
     if (id === viewRootId) return;
-    setHistory(h => [...h, viewRootId]);
     setViewRootId(id);
   }, [viewRootId]);
 
-  const goBack = useCallback(() => {
-    setHistory(h => {
-      if (h.length > 0) {
-        const prev = h[h.length - 1];
-        setViewRootId(prev);
-        return h.slice(0, -1);
-      }
-      // no history (opened a version straight from a link) → the family trunk
-      if (family && family.rootId !== viewRootId) setViewRootId(family.rootId);
-      return h;
-    });
-  }, [family, viewRootId]);
-
-  const submitNote = useCallback(async () => {
-    const text = noteText.trim();
-    if (!text || noteBusy) return;
-    setNoteBusy(true);
-    try {
-      const note = await api.createNote(viewRootId, text);
-      setNotes(prev => [note, ...prev]);
-      setNoteText('');
-      // notes panel is the feedback surface — a quiet toast-less confirm keeps
-      // the tree view calm; the note appears instantly in the list
-    } catch (e: any) {
-      setError(e?.message || 'Error');
-    } finally {
-      setNoteBusy(false);
+  // THE universal hierarchy button: version tree → parent version → family
+  // trunk → the test card. Always visible, always one level up.
+  const goUp = useCallback(() => {
+    const cur = family?.nodes.find(n => n.id === viewRootId);
+    if (cur?.parentId && family?.nodes.some(n => n.id === cur.parentId)) {
+      setViewRootId(cur.parentId); // one level up: the parent version
+      return;
     }
-  }, [noteText, noteBusy, viewRootId]);
+    if (family && family.rootId !== viewRootId && family.nodes.some(n => n.id === family.rootId)) {
+      setViewRootId(family.rootId); // the family trunk
+      return;
+    }
+    onClose(); // top of the hierarchy → back to the test card
+  }, [family, viewRootId, onClose]);
 
   // ---- rendering -----------------------------------------------------------
-
-  const canGoBack = history.length > 0 || (!!family && family.rootId !== viewRootId);
-  const versionsCount = (family?.nodes.length || 1) - 1;
 
   if (loading && !family) {
     return (
@@ -260,7 +308,7 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
             <RotateCcw className="w-4 h-4 mr-1.5" /> {t('restart')}
           </Button>
           <Button size="sm" variant="outline" className="rounded-full border-black h-9" onClick={onClose}>
-            <ArrowLeft className="w-4 h-4 mr-1.5" /> {t(variant === 'feed' ? 'backToTest' : 'backToTests')}
+            <ArrowUp className="w-4 h-4 mr-1.5" /> {t('treeUp')}
           </Button>
         </div>
       </div>
@@ -269,15 +317,17 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
 
   const header = (
     <div className="shrink-0 rounded-2xl bg-white/85 border border-black/10 px-3 py-2.5 flex items-center gap-2">
+      {/* ONE universal button — always visible, always one level up the
+      hierarchy (version → parent → trunk → the test card). */}
       <Button
         size="sm" variant="outline"
-        onClick={onClose}
-        title={t(variant === 'feed' ? 'backToTest' : 'backToTests')}
-        aria-label={t(variant === 'feed' ? 'backToTest' : 'backToTests')}
+        onClick={goUp}
+        title={t('treeUp')}
+        aria-label={t('treeUp')}
         className="h-8 rounded-full border-black text-xs px-2.5 shrink-0"
       >
-        <ArrowLeft className="w-3.5 h-3.5 mr-1 shrink-0" />
-        <span className="truncate">{t(variant === 'feed' ? 'backToTest' : 'backToTests')}</span>
+        <ArrowUp className="w-3.5 h-3.5 mr-1 shrink-0" />
+        <span className="truncate">{t('treeUp')}</span>
       </Button>
       <div className="min-w-0 flex-1 text-center">
         <p className="text-sm font-bold leading-tight truncate">{t('versionTree')}</p>
@@ -286,177 +336,138 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
         )}
       </div>
       <span className="shrink-0 text-[11px] font-semibold px-2 py-1 rounded-full bg-[#FFF0D9] text-cta whitespace-nowrap">
-        {t('treeVersionsCount', { n: Math.max(0, versionsCount) })}
+        {t('treeVersionsCount', { n: apples.length })}
       </span>
-      {canGoBack && (
-        <Button
-          size="sm" variant="outline"
-          onClick={goBack}
-          title={t('treeBackToTree')}
-          className="h-8 rounded-full border-black text-xs px-2.5 shrink-0"
-        >
-          <ArrowLeft className="w-3.5 h-3.5 mr-1 shrink-0" />
-          <span className="truncate">{t('treeBackToTree')}</span>
-        </Button>
-      )}
     </div>
   );
 
-  const canvas = layout ? (
-    <div
-      data-inner-scroll
-      className="swiper-no-swiping flex-1 min-h-0 overflow-auto rounded-3xl border border-black/10 [scrollbar-width:thin]"
-      style={{ background: 'linear-gradient(180deg, #EAF6FF 0%, #F4FBF1 55%, #E8F5E0 100%)' }}
-    >
-      <div className="relative mx-auto" style={{ width: Math.max(layout.contentW, 320), height: layout.contentH }}>
-        {/* ground */}
-        <div
-          className="absolute left-0 right-0 rounded-[100%] bg-[#BFE3AC]/80"
-          style={{ height: 18, bottom: 6 }}
-        />
-        {/* branches */}
-        <svg className="absolute inset-0 pointer-events-none" width={Math.max(layout.contentW, 320)} height={layout.contentH}>
-          {layout.placed.map(p => {
-            if (!p.parent) return null;
-            const px = p.parent.x;
-            const py = p.parent.y; // parent card TOP (branches grow upward)
-            const cx = p.childBottom!.x;
-            const cy = p.childBottom!.y;
-            const dy = Math.max(24, (py - cy) * 0.55);
-            const d = `M ${px} ${py} C ${px} ${py - dy}, ${cx} ${cy + dy}, ${cx} ${cy}`;
-            return (
-              <path
-                key={`edge-${p.node.id}`}
-                d={d}
-                fill="none"
-                stroke={p.level === 1 ? '#8B6748' : '#A08966'}
-                strokeWidth={p.level === 1 ? 4 : 2.5}
-                strokeLinecap="round"
-              />
-            );
-          })}
-        </svg>
-        {/* apples (on the branches, above the child's bottom edge) */}
-        {layout.placed.map(p => {
-          if (!p.parent) return null;
-          const ax = (p.parent.x + p.childBottom!.x) / 2;
-          const ay = (p.parent.y + p.childBottom!.y) / 2;
-          const author = p.node.creator;
-          return (
-            <button
-              key={`apple-${p.node.id}`}
-              type="button"
-              onClick={() => navigate(p.node.id)}
-              title={`${author?.name || ''} — ${t('treeHint')}`}
-              aria-label={`${author?.name || ''} — ${t('treeVersionLabel')}`}
-              className="absolute z-20 w-9 h-9 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E23B2E] ring-2 ring-white shadow-md flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
-              style={{ left: ax, top: ay }}
-            >
-              <Avatar image={author?.image} userId={author?.id} name={author?.name} className="w-7 h-7 text-[11px]" />
-              {/* leaf */}
-              <span className="absolute -top-1 right-0 w-2.5 h-1.5 bg-[#4C9A46] rounded-full rotate-[-30deg]" />
-            </button>
-          );
-        })}
-        {/* node cards */}
-        {layout.placed.map(p => {
-          const isCurrent = p.node.id === viewRootId;
-          const isTrunk = !p.node.parentId;
-          const author = p.node.creator;
-          const bandStyle = p.node.coverColor ? { backgroundColor: p.node.coverColor } : undefined;
-          const bandClass = p.node.coverColor ? '' : 'bg-gradient-to-br from-[#B7E4C7] to-[#95D5B2]';
-          return (
-            <button
-              key={`card-${p.node.id}`}
-              type="button"
-              onClick={() => navigate(p.node.id)}
-              className={`absolute z-10 text-left rounded-2xl border-2 bg-white overflow-hidden transition-all hover:shadow-lg active:scale-[0.98] ${
-                isCurrent ? 'border-primary shadow-lg ring-2 ring-primary/30' : 'border-black/15 hover:border-black/40'
-              }`}
-              style={{
-                left: p.x - CARD_W / 2,
-                top: p.y,
-                width: CARD_W,
-                height: CARD_H,
-                transform: isCurrent ? 'scale(1.04)' : undefined,
-              }}
-              title={p.node.title}
-            >
-              <div style={bandStyle} className={`${bandClass} h-9 px-2 flex items-center`}>
-                <p className="text-[11px] font-bold text-[#1B4332] leading-tight line-clamp-2">{p.node.title}</p>
-              </div>
-              <div className="px-2 py-1 flex flex-col gap-0.5">
-                <div className="flex items-center gap-1 min-w-0">
-                  <Avatar image={author?.image} userId={author?.id} name={author?.name} className="w-3.5 h-3.5 text-[8px]" />
-                  <span className="text-[9px] text-muted-foreground truncate">
-                    {isTrunk ? t('treeOriginalBy', { name: author?.name || '' }) : t('treeVersionBy', { name: author?.name || '' })}
-                  </span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className={`text-[8px] font-bold px-1.5 py-px rounded-full ${isCurrent ? 'bg-primary text-white' : isTrunk ? 'bg-[#FFF0D9] text-cta' : 'bg-muted text-muted-foreground'}`}>
-                    {isCurrent ? t('treeThisVersion') : isTrunk ? t('treeTrunk') : t('treeVersionLabel')}
-                  </span>
-                  {!!p.node._count?.questions && (
-                    <span className="text-[8px] text-muted-foreground">{p.node._count.questions}Q</span>
-                  )}
-                </div>
-              </div>
-            </button>
-          );
-        })}
-        {/* empty family: hint above the lone trunk */}
-        {layout.placed.length === 1 && (
-          <p className="absolute left-1/2 -translate-x-1/2 text-[11px] text-[#40634D] bg-white/80 rounded-full px-3 py-1 shadow-sm whitespace-nowrap"
-             style={{ top: 4 }}>
-            {t('treeEmpty')}
-          </p>
-        )}
-      </div>
-    </div>
-  ) : null;
+  const isTrunkRoot = !!viewRoot && !viewRoot.parentId;
+  const rootAuthor = viewRoot?.creator?.name || '';
+  const rootLabel = isTrunkRoot
+    ? t('treeOriginalBy', { name: rootAuthor })
+    : t('treeVersionBy', { name: rootAuthor });
 
-  const notesPanel = (
-    <div className="shrink-0 rounded-2xl bg-white/85 border border-black/10 p-3" data-inner-scroll>
-      <p className="text-xs font-bold flex items-center gap-1.5 mb-2">
-        <StickyNote className="w-3.5 h-3.5 text-cta" /> {t('notesTitle')}
-      </p>
-      <div className="max-h-40 overflow-y-auto flex flex-col gap-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {notesLoading ? (
-          <p className="text-[11px] text-muted-foreground flex items-center gap-1.5"><Loader2 className="w-3 h-3 animate-spin" /> {t('loading')}</p>
-        ) : notes.length === 0 ? (
-          <p className="text-[11px] text-muted-foreground">{t('notesEmpty')}</p>
-        ) : (
-          notes.map(n => (
-            <div key={n.id} className="flex gap-2 items-start bg-muted/40 rounded-xl px-2 py-1.5">
-              <Avatar image={n.user?.image} userId={n.user?.id} name={n.user?.name} className="w-5 h-5 text-[9px] mt-0.5" />
-              <div className="min-w-0">
-                <p className="text-[10px] font-semibold text-muted-foreground truncate">{n.user?.name}</p>
-                <p className="text-xs leading-snug break-words">{n.text}</p>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-      {sessionUser && (
-        <div className="mt-2 flex flex-col gap-1.5">
-          <Textarea
-            value={noteText}
-            onChange={e => setNoteText(e.target.value)}
-            placeholder={t('notePlaceholder')}
-            rows={2}
-            className="text-xs rounded-xl bg-white border-black/15 min-h-0"
+  const canvas = (
+    <div
+      ref={setWrapEl}
+      data-inner-scroll
+      className="swiper-no-swiping relative flex-1 min-h-0 rounded-3xl border border-black/10 overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #FAFDf6 0%, #F4FAEF 60%, #EDF6E6 100%)' }}
+    >
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox={`0 0 ${VB_W} ${vbH}`}
+        preserveAspectRatio="xMidYMax meet"
+        role="img"
+        aria-label={t('versionTree')}
+      >
+        {/* ground */}
+        <ellipse cx={TRUNK_X} cy={layout.geo.groundY + 10} rx={170} ry={13} fill={C_GROUND} opacity={0.55} />
+        <ellipse cx={TRUNK_X} cy={layout.geo.groundY + 7} rx={112} ry={8} fill={C_GROUND} />
+
+        {/* trunk */}
+        <path d={layout.geo.trunkD} fill={C_TRUNK} />
+
+        {/* branches */}
+        {layout.geo.branches.map((b, i) => (
+          <path
+            key={`br-${i}`}
+            d={b.d}
+            fill="none"
+            stroke={b.tier >= layout.geo.tiers - 1 ? C_BRANCH_THIN : C_BRANCH}
+            strokeWidth={Math.max(2.2, layout.appleR * 0.42 - b.tier * 0.7)}
+            strokeLinecap="round"
           />
-          <Button
-            size="sm"
-            onClick={submitNote}
-            disabled={noteBusy || !noteText.trim()}
-            className="h-8 rounded-full self-end bg-primary hover:bg-primary/90 text-xs"
-          >
-            {noteBusy ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : null}
-            {t('noteCreate')}
-          </Button>
-        </div>
-      )}
+        ))}
+
+        {/* leaf clusters on every branch tip */}
+        {layout.geo.branches.map((b, i) => {
+          const lr = layout.appleR * 0.72; // leaf ellipse rx scale
+          const lx = b.p1.x + (b.p1.x < TRUNK_X ? lr * 0.7 : -lr * 0.7);
+          return (
+            <g key={`leaf-${i}`} fill={C_LEAF}>
+              <ellipse cx={b.p1.x} cy={b.p1.y - 3} rx={lr} ry={lr * 0.5} transform={`rotate(${b.p1.x < TRUNK_X ? -24 : 24} ${b.p1.x} ${b.p1.y - 3})`} opacity={0.9} />
+              <ellipse cx={lx} cy={b.p1.y - lr * 0.85} rx={lr * 0.68} ry={lr * 0.36} transform={`rotate(${b.p1.x < TRUNK_X ? -40 : 40} ${lx} ${b.p1.y - lr * 0.85})`} opacity={0.75} />
+            </g>
+          );
+        })}
+
+        {/* sprout: no branches yet — leaves right on the trunk top */}
+        {layout.geo.tiers === 0 && (
+          <g fill={C_LEAF}>
+            <ellipse cx={TRUNK_X - 12} cy={layout.geo.trunkTopY - 6} rx={13} ry={6} transform={`rotate(-28 ${TRUNK_X - 12} ${layout.geo.trunkTopY - 6})`} />
+            <ellipse cx={TRUNK_X + 12} cy={layout.geo.trunkTopY - 6} rx={13} ry={6} transform={`rotate(28 ${TRUNK_X + 12} ${layout.geo.trunkTopY - 6})`} />
+            <ellipse cx={TRUNK_X} cy={layout.geo.trunkTopY - 13} rx={9} ry={5.5} />
+          </g>
+        )}
+
+        {/* stems + apples (the versions) */}
+        {layout.apples.map(a => {
+          const author = a.node.creator;
+          const src = avatarSrc(author?.image, author?.id);
+          const initial = (author?.name || '?').trim().slice(0, 1).toUpperCase() || '?';
+          const firstName = (author?.name || '').trim().split(/\s+/)[0] || '';
+          const R = layout.appleR;
+          const nameFs = Math.max(8, Math.min(11, R * 0.62));
+          return (
+            <g
+              key={`apple-${a.node.id}`}
+              className="vt-apple"
+              role="button"
+              tabIndex={0}
+              onClick={() => navigate(a.node.id)}
+              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') navigate(a.node.id); }}
+              aria-label={`${firstName} — ${t('treeVersionLabel')}`}
+            >
+              <title>{`${firstName} — ${t('treeHint')}`}</title>
+              {/* stem */}
+              <line x1={a.x} y1={a.hangY + 1} x2={a.x} y2={a.y - R + 2} stroke={C_BRANCH} strokeWidth={1.6} />
+              {/* apple body: photo clipped inside a red circle */}
+              <circle cx={a.x} cy={a.y} r={R} fill={C_APPLE} stroke="#fff" strokeWidth={2.4} />
+              {src ? (
+                <>
+                  <clipPath id={`vt-clip-${a.node.id}`}>
+                    <circle cx={a.x} cy={a.y} r={R - 2.4} />
+                  </clipPath>
+                  <image
+                    href={src}
+                    x={a.x - R + 2.4}
+                    y={a.y - R + 2.4}
+                    width={(R - 2.4) * 2}
+                    height={(R - 2.4) * 2}
+                    clipPath={`url(#vt-clip-${a.node.id})`}
+                    preserveAspectRatio="xMidYMid slice"
+                  />
+                </>
+              ) : (
+                <text x={a.x} y={a.y + R * 0.24} textAnchor="middle" fontSize={R * 0.82} fontWeight={700} fill="#fff">
+                  {initial}
+                </text>
+              )}
+              {/* tiny leaf on the apple */}
+              <ellipse cx={a.x + R * 0.34} cy={a.y - R - 1.5} rx={R * 0.3} ry={R * 0.15} fill={C_LEAF} transform={`rotate(-32 ${a.x + R * 0.34} ${a.y - R - 1.5})`} />
+              {/* the creator's first name under the apple */}
+              {firstName && (
+                <text x={a.x} y={a.y + R + nameFs + 3} textAnchor="middle" fontSize={nameFs} fill={C_INK} style={{ pointerEvents: 'none' }}>
+                  {firstName}
+                </text>
+              )}
+            </g>
+          );
+        })}
+
+        {/* the trunk's own label: whose test / whose version this tree is */}
+        <text x={TRUNK_X} y={layout.geo.groundY + 22} textAnchor="middle" fontSize={11} fontWeight={600} fill={C_INK} opacity={0.85}>
+          {rootLabel}
+        </text>
+
+        {/* empty family: the sprout waits for the first version */}
+        {apples.length === 0 && (
+          <text x={TRUNK_X} y={Math.max(24, layout.geo.trunkTopY - 22)} textAnchor="middle" fontSize={9.5} fill={C_INK} opacity={0.8}>
+            {t('treeEmpty')}
+          </text>
+        )}
+      </svg>
     </div>
   );
 
@@ -465,7 +476,11 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
       {header}
       {canvas}
       <p className="shrink-0 text-center text-[11px] text-foreground/70 -mt-1">{t('treeHint')}</p>
-      {notesPanel}
+      <style>{`
+        .vt-apple { cursor: pointer; transition: transform .15s ease; transform-box: fill-box; transform-origin: center; outline: none; }
+        .vt-apple:hover { transform: scale(1.14); }
+        .vt-apple:active { transform: scale(.94); }
+      `}</style>
     </div>
   );
 }

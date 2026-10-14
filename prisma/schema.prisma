@@ -150,6 +150,13 @@ model Test {
   // (no relation) on purpose: the trunk may be deleted while its descendants
   // stay reachable by link.
   rootId     String?
+  // How many questions/answers this VERSION changes vs its DIRECT parent
+  // (computed by the server at every save — questionFingerprint diff).
+  // Drives the two states of the "Share link" button on the card: the button
+  // is PASSIVE until a version differs from its parent in >= 2 questions.
+  // Trunks (parentId = null) keep the default 0 — their share button does
+  // not consult this counter at all.
+  changedCount Int    @default(0)
   notes      TestNote[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

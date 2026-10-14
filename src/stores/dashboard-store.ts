@@ -24,9 +24,7 @@ interface DashboardData {
   dashTagInfo: { query: string; exists: boolean; created: boolean; similar: string[] } | null;
   // Library grid: 2 cards per row on phones, 3 per row from sm up
   libNarrow: boolean;
-  // Per-card share scope selection: exactly one of the two share buttons on a
-  // card can be highlighted at a time (radio behaviour, like the mode cards).
-  shareScopeByTest: Record<string, 'link' | 'community'>;
+  // True while a make-public/link-copy share action is in flight.
   shareBusy: boolean;
 }
 
@@ -39,7 +37,6 @@ const INITIAL: DashboardData = {
   dashSearching: false,
   dashTagInfo: null,
   libNarrow: false,
-  shareScopeByTest: {},
   shareBusy: false,
 };
 

@@ -8,8 +8,10 @@
 //   6. after 2+ changed questions: save OK, link share OK
 //   7. branch-on-branch: copy of a copy → tree holds 3 generations
 //   8. GET /tree returns the whole family with creators (the "apples")
-//   9. notes: create + list
+//   9. notes API still works (dormant feature — the tree UI no longer shows notes)
 //  10. versions NEVER appear in the discover feed
+//  11. changedCount: 0 on a fresh copy, 2 after a 2-question save — it drives
+//      the two states of the card's share-link button
 // Cleanup: deletes created tests + accounts.
 // Usage: BASE=http://localhost:3100 node scripts/e2e-b3-tree.js
 // ---------------------------------------------------------------------------
@@ -96,6 +98,7 @@ async function main() {
   const v1 = copy1.json.id;
   ok(copy1.json.parentId === rootId, 'copy.parentId → the source test');
   ok(copy1.json.rootId === rootId, 'copy.rootId → the family trunk');
+  ok(copy1.json.changedCount === 0, 'fresh copy carries changedCount=0 (share button passive)');
 
   // 3. saving the copy with 1 changed question → blocked
   const oneChange = {
@@ -130,6 +133,7 @@ async function main() {
   };
   const saved = await req('PUT', `/api/tests/${v1}`, { session: B, body: twoChanges });
   ok(saved.status === 200, 'save with 2 changed questions → 200');
+  ok(saved.json?.changedCount === 2, 'save persists changedCount=2 (share button turns active)');
   const savedIsPublic = saved.json?.isPublic;
   ok(savedIsPublic === false, 'version save coerces isPublic=false (even if a toggle said true)');
   const linkOk = await req('POST', `/api/tests/${v1}/share`, { session: B, body: { scope: 'link' } });
@@ -153,6 +157,7 @@ async function main() {
   ok(tree.json?.rootId === rootId, 'tree.rootId = the trunk');
   const v1node = (tree.json?.nodes || []).find(n => n.id === v1);
   ok(v1node?.creator?.id && v1node.creator.name === 'B3 bob', 'bob\'s version node carries bob (the apple photo)');
+  ok(v1node?.changedCount === 2, 'tree node carries changedCount (card button state without re-diff)');
   const reRoot = await req('GET', `/api/tests/${v1}/tree`);
   ok(reRoot.status === 200 && (reRoot.json?.nodes || []).some(n => n.id === v2),
      're-rooted tree (bob\'s version) still shows its own apples');

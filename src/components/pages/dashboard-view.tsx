@@ -90,7 +90,8 @@ export interface DashboardViewProps {
   closeTreeCard: (...args: any[]) => any;
   toggleGridTree: (...args: any[]) => any;
   closeGridTree: (...args: any[]) => any;
-  doShare: (...args: any[]) => any;
+  doShareLink: (...args: any[]) => any;
+  doMakePublic: (...args: any[]) => any;
   handleDeleteTest: (...args: any[]) => any;
   exitFilesMode: (...args: any[]) => any;
   openFilesCard: (...args: any[]) => any;
@@ -125,7 +126,8 @@ export default function DashboardView({
   closeTreeCard,
   toggleGridTree,
   closeGridTree,
-  doShare,
+  doShareLink,
+  doMakePublic,
   handleDeleteTest,
   exitFilesMode,
   openFilesCard,
@@ -178,8 +180,6 @@ export default function DashboardView({
   const setPage = useNavStore(s => s.setPage);
   // dashboard store
   const dashFullTests = useDashboardStore(s => s.dashFullTests);
-  const shareScopeByTest = useDashboardStore(s => s.shareScopeByTest);
-  const setShareScopeByTest = useDashboardStore(s => s.setShareScopeByTest);
   const dashTestIdx = useDashboardStore(s => s.dashTestIdx);
   // Saved progress ("Continue Test") for the card on screen — loaded from the
   // DATABASE (SavedProgress table) whenever the visible card changes. The
@@ -771,6 +771,13 @@ export default function DashboardView({
                           // via the bookmark button) are NOT own: they show no
                           // share buttons — pressing Edit makes an editable copy.
                           const own = !!effectiveUser && test.creatorId === effectiveUser.id;
+                          // Version state on the card: a VERSION (parentId set)
+                          // may share its link only after 2+ questions/answers
+                          // changed vs its parent — otherwise the button is
+                          // PASSIVE and explains the rule. The count comes
+                          // from the server (saved at every version save).
+                          const isVersion = !!test.parentId;
+                          const canShareLink = !isVersion || (test.changedCount ?? 0) >= 2;
                           const fcnt = (dashFullTests[test.id]?.attachments as AttachmentItem[] | undefined)?.length || test._count?.attachments || 0;
                           const bgClass = test.coverColor ? '' : coverBgFor(test);
                           const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
@@ -839,24 +846,30 @@ export default function DashboardView({
                                 >
                                   <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
                                 </Button>
-                                {/* Share buttons — OWN tests only. Bookmarked tests
-                                are read-only references: Edit makes a copy first. */}
-                                {!discoverMode && own && (
-                                <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
-                                  title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                  className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                {/* Share link — EVERY card (own, bookmarked and
+                                discover alike). For versions the button is
+                                PASSIVE until 2+ questions/answers changed;
+                                the passive state shows the rule text. */}
+                                <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
+                                  onClick={e => { e.stopPropagation(); doShareLink(test); }}
+                                  title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
+                                  className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
+                                  <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareLinkBtn')}</span>
                                 </Button>
+                                {!canShareLink && (
+                                  <p className="text-[9px] leading-tight text-muted-foreground -mt-0.5">{t('shareNeed2Changes')}</p>
                                 )}
-                                {!discoverMode && own && (
+                                {/* Make public — OWN from-scratch tests ONLY.
+                                A version can never be public, so its card
+                                does not carry this button at all. */}
+                                {own && !isVersion && (
                                 <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                  onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
-                                  title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                  className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                  onClick={e => { e.stopPropagation(); doMakePublic(test); }}
+                                  title={t('makePublic')} aria-label={t('makePublic')}
+                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
+                                  <Users className="size-3 shrink-0" /> <span className="truncate">{t('makePublic')}</span>
                                 </Button>
                                 )}
                                 <Button size="sm" variant="outline"
@@ -963,24 +976,29 @@ export default function DashboardView({
                                   >
                                     <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
                                   </Button>
-                                  {/* Share buttons — OWN tests only (bookmarked tests
-                                  get an editable copy via Edit first) */}
-                                  {!discoverMode && own && (
-                                  <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                    onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
-                                    title={t('shareOptLink')} aria-label={t('shareOptLink')}
-                                    className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'link' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                  {/* Share link — EVERY card (own, bookmarked and
+                                  discover alike); PASSIVE for versions with
+                                  <2 changed questions, the rule text shows
+                                  right under the button. */}
+                                  <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
+                                    onClick={e => { e.stopPropagation(); doShareLink(test); }}
+                                    title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
+                                    className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
                                   >
-                                    <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareOptLink')}</span>
+                                    <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareLinkBtn')}</span>
                                   </Button>
+                                  {!canShareLink && (
+                                    <p className="text-[9px] leading-tight text-muted-foreground -mt-0.5">{t('shareNeed2Changes')}</p>
                                   )}
-                                  {!discoverMode && own && (
+                                  {/* Make public — OWN from-scratch tests ONLY
+                                  (a version can never be public). */}
+                                  {own && !isVersion && (
                                   <Button size="sm" variant="outline" disabled={!!shareBusy}
-                                    onClick={e => { e.stopPropagation(); setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
-                                    title={t('shareOptCommunity')} aria-label={t('shareOptCommunity')}
-                                    className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${(shareScopeByTest[test.id] || (test.isPublic === false ? 'link' : 'community')) === 'community' ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                                    onClick={e => { e.stopPropagation(); doMakePublic(test); }}
+                                    title={t('makePublic')} aria-label={t('makePublic')}
+                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
                                   >
-                                    <Users className="size-3 shrink-0" /> <span className="truncate">{t('shareOptCommunity')}</span>
+                                    <Users className="size-3 shrink-0" /> <span className="truncate">{t('makePublic')}</span>
                                   </Button>
                                   )}
                                   <Button size="sm" variant="outline"
@@ -1123,16 +1141,16 @@ export default function DashboardView({
                 // Own test vs a bookmarked one (saved from Discover): bookmarked
                 // tests show no share controls — Edit copies them first.
                 const own = !!effectiveUser && test.creatorId === effectiveUser.id;
+                // Version state on the card (see the library card): the share
+                // link button is PASSIVE until 2+ questions/answers changed.
+                const isVersion = !!test.parentId;
+                const canShareLink = !isVersion || (test.changedCount ?? 0) >= 2;
                 const files = (dashFullTests[test.id]?.attachments ?? test.attachments ?? []) as AttachmentItem[];
                 // The attached-files button must NOT pop in a moment later, when
                 // the lazy full-test fetch lands: the feed payload already
                 // carries the attachment COUNT — use it for the button until
                 // the real list arrives. Same fallback the library cards use.
                 const filesCount = files.length || test._count?.attachments || 0;
-                // Publication variant SAVED with the test drives the share selector's
-                // initial highlight; a share tap re-highlights the last used option
-                const savedScope: 'link' | 'community' = test.isPublic === false ? 'link' : 'community';
-                const activeScope = shareScopeByTest[test.id] || savedScope;
                 // Explicitly picked color wins; otherwise derive from the first tag / topic
                 const bgClass = test.coverColor ? '' : coverBgFor(test);
                 const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
@@ -1288,46 +1306,45 @@ export default function DashboardView({
                               </button>
                             </div>
 
-                            {/* Share — radio-style scope selector: the chosen option
-                            lights up red (like the randomize cards) and the share
-                            fires for this test; only one option can be lit.
-                            Discover mode and BOOKMARKED tests hide it: others'
-                            tests are browsed, not published — Edit copies first. */}
-                            {!discoverMode && own && (
-                            <div className="shrink-0 grid grid-cols-2 gap-2">
-                              <button
-                                type="button"
-                                onClick={() => { setShareScopeByTest(prev => ({ ...prev, [test.id]: 'link' })); doShare(test, 'link'); }}
-                                disabled={!!shareBusy}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left disabled:opacity-60 ${
-                                  activeScope === 'link'
-                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
-                                    : 'border-transparent bg-muted/50 hover:bg-muted'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <Link2 className="w-4 h-4 text-cta shrink-0" />
-                                  <span className="font-semibold text-sm">{t('shareOptLink')}</span>
-                                </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptLinkSub')}</p>
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => { setShareScopeByTest(prev => ({ ...prev, [test.id]: 'community' })); doShare(test, 'community'); }}
-                                disabled={!!shareBusy}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left disabled:opacity-60 ${
-                                  activeScope === 'community'
-                                    ? 'border-primary bg-[#FFE8DE] shadow-md'
-                                    : 'border-transparent bg-muted/50 hover:bg-muted'
-                                }`}
-                              >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <Users className="w-4 h-4 text-primary shrink-0" />
-                                  <span className="font-semibold text-sm">{t('shareOptCommunity')}</span>
-                                </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptCommunitySub')}</p>
-                              </button>
-                            </div>
+                            {/* Share link — EVERY feed card (own, bookmarked and
+                            discover alike). Both states are visible:
+                            active   → tap copies the test link to the clipboard;
+                            passive  → (versions with <2 changed questions)
+                            disabled, the rule text explains why. */}
+                            <button
+                              type="button"
+                              onClick={() => doShareLink(test)}
+                              disabled={!!shareBusy || !canShareLink}
+                              className={`shrink-0 w-full flex items-center gap-2 rounded-2xl border-2 px-3 py-2 sm:py-2.5 text-left transition-colors disabled:opacity-60 ${
+                                canShareLink ? 'border-black bg-white hover:bg-muted/50' : 'border-black/15 bg-white/60 cursor-not-allowed'
+                              }`}
+                            >
+                              <Link2 className="w-4 h-4 shrink-0 text-cta" />
+                              <span className="min-w-0">
+                                <span className="block font-semibold text-sm leading-tight">{t('shareLinkBtn')}</span>
+                                <span className={`block text-xs leading-snug truncate [@media(max-height:620px)]:hidden ${canShareLink ? 'text-muted-foreground' : 'text-destructive/80'}`}>
+                                  {canShareLink ? t('shareCopySub') : t('shareNeed2Changes')}
+                                </span>
+                              </span>
+                            </button>
+
+                            {/* Make public — OWN from-scratch tests ONLY: the
+                            flip makes the test visible to the whole community
+                            AND copies the link. A version can never be public
+                            (server-enforced), so its card never renders this. */}
+                            {own && !isVersion && (
+                            <button
+                              type="button"
+                              onClick={() => doMakePublic(test)}
+                              disabled={!!shareBusy}
+                              className="shrink-0 w-full flex items-center gap-2 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors disabled:opacity-60"
+                            >
+                              <Users className="w-4 h-4 shrink-0 text-primary" />
+                              <span className="min-w-0">
+                                <span className="block font-semibold text-sm leading-tight">{t('makePublic')}</span>
+                                <span className="block text-xs leading-snug truncate text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptCommunitySub')}</span>
+                              </span>
+                            </button>
                             )}
 
                             {/* Unpin — bookmarked tests viewed in the personal
