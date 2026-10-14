@@ -563,58 +563,51 @@ export default function DashboardView({
         >
           {strip}
           <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
-          {/* Full-name action buttons, one per line. Start resumes
-          saved progress; Restart always begins over; the paperclip
-          flips this grid to the files cards of THIS test. */}
-          <div className="mt-auto pt-1.5 flex flex-col gap-1">
+          {/* COMPACT ACTION GRID — the complete TikTok-card action set, two
+          buttons per row (short labels, full name in the tooltip). This keeps
+          every card ≈1/3 of the screen tall, so the 3×3 library rhythm holds
+          and NO button is ever clipped — the previous one-per-line stack made
+          a card with 8-9 buttons taller than its row and the bottom buttons
+          were literally invisible (the "half card" bug). Start leads as the
+          full-width primary; Delete closes as the full-width red row. */}
+          <div className="mt-auto pt-1.5 grid grid-cols-2 gap-1">
             <Button size="sm" disabled={loading}
               onClick={e => { e.stopPropagation(); startCard(false); }}
               title={t('startTestBtn')} aria-label={t('startTestBtn')}
-              className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="col-span-2 h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
             >
-              <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
+              <Play className="size-3 shrink-0" /> <span className="truncate">{t('gStart')}</span>
             </Button>
             <Button size="sm" variant="outline" disabled={loading}
               onClick={e => { e.stopPropagation(); startCard(true); }}
               title={t('restart')} aria-label={t('restart')}
-              className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
+              <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('gRestart')}</span>
+            </Button>
+            <Button size="sm" variant="outline"
+              onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
+              title={t('versionTree')} aria-label={t('versionTree')}
+              className={`h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+            >
+              <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('gTree')}</span>
             </Button>
             {fcnt > 0 && (
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
                 title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-0.5 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                className={`h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
               >
-                <Paperclip className="size-3 shrink-0" /> <span className="truncate [@media(max-width:399px)]:text-[9px]">{t('attachedFiles', { n: fcnt })}</span>
+                <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('gFiles')}</span>
               </Button>
             )}
-            {/* Version tree — ALWAYS on every grid card, both views: the grid
-            swaps to the version tree of THIS test (same contract as the
-            paperclip → files). On a tree card the tap of the ACTIVE root
-            closes the mode; any OTHER card re-roots the grid at it. */}
-            <Button size="sm" variant="outline"
-              onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
-              title={t('versionTree')} aria-label={t('versionTree')}
-              className={`h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-            >
-              <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
-            </Button>
-            {/* Share link — EVERY card (own, bookmarked and
-            discover alike). For versions the button is
-            PASSIVE until 2+ questions/answers changed;
-            the passive state shows the rule text. */}
             <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
               onClick={e => { e.stopPropagation(); doShareLink(test); }}
               title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
-              className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareLinkBtn')}</span>
+              <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('gShare')}</span>
             </Button>
-            {!canShareLink && (
-              <p className="text-[9px] leading-tight text-muted-foreground -mt-0.5">{t('shareNeed2Changes')}</p>
-            )}
             {/* Make public — OWN from-scratch tests ONLY.
             A version can never be public, so its card
             does not carry this button at all. */}
@@ -622,17 +615,17 @@ export default function DashboardView({
             <Button size="sm" variant="outline" disabled={!!shareBusy}
               onClick={e => { e.stopPropagation(); doMakePublic(test); }}
               title={t('makePublic')} aria-label={t('makePublic')}
-              className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <Users className="size-3 shrink-0" /> <span className="truncate">{t('makePublic')}</span>
+              <Users className="size-3 shrink-0" /> <span className="truncate">{t('gPublic')}</span>
             </Button>
             )}
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); startEditTest(test); }}
               title={t('editTest')} aria-label={t('editTest')}
-              className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
+              <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('gEdit')}</span>
             </Button>
             {/* Unpin — BOOKMARKED tests in the personal library:
             the test got here via the bookmark button, this row
@@ -642,23 +635,25 @@ export default function DashboardView({
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
               title={t('unpinBtn')} aria-label={t('unpinBtn')}
-              className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
+              <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('gUnpin')}</span>
             </Button>
             )}
             {/* Delete — own tests only (the server refuses
             anyone else): the confirm dialog spells out what
-            disappears with the test — library and community
-            entries + the share link. */}
+            disappears with the test. */}
             {own && (
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
               title={t('deleteTest')} aria-label={t('deleteTest')}
-              className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="col-span-2 h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
+              <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('gDelete')}</span>
             </Button>
+            )}
+            {!canShareLink && (
+              <p className="col-span-2 text-[9px] leading-tight text-muted-foreground">{t('shareNeed2Changes')}</p>
             )}
           </div>
         </div>
@@ -679,41 +674,40 @@ export default function DashboardView({
             the content area */}
             <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
             <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
-            {/* Full-name action buttons, one per line — the whole
-            TikTok-card action set on every shelf card */}
-            <div className="mt-auto pt-1.5 flex flex-col gap-1">
+            {/* COMPACT ACTION GRID (same as the library card): the complete
+            TikTok-card action set, two buttons per row — the card keeps the
+            1/3-screen rhythm of the shelf and no button is ever clipped. */}
+            <div className="mt-auto pt-1.5 grid grid-cols-2 gap-1">
               <Button size="sm" disabled={loading}
                 onClick={e => { e.stopPropagation(); startCard(false); }}
                 title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
+                className="col-span-2 h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
               >
-                <Play className="size-3 shrink-0" /> <span className="truncate">{t('startTestBtn')}</span>
+                <Play className="size-3 shrink-0" /> <span className="truncate">{t('gStart')}</span>
               </Button>
               <Button size="sm" variant="outline" disabled={loading}
                 onClick={e => { e.stopPropagation(); startCard(true); }}
                 title={t('restart')} aria-label={t('restart')}
-                className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('restart')}</span>
+                <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('gRestart')}</span>
+              </Button>
+              <Button size="sm" variant="outline"
+                onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
+                title={t('versionTree')} aria-label={t('versionTree')}
+                className={`h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+              >
+                <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('gTree')}</span>
               </Button>
               {fcnt > 0 && (
                 <Button size="sm" variant="outline"
                   onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
                   title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                  className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                  className={`h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                 >
-                  <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('attachedFiles', { n: fcnt })}</span>
+                  <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('gFiles')}</span>
                 </Button>
               )}
-              {/* Version tree — ALWAYS on every shelf card:
-              the grid swaps to the version tree of THIS test */}
-              <Button size="sm" variant="outline"
-                onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
-                title={t('versionTree')} aria-label={t('versionTree')}
-                className={`h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
-              >
-                <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('versionTree')}</span>
-              </Button>
               {/* Share link — EVERY card (own, bookmarked and
               discover alike); PASSIVE for versions with
               <2 changed questions, the rule text shows
@@ -721,30 +715,27 @@ export default function DashboardView({
               <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
                 onClick={e => { e.stopPropagation(); doShareLink(test); }}
                 title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
-                className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
+                className="h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('shareLinkBtn')}</span>
+                <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('gShare')}</span>
               </Button>
-              {!canShareLink && (
-                <p className="text-[9px] leading-tight text-muted-foreground -mt-0.5">{t('shareNeed2Changes')}</p>
-              )}
               {/* Make public — OWN from-scratch tests ONLY
               (a version can never be public). */}
               {own && !isVersion && (
               <Button size="sm" variant="outline" disabled={!!shareBusy}
                 onClick={e => { e.stopPropagation(); doMakePublic(test); }}
                 title={t('makePublic')} aria-label={t('makePublic')}
-                className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <Users className="size-3 shrink-0" /> <span className="truncate">{t('makePublic')}</span>
+                <Users className="size-3 shrink-0" /> <span className="truncate">{t('gPublic')}</span>
               </Button>
               )}
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); startEditTest(test); }}
                 title={t('editTest')} aria-label={t('editTest')}
-                className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('editTest')}</span>
+                <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('gEdit')}</span>
               </Button>
               {/* Unpin — bookmarked tests in the personal
               library (shelf row): removes the test from the
@@ -753,9 +744,9 @@ export default function DashboardView({
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
                 title={t('unpinBtn')} aria-label={t('unpinBtn')}
-                className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('unpinBtn')}</span>
+                <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('gUnpin')}</span>
               </Button>
               )}
               {/* Delete — own tests only, same as the library
@@ -765,10 +756,13 @@ export default function DashboardView({
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
                 title={t('deleteTest')} aria-label={t('deleteTest')}
-                className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[11px] sm:text-xs px-2 justify-start"
+                className="col-span-2 h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('deleteTest')}</span>
+                <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('gDelete')}</span>
               </Button>
+              )}
+              {!canShareLink && (
+                <p className="col-span-2 text-[9px] leading-tight text-muted-foreground">{t('shareNeed2Changes')}</p>
               )}
             </div>
           </div>
@@ -1353,7 +1347,11 @@ export default function DashboardView({
                       {/* Desktop: the card breathes — the phone-width column widens
                       on large screens instead of looking like a phone cast onto
                       the monitor. Every control row spans the wider column. */}
-                      <div className="w-full max-w-md lg:max-w-3xl flex flex-col gap-2.5 sm:gap-4 min-h-0">
+                      {/* COMPACT ON SHORT SCREENS: on low phones (≤700px CSS
+                      height) every control row shrinks — cover, gaps, paddings,
+                      sub-labels — so the FULL action set (Delete / Files / Tree
+                      included) stays fully visible above the bottom bar. */}
+                      <div className="w-full max-w-md lg:max-w-3xl flex flex-col gap-2.5 sm:gap-4 [@media(max-height:700px)]:gap-1.5 min-h-0">
                         {/* THE STANDARD CARD HEADER — the author avatar + the pin
                         button on EVERY card of EVERY type now: Discover, other
                         users' libraries AND the personal library alike. */}
@@ -1373,7 +1371,7 @@ export default function DashboardView({
                           />
                         )}
                         {/* Cover header — title on the colored band (logo picker removed) */}
-                        <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden">
+                        <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 [@media(max-height:700px)]:h-16 overflow-hidden">
                           <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
                             <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{test.title}</p>
                           </div>
@@ -1394,7 +1392,7 @@ export default function DashboardView({
                         {!editMode && (
                           <>
                             {/* Question count — editable counter + slider */}
-                            <div className="shrink-0 space-y-2 sm:space-y-3">
+                            <div className="shrink-0 space-y-2 sm:space-y-3 [@media(max-height:700px)]:space-y-1">
                               <div className="flex items-center justify-center gap-4">
                                 <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.max(1, cardCount - 1))} disabled={cardCount <= 1}>
                                   <Minus className="w-4 h-4" />
@@ -1413,13 +1411,13 @@ export default function DashboardView({
                                   }}
                                   onBlur={e => { if (e.target.value === '') setSelectedQuestionCount(1); }}
                                   aria-label="Number of questions"
-                                  className="text-2xl sm:text-3xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-0.5 sm:py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                                  className="text-2xl sm:text-3xl [@media(max-height:700px)]:text-xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-0.5 sm:py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                 />
                                 <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.min(totalQ, cardCount + 1))} disabled={cardCount >= totalQ}>
                                   <Plus className="w-4 h-4" />
                                 </Button>
                               </div>
-                              <div className="px-4 sm:px-6">
+                              <div className="px-4 sm:px-6 [@media(max-height:700px)]:hidden">
                                 <input
                                   type="range"
                                   min={1}
@@ -1445,7 +1443,7 @@ export default function DashboardView({
                                   <ListChecks className="w-4 h-4 text-cta" />
                                   <span className="font-semibold text-sm">{t('examMode')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('seeResultsEnd')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:700px)]:hidden">{t('seeResultsEnd')}</p>
                               </button>
                               <button
                                 onClick={() => setPracticeMode(true)}
@@ -1459,7 +1457,7 @@ export default function DashboardView({
                                   <BookOpen className="w-4 h-4 text-primary" />
                                   <span className="font-semibold text-sm">{t('practiceMode')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{t('seeAnswerNow')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:700px)]:hidden">{t('seeAnswerNow')}</p>
                               </button>
                             </div>
 
@@ -1468,7 +1466,7 @@ export default function DashboardView({
                               <button
                                 type="button"
                                 onClick={() => setStartRandomizeQ(v => !v)}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
+                                className={`p-2.5 sm:p-3 [@media(max-height:700px)]:p-1.5 rounded-xl border-2 transition-all text-left ${
                                   cardRandQ
                                     ? 'border-cta bg-[#FFF0D9] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
@@ -1478,12 +1476,12 @@ export default function DashboardView({
                                   <Shuffle className="w-4 h-4 text-cta shrink-0" />
                                   <span className="font-semibold text-sm">{t('randomizeQuestions')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{cardRandQ ? t('qShuffled') : t('qOriginal')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:700px)]:hidden">{cardRandQ ? t('qShuffled') : t('qOriginal')}</p>
                               </button>
                               <button
                                 type="button"
                                 onClick={() => setStartRandomizeO(v => !v)}
-                                className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
+                                className={`p-2.5 sm:p-3 [@media(max-height:700px)]:p-1.5 rounded-xl border-2 transition-all text-left ${
                                   cardRandO
                                     ? 'border-primary bg-[#FFE8DE] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
@@ -1493,7 +1491,7 @@ export default function DashboardView({
                                   <Shuffle className="w-4 h-4 text-primary shrink-0" />
                                   <span className="font-semibold text-sm">{t('randomizeAnswers')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:620px)]:hidden">{cardRandO ? t('aShuffled') : t('aOriginal')}</p>
+                                <p className="text-xs text-muted-foreground [@media(max-height:700px)]:hidden">{cardRandO ? t('aShuffled') : t('aOriginal')}</p>
                               </button>
                             </div>
 
@@ -1506,14 +1504,14 @@ export default function DashboardView({
                               type="button"
                               onClick={() => doShareLink(test)}
                               disabled={!!shareBusy || !canShareLink}
-                              className={`shrink-0 w-full flex items-center gap-2 rounded-2xl border-2 px-3 py-2 sm:py-2.5 text-left transition-colors disabled:opacity-60 ${
+                              className={`shrink-0 w-full flex items-center gap-2 rounded-2xl border-2 px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left transition-colors disabled:opacity-60 ${
                                 canShareLink ? 'border-black bg-white hover:bg-muted/50' : 'border-black/15 bg-white/60 cursor-not-allowed'
                               }`}
                             >
                               <Link2 className="w-4 h-4 shrink-0 text-cta" />
                               <span className="min-w-0">
                                 <span className="block font-semibold text-sm leading-tight">{t('shareLinkBtn')}</span>
-                                <span className={`block text-xs leading-snug truncate [@media(max-height:620px)]:hidden ${canShareLink ? 'text-muted-foreground' : 'text-destructive/80'}`}>
+                                <span className={`block text-xs leading-snug truncate [@media(max-height:700px)]:hidden ${canShareLink ? 'text-muted-foreground' : 'text-destructive/80'}`}>
                                   {canShareLink ? t('shareCopySub') : t('shareNeed2Changes')}
                                 </span>
                               </span>
@@ -1528,12 +1526,12 @@ export default function DashboardView({
                               type="button"
                               onClick={() => doMakePublic(test)}
                               disabled={!!shareBusy}
-                              className="shrink-0 w-full flex items-center gap-2 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors disabled:opacity-60"
+                              className="shrink-0 w-full flex items-center gap-2 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left hover:bg-muted/50 transition-colors disabled:opacity-60"
                             >
                               <Users className="w-4 h-4 shrink-0 text-primary" />
                               <span className="min-w-0">
                                 <span className="block font-semibold text-sm leading-tight">{t('makePublic')}</span>
-                                <span className="block text-xs leading-snug truncate text-muted-foreground [@media(max-height:620px)]:hidden">{t('shareOptCommunitySub')}</span>
+                                <span className="block text-xs leading-snug truncate text-muted-foreground [@media(max-height:700px)]:hidden">{t('shareOptCommunitySub')}</span>
                               </span>
                             </button>
                             )}
@@ -1545,7 +1543,7 @@ export default function DashboardView({
                               <button
                                 type="button"
                                 onClick={() => toggleBookmark(test)}
-                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors"
+                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left hover:bg-muted/50 transition-colors"
                               >
                                 <BookmarkX className="w-4 h-4 shrink-0" />
                                 <span className="font-semibold text-sm">{t('unpinBtn')}</span>
@@ -1560,7 +1558,7 @@ export default function DashboardView({
                               <button
                                 type="button"
                                 onClick={() => setDeleteId(test.id)}
-                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-destructive/50 bg-white px-3 py-2 sm:py-2.5 text-left text-destructive hover:bg-destructive/10 transition-colors"
+                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-destructive/50 bg-white px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left text-destructive hover:bg-destructive/10 transition-colors"
                               >
                                 <Trash2 className="w-4 h-4 shrink-0" />
                                 <span className="font-semibold text-sm">{t('deleteTest')}</span>
@@ -1574,7 +1572,7 @@ export default function DashboardView({
                               <button
                                 type="button"
                                 onClick={() => { if (filesFeedMode && filesFeedTestId === test.id) closeFilesCard(); else openFilesCard(test); }}
-                                className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 text-left transition-colors ${filesFeedMode && filesFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
+                                className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left transition-colors ${filesFeedMode && filesFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
                               >
                                 <Paperclip className="w-4 h-4 shrink-0" />
                                 <span className="font-semibold text-sm">{t('attachedFiles', { n: filesCount })}</span>
@@ -1590,7 +1588,7 @@ export default function DashboardView({
                             <button
                               type="button"
                               onClick={() => { if (treeFeedMode && treeFeedTestId === test.id) closeTreeCard(); else openTreeCard(test); }}
-                              className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 text-left transition-colors ${treeFeedMode && treeFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
+                              className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left transition-colors ${treeFeedMode && treeFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
                             >
                               <TreeDeciduous className="w-4 h-4 shrink-0" />
                               <span className="font-semibold text-sm">{t('versionTree')}</span>
