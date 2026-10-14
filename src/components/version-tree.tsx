@@ -48,6 +48,7 @@ import { useSessionStore } from '@/stores/session-store';
 import { tUI } from '@/lib/i18n';
 import type { Lang } from '@/lib/i18n';
 import { RotateCcw, TreeDeciduous } from 'lucide-react';
+import { coverBgFor } from '@/components/shared-bits';
 
 // ---- SVG canvas -------------------------------------------------------------
 // The world is 400 units wide; the HEIGHT adapts to the card's aspect ratio
@@ -543,7 +544,7 @@ export default function VersionTreeView({ testId }: VersionTreeProps) {
   if (loading && !family) {
     return (
       <div className="w-full h-full max-w-md lg:max-w-3xl mx-auto flex flex-col gap-3">
-        <Skeleton className="h-12 w-full rounded-2xl" />
+        <Skeleton className="h-24 w-full rounded-2xl sm:h-32" />
         <Skeleton className="flex-1 w-full rounded-3xl min-h-64" />
       </div>
     );
@@ -567,20 +568,28 @@ export default function VersionTreeView({ testId }: VersionTreeProps) {
   const activeNode = chain[safeIdx] || null;
   const activeApples = activeNode ? (applesByParent.get(activeNode.id) || EMPTY_APPLES) : EMPTY_APPLES;
 
+  // THE STANDARD CARD HEADER — the same cover band the regular test cards
+  // wear on the main page (colored band + big bold title). It follows the
+  // walk up the chain: activeNode is the tree currently on screen.
+  const activeBgClass = activeNode?.coverColor ? '' : coverBgFor({ topic: activeNode?.topic });
+  const activeBgStyle = activeNode?.coverColor ? { backgroundColor: activeNode.coverColor } : undefined;
+
   const header = (
-    <div className="shrink-0 rounded-2xl bg-white/85 border border-black/10 px-3 py-2.5 flex items-center gap-2">
+    <div className="shrink-0 flex flex-col gap-1.5">
       {/* NO back button here on purpose: the dashboard's universal top-panel
       back is THE one exit — two back arrows on one screen confused users.
       The vertical swipe still walks the ancestor trees. */}
-      <div className="min-w-0 flex-1 text-center">
-        <p className="text-sm font-bold leading-tight truncate">{t('versionTree')}</p>
-        {activeNode && (
-          <p className="text-[11px] text-muted-foreground truncate">{activeNode.title}</p>
-        )}
+      <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden rounded-2xl">
+        <div style={activeBgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${activeBgClass}`}>
+          <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{activeNode?.title || t('versionTree')}</p>
+        </div>
       </div>
-      <span className="shrink-0 text-[11px] font-semibold px-2 py-1 rounded-full bg-[#FFF0D9] text-cta whitespace-nowrap">
-        {t('treeVersionsCount', { n: activeApples.length })}
-      </span>
+      <div className="shrink-0 rounded-2xl bg-white/85 border border-black/10 px-3 py-1.5 flex items-center justify-center gap-2">
+        <span className="text-[11px] font-semibold text-foreground/70 whitespace-nowrap">{t('versionTree')}</span>
+        <span className="shrink-0 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FFF0D9] text-cta whitespace-nowrap">
+          {t('treeVersionsCount', { n: activeApples.length })}
+        </span>
+      </div>
     </div>
   );
 
@@ -634,19 +643,27 @@ export default function VersionTreeView({ testId }: VersionTreeProps) {
   );
 }
 
-// ---- grid (library/shelf): ONE CARD PER GENERATION ---------------------------
+// ---- grid (library/shelf): ONE VERSION CARD PER GRID CELL -------------------
 // The attached-files mechanic applied to the tree: tapping the tree button on
 // a grid test card swaps the grid's content to this test's FAMILY CARDS — the
-// tapped tree first, then every ancestor up to the trunk, one full-width card
-// per generation. Scrolling the grid walks UP the chain (the feed's swipe-up,
-// made scrollable); tapping an apple re-roots the flow at that version and
-// the grid scrolls back to the top. The universal top-panel back returns to
-// the test cards — no per-surface back buttons, no exit slides, no timers.
+// tapped version first, then every ancestor up to the trunk, ONE VERSION CARD
+// PER GRID CELL: the exact cells the test and attached-files cards occupy
+// (library = 3 per row / 2 on narrow phones, shelf = 1 per row). Scrolling the
+// grid walks UP the chain (the feed's swipe-up, made scrollable); tapping an
+// apple re-roots the flow at that version and the grid scrolls back to the
+// top. The universal top-panel back returns to the test cards — no per-surface
+// back buttons, no exit slides, no timers.
 
-export function VersionTreeGrid({ testId, onReroot }: {
+export function VersionTreeGrid({ testId, onReroot, gridPerRow, gridColsClass }: {
   testId: string;
   /** Called after an apple re-roots the flow — the host scrolls the grid up. */
   onReroot?: () => void;
+  /** The host grid's geometry, passed down so the version cards occupy the
+  SAME cells as the test and attached-files cards (library: 3 per row, 2 on
+  narrow phones; shelf: 1 per row). */
+  gridPerRow: number;
+  /** Tailwind cols class matching gridPerRow (e.g. 'grid-cols-3'). */
+  gridColsClass: string;
 }) {
   const lang = useSessionStore(s => s.lang);
   const t = useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
@@ -716,7 +733,7 @@ export function VersionTreeGrid({ testId, onReroot }: {
 
   if (loading && !family) {
     return (
-      <div className="grid grid-cols-1 gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3" style={{ minHeight: 'max(calc(100% / 2), 26rem)' }}>
+      <div className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`} style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}>
         <Skeleton className="h-full w-full rounded-3xl min-h-72" />
       </div>
     );
@@ -736,30 +753,46 @@ export function VersionTreeGrid({ testId, onReroot }: {
     );
   }
 
+  // The chain sliced into grid rows — the SAME slicing the host grid applies
+  // to its test cards and attached-file cards (see gridPerRow/gridColsClass).
+  const gridRows: TreeNode[][] = [];
+  for (let i = 0; i < chain.length; i += gridPerRow) gridRows.push(chain.slice(i, i + gridPerRow));
+
   return (
     <>
-      {chain.map(node => {
-        const apples = applesByParent.get(node.id) || EMPTY_APPLES;
-        return (
-          <div key={node.id} className="grid grid-cols-1 gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3" style={{ minHeight: 'max(calc(100% / 2), 26rem)' }}>
-            <div className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden">
-              {/* card head — same anatomy as the attached-files card head */}
-              <div className="flex items-center gap-1.5 shrink-0 pb-2">
-                <span className="w-7 h-7 rounded-lg bg-[#FFF0D9] text-cta flex items-center justify-center shrink-0">
-                  <TreeDeciduous className="w-4 h-4" />
-                </span>
-                <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-1 min-w-0 flex-1">{node.title}</p>
-                <span className="shrink-0 text-[10px] font-semibold px-2 py-1 rounded-full bg-[#FFF0D9] text-cta whitespace-nowrap">
-                  {t('treeVersionsCount', { n: apples.length })}
-                </span>
+      {gridRows.map((row, ri) => (
+        <div
+          key={ri}
+          className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
+          style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}
+        >
+          {row.map(node => {
+            const apples = applesByParent.get(node.id) || EMPTY_APPLES;
+            // THE STANDARD CARD HEADER — the same cover band the regular test
+            // cards wear on the main page (colored band + bold title), sized
+            // down for a grid cell. coverColor wins; else tag/topic palette.
+            const bgClass = node.coverColor ? '' : coverBgFor({ topic: node.topic });
+            const bgStyle = node.coverColor ? { backgroundColor: node.coverColor } : undefined;
+            return (
+              <div key={node.id} className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden">
+                <div className="relative h-16 min-h-12 shrink sm:h-20 overflow-hidden rounded-xl">
+                  <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-2 text-center ${bgClass}`}>
+                    <p className="text-sm sm:text-base font-bold text-cta leading-snug line-clamp-2 px-1">{node.title}</p>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center shrink-0 py-1.5">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#FFF0D9] text-cta whitespace-nowrap">
+                    {t('treeVersionsCount', { n: apples.length })}
+                  </span>
+                </div>
+                <div className="flex-1 min-h-0">
+                  <TreeCanvas node={node} apples={apples} t={t} onApple={navigate} />
+                </div>
               </div>
-              <div className="flex-1 min-h-0">
-                <TreeCanvas node={node} apples={apples} t={t} onApple={navigate} />
-              </div>
-            </div>
-          </div>
-        );
-      })}
+            );
+          })}
+        </div>
+      ))}
       <style>{`
         .vt-apple { cursor: pointer; transition: transform .15s ease; transform-box: fill-box; transform-origin: center; outline: none; }
         .vt-apple:hover { transform: scale(1.14); }

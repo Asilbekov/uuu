@@ -414,6 +414,11 @@ export default function DashboardView({
       : [];
     const gridFileRows: AttachmentItem[][] = [];
     for (let i = 0; i < gridFiles.length; i += gridPerRow) gridFileRows.push(gridFiles.slice(i, i + gridPerRow));
+    // THE STANDARD CARD HEADER of the files page — the same cover band the
+    // regular test cards wear on the main page (coverColor wins, else the
+    // tag/topic palette).
+    const gridFilesBgClass = gridFilesTest ? (gridFilesTest.coverColor ? '' : coverBgFor(gridFilesTest)) : '';
+    const gridFilesBgStyle = gridFilesTest?.coverColor ? { backgroundColor: gridFilesTest.coverColor } : undefined;
     const searchQ = dashSearch.trim();
     const dashSearchDropdown = searchQ.length < 2 ? null : (
       <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white rounded-2xl border border-black/10 shadow-xl max-h-72 overflow-y-auto text-left">
@@ -678,22 +683,40 @@ export default function DashboardView({
                 <div className="max-w-5xl mx-auto h-full">
                   {gridTreeMode ? (
                     /* VERSION-TREE cards in the SAME grid layout — the exact
-                    attached-files mechanic: one CARD PER GENERATION of this
-                    test's family (the tapped tree first, then every ancestor
-                    up to the trunk), full-width rows — scrolling the grid
-                    walks UP the chain. Tapping an apple re-roots the flow at
-                    that version and the grid scrolls back to the top. The
-                    universal top-panel back returns to the test cards. */
+                    attached-files mechanic: ONE VERSION CARD PER GRID CELL of
+                    this test's family (the tapped version first, then every
+                    ancestor up to the trunk), the same cells the test and
+                    file cards occupy — 3 per row in the library (2 on narrow
+                    phones), 1 per row on the shelf. Scrolling the grid walks
+                    UP the chain. Tapping an apple re-roots the flow at that
+                    version and the grid scrolls back to the top. Each card
+                    wears THE STANDARD CARD HEADER — the same cover band as
+                    the regular test cards on the main page. The universal
+                    top-panel back returns to the test cards. */
                     <VersionTreeGrid
                       testId={gridTreeTestId || ''}
+                      gridPerRow={gridPerRow}
+                      gridColsClass={gridColsClass}
                       onReroot={() => requestAnimationFrame(() => requestAnimationFrame(() => dashFeedRef.current?.scrollTo({ top: 0, behavior: 'smooth' })))}
                     />
                   ) : gridFilesMode ? (
                     /* ATTACHED-FILES cards in the SAME grid layout — the view does not
                     change, only the cards do: one card per attachment of the test whose
-                    paperclip was tapped. The universal top-panel back returns to the
-                    test cards — no duplicate back buttons on the cards themselves. */
-                    gridFiles.length === 0 ? (
+                    paperclip was tapped. The page opens with THE STANDARD CARD HEADER —
+                    the same cover band as the regular test cards on the main page. The
+                    universal top-panel back returns to the test cards — no duplicate
+                    back buttons on the cards themselves. */
+                    <>
+                      {gridFilesTest && (
+                        <div className="px-2 sm:px-3 pb-2 sm:pb-3">
+                          <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden rounded-2xl">
+                            <div style={gridFilesBgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${gridFilesBgClass}`}>
+                              <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{gridFilesTest.title}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {gridFiles.length === 0 ? (
                       <div className="px-4 py-6">
                         <p className="text-sm text-muted-foreground">{t('filesEmpty')}</p>
                       </div>
@@ -758,7 +781,8 @@ export default function DashboardView({
                           ))}
                         </div>
                       ))
-                    )
+                    )}
+                    </>
                   ) : (
                     /* TEST cards — every card carries the FULL action set of the TikTok
                     card with its full name, one button per line (never two on one line):
@@ -1105,9 +1129,16 @@ export default function DashboardView({
                       <SwiperSlide key={`${test.id}`} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
                       <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
                         <div className="w-full max-w-md lg:max-w-3xl flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
-                          <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-2.5 text-center">
-                            <p className="text-xs font-semibold text-foreground/70 line-clamp-1">{test.title}</p>
-                            <p className="text-base sm:text-lg font-bold leading-snug">{t('attachedFiles', { n: s.count })}</p>
+                          {/* THE STANDARD CARD HEADER — the regular test cards on the
+                          main feed wear their title directly on the cover-colored
+                          background (big bold text-cta), and this slide's own background
+                          IS that cover color — so the header is the same bare title band,
+                          not a small white name strip. */}
+                          <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 flex flex-col items-center justify-center px-4 text-center">
+                            <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{test.title}</p>
+                          </div>
+                          <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-1.5 text-center">
+                            <p className="text-sm font-bold leading-snug">{t('attachedFiles', { n: s.count })}</p>
                           </div>
                           {/* ALL of the test's files in ONE scrollable card.
                           data-inner-scroll + swiper-no-swiping: the wheel gate
