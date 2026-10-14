@@ -49,7 +49,7 @@ import type { TreeNode } from '@/lib/app-types';
 import { useSessionStore } from '@/stores/session-store';
 import { tUI } from '@/lib/i18n';
 import type { Lang } from '@/lib/i18n';
-import { ArrowLeft, LayoutGrid, RotateCcw, TreeDeciduous } from 'lucide-react';
+import { LayoutGrid, RotateCcw, TreeDeciduous } from 'lucide-react';
 
 // ---- SVG canvas -------------------------------------------------------------
 // The world is 400 units wide; the HEIGHT adapts to the card's aspect ratio
@@ -592,9 +592,6 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
           <Button size="sm" variant="outline" className="rounded-full border-black h-9" onClick={() => fetchFamily(viewRootId)}>
             <RotateCcw className="w-4 h-4 mr-1.5" /> {t('restart')}
           </Button>
-          <Button size="sm" variant="outline" className="rounded-full border-black h-9" onClick={onClose}>
-            <LayoutGrid className="w-4 h-4 mr-1.5" /> {t('treeToTests')}
-          </Button>
         </div>
       </div>
     );
@@ -606,19 +603,9 @@ export default function VersionTreeView({ testId, onClose, variant = 'feed' }: V
 
   const header = (
     <div className="shrink-0 rounded-2xl bg-white/85 border border-black/10 px-3 py-2.5 flex items-center gap-2">
-      {/* Universal top-panel back button — one tap returns to the page the
-      tree was opened from (the test cards). The vertical swipe still walks
-      the ancestor trees; the button is the universal way OUT. */}
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={onClose}
-        className="rounded-full shrink-0 border-black w-8 h-8"
-        title={t('back')}
-        aria-label={t('back')}
-      >
-        <ArrowLeft className="w-4 h-4" />
-      </Button>
+      {/* NO back button here on purpose: the dashboard's universal top-panel
+      back is THE one exit — two back arrows on one screen confused users.
+      The vertical swipe still walks the ancestor trees. */}
       <div className="min-w-0 flex-1 text-center">
         <p className="text-sm font-bold leading-tight truncate">{t('versionTree')}</p>
         {activeNode && (

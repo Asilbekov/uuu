@@ -555,9 +555,9 @@ export default function DashboardView({
               >
                 <Search className="w-4 h-4" />
               </Button>
-              {/* NO files-mode buttons here on purpose: entering the attached-
-              files mode must NOT add anything to the top panel — every files
-              surface carries its own «К тестам» / back-to-test control. */}
+              {/* NO files-mode buttons here on purpose — and no per-surface back
+              buttons on the files/tree cards either: the universal top-panel
+              back arrow is THE single exit from every nested mode. */}
               {/* View button — cycles the three layouts with one tap (like the
               language button): TikTok feed → Library → Shelf → … The icon and
               the label always show the CURRENT view. */}
@@ -690,18 +690,11 @@ export default function DashboardView({
                   ) : gridFilesMode ? (
                     /* ATTACHED-FILES cards in the SAME grid layout — the view does not
                     change, only the cards do: one card per attachment of the test whose
-                    paperclip was tapped. «К тестам» on a card (or under the empty
-                    text) returns to the test cards — the header stays untouched. */
+                    paperclip was tapped. The universal top-panel back returns to the
+                    test cards — no duplicate back buttons on the cards themselves. */
                     gridFiles.length === 0 ? (
-                      <div className="px-4 py-6 flex flex-col items-start gap-2">
+                      <div className="px-4 py-6">
                         <p className="text-sm text-muted-foreground">{t('filesEmpty')}</p>
-                        <Button size="sm" variant="outline"
-                          onClick={exitFilesMode}
-                          title={t('backToTests')} aria-label={t('backToTests')}
-                          className="h-8 rounded-full border-black text-xs px-3"
-                        >
-                          <ArrowLeft className="size-3.5 shrink-0" /> <span>{t('backToTests')}</span>
-                        </Button>
                       </div>
                     ) : (
                       gridFileRows.map((row, ri) => (
@@ -725,20 +718,13 @@ export default function DashboardView({
                                 {f.size ? <span className="text-[10px] text-muted-foreground">{formatSize(f.size)}</span> : null}
                               </div>
                               <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2 mt-1">{f.title}</p>
-                              <div className="mt-auto pt-1.5 flex flex-col gap-1">
+                              <div className="mt-auto pt-1.5">
                                 <Button size="sm"
                                   onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
                                   title={t('openFile')} aria-label={t('openFile')}
                                   className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
                                   <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
-                                </Button>
-                                <Button size="sm" variant="outline"
-                                  onClick={e => { e.stopPropagation(); closeGridFiles(); }}
-                                  title={t('backToTests')} aria-label={t('backToTests')}
-                                  className="h-8 rounded-full border-black text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
-                                >
-                                  <ArrowLeft className="size-3 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
                                 </Button>
                               </div>
                             </div>
@@ -757,20 +743,13 @@ export default function DashboardView({
                               <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
                                 <p className="text-sm sm:text-base font-bold line-clamp-2">{f.title}</p>
                                 {f.size ? <p className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">{formatSize(f.size)}</p> : null}
-                                <div className="mt-auto pt-1.5 flex flex-col gap-1">
+                                <div className="mt-auto pt-1.5">
                                   <Button size="sm"
                                     onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
                                     title={t('openFile')} aria-label={t('openFile')}
                                     className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
                                   >
                                     <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
-                                  </Button>
-                                  <Button size="sm" variant="outline"
-                                    onClick={e => { e.stopPropagation(); closeGridFiles(); }}
-                                    title={t('backToTests')} aria-label={t('backToTests')}
-                                    className="h-8 rounded-full border-black text-[11px] sm:text-xs px-2 justify-start"
-                                  >
-                                    <ArrowLeft className="size-3 shrink-0" /> <span className="truncate">{t('backToTests')}</span>
                                   </Button>
                                 </div>
                               </div>
@@ -1140,17 +1119,10 @@ export default function DashboardView({
                           <div data-inner-scroll className="swiper-no-swiping flex-1 min-h-0 rounded-2xl border border-black bg-white p-3 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                             <AttachmentsList items={s.files} />
                           </div>
-                          <button
-                            type="button"
-                            onClick={closeFilesCard}
-                            className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 text-left hover:bg-muted/50 transition-colors"
-                          >
-                            <Paperclip className="w-4 h-4 shrink-0 text-cta" />
-                            <span className="font-semibold text-sm">{t('attachedFiles', { n: s.count })}</span>
-                            <span className="ml-auto text-xs text-muted-foreground">{t('backToTest')}</span>
-                          </button>
+                          {/* NO back button here — the universal top-panel arrow is
+                          the single exit; the hint below explains the swipe flow. */}
                           <p className="shrink-0 text-center text-[11px] text-foreground/70">
-                            {filesFeedTestId ? t('backToTest') : t('swipeNextTestFiles')}
+                            {t('swipeNextTestFiles')}
                           </p>
                         </div>
                       </div>
