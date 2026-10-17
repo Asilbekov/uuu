@@ -1414,11 +1414,21 @@ function AppRootInner({ authed }: { authed: boolean }) {
       try {
         toast({ title: t('copyCreating') });
         const copy = await api.copyTest(test.id);
+        // The server auto-pins the modified test (bookmark upsert) — mirror
+        // it in the bookmarks cache so the card shows the «закреплено»
+        // marker immediately.
+        const bm = queryClient.getQueryData<{ ids: string[] }>(BOOKMARKS_KEY);
+        if (bm && !bm.ids.includes(copy.id)) {
+          patchScope(queryClient, BOOKMARKS_KEY, { setBookmarks: new Set([...bm.ids, copy.id]) });
+        }
         // viewingUser was cleared above — back in the own-library scope. The
         // copy is pinned into the personal feed cache directly: the feed is
         // never reloaded mid-session, so it can neither reorder nor leak.
+        // ONE TEST PER NAME: the modified copy takes the original's spot —
+        // the same-name source drops out of the list locally (it stays
+        // bookmarked server-side and resurfaces if the copy is deleted).
         if (queryClient.getQueryData(feedKey('mine'))) {
-          patchScope(queryClient, feedKey('mine'), { prepend: [copy as Test] });
+          patchScope(queryClient, feedKey('mine'), { prepend: [copy as Test], removeId: test.id });
         } else {
           await queryClient.fetchInfiniteQuery(feedQueryOptions('mine')).catch(() => {});
         }
@@ -1490,9 +1500,16 @@ function AppRootInner({ authed }: { authed: boolean }) {
       api.copyTest((currentTest as any).id)
         .then(async (copy: any) => {
           toast({ title: t('copyCreated') });
-          // The copy joins the personal feed cache directly (no refetch)
+          // The server auto-pins the modified test (bookmark upsert) — mirror
+          // it in the bookmarks cache (the «закреплено» marker on the card).
+          const bm = queryClient.getQueryData<{ ids: string[] }>(BOOKMARKS_KEY);
+          if (bm && !bm.ids.includes(copy.id)) {
+            patchScope(queryClient, BOOKMARKS_KEY, { setBookmarks: new Set([...bm.ids, copy.id]) });
+          }
+          // The copy joins the personal feed cache directly (no refetch).
+          // ONE TEST PER NAME: the modified copy takes the original's spot.
           if (queryClient.getQueryData(feedKey('mine'))) {
-            patchScope(queryClient, feedKey('mine'), { prepend: [copy as Test] });
+            patchScope(queryClient, feedKey('mine'), { prepend: [copy as Test], removeId: (currentTest as any).id });
           }
           // Fill the editor form from the copy — the sheet opens on it
           setTestTitle(copy.title);

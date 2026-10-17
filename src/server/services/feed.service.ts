@@ -75,6 +75,80 @@ function parseCursor(raw: string | null): CursorInfo {
   return null;
 }
 
+// ---------------------------------------------------------------------------
+// Personal-library NAME RULE — at most ONE test per name in the "mine" scope.
+//
+// When the user modifies a test (POST /tests/[id]/copy) the copy keeps the
+// source's exact title and is auto-bookmarked (see tests.service.copyTest).
+// The library must then show ONLY the modified card — not the modified copy
+// next to the pinned original. The rule generalizes to every same-name pair:
+//
+//   * the user's OWN test beats a bookmarked foreign original with the same
+//     name (the modification replaces the source — "only the second stays");
+//   * a newer own version beats an older own version (the latest edit wins);
+//   * among bookmarked originals the newest wins.
+//
+// The losers ("shadowed" tests) are hidden from the feed AND excluded from
+// the keyset tail, so a hidden card can never resurface on page 5. Shadowing
+// is intentionally NON-destructive: the bookmark rows stay in the database,
+// and if the winning copy is deleted the original resurfaces on the next
+// fetch — the library heals itself.
+//
+// Family key: exact title — plus a legacy bridge. Old copies were named
+// "<title> · <owner name>" (+" (2)"…); stripping that known suffix lets a
+// legacy copy collapse into the family of its pinned original. A title only
+// folds when its tail equals the OWNER'S display name, so user-typed
+// " · " separators (e.g. "Биология · Курс") never collide.
+// ---------------------------------------------------------------------------
+
+function nameFamily(title: string, ownerName: string | null | undefined): string {
+  const raw = (title || "").trim();
+  let t = raw;
+  const name = (ownerName || "").trim();
+  if (name) {
+    const esc = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    t = t.replace(new RegExp(`\\s*·\\s*${esc}\\s*(\\(\\d+\\))?\\s*$`), "");
+  }
+  const key = t.trim().toLowerCase();
+  return key || raw.toLowerCase();
+}
+
+function personalLibraryShadowed(
+  rows: {
+    id: string;
+    title: string;
+    creatorId: string;
+    createdAt: Date;
+    creator?: { name?: string | null } | null;
+  }[],
+  userId: string
+): Set<string> {
+  const winners = new Map<string, { id: string; own: boolean; at: number }>();
+  const shadowed = new Set<string>();
+  for (const r of rows) {
+    const e = {
+      id: r.id,
+      fam: nameFamily(r.title, r.creator?.name),
+      own: r.creatorId === userId,
+      at: new Date(r.createdAt).getTime(),
+    };
+    const cur = winners.get(e.fam);
+    if (!cur) {
+      winners.set(e.fam, e);
+      continue;
+    }
+    const eWins =
+      (e.own && !cur.own) || (e.own === cur.own && e.at > cur.at);
+    if (eWins) {
+      shadowed.add(cur.id);
+      winners.set(e.fam, e);
+    } else {
+      shadowed.add(e.id);
+    }
+  }
+  return shadowed;
+}
+
 export async function getFeed(
   query: FeedQuery,
   userId: string | null
@@ -119,6 +193,26 @@ export async function getFeed(
     visibility = userId
       ? { OR: [{ isPublic: true, parentId: null }, { creatorId: userId }] }
       : { AND: [{ isPublic: true }, { parentId: null }] };
+  }
+
+  // ---- personal-library name rule (scope = mine) ---------------------------
+  // ONE test per name: compute the shadowed ids over the user's WHOLE scope
+  // (own tests + bookmarks) before any pagination happens. Applied to the
+  // candidate pool below and to the keyset tail — a hidden card must never
+  // resurface on a later page.
+  let shadowedIds: Set<string> = new Set();
+  if (scope === "mine" && userId) {
+    const scopeRows = await db.test.findMany({
+      where: visibility,
+      select: {
+        id: true,
+        title: true,
+        creatorId: true,
+        createdAt: true,
+        creator: { select: { name: true } },
+      },
+    });
+    shadowedIds = personalLibraryShadowed(scopeRows, userId);
   }
 
   // ---- shared filters (tag / search / author) ----
@@ -231,6 +325,8 @@ export async function getFeed(
   // ------------------------------ NEW (keyset) ------------------------------
   if (tab === "new") {
     const where: any = { AND: [...filters] };
+    // Name rule: same-name losers stay hidden on every page of the "new" tab
+    if (shadowedIds.size) where.AND.push({ id: { notIn: [...shadowedIds] } });
     if (cursor?.mode === "keyset") {
       where.AND.push({
         OR: [
@@ -440,8 +536,10 @@ export async function getFeed(
         })
       : [];
 
-    const candidates: RankRow[] = [...recentRows, ...extraRows, ...covisRows].map(
-      (r) => ({
+    const candidates: RankRow[] = [...recentRows, ...extraRows, ...covisRows]
+      // Name rule: same-name losers never enter the ranking pool at all
+      .filter((r) => !shadowedIds.has(r.id))
+      .map((r) => ({
         id: r.id,
         tags: r.tags || [],
         topic: r.topic,
@@ -507,10 +605,12 @@ export async function getFeed(
     // Pool exhausted → keyset continuation strictly BELOW the pool floor.
     // notIn(poolIds): belt-and-suspenders — an already-pooled test must
     // never appear twice in one response, whatever the cursor says.
+    // notIn(shadowedIds): the name rule — a same-name loser hidden from the
+    // pool must not sneak back in through the tail either.
     const where: any = {
       AND: [
         ...filters,
-        { id: { notIn: poolIds } },
+        { id: { notIn: [...poolIds, ...shadowedIds] } },
         {
           OR: [
             { createdAt: { lt: baseCursor.createdAt } },

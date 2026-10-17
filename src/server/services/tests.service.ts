@@ -579,12 +579,6 @@ export async function deleteTest(userId: string, id: string) {
 // ----------------------------------------------------------------------- copy --
 
 export async function copyTest(userId: string, id: string) {
-  const user = await db.user.findUnique({
-    where: { id: userId },
-    select: { id: true, name: true },
-  });
-  if (!user) throw ApiError.unauthorized("Not authenticated");
-
   const source = await db.test.findUnique({
     where: { id },
     include: {
@@ -594,14 +588,13 @@ export async function copyTest(userId: string, id: string) {
   });
   if (!source) throw ApiError.notFound("Test not found");
 
-  // --- unique name: "<title> · <user name>" (+ " (2)", " (3)", …) ---
-  const base = `${source.title} · ${user.name || "copy"}`.trim().slice(0, 180);
-  let title = base;
-  for (let n = 2; ; n++) {
-    const exists = await db.test.findFirst({ where: { title }, select: { id: true } });
-    if (!exists) break;
-    title = `${base} (${n})`;
-  }
+  // --- name: the modified test keeps the SOURCE's exact name ---------------
+  // The personal library shows AT MOST ONE test per name: the modified copy
+  // carries the original's title so the library collapses the pair down to
+  // the modified card (see feed.service — personal-library name rule).
+  // Versions are private and can never be published (VERSION_NOT_PUBLIC),
+  // so the public-name-uniqueness loop does not apply here.
+  const title = source.title;
 
   const copy = await db.test.create({
     data: {
@@ -659,6 +652,16 @@ export async function copyTest(userId: string, id: string) {
       creator: { select: { id: true, name: true } },
       _count: { select: { attempts: true } },
     },
+  });
+
+  // The modified test joins the personal library PINNED automatically — the
+  // same treatment as a test saved with the bookmark button: the card shows
+  // the «закреплено» marker (the filled pin on the author strip) without the
+  // user doing anything. Idempotent upsert, safe to repeat.
+  await db.bookmark.upsert({
+    where: { userId_testId: { userId, testId: copy.id } },
+    update: {},
+    create: { userId, testId: copy.id },
   });
 
   // The copy gets its OWN content archive in the Telegram channel (the
