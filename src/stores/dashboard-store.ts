@@ -22,8 +22,11 @@ interface DashboardData {
   dashSearchResults: Test[] | null;
   dashSearching: boolean;
   dashTagInfo: { query: string; exists: boolean; created: boolean; similar: string[] } | null;
-  // Library grid: 2 cards per row on phones, 3 per row from sm up
+  // Library grid: 2 cards per row on phones, 3 per row from sm up,
+  // 4 per row from lg up (desktop), 5 per row on ≥1440px screens
   libNarrow: boolean;
+  libWide: boolean;
+  libUltra: boolean;
   // True while a make-public/link-copy share action is in flight.
   shareBusy: boolean;
 }
@@ -37,6 +40,8 @@ const INITIAL: DashboardData = {
   dashSearching: false,
   dashTagInfo: null,
   libNarrow: false,
+  libWide: false,
+  libUltra: false,
   shareBusy: false,
 };
 

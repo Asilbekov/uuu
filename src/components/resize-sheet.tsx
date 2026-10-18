@@ -102,7 +102,7 @@ export function DragHandle({ handleProps, dragging }: { handleProps: ResizableSh
     <div
       {...handleProps}
       aria-hidden="true"
-      className="shrink-0 flex items-center justify-center pt-2 pb-1 cursor-row-resize select-none"
+      className="drag-handle shrink-0 flex items-center justify-center pt-2 pb-1 cursor-row-resize select-none"
       style={{ touchAction: 'none' }}
     >
       <div
@@ -149,7 +149,7 @@ export function ResizableSheetFrame({
     <div className="fixed inset-0 z-50">
       <div className={`absolute inset-0 bg-black/50 ${exiting ? 'animate-out fade-out pointer-events-none duration-200' : 'animate-in fade-in duration-200'}`} onClick={onClose} />
       <div
-        className={`absolute inset-x-0 bottom-0 mx-auto ${maxW} bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col ${exiting ? 'animate-out slide-out-to-bottom fade-out pointer-events-none duration-200' : 'animate-in slide-in-from-bottom duration-200'}`}
+        className={`desktop-dialog-panel absolute inset-x-0 bottom-0 mx-auto ${maxW} bg-white rounded-t-3xl shadow-2xl border-t border-black/10 flex flex-col ${exiting ? 'animate-out slide-out-to-bottom fade-out pointer-events-none duration-200' : 'animate-in slide-in-from-bottom duration-200'}`}
         style={{ ...sheet.style, maxHeight: '100dvh' }}
       >
         <DragHandle handleProps={sheet.handleProps} dragging={sheet.dragging} />

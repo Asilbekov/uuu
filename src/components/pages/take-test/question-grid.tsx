@@ -42,9 +42,9 @@ export function QuestionGrid({
 
   return (
     <div className="flex-1 min-w-0 h-full overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <div className="max-w-5xl mx-auto px-2 sm:px-3 py-3 sm:py-4">
+      <div className="max-w-5xl mx-auto px-2 sm:px-3 py-3 sm:py-4 lg:pb-28">
         <p className="text-[11px] sm:text-xs text-muted-foreground text-center mb-3">{t('questionsGridHint')}</p>
-        <div className={`grid ${dashView === 'shelf' ? 'grid-cols-1' : (libNarrow ? 'grid-cols-2' : 'grid-cols-3')} gap-2 sm:gap-3`}>
+        <div className={`grid ${dashView === 'shelf' ? 'grid-cols-1' : (libNarrow ? 'grid-cols-2' : 'grid-cols-3')} gap-2 sm:gap-3 lg:grid-cols-4 2xl:grid-cols-5 lg:gap-4`}>
           {shuffledQuestions.map((q, idx) => {
             const gqId = q.id || '';
             const gAnswered = !!answers[gqId];

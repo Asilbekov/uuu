@@ -307,6 +307,9 @@ const en: Dict = {
   fileOf: 'File {i} of {n}',
   swipeNextFile: 'Swipe up — next file',
   swipeNextTestFiles: 'Swipe up — next test\'s files',
+  // Desktop feed arrows (vertical TikTok-style feeds, lg+ only)
+  feedPrev: 'Previous',
+  feedNext: 'Next',
   // Grid (Library/Shelf) cards: full-name action buttons, one per line
   startTestBtn: 'Start Test',
   backToTests: 'Back to tests',
@@ -598,6 +601,8 @@ const ru: Dict = {
   fileOf: 'Файл {i} из {n}',
   swipeNextFile: 'Свайп вверх — следующий файл',
   swipeNextTestFiles: 'Свайп вверх — файлы следующего теста',
+  feedPrev: 'Назад',
+  feedNext: 'Вперёд',
   // Grid (Library/Shelf) cards: full-name action buttons, one per line
   startTestBtn: 'Начать тест',
   backToTests: 'К тестам',
@@ -889,6 +894,8 @@ const uz: Dict = {
   fileOf: '{n} fayldan {i}',
   swipeNextFile: 'Yuqori suring — keyingi fayl',
   swipeNextTestFiles: 'Suring yuqoriga — keyingi test fayllari',
+  feedPrev: 'Oldingi',
+  feedNext: 'Keyingi',
   // Grid (Library/Shelf) cards: full-name action buttons, one per line
   startTestBtn: 'Testni boshlash',
   backToTests: 'Testlarga qaytish',

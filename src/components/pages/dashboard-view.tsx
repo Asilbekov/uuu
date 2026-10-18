@@ -15,7 +15,7 @@ import { api } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Question } from '@/lib/app-types';
 import { countAnsweredProgress, readTestProgress, type SavedTestProgress } from '@/lib/test-progress';
-import { ArrowLeft, BookOpen, BookmarkX, ChevronDown, ChevronRight, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, BookmarkX, ChevronDown, ChevronRight, ChevronUp, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
 const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsEditor), { ssr: false });
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
 // Version tree — its own on-demand chunk (fetches the family + renders SVG)
@@ -26,6 +26,31 @@ import type { Page, Test, TreeNode } from '@/lib/app-types';
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
 import { testBackgroundCss } from '@/lib/test-bg';
 import { useExitMount } from '@/components/motion';
+
+// Desktop (lg+) prev/next controls for the vertical feeds. Phones swipe —
+// desktop users also get the standard visible affordance (the wheel and the
+// ↑/↓ keys already work; the buttons make it DISCOVERABLE).
+function FeedArrows({ onPrev, onNext, canPrev, canNext, prevLabel, nextLabel }: {
+  onPrev: () => void;
+  onNext: () => void;
+  canPrev: boolean;
+  canNext: boolean;
+  prevLabel: string;
+  nextLabel: string;
+}) {
+  const btn = 'w-11 h-11 rounded-full bg-white/90 backdrop-blur border border-black/10 shadow-lg flex items-center justify-center text-foreground hover:bg-white hover:shadow-xl active:scale-95 transition-all disabled:opacity-30 disabled:pointer-events-none';
+  return (
+    <div className="hidden lg:flex flex-col gap-2 absolute right-5 top-1/2 -translate-y-1/2 z-30">
+      <button type="button" onClick={onPrev} disabled={!canPrev} aria-label={prevLabel} title={prevLabel} className={btn}>
+        <ChevronUp className="w-5 h-5" />
+      </button>
+      <button type="button" onClick={onNext} disabled={!canNext} aria-label={nextLabel} title={nextLabel} className={btn}>
+        <ChevronDown className="w-5 h-5" />
+      </button>
+    </div>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Professional feed engine: Swiper (swiper.com — the industry-standard
 // carousel/gesture library behind countless TikTok/Reels clones) replaces the
@@ -287,6 +312,8 @@ export default function DashboardView({
   }, [curDashCardId, progressUserId]);
   const setDashTestIdx = useDashboardStore(s => s.setDashTestIdx);
   const libNarrow = useDashboardStore(s => s.libNarrow);
+  const libWide = useDashboardStore(s => s.libWide);
+  const libUltra = useDashboardStore(s => s.libUltra);
   const dashSearch = useDashboardStore(s => s.dashSearch);
   const setDashSearch = useDashboardStore(s => s.setDashSearch);
   const dashSearchOpen = useDashboardStore(s => s.dashSearchOpen);
@@ -483,10 +510,13 @@ export default function DashboardView({
     // Saved progress for the test on screen — dashSaved STATE (loaded from the
     // DB by the effect above) drives the Continue button
     // Library / shelf grids: slice the loaded tests into shelf rows
-    // (library = 2 cards per shelf on phones / 3 from sm up, shelf = 1 card per
-    // shelf); rows scroll endlessly
-    const gridPerRow = dashView === 'shelf' ? 1 : (dashView === 'library' && libNarrow ? 2 : 3);
-    const gridColsClass = dashView === 'shelf' ? 'grid-cols-1' : (dashView === 'library' && libNarrow ? 'grid-cols-2' : 'grid-cols-3');
+    // (library = 2 cards per shelf on phones / 3 from sm up / 4 on desktop
+    // (lg) / 5 on ≥1440px monitors, shelf = 1 card per shelf); rows scroll
+    // endlessly. The flags come from the store (matchMedia-synced in
+    // app-root), so SSR always paints the 3-col layout and desktop corrects
+    // right after hydration.
+    const gridPerRow = dashView === 'shelf' ? 1 : (dashView === 'library' && libNarrow ? 2 : (libUltra ? 5 : libWide ? 4 : 3));
+    const gridColsClass = dashView === 'shelf' ? 'grid-cols-1' : gridPerRow === 2 ? 'grid-cols-2' : gridPerRow === 4 ? 'grid-cols-4' : gridPerRow === 5 ? 'grid-cols-5' : 'grid-cols-3';
     // Grid files mode: attachments of the ONE test whose paperclip was tapped.
     // If that test has left the loaded list (a mode switch while files mode
     // was on), the cached full payload still covers it.
@@ -559,10 +589,10 @@ export default function DashboardView({
           role={idx !== null ? 'button' : undefined}
           tabIndex={idx !== null ? 0 : undefined}
           onClick={() => { if (editMode) { startEditTest(test); } else { openBody(); } }}
-          className={`h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden hover:border-black/40 active:scale-[0.99] transition-all text-left ${idx !== null ? 'cursor-pointer' : ''}`}
+          className={`h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 lg:p-4 overflow-hidden hover:border-black/40 active:scale-[0.99] transition-all text-left ${idx !== null ? 'cursor-pointer' : ''}`}
         >
           {strip}
-          <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2">{test.title}</p>
+          <p className="text-[13px] sm:text-sm lg:text-[15px] font-bold leading-snug line-clamp-2">{test.title}</p>
           {/* COMPACT ACTION GRID — the complete TikTok-card action set, two
           buttons per row (short labels, full name in the tooltip). This keeps
           every card ≈1/3 of the screen tall, so the 3×3 library rhythm holds
@@ -574,39 +604,39 @@ export default function DashboardView({
             <Button size="sm" disabled={loading}
               onClick={e => { e.stopPropagation(); startCard(false); }}
               title={t('startTestBtn')} aria-label={t('startTestBtn')}
-              className="col-span-2 h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
+              className="col-span-2 h-8 rounded-full text-[11px] sm:text-xs lg:h-10 lg:text-sm px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
             >
-              <Play className="size-3 shrink-0" /> <span className="truncate">{t('gStart')}</span>
+              <Play className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gStart')}</span>
             </Button>
             <Button size="sm" variant="outline" disabled={loading}
               onClick={e => { e.stopPropagation(); startCard(true); }}
               title={t('restart')} aria-label={t('restart')}
-              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('gRestart')}</span>
+              <RefreshCw className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gRestart')}</span>
             </Button>
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
               title={t('versionTree')} aria-label={t('versionTree')}
-              className={`h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+              className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
             >
-              <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('gTree')}</span>
+              <TreeDeciduous className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gTree')}</span>
             </Button>
             {fcnt > 0 && (
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
                 title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                className={`h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
               >
-                <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('gFiles')}</span>
+                <Paperclip className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gFiles')}</span>
               </Button>
             )}
             <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
               onClick={e => { e.stopPropagation(); doShareLink(test); }}
               title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
-              className="h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('gShare')}</span>
+              <Link2 className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gShare')}</span>
             </Button>
             {/* Make public — OWN from-scratch tests ONLY.
             A version can never be public, so its card
@@ -615,17 +645,17 @@ export default function DashboardView({
             <Button size="sm" variant="outline" disabled={!!shareBusy}
               onClick={e => { e.stopPropagation(); doMakePublic(test); }}
               title={t('makePublic')} aria-label={t('makePublic')}
-              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <Users className="size-3 shrink-0" /> <span className="truncate">{t('gPublic')}</span>
+              <Users className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gPublic')}</span>
             </Button>
             )}
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); startEditTest(test); }}
               title={t('editTest')} aria-label={t('editTest')}
-              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('gEdit')}</span>
+              <Pencil className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gEdit')}</span>
             </Button>
             {/* Unpin — BOOKMARKED tests in the personal library:
             the test got here via the bookmark button, this row
@@ -635,9 +665,9 @@ export default function DashboardView({
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
               title={t('unpinBtn')} aria-label={t('unpinBtn')}
-              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('gUnpin')}</span>
+              <BookmarkX className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gUnpin')}</span>
             </Button>
             )}
             {/* Delete — own tests only (the server refuses
@@ -647,9 +677,9 @@ export default function DashboardView({
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
               title={t('deleteTest')} aria-label={t('deleteTest')}
-              className="col-span-2 h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="col-span-2 h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
-              <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('gDelete')}</span>
+              <Trash2 className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gDelete')}</span>
             </Button>
             )}
             {!canShareLink && (
@@ -663,12 +693,12 @@ export default function DashboardView({
           role={idx !== null ? 'button' : undefined}
           tabIndex={idx !== null ? 0 : undefined}
           onClick={() => { if (editMode) { startEditTest(test); } else { openBody(); } }}
-          className={`h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden hover:border-black/40 active:scale-[0.99] transition-all text-left ${idx !== null ? 'cursor-pointer' : ''}`}
+          className={`h-full min-h-0 lg:max-w-4xl lg:w-full lg:mx-auto flex rounded-2xl border border-black/15 bg-white overflow-hidden hover:border-black/40 active:scale-[0.99] transition-all text-left ${idx !== null ? 'cursor-pointer' : ''}`}
         >
-          <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
+          <div style={bgStyle} className={`${bgClass} w-20 sm:w-36 lg:w-44 shrink-0 h-full flex items-center justify-center p-2 text-center`}>
             <p className="text-xs sm:text-base font-bold text-cta leading-snug line-clamp-3">{test.title}</p>
           </div>
-          <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3">
+          <div className="flex-1 min-w-0 flex flex-col p-2 sm:p-3 lg:p-4">
             {strip}
             {/* Title lives on the spine only — no duplicate text in
             the content area */}
@@ -681,31 +711,31 @@ export default function DashboardView({
               <Button size="sm" disabled={loading}
                 onClick={e => { e.stopPropagation(); startCard(false); }}
                 title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                className="col-span-2 h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
+                className="col-span-2 h-8 rounded-full text-[11px] sm:text-xs lg:h-10 lg:text-sm px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
               >
-                <Play className="size-3 shrink-0" /> <span className="truncate">{t('gStart')}</span>
+                <Play className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gStart')}</span>
               </Button>
               <Button size="sm" variant="outline" disabled={loading}
                 onClick={e => { e.stopPropagation(); startCard(true); }}
                 title={t('restart')} aria-label={t('restart')}
-                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <RefreshCw className="size-3 shrink-0" /> <span className="truncate">{t('gRestart')}</span>
+                <RefreshCw className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gRestart')}</span>
               </Button>
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
                 title={t('versionTree')} aria-label={t('versionTree')}
-                className={`h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
               >
-                <TreeDeciduous className="size-3 shrink-0" /> <span className="truncate">{t('gTree')}</span>
+                <TreeDeciduous className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gTree')}</span>
               </Button>
               {fcnt > 0 && (
                 <Button size="sm" variant="outline"
                   onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
                   title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                  className={`h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                  className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
                 >
-                  <Paperclip className="size-3 shrink-0" /> <span className="truncate">{t('gFiles')}</span>
+                  <Paperclip className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gFiles')}</span>
                 </Button>
               )}
               {/* Share link — EVERY card (own, bookmarked and
@@ -715,9 +745,9 @@ export default function DashboardView({
               <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
                 onClick={e => { e.stopPropagation(); doShareLink(test); }}
                 title={canShareLink ? t('shareCopySub') : t('shareNeed2Changes')} aria-label={t('shareLinkBtn')}
-                className="h-8 rounded-full text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+                className="h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <Link2 className="size-3 shrink-0" /> <span className="truncate">{t('gShare')}</span>
+                <Link2 className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gShare')}</span>
               </Button>
               {/* Make public — OWN from-scratch tests ONLY
               (a version can never be public). */}
@@ -725,17 +755,17 @@ export default function DashboardView({
               <Button size="sm" variant="outline" disabled={!!shareBusy}
                 onClick={e => { e.stopPropagation(); doMakePublic(test); }}
                 title={t('makePublic')} aria-label={t('makePublic')}
-                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <Users className="size-3 shrink-0" /> <span className="truncate">{t('gPublic')}</span>
+                <Users className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gPublic')}</span>
               </Button>
               )}
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); startEditTest(test); }}
                 title={t('editTest')} aria-label={t('editTest')}
-                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <Pencil className="size-3 shrink-0" /> <span className="truncate">{t('gEdit')}</span>
+                <Pencil className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gEdit')}</span>
               </Button>
               {/* Unpin — bookmarked tests in the personal
               library (shelf row): removes the test from the
@@ -744,9 +774,9 @@ export default function DashboardView({
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
                 title={t('unpinBtn')} aria-label={t('unpinBtn')}
-                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <BookmarkX className="size-3 shrink-0" /> <span className="truncate">{t('gUnpin')}</span>
+                <BookmarkX className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gUnpin')}</span>
               </Button>
               )}
               {/* Delete — own tests only, same as the library
@@ -756,9 +786,9 @@ export default function DashboardView({
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
                 title={t('deleteTest')} aria-label={t('deleteTest')}
-                className="col-span-2 h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
+                className="col-span-2 h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
-                <Trash2 className="size-3 shrink-0" /> <span className="truncate">{t('gDelete')}</span>
+                <Trash2 className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gDelete')}</span>
               </Button>
               )}
               {!canShareLink && (
@@ -830,7 +860,7 @@ export default function DashboardView({
               overlay covers the whole row instead of pushing buttons out.
               FIXED h-14: every page's top panel is exactly 56px tall, on every
               viewport, in every state (uniform top-panel contract). */}
-          <div className="relative max-w-7xl mx-auto px-3 sm:px-4 h-14 flex flex-nowrap items-center justify-between gap-1 sm:gap-2">
+          <div className="relative max-w-7xl mx-auto px-3 sm:px-4 h-14 lg:h-16 flex flex-nowrap items-center justify-between gap-1 sm:gap-2 lg:gap-3">
             {searchMounted && (
               <div className={`absolute inset-0 z-50 bg-white flex items-center gap-2 px-3 sm:px-4 ${dashSearchOpen ? 'animate-in fade-in duration-150' : 'animate-out fade-out pointer-events-none duration-150'}`}>
                 <div className="flex-1 min-w-0 relative">
@@ -841,7 +871,7 @@ export default function DashboardView({
                     onChange={e => setDashSearch(e.target.value)}
                     onKeyDown={e => { if (e.key === 'Escape') { setDashSearchOpen(false); setDashSearch(''); } }}
                     placeholder={t('searchByTags')}
-                    className="h-9 rounded-full pl-9 bg-white border-black/15 text-sm"
+                    className="h-9 lg:h-10 rounded-full pl-9 bg-white border-black/15 text-sm"
                   />
                 </div>
                 <Button
@@ -875,7 +905,7 @@ export default function DashboardView({
                     if (viewingUser) { closeUserLibrary(); return; }
                     backToLibrary();
                   }}
-                  className="rounded-full shrink-0 border-black"
+                  className="rounded-full shrink-0 border-black lg:h-10 lg:w-10"
                   title={viewingUser ? t('back') : t('backToLibrary')}
                   aria-label={viewingUser ? t('back') : t('backToLibrary')}
                 >
@@ -895,13 +925,13 @@ export default function DashboardView({
                     : (viewingUser.name || '?').trim().slice(0, 1).toUpperCase() || '?'}
                 </span>
               )}
-              <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4">
+              <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 lg:h-10 lg:text-sm">
                 <Plus className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('createTest')}</span>
               </Button>
               <Button
                 variant="outline"
                 onClick={() => setEditMode(v => !v)}
-                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
+                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 lg:h-10 lg:text-sm ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
               >
                 <Edit className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('editTest')}</span>
               </Button>
@@ -910,7 +940,7 @@ export default function DashboardView({
               <Button
                 variant="outline"
                 onClick={() => setDashSearchOpen(true)}
-                className="rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-9"
+                className="rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-9 lg:h-10 lg:w-10"
                 title={t('searchByTags')}
                 aria-label={t('searchByTags')}
               >
@@ -925,7 +955,7 @@ export default function DashboardView({
               <Button
                 variant="outline"
                 onClick={cycleDashView}
-                className="rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4"
+                className="rounded-full shrink-0 border-black h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 lg:h-10 lg:text-sm"
                 title={t('viewMode')}
                 aria-label={t('viewMode')}
               >
@@ -950,7 +980,7 @@ export default function DashboardView({
                 variant="outline"
                 onClick={toggleDiscoverMode}
                 disabled={loading}
-                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 ${discoverMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
+                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 lg:h-10 lg:text-sm ${discoverMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
                 title={discoverMode ? `${t('modeDiscover')} · ${t('modeDiscoverHint')}` : `${t('modeMine')} · ${t('modeMineHint')}`}
                 aria-label={discoverMode ? t('modeDiscover') : t('modeMine')}
               >
@@ -967,7 +997,7 @@ export default function DashboardView({
                 onClick={() => setPage('profile')}
                 title={t('profileTitle')}
                 aria-label={t('profileTitle')}
-                className="relative w-9 h-9 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform shrink-0 overflow-visible"
+                className="relative w-9 h-9 lg:w-10 lg:h-10 rounded-full bg-cta text-white flex items-center justify-center font-bold text-sm shadow-sm active:scale-95 transition-transform shrink-0 overflow-visible"
               >
                 {myAvatar
                   ? <img src={myAvatar} alt="" className="absolute inset-0 w-full h-full rounded-full object-cover" />
@@ -1035,7 +1065,7 @@ export default function DashboardView({
                 full-name action buttons a row simply grows a bit on short screens. */}
             {dashView === 'library' || dashView === 'shelf' ? (
               <div key={`feed-grid-${dashView}`} ref={dashFeedRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain screen-enter [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <div className="max-w-5xl mx-auto h-full">
+                <div className="max-w-5xl lg:max-w-6xl 2xl:max-w-7xl mx-auto h-full">
                   {gridTreeMode ? (
                     /* VERSION-TREE cards in the SAME grid layout — ONE VERSION
                     CARD PER GRID CELL, but now every cell is a FULL TEST CARD
@@ -1049,7 +1079,7 @@ export default function DashboardView({
                     the grid at THAT version; the universal top-panel back
                     returns to the test cards. */
                     treeLoading && !treeFamily ? (
-                      <div className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`} style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}>
+                      <div className={`grid ${gridColsClass} gap-2 sm:gap-3 lg:gap-4 px-2 sm:px-3 lg:px-4 pb-2 sm:pb-3 lg:pb-4 grid-row-h`}>
                         <Skeleton className="h-full w-full rounded-3xl min-h-72" />
                       </div>
                     ) : treeError && !treeFamily ? (
@@ -1066,8 +1096,7 @@ export default function DashboardView({
                       treeRows.map((row, ri) => (
                         <div
                           key={ri}
-                          className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
-                          style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}
+                          className={`grid ${gridColsClass} gap-2 sm:gap-3 lg:gap-4 px-2 sm:px-3 lg:px-4 pb-2 sm:pb-3 lg:pb-4 grid-row-h`}
                         >
                           {row.map(node => renderGridCard(nodeAsTest(node), null))}
                         </div>
@@ -1114,8 +1143,7 @@ export default function DashboardView({
                       gridFileRows.map((row, ri) => (
                         <div
                           key={ri}
-                          className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
-                          style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}
+                          className={`grid ${gridColsClass} gap-2 sm:gap-3 lg:gap-4 px-2 sm:px-3 lg:px-4 pb-2 sm:pb-3 lg:pb-4 grid-row-h`}
                         >
                           {row.map((f, ci) => dashView === 'library' ? (
                             <div
@@ -1123,7 +1151,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => window.open(attachmentFileUrl(f), '_blank')}
-                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                              className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 lg:p-4 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
                               <div className="flex items-center gap-1.5 shrink-0">
                                 <span className="w-7 h-7 rounded-lg bg-[#FFF0D9] text-cta flex items-center justify-center shrink-0">
@@ -1131,14 +1159,14 @@ export default function DashboardView({
                                 </span>
                                 {f.size ? <span className="text-[10px] text-muted-foreground">{formatSize(f.size)}</span> : null}
                               </div>
-                              <p className="text-[13px] sm:text-sm font-bold leading-snug line-clamp-2 mt-1">{f.title}</p>
+                              <p className="text-[13px] sm:text-sm lg:text-[15px] font-bold leading-snug line-clamp-2 mt-1">{f.title}</p>
                               <div className="mt-auto pt-1.5">
                                 <Button size="sm"
                                   onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
                                   title={t('openFile')} aria-label={t('openFile')}
-                                  className="h-8 rounded-full text-[11px] sm:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+                                  className="h-8 rounded-full text-[11px] sm:text-xs lg:h-9 lg:text-[13px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
-                                  <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
+                                  <ExternalLink className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('openFile')}</span>
                                 </Button>
                               </div>
                             </div>
@@ -1148,7 +1176,7 @@ export default function DashboardView({
                               role="button"
                               tabIndex={0}
                               onClick={() => window.open(attachmentFileUrl(f), '_blank')}
-                              className="h-full min-h-0 flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
+                              className="h-full min-h-0 lg:max-w-4xl lg:w-full lg:mx-auto flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
                               <div className="w-20 sm:w-36 shrink-0 h-full flex flex-col items-center justify-center gap-1 p-2 text-center bg-[#FFF0D9]">
                                 <span className="text-cta">{typeIcon(f.type, 'w-6 h-6 sm:w-8 sm:h-8')}</span>
@@ -1163,7 +1191,7 @@ export default function DashboardView({
                                     title={t('openFile')} aria-label={t('openFile')}
                                     className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
                                   >
-                                    <ExternalLink className="size-3 shrink-0" /> <span className="truncate">{t('openFile')}</span>
+                                    <ExternalLink className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('openFile')}</span>
                                   </Button>
                                 </div>
                               </div>
@@ -1182,8 +1210,7 @@ export default function DashboardView({
                     gridRows.map((row, ri) => (
                       <div
                         key={ri}
-                        className={`grid ${gridColsClass} gap-2 sm:gap-3 px-2 sm:px-3 pb-2 sm:pb-3`}
-                        style={{ minHeight: 'max(calc(100% / 3), 20rem)' }}
+                        className={`grid ${gridColsClass} gap-2 sm:gap-3 lg:gap-4 px-2 sm:px-3 lg:px-4 pb-2 sm:pb-3 lg:pb-4 grid-row-h`}
                       >
                         {row.map((test, ci) => renderGridCard(test, ri * gridPerRow + ci))}
                       </div>
@@ -1204,7 +1231,7 @@ export default function DashboardView({
               family trunk lands on the NEXT recommended test's tree, down
               at the root on the previous one. Tapping an apple re-roots
               that card at the tapped version. */
-              <div className="flex-1 min-h-0 min-w-0" onWheelCapture={onWheelCapture}>
+              <div className="relative flex-1 min-h-0 min-w-0" onWheelCapture={onWheelCapture}>
                 <Swiper
                   key="feed-tree-swiper"
                   {...swiperParams}
@@ -1213,9 +1240,17 @@ export default function DashboardView({
                   onSwiper={(sw) => { treeSwiperRef.current = sw; applyPendingSlide(sw); }}
                   onSlideChange={(sw) => onDashCommitRef.current(sw.activeIndex, 'tree')}
                 >
+                  <FeedArrows
+                    onPrev={() => treeSwiperRef.current?.slidePrev()}
+                    onNext={() => treeSwiperRef.current?.slideNext()}
+                    canPrev={dashSlideIdx > 0}
+                    canNext={dashSlideIdx < tests.length - 1}
+                    prevLabel={t('feedPrev')}
+                    nextLabel={t('feedNext')}
+                  />
                   {tests.map((test) => (
                     <SwiperSlide key={test.id} className="!h-full">
-                      <div className="h-full w-full px-3 py-3 sm:px-4 sm:py-4 min-h-0">
+                      <div className="h-full w-full px-3 py-3 sm:px-4 sm:py-4 lg:py-6 lg:pb-28 min-h-0">
                         <VersionTreeView
                           testId={test.id}
                           bookmarkIds={bookmarkIds}
@@ -1232,7 +1267,7 @@ export default function DashboardView({
               test's files, then continues into the next recommended test's files.
               Header and bottom bar stay untouched; the on-card button returns.
               Engine: Swiper (vertical, one slide per view) — see swiperParams. */
-              <div className="flex-1 min-h-0 min-w-0" onWheelCapture={onWheelCapture}>
+              <div className="relative flex-1 min-h-0 min-w-0" onWheelCapture={onWheelCapture}>
                 <Swiper
                   key="feed-files-swiper"
                   {...swiperParams}
@@ -1241,6 +1276,14 @@ export default function DashboardView({
                   onSwiper={(sw) => { filesSwiperRef.current = sw; applyPendingSlide(sw); }}
                   onSlideChange={(sw) => onDashCommitRef.current(sw.activeIndex, 'files')}
                 >
+                  <FeedArrows
+                    onPrev={() => filesSwiperRef.current?.slidePrev()}
+                    onNext={() => filesSwiperRef.current?.slideNext()}
+                    canPrev={dashSlideIdx > 0}
+                    canNext={dashSlideIdx < fileSlides.length - 1}
+                    prevLabel={t('feedPrev')}
+                    nextLabel={t('feedNext')}
+                  />
                   {fileSlides.length === 0 ? (
                     <SwiperSlide className="!h-full flex items-center justify-center">
                       <p className="text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> {t('loading')}</p>
@@ -1251,7 +1294,7 @@ export default function DashboardView({
                     const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
                     return (
                       <SwiperSlide key={`${test.id}`} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
-                      <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
+                      <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 lg:py-6 lg:pb-28 min-h-0">
                         <div className="w-full max-w-md lg:max-w-3xl flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
                           {/* THE STANDARD CARD HEADER — the author avatar + the
                           pin button above the cover band, the same шапка every
@@ -1301,7 +1344,7 @@ export default function DashboardView({
             ) : (
             /* TikTok-style vertical feed — swipe up/down between tests.
             Engine: Swiper (vertical, one slide per view) — see swiperParams. */
-            <div className="flex-1 min-h-0 min-w-0" onWheelCapture={onWheelCapture}>
+            <div className="relative flex-1 min-h-0 min-w-0" onWheelCapture={onWheelCapture}>
               <Swiper
                 key="feed-tiktok-swiper"
                 {...swiperParams}
@@ -1310,6 +1353,14 @@ export default function DashboardView({
                 onSwiper={(sw) => { testsSwiperRef.current = sw; applyPendingSlide(sw); }}
                 onSlideChange={(sw) => onDashCommitRef.current(sw.activeIndex, 'tests')}
               >
+                <FeedArrows
+                  onPrev={() => testsSwiperRef.current?.slidePrev()}
+                  onNext={() => testsSwiperRef.current?.slideNext()}
+                  canPrev={dashTestIdx > 0}
+                  canNext={dashTestIdx < tests.length - 1}
+                  prevLabel={t('feedPrev')}
+                  nextLabel={t('feedNext')}
+                />
               {tests.map((test, idx) => {
                 const isCur = idx === Math.min(dashTestIdx, tests.length - 1);
                 const totalQ = test._count?.questions || test.questions?.length || 0;
@@ -1343,7 +1394,7 @@ export default function DashboardView({
                   // overflow-hidden: the card always fits the screen — no scrolling
                   // inside a card, swipes only move between cards
                   <SwiperSlide key={test.id} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
-                    <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 min-h-0">
+                    <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 lg:py-6 lg:pb-28 min-h-0">
                       {/* Desktop: the card breathes — the phone-width column widens
                       on large screens instead of looking like a phone cast onto
                       the monitor. Every control row spans the wider column. */}
@@ -1609,7 +1660,7 @@ export default function DashboardView({
             stays EXACTLY the same (dashTestIdx follows the visible slide's test);
             hidden in the grid views where each card carries its own Start. */}
             {dashView !== 'library' && dashView !== 'shelf' && (
-            <div className="shrink-0 z-40 bg-white/90 backdrop-blur-md border-t border-black/10">
+            <div className="desktop-dock shrink-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
               <div
                 className="max-w-2xl mx-auto px-4 pt-3"
                 style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
@@ -1617,7 +1668,7 @@ export default function DashboardView({
                 {editMode ? (
                   <Button
                     onClick={() => curDashTest && startEditTest(curDashTest)}
-                    className="w-full h-9 rounded-full bg-cta hover:bg-cta/90 text-white"
+                    className="w-full h-9 lg:h-11 lg:text-base rounded-full bg-cta hover:bg-cta/90 text-white"
                   >
                     <Edit className="w-4 h-4 mr-2" /> {t('editThisTest')}
                   </Button>
@@ -1625,15 +1676,15 @@ export default function DashboardView({
                   /* SIDE-BY-SIDE (never stacked): the bottom panel keeps its
                   fixed 60px height in EVERY state — Restart | Continue. */
                   <div className="flex gap-2">
-                    <Button variant="outline" onClick={() => startFromDashboard(true)} disabled={loading || !curDashTest} className="flex-1 min-w-0 h-9 rounded-full">
+                    <Button variant="outline" onClick={() => startFromDashboard(true)} disabled={loading || !curDashTest} className="flex-1 min-w-0 h-9 lg:h-11 lg:text-base rounded-full">
                       <RefreshCw className="w-4 h-4 mr-2 shrink-0" /> <span className="truncate">{t('restart')}</span>
                     </Button>
-                    <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="flex-1 min-w-0 h-9 rounded-full bg-primary hover:bg-primary/90">
+                    <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="flex-1 min-w-0 h-9 lg:h-11 lg:text-base rounded-full bg-primary hover:bg-primary/90">
                       {loading ? t('loading') : <><Play className="w-4 h-4 mr-2 shrink-0" /> <span className="truncate">{t('continueTest', { n: countAnsweredProgress(dashSaved), m: dashSaved.shuffledQuestions.length })}</span></>}
                     </Button>
                   </div>
                 ) : (
-                  <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full h-9 rounded-full bg-primary hover:bg-primary/90">
+                  <Button onClick={() => startFromDashboard()} disabled={loading || !curDashTest} className="w-full h-9 lg:h-11 lg:text-base rounded-full bg-primary hover:bg-primary/90">
                     {loading ? t('loading') : <><Play className="w-4 h-4 mr-2" /> {practiceMode ? t('startPractice', { count: barCount }) : t('startTestN', { count: barCount })}</>}
                   </Button>
                 )}

@@ -75,13 +75,13 @@ export default function StartTestView({
     <div className="min-h-screen bg-background screen-enter" style={myBgStyle ? { background: testBackgroundCss(myBgStyle) } : undefined}>
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
         {/* FIXED h-14 — the uniform 56px top-panel contract (every page, every viewport). */}
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-3">
+        <div className="max-w-2xl lg:max-w-3xl mx-auto px-4 h-14 lg:h-16 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
           <h1 className="text-lg font-bold">{t('startTest')}</h1>
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 pt-8 pb-32">
+      <main className="max-w-2xl lg:max-w-3xl mx-auto px-4 pt-8 lg:pt-12 pb-32">
         <Card className="border-0 shadow-lg">
           <CardHeader className="text-center">
             <div className="mx-auto w-16 h-16 bg-cta rounded-2xl flex items-center justify-center mb-4 shadow-lg">
@@ -253,8 +253,9 @@ export default function StartTestView({
         </Card>
       </main>
 
-      {/* Bottom bar — fixed to the screen edge, never rises with content */}
-      <div className="fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
+      {/* Bottom bar — fixed to the screen edge on phones; a floating dock pill
+          on desktop (the desktop-dock class re-anchors it). */}
+      <div className="desktop-dock fixed inset-x-0 bottom-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
         <div
           className="max-w-2xl mx-auto px-4 pt-3"
           style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}

@@ -53,7 +53,7 @@ export function QuestionCard({
     // huge white void below the feed (position:absolute escapes the
     // feed's overflow clipping when no ancestor is positioned)
     <section data-qslide className="relative h-full w-full overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <div className="min-h-full flex flex-col px-4 py-4">
+      <div className="min-h-full flex flex-col px-4 py-4 lg:py-6 lg:pb-28">
         <div className="max-w-3xl w-full mx-auto my-auto">
           <Card className="rounded-4xl border border-black bg-white shadow-lg">
             <CardHeader>

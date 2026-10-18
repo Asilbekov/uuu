@@ -296,3 +296,66 @@
   height: 100%;
   width: 3.5rem;
 }
+
+/* ══ DESKTOP ADAPTATION (lg = 1024px+) ═══════════════════════════════════
+   The phone UI keeps every mobile pattern (bottom sheets, edge bars); on a
+   desktop the same elements follow desktop interface standards instead:
+   secondary windows are CENTERED FLOATING DIALOGS, bottom bars are FLOATING
+   DOCK PILLS, the library grid shows more, wider-spaced columns. All rules
+   live under the lg media query — phones are pixel-identical to before. */
+
+/* Library/shelf rows: minHeight per shelf row — 3 rows per screen on
+   phones/tablets, 4 from lg up, 5 on ≥1440px monitors. The class replaces
+   the old inline style so the per-breakpoint rhythm lives in CSS. */
+.grid-row-h {
+  min-height: max(calc(100% / 3), 20rem);
+}
+@media (min-width: 1024px) {
+  .grid-row-h {
+    min-height: max(calc(100% / 4), 19rem);
+  }
+}
+@media (min-width: 1440px) {
+  .grid-row-h {
+    min-height: max(calc(100% / 5), 18rem);
+  }
+}
+
+/* Bottom sheets (chat, AI tutor, files, edit, naming, register wall) become
+   centered modal dialogs: same panel, re-anchored to the middle of the
+   viewport, height capped for large monitors, fully rounded, floating on a
+   soft shadow. The transform is !important so it wins over the mobile
+   slide-in/slide-out animations — on desktop the dialog fades in place. */
+@media (min-width: 1024px) {
+  .desktop-dialog-panel {
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+    /* Solid desktop dialog width: capped, never edge-to-edge. Callers that
+       pass a narrower max-w keep it (max-width still wins over width). */
+    width: min(calc(100vw - 6rem), 56rem);
+    max-height: min(86dvh, 880px) !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+  /* The mobile grab bar is meaningless on a centered dialog. */
+  .desktop-dialog-panel .drag-handle {
+    display: none;
+  }
+
+  /* Bottom bars (dashboard Start, take-test drum, start-test Continue)
+     become floating centered dock pills above the bottom edge. */
+  .desktop-dock {
+    position: fixed;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(46rem, calc(100vw - 8rem));
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 1.625rem;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
+  }
+  .desktop-dock-wide {
+    width: min(64rem, calc(100vw - 8rem));
+  }
+}

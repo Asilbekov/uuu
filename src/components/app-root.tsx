@@ -1131,12 +1131,20 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   const dashView = useNavStore(s => s.dashView);
   const setDashView = useNavStore(s => s.setDashView);
   // Library grid: 2 cards per row on phones (full button names need the width),
-  // 3 per row from sm up — matches the Tailwind sm breakpoint (640px)
+  // 3 per row from sm up, 4 per row from lg up (desktop), 5 per row on ≥1440px
   const libNarrow = useDashboardStore(s => s.libNarrow);
   const setLibNarrow = useDashboardStore(s => s.setLibNarrow);
+  const setLibWide = useDashboardStore(s => s.setLibWide);
+  const setLibUltra = useDashboardStore(s => s.setLibUltra);
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 639px)');
-    const sync = () => setLibNarrow(mq.matches);
+    const mqWide = window.matchMedia('(min-width: 1024px)');
+    const mqUltra = window.matchMedia('(min-width: 1440px)');
+    const sync = () => {
+      setLibNarrow(mq.matches);
+      setLibWide(mqWide.matches);
+      setLibUltra(mqUltra.matches);
+    };
     sync();
     window.addEventListener('resize', sync);
     return () => window.removeEventListener('resize', sync);

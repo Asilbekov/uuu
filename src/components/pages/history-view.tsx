@@ -24,7 +24,7 @@ export default function HistoryView({ goHome }: HistoryViewProps) {
     <div className="min-h-screen bg-background screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
         {/* FIXED h-14 — the uniform 56px top-panel contract (every page, every viewport). */}
-        <div className="max-w-4xl mx-auto px-4 h-14 flex items-center gap-3">
+        <div className="max-w-4xl mx-auto px-4 h-14 lg:h-16 flex items-center gap-3">
           <Button variant="ghost" size="sm" onClick={goHome} className="rounded-full"><ArrowLeft className="w-4 h-4 mr-1" /> {t('back')}</Button>
           <h1 className="text-lg font-bold">{t('testHistory')}</h1>
         </div>

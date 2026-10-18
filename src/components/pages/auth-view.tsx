@@ -39,7 +39,7 @@ export default function AuthView({ handleAuth, onCancel }: AuthViewProps) {
   const t = React.useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4 screen-enter">
-      <Card className="w-full max-w-md rounded-4xl border border-black shadow-lg bg-white">
+      <Card className="w-full max-w-md lg:max-w-lg rounded-4xl border border-black shadow-lg bg-white">
         <CardHeader className="text-center pb-2">
           <div className="mx-auto w-16 h-16 bg-cta rounded-2xl flex items-center justify-center mb-4 shadow-lg">
             <FlaskConical className="w-8 h-8 text-white" />

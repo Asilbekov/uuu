@@ -93,9 +93,10 @@ export function TakeHeader({
   return (
     <header className="shrink-0 z-50 bg-white/80 backdrop-blur-md border-b">
       {/* FIXED h-14 — the uniform 56px top-panel contract (every page, every
-          viewport). The row and the progress bar share the 56px: 32px row +
-          4px gap + 8px bar = 44px, vertically centered. */}
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 h-14 flex flex-col justify-center gap-1">
+          viewport; 64px from lg up — the desktop header). The row and the
+          progress bar share the panel: 32px row + 4px gap + 8px bar = 44px,
+          vertically centered. */}
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 h-14 lg:h-16 flex flex-col justify-center gap-1">
         {/* ONE row on EVERY viewport (flex-nowrap): all buttons compress to
             icon-only pills on narrow screens so the panel never wraps onto
             a second row. Search is a BUTTON; tapping it expands an input

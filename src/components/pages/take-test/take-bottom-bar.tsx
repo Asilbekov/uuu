@@ -92,9 +92,9 @@ export function TakeBottomBar({
   };
 
   return (
-    <div className="shrink-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
+    <div className="desktop-dock desktop-dock-wide shrink-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
       <div
-        className="max-w-7xl mx-auto px-4 pt-2"
+        className="max-w-7xl mx-auto px-4 lg:px-6 pt-2 lg:pt-2.5"
         style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
       >
         <div className="flex items-center gap-2">
@@ -195,7 +195,7 @@ export function TakeBottomBar({
             <Button
               onClick={submitTest}
               disabled={loading || answeredCount < shuffledQuestions.length}
-              className="rounded-full bg-primary hover:bg-primary/90 shrink-0"
+              className="rounded-full bg-primary hover:bg-primary/90 shrink-0 h-9 lg:h-12 lg:px-7 lg:text-base"
             >
               {loading ? t('submitting') : t('submitTest')}
             </Button>

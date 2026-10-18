@@ -78,7 +78,7 @@ export default function ProfileView({
     <div className="min-h-screen bg-background flex flex-col screen-enter">
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
         {/* FIXED h-14 — the uniform 56px top-panel contract (every page, every viewport). */}
-        <div className="max-w-2xl mx-auto px-4 h-14 flex items-center gap-2">
+        <div className="max-w-2xl lg:max-w-3xl mx-auto px-4 h-14 lg:h-16 flex items-center gap-2">
           <Button
             variant="ghost"
             size="sm"
@@ -93,7 +93,7 @@ export default function ProfileView({
         </div>
       </header>
 
-      <main className="max-w-2xl w-full mx-auto px-4 py-6 sm:py-8 pb-32 space-y-5">
+      <main className="max-w-2xl lg:max-w-3xl w-full mx-auto px-4 py-6 sm:py-8 pb-32 space-y-5">
         {/* Photo + identity */}
         <Card className="rounded-4xl border border-black bg-white">
           <CardContent className="p-6 flex flex-col items-center text-center">
