@@ -13,12 +13,19 @@ import { tUI } from '@/lib/i18n';
  * AUTH PAGE — login / sign-up card. The form state lives in the session
  * store and is consumed here directly; app-root keeps handleAuth (it needs
  * the shared toast + session plumbing).
+ *
+ * GUEST FLOW: when an anonymous share-link visitor tapped "Sign up" on the
+ * registration wall, `onCancel` is provided — a link under the card that
+ * returns to the test they were taking (the session stays alive in the
+ * stores; nothing was lost).
  */
 export interface AuthViewProps {
   handleAuth: () => void;
+  /** Present only in the guest flow — cancels back to the running test. */
+  onCancel?: () => void;
 }
 
-export default function AuthView({ handleAuth }: AuthViewProps) {
+export default function AuthView({ handleAuth, onCancel }: AuthViewProps) {
   const authMode = useSessionStore(s => s.authMode);
   const setAuthMode = useSessionStore(s => s.setAuthMode);
   const name = useSessionStore(s => s.name);
@@ -70,6 +77,13 @@ export default function AuthView({ handleAuth }: AuthViewProps) {
               <>{t('haveAccount')} <button className="text-primary underline" onClick={() => setAuthMode('login')}>{t('signInLink')}</button></>
             )}
           </div>
+          {onCancel && (
+            <div className="text-center">
+              <button type="button" onClick={onCancel} className="text-sm text-muted-foreground underline hover:text-foreground transition-colors">
+                {t('cancel')}
+              </button>
+            </div>
+          )}
 
         </CardContent>
       </Card>

@@ -4,7 +4,10 @@
  * without circular imports. Runtime-free (types only).
  */
 
-export type Page = 'auth' | 'dashboard' | 'create-test' | 'edit-test' | 'start-test' | 'take-test' | 'history' | 'profile';
+// 'guest-boot' — the anonymous share-link landing: the visitor opened
+// ?test=<id> without a session; the app boots that one test into the taking
+// screen while this splash is up. Guests can reach NOTHING else.
+export type Page = 'auth' | 'dashboard' | 'create-test' | 'edit-test' | 'start-test' | 'take-test' | 'history' | 'profile' | 'guest-boot';
 
 export interface Question {
   id?: string;

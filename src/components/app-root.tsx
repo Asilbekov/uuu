@@ -16,6 +16,8 @@ import {
 } from '@/lib/feed-queries';
 import { migrateLocalToServer, readLegacyLang } from '@/lib/legacy-migrate';
 import { bindProgressFlush } from '@/lib/test-progress';
+import { getGuestTakeTestId, setGuestTakeTestId, readGuestSnapshot, writeGuestSnapshot, clearGuestSnapshot } from '@/lib/guest-take';
+import { GuestBootSplash, RegisterWallSheet } from '@/components/guest-flow';
 import { autoTranslateQuestions, QTranslationsV } from '@/lib/qtrans';
 import MathText from '@/components/math-text';
 import { Button } from '@/components/ui/button';
@@ -266,13 +268,25 @@ async function compressImage(file: File, maxSide = 1600, quality = 0.85): Promis
 // clearTestProgress / countAnsweredProgress) lives in src/lib/test-progress.ts
 // and is persisted in the DATABASE (SavedProgress table) — never on the device.
 
-function AppRootInner({ authed }: { authed: boolean }) {
+function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: string | null }) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const loading = useSessionStore(s => s.loading);
   const setLoading = useSessionStore(s => s.setLoading);
   const currentTest = useTakeStore(s => s.currentTest);
   const setCurrentTest = useTakeStore(s => s.setCurrentTest);
+  // GUEST share-link session (?test=<id> without a session): boot failure flag
+  // (dead link → the splash offers registration) and the registration-wall
+  // sheet over the taking screen ('home' | 'chat' | 'edit' — which surface
+  // the visitor tried to open; guests can reach nothing outside the test).
+  const [guestBootFailed, setGuestBootFailed] = useState(false);
+  const [registerWall, setRegisterWall] = useState<null | 'home' | 'chat' | 'edit'>(null);
+  // Fresh "is this an anonymous share-link visitor?" read — store-backed so
+  // handlers never trip over stale closures after login/registration.
+  const isGuestNow = () => {
+    const s = useSessionStore.getState();
+    return !(s.user || s.hydratedUser);
+  };
 
   // --- Personalized recommendation feed ("under the hood") ---
   // The dashboard looks exactly like before, but invisibly it is powered by
@@ -605,11 +619,18 @@ function AppRootInner({ authed }: { authed: boolean }) {
     void (async () => {
       const me = await api.getSession();
       if (!me?.id) {
-        // No live session (fresh visitor / expired token): land on the login
-        // screen. A stale cookie may have made the server pre-render the
-        // dashboard shell — the logout endpoint clears it for the next visit.
-        setPage('auth');
+        // No live session (fresh visitor / expired token). A stale cookie may
+        // have made the server pre-render the dashboard shell — the logout
+        // endpoint clears it for the next visit.
         if (authed) api.logout().catch(() => {});
+        // GUEST SHARE LINK (?test=<id> without a session): boot THAT test
+        // straight into the taking screen — the visitor takes the test and
+        // reaches nothing else. No login card flash.
+        if (guestTest) {
+          await bootGuestTest(guestTest);
+          return;
+        }
+        setPage('auth');
         setDataReady(true);
         return;
       }
@@ -1258,7 +1279,15 @@ function AppRootInner({ authed }: { authed: boolean }) {
       ]);
       setAttempts(userAttempts);
       setDataReady(true);
-      setPage('dashboard');
+      // GUEST continuation: a share-link visitor just registered / logged in —
+      // drop them straight back into the test at the exact saved position
+      // (the local snapshot migrates into the account) instead of the dashboard.
+      const guestId = getGuestTakeTestId();
+      if (guestId) {
+        await resumeGuestTake(result, guestId);
+      } else {
+        setPage('dashboard');
+      }
       if (authMode === 'signup') {
         toast({ title: t('accountCreated'), description: t('welcomeBack') });
       } else {
@@ -1835,6 +1864,110 @@ function AppRootInner({ authed }: { authed: boolean }) {
   };
 
   // --- TEST TAKING ---
+
+  // ── GUEST TAKE (anonymous share-link visitors) ───────────────────────────
+  // A visitor without a session who opens ?test=<id> takes the test right on
+  // the taking screen — the first question up, no start page, no account.
+  // Progress snapshots live in LOCALSTORAGE (guest-take.ts) until the visitor
+  // registers; then they migrate into the account and the taking screen
+  // resumes at the exact saved position.
+  const startGuestTake = (full: Test) => {
+    let qList = [...full.questions];
+    if (full.randomizeQuestions !== false) qList = shuffleArray(qList);
+    if (full.randomizeOptions !== false) qList = qList.map(q => shuffleOptions(q));
+    setCurrentTest(full);
+    setShuffledQuestions(qList);
+    setCurrentQuestionIdx(0);
+    setAnswers({});
+    setShowResult(false);
+    setRevealedAnswers({});
+    setExplanations({});
+    setPracticeMode(false);
+    setCurrentAttempt(null); // guests have no server-side attempt
+    setSelectedQuestionCount(qList.length);
+    setFilesOpen(false); setGroupOpen(false); setEditOpen(false); setChatOpen(false);
+    setQSearch(''); setQSearchOpen(false);
+    setGuestTakeTestId(full.id);
+    setPage('take-test');
+  };
+
+  // Restore a guest session from the LOCAL snapshot (reload / returning link):
+  // merge fresh translations from the DB copy like continueTestWith does —
+  // WITHOUT touching the shuffled option order or the carried answers.
+  const applyGuestSnapshot = (full: Test, saved: SavedTestProgress) => {
+    const freshById = new Map(full.questions.map(q => [q.id, q]));
+    const qList = saved.shuffledQuestions.map(q => {
+      const fresh = q.id ? freshById.get(q.id) : undefined;
+      if (!fresh) return q;
+      return {
+        ...q,
+        explanation: q.explanation ?? fresh.explanation ?? null,
+        translations: { ...(fresh.translations || {}), ...(q.translations || {}) },
+      };
+    });
+    setCurrentTest(full);
+    setShuffledQuestions(qList);
+    setCurrentQuestionIdx(Math.min(Math.max(0, saved.currentQuestionIdx || 0), qList.length - 1));
+    setAnswers(saved.answers || {});
+    setPracticeMode(!!saved.practiceMode);
+    setRevealedAnswers(saved.revealedAnswers || {});
+    setExplanations({});
+    setShowResult(false);
+    setCurrentAttempt(null);
+    setSelectedQuestionCount(qList.length);
+    setFilesOpen(false); setGroupOpen(false); setEditOpen(false); setChatOpen(false);
+    setQSearch(''); setQSearchOpen(false);
+    setGuestTakeTestId(full.id);
+    setPage('take-test');
+  };
+
+  // Boot the guest session: fetch the test (public endpoint), resume the
+  // local snapshot when there is one, otherwise start fresh. A dead link
+  // leaves the splash up with the registration way in.
+  const bootGuestTest = async (id: string) => {
+    try {
+      const full = await api.getTest(id);
+      if (!full || !Array.isArray(full.questions) || full.questions.length === 0) throw new Error('not found');
+      const saved = readGuestSnapshot(id);
+      if (saved) applyGuestSnapshot(full, saved);
+      else startGuestTake(full);
+    } catch {
+      setGuestBootFailed(true);
+    }
+    setDataReady(true);
+  };
+
+  // AFTER AUTH: migrate the guest snapshot into the account (DB + cache) and
+  // restore the taking screen at the exact saved position — "continue from
+  // where you stopped". The attempt is (re)created server-side so History
+  // reflects the session too.
+  const resumeGuestTake = async (user: { id: string }, testId: string) => {
+    try {
+      const full = await api.getTest(testId);
+      const saved = readGuestSnapshot(testId);
+      if (saved) {
+        // Seed the account's progress cache + DB first, then restore in place.
+        writeTestProgress(user.id, saved);
+        api.saveProgress(testId, saved).catch(() => {});
+        await continueTestWith(full, saved);
+      } else {
+        // Nothing to restore — hand the fresh account a normal start of the
+        // same test (creates the attempt through the usual path).
+        const totalQ = full.questions.length;
+        setSelectedQuestionCount(totalQ);
+        setStartRandomizeQ(full.randomizeQuestions !== false);
+        setStartRandomizeO(full.randomizeOptions !== false);
+        setCurrentTest(full);
+        await startTestWith(full, totalQ);
+      }
+      clearGuestSnapshot(testId);
+      setGuestTakeTestId(null);
+    } catch (e: any) {
+      toast({ title: t('error'), description: e?.message, variant: 'destructive' });
+      setPage('dashboard');
+    }
+  };
+
   const openStartTest = async (test: Test) => {
     setLoading(true);
     try {
@@ -1871,8 +2004,11 @@ function AppRootInner({ authed }: { authed: boolean }) {
       // Slice to selected count
       qList = qList.slice(0, count);
 
-      // Create attempt with the actual number of questions being answered
-      const attempt: any = await api.createAttempt(test.id, count);
+      // Create attempt with the actual number of questions being answered.
+      // GUESTS (share-link visitors without a session) skip the server attempt
+      // entirely: the run is graded locally on submit and mirrored to History
+      // only after they register.
+      const attempt: any = isGuestNow() ? null : await api.createAttempt(test.id, count);
       setCurrentAttempt(attempt);
       // The attempt shows up in History immediately (in-progress badge) —
       // the store is patched locally, no reload needed to "see it worked".
@@ -1951,9 +2087,10 @@ function AppRootInner({ authed }: { authed: boolean }) {
   // Resume a saved attempt: restore the exact shuffled order, answers, practice
   // reveals and position, and reuse the original attempt so history stays clean.
   // Returns true when there was progress to resume. The snapshot comes from
-  // the DATABASE (async), so this is async too.
-  const continueTestWith = async (test: Test): Promise<boolean> => {
-    const saved = await readTestProgress(progressUserId, test.id);
+  // the DATABASE (async), so this is async too — or pass `injected` to restore
+  // from an already-in-hand snapshot (the guest→account migration path).
+  const continueTestWith = async (test: Test, injected?: SavedTestProgress): Promise<boolean> => {
+    const saved = injected || await readTestProgress(progressUserId, test.id);
     if (!saved) return false;
     // The snapshot may predate stored translations (e.g. the session was saved
     // before a translation update). Merge fresh translation/explanation data
@@ -2004,10 +2141,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
   // Persist take-test progress (debounced 400ms): position, answers, practice
   // reveals and the exact shuffled order — everything needed to continue later.
+  // Logged-in users → the DATABASE (SavedProgress); guests (share-link
+  // visitors) → LOCALSTORAGE until they register (then migrated into the DB).
   useEffect(() => {
     if (effectivePage !== 'take-test' || showResult || !currentTest || shuffledQuestions.length === 0) return;
     const t = setTimeout(() => {
-      writeTestProgress(progressUserId, {
+      const snapshot: SavedTestProgress = {
         v: 1,
         testId: currentTest.id,
         savedAt: Date.now(),
@@ -2017,7 +2156,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
         practiceMode,
         revealedAnswers,
         shuffledQuestions,
-      });
+      };
+      if (isGuestNow()) writeGuestSnapshot(snapshot);
+      else writeTestProgress(progressUserId, snapshot);
     }, 400);
     return () => clearTimeout(t);
   }, [effectivePage, showResult, currentTest, currentAttempt, currentQuestionIdx, answers, practiceMode, revealedAnswers, shuffledQuestions, progressUserId]);
@@ -2420,7 +2561,19 @@ function AppRootInner({ authed }: { authed: boolean }) {
   };
 
   const submitTest = async () => {
-    if (!currentAttempt || !currentTest) return;
+    if (!currentTest) return;
+
+    // GUEST submit (share-link visitor, no server attempt): grade locally and
+    // show the results screen — no History write (there is no account yet).
+    // The finished run's local snapshot is dropped.
+    if (!currentAttempt) {
+      if (!isGuestNow()) return;
+      clearGuestSnapshot(currentTest.id);
+      setGuestTakeTestId(null);
+      setShowResult(true);
+      toast({ title: t('testCompleted'), description: t('answersSubmitted') });
+      return;
+    }
 
     const answerData = shuffledQuestions.map(q => {
       const selected = answers[q.id || ''] || '';
@@ -2490,11 +2643,30 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
   // =================== RENDER ===================
 
-  // AUTH PAGE (view extracted to src/components/pages/auth-view.tsx)
+  // GUEST BOOT (?test=<id> without a session): splash while the linked test
+  // loads; on a dead link it shows the message and the registration way in.
+  if (effectivePage === 'guest-boot') {
+    return (
+      <GuestBootSplash
+        failed={guestBootFailed}
+        onAuth={() => {
+          setGuestBootFailed(false);
+          useSessionStore.getState().setAuthMode('signup');
+          setPage('auth');
+        }}
+      />
+    );
+  }
+
+  // AUTH PAGE (view extracted to src/components/pages/auth-view.tsx).
+  // In the guest flow the card grows a Cancel link back to the test — the
+  // taking session is still alive in the stores and localStorage.
   if (effectivePage === 'auth') {
+    const guestPending = mounted && !!getGuestTakeTestId() && shuffledQuestions.length > 0;
     return (
       <AuthView
         handleAuth={handleAuth}
+        onCancel={guestPending ? () => setPage('take-test') : undefined}
       />
     );
   }
@@ -3360,27 +3532,56 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
   // TAKE TEST + RESULTS (view extracted to src/components/pages/take-test-view.tsx)
   if (effectivePage === 'take-test' && shuffledQuestions.length > 0) {
+    // GUEST GATE: an anonymous share-link visitor takes the test and reaches
+    // NOTHING else. Home (library/dashboard), the AI tutor, the test chat,
+    // another author's library and the editor all open the registration wall
+    // instead — a bottom sheet that looks exactly like the chat windows.
+    // Retrying stays free (same test, still taking scope). Every guard reads
+    // the session store fresh (isGuestNow) — no stale closures after login.
+    const wall = (ctx: 'home' | 'chat' | 'edit') => { setRegisterWall(ctx); };
     return (
-      <TakeTestView
-        goHome={goHome}
-        openChat={openChat}
-        closeChat={closeChat}
-        openGroupChat={openGroupChat}
-        closeGroupChat={closeGroupChat}
-        selectChatThread={selectChatThread}
-        sendChatMessage={sendChatMessage}
-        sendGroupMessage={sendGroupMessage}
-        openUserLibrary={openUserLibrary}
-        startEditTestInTake={startEditTestInTake}
-        selectAnswer={selectAnswer}
-        submitTest={submitTest}
-        openStartTest={openStartTest}
-        handleSaveTest={handleSaveTest}
-        cycleDashView={cycleDashView}
-        editorBody={editorBody}
-        chatEndRef={chatEndRef}
-        groupEndRef={groupEndRef}
-      />
+      <>
+        <TakeTestView
+          goHome={() => { if (isGuestNow()) return wall('home'); goHome(); }}
+          openChat={(questionId, userAnswer, opts) => { if (isGuestNow()) return wall('chat'); openChat(questionId, userAnswer, opts); }}
+          closeChat={closeChat}
+          openGroupChat={() => { if (isGuestNow()) return wall('chat'); openGroupChat(); }}
+          closeGroupChat={closeGroupChat}
+          selectChatThread={selectChatThread}
+          sendChatMessage={sendChatMessage}
+          sendGroupMessage={sendGroupMessage}
+          openUserLibrary={(u) => { if (isGuestNow()) return wall('home'); openUserLibrary(u); }}
+          startEditTestInTake={() => { if (isGuestNow()) return wall('edit'); startEditTestInTake(); }}
+          selectAnswer={selectAnswer}
+          submitTest={submitTest}
+          openStartTest={(test) => {
+            if (isGuestNow()) {
+              // Guests skip the start page: Retry restarts THIS test in place.
+              if (test && currentTest && test.id === currentTest.id) startGuestTake(test);
+              else wall('home');
+              return;
+            }
+            void openStartTest(test);
+          }}
+          handleSaveTest={handleSaveTest}
+          cycleDashView={cycleDashView}
+          editorBody={editorBody}
+          chatEndRef={chatEndRef}
+          groupEndRef={groupEndRef}
+        />
+        <RegisterWallSheet
+          open={registerWall !== null}
+          context={registerWall || 'home'}
+          onClose={() => setRegisterWall(null)}
+          onRegister={() => {
+            setRegisterWall(null);
+            // The taking session (stores + localStorage snapshot) survives the
+            // detour; handleAuth resumes it at the saved position.
+            useSessionStore.getState().setAuthMode('signup');
+            setPage('auth');
+          }}
+        />
+      </>
     );
   }
 
@@ -3399,7 +3600,7 @@ function AppRootInner({ authed }: { authed: boolean }) {
 // src/lib/feed-queries.ts). The lazy useState keeps the client per-mount and
 // never blocks the server-rendered first paint.
 // ---------------------------------------------------------------------------
-function AppRoot({ authed }: { authed: boolean }) {
+function AppRoot({ authed, guestTest }: { authed: boolean; guestTest?: string | null }) {
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {
@@ -3408,18 +3609,20 @@ function AppRoot({ authed }: { authed: boolean }) {
       },
     },
   }));
-  // SSR parity seed: the auth cookie decides the landing page server-side.
-  // The useState initializer runs on EVERY server render (fresh per request)
-  // and once per client mount — always BEFORE AppRootInner takes its first
-  // store snapshot, so the server HTML and the first client frame agree and
-  // no cross-request state can leak between SSR renders.
+  // SSR parity seed: the auth cookie decides the landing page server-side —
+  // and a no-cookie visitor with ?test=<id> lands on the GUEST BOOT splash
+  // (that one test only), never on the login card. The useState initializer
+  // runs on EVERY server render (fresh per request) and once per client
+  // mount — always BEFORE AppRootInner takes its first store snapshot, so
+  // the server HTML and the first client frame agree and no cross-request
+  // state can leak between SSR renders.
   useState(() => {
-    useNavStore.setState({ page: authed ? 'dashboard' : 'auth' });
+    useNavStore.setState({ page: authed ? 'dashboard' : (guestTest ? 'guest-boot' : 'auth') });
     return 0;
   });
   return (
     <QueryClientProvider client={queryClient}>
-      <AppRootInner authed={authed} />
+      <AppRootInner authed={authed} guestTest={guestTest} />
     </QueryClientProvider>
   );
 }
