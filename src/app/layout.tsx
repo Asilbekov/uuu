@@ -11,10 +11,10 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "ChemTest - Chemistry Test Platform",
-  description: "Create, take, and track chemistry tests with randomized questions and answer variants.",
-  keywords: ["chemistry", "test", "quiz", "education", "science"],
-  authors: [{ name: "ChemTest" }],
+  title: "uuu — платформа тестов",
+  description: "Создавай тесты, делись версиями и расти: личная и общая библиотека, дерево версий, материалы и ИИ-репетитор — в одном месте.",
+  keywords: ["тесты", "quiz", "education", "uuu", "библиотека знаний", "версии"],
+  authors: [{ name: "uuu" }],
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
   },

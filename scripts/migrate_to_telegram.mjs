@@ -1,6 +1,6 @@
 /**
  * One-shot migration: move every course file from "our storage"
- * (raw.githubusercontent.com/Asilbekov/uuu/... + uuu-sage-five.vercel.app/*.pdf)
+ * (raw.githubusercontent.com/Asilbekov/uuu/... + uuu.vercel.app/*.pdf)
  * INTO the owner's Telegram channel via the Bot API, exactly like fresh
  * uploads do. Attachment.url is rewritten to the lightweight `tg:<file_id>`
  * reference; the DB keeps no bytes. Pure external links (ted.com, bbc.co.uk)

@@ -2,6 +2,9 @@
  * Unified AI client for the app (chat tutor + explanation generator).
  *
  * Provider chain, tried in order until one answers:
+ *   0. Z.ai GLM (open.z.ai platform)   — when ZAI_API_KEY is configured.
+ *      GLM-4.5-Flash: fast, multilingual (RU/EN/UZ), OpenAI-compatible REST.
+ *      THE DEFAULT tutor engine.
  *   1. Gemini (Google AI Studio API)   — when GEMINI_API_KEY is configured.
  *      This is the same model family that powers "AI Mode" in Google Search.
  *   2. Google AI Mode (direct scrape)  — a no-key best-effort client that asks
@@ -12,17 +15,19 @@
  *      fails fast — a circuit breaker skips it for a while after failures.
  *   3. Mistral                          — always-available fallback.
  *
- * Providers 1 and 3 speak the Vercel AI SDK (github.com/vercel/ai — the
- * standard LLM runtime for Next.js backends): one `generateText` call per
- * provider through the official @ai-sdk/google / @ai-sdk/mistral adapters,
- * which own request marshalling, timeouts and typed API errors. The hand-
- * rolled REST clients are gone; what stays here is only the chain policy and
- * the AI Mode scraper (no SDK exists for scraping). All providers speak the
- * same message array, so the routes stay unchanged apart from the import.
+ * Providers 0/1/3: 0 speaks plain REST (OpenAI-compatible), 1 and 3 speak the
+ * Vercel AI SDK (github.com/vercel/ai — the standard LLM runtime for Next.js
+ * backends) through the official @ai-sdk/google / @ai-sdk/mistral adapters.
+ * All providers speak the same message array, so the routes stay unchanged.
  */
 import { generateText, type ModelMessage } from 'ai';
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { createMistral } from '@ai-sdk/mistral';
+
+const ZAI_API_KEY = process.env.ZAI_API_KEY || '';
+const ZAI_MODEL = process.env.ZAI_MODEL || 'glm-4.5-flash';
+const ZAI_BASE = (process.env.ZAI_BASE_URL || 'https://api.z.ai/api/paas/v4').replace(/\/$/, '');
+const ZAI_TIMEOUT_MS = 30_000;
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
@@ -86,6 +91,52 @@ function toSdkMessages(options: ChatCompletionOptions): {
     .filter(m => m.role !== 'system')
     .map(m => ({ role: m.role, content: m.content }) as ModelMessage);
   return system ? { system, messages } : { messages };
+}
+
+/* ------------------------------------------------------------------ */
+/* Provider 0 — Z.ai GLM (glm-4.5-flash) via OpenAI-compatible REST    */
+/* ------------------------------------------------------------------ */
+
+async function zaiChat(options: ChatCompletionOptions): Promise<string> {
+  if (!ZAI_API_KEY) throw new Error('ZAI_NOT_CONFIGURED');
+  try {
+    const res = await fetch(`${ZAI_BASE}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${ZAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: options.model || ZAI_MODEL,
+        messages: options.messages,
+        temperature: options.temperature ?? 0.5,
+        max_tokens: options.max_tokens ?? 1600,
+        // thinking is ON by default for glm-4.5 — the tutor needs snappy
+        // replies, not a hidden reasoning pass.
+        thinking: { type: 'disabled' },
+      }),
+      signal: AbortSignal.timeout(ZAI_TIMEOUT_MS),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => '');
+      const mapped = new Error(`ZAI_API_ERROR: ${res.status} ${body.slice(0, 300)} (HTTP ${res.status})`);
+      if (res.status === 429) {
+        (mapped as any).statusCode = 429;
+        mapped.message = `ZAI_API_ERROR: HTTP 429: Too many requests`;
+      }
+      throw mapped;
+    }
+    const data = await res.json();
+    const text: string = data?.choices?.[0]?.message?.content || '';
+    if (!text.trim()) throw new Error('ZAI_API_ERROR: empty completion (no response)');
+    return text;
+  } catch (e: any) {
+    if (e?.message?.startsWith('ZAI_API_ERROR')) throw e;
+    if (e?.name === 'TimeoutError' || /timeout/i.test(e?.message || '')) {
+      throw new Error('ZAI_API_ERROR: timeout (no response)');
+    }
+    throw new Error(`ZAI_API_ERROR: ${e?.message || e} (no response)`);
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -267,7 +318,7 @@ async function googleAiModeChat(options: ChatCompletionOptions): Promise<string>
 /* Chain                                                               */
 /* ------------------------------------------------------------------ */
 
-export type AiEngine = 'gemini' | 'google-ai-mode' | 'mistral';
+export type AiEngine = 'zai' | 'gemini' | 'google-ai-mode' | 'mistral';
 
 /**
  * Run the chat through the provider chain. Returns the answer text.
@@ -275,6 +326,16 @@ export type AiEngine = 'gemini' | 'google-ai-mode' | 'mistral';
  */
 export async function aiChat(options: ChatCompletionOptions): Promise<{ text: string; engine: AiEngine }> {
   const errors: string[] = [];
+
+  // 0. Z.ai GLM-4.5-Flash — the default tutor engine (fast, RU-native).
+  if (ZAI_API_KEY) {
+    try {
+      const text = await zaiChat(options);
+      if (text.trim()) return { text, engine: 'zai' };
+    } catch (e: any) {
+      errors.push(`zai: ${e?.message || e}`);
+    }
+  }
 
   // 1. Gemini — the reliable "Google AI" path when a key is present.
   if (GEMINI_API_KEY) {
@@ -302,6 +363,8 @@ export async function aiChat(options: ChatCompletionOptions): Promise<{ text: st
 /** Small status probe used by /api/ai/status for deployment diagnostics. */
 export function aiStatus() {
   return {
+    zai: !!ZAI_API_KEY,
+    zaiModel: ZAI_API_KEY ? ZAI_MODEL : null,
     gemini: !!GEMINI_API_KEY,
     geminiModel: GEMINI_API_KEY ? GEMINI_MODEL : null,
     aiModeBreakerOpen: Date.now() < aiModeBlockedUntil,
