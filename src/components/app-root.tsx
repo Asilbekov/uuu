@@ -1717,8 +1717,13 @@ function AppRootInner({ authed }: { authed: boolean }) {
           const wasOnResults = showResult;
           if (!wasOnResults) {
             // Fresh open attempt for the recreated questions
-            const attempt = await api.createAttempt(full.id, count);
+            const attempt: any = await api.createAttempt(full.id, count);
             setCurrentAttempt(attempt);
+            // History mirrors the fresh attempt at once (in-progress badge)
+            if (attempt?.id) setAttempts(prev => [
+              { ...attempt, test: { id: full.id, title: full.title, topic: (full as any).topic || '' } } as Attempt,
+              ...prev.filter(a => a.id !== attempt.id),
+            ]);
           }
           setCurrentTest(full);
           setShuffledQuestions(qList);
@@ -1820,6 +1825,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
       if (bm?.ids?.includes(id)) {
         patchScope(queryClient, BOOKMARKS_KEY, { setBookmarks: new Set(bm.ids.filter(x => x !== id)) });
       }
+      // The DB cascade removed the deleted test's attempts — mirror it in
+      // the History store so its rows do not linger until a reload.
+      setAttempts(prev => prev.filter(a => a.testId !== id));
     } catch (e: any) {
       toast({ title: t('error'), description: e.message, variant: 'destructive' });
     }
@@ -1864,8 +1872,14 @@ function AppRootInner({ authed }: { authed: boolean }) {
       qList = qList.slice(0, count);
 
       // Create attempt with the actual number of questions being answered
-      const attempt = await api.createAttempt(test.id, count);
+      const attempt: any = await api.createAttempt(test.id, count);
       setCurrentAttempt(attempt);
+      // The attempt shows up in History immediately (in-progress badge) —
+      // the store is patched locally, no reload needed to "see it worked".
+      if (attempt?.id) setAttempts(prev => [
+        { ...attempt, test: { id: test.id, title: test.title, topic: (test as any).topic || '' } } as Attempt,
+        ...prev.filter(a => a.id !== attempt.id),
+      ]);
       setShuffledQuestions(qList);
       setCurrentQuestionIdx(0);
       setAnswers({});
@@ -1970,7 +1984,14 @@ function AppRootInner({ authed }: { authed: boolean }) {
       setCurrentAttempt(saved.attempt);
     } else {
       // Attempt object missing (old/corrupted save) — open a new one, same count
-      api.createAttempt(test.id, qList.length).then(setCurrentAttempt).catch(() => {});
+      api.createAttempt(test.id, qList.length).then((att: any) => {
+        setCurrentAttempt(att);
+        // History mirrors the fresh attempt at once (in-progress badge)
+        if (att?.id) setAttempts(prev => [
+          { ...att, test: { id: test.id, title: test.title, topic: (test as any).topic || '' } } as Attempt,
+          ...prev.filter(a => a.id !== att.id),
+        ]);
+      }).catch(() => {});
     }
     setFilesOpen(false);
     setChatOpen(false);
@@ -2412,9 +2433,26 @@ function AppRootInner({ authed }: { authed: boolean }) {
 
     setLoading(true);
     try {
-      await api.updateAttempt(currentAttempt.id, {
+      const saved: any = await api.updateAttempt(currentAttempt.id, {
         answers: answerData,
         completed: true,
+      });
+      // History shows the finished attempt the moment it is opened — the
+      // store is patched from the SAME server response (the score was graded
+      // server-side), no reload, no refetch.
+      const finished: Attempt = saved?.id ? saved : {
+        ...(currentAttempt as any),
+        score: answerData.filter(a => a.isCorrect).length,
+        totalQuestions: answerData.length,
+        completed: true,
+        completedAt: new Date().toISOString(),
+      };
+      setAttempts(prev => {
+        const i = prev.findIndex(a => a.id === finished.id);
+        if (i < 0) return [finished, ...prev];
+        const next = [...prev];
+        next[i] = { ...next[i], ...finished };
+        return next;
       });
       // Attempt submitted — the saved "continue" progress is no longer needed
       clearTestProgress(progressUserId, currentTest.id);
@@ -2731,8 +2769,9 @@ function AppRootInner({ authed }: { authed: boolean }) {
     // and the foreign list can never merge into it (different query keys).
   };
 
-  // Bookmark toggle (the bookmark button lives on the cards in Discover mode):
-  // bookmarked tests join the user's personal library next to their own tests.
+  // Bookmark toggle (the bookmark button lives on the cards in Discover mode
+  // and on foreign cards): bookmarked tests join the user's personal library
+  // next to their own tests.
   const toggleBookmark = async (test: Test) => {
     const has = bookmarkIds.has(test.id);
     const prevIds = bookmarkIds;
@@ -2743,16 +2782,38 @@ function AppRootInner({ authed }: { authed: boolean }) {
     // the user (the original "карточка меняется через секунду" bug) — and
     // with isolated keys it could even glue foreign cards into this list.
     patchScope(queryClient, BOOKMARKS_KEY, { setBookmarks: nextIds });
-    // A removed bookmark drops out of the personal library immediately —
-    // as a LOCAL removal (deliberate user action), never as a feed reload.
-    if (has && !navNow().discoverMode && !navNow().filesFeedMode && !viewingUser?.id) {
+    // The personal library is its OWN isolated query key ('mine'): patching
+    // it from ANY mode (Discover, someone else's library, the files feed)
+    // never disturbs the list on screen — it only keeps the library cache
+    // truthful for the moment the user returns to it. This is what makes
+    // «закрепил в общей библиотеке → вернулся → карточка тут же» work with
+    // no reload: the feed loads once per session and is afterwards ONLY
+    // patched locally, so a bookmark that only touched the id set would
+    // otherwise stay invisible until the next F5.
+    const mineNow = queryClient.getQueryData(feedKey('mine')) as { pages?: { items?: Test[] }[] } | undefined;
+    const wasInMine = !!mineNow?.pages?.some(p => (p.items || []).some(x => x.id === test.id));
+    if (has) {
+      // Un-bookmarked → the card leaves the personal library NOW (every mode).
       patchScope(queryClient, feedKey('mine'), { removeId: test.id });
+    } else if (mineNow) {
+      // Bookmarked → the card JOINS the personal library cache at once, on
+      // top. Returning from Discover / a foreign library shows it instantly.
+      patchScope(queryClient, feedKey('mine'), { prepend: [test] });
     }
     try {
       if (has) await api.removeBookmark(test.id); else await api.addBookmark(test.id);
       toast({ title: has ? t('bookmarkRemoved') : t('bookmarkAdded') });
     } catch (e: any) {
       patchScope(queryClient, BOOKMARKS_KEY, { setBookmarks: prevIds }); // revert
+      // Revert the library patch too — restore what the cache held before.
+      if (has) {
+        if (queryClient.getQueryData(feedKey('mine'))) {
+          patchScope(queryClient, feedKey('mine'), { prepend: [test] });
+        }
+      } else if (mineNow && !wasInMine) {
+        // Clean revert: the card was never in the library before our patch.
+        patchScope(queryClient, feedKey('mine'), { removeId: test.id });
+      }
       toast({ title: t('error'), description: e.message, variant: 'destructive' });
     }
   };
