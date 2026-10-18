@@ -101,6 +101,11 @@ export const api = {
   copyTest: (id: string) =>
     apiFetch(`/tests/${id}/copy`, { method: 'POST' }),
 
+  // The naming dialog: give the test its version name (first save / first
+  // share-by-link). Touches only the versionName column — no gates.
+  setVersionName: (id: string, versionName: string) =>
+    apiFetch(`/tests/${id}/version-name`, { method: 'POST', body: JSON.stringify({ versionName }) }),
+
   // Version tree: the whole family of a test (trunk + branches), each node
   // with its creator — the "apples" of the tree view are the creators
   getTestTree: (id: string) =>

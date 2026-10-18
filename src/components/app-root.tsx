@@ -119,7 +119,10 @@ import {
   Camera,
   LogOut,
   TreeDeciduous,
+  Ban,
+  GitBranch,
 } from 'lucide-react';
+import { VersionNameSheet } from '@/components/version-name-sheet';
 const PhotoshopColorPicker = dynamic(() => import('@/components/color-picker').then(m => m.PhotoshopColorPicker), { ssr: false });
 import type { Page, Question, Attachment, Test, GroupMessage, Attempt } from '@/lib/app-types';
 import { testBackgroundCss } from '@/lib/test-bg';
@@ -349,6 +352,17 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   // below would break the rules of hooks (the auth screen renders a shorter
   // hook sequence).
   const [gateDialogTest, setGateDialogTest] = useState<{ id: string; title: string } | null>(null);
+  // The version-naming gate: the FIRST save of an existing test / the FIRST
+  // share-by-link of a personal test opens the chat-style naming sheet before
+  // the action proceeds. Holds the action context while the sheet is open.
+  const [versionNameGate, setVersionNameGate] = useState<
+    null | { mode: 'save' | 'share'; testId: string; title: string; fromTake?: boolean }
+  >(null);
+  const [versionNameValue, setVersionNameValue] = useState('');
+  const [versionNameBusy, setVersionNameBusy] = useState(false);
+  // Throttle for the "color already taken" toast — the picker fires onChange
+  // continuously while the user drags across the SV square.
+  const lastColorToastAt = useRef(0);
   // Another user's library (opened from their profile photo or a chat avatar):
   // the dashboard shows THEIR public tests; every card carries their name and
   // photo; the header back arrow returns to the viewer's own feed.
@@ -477,6 +491,10 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   const setQuestions = useEditorStore(s => s.setQuestions);
   const editingTestId = useEditorStore(s => s.editingTestId);
   const setEditingTestId = useEditorStore(s => s.setEditingTestId);
+  // The bound test's version name — null = not named yet → the naming dialog
+  // must appear before the first save / the first share-by-link.
+  const editingVersionName = useEditorStore(s => s.editingVersionName);
+  const setEditingVersionName = useEditorStore(s => s.setEditingVersionName);
   // Dashboard "Edit Test" mode: when ON, clicking a test opens it in the editor
   const editMode = useEditorStore(s => s.editMode);
   const setEditMode = useEditorStore(s => s.setEditMode);
@@ -1483,6 +1501,9 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       setTestTags(fullTest.tags || []);
       setTestCoverIcon(fullTest.coverIcon || '');
       setTestCoverColor(fullTest.coverColor || '');
+      // null = the version was never named → the naming dialog appears on
+      // the first save of this test
+      setEditingVersionName((fullTest as any).versionName || null);
       setRandomizeQ(fullTest.randomizeQuestions);
       setRandomizeO(fullTest.randomizeOptions);
       setTestIsPublic(fullTest.isPublic !== false);
@@ -1546,6 +1567,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
           setTestTags(copy.tags || []);
           setTestCoverIcon(copy.coverIcon || '');
           setTestCoverColor(copy.coverColor || '');
+          setEditingVersionName((copy as any).versionName || null);
           setRandomizeQ(!!copy.randomizeQuestions);
           setRandomizeO(!!copy.randomizeOptions);
           setTestIsPublic(copy.isPublic !== false);
@@ -1590,6 +1612,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     setTestTags(currentTest.tags || []);
     setTestCoverIcon(currentTest.coverIcon || '');
     setTestCoverColor(currentTest.coverColor || '');
+    setEditingVersionName((currentTest as any).versionName || null);
     setRandomizeQ(!!currentTest.randomizeQuestions);
     setRandomizeO(!!currentTest.randomizeOptions);
     setTestIsPublic(currentTest.isPublic !== false);
@@ -1657,6 +1680,20 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       return;
     }
 
+    // VERSION-NAME GATE: creating a version starts with a NAME. The first
+    // save of an existing test opens the chat-style naming sheet first —
+    // the save itself continues from the sheet's confirm button.
+    if (editingTestId && !editingVersionName) {
+      setVersionNameValue(testTitle);
+      setVersionNameGate({ mode: 'save', testId: editingTestId, title: testTitle, fromTake });
+      return;
+    }
+    await performSaveTest(fromTake);
+  };
+
+  // The save itself — runs after the naming gate (when one was required).
+  // versionName rides along in the PUT payload when the sheet provided it.
+  const performSaveTest = async (fromTake = false, versionName?: string) => {
     setLoading(true);
     try {
       const data = {
@@ -1671,6 +1708,8 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
         isPublic: testIsPublic,
         randomizeQuestions: randomizeQ,
         randomizeOptions: randomizeO,
+        // The version's own name from the naming sheet (first save only)
+        ...(versionName ? { versionName } : {}),
         questions: questions.map((q, i) => ({
           text: q.text,
           optionA: q.optionA,
@@ -1702,6 +1741,9 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
         const updated: any = await api.updateTest(editingTestId, data);
         toast({ title: t('testUpdated'), description: t('testUpdatedDesc') });
         if (updated?.id) mirrorSavedTest(updated as Test);
+        // The version is named now — further saves in this session skip the
+        // naming sheet.
+        if (versionName) setEditingVersionName(versionName);
         if (fromTake) {
           // Saved from the take-test / results "Edit Test" sheet: rebuild the
           // session in place from the SAME payload (no second GET). Editing
@@ -2698,7 +2740,63 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   };
 
   const doShareLink = async (test: Test) => {
+    // VERSION-NAME GATE (share): the FIRST share-by-link of a personal test
+    // asks for the version name first — the chat-style naming sheet opens;
+    // the link is copied after the name is saved. Already-named tests (and
+    // other authors' tests) share straight through.
+    if (effectiveUser && test.creatorId === effectiveUser.id && !test.versionName) {
+      setVersionNameValue(test.title);
+      setVersionNameGate({ mode: 'share', testId: test.id, title: test.title });
+      return;
+    }
     await copyTestLink(test);
+  };
+
+  // Confirm in the naming sheet: 'save' → continue the interrupted save with
+  // the entered name; 'share' → persist the name, mirror it into every cache
+  // instantly, then copy the link the user asked for.
+  const confirmVersionName = async () => {
+    const gate = versionNameGate;
+    if (!gate) return;
+    const name = versionNameValue.trim();
+    if (!name) return;
+    if (gate.mode === 'save') {
+      setVersionNameGate(null);
+      await performSaveTest(gate.fromTake, name);
+      return;
+    }
+    setVersionNameBusy(true);
+    try {
+      await api.setVersionName(gate.testId, name);
+      // Mirror instantly into every cache the cards read (no reload):
+      const withName = (x: Test) => ({ ...x, versionName: name });
+      patchScope(queryClient, feedKey('mine'), { patchId: gate.testId, patch: withName });
+      setDashFullTests(prev => {
+        const full = prev[gate.testId];
+        if (!full) return prev;
+        return { ...prev, [gate.testId]: { ...full, versionName: name } };
+      });
+      if (currentTest?.id === gate.testId) setCurrentTest({ ...currentTest, versionName: name } as Test);
+      if (editingTestId === gate.testId) setEditingVersionName(name);
+      setVersionNameGate(null);
+      setVersionNameValue('');
+      await copyTestLink({ id: gate.testId } as Test);
+    } catch (e: any) {
+      toast({ title: t('error'), description: e?.message, variant: 'destructive' });
+    } finally {
+      setVersionNameBusy(false);
+    }
+  };
+
+  // Cancel in the naming sheet: the interrupted action does NOT proceed —
+  // a save stays unsaved, a share copies nothing.
+  const cancelVersionName = () => {
+    const mode = versionNameGate?.mode;
+    setVersionNameGate(null);
+    setVersionNameValue('');
+    if (mode === 'save') {
+      toast({ title: t('versionNameCancelHint') });
+    }
   };
 
   const doMakePublic = async (test: Test) => {
@@ -3117,6 +3215,37 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     );
   }
 
+  // --- CARD-COLOR UNIQUENESS ------------------------------------------------
+  // Colors already worn by the user's OTHER tests. Selecting an identical
+  // card color is BLOCKED at the picker: the same-color cards would be
+  // indistinguishable in the library/shelf grids. Auto (coverColor = '')
+  // is never blocked — it is not an explicit choice.
+  const usedCoverColors = (() => {
+    const used = new Map<string, string>();
+    const collect = (list?: Test[]) => (list || []).forEach(x => {
+      if (!x || !x.coverColor || x.id === (editingTestId || '')) return;
+      used.set(x.coverColor.toUpperCase(), x.title);
+    });
+    const mine = queryClient.getQueryData<any>(feedKey('mine'));
+    mine?.pages?.forEach((p: any) => collect(p?.items));
+    return used;
+  })();
+
+  const onCoverColorPick = (hex: string) => {
+    const taken = usedCoverColors.get((hex || '').toUpperCase());
+    if (taken) {
+      // The picker fires onChange continuously while dragging — throttle the
+      // rejection toast so the drag never spams.
+      const now = Date.now();
+      if (now - lastColorToastAt.current > 1200) {
+        lastColorToastAt.current = now;
+        toast({ title: t('colorTakenToast', { title: taken }), variant: 'destructive' });
+      }
+      return; // identical color selection is rejected — the value stays
+    }
+    setTestCoverColor(hex);
+  };
+
   const editorBody = (
     <>
           <Card className="rounded-4xl border border-black bg-white overflow-hidden">
@@ -3307,7 +3436,23 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
                     <Sparkles className="w-3.5 h-3.5" /> {t('auto')}
                   </button>
                 </div>
-                <PhotoshopColorPicker value={testCoverColor || '#E3EEFF'} onChange={setTestCoverColor} />
+                <PhotoshopColorPicker value={testCoverColor || '#E3EEFF'} onChange={onCoverColorPick} />
+                {usedCoverColors.size > 0 && (
+                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span className="text-[11px] text-muted-foreground">{t('usedColorsLabel')}:</span>
+                    {[...usedCoverColors.entries()].slice(0, 14).map(([hex, title]) => (
+                      <span
+                        key={hex}
+                        title={`${t('colorTakenToast', { title })}`}
+                        aria-label={`${t('usedColorsLabel')}: ${title}`}
+                        className="relative w-5 h-5 rounded-md border border-black/15 shrink-0"
+                        style={{ backgroundColor: hex }}
+                      >
+                        <Ban className="absolute inset-0 m-auto w-3 h-3 text-white drop-shadow" />
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </CardContent>
             </Collapse>
@@ -3500,6 +3645,17 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
         />
         {/* Blocked trivial copy → the rule dialog (dashboard path) */}
         <GateDialog test={gateDialogTest} onClose={() => setGateDialogTest(null)} />
+        {/* Version naming sheet — fires from the first share-by-link on a card */}
+        <VersionNameSheet
+          open={versionNameGate !== null}
+          mode={versionNameGate?.mode || 'share'}
+          testTitle={versionNameGate?.title || ''}
+          value={versionNameValue}
+          onChange={setVersionNameValue}
+          onCancel={cancelVersionName}
+          onConfirm={confirmVersionName}
+          busy={versionNameBusy}
+        />
       </>
     );
   }
@@ -3515,6 +3671,17 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
         />
         {/* Blocked trivial-copy save → the rule dialog (editor save path) */}
         <GateDialog test={gateDialogTest} onClose={() => setGateDialogTest(null)} />
+        {/* Version naming sheet — the first save of an existing test names it first */}
+        <VersionNameSheet
+          open={versionNameGate !== null}
+          mode={versionNameGate?.mode || 'save'}
+          testTitle={versionNameGate?.title || ''}
+          value={versionNameValue}
+          onChange={setVersionNameValue}
+          onCancel={cancelVersionName}
+          onConfirm={confirmVersionName}
+          busy={versionNameBusy}
+        />
       </>
     );
   }
@@ -3580,6 +3747,18 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
             useSessionStore.getState().setAuthMode('signup');
             setPage('auth');
           }}
+        />
+        {/* Version naming sheet — the first save from the Edit-Test sheet in
+        the taking screen names the version before the save proceeds */}
+        <VersionNameSheet
+          open={versionNameGate !== null}
+          mode={versionNameGate?.mode || 'save'}
+          testTitle={versionNameGate?.title || ''}
+          value={versionNameValue}
+          onChange={setVersionNameValue}
+          onCancel={cancelVersionName}
+          onConfirm={confirmVersionName}
+          busy={versionNameBusy}
         />
       </>
     );

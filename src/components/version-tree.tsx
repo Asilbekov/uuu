@@ -32,7 +32,7 @@ import type { TreeNode } from '@/lib/app-types';
 import { useSessionStore } from '@/stores/session-store';
 import { tUI } from '@/lib/i18n';
 import type { Lang } from '@/lib/i18n';
-import { RotateCcw, TreeDeciduous } from 'lucide-react';
+import { GitBranch, RotateCcw, TreeDeciduous } from 'lucide-react';
 import { CreatorStrip, coverBgFor } from '@/components/shared-bits';
 
 // Palette — the same warm wood tones the tree has always worn.
@@ -263,6 +263,14 @@ export default function VersionTreeView({ testId, bookmarkIds, onToggleBookmark,
       <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 overflow-hidden rounded-2xl">
         <div style={activeBgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${activeBgClass}`}>
           <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{viewRoot?.title || t('versionTree')}</p>
+          {/* The version's own name from the naming dialog — the label that
+          distinguishes this version from its siblings in the tree */}
+          {viewRoot?.versionName ? (
+            <span className="mt-1 inline-flex max-w-full items-center gap-1 rounded-full bg-white/90 border border-cta/30 px-2 py-0.5 text-[10.5px] font-semibold text-cta">
+              <GitBranch className="w-3 h-3 shrink-0" />
+              <span className="truncate">{viewRoot.versionName}</span>
+            </span>
+          ) : null}
         </div>
       </div>
       <div className="shrink-0 rounded-2xl bg-white/85 border border-black/10 px-3 py-1.5 flex items-center justify-center gap-2">
@@ -364,8 +372,8 @@ export default function VersionTreeView({ testId, bookmarkIds, onToggleBookmark,
                 key={`st-${st.node.id}`}
                 type="button"
                 onClick={() => navigate(st.node.id)}
-                title={st.node.title}
-                aria-label={st.node.title}
+                title={st.node.versionName || st.node.title}
+                aria-label={st.node.versionName || st.node.title}
                 className="absolute flex flex-col items-center gap-0.5 -translate-x-1/2 -translate-y-1/2 focus:outline-none group"
                 style={{ left: '50%', top: st.y, width: w }}
               >
@@ -385,8 +393,8 @@ export default function VersionTreeView({ testId, bookmarkIds, onToggleBookmark,
               key={`br-${b.node.id}`}
               type="button"
               onClick={() => navigate(b.node.id)}
-              title={b.node.title}
-              aria-label={b.node.title}
+              title={b.node.versionName || b.node.title}
+              aria-label={b.node.versionName || b.node.title}
               className="absolute flex flex-col items-center gap-0.5 -translate-x-1/2 -translate-y-1/2 focus:outline-none"
               style={{ left: `calc(50% + ${b.x}px)`, top: b.y, width: BRANCH_AV * 2.4 }}
             >

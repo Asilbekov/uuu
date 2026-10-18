@@ -130,6 +130,14 @@ export const updateTestSchema = z.object({
   tags: z.unknown().optional(),
   coverIcon: z.unknown().optional(),
   coverColor: z.unknown().optional(),
+  // The version's own name from the naming dialog (first save / first share)
+  versionName: z.string().trim().min(1).max(200).optional(),
+});
+
+// The naming dialog's dedicated endpoint: names a test's version in one
+// lightweight round trip (no questions payload, no version gates).
+export const versionNameSchema = z.object({
+  versionName: z.string().trim().min(1).max(200),
 });
 
 export const shareTestSchema = z.object({

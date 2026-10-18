@@ -289,6 +289,7 @@ export async function getFeed(
     creatorId: true,
     parentId: true,
     changedCount: true,
+    versionName: true,
     creator: { select: { id: true, name: true, image: true } },
     isPublic: true,
     tags: true,

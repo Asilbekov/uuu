@@ -157,6 +157,12 @@ model Test {
   // Trunks (parentId = null) keep the default 0 — their share button does
   // not consult this counter at all.
   changedCount Int    @default(0)
+  // The version's own NAME, given by the author in the naming dialog the
+  // first time the version is saved or shared by link. The card TITLE stays
+  // equal to the source's title (the personal-library one-name-per-family
+  // rule relies on it) — the version name is a separate label shown in the
+  // version tree. null = not named yet (the naming dialog will appear).
+  versionName  String?
   notes      TestNote[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

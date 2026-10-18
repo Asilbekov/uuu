@@ -35,6 +35,9 @@ interface EditorData {
   questions: Question[];
   // Set while the editor is bound to an existing test (edit mode)
   editingTestId: string | null;
+  // The bound test's version name (null = not named yet → the naming dialog
+  // appears on the first save). Filled by openEditTest / startEditTestInTake.
+  editingVersionName: string | null;
   // Dashboard "Edit Test" mode: when ON, clicking a test opens it in the editor
   editMode: boolean;
   formAttachments: AttachmentItem[];
@@ -66,6 +69,7 @@ const INITIAL: EditorData = {
   randomizeO: true,
   questions: [EMPTY_QUESTION],
   editingTestId: null,
+  editingVersionName: null,
   editMode: false,
   formAttachments: [],
   testIsPublic: true,

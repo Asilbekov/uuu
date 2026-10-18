@@ -54,6 +54,9 @@ export interface Test {
   // (server-computed at every save). Drives the share-link button's two
   // states on the card: passive until changedCount >= 2.
   changedCount?: number;
+  // The version's own NAME from the naming dialog (first save / first
+  // share-by-link). null = not named yet. Shown in the version tree.
+  versionName?: string | null;
   randomizeQuestions: boolean;
   randomizeOptions: boolean;
   tags?: string[];
@@ -81,6 +84,8 @@ export interface TreeNode {
   parentId: string | null;
   rootId: string | null;
   changedCount?: number;
+  // The version's own name from the naming dialog (null = not named yet)
+  versionName?: string | null;
   createdAt: string;
   creatorId: string;
   creator: { id: string; name: string; image?: string | null };

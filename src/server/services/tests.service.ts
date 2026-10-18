@@ -225,6 +225,7 @@ export async function getTestTree(id: string) {
       parentId: true,
       rootId: true,
       changedCount: true,
+      versionName: true,
       createdAt: true,
       creatorId: true,
       creator: { select: { id: true, name: true, image: true } },
@@ -235,6 +236,36 @@ export async function getTestTree(id: string) {
     take: 500, // hard cap — a family can never hang the endpoint
   });
   return { rootId: famRoot, nodes };
+}
+
+// ------------------------------------------------------------- version name --
+
+/**
+ * The naming dialog's endpoint: the author gives this test its VERSION NAME
+ * (the first save / the first share-by-link). Creator-only, content-agnostic
+ * — no questions payload, no fork gates. The card TITLE is deliberately NOT
+ * touched: the personal-library one-name-per-family rule relies on it.
+ */
+export async function setTestVersionName(
+  userId: string,
+  id: string,
+  body: { versionName: string }
+) {
+  const clean = (body.versionName || "").trim().slice(0, 200);
+  if (!clean) throw ApiError.badRequest("Version name is required");
+  const test = await db.test.findUnique({
+    where: { id },
+    select: { id: true, creatorId: true },
+  });
+  if (!test) throw ApiError.notFound("Test not found");
+  if (test.creatorId !== userId) {
+    throw ApiError.forbidden("Not allowed: only the author can name this test");
+  }
+  return db.test.update({
+    where: { id },
+    data: { versionName: clean },
+    select: { id: true, versionName: true },
+  });
 }
 
 // ---------------------------------------------------------------------- notes --
@@ -283,9 +314,11 @@ export async function createTest(userId: string, body: CreateTestInput) {
   const cleanIcon = cleanCoverIcon(coverIcon);
   const cleanColor = cleanCoverColor(coverColor);
 
-  // Publishing rule: a NEW test can be created as public only under a title
-  // that no other public test in the community library uses.
-  if (isPublic !== false && title) {
+  // NAME RULE (product): a NEW test can never use a title that ANY test in
+  // the community (public) library already uses — no matter whether the new
+  // test itself is created public or link-only. Same-name tests would be
+  // indistinguishable in search, in the feed and in every library view.
+  if (title) {
     const clash = await findPublicTitleClash(title);
     if (clash) {
       throw ApiError.conflict("PUBLISH_NAME_TAKEN");
@@ -381,10 +414,15 @@ export async function updateTest(
     tags,
     coverIcon,
     coverColor,
+    versionName,
   } = body;
 
   // Publishing rule: a test can go PUBLIC only under a title that no other
   // public test in the community library currently uses.
+  // NAME RULE (generalization): renaming a NON-version test to a title that
+  // any public test already uses is rejected too — the same indistinguishable
+  // -cards problem as at creation. Versions keep their source's title family
+  // and are link-only, so a rename (rare) stays unchecked for them.
   // Version rule: a VERSION (a copy of somebody's test) is NEVER public —
   // it lives outside the community library and is shared by link only. The
   // flag is silently coerced so a stray editor toggle can never leak a
@@ -392,7 +430,10 @@ export async function updateTest(
   const isVersion = !!existing.parentId;
   const effectivePublic =
     (isPublic !== undefined ? isPublic === true : existing.isPublic) && !isVersion;
-  if (effectivePublic && title) {
+  const titleChanging =
+    !!title && title.trim().toLowerCase() !== (existing.title || "").trim().toLowerCase();
+  const needsNameCheck = (!!effectivePublic && !!title) || (titleChanging && !isVersion);
+  if (needsNameCheck && title) {
     const clash = await findPublicTitleClash(title, id);
     if (clash) {
       throw ApiError.conflict("PUBLISH_NAME_TAKEN");
@@ -498,6 +539,10 @@ export async function updateTest(
       ...(Array.isArray(tags) && { tags: sanitizeTags(tags) }),
       ...(cleanIcon !== undefined && { coverIcon: cleanIcon }),
       ...(cleanColor !== undefined && { coverColor: cleanColor }),
+      // The version's own name from the naming dialog (first save)
+      ...(versionName !== undefined && {
+        versionName: (versionName || "").trim().slice(0, 200) || null,
+      }),
       ...(isPublic !== undefined && { isPublic: isVersion ? false : isPublic }),
       ...(randomizeQuestions !== undefined && { randomizeQuestions }),
       ...(randomizeOptions !== undefined && { randomizeOptions }),
