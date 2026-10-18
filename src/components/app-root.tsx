@@ -1591,6 +1591,27 @@ function AppRootInner({ authed }: { authed: boolean }) {
     setEditOpen(true);
   };
 
+  // Mirror a freshly saved FULL test (PUT /tests + POST /tests payloads both
+  // carry questions + attachments + creator) into every cache the UI reads,
+  // so a save is visible INSTANTLY — no reload, no refetch:
+  //   • dashFullTests — files cards (attachment lists/counts), the
+  //     start-from-dashboard prep and the files-grid cells;
+  //   • feed caches  — the card on screen (mine + discover), patched IN PLACE
+  //     (order preserved, nothing refetched, nothing can reorder).
+  const mirrorSavedTest = (full: Test) => {
+    if (!full?.id) return;
+    setDashFullTests(prev => ({ ...prev, [full.id]: full }));
+    const merge = (old: Test | undefined): Test => ({ ...(old || ({} as Test)), ...full });
+    patchScope(queryClient, feedKey('mine'), { patchId: full.id, patch: merge });
+    if (full.isPublic === false) {
+      // No longer public (or a private version) → it leaves the cached
+      // community feed AT ONCE instead of lingering until the next reload.
+      patchScope(queryClient, feedKey('discover'), { removeId: full.id });
+    } else {
+      patchScope(queryClient, feedKey('discover'), { patchId: full.id, patch: merge });
+    }
+  };
+
   const handleSaveTest = async (fromTake = false) => {
     if (!testTitle) {
       toast({ title: t('error'), description: t('titleRequired'), variant: 'destructive' });
@@ -1598,6 +1619,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
     }
     if (questions.some(q => !q.text || !q.optionA || !q.optionB || !q.optionC || !q.optionD)) {
       toast({ title: t('error'), description: t('allQuestionsNeed'), variant: 'destructive' });
+      return;
+    }
+    // A file picked moments ago may still be mid-upload (Telegram round trip).
+    // Saving now would drop it — block the save with a clear message instead.
+    if (formAttachments.some(a => (a as any).uploading)) {
+      toast({ title: t('error'), description: t('uploadInProgress'), variant: 'destructive' });
       return;
     }
 
@@ -1641,18 +1668,23 @@ function AppRootInner({ authed }: { authed: boolean }) {
       };
 
       if (editingTestId) {
-        await api.updateTest(editingTestId, data);
+        // PUT returns the FULL updated test (questions + attachments + creator)
+        // — one round trip, mirrored straight into every cache below.
+        const updated: any = await api.updateTest(editingTestId, data);
         toast({ title: t('testUpdated'), description: t('testUpdatedDesc') });
+        if (updated?.id) mirrorSavedTest(updated as Test);
         if (fromTake) {
-          // Saved from the take-test / results "Edit Test" sheet: reload the
-          // test and rebuild the session in place. Editing recreates every
-          // question with a NEW id (the old attempt cannot be submitted), so:
+          // Saved from the take-test / results "Edit Test" sheet: rebuild the
+          // session in place from the SAME payload (no second GET). Editing
+          // recreates every question with a NEW id (the old attempt cannot be
+          // submitted), so:
           //  - the OLD question order is restored by matching texts — the
           //    session continues on the very SAME question the user was on;
           //  - answers carry over by OPTION TEXT (not letter), so a re-shuffle
           //    of options can never move someone's answer to another option;
           //  - practice reveals carry over by question text.
-          const full = await api.getTest(editingTestId);
+          // The PUT payload IS the fresh full test — no second GET round trip.
+          const full = updated as Test;
           const oldByText = new Map<string, Question>();
           shuffledQuestions.forEach(q => { if (q.text && !oldByText.has(q.text)) oldByText.set(q.text, q); });
           const matched: Question[] = [];
@@ -1707,15 +1739,27 @@ function AppRootInner({ authed }: { authed: boolean }) {
           setLoading(false);
           return;
         }
+        // Saved from the EDITOR page: land back on the dashboard — the card
+        // already shows the new title/cover/files (mirrored above, in place,
+        // no refetch, no reorder, no reload needed to "see it worked").
+        setPage('dashboard');
+        setLoading(false);
+        return;
       } else {
         const created = await api.createTest(data);
         toast({ title: 'Test created!', description: 'Your new test has been created.' });
         // Show the new test right away: pin it to the top of the personal
         // feed cache (no refetch — the feed never reloads mid-session).
         if (created?.id) {
+          mirrorSavedTest(created as Test); // files card + prep are instant too
           setViewingUser(null); // a fresh test of one's own — land in own library
+          setDiscoverMode(false); // ...in the OWN library, not the community feed
           if (queryClient.getQueryData(feedKey('mine'))) {
             patchScope(queryClient, feedKey('mine'), { prepend: [created as Test] });
+          } else {
+            // The personal feed was never loaded this session — load it once;
+            // the created test is already on the server, the fetch shows it.
+            await queryClient.fetchInfiniteQuery(feedQueryOptions('mine')).catch(() => {});
           }
           setPage('dashboard');
           setDashTestIdx(0);
@@ -1724,7 +1768,6 @@ function AppRootInner({ authed }: { authed: boolean }) {
         }
       }
       setPage('dashboard');
-      await queryClient.refetchQueries({ queryKey: ['feed'] });
     } catch (e: any) {
       // Publishing rule: a public test must have a title that no other public
       // test uses — the server rejects the save with PUBLISH_NAME_TAKEN.
@@ -1771,6 +1814,12 @@ function AppRootInner({ authed }: { authed: boolean }) {
       patchScope(queryClient, feedKey('mine'), { removeId: id });
       patchScope(queryClient, feedKey('discover'), { removeId: id });
       if (viewingUser?.id) patchScope(queryClient, userLibraryKey(viewingUser.id), { removeId: id });
+      // The pin marker of a deleted test must not linger in the bookmarks
+      // cache either (it would resurrect the marker on a same-name card).
+      const bm = queryClient.getQueryData<{ ids: string[] }>(BOOKMARKS_KEY);
+      if (bm?.ids?.includes(id)) {
+        patchScope(queryClient, BOOKMARKS_KEY, { setBookmarks: new Set(bm.ids.filter(x => x !== id)) });
+      }
     } catch (e: any) {
       toast({ title: t('error'), description: e.message, variant: 'destructive' });
     }
@@ -2448,7 +2497,20 @@ function AppRootInner({ authed }: { authed: boolean }) {
       if (effectiveUser && test.creatorId === effectiveUser.id) {
         const r = await api.shareTest(test.id, 'community');
         if (r && typeof r.isPublic === 'boolean' && r.isPublic !== test.isPublic) {
-          patchScope(queryClient, activeScopeKey(), { patchId: test.id, patch: x => ({ ...x, isPublic: r.isPublic }) });
+          const flip = (x: Test) => ({ ...x, isPublic: r.isPublic });
+          // Patch EVERY cached scope — not just the active one — so the flip
+          // is visible everywhere without a reload:
+          patchScope(queryClient, feedKey('mine'), { patchId: test.id, patch: flip });
+          if (r.isPublic) {
+            // Going public → the test JOINES a cached discover feed at once
+            // (prepend dedupes if it is already there).
+            if (queryClient.getQueryData(feedKey('discover'))) {
+              patchScope(queryClient, feedKey('discover'), { prepend: [{ ...test, isPublic: true }] });
+            }
+          } else {
+            // Going link-only → it leaves the cached discover feed at once.
+            patchScope(queryClient, feedKey('discover'), { removeId: test.id });
+          }
         }
         toast({ title: r?.isPublic ? t('shareMadePublic') : t('shareMadeLink') });
       }

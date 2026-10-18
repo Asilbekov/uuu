@@ -29,6 +29,7 @@ export interface AttachmentItem {
   tgMessageId?: number | null;
   // client-only helpers for unsaved uploads
   blobUrl?: string; // preview URL for just-picked files
+  uploading?: boolean; // row is mid-upload — locked until the file lands
 }
 
 export const ATTACHMENT_TYPES: AttachmentItem['type'][] = ['audio', 'video', 'pdf', 'image', 'embed', 'link'];

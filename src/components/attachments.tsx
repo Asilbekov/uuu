@@ -24,6 +24,7 @@ import {
   Paperclip,
   Check,
   MonitorPlay,
+  Loader2,
 } from 'lucide-react';
 // Perf: pdfjs-dist (~345 KB chunk) must NOT be in the initial bundle — it is
 // needed only when a PDF attachment is actually opened. next/dynamic defers
@@ -370,15 +371,30 @@ interface EditorRowProps {
 
 function EditorRow({ item, index, count, onUpdate, onRemove, onMove }: EditorRowProps) {
   const [editing, setEditing] = useState(false);
+  // A just-picked file is uploaded in the background (Telegram round trip):
+  // the row shows a live spinner and its controls are locked until the
+  // upload resolves — the user SEES the button worked, instantly.
+  const uploading = !!item.uploading;
 
   return (
-    <div className="rounded-2xl border border-black/15 bg-white p-3">
+    <div className={`rounded-2xl border p-3 bg-white ${uploading ? 'border-dashed border-black/25 opacity-90' : 'border-black/15'}`}>
       <div className="flex items-start gap-2.5">
         <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center shrink-0">
-          {typeIcon(item.type)}
+          {uploading ? <Loader2 className="w-4 h-4 animate-spin text-cta" /> : typeIcon(item.type)}
         </div>
         <div className="min-w-0 flex-1">
-          {editing ? (
+          {uploading ? (
+            <div>
+              <p className="text-sm font-medium leading-snug break-words">{item.title}</p>
+              <div className="flex items-center gap-2 mt-0.5">
+                <Badge variant="outline" className="text-[10px] uppercase rounded-full px-1.5 py-0">{item.type}</Badge>
+                {item.size ? <span className="text-[11px] text-muted-foreground">{formatSize(item.size)}</span> : null}
+                <span className="text-[11px] text-cta flex items-center gap-1">
+                  <Loader2 className="w-3 h-3 animate-spin" /> Uploading…
+                </span>
+              </div>
+            </div>
+          ) : editing ? (
             <div className="space-y-2">
               <div className="space-y-1">
                 <Label className="text-xs">Title</Label>
@@ -448,18 +464,18 @@ function EditorRow({ item, index, count, onUpdate, onRemove, onMove }: EditorRow
         </div>
         <div className="flex flex-col gap-0.5 shrink-0">
           <div className="flex gap-0.5">
-            <Button variant="ghost" size="sm" className="h-7 w-7 p-0" disabled={index === 0} onClick={() => onMove(-1)} title="Move up">
+            <Button variant="ghost" size="sm" className="h-7 w-7 p-0" disabled={uploading || index === 0} onClick={() => onMove(-1)} title="Move up">
               <ChevronUp className="w-3.5 h-3.5" />
             </Button>
-            <Button variant="ghost" size="sm" className="h-7 w-7 p-0" disabled={index === count - 1} onClick={() => onMove(1)} title="Move down">
+            <Button variant="ghost" size="sm" className="h-7 w-7 p-0" disabled={uploading || index === count - 1} onClick={() => onMove(1)} title="Move down">
               <ChevronDown className="w-3.5 h-3.5" />
             </Button>
           </div>
           <div className="flex gap-0.5">
-            <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={() => setEditing(e => !e)} title="Edit">
+            <Button variant="ghost" size="sm" className="h-7 w-7 p-0" disabled={uploading} onClick={() => setEditing(e => !e)} title="Edit">
               <Pencil className="w-3.5 h-3.5" />
             </Button>
-            <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-destructive" onClick={onRemove} title="Delete">
+            <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-destructive" disabled={uploading} onClick={onRemove} title="Delete">
               <Trash2 className="w-3.5 h-3.5" />
             </Button>
           </div>
@@ -482,6 +498,10 @@ export function AttachmentsEditor({
   const [type, setType] = useState<AttachmentItem['type']>('link');
   const [showAdd, setShowAdd] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  // Latest items for the async upload closures — `items` inside onPickFile
+  // would be stale by the time the Telegram round trip resolves.
+  const itemsRef = useRef<AttachmentItem[]>(items);
+  useEffect(() => { itemsRef.current = items; }, [items]);
 
   const add = () => {
     if (!url.trim()) {
@@ -507,10 +527,26 @@ export function AttachmentsEditor({
       : file.type === 'application/pdf' ? 'pdf'
       : file.type.startsWith('image/') ? 'image' : 'link';
     const blobUrl = URL.createObjectURL(file);
+    // OPTIMISTIC ROW: the picked file appears in the list IMMEDIATELY (with a
+    // live spinner) — the user sees the button worked the moment it was
+    // tapped, not seconds later when the Telegram round trip finishes.
+    onChange([...items, {
+      title: file.name.replace(/\.[^.]+$/, ''),
+      type: guessed as AttachmentItem['type'],
+      url: '',
+      size: file.size,
+      blobUrl,
+      uploading: true,
+    }]);
     // Upload to the Telegram channel storage (/api/attachments/upload). The
     // server returns a lightweight `tg:<file_id>` reference — the bytes live
     // ONLY in the owner's Telegram channel. If the bot is not connected yet,
     // the server falls back to a data: URL (in-DB) for small files.
+    const patchRow = (patch: Partial<AttachmentItem>) => {
+      // Patch the row by blobUrl identity — the list may have been reordered
+      // or grown while the upload was in flight.
+      onChange(itemsRef.current.map(it => (it.blobUrl === blobUrl && it.uploading ? { ...it, ...patch } : it)));
+    };
     let finalUrl = '';
     let tgMessageId: number | null = null;
     try {
@@ -532,21 +568,18 @@ export function AttachmentsEditor({
           : (body?.detail || body?.error || `Upload failed (${res.status})`);
         toast({ title: 'Upload failed', description: desc, variant: 'destructive' });
         URL.revokeObjectURL(blobUrl);
+        // The optimistic row goes away again — the failure is visible, the
+        // list is exactly as it was before the pick.
+        onChange(itemsRef.current.filter(it => !(it.blobUrl === blobUrl && it.uploading)));
         return;
       }
     } catch {
       toast({ title: 'Upload failed', description: 'Network error while uploading the file', variant: 'destructive' });
       URL.revokeObjectURL(blobUrl);
+      onChange(itemsRef.current.filter(it => !(it.blobUrl === blobUrl && it.uploading)));
       return;
     }
-    onChange([...items, {
-      title: file.name.replace(/\.[^.]+$/, ''),
-      type: guessed as AttachmentItem['type'],
-      url: finalUrl,
-      size: file.size,
-      tgMessageId,
-      blobUrl,
-    }]);
+    patchRow({ uploading: false, url: finalUrl, tgMessageId });
   };
 
   return (

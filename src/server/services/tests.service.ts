@@ -21,7 +21,7 @@ import { uploadTestArchive, deleteTestArchive } from "@/lib/test-archive";
 import { sanitizeTags, ensureTagsExist } from "@/lib/tags";
 import { findPublicTitleClash } from "@/lib/publish";
 import { telegramDeleteFile, telegramFileUrl } from "@/lib/telegram";
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { ApiError } from "@/server/http/errors";
 import type {
   createTestSchema,
@@ -332,18 +332,23 @@ export async function createTest(userId: string, body: CreateTestInput) {
   await ensureTagsExist(cleanTags);
 
   // Content archive: the whole test as a JSON file in the Telegram channel.
-  // Best-effort — a Telegram hiccup must never fail the creation.
-  try {
-    const archive = await uploadTestArchive(test);
-    const archived = await db.test.update({
-      where: { id: test.id },
-      data: { archiveId: archive.archiveId, archiveMsgId: archive.archiveMsgId },
-    });
-    return { body: archived, status: 201 };
-  } catch (e) {
-    console.error("Test archive upload failed (create):", e);
-    return { body: test, status: 201 };
-  }
+  // BEST-EFFORT + OFF THE CRITICAL PATH: the create request returns the full
+  // test IMMEDIATELY (Telegram round trips can take seconds — the create
+  // button must work instantly, not at Telegram's pace). The archive lands
+  // in the background; if it fails, the next save retries it anyway.
+  after(async () => {
+    try {
+      const archive = await uploadTestArchive(test);
+      await db.test.update({
+        where: { id: test.id },
+        data: { archiveId: archive.archiveId, archiveMsgId: archive.archiveMsgId },
+      });
+    } catch (e) {
+      console.error("Test archive upload failed (create):", e);
+    }
+  });
+
+  return { body: test, status: 201 };
 }
 
 // -------------------------------------------------------------------- update --
@@ -517,28 +522,26 @@ export async function updateTest(
 
   // Content archive: replace the JSON file in the Telegram channel on EVERY
   // save — the old file's post is deleted so the channel holds exactly one
-  // current archive per test. Best-effort: Telegram problems never fail the
-  // edit; the previous archive stays until the next successful save.
-  try {
-    const archive = await uploadTestArchive(test);
-    await db.test.update({
-      where: { id },
-      data: {
-        archiveId: archive.archiveId,
-        archiveMsgId: archive.archiveMsgId,
-      },
-    });
-    const updated = {
-      ...test,
-      archiveId: archive.archiveId,
-      archiveMsgId: archive.archiveMsgId,
-    };
-    await deleteTestArchive(existing); // old file (existing row carried the refs)
-    return updated;
-  } catch (e) {
-    console.error("Test archive upload failed (update):", e);
-    return test;
-  }
+  // current archive per test. Best-effort AND OFF THE CRITICAL PATH: the
+  // save request returns the full updated test IMMEDIATELY (the editor must
+  // not wait on Telegram); the previous archive stays until the new one lands.
+  after(async () => {
+    try {
+      const archive = await uploadTestArchive(test);
+      await db.test.update({
+        where: { id },
+        data: {
+          archiveId: archive.archiveId,
+          archiveMsgId: archive.archiveMsgId,
+        },
+      });
+      await deleteTestArchive(existing); // old file (existing row carried the refs)
+    } catch (e) {
+      console.error("Test archive upload failed (update):", e);
+    }
+  });
+
+  return test;
 }
 
 // -------------------------------------------------------------------- delete --

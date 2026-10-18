@@ -182,6 +182,7 @@ const en: Dict = {
   error: 'Error',
   titleRequired: 'Test title is required',
   allQuestionsNeed: 'All questions must have text and options A-D',
+  uploadInProgress: 'Wait for the file upload to finish, then save',
   testUpdated: 'Test updated!',
   testUpdatedDesc: 'Your test has been updated successfully.',
   // history
@@ -466,6 +467,7 @@ const ru: Dict = {
   error: 'Ошибка',
   titleRequired: 'Нужно название теста',
   allQuestionsNeed: 'Все вопросы должны иметь текст и варианты A-D',
+  uploadInProgress: 'Дождитесь окончания загрузки файла, затем сохраняйте',
   testUpdated: 'Тест обновлён!',
   testUpdatedDesc: 'Ваш тест успешно обновлён.',
   testHistory: 'История тестов',
@@ -744,6 +746,7 @@ const uz: Dict = {
   error: 'Xato',
   titleRequired: 'Test nomi kerak',
   allQuestionsNeed: 'Har bir savolda matn va A-D variantlari boʻlishi kerak',
+  uploadInProgress: 'Fayl yuklanishi tugashini kutib turing, keyin saqlang',
   testUpdated: 'Test yangilandi!',
   testUpdatedDesc: 'Testingingiz muvaffaqiyatli yangilandi.',
   testHistory: 'Test tarixi',
