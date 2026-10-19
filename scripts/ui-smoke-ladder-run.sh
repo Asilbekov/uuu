@@ -267,8 +267,14 @@ ok "chat window opens on mobile (bottom sheet with the message input)" "$([ "$GW
 # container, which silently swallowed the click in the first draft.
 agent-browser eval "(() => { const sheet=[...document.querySelectorAll('.fixed')].find(x=>x.querySelector('input[placeholder*=\"roup\"], input[placeholder*=\"рупп\"]')); if(!sheet) return 'no-sheet'; const i=sheet.querySelector('input[placeholder*=\"roup\"], input[placeholder*=\"рупп\"]'); const d=Object.getOwnPropertyDescriptor(Object.getPrototypeOf(i),'value'); d.set.call(i,'$CHATMSG'); i.dispatchEvent(new Event('input',{bubbles:true})); return 'typed'; })()" > /dev/null
 agent-browser eval "(() => { const sheet=[...document.querySelectorAll('.fixed')].find(x=>x.querySelector('input[placeholder*=\"roup\"], input[placeholder*=\"рупп\"]')); if(!sheet) return 'no-sheet'; const b=[...sheet.querySelectorAll('button')].find(x=>x.querySelector('.lucide-send')); if(!b) return 'no-send'; if(b.disabled) return 'disabled'; b.click(); return 'sent'; })()" > /dev/null
-sleep 2
-SENT=$(agent-browser eval "[...document.querySelectorAll('.fixed')].some(x=>x.textContent.includes('$CHATMSG')) ? 'yes' : 'no'" | tr -d '\\"')
+# prod cold starts make the POST take >2s — poll for the bubble instead of
+# a fixed sleep (the desktop check below is the cross-viewport backstop)
+SENT=no
+for i in $(seq 1 12); do
+  R=$(agent-browser eval "[...document.querySelectorAll('.fixed')].some(x=>x.textContent.includes('$CHATMSG')) ? 'yes' : 'no'" | tr -d '\\"')
+  if [ "$R" = "yes" ]; then SENT=yes; break; fi
+  sleep 1
+done
 ok "message sent from the dashboard chat window renders" "$([ "$SENT" = "yes" ] && echo 1 || echo 0)"
 # close (the ✕ ghost button inside the sheet header)
 agent-browser eval "(() => { const sheet=[...document.querySelectorAll('.fixed')].find(x=>x.querySelector('input[placeholder*=\"roup\"], input[placeholder*=\"рупп\"]')); if(!sheet) return 'no-sheet'; const b=[...sheet.querySelectorAll('button')].find(x=>x.querySelector('.lucide-x')); if(!b) return 'no-x'; b.click(); return 'closed'; })()" > /dev/null
