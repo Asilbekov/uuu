@@ -3,6 +3,7 @@
 import React from 'react';
 import {
   ArrowLeft,
+  Dices,
   ListChecks,
   Minus,
   Plus,
@@ -147,34 +148,41 @@ export default function StartTestView({
                 <h3 className="text-lg font-semibold mb-1">{t('testMode')}</h3>
                 <p className="text-sm text-muted-foreground">{t('chooseHowTake')}</p>
               </div>
+              {/* FIXED 2-SLOT GRID — the same two positions on EVERY viewport:
+              slots never move, never reflow, never wrap. The ONLY adaptation
+              is the label: below 480px BOTH labels hide at once (icons only),
+              at 480px+ BOTH show text (the longest one still fits). One
+              button can never lose its text while the other keeps it. */}
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => setPracticeMode(false)}
+                  title={t('examMode')}
+                  aria-label={t('examMode')}
                   className={`p-4 rounded-xl border-2 transition-all text-left ${
                     !practiceMode
                       ? 'border-cta bg-[#FFF0D9] shadow-md'
                       : 'border-transparent bg-muted/50 hover:bg-muted'
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <ListChecks className="w-5 h-5 text-cta" />
-                    <span className="font-semibold text-sm">{t('examMode')}</span>
+                  <div className="min-w-0 flex items-center gap-2 [@media(max-width:479px)]:justify-center">
+                    <ListChecks className="w-5 h-5 text-cta shrink-0" />
+                    <span className="font-semibold text-sm min-w-0 truncate [@media(max-width:479px)]:hidden">{t('examMode')}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">{t('seeResultsEnd')}</p>
                 </button>
                 <button
                   onClick={() => setPracticeMode(true)}
+                  title={t('practiceMode')}
+                  aria-label={t('practiceMode')}
                   className={`p-4 rounded-xl border-2 transition-all text-left ${
                     practiceMode
                       ? 'border-primary bg-[#FFE8DE] shadow-md'
                       : 'border-transparent bg-muted/50 hover:bg-muted'
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <BookOpen className="w-5 h-5 text-primary" />
-                    <span className="font-semibold text-sm">{t('practiceMode')}</span>
+                  <div className="min-w-0 flex items-center gap-2 [@media(max-width:479px)]:justify-center">
+                    <BookOpen className="w-5 h-5 text-primary shrink-0" />
+                    <span className="font-semibold text-sm min-w-0 truncate [@media(max-width:479px)]:hidden">{t('practiceMode')}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">{t('seeAnswerNow')}</p>
                 </button>
               </div>
             </div>
@@ -187,36 +195,42 @@ export default function StartTestView({
                 <h3 className="text-lg font-semibold mb-1">{t('randomization')}</h3>
                 <p className="text-sm text-muted-foreground">{t('chooseOrder')}</p>
               </div>
+              {/* Same fixed-2-slot contract + uniform label collapse as the
+              mode buttons. The two toggles keep DIFFERENT icons (Shuffle for
+              questions / Dices for answers) so the icon-only state on small
+              screens stays tellable apart — slots never swap. */}
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setStartRandomizeQ(v => !v)}
+                  title={t('randomizeQuestions')}
+                  aria-label={t('randomizeQuestions')}
                   className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                     startRandomizeQ
                       ? 'border-cta bg-[#FFF0D9] shadow-md'
                       : 'border-transparent bg-muted/50 hover:bg-muted'
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-0.5">
+                  <div className="min-w-0 flex items-center gap-2 [@media(max-width:479px)]:justify-center">
                     <Shuffle className="w-4 h-4 text-cta shrink-0" />
-                    <span className="font-semibold text-sm">{t('randomizeQuestions')}</span>
+                    <span className="font-semibold text-sm min-w-0 truncate [@media(max-width:479px)]:hidden">{t('randomizeQuestions')}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">{startRandomizeQ ? t('qShuffled') : t('qOriginal')}</p>
                 </button>
                 <button
                   type="button"
                   onClick={() => setStartRandomizeO(v => !v)}
+                  title={t('randomizeAnswers')}
+                  aria-label={t('randomizeAnswers')}
                   className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                     startRandomizeO
                       ? 'border-primary bg-[#FFE8DE] shadow-md'
                       : 'border-transparent bg-muted/50 hover:bg-muted'
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <Shuffle className="w-4 h-4 text-primary shrink-0" />
-                    <span className="font-semibold text-sm">{t('randomizeAnswers')}</span>
+                  <div className="min-w-0 flex items-center gap-2 [@media(max-width:479px)]:justify-center">
+                    <Dices className="w-4 h-4 text-primary shrink-0" />
+                    <span className="font-semibold text-sm min-w-0 truncate [@media(max-width:479px)]:hidden">{t('randomizeAnswers')}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">{startRandomizeO ? t('aShuffled') : t('aOriginal')}</p>
                 </button>
               </div>
             </div>

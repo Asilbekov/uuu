@@ -15,7 +15,7 @@ import { api } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Question } from '@/lib/app-types';
 import { countAnsweredProgress, readTestProgress, type SavedTestProgress } from '@/lib/test-progress';
-import { ArrowLeft, BookOpen, BookmarkX, Bot, ChevronDown, ChevronRight, ChevronUp, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, MessageCircle, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, BookmarkX, Bot, ChevronDown, ChevronRight, ChevronUp, ClipboardList, Compass, Dices, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, MessageCircle, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
 const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsEditor), { ssr: false });
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
 // Version tree — its own on-demand chunk (fetches the family + renders SVG)
@@ -1510,69 +1510,84 @@ export default function DashboardView({
                               </div>
                             </div>
 
-                            {/* Test mode */}
+                            {/* Test mode — FIXED 2-SLOT GRID: the same two
+                            positions on EVERY viewport; slots never move or
+                            reflow. The only adaptation is the label, and it is
+                            UNIFORM: below 480px BOTH labels hide at once
+                            (icons only), at 480px+ BOTH show — one button can
+                            never go textless while the other keeps its text.
+                            truncate guarantees a label never wraps, so button
+                            height and every position stay identical. */}
                             <div className="shrink-0 grid grid-cols-2 gap-2">
                               <button
                                 onClick={() => setPracticeMode(false)}
+                                title={t('examMode')}
+                                aria-label={t('examMode')}
                                 className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                                   !practiceMode
                                     ? 'border-cta bg-[#FFF0D9] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
                                 }`}
                               >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <ListChecks className="w-4 h-4 text-cta" />
-                                  <span className="font-semibold text-sm">{t('examMode')}</span>
+                                <div className="min-w-0 flex items-center gap-2 [@media(max-width:479px)]:justify-center">
+                                  <ListChecks className="w-4 h-4 text-cta shrink-0" />
+                                  <span className="font-semibold text-sm min-w-0 truncate [@media(max-width:479px)]:hidden">{t('examMode')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:700px)]:hidden">{t('seeResultsEnd')}</p>
                               </button>
                               <button
                                 onClick={() => setPracticeMode(true)}
+                                title={t('practiceMode')}
+                                aria-label={t('practiceMode')}
                                 className={`p-2.5 sm:p-3 rounded-xl border-2 transition-all text-left ${
                                   practiceMode
                                     ? 'border-primary bg-[#FFE8DE] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
                                 }`}
                               >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <BookOpen className="w-4 h-4 text-primary" />
-                                  <span className="font-semibold text-sm">{t('practiceMode')}</span>
+                                <div className="min-w-0 flex items-center gap-2 [@media(max-width:479px)]:justify-center">
+                                  <BookOpen className="w-4 h-4 text-primary shrink-0" />
+                                  <span className="font-semibold text-sm min-w-0 truncate [@media(max-width:479px)]:hidden">{t('practiceMode')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:700px)]:hidden">{t('seeAnswerNow')}</p>
                               </button>
                             </div>
 
-                            {/* Randomization — tap a card to toggle, styled like the mode cards */}
+                            {/* Randomization — tap a card to toggle, styled like
+                            the mode cards; same fixed-2-slot + uniform label
+                            collapse contract. Icons differ (Shuffle questions /
+                            Dices answers) so the icon-only state stays readable;
+                            left slot is ALWAYS questions, right ALWAYS answers. */}
                             <div className="shrink-0 grid grid-cols-2 gap-2">
                               <button
                                 type="button"
                                 onClick={() => setStartRandomizeQ(v => !v)}
+                                title={t('randomizeQuestions')}
+                                aria-label={t('randomizeQuestions')}
                                 className={`p-2.5 sm:p-3 [@media(max-height:700px)]:p-1.5 rounded-xl border-2 transition-all text-left ${
                                   cardRandQ
                                     ? 'border-cta bg-[#FFF0D9] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
                                 }`}
                               >
-                                <div className="flex items-center gap-2 mb-0.5">
+                                <div className="min-w-0 flex items-center gap-2 [@media(max-width:479px)]:justify-center">
                                   <Shuffle className="w-4 h-4 text-cta shrink-0" />
-                                  <span className="font-semibold text-sm">{t('randomizeQuestions')}</span>
+                                  <span className="font-semibold text-sm min-w-0 truncate [@media(max-width:479px)]:hidden">{t('randomizeQuestions')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:700px)]:hidden">{cardRandQ ? t('qShuffled') : t('qOriginal')}</p>
                               </button>
                               <button
                                 type="button"
                                 onClick={() => setStartRandomizeO(v => !v)}
+                                title={t('randomizeAnswers')}
+                                aria-label={t('randomizeAnswers')}
                                 className={`p-2.5 sm:p-3 [@media(max-height:700px)]:p-1.5 rounded-xl border-2 transition-all text-left ${
                                   cardRandO
                                     ? 'border-primary bg-[#FFE8DE] shadow-md'
                                     : 'border-transparent bg-muted/50 hover:bg-muted'
                                 }`}
                               >
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <Shuffle className="w-4 h-4 text-primary shrink-0" />
-                                  <span className="font-semibold text-sm">{t('randomizeAnswers')}</span>
+                                <div className="min-w-0 flex items-center gap-2 [@media(max-width:479px)]:justify-center">
+                                  <Dices className="w-4 h-4 text-primary shrink-0" />
+                                  <span className="font-semibold text-sm min-w-0 truncate [@media(max-width:479px)]:hidden">{t('randomizeAnswers')}</span>
                                 </div>
-                                <p className="text-xs text-muted-foreground [@media(max-height:700px)]:hidden">{cardRandO ? t('aShuffled') : t('aOriginal')}</p>
                               </button>
                             </div>
 
