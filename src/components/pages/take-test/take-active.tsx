@@ -126,6 +126,7 @@ export function TakeActive({
             onSwitchSheet={switchSheet}
             attachments={(currentTest?.attachments || []) as AttachmentItem[]}
             currentTestTitle={currentTest?.title}
+            currentTestId={currentTest?.id}
             currentUserId={effectiveUser?.id}
             editorBody={editorBody}
             closeChat={closeChat}

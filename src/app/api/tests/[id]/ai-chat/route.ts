@@ -1,9 +1,9 @@
 // POST /api/ai/test-chat — the AI chat about the WHOLE TEST (full context).
 //
-// The conversation the user lands in from the «Обсудить с ИИ» button after
-// the metrics passport: the server loads the test, every question with its
-// ground-truth answers and the passport scores into the system prompt, so
-// the tutor "already has the whole context about this test".
+// The conversation behind the «Обсудить с ИИ» button: the server loads the
+// test, every question with its ground-truth answers and the passport scores
+// into the system prompt, so the tutor "already has the whole context about
+// this test". The dashboard window opens straight into this chat.
 import { NextResponse } from "next/server";
 import { withApiAuth } from "@/server/http/handler";
 import { parseBody } from "@/server/http/validation";

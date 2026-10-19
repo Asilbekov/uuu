@@ -48,7 +48,7 @@ export async function migrateLocalToServer(
   userId: string,
   api: {
     saveProgress: (testId: string, data: unknown) => Promise<unknown>;
-    saveAiThread: (testId: string, title: string, messages: unknown[]) => Promise<unknown>;
+    saveAiThread: (id: string | null, testId: string, title: string, messages: unknown[]) => Promise<unknown>;
   }
 ): Promise<LocalMigrationResult> {
   const result: LocalMigrationResult = { localLang: null };
@@ -94,7 +94,8 @@ export async function migrateLocalToServer(
       if (map && typeof map === 'object') {
         for (const [testId, th] of Object.entries(map)) {
           if (!testId || !th || !Array.isArray(th.messages) || th.messages.length === 0) continue;
-          await api.saveAiThread(testId, String(th.title || ''), th.messages).catch(() => {});
+          // null id → the server mints the thread id for the migrated row
+          await api.saveAiThread(null, testId, String(th.title || ''), th.messages).catch(() => {});
         }
       }
       lsRemove(threadKey);

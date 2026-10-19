@@ -175,11 +175,13 @@ export const api = {
   deleteProgress: (testId: string) =>
     apiFetch(`/progress?testId=${encodeURIComponent(testId)}`, { method: 'DELETE' }),
 
-  // AI-tutor threads (one conversation per test) — stored in the DATABASE
-  // (previously `ai_threads_<uid>` in localStorage).
-  getAiThreads: () => apiFetch('/ai/threads') as Promise<{ threads: Record<string, { title: string; messages: any[]; updatedAt: number }>[] | any[] }>,
-  saveAiThread: (testId: string, title: string, messages: unknown[]) =>
-    apiFetch('/ai/threads', { method: 'PUT', body: JSON.stringify({ testId, title, messages }) }),
+  // AI-tutor threads (many conversations per test — «Новый чат») — stored in
+  // the DATABASE (previously `ai_threads_<uid>` in localStorage). saveAiThread
+  // passes the client's thread key (null → the server mints one) and always
+  // gets { ok, id } back.
+  getAiThreads: () => apiFetch('/ai/threads') as Promise<{ threads: { id: string; testId: string; title: string; messages: any[]; updatedAt: number }[] }>,
+  saveAiThread: (id: string | null, testId: string, title: string, messages: unknown[]) =>
+    apiFetch('/ai/threads', { method: 'PUT', body: JSON.stringify({ id: id || undefined, testId, title, messages }) }),
 
   // Explanations
   generateExplanations: (questionIds: string[], lang?: string) =>

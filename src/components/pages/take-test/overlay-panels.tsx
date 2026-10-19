@@ -8,7 +8,7 @@ import { SheetHeaderSwitcher } from '@/components/sheet-switcher';
 import { Button } from '@/components/ui/button';
 import { Pencil, X } from 'lucide-react';
 import { tUI } from '@/lib/i18n';
-import { useChatStore } from '@/stores/chat-store';
+import { useChatStore, newThreadKey } from '@/stores/chat-store';
 import { useNavStore } from '@/stores/nav-store';
 import { useSessionStore } from '@/stores/session-store';
 import { useExitMount } from '@/components/motion';
@@ -52,6 +52,7 @@ export function OverlayPanels({
   onSwitchSheet,
   attachments,
   currentTestTitle,
+  currentTestId,
   currentUserId,
   editorBody,
   // actions (app-root orchestrates the query cache / cross-store flows)
@@ -76,11 +77,13 @@ export function OverlayPanels({
   onSwitchSheet: (key: string) => void;
   attachments: AttachmentItem[];
   currentTestTitle?: string;
+  /** the test being taken — the drawer lists ONLY this test's conversations */
+  currentTestId?: string;
   currentUserId?: string;
   editorBody: React.ReactNode;
   closeChat: () => void;
   closeGroupChat: () => void;
-  selectChatThread: (testId: string) => void;
+  selectChatThread: (threadId: string) => void;
   sendChatMessage: (questionId?: string, existingMessages?: { role: 'user' | 'assistant'; content: string }[], userAnswer?: string, question?: any) => void;
   sendGroupMessage: () => void;
   openUserLibrary: (u: { id: string; name?: string; image?: string | null }) => void;
@@ -113,31 +116,33 @@ export function OverlayPanels({
   const setEditOpen = useNavStore(s => s.setEditOpen);
   const chatHistoryOpen = useNavStore(s => s.chatHistoryOpen);
   const setChatHistoryOpen = useNavStore(s => s.setChatHistoryOpen);
-  // AI passport — the metric cards shown at the START of the AI window (the
-  // header ✕ exits to the conversation). State lives in the chat store;
-  // app-root fetches the metrics + fires the deferred first message.
-  const aiPassportOpen = useChatStore(s => s.aiPassportOpen);
-  const setAiPassportOpen = useChatStore(s => s.setAiPassportOpen);
-  const setAiPassportSeenFor = useChatStore(s => s.setAiPassportSeenFor);
-  const aiMetrics = useChatStore(s => s.aiMetrics);
-  const aiMetricsLoading = useChatStore(s => s.aiMetricsLoading);
-  const aiMetricsError = useChatStore(s => s.aiMetricsError);
-  const exitPassport = React.useCallback(() => {
-    setAiPassportOpen(false);
-    setAiPassportSeenFor(useChatStore.getState().chatThreadId || '');
-  }, [setAiPassportOpen, setAiPassportSeenFor]);
 
-  // History drawer entries: every test that has at least one message
-  // (same derivation as app-root's memo — the AI tutor sheet's ☰ list)
+  // History drawer entries: the CURRENT test's conversations with at least
+  // one message (same derivation as app-root's memo — the ☰ list)
   const aiThreadMetas: AiThreadMeta[] = React.useMemo(() => Object.entries(chatThreads)
-    .filter(([, th]) => th.messages.length > 0)
-    .map(([testId, th]) => ({
-      testId,
+    .filter(([id, th]) => th.messages.length > 0 && (!currentTestId || th.testId === currentTestId))
+    .map(([id, th]) => ({
+      id,
+      testId: th.testId,
       title: th.title || 'Test',
       preview: th.messages[th.messages.length - 1]?.content?.slice(0, 90) || '',
       updatedAt: th.updatedAt || 0,
     }))
-    .sort((a, b) => b.updatedAt - a.updatedAt), [chatThreads]);
+    .sort((a, b) => b.updatedAt - a.updatedAt), [chatThreads, currentTestId]);
+
+  // «Новый чат» — the top button of the drawer: a fresh conversation about
+  // the test being taken; the previous threads stay in the list.
+  const startNewChat = React.useCallback(() => {
+    setChatHistoryOpen(false);
+    const st = useChatStore.getState();
+    const tid = currentTestId || st.chatThreads[st.chatThreadId]?.testId;
+    if (!tid) return;
+    const id = newThreadKey();
+    st.setChatThreads(prev => ({ ...prev, [id]: { testId: tid, title: currentTestTitle || 'Test', messages: [], updatedAt: Date.now() } }));
+    st.setChatThreadId(id);
+    st.setChatMessages([]);
+    st.setChatInput('');
+  }, [currentTestId, currentTestTitle, setChatHistoryOpen]);
 
   // Exit-animation holds: when a sheet flag flips to false the panel stays
   // mounted for ~220ms to play its slide-down/fade-out (nothing vanishes).
@@ -173,12 +178,8 @@ export function OverlayPanels({
           onSelectThread={selectChatThread}
           historyLabel={t('chatHistory')}
           noChatsLabel={t('noChatsYet')}
-          passportOpen={aiPassportOpen}
-          onPassportExit={exitPassport}
-          metrics={aiMetrics}
-          metricsLoading={aiMetricsLoading}
-          metricsError={aiMetricsError}
-          passportHint={t('aiPassportHint')}
+          onNewChat={startNewChat}
+          newChatLabel={t('newChat')}
         />
       )}
 

@@ -55,8 +55,9 @@ model Session {
   @@index([expiresAt]) // opportunistic purge of expired rows
 }
 
-// AI-tutor thread per (user, test) — full conversation history.
-// Previously `ai_threads_<uid>` in localStorage.
+// AI-tutor thread — MANY conversations per (user, test) are allowed: the
+// «Новый чат» button in the history drawer starts a fresh thread while the
+// old ones stay in the list. Previously `ai_threads_<uid>` in localStorage.
 model AiThread {
   id        String   @id @default(cuid())
   userId    String
@@ -67,8 +68,8 @@ model AiThread {
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 
-  @@unique([userId, testId])
   @@index([userId])
+  @@index([userId, updatedAt])
 }
 
 // Saved in-test progress ("Continue Test") per (user, test) — the exact

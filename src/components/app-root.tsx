@@ -53,7 +53,7 @@ import { useNavStore, navNow } from '@/stores/nav-store';
 import { useDashboardStore } from '@/stores/dashboard-store';
 import { useEditorStore, resetTestForm as resetTestFormStore } from '@/stores/editor-store';
 import { useTakeStore } from '@/stores/take-store';
-import { useChatStore } from '@/stores/chat-store';
+import { useChatStore, newThreadKey } from '@/stores/chat-store';
 // ---------------------------------------------------------------------------
 // Perf: heavy, on-demand modules are loaded via next/dynamic so the initial
 // bundle (First Load JS) stays small. Only the screens that actually open the
@@ -596,14 +596,12 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   const chatQuestionObj = useChatStore(s => s.chatQuestionObj);
   const setChatQuestionObj = useChatStore(s => s.setChatQuestionObj);
   const chatThreadId = useChatStore(s => s.chatThreadId);
-  const setChatThreadId = useChatStore(s => s.setChatThreadId); // test id whose thread is in chatMessages
+  const setChatThreadId = useChatStore(s => s.setChatThreadId); // the ACTIVE thread id (a key of chatThreads)
   const chatThreads = useChatStore(s => s.chatThreads);
   const setChatThreads = useChatStore(s => s.setChatThreads);
   const chatHistoryOpen = useNavStore(s => s.chatHistoryOpen);
   const setChatHistoryOpen = useNavStore(s => s.setChatHistoryOpen);
-  // ---- AI test passport («Обсудить с ИИ») --------------------------------
-  // The dashboard's AI window (opened from a card button) + the shared
-  // passport state both live in the stores:
+  // The dashboard's AI window (opened from a card button) lives in the nav store:
   const aiCardTestId = useNavStore(s => s.aiCardTestId);
   const setAiCardTestId = useNavStore(s => s.setAiCardTestId);
   // DASHBOARD FILES WINDOW — «Файлы» from any card opens the SAME window
@@ -638,21 +636,9 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       || ((test as any)._count?.attachments as number | undefined)
       || dashFilesCountRef.current[id] || 0;
   };
-  const aiPassportOpen = useChatStore(s => s.aiPassportOpen);
-  const setAiPassportOpen = useChatStore(s => s.setAiPassportOpen);
-  const setAiPassportSeenFor = useChatStore(s => s.setAiPassportSeenFor);
-  const setAiMetrics = useChatStore(s => s.setAiMetrics);
-  const aiMetrics = useChatStore(s => s.aiMetrics);
-  const setAiMetricsLoading = useChatStore(s => s.setAiMetricsLoading);
-  const aiMetricsLoading = useChatStore(s => s.aiMetricsLoading);
-  const setAiMetricsError = useChatStore(s => s.setAiMetricsError);
-  const aiMetricsError = useChatStore(s => s.aiMetricsError);
   // Title of the test whose AI window is open on the dashboard (set by the
   // card button together with aiCardTestId; ref — no store churn).
   const aiCardTitleRef = useRef('');
-  // The first "context" message the tutor auto-sends on the take-test page —
-  // DEFERRED while the passport covers the window, fired on its dismissal.
-  const pendingAutoSendRef = useRef<{ questionId: string; userAnswer?: string; q: Question | null } | null>(null);
   const chatThreadsLoadedRef = useRef(false);
   const chatEndRef = React.useRef<HTMLDivElement>(null);
 
@@ -2466,7 +2452,8 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   };
 
   // Load the per-user AI chat threads once (after the user is known) —
-  // from the DATABASE (AiThread table), never from the device.
+  // from the DATABASE (AiThread table), never from the device. Many threads
+  // per test are allowed («Новый чат»); the map is keyed by THREAD id.
   useEffect(() => {
     if (!effectiveUser || chatThreadsLoadedRef.current) return;
     chatThreadsLoadedRef.current = true;
@@ -2474,10 +2461,10 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     api.getAiThreads()
       .then((res: any) => {
         if (!alive || !Array.isArray(res?.threads)) return;
-        const map: Record<string, { title: string; messages: any[]; updatedAt: number }> = {};
+        const map: Record<string, { testId: string; title: string; messages: any[]; updatedAt: number }> = {};
         for (const th of res.threads) {
-          if (th?.testId && Array.isArray(th.messages)) {
-            map[th.testId] = { title: String(th.title || ''), messages: th.messages, updatedAt: th.updatedAt || Date.now() };
+          if (th?.id && th?.testId && Array.isArray(th.messages)) {
+            map[String(th.id)] = { testId: String(th.testId), title: String(th.title || ''), messages: th.messages, updatedAt: th.updatedAt || Date.now() };
           }
         }
         setChatThreads(map);
@@ -2486,52 +2473,55 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     return () => { alive = false; };
   }, [effectiveUser?.id]);
 
-  // Mirror the visible conversation into the CURRENT test's thread
+  // Mirror the visible conversation into the ACTIVE thread (take-test flow;
+  // the dashboard window mirrors inside sendTestChatMessage)
   useEffect(() => {
-    if (!chatOpen || !currentTest || chatMessages.length === 0 || !chatThreadId || chatThreadId !== currentTest.id) return;
-    setChatThreads(prev => ({
-      ...prev,
-      [currentTest.id]: { title: currentTest.title, messages: chatMessages, updatedAt: Date.now() },
-    }));
+    if (!chatOpen || chatMessages.length === 0 || !chatThreadId) return;
+    setChatThreads(prev => {
+      const th = prev[chatThreadId];
+      if (!th) return prev;
+      return { ...prev, [chatThreadId]: { ...th, messages: chatMessages, updatedAt: Date.now() } };
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatMessages, chatOpen]);
 
   // Persist changed threads to the DATABASE (per user) — debounced 1s,
   // only the threads whose content actually changed since the last sync.
-  const threadSyncRef = useRef<Map<string, string>>(new Map()); // testId -> serialized snapshot
+  const threadSyncRef = useRef<Map<string, string>>(new Map()); // threadId -> serialized snapshot
   useEffect(() => {
     if (!effectiveUser || !chatThreadsLoadedRef.current) return;
     const t = setTimeout(() => {
-      for (const [testId, th] of Object.entries(chatThreads)) {
+      for (const [threadId, th] of Object.entries(chatThreads)) {
         if (!th || !Array.isArray(th.messages) || th.messages.length === 0) continue;
         const snap = JSON.stringify([th.title, th.messages]);
-        if (threadSyncRef.current.get(testId) === snap) continue;
-        threadSyncRef.current.set(testId, snap);
-        api.saveAiThread(testId, th.title || '', th.messages).catch(() => {
+        if (threadSyncRef.current.get(threadId) === snap) continue;
+        threadSyncRef.current.set(threadId, snap);
+        api.saveAiThread(threadId, th.testId, th.title || '', th.messages).catch(() => {
           // Offline — the next change retries; the in-memory copy keeps working.
-          threadSyncRef.current.delete(testId);
+          threadSyncRef.current.delete(threadId);
         });
       }
     }, 1000);
     return () => clearTimeout(t);
   }, [chatThreads, effectiveUser?.id]);
 
-  // History drawer entries: every test that has at least one message
+  // History drawer entries: every conversation with at least one message
   const aiThreadMetas: AiThreadMeta[] = React.useMemo(() => Object.entries(chatThreads)
     .filter(([, th]) => th.messages.length > 0)
-    .map(([testId, th]) => ({
-      testId,
+    .map(([id, th]) => ({
+      id,
+      testId: th.testId,
       title: th.title || 'Test',
       preview: th.messages[th.messages.length - 1]?.content?.slice(0, 90) || '',
       updatedAt: th.updatedAt || 0,
     }))
     .sort((a, b) => b.updatedAt - a.updatedAt), [chatThreads]);
 
-  const selectChatThread = (testId: string) => {
+  const selectChatThread = (threadId: string) => {
     setChatHistoryOpen(false);
-    if (testId === chatThreadId) return;
-    const th = chatThreads[testId];
-    setChatThreadId(testId);
+    if (threadId === chatThreadId) return;
+    const th = chatThreads[threadId];
+    setChatThreadId(threadId);
     setChatMessages(th ? [...th.messages] : []);
     setChatInput('');
   };
@@ -2542,64 +2532,47 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     setChatQuestionObj(q);
     setChatUserAnswer(userAnswer || '');
     const tid = (currentTest as any)?.id || '';
-    // First open on this test → resume THAT test's saved thread (per-test chats)
-    const alreadyLoaded = chatThreadId === tid;
-    if (!alreadyLoaded) {
-      const th = chatThreads[tid];
-      setChatThreadId(tid);
-      setChatMessages(th ? [...th.messages] : []);
+    // Reuse the conversation already open for THIS test…
+    const activeTh = chatThreadId ? chatThreads[chatThreadId] : null;
+    let base: { role: 'user' | 'assistant'; content: string }[];
+    if (activeTh && activeTh.testId === tid) {
+      base = [...activeTh.messages];
+    } else {
+      // …otherwise resume the test's most recent thread (fresh when none).
+      const cand = Object.entries(chatThreads)
+        .filter(([, th]) => th.testId === tid)
+        .sort((a, b) => (b[1].updatedAt || 0) - (a[1].updatedAt || 0))[0];
+      if (cand) {
+        base = [...cand[1].messages];
+        setChatThreadId(cand[0]);
+        setChatMessages(base);
+      } else {
+        const id = newThreadKey();
+        base = [];
+        setChatThreads(prev => ({ ...prev, [id]: { testId: tid, title: (currentTest as any)?.title || 'Test', messages: [], updatedAt: Date.now() } }));
+        setChatThreadId(id);
+        setChatMessages([]);
+      }
       setChatInput('');
     }
-    const threadLen = alreadyLoaded ? chatMessages.length : (chatThreads[tid]?.messages.length || 0);
-    // THE AI PASSPORT comes first: when the AI window opens on this test and
-    // its passport was not dismissed yet this session, the metric cards cover
-    // the window; the usual auto-context message is DEFERRED to the passport
-    // dismissal (see the aiPassportOpen effect below). force (the per-question
-    // "Ask AI" while already chatting) never re-shows the passport.
-    const shouldAutoSend = opts?.force || threadLen === 0;
-    const showPassport = !opts?.force && useChatStore.getState().aiPassportSeenFor !== tid;
-    if (showPassport) {
-      pendingAutoSendRef.current = shouldAutoSend ? { questionId, userAnswer, q } : null;
-      setAiPassportOpen(true);
-    } else {
-      pendingAutoSendRef.current = null;
-      setAiPassportOpen(false);
-      // Auto-send the context message when the conversation is still empty, or
-      // when the user explicitly tapped "Ask AI" on a question (force).
-      if (shouldAutoSend) {
-        const initialMsg = userAnswer
-          ? t('iChose', { a: userAnswer })
-          : t('helpUnderstand');
-        const base = alreadyLoaded ? chatMessages : (chatThreads[tid]?.messages || []);
-        sendChatMessage(questionId, [...base, { role: 'user', content: initialMsg }], userAnswer, q);
-      }
+    // Auto-send the context message when the conversation is still empty, or
+    // when the user explicitly tapped "Ask AI" on a question (force).
+    const shouldAutoSend = opts?.force || base.length === 0;
+    if (shouldAutoSend) {
+      const initialMsg = userAnswer
+        ? t('iChose', { a: userAnswer })
+        : t('helpUnderstand');
+      sendChatMessage(questionId, [...base, { role: 'user', content: initialMsg }], userAnswer, q);
     }
     setChatOpen(true);
   };
 
-  // Passport dismissed (the header ✕) → the chat itself. The deferred
-  // first message fires here; on the DASHBOARD window the dismissal simply
-  // reveals the test-context conversation.
-  React.useEffect(() => {
-    if (aiPassportOpen) return; // fire on dismissal only
-    if (!pendingAutoSendRef.current) return;
-    const st = navNow();
-    const cst = useChatStore.getState();
-    const stillRelevant = st.chatOpen || !!st.aiCardTestId;
-    const pending = pendingAutoSendRef.current;
-    pendingAutoSendRef.current = null;
-    if (!stillRelevant || !pending) return;
-    const initialMsg = pending.userAnswer ? t('iChose', { a: pending.userAnswer }) : t('helpUnderstand');
-    const base = cst.chatMessages;
-    sendChatMessage(pending.questionId, [...base, { role: 'user', content: initialMsg }], pending.userAnswer, pending.q);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [aiPassportOpen]);
-
   // ------------------------------------------------------------------
   // DASHBOARD AI WINDOW — «Обсудить с ИИ» from a card (library/shelf/feed).
-  // The window ALWAYS opens on the metric passport; the header ✕ reveals
-  // the conversation, whose AI already holds the WHOLE test context
-  // (POST /api/tests/[id]/ai-chat builds the prompt from the test itself).
+  // Opens STRAIGHT INTO the conversation (no diagnostic passport anymore):
+  // the test's most recent thread resumes, «Новый чат» starts a fresh one.
+  // The AI always answers with the WHOLE test context (POST
+  // /api/tests/[id]/ai-chat builds the prompt from the thread's test).
   // ------------------------------------------------------------------
   const openAiDiscuss = (test: any) => {
     aiCardTitleRef.current = String(test?.title || '');
@@ -2610,14 +2583,12 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   };
   const closeAiCard = () => {
     setAiCardTestId(null);
-    setAiPassportOpen(false);
   };
   // «Файлы» from a card: fetch the test's attachments (the feed payload only
   // carries the COUNT) and open the files window — the AI-window format.
   const openCardFiles = (test: any) => {
     if (!test?.id || dashFilesLoadingId === String(test.id)) return;
     setAiCardTestId(null); // one dashboard window at a time
-    setAiPassportOpen(false);
     setDashGroupTestId(null); // ...the group chat window yields too
     stashDashWindowTest(test);
     const cached = ((dashFullTests as any)[test.id]?.attachments as AttachmentItem[] | undefined)
@@ -2649,7 +2620,6 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     // early-return, so referencing it here would trip the TDZ on click.
     if (isGuestNow()) { setRegisterWall('chat'); return; }
     setAiCardTestId(null); // one dashboard window at a time
-    setAiPassportOpen(false);
     setDashFilesOpen(false);
     setEditOpen(false);
     setGroupMessages([]); // no stale lines from another test's chat
@@ -2663,40 +2633,39 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     setGroupMessages([]);
     setGroupInput('');
   };
-  const exitAiCardPassport = () => {
-    setAiPassportOpen(false);
-    // NOTE: the dashboard dismissal deliberately does NOT mark the test as
-    // "passport seen" — the take-test AI window shows its passport at its
-    // own first open regardless of the dashboard visit.
-  };
-  const fetchMetrics = (testId: string) => {
-    setAiMetrics(null); setAiMetricsError(null); setAiMetricsLoading(true);
-    let alive = true;
-    api.getTestMetrics(testId)
-      .then(m => { if (alive) setAiMetrics(m); })
-      .catch(e => { if (alive) setAiMetricsError(e?.message || 'Error'); })
-      .finally(() => { if (alive) setAiMetricsLoading(false); });
-    return () => { alive = false; };
-  };
+  // The window's open effect: resume the test's most recent thread — or
+  // spawn a fresh (empty, unsaved) one, «Новый чат» style. No passport.
   React.useEffect(() => {
     if (!aiCardTestId) return;
-    setAiPassportOpen(true); // every open starts at the passport
-    // the chat after ✕ resumes THIS test's saved thread (fresh when none)
-    const th = useChatStore.getState().chatThreads[aiCardTestId];
-    setChatThreadId(aiCardTestId);
-    setChatMessages(th ? [...th.messages] : []);
+    const tid = aiCardTestId;
+    const st = useChatStore.getState();
+    const cand = Object.entries(st.chatThreads)
+      .filter(([, th]) => th.testId === tid)
+      .sort((a, b) => (b[1].updatedAt || 0) - (a[1].updatedAt || 0))[0];
+    if (cand) {
+      setChatThreadId(cand[0]);
+      setChatMessages([...cand[1].messages]);
+    } else {
+      const id = newThreadKey();
+      setChatThreads(prev => ({ ...prev, [id]: { testId: tid, title: aiCardTitleRef.current || 'Test', messages: [], updatedAt: Date.now() } }));
+      setChatThreadId(id);
+      setChatMessages([]);
+    }
     setChatInput('');
-    return fetchMetrics(aiCardTestId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aiCardTestId]);
-  // Take-test: the same metrics window shows at the START of the AI window —
-  // fetch the passport of the test being taken.
-  React.useEffect(() => {
-    const tid = (currentTest as any)?.id || '';
+  // «Новый чат» in the dashboard AI window's drawer: a fresh conversation
+  // about the SAME test; the previous threads stay in the list.
+  const startNewDashChat = () => {
+    setChatHistoryOpen(false);
+    const tid = navNow().aiCardTestId;
     if (!tid) return;
-    return fetchMetrics(tid);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [(currentTest as any)?.id]);
+    const id = newThreadKey();
+    setChatThreads(prev => ({ ...prev, [id]: { testId: tid, title: aiCardTitleRef.current || 'Test', messages: [], updatedAt: Date.now() } }));
+    setChatThreadId(id);
+    setChatMessages([]);
+    setChatInput('');
+  };
   // Leaving the dashboard (start test / create / profile…) closes the windows.
   React.useEffect(() => {
     if (page !== 'dashboard') {
@@ -2705,7 +2674,15 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
-  const sendTestChatMessage = async (testId: string, existingMessages?: { role: 'user' | 'assistant'; content: string }[]) => {
+  const sendTestChatMessage = async (existingMessages?: { role: 'user' | 'assistant'; content: string }[]) => {
+    // The conversation carries its OWN test context: the drawer can switch to
+    // a thread about another test, so the testId resolves from the ACTIVE
+    // thread (falling back to the card the window was opened from).
+    const st0 = useChatStore.getState();
+    const activeTh = st0.chatThreadId ? st0.chatThreads[st0.chatThreadId] : null;
+    const testId = activeTh?.testId || navNow().aiCardTestId || '';
+    if (!testId) return;
+    const threadKey = st0.chatThreadId;
     let newMsgs: { role: 'user' | 'assistant'; content: string }[];
     if (existingMessages) {
       newMsgs = existingMessages;
@@ -2724,11 +2701,15 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
         const assistantMsg = { role: 'assistant' as const, content: result.response };
         const finalMsgs = [...newMsgs, assistantMsg];
         setChatMessages(finalMsgs);
-        // mirror into the per-test thread store → the debounced sync persists it
-        setChatThreads(prev => ({
-          ...prev,
-          [testId]: { title: aiCardTitleRef.current || prev[testId]?.title || 'Test', messages: finalMsgs, updatedAt: Date.now() },
-        }));
+        // mirror into the ACTIVE thread → the debounced sync persists it
+        setChatThreads(prev => {
+          const cur = threadKey ? prev[threadKey] : null;
+          if (!cur && !threadKey) return prev;
+          return {
+            ...prev,
+            [threadKey]: { testId, title: cur?.title || aiCardTitleRef.current || 'Test', messages: finalMsgs, updatedAt: Date.now() },
+          };
+        });
       } else if ((result as any).rateLimited) {
         setChatMessages(prev => [...prev, { role: 'assistant', content: t('aiBusy') }]);
       } else {
@@ -3971,10 +3952,10 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
           cycleDashView={cycleDashView}
           toggleDiscoverMode={toggleDiscoverMode}
         />
-        {/* THE DASHBOARD AI WINDOW — «Обсудить с ИИ»: the window opens on the
-        test's metric passport (7 x/100 cards); the header ✕ exits to the
-        conversation, whose AI holds the WHOLE test context. The replacement
-        of the version-tree entry on every library/shelf/feed card.
+        {/* THE DASHBOARD AI WINDOW — «Обсудить с ИИ»: opens STRAIGHT INTO the
+        conversation (the test's most recent thread, or a fresh one); the AI
+        holds the WHOLE test context. The replacement of the version-tree
+        entry on every library/shelf/feed card.
         Docked to the RIGHT edge on desktop (the AI chat lives in the right
         panel, like on the taking screen); the mobile variant brings its own
         fixed bottom-sheet overlay, the wrapper stays gesture-transparent. */}
@@ -3984,27 +3965,23 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
               <AiChatPanel
                 open
                 onClose={closeAiCard}
-                subtitle={aiCardTitleRef.current}
+                subtitle={(aiCardTestId && chatThreads[chatThreadId]?.title) || aiCardTitleRef.current}
                 messages={chatMessages}
                 loading={chatLoading}
                 input={chatInput}
                 onInputChange={setChatInput}
-                onSend={() => sendTestChatMessage(aiCardTestId)}
+                onSend={() => sendTestChatMessage()}
                 endRef={chatEndRef}
                 inputPlaceholder={t('aiTestChatPlaceholder')}
                 historyOpen={chatHistoryOpen}
                 onToggleHistory={() => setChatHistoryOpen(v => !v)}
                 threads={aiThreadMetas}
-                activeThreadId={aiCardTestId}
+                activeThreadId={chatThreadId}
                 onSelectThread={selectChatThread}
                 historyLabel={t('chatHistory')}
                 noChatsLabel={t('noChatsYet')}
-                passportOpen={aiPassportOpen}
-                onPassportExit={exitAiCardPassport}
-                metrics={aiMetrics}
-                metricsLoading={aiMetricsLoading}
-                metricsError={aiMetricsError}
-                passportHint={t('aiPassportHint')}
+                onNewChat={startNewDashChat}
+                newChatLabel={t('newChat')}
                 switcher={dashSwitcher}
               />
             </div>

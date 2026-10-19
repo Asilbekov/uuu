@@ -5,15 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Skeleton } from '@/components/ui/skeleton';
-import { BarChart3, Bot, ChevronDown, GraduationCap, Menu, MessageSquare, Send, Sparkles, Trophy, Users, X } from 'lucide-react';
+import { Bot, ChevronDown, Menu, MessageSquare, Plus, Send, Users, X } from 'lucide-react';
 import MathText from '@/components/math-text';
 import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
 import { DragHandle, useResizableSheet } from '@/components/resize-sheet';
 import { useExitMount } from '@/components/motion';
-import type { TestMetricsData } from '@/lib/app-types';
-import { tUI } from '@/lib/i18n';
-import { useSessionStore } from '@/stores/session-store';
 
 /**
  * Chat panels (AI Tutor + per-test group chat).
@@ -24,7 +20,8 @@ import { useSessionStore } from '@/stores/session-store';
  *  - Desktop (>= lg): stays as the side panel card next to the question.
  *
  * The AI panel additionally carries a LEFT HISTORY DRAWER (opened with the
- * ☰ button in the top-left corner): one separate chat thread per test.
+ * ☰ button in the top-left corner): every saved conversation, many threads
+ * per test, with a «Новый чат» button on top of the panel.
  */
 
 /* true when viewport >= lg (1024px). Panels only mount after a user click,
@@ -53,9 +50,10 @@ export interface GroupChatMessage {
   createdAt: string;
 }
 
-/** One entry of the AI chat history drawer — a separate thread per test. */
+/** One entry of the AI chat history drawer — a conversation (many per test). */
 export interface AiThreadMeta {
-  testId: string;
+  id: string; // the thread id the drawer selects by
+  testId: string; // the test the conversation is about
   title: string;
   preview: string;
   updatedAt: number;
@@ -80,212 +78,6 @@ function TypingBubble() {
 }
 
 /* ------------------------------------------------------------------ */
-/* AI TEST PASSPORT — the x/100 metric cards                            */
-/*                                                                      */
-/* Shown INSIDE the AI chat window (bottom sheet on mobile / the right   */
-/* side panel on desktop) BEFORE the conversation: ~7 cards grading the  */
-/* test. Three scales were graded by the AI under the hood at test       */
-/* creation; three are the live metrics the site collects; the last one  */
-/* is the viewer's personal topic score. Pressing the header ✕ exits to  */
-/* the actual chat — the AI already holds the whole test context.        */
-/* ------------------------------------------------------------------ */
-
-function MetricCard({
-  icon, label, value, max = 100, unit, hint, tint, delay = 0,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  /** null → "no data yet"; number → shown big with the /max suffix */
-  value: number | null;
-  max?: number;
-  unit?: string;
-  hint?: string;
-  tint: string; // icon chip background
-  delay?: number;
-}) {
-  const hasNumber = typeof value === 'number' && Number.isFinite(value);
-  return (
-    <div
-      className="rounded-2xl border border-black/10 bg-white p-3 flex items-center gap-3 animate-in slide-in-from-bottom-2 fade-in duration-300"
-      style={{ animationDelay: `${delay}ms`, animationFillMode: 'backwards' }}
-    >
-      <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${tint}`}>
-        {icon}
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="text-[11.5px] font-semibold text-foreground/80 leading-tight truncate">{label}</p>
-        {hasNumber && typeof max === 'number' && max === 100 ? (
-          <div className="mt-1.5 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-            <div
-              className="h-full rounded-full bg-primary transition-all duration-700"
-              style={{ width: `${Math.max(3, value as number)}%` }}
-            />
-          </div>
-        ) : null}
-        {hint ? <p className="text-[10px] text-muted-foreground leading-tight mt-1 truncate">{hint}</p> : null}
-      </div>
-      <div className="shrink-0 text-right">
-        {hasNumber ? (
-          <p className="text-lg font-extrabold leading-none text-cta">
-            {value}
-            {max === 100 ? <span className="text-[11px] font-bold text-muted-foreground">/{max}</span> : null}
-          </p>
-        ) : (
-          <p className="text-[11px] font-semibold text-muted-foreground leading-none">—</p>
-        )}
-        {unit ? <p className="text-[9.5px] text-muted-foreground leading-none mt-1">{unit}</p> : null}
-      </div>
-    </div>
-  );
-}
-
-export function MetricsPassport({
-  metrics,
-  loading,
-  error,
-  testTitle,
-}: {
-  metrics: TestMetricsData | null;
-  loading: boolean;
-  error: string | null;
-  testTitle?: string;
-}) {
-  const lang = useSessionStore(s => s.lang);
-  const t = React.useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
-
-  if (loading && !metrics) {
-    return (
-      <div className="h-full flex flex-col items-center justify-center gap-4 px-6 text-center">
-        <div className="w-12 h-12 rounded-2xl bg-cta flex items-center justify-center shadow-md">
-          <Bot className="w-6 h-6 text-white" />
-        </div>
-        <p className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
-          {t('aiAnalyzing')}
-          <span className="flex items-center gap-0.5">
-            <span className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-            <span className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-            <span className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-          </span>
-        </p>
-        <div className="w-full max-w-xs space-y-2">
-          {[0, 1, 2, 3].map(i => <Skeleton key={i} className="h-16 w-full rounded-2xl" />)}
-        </div>
-      </div>
-    );
-  }
-
-  if (error && !metrics) {
-    return (
-      <div className="h-full flex flex-col items-center justify-center gap-3 px-6 text-center">
-        <Bot className="w-10 h-10 text-muted-foreground" />
-        <p className="text-sm text-muted-foreground">{t('aiPassportError')}</p>
-        <p className="text-[11px] text-muted-foreground/70 max-w-[240px] truncate">{error}</p>
-      </div>
-    );
-  }
-
-  if (!metrics) return null;
-
-  return (
-    <ScrollArea className="h-full px-4">
-      <div className="space-y-2.5 py-3">
-        {/* Passport headline */}
-        <div
-          className="rounded-2xl bg-cta text-white p-3.5 animate-in slide-in-from-bottom-2 fade-in duration-300"
-          style={{ animationDelay: '0ms', animationFillMode: 'backwards' }}
-        >
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 shrink-0" style={{ color: '#fccc41' }} />
-            <p className="text-[13px] font-bold leading-tight">{t('aiPassportTitle')}</p>
-          </div>
-          <p className="text-[10.5px] text-white/70 mt-0.5">
-            {t('aiPassportSub', { n: metrics.questions })}{testTitle ? ` · ${testTitle}` : ''}
-          </p>
-          {metrics.summary ? (
-            <p className="text-[11.5px] leading-snug text-white/90 mt-2 border-l-2 border-white/30 pl-2">{metrics.summary}</p>
-          ) : null}
-        </div>
-
-        {/* Section: AI-graded at creation */}
-        <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground px-1 pt-1">{t('aiSectionAi')}</p>
-        <MetricCard
-          icon={<GaugeIcon />}
-          label={t('mDifficulty')}
-          value={metrics.difficulty}
-          tint="bg-[#FFE8DE] text-cta"
-          delay={60}
-        />
-        <MetricCard
-          icon={<Sparkles className="w-4.5 h-4.5" />}
-          label={t('mCross')}
-          value={metrics.crossSubject}
-          tint="bg-[#FFE8DE] text-cta"
-          delay={120}
-        />
-        <MetricCard
-          icon={<BarChart3 className="w-4.5 h-4.5" />}
-          label={t('mQuality')}
-          value={metrics.quality}
-          tint="bg-[#FFE8DE] text-cta"
-          delay={180}
-        />
-
-        {/* Section: live site metrics */}
-        <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground px-1 pt-1.5">{t('aiSectionSite')}</p>
-        <MetricCard
-          icon={<Users className="w-4.5 h-4.5" />}
-          label={t('mTaken')}
-          value={metrics.timesTaken}
-          max={1}
-          unit={t('mPeople')}
-          tint="bg-[#FFF0D9] text-cta"
-          delay={240}
-        />
-        <MetricCard
-          icon={<Trophy className="w-4.5 h-4.5" />}
-          label={t('mRecord')}
-          value={metrics.recordScore}
-          tint="bg-[#FFF0D9] text-cta"
-          hint={metrics.recordScore === null ? t('mNoData') : undefined}
-          delay={300}
-        />
-        <MetricCard
-          icon={<BarChart3 className="w-4.5 h-4.5" />}
-          label={t('mAvg')}
-          value={metrics.avgScore}
-          tint="bg-[#FFF0D9] text-cta"
-          hint={metrics.avgScore === null ? t('mNoData') : undefined}
-          delay={360}
-        />
-
-        {/* Personal card */}
-        <div className="pt-1.5">
-          <MetricCard
-            icon={<GraduationCap className="w-4.5 h-4.5" />}
-            label={t('mKnow')}
-            value={metrics.userKnows}
-            tint="bg-[#E7F5EC] text-cta"
-            hint={metrics.userKnows === null ? t('mNoData') : undefined}
-            delay={420}
-          />
-        </div>
-      </div>
-    </ScrollArea>
-  );
-}
-
-/* lucide has no "Gauge" in this icon set version — a tiny inline stand-in
-   with the same visual weight as the other 4.5px icons. */
-function GaugeIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4.5 h-4.5">
-      <path d="M12 14l4-4" />
-      <path d="M3.3 17a9 9 0 1 1 17.4 0" />
-    </svg>
-  );
-}
-
-/* ------------------------------------------------------------------ */
 /* AI chat history drawer (left panel, ☰ button)                        */
 /* ------------------------------------------------------------------ */
 
@@ -297,14 +89,19 @@ function HistoryDrawer({
   onSelect,
   historyLabel,
   noChatsLabel,
+  onNewChat,
+  newChatLabel,
 }: {
   open: boolean;
   onClose: () => void;
   threads: AiThreadMeta[];
   activeThreadId?: string;
-  onSelect: (testId: string) => void;
+  onSelect: (threadId: string) => void;
   historyLabel: string;
   noChatsLabel: string;
+  /** the «Новый чат» button at the top of the panel — starts a fresh conversation */
+  onNewChat?: () => void;
+  newChatLabel?: string;
 }) {
   // Stay mounted while the slide-out-left exit animation plays
   const mounted = useExitMount(open, 200);
@@ -312,7 +109,9 @@ function HistoryDrawer({
   return (
     <div className="absolute inset-0 z-30 flex">
       <div className={`absolute inset-0 bg-black/30 ${open ? 'animate-in fade-in duration-200' : 'animate-out fade-out pointer-events-none duration-200'}`} onClick={onClose} />
-      <div className={`relative h-full w-64 sm:w-72 bg-white border-r-2 border-black/10 shadow-2xl rounded-l-3xl flex flex-col ${open ? 'animate-in slide-in-from-left duration-200' : 'animate-out slide-out-to-left fade-out pointer-events-none duration-200'}`}>
+      {/* RECTANGULAR panel — square corners by design (the user asked for a
+          four-sided drawer, no rounded edges). */}
+      <div className={`relative h-full w-64 sm:w-72 bg-white border-r-2 border-black/10 shadow-2xl flex flex-col ${open ? 'animate-in slide-in-from-left duration-200' : 'animate-out slide-out-to-left fade-out pointer-events-none duration-200'}`}>
         <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
           <p className="font-bold text-sm flex items-center gap-2">
             <MessageSquare className="w-4 h-4 text-cta" /> {historyLabel}
@@ -321,18 +120,32 @@ function HistoryDrawer({
             <X className="w-4 h-4" />
           </Button>
         </div>
+        {/* «Новый чат» — the TOP action of the left panel: starts a fresh
+            conversation; the previous threads stay in the list below. */}
+        {onNewChat ? (
+          <div className="px-3 py-2.5 border-b shrink-0">
+            <button
+              type="button"
+              onClick={onNewChat}
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-cta text-white px-3 py-2.5 text-[13px] font-bold shadow-sm hover:bg-cta/90 active:scale-[0.98] transition"
+            >
+              <Plus className="w-4 h-4 shrink-0" />
+              <span className="truncate">{newChatLabel || 'New chat'}</span>
+            </button>
+          </div>
+        ) : null}
         <ScrollArea className="flex-1">
           <div className="p-2 space-y-1">
             {threads.length === 0 && (
               <p className="text-xs text-muted-foreground text-center py-6 px-2">{noChatsLabel}</p>
             )}
             {threads.map(th => {
-              const active = th.testId === activeThreadId;
+              const active = th.id === activeThreadId;
               return (
                 <button
-                  key={th.testId}
+                  key={th.id}
                   type="button"
-                  onClick={() => onSelect(th.testId)}
+                  onClick={() => onSelect(th.id)}
                   className={`w-full text-left px-3 py-2.5 rounded-2xl border transition-colors ${
                     active
                       ? 'bg-[#FFE8DE] border-primary/60'
@@ -383,9 +196,6 @@ function MobileChatSheet({
   hamburger,
   history,
   exiting,
-  /** when set, the header ✕ buttons run this instead of onClose (the AI
-  passport uses it to exit to the chat instead of closing the window) */
-  onCloseOverride,
 }: {
   onClose: () => void;
   icon: React.ReactNode;
@@ -399,10 +209,9 @@ function MobileChatSheet({
   history?: React.ReactNode;
   /** true while the parent plays its exit animation — swaps enter classes for exit ones. */
   exiting?: boolean;
-  onCloseOverride?: () => void;
 }) {
   const sheet = useResizableSheet({ initialVh: 0.78, minVh: 0.35, onClose });
-  const headerX = onCloseOverride || onClose;
+  const headerX = onClose;
   return (
     <div className="fixed inset-0 z-50">
       <div className={`absolute inset-0 bg-black/50 ${exiting ? 'animate-out fade-out pointer-events-none duration-200' : 'animate-in fade-in duration-200'}`} onClick={onClose} />
@@ -482,18 +291,8 @@ export function AiChatPanel({
   onSelectThread,
   historyLabel,
   noChatsLabel,
-  // ---- AI test passport («Обсудить с ИИ») -------------------------------
-  // When passportOpen is true the window shows the METRIC CARDS instead of
-  // the conversation; the header ✕ then exits to the chat (onPassportExit)
-  // instead of closing the whole window — exactly the flow the product
-  // wants: look at the passport first, press ✕ to talk with the AI that
-  // already holds the full test context.
-  passportOpen = false,
-  onPassportExit,
-  metrics = null,
-  metricsLoading = false,
-  metricsError = null,
-  passportHint,
+  onNewChat,
+  newChatLabel,
 }: {
   open: boolean;
   onClose: () => void;
@@ -510,15 +309,12 @@ export function AiChatPanel({
   onToggleHistory: () => void;
   threads: AiThreadMeta[];
   activeThreadId?: string;
-  onSelectThread: (testId: string) => void;
+  onSelectThread: (threadId: string) => void;
   historyLabel: string;
   noChatsLabel: string;
-  passportOpen?: boolean;
-  onPassportExit?: () => void;
-  metrics?: TestMetricsData | null;
-  metricsLoading?: boolean;
-  metricsError?: string | null;
-  passportHint?: string;
+  /** «Новый чат» — the top button of the left drawer (starts a fresh thread). */
+  onNewChat?: () => void;
+  newChatLabel?: string;
 }) {
   const isDesktop = useIsDesktopLg();
   // Stay mounted while the exit animation (fade / slide-down) plays
@@ -528,32 +324,18 @@ export function AiChatPanel({
 
   const icon = <Bot className="w-4 h-4 text-white" />;
 
-  // While the passport is up, the top-right ✕ exits to the chat (NOT close):
-  const headerClose = passportOpen ? (onPassportExit || onClose) : onClose;
-
   const historyDrawer = (
     <HistoryDrawer
-      open={historyOpen && !passportOpen}
+      open={historyOpen}
       onClose={onToggleHistory}
       threads={threads}
       activeThreadId={activeThreadId}
       onSelect={onSelectThread}
       historyLabel={historyLabel}
       noChatsLabel={noChatsLabel}
+      onNewChat={onNewChat}
+      newChatLabel={newChatLabel}
     />
-  );
-
-  const passportBody = (
-    <MetricsPassport metrics={metrics} loading={metricsLoading} error={metricsError} />
-  );
-
-  const passportFooter = (
-    <div className="flex items-center justify-center gap-1.5 py-0.5">
-      <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" />
-      <p className="text-[11px] leading-snug text-muted-foreground text-center">
-        {passportHint || 'Press ✕ to start chatting — the AI already knows this test'}
-      </p>
-    </div>
   );
 
   const body = (
@@ -608,9 +390,6 @@ export function AiChatPanel({
     </div>
   );
 
-  const activeBody = passportOpen ? passportBody : body;
-  const activeFooter = passportOpen ? passportFooter : footer;
-
   if (isDesktop) {
     return (
       <div className={`w-[420px] shrink-0 ${exiting ? 'animate-out fade-out pointer-events-none duration-200' : 'animate-in fade-in duration-200'}`}>
@@ -618,8 +397,8 @@ export function AiChatPanel({
           <CardHeader className="pb-3 shrink-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 min-w-0 flex-1">
-                {/* ☰ — per-test chat history drawer (hidden in passport mode) */}
-                {!passportOpen && <HistoryButton onClick={onToggleHistory} />}
+                {/* ☰ — the chat history drawer («Новый чат» lives inside it) */}
+                <HistoryButton onClick={onToggleHistory} />
                 {switcher ? (
                   <SheetHeaderSwitcher
                     icon={icon}
@@ -638,16 +417,16 @@ export function AiChatPanel({
                   </>
                 )}
               </div>
-              <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={headerClose}>
+              <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={onClose}>
                 <X className="w-4 h-4" />
               </Button>
             </div>
           </CardHeader>
           <CardContent className="relative flex-1 overflow-hidden p-0">
-            {activeBody}
+            {body}
             {historyDrawer}
           </CardContent>
-          <CardFooter className="pt-3 pb-4 shrink-0">{activeFooter}</CardFooter>
+          <CardFooter className="pt-3 pb-4 shrink-0">{footer}</CardFooter>
         </Card>
       </div>
     );
@@ -659,14 +438,12 @@ export function AiChatPanel({
       icon={icon}
       title="AI Tutor"
       subtitle={subtitle}
-      body={activeBody}
-      footer={activeFooter}
+      body={body}
+      footer={footer}
       switcher={switcher}
-      hamburger={!passportOpen ? <HistoryButton onClick={onToggleHistory} /> : undefined}
+      hamburger={<HistoryButton onClick={onToggleHistory} />}
       history={historyDrawer}
       exiting={exiting}
-      /** in passport mode the sheet's own ✕ ALSO exits to the chat */
-      onCloseOverride={passportOpen ? (onPassportExit || onClose) : undefined}
     />
   );
 }

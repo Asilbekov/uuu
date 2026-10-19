@@ -2,8 +2,9 @@ import { makeStore } from '@/stores/make-store';
 import type { Question, GroupMessage } from '@/lib/app-types';
 
 // ---------------------------------------------------------------------------
-// CHAT store — the per-test AI tutor conversation (threads persisted per user
-// in the DATABASE, AiThread table) and the per-test group chat panel.
+// CHAT store — the per-test AI tutor conversations (MANY threads per test —
+// the «Новый чат» button spawns fresh ones; threads persisted per user in the
+// DATABASE, AiThread table) and the per-test group chat panel.
 // Previously ~15 loose useState hooks inside app-root.tsx.
 // ---------------------------------------------------------------------------
 
@@ -12,10 +13,22 @@ export interface ChatMessage {
   content: string;
 }
 
+/** Keyed by THREAD id (not test id!) — one test may own many conversations. */
 export interface ChatThread {
+  testId: string;
   title: string;
   messages: ChatMessage[];
   updatedAt: number;
+}
+
+/** Fresh client-side thread key (the server keeps it when free). */
+export function newThreadKey(): string {
+  try {
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+      return crypto.randomUUID();
+    }
+  } catch { /* older browsers */ }
+  return `t-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
 interface ChatData {
@@ -27,20 +40,9 @@ interface ChatData {
   chatQuestionId: string;
   chatUserAnswer: string;
   chatQuestionObj: Question | null;
-  // test id whose thread is in chatMessages
+  // the ACTIVE thread id (a key of chatThreads, '' = none yet)
   chatThreadId: string;
   chatThreads: Record<string, ChatThread>;
-  // AI passport (the x/100 metric cards) — shown FIRST when the AI window
-  // opens, on the dashboard AND at the start of the take-test chat window.
-  // aiPassportSeenFor: the test whose passport was already dismissed this
-  // session (re-opening the same window goes straight to the chat).
-  aiPassportOpen: boolean;
-  aiPassportSeenFor: string | null;
-  // The passport data itself (GET /api/tests/[id]/metrics) — one shared slot:
-  // the dashboard window and the take-test window never coexist.
-  aiMetrics: import('@/lib/app-types').TestMetricsData | null;
-  aiMetricsLoading: boolean;
-  aiMetricsError: string | null;
   // AI tutor sheet
   groupMessages: GroupMessage[];
   groupInput: string;
@@ -56,11 +58,6 @@ const INITIAL: ChatData = {
   chatQuestionObj: null,
   chatThreadId: '',
   chatThreads: {},
-  aiPassportOpen: false,
-  aiPassportSeenFor: null,
-  aiMetrics: null,
-  aiMetricsLoading: false,
-  aiMetricsError: null,
   groupMessages: [],
   groupInput: '',
   groupSending: false,
