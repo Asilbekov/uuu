@@ -31,6 +31,7 @@ import type {
 } from "@/server/schemas";
 import type { z } from "zod";
 import { removedQuestionPhotos } from "./telegram-cleanup";
+import { generateAiMetrics } from "./test-metrics.service";
 
 type CreateTestInput = z.infer<typeof createTestSchema>;
 type UpdateTestInput = z.infer<typeof updateTestSchema>;
@@ -363,6 +364,15 @@ export async function createTest(userId: string, body: CreateTestInput) {
 
   // Store new tags in the global dictionary for future autocomplete
   await ensureTagsExist(cleanTags);
+
+  // AI TEST PASSPORT — generated UNDER THE HOOD in the very beginning of the
+  // test's life: the AI reads the questions/files and grades difficulty /
+  // cross-subject / quality for the «Обсудить с ИИ» metric cards. Best-effort
+  // + off the critical path (the create response returns immediately; a failed
+  // generation retries lazily on the first /metrics read).
+  after(async () => {
+    await generateAiMetrics(test.id);
+  });
 
   // Content archive: the whole test as a JSON file in the Telegram channel.
   // BEST-EFFORT + OFF THE CRITICAL PATH: the create request returns the full
@@ -714,6 +724,11 @@ export async function copyTest(userId: string, id: string) {
 
   // The copy gets its OWN content archive in the Telegram channel (the
   // original's archive keeps describing the original). Best-effort.
+  // ALSO off the critical path: the copy's own AI passport (a version has
+  // different questions — it deserves its own difficulty/quality grades).
+  after(async () => {
+    await generateAiMetrics(copy.id);
+  });
   let finalCopy = copy;
   try {
     const archive = await uploadTestArchive(copy);

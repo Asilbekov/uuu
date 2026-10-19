@@ -23,6 +23,14 @@ interface ChatTurn {
 const MAX_RETRIES = 3;
 const RETRY_DELAYS = [2000, 5000, 10000]; // 2s, 5s, 10s
 
+// Shared formatting contract of every tutor prompt (product IP — preserved
+// verbatim). Lives at module scope so the test-level chat reuses the same
+// rules.
+const LATEX_RULE = `FORMATTING RULES (STRICT):
+1. Write ALL math, formulas, and equations using LaTeX wrapped in dollar signs: inline math like $x^2 + 1$, $\\frac{a}{b}$, $A^{-1}$, and display equations on their own line like $$\\int_0^1 x^2 dx = \\frac{1}{3}$$. NEVER write math as plain text (no "x^2", no "a/b" for fractions). Matrices use \\begin{pmatrix} ... \\end{pmatrix}.
+2. NEVER use \\(...\\) or \\[...\\] delimiters — only $...$ and $$...$$.
+3. Do not use markdown headings (#). Use short bold labels like **Step 1:** when helpful. The interface renders LaTeX with KaTeX.`;
+
 /**
  * Normalize math delimiters coming from the LLM.
  * Many models emit \( ... \) and \[ ... \] while the frontend renders $...$ / $$...$$.
@@ -212,6 +220,73 @@ ${LATEX_RULE}`;
   const aiResponse = await callAIWithRetry(conversationMessages);
 
   // Normalize \(...\) and \[...\] to $...$ / $$...$$ so the frontend renders them
+  return { response: normalizeMathNotation(aiResponse) };
+}
+
+// -------------------------------------------------------- test-level chat --
+
+/**
+ * The AI chat that holds the WHOLE TEST as context — the conversation the
+ * user lands in after the metrics passport («Обсудить с ИИ»). No concrete
+ * question: the server loads the test (title, topic, tags, every question
+ * with its options and the GROUND-TRUTH correct answer, the AI passport
+ * scores) and builds the system prompt from it.
+ */
+export async function tutorChatAboutTest(
+  userId: string,
+  testId: string,
+  messages: ChatTurn[]
+) {
+  const test = await db.test.findUnique({
+    where: { id: testId },
+    include: {
+      questions: { orderBy: { orderNum: "asc" }, take: 60 },
+      metrics: { select: { difficulty: true, crossSubject: true, quality: true } },
+    },
+  });
+  if (!test) throw ApiError.notFound("Test not found");
+
+  const qDump = test.questions
+    .map((q, i) => {
+      const opts = (["A", "B", "C", "D", "E"] as const)
+        .map((l) => q[`option${l}` as keyof typeof q] as string | null)
+        .filter(Boolean)
+        .map((o) => o!.slice(0, 90))
+        .join(" | ");
+      return [
+        `${i + 1}. ${q.text.slice(0, 300)}`,
+        opts ? `   Options: ${opts}` : "",
+        `   Correct: ${q.correctAnswer}`,
+      ]
+        .filter(Boolean)
+        .join("\n");
+    })
+    .join("\n");
+
+  const passport = test.metrics
+    ? `AI passport scores (0-100): difficulty ${test.metrics.difficulty ?? "?"}, cross-subject ${test.metrics.crossSubject ?? "?"}, quality ${test.metrics.quality ?? "?"}.`
+    : "";
+
+  const systemPrompt = `You are the AI tutor of the test "${test.title}" (topic: ${test.topic}${(test.tags || []).length ? `, tags: ${test.tags.join(", ")}` : ""}). You KNOW this test completely — the user has just seen its AI metric cards and came here to discuss it. ${passport}
+
+All questions with the GROUND-TRUTH correct answers:
+${qDump}
+
+ABSOLUTE RULE: the "Correct:" letters above are GROUND TRUTH from the test system — never question them, never suggest a different option is correct.
+
+Answer the user's questions about THIS test: explain any question, discuss the topic, give study advice, analyse the difficulty. Reply in the language the user writes in (Russian, English or Uzbek). Be concise, educational and supportive.
+
+${LATEX_RULE}`;
+
+  const conversationMessages = [
+    { role: "system" as const, content: systemPrompt },
+    ...messages.slice(-20).map((m) => ({
+      role: m.role as "user" | "assistant",
+      content: m.content,
+    })),
+  ];
+
+  const aiResponse = await callAIWithRetry(conversationMessages);
   return { response: normalizeMathNotation(aiResponse) };
 }
 

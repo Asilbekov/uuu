@@ -113,6 +113,19 @@ export function OverlayPanels({
   const setEditOpen = useNavStore(s => s.setEditOpen);
   const chatHistoryOpen = useNavStore(s => s.chatHistoryOpen);
   const setChatHistoryOpen = useNavStore(s => s.setChatHistoryOpen);
+  // AI passport — the metric cards shown at the START of the AI window (the
+  // header ✕ exits to the conversation). State lives in the chat store;
+  // app-root fetches the metrics + fires the deferred first message.
+  const aiPassportOpen = useChatStore(s => s.aiPassportOpen);
+  const setAiPassportOpen = useChatStore(s => s.setAiPassportOpen);
+  const setAiPassportSeenFor = useChatStore(s => s.setAiPassportSeenFor);
+  const aiMetrics = useChatStore(s => s.aiMetrics);
+  const aiMetricsLoading = useChatStore(s => s.aiMetricsLoading);
+  const aiMetricsError = useChatStore(s => s.aiMetricsError);
+  const exitPassport = React.useCallback(() => {
+    setAiPassportOpen(false);
+    setAiPassportSeenFor(useChatStore.getState().chatThreadId || '');
+  }, [setAiPassportOpen, setAiPassportSeenFor]);
 
   // History drawer entries: every test that has at least one message
   // (same derivation as app-root's memo — the AI tutor sheet's ☰ list)
@@ -160,6 +173,12 @@ export function OverlayPanels({
           onSelectThread={selectChatThread}
           historyLabel={t('chatHistory')}
           noChatsLabel={t('noChatsYet')}
+          passportOpen={aiPassportOpen}
+          onPassportExit={exitPassport}
+          metrics={aiMetrics}
+          metricsLoading={aiMetricsLoading}
+          metricsError={aiMetricsError}
+          passportHint={t('aiPassportHint')}
         />
       )}
 

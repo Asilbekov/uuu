@@ -164,6 +164,11 @@ model Test {
   // version tree. null = not named yet (the naming dialog will appear).
   versionName  String?
   notes      TestNote[]
+  // AI test passport — generated UNDER THE HOOD at test creation by the AI
+  // analysis of the files and questions, enriched live with the metrics the
+  // site collects (attempts, records, averages). Shown as the x/100 metric
+  // cards inside the "Discuss with AI" window.
+  metrics    TestMetrics?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -188,6 +193,32 @@ model TestNote {
 
   @@index([testId, createdAt])
   @@index([userId])
+}
+
+// AI TEST PASSPORT — created in the very beginning of the test's life
+// ("под капотом" at creation/copy time): the AI reads the questions,
+// options, correct answers, explanations and the attached files' titles and
+// grades the test on 0-100 scales. The SITE metrics (how many people took
+// it, the record, the average) are NOT stored here — they are aggregated
+// live from the attempts at read time, so they are always fresh.
+// If the AI chain fails, a deterministic heuristic fills the scales so the
+// passport cards NEVER render empty.
+model TestMetrics {
+  id           String   @id @default(cuid())
+  testId       String   @unique
+  test         Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  // AI-graded scales, 0-100:
+  difficulty   Int?     // how hard the test is
+  crossSubject Int?     // how many disciplines it spans
+  quality      Int?     // question quality (wording, distractors, explanations)
+  // One-line AI summary of what this test covers (shown in the passport).
+  summary      String?
+  // "ai" = graded by the AI chain; "heuristic" = deterministic fallback.
+  genSource    String   @default("ai")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([updatedAt])
 }
 
 // Global tag dictionary: every tag used on a test lands here so it can be

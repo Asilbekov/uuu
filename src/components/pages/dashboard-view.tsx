@@ -15,7 +15,7 @@ import { api } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Question } from '@/lib/app-types';
 import { countAnsweredProgress, readTestProgress, type SavedTestProgress } from '@/lib/test-progress';
-import { ArrowLeft, BookOpen, BookmarkX, ChevronDown, ChevronRight, ChevronUp, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, BookmarkX, Bot, ChevronDown, ChevronRight, ChevronUp, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
 const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsEditor), { ssr: false });
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
 // Version tree — its own on-demand chunk (fetches the family + renders SVG)
@@ -110,11 +110,16 @@ export interface DashboardViewProps {
   openUserLibrary: (...args: any[]) => any;
   startFromDashboard: (...args: any[]) => any;
   toggleGridFiles: (...args: any[]) => any;
-  // version-tree modes (same contract as the files handlers)
+  // version-tree modes (same contract as the files handlers) — DORMANT:
+  // every tree entry button was replaced by «Обсудить с ИИ» (openAiDiscuss);
+  // the handlers stay wired so the dormant overlays keep compiling.
   openTreeCard: (...args: any[]) => any;
   closeTreeCard: (...args: any[]) => any;
   toggleGridTree: (...args: any[]) => any;
   closeGridTree: (...args: any[]) => any;
+  // «Обсудить с ИИ» — opens the AI window with the test's metric passport
+  // (the replacement of the version-tree entry on EVERY card).
+  openAiDiscuss: (test: Test) => void;
   doShareLink: (...args: any[]) => any;
   doMakePublic: (...args: any[]) => any;
   handleDeleteTest: (...args: any[]) => any;
@@ -147,10 +152,9 @@ export default function DashboardView({
   openUserLibrary,
   startFromDashboard,
   toggleGridFiles,
-  openTreeCard,
   closeTreeCard,
-  toggleGridTree,
   closeGridTree,
+  openAiDiscuss,
   doShareLink,
   doMakePublic,
   handleDeleteTest,
@@ -196,6 +200,9 @@ export default function DashboardView({
   const filesFeedTestId = useNavStore(s => s.filesFeedTestId);
   // version-tree modes
   const treeFeedMode = useNavStore(s => s.treeFeedMode);
+  // «Обсудить с ИИ» — the test whose AI passport window is open (the active
+  // state of the card button that opened it)
+  const aiCardTestId = useNavStore(s => s.aiCardTestId);
   const treeFeedTestId = useNavStore(s => s.treeFeedTestId);
   const gridTreeMode = useNavStore(s => s.gridTreeMode);
   const gridTreeTestId = useNavStore(s => s.gridTreeTestId);
@@ -616,11 +623,11 @@ export default function DashboardView({
               <RefreshCw className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gRestart')}</span>
             </Button>
             <Button size="sm" variant="outline"
-              onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
-              title={t('versionTree')} aria-label={t('versionTree')}
-              className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+              onClick={e => { e.stopPropagation(); openAiDiscuss(test); }}
+              title={t('aiDiscuss')} aria-label={t('aiDiscuss')}
+              className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${aiCardTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
             >
-              <TreeDeciduous className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gTree')}</span>
+              <Bot className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gAi')}</span>
             </Button>
             {fcnt > 0 && (
               <Button size="sm" variant="outline"
@@ -723,11 +730,11 @@ export default function DashboardView({
                 <RefreshCw className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gRestart')}</span>
               </Button>
               <Button size="sm" variant="outline"
-                onClick={e => { e.stopPropagation(); toggleGridTree(test); }}
-                title={t('versionTree')} aria-label={t('versionTree')}
-                className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridTreeMode && gridTreeTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                onClick={e => { e.stopPropagation(); openAiDiscuss(test); }}
+                title={t('aiDiscuss')} aria-label={t('aiDiscuss')}
+                className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${aiCardTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
               >
-                <TreeDeciduous className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gTree')}</span>
+                <Bot className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gAi')}</span>
               </Button>
               {fcnt > 0 && (
                 <Button size="sm" variant="outline"
@@ -1631,18 +1638,17 @@ export default function DashboardView({
                               </button>
                             )}
 
-                            {/* Version tree — ALWAYS visible (every test has a
-                            tree, even a lonely trunk): flips the feed to the
-                            TREE mode for this test, exactly like the files
-                            button flips it to the FILES mode. Tapping an apple
-                            opens the version created by that user. */}
+                            {/* «Обсудить с ИИ» — opens the AI window with the
+                            test's metric passport (the version-tree button's
+                            replacement). Works in EVERY view: feed, library,
+                            shelf; personal AND community library alike. */}
                             <button
                               type="button"
-                              onClick={() => { if (treeFeedMode && treeFeedTestId === test.id) closeTreeCard(); else openTreeCard(test); }}
-                              className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left transition-colors ${treeFeedMode && treeFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
+                              onClick={() => openAiDiscuss(test)}
+                              className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left transition-colors ${aiCardTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
                             >
-                              <TreeDeciduous className="w-4 h-4 shrink-0" />
-                              <span className="font-semibold text-sm">{t('versionTree')}</span>
+                              <Bot className="w-4 h-4 shrink-0" />
+                              <span className="font-semibold text-sm">{t('aiDiscuss')}</span>
                               <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
                             </button>
                           </>

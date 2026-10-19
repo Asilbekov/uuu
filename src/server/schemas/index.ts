@@ -222,6 +222,21 @@ export const explainSchema = z.object({
   lang: z.string().max(5).optional(),
 });
 
+// AI chat about the WHOLE TEST (opened with the «Обсудить с ИИ» button /
+// after the metrics passport): no concrete question — the AI holds the full
+// test context server-side (title, topic, tags, questions with answers).
+export const aiTestChatSchema = z.object({
+  messages: z
+    .array(
+      z.object({
+        role: z.enum(["user", "assistant"]),
+        content: z.string().max(8000),
+      })
+    )
+    .min(1)
+    .max(60),
+});
+
 // -------------------------------------------------------------- translate ---
 export const translateSchema = z.object({
   texts: z.array(z.string().max(6000)).min(1).max(500),

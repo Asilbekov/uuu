@@ -30,6 +30,17 @@ interface ChatData {
   // test id whose thread is in chatMessages
   chatThreadId: string;
   chatThreads: Record<string, ChatThread>;
+  // AI passport (the x/100 metric cards) — shown FIRST when the AI window
+  // opens, on the dashboard AND at the start of the take-test chat window.
+  // aiPassportSeenFor: the test whose passport was already dismissed this
+  // session (re-opening the same window goes straight to the chat).
+  aiPassportOpen: boolean;
+  aiPassportSeenFor: string | null;
+  // The passport data itself (GET /api/tests/[id]/metrics) — one shared slot:
+  // the dashboard window and the take-test window never coexist.
+  aiMetrics: import('@/lib/app-types').TestMetricsData | null;
+  aiMetricsLoading: boolean;
+  aiMetricsError: string | null;
   // AI tutor sheet
   groupMessages: GroupMessage[];
   groupInput: string;
@@ -45,6 +56,11 @@ const INITIAL: ChatData = {
   chatQuestionObj: null,
   chatThreadId: '',
   chatThreads: {},
+  aiPassportOpen: false,
+  aiPassportSeenFor: null,
+  aiMetrics: null,
+  aiMetricsLoading: false,
+  aiMetricsError: null,
   groupMessages: [],
   groupInput: '',
   groupSending: false,

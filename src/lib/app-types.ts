@@ -103,6 +103,23 @@ export interface TestNote {
   user?: { id: string; name: string; image?: string | null };
 }
 
+// The AI test passport readout (see GET /api/tests/[id]/metrics).
+// difficulty/crossSubject/quality are graded by the AI at test-creation time
+// ("под капотом"); timesTaken/recordScore/avgScore are live site metrics;
+// userKnows is the viewer's personal topic score (null for guests).
+export interface TestMetricsData {
+  difficulty: number;
+  crossSubject: number;
+  quality: number;
+  summary: string | null;
+  genSource: string; // "ai" | "heuristic"
+  timesTaken: number;
+  recordScore: number | null;
+  avgScore: number | null;
+  userKnows: number | null;
+  questions: number;
+}
+
 // Per-test group chat message (see /api/tests/[id]/chat)
 export interface GroupMessage {
   id: string;

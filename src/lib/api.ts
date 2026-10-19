@@ -196,6 +196,15 @@ export const api = {
   ) =>
     apiFetch('/chat', { method: 'POST', body: JSON.stringify({ questionId, messages, userAnswer, questionContext }) }),
 
+  // AI chat about the WHOLE TEST («Обсудить с ИИ») — the server holds the
+  // full test context (questions + ground-truth answers + passport scores)
+  chatAboutTest: (testId: string, messages: { role: 'user' | 'assistant'; content: string }[]) =>
+    apiFetch(`/tests/${testId}/ai-chat`, { method: 'POST', body: JSON.stringify({ messages }) }) as Promise<{ response?: string; rateLimited?: boolean; error?: string }>,
+
+  // AI test passport — the x/100 metric cards of the «Обсудить с ИИ» window
+  getTestMetrics: (testId: string) =>
+    apiFetch(`/tests/${testId}/metrics`) as Promise<import('@/lib/app-types').TestMetricsData>,
+
   // Attachments (files attached to a test)
   getAttachments: (testId: string) => apiFetch(`/tests/${testId}/attachments`),
   addAttachment: (testId: string, data: { title: string; type: string; url: string; size?: number | null }) =>

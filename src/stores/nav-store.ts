@@ -55,6 +55,10 @@ interface NavData {
   treeFeedTestId: string | null;
   gridTreeMode: boolean;
   gridTreeTestId: string | null;
+  // «Обсудить с ИИ» — the dashboard AI window opened from a test card
+  // (library grid / shelf / feed). Holds the test id whose passport + chat
+  // window is open; null = closed. Replaces the version-tree entry points.
+  aiCardTestId: string | null;
   // Index of the visible slide inside the FILES / TREE feed (the two modes
   // are mutually exclusive, so one index serves both).
   dashSlideIdx: number;
@@ -82,6 +86,7 @@ const INITIAL: NavData = {
   treeFeedTestId: null,
   gridTreeMode: false,
   gridTreeTestId: null,
+  aiCardTestId: null,
   dashSlideIdx: 0,
   deleteId: null,
   deadLink: false,

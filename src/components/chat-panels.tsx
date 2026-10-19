@@ -5,11 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Bot, ChevronDown, Menu, MessageSquare, Send, Users, X } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { BarChart3, Bot, ChevronDown, GraduationCap, Menu, MessageSquare, Send, Sparkles, Trophy, Users, X } from 'lucide-react';
 import MathText from '@/components/math-text';
 import { SheetHeaderSwitcher, SheetSwitcher } from '@/components/sheet-switcher';
 import { DragHandle, useResizableSheet } from '@/components/resize-sheet';
 import { useExitMount } from '@/components/motion';
+import type { TestMetricsData } from '@/lib/app-types';
+import { tUI } from '@/lib/i18n';
+import { useSessionStore } from '@/stores/session-store';
 
 /**
  * Chat panels (AI Tutor + per-test group chat).
@@ -72,6 +76,212 @@ function TypingBubble() {
         </div>
       </div>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* AI TEST PASSPORT — the x/100 metric cards                            */
+/*                                                                      */
+/* Shown INSIDE the AI chat window (bottom sheet on mobile / the right   */
+/* side panel on desktop) BEFORE the conversation: ~7 cards grading the  */
+/* test. Three scales were graded by the AI under the hood at test       */
+/* creation; three are the live metrics the site collects; the last one  */
+/* is the viewer's personal topic score. Pressing the header ✕ exits to  */
+/* the actual chat — the AI already holds the whole test context.        */
+/* ------------------------------------------------------------------ */
+
+function MetricCard({
+  icon, label, value, max = 100, unit, hint, tint, delay = 0,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  /** null → "no data yet"; number → shown big with the /max suffix */
+  value: number | null;
+  max?: number;
+  unit?: string;
+  hint?: string;
+  tint: string; // icon chip background
+  delay?: number;
+}) {
+  const hasNumber = typeof value === 'number' && Number.isFinite(value);
+  return (
+    <div
+      className="rounded-2xl border border-black/10 bg-white p-3 flex items-center gap-3 animate-in slide-in-from-bottom-2 fade-in duration-300"
+      style={{ animationDelay: `${delay}ms`, animationFillMode: 'backwards' }}
+    >
+      <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${tint}`}>
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-[11.5px] font-semibold text-foreground/80 leading-tight truncate">{label}</p>
+        {hasNumber && typeof max === 'number' && max === 100 ? (
+          <div className="mt-1.5 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+            <div
+              className="h-full rounded-full bg-primary transition-all duration-700"
+              style={{ width: `${Math.max(3, value as number)}%` }}
+            />
+          </div>
+        ) : null}
+        {hint ? <p className="text-[10px] text-muted-foreground leading-tight mt-1 truncate">{hint}</p> : null}
+      </div>
+      <div className="shrink-0 text-right">
+        {hasNumber ? (
+          <p className="text-lg font-extrabold leading-none text-cta">
+            {value}
+            {max === 100 ? <span className="text-[11px] font-bold text-muted-foreground">/{max}</span> : null}
+          </p>
+        ) : (
+          <p className="text-[11px] font-semibold text-muted-foreground leading-none">—</p>
+        )}
+        {unit ? <p className="text-[9.5px] text-muted-foreground leading-none mt-1">{unit}</p> : null}
+      </div>
+    </div>
+  );
+}
+
+export function MetricsPassport({
+  metrics,
+  loading,
+  error,
+  testTitle,
+}: {
+  metrics: TestMetricsData | null;
+  loading: boolean;
+  error: string | null;
+  testTitle?: string;
+}) {
+  const lang = useSessionStore(s => s.lang);
+  const t = React.useCallback((key: string, vars?: Record<string, string | number>) => tUI(lang, key, vars), [lang]);
+
+  if (loading && !metrics) {
+    return (
+      <div className="h-full flex flex-col items-center justify-center gap-4 px-6 text-center">
+        <div className="w-12 h-12 rounded-2xl bg-cta flex items-center justify-center shadow-md">
+          <Bot className="w-6 h-6 text-white" />
+        </div>
+        <p className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
+          {t('aiAnalyzing')}
+          <span className="flex items-center gap-0.5">
+            <span className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+            <span className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+            <span className="w-1 h-1 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+          </span>
+        </p>
+        <div className="w-full max-w-xs space-y-2">
+          {[0, 1, 2, 3].map(i => <Skeleton key={i} className="h-16 w-full rounded-2xl" />)}
+        </div>
+      </div>
+    );
+  }
+
+  if (error && !metrics) {
+    return (
+      <div className="h-full flex flex-col items-center justify-center gap-3 px-6 text-center">
+        <Bot className="w-10 h-10 text-muted-foreground" />
+        <p className="text-sm text-muted-foreground">{t('aiPassportError')}</p>
+        <p className="text-[11px] text-muted-foreground/70 max-w-[240px] truncate">{error}</p>
+      </div>
+    );
+  }
+
+  if (!metrics) return null;
+
+  return (
+    <ScrollArea className="h-full px-4">
+      <div className="space-y-2.5 py-3">
+        {/* Passport headline */}
+        <div
+          className="rounded-2xl bg-cta text-white p-3.5 animate-in slide-in-from-bottom-2 fade-in duration-300"
+          style={{ animationDelay: '0ms', animationFillMode: 'backwards' }}
+        >
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 shrink-0" style={{ color: '#fccc41' }} />
+            <p className="text-[13px] font-bold leading-tight">{t('aiPassportTitle')}</p>
+          </div>
+          <p className="text-[10.5px] text-white/70 mt-0.5">
+            {t('aiPassportSub', { n: metrics.questions })}{testTitle ? ` · ${testTitle}` : ''}
+          </p>
+          {metrics.summary ? (
+            <p className="text-[11.5px] leading-snug text-white/90 mt-2 border-l-2 border-white/30 pl-2">{metrics.summary}</p>
+          ) : null}
+        </div>
+
+        {/* Section: AI-graded at creation */}
+        <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground px-1 pt-1">{t('aiSectionAi')}</p>
+        <MetricCard
+          icon={<GaugeIcon />}
+          label={t('mDifficulty')}
+          value={metrics.difficulty}
+          tint="bg-[#FFE8DE] text-cta"
+          delay={60}
+        />
+        <MetricCard
+          icon={<Sparkles className="w-4.5 h-4.5" />}
+          label={t('mCross')}
+          value={metrics.crossSubject}
+          tint="bg-[#FFE8DE] text-cta"
+          delay={120}
+        />
+        <MetricCard
+          icon={<BarChart3 className="w-4.5 h-4.5" />}
+          label={t('mQuality')}
+          value={metrics.quality}
+          tint="bg-[#FFE8DE] text-cta"
+          delay={180}
+        />
+
+        {/* Section: live site metrics */}
+        <p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground px-1 pt-1.5">{t('aiSectionSite')}</p>
+        <MetricCard
+          icon={<Users className="w-4.5 h-4.5" />}
+          label={t('mTaken')}
+          value={metrics.timesTaken}
+          max={1}
+          unit={t('mPeople')}
+          tint="bg-[#FFF0D9] text-cta"
+          delay={240}
+        />
+        <MetricCard
+          icon={<Trophy className="w-4.5 h-4.5" />}
+          label={t('mRecord')}
+          value={metrics.recordScore}
+          tint="bg-[#FFF0D9] text-cta"
+          hint={metrics.recordScore === null ? t('mNoData') : undefined}
+          delay={300}
+        />
+        <MetricCard
+          icon={<BarChart3 className="w-4.5 h-4.5" />}
+          label={t('mAvg')}
+          value={metrics.avgScore}
+          tint="bg-[#FFF0D9] text-cta"
+          hint={metrics.avgScore === null ? t('mNoData') : undefined}
+          delay={360}
+        />
+
+        {/* Personal card */}
+        <div className="pt-1.5">
+          <MetricCard
+            icon={<GraduationCap className="w-4.5 h-4.5" />}
+            label={t('mKnow')}
+            value={metrics.userKnows}
+            tint="bg-[#E7F5EC] text-cta"
+            hint={metrics.userKnows === null ? t('mNoData') : undefined}
+            delay={420}
+          />
+        </div>
+      </div>
+    </ScrollArea>
+  );
+}
+
+/* lucide has no "Gauge" in this icon set version — a tiny inline stand-in
+   with the same visual weight as the other 4.5px icons. */
+function GaugeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4.5 h-4.5">
+      <path d="M12 14l4-4" />
+      <path d="M3.3 17a9 9 0 1 1 17.4 0" />
+    </svg>
   );
 }
 
@@ -173,6 +383,9 @@ function MobileChatSheet({
   hamburger,
   history,
   exiting,
+  /** when set, the header ✕ buttons run this instead of onClose (the AI
+  passport uses it to exit to the chat instead of closing the window) */
+  onCloseOverride,
 }: {
   onClose: () => void;
   icon: React.ReactNode;
@@ -186,8 +399,10 @@ function MobileChatSheet({
   history?: React.ReactNode;
   /** true while the parent plays its exit animation — swaps enter classes for exit ones. */
   exiting?: boolean;
+  onCloseOverride?: () => void;
 }) {
   const sheet = useResizableSheet({ initialVh: 0.78, minVh: 0.35, onClose });
+  const headerX = onCloseOverride || onClose;
   return (
     <div className="fixed inset-0 z-50">
       <div className={`absolute inset-0 bg-black/50 ${exiting ? 'animate-out fade-out pointer-events-none duration-200' : 'animate-in fade-in duration-200'}`} onClick={onClose} />
@@ -211,7 +426,7 @@ function MobileChatSheet({
             ) : (
               <>
                 <button
-                  onClick={onClose}
+                  onClick={headerX}
                   aria-label="Close chat"
                   className="w-9 h-9 rounded-full bg-muted flex items-center justify-center active:scale-95 transition-transform shrink-0"
                 >
@@ -225,7 +440,7 @@ function MobileChatSheet({
               </>
             )}
           </div>
-          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 shrink-0" onClick={onClose}>
+          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 shrink-0" onClick={headerX}>
             <X className="w-4 h-4" />
           </Button>
         </div>
@@ -267,6 +482,18 @@ export function AiChatPanel({
   onSelectThread,
   historyLabel,
   noChatsLabel,
+  // ---- AI test passport («Обсудить с ИИ») -------------------------------
+  // When passportOpen is true the window shows the METRIC CARDS instead of
+  // the conversation; the header ✕ then exits to the chat (onPassportExit)
+  // instead of closing the whole window — exactly the flow the product
+  // wants: look at the passport first, press ✕ to talk with the AI that
+  // already holds the full test context.
+  passportOpen = false,
+  onPassportExit,
+  metrics = null,
+  metricsLoading = false,
+  metricsError = null,
+  passportHint,
 }: {
   open: boolean;
   onClose: () => void;
@@ -286,6 +513,12 @@ export function AiChatPanel({
   onSelectThread: (testId: string) => void;
   historyLabel: string;
   noChatsLabel: string;
+  passportOpen?: boolean;
+  onPassportExit?: () => void;
+  metrics?: TestMetricsData | null;
+  metricsLoading?: boolean;
+  metricsError?: string | null;
+  passportHint?: string;
 }) {
   const isDesktop = useIsDesktopLg();
   // Stay mounted while the exit animation (fade / slide-down) plays
@@ -295,9 +528,12 @@ export function AiChatPanel({
 
   const icon = <Bot className="w-4 h-4 text-white" />;
 
+  // While the passport is up, the top-right ✕ exits to the chat (NOT close):
+  const headerClose = passportOpen ? (onPassportExit || onClose) : onClose;
+
   const historyDrawer = (
     <HistoryDrawer
-      open={historyOpen}
+      open={historyOpen && !passportOpen}
       onClose={onToggleHistory}
       threads={threads}
       activeThreadId={activeThreadId}
@@ -305,6 +541,19 @@ export function AiChatPanel({
       historyLabel={historyLabel}
       noChatsLabel={noChatsLabel}
     />
+  );
+
+  const passportBody = (
+    <MetricsPassport metrics={metrics} loading={metricsLoading} error={metricsError} />
+  );
+
+  const passportFooter = (
+    <div className="flex items-center justify-center gap-1.5 py-0.5">
+      <Sparkles className="w-3.5 h-3.5 text-primary shrink-0" />
+      <p className="text-[11px] leading-snug text-muted-foreground text-center">
+        {passportHint || 'Press ✕ to start chatting — the AI already knows this test'}
+      </p>
+    </div>
   );
 
   const body = (
@@ -359,6 +608,9 @@ export function AiChatPanel({
     </div>
   );
 
+  const activeBody = passportOpen ? passportBody : body;
+  const activeFooter = passportOpen ? passportFooter : footer;
+
   if (isDesktop) {
     return (
       <div className={`w-[420px] shrink-0 ${exiting ? 'animate-out fade-out pointer-events-none duration-200' : 'animate-in fade-in duration-200'}`}>
@@ -366,24 +618,24 @@ export function AiChatPanel({
           <CardHeader className="pb-3 shrink-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 min-w-0">
-                {/* ☰ — per-test chat history drawer */}
-                <HistoryButton onClick={onToggleHistory} />
+                {/* ☰ — per-test chat history drawer (hidden in passport mode) */}
+                {!passportOpen && <HistoryButton onClick={onToggleHistory} />}
                 <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">{icon}</div>
                 <div className="min-w-0">
                   <CardTitle className="text-sm">AI Tutor</CardTitle>
                   {subtitle ? <p className="text-xs text-muted-foreground truncate">{subtitle}</p> : null}
                 </div>
               </div>
-              <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={onClose}>
+              <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={headerClose}>
                 <X className="w-4 h-4" />
               </Button>
             </div>
           </CardHeader>
           <CardContent className="relative flex-1 overflow-hidden p-0">
-            {body}
+            {activeBody}
             {historyDrawer}
           </CardContent>
-          <CardFooter className="pt-3 pb-4 shrink-0">{footer}</CardFooter>
+          <CardFooter className="pt-3 pb-4 shrink-0">{activeFooter}</CardFooter>
         </Card>
       </div>
     );
@@ -395,12 +647,14 @@ export function AiChatPanel({
       icon={icon}
       title="AI Tutor"
       subtitle={subtitle}
-      body={body}
-      footer={footer}
+      body={activeBody}
+      footer={activeFooter}
       switcher={switcher}
-      hamburger={<HistoryButton onClick={onToggleHistory} />}
+      hamburger={!passportOpen ? <HistoryButton onClick={onToggleHistory} /> : undefined}
       history={historyDrawer}
       exiting={exiting}
+      /** in passport mode the sheet's own ✕ ALSO exits to the chat */
+      onCloseOverride={passportOpen ? (onPassportExit || onClose) : undefined}
     />
   );
 }
