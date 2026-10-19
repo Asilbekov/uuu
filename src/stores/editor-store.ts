@@ -35,6 +35,10 @@ interface EditorData {
   questions: Question[];
   // Set while the editor is bound to an existing test (edit mode)
   editingTestId: string | null;
+  // True when the bound test is a VERSION of another test (parentId set).
+  // A version can never be public (server-enforced) — the editor hides its
+  // «make public / private» publication selector for versions entirely.
+  editingTestIsVersion: boolean;
   // The bound test's version name (null = not named yet → the naming dialog
   // appears on the first save). Filled by openEditTest / startEditTestInTake.
   editingVersionName: string | null;
@@ -69,6 +73,7 @@ const INITIAL: EditorData = {
   randomizeO: true,
   questions: [EMPTY_QUESTION],
   editingTestId: null,
+  editingTestIsVersion: false,
   editingVersionName: null,
   editMode: false,
   formAttachments: [],

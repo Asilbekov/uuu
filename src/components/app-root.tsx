@@ -512,6 +512,8 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   // share selector on the test card.
   const testIsPublic = useEditorStore(s => s.testIsPublic);
   const setTestIsPublic = useEditorStore(s => s.setTestIsPublic);
+  const editingTestIsVersion = useEditorStore(s => s.editingTestIsVersion);
+  const setEditingTestIsVersion = useEditorStore(s => s.setEditingTestIsVersion);
   // Attached Files collapse in the editor — same behavior as on the test card
   const editorFilesExpanded = useEditorStore(s => s.editorFilesExpanded);
   const setEditorFilesExpanded = useEditorStore(s => s.setEditorFilesExpanded);
@@ -1556,6 +1558,9 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       setRandomizeQ(fullTest.randomizeQuestions);
       setRandomizeO(fullTest.randomizeOptions);
       setTestIsPublic(fullTest.isPublic !== false);
+      // A version can never be public (server-enforced) — the editor hides
+      // the publication selector for it (see the publish-variant block).
+      setEditingTestIsVersion(!!(fullTest as any).parentId);
       setQuestions(fullTest.questions.map(q => ({
         text: q.text,
         optionA: q.optionA,
@@ -1622,6 +1627,9 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
           setRandomizeQ(!!copy.randomizeQuestions);
           setRandomizeO(!!copy.randomizeOptions);
           setTestIsPublic(copy.isPublic !== false);
+          // The copy of a version stays a version — hide the publication
+          // selector for it the same way.
+          setEditingTestIsVersion(!!(copy as any).parentId);
           setQuestions((copy.questions || []).map((q: any) => ({
             text: q.text,
             optionA: q.optionA,
@@ -1667,6 +1675,8 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     setRandomizeQ(!!currentTest.randomizeQuestions);
     setRandomizeO(!!currentTest.randomizeOptions);
     setTestIsPublic(currentTest.isPublic !== false);
+    // Same version rule for the take-screen edit path.
+    setEditingTestIsVersion(!!(currentTest as any).parentId);
     setQuestions(currentTest.questions.map(q => ({
       text: q.text,
       optionA: q.optionA,
@@ -3599,7 +3609,10 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
               selector on the test card. The choice is SAVED with the test and
               applies to the test AND its attached files: «Только по ссылке» keeps
               it out of the community feed (link opens it for anyone who has it),
-              «Всему сообществу» makes test + files public. */}
+              «Всему сообществу» makes test + files public. A VERSION of another
+              test can never be public (server-enforced) — the whole selector is
+              hidden while editing a version, nothing to choose. */}
+              {!editingTestIsVersion && (
               <div className="space-y-2">
                 <Label>{t('publishVariant')}</Label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -3636,6 +3649,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
                 </div>
                 <p className="text-xs text-muted-foreground">{t('publishNote')}</p>
               </div>
+              )}
             </CardContent>
             </Collapse>
           </Card>
