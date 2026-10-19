@@ -301,6 +301,65 @@ ok "desktop: chat panel docked RIGHT + mobile message arrived via poll" "$([ "$G
 agent-browser eval "(() => { const els=[...document.querySelectorAll('div')].filter(x=>String(x.className).includes('rounded-4xl')&&x.textContent.includes('XLadderOwn')); const el=els[els.length-1]; if(!el) return 'no'; const b=[...el.querySelectorAll('button')].find(x=>x.querySelector('.lucide-x')); if(!b) return 'no-x'; b.click(); return 'closed'; })()" > /dev/null
 sleep 1
 
+echo "== G) window switcher (files ↔ chat without closing) =="
+# MOBILE: open the FILES window, then use the header switcher to jump to CHAT
+agent-browser set viewport 390 844 > /dev/null
+sleep 1
+goto_grid_view
+agent-browser eval "(() => {
+  const ladder=[...document.querySelectorAll('.card-ladder')].find(g=>{const c=g.closest('.rounded-2xl'); return c&&c.textContent.includes('XLadderFiles $STAMP');});
+  if(!ladder) return 'no-ladder';
+  const b=[...ladder.querySelectorAll('button')].find(x=>x.querySelector('.lucide-paperclip'));
+  if(!b) return 'no-btn';
+  b.click(); return 'clicked';
+})()" > /dev/null
+FSW=no
+for i in $(seq 1 10); do
+  R=$(agent-browser eval "[...document.querySelectorAll('.fixed')].some(x=>x.querySelector('.lucide-paperclip') && x.textContent.includes('$FILENAME')) ? 'yes' : 'no'" | tr -d '\\"')
+  if [ "$R" = "yes" ]; then FSW=yes; break; fi
+  sleep 1
+done
+ok "files window open before switching" "$([ "$FSW" = "yes" ] && echo 1 || echo 0)"
+# open the header switcher dropdown inside the files sheet
+agent-browser eval "(() => {
+  const sheet=[...document.querySelectorAll('.fixed')].find(x=>x.textContent.includes('$FILENAME') && x.textContent.includes('XLadderFiles'));
+  if(!sheet) return 'no-sheet';
+  const b=sheet.querySelector('button[aria-label=\"Switch window\"]');
+  if(!b) return 'no-switcher';
+  b.click(); return 'opened';
+})()" > /dev/null
+sleep 1
+SWOPT=$(agent-browser eval "(() => {
+  const drops=[...document.querySelectorAll('.fixed .absolute.left-0')];
+  const d=drops[drops.length-1];
+  if(!d) return 'no-drop';
+  const hasChat=!![...d.querySelectorAll('button')].find(x=>x.querySelector('.lucide-message-circle'));
+  const hasAi=!![...d.querySelectorAll('button')].find(x=>x.textContent.includes('AI Tutor'));
+  const hasEdit=!![...d.querySelectorAll('button')].find(x=>x.textContent.includes('Edit Test')||x.textContent.includes('Редактировать'));
+  return (hasChat&&hasAi&&hasEdit) ? 'all' : ('chat:'+hasChat+',ai:'+hasAi+',edit:'+hasEdit);
+})()" | tr -d '\\"')
+ok "switcher dropdown lists AI + Chat + Edit" "$([ "$SWOPT" = "all" ] && echo 1 || echo 0)"
+# pick the Chat option → the chat window replaces the files window
+agent-browser eval "(() => {
+  const drops=[...document.querySelectorAll('.fixed .absolute.left-0')];
+  const d=drops[drops.length-1];
+  if(!d) return 'no-drop';
+  const b=[...d.querySelectorAll('button')].find(x=>x.querySelector('.lucide-message-circle'));
+  if(!b) return 'no-chat-opt';
+  b.click(); return 'switched';
+})()" > /dev/null
+SWCH=no
+for i in $(seq 1 10); do
+  R=$(agent-browser eval "[...document.querySelectorAll('.fixed')].some(x=>x.querySelector('input[placeholder*=\"roup\"], input[placeholder*=\"рупп\"]')) ? 'yes' : 'no'" | tr -d '\\"')
+  if [ "$R" = "yes" ]; then SWCH=yes; break; fi
+  sleep 1
+done
+ok "switcher jumps files → chat (same test)" "$([ "$SWCH" = "yes" ] && echo 1 || echo 0)"
+SWBACK=$(agent-browser eval "[...document.querySelectorAll('.fixed')].some(x=>x.textContent.includes('$FILENAME') && x.textContent.includes('XLadderFiles')) ? 'files-open' : 'files-closed'" | tr -d '\\"')
+ok "files window yielded to the chat (one window at a time)" "$([ "$SWBACK" = "files-closed" ] && echo 1 || echo 0)"
+agent-browser eval "(() => { const sheet=[...document.querySelectorAll('.fixed')].find(x=>x.querySelector('input[placeholder*=\"roup\"], input[placeholder*=\"рупп\"]')); if(!sheet) return 'no-sheet'; const b=[...sheet.querySelectorAll('button')].find(x=>x.querySelector('.lucide-x')); if(!b) return 'no-x'; b.click(); return 'closed'; })()" > /dev/null
+sleep 1
+
 echo "== cleanup =="
 OWNID=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['ownId'])")
 BOBID=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['bobId'])")

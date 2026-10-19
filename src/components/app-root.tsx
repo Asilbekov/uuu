@@ -622,6 +622,22 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   // conversation follows the user between the taking screen and the dashboard.
   const [dashGroupTestId, setDashGroupTestId] = useState<string | null>(null);
   const dashGroupTitleRef = useRef('');
+  // The dashboard window switcher needs the FULL card test (creatorId for the
+  // copy-on-edit path) plus a files-count cache — the feed payload carries
+  // only the count (test._count.attachments), the full list lands later.
+  const dashWindowTestRef = useRef<any>(null);
+  const dashFilesCountRef = useRef<Record<string, number>>({});
+  // Keep the richest object seen for this test (the switcher's Edit branch
+  // needs creatorId even when it re-opens windows with slim {id,title}).
+  const stashDashWindowTest = (test: any) => {
+    const id = String(test?.id || '');
+    if (!id) return;
+    const prev: any = dashWindowTestRef.current;
+    dashWindowTestRef.current = (prev && String(prev.id) === id && prev.creatorId) ? prev : test;
+    dashFilesCountRef.current[id] = ((test as any).attachments || []).length
+      || ((test as any)._count?.attachments as number | undefined)
+      || dashFilesCountRef.current[id] || 0;
+  };
   const aiPassportOpen = useChatStore(s => s.aiPassportOpen);
   const setAiPassportOpen = useChatStore(s => s.setAiPassportOpen);
   const setAiPassportSeenFor = useChatStore(s => s.setAiPassportSeenFor);
@@ -2589,6 +2605,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     aiCardTitleRef.current = String(test?.title || '');
     setDashFilesOpen(false); // one dashboard window at a time
     setDashGroupTestId(null); // ...the group chat window yields too
+    stashDashWindowTest(test);
     setAiCardTestId(String(test?.id || ''));
   };
   const closeAiCard = () => {
@@ -2602,6 +2619,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     setAiCardTestId(null); // one dashboard window at a time
     setAiPassportOpen(false);
     setDashGroupTestId(null); // ...the group chat window yields too
+    stashDashWindowTest(test);
     const cached = ((dashFullTests as any)[test.id]?.attachments as AttachmentItem[] | undefined)
       || ((test as any).attachments as AttachmentItem[] | undefined)
       || [];
@@ -2637,6 +2655,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     setGroupMessages([]); // no stale lines from another test's chat
     setGroupInput('');
     dashGroupTitleRef.current = String(test?.title || '');
+    stashDashWindowTest(test);
     setDashGroupTestId(String(test.id));
   };
   const closeCardGroupChat = () => {
@@ -3867,25 +3886,48 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     </>
   );
 
-  // Window switcher of the dashboard edit window — Files / AI / Chat / Edit
-  // (the same header switcher the taking screen's windows wear; the group
-  // chat joined the dashboard together with its card button).
+  // Window switcher shared by EVERY dashboard window (files / AI / chat /
+  // edit) — the same header dropdown the taking screen's windows wear. The
+  // entries describe the test whose window is CURRENTLY open, so switching
+  // from any window keeps you inside the same test.
+  const dashWindowTest: any = (dashFilesOpen && dashFiles) ? { id: dashFiles.testId, title: dashFiles.title }
+    : dashGroupTestId ? { id: dashGroupTestId, title: dashGroupTitleRef.current }
+    : aiCardTestId ? { id: aiCardTestId, title: aiCardTitleRef.current }
+    : (editOpen && currentTest) ? { id: String((currentTest as any).id), title: String((currentTest as any).title || '') }
+    : null;
+  const dashWindowFilesCount = (() => {
+    if (!dashWindowTest) return 0;
+    if (dashFilesOpen && dashFiles && dashFiles.testId === dashWindowTest.id) return dashFiles.items.length;
+    return dashFilesCountRef.current[dashWindowTest.id]
+      || ((dashFullTests as any)[dashWindowTest.id]?.attachments?.length as number | undefined)
+      || (String((currentTest as any)?.id || '') === dashWindowTest.id ? (((currentTest as any).attachments || []).length as number) : 0)
+      || 0;
+  })();
   const dashSheetOptions: SheetOption[] = [
-    ...((((currentTest as any)?.attachments?.length || 0) > 0) ? [{
+    ...((dashWindowFilesCount > 0) ? [{
       key: 'files' as const,
-      label: t('files', { n: (currentTest as any).attachments.length }),
+      label: t('files', { n: dashWindowFilesCount }),
       icon: <Paperclip className="w-3.5 h-3.5" />,
       active: dashFilesOpen,
     }] : []),
     { key: 'ai', label: t('aiTutor'), icon: <MessageSquare className="w-3.5 h-3.5" />, active: !!aiCardTestId },
     { key: 'group' as const, label: t('chat'), icon: <MessageCircle className="w-3.5 h-3.5" />, active: !!dashGroupTestId },
-    { key: 'edit', label: t('editTest'), icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
+    { key: 'edit' as const, label: t('editTest'), icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
   ];
-  const dashSwitchSheet = (key: string) => {
-    if (key === 'files') { setEditOpen(false); if (currentTest) openCardFiles(currentTest); }
-    else if (key === 'ai') { setEditOpen(false); setDashFilesOpen(false); if (currentTest) openAiDiscuss(currentTest); }
-    else if (key === 'group') { setEditOpen(false); setDashFilesOpen(false); if (currentTest) openCardGroupChat(currentTest); }
-  };
+  const dashSwitcher = { options: dashSheetOptions, onSelect: (key: string) => {
+    if (key === 'edit') {
+      // the edit window for the SAME test the switcher lives on — the stashed
+      // card test keeps the creatorId for the copy-on-edit path
+      setDashFilesOpen(false);
+      if (dashWindowTestRef.current?.id) startEditTest(dashWindowTestRef.current);
+      return;
+    }
+    const t0: any = dashWindowTest ? { id: dashWindowTest.id, title: dashWindowTest.title } : null;
+    if (!t0) return;
+    if (key === 'files') { setEditOpen(false); openCardFiles(t0); }
+    else if (key === 'ai') { setEditOpen(false); setDashFilesOpen(false); openAiDiscuss(t0); }
+    else if (key === 'group') { setEditOpen(false); setDashFilesOpen(false); openCardGroupChat(t0); }
+  } };
 
   // DASHBOARD (view extracted to src/components/pages/dashboard-view.tsx)
   if (effectivePage === 'dashboard') {
@@ -3963,6 +4005,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
                 metricsLoading={aiMetricsLoading}
                 metricsError={aiMetricsError}
                 passportHint={t('aiPassportHint')}
+                switcher={dashSwitcher}
               />
             </div>
           </div>
@@ -3979,6 +4022,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
             hideLauncher
             title={t('attachedFiles', { n: dashFiles.items.length })}
             subtitle={dashFiles.title}
+            switcher={dashSwitcher}
           />
         )}
         {dashFiles && dashFilesSideMounted && (
@@ -3989,6 +4033,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
                 onClose={closeCardFiles}
                 title={t('attachedFiles', { n: dashFiles.items.length })}
                 subtitle={dashFiles.title}
+                switcher={dashSwitcher}
               />
             </div>
           </div>
@@ -4016,6 +4061,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
                 inputPlaceholder={t('messageGroup')}
                 onOpenProfile={openUserLibrary}
                 openProfileLabel={t('openProfile')}
+                switcher={dashSwitcher}
               />
             </div>
           </div>
@@ -4037,8 +4083,8 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
                   icon={<Pencil className="w-4 h-4 text-white" />}
                   title={t('editTest')}
                   subtitle={currentTest?.title}
-                  options={dashSheetOptions}
-                  onSelect={dashSwitchSheet}
+                  options={dashSwitcher.options}
+                  onSelect={dashSwitcher.onSelect}
                 />
                 <Button variant="ghost" size="sm" className="h-7 w-7 p-0 shrink-0" onClick={() => setEditOpen(false)}>
                   <X className="w-4 h-4" />

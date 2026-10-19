@@ -617,14 +617,26 @@ export function AiChatPanel({
         <Card className="rounded-4xl border border-black bg-white flex flex-col h-[680px]">
           <CardHeader className="pb-3 shrink-0">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 min-w-0">
+              <div className="flex items-center gap-2 min-w-0 flex-1">
                 {/* ☰ — per-test chat history drawer (hidden in passport mode) */}
                 {!passportOpen && <HistoryButton onClick={onToggleHistory} />}
-                <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">{icon}</div>
-                <div className="min-w-0">
-                  <CardTitle className="text-sm">AI Tutor</CardTitle>
-                  {subtitle ? <p className="text-xs text-muted-foreground truncate">{subtitle}</p> : null}
-                </div>
+                {switcher ? (
+                  <SheetHeaderSwitcher
+                    icon={icon}
+                    title="AI Tutor"
+                    subtitle={subtitle}
+                    options={switcher.options}
+                    onSelect={switcher.onSelect}
+                  />
+                ) : (
+                  <>
+                    <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">{icon}</div>
+                    <div className="min-w-0">
+                      <CardTitle className="text-sm">AI Tutor</CardTitle>
+                      {subtitle ? <p className="text-xs text-muted-foreground truncate">{subtitle}</p> : null}
+                    </div>
+                  </>
+                )}
               </div>
               <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={headerClose}>
                 <X className="w-4 h-4" />
@@ -786,12 +798,24 @@ export function GroupChatPanel({
         <Card className="rounded-4xl border border-black bg-white flex flex-col h-[680px]">
           <CardHeader className="pb-3 shrink-0">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">{icon}</div>
-                <div>
-                  <CardTitle className="text-sm">{title || 'Test Chat'}</CardTitle>
-                  {subtitle ? <p className="text-xs text-muted-foreground">{subtitle}</p> : null}
-                </div>
+              <div className="flex items-center gap-2 min-w-0 flex-1">
+                {switcher ? (
+                  <SheetHeaderSwitcher
+                    icon={icon}
+                    title={title || 'Test Chat'}
+                    subtitle={subtitle}
+                    options={switcher.options}
+                    onSelect={switcher.onSelect}
+                  />
+                ) : (
+                  <>
+                    <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">{icon}</div>
+                    <div className="min-w-0">
+                      <CardTitle className="text-sm">{title || 'Test Chat'}</CardTitle>
+                      {subtitle ? <p className="text-xs text-muted-foreground truncate">{subtitle}</p> : null}
+                    </div>
+                  </>
+                )}
               </div>
               <Button variant="ghost" size="sm" className="h-7 w-7 p-0" onClick={onClose}>
                 <X className="w-4 h-4" />

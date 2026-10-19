@@ -346,17 +346,27 @@ function ResizableAttachmentsSheet({
 /** Desktop side panel version (paired with the flex layout of take-test).
  *  subtitle: optional second header line (e.g. the test's title) — the same
  *  header format the AI chat window wears (title + muted subtitle). */
-export function AttachmentsSidePanel({ items, onClose, title, subtitle }: { items: AttachmentItem[]; onClose: () => void; title?: string; subtitle?: string }) {
+export function AttachmentsSidePanel({ items, onClose, title, subtitle, switcher }: { items: AttachmentItem[]; onClose: () => void; title?: string; subtitle?: string; switcher?: SheetSwitcher }) {
   return (
     <div className="w-full lg:w-[400px] shrink-0 animate-in fade-in slide-in-from-right-2 duration-300">
       <div className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px] overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
-          <span className="min-w-0">
-            <span className="font-semibold text-sm flex items-center gap-1.5">
-              <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
+          {switcher ? (
+            <SheetHeaderSwitcher
+              icon={<Paperclip className="w-4 h-4" />}
+              title={title || `Attached Files (${items.length})`}
+              subtitle={subtitle}
+              options={switcher.options}
+              onSelect={switcher.onSelect}
+            />
+          ) : (
+            <span className="min-w-0">
+              <span className="font-semibold text-sm flex items-center gap-1.5">
+                <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
+              </span>
+              {subtitle ? <span className="block text-xs text-muted-foreground truncate">{subtitle}</span> : null}
             </span>
-            {subtitle ? <span className="block text-xs text-muted-foreground truncate">{subtitle}</span> : null}
-          </span>
+          )}
           <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={onClose}>
             <X className="w-4 h-4" />
           </Button>
