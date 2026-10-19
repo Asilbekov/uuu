@@ -877,6 +877,26 @@ export default function DashboardView({
       </div>
     );
 
+    // Bottom-bar page router for the LIBRARY PAGES DOCK (the very-bottom
+    // panel with two permanent page buttons). Unlike the old top-panel toggle
+    // it routes to an EXPLICIT page instead of flipping a boolean:
+    //   → Public: from anywhere (own library or a foreign viewer library);
+    //     if Discover is already open, a viewer overlay is just closed.
+    //   → Personal: leaves Discover (flip) OR closes a foreign viewer library
+    //     (the old toggle would have flipped INTO Discover in that case).
+    const gotoLibraryMode = (discover: boolean) => {
+      if (discover) {
+        if (discoverMode) {
+          if (viewingUser) closeUserLibrary(); // already Discover — drop the viewer overlay
+          return;
+        }
+        toggleDiscoverMode(); // clears a viewer library too, resets the feeds
+        return;
+      }
+      if (discoverMode) { toggleDiscoverMode(); return; }
+      if (viewingUser) closeUserLibrary();
+    };
+
     // Bottom bar count: the committed card's start count; before the first
     // sync effect adopts the card's total, fall back to that same total so the
     // very first painted frame is ALREADY correct (no 0-count flash).
@@ -1003,22 +1023,10 @@ export default function DashboardView({
                 <p className="text-sm font-medium truncate max-w-[180px]">{effectiveUser?.name}</p>
                 <p className="text-xs text-muted-foreground truncate max-w-[180px]">{effectiveUser?.email}</p>
               </div>
-              {/* Content-mode switcher — its own button now (used to live on the
-              account avatar): personal library (Library) ↔ Discover (Compass).
-              The active mode is highlighted like the Edit toggle. */}
-              <Button
-                variant="outline"
-                onClick={toggleDiscoverMode}
-                disabled={loading}
-                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 lg:h-10 lg:text-sm ${discoverMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
-                title={discoverMode ? `${t('modeDiscover')} · ${t('modeDiscoverHint')}` : `${t('modeMine')} · ${t('modeMineHint')}`}
-                aria-label={discoverMode ? t('modeDiscover') : t('modeMine')}
-              >
-                {discoverMode
-                  ? <Compass className="w-4 h-4 sm:mr-2" />
-                  : <Library className="w-4 h-4 sm:mr-2" />}
-                <span className="hidden sm:inline">{discoverMode ? t('modeDiscover') : t('modeMine')}</span>
-              </Button>
+              {/* Content-mode switcher REMOVED from the top panel: the two
+              library pages now live on their own very-bottom dock (see
+              LIBRARY PAGES DOCK below) — two permanent page buttons side by
+              side, Personal | Public. */}
               {/* Account button — opens the PROFILE page (photo, name, the
               test-taking background, logout, account deletion). The avatar
               shows the user's profile photo (Telegram-stored) with the
@@ -1249,6 +1257,12 @@ export default function DashboardView({
                   {!gridFilesMode && !gridTreeMode && (
                     <div ref={feedSentinelRef} className="h-px w-full shrink-0" aria-hidden="true" />
                   )}
+                  {/* Desktop clearance for the floating LIBRARY PAGES DOCK:
+                  the pages pill hovers over the grid on ≥1024px (the Start
+                  dock is absent in the grid views), so the scroll area ends
+                  with a spacer no grid row can hide behind. Mobile is an
+                  in-flow flex panel — no spacer needed there. */}
+                  <div aria-hidden="true" className="hidden lg:block h-28 shrink-0" />
                 </div>
               </div>
             ) : treeFeedMode ? (
@@ -1280,7 +1294,7 @@ export default function DashboardView({
                   />
                   {tests.map((test) => (
                     <SwiperSlide key={test.id} className="!h-full">
-                      <div className="h-full w-full px-3 py-3 sm:px-4 sm:py-4 lg:py-6 lg:pb-28 min-h-0">
+                      <div className="h-full w-full px-3 py-3 sm:px-4 sm:py-4 lg:py-6 lg:pb-40 min-h-0">
                         <VersionTreeView
                           testId={test.id}
                           bookmarkIds={bookmarkIds}
@@ -1324,7 +1338,7 @@ export default function DashboardView({
                     const bgStyle = test.coverColor ? { backgroundColor: test.coverColor } : undefined;
                     return (
                       <SwiperSlide key={`${test.id}`} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
-                      <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 lg:py-6 lg:pb-28 min-h-0">
+                      <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 lg:py-6 lg:pb-40 min-h-0">
                         <div className="w-full max-w-md lg:max-w-3xl flex flex-col gap-2.5 sm:gap-4 h-full min-h-0">
                           {/* THE STANDARD CARD HEADER — the author avatar + the
                           pin button above the cover band, the same шапка every
@@ -1424,7 +1438,7 @@ export default function DashboardView({
                   // overflow-hidden: the card always fits the screen — no scrolling
                   // inside a card, swipes only move between cards
                   <SwiperSlide key={test.id} style={bgStyle} className={`relative !h-full overflow-hidden ${bgClass}`}>
-                    <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 lg:py-6 lg:pb-28 min-h-0">
+                    <div className="h-full w-full flex flex-col items-center justify-center px-3 py-3 sm:px-4 sm:py-4 lg:py-6 lg:pb-40 min-h-0">
                       {/* Desktop: the card breathes — the phone-width column widens
                       on large screens instead of looking like a phone cast onto
                       the monitor. Every control row spans the wider column. */}
@@ -1737,10 +1751,9 @@ export default function DashboardView({
             stays EXACTLY the same (dashTestIdx follows the visible slide's test);
             hidden in the grid views where each card carries its own Start. */}
             {dashView !== 'library' && dashView !== 'shelf' && (
-            <div className="desktop-dock shrink-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
+            <div className="desktop-dock desktop-dock-raised shrink-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
               <div
-                className="max-w-2xl mx-auto px-4 pt-3"
-                style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
+                className="max-w-2xl mx-auto px-4 pt-3 pb-3"
               >
                 {editMode ? (
                   <Button
@@ -1770,6 +1783,47 @@ export default function DashboardView({
             )}
           </>
         )}
+
+        {/* LIBRARY PAGES DOCK — the very-bottom panel with the two PAGE
+        buttons standing side by side: Personal library | Public library.
+        It lives BELOW the Start-test bottom bar (which floats above it on
+        desktop via .desktop-dock-raised) and is rendered in EVERY dashboard
+        state — including the empty/skeleton screens, so a brand-new user can
+        still reach Discover. The active page is highlighted (cta fill), like
+        the old top-panel toggle was. This dock REPLACES that top-panel
+        toggle. The last panel carries the safe-area inset (mobile home
+        bars); the Start bar above it uses a fixed padding now. */}
+        <div className="desktop-dock shrink-0 z-40 bg-white/95 backdrop-blur-md border-t border-black/10">
+          <div
+            className="max-w-2xl mx-auto px-3 sm:px-4 pt-2"
+            style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
+          >
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => gotoLibraryMode(false)}
+                disabled={loading}
+                title={`${t('modeMine')} · ${t('modeMineHint')}`}
+                aria-label={t('modeMine')}
+                className={`min-w-0 flex items-center justify-center gap-1.5 h-9 lg:h-10 px-1 [@media(min-width:420px)]:px-2 rounded-full border-2 text-[11px] [@media(min-width:420px)]:text-xs sm:text-[13px] lg:text-sm font-semibold transition-colors ${(!discoverMode && !viewingUser) ? 'bg-cta hover:bg-cta/90 text-white border-cta shadow-md' : 'border-black bg-white hover:bg-muted/50'}`}
+              >
+                <Library className="w-4 h-4 shrink-0 [@media(max-width:479px)]:hidden" />
+                <span className="min-w-0 truncate">{t('modeMine')}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => gotoLibraryMode(true)}
+                disabled={loading}
+                title={`${t('modeDiscover')} · ${t('modeDiscoverHint')}`}
+                aria-label={t('modeDiscover')}
+                className={`min-w-0 flex items-center justify-center gap-1.5 h-9 lg:h-10 px-1 [@media(min-width:420px)]:px-2 rounded-full border-2 text-[11px] [@media(min-width:420px)]:text-xs sm:text-[13px] lg:text-sm font-semibold transition-colors ${discoverMode ? 'bg-cta hover:bg-cta/90 text-white border-cta shadow-md' : 'border-black bg-white hover:bg-muted/50'}`}
+              >
+                <Compass className="w-4 h-4 shrink-0 [@media(max-width:479px)]:hidden" />
+                <span className="min-w-0 truncate">{t('modeDiscover')}</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
         <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
           <AlertDialogContent>

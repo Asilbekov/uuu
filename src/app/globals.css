@@ -358,4 +358,11 @@
   .desktop-dock-wide {
     width: min(64rem, calc(100vw - 8rem));
   }
+  /* The dashboard's Start bar floats ABOVE the LIBRARY PAGES DOCK (the
+     very-bottom pages pill occupies bottom: 1.25rem with its ~58px height,
+     so the Start pill is lifted above it). Mobile is in-flow stacking —
+     the raise applies on ≥1024px only. */
+  .desktop-dock-raised {
+    bottom: 5.25rem;
+  }
 }

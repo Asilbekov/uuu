@@ -44,10 +44,10 @@ VC=$(python3 -c "import json;print(json.load(open('/tmp/pin-setup.json'))['viewe
 TID=$(python3 -c "import json;print(json.load(open('/tmp/pin-setup.json'))['testId'])")
 curl -s -X DELETE "$BASE/api/bookmarks?testId=$TID" -H "Cookie: $VC" -o /dev/null -w "unpin=%{http_code}\n"
 
-echo "== 4) switch to Discover =="
-agent-browser eval "(() => { const b=document.querySelector('button[aria-label=\"My Library\"]'); if(!b) return 'no-toggle'; b.click(); return 'toggled'; })()" > /dev/null
+echo "== 4) switch to Discover (bottom pages dock: tap the Public page button) =="
+agent-browser eval "(() => { const b=document.querySelector('button[aria-label=\"Discover\"]'); if(!b) return 'no-toggle'; b.click(); return 'toggled'; })()" > /dev/null
 sleep 2.5
-DISC=$(agent-browser eval "!!document.querySelector('button[aria-label=\"Discover\"]')")
+DISC=$(agent-browser eval "(() => { const b=document.querySelector('button[aria-label=\"Discover\"]'); return !!b && b.className.includes('bg-cta'); })()")
 echo "discover-mode: $DISC"
 
 echo "== 5) search the tag =="
@@ -66,10 +66,10 @@ sleep 1.5
 FLIP=$(agent-browser eval "(() => { const vis=b=>{const r=b.getBoundingClientRect(); return r.width>0 && r.right>0 && r.right<=420 && r.bottom>=0 && r.bottom<=900;}; const flip=[...document.querySelectorAll('button[aria-label=\"Remove from my library\"]')].some(vis); const still=[...document.querySelectorAll('button[aria-label=\"Save to my library\"]')].filter(vis).length; return JSON.stringify({flip, still}); })()")
 echo "instant-flip (no reload): $FLIP"
 
-echo "== 7) back to My Library =="
-agent-browser eval "(() => { const b=document.querySelector('button[aria-label=\"Discover\"]'); if(!b) return 'no-toggle'; b.click(); return 'toggled'; })()" > /dev/null
+echo "== 7) back to My Library (bottom pages dock: tap the Personal page button) =="
+agent-browser eval "(() => { const b=document.querySelector('button[aria-label=\"My Library\"]'); if(!b) return 'no-toggle'; b.click(); return 'toggled'; })()" > /dev/null
 sleep 2.5
-BACK=$(agent-browser eval "(() => { const vis=b=>{const r=b.getBoundingClientRect(); return r.width>0 && r.right>0 && r.right<=420 && r.bottom>=0 && r.bottom<=900;}; return JSON.stringify({ mineMode: !!document.querySelector('button[aria-label=\"My Library\"]'), titleVisible: document.body.innerText.includes('$TITLE'), pinShown: [...document.querySelectorAll('button[aria-label=\"Remove from my library\"]')].some(vis) }); })()")
+BACK=$(agent-browser eval "(() => { const vis=b=>{const r=b.getBoundingClientRect(); return r.width>0 && r.right>0 && r.right<=420 && r.bottom>=0 && r.bottom<=900;}; const mine=[...document.querySelectorAll('button[aria-label=\"My Library\"]')]; return JSON.stringify({ mineMode: mine.some(b => b.className.includes('bg-cta')), titleVisible: document.body.innerText.includes('$TITLE'), pinShown: [...document.querySelectorAll('button[aria-label=\"Remove from my library\"]')].some(vis) }); })()")
 echo "library-state (no reload!): $BACK"
 agent-browser screenshot /home/z/my-project/download/ui-instant-pin.png > /dev/null && echo "screenshot: download/ui-instant-pin.png"
 
