@@ -9,7 +9,7 @@
 #   C) SHELF: same ladder as the library
 # Fixtures must already exist (ui-smoke-ladder-setup.cjs → /tmp/ladder-setup.json)
 cd /home/z/my-project/repo-uuu
-BASE=http://127.0.0.1:3199
+BASE=${BASE:-http://127.0.0.1:3199}
 PASS=0; FAIL=0
 ok() { if [ "$2" = "1" ]; then PASS=$((PASS+1)); echo "  ✅ $1"; else FAIL=$((FAIL+1)); echo "  ❌ $1"; fi }
 
@@ -35,6 +35,17 @@ for i in $(seq 1 20); do
 done
 ok "login → feed visible" "$([ "$LOGGED" = "yes" ] && echo 1 || echo 0)"
 sleep 1.5
+
+# prod deployments/cold starts are slower — wait until the fixtures land in
+# RENDERED swiper slides (NOT the RSC flight payload <SCRIPT> tags) before
+# asserting — up to 40s
+FEEDREADY=no
+for i in $(seq 1 40); do
+  R=$(agent-browser eval "[...document.querySelectorAll('.swiper-slide')].some(x=>x.textContent.includes('$STAMP')) ? 'yes' : 'no'" | tr -d '\\"')
+  if [ "$R" = "yes" ]; then FEEDREADY=yes; break; fi
+  sleep 1
+done
+ok "fixtures reached the feed slides (≤40s)" "$([ "$FEEDREADY" = "yes" ] && echo 1 || echo 0)"
 
 # ---- helpers -------------------------------------------------------------
 # A slide's action rows in DOM order: buttons (and their kind) inside the
@@ -75,6 +86,13 @@ echo "== B) library grid ladder =="
 # switch TikTok → Library (view cycler)
 agent-browser eval "(() => { const b=document.querySelector('button[aria-label=\"View\"], button[aria-label=\"Вид\"]'); if(!b) return 'no-btn'; b.click(); return 'clicked'; })()" > /dev/null
 sleep 1.5
+GRIDREADY=no
+for i in $(seq 1 15); do
+  R=$(agent-browser eval "[...document.querySelectorAll('div')].some(x=>x.className&&String(x.className).includes('rounded-2xl')&&x.querySelector('.grid.grid-cols-2')) ? 'yes' : 'no'" | tr -d '\\"')
+  if [ "$R" = "yes" ]; then GRIDREADY=yes; break; fi
+  sleep 1
+done
+ok "library grid rendered (≤15s)" "$([ "$GRIDREADY" = "yes" ] && echo 1 || echo 0)"
 # For each card: the action grid = last .grid.grid-cols-2; children kinds:
 # B=button, D=placeholder div. Map to ladder codes.
 card_kinds() {
