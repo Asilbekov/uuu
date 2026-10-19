@@ -15,7 +15,7 @@ import { api } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Question } from '@/lib/app-types';
 import { countAnsweredProgress, readTestProgress, type SavedTestProgress } from '@/lib/test-progress';
-import { ArrowLeft, BookOpen, BookmarkX, Bot, ChevronDown, ChevronRight, ChevronUp, ClipboardList, Compass, Dices, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, MessageCircle, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, BookmarkX, Bot, ChevronDown, ChevronRight, ChevronUp, ClipboardList, Compass, Dices, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, MessageCircle, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
 const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsEditor), { ssr: false });
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
 // Version tree — its own on-demand chunk (fetches the family + renders SVG)
@@ -345,6 +345,10 @@ export default function DashboardView({
   // take store
   const selectedQuestionCount = useTakeStore(s => s.selectedQuestionCount);
   const setSelectedQuestionCount = useTakeStore(s => s.setSelectedQuestionCount);
+  // Card slider drag bubble: true while the user is actively moving the
+  // question-count knob (pointer down/drag or keyboard arrows) — the value
+  // bubble above the thumb renders only during that movement.
+  const [cardSliderDrag, setCardSliderDrag] = useState(false);
   const practiceMode = useTakeStore(s => s.practiceMode);
   const setPracticeMode = useTakeStore(s => s.setPracticeMode);
   const startRandomizeQ = useTakeStore(s => s.startRandomizeQ);
@@ -1413,9 +1417,12 @@ export default function DashboardView({
                 // Nothing can flip while the swipe is still moving — and at the
                 // settle commit the adopted shared values EQUAL what was already
                 // shown on this card, so the counter/highlights never visibly
-                // change. Edits (±/slider/toggles) stay meaningful: they happen
+                // change. Edits (slider/toggles) stay meaningful: they happen
                 // on the settled card, which is always the committed one.
                 const cardCount = Math.max(1, Math.min(isCur ? (selectedQuestionCount || totalQ) : totalQ, Math.max(1, totalQ)));
+                // Thumb position as 0..1 — anchors the drag bubble over the knob
+                // (guarded for a 1-question test where max === min).
+                const cardSliderPct = totalQ > 1 ? (cardCount - 1) / (totalQ - 1) : 0;
                 const cardRandQ = isCur ? startRandomizeQ : test.randomizeQuestions !== false;
                 const cardRandO = isCur ? startRandomizeO : test.randomizeOptions !== false;
                 // Own test vs a bookmarked one (saved from Discover): bookmarked
@@ -1486,42 +1493,42 @@ export default function DashboardView({
                         {/* Controls on every slide — nothing pops in mid-swipe */}
                         {!editMode && (
                           <>
-                            {/* Question count — editable counter + slider */}
-                            <div className="shrink-0 space-y-2 sm:space-y-3 [@media(max-height:700px)]:space-y-1">
-                              <div className="flex items-center justify-center gap-4">
-                                <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.max(1, cardCount - 1))} disabled={cardCount <= 1}>
-                                  <Minus className="w-4 h-4" />
-                                </Button>
-                                <input
-                                  type="number"
-                                  inputMode="numeric"
-                                  min={1}
-                                  max={totalQ}
-                                  value={cardCount}
-                                  onChange={e => {
-                                    if (e.target.value === '') return;
-                                    const v = Math.round(Number(e.target.value));
-                                    if (Number.isNaN(v)) return;
-                                    setSelectedQuestionCount(Math.min(totalQ, Math.max(1, v)));
-                                  }}
-                                  onBlur={e => { if (e.target.value === '') setSelectedQuestionCount(1); }}
-                                  aria-label="Number of questions"
-                                  className="text-2xl sm:text-3xl [@media(max-height:700px)]:text-xl font-bold w-20 text-center bg-white rounded-xl border-2 border-black/10 focus:border-cta outline-none py-0.5 sm:py-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                                />
-                                <Button variant="outline" size="icon" className="rounded-full" onClick={() => setSelectedQuestionCount(Math.min(totalQ, cardCount + 1))} disabled={cardCount >= totalQ}>
-                                  <Plus className="w-4 h-4" />
-                                </Button>
-                              </div>
-                              <div className="px-4 sm:px-6 [@media(max-height:700px)]:hidden">
+                            {/* Question count — ONE compact slider row: «0» on the
+                            left, the test's TOTAL on the right. The old counter row
+                            (− / number / +) above the slider is GONE — its vertical
+                            space is what the ladder's last level (Delete) needed to
+                            stay visible on every phone. While the knob moves (pointer
+                            or keyboard), a value bubble rides above the thumb: it
+                            follows the knob and shows the live count. */}
+                            <div className="shrink-0 flex items-center gap-2.5">
+                              <span className="text-xs font-bold text-muted-foreground shrink-0 tabular-nums">0</span>
+                              <div className="relative flex-1 min-w-0 flex items-center py-2">
                                 <input
                                   type="range"
                                   min={1}
                                   max={totalQ}
                                   value={cardCount}
                                   onChange={e => setSelectedQuestionCount(Number(e.target.value))}
-                                  className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-[#fe5933]"
+                                  onPointerDown={() => setCardSliderDrag(true)}
+                                  onPointerUp={() => setCardSliderDrag(false)}
+                                  onPointerCancel={() => setCardSliderDrag(false)}
+                                  onKeyDown={() => setCardSliderDrag(true)}
+                                  onKeyUp={() => setCardSliderDrag(false)}
+                                  onBlur={() => setCardSliderDrag(false)}
+                                  aria-label={t('qCount', { n: cardCount })}
+                                  className="w-full h-2.5 bg-muted rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#fe5933] [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-webkit-slider-thumb]:shadow [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#fe5933] [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-white [&::-moz-range-thumb]:shadow"
                                 />
+                                {isCur && cardSliderDrag && (
+                                  <div
+                                    className="absolute bottom-full mb-1 -translate-x-1/2 pointer-events-none z-10"
+                                    style={{ left: `calc(${cardSliderPct} * (100% - 16px) + 8px)` }}
+                                  >
+                                    <div className="px-2.5 py-0.5 rounded-lg bg-[#fe5933] text-white text-sm font-bold leading-tight shadow-lg tabular-nums">{cardCount}</div>
+                                    <div className="mx-auto w-0 h-0 border-x-4 border-x-transparent border-t-4 border-t-[#fe5933]" />
+                                  </div>
+                                )}
                               </div>
+                              <span className="text-xs font-bold text-muted-foreground shrink-0 tabular-nums">{totalQ}</span>
                             </div>
 
                             {/* Test mode — FIXED 2-SLOT GRID: the same two
