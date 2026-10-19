@@ -1470,14 +1470,14 @@ export default function DashboardView({
                             removeShort={t('bookmarkRemoveShort')}
                             onOpenProfile={() => openUserLibrary({ id: (test as any).creator?.id || test.creatorId, name: (test as any).creator?.name, image: (test as any).creator?.image })}
                             openLabel={t('openProfile')}
+                            title={test.title}
                           />
                         )}
-                        {/* Cover header — title on the colored band (logo picker removed) */}
-                        <div className="relative h-24 min-h-14 shrink sm:h-32 md:h-36 [@media(max-height:700px)]:h-16 overflow-hidden">
-                          <div style={bgStyle} className={`w-full h-full flex flex-col items-center justify-center px-4 text-center ${bgClass}`}>
-                            <p className="text-xl sm:text-2xl font-bold text-cta leading-snug line-clamp-2 px-2">{test.title}</p>
-                          </div>
-                        </div>
+                        {/* THE COVER BAND IS GONE: the test title moved UP into
+                        the creator strip (between the author icon and the pin
+                        button). The slide background already carries the cover
+                        color, so the old same-color band was only burning
+                        vertical space the ladder (Delete included) needs. */}
 
                         {isCur && editMode && (
                           <div className="shrink-0 space-y-2 text-center">

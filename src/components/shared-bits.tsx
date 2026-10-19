@@ -14,7 +14,7 @@ import { useExitMount } from '@/components/motion';
 // card: the author's photo pinned top-left in a white ring, the name centered
 // on its own white pill, and a BIG bookmark toggle on the right. Shown ONLY in
 // Discover (tests of other authors); the personal library keeps cards clean.
-export function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, addLabel, removeLabel, addShort, removeShort, onOpenProfile, openLabel, compact }: {
+export function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookmark, addLabel, removeLabel, addShort, removeShort, onOpenProfile, openLabel, compact, title }: {
   name: string;
   creatorId?: string | null;
   image?: string | null;
@@ -33,6 +33,10 @@ export function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookm
   // height (uniform card-size contract) while the TikTok feed keeps the big
   // full-size band.
   compact?: boolean;
+  // Test title — rendered BETWEEN the author icon and the pin button (the
+  // dashboard feed slide moved it up here from the old cover band). Optional:
+  // strips without it (grid cards, version tree) keep the old layout.
+  title?: string;
 }) {
   const initial = (name || '?').trim().slice(0, 1).toUpperCase() || '?';
   // tg: references resolve through the same-origin avatar route; data:/http
@@ -63,6 +67,13 @@ export function CreatorStrip({ name, creatorId, image, bookmarked, onToggleBookm
         {avatarSrc ? <img src={avatarSrc} alt="" className="w-full h-full object-cover" /> : initial}
       </span>
       {identity}
+      {/* Test title — parked between the author icon and the pin button
+      (moved up from the old cover band). z-10 + later DOM order keep it
+      above the profile overlay, so tapping the TITLE is inert; the avatar
+      side of the strip still opens the creator's library. */}
+      {title ? (
+        <p title={title} className="relative z-10 flex-1 min-w-0 px-2 text-center font-bold text-cta leading-tight line-clamp-2 text-[15px] sm:text-base">{title}</p>
+      ) : null}
       {/* The bookmark button — big and pretty: large icon + label on wide screens */}
       <button
         type="button"
