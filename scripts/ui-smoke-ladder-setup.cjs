@@ -68,11 +68,36 @@ async function main() {
   const bm = await req('POST', '/api/bookmarks', { session: A, body: { testId: foreign.json.id } });
   if (bm.status !== 200 && bm.status !== 201) throw new Error(`bookmark: ${bm.status}`);
 
+  // Third card — own test WITH an attachment (drives the FILES WINDOW check):
+  // a tiny text file goes through /api/attachments/upload (telegram or the
+  // data: fallback) and rides into the create payload.
+  const form = new FormData();
+  form.append('file', new Blob([Buffer.from('ladder smoke attachment\n')], { type: 'text/plain' }), 'ladder-notes.txt');
+  const up = await fetch(`${BASE}/api/attachments/upload`, {
+    method: 'POST',
+    headers: { Cookie: A.header() },
+    body: form,
+    redirect: 'manual',
+  });
+  const upJson = await up.json();
+  if (up.status !== 200 || !upJson?.url) throw new Error(`upload: ${up.status} ${JSON.stringify(upJson).slice(0, 120)}`);
+
+  const filesTest = await req('POST', '/api/tests', {
+    session: A,
+    body: {
+      title: `XLadderFiles ${STAMP}`, description: 'has files', topic: 'Mathematics', isPublic: true, tags: [`ladder-${STAMP}`], questions: QUESTIONS('files'),
+      attachments: [{ title: upJson.name || 'ladder-notes.txt', type: 'TXT', url: upJson.url, size: upJson.size ?? null, tgMessageId: upJson.tgMessageId ?? null }],
+    },
+  });
+  if (filesTest.status !== 201) throw new Error(`filesTest: ${filesTest.status}`);
+
   process.stdout.write(JSON.stringify({
     stamp: STAMP,
     email: `${STAMP}-alice@ui.test`,
     ownId: own.json.id,
     bobId: foreign.json.id,
+    filesId: filesTest.json.id,
+    fileName: upJson.name || 'ladder-notes.txt',
     aCookie: A.header(),
     bCookie: B.header(),
   }));

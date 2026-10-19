@@ -71,6 +71,8 @@ import type { AiThreadMeta } from '@/components/chat-panels';
 const AiChatPanel = dynamic(() => import('@/components/chat-panels').then(m => m.AiChatPanel), { ssr: false, loading: () => <SheetLoadingPlaceholder /> });
 const GroupChatPanel = dynamic(() => import('@/components/chat-panels').then(m => m.GroupChatPanel), { ssr: false, loading: () => <SheetLoadingPlaceholder /> });
 import { ResizableSheetFrame } from '@/components/resize-sheet';
+import { useExitMount } from '@/components/motion';
+import type { SheetOption } from '@/components/pages/take-test/sheet-config';
 import { Collapse } from '@/components/motion';
 import {
   LogIn,
@@ -356,7 +358,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   // share-by-link of a personal test opens the chat-style naming sheet before
   // the action proceeds. Holds the action context while the sheet is open.
   const [versionNameGate, setVersionNameGate] = useState<
-    null | { mode: 'save' | 'share'; testId: string; title: string; fromTake?: boolean }
+    null | { mode: 'save' | 'share'; testId: string; title: string; fromTake?: boolean; fromDash?: boolean }
   >(null);
   const [versionNameValue, setVersionNameValue] = useState('');
   const [versionNameBusy, setVersionNameBusy] = useState(false);
@@ -603,6 +605,15 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   // passport state both live in the stores:
   const aiCardTestId = useNavStore(s => s.aiCardTestId);
   const setAiCardTestId = useNavStore(s => s.setAiCardTestId);
+  // DASHBOARD FILES WINDOW — «Файлы» from any card opens the SAME window
+  // format as the AI window (right-docked panel on desktop, resizable bottom
+  // sheet on mobile) with the test's attachments inside. Replaces the old
+  // files feed/grid modes as the card's files entry.
+  const [dashFiles, setDashFiles] = useState<{ testId: string; title: string; items: AttachmentItem[] } | null>(null);
+  const [dashFilesOpen, setDashFilesOpen] = useState(false);
+  const [dashFilesLoadingId, setDashFilesLoadingId] = useState<string | null>(null);
+  // Holds the desktop right-docked panel during its slide-out exit animation
+  const dashFilesSideMounted = useExitMount(dashFilesOpen, 220);
   const aiPassportOpen = useChatStore(s => s.aiPassportOpen);
   const setAiPassportOpen = useChatStore(s => s.setAiPassportOpen);
   const setAiPassportSeenFor = useChatStore(s => s.setAiPassportSeenFor);
@@ -1560,7 +1571,9 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
         tgMessageId: (a as any).tgMessageId ?? null,
       })));
       setEditingTestId(fullTest.id);
-      setPage('edit-test');
+      // The card's «Редактировать» opens the EDIT WINDOW (the same sheet the
+      // taking screen uses) instead of navigating to the full-page editor.
+      setEditOpen(true);
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
     }
@@ -1692,7 +1705,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     }
   };
 
-  const handleSaveTest = async (fromTake = false) => {
+  const handleSaveTest = async (fromTake = false, fromDash = false) => {
     if (!testTitle) {
       toast({ title: t('error'), description: t('titleRequired'), variant: 'destructive' });
       return;
@@ -1713,15 +1726,15 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     // the save itself continues from the sheet's confirm button.
     if (editingTestId && !editingVersionName) {
       setVersionNameValue(testTitle);
-      setVersionNameGate({ mode: 'save', testId: editingTestId, title: testTitle, fromTake });
+      setVersionNameGate({ mode: 'save', testId: editingTestId, title: testTitle, fromTake, fromDash });
       return;
     }
-    await performSaveTest(fromTake);
+    await performSaveTest(fromTake, undefined, fromDash);
   };
 
   // The save itself — runs after the naming gate (when one was required).
   // versionName rides along in the PUT payload when the sheet provided it.
-  const performSaveTest = async (fromTake = false, versionName?: string) => {
+  const performSaveTest = async (fromTake = false, versionName?: string, fromDash = false) => {
     setLoading(true);
     try {
       const data = {
@@ -1843,10 +1856,12 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
           setLoading(false);
           return;
         }
-        // Saved from the EDITOR page: land back on the dashboard — the card
-        // already shows the new title/cover/files (mirrored above, in place,
-        // no refetch, no reorder, no reload needed to "see it worked").
+        // Saved from the EDITOR page or the DASHBOARD edit window: land on
+        // the dashboard — the card already shows the new title/cover/files
+        // (mirrored above, in place, no refetch, no reorder, no reload
+        // needed to "see it worked"). The edit window closes on save.
         setPage('dashboard');
+        if (fromDash) setEditOpen(false);
         setLoading(false);
         return;
       } else {
@@ -2564,12 +2579,39 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   // ------------------------------------------------------------------
   const openAiDiscuss = (test: any) => {
     aiCardTitleRef.current = String(test?.title || '');
+    setDashFilesOpen(false); // one dashboard window at a time
     setAiCardTestId(String(test?.id || ''));
   };
   const closeAiCard = () => {
     setAiCardTestId(null);
     setAiPassportOpen(false);
   };
+  // «Файлы» from a card: fetch the test's attachments (the feed payload only
+  // carries the COUNT) and open the files window — the AI-window format.
+  const openCardFiles = (test: any) => {
+    if (!test?.id || dashFilesLoadingId === String(test.id)) return;
+    setAiCardTestId(null); // one dashboard window at a time
+    setAiPassportOpen(false);
+    const cached = ((dashFullTests as any)[test.id]?.attachments as AttachmentItem[] | undefined)
+      || ((test as any).attachments as AttachmentItem[] | undefined)
+      || [];
+    const items = cached.filter(Boolean);
+    if (items.length) {
+      setDashFiles({ testId: String(test.id), title: String(test.title || ''), items });
+      setDashFilesOpen(true);
+      return;
+    }
+    setDashFilesLoadingId(String(test.id));
+    setLoading(true);
+    api.getTest(test.id)
+      .then((full: any) => {
+        setDashFiles({ testId: String(test.id), title: String(full?.title || test.title || ''), items: ((full?.attachments || []) as AttachmentItem[]).filter(Boolean) });
+        setDashFilesOpen(true);
+      })
+      .catch((e: any) => toast({ title: t('error'), description: e?.message || 'Error', variant: 'destructive' }))
+      .finally(() => { setDashFilesLoadingId(null); setLoading(false); });
+  };
+  const closeCardFiles = () => setDashFilesOpen(false);
   const exitAiCardPassport = () => {
     setAiPassportOpen(false);
     // NOTE: the dashboard dismissal deliberately does NOT mark the test as
@@ -2915,7 +2957,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     if (!name) return;
     if (gate.mode === 'save') {
       setVersionNameGate(null);
-      await performSaveTest(gate.fromTake, name);
+      await performSaveTest(gate.fromTake, name, gate.fromDash);
       return;
     }
     setVersionNameBusy(true);
@@ -3757,6 +3799,24 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     </>
   );
 
+  // Window switcher of the dashboard edit window — Files / AI / Edit (the
+  // same header switcher the taking screen's windows wear; no group chat on
+  // the dashboard).
+  const dashSheetOptions: SheetOption[] = [
+    ...((((currentTest as any)?.attachments?.length || 0) > 0) ? [{
+      key: 'files' as const,
+      label: t('files', { n: (currentTest as any).attachments.length }),
+      icon: <Paperclip className="w-3.5 h-3.5" />,
+      active: dashFilesOpen,
+    }] : []),
+    { key: 'ai', label: t('aiTutor'), icon: <MessageSquare className="w-3.5 h-3.5" />, active: !!aiCardTestId },
+    { key: 'edit', label: t('editTest'), icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
+  ];
+  const dashSwitchSheet = (key: string) => {
+    if (key === 'files') { setEditOpen(false); if (currentTest) openCardFiles(currentTest); }
+    else if (key === 'ai') { setEditOpen(false); setDashFilesOpen(false); if (currentTest) openAiDiscuss(currentTest); }
+  };
+
   // DASHBOARD (view extracted to src/components/pages/dashboard-view.tsx)
   if (effectivePage === 'dashboard') {
     return (
@@ -3789,6 +3849,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
           toggleGridTree={toggleGridTree}
           closeGridTree={closeGridTree}
           openAiDiscuss={openAiDiscuss}
+          openCardFiles={openCardFiles}
           doShareLink={doShareLink}
           doMakePublic={doMakePublic}
           handleDeleteTest={handleDeleteTest}
@@ -3834,6 +3895,73 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
               />
             </div>
           </div>
+        )}
+        {/* THE DASHBOARD FILES WINDOW — «Файлы» from a card: the SAME window
+        format as the AI window — right-docked panel on desktop (the same
+        fixed wrapper), resizable bottom sheet on mobile. The header wears
+        the title + the test's name; the body lists the attachments. */}
+        {dashFiles && (
+          <AttachmentsBottomSheet
+            items={dashFiles.items}
+            open={dashFilesOpen}
+            onOpenChange={v => { if (!v) closeCardFiles(); }}
+            hideLauncher
+            title={t('attachedFiles', { n: dashFiles.items.length })}
+            subtitle={dashFiles.title}
+          />
+        )}
+        {dashFiles && dashFilesSideMounted && (
+          <div className="hidden lg:flex fixed inset-0 z-50 items-center justify-end p-5 pointer-events-none">
+            <div className="pointer-events-auto">
+              <AttachmentsSidePanel
+                items={dashFiles.items}
+                onClose={closeCardFiles}
+                title={t('attachedFiles', { n: dashFiles.items.length })}
+                subtitle={dashFiles.title}
+              />
+            </div>
+          </div>
+        )}
+        {/* THE DASHBOARD EDIT WINDOW — «Редактировать» from a card opens the
+        SAME window the taking screen uses (resizable bottom sheet on mobile,
+        centered dialog on desktop, header switcher, Save) instead of the
+        full-page editor. */}
+        {editOpen && !!editingTestId && (
+          <ResizableSheetFrame
+            open={editOpen}
+            onClose={() => setEditOpen(false)}
+            initialVh={0.85}
+            minVh={0.4}
+            maxW="max-w-3xl"
+            header={
+              <div className="flex items-center justify-between px-4 py-2 border-b shrink-0">
+                <SheetHeaderSwitcher
+                  icon={<Pencil className="w-4 h-4 text-white" />}
+                  title={t('editTest')}
+                  subtitle={currentTest?.title}
+                  options={dashSheetOptions}
+                  onSelect={dashSwitchSheet}
+                />
+                <Button variant="ghost" size="sm" className="h-7 w-7 p-0 shrink-0" onClick={() => setEditOpen(false)}>
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+            }
+            body={
+              <div className="px-4 py-4">
+                <div className="max-w-3xl mx-auto space-y-6">
+                  {editorBody}
+                </div>
+              </div>
+            }
+            footer={
+              <div className="shrink-0 border-t bg-white/95 backdrop-blur-md px-4 pt-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
+                <Button onClick={() => handleSaveTest(false, true)} disabled={loading} className="w-full rounded-full bg-primary hover:bg-primary/90">
+                  {loading ? t('saving') : t('saveTest')}
+                </Button>
+              </div>
+            }
+          />
         )}
         {/* Blocked trivial copy → the rule dialog (dashboard path) */}
         <GateDialog test={gateDialogTest} onClose={() => setGateDialogTest(null)} />

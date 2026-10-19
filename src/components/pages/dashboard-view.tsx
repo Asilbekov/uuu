@@ -120,6 +120,10 @@ export interface DashboardViewProps {
   // «Обсудить с ИИ» — opens the AI window with the test's metric passport
   // (the replacement of the version-tree entry on EVERY card).
   openAiDiscuss: (test: Test) => void;
+  // «Файлы» on any card opens the FILES WINDOW (the same format as the AI
+  // window: right-docked panel on desktop / bottom sheet on mobile) —
+  // replaces the old files feed/grid modes.
+  openCardFiles: (test: Test) => void;
   doShareLink: (...args: any[]) => any;
   doMakePublic: (...args: any[]) => any;
   handleDeleteTest: (...args: any[]) => any;
@@ -155,6 +159,7 @@ export default function DashboardView({
   closeTreeCard,
   closeGridTree,
   openAiDiscuss,
+  openCardFiles,
   doShareLink,
   doMakePublic,
   handleDeleteTest,
@@ -600,20 +605,17 @@ export default function DashboardView({
         >
           {strip}
           <p className="text-[13px] sm:text-sm lg:text-[15px] font-bold leading-snug line-clamp-2">{test.title}</p>
-          {/* FIXED LEVEL LADDER — every button owns its own cell on its own
-          height level, in EVERY mode (library, shelf, feed): L1 Start (full
-          row), L2 Restart|AI, L3 Files|Share, L4 Public|Edit, L5 Unpin,
-          L6 Delete (full row). A button that does not apply to THIS test
-          leaves an empty PLACEHOLDER cell instead — so no button ever drifts
-          to a neighbour's slot and the same button always sits at the same
-          height on every card of the grid. Two per row (short labels, full
-          name in the tooltip) keeps the card ≈1/3 of the screen tall — the
-          3×3 library rhythm holds and NO button is ever clipped. */}
-          <div className="mt-auto pt-1.5 grid grid-cols-2 gap-1">
+          {/* ONE BUTTON PER LEVEL — the ladder every card follows in EVERY
+          mode (library, shelf, feed): Start → Restart → AI → Files → Share →
+          Public → Edit → Unpin → Delete. A button that does not apply to THIS
+          test simply does not render and the others keep their relative
+          order — no two buttons ever share a level (only the top header strip
+          and the page's bottom bar may hold several buttons in one row). */}
+          <div className="card-ladder mt-auto pt-1.5 flex flex-col gap-1">
             <Button size="sm" disabled={loading}
               onClick={e => { e.stopPropagation(); startCard(false); }}
               title={t('startTestBtn')} aria-label={t('startTestBtn')}
-              className="col-span-2 h-8 rounded-full text-[11px] sm:text-xs lg:h-10 lg:text-sm px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
+              className="h-8 rounded-full text-[11px] sm:text-xs lg:h-10 lg:text-sm px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
             >
               <Play className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gStart')}</span>
             </Button>
@@ -631,18 +633,14 @@ export default function DashboardView({
             >
               <Bot className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gAi')}</span>
             </Button>
-            {/* L3 — the empty placeholder holds Files' cell when the test has
-            no attachments: Share never drifts into Files' slot. */}
-            {fcnt > 0 ? (
+            {fcnt > 0 && (
               <Button size="sm" variant="outline"
-                onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
+                onClick={e => { e.stopPropagation(); openCardFiles(test); }}
                 title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
                 <Paperclip className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gFiles')}</span>
               </Button>
-            ) : (
-              <div aria-hidden="true" />
             )}
             <Button size="sm" variant="outline" disabled={!!shareBusy || !canShareLink}
               onClick={e => { e.stopPropagation(); doShareLink(test); }}
@@ -651,9 +649,9 @@ export default function DashboardView({
             >
               <Link2 className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gShare')}</span>
             </Button>
-            {/* L4 — Public: OWN from-scratch tests only (a version can never
-            be public). The placeholder keeps Edit pinned at its level. */}
-            {own && !isVersion ? (
+            {/* Public: OWN from-scratch tests only (a version can never be
+            public) — its own level, always after Share. */}
+            {own && !isVersion && (
             <Button size="sm" variant="outline" disabled={!!shareBusy}
               onClick={e => { e.stopPropagation(); doMakePublic(test); }}
               title={t('makePublic')} aria-label={t('makePublic')}
@@ -661,8 +659,6 @@ export default function DashboardView({
             >
               <Users className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gPublic')}</span>
             </Button>
-            ) : (
-              <div aria-hidden="true" />
             )}
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); startEditTest(test); }}
@@ -671,10 +667,9 @@ export default function DashboardView({
             >
               <Pencil className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gEdit')}</span>
             </Button>
-            {/* L5 — Unpin: BOOKMARKED tests in the personal library (the test
-            got here via the bookmark button). The placeholder keeps the row
-            so Delete stays at level 6 on every card. */}
-            {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) ? (
+            {/* Unpin: BOOKMARKED tests in the personal library (the test got
+            here via the bookmark button) — its own level, always after Edit. */}
+            {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
               title={t('unpinBtn')} aria-label={t('unpinBtn')}
@@ -682,25 +677,20 @@ export default function DashboardView({
             >
               <BookmarkX className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gUnpin')}</span>
             </Button>
-            ) : (
-              <div aria-hidden="true" />
             )}
-            {/* L6 — Delete: own tests only (the server refuses anyone else);
-            the full-span placeholder keeps every OTHER card's Delete on the
-            same bottom level. */}
-            {own ? (
+            {/* Delete: own tests only (the server refuses anyone else) — the
+            last level of the ladder. */}
+            {own && (
             <Button size="sm" variant="outline"
               onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
               title={t('deleteTest')} aria-label={t('deleteTest')}
-              className="col-span-2 h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
             >
               <Trash2 className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gDelete')}</span>
             </Button>
-            ) : (
-              <div aria-hidden="true" className="col-span-2" />
             )}
             {!canShareLink && (
-              <p className="col-span-2 text-[9px] leading-tight text-muted-foreground">{t('shareNeed2Changes')}</p>
+              <p className="text-[9px] leading-tight text-muted-foreground">{t('shareNeed2Changes')}</p>
             )}
           </div>
         </div>
@@ -721,17 +711,15 @@ export default function DashboardView({
             the content area */}
             <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
             <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
-            {/* FIXED LEVEL LADDER (same as the library card): every button
-            owns its own cell on its own height level — L1 Start, L2
-            Restart|AI, L3 Files|Share, L4 Public|Edit, L5 Unpin, L6 Delete.
-            Empty placeholders hold the cells of buttons that do not apply to
-            THIS test, so the same button always sits at the same height on
-            every shelf card. */}
-            <div className="mt-auto pt-1.5 grid grid-cols-2 gap-1">
+          {/* ONE BUTTON PER LEVEL (same ladder as the library card and the
+          feed): Start → Restart → AI → Files → Share → Public → Edit → Unpin
+          → Delete. Absent buttons just don't render — no two buttons ever
+          share a level. */}
+          <div className="card-ladder mt-auto pt-1.5 flex flex-col gap-1">
               <Button size="sm" disabled={loading}
                 onClick={e => { e.stopPropagation(); startCard(false); }}
                 title={t('startTestBtn')} aria-label={t('startTestBtn')}
-                className="col-span-2 h-8 rounded-full text-[11px] sm:text-xs lg:h-10 lg:text-sm px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
+                className="h-8 rounded-full text-[11px] sm:text-xs lg:h-10 lg:text-sm px-2 justify-start gap-1.5 has-[>svg]:px-1.5"
               >
                 <Play className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gStart')}</span>
               </Button>
@@ -749,18 +737,14 @@ export default function DashboardView({
               >
                 <Bot className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gAi')}</span>
               </Button>
-              {/* L3 — the empty placeholder holds Files' cell when the test
-              has no attachments: Share never drifts into Files' slot. */}
-              {fcnt > 0 ? (
+              {fcnt > 0 && (
                 <Button size="sm" variant="outline"
-                  onClick={e => { e.stopPropagation(); toggleGridFiles(test); }}
+                  onClick={e => { e.stopPropagation(); openCardFiles(test); }}
                   title={t('attachedFiles', { n: fcnt })} aria-label={t('attachedFiles', { n: fcnt })}
-                  className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${gridFilesMode && gridFilesTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
+                  className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
                 >
                   <Paperclip className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gFiles')}</span>
                 </Button>
-              ) : (
-                <div aria-hidden="true" />
               )}
               {/* Share link — EVERY card (own, bookmarked and
               discover alike); PASSIVE for versions with
@@ -773,9 +757,9 @@ export default function DashboardView({
               >
                 <Link2 className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gShare')}</span>
               </Button>
-              {/* L4 — Public: OWN from-scratch tests only (a version can
-              never be public). The placeholder keeps Edit pinned. */}
-              {own && !isVersion ? (
+              {/* Public: OWN from-scratch tests only (a version can never be
+              public) — its own level, always after Share. */}
+              {own && !isVersion && (
               <Button size="sm" variant="outline" disabled={!!shareBusy}
                 onClick={e => { e.stopPropagation(); doMakePublic(test); }}
                 title={t('makePublic')} aria-label={t('makePublic')}
@@ -783,8 +767,6 @@ export default function DashboardView({
               >
                 <Users className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gPublic')}</span>
               </Button>
-              ) : (
-                <div aria-hidden="true" />
               )}
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); startEditTest(test); }}
@@ -793,10 +775,9 @@ export default function DashboardView({
               >
                 <Pencil className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gEdit')}</span>
               </Button>
-              {/* L5 — Unpin: bookmarked tests in the personal library
-              (shelf row). The placeholder keeps the row so Delete stays at
-              level 6 on every card. */}
-              {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) ? (
+              {/* Unpin: bookmarked tests in the personal library (shelf
+              row) — its own level, always after Edit. */}
+              {!discoverMode && !viewingUser && !own && bookmarkIds.has(test.id) && (
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); toggleBookmark(test); }}
                 title={t('unpinBtn')} aria-label={t('unpinBtn')}
@@ -804,24 +785,19 @@ export default function DashboardView({
               >
                 <BookmarkX className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gUnpin')}</span>
               </Button>
-              ) : (
-                <div aria-hidden="true" />
               )}
-              {/* L6 — Delete: own tests only; the full-span placeholder keeps
-              every OTHER card's Delete on the same bottom level. */}
-              {own ? (
+              {/* Delete: own tests only — the last level of the ladder. */}
+              {own && (
               <Button size="sm" variant="outline"
                 onClick={e => { e.stopPropagation(); setDeleteId(test.id); }}
                 title={t('deleteTest')} aria-label={t('deleteTest')}
-                className="col-span-2 h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+                className="h-8 rounded-full border-destructive/50 text-destructive hover:bg-destructive/10 hover:text-destructive text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
               >
                 <Trash2 className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gDelete')}</span>
               </Button>
-              ) : (
-                <div aria-hidden="true" className="col-span-2" />
               )}
               {!canShareLink && (
-                <p className="col-span-2 text-[9px] leading-tight text-muted-foreground">{t('shareNeed2Changes')}</p>
+                <p className="text-[9px] leading-tight text-muted-foreground">{t('shareNeed2Changes')}</p>
               )}
             </div>
           </div>
@@ -1595,14 +1571,15 @@ export default function DashboardView({
                               <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
                             </button>
 
-                            {/* Attached files — flips the feed to the FILES mode:
-                            this test's files in one card; the button (and the
-                            header files toggle) returns to this card */}
+                            {/* Attached files — opens the FILES WINDOW (the same
+                            format as the AI window: bottom sheet on mobile /
+                            right-docked panel on desktop) with this test's
+                            files; replaces the old files-feed flip */}
                             {filesCount > 0 && (
                               <button
                                 type="button"
-                                onClick={() => { if (filesFeedMode && filesFeedTestId === test.id) closeFilesCard(); else openFilesCard(test); }}
-                                className={`shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left transition-colors ${filesFeedMode && filesFeedTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black bg-white hover:bg-muted/50'}`}
+                                onClick={() => openCardFiles(test)}
+                                className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left hover:bg-muted/50 transition-colors"
                               >
                                 <Paperclip className="w-4 h-4 shrink-0" />
                                 <span className="font-semibold text-sm">{t('attachedFiles', { n: filesCount })}</span>

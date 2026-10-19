@@ -224,6 +224,7 @@ export function AttachmentsBottomSheet({
   switcher,
   hideLauncher = false,
   title,
+  subtitle,
 }: {
   items: AttachmentItem[];
   open?: boolean;
@@ -234,6 +235,8 @@ export function AttachmentsBottomSheet({
   hideLauncher?: boolean;
   /** Localized header label, defaults to "Attached Files (N)" */
   title?: string;
+  /** Optional second header line (e.g. the test's title) */
+  subtitle?: string;
 }) {
   const [openState, setOpenState] = useState(false);
   const open = openProp !== undefined ? openProp : openState;
@@ -267,6 +270,7 @@ export function AttachmentsBottomSheet({
         onClose={() => setOpen(false)}
         switcher={switcher}
         title={title}
+        subtitle={subtitle}
       />
     </>
   );
@@ -278,12 +282,14 @@ function ResizableAttachmentsSheet({
   onClose,
   switcher,
   title,
+  subtitle,
 }: {
   open: boolean;
   items: AttachmentItem[];
   onClose: () => void;
   switcher?: SheetSwitcher;
   title?: string;
+  subtitle?: string;
 }) {
   const sheet = useResizableSheet({ initialVh: 0.78, minVh: 0.35, onClose });
   // Stay mounted while the slide-down exit animation plays
@@ -302,11 +308,12 @@ function ResizableAttachmentsSheet({
             <SheetHeaderSwitcher
               icon={<Paperclip className="w-4 h-4" />}
               title={title || `Attached Files (${items.length})`}
+              subtitle={subtitle}
               options={switcher.options}
               onSelect={switcher.onSelect}
             />
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 min-w-0">
               <button
                 onClick={onClose}
                 aria-label="Close attached files"
@@ -314,8 +321,11 @@ function ResizableAttachmentsSheet({
               >
                 <ChevronDown className="w-5 h-5" />
               </button>
-              <span className="font-semibold text-sm flex items-center gap-1.5">
-                <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
+              <span className="min-w-0">
+                <span className="font-semibold text-sm flex items-center gap-1.5">
+                  <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
+                </span>
+                {subtitle ? <span className="block text-xs text-muted-foreground truncate">{subtitle}</span> : null}
               </span>
             </div>
           )}
@@ -333,14 +343,19 @@ function ResizableAttachmentsSheet({
   );
 }
 
-/** Desktop side panel version (paired with the flex layout of take-test). */
-export function AttachmentsSidePanel({ items, onClose, title }: { items: AttachmentItem[]; onClose: () => void; title?: string }) {
+/** Desktop side panel version (paired with the flex layout of take-test).
+ *  subtitle: optional second header line (e.g. the test's title) — the same
+ *  header format the AI chat window wears (title + muted subtitle). */
+export function AttachmentsSidePanel({ items, onClose, title, subtitle }: { items: AttachmentItem[]; onClose: () => void; title?: string; subtitle?: string }) {
   return (
     <div className="w-full lg:w-[400px] shrink-0 animate-in fade-in slide-in-from-right-2 duration-300">
       <div className="rounded-4xl border border-black bg-white flex flex-col h-[calc(100vh-160px)] lg:h-[680px] overflow-hidden">
         <div className="flex items-center justify-between px-4 py-3 border-b shrink-0">
-          <span className="font-semibold text-sm flex items-center gap-1.5">
-            <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
+          <span className="min-w-0">
+            <span className="font-semibold text-sm flex items-center gap-1.5">
+              <Paperclip className="w-4 h-4" /> {title || `Attached Files (${items.length})`}
+            </span>
+            {subtitle ? <span className="block text-xs text-muted-foreground truncate">{subtitle}</span> : null}
           </span>
           <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={onClose}>
             <X className="w-4 h-4" />

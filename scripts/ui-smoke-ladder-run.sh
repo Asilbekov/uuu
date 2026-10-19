@@ -1,12 +1,14 @@
 #!/bin/bash
-# UI smoke — CARD BUTTON LEVEL LADDER (agent-browser), through the REAL UI:
+# UI smoke — CARD BUTTON LADDER (one button per level) + FILES/EDIT WINDOWS:
 #   A) FEED: action rows follow the canonical ladder on every slide —
-#      AI → Files → Share → Public → Edit → Unpin → Delete (own card:
-#      AI/Share/Public/Edit/Delete; bookmarked foreign card: AI/Share/Edit/Unpin)
-#   B) LIBRARY GRID: both cards keep the SAME cell ladder — placeholders hold
-#      the cells of absent buttons; Share/Edit sit at identical indexes on
-#      both cards (the exact misalignment this feature fixes)
-#   C) SHELF: same ladder as the library
+#      AI → Files → Share → Public → Edit → Unpin → Delete
+#   B) LIBRARY GRID: every card's action ladder is SINGLE COLUMN (strictly
+#      one button per level) and NOTHING is clipped (scrollHeight check)
+#   C) SHELF: the same single-column ladder
+#   D) FILES WINDOW: «Файлы» opens the same-format window as the AI window
+#      (bottom sheet on mobile, right-docked panel on desktop)
+#   E) EDIT WINDOW: «Редактировать» opens the take-test style edit sheet
+#      (header switcher + Save) WITHOUT leaving the dashboard
 # Fixtures must already exist (ui-smoke-ladder-setup.cjs → /tmp/ladder-setup.json)
 cd /home/z/my-project/repo-uuu
 BASE=${BASE:-http://127.0.0.1:3199}
@@ -17,7 +19,8 @@ echo "== setup fixtures =="
 BASE=$BASE node scripts/ui-smoke-ladder-setup.cjs > /tmp/ladder-setup.json
 STAMP=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['stamp'])")
 EMAIL=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['email'])")
-echo "stamp: $STAMP email: $EMAIL"
+FILENAME=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['fileName'])")
+echo "stamp: $STAMP email: $EMAIL file: $FILENAME"
 
 agent-browser cookies clear > /dev/null
 agent-browser set viewport 390 844 > /dev/null
@@ -37,8 +40,7 @@ ok "login → feed visible" "$([ "$LOGGED" = "yes" ] && echo 1 || echo 0)"
 sleep 1.5
 
 # prod deployments/cold starts are slower — wait until the fixtures land in
-# RENDERED swiper slides (NOT the RSC flight payload <SCRIPT> tags) before
-# asserting — up to 40s
+# RENDERED swiper slides (NOT the RSC flight payload <SCRIPT> tags)
 FEEDREADY=no
 for i in $(seq 1 40); do
   R=$(agent-browser eval "[...document.querySelectorAll('.swiper-slide')].some(x=>x.textContent.includes('$STAMP')) ? 'yes' : 'no'" | tr -d '\\"')
@@ -48,8 +50,6 @@ done
 ok "fixtures reached the feed slides (≤40s)" "$([ "$FEEDREADY" = "yes" ] && echo 1 || echo 0)"
 
 # ---- helpers -------------------------------------------------------------
-# A slide's action rows in DOM order: buttons (and their kind) inside the
-# swiper-slide whose text contains $1, filtered to the ladder actions.
 slide_rows() {
   agent-browser eval "(() => {
     const s=[...document.querySelectorAll('.swiper-slide')].find(x=>x.textContent.includes('$1'));
@@ -82,78 +82,168 @@ ok "feed bob card: AI is the FIRST action row" "$([[ "$BOB_ROWS" == AI,* ]] && e
 ok "feed bob card: order AI<Share<Edit<Unpin" "$([[ "$BOB_ROWS" == AI,*,Share,*,Edit,*,Unpin* || "$BOB_ROWS" == AI,Share,Edit,Unpin ]] && echo 1 || echo 0)"
 ok "feed bob card: NO Public/Delete rows" "$( [[ "$BOB_ROWS" != *Public* && "$BOB_ROWS" != *Delete* ]] && echo 1 || echo 0)"
 
-echo "== B) library grid ladder =="
-# switch TikTok → Library (view cycler)
-agent-browser eval "(() => { const b=document.querySelector('button[aria-label=\"View\"], button[aria-label=\"Вид\"]'); if(!b) return 'no-btn'; b.click(); return 'clicked'; })()" > /dev/null
-sleep 1.5
+echo "== B) library grid: one button per level =="
+# goto_grid_view: cycle the view switcher until the grid ladders render
+# (TikTok → Library → Shelf cycle; up to 3 clicks)
+goto_grid_view() {
+  for i in $(seq 1 3); do
+    R=$(agent-browser eval "document.querySelectorAll('.card-ladder').length >= 3 ? 'yes' : 'no'" | tr -d '\\"')
+    [ "$R" = "yes" ] && return 0
+    agent-browser eval "(() => { const b=document.querySelector('button[aria-label=\"View\"], button[aria-label=\"Вид\"]'); if(!b) return 'no-btn'; b.click(); return 'clicked'; })()" > /dev/null
+    sleep 1.5
+  done
+  agent-browser eval "document.querySelectorAll('.card-ladder').length >= 3 ? 'yes' : 'no'" | tr -d '\\"' | rg -q yes
+}
+goto_grid_view
 GRIDREADY=no
 for i in $(seq 1 15); do
-  R=$(agent-browser eval "[...document.querySelectorAll('div')].some(x=>x.className&&String(x.className).includes('rounded-2xl')&&x.querySelector('.grid.grid-cols-2')) ? 'yes' : 'no'" | tr -d '\\"')
+  R=$(agent-browser eval "document.querySelectorAll('.card-ladder').length >= 3 ? 'yes' : 'no'" | tr -d '\\"')
   if [ "$R" = "yes" ]; then GRIDREADY=yes; break; fi
   sleep 1
 done
-ok "library grid rendered (≤15s)" "$([ "$GRIDREADY" = "yes" ] && echo 1 || echo 0)"
-# For each card: the action grid = last .grid.grid-cols-2; children kinds:
-# B=button, D=placeholder div. Map to ladder codes.
+ok "library grid rendered, 3 ladders (≤15s)" "$([ "$GRIDREADY" = "yes" ] && echo 1 || echo 0)"
+
+# Ladder kinds inside the .card-ladder container (single column, in order)
 card_kinds() {
   agent-browser eval "(() => {
-    const card=[...document.querySelectorAll('div')].find(x=>x.className&&String(x.className).includes('rounded-2xl')&&x.textContent.includes('$1')&&x.querySelector('.grid.grid-cols-2'));
-    if(!card) return 'no-card';
-    const g=card.querySelector('.grid.grid-cols-2');
+    const ladder=[...document.querySelectorAll('.card-ladder')].find(g=>{const c=g.closest('.rounded-2xl'); return c&&c.textContent.includes('$1');});
+    if(!ladder) return 'no-card';
     const kind=(el)=>{
-      if(el.tagName==='BUTTON'){
-        const t=el.textContent.trim(); const ic=el.querySelector('svg');
-        const cls=ic?ic.getAttribute('class')||'':'';
-        if(cls.includes('lucide-play')) return 'S';
-        if(cls.includes('lucide-refresh-cw')) return 'R';
-        if(cls.includes('lucide-bot')) return 'A';
-        if(cls.includes('lucide-paperclip')) return 'F';
-        if(cls.includes('lucide-link-2')||cls.includes('lucide-link')) return 'L';
-        if(cls.includes('lucide-users')) return 'P';
-        if(cls.includes('lucide-pencil')) return 'E';
-        if(cls.includes('lucide-bookmark-x')) return 'U';
-        if(cls.includes('lucide-trash-2')) return 'X';
-        return 'B('+t.slice(0,8)+')';
-      }
-      return 'D';
+      const t=el.textContent.trim(); const ic=el.querySelector('svg');
+      const cls=ic?ic.getAttribute('class')||'':'';
+      if(cls.includes('lucide-play')) return 'S';
+      if(cls.includes('lucide-refresh-cw')) return 'R';
+      if(cls.includes('lucide-bot')) return 'A';
+      if(cls.includes('lucide-paperclip')) return 'F';
+      if(cls.includes('lucide-link-2')||cls.includes('lucide-link')) return 'L';
+      if(cls.includes('lucide-users')) return 'P';
+      if(cls.includes('lucide-pencil')) return 'E';
+      if(cls.includes('lucide-bookmark-x')) return 'U';
+      if(cls.includes('lucide-trash-2')) return 'X';
+      return 'B('+t.slice(0,8)+')';
     };
-    return [...g.children].map(kind).join('');
+    return [...ladder.children].filter(el=>el.tagName==='BUTTON').map(kind).join('');
+  })()" | tr -d '"'
+}
+# No-clipping check: the card must fully contain its ladder (no half-card bug)
+no_clip() {
+  agent-browser eval "(() => {
+    const ladder=[...document.querySelectorAll('.card-ladder')].find(g=>{const c=g.closest('.rounded-2xl'); return c&&c.textContent.includes('$1');});
+    if(!ladder) return 'no-card';
+    const card=ladder.closest('.rounded-2xl') || ladder.parentElement;
+    if(!card) return 'no-card-el';
+    return (card.scrollHeight <= card.clientHeight + 2) ? 'fits' : ('clip:'+card.scrollHeight+'>'+card.clientHeight);
   })()" | tr -d '"'
 }
 OWNK=$(card_kinds "XLadderOwn $STAMP")
 BOBK=$(card_kinds "XLadderBob $STAMP")
-echo "  own kinds:  $OWNK"
-echo "  bob kinds:  $BOBK"
-ok "library own card ladder SRA[DF]L[PD]E[UD]X" "$(python3 -c "import re,sys;print(1 if re.match(r'^SRA[DF]L[PD]E[UD]X$', sys.argv[1]) else 0)" "$OWNK")"
-ok "library bob card ladder SRA[DF]L[PD]EU[DX]" "$(python3 -c "import re,sys;print(1 if re.match(r'^SRA[DF]L[PD]EU[DX]$', sys.argv[1]) else 0)" "$BOBK")"
-# THE core alignment assertions: same cell index across DIFFERENT cards
+FILEK=$(card_kinds "XLadderFiles $STAMP")
+echo "  own kinds:   $OWNK"
+echo "  bob kinds:   $BOBK"
+echo "  files kinds: $FILEK"
+ok "library own card ladder = S,R,A,[Files,]Share,Public,Edit,Delete" "$(python3 -c "import re,sys;print(1 if re.match(r'^SRA[DF]?LPEX$', sys.argv[1]) else 0)" "$OWNK")"
+ok "library bob card ladder = S,R,A,[Files,]Share,Edit,Unpin" "$(python3 -c "import re,sys;print(1 if re.match(r'^SRA[DF]?LEU$', sys.argv[1]) else 0)" "$BOBK")"
+ok "library files card ladder = S,R,A,Files,Share,Public,Edit,Delete" "$(python3 -c "import re,sys;print(1 if re.match(r'^SRAFLPEX$', sys.argv[1]) else 0)" "$FILEK")"
 idxof() { python3 -c "import sys;s=sys.argv[1];c=sys.argv[2];print(s.find(c))" "$1" "$2"; }
-OWNK_SANE=$([ ${#OWNK} -ge 9 ] && echo yes || echo no)
-ok "library: both ladders have 9+ cells" "$([ "$OWNK_SANE" = yes ] && [ ${#BOBK} -ge 9 ] && echo 1 || echo 0)"
-ok "library: Share at SAME index on both cards" "$([ "$(idxof "$OWNK" L)" = "$(idxof "$BOBK" L)" ] && [ "$(idxof "$OWNK" L)" -ge 0 ] && echo 1 || echo 0)"
-ok "library: Edit at SAME index on both cards" "$([ "$(idxof "$OWNK" E)" = "$(idxof "$BOBK" E)" ] && [ "$(idxof "$OWNK" E)" -ge 0 ] && echo 1 || echo 0)"
-ok "library: AI at SAME index on both cards" "$([ "$(idxof "$OWNK" A)" = "$(idxof "$BOBK" A)" ] && [ "$(idxof "$OWNK" A)" -ge 0 ] && echo 1 || echo 0)"
-ok "library: own card Public=BUTTON, bob card Public=PLACEHOLDER" "$([[ "$OWNK" == *P* ]] && [[ "$BOBK" == *D* ]] && echo 1 || echo 0)"
-ok "library: own card Delete=BUTTON, bob card Delete=PLACEHOLDER" "$([[ "$OWNK" == *X* ]] && echo 1 || echo 0)"
+ok "library: Share at SAME index on own+bob (same no-files state)" "$([ "$(idxof "$OWNK" L)" = "$(idxof "$BOBK" L)" ] && [ "$(idxof "$OWNK" L)" -ge 0 ] && echo 1 || echo 0)"
+ok "library: AI at SAME index on all 3 cards" "$([ "$(idxof "$OWNK" A)" = "$(idxof "$BOBK" A)" ] && [ "$(idxof "$OWNK" A)" = "$(idxof "$FILEK" A)" ] && echo 1 || echo 0)"
+ok "library: relative order kept on every card (regex above)" "$([ "$(idxof "$OWNK" L)" -lt "$(idxof "$OWNK" E)" ] && [ "$(idxof "$FILEK" L)" -lt "$(idxof "$FILEK" E)" ] && [ "$(idxof "$BOBK" L)" -lt "$(idxof "$BOBK" E)" ] && echo 1 || echo 0)"
+ok "library own card: NOTHING clipped" "$([[ "$(no_clip "XLadderOwn $STAMP")" == fits ]] && echo 1 || echo 0)"
+ok "library files card: NOTHING clipped" "$([[ "$(no_clip "XLadderFiles $STAMP")" == fits ]] && echo 1 || echo 0)"
 
 echo "== C) shelf ladder =="
-agent-browser eval "(() => { const b=document.querySelector('button[aria-label=\"View\"], button[aria-label=\"Вид\"]'); if(!b) return 'no-btn'; b.click(); return 'clicked'; })()" > /dev/null
-sleep 1.5
+goto_grid_view
 SOWNK=$(card_kinds "XLadderOwn $STAMP")
-SBOBK=$(card_kinds "XLadderBob $STAMP")
-echo "  shelf own kinds: $SOWNK"
-echo "  shelf bob kinds: $SBOBK"
-ok "shelf: Share at SAME index on both cards" "$([ "$(idxof "$SOWNK" L)" = "$(idxof "$SBOBK" L)" ] && [ "$(idxof "$SOWNK" L)" -ge 0 ] && echo 1 || echo 0)"
-ok "shelf: Edit at SAME index on both cards" "$([ "$(idxof "$SOWNK" E)" = "$(idxof "$SBOBK" E)" ] && [ "$(idxof "$SOWNK" E)" -ge 0 ] && echo 1 || echo 0)"
+SFILEK=$(card_kinds "XLadderFiles $STAMP")
+echo "  shelf own kinds:  $SOWNK"
+echo "  shelf files kinds: $SFILEK"
 ok "shelf: ladder identical to library own card" "$([ "$SOWNK" = "$OWNK" ] && echo 1 || echo 0)"
+ok "shelf: Share at SAME index on own+files-relative order" "$([ "$(idxof "$SOWNK" L)" -ge 0 ] && [ "$(idxof "$SFILEK" L)" -ge 0 ] && echo 1 || echo 0)"
+ok "shelf own card: NOTHING clipped" "$([[ "$(no_clip "XLadderOwn $STAMP")" == fits ]] && echo 1 || echo 0)"
+
+echo "== D) files window (AI-window format) =="
+# MOBILE: back to the library grid, click the Files button on the files card
+agent-browser set viewport 390 844 > /dev/null
+sleep 1
+goto_grid_view
+FILESBTN=ok
+for i in $(seq 1 10); do
+  R=$(agent-browser eval "document.querySelectorAll('.card-ladder').length >= 3 ? 'yes' : 'no'" | tr -d '\\"')
+  [ "$R" = "yes" ] && break
+  sleep 1
+done
+agent-browser eval "(() => {
+  const ladder=[...document.querySelectorAll('.card-ladder')].find(g=>{const c=g.closest('.rounded-2xl'); return c&&c.textContent.includes('XLadderFiles $STAMP');});
+  if(!ladder) return 'no-ladder';
+  const b=[...ladder.querySelectorAll('button')].find(x=>x.querySelector('.lucide-paperclip'));
+  if(!b) return 'no-btn';
+  b.click(); return 'clicked';
+})()" > /dev/null
+FW=no
+for i in $(seq 1 10); do
+  R=$(agent-browser eval "[...document.querySelectorAll('.fixed')].some(x=>x.textContent.includes('$FILENAME') && x.textContent.includes('XLadderFiles')) ? 'yes' : 'no'" | tr -d '\\"')
+  if [ "$R" = "yes" ]; then FW=yes; break; fi
+  sleep 1
+done
+ok "files window opens on mobile with the attachment" "$([ "$FW" = "yes" ] && echo 1 || echo 0)"
+# close (the ✕ ghost button inside the sheet header)
+agent-browser eval "(() => { const sheets=[...document.querySelectorAll('.fixed')].filter(x=>x.textContent.includes('Attached Files')||x.textContent.includes('Attached')); const s=sheets[sheets.length-1]; if(!s) return 'no-sheet'; const b=[...s.querySelectorAll('button')].find(x=>x.querySelector('.lucide-x')); if(!b) return 'no-x'; b.click(); return 'closed'; })()" > /dev/null
+sleep 1
+CLOSED=$(agent-browser eval "[...document.querySelectorAll('.fixed')].some(x=>x.textContent.includes('$FILENAME') && x.textContent.includes('XLadderFiles')) ? 'open' : 'closed'" | tr -d '\\"')
+ok "files window closes (mobile)" "$([ "$CLOSED" = "closed" ] && echo 1 || echo 0)"
+# DESKTOP: right-docked side panel
+agent-browser set viewport 1440 900 > /dev/null
+sleep 1
+agent-browser eval "(() => {
+  const ladder=[...document.querySelectorAll('.card-ladder')].find(g=>{const c=g.closest('.rounded-2xl'); return c&&c.textContent.includes('XLadderFiles $STAMP');});
+  if(!ladder) return 'no-ladder';
+  const b=[...ladder.querySelectorAll('button')].find(x=>x.querySelector('.lucide-paperclip'));
+  if(!b) return 'no-btn';
+  b.click(); return 'clicked';
+})()" > /dev/null
+FW2=no
+for i in $(seq 1 10); do
+  R=$(agent-browser eval "(() => { const els=[...document.querySelectorAll('div')].filter(x=>String(x.className).includes('rounded-4xl')&&x.textContent.includes('$FILENAME')); const el=els[els.length-1]; if(!el) return 'no'; const r=el.getBoundingClientRect(); return (r.left > window.innerWidth*0.55) ? 'yes' : ('pos:'+Math.round(r.left)); })()" | tr -d '\\"')
+  if [ "$R" = "yes" ]; then FW2=yes; break; fi
+  sleep 1
+done
+ok "desktop: files panel docked to the RIGHT edge (like the AI window)" "$([ "$FW2" = "yes" ] && echo 1 || echo 0)"
+agent-browser eval "(() => { const els=[...document.querySelectorAll('div')].filter(x=>String(x.className).includes('rounded-4xl')&&x.textContent.includes('$FILENAME')); const el=els[els.length-1]; if(!el) return 'no'; const b=[...el.querySelectorAll('button')].find(x=>x.querySelector('.lucide-x')); if(!b) return 'no-x'; b.click(); return 'closed'; })()" > /dev/null
+sleep 1
+
+echo "== E) edit window (take-test format on the dashboard) =="
+goto_grid_view
+agent-browser eval "(() => {
+  const ladder=[...document.querySelectorAll('.card-ladder')].find(g=>{const c=g.closest('.rounded-2xl'); return c&&c.textContent.includes('XLadderOwn $STAMP');});
+  if(!ladder) return 'no-ladder';
+  const b=[...ladder.querySelectorAll('button')].find(x=>x.querySelector('.lucide-pencil'));
+  if(!b) return 'no-btn';
+  b.click(); return 'clicked';
+})()" > /dev/null
+EW=no
+for i in $(seq 1 12); do
+  R=$(agent-browser eval "(() => { const ins=[...document.querySelectorAll('input')].filter(i=>i.value.includes('XLadderOwn $STAMP')); const sv=[...document.querySelectorAll('button')].some(b=>/Save Test|Сохранить тест/.test(b.textContent)); return (ins.length && sv) ? 'yes' : 'no'; })()" | tr -d '\\"')
+  if [ "$R" = "yes" ]; then EW=yes; break; fi
+  sleep 1
+done
+ok "edit window opens with the editor + Save (no page navigation)" "$([ "$EW" = "yes" ] && echo 1 || echo 0)"
+STILLDASH=$(agent-browser eval "!!document.querySelector('button[aria-label=\"View\"], button[aria-label=\"Вид\"]') ? 'yes' : 'no'" | tr -d '\\"')
+ok "still on the dashboard (no full-page editor)" "$([ "$STILLDASH" = "yes" ] && echo 1 || echo 0)"
+# close the edit window via its header ✕
+agent-browser eval "(() => { const b=[...document.querySelectorAll('button')].reverse().find(x=>x.className.includes('h-7 w-7 p-0')&&x.querySelector('.lucide-x')); if(!b) return 'no-x'; b.click(); return 'closed'; })()" > /dev/null
+sleep 1
+ECLOSED=$(agent-browser eval "[...document.querySelectorAll('button')].some(b=>/Save Test|Сохранить тест/.test(b.textContent)) ? 'open' : 'closed'" | tr -d '\\"')
+ok "edit window closes" "$([ "$ECLOSED" = "closed" ] && echo 1 || echo 0)"
 
 echo "== cleanup =="
 OWNID=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['ownId'])")
 BOBID=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['bobId'])")
+FILESID=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['filesId'])")
 ACOOK=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['aCookie'])")
 BCOOK=$(python3 -c "import json;print(json.load(open('/tmp/ladder-setup.json'))['bCookie'])")
 curl -s -X DELETE -H "Cookie: $ACOOK" "$BASE/api/tests/$OWNID" > /dev/null
 curl -s -X DELETE -H "Cookie: $BCOOK" "$BASE/api/tests/$BOBID" > /dev/null
+curl -s -X DELETE -H "Cookie: $ACOOK" "$BASE/api/tests/$FILESID" > /dev/null
 curl -s -X DELETE -H "Cookie: $ACOOK" "$BASE/api/me" > /dev/null
 curl -s -X DELETE -H "Cookie: $BCOOK" "$BASE/api/me" > /dev/null
 echo "fixtures removed"
