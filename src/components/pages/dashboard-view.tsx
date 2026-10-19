@@ -15,7 +15,7 @@ import { api } from '@/lib/api';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Question } from '@/lib/app-types';
 import { countAnsweredProgress, readTestProgress, type SavedTestProgress } from '@/lib/test-progress';
-import { ArrowLeft, BookOpen, BookmarkX, Bot, ChevronDown, ChevronRight, ChevronUp, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, BookmarkX, Bot, ChevronDown, ChevronRight, ChevronUp, ClipboardList, Compass, Edit, ExternalLink, FlaskConical, Hash, Home, ImagePlus, LayoutGrid, Library, Link2, ListChecks, Loader2, MessageCircle, Minus, Palette, Paperclip, Pencil, Play, Plus, RefreshCw, Rows3, Search, Shuffle, Sparkles, Trash2, TreeDeciduous, Users, X } from 'lucide-react';
 const AttachmentsEditor = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsEditor), { ssr: false });
 const AttachmentsList = dynamic(() => import('@/components/attachments').then(m => m.AttachmentsList), { ssr: false });
 // Version tree — its own on-demand chunk (fetches the family + renders SVG)
@@ -124,6 +124,9 @@ export interface DashboardViewProps {
   // window: right-docked panel on desktop / bottom sheet on mobile) —
   // replaces the old files feed/grid modes.
   openCardFiles: (test: Test) => void;
+  // «Чат» on any card opens the per-test GROUP CHAT WINDOW — the same
+  // window format as the files window; everyone's chat about THIS test.
+  openCardGroupChat: (test: Test) => void;
   doShareLink: (...args: any[]) => any;
   doMakePublic: (...args: any[]) => any;
   handleDeleteTest: (...args: any[]) => any;
@@ -160,6 +163,7 @@ export default function DashboardView({
   closeGridTree,
   openAiDiscuss,
   openCardFiles,
+  openCardGroupChat,
   doShareLink,
   doMakePublic,
   handleDeleteTest,
@@ -606,11 +610,12 @@ export default function DashboardView({
           {strip}
           <p className="text-[13px] sm:text-sm lg:text-[15px] font-bold leading-snug line-clamp-2">{test.title}</p>
           {/* ONE BUTTON PER LEVEL — the ladder every card follows in EVERY
-          mode (library, shelf, feed): Start → Restart → AI → Files → Share →
-          Public → Edit → Unpin → Delete. A button that does not apply to THIS
-          test simply does not render and the others keep their relative
-          order — no two buttons ever share a level (only the top header strip
-          and the page's bottom bar may hold several buttons in one row). */}
+          mode (library, shelf, feed): Start → Restart → AI → Chat → Files →
+          Share → Public → Edit → Unpin → Delete. A button that does not apply
+          to THIS test simply does not render and the others keep their
+          relative order — no two buttons ever share a level (only the top
+          header strip and the page's bottom bar may hold several buttons in
+          one row). */}
           <div className="card-ladder mt-auto pt-1.5 flex flex-col gap-1">
             <Button size="sm" disabled={loading}
               onClick={e => { e.stopPropagation(); startCard(false); }}
@@ -632,6 +637,17 @@ export default function DashboardView({
               className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${aiCardTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
             >
               <Bot className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gAi')}</span>
+            </Button>
+            {/* Chat: the per-test GROUP CHAT WINDOW — the same window format
+            as the files window; everyone's chat about THIS test. Its own
+            level, always right after the AI button (the same neighbours the
+            taking screen's header keeps). */}
+            <Button size="sm" variant="outline"
+              onClick={e => { e.stopPropagation(); openCardGroupChat(test); }}
+              title={t('chatWithAll')} aria-label={t('chatWithAll')}
+              className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+            >
+              <MessageCircle className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gChat')}</span>
             </Button>
             {fcnt > 0 && (
               <Button size="sm" variant="outline"
@@ -712,9 +728,9 @@ export default function DashboardView({
             <p className="text-[11px] sm:text-xs text-muted-foreground line-clamp-1">{(test.tags || []).slice(0, 3).join(' · ') || test.topic}</p>
             <p className="text-[11px] sm:text-xs text-muted-foreground">{t('qCount', { n: totalQ })}</p>
           {/* ONE BUTTON PER LEVEL (same ladder as the library card and the
-          feed): Start → Restart → AI → Files → Share → Public → Edit → Unpin
-          → Delete. Absent buttons just don't render — no two buttons ever
-          share a level. */}
+          feed): Start → Restart → AI → Chat → Files → Share → Public → Edit →
+          Unpin → Delete. Absent buttons just don't render — no two buttons
+          ever share a level. */}
           <div className="card-ladder mt-auto pt-1.5 flex flex-col gap-1">
               <Button size="sm" disabled={loading}
                 onClick={e => { e.stopPropagation(); startCard(false); }}
@@ -736,6 +752,15 @@ export default function DashboardView({
                 className={`h-8 rounded-full text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1 ${aiCardTestId === test.id ? 'border-primary bg-[#FFE8DE]' : 'border-black'}`}
               >
                 <Bot className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gAi')}</span>
+              </Button>
+              {/* Chat: the per-test GROUP CHAT WINDOW — its own level, always
+              right after the AI button (same as the library card). */}
+              <Button size="sm" variant="outline"
+                onClick={e => { e.stopPropagation(); openCardGroupChat(test); }}
+                title={t('chatWithAll')} aria-label={t('chatWithAll')}
+                className="h-8 rounded-full border-black text-[10px] sm:text-[11px] lg:h-9 lg:text-xs px-1.5 justify-start gap-1 has-[>svg]:px-1"
+              >
+                <MessageCircle className="size-3 lg:size-3.5 shrink-0" /> <span className="truncate">{t('gChat')}</span>
               </Button>
               {fcnt > 0 && (
                 <Button size="sm" variant="outline"
@@ -1553,9 +1578,10 @@ export default function DashboardView({
 
                             {/* FIXED LEVEL LADDER — the SAME sequence every
                             grid card uses (Start/Restart live in the bottom
-                            bar here): AI → Files → Share → Public → Edit →
-                            Unpin → Delete. Each button keeps its own row and
-                            its own level on every card, in every mode. */}
+                            bar here): AI → Chat → Files → Share → Public →
+                            Edit → Unpin → Delete. Each button keeps its own
+                            row and its own level on every card, in every
+                            mode. */}
 
                             {/* «Обсудить с ИИ» — opens the AI window with the
                             test's metric passport (the version-tree button's
@@ -1569,6 +1595,22 @@ export default function DashboardView({
                               <Bot className="w-4 h-4 shrink-0" />
                               <span className="font-semibold text-sm">{t('aiDiscuss')}</span>
                               <ChevronRight className="w-4 h-4 ml-auto shrink-0" />
+                            </button>
+
+                            {/* Group chat — opens the per-test GROUP CHAT WINDOW
+                            (the same window format as the files window: bottom
+                            sheet on mobile / right-docked panel on desktop):
+                            everyone's chat about THIS test, right on the card. */}
+                            <button
+                              type="button"
+                              onClick={() => openCardGroupChat(test)}
+                              className="shrink-0 w-full flex items-center gap-1.5 rounded-2xl border-2 border-black bg-white px-3 py-2 sm:py-2.5 [@media(max-height:700px)]:py-1.5 text-left hover:bg-muted/50 transition-colors"
+                            >
+                              <MessageCircle className="w-4 h-4 shrink-0" />
+                              <span className="min-w-0">
+                                <span className="block font-semibold text-sm leading-tight">{t('chat')}</span>
+                                <span className="block text-xs leading-snug truncate text-muted-foreground [@media(max-height:700px)]:hidden">{t('chatWithAll')}</span>
+                              </span>
                             </button>
 
                             {/* Attached files — opens the FILES WINDOW (the same

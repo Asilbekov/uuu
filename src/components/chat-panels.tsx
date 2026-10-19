@@ -789,7 +789,7 @@ export function GroupChatPanel({
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-cta rounded-lg flex items-center justify-center">{icon}</div>
                 <div>
-                  <CardTitle className="text-sm">Test Chat</CardTitle>
+                  <CardTitle className="text-sm">{title || 'Test Chat'}</CardTitle>
                   {subtitle ? <p className="text-xs text-muted-foreground">{subtitle}</p> : null}
                 </div>
               </div>

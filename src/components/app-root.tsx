@@ -78,6 +78,7 @@ import {
   LogIn,
   Plus,
   Trash2,
+  MessageCircle,
   Edit,
   Play,
   Shuffle,
@@ -614,6 +615,13 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   const [dashFilesLoadingId, setDashFilesLoadingId] = useState<string | null>(null);
   // Holds the desktop right-docked panel during its slide-out exit animation
   const dashFilesSideMounted = useExitMount(dashFilesOpen, 220);
+  // DASHBOARD GROUP CHAT WINDOW — «Чат» from any card opens the per-test
+  // group chat (everyone's chat about THIS test) in the SAME window format
+  // as the files/AI windows (right-docked panel on desktop, bottom sheet on
+  // mobile). The messages/input reuse the take-test group-chat store, so the
+  // conversation follows the user between the taking screen and the dashboard.
+  const [dashGroupTestId, setDashGroupTestId] = useState<string | null>(null);
+  const dashGroupTitleRef = useRef('');
   const aiPassportOpen = useChatStore(s => s.aiPassportOpen);
   const setAiPassportOpen = useChatStore(s => s.setAiPassportOpen);
   const setAiPassportSeenFor = useChatStore(s => s.setAiPassportSeenFor);
@@ -2580,6 +2588,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
   const openAiDiscuss = (test: any) => {
     aiCardTitleRef.current = String(test?.title || '');
     setDashFilesOpen(false); // one dashboard window at a time
+    setDashGroupTestId(null); // ...the group chat window yields too
     setAiCardTestId(String(test?.id || ''));
   };
   const closeAiCard = () => {
@@ -2592,6 +2601,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     if (!test?.id || dashFilesLoadingId === String(test.id)) return;
     setAiCardTestId(null); // one dashboard window at a time
     setAiPassportOpen(false);
+    setDashGroupTestId(null); // ...the group chat window yields too
     const cached = ((dashFullTests as any)[test.id]?.attachments as AttachmentItem[] | undefined)
       || ((test as any).attachments as AttachmentItem[] | undefined)
       || [];
@@ -2612,6 +2622,28 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       .finally(() => { setDashFilesLoadingId(null); setLoading(false); });
   };
   const closeCardFiles = () => setDashFilesOpen(false);
+  // «Чат» from a card: open the per-test GROUP CHAT window (the files-window
+  // format). Guests meet the chat-style signup wall — sending needs an
+  // account, the same rule the taking screen's chat button follows.
+  const openCardGroupChat = (test: any) => {
+    if (!test?.id) return;
+    // setRegisterWall directly — the `wall` helper lives below the dashboard
+    // early-return, so referencing it here would trip the TDZ on click.
+    if (isGuestNow()) { setRegisterWall('chat'); return; }
+    setAiCardTestId(null); // one dashboard window at a time
+    setAiPassportOpen(false);
+    setDashFilesOpen(false);
+    setEditOpen(false);
+    setGroupMessages([]); // no stale lines from another test's chat
+    setGroupInput('');
+    dashGroupTitleRef.current = String(test?.title || '');
+    setDashGroupTestId(String(test.id));
+  };
+  const closeCardGroupChat = () => {
+    setDashGroupTestId(null);
+    setGroupMessages([]);
+    setGroupInput('');
+  };
   const exitAiCardPassport = () => {
     setAiPassportOpen(false);
     // NOTE: the dashboard dismissal deliberately does NOT mark the test as
@@ -2646,9 +2678,12 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     return fetchMetrics(tid);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [(currentTest as any)?.id]);
-  // Leaving the dashboard (start test / create / profile…) closes the window.
+  // Leaving the dashboard (start test / create / profile…) closes the windows.
   React.useEffect(() => {
-    if (page !== 'dashboard' && navNow().aiCardTestId) setAiCardTestId(null);
+    if (page !== 'dashboard') {
+      if (navNow().aiCardTestId) setAiCardTestId(null);
+      if (dashGroupTestId) setDashGroupTestId(null);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
   const sendTestChatMessage = async (testId: string, existingMessages?: { role: 'user' | 'assistant'; content: string }[]) => {
@@ -2775,12 +2810,28 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     return () => { stop = true; clearInterval(timer); };
   }, [groupOpen, currentTest]);
 
+  // Dashboard group chat window: the SAME serverless-safe polling, keyed on
+  // the card's test instead of the taking screen's one.
+  useEffect(() => {
+    if (!dashGroupTestId) return;
+    let stop = false;
+    const poll = async () => {
+      try {
+        const msgs = await api.getGroupMessages(dashGroupTestId);
+        if (!stop && Array.isArray(msgs)) setGroupMessages(msgs);
+      } catch { /* transient network errors are fine — next tick retries */ }
+    };
+    poll();
+    const timer = setInterval(poll, 4000);
+    return () => { stop = true; clearInterval(timer); };
+  }, [dashGroupTestId]);
+
   // Auto-scroll group chat to bottom on new messages
   useEffect(() => {
-    if (groupOpen && groupEndRef.current) {
+    if ((groupOpen || dashGroupTestId) && groupEndRef.current) {
       groupEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [groupMessages, groupOpen]);
+  }, [groupMessages, groupOpen, dashGroupTestId]);
 
   const sendGroupMessage = async () => {
     if (!currentTest || !groupInput.trim() || groupSending) return;
@@ -2789,6 +2840,23 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     setGroupSending(true);
     try {
       const saved = await api.sendGroupMessage(currentTest.id, text);
+      setGroupMessages(prev => (prev.some(m => m.id === saved.id) ? prev : [...prev, saved]));
+    } catch (e: any) {
+      toast({ title: 'Error', description: e.message || 'Failed to send message', variant: 'destructive' });
+      setGroupInput(text); // restore the typed text so nothing is lost
+    }
+    setGroupSending(false);
+  };
+
+  // Dashboard group chat window: send into THIS card's test chat (the same
+  // API the taking screen uses — the message appears for the whole group).
+  const sendDashGroupMessage = async () => {
+    if (!dashGroupTestId || !groupInput.trim() || groupSending) return;
+    const text = groupInput.trim();
+    setGroupInput('');
+    setGroupSending(true);
+    try {
+      const saved = await api.sendGroupMessage(dashGroupTestId, text);
       setGroupMessages(prev => (prev.some(m => m.id === saved.id) ? prev : [...prev, saved]));
     } catch (e: any) {
       toast({ title: 'Error', description: e.message || 'Failed to send message', variant: 'destructive' });
@@ -3799,9 +3867,9 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     </>
   );
 
-  // Window switcher of the dashboard edit window — Files / AI / Edit (the
-  // same header switcher the taking screen's windows wear; no group chat on
-  // the dashboard).
+  // Window switcher of the dashboard edit window — Files / AI / Chat / Edit
+  // (the same header switcher the taking screen's windows wear; the group
+  // chat joined the dashboard together with its card button).
   const dashSheetOptions: SheetOption[] = [
     ...((((currentTest as any)?.attachments?.length || 0) > 0) ? [{
       key: 'files' as const,
@@ -3810,11 +3878,13 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       active: dashFilesOpen,
     }] : []),
     { key: 'ai', label: t('aiTutor'), icon: <MessageSquare className="w-3.5 h-3.5" />, active: !!aiCardTestId },
+    { key: 'group' as const, label: t('chat'), icon: <MessageCircle className="w-3.5 h-3.5" />, active: !!dashGroupTestId },
     { key: 'edit', label: t('editTest'), icon: <Pencil className="w-3.5 h-3.5" />, active: editOpen },
   ];
   const dashSwitchSheet = (key: string) => {
     if (key === 'files') { setEditOpen(false); if (currentTest) openCardFiles(currentTest); }
     else if (key === 'ai') { setEditOpen(false); setDashFilesOpen(false); if (currentTest) openAiDiscuss(currentTest); }
+    else if (key === 'group') { setEditOpen(false); setDashFilesOpen(false); if (currentTest) openCardGroupChat(currentTest); }
   };
 
   // DASHBOARD (view extracted to src/components/pages/dashboard-view.tsx)
@@ -3850,6 +3920,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
           closeGridTree={closeGridTree}
           openAiDiscuss={openAiDiscuss}
           openCardFiles={openCardFiles}
+          openCardGroupChat={openCardGroupChat}
           doShareLink={doShareLink}
           doMakePublic={doMakePublic}
           handleDeleteTest={handleDeleteTest}
@@ -3918,6 +3989,33 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
                 onClose={closeCardFiles}
                 title={t('attachedFiles', { n: dashFiles.items.length })}
                 subtitle={dashFiles.title}
+              />
+            </div>
+          </div>
+        )}
+        {/* THE DASHBOARD GROUP CHAT WINDOW — «Чат» from a card: the SAME
+        window format as the files window — right-docked panel on desktop
+        (the same fixed wrapper the AI window wears), resizable bottom sheet
+        on mobile (MobileChatSheet brings its own fixed overlay). Everyone's
+        chat about THIS test; the poll keeps it live without WebSockets. */}
+        {dashGroupTestId && (
+          <div className="fixed inset-0 z-50 flex items-center justify-end lg:p-5 pointer-events-none">
+            <div className="pointer-events-auto max-h-full">
+              <GroupChatPanel
+                open
+                onClose={closeCardGroupChat}
+                title={t('chat')}
+                subtitle={dashGroupTitleRef.current}
+                messages={groupMessages}
+                currentUserId={user?.id}
+                input={groupInput}
+                onInputChange={setGroupInput}
+                onSend={sendDashGroupMessage}
+                sending={groupSending}
+                endRef={groupEndRef}
+                inputPlaceholder={t('messageGroup')}
+                onOpenProfile={openUserLibrary}
+                openProfileLabel={t('openProfile')}
               />
             </div>
           </div>
