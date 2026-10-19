@@ -355,7 +355,10 @@ for i in $(seq 1 10); do
   sleep 1
 done
 ok "switcher jumps files → chat (same test)" "$([ "$SWCH" = "yes" ] && echo 1 || echo 0)"
-SWBACK=$(agent-browser eval "[...document.querySelectorAll('.fixed')].some(x=>x.textContent.includes('$FILENAME') && x.textContent.includes('XLadderFiles')) ? 'files-open' : 'files-closed'" | tr -d '\\"')
+# give the ~220ms exit-animation hold time to unmount, then only count
+# VISIBLE fixed layers (the hidden desktop wrapper keeps the text in DOM)
+sleep 1
+SWBACK=$(agent-browser eval "[...document.querySelectorAll('.fixed')].some(x=>{const r=x.getBoundingClientRect(); return r.width>0 && r.height>0 && x.textContent.includes('$FILENAME') && x.textContent.includes('XLadderFiles');}) ? 'files-open' : 'files-closed'" | tr -d '\\"')
 ok "files window yielded to the chat (one window at a time)" "$([ "$SWBACK" = "files-closed" ] && echo 1 || echo 0)"
 agent-browser eval "(() => { const sheet=[...document.querySelectorAll('.fixed')].find(x=>x.querySelector('input[placeholder*=\"roup\"], input[placeholder*=\"рупп\"]')); if(!sheet) return 'no-sheet'; const b=[...sheet.querySelectorAll('button')].find(x=>x.querySelector('.lucide-x')); if(!b) return 'no-x'; b.click(); return 'closed'; })()" > /dev/null
 sleep 1
