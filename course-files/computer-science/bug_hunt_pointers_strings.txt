@@ -1,0 +1,151 @@
+-----------------------------------------------------
+BUG 1
+-----------------------------------------------------
+Expected: prints "hello"
+
+    char s[5] = {'h', 'e', 'l', 'l', 'o'};
+    printf("%s\n", s);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------
+BUG 2
+-----------------------------------------------------
+Expected: prints the length of the string, which is 5
+
+    char *s = "hello";
+    printf("%zu\n", sizeof(s));
+
+-----------------------------------------------------
+BUG 3
+-----------------------------------------------------
+Expected: prints "Same", since both strings hold the same text
+
+    char a[] = "cat";
+    char b[] = "cat";
+    if (a == b)
+        puts("Same");
+    else
+        puts("Different");
+
+-----------------------------------------------------
+BUG 4
+-----------------------------------------------------
+Expected: copies "hello" into dest and prints it
+
+    char dest[5];
+    strcpy(dest, "hello");
+    printf("%s\n", dest);
+
+-----------------------------------------------------
+BUG 5
+-----------------------------------------------------
+Expected: prints "Jello"
+
+    char *s = "hello";
+    s[0] = 'J';
+    printf("%s\n", s);
+
+-----------------------------------------------------
+BUG 6
+-----------------------------------------------------
+Expected: prints "Hi there"
+
+    char *greeting(void) {
+        char buf[20];
+        strcpy(buf, "Hi there");
+        return buf;
+    }
+
+    int main(void) {
+        char *g = greeting();
+        printf("%s\n", g);
+        return 0;
+    }
+
+-----------------------------------------------------
+BUG 7
+-----------------------------------------------------
+Expected: stores 10 in an int and prints 10, every time, on every machine
+
+    int *p; // -> Memory address
+    *p = 10;
+    printf("%d\n", *p);
+
+-----------------------------------------------------
+BUG 8
+-----------------------------------------------------
+Expected: prints "2 1"
+
+    void swap(int a, int b) {
+        int t = a;
+        a = b;
+        b = t;
+    }
+
+    int main(void) {
+        int x = 1, y = 2;
+        swap(x, y);
+        printf("%d %d\n", x, y);
+        return 0;
+    }
+
+-----------------------------------------------------
+BUG 9
+-----------------------------------------------------
+Expected: makes a copy of the string "hello" on the heap and prints it
+
+    char *s = "hello";
+    char *copy = malloc(strlen(s));
+    strcpy(copy, s);
+    printf("%s\n", copy);
+    free(copy);
+
+-----------------------------------------------------
+BUG 10
+-----------------------------------------------------
+Expected: prints the string backwards: "cba"
+
+    char s[] = "abc";
+    for (size_t i = strlen(s) - 1; i >= 0; i--) {
+        putchar(s[i]);
+    }
+    putchar('\n');
+
+-----------------------------------------------------
+BUG 11
+-----------------------------------------------------
+Expected: reads an integer from the user and prints it back
+
+    int x;
+    scanf("%d", x);
+    printf("%d\n", x);
+
+-----------------------------------------------------
+BUG 12  [Hard]
+-----------------------------------------------------
+Expected: allocates one int, stores 42, frees it, and prints nothing
+afterwards that depends on the freed memory
+
+    int *p = malloc(sizeof(int));
+    *p = 42;
+    free(p);
+    printf("%d\n", *p);
+
+=====================================================
+  BONUS: Write your own buggy pointer or string snippet
+  for a classmate to debug!
+=====================================================

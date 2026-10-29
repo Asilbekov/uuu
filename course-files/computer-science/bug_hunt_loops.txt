@@ -1,0 +1,155 @@
+=====================================================
+  C++ BUG HUNT: LOOPS
+  Student Worksheet
+=====================================================
+
+INSTRUCTIONS
+Each program below contains exactly ONE bug related to loops.
+For each one:
+  1. Read the "Expected" behavior.
+  2. Find the bug and circle or underline the line(s) responsible.
+  3. Explain in one sentence what goes wrong.
+  4. Write the fix.
+
+Assume every snippet has:
+    #include <iostream>
+    #include <vector>
+    using namespace std;
+and that the code shown sits inside main().
+
+-----------------------------------------------------
+BUG 1
+-----------------------------------------------------
+Expected: prints "Sum: 405"
+
+    int scores[5] = {90, 85, 70, 100, 60};
+    int sum = 0;
+    for (int i = 0; i < 5; i++) {
+        sum += scores[i];
+    }
+    printf("Sum: %d", sum);
+
+-----------------------------------------------------
+BUG 2
+-----------------------------------------------------
+Expected: prints the sum of 1 through 10, which is 55
+
+    int sum = 0;
+    int i;
+    for (i = 1; i <= 10; i++); {
+        sum += i;
+  }
+    printf("%d", sum);
+
+-----------------------------------------------------
+BUG 3
+-----------------------------------------------------
+Expected: prints "Count: 0" through "Count: 4", then stops
+
+    for (int count = 0; count < 5; ++count)
+        printf("Count: %d", count);
+    }
+
+-----------------------------------------------------
+BUG 4
+-----------------------------------------------------
+Expected: prints "1 2 3 4 Found 5!" and then stops
+
+    for (int i = 1; i <= 10; i++) {
+        if (i == 5) {
+            printf("Found 5!");
+            break;
+        }
+        printf("%i ");
+    }
+
+-----------------------------------------------------
+BUG 5
+-----------------------------------------------------
+Expected: prints "5 4 3 2 1 0 Liftoff!" and then the program ends
+
+    for (unsigned int i = 5; i >= 0; i--) {
+        printf("%d ", i);
+    }
+    printf("Liftoff!");
+
+-----------------------------------------------------
+BUG 6
+-----------------------------------------------------
+Expected: removes all even numbers, leaving {1, 3, 5}
+
+    vector<int> nums = {1, 2, 3, 4, 5, 6};
+    for (auto it = nums.begin(); it != nums.end(); ++it) {
+        if (*it % 2 == 0) {
+            nums.erase(it);
+        }
+    }
+    for (int n : nums) {
+        cout << n << " ";
+    }
+    cout << endl;
+
+-----------------------------------------------------
+BUG 7
+-----------------------------------------------------
+Expected: prints 0, 0.1, 0.2, ... up to 0.9, then stops
+
+    for (double x = 0.0; x != 1.0; x += 0.1) {
+        printf("%f ", x);
+    }
+
+-----------------------------------------------------
+BUG 8
+-----------------------------------------------------
+Expected: prints "Total: 15"
+
+    int total = 0;
+    for (int i = 1; i <= 5; i++) {
+        int total = 0;
+        total += i;
+    }
+    printf("Total: %d", total);
+
+-----------------------------------------------------
+BUG 9
+-----------------------------------------------------
+Expected: prints a 3x3 multiplication table:
+    1   2   3
+    2   4   6
+    3   6   9
+
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 3; i++) {
+            cout << i * j << "\t";
+        }
+        cout << endl;
+    }
+
+-----------------------------------------------------
+BUG 10  [Hard]
+-----------------------------------------------------
+Expected: finds the FIRST occurrence of 7 in the grid and prints
+"First 7 found in row 0"
+
+    int grid[3][3] = {
+        {1, 7, 3},
+
+
+
+
+
+
+
+=====================================================
+  Write your own buggy loop for a classmate!
+=====================================================
+
+
+
+
+
+
+
+
+
+

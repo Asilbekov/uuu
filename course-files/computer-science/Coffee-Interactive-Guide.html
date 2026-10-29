@@ -1,0 +1,425 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Coffee Machine — Interactive Guide</title><style>.function-tasks{list-style:none;padding:0;counter-reset:task}.function-tasks>li{margin:24px 0 32px;padding:0;counter-increment:task}.function-tasks>li>strong:first-child::before{content:counter(task) " · ";color:#347257}.function-tasks>li>strong:first-child{font-size:20px}.coffee-demo{margin:16px 0 0;border:1px solid #cfdfd4;border-radius:16px;overflow:hidden;background:#f3f7f2;color:#233e30}.demo-caption{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 18px;background:#e4eee3;font-size:11px;font-weight:750;letter-spacing:.08em}.demo-caption span{font-size:13px;letter-spacing:0;font-weight:500}.demo-grid{display:grid;grid-template-columns:minmax(190px,.9fr) minmax(290px,1.3fr);gap:20px;padding:18px}.machine-wrap{align-self:center;text-align:center}.coffee-machine{display:block;width:100%;max-width:280px;margin:auto;overflow:visible}.coffee-machine text{fill:#234c38;font-family:system-ui,sans-serif}.screen-title{font-size:10px;font-weight:750;text-anchor:middle;letter-spacing:.07em}.menu-line{font-size:17px;font-weight:650}.tank-label{font-size:9px;text-anchor:middle}.tank-number{font-size:13px;font-weight:750;text-anchor:middle}.coffee-machine [data-level]{transition:height .65s ease,y .65s ease}.coffee-machine [data-tank]{transition:opacity .2s}.coffee-machine .tank-active{filter:drop-shadow(0 0 3px #e9a141)}.machine-note{font-size:12px;color:#506c5c;margin:0 auto;max-width:240px;line-height:1.45}.demo-controls{align-self:center;min-width:0}.coffee-demo button,.coffee-demo select{font:inherit;font-size:13px;border:1px solid #b3cbb9;border-radius:8px;color:#244b35;background:white;padding:9px 12px;line-height:1.25}.coffee-demo button{cursor:pointer;transition:background .15s,transform .15s}.coffee-demo button:hover:not(:disabled){background:#e4eedf;transform:translateY(-1px)}.coffee-demo button:focus-visible,.coffee-demo select:focus-visible{outline:3px solid #d18c35;outline-offset:3px}.coffee-demo button:disabled,.coffee-demo select:disabled{cursor:default;opacity:.5}.coffee-demo .primary{background:#245b40;color:white;border-color:#245b40}.coffee-demo .primary:hover:not(:disabled){background:#17482e}.coffee-demo .secondary{background:#edf3e9}.coffee-demo .text-button{margin-left:auto;border:0;background:none;text-decoration:underline;padding:7px}.tiny-label{margin:0 0 8px;font-size:12px;font-weight:650;color:#546c59}.choice-buttons{display:grid;gap:7px}.choice-buttons button{text-align:left}.choice-buttons b{display:inline-grid;place-items:center;background:#e9f0e4;border-radius:5px;width:24px;height:24px;margin-right:8px}.choice-buttons button[data-selected]{border-color:#376e43;background:#d7e8ce}.invalid-input{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:12px;font-size:12px;color:#5f6f60}.invalid-input button{padding:7px 12px}.choice-path{display:flex;align-items:center;justify-content:space-between;gap:5px;margin:17px 0 9px;font-size:12px}.choice-path span{border-radius:6px;padding:6px 9px;background:#e1e9de}.choice-path i{font-style:normal;color:#789078}.choice-path span.active{background:#f2d5a7}.choice-path span.good{background:#cee3c5}.choice-path span.bad{background:#f1d4c4}.demo-result{display:block;box-sizing:border-box;min-height:53px;background:#fff;border-left:3px solid #9fb59f;padding:10px 12px;border-radius:6px;font-size:14px;font-weight:600;line-height:1.5;margin-top:10px}.demo-result.good{border-color:#568a42;background:#ecf5e8}.demo-result.bad{border-color:#b26439;background:#fff0e7}.demo-result.busy{border-color:#d8a35a}.demo-result code{font-weight:750}.demo-select{display:flex;align-items:center;gap:9px;font-size:13px;margin-bottom:10px}.demo-select label{font-weight:650}.demo-select select{flex:1;min-width:0}.preset-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;margin-bottom:12px}.preset-buttons button{padding:7px;font-size:12px}.preset-buttons button[aria-pressed=true]{background:#dbe9d2;border-color:#799d66}.comparison-heading{display:flex;justify-content:space-between;font-size:10px;color:#5e735c;margin-bottom:4px;padding-right:25px}.comparison{display:grid;grid-template-columns:1fr 1.2fr 22px;align-items:center;gap:6px;padding:6px 9px;border-bottom:1px solid #dce5d9;font-size:13px;border-radius:5px}.comparison small{font-size:10px;color:#6b7b66;padding-left:4px}.comparison strong{font-family:ui-monospace,monospace;white-space:nowrap;text-align:right}.comparison b{text-align:center}.comparison.active{background:#f9e7c7}.comparison.good{background:#e2efda}.comparison.bad{background:#f8dfd0}.comparisons{margin-bottom:12px}.record-label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;margin:8px 0 5px;color:#566e59;font-weight:700}.stock-record{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border:1px solid #d3dfcd;border-radius:9px;padding:9px 3px;transition:background .3s,border-color .3s}.stock-record>div{text-align:center;border-right:1px solid #e4eadd}.stock-record>div:last-child{border:0}.stock-record span,.stock-record small{display:block;font-size:10px;line-height:1.35;color:#62705d}.stock-record strong{display:block;font:700 21px/1.4 ui-monospace,monospace}.copy-path{position:relative;text-align:center;font-size:10px;color:#72816b;margin:8px 0;height:19px;line-height:19px}.copy-token{position:absolute;left:8px;top:0;opacity:0;background:#edce91;border-radius:5px;padding:1px 7px;color:#5f481c;font-weight:750}.update-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}.update-actions button{font-size:12px;padding:10px 6px}.save-code{font-size:11px;margin:8px 0 0;overflow-wrap:anywhere;text-align:center;color:#567151}.coffee-demo[data-phase=previewing] .copy-token{animation:copy-down .65s ease both}.coffee-demo[data-phase=saving] .copy-token{animation:copy-up .65s ease both}.coffee-demo[data-phase=returned] #returned-stock{border-color:#9baa54;background:#f6f8df}.coffee-demo[data-phase=saved] #main-stock{border-color:#74a356;background:#e8f2df}.choice-demo-busy .power-light{animation:light-pulse .3s ease 3}.coffee-demo [hidden]{display:none!important}.demo-no-js{background:#fff3d6;padding:9px;border-radius:6px;font-size:13px}@keyframes copy-down{0%{opacity:0;transform:translateY(-20px)}25%{opacity:1}100%{opacity:1;transform:translateY(10px)}}@keyframes copy-up{0%{opacity:1;transform:translateY(10px)}100%{opacity:0;transform:translateY(-24px)}}@keyframes light-pulse{50%{fill:#fff5bd;filter:drop-shadow(0 0 4px #ffd974)}}@media(max-width:640px){.demo-grid{grid-template-columns:1fr;padding:14px;gap:12px}.coffee-machine{max-width:200px}.machine-wrap{display:grid;grid-template-columns:minmax(130px,200px) 1fr;align-items:center;justify-content:center;gap:10px}.machine-wrap:has(.coffee-machine:only-child){display:block}.machine-note{font-size:11px;text-align:left}.demo-caption{padding:10px 12px;align-items:flex-start}.demo-caption span{max-width:170px;text-align:right;font-size:11px}.function-tasks>li>strong:first-child{font-size:18px}.coffee-demo{margin-top:12px}.demo-result{min-height:0}.coffee-demo button{min-height:38px}.save-code{font-size:10px}}@media(prefers-reduced-motion:reduce){.coffee-demo *{animation:none!important;transition:none!important}}@media print{.coffee-demo button,.coffee-demo select,.choice-path,.copy-path{display:none}.demo-grid{grid-template-columns:160px 1fr}.coffee-demo{break-inside:avoid}.demo-caption span::after{content:" · interactive in HTML"}.demo-result{background:white}.function-tasks>li{break-inside:auto}}
+
+
+.c50-guide{margin:24px 0;color:#24382c;font:16px/1.5 system-ui,sans-serif}
+.c50-guide *{box-sizing:border-box}
+.c50-guide .c50-title{margin:0 0 14px;font-size:22px;color:#204e38}
+.c50-guide .c50-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:0;padding:0;list-style:none;counter-reset:c50-step}
+.c50-guide .c50-steps li{position:relative;margin:0;padding:0 0 0 32px;counter-increment:c50-step}
+.c50-guide .c50-steps li::before{content:counter(c50-step);position:absolute;left:0;top:0;display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#e4efe6;color:#205b3f;font-weight:750;font-size:14px}
+.c50-guide .c50-steps li>strong{display:block;margin-bottom:4px;font-size:16px}
+.c50-guide .c50-steps li>span{display:block;font-size:14px}
+.c50-guide .c50-ls-label{display:block;margin:8px 0 3px;color:#526657;font-size:11px}
+.c50-guide .c50-ls{margin:0 0 7px;padding:8px 10px;border-radius:6px;background:#142d23;color:#f0f5ef;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;line-height:1.4}
+.c50-guide code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.c50-guide .c50-note{margin:16px 0 10px;font-size:14px}
+.c50-guide .c50-command-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+.c50-guide .c50-command{display:block;min-width:0;padding:13px 15px;border:1px solid #c7d8cc;border-radius:8px;background:#f3f7f2;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;user-select:all}
+.c50-guide button{min-height:40px;margin:0;padding:8px 14px;border:1px solid #b6cbbc;border-radius:7px;background:#fff;color:#24553c;font:600 14px/1.3 system-ui,sans-serif;cursor:pointer}
+.c50-guide button:hover:not(:disabled){background:#e9f3e9;border-color:#50785e}
+.c50-guide button:disabled{opacity:.45;cursor:default}
+.c50-guide button:focus-visible,.c50-guide .c50-command:focus-visible{outline:3px solid #ce9b3d;outline-offset:3px}
+.c50-guide .c50-copy-status{margin:6px 0 12px;color:#526657;font-size:13px}
+.c50-guide .c50-legend{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:13px}
+.c50-guide .c50-legend b{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:15px}
+.c50-guide .c50-example{margin-top:20px;padding:16px;border:1px solid #c9d9cc;border-radius:12px;background:#f6f8f3}
+.c50-guide .c50-example-title{margin:0 0 10px;font-size:15px}
+.c50-guide .c50-terminal{min-height:150px;padding:16px;border-radius:8px;background:#142d23;color:#f0f5ef;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}
+.c50-guide .c50-terminal-command{display:block;color:#c8ddcd;white-space:pre-wrap}
+.c50-guide .c50-output{margin-top:14px}
+.c50-guide .c50-output p{margin:5px 0}
+.c50-guide .c50-failed{color:#ffb6a8;font-weight:650}
+.c50-guide .c50-passed{color:#a4e9b6;font-weight:650}
+.c50-guide .c50-hint{padding-top:6px;color:#ffe0a1}
+.c50-guide .c50-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.c50-guide .c50-actions button:not(:disabled){background:#24583d;border-color:#24583d;color:#fff}
+.c50-guide .c50-actions button:hover:not(:disabled){background:#173f2a}
+.c50-guide .c50-example-note,.c50-guide .c50-no-js{margin:10px 0 0;font-size:13px;color:#526657}
+.c50-guide .c50-reveal{animation:c50-reveal .25s ease-out}
+@keyframes c50-reveal{from{opacity:.35;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){.c50-guide .c50-steps{grid-template-columns:1fr;gap:14px}.c50-guide .c50-command-row{grid-template-columns:1fr}.c50-guide .c50-copy{justify-self:start}.c50-guide .c50-example{padding:12px}.c50-guide .c50-terminal{padding:12px}}
+@media(prefers-reduced-motion:reduce){.c50-guide .c50-reveal{animation:none}}
+
+*{box-sizing:border-box}body{margin:0;background:white;color:#243e2e;font:15px/1.5 system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:12px}h1{font-size:22px;line-height:1.2;margin:0 0 5px}header p{margin:0 0 14px;color:#647361;font-size:13px}h2{font:600 16px/1.4 ui-monospace,monospace;margin:14px 0 0;overflow-wrap:anywhere}.guide-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.guide-tabs button{padding:10px 6px;font:600 13px system-ui;border:1px solid #b8cbb9;background:#f3f6ef;color:#315738;border-radius:8px;cursor:pointer}.guide-tabs button[aria-selected=true]{background:#245b40;color:white;border-color:#245b40}.guide-tabs button:focus-visible{outline:3px solid #d18c35;outline-offset:2px}.guide-panel[hidden]{display:none}.coffee-demo{margin-top:10px}.guide-note{font-size:12px;color:#52654f;margin:12px 0 0}.guide-note code{font-weight:650}@media(max-width:420px){main{padding:8px}.guide-tabs{gap:4px}.guide-tabs button{font-size:11px;padding:10px 4px}h1{font-size:20px}}</style></head><body><main><nav class="guide-tabs" role="tablist" aria-label="Coffee functions and check50"><button role="tab" id="guide-tab-choice" aria-controls="guide-panel-choice" aria-selected="false" tabindex="-1" disabled>1 · Choose</button><button role="tab" id="guide-tab-check" aria-controls="guide-panel-check" aria-selected="false" tabindex="-1" disabled>2 · Check</button><button role="tab" id="guide-tab-update" aria-controls="guide-panel-update" aria-selected="false" tabindex="-1" disabled>3 · Update</button><button role="tab" id="guide-tab-check50" aria-controls="guide-panel-check50" aria-selected="false" tabindex="-1" disabled>Use check50</button></nav><noscript><p>Enable JavaScript to use the animations. The explanations below remain readable.</p></noscript><section class="guide-panel" role="tabpanel" id="guide-panel-choice" aria-labelledby="guide-tab-choice"><h2>read_coffee_choice</h2><section id="choice-demo" class="coffee-demo" aria-label="Read a valid choice demonstration">
+    <div class="demo-caption">TRY THE FUNCTION <span>Choose → validate → return</span></div>
+    <div class="demo-grid"><div class="machine-wrap"><svg id="choice-machine" class="coffee-machine" viewBox="0 0 300 300" role="img" aria-label="Coffee menu: 1 Espresso, 2 Latte, 0 Exit">
+    <ellipse cx="150" cy="285" rx="108" ry="9" fill="#dce8df"/>
+    <rect x="43" y="14" width="214" height="268" rx="22" fill="#245541"/>
+    <path d="M65 14h170a22 22 0 0 1 22 22v4H43v-4a22 22 0 0 1 22-22Z" fill="#39775a"/>
+    <circle cx="235" cy="29" r="4" fill="#f5c784" class="power-light"/>
+    <rect x="59" y="48" width="182" height="142" rx="12" fill="#f4f8f0"/>
+    <text x="150" y="68" class="screen-title">CHOOSE A COFFEE</text>
+    <text x="83" y="94" class="menu-line">1  Espresso</text>
+    <text x="83" y="117" class="menu-line">2  Latte</text>
+    <text x="83" y="140" class="menu-line">0  Exit</text>
+    <rect x="76" y="204" width="148" height="59" rx="10" fill="#173d2e"/>
+    <rect x="139" y="204" width="22" height="13" rx="4" fill="#8bb69b"/>
+    <path d="M129 230h42l-6 24h-30Z" fill="#ffefd7"/>
+    <path d="M135 240h30" stroke="#d99459" stroke-width="4"/>
+    <rect x="105" y="262" width="90" height="4" rx="2" fill="#a6c9ae"/>
+    <rect x="63" y="280" width="25" height="8" rx="3" fill="#183f2e"/>
+    <rect x="212" y="280" width="25" height="8" rx="3" fill="#183f2e"/>
+    </svg></div>
+    <div class="demo-controls"><p class="tiny-label">Choose from the menu</p>
+    <div class="choice-buttons"><button data-choice="1" disabled><b>1</b> Espresso</button><button data-choice="2" disabled><b>2</b> Latte</button><button data-choice="0" disabled><b>0</b> Exit</button></div>
+    <div class="invalid-input"><span>Not on the menu</span><button data-choice="9" class="secondary" disabled>Try 9</button></div>
+    <div class="choice-path" aria-hidden="true"><span data-flow="input">Input</span><i>→</i><span data-flow="valid">Valid?</span><i>→</i><span data-flow="return">Return</span></div>
+    <output id="choice-result" class="demo-result" aria-live="polite">Choose a number to see its return value.</output></div></div></section></section><section class="guide-panel" role="tabpanel" id="guide-panel-check" aria-labelledby="guide-tab-check"><h2>can_make_coffee</h2><section id="check-demo" class="coffee-demo" aria-label="Check supplies demonstration">
+    <div class="demo-caption">TRY THE FUNCTION <span>Stock + recipe → true or false</span></div>
+    <div class="demo-grid"><div class="machine-wrap"><svg id="check-machine" class="coffee-machine" viewBox="0 0 300 300" role="img" aria-label="Machine stock: water and milk in ml, beans in g, and paper cups">
+    <ellipse cx="150" cy="285" rx="108" ry="9" fill="#dce8df"/>
+    <rect x="43" y="14" width="214" height="268" rx="22" fill="#245541"/>
+    <path d="M65 14h170a22 22 0 0 1 22 22v4H43v-4a22 22 0 0 1 22-22Z" fill="#39775a"/>
+    <circle cx="235" cy="29" r="4" fill="#f5c784" class="power-light"/>
+    <rect x="59" y="48" width="182" height="142" rx="12" fill="#f4f8f0"/>
+    <text x="150" y="65" class="screen-title">MACHINE STOCK</text><g data-tank="water_ml"><rect x="70" y="80" width="28" height="64" rx="4" fill="#d8e5dd"/>
+            <rect data-level="water_ml" x="70" y="80" width="28" height="64" rx="4" fill="#77bcd6"/>
+            <text x="84" y="158" class="tank-label">Water</text>
+            <text x="84" y="176" class="tank-number" data-value="water_ml">500</text></g><g data-tank="milk_ml"><rect x="114" y="80" width="28" height="64" rx="4" fill="#d8e5dd"/>
+            <rect data-level="milk_ml" x="114" y="80" width="28" height="64" rx="4" fill="#f2e5c7"/>
+            <text x="128" y="158" class="tank-label">Milk</text>
+            <text x="128" y="176" class="tank-number" data-value="milk_ml">200</text></g><g data-tank="beans_g"><rect x="158" y="80" width="28" height="64" rx="4" fill="#d8e5dd"/>
+            <rect data-level="beans_g" x="158" y="80" width="28" height="64" rx="4" fill="#b47b51"/>
+            <text x="172" y="158" class="tank-label">Beans</text>
+            <text x="172" y="176" class="tank-number" data-value="beans_g">40</text></g><g data-tank="paper_cups"><rect x="202" y="80" width="28" height="64" rx="4" fill="#d8e5dd"/>
+            <rect data-level="paper_cups" x="202" y="80" width="28" height="64" rx="4" fill="#e59c64"/>
+            <text x="216" y="158" class="tank-label">Cups</text>
+            <text x="216" y="176" class="tank-number" data-value="paper_cups">3</text></g>
+    <rect x="76" y="204" width="148" height="59" rx="10" fill="#173d2e"/>
+    <rect x="139" y="204" width="22" height="13" rx="4" fill="#8bb69b"/>
+    <path d="M129 230h42l-6 24h-30Z" fill="#ffefd7"/>
+    <path d="M135 240h30" stroke="#d99459" stroke-width="4"/>
+    <rect x="105" y="262" width="90" height="4" rx="2" fill="#a6c9ae"/>
+    <rect x="63" y="280" width="25" height="8" rx="3" fill="#183f2e"/>
+    <rect x="212" y="280" width="25" height="8" rx="3" fill="#183f2e"/>
+    </svg><p class="machine-note">Checking does not use supplies.</p></div>
+    <div class="demo-controls"><div class="demo-select"><label for="check-coffee">Coffee</label><select id="check-coffee" disabled><option value="1">Espresso</option><option value="2" selected>Latte</option></select></div>
+    <div class="preset-buttons" aria-label="Starting supplies"><button data-stock-preset="full" aria-pressed="true" disabled>Full stock</button><button data-stock-preset="exact" aria-pressed="false" disabled>Exactly enough</button><button data-stock-preset="no-milk" aria-pressed="false" disabled>No milk</button><button data-stock-preset="no-cups" aria-pressed="false" disabled>No cups</button></div>
+    <div class="comparison-heading"><span>Supply</span><span>Stock ≥ recipe?</span></div><div class="comparisons"><div class="comparison" data-resource="water_ml"><span>Water<small>ml</small></span><strong data-comparison="water_ml">500 ≥ 100</strong><b data-verdict="water_ml">—</b></div><div class="comparison" data-resource="milk_ml"><span>Milk<small>ml</small></span><strong data-comparison="milk_ml">200 ≥ 50</strong><b data-verdict="milk_ml">—</b></div><div class="comparison" data-resource="beans_g"><span>Beans<small>g</small></span><strong data-comparison="beans_g">40 ≥ 10</strong><b data-verdict="beans_g">—</b></div><div class="comparison" data-resource="paper_cups"><span>Cups<small>cups</small></span><strong data-comparison="paper_cups">3 ≥ 1</strong><b data-verdict="paper_cups">—</b></div></div>
+    <button id="run-check" class="primary" disabled>Check supplies</button>
+    <output id="check-result" class="demo-result" aria-live="polite">All four supplies must be enough.</output></div></div></section></section><section class="guide-panel" role="tabpanel" id="guide-panel-update" aria-labelledby="guide-tab-update"><h2>stock_after_coffee</h2><section id="update-demo" class="coffee-demo" data-phase="idle" aria-label="Return and save new stock demonstration">
+    <div class="demo-caption">TRY THE FUNCTION <span>Original → returned copy → saved</span></div>
+    <div class="demo-grid"><div class="machine-wrap"><svg id="update-machine" class="coffee-machine" viewBox="0 0 300 300" role="img" aria-label="Machine stock: water and milk in ml, beans in g, and paper cups">
+    <ellipse cx="150" cy="285" rx="108" ry="9" fill="#dce8df"/>
+    <rect x="43" y="14" width="214" height="268" rx="22" fill="#245541"/>
+    <path d="M65 14h170a22 22 0 0 1 22 22v4H43v-4a22 22 0 0 1 22-22Z" fill="#39775a"/>
+    <circle cx="235" cy="29" r="4" fill="#f5c784" class="power-light"/>
+    <rect x="59" y="48" width="182" height="142" rx="12" fill="#f4f8f0"/>
+    <text x="150" y="65" class="screen-title">MACHINE STOCK</text><g data-tank="water_ml"><rect x="70" y="80" width="28" height="64" rx="4" fill="#d8e5dd"/>
+            <rect data-level="water_ml" x="70" y="80" width="28" height="64" rx="4" fill="#77bcd6"/>
+            <text x="84" y="158" class="tank-label">Water</text>
+            <text x="84" y="176" class="tank-number" data-value="water_ml">500</text></g><g data-tank="milk_ml"><rect x="114" y="80" width="28" height="64" rx="4" fill="#d8e5dd"/>
+            <rect data-level="milk_ml" x="114" y="80" width="28" height="64" rx="4" fill="#f2e5c7"/>
+            <text x="128" y="158" class="tank-label">Milk</text>
+            <text x="128" y="176" class="tank-number" data-value="milk_ml">200</text></g><g data-tank="beans_g"><rect x="158" y="80" width="28" height="64" rx="4" fill="#d8e5dd"/>
+            <rect data-level="beans_g" x="158" y="80" width="28" height="64" rx="4" fill="#b47b51"/>
+            <text x="172" y="158" class="tank-label">Beans</text>
+            <text x="172" y="176" class="tank-number" data-value="beans_g">40</text></g><g data-tank="paper_cups"><rect x="202" y="80" width="28" height="64" rx="4" fill="#d8e5dd"/>
+            <rect data-level="paper_cups" x="202" y="80" width="28" height="64" rx="4" fill="#e59c64"/>
+            <text x="216" y="158" class="tank-label">Cups</text>
+            <text x="216" y="176" class="tank-number" data-value="paper_cups">3</text></g>
+    <rect x="76" y="204" width="148" height="59" rx="10" fill="#173d2e"/>
+    <rect x="139" y="204" width="22" height="13" rx="4" fill="#8bb69b"/>
+    <path d="M129 230h42l-6 24h-30Z" fill="#ffefd7"/>
+    <path d="M135 240h30" stroke="#d99459" stroke-width="4"/>
+    <rect x="105" y="262" width="90" height="4" rx="2" fill="#a6c9ae"/>
+    <rect x="63" y="280" width="25" height="8" rx="3" fill="#183f2e"/>
+    <rect x="212" y="280" width="25" height="8" rx="3" fill="#183f2e"/>
+    </svg><p class="machine-note">The machine shows stock saved in <code>main</code>.</p></div>
+    <div class="demo-controls"><div class="demo-select"><label for="update-coffee">Coffee</label><select id="update-coffee" disabled><option value="1">Espresso</option><option value="2" selected>Latte</option></select><button id="reset-update" class="text-button" disabled>Reset</button></div>
+    <p class="record-label">Stock in <code>main</code></p><div id="main-stock" class="stock-record"><div><span>Water</span><strong data-value="water_ml">500</strong><small>ml</small></div><div><span>Milk</span><strong data-value="milk_ml">200</strong><small>ml</small></div><div><span>Beans</span><strong data-value="beans_g">40</strong><small>g</small></div><div><span>Cups</span><strong data-value="paper_cups">3</strong><small>cups</small></div></div>
+    <div class="copy-path" aria-hidden="true"><span class="copy-token">copy</span><span>↓ function subtracts the recipe</span></div>
+    <p class="record-label">Returned copy</p><div id="returned-stock" class="stock-record"><div><span>Water</span><strong data-value="water_ml">—</strong><small>ml</small></div><div><span>Milk</span><strong data-value="milk_ml">—</strong><small>ml</small></div><div><span>Beans</span><strong data-value="beans_g">—</strong><small>g</small></div><div><span>Cups</span><strong data-value="paper_cups">—</strong><small>cups</small></div></div>
+    <div class="update-actions"><button id="preview-update" class="primary" disabled>1 · Get returned copy</button><button id="save-update" class="secondary" disabled>2 · Show main saving</button></div>
+    <output id="update-result" class="demo-result" aria-live="polite">First, see what the function returns.</output>
+    <p class="save-code"><code>stock = stock_after_coffee(stock, coffee);</code></p></div></div></section></section><section class="guide-panel" role="tabpanel" id="guide-panel-check50" aria-labelledby="guide-tab-check50"><section class="c50-guide" aria-label="How to use check50">
+    <h4 class="c50-title">Use check50</h4>
+    <ol class="c50-steps">
+        <li><strong>Save + find your file</strong><span>Save <code>coffee_machine.c</code>. In the CS50 IDE terminal, run <code>ls</code>.</span><small class="c50-ls-label">Example · other files may appear</small><pre class="c50-ls"><code>$ ls
+coffee_machine.c</code></pre><span>Look for <code>coffee_machine.c</code>. Missing? Open its folder.</span></li>
+        <li><strong>Run check50</strong><span>Paste the command below. Press <strong>Enter</strong>.</span></li>
+        <li><strong>Fix + repeat</strong><span>Read the first <code>:(</code> message. Fix, save, run again.</span></li>
+    </ol>
+    <p class="c50-note">Keep original recipes and stock <code>{500, 200, 40, 3}</code> unchanged.</p>
+    <div class="c50-command-row"><code class="c50-command" tabindex="0">check50 --local khajiev13/tashtech-checks/main/coffee</code><button type="button" class="c50-copy" disabled>Copy command</button></div>
+    <p class="c50-copy-status" role="status"></p>
+    <div class="c50-legend"><span><b>:)</b> Passed</span><span><b>:(</b> Failed</span><span><b>:|</b> Fix an earlier failure first</span></div>
+    <div class="c50-example">
+        <p class="c50-example-title"><strong>Example output — one check shown</strong></p>
+        <div class="c50-terminal" aria-live="polite" aria-atomic="true">
+            <code class="c50-terminal-command">$ check50 --local khajiev13/tashtech-checks/main/coffee</code>
+            <div class="c50-output"></div>
+        </div>
+        <div class="c50-actions"><button type="button" class="c50-run" disabled>Run example</button><button type="button" class="c50-fix" disabled>Show fix</button><button type="button" class="c50-again" disabled>Run again</button></div>
+        <p class="c50-example-note" role="status">Demo only. Test your file in the IDE.</p>
+        <noscript><p class="c50-no-js">JavaScript needed for the demo. Use the steps above.</p></noscript>
+    </div>
+    </section></section></main><script>(() => {
+    'use strict';
+    const fields = ['water_ml', 'milk_ml', 'beans_g', 'paper_cups'];
+    const full = [500, 200, 40, 3];
+    const recipes = {1: {name: 'Espresso', amounts: [100, 0, 10, 1]}, 2: {name: 'Latte', amounts: [100, 50, 10, 1]}};
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pause = (ms) => new Promise(resolve => setTimeout(resolve, reduceMotion.matches ? 0 : ms));
+    const $ = (selector) => document.querySelector(selector);
+    const show = (selector, values) => {
+        fields.forEach((field, i) => {
+            const root = $(selector);
+            root.querySelector(`[data-value="${field}"]`).textContent = values ? values[i] : '—';
+            const bar = root.querySelector(`[data-level="${field}"]`);
+            if (bar && values) {
+                const height = 64 * Math.max(0, Math.min(1, values[i] / full[i]));
+                bar.style.height = `${height}px`;
+                bar.style.y = `${144 - height}px`;
+            }
+        });
+    };
+    const result = (selector, text, state = '') => {
+        const output = $(selector);
+        output.textContent = text;
+        output.className = `demo-result ${state}`;
+    };
+    document.querySelectorAll('.coffee-demo button, .coffee-demo select').forEach(el => {el.disabled = false;});
+
+    // Input validation returns a menu ID; main decides what to do with it.
+    let choiceRun = 0;
+    const choiceButtons = [...document.querySelectorAll('#choice-demo [data-choice]')];
+    choiceButtons.forEach(button => button.addEventListener('click', async () => {
+        const run = ++choiceRun;
+        const value = Number(button.dataset.choice);
+        choiceButtons.forEach(b => {b.removeAttribute('data-selected');});
+        button.setAttribute('data-selected', '');
+        $('#choice-demo').classList.add('choice-demo-busy');
+        document.querySelectorAll('[data-flow]').forEach(el => {el.className = '';});
+        $('[data-flow="input"]').className = 'active';
+        result('#choice-result', `Input: ${value}`, 'busy');
+        await pause(300);
+        if (run !== choiceRun) return;
+        $('[data-flow="valid"]').className = value === 9 ? 'bad' : 'good';
+        await pause(300);
+        if (run !== choiceRun) return;
+        $('#choice-demo').classList.remove('choice-demo-busy');
+        if (value === 9) {
+            $('[data-flow="input"]').className = 'active';
+            result('#choice-result', 'Invalid choice. Choose a listed coffee ID or 0. ↩ Ask again.', 'bad');
+        } else {
+            $('[data-flow="return"]').className = 'good';
+            result('#choice-result', value === 0 ? 'return 0 → main exits.' : `return ${value} → ${recipes[value].name} selected.`, 'good');
+        }
+    }));
+
+    // Comparing a record never changes its values.
+    let preset = 'full';
+    let checkRun = 0;
+    let checkStock = full.slice();
+    const updateCheck = () => {
+        ++checkRun;
+        const amounts = recipes[$('#check-coffee').value].amounts;
+        checkStock = preset === 'exact' ? amounts.slice() : full.slice();
+        if (preset === 'no-milk') checkStock[1] = 0;
+        if (preset === 'no-cups') checkStock[3] = 0;
+        show('#check-machine', checkStock);
+        fields.forEach((field, i) => {
+            $(`[data-comparison="${field}"]`).textContent = `${checkStock[i]} ≥ ${amounts[i]}`;
+            $(`[data-verdict="${field}"]`).textContent = '—';
+            $(`[data-resource="${field}"]`).className = 'comparison';
+            $(`#check-machine [data-tank="${field}"]`).classList.remove('tank-active');
+        });
+        $('#check-result').removeAttribute('data-result');
+        result('#check-result', 'All four supplies must be enough.');
+        $('#run-check').disabled = false;
+    };
+    $('#check-coffee').addEventListener('change', updateCheck);
+    document.querySelectorAll('[data-stock-preset]').forEach(button => button.addEventListener('click', () => {
+        preset = button.dataset.stockPreset;
+        document.querySelectorAll('[data-stock-preset]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+        updateCheck();
+    }));
+    $('#run-check').addEventListener('click', async () => {
+        updateCheck();
+        const run = checkRun;
+        const amounts = recipes[$('#check-coffee').value].amounts;
+        $('#run-check').disabled = true;
+        result('#check-result', 'Comparing stock with the recipe…', 'busy');
+        for (let i = 0; i < fields.length; i++) {
+            const field = fields[i];
+            const row = $(`[data-resource="${field}"]`);
+            row.className = 'comparison active';
+            $(`#check-machine [data-tank="${field}"]`).classList.add('tank-active');
+            await pause(250);
+            if (run !== checkRun) return;
+            const enough = checkStock[i] >= amounts[i];
+            row.className = `comparison ${enough ? 'good' : 'bad'}`;
+            $(`[data-verdict="${field}"]`).textContent = enough ? '✓' : '×';
+            $(`#check-machine [data-tank="${field}"]`).classList.remove('tank-active');
+        }
+        const enough = checkStock.every((amount, i) => amount >= amounts[i]);
+        result('#check-result', enough ? 'return true → enough supplies. Stock unchanged.' : 'return false → not enough supplies. Stock unchanged.', enough ? 'good' : 'bad');
+        $('#check-result').dataset.result = String(enough);
+        $('#run-check').disabled = false;
+    });
+
+    // Step through the supplied main assignment: return a copy, then save it.
+    let stock = full.slice();
+    let returned = null;
+    let updateRun = 0;
+    const panel = $('#update-demo');
+    const resetPreview = () => {
+        ++updateRun;
+        returned = null;
+        show('#returned-stock', null);
+        $('#save-update').disabled = true;
+        $('#preview-update').disabled = false;
+        panel.dataset.phase = 'idle';
+        result('#update-result', 'First, see what the function returns.');
+    };
+    $('#update-coffee').addEventListener('change', resetPreview);
+    $('#reset-update').addEventListener('click', () => {
+        stock = full.slice();
+        show('#main-stock', stock);
+        show('#update-machine', stock);
+        resetPreview();
+    });
+    $('#preview-update').addEventListener('click', async () => {
+        const run = ++updateRun;
+        const recipe = recipes[$('#update-coffee').value];
+        if (!stock.every((amount, i) => amount >= recipe.amounts[i])) {
+            returned = null;
+            show('#returned-stock', null);
+            panel.dataset.phase = 'refused';
+            $('#save-update').disabled = true;
+            result('#update-result', 'Not enough supplies → main skips this function. Stock unchanged.', 'bad');
+            return;
+        }
+        $('#preview-update').disabled = true;
+        $('#save-update').disabled = true;
+        panel.dataset.phase = 'previewing';
+        result('#update-result', 'The function works on a copy…', 'busy');
+        show('#returned-stock', stock);
+        await pause(650);
+        if (run !== updateRun) return;
+        returned = stock.map((amount, i) => amount - recipe.amounts[i]);
+        show('#returned-stock', returned);
+        panel.dataset.phase = 'returned';
+        result('#update-result', 'New copy returned. Stock in main is still unchanged.', 'good');
+        $('#save-update').disabled = false;
+    });
+    $('#save-update').addEventListener('click', async () => {
+        if (!returned || panel.dataset.phase !== 'returned') return;
+        const run = ++updateRun;
+        const next = returned.slice();
+        panel.dataset.phase = 'saving';
+        $('#save-update').disabled = true;
+        result('#update-result', 'main saves the returned copy…', 'busy');
+        await pause(650);
+        if (run !== updateRun) return;
+        stock = next;
+        show('#main-stock', stock);
+        show('#update-machine', stock);
+        returned = null;
+        panel.dataset.phase = 'saved';
+        result('#update-result', 'Saved by the supplied main. Try another order.', 'good');
+        $('#preview-update').disabled = false;
+    });
+    resetPreview();
+    updateCheck();
+})();
+
+
+(() => {
+    document.querySelectorAll('.c50-guide').forEach(guide => {
+        if (guide.dataset.c50Ready) return;
+        guide.dataset.c50Ready = 'true';
+        const command = guide.querySelector('.c50-command');
+        const copy = guide.querySelector('.c50-copy');
+        const copyStatus = guide.querySelector('.c50-copy-status');
+        const run = guide.querySelector('.c50-run');
+        const fix = guide.querySelector('.c50-fix');
+        const again = guide.querySelector('.c50-again');
+        const output = guide.querySelector('.c50-output');
+        const note = guide.querySelector('.c50-example-note');
+        copy.disabled = false;
+        run.disabled = false;
+
+        copy.addEventListener('click', async () => {
+            try {
+                if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Clipboard unavailable');
+                await navigator.clipboard.writeText(command.textContent.trim());
+                copyStatus.textContent = 'Copied. Paste in the terminal → Enter.';
+            } catch (error) {
+                command.focus();
+                const selection = window.getSelection();
+                if (selection) {
+                    const range = document.createRange();
+                    range.selectNodeContents(command);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+                copyStatus.textContent = 'Select and copy the command above. Paste in the terminal → Enter.';
+            }
+        });
+
+        function show(markup, instruction) {
+            output.classList.remove('c50-reveal');
+            output.innerHTML = markup;
+            void output.offsetWidth;
+            output.classList.add('c50-reveal');
+            note.textContent = instruction;
+        }
+
+        const failed = '<p class="c50-failed">:( exactly enough of all four supplies is allowed</p><p>Expected can_make_coffee to return true for exactly the recipe amounts.</p>';
+        run.addEventListener('click', () => {
+            show(failed, 'Read the failure.');
+            run.disabled = true;
+            fix.disabled = false;
+            again.disabled = true;
+            fix.focus();
+        });
+        fix.addEventListener('click', () => {
+            show(failed + '<p class="c50-hint">Hint: Use &gt;= for every required amount; exactly enough is valid.</p>', 'Fix code → Save → Run again.');
+            fix.disabled = true;
+            again.disabled = false;
+            again.focus();
+        });
+        again.addEventListener('click', () => {
+            show('<p class="c50-passed">:) exactly enough of all four supplies is allowed</p>', 'Example passed. Now test your file in the IDE.');
+            again.disabled = true;
+            run.disabled = false;
+            run.textContent = 'Replay example';
+            run.focus();
+        });
+    });
+})();
+
+(() => {
+ const tabs = [...document.querySelectorAll('.guide-tabs [role="tab"]')];
+ const panels = [...document.querySelectorAll('.guide-panel')];
+ const fit = () => requestAnimationFrame(() => {
+   try {
+     const frame = window.frameElement;
+     const height = Math.ceil(document.querySelector('main').getBoundingClientRect().height + 4);
+     if (frame && height > 100 && height < 2500 && Math.abs(frame.getBoundingClientRect().height-height)>4) frame.style.height = height+'px';
+   } catch (_) { /* The default frame height still allows scrolling. */ }
+ });
+ function select(index, focus=false) {
+   tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;panels[i].hidden=i!==index;});
+   if(focus) tabs[index].focus();
+   fit();
+ }
+ tabs.forEach((tab,index)=>{
+   tab.disabled=false;
+   tab.addEventListener('click',()=>select(index));
+   tab.addEventListener('keydown',event=>{
+     let next=index;
+     if(event.key==='ArrowRight')next=(index+1)%tabs.length;
+     else if(event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;
+     else if(event.key==='Home')next=0;
+     else if(event.key==='End')next=tabs.length-1;
+     else return;
+     event.preventDefault();select(next,true);
+   });
+ });
+ select(location.hash==='#check50'?3:0);
+ if ('ResizeObserver' in window) new ResizeObserver(fit).observe(document.querySelector('main'));
+ window.addEventListener('resize',fit);
+})();</script></body></html>

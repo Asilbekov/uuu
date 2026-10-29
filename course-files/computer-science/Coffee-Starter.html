@@ -1,0 +1,179 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Coffee starter</title><style>body{margin:0}main{padding:2px}
+.starter-panel{box-sizing:border-box;padding:12px;border:1px solid #c7d8cc;border-radius:10px;background:#f4f7f2;color:#24382c;font:14px/1.45 system-ui,sans-serif}
+.starter-panel *{box-sizing:border-box}.starter-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.starter-toolbar strong{font:600 14px ui-monospace,monospace;overflow-wrap:anywhere}
+.starter-copy{padding:9px 15px;min-height:40px;border:0;border-radius:7px;background:#24583d;color:white;font:600 14px system-ui;cursor:pointer;white-space:nowrap}
+.starter-copy:disabled{opacity:.45;cursor:default}.starter-copy:focus-visible,.starter-panel summary:focus-visible,.starter-panel pre:focus-visible{outline:3px solid #d18c35;outline-offset:3px}
+.starter-panel .starter-status{margin:3px 0;min-height:20px;color:#46614c;font-size:13px}
+.starter-panel details{margin:0}.starter-panel summary{cursor:pointer;font-weight:600;color:#24583d}
+.starter-panel pre{margin:10px 0 0;padding:12px;background:white;border:1px solid #dae3da;border-radius:5px;max-width:100%;max-height:430px;overflow:auto;white-space:pre;font:13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+.starter-panel pre code{font:inherit}
+</style></head><body><main><section class="starter-panel" aria-label="Starter code">
+<div class="starter-toolbar"><strong>coffee_machine.c</strong><button type="button" class="starter-copy" disabled>Copy code</button></div>
+<p class="starter-status" role="status"></p>
+<details><summary>View code</summary><pre tabindex="0" aria-label="Complete starter program"><code>#include &lt;cs50.h&gt;    // get_int, string
+#include &lt;limits.h&gt;  // INT_MAX: end of input
+#include &lt;stdbool.h&gt; // bool, true, false
+#include &lt;stdio.h&gt;   // printf, puts
+
+typedef struct
+{
+    int water_ml;
+    int milk_ml;
+    int beans_g;
+    int paper_cups;
+} Stock;
+
+typedef struct
+{
+    int id;
+    string name;
+    string description;
+    int needed_water_ml;
+    int needed_milk_ml;
+    int needed_beans_g;
+    int needed_paper_cups;
+} Coffee;
+
+// Read-only menu. Use unique positive IDs; 0 exits.
+const Coffee coffees[] = {
+    {1, &quot;Espresso&quot;, &quot;Strong coffee without milk.&quot;, 100, 0, 10, 1},
+    {2, &quot;Latte&quot;, &quot;Coffee with milk.&quot;, 100, 50, 10, 1},
+};
+// Number of coffees in the array.
+const int COFFEE_COUNT = sizeof(coffees) / sizeof(coffees[0]);
+
+void print_coffee_menu(void);
+int find_coffee_index(int id);
+void print_stock(Stock stock);
+int read_coffee_choice(void);
+bool can_make_coffee(Stock stock, Coffee coffee);
+Stock stock_after_coffee(Stock stock, Coffee coffee);
+
+int main(void)
+{
+    Stock stock = {500, 200, 40, 3};
+
+    puts(&quot;Starter: complete the three TODO functions to make drinks.&quot;);
+    print_stock(stock);
+    while (true)
+    {
+        print_coffee_menu();
+        int choice = read_coffee_choice();
+        int coffee_index = find_coffee_index(choice);
+        if (choice == 0)
+        {
+            break;
+        }
+        else if (coffee_index &gt;= 0)
+        {
+            Coffee coffee = coffees[coffee_index];
+            if (can_make_coffee(stock, coffee))
+            {
+                stock = stock_after_coffee(stock, coffee);
+                printf(&quot;%s ready.\n&quot;, coffee.name);
+            }
+            else
+            {
+                puts(&quot;Not enough supplies. No coffee made.&quot;);
+            }
+            print_stock(stock);
+        }
+        else
+        {
+            puts(&quot;Invalid choice. Choose a listed coffee ID or 0.&quot;);
+        }
+    }
+    puts(&quot;Goodbye.&quot;);
+    return 0;
+}
+
+bool can_make_coffee(Stock stock, Coffee coffee)
+{
+    // TODO 2: check all four supplies; exactly enough is allowed.
+    // Replace the temporary lines below with your check.
+    (void) stock;
+    (void) coffee;
+    return false;
+}
+
+// Returns a copy; main must save it.
+Stock stock_after_coffee(Stock stock, Coffee coffee)
+{
+    if (can_make_coffee(stock, coffee))
+    {
+        // TODO 3: subtract the four needed amounts.
+    }
+    return stock;
+}
+
+void print_coffee_menu(void)
+{
+    for (int i = 0; i &lt; COFFEE_COUNT; i++)
+    {
+        printf(&quot;%i %s - %s\n&quot;, coffees[i].id, coffees[i].name, coffees[i].description);
+    }
+    puts(&quot;0 Exit&quot;);
+}
+
+// Returns the array position, or -1 if the ID is missing.
+int find_coffee_index(int id)
+{
+    for (int i = 0; i &lt; COFFEE_COUNT; i++)
+    {
+        if (coffees[i].id == id)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void print_stock(Stock stock)
+{
+    printf(&quot;Stock: water=%i ml, milk=%i ml, beans=%i g, cups=%i\n&quot;, stock.water_ml, stock.milk_ml,
+           stock.beans_g, stock.paper_cups);
+}
+
+int read_coffee_choice(void)
+{
+    // TODO 1: repeat until 0 or a listed ID; use find_coffee_index.
+    // Print the invalid-choice message and keep the EOF check.
+    int choice = get_int(&quot;Choice: &quot;);
+    if (choice == INT_MAX)
+    {
+        return 0;
+    }
+    return choice;
+}
+</code></pre></details>
+</section></main><script>(() => {
+ document.querySelectorAll('.starter-panel').forEach(panel => {
+  const button=panel.querySelector('.starter-copy'), status=panel.querySelector('.starter-status');
+  const code=panel.querySelector('pre code');
+  button.disabled=false;
+  button.addEventListener('click', async () => {
+   try {
+    if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(code.textContent);
+    status.textContent='Copied. Paste into CS50 IDE.';
+   } catch (_) {
+    panel.querySelector('details').open=true;
+    panel.querySelector('pre').focus();
+    const selection=window.getSelection(), range=document.createRange();
+    range.selectNodeContents(code);
+    if(selection){selection.removeAllRanges();selection.addRange(range);}
+    status.textContent='Code selected. Press Ctrl+C or ⌘C.';
+   }
+  });
+ });
+})();(() => {
+ const fit=()=>requestAnimationFrame(()=>{
+  try {
+   const frame=window.frameElement, height=Math.ceil(document.querySelector('main').getBoundingClientRect().height+4);
+   if(frame && height>60 && height<800 && Math.abs(frame.getBoundingClientRect().height-height)>3)frame.style.height=height+'px';
+  } catch(_) {}
+ });
+ if('ResizeObserver' in window)new ResizeObserver(fit).observe(document.querySelector('main'));
+ window.addEventListener('resize',fit);fit();
+})();</script></body></html>

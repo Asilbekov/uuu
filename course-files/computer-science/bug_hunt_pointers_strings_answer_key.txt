@@ -1,0 +1,88 @@
+=====================================================
+  C BUG HUNT: POINTERS AND STRINGS -- INSTRUCTOR KEY
+=====================================================
+Each bug below was compiled with gcc and run under
+AddressSanitizer/UBSan to confirm the behavior described.
+Several of these are undefined behavior, so exact symptoms
+can differ by compiler, flags, and machine.
+
+BUG 1 [Missing null terminator]
+  Bug:  s has exactly 5 slots for 5 letters, leaving no room for '\0'.
+        printf("%s") keeps reading past the array until it finds a zero byte.
+  Fix:  char s[6] = {'h','e','l','l','o','\0'};   or   char s[] = "hello";
+
+BUG 2 [sizeof on a pointer]
+  Bug:  s is a char *, so sizeof(s) is the size of the pointer (8 on a
+        64-bit machine), not the length of the string.
+  Fix:  strlen(s)
+  Tip:  sizeof on an actual array (char a[] = "hello") gives 6, including '\0'.
+
+BUG 3 [Comparing strings with ==]
+  Bug:  == compares the addresses of the two arrays, which are different
+        objects, so it prints "Different".
+  Fix:  if (strcmp(a, b) == 0)
+
+BUG 4 [Buffer too small for strcpy]
+  Bug:  "hello" needs 6 bytes (5 letters plus '\0'), but dest holds 5.
+        strcpy writes one byte past the end of the array.
+  Fix:  char dest[6];  (or larger)
+
+BUG 5 [Modifying a string literal]
+  Bug:  "hello" is a read-only literal. s points to it, so s[0] = 'J'
+        writes to read-only memory and typically crashes (segfault).
+  Fix:  char s[] = "hello";  This makes a modifiable copy in an array.
+
+BUG 6 [Returning a pointer to a local variable]
+  Bug:  buf lives on greeting()'s stack frame, which is gone once the
+        function returns, so g dangles. Compilers usually warn here.
+  Fix:  any of: a static array, a buffer passed in by the caller, or
+        malloc'd memory that the caller frees.
+
+BUG 7 [Uninitialized (wild) pointer]
+  Bug:  p was never assigned, so it holds garbage and *p = 10 writes to
+        an unknown address. It may crash, or it may appear to work, which is
+        the dangerous case (it printed 10 in testing, by luck).
+  Fix:  point p at real memory:  int v; int *p = &v;   or   p = malloc(sizeof(int));
+
+BUG 8 [Pass by value]
+  Bug:  C passes copies of x and y. swap() swaps its own local copies, so
+        main's variables are unchanged and it prints "1 2".
+  Fix:  void swap(int *a, int *b) { int t = *a; *a = *b; *b = t; }
+        called as swap(&x, &y);
+
+BUG 9 [malloc forgot the +1 for '\0']
+  Bug:  strlen does not count the terminator, so malloc(strlen(s)) gives 5
+        bytes but strcpy writes 6, overflowing the heap block by one byte.
+  Fix:  malloc(strlen(s) + 1)
+
+BUG 10 [Unsigned loop counter]
+  Bug:  size_t is unsigned, so i >= 0 is always true. After i reaches 0,
+        i-- wraps around to a huge number and s[i] reads far out of bounds.
+  Fix:  loop with a signed int: for (int i = (int)strlen(s) - 1; i >= 0; i--)
+        or: for (size_t i = strlen(s); i > 0; i--) putchar(s[i - 1]);
+
+BUG 11 [Missing & in scanf]
+  Bug:  scanf needs the address of x. Passing x (an uninitialized int)
+        makes scanf treat its garbage value as a pointer and write
+        through it. Most compilers warn with -Wall.
+  Fix:  scanf("%d", &x);
+
+BUG 12 [Use after free]
+  Bug:  *p is read after free(p), so the memory may already be reused.
+        It may print 42, print garbage, or crash.
+  Fix:  do not touch *p after free. Print before freeing, and set
+        p = NULL afterwards to make misuse fail loudly.
+
+=====================================================
+  Quick sort by bug type
+=====================================================
+  Missing null terminator / +1 ... 1, 4, 9
+  Pointer vs. array confusion ..... 2, 3
+  Read-only / dangling memory ..... 5, 6, 12
+  Uninitialized pointers .......... 7, 11
+  Pass by value ................... 8
+  Unsigned wraparound ............. 10
+
+TIP: have students compile with  gcc -g -Wall -fsanitize=address
+and run their fixes. The sanitizer error messages make a good
+discussion starting point.

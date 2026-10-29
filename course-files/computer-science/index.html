@@ -1,0 +1,639 @@
+<div class="no-overflow"><div style="max-width: 860px; margin: auto; color: #202426; font: 16px/1.5 Arial,Helvetica,sans-serif;">
+<p style="color: #596167;">Recursion · Chapter 8</p>
+<div id="idea" style="padding: 16px 0; border-bottom: 1px solid #d9dedf;">
+<h2 style="font-size: 22px; line-height: 1.25; margin: 0 0 10px;">1. What recursion means</h2>
+<p><strong>Recursion</strong> solves a task using the same method on a smaller task.</p>
+<p>Four students stand in line: <strong>A → B → C → D</strong>. Each asks the next student to count their part of the line. D, the last student, answers <strong>1</strong>. Each waiting student adds themselves:</p>
+<p style="border-left: 3px solid #d84117; background: #f3f4f4; padding: 10px 14px;"><strong>D: 1 → C: 2 → B: 3 → A: 4</strong></p>
+</div>
+<div id="ingredients" style="padding: 16px 0; border-bottom: 1px solid #d9dedf;">
+<h2 style="font-size: 22px; line-height: 1.25; margin: 0 0 10px;">2. Three ingredients</h2>
+<ul>
+<li><strong>Base case:</strong> answer directly; no further self-call.</li>
+<li><strong>Recursive case:</strong> call the same function on a smaller input.</li>
+<li><strong>Progress:</strong> every recursive path must reach a base case.</li>
+</ul>
+<p style="font-size: 13px; color: #596167;">C function excerpt · demonstration inputs: integers 0–7 · <code style="font-family: monospace; overflow-wrap: anywhere;">printf</code> needs <code style="font-family: monospace; overflow-wrap: anywhere;">&lt;stdio.h&gt;</code>.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="excerpt-countdown" style="font-family: monospace; overflow-wrap: anywhere;">void count_down(int n)
+{
+    if (n == 0)
+        return;
+
+    printf("%i\n", n);
+    count_down(n - 1);
+}</code></pre>
+<p><code style="font-family: monospace; overflow-wrap: anywhere;">count_down(3)</code> visits <strong>3 → 2 → 1 → 0</strong>. It prints 3, 2, 1 on separate lines; 0 returns without printing.</p>
+</div>
+<div id="factorial-concept" style="padding: 16px 0; border-bottom: 1px solid #d9dedf;">
+<h2 style="font-size: 22px; line-height: 1.25; margin: 0 0 10px;">3. Use a smaller answer: factorial</h2>
+<p><strong>3! = 3 × 2 × 1 = 6.</strong> Recursively: <strong>n! = n × (n − 1)!</strong>, with <strong>0! = 1</strong>.</p>
+<p style="font-size: 13px; color: #596167;">C function excerpt · demonstration inputs: integers 0–7.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="excerpt-factorial" style="font-family: monospace; overflow-wrap: anywhere;">int factorial(int n)
+{
+    if (n == 0)
+        return 1;
+
+    int smaller = factorial(n - 1);
+    return n * smaller;
+}</code></pre>
+<p>The caller waits for the smaller answer, then multiplies by its own <code style="font-family: monospace; overflow-wrap: anywhere;">n</code>. Returning a value does not print it.</p>
+</div>
+<div id="stack" style="padding: 16px 0; border-bottom: 1px solid #d9dedf;">
+<h2 style="font-size: 22px; line-height: 1.25; margin: 0 0 10px;">4. Calls wait; returns resume them</h2>
+<p>The <strong>call stack</strong> holds unfinished calls. Each <strong>stack frame</strong> keeps that call’s parameters, local variables and next action. Only the top call executes.</p>
+<table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 14px 0;"><caption style="text-align: left; font-weight: bold; margin-bottom: 6px;"><code style="font-family: monospace; overflow-wrap: anywhere;">factorial(3)</code>: calls go down ↓; answers return up ↑</caption>
+<thead style="background: #f3f4f4;">
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="col">Call</th>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="col">Work waiting</th>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="col">Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="row">n = 3</th>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">3 × smaller answer</td>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">6</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="row">n = 2</th>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">2 × smaller answer</td>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">2</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="row">n = 1</th>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">1 × smaller answer</td>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">1</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="row">n = 0</th>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">Base case</td>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">1</td>
+</tr>
+</tbody>
+</table>
+<p>At the deepest point, <code style="font-family: monospace; overflow-wrap: anywhere;">factorial(0)</code> runs. Each return removes one finished frame; its caller resumes. Finally, <code style="font-family: monospace; overflow-wrap: anywhere;">main</code> receives <strong>6</strong>.</p>
+</div>
+<div id="order" style="padding: 16px 0; border-bottom: 1px solid #d9dedf;">
+<h2 style="font-size: 22px; line-height: 1.25; margin: 0 0 10px;">5. Order and stopping matter</h2>
+<table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 14px 0;"><caption style="text-align: left; font-weight: bold; margin-bottom: 6px;">Move the same print before or after the smaller call</caption>
+<thead style="background: #f3f4f4;">
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="col">Print position</th>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="col">Output for n = 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="row">Before the call</th>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">3, 2, 1</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="row">After the call</th>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">1, 2, 3</td>
+</tr>
+</tbody>
+</table>
+<p>Each number prints on its own line. With <code style="font-family: monospace; overflow-wrap: anywhere;">count_down( n )</code> instead of <code style="font-family: monospace; overflow-wrap: anywhere;">count_down(n - 1)</code>, starting at 3 never reaches 0. Unbounded recursion can exhaust stack space.</p>
+<p>A loop can also calculate factorial: it keeps a counter and running product instead of waiting recursive calls. Recursion is not automatically faster.</p>
+</div>
+<div id="fibonacci" style="padding: 16px 0; border-bottom: 1px solid #d9dedf;">
+<h2 style="font-size: 22px; line-height: 1.25; margin: 0 0 10px;">6. Fibonacci: two smaller answers</h2>
+<p><strong>F(0) = 0; F(1) = 1.</strong> Then <strong>F( n ) = F(n − 1) + F(n − 2)</strong>.</p>
+<p><strong>0, 1, 1, 2, 3, 5, …</strong> so <strong>F(4) = 3</strong>.</p>
+<p>Our recursive version makes <strong>9 calls over time</strong> for F(4), calculating F(2) twice. The call tree shows all calls; the stack holds only unfinished calls. The two branches run in sequence.</p>
+</div>
+<div id="hanoi" style="padding: 16px 0; border-bottom: 1px solid #d9dedf;">
+<h2 style="font-size: 22px; line-height: 1.25; margin: 0 0 10px;">7. Hanoi: solve a smaller tower</h2>
+<p>Move three disks from <strong>A to C</strong> using B. Move one top disk at a time; never put a larger disk on a smaller one.</p>
+<table style="width: 100%; border-collapse: collapse; font-size: 14px; margin: 14px 0;"><caption style="text-align: left; font-weight: bold; margin-bottom: 6px;">Three steps, seven individual moves</caption>
+<thead style="background: #f3f4f4;">
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="col">Step</th>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="col">Task</th>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="col">Moves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="row">1</th>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">Move 2 disks A → B, using C</td>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">3</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="row">2</th>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">Move disk 3 A → C</td>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">1</td>
+</tr>
+<tr>
+<th style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;" scope="row">3</th>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">Move 2 disks B → C, using A</td>
+<td style="text-align: left; padding: 8px 5px; border-bottom: 1px solid #d9dedf; overflow-wrap: anywhere;">3</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3 + 1 + 3 = 7 moves.</strong> Each smaller tower uses the same method. Base case: <strong>0 disks → no moves</strong>.</p>
+</div>
+<div id="complete-programs" style="padding: 16px 0; border-bottom: 1px solid #d9dedf;">
+<h2 style="font-size: 22px; line-height: 1.25; margin: 0 0 10px;">8. Complete C programs</h2>
+<p>Open a filename to see its complete program and expected output. Save each as a separate <code style="font-family: monospace; overflow-wrap: anywhere;">.c</code> file in CS50. Build with <code style="font-family: monospace; overflow-wrap: anywhere;">make name</code>, then run <code style="font-family: monospace; overflow-wrap: anywhere;">./name</code>, using the filename without <code style="font-family: monospace; overflow-wrap: anywhere;">.c</code>; for example, <code style="font-family: monospace; overflow-wrap: anywhere;">make 01_countdown</code>, then <code style="font-family: monospace; overflow-wrap: anywhere;">./01_countdown</code>.</p>
+<details id="program-00_function_call" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;"><code style="font-family: monospace; overflow-wrap: anywhere;">00_function_call.c</code> — An ordinary function call</summary>
+<p>Call a helper, wait for its return, save the value, then print it.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="full-00_function_call" style="font-family: monospace; overflow-wrap: anywhere;">#include &lt;stdio.h&gt;
+
+// The caller waits for this returned value before continuing.
+int double_value(int x)
+{
+    return 2 * x;
+}
+
+int main(void)
+{
+    int result = double_value(3);
+    printf("%i\n", result);
+    return 0;
+}
+</code></pre>
+<p style="font-size: 13px; color: #596167;"><strong>Expected output</strong></p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="output-00_function_call" style="font-family: monospace; overflow-wrap: anywhere;">6
+</code></pre>
+</details>
+<details id="program-01_countdown" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;"><code style="font-family: monospace; overflow-wrap: anywhere;">01_countdown.c</code> — Countdown</summary>
+<p>Print each number before the smaller call.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="full-01_countdown" style="font-family: monospace; overflow-wrap: anywhere;">#include &lt;stdio.h&gt;
+
+// Demonstration inputs: integers from 0 to 7.
+void count_down(int n)
+{
+    if (n == 0)
+        return;
+
+    printf("%i\n", n);
+    count_down(n - 1);
+}
+
+int main(void)
+{
+    count_down(3);
+    return 0;
+}
+</code></pre>
+<p style="font-size: 13px; color: #596167;"><strong>Expected output</strong></p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="output-01_countdown" style="font-family: monospace; overflow-wrap: anywhere;">3
+2
+1
+</code></pre>
+</details>
+<details id="program-02_factorial" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;"><code style="font-family: monospace; overflow-wrap: anywhere;">02_factorial.c</code> — Factorial</summary>
+<p>Return the product 1×2×…×n; 0!=1.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="full-02_factorial" style="font-family: monospace; overflow-wrap: anywhere;">#include &lt;stdio.h&gt;
+
+// Adapted from book Example 8.2. Demonstration inputs: 0 to 7.
+int factorial(int n)
+{
+    if (n == 0)
+        return 1;
+
+    int smaller = factorial(n - 1);
+    return n * smaller;
+}
+
+int main(void)
+{
+    int result = factorial(3);
+    printf("%i\n", result);
+    return 0;
+}
+</code></pre>
+<p style="font-size: 13px; color: #596167;"><strong>Expected output</strong></p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="output-02_factorial" style="font-family: monospace; overflow-wrap: anywhere;">6
+</code></pre>
+</details>
+<details id="program-03_print_order" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;"><code style="font-family: monospace; overflow-wrap: anywhere;">03_print_order.c</code> — Print before or after</summary>
+<p>Compare the placement of printf around the recursive call.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="full-03_print_order" style="font-family: monospace; overflow-wrap: anywhere;">#include &lt;stdio.h&gt;
+
+// Demonstration inputs: integers from 0 to 7.
+void count_down(int n)
+{
+    if (n == 0)
+        return;
+
+    printf("%i\n", n);
+    count_down(n - 1);
+}
+
+void count_up(int n)
+{
+    if (n == 0)
+        return;
+
+    count_up(n - 1);
+    printf("%i\n", n);
+}
+
+int main(void)
+{
+    puts("Before the call:");
+    count_down(3);
+    puts("After the call:");
+    count_up(3);
+    return 0;
+}
+</code></pre>
+<p style="font-size: 13px; color: #596167;"><strong>Expected output</strong></p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="output-03_print_order" style="font-family: monospace; overflow-wrap: anywhere;">Before the call:
+3
+2
+1
+After the call:
+1
+2
+3
+</code></pre>
+</details>
+<details id="program-04_sum_to" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;"><code style="font-family: monospace; overflow-wrap: anywhere;">04_sum_to.c</code> — Sum from 1 to n</summary>
+<p>Return 1+2+…+n; the empty sum is0.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="full-04_sum_to" style="font-family: monospace; overflow-wrap: anywhere;">#include &lt;stdio.h&gt;
+
+// Sum the integers from 1 to n. Demonstration inputs: 0 to 100.
+int sum_to(int n)
+{
+    if (n == 0)
+        return 0;
+
+    return n + sum_to(n - 1);
+}
+
+int main(void)
+{
+    int result = sum_to(3);
+    printf("%i\n", result);
+    return 0;
+}
+</code></pre>
+<p style="font-size: 13px; color: #596167;"><strong>Expected output</strong></p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="output-04_sum_to" style="font-family: monospace; overflow-wrap: anywhere;">6
+</code></pre>
+</details>
+<details id="program-05_multiply" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;"><code style="font-family: monospace; overflow-wrap: anywhere;">05_multiply.c</code> — Repeated addition</summary>
+<p>Return a×b by adding a once for each step in b.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="full-05_multiply" style="font-family: monospace; overflow-wrap: anywhere;">#include &lt;stdio.h&gt;
+
+// Book Exercise 8.2(a): repeated addition. Both inputs: 0 to 100.
+int multiply(int a, int b)
+{
+    if (b == 0)
+        return 0;
+
+    return a + multiply(a, b - 1);
+}
+
+int main(void)
+{
+    int result = multiply(4, 3);
+    printf("%i\n", result);
+    return 0;
+}
+</code></pre>
+<p style="font-size: 13px; color: #596167;"><strong>Expected output</strong></p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="output-05_multiply" style="font-family: monospace; overflow-wrap: anywhere;">12
+</code></pre>
+</details>
+<details id="program-06_pyramid" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;"><code style="font-family: monospace; overflow-wrap: anywhere;">06_pyramid.c</code> — Three-row pyramid</summary>
+<p>Draw the smaller pyramid, then add the current row.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="full-06_pyramid" style="font-family: monospace; overflow-wrap: anywhere;">#include &lt;stdio.h&gt;
+
+// Adapted from CS50x Week 3 recursion. Use heights 0 to 7.
+void draw(int n)
+{
+    if (n &lt;= 0)
+        return;
+
+    draw(n - 1);
+    for (int i = 0; i &lt; n; i++)
+        printf("#");
+    printf("\n");
+}
+
+int main(void)
+{
+    draw(3);
+    return 0;
+}
+</code></pre>
+<p style="font-size: 13px; color: #596167;"><strong>Expected output</strong></p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="output-06_pyramid" style="font-family: monospace; overflow-wrap: anywhere;">#
+##
+###
+</code></pre>
+</details>
+<details id="program-07_fibonacci" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;"><code style="font-family: monospace; overflow-wrap: anywhere;">07_fibonacci.c</code> — Fibonacci and repeated work</summary>
+<p>Return F( n ) using two smaller calls; F(0)=0 and F(1)=1. Separate statements fix the classroom evaluation order.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="full-07_fibonacci" style="font-family: monospace; overflow-wrap: anywhere;">#include &lt;stdio.h&gt;
+
+// Book Fibonacci example, with F(0) = 0 and F(1) = 1.
+// Preconditions for this demonstration: integer n from 0 to 10.
+int fibonacci(int n)
+{
+    if (n == 0)
+        return 0;
+    if (n == 1)
+        return 1;
+
+    int left = fibonacci(n - 1);
+    int right = fibonacci(n - 2);
+    return left + right;
+}
+
+int main(void)
+{
+    int result = fibonacci(4);
+    printf("%i\n", result);
+    return 0;
+}
+</code></pre>
+<p style="font-size: 13px; color: #596167;"><strong>Expected output</strong></p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="output-07_fibonacci" style="font-family: monospace; overflow-wrap: anywhere;">3
+</code></pre>
+</details>
+<details id="program-08_hanoi" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;"><code style="font-family: monospace; overflow-wrap: anywhere;">08_hanoi.c</code> — Tower of Hanoi</summary>
+<p>Print the legal moves for transferring a tower: smaller tower to spare, largest disk to target, smaller tower to target.</p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="full-08_hanoi" style="font-family: monospace; overflow-wrap: anywhere;">#include &lt;stdio.h&gt;
+
+// Book Exercise 8.5: move a tower from source to target using spare.
+// Demo preconditions: n from 0 to 4; three distinct peg labels.
+// Initially, all n disks are on source, smallest on top; other pegs are empty.
+void hanoi(int n, char source, char spare, char target)
+{
+    if (n == 0)
+        return;
+
+    hanoi(n - 1, source, target, spare);
+    printf("Move disk %i: %c -&gt; %c\n", n, source, target);
+    hanoi(n - 1, spare, source, target);
+}
+
+int main(void)
+{
+    hanoi(3, 'A', 'B', 'C');
+    return 0;
+}
+</code></pre>
+<p style="font-size: 13px; color: #596167;"><strong>Expected output</strong></p>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="output-08_hanoi" style="font-family: monospace; overflow-wrap: anywhere;">Move disk 1: A -&gt; C
+Move disk 2: A -&gt; B
+Move disk 1: C -&gt; B
+Move disk 3: A -&gt; C
+Move disk 1: B -&gt; A
+Move disk 2: B -&gt; C
+Move disk 1: A -&gt; C
+</code></pre>
+</details>
+</div>
+<div id="lab-starter-code" style="padding: 16px 0; border-bottom: 1px solid #d9dedf;">
+<h2 style="font-size: 22px; line-height: 1.25; margin: 0 0 10px;">9. Lab starter code</h2>
+<p style="font-size: 13px; color: #596167;">Optional support for the <a href="https://lms.tashkenttech-edu.uz/mod/page/view.php?id=415">lab challenges</a>. Choose one less or more comfortable version per task. Create the named <code style="font-family: monospace; overflow-wrap: anywhere;">.c</code> file in CS50, copy and paste the whole program, then save. For <code style="font-family: monospace; overflow-wrap: anywhere;">trip.c</code>, build with <code style="font-family: monospace; overflow-wrap: anywhere;">make trip</code> and run <code style="font-family: monospace; overflow-wrap: anywhere;">./trip</code>; use the corresponding name for the other files.</p>
+<p style="font-size: 13px; color: #596167;">These are practice starters, not completed lab answers. Keep each program in its own file. Complete the TODOs or investigation described in the challenge.</p>
+<details id="starter-trip-less" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;">Less comfortable — trip.c</summary>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="source-trip-less" style="font-family: monospace; overflow-wrap: anywhere;">// STUDENT STARTER: compiles, but print_trip is unfinished.
+#include &lt;stdio.h&gt;
+
+void print_trip(int n);
+
+int main(void)
+{
+    print_trip(3);
+    return 0;
+}
+
+// Contract: n is 0..6. Print n down to 0, then back up to n.
+// Print 0 once. Use no loop and one self-call per positive frame.
+void print_trip(int n)
+{
+    if (n == 0)
+    {
+        // TODO: print the base-case number before returning.
+        return;
+    }
+
+    // TODO: print before the self-call, call with a smaller input,
+    // then print after the self-call returns.
+}
+</code></pre>
+</details>
+<details id="starter-trip-more" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;">More comfortable — trip.c</summary>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="source-trip-more" style="font-family: monospace; overflow-wrap: anywhere;">// STUDENT STARTER: compiles, but print_trip is unfinished.
+#include &lt;stdio.h&gt;
+
+void print_trip(int n);
+
+int main(void)
+{
+    print_trip(3);
+    return 0;
+}
+
+// Contract: n is 0..6. Print n down to 0, then back up to n.
+// Print 0 once. Use no loop and one self-call per positive frame.
+// Also trace each frame: what waits while the smaller call runs?
+void print_trip(int n)
+{
+    // TODO: write the base case and recursive case.
+    (void) n; // Remove this placeholder when you use n.
+}
+</code></pre>
+</details>
+<details id="starter-digits-less" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;">Less comfortable — digits.c</summary>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="source-digits-less" style="font-family: monospace; overflow-wrap: anywhere;">// STUDENT STARTER: compiles, but digit_sum is unfinished.
+#include &lt;stdio.h&gt;
+
+int digit_sum(int n);
+
+int main(void)
+{
+    printf("%i\n", digit_sum(2047));
+    return 0;
+}
+
+// Contract: n is 0..9999; digit_sum(0) is 0.
+// Reminder: n % 10 is the last digit; n / 10 removes that digit.
+int digit_sum(int n)
+{
+    if (n == 0)
+        return 0;
+
+    // TODO: combine the last digit with the sum of the remaining digits.
+    return 0; // Placeholder: replace with your recursive expression.
+}
+</code></pre>
+</details>
+<details id="starter-digits-more" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;">More comfortable — digits.c</summary>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="source-digits-more" style="font-family: monospace; overflow-wrap: anywhere;">// STUDENT STARTER: compiles, but both functions are unfinished.
+#include &lt;stdio.h&gt;
+
+int digit_sum(int n);
+int digit_count(int n);
+
+int main(void)
+{
+    printf("sum: %i\n", digit_sum(2047));
+    printf("digits: %i\n", digit_count(2047));
+    return 0;
+}
+
+// Contracts: n is 0..9999; digit_sum(0) is 0; digit_count(0) is 1.
+// Reminder: n % 10 is the last digit; n / 10 removes that digit.
+int digit_sum(int n)
+{
+    // TODO: return the sum of all digits using recursion.
+    (void) n;
+    return 0; // Placeholder.
+}
+
+int digit_count(int n)
+{
+    // TODO: count digits using recursion, including the single digit 0.
+    (void) n;
+    return 0; // Placeholder.
+}
+</code></pre>
+</details>
+<details id="starter-fibonacci-less" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;">Less comfortable — fibonacci.c</summary>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="source-fibonacci-less" style="font-family: monospace; overflow-wrap: anywhere;">// WORKED INVESTIGATION: no coding TODO. Draw fibonacci(5)'s full call tree.
+// Count every call, repeated fibonacci(2) calls, and maximum unfinished frames.
+#include &lt;stdio.h&gt;
+
+// Book Fibonacci example, with F(0) = 0 and F(1) = 1.
+// Preconditions for this demonstration: integer n from 0 to 10.
+int fibonacci(int n)
+{
+    if (n == 0)
+        return 0;
+    if (n == 1)
+        return 1;
+
+    int left = fibonacci(n - 1);
+    int right = fibonacci(n - 2);
+    return left + right;
+}
+
+int main(void)
+{
+    int result = fibonacci(5);
+    printf("%i\n", result);
+    return 0;
+}
+</code></pre>
+</details>
+<details id="starter-fibonacci-more" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;">More comfortable — fibonacci.c</summary>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="source-fibonacci-more" style="font-family: monospace; overflow-wrap: anywhere;">// STUDENT STARTER: fibonacci is supplied; fibonacci_calls is unfinished.
+#include &lt;stdio.h&gt;
+
+// Book Fibonacci example, with F(0) = 0 and F(1) = 1.
+// Preconditions for this demonstration: integer n from 0 to 10.
+int fibonacci(int n)
+{
+    if (n == 0)
+        return 0;
+    if (n == 1)
+        return 1;
+
+    int left = fibonacci(n - 1);
+    int right = fibonacci(n - 2);
+    return left + right;
+}
+
+// Contract: n is 0..10; count every invocation, including base cases.
+// This computes a separate count; it does not instrument fibonacci above.
+int fibonacci_calls(int n)
+{
+    // TODO: count this call plus both smaller call trees where needed.
+    (void) n;
+    return 0; // Placeholder.
+}
+
+int main(void)
+{
+    printf("value: %i\n", fibonacci(5));
+    printf("calls: %i\n", fibonacci_calls(5));
+    return 0;
+}
+</code></pre>
+</details>
+<details id="starter-hanoi-less" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;">Less comfortable — hanoi.c</summary>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="source-hanoi-less" style="font-family: monospace; overflow-wrap: anywhere;">// WORKED HELPER: adapt main to move 3 disks from C to B, using A.
+// The current main deliberately still runs the old three-disk A-to-C route.
+#include &lt;stdio.h&gt;
+
+// Book Exercise 8.5: move a tower from source to target using spare.
+// Demo preconditions: n from 0 to 4; three distinct peg labels.
+// Initially, all n disks are on source, smallest on top; other pegs are empty.
+void hanoi(int n, char source, char spare, char target)
+{
+    if (n == 0)
+        return;
+
+    hanoi(n - 1, source, target, spare);
+    printf("Move disk %i: %c -&gt; %c\n", n, source, target);
+    hanoi(n - 1, spare, source, target);
+}
+
+int main(void)
+{
+    // TODO: change the arguments to match this route's target.
+    hanoi(3, 'A', 'B', 'C');
+    return 0;
+}
+</code></pre>
+</details>
+<details id="starter-hanoi-more" style="margin: 12px 0; border: 1px solid #d9dedf; padding: 0 14px;">
+<summary style="cursor: pointer; padding: 12px 0; font-weight: bold; overflow-wrap: anywhere;">More comfortable — hanoi.c</summary>
+<pre style="background: #f3f4f4; border-left: 2px solid #bec4c7; padding: 12px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font: 14px/1.4 monospace;"><code id="source-hanoi-more" style="font-family: monospace; overflow-wrap: anywhere;">// WORKED HELPER: adapt main to move 4 disks from C to B, using A.
+// The current main deliberately still runs the old three-disk A-to-C route.
+// Locate the largest-disk move and verify both smaller-tower transfers.
+#include &lt;stdio.h&gt;
+
+// Book Exercise 8.5: move a tower from source to target using spare.
+// Demo preconditions: n from 0 to 4; three distinct peg labels.
+// Initially, all n disks are on source, smallest on top; other pegs are empty.
+void hanoi(int n, char source, char spare, char target)
+{
+    if (n == 0)
+        return;
+
+    hanoi(n - 1, source, target, spare);
+    printf("Move disk %i: %c -&gt; %c\n", n, source, target);
+    hanoi(n - 1, spare, source, target);
+}
+
+int main(void)
+{
+    // TODO: change the arguments to match this route's target.
+    hanoi(3, 'A', 'B', 'C');
+    return 0;
+}
+</code></pre>
+</details>
+</div>
+<div style="font-size: 12px; color: #596167; padding-top: 18px;">
+<p><a href="https://lms.tashkenttech-edu.uz/mod/resource/view.php?id=410">Week 7 slides — Recursion</a></p>
+<p><strong>Sources:</strong> <em>The Art and Craft of Computing</em>, Chapter 8: Example 8.2, call stacks, Fibonacci, Exercise 8.2(a) and Exercise 8.5. CS50x: <a href="https://cs50.harvard.edu/x/shorts/recursion/">Recursion</a>, <a href="https://cs50.harvard.edu/x/shorts/call_stacks/">Call Stacks</a> and <a href="https://cs50.harvard.edu/x/notes/3/#recursion">Lecture 3: Recursion</a> (pyramid), David J. Malan / Harvard University, under <a href="https://cs50.harvard.edu/x/license/">CC BY-NC-SA 4.0</a>. The student line, ordinary-call, countdown, print-order and sum examples are classroom companions; book examples use modern C adaptations.</p>
+</div>
+</div></div>
