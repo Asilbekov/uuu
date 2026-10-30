@@ -727,7 +727,7 @@ module.exports = {
     "C(150) = \\$15, C(200) = \\$20, C(350) = \\$42.5; two linear pieces with kink at (200,20); discontinuous at E=200; slopes are average prices: \\$0.10/kWh then \\$0.15/kWh; limitation: model doesn't account for taxes",
     "C(150) = \\$15, C(200) = \\$20, C(350) = \\$42.5; two linear pieces with kink at (200,20); continuous at E=200; slopes are fixed costs: \\$0.10/kWh then \\$0.15/kWh; limitation: model doesn't include discounts"
    ],
-   "e": "$C(150) = 0.10 \\times 150 = \\$15$, $C(200) = 0.10 \\times 200 = \\$20$, $C(350) = 20 + 0.15 \\times 150 = \\$42.5$. The graph has two linear pieces with a kink at $(200,20)$. Both formulas give \\$20 at $E=200$, so it's continuous. The slopes represent marginal prices. A limitation is the price jump creates an incentive to stop just below $200$ kWh.",
+   "e": "$C(150) = 0.10 \\times 150 =$ \\$15$, $C(200) = 0.10 \\times 200 =$ \\$20$, $C(350) = 20 + 0.15 \\times 150 =$ \\$42.5$. The graph has two linear pieces with a kink at $(200,20)$. Both formulas give \\$20 at $E=200$, so it's continuous. The slopes represent marginal prices. A limitation is the price jump creates an incentive to stop just below $200$ kWh.",
    "ru": {
     "t": "Поставщик электроэнергии берёт $C(E) = 0.10E$ при $0 ≤ E ≤ 200$ и $C(E) = 20 + 0.15(E - 200)$ при $E > 200$, в кВт·ч. (1) Найдите $C(150)$, $C(200)$, $C(350)$; (2) постройте эскиз графика; (3) непрерывна ли модель при $E = 200$? (4) смысл каждого углового коэффициента; (5) одно ограничение.",
     "o": [
@@ -736,7 +736,7 @@ module.exports = {
      "C(150) = \\$15, C(200) = \\$20, C(350) = \\$42.5; two linear pieces with kink at (200,20); discontinuous at E=200; slopes are average prices: \\$0.10/kWh then \\$0.15/kWh; ограничение: модель не учитывает налоги",
      "C(150) = \\$15, C(200) = \\$20, C(350) = \\$42.5; two linear pieces with kink at (200,20); continuous at E=200; slopes are fixed costs: \\$0.10/kWh then \\$0.15/kWh; ограничение: модель не учитывает скидки"
     ],
-    "e": "$C(150) = 0.10 \\times 150 = \\$15$, $C(200) = 0.10 \\times 200 = \\$20$, $C(350) = 20 + 0.15 \\times 150 = \\$42.5$. The graph has two linear pieces with a kink at $(200,20)$. Both formulas give \\$20 at $E=200$, so it's continuous. The slopes represent marginal prices. A limitation is the price jump creates an incentive to stop just below $200$ kWh."
+    "e": "$C(150) = 0.10 \\times 150 =$ \\$15$, $C(200) = 0.10 \\times 200 =$ \\$20$, $C(350) = 20 + 0.15 \\times 150 =$ \\$42.5$. The graph has two linear pieces with a kink at $(200,20)$. Both formulas give \\$20 at $E=200$, so it's continuous. The slopes represent marginal prices. A limitation is the price jump creates an incentive to stop just below $200$ kWh."
    },
    "uz": {
     "t": "Elektr taʼminoti provayderi $0 ≤ E ≤ 200$ uchun $C(E) = 0.10E$, $E > 200$ uchun esa $C(E) = 20 + 0.15(E - 200)$ tarifini qoʻllaydi (kVt·s hisobida). (1) $C(150)$, $C(200)$, $C(350)$ ni toping; (2) grafik skichasini chizing; (3) model $E = 200$ nuqtada uzluksizmi? (4) har bir qiyalikning maʼnosi; (5) bitta cheklov.",
@@ -746,7 +746,7 @@ module.exports = {
      "C(150) = \\$15, C(200) = \\$20, C(350) = \\$42.5; two linear pieces with kink at (200,20); discontinuous at E=200; slopes are average prices: \\$0.10/kWh then \\$0.15/kWh; cheklov: model soliqlarni hisobga olmaydi",
      "C(150) = \\$15, C(200) = \\$20, C(350) = \\$42.5; two linear pieces with kink at (200,20); continuous at E=200; slopes are fixed costs: \\$0.10/kWh then \\$0.15/kWh; cheklov: model chegirmalarni oʻz ichiga olmaydi"
     ],
-    "e": "$C(150) = 0.10 \\times 150 = \\$15$, $C(200) = 0.10 \\times 200 = \\$20$, $C(350) = 20 + 0.15 \\times 150 = \\$42.5$. The graph has two linear pieces with a kink at $(200,20)$. Both formulas give \\$20 at $E=200$, so it's continuous. The slopes represent marginal prices. A limitation is the price jump creates an incentive to stop just below $200$ kWh."
+    "e": "$C(150) = 0.10 \\times 150 =$ \\$15$, $C(200) = 0.10 \\times 200 =$ \\$20$, $C(350) = 20 + 0.15 \\times 150 =$ \\$42.5$. The graph has two linear pieces with a kink at $(200,20)$. Both formulas give \\$20 at $E=200$, so it's continuous. The slopes represent marginal prices. A limitation is the price jump creates an incentive to stop just below $200$ kWh."
    }
   },
   {

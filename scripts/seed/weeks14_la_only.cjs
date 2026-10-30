@@ -1014,7 +1014,7 @@ module.exports = {
    }
   },
   {
-   "t": "For A = $\\begin{pmatrix}1 & 2 & -2 \\ 0 & 3 & 4\\end{pmatrix}$, state its size, find a13, a22, and write columns a1 and a3.",
+   "t": "For A = $\\begin{pmatrix}1 & 2 & -2 \\\\ 0 & 3 & 4\\end{pmatrix}$, state its size, find a13, a22, and write columns a1 and a3.",
    "o": [
     "$2\\times 3$, a13=-2, a22=3, $a_{1}=[1,0]$, $a_{3}=[-2,4]$",
     "$2\\times 3$, a13=2, a22=3, $a_{1}=[1,0]$, $a_{3}=[2,4]$",
@@ -1023,7 +1023,7 @@ module.exports = {
    ],
    "e": "Matrix A has 2 rows and 3 columns. a13 is the element in row 1, column 3 ($-2$), and a22 is the element in row 2, column 2 ($3$). Column a1 is [1, 0] and a3 is [-2, 4].",
    "ru": {
-    "t": "Для A = $\\begin{pmatrix}1 & 2 & -2 \\ 0 & 3 & 4\\end{pmatrix}$ укажите её размер, найдите a13, a22 и запишите столбцы a1 и a3.",
+    "t": "Для A = $\\begin{pmatrix}1 & 2 & -2 \\\\ 0 & 3 & 4\\end{pmatrix}$ укажите её размер, найдите a13, a22 и запишите столбцы a1 и a3.",
     "o": [
      "$2\\times 3$, a13=-2, a22=3, $a_{1}=[1,0]$, $a_{3}=[-2,4]$",
      "$2\\times 3$, a13=2, a22=3, $a_{1}=[1,0]$, $a_{3}=[2,4]$",
@@ -1033,7 +1033,7 @@ module.exports = {
     "e": "Матрица A имеет 2 строки и 3 столбца. a13 — элемент в строке 1, столбце 3 ($-2$), а a22 — элемент в строке 2, столбце 2 ($3$). Столбец a1 — [1, 0], а a3 — [-2, 4]."
    },
    "uz": {
-    "t": "A = $\\begin{pmatrix}1 & 2 & -2 \\ 0 & 3 & 4\\end{pmatrix}$ matritsasi uchun oʻlchamini koʻrsating, a13, a22 ni toping va a1, a3 ustunlarini yozing.",
+    "t": "A = $\\begin{pmatrix}1 & 2 & -2 \\\\ 0 & 3 & 4\\end{pmatrix}$ matritsasi uchun oʻlchamini koʻrsating, a13, a22 ni toping va a1, a3 ustunlarini yozing.",
     "o": [
      "$2\\times 3$, a13=-2, a22=3, $a_{1}=[1,0]$, $a_{3}=[-2,4]$",
      "$2\\times 3$, a13=2, a22=3, $a_{1}=[1,0]$, $a_{3}=[2,4]$",
@@ -1134,33 +1134,33 @@ module.exports = {
    }
   },
   {
-   "t": "Let $A = \\begin{pmatrix}1 & 2 \\ -1 & 3 \\ 4 & 0\\end{pmatrix}$, $x = \\begin{pmatrix}0 \\ -1\\end{pmatrix}^T$. Compute $Ax$ by the column picture and by row dot products.",
+   "t": "Let $A = \\begin{pmatrix}1 & 2 \\\\ -1 & 3 \\\\ 4 & 0\\end{pmatrix}$, $x = \\begin{pmatrix}0 \\\\ -1\\end{pmatrix}^T$. Compute $Ax$ by the column picture and by row dot products.",
    "o": [
-    "$Ax = \\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$ by columns, $\\begin{pmatrix}0 \\ -5 \\ 8\\end{pmatrix}^T$ by rows",
-    "$Ax = \\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$ by columns, $\\begin{pmatrix}0 \\ -5 \\ 0\\end{pmatrix}^T$ by rows",
-    "$Ax = \\begin{pmatrix}2 \\ 3 \\ 0\\end{pmatrix}^T$ by columns, $\\begin{pmatrix}0 \\ -5 \\ 0\\end{pmatrix}^T$ by rows",
-    "$Ax = \\begin{pmatrix}2 \\ 3 \\ 0\\end{pmatrix}^T$ by columns, $\\begin{pmatrix}0 \\ -5 \\ 8\\end{pmatrix}^T$ by rows"
+    "$Ax = \\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$ by columns, $\\begin{pmatrix}0 \\\\ -5 \\\\ 8\\end{pmatrix}^T$ by rows",
+    "$Ax = \\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$ by columns, $\\begin{pmatrix}0 \\\\ -5 \\\\ 0\\end{pmatrix}^T$ by rows",
+    "$Ax = \\begin{pmatrix}2 \\\\ 3 \\\\ 0\\end{pmatrix}^T$ by columns, $\\begin{pmatrix}0 \\\\ -5 \\\\ 0\\end{pmatrix}^T$ by rows",
+    "$Ax = \\begin{pmatrix}2 \\\\ 3 \\\\ 0\\end{pmatrix}^T$ by columns, $\\begin{pmatrix}0 \\\\ -5 \\\\ 8\\end{pmatrix}^T$ by rows"
    ],
-   "e": "Column picture: $0\\cdot\\begin{pmatrix}1 \\ -1 \\ 4\\end{pmatrix}^T + (-1)\\cdot\\begin{pmatrix}2 \\ 3 \\ 0\\end{pmatrix}^T = \\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$. Row dot products: $[1, 2]\\cdot[0, -1] = -2$, $[-1, 3]\\cdot[0, -1] = -3$, $[4, 0]\\cdot[0, -1] = 0$. The correct result is $\\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$.",
+   "e": "Column picture: $0\\cdot\\begin{pmatrix}1 \\\\ -1 \\\\ 4\\end{pmatrix}^T + (-1)\\cdot\\begin{pmatrix}2 \\\\ 3 \\\\ 0\\end{pmatrix}^T = \\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$. Row dot products: $[1, 2]\\cdot[0, -1] = -2$, $[-1, 3]\\cdot[0, -1] = -3$, $[4, 0]\\cdot[0, -1] = 0$. The correct result is $\\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$.",
    "ru": {
-    "t": "Пусть $A = \\begin{pmatrix}1 & 2 \\ -1 & 3 \\ 4 & 0\\end{pmatrix}$, $x = \\begin{pmatrix}0 \\ -1\\end{pmatrix}^T$. Вычислите $Ax$ через столбцовое представление и через скалярные произведения строк.",
+    "t": "Пусть $A = \\begin{pmatrix}1 & 2 \\\\ -1 & 3 \\\\ 4 & 0\\end{pmatrix}$, $x = \\begin{pmatrix}0 \\\\ -1\\end{pmatrix}^T$. Вычислите $Ax$ через столбцовое представление и через скалярные произведения строк.",
     "o": [
-     "$Ax = \\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$ по столбцам, $\\begin{pmatrix}0 \\ -5 \\ 8\\end{pmatrix}^T$ по строкам",
-     "$Ax = \\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$ по столбцам, $\\begin{pmatrix}0 \\ -5 \\ 0\\end{pmatrix}^T$ по строкам",
-     "$Ax = \\begin{pmatrix}2 \\ 3 \\ 0\\end{pmatrix}^T$ по столбцам, $\\begin{pmatrix}0 \\ -5 \\ 0\\end{pmatrix}^T$ по строкам",
-     "$Ax = \\begin{pmatrix}2 \\ 3 \\ 0\\end{pmatrix}^T$ по столбцам, $\\begin{pmatrix}0 \\ -5 \\ 8\\end{pmatrix}^T$ по строкам"
+     "$Ax = \\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$ по столбцам, $\\begin{pmatrix}0 \\\\ -5 \\\\ 8\\end{pmatrix}^T$ по строкам",
+     "$Ax = \\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$ по столбцам, $\\begin{pmatrix}0 \\\\ -5 \\\\ 0\\end{pmatrix}^T$ по строкам",
+     "$Ax = \\begin{pmatrix}2 \\\\ 3 \\\\ 0\\end{pmatrix}^T$ по столбцам, $\\begin{pmatrix}0 \\\\ -5 \\\\ 0\\end{pmatrix}^T$ по строкам",
+     "$Ax = \\begin{pmatrix}2 \\\\ 3 \\\\ 0\\end{pmatrix}^T$ по столбцам, $\\begin{pmatrix}0 \\\\ -5 \\\\ 8\\end{pmatrix}^T$ по строкам"
     ],
-    "e": "Столбцовое представление: $0\\cdot\\begin{pmatrix}1 \\ -1 \\ 4\\end{pmatrix}^T + (-1)\\cdot\\begin{pmatrix}2 \\ 3 \\ 0\\end{pmatrix}^T = \\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$. Скалярные произведения строк: $[1, 2]\\cdot[0, -1] = -2$, $[-1, 3]\\cdot[0, -1] = -3$, $[4, 0]\\cdot[0, -1] = 0$. Правильный результат — $\\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$."
+    "e": "Столбцовое представление: $0\\cdot\\begin{pmatrix}1 \\\\ -1 \\\\ 4\\end{pmatrix}^T + (-1)\\cdot\\begin{pmatrix}2 \\\\ 3 \\\\ 0\\end{pmatrix}^T = \\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$. Скалярные произведения строк: $[1, 2]\\cdot[0, -1] = -2$, $[-1, 3]\\cdot[0, -1] = -3$, $[4, 0]\\cdot[0, -1] = 0$. Правильный результат — $\\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$."
    },
    "uz": {
-    "t": "$A = \\begin{pmatrix}1 & 2 \\ -1 & 3 \\ 4 & 0\\end{pmatrix}$, $x = \\begin{pmatrix}0 \\ -1\\end{pmatrix}^T$ boʻlsin. $Ax$ ni ustunlar tasviri orqali va qatorlar skalyar koʻpaytmalari orqali hisoblang.",
+    "t": "$A = \\begin{pmatrix}1 & 2 \\\\ -1 & 3 \\\\ 4 & 0\\end{pmatrix}$, $x = \\begin{pmatrix}0 \\\\ -1\\end{pmatrix}^T$ boʻlsin. $Ax$ ni ustunlar tasviri orqali va qatorlar skalyar koʻpaytmalari orqali hisoblang.",
     "o": [
-     "$Ax = \\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$ ustunlar boʻyicha, $\\begin{pmatrix}0 \\ -5 \\ 8\\end{pmatrix}^T$ qatorlar boʻyicha",
-     "$Ax = \\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$ ustunlar boʻyicha, $\\begin{pmatrix}0 \\ -5 \\ 0\\end{pmatrix}^T$ qatorlar boʻyicha",
-     "$Ax = \\begin{pmatrix}2 \\ 3 \\ 0\\end{pmatrix}^T$ ustunlar boʻyicha, $\\begin{pmatrix}0 \\ -5 \\ 0\\end{pmatrix}^T$ qatorlar boʻyicha",
-     "$Ax = \\begin{pmatrix}2 \\ 3 \\ 0\\end{pmatrix}^T$ ustunlar boʻyicha, $\\begin{pmatrix}0 \\ -5 \\ 8\\end{pmatrix}^T$ qatorlar boʻyicha"
+     "$Ax = \\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$ ustunlar boʻyicha, $\\begin{pmatrix}0 \\\\ -5 \\\\ 8\\end{pmatrix}^T$ qatorlar boʻyicha",
+     "$Ax = \\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$ ustunlar boʻyicha, $\\begin{pmatrix}0 \\\\ -5 \\\\ 0\\end{pmatrix}^T$ qatorlar boʻyicha",
+     "$Ax = \\begin{pmatrix}2 \\\\ 3 \\\\ 0\\end{pmatrix}^T$ ustunlar boʻyicha, $\\begin{pmatrix}0 \\\\ -5 \\\\ 0\\end{pmatrix}^T$ qatorlar boʻyicha",
+     "$Ax = \\begin{pmatrix}2 \\\\ 3 \\\\ 0\\end{pmatrix}^T$ ustunlar boʻyicha, $\\begin{pmatrix}0 \\\\ -5 \\\\ 8\\end{pmatrix}^T$ qatorlar boʻyicha"
     ],
-    "e": "Ustunlar tasviri: $0\\cdot\\begin{pmatrix}1 \\ -1 \\ 4\\end{pmatrix}^T + (-1)\\cdot\\begin{pmatrix}2 \\ 3 \\ 0\\end{pmatrix}^T = \\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$. Qatorlar skalyar koʻpaytmalari: $[1, 2]\\cdot[0, -1] = -2$, $[-1, 3]\\cdot[0, -1] = -3$, $[4, 0]\\cdot[0, -1] = 0$. Toʻgʻri natija — $\\begin{pmatrix}-2 \\ -3 \\ 0\\end{pmatrix}^T$."
+    "e": "Ustunlar tasviri: $0\\cdot\\begin{pmatrix}1 \\\\ -1 \\\\ 4\\end{pmatrix}^T + (-1)\\cdot\\begin{pmatrix}2 \\\\ 3 \\\\ 0\\end{pmatrix}^T = \\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$. Qatorlar skalyar koʻpaytmalari: $[1, 2]\\cdot[0, -1] = -2$, $[-1, 3]\\cdot[0, -1] = -3$, $[4, 0]\\cdot[0, -1] = 0$. Toʻgʻri natija — $\\begin{pmatrix}-2 \\\\ -3 \\\\ 0\\end{pmatrix}^T$."
    }
   },
   {
@@ -1704,7 +1704,7 @@ module.exports = {
    }
   },
   {
-   "t": "Let $A = \\begin{pmatrix}1 & -2 \\ 4 & 0 \\ -1 & 0\\end{pmatrix}$, $x = (2, -1, 3)^{T}$. Compute $Ax$ (a) as a combination of columns, (b) by row dot products.",
+   "t": "Let $A = \\begin{pmatrix}1 & -2 \\\\ 4 & 0 \\\\ -1 & 0\\end{pmatrix}$, $x = (2, -1, 3)^{T}$. Compute $Ax$ (a) as a combination of columns, (b) by row dot products.",
    "o": [
     "(a) $2*(1,4) + (-1)*(-2,0) + 3*(-1,-1) = (5,1)$, (b) $(1*2 + (-2)*(-1) + 3*(-1), 4*2 + 0*(-1) + (-1)*3) = (13,5)$",
     "(a) $2*(1,4) + (-1)*(-2,0) + 3*(-1,-1) = (1,5)$, (b) $(1*2 + (-2)*(-1) + 3*(-1), 4*2 + 0*(-1) + (-1)*3) = (5,13)$",
@@ -1713,7 +1713,7 @@ module.exports = {
    ],
    "e": "The combination of columns gives $(2*1 + (-1)*(-2) + 3*(-1), 2*4 + (-1)*0 + 3*(-1)) = (1,5)$. Row dot products give $(1*2 + (-2)*(-1) + 3*(-1), 4*2 + 0*(-1) + (-1)*3) = (13,5)$.",
    "ru": {
-    "t": "Пусть $A = \\begin{pmatrix}1 & -2 \\ 4 & 0 \\ -1 & 0\\end{pmatrix}$, $x = (2, -1, 3)^{T}$. Вычислите $Ax$ (a) как комбинацию столбцов, (b) через скалярные произведения строк.",
+    "t": "Пусть $A = \\begin{pmatrix}1 & -2 \\\\ 4 & 0 \\\\ -1 & 0\\end{pmatrix}$, $x = (2, -1, 3)^{T}$. Вычислите $Ax$ (a) как комбинацию столбцов, (b) через скалярные произведения строк.",
     "o": [
      "(a) $2*(1,4) + (-1)*(-2,0) + 3*(-1,-1) = (5,1)$, (b) $(1*2 + (-2)*(-1) + 3*(-1), 4*2 + 0*(-1) + (-1)*3) = (13,5)$",
      "(a) $2*(1,4) + (-1)*(-2,0) + 3*(-1,-1) = (1,5)$, (b) $(1*2 + (-2)*(-1) + 3*(-1), 4*2 + 0*(-1) + (-1)*3) = (5,13)$",
@@ -1723,7 +1723,7 @@ module.exports = {
     "e": "Комбинация столбцов даёт $(2*1 + (-1)*(-2) + 3*(-1), 2*4 + (-1)*0 + 3*(-1)) = (1,5)$. Скалярные произведения строк дают $(1*2 + (-2)*(-1) + 3*(-1), 4*2 + 0*(-1) + (-1)*3) = (13,5)$."
    },
    "uz": {
-    "t": "Berilgan $A = \\begin{pmatrix}1 & -2 \\ 4 & 0 \\ -1 & 0\\end{pmatrix}$, $x = (2, -1, 3)^{T}$. $Ax$ ni hisoblang: (a) ustunlar kombinatsiyasi sifatida, (b) qatorlar skalyar koʻpaytmalari orqali.",
+    "t": "Berilgan $A = \\begin{pmatrix}1 & -2 \\\\ 4 & 0 \\\\ -1 & 0\\end{pmatrix}$, $x = (2, -1, 3)^{T}$. $Ax$ ni hisoblang: (a) ustunlar kombinatsiyasi sifatida, (b) qatorlar skalyar koʻpaytmalari orqali.",
     "o": [
      "(a) $2*(1,4) + (-1)*(-2,0) + 3*(-1,-1) = (5,1)$, (b) $(1*2 + (-2)*(-1) + 3*(-1), 4*2 + 0*(-1) + (-1)*3) = (13,5)$",
      "(a) $2*(1,4) + (-1)*(-2,0) + 3*(-1,-1) = (1,5)$, (b) $(1*2 + (-2)*(-1) + 3*(-1), 4*2 + 0*(-1) + (-1)*3) = (5,13)$",
@@ -1794,7 +1794,7 @@ module.exports = {
    }
   },
   {
-   "t": "A is $3\\times2$ with $A = \\begin{pmatrix}2 & 3 \\ -1 & 2 \\ 4 & 0\\end{pmatrix}$. Compute $A\\begin{bmatrix}-2 \\ 5\\end{bmatrix}$ without row dot products.",
+   "t": "A is $3\\times2$ with $A = \\begin{pmatrix}2 & 3 \\\\ -1 & 2 \\\\ 4 & 0\\end{pmatrix}$. Compute $A\\begin{bmatrix}-2 \\ 5\\end{bmatrix}$ without row dot products.",
    "o": [
     "$-2 \\cdot (2,-1,4) + 5 \\cdot (3,2,0) = (-4+15, 2+10, -8+0) = (11,12,-8)$",
     "$-2 \\cdot (2,-1,4) + 5 \\cdot (3,2,0) = (4-15, -2-10, 8-0) = (-11,-12,8)$",
@@ -1803,7 +1803,7 @@ module.exports = {
    ],
    "e": "Using linearity, $A\\begin{bmatrix}-2 \\ 5\\end{bmatrix} = -2Ae_1 + 5Ae_2 = -2*(2,-1,4) + 5*(3,2,0) = (-4+15, 2+10, -8+0) = (11,12,-8)$.",
    "ru": {
-    "t": "Матрица A имеет размер $3\\times2$, $A = \\begin{pmatrix}2 & 3 \\ -1 & 2 \\ 4 & 0\\end{pmatrix}$. Вычислите $A\\begin{bmatrix}-2 \\ 5\\end{bmatrix}$ без скалярных произведений строк.",
+    "t": "Матрица A имеет размер $3\\times2$, $A = \\begin{pmatrix}2 & 3 \\\\ -1 & 2 \\\\ 4 & 0\\end{pmatrix}$. Вычислите $A\\begin{bmatrix}-2 \\ 5\\end{bmatrix}$ без скалярных произведений строк.",
     "o": [
      "$-2 \\cdot (2,-1,4) + 5 \\cdot (3,2,0) = (-4+15, 2+10, -8+0) = (11,12,-8)$",
      "$-2 \\cdot (2,-1,4) + 5 \\cdot (3,2,0) = (4-15, -2-10, 8-0) = (-11,-12,8)$",
@@ -1813,7 +1813,7 @@ module.exports = {
     "e": "Используя линейность, $A\\begin{bmatrix}-2 \\ 5\\end{bmatrix} = -2Ae_1 + 5Ae_2 = -2*(2,-1,4) + 5*(3,2,0) = (-4+15, 2+10, -8+0) = (11,12,-8)$."
    },
    "uz": {
-    "t": "A matritsa $3\\times2$ oʻlchamga ega: $A = \\begin{pmatrix}2 & 3 \\ -1 & 2 \\ 4 & 0\\end{pmatrix}$. $A\\begin{bmatrix}-2 \\ 5\\end{bmatrix}$ ni qatorlar skalyar koʻpaytmalarisiz hisoblang.",
+    "t": "A matritsa $3\\times2$ oʻlchamga ega: $A = \\begin{pmatrix}2 & 3 \\\\ -1 & 2 \\\\ 4 & 0\\end{pmatrix}$. $A\\begin{bmatrix}-2 \\ 5\\end{bmatrix}$ ni qatorlar skalyar koʻpaytmalarisiz hisoblang.",
     "o": [
      "$-2 \\cdot (2,-1,4) + 5 \\cdot (3,2,0) = (-4+15, 2+10, -8+0) = (11,12,-8)$",
      "$-2 \\cdot (2,-1,4) + 5 \\cdot (3,2,0) = (4-15, -2-10, 8-0) = (-11,-12,8)$",
@@ -2124,33 +2124,33 @@ module.exports = {
    }
   },
   {
-   "t": "For matrix $M = \\begin{pmatrix}1 & 0 & -2 \\ 4 & 3 & 5\\end{pmatrix}$, determine its size, element $m_{21}$, and all columns.",
+   "t": "For matrix $M = \\begin{pmatrix}1 & 0 & -2 \\\\ 4 & 3 & 5\\end{pmatrix}$, determine its size, element $m_{21}$, and all columns.",
    "o": [
     "$2\\times 3$, 4, [1; 4], [0; 3], [-2; 5]",
     "$2\\times 3$, 3, [1, 4], [0, 3], [-2, 5]",
     "$3\\times 2$, 3, [1, 0, -2], [4, 3, 5]",
     "$3\\times 2$, 4, [1; 4], [0; 3], [-2; 5]"
    ],
-   "e": "The matrix has 2 rows and 3 columns ($2\\times 3$). The element $m_{21}$ is in row 2, column 1, which is 4. The columns are $\\begin{pmatrix}1 \\ 4\\end{pmatrix}$, $\\begin{pmatrix}0 \\ 3\\end{pmatrix}$, and $\\begin{pmatrix}-2 \\ 5\\end{pmatrix}$.",
+   "e": "The matrix has 2 rows and 3 columns ($2\\times 3$). The element $m_{21}$ is in row 2, column 1, which is 4. The columns are $\\begin{pmatrix}1 \\\\ 4\\end{pmatrix}$, $\\begin{pmatrix}0 \\\\ 3\\end{pmatrix}$, and $\\begin{pmatrix}-2 \\\\ 5\\end{pmatrix}$.",
    "ru": {
-    "t": "Для матрицы $M = \\begin{pmatrix}1 & 0 & -2 \\ 4 & 3 & 5\\end{pmatrix}$ определите её размер, элемент $m_{21}$ и все столбцы.",
+    "t": "Для матрицы $M = \\begin{pmatrix}1 & 0 & -2 \\\\ 4 & 3 & 5\\end{pmatrix}$ определите её размер, элемент $m_{21}$ и все столбцы.",
     "o": [
      "$2\\times 3$, 4, [1; 4], [0; 3], [-2; 5]",
      "$2\\times 3$, 3, [1, 4], [0, 3], [-2, 5]",
      "$3\\times 2$, 3, [1, 0, -2], [4, 3, 5]",
      "$3\\times 2$, 4, [1; 4], [0; 3], [-2; 5]"
     ],
-    "e": "Матрица имеет 2 строки и 3 столбца ($2\\times 3$). Элемент $m_{21}$ находится в строке 2, столбце 1, он равен 4. Столбцы: $\\begin{pmatrix}1 \\ 4\\end{pmatrix}$, $\\begin{pmatrix}0 \\ 3\\end{pmatrix}$ и $\\begin{pmatrix}-2 \\ 5\\end{pmatrix}$."
+    "e": "Матрица имеет 2 строки и 3 столбца ($2\\times 3$). Элемент $m_{21}$ находится в строке 2, столбце 1, он равен 4. Столбцы: $\\begin{pmatrix}1 \\\\ 4\\end{pmatrix}$, $\\begin{pmatrix}0 \\\\ 3\\end{pmatrix}$ и $\\begin{pmatrix}-2 \\\\ 5\\end{pmatrix}$."
    },
    "uz": {
-    "t": "$M = \\begin{pmatrix}1 & 0 & -2 \\ 4 & 3 & 5\\end{pmatrix}$ matritsa uchun uning oʻlchamini, $m_{21}$ elementini va barcha ustunlarini aniqlang.",
+    "t": "$M = \\begin{pmatrix}1 & 0 & -2 \\\\ 4 & 3 & 5\\end{pmatrix}$ matritsa uchun uning oʻlchamini, $m_{21}$ elementini va barcha ustunlarini aniqlang.",
     "o": [
      "$2\\times 3$, 4, [1; 4], [0; 3], [-2; 5]",
      "$2\\times 3$, 3, [1, 4], [0, 3], [-2, 5]",
      "$3\\times 2$, 3, [1, 0, -2], [4, 3, 5]",
      "$3\\times 2$, 4, [1; 4], [0; 3], [-2; 5]"
     ],
-    "e": "Matritsada 2 qator va 3 ustun bor ($2\\times 3$). $m_{21}$ elementi 2-qator, 1-ustunda joylashgan, u 4 ga teng. Ustunlar: $\\begin{pmatrix}1 \\ 4\\end{pmatrix}$, $\\begin{pmatrix}0 \\ 3\\end{pmatrix}$ va $\\begin{pmatrix}-2 \\ 5\\end{pmatrix}$."
+    "e": "Matritsada 2 qator va 3 ustun bor ($2\\times 3$). $m_{21}$ elementi 2-qator, 1-ustunda joylashgan, u 4 ga teng. Ustunlar: $\\begin{pmatrix}1 \\\\ 4\\end{pmatrix}$, $\\begin{pmatrix}0 \\\\ 3\\end{pmatrix}$ va $\\begin{pmatrix}-2 \\\\ 5\\end{pmatrix}$."
    }
   },
   {
@@ -2184,7 +2184,7 @@ module.exports = {
    }
   },
   {
-   "t": "Let A = $\\begin{pmatrix}1 & 2 \\ -1 & 3 \\ 4 & 0 \\ \\end{pmatrix}$ and x = $(2, -1)^{T}$. Compute Ax as a linear combination of the columns of A.",
+   "t": "Let A = $\\begin{pmatrix}1 & 2 \\\\ -1 & 3 \\\\ 4 & 0 \\end{pmatrix}$ and x = $(2, -1)^{T}$. Compute Ax as a linear combination of the columns of A.",
    "o": [
     "$Ax = 2\\cdot (1, -1, 4) - 1\\cdot (2, 3, 0) = (0, -5, 8)$",
     "$Ax = 2\\cdot (1, -1, 4) - 1\\cdot (2, 3, 0) = (0, 5, 8)$",
@@ -2193,7 +2193,7 @@ module.exports = {
    ],
    "e": "Column picture: Ax = 2·col1 - 1·col2 = 2·(1, -1, 4) - (2, 3, 0) = (0, -5, 8). Row check: ($1\\cdot 2 + 2\\cdot (-1)$, $-1\\cdot 2 + 3\\cdot (-1)$, $4\\cdot 2 + 0\\cdot (-1)$) = (0, -5, 8).",
    "ru": {
-    "t": "Пусть A = $\\begin{pmatrix}1 & 2 \\ -1 & 3 \\ 4 & 0 \\ \\end{pmatrix}$ и x = $(2, -1)^{T}$. Вычислите Ax как линейную комбинацию столбцов матрицы A.",
+    "t": "Пусть A = $\\begin{pmatrix}1 & 2 \\\\ -1 & 3 \\\\ 4 & 0 \\end{pmatrix}$ и x = $(2, -1)^{T}$. Вычислите Ax как линейную комбинацию столбцов матрицы A.",
     "o": [
      "$Ax = 2\\cdot (1, -1, 4) - 1\\cdot (2, 3, 0) = (0, -5, 8)$",
      "$Ax = 2\\cdot (1, -1, 4) - 1\\cdot (2, 3, 0) = (0, 5, 8)$",
@@ -2203,7 +2203,7 @@ module.exports = {
     "e": "Столбцовое представление: Ax = 2·col1 - 1·col2 = 2·(1, -1, 4) - (2, 3, 0) = (0, -5, 8). Проверка по строкам: ($1\\cdot 2 + 2\\cdot (-1)$, $-1\\cdot 2 + 3\\cdot (-1)$, $4\\cdot 2 + 0\\cdot (-1)$) = (0, -5, 8)."
    },
    "uz": {
-    "t": "Berilgan A = $\\begin{pmatrix}1 & 2 \\ -1 & 3 \\ 4 & 0 \\ \\end{pmatrix}$ va x = $(2, -1)^{T}$. Ax ni A ustunlarining chiziqli kombiniatsiyasi sifatida hisoblang.",
+    "t": "Berilgan A = $\\begin{pmatrix}1 & 2 \\\\ -1 & 3 \\\\ 4 & 0 \\end{pmatrix}$ va x = $(2, -1)^{T}$. Ax ni A ustunlarining chiziqli kombiniatsiyasi sifatida hisoblang.",
     "o": [
      "$Ax = 2\\cdot (1, -1, 4) - 1\\cdot (2, 3, 0) = (0, -5, 8)$",
      "$Ax = 2\\cdot (1, -1, 4) - 1\\cdot (2, 3, 0) = (0, 5, 8)$",
