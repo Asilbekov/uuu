@@ -340,7 +340,6 @@ export default function DashboardView({
   const shareBusy = useDashboardStore(s => s.shareBusy);
   // editor store
   const editMode = useEditorStore(s => s.editMode);
-  const setEditMode = useEditorStore(s => s.setEditMode);
   const questions = useEditorStore(s => s.questions);
   // take store
   const selectedQuestionCount = useTakeStore(s => s.selectedQuestionCount);
@@ -981,13 +980,6 @@ export default function DashboardView({
               )}
               <Button onClick={startCreateTest} className="rounded-full bg-primary hover:bg-primary/90 shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 lg:h-10 lg:text-sm">
                 <Plus className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('createTest')}</span>
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => setEditMode(v => !v)}
-                className={`rounded-full shrink-0 h-8 w-8 p-0 sm:h-9 sm:w-auto sm:px-4 lg:h-10 lg:text-sm ${editMode ? 'bg-cta hover:bg-cta/90 text-white border-cta' : 'border-black'}`}
-              >
-                <Edit className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">{t('editTest')}</span>
               </Button>
             </div>
             <div className="flex items-center gap-1 sm:gap-2 shrink-0 ml-auto">
