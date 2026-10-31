@@ -2997,18 +2997,18 @@ module.exports = {
    "t": "For which value(s) of c is A = $\\begin{pmatrix}1&3\\\\2&c\\end{pmatrix}$ singular? For the remaining values, solve $Ax = b$ by the inverse formula.",
    "o": [
     "c = 6; for c ≠ 6, x = $\\begin{pmatrix}(c-2)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$",
-    "c = 6; for c ≠ 6, x = $\\begin{pmatrix}(c-2)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$",
+    "c = 6; for c ≠ 6, x = $\\begin{pmatrix}(c+2)/(c-6)\\\\2/(c-6)\\end{pmatrix}$",
     "c = 3; for c ≠ 3, x = $\\begin{pmatrix}(4c-20)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$",
-    "c = 3; for c ≠ 3, x = $\\begin{pmatrix}(4c-20)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$"
+    "c = 3; for c ≠ 3, x = $\\begin{pmatrix}(4c-20)/(c-3)\\\\(-2)/(c-3)\\end{pmatrix}$"
    ],
    "e": "A is singular when det(A) = c - 6 = 0, so c = 6. For c ≠ 6, $A^{-1} = \\begin{pmatrix}c/(c-6)&-3/(c-6)\\\\2/(c-6)&1/(c-6)\\end{pmatrix}$, and $x = A^{-1}b$ gives $x = \\begin{pmatrix}(c-2)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$ for $b = \\begin{pmatrix}4\\\\-2\\end{pmatrix}$.",
    "ru": {
     "t": "При каких значениях c матрица A = $\\begin{pmatrix}1&3\\\\2&c\\end{pmatrix}$ вырождена? Для остальных значений решите $Ax = b$ по формуле обратной матрицы.",
     "o": [
      "c = 6; для c ≠ 6, x = $\\begin{pmatrix}(c-2)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$",
-     "c = 6; для c ≠ 6, x = $\\begin{pmatrix}(c-2)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$",
+     "c = 6; для c ≠ 6, x = $\\begin{pmatrix}(c+2)/(c-6)\\\\2/(c-6)\\end{pmatrix}$",
      "c = 3; для c ≠ 3, x = $\\begin{pmatrix}(4c-20)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$",
-     "c = 3; для c ≠ 3, x = $\\begin{pmatrix}(4c-20)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$"
+     "c = 3; для c ≠ 3, x = $\\begin{pmatrix}(4c-20)/(c-3)\\\\(-2)/(c-3)\\end{pmatrix}$"
     ],
     "e": "A вырождена, когда det(A) = c - 6 = 0, то есть c = 6. При c ≠ 6, $A^{-1} = \\begin{pmatrix}c/(c-6)&-3/(c-6)\\\\2/(c-6)&1/(c-6)\\end{pmatrix}$, и $x = A^{-1}b$ даёт $x = \\begin{pmatrix}(c-2)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$ для $b = \\begin{pmatrix}4\\\\-2\\end{pmatrix}$."
    },
@@ -3016,9 +3016,9 @@ module.exports = {
     "t": "Qanday c qiymatlarda A = $\\begin{pmatrix}1&3\\\\2&c\\end{pmatrix}$ matritsa degeneratsiyalangan (singular) boʻladi? Qolgan qiymatlar uchun teskari matritsa formulasi orqali $Ax = b$ ni yeching.",
     "o": [
      "c = 6; c ≠ 6 uchun x = $\\begin{pmatrix}(c-2)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$",
-     "c = 6; c ≠ 6 uchun x = $\\begin{pmatrix}(c-2)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$",
+     "c = 6; c ≠ 6 uchun x = $\\begin{pmatrix}(c+2)/(c-6)\\\\2/(c-6)\\end{pmatrix}$",
      "c = 3; c ≠ 3 uchun x = $\\begin{pmatrix}(4c-20)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$",
-     "c = 3; c ≠ 3 uchun x = $\\begin{pmatrix}(4c-20)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$"
+     "c = 3; c ≠ 3 uchun x = $\\begin{pmatrix}(4c-20)/(c-3)\\\\(-2)/(c-3)\\end{pmatrix}$"
     ],
     "e": "det(A) = c - 6 = 0 boʻlganda, yaʼni c = 6 da A degeneratsiyalangan. c ≠ 6 boʻlganda $A^{-1} = \\begin{pmatrix}c/(c-6)&-3/(c-6)\\\\2/(c-6)&1/(c-6)\\end{pmatrix}$ boʻladi va $x = A^{-1}b$ dan $b = \\begin{pmatrix}4\\\\-2\\end{pmatrix}$ uchun $x = \\begin{pmatrix}(c-2)/(c-6)\\\\(-2)/(c-6)\\end{pmatrix}$ kelib chiqadi."
    }

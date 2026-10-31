@@ -1774,7 +1774,7 @@ module.exports = {
    "o": [
     "2, 2, 2, 1, 1",
     "2, 1, 1, 2, 2",
-    "2, 2, 2, 1, 1",
+    "2, 2, 2, 1, 2",
     "1, 1, 2, 2, 1"
    ],
    "e": "Left branch $y = x + 1$ approaches 2 as $x\\to 1-$. Right branch $y = 3 - x$ approaches 2 as $x\\to 1+$. Both sides equal 2, so $\\lim(x\\to 1) f(x) = 2$. At $x=2$, only right branch exists: $3-2=1$. $f(1) = 1 ($the filled dot).",
@@ -1783,7 +1783,7 @@ module.exports = {
     "o": [
      "2, 2, 2, 1, 1",
      "2, 1, 1, 2, 2",
-     "2, 2, 2, 1, 1",
+     "2, 2, 2, 1, 2",
      "1, 1, 2, 2, 1"
     ],
     "e": "Левая ветвь $y = x + 1$ приближается к 2 при $x\\to 1-$. Правая ветвь $y = 3 - x$ приближается к 2 при $x\\to 1+$. Обе стороны равны 2, поэтому $\\lim(x\\to 1) f(x) = 2$. В точке $x=2$ существует только правая ветвь: $3-2=1$. $f(1) = 1 ($закрашенная точка)."
@@ -1793,7 +1793,7 @@ module.exports = {
     "o": [
      "2, 2, 2, 1, 1",
      "2, 1, 1, 2, 2",
-     "2, 2, 2, 1, 1",
+     "2, 2, 2, 1, 2",
      "1, 1, 2, 2, 1"
     ],
     "e": "Chap shox $y = x + 1$ boʻlib, $x\\to 1-$ da 2 ga yaqinlashadi. Oʻng shox $y = 3 - x$ boʻlib, $x\\to 1+$ da 2 ga yaqinlashadi. Ikkala tomon ham 2 ga teng, shuning uchun $\\lim(x\\to 1) f(x) = 2$. $x=2$ da faqat oʻng shox mavjud: $3-2=1$. $f(1) = 1 ($toʻldirilgan nuqta)."
