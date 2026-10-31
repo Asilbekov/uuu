@@ -85,7 +85,10 @@ def is_math_token(tok):
     if tok in ('−', '–'): return True
     if tok and (0x370 <= ord(tok[0]) <= 0x3ff or 0x2100 <= ord(tok[0]) <= 0x214f): return True
     if tok in '=+<>≤≥≠←→↔∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×': return True
-    if tok in '()|,/[]': return True
+    if tok in '()|,/[]':
+        if TEXT_BRACKETS and tok in '[]':
+            return False
+        return True
     return False
 
 def map_math_token(tok):
@@ -196,9 +199,18 @@ def math_run_to_tex(run):
     tex = repair_interleaved_frac(tex)
     return tex
 
+# When True (text-oriented guides: Introduction to Engineering / English for
+# Engineering), square brackets are plain text: '[h/day]', '[the system]',
+# '[Source: X]' must never become math or bmatrix.
+TEXT_BRACKETS = False
+
+
 def texify(s):
     """Body text with inline math -> LaTeX string."""
-    s, mats = protect_matrices(s)
+    if TEXT_BRACKETS:
+        mats = []
+    else:
+        s, mats = protect_matrices(s)
     toks = TOKEN.findall(s)
     parts = []
     cur_math = []

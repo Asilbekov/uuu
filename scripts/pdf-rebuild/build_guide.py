@@ -31,6 +31,10 @@ GUIDES = {
     'm14_ru':  {'pdf': 'Math_I_Weeks_1-4_RU.pdf', 'lang': 'ru'},
     'm14_en':  {'pdf': 'Math_I_Weeks_1-4_EN.pdf', 'lang': 'en'},
     'm14_uz':  {'pdf': 'Math_I_Weeks_1-4_UZ.pdf', 'lang': 'uz'},
+    'ie57_en': {'pdf': 'Introduction_to_Engineering_Weeks_5-7_EN.pdf', 'lang': 'en'},
+    'ie57_uz': {'pdf': 'Introduction_to_Engineering_Weeks_5-7_UZ.pdf', 'lang': 'uz'},
+    'ee57_ru': {'pdf': 'English_for_Engineering_I_Weeks_5-7_RU.pdf', 'lang': 'ru'},
+    'ee57_uz': {'pdf': 'English_for_Engineering_I_Weeks_5-7_UZ.pdf', 'lang': 'uz'},
 }
 
 PERM_TABLE_RU = r"""\begin{center}\small
@@ -708,8 +712,9 @@ def render_blocks(blocks, lang, guide_key):
                 out.append('\\medskip\\noindent\\textbf{' + texify(head) + '} ' +
                            ('\\textbf{' + body_tex + '}\\par' if body_tex.strip() else ''))
         elif k == 'p':
-            t = texify(b['t'])
+            t = texify(break_long_tokens_raw(b['t']))
             t = split_inline_runs(t)
+            t = apply_allowbreaks(t)
             if b.get('bold'):
                 t = '\\textbf{' + t + '}'
             out.append(t + '\\par')
@@ -742,26 +747,69 @@ def render_blocks(blocks, lang, guide_key):
             else:
                 out.append(display_formula(texify_formula(t)))
         elif k == 'src':
-            out.append('{\\footnotesize\\itshape ' + texify(b['t']) + '\\par}')
+            out.append('{\\footnotesize\\itshape ' + apply_allowbreaks(texify(break_long_tokens_raw(b['t']))) + '\\par}')
         elif k == 'li':
             out.append('\\begin{itemize}\\setlength{\\itemsep}{1pt}\\item ' +
-                       texify(b['t']) + '\\end{itemize}')
+                       apply_allowbreaks(texify(break_long_tokens_raw(b['t']))) + '\\end{itemize}')
         elif k == 'table':
             out.append(render_table(b['rows']))
         prev_kind = k
     return '\n\n'.join(out)
 
+SENT = '\u0001'
+
+
+def break_long_tokens_raw(text, minlen=14):
+    """Mark natural break points inside unbreakable long runs (camelCase file
+    names like Lecture05ProblemFramingandModellingII.txt, file:///...%20 URLs)
+    with a sentinel character. The sentinel is later replaced by \allowbreak{};
+    when no break happens the rendered text is identical to the original."""
+    out = []
+    for tok in re.split(r'(\s+)', text):
+        if len(tok) >= minlen:
+            t = re.sub(r'(?<=[a-z0-9])(?=[A-Z])', SENT, tok)      # camelCase
+            t = re.sub(r'(?<=/)', SENT, t)                        # path separators
+            t = re.sub(r'(?<=%20)', SENT, t)                      # URL-encoded spaces
+            tok = t
+        out.append(tok)
+    return ''.join(out)
+
+
+def apply_allowbreaks(tex):
+    return tex.replace(SENT, '\\allowbreak{}')
+
+
 def render_table(rows):
     if not rows:
         return ''
     ncols = max(len(r) for r in rows)
-    # all columns share the line width
-    w = 0.95 / ncols
-    spec = ' '.join([f'p{{{w:.2f}\\linewidth}}'] * ncols)
+    # content-proportional column widths (clamped), total 0.93\linewidth;
+    # cells are ragged-right so justification can never overfull a column
+    raw = []
+    for ci in range(ncols):
+        m = 5
+        for r in rows:
+            if ci < len(r) and r[ci]:
+                m = max(m, len(r[ci]))
+        raw.append(m)
+    tot = sum(raw)
+    w = [min(0.42, max(0.08, 0.93 * L / tot)) for L in raw]
+    # a column must at least fit its longest unbreakable token (~5.5pt/char at \small)
+    for ci in range(ncols):
+        longest_tok = 5
+        for r in rows:
+            if ci < len(r) and r[ci]:
+                for tok in r[ci].split():
+                    longest_tok = max(longest_tok, len(tok))
+        min_w = min(0.30, (longest_tok * 5.5 + 10) / 465.0)
+        w[ci] = max(w[ci], min_w)
+    s = sum(w)
+    w = [x * 0.93 / s for x in w]
+    spec = ' '.join(f'>{{\\raggedright\\arraybackslash}}p{{{x:.2f}\\linewidth}}' for x in w)
     lines = ['\\begin{center}\\small', '\\begin{tabular}{@{}' + spec + '@{}}', '\\toprule']
     for i, r in enumerate(rows):
         cells = list(r) + [''] * (ncols - len(r))
-        cells = [texify(c).replace('\n', ' ') or ' ' for c in cells]
+        cells = [apply_allowbreaks(texify(break_long_tokens_raw(c, minlen=18)).replace('\n', ' ')) or ' ' for c in cells]
         lines.append(' & '.join(cells) + ' \\\\')
         if i == 0:
             lines.append('\\midrule')
@@ -772,7 +820,7 @@ def render_table(rows):
 
 PREAMBLE_RU = r"""\documentclass[11pt]{article}
 \usepackage[a4paper, margin=2.3cm, headheight=16pt]{geometry}
-\usepackage{amsmath, amssymb, booktabs}
+\usepackage{amsmath, amssymb, booktabs, array}
 \usepackage{fontspec}
 \usepackage{polyglossia}
 \setmainlanguage{<<LANG>>}
@@ -806,6 +854,10 @@ def build(key):
                        'm14_en': PATCHES_M14_EN,
                        'm14_uz': PATCHES_M14_UZ}.get(key, [])
     cfg = GUIDES[key]
+    import texify as _texify_mod
+    # text-oriented guides: square brackets stay plain text (units '[h/day]',
+    # templates '[the system]', '[Source: X]'), never bmatrix/math
+    _texify_mod.TEXT_BRACKETS = key.startswith(('ie57', 'ee57'))
     with open(f'{WORK}/{key}.json') as f:
         data = json.load(f)
     cover = data['cover']
@@ -816,7 +868,7 @@ def build(key):
     title = cover[1]
     subtitle = cover[2]
     body = cover[3:]
-    uni_idx = next((i for i, t in enumerate(body) if 'университет' in t.lower() or 'university' in t.lower()), None)
+    uni_idx = next((i for i, t in enumerate(body) if any(w in t.lower() for w in ('университет', 'university', 'universitet'))), None)
     desc = ' '.join(body[:uni_idx]) if uni_idx else ' '.join(body)
     uni = body[uni_idx] if uni_idx is not None else ''
     src_start = next((i for i, t in enumerate(body) if t.startswith(('Источники', 'Sources', 'Manba'))), None)
