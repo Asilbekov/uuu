@@ -53,3 +53,41 @@ Verification (scripts/verify_final.py + geometric scan): 17/17 guides —
 (7-9 font sizes vs 11-16 in the 2fa7cf7 originals), CM math share
 0.4-3.7% (only real formulas), S/T question-label counts exactly
 preserved (96/49/53/42 per guide), content length ratio 0.99-1.01.
+
+## Figures for ITE Weeks 5-7 (Oct 31, later)
+
+The three `Introduction_to_Engineering_Weeks_5-7_{RU,EN,UZ}.pdf` guides got the
+same treatment as the approved Weeks 1-4 volume (commit 87d7bab): six topic
+diagrams per language, one pair per week, designed in HTML/CSS in the W1-4
+palette (paper #F7F5F0 cards, gold #DFC290 / sienna #BF7F3F / steel #325675
+accents, FreeSerif), rendered via Playwright at 2x (1860/1460px wide), and
+embedded with centered gray captions exactly like the W1-4 figures:
+
+  - Рис. 1/Fig. 1/1-rasm — anatomy of a model (inputs·parameters →
+    relationships → outputs, week-4 variables in model roles), week 5
+  - Рис. 2 — the electric-bus model: 160 kWh / 133 km / 96 km, the three
+    kinds of assumptions + the writing template, week 5
+  - Рис. 3 — demand ÷ capacity = utilisation, the four lecture systems on a
+    0–2.0 threshold scale; size for the peak, not the average, week 6
+  - Рис. 4 — six buses vs one 200 kW connection: power timeline, all-at-once
+    1.8 overload vs two batches of three at 0.9, week 6
+  - Рис. 5 — ranges: summer 100–145 km vs winter 80–107 km against the 96 km
+    need, plus the RESULT/RANGE/TOP ASSUMPTION/WOULD CHANGE IT report, week 7
+  - Рис. 6 — the waiting-time distribution: three readings, four metrics,
+    the decision chooses the metric, week 7
+
+Placement follows the W1-4 rule "caption under the figure in the
+corresponding week section": each block is inserted after the matching
+source-note paragraph ([Источник/Source/Manba: Lecture0N …]) via
+`figures_ie57.py patch`, compiled with `figures_ie57.py build`
+(tectonic), checked with `figures_ie57.py verify`. Landscape figures are
+\linewidth wide (465pt), portrait ones 0.78\linewidth (363pt) — the same
+geometry as the W1-4 set (466pt / 354–373pt). Captions: \small, #838079
+(figcap), centered — the W1-4 caption spec (9.5pt on 10.5pt body).
+
+Verification: per guide 6/6 images present, 6/6 captions, 0 tofu, no
+mid-body whitespace gaps, page count 59/56/59 (was 55/52/54); overfull
+warnings unchanged from the pre-figure builds (3–14 unique lines, all in
+old content, max 7.4pt — none inside the figure blocks). Diagram QA:
+DOM overflow audit + DOM text-overlap audit (pairwise bbox) + VLM review —
+all 18 renders clean.
