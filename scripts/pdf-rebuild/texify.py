@@ -13,7 +13,7 @@
 """
 import re
 
-GREEK = {'α':'\\alpha ','β':'\\beta ','γ':'\\gamma ','δ':'\\delta ','ε':'\\varepsilon ',
+GREEK = {'α':'\\alpha ','β':'\\beta ','γ':'\\gamma ','δ':'\\delta ','ε':'\\varepsilon ','η':'\\eta ',
          'θ':'\\theta ','λ':'\\lambda ','μ':'\\mu ','ν':'\\nu ','π':'\\pi ','ρ':'\\rho ',
          'σ':'\\sigma ','τ':'\\tau ','φ':'\\varphi ','ω':'\\omega ','Σ':'\\Sigma ',
          'Δ':'\\Delta ','Λ':'\\Lambda ','Γ':'\\Gamma ','Ω':'\\Omega ','Π':'\\Pi '}
@@ -24,6 +24,8 @@ SYMS = {'−':'-','·':'\\cdot ','×':'\\times ','≤':'\\leq ','≥':'\\geq ','
         '∪':'\\cup ','∩':'\\cap ','⊂':'\\subset ','⊆':'\\subseteq ','∅':'\\varnothing ',
         '∀':'\\forall ','∃':'\\exists ','∘':'\\circ ','⊥':'\\perp ','±':'\\pm ',
         '⇒':'\\Rightarrow ','⇐':'\\Leftarrow ','⇔':'\\Leftrightarrow ',
+        '⟹':'\\Longrightarrow ','⟸':'\\Longleftarrow ','⟺':'\\iff ',
+        '⟶':'\\longrightarrow ','⟵':'\\longleftarrow ',
         'ℝ':'\\mathbb{R} ','ℕ':'\\mathbb{N} ','ℤ':'\\mathbb{Z} ','ℂ':'\\mathbb{C} ',
         '′':"'",'°':'^\\circ '}
 FUNCS = {'det','rank','span','null','dim','tr','rref','ref','lu','ldu','sin','cos',
@@ -33,10 +35,10 @@ FUNCS = {'det','rank','span','null','dim','tr','rref','ref','lu','ldu','sin','co
 
 TOKEN = re.compile(
     r'\u27e6M\d+\u27e7'                       # matrix placeholder
-    r'|\^\{[^}]*\}|_\{[^}]*\}'                # sup/sub markers
+    r'|\^\{(?:[^{}]|\{[^{}]*\})+\}|_\{(?:[^{}]|\{[^{}]*\})+\}'  # sup/sub markers (one nesting level)
     r'|\.\.\.'                               # ellipsis (math continuation)
     r'|[0-9]+[A-Za-z]{1,2}\b'                 # 3D, 2D — not math
-    r'|[A-Za-z]+[\u0300-\u036f\u20d0-\u20df]*'  # word, may carry combining marks
+    r'|[A-Za-z\u00c0-\u017f]+[\u0300-\u036f\u20d0-\u20df\u02bb\u02bc\u2019\']*[\u0300-\u036f\u20d0-\u20df\u02bb\u02bc\u2019\'A-Za-z\u00c0-\u017f]*'  # word (combining marks, UZ oʻ/gʻ, possessives, extended Latin like Sträng)
     r'|[0-9]+(?:[.,][0-9]+)?'
     r'|[\u0370-\u03ff\u2100-\u214f]'
     r'|[=+<>≤≥≠←→↔∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×−–]'
@@ -44,7 +46,7 @@ TOKEN = re.compile(
     r'|\s+'
     r'|.')
 
-COMBINE = {'\u0304': '\\bar{', '\u0302': '\\hat{', '\u0307': '\\dot{', '\u0308': '\\ddot{', '\u20d7': '\\vec{'}
+COMBINE = {'\u0304': '\\bar{', '\u0302': '\\hat{', '\u0307': '\\dot{', '\u0308': '\\ddot{', '\u0303': '\\tilde{', '\u20d7': '\\vec{'}
 
 FUNC_MAP = {'sin':'\\sin ','cos':'\\cos ','tan':'\\tan ','ln':'\\ln ','log':'\\log ',
             'exp':'\\exp ','lim':'\\lim ','max':'\\max ','min':'\\min ',
@@ -72,7 +74,7 @@ def is_math_token(tok):
     if not tok or tok.isspace():
         return False
     if re.fullmatch(r'\u27e6M\d+\u27e7', tok): return True
-    if re.fullmatch(r'[\^_]\{[^}]*\}', tok): return True
+    if re.fullmatch(r'[\^_]\{(?:[^{}]|\{[^{}]*\})+\}', tok): return True
     if tok == '...': return True
     if re.fullmatch(r'[A-Za-z]+', tok):
         if len(tok) == 1: return True
@@ -91,7 +93,28 @@ def is_math_token(tok):
         return True
     return False
 
+UNI_MAP = dict(GREEK)
+UNI_MAP.update(SYMS)
+UNI_MAP.update({'−': '-', '–': '-', 'θ': '\\theta ', 'ε': '\\varepsilon ',
+                'φ': '\\varphi ', 'ρ': '\\rho ', 'τ': '\\tau ', 'σ': '\\sigma ',
+                'δ': '\\delta ', 'α': '\\alpha ', 'β': '\\beta ', 'γ': '\\gamma ',
+                'λ': '\\lambda ', 'μ': '\\mu ', 'ω': '\\omega ', '·': '\\cdot ',
+                '×': '\\times ', '∞': '\\infty ', '≤': '\\leq ', '≥': '\\geq ',
+                '≠': '\\neq ', '→': '\\rightarrow ', '√': '\\sqrt ',
+                '⇒': '\\Rightarrow ', '⇔': '\\Leftrightarrow ', '∈': '\\in ',
+                '∪': '\\cup ', '∩': '\\cap ', '∅': '\\varnothing ',
+                '∑': '\\sum ', '∥': '\\lVert ', '′': "'",
+                '\u2126': '\\Omega ', '\u016a': '\\bar{U}', '\u016b': '\\bar{u}',
+                'ä': '\\"a', 'ö': '\\"o', 'ü': '\\"u', 'å': '\\aa ', 'é': "\\'e"})
+
+
 def map_math_token(tok):
+    # sup/sub marker: convert unicode greek/operators inside the braces
+    # (a literal π inside ^{...} lands in cmmi8 which has no such glyph)
+    m = re.fullmatch(r'([\^_])\{(.*)\}', tok, re.S)
+    if m:
+        inner = ''.join(UNI_MAP.get(c, c) for c in m.group(2))
+        return m.group(1) + '{' + inner + '}'
     # letter + combining mark: z\u0304 -> \bar{z}
     m = re.fullmatch(r'([A-Za-z])([\u0300-\u036f\u20d0-\u20df])', tok)
     if m and m.group(2) in COMBINE:
@@ -99,6 +122,7 @@ def map_math_token(tok):
     if tok in FUNC_MAP: return FUNC_MAP[tok]
     if tok in GREEK: return GREEK[tok]
     if tok in SYMS: return SYMS[tok]
+    if tok in UNI_MAP: return UNI_MAP[tok]
     if tok == '−': return '-'
     return tok
 
@@ -268,20 +292,33 @@ def texify(s):
                 if opens > closes and not re.search(r'[А-Яа-яЁё]', t) and len(t.strip()) <= 3:
                     cur_math.append(t)   # absorb short latin/punct while parens open
                     continue
-                if opens > closes and re.search(r'[А-Яа-яЁё]', t):
-                    # Cyrillic with an open paren: the '(' really belongs to
-                    # the text. Drop trailing unclosed '(' from the run, flush
-                    # the rest as math, continue as text.
+                if opens > closes and (re.search(r'[А-Яа-яЁё]', t) or len(t.strip()) > 3):
+                    # Cyrillic word, or any word longer than the short-punct
+                    # absorber: the '(' really belongs to the text.
+                    if cur_math and cur_math[0] == '(' and \
+                            not any(re.fullmatch(r'[=+<>≤≥≠←→↔∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅⊥±⇒⇐⇔·×−–\^_]', u) for u in cur_math):
+                        # prose parenthetical: '(' + absorbed words is not math
+                        # at all — emit the whole pending run as plain text
+                        parts.append(''.join(cur_math))
+                        cur_math = []
+                        parts.append(t)
+                        continue
+                    # else: real math before the '(' — move the trailing
+                    # unclosed '(' out of the math run into the text
+                    # (it was silently dropped before), flush, continue.
                     run = list(cur_math)
+                    dropped = 0
                     while run and opens > closes:
                         if run[-1] == '(':
-                            run.pop(); opens -= 1
+                            run.pop(); opens -= 1; dropped += 1
                         elif run[-1].isspace() and len(run) >= 2 and run[-2] == '(':
                             run.pop()
                         else:
                             break
                     cur_math = run
                     flush_math()
+                    if dropped:
+                        parts.append('(' * dropped)
                     parts.append(t)
                     continue
             flush_math()
@@ -353,8 +390,12 @@ def texify_formula(s):
     tex = repair_interleaved_frac(tex)
     tex = re.sub(r'([a-zA-Z])(_\{[^}]*\})\s*/\s*([a-zA-Z])(_\{[^}]*\})', r'\\frac{\1\2}{\3\4}', tex)
     tex = re.sub(r'\u27e6M(\d+)\u27e7', lambda m: mats[int(m.group(1))], tex)
-    tex = re.sub(r'([А-Яа-яЁё][А-Яа-яЁё ,;−–—·]{1,}[А-Яа-яЁё])',
-                 lambda m: ' \\text{' + m.group(1).strip() + '} ', tex)
+    # every Cyrillic word (incl. single letters like 'и' and abbreviations
+    # like 'т.е.') inside a display formula must be \text{...}: cmmi10 has
+    # no Cyrillic glyphs and renders them as blanks. Uzbek oʻ/gʻ words too
+    # (U+02BB has no glyph in cmmi10).
+    tex = re.sub(r'[А-Яа-яЁё]+(?:[.,;]+[А-Яа-яЁё]+)*[.,;]?|[A-Za-z]*[\u02bb\u02bc][A-Za-z\u02bb\u02bc]*|[A-Za-z]*[\u00c0-\u017f][A-Za-z\u00c0-\u017f]*',
+                 lambda m: ' \\text{' + m.group(0) + '} ', tex)
     tex = tex.replace('%', r'\%').replace('$', r'\$')
     tex = sqrt_paren_to_brace(tex)
     return re.sub(r'\s+', ' ', tex).strip()

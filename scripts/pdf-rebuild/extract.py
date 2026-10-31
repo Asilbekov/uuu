@@ -31,7 +31,7 @@ from collections import Counter
 
 SUP_FLAG = 1
 
-def iter_spans(page):
+def iter_spans(page, pno=0):
     out = []
     ph = page.rect.height
     for bno, b in enumerate(page.get_text('dict')['blocks']):
@@ -54,8 +54,27 @@ def iter_spans(page):
                     role = 'chrome' if (y0 < 55 or y0 > ph - 62) else 'freebody'
                 elif font.startswith('Helvetica'):
                     role = 'bullet'
+                elif re.fullmatch(r'CM[A-Z]+[0-9]+', font) or font == 'MSBM10':
+                    # v1 combined guides: real LaTeX math in Computer Modern
+                    # fonts. size ~10.9 = display/body math; <=9.4 = indices.
+                    role = 'mathidx' if size <= 9.4 else 'math'
+                elif font.startswith('LMSans'):
+                    # v1 EN guide: sans = source notes ('[Source: ...]')
+                    role = 'source' if size <= 10.4 else 'text'
+                elif font.startswith('LMRoman'):
+                    # v1 EN guide: Latin Modern text family
+                    if pno >= 1 and (y0 < 55 or y0 > ph - 62):
+                        role = 'chrome'
+                    elif font.endswith('Bold'):
+                        if size >= 14:   role = 'h1'
+                        elif size >= 11.9: role = 'h2'
+                        else:            role = 'textbold'
+                    elif size <= 10.4:  role = 'tabletext'   # table cells
+                    else:               role = 'text'
                 elif font.startswith('DejaVu'):
-                    if size >= 14:    role = 'h1'
+                    if pno >= 1 and (y0 < 55 or y0 > ph - 62):
+                        role = 'chrome'   # v1 running head / page number
+                    elif size >= 14:    role = 'h1'
                     elif size >= 11.9: role = 'h2'
                     elif size >= 10.2: role = 'textbold' if font.endswith('Bold') else 'text'
                     elif size <= 9.0: role = 'textidx'
@@ -211,7 +230,7 @@ def extract(pdf_path):
     cover = []
     header = {'left': '', 'right': ''}
     for pno, page in enumerate(doc):
-        spans = iter_spans(page)
+        spans = iter_spans(page, pno)
         if pno == 1:
             # capture the running head before skipping the TOC page
             hd = [s for s in spans if s['role'] == 'chrome' and s['bbox'][1] < 55]
@@ -359,7 +378,11 @@ def extract(pdf_path):
             continue
         if kind == 'formula':
             flush()
-            blocks.append({'k': 'f', 't': line_text(line)})
+            # v1 sources center their display formulas; cfd27c5 sources left-
+            # align everything. Record the geometry so the builder can render
+            # centered display lines even when they carry Cyrillic annotations.
+            blocks.append({'k': 'f', 't': line_text(line),
+                           'disp': 1 if x0 > 77 else 0})
             prev_kind, prev_y1 = kind, y1
             continue
         # body / bullet / tablerow
