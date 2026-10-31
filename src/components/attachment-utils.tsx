@@ -64,3 +64,22 @@ export function attachmentFileUrl(a: AttachmentItem): string {
   if (a.id) return `/api/attachments/${a.id}/file`;
   return a.url; // fallback: external URL opened directly
 }
+
+/**
+ * Open an attachment for viewing. PDFs go to OUR fullscreen /viewer tab
+ * (one page per slide in a vertical Swiper — same physics as the card feed)
+ * instead of the browser's ugly native PDF viewer; every other type opens
+ * the raw file URL in a new tab as before.
+ */
+export function openAttachmentFile(a: AttachmentItem) {
+  if (typeof window === 'undefined') return;
+  const fileUrl = attachmentFileUrl(a);
+  if (a.type !== 'pdf') {
+    window.open(fileUrl, '_blank');
+    return;
+  }
+  const u = new URL('/viewer', window.location.origin);
+  u.searchParams.set('url', fileUrl);
+  if (a.title) u.searchParams.set('title', a.title);
+  window.open(u.toString(), '_blank');
+}

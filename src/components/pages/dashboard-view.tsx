@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { AttachmentItem, attachmentFileUrl, formatSize, typeIcon } from '@/components/attachment-utils';
+import { AttachmentItem, openAttachmentFile, formatSize, typeIcon } from '@/components/attachment-utils';
 import LangButton from '@/components/lang-button';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
@@ -1184,7 +1184,7 @@ export default function DashboardView({
                               key={`${f.id || f.url}-${ci}`}
                               role="button"
                               tabIndex={0}
-                              onClick={() => window.open(attachmentFileUrl(f), '_blank')}
+                              onClick={() => openAttachmentFile(f)}
                               className="h-full min-h-0 flex flex-col rounded-2xl border border-black/15 bg-white p-2 sm:p-3 lg:p-4 overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
                               <div className="flex items-center gap-1.5 shrink-0">
@@ -1196,7 +1196,7 @@ export default function DashboardView({
                               <p className="text-[13px] sm:text-sm lg:text-[15px] font-bold leading-snug line-clamp-2 mt-1">{f.title}</p>
                               <div className="mt-auto pt-1.5">
                                 <Button size="sm"
-                                  onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
+                                  onClick={e => { e.stopPropagation(); openAttachmentFile(f); }}
                                   title={t('openFile')} aria-label={t('openFile')}
                                   className="h-8 rounded-full text-[11px] sm:text-xs lg:h-9 lg:text-[13px] px-1.5 justify-start gap-1 has-[>svg]:px-1"
                                 >
@@ -1209,7 +1209,7 @@ export default function DashboardView({
                               key={`${f.id || f.url}-${ci}`}
                               role="button"
                               tabIndex={0}
-                              onClick={() => window.open(attachmentFileUrl(f), '_blank')}
+                              onClick={() => openAttachmentFile(f)}
                               className="h-full min-h-0 lg:max-w-4xl lg:w-full lg:mx-auto flex rounded-2xl border border-black/15 bg-white overflow-hidden cursor-pointer hover:border-black/40 active:scale-[0.99] transition-all text-left"
                             >
                               <div className="w-20 sm:w-36 shrink-0 h-full flex flex-col items-center justify-center gap-1 p-2 text-center bg-[#FFF0D9]">
@@ -1221,7 +1221,7 @@ export default function DashboardView({
                                 {f.size ? <p className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">{formatSize(f.size)}</p> : null}
                                 <div className="mt-auto pt-1.5">
                                   <Button size="sm"
-                                    onClick={e => { e.stopPropagation(); window.open(attachmentFileUrl(f), '_blank'); }}
+                                    onClick={e => { e.stopPropagation(); openAttachmentFile(f); }}
                                     title={t('openFile')} aria-label={t('openFile')}
                                     className="h-8 rounded-full text-[11px] sm:text-xs px-2 justify-start"
                                   >

@@ -45,6 +45,7 @@ import {
   MAX_UPLOAD_BYTES,
   attachmentFileUrl,
   formatSize,
+  openAttachmentFile,
   typeIcon,
   type AttachmentItem,
 } from '@/components/attachment-utils';
@@ -141,7 +142,12 @@ export function PdfViewerModal({ item, onClose }: { item: AttachmentItem | null;
             <span className="text-sm font-medium truncate">{item.title}</span>
           </div>
           <div className="flex items-center gap-1 shrink-0">
-            <Button variant="ghost" size="sm" onClick={() => window.open(attachmentOpenUrl(item), '_blank')}>
+            {/* PDFs open in OUR fullscreen /viewer tab (vertical page feed);
+                other types fall back to the raw URL in a new tab. */}
+            <Button variant="ghost" size="sm" onClick={() => {
+              if (item.type === 'pdf') openAttachmentFile(item);
+              else window.open(attachmentOpenUrl(item), '_blank');
+            }}>
               <ExternalLink className="w-4 h-4" />
             </Button>
             <Button variant="ghost" size="sm" onClick={onClose}><X className="w-4 h-4" /></Button>
@@ -180,7 +186,7 @@ function ViewerRow({ item }: { item: AttachmentItem }) {
                   {pdfExpanded ? <ChevronUp className="w-3 h-3 mr-1" /> : <ChevronDown className="w-3 h-3 mr-1" />}
                   {pdfExpanded ? 'Hide PDF' : 'Show PDF'}
                 </Button>
-                <Button size="sm" variant="ghost" className="h-7 text-xs rounded-full" onClick={() => window.open(attachmentOpenUrl(item), '_blank')}>
+                <Button size="sm" variant="ghost" className="h-7 text-xs rounded-full" onClick={() => openAttachmentFile(item)}>
                   <ExternalLink className="w-3 h-3 mr-1" /> New tab
                 </Button>
               </div>
@@ -479,7 +485,7 @@ function EditorRow({ item, index, count, onUpdate, onRemove, onMove }: EditorRow
                   size="sm"
                   variant="outline"
                   className="mt-1.5 h-7 text-xs rounded-full"
-                  onClick={() => window.open(attachmentFileUrl(item), '_blank')}
+                  onClick={() => openAttachmentFile(item)}
                 >
                   <ExternalLink className="w-3 h-3 mr-1" /> Open
                 </Button>
