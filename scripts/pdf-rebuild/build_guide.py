@@ -176,27 +176,206 @@ $x^{1/3}$ & $+\infty$ & $+\infty$ & ha & yoʻq & vertikal teguvchi \\
 \end{center}"""
 
 # Per-guide content patches: fix original-PDF scrambles.
-SI_TABLE_RU = r"""\\begin{center}\\small
-\\begin{tabular}{@{}l c c@{}}
-\\toprule
-\\textbf{Приставка} & \\textbf{Символ} & \\textbf{Степень} \\\\
-\\midrule
-тера & T & $10^{12}$ \\\\
-гига & G & $10^{9}$ \\\\
-мега & M & $10^{6}$ \\\\
-кило & k & $10^{3}$ \\\\
-милли & m & $10^{-3}$ \\\\
-микро & µ & $10^{-6}$ \\\\
-нано & n & $10^{-9}$ \\\\
-пико & p & $10^{-12}$ \\\\
-фемто & f & $10^{-15}$ \\\\
-\\bottomrule
-\\end{tabular}
-\\end{center}"""
+SI_TABLE_EN = r"""\begin{center}\small
+\begin{tabular}{@{}l c c@{}}
+\toprule
+\textbf{Prefix} & \textbf{Symbol} & \textbf{Power} \\
+\midrule
+tera & T & $10^{12}$ \\
+giga & G & $10^{9}$ \\
+mega & M & $10^{6}$ \\
+kilo & k & $10^{3}$ \\
+milli & m & $10^{-3}$ \\
+micro & \textmu & $10^{-6}$ \\
+nano & n & $10^{-9}$ \\
+pico & p & $10^{-12}$ \\
+femto & f & $10^{-15}$ \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
+SI_TABLE_UZ = r"""\begin{center}\small
+\begin{tabular}{@{}l c c@{}}
+\toprule
+\textbf{Qo'shimcha} & \textbf{Belgi} & \textbf{Daraja} \\
+\midrule
+tera & T & $10^{12}$ \\
+giga & G & $10^{9}$ \\
+mega & M & $10^{6}$ \\
+kilo & k & $10^{3}$ \\
+milli & m & $10^{-3}$ \\
+mikro & \textmu & $10^{-6}$ \\
+nano & n & $10^{-9}$ \\
+piko & p & $10^{-12}$ \\
+femto & f & $10^{-15}$ \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
+SI_TABLE_RU = r"""\begin{center}\small
+\begin{tabular}{@{}l c c@{}}
+\toprule
+\textbf{Приставка} & \textbf{Символ} & \textbf{Степень} \\
+\midrule
+тера & T & $10^{12}$ \\
+гига & G & $10^{9}$ \\
+мега & M & $10^{6}$ \\
+кило & k & $10^{3}$ \\
+милли & m & $10^{-3}$ \\
+микро & µ & $10^{-6}$ \\
+нано & n & $10^{-9}$ \\
+пико & p & $10^{-12}$ \\
+фемто & f & $10^{-15}$ \\
+\bottomrule
+\end{tabular}
+\end{center}"""
 
 PATCHES = {
     'm14_ru': [
         {'kind': 'table', 're': r"\['Степень'", 'action': 'replace_latex', 'latex': 'SI_TABLE_RU'},
+        # missing-paren radicals and lost radical glyphs on moduli
+        {'kind': 'p', 're': '√3 \+ 1 = 2', 'action': 'fix',
+         'sub': (r'√3 \+ 1 = 2', r'√(3 + 1) = 2')},
+        {'kind': 'p', 're': '√1 \+ 3 = 2', 'action': 'fix',
+         'sub': (r'√1 \+ 3 = 2', r'√(1 + 3) = 2')},
+        {'kind': 'p', 're': 'модуль 13', 'action': 'fix',
+         'sub': (r'\|z\| = 13', r'|z| = √13')},
+        {'kind': 'p', 're': 'модуль 13', 'action': 'fix',
+         'sub': (r'модуль 13', r'модуль √13')},
+        {'kind': 'p', 're': 'модуль 17', 'action': 'fix',
+         'sub': (r'модуль 17', r'модуль √17')},
+        # targeted in-block repairs (whole-block content patches would lose the
+        # surrounding solution text -- see patches_m14.py notes)
+        # (85) catalogue: torn lim subscripts + lost p/q fraction
+        {'kind': 'p', 're': 'Многочлены/рациональные', 'action': 'fix',
+         'sub': (r'(_\{x\} )?lim_\{→a\} p\(x\) = p\(a\), lim q\(a\) \(q\(a\) ̸= 0\)\. \(85\) x→a ',
+                 r'lim_{x→a} p(x) = p(a), lim_{x→a} p(x)/q(x) = p(a)/q(a) (q(a) ≠ 0). (85) ')},
+        # discriminant block: lost radical on √∆ and torn fraction
+        {'kind': 'p', 're': 'Дискриминант', 'action': 'fix',
+         'sub': (r'∆= \(−4\)\^\{2\} − 4 · 13 = √ 16 − 52 = −36, ∆= 6i; x = \^\{4±6i\}',
+                 r'∆ = (−4)^{2} − 4·13 = 16 − 52 = −36, √∆ = 6i; x = (4 ± 6i)/2')},
+        # one-sided limits: superscript drifted after the closing brace
+        {'kind': 'p', 're': 'односторонние пределы в стыке|параболическая ветвь', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} − f', r'lim_{x→3−} f')},
+        {'kind': 'p', 're': 'односторонние пределы в стыке|параболическая ветвь', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} \+\(x \+ 4\)', r'lim_{x→3+} (x + 4)')},
+        # 0.375: stacked fraction torn apart, denominator drifted to next sentence
+        {'kind': 'p', 're': '0\\.375 конечно', 'action': 'fix',
+         'sub': (r'0\.375 = \^\{375\} = _\{8\}\^\{3\}\. \(2\) 1000 ',
+                 r'0.375 = 375/1000 = 3/8. (2) ')},
+        {'kind': 'p', 're': '0\\.27 = 27_\{99\}', 'action': 'fix',
+         'sub': (r'0\.27 = 27_\{99\} = 3_\{11\}', r'0.27 = 27/99 = 3/11')},
+        # discriminant block: lost radical on √∆ and torn fraction
+        {'kind': 'p', 're': 'Дискриминант', 'action': 'fix',
+         'sub': (r'∆= \(−4\)\^\{2\} − 4 · 13 = √ 16 − 52 = −36, ∆= 6i; x = \^\{4±6i\}',
+                 r'∆ = (−4)^{2} − 4·13 = 16 − 52 = −36, √∆ = 6i; x = (4 ± 6i)/2')},
+        # one-sided limits: superscript drifted after the closing brace
+        {'kind': 'p', 're': 'параболическая ветвь', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} − f', r'lim_{x→3−} f')},
+        {'kind': 'p', 're': 'параболическая ветвь', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} \+\(x \+ 4\)', r'lim_{x→3+} (x + 4)')},
+        # symmetry of r(x) = (x+1)/(x-1): torn stacked fraction
+        {'kind': 'p', 're': 'Симметрия: r\\(−x\\)', 'action': 'fix',
+         'sub': (r'r\(−x\) = \^\{−\}_\{−\}\^\{x\}_\{x\}\^\{\+1\}_\{−1\} = x_\{x\+1\}\^\{−1\} ̸= ±r\(x\)',
+                 r'r(−x) = (−x + 1)/(−x − 1) = (x − 1)/(x + 1) ≠ ±r(x)')},
+        # log equations: b-part torn fraction; f-part formula lives in next f-block
+        {'kind': 'p', 're': 'b\\. x = 5\\^\\{−2\\}', 'action': 'fix',
+         'sub': (r'b\. x = 5\^\{−2\} = _\{25\}\^\{1\}', r'b. x = 5^{−2} = 1/25')},
+        {'kind': 'p', 're': 'b\\. x = 5\\^\\{−2\\}', 'action': 'fix',
+         'sub': (r'Объединяем: log_\{6\}.*$', r'Объединяем:')},
+    ],
+    'm14_en': [
+        {'kind': 'table', 're': r"\['Power'", 'action': 'replace_latex', 'latex': 'SI_TABLE_EN'},
+        # missing-paren radicals: |√3+i| = √(3+1) = 2 (was '√3 + 1 = 2')
+        {'kind': 'p', 're': '√3 \+ 1 = 2', 'action': 'fix',
+         'sub': (r'√3 \+ 1 = 2', r'√(3 + 1) = 2')},
+        {'kind': 'p', 're': '√1 \+ 3 = 2', 'action': 'fix',
+         'sub': (r'√1 \+ 3 = 2', r'√(1 + 3) = 2')},
+        # moduli that lost the radical glyph: (2,3) -> √13, (-1,4) -> √17
+        {'kind': 'p', 're': 'modulus 13', 'action': 'fix',
+         'sub': (r'\|z\| = 13', r'|z| = √13')},
+        {'kind': 'p', 're': 'modulus 13', 'action': 'fix',
+         'sub': (r'modulus 13', r'modulus √13')},
+        {'kind': 'p', 're': 'modulus 17', 'action': 'fix',
+         'sub': (r'modulus 17', r'modulus √17')},
+        # (85) catalogue: the p(x)/q(x) fraction was lost entirely
+        {'kind': 'p', 're': 'Polynomials/Rational', 'action': 'fix',
+         'sub': (r'lim_\{x→a\} q\(x\) = q\(a\)',
+                 r'lim_{x→a} p(x)/q(x) = p(a)/q(a)')},
+        # 0.375: stacked fraction torn apart (same as RU)
+        {'kind': 'p', 're': '0\\.375 is finite', 'action': 'fix',
+         'sub': (r'0\.375 = \^\{375\} = _\{8\}\^\{3\}\. \(2\) 1000 ',
+                 r'0.375 = 375/1000 = 3/8. (2) ')},
+        {'kind': 'p', 're': '0\\.375 is finite', 'action': 'fix',
+         'sub': (r'0\.27 = 27_\{99\} = 3_\{11\}', r'0.27 = 27/99 = 3/11')},
+        # odd g(x) = x/(x^2+1): torn stacked fraction
+        {'kind': 'p', 're': 'g\(x\) = _\{x2\}', 'action': 'fix',
+         'sub': (r'g\(x\) = _\{x2\}\^\{x\}_\{\+1\}: g\(−x\) = _\{x\}\^\{−\}_\{2\+1\}\^\{x\}',
+                 r'g(x) = x/(x^{2}+1): g(−x) = −x/(x^{2}+1)')},
+        # duplicate 'sin x = x + o(x)' paragraph after the formula line
+        {'kind': 'p', 're': r'^sin x = x \+ o\(x\)', 'action': 'skip'},
+        # discriminant block: lost radical on √∆ and torn fraction
+        {'kind': 'p', 're': 'Discriminant', 'action': 'fix',
+         'sub': (r'∆= \(−4\)\^\{2\} − 4 · 13 = √ 16 − 52 = −36, ∆= 6i; x = \^\{4±6i\}',
+                 r'∆ = (−4)^{2} − 4·13 = 16 − 52 = −36, √∆ = 6i; x = (4 ± 6i)/2')},
+        # one-sided limits: superscript drifted after the closing brace
+        {'kind': 'p', 're': 'parabolic branch', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} − f', r'lim_{x→3−} f')},
+        {'kind': 'p', 're': 'parabolic branch', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} \+\(x \+ 4\)', r'lim_{x→3+} (x + 4)')},
+        # discriminant block: lost radical on √∆ and torn fraction
+        {'kind': 'p', 're': 'Discriminant', 'action': 'fix',
+         'sub': (r'∆= \(−4\)\^\{2\} − 4 · 13 = √ 16 − 52 = −36, ∆= 6i; x = \^\{4±6i\}',
+                 r'∆ = (−4)^{2} − 4·13 = 16 − 52 = −36, √∆ = 6i; x = (4 ± 6i)/2')},
+        # one-sided limits: superscript drifted after the closing brace
+        {'kind': 'p', 're': 'one-sided limits at the junction|parabolic branch', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} − f', r'lim_{x→3−} f')},
+        {'kind': 'p', 're': 'one-sided limits at the junction|parabolic branch', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} \+\(x \+ 4\)', r'lim_{x→3+} (x + 4)')},
+    ],
+    'm14_uz': [
+        {'kind': 'table', 're': r"Daraja Qo'", 'action': 'replace_latex', 'latex': 'SI_TABLE_UZ'},
+        {'kind': 'p', 're': '√3 \+ 1 = 2', 'action': 'fix',
+         'sub': (r'√3 \+ 1 = 2', r'√(3 + 1) = 2')},
+        {'kind': 'p', 're': '√1 \+ 3 = 2', 'action': 'fix',
+         'sub': (r'√1 \+ 3 = 2', r'√(1 + 3) = 2')},
+        {'kind': 'p', 're': 'moduli 13', 'action': 'fix',
+         'sub': (r'\|z\| = 13', r'|z| = √13')},
+        {'kind': 'p', 're': 'moduli 13', 'action': 'fix',
+         'sub': (r'moduli 13', r'moduli √13')},
+        {'kind': 'p', 're': 'moduli 17', 'action': 'fix',
+         'sub': (r'moduli 17', r'moduli √17')},
+        {'kind': 'p', 're': 'modul 13', 'action': 'fix',
+         'sub': (r'modul 13', r'modul √13')},
+        {'kind': 'p', 're': 'modul 13', 'action': 'fix',
+         'sub': (r'modul 17', r'modul √17')},
+        # discriminant block: lost radical on √∆ and torn fraction
+        {'kind': 'p', 're': 'Diskriminant', 'action': 'fix',
+         'sub': (r'∆= \(−4\)\^\{2\} − 4 · 13 = √ 16 − 52 = −36, ∆= 6i; x = \^\{4±6i\}',
+                 r'∆ = (−4)^{2} − 4·13 = 16 − 52 = −36, √∆ = 6i; x = (4 ± 6i)/2')},
+        # one-sided limits: superscript drifted after the closing brace
+        {'kind': 'p', 're': 'parabolik', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} − f', r'lim_{x→3−} f')},
+        {'kind': 'p', 're': 'parabolik', 'action': 'fix',
+         'sub': (r'lim_\{x→3\} \+\(x \+ 4\)', r'lim_{x→3+} (x + 4)')},
+        # (85) catalogue: same torn subscripts as RU
+        {'kind': 'p', 're': "Ko'phadlar/ratsional", 'action': 'fix',
+         'sub': (r'(_\{x\} )?lim_\{→a\} p\(x\) = p\(a\), lim q\(a\) \(q\(a\) ̸= 0\)\. \(85\) x→a ',
+                 r'lim_{x→a} p(x) = p(a), lim_{x→a} p(x)/q(x) = p(a)/q(a) (q(a) ≠ 0). (85) ')},
+        {'kind': 'p', 're': '0\\.375 chekli', 'action': 'fix',
+         'sub': (r'0\.375 = \^\{375\} = _\{8\}\^\{3\}\. \(2\) 1000 ',
+                 r'0.375 = 375/1000 = 3/8. (2) ')},
+        {'kind': 'p', 're': '0\\.375 chekli', 'action': 'fix',
+         'sub': (r'0\.27 = 27_\{99\} = 3_\{11\}', r'0.27 = 27/99 = 3/11')},
+        # sin 5x with the 5 glued as an exponent
+        {'kind': 'p', 're': 'almashtirish \(x → 0', 'action': 'fix',
+         'sub': (r'sin\^\{5\} x/x = 5·sin\^\{5\} x/5x',
+                 r'sin 5x/x = 5·sin 5x/(5x)')},
+        # log equations: b-part torn fraction; f-tail formula in next f-block
+        {'kind': 'p', 're': 'b\. x = 5\^\{−2\}', 'action': 'fix',
+         'sub': (r'b\. x = 5\^\{−2\} = _\{25\}\^\{1\}', r'b. x = 5^{−2} = 1/25')},
+        {'kind': 'p', 're': 'b\. x = 5\^\{−2\}', 'action': 'fix',
+         'sub': (r'Birlashtiramiz: log_\{6\}.*$', r'Birlashtiramiz:')},
     ],
     'la57_ru': [
         # scrambled LU chain: continuation drawn above the main line
@@ -266,10 +445,9 @@ def fix_merged_indices(t):
     t = re.sub(r'(lim_\{[^}]+\})_\{([A-Za-z(][^}]*\()', r'\1 \2', t)
     # torn pi fractions: '5_{4}^{π}' -> '5π/4'
     t = re.sub(r'(\d+)_\{(\d+)\}\^\{π\}', r'^{\1π}_{\2}', t)
-    # combining diacritics: x\u0304 -> \bar{x}
-    for mark, cmd in (('\u0304', 'bar'), ('\u0302', 'hat'), ('\u0307', 'dot'), ('\u0308', 'ddot'), ('\u20d7', 'vec')):
-        t = re.sub(r'(\w)' + mark, r'\\' + cmd + r'{\1}', t)
-        t = t.replace(mark, '')
+    # combining diacritics: keep attached to the base letter (z̄); texify
+    # renders it as \bar{z} inside math runs. Strip orphans after non-word chars.
+    t = re.sub(r'(?<![\w\u0300-\u036f\u20d0-\u20df])[\u0304\u0302\u0307\u0308\u20d7]', '', t)
     return t
 
 def esc_text(s):
@@ -345,9 +523,18 @@ def split_inline_points(tex):
     return parts
 
 def display_formula(tex):
-    """\\[ .. \\], split overlong at top-level commas/semicolons into gather*."""
+    """\\[ .. \\], split overlong at top-level commas/semicolons (= too) into gather*."""
     if est_width(tex) > 85:
         parts = split_top_commas(tex)
+        if len(parts) == 1:
+            # '=' chains (long complex-number arithmetic): split at ' = '
+            eq_parts = re.split(r'(?<=[})\d]) = (?=[\\(\d])', tex)
+            if len(eq_parts) >= 3:
+                half = (len(eq_parts) + 1) // 2
+                first = ' = '.join(eq_parts[:half])
+                second = ' = '.join(eq_parts[half:])
+                return ('\\begin{gather*}\n' + first + ' \\\\\n' + second +
+                        '\n\\end{gather*}')
         if len(parts) >= 2:
             half = est_width(tex) / 2
             acc, lines, cur = 0, [], ''
@@ -416,7 +603,7 @@ def split_inline_runs(par_tex):
     """Allow line breaks inside long \\(..\\) runs: split at , and =."""
     def repl(m):
         run = m.group(1)
-        if est_width(run) > 80:
+        if est_width(run) > 45:
             parts = split_inline_points(run)
             if len(parts) >= 2:
                 return ('\\(' + parts[0].rstrip() + '\\)') + ''.join(
@@ -462,7 +649,8 @@ def render_blocks(blocks, lang, guide_key):
             if frag_kind == 'has' and k in ('p', 'f', 'q') and frag in b.get('t', ''):
                 b = dict(b)
                 b['t'] = new_text
-                if k == 'p' and not b['t'].startswith('Решение'):
+                # bold only reconstructed question heads ("N. ..."), not solutions/fragments
+                if k == 'p' and re.match(r'^\d+[.\)]\s', new_text):
                     b['bold'] = 1
                 break
         for p in patches:
@@ -601,7 +789,7 @@ PREAMBLE_RU = r"""\documentclass[11pt]{article}
 \renewcommand{\headrulewidth}{0.3pt}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{4pt plus 1pt}
-\emergencystretch=1.8em
+\emergencystretch=<<STRETCH>>em
 \renewcommand{\arraystretch}{1.25}
 \begin{document}
 """
@@ -610,9 +798,13 @@ def build(key):
     global CONTENT_PATCHES
     from patches_la14 import PATCHES_EN, PATCHES_UZ
     from patches_m14 import PATCHES_M14_RU
+    from patches_m14_extra import (PATCHES_M14_RU_EXTRA, PATCHES_M14_EN,
+                                    PATCHES_M14_UZ)
     CONTENT_PATCHES = {'la14_ru': PATCHES_RU, 'la14_en': PATCHES_EN,
                        'la14_uz': PATCHES_UZ,
-                       'm14_ru': PATCHES_M14_RU}.get(key, [])
+                       'm14_ru': PATCHES_M14_RU + PATCHES_M14_RU_EXTRA,
+                       'm14_en': PATCHES_M14_EN,
+                       'm14_uz': PATCHES_M14_UZ}.get(key, [])
     cfg = GUIDES[key]
     with open(f'{WORK}/{key}.json') as f:
         data = json.load(f)
@@ -641,6 +833,7 @@ def build(key):
     hr = data.get('header', {}).get('right') or '·'
     hl_head = data.get('header', {}).get('left') or hl
     preamble = (PREAMBLE_RU.replace('<<LANG>>', lang_cmd)
+                .replace('<<STRETCH>>', '4.0' if lang == 'uz' else '2.5')
                 .replace('<<CYRFONTS>>', cyr)
                 .replace('<<HL>>', esc_text(hl_head)).replace('<<HR>>', esc_text(hr)))
 

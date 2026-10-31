@@ -36,7 +36,7 @@ TOKEN = re.compile(
     r'|\^\{[^}]*\}|_\{[^}]*\}'                # sup/sub markers
     r'|\.\.\.'                               # ellipsis (math continuation)
     r'|[0-9]+[A-Za-z]{1,2}\b'                 # 3D, 2D — not math
-    r'|[A-Za-z]+'
+    r'|[A-Za-z]+[\u0300-\u036f\u20d0-\u20df]*'  # word, may carry combining marks
     r'|[0-9]+(?:[.,][0-9]+)?'
     r'|[\u0370-\u03ff\u2100-\u214f]'
     r'|[=+<>≤≥≠←→↔∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×−–]'
@@ -80,14 +80,19 @@ def is_math_token(tok):
         if len(tok) <= 4 and tok.isupper(): return True        # AB, LU, PLU, LDLT
         if len(tok) == 2 and tok[0].isupper() and tok[1].islower(): return True  # Ax
         return False
+    if re.fullmatch(r'[A-Za-z][\u0300-\u036f\u20d0-\u20df]', tok): return True  # z-with-macron
     if re.fullmatch(r'[0-9]+(?:[.,][0-9]+)?', tok): return True
     if tok in ('−', '–'): return True
     if tok and (0x370 <= ord(tok[0]) <= 0x3ff or 0x2100 <= ord(tok[0]) <= 0x214f): return True
     if tok in '=+<>≤≥≠←→↔∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×': return True
-    if tok in '()|,/': return True
+    if tok in '()|,/[]': return True
     return False
 
 def map_math_token(tok):
+    # letter + combining mark: z\u0304 -> \bar{z}
+    m = re.fullmatch(r'([A-Za-z])([\u0300-\u036f\u20d0-\u20df])', tok)
+    if m and m.group(2) in COMBINE:
+        return COMBINE[m.group(2)] + m.group(1) + '}'
     if tok in FUNC_MAP: return FUNC_MAP[tok]
     if tok in GREEK: return GREEK[tok]
     if tok in SYMS: return SYMS[tok]
@@ -180,6 +185,8 @@ def math_run_to_tex(run):
         i += 1
     tex = ''.join(out)
     tex = tex.replace('%', r'\%')
+    tex = tex.replace('$', r'\$')   # literal dollar inside math runs
+    tex = re.sub(r'\\sqrt\s*\(([^()]*)\)', r'\\sqrt{\1}', tex)
     tex = re.sub(r'(?<![\\\w{}])(\d+)\s*/\s*(\d+)(?![\w}])', r'\\frac{\1}{\2}', tex)
     # stacked fractions from the original PDF: baseless ^{A}_{B} / _{B}^{A}
     # (3+ marker interleaves first, then simple pairs)
@@ -291,6 +298,30 @@ def texify(s):
             esc.append(seg)
     return ''.join(esc)
 
+def sqrt_paren_to_brace(tex):
+    """'\\sqrt (a+(b))' -> '\\sqrt{a+(b)}' with balanced parens."""
+    out = []
+    i = 0
+    while i < len(tex):
+        m = re.compile(r'\\sqrt\s*\(').match(tex, i)
+        if m:
+            depth = 0
+            j = m.end() - 1
+            k = j
+            while k < len(tex):
+                if tex[k] == '(': depth += 1
+                elif tex[k] == ')':
+                    depth -= 1
+                    if depth == 0: break
+                k += 1
+            if k < len(tex):
+                out.append('\\sqrt{' + tex[j+1:k] + '}')
+                i = k + 1
+                continue
+        out.append(tex[i])
+        i += 1
+    return ''.join(out)
+
 def texify_formula(s):
     """Whole-line display formula -> LaTeX body for \\[ \\]."""
     s, mats = protect_matrices(s)
@@ -312,6 +343,8 @@ def texify_formula(s):
     tex = re.sub(r'\u27e6M(\d+)\u27e7', lambda m: mats[int(m.group(1))], tex)
     tex = re.sub(r'([А-Яа-яЁё][А-Яа-яЁё ,;−–—·]{1,}[А-Яа-яЁё])',
                  lambda m: ' \\text{' + m.group(1).strip() + '} ', tex)
+    tex = tex.replace('%', r'\%').replace('$', r'\$')
+    tex = sqrt_paren_to_brace(tex)
     return re.sub(r'\s+', ' ', tex).strip()
 
 if __name__ == '__main__':
