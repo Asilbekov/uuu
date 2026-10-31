@@ -15,6 +15,7 @@ tectonic. Rebuild of the lost v1 builder with the same fixes:
 import json, re, subprocess, sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from texify import texify, texify_formula
+from patches_la14 import PATCHES_RU
 
 WORK = '/home/z/my-project/work'
 GUIDES = {
@@ -364,6 +365,8 @@ def split_inline_runs(par_tex):
 
 # ---------------------------------------------------------------- blocks
 
+CONTENT_PATCHES = []
+
 def render_blocks(blocks, lang, guide_key):
     patches = PATCHES.get(guide_key, [])
     out = []
@@ -372,6 +375,22 @@ def render_blocks(blocks, lang, guide_key):
         k = b['k']
         # --- patch pass
         skip = False
+        raw_t = b.get('t', '') or ''
+        if chr(0) in raw_t:
+            cleaned = raw_t.replace(chr(0), '').strip()
+            if len(cleaned) <= 22:
+                skip = True   # orphan stacked-vector fragment
+                continue
+        for frag_kind, frag, new_text in CONTENT_PATCHES:
+            if frag_kind == 'drop' and k in ('p', 'f', 'q') and frag in b.get('t', ''):
+                skip = True
+                break
+            if frag_kind == 'has' and k in ('p', 'f', 'q') and frag in b.get('t', ''):
+                b = dict(b)
+                b['t'] = new_text
+                if k == 'p' and not b['t'].startswith('Решение'):
+                    b['bold'] = 1
+                break
         for p in patches:
             if p['kind'] != k:
                 continue
@@ -398,7 +417,7 @@ def render_blocks(blocks, lang, guide_key):
             continue
         if k in ('p', 'f', 'q', 'h3'):
             b = dict(b)
-            b['t'] = fix_merged_indices(b.get('t', ''))
+            b['t'] = fix_merged_indices(b.get('t', '').replace(chr(0), ''))
             if 'title' in b:
                 b['title'] = fix_merged_indices(b['title'])
         if k == 'h1':
@@ -434,6 +453,10 @@ def render_blocks(blocks, lang, guide_key):
             out.append(t + '\\par')
         elif k == 'f':
             t = b['t']
+            if re.match(r'^\\begin\{bmatrix\}', t.strip()) and t.strip().endswith('\\end{bmatrix}'):
+                out.append('\\[' + t.strip() + '\\]')
+                prev_kind = 'f'
+                continue
             cyr = len(re.findall(r'[А-Яа-яЁё]', t))
             lat = len(re.findall(r'[A-Za-z]', t))
             if cyr + lat > 0 and cyr / (cyr + lat) > 0.38 and '\u27e6' not in t and '[' not in t:
@@ -507,6 +530,8 @@ PREAMBLE_RU = r"""\documentclass[11pt]{article}
 """
 
 def build(key):
+    global CONTENT_PATCHES
+    CONTENT_PATCHES = PATCHES_RU if key == 'la14_ru' else []
     cfg = GUIDES[key]
     with open(f'{WORK}/{key}.json') as f:
         data = json.load(f)

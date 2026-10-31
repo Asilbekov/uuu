@@ -280,7 +280,12 @@ def extract(pdf_path):
             _, _, _, py0, py1 = line_metrics(hd[-1][1])
             _, _, _, y0, y1 = line_metrics(line)
             if 0 <= y0 - py1 < 12:
-                hd[-1][1] = hd[-1][1] + line
+                sp = line[0]
+                gap = dict(sp)
+                gap['text'] = ' '
+                gap['role'] = 'text'
+                gap['bbox'] = [sp['bbox'][0] - 1, sp['bbox'][1], sp['bbox'][0], sp['bbox'][3]]
+                hd[-1][1] = hd[-1][1] + [gap] + line
                 continue
         if hd and classify_line(hd[-1][1]) in ('h1', 'h2') and kind in ('h1', 'h2'):
             # consecutive headings of different level: keep separate
