@@ -330,6 +330,31 @@ def display_formula(tex):
                 return '\\begin{gather*}\n' + body + '\n\\end{gather*}'
     return '\\[' + tex + '\\]'
 
+
+def repair_bmatrix(raw):
+    """Repair a raw leaked bmatrix: restore backslashes and row separators.
+    'begin{bmatrix} 3 & 12 -10 & -14 end{bmatrix}' ->
+    '\\begin{bmatrix} 3 & 12 \\\\ -10 & -14 \\end{bmatrix}' (number-after-number = new row)."""
+    m = re.match(r'^(\\)?begin\{bmatrix\}(.*?)(\\)?end\{bmatrix\}$', raw.strip(), re.S)
+    if not m:
+        return raw
+    body = m.group(2).strip()
+    toks = body.replace('\\', ' \\ ').split()
+    rows, cur = [], []
+    prev_num = False
+    for tk in toks:
+        if tk == '\\':
+            rows.append(' '.join(cur)); cur = []; prev_num = False; continue
+        is_num = bool(re.fullmatch(r'[-+]?[0-9.]+', tk))
+        if is_num and prev_num and cur:
+            rows.append(' '.join(cur)); cur = []
+        cur.append(tk)
+        prev_num = is_num
+    if cur:
+        rows.append(' '.join(cur))
+    rows = [r.replace(' & ', ' & ') for r in rows if r.strip()]
+    return '\\begin{bmatrix} ' + ' \\\\ '.join(rows) + ' \\end{bmatrix}'
+
 def promote_wide_matrices(par_tex):
     """Inline runs whose single matrix is too wide for the text line are
     promoted to a display line: text \\[matrix\\] text."""
@@ -367,7 +392,20 @@ def split_inline_runs(par_tex):
 
 CONTENT_PATCHES = []
 
+def merge_raw_fragments(blocks):
+    """Merge f-blocks whose leaked bmatrix is split across blocks."""
+    out = []
+    for b in blocks:
+        if (out and b.get('k') == 'f' and out[-1].get('k') == 'f'
+                and out[-1].get('t', '').count('begin{bmatrix}') != out[-1].get('t', '').count('end{bmatrix}')):
+            out[-1] = dict(out[-1])
+            out[-1]['t'] = out[-1]['t'] + ' ' + b['t']
+        else:
+            out.append(b)
+    return out
+
 def render_blocks(blocks, lang, guide_key):
+    blocks = merge_raw_fragments(blocks)
     patches = PATCHES.get(guide_key, [])
     out = []
     prev_kind = None
@@ -453,8 +491,11 @@ def render_blocks(blocks, lang, guide_key):
             out.append(t + '\\par')
         elif k == 'f':
             t = b['t']
-            if re.match(r'^\\begin\{bmatrix\}', t.strip()) and t.strip().endswith('\\end{bmatrix}'):
-                out.append('\\[' + t.strip() + '\\]')
+            if 'begin{bmatrix}' in t and not re.search(r'[А-Яа-яЁё]', t):
+                # raw leaked line (one or several bmatrix blocks + operators)
+                repaired = re.sub(r'(\\)?begin\{bmatrix\}(.*?)(\\)?end\{bmatrix\}',
+                                  lambda m: repair_bmatrix(m.group(0)), t, flags=re.S)
+                out.append('\\[' + repaired.strip() + '\\]')
                 prev_kind = 'f'
                 continue
             cyr = len(re.findall(r'[А-Яа-яЁё]', t))
@@ -531,7 +572,9 @@ PREAMBLE_RU = r"""\documentclass[11pt]{article}
 
 def build(key):
     global CONTENT_PATCHES
-    CONTENT_PATCHES = PATCHES_RU if key == 'la14_ru' else []
+    from patches_la14 import PATCHES_EN, PATCHES_UZ
+    CONTENT_PATCHES = {'la14_ru': PATCHES_RU, 'la14_en': PATCHES_EN,
+                       'la14_uz': PATCHES_UZ}.get(key, [])
     cfg = GUIDES[key]
     with open(f'{WORK}/{key}.json') as f:
         data = json.load(f)
