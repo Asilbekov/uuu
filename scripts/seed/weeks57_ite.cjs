@@ -102,7 +102,7 @@ module.exports = {
    }
   },
   {
-   "t": "A wind-turbine blade tested in a wind tunnel is the lecture's example of which model type?",
+   "t": "\n\n![Diagram: the four kinds of models](/ite-diagrams/t13_modeltypes.png)The diagram shows the four kinds of models from Lecture 5, each with its campus-grid example. The wind-turbine blade tested in a wind tunnel is the lecture's example of which kind?",
    "o": [
     "Physical",
     "Graphical",
@@ -111,7 +111,7 @@ module.exports = {
    ],
    "e": "A physical model is a real, reduced or simplified copy — like the blade in the wind tunnel. Graphical = diagrams, mathematical = equations (Ohm's law), computational = step-by-step calculation (hourly demand table).",
    "ru": {
-    "t": "Лопасть ветряной турбины, испытанная в аэродинамической трубе, — пример лекции на какой тип модели?",
+    "t": "\n\n![Diagram: the four kinds of models](/ite-diagrams/t13_modeltypes.png)На диаграмме показаны четыре вида моделей из лекции 5, каждый с примером из сетки кампуса. Лопасть ветряной турбины, испытанная в аэродинамической трубе, — пример какого вида?",
     "o": [
      "Физическая",
      "Графическая",
@@ -121,7 +121,7 @@ module.exports = {
     "e": "Физическая модель — реальная уменьшенная или упрощённая копия, как лопасть в аэродинамической трубе. Графическая — диаграммы, математическая — уравнения (закон Ома), вычислительная — пошаговый расчёт (таблица почасового спроса)."
    },
    "uz": {
-    "t": "Aerodinamik trubada sinovdan oʻtkazilgan shamol turbina pichi maʼruzadagi qaysi model turiga misoldir?",
+    "t": "\n\n![Diagram: the four kinds of models](/ite-diagrams/t13_modeltypes.png)Diagrammada 5-maʼruzadagi toʻrt xil model, har biri kampus tarmogʻidagi misoli bilan koʻrsatilgan. Aerodinamik trubada sinovdan oʻtkazilgan shamol turbina pichi qaysi turga misoldir?",
     "o": [
      "Fizik",
      "Grafik",
@@ -162,7 +162,7 @@ module.exports = {
    }
   },
   {
-   "t": "In the model anatomy, numbers that describe the system and are held fixed — such as the energy use per km e = 1.2 kWh/km — are called:",
+   "t": "\n\n![Diagram: anatomy of a model — the e-bus range model](/ite-diagrams/t14_anatomy.png)The diagram shows the anatomy of the e-bus range model. Numbers that describe the system and are held fixed — such as the energy use per km e = 1.2 kWh/km — are called:",
    "o": [
     "Parameters",
     "Inputs",
@@ -171,7 +171,7 @@ module.exports = {
    ],
    "e": "Anatomy of a model: inputs are what we feed in and can change (battery size, speed); parameters are held fixed (e = 1.2 kWh/km, u = 0.8); relationships are the rules (Energy = energy per km × distance); outputs are the predictions. Every number needs its units.",
    "ru": {
-    "t": "В анатомии модели числа, которые описывают систему и держатся фиксированными, — например, расход e = 1,2 кВт·ч/км, — называются:",
+    "t": "\n\n![Diagram: anatomy of a model — the e-bus range model](/ite-diagrams/t14_anatomy.png)На диаграмме показана анатомия модели запаса хода электробуса. Числа, которые описывают систему и держатся фиксированными, — например, расход e = 1,2 кВт·ч/км, — называются:",
     "o": [
      "Параметрами",
      "Входами",
@@ -181,7 +181,7 @@ module.exports = {
     "e": "Анатомия модели: входы — что подаём и можем менять (размер батареи, скорость); параметры — держим фиксированными (e = 1,2 кВт·ч/км, u = 0,8); зависимости — правила (Energy = energy per km × distance); выходы — предсказания. Каждое число нуждается в своих единицах."
    },
    "uz": {
-    "t": "Model anatomiyasida tizimni tasvirlaydigan va oʻzgarmas qilib qoʻyilgan sonlar — masalan, e = 1,2 kVt·soat/km sarfi — noma deb ataladi:",
+    "t": "\n\n![Diagram: anatomy of a model — the e-bus range model](/ite-diagrams/t14_anatomy.png)Diagrammada elektrobus yurish masofasi modelining anatomiyasi koʻrsatilgan. Tizimni tasvirlaydigan va oʻzgarmas qilib qoʻyilgan sonlar — masalan, e = 1,2 kVt·soat/km sarfi — noma deb ataladi:",
     "o": [
      "Parametrlar",
      "Kirishlar (inputs)",
@@ -312,7 +312,7 @@ module.exports = {
    }
   },
   {
-   "t": "“We ignore hills, traffic lights, stops and differences between drivers.” For the e-bus model this is:",
+   "t": "\n\n![Diagram: three kinds of assumptions](/ite-diagrams/t15_assumptions.png)The diagram shows the three kinds of assumptions with e-bus examples. “We ignore hills, traffic lights, stops and differences between drivers.” For the e-bus model this is:",
    "o": [
     "A simplifying assumption",
     "A data assumption",
@@ -321,7 +321,7 @@ module.exports = {
    ],
    "e": "Three assumption kinds: simplifying — what we ignore (hills, lights, stops); data — what we fix (e = 1.2 kWh/km, C = 200 kWh, u = 0.8); boundary — what we leave outside the model (passengers, charger, grid).",
    "ru": {
-    "t": "«Мы игнорируем холмы, светофоры, остановки и различия между водителями» — для модели автобуса это:",
+    "t": "\n\n![Diagram: three kinds of assumptions](/ite-diagrams/t15_assumptions.png)На диаграмме показаны три вида допущений с примерами электробуса. «Мы игнорируем холмы, светофоры, остановки и различия между водителями» — для модели автобуса это:",
     "o": [
      "Упрощающее допущение",
      "Допущение о данных",
@@ -331,7 +331,7 @@ module.exports = {
     "e": "Три вида допущений: упрощающие — что игнорируем (холмы, светофоры, остановки); данные — что фиксируем (e = 1,2 кВт·ч/км, C = 200 кВт·ч, u = 0,8); граничные — что оставляем за пределами модели (пассажиры, зарядное устройство, сеть)."
    },
    "uz": {
-    "t": "«Biz tepaliklar, svetoforlar, toʻxtashlar va haydovchilar orasidagi farqlarni hisobga olmaymiz» — avtobus modeli uchun bu:",
+    "t": "\n\n![Diagram: three kinds of assumptions](/ite-diagrams/t15_assumptions.png)Diagrammada elektrobus misollari bilan uch xil faraz koʻrsatilgan. «Biz tepaliklar, svetoforlar, toʻxtashlar va haydovchilar orasidagi farqlarni hisobga olmaymiz» — avtobus modeli uchun bu:",
     "o": [
      "Soddalashtiruvchi faraz",
      "Maʼlumot (data) farazi",
@@ -372,7 +372,7 @@ module.exports = {
    }
   },
   {
-   "t": "The course template for writing down an assumption is:",
+   "t": "\n\n![Diagram: the assumption writing template](/ite-diagrams/t16_template.png)The diagram shows the course template filled in with the winter e-bus example. The general form of the template is:",
    "o": [
     "“We assume [assumption] because [reason]. If it is wrong, [effect on the result].”",
     "“We guess [number] and hope it is correct.”",
@@ -381,7 +381,7 @@ module.exports = {
    ],
    "e": "An assumption that is written down can be checked; a hidden one cannot. The template names the assumption, the reason, and the effect on the result if it is wrong.",
    "ru": {
-    "t": "Шаблон курса для записи допущения:",
+    "t": "\n\n![Diagram: the assumption writing template](/ite-diagrams/t16_template.png)На диаграмме показан шаблон курса, заполненный примером зимнего электробуса. Общая форма шаблона:",
     "o": [
      "«Мы предполагаем [допущение], потому что [причина]. Если это неверно, [влияние на результат]»",
      "«Мы угадываем [число] и надеемся, что оно верно»",
@@ -391,7 +391,7 @@ module.exports = {
     "e": "Допущение, которое записано, можно проверить; скрытое — нельзя. Шаблон называет допущение, причину и влияние на результат, если оно неверно."
    },
    "uz": {
-    "t": "Farazni yozib qoʻyish uchun kurs shabloni qanday?",
+    "t": "\n\n![Diagram: the assumption writing template](/ite-diagrams/t16_template.png)Diagrammada kurs shabloni qishki elektobus misoli bilan toʻldirilgan holda koʻrsatilgan. Shablonning umumiy shakli qanday?",
     "o": [
      "«Biz [faraz]ni taxmin qilamiz, chunki [sabab]. Agar u notoʻgʻri boʻlsa, [natijaga taʼsiri].»",
      "«Biz [son]ni taxmin qilamiz va toʻgʻri boʻlishiga umid qilamiz.»",
@@ -402,7 +402,7 @@ module.exports = {
    }
   },
   {
-   "t": "With winter heating (e = 1.8 kWh/km) the e-bus range becomes 89 km. What does this mean for the daily need of 96 km (8 laps × 12 km)?",
+   "t": "\n\n![Diagram: the e-bus range under four scenarios against the daily need](/ite-diagrams/t17_range.png)The diagram shows the range under four scenarios against the 96 km daily need. With winter heating (e = 1.8 kWh/km) the range becomes 89 km. What does this mean for the daily need of 96 km (8 laps × 12 km)?",
    "o": [
     "The day is NOT covered — only the base (133 km), full-load (114 km) and old-battery (107 km) cases cover it",
     "The day is covered with a 7 km margin",
@@ -411,7 +411,7 @@ module.exports = {
    ],
    "e": "Range by assumption: 133 base, 114 full load, 107 old battery, 89 winter heating, 71 winter + old battery. The 96 km day is covered only by the first three — “one charge covers the day” holds only while the assumptions hold.",
    "ru": {
-    "t": "С зимним отоплением (e = 1,8 кВт·ч/км) запас хода падает до 89 км. Что это значит для дневной потребности 96 км (8 кругов × 12 км)?",
+    "t": "\n\n![Diagram: the e-bus range under four scenarios against the daily need](/ite-diagrams/t17_range.png)На диаграмме показан запас хода при четырёх сценариях против дневной потребности 96 км. С зимним отоплением (e = 1,8 кВт·ч/км) запас хода падает до 89 км. Что это значит для дневной потребности 96 км (8 кругов × 12 км)?",
     "o": [
      "День НЕ покрывается — его покрывают только базовый (133 км), полная загрузка (114 км) и старая батарея (107 км) случаи",
      "День покрывается с запасом 7 км",
@@ -421,7 +421,7 @@ module.exports = {
     "e": "Запас хода по допущениям: 133 база, 114 полная загрузка, 107 старая батарея, 89 зимнее отопление, 71 зима + старая батарея. День в 96 км покрывают только первые три случая — «одного заряда хватает на день» верно, только пока верны допущения."
    },
    "uz": {
-    "t": "Qishki isitish bilan (e = 1,8 kVt·soat/km) yurish masofasi 89 km ga tushadi. Kunlik 96 km ehtiyoj (8 aylana × 12 km) uchun bu nimani anglatadi?",
+    "t": "\n\n![Diagram: the e-bus range under four scenarios against the daily need](/ite-diagrams/t17_range.png)Diagrammada toʻrt ssenariy boʻyicha yurish masofasi kunlik 96 km ehtiyojga qarshi koʻrsatilgan. Qishki isitish bilan (e = 1,8 kVt·soat/km) yurish masofasi 89 km ga tushadi. Kunlik 96 km ehtiyoj (8 aylana × 12 km) uchun bu nimani anglatadi?",
     "o": [
      "Kun QOPLANMAYDI — uni faqat bazaviy (133 km), toʻliq yuklama (114 km) va eskirgan batareya (107 km) holatlari qoplaydi",
      "Kun 7 km zaxira bilan qoplanadi",
@@ -432,7 +432,7 @@ module.exports = {
    }
   },
   {
-   "t": "The naive estimate “5 kW × 24 h = 120 kWh/day” for a solar array is almost four times too high because:",
+   "t": "\n\n![Diagram: the naive solar rectangle vs the clear-day profile](/ite-diagrams/t18_solar.png)The diagram shows both estimates for a 5 kW array. The naive estimate “5 kW × 24 h = 120 kWh/day” is almost four times too high because:",
    "o": [
     "It hides the assumption that the sun shines at full power all day — a clear-day profile gives about 31 kWh/day",
     "kW was confused with kWh",
@@ -441,7 +441,7 @@ module.exports = {
    ],
    "e": "Hidden assumption: full sun all day. Note the units: kW is power, kWh is energy. Before trusting a number, ask what conditions it silently assumes.",
    "ru": {
-    "t": "Наивная оценка «5 кВт × 24 ч = 120 кВт·ч/день» для солнечной установки завышена почти в четыре раза, потому что:",
+    "t": "\n\n![Diagram: the naive solar rectangle vs the clear-day profile](/ite-diagrams/t18_solar.png)На диаграмме показаны обе оценки для установки 5 кВт. Наивная оценка «5 кВт × 24 ч = 120 кВт·ч/день» завышена почти в четыре раза, потому что:",
     "o": [
      "В ней скрыто допущение, что солнце светит на полную мощность весь день, — профиль ясного дня даёт около 31 кВт·ч/день",
      "кВт перепутаны с кВт·ч",
@@ -451,7 +451,7 @@ module.exports = {
     "e": "Скрытое допущение: солнце на полной мощности весь день. Заметьте единицы: кВт — мощность, кВт·ч — энергия. Прежде чем доверять числу, спросите, какие условия оно молчаливо предполагает."
    },
    "uz": {
-    "t": "Quyosh panellari uchun «5 kVt × 24 soat = 120 kVt·soat/kun» degan oddiy baho deyarli toʻrt barobar yuqori, chunki:",
+    "t": "\n\n![Diagram: the naive solar rectangle vs the clear-day profile](/ite-diagrams/t18_solar.png)Diagrammada 5 kVt li oʻrnatma uchun ikkala baho ham koʻrsatilgan. «5 kVt × 24 soat = 120 kVt·soat/kun» degan oddiy baho deyarli toʻrt barobar yuqori, chunki:",
     "o": [
      "Unda quyosh butun kun toʻliq quvvat bilan porlaydi degan yashirin faraz bor — och kun profili taxminan 31 kVt·soat/kun beradi",
      "kVt bilan kVt·soat aralashtirilgan",
@@ -582,7 +582,7 @@ module.exports = {
    }
   },
   {
-   "t": "Utilisation is computed as demand ÷ capacity (same units, same time basis). A value above 1.0 means:",
+   "t": "\n\n![Diagram: the utilisation scale with the week's systems](/ite-diagrams/t19_utilisation.png)The diagram places the week's systems on the utilisation scale (demand ÷ capacity, same units, same time basis). A value above 1.0 means:",
    "o": [
     "Overload: demand is rejected or a queue grows",
     "Comfortable operation with spare capacity",
@@ -591,7 +591,7 @@ module.exports = {
    ],
    "e": "Thresholds: below ~0.8 — comfortable (spare to absorb variation); ~0.8–1.0 — stretched (small margin, delays appear); above 1.0 — overload.",
    "ru": {
-    "t": "Утилизация считается как спрос ÷ мощность (те же единицы, та же временная база). Значение выше 1,0 означает:",
+    "t": "\n\n![Diagram: the utilisation scale with the week's systems](/ite-diagrams/t19_utilisation.png)На диаграмме системы недели расставлены на шкале утилизации (спрос ÷ мощность, те же единицы, та же временная база). Значение выше 1,0 означает:",
     "o": [
      "Перегрузку: спрос отвергается или растёт очередь",
      "Комфортную работу с запасом мощности",
@@ -601,7 +601,7 @@ module.exports = {
     "e": "Пороги: ниже ~0,8 — комфортно (запас поглотить вариации); ~0,8–1,0 — напряжённо (малый запас, появляются задержки); выше 1,0 — перегрузка."
    },
    "uz": {
-    "t": "Bandlik (utilizatsiya) talab ÷ sigʻim deb hisoblanadi (birlik va vaqt asosi bir xil). 1,0 dan yuqori qiymat nimani anglatadi?",
+    "t": "\n\n![Diagram: the utilisation scale with the week's systems](/ite-diagrams/t19_utilisation.png)Diagrammada hafta tizimlari bandlik (utilizatsiya) shkalasiga joylashtirilgan (talab ÷ sigʻim, birlik va vaqt asosi bir xil). 1,0 dan yuqori qiymat nimani anglatadi?",
     "o": [
      "Zoʻriqish: talab rad etiladi yoki navbat oʻsadi",
      "Zaxira quvvat bilan qulay ishlash",
@@ -642,7 +642,7 @@ module.exports = {
    }
   },
   {
-   "t": "The faculty building averages 94 kW but peaks at 180 kW at 13:00 (transformer 250 kW). Which week-6 rule does this illustrate?",
+   "t": "\n\n![Diagram: the faculty building's day — average vs peak](/ite-diagrams/t20_peak.png)The diagram shows the building's day: it averages 94 kW but peaks at 180 kW at 13:00 (transformer 250 kW). Which week-6 rule does this illustrate?",
    "o": [
     "Size for the peak, not for the average — the average hides the peak",
     "Size for the average — peaks are rare",
@@ -651,7 +651,7 @@ module.exports = {
    ],
    "e": "Sized for the average, the building would fail at midday. The same rule explains why 86 kW of average charging power does not mean six 60-kW chargers can run at once.",
    "ru": {
-    "t": "Здание факультета в среднем потребляет 94 кВт, но пик — 180 кВт в 13:00 (трансформатор 250 кВт). Какое правило недели 6 это иллюстрирует?",
+    "t": "\n\n![Diagram: the faculty building's day — average vs peak](/ite-diagrams/t20_peak.png)На диаграмме показан день здания: в среднем 94 кВт, но пик — 180 кВт в 13:00 (трансформатор 250 кВт). Какое правило недели 6 это иллюстрирует?",
     "o": [
      "Размер под пик, а не под среднее — среднее прячет пик",
      "Размер под среднее — пики редки",
@@ -661,7 +661,7 @@ module.exports = {
     "e": "Система, рассчитанная на среднее, отказала бы в полдень. То же правило объясняет, почему средние 86 кВт зарядной мощности не означают, что шесть 60-киловаттных зарядников могут работать одновременно."
    },
    "uz": {
-    "t": "Fakultet binosi oʻrtacha 94 kVt isteʼmol qiladi, lekin 13:00 da 180 kVt choʻqqiga chiqadi (transformator 250 kVt). Bu qaysi 6-hafta qoidasini tasvirlaydi?",
+    "t": "\n\n![Diagram: the faculty building's day — average vs peak](/ite-diagrams/t20_peak.png)Diagrammada binoning bir kuni koʻrsatilgan: oʻrtacha 94 kVt, lekin 13:00 da 180 kVt choʻqqiga chiqadi (transformator 250 kVt). Bu qaysi 6-hafta qoidasini tasvirlaydi?",
     "o": [
      "Oʻrtacha emas, choʻqqiga qarab oʻlchash — oʻrtacha choʻqqini yashiradi",
      "Oʻrtachaga qarab oʻlchash — choʻqqilar kam uchraydi",
@@ -702,7 +702,7 @@ module.exports = {
    }
   },
   {
-   "t": "A charger delivers 60 kW for 2 hours. The energy delivered is:",
+   "t": "\n\n![Diagram: power vs energy — kW and kWh](/ite-diagrams/t21_kwh.png)The diagram shows how power and energy relate. A charger delivers 60 kW for 2 hours. The energy delivered is:",
    "o": [
     "120 kWh — power × time = energy; kW is a rate, kWh is a quantity",
     "62 kWh",
@@ -711,7 +711,7 @@ module.exports = {
    ],
    "e": "kW = kWh/h is an intensity; kWh is a quantity. Carry units in square brackets, Kosky-style: 60 [kW] × 2 [h] = 120 [kWh].",
    "ru": {
-    "t": "Зарядник отдаёт 60 кВт в течение 2 часов. Отданная энергия:",
+    "t": "\n\n![Diagram: power vs energy — kW and kWh](/ite-diagrams/t21_kwh.png)На диаграмме показана связь мощности и энергии. Зарядник отдаёт 60 кВт в течение 2 часов. Отданная энергия:",
     "o": [
      "120 кВт·ч — мощность × время = энергия; кВт — интенсивность, кВт·ч — количество",
      "62 кВт·ч",
@@ -721,7 +721,7 @@ module.exports = {
     "e": "кВт = кВт·ч/ч — интенсивность; кВт·ч — количество. Несите единицы в квадратных скобках, по Kosky: 60 [кВт] × 2 [ч] = 120 [кВт·ч]."
    },
    "uz": {
-    "t": "Zaryad qurilmasi 2 soat davomida 60 kVt quvvat beradi. Berilgan energiya:",
+    "t": "\n\n![Diagram: power vs energy — kW and kWh](/ite-diagrams/t21_kwh.png)Diagrammada quvvat va energiyaning bogʻliqligi koʻrsatilgan. Zaryad qurilmasi 2 soat davomida 60 kVt quvvat beradi. Berilgan energiya:",
     "o": [
      "120 kVt·soat — quvvat × vaqt = energiya; kVt — intensivlik, kVt·soat — miqdor",
      "62 kVt·soat",
@@ -792,7 +792,7 @@ module.exports = {
    }
   },
   {
-   "t": "Six buses need 115 kWh each by 06:00; the depot connection is 200 kW (window 22:00–06:00 = 8 h). What does the lecture conclude?",
+   "t": "\n\n![Diagram: six buses against the 200 kW depot connection](/ite-diagrams/t22_charging.png)The diagram shows both charging plans. Six buses need 115 kWh each by 06:00; the depot connection is 200 kW (window 22:00–06:00 = 8 h). What does the lecture conclude?",
    "o": [
     "Energy was never the problem — power was: 690 kWh ÷ 8 h ≈ 86 kW average, but all six at once = 360 kW; charge in two batches of three (180 kW, utilisation 0.9)",
     "Energy is the problem: 690 kWh exceeds the connection",
@@ -801,7 +801,7 @@ module.exports = {
    ],
    "e": "6 × 115 = 690 kWh over 8 h is only ~86 kW average; the conflict is 6 × 60 = 360 kW against a 200 kW connection (utilisation 1.8). Staggering into two batches of three solves it: 180 kW, utilisation 0.9, about 3.8 h.",
    "ru": {
-    "t": "Шести автобусам нужно по 115 кВт·ч к 06:00; подключение депо — 200 кВт (окно 22:00–06:00 = 8 ч). К какому выводу приходит лекция?",
+    "t": "\n\n![Diagram: six buses against the 200 kW depot connection](/ite-diagrams/t22_charging.png)На диаграмме показаны оба плана зарядки. Шести автобусам нужно по 115 кВт·ч к 06:00; подключение депо — 200 кВт (окно 22:00–06:00 = 8 ч). К какому выводу приходит лекция?",
     "o": [
      "Энергия никогда не была проблемой — проблемой была мощность: 690 кВт·ч ÷ 8 ч ≈ 86 кВт в среднем, но все шесть сразу = 360 кВт; заряжать двумя партиями по три (180 кВт, утилизация 0,9)",
      "Проблема — энергия: 690 кВт·ч превышает подключение",
@@ -811,7 +811,7 @@ module.exports = {
     "e": "6 × 115 = 690 кВт·ч за 8 ч — это лишь ~86 кВт в среднем; конфликт — 6 × 60 = 360 кВт против подключения 200 кВт (утилизация 1,8). Сдвиг двумя партиями по три решает его: 180 кВт, утилизация 0,9, около 3,8 ч."
    },
    "uz": {
-    "t": "Oltita avtobusga 06:00 gacha har biriga 115 kVt·soat kerak; depo ulanishi 200 kVt (oyna 22:00–06:00 = 8 soat). Maʼruza qanday xulosaga keladi?",
+    "t": "\n\n![Diagram: six buses against the 200 kW depot connection](/ite-diagrams/t22_charging.png)Diagrammada zaryadlashning ikkala rejasi ham koʻrsatilgan. Oltita avtobusga 06:00 gacha har biriga 115 kVt·soat kerak; depo ulanishi 200 kVt (oyna 22:00–06:00 = 8 soat). Maʼruza qanday xulosaga keladi?",
     "o": [
      "Energiya hech qachon muammo boʻlmagan — muammo quvvat edi: 690 kVt·soat ÷ 8 soat ≈ 86 kVt oʻrtacha, lekin hammasi bir vaqtda = 360 kVt; uchtadan ikki partiyada zaryadlash (180 kVt, bandlik 0,9)",
      "Muammo — energiya: 690 kVt·soat ulanishdan oshadi",
@@ -912,7 +912,7 @@ module.exports = {
    }
   },
   {
-   "t": "Lab 6 case — Semiconductor Wafer Packaging Line (12 h/day): stage rates are Die Sort 680, Die Attach 620, Wire Bonding 580, Electrical Test 600, Final Packaging 640 units/h. The bottleneck is:",
+   "t": "\n\n![Diagram: the wafer packaging line and its bottleneck](/ite-diagrams/t23_line.png)The diagram shows Lab 6's Semiconductor Wafer Packaging Line (12 h/day) with its stage rates. The bottleneck is:",
    "o": [
     "Wire Bonding — 580 × 12 = 6,960 units/day, the smallest capacity, so it sets the maximum practical throughput",
     "Die Sort — the first stage is always the bottleneck",
@@ -921,7 +921,7 @@ module.exports = {
    ],
    "e": "Capacity per day = rate × 12 h: 8,160 / 7,440 / 6,960 / 7,200 / 7,680 units/day. The minimum — Wire Bonding — is the bottleneck; at peak demand 7,000/day its utilisation is 7,000 ÷ 6,960 ≈ 1.01, an overload.",
    "ru": {
-    "t": "Кейс лаб. 6 — линия упаковки полупроводниковых пластин (12 ч/день): ставки стадий — Die Sort 680, Die Attach 620, Wire Bonding 580, Electrical Test 600, Final Packaging 640 шт/ч. Узкое место:",
+    "t": "\n\n![Diagram: the wafer packaging line and its bottleneck](/ite-diagrams/t23_line.png)На диаграмме показана линия упаковки полупроводниковых пластин из лаб. 6 (12 ч/день) со ставками стадий. Узкое место:",
     "o": [
      "Wire Bonding — 580 × 12 = 6 960 шт/день, наименьшая мощность, поэтому она задаёт максимальную практическую пропускную способность",
      "Die Sort — первая стадия всегда узкое место",
@@ -931,7 +931,7 @@ module.exports = {
     "e": "Мощность в день = ставка × 12 ч: 8 160 / 7 440 / 6 960 / 7 200 / 7 680 шт/день. Минимум — Wire Bonding — узкое место; при пиковом спросе 7 000/день его утилизация 7 000 ÷ 6 960 ≈ 1,01 — перегрузка."
    },
    "uz": {
-    "t": "6-laboratoriya keysi — yarimoʻtkazgich plastina qadoqlash liniyasi (12 soat/kun): bosqich stavkalari — Die Sort 680, Die Attach 620, Wire Bonding 580, Electrical Test 600, Final Packaging 640 dona/soat. Toʻsiq (bottleneck):",
+    "t": "\n\n![Diagram: the wafer packaging line and its bottleneck](/ite-diagrams/t23_line.png)Diagrammada 6-laboratoriyaning yarimoʻtkazgich plastina qadoqlash liniyasi (12 soat/kun) bosqich stavkalari bilan koʻrsatilgan. Toʻsiq (bottleneck):",
     "o": [
      "Wire Bonding — 580 × 12 = 6 960 dona/kun, eng kichik sigʻim, shuning uchun u tizimning maksimal amaliy oʻtkazish qobiliyatini belgilaydi",
      "Die Sort — birinchi bosqich har doim toʻsiqdir",
@@ -972,7 +972,7 @@ module.exports = {
    }
   },
   {
-   "t": "The four steps of the order-of-magnitude estimation method (Lecture 6) are:",
+   "t": "\n\n![Diagram: the four steps of order-of-magnitude estimation](/ite-diagrams/t24_om.png)The diagram shows the method's four steps with the solar-sizing example. The correct sequence of the four steps is:",
    "o": [
     "Define the quantity and its units → factor it into estimable parts → round each factor to one digit and multiply → check the units and compare with a known value",
     "Guess the answer → ask the client → search the web → round",
@@ -981,7 +981,7 @@ module.exports = {
    ],
    "e": "Estimation helps before (expected size), during (ten-power and unit errors surface) and after (is the result reasonable) the calculation. Kosky's barbershop estimate gave 21 against 23 in the phone book — accurate to a factor of ~10 and often much closer.",
    "ru": {
-    "t": "Четыре шага метода оценки порядка величины (лекция 6):",
+    "t": "\n\n![Diagram: the four steps of order-of-magnitude estimation](/ite-diagrams/t24_om.png)На диаграмме показаны четыре шага метода с примером солнечной установки. Правильная последовательность четырёх шагов:",
     "o": [
      "Определить величину и её единицы → разложить на оцениваемые множители → округлить каждый множитель до одной цифры и перемножить → проверить единицы и сравнить с известным значением",
      "Угадать ответ → спросить заказчика → поискать в интернете → округлить",
@@ -991,7 +991,7 @@ module.exports = {
     "e": "Оценка помогает до расчёта (ожидаемый размер), во время (ошибки степени десятки и единиц всплывают сразу) и после (разумен ли результат). Оценка Kosky дала 21 барбершоп против 23 в справочнике — точность до множителя ~10 и часто гораздо ближе."
    },
    "uz": {
-    "t": "Tartib kattaligini baholash usulining toʻrt qadami (6-maʼruza):",
+    "t": "\n\n![Diagram: the four steps of order-of-magnitude estimation](/ite-diagrams/t24_om.png)Diagrammada usulning toʻrt qadami quyosh oʻrnatmasi misoli bilan koʻrsatilgan. Toʻrt qadamning toʻgʻri ketma-ketligi:",
     "o": [
      "Kattalik va uning birliklarini aniqlash → baholash mumkin boʻlgan koʻpaytuvchilarga ajratish → har bir koʻpaytuvchini bir raqamga yaxlitlab koʻpaytirish → birliklarni tekshirish va maʼlum qiymat bilan solishtirish",
      "Javobni taxmin qilish → buyurtmachidan soʻrash → internetdan qidirish → yaxlitlash",
@@ -1032,7 +1032,7 @@ module.exports = {
    }
   },
   {
-   "t": "The e-bus range model has summer tests (1.1–1.6 kWh/km) but no winter test, and cabin heating raises energy use by an unknown amount. This data problem is:",
+   "t": "\n\n![Diagram: four data problems and their first aids](/ite-diagrams/t25_dataproblems.png)The diagram shows the week's four data problems. The e-bus range model has summer tests (1.1–1.6 kWh/km) but no winter test, and cabin heating raises energy use by an unknown amount. This data problem is:",
    "o": [
     "Missing — no data for the case we care about; fill the gap with a range (e.g. 1.5–2.0 kWh/km)",
     "Noisy — average the three summer trips",
@@ -1041,7 +1041,7 @@ module.exports = {
    ],
    "e": "Five incompleteness kinds: too little, missing, noisy, out of date / unrepresentative, wrong definition / unit. Name the problem first — the fix depends on which one it is.",
    "ru": {
-    "t": "У модели запаса хода есть летние тесты (1,1–1,6 кВт·ч/км), но нет зимнего, а отопление салона повышает расход на неизвестную величину. Эта проблема данных:",
+    "t": "\n\n![Diagram: four data problems and their first aids](/ite-diagrams/t25_dataproblems.png)На диаграмме показаны четыре проблемы данных этой недели. У модели запаса хода есть летние тесты (1,1–1,6 кВт·ч/км), но нет зимнего, а отопление салона повышает расход на неизвестную величину. Эта проблема данных:",
     "o": [
      "Отсутствие — нет данных для нужного случая; пробел заполняют диапазоном (например, 1,5–2,0 кВт·ч/км)",
      "Зашумлённость — усреднить три летние поездки",
@@ -1051,7 +1051,7 @@ module.exports = {
     "e": "Пять видов неполноты: слишком мало, отсутствуют, зашумлены, устарели/нерепрезентативны, неверное определение/единица. Сначала назовите проблему — способ исправления зависит от того, какая это из пяти."
    },
    "uz": {
-    "t": "Yurish masofasi modelida yozgi sinovlar (1,1–1,6 kVt·soat/km) bor, lekin qishki sinov yoʻq, salon isitishi esa sarfni nomaʼlum miqdorda oshiradi. Bu qanday maʼlumot muammosi?",
+    "t": "\n\n![Diagram: four data problems and their first aids](/ite-diagrams/t25_dataproblems.png)Diagrammada shu haftaning toʻrt maʼlumot muammosi koʻrsatilgan. Yurish masofasi modelida yozgi sinovlar (1,1–1,6 kVt·soat/km) bor, lekin qishki sinov yoʻq, salon isitishi esa sarfni nomaʼlum miqdorda oshiradi. Bu qanday maʼlumot muammosi?",
     "o": [
      "Yetishmaslik (missing) — bizga kerakli holat uchun maʼlumot yoʻq; boʻshliqni oraliq bilan toʻldirish (masalan, 1,5–2,0 kVt·soat/km)",
      "Shovqinli (noisy) — uchta yozgi sayohatni oʻrtachalash",
@@ -1119,6 +1119,66 @@ module.exports = {
      "Juda kam — faqat bitta son"
     ],
     "e": "Birliksiz son — biz oʻylagan kattalik emas: 200 kVt·soat bilan 200 kVt vaqt bilan farq qiladi. Yorliqni tekshiring."
+   }
+  },
+  {
+   "t": "Four data-problem cards are shown below. Which card shows the NOISY data problem?",
+   "o": [
+    "![](/ite-diagrams/dp_noisy.png)",
+    "![](/ite-diagrams/dp_missing.png)",
+    "![](/ite-diagrams/dp_unit.png)",
+    "![](/ite-diagrams/dp_few.png)"
+   ],
+   "e": "The noisy problem is the card with five readings scattered around the mean (58 · 61 · 54 · 63 · 60 kW); the first aid is to report the mean and the range: about 59 kW (54–63). The empty winter slot is “missing”, the unitless 200 is “wrong definition / unit”, and the single trip is “too little”.",
+   "ru": {
+    "t": "Ниже показаны четыре карточки проблем данных. Какая карточка показывает проблему ШУМНЫХ (разбросанных) данных?",
+    "o": [
+     "![](/ite-diagrams/dp_noisy.png)",
+     "![](/ite-diagrams/dp_missing.png)",
+     "![](/ite-diagrams/dp_unit.png)",
+     "![](/ite-diagrams/dp_few.png)"
+    ],
+    "e": "Шумные данные — карточка с пятью разбросанными показаниями вокруг среднего (58 · 61 · 54 · 63 · 60 кВт); первая помощь — сообщить среднее и размах: около 59 кВт (54–63). Пустой зимний слот — «отсутствие данных», 200 без единицы — «неверное определение / единица», одно измерение — «слишком мало»."
+   },
+   "uz": {
+    "t": "Quyida maʼlumot muammolarining toʻrt kartochkasi koʻrsatilgan. Qaysi kartochka SHOVQINLI (tarqoq) maʼlumot muammosini koʻrsatadi?",
+    "o": [
+     "![](/ite-diagrams/dp_noisy.png)",
+     "![](/ite-diagrams/dp_missing.png)",
+     "![](/ite-diagrams/dp_unit.png)",
+     "![](/ite-diagrams/dp_few.png)"
+    ],
+    "e": "Shovqinli maʼlumot — oʻrtacha atrofida tarqoq beshta oʻlchov koʻrsatilgan kartochka (58 · 61 · 54 · 63 · 60 kVt); birinchi yordam — oʻrtacha va oraliqni xabar qilish: taxminan 59 kVt (54–63). Boʻsh qishki joy — «maʼlumot yoʻq», birliksiz 200 — «notoʻgʻri taʼrif / birlik», bitta oʻlchov — «juda kam»."
+   }
+  },
+  {
+   "t": "A datasheet states “200” with no unit. Which of the four data-problem cards below shows this problem?",
+   "o": [
+    "![](/ite-diagrams/dp_unit.png)",
+    "![](/ite-diagrams/dp_noisy.png)",
+    "![](/ite-diagrams/dp_missing.png)",
+    "![](/ite-diagrams/dp_few.png)"
+   ],
+   "e": "200 with no unit is the wrong-definition/unit problem: 200 kWh is energy (battery size) while 200 kW is power — the quantity itself is undefined until the unit is fixed.",
+   "ru": {
+    "t": "Паспорт указывает «200» без единицы. Какая из четырёх карточек проблем данных ниже показывает эту проблему?",
+    "o": [
+     "![](/ite-diagrams/dp_unit.png)",
+     "![](/ite-diagrams/dp_noisy.png)",
+     "![](/ite-diagrams/dp_missing.png)",
+     "![](/ite-diagrams/dp_few.png)"
+    ],
+    "e": "200 без единицы — проблема неверного определения / единицы: 200 кВт·ч — это энергия (ёмкость батареи), а 200 кВт — мощность; сама величина не определена, пока не фиксирована единица."
+   },
+   "uz": {
+    "t": "Datakatalogda birliksiz «200» koʻrsatilgan. Quyidagi toʻrt kartochkadan qaysi biri shu muammoni koʻrsatadi?",
+    "o": [
+     "![](/ite-diagrams/dp_unit.png)",
+     "![](/ite-diagrams/dp_noisy.png)",
+     "![](/ite-diagrams/dp_missing.png)",
+     "![](/ite-diagrams/dp_few.png)"
+    ],
+    "e": "Birliksiz 200 — notoʻgʻri taʼrif / birlik muammosi: 200 kVt·soat — energiya (batareya sigʻimi), 200 kVt esa quvvat; birlik belgilanmaguncha miqdorning oʻzi aniqlanmagan."
    }
   },
   {
@@ -1242,7 +1302,7 @@ module.exports = {
    }
   },
   {
-   "t": "Waiting-time distribution: mean 6 minutes; the 12–14 min and 14–16 min bars hold 7% and 8% of passengers. The passenger's reading of the same data:",
+   "t": "\n\n![Diagram: the waiting-time distribution and its three readings](/ite-diagrams/t26_waitdist.png)The diagram shows the distribution (mean 6 minutes) and its three readings. The 12–14 min and 14–16 min bars hold 7% and 8% of passengers. The passenger's reading of the same data:",
    "o": [
     "“One in seven of us (≈15%) waits more than 12 minutes”",
     "“The average wait is 6 minutes — fine”",
@@ -1251,7 +1311,7 @@ module.exports = {
    ],
    "e": "Same data, three true readings: dispatcher (mean 6 min, fine), passenger (1 in 7 ≈ 15% = 7% + 8% waits more than 12 min), administrator (more buses — at what cost?). Before accepting a number, ask which decision it serves.",
    "ru": {
-    "t": "Распределение времени ожидания: среднее 6 минут; столбцы 12–14 мин и 14–16 мин содержат 7% и 8% пассажиров. Прочтение пассажира тех же данных:",
+    "t": "\n\n![Diagram: the waiting-time distribution and its three readings](/ite-diagrams/t26_waitdist.png)На диаграмме показано распределение (среднее 6 минут) и три его прочтения. Столбцы 12–14 мин и 14–16 мин содержат 7% и 8% пассажиров. Прочтение пассажира тех же данных:",
     "o": [
      "«Каждый седьмой из нас (≈15%) ждёт больше 12 минут»",
      "«Среднее ожидание 6 минут — хорошо»",
@@ -1261,7 +1321,7 @@ module.exports = {
     "e": "Одни данные, три истинных прочтения: диспетчер (среднее 6 мин, хорошо), пассажир (каждый седьмой ≈ 15% = 7% + 8% ждёт больше 12 мин), администратор (больше автобусов — какой ценой?). Прежде чем принять число, спросите, какому решению оно служит."
    },
    "uz": {
-    "t": "Kutish vaqti taqsimoti: oʻrtacha 6 daqiqa; 12–14 daqiqa va 14–16 daqiqa ustunlari yoʻlovchilarning 7% va 8% ini tashkil qiladi. Xuddi shu maʼlumotning yoʻlovchi tomonidan oʻqilishi:",
+    "t": "\n\n![Diagram: the waiting-time distribution and its three readings](/ite-diagrams/t26_waitdist.png)Diagrammada taqsimot (oʻrtacha 6 daqiqa) va uning uch xil oʻqilishi koʻrsatilgan. 12–14 daqiqa va 14–16 daqiqa ustunlari yoʻlovchilarning 7% va 8% ini tashkil qiladi. Xuddi shu maʼlumotning yoʻlovchi tomonidan oʻqilishi:",
     "o": [
      "«Bizning yetti kishidan bittamiz (≈15%) 12 daqiqadan koʻp kutamiz»",
      "«Oʻrtacha kutish 6 daqiqa — yaxshi»",
@@ -1362,7 +1422,7 @@ module.exports = {
    }
   },
   {
-   "t": "An honest engineering report (Lecture 7) consists of four elements:",
+   "t": "\n\n![Diagram: the honest report card — four lines](/ite-diagrams/t27_report.png)The diagram shows the four lines filled with the Lab 7 LED case. An honest engineering report (Lecture 7) consists of four elements:",
    "o": [
     "RESULT, RANGE, TOP ASSUMPTION, WHAT WOULD CHANGE IT",
     "Answer, price, deadline, author",
@@ -1371,7 +1431,7 @@ module.exports = {
    ],
    "e": "RESULT — a sentence the reader can use; RANGE — low to high, not one value; TOP ASSUMPTION — the one the result leans on most; WHAT WOULD CHANGE IT — the data that would move the conclusion. Low confidence goes on the page.",
    "ru": {
-    "t": "Честный инженерный отчёт (лекция 7) состоит из четырёх элементов:",
+    "t": "\n\n![Diagram: the honest report card — four lines](/ite-diagrams/t27_report.png)На диаграмме показаны четыре строки, заполненные LED-кейсом лаб. 7. Честный инженерный отчёт (лекция 7) состоит из четырёх элементов:",
     "o": [
      "RESULT, RANGE, TOP ASSUMPTION, WHAT WOULD CHANGE IT",
      "Ответ, цена, срок, автор",
@@ -1381,7 +1441,7 @@ module.exports = {
     "e": "RESULT — ответ, предложение, которым читатель может воспользоваться; RANGE — от низкого до высокого, не одно значение; TOP ASSUMPTION — допущение, на котором результат держится больше всего; WHAT WOULD CHANGE IT — данные, которые сдвинули бы вывод. Низкая уверенность идёт на страницу."
    },
    "uz": {
-    "t": "Halol muhandislik hisoboti (7-maʼruza) toʻrt elementdan iborat:",
+    "t": "\n\n![Diagram: the honest report card — four lines](/ite-diagrams/t27_report.png)Diagrammada toʻrt qator 7-laboratoriya LED keysi bilan toʻldirilgan holda koʻrsatilgan. Halol muhandislik hisoboti (7-maʼruza) toʻrt elementdan iborat:",
     "o": [
      "RESULT (natija), RANGE (oraliq), TOP ASSUMPTION (asosiy faraz), WHAT WOULD CHANGE IT (buni nima oʻzgartirardi)",
      "Javob, narx, muddat, muallif",
