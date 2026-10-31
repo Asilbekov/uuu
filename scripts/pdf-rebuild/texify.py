@@ -44,10 +44,29 @@ TOKEN = re.compile(
     r'|\s+'
     r'|.')
 
+COMBINE = {'\u0304': '\\bar{', '\u0302': '\\hat{', '\u0307': '\\dot{', '\u0308': '\\ddot{', '\u20d7': '\\vec{'}
+
 FUNC_MAP = {'sin':'\\sin ','cos':'\\cos ','tan':'\\tan ','ln':'\\ln ','log':'\\log ',
             'exp':'\\exp ','lim':'\\lim ','max':'\\max ','min':'\\min ',
             'det':'\\det ','rank':'\\mathrm{rank} ','span':'\\mathrm{span} ',
             'dim':'\\dim ','sqrt':'\\sqrt ','inf':'\\inf ','sup':'\\sup '}
+
+
+def repair_interleaved_frac(tex):
+    """Torn stacked fractions: runs of 3+ adjacent markers with no base.
+    Parts concatenate: ^{x}_{x}^{+2}_{-1} -> \\frac{x+2}{x-1}."""
+    def run_repl(m):
+        parts = re.findall(r'([\^_])\{([^}]*)\}', m.group(0))
+        if len(parts) < 3:
+            return m.group(0)
+        sups = ''.join(p[1] for p in parts if p[0] == '^').strip()
+        subs = ''.join(p[1] for p in parts if p[0] == '_').strip()
+        if not sups or not subs:
+            if sups:
+                return '^{' + sups + '}'
+            return '_{' + subs + '}'
+        return '\\frac{' + sups + '}{' + subs + '}'
+    return re.sub(r'(?<![\w}\)])(?:[\^_]\{[^}]*\}\s*){2,}', run_repl, tex)
 
 def is_math_token(tok):
     if not tok or tok.isspace():
@@ -160,7 +179,14 @@ def math_run_to_tex(run):
         out.append(map_math_token(t) if not t.isspace() else ' ')
         i += 1
     tex = ''.join(out)
+    tex = tex.replace('%', r'\%')
     tex = re.sub(r'(?<![\\\w{}])(\d+)\s*/\s*(\d+)(?![\w}])', r'\\frac{\1}{\2}', tex)
+    # stacked fractions from the original PDF: baseless ^{A}_{B} / _{B}^{A}
+    # (3+ marker interleaves first, then simple pairs)
+    tex = repair_interleaved_frac(tex)
+    tex = re.sub(r'(?<![\w}\)])\^\{([^}]+)\}\s*_\{([^}]+)\}', r'\\frac{\1}{\2}', tex)
+    tex = re.sub(r'(?<![\w}\)])_\{([^}]+)\}\s*\^\{([^}]+)\}', r'\\frac{\2}{\1}', tex)
+    tex = repair_interleaved_frac(tex)
     return tex
 
 def texify(s):
@@ -278,6 +304,10 @@ def texify_formula(s):
     tex = ''.join(out)
     tex = re.sub(r'(?<![\\\w{}])(\d+)\s*/\s*(\d+)(?![\w}])', r'\\frac{\1}{\2}', tex)
     tex = re.sub(r'(?<![\\\w{}])([a-zA-Z])\s*/\s*([a-zA-Z])(?![\w}])', r'\\frac{\1}{\2}', tex)
+    tex = repair_interleaved_frac(tex)
+    tex = re.sub(r'(?<![\w}\)])\^\{([^}]+)\}\s*_\{([^}]+)\}', r'\\frac{\1}{\2}', tex)
+    tex = re.sub(r'(?<![\w}\)])_\{([^}]+)\}\s*\^\{([^}]+)\}', r'\\frac{\2}{\1}', tex)
+    tex = repair_interleaved_frac(tex)
     tex = re.sub(r'([a-zA-Z])(_\{[^}]*\})\s*/\s*([a-zA-Z])(_\{[^}]*\})', r'\\frac{\1\2}{\3\4}', tex)
     tex = re.sub(r'\u27e6M(\d+)\u27e7', lambda m: mats[int(m.group(1))], tex)
     tex = re.sub(r'([А-Яа-яЁё][А-Яа-яЁё ,;−–—·]{1,}[А-Яа-яЁё])',

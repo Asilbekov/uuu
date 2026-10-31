@@ -176,7 +176,28 @@ $x^{1/3}$ & $+\infty$ & $+\infty$ & ha & yoʻq & vertikal teguvchi \\
 \end{center}"""
 
 # Per-guide content patches: fix original-PDF scrambles.
+SI_TABLE_RU = r"""\\begin{center}\\small
+\\begin{tabular}{@{}l c c@{}}
+\\toprule
+\\textbf{Приставка} & \\textbf{Символ} & \\textbf{Степень} \\\\
+\\midrule
+тера & T & $10^{12}$ \\\\
+гига & G & $10^{9}$ \\\\
+мега & M & $10^{6}$ \\\\
+кило & k & $10^{3}$ \\\\
+милли & m & $10^{-3}$ \\\\
+микро & µ & $10^{-6}$ \\\\
+нано & n & $10^{-9}$ \\\\
+пико & p & $10^{-12}$ \\\\
+фемто & f & $10^{-15}$ \\\\
+\\bottomrule
+\\end{tabular}
+\\end{center}"""
+
 PATCHES = {
+    'm14_ru': [
+        {'kind': 'table', 're': r"\['Степень'", 'action': 'replace_latex', 'latex': 'SI_TABLE_RU'},
+    ],
     'la57_ru': [
         # scrambled LU chain: continuation drawn above the main line
         {'kind': 'p', 're': r'^E\^\{-1\}_\{2\}', 'action': 'skip'},
@@ -231,9 +252,24 @@ def despace(s):
 
 def fix_merged_indices(t):
     """Original PDF renders 'E₂E₁A' with the whole '2E1A' as one sub-span:
-    _{2E1A} -> _{2}E_{1}A,  _{2E1} -> _{2}E_{1} (visual reading restored)."""
+    _{2E1A} -> _{2}E_{1}A,  _{2E1} -> _{2}E_{1} (visual reading restored).
+    Math W1-4: scattered radical glyphs '√ √ √ 50' -> '√50'."""
     t = re.sub(r'_\{(\d+)E(\d+)([A-Za-z]*)\}', r'_{\1}E_{\2}\3', t)
     t = re.sub(r'\^\{(\d+)([a-zA-Z])\}', r'^{\1}\2', t)
+    t = re.sub(r'√(\s*√)+', '√', t)
+    t = re.sub(r'√\s*\(', '√(', t)
+    # torn limit subscripts: 'lim_{x}_{→a}' -> 'lim_{x→a}'
+    t = re.sub(r'(lim_\{[^}]+\})_\{(→[^}]+)\}', r'\1\2', t)
+    t = re.sub(r'lim_\{\}_\{', 'lim_{', t)
+    t = re.sub(r'lim_\{x\}_\{→([^}]+)\}', r'lim_{x→\1}', t)
+    # 'lim_{t→∞}_{A(t)}' -> 'lim_{t→∞} A(t)'
+    t = re.sub(r'(lim_\{[^}]+\})_\{([A-Za-z(][^}]*\()', r'\1 \2', t)
+    # torn pi fractions: '5_{4}^{π}' -> '5π/4'
+    t = re.sub(r'(\d+)_\{(\d+)\}\^\{π\}', r'^{\1π}_{\2}', t)
+    # combining diacritics: x\u0304 -> \bar{x}
+    for mark, cmd in (('\u0304', 'bar'), ('\u0302', 'hat'), ('\u0307', 'dot'), ('\u0308', 'ddot'), ('\u20d7', 'vec')):
+        t = re.sub(r'(\w)' + mark, r'\\' + cmd + r'{\1}', t)
+        t = t.replace(mark, '')
     return t
 
 def esc_text(s):
@@ -573,8 +609,10 @@ PREAMBLE_RU = r"""\documentclass[11pt]{article}
 def build(key):
     global CONTENT_PATCHES
     from patches_la14 import PATCHES_EN, PATCHES_UZ
+    from patches_m14 import PATCHES_M14_RU
     CONTENT_PATCHES = {'la14_ru': PATCHES_RU, 'la14_en': PATCHES_EN,
-                       'la14_uz': PATCHES_UZ}.get(key, [])
+                       'la14_uz': PATCHES_UZ,
+                       'm14_ru': PATCHES_M14_RU}.get(key, [])
     cfg = GUIDES[key]
     with open(f'{WORK}/{key}.json') as f:
         data = json.load(f)
