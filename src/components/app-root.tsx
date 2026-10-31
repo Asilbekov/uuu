@@ -2890,11 +2890,33 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       return;
     }
 
+    // GRADING LETTER SPACE: `answers` holds DISPLAY letters (the user clicks
+    // on the shuffled screen), while the server grades `selectedAnswer`
+    // against the question's STORED (DB) letter. Convert display → DB by
+    // matching the selected option's TEXT inside the unshuffled question of
+    // the loaded test — a letter-only submission would be graded against the
+    // wrong option whenever the client-side shuffle moved it (randomized
+    // options). Text matching also survives resumes and old snapshots that
+    // predate the shuffle bookkeeping.
+    const dbQuestionById = new Map<string, Question>(
+      (currentTest.questions || []).map((o: Question) => [o.id || '', o])
+    );
     const answerData = shuffledQuestions.map(q => {
       const selected = answers[q.id || ''] || '';
+      let dbSelected = selected;
+      if (selected) {
+        const optText = (q as any)[`option${selected}`];
+        const dbq = dbQuestionById.get(q.id || '');
+        if (dbq && optText !== undefined) {
+          const dbLetter = ['A', 'B', 'C', 'D', 'E'].find(
+            L => (dbq as any)[`option${L}`] === optText
+          );
+          if (dbLetter) dbSelected = dbLetter;
+        }
+      }
       return {
         questionId: q.id,
-        selectedAnswer: selected,
+        selectedAnswer: dbSelected,
         isCorrect: selected === q.correctAnswer,
       };
     });
