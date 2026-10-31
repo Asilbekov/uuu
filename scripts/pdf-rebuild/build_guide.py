@@ -53,6 +53,48 @@ $\begin{bmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}$ & $+1$ & $P_
 \end{tabular}
 \end{center}"""
 
+PERM_TABLE_EN = r"""\begin{center}\small
+\begin{tabular}{@{}l l c l@{}}
+\toprule
+\textbf{Permutation} & \textbf{Matrix (row-wise)} & $\det P$ & $P^{-1} = P^{T}$ \\
+\midrule
+$I$ &
+$\begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$ & $+1$ & $I$ \\
+$P_{21}$ (swap rows 1, 2) &
+$\begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}$ & $-1$ & $P_{21}$ \\
+$P_{32}$ (swap rows 2, 3) &
+$\begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}$ & $-1$ & $P_{32}$ \\
+$P_{31}$ (swap rows 1, 3) &
+$\begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 0 \\ 1 & 0 & 0 \end{bmatrix}$ & $-1$ & $P_{31}$ \\
+$P_{32} P_{21}$ (cyclic) &
+$\begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 0 & 0 \end{bmatrix}$ & $+1$ & $P_{21} P_{32}$ \\
+$P_{21} P_{32}$ (cyclic) &
+$\begin{bmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}$ & $+1$ & $P_{32} P_{21}$ \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
+PERM_TABLE_UZ = r"""\begin{center}\small
+\begin{tabular}{@{}l l c l@{}}
+\toprule
+\textbf{Almashtirish} & \textbf{Matritsa (qator boʻyicha)} & $\det P$ & $P^{-1} = P^{T}$ \\
+\midrule
+$I$ &
+$\begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$ & $+1$ & $I$ \\
+$P_{21}$ (1, 2-qatorlarni almashtirish) &
+$\begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{bmatrix}$ & $-1$ & $P_{21}$ \\
+$P_{32}$ (2, 3-qatorlarni almashtirish) &
+$\begin{bmatrix} 1 & 0 & 0 \\ 0 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix}$ & $-1$ & $P_{32}$ \\
+$P_{31}$ (1, 3-qatorlarni almashtirish) &
+$\begin{bmatrix} 0 & 0 & 1 \\ 0 & 1 & 0 \\ 1 & 0 & 0 \end{bmatrix}$ & $-1$ & $P_{31}$ \\
+$P_{32} P_{21}$ (tsiklik) &
+$\begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & 0 & 0 \end{bmatrix}$ & $+1$ & $P_{21} P_{32}$ \\
+$P_{21} P_{32}$ (tsiklik) &
+$\begin{bmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}$ & $+1$ & $P_{32} P_{21}$ \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
 # Per-guide content patches: fix original-PDF scrambles.
 PATCHES = {
     'la57_ru': [
@@ -66,6 +108,20 @@ PATCHES = {
         {'kind': 'table', 're': r"\['\(циклическая\)'\]", 'action': 'skip'},
         {'kind': 'table', 're': r"\['Перестановка'", 'action': 'replace_latex',
          'latex': 'PERM_TABLE_RU'},
+    ],
+    'la57_en': [
+        {'kind': 'p', 're': r'^E\^\{-1\}_\{2\}', 'action': 'skip'},
+        {'kind': 'f', 're': r'^E_\{k\} ···E_\{2E1A\}', 'action': 'replace',
+         'latex': r'\[ E_k \cdots E_2 E_1 A = U \;\rightarrow\; A = E_1^{-1} E_2^{-1} \cdots E_k^{-1} U = LU \]'},
+        {'kind': 'table', 're': r"\['Permutation'", 'action': 'replace_latex',
+         'latex': 'PERM_TABLE_EN'},
+    ],
+    'la57_uz': [
+        {'kind': 'p', 're': r'^E\^\{-1\}_\{2\}', 'action': 'skip'},
+        {'kind': 'f', 're': r'^E_\{k\} ···E_\{2E1A\}', 'action': 'replace',
+         'latex': r'\[ E_k \cdots E_2 E_1 A = U \;\rightarrow\; A = E_1^{-1} E_2^{-1} \cdots E_k^{-1} U = LU \]'},
+        {'kind': 'table', 're': r"\['Almashtirish'", 'action': 'replace_latex',
+         'latex': 'PERM_TABLE_UZ'},
     ],
 }
 
@@ -232,7 +288,9 @@ def render_blocks(blocks, lang, guide_key):
                     out.append(p['latex'])
                     skip = True
                 elif p['action'] == 'replace_latex':
-                    out.append(PERM_TABLE_RU if p['latex'] == 'PERM_TABLE_RU' else p['latex'])
+                    table = {'PERM_TABLE_RU': PERM_TABLE_RU, 'PERM_TABLE_EN': PERM_TABLE_EN,
+                             'PERM_TABLE_UZ': PERM_TABLE_UZ}.get(p['latex'], p['latex'])
+                    out.append(table)
                     skip = True
                 break
         if skip:
@@ -328,12 +386,11 @@ PREAMBLE_RU = r"""\documentclass[11pt]{article}
 \usepackage{amsmath, amssymb, booktabs}
 \usepackage{fontspec}
 \usepackage{polyglossia}
-\setmainlanguage{russian}
+\setmainlanguage{<<LANG>>}
 \setotherlanguage{english}
 \setmainfont{DejaVu Serif}
 \setsansfont{DejaVu Sans}
-\newfontfamily\cyrillicfont{DejaVu Serif}
-\newfontfamily\cyrillicfontsf{DejaVu Sans}
+<<CYRFONTS>>
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -370,7 +427,15 @@ def build(key):
     footer = re.sub(r'(РЕШЕНИЯ)\s*О\s*К\s*Т\s*Я\s*Б\s*Р\s*Ь\s*2\s*0\s*2\s*6', r'\1 · ОСЕНЬ 2026', footer)
 
     hl = title + (' — ' + subtitle.lower() if subtitle else '')
-    preamble = PREAMBLE_RU.replace('<<HL>>', esc_text(hl)).replace('<<HR>>', esc_text('Вопросы · Формулы · Решения'))
+    lang = cfg['lang']
+    lang_cmd = {'ru': 'russian', 'en': 'english', 'uz': 'english'}[lang]
+    cyr = ('\\newfontfamily\\cyrillicfont{DejaVu Serif}\n'
+           '\\newfontfamily\\cyrillicfontsf{DejaVu Sans}') if lang == 'ru' else '% no cyrillic fonts needed'
+    hr = data.get('header', {}).get('right') or '·'
+    hl_head = data.get('header', {}).get('left') or hl
+    preamble = (PREAMBLE_RU.replace('<<LANG>>', lang_cmd)
+                .replace('<<CYRFONTS>>', cyr)
+                .replace('<<HL>>', esc_text(hl_head)).replace('<<HR>>', esc_text(hr)))
 
     titlepage = r"""\begin{titlepage}
 \centering

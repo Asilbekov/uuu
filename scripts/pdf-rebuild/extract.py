@@ -209,8 +209,17 @@ def extract(pdf_path):
     doc = fitz.open(pdf_path)
     raw = []          # (pno, line)
     cover = []
+    header = {'left': '', 'right': ''}
     for pno, page in enumerate(doc):
         spans = iter_spans(page)
+        if pno == 1:
+            # capture the running head before skipping the TOC page
+            hd = [s for s in spans if s['role'] == 'chrome' and s['bbox'][1] < 55]
+            hd.sort(key=lambda s: s['bbox'][0])
+            if len(hd) >= 2:
+                header = {'left': hd[0]['text'].strip(), 'right': hd[-1]['text'].strip()}
+            elif hd:
+                header = {'left': hd[0]['text'].strip(), 'right': ''}
         if pno == 0:
             cover = assemble_lines(spans)
             continue
@@ -380,7 +389,7 @@ def extract(pdf_path):
     # --- h3 & question detection ---
     out = []
     h3_pat = re.compile(r'^\d+\.\d+\.\d+\s+\S')
-    q_pat = re.compile(r'^(Упражнение|Практика|Вопрос|Задача|Пример|Савол|Тапшырма|Контрольная|Контрольный вопрос)\s*(\d+)?\s*[.)]\s*')
+    q_pat = re.compile(r'^(Упражнение|Практика|Вопрос|Задача|Пример|Савол|Тапшырма|Контрольная|Контрольный вопрос|Exercise|Practice|Problem|Question|Example|Mashq|Topshiriq|Misol|Masala|Amaliyot)\s*(\d+)?\s*[.)]\s*')
     for b in blocks:
         if b['k'] == 'p':
             t = b['t']
@@ -400,12 +409,12 @@ def extract(pdf_path):
                     out.append({'k': 'q', 'label': label, 'title': '', 't': rest})
                 continue
         out.append(b)
-    return cover, out
+    return cover, out, header
 
 def main():
     pdf_path, out_path = sys.argv[1], sys.argv[2]
-    cover, blocks = extract(pdf_path)
-    data = {'cover': [line_text(l) for l in cover], 'blocks': blocks}
+    cover, blocks, header = extract(pdf_path)
+    data = {'cover': [line_text(l) for l in cover], 'header': header, 'blocks': blocks}
     with open(out_path, 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
     kinds = Counter(b['k'] for b in blocks)
