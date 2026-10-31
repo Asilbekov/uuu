@@ -188,8 +188,8 @@ def classify_line(line):
     return 'body'
 
 def table_cells(line):
-    """Split a table row line into cells by x-gaps."""
-    spans = [s for s in line if s['role'] not in ('mathidx', 'textidx') or True]
+    """Split a table row line into cells by x-gaps (index markers kept)."""
+    spans = attach_indices(line)
     cells, cur = [], []
     prev = None
     body_size, *_ = line_metrics(line)
@@ -389,7 +389,7 @@ def extract(pdf_path):
     # --- h3 & question detection ---
     out = []
     h3_pat = re.compile(r'^\d+\.\d+\.\d+\s+\S')
-    q_pat = re.compile(r'^(Упражнение|Практика|Вопрос|Задача|Пример|Савол|Тапшырма|Контрольная|Контрольный вопрос|Exercise|Practice|Problem|Question|Example|Mashq|Topshiriq|Misol|Masala|Amaliyot)\s*(\d+)?\s*[.)]\s*')
+    q_pat = re.compile(r'^(Упражнение|Практика|Вопрос|Задача|Пример|Савол|Тапшырма|Контрольная|Контрольный вопрос|Exercise|Practice|Problem|Question|Example|Mashq|Topshiriq|Misol|Masala|Amaliyot)\s+(\d+(?:\.\d+)?)?\s*[(.]')
     for b in blocks:
         if b['k'] == 'p':
             t = b['t']
@@ -399,7 +399,7 @@ def extract(pdf_path):
                 continue
             m = q_pat.match(t)
             if m and b.get('bold'):
-                label = m.group(0).strip()
+                label = m.group(0).strip().rstrip('(').strip()
                 rest = t[m.end():].lstrip()
                 # split title (first sentence) from the body
                 tm = re.match(r'^([^.?!\s][^.?!]{2,90}[.?!])\s+(.*)$', rest, re.S)

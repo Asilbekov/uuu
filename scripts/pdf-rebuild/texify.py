@@ -29,7 +29,7 @@ SYMS = {'−':'-','·':'\\cdot ','×':'\\times ','≤':'\\leq ','≥':'\\geq ','
 FUNCS = {'det','rank','span','null','dim','tr','rref','ref','lu','ldu','sin','cos',
          'tan','exp','ln','log','max','min','sup','inf','ker','im','col','row',
          'proj','dist','norm','diag','trace','adj','codim','card','argmin','argmax',
-         'lcm','gcd','gcd','lcm','mod','sgn','vec','id','Id'}
+         'lcm','gcd','gcd','lcm','mod','sgn','vec','id','Id','sqrt','lim','arctan','sec','csc','cot'}
 
 TOKEN = re.compile(
     r'\u27e6M\d+\u27e7'                       # matrix placeholder
@@ -43,6 +43,11 @@ TOKEN = re.compile(
     r'|[()\[\]{}|,;:.!?/\']'
     r'|\s+'
     r'|.')
+
+FUNC_MAP = {'sin':'\\sin ','cos':'\\cos ','tan':'\\tan ','ln':'\\ln ','log':'\\log ',
+            'exp':'\\exp ','lim':'\\lim ','max':'\\max ','min':'\\min ',
+            'det':'\\det ','rank':'\\mathrm{rank} ','span':'\\mathrm{span} ',
+            'dim':'\\dim ','sqrt':'\\sqrt ','inf':'\\inf ','sup':'\\sup '}
 
 def is_math_token(tok):
     if not tok or tok.isspace():
@@ -64,6 +69,7 @@ def is_math_token(tok):
     return False
 
 def map_math_token(tok):
+    if tok in FUNC_MAP: return FUNC_MAP[tok]
     if tok in GREEK: return GREEK[tok]
     if tok in SYMS: return SYMS[tok]
     if tok == '−': return '-'
@@ -191,6 +197,13 @@ def texify(s):
             if cur_math: cur_math.append(t)
             else: parts.append(t)
             continue
+        # short lowercase latin (dx, dy, dt) continues an open math run
+        if (cur_math and not is_math_token(t) and re.fullmatch(r'[a-z]{1,3}', t)):
+            j = idx + 1
+            while j < n and toks[j].isspace(): j += 1
+            if j < n and (is_math_token(toks[j]) or re.fullmatch(r'[a-z]{1,3}', toks[j])):
+                cur_math.append(t)
+                continue
         if is_math_token(t):
             if t in '.,;:!?':
                 # keep , ; inside an EXISTING math run if next token is mathy

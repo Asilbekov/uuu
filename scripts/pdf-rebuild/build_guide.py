@@ -95,6 +95,85 @@ $\begin{bmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}$ & $+1$ & $P_
 \end{tabular}
 \end{center}"""
 
+
+UNITS_TABLE_RU = r"""\begin{center}\small
+\begin{tabular}{@{}c l l l c@{}}
+\toprule
+\textbf{№} & \textbf{Величина} & \textbf{Определение} & \textbf{Интерпретация} & \textbf{Ед.\ СИ} \\
+\midrule
+1 & Скорость (velocity) & $v = dr/dt$ & Скорость изменения положения & м/с \\
+2 & Скорость движения (speed) & $v = ds/dt = |dr/dt|$ & Скорость изменения пройденного пути $s$ & м/с \\
+3 & Ускорение (acceleration) & $a = dv/dt = d^{2}r/dt^{2}$ & Скорость изменения скорости & м/с$^{2}$ \\
+4 & Рывок (jerk) & $j = da/dt$ & Скорость изменения ускорения; важен для вибрации и плавности хода & м/с$^{3}$ \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
+UNITS_TABLE_EN = r"""\begin{center}\small
+\begin{tabular}{@{}c l l l c@{}}
+\toprule
+\textbf{№} & \textbf{Quantity} & \textbf{Definition} & \textbf{Interpretation} & \textbf{SI Unit} \\
+\midrule
+1 & Velocity & $v = dr/dt$ & Rate of change of position & m/s \\
+2 & Speed & $v = ds/dt = |dr/dt|$ & Rate of change of distance traveled & m/s \\
+3 & Acceleration & $a = dv/dt = d^{2}r/dt^{2}$ & Rate of change of velocity & m/s$^{2}$ \\
+4 & Jerk & $j = da/dt$ & Rate of change of acceleration; important for vibrations and smooth motion & m/s$^{3}$ \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
+UNITS_TABLE_UZ = r"""\begin{center}\small
+\begin{tabular}{@{}c l l l c@{}}
+\toprule
+\textbf{№} & \textbf{Kattalik} & \textbf{Taʼrif} & \textbf{Tushuntirish} & \textbf{SI birligi} \\
+\midrule
+1 & Tezlik (velocity) & $v = dr/dt$ & Joylashuvning oʻzgarish tezligi & m/s \\
+2 & Harakat tezligi (speed) & $v = ds/dt = |dr/dt|$ & Bosib oʻtilgan yoʻlning oʻzgarish tezligi & m/s \\
+3 & Tezlanish (acceleration) & $a = dv/dt = d^{2}r/dt^{2}$ & Tezlikning oʻzgarish tezligi & m/s$^{2}$ \\
+4 & Zarba (jerk) & $j = da/dt$ & Tezlanishning oʻzgarish tezligi; tebranishlar va silliq harakat uchun muhim & m/s$^{3}$ \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
+KINK_TABLE_RU = r"""\begin{center}\small
+\begin{tabular}{@{}l c c c c l@{}}
+\toprule
+\textbf{Функция} & \textbf{Наклон слева} & \textbf{Наклон справа} & \textbf{Непрерывна в 0?} & \textbf{Дифференцируема в 0?} & \textbf{Поведение} \\
+\midrule
+$x^{2}$ & $0$ & $0$ & да & да & горизонтальная касательная \\
+$|x|$ & $-1$ & $1$ & да & нет & излом (kink) \\
+$|x|^{2/3}$ & $-\infty$ & $+\infty$ & да & нет & острие (cusp) \\
+$x^{1/3}$ & $+\infty$ & $+\infty$ & да & нет & вертикальная касательная \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
+KINK_TABLE_EN = r"""\begin{center}\small
+\begin{tabular}{@{}l c c c c l@{}}
+\toprule
+\textbf{Function} & \textbf{Left slope} & \textbf{Right slope} & \textbf{Continuous at 0?} & \textbf{Differentiable at 0?} & \textbf{Behavior} \\
+\midrule
+$x^{2}$ & $0$ & $0$ & yes & yes & horizontal tangent \\
+$|x|$ & $-1$ & $1$ & yes & no & kink \\
+$|x|^{2/3}$ & $-\infty$ & $+\infty$ & yes & no & cusp \\
+$x^{1/3}$ & $+\infty$ & $+\infty$ & yes & no & vertical tangent \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
+KINK_TABLE_UZ = r"""\begin{center}\small
+\begin{tabular}{@{}l c c c c l@{}}
+\toprule
+\textbf{Funksiya} & \textbf{Chap nishablik} & \textbf{Oʻng nishablik} & \textbf{0 da uzluksizmi?} & \textbf{0 da hosilasi bormi?} & \textbf{Xulq-atvori} \\
+\midrule
+$x^{2}$ & $0$ & $0$ & ha & ha & gorizontal teguvchi \\
+$|x|$ & $-1$ & $1$ & ha & yoʻq & burilish (kink) \\
+$|x|^{2/3}$ & $-\infty$ & $+\infty$ & ha & yoʻq & uch (cusp) \\
+$x^{1/3}$ & $+\infty$ & $+\infty$ & ha & yoʻq & vertikal teguvchi \\
+\bottomrule
+\end{tabular}
+\end{center}"""
+
 # Per-guide content patches: fix original-PDF scrambles.
 PATCHES = {
     'la57_ru': [
@@ -108,6 +187,24 @@ PATCHES = {
         {'kind': 'table', 're': r"\['\(циклическая\)'\]", 'action': 'skip'},
         {'kind': 'table', 're': r"\['Перестановка'", 'action': 'replace_latex',
          'latex': 'PERM_TABLE_RU'},
+    ],
+    'm57_ru': [
+        {'kind': 'table', 're': r"\['№', 'Величина'", 'action': 'replace_latex', 'latex': 'UNITS_TABLE_RU'},
+        {'kind': 'table', 're': r"\['ФункцияНаклон", 'action': 'replace_latex', 'latex': 'KINK_TABLE_RU'},
+    ],
+    'm57_en': [
+        {'kind': 'table', 're': r"\['№', 'Quantity'", 'action': 'replace_latex', 'latex': 'UNITS_TABLE_EN'},
+        {'kind': 'table', 're': r"\['Function", 'action': 'replace_latex', 'latex': 'KINK_TABLE_EN'},
+    ],
+    'm57_uz': [
+        # original PDF leaked raw LaTeX: the closing brace after x=a is missing
+        {'kind': 'p', 're': r'Leybnits notatsiyasi', 'action': 'fix',
+         'sub': (r'\|_\{x=a; Leybnits', r'|_{x=a}; Leybnits')},
+        # crossed superscript markers in the 2^x derivative chain
+        {'kind': 'p', 're': r'2\^\{2\)\}\^\{x\}|e\^\{\(x·ln\}', 'action': 'fix',
+         'sub': (r'e\^\{\(x·ln\} \·ln 2 = 2\^\{2\)\}\^\{x\} \·ln 2', r'e^{x·ln 2} ·ln 2 = 2^{x} ·ln 2')},
+        {'kind': 'table', 're': r"\['№', 'Kattalik'", 'action': 'replace_latex', 'latex': 'UNITS_TABLE_UZ'},
+        {'kind': 'table', 're': r"\['Funksiya", 'action': 'replace_latex', 'latex': 'KINK_TABLE_UZ'},
     ],
     'la57_en': [
         {'kind': 'p', 're': r'^E\^\{-1\}_\{2\}', 'action': 'skip'},
@@ -135,6 +232,7 @@ def fix_merged_indices(t):
     """Original PDF renders 'E₂E₁A' with the whole '2E1A' as one sub-span:
     _{2E1A} -> _{2}E_{1}A,  _{2E1} -> _{2}E_{1} (visual reading restored)."""
     t = re.sub(r'_\{(\d+)E(\d+)([A-Za-z]*)\}', r'_{\1}E_{\2}\3', t)
+    t = re.sub(r'\^\{(\d+)([a-zA-Z])\}', r'^{\1}\2', t)
     return t
 
 def esc_text(s):
@@ -282,14 +380,17 @@ def render_blocks(blocks, lang, guide_key):
             else:
                 target = b.get('t', '')
             if re.search(p['re'], target):
-                if p['action'] == 'skip':
+                if p['action'] == 'fix':
+                    b = dict(b)
+                    b['t'] = re.sub(p['sub'][0], p['sub'][1], b['t'])
+                elif p['action'] == 'skip':
                     skip = True
                 elif p['action'] == 'replace':
                     out.append(p['latex'])
                     skip = True
                 elif p['action'] == 'replace_latex':
-                    table = {'PERM_TABLE_RU': PERM_TABLE_RU, 'PERM_TABLE_EN': PERM_TABLE_EN,
-                             'PERM_TABLE_UZ': PERM_TABLE_UZ}.get(p['latex'], p['latex'])
+                    registry = {k: v for k, v in globals().items() if k.endswith('_TABLE_RU') or k.endswith('_TABLE_EN') or k.endswith('_TABLE_UZ')}
+                    table = registry.get(p['latex'], p['latex'])
                     out.append(table)
                     skip = True
                 break
