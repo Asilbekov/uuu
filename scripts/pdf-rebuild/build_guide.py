@@ -1127,7 +1127,11 @@ def render_table(rows):
         min_w = min(0.30, (longest_tok * 5.5 + 10) / 465.0)
         w[ci] = max(w[ci], min_w)
     s = sum(w)
-    w = [x * 0.93 / s for x in w]
+    # tabcolsep fix: the (ncols-1) inner column gaps consume 2 x 5.4pt each
+    # at \small, so the p-widths must sum to \linewidth MINUS those gaps —
+    # otherwise wide tables overflow the right margin (A4, 2.3cm margins)
+    avail = (465.0 - 10.8 * (ncols - 1)) / 465.0
+    w = [x * avail / s for x in w]
     spec = ' '.join(f'>{{\\raggedright\\arraybackslash}}p{{{x:.2f}\\linewidth}}' for x in w)
     lines = ['\\begin{center}\\small', '\\begin{tabular}{@{}' + spec + '@{}}', '\\toprule']
     for i, r in enumerate(rows):
@@ -1165,6 +1169,10 @@ PREAMBLE_RU = r"""\documentclass[11pt]{article}
 \titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{0.7em}{}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{4pt plus 1pt}
+% DejaVu Serif has little interword stretch: without a raised tolerance the
+% line breaker prefers overfull lines over loose ones (unbreakable-look
+% paragraphs after PDF extraction)
+\tolerance=1400
 \emergencystretch=<<STRETCH>>em
 \renewcommand{\arraystretch}{1.25}
 \begin{document}
@@ -1186,6 +1194,10 @@ def build(key):
     # text-oriented guides: square brackets stay plain text (units '[h/day]',
     # templates '[the system]', '[Source: X]'), never bmatrix/math
     _texify_mod.TEXT_BRACKETS = key.startswith(('ie57', 'ee57'))
+    # text-subject guides: demote word-only inline runs from math (We, If,
+    # Bu, S1, T6, TED, QR, 96 km, a), b)... render as DejaVu text, not CM
+    # math italic) — the v1 originals are ReportLab text documents
+    _texify_mod.TEXT_GUIDE = not key.startswith(('m14', 'm57', 'la14', 'la57'))
     with open(f'{WORK}/{key}.json') as f:
         data = json.load(f)
     cover = data['cover']

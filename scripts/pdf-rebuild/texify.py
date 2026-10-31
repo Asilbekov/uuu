@@ -90,6 +90,8 @@ def is_math_token(tok):
     if tok in '()|,/[]':
         if TEXT_BRACKETS and tok in '[]':
             return False
+        if TEXT_GUIDE and tok in '/|':
+            return False
         return True
     return False
 
@@ -228,6 +230,29 @@ def math_run_to_tex(run):
 # '[Source: X]' must never become math or bmatrix.
 TEXT_BRACKETS = False
 
+# Text-subject guides (History / ITE / English / CS): natural language must
+# never render in math italic.  When True, an inline run stays math ONLY if
+# it carries real math: an operator (= < > + ≤ ≥ ≠ ← → · × ± ⇒ ...), a greek
+# letter, a ^{}/_{} marker or a matrix placeholder.  Runs made only of
+# words / digits / parens / commas / slashes / dashes — English and Uzbek
+# function words (We, If, In, Bu, o'nta...), question labels (S1, T6, P1,
+# B1, L5-1), abbreviations (TED, QR, CS50, EAP B1, PF-5775, EJF), option
+# letters (a), b)), number+unit pairs (96 km, 18 Vt), hex literals (0x77)
+# — stay plain text, exactly like the v1 ReportLab originals.  '/' and '|'
+# stop being math tokens in this mode (units 'm/s2', '96 km' are text).
+TEXT_GUIDE = False
+
+def run_is_textmath(run_toks):
+    """True if the pending run is natural language, not math (TEXT_GUIDE)."""
+    joined = ''.join(run_toks)
+    if re.search(r'[=+<>≤≥≠←→↔⟹⟸⟺⟶⟵∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×\u27e6]', joined):
+        return False
+    if re.search(r'[\^_]\{', joined):
+        return False
+    if re.search(r'[\u0370-\u03ff\u2100-\u214f]', joined):
+        return False
+    return True
+
 
 def texify(s):
     """Body text with inline math -> LaTeX string."""
@@ -255,7 +280,8 @@ def texify(s):
             lead = ' ' if cur_math[0].isspace() else ''
             trail = ' ' if cur_math[-1].isspace() else ''
             run = ''.join(cur_math).strip()
-            if run and mathworthy(cur_math):
+            if (run and mathworthy(cur_math)
+                    and not (TEXT_GUIDE and run_is_textmath(cur_math))):
                 parts.append(lead + '\\(' + math_run_to_tex(run) + '\\)' + trail)
             else:
                 parts.append(lead + run + trail)
