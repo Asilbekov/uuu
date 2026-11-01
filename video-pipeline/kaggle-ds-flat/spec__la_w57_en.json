@@ -1,0 +1,710 @@
+{
+  "id": "la_w57",
+  "language": "en",
+  "course_title": "Linear Algebra I",
+  "test_title": "Weeks 5–7 · Complete Guide",
+  "subtitle": "Geometry and Elimination · Matrix Operations · Vector Spaces",
+  "chapters": [
+    {
+      "title": "Two Pictures of a Linear System",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "Welcome to the complete video guide to Linear Algebra One, weeks five to seven. We will see the two geometric pictures of a linear system, master elimination and its matrix language, factor matrices into L U and L D U, meet transposes, symmetric matrices and permutations, and step into vector spaces, column spaces and null spaces. Every rule comes from your study guide, and every method is tested on real worked examples."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Two Pictures of a Linear System",
+          "subtitle": "Rows are intersections, columns are combinations",
+          "narration": "Chapter one. Before computing anything, learn to see a system. There are two ways to look at A x equals b: a row picture, where each equation is a line or a plane, and a column picture, where the solution is the recipe mixing the columns of A to produce b. Master both, and the three possible outcomes of a system become obvious."
+        },
+        {
+          "type": "concept",
+          "heading": "Rank and Invertibility",
+          "bullets": [
+            "rank = number of pivots",
+            "n by n with n pivots: invertible",
+            "then Ax = b has one solution",
+            "rank 1: proportional columns"
+          ],
+          "formula": "n \\text{ pivots} \\iff A^{-1} \\text{ exists}",
+          "formula_caption": "read: n pivots if and only if the inverse exists",
+          "narration": "The rank of a matrix is the number of pivots that elimination finds. Take the matrix with rows one, two and two, four: the second row is twice the first, elimination finds a single pivot, and the rank is one. This matrix has no inverse: A x equals three, six has infinitely many solutions, while A x equals three, seven has none. For a square n by n matrix, n pivots mean invertibility, and then A x equals b has exactly one solution for every right-hand side. The rule to remember: n pivots if and only if the inverse exists."
+        },
+        {
+          "type": "concept",
+          "heading": "The Row Picture: Lines and Planes",
+          "bullets": [
+            "each row of A is one equation",
+            "in 2D: two lines",
+            "in 3D: three planes",
+            "solution = common point"
+          ],
+          "formula": "\\begin{pmatrix} 2 & -1 \\\\ 1 & 1 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}",
+          "formula_caption": "read: the matrix with rows 2 -1 and 1 1, times x y, equals 1 5",
+          "narration": "In the row picture we read the matrix row by row. The system two x minus y equals one, and x plus y equals five, stacks two demands, and each demand is a line in the plane. The first row of A draws the first line, the second row the second. In three dimensions each row becomes a plane, and a solution must lie on all planes at once. Our two lines cross at x equals two, y equals three — that is the answer. If the lines are parallel, or coincide, the system has no solution, or infinitely many."
+        },
+        {
+          "type": "plot",
+          "heading": "Where the Two Lines Meet",
+          "functions": [
+            { "fn": "2*x - 1", "tex": "y = 2x - 1", "color": "yellow" },
+            { "fn": "5 - x", "tex": "y = 5 - x", "color": "blue" }
+          ],
+          "x_range": [-1, 5],
+          "y_range": [-1, 5],
+          "point": [2, 3],
+          "point_label": "(2, 3)",
+          "narration": "Here is the row picture for the eyes. The yellow line, two x minus y equals one, rewritten as y equals two x minus one, climbs steeply. The blue line, x plus y equals five, rewritten as y equals five minus x, falls. Every point on a line satisfies its equation; the solution must satisfy both. So we look for the crossing: the point two, three. Two lines in general position meet exactly once — that is why an ordinary two by two system has exactly one solution. Lines that refuse to meet, or merge into one, give the exceptional cases: none, or infinitely many."
+        },
+        {
+          "type": "concept",
+          "heading": "The Column Picture: A Combination of Vectors",
+          "bullets": [
+            "Ax = combination of the columns",
+            "the unknowns are the weights",
+            "here 2 and 3 reach b",
+            "same answer as the row picture"
+          ],
+          "formula": "x \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix} + y \\begin{pmatrix} -1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}",
+          "formula_caption": "read: x times the first column plus y times the second equals b",
+          "narration": "Now look at the same system column by column. The product A x says: take x copies of the first column, add y copies of the second, and try to land exactly on b. The columns are two, one and minus one, one; the target is one, five. The recipe: two copies of the first plus three of the second gives one, five — exactly right. So x equals two, y equals three, the same answer the row picture gave: it is the same equation. Strang's slogan: rows are intersections, columns are combinations."
+        },
+        {
+          "type": "table",
+          "heading": "Three Possible Outcomes",
+          "columns": ["Outcome", "Elimination signal", "Geometry"],
+          "rows": [
+            ["one solution", "full set of pivots", "lines meet at one point"],
+            ["infinitely many", "a row 0 = 0 appears", "lines coincide"],
+            ["no solution", "a row 0 = c, c nonzero", "lines are parallel"]
+          ],
+          "narration": "Every linear system ends one of three ways, and elimination tells you which. A full set of pivots with no contradiction means exactly one solution: the lines or planes meet at a single point. A whole equation dissolving into zero equals zero carried no information — a constraint disappears, a free variable appears, and infinitely many solutions follow; the lines coincide. And zero equals c, with c nonzero, is a contradiction: parallel lines that never meet. One solution, infinitely many, or none — watch for these signals in every example ahead."
+        },
+        {
+          "type": "example",
+          "heading": "Example: One System, Two Pictures",
+          "problem": "\\begin{pmatrix} 2 & -1 \\\\ 1 & 1 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}",
+          "steps": [
+            { "tex": "2x - y = 1, \\quad x + y = 5" },
+            { "text": "add the equations: 3x = 6" },
+            { "tex": "x = 2, \\quad y = 5 - 2 = 3" },
+            { "tex": "2 \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix} + 3 \\begin{pmatrix} -1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "(x, y) = (2, 3)",
+          "narration": "Let us solve the system and see both pictures. The equations are two x minus y equals one, and x plus y equals five. Add them: the y terms cancel, three x equals six, so x equals two; then y equals five minus two, three. Rows done. Now the columns: two copies of the column two, one, plus three copies of the column minus one, one. First components: four minus three, one; second components: two plus three, five. We land on b. The lines cross at two, three; the columns combine to one, five. Answer: x equals two, y equals three. Both pictures agree, as they always must."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Three Outcomes, c = 4 or c = 5",
+          "problem": "\\begin{pmatrix} 1 & 1 \\\\ 2 & 2 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ c \\end{pmatrix}",
+          "steps": [
+            { "text": "left sides: row two is twice row one" },
+            { "tex": "R_2 \\leftarrow R_2 - 2R_1" },
+            { "tex": "0 = c - 4" },
+            { "text": "c = 4: zero equals zero — a free variable" },
+            { "text": "c = 5: 0 = 1 — no solution", "highlight": true }
+          ],
+          "result": "c = 4: infinitely many; c = 5: none",
+          "narration": "One matrix, two right-hand sides, two different fates. The left sides never change: the second row, one one, is exactly twice the first. Subtract twice row one from row two: the left side becomes zero equals zero, the right side c minus four. If c equals four, we get zero equals zero: the second equation repeats the first, and with a free variable t the solutions are x equals two minus t, y equals t — infinitely many. If c equals five, we get zero equals one, an impossibility — no solution. Proportional rows demand a proportional right-hand side, or the system breaks. Geometrically: c equals four makes the two lines coincide; c equals five makes them parallel."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "rank = number of pivots",
+            "rows: intersecting lines, planes",
+            "columns: combinations reaching b",
+            "0 = 0: infinitely many solutions",
+            "0 = c: no solutions"
+          ],
+          "narration": "Chapter one in one breath. The rank is the number of pivots; n pivots in an n by n matrix mean the inverse exists. The row picture sees intersecting lines and planes; the column picture sees combinations of columns reaching b. And elimination announces the outcome: zero equals zero means infinitely many solutions, zero equals c means none."
+        }
+      ]
+    },
+    {
+      "title": "Elimination and Elimination Matrices",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "Elimination and Elimination Matrices",
+          "subtitle": "From multipliers to E and P",
+          "narration": "Chapter two. Elimination is the engine of linear algebra: clear the entries below each pivot, column by column, until the matrix is triangular. We name the key quantities — pivot and multiplier — then turn the whole algorithm into matrix multiplication, with E for row replacement and P for row exchange."
+        },
+        {
+          "type": "concept",
+          "heading": "Pivot and Multiplier",
+          "bullets": [
+            "pivot a jj: clear below it",
+            "multiplier lambda = a ij / a jj",
+            "row i minus lambda times row j",
+            "multipliers will fill L"
+          ],
+          "formula": "\\lambda_{ij} = \\frac{a_{ij}}{a_{jj}}, \\quad R_i \\leftarrow R_i - \\lambda_{ij} R_j",
+          "formula_caption": "read: lambda i j equals a i j over a j j; row i becomes row i minus lambda times row j",
+          "narration": "Two words drive the algorithm. The pivot is the entry we stand on, below which we clear everything. The multiplier tells how much of the pivot row to subtract: lambda i j equals the entry to kill, a i j, divided by the pivot, a j j. Then the operation reads: row i becomes row i minus lambda i j times row j. That single move, repeated, sweeps a whole column clean. The multiplier is just a ratio of two entries — cheap to compute — and later these little numbers collect into the matrix L, remembering every step elimination took."
+        },
+        {
+          "type": "concept",
+          "heading": "Forward Elimination, Column by Column",
+          "bullets": [
+            "clear below pivot 1, then pivot 2",
+            "result: upper triangular U",
+            "pivots 2, -8, 1 on the diagonal",
+            "below the diagonal: all zeros"
+          ],
+          "formula": "U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & -8 & -2 \\\\ 0 & 0 & 1 \\end{pmatrix}",
+          "formula_caption": "read: U, upper triangular, with pivots 2, -8, 1",
+          "narration": "Watch the algorithm run on the three by three example with rows two one one, four minus six zero, minus two seven two. The first pivot is two; the multipliers are two and minus one, so row two becomes row two minus two row one, and row three becomes row three plus row one. The new second pivot is minus eight; one more multiplier, minus one, and row three becomes row three plus row two. The matrix is now upper triangular, called U, with pivots two, minus eight, one on the diagonal. Zero everywhere below — the goal of the forward pass."
+        },
+        {
+          "type": "concept",
+          "heading": "Back Substitution",
+          "bullets": [
+            "start from the last equation",
+            "it holds a single unknown",
+            "substitute upward: v, then u",
+            "check in the original system"
+          ],
+          "formula": "w = 2, \\quad -8v - 2w = -12 \\Rightarrow v = 1, \\quad 2u + v + w = 5 \\Rightarrow u = 1",
+          "formula_caption": "read: w equals 2, then v equals 1, then u equals 1 — bottom to top",
+          "narration": "A triangular system is almost solved. The last equation holds a single unknown: w equals two. Move up: minus eight v minus two w equals minus twelve; with w known, v equals one. Up again: two u plus v plus w equals five, so u equals one. The solution vector is one, one, two. This bottom-to-top climb is back substitution, and it is cheap — each step is one division and a few multiplications. Always finish by substituting the answer into the original equations; here all three rows check out perfectly."
+        },
+        {
+          "type": "formula",
+          "heading": "Elimination as a Matrix: E",
+          "tex": "E \\cdot A = \\begin{pmatrix} 1 & 0 \\\\ -3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+          "parts": [
+            { "substr": "-3", "color": "yellow", "note": "minus the multiplier: subtract 3 times row one" },
+            { "substr": "\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}", "color": "blue", "note": "A: the matrix being simplified" },
+            { "substr": "0 & 2", "color": "green", "note": "the new row two: a zero below the pivot" }
+          ],
+          "narration": "Here is the secret: a row operation is itself a matrix. To subtract three times row one from row two, multiply on the left by E — the identity with minus three in position two, one. Multiply E by A, with rows two one and six five: row one is unchanged, and row two becomes minus three times row one plus row two — zero, two. The six below the pivot is gone. Left multiplication mixes rows; right multiplication would mix columns. The same E must hit the right-hand side: A x equals b becomes E A x equals E b. Undo is easy: change minus three to plus three, and E inverse times E is the identity. Stack operations, and the rightmost acts first."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Full Elimination of a 3 by 3 System",
+          "problem": "\\begin{pmatrix} 1 & 1 & 1 \\\\ 2 & 3 & 1 \\\\ 1 & 2 & 3 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ 10 \\\\ 14 \\end{pmatrix}",
+          "steps": [
+            { "text": "first pivot 1; multipliers 2 and 1" },
+            { "tex": "R_2 \\leftarrow R_2 - 2R_1, \\; R_3 \\leftarrow R_3 - R_1" },
+            { "tex": "R_3 \\leftarrow R_3 - R_2: \\quad \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 3 \\end{pmatrix}" },
+            { "text": "back substitution: 3z = 10, then y, then x" },
+            { "tex": "x = \\frac{4}{3}, \\; y = \\frac{4}{3}, \\; z = \\frac{10}{3}", "highlight": true }
+          ],
+          "result": "(x, y, z) = (4/3, 4/3, 10/3)",
+          "narration": "A complete run, start to finish. The system: rows one one one, two three one, one two three, right-hand side six, ten, fourteen. First pivot one; multipliers two and one: row two minus two row one, row three minus row one. Second pivot one; multiplier one: row three minus row two. The triangular system says three z equals ten, so z equals ten thirds; then y minus z equals minus two gives y equals four thirds; then x plus y plus z equals six gives x equals four thirds. Check the original rows: they return six, ten, fourteen — all correct. Answer: four thirds, four thirds, ten thirds."
+        },
+        {
+          "type": "concept",
+          "heading": "Zero Pivot: Permutation Matrices",
+          "bullets": [
+            "a zero pivot may be temporary",
+            "swap rows with permutation P",
+            "PAx = Pb: swap both sides",
+            "P inverse equals P transpose"
+          ],
+          "formula": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, \\quad P^{-1} = P^{T}",
+          "formula_caption": "read: P swaps the two rows; P inverse equals P transpose",
+          "narration": "What if the pivot position holds a zero? Do not panic — the failure may be temporary. If some entry below is nonzero, exchange the rows and continue. The exchange is itself a matrix: the permutation P, the identity with its rows reordered. P A swaps the rows of A; P b swaps the right-hand side too — both sides, always, or the system changes meaning. Two beautiful facts: swapping twice restores the original order, so P squared is the identity; and P inverse equals P transpose. A zero pivot with nothing nonzero below is permanent: singularity."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Zero Pivot — Swap and Solve",
+          "problem": "\\begin{pmatrix} 0 & 2 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 7 \\end{pmatrix}",
+          "steps": [
+            { "text": "pivot position holds 0 — swap rows 1 and 2" },
+            { "tex": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, \\quad PA = \\begin{pmatrix} 3 & 1 \\\\ 0 & 2 \\end{pmatrix}, \\; Pb = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}" },
+            { "tex": "2y = 4 \\Rightarrow y = 2" },
+            { "tex": "3x + y = 7 \\Rightarrow x = \\frac{5}{3}", "highlight": true }
+          ],
+          "result": "(x, y) = (5/3, 2)",
+          "narration": "The upper-left entry is zero. Below it sits a three, so we exchange rows one and two. The permutation matrix P has zeros on the diagonal and ones off it; multiplying by P reorders A into rows three one and zero two, and turns b into seven, four. The matrix is now triangular. Two y equals four gives y equals two; three x plus two equals seven gives x equals five thirds. Check in the original system: zero times five thirds plus two times two is four; three times five thirds plus two is seven. The zero pivot was only a poor row order, not singularity."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "multiplier = entry over pivot",
+            "forward pass: A becomes U",
+            "back substitution climbs upward",
+            "E replaces rows, P swaps rows",
+            "order matters: rightmost first"
+          ],
+          "narration": "Chapter two, compressed. The multiplier is the entry to eliminate divided by the pivot; the operation subtracts that multiple of the pivot row. Forward elimination sweeps A into the upper triangular U; back substitution climbs from the last unknown to the first. Row operations are matrices: E replaces a row, P swaps rows, and the same matrix must hit b. Order matters — the rightmost operation acts first."
+        }
+      ]
+    },
+    {
+      "title": "Matrix Operations and the Inverse",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "Matrix Operations and the Inverse",
+          "subtitle": "Multiplying AB, undoing A",
+          "narration": "Chapter three. We slow down and study the product A B from every angle — element by element, column by column, row by row — because each view becomes useful later. Then comes the inverse: when it exists, how to write it down for two by two matrices, and how Gauss and Jordan compute it for any size."
+        },
+        {
+          "type": "concept",
+          "heading": "Row Times Column",
+          "bullets": [
+            "(AB)ij: row i times column j",
+            "inner dimensions must match",
+            "m by n times n by p gives m by p",
+            "entry by entry: dot products"
+          ],
+          "formula": "(AB)_{ij} = \\sum_{k=1}^{n} a_{ik} b_{kj}",
+          "formula_caption": "read: the i j entry of AB is the sum over k of a i k b k j",
+          "narration": "The rule is one line: the i j entry of A B is row i of A dotted with column j of B — the sum over k of a i k times b k j. The inner dimensions must agree: an m by n matrix multiplies an n by p matrix, giving m by p. Try it: rows one two zero and minus one three four, against columns two one, zero minus one, three two. Row two against column one: minus two plus zero plus twelve — ten. Row two against column two: minus one minus three plus eight — four. Entry by entry, dot products fill the product."
+        },
+        {
+          "type": "table",
+          "heading": "Four Views of the Product AB",
+          "columns": ["View", "What it says"],
+          "rows": [
+            ["elements", "row i of A times column j of B"],
+            ["columns", "A times each column of B"],
+            ["rows", "combinations of the rows of B"],
+            ["outer products", "columns of A times rows of B, summed"]
+          ],
+          "narration": "One product, four windows. Element view: every entry is a row of A times a column of B — the definition you compute with. Column view: the columns of A B are A times the columns of B — combinations of A's columns, which is why column spaces matter. Row view: each row of A B is a combination of the rows of B. Outer products: A B is the sum over k of column k of A times row k of B. Same numbers, four stories — switch windows whenever a proof needs a new angle."
+        },
+        {
+          "type": "concept",
+          "heading": "Special Matrices, and AB Is Not BA",
+          "bullets": [
+            "identity I: changes nothing",
+            "diagonal D scales coordinates",
+            "triangular: zeros below or above",
+            "AB is not BA in general"
+          ],
+          "formula": "AB = \\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix}, \\quad BA = \\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}",
+          "formula_caption": "read: AB is 2 1, 1 1 but BA is 1 1, 1 2 — different",
+          "narration": "Three special shapes. The identity I, ones on the diagonal, leaves every vector unchanged. A diagonal matrix scales coordinates independently. Triangular matrices are exactly what elimination produces; their systems solve by substitution. Now the warning of the week: multiplication does not commute. Take A a horizontal shear, B a vertical shear, both built from ones: A times B gives two one, one one, while B times A gives one one, one two. Same factors, different order, different answer. Even algebra suffers: the square of A plus B is not A squared plus two A B plus B squared."
+        },
+        {
+          "type": "formula",
+          "heading": "The Inverse of a 2 by 2 Matrix",
+          "tex": "A^{-1} = \\frac{1}{ad - bc} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}",
+          "parts": [
+            { "substr": "A^{-1}", "color": "green", "note": "undoes A: A inverse times A is I" },
+            { "substr": "ad - bc", "color": "yellow", "note": "the determinant — must be nonzero" },
+            { "substr": "d & -b \\\\ -c & a", "color": "blue", "note": "swap the diagonal, negate the corners" }
+          ],
+          "narration": "The most useful formula of the week. For A with rows a b and c d, the inverse is one over the determinant, times a simple rearrangement. The determinant, ad minus bc, sits in the denominator — if it is zero, the formula explodes, and that is exactly the singular case: no inverse. The rearrangement: swap the diagonal entries a and d into each other's places, and negate the two off-diagonal entries b and c. Divide everything by the determinant. Multiply it back: A times A inverse collapses to the identity, because the diagonal products give ad minus bc, and the off-diagonal products cancel to zero. One fraction, one swap, two sign changes — you can reconstruct it any time."
+        },
+        {
+          "type": "concept",
+          "heading": "When Does the Inverse Exist?",
+          "bullets": [
+            "all pivots nonzero after exchanges",
+            "Ax = 0 only when x = 0",
+            "Ax = b solvable for every b",
+            "(AB) inverse = B inverse A inverse"
+          ],
+          "formula": "(AB)^{-1} = B^{-1}A^{-1}",
+          "formula_caption": "read: the inverse of AB is B inverse times A inverse — order reversed",
+          "narration": "For square matrices, several statements are secretly one. The inverse exists if and only if all pivots are nonzero, if and only if the columns are independent, if and only if A x equals zero forces x equals zero, if and only if A x equals b has exactly one solution for every b. Socks and shoes: to undo A then B, first undo B, then A — so the inverse of A B is B inverse A inverse. And inversion commutes with transposition: the inverse of A transpose is the transpose of A inverse."
+        },
+        {
+          "type": "concept",
+          "heading": "Gauss–Jordan: Find the Inverse",
+          "bullets": [
+            "augment: [A | I]",
+            "row-reduce the left half to I",
+            "right half becomes A inverse",
+            "columns of the inverse: Ax = e j"
+          ],
+          "formula": "[\\, A \\mid I \\,] \\longrightarrow [\\, I \\mid A^{-1} \\,]",
+          "formula_caption": "read: reduce A bar I to I bar A inverse",
+          "narration": "Gauss and Jordan give a recipe for any size. Write A and, after a bar, the identity: a block two rooms wide. Run row operations until the left room becomes the identity. Since every operation is a left multiplication, the right room is multiplied by the same operations — and silently becomes A inverse. Each column of the inverse solves A x equals a unit vector; the row operations solve all n systems at once. Practical note: for a single system, elimination plus back substitution is usually cheaper than the full inverse."
+        },
+        {
+          "type": "example",
+          "heading": "Example: A 2 by 2 Inverse",
+          "problem": "A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}, \\quad A^{-1} = ?",
+          "steps": [
+            { "tex": "\\det A = 2 \\cdot 3 - 1 \\cdot 5 = 1" },
+            { "text": "swap the diagonal, negate the corners" },
+            { "tex": "A^{-1} = \\frac{1}{1} \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}" },
+            { "tex": "A \\cdot A^{-1} = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "A inverse = (3 -1; -5 2)",
+          "narration": "Apply the formula. A has rows two one and five three. The determinant: two times three minus one times five — six minus five — one. Nonzero, so the inverse exists. Swap the diagonal: three and two trade places. Negate the corners: minus one and minus five. Divide by the determinant, which is one, so nothing changes. The inverse is three minus one, minus five two. Verify by multiplication: row one of A times column one of the inverse gives six minus five, one; the off-diagonal entries cancel to zero. The product is the identity — answer confirmed. Memorize the pattern: swap, negate, divide; it appears on every test."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Gauss–Jordan on a 3 by 3",
+          "problem": "A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 1 & 2 & 1 \\\\ 0 & 1 & 2 \\end{pmatrix}, \\quad A^{-1} = ?",
+          "steps": [
+            { "text": "augment A with the identity: [A | I]" },
+            { "tex": "R_2 \\leftarrow R_2 - R_1, \\quad R_3 \\leftarrow R_3 - R_2" },
+            { "text": "clear above the pivots: R2 minus R3, then R1 minus R2" },
+            { "tex": "A^{-1} = \\begin{pmatrix} 3 & -2 & 1 \\\\ -2 & 2 & -1 \\\\ 1 & -1 & 1 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "A inverse = (3 -2 1; -2 2 -1; 1 -1 1)",
+          "narration": "Watch Gauss–Jordan on a three by three. A has rows one one zero, one two one, zero one two. Augment with the identity on the right. Eliminate downward: row two minus row one, then row three minus the new row two — the left half is upper triangular. Clear above the pivots: row two minus row three, then row one minus row two. The left half becomes the identity; the right half is the inverse: three minus two one, minus two two minus one, one minus one one. Check one entry: row two of A times column one of the inverse gives three minus four plus one — zero."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "(AB)ij = row i times column j",
+            "four views of one product",
+            "AB is not BA",
+            "2x2 inverse: swap, negate, divide",
+            "Gauss-Jordan: [A|I] to [I|A inv]"
+          ],
+          "narration": "Chapter three, in brief. Entries of A B are rows of A times columns of B, but you may also read the product column by column, row by row, or as a sum of outer products. Multiplication is associative but not commutative. A two by two inverse swaps the diagonal, negates the corners, divides by the determinant. And Gauss–Jordan turns A next to I into I next to A inverse — the universal inverse machine."
+        }
+      ]
+    },
+    {
+      "title": "LU, LDU and PA = LU",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "LU, LDU and PA = LU",
+          "subtitle": "Factor once, solve many systems",
+          "narration": "Chapter four. Elimination's bookkeeping pays off: every multiplier is stored in L, the result is U, and the matrix itself factors as L times U. Split off the pivots and you get L D U; add row exchanges and P A equals L U. Factor once — then solve with many right-hand sides at almost no cost."
+        },
+        {
+          "type": "formula",
+          "heading": "The Heart of the Chapter: A = LU",
+          "tex": "\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+          "parts": [
+            { "substr": "\\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}", "color": "blue", "note": "L: multipliers below the diagonal, ones on it" },
+            { "substr": "\\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}", "color": "green", "note": "U: the elimination result, pivots on the diagonal" },
+            { "substr": "6", "color": "yellow", "note": "6 = 3 times 2: eliminated in U, remembered in L" }
+          ],
+          "narration": "Elimination subtracts multiples of rows; L adds them back. Eliminate A, with rows two one and six five: the multiplier is three, and U comes out two one, zero two. The inverse of subtracting three row one is adding it back, and multiplied in reverse order the inverses combine into one matrix: L, ones on the diagonal, the multiplier three below. Multiply L times U: row one is copied; row two is three times row one plus row two of U — six five. A is rebuilt exactly. So A equals L U: L is just the multipliers, written where the zeros were. The entry six equals three times two — eliminated in U, remembered in L."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Solve via the Factors",
+          "problem": "A = LU = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}, \\quad b = \\begin{pmatrix} 5 \\\\ 19 \\end{pmatrix}",
+          "steps": [
+            { "text": "first solve Ly = b, top to bottom" },
+            { "tex": "y_1 = 5, \\quad 3y_1 + y_2 = 19 \\Rightarrow y_2 = 4" },
+            { "text": "then solve Ux = y, bottom to top" },
+            { "tex": "2x_2 = 4 \\Rightarrow x_2 = 2, \\quad 2x_1 + 2 = 5 \\Rightarrow x_1 = \\frac{3}{2}", "highlight": true }
+          ],
+          "result": "x = (3/2, 2)",
+          "narration": "Why factor? Because both triangular systems are trivial. Given b equals five nineteen, first solve L y equals b, forward from the top: y one is five; three times five plus y two equals nineteen, so y two is four. Then solve U x equals y, backward from the bottom: two x two equals four, x two is two; two x one plus x two equals five, so x one is three halves. Check: two times three halves plus two is five; six times three halves plus ten is nineteen. The payoff: a second right-hand side reuses the same L and U — two substitutions, not a new elimination."
+        },
+        {
+          "type": "concept",
+          "heading": "The LDU Decomposition",
+          "bullets": [
+            "pivots of U move into D",
+            "normalized U: ones on diagonal",
+            "A = L times D times D-inverse U",
+            "symmetric case: L D L transpose"
+          ],
+          "formula": "\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix} \\begin{pmatrix} 1 & \\frac{1}{2} \\\\ 0 & 1 \\end{pmatrix}",
+          "formula_caption": "read: A equals L times D times the normalized upper factor — pivots 2 and 2 in D",
+          "narration": "LU can be normalized. Take U, with pivots two and two on its diagonal, and pull the pivots into a diagonal matrix D. What remains, after dividing each row by its pivot, is upper triangular with ones on the diagonal. Our A becomes L, times D, times the normalized factor one one half, zero one. Three factors, each simple: multipliers below the diagonal, pivots on the diagonal, ones on both. For symmetric matrices the story doubles: the normalized factor becomes L transpose, giving the elegant L D L transpose form."
+        },
+        {
+          "type": "concept",
+          "heading": "Pivots and the Determinant",
+          "bullets": [
+            "pivots: a, then d - cb/a",
+            "product of pivots = det A",
+            "no exchanges: det = pivot product",
+            "normal LDU is unique"
+          ],
+          "formula": "a \\cdot \\left( d - \\frac{cb}{a} \\right) = ad - bc = \\det A",
+          "formula_caption": "read: a times (d minus cb over a) equals ad minus bc, the determinant",
+          "narration": "A surprise connection. Eliminate the two by two matrix with rows a b, c d: the first pivot is a, and one elimination step turns the second pivot into d minus c b over a. Multiply the two pivots: a times that quantity simplifies to ad minus bc — the determinant. So, without row exchanges, the determinant is the product of the pivots. For our running matrix, pivots two and two give determinant four — and indeed two times five minus one times six is four. One more gem: when the pivots are nonzero, the normalized L D U decomposition exists and is unique."
+        },
+        {
+          "type": "concept",
+          "heading": "PA = LU and Partial Pivoting",
+          "bullets": [
+            "zero first pivot: swap first",
+            "P records every exchange",
+            "tiny pivots give huge multipliers",
+            "partial pivoting: largest wins"
+          ],
+          "formula": "P A = LU",
+          "formula_caption": "read: P times A equals L times U",
+          "narration": "When the first pivot is zero, factorization swaps first. Our example: rows zero two, three four — perfectly invertible, only the row order is bad. Swap with P: P A equals three four, zero two, already U, with L the identity. Every exchange is recorded in P, and the theorem reads P A equals L U. A second reason to swap: tiny pivots. A pivot of ten to the minus eight makes the multiplier ten to the eighth, amplifying rounding errors cruelly. Partial pivoting avoids this: always take the largest entry in magnitude as the pivot. Professional codes always pivot."
+        },
+        {
+          "type": "example",
+          "heading": "Example: PA = LU for a 3 by 3",
+          "problem": "A = \\begin{pmatrix} 0 & 2 & 1 \\\\ 1 & 1 & 0 \\\\ 2 & 3 & 2 \\end{pmatrix}, \\quad P, L, U = ?",
+          "steps": [
+            { "text": "zero first pivot: swap rows 1 and 2" },
+            { "tex": "P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, \\quad PA = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 2 & 3 & 2 \\end{pmatrix}" },
+            { "tex": "R_3 \\leftarrow R_3 - 2R_1, \\quad R_3 \\leftarrow R_3 - \\frac{1}{2} R_2" },
+            { "tex": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & \\frac{1}{2} & 1 \\end{pmatrix}, \\; U = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & \\frac{3}{2} \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "P swaps rows 1 and 2; L holds 2 and 1/2",
+          "narration": "A full factorization. The first pivot of A is zero, so rows one and two swap places: P is the identity with those rows exchanged, and P A starts with one one zero. Eliminate: the multiplier two clears the two in position three one, giving zero one two; the multiplier one half clears below the second pivot, giving zero zero three halves. Store the multipliers with their signs: L has two and one half below the diagonal. Multiply L times U and row three reads two three two — exactly P A. So P A equals L U: P reorders equations, L records multipliers, U holds the pivots one, two, three halves."
+        },
+        {
+          "type": "example",
+          "heading": "Example: A Tridiagonal System",
+          "problem": "\\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix} x = \\begin{pmatrix} 2 \\\\ 0 \\\\ 2 \\end{pmatrix}",
+          "steps": [
+            { "tex": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ -\\frac{1}{2} & 1 & 0 \\\\ 0 & -\\frac{2}{3} & 1 \\end{pmatrix}, \\; U = \\begin{pmatrix} 2 & -1 & 0 \\\\ 0 & \\frac{3}{2} & -1 \\\\ 0 & 0 & \\frac{4}{3} \\end{pmatrix}" },
+            { "text": "forward: Ly = b gives y = (2, 1, 8/3)" },
+            { "text": "backward: Ux = y gives x = (2, 2, 2)" },
+            { "tex": "A x = \\begin{pmatrix} 2 \\\\ 0 \\\\ 2 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "x = (2, 2, 2)",
+          "narration": "A tridiagonal matrix: nonzero only on the main diagonal and its two neighbors. It models spring chains and heat flow: each unknown touches only its nearest neighbors. Eliminate: the multipliers are minus one half, then minus two thirds; the pivots are two, three halves, four thirds, and L and U stay bidiagonal — the narrow structure survives. Forward substitution: y is two, one, eight thirds. Backward: x three is two, x two is two, x one is two. The answer is all twos, and multiplying A by it returns two, zero, two — exactly b. Because the factors stay narrow, each new right-hand side costs almost nothing — this is how big sparse systems are solved."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "A = LU: multipliers in L",
+            "solve Ly = b, then Ux = y",
+            "LDU: pivots in D",
+            "det A = product of pivots",
+            "exchanges: PA = LU"
+          ],
+          "narration": "Chapter four, distilled. Elimination factors the matrix: multipliers descend into L, the triangular result is U, and A equals L U. Solving splits into two triangular substitutions — factor once, reuse forever. Pulling the pivots into D gives L D U, and the determinant is the product of the pivots. Row exchanges live in P, so the full statement is P A equals L U. And narrow, tridiagonal matrices keep their narrow factors — cheap solves."
+        }
+      ]
+    },
+    {
+      "title": "Transposes, Symmetry and Permutations",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Transposes, Symmetry and Permutations",
+          "subtitle": "Flipping matrices, and the six ways to reorder",
+          "narration": "Chapter five. Transposing flips a matrix across its diagonal, and three identities govern the flip — the most famous being the product rule, A B transposed equals B transpose A transpose. From flips come symmetric matrices, the S plus K decomposition, and the always-symmetric A transpose A. Then the six permutation matrices of order three."
+        },
+        {
+          "type": "concept",
+          "heading": "The Transpose and Its Rules",
+          "bullets": [
+            "(A transpose)ij = a ji",
+            "sums: transpose distributes",
+            "(AB) transpose = B transpose A transpose",
+            "inverse and transpose commute"
+          ],
+          "formula": "(AB)^{T} = B^{T} A^{T}",
+          "formula_caption": "read: AB transpose equals B transpose times A transpose",
+          "narration": "Transpose means reflect: the i j entry of A transpose is a j i; rows become columns, and an m by n matrix turns n by m. Three rules extend the flip. Sums are easy — transpose distributes. Products reverse: A B transpose equals B transpose A transpose; the order must flip, or the sizes may not even match. Check on numbers: for A one two, zero one and B two zero, three one, the transpose of A B is eight three, two one — exactly what B transpose A transpose gives. Inverses commute with the flip: the inverse of A transpose is A inverse, transposed."
+        },
+        {
+          "type": "concept",
+          "heading": "Symmetric and Skew-Symmetric Matrices",
+          "bullets": [
+            "symmetric S: S transpose = S",
+            "skew K: K transpose = -K",
+            "diagonal of K is zero",
+            "A = S + K, always and uniquely"
+          ],
+          "formula": "A = \\frac{A + A^{T}}{2} + \\frac{A - A^{T}}{2} = S + K",
+          "formula_caption": "read: A equals its symmetric part plus its skew part",
+          "narration": "A matrix equal to its own transpose is symmetric — mirrored across the diagonal. A matrix whose transpose is its negative is skew-symmetric, and its diagonal must be zero. Every square matrix splits into exactly one of each: average A with its transpose and you get the symmetric part S; subtract and average and you get the skew part K. Take A with rows one four, two three. S comes out one three, three three — the off-diagonal pair averaged; K comes out zero one, minus one zero — half the difference. Add them: the original A returns. S plus K."
+        },
+        {
+          "type": "concept",
+          "heading": "A Transpose A Is Always Symmetric",
+          "bullets": [
+            "A-transpose A is symmetric",
+            "the squared length of Ax is never negative",
+            "u-transpose v: a number",
+            "u v-transpose: a matrix"
+          ],
+          "formula": "x^{T} A^{T} A x = \\| Ax \\|^{2} \\geq 0",
+          "formula_caption": "read: x-transpose A-transpose A x equals the squared length of Ax, at least zero",
+          "narration": "Two products deserve attention. The outer product u v transpose builds a matrix from two vectors — for u one two and v three four it gives three four, six eight. The inner product u transpose v squeezes them into one number, eleven. Now the star: A transpose A. By the product rule, its transpose is itself — symmetric, always, for any A. Better: x transpose A transpose A x rewrites as the squared length of A x, never negative. This inequality is the foundation of least squares — remember it."
+        },
+        {
+          "type": "concept",
+          "heading": "Permutations: P Inverse Equals P Transpose",
+          "bullets": [
+            "identity with reordered rows",
+            "one 1 per row and per column",
+            "PA: rows; AP: columns",
+            "P inverse = P transpose"
+          ],
+          "formula": "P^{T} P = I, \\quad P^{-1} = P^{T}",
+          "formula_caption": "read: P-transpose P equals I, so P inverse is P transpose",
+          "narration": "A permutation matrix is the identity with reordered rows: exactly one one in each row and each column. Multiply on the left — P A permutes rows. Multiply on the right — A P permutes columns. P A is generally not A P. The columns of P are distinct unit vectors, so their dot products form the identity: P transpose P equals I, and the inverse of P is its transpose. Consequences: permutations preserve lengths and dot products, and each determinant is plus or minus one — minus for a single swap. There are n factorial permutations of size n; for three, six."
+        },
+        {
+          "type": "table",
+          "heading": "The Six 3 by 3 Permutations",
+          "columns": ["Permutation", "det P", "P inverse"],
+          "rows": [
+            ["identity I", "+1", "I"],
+            ["P21: swap rows 1, 2", "-1", "P21"],
+            ["P32: swap rows 2, 3", "-1", "P32"],
+            ["P31: swap rows 1, 3", "-1", "P31"],
+            ["P32 P21: cycle", "+1", "P21 P32"],
+            ["P21 P32: cycle", "+1", "P32 P21"]
+          ],
+          "narration": "Count them for n equals three: one identity, three simple swaps, and two three-cycles — six matrices, three factorial, no more, no less. Each row of the table lists the permutation, its determinant, and its inverse. The swaps are odd: one exchange, determinant minus one, and each is its own inverse — swap twice, return home. The cycles are even: determinant plus one, and their inverses are the opposite cycles. Notice every inverse equals the transpose — the orthogonality we just proved, visible in the table. Products of permutations are permutations; this little family of six runs every row exchange in elimination."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Left or Right? PA versus AP",
+          "problem": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, \\quad A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}, \\quad PA = ?, \\; AP = ?",
+          "steps": [
+            { "tex": "PA = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} = \\begin{pmatrix} 3 & 4 \\\\ 1 & 2 \\end{pmatrix}" },
+            { "text": "rows of PA: rows of A in swapped order" },
+            { "tex": "AP = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 4 & 3 \\end{pmatrix}" },
+            { "tex": "PA \\neq AP", "highlight": true }
+          ],
+          "result": "PA = (3 4; 1 2), AP = (2 1; 4 3)",
+          "narration": "Two matrices, two orders, two answers. First P times A, left multiplication: row one of the product selects A's second row. So P A is three four over one two: the rows have swapped. Now A times P, right multiplication: the columns of the product are A times the columns of P, selecting A's columns in the new order. A P is two one over four three: the columns have swapped. Left acts on rows, right acts on columns — and the two results, three four one two versus two one four three, are clearly different. Multiplication order is not a technicality; it is the meaning."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "(AB)-transpose = B-transpose A-transpose",
+            "A = S + K: symmetric plus skew",
+            "A-transpose A symmetric, nonnegative",
+            "P inverse = P transpose",
+            "six permutations of size 3"
+          ],
+          "narration": "Chapter five, in five lines. Transposing swaps rows and columns; the product rule flips the order: A B transpose equals B transpose A transpose. Every square matrix is a symmetric part plus a skew-symmetric part. A transpose A is automatically symmetric, and x transpose A transpose A x is a squared length — never negative. Permutations reorder the identity; their inverses are their transposes, determinants plus or minus one, and there are exactly six of size three."
+        }
+      ]
+    },
+    {
+      "title": "Vector Spaces and Subspaces",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Vector Spaces and Subspaces",
+          "subtitle": "The world where column and null spaces live",
+          "narration": "Chapter six, the summit of the guide. A vector space is any set where addition and scaling stay inside the set — vectors can be columns, matrices, even polynomials. We learn the three-point subspace test, the idea of a span, and the two great subspaces attached to every matrix: the column space and the null space."
+        },
+        {
+          "type": "concept",
+          "heading": "Vector Spaces and the Subspace Test",
+          "bullets": [
+            "vectors: columns, matrices, polynomials",
+            "space: closed under + and scaling",
+            "check 1: zero vector in W",
+            "checks 2 and 3: sums, multiples"
+          ],
+          "formula": "0 \\in W, \\quad u + v \\in W, \\quad c\\,u \\in W",
+          "formula_caption": "read: zero in W, sums in W, multiples in W",
+          "narration": "What counts as a vector? Anything you can add and scale: n-tuples, matrices, polynomials, functions — together they form a vector space, a set closed under addition and scalar multiplication. A subspace is a vector space inside a bigger one, and testing one takes three checks. First, the zero vector must belong to W. Second, W must be closed under addition: two members add to a member. Third, closed under scaling: any multiple stays inside. Pass all three and W is a subspace; fail any one and it is not — and a subspace must pass through the origin."
+        },
+        {
+          "type": "plot",
+          "heading": "Through the Origin — or Not",
+          "functions": [
+            { "fn": "2*x", "tex": "y = 2x", "color": "yellow" },
+            { "fn": "2*x + 1", "tex": "y = 2x + 1", "color": "blue" }
+          ],
+          "x_range": [-3, 3],
+          "y_range": [-5, 7],
+          "point": [0, 0],
+          "point_label": "(0, 0)",
+          "narration": "Two parallel lines, two fates. The yellow line, y equals two x, is the span of the vector one two: every point is a multiple of it, including zero times — the origin. Add two points on the line: still on the line. Scale: still on the line. All three checks pass — a subspace. The blue line, y equals two x plus one, is a shift: it misses the origin, the zero vector fails membership, and with it every hope. A shifted line is never a subspace. Subspaces always pass through zero."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Subspace or Not? Three Verdicts",
+          "problem": "W_1: y = 3x; \\quad W_2: y = 3x + 2; \\quad W_3: x \\geq 0",
+          "steps": [
+            { "text": "W1: zero works, sums and multiples stay — a line through 0" },
+            { "text": "W2: (0, 0) fails: 3 times 0 plus 2 is 2 — not a subspace" },
+            { "text": "W3: zero works, sums work, but scaling fails" },
+            { "tex": "-1 \\cdot (1, 0) = (-1, 0) \\notin W_3", "highlight": true }
+          ],
+          "result": "yes, no, no",
+          "narration": "First, the line y equals three x. Zero: the origin lies on it. Sums: adding two points of the form s, three s and t, three t gives another. Multiples: scaling keeps the same form. All checks pass — a subspace. Second, its shifted twin y equals three x plus two. The origin fails: three times zero plus two is two, not zero — instant rejection. Third, the half plane x at least zero. The origin is in it, and sums of nonnegative x-coordinates stay nonnegative. But scale one, zero by minus one: you get minus one, zero, outside the set. Closure under scaling fails — not a subspace. Verdicts: yes, no, no."
+        },
+        {
+          "type": "concept",
+          "heading": "Span: All Combinations",
+          "bullets": [
+            "span = all linear combinations",
+            "a span is always a subspace",
+            "membership: solve for the weights",
+            "(3, 5) = 4(1, 1) - (1, -1)"
+          ],
+          "formula": "\\mathrm{span}(v_1, \\ldots, v_k) = c_1 v_1 + \\cdots + c_k v_k",
+          "formula_caption": "read: the span of v 1 through v k is all combinations",
+          "narration": "Given vectors, their span is the set of all their linear combinations. A span is automatically a subspace: combine two combinations and you get another combination. Membership in a span is a solvable question. Is three, five in the span of one, one and one, minus one? We need c one plus c two to equal three and c one minus c two to equal five. Add: two c one is eight, c one is four; subtract: c two is minus one. A solution exists, so yes — three, five is four copies of the first vector minus one copy of the second."
+        },
+        {
+          "type": "concept",
+          "heading": "The Column Space C(A)",
+          "bullets": [
+            "C(A) = span of the columns",
+            "Ax lands in C(A), always",
+            "Ax = b solvable iff b in C(A)",
+            "proportional columns: a line"
+          ],
+          "formula": "C(A) = \\mathrm{span}(a_1, \\ldots, a_n)",
+          "formula_caption": "read: C of A is the span of the columns",
+          "narration": "Attach a subspace to every matrix. Multiply A by x and unfold: it is x one times column one, plus x two times column two, and so on. So A x always lands in the span of the columns — the column space, C of A. The solvability question now has a beautiful answer: A x equals b has a solution exactly when b belongs to the column space; the solution is the recipe of weights. Example: columns one, two, zero and two, four, zero are proportional, so the column space collapses to the line through one, two, zero. Any b off that line is unreachable."
+        },
+        {
+          "type": "concept",
+          "heading": "The Null Space N(A)",
+          "bullets": [
+            "N(A) = all x with Ax = 0",
+            "always a subspace",
+            "A = (1 2): N(A) = span{(-2, 1)}",
+            "solutions: particular + N(A)"
+          ],
+          "formula": "N(A) = \\{ x : A x = 0 \\}",
+          "formula_caption": "read: N of A is the set of x with A x equal to zero",
+          "narration": "The second great subspace looks inward. The null space of A is the set of all solutions of A x equals zero. It is always a subspace: if A u and A v are zero, so is any combination. Small example: A is the row one two. The equation x one plus two x two equals zero forces x one to equal minus two x two: the null space is all multiples of minus two, one — a line. Solutions of A x equals b, with b nonzero, do not form a subspace: zero is not among them. When one solution exists, the full set is that particular solution plus the null space."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Column Space and Null Space of One Matrix",
+          "problem": "A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \\end{pmatrix}, \\quad C(A) = ?, \\; N(A) = ?",
+          "steps": [
+            { "text": "columns lie in the plane z = 0; first two are independent" },
+            { "tex": "C(A) = \\mathrm{span} \\left\\{ \\begin{pmatrix} 1 \\\\ 0 \\\\ 0 \\end{pmatrix}, \\begin{pmatrix} 2 \\\\ 1 \\\\ 0 \\end{pmatrix} \\right\\} = \\{ (s + 2t, t, 0) \\}" },
+            { "text": "Ax = 0: row 2 gives x2 = -x3; row 1 gives x1 = 2x3" },
+            { "tex": "N(A) = \\mathrm{span} \\left\\{ \\begin{pmatrix} 2 \\\\ -1 \\\\ 1 \\end{pmatrix} \\right\\}", "highlight": true }
+          ],
+          "result": "C(A): plane z = 0; N(A): span{(2, -1, 1)}",
+          "narration": "Columns: one, zero, zero; two, one, zero; zero, one, zero. The third column is the second minus twice the first; the first two are independent, and all columns have third component zero. The column space is the entire plane z equals zero, spanned by one, zero, zero and two, one, zero. Null space: row two gives x two equals minus x three; row one gives x one equals minus two x two. With x three free, every solution is a multiple of two, minus one, one — a line. Check: A times two, minus one, one returns the zero vector. A line of solutions, a plane of outputs."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "subspace: zero, sums, multiples",
+            "span = all combinations",
+            "C(A): b must lie in it",
+            "N(A): always a subspace",
+            "solutions: particular + null"
+          ],
+          "narration": "The summit, summarized. A subspace passes three checks: contains zero, closed under addition, closed under scaling. A span collects all combinations of given vectors and is automatically a subspace. The column space C of A is the span of the columns — A x equals b is solvable exactly when b lies in it. The null space N of A collects the solutions of A x equals zero and is always a subspace; the complete solution of A x equals b is one particular solution plus the null space."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "rows intersect, columns combine",
+            "elimination: pivots, multipliers, U",
+            "E replaces rows, P swaps rows",
+            "A = LU = LDU, PA = LU",
+            "(AB)-transpose = B-transpose A-transpose",
+            "C(A) solves, N(A) completes"
+          ],
+          "narration": "The whole guide in one minute. Systems have two faces: rows are intersecting lines and planes; columns are combinations reaching b. Elimination clears the entries below the pivots and lands on the triangular U, solved by back substitution. Row operations are matrices: E replaces, P swaps, and order matters. A equals L U, refined to L D U and P A equals L U, turns one elimination into many cheap solves. Transposes flip matrices; permutations obey P inverse equals P transpose. And the column space decides solvability, while the null space completes the solutions."
+        },
+        {
+          "type": "outro",
+          "message": "You covered all of weeks 5–7. Now take the midterm — you are ready.",
+          "narration": "That is weeks five through seven: two pictures of a system, elimination with its E and P matrices, inverses by formula and by Gauss–Jordan, the L U family of factorizations, transposes and permutations, and the vector spaces that organize it all. Every method was tested on real examples with checks. Review the recaps, and walk into the midterm with confidence. Good luck — you are ready."
+        }
+      ]
+    }
+  ],
+  "outro_message": "You covered all of weeks 5–7. Now take the midterm — you are ready.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

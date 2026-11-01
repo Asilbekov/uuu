@@ -1,0 +1,710 @@
+{
+  "id": "la_w57",
+  "language": "uz",
+  "course_title": "Chiziqli algebra I",
+  "test_title": "5–7-haftalar · Toʻliq qoʻllanma",
+  "subtitle": "Geometriya va istisno etish · Matritsa amallari · Vektor fazolari",
+  "chapters": [
+    {
+      "title": "Chiziqli sistemaning ikki manzarasi",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "Chiziqli algebra I fanning beshinchi dan yettinchi haftagacha boʻlgan qismi boʻyicha toʻliq video qoʻllanmaga xush kelibsiz. Biz chiziqli sistemaning ikki geometrik manzarasini koʻramiz, istisno etishni va uning matritsa tilini oʻzlashtiramiz, matritsalarni el-u va el-de-u koʻpaytuvchilarga ajratamiz, transponirlash, simmetrik matritsalar va permutatsiyalar bilan tanishamiz hamda vektor fazolariga — ustunlar fazosi va nol fazosiga — qadam qoʻyamiz. Har bir qoida sizning oʻquv qoʻllanmangizdan olingan, har bir metod esa real, hal qilingan misollar ustida sinovdan oʻtgan."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Chiziqli sistemaning ikki manzarasi",
+          "subtitle": "Qatorlar — kesishishlar, ustunlar — kombinatsiyalar",
+          "narration": "Birinchi boʻlim. Hisob-kitobga kirishishdan oldin sistemaning koʻrinishini oʻrganib oling. A iks b ga teng tenglamasiga ikki xil qarash bor: qatorlar manzarasi — bu yerda har bir tenglama toʻgʻri chiziq yoki tekislik, va ustunlar manzarasi — bu yerda yechim A ning ustunlarini aralashtirib b ni olish retseptidir. Ikkalasini ham oʻzlashtirsangiz, sistemaning uchta mumkin boʻlgan natijasi oʻz-oʻzidan ayon boʻlib qoladi. Demak, avval koʻrish — soʻng hisoblash."
+        },
+        {
+          "type": "concept",
+          "heading": "Rang va teskarilanuvchanlik",
+          "bullets": [
+            "rang = tayanch elementlar soni",
+            "n×n matritsada n tayanch: teskari mavjud",
+            "u holda Ax = b yagona yechimga ega",
+            "rang 1: ustunlar proporsional"
+          ],
+          "formula": "n \\text{ pivots} \\iff A^{-1} \\text{ exists}",
+          "formula_caption": "oʻqilishi: n ta tayanch — teskari matritsa mavjud boʻlishi uchun zarur va yetarli shart",
+          "narration": "Matritsaning rangi — istisno etish topadigan tayanch elementlar soni. Qatorlari bir-ikki va ikki-toʻrt boʻlgan matritsani olaylik: ikkinchi qator birinchisidan ikki barobar katta, istisno etish faqat bitta tayanch topadi va rang birga teng. Bunday matritsaning teskarisi yoʻq: A iks uch-olti tenglamasining cheksiz koʻp yechimi bor, A iks uch-yetti tenglamasining esa bironta ham yoʻq. Kvadrat, n tartibli matritsa uchun n ta tayanch teskarilanuvchanlikni anglatadi va u holda A iks b har qanday oʻng tomon uchun aynan bitta yechimga ega boʻladi. Rang — sistemaning haqiqiy axborot sigʻimi: qolgan qatorlar shunchaki takrorlanish. Yodda saqlanadigan qoida shu: n ta tayanch — teskari matritsa mavjud boʻlishi uchun zarur va yetarli shart."
+        },
+        {
+          "type": "concept",
+          "heading": "Qatorlar manzarasi: toʻgʻri chiziqlar va tekisliklar",
+          "bullets": [
+            "A ning har bir qatori — bitta tenglama",
+            "tekislikda: ikki toʻgʻri chiziq",
+            "fazoda: uch tekislik",
+            "yechim = umumiy nuqta"
+          ],
+          "formula": "\\begin{pmatrix} 2 & -1 \\\\ 1 & 1 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}",
+          "formula_caption": "oʻqilishi: qatorlari 2 -1 va 1 1 boʻlgan matritsa (x, y) vektoriga koʻpaytirilib, (1, 5) ga teng",
+          "narration": "Qatorlar manzarasi matritsani qatorlab oʻqiymiz. Ikkita iks minus igrek birga teng va iks plus igrek beshga teng — bu ikki talab, va har bir talab tekislikdagi bitta toʻgʻri chiziq. A ning birinchi qatori birinchi chiziqni chizadi, ikkinchi qatori ikkinchisini. Uch oʻlchamda har bir qator tekislikka aylanadi va yechim birdaniga barcha tekisliklarda yotishi kerak. Bizning ikki chizigʻimiz iks ikkida, igrek uchda kesishadi — mana shu javob. Agar chiziqlar parallel boʻlsa yoki ustma-ust tushsa, sistemaning yechimi boʻlmaydi yoki cheksiz koʻp boʻladi. Formulani oʻqiymiz: qatorlari ikki-minus bir va bir-bir boʻlgan matritsa, iks-igrek vektoriga koʻpaytirilib, bir-besh vektorini beradi."
+        },
+        {
+          "type": "plot",
+          "heading": "Ikki toʻgʻri chiziq qayerda uchrashadi",
+          "functions": [
+            { "fn": "2*x - 1", "tex": "y = 2x - 1", "color": "yellow" },
+            { "fn": "5 - x", "tex": "y = 5 - x", "color": "blue" }
+          ],
+          "x_range": [-1, 5],
+          "y_range": [-1, 5],
+          "point": [2, 3],
+          "point_label": "(2, 3)",
+          "narration": "Mana qatorlar manzarasi — koʻzlar uchun chizilgani. Sariq chiziq — ikki iks minus igrek bir tenglamasi, yaʼni igrek ikki iks minus bir — tik koʻtarilib boradi. Koʻk chiziq — iks plus igrek besh, yaʼni igrek besh minus iks — pastga tushadi. Toʻgʻri chiziqdagi har bir nuqta oʻz tenglamasini qanoatlantiradi; yechim esa ikkala tenglamani ham qanoatlantirishi shart. Shuning uchun kesishish nuqtasini izlaymiz: nuqta ikki, uch. Umumiy holatdagi ikki toʻgʻri chiziq aynan bir marta uchrashadi — oddiy ikki qatorli, ikki ustunli sistemaning rostdan ham bitta yechimga ega boʻlishining sababi shu. Uchrashishdan bosh tortgan yoki bitta chiziqqa qoʻshilib ketgan chiziqlar istisno holatlarni beradi: yechim yoʻq yoki cheksiz koʻp. Kesishish nuqtasini topgach, uni ikkala tenglamaga qaytarib tekshirish bir daqiqa vaqt oladi — buni odat qilib oling."
+        },
+        {
+          "type": "concept",
+          "heading": "Ustunlar manzarasi: vektorlar kombinatsiyasi",
+          "bullets": [
+            "Ax = ustunlarning kombinatsiyasi",
+            "nomaʼlumlari — vaznlar",
+            "bu yerda 2 va 3 b ga yetkazadi",
+            "qatorlar manzarasi bilan bir javob"
+          ],
+          "formula": "x \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix} + y \\begin{pmatrix} -1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}",
+          "formula_caption": "oʻqilishi: x birinchi ustunga, y ikkinchi ustunga koʻpaytirilib qoʻshiladi va b ga teng",
+          "narration": "Endi xuddi shu sistemaga ustunlar boʻyicha qaraymiz. A iks koʻpaytmasi shunday deydi: birinchi ustundan iks nusxa oling, ikkinchi ustundan igrek nusxa qoʻshing va aynan b ustiga tushishga harakat qiling. Ustunlar — ikki-bir va minus bir-bir; maqsad — bir-besh. Retsept: birinchi ustundan ikki nusxa plus ikkinchisidan uch nusxa bir-beshni beradi — rostdan ham aynan shunday. Demak iks ikkiga, igrek uchga teng — qatorlar manzarasi bergan javob bilan bir xil, chunki bu aynan shu tenglama. Strangning shiori: qatorlar — kesishishlar, ustunlar — kombinatsiyalar. Ikkala manzara bitta haqiqatning ikki yuzi."
+        },
+        {
+          "type": "table",
+          "heading": "Uch xil mumkin boʻlgan natija",
+          "columns": ["Natija", "Istisno etish signali", "Geometriya"],
+          "rows": [
+            ["bitta yechim", "toʻliq tayanchlar", "chiziqlar bir nuqtada kesishadi"],
+            ["cheksiz koʻp", "0 = 0 qatori paydo boʻladi", "chiziqlar ustma-ust tushadi"],
+            ["yechim yoʻq", "0 = c qatori, c nol emas", "chiziqlar parallel"]
+          ],
+          "narration": "Har bir chiziqli sistema uch xil yakunlanadi va istisno etish qaysi biri ekanini aytib beradi. Toʻliq tayanchlar toʻplami, ziddiyatsiz — aynan bitta yechim: chiziqlar yoki tekisliklar bitta nuqtada kesishadi. Butun tenglamaning nol teng nolga aylanib qolishi hech qanday maʼlumot olib yurmas edi — cheklov yoʻqoladi, erkin oʻzgaruvchi paydo boʻladi va cheksiz koʻp yechim kelib chiqadi; chiziqlar ustma-ust tushadi. Nol teng c esa, c noldan farqli boʻlsa, sof ziddiyatdir: hech qachon kesishmaydigan parallel chiziqlar. Bitta yechim, cheksiz koʻp yoki umuman yoʻq — oldingi har bir misolda ana shu signallarni kuzatib boring."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: bitta sistema, ikki manzara",
+          "problem": "\\begin{pmatrix} 2 & -1 \\\\ 1 & 1 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}",
+          "steps": [
+            { "tex": "2x - y = 1, \\quad x + y = 5" },
+            { "text": "tenglamalarni qoʻshamiz: 3x = 6" },
+            { "tex": "x = 2, \\quad y = 5 - 2 = 3" },
+            { "tex": "2 \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix} + 3 \\begin{pmatrix} -1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "(x, y) = (2, 3)",
+          "narration": "Sistemani yechib, ikkala manzara ham koʻz oldimizdan oʻtkazamiz. Tenglamalar: ikki iks minus igrek birga teng, iks plus igrek beshga teng. Qoʻshamiz: igreklar bir-birini bekor qiladi, uch iks oltiga teng, demak iks ikki; u holda igrek besh minus ikki, yaʼni uch. Qatorlar bilan ishimiz tugadi. Endi ustunlar: birinchi ustundan ikki nusxa plus ikkinchi ustundan uch nusxa. Birinchi komponentlar: toʻrt minus uch — bir; ikkinchi komponentlar: ikki plus uch — besh. Aynan b ustiga qoʻndik. Chiziqlar ikki-uch nuqtasida kesishadi; ustunlar bir-beshga qoʻshiladi. Javob: iks ikki, igrek uch. Ikkala manzara — doimgidek — bir-biriga rozi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: uch xil natija, c = 4 yoki c = 5",
+          "problem": "\\begin{pmatrix} 1 & 1 \\\\ 2 & 2 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ c \\end{pmatrix}",
+          "steps": [
+            { "text": "chap tomonlar: 2-qator 1-qatordan ikki barobar" },
+            { "tex": "R_2 \\leftarrow R_2 - 2R_1" },
+            { "tex": "0 = c - 4" },
+            { "text": "c = 4: nol teng nol — erkin oʻzgaruvchi" },
+            { "text": "c = 5: 0 = 1 — yechim yoʻq", "highlight": true }
+          ],
+          "result": "c = 4: cheksiz koʻp; c = 5: yechim yoʻq",
+          "narration": "Bitta matritsa, ikki xil oʻng tomon, ikki xil taqdir. Chap tomonlar hech qachon oʻzgarmaydi: ikkinchi qator — bir-bir — aynan birinchi qatorning ikki barobari. Birinchi qatorning ikki barobarini ikkinchi qatordan ayiramiz: chap tomonda nol teng nol, oʻng tomonda c minus toʻrt qoladi. Agar c toʻrt boʻlsa, nol teng nol olamiz: ikkinchi tenglama birinchisini takrorlaydi va erkin oʻzgaruvchi t bilan yechimlar iks ikki minus t, igrek t koʻrinishida yoziladi — cheksiz koʻp. Agar c besh boʻlsa, nol teng birni olamiz — bu mutlaqo imkonsizlik, yechim yoʻq. Proporsional qatorlar oʻng tomondan ham proporsionallik talab qiladi, aks holda sistema buziladi. Geometriyada: c toʻrt boʻlganda ikki chiziq ustma-ust tushadi; c besh boʻlganda parallel boʻlib qoladi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "rang = tayanch elementlar soni",
+            "qatorlar: kesishuvchi chiziqlar, tekisliklar",
+            "ustunlar: b ga yetuvchi kombinatsiyalar",
+            "0 = 0: cheksiz koʻp yechim",
+            "0 = c: yechimlar yoʻq"
+          ],
+          "narration": "Birinchi boʻlim bir nafasda. Rang — tayanch elementlar soni; n tartibli matritsada n ta tayanch teskari matritsa mavjudligini anglatadi. Qatorlar manzarasi kesishuvchi chiziqlar va tekisliklarni koʻradi; ustunlar manzarasi b ga yetuvchi ustun kombinatsiyalarini. Istisno etish esa yakunni oʻzi eʼlon qiladi: nol teng nol — cheksiz koʻp yechim, nol teng c — yechim umuman yoʻq. Ana shu uch signal butun kurs davomida qayta-qayta uchraydi."
+        }
+      ]
+    },
+    {
+      "title": "Istisno etish va istisno etish matritsalari",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "Istisno etish va istisno etish matritsalari",
+          "subtitle": "Koʻpaytuvchilardan E va P gacha",
+          "narration": "Ikkinchi boʻlim. Istisno etish — chiziqli algebraning dvigateli: har bir tayanch ostidagi elementlarni ustunma-ustun tozalab boramiz, to matritsa uchburchakli boʻlib qolguncha. Asosiy miqdorlarni — tayanch va koʻpaytuvchini — nomlab olamiz, soʻng butun algoritmni matritsalar koʻpaytmasiga aylantiramiz: qatorni almashtirish uchun e, qatorlar joyini almashtirish uchun pe. Istisno etishning hisob-kitobi mana shu yerda ochiladi."
+        },
+        {
+          "type": "concept",
+          "heading": "Tayanch va koʻpaytuvchi",
+          "bullets": [
+            "a jj tayanchi: ostini tozalash",
+            "koʻpaytuvchi λ = a ij / a jj",
+            "i-qator minus λ marta j-qator",
+            "koʻpaytuvchilar L ni toʻldiradi"
+          ],
+          "formula": "\\lambda_{ij} = \\frac{a_{ij}}{a_{jj}}, \\quad R_i \\leftarrow R_i - \\lambda_{ij} R_j",
+          "formula_caption": "oʻqilishi: lambda i j — a i j boʻluv a j j; i-qator i-qator minus lambda marta j-qatorga aylanadi",
+          "narration": "Algoritmni ikki soʻz boshqaradi. Tayanch — biz turib turgan element: ostidagi hamma narsani tozalaymiz. Koʻpaytuvchi tayanch qatoridan qancha ayirish kerakligini aytadi: lambda i j — yoʻq qilinadigan element a i j boʻlinib tayanch a j j ga teng. Operatsiya esa shunday oʻqiladi: i-qator i-qator minus lambda i j marta j-qatorga aylanadi. Mana shu bitta harakat, qayta-qayta takrorlansa, butun bir ustunni toza qilib yuboradi. Koʻpaytuvchi — shunchaki ikki elementning nisbati, hisoblashi oson, va keyinchalik ana shu mayda sonlar L matritsaga yigʻilib, istisno etish qilgan har bir qadamni eslab qoladi. Istisno etish davomida faqat koʻpaytuvchilarni yozib borasiz — qolgan hamma narsa ulardan qayta tiklanadi."
+        },
+        {
+          "type": "concept",
+          "heading": "Oldinga istisno etish, ustunma-ustun",
+          "bullets": [
+            "1-tayanch ostini, soʻng 2-tayanch ostini tozalash",
+            "natija: yuqori uchburchakli U",
+            "diagonal boʻylab 2, -8, 1 tayanchlari",
+            "diagonal ostida: hammasi nol"
+          ],
+          "formula": "U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & -8 & -2 \\\\ 0 & 0 & 1 \\end{pmatrix}",
+          "formula_caption": "oʻqilishi: U — yuqori uchburchakli, tayanchlari 2, -8, 1",
+          "narration": "Algoritmning ishlashini uch qatorli, uch ustunli misolda kuzatamiz: qatorlari ikki-bir-bir, toʻrt-minus olti-nol, minus ikki-yetti-ikki. Birinchi tayanch — ikki; koʻpaytuvchilar ikki va minus bir, shuning uchun ikkinchi qator ikkinchi qator minus ikki marta birinchi qator, uchinchi qator uchinchi qator plus birinchi qator boʻladi. Yangi ikkinchi tayanch — minus sakkiz; yana bitta koʻpaytuvchi, minus bir, va uchinchi qator uchinchi qator plus ikkinchi qatarga aylanadi. Matritsa endi yuqori uchburchakli — U deb ataladi — diagonali boʻylab tayanchlari ikki, minus sakkiz, bir. Diagonal ostida — hamma joyda nollar: oldinga yurishning maqsadi aynan shu."
+        },
+        {
+          "type": "concept",
+          "heading": "Teskari almashtirish",
+          "bullets": [
+            "oxirgi tenglamadan boshlash",
+            "unda bitta nomaʼlum qolgan",
+            "yuqoriga almashtirish: v, soʻng u",
+            "asl sistemada tekshirish"
+          ],
+          "formula": "w = 2, \\quad -8v - 2w = -12 \\Rightarrow v = 1, \\quad 2u + v + w = 5 \\Rightarrow u = 1",
+          "formula_caption": "oʻqilishi: w = 2, soʻng v = 1, soʻng u = 1 — pastdan yuqoriga",
+          "narration": "Uchburchakli sistema deyarli yechilgan boʻladi. Oxirgi tenglamada bitta nomaʼlum qolgan: dabl-ve ikkiga teng. Yuqoriga koʻtarilamiz: minus sakkiz ve minus ikki dabl-ve minus oʻn ikkiga teng; dabl-ve maʼlum boʻlgach, ve bir boʻladi. Yana bir qadam yuqoriga: ikki u plus ve plus dabl-ve beshga teng, demak u bir. Yechim vektori — bir, bir, ikki. Mana shu pastdan yuqoriga koʻtarilish teskari almashtirish deb ataladi va u arzon: har qadamda bitta boʻlinish va bir nechta koʻpaytirish yetarli. Ishni doim yechimni asl tenglamalarga qaytarib tekshirish bilan tugating; bu yerda uchala qator ham mukammal tekshirilib chiqdi. Uchburchakli tuzilish — istisno etishning butun mehnati shu yakuniy osonlik uchun."
+        },
+        {
+          "type": "formula",
+          "heading": "Matritsa sifatida istisno etish: E",
+          "tex": "E \\cdot A = \\begin{pmatrix} 1 & 0 \\\\ -3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+          "parts": [
+            { "substr": "-3", "color": "yellow", "note": "koʻpaytuvchining manfisi: 1-qatorning 3 barobarini ayirish" },
+            { "substr": "\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}", "color": "blue", "note": "A: soddalashtirilayotgan matritsa" },
+            { "substr": "0 & 2", "color": "green", "note": "yangi 2-qator: tayanch ostida nol" }
+          ],
+          "narration": "Mana sir: qator amali — oʻzi ham matritsa. Birinchi qatorning uch barobarini ikkinchi qatordan ayirish uchun chap tomondan e ga koʻpaytiramiz — birlik matritsaning ikki-bir oʻrnida minus uch turgani. E ni A ga koʻpaytiramiz, qatorlari ikki-bir va olti-besh: birinchi qator oʻzgarishsiz qoladi, ikkinchi qator esa minus uch marta birinchi qator plus ikkinchi qator — nol-ikki — boʻladi. Tayanch ostidagi olti yoʻqoldi. Chapdan koʻpaytirish qatorlarni aralashtiradi; oʻngdan koʻpaytirish ustunlarni aralashtirgan boʻlardi. Xuddi shu e oʻng tomonga ham qoʻnilishi shart: A iks b tenglamasi e A iks, e b ga aylanadi. Bekor qilish oson: minus uchni plus uchga almashtiring — e ning teskarisi marta e birlik matritsani beradi. Amallarni ustma-ust qoʻysangiz, eng oʻngdagi birinchi ishlaydi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: 3×3 sistemaning toʻliq istisno etilishi",
+          "problem": "\\begin{pmatrix} 1 & 1 & 1 \\\\ 2 & 3 & 1 \\\\ 1 & 2 & 3 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ 10 \\\\ 14 \\end{pmatrix}",
+          "steps": [
+            { "text": "birinchi tayanch 1; koʻpaytuvchilar 2 va 1" },
+            { "tex": "R_2 \\leftarrow R_2 - 2R_1, \\; R_3 \\leftarrow R_3 - R_1" },
+            { "tex": "R_3 \\leftarrow R_3 - R_2: \\quad \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 3 \\end{pmatrix}" },
+            { "text": "teskari almashtirish: 3z = 10, soʻng y, soʻng x" },
+            { "tex": "x = \\frac{4}{3}, \\; y = \\frac{4}{3}, \\; z = \\frac{10}{3}", "highlight": true }
+          ],
+          "result": "(x, y, z) = (4/3, 4/3, 10/3)",
+          "narration": "Boshidan oxirigacha toʻliq bir yugurish. Sistema: qatorlari bir-bir-bir, ikki-uch-bir, bir-ikki-uch; oʻng tomoni olti, oʻn, oʻn toʻrt. Birinchi tayanch bir; koʻpaytuvchilar ikki va bir: ikkinchi qator minus ikki marta birinchi qator, uchinchi qator minus birinchi qator. Ikkinchi tayanch bir; koʻpaytuvchi bir: uchinchi qator minus ikkinchi qator. Uchburchakli sistema uch zet oʻnga teng deydi, demak zet uchdan oʻn; keyin igrek minus zet minus ikki tenglamasidan igrek uchdan toʻrt; soʻng iks plus igrek plus zet olti tenglamasidan iks uchdan toʻrt. Asl qatorlarni tekshiramiz: ular olti, oʻn, oʻn toʻrtni qaytaradi — hammasi joyida. Javob: uchdan toʻrt, uchdan toʻrt, uchdan oʻn."
+        },
+        {
+          "type": "concept",
+          "heading": "Nol tayanch: permutatsiya matritsalari",
+          "bullets": [
+            "nol tayanch vaqtinchalik boʻlishi mumkin",
+            "qatorlarni P permutatsiyasi bilan almashtirish",
+            "PAx = Pb: ikki tomonni ham almashtirish",
+            "P teskarisi = P transponirlangani"
+          ],
+          "formula": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, \\quad P^{-1} = P^{T}",
+          "formula_caption": "oʻqilishi: P ikkala qatorni joyiga tushiradi; P teskarisi uning transponirlanganiga teng",
+          "narration": "Tayanch oʻrnida nol tursa nima qilamiz? Vahima qoʻymang — bu muvaffaqiyatsizlik vaqtinchalik boʻlishi mumkin. Agar ostida birorta noldan farqli element boʻlsa, qatorlarni almashtirib, ishni davom ettiring. Almashtirishning oʻzi ham matritsa: permutatsiya pe — qatorlari qayta tartiblangan birlik matritsa. P A matritsaning qatorlarini joyiga tushiradi; P b oʻng tomonni ham almashtiradi — doim ikkala tomonni, aks holda sistemaning maʼnosi butunlay oʻzgarib ketadi. Ikkita goʻzal fakt: ikki marta almashtirish asl tartibni qaytaradi, demak P ning kvadrati birlik matritsa; va P ning teskarisi uning transponirlanganiga teng. Ostida birorta ham nol boʻlmagan nol tayanch esa doimiydir: singulyarlik."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: nol tayanch — almashtirish va yechish",
+          "problem": "\\begin{pmatrix} 0 & 2 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 7 \\end{pmatrix}",
+          "steps": [
+            { "text": "tayanch oʻrnida 0 — 1- va 2-qatorlarni almashtiramiz" },
+            { "tex": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, \\quad PA = \\begin{pmatrix} 3 & 1 \\\\ 0 & 2 \\end{pmatrix}, \\; Pb = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}" },
+            { "tex": "2y = 4 \\Rightarrow y = 2" },
+            { "tex": "3x + y = 7 \\Rightarrow x = \\frac{5}{3}", "highlight": true }
+          ],
+          "result": "(x, y) = (5/3, 2)",
+          "narration": "Chap yuqori burchakda nol turibdi. Ostida esa uch bor, demak birinchi va ikkinchi qatorlarni ayirboshlaymiz. Permutatsiya matritsa P diagonali boʻylab nol, burchaklarida bir; P bilan koʻpaytirish A ni uch-bir va nol-ikki qatorlariga, b ni esa yetti-toʻrtga aylantiradi. Matritsa endi uchburchakli. Ikkita igrek toʻrt beradi — igrek ikki; uch iks plus igrek yetti beradi — iks uchdan besh. Asl sistemada tekshiramiz: nol marta uchdan besh plus ikki marta ikki — toʻrt; uch marta uchdan besh plus ikki marta ikki — yetti. Nol tayanch faqat yomon qator tartibi edi xolos, singulyarlik emas."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "koʻpaytuvchi = element boʻluv tayanch",
+            "oldinga yurish: A dan U ga",
+            "teskari almashtirish yuqoriga koʻtariladi",
+            "E qatorni almashtiradi, P joyini",
+            "tartib muhim: eng oʻngdagi birinchi"
+          ],
+          "narration": "Ikkinchi boʻlim siqilgan holda. Koʻpaytuvchi — yoʻq qilinadigan elementning tayanchga boʻlinmasi; operatsiya tayanch qatorining ana shu barobarini ayiradi. Oldinga istisno etish A ni yuqori uchburchakli U ga aylantiradi; teskari almashtirish oxirgi nomaʼlumdan birinchisiga koʻtarilib yechadi. Qator amallari — matritsalar: E qator almashtiradi, P qatorlar joyini, va xuddi shu matritsa b ga ham urilishi shart. Tartib muhim — eng oʻngdagi amal birinchi ishlaydi. Tartibni aralashtirib yuborish — bu bobdagi eng keng tarqalgan xato."
+        }
+      ]
+    },
+    {
+      "title": "Matritsa amallari va teskari matritsa",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "Matritsa amallari va teskari matritsa",
+          "subtitle": "AB ni koʻpaytirish, A ni bekor qilish",
+          "narration": "Uchinchi boʻlim. Tezlikni pasaytirib, A B koʻpaytmasiga har tomondan qarab chiqamiz — elementma-element, ustunma-ustun, qatorma-qator — chunki har bir nuqtai nazar keyinchalik foydali boʻlib qoladi. Soʻng teskari matritsa navbati: u qachon mavjud boʻladi, ikki-ikki matritsalar uchun qanday yozib olinadi va Gauss-Jordan uni har qanday oʻlchamda qanday hisoblaydi. Koʻpaytirish — kursning grammatikasi; uni oʻrganmasdan oʻtib boʻlmaydi."
+        },
+        {
+          "type": "concept",
+          "heading": "Qator koʻpaytma ustun",
+          "bullets": [
+            "(AB)ij: A ning i-qatori × B ning j-ustuni",
+            "ichki oʻlchamlar mos kelishi kerak",
+            "m×n va n×p koʻpaytmasi — m×p",
+            "elementma-element: skalyar koʻpaytmalar"
+          ],
+          "formula": "(AB)_{ij} = \\sum_{k=1}^{n} a_{ik} b_{kj}",
+          "formula_caption": "oʻqilishi: AB ning i j elementi — a i k b k j larning k boʻyicha yigʻindisi",
+          "narration": "Qoida bitta qatorda: A B ning i j elementi — A ning i-qatori bilan B ning j-ustunining skalyar koʻpaytmasi, yaʼni a i k b k j larning k boʻyicha yigʻindisi. Ichki oʻlchamlar mos kelishi shart: m qatorli, n ustunli matritsa n qatorli, p ustunli matritsaga koʻpaytirilib, m qatorli, p ustunli matritsa beradi. Sinab koʻramiz: qatorlari bir-ikki-nol va minus bir-uch-toʻrt boʻlgan matritsani, qatorlari ikki-bir, nol-minus bir, uch-ikki boʻlgan uch qatorli matritsaga koʻpaytiramiz. Ikkinchi qatorni birinchi ustunga: minus ikki plus nol plus oʻn ikki — oʻn. Ikkinchi qatorni ikkinchi ustunga: minus bir minus uch plus sakkiz — toʻrt. Elementma-element, skalyar koʻpaytmalar koʻpaytma jadvalini toʻldirib boradi. Qoida oddiy — lekin oʻlchamlarni doim oldindan tekshirib oling."
+        },
+        {
+          "type": "table",
+          "heading": "AB koʻpaytmasining toʻrt koʻrinishi",
+          "columns": ["Nuqtai nazar", "Nima deydi"],
+          "rows": [
+            ["elementlar", "A ning i-qatori × B ning j-ustuni"],
+            ["ustunlar", "A marta B ning har bir ustuni"],
+            ["qatorlar", "B qatorlarining kombinatsiyalari"],
+            ["tashqi koʻpaytmalar", "A ustunlari × B qatorlari, yigʻindi"]
+          ],
+          "narration": "Bitta koʻpaytma — toʻrtta deraza. Elementlar nuqtai nazari: har bir element A ning qatori bilan B ning ustunining koʻpaytmasi — siz bilan siz hisoblab chiqadigan taʼrif. Ustunlar nuqtai nazari: A B ning ustunlari — A ning B ustunlariga koʻpaytmasi, yaʼni A ustunlarining kombinatsiyalari; ustunlar fazosi nega muhim boʻlsa sababi ham shu. Qatorlar nuqtai nazari: A B ning har bir qatori B qatorlarining kombinatsiyasi. Tashqi koʻpaytmalar: A B — A ning k-ustuni bilan B ning k-qatori koʻpaytmalarining k boʻyicha yigʻindisi. Sonlar bir xil, hikoyalar toʻrt xil — isbotga yangi burchak kerak boʻlganda derazani almashtirib oling."
+        },
+        {
+          "type": "concept",
+          "heading": "Maxsus matritsalar va AB, BA emas",
+          "bullets": [
+            "birlik I: hech narsani oʻzgartirmaydi",
+            "diagonal D koordinatalarni masshtablaydi",
+            "uchburchakli: pastda yoki yuqorida nollar",
+            "umuman olganda AB ≠ BA"
+          ],
+          "formula": "AB = \\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix}, \\quad BA = \\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}",
+          "formula_caption": "oʻqilishi: AB — 2 1, 1 1, lekin BA — 1 1, 1 2: boshqacha",
+          "narration": "Uchta maxsus shakl. Birlik matritsa i — diagonali boʻylab birlar — har bir vektorni oʻzgartirmaydi. Diagonal matritsa koordinatalarni mustaqil masshtablaydi: masalan, diagonali ikki va uch boʻlgan matritsa gorizontal yoʻnalishni ikki barobar, vertikal yoʻnalishni uch barobar choʻzadi. Uchburchakli matritsalar — aynan istisno etishning hosilasi; ularning sistemalari almashtirib yechiladi. Endi haftaning asosiy ogohlantirishi: koʻpaytirish kommutativ emas. A ni gorizontal siljitish, B ni vertikal siljitish deb oling, ikkalasi ham birlardan qurilgan: A marta B — ikki-bir, bir-bir beradi, B marta A esa — bir-bir, bir-ikki. Koʻpaytuvchilar bir xil, tartib boshqa, javob boshqa. Algebra ham dardlidan chetda qolmaydi: A plus B ning kvadrati A kvadrat plus ikki A B plus B kvadratga teng emas."
+        },
+        {
+          "type": "formula",
+          "heading": "2×2 matritsaning teskarisi",
+          "tex": "A^{-1} = \\frac{1}{ad - bc} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}",
+          "parts": [
+            { "substr": "A^{-1}", "color": "green", "note": "A ni bekor qiladi: A teskarisi marta A — birlik matritsa" },
+            { "substr": "ad - bc", "color": "yellow", "note": "determinant — noldan farqli boʻlishi shart" },
+            { "substr": "d & -b \\\\ -c & a", "color": "blue", "note": "diagonalni almashtiring, burchaklarga minus bering" }
+          ],
+          "narration": "Haftaning eng foydali formulasi. Qatorlari a-b va se-de boʻlgan A uchun teskari matritsa — determinatning bir boʻliniga koʻpaytirilgan oddiy qayta joylashtirish. Determinant — a de minus be se — maxrajda turadi: u nol boʻlsa formula portlab ketadi va bu aynan singulyar holat, teskari yoʻq. Qayta joylashtirish: diagonal elementlar a va de oʻz joylarini almashtiradi, diagonaldan tashqaridagi b va se esa minus ishora oladi. Hammasini determinantga boʻlasiz. Qaytarib koʻpaytirib koʻring: A marta A teskarisi birlik matritsaga yiqiladi, chunki diagonal koʻpaytmalar a de minus be se beradi, qolgan koʻpaytmalar esa nolga tenglashadi. Bitta kasr, bitta almashtirish, ikkita ishora oʻzgarishi — uni istalgan payt boshidan qurib chiqasiz."
+        },
+        {
+          "type": "concept",
+          "heading": "Teskarisi qachon mavjud?",
+          "bullets": [
+            "almashtirishlardan keyin hamma tayanch nol emas",
+            "Ax = 0 faqat x = 0 da",
+            "Ax = b har bir b uchun yechiladi",
+            "(AB) teskarisi = B teskarisi A teskarisi"
+          ],
+          "formula": "(AB)^{-1} = B^{-1}A^{-1}",
+          "formula_caption": "oʻqilishi: AB ning teskarisi — B teskarisi marta A teskarisi: tartib teskari",
+          "narration": "Kvadrat matritsalar uchun bir nechta bayon aslida bitta bayonning koʻrinishlari. Teskari matritsa shundagina mavjudki, barcha tayanchlar almashtirishlardan keyin ham noldan farqli; ustunlar chiziqli mustaqil; A iks nol tenglamasining yagona yechimi iks nol; va A iks b har bir b uchun aynan bitta yechimga ega. Paypoq va poyabzal qoidasi: avval A, soʻng B ni kiyganni yechish uchun avval B ni, keyin A ni yeching — shuning uchun A B ning teskarisi B teskarisi marta A teskarisidir. Teskariga olish transponirlash bilan ham almashadi: A transponirlanganining teskarisi A teskarisining transponirlanganiga teng. Bu bayonlar bir-biriga ekvivalent: birini koʻrsangiz, qolganlari ham qoʻlingizda tayyor."
+        },
+        {
+          "type": "concept",
+          "heading": "Gauss–Jordan: teskarini topish",
+          "bullets": [
+            "kengaytiramiz: [A | I]",
+            "chap yarmi birlik matritsaga keltiriladi",
+            "oʻng yarmi A teskarisiga aylanadi",
+            "teskarining ustunlari: Ax = e j"
+          ],
+          "formula": "[\\, A \\mid I \\,] \\longrightarrow [\\, I \\mid A^{-1} \\,]",
+          "formula_caption": "oʻqilishi: [A | I] — [I | A⁻¹] ga keltiriladi",
+          "narration": "Gauss va Jordan har qanday oʻlcham uchun retsept beradi. A ni yozing va vertikal chiziqdan keyin birlik matritsani: ikki xonali kengaytirilgan blok. Qator amallarini chap xona birlik matritsaga aylanmaguncha bajaraverasiz. Har bir amal chapdan koʻpaytirish boʻlgani uchun oʻng xona ham xuddi shu amallar bilan koʻpaytiriladi — va jimjitgina A teskarisiga aylanib boradi. Teskarining har bir ustuni A iksning birlik vektorga teng boʻlgan yechimi; qator amallari esa barcha n ta sistemani bir vaqtda yechib beradi. Amaliy eslatma: bitta sistema uchun istisno etish plus teskari almashtirish odatda toʻliq teskarini hisoblashdan arzonroq. Usul nomi ham maʼnoni aytadi: Gauss pastga yurishni bergan, Jordan esa yuqoriga tozalashni qoʻshgan."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: 2×2 teskari matritsa",
+          "problem": "A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}, \\quad A^{-1} = ?",
+          "steps": [
+            { "tex": "\\det A = 2 \\cdot 3 - 1 \\cdot 5 = 1" },
+            { "text": "diagonalni almashtiramiz, burchaklarga minus beramiz" },
+            { "tex": "A^{-1} = \\frac{1}{1} \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}" },
+            { "tex": "A \\cdot A^{-1} = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "A teskarisi = (3 -1; -5 2)",
+          "narration": "Formulani qoʻllaymiz. A ning qatorlari ikki-bir va besh-uch. Determinant: ikki marta uch minus bir marta besh — olti minus besh — bir. Noldan farqli, demak teskari mavjud. Diagonalni almashtiramiz: uch bilan ikki oʻz joylarini almashadi. Burchaklarga minus beramiz: minus bir va minus besh. Determinantga boʻlamiz — u birga teng, demak hech narsa oʻzgarmaydi. Teskari matritsa: uch-minus bir, minus besh-ikki. Koʻpaytirib tekshiramiz: A ning birinchi qatori teskarining birinchi ustuniga olti minus besh — bir beradi; diagonaldan tashqari elementlar nolga tenglashadi. Koʻpaytma birlik matritsa chiqdi — javob tasdiqlandi. Naqshni yodda oling: almashtir, minus ber, boʻl — u har bir imtihonda uchraydi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: 3×3 matritsada Gauss–Jordan",
+          "problem": "A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 1 & 2 & 1 \\\\ 0 & 1 & 2 \\end{pmatrix}, \\quad A^{-1} = ?",
+          "steps": [
+            { "text": "A ni birlik matritsa bilan kengaytiramiz: [A | I]" },
+            { "tex": "R_2 \\leftarrow R_2 - R_1, \\quad R_3 \\leftarrow R_3 - R_2" },
+            { "text": "tayanchlar ustini tozalaymiz: R2 − R3, soʻng R1 − R2" },
+            { "tex": "A^{-1} = \\begin{pmatrix} 3 & -2 & 1 \\\\ -2 & 2 & -1 \\\\ 1 & -1 & 1 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "A teskarisi = (3 -2 1; -2 2 -1; 1 -1 1)",
+          "narration": "Gauss-Jordan usulini uch qatorli, uch ustunli matritsada kuzatamiz. A ning qatorlari bir-bir-nol, bir-ikki-bir, nol-bir-ikki. Oʻngga birlik matritsani qoʻshib kengaytiramiz. Pastga qarab istisno qilamiz: ikkinchi qator minus birinchi qator, soʻng uchinchi qator minus yangi ikkinchi qator — chap yarmi yuqori uchburchakli boʻldi. Tayanchlar ustini tozalaymiz: ikkinchi qator minus uchinchi, soʻng birinchi qator minus ikkinchi. Chap yarmi birlik matritsaga, oʻng yarmi esa teskariga aylanadi: uch-minus ikki-bir, minus ikki-ikki-minus bir, bir-minus bir-bir. Bitta elementni tekshiramiz: A ning ikkinchi qatori teskarining birinchi ustuniga uch minus toʻrt plus bir — nol beradi. Qolganlari ham xuddi shunday tekshiriladi — va hammasi joyida."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "(AB)ij = i-qator marta j-ustun",
+            "bitta koʻpaytmaning toʻrt koʻrinishi",
+            "AB, BA ga teng emas",
+            "2×2 teskari: almashtir, minus, boʻl",
+            "Gauss-Jordan: [A|I] dan [I|A⁻¹] gacha"
+          ],
+          "narration": "Uchinchi boʻlim qisqacha. A B elementlari — A qatorlarining B ustunlariga skalyar koʻpaytmalari, lekin koʻpaytmani ustunma-ustun, qatorma-qator yoki tashqi koʻpaytmalar yigʻindisi sifatida ham oʻqish mumkin. Koʻpaytirish assotsiativ, ammo kommutativ emas. Ikki-ikki matritsaning teskarisi diagonalni almashtiradi, burchaklarga minus beradi va determinantga boʻladi. Gauss-Jordan esa A bilan birlik matritsani — birlik matritsa bilan A teskarisiga aylantiradi: universal teskari mashina. Bu mashina bitta sistemaga ham, bir nechtasiga ham xizmat qiladi."
+        }
+      ]
+    },
+    {
+      "title": "LU, LDU va PA = LU",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "LU, LDU va PA = LU",
+          "subtitle": "Bir marta faktorla, koʻp sistemalarni yech",
+          "narration": "Toʻrtinchi boʻlim. Istisno etishning hisob-kitobi oʻz samarasini beradi: har bir koʻpaytuvchi L da saqlanadi, natija U boʻladi va matritsaning oʻzi el bilan u ning koʻpaytmasiga ajraladi. Tayanchlarni alohida ajratsangiz — el-de-u; qator almashtirishlarini qoʻshsangiz — pe A el-u ga teng. Bir marta faktorizatsiya qiling — keyin koʻpgina oʻng tomonlarni deyarli hech qanday qiyinchiliksiz yechib olasiz. Butun sonli hisoblash shu gʻoya ustida qurilgan."
+        },
+        {
+          "type": "formula",
+          "heading": "Boʻlimning yuragi: A = LU",
+          "tex": "\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+          "parts": [
+            { "substr": "\\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}", "color": "blue", "note": "L: koʻpaytuvchilar diagonal ostida, ustida birlar" },
+            { "substr": "\\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}", "color": "green", "note": "U: istisno etish natijasi, tayanchlar diagonali boʻylab" },
+            { "substr": "6", "color": "yellow", "note": "6 = 3 marta 2: U da yoʻq qilingan, L da eslab qolingan" }
+          ],
+          "narration": "Istisno etish qatorlardan barobarlarini ayiradi; L esa ularni qaytarib qoʻshadi. A ni — qatorlari ikki-bir va olti-besh — istisno qilamiz: koʻpaytuvchi uch, va U — ikki-bir, nol-ikki — chiqadi. Uch marta birinchi qatorni ayirishning teskarisi uni qaytarib qoʻshishdir, va teskarilar teskari tartibda koʻpaytirilganda bitta matritsaga birlashadi: L — diagonali boʻylab birlar, ostida koʻpaytuvchi uch. L ni U ga koʻpaytiramiz: birinchi qator koʻchib oʻtadi; ikkinchi qator — uch marta birinchi qator plus U ning ikkinchi qatori — olti-besh. A aynan qayta tiklandi. Demak A el-u ga teng: L — shunchaki koʻpaytuvchilar, nollar turgan joylarga yozilgan. Olti elementi uch marta ikkiga teng — U da yoʻq qilingan, L da esa eslab qolingan."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: faktorlar orqali yechish",
+          "problem": "A = LU = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}, \\quad b = \\begin{pmatrix} 5 \\\\ 19 \\end{pmatrix}",
+          "steps": [
+            { "text": "avval Ly = b ni yechamiz, yuqoridan pastga" },
+            { "tex": "y_1 = 5, \\quad 3y_1 + y_2 = 19 \\Rightarrow y_2 = 4" },
+            { "text": "soʻng Ux = y ni yechamiz, pastdan yuqoriga" },
+            { "tex": "2x_2 = 4 \\Rightarrow x_2 = 2, \\quad 2x_1 + 2 = 5 \\Rightarrow x_1 = \\frac{3}{2}", "highlight": true }
+          ],
+          "result": "x = (3/2, 2)",
+          "narration": "Nima uchun faktorizatsiya qilamiz? Chunki ikkala uchburchakli sistema ham juda oddiy. b — besh, oʻn toʻqqiz — berilganda avval el igrek b tenglamasini yuqoridan pastga yechamiz: igrek bir besh; uch marta besh plus igrek ikki oʻn toʻqqizga teng, demak igrek ikki toʻrt. Soʻng u iks igrek tenglamasini pastdan yuqoriga yechamiz: ikki iks ikki toʻrt — iks ikki ikki; ikki iks bir plus iks ikki besh — iks bir uchdan ikki. Tekshiramiz: ikki marta uchdan ikki plus ikki — besh; olti marta uchdan ikki plus oʻn — oʻn toʻqqiz. Foyda shunda: ikkinchi oʻng tomon xuddi shu el va u bilan qayta ishlatiladi — yangi istisno etish emas, shunchaki ikkita almashtirish."
+        },
+        {
+          "type": "concept",
+          "heading": "LDU faktorizatsiyasi",
+          "bullets": [
+            "U ning tayanchlari D ga koʻchadi",
+            "normalangan U: diagonali boʻylab birlar",
+            "A = L, D va normalangan U koʻpaytmasi",
+            "simmetrik holat: L D L transponirlangani"
+          ],
+          "formula": "\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix} \\begin{pmatrix} 1 & \\frac{1}{2} \\\\ 0 & 1 \\end{pmatrix}",
+          "formula_caption": "oʻqilishi: A = L marta D marta normalangan yuqori omil; D da tayanchlar 2 va 2",
+          "narration": "El-u koʻpaytmasini normalash mumkin. U ni oling — diagonali boʻylab tayanchlari ikki va ikki — va tayanchlarni diagonal de matritsaga ajratib chiqaring. Har bir qatorni oʻz tayanchiga boʻlgandan soʻng qoladigan narsa — diagonali boʻylab birlari boʻlgan yuqori uchburchakli matritsa. Bizning A — el, marta de, marta normalangan omil — bir, ikkidan bir, nol, bir. Uchta faktor, har biri oddiy: koʻpaytuvchilar diagonal ostida, tayanchlar diagonali boʻylab, ikkala uchburchakda birlar. Simmetrik matritsalarda hikoya ikki barobar goʻzal: normalangan omil el transponirlanganiga aylanadi va nafis el-de-el-transponirlangan shakli kelib chiqadi. El-de-u — A ning toʻliq pasporti: koʻpaytuvchilar, tayanchlar va ularning joylashuvi bitta koʻrinishda."
+        },
+        {
+          "type": "concept",
+          "heading": "Tayanchlar va determinant",
+          "bullets": [
+            "tayanchlar: a, soʻng d - cb/a",
+            "tayanchlar koʻpaytmasi = det A",
+            "almashtirish yoʻq: det = tayanchlar koʻpaytmasi",
+            "normalangan LDU yagona"
+          ],
+          "formula": "a \\cdot \\left( d - \\frac{cb}{a} \\right) = ad - bc = \\det A",
+          "formula_caption": "oʻqilishi: a marta qavs ichida d minus cb boʻluv a — ad minus bc, determinant",
+          "narration": "Kutilmagan bogʻlanish. Qatorlari a-b va se-de boʻlgan ikki-ikki matritsani istisno qiling: birinchi tayanch a, va bitta istisno qadami ikkinchi tayanchni d minus se marta be boʻluv a shakliga keltiradi. Ikki tayanchni koʻpaytiring: a marta shu miqdor ad minus be se ga soddalashadi — determinant. Demak, qator almashtirishlarsiz determinant — tayanchlar koʻpaytmasi. Bizning doimiy misolda tayanchlar ikki va ikki determinant toʻrtni beradi — va rostdan ham ikki marta besh minus bir marta olti toʻrt. Yana bitta durdona: tayanchlar noldan farqli boʻlganda normalangan el-de-u faktorizatsiyasi mavjud boʻladi va u yagona boʻladi. Uch qatorli matritsalarda ham xuddi shu qoida ishlaydi: almashtirishlarsiz determinant tayanchlar koʻpaytmasi."
+        },
+        {
+          "type": "concept",
+          "heading": "PA = LU va qismiy pivotlash",
+          "bullets": [
+            "birinchi tayanch nol: avval almashtiring",
+            "P har bir almashtirishni yozib boradi",
+            "kichik tayanchlar ulkan koʻpaytuvchilar beradi",
+            "qismiy pivotlash: eng kattasi gʻolib"
+          ],
+          "formula": "P A = LU",
+          "formula_caption": "oʻqilishi: P marta A, L marta U ga teng",
+          "narration": "Birinchi tayanch nol boʻlsa, faktorizatsiya ishni almashtirishdan boshlaydi. Bizning misol: qatorlari nol-ikki, uch-toʻrt — mutlaqo teskarilanuvchan matritsa, faqat qator tartibi yomon. Pe bilan almashtiramiz: pe A — uch-toʻrt, nol-ikki — allaqachon oʻzi U, el esa birlik matritsa. Har bir almashtirish pe da yozib boriladi va toʻliq teorema pe A el-u deb oʻqiladi. Almashtirishning ikkinchi sababi — mayda tayanchlar. Minus sakkizinchi darajadagi tayanch sakkizinchi darajali ulkan koʻpaytuvchi yasaydi va yaxlitlash xatolarini shafqatsiz koʻpaytirib yuboradi. Qismiy pivotlash buni oldini oladi: tayanch sifatida doim moduli boʻyicha eng katta elementni oling. Professional kodlar hech qachon pivotsiz ishlamaydi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: 3×3 matritsa uchun PA = LU",
+          "problem": "A = \\begin{pmatrix} 0 & 2 & 1 \\\\ 1 & 1 & 0 \\\\ 2 & 3 & 2 \\end{pmatrix}, \\quad P, L, U = ?",
+          "steps": [
+            { "text": "birinchi tayanch 0: 1- va 2-qatorlarni almashtiramiz" },
+            { "tex": "P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, \\quad PA = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 2 & 3 & 2 \\end{pmatrix}" },
+            { "tex": "R_3 \\leftarrow R_3 - 2R_1, \\quad R_3 \\leftarrow R_3 - \\frac{1}{2} R_2" },
+            { "tex": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & \\frac{1}{2} & 1 \\end{pmatrix}, \\; U = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & \\frac{3}{2} \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "P 1- va 2-qatorlarni almashtiradi; L da 2 va 1/2",
+          "narration": "Toʻliq faktorizatsiya. A ning birinchi tayanchi nol, shuning uchun birinchi va ikkinchi qatorlar joy almashadi: pe — ana shu ikki qatori almashtirilgan birlik matritsa — va pe A bir-bir-noldan boshlanadi. Istisno qilamiz: koʻpaytuvchi ikki uch-bir oʻrnidagi ikkini tozalaydi va uchinchi qator nol-bir-ikkiga aylanadi; koʻpaytuvchi ikkidan bir esa ikkinchi tayanch ostini tozalab, uchinchi qatorni nol-nol-uchdan ikkiga yetkazadi. Koʻpaytuvchilarni ishorasi bilan birga saqlaymiz: el ning diagonal ostida ikki va ikkidan bir turadi. El ni u ga koʻpaytirib koʻrsak, uchinchi qator ikki-uch-ikki chiqadi — aynan pe A. Demak pe A el-u: pe tenglamalarni qayta tartiblaydi, el koʻpaytuvchilarni eslaydi, u esa tayanchlarni — bir, ikki, uchdan ikki — saqlaydi. Pe, el va u ni koʻpaytirib qayta tekshirish — har doim yaxshi odat."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: uchdiagonalli sistema",
+          "problem": "\\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix} x = \\begin{pmatrix} 2 \\\\ 0 \\\\ 2 \\end{pmatrix}",
+          "steps": [
+            { "tex": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ -\\frac{1}{2} & 1 & 0 \\\\ 0 & -\\frac{2}{3} & 1 \\end{pmatrix}, \\; U = \\begin{pmatrix} 2 & -1 & 0 \\\\ 0 & \\frac{3}{2} & -1 \\\\ 0 & 0 & \\frac{4}{3} \\end{pmatrix}" },
+            { "text": "oldinga: Ly = b dan y = (2, 1, 8/3)" },
+            { "text": "orqaga: Ux = y dan x = (2, 2, 2)" },
+            { "tex": "A x = \\begin{pmatrix} 2 \\\\ 0 \\\\ 2 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "x = (2, 2, 2)",
+          "narration": "Uchdiagonalli matritsa: faqat asosiy diagonal va uning ikki qoʻshnisi boʻylab noldan farqli elementlar. Bunday matritsa prujinalar zanjiri va issiqlik oqimini modellashtiradi: har bir nomaʼlum faqat eng yaqin qoʻshnilari bilan muloqot qiladi. Istisno qilamiz: koʻpaytuvchilar minus ikkidan bir, soʻng minus uchdan ikki; tayanchlar — ikki, uchdan ikki, uchdan toʻrt; va el bilan u ikki diagonalli boʻlib qoladi — tor struktura saqlanib qoladi. Oldinga almashtirish: igrek — ikki, bir, uchdan sakkiz. Orqaga: iks uch ikki, iks ikki ikki, iks bir ikki. Javob — hammasi ikkilardan, va A ni unga koʻpaytirsak ikki, nol, ikki qaytadi — aynan b. Faktorlar tor boʻlgani uchun har yangi oʻng tomon juda arzon turadi — katta siyrak sistemalar ana shunday yechiladi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "A = LU: koʻpaytuvchilar L da",
+            "avval Ly = b, soʻng Ux = y",
+            "LDU: tayanchlar D da",
+            "det A = tayanchlar koʻpaytmasi",
+            "almashtirishlar: PA = LU"
+          ],
+          "narration": "Toʻrtinchi boʻlim quyultirilgan holda. Istisno etish matritsani faktorlaydi: koʻpaytuvchilar el ga tushadi, uchburchakli natija u boʻladi va A el-u ga teng. Yechish ikkita uchburchakli almashtirishga boʻlinadi — bir marta faktorlab oling, abadiy qayta ishlating. Tayanchlarni de ga ajratish el-de-u beradi, determinant esa tayanchlar koʻpaytmasi. Qator almashtirishlar pe da yashaydi — toʻliq bayonot: pe A el-u. Tor uchdiagonalli matritsalar oʻzlarining tor faktorlarini saqlaydi — yechimlar arzon. Bu gʻoya sonli hisoblashning kalitlaridan biri."
+        }
+      ]
+    },
+    {
+      "title": "Transponirlash, simmetriya va permutatsiyalar",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Transponirlash, simmetriya va permutatsiyalar",
+          "subtitle": "Matritsalarni oʻgirish va oltita qayta tartiblash yoʻli",
+          "narration": "Beshinchi boʻlim. Transponirlash matritsani diagonal boʻylab aylantiradi va bu aylanishni uchta ayniyat boshqaradi — eng mashhuri koʻpaytma qoidasi: A B transponirlangani B transponirlangani marta A transponirlanganiga teng. Aylanishlardan simmetrik matritsalar, es plus ka ajralishi va har qanday A uchun doim simmetrik boʻlgan A transponirlangani marta A tugʻiladi. Soʻng — uchinchi tartibli oltita permutatsiya matritsasi. Aylanish oddiy koʻrinadi — natijalari chuqur."
+        },
+        {
+          "type": "concept",
+          "heading": "Transponirlash va uning qoidalari",
+          "bullets": [
+            "(A transponirlangani)ij = a ji",
+            "yigʻindilar: transponirlash taqsimlanadi",
+            "(AB) transp = B transp · A transp",
+            "teskariga olish va transponirlash almashadi"
+          ],
+          "formula": "(AB)^{T} = B^{T} A^{T}",
+          "formula_caption": "oʻqilishi: A B transponirlangani B transponirlangani marta A transponirlanganiga teng",
+          "narration": "Transponirlash — bu aks ettirish: A transponirlanganining i j elementi a j i ga teng; qatorlar ustunlarga aylanadi va m qatorli, n ustunli matritsa n qatorli, m ustunli matritsaga aylanadi. Uch qoida aks ettirishni kengaytiradi. Yigʻindilar oson — transponirlash taqsimlanadi. Koʻpaytmalar tartibni oʻzgartiradi: A B transponirlangani B transponirlangani marta A transponirlanganiga teng; tartib albatta oʻgirilishi kerak, aks holda hatto oʻlchamlar mos kelmasligi mumkin. Sonlar bilan tekshiramiz: A — bir-ikki, nol-bir va B — ikki-nol, uch-bir boʻlganda A B transponirlangani sakkiz-uch, ikki-bir chiqadi — aynan B transponirlangani marta A transponirlangani bergan natija. Teskariga olish aks ettirish bilan almashadi: A transponirlanganining teskarisi A teskarisining transponirlanganiga teng."
+        },
+        {
+          "type": "concept",
+          "heading": "Simmetrik va kososimmetrik matritsalar",
+          "bullets": [
+            "simmetrik S: S transponirlangani = S",
+            "kososimmetrik K: K transponirlangani = -K",
+            "K diagonali nol",
+            "A = S + K, doim va yagona"
+          ],
+          "formula": "A = \\frac{A + A^{T}}{2} + \\frac{A - A^{T}}{2} = S + K",
+          "formula_caption": "oʻqilishi: A oʻzining simmetrik qismi plus kososimmetrik qismiga teng",
+          "narration": "Transponirlangani oʻziga teng matritsa simmetrik deyiladi — diagonal boʻylab oynaga oʻxshaydi. Transponirlangani manfiyiga teng matritsa kososimmetrik deyiladi va uning diagonali albatta nol boʻlishi shart. Har bir kvadrat matritsa aynan bittadan har biriga ajraladi: A ni oʻz transponirlangani bilan oʻrtachalashtirsangiz — simmetrik es qismi, ayirib oʻrtachalashtirsangiz — kososimmetrik ka qismi chiqadi. Qatorlari bir-toʻrt, ikki-uch boʻlgan A ni oling. Es — bir-uch, uch-uch: diagonaldan tashqari juftlik oʻrtachalashtirilgan. Ka — nol-bir, minus bir-nol: ayirmaning yarimi. Qoʻshing: asl A qaytib keladi — es plus ka. Bu ajralish doim mavjud va u yagona."
+        },
+        {
+          "type": "concept",
+          "heading": "A transponirlangani marta A doim simmetrik",
+          "bullets": [
+            "A-transp A simmetrik",
+            "A iks uzunligining kvadrati manfiy boʻlmaydi",
+            "u-transp v: son",
+            "u v-transp: matritsa"
+          ],
+          "formula": "x^{T} A^{T} A x = \\| Ax \\|^{2} \\geq 0",
+          "formula_caption": "oʻqilishi: xᵀAᵀAx — A iks uzunligining kvadrati, noldan kichik emas",
+          "narration": "Ikkita koʻpaytma alohida eʼtiborga loyiq. Tashqi koʻpaytma, u marta ve transponirlangani, ikki vektordan butun bitta matritsa quradi: u — bir-ikki va ve — uch-toʻrt boʻlganda u uch-toʻrt, olti-sakkizni beradi. Ichki koʻpaytma, u transponirlangani marta ve, ularni bitta songa siqib qoʻyadi: oʻn bir. Endi asosiy qahramon: A transponirlangani marta A. Koʻpaytma qoidasiga koʻra uning transponirlangani oʻziga teng — yaʼni u har qanday A uchun doim simmetrik. Undan ham muhimi: iks transponirlangani A transponirlangani A iks A iks uzunligining kvadratiga qayta yoziladi va u hech qachon manfiy boʻlmaydi. Ana shu tengsizlik eng kichik kvadratlar metodining poydevori — uni yodda saqlang. Maʼlumotlarga egri chiziq moslashtirishda ana shu manfiy boʻlmas kvadrat minimallashtiriladi — metod nomi ham shundan."
+        },
+        {
+          "type": "concept",
+          "heading": "Permutatsiyalar: P teskarisi = P transponirlangani",
+          "bullets": [
+            "qatorlari qayta tartiblangan birlik matritsa",
+            "har qatorda va har ustunda bitta 1",
+            "PA: qatorlar; AP: ustunlar",
+            "P teskarisi = P transponirlangani"
+          ],
+          "formula": "P^{T} P = I, \\quad P^{-1} = P^{T}",
+          "formula_caption": "oʻqilishi: P transponirlangani marta P — birlik matritsa, demak P teskarisi P transponirlangani",
+          "narration": "Permutatsiya matritsasi — qatorlari qayta tartiblangan birlik matritsa: har bir qatorda va har bir ustunda aynan bitta bir. Chapdan koʻpaytirsangiz — P A qatorlarni qayta tartiblaydi. Oʻngdan koʻpaytirsangiz — A P ustunlarni qayta tartiblaydi. P A odatda A P ga teng boʻlmaydi. P ning ustunlari har xil birlik vektorlar boʻlgani uchun ularning skalyar koʻpaytmalari birlik matritsani hosil qiladi: P transponirlangani marta P — birlik matritsa, va P ning teskarisi uning transponirlanganidir. Oqibatlar: permutatsiyalar uzunliklarni va skalyar koʻpaytmalarni saqlaydi, va har bir determinant plus yoki minus birga teng — bitta almashtirishda minus. n tartibli permutatsiyalar soni n faktorial; uch tartibda — oltita. Permutatsiya — komponentlarni qayta tartiblashning matritsali yoʻli; hisob-kitobda hech narsa yoʻqolmaydi."
+        },
+        {
+          "type": "table",
+          "heading": "3×3 matritsaning oltita permutatsiyasi",
+          "columns": ["Permutatsiya", "det P", "P teskarisi"],
+          "rows": [
+            ["birlik I", "+1", "I"],
+            ["P21: 1, 2-qatorlar", "-1", "P21"],
+            ["P32: 2, 3-qatorlar", "-1", "P32"],
+            ["P31: 1, 3-qatorlar", "-1", "P31"],
+            ["P32 P21: tsikl", "+1", "P21 P32"],
+            ["P21 P32: tsikl", "+1", "P32 P21"]
+          ],
+          "narration": "n uch boʻlganda sanab chiqamiz: bitta birlik matritsa, uchta oddiy almashtirish va ikkita uchlik aylanish — jami oltita matritsa, uch faktorial, na ortiq, na kam. Jadvalning har bir qatori permutatsiyani, uning determinantini va teskarisini koʻrsatib turadi. Almashtirishlar toq: bitta ayirboshlash, determinant minus bir, va har biri oʻzining oʻziga teskarisi — ikki marta almashtirib, uyga qaytib keldingiz. Aylanishlar juft: determinant plus bir, ularning teskarilari esa qarama-qarshi aylanishlar. Yana shuni payqang: har bir teskari transponirlanganga teng — hozirgina isbotlangan ortogonallik jadvalda koʻzga tashlanib turibdi. Permutatsiyalarning koʻpaytmalari ham permutatsiyalar; mana shu olti aʼzoli oila istisno etishdagi har bir qator almashtirishni boshqaradi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: chapdan yoki oʻngdan? PA va AP",
+          "problem": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, \\quad A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}, \\quad PA = ?, \\; AP = ?",
+          "steps": [
+            { "tex": "PA = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} = \\begin{pmatrix} 3 & 4 \\\\ 1 & 2 \\end{pmatrix}" },
+            { "text": "PA qatorlari: A qatorlari almashtirilgan tartibda" },
+            { "tex": "AP = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 4 & 3 \\end{pmatrix}" },
+            { "tex": "PA \\neq AP", "highlight": true }
+          ],
+          "result": "PA = (3 4; 1 2), AP = (2 1; 4 3)",
+          "narration": "Ikkita matritsa, ikki xil tartib, ikki xil javob. Avval pe marta A — chapdan koʻpaytirish: koʻpaytmaning birinchi qatori A ning ikkinchi qatorini tanlaydi. Demak pe A — yuqorida uch-toʻrt, pastda bir-ikki: qatorlar joy almashdi. Endi A marta pe — oʻngdan koʻpaytirish: koʻpaytmaning ustunlari A ning P ustunlariga koʻpaytmasi, yaʼni A ustunlari yangi tartibda. A pe — yuqorida ikki-bir, pastda toʻrt-uch: bu safar ustunlar joy almashdi. Chapdan koʻpaytirish qatorlarga, oʻngdan koʻpaytirish ustunlarga taʼsir qiladi — va ikki natija, uch-toʻrt-bir-ikki bilan ikki-bir-toʻrt-uch, ochiq-oydin farq qiladi. Koʻpaytirish tartibi texnik tafsilot emas — u matematik maʼnoning oʻzi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "(AB)-transp = B-transp A-transp",
+            "A = S + K: simmetrik plus kososimmetrik",
+            "A-transp A simmetrik, manfiy emas",
+            "P teskarisi = P transponirlangani",
+            "3-tartibning oltita permutatsiyasi"
+          ],
+          "narration": "Beshinchi boʻlim besh qatorda. Transponirlash qatorlar bilan ustunlarning oʻrnini almashtiradi; koʻpaytma qoidasi tartibni oʻgiradi: A B transponirlangani B transponirlangani marta A transponirlanganiga teng. Har bir kvadrat matritsa — simmetrik qism plus kososimmetrik qism. A transponirlangani marta A avtomatik simmetrik, va iks transponirlangani A transponirlangani A iks — uzunlik kvadrati, hech qachon manfiy emas. Permutatsiyalar birlik matritsani qayta tartiblaydi; ularning teskarilari transponirlanganlari, determinantlari plus yoki minus bir, va uchinchi tartibda ular aynan oltita."
+        }
+      ]
+    },
+    {
+      "title": "Vektor fazolari va pastki fazolar",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Vektor fazolari va pastki fazolar",
+          "subtitle": "Ustunlar va nol fazolari yashaydigan olam",
+          "narration": "Oltinchi boʻlim — qoʻllanmaning choʻqqisi. Vektor fazosi — qoʻshish va masshtablash natijasi toʻplam ichida qoladigan har qanday toʻplamdir; vektorlar ustun, matritsa, hatto polinom boʻlishi mumkin. Biz uch bandli pastki fazo tekshiruvini, yoyilma tushunchasini va har bir matritsaga bogʻlangan ikki buyuk pastki fazoni — ustunlar fazosi va nol fazosini — oʻrganamiz. Chiziqli algebraning barcha keyingi mazmuni mana shu yerda ildiz otadi."
+        },
+        {
+          "type": "concept",
+          "heading": "Vektor fazolari va pastki fazo tekshiruvi",
+          "bullets": [
+            "vektorlar: ustunlar, matritsalar, polinomlar",
+            "fazo: qoʻshish va masshtablashga yopiq",
+            "1-tekshiruv: nol vektor W da",
+            "2- va 3-tekshiruvlar: yigʻindilar, barobarlar"
+          ],
+          "formula": "0 \\in W, \\quad u + v \\in W, \\quad c\\,u \\in W",
+          "formula_caption": "oʻqilishi: nol W da, yigʻindilar W da, barobarlar W da",
+          "narration": "Nima vektor hisoblanadi? Qoʻshib va masshtablab boʻladigan har qanday narsa: n taliklar, matritsalar, polinomlar, funksiyalar — birgalikda ular vektor fazosini hosil qiladi: qoʻshish va skalyarga koʻpaytirishga yopiq toʻplam. Pastki fazo — kattaroq fazo ichidagi vektor fazosi va uni tekshirish uch qadamni oladi. Birinchisi: nol vektor W ga tegishli boʻlishi shart. Ikkinchisi: W qoʻshishga yopiq boʻlishi kerak — ikki aʼzoning yigʻindisi yana aʼzo. Uchinchisi: masshtablashga yopiq — har qanday barobar toʻplam ichida qoladi. Uchtasi ham oʻtsa — W pastki fazo; bittasi yiqilsa — emas. Va pastki fazo albatta koordinatalar boshidan oʻtadi. Uch tekshiruv — eshikdagi uchta savol: uchtasiga ham ha deyilsa, ichkariga oʻtishingiz mumkin."
+        },
+        {
+          "type": "plot",
+          "heading": "Koordinatalar boshidan oʻtadi — yoki oʻtmaydi",
+          "functions": [
+            { "fn": "2*x", "tex": "y = 2x", "color": "yellow" },
+            { "fn": "2*x + 1", "tex": "y = 2x + 1", "color": "blue" }
+          ],
+          "x_range": [-3, 3],
+          "y_range": [-5, 7],
+          "point": [0, 0],
+          "point_label": "(0, 0)",
+          "narration": "Ikkita parallel toʻgʻri chiziq, ikki xil taqdir. Sariq chiziq — igrek ikki iks — bir-ikki vektorining yoyilmasi: uning har bir nuqtasi shu vektorning biror barobari, nol barobar ham shu jumladan — yaʼni koordinatalar boshi. Chiziqdagi ikki nuqtani qoʻshing: yana chiziqdasiz. Masshtablang: baribir chiziqdasiz. Uchala tekshiruv oʻtdi — pastki fazo. Koʻk chiziq — igrek ikki iks plus bir — shunchaki siljish: u koordinatalar boshidan oʻtmaydi, nol vektor aʼzolik imtihonidan yiqiladi va u bilan birga barcha umidlar ham. Siljigan chiziq hech qachon pastki fazo boʻla olmaydi. Pastki fazolar doim noldan oʻtadi — rasmga bir qarash kifoya."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: pastki fazomi yoki yoʻq? Uch hukm",
+          "problem": "W_1: y = 3x; \\quad W_2: y = 3x + 2; \\quad W_3: x \\geq 0",
+          "steps": [
+            { "text": "W1: nol, yigʻindilar, barobarlar — hammasi joyida: 0 dan chiziq" },
+            { "text": "W2: (0, 0) yiqiladi: 3·0 + 2 = 2 — pastki fazo emas" },
+            { "text": "W3: nol va yigʻindilar joyida, masshtablash yiqiladi" },
+            { "tex": "-1 \\cdot (1, 0) = (-1, 0) \\notin W_3", "highlight": true }
+          ],
+          "result": "ha, yoʻq, yoʻq",
+          "narration": "Birinchi nomzod — igrek uch iks chizigʻi. Nol: koordinatalar boshi uning ustida yotadi. Yigʻindilar: nuqtalar s va uch-s koʻrinishida boʻlsa, ularning yigʻindisi ham xuddi shu koʻrinishda chiqadi. Barobarlar: masshtablash koʻrinishni saqlaydi. Barcha tekshiruvlar oʻtdi — pastki fazo. Ikkinchi nomzod — siljigan egizak igrek uch iks plus ikki. Koordinatalar boshi yiqiladi: uch marta nol plus ikki — ikki, nol emas — bir zumdagi rad etish. Uchinchi nomzod — iks noldan katta yoki teng boʻlgan yarim tekislik. Nol uning ichida, va manfiy boʻlmagan iks-koordinatalarning yigʻindisi manfiy boʻlmaydi. Lekin bir-nol nuqtasini minus birga koʻpaytiring: minus bir-nol chiqadi — toʻplamdan tashqarida. Masshtablashga yopiqlik yiqildi — pastki fazo emas. Hukmlar: ha, yoʻq, yoʻq. Uchta nomzod, uch xil taqdir — tekshirish metodi esa bitta."
+        },
+        {
+          "type": "concept",
+          "heading": "Yoyilma: barcha kombinatsiyalar",
+          "bullets": [
+            "yoyilma = barcha chiziqli kombinatsiyalar",
+            "yoyilma doim pastki fazo",
+            "aʼzolik: vaznlarni toping",
+            "(3, 5) = 4(1, 1) - (1, -1)"
+          ],
+          "formula": "\\mathrm{span}(v_1, \\ldots, v_k) = c_1 v_1 + \\cdots + c_k v_k",
+          "formula_caption": "oʻqilishi: v bir dan v k gacha boʻlgan vektorlarning yoyilmasi — barcha kombinatsiyalar",
+          "narration": "Berilgan vektorlarning yoyilmasi — ularning barcha chiziqli kombinatsiyalari toʻplami; boshqacha aytganda, chiziqli qobiq. Yoyilma avtomatik pastki fazo: ikki kombinatsiyani birlashtirsangiz, yana kombinatsiya chiqadi. Yoyilmaga aʼzolik — bu yechiladigan savol. Uch-besh nuqtasi bir-bir va bir-minus bir vektorlarining yoyilmasida yotadimi? Se bir plus se ikki uchga, se bir minus se ikki beshga teng boʻlishi kerak. Qoʻshamiz: ikki se bir sakkiz — se bir toʻrt; ayiramiz: se ikki minus bir. Yechim mavjud, demak ha: uch-besh — birinchi vektorning toʻrt nusxasi minus ikkinchisining bitta nusxasi. Agar yechim boʻlmasa, vektor yoyilma tashqarisida qolgan boʻlur edi."
+        },
+        {
+          "type": "concept",
+          "heading": "Ustunlar fazosi C(A)",
+          "bullets": [
+            "C(A) = ustunlarning yoyilmasi",
+            "Ax doim C(A) ga tushadi",
+            "Ax = b faqat b ∈ C(A) da yechiladi",
+            "proporsional ustunlar: bitta chiziq"
+          ],
+          "formula": "C(A) = \\mathrm{span}(a_1, \\ldots, a_n)",
+          "formula_caption": "oʻqilishi: C(A) — ustunlarning yoyilmasi",
+          "narration": "Endi har bir matritsaga bitta pastki fazoni bogʻlaymiz. A ni iks ga koʻpaytirib yoyib yozing: bu — birinchi ustunning iks bir barobari plus ikkinchi ustunning iks ikki barobari va hokazo. Demak A iks doim ustunlar yoyilmasiga tushadi — bu ustunlar fazosi, A dan C. Yechiluvchanlik savoli endi chiroyli javobga ega: A iks b tenglamasi aynan b ustunlar fazosiga tegishli boʻlgandagina yechimga ega; yechimning oʻzi — vaznlar retsepti. Misol: bir-ikki-nol va ikki-toʻrt-nol ustunlari proporsional, shuning uchun ustunlar fazosi bir-ikki-nol orqali oʻtuvchi bitta chiziqqa yiqiladi. Oʻsha chiziqdan tashqaridagi har qanday b — yetib boʻlmas maqsad."
+        },
+        {
+          "type": "concept",
+          "heading": "Nol fazosi N(A)",
+          "bullets": [
+            "N(A) = Ax = 0 boʻlgan barcha x",
+            "doim pastki fazo",
+            "A = (1 2): N(A) = yoyilma{(-2, 1)}",
+            "yechimlar: xususiy + N(A)"
+          ],
+          "formula": "N(A) = \\{ x : A x = 0 \\}",
+          "formula_caption": "oʻqilishi: N(A) — A iks nolga teng boʻlgan barcha ikslar toʻplami",
+          "narration": "Ikkinchi buyuk pastki fazo ichkariga qaraydi. A ning nol fazosi — A iks nol tenglamasining barcha yechimlari toʻplami. U doim pastki fazo: agar A u va A ve nol boʻlsa, ularning har qanday kombinatsiyasi ham nol. Kichik misol: A — bir-ikki qatori. Iks bir plus ikki iks ikki nolga teng tenglamasi iks birni minus ikki iks ikkiga teng boʻlishga majbur qiladi: nol fazosi — minus ikki-bir vektorining barcha barobarlari — bitta chiziq. b noldan farqli boʻlgan A iks b tenglamasining yechimlari esa pastki fazo hosil qilmaydi: ular orasida nol vektor yoʻq. Bitta yechim mavjud boʻlganda toʻliq toʻplam — oʻsha xususiy yechim plus butun nol fazosi. Nol fazosi sistemaning ichki erkinligini oʻlchaydi: u qancha keng boʻlsa, yechimlar shuncha koʻp."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: bitta matritsaning ustunlar fazosi va nol fazosi",
+          "problem": "A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \\end{pmatrix}, \\quad C(A) = ?, \\; N(A) = ?",
+          "steps": [
+            { "text": "ustunlar z = 0 tekisligida; birinchi ikkitasi mustaqil" },
+            { "tex": "C(A) = \\mathrm{span} \\left\\{ \\begin{pmatrix} 1 \\\\ 0 \\\\ 0 \\end{pmatrix}, \\begin{pmatrix} 2 \\\\ 1 \\\\ 0 \\end{pmatrix} \\right\\} = \\{ (s + 2t, t, 0) \\}" },
+            { "text": "Ax = 0: 2-qator x2 = -x3 beradi; 1-qator x1 = 2x3" },
+            { "tex": "N(A) = \\mathrm{span} \\left\\{ \\begin{pmatrix} 2 \\\\ -1 \\\\ 1 \\end{pmatrix} \\right\\}", "highlight": true }
+          ],
+          "result": "C(A): z = 0 tekisligi; N(A): yoyilma{(2, -1, 1)}",
+          "narration": "Ustunlar: bir-nol-nol; ikki-bir-nol; nol-bir-nol. Uchinchi ustun — ikkinchisi minus birinchisining ikki barobari; birinchi ikkitasi mustaqil, va barcha ustunlarning uchinchi komponenti nol. Ustunlar fazosi — z nolga teng butun tekislik: bir-nol-nol va ikki-bir-nol vektorlaridan yoyilgan. Nol fazosi: ikkinchi qator iks ikkini minus iks uchga tenglaydi, birinchi qator iks birni minus ikki iks ikkiga tenglaydi. Iks uch erkin boʻlgani uchun har bir yechim ikki-minus bir-bir vektorining barobari — yechimlar chizigʻi. Tekshiramiz: A marta ikki-minus bir-bir nol vektorini qaytaradi. Yechimlar chizigʻi, tasvirlar tekisligi — bitta matritsaning ikki pastki fazosi, ikki xil yoʻnalishda."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "pastki fazo: nol, yigʻindilar, barobarlar",
+            "yoyilma = barcha kombinatsiyalar",
+            "C(A): b unda yotishi shart",
+            "N(A): doim pastki fazo",
+            "yechimlar: xususiy + nol fazo"
+          ],
+          "narration": "Choʻqqi — qisqacha bayon etilganda. Pastki fazo uch tekshiruvdan oʻtadi: nolni saqlaydi, qoʻshishga yopiq, masshtablashga yopiq. Yoyilma berilgan vektorlarning barcha kombinatsiyalarini yigʻadi va avtomatik pastki fazo. Ustunlar fazosi A dan C — ustunlarning yoyilmasi: A iks b aynan b unda yotganda yechiladi. Nol fazosi A dan N — A iks nol tenglamasining yechimlari — va u doim pastki fazo; A iks b ning toʻliq yechimi — bitta xususiy yechim plus nol fazosi. Matritsaning barcha sirlari ana shu ikki fazoda saqlanadi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "qatorlar kesishadi, ustunlar qoʻshiladi",
+            "istisno etish: tayanchlar, koʻpaytuvchilar, U",
+            "E qatorni almashtiradi, P joyini",
+            "A = LU = LDU, PA = LU",
+            "(AB)-transp = B-transp A-transp",
+            "C(A) yechadi, N(A) toʻldiradi"
+          ],
+          "narration": "Butun qoʻllanma bir daqiqada. Sistemaning ikki yuzi bor: qatorlar — kesishuvchi chiziqlar va tekisliklar; ustunlar — b ga yetuvchi kombinatsiyalar. Istisno etish tayanchlar ostini tozalab, uchburchakli u gacha boradi va u teskari almashtirish bilan yechiladi. Qator amallari — matritsalar: E almashtiradi, P joyini almashtiradi va tartib muhim. A el-u ga teng degan faktorizatsiya, el-de-u va pe-A-el-u gacha aniqlashtiriladi — bitta istisno etish cheksiz koʻp arzon yechimlarga aylanadi. Transponirlash matritsalarni oʻgiradi; permutatsiyalar pe teskarisi pe transponirlangani qoidasiga boʻysunadi. Ustunlar fazosi yechiluvchanlikni hal qiladi, nol fazosi yechimlarni toʻldiradi."
+        },
+        {
+          "type": "outro",
+          "message": "Siz 5–7-haftalarning hammasini oʻrgandingiz. Endi oraliq imtihonga kiring — siz tayyorsiz.",
+          "narration": "Mana beshinchi va yettinchi haftalar ham yakunlandi: sistemaning ikki manzarasi, e va pe matritsalari bilan istisno etish, formula hamda Gauss-Jordan yoʻli bilan topilgan teskarilar, el-u faktorizatsiyalari oilasi, transponirlash va permutatsiyalar, va barchasini tartibga soluvchi vektor fazolari. Har bir metod real misollar ustida tekshirildi. Takrorlash uchun xulosalarni koʻrib chiqing va oraliq imtihonga ishonch bilan boring. Ushbu yarim soat yana bir bor isbotladiki: tushungan miya — yodlagan miyadan kuchli. Omad — siz tayyorsiz."
+        }
+      ]
+    }
+  ],
+  "outro_message": "Siz 5–7-haftalarning hammasini oʻrgandingiz. Endi oraliq imtihonga kiring — siz tayyorsiz.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

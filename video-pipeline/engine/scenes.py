@@ -61,6 +61,12 @@ class CourseScene(Scene):
             import traceback
             tb = traceback.format_exc()[-600:]
             print(f"[block {self.idx}] FALLBACK: {e}\n{tb}", flush=True)
+            try:   # durable marker so build.py can count degraded blocks
+                base = os.environ.get("UUU_BUILD_DIR", "/tmp")
+                with open(os.path.join(base, "scene_fallbacks.txt"), "a") as f:
+                    f.write(f"{self.idx}\t{type(e).__name__}: {str(e)[:180]}\n")
+            except Exception:
+                pass
             self.clear()
             self.fallback_card(str(e))
         self.fit_and_hold()
@@ -177,15 +183,21 @@ class CourseScene(Scene):
         if ttl.width > avail_w:
             ttl.scale_to_fit_width(avail_w)
         ttl.next_to(big, RIGHT, buff=0.8).align_to(big, UP).shift(DOWN * 0.35)
-        sub = Text(str(b.get("subtitle", "")), font=FONT, font_size=28, color=ACCENT, line_spacing=0.8)
-        self.fit(sub, config.frame_width - 1.2)
-        sub.next_to(ttl, DOWN, buff=0.55).align_to(ttl, LEFT)
-        rule = Line(ORIGIN, RIGHT * max(4.0, ttl.width + 0.6), color=TEAL, stroke_width=4)
-        rule.next_to(sub, DOWN, buff=0.7).align_to(ttl, LEFT)
+        sub_txt = str(b.get("subtitle", "")).strip()
+        if sub_txt:
+            sub = Text(sub_txt, font=FONT, font_size=28, color=ACCENT, line_spacing=0.8)
+            self.fit(sub, config.frame_width - 1.2)
+            sub.next_to(ttl, DOWN, buff=0.55).align_to(ttl, LEFT)
+            rule = Line(ORIGIN, RIGHT * max(4.0, ttl.width + 0.6), color=TEAL, stroke_width=4)
+            rule.next_to(sub, DOWN, buff=0.7).align_to(ttl, LEFT)
+        else:
+            rule = Line(ORIGIN, RIGHT * max(4.0, ttl.width + 0.6), color=TEAL, stroke_width=4)
+            rule.next_to(ttl, DOWN, buff=1.0).align_to(ttl, LEFT)
 
         self.play_t(FadeIn(big, scale=0.6), rt=0.9)
         self.play_t(Write(ttl), rt=1.3)
-        self.play_t(FadeIn(sub, shift=UP * 0.25), rt=0.8)
+        if sub_txt:
+            self.play_t(FadeIn(sub, shift=UP * 0.25), rt=0.8)
         self.play_t(Create(rule), rt=0.7)
         self.wait_t(0.7)
 

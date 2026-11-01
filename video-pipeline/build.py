@@ -158,53 +158,138 @@ def write_scene_file(work, n_blocks):
         f.write("\n".join(lines))
     return path
 
+# ---------------------------------------------------------------- encoder
+def detect_encoder():
+    """Pick the best available encoder: h264_nvenc (T4 NVENC) or libx264.
+    Probes PyAV — the encoder manim actually uses — by encoding 8 tiny frames."""
+    try:
+        import av
+        av.codec.Codec("h264_nvenc", "w")
+        opts = {"preset": "p5", "tune": "hq", "rc": "constqp", "qp": "18"}
+        p = os.path.join(os.environ.get("UUU_BUILD_DIR", "/tmp"), "_nvenc_probe.mp4")
+        c = av.open(p, "w", format="mp4")
+        s = c.add_stream("h264_nvenc", rate=30, options=dict(opts))
+        s.pix_fmt, s.width, s.height = "yuv420p", 64, 64
+        frame = av.VideoFrame(64, 64, "yuv420p")
+        for i in range(8):
+            frame.pts = i
+            for packet in s.encode(frame):
+                c.mux(packet)
+        for packet in s.encode():
+            c.mux(packet)
+        c.close()
+        os.remove(p)
+        return "h264_nvenc", opts
+    except Exception as e:
+        print(f"[encoder] nvenc unavailable → libx264 ({str(e)[:140]})", flush=True)
+        return "libx264", {"crf": "18"}
+
+def n_gpu_devices():
+    try:
+        r = sh(["nvidia-smi", "-L"], check=False)
+        return len([l for l in r.stdout.splitlines() if "GPU " in l])
+    except Exception:
+        return 0
+
+def nvenc_cli_ok():
+    """system ffmpeg has a working NVENC? (for gap fallback chunks)"""
+    try:
+        r = sh(["ffmpeg", "-hide_banner", "-encoders"], check=False)
+        if "h264_nvenc" not in r.stdout:
+            return False
+        r = sh(["ffmpeg", "-y", "-f", "lavfi", "-i", "color=c=gray:s=64x64:r=30:d=0.3",
+                "-c:v", "h264_nvenc", "-preset", "p5", "-qp", "18",
+                os.path.join(os.environ.get("UUU_BUILD_DIR", "/tmp"), "_nvcli.mp4")],
+               check=False)
+        ok = r.returncode == 0
+        try:
+            os.remove(os.path.join(os.environ.get("UUU_BUILD_DIR", "/tmp"), "_nvcli.mp4"))
+        except OSError:
+            pass
+        return ok
+    except Exception:
+        return False
+
 # ---------------------------------------------------------------- render
-def render_chunks(work, scene_file, man, quality, workers, force=False):
+def render_chunks(work, scene_file, man, quality, workers, force=False,
+                  codec=None, enc_opts=None):
     chunks = os.path.join(work, "chunks"); os.makedirs(chunks, exist_ok=True)
     media = os.path.join(work, "media")
-    env = dict(os.environ)
-    env["UUU_BUILD_DIR"] = work
+    base_env = dict(os.environ)
+    base_env["UUU_BUILD_DIR"] = work
     for tb in tex_bins():
-        env["PATH"] = tb + ":" + env.get("PATH", "")
+        base_env["PATH"] = tb + ":" + base_env.get("PATH", "")
     py = sys.executable
+    codec = codec or "libx264"
+    enc_opts = enc_opts or {}
+    gpu_split = (codec == "h264_nvenc" and n_gpu_devices() >= 2)
+    gap_nvenc = nvenc_cli_ok()
+
+    def codec_args(name, opts):
+        return (["--video-codec", name] +
+                sum([["--encoder-option", f"{k}={v}"] for k, v in opts.items()], []))
 
     todo = []
     for e in man["blocks"]:
         out = os.path.join(chunks, f"{e['idx']:04d}.mp4")
         if force or not os.path.exists(out) or os.path.getsize(out) < 2000:
             todo.append((e["idx"], out))
-    print(f"[render] {len(todo)} chunks to render (quality {quality}, {workers} workers)", flush=True)
+    print(f"[render] {len(todo)} chunks to render (quality {quality}, {workers} workers, "
+          f"encoder {codec} {enc_opts})", flush=True)
 
     from concurrent.futures import ThreadPoolExecutor
     import glob as _glob
     t0 = time.time()
     done_ct = 0
+    fallbacks = []
+
+    def find_produced(cls):
+        stem = os.path.splitext(os.path.basename(scene_file))[0]
+        cands = [
+            os.path.join(media, "videos", stem, quality_map(quality), f"chunk_{cls}.mp4"),
+            os.path.join(media, "videos", os.path.basename(scene_file), quality_map(quality), f"chunk_{cls}.mp4"),
+        ] + _glob.glob(os.path.join(media, "videos", "**", f"chunk_{cls}.mp4"), recursive=True)
+        return next((c for c in cands if os.path.exists(c) and os.path.getsize(c) > 2000), None)
+
+    def run_chunk(idx, cls, env, name, opts):
+        sh([py, "-m", "manim", quality, "--disable_caching",
+            "--media_dir", media, scene_file, cls, "-o", f"chunk_{cls}",
+            "--format", "mp4"] + codec_args(name, opts), env=env, timeout=3000)
+        produced = find_produced(cls)
+        if not produced:
+            raise RuntimeError("manim produced no output file")
+        return produced
+
     def render_one(item):
         nonlocal done_ct
         idx, out = item
         cls = f"B{idx:04d}"
+        env = dict(base_env)
+        if gpu_split:
+            # spread NVENC sessions across the two T4s
+            env["CUDA_VISIBLE_DEVICES"] = str(idx % 2)
+        produced = None
         try:
-            sh([py, "-m", "manim", quality, "--disable_caching",
-                "--media_dir", media, scene_file, cls, "-o", f"chunk_{cls}",
-                "--format", "mp4"], env=env, timeout=3000)
-            stem = os.path.splitext(os.path.basename(scene_file))[0]
-            cands = [
-                os.path.join(media, "videos", stem, quality_map(quality), f"chunk_{cls}.mp4"),
-                os.path.join(media, "videos", os.path.basename(scene_file), quality_map(quality), f"chunk_{cls}.mp4"),
-            ] + _glob.glob(os.path.join(media, "videos", "**", f"chunk_{cls}.mp4"), recursive=True)
-            produced = next((c for c in cands if os.path.exists(c) and os.path.getsize(c) > 2000), None)
-            if produced:
-                if os.path.exists(out):
-                    os.remove(out)
-                shutil.move(produced, out)
-            else:
-                raise RuntimeError("manim produced no output file")
+            produced = run_chunk(idx, cls, env, codec, enc_opts)
         except Exception as e:
-            print(f"[render] chunk {idx} FAILED: {str(e)[:300]}", flush=True)
+            if codec != "libx264":
+                # GPU encoder hiccup on this chunk → retry once on CPU before giving up
+                print(f"[render] chunk {idx} failed on {codec}, retrying libx264: {str(e)[:160]}", flush=True)
+                try:
+                    produced = run_chunk(idx, cls, base_env, "libx264", {"crf": "18"})
+                except Exception as e2:
+                    print(f"[render] chunk {idx} FAILED: {str(e2)[:300]}", flush=True)
+            else:
+                print(f"[render] chunk {idx} FAILED: {str(e)[:300]}", flush=True)
+        if produced is not None:
+            if os.path.exists(out):
+                os.remove(out)
+            shutil.move(produced, out)
         if not os.path.exists(out) or os.path.getsize(out) < 2000:
             if os.path.exists(out):
                 os.remove(out)
-            make_gap(out, man["blocks"][idx]["target"], quality)
+            make_gap(out, man["blocks"][idx]["target"], quality, use_nvenc=gap_nvenc)
+            fallbacks.append(idx)
             print(f"[render] chunk {idx}: used silent gap fallback", flush=True)
         done_ct += 1
         if done_ct % 10 == 0:
@@ -215,18 +300,22 @@ def render_chunks(work, scene_file, man, quality, workers, force=False):
     with ThreadPoolExecutor(max_workers=workers) as ex:
         list(ex.map(render_one, todo))
     if todo:
-        print(f"[render] all done in {(time.time()-t0)/60:.1f} min", flush=True)
+        print(f"[render] all done in {(time.time()-t0)/60:.1f} min "
+              f"({len(fallbacks)} gap fallbacks)", flush=True)
+    return fallbacks
 
 def quality_map(q):
     return {"-ql": "480p15", "-qm": "720p30", "-qh": "1080p60"}.get(q, q.lstrip("-"))
 
-def make_gap(out, seconds, quality):
-    """Black-grey fallback chunk when manim itself failed — keeps sync."""
+def make_gap(out, seconds, quality, use_nvenc=False):
+    """Background-colour fallback chunk when manim itself failed — keeps sync."""
     w, h, fps = {"-ql": (854, 480, 15), "-qm": (1280, 720, 30), "-qh": (1920, 1080, 60)}.get(
         quality, (1280, 720, 30))
+    enc = (["-c:v", "h264_nvenc", "-preset", "p5", "-qp", "18"] if use_nvenc else
+           ["-c:v", "libx264", "-preset", "veryfast"])
     sh(["ffmpeg", "-y", "-f", "lavfi",
         "-i", f"color=c=0x1C1C1C:s={w}x{h}:r={fps}:d={max(seconds,0.5):.3f}",
-        "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", out])
+        *enc, "-pix_fmt", "yuv420p", out])
 
 # ---------------------------------------------------------------- assembly
 def pad_audio(work, man, quality):
@@ -273,9 +362,18 @@ def concat_all(work, man, spec, out_mp4):
     cmd += ["-movflags", "+faststart", tmp]
     sh(cmd)
 
+    # pass 2: attach chapters — explicit stream maps keep the mov_text subtitle
+    # stream (default stream selection would silently drop it)
     sh(["ffmpeg", "-y", "-i", tmp, "-i", ffmeta,
+        "-map", "0:v:0", "-map", "0:a:0", "-map", "0:s:0",
         "-map_metadata", "1", "-map_chapters", "1", "-c", "copy", out_mp4])
     os.remove(tmp)
+    # sidecar SRT next to the final video (same basename) for LMS upload
+    if srt:
+        try:
+            shutil.copy(srt, os.path.splitext(out_mp4)[0] + ".srt")
+        except OSError:
+            pass
 
     dur = ffprobe_dur(out_mp4)
     size = os.path.getsize(out_mp4) / 1e6
@@ -381,11 +479,13 @@ def main():
     blocks = spec_blocks(spec)
     quality = "-" + args.quality
 
+    codec, enc_opts = detect_encoder()
     if not args.no_tts:
         gen_tts(args.work, spec, blocks, force=args.force)
     man = build_manifest(args.work, args.spec, spec, blocks, no_tts=args.no_tts)
     scene_file = write_scene_file(args.work, len(blocks))
-    render_chunks(args.work, scene_file, man, quality, args.workers, force=args.force)
+    fallbacks = render_chunks(args.work, scene_file, man, quality, args.workers,
+                              force=args.force, codec=codec, enc_opts=enc_opts)
     pad_audio(args.work, man, quality)
     # refresh chunk durations into manifest (needed for srt + chapters)
     for e in man["blocks"]:
@@ -394,6 +494,27 @@ def main():
     dur = concat_all(args.work, man, spec, out)
     ok = dur >= 30 * 60
     print(f"[build] {'OK ≥30min' if ok else 'UNDER 30 MIN!'} — {spec.get('id')} ({spec.get('language')})")
+
+    # machine-readable build report for the orchestrating kernel
+    n_tts = sum(1 for e in man["blocks"] if e.get("audio"))
+    sf_path = os.path.join(args.work, "scene_fallbacks.txt")
+    scene_fb = []
+    if os.path.exists(sf_path):
+        scene_fb = [l.split("\t", 1)[0] for l in open(sf_path) if l.strip()]
+    rep = {
+        "spec": spec.get("id"), "language": spec.get("language"),
+        "n_blocks": len(blocks), "tts_ok": n_tts,
+        "gap_fallbacks": fallbacks, "encoder": codec,
+        "scene_fallbacks": scene_fb,
+        "dur_min": round(dur / 60, 2), "mb": round(os.path.getsize(out) / 1e6, 1),
+        "ge_30min": ok,
+    }
+    with open(os.path.join(args.work, "build_report.json"), "w") as f:
+        json.dump(rep, f, ensure_ascii=False, indent=1)
+    if scene_fb and len(scene_fb) > 0.15 * len(blocks):
+        print(f"[build] FATAL: {len(scene_fb)}/{len(blocks)} blocks fell back to the "
+              f"degraded card — refusing to ship a broken video", flush=True)
+        sys.exit(2)
 
 if __name__ == "__main__":
     main()

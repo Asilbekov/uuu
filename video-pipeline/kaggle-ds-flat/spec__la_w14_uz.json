@@ -1,0 +1,1039 @@
+{
+  "id": "la_w14",
+  "language": "uz",
+  "course_title": "Chiziqli algebra I",
+  "test_title": "1–4-haftalar · Toʻliq qoʻllanma",
+  "subtitle": "Vektorlar · Koʻpaytmalar · Matritsalar · Determinantlar · Rang va teskari matritsa",
+  "chapters": [
+    {
+      "title": "Vektorlar: kurs poydevori",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "Chiziqli algebra I fanining birinchi dan toʻrtinchi haftalari boʻyicha toʻliq video qoʻllanmaga xush kelibsiz. Keyingi yarim soat ichida kursning butun birinchi oyini qaytadan qurib chiqamiz: vektorlar va chiziqli kombinatsiyalar, skalyar koʻpaytma va vektor koʻpaytma, matritsalar va ularni koʻpaytirish qoidalari, determinantlar hamda nihoyat rang va teskari matritsa. Har bir tushuncha oʻquv qoʻllanmangizdan olingan toʻliq yechilgan misol bilan birga keladi. Videoning oxiriga yetganda siz birinchi test talab qiladigan har bir koʻnikkani egallagan boʻlasiz. Qalam va qogʻozni tayyorlang — boshlaymiz."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Vektorlar: kurs poydevori",
+          "subtitle": "Kombinatsiyalar, qobiq, mustaqillik",
+          "narration": "Birinchi bob. Vektorlar — chiziqli algebraning atomlari: fanining qolgan barcha qurilishi aynan ulardan bunyod etiladi. Bu bobda vektorlarni qoʻshishni, skalyarga koʻpaytirishni va ularni kombinatsiya qilishni oʻrganamiz, soʻngra ikki muhim savolga javob beramiz: vektorlar toʻplamining qobigʻi nimani anglatadi va bu vektorlar qachon chiziqli mustaqil hisoblanadi? Bu tushunchalar butun kurs davomida qayta-qayta uchraydi, shuning uchun ularni mustahkam egallash muhim."
+        },
+        {
+          "type": "concept",
+          "heading": "Vektor nima?",
+          "bullets": [
+            "vektor — n ta sondan iborat ustun",
+            "qoʻshish: komponentma-komponent",
+            "skalyar koʻpaytirish: har bir element c ga"
+          ],
+          "formula": "(u + v)_i = u_i + v_i",
+          "formula_caption": "oʻqiladi: yigʻindining i-komponenti komponentlar yigʻindisiga teng",
+          "plot": {
+            "fn": "0.5*x",
+            "tex": "y = \\frac{x}{2}",
+            "x_range": [
+              -4,
+              4
+            ],
+            "y_range": [
+              -2,
+              2
+            ],
+            "point": [
+              2,
+              1
+            ],
+            "point_label": "(2, 1)"
+          },
+          "narration": "Vektor — bu tartiblangan sonlar roʻyxati boʻlib, ustun koʻrinishida yoziladi; n oʻlchovli vektorda aynan n ta komponent boʻladi. Ikki, bir vektorining birinchi komponenti ikki, ikkinchi komponenti bir; rasmda u koordinata boshidan ikki, bir nuqtasigacha boruvchi strelka sifatida koʻrinadi va y teng x boʻluv ikki toʻgʻri chizigʻida yotadi. Vektorlar komponentma-komponent qoʻshiladi: birinchisi birinchiga, ikkinchisi ikkinchiga, xatosiz hammasi shu tartibda. Skalyarga koʻpaytirish har bir komponentni bir xil songa koʻpaytiradi: yoʻnalish oʻzgarmaydi, faqat uzunlik oʻzgaradi, skalyar manfiy boʻlsa vektor teskari tomonga buriladi. Formula shuni tasdiqlaydi: yigʻindining i-komponenti alohida komponentlar yigʻindisiga teng. Ana shu ikki amal — qoʻshish va skalyarga koʻpaytirish — butun chiziqli algebra oʻsib chiqadigan urugʻlardir."
+        },
+        {
+          "type": "concept",
+          "heading": "Chiziqli kombinatsiyalar",
+          "bullets": [
+            "har bir vektorni oʻz skalyariga koʻpaytiramiz",
+            "natijalarni bitta vektorga qoʻshamiz",
+            "c₁ … cₙ skalyarlari — ogʻirliklar"
+          ],
+          "formula": "c_1 v_1 + c_2 v_2 + \\cdots + c_n v_n",
+          "formula_caption": "oʻqiladi: c bir marta v bir, plyus c ikki marta v ikki va hokazo",
+          "narration": "Bir nechta vektor oling, har birini oʻz skalyariga koʻpaytiring va natijalarni qoʻshing. Ana shu yagona amal chiziqli kombinatsiya deb ataladi, c bir dan c n gacha boʻlgan skalyarlar esa ogʻirliklar deyiladi. Bu kursdagi deyarli har bir savol, qanday qilib yashirin boʻlmasin, aslida kombinatsiyalar haqidagi savoldir: berilgan maqsad vektoriga yetib borish mumkinmi va buning uchun qaysi ogʻirliklar kerak boʻladi? Besh marta v bir plyus ikki marta v ikki — bu bitta aniq kombinatsiya. Agar umuman qaysi vektorlarga yetib borish mumkinligini soʻrasak, fanimizning eng muhim taʼriflaridan biriga kelib qolamiz: qobiq tushunchasiga, keyingi blokning qahramoniga. Bu atama keyingi har bir bobda qayta uchraydi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: vektorlarni kombinatsiya qilish",
+          "problem": "u = \\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}, \\; v = \\begin{pmatrix} -1 \\\\ 5 \\end{pmatrix}: \\; u+v, \\; u-v, \\; 2u, \\; -3v, \\; 2u-3v",
+          "steps": [
+            {
+              "tex": "u + v = \\begin{pmatrix} -3 \\\\ 8 \\end{pmatrix}, \\quad u - v = \\begin{pmatrix} -1 \\\\ -2 \\end{pmatrix}"
+            },
+            {
+              "tex": "2u = \\begin{pmatrix} -4 \\\\ 6 \\end{pmatrix}, \\quad -3v = \\begin{pmatrix} 3 \\\\ -15 \\end{pmatrix}"
+            },
+            {
+              "tex": "2u - 3v = \\begin{pmatrix} -4 + 3 \\\\ 6 - 15 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ -9 \\end{pmatrix}",
+              "highlight": true
+            }
+          ],
+          "result": "(-1, -9)",
+          "narration": "Mana qoʻllanmadagi eng birinchi mashq. Bizga u teng minus ikki, uch va v teng minus bir, besh vektorlari berilgan. Hammasi komponentma-komponent bajariladi. Yigʻindi komponentlarni qoʻshadi: minus uch va sakkiz. Ayirma ularni ayiradi: minus bir va minus ikki. Ikkilangan u minus toʻrt, oltiga aylanadi, minus uch karra v esa uch, minus oʻn besh boʻladi. Nihoyat, ikki u minus uch v: minus toʻrt plyus uch minus bir boʻladi, olti minus oʻn besh esa minus toʻqqiz. Shuni payqang: uch v ni ayirish, aslida, uch, minus oʻn besh vektorini qoʻshish bilan bir xil. Oddiy arifmetika, biroq dasturiy taʼminot vektorlar bilan aynan shu tarzda hisoblaydi — shuning uchun ushbu mashqni mukammal bajara olish haqiqiy foyda beradi."
+        },
+        {
+          "type": "concept",
+          "heading": "Vektorlarning qobigʻi",
+          "bullets": [
+            "qobiq — barcha chiziqli kombinatsiyalar",
+            "bitta vektor toʻgʻri chiziqni qoplaydi",
+            "yangi yoʻnalish qoʻshilsa — tekislik"
+          ],
+          "formula": "\\mathrm{span}\\{v_1, \\ldots, v_n\\}",
+          "formula_caption": "oʻqiladi: v birdan v n gacha vektorlarning qobigʻi",
+          "narration": "Vektorlar toʻplamining qobigʻi — ulardan qurish mumkin boʻlgan barcha chiziqli kombinatsiyalarning toʻplamidir. Bitta vektor oling, masalan minus ikki, uch. Uning karralilari koordinata boshidan oʻtgan bitta toʻgʻri chiziqni, yaʼni y teng minus uchdan ikki x chizigʻini toʻldiradi, va hech qanday karrali bu chiziqdan tashqariga chiqa olmaydi. Haqiqatan yangi yoʻnalishdagi ikkinchi vektorni qoʻshsangiz, kombinatsiyalar butun tekislikni toʻldiradi. Uch oʻlchovli fazodagi uchta mustaqil vektor esa uni toʻliq toʻldirishi mumkin. Qobiq — vektorlar toʻplamining qamrovi yoki yetib borish chegarasidir: asosiy savol shundaki, bu qamrov qanchalar uzoqqa choʻzilgan. Qobiq har doim koordinata boshini oʻz ichiga oladi, chunki barcha ogʻirliklar nol boʻlishi mumkin."
+        },
+        {
+          "type": "plot",
+          "heading": "Bitta vektor chiziqni qoplaydi",
+          "functions": [
+            {
+              "fn": "-1.5*x",
+              "tex": "y = -\\frac{3}{2}x",
+              "color": "yellow"
+            },
+            {
+              "fn": "0.5*x",
+              "tex": "y = \\frac{x}{2}",
+              "color": "blue"
+            }
+          ],
+          "x_range": [
+            -4,
+            4
+          ],
+          "y_range": [
+            -4,
+            4
+          ],
+          "point": [
+            -2,
+            3
+          ],
+          "point_label": "(-2, 3)",
+          "vline": null,
+          "narration": "Sariq chiziqga qarang. Uning har bir nuqtasi bitta minus ikki, uch vektorining karralisi — grafikada belgilangan oʻsha vektor. Vektorni ikkilash, yarmiga boʻlish yoki teskari burish sizni koordinata boshidan oʻtgan shu bir chiziqda qoldiradi: karralilash faqat uzunlikni oʻzgartiradi, yoʻnalishni hech qachon emas. Koʻk chiziq esa ikki, bir vektorining qobigʻi boʻlib, u yangi yoʻnalishga ishora qiladi. Har bir chiziq oʻz oldiga bitta bir oʻlchovli boʻshliqdir. Faqat turli yoʻnalishdagi vektorlarni kombinatsiya qilgandagina bitta chiziqdan qutulib, butun tekislikka yetib boramiz — xuddi keyingi bloklarda koʻradiganimizdek. Ikki chiziqning yoʻnalishlari bir-birini toʻldiradi: ular birgalikda butun tekislikni qoplaydi."
+        },
+        {
+          "type": "concept",
+          "heading": "Chiziqli mustaqillik",
+          "bullets": [
+            "bogʻliq: bir kombinatsiya nol beradi",
+            "mustaqil: faqat trivial kombinatsiya",
+            "bogʻliqlik = yangi yoʻnalish yoʻq"
+          ],
+          "formula": "c_1 v_1 + \\cdots + c_n v_n = 0 \\Rightarrow c_1 = \\cdots = c_n = 0",
+          "formula_caption": "oʻqiladi: nol kombinatsiya har bir c ni nolga majbur qiladi",
+          "narration": "Vektorlar, ulardan nol vektorini olishning yagona yoʻli trivial yoʻl — barcha ogʻirliklar nolga teng boʻlgan yoʻl — boʻlganda, mustaqil deyiladi. Agar trivial boʻlmagan qandaydir kombinatsiya nol bersa, vektorlar bogʻliqdir va ulardan biri yashirin ravishda qolganlarining kombinatsiyasidir. Geometrik maʼnoda bogʻliqlik — yangi yoʻnalish yoʻqligi: ikkita bogʻliq vektor bitta chiziqda yotadi, uchta bogʻliq vektor bitta tekislikda yotadi. Formula buni aniq ifodalaydi: nolga teng kombinatsiya har bir koeffitsientni nolga majbur qiladi. Mustaqillik kursning kalit shartidir, chunki aynan u tenglamalar sistemasida yechimning yagona boʻlishini hal qiladi — bu bogʻlanishni oltinchi bobda yana koʻramiz. Mustaqillikni tekshirishning eng bevosita yoʻli — nol kombinatsiya qidirish."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: bogʻliqmi yoki mustaqilmi?",
+          "problem": "v_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}, \\; v_2 = \\begin{pmatrix} 0 \\\\ 1 \\\\ 1 \\end{pmatrix}, \\; v_3 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix}",
+          "steps": [
+            {
+              "tex": "v_3 = v_1 + v_2"
+            },
+            {
+              "text": "tekshirish: 1 + 0 = 1, 0 + 1 = 1, 1 + 1 = 2 — har bir komponent mos keladi"
+            },
+            {
+              "tex": "v_1 + v_2 - v_3 = 0",
+              "highlight": true
+            },
+            {
+              "text": "trivial boʻlmagan nol kombinatsiya topildi: uchta vektor bogʻliq"
+            }
+          ],
+          "result": "bogʻliq",
+          "narration": "Bu uchta vektor mustaqilmi? Uchinchisini birinchisi va ikkinchisidan qurishga harakat qilib koʻring. Ular komponentma-komponent qoʻshiladi: bir plyus nol bir, nol plyus bir bir va bir plyus bir ikki — aynan uchinchi vektor shu. Demak, v uch teng v bir plyus v ikki, va bu tenglamani qayta tartiblashtirsak, ogʻirliklari bir, bir va minus bir boʻlgan nol kombinatsiya hosil boʻladi — bu, albatta, trivial emas. Vektorlar bogʻliq, ularning qobigʻi esa faqat bitta tekislik, uch oʻlchovli fazoning toʻliq emasi. Tez ikkinchi misol sifatida: ikki, minus bir va minus olti, uch vektorlari ham bogʻliq, chunki ikkinchisi aynan birinchisining minus uch karralisidir. Bogʻliqlikni aniqlash koʻpincha shu qadar oddiy."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: uzunlik, birlik vektor, masofa",
+          "problem": "u = (3, 4), \\; P = (1, -2, 3), \\; Q = (5, 1, -3)",
+          "steps": [
+            {
+              "tex": "\\|u\\| = \\sqrt{3^2 + 4^2} = 5"
+            },
+            {
+              "tex": "\\hat{u} = \\frac{u}{\\|u\\|} = (\\frac{3}{5}, \\frac{4}{5})"
+            },
+            {
+              "tex": "Q - P = (4, \\; 3, \\; -6)"
+            },
+            {
+              "tex": "d(P, Q) = \\|Q - P\\| = \\sqrt{61}",
+              "highlight": true
+            }
+          ],
+          "result": "sqrt(61)",
+          "narration": "Vektorning uzunligi yoki normasi — komponentlar kvadratlari yigʻindisining kvadrat ildizi: bu Pifagor teoremasining toʻgʻridan-toʻgʻri natijasidir. U teng uch, toʻrt uchun toʻqqiz plyus oʻn olti, yaʼni yigʻirma besh, demak norma besh. Normaga boʻlish birlik vektorini beradi: uchdan besh va toʻrtdan besh, uzunligi aynan bir. Xuddi shu yoʻnalishda uzunligi oʻn boʻlgan vektor kerakmi? Ikki u ni oling, yaʼni olti, sakkiz: norma ikki barobar oshib oʻnga yetadi. Masofa — ayirmaning normasi: Q minus P toʻrt, uch, minus olti, masofa esa oʻn olti plyus toʻqqiz plyus oʻttiz oltining kvadrat ildizi, yaʼni oltmish birning ildizi. Hech qanday maxfiy formula yoʻq: uzunlik — kvadratlar yigʻindisining ildizi, masofa — ayirma normasi, baribir."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "qoʻshish va karralilash komponentma-komponent",
+            "kombinatsiya: vaznli vektorlar yigʻindisi",
+            "qobiq: barcha kombinatsiyalar toʻplami",
+            "mustaqil: faqat trivial nol kombinatsiya",
+            "norma, birlik vektor, d(P,Q) = ||Q-P||"
+          ],
+          "narration": "Birinchi bob qisqacha. Vektorlar komponentma-komponent qoʻshiladi va karralilanadi. Chiziqli kombinatsiya har bir vektorni vaznlab qoʻshadi. Qobiq — yetib borish mumkin boʻlgan hamma narsa: chiziq, tekislik yoki butun fazo. Mustaqillik — faqat trivial kombinatsiya nol berishini anglatadi. Norma uzunlikni, birlik vektor toza yoʻnalishni beradi, nuqtalar orasidagi masofa esa ularning ayirmasining normasidir. Ushbu beshta tushuncha keyingi barcha boblar uchun poydevor boʻlib xizmat qiladi. Keyingi bobda vektorlar orasidagi burchaklar oʻlchanadi."
+        }
+      ]
+    },
+    {
+      "title": "Skalyar koʻpaytma",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "Skalyar koʻpaytma",
+          "subtitle": "Burchaklar, ortogonallik, proyeksiyalar",
+          "narration": "Ikkinchi bob. Skalyar koʻpaytma ikkita vektorni qabul qilib, bitta son qaytaradi — va oʻsha bir son ular orasidagi burchakni biladi. Biz burchaklarni oʻlchaymiz, perpendikulyarlikni taʼriflaymiz va bir vektorni boshqasining yoʻnalishiga proyeksiyalaymiz. Aynan shu geometriya eng kichik kvadratlar usulining va amaliy matematikaning katta qismining ortasidagi matematikadir. Bitta sondan qancha maʼlumot chiqishiga guvoh boʻlasiz."
+        },
+        {
+          "type": "formula",
+          "heading": "Skalyar koʻpaytma",
+          "tex": "u \\cdot v = u_1 v_1 + u_2 v_2 + \\cdots + u_n v_n",
+          "parts": [
+            {
+              "substr": "u \\cdot v",
+              "color": "yellow",
+              "note": "natija — bitta son: skalyar"
+            },
+            {
+              "substr": "u_1 v_1",
+              "color": "blue",
+              "note": "mos komponentlar koʻpaytiriladi"
+            },
+            {
+              "substr": "u_n v_n",
+              "color": "green",
+              "note": "har bir juftlik yigʻindiga qoʻshiladi"
+            }
+          ],
+          "narration": "Skalyar koʻpaytma mos komponentlarni koʻpaytirib, ularni qoʻshadi. Sariq qism: u va v ning skalyar koʻpaytmasi — yakuniy javob, bitta yagona son, skalyar, vektor emas. Koʻk qism naqshni koʻrsatadi: u ning birinchi komponenti v ning birinchi komponentiga koʻpaytiriladi. Yashil qism esa har bir juftlik, oxirgisigacha, yigʻindiga qoʻshilishini eslatadi. U teng uch, minus ikki va v teng toʻrt, besh uchun skalyar koʻpaytma oʻn ikki minus oʻn, yaʼni ikki boʻladi. Uni u transpozit marta v shaklida yozsangiz, matritsalar koʻpaytmasiga birinchi qarashimiz hosil boʻladi: qator ustunga skalyar koʻpaytiriladi. Ushbu sahna toʻrtinchi bobda yana sahnaga qaytadi. Skalyar koʻpaytma — butun kursda eng koʻp ishlatiladigan amal."
+        },
+        {
+          "type": "concept",
+          "heading": "Skalyar koʻpaytma va burchak",
+          "bullets": [
+            "cos θ ikki yoʻnalishni solishtiradi",
+            "musbat koʻpaytma: oʻtkir burchak",
+            "manfiy: toʻmtoq, nol: toʻgʻri burchak"
+          ],
+          "formula": "\\cos\\theta = \\frac{u \\cdot v}{\\|u\\| \\, \\|v\\|}",
+          "formula_caption": "oʻqiladi: burchak kosinusi u va v koʻpaytmasini ikki uzunlik koʻpaytmasiga boʻlganiga teng",
+          "narration": "Nega bitta son burchakni toʻliq ifodalaydi? Chunki shu formula mavjud: burchak kosinusi skalyar koʻpaytma ikkita uzunlik koʻpaytmasiga boʻlinganiga teng. Skalyar koʻpaytma ikki vektor yoʻnalishi qanchalik mos kelishini oʻlchaydi. Ular bir tomonga qaraganda kosinus bir boʻladi. Perpendikulyar boʻlganda kosinus, demak skalyar koʻpaytma ham, nolga teng boʻladi. Faqatgina ishoraning oʻzi toʻliq tasnifdir: musbat skalyar koʻpaytma toʻqson darajadan kichik, oʻtkir burchakni; manfiy koʻpaytma toʻqson darajadan katta, toʻmtoq burchakni; nol esa aynan toʻgʻri burchakni bildiradi. Burchak turini bilish uchun bitta ishoraga qarash kifoya. Bu tasnif testda eng tez ishlaydigan vosita: avval ishora, keyin aniq qiymat."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: burchak turini aniqlash",
+          "problem": "u = (3, -2), \\; v = (4, 5); \\quad u = (3, 1), \\; v = (-2, 4)",
+          "steps": [
+            {
+              "tex": "u \\cdot v = 3 \\cdot 4 + (-2) \\cdot 5 = 2 > 0"
+            },
+            {
+              "text": "musbat skalyar koʻpaytma: burchak oʻtkir"
+            },
+            {
+              "tex": "u \\cdot v = 3 \\cdot (-2) + 1 \\cdot 4 = -2 < 0"
+            },
+            {
+              "tex": "\\cos\\theta = \\frac{-2}{\\sqrt{10} \\, \\sqrt{20}} = -\\frac{\\sqrt{2}}{10} \\approx -0.141"
+            },
+            {
+              "tex": "\\theta \\approx 98^{\\circ}",
+              "highlight": true
+            }
+          ],
+          "result": "avval oʻtkir, soʻngra 98 daraja",
+          "narration": "Birinchi juftlik: u teng uch, minus ikki va v teng toʻrt, besh. Skalyar koʻpaytma oʻn ikki minus oʻn, yaʼni ikki. Musbat, demak burchak oʻtkir — va ish shu yerda tugadi; bitta ham kvadrat ildiz hisoblashga toʻgʻri kelmadi. Ikkinchi juftlik: uch, bir va minus ikki, toʻrt. Skalyar koʻpaytma minus olti plyus toʻrt, yaʼni minus ikki, demak bu burchak toʻmtoq. Aniq oʻlchamini topish uchun skalyar koʻpaytmani uzunliklarga, ildiz oʻn va ildiz yigirmaga boʻling. Kosinus taxminan minus nol butun oʻn toʻrt boʻladi, demak burchak toʻqson sakkiz daraja atrofida. Ishora bizga burchak turini bir zumda aytdi; formula esa aniq oʻlchamini yetkazdi. Ikkalasi birgalikda toʻliq javob beradi. Jarayonni eslab qoling: avval skalyar koʻpaytma, soʻngra kerak boʻlsa kosinus."
+        },
+        {
+          "type": "formula",
+          "heading": "Vektorga proyeksiya",
+          "tex": "\\mathrm{proj}_{v}\\,u = \\frac{u \\cdot v}{v \\cdot v}\\,v",
+          "parts": [
+            {
+              "substr": "u \\cdot v",
+              "color": "yellow",
+              "note": "u v boʻylab qancha yetib boradi"
+            },
+            {
+              "substr": "v \\cdot v",
+              "color": "blue",
+              "note": "v ning kvadrat uzunligi"
+            },
+            {
+              "substr": "\\mathrm{proj}_{v}",
+              "color": "green",
+              "note": "u ning v chizigʻidagi soyasi"
+            }
+          ],
+          "narration": "Proyeksiya — u ning v chizigʻidagi soyasidir. Yashil belgi amalning nomini bildiradi. Sariq qism, u va v ning skalyar koʻpaytmasi, u ning v yoʻnalishi boʻylab qancha yetib borishini oʻlchaydi. Koʻk qism, v va v ning koʻpaytmasi, v ning kvadrat uzunligi; unga boʻlish javobning v tasodifiy uzunligidan mustaqil boʻlishini taʼminlaydi. Natija v ning karralisi, shuning uchun u v chizigʻida yotadi. Qoldiq, yaʼni u minus proyeksiya, v ga perpendikulyar: har bir vektor v boʻylab yotgan qismga va v ga ortogonal qismga ajraladi. Ana shu parchalanish shu bobning yuragi, va u keyingi misolda qoʻl bilan tekshiriladi. Proyeksiya har doim asos vektor yoʻnalishini saqlaydi — bu uning eng muhim xossasi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: u ni v ga proyeksiyalash",
+          "problem": "u = (4, 2), \\; v = (1, 1)",
+          "steps": [
+            {
+              "tex": "u \\cdot v = 6, \\quad v \\cdot v = 2"
+            },
+            {
+              "tex": "\\mathrm{proj}_{v}\\,u = \\frac{6}{2}\\,v = 3v = (3, 3)"
+            },
+            {
+              "tex": "u - 3v = (1, -1), \\quad (u - 3v) \\cdot v = 1 - 1 = 0",
+              "highlight": true
+            },
+            {
+              "text": "u = parallel qism (3, 3) + perpendikulyar qism (1, -1)"
+            }
+          ],
+          "result": "(3, 3)",
+          "narration": "U teng toʻrt, ikkini v teng bir, birga proyeksiyalang. Avval ikkita skalyar koʻpaytmani hisoblang: u va v — toʻrt plyus ikki, olti; v va v — bir plyus bir, ikki. Proyeksiya oltidan ikki marta v; bu uch karra v, yaʼni uch, uch vektori. Endi qoldiqni tekshiramiz: u minus uch v — bir, minus bir, uning v bilan skalyar koʻpaytmasi bir minus bir, nol — mukammal perpendikulyar. Shunday qilib, u v chizigʻi boʻylab uch, uchga va unga koʻndalang boʻlgan bir, minus birga ajraladi. Soya va xato ortogonal, va ular birgalikda u ni aynan tiklaydi. Mana bu naqsh eng kichik kvadratlar usulining ortasidagi naqshdir: maʼlumot vektordan uning proyeksiyasiga oʻtadi, xato esa perpendikulyar qoladi."
+        },
+        {
+          "type": "concept",
+          "heading": "Ortogonallik",
+          "bullets": [
+            "ortogonal — bu u·v = 0",
+            "faqat 0 vektor oʻziga ortogonal",
+            "u+v ⊥ u-v faqat uzunliklar teng boʻlsa"
+          ],
+          "formula": "u \\perp v \\Leftrightarrow u \\cdot v = 0",
+          "formula_caption": "oʻqiladi: u v ga perpendikulyar aynan u va v koʻpaytmasi nol boʻlganda",
+          "narration": "Perpendikulyar yoki ortogonal tushunchasi skalyar koʻpaytma orqali taʼriflanadi: u v ga aynan shunda ortogonalki, u va v ning skalyar koʻpaytmasi nolga teng, yaʼni burchak toʻqson daraja. Faqat nol vektor oʻziga ortogonal boʻla oladi, chunki nol boʻlmagan vektorning oʻziga skalyar koʻpaytmasi uzunligining kvadrati — har doim musbat sondir. Goʻzal bir natija: agar u plyus v va u minus v ortogonal boʻlsa, parallelogramm toʻgʻri toʻrtburchakka aylanadi va ikki vektorning uzunliklari teng boʻladi. Koʻpaytmani yoyib koʻring: oʻrta hadlar bir-birini yoʻq qiladi va faqat u normasining kvadrati minus v normasining kvadrati, nolga tengligi qoladi. Bu kichik hisob parallelogramm qonunini bir qarashda isbotlaydi."
+        },
+        {
+          "type": "plot",
+          "heading": "Perpendikulyar yoʻnalishlar",
+          "functions": [
+            {
+              "fn": "2*x",
+              "tex": "y = 2x",
+              "color": "yellow"
+            },
+            {
+              "fn": "-0.5*x",
+              "tex": "y = -\\frac{x}{2}",
+              "color": "blue"
+            }
+          ],
+          "x_range": [
+            -4,
+            4
+          ],
+          "y_range": [
+            -4,
+            4
+          ],
+          "point": [
+            1,
+            2
+          ],
+          "point_label": "(1, 2)",
+          "vline": null,
+          "narration": "Koordinata boshidan oʻtgan ikkita chiziq: sariq chiziq bir, ikki yoʻnalishiga, koʻk chiziq ikki, minus bir yoʻnalishiga ishora qiladi. Skalyar koʻpaytma bilan tekshiring: bir marta ikki plyus ikki marta minus bir — ikki minus ikki, nol. Nol koʻpaytma toʻqson graduslik burchakni bildiradi: chiziqlar perpendikulyar. Bu rasmni yodlab olishga arziydi, chunki ortogonallik — chiziqli algebraning mustaqil yoʻnalishlarni rasmiylashtirish usulidir. Shuni ham payqang: vektorlarning birortasini karralilash, chiziq boʻylab qayerga siljitishdan qatʼi nazar, toʻgʻri burchakka umuman taʼsir qilmaydi. Perpendikulyarlik — uzunliklarning emas, yoʻnalishlarning xossasidir. Koordinata oʻqlari ana shu munosabatning eng tanish namunasidir."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: ortogonallik uchun k ni topish",
+          "problem": "u = (2, k, 3), \\; v = (-1, 4, 2), \\quad u \\perp v",
+          "steps": [
+            {
+              "tex": "u \\cdot v = -2 + 4k + 6 = 4k + 4"
+            },
+            {
+              "tex": "4k + 4 = 0 \\; \\Rightarrow \\; k = -1",
+              "highlight": true
+            },
+            {
+              "text": "tekshirish: (2, -1, 3) · (-1, 4, 2) = -2 - 4 + 6 = 0"
+            }
+          ],
+          "result": "k = -1",
+          "narration": "Biz u ni v ga ortogonal qiladigan nomaʼlum k ni qidirmoqdamiz. Ortogonallik — bu tenglama: skalyar koʻpaytma nol boʻlishi shart. Hisoblaymiz: ikki marta minus bir minus ikki, plyus toʻrt k, plyus uch marta ikki, yaʼni olti; jami toʻrt k plyus toʻrt. Uni nolga tenglashtiring va k minus bir boʻladi. Topgan qiymat bilan tekshiring: ikki, minus bir, uch vektorini minus bir, toʻrt, ikkiga skalyar koʻpaytirsak minus ikki, minus toʻrt, plyus oltini olamiz — nol. Bitta nomaʼlum, bitta tenglama: ortogonallik masalalari har doim shunday bevosita, chunki skalyar koʻpaytma geometriyani oddiy algebraga aylantiradi. Vektor ichidagi parametr har doim bitta nomaʼlumli bitta chiziqli tenglama degan xabarni beradi. Shu sababli bunday masalalar testda eng tez yechiladiganlar qatoridadir."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "u·v: moslarni koʻpaytir, qoʻsh",
+            "cos θ = u·v / (||u||·||v||)",
+            "musbat oʻtkir, nol toʻgʻri, manfiy toʻmtoq",
+            "proj_v u = (u·v / v·v)·v",
+            "u ⊥ v faqat u·v = 0 boʻlganda"
+          ],
+          "narration": "Ikkinchi bob bir nafasda. Skalyar koʻpaytma mos komponentlarni koʻpaytirib qoʻshadi. Uzunliklarga boʻlsangiz, burchak kosinusini olasiz: musbat — oʻtkir, nol — toʻgʻri, manfiy — toʻmtoq. Proyeksiya formulasi u ning v boʻylab soyasini beradi, ortogonallik esa shunchaki nol skalyar koʻpaytmadir. Bu bobdagi har bir fakt oʻsha bir sondan oqib chiqadi. Ushbu beshta qoidani yodda saqlang — keyingi boblarda ular yana ishga tushadi. Endi burchaklardan fazoga oʻtamiz."
+        }
+      ]
+    },
+    {
+      "title": "Vektor koʻpaytma",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "Vektor koʻpaytma",
+          "subtitle": "Fazodagi normallar va yuzalar",
+          "narration": "Uchinchi bob. Vektor koʻpaytma faqat uch oʻlchovli fazoda mavjud boʻlib, u bir vaqtda ikkita savolga javob beradi: berilgan ikki vektorga qaysi yoʻnalish perpendikulyar va ular qurgan parallelogrammning yuzi qancha? Bitta formula uchta javobni birga yetkazadi: normal vektor, yuza va parallellik testi. Uchalasi ham bitta hisobdan olinadi — buni misollar orqali koʻramiz."
+        },
+        {
+          "type": "formula",
+          "heading": "Vektor koʻpaytmaning taʼrifi",
+          "tex": "u \\times v = \\begin{pmatrix} u_2 v_3 - u_3 v_2 \\\\ u_3 v_1 - u_1 v_3 \\\\ u_1 v_2 - u_2 v_1 \\end{pmatrix}",
+          "parts": [
+            {
+              "substr": "u_2 v_3 - u_3 v_2",
+              "color": "yellow",
+              "note": "birinchi komponent: birinchi indeks tashlanadi"
+            },
+            {
+              "substr": "u_3 v_1 - u_1 v_3",
+              "color": "blue",
+              "note": "ikkinchi komponent: ikkinchi indeks tashlanadi"
+            },
+            {
+              "substr": "u_1 v_2 - u_2 v_1",
+              "color": "green",
+              "note": "uchinchi komponent: uchinchi indeks tashlanadi"
+            }
+          ],
+          "narration": "Ikkita uch oʻlchovli vektorning vektor koʻpaytmasi — komponentma-komponent qurilgan yangi vektor. Sariq qism birinchi komponent: u ning ikkinchisi v ning uchinchisiga koʻpaytirilib, undan u ning uchinchisi v ning ikkinchisi koʻpaytmasi ayiriladi; birinchi indeks tashlab ketilgan. Koʻk qism ikkinchi komponent boʻlib, ikkinchi indeksni tashlaydi: uchinchisi birinchiga, minus birinchisi uchinchisiga. Yashil qism uchinchi indeksni tashlaydi: birinchisi ikkinchiga, minus ikkinchisi birinchiga. Har bir qator yashirin holdagi ikki ikki determinant boʻlib, bir-ikki-uch tsiklik naqshi — odamlarning formulani eslab qolish usuli. Natija ikkala kirishga ham perpendikulyar, va buni keyingi misolda raqamlar bilan tekshiramiz. Formulani toʻliq yodlash shart emas: tsiklik naqshni tushunsangiz, komponentlar oʻzi kelib qoladi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: vektor koʻpaytmani hisoblash",
+          "problem": "u = (2, 0, 2), \\; v = (-1, 2, 0)",
+          "steps": [
+            {
+              "tex": "u \\times v = \\begin{pmatrix} 0 \\cdot 0 - 2 \\cdot 2 \\\\ 2 \\cdot (-1) - 2 \\cdot 0 \\\\ 2 \\cdot 2 - 0 \\cdot (-1) \\end{pmatrix} = \\begin{pmatrix} -4 \\\\ -2 \\\\ 4 \\end{pmatrix}"
+            },
+            {
+              "tex": "(u \\times v) \\cdot u = -8 + 0 + 8 = 0"
+            },
+            {
+              "tex": "(u \\times v) \\cdot v = 4 - 4 + 0 = 0",
+              "highlight": true
+            },
+            {
+              "text": "ikkala kirishga ham perpendikulyar — haqiqiy normal vektor"
+            }
+          ],
+          "result": "(-4, -2, 4)",
+          "narration": "U teng ikki, nol, ikkini v teng minus bir, ikki, nolga koʻpaytiring. Birinchi komponent: nol marta nol minus ikki marta ikki — minus toʻrt. Ikkinchi: ikki marta minus bir minus ikki marta nol — minus ikki. Uchinchi: ikki marta ikki minus nol marta minus bir — toʻrt. Demak, vektor koʻpaytma minus toʻrt, minus ikki, toʻrt. Endi nazariya vaʼda qilgan tekshiruv: uni u ga skalyar koʻpaytiring — minus sakkiz plyus nol plyus sakkiz, nol. Endi v ga koʻpaytiring — toʻrt minus toʻrt plyus nol, yana nol. Natija ikkala kirishga ham perpendikulyar — formulaning kafolatlaganidek haqiqiy normal vektor. Shu ketma-ketlik bilan fazodagi istalgan tekislikka normal topiladi. Tekshiruvni tashlab yubormang — u ishonch beradi."
+        },
+        {
+          "type": "concept",
+          "heading": "Vektor koʻpaytmaning xossalari",
+          "bullets": [
+            "u×v = -(v×u): tartib muhim",
+            "u×v ham u, ham v ga ⊥",
+            "parallel vektorlar: u×v = 0"
+          ],
+          "formula": "u \\times v = -(v \\times u)",
+          "formula_caption": "oʻqiladi: u va v vektor koʻpaytmasi v va u koʻpaytmasining manfiyiga teng",
+          "narration": "Uchta xossa. Birinchisi, vektor koʻpaytma antikommutativ: kirishlarning oʻrnini almashtirish ishorani oʻzgartiradi, shuning uchun u kesish v va v kesish u qarama-qarshi yoʻnalishlarga ishora qiladi. Ikkinchisi, natija har doim ikkala kirishga perpendikulyar — aynan shu xossa vektor koʻpaytmaga tekislikka normal vektor topishning standart usuli maqomini beradi. Uchinchisi, parallel vektorlar koʻpaytma nol beradi: yuza yoʻq, perpendikulyar yoʻnalish qolmagan. Nozik qoʻshimcha: u kesish v ham u, ham v ga perpendikulyar boʻlgani uchun ularning har qanday kombinatsiyasiga ham perpendikulyar. Masalan, uning u plyus v bilan skalyar koʻpaytmasi nolga teng boʻladi. Ushbu xossa tekislik tenglamasini tuzishda toʻgʻridan-toʻgʻri ishlatiladi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: uchburchak yuzi",
+          "problem": "P = (1, 0, 1), \\; Q = (3, 1, 0), \\; R = (0, 2, 4)",
+          "steps": [
+            {
+              "tex": "\\vec{PQ} = (2, 1, -1), \\quad \\vec{PR} = (-1, 2, 3)"
+            },
+            {
+              "tex": "\\vec{PQ} \\times \\vec{PR} = (5, -5, 5)"
+            },
+            {
+              "tex": "\\|\\vec{PQ} \\times \\vec{PR}\\| = \\sqrt{75} = 5\\sqrt{3}"
+            },
+            {
+              "tex": "S = \\frac{1}{2} \\cdot 5\\sqrt{3}",
+              "highlight": true
+            }
+          ],
+          "result": "5·sqrt(3)/2",
+          "narration": "P, Q va R uchburchak yuzini topish uchun bitta uchdan ikkita qirra vektor quring: P Q — ikki, bir, minus bir, P R — minus bir, ikki, uch. Ularning vektor koʻpaytmasi: birinchi komponent — bir marta uch minus minus bir marta ikki — besh; ikkinchi — bir minus olti — minus besh; uchinchisi — toʻrt plyus bir — besh. Besh, minus besh, besh vektorining uzunligi yetmish beshning kvadrat ildizi, yaʼni besh ildiz uch. Bu — parallelogramm yuzi; uchburchak uning aynan yarmi, besh ildiz uch boʻluv ikki. Vektor koʻpaytma, norma, ikkiga boʻlish — toʻliq retsept mana shu uch qadamdan iborat. Uni yodlab qoʻying."
+        },
+        {
+          "type": "concept",
+          "heading": "Vektor koʻpaytma yuza sifatida",
+          "bullets": [
+            "parallelogramm yuzi = ||u×v||",
+            "= ||u||·||v||·|sin θ|",
+            "uchburchak: parallelogrammning yarmi"
+          ],
+          "formula": "\\|u \\times v\\| = \\|u\\| \\, \\|v\\| \\, |\\sin\\theta|",
+          "formula_caption": "oʻqiladi: u kesish v normasi asosga balandlikni koʻpaytirganga teng",
+          "narration": "Vektor koʻpaytmaning uzunligi oʻziga xos geometrik maʼnoga ega: bu — ikki vektor qurgan parallelogrammning yuzasi. Sabab — asosga koʻpaytirilgan balandlik: asos u ning normasi, balandlik esa v ning normasi oradagi burchak sinusi bilan koʻpaytirilgani. Koʻpaytirsangiz, formula chiqadi: u normasi marta v normasi marta teta sinusining moduli. Perpendikulyar vektorlar sinus bir beradi — maksimal yuza. Parallel vektorlar sinus nol beradi va parallelogramm yiqilib, chiziqqa aylanadi. Uchburchak — parallelogrammning yarmi — uchun vektor koʻpaytma normasining yarmini oling. Shu ikki holat orasidagi barcha burchaklar ham xuddi shu formula bilan oʻlchanadi. Formula yuza va burchak oʻrtasidagi toʻgʻridan-toʻgʻri koʻprikdir."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: vektor koʻpaytma qachon nol boʻladi?",
+          "problem": "a = (1, t, 2), \\; b = (3, 6, 6), \\quad a \\times b = 0",
+          "steps": [
+            {
+              "tex": "a \\times b = 0 \\; \\Rightarrow \\; a = c \\cdot b"
+            },
+            {
+              "tex": "1 = 3c, \\; 2 = 6c \\; \\Rightarrow \\; c = \\frac{1}{3}"
+            },
+            {
+              "tex": "t = 6c = 2",
+              "highlight": true
+            },
+            {
+              "text": "tekshirish: (1, 2, 2) = (3, 6, 6) ning uchdan biri — parallel"
+            }
+          ],
+          "result": "t = 2",
+          "narration": "Vektor koʻpaytma aynan vektorlar parallel boʻlganda — biri boshqasining skalyar karralisi boʻlganda — nolga teng. A teng c marta b deb yozing va komponentlarni solishtiring. Birinchi: bir teng uch c, demak c uchdan bir. Uchinchi: ikki teng olti c — xuddi shu uchdan bir, mos keladi. Oʻrta komponent t ni belgilaydi: t teng olti c, yaʼni ikki. Tekshiring: bir, ikki, ikki haqiqatan uch, olti, oltining uchdan biridir. Demak, t teng ikki — vektor koʻpaytma nolga aylanadigan yagona qiymat: vektorlar parallel boʻlib, hech qanday yuza qurmaydi. Agar qaysidir komponent mos kelmaganida, bitta c umuman mavjud boʻlolmas edi. Shu tariqa parallellik masalasi oddiy proportsiyaga aylanadi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "u×v faqat 3D fazoda mavjud",
+            "tsiklik formula, komponentma-komponent",
+            "ikkala kirishga ⊥; tartib ishorani oʻzgartiradi",
+            "parallelogramm yuzi = ||u×v||",
+            "uchburchak yuzi = uning yarmi"
+          ],
+          "narration": "Uchinchi bob siqilgan holda. Vektor koʻpaytma faqat uch oʻlchovda yashaydi va tsiklik komponent formulasiga boʻysunadi. Omillar tartibi almashtirilganda ishorasini oʻzgartiradi va ikkala kirishga perpendikulyar boʻladi. Uning uzunligi — parallelogramm yuzi, yarmi — uchburchak yuzi, va u aynan parallel vektorlar uchun nolga aylanadi. Bu uch xossa testda eng koʻp uchraydigan savollardan hisoblanadi. Formulani eslab qolish uchun tsiklik naqshni chizing."
+        }
+      ]
+    },
+    {
+      "title": "Matritsalar va matritsa algebrasi",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "Matritsalar va matritsa algebrasi",
+          "subtitle": "Koʻpaytmalar, transpozitsiya, ustunli manzara",
+          "narration": "Toʻrtinchi bob. Matritsa — bu sonlar jadvali va, ayni paytda, vektorlarni oʻzgartiruvchi mashina. Biz matritsa algebrasining qoidalarini oʻrganamiz: matritsalar qanday qoʻshiladi, qanday koʻpaytiriladi, tartib nega shunchalik muhim va A ni x ga koʻpaytirishning ikki teng darajadagi manzarasi qanday ishlaydi. Bu bob kursning eng amaliy qismidir."
+        },
+        {
+          "type": "concept",
+          "heading": "Matritsa nima?",
+          "bullets": [
+            "m qator va n ustun, elementlar a_ij",
+            "a_ij — i-qator, j-ustunda turadi",
+            "qoʻshish va karralilash elementma-element"
+          ],
+          "formula": "A = [\\,a_{ij}\\,] \\in R^{m \\times n}",
+          "formula_caption": "oʻqiladi: A — elementlari a i j boʻlgan m ga n matritsa",
+          "narration": "Matritsa — m qator va n ustundan iborat toʻgʻri burchakli sonlar jadvali. A i j elementi i-qator va j-ustunda joylashadi; avval qator, keyin ustun — har doim shu tartib. Matritsalar faqat shakllari aynan bir xil boʻlganda qoʻshiladi, elementma-element, xuddi vektorlardagi kabi; karralilash har bir elementni koʻpaytiradi. Qoʻllanmadan misol: A — bir minus ikki, uch nol boʻlsa, ikki A — ikki minus toʻrt, olti nol boʻladi, va undan B ni, ikki bir, minus bir toʻrtni, ayirsangiz nol minus besh, yetti minus toʻrt qoladi. Ikki-bir elementi ikki marta uch minus minus bir, yaʼni yetti. Shakllar farq qilsa, amal umuman mavjud emas — bu qatʼiy qoida."
+        },
+        {
+          "type": "formula",
+          "heading": "Matritsalar koʻpaytmasi",
+          "tex": "(AB)_{ij} = \\sum_{k=1}^{n} a_{ik} b_{kj}",
+          "parts": [
+            {
+              "substr": "(AB)_{ij}",
+              "color": "yellow",
+              "note": "koʻpaytmaning i j elementi"
+            },
+            {
+              "substr": "\\sum_{k=1}^{n}",
+              "color": "blue",
+              "note": "umumiy ichki indeks boʻyicha yigʻindi"
+            },
+            {
+              "substr": "a_{ik} b_{kj}",
+              "color": "green",
+              "note": "A ning qatori B ning ustuniga koʻpaytiriladi"
+            }
+          ],
+          "narration": "Mana kursning markaziy amali. Sariq qism — hisoblanayotgan narsa: A B koʻpaytmasining i j elementi. Yashil qism retsept: A ning i-qatorini va B ning j-ustunini oling, mos elementlarni koʻpaytirib qoʻshing. Bu — qator bilan ustunning skalyar koʻpaytmasi. Koʻk qism yigʻindi k bir dan n gacha, umumlashgan ichki oʻlchov boʻylab yurishini aytadi. Bundan oʻlcham qoidasi chiqadi: m ga n matritsa n ga p matritsaga koʻpaytirilsa, m ga p oʻlchamli natija keladi. Ichki oʻlchamlar mos kelmasa, koʻpaytma mavjud emas. Qator koʻpaytirish ustun avtomatik refleksga aylanguncha mashq qiling — bu koʻnikka butun kurs davomida kerak boʻladi. Har bir koʻpaytirishdan oldin oʻlchamlarni tekshirib oling — bu eng koʻp uchraydigan xato."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: AB ham BA emas",
+          "problem": "A = \\begin{pmatrix} 1 & -2 \\\\ 3 & 0 \\end{pmatrix}, \\; B = \\begin{pmatrix} 2 & 1 \\\\ -1 & 4 \\end{pmatrix}",
+          "steps": [
+            {
+              "tex": "AB = \\begin{pmatrix} 4 & -7 \\\\ 6 & 3 \\end{pmatrix}"
+            },
+            {
+              "tex": "BA = \\begin{pmatrix} 5 & -2 \\\\ 11 & 2 \\end{pmatrix}"
+            },
+            {
+              "tex": "AB \\neq BA",
+              "highlight": true
+            },
+            {
+              "text": "ikkala koʻpaytma mavjud — va ular har xil matritsalar"
+            }
+          ],
+          "result": "AB ≠ BA",
+          "narration": "Xuddi shu ikkita matritsa: A — bir minus ikki, uch nol, B — ikki bir, minus bir toʻrt. A B uchun har bir element A ning qatorining B ustuniga skalyar koʻpaytmasi. Birinchi qator, birinchi ustun: bir marta ikki plyus minus ikki marta minus bir — toʻrt. Birinchi qator, ikkinchi ustun: bir minus sakkiz — minus yetti. Shu tarzda davom ettirsak, toʻrt minus yetti, olti uch koʻpaytmasi chiqadi. Endi tartibni almashtiring: B marta A — besh minus ikki, oʻn bir ikki. Ikkala koʻpaytma mavjud, ikkalasi ham ikki ikki oʻlchamli, va ular mutlaqo har xil matritsalar. Matritsalar koʻpaytmasi kommutativ emas; omillar tartibi — bu matematik fakt, xato emas."
+        },
+        {
+          "type": "concept",
+          "heading": "Ax: ustunli manzara",
+          "bullets": [
+            "Ax — ustunlarning vaznli yigʻindisi",
+            "x ning elementlari — ogʻirliklar",
+            "qatorli manzara: qatorlar x ga skalyar koʻpaytiriladi"
+          ],
+          "formula": "Ax = x_1 a_1 + x_2 a_2 + \\cdots + x_n a_n",
+          "formula_caption": "oʻqiladi: A x — birinchi ustun marta x bir va hokazo",
+          "narration": "Matritsani vektorga koʻpaytirishning ikki manzarasi ham bir xil darajada toʻgʻri. Qatorli manzara: javobning har bir komponenti A ning qatoridan x ga skalyar koʻpaytiriladi. Ustunli manzara chuqurroq: A x — A ustunlarining chiziqli kombinatsiyasi boʻlib, ogʻirliklar x dan olinadi. X ning elementlari shunchaki sonlar emas; ular — kombinatsiyaning ogʻirliklari. Shuning uchun tenglamalar sistemasi, vektor kombinatsiyalari va matritsa koʻpaytmasi — uch qiyofadagi bitta fan. Va ustunlar butun chiqish boʻshligʻini qoplaganda, har qanday oʻng tomonga yetib borish mumkin boʻladi. Keyingi misolda bir xil hisobni ikkala manzara bilan bajaramiz — va natija, albatta, bir xil boʻladi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: Ax ni ikki usulda hisoblash",
+          "problem": "A = \\begin{pmatrix} 1 & 2 & 0 \\\\ -1 & 3 & 4 \\\\ 4 & 0 & 8 \\end{pmatrix}, \\; x = \\begin{pmatrix} 2 \\\\ -1 \\\\ 0 \\end{pmatrix}",
+          "steps": [
+            {
+              "tex": "Ax = 2a_1 - a_2 + 0 \\cdot a_3"
+            },
+            {
+              "tex": "= 2\\begin{pmatrix} 1 \\\\ -1 \\\\ 4 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 3 \\\\ 0 \\end{pmatrix} = \\begin{pmatrix} 0 \\\\ -5 \\\\ 8 \\end{pmatrix}"
+            },
+            {
+              "text": "qatorlar: (1, 2, 0)·x = 0, (-1, 3, 4)·x = -5, (4, 0, 8)·x = 8"
+            },
+            {
+              "tex": "Ax = \\begin{pmatrix} 0 \\\\ -5 \\\\ 8 \\end{pmatrix}",
+              "highlight": true
+            }
+          ],
+          "result": "(0, -5, 8)",
+          "narration": "Bu uchga uch matritsa uchun A x ni ikkala usulda hisoblab koʻramiz. Ustunli manzara: x deydi — birinchi ustundan ikki marta, ikkinchidan minus bir marta, uchinchidan nol marta oling. Ikki marta birinchi ustun, yaʼni bir minus bir toʻrt, — ikki, minus ikki, sakkiz; undan ikkinchi ustunni, ikki uch nolni, ayiring; natija — nol, minus besh, sakkiz. Qatorli manzara: birinchi qator bir ikki nol x ga skalyar koʻpaytirilib ikki minus ikki — nol. Ikkinchi qator: minus ikki minus uch — minus besh. Uchinchi qator: sakkiz. Xuddi shu vektor ikkala yoʻldan ham keladi — mana shu asosiy nuqta: ikki manzara har doim mos keladi va birgalikda koʻpaytirishni toʻliq shaffof qiladi."
+        },
+        {
+          "type": "concept",
+          "heading": "Transpozitsiya va algebra qoidalari",
+          "bullets": [
+            "transpozitsiya: qatorlar ustunga aylanadi",
+            "(AB)^T = B^T·A^T, tartib teskarilanadi",
+            "simmetrik matritsa: A^T = A"
+          ],
+          "formula": "(AB)^{T} = B^{T} A^{T}",
+          "formula_caption": "oʻqiladi: A B ning transpozitsiyasi B transpozit marta A transpozit",
+          "narration": "Transpozitsiya matritsani asosiy diagonali boʻylab agʻdaradi: qatorlar ustunga aylanadi. Koʻpaytmani transpozitsiya qilish tartibni teskarilaydi: A B ning transpozitsiyasi B transpozit marta A transpozitga teng. Paypoq va etikni oʻylab koʻring: oxirgi kiyilgan operatsiya birinchi yechib olinadi. Maktab algebrasining katta qismi saqlanib qoladi: qoʻshish kommutativ, koʻpaytirish assotsiativ, distributivlik oʻrinli. Lekin kommutativlik yoʻqoladi. Oʻz transpozitsiyasiga teng matritsa simmetrik deyiladi, va istalgan matritsa oʻz transpozitiga koʻpaytirilganda, masalan C C transpozit, avtomatik simmetrik boʻladi. Qoʻllanma buni tekshiradi: bir ikki bir, nol uch ikki matritsasi uchun koʻpaytma — olti toʻrt, toʻrt oʻn uch. Simmetrik matritsalar keyingi kurslarda doimiy uchraydi — ularni darhol tanib oling."
+        },
+        {
+          "type": "table",
+          "heading": "Matritsa algebra qisqacha",
+          "columns": [
+            "Amal",
+            "Qoida"
+          ],
+          "rows": [
+            [
+              "A + B",
+              "= B + A, elementma-element"
+            ],
+            [
+              "A · B",
+              "odatda B · A ga teng emas"
+            ],
+            [
+              "A(BC)",
+              "= (AB)C, assotsiativ"
+            ],
+            [
+              "A(B + C)",
+              "= AB + AC"
+            ],
+            [
+              "(AB)^T",
+              "= B^T · A^T, tartib teskarilanadi"
+            ],
+            [
+              "I · A",
+              "= A = A · I"
+            ]
+          ],
+          "narration": "Qoidalar bitta slaydda. Qoʻshish kommutativ va elementma-element, lekin faqat bir xil shakldagi matritsalar uchun. Koʻpaytirish assotsiativ: A B C ni istalgan tarzda guruhlash mumkin, va distributiv qonunlar kutilgandek ishlaydi. Ikkinchi qator — ogohlantirish: A B va B A odatda har xil matritsalar. Transpozitsiya qoidasi koʻpaytma tartibini teskarilaydi. Birlik matritsa esa bir sonidek ishlaydi; u hech narsani oʻzgartirmaydi. Nima yetishmayotganiga eʼtibor bering: boʻlish amali. Ana shu boʻshliqni aynan oltinchi bobdagi teskari matritsa toʻldiradi — shu kungacha kutamiz. Ushbu jadvalni daftarga koʻchirib yozish bilimni mustahkamlashning eng oson yoʻli."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "matritsa: m×n jadval, element a_ij",
+            "qoʻshish elementma-element, faqat bir shakl",
+            "(AB)ij = aik·bkj yigʻindisi",
+            "ichki oʻlchamlar mos boʻlishi kerak",
+            "Ax = ustunlar kombinatsiyasi",
+            "(AB)^T = B^T·A^T"
+          ],
+          "narration": "Toʻrtinchi bob besh qatorda. Matritsa — m ga n jadval; shakllar mos kelganda elementma-element qoʻshiladi, ichki oʻlchamlar mos kelganda esa qator ustunga koʻpaytiriladi. A marta x — ustunlar kombinatsiyasi, koʻpaytma transpozitsiyasi esa omillar tartibini teskarilaydi. Va bitta buzilgan qoidani esda saqlang: koʻpaytirish kommutativ emas. Ushbu farq keyingi boblarda ham, testda ham jonli namoyon boʻladi. Ustunli manzara esa matritsani vektorlar tili orqali tushuntiradi."
+        }
+      ]
+    },
+    {
+      "title": "Determinantlar",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Determinantlar",
+          "subtitle": "Ishorali yuza, hajm, uchlik koʻpaytma",
+          "narration": "Beshinchi bob. Determinant butun kvadrat matritsani bitta songa siqib oladi: matritsa hosil qiladigan ishorali yuza yoki hajmni. Ikki ikki formuladan boshlab, algebraik toʻldiruvchilar boʻyicha yoyilish orqali qator amallarining taʼsirigacha — bu bob teskarilanuvchanlikni hal qiladigan mashinani quradi. Determinant bitta son — lekin bu son juda koʻp narsani biladi."
+        },
+        {
+          "type": "formula",
+          "heading": "2×2 determinant",
+          "tex": "\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc",
+          "parts": [
+            {
+              "substr": "\\det",
+              "color": "green",
+              "note": "kvadrat matritsaga bogʻlangan son"
+            },
+            {
+              "substr": "ad",
+              "color": "yellow",
+              "note": "asosiy diagonal koʻpaytmasi"
+            },
+            {
+              "substr": "bc",
+              "color": "blue",
+              "note": "yordamchi diagonal koʻpaytmasi"
+            }
+          ],
+          "narration": "Ikki ikki matritsa uchun determinant — bitta ayirish: sariq koʻpaytma a d, asosiy diagonal boʻylab, minus koʻk koʻpaytma b c, yordamchi diagonal boʻylab. Yashil det soʻzi eslatadi: bu — kvadrat matritsalardan sonlarga boradigan funksiya. Geometrik maʼnoda determinant — ikki ustun qurgan parallelogrammning ishorali yuzasi. Ishorali degani yoʻnalish muhim ekanligi: ustunlar soat miliga qarshi tartibni saqlab qolsa — musbat, agʻdarsa — manfiy. Ustunlar bitta chiziqda yotsa, yuza va determinant nolga teng. Birlik matritsa bir marta bir minus nol marta nol beradi: bir — birlik yuzasi. Ana shu kichik formula butun bobning poydevoridir. Uch oʻlchovga oʻtish ham xuddi shu gʻoyaga asoslanadi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: determinant yuza sifatida",
+          "problem": "E = \\begin{pmatrix} 3 & 1 \\\\ 1 & 2 \\end{pmatrix}",
+          "steps": [
+            {
+              "tex": "\\det E = 3 \\cdot 2 - 1 \\cdot 1 = 5"
+            },
+            {
+              "tex": "S = |\\det E| = 5"
+            },
+            {
+              "tex": "S_{\\triangle} = \\frac{5}{2}",
+              "highlight": true
+            },
+            {
+              "text": "det E > 0: yoʻnalish saqlanadi"
+            }
+          ],
+          "result": "5",
+          "narration": "E ni oling — ustunlari uch, bir va bir, ikki. Determinant: uch marta ikki minus bir marta bir — besh. Demak, ustunlar qurgan parallelogrammning yuzi besh, ular kesib olgan uchburchak yuzi esa uning yarmi — ikki butun beshdan. Determinant musbat, shuning uchun yoʻnalish saqlangan: ikkinchi ustun birinchisidan soat miliga qarshi tomonda qolmoqda, hech narsa agʻdarilmagan. Bitta son uchta fakt berdi: yuza, yarim yuza va yoʻnalish. Parallelogrammni chizishga umuman toʻgʻri kelmaganini payqang; determinant barcha ishni oʻzi bajaradi, va xuddi shu lugʻat uch oʻlchovda, hajmlar bilan ham oʻrinli. Determinant — bitta songa siqilgan geometriya, va uning ishorasi yoʻnalish haqidagi maʼlumotni ham saqlaydi. Yuza bilan ishlashda determinant — eng birinchi vosita."
+        },
+        {
+          "type": "formula",
+          "heading": "Algebraik toʻldiruvchilar boʻyicha yoyish",
+          "tex": "\\det A = a_{11} C_{11} + a_{12} C_{12} + a_{13} C_{13}, \\quad C_{ij} = (-1)^{i+j} \\det M_{ij}",
+          "parts": [
+            {
+              "substr": "C_{ij}",
+              "color": "yellow",
+              "note": "toʻldiruvchi: ishorali minor"
+            },
+            {
+              "substr": "(-1)^{i+j}",
+              "color": "blue",
+              "note": "ishoralar shaxmat taxtasi"
+            },
+            {
+              "substr": "M_{ij}",
+              "color": "green",
+              "note": "minor: i-qator, j-ustunni oʻchirib tashlang"
+            }
+          ],
+          "narration": "Uchga uch determinantlar qator boʻylab yoyiladi. Qatorning har bir elementi oʻz toʻldiruvchisiga — sariq C i j ga — koʻpaytiriladi. Toʻldiruvchining ikki tarkibiy qismi bor. Yashil M i j — minor: i-qator va j-ustunni chizib tashlang, soʻngra qolgan ikki ikki matritsaning determinantini oling. Koʻk koʻpaytuvchi — ishora: minus birning i plyus j darajasi, yaʼni almashinuvchi plyus, minus, plyus — ishoralar shaxmat taxtasi. Elementlarni toʻldiruvchilarga koʻpaytirib, qator boʻylab qoʻshing. Ajoyib fakt: istalgan qator yoki istalgan ustun bir xil javob beradi, shuning uchun nollar bilan toʻlgan qator arifmetikaning katta qismini yoʻq qiladi. Keyingi misolda ikkala yoʻlni ham koʻramiz. Toʻldiruvchilar usuli istalgan oʻlchamga umumlashtiriladi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: 3×3 determinant",
+          "problem": "F = \\begin{pmatrix} 2 & 1 & 0 \\\\ 0 & 3 & 1 \\\\ 1 & 0 & 2 \\end{pmatrix}",
+          "steps": [
+            {
+              "tex": "\\det F = 2\\det\\begin{pmatrix} 3 & 1 \\\\ 0 & 2 \\end{pmatrix} - 1\\det\\begin{pmatrix} 0 & 1 \\\\ 1 & 2 \\end{pmatrix} + 0"
+            },
+            {
+              "tex": "= 2 \\cdot 6 - 1 \\cdot (-1) = 13"
+            },
+            {
+              "text": "birinchi ustun tekshiruvi: 2·6 + 1·1 = 13 — xuddi shu qiymat"
+            },
+            {
+              "tex": "\\det F = 13",
+              "highlight": true
+            }
+          ],
+          "result": "13",
+          "narration": "Birinchi qator boʻylab yoying. Birinchi minor — birinchi qator va birinchi ustunni oʻchirib tashlasak — uch bir, nol ikki, determinanti olti; boshidagi ikkiga koʻpaytirilganda oʻn ikki beradi. Ikkinchi minor — nol bir, bir ikki, determinanti minus bir; almashinuvchi ishora bilan minus birni ayiramiz, yaʼni aslida bir qoʻshamiz. Qatorning uchinchi elementi nol, shuning uchun uning toʻldiruvchisi umuman hech narsa qoʻshmaydi. Jami — oʻn uch. Buning oʻrniga birinchi ustun boʻylab yoying: ikki marta olti plyus bir marta bir — yana oʻn uch. Xohlagan qator, xohlagan ustun: har doim bir xil son chiqadi, va nollari eng koʻp boʻlgan qatorni tanlash — professionalning harakati. Yoʻlni toʻgʻri tanlash hisobni bir necha barobar qisqartiradi."
+        },
+        {
+          "type": "table",
+          "heading": "Qator amallari va determinant",
+          "columns": [
+            "Qator amali",
+            "det A ga taʼsiri"
+          ],
+          "rows": [
+            [
+              "ikkita qatorni almashtirish",
+              "ishora oʻzgaradi"
+            ],
+            [
+              "qatorni c ga koʻpaytirish",
+              "det c marta ortadi"
+            ],
+            [
+              "qator karralisini qoʻshish",
+              "oʻzgarish yoʻq"
+            ],
+            [
+              "nol yoki teng qatorlar",
+              "det = 0"
+            ],
+            [
+              "transpozitsiya",
+              "det A^T = det A"
+            ],
+            [
+              "matritsalar koʻpaytmasi",
+              "det(AB) = det A · det B"
+            ]
+          ],
+          "narration": "Eliminalash determinantlarni butunlay oldindan bilinadigan tarzda oʻzgartiradi, va bu jadvalni yodlashga arziydi. Ikkita qatorni almashtirish ishorani agʻdaradi. Bitta qatorni c ga koʻpaytirish det ni c marta koʻpaytiradi; butun n ga n matritsani c marta koʻpaytirish esa determinantni c ning n darajasiga koʻpaytiradi. Bitta qator karralisini boshqasiga qoʻshish hech narsani oʻzgartirmaydi — shuning uchun eliminalash xavfsiz. Nol qator yoki oʻzaro mutanosib qatorlar determinantni nolga majbur qiladi. Transpozitsiya hech narsani oʻzgartirmaydi. Va determinantlar koʻpayiladi: A B determinant det A marta det B ga teng. Bitta ogohlantirish: yigʻindining determinanti determinantlar yigʻindisiga teng emas. Bu jadval bilan ishlashda qator va ustunni hech qachon aralashtirib yubormang."
+        },
+        {
+          "type": "concept",
+          "heading": "Skalyar uchlik koʻpaytma",
+          "bullets": [
+            "(u×v)·w = det[u v w]",
+            "moduli — qutining hajmi",
+            "qiymati 0 — komplanar vektorlar"
+          ],
+          "formula": "(u \\times v) \\cdot w = \\det\\begin{pmatrix} u_1 & v_1 & w_1 \\\\ u_2 & v_2 & w_2 \\\\ u_3 & v_3 & w_3 \\end{pmatrix}",
+          "formula_caption": "oʻqiladi: u kesish v ni w ga skalyar koʻpaytirish — uch ustun determinantining oʻzi",
+          "narration": "Aralash koʻpaytma, skalyar uchlik koʻpaytma deb ham ataladi, koʻpaytmalar va determinantlar orasidagi halqani yopadi. Avval u kesish v ni hisoblang, soʻngra w ga skalyar koʻpaytiring; yoki ustunlari u, v va w boʻlgan matritsaning determinantini oling. Ikki yoʻl, bitta son. Uning moduli — parallelepipedning, yaʼni uch vektor qurgan qiyshaygan qutining hajmi; shu qirralarga ega tetraedrning hajmi aynan oltidan bir qismdir. Ishora yoʻnalishni qayd etib turadi. Va qiymat nol boʻlganda uch vektor komplanar: yassi, hajmsiz, bitta tekislikka qamrab olingan. Ana shu nol testi — bizning keyingi misolimiz mavzusi. Ushbu bogʻlanish vektor koʻpaytma va determinant boblarini bitta formulada birlashtiradi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: parallelepiped hajmi",
+          "problem": "u = (2, 0, 1), \\; v = (1, 2, 0), \\; w = (0, 1, 3)",
+          "steps": [
+            {
+              "tex": "u \\times v = (-2, 1, 4)"
+            },
+            {
+              "tex": "(u \\times v) \\cdot w = 0 + 1 + 12 = 13"
+            },
+            {
+              "tex": "V = 13, \\quad V_{tetra} = \\frac{13}{6}",
+              "highlight": true
+            },
+            {
+              "text": "u va v ni almashtiring: qiymat -13 boʻladi, hajmlar qoladi"
+            }
+          ],
+          "result": "13",
+          "narration": "Avval vektor koʻpaytma: u teng ikki, nol, bir kesish v teng bir, ikki, nol — minus ikki, bir, toʻrt. Uni w ga, yaʼni nol, bir, uchga skalyar koʻpaytiring: nol plyus bir plyus oʻn ikki — oʻn uch. Uch vektor qurgan qutining hajmi oʻn uch, uchlari koordinata boshida va uch vektor uchlarida yotgan tetraedrning hajmi esa oʻn uchdan olti. U bilan v ni almashtirib koʻring: uchlik koʻpaytma minus oʻn uchga aylanadi — yoʻnalish agʻdarildi — lekin faqat modulga qiziqadigan hajmlar oʻzgarmaydi. Agar natija nol boʻlganida, vektorlar komplanar boʻlardi: hajmi umuman yoʻq, yassi quti. Shu sababdan uchlik koʻpaytma komplanarlikning eng tezkor testi hisoblanadi. Hajm hisobida ishoraga emas, modulga eʼtibor bering."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "2×2: ad - bc, ishorali yuza",
+            "toʻldiruvchilar: xohlagan qator yoki ustun",
+            "almashtirish agʻdaradi, karralilash koʻpaytiradi",
+            "det(AB) = det A · det B",
+            "uchlik koʻpaytma: quti hajmi"
+          ],
+          "narration": "Beshinchi bob qisqacha. Ikki ikki determinant — a d minus b c, ustun parallelogrammning ishorali yuzasi. Kattaroq matritsalar xohlagan qator yoki ustun boʻylab toʻldiruvchilar orqali yoyiladi. Qator amallari: almashtirish ishorani agʻdaradi, karralilash koʻpaytiradi, qoʻshish hech narsa qilmaydi. Determinantlar matritsa koʻpaytmalari boʻyicha koʻpayiladi. Aralash koʻpaytma — ana shu determinant: qutining hajmi. Ushbu beshta qoida determinant masalalarining deyarli hammasini yopadi. Testdan oldin shu qisqacha roʻyxatni yana oʻqib chiqing."
+        }
+      ]
+    },
+    {
+      "title": "Rang va teskari matritsa",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Rang va teskari matritsa",
+          "subtitle": "Bosh elementlar, teskarilanuvchanlik, Gauss-Jordan",
+          "narration": "Oltinchi bob — final. Ikki gʻoya butun bir oyni bogʻlab turadi: matritsaning rangi, uning haqiqiy mustaqil yoʻnalishlarini sanaydi, va teskari matritsa, matritsa bajargan ishni bekor qiladi. Biz ikkalasini ham hisoblaymiz hamda A dan A teskarisiga olib boradigan tizimli yoʻl — Gauss-Jordan algoritmi bilan tanishamiz. Bu bob — butun kursning umumiy natijasi."
+        },
+        {
+          "type": "concept",
+          "heading": "Rang: bosh elementlarni sanash",
+          "bullets": [
+            "rang = bosh elementlar soni",
+            "rang A ≤ min(m, n)",
+            "rang n: mustaqil ustunlar"
+          ],
+          "formula": "\\mathrm{rank}\\,A \\leq \\min(m, n)",
+          "formula_caption": "oʻqiladi: A ning rangi m va n ning kichikidan oshmaydi",
+          "narration": "Rang mustaqil yoʻnalishlarni sanaydi. Uni eliminalash orqali hisoblaysiz: har bir bosh elementning ostini tozalab boring va saqlanib qolgan bosh elementlarni sanang. Rang hech qachon qatorlar yoki ustunlar sonidan oshib ketolmaydi, chunki har bir bosh element bitta qatorni va bitta ustunni isteʼmol qiladi. Toʻliq ustun rangi n — ustunlar mustaqil degani, va A x teng nol tenglamasining yagona yechimi x teng noldir. Rang yetishmovchiligi koʻpincha arifmetikadan oldin koʻzga tashlanadi: bitta ustun allaqachon boshqasining karralisi boʻlsa, bosh element albatta yoʻqoladi. Rang — matritsa qancha haqiqiy maʼlumot tashiyishini oʻlchaydigan birinchi sondir. Keyingi misolda uchga uch matritsa ustida eliminalashni toʻliq bajaramiz."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: eliminalash bilan rangni topish",
+          "problem": "A = \\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 5 \\\\ 3 & 6 & 4 \\end{pmatrix}",
+          "steps": [
+            {
+              "tex": "R_2 - 2R_1, \\; R_3 - 3R_1 \\Rightarrow \\begin{pmatrix} 1 & 2 & 1 \\\\ 0 & 0 & 3 \\\\ 0 & 0 & 1 \\end{pmatrix}"
+            },
+            {
+              "tex": "R_3 - \\frac{1}{3}R_2 \\Rightarrow \\begin{pmatrix} 1 & 2 & 1 \\\\ 0 & 0 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}"
+            },
+            {
+              "tex": "\\mathrm{rank}\\,A = 2",
+              "highlight": true
+            },
+            {
+              "text": "2-ustun = 2 × 1-ustun — yetishmovchilik boshidanoq koʻrinib turgan"
+            }
+          ],
+          "result": "rang A = 2",
+          "narration": "Birinchi bosh element ostida eliminalang. Ikkinchi qator minus ikki birinchi qator — nol, nol, uch. Uchinchi qator minus uch birinchi qator — nol, nol, bir. Butun ikkinchi ustun yoʻq boʻlib ketdi; uning maʼlumoti ortiqcha edi, chunki ikkinchi ustun boshidanoq birinchisining ikki karralisi edi. Shuning uchun ikkinchi bosh element uchinchi ustundan kelishi kerak — va bu uch. Ostini tozalang: uchinchi qator minus uchdan bir ikkinchi qator butunlay nollarga aylanadi. Ikkita nol boʻlmagan bosh element saqlanib qoladi, demak rang ikki. Uchga uch matritsa atigi ikkita mustaqil yoʻnalish tashiyapti: rang — ustunlar boʻshligʻining haqiqiy oʻlchovidir. Eliminalash oʻlchov haqida hech qachon yolgʻon gapirmaydi. Rang topilgach, nechta ustun mustaqil ekanini darhol aytish mumkin."
+        },
+        {
+          "type": "formula",
+          "heading": "2×2 matritsaning teskarisi",
+          "tex": "A^{-1} = \\frac{1}{ad - bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}",
+          "parts": [
+            {
+              "substr": "A^{-1}",
+              "color": "teal",
+              "note": "A ni bekor qiluvchi matritsa"
+            },
+            {
+              "substr": "\\frac{1}{ad - bc}",
+              "color": "yellow",
+              "note": "determinantga boʻling"
+            },
+            {
+              "substr": "\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}",
+              "color": "blue",
+              "note": "diagonalni almashtiring, qolganlar ishorasini oʻzgartiring"
+            }
+          ],
+          "narration": "Ikki ikki matritsalar uchun teskarini yodlab olishga arzigulik formula mavjud. Koʻk matritsa deyarli A ning oʻzi: diagonal elementlari a va d oʻrinlarini almashtiradi, qoldiq elementlar b va c esa ishorasini oʻzgartiradi. Soʻngra hammasini determinantga — a d minus b c ga, sariq kasrga — boʻling. Maxrajning ichida butun nazariya yashiringan: determinant nol boʻlsa, boʻlish imkonsiz va teskari matritsa mavjud emas. A ni A teskarisiga koʻpaytirish, qaysi tartibda bajarilmasin, birlik matritsani qaytaradi. Bu formulani bir marta oʻrgansangiz, noldan farqli determinantga ega istalgan ikki ikki matritsani soniyalar ichida teskarilab olasiz. Formula maxraji nolga aylanganda nima boʻlishini bob oxirida koʻramiz."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: 2×2 matritsani teskarilash",
+          "problem": "A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}",
+          "steps": [
+            {
+              "tex": "\\det A = 2 \\cdot 3 - 1 \\cdot 5 = 1"
+            },
+            {
+              "tex": "A^{-1} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}"
+            },
+            {
+              "tex": "A A^{-1} = \\begin{pmatrix} 6 - 5 & -2 + 2 \\\\ 15 - 15 & -5 + 6 \\end{pmatrix} = I",
+              "highlight": true
+            }
+          ],
+          "result": "(3, -1; -5, 2)",
+          "narration": "A — ikki bir, besh uch. Determinant: ikki marta uch minus bir marta besh — bir. Determinantning birga teng boʻlishi ishni osonlashtiradi: teskari aynan diagonal almashtirilgan va ishoralar oʻzgartirilgan matritsa — uch minus bir, minus besh ikki — boʻlib, boʻlishga umuman ehtiyoj yoʻq va kasrlar ham yoʻq. Koʻpaytirish bilan tekshiring: birinchi qator, birinchi ustun — olti minus besh, bir. Birinchi qator, ikkinchi ustun — minus ikki plyus ikki, nol. Ikkinchi qator: oʻn besh minus oʻn besh va minus besh plyus olti. Koʻpaytma — birlik matritsa, ikkala tartibda ham. Matritsa toʻliq bekor qilindi. Naqshga eʼtibor bering: diagonalda birlar, qolgan joylarda nollar. Teskariga koʻpaytirish — boʻlishning matritsaviy koʻrinishi, va u ikkala tomonga ham ishlaydi."
+        },
+        {
+          "type": "concept",
+          "heading": "Teskari qachon mavjud?",
+          "bullets": [
+            "teskarilanuvchi ⟺ rang n ⟺ n bosh element",
+            "⟺ det A ≠ 0",
+            "⟺ Ax = b yagona yechimga ega"
+          ],
+          "formula": "A^{-1}\\ \\mathrm{exists} \\iff \\det A \\neq 0",
+          "formula_caption": "oʻqiladi: A teskarisi aynan A determinanti noldan farqli boʻlganda mavjud",
+          "narration": "Hamma narsa shu yerda birlashadi. N oʻlchamli kvadrat matritsa uchun quyidagi daʼvolar birgalikda turadi yoki birgalikda yiqiladi. A teskarilanuvchi. Rang n ga teng. Eliminalash n bosh element beradi. Determinant noldan farqli. Va A x teng b sistemasi har qanday oʻng tomon uchun aynan bitta yechimga ega. Bittasi buzilsa hammasi yoʻq boʻladi: agar noldan farqli x, A x teng nolni qanoatlantirsa, hech qanday matritsa zararni bekor qila olmaydi, chunki hech qanday matritsa nol vektorni x ga qaytara olmaydi. Ikki yakuniy fakt: koʻpaytma teskarisi tartibni teskarilaydi, va transpozitsiyaning teskarisi teskarining transpozitsiyasidir. Ushbu ekvivalentliklar roʻyxatini yodlab oling — test savollarining katta qismi shu roʻyxatdan kelib chiqadi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: Gauss-Jordan eliminalashi",
+          "problem": "A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix}",
+          "steps": [
+            {
+              "tex": "[\\,A \\mid I\\,] = \\begin{pmatrix} 1 & 2 & 1 & 0 \\\\ 3 & 7 & 0 & 1 \\end{pmatrix}"
+            },
+            {
+              "tex": "R_2 - 3R_1 \\Rightarrow \\begin{pmatrix} 1 & 2 & 1 & 0 \\\\ 0 & 1 & -3 & 1 \\end{pmatrix}"
+            },
+            {
+              "tex": "R_1 - 2R_2 \\Rightarrow \\begin{pmatrix} 1 & 0 & 7 & -2 \\\\ 0 & 1 & -3 & 1 \\end{pmatrix}"
+            },
+            {
+              "tex": "A^{-1} = \\begin{pmatrix} 7 & -2 \\\\ -3 & 1 \\end{pmatrix}",
+              "highlight": true
+            }
+          ],
+          "result": "(7, -2; -3, 1)",
+          "narration": "Gauss-Jordan istalgan oʻlchamdagi matritsalar uchun ishlaydi. A ni birlik matritsa yoniga yozing: kengaytirilgan A, I bloki. Chap blok birlik matritsaga aylanguncha butun keng matritsaga qator amallarini qoʻllang; oʻng blok oʻzi A teskarisiga aylanadi. Ikkinchi qator minus uch birinchi qator: chap blok bir ikki, nol bir boʻladi, oʻng blok minus uch va birni oladi. Yuqoriga qarab tozalang: birinchi qator minus ikki ikkinchi qator chap blokni birlik matritsaga aylantiradi. Javobni oʻqing: yetti minus ikki, minus uch bir. Bonus: b teng bir, bir boʻlganda A x teng b sistemasining yechimi x teng A teskari marta b — besh, minus ikki. Har bir qadam oldingi boblardagi elementar amallardan iborat. Kengaytirilgan matritsa — teskarilashning universal asbobi."
+        },
+        {
+          "type": "example",
+          "heading": "Misol: singulyar matritsa",
+          "problem": "B = \\begin{pmatrix} 2 & 1 \\\\ 4 & 2 \\end{pmatrix}",
+          "steps": [
+            {
+              "tex": "R_2 - 2R_1 \\Rightarrow (0, \\; 0)"
+            },
+            {
+              "tex": "\\det B = 2 \\cdot 2 - 1 \\cdot 4 = 0"
+            },
+            {
+              "tex": "B \\begin{pmatrix} 1 \\\\ -2 \\end{pmatrix} = \\begin{pmatrix} 0 \\\\ 0 \\end{pmatrix}",
+              "highlight": true
+            },
+            {
+              "text": "bosh elementlar, determinant, nol vektor — uch test mos: singulyar"
+            }
+          ],
+          "result": "singulyar",
+          "narration": "B teskarilanuvchanmi? Uchta mustaqil test. Bosh elementlar: ikkinchi qator minus ikki birinchi qator nol, nolga yiqiladi; bitta bosh element qoladi. Determinant: ikki marta ikki minus bir marta toʻrt — nol. Nol vektor: B ni bir, minus ikkiga koʻpaytiring va ikki minus ikki, toʻrt minus toʻrt — nol vektori chiqadi; noldan farqli kirish nolga tasvirlangan. Uchala test mos keladi: B singulyar va teskarisi mavjud emas. Ular mos boʻlishi shart, chunki ular — bir xil faktning uch tili. Amaliyotda bitta test kifoya, qolgan ikkitasi tasdiq vazifasini bajaradi. Ustunlar mutanosib va ular qurgan parallelogrammning yuzi nolga teng: har bir nuqtai nazar bir xil hikoyani aytib turadi. Singulyar matritsa bilan uchrashganda tekshiruvni tez oʻtkazib yubormang."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "rang = bosh elementlar soni",
+            "teskarilanuvchi ⟺ rang n ⟺ det ≠ 0",
+            "2×2 teskari: almashtir, ishorani oʻzgartir, boʻl",
+            "Gauss-Jordan: [A|I] → [I|A⁻¹]",
+            "x = A⁻¹b, Ax = b yechimi"
+          ],
+          "narration": "Oxirgi bob. Rang bosh elementlarni — matritsaning haqiqiy oʻlchovini — sanaydi. Teskarilanuvchanlik, toʻliq rang, noldan farqli determinant va yagona yechim — bu toʻrt qiyofadagi bitta shart. Ikki ikki teskarisi diagonalni almashtiradi, qolgan elementlar ishorasini oʻzgartiradi va determinantga boʻladi. Gauss-Jordan A, I ni I, A teskarisiga aylantiradi, va x teng A teskari marta b istalgan sistemani yechadi. Shu beshta qoida birinchi testning yarmidan koʻpini tashkil qiladi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "vektorlar: kombinatsiyalar, qobiq, mustaqillik",
+            "skalyar koʻpaytma: burchak, proyeksiya, ⊥",
+            "vektor koʻpaytma: normal va yuza",
+            "matritsalar: qator×ustun, Ax = ustunlar",
+            "determinantlar: ishorali yuza va hajm",
+            "rang va teskari: yechiluvchanlik"
+          ],
+          "narration": "Butun bir oy bitta ekranda. Birinchi hafta: vektorlar chiziqli kombinatsiyalanadi, ularning qobigʻi — yetib boriladigan vektorlar toʻplami, mustaqillik — faqat trivial nol kombinatsiya degani. Ikkinchi hafta: skalyar koʻpaytma burchaklarni oʻlchaydi, ortogonallikni taʼriflaydi va proyeksiyalarni quradi. Uchinchi hafta: vektor koʻpaytma uzunligi yuza boʻlgan perpendikulyar vektor beradi. Toʻrtinchi hafta: matritsalar qator koʻpaytirilib ustunga koʻpaytiriladi, A x — ustunlar kombinatsiyasi, determinantlar esa ishorali yuza va hajmlarni oʻlchaydi. Nihoyat, rang va teskari matritsa yechiluvchanlik haqidagi hamma narsani hal qiladi. Oltita gʻoya, bitta fan — va hammasi misollar orqali ishlab chiqilgan. Shu olti qatorni yodlab olsangiz, butun oy koʻz oldingizda gavdalanadi."
+        },
+        {
+          "type": "outro",
+          "message": "Siz birinchi dan toʻrtinchi haftalarning barchasini qamradingiz: vektorlar, koʻpaytmalar, matritsalar, determinantlar, rang va teskarilar. Endi birinchi testni topshiring. Siz tayyorsiz.",
+          "narration": "Mana birinchi dan toʻrtinchi haftalarga oid toʻliq qoʻllanma. Siz endi vektorlarni kombinatsiya qilasiz, burchaklarni oʻlchaysiz va proyeksiyalarni topasiz, matritsalarni koʻpaytirasiz, determinantlarni yoyasiz, ranglarni hisoblaysiz va matritsalarni teskarilaysiz — birinchi test soʻrashi mumkin boʻlgan har bir koʻnikka egasiz. Yechilgan misollarni yana bir marta koʻrib chiqing, yaxshi uxlaysiz va imtihonga xotirjam qadam qoʻying. Omad. Siz tayyorsiz."
+        }
+      ]
+    }
+  ],
+  "outro_message": "Siz birinchi dan toʻrtinchi haftalarning barchasini qamradingiz: vektorlar, koʻpaytmalar, matritsalar, determinantlar, rang va teskarilar. Endi birinchi testni topshiring. Siz tayyorsiz.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

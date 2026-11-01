@@ -1,0 +1,935 @@
+{
+  "id": "cs_w47",
+  "language": "en",
+  "course_title": "Computer Science — C Programming",
+  "test_title": "Weeks 4–7 · Complete Guide",
+  "subtitle": "Data Types · Control Structures · Functions · Pointers · Recursion",
+  "chapters": [
+    {
+      "title": "Data Types and Operators",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "Welcome to the complete video guide to Computer Science in the C language, weeks four through seven. Over the next half hour we cover every rule from the lectures and labs: data types and operators, control structures, functions and structures, pointers, strings, and recursion — plus the famous bug hunts. By the end you will read a C program line by line and predict exactly what it prints. Let's begin."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Data Types and Operators",
+          "subtitle": "Week 4 — the foundation of the course",
+          "narration": "Chapter one: data types and operators — week four, the foundation of the entire course. What a type really is, how precise float and double are, the integer division trap, short-circuit evaluation, and the leap year rule."
+        },
+        {
+          "type": "concept",
+          "heading": "The Family of C Types",
+          "bullets": [
+            "numeric: int, float, double",
+            "char — one basic character",
+            "user-defined: struct, union",
+            "string is CS50's char *"
+          ],
+          "narration": "The family of C types is small. Numeric types: int for integers, float and double for approximate real values. Char holds one basic character. Struct and union are user-defined. Bool — true or false — is a macro from stdbool dot h. And string is the CS50 helper: underneath, a pointer to characters. A data type fixes the set of values an object in memory can take and the operations allowed on it. Names may use letters, digits and the underscore, must start with a letter, cannot be keywords, and are case-sensitive: x and capital X are two different variables."
+        },
+        {
+          "type": "concept",
+          "heading": "Sizes, Ranges, and Precision",
+          "bullets": [
+            "sizeof(char) is always 1 byte",
+            "char < short <= int <= long",
+            "float: ~6 significant digits",
+            "double: ~15 significant digits"
+          ],
+          "narration": "Exact sizes depend on the machine, but C guarantees the order: char is never larger than short, short no larger than int, then long. Sizeof char is exactly one byte — eight bits on the course machine. An unsigned type holds roughly twice the range of its signed sibling. For real numbers, precision rules: float keeps about six significant decimal digits, double about fifteen — which is why the sphere lab chose double for the radius and volume of a sphere. And note carefully: significant digits, not decimal places after the point."
+        },
+        {
+          "type": "code",
+          "heading": "The Division Trap",
+          "code": "double fraction = 4 / 3;\nprintf(\"%f\\n\", fraction);   /* 1.000000 */\n\ndouble good = 4.0 / 3.0;\nprintf(\"%f\\n\", good);       /* 1.333333 */\n\nint x = 3 % 2;   /* 1 */\nint y = 7;\nprintf(\"%d %d %d\\n\", x, y % 4, y % 10);",
+          "highlight": [
+            1,
+            4
+          ],
+          "narration": "The main trap of the week, line by line. Line one: four divided by three. Both operands are integers, so C runs integer division and discards the fraction — the result is exactly one. Only then does the assignment turn that one into a double, and percent f prints one point zero zero zero zero zero zero. The receiver's type changes nothing — the operand types decide. On line four, four point zero over three point zero makes both operands real: one point three three three three three three. The remainder operator pairs with it: three mod two is one, seven mod ten is seven."
+        },
+        {
+          "type": "concept",
+          "heading": "Logical Operators and Short Circuit",
+          "bullets": [
+            "non-zero is true, 0 is false",
+            "&& and, || or, ! not",
+            "evaluation stops when decided",
+            "side effects may never run"
+          ],
+          "narration": "Comparison operators yield a boolean result: any non-zero value is true, zero is false. Three equals three gives one; capital A equals lowercase a gives zero — the codes differ. Double ampersand is and, double pipe is or, exclamation is not. The key rule is short circuit: evaluation stops the moment the result is decided. If the left side of an and is already false, the right side never runs — a side effect there, like x equals x plus one, does not happen. And in i less than length and first i equals second i, the boundary comes first, so index three is never touched."
+        },
+        {
+          "type": "code",
+          "heading": "Short Circuit in Action",
+          "code": "/* any non-zero value is true; 0 is false */\n(3 == 3) && (2 * 3 == 6);      /* 1 */\n('A' == 'a') && (3 == 3);      /* 0 */\n2 == 3 || 'A' == 'A';          /* 1 */\n!(3 == 3);                     /* 0 */\n\n(0) && ((x = x + 1) > 0);      /* x unchanged */\n(3 == 3) || ((c = getchar()) == 'y');  /* no read */",
+          "highlight": [
+            7,
+            8
+          ],
+          "narration": "Watch the results first. Three equals three and two times three equals six: both true, so one. Capital A equals lowercase a is false, so the whole and is zero. Two equals three or capital A equals capital A: one. Not of three equals three: zero. Now line seven: the left operand is zero, so the and is false without reading the right side — x never changes. On the last line, three equals three is already true, so the or stops at once and getchar is never called. Side effects to the right of and, or are unsafe — they may never run."
+        },
+        {
+          "type": "example",
+          "heading": "Leap Year or Common Year?",
+          "problem": "Classify the years 2000, 1900, 2024 and 2100 — leap or common?",
+          "steps": [
+            {
+              "text": "divisible by 400? 2000 — yes, leap"
+            },
+            {
+              "text": "divisible by 100? 1900 and 2100 — common"
+            },
+            {
+              "text": "divisible by 4? 2024 — leap; 2025 — common"
+            },
+            {
+              "text": "leap: 2000, 2024 — common: 1900, 2100",
+              "highlight": true
+            }
+          ],
+          "result": "2000 and 2024 are leap years",
+          "narration": "The calendar rule, read strictly top to bottom. First: divisible by four hundred? Two thousand is — leap year, done. If not: divisible by one hundred? Nineteen hundred is, and having failed the four hundred test it is a common year; twenty one hundred repeats that story. If both fail: divisible by four? Twenty twenty-four is — leap; twenty twenty-five is not. In code, the lab's compact condition: year percent four hundred equals zero, or year percent four equals zero and year percent one hundred does not. And a warning: testing only twenty twenty-four and twenty twenty-five hides the century bug."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "operand types decide how / works",
+            "4/3 gives 1; 4.0/3.0 gives 1.333333",
+            "float ~6 digits; double ~15 digits",
+            "short circuit may skip the right side",
+            "leap: %400==0, or %4==0 and %100!=0"
+          ],
+          "narration": "Chapter one, fixed. Operand types decide division: four over three is one; four point zero over three point zero is one point three three. Float keeps six significant digits, double fifteen. Short circuit may skip the right side and its side effects. And a leap year is divisible by four hundred, or by four but not by one hundred."
+        }
+      ]
+    },
+    {
+      "title": "Control Structures",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "Control Structures",
+          "subtitle": "Week 5 — decisions and repetition",
+          "narration": "Chapter two: control structures — week five. The program learns to decide and to repeat: blocks and truth, the if family, switch, the three loops, break and continue. In the lab, a name becomes a melody."
+        },
+        {
+          "type": "concept",
+          "heading": "Blocks and Truth",
+          "bullets": [
+            "a simple statement ends with ';'",
+            "{ } makes a compound statement",
+            "non-zero is true, 0 is false",
+            "bool — <stdbool.h> in C99"
+          ],
+          "narration": "A simple statement ends with a semicolon. Curly braces combine several statements into a compound statement — a block. A block can stand wherever a simple statement is expected, compiles as a single unit, may declare its own variables, can even be empty, and takes no semicolon after the closing brace. And what is true? Classic C89 has no boolean type: a condition is a numeric expression — any non-zero value is true, zero is false. A pointer works too: if str means the string is not null. Since C99, stdbool dot h supplies a real bool type."
+        },
+        {
+          "type": "code",
+          "heading": "The if / else if Ladder",
+          "code": "if (score >= 90)\n    grade = 'A';\nelse if (score >= 80)\n    grade = 'B';\nelse if (score >= 70)\n    grade = 'C';\nelse if (score >= 60)\n    grade = 'D';\nelse\n    grade = 'F';",
+          "highlight": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "narration": "If evaluates the condition; when it is true, the inner statement runs — otherwise nothing. Else if adds alternative paths, checked in order until the first true one; if several are true, only the first branch executes. The boundaries must descend: ninety or more is A, then eighty, seventy, sixty, else F. Reverse the order, and every high score stops at the first test — the grade checker bug we fix in chapter six. And remember: with nested ifs, an else without braces binds to the nearest inner if — use braces to attach it to the outer one."
+        },
+        {
+          "type": "code",
+          "heading": "switch: case, break, default",
+          "code": "switch (grade) {\ncase 'A':\n    printf(\"Perfect!\\n\");\n    break;\ncase 'B':\n    printf(\"You did good!\\n\");\n    break;\ndefault:\n    printf(\"That's not a valid grade!\\n\");\n}",
+          "highlight": [
+            4,
+            8
+          ],
+          "narration": "Comparing one integer or character variable against many constants? Switch is cleaner than the ladder — and, the book notes, more efficient. Each case label is a distinct integer constant, an entry point into the block. On a match, execution runs to the nearest break. Without break it falls through into the next case without rechecking — sometimes useful, as in case capital Y, case lowercase y sharing one body. Default is the otherwise branch. And note carefully: break only leaves the switch — the program continues after the closing brace; it does not terminate the program."
+        },
+        {
+          "type": "concept",
+          "heading": "The Three Loops",
+          "bullets": [
+            "while: test before the body",
+            "for: init; condition; update",
+            "do-while: body at least once",
+            "empty condition counts as true"
+          ],
+          "narration": "While is the simplest loop: the condition is evaluated before the body — the body may never run at all. For is the counting loop: initialization once, condition before each body, update after it. This for loop prints one two three; the equivalent while, with the counter declared before the loop, prints exactly the same — but a counter declared in the for header is visible only inside the loop. Do-while checks the condition after the body, so the body runs at least once; mind the semicolon at the end. Any header expression may be empty — an empty condition counts as true, forever."
+        },
+        {
+          "type": "example",
+          "heading": "Melody from a Name",
+          "problem": "Example 6.1 — read a character, print the note for its ASCII code mod 7. Which note for 'A'? And what if the break after case 2 is missing?",
+          "steps": [
+            {
+              "text": "'A' has ASCII code 65"
+            },
+            {
+              "text": "65 % 7 leaves remainder 2"
+            },
+            {
+              "text": "case 2 prints note C"
+            },
+            {
+              "text": "no break: 'A#' prints C, then D",
+              "highlight": true
+            }
+          ],
+          "result": "C",
+          "narration": "Book example six point one turns a name into a melody: read one character, take its ASCII code modulo seven, print the note for that remainder. Follow capital A. Its code is sixty-five. Sixty-five modulo seven — seven nines are sixty-three — leaves remainder two, and case two prints note C. The lab's buggy version omits the break after case two: input capital A and the sentinel hash prints C, then falls through into case three and prints D as well. The fix is one word — break after the printf — and the same input then prints only C."
+        },
+        {
+          "type": "concept",
+          "heading": "break and continue",
+          "bullets": [
+            "break exits loop or switch",
+            "continue jumps to the condition",
+            "sentinel '#' ends the melody",
+            "inner declarations shadow the outer"
+          ],
+          "narration": "Break exits the innermost loop or switch. In the melody, break inside a case merely leaves the switch, and the loop reads the next character. Continue skips the rest of the innermost body and jumps to the condition — in a for loop, to the update; the gcd example skips every i that does not divide a. Scope, from the lecture: a variable lives in the block of its declaration, and an inner declaration shadows the outer — a local n-max of twenty-five hides the global twenty. Static keeps a value between calls; register asks for a register."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "non-zero is true, 0 is false",
+            "else binds to the nearest if — use { }",
+            "no break in a case: fall-through",
+            "while tests first; do-while runs first",
+            "'A' gives 65; 65 % 7 = 2; note C"
+          ],
+          "narration": "Chapter two, fixed. Any non-zero value is true. Else without braces binds to the nearest if. No break in a case means fall-through — the melody printed C, then D. While tests the condition first; do-while runs the body first, at least once. Break exits; continue skips to the test. And capital A became note C via sixty-five modulo seven."
+        }
+      ]
+    },
+    {
+      "title": "Functions and Structures",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "Functions and Structures",
+          "subtitle": "Week 6 — from Scratch blocks to a coffee machine",
+          "narration": "Chapter three: functions and structures — week six. Scratch blocks become real C functions, structures build a coffee machine, and we cover the input-output kit: printf, scanf, files, and the command line."
+        },
+        {
+          "type": "concept",
+          "heading": "Definition, Prototype, Call",
+          "bullets": [
+            "prototype — announce it first",
+            "call — run it now",
+            "definition — describe its work",
+            "return value is not printed output"
+          ],
+          "narration": "A function is a named set of instructions, and three words describe its life. The prototype announces it — a declaration ending with a semicolon, no body, placed before main. The call runs it now, by name, with parentheses. The definition describes its work — the body in curly braces. In the header void print hello world void, the first void means no return value; the void in parentheses means no parameters. And keep two things apart: a return value goes back to the caller, printed output goes to the screen. This function prints, but returns nothing."
+        },
+        {
+          "type": "code",
+          "heading": "A Complete Program",
+          "code": "void print_hello_world(void);  /* prototype */\nint main(void)\n{\n    print_hello_world();       /* call */\n    print_hello_world();\n    return 0;\n}\nvoid print_hello_world(void)   /* definition */\n{\n    printf(\"Hello, world!\\n\");\n}",
+          "highlight": [
+            1,
+            4,
+            9
+          ],
+          "narration": "The complete program, top to bottom. Line one is the prototype: void print hello world void, semicolon, no body — main now knows the function exists. Inside main, two calls run it, and the program prints Hello, world twice. After main comes the definition with the real body: printf Hello, world. Change the message here, and both calls print the new text — write once, call anywhere, that is reuse. Execution always starts with main; stdio dot h declares printf, and the CS50 header declares the input helpers like get double."
+        },
+        {
+          "type": "example",
+          "heading": "IntegerRoot: 27 and 16",
+          "problem": "int first = IntegerRoot(27); int second = IntegerRoot(16); printf(\"%d %d\\n\", first, second);",
+          "steps": [
+            {
+              "text": "27: 5 × 5 = 25 ≤ 27; 6 × 6 = 36 > 27"
+            },
+            {
+              "text": "the integer root of 27 is 5"
+            },
+            {
+              "text": "16: 4 × 4 = 16, exactly"
+            },
+            {
+              "text": "printf prints 5 4",
+              "highlight": true
+            }
+          ],
+          "result": "5 4",
+          "narration": "IntegerRoot, from the textbook, returns the integer square root: the largest whole number whose square does not exceed the input. The result type is int. Number is the parameter — the input's name inside the function; twenty-seven and sixteen are the arguments, the values the caller passes. The function returns a number, and the caller — main — prints it with percent d. For twenty-seven: five times five is twenty-five, at most twenty-seven; six times six is thirty-six, too big. Root: five. For sixteen, four times four is exactly sixteen. Root: four. So printf prints five, then four — on separate calls, one result each."
+        },
+        {
+          "type": "concept",
+          "heading": "Structures: typedef struct",
+          "bullets": [
+            "struct groups fields into a type",
+            "typedef gives the name: Stock",
+            "dot access: stock.water_ml",
+            "Stock is a type; stock a variable"
+          ],
+          "narration": "A structure is a type that groups related fields into one record. The definition sits above main: typedef, struct, braces with the fields — water, milk, beans, cups — then the new type name, Stock, and a semicolon. A field is one named value in the record. A variable is declared like any other: Stock stock equals five hundred, two hundred, forty, three — the values fill the fields in order. One field is reached with the dot: stock dot water. And case matters: capital Stock is the type; lowercase stock is a variable."
+        },
+        {
+          "type": "code",
+          "heading": "Records Are Copied",
+          "code": "Stock stock = {500, 200, 40, 3};\nStock preview =\n    stock_after_water_use(stock, 100);\nprintf(\"%d\\n\", stock.water_ml);   /* 500 */\nprintf(\"%d\\n\", preview.water_ml); /* 400 */\nstock = stock_after_water_use(stock, 50);\nprintf(\"%d\\n\", stock.water_ml);   /* 450 */",
+          "highlight": [
+            2,
+            4,
+            6
+          ],
+          "narration": "The week's deepest idea: records travel as copies. The helper receives a copy of the stock parameter, subtracts from the copy, and returns it. The caller starts at five hundred milliliters. First call: preview saves the returned record with four hundred — but the original still prints five hundred, because only the copy changed. Second call, for fifty: it starts from the unchanged five hundred, returns four hundred fifty — and this time we save it back into stock. The caller decides where the result lives; without the assignment, stock never changes."
+        },
+        {
+          "type": "table",
+          "heading": "printf and scanf Formats",
+          "columns": [
+            "Specifier",
+            "Meaning",
+            "Example"
+          ],
+          "rows": [
+            [
+              "%d, %i",
+              "integer",
+              "printf(\"%d\", 10)"
+            ],
+            [
+              "%u, %x",
+              "unsigned, hex",
+              "printf(\"%x\", 10)"
+            ],
+            [
+              "%c",
+              "one character",
+              "printf(\"%c\", 'A')"
+            ],
+            [
+              "%s",
+              "string",
+              "printf(\"%s\", \"hello\")"
+            ],
+            [
+              "%f, %e",
+              "real number",
+              "printf(\"%.2f\", 1.14)"
+            ],
+            [
+              "%%",
+              "literal percent",
+              "printf(\"%d%%\", 10)"
+            ]
+          ],
+          "narration": "Printf and scanf live in stdio dot h. A format is percent, then optional flags, width, dot precision, length, and the type letter. D and i print integers; u unsigned; x hexadecimal — ten becomes a. C prints one character; s a string; f a real number, six decimals by default; percent percent a literal percent sign. Width, flags and precision decorate: percent four d pads ten to four characters, and percent dot four s cuts hello to hell. Scanf is the input twin, but its arguments must be addresses — scanf percent d, ampersand x. An array name is already an address, so percent s takes none."
+        },
+        {
+          "type": "concept",
+          "heading": "goto, Files, and the Command Line",
+          "bullets": [
+            "goto label — Dijkstra's warning",
+            "fopen modes: \"r\", \"w\", \"a\"",
+            "stdin, stdout, stderr are streams",
+            "argc counts; argv[0] is the name"
+          ],
+          "narration": "Three lecture extras. Goto jumps unconditionally to a label — a name with a colon — within one function. Dijkstra's nineteen sixty-eight letter, Go To Statement Considered Harmful, warned that heavy goto produces spaghetti code; in C it survives for escaping nested blocks on errors. Files: fopen opens a stream — r for reading, w for writing, a for appending — and returns NULL on failure; fgets and fputs move lines; fclose releases the resource. The command line: main takes argc and argv — for dot slash cat a dot txt, argc is three, and argv zero is the program's own name."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "prototype declares; call runs; defines",
+            "parameter — name inside; argument — value",
+            "IntegerRoot(27), IntegerRoot(16) print 5 4",
+            "struct fields reached with a dot",
+            "scanf needs &x; array names are addresses"
+          ],
+          "narration": "Chapter three, fixed. A prototype declares, a call runs, a definition describes. The parameter is the name inside; the argument, the value passed. IntegerRoot gave five and four. Structures group fields, reached with a dot — and a struct travels as a copy, so save the record you keep. Scanf needs ampersand x; an array name is already an address."
+        }
+      ]
+    },
+    {
+      "title": "Pointers, Strings, and Algorithms",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "Pointers, Strings, and Algorithms",
+          "subtitle": "Week 7 — the address of everything",
+          "narration": "Chapter four: pointers, strings, and the first algorithms — the lectures of week seven. What an address is, how ampersand and star work, what lives on the stack and the heap, and how a function changes its caller's variables."
+        },
+        {
+          "type": "concept",
+          "heading": "A Pointer Is an Address",
+          "bullets": [
+            "& — take the address",
+            "* — read or write the value",
+            "address of t has type t *",
+            "NULL points to nothing"
+          ],
+          "narration": "Every variable in memory has an address. A pointer is that address — through it you can read and modify the variable from anywhere, which is exactly what data structures need. The ampersand operator takes the address: the address of a variable of type t has type pointer to t. The star operator dereferences — reads or writes the value at the address — and a dereferenced pointer behaves like a regular variable. The null pointer, NULL, points to nothing. Not everything has an address: register variables, literals and constants, and bare expression results do not."
+        },
+        {
+          "type": "code",
+          "heading": "Declaring and Dereferencing",
+          "code": "int n = 4;\ndouble pi = 3.14159;\nint *pn = &n;          /* address of n */\ndouble *ppi = &pi;     /* address of pi */\n\nprintf(\"pi = %g\\n\", *ppi);   /* 3.14159 */\n*ppi = *ppi + *pn;     /* pi is now 7.14159 */",
+          "highlight": [
+            3,
+            4,
+            6,
+            7
+          ],
+          "narration": "Line by line. n is an integer, four. pi is a double, three point one four one five nine. pn, a pointer to int, holds ampersand n — the address of n. ppi, a pointer to double, holds the address of pi. Now the star at work: printf with percent g and star ppi reads pi through the pointer — three point one four one five nine. The last line writes through the pointer: star ppi equals star ppi plus star pn reads pi and n via their addresses, adds four, and stores the sum back into pi — which becomes seven point one four one five nine."
+        },
+        {
+          "type": "concept",
+          "heading": "Stack and Heap",
+          "bullets": [
+            "virtual memory: the OS abstraction",
+            "stack: declared variables",
+            "heap: dynamic memory",
+            "pointers add extra outputs"
+          ],
+          "narration": "Physical memory is the real storage — cache, RAM, disk — different capacities, different speeds, shuffled by the operating system while the program runs. What code sees is virtual memory: an address space the OS maps onto physical memory. Two regions matter. The stack holds declared variables — and one frame for every unfinished call, as chapter five will show. The heap is where dynamic memory lives. And since a C function returns at most one value, pointers provide the extra outputs — extended Euclid writes x and y through two pointer parameters."
+        },
+        {
+          "type": "code",
+          "heading": "swap with Pointers",
+          "code": "void swap(int *x, int *y)\n{\n    int temp = *x;\n    *x = *y;\n    *y = temp;\n}\n\nint a = 5, b = 7;\nswap(&a, &b);\n/* now a = 7, b = 5 */",
+          "highlight": [
+            3,
+            4,
+            5,
+            10
+          ],
+          "narration": "The classic. Swap takes two pointers to int. Inside, temp saves the value at the first address; star x equals star y copies the second value into the first location; star y equals temp completes the exchange. Notice: we never move the pointers themselves — only the values they point to. The call passes ampersand a and ampersand b, the caller's addresses, so the function reaches into main's memory: after the call, a is seven and b is five. Without addresses, swap would receive copies — the bug our next example dissects in full."
+        },
+        {
+          "type": "example",
+          "heading": "Why swap(x, y) Prints \"1 2\"",
+          "problem": "void swap(int a, int b) exchanges its two parameters. Main calls swap(x, y) with x = 1, y = 2, then prints x and y. What appears on the screen?",
+          "steps": [
+            {
+              "text": "C passes copies of the values"
+            },
+            {
+              "text": "swap exchanges its own local copies"
+            },
+            {
+              "text": "x and y in main never change"
+            },
+            {
+              "text": "prints 1 2 — fix: swap(&x, &y)",
+              "highlight": true
+            }
+          ],
+          "result": "1 2",
+          "narration": "Bug hunt problem eight. The swap looks perfectly correct: temp equals a, a equals b, b equals temp. Yet after swap of x and y — x one, y two — printf prints one, two. Unchanged. Why? C passes arguments by value: the function receives copies of one and two and swaps those copies flawlessly. But the copies live in swap's own stack frame and vanish when it returns; the variables in main never notice. The fix is the pointer version: parameters of type int pointer, called with ampersand x and ampersand y — the function writes through the addresses, and main prints two, one."
+        },
+        {
+          "type": "concept",
+          "heading": "Arrays and Address Arithmetic",
+          "bullets": [
+            "arr behaves like &arr[0]",
+            "pa + i points to arr[i]",
+            "the step is the type size",
+            "sizeof(arr): the whole array"
+          ],
+          "narration": "Primitive arrays are a pointer to a block of continuous memory. Arr behaves like a pointer to element zero — but unlike a real pointer, it cannot be reassigned. Address arithmetic: pa plus i points to arr i, and the address grows by i times the type's size — pointer steps are scaled; a pointer is not an int. If arr zero sits at address one hundred and an int is four bytes, arr three is at one hundred twelve. Cast to char, the step is one byte — three ints mean plus twelve. Sizeof of a variable gives its type; of an array, the whole array."
+        },
+        {
+          "type": "concept",
+          "heading": "A String Ends with '\\0'",
+          "bullets": [
+            "\"hello\" = 5 letters + terminator",
+            "the zero byte marks the end",
+            "%s reads until the zero byte",
+            "dog and cat arrays: not strings"
+          ],
+          "narration": "Strings are character arrays; C sets no length limit — a zero byte marks the end. The literal hello is five letters plus the terminator: six bytes. Every percent s, every strcpy, every strlen relies on that zero byte. Week four's arrays d-o-g and c-a-t held three characters each, with no terminator — plain arrays, not strings, printed one character at a time. Through a pointer you can even edit text: dereference pc plus ten and assign capital S, and This is a string becomes This is a capital S String. Remember the missing terminator — it is bug hunt number one."
+        },
+        {
+          "type": "table",
+          "heading": "The string.h Toolbox",
+          "columns": [
+            "Function",
+            "Purpose",
+            "Returns"
+          ],
+          "rows": [
+            [
+              "strcpy(t, f)",
+              "copy f into t",
+              "char *"
+            ],
+            [
+              "strncpy(t, f, n)",
+              "copy n characters",
+              "char *"
+            ],
+            [
+              "strcmp(s, t)",
+              "dictionary compare",
+              "0 / <0 / >0"
+            ],
+            [
+              "strlen(s)",
+              "length, no terminator",
+              "size_t"
+            ],
+            [
+              "strcat(t, f)",
+              "append f to t",
+              "char *"
+            ],
+            [
+              "strchr(s, c)",
+              "find first c",
+              "pointer / NULL"
+            ]
+          ],
+          "narration": "The string dot h toolbox. Strcpy copies a whole string into the target buffer; strncpy copies at most n characters. Strcmp compares in dictionary order — lowercase after uppercase — and returns zero for equal, negative when the first comes before, positive when after. Strlen returns the length without the terminator — so a copy needs one byte more. Strcat appends one string to the end of another. Strchr returns a pointer to the first occurrence of a character, or NULL; strrchr, to the last. The exam quotes these signatures exactly."
+        },
+        {
+          "type": "example",
+          "heading": "What Does strcmp Return?",
+          "problem": "Evaluate: strcmp(\"A\", \"a\"), strcmp(\"IRONMAN\", \"BATMAN\"), strcmp(\"aA\", \"aA\"), strcmp(\"aA\", \"a\").",
+          "steps": [
+            {
+              "text": "\"A\" vs \"a\": 'A' comes first → negative"
+            },
+            {
+              "text": "\"IRONMAN\" vs \"BATMAN\": I after B → positive"
+            },
+            {
+              "text": "\"aA\" vs \"aA\": identical → 0"
+            },
+            {
+              "text": "\"aA\" vs \"a\": longer is greater → positive"
+            },
+            {
+              "text": "0 if and only if the strings are equal",
+              "highlight": true
+            }
+          ],
+          "result": "0 = equal",
+          "narration": "The guide's four comparisons — think dictionary order on character codes. Capital A against lowercase a: the codes differ, capital comes first — negative. Ironman against Batman: I comes after B — positive. Double a capital A against itself: identical — strcmp returns exactly zero, and that is the equality test. Double a capital A against plain a: the longer string is greater — positive again. Zero means equal, negative means the first is smaller, positive means greater. Never compare strings with double equals — that compares addresses, as chapter six will show."
+        },
+        {
+          "type": "concept",
+          "heading": "Linear and Binary Search",
+          "bullets": [
+            "linear: pointer or NULL",
+            "binary needs sorted data",
+            "each step keeps one half",
+            "binary search: O(log n)"
+          ],
+          "narration": "Linear search walks the array with a pointer, compares each element, and returns a pointer to the match or NULL — on average, half the elements. Binary search is divide and conquer with two preconditions: the data must be sorted, and you need random access to the middle. Compare with the middle: smaller — keep the left half; larger — the right. Every step halves the segment, so the cost is big O of log n, average and worst case; the library ships it as bsearch. On sequential storage, the lecture notes, halving jumps are wasteful — linear search can be wiser."
+        },
+        {
+          "type": "table",
+          "heading": "Four Algorithms and Their Costs",
+          "columns": [
+            "Algorithm",
+            "Average",
+            "Worst case"
+          ],
+          "rows": [
+            [
+              "Linear search",
+              "half the array",
+              "n elements"
+            ],
+            [
+              "Insertion sort",
+              "O(n²)",
+              "O(n²)"
+            ],
+            [
+              "Quicksort",
+              "O(n log n)",
+              "O(n²)"
+            ],
+            [
+              "Binary search",
+              "O(log n)",
+              "O(log n)"
+            ]
+          ],
+          "narration": "The costs on one card. Linear search: about half the array on average, the whole array in the worst case. Insertion sort finds an element out of place, shifts the larger ones down, and inserts it where it belongs — n squared. Quicksort picks a pivot, splits smaller and larger sides, and sorts them recursively — n log n on average, n squared in the worst case, and the pivot decides; it sorts in place, and the library calls it qsort. Binary search is logarithmic in both cases — sorted data and random access required. Big-O is about growth, not seconds."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "& takes an address; * reaches the value",
+            "arr[0] at 100: arr[3] at 112",
+            "stack: declared; heap: dynamic",
+            "a string ends in '\\0'; copies need +1",
+            "strcmp 0 = equal; qsort, bsearch in stdlib"
+          ],
+          "narration": "Chapter four, fixed. Ampersand takes an address; star reaches the value. Arr zero at one hundred means arr three at one hundred twelve — the step is the type's size. Declared variables sit on the stack, dynamic memory on the heap. A string ends in a zero byte, and a copy needs one byte more. Strcmp returns zero only for equals; quicksort and bsearch live in the standard library."
+        }
+      ]
+    },
+    {
+      "title": "Recursion",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Recursion",
+          "subtitle": "Week 7 — a function that calls itself",
+          "narration": "Chapter five: recursion — the week seven lab. A function that calls itself on a smaller problem. The three ingredients, countdown and factorial traced on the call stack, and the Tower of Hanoi."
+        },
+        {
+          "type": "concept",
+          "heading": "Recursion: the Queue Analogy",
+          "bullets": [
+            "a function calls itself, smaller",
+            "ask the person behind you",
+            "the last answers: only me — 1",
+            "answers return, each adds one"
+          ],
+          "narration": "Recursion: a function calls itself on a smaller version of the same problem. The lecture's analogy — how many people stand from you to the end of the queue, including you? You ask the person behind you and wait; they ask the next. The last person answers directly: only me — one. The answers travel back, each person adding one: one plus one is two, two plus one is three. Same method, smaller question, until one case is answered outright. And remember: a call suspends its caller — main waits."
+        },
+        {
+          "type": "concept",
+          "heading": "Three Ingredients of Recursion",
+          "bullets": [
+            "base case: no new call",
+            "smaller problem: simpler input",
+            "progress toward the base case",
+            "count_down(n) forever: no progress"
+          ],
+          "narration": "Every correct recursion mixes three ingredients. One, the base case — an answer with no new call: n equals zero returns at once. Two, the smaller problem — the same function on a simpler input: countdown of n minus one. Three, progress — every valid path must approach the base case: three, two, one, zero. A base case in the code is not enough: a call with the same n prints three forever and can exhaust the stack — the fix is n minus one. Fibonacci is richer — two base cases, F of zero and F of one; the naive version computes fibonacci of two twice."
+        },
+        {
+          "type": "code",
+          "heading": "count_down",
+          "code": "void count_down(int n)\n{\n    if (n == 0)\n        return;          /* base case */\n    printf(\"%i\\n\", n);\n    count_down(n - 1);   /* smaller problem */\n}",
+          "highlight": [
+            3,
+            5,
+            6
+          ],
+          "narration": "Our first recursive function. If n is zero, return — the base case: nothing printed, the call simply ends. Otherwise print n, then call count down of n minus one — same function, smaller input. Trace count down of three: it prints three and calls count down of two; that prints two and calls one; that prints one and calls zero — which returns at once. Zero is reached but never printed. Each call owns a private n, stored in its own stack frame, and only the top call is running at any moment."
+        },
+        {
+          "type": "example",
+          "heading": "count_down(3) vs count_up(3)",
+          "problem": "count_down prints before the recursive call; count_up prints after it. What does each one print for n = 3?",
+          "steps": [
+            {
+              "text": "count_down: printf before the call"
+            },
+            {
+              "text": "values appear on the way down: 3 2 1"
+            },
+            {
+              "text": "count_up: printf after the call"
+            },
+            {
+              "text": "printing waits for the return: 1 2 3"
+            },
+            {
+              "text": "count_down: 3 2 1 — count_up: 1 2 3",
+              "highlight": true
+            }
+          ],
+          "result": "3 2 1 and 1 2 3",
+          "narration": "Same ingredients, opposite order — and the output reverses; this is week seven test question ten. In count down, printf stands before the recursive call, so values appear on the way down: three, two, one. In count up, printf stands after the call: the function dives to zero before anything prints, and the prints fire on the way back — one, two, three. The order of printing follows the order of execution. Both functions visit n equals zero and stop. Before the call: on the way down. After the call: on the way back."
+        },
+        {
+          "type": "code",
+          "heading": "factorial",
+          "code": "int factorial(int n)\n{\n    if (n == 0)\n        return 1;               /* base case */\n    int smaller = factorial(n - 1);\n    return n * smaller;\n}",
+          "highlight": [
+            3,
+            5,
+            6
+          ],
+          "narration": "Factorial: three factorial is three times two times one — six. The key observation: three factorial is three times two factorial — the smaller answer sits inside the bigger one. If n is zero, return one — were the base zero, every product above it would collapse to zero. Otherwise compute factorial of n minus one first, keep it in smaller, and return n times smaller. Each call keeps its own n, waits for the smaller call to finish — and that waiting is exactly what the call stack is for."
+        },
+        {
+          "type": "concept",
+          "heading": "The Call Stack",
+          "bullets": [
+            "each call gets its own frame",
+            "frame: locals, parameters, return point",
+            "only the top call is active",
+            "recursion and loop: same 6"
+          ],
+          "narration": "Each call gets its own stack frame — its parameters, its locals, and the point where execution continues. When factorial of three calls factorial of two, the caller is suspended, not forgotten: its frame waits with the unfinished work, multiply by three. At any moment only the top call is active. Returns remove frames from the top, one by one. For factorial, recursion and a simple loop give the same six with a similar count of multiplications — but for self-similar, nested structures, the recursive form is often simpler to write."
+        },
+        {
+          "type": "example",
+          "heading": "Tracing factorial(3)",
+          "problem": "int result = factorial(3); — follow the call stack. What is result?",
+          "steps": [
+            {
+              "text": "calls: factorial(3) → (2) → (1) → (0)"
+            },
+            {
+              "text": "the base case factorial(0) returns 1"
+            },
+            {
+              "text": "(1) returns 1 × 1 = 1; (2) returns 2"
+            },
+            {
+              "text": "(3) returns 3 × 2 = 6"
+            },
+            {
+              "text": "result = 6",
+              "highlight": true
+            }
+          ],
+          "result": "6",
+          "narration": "The exam's favorite trace. Main calls factorial of three and waits. That frame holds n equals three and calls factorial of two; that holds n equals two and calls factorial of one, which calls factorial of zero. Only the top call is active. The base returns one — but that is not the final answer: reaching the base does not hand six to main. Returns now peel the frames back. Factorial of one gets one, returns one times one — one. Factorial of two returns two — then three times two — six. Main continues with result six. Calls went three, two, one, zero; returns came one, one, two, six."
+        },
+        {
+          "type": "example",
+          "heading": "Tower of Hanoi",
+          "problem": "Move 3 disks from rod A to rod C using rod B. One disk at a time, only the top disk, never a larger disk on a smaller one. How many moves?",
+          "steps": [
+            {
+              "text": "move 2 disks A → B, using C: 3 moves"
+            },
+            {
+              "text": "move disk 3 A → C: 1 move"
+            },
+            {
+              "text": "move 2 disks B → C, using A: 3 moves"
+            },
+            {
+              "text": "3 + 1 + 3 = 7 moves",
+              "highlight": true
+            }
+          ],
+          "result": "7 moves",
+          "narration": "Book exercise eight point five. Three disks on rod A; target, rod C; spare, rod B. Rules: one disk at a time, only the top disk, never a larger on a smaller. Think recursively. Move the top two disks from A to B, using C — the same problem one size smaller, three single moves. Move disk three from A to C — one move. Move the two disks from B to C, using A — three moves. Three plus one plus three: seven moves. Base case: no disks, no moves. The sequence begins disk one A to C, disk two A to B, disk one C to B, disk three A to C."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "base case + smaller problem + progress",
+            "count_down(3): 3 2 1; count_up(3): 1 2 3",
+            "factorial(3): calls 3-2-1-0; result 6",
+            "0! = 1 — or every product collapses",
+            "Hanoi: 3 + 1 + 3 = 7 moves",
+            "fibonacci(4) = 3: two base cases"
+          ],
+          "narration": "Chapter five, fixed. Recursion stands on three legs: base case, smaller problem, progress. Count down of three prints three two one; count up, one two three. Factorial of three: calls three, two, one, zero — returns one, one, two, six. Zero factorial is one. Hanoi: three plus one plus three — seven moves. And fibonacci of four is three, built on two base cases."
+        }
+      ]
+    },
+    {
+      "title": "Bug Hunts and the Cheat Sheet",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Bug Hunts and the Cheat Sheet",
+          "subtitle": "Find it, explain it, fix it",
+          "narration": "Chapter six: the bug hunts and the cheat sheet. We map the bug families, fix a mis-ordered leap year, catch a murderous semicolon, and pin down the memory rules that keep strings and pointers safe."
+        },
+        {
+          "type": "concept",
+          "heading": "How to Hunt Bugs",
+          "bullets": [
+            "read the expected behavior first",
+            "compile with -Wall and sanitizer",
+            "explain the bug in one sentence",
+            "fix it, then test the inputs"
+          ],
+          "narration": "The worksheet rules are worth adopting as habits. First, read the expected behavior — every task tells you what the program should print. Compile with gcc, dash Wall, and the address sanitizer — sanitizer messages are excellent discussion material, and the pairs format makes you explain aloud. Then find the faulty line, explain the bug in one sentence, fix it, and test with the suggested inputs. And a lesson from the loops sheet: the very first task was correct as printed — compute the result by hand before changing any working code."
+        },
+        {
+          "type": "table",
+          "heading": "The Bug Map",
+          "columns": [
+            "Error family",
+            "Bug hunt"
+          ],
+          "rows": [
+            [
+              "missing '\\0' or +1 byte",
+              "bugs 1, 4, 9"
+            ],
+            [
+              "pointer vs array confusion",
+              "bugs 2, 3"
+            ],
+            [
+              "read-only / dangling memory",
+              "bugs 5, 6, 12"
+            ],
+            [
+              "uninitialized pointer",
+              "bugs 7, 11"
+            ],
+            [
+              "pass by value",
+              "bug 8"
+            ],
+            [
+              "unsigned wraparound",
+              "bug 10"
+            ]
+          ],
+          "narration": "The instructor's key sorts the twelve pointer-and-string bugs into families. Three forget the terminator or the plus one byte: a five-cell array, a five-byte destination for a six-byte copy, malloc without strlen plus one. Two confuse pointer with array: sizeof on a pointer returns eight, not five; double equals compares two different addresses. Three touch forbidden memory: a read-only literal, a dangling pointer to a vanished buffer, a read after free. Two never assign their pointer. One assumes pass by reference; one counts down unsigned — wrapping around instead of going negative."
+        },
+        {
+          "type": "code",
+          "heading": "Bug: Leap Year in the Wrong Order",
+          "code": "int is_leap(int year) {\n    if (year % 4 == 0)\n        return 1;        /* 1900 stops here! */\n    if (year % 100 == 0)\n        return 0;\n    if (year % 400 == 0) /* unreachable */\n        return 1;\n    return 0;\n}\n/* fix: check % 400, then % 100, then % 4 */",
+          "highlight": [
+            2,
+            6
+          ],
+          "narration": "Bug hunt C, problem three. Expected: nineteen hundred is a common year — zero. The function returns one. Read the order: the first test is divisible by four; nineteen hundred passes it and returns one immediately — wrong. The four hundred branch below is unreachable in principle: every multiple of four hundred is also a multiple of four, caught above. The fix mirrors chapter one: check four hundred first, then one hundred, then four — or return the compact expression in a single line. The order of the conditions is part of the logic."
+        },
+        {
+          "type": "example",
+          "heading": "Why It Prints 11",
+          "problem": "for (i = 1; i <= 10; i++);  { sum += i; }  printf(\"%d\", sum); — why does it print 11 instead of 55?",
+          "steps": [
+            {
+              "text": "the ';' after for empties the body"
+            },
+            {
+              "text": "the loop runs 10 times doing nothing"
+            },
+            {
+              "text": "i finishes at 11"
+            },
+            {
+              "text": "the block runs once: sum = 11",
+              "highlight": true
+            },
+            {
+              "text": "remove the ';' → sum = 55"
+            }
+          ],
+          "result": "11",
+          "narration": "Bug hunt loops, problem two — trace it slowly; the bug hides in plain sight. Initialization: i is one. Condition: at most ten — true. Body: the empty statement does nothing. Update: i becomes two. Repeat until i is eleven and the condition fails — the loop is over, i equals eleven. Next statement: the block adds i to sum — eleven. Printf prints eleven, not the expected fifty-five. The criminal is the semicolon after the for header: it empties the body, and the block after it runs exactly once. Delete it, and the sum is fifty-five."
+        },
+        {
+          "type": "code",
+          "heading": "Bug: Not a String",
+          "code": "char s[5] = {'h', 'e', 'l', 'l', 'o'};\nprintf(\"%s\\n\", s);    /* reads past the end! */\n\n/* fix: make room for the terminator */\nchar s2[6] = {'h', 'e', 'l', 'l', 'o', '\\0'};\nprintf(\"%s\\n\", s2);   /* prints hello */",
+          "highlight": [
+            2,
+            5
+          ],
+          "narration": "Bug hunt number one. The array has exactly five cells for five letters — no room for the zero byte. Printf with percent s keeps reading past the array until it happens to meet a zero byte somewhere: unpredictable garbage. Two fixes: six cells with the terminator written by hand, or char s brackets equals hello in quotes — the compiler counts six cells and adds the terminator itself. The same family bites malloc: a copy of a five-letter string needs strlen plus one bytes, or the heap block overflows by exactly one byte."
+        },
+        {
+          "type": "code",
+          "heading": "Bug: == and Read-Only Literals",
+          "code": "char a[] = \"cat\";\nchar b[] = \"cat\";\nif (a == b)             /* compares addresses */\n    puts(\"Different\");\nif (strcmp(a, b) == 0)  /* compares contents */\n    puts(\"Same\");\n\nchar *s = \"hello\";\ns[0] = 'J';             /* crash: read-only! */",
+          "highlight": [
+            3,
+            6,
+            9
+          ],
+          "narration": "Two classics from the key. First, double equals on strings: a and b are two separate arrays that happen to hold the same text — double equals compares their addresses, which differ, so Different prints even though the words match. Strcmp compares contents and returns zero for equal — the correct test. Second, the read-only literal: the pointer s aims at hello in read-only memory; writing s zero equals capital J typically crashes with a segmentation fault. The fix, char s brackets equals hello, makes a writable copy — and Jello prints happily."
+        },
+        {
+          "type": "concept",
+          "heading": "Memory Bugs to Remember",
+          "bullets": [
+            "literals are read-only",
+            "a returned local address dangles",
+            "an uninitialized pointer is random",
+            "after free(p), don't touch p"
+          ],
+          "narration": "Four memory rules to keep. String literals are read-only: edit through a plain char pointer and you crash; char s brackets makes a writable copy. A pointer returned from a function to its local array dangles — the frame is gone, the address is dead, and the compiler usually warns. An uninitialized pointer holds a garbage address: writing through it lands somewhere random — it may even seem to work, which is worse. And after free, do not touch the pointer: set it to NULL and let the mistake be loud."
+        },
+        {
+          "type": "concept",
+          "heading": "Key Rules Before the Test",
+          "bullets": [
+            "';' after for empties the body",
+            "arguments are passed by value",
+            "recursion: base + smaller + progress",
+            "sizeof: bytes; strlen: characters"
+          ],
+          "narration": "The cheat sheet's key rules. A semicolon after the for header empties the loop body — the block after it runs once. Arguments are passed by value: to change the caller's variable, pass a pointer — swap of ampersand x and ampersand y. Recursion is base case plus smaller problem plus progress — without progress, the stack pays for it. Sizeof counts bytes while strlen counts characters — and for copying, add one byte for the terminator. Uninitialized variables are garbage: C has no default values at all."
+        },
+        {
+          "type": "table",
+          "heading": "Operator Precedence",
+          "columns": [
+            "Level",
+            "Operators",
+            "Note"
+          ],
+          "rows": [
+            [
+              "1 (highest)",
+              "++ -- (cast) sizeof",
+              "unary"
+            ],
+            [
+              "2",
+              "* / %",
+              "above + and -"
+            ],
+            [
+              "3",
+              "+ -",
+              "additive"
+            ],
+            [
+              "4",
+              "== !=",
+              "above && ||"
+            ],
+            [
+              "5",
+              "&& ||",
+              "logical"
+            ],
+            [
+              "6 (lowest)",
+              "= += -= *= /= %=",
+              "assignment"
+            ]
+          ],
+          "narration": "The precedence ladder, highest to lowest. Level one: the unary operators — increment, decrement, cast, sizeof. Level two: multiplicative — star, slash, percent — above the additive plus and minus. Level four: equality — double equals and not equals — above the logical and and or. Assignment is the very bottom — which is why y equals x times three plus two groups as y equals x times three, plus two. The best advice from the slides: use parentheses generously, and never trust memory where you can be explicit."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "condition order is part of the logic",
+            "semicolon after for empties the body",
+            "strings need room for '\\0' (+1 byte)",
+            "== compares addresses; use strcmp",
+            "literals are read-only — char s[] copies"
+          ],
+          "narration": "Chapter six, fixed. Condition order is logic: four hundred first, then one hundred, then four. A semicolon after for empties the loop body. Strings need room for the terminator — and copies need one byte more. Double equals compares addresses; strcmp compares text and returns zero for equals. Literals are read-only — char s brackets makes a writable copy."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "4/3 with %f prints 1.000000",
+            "no break in a case: fall-through",
+            "do-while runs at least once",
+            "scanf needs &x; arrays are addresses",
+            "count_down(3): 3 2 1; fibonacci(4): 3",
+            "sizeof is bytes; strlen is characters"
+          ],
+          "narration": "One page before the test. Operand types decide division — four over three is one. No break means fall-through. Do-while runs at least once; continue skips to the condition. Scanf needs addresses; an array name already is one. To change a caller's variable, pass a pointer. Recursion: base case, smaller input, progress. Sizeof counts bytes; strlen counts characters — for a copy, add one. Run the exit checks once more — you are ready."
+        },
+        {
+          "type": "outro",
+          "message": "You covered all of weeks 4–7 — types, control, functions, pointers, strings, recursion. Now take the test — you are ready.",
+          "narration": "That was the complete guide for weeks four through seven — types and operators, control structures, functions and structures, pointers, strings and recursion, with every bug hunt fixed on the way. Review the cheat sheet, trace a few programs by hand — and good luck on the test. You are ready."
+        }
+      ]
+    }
+  ],
+  "outro_message": "You covered all of weeks 4–7 — types, control, functions, pointers, strings, recursion. Now take the test — you are ready.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

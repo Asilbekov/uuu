@@ -1,0 +1,935 @@
+{
+  "id": "cs_w47",
+  "language": "uz",
+  "course_title": "Informatika — C tilida dasturlash",
+  "test_title": "4–7-haftalar · Toʻliq qoʻllanma",
+  "subtitle": "Maʼlumot turlari · Boshqaruv · Funksiyalar · Koʻrsatkichlar · Rekursiya",
+  "chapters": [
+    {
+      "title": "Maʼlumot turlari va operatorlar",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "C tilida dasturlash — informatika kursining toʻrtinchi-yettinchi haftalariga toʻliq video qoʻllanmaga xush kelibsiz. Yarim soat ichida biz lektsiya va laboratoriya mashgʻulotlaridagi barcha qoidalarni koʻrib chiqamiz: maʼlumot turlari va operatorlar, boshqaruv konstruktsiyalari, funksiyalar va strukturalar, koʻrsatkichlar, satrlar va rekursiya — hamda mashhur xato ovlari. Video oxiriga kelib siz C dasturini qatorma-qator oʻqiy olasiz va u nimani chop etishini aniq oldindan ayta olasiz. Har bir bob oldingisiga tayangan holda oʻsib boradi — va oxirda hammasi bitta sahifaga yigʻiladi. Qulay oʻrnashib oling — boshlaymiz."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Maʼlumot turlari va operatorlar",
+          "subtitle": "4-hafta — butun kursning poydevori",
+          "narration": "Birinchi bob: maʼlumot turlari va operatorlar — toʻrtinchi hafta, butun kursning poydevori. Bu bobda: tur aslida nima, float va double qanchalik aniq, butun sonli boʻlishning tuzogʻi, mantiqiy ifodalarning qisqa baholanishi va kabisa yili qoidasi — barchasini tartib bilan koʻramiz."
+        },
+        {
+          "type": "concept",
+          "heading": "C tilining tur oilasi",
+          "bullets": [
+            "sonli: int, float, double",
+            "char — bitta asosiy belgi",
+            "foydalanuvchi: struct, union",
+            "string — CS50 dagi char *"
+          ],
+          "narration": "C tilidagi tur oilasi kichik. Sonli turlar: int — butun sonlar uchun, float va double — taxminiy haqiqiy qiymatlar uchun. Char bitta asosiy belgini saqlaydi. Struct va union — foydalanuvchi oʻzi aniqlaydigan turlar. Bool — rost yoki yolgʻon — stdbool nuqta h sarlavhasidagi makros. String esa CS50 yordamchisi: ostida u — belgilarga koʻrsatkich. Maʼlumot turi obyektl xotirada qabul qiladigan qiymatlar toʻplamini va unga ruxsat berilgan amallarni belgilaydi. Nomlar harflar, raqamlar va pastki chiziqdan tuziladi, harf bilan boshlanishi shart, kalit soʻz boʻla olmaydi va katta-kichik harfga sezgir: x va katta X — bu ikki xil oʻzgaruvchi."
+        },
+        {
+          "type": "concept",
+          "heading": "Oʻlchamlar, diapazonlar va aniqlik",
+          "bullets": [
+            "sizeof(char) har doim 1 bayt",
+            "char < short <= int <= long",
+            "float: ~6 muhim raqam",
+            "double: ~15 muhim raqam"
+          ],
+          "narration": "Aniq oʻlchamlar mashinaga bogʻliq, lekin C tartibni kafolatlaydi: char hech qachon short dan katta emas, short int dan katta emas, keyin long. Sizeof char — aynan bitta bayt, yaʼni kurs mashinasida sakkizta bit. Belgisiz tur oʻzining belgili qarindoshidan taxminan ikki barobar katta diapazonni sigʻdiradi. Haqiqiy sonlar uchun aniqlik qoidalari ishlaydi: float taxminan oltita, double esa taxminan oʻn besh muhim oʻnlik raqamni saqlaydi — aynan shu sababdan shar laboratoriyasida radius va hajm uchun double tanlangan. Va diqqat bilan eslab qoling: muhim raqamlar deyilganda nuqtadan keyingi raqamlar emas, nazarda tutiladi. Amaliy xulosa: aniqlik muhim boʻlgan joyda double oling — ortiqcha aniqlik hech qachon zarar qilmaydi."
+        },
+        {
+          "type": "code",
+          "heading": "Boʻlish tuzogʻi",
+          "code": "double fraction = 4 / 3;\nprintf(\"%f\\n\", fraction);   /* 1.000000 */\n\ndouble good = 4.0 / 3.0;\nprintf(\"%f\\n\", good);       /* 1.333333 */\n\nint x = 3 % 2;   /* 1 */\nint y = 7;\nprintf(\"%d %d %d\\n\", x, y % 4, y % 10);",
+          "highlight": [
+            1,
+            4
+          ],
+          "narration": "Haftaning asosiy tuzogʻi — qatorma-qator koʻramiz. Birinchi qator: toʻrtni uchga boʻlish. Ikkala operand ham butun, shuning uchun C butun sonli boʻlishni bajaradi va kasr qismini tashlab yuboradi — natija aynan bir. Faqat shundan keyin joylashtirish bu birni double ga aylantiradi va procent f bir nuqta nol nol nol nol nol nolni chop etadi. Qabul qiluvchining turi hech narsani oʻzgartirmaydi — hammasini operand turlari hal qiladi. Toʻrtinchi qatorda toʻrt nuqta nol uch nuqta nolga boʻlinadi: ikkala operand ham haqiqiy boʻladi va natija — bir nuqta uch uch uch uch uch uch. Yonida qoldiq operatori yuradi: uch modul ikki — bir, yetti modul oʻn — yetti."
+        },
+        {
+          "type": "concept",
+          "heading": "Mantiqiy operatorlar va qisqa baholash",
+          "bullets": [
+            "nol boʻlmagan — rost, 0 — yolgʻon",
+            "&& — va, || — yoki, ! — emas",
+            "natija aniqlanganda toʻxtaydi",
+            "yon effekt umuman ishlamasligi mumkin"
+          ],
+          "narration": "Taqqoslash operatorlari mantiqiy natija beradi: nol boʻlmagan har qanday qiymat — rost, nol — yolgʻon. Uch teng uch bitta beradi; katta A teng kichik a — nol beradi, chunki kodlar har xil. Ikkita ampersand — bu «va», ikkita vertikal chiziq — «yoki», undov belgisi — «emas». Asosiy qoida — qisqa baholash: natija aniqlanganda hisoblash darhol toʻxtaydi. Agar «va» ning chap tomoni allaqachon yolgʻon boʻlsa, oʻng tomoni umuman ishlamaydi — undagi yon effekt, masalan x teng x plus bir, sodir boʻlmaydi. Va «i kichik length va first i teng second i» ifodasida chegara tekshiruvi birinchi oʻrin turadi, shuning uchun massivdan tashqaridagi indeks hech qachon oʻqilmaydi."
+        },
+        {
+          "type": "code",
+          "heading": "Qisqa baholash ishda",
+          "code": "/* nol boʻlmagan — rost; 0 — yolgʻon */\n(3 == 3) && (2 * 3 == 6);      /* 1 */\n('A' == 'a') && (3 == 3);      /* 0 */\n2 == 3 || 'A' == 'A';          /* 1 */\n!(3 == 3);                     /* 0 */\n\n(0) && ((x = x + 1) > 0);      /* x oʻzgarmadi */\n(3 == 3) || ((c = getchar()) == 'y');  /* oʻqish yoʻq */",
+          "highlight": [
+            7,
+            8
+          ],
+          "narration": "Avval natijalarga qaraymiz. Uch teng uch va ikki karrali uch teng olti: ikkalasi rost — bir. Katta A teng kichik a — yolgʻon, shuning uchun butun «va» — nol. Ikki teng uch yoki katta A teng katta A: bir. Uch teng uch ning emasligi: nol. Endi yettinchi qator: chap operand nol, demak «va» oʻng tomonni umuman oʻqimasdan yolgʻon boʻladi — x oʻzgarmaydi. Oxirgi qatorda uch teng uch allaqachon rost, shuning uchun «yoki» zudlik bilan toʻxtaydi va getchar umuman chaqirilmaydi. «Va» va «yoki» ning oʻng tomonidagi yon effektlarga ishonmang — ular hech qachon ishlamasligi mumkin."
+        },
+        {
+          "type": "example",
+          "heading": "Kabisa yilimi yoki oddiymi?",
+          "problem": "2000, 1900, 2024 va 2100-yillarni tasniflang — kabisa yilimi yoki oddiymi?",
+          "steps": [
+            {
+              "text": "400 ga boʻlinadimi? 2000 — ha, kabisa"
+            },
+            {
+              "text": "100 ga boʻlinadimi? 1900 va 2100 — oddiy"
+            },
+            {
+              "text": "4 ga boʻlinadimi? 2024 — kabisa; 2025 — oddiy"
+            },
+            {
+              "text": "kabisa: 2000, 2024 — oddiy: 1900, 2100",
+              "highlight": true
+            }
+          ],
+          "result": "2000 va 2024 — kabisa yillari",
+          "narration": "Taqvim qoidasi qatʼiy ravishda tepadan pastga oʻqiladi. Birinchi savol: toʻrt yuzga boʻlinadimi? Ikki ming boʻlinadi — kabisa yili, masala yopildi. Boʻlinmasa: yuzga boʻlinadimi? Ming toʻqqiz yuz boʻlinadi va toʻrt yuz sinovidan oʻtmagani uchun bu oddiy yil; ikki ming yuz ham xuddi shu voqeani takrorlaydi. Ikkalasi ham oʻtmasa: toʻrtga boʻlinadimi? Ikki ming yigirma toʻrt boʻlinadi — kabisa; ikki ming yigirma besh — yoʻq. Kodda laboratoriyaning ixcham sharti turadi: year modul toʻrt yuz nolga teng, yoki year modul toʻrt nolga teng va year modul yuz nolga teng emas. Va ogohlantirish: faqat ikki qoʻshni yilni sinab koʻrish asr xatosini yashirib qoʻyadi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "operand turlari boʻlishni belgilaydi",
+            "4/3 — 1; 4.0/3.0 — 1.333333",
+            "float ~6 raqam; double ~15 raqam",
+            "qisqa baholash oʻng tomonni tashlab ketishi mumkin",
+            "kabisa: %400==0 yoki %4==0 va %100!=0"
+          ],
+          "narration": "Birinchi bob mustahkamlandi. Operand turlari boʻlishni belgilaydi: toʻrt boʻlish uch — bir; toʻrt nuqta nol boʻlish uch nuqta nol — bir nuqta uch uch. Float oltita, double oʻn besh muhim raqamni saqlaydi. Qisqa baholash oʻng tomonni va uning yon effektlarini tashlab ketishi mumkin. Kabisa yili esa toʻrt yuzga boʻlinadi, yoki toʻrtga boʻlinadi-yu, lekin yuzga boʻlinmaydi."
+        }
+      ]
+    },
+    {
+      "title": "Boshqaruv konstruktsiyalari",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "Boshqaruv konstruktsiyalari",
+          "subtitle": "5-hafta — qarorlar va takrorlanishlar",
+          "narration": "Ikkinchi bob: boshqaruv konstruktsiyalari — beshinchi hafta. Dastur qaror qabul qilishni va takrorlashni oʻrganadi: bloklar va haqiqat, if oilasi, switch, uchta sikl, break va continue. Laboratoriyada esa ism ohangga aylanadi."
+        },
+        {
+          "type": "concept",
+          "heading": "Bloklar va haqiqat",
+          "bullets": [
+            "oddiy operator ';' bilan tugaydi",
+            "{ } — murakkab operator",
+            "nol boʻlmagan — rost, 0 — yolgʻon",
+            "bool — C99 dagi <stdbool.h>"
+          ],
+          "narration": "Oddiy operator nuqta-vergul bilan tugaydi. Figurali qavslar bir nechta operatorni murakkab operatorga — blokka birlashtiradi. Blok oddiy operator kutulgan har qanday joyda tura oladi, yaxlit birlik sifatida kompilyatsiya qilinadi, oʻz oʻzgaruvchilarini eʼlon qilishi mumkin, hatto boʻsh ham boʻlishi mumkin, va yopuvchi qavsdan keyin nuqta-vergul qoʻyilmaydi. Haqiqat nima oʻzi? Klassik C89 da mantiqiy tur yoʻq: shart — sonli ifoda; nol boʻlmagan har qanday qiymat rost, nol esa yolgʻon. Koʻrsatkich ham yuradi: agar str rost boʻlsa, satr nol emas. C99 dan boshlab esa stdbool nuqta h sarlavhasi haqiqiy bool turini beradi."
+        },
+        {
+          "type": "code",
+          "heading": "if / else if zinasi",
+          "code": "if (score >= 90)\n    grade = 'A';\nelse if (score >= 80)\n    grade = 'B';\nelse if (score >= 70)\n    grade = 'C';\nelse if (score >= 60)\n    grade = 'D';\nelse\n    grade = 'F';",
+          "highlight": [
+            1,
+            3,
+            5,
+            7
+          ],
+          "narration": "If shartni baholaydi; shart rost boʻlsa ichki operator bajariladi — aks holda hech narsa boʻlmaydi. Else if muqobil yoʻllarni qoʻshadi: ular birinchi rost boʻlgani topilguncha tartib bilan tekshiriladi; agar bir nechtasi rost boʻlsa, faqat birinchi tarmoq bajariladi. Chegaralar kamayish tartibida joylashishi shart: toʻqson va undan yuqori — A, keyin sakson, yetmish, oltmish, aks holda F. Tartibni teskari qilsangiz, har bir yuqori ball birinchi sinovda toʻxtab qoladi — bu oltinchi bobda tuzatadigan ball tekshiruvi xatosi. Va eslab qoling: ichma-ich if larda qavssiz else eng yaqin ichki if ga bogʻlanadi — uni tashqi if ga bogʻlash uchun qavslardan foydalaning."
+        },
+        {
+          "type": "code",
+          "heading": "switch: case, break, default",
+          "code": "switch (grade) {\ncase 'A':\n    printf(\"Perfect!\\n\");\n    break;\ncase 'B':\n    printf(\"You did good!\\n\");\n    break;\ndefault:\n    printf(\"That's not a valid grade!\\n\");\n}",
+          "highlight": [
+            4,
+            8
+          ],
+          "narration": "Bitta butun yoki belgi oʻzgaruvchini koʻplab konstanta bilan solishtiryapsizmi? Switch zinadan koʻra toza — va, kitob taʼkidlaganidek, samaraliroq. Har bir case yorligʻi — alohida butun konstanta, blokka kirish nuqtasi. Mos kelganda bajarilish eng yaqin break gacha davom etadi. Break boʻlmasa, qayta tekshiruvsiz keyingi case ga oqib tushadi — baʼzan bu foydali, masalan case katta Y va case kichik y bitta tanani baham koʻradi. Default — «aks holda» tarmogʻi. Va diqqat: break faqat switch dan chiqaradi — dastur yopuvchi qavsdan keyin davom etadi; break butun dasturni tugatmaydi."
+        },
+        {
+          "type": "concept",
+          "heading": "Uchta sikl",
+          "bullets": [
+            "while: tanadan oldin tekshiruv",
+            "for: boshlash; shart; yangilash",
+            "do-while: tana kamida bir marta",
+            "boʻsh shart rost deb hisoblanadi"
+          ],
+          "narration": "While — eng oddiy sikl: shart tanadan oldin baholanadi, shuning uchun tana umuman ishlamasligi ham mumkin. For — sanash sikli: boshlash bir marta, shart har bir tanadan oldin, yangilash undan keyin. Bu for sikli bir, ikki, uchni chop etadi; sikldan oldin eʼlon qilingan sanoqchi bilan yozilgan ekvivalent while aynan shuni chop etadi — lekin for sarlavhasida eʼlon qilingan sanoqchi faqat sikl ichida koʻrinadi. Do-while shartni tanadan keyin tekshiradi, shuning uchun tana kamida bir marta bajariladi; oxiridagi nuqta-vergulni unutmang. Sarlavhadagi har qanday ifoda boʻsh qoldirilishi mumkin — boʻsh shart rost deb hisoblanadi, abadiyga. Sikl tanlash — oʻqilish masalasi: takrorlar soni maʼlum boʻlsa for, hammasi shartga bogʻliq boʻlsa while."
+        },
+        {
+          "type": "example",
+          "heading": "Ismdan ohang",
+          "problem": "6.1-misol — belgini oʻqing va uning ASCII kodining modul 7 ga qoldigʻiga mos notani chop eting. 'A' uchun qaysi nota? Agar case 2 dan keyin break boʻlmasa-chi?",
+          "steps": [
+            {
+              "text": "'A' ning ASCII kodi — 65"
+            },
+            {
+              "text": "65 % 7 qoldiq 2 beradi"
+            },
+            {
+              "text": "case 2 C notani chop etadi"
+            },
+            {
+              "text": "break yoʻq: 'A' C ni, keyin D ni chop etadi",
+              "highlight": true
+            }
+          ],
+          "result": "C",
+          "narration": "Kitobning oltinchi nuqta birinchi misoli ismni ohangga aylantiradi: bitta belgi oʻqiladi, uning ASCII kodi yettiga modul qilinadi va oʻsha qoldiqqa mos nota chop etiladi. Katta A ni kuzatamiz. Uning kodi — oltmish besh. Oltmish besh modul yetti — yettita toʻqqiz oltmish uch boʻladi — qoldiq ikki, va case ikki C notani chop etadi. Laboratoriyaning xatoli versiyasida case ikkidan keyin break yoʻq: katta A va tugatuvchi belgi kiritilsa, C chop etiladi, soʻng bajarilish case uchga oqib tushadi va D ham chop etiladi. Tuzatish bitta soʻz — printf dan keyin break — va oʻsha kirish endi faqat C ni chop etadi."
+        },
+        {
+          "type": "concept",
+          "heading": "break va continue",
+          "bullets": [
+            "break sikl yoki switch dan chiqadi",
+            "continue shartga sakraydi",
+            "sentinel '#' ohangni tugatadi",
+            "ichki eʼlon tashqinisini yashiradi"
+          ],
+          "narration": "Break eng ichki sikldan yoki switch dan chiqadi. Ohangda case ichidagi break faqat switch dan chiqaradi va sikl keyingi belgini oʻqiydi. Continue eng ichki tananing qolgan qismini tashlab, shartga sakraydi — for siklida esa yangilashga; EKUB misoli a ni boʻlmaydigan har bir i ni shunday tashlab yuboradi. Lektsiyadan koʻrinish doirasi: oʻzgaruvchi eʼlon qilingan blokda yashaydi va ichki eʼlon tashqinisini soyalaydi — yigirma beshga teng mahalliy n max global yigirmani yashirib qoʻyadi. Static qiymatni chaqiruvlar orasida saqlab turadi; register esa protsessor registrini soʻraydi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "nol boʻlmagan — rost, 0 — yolgʻon",
+            "else eng yaqin if ga yopishadi — { } qoʻying",
+            "case da break yoʻq: oqib tushish",
+            "while avval tekshiradi; do-while avval bajaradi",
+            "'A' — 65; 65 % 7 = 2; nota C"
+          ],
+          "narration": "Ikkinchi bob mustahkamlandi. Nol boʻlmagan har qanday qiymat — rost. Qavssiz else eng yaqin if ga yopishadi. Case ichida break yoʻq — oqib tushish bor: ohang avval C ni, keyin D ni chop etdi. While shartni avval tekshiradi; do-while tanani avval bajaradi — kamida bir marta. Break chiqadi; continue tekshiruvga sakraydi. Katta A esa oltmish besh modul yetti orqali C notaga aylandi."
+        }
+      ]
+    },
+    {
+      "title": "Funksiyalar va strukturalar",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "Funksiyalar va strukturalar",
+          "subtitle": "6-hafta — Scratch bloklaridan kofe mashinasiga",
+          "narration": "Uchinchi bob: funksiyalar va strukturalar — oltinchi hafta. Scratch bloklari haqiqiy C funksiyalariga aylanadi, strukturalardan kofe mashinasi quriladi va biz kirish-chiqish vositalarini koʻrib chiqamiz: printf, scanf, fayllar va buyruq satri."
+        },
+        {
+          "type": "concept",
+          "heading": "Taʼrif, prototip, chaqiruv",
+          "bullets": [
+            "prototip — oldindan eʼlon qiling",
+            "chaqiruv — hozir bajaring",
+            "taʼrif — ishini tasvirlang",
+            "qaytarish qiymati — ekrandagi chiqish emas"
+          ],
+          "narration": "Funksiya — nomlangan buyruqlar toʻplami va uning hayotini uchta soʻz tasvirlaydi. Prototip uni eʼlon qiladi: nuqta-vergul bilan tugaydigan, tanasi yoʻq, main dan oldin turadigan eʼlon. Chaqiruv uni hozir bajaradi — nomi bilan, qavslar bilan. Taʼrif uning ishini tasvirlaydi — figurali qavsdagi tana. Void print hello world void sarlavhasida birinchi void «qaytarish qiymati yoʻq» degani, qavsdagi void esa «parametrlar yoʻq» degani. Va ikki narsani farqlang: qaytarish qiymati chaqiruvchiga qaytadi, chop etilgan chiqish esa ekranga ketadi. Bu funksiya chop etadi, lekin hech narsa qaytarmaydi."
+        },
+        {
+          "type": "code",
+          "heading": "Toʻliq dastur",
+          "code": "void print_hello_world(void);  /* prototip */\nint main(void)\n{\n    print_hello_world();       /* chaqiruv */\n    print_hello_world();\n    return 0;\n}\nvoid print_hello_world(void)   /* taʼrif */\n{\n    printf(\"Hello, world!\\n\");\n}",
+          "highlight": [
+            1,
+            4,
+            9
+          ],
+          "narration": "Toʻliq dastur — tepadan pastga. Birinchi qator prototip: void print hello world void, nuqta-vergul, tanasiz — endi main funksiya mavjudligini biladi. Main ichida ikkita chaqiruv uni ishga tushiradi va dastur Hello, world ni ikki marta chop etadi. Main dan keyin haqiqiy tanali taʼrif keladi: printf Hello, world. Xabarni aynan shu yerda oʻzgartirsangiz, ikkala chaqiruv ham yangi matnni chop etadi — bir marta yozing, xohlagan joyda chaqiring: mana bu qayta foydalanish. Bajarilish har doim main dan boshlanadi; stdio nuqta h printf ni, CS50 sarlavhasi esa get double kabi kirish yordamchilarini eʼlon qiladi."
+        },
+        {
+          "type": "example",
+          "heading": "IntegerRoot: 27 va 16",
+          "problem": "int first = IntegerRoot(27); int second = IntegerRoot(16); printf(\"%d %d\\n\", first, second);",
+          "steps": [
+            {
+              "text": "27: 5 × 5 = 25 ≤ 27; 6 × 6 = 36 > 27"
+            },
+            {
+              "text": "27 ning butun ildizi — 5"
+            },
+            {
+              "text": "16: 4 × 4 = 16, aynan"
+            },
+            {
+              "text": "printf 5 4 ni chop etadi",
+              "highlight": true
+            }
+          ],
+          "result": "5 4",
+          "narration": "Kitobdan olingan IntegerRoot butun kvadrat ildizni qaytaradi: kvadrati kiritilgan sondan oshmaydigan eng katta butun son. Natija turi — int. Number — parametr, yaʼni funksiya ichidagi kirish nomi; yigirma yetti va oʻn olti — argumentlar, chaqiruvchi uzatgan qiymatlar. Funksiya son qaytaradi, chaqiruvchi — main — esa uni procent d bilan chop etadi. Yigirma yetti uchun: besh karrali besh — yigirma besh, yigirma yettidan oshmaydi; olti karrali olti — oʻttiz olti, juda katta. Ildiz: besh. Oʻn olti uchun toʻrt karrali toʻrt — aynan oʻn olti. Ildiz: toʻrt. Shuning uchun printf avval beshni, keyin toʻrtni chop etadi — alohida chaqiruvlarda, har birida bitta natija."
+        },
+        {
+          "type": "concept",
+          "heading": "Strukturalar: typedef struct",
+          "bullets": [
+            "struct maydonlarni turga yigʻadi",
+            "typedef nom beradi: Stock",
+            "nuqta orqali: stock.water_ml",
+            "Stock — tur; stock — oʻzgaruvchi"
+          ],
+          "narration": "Struktura — oʻzaro bogʻliq maydonlarni bitta yozuvga yigʻadigan tur. Taʼrif main dan yuqorida turadi: typedef, struct, maydonlar bilan qavslar — suv, sut, don, piyolalar — keyin yangi tur nomi, Stock, va nuqta-vergul. Maydon — yozuv ichidagi bitta nomlangan qiymat. Oʻzgaruvchi xohlagan boshqa tur kabi eʼlon qilinadi: Stock stock teng besh yuz, ikki yuz, qirq, uch — qiymatlar maydonlarni tartib bilan toʻldiradi. Bitta maydonga nuqta bilan murojaat qilinadi: stock nuqta water. Va registr muhim: katta Stock — bu tur; kichik stock — esa oʻzgaruvchi. Struktura bogʻliq maʼlumotlarni birga saqlaydi: retsept oʻzgarsa, bitta yozuv oʻzgaradi, toʻrtta oʻzgaruvchi emas."
+        },
+        {
+          "type": "code",
+          "heading": "Yozuvlar nusxalanadi",
+          "code": "Stock stock = {500, 200, 40, 3};\nStock preview =\n    stock_after_water_use(stock, 100);\nprintf(\"%d\\n\", stock.water_ml);   /* 500 */\nprintf(\"%d\\n\", preview.water_ml); /* 400 */\nstock = stock_after_water_use(stock, 50);\nprintf(\"%d\\n\", stock.water_ml);   /* 450 */",
+          "highlight": [
+            2,
+            4,
+            6
+          ],
+          "narration": "Haftaning eng chuqur gʻoyasi: yozuvlar nusxa sifatida sayohat qiladi. Yordamchi funksiya stock parametrining nusxasini oladi, kerakli miqdorni nusxadan ayiradi va uni qaytaradi. Chaqiruvchi besh yuz millilitrdan boshlaydi. Birinchi chaqiruv: preview toʻrt yuz bilan qaytgan yozuvni saqlab oladi — lekin original baribir besh yuzni chop etadi, chunki faqat nusxa oʻzgardi. Ellik uchun ikkinchi chaqiruv: u oʻzgarmagan besh yuzdan boshlaydi va toʻrt yuz ellikni qaytaradi — va bu safar natijani stock ga qayta saqlaymiz. Natija qayerda yashashini chaqiruvchi hal qiladi; joylashtirish boʻlmasa, stock hech qachon oʻzgarmaydi."
+        },
+        {
+          "type": "table",
+          "heading": "printf va scanf formatlari",
+          "columns": [
+            "Spetsifikator",
+            "Maʼnosi",
+            "Misol"
+          ],
+          "rows": [
+            [
+              "%d, %i",
+              "butun son",
+              "printf(\"%d\", 10)"
+            ],
+            [
+              "%u, %x",
+              "belgisiz, oʻn oltilik",
+              "printf(\"%x\", 10)"
+            ],
+            [
+              "%c",
+              "bitta belgi",
+              "printf(\"%c\", 'A')"
+            ],
+            [
+              "%s",
+              "satr",
+              "printf(\"%s\", \"hello\")"
+            ],
+            [
+              "%f, %e",
+              "haqiqiy son",
+              "printf(\"%.2f\", 1.14)"
+            ],
+            [
+              "%%",
+              "harfiy procent",
+              "printf(\"%d%%\", 10)"
+            ]
+          ],
+          "narration": "Printf va scanf stdio nuqta h da yashaydi. Format — bu procent belgisi, keyin ixtiyoriy bayroqlar, kenglik, nuqtadan aniqlik, uzunlik va tur harfi. D va i butun sonlarni chop etadi; u — belgisizni; x — oʻn oltilikni: oʻn a harfiga aylanadi. C bitta belgini chop etadi; s — satrni; f — haqiqiy sonni, sukut boʻyicha oltita kasr belgisi bilan; procent procent — harfiy procent belgisi. Kenglik, bayroqlar va aniqlik chiqishni bezatadi: procent toʻrt d oʻnni toʻrt belgiga toʻldiradi, procent nuqta toʻrt s esa hello ni hell gacha kesib tashlaydi. Scanf — kirish egizagi, biroq uning argumentlari manzil boʻlishi shart: scanf procent d, ampersand x. Massiv nomi allaqachon manzil, shuning uchun procent s uchun u kerak emas."
+        },
+        {
+          "type": "concept",
+          "heading": "goto, fayllar va buyruq satri",
+          "bullets": [
+            "goto yorligʻi — Deykstra ogohlantirishi",
+            "fopen rejimlari: \"r\", \"w\", \"a\"",
+            "stdin, stdout, stderr — oqimlar",
+            "argc sanaydi; argv[0] — dastur nomi"
+          ],
+          "narration": "Lektsiyadan uchta qoʻshimcha. Goto bitta funksiya ichida yorliqqa — ikki nuqtali nomga — shartsiz sakraydi. Deykstraning ming toʻqqiz yuz oltmish sakkizinchi yildagi «Go To Statement Considered Harmful» maktubi ortiqcha goto spagetti-kod tugʻdirishidan ogohlantirgan edi; C da u xatoliklar roʻy berganda ichma-ich bloklardan chiqish uchun saqlanib qolgan. Fayllar: fopen oqim ochadi — r oʻqish uchun, w yozish uchun, a qoʻshish uchun — va muvaffaqiyatsizlikda NULL qaytaradi; fgets va fputs qatorlarni koʻchiradi; fclose resursni boʻshatadi. Buyruq satri: main argc va argv ni qabul qiladi — nuqta slesh cat a nuqta txt uchun argc uchga teng va argv nol — dasturning oʻz nomi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "prototip eʼlon qiladi; chaqiruv ishga tushiradi",
+            "parametr — ichki nom; argument — qiymat",
+            "IntegerRoot(27), IntegerRoot(16): 5 4",
+            "struktura maydonlari — nuqta orqali",
+            "scanf ga &x kerak; massiv nomi — manzil"
+          ],
+          "narration": "Uchinchi bob mustahkamlandi. Prototip eʼlon qiladi, chaqiruv ishga tushiradi, taʼrif tasvirlab beradi. Parametr — ichkaridagi nom; argument — uzatilgan qiymat. IntegerRoot besh va toʻrt berdi. Struktura maydonlarni yigʻadi, ularga nuqta orqali murojaat qilinadi — va struct nusxa sifatida yuradi, shuning uchun saqlamoqchi boʻlgan yozuvingizni saqlang. Scanf ga ampersand x kerak; massiv nomi esa allaqachon manzil."
+        }
+      ]
+    },
+    {
+      "title": "Koʻrsatkichlar, satrlar va algoritmlar",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "Koʻrsatkichlar, satrlar va algoritmlar",
+          "subtitle": "7-hafta — hamma narsaning manzili",
+          "narration": "Toʻrtinchi bob: koʻrsatkichlar, satrlar va birinchi algoritmlar — yettinchi hafta lektsiyalari. Manzil nima ekanligi, ampersand va yulduzchaning qanday ishlashi, stekda va heap da nima yashashi va funksiyaning chaqiruvchi oʻzgaruvchilarini qanday oʻzgartirishi — barchasini tartib bilan koʻramiz. Bu bobsiz na satrlar, na dinamik xotira tushunarli — shuning uchun aynan shu bobga diqqat bilan qarang."
+        },
+        {
+          "type": "concept",
+          "heading": "Koʻrsatkich — bu manzil",
+          "bullets": [
+            "& — manzilni oling",
+            "* — qiymatni oʻqing yoki yozing",
+            "t turidagi manzil — t * turida",
+            "NULL hech narsaga ishora qilmaydi"
+          ],
+          "narration": "Xotiradagi har bir oʻzgaruvchining manzili bor. Koʻrsatkich — bu oʻsha manzilning oʻzi: uning orqali oʻzgaruvchini istalgan joydan oʻqish va oʻzgartirish mumkin — va aynan shuni maʼlumot strukturalari talab qiladi. Ampersand operatori manzilni oladi: t turidagi oʻzgaruvchining manzili «t ga koʻrsatkich» turiga ega. Yulduzcha operatori dereferensiya qiladi — manzildagi qiymatni oʻqiydi yoki yozadi — va dereferensiya qilingan koʻrsatkich oddiy oʻzgaruvchi kabi portlaydi. Nol koʻrsatkich, NULL, hech narsaga ishora qilmaydi. Va hamma narsaning manzili boʻlavermaydi: registr oʻzgaruvchilari, literallar va konstantalar hamda yalangʻoy ifoda natijalari manzilga ega emas."
+        },
+        {
+          "type": "code",
+          "heading": "Eʼlon qilish va dereferensiya",
+          "code": "int n = 4;\ndouble pi = 3.14159;\nint *pn = &n;          /* n ning manzili */\ndouble *ppi = &pi;     /* pi ning manzili */\n\nprintf(\"pi = %g\\n\", *ppi);   /* 3.14159 */\n*ppi = *ppi + *pn;     /* endi pi = 7.14159 */",
+          "highlight": [
+            3,
+            4,
+            6,
+            7
+          ],
+          "narration": "Qatorma-qator oʻqiymiz. n — butun son, toʻrt. pi — double, uch nuqta bir toʻrt bir besh toʻqqiz. pn — int ga koʻrsatkich — ampersand n ni, yaʼni n ning manzilini saqlaydi. ppi — double ga koʻrsatkich — pi ning manzilini saqlaydi. Endi yulduzcha ishga tushadi: printf procent g va yulduzcha ppi bilan pi ni koʻrsatkich orqali oʻqiydi — uch nuqta bir toʻrt bir besh toʻqqiz. Oxirgi qator koʻrsatkich orqali yozadi: yulduzcha ppi teng yulduzcha ppi plus yulduzcha pn — pi va n ni ularning manzillari orqali oʻqiydi, toʻrtni qoʻshadi va yigʻindini pi ga qayta saqlaydi — pi esa yetti nuqta bir toʻrt bir besh toʻqqizga aylanadi."
+        },
+        {
+          "type": "concept",
+          "heading": "Stek va heap",
+          "bullets": [
+            "virtual xotira — OS abstraktsiyasi",
+            "stek: eʼlon qilingan oʻzgaruvchilar",
+            "heap: dinamik xotira",
+            "koʻrsatkichlar qoʻshimcha chiqishlar beradi"
+          ],
+          "narration": "Fizik xotira — haqiqiy saqlash joyi: kesh, operativ xotira, disk — har xil sigʻim, har xil tezlik, va operatsion tizim dastur ishlab turgan paytda ularni almashtirib turadi. Kod koʻradigan narsa — virtual xotira: operatsion tizimning fizik xotiraga aks ettirgan manzil fazosi. Ikki mintaqa muhim. Stek — eʼlon qilingan oʻzgaruvchilar joyi, va har bir tugallanmagan chaqiruvga bitta kadr, buni beshinchi bob koʻrsatadi. Heap — dinamik xotira yashaydigan joy. Va C funksiyasi koʻpi bilan bitta qiymat qaytargani uchun koʻrsatkichlar qoʻshimcha chiqishlar beradi: kengaytirilgan Evklid algoritmi x va y ni ikkita koʻrsatkich-parametr orqali yozib qoʻyadi."
+        },
+        {
+          "type": "code",
+          "heading": "swap koʻrsatkichlar bilan",
+          "code": "void swap(int *x, int *y)\n{\n    int temp = *x;\n    *x = *y;\n    *y = temp;\n}\n\nint a = 5, b = 7;\nswap(&a, &b);\n/* endi a = 7, b = 5 */",
+          "highlight": [
+            3,
+            4,
+            5,
+            10
+          ],
+          "narration": "Klassik misol. Swap int ga ikkita koʻrsatkich oladi. Ichida temp birinchi manzildagi qiymatni saqlaydi; yulduzcha x teng yulduzcha y ikkinchi qiymatni birinchi joyga koʻchiradi; yulduzcha y teng temp esa almashinuvni yakunlaydi. Shunga eʼtibor bering: koʻrsatkichlarning oʻzini biz hech qayerga qoʻzgʻatmaymiz — faqat ular ishora qilayotgan qiymatlarni. Chaqiruv ampersand a va ampersand b ni — chaqiruvchining manzillarini — uzatadi, shuning uchun funksiya main ning xotirasigacha yetib boradi: chaqiruvdan keyin a — yetti, b — besh. Manzillar boʻlmasa, swap nusxalar olgan boʻlardi — bu xatoni keyingi misol toʻliq yoritib beradi."
+        },
+        {
+          "type": "example",
+          "heading": "Nega swap(x, y) «1 2» ni chop etadi",
+          "problem": "void swap(int a, int b) oʻz ikki parametrini almashtiradi. Main x = 1, y = 2 bilan swap(x, y) ni chaqiradi, soʻng x va y ni chop etadi. Ekranda nima paydo boʻladi?",
+          "steps": [
+            {
+              "text": "C qiymatlarning nusxalarini uzatadi"
+            },
+            {
+              "text": "swap oʻz lokal nusxalarini almashtiradi"
+            },
+            {
+              "text": "main dagi x va y umuman oʻzgarmaydi"
+            },
+            {
+              "text": "«1 2» chop etiladi — fix: swap(&x, &y)",
+              "highlight": true
+            }
+          ],
+          "result": "1 2",
+          "narration": "Xato ovidan sakkizinchi masala. Swap mutlaqo toʻgʻri koʻrinadi: temp teng a, a teng b, b teng temp. Biroq swap x va y — x bir, y ikki — chaqiruvidan keyin printf bir va ikkini chop etadi. Hech narsa oʻzgarmagan. Nega? C argumentlarni qiymat boʻyicha uzatadi: funksiya bir va ikkining nusxalarini oladi va aynan shu nusxalarni mukammal almashtiradi. Lekin nusxalar swap ning oʻz stek kadrida yashaydi va funksiya qaytganda yoʻq boʻladi; main dagi oʻzgaruvchilar bu haqda umuman xabardor boʻlmaydi. Tuzatish — koʻrsatkichli versiya: int koʻrsatkich turidagi parametrlar, ampersand x va ampersand y bilan chaqiruv — funksiya manzillar orqali yozadi va main ikki, birni chop etadi."
+        },
+        {
+          "type": "concept",
+          "heading": "Massivlar va manzil arifmetikasi",
+          "bullets": [
+            "arr &arr[0] kabi portlaydi",
+            "pa + i — arr[i] ga ishora qiladi",
+            "qadam — tur oʻlchami",
+            "sizeof(arr): butun massiv"
+          ],
+          "narration": "Oddiy massivlar — uzluksiz xotira blokiga koʻrsatkich. Arr — nolinchi elementga koʻrsatkich kabi portlaydi — lekin haqiqiy koʻrsatkichdan farqli oʻlaroq, uni qayta tayinlab boʻlmaydi. Manzil arifmetikasi: pa plus i — arr i ga ishora qiladi va manzil i karrali tur oʻlchamiga oʻsadi — koʻrsatkich qadamlari masshtablanadi; koʻrsatkich — int emas. Agar arr nol elementi yuzinchi manzilda boʻlsa va int toʻrt bayt boʻlsa, arr uch — bir yuz oʻn ikkinchi manzilda boʻladi. Char ga keltirilsa qadam bitta baytga aylanadi — uchta int plus oʻn ikki degani. Oʻzgaruvchining sizeof i uning turini, massivniki esa butun massivni beradi."
+        },
+        {
+          "type": "concept",
+          "heading": "Satr '\\0' bilan tugaydi",
+          "bullets": [
+            "\"hello\" = 5 harf + terminator",
+            "nol bayt oxirini belgilaydi",
+            "%s nol baytgacha oʻqiydi",
+            "dog va cat massivlari — satr emas"
+          ],
+          "narration": "Satrlar — belgi massivlari; C uzunlikka chegara qoʻymaydi — oxirini nol bayt belgilaydi. Hello literali — besh harf plus terminator: oltita bayt. Har bir procent s, har bir strcpy, har bir strlen ana shu nol baytga tayanadi. Toʻrtinchi haftadagi d-o-g va c-a-t massivlari terminatorsiz uchtadan belgi saqlagan edi — oddiy massivlar, satrlar emas, va ular bittadan belgi bilan chop etilgan. Koʻrsatkich orqali matnni hatto tahrirlash ham mumkin: pc plus oʻnni dereferensiya qilib katta S ni joylashtirsangiz, «This is a string» — «This is a capital S String» ga aylanadi. Yoʻqolgan terminatorni yodda tuting — bu xato ovidagi birinchi masala."
+        },
+        {
+          "type": "table",
+          "heading": "string.h asboblari",
+          "columns": [
+            "Funksiya",
+            "Vazifasi",
+            "Qaytaradi"
+          ],
+          "rows": [
+            [
+              "strcpy(t, f)",
+              "f ni t ga nusxalaydi",
+              "char *"
+            ],
+            [
+              "strncpy(t, f, n)",
+              "n belgini nusxalaydi",
+              "char *"
+            ],
+            [
+              "strcmp(s, t)",
+              "lugʻat tartibida solishtirish",
+              "0 / <0 / >0"
+            ],
+            [
+              "strlen(s)",
+              "terminatorsiz uzunlik",
+              "size_t"
+            ],
+            [
+              "strcat(t, f)",
+              "f ni t oxiriga qoʻshadi",
+              "char *"
+            ],
+            [
+              "strchr(s, c)",
+              "birinchi c ni topadi",
+              "koʻrsatkich / NULL"
+            ]
+          ],
+          "narration": "string nuqta h asboblar qutisi. Strcpy butun satrni maqsadli buferga nusxalaydi; strncpy koʻpi bilan n belgini nusxalaydi. Strcmp lugʻat tartibida solishtiradi — kichik harflar kattalardan keyin turadi — va teng satrlar uchun nol, birinchisi oldinda boʻlsa manfiy, orqada boʻlsa musbat qiymat qaytaradi. Strlen terminatorsiz uzunlikni beradi — demak nusxa uchun yana bitta bayt kerak boʻladi. Strcat bir satrni boshqasining oxiriga qoʻshadi. Strchr belgining birinchi uchrashiga koʻrsatkich yoki NULL qaytaradi; strrchr — oxirgisiga. Imtihon aynan shu imzolarni oʻzgartirmasdan keltiradi."
+        },
+        {
+          "type": "example",
+          "heading": "strcmp nima qaytaradi?",
+          "problem": "Baholang: strcmp(\"A\", \"a\"), strcmp(\"IRONMAN\", \"BATMAN\"), strcmp(\"aA\", \"aA\"), strcmp(\"aA\", \"a\").",
+          "steps": [
+            {
+              "text": "\"A\" va \"a\": 'A' oldin → manfiy"
+            },
+            {
+              "text": "\"IRONMAN\" va \"BATMAN\": I B dan keyin → musbat"
+            },
+            {
+              "text": "\"aA\" va \"aA\": mutlaqo bir xil → 0"
+            },
+            {
+              "text": "\"aA\" va \"a\": uzunroq kattaroq → musbat"
+            },
+            {
+              "text": "0 — faqat satrlar teng boʻlganda",
+              "highlight": true
+            }
+          ],
+          "result": "0 = teng",
+          "narration": "Qoʻllanmadagi toʻrtta solishtirish — belgi kodlarining lugʻat tartibida oʻylab koʻring. Katta A kichik a ga qarshi: kodlar farq qiladi, kattasi oldin turadi — manfiy. Ironman Batman ga qarshi: I — B dan keyin turadi — musbat. Ikkitalik a A oʻziga qarshi: mutlaqo bir xil — strcmp aynan nol qaytaradi va mana bu — tenglik testi. Ikkitalik a A oddiy a ga qarshi: uzunroq satr kattaroq — yana musbat. Nol — tenglik, manfiy — birinchisi kichik, musbat — birinchisi katta degani. Satrlarni hech qachon ikkilik tenglik bilan solishtirmang — u manzillarni solishtiradi, buni oltinchi bobda koʻramiz."
+        },
+        {
+          "type": "concept",
+          "heading": "Chiziqli va ikkilik qidiruv",
+          "bullets": [
+            "chiziqli: koʻrsatkich yoki NULL",
+            "ikkilikka tartiblangan maʼlumot kerak",
+            "har qadam yarim kesim qoladi",
+            "ikkilik qidiruv: O(log n)"
+          ],
+          "narration": "Chiziqli qidiruv massivni koʻrsatkich bilan kezadi, har bir elementni solishtiradi va mos kelganiga koʻrsatkich yoki NULL qaytaradi — oʻrtacha hisobda elementlarning yarmi koʻriladi. Ikkilik qidiruv — ikki shart talab qiladigan «boʻlib tashla va hukmronlik qil» usuli: maʼlumot tartiblangan boʻlishi va oʻrtaga toʻgʻridan-toʻgʻri kirish imkoni kerak. Oʻrtadagi element bilan solishtiramiz: kichik — chap yarmni saqlaymiz; katta — oʻng yarmni. Har bir qadam kesimni yarmiga boʻladi, shuning uchun narx — n ning logarifmi boʻyicha katta O, oʻrtacha ham, eng yomon holatda ham; kutubxona uni bsearch sifatida taqdim etadi. Ketma-ket saqlashda, lektsiya taʼkidlaganidek, boʻlib sakrashlar bekorga ketadi — chiziqli qidiruv donishqobroq boʻlishi mumkin."
+        },
+        {
+          "type": "table",
+          "heading": "Toʻrtta algoritm va ularning narxi",
+          "columns": [
+            "Algoritm",
+            "Oʻrtacha",
+            "Eng yomon"
+          ],
+          "rows": [
+            [
+              "Chiziqli qidiruv",
+              "massivning yarmi",
+              "n element"
+            ],
+            [
+              "Qoʻshib saralash",
+              "O(n²)",
+              "O(n²)"
+            ],
+            [
+              "Tez saralash",
+              "O(n log n)",
+              "O(n²)"
+            ],
+            [
+              "Ikkilik qidiruv",
+              "O(log n)",
+              "O(log n)"
+            ]
+          ],
+          "narration": "Barcha narxlar bitta kartada. Chiziqli qidiruv: oʻrtacha massivning yarmi, eng yomon holatda butun massiv. Qoʻshib saralash joyidan chiqqan elementni topadi, kattalarini orqaga suradi va uni tegishli joyga qoʻyadi — narxi n kvadrat. Tez saralash tayanch elementni tanlaydi, maʼlumotni kichik va katta tomonlarga ajratadi va ularni rekursiv saralaydi — oʻrtacha n log n, eng yomon holatda n kvadrat, va hammasi tayanch tanloviga bogʻliq; u joyida saralaydi va kutubxona uni qsort deb ataydi. Ikkilik qidiruv ikkala holatda ham logarifmik — tartiblangan maʼlumot va toʻgʻridan-toʻgʻri kirish shart. Katta O — oʻsish haqida gapiradi, soniya haqida emas."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "& manzil oladi; * qiymatga yetadi",
+            "arr[0] 100 da: arr[3] 112 da",
+            "stek: eʼlon; heap: dinamik",
+            "satr '\\0' bilan tugaydi; nusxaga +1",
+            "strcmp 0 = teng; qsort, bsearch stdlib da"
+          ],
+          "narration": "Toʻrtinchi bob mustahkamlandi. Ampersand manzilni oladi; yulduzcha qiymatga yetib boradi. Arr nol yuzinchi manzilda boʻlsa, arr uch — bir yuz oʻn ikkinchi manzilida: qadam tur oʻlchamiga teng. Eʼlon qilingan oʻzgaruvchilar stekda, dinamik xotira heap da yashaydi. Satr nol bayt bilan tugaydi va nusxa uchun yana bitta bayt kerak. Strcmp faqat teng satrlar uchun nol qaytaradi; quicksort va bsearch standart kutubxonada yashaydi."
+        }
+      ]
+    },
+    {
+      "title": "Rekursiya",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Rekursiya",
+          "subtitle": "7-hafta — oʻzini chaqiruvchi funksiya",
+          "narration": "Beshinchi bob: rekursiya — yettinchi hafta laboratoriyasi. Oʻzini kichikroq masala ustida chaqiruvchi funksiya. Rekursiyaning uchta tarkibiy qismi, chaqiruv steki boʻylab kuzatilgan countdown va faktorial, hamda Xanoy minorasi. Bob oxiriga kelib rekursiyani imtihonchidek boshingizda kuzatib yura olasiz."
+        },
+        {
+          "type": "concept",
+          "heading": "Rekursiya: navbat analogiyasi",
+          "bullets": [
+            "funksiya oʻzini, kichikroq chaqiradi",
+            "orqadagi kishidan soʻrang",
+            "oxirgisi javob beradi: faqat men — 1",
+            "javoblar qaytadi, har biri bir qoʻshadi"
+          ],
+          "narration": "Rekursiya: funksiya oʻsha masalaning kichikroq versiyasi ustida oʻzini chaqiradi. Lektsiyadagi analogiya: sizdan navbat oxirigacha, oʻzingizni ham hisobga olib, nechta kishi turibdi? Siz orqangizdagi kishidan soʻraysiz va javobni kutasiz; u keyingi kishidan soʻraydi. Oxirgi kishi toʻgʻridan-toʻgʻri javob beradi: faqat men — bir. Javoblar orqaga qaytadi va har kim bittani qoʻshadi: bir plus bir — ikki, ikki plus bir — uch. Xuddi shu usul, kichikroq savol — toki bitta holat toʻgʻridan-toʻgʻri javob olguncha. Va eslab qoling: chaqiruv oʻz chaqiruvchisini toʻxtatib qoʻyadi — main kutib turadi."
+        },
+        {
+          "type": "concept",
+          "heading": "Rekursiyaning uchta tarkibi",
+          "bullets": [
+            "baza holati: yangi chaqiruvsiz",
+            "kichikroq masala: sodda kirish",
+            "baza holatiga intilish",
+            "count_down(n) abadiy: intilish yoʻq"
+          ],
+          "narration": "Har bir toʻgʻri rekursiya uchta tarkibni aralashtiradi. Birinchisi — baza holati: yangi chaqiruvsiz javob; n nolga teng boʻlsa funksiya zudlik bilan qaytadi. Ikkinchisi — kichikroq masala: xuddi shu funksiya sodda kirishda: n minus birdan count down. Uchinchisi — intilish: har bir yoʻl baza holatiga yaqinlashishi shart: uch, ikki, bir, nol. Kodda baza holati bor boʻlishi yetarli emas: xuddi shu n bilan chaqiruv uchni abadiy chop etadi va stekni tugatib yuborishi mumkin — tuzatish n minus bir. Fibonachchi esa boyroq: ikkita baza holati, F nol va F bir; sodda versiya fibonachchi ikkini ikki marta hisoblab chiqadi."
+        },
+        {
+          "type": "code",
+          "heading": "count_down",
+          "code": "void count_down(int n)\n{\n    if (n == 0)\n        return;          /* baza holati */\n    printf(\"%i\\n\", n);\n    count_down(n - 1);   /* kichikroq masala */\n}",
+          "highlight": [
+            3,
+            5,
+            6
+          ],
+          "narration": "Birinchi rekursiv funksiyamiz. Agar n nol boʻlsa — return: baza holati, hech narsa chop etilmaydi, chaqiruv shunchaki tugaydi. Aks holda n ni chop etamiz va n minus birdan count down ni chaqiramiz — xuddi shu funksiya, kichikroq kirish. Uchdan count down ni kuzatamiz: u uchni chop etadi va ikkidan count down ni chaqiradi; u ikkini chop etadi va birdanini chaqiradi; u birni chop etadi va noldanini chaqiradi — u esa zudlik bilan qaytadi. Nolga erishildi, lekin u hech qachon chop etilmadi. Har bir chaqiruv oʻz stek kadridagi shaxsiy n ga ega va har qanday lahzada faqat eng yuqori chaqiruv ishlab turadi."
+        },
+        {
+          "type": "example",
+          "heading": "count_down(3) va count_up(3)",
+          "problem": "count_down rekursiv chaqiruvdan oldin chop etadi; count_up undan keyin. n = 3 uchun har biri nima chop etadi?",
+          "steps": [
+            {
+              "text": "count_down: printf chaqiruvdan oldin"
+            },
+            {
+              "text": "qiymatlar tushish yoʻlida chiqadi: 3 2 1"
+            },
+            {
+              "text": "count_up: printf chaqiruvdan keyin"
+            },
+            {
+              "text": "chop etish qaytishni kutadi: 1 2 3"
+            },
+            {
+              "text": "count_down: 3 2 1 — count_up: 1 2 3",
+              "highlight": true
+            }
+          ],
+          "result": "3 2 1 va 1 2 3",
+          "narration": "Xuddi shu tarkiblar, teskari tartib — va natija teskari chiqadi; bu yettinchi hafta testining oʻninchi savoli. Count down da printf rekursiv chaqiruvdan oldin turadi, shuning uchun qiymatlar tushish yoʻlida chiqadi: uch, ikki, bir. Count up da printf chaqiruvdan keyin turadi: funksiya hech narsa chop etilishidan oldin nolga shoʻngʻiydi va chop etishlar qaytish yoʻlida otadi — bir, ikki, uch. Chop etish tartibi bajarilish tartibiga ergashadi. Ikkala funksiya ham n nolga yetganda toʻxtaydi. Chaqiruvdan oldin — tushish yoʻlida. Chaqiruvdan keyin — qaytish yoʻlida."
+        },
+        {
+          "type": "code",
+          "heading": "factorial",
+          "code": "int factorial(int n)\n{\n    if (n == 0)\n        return 1;               /* baza holati */\n    int smaller = factorial(n - 1);\n    return n * smaller;\n}",
+          "highlight": [
+            3,
+            5,
+            6
+          ],
+          "narration": "Faktorial: uch faktorial — uch karrali ikki karrali bir — olti. Asosiy kuzatish: uch faktorial — uch karrali ikki faktorial; kichikroq javob kattaroq javobning ichida oʻtiradi. Agar n nol boʻlsa, bir qaytaramiz — baza nol boʻlganida undan yuqoridagi har bir koʻpaytma nolga qulab tushardi. Aks holda avval n minus birning faktorialini hisoblaymiz, uni smaller ichida saqlaymiz va n karrali smallerni qaytaramiz. Har bir chaqiruv oʻz n ini saqlab turadi va kichikroq chaqiruv tugashini kutadi — va ana shu kutish uchun chaqiruv steki mavjud."
+        },
+        {
+          "type": "concept",
+          "heading": "Chaqiruv steki",
+          "bullets": [
+            "har bir chaqiruv oʻz kadrini oladi",
+            "kadr: lokal, parametr, qaytish nuqtasi",
+            "faqat eng yuqori chaqiruv faol",
+            "rekursiya va sikl: xuddi shu 6"
+          ],
+          "narration": "Har bir chaqiruv oʻz stek kadrini oladi: oʻz parametrlari, oʻz lokal oʻzgaruvchilari va bajarilish davom etadigan nuqta. Uchning faktoriali ikkining faktorialini chaqirganda, chaqiruvchi toʻxtatiladi, biroq unutilmaydi: uning kadrida tugallanmagan ish — uchga koʻpaytirish — kutib turadi. Har qanday lahzada faqat eng yuqori chaqiruv faol. Qaytishlar kadrlarni tepadan, bittadan olib tashlaydi. Faktorial uchun rekursiya va oddiy sikl bir xil oltini beradi, koʻpaytmalar soni ham oʻxshash — lekin oʻz-oʻziga oʻxshash ichma-ich strukturalar uchun rekursiv shaklni yozish koʻpincha osonroq."
+        },
+        {
+          "type": "example",
+          "heading": "factorial(3) ni kuzatish",
+          "problem": "int result = factorial(3); — chaqiruv stekini kuzating. result nima boʻladi?",
+          "steps": [
+            {
+              "text": "chaqiruvlar: factorial(3) → (2) → (1) → (0)"
+            },
+            {
+              "text": "baza factorial(0) — 1 qaytaradi"
+            },
+            {
+              "text": "(1) — 1 × 1 = 1; (2) — 2 qaytaradi"
+            },
+            {
+              "text": "(3) — 3 × 2 = 6 qaytaradi"
+            },
+            {
+              "text": "result = 6",
+              "highlight": true
+            }
+          ],
+          "result": "6",
+          "narration": "Imtihonning sevimli kuzatuvi. Main uchning faktorialini chaqiradi va kutadi. U kadr n uchni saqlaydi va ikkining faktorialini chaqiradi; u n ikkini saqlaydi va birning faktorialini chaqiradi, u esa nolnikini chaqiradi. Faqat eng yuqori chaqiruv faol. Baza birni qaytaradi — lekin bu yakuniy javob emas: bazaga yetish main ga oltini berib qoʻymaydi. Endi qaytishlar kadrlarni bittadan yulib oladi. Birning faktoriali birni olib, bir karrali birni — birni qaytaradi. Ikkining faktoriali ikkini, soʻng uch karrali ikkini — oltini qaytaradi. Main result olti bilan davom etadi. Chaqiruvlar uch, ikki, bir, nol boʻlib ketdi; qaytishlar bir, bir, ikki, olti boʻlib qaytdi."
+        },
+        {
+          "type": "example",
+          "heading": "Xanoy minorasi",
+          "problem": "3 diskni B tayoqchasidan foydalanib A dan C ga koʻchiring. Bir vaqtda bitta disk, faqat eng ustki disk, kichik ustiga hech qachon katta. Nechta yurish kerak?",
+          "steps": [
+            {
+              "text": "2 disk A → B, C orqali: 3 yurish"
+            },
+            {
+              "text": "3-disk A → C: 1 yurish"
+            },
+            {
+              "text": "2 disk B → C, A orqali: 3 yurish"
+            },
+            {
+              "text": "3 + 1 + 3 = 7 yurish",
+              "highlight": true
+            }
+          ],
+          "result": "7 yurish",
+          "narration": "Kitobning sakkiz nuqta beshinchi mashqi. A tayoqchasida uchta disk; maqsad — C tayoqchasi; zaxira — B. Qoidalar: bir vaqtda bitta disk, faqat eng ustki disk, kichik ustiga katta disk hech qachon qoʻyilmaydi. Rekursiv oʻylang. Yuqorigi ikkita diskni A dan B ga, C dan foydalanib koʻchiring — bu bir oʻlcham kichikroq xuddi shu masala, uchta alohida yurish. Uchinchi diskni A dan C ga koʻchiring — bitta yurish. Ikkita diskni B dan C ga, A dan foydalanib koʻchiring — yana uchta yurish. Uch plus bir plus uch: yetti yurish. Baza holati: disk yoʻq — yurish ham yoʻq. Ketma-ketlik shundan boshlanadi: birinchi disk A dan C ga, ikkinchi disk A dan B ga, birinchi disk C dan B ga, uchinchi disk A dan C ga."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "baza + kichikroq masala + intilish",
+            "count_down(3): 3 2 1; count_up(3): 1 2 3",
+            "factorial(3): chaqiruv 3-2-1-0; natija 6",
+            "0! = 1 — aks holda koʻpaytmalar qulaydi",
+            "Xanoy: 3 + 1 + 3 = 7 yurish",
+            "fibonacci(4) = 3: ikkita baza holati"
+          ],
+          "narration": "Beshinchi bob mustahkamlandi. Rekursiya uchta ustunda turadi: baza holati, kichikroq masala, intilish. Uchdan count down uch, ikki, birni chop etadi; count up — bir, ikki, uchni. Uchning faktoriali: chaqiruvlar uch, ikki, bir, nol — qaytishlar bir, bir, ikki, olti. Nol faktorial — bir. Xanoy: uch plus bir plus uch — yetti yurish. Fibonachchi toʻrt esa uchga teng — ikkita baza holatiga tayanadi."
+        }
+      ]
+    },
+    {
+      "title": "Xato ovi va qisqacha qoʻllanma",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Xato ovi va qisqacha qoʻllanma",
+          "subtitle": "Top, tushuntir, tuzat",
+          "narration": "Oltinchi bob: xato ovi va qisqacha qoʻllanma. Biz xato oilalarini xaritaga tushiramiz, shartlari notoʻgʻri tartibda yozilgan kabisa yilini tuzatamiz, qotil nuqta-vergulni ushlab olamiz va satrlar bilan koʻrsatkichlarni xavfsiz saqlaydigan xotira qoidalarini mustahkamlaymiz."
+        },
+        {
+          "type": "concept",
+          "heading": "Xatolar qanday ovlanadi",
+          "bullets": [
+            "avval kutulgan xatti-harakatni oʻqing",
+            "-Wall va sanitizator bilan kompilyatsiya",
+            "xatoni bitta gapda tushuntiring",
+            "tuzating, soʻng kirishlarni sinang"
+          ],
+          "narration": "Ish varagʻidagi qoidalarni odatga aylantirishga arziydi. Birinchidan, kutulgan xatti-harakatni oʻqing: har bir masala dastur nima chop etishi kerakligini aytib beradi. Gcc, defis Wall va manzil sanitizatori bilan kompilyatsiya qiling — sanitizator xabarlari muhokama uchun ajoyib material, juftlikda ishlash formati esa ovoz chiqarib tushuntirishga majbur qiladi. Keyin xato qatorni toping, xatoni bitta gapda tushuntiring, tuzating va tavsiya etilgan kirishlar bilan sinab koʻring. Va sikllar varagʻidan saboq: eng birinchi masala chop etilgan holicha toʻgʻri edi — ishlayotgan kodni oʻzgartirishdan oldin natijani qoʻlda hisoblab chiqing."
+        },
+        {
+          "type": "table",
+          "heading": "Xato xaritasi",
+          "columns": [
+            "Xato oilasi",
+            "Xato ovi"
+          ],
+          "rows": [
+            [
+              "'\\0' yoki +1 bayt yoʻq",
+              "1, 4, 9-xatolar"
+            ],
+            [
+              "koʻrsatkich va massiv chalkashuvi",
+              "2, 3-xatolar"
+            ],
+            [
+              "faqat oʻqiladigan / osilgan xotira",
+              "5, 6, 12-xatolar"
+            ],
+            [
+              "boshlanmagan koʻrsatkich",
+              "7, 11-xatolar"
+            ],
+            [
+              "qiymat boʻyicha uzatish",
+              "8-xato"
+            ],
+            [
+              "belgisiz turda aylanish",
+              "10-xato"
+            ]
+          ],
+          "narration": "Oʻqituvchining kaliti koʻrsatkich va satrlarga oid oʻn ikki xatoni oilalarga ajratadi. Uchtasi terminatorni yoki plus bir baytni unutadi: besh katakli massiv, olti baytlik nusxa uchun atigi besh baytli bufer, strlen plus birlisiz malloc. Ikkisi koʻrsatkichni massiv bilan chalkashtiradi: koʻrsatkichning sizeof i sakkizni qaytaradi, beshni emas; ikkilik tenglik ikkita har xil manzilni solishtiradi. Uchtasi taqiqlangan xotiraga tegadi: faqat oʻqiladigan literal, yoʻq boʻlib ketgan buferga osilib turgan koʻrsatkich, free dan keyingi oʻqish. Ikkisi koʻrsatkichiga umuman qiymat bermaydi. Bittasi havola orqali uzatishga umid qiladi; yana bittasi belgisiz tur bilan pastga sanaydi — minusga ketish oʻrniga aylanib ketadi."
+        },
+        {
+          "type": "code",
+          "heading": "Xato: notoʻgʻri tartibdagi kabisa yili",
+          "code": "int is_leap(int year) {\n    if (year % 4 == 0)\n        return 1;        /* 1900 shu yerda toʻxtaydi! */\n    if (year % 100 == 0)\n        return 0;\n    if (year % 400 == 0) /* yetib boʻlmaydi */\n        return 1;\n    return 0;\n}\n/* fix: % 400, keyin % 100, keyin % 4 */",
+          "highlight": [
+            2,
+            6
+          ],
+          "narration": "Xato ovi C, uchinchi masala. Kutilgan natija: ming toʻqqiz yuz — oddiy yil, nol. Funksiya esa bir qaytaradi. Tartibni oʻqing: birinchi sinov — toʻrtga boʻlinish; ming toʻqqiz yuz undan oʻtib ketadi va zudlik bilan bir qaytaradi — xato. Pastdagi toʻrt yuzlik tarmoqqa mohiyatan yetib boʻlmaydi: toʻrt yuzning har qanday karralisi toʻrtga ham boʻlinadi va yuqorida ushlanib qoladi. Tuzatish birinchi bobni aks ettiradi: avval toʻrt yuzni, keyin yuzni, keyin toʻrtni tekshiring — yoki ixcham ifodani bitta qatorda qaytaring. Shartlarning tartibi — mantiqning bir qismi."
+        },
+        {
+          "type": "example",
+          "heading": "Nega 11 chop etiladi",
+          "problem": "for (i = 1; i <= 10; i++);  { sum += i; }  printf(\"%d\", sum); — 55 oʻrniga nima uchun 11 chop etiladi?",
+          "steps": [
+            {
+              "text": "for dan keyingi ';' tanani boʻsh qoldiradi"
+            },
+            {
+              "text": "sikl 10 marta hech narsa qilmay aylanadi"
+            },
+            {
+              "text": "i oʻn birda tugaydi"
+            },
+            {
+              "text": "blok bir marta ishlaydi: sum = 11",
+              "highlight": true
+            },
+            {
+              "text": "';' ni olib tashlang → sum = 55"
+            }
+          ],
+          "result": "11",
+          "narration": "Xato ovi, sikllar, ikkinchi masala — sekin kuzatamiz; xato koʻz oldida yashiringan. Boshlanish: i bir. Shart: koʻpi bilan oʻn — rost. Tana: boʻsh operator hech narsa qilmaydi. Yangilanish: i ikkiga aylanadi. Shu tarzda takrorlanaveradi, i oʻn birga yetguncha — shart yiqiladi va sikl tugaydi, i oʻn birga teng. Keyingi operator: blok i ni sum ga qoʻshadi — oʻn bir. Printf kutilgan ellik beshni emas, oʻn birni chop etadi. Jinoyatchi — for sarlavhasidagi nuqta-vergul: u sikl tanasini boʻsh qoldiradi va undan keyingi blok aynan bir marta ishlaydi. Uni oʻchirib tashlasangiz — yigʻindi ellik besh."
+        },
+        {
+          "type": "code",
+          "heading": "Xato: satr emas",
+          "code": "char s[5] = {'h', 'e', 'l', 'l', 'o'};\nprintf(\"%s\\n\", s);    /* oxiridan oʻqib ketadi! */\n\n/* fix: terminatorga joy oching */\nchar s2[6] = {'h', 'e', 'l', 'l', 'o', '\\0'};\nprintf(\"%s\\n\", s2);   /* hello ni chop etadi */",
+          "highlight": [
+            2,
+            5
+          ],
+          "narration": "Birinchi raqamli xato. Massivda besh harf uchun aynan besh katak bor — nol baytga joy qolmaydi. Printf procent s bilan massiv oxiridan oʻtib ketadi va xotirada qayerdadur tasodifan nol baytga duch kelguncha oʻqiyveradi: oldindan aytib boʻlmaydigan axlat. Ikkita tuzatish bor: terminatori qoʻlda yozilgan oltita katak, yoki qoʻshtirnoq ichidagi hello bilan char s qavs — kompilyator oltita katakni oʻzi sanaydi va terminatorni oʻzi qoʻshadi. Xuddi shu oila malloc ni ham tishlaydi: besh harfli satr nusxasi strlen plus bir baytni talab qiladi, aks holda heap bloki aynan bitta baytga toshib ketadi."
+        },
+        {
+          "type": "code",
+          "heading": "Xato: == va faqat oʻqiladigan literallar",
+          "code": "char a[] = \"cat\";\nchar b[] = \"cat\";\nif (a == b)             /* manzillarni solishtiradi */\n    puts(\"Different\");\nif (strcmp(a, b) == 0)  /* mazmunni solishtiradi */\n    puts(\"Same\");\n\nchar *s = \"hello\";\ns[0] = 'J';             /* halokat: faqat oʻqish! */",
+          "highlight": [
+            3,
+            6,
+            9
+          ],
+          "narration": "Kalitdagi ikkita klassik masala. Birinchisi — satrlarda ikkilik tenglik: a va b — tasodifan bir xil matnni saqlab turgan ikkita alohida massiv; ikkilik tenglik ularning manzillarini solishtiradi, manzillar esa har xil, shuning uchun soʻzlar bir boʻlsa ham Different chop etiladi. Strcmp mazmunni solishtiradi va tenglar uchun nol qaytaradi — mana bu toʻgʻri test. Ikkinchisi — faqat oʻqiladigan literal: s koʻrsatkichi faqat oʻqiladigan xotiradagi hello ga nishon olgan; s nolga katta J yozish odatda segmentatsiya xatosi bilan halokatga olib keladi. Tuzatish — char s qavs hello — yozish mumkin boʻlgan nusxa yaratadi va Jello xursandchilik bilan chop etiladi."
+        },
+        {
+          "type": "concept",
+          "heading": "Eslab qolish kerak boʻlgan xotira xatolari",
+          "bullets": [
+            "literallar faqat oʻqiladigan",
+            "qaytarilgan lokal manzil osilgan boʻladi",
+            "boshlanmagan koʻrsatkich tasodifiy",
+            "free(p) dan keyin p ga tegmang"
+          ],
+          "narration": "Eslab qolishga arziydigan toʻrtta xotira qoidasi. Satr literallari faqat oʻqiladigan: oddiy char koʻrsatkichi orqali tahrirlash dasturni qulatadi; char s qavs esa yoziladigan nusxa yaratadi. Funksiyaning oʻz lokal massiviga qaytargan koʻrsatkichi osilgan boʻladi: kadr yoʻqolgan, manzil oʻlik, va kompilyator odatda ogohlantiradi. Boshlanmagan koʻrsatkich tasodifiy manzilni ushlab turadi: uning orqali yozish qayergadir tasodifiy joyga tushadi — hatto ishlagandek koʻrinishi ham mumkin, bu esa yanada yomonroq. Va free dan keyin koʻrsatkichga tegmang: uni NULL ga qoʻyib qoʻying va xato baland ovozda eshitilsin. Bu toʻrtta qoida varaqlardagi deyarli barcha oʻn ikki xatoni qamrab oladi — yuqoridagi xarita bilan tekshirib koʻring."
+        },
+        {
+          "type": "concept",
+          "heading": "Testdan oldingi asosiy qoidalar",
+          "bullets": [
+            "for dan keyingi ';' tanani boʻsh qiladi",
+            "argumentlar qiymat boʻyicha uzatiladi",
+            "rekursiya: baza + kichik + intilish",
+            "sizeof: bayt; strlen: belgi"
+          ],
+          "narration": "Qisqacha qoʻllanmaning asosiy qoidalari. For sarlavhasidan keyin turgan nuqta-vergul sikl tanasini boʻsh qoldiradi — undan keyingi blok bir marta ishlaydi. Argumentlar qiymat boʻyicha uzatiladi: chaqiruvchining oʻzgaruvchisini oʻzgartirish uchun koʻrsatkich uzating — ampersand x va ampersand y bilan swap. Rekursiya — baza holati plus kichikroq masala plus intilish; intilish boʻlmasa, stek buning narxini toʻlaydi. Sizeof baytlarni sanaydi, strlen esa belgilarni — va nusxa uchun terminatorga bitta bayt qoʻshing. Boshlanmagan oʻzgaruvchilar — bu axlat: C da umuman birlamchi qiymatlar mavjud emas."
+        },
+        {
+          "type": "table",
+          "heading": "Operator ustuvorligi",
+          "columns": [
+            "Daraja",
+            "Operatorlar",
+            "Izoh"
+          ],
+          "rows": [
+            [
+              "1 (eng yuqori)",
+              "++ -- (cast) sizeof",
+              "unar"
+            ],
+            [
+              "2",
+              "* / %",
+              "+ va - dan yuqori"
+            ],
+            [
+              "3",
+              "+ -",
+              "qoʻshish-ayirish"
+            ],
+            [
+              "4",
+              "== !=",
+              "&& || dan yuqori"
+            ],
+            [
+              "5",
+              "&& ||",
+              "mantiqiy"
+            ],
+            [
+              "6 (eng past)",
+              "= += -= *= /= %=",
+              "tayinlash"
+            ]
+          ],
+          "narration": "Ustuvorlik narvoni — tepadan pastga. Birinchi daraja: unar operatorlar — oshirish, kamaytirish, tur keltirish, sizeof. Ikkinchi daraja: koʻpaytiruvchi operatorlar — yulduzcha, slesh, procent — qoʻshuvchi plus va minusdan yuqori. Toʻrtinchi daraja: tenglik — ikkilik teng va teng emas — mantiqiy «va» va «yoki»dan yuqori. Tayinlash — eng pastda; shuning uchun y teng x karrali uch plus ikki, y teng x karrali uch plus ikki shaklida guruhlanadi. Slaydlardagi eng yaxshi maslahat: qavslardan saxiylik bilan foydalaning va aniq boʻlish mumkin boʻlgan joyda xotiraga tayanmang."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "shart tartibi — mantiqning bir qismi",
+            "for dan keyingi nuqta-vergul tanani boʻsh qiladi",
+            "satrlarga '\\0' uchun joy kerak (+1 bayt)",
+            "== manzillarni solishtiradi; strcmp ishlating",
+            "literallar faqat oʻqiladigan — char s[] nusxalaydi"
+          ],
+          "narration": "Oltinchi bob mustahkamlandi. Shartlar tartibi — bu mantiq: avval toʻrt yuz, keyin yuz, keyin toʻrt. For dan keyingi nuqta-vergul sikl tanasini boʻsh qoldiradi. Satrlarga terminator uchun joy kerak, nusxalarga esa yana bitta bayt. Ikkilik tenglik manzillarni solishtiradi; strcmp matnni solishtiradi va tenglar uchun nol qaytaradi. Literallar faqat oʻqiladigan — char s qavs yoziladigan nusxa yaratadi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "4/3 va %f: 1.000000 chop etadi",
+            "case da break yoʻq: oqib tushish",
+            "do-while kamida bir marta ishlaydi",
+            "scanf ga &x kerak; massivlar manzil",
+            "count_down(3): 3 2 1; fibonacci(4): 3",
+            "sizeof — bayt; strlen — belgi"
+          ],
+          "narration": "Testgacha bitta sahifa qoldi. Operand turlari boʻlishni hal qiladi — toʻrt boʻlish uch — bir. Break yoʻq — oqib tushish bor. Do-while kamida bir marta ishlaydi; continue shartga sakraydi. Scanf ga manzillar kerak; massiv nomi allaqachon manzil. Chaqiruvchining oʻzgaruvchisini oʻzgartirish uchun koʻrsatkich uzating. Rekursiya: baza holati, kichikroq kirish, intilish. Sizeof baytni, strlen belgini sanaydi — nusxaga bittani qoʻshing. Chiqish tekshiruvlarini yana bir bor oʻtkazib chiqing — siz tayyorsiz."
+        },
+        {
+          "type": "outro",
+          "message": "4–7-haftalarning hammasini oʻtdingiz — turlar, boshqaruv, funksiyalar, koʻrsatkichlar, satrlar, rekursiya. Endi testni topshiring — siz tayyorsiz.",
+          "narration": "Bu — toʻrtinchi-yettinchi haftalarning toʻliq qoʻllanmasi edi: turlar va operatorlar, boshqaruv konstruktsiyalari, funksiyalar va strukturalar, koʻrsatkichlar, satrlar va rekursiya — va yoʻldagi har bir xato ovi tuzatildi. Qisqacha qoʻllanmani yana bir koʻrib chiqing, bir nechta dasturni qoʻlda kuzatib yuring — va testda omad tilaymiz. Siz tayyorsiz."
+        }
+      ]
+    }
+  ],
+  "outro_message": "4–7-haftalarning hammasini oʻtdingiz — turlar, boshqaruv, funksiyalar, koʻrsatkichlar, satrlar, rekursiya. Endi testni topshiring — siz tayyorsiz.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}
