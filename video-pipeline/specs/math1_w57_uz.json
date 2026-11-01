@@ -1,0 +1,585 @@
+{
+  "id": "math1_w57",
+  "language": "uz",
+  "course_title": "Matematika I — Matematik analiz",
+  "test_title": "5–7-haftalar · Toʻliq qoʻllanma",
+  "subtitle": "Uzluksizlik · Hosilalar · Bogʻliq tezliklar",
+  "chapters": [
+    {
+      "title": "Uzluksizlik: hech narsa uzilmaganda",
+      "blocks": [
+        { "type": "title", "narration": "Matematika bir kursining beshinchi va yettinchi haftalari boʻyicha toʻliq video qoʻllanmaga xush kelibsiz. Keyingi yarim soat ichida uzluksizlik oʻz oʻrniga qoʻnadi, ikki katta teorema optimumlaringizning mavjudligini kafolatlaydi, hosila oddiy bir rasmdan oʻsib chiqadi, bogʻliq tezliklar esa butun matematik analizni sharlar, narvonlar va kondensatorlar bilan bogʻlaydi. Hal qilingan har bir misol toʻgʻridan-toʻgʻri sizning kurs fayllaringizdan olingan va qadam-baqadam tushuntirilgan. Yarim soatdan keyin sizda faqat javoblar emas, balki har bir javob orqasidagi mantiq ham boʻladi. Boshlaymiz." },
+        { "type": "section", "num": 1, "title": "Uzluksizlik va uning uzilishlari", "subtitle": "Uchta shart, toʻrt xil buzilish",
+          "narration": "Birinchi boʻlim. Beshinchi hafta soʻraydi: grafikni qalamni qogʻozdan uzmasdan chizish mumkinmi? Uzluksizlik — bunga qatʼiy javob, va u uchta tekshiriladigan shartga tayanadi. Biz yana uzluksizlikning toʻrt xil buzilish yoʻli bilan tanishamiz va har birini bir qarashdan tasniflashni oʻrganamiz. Uch haftaning eng muhim lugʻati mana shu boʻlimda shakllanadi." },
+        { "type": "concept",
+          "heading": "Uzluksizlikning uch sharti",
+          "bullets": [
+            "f(a) qiymati aniqlangan boʻlishi kerak",
+            "x a ga intilganda limit mavjud",
+            "limit funksiya qiymatiga teng"
+          ],
+          "formula": "\\lim_{x \\to a} f(x) = f(a)",
+          "formula_caption": "oʻqilishi: x a ga intilganda f ning limiti f ning a dagi qiymatiga teng",
+          "narration": "Funksiya bir nuqtada uch shart bajarilganda uzluksiz boʻladi. Birinchisi: f ning a nuqtadagi qiymati aniqlangan boʻlishi kerak, yaʼni nuqta haqiqatan mavjud. Ikkinchisi: x a ga intilganda limit mavjud boʻlishi kerak, va bu chap hamda oʻng limitlar teng degani. Uchinchisi: oʻsha limit funksiyaning aynan shu nuqtadagi qiymatiga teng boʻlishi kerak. Formulani oʻqiymiz: x a ga intilganda f ning limiti f ning a nuqtadagi qiymatiga teng. Shartlardan biri buzilsa, funksiya shu nuqtada uzluksiz boʻlmay qoladi. Oraliqda esa biz bu talabni har bir nuqtada qoʻyamiz; muhandislar buni shunday yigʻadi: kirishdagi kichik oʻzgarishlar chiqishda kichik oʻzgarishlar keltiradi." },
+        { "type": "concept",
+          "heading": "Uzluksizlik buzilishining toʻrt yoʻli",
+          "bullets": [
+            "olib tashlanadigan: grafikdagi teshik",
+            "sakrash: chekli, teng boʻlmagan tomonlar",
+            "cheksiz: asimptota boʻylab portlash",
+            "tebranuvchi: tinchlanmaydi"
+          ],
+          "formula": "f(x) = \\sin\\frac{1}{x}",
+          "formula_caption": "nol yaqinida cheksiz tez tebranadi, limit yoʻq",
+          "narration": "Uzilishlar toʻrt xil boʻladi. Olib tashlanadigan: limit mavjud, lekin qiymat yoʻq yoki boshqacha — yamoq mumkin boʻlgan teshik. Sakrash: ikkala bir tomonlama limit chekli, lekin teng emas — ikki holat orasida zarb bilan oʻtuvchi rele kabi. Cheksiz: funksiya vertikal asimptota boʻylab cheksizlikka otiladi, xuddi bir boʻlinib x ning noldagi holati kabi. Tebranuvchi: funksiya umuman tinchlanmaydi; formulada bir boʻlinib x ning sinusi koʻrsatilgan — u nol yaqinida cheksiz tez tebranadi, shuning uchun limit mavjud emas. Tasniflash — imtihonning birinchi savoli, shuning uchun toʻrt qatorni nomlari bilan yod oling. Mana shu koʻnikma imtihon eshigini ochadi." },
+        { "type": "concept",
+          "heading": "Qanday funksiyalar uzluksiz?",
+          "bullets": [
+            "polinomlar: hamma joyda",
+            "ratsional: maxraj nol emas",
+            "trigonometrik, eksponent, logarifm: sohalarda",
+            "yigʻindi, koʻpaytma, nisbat saqlanadi"
+          ],
+          "formula": "\\lim_{x \\to a} f(g(x)) = f\\left(\\lim_{x \\to a} g(x)\\right)",
+          "formula_caption": "uzluksizlik bilan limit f ning ichiga oʻtadi",
+          "narration": "Limitlarni har safar noldan tekshirmaymiz — tayyor katalogdan foydalanamiz. Polinomlar hamma joyda uzluksiz. Ratsional funksiyalar maxraj nol boʻlmagan hamma nuqtada uzluksiz. Trigonometrik, eksponent va logarifmik funksiyalar oʻz taʼrif sohalarida uzluksiz. Uzluksiz funksiyalarning yigʻindilari, ayirmalari, konstantaga koʻpaytmalari, koʻpaytmalari va nisbatlari uzluksiz boʻlib qoladi. Eng goʻzali — formulada koʻrsatilgan kompozitsiya: agar g L ga intilsa va f L nuqtada uzluksiz boʻlsa, limit f ning ichiga oʻtib ketadi. Aynan shuning uchun elementar boʻlaklardan yigʻilgan muhandislik modellari oldindan aytiladigan boʻlib qoladi. Imtihondan oldin mana shu qisqa katalogni yod oling: avval polinomlar, soʻngra ulardan qurilgan hamma narsa." },
+        { "type": "table",
+          "heading": "Uzilishlarni tasniflash",
+          "columns": ["Turi", "Nima boʻladi", "Misol"],
+          "rows": [
+            ["Olib tashlanadigan", "limit bor, qiymat xato", "grafikdagi teshik"],
+            ["Sakrash", "tomonlar chekli, teng emas", "zarb bilan oʻtuvchi rele"],
+            ["Cheksiz", "nuqta yaqinida cheksiz", "1/x nolda"],
+            ["Tebranuvchi", "yaqinlashadigan qiymat yoʻq", "sin(1/x) nolda"]
+          ],
+          "narration": "Mana tasnif bir qarashda. Olib tashlanadigan uzilish — bu teshik: limit mavjud, lekin qiymat notoʻgʻri yoki butunlay yoʻq. Sakrashda ikkala bir tomonlama limit chekli va teng emas; himoya kontrollerining nolga zarb bilan oʻtishini eslang. Cheksiz uzilish nuqta yaqinida chegaralanmaydi, masalan bir boʻlinib x nolda. Tebranuvchi uzilish hech qanday qiymatga yaqinlashmaydi — bir boʻlinib x ning sinusi noldagi kabi. Tasniflashda doim avval bir tomonlama limitlarni hisoblab chiqasiz, soʻngra mos qatorni topasiz. Bu jadval — sizning birinchi tashxis vositangiz; har bir topshiriqda ishni mana shundan boshlang." },
+        { "type": "example",
+          "heading": "Misol: bu boʻlakli funksiya uzluksizmi?",
+          "problem": "f(x)=\\begin{cases} x^{2}+1, & x<2 \\\\ 5, & x=2 \\\\ 3x-1, & x>2 \\end{cases}",
+          "steps": [
+            { "tex": "\\lim_{x \\to 2^{-}} f(x) = 2^{2}+1 = 5" },
+            { "tex": "\\lim_{x \\to 2^{+}} f(x) = 3\\cdot 2-1 = 5" },
+            { "tex": "f(2) = 5" },
+            { "tex": "\\lim_{x \\to 2} f(x) = f(2) = 5", "highlight": true }
+          ],
+          "result": "f x = 2 da uzluksiz",
+          "narration": "Amaliy mashgʻulotlarning klassik misoli. Uch boʻlak x ikki nuqtasida uchrashadi: chapda parabola, nuqtaning oʻzida bitta qiymat, oʻngda toʻgʻri chiziq. Birinchi qadam — chap tomon limiti: ikkining kvadrati plus bir, besh beradi. Ikkinchi qadam — oʻng tomon limiti: uch marta ikki minus bir — yana besh. Uchinchi qadam — nuqtadagi qiymat: f ning ikkidagi qiymati besh. Besh, besh, besh: ikkala bir tomonlama limit va qiymatning oʻzi hammasi mos keladi, demak uchta uzluksizlik sharti toʻliq bajarildi. Funksiya ikki nuqtasida uzluksiz; boʻlaklar choksiz qoʻshiladi. Har bir boʻlak oʻz tomonidan baholanadi — boshqa yoʻl yoʻq. Uch sonli ana shu tekshiruv — butun metod shundan iborat." },
+        { "type": "example",
+          "heading": "Misol: teshikni yamoq (k ni topish)",
+          "problem": "f(x)=\\begin{cases} \\frac{x^{2}-9}{x-3}, & x \\neq 3 \\\\ k, & x=3 \\end{cases}",
+          "steps": [
+            { "tex": "\\frac{x^{2}-9}{x-3} = \\frac{(x-3)(x+3)}{x-3} = x+3" },
+            { "tex": "\\lim_{x \\to 3} f(x) = 3+3 = 6" },
+            { "tex": "k = \\lim_{x \\to 3} f(x) = 6", "highlight": true }
+          ],
+          "result": "k = 6",
+          "narration": "Endi olib tashlanadigan uzilishni tuzatamiz. Funksiya — x uchda aniqlanmagan nisbat, va k ni shunday tanlashimiz kerakki, funksiya ana shu nuqtada uzluksiz boʻlib qolsin. Birinchi qadam: numeratorni ikki kvadratlar ayirmasi sifatida faktorlaymiz va qisqartiramiz. Uchdan tashqarida funksiya oddiygina x plus uchga teng. Ikkinchi qadam: x uchga intilganda limit oltiga teng. Uchinchi qadam: uzluksizlik qiymat limitga teng boʻlishini talab qiladi, demak k olti boʻlishi shart. k oltiga teng boʻlganda teshik toʻldiriladi va grafik bitta butun, uzilmagan toʻgʻri chiziqqa aylanadi. Uy vazifasidagi parametrli har bir masala mana shu bitta tenglamaga keltiriladi: qiymat limitga teng. Mana shu namunani eslab qoling." },
+        { "type": "example",
+          "heading": "Misol: bitta funksiyada ikki uzilish",
+          "problem": "f(x) = \\frac{x}{x^{2}-x}",
+          "steps": [
+            { "tex": "x^{2}-x = x(x-1)" },
+            { "tex": "f(x) = \\frac{x}{x(x-1)} = \\frac{1}{x-1}" },
+            { "text": "x = 0 da: limit bor (-1), qiymat yoʻq — olib tashlanadigan" },
+            { "text": "x = 1 da: bir tomonlama limitlar -∞ va +∞ — cheksiz" },
+            { "tex": "x=0: \\ \\text{removable}, \\quad x=1: \\ \\text{infinite}", "highlight": true }
+          ],
+          "result": "0 da olib tashlanadigan, 1 da cheksiz",
+          "narration": "Sirli darslik masalasi: bitta funksiya, ikki uzilish, ikki xil tur. Birinchi qadam: maxrajni faktorlaymiz — x marta x minus bir. Ikkinchi qadam: umumiy faktor x ni qisqartiramiz, bir boʻlinib x minus bir qoladi; bu nol va bir tashqarisida haqiqiy. Endi har bir gumonli nuqtani alohida tasniflaymiz. x nolda limit mavjud va minus birga teng, lekin asl funksiya u yerda aniqlanmagan: olib tashlanadigan uzilish — f ning noldagi qiymatini minus bir deb belgilash bilan tuzatiladi. x bir da soddalashtirilgan maxraj nolga aylanadi; bir tomonlama limitlar minus va plus cheksizlikka otiladi — vertikal asimptotali cheksiz uzilish. Bitta funksiya, jadvalimizning aynan ikki qatori." },
+        { "type": "recap",
+          "items": [
+            "uzluksizlik: qiymat + limit + tenglik",
+            "olib tashlanadigan, sakrash, cheksiz, tebranuvchi",
+            "polinom, ratsional, trigonometrik — uzluksiz",
+            "kompozitsiya limitni ichga olib kiradi"
+          ],
+          "narration": "Birinchi boʻlimni mustahkamlab oldik. Nuqtadagi uzluksizlik uch narsani anglatadi: qiymat mavjud, limit mavjud va ular teng. Buzilishlar toʻrt turda keladi: olib tashlanadigan, sakrash, cheksiz, tebranuvchi. Polinom, ratsional, trigonometrik, eksponent va logarifmik funksiyalar sohalarida uzluksiz, kompozitsiya esa limitni ichga olib kiradi. Mana beshinchi haftaning poydevori shu. Endi — buni muhandislik kafolatlariga aylantiradigan ikki teorema keldi." }
+      ]
+    },
+    {
+      "title": "Muhandislar ishonadigan ikki teorema",
+      "blocks": [
+        { "type": "section", "num": 2, "title": "Oraliq qiymatlar teoremasi va Veyershtass", "subtitle": "Ustiga qurish mumkin boʻlgan mavjudlik kafolatlari",
+          "narration": "Ikkinchi boʻlim. Uzluksizlikning oʻzi yoqimli narsa, lekin kuchini unga teoremalar beradi. Oraliq qiymatlar teoremasi har bir oraliq darajaga erishilishini kafolatlaydi. Veyershtass teoremasi yopiq oraliqdagi uzluksiz funksiya haqiqatdan ham oʻz maksimumi va minimumiga erishishini kafolatlaydi. Muhandislik loyihasi tayanadigan kafolatlar — aynan mana shular." },
+        { "type": "concept",
+          "heading": "Oraliq qiymatlar teoremasi",
+          "bullets": [
+            "f [a, b] da uzluksiz",
+            "f(a) va f(b) orasidagi har qiymat olinadi",
+            "mavjudlik kafolatlanadi, yagonalik yoʻq"
+          ],
+          "narration": "Tizimni qirq gradusdan sakson gradusgacha uzluksiz isitib borayotganini tasavvur qiling. U oltmish gradusdan oʻtishi shartmi? Ha — va teorema buning sababini tushuntiradi. Agar f, a dan b gacha boʻlgan yopiq oraliqda uzluksiz boʻlsa, u f ning a va b nuqtalaridagi qiymatlari orasidagi har bir qiymatni qabul qiladi: oradagi har qanday nishon z uchun bazi bir c nuqta topilib, unda f ning qiymati z ga teng boʻladi. Nima vaʼda qilinmayotganiga ham eʼtibor bering: c nuqta yagona boʻlishi shart emas, va teorema u qayerda yotganini hech qachon aytib bermaydi. Bu — sof mavjudlik kafolati, ildiz izlashni qonuniylashtiradigan turdagi kafolat." },
+        { "type": "formula",
+          "heading": "Ildiz izlash shaklidagi teorema",
+          "tex": "f(a) \\cdot f(b) < 0 \\ \\Rightarrow \\ \\exists\\, c \\in (a,b): \\ f(c) = 0",
+          "parts": [
+            { "substr": "f(a) \\cdot f(b) < 0", "color": "red", "note": "chek nuqtalarda qarama-qarshi ishoralar" },
+            { "substr": "c \\in (a,b)", "color": "blue", "note": "ildiz qatʼiy ichkarida yotadi" },
+            { "substr": "f(c) = 0", "color": "green", "note": "grafik oʻqni kesib oʻtadi" }
+          ],
+          "narration": "Eng foydali maxsus holat nollarga bagʻishlangan. f ning a va b nuqtalaridagi qiymatlari qarama-qarshi ishorali deb faraz qilaylik — bittasi musbat, bittasi manfiy; ular qizil bilan koʻrsatilgan. Oʻqning ustidan boshlanib, ostida tugayotgan uzluksiz egri chiziq qayerdir uni kesib oʻtishi shart: interval ichida, koʻk bilan ajratilgan, bazi bir c nuqta mavjud boʻlib, u yerda f nolga teng — yashil bilan. Raqamli usullar ildizlarni ana shunday ikki oʻrtadan qisib oladi. Ikki talab bor: butun yopiq oraliqda uzluksizlik va haqiqiy ishora almashinuvi. Agar funksiya oʻqni kesib oʻtmasdan, faqat tegib oʻtsa, test jim turadi. Muhandislar yechim mavjudligini hisoblashdan oldin mana shu bilan isbotlaydi." },
+        { "type": "concept",
+          "heading": "Veyershtassning ekstremal qiymatlar teoremasi",
+          "bullets": [
+            "yopiq chekli oraliqda uzluksiz",
+            "mutlaq maksimumga erishiladi",
+            "mutlaq minimumga erishiladi",
+            "ikkala shart ham muhim"
+          ],
+          "formula": "f(x_{\\min}) \\leq f(x) \\leq f(x_{\\max})",
+          "formula_caption": "har bir qiymat erishilgan chegaralar orasida yotadi",
+          "narration": "Ekstremal qiymatlar teoremasi deb ham ataladigan Veyershtass teoremasi muhandislarning har kuni soʻraydigan savoliga javob beradi: optimum mavjudmi? Agar f yopiq, chekli oraliqda uzluksiz boʻlsa, u mutlaq maksimumga va mutlaq minimumga erishadi: haqiqiy qiymatlar, haqiqiy nuqtalarda; formulada koʻrsatilganidek, ixtiyoriy x ikki chek qiymat orasida yotadi. Ikkala shart ham muhim. Oraliqni ochib yuborsangiz, qiymatlarga faqat intilish mumkin boʻlib qoladi; uzluksizlikni buzsangiz, sakrash maksimumdan chetlab oʻtishi mumkin. Teorema mavjudlikni kafolatlaydi; nuqtalarni topish — keyingi hafta hosilalarining ishi. Erishiladi degani haqiqatan erishiladi, faqatgina yaqinlashib qoʻyish emas." },
+        { "type": "example",
+          "heading": "Misol: ildiz mavjudligini isbotlash",
+          "problem": "f(x) = x - \\cos x",
+          "steps": [
+            { "tex": "f(0) = 0 - \\cos 0 = -1 < 0" },
+            { "tex": "f\\left(\\frac{\\pi}{2}\\right) = \\frac{\\pi}{2} - 0 > 0" },
+            { "text": "[0, π/2] da ishora almashinish plus uzluksizlik: teorema qoʻllanadi" },
+            { "tex": "\\exists\\, c \\in \\left(0, \\frac{\\pi}{2}\\right): \\ f(c) = 0", "highlight": true }
+          ],
+          "result": "kamida bitta nol",
+          "narration": "x minus kosinus x oʻqni kesib oʻtishini hech narsani yechmasdan isbotlash mumkinmi? Ha — ishora almashinish shakli yordamida. Funksiya hamma joyda uzluksiz, chunki u uzluksiz boʻlaklarning yigʻindisi. Nolda baholaymiz: nol minus kosinus nol, minus bir — manfiy. Pi boʻlinib ikkida baholaymiz: pi boʻlinib ikki minus nol — musbat. Noldan pi boʻlinib ikkigacha boʻlgan oraliqda chek nuqtalardagi qiymatlar ishorasi qarama-qarshi. Oraliq qiymatlar teoremasiga koʻra, ichki bazi bir c nuqtada f ning qiymati nolga teng boʻladi. Demak, x teng kosinus x tenglamasida kamida bitta yechim bor: mavjudlik isbotlandi va hech qanday formula kerak boʻlmadi. Sevimli imtihon hiylasi: bahola, ishorani solishtir, xulosa chiqar." },
+        { "type": "example",
+          "heading": "Misol: teorema yoʻq deganda",
+          "problem": "C(r) = \\pi r^{2} + \\frac{1}{r}, \\quad 0 < r \\leq 5",
+          "steps": [
+            { "text": "C uzluksiz, lekin soha yopiqmi?" },
+            { "text": "(0, 5] yopiq emas: 0 kiritilmagan" },
+            { "tex": "r \\to 0^{+} \\ \\Rightarrow \\ \\frac{1}{r} \\to +\\infty" },
+            { "text": "mutlaq maksimum yoʻq: xarajat chegarasiz oʻsadi", "highlight": true }
+          ],
+          "result": "talabaning daʼvosi xato",
+          "narration": "Bir talaba xarajat funksiyasi uzluksiz, demak Veyershtass maksimumni kafolatlaydi, deb daʼvo qiladi. Tekshirib koʻramiz. Quvur narxi — pi r kvadrat plus bir boʻlinib r; oraliq noldan, kiritilmagan holda, beshgacha. Funksiya rostdan ham uzluksiz, lekin soha yopiq emas: nol unga kirmaydi. Nol yaqinida bir boʻlinib r cheksizlikka otiladi, shuning uchun xarajat chegarasiz oʻsaveradi. Mutlaq maksimum yoʻq — va teorema umuman qoʻllanadigan ham edi: uzluksizlikning oʻzi yetarli emas, oraliq yopiq va chekli boʻlishi kerak. Bu mashq har bir teoremaning teskari tomonini oʻrgatadi: murojaat qilishdan oldin har bir farazni tekshirib chiqing. Avval sohani tekshirasiz — har doim shunday." },
+        { "type": "recap",
+          "items": [
+            "oraliq qiymatlar teoremasi: hammasi olinadi",
+            "ishora almashishi — ichida ildiz bor",
+            "Veyershtass: max va min erishiladi",
+            "uzluksizlik + yopiq chekli toʻplam kerak"
+          ],
+          "narration": "Ikkinchi boʻlim bir nafasda. Oraliq qiymatlar teoremasi: yopiq oraliqdagi uzluksiz funksiya chek nuqtalardagi qiymatlari orasidagi har bir qiymatni oladi; qarama-qarshi ishoralar ichida ildiz bor degani. Veyershtass teoremasi: yopiq, chekli oraliqdagi uzluksiz funksiya oʻz mutlaq maksimumi va minimumiga erishadi. Ikkalasi ham uzluksizlikni talab qiladi, Veyershtass esa qoʻshimcha ravishda yopiq chekli oraliqni ham. Mavjudlik kafolatlari — muhandislik optimizatsiyasining umurtqa pogʻonasi." }
+      ]
+    },
+    {
+      "title": "Teskari funksiyalar: modelni teskari yurgizish",
+      "blocks": [
+        { "type": "section", "num": 3, "title": "Teskari funksiyalar", "subtitle": "Modelni qachon teskari yurgizish mumkin?",
+          "narration": "Uchinchi boʻlim. Datchilar haroratni kuchlanishga aylantiradi, biroq muhandisga koʻpincha aksi kerak boʻladi: mana shu koʻrsatkichni qaysi harorat bergan? Bu — teskari funksiya masalasi. Teskarilar qachon mavjud boʻlishini, monotonlik nima uchun kalit ekanini va ularni qanday qilib xavfsiz hisoblashni koʻrib chiqamiz." },
+        { "type": "concept",
+          "heading": "Teskari funksiya nima",
+          "bullets": [
+            "kirish va chiqishni almashtiradi",
+            "f ni bekor qiladi: f⁻¹(f(x)) = x",
+            "ogohlantirish: f⁻¹(x) — 1/f(x) emas"
+          ],
+          "formula": "f^{-1}(f(x)) = x",
+          "formula_caption": "f ni, soʻngra teskarisini qoʻlladingiz — boshiga qaytdingiz",
+          "narration": "Teskari funksiya kirish va chiqish rollarini almashtiradi. Agar y f ning x dagi qiymati boʻlsa, teskarisi y dan x ni qaytarib beradi. Taʼriflovchi xossa: f ni oʻz teskarisi bilan ketma-ket qoʻllash boshlangʻich nuqtaga qaytaradi — f ning teskarisi f ning x dagi qiymatini x ga aylantiradi, va aksincha, f ham teskarining qiymatini joyiga qaytaradi. Eng avval bitta ogohlantirish: f ning minus birinchi darajasi yozuvi teskari funksiyani anglatadi, bir boʻlinib f emas. Masalan, f uch x plus ikki boʻlsa, y teng uch x plus ikki tenglamasidan x ni yechamiz: x teng y minus ikki boʻlinib uch — mana shu chiziqli aks ettirish, multiplikativ teskari emas, teskari funksiya boʻladi." },
+        { "type": "concept",
+          "heading": "Birma-bir, monoton, teskarilanuvchan",
+          "bullets": [
+            "birma-bir: chiqishlar takrorlanmaydi",
+            "gorizontal chiziq testi",
+            "qatʼiy monoton — birma-bir",
+            "x² sohani qisqartirishni talab qiladi"
+          ],
+          "formula": "f(x_1) = f(x_2) \\Rightarrow x_1 = x_2",
+          "formula_caption": "teng chiqishlar teng kirishlarni talab qiladi",
+          "narration": "Har qanday funksiyani teskari qilib boʻlmaydi. Asosiy talab — birma-birlik: ikki xil kirish bir xil chiqish bermasligi kerak; formulada aytilganidek, teng chiqishlar teng kirishlarni majbur qiladi. Grafik nuqtai nazaridan har qanday gorizontal chiziq grafikni eng koʻp bir marta kesib oʻtadi. Eng qulay yetarli shart — qatʼiy monotonlik: faqat ortuvchi yoki faqat kamuvchi funksiya qiymatni hech qachon takrorlamaydi, demak u birma-bir va teskarilanuvchandir. Kvadratga koʻtarish butun son oʻqida oʻtmaydi: minus ikki ham, ikki ham toʻrt beradi; biroq noldan cheksizlikkacha qisqartirilgan sohada u qatʼiy ortuvchi, va teskarisi kvadrat ildiz boʻlib chiqadi." },
+        { "type": "concept",
+          "heading": "Teskarilarni xavfsiz hisoblash",
+          "bullets": [
+            "y = f(x) ni x uchun yeching",
+            "teskarining sohasi = f ning qiymatlar sohasi",
+            "uzluksiz va monoton — uzluksiz teskari",
+            "klassik juftlik: e^x va ln x"
+          ],
+          "formula": "y = e^{x} \\ \\Longleftrightarrow \\ x = \\ln y",
+          "formula_caption": "eksponent va logarifm bir-birini bekor qiladi",
+          "narration": "Retsept butunlay mexanik. y teng f ning x dagi qiymati deb yozing va tenglamani x uchun yeching: mana shu yechim teskari funksiyadir. Uning taʼrif sohasi — asl funksiyaning qiymatlar sohasi, shuning uchun avval doim qiymatlar sohasini hisoblab chiqasiz. Teskari qilishni xavfsiz qiladigan nazariya: oraliqdagi uzluksiz, qatʼiy monoton funksiya uzluksiz teskariga ega; yoʻnalish agdarilganda hech qanday boʻshliq paydo boʻlmaydi. Klassik juftlik: e ning x darajasi uzluksiz va qatʼiy ortuvchi, uning qiymatlar sohasi noldan cheksizlikka, demak teskarisi — musbat kirishlar uchun aniqlangan natural logarifm. Ikkala grafik — bir-birining oyna aksi, va buni hozir koʻz bilan koʻramiz." },
+        { "type": "plot",
+          "heading": "y = x toʻgʻri chizigʻiga nisbatan oyna akslar",
+          "functions": [
+            { "fn": "np.exp(x)", "tex": "y = e^{x}", "color": "yellow" },
+            { "fn": "np.log(x)", "tex": "y = \\ln x", "color": "blue" },
+            { "fn": "x", "tex": "y = x", "color": "teal" }
+          ],
+          "x_range": [-3, 5], "y_range": [-3, 5],
+          "point": [0, 1], "point_label": "(0, 1) va (1, 0)",
+          "narration": "Mana diagonali y teng x boʻlgan ikkita egri chiziq. Eksponent, sariq rangda, nol-bir nuqtasidan oʻtadi; logarifm, koʻk rangda, bir-nol nuqtasidan oʻtadi. Bir grafikning ixtiyoriy nuqtasi ikkinchi grafikning koordinatalari almashtirilgan oyna akisidir. Qatʼiy ortuvchi uzluksiz egri chiziqning diagonalga nisbatan aksi uzilish ham, takrorlanuvchi qiymat ham yarata olmaydi — ana shuning uchun uzluksiz monoton funksiyaning teskarisi uzluksiz boʻladi. Asl nusxada uzilish boʻlmasa, aksda ham boʻlmaydi: barqaror teskari aylantirish mana shunday koʻrinadi." },
+        { "type": "example",
+          "heading": "Misol: termistor kalibrovkasi",
+          "problem": "R(T) = 100\\, e^{-0.02\\,T}, \\quad T \\geq 0",
+          "steps": [
+            { "text": "uzluksiz va qatʼiy kamuvchi — teskarilanuvchan" },
+            { "tex": "\\frac{R}{100} = e^{-0.02\\,T}" },
+            { "tex": "\\ln\\frac{R}{100} = -0.02\\,T \\ \\Rightarrow \\ T(R) = -50\\,\\ln\\frac{R}{100}" },
+            { "tex": "T(40) = -50\\,\\ln 0.4 \\approx 45.8", "highlight": true }
+          ],
+          "result": "T(40 kΩ) ≈ 45,8 °C",
+          "narration": "Haqiqiy datchik masalasi. Termistorning qarshiligi harorat oshgani sari eksponentsional kamayadi: R teng yuz marta e ning minus noldan-nol-ikki T darajasi. Avval teskarilanuvchanlik: model manfiy boʻlmagan haroratlarda uzluksiz va qatʼiy kamuvchi, demak birma-bir va uzluksiz teskariga ega. Uni topish uchun: ikkala tomonni yuzga boʻlamiz, soʻngra natural logarifm olamiz — R boʻlinib yuzning logarifmi teng minus noldan-nol-ikki T. T ni yechamiz: T ning R dan funksiyasi minus ellik marta R boʻlinib yuzning logarifmi. Qirq kiloomni qoʻyamiz: minus ellik marta noldan-toʻrtning logarifmi — bu taxminan qirq besh butun sakkizdan bir daraja Selsiyga teng." },
+        { "type": "example",
+          "heading": "Misol: chiziqli datchikning teskarisi",
+          "problem": "x(V) = 0.5\\,V + 2, \\quad 0 \\leq V \\leq 10",
+          "steps": [
+            { "text": "x(0) = 2, x(10) = 7, demak qiymatlar sohasi — [2, 7]" },
+            { "tex": "x - 2 = 0.5\\,V" },
+            { "tex": "V(x) = 2(x-2) = 2x-4" },
+            { "tex": "V(x) = 2x-4, \\quad 2 \\leq x \\leq 7", "highlight": true }
+          ],
+          "result": "V(x) = 2x − 4, [2, 7] da",
+          "narration": "Haydovchi siljishi x kirish kuchlanishiga chiziqli bogʻliq: x teng yarim V plus ikki, kuchlanish noldan oʻngacha. Birinchi qadam — qiymatlar sohasi: funksiya ortuvchi, demak chek nuqtalarni baholash kifoya; x nolda ikki, x oʻnda yetti, qiymatlar sohasi — ikkidan yettigacha oraliq. Ana shu oraliq teskarining taʼrif sohasiga aylanadi. Ikkinchi qadam: tenglamani V uchun yechamiz. Ikkini ayiramiz va ikkiga koʻpaytiramiz: teskarisi V teng ikki x minus toʻrt. Uchinchi qadam: asl funksiya uzluksiz va qatʼiy ortuvchi, demak teskarisi ham oʻz sohasida uzluksiz. Teskari aylantirish shu bilan tugadi — va xavfsiz tarzda." },
+        { "type": "recap",
+          "items": [
+            "teskarisi f ni bekor qiladi, 1/f emas",
+            "birma-bir: gorizontal chiziq testi",
+            "qatʼiy monotonlik — teskarilanuvchanlik",
+            "teskarining sohasi = asl qiymatlar sohasi"
+          ],
+          "narration": "Uchinchi boʻlim yakunlandi. Teskari funksiya kirish bilan chiqishni almashtiradi va f ning ishini bekor qiladi; u bir boʻlinib f emas. Teskarilar aynan birma-bir funksiyalar uchun mavjud — buni gorizontal chiziq testi tekshiradi — va qatʼiy monotonlik buni kafolatlaydi. Hisoblash tartibi: x uchun yeching va esda tuting, teskarining taʼrif sohasi asl funksiyaning qiymatlar sohasidir. Uzluksizlik plus qatʼiy monotonlik — uzluksiz teskari: datchik muhandisining kunlik kafolati." }
+      ]
+    },
+    {
+      "title": "Hosila: kesuvchilardan bir lahzali tezliklarga",
+      "blocks": [
+        { "type": "section", "num": 4, "title": "Hosila", "subtitle": "Ikki nuqtadan bir lahzaga",
+          "narration": "Toʻrtinchi boʻlim. Biror narsa hozir, aynan shu lahzada qanchalik tez harakatlanmoqda — oʻrtacha emas, shu ondagina? Oltinchi hafta bunga hosila bilan javob beradi: kesuvchi nishablarining limiti. Bitta gʻoya urinmalar, tezliklar, oʻsish surʼatlari va marginal xarajatlarni birday quvvatlaydi. Uni egri chiziqdagi ikki nuqtadan qurib olamiz." },
+        { "type": "concept",
+          "heading": "Kesuvchilar va ayirma nisbati",
+          "bullets": [
+            "kesuvchi: ikki nuqtadan oʻtuvchi chiziq",
+            "nishab: koʻtarilish boʻlinib siljish",
+            "ikkinchi nuqta birinchisiga sirgʻaladi",
+            "kesuvchilarning limiti — urinma"
+          ],
+          "formula": "m_{sec} = \\frac{f(a+h) - f(a)}{h}",
+          "formula_caption": "h qadam boʻyicha oʻrtacha nishab",
+          "narration": "Egri chiziq ustida ikki nuqta tanlaymiz: a, f ning a dagi qiymati, va h qadam keyin — a plus h, f ning a plus h dagi qiymati. Ulardan oʻtuvchi toʻgʻri chiziq — kesuvchi, uning nishabi — ayirma nisbati: f ning oʻzgarishi x ning oʻzgarishiga boʻlingani. Endi h ni qisqartiramiz. Ikkinchi nuqta egri chiziq boʻylab birinchisiga qarab sirgʻilib keladi, va kesuvchi oʻzining cheklov holatiga burilib boradi — a nuqtadagi urinma. Urinish nuqtasi atrofida silliq egri chiziq deyarli toʻgʻri boʻlib qoladi — ana shuning uchun chiziqli yaqinlashishlar shunchalik yaxshi ishlaydi. Mana bu — geometriyadan analizga oʻtuvchi koʻprik: qadam yoʻqolganda oʻrtacha tezlik bir lahzali tezlikka aylanadi." },
+        { "type": "formula",
+          "heading": "Hosilaning taʼrifi",
+          "tex": "f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}",
+          "parts": [
+            { "substr": "f'(a)", "color": "yellow", "note": "a nuqtadagi hosila: bitta son" },
+            { "substr": "h \\to 0", "color": "blue", "note": "qadam butunlay yoʻqoladi" },
+            { "substr": "f(a+h) - f(a)", "color": "green", "note": "f shu qadamda qancha oʻsgani" }
+          ],
+          "narration": "Mana butun boʻlimni koʻtarib turgan taʼrif. f ning a nuqtadagi hosilasi — sariq bilan — h nolga intilgandagi ayirma nisbatining limiti — koʻk bilan. Numerator — yashil bilan — kirish h ga siljiganda f qanchaga oʻzgarganini koʻrsatadi; h ga boʻlish oʻrtacha surʼatni beradi, h ning qisqarishi esa oʻrtachani bir lahzali surʼatga aylantiradi. Limit chekli son sifatida mavjud boʻlsa, f a nuqtada differensiallanuvchi deyiladi. Buni urinmaning nishabi, aynan shu lahzadagi tezlik, hozirgi oʻsish surʼati deb oʻqing: bitta formula — har xil birliklar. Aynan mana shu bitta qatorni hisob-kitoblarga yoyishni bilishingiz kerak." },
+        { "type": "plot",
+          "heading": "Urinma egri chiziqdan oʻsib chiqadi",
+          "functions": [
+            { "fn": "x**2/4", "tex": "f(x) = \\frac{x^{2}}{4}", "color": "yellow" },
+            { "fn": "x - 1", "tex": "y = x - 1", "color": "blue" }
+          ],
+          "x_range": [-4, 4], "y_range": [0, 5],
+          "point": [2, 1], "point_label": "(2, 1)",
+          "narration": "Sariq parabola — f teng x kvadrat boʻlinib toʻrt. x ikkida qiymat birga teng, demak urinish nuqtasi — ikki, bir. Hosila, f shtrix teng x boʻlinib ikki, f shtrixning ikkidagi qiymatini bir beradi, va urinma — koʻk rangdagi y teng x minus bir toʻgʻri chizigʻi. Nuqta atrofiga yaqinlashib qarang: egri chiziq bilan toʻgʻri chiziq bir-biridan farqlanmay qoladi. Bu — lokal chiziqlilik, differensiallashning geometrik yuragi; urinma esa ana shu nuqtadagi eng yaxshi chiziqli yaqinlashishdir. Nishab va nuqta birgalikda toʻgʻri chiziqni toʻliq belgilaydi — urinma degani ham shundan iborat. Oʻzingiz ham tekshirib koʻring: x ning ikkisini ikkala funksiyaga qoʻying." },
+        { "type": "concept",
+          "heading": "Hosila funksiya sifatida",
+          "bullets": [
+            "f'(x): har bir x ga bitta nishab",
+            "belgilar: y', dy/dx, d/dx f(x)",
+            "tezlik v = s'(t)",
+            "tezlanish a = s''(t)"
+          ],
+          "formula": "f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}",
+          "formula_caption": "xuddi shu limit — har bir x nuqtada",
+          "narration": "Taʼrifni olib, a nuqtaga butun soha boʻylab erkin yurishga ruxsat bering: hosila oʻzi alohida funksiyaga aylanadi. Har bir x ga oʻz nishabi, oʻz bir lahzali surʼati tegishli boʻladi. Belgilanishlar har xil — f shtrix, y shtrix, de y boʻlinib de x — lekin hammasi bir xil obyektni anglatadi. Fizika buni toʻgʻridan-toʻgʻri oʻqiydi: tezlik — koʻchishning hosilasi; tezlanish — tezlikning hosilasi, yaʼni koʻchishning ikkinchi hosilasi. Iqtisod ham xuddi shunday qiladi: marginal xarajat — xarajat funksiyasining hosilasi. Biror narsa oʻzgarayotgan joyda hosila qanchalik tez oʻzgarayotganini oʻlchaydi." },
+        { "type": "table",
+          "heading": "Mexanikadagi hosilalar",
+          "columns": ["Kattalik", "Taʼrif", "SI birligi"],
+          "rows": [
+            ["Tezlik", "v = s'(t)", "m/s"],
+            ["Tezlik moduli", "|v(t)|", "m/s"],
+            ["Tezlanish", "a = s''(t)", "m/s²"],
+            ["Jerk", "j = a'(t)", "m/s³"]
+          ],
+          "narration": "Maʼruzadagi harakat boʻyicha tezkor maʼlumotnoma. Tezlik — koʻchishning hosilasi, metr sekundda oʻlchanadi. Tezlik moduli — uning mutlaq qiymati: qanchalik tez, yoʻnalishsiz. Tezlanish — tezlikning hosilasi, yoki koʻchishning ikkinchi hosilasi, metr sekund kvadratda. Va jerk — ha, bu rasmiy texnik atama — tezlanishning hosilasi, metr sekund kubda; tebranishlarda va yoʻlovchi qulayligida muhim ahamiyatga ega. Har bir qator — yuqoridagi qatorning yana bir marta differensiallangani: koʻchish, tezlik, tezlanish, jerk. Imtihonda birliklarni doim yozib qoʻying: birliklar xatoni erta bosqichda fosh qiladi." },
+        { "type": "example",
+          "heading": "Misol: taʼrif boʻyicha nuqtadagi hosila",
+          "problem": "f(x) = x^{2} + 3x, \\quad f'(2) = \\, ?",
+          "steps": [
+            { "tex": "f(2) = 10, \\quad f(2+h) = 10 + 7h + h^{2}" },
+            { "tex": "f'(2) = \\lim_{h \\to 0} \\frac{7h + h^{2}}{h}" },
+            { "tex": "\\lim_{h \\to 0}\\, (7 + h) = 7", "highlight": true }
+          ],
+          "result": "f'(2) = 7: (2, 10) da urinma nishabi",
+          "narration": "Hali qoidalar yoʻq — faqat taʼrif. f teng x kvadrat plus uch x funksiyasi uchun ikkinchi nuqtadagi hosilani topamiz. Avval baholaymiz: f ning ikkidagi qiymati oʻn, f ning ikki plus h dagi qiymati esa oʻn plus yetti h plus h kvadratga yoyiladi. Ayirma nisbatini tuzamiz: yetti h plus h kvadrat, hammasi h ga boʻlinadi. h ni qisqartiramiz: yetti plus h qoladi. h nolga intilganda nisbat yettiga intiladi. Demak, f shtrixning ikkidagi qiymati yetti, va ikki-oʻn nuqtasidagi urinmaning nishabi yettiga teng. h kvadrat hadi limitda yoʻqoladi, yetti esa qolib ketadi. Yoyilish butun ishni bajarganiga eʼtibor bering." },
+        { "type": "example",
+          "heading": "Misol: oʻzaro funksiya taʼrif boʻyicha",
+          "problem": "f(x) = \\frac{1}{x}, \\quad x \\neq 0",
+          "steps": [
+            { "tex": "f'(x) = \\lim_{h \\to 0} \\frac{\\frac{1}{x+h} - \\frac{1}{x}}{h}" },
+            { "tex": "= \\lim_{h \\to 0} \\frac{-1}{x(x+h)} = -\\frac{1}{x^{2}}" },
+            { "tex": "f(2) = \\frac{1}{2}, \\quad f'(2) = -\\frac{1}{4}" },
+            { "tex": "y - \\frac{1}{2} = -\\frac{1}{4}(x-2)", "highlight": true }
+          ],
+          "result": "urinma: y = 1 − x/4",
+          "narration": "Oʻzaro kattalik funksiyasi — noldan, taʼrif boʻyicha differensiallangan. Numeratordagi kasrlarni birlashtiramiz: bir boʻlinib x plus h minus bir boʻlinib x, minus h boʻlinib x marta x plus h beradi. h ga boʻlib qisqartiramiz: minus bir boʻlinib x marta x plus h. h nolga intilganda x plus h x ga aylanadi: f shtrix teng minus bir boʻlinib x kvadrat — bu hamma joyda manfiy, demak egri chiziq doim pasayib boradi. x ikkida qiymat bir boʻlinib ikki, nishab minus bir boʻlinib toʻrt. Urinma shunday oʻqiladi: y minus yarim teng minus bir chorak marta x minus ikki; boshqacha aytganda, y teng bir minus x boʻlinib toʻrt." },
+        { "type": "example",
+          "heading": "Misol: tushayotgan toʻp",
+          "problem": "s(t) = -16t^{2} + 64",
+          "steps": [
+            { "tex": "s(t) = 0 \\ \\Rightarrow \\ t = 2\\,s" },
+            { "tex": "v(t) = s'(t) = -32t" },
+            { "tex": "v(2) = -64\\,ft/s", "highlight": true },
+            { "text": "[0, 2] da oʻrtacha: (0 − 64)/2 = −32 ft/s" }
+          ],
+          "result": "v(2) = −64 ft/s",
+          "narration": "Toʻp oltmish toʻrt fut balandlikdan tushmoqda: s teng minus oʻn olti t kvadrat plus oltmish toʻrt. U qachon qoʻnadi va zarba paytida qanchalik tez harakatlanadi? Qoʻnish — balandlikning nolga tenglanishi: minus oʻn olti t kvadrat plus oltmish toʻrt nol, demak t ikki sekund. Tezlik — hosila: v teng minus oʻttiz ikki t. Zarba paytida v ning ikkidagi qiymati minus oltmish toʻrt fut sekundda; minus — pastga yoʻnalish degani. Butun tushish davomidagi oʻrtacha tezlik bilan solishtiramiz: nol minus oltmish toʻrt, boʻlinib ikki — minus oʻttiz ikki fut sekundda. Bir lahzali zarba tezligi oʻrtacha tezlikdan ikki barobar katta: toʻp tushgan sari tezlanib boradi." },
+        { "type": "recap",
+          "items": [
+            "ayirma nisbati urinma nishabini beradi",
+            "f'(a): h nolga intilgandagi limit",
+            "hosila = tezlik yoki oʻsish surʼati",
+            "urinma = eng yaxshi chiziqli yaqinlashish"
+          ],
+          "narration": "Toʻrtinchi boʻlim fokusda. Ayirma nisbati — kesuvchining nishabi; qadam qisqarganda hosila — nuqtadagi urinma nishabi chiqadi. Xuddi shu limit fizikada tezlik, iqtisodda marginal xarajatdir: oʻzgarishning bir lahzali surʼati. Nuqta yaqinida urinma egri chiziqning oʻzini yaqinlashtiradi. Endi — bu limitni qayta-qayta hisoblamaslik uchun yoʻllar keldi. Oltinchi haftaning taklif etgan kelishuvi mana shu, va uning shartlarini eslab qoling." }
+      ]
+    },
+    {
+      "title": "Differensiallash qoidalari",
+      "blocks": [
+        { "type": "section", "num": 5, "title": "Differensiallash qoidalari", "subtitle": "Daraja, koʻpaytma, nisbat",
+          "narration": "Beshinchi boʻlim. Har bir hosila uchun limit hisoblab chiqish — haqiqiy qiynoq boʻlardi. Qoidalar qutqaradi: konstantalar yoʻqoladi, darajalar koʻrsatkichini oldinga tashlaydi, yigʻindilar boʻlaklarga boʻlinadi, koʻpaytma va nisbat esa aralashtirib yubormaslik kerak boʻlgan ikki mashhur namunaga ergashadi. Ularni kursning haqiqiy masalalari ustida mashq qilamiz." },
+        { "type": "concept",
+          "heading": "Konstantalar, darajalar va yigʻindilar",
+          "bullets": [
+            "konstantaning hosilasi 0",
+            "daraja: koʻrsatkich oldinga tushadi",
+            "yigʻindilar va koʻpaytmalar boʻlinadi",
+            "6/x² ni 6x⁻² deb yozing"
+          ],
+          "formula": "\\frac{d}{dx}\\, x^{n} = n\\, x^{n-1}",
+          "formula_caption": "daraja qoidasi: ish otdasi",
+          "narration": "Uchta poydevor. Konstantaning hosilasi nol: gorizontal toʻgʻri chiziqning nishabi boʻlmaydi. Daraja qoidasi: koʻrsatkichni oldinga tushiring va bittaga kamaytiring — x ning oʻninchi darajasi oʻn x toʻqqizinchi boʻlib qoladi. Yigʻindilar, ayirmalar va konstantaga koʻpaytmalar boʻlaklarga boʻlinadi, shuning uchun polinomlar hadma-had differensiallanadi. Bitta imtihon hiylasi: differensiallashdan oldin kasrlarni manfiy daraja koʻrinishida yozib oling. Olti boʻlinib x kvadrat — bu olti x minus ikkinchi daraja, va hosila zudlik bilan minus oʻn ikki boʻlinib x kub chiqadi — nisbat qoidasidan ancha arzon. Har bir masalada shunday imkonni izlab koʻring." },
+        { "type": "formula",
+          "heading": "Koʻpaytma qoidasi",
+          "tex": "(f \\cdot g)' = f' \\cdot g + g' \\cdot f",
+          "parts": [
+            { "substr": "(f \\cdot g)'", "color": "yellow", "note": "butun koʻpaytmaning hosilasi" },
+            { "substr": "f' \\cdot g", "color": "blue", "note": "birinchisi oʻzgaradi, ikkinchisi kutadi" },
+            { "substr": "g' \\cdot f", "color": "green", "note": "ikkinchisi oʻzgaradi, birinchisi kutadi" }
+          ],
+          "narration": "Butun analizda eng notoʻgʻri ishlatiladigan qoida. Koʻpaytmaning hosilasi — hosilalarning koʻpaytmasi emas: x marta x uchun bu bir berardi, holbuki toʻgʻri javob — ikki x. Toʻgʻri namuna: birinchi hadni differensiallang va ikkinchisini oʻz holida saqlang — bu koʻk qoʻshiluvchi; soʻngra birinchisini saqlab, ikkinchisini differensiallang — bu yashil; ikki boʻlakni qoʻshing. Amaliy mashgʻulotdan oddiy aql tekshiruvi: x kvadrat marta x kubni differensiallang; qoida beshta x toʻrtinchi darajani beradi va bu x beshinchi darajaning hosilasiga toʻgʻri keladi. Javobingiz bu testdan oʻtolmasa — uni qaytadan bajaring." },
+        { "type": "concept",
+          "heading": "Nisbat qoidasi",
+          "bullets": [
+            "nisbat: (f'g - g'f)/g²",
+            "pastkaning yuqorisi minus yuqorining pastkasi",
+            "pastka kvadratga boʻlinadi",
+            "hosilalar nisbati hech qachon emas"
+          ],
+          "formula": "\\left(\\frac{f}{g}\\right)' = \\frac{f'g - g'f}{g^{2}}",
+          "formula_caption": "nisbat qoidasi",
+          "narration": "Nisbatlar egizak-aka namunaga ergashadi: yuqorini differensiallang, pastkini saqlang, pastkaning hosilasini yuqiriga koʻpaytirib ayiring, va hammasini pastka kvadratiga boʻling. Mnemonika kuylaydi: pastkaning yuqori hosilasi minus yuqorining pastka hosilasi, pastka kvadratga boʻlinadi. Egizak ogohlantirish: nisbatning hosilasi — hosilalarning nisbati emas. Maʼruzadan tezkor mashq: k teng besh x kvadrat boʻlinib toʻrt x plus uch boʻlsa, yuqorining hosilasi oʻn x, pastkaning hosilasi toʻrt; qoida esa oʻn x marta toʻrt x plus uch, minus yigirma x kvadrat, hammasi toʻrt x plus uchning kvadratiga boʻlinganini yigʻib beradi." },
+        { "type": "concept",
+          "heading": "Yuqori tartibli hosilalar va ortish formulasi",
+          "bullets": [
+            "yana differensiallang: f'', f''', f(4)",
+            "polinom darajasi har safar tushadi",
+            "ortish formulasi yaqin qiymatlarni baholaydi",
+            "marginal xarajat — xarajat hosilasi"
+          ],
+          "formula": "f(a+h) \\approx f(a) + f'(a)\\, h",
+          "formula_caption": "h qadam naridagi chiziqli baho",
+          "narration": "f shtrixning oʻzi ham funksiya boʻlgani uchun uni yana differensiallaysiz: ikkinchi hosila, soʻngra uchinchi va hokazo. Polinomning har bir differensiallanishi darajasini bittaga tushiradi; oxir-oqibat konstanta paydo boʻladi — uning hosilasi nol. Ortish formulasi hosilani bashorat vositasiga aylantiradi: h qadam naridagi qiymat taxminan joriy qiymat plus nishab marta qadamga teng. Agar f ning uchdagi qiymati ikki, f shtrixning uchdagi qiymati beshta boʻlsa, f ning uch butun ikki yuzdan oʻntagi taxminan ikki plus besh marta noldan ikki, yaʼni uchga teng. Iqtisodchilar buni marginal xarajat — yana bir dona mahsulotning narxi — deb oʻqiydilar." },
+        { "type": "example",
+          "heading": "Misol: ikki hadli koʻpaytma",
+          "problem": "j(x) = (x^{2}+2)(3x^{3}-5x)",
+          "steps": [
+            { "tex": "j'(x) = 2x(3x^{3}-5x) + (9x^{2}-5)(x^{2}+2)" },
+            { "tex": "= (6x^{4}-10x^{2}) + (9x^{4}+13x^{2}-10)" },
+            { "tex": "j'(x) = 15x^{4}+3x^{2}-10", "highlight": true },
+            { "text": "tekshiruv: j(x) = 3x⁵ + x³ − 10x ham xuddi shuni beradi" }
+          ],
+          "result": "j'(x) = 15x⁴ + 3x² − 10",
+          "narration": "Majburiy adabiyotdan: j teng x kvadrat plus ikki, marta uch x kub minus besh x. Koʻpaytma qoidasi: birinchining hosilasi — ikki x — marta ikkinchisi, plus birinchisi marta ikkinchining hosilasi — toʻqqiz x kvadrat minus besh. Qavslarni ochib toʻplaymiz: olti x toʻrtinchi plus toʻqqiz x toʻrtinchi — oʻn besh x toʻrtinchi; minus oʻn x kvadrat plus oʻn uch x kvadrat — uch x kvadrat; va minus oʻn. Demak, j shtrix — oʻn besh x toʻrtinchi plus uch x kvadrat minus oʻn. Avval koʻpaytmani ochib tekshiring: uch x beshinchi plus x kub minus oʻn x xuddi shu javobga differensiallanadi. Ikki yoʻl — bitta javob." },
+        { "type": "example",
+          "heading": "Misol: isitish tajribasi",
+          "problem": "T(t) = 20 + 8t - t^{2}, \\quad 0 \\leq t \\leq 4",
+          "steps": [
+            { "tex": "T'(t) = 8 - 2t" },
+            { "text": "T'(1) = 6 °C/min, T'(3) = 2 °C/min: hali isinyapti" },
+            { "tex": "\\frac{T(3)-T(1)}{3-1} = \\frac{35-27}{2} = 4" },
+            { "tex": "T(2.1) \\approx T(2) + T'(2)\\cdot 0.1 = 32.4", "highlight": true }
+          ],
+          "result": "baho 32,4 °C, aniq 32,39 °C",
+          "narration": "Isitish elementi T teng yigirma plus sakkiz t minus t kvadrat qonuniga boʻysunadi, toʻrt minut davomida. Differensiallaymiz: T shtrix teng sakkiz minus ikki t. Birinchi minutda surʼat — daqiqaga olti gradus; uchinchi minutda — daqiqaga ikki gradus: hali isinyapti, lekin tobora sekinlashib. Birinchi va uchinchi minutlar orasidagi oʻrtacha surʼat: haroratlar yigirma yetti va oʻttiz besh, demak ikki minutda sakkiz gradus — daqiqaga toʻrt gradus. Endi ikkinchi minutdagi ortish formulasi: harorat oʻttiz ikki, surʼat toʻrt, demak oʻndan bir minut keyingi baholar — oʻttiz ikki plus toʻrtdan bir, yaʼni oʻttiz ikki butun toʻrtdan bir gradus. Aniq qiymat — oʻttiz ikki butun yuzdan oʻttiz toʻqqiz: urinma faqat yuzdan birga xato qiladi." },
+        { "type": "recap",
+          "items": [
+            "daraja qoidasi: n·x^(n-1)",
+            "koʻpaytma: f'g + g'f",
+            "nisbat: (f'g - g'f)/g²",
+            "f(a+h) ≈ f(a) + f'(a)·h"
+          ],
+          "narration": "Beshinchi boʻlim, ramka ichida. Konstantalar nol beradi; darajalar koʻrsatkichni oldinga tushiradi; yigʻindilar boʻlaklanadi. Koʻpaytmalar: f shtrix g plus g shtrix f — hech qachon hosilalarning koʻpaytmasi emas. Nisbatlar: pastkaning yuqorisi minus yuqorining pastkasi, pastka kvadratga boʻlinadi. Yuqori tartibli hosilalar jarayonni takrorlaydi, ortish formulasi nishabni bashoratga aylantiradi. Mana shu besh qator oraliq imtihonning katta qismini yopadi — refleksga aylanguncha mashq qiling." }
+      ]
+    },
+    {
+      "title": "Hosila mavjud boʻlmaganda",
+      "blocks": [
+        { "type": "section", "num": 6, "title": "Differensiallanuvchanlik va uzluksizlik", "subtitle": "Qirralar, qaytish nuqtalari va vertikal devorlar",
+          "narration": "Oltinchi boʻlim. Differensiallanuvchanlik uzluksizlikdan kuchliroq tushuncha. Grafik uzilmasdan davom etib, baribir nishabga ega boʻlishdan bosh tortishi mumkin — qirrada, qaytish nuqtasida, vertikal urinmada yoki cheksiz tebranish ostida. Har bir buzilishni bir tomonlama hosilalar bilan tashxislashni oʻrganamiz. Bu boʻlim oxirida har bir nuqtani bir formulada tashxis qila olasiz." },
+        { "type": "concept",
+          "heading": "Bir tomonlama hosilalar",
+          "bullets": [
+            "chap va oʻng nishab, alohida-alohida",
+            "f'(a) ikkalasi chekli va teng boʻlsa mavjud",
+            "tartib: avval uzluksizlik, keyin nishablar"
+          ],
+          "formula": "f'_{-}(a) = \\lim_{h \\to 0^{-}} \\frac{f(a+h)-f(a)}{h}",
+          "formula_caption": "a nuqtadagi chap tomonlama hosila",
+          "narration": "Tutashtirish nuqtasida nishabga har bir tomondan alohida-alohida yaqinlashamiz. Chapdagi hosila h ga noldan pastga qochishga ruxsat beradi; oʻngdagi hosila — yuqoriga. Mezon: ikki tomonlama hosila aynan ikkala bir tomonlama hosila mavjud, chekli va bir-biriga teng boʻlgandagina mavjud — ikki tomondan bir xil songa yaqinlashiladi. Oʻqituvchining tartibi: avval uzluksizlikni tekshiring; funksiya uzluksiz chiqmasa — toʻxtang, hosila boʻlishi mumkin emas. Uzluksiz boʻlsa — ikkala bir tomonlama nishabni hisoblab, solishtirasiz. Boʻlakli funksiyalar sirlarini tutashtirish nuqtasida yashiradilar; bu vosita ularni ochib beradi. Imtihongacha puxta oʻzlashtirib oling." },
+        { "type": "concept",
+          "heading": "Differensiallanuvchi uzluksiz boʻladi",
+          "bullets": [
+            "a da differensiallanuvchi — a da uzluksiz",
+            "aksari yolgʻon: noldagi |x|",
+            "isbot: f oʻzgarishi = h marta nisbat",
+            "uzluksiz boʻlmagan — differensiallanmaydi"
+          ],
+          "formula": "f(a+h) - f(a) = h \\cdot \\frac{f(a+h)-f(a)}{h} \\to 0",
+          "formula_caption": "f ning oʻzgarishi nolga qisiladi",
+          "narration": "Uch nuqtadan birinchi teorema: agar f a nuqtada differensiallansa, u avtomatik ravishda oʻsha nuqtada uzluksiz boʻladi. Isbot — bitta qator algebra: f ning oʻzgarishi h marta ayirma nisbatiga teng. h nolga intilganda nisbat chekli hosilaga intiladi, h esa nolga intiladi; natijada f ning oʻzgarishi nolga qisilib qoladi — mana bu, oʻzining mohiyati bilan, uzluksizlikdir. Teskarisi yolgʻon: modul funksiyasi nolda uzluksiz, lekin u yerda hosilaga ega emas — qirra uni toʻsib qoʻyadi. Kontrpozitsiya — sovgʻa: uzilish differensiallanmaslikni kafolatlaydi. Uzluksizlik — arzon birinchi test; undan keyingina nishablarni hisoblaysiz." },
+        { "type": "concept",
+          "heading": "Toʻrt xil buzilish turi",
+          "bullets": [
+            "qirra: noldagi |x|, nishablar -1 va +1",
+            "qaytish: |x|^(2/3), nishablar -∞ va +∞",
+            "vertikal urinma: x^(1/3), ikkala tomonda +∞",
+            "tebranish: x·sin(1/x)"
+          ],
+          "narration": "Hosilani yoʻqotishning toʻrt klassik yoʻli — va hammasi nol nuqtasida. Qirra: modul funksiyasi, chapda minus bir, oʻngda plus bir nishab — ikkita chekli, lekin har xil nishab. Qaytish nuqtasi: modulning ikki uchdan birinchi darajasi; nishablar minus va plus cheksizlikka otiladi — xanjar tumshuq. Vertikal urinma: x ning kub ildizi; ikkala nishab plus cheksizlikka intiladi va urinma tikka boʻlib qoladi. Va tebranish: x marta bir boʻlinib x ning sinusi uzluksiz, biroq uning kesuvchi nishablari cheksiz tebranadi, hech qanday limit yoʻq. Toʻrtalasi ham uzluksiz; birortasi ham differensiallanmaydi." },
+        { "type": "table",
+          "heading": "Noldagi toʻrt holat",
+          "columns": ["Funksiya", "Nishablar Ch / Oʻ", "Nolda"],
+          "rows": [
+            ["x²", "0 / 0", "gorizontal urinma"],
+            ["|x|", "-1 / 1", "qirra"],
+            ["|x|^(2/3)", "-∞ / +∞", "qaytish nuqtasi"],
+            ["x^(1/3)", "+∞ / +∞", "vertikal urinma"]
+          ],
+          "narration": "Oʻqituvchining nol nuqtadagi toʻrt kanonik xulq-atvor jadvali. X kvadrat: ikkala nishab nol — mukammal differensiallanuvchan, gorizontal urinma bilan. Modul: minus bir va plus bir — qirra. Modulning ikki uchdan birinchi darajasi: minus cheksiz va plus cheksiz — qaytish nuqtasi. Kub ildiz: ikkala tomonda plus cheksiz — vertikal urinma: uzluksiz, silliq yumaloq, lekin cheksiz tik. Nishablar ustunini yod oling: nol va nol, teng boʻlmagan cheklilar, qarama-qarshi cheksizliklar, mos keluvchi cheksizliklar. Har bir qator standart rost-yolgʻon savolidir; jadvalni mukammal bilib oling. Bu — sof imtihon valyutasi." },
+        { "type": "example",
+          "heading": "Misol: nolda modul",
+          "problem": "f(x) = |x|",
+          "steps": [
+            { "tex": "\\lim_{x \\to 0} |x| = 0 = f(0)" },
+            { "tex": "\\frac{f(h)-f(0)}{h} = \\frac{|h|}{h} = \\begin{cases} -1, & h<0 \\\\ 1, & h>0 \\end{cases}" },
+            { "tex": "f'_{-}(0) = -1 \\neq 1 = f'_{+}(0)", "highlight": true }
+          ],
+          "result": "uzluksiz, differensiallanmaydi",
+          "narration": "Toʻliq tashxis, qadam-baqadam. Avval uzluksizlik: x nolga intilganda modul ham nolga intiladi va bu f ning noldagi qiymatiga teng — demak, funksiya uzluksiz. Endi noldagi ayirma nisbati: f ning h dagi qiymati minus f ning noldagi qiymati, boʻlinib h — bu h modulning h ga nisbati. Manfiy h uchun u minus birga, musbat h uchun plus birga teng. Chapdagi hosila minus bir, oʻngdagi hosila plus bir: ikkalasi chekli, lekin mos kelmaydi. Ikki tomonlama limit mavjud emas, demak f shtrixning noldagi qiymati mavjud emas. Uzluksiz — ha; differensiallanuvchi — yoʻq. Grafik — uchida qirrasi bor V harfi." },
+        { "type": "example",
+          "heading": "Misol: silliq yoʻlak loyihalash",
+          "problem": "f(x)=\\begin{cases} \\frac{1}{10}x^{2}+bx+c, & x<-10 \\\\ -\\frac{1}{4}x+\\frac{5}{2}, & x \\geq -10 \\end{cases}",
+          "steps": [
+            { "tex": "10 - 10b + c = 5" },
+            { "text": "nishablar teng boʻlishi kerak: b − 2 = −1/4" },
+            { "tex": "b = \\frac{7}{4}, \\quad c = \\frac{25}{2}", "highlight": true }
+          ],
+          "result": "b = 7/4, c = 25/2",
+          "narration": "Haftaning eng boy masalasi: oʻyinchoq mashinaning yoʻlagi parabolani tashlab, x minus oʻn nuqtada toʻgʻri chiziqqa qoʻshiladi; yurish silliq boʻlishi uchun b va c ni toping. Silliq degani — ikki shart. Uzluksizlik: parabolaning minus oʻndagi qiymati — oʻn minus oʻn b plus c — toʻgʻri chiziqning qiymatiga, beshga teng boʻlishi kerak. Differensiallanuvchanlik: parabolaning shu nuqtadagi nishabi b minus ikki toʻgʻri chiziqning nishabiga — minus bir chorakka teng boʻlishi kerak. Ikki tenglama, ikki nomaʼlum. Nishabdan b yetti chorakka teng; qoʻysak, c teng oʻn b minus besh, yaʼni yigirma besh yarim. Ikkala shart bajarilganda yoʻlakda na sakrash, na qirra qoladi; oʻtish sezilmaydigan boʻladi." },
+        { "type": "recap",
+          "items": [
+            "differensiallanuvchanlik uzluksizlikni keltiradi",
+            "aksari yolgʻon: |x| qirrasi",
+            "f'(a) uchun bir tomonlama nishablar teng",
+            "qirra, qaytish, vertikal urinma, tebranish"
+          ],
+          "narration": "Oltinchi boʻlim hal boʻldi. Differensiallanuvchanlik uzluksizlikni keltirib chiqaradi, lekin aksincha emas: modul uzluksiz, qirrasi bilan esa differensiallanmaydi. Hosila aynan ikkala bir tomonlama hosila mavjud, chekli va teng boʻlganda mavjud. Bir qarashda tanib olinadigan toʻrt buzilish: qirra, qaytish nuqtasi, vertikal urinma, tebranish. Avval uzluksizlikni tekshirasiz, soʻngra bir tomonlama nishablarni solishtirasiz — har doim shu tartibda. Ana shu tartibning oʻzi imtihonda ball keltiradi." }
+      ]
+    },
+    {
+      "title": "Bogʻliq tezliklar va buyuk hosilalar",
+      "blocks": [
+        { "type": "section", "num": 7, "title": "Bogʻliq tezliklar va elementar hosilalar", "subtitle": "7-hafta: hammasi birga harakatlanadi",
+          "narration": "Yettinchi boʻlim — oraliq imtihondan oldingi oxirgi bosqich. Bir necha kattalik vaqtga va bir-biriga bogʻliq: sharning radiusi va hajmi, narvonning yuqori va pastki uchi. Bogʻliq tezliklar mana shu bogʻliqlikning oʻzini differensiallaydi. Biz yana buyuk hosilalarni bankka qoʻyamiz: sinus, kosinus, eksponent, logarifm." },
+        { "type": "concept",
+          "heading": "Bogʻliq tezliklar strategiyasi",
+          "bullets": [
+            "nima oʻzgarishini chizing va belgilang",
+            "geometrik bogʻliqlikni yozing",
+            "t boʻyicha differensiallang",
+            "oxirida qoʻying; birlik va ishorani tekshiring"
+          ],
+          "narration": "Bogʻliq tezliklarning har bir masalasi bir xil besh qadamga ergashadi. Bir: masalani oʻqing, rasm chizing, nima oʻzgarayotgani va nima doimiyligini belgilang. Ikki: maʼlum tezliklarni, soʻralayotgan tezlikni va aniq lahzani yozing — radius oʻttizga teng kabi bitta lavha. Uch: kattaliklar orasidagi bogʻliqlikni yozing — hajm formulasi, Pifagor teoremasi yoki oʻxshash uchburchaklar — va ortiqcha oʻzgaruvchilarni yoʻq qiling. Toʻrt: ikkala tomonni vaqt boʻyicha differensiallang; vaqtga bogʻliq har bir oʻzgaruvchi oʻz koʻpaytuvchisini olib keladi. Besh: sonlarni qoʻying, yeching, birlik va ishorani tekshiring; minus — kichrayish degani. Klassik xato — differensiallashdan oldin qoʻyish: tezliklar yoʻqolib qoladi." },
+        { "type": "formula",
+          "heading": "Shar puflamoq",
+          "tex": "V = \\frac{4}{3}\\pi r^{3} \\ \\Rightarrow \\ \\frac{dV}{dt} = 4\\pi r^{2} \\cdot \\frac{dr}{dt}",
+          "parts": [
+            { "substr": "\\frac{4}{3}\\pi r^{3}", "color": "yellow", "note": "bogʻliqlik: shar hajmi" },
+            { "substr": "\\frac{dV}{dt}", "color": "blue", "note": "hajm qanchalik tez oʻsadi" },
+            { "substr": "4\\pi r^{2} \\cdot \\frac{dr}{dt}", "color": "green", "note": "sirt maydoni marta radius tezligi" }
+          ],
+          "narration": "Mana butun metod bitta qatorda. Sferik sharning hajmi — sariq bilan — uchdan toʻrt pi r kub; bu kattaliklar orasidagi bogʻliqlik. Ikkala tomonni vaqt boʻyicha differensiallang. Chap tomon V ning t boʻyicha hosilasiga aylanadi — koʻk bilan — bu havo qanchalik tez kirayotganini anglatadi. Oʻng tomon — yashil bilan — toʻrt pi r kvadrat, yaʼni sirt maydoni, marta r ning t boʻyicha hosilasi; vaqtga bogʻliq boʻlgan har qanday narsa oʻz tezligini birga olib keladi. Xuddi shu namuna konuslar, silindrlar, doiralar va toʻgʻri burchakli uchburchaklarni ham boshqaradi: katalogdagi har bir geometrik formula shu tarzda ishlaydi." },
+        { "type": "concept",
+          "heading": "Buyuk trigonometrik juftlik",
+          "bullets": [
+            "(sin x)' = cos x",
+            "(cos x)' = - sin x",
+            "tangens: nisbat qoidasi sec² x beradi",
+            "hosilalar 4 davr bilan aylanadi"
+          ],
+          "formula": "\\frac{d}{dx}\\sin x = \\cos x, \\quad \\frac{d}{dx}\\cos x = -\\sin x",
+          "formula_caption": "sinusning nishabi — kosinus",
+          "narration": "Ikki hosila butun trigonometriyani ushlab turadi. Sinusning nishabi — kosinus; kosinusning nishabi — minus sinus. Rasm buni tushuntiradi: sinusning har bir choʻqqisida urinma gorizontal, demak kosinus u yerda nol; sinus ortganda kosinus musbat, tushganda manfiy. Tangens — sinus boʻlinib kosinus, shuning uchun nisbat qoidasi bir boʻlinib kosinus kvadratni, yaʼni sekans kvadratni beradi; yodlab olmang, chiqarib oling. Yuqori tartibli hosilalar toʻrttalik davr bilan aylanadi: sinus, kosinus, minus sinus, minus kosinus — va yana sinus. Yetmish toʻrtinchi hosila qanday? Yetmish toʻrt — toʻrt marta oʻn sakkiz plus ikki, demak u minus sinusga toʻgʻri keladi." },
+        { "type": "concept",
+          "heading": "Eksponentlar va logarifmlar",
+          "bullets": [
+            "(e^x)' = e^x: oʻzining oʻz nishabi",
+            "(b^x)' = b^x · ln b",
+            "(ln x)' = 1/x",
+            "funksiya logarifmi: g'/g"
+          ],
+          "formula": "\\frac{d}{dx}e^{x} = e^{x}, \\quad \\frac{d}{dx}\\ln x = \\frac{1}{x}",
+          "formula_caption": "eksponent — oʻzining oʻz hosilasi",
+          "narration": "Eksponent — oʻzining oʻz hosilasi: har bir nuqtada e ning x darajasi nishabi oʻz qiymatiga teng, va noldagi urinma — y teng x plus bir toʻgʻri chizigʻi. Aynan mana shu xossa e sonini belgilab beradi. Boshqa asoslar boj toʻlaydi: b ning x darajasi oʻz-zatiga marta b ning natural logarifmiga differensiallanadi. Natural logarifm bir boʻlinib x beradi, funksiya g ning logarifmi esa g shtrix boʻlinib g beradi. Misol: kuchlanishi oʻn ikki e minus t boʻlinib ikki boʻlgan zaryadsizlanayotgan kondensator minus olti e minus t boʻlinib ikki volt sekundda oʻzgaradi — va tobora sekinlashib soʻnadi." },
+        { "type": "example",
+          "heading": "Misol: shar puflamoq",
+          "problem": "\\frac{dV}{dt} = 800\\ \\text{cm}^{3}/\\text{min}, \\quad r = 30\\ \\text{cm}",
+          "steps": [
+            { "tex": "V = \\frac{4}{3}\\pi r^{3}" },
+            { "tex": "\\frac{dV}{dt} = 4\\pi r^{2}\\,\\frac{dr}{dt}" },
+            { "tex": "800 = 4\\pi (30)^{2}\\,\\frac{dr}{dt}" },
+            { "tex": "\\frac{dr}{dt} = \\frac{800}{3600\\pi} = \\frac{2}{9\\pi}", "highlight": true }
+          ],
+          "result": "dr/dt = 2/(9π) ≈ 0,071 sm/min",
+          "narration": "Gaz sferik sharga daqiqada sakkiz yuz kub santimetr tezlikda kirib turibdi. Radius oʻttiz santimetrga yetganda u qanchalik tez oʻsadi? Bogʻliqlik — shar hajmi: uchdan toʻrt pi r kub. Vaqt boʻyicha differensiallaymiz: V ning t boʻyicha hosilasi toʻrt pi r kvadrat marta r ning t boʻyicha hosilasi. Endi sonlarni qoʻyamiz: sakkiz yuz teng toʻrt pi marta oʻttizning kvadrati marta radiusning tezligi. Oʻttizning kvadrati — toʻqqiz yuz, demak toʻrt pi marta toʻqqiz yuz — uch ming olti yuz pi. Radiusning tezligi — sakkiz yuz boʻlinib uch ming olti yuz pi, yaʼni ikki boʻlinib toʻqqiz pi, daqiqaga taxminan noldan yetti yuzdan bir santimetr. Sekin — chunki oʻlcham shunday katta boʻlganda sirt maydoni ham juda katta." },
+        { "type": "example",
+          "heading": "Misol: sirgʻalib tushayotgan narvon",
+          "problem": "x^{2} + y^{2} = 100, \\quad \\frac{dx}{dt} = 1\\ \\text{ft/s}",
+          "steps": [
+            { "text": "x = 6, demak y² = 100 − 36 = 64 va y = 8" },
+            { "tex": "2x\\,\\frac{dx}{dt} + 2y\\,\\frac{dy}{dt} = 0" },
+            { "tex": "\\frac{dy}{dt} = -\\frac{x}{y}\\cdot\\frac{dx}{dt} = -\\frac{6}{8} = -\\frac{3}{4}", "highlight": true }
+          ],
+          "result": "dy/dt = −3/4 ft/s",
+          "narration": "Oʻn futli narvon devorga suyangan; uning pastki uchi sekundiga bir fut tezlik bilan sirgʻilib ketmoqda. Pastki qismi olti fut chiqqanida yuqori uchi qanchalik tez pastga sirgʻiladi? x — pastki uchining masofasi, y — yuqori uchining balandligi deb olaylik. Pifagor teoremasi ularni bogʻlaydi: x kvadrat plus y kvadrat yuzga teng. Ana shu lahzada x olti, demak y kvadrat oltmish toʻrt va y sakkiz. Teoremani vaqt boʻyicha differensiallaymiz: ikki x marta x nuqta plus ikki y marta y nuqta nolga teng. Soʻralayotgan tezlikni yechamiz: y nuqta minus x boʻlinib y marta x nuqta — minus olti sakkizdan biri, yaʼni minus uch chorak fut sekundda. Minus ishora balandlikning kamayayotganini anglatadi." },
+        { "type": "recap",
+          "items": [
+            "rasm, bogʻliqlik, d/dt, oxirida qoʻyish",
+            "(sin x)' = cos x",
+            "(e^x)' = e^x, (ln x)' = 1/x",
+            "differensiallashdan oldin son qoʻymang"
+          ],
+          "narration": "Oxirgi boʻlim, quyultirilgan holda. Bogʻliq tezliklar: rasm, bogʻliqlik, vaqt boʻyicha differensiallash, oxirida qoʻyish, birlik va ishora tekshiruvi. Sinusning nishabi — kosinus; kosinusniki — minus sinus; eksponent — oʻzining oʻz hosilasi; logarifm bir boʻlinib x beradi. Qochish kerak boʻlgan halokatli xato — differensiallashdan oldin son qoʻyish. Mana yettinchi hafta shu bilan tugaydi. Formula katalogini bugun kechqurun yana bir marta takrorlang." },
+        { "type": "recap",
+          "items": [
+            "uzluksizlik: 3 shart, 4 uzilish",
+            "oraliq qiymatlar va Veyershtass: mavjudlik",
+            "teskari funksiyalar birma-birga",
+            "hosila: ayirma nisbatlarining limiti",
+            "qoidalar: daraja, koʻpaytma, nisbat",
+            "bogʻliq tezliklar: bogʻliqlikni differensiallang"
+          ],
+          "narration": "Butun sayohat olti qatorda. Uzluksizlik: qiymat, limit, tenglik — va toʻrt xil buzilish. Ikki mavjudlik teoremasi: oraliq qiymatlar va erishiladigan ekstremumlar. Birma-bir monoton funksiyalar uchun teskarilar. Ayirma nisbatlari limiti sifatidagi hosila: tezlik, surʼat, urinma. Qoidalar toʻplami: daraja, koʻpaytma, nisbat — plus buyuk elementar hosilalar. Va bogʻliq tezliklar — geometriyaning vaqt bilan uchrashadigan joyi. Oʻrtacha imtihon aynan shularni qamrab oladi: ikki soat, qalam va qogʻoz, ikki nuqtadan birgacha va uch nuqtadan toʻqqizgacha boʻlimlar. Sizda kerakli har qanday asbob bor." },
+        { "type": "outro", "message": "Siz 5–7-haftalarning barchasini oʻzlashtirdingiz: uzluksizlik, hosilalar va bogʻliq tezliklar. Dushanbada oraliq imtihonni topshiring — siz tayyorsiz.",
+          "narration": "Matematika bir kursining beshinchi-yettinchi haftalari boʻyicha video qoʻllanma shu bilan tugaydi. Uzluksizlik, ikki buyuk teorema, teskari funksiyalar, hosilalar va bogʻliq tezliklar: oraliq imtihon uchun kerak boʻlgan har bir asbob — va har biri misollar orqali egallandi. Dushanbadan oldin yaxshi uxlab oling, oʻz tartibingizga ishoning va omad tilayman. Siz tayyorsiz. Imtihondan keyin koʻrishguncha." }
+      ]
+    }
+  ],
+  "outro_message": "Siz 5–7-haftalarning barchasini oʻzlashtirdingiz: uzluksizlik, hosilalar va bogʻliq tezliklar. Dushanbada oraliq imtihonni topshiring — siz tayyorsiz.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

@@ -1,0 +1,708 @@
+{
+  "id": "ite_w57",
+  "language": "en",
+  "course_title": "Introduction to Engineering",
+  "test_title": "Weeks 5–7 · Complete Guide",
+  "subtitle": "Problem Framing II · Quantitative Reasoning I–II",
+  "chapters": [
+    {
+      "title": "Models as Purposeful Simplifications",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "Welcome to the complete video guide to Introduction to Engineering, weeks five to seven. In these three weeks the course turns a framed problem into working numbers: models and their assumptions, demand and capacity, flows and estimation, and decisions when the data are incomplete. By the end you will be able to build a model, stress its assumptions, compute utilisation, and report a result with an honest range. Let's begin."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Models as Purposeful Simplifications",
+          "subtitle": "Week 5: what a model is, its types and its parts",
+          "narration": "Chapter one. Week five asks: what is a model? Every model is a simplified picture of a real system, built to answer one specific question. Before you build anything, decide what to keep and what to throw away. This chapter gives the vocabulary: four types, four parts, and the roles your variables play inside a model."
+        },
+        {
+          "type": "concept",
+          "heading": "What Is a Model?",
+          "bullets": [
+            "A simplified representation of a real system",
+            "Built to answer one specific question",
+            "Keeps what matters, discards the rest",
+            "\"All models are wrong, but some are useful\""
+          ],
+          "narration": "What exactly is a model? A model is a simplified representation of a real system, built to answer a specific question. Every model keeps something in, throws something away, and always has a purpose. For the bus range question, it keeps battery energy, distance and consumption, and throws away the colour of the bus and the shape of every turn. The statistician George Box said it best: all models are wrong, but some are useful. Usefulness is decided by the question, not by completeness."
+        },
+        {
+          "type": "concept",
+          "heading": "No Map Is the Network",
+          "bullets": [
+            "Map A, one-line diagram: connectivity",
+            "Map B, geographic diagram: location",
+            "Each map omits something on purpose",
+            "Neither map is the network"
+          ],
+          "narration": "The lecture's opening example: one campus electrical network, two maps. Map A, the one-line diagram, answers connectivity questions: which buildings lose power if the library feeder is switched off, where to place a switch, which switch isolates a fault. Map B, the geographic diagram, answers location questions: how long the cable to the workshop is, which lines cross the river. Each map omits something on purpose: a picture that kept everything would be the network itself. Neither map is the network; each is a tool for one type of question."
+        },
+        {
+          "type": "table",
+          "heading": "Four Types of Models",
+          "columns": ["Type", "Example", "Question it answers"],
+          "rows": [
+            ["Physical", "Turbine blade in a wind tunnel", "How does the real object behave?"],
+            ["Graphical", "One-line electrical diagram", "Which buildings lose power?"],
+            ["Mathematical", "Ohm's law; an energy balance", "How much energy per day?"],
+            ["Computational", "Table of hourly demand", "In which hour is the peak?"]
+          ],
+          "narration": "The course distinguishes four types of models. Physical: a real, scaled-down copy, such as a wind turbine blade in a wind tunnel. Graphical: a diagram of parts and connections, like the one-line diagram. Mathematical: equations between variables, like Ohm's law or the energy balance of supply equal to demand plus losses. Computational: rules executed step by step on a computer, like a table of hourly demand. Real projects mix several types: a diagram to organise, equations to compute, a table to run the numbers."
+        },
+        {
+          "type": "concept",
+          "heading": "Anatomy of a Model: Four Parts",
+          "bullets": [
+            "Inputs — what we choose (battery size)",
+            "Parameters — what we fix (route, weather)",
+            "Relationships — the rules (E = e × d)",
+            "Outputs — the predictions (range, km)"
+          ],
+          "formula": "E = e \\cdot d",
+          "formula_caption": "read: trip energy equals consumption per kilometre times distance",
+          "narration": "Every model consists of four parts. Inputs are what we feed in and can change: battery size, speed, route length. Parameters are what we keep fixed: consumption per kilometre, the usable share of the battery. Relationships are the rules that link the numbers; for the bus, trip energy equals consumption per kilometre times distance, as the formula shows. Outputs are the predictions we evaluate: range in kilometres, energy in kilowatt-hours per day. The slogan: a model is a machine; numbers go in, numbers come out. And every number needs units."
+        },
+        {
+          "type": "table",
+          "heading": "From Week-4 Variables to Model Roles",
+          "columns": ["Week-4 variable", "Model role", "Bus example"],
+          "rows": [
+            ["Performance", "Output", "Range per charge [km]"],
+            ["Design", "Input", "Battery capacity [kWh]"],
+            ["Context", "Parameter", "Route length [km], temperature"]
+          ],
+          "narration": "Last week's list of variables is already the skeleton of this week's model. Performance variables, what we judge the system by, become the outputs: range per charge, energy per day. Design variables, the levers we control, become the inputs: battery capacity, the number of buses. Context variables, the limits we cannot choose, become the parameters: route length, outside temperature, hours on depot charging. A variable's role is decided by how it enters the calculation; this mapping turns week four into week five."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Match the Question to the Model",
+          "problem": "Six engineering questions, A to F. Which model type fits each best, and why?",
+          "steps": [
+            {"text": "A Range on one charge — mathematical: energy vs battery"},
+            {"text": "B Which buildings lose power — graphical: one-line diagram"},
+            {"text": "C Dormitory temperature over a day — computational: hour by hour"},
+            {"text": "D A turbine blade in strong wind — physical: the wind tunnel"},
+            {"text": "E Where passengers stand at a stop — graphical: a sketch"},
+            {"text": "F A building's energy per day — mathematical: kW × h", "highlight": true}
+          ],
+          "result": "The type follows the question",
+          "narration": "Try the lecture's exercise: match each question to a model type. The range on a single charge is mathematical: consumption times distance, set against the battery's energy. Which buildings lose power when a feeder is switched off is graphical: the one-line diagram shows which feeder supplies a building. Dormitory temperature over a day is computational: we step through the hours. A turbine blade in a strong wind is physical: the blade in a wind tunnel. Where passengers stand at a busy stop is graphical: a sketch. And a building's energy over a day is mathematical: kilowatts times hours. Several types may fit; the question decides."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "A model = a simplification for one question",
+            "Four types: physical, graphical, math, computational",
+            "Four parts: inputs, parameters, rules, outputs",
+            "Week-4 variables become the model's roles"
+          ],
+          "narration": "Chapter one in four lines. A model is a purposeful simplification: it keeps what the question needs and discards the rest. Four types: physical, graphical, mathematical, computational; real projects mix them. Four parts: inputs, parameters, relationships, outputs, each with units. And the week-four variables change roles: performance becomes output, design input, context parameter."
+        }
+      ]
+    },
+    {
+      "title": "The Electric Bus Model and Its Assumptions",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "The Electric Bus Model and Its Assumptions",
+          "subtitle": "Need–Know–How–Solve, assumptions, fit for purpose",
+          "narration": "Chapter two. Now we build a real model: an electric campus bus. The method is Need, Know, How, Solve; the output is the range on one charge. And the heart of the week is the assumptions hiding inside the model. How far can you trust one hundred thirty-three kilometres? That depends entirely on what you assumed."
+        },
+        {
+          "type": "concept",
+          "heading": "Need–Know–How–Solve",
+          "bullets": [
+            "Need — the variable we want (range, km)",
+            "Know — what is given (battery, consumption)",
+            "How — the model AND its assumptions",
+            "Solve — compute, check units, interpret"
+          ],
+          "narration": "The week's method comes from Kosky's textbook: Need, Know, How, Solve. Need is the variable we want: the range per charge, in kilometres. Know is what is already known: battery capacity, the usable share, consumption per kilometre, route length. How is the model and its assumptions; Kosky stresses that How includes every assumption you make to solve the problem. Solve means compute, check the units, and interpret. Week four gave the Need; week five builds the How, with the assumptions hidden inside it."
+        },
+        {
+          "type": "formula",
+          "heading": "Range on a Single Charge",
+          "tex": "R = \\frac{u \\cdot C}{e} = \\frac{160}{1.2} \\approx 133",
+          "parts": [
+            {"substr": "u \\cdot C", "color": "yellow", "note": "usable battery energy [kWh]"},
+            {"substr": "e", "color": "blue", "note": "consumption per km [kWh/km]"},
+            {"substr": "R", "color": "green", "note": "the range [km]"}
+          ],
+          "narration": "Here is the bus model in one formula. The range on a single charge equals the usable battery energy divided by the consumption per kilometre. The numerator, u times C, is the usable energy: the battery capacity C in kilowatt-hours, multiplied by the usable share u, which has no units. The denominator, e, is the consumption in kilowatt-hours per kilometre. R is the range in kilometres. Check the units: kilowatt-hours divided by kilowatt-hours per kilometre leaves kilometres. With the course numbers, 160 divided by 1.2 gives about 133 kilometres."
+        },
+        {
+          "type": "example",
+          "heading": "Example: The Bus Model's Numbers",
+          "problem": "Battery C = 200 kWh, usable share u = 0.8, consumption e = 1.2 kWh/km. The route: 8 laps of 12 km. Does one charge cover the day?",
+          "steps": [
+            {"tex": "u \\cdot C = 0.8 \\times 200 = 160\\ \\mathrm{kWh}"},
+            {"tex": "R = 160 \\div 1.2 \\approx 133\\ \\mathrm{km}"},
+            {"tex": "8 \\times 12 = 96\\ \\mathrm{km}"},
+            {"tex": "133 - 96 = 37\\ \\mathrm{km}", "highlight": true}
+          ],
+          "result": "Yes — with a margin of about 37 km",
+          "narration": "Now substitute the course numbers; remember, they are illustrative values, not measured data. The battery holds 200 kilowatt-hours and the usable share is 0.8, so the usable energy is 160 kilowatt-hours. The range is 160 divided by the consumption of 1.2, about 133 kilometres. The daily requirement is eight laps of a twelve-kilometre route: 96 kilometres. So one charge covers the day, with a margin of about 37 kilometres. But the lecture warns immediately: how far this number can be trusted depends entirely on the assumptions. That is our next topic."
+        },
+        {
+          "type": "concept",
+          "heading": "Three Kinds of Assumptions",
+          "bullets": [
+            "Simplifying — what we ignore (hills, stops)",
+            "Data — what we fix (e = 1.2, C = 200)",
+            "Boundary — what stays outside (charger, grid)",
+            "Write each: assume, because, if wrong"
+          ],
+          "narration": "Every model rests on assumptions, and the course distinguishes three kinds. Simplifying assumptions name what we ignore: hills, traffic lights, stops, differences between drivers. Data assumptions fix the numbers: consumption 1.2, capacity 200, usable share 0.8. Boundary assumptions say what stays outside the model: the passengers, the charger, the grid. And each one is written with the template: we assume such and such, because of this; if it is wrong, here is the effect. For example: we assume 1.2 in all seasons because we only have autumn data; if it is wrong, the winter range may fall below 96 kilometres. An assumption that is written down can be checked; a hidden one cannot."
+        },
+        {
+          "type": "example",
+          "heading": "Example: EV Charging & Battery Test Station",
+          "problem": "A station has four 22 kW chargers; the grid operator's limit is 150 kW. Will the peak stay within the limit? And what happens at 50 kW fast charging?",
+          "steps": [
+            {"tex": "P = n \\times P_1 = 4 \\times 22 = 88\\ \\mathrm{kW}"},
+            {"text": "88 kW is within the 150 kW limit — compliant"},
+            {"tex": "P = 4 \\times 50 = 200\\ \\mathrm{kW} > 150\\ \\mathrm{kW}", "highlight": true},
+            {"text": "The stress test exposes a hidden violation"}
+          ],
+          "result": "88 kW — yes; 200 kW — no",
+          "narration": "This is Lab five's model answer. The question: will the station's peak power stay within the grid operator's 150-kilowatt limit in the busiest hour? The model is mathematical: total power equals the number of chargers in use times the power of one charger. Four chargers at 22 kilowatts give 88 kilowatts, within the limit, so compliance is confirmed. Then the stress test: the chargers switch to 50-kilowatt fast charging. Four times fifty is 200 kilowatts, above the limit. The model exposes a hidden violation. The verdict is fit for purpose; the revision is a measured diversity factor instead of the worst case, and the missing data is one week of measurements per charger."
+        },
+        {
+          "type": "table",
+          "heading": "Is the Model Good Enough?",
+          "columns": ["Verdict", "Signal", "Bus model example"],
+          "rows": [
+            ["Too simple", "Misses what matters", "Winter, hills, ageing invisible"],
+            ["Fit for purpose", "Answers the question", "Summer and winter e + a margin"],
+            ["Too detailed", "Cannot be built or checked", "Every traffic light, every driver"]
+          ],
+          "narration": "Is a model good enough? The course gives three verdicts. Too simple: it misses what matters; one consumption figure for every day of the year makes winter, hills and ageing invisible. Fit for purpose: it answers the question well enough to decide; separate consumption for summer and winter, plus a safety margin, is enough to decide whether one charge covers the day. Too detailed: it cannot be built or checked; battery chemistry, every traffic light and every driver's habits would need data that do not exist. The rule: the simplest model that answers the question well enough for the decision."
+        },
+        {
+          "type": "concept",
+          "heading": "Three Checks and the Loop",
+          "bullets": [
+            "Units — do they cancel correctly?",
+            "Magnitude — is 133 km plausible?",
+            "Known value — datasheet, test, logs",
+            "Frame → Build → Check → Revise"
+          ],
+          "narration": "Before you trust a model, run three sanity checks. First, units: kilowatt-hours divided by kilowatt-hours per kilometre must give kilometres. Second, order of magnitude: is 133 kilometres plausible for a city bus? Tens to hundreds, yes; three kilometres or three thousand would signal an error. Third, a known value: does the result agree with a datasheet, a test drive, last month's logs? Kosky ends every example with the question: is this a reasonable answer? And the week's cycle is a loop: frame, build a simple model, check, revise the assumptions, and repeat until it is good enough for the decision."
+        },
+        {
+          "type": "example",
+          "heading": "Example: The Price of Hidden Assumptions",
+          "problem": "The daily requirement is 96 km. What happens to the range as the assumptions break, one by one?",
+          "steps": [
+            {"text": "Base case (e = 1.2) → 133 km — covers"},
+            {"text": "Full passenger load → 114 km — covers"},
+            {"text": "Old battery (128 kWh usable) → 107 km — covers"},
+            {"text": "Winter heating (e = 1.8) → 89 km — fails"},
+            {"text": "Winter + old battery → 71 km — 25 km short", "highlight": true}
+          ],
+          "result": "One charge covers the day — while the assumptions hold",
+          "narration": "None of the hidden assumptions is written in the equation, so let's price them. The base case gives 133 kilometres. A full passenger load spends more energy: 114 kilometres, still fine. An old battery stores less, 128 kilowatt-hours usable: 107 kilometres, still fine. Winter heating raises consumption to 1.8: only 89 kilometres, and the day is no longer covered. Winter plus an old battery: 71 kilometres, twenty-five short. The conclusion stings: one charge covers the day only while the assumptions hold. The same trap caught a solar estimate: five kilowatts times twenty-four hours promised 120 kilowatt-hours a day; the clear-day profile gives about 31, four times less."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Need–Know–How–Solve; How includes assumptions",
+            "R = usable energy ÷ consumption",
+            "Assumptions: simplifying, data, boundary",
+            "Verdicts: too simple / fit / too detailed",
+            "Checks: units, magnitude, known value"
+          ],
+          "narration": "Chapter two in five lines. The method is Need, Know, How, Solve, and How always includes the assumptions. The range is usable energy divided by consumption: 160 by 1.2, about 133 kilometres against a 96-kilometre day. Assumptions come in three kinds, simplifying, data and boundary, each written with the template. The verdict is fit for purpose, not perfect. And every model passes three checks: units, magnitude, and a known value."
+        }
+      ]
+    },
+    {
+      "title": "Demand, Capacity and Utilisation",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "Demand, Capacity and Utilisation",
+          "subtitle": "Week 6: what is asked against what can be delivered",
+          "narration": "Chapter three. Week six puts numbers on the system. Two words carry the week. Demand: what the system must deliver. Capacity: the maximum it can deliver. Divide one by the other and you get utilisation, the number that tells you whether a system is comfortable, tight, or overloaded."
+        },
+        {
+          "type": "concept",
+          "heading": "Demand and Capacity",
+          "bullets": [
+            "Demand — what must be delivered",
+            "Capacity — the maximum that can be",
+            "Both need units and a time basis",
+            "A number without a basis is incomplete"
+          ],
+          "narration": "Demand is what the system must deliver: the passengers who need a bus at eight thirty, the kilowatts drawn by the chargers that are on. Capacity is the maximum the system can deliver: seats per hour, the kilowatts a connection can provide. Both need units and a time basis: what the number is per. Passengers per hour; kilowatts at one o'clock; kilowatt-hours per day. A number without a time basis is as incomplete as a number without units: 360 kilowatts at ten in the evening and 360 kilowatt-hours per day are different statements. Always compare like with like."
+        },
+        {
+          "type": "table",
+          "heading": "Demand and Capacity in Four Systems",
+          "columns": ["System", "Demand", "Capacity"],
+          "rows": [
+            ["Campus bus, peak", "300 want to ride per hour", "240 per hour (40 seats × 6 buses)"],
+            ["Canteen, lunch", "360 diners per hour", "400 meals per hour"],
+            ["Depot connection", "360 kW if six chargers run", "200 kW from the grid"],
+            ["Faculty building", "180 kW at 13:00", "250 kW transformer"]
+          ],
+          "narration": "Here are the lecture's four systems. The campus bus at the peak: 300 passengers want to ride, but forty seats times six buses carry only 240 per hour. The canteen at lunch: 360 diners arrive, 400 meals can be served. The depot connection: six chargers at once would draw 360 kilowatts, but the connection provides 200. The faculty building at the peak: 180 kilowatts at one o'clock against a 250-kilowatt transformer. In every row the units and the time basis match on both sides. That is the discipline of the week."
+        },
+        {
+          "type": "formula",
+          "heading": "Utilisation",
+          "tex": "U = \\frac{D}{C_{max}} = \\frac{180}{250} = 0.72",
+          "parts": [
+            {"substr": "D", "color": "yellow", "note": "demand — what must be delivered"},
+            {"substr": "C_{max}", "color": "blue", "note": "capacity — the maximum possible"},
+            {"substr": "U", "color": "green", "note": "utilisation — their ratio"}
+          ],
+          "narration": "Utilisation is demand divided by capacity, with the same units and time basis on both sides. D is the demand, C max is the capacity, and U is their ratio. For the faculty building, 180 divided by 250 gives 0.72, comfortable. The thresholds: below roughly 0.8 the system is comfortable, with margin to absorb variation. Between 0.8 and 1.0 it is tight: little margin, delays appear. Above 1.0 it is overload: demand is turned away, or a queue grows. On this scale the canteen sits at 0.90, tight; the bus at 1.25 and the depot at 1.8 are overloaded."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Demand or Capacity?",
+          "problem": "Label each statement demand or capacity, form the pairs, and compute the utilisation.",
+          "steps": [
+            {"text": "A 'the connection can give 200 kW' — capacity"},
+            {"text": "B 'six buses would draw 360 kW' — demand"},
+            {"tex": "360 \\div 200 = 1.8"},
+            {"text": "C 'at most 240 passengers per hour' — capacity"},
+            {"text": "D '300 per hour want the 8:30 bus' — demand"},
+            {"tex": "300 \\div 240 = 1.25", "highlight": true}
+          ],
+          "result": "1.8 overload · 1.25 overload · 180 ÷ 250 = 0.72",
+          "narration": "Try the lecture exercise. Statement A: the depot connection can give 200 kilowatts. Capacity. Statement B: six buses plugged in at ten o'clock would draw 360 kilowatts. Demand. Pair them: 360 divided by 200 is 1.8, overload. Statement C: the stop can carry at most 240 passengers per hour. Capacity. Statement D: 300 passengers per hour want the eight-thirty bus. Demand. 300 divided by 240 is 1.25, again overload. And the third pair: the 250-kilowatt transformer against the building's 180-kilowatt peak gives 0.72, comfortable. Before dividing, always check the unit and the time basis on both sides."
+        },
+        {
+          "type": "example",
+          "heading": "Example: The Semiconductor Line",
+          "problem": "A chip-packaging line runs 12 h/day. Stage rates: Die Sort 680, Die Attach 620, Wire Bonding 580, Electrical Test 600, Final Packaging 640 units/h. Demand is 6,000 units/day, peaking at 7,000. Where is the bottleneck?",
+          "steps": [
+            {"text": "Daily capacity = rate × 12 h: 8160 / 7440 / 6960 / 7200 / 7680"},
+            {"text": "The smallest is Wire Bonding: 6,960 — the bottleneck"},
+            {"tex": "6000 \\div 6960 = 0.86;\\quad 7000 \\div 6960 = 1.01"},
+            {"tex": "7200 \\times 0.98 \\times 0.97 \\times 0.96 \\approx 6571"},
+            {"text": "Buffer before WB: 600 − 560 = 40 units/h → full in 20 h", "highlight": true}
+          ],
+          "result": "Wire Bonding — 6,960 units/day",
+          "narration": "Now Lab six's case. A line packages chips through five stages. Multiply each rate by twelve hours: capacities of 8160, 7440, 6960, 7200 and 7680 units per day. The smallest, Wire Bonding at 6960, is the bottleneck: it sets the maximum throughput of the whole line. At the average demand of 6000 every stage is below one; at the peak of 7000, Wire Bonding hits 1.01, slightly overloaded, while the others sit tight between 0.86 and 0.97. Of 7200 dies, two percent fail sorting, three percent are lost in bonding, four percent fail the test: about 6571 good units. The buffer before Wire Bonding fills at 40 units per hour, full in twenty hours. The fix: raise it to about 8235 units per day, roughly 686 per hour."
+        },
+        {
+          "type": "plot",
+          "heading": "The Average Hides the Peak",
+          "functions": [
+            {"fn": "30 + 150*np.exp(-((x-13)**2)/10)", "tex": "P(t)", "color": "yellow"},
+            {"fn": "94", "tex": "94\\ \\mathrm{kW}", "color": "teal"},
+            {"fn": "250", "tex": "250\\ \\mathrm{kW}", "color": "blue"}
+          ],
+          "x_range": [0, 24],
+          "y_range": [0, 280],
+          "point": [13, 180],
+          "vline": 13,
+          "narration": "Here is the faculty building's load profile across a day. The yellow curve is power: it rises through the morning, peaks at 180 kilowatts at one o'clock, then falls away; the dashed line marks the peak hour. The teal line is the average, 94 kilowatts. The blue line is the transformer's rating, 250. The week's rule: size for the peak, not for the average. A system sized for the average would fail at midday, when the building needs almost twice as much. This is also why 86 kilowatts of average charging power does not mean six sixty-kilowatt chargers can run at once: their peak requirement is 360."
+        },
+        {
+          "type": "concept",
+          "heading": "Three Ways to Close the Gap",
+          "bullets": [
+            "Reduce or shift the demand",
+            "Raise the capacity — costs money and time",
+            "Accept the waiting — decide how much",
+            "Which is best is a trade-off"
+          ],
+          "narration": "When demand exceeds capacity, the system has three options. One: reduce or shift the demand, for example charge the buses in two batches instead of all at once. Two: raise the capacity, a larger connection or a bigger transformer, but that costs money and time. Three: accept the waiting, let the queue grow, and decide how much waiting is tolerable. Which option is better is a trade-off between cost, time and service; the course returns to it in week ten."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Six Buses, One Connection",
+          "problem": "Six buses each need 115 kWh by 06:00. Chargers deliver 60 kW each; the connection gives 200 kW; the window is 22:00 to 06:00, eight hours. Can all six charge?",
+          "steps": [
+            {"tex": "6 \\times 115 = 690\\ \\mathrm{kWh}"},
+            {"tex": "690 \\div 8 \\approx 86\\ \\mathrm{kW}"},
+            {"tex": "6 \\times 60 = 360\\ \\mathrm{kW} > 200\\ \\mathrm{kW}"},
+            {"text": "Shift the demand: two batches of three buses"},
+            {"tex": "3 \\times 60 = 180\\ \\mathrm{kW};\\quad 2 \\times 1.9 \\approx 3.8\\ \\mathrm{h}", "highlight": true}
+          ],
+          "result": "Yes — in two batches, utilisation 0.9",
+          "narration": "This is the week's hook. Is it a problem about energy or about power? Count the energy first: six buses times 115 kilowatt-hours is 690. The window from ten at night to six in the morning is eight hours, giving an average power of 690 divided by 8, about 86 kilowatts. Energy was never the problem. Power is: all six chargers at once would draw 360 kilowatts on a 200-kilowatt connection, a utilisation of 1.8. The solution is to shift the demand: two batches of three. Three chargers draw 180 kilowatts, utilisation 0.9, and two runs of about 1.9 hours each take under four hours, inside the window. Staggering the charging solves it."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Utilisation = demand ÷ capacity",
+            "Below 0.8 comfortable; above 1 overload",
+            "Size for the peak, not the average",
+            "Bottleneck = smallest capacity stage",
+            "Close the gap: shift, raise, or accept"
+          ],
+          "narration": "Chapter three in five lines. Utilisation is demand divided by capacity, same units, same time basis. Below 0.8, comfortable; near one, tight; above one, overload. Size for the peak, because the average hides it. The bottleneck is the stage with the smallest capacity; it sets the system's maximum. And a gap is closed three ways: shift, raise, or accept the waiting."
+        }
+      ]
+    },
+    {
+      "title": "Intensities, Flows and Estimation",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "Intensities, Flows and Estimation",
+          "subtitle": "Week 6 continued: kW vs kWh, stocks, order of magnitude",
+          "narration": "Chapter four. Units, time, and honest arithmetic. This chapter is about the difference between a kilowatt and a kilowatt-hour, about stocks that fill and drain, about the two rules of flows, and about estimating an answer before you calculate it, so that an error of tenfold can never hide."
+        },
+        {
+          "type": "concept",
+          "heading": "kW Is a Rate, kWh Is an Amount",
+          "bullets": [
+            "An intensity = amount per unit of time",
+            "kW is power — an intensity",
+            "kWh is energy — an amount",
+            "Power × time = energy"
+          ],
+          "formula": "60\\ \\mathrm{kW} \\times 2\\ \\mathrm{h} = 120\\ \\mathrm{kWh}",
+          "formula_caption": "read: sixty kilowatts for two hours is 120 kilowatt-hours",
+          "narration": "An intensity is an amount per unit of time: twenty kilometres per hour, ten students per minute, a charger delivering sixty kilowatts. Kilowatt is an intensity: a kilowatt equals a kilowatt-hour per hour. Kilowatt-hour is an amount, energy. Multiply power by time and you get energy: sixty kilowatts times two hours is 120 kilowatt-hours. The course style, after Kosky, is to carry the units in square brackets, because the units check both the method and the answer. When an answer looks strange, check the units and the time basis first."
+        },
+        {
+          "type": "table",
+          "heading": "Unit Traps",
+          "columns": ["Trap", "Why it is wrong", "Say it correctly"],
+          "rows": [
+            ["'The charger eats 60 kWh'", "kWh is energy; rating is a rate", "It delivers 60 kW"],
+            ["'The bus needs 115'", "No unit, no time basis", "115 kWh per bus per day"],
+            ["'0.2 MW is 20 kW'", "MW to kW is a factor of 1000", "0.2 MW = 200 kW"],
+            ["'36 min is 0.36 h'", "Minutes are not decimals", "36 min = 0.6 h"]
+          ],
+          "narration": "Four classic traps from the lecture. One: the charger consumes sixty kilowatt-hours. Wrong: a kilowatt-hour is energy, and the charger's rating is an intensity, sixty kilowatts, or sixty kilowatt-hours every hour. Two: the bus needs 115. No unit, no time basis; say 115 kilowatt-hours per bus per day. Three: a 0.2 megawatt connection is 20 kilowatts. No: megawatt to kilowatt is a factor of a thousand, so 200 kilowatts. Four: 36 minutes is 0.36 hours. No: minutes are not decimal fractions of an hour; 36 divided by 60 is 0.6. When an answer looks strange, the units and the time basis come first."
+        },
+        {
+          "type": "concept",
+          "heading": "Stock and Flow",
+          "bullets": [
+            "Stock — a queue, a buffer, a battery",
+            "Change in stock = inflow − outflow",
+            "A battery is a stock of energy",
+            "Filling time = free space ÷ net flow"
+          ],
+          "narration": "A stock is something that accumulates: a queue of people, a buffer of parts, a battery's charge. The rule is one line: the change in stock equals inflow minus outflow. If the inflow exceeds the outflow, the stock grows; the other way round, it drains. Take the bus: at twenty kilometres per hour with a consumption of 1.2, it draws 1.2 times twenty, 24 kilowatts. So the 160-kilowatt-hour battery lasts 160 divided by 24, about 6.7 hours. And a buffer's filling time is its free space divided by the net flow. Remember the line: 800 free units at 40 per hour meant twenty hours until full."
+        },
+        {
+          "type": "formula",
+          "heading": "Charging Time",
+          "tex": "t = \\frac{E}{P} = \\frac{115}{60} \\approx 1.9\\ \\mathrm{h}",
+          "parts": [
+            {"substr": "E", "color": "yellow", "note": "energy to restore [kWh]"},
+            {"substr": "P", "color": "blue", "note": "charger power [kW]"},
+            {"substr": "t", "color": "green", "note": "charging time [h]"}
+          ],
+          "narration": "How long does it take to charge one bus? This is the lecture's model example. Need: the time to restore the daily energy, in hours. Know: the energy, 115 kilowatt-hours, and the charger's power, 60 kilowatts. How: time equals energy divided by power, assuming constant power and no losses. Solve: 115 divided by 60 is about 1.9 hours. Check the units: kilowatt-hours divided by kilowatts leaves hours, exactly the unit asked for. And state the assumption: real charging slows down near full charge and loses energy, so the true time is a little longer."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Can Ten Buses Charge?",
+          "problem": "The fleet grows to ten buses: the same 115 kWh each, 60 kW chargers, a 200 kW connection, an 8-hour window. Does the plan still fit?",
+          "steps": [
+            {"tex": "10 \\times 115 = 1150\\ \\mathrm{kWh}"},
+            {"tex": "1150 \\div 8 \\approx 144\\ \\mathrm{kW}"},
+            {"text": "Chargers at a time: 200 ÷ 60 = 3.3 → 3 (round down)"},
+            {"text": "Batches needed: 10 ÷ 3 = 3.3 → 4 (round up)"},
+            {"tex": "4 \\times 1.9 \\approx 7.7\\ \\mathrm{h} < 8\\ \\mathrm{h}", "highlight": true}
+          ],
+          "result": "Fits — but almost without margin",
+          "narration": "The fleet grows to ten buses. Does the plan still fit? Total energy: ten times 115 is 1150 kilowatt-hours. Average power over the eight-hour window: about 144 kilowatts, fine on average. But how many chargers can run at once? Two hundred divided by sixty is 3.3, so round down: three chargers. How many batches for ten buses? Ten divided by three is 3.3, so round up: four batches. Total time: four runs of about 1.9 hours, 7.7 hours, just under the window. The plan fits, but almost without margin: one slow charger or one late bus breaks it. Notice the rounding: chargers round down, batches round up."
+        },
+        {
+          "type": "concept",
+          "heading": "Two Rules of Flows",
+          "bullets": [
+            "Flow = speed × density",
+            "Cars/h = km/h × cars/km",
+            "Number inside = arrivals × time inside",
+            "Both hold in steady state"
+          ],
+          "narration": "Two rules govern flows, and both are one-line multiplications. Rule one: flow equals speed times density. Cars per hour past a point equal speed times cars per kilometre: fifteen times twenty is 300 cars per hour. That is Kosky's idea that highway capacity is an intensity. Rule two: the number inside equals arrivals times the average time inside. Ten students per minute arriving, each staying three minutes: thirty students in the line. Both rules hold in steady state, when nothing changes over time. The course returns to queues in week nine."
+        },
+        {
+          "type": "concept",
+          "heading": "Order of Magnitude",
+          "bullets": [
+            "Identify the quantity and its units",
+            "Break it into factors you can estimate",
+            "Round each factor to one digit",
+            "Check units; compare with a known value"
+          ],
+          "narration": "Estimation is a safety net with four steps. Identify the quantity and its units. Break it into factors you can estimate. Round each factor to one digit and multiply. Then check the units and compare with a known value. An order-of-magnitude estimate is correct to within a factor of ten, often much closer: Kosky estimated the barbershops in a city of sixty thousand at twenty-one, and the directory said twenty-three. Keep everyday anchors in your head: a lamp, ten watts; a kettle, two kilowatts; a phone battery, fifteen watt-hours; a bus battery, 200 kilowatt-hours; a building's peak, 180. Estimation helps before, during, and after the calculation."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Solar for One Bus",
+          "problem": "A bus needs 115 kWh per day. The roof yields about 4 kWh per kW of panels per day, and each kW of panels needs about 5 square metres. How big is the installation?",
+          "steps": [
+            {"text": "Break into factors: daily energy ÷ yield per kW"},
+            {"tex": "115 \\div 4 \\approx 29 \\rightarrow 30\\ \\mathrm{kW}"},
+            {"tex": "30 \\times 5 \\approx 150\\ \\mathrm{m}^{2}"},
+            {"text": "Bounds: 5 kWh/kW-day → 23 kW; 3 → 38 kW"},
+            {"text": "Report 'about 30 kW' — a roof, not a field", "highlight": true}
+          ],
+          "result": "About 30 kW on about 150 m²",
+          "narration": "A worked estimate: can rooftop solar feed one bus? The bus needs 115 kilowatt-hours per day. The yield is a guess, about four kilowatt-hours per kilowatt of panels per day. Divide: 115 by four is about 29, so call it thirty kilowatts of panels. Roof area: thirty times five square metres per kilowatt, about 150 square metres. A roof, not a field. Now bound the estimate: an optimistic five gives 23 kilowatts, a cautious three gives 38. Across the whole range the decision is the same, so stop refining. And report about thirty kilowatts, not 29.17: precise is not the same as correct. Most estimation errors are errors of units or counting, not mathematics."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "kW is a rate; kWh is an amount",
+            "Change in stock = inflow − outflow",
+            "t = E ÷ P: 115 ÷ 60 ≈ 1.9 h",
+            "Flows: speed × density; arrivals × time",
+            "Estimate: factors, one digit, check units"
+          ],
+          "narration": "Chapter four in five lines. A kilowatt is a rate, a kilowatt-hour is an amount, and power times time is energy. A stock changes by inflow minus outflow. Charging time is energy divided by power: 115 by 60 is about 1.9 hours. Flows multiply: speed times density, arrivals times time inside. And estimate before you calculate: factors, one digit each, units in square brackets."
+        }
+      ]
+    },
+    {
+      "title": "Deciding with Incomplete Data",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Deciding with Incomplete Data",
+          "subtitle": "Week 7: five data problems, ranges, triangulation",
+          "narration": "Chapter five. Week seven admits an uncomfortable truth: the data are never complete. Three test trips, no winter measurements, a datasheet without units. The skill is not to hide the gaps but to name them, bound them with ranges, and check them by triangulation. This chapter is about reasoning when the numbers run out."
+        },
+        {
+          "type": "concept",
+          "heading": "Five Ways Data Can Be Incomplete",
+          "bullets": [
+            "Too little — only a few points",
+            "Missing — no data for your case",
+            "Noisy — values scatter around truth",
+            "Outdated or wrong definition/unit"
+          ],
+          "narration": "The week's hook: three test trips give 1.1, 1.3 and 1.6 kilowatt-hours per kilometre. Which number do you promise the customer? Before choosing, name the data problem. There are five. Too little: only a few points, like three trips. Missing: no data for the case we care about, like no winter test. Noisy: values scatter around the truth, like 1.1 to 1.6 on the same route. Outdated or unrepresentative: measured under other conditions, like tests with an empty bus. Wrong definition or unit: the battery in percent, or a bare 200 with no unit. Name the problem first, because the fix depends on which of the five it is."
+        },
+        {
+          "type": "table",
+          "heading": "Where Numbers Come From",
+          "columns": ["Source", "Example", "How far to trust"],
+          "rows": [
+            ["Measure", "Time a trip; keep a log", "High — if the method is stated"],
+            ["Look up", "A datasheet, a standard", "Average — conditions may differ"],
+            ["Ask", "The driver, the manager", "Average — check against something"],
+            ["Estimate", "Break into factors", "Low to medium — state assumptions"],
+            ["Analogy", "A similar building", "Low — say how similar"]
+          ],
+          "narration": "Every number has a source, and sources earn different trust. Measure it yourself: time a bus trip, keep a charging log. High confidence, if the method is stated. Look it up: a datasheet, a standard. Average trust, because your conditions may differ. Ask someone: the driver, the operations manager. Also average: check it against something. Estimate it: break into factors, as in lecture six. Low to medium, so state the assumptions. Or use an analogy, a similar building: low trust, so say how similar it is. The discipline: write the source and your confidence next to every number."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Name the Problem",
+          "problem": "Six statements about data. Name the problem type for each, and one way to a better number.",
+          "steps": [
+            {"text": "'We tested the bus in one trip' — too little"},
+            {"text": "'No winter heating data' — missing"},
+            {"text": "Five readings: 58, 61, 54, 63, 60 kW — noisy"},
+            {"text": "'The figure is from a desert site' — unrepresentative"},
+            {"text": "'The datasheet says 200, no unit' — wrong unit"},
+            {"text": "'The profile predates the new wing' — out of date", "highlight": true}
+          ],
+          "result": "The type names the fix",
+          "narration": "Practice on the lecture's exercise. We tested the bus in one trip: too little, so repeat it on different days and loads. No data on winter heating of the dormitory: missing, so estimate by analogy and schedule a winter measurement. Five charger readings, 58, 61, 54, 63 and 60 kilowatts: noisy, so report the mean and a range, about 59. The generation figure is from a desert site: unrepresentative, so find data from a similar climate. The datasheet says 200 without a unit: wrong definition, because 200 kilowatt-hours is energy, 200 kilowatts is power. And the load profile predates the new wing: out of date, so re-measure or scale it. The problem type suggests the fix."
+        },
+        {
+          "type": "concept",
+          "heading": "Ranges, Not Single Numbers",
+          "bullets": [
+            "Recompute for low, typical and high",
+            "A range shows how far to trust",
+            "Report: 'about 100 to 145 km'",
+            "Small samples: always state n"
+          ],
+          "narration": "Never report a bare single number when the inputs are uncertain. Recompute the result for the low, the typical and the high value. Three summer trips at 1.1, 1.3 and 1.6 give ranges of 145, 123 and 100 kilometres. All three cover the daily 96, but the worst case only by four kilometres. So the report says: about 100 to 145 kilometres. A range tells the reader how far to trust the answer; a single number would hide how thin the worst-case margin is. And with a small sample, write n next to every number, because three trips cannot show more than three trips can show."
+        },
+        {
+          "type": "formula",
+          "heading": "Mean and Median of a Small Sample",
+          "tex": "\\bar{x} = \\frac{x_1 + x_2 + \\cdots + x_n}{n} = \\frac{1.1 + 1.3 + 1.6}{3} = 1.33",
+          "parts": [
+            {"substr": "x_1 + x_2 + \\cdots + x_n", "color": "yellow", "note": "all measured values, summed"},
+            {"substr": "n", "color": "blue", "note": "the sample size"},
+            {"substr": "\\bar{x}", "color": "green", "note": "the mean"}
+          ],
+          "narration": "A small sample has two averages. The mean: add all the measured values and divide by the sample size n. One point one, plus one point three, plus one point six, divided by three, gives 1.33 kilowatt-hours per kilometre. The mean uses every point, so one odd trip moves it a lot. The median is the middle element of the ordered sample: 1.3, and one odd trip barely moves it. Which to use is a decision; chapter six gives the rule. What is not a decision: always write n next to the number. Here n equals three, so give a range and n, and claim no more than three trips can show."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Three Summer Trips",
+          "problem": "Usable energy 160 kWh; three summer trips: 1.1, 1.3, 1.6 kWh/km; the day needs 96 km. What range can be promised?",
+          "steps": [
+            {"tex": "160 \\div 1.1 \\approx 145\\ \\mathrm{km}"},
+            {"tex": "160 \\div 1.3 \\approx 123\\ \\mathrm{km}"},
+            {"tex": "160 \\div 1.6 = 100\\ \\mathrm{km}"},
+            {"text": "All three cover 96 km — the worst only by 4 km"},
+            {"text": "Promise: 'about 100 to 145 km' with n = 3", "highlight": true}
+          ],
+          "result": "About 100 to 145 km",
+          "narration": "Compute the range properly: the same 160 kilowatt-hours of usable energy, three values of consumption. The best trip, 1.1, gives 160 divided by 1.1, about 145 kilometres. The typical, 1.3, gives about 123. The worst, 1.6, gives exactly 100. All three cover the daily 96, but read the margins: forty-nine, twenty-seven, and only four kilometres. A single promised number, say 123, would hide how thin the worst-case margin is. So the honest promise is a range: about 100 to 145 kilometres, from three trips. The range is not vagueness; it is information about how far the answer can be trusted."
+        },
+        {
+          "type": "concept",
+          "heading": "Triangulation",
+          "bullets": [
+            "Estimate one quantity by several routes",
+            "Compare the routes — do they agree?",
+            "Agreement builds trust",
+            "Disagreement points to where to look"
+          ],
+          "narration": "Triangulation means estimating the same quantity by several independent routes and comparing. Take the faculty building's daily energy. Route one, floor area: 8000 square metres times 0.35 kilowatt-hours per square metre per day, about 2800. Route two, the load profile from lecture six: 94 kilowatts times 24 hours, about 2260. Route three, the monthly bill: 70,000 divided by thirty days, about 2330. Three independent routes agree to within about twenty-five percent. Agreement builds trust; disagreement points to where to look next."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "Five data problems — name them first",
+            "Sources: measure, look up, ask, estimate, analogy",
+            "Report ranges, not single numbers",
+            "State n next to every number",
+            "Triangulate: several routes, compare"
+          ],
+          "narration": "Chapter five in five lines. Data fail in five ways: too little, missing, noisy, unrepresentative, wrong unit. Name the problem before fixing it. Numbers come from measuring, looking up, asking, estimating, or analogy, each with its own level of trust. Report ranges, not single numbers, and always state the sample size. And triangulate the important quantities: several independent routes, then compare."
+        }
+      ]
+    },
+    {
+      "title": "Metrics, Baselines and Honest Reporting",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Metrics, Baselines and Honest Reporting",
+          "subtitle": "Week 7 continued: one dataset, several true readings",
+          "narration": "Chapter six. The same numbers can tell different true stories. A dispatcher, a passenger and an administrator read one waiting-time chart in three different ways. This chapter is about choosing the right metric, asking a percentage of what, and ending every analysis with the honest report: result, range, top assumption, and what would change it."
+        },
+        {
+          "type": "concept",
+          "heading": "One Dataset, Three Readings",
+          "bullets": [
+            "Dispatcher: 'average wait 6 min — good'",
+            "Passenger: 'every seventh waits over 12'",
+            "Administrator: 'more buses — at what cost?'",
+            "All three readings are true"
+          ],
+          "narration": "One distribution of waiting times at a bus stop, and three true readings. The dispatcher reads the mean: the average wait is six minutes, good. The passenger reads the tail: every seventh of us waits more than twelve minutes; the two longest intervals hold fifteen percent of passengers. The administrator reads the cost: cutting the long waits requires more buses, at what cost? One set of numbers, three readings, all true. The rule: before accepting a number, ask for which decision it is being used. That question chooses the metric."
+        },
+        {
+          "type": "table",
+          "heading": "The Decision Chooses the Metric",
+          "columns": ["Question", "Metric", "Value here"],
+          "rows": [
+            ["How long does the typical rider wait?", "Median", "about 5 min"],
+            ["How much waiting in total?", "Mean", "about 6 min × riders"],
+            ["How bad for the unlucky?", "90th percentile", "about 13 min"],
+            ["What is the worst case?", "Maximum", "about 16 min"]
+          ],
+          "narration": "The decision chooses the metric, not the other way round. How long does the typical passenger wait? The median, about five minutes. How much waiting in total? The mean, about six minutes per passenger, times the passengers. How bad for the unlucky? The ninetieth percentile, about thirteen minutes. The worst case? The maximum, about sixteen. Choose the mean when you care about totals, the median for the typical case, a percentile for the unlucky, and the maximum when you prepare for the worst. Lecture six had the same pair: kilowatt-hours answer how much, kilowatts answer how fast."
+        },
+        {
+          "type": "concept",
+          "heading": "A Percentage of What?",
+          "bullets": [
+            "One fact: the retrofit saves 12 kW",
+            "60% of corridor lighting (12 ÷ 20)",
+            "7% of the building's peak (12 ÷ 180)",
+            "Always ask: a percentage of what?"
+          ],
+          "narration": "Misleading comparisons need no false number. One fact: an LED retrofit saves twelve kilowatts. Two true percentages: it is sixty percent of corridor lighting, twelve over twenty, but only seven percent of the building's peak, twelve over one hundred eighty. Different baselines give different but true stories. Watch for three more tricks. Different denominators: route A has fewer complaints, while it has far fewer passengers; ask, per what? Cherry-picked days: the best week of the semester; ask, which days were dropped? A truncated axis: a bar chart starting at eighty turns a five-percent gap huge; ask, where does the axis start? Every percentage needs its baseline stated."
+        },
+        {
+          "type": "example",
+          "heading": "Example: The LED Retrofit Baselines",
+          "problem": "A campus retrofit saves about 38 kW of lighting. Three baselines on file: 117 kW (measured old lighting), 75 kW (operations estimate), 20 kW (an old report). Which percentage is right?",
+          "steps": [
+            {"tex": "38 \\div 117 \\approx 0.33"},
+            {"text": "33% against the measured baseline — consistent"},
+            {"tex": "38 \\div 75 \\approx 0.51"},
+            {"tex": "38 \\div 20 = 1.91", "highlight": true},
+            {"text": "191% is impossible — the baseline boundary is wrong"}
+          ],
+          "result": "33% against the measured 117 kW",
+          "narration": "Lab seven's LED case turns the baseline question into arithmetic. The saving is about 38 kilowatts: 6,500 lamps, each roughly 5.9 watts less. Against the measured old lighting of 117 kilowatts, the saving is 38 divided by 117, thirty-three percent. Consistent: the boundary is the same before and after. Against the operations estimate of 75 kilowatts it is fifty-one percent, too high: 75 cannot be all the lamps on at once. Against the old report's 20 kilowatts it is 191 percent, impossible. A result above one hundred percent is not a miracle; it is a hint that the baseline boundary is wrong. Use one boundary before and after, and state it."
+        },
+        {
+          "type": "concept",
+          "heading": "The Honest Report",
+          "bullets": [
+            "RESULT — one sentence the reader can use",
+            "RANGE — low to high, not a single value",
+            "TOP ASSUMPTION — what it rests on most",
+            "WHAT WOULD CHANGE IT — data to seek next"
+          ],
+          "narration": "An honest engineering report has four elements. Result: the answer, a simple sentence the reader can use. Range: how far to trust it, low to high, never a single value. Top assumption: the one assumption the result rests on most. What would change it: the data that would move the conclusion, what to find out next. The lecture's principle: a good report gives the answer, the degree of trust, and what would change it. And low confidence goes on the page; hiding it does not remove it."
+        },
+        {
+          "type": "example",
+          "heading": "Example: The Winter Day Report",
+          "problem": "Can one bus get through a winter day of 96 km on a single charge? Known: 160 kWh usable, summer tests 1.1–1.6 kWh/km (n = 3). Missing: any winter test. Winter guess: 1.5 / 1.8 / 2.0 kWh/km.",
+          "steps": [
+            {"tex": "160 \\div 1.5 \\approx 107\\ \\mathrm{km}"},
+            {"tex": "160 \\div 1.8 \\approx 89\\ \\mathrm{km}"},
+            {"tex": "160 \\div 2.0 = 80\\ \\mathrm{km}"},
+            {"text": "Only the optimistic case passes 96 km"},
+            {"text": "RESULT: probably not — 89 km against 96 km", "highlight": true}
+          ],
+          "result": "Probably not; plan top-ups, collect winter data",
+          "narration": "The lecture's summary example. Known: 160 kilowatt-hours of usable energy, a 96-kilometre day, summer tests between 1.1 and 1.6. Missing: any winter test, because heating raises consumption by an unknown amount. Fill the gap with a range: winter consumption 1.5, 1.8 or 2.0, an estimate by analogy with low confidence. Compute all three: 107, 89 and 80 kilometres. Only the optimistic case passes. Now the honest report. Result: probably not, 89 against 96. Range: 80 to 107. Top assumption: 1.8 kilowatt-hours per kilometre, low confidence. What would change it: one real winter trip, or daytime top-up charging. The decision: plan the top-ups and collect winter data before committing."
+        },
+        {
+          "type": "example",
+          "heading": "Example: The LED Lamp Decision",
+          "problem": "Replace all 6,500 corridor lamps now? Measured: new lamp ≈ 12.1 W (n = 5, one batch) vs old 18 W; hours of use 10–14 h/day; tariff 700–1,000 UZS/kWh; claimed life 40,000 h, unverified.",
+          "steps": [
+            {"text": "Saving per lamp: 18 − 12.1 ≈ 5.9 W"},
+            {"text": "5.9 W × 6,500 lamps × 12 h × 365 ≈ 167 MWh/year"},
+            {"text": "Range: 124–216 MWh/year; 87–216 million UZS"},
+            {"text": "Break-even premium ≈ 21,900 UZS/year × years"},
+            {"text": "40,000 h → 200,000 UZS; 10,000 h → 50,000", "highlight": true}
+          ],
+          "result": "Pilot one building before replacing all 6,500",
+          "narration": "Lab seven's full decision. The measured saving per lamp is about 5.9 watts. Solid, although it comes from five lamps of a single batch. Multiply it out: 6,500 lamps, twelve hours a day, 365 days: about 167 megawatt-hours a year, with a range of 124 to 216. In money, 87 to 216 million som a year. The energy claim is robust: it would flip only if the new lamp really drew eighteen watts, and the tests say twelve. But replacing everything now depends on service life and price. The break-even premium is roughly 21,900 som per lamp per year, times the years of service: forty thousand hours gives about 200,000 som; ten thousand hours, fifty thousand. The recommendation: a pilot in one building before replacing all 6,500."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "One dataset — several true readings",
+            "The decision chooses the metric",
+            "Ask: a percentage of what?",
+            "Report: result, range, assumption, change"
+          ],
+          "narration": "Chapter six in four lines. The same dataset supports several true readings, so ask which decision the number serves. The decision chooses the metric: median, mean, percentile or maximum. Every percentage needs its baseline, so ask, a percentage of what? And the honest report has four parts: the result, the range, the top assumption, and what would change it."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "A model = a purposeful simplification",
+            "Assumptions: write, price, check them",
+            "Utilisation = demand ÷ capacity; size for peak",
+            "kW vs kWh; stock = inflow − outflow",
+            "Estimate, bound, triangulate",
+            "Report: result, range, assumption, what changes it"
+          ],
+          "narration": "Let's put the three weeks together. A model is a purposeful simplification for one question, with four parts and three kinds of assumptions, written down and priced. Utilisation is demand over capacity, and you size for the peak. A kilowatt is a rate, a kilowatt-hour is an amount; a stock changes by inflow minus outflow. Estimate before you calculate, bound every estimate, triangulate what matters. And when the data run out: name the problem, give the range with n, and report the result, the trust, the top assumption, and what would change it. That is the whole logic of weeks five to seven."
+        },
+        {
+          "type": "outro",
+          "message": "You covered all of weeks 5–7 — models, numbers, decisions. Now take the test — you are ready.",
+          "narration": "You have covered all of weeks five to seven: models and assumptions, demand and capacity, flows and estimation, incomplete data and honest reporting. Week eight is the midterm, a written test on the first seven weeks, and this video plus your guide covers its whole logic. Revise the formulas, redo two examples on paper, and walk in confident. Good luck — you are ready."
+        }
+      ]
+    }
+  ],
+  "outro_message": "You covered all of weeks 5–7 — models, numbers, decisions. Now take the test — you are ready.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

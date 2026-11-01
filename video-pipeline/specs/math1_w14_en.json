@@ -1,0 +1,741 @@
+{
+  "id": "math1_w14",
+  "language": "en",
+  "course_title": "Math I — Mathematical Analysis",
+  "test_title": "Weeks 1–4 · Complete Guide",
+  "subtitle": "Number Systems · Complex Numbers · Functions · Limits",
+  "chapters": [
+    {
+      "title": "Number Systems and Notation",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "Welcome to the complete video guide to Math I, weeks one to four. In the next half hour we travel from number sets and complex numbers through functions straight into the heart of calculus: limits. By the end you will compute limits with the limit laws, untangle indeterminate forms, and compare functions with Landau symbols. Everything comes straight from your course guide. Let's begin."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Number Systems and Notation",
+          "subtitle": "The sets every number lives in",
+          "narration": "Chapter one. Before calculus can say anything, we must know where numbers live. Which number sets exist, and how do they nest? How do positional systems write numbers in different bases? And how do scientific and engineering notation handle the very large and the very small?"
+        },
+        {
+          "type": "concept",
+          "heading": "The Nesting of Number Sets",
+          "bullets": [
+            "naturals N — the counting numbers",
+            "integers Z: add 0 and the negatives",
+            "rationals Q: fractions a/b",
+            "reals R, then complex C complete the nest"
+          ],
+          "formula": "N \\subseteq Z \\subseteq Q \\subseteq R \\subseteq C",
+          "formula_caption": "read: N is contained in Z, in Q, in R, in C",
+          "narration": "Every number lives in one of five nested sets. The naturals are the counting numbers. Add zero and the negatives, and you get the integers. The rationals are exactly the fractions, a over b, with a and b integers and b nonzero. The reals add the irrationals — like the square root of two and pi, whose decimals never repeat. The complex numbers, a plus b i, contain them all. Read the formula: N is contained in Z, in Q, in R, and in C. The smallest set a number belongs to is its home."
+        },
+        {
+          "type": "concept",
+          "heading": "Positional Numeral Systems",
+          "bullets": [
+            "digits 0 … b−1 in base b",
+            "value = digits × powers of b",
+            "13 = 1101 in binary = D in hex",
+            "binary: two reliable states"
+          ],
+          "formula": "(a_n \\ldots a_1 a_0)_b = \\sum_{k=0}^{n} a_k b^k",
+          "formula_caption": "a numeral in base b is a sum of digits times powers of b",
+          "narration": "A positional system with base b writes every number as digits times powers of b, with each digit from zero to b minus one. The same value admits many numerals: thirteen is one one zero one in binary, one five in octal, and D in hexadecimal, where the letters A through F code the values ten through fifteen. The formula on screen converts any numeral back to its value — just sum the digits times the powers. And why do computers use binary? Because electronic hardware reliably tells apart exactly two states, off and on."
+        },
+        {
+          "type": "concept",
+          "heading": "Scientific and Engineering Notation",
+          "bullets": [
+            "scientific: one digit before the point",
+            "engineering: exponent divisible by 3",
+            "exponent pairs with an SI prefix",
+            "5 mW vs 5 MW: case matters!"
+          ],
+          "formula": "z = a \\times 10^n,\\ 1 \\leq |a| < 10; \\quad z = a \\times 10^{3k},\\ 1 \\leq |a| < 1000",
+          "formula_caption": "scientific form, then engineering form",
+          "narration": "Scientific notation isolates the magnitude of a number: a coefficient a with exactly one nonzero digit before the decimal point, times a power of ten — one is at most the size of a, which stays below ten. Engineering notation goes further: the exponent must be a multiple of three, so it couples directly to an SI prefix — kilo, mega, milli, micro. Case is critical: five milliwatts, with lowercase m, and five megawatts, with capital M, differ by a factor of a billion. Arithmetic becomes easy too: multiply the coefficients, add the exponents."
+        },
+        {
+          "type": "table",
+          "heading": "The SI Prefix Ladder",
+          "columns": ["Prefix", "Symbol", "Power"],
+          "rows": [
+            ["giga", "G", "10⁹"],
+            ["mega", "M", "10⁶"],
+            ["kilo", "k", "10³"],
+            ["milli", "m", "10⁻³"],
+            ["micro", "µ", "10⁻⁶"],
+            ["nano", "n", "10⁻⁹"]
+          ],
+          "narration": "Here is the prefix ladder you will use all semester — read it top to bottom. Giga, capital G: ten to the ninth. Mega, capital M: ten to the sixth. Kilo, lowercase k: ten to the third. Now we cross below one: milli, lowercase m, is ten to the minus third; micro, the Greek letter mu, is ten to the minus sixth; nano, lowercase n, is ten to the minus ninth. Tera sits above, and pico continues below. Memorize the symbols together with their case — the case carries the meaning."
+        },
+        {
+          "type": "example",
+          "heading": "Rational or Irrational?",
+          "problem": "0.375, \\quad 0.272727\\ldots, \\quad \\sqrt{50}, \\quad (1 + \\sqrt{5})(1 - \\sqrt{5})",
+          "steps": [
+            { "tex": "0.375 = \\frac{375}{1000} = \\frac{3}{8}" },
+            { "tex": "0.272727\\ldots = \\frac{27}{99} = \\frac{3}{11}" },
+            { "tex": "\\sqrt{50} = \\sqrt{25} \\cdot \\sqrt{2} = 5\\sqrt{2}" },
+            { "tex": "(1 + \\sqrt{5})(1 - \\sqrt{5}) = 1 - 5 = -4", "highlight": true }
+          ],
+          "result": "three are rational; 5√2 is irrational",
+          "narration": "Four numbers, four verdicts. First: zero point three seven five terminates, so it is rational — three hundred seventy five over a thousand reduces to three eighths. Second: the block two-seven repeats forever, so it is rational too — twenty-seven over ninety-nine reduces to three elevenths. Third: the square root of fifty equals five root two, and since root two is irrational, five root two is irrational. Fourth: expand the conjugate product — one minus five is minus four, rational. The principle: a decimal is rational exactly when it terminates or eventually repeats, and a product of conjugates always eliminates the radical. It decides every classification question on the test."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "five nested sets: N to C",
+            "base b: digits × powers of b",
+            "finite or periodic ⇔ rational",
+            "engineering: exponent in threes"
+          ],
+          "narration": "Chapter one, locked in. Five nested number sets, from the naturals to the complex numbers. Positional systems write numbers as digits times powers of the base — the same value, many numerals. Terminating or eventually repeating decimals are exactly the rationals. And engineering notation keeps the exponent a multiple of three, paired with an SI prefix. Next stop: complex numbers."
+        }
+      ]
+    },
+    {
+      "title": "Complex Numbers",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "Complex Numbers",
+          "subtitle": "Algebra beyond the real line",
+          "narration": "Chapter two. The equation x squared plus one equals zero has no real solution. Complex numbers close that gap. We define the imaginary unit, do arithmetic in a plus b i form, meet the conjugate and modulus, and unlock the polar form that makes powers and roots effortless."
+        },
+        {
+          "type": "concept",
+          "heading": "The Imaginary Unit",
+          "bullets": [
+            "i² = −1 by definition",
+            "z = a + bi: real part a, imaginary b",
+            "equality: both parts match",
+            "powers of i cycle: i, −1, −i, 1"
+          ],
+          "formula": "i^2 = -1, \\quad z = a + bi, \\quad i^{n+4} = i^n",
+          "formula_caption": "i squared is minus one; powers repeat every four steps",
+          "narration": "The imaginary unit i is defined by one property: i squared equals minus one. A complex number is z equals a plus b i — real part a, imaginary part b. Two complex numbers are equal exactly when both parts match separately. And the powers of i cycle with period four: i to the first is i, to the second minus one, to the third minus i, to the fourth one — then the pattern repeats. For a large exponent, divide it by four and keep only the remainder; the remainder decides everything."
+        },
+        {
+          "type": "concept",
+          "heading": "Conjugate and Modulus",
+          "bullets": [
+            "conjugate flips the sign of b",
+            "modulus = √(a² + b²)",
+            "z · z̄ = |z|² — the key to division",
+            "conjugation mirrors across the real axis"
+          ],
+          "formula": "\\bar{z} = a - bi, \\quad |z| = \\sqrt{a^2 + b^2}, \\quad z\\bar{z} = |z|^2",
+          "formula_caption": "the conjugate of z and the modulus of z",
+          "narration": "Two tools make complex arithmetic smooth. The conjugate of a plus b i is a minus b i — geometrically, the mirror image across the real axis. The modulus is the distance from the origin: the square root of a squared plus b squared. Now multiply z by its conjugate: the cross terms cancel, and you get a squared plus b squared — the modulus squared. This identity powers division: to divide by a complex number, multiply numerator and denominator by the conjugate of the denominator, and the denominator becomes the plain real number, modulus squared."
+        },
+        {
+          "type": "example",
+          "heading": "Four Operations on Complex Numbers",
+          "problem": "z_1 = 3 + 2i, \\quad z_2 = 1 - 4i",
+          "steps": [
+            { "tex": "z_1 + z_2 = (3 + 1) + (2 - 4)i = 4 - 2i" },
+            { "tex": "z_1 - z_2 = (3 - 1) + (2 + 4)i = 2 + 6i" },
+            { "tex": "z_1 z_2 = (3 + 8) + (-12 + 2)i = 11 - 10i" },
+            { "tex": "\\frac{z_1}{z_2} = \\frac{(3 + 2i)(1 + 4i)}{(1 - 4i)(1 + 4i)} = \\frac{-5 + 14i}{17}", "highlight": true }
+          ],
+          "result": "4 − 2i; 2 + 6i; 11 − 10i; (−5 + 14i)/17",
+          "narration": "Let z one be three plus two i, z two one minus four i. Addition and subtraction work part by part: the sum is four minus two i; the difference is two plus six i. For the product, distribute and remember i squared is minus one: the real part is three plus eight — eleven; the imaginary part is minus twelve plus two — minus ten. The product is eleven minus ten i. For the quotient, multiply top and bottom by one plus four i, the conjugate of the denominator: the bottom becomes seventeen, the top minus five plus fourteen i. So the quotient is minus five seventeenths plus fourteen seventeenths i."
+        },
+        {
+          "type": "formula",
+          "heading": "Polar and Exponential Form",
+          "tex": "z = r(\\cos\\theta + i\\sin\\theta) = re^{i\\theta}, \\quad r = |z|",
+          "parts": [
+            { "substr": "r = |z|", "color": "yellow", "note": "the modulus — distance from the origin" },
+            { "substr": "\\theta", "color": "blue", "note": "the argument — the angle" },
+            { "substr": "e^{i\\theta}", "color": "green", "note": "Euler's bridge to exponentials" }
+          ],
+          "narration": "Every complex number can be addressed by polar coordinates instead of a plus b i. The yellow part: r is the modulus, the distance from the origin. The blue theta is the argument — the angle measured from the positive real axis; mind the quadrant, because the tangent alone is ambiguous. The green part is Euler's bridge: e to the i theta equals cosine theta plus i sine theta, so the trigonometric form becomes a pure exponential. Multiplication then multiplies moduli and adds angles, and powers follow De Moivre. A famous bonus: e to the i pi plus one equals zero."
+        },
+        {
+          "type": "example",
+          "heading": "De Moivre's Formula: (√3 + i)⁴",
+          "problem": "(\\sqrt{3} + i)^4",
+          "steps": [
+            { "tex": "|\\sqrt{3} + i| = \\sqrt{3 + 1} = 2" },
+            { "tex": "\\theta = \\arctan\\frac{1}{\\sqrt{3}} = \\frac{\\pi}{6}" },
+            { "tex": "\\sqrt{3} + i = 2e^{i\\pi/6}" },
+            { "tex": "(\\sqrt{3} + i)^4 = 16e^{i\\,4\\pi/6} = 16e^{i2\\pi/3}" },
+            { "tex": "= 16\\left(-\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i\\right) = -8 + 8\\sqrt{3}\\,i", "highlight": true }
+          ],
+          "result": "−8 + 8√3·i",
+          "narration": "Compute the fourth power of root three plus i. First, the polar data. The modulus: root of three plus one — two. The angle: tangent theta is one over root three, so theta is pi over six. Exponential form: two e to the i pi over six. De Moivre takes over: raise the modulus to the fourth power — sixteen — and multiply the angle by four: two pi over three. So we need sixteen times cosine of two pi over three plus i sine of two pi over three. Cosine is minus one half; sine is root three over two. Answer: minus eight plus eight root three i. Squaring twice confirms it."
+        },
+        {
+          "type": "example",
+          "heading": "All Cube Roots of −8",
+          "problem": "z^3 = -8",
+          "steps": [
+            { "tex": "-8 = 8e^{i(\\pi + 2k\\pi)}" },
+            { "text": "modulus of each root: cube root of 8 = 2" },
+            { "tex": "z_k = 2e^{i(\\pi + 2k\\pi)/3}, \\quad k = 0, 1, 2" },
+            { "tex": "z_0 = 1 + \\sqrt{3}i, \\quad z_1 = -2, \\quad z_2 = 1 - \\sqrt{3}i", "highlight": true }
+          ],
+          "result": "1 + √3·i, −2, 1 − √3·i",
+          "narration": "Find every complex solution of z cubed equals minus eight. Write minus eight as eight e to the i pi, adding full turns, two k pi. The cube roots have modulus the cube root of eight — two — and arguments pi plus two k pi over three. For k zero: two e to the i pi over three — one plus root three i. For k one: two e to the i pi — minus two, the only real root. For k two: two e to the i five pi over three — one minus root three i. Geometrically: three equally spaced points on the circle of radius two — an equilateral triangle."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "i² = −1; powers cycle by 4",
+            "z · z̄ = |z|²",
+            "polar form: z = r·e^(iθ)",
+            "n roots form a regular n-gon"
+          ],
+          "narration": "Chapter two in one breath. The imaginary unit satisfies i squared equals minus one, and its powers cycle with period four. Multiplying by the conjugate turns division into real arithmetic. The polar form, z equals r times e to the i theta, makes powers easy through De Moivre, and the n roots of a number form a regular n-gon. Next: functions."
+        }
+      ]
+    },
+    {
+      "title": "Functions",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "Functions",
+          "subtitle": "One input, exactly one output",
+          "narration": "Chapter three. Functions are the machines of mathematics: one input, exactly one output. We define them precisely, find their natural domains, test their symmetry, chain them by composition, and reverse them with inverses. Then exponentials and logarithms power every growth model in the course."
+        },
+        {
+          "type": "concept",
+          "heading": "What Is a Function?",
+          "bullets": [
+            "each input gives exactly one output",
+            "domain D = the allowed inputs",
+            "range = the outputs produced",
+            "vertical line test on the graph"
+          ],
+          "formula": "f : D \\to R, \\quad x \\mapsto f(x)",
+          "formula_caption": "f maps the domain D into the reals",
+          "narration": "A function is a rule assigning to every input x in the domain D exactly one output, f of x. Exactly one — that is the entire contract. The domain collects the allowed inputs; the range collects the outputs actually produced. On a graph, the vertical line test enforces the contract: any vertical line may cross the picture at most once. A full circle fails — almost every x there corresponds to two y values. The notation reads: f maps D into the reals, and x maps to f of x."
+        },
+        {
+          "type": "concept",
+          "heading": "The Natural Domain",
+          "bullets": [
+            "division: denominator ≠ 0",
+            "even root: radicand ≥ 0",
+            "logarithm: argument > 0",
+            "intersect all the conditions"
+          ],
+          "formula": "\\frac{1}{g(x)}: \\ g(x) \\neq 0; \\quad \\sqrt{g(x)}: \\ g(x) \\geq 0; \\quad \\log_b g(x): \\ g(x) > 0",
+          "formula_caption": "the three standard obstructions",
+          "narration": "The natural domain is the largest set of real inputs for which the formula makes sense. Only three obstructions ever occur. Division demands a nonzero denominator. An even root, such as a square root, demands a nonnegative radicand. A logarithm demands a strictly positive argument. For a complicated formula, write down the condition from each ingredient and intersect them all — the answer is usually a union of intervals; read the formula as a checklist. These three rules settle every domain question in weeks one to four — and most domain questions on the test."
+        },
+        {
+          "type": "concept",
+          "heading": "Even and Odd Symmetry",
+          "bullets": [
+            "even: f(−x) = f(x) — y-axis mirror",
+            "odd: f(−x) = −f(x) — origin half-turn",
+            "x³ − 4x: odd powers only",
+            "mixed powers: no symmetry"
+          ],
+          "formula": "f(-x) = f(x), \\qquad f(-x) = -f(x)",
+          "formula_caption": "even on the left, odd on the right",
+          "plot": {
+            "fn": "x**3 - 4*x",
+            "tex": "p(x) = x^3 - 4x",
+            "x_range": [-2.5, 2.5],
+            "y_range": [-6, 6],
+            "point": [2, 0],
+            "point_label": "(2, 0)"
+          },
+          "narration": "Symmetry comes in two flavors. A function is even when f of minus x equals f of x — the graph mirrors across the y axis. It is odd when f of minus x equals minus f of x — the graph survives a half-turn about the origin. The plot shows p of x equals x cubed minus four x: only odd powers, so p is odd. The curve crosses the axis at minus two, zero, and two — the marked point. Mixed powers, like x cubed plus x squared, have neither symmetry."
+        },
+        {
+          "type": "concept",
+          "heading": "Composition and Inverses",
+          "bullets": [
+            "(f ∘ g)(x) = f(g(x))",
+            "order matters: f∘g ≠ g∘f",
+            "inverse: solve y = f(x) for x",
+            "graphs mirror in the line y = x"
+          ],
+          "formula": "(f \\circ g)(x) = f(g(x)), \\qquad f^{-1}(f(x)) = x",
+          "formula_caption": "composition chains; the inverse undoes",
+          "narration": "Composition chains two machines: feed x to g, then feed the result to f. That is f after g, written f of g of x. Order genuinely matters — the next example shows f after g and g after f giving different functions. The inverse runs the machine backwards: solve y equals f of x for x. Only one-to-one functions have inverses — checked by the horizontal line test — and the graph of the inverse mirrors the original across the line y equals x. Compose a function with its inverse, and you recover plain x."
+        },
+        {
+          "type": "concept",
+          "heading": "Exponentials and Logarithms",
+          "bullets": [
+            "log_b(x) = y ⇔ b^y = x",
+            "log of product = sum of logs",
+            "ln and exp undo each other",
+            "growth model: A(t) = A₀·e^(kt)"
+          ],
+          "formula": "\\log_b x = y \\iff b^y = x, \\quad \\log_b(xy) = \\log_b x + \\log_b y",
+          "formula_caption": "the logarithm is the exponent",
+          "narration": "Exponential and logarithm are two views of one fact. The logarithm base b of x is the exponent y such that b to the y equals x. The laws follow: the log of a product is the sum of the logs; the log of a quotient is a difference; a power slides out front. The natural pair, e to the x and ln of x, undo each other. And every growth or decay model has the form A zero times e to the k t — positive k grows, negative decays."
+        },
+        {
+          "type": "example",
+          "heading": "Finding Domains",
+          "problem": "\\sqrt{5 - 2x}, \\quad \\sqrt{\\frac{x + 2}{x - 1}}",
+          "steps": [
+            { "text": "root requires 5 − 2x ≥ 0" },
+            { "tex": "x \\leq \\frac{5}{2}: \\quad D_1 = \\left(-\\infty, \\frac{5}{2}\\right]" },
+            { "text": "quotient under the root ≥ 0, x ≠ 1" },
+            { "tex": "D_2 = (-\\infty, -2] \\cup (1, +\\infty)", "highlight": true }
+          ],
+          "result": "(−∞, 5/2]  and  (−∞, −2] ∪ (1, ∞)",
+          "narration": "Two domain hunts, straight from the practical session. First, the square root of five minus two x: the root demands five minus two x at least zero, so x is at most five halves — everything up to five halves, bracket closed. Second, the square root of x plus two over x minus one: the quotient must be nonnegative, and x different from one. Critical points: minus two and one. Testing the intervals, the quotient is nonnegative up to minus two, and again strictly beyond one. Domain: everything up to minus two, closed, union the open ray from one onward. Always reduce the condition to critical points, then test the sign on each interval."
+        },
+        {
+          "type": "example",
+          "heading": "f∘g versus g∘f",
+          "problem": "f(x) = 2x - 3, \\quad g(x) = x^2 + 1",
+          "steps": [
+            { "tex": "(f \\circ g)(x) = 2(x^2 + 1) - 3 = 2x^2 - 1" },
+            { "tex": "(g \\circ f)(x) = (2x - 3)^2 + 1 = 4x^2 - 12x + 10" },
+            { "text": "at x = 0:  −1 versus 10" },
+            { "tex": "(f \\circ g)(x) \\neq (g \\circ f)(x)", "highlight": true }
+          ],
+          "result": "2x² − 1  versus  4x² − 12x + 10",
+          "narration": "Let f of x be two x minus three, g of x x squared plus one. First, f after g: substitute g into f — two times x squared plus one, minus three — which is two x squared minus one. The other order, g after f: square the whole of two x minus three, add one — four x squared minus twelve x plus ten. Different functions: at x equals zero the first gives minus one, the second ten. Composition is not commutative — shift then square is not square then shift. Self-composition stays legal: g after g gives x to the fourth plus two x squared plus two."
+        },
+        {
+          "type": "example",
+          "heading": "Battery Discharge",
+          "problem": "E(t) = E_0 e^{-0.025t}, \\quad t \\geq 0",
+          "steps": [
+            { "tex": "\\frac{E(10)}{E_0} = e^{-0.25} \\approx 0.7788" },
+            { "text": "about 77.9% remains after 10 hours" },
+            { "tex": "e^{-0.025t} = \\frac{1}{2} \\Rightarrow t = \\frac{\\ln 2}{0.025} \\approx 27.7" },
+            { "tex": "E(t) > 0; \\quad E(t) \\to 0 \\iff t \\to \\infty", "highlight": true }
+          ],
+          "result": "≈ 77.9% after 10 h; half at ≈ 27.7 h",
+          "narration": "A battery discharges: E of t equals E zero times e to the minus zero point zero two five t, t in hours. What fraction survives ten hours? Divide by E zero: e to the minus zero point two five is about zero point seven seven eight — roughly seventy eight percent of the charge remains. When is half left? Set the exponential to one half: t equals ln two over zero point zero two five — about twenty seven point seven hours, nearly a day and then some. Why is zero never reached? The exponential is strictly positive at every finite time; it approaches zero only as t tends to infinity — our first honest limit."
+        },
+        {
+          "type": "table",
+          "heading": "Classes of Functions",
+          "columns": ["Class", "Example"],
+          "rows": [
+            ["linear", "3x − 7"],
+            ["polynomial", "x⁴ − 2x + 1"],
+            ["rational", "(x + 1)/(x² + 4)"],
+            ["algebraic", "√(x² + 1)"],
+            ["exponential", "2ˣ"],
+            ["trigonometric", "sin x"]
+          ],
+          "narration": "A vocabulary table. Linear: three x minus seven — a straight line. Polynomial: x to the fourth minus two x plus one — smooth everywhere. Rational: a ratio of polynomials, like x plus one over x squared plus four — defined wherever the denominator is nonzero. Algebraic: roots of polynomials, like the square root of x squared plus one. Exponential: two to the x — the variable lives in the exponent, so it is transcendental. Trigonometric: sine x — also transcendental. The classes overlap: every polynomial is also algebraic, so always name the smallest class."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "one input, exactly one output",
+            "domain blocked by ÷0, roots, logs",
+            "even mirrors; odd half-turns",
+            "f∘g ≠ g∘f; inverse mirrors in y = x",
+            "the logarithm is the exponent"
+          ],
+          "narration": "Chapter three compressed. A function assigns each input exactly one output, and the vertical line test checks it. Domains are blocked only by division, even roots, and logarithms. Even functions mirror across the axis; odd ones rotate about the origin. Composition order matters, and inverses undo one-to-one functions. The logarithm is simply the exponent. Now, the main event of the course: limits."
+        }
+      ]
+    },
+    {
+      "title": "Limits: The Core Idea",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "Limits: The Core Idea",
+          "subtitle": "What does approaching really mean?",
+          "narration": "Chapter four — the heart of the course. Limits answer two questions: how fast is something changing, and where is a function heading? We build the idea from secant slopes and average speeds, sharpen it with epsilon and delta, and apply it to engineering systems."
+        },
+        {
+          "type": "concept",
+          "heading": "Two Founding Problems",
+          "bullets": [
+            "secant slope: Δf over Δx",
+            "average velocity over an interval",
+            "shrink the step h toward zero",
+            "instantaneous rate = a limit"
+          ],
+          "formula": "\\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h} = f'(a)",
+          "formula_caption": "the instantaneous rate is defined as a limit",
+          "narration": "Calculus is born from two questions. How steeply does a curve rise at a single point? How fast does an object move at a single instant? Both use the same trick. The secant slope through two nearby points is the change in f over the change in x; the average velocity is displacement over time. Now shrink the interval. The average rates approach a number, defined as the limit on screen: f of a plus h minus f of a, over h, as h tends to zero. This limit is the derivative — the instantaneous rate."
+        },
+        {
+          "type": "example",
+          "heading": "Robot Cart: Average to Instantaneous",
+          "problem": "s(t) = 2t^2 + 3t; \\quad \\lim_{h \\to 0} \\frac{s(2+h) - s(2)}{h}",
+          "steps": [
+            { "tex": "s(2) = 8 + 6 = 14" },
+            { "tex": "s(2+h) = 14 + 11h + 2h^2" },
+            { "tex": "\\frac{s(2+h) - s(2)}{h} = 11 + 2h" },
+            { "tex": "\\lim_{h \\to 0} (11 + 2h) = 11", "highlight": true }
+          ],
+          "result": "11 m/s",
+          "narration": "A robot cart moves with position s of t equals two t squared plus three t, in meters. What is its speed at t equals two? Anchor first: s of two is fourteen meters. Expand s of two plus h: fourteen plus eleven h plus two h squared. The average speed is the difference — eleven h plus two h squared — divided by h; cancel h: eleven plus two h. Let h tend to zero — the leftover two h dies, and the averages close in on eleven from both sides — eleven point zero three, then eleven point zero zero three. The instantaneous speed at t equals two is exactly eleven meters per second."
+        },
+        {
+          "type": "concept",
+          "heading": "The Limit of a Function",
+          "bullets": [
+            "x approaches a, never equals a",
+            "f(x) gets arbitrarily close to L",
+            "the value f(a) itself is ignored",
+            "a limit, when it exists, is unique"
+          ],
+          "formula": "\\lim_{x \\to a} f(x) = L",
+          "formula_caption": "the limit of f of x, as x approaches a, equals L",
+          "narration": "The central definition. We say the limit of f of x, as x approaches a, equals L, when the values f of x get arbitrarily close to L as x gets close to a — from both sides, but never actually reaching a. Three remarks. The point itself is ignored: f may be undefined at a, or defined to be anything else. When a limit exists, it is unique — no function approaches two numbers at once. And this is a guarantee: for every closeness demanded of f, some closeness of x must deliver it."
+        },
+        {
+          "type": "concept",
+          "heading": "One-Sided Limits",
+          "bullets": [
+            "left limit: x → a from below",
+            "right limit: x → a from above",
+            "two-sided exists ⇔ both agree",
+            "piecewise junctions: test both sides"
+          ],
+          "formula": "\\lim_{x \\to a} f(x) = L \\iff \\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = L",
+          "formula_caption": "the limit exists exactly when both one-sided limits agree",
+          "narration": "Approaching from the left and from the right gives two one-sided limits. The criterion on screen is the workhorse of the course: the two-sided limit exists exactly when the left and the right limits exist and are equal. At every piecewise junction, compute both branches. Quick example: two x plus one below x equals two, seven minus x above. Left limit five, right limit five — equal, so the limit is five and the pieces join. When they disagree, the two-sided limit simply does not exist — as the next example shows."
+        },
+        {
+          "type": "example",
+          "heading": "Switching System: a Voltage Step",
+          "problem": "V(t) = 2t + 1 \\ (t < 4); \\quad V(t) = 12 - t \\ (t \\geq 4)",
+          "steps": [
+            { "tex": "\\lim_{t \\to 4^-} (2t + 1) = 9" },
+            { "tex": "\\lim_{t \\to 4^+} (12 - t) = 8" },
+            { "text": "9 ≠ 8: one-sided limits differ" },
+            { "tex": "\\lim_{t \\to 4} V(t) = \\mathrm{DNE}", "highlight": true }
+          ],
+          "result": "does not exist — a 1-volt step",
+          "narration": "A switching device outputs two t plus one volts below t equals four, and twelve minus t volts from four onward. At t equals four: from the left, the first branch gives two times four plus one — nine volts; from the right, the second gives twelve minus four — eight volts. Nine versus eight: the one-sided limits disagree, so the two-sided limit does not exist. The value V of four itself exists — eight volts — but a value cannot heal a broken limit. Physically, the output steps down by one volt the instant the threshold is crossed. Sharp steps can excite transients — which is why engineers soften switching with filters or soft-start logic."
+        },
+        {
+          "type": "plot",
+          "heading": "Why 1/x Blows Up at Zero",
+          "functions": [
+            { "fn": "1/x", "tex": "y = \\frac{1}{x}", "color": "yellow" },
+            { "fn": "-1/x", "tex": "y = -\\frac{1}{x}", "color": "blue" }
+          ],
+          "x_range": [-5, 5],
+          "y_range": [-5, 5],
+          "point": null,
+          "vline": 0,
+          "narration": "Watch the two curves. The yellow one is one over x. Just right of zero it climbs without end — however small x is, the output is enormous. Just left of zero it plunges without end: the left limit is minus infinity, the right limit plus infinity. The blue curve, minus one over x, mirrors it through the origin. Both hug the dashed vertical line x equals zero without ever touching it — the vertical asymptote. And both flatten toward zero far left and far right — a first glimpse of a horizontal asymptote."
+        },
+        {
+          "type": "formula",
+          "heading": "The Precise Definition: Epsilon and Delta",
+          "tex": "\\lim_{x \\to a} f(x) = L \\iff \\forall \\varepsilon > 0 \\ \\exists \\delta > 0: \\ 0 < |x - a| < \\delta \\Rightarrow |f(x) - L| < \\varepsilon",
+          "parts": [
+            { "substr": "\\varepsilon", "color": "yellow", "note": "the tolerance — how close f(x) must be to L" },
+            { "substr": "\\delta", "color": "blue", "note": "the radius — how close x must be to a" },
+            { "substr": "0 < |x - a| < \\delta", "color": "green", "note": "x within delta of a, but not equal" },
+            { "substr": "|f(x) - L| < \\varepsilon", "color": "red", "note": "f(x) within epsilon of L" }
+          ],
+          "narration": "The precise engine beneath the intuition. The limit of f of x as x approaches a equals L if and only if: for every epsilon greater than zero — the yellow tolerance — there exists a delta greater than zero — the blue radius — such that whenever x is within delta of a but not equal to a — the green condition — then f of x is within epsilon of L — the red guarantee. In pictures: x lives in a delta band around a; f of x answers in an epsilon band around L. Any challenge epsilon must be met with a working delta."
+        },
+        {
+          "type": "concept",
+          "heading": "The First Standard Limit",
+          "bullets": [
+            "sin(x)/x → 1 as x → 0",
+            "the angle must be in radians",
+            "values: 0.9983, 0.99998, …",
+            "proved by the squeeze theorem"
+          ],
+          "formula": "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1",
+          "formula_caption": "sine of x over x tends to one at zero",
+          "narration": "The most famous limit of the course: sine of x, divided by x. At zero this is zero over zero — undefined. Near zero the ratio tends to one, provided x measures radians — essential caveat. The numbers agree: at one tenth, zero point nine nine eight three; at one hundredth, zero point nine nine nine nine eight; at one thousandth, seven nines — every value closer than the last. The proof squeezes the ratio between cosine and one, both heading to one. Keep it in your pocket — chapter six leans on it."
+        },
+        {
+          "type": "example",
+          "heading": "RC Circuit: Charging to a Limit",
+          "problem": "V(t) = 12\\left(1 - e^{-t/(RC)}\\right), \\quad RC = 1\\,\\mathrm{s}",
+          "steps": [
+            { "tex": "\\lim_{t \\to 0^+} V(t) = 12(1 - e^0) = 0" },
+            { "tex": "\\lim_{t \\to \\infty} e^{-t} = 0" },
+            { "tex": "\\lim_{t \\to \\infty} V(t) = 12(1 - 0) = 12", "highlight": true },
+            { "text": "≈63% charged after 1 s; ≈99% after 5 s" }
+          ],
+          "result": "0 V at the start; 12 V in the limit",
+          "narration": "An RC circuit charges toward a twelve-volt supply: V of t equals twelve times one minus e to the minus t over R C, with the time constant R times C equal to one second. At the start the exponential is e to the zero — one — so V starts at zero: an uncharged capacitor. As time grows, e to the minus t decays to zero, so V tends to twelve times one minus zero — twelve volts, the supply level. The approach is asymptotic: about sixty three percent charged after one time constant, ninety nine percent after five. Engineers say it in limit language: V tends to the supply as t tends to infinity."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "instantaneous rate = limit",
+            "two-sided ⇔ one-sided agree",
+            "1/x: vertical asymptote at 0",
+            "ε–δ makes closeness precise",
+            "sin(x)/x → 1 (radians!)"
+          ],
+          "narration": "Chapter four, distilled. Average rates become instantaneous rates through a limit. The two-sided limit exists exactly when both one-sided limits agree. One over x blows up at zero — a vertical asymptote. Epsilon and delta make arbitrarily close precise and checkable. And sine of x over x tends to one — in radians, always. Next: computing limits systematically, with laws instead of tables."
+        }
+      ]
+    },
+    {
+      "title": "Limit Laws and Indeterminate Forms",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Limit Laws and Indeterminate Forms",
+          "subtitle": "A working toolkit for computing limits",
+          "narration": "Chapter five. Computing limits from tables and graphs is slow and unreliable. This chapter builds the algebraic toolkit: limit laws, direct substitution, and the two escape moves — factoring and conjugates — for the famous zero over zero form, plus the constant-over-zero form and its directed infinities."
+        },
+        {
+          "type": "formula",
+          "heading": "The Limit Laws",
+          "tex": "\\lim_{x \\to a} [f(x) + g(x)] = L + M, \\quad \\lim_{x \\to a} [f(x) \\cdot g(x)] = L \\cdot M, \\quad \\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\frac{L}{M}",
+          "parts": [
+            { "substr": "[f(x) + g(x)]", "color": "yellow", "note": "sum: the limits add" },
+            { "substr": "[f(x) \\cdot g(x)]", "color": "green", "note": "product: the limits multiply" },
+            { "substr": "\\frac{f(x)}{g(x)}", "color": "blue", "note": "quotient: divide — if M is nonzero" }
+          ],
+          "narration": "The limit laws say: limits respect arithmetic. If f tends to L and g tends to M as x approaches a, then the yellow sum tends to L plus M; the green product tends to L times M; and the blue quotient tends to L over M — provided M is not zero. Add difference, constant multiple, power and root laws, and any expression dismantles into pieces. A taste: two x minus one times the square root of x plus four at minus three is minus seven times one — minus seven. The basics: the limit of x is a; of a constant, the constant."
+        },
+        {
+          "type": "concept",
+          "heading": "Direct Substitution",
+          "bullets": [
+            "polynomial: just plug in p(a)",
+            "rational: p(a)/q(a) if q(a) ≠ 0",
+            "equal near a ⇒ equal limits",
+            "cancellation is licensed"
+          ],
+          "formula": "\\lim_{x \\to a} p(x) = p(a), \\quad \\lim_{x \\to a} \\frac{p(x)}{q(x)} = \\frac{p(a)}{q(a)}",
+          "formula_caption": "substitute directly when the denominator survives",
+          "narration": "The laws pay off immediately. The limit of a polynomial at a is just its value at a — substitute directly. The limit of a rational function is p of a over q of a whenever the denominator is nonzero. One more license: functions that agree near a — except possibly at a itself — share the limit at a. That is exactly what permits canceling common factors before substituting. When substitution fails, it fails loudly: zero over zero, or nonzero over zero. Those are signals — each failure points to its own technique."
+        },
+        {
+          "type": "concept",
+          "heading": "The 0/0 Indeterminate Form",
+          "bullets": [
+            "0/0 — a signal, not a value",
+            "x/x → 1 but x/x² → 0",
+            "x²/x: no two-sided limit",
+            "fix: factor, conjugate, standard limit"
+          ],
+          "formula": "\\lim_{x \\to 0} \\frac{x}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{x}{x^2} = 0",
+          "formula_caption": "same form, different outcomes",
+          "narration": "Zero over zero is an indeterminate form — indeterminate, not impossible. The form carries no information; everything depends on how numerator and denominator approach zero. Watch: x over x tends to one. x over x squared tends to zero — the denominator shrinks faster. And x squared over x blows up: plus infinity from the right, minus infinity from the left — no two-sided limit at all. Three limits, one form, three fates. To resolve it: factor and cancel, rationalize with a conjugate, or invoke a standard limit — the next examples show the moves."
+        },
+        {
+          "type": "example",
+          "heading": "Factoring Out the Trouble",
+          "problem": "\\lim_{x \\to -3} \\frac{x^2 + 4x + 3}{x^2 - 9}",
+          "steps": [
+            { "text": "substitution gives 0/0 — the signal" },
+            { "tex": "\\frac{(x + 1)(x + 3)}{(x + 3)(x - 3)} = \\frac{x + 1}{x - 3}" },
+            { "tex": "\\frac{-3 + 1}{-3 - 3} = \\frac{-2}{-6} = \\frac{1}{3}", "highlight": true }
+          ],
+          "result": "1/3",
+          "narration": "Compute the limit of x squared plus four x plus three, over x squared minus nine, as x approaches minus three. Substitution gives zero over zero — the signal to factor. The numerator splits into x plus one times x plus three; the denominator into x plus three times x minus three. The factor x plus three is the culprit — the one that makes both parts vanish — so cancel it. For every x near minus three but not equal to it, the function equals x plus one over x minus three. Now substitution is safe: minus three plus one is minus two; minus three minus three is minus six. The limit is one third."
+        },
+        {
+          "type": "example",
+          "heading": "The Conjugate Move",
+          "problem": "\\lim_{x \\to 5} \\frac{\\sqrt{x - 1} - 2}{x - 5}",
+          "steps": [
+            { "text": "0/0 — multiply by the conjugate" },
+            { "tex": "\\frac{(x - 1) - 4}{(x - 5)(\\sqrt{x - 1} + 2)} = \\frac{1}{\\sqrt{x - 1} + 2}" },
+            { "tex": "\\frac{1}{\\sqrt{4} + 2} = \\frac{1}{4}", "highlight": true }
+          ],
+          "result": "1/4",
+          "narration": "A limit with a root: the square root of x minus one, minus two, all over x minus five, as x approaches five. Substitution: the root of four is two, and two minus two is zero — zero over zero again. Roots refuse to factor, so we rationalize instead: multiply above and below by the conjugate, the root of x minus one plus two. The numerator becomes a difference of squares — x minus one minus four, which is x minus five — and it cancels with the denominator. The function equals one over the root of x minus one plus two. Substitute five: one over two plus two. The limit is one quarter."
+        },
+        {
+          "type": "example",
+          "heading": "K over 0: Reading the Signs",
+          "problem": "\\lim_{x \\to -2^{\\pm}} \\frac{2x^2 + 7x - 4}{(x + 2)(x - 2)}",
+          "steps": [
+            { "tex": "2x^2 + 7x - 4 = (2x - 1)(x + 4)" },
+            { "text": "at x = −2 the numerator is −10 ≠ 0" },
+            { "text": "left of −2: denominator > 0, so −∞" },
+            { "text": "right of −2: denominator < 0, so +∞" },
+            { "tex": "x = -2: \\ \\mathrm{vertical \\ asymptote}", "highlight": true }
+          ],
+          "result": "−∞ from the left; +∞ from the right",
+          "narration": "Examine two x squared plus seven x minus four, over x plus two times x minus two, near x equals minus two. The numerator factors as two x minus one times x plus four; at minus two it is minus ten, a nonzero constant — the constant-over-zero form. Only the sign is in question. Left of minus two: both factors of the denominator are negative, so it is positive, and the ratio dives to minus infinity. Right of minus two: x plus two turns positive, x minus two stays negative — denominator negative, ratio climbing to plus infinity. Two opposite infinities: no two-sided limit, and x equals minus two is a vertical asymptote."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "laws: sum, product, quotient, power",
+            "polynomials: substitute directly",
+            "0/0: factor or conjugate",
+            "K/0: signs give ±∞"
+          ],
+          "narration": "Chapter five in four lines. The limit laws combine limits through arithmetic. Polynomials and safe rational functions: substitute directly. Zero over zero: factor and cancel, or rationalize with a conjugate. Nonzero over zero: read the signs on each side and answer with a directed infinity. That is the toolkit you will carry into Test one — next, the shortcuts that make it fast."
+        }
+      ]
+    },
+    {
+      "title": "Standard Limits, Equivalence, Landau Symbols",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Standard Limits, Equivalence, Landau Symbols",
+          "subtitle": "Comparing functions near a point",
+          "narration": "The finale. A short list of standard limits powers every shortcut. The squeeze theorem tames wild oscillations. Asymptotic equivalence swaps complicated functions for simple ones. And the Landau symbols, big O and little o, give a precise grammar for bounded and negligible."
+        },
+        {
+          "type": "formula",
+          "heading": "The Family of Standard Limits",
+          "tex": "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2} = \\frac{1}{2}, \\quad \\lim_{x \\to 0} \\frac{e^x - 1}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{\\ln(1 + x)}{x} = 1",
+          "parts": [
+            { "substr": "\\frac{\\sin x}{x}", "color": "yellow", "note": "sine over its angle" },
+            { "substr": "\\frac{1 - \\cos x}{x^2}", "color": "blue", "note": "one minus cosine" },
+            { "substr": "\\frac{e^x - 1}{x}", "color": "green", "note": "exponential minus one" },
+            { "substr": "\\frac{\\ln(1 + x)}{x}", "color": "teal", "note": "logarithm of one plus x" }
+          ],
+          "narration": "Memorize this family — every member tends to its value as x approaches zero. Yellow: sine of x over x tends to one. Blue: one minus cosine of x over x squared tends to one half. Green: e to the x minus one over x tends to one. Teal: the log of one plus x over x tends to one. They adapt by substitution: sine of five x over x becomes five times sine of u over u with u equal to five x — answer: five. One more: one plus x to the one over x tends to e. Radians, always."
+        },
+        {
+          "type": "concept",
+          "heading": "The Squeeze Theorem",
+          "bullets": [
+            "g trapped: f ≤ g ≤ h near a",
+            "f and h share the limit L",
+            "then g → L as well",
+            "tames wild oscillations"
+          ],
+          "formula": "f(x) \\leq g(x) \\leq h(x), \\ \\lim_{x \\to a} f(x) = \\lim_{x \\to a} h(x) = L \\ \\Rightarrow \\ \\lim_{x \\to a} g(x) = L",
+          "formula_caption": "squeezed between two functions with a common limit",
+          "narration": "Some functions oscillate so violently that no algebra can pin them down. The squeeze theorem is the bypass. If, near the point a, the function g is trapped between f below and h above, and both f and h approach the same number L, then g has no freedom: it must approach L too. The classic setup: any sine or cosine is trapped between minus one and one; multiply by something that tends to zero, and the whole product is squeezed to zero. The next example runs exactly this play."
+        },
+        {
+          "type": "example",
+          "heading": "Squeezing x²·sin(1/x)",
+          "problem": "\\lim_{x \\to 0} x^2 \\sin\\frac{1}{x}",
+          "steps": [
+            { "tex": "-1 \\leq \\sin\\frac{1}{x} \\leq 1" },
+            { "tex": "-x^2 \\leq x^2\\sin\\frac{1}{x} \\leq x^2" },
+            { "tex": "-x^2 \\to 0, \\quad x^2 \\to 0" },
+            { "tex": "\\lim_{x \\to 0} x^2 \\sin\\frac{1}{x} = 0", "highlight": true }
+          ],
+          "result": "0",
+          "narration": "Compute the limit of x squared times sine of one over x, as x approaches zero — a famous test question. The factor sine of one over x oscillates infinitely fast near zero — it has no limit, and no factoring will ever help; algebra is helpless here. But it is bounded: minus one at most sine at most one. Multiply all three parts by x squared — nonnegative, so the inequalities survive: minus x squared at most our function at most x squared. Both bounds tend to zero as x approaches zero. Trapped between them, x squared sine of one over x must also tend to zero — squeeze complete, even though the oscillation never stops."
+        },
+        {
+          "type": "concept",
+          "heading": "Asymptotic Equivalence",
+          "bullets": [
+            "f ∼ g ⇔ f/g → 1",
+            "sin x ∼ x, tan x ∼ x at 0",
+            "1 − cos x ∼ x²/2",
+            "multiply and divide — never add"
+          ],
+          "formula": "f(x) \\sim g(x) \\iff \\lim_{x \\to a} \\frac{f(x)}{g(x)} = 1",
+          "formula_caption": "f is equivalent to g when the ratio tends to one",
+          "narration": "Two functions are asymptotically equivalent near a point when their ratio tends to one — written f equivalent to g. The dictionary near zero: sine of x and tangent of x are equivalent to x; e to the x minus one, to x; one minus cosine, to x squared over two; log of one plus x, to x. Equivalence means relatively close — close, not identical. The operational rule: equivalences may be multiplied and divided, never added. At infinity the highest term dominates: three x squared plus five x minus one behaves like three x squared."
+        },
+        {
+          "type": "example",
+          "heading": "Equivalence in Action",
+          "problem": "\\lim_{x \\to 0} \\frac{\\sin 3x}{5x}, \\quad \\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}",
+          "steps": [
+            { "text": "sin 3x behaves like 3x near zero" },
+            { "tex": "\\frac{\\sin 3x}{5x} \\sim \\frac{3x}{5x} = \\frac{3}{5}" },
+            { "text": "1 − cos x behaves like x²/2" },
+            { "tex": "\\frac{1 - \\cos x}{x^2} \\sim \\frac{x^2/2}{x^2} = \\frac{1}{2}", "highlight": true }
+          ],
+          "result": "3/5  and  1/2",
+          "narration": "Two limits, no algebra — pure equivalence. First: sine of three x over five x. Replace the sine by its equivalent, three x: the quotient becomes three x over five x — three fifths. That is the limit. Second: one minus cosine of x over x squared. The equivalent of one minus cosine is x squared over two, so the quotient tends to one half. Replacements happen only inside products and quotients — that is where equivalence is licensed. And the numbers agree: sine of zero point zero one differs from zero point zero one by two parts in a hundred thousand. Both answers come without a single line of algebra."
+        },
+        {
+          "type": "concept",
+          "heading": "Big-O and Little-o",
+          "bullets": [
+            "f = O(g): |f/g| stays bounded",
+            "f = o(g): f/g → 0",
+            "little-o ⇒ big-O, not conversely",
+            "O(g) is a class, not a number"
+          ],
+          "formula": "f = O(g): \\ \\left|\\frac{f}{g}\\right| \\leq C; \\quad f = o(g): \\ \\frac{f}{g} \\to 0",
+          "formula_caption": "bounded versus negligible",
+          "narration": "Landau notation compares growth. Big O: f is big O of g when the size of f over g stays bounded near the point — at most the order of g. Little o is stronger: f over g tends to zero — negligible against g. Little o implies big O, never conversely: three x is big O of x, yet the ratio is the constant three. And caution: f equals big O of g is not an ordinary equation — big O of g names a whole class of functions bounded by a multiple of g."
+        },
+        {
+          "type": "example",
+          "heading": "Verifying O and o at Zero",
+          "problem": "\\sin x = O(x); \\quad 3x = O(x), \\ 3x \\neq o(x); \\quad x^2 = o(x)",
+          "steps": [
+            { "tex": "|\\sin x| \\leq |x| \\ \\Rightarrow \\ \\sin x = O(x)" },
+            { "tex": "\\frac{3x}{x} = 3 \\ \\Rightarrow \\ 3x = O(x)" },
+            { "tex": "\\frac{3x}{x} \\not\\to 0 \\ \\Rightarrow \\ 3x \\neq o(x)" },
+            { "tex": "\\frac{x^2}{x} = x \\to 0 \\ \\Rightarrow \\ x^2 = o(x)", "highlight": true }
+          ],
+          "result": "bounded versus vanishing ratio",
+          "narration": "Verify the definitions at zero. First: sine of x is big O of x, because the absolute value of sine never exceeds the absolute value of x — the ratio stays bounded by one. Second: three x is big O of x, but not little o: the ratio is the constant three — bounded, yes; tending to zero, never. Third, the contrast: x squared over x is just x, which tends to zero — so x squared is little o of x. The same hierarchy runs at infinity: x to the tenth is little o of e to the x — exponentials dwarf every fixed power. Bounded versus vanishing — that is the entire distinction."
+        },
+        {
+          "type": "table",
+          "heading": "Big-O versus Little-o",
+          "columns": ["Big-O", "Little-o"],
+          "rows": [
+            ["ratio |f/g| bounded", "ratio f/g → 0"],
+            ["at most the order of g", "negligible against g"],
+            ["3x = O(x) at 0", "x² = o(x) at 0"],
+            ["f = g + O(g) is possible", "f ∼ g ⇔ f = g + o(g)"]
+          ],
+          "narration": "The comparison table. Big O keeps the ratio bounded; little o drives the ratio to zero. Big O: at most the order of g; little o: negligible against g. Three x is big O of x but not little o — the ratio sits at three. X squared is little o of x at zero. The bridge to equivalence: f is equivalent to g exactly when f equals g plus little o of g. Even exponentials speak it: e to the x is one plus x plus x squared over two plus little o of x squared."
+        },
+        {
+          "type": "example",
+          "heading": "Who Dominates at Infinity",
+          "problem": "\\lim_{x \\to \\infty} \\frac{2x^3 + x}{5x^2 - 1}",
+          "steps": [
+            { "tex": "3x^2 + 5x - 1 \\sim 3x^2 \\ (x \\to \\infty)" },
+            { "tex": "\\frac{2x^3 + x}{5x^2 - 1} \\sim \\frac{2x^3}{5x^2} = \\frac{2}{5}x" },
+            { "tex": "\\frac{2}{5}x \\to +\\infty \\quad (x \\to \\infty)", "highlight": true }
+          ],
+          "result": "behaves like (2/5)·x; tends to +∞",
+          "narration": "Who rules at infinity? Take three x squared plus five x minus one. Divide by three x squared: one, plus corrections that melt to zero — the polynomial is equivalent to three x squared. The highest degree always governs. Now the quotient: two x cubed plus x over five x squared minus one. Replace each part by its dominant term: two x cubed over five x squared — two fifths of x. That grows without bound, and the original fraction behaves just like it. In Landau style: two x squared plus three x plus one equals two x squared plus big O of x. Dominance questions are routine — always read the leading terms first."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "standard limits: sin, cos, e, ln",
+            "squeeze: bounded × 0 → 0",
+            "f ∼ g ⇔ f/g → 1",
+            "little-o is stronger than big-O",
+            "at ∞: the highest term rules"
+          ],
+          "narration": "The final chapter, summarized. Four standard limits at zero — sine, cosine, exponential, logarithm. The squeeze theorem tames oscillation. Equivalence means the ratio tends to one, and it licenses replacement inside products and quotients. Little o is the vanishing twin of big O. At infinity, the highest-degree term rules — and the exponential outranks them all. One last look back at the whole course."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "N ⊆ Z ⊆ Q ⊆ R ⊆ C; z = a + bi",
+            "domain: ÷0, roots, logs",
+            "composition, inverses, exp & log",
+            "limit ⇔ one-sided limits agree",
+            "0/0: factor; K/0: ±∞",
+            "∼, O, o: the comparison grammar"
+          ],
+          "narration": "The whole course in six lines. Number sets nest from the naturals to the complex numbers; complex arithmetic runs on the conjugate. Functions live on natural domains and compose. A limit exists exactly when both one-sided limits agree. Zero over zero: factor or conjugate. Nonzero over zero: directed infinity. And the comparison grammar — equivalence, big O, little o — tells you which function wins. You have covered weeks one through four."
+        },
+        {
+          "type": "outro",
+          "message": "You covered all of weeks 1–4 — number systems, complex numbers, functions, and limits. Now take the test — you are ready.",
+          "narration": "That was the complete journey: number systems, complex numbers, functions, and limits with all their laws and shortcuts. Re-watch any chapter that feels shaky, redo the examples with pen and paper, and trust the process. The tools are yours — now go take that test. Good luck — you are ready."
+        }
+      ]
+    }
+  ],
+  "outro_message": "Good luck on the test — you are ready.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

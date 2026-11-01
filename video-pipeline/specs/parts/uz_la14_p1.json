@@ -1,0 +1,137 @@
+[
+  {
+    "title": "Vektorlar: kurs poydevori",
+    "blocks": [
+      {
+        "type": "title",
+        "narration": "Chiziqli algebra I fanining birinchi dan toʻrtinchi haftalari boʻyicha toʻliq video qoʻllanmaga xush kelibsiz. Keyingi yarim soat ichida kursning butun birinchi oyini qaytadan qurib chiqamiz: vektorlar va chiziqli kombinatsiyalar, skalyar koʻpaytma va vektor koʻpaytma, matritsalar va ularni koʻpaytirish qoidalari, determinantlar hamda nihoyat rang va teskari matritsa. Har bir tushuncha oʻquv qoʻllanmangizdan olingan toʻliq yechilgan misol bilan birga keladi. Videoning oxiriga yetganda siz birinchi test talab qiladigan har bir koʻnikkani egallagan boʻlasiz. Qalam va qogʻozni tayyorlang — boshlaymiz."
+      },
+      {
+        "type": "section",
+        "num": 1,
+        "title": "Vektorlar: kurs poydevori",
+        "subtitle": "Kombinatsiyalar, qobiq, mustaqillik",
+        "narration": "Birinchi bob. Vektorlar — chiziqli algebraning atomlari: fanining qolgan barcha qurilishi aynan ulardan bunyod etiladi. Bu bobda vektorlarni qoʻshishni, skalyarga koʻpaytirishni va ularni kombinatsiya qilishni oʻrganamiz, soʻngra ikki muhim savolga javob beramiz: vektorlar toʻplamining qobigʻi nimani anglatadi va bu vektorlar qachon chiziqli mustaqil hisoblanadi? Bu tushunchalar butun kurs davomida qayta-qayta uchraydi, shuning uchun ularni mustahkam egallash muhim."
+      },
+      {
+        "type": "concept",
+        "heading": "Vektor nima?",
+        "bullets": [
+          "vektor — n ta sondan iborat ustun",
+          "qoʻshish: komponentma-komponent",
+          "skalyar koʻpaytirish: har bir element c ga"
+        ],
+        "formula": "(u + v)_i = u_i + v_i",
+        "formula_caption": "oʻqiladi: yigʻindining i-komponenti komponentlar yigʻindisiga teng",
+        "plot": {
+          "fn": "0.5*x",
+          "tex": "y = \\frac{x}{2}",
+          "x_range": [-4, 4],
+          "y_range": [-2, 2],
+          "point": [2, 1],
+          "point_label": "(2, 1)"
+        },
+        "narration": "Vektor — bu tartiblangan sonlar roʻyxati boʻlib, ustun koʻrinishida yoziladi; n oʻlchovli vektorda aynan n ta komponent boʻladi. Ikki, bir vektorining birinchi komponenti ikki, ikkinchi komponenti bir; rasmda u koordinata boshidan ikki, bir nuqtasigacha boruvchi strelka sifatida koʻrinadi va y teng x boʻluv ikki toʻgʻri chizigʻida yotadi. Vektorlar komponentma-komponent qoʻshiladi: birinchisi birinchiga, ikkinchisi ikkinchiga, xatosiz hammasi shu tartibda. Skalyarga koʻpaytirish har bir komponentni bir xil songa koʻpaytiradi: yoʻnalish oʻzgarmaydi, faqat uzunlik oʻzgaradi, skalyar manfiy boʻlsa vektor teskari tomonga buriladi. Formula shuni tasdiqlaydi: yigʻindining i-komponenti alohida komponentlar yigʻindisiga teng. Ana shu ikki amal — qoʻshish va skalyarga koʻpaytirish — butun chiziqli algebra oʻsib chiqadigan urugʻlardir."
+      },
+      {
+        "type": "concept",
+        "heading": "Chiziqli kombinatsiyalar",
+        "bullets": [
+          "har bir vektorni oʻz skalyariga koʻpaytiramiz",
+          "natijalarni bitta vektorga qoʻshamiz",
+          "c₁ … cₙ skalyarlari — ogʻirliklar"
+        ],
+        "formula": "c_1 v_1 + c_2 v_2 + \\cdots + c_n v_n",
+        "formula_caption": "oʻqiladi: c bir marta v bir, plyus c ikki marta v ikki va hokazo",
+        "narration": "Bir nechta vektor oling, har birini oʻz skalyariga koʻpaytiring va natijalarni qoʻshing. Ana shu yagona amal chiziqli kombinatsiya deb ataladi, c bir dan c n gacha boʻlgan skalyarlar esa ogʻirliklar deyiladi. Bu kursdagi deyarli har bir savol, qanday qilib yashirin boʻlmasin, aslida kombinatsiyalar haqidagi savoldir: berilgan maqsad vektoriga yetib borish mumkinmi va buning uchun qaysi ogʻirliklar kerak boʻladi? Besh marta v bir plyus ikki marta v ikki — bu bitta aniq kombinatsiya. Agar umuman qaysi vektorlarga yetib borish mumkinligini soʻrasak, fanimizning eng muhim taʼriflaridan biriga kelib qolamiz: qobiq tushunchasiga, keyingi blokning qahramoniga."
+      },
+      {
+        "type": "example",
+        "heading": "Misol: vektorlarni kombinatsiya qilish",
+        "problem": "u = \\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}, \\; v = \\begin{pmatrix} -1 \\\\ 5 \\end{pmatrix}: \\; u+v, \\; u-v, \\; 2u, \\; -3v, \\; 2u-3v",
+        "steps": [
+          { "tex": "u + v = \\begin{pmatrix} -3 \\\\ 8 \\end{pmatrix}, \\quad u - v = \\begin{pmatrix} -1 \\\\ -2 \\end{pmatrix}" },
+          { "tex": "2u = \\begin{pmatrix} -4 \\\\ 6 \\end{pmatrix}, \\quad -3v = \\begin{pmatrix} 3 \\\\ -15 \\end{pmatrix}" },
+          { "tex": "2u - 3v = \\begin{pmatrix} -4 + 3 \\\\ 6 - 15 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ -9 \\end{pmatrix}", "highlight": true }
+        ],
+        "result": "(-1, -9)",
+        "narration": "Mana qoʻllanmadagi eng birinchi mashq. Bizga u teng minus ikki, uch va v teng minus bir, besh vektorlari berilgan. Hammasi komponentma-komponent bajariladi. Yigʻindi komponentlarni qoʻshadi: minus uch va sakkiz. Ayirma ularni ayiradi: minus bir va minus ikki. Ikkilangan u minus toʻrt, oltiga aylanadi, minus uch karra v esa uch, minus oʻn besh boʻladi. Nihoyat, ikki u minus uch v: minus toʻrt plyus uch minus bir boʻladi, olti minus oʻn besh esa minus toʻqqiz. Shuni payqang: uch v ni ayirish, aslida, uch, minus oʻn besh vektorini qoʻshish bilan bir xil. Oddiy arifmetika, biroq dasturiy taʼminot vektorlar bilan aynan shu tarzda hisoblaydi — shuning uchun ushbu mashqni mukammal bajara olish haqiqiy foyda beradi."
+      },
+      {
+        "type": "concept",
+        "heading": "Vektorlarning qobigʻi",
+        "bullets": [
+          "qobiq — barcha chiziqli kombinatsiyalar",
+          "bitta vektor toʻgʻri chiziqni qoplaydi",
+          "yangi yoʻnalish qoʻshilsa — tekislik"
+        ],
+        "formula": "\\mathrm{span}\\{v_1, \\ldots, v_n\\}",
+        "formula_caption": "oʻqiladi: v birdan v n gacha vektorlarning qobigʻi",
+        "narration": "Vektorlar toʻplamining qobigʻi — ulardan qurish mumkin boʻlgan barcha chiziqli kombinatsiyalarning toʻplamidir. Bitta vektor oling, masalan minus ikki, uch. Uning karralilari koordinata boshidan oʻtgan bitta toʻgʻri chiziqni, yaʼni y teng minus uchdan ikki x chizigʻini toʻldiradi, va hech qanday karrali bu chiziqdan tashqariga chiqa olmaydi. Haqiqatan yangi yoʻnalishdagi ikkinchi vektorni qoʻshsangiz, kombinatsiyalar butun tekislikni toʻldiradi. Uch oʻlchovli fazodagi uchta mustaqil vektor esa uni toʻliq toʻldirishi mumkin. Qobiq — vektorlar toʻplamining qamrovi yoki yetib borish chegarasidir: asosiy savol shundaki, bu qamrov qanchalar uzoqqa choʻzilgan."
+      },
+      {
+        "type": "plot",
+        "heading": "Bitta vektor chiziqni qoplaydi",
+        "functions": [
+          { "fn": "-1.5*x", "tex": "y = -\\frac{3}{2}x", "color": "yellow" },
+          { "fn": "0.5*x", "tex": "y = \\frac{x}{2}", "color": "blue" }
+        ],
+        "x_range": [-4, 4],
+        "y_range": [-4, 4],
+        "point": [-2, 3],
+        "point_label": "(-2, 3)",
+        "vline": null,
+        "narration": "Sariq chiziqga qarang. Uning har bir nuqtasi bitta minus ikki, uch vektorining karralisi — grafikada belgilangan oʻsha vektor. Vektorni ikkilash, yarmiga boʻlish yoki teskari burish sizni koordinata boshidan oʻtgan shu bir chiziqda qoldiradi: karralilash faqat uzunlikni oʻzgartiradi, yoʻnalishni hech qachon emas. Koʻk chiziq esa ikki, bir vektorining qobigʻi boʻlib, u yangi yoʻnalishga ishora qiladi. Har bir chiziq oʻz oldiga bitta bir oʻlchovli boʻshliqdir. Faqat turli yoʻnalishdagi vektorlarni kombinatsiya qilgandagina bitta chiziqdan qutulib, butun tekislikka yetib boramiz — xuddi keyingi bloklarda koʻradiganimizdek."
+      },
+      {
+        "type": "concept",
+        "heading": "Chiziqli mustaqillik",
+        "bullets": [
+          "bogʻliq: bir kombinatsiya nol beradi",
+          "mustaqil: faqat trivial kombinatsiya",
+          "bogʻliqlik = yangi yoʻnalish yoʻq"
+        ],
+        "formula": "c_1 v_1 + \\cdots + c_n v_n = 0 \\Rightarrow c_1 = \\cdots = c_n = 0",
+        "formula_caption": "oʻqiladi: nol kombinatsiya har bir c ni nolga majbur qiladi",
+        "narration": "Vektorlar, ulardan nol vektorini olishning yagona yoʻli trivial yoʻl — barcha ogʻirliklar nolga teng boʻlgan yoʻl — boʻlganda, mustaqil deyiladi. Agar trivial boʻlmagan qandaydir kombinatsiya nol bersa, vektorlar bogʻliqdir va ulardan biri yashirin ravishda qolganlarining kombinatsiyasidir. Geometrik maʼnoda bogʻliqlik — yangi yoʻnalish yoʻqligi: ikkita bogʻliq vektor bitta chiziqda yotadi, uchta bogʻliq vektor bitta tekislikda yotadi. Formula buni aniq ifodalaydi: nolga teng kombinatsiya har bir koeffitsientni nolga majbur qiladi. Mustaqillik kursning kalit shartidir, chunki aynan u tenglamalar sistemasida yechimning yagona boʻlishini hal qiladi — bu bogʻlanishni oltinchi bobda yana koʻramiz."
+      },
+      {
+        "type": "example",
+        "heading": "Misol: bogʻliqmi yoki mustaqilmi?",
+        "problem": "v_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}, \\; v_2 = \\begin{pmatrix} 0 \\\\ 1 \\\\ 1 \\end{pmatrix}, \\; v_3 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix}",
+        "steps": [
+          { "tex": "v_3 = v_1 + v_2" },
+          { "text": "tekshirish: 1 + 0 = 1, 0 + 1 = 1, 1 + 1 = 2 — har bir komponent mos keladi" },
+          { "tex": "v_1 + v_2 - v_3 = 0", "highlight": true },
+          { "text": "trivial boʻlmagan nol kombinatsiya topildi: uchta vektor bogʻliq" }
+        ],
+        "result": "bogʻliq",
+        "narration": "Bu uchta vektor mustaqilmi? Uchinchisini birinchisi va ikkinchisidan qurishga harakat qilib koʻring. Ular komponentma-komponent qoʻshiladi: bir plyus nol bir, nol plyus bir bir va bir plyus bir ikki — aynan uchinchi vektor shu. Demak, v uch teng v bir plyus v ikki, va bu tenglamani qayta tartiblashtirsak, ogʻirliklari bir, bir va minus bir boʻlgan nol kombinatsiya hosil boʻladi — bu, albatta, trivial emas. Vektorlar bogʻliq, ularning qobigʻi esa faqat bitta tekislik, uch oʻlchovli fazoning toʻliq emasi. Tez ikkinchi misol sifatida: ikki, minus bir va minus olti, uch vektorlari ham bogʻliq, chunki ikkinchisi aynan birinchisining minus uch karralisidir. Bogʻliqlikni aniqlash koʻpincha shu qadar oddiy."
+      },
+      {
+        "type": "example",
+        "heading": "Misol: uzunlik, birlik vektor, masofa",
+        "problem": "u = (3, 4), \\; P = (1, -2, 3), \\; Q = (5, 1, -3)",
+        "steps": [
+          { "tex": "\\|u\\| = \\sqrt{3^2 + 4^2} = 5" },
+          { "tex": "\\hat{u} = \\frac{u}{\\|u\\|} = (\\frac{3}{5}, \\frac{4}{5})" },
+          { "tex": "Q - P = (4, \\; 3, \\; -6)" },
+          { "tex": "d(P, Q) = \\|Q - P\\| = \\sqrt{61}", "highlight": true }
+        ],
+        "result": "sqrt(61)",
+        "narration": "Vektorning uzunligi yoki normasi — komponentlar kvadratlari yigʻindisining kvadrat ildizi: bu Pifagor teoremasining toʻgʻridan-toʻgʻri natijasidir. U teng uch, toʻrt uchun toʻqqiz plyus oʻn olti, yaʼni yigʻirma besh, demak norma besh. Normaga boʻlish birlik vektorini beradi: uchdan besh va toʻrtdan besh, uzunligi aynan bir. Xuddi shu yoʻnalishda uzunligi oʻn boʻlgan vektor kerakmi? Ikki u ni oling, yaʼni olti, sakkiz: norma ikki barobar oshib oʻnga yetadi. Masofa — ayirmaning normasi: Q minus P toʻrt, uch, minus olti, masofa esa oʻn olti plyus toʻqqiz plyus oʻttiz oltining kvadrat ildizi, yaʼni oltmish birning ildizi. Hech qanday maxfiy formula yoʻq: uzunlik — kvadratlar yigʻindisining ildizi, masofa — ayirma normasi, baribir."
+      },
+      {
+        "type": "recap",
+        "items": [
+          "qoʻshish va karralilash komponentma-komponent",
+          "kombinatsiya: vaznli vektorlar yigʻindisi",
+          "qobiq: barcha kombinatsiyalar toʻplami",
+          "mustaqil: faqat trivial nol kombinatsiya",
+          "norma, birlik vektor, d(P,Q) = ||Q-P||"
+        ],
+        "narration": "Birinchi bob qisqacha. Vektorlar komponentma-komponent qoʻshiladi va karralilanadi. Chiziqli kombinatsiya har bir vektorni vaznlab qoʻshadi. Qobiq — yetib borish mumkin boʻlgan hamma narsa: chiziq, tekislik yoki butun fazo. Mustaqillik — faqat trivial kombinatsiya nol berishini anglatadi. Norma uzunlikni, birlik vektor toza yoʻnalishni beradi, nuqtalar orasidagi masofa esa ularning ayirmasining normasidir. Ushbu beshta tushuncha keyingi barcha boblar uchun poydevor boʻlib xizmat qiladi."
+      }
+    ]
+  }
+]

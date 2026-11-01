@@ -1,0 +1,198 @@
+{
+  "id": "math1_w14",
+  "language": "en",
+  "course_title": "Math I — Mathematical Analysis",
+  "test_title": "Weeks 1–4 · Complete Guide",
+  "subtitle": "Number Systems · Complex Numbers · Functions · Limits",
+  "chapters": [
+    {
+      "title": "Number Systems and Notation",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "Welcome to the complete video guide to Math I, weeks one to four. In the next half hour we travel from the foundations — number sets, positional systems, complex numbers — through functions and their domains, straight into the heart of calculus: limits. By the end you will compute limits with the limit laws, untangle indeterminate forms, and compare functions with asymptotic equivalence and Landau symbols. Everything comes straight from your course guide. Let's begin."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Number Systems and Notation",
+          "subtitle": "The sets every number lives in",
+          "narration": "Chapter one. Before calculus can say anything, we must know where numbers live. This chapter answers three questions. Which number sets exist, and how do they nest inside each other? How do positional systems write the same number in different bases? And how do scientific and engineering notation express the very large and the very small? Master these, and every later chapter stands on solid ground."
+        },
+        {
+          "type": "concept",
+          "heading": "The Nesting of Number Sets",
+          "bullets": [
+            "naturals N — the counting numbers",
+            "integers Z: add 0 and the negatives",
+            "rationals Q: fractions a/b",
+            "reals R, then complex C complete the nest"
+          ],
+          "formula": "N \\subseteq Z \\subseteq Q \\subseteq R \\subseteq C",
+          "formula_caption": "read: N is contained in Z, in Q, in R, in C",
+          "narration": "Every number you will ever meet lives in one of five nested sets. The naturals are the counting numbers. Add zero and the negatives, and you get the integers. The rationals are exactly the fractions, a over b, with a and b integers and b nonzero. The reals add the irrationals — numbers like the square root of two and pi, whose decimals never terminate or repeat. The complex numbers, a plus b i, contain them all. Read the formula: N is contained in Z, in Q, in R, and in C. The smallest set a number belongs to is its home."
+        },
+        {
+          "type": "concept",
+          "heading": "Positional Numeral Systems",
+          "bullets": [
+            "digits 0 … b−1 in base b",
+            "value = digits × powers of b",
+            "13 = 1101 in binary = D in hex",
+            "binary: two reliable states"
+          ],
+          "formula": "(a_n \\ldots a_1 a_0)_b = \\sum_{k=0}^{n} a_k b^k",
+          "formula_caption": "a numeral in base b is a sum of digits times powers of b",
+          "narration": "A positional system with base b writes every number as digits times powers of b, with each digit from zero to b minus one. The same value admits many numerals: thirteen is one one zero one in binary, one five in octal, and D in hexadecimal, where the letters A through F code the values ten through fifteen. The formula on screen converts any numeral back to its value — just sum the digits times the powers. And why do computers use binary? Because electronic hardware reliably tells apart exactly two states, off and on."
+        },
+        {
+          "type": "concept",
+          "heading": "Scientific and Engineering Notation",
+          "bullets": [
+            "scientific: one digit before the point",
+            "engineering: exponent divisible by 3",
+            "exponent pairs with an SI prefix",
+            "5 mW vs 5 MW: case matters!"
+          ],
+          "formula": "z = a \\times 10^n,\\ 1 \\leq |a| < 10; \\quad z = a \\times 10^{3k},\\ 1 \\leq |a| < 1000",
+          "formula_caption": "scientific form, then engineering form",
+          "narration": "Scientific notation isolates the magnitude of a number: a coefficient a with exactly one nonzero digit before the decimal point, times a power of ten — one is at most the size of a, which stays below ten. Engineering notation goes further: the exponent must be a multiple of three, so it couples directly to an SI prefix — kilo, mega, milli, micro. Case is critical: five milliwatts, with lowercase m, and five megawatts, with capital M, differ by a factor of a billion. Arithmetic becomes easy too: multiply the coefficients, add the exponents."
+        },
+        {
+          "type": "table",
+          "heading": "The SI Prefix Ladder",
+          "columns": ["Prefix", "Symbol", "Power"],
+          "rows": [
+            ["giga", "G", "10⁹"],
+            ["mega", "M", "10⁶"],
+            ["kilo", "k", "10³"],
+            ["milli", "m", "10⁻³"],
+            ["micro", "µ", "10⁻⁶"],
+            ["nano", "n", "10⁻⁹"]
+          ],
+          "narration": "Here is the prefix ladder you will use all semester — read it top to bottom. Giga, capital G: ten to the ninth. Mega, capital M: ten to the sixth. Kilo, lowercase k: ten to the third. Now we cross below one: milli, lowercase m, is ten to the minus third; micro, the Greek letter mu, is ten to the minus sixth; nano, lowercase n, is ten to the minus ninth. Tera sits above, and pico continues below. Memorize the symbols together with their case — the case carries the meaning."
+        },
+        {
+          "type": "example",
+          "heading": "Rational or Irrational?",
+          "problem": "0.375, \\quad 0.272727\\ldots, \\quad \\sqrt{50}, \\quad (1 + \\sqrt{5})(1 - \\sqrt{5})",
+          "steps": [
+            { "tex": "0.375 = \\frac{375}{1000} = \\frac{3}{8}" },
+            { "tex": "0.272727\\ldots = \\frac{27}{99} = \\frac{3}{11}" },
+            { "tex": "\\sqrt{50} = \\sqrt{25} \\cdot \\sqrt{2} = 5\\sqrt{2}" },
+            { "tex": "(1 + \\sqrt{5})(1 - \\sqrt{5}) = 1 - 5 = -4", "highlight": true }
+          ],
+          "result": "three are rational; 5√2 is irrational",
+          "narration": "Four numbers, four verdicts. First: zero point three seven five terminates, so it is rational — three eighths. Second: the block two-seven repeats forever, so it is rational too — twenty-seven over ninety-nine reduces to three elevenths. Third: the square root of fifty equals five root two, and since root two is irrational, five root two is irrational. Fourth: expand the conjugate product — one minus five is minus four, rational. Remember the principle: a decimal is rational exactly when it terminates or eventually repeats, and a product of conjugates always eliminates the radical."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "five nested sets: N to C",
+            "base b: digits × powers of b",
+            "finite or periodic ⇔ rational",
+            "engineering: exponent in threes"
+          ],
+          "narration": "Chapter one, locked in. Five nested number sets, from the naturals to the complex numbers. Positional systems write numbers as digits times powers of the base. Terminating or eventually repeating decimals are exactly the rationals. And engineering notation keeps the exponent a multiple of three, paired with an SI prefix. Next stop: complex numbers."
+        }
+      ]
+    },
+    {
+      "title": "Complex Numbers",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "Complex Numbers",
+          "subtitle": "Algebra beyond the real line",
+          "narration": "Chapter two. The equation x squared plus one equals zero has no real solution — a gap that bothered mathematicians for centuries. Complex numbers close it. We define the imaginary unit, do arithmetic in a plus b i form, meet the conjugate and the modulus, and unlock the polar and exponential forms that make powers and roots almost effortless."
+        },
+        {
+          "type": "concept",
+          "heading": "The Imaginary Unit",
+          "bullets": [
+            "i² = −1 by definition",
+            "z = a + bi: real part a, imaginary b",
+            "equality: both parts match",
+            "powers of i cycle: i, −1, −i, 1"
+          ],
+          "formula": "i^2 = -1, \\quad z = a + bi, \\quad i^{n+4} = i^n",
+          "formula_caption": "i squared is minus one; powers repeat every four steps",
+          "narration": "The imaginary unit i is defined by one property: i squared equals minus one. A complex number is z equals a plus b i — real part a, imaginary part b. Two complex numbers are equal exactly when both parts match separately. And the powers of i cycle with period four: i to the first is i, to the second minus one, to the third minus i, to the fourth one — then the pattern repeats. For a large exponent, divide it by four and keep only the remainder; the remainder decides everything."
+        },
+        {
+          "type": "concept",
+          "heading": "Conjugate and Modulus",
+          "bullets": [
+            "conjugate flips the sign of b",
+            "modulus = √(a² + b²)",
+            "z · z̄ = |z|² — the key to division",
+            "conjugation mirrors across the real axis"
+          ],
+          "formula": "\\bar{z} = a - bi, \\quad |z| = \\sqrt{a^2 + b^2}, \\quad z\\bar{z} = |z|^2",
+          "formula_caption": "the conjugate of z and the modulus of z",
+          "narration": "Two tools make complex arithmetic smooth. The conjugate of a plus b i is a minus b i — geometrically, the mirror image across the real axis. The modulus is the distance from the origin: the square root of a squared plus b squared. Now multiply z by its conjugate: the cross terms cancel, and you get a squared plus b squared — the modulus squared. This identity powers division: to divide by a complex number, multiply numerator and denominator by the conjugate of the denominator, and the denominator becomes the plain real number, modulus squared."
+        },
+        {
+          "type": "example",
+          "heading": "Four Operations on Complex Numbers",
+          "problem": "z_1 = 3 + 2i, \\quad z_2 = 1 - 4i",
+          "steps": [
+            { "tex": "z_1 + z_2 = (3 + 1) + (2 - 4)i = 4 - 2i" },
+            { "tex": "z_1 - z_2 = (3 - 1) + (2 + 4)i = 2 + 6i" },
+            { "tex": "z_1 z_2 = (3 + 8) + (-12 + 2)i = 11 - 10i" },
+            { "tex": "\\frac{z_1}{z_2} = \\frac{(3 + 2i)(1 + 4i)}{(1 - 4i)(1 + 4i)} = \\frac{-5 + 14i}{17}", "highlight": true }
+          ],
+          "result": "4 − 2i; 2 + 6i; 11 − 10i; (−5 + 14i)/17",
+          "narration": "Let z one be three plus two i, and z two be one minus four i. Addition and subtraction work part by part: the sum is four minus two i; the difference is two plus six i. For the product, distribute and remember that i squared is minus one. The real part is three times one minus two times minus four — eleven; the imaginary part is minus twelve plus two — minus ten. So the product is eleven minus ten i. For the quotient, multiply top and bottom by one plus four i, the conjugate of the denominator. The bottom becomes seventeen; the top becomes minus five plus fourteen i."
+        },
+        {
+          "type": "formula",
+          "heading": "Polar and Exponential Form",
+          "tex": "z = r(\\cos\\theta + i\\sin\\theta) = re^{i\\theta}, \\quad r = |z|",
+          "parts": [
+            { "substr": "r = |z|", "color": "yellow", "note": "the modulus — distance from the origin" },
+            { "substr": "\\theta", "color": "blue", "note": "the argument — the angle" },
+            { "substr": "e^{i\\theta}", "color": "green", "note": "Euler's bridge to exponentials" }
+          ],
+          "narration": "Every complex number can be addressed by polar coordinates instead of a plus b i. The yellow part: r is the modulus, the distance from the origin. The blue theta is the argument — the angle measured from the positive real axis; mind the quadrant, because the tangent alone is ambiguous. The green part is Euler's bridge: e to the i theta equals cosine theta plus i sine theta, so the trigonometric form becomes a pure exponential. Multiplication then multiplies moduli and adds angles, and powers follow De Moivre. A famous bonus: e to the i pi plus one equals zero."
+        },
+        {
+          "type": "example",
+          "heading": "De Moivre's Formula: (√3 + i)⁴",
+          "problem": "(\\sqrt{3} + i)^4",
+          "steps": [
+            { "tex": "|\\sqrt{3} + i| = \\sqrt{3 + 1} = 2" },
+            { "tex": "\\theta = \\arctan\\frac{1}{\\sqrt{3}} = \\frac{\\pi}{6}" },
+            { "tex": "\\sqrt{3} + i = 2e^{i\\pi/6}" },
+            { "tex": "(\\sqrt{3} + i)^4 = 16e^{i\\,4\\pi/6} = 16e^{i2\\pi/3}" },
+            { "tex": "= 16\\left(-\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i\\right) = -8 + 8\\sqrt{3}\\,i", "highlight": true }
+          ],
+          "result": "−8 + 8√3·i",
+          "narration": "Compute the fourth power of root three plus i. First, the polar data. The modulus: the square root of three plus one, which is two. The angle: tangent theta is one over root three, so theta is pi over six. Exponential form: two e to the i pi over six. Now De Moivre takes over — raise the modulus to the fourth power, sixteen, and multiply the angle by four: four pi over six is two pi over three. So we need sixteen times cosine of two pi over three, plus i sine of two pi over three. Cosine is minus one half; sine is root three over two. Answer: minus eight plus eight root three i. Squaring twice algebraically confirms it."
+        },
+        {
+          "type": "example",
+          "heading": "All Cube Roots of −8",
+          "problem": "z^3 = -8",
+          "steps": [
+            { "tex": "-8 = 8e^{i(\\pi + 2k\\pi)}" },
+            { "text": "modulus of each root: cube root of 8 = 2" },
+            { "tex": "z_k = 2e^{i(\\pi + 2k\\pi)/3}, \\quad k = 0, 1, 2" },
+            { "tex": "z_0 = 1 + \\sqrt{3}i, \\quad z_1 = -2, \\quad z_2 = 1 - \\sqrt{3}i", "highlight": true }
+          ],
+          "result": "1 + √3·i, −2, 1 − √3·i",
+          "narration": "Find every complex solution of z cubed equals minus eight. Write minus eight in exponential form: eight e to the i pi, adding any number of full turns, two k pi. The cube roots have modulus the cube root of eight — two — and arguments pi plus two k pi, all divided by three. Take k equal to zero, one, two. k zero: two e to the i pi over three, which is one plus root three i. k one: two e to the i pi — minus two, the only real root; indeed, minus two cubed is minus eight. k two: two e to the i five pi over three — one minus root three i. Geometrically: three equally spaced points on the circle of radius two — an equilateral triangle."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "i² = −1; powers cycle by 4",
+            "z · z̄ = |z|²",
+            "polar form: z = r·e^(iθ)",
+            "n roots form a regular n-gon"
+          ],
+          "narration": "Chapter two in one breath. The imaginary unit satisfies i squared equals minus one, and its powers cycle with period four. Multiplying by the conjugate turns division into real arithmetic, because z times its conjugate is the modulus squared. The polar form, z equals r times e to the i theta, makes powers easy through De Moivre, and the n roots of a number form a regular n-gon. Next: functions."
+        }
+      ]
+    },

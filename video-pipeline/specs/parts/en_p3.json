@@ -1,0 +1,255 @@
+    {
+      "title": "Limit Laws and Indeterminate Forms",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Limit Laws and Indeterminate Forms",
+          "subtitle": "A working toolkit for computing limits",
+          "narration": "Chapter five. Computing limits from tables and graphs is slow and unreliable. This chapter builds the algebraic toolkit: the limit laws that combine known limits, direct substitution for polynomials and rational functions, and the two escape moves — factoring and conjugates — for the celebrated zero over zero form. We also learn to read the constant-over-zero form and its directed infinities."
+        },
+        {
+          "type": "formula",
+          "heading": "The Limit Laws",
+          "tex": "\\lim_{x \\to a} [f(x) + g(x)] = L + M, \\quad \\lim_{x \\to a} [f(x) \\cdot g(x)] = L \\cdot M, \\quad \\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\frac{L}{M}",
+          "parts": [
+            { "substr": "[f(x) + g(x)]", "color": "yellow", "note": "sum: the limits add" },
+            { "substr": "[f(x) \\cdot g(x)]", "color": "green", "note": "product: the limits multiply" },
+            { "substr": "\\frac{f(x)}{g(x)}", "color": "blue", "note": "quotient: divide — if M is nonzero" }
+          ],
+          "narration": "The limit laws say: limits respect arithmetic. If f tends to L and g tends to M as x approaches a, then the yellow sum tends to L plus M; the green product tends to L times M; and the blue quotient tends to L over M — provided M is not zero. Add the difference law, constant multiples, powers and roots, and you can dismantle any expression into simple pieces. A taste: the limit of two x minus one times the square root of x plus four, at x equal to minus three, is the product of the two separate limits — minus seven times one, which is minus seven. The basic limits power the machine: the limit of x is a, and the limit of a constant is that constant."
+        },
+        {
+          "type": "concept",
+          "heading": "Direct Substitution",
+          "bullets": [
+            "polynomial: just plug in p(a)",
+            "rational: p(a)/q(a) if q(a) ≠ 0",
+            "equal near a ⇒ equal limits",
+            "cancellation is licensed"
+          ],
+          "formula": "\\lim_{x \\to a} p(x) = p(a), \\quad \\lim_{x \\to a} \\frac{p(x)}{q(x)} = \\frac{p(a)}{q(a)}",
+          "formula_caption": "substitute directly when the denominator survives",
+          "narration": "The laws pay off immediately. The limit of a polynomial at a is just its value at a — substitute directly. The limit of a rational function is p of a over q of a whenever the denominator is nonzero. One more license: if two functions agree near a — everywhere except possibly at a itself — then their limits at a agree. That is exactly what permits canceling common factors before substituting. When substitution fails, it fails loudly: zero over zero, or nonzero over zero. Those are signals, not dead ends — each failure points to its own technique."
+        },
+        {
+          "type": "concept",
+          "heading": "The 0/0 Indeterminate Form",
+          "bullets": [
+            "0/0 — a signal, not a value",
+            "x/x → 1 but x/x² → 0",
+            "x²/x: no two-sided limit",
+            "fix: factor, conjugate, standard limit"
+          ],
+          "formula": "\\lim_{x \\to 0} \\frac{x}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{x}{x^2} = 0",
+          "formula_caption": "same form, different outcomes",
+          "narration": "Zero over zero is called an indeterminate form — indeterminate, not impossible. The form itself carries no information; everything depends on how the numerator and the denominator approach zero. Watch: x over x tends to one. x over x squared tends to zero — the denominator shrinks faster. And x squared over x blows up: plus infinity from the right, minus infinity from the left — no two-sided limit at all. Three limits, one form, three different fates. To resolve zero over zero: factor and cancel, rationalize with a conjugate, or invoke a standard limit. The next two examples demonstrate the first two moves."
+        },
+        {
+          "type": "example",
+          "heading": "Factoring Out the Trouble",
+          "problem": "\\lim_{x \\to -3} \\frac{x^2 + 4x + 3}{x^2 - 9}",
+          "steps": [
+            { "text": "substitution gives 0/0 — the signal" },
+            { "tex": "\\frac{(x + 1)(x + 3)}{(x + 3)(x - 3)} = \\frac{x + 1}{x - 3}" },
+            { "tex": "\\frac{-3 + 1}{-3 - 3} = \\frac{-2}{-6} = \\frac{1}{3}", "highlight": true }
+          ],
+          "result": "1/3",
+          "narration": "Compute the limit of x squared plus four x plus three, over x squared minus nine, as x approaches minus three. Substitution gives zero over zero — the signal. Factor everything in sight: the numerator is x plus one times x plus three; the denominator is x plus three times x minus three. The factor x plus three is the culprit — cancel it. For every x near minus three but not equal to it, the function equals x plus one over x minus three. Now substitute: minus three plus one is minus two; minus three minus three is minus six; the ratio is one third. Golden."
+        },
+        {
+          "type": "example",
+          "heading": "The Conjugate Move",
+          "problem": "\\lim_{x \\to 5} \\frac{\\sqrt{x - 1} - 2}{x - 5}",
+          "steps": [
+            { "text": "0/0 — multiply by the conjugate" },
+            { "tex": "\\frac{(x - 1) - 4}{(x - 5)(\\sqrt{x - 1} + 2)} = \\frac{1}{\\sqrt{x - 1} + 2}" },
+            { "tex": "\\frac{1}{\\sqrt{4} + 2} = \\frac{1}{4}", "highlight": true }
+          ],
+          "result": "1/4",
+          "narration": "A limit with a root: the square root of x minus one, minus two, all over x minus five, as x approaches five. Substitution: the root of four is two, and two minus two is zero — zero over zero again. Roots refuse to factor, so we rationalize: multiply above and below by the conjugate, root of x minus one plus two. The numerator becomes a difference of squares — x minus one minus four, which is x minus five. Cancel it: the function equals one over root of x minus one plus two. Substitute five: one over two plus two. The limit is one quarter."
+        },
+        {
+          "type": "example",
+          "heading": "K over 0: Reading the Signs",
+          "problem": "\\lim_{x \\to -2^{\\pm}} \\frac{2x^2 + 7x - 4}{(x + 2)(x - 2)}",
+          "steps": [
+            { "tex": "2x^2 + 7x - 4 = (2x - 1)(x + 4)" },
+            { "text": "at x = −2 the numerator is −10 ≠ 0" },
+            { "text": "left of −2: denominator > 0, so −∞" },
+            { "text": "right of −2: denominator < 0, so +∞" },
+            { "tex": "x = -2: \\ \\mathrm{vertical \\ asymptote}", "highlight": true }
+          ],
+          "result": "−∞ from the left; +∞ from the right",
+          "narration": "Examine two x squared plus seven x minus four, over x plus two times x minus two, near x equals minus two. Factor the numerator: two x minus one times x plus four. At minus two it equals minus five times two — minus ten, a nonzero constant. So this is the constant-over-zero form: the limit is infinite, and only the sign is in question. Left of minus two: x plus two is negative, x minus two is negative — the denominator is positive, and the ratio dives to minus infinity. Right of minus two: x plus two turns positive while x minus two stays negative — the denominator is negative, and the ratio climbs to plus infinity. Two opposite infinities: no two-sided limit, and x equals minus two is a vertical asymptote."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "laws: sum, product, quotient, power",
+            "polynomials: substitute directly",
+            "0/0: factor or conjugate",
+            "K/0: signs give ±∞"
+          ],
+          "narration": "Chapter five in four lines. The limit laws combine limits through arithmetic. Polynomials and safe rational functions: substitute directly. Zero over zero: factor and cancel, or rationalize with a conjugate. Nonzero over zero: read the signs on each side and answer with a directed infinity. That is the whole toolkit — next, the shortcuts that make it fast."
+        }
+      ]
+    },
+    {
+      "title": "Standard Limits, Equivalence, Landau Symbols",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Standard Limits, Equivalence, Landau Symbols",
+          "subtitle": "Comparing functions near a point",
+          "narration": "The finale. A short list of standard limits powers every shortcut in the subject. The squeeze theorem tames wild oscillations. Asymptotic equivalence replaces complicated functions with simple ones — inside products and quotients. And the Landau symbols, big O and little o, give a precise grammar for bounded by and negligible compared to. This is the language of week four — and of modern analysis."
+        },
+        {
+          "type": "formula",
+          "heading": "The Family of Standard Limits",
+          "tex": "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2} = \\frac{1}{2}, \\quad \\lim_{x \\to 0} \\frac{e^x - 1}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{\\ln(1 + x)}{x} = 1",
+          "parts": [
+            { "substr": "\\frac{\\sin x}{x}", "color": "yellow", "note": "sine over its angle" },
+            { "substr": "\\frac{1 - \\cos x}{x^2}", "color": "blue", "note": "one minus cosine" },
+            { "substr": "\\frac{e^x - 1}{x}", "color": "green", "note": "exponential minus one" },
+            { "substr": "\\frac{\\ln(1 + x)}{x}", "color": "teal", "note": "logarithm of one plus x" }
+          ],
+          "narration": "Memorize this family — every member tends to its value as x approaches zero. Yellow: sine of x over x tends to one. Blue: one minus cosine of x, over x squared, tends to one half. Green: e to the x minus one, over x, tends to one. Teal: the natural log of one plus x, over x, tends to one. They adapt by substitution. For sine of five x over x, set u equal to five x: the expression becomes five times sine of u over u, and since u tends to zero too, the answer is five. One more relative: one plus x, to the power one over x, tends to e. All trigonometric versions demand radians."
+        },
+        {
+          "type": "concept",
+          "heading": "The Squeeze Theorem",
+          "bullets": [
+            "g trapped: f ≤ g ≤ h near a",
+            "f and h share the limit L",
+            "then g → L as well",
+            "tames wild oscillations"
+          ],
+          "formula": "f(x) \\leq g(x) \\leq h(x), \\ \\lim_{x \\to a} f(x) = \\lim_{x \\to a} h(x) = L \\ \\Rightarrow \\ \\lim_{x \\to a} g(x) = L",
+          "formula_caption": "squeezed between two functions with a common limit",
+          "narration": "Some functions oscillate so violently that no algebra can pin them down. The squeeze theorem is the bypass. If, near the point a, the function g is trapped between f below and h above, and both f and h approach the same number L, then g has no freedom: it must approach L too. The classic setup: any sine or cosine is trapped between minus one and one; multiply by something that tends to zero, and the whole product is squeezed to zero. The next example runs exactly this play."
+        },
+        {
+          "type": "example",
+          "heading": "Squeezing x²·sin(1/x)",
+          "problem": "\\lim_{x \\to 0} x^2 \\sin\\frac{1}{x}",
+          "steps": [
+            { "tex": "-1 \\leq \\sin\\frac{1}{x} \\leq 1" },
+            { "tex": "-x^2 \\leq x^2\\sin\\frac{1}{x} \\leq x^2" },
+            { "tex": "-x^2 \\to 0, \\quad x^2 \\to 0" },
+            { "tex": "\\lim_{x \\to 0} x^2 \\sin\\frac{1}{x} = 0", "highlight": true }
+          ],
+          "result": "0",
+          "narration": "Compute the limit of x squared times sine of one over x, as x approaches zero. The factor sine of one over x oscillates infinitely fast near zero — it has no limit, and no factoring will ever help. But it is bounded: minus one is at most sine of anything, which is at most one. Multiply all three parts by x squared — nonnegative, so the inequalities survive: minus x squared is at most our function, which is at most x squared. Now squeeze: both bounds tend to zero. Trapped between them, x squared sine of one over x must also tend to zero."
+        },
+        {
+          "type": "concept",
+          "heading": "Asymptotic Equivalence",
+          "bullets": [
+            "f ∼ g ⇔ f/g → 1",
+            "sin x ∼ x, tan x ∼ x at 0",
+            "1 − cos x ∼ x²/2",
+            "multiply and divide — never add"
+          ],
+          "formula": "f(x) \\sim g(x) \\iff \\lim_{x \\to a} \\frac{f(x)}{g(x)} = 1",
+          "formula_caption": "f is equivalent to g when the ratio tends to one",
+          "narration": "Two functions are asymptotically equivalent near a point when their ratio tends to one — written f equivalent to g. The dictionary near zero: sine of x is equivalent to x, and so is tangent of x; e to the x minus one is equivalent to x; one minus cosine of x, to x squared over two; the log of one plus x, to x. Equivalence means relatively close: sine of zero point zero one over zero point zero one is zero point nine nine nine nine eight — close, not equal. The operational rule: equivalences may be multiplied and divided, never added. At infinity the highest-degree term dominates — three x squared plus five x minus one is equivalent to three x squared."
+        },
+        {
+          "type": "example",
+          "heading": "Equivalence in Action",
+          "problem": "\\lim_{x \\to 0} \\frac{\\sin 3x}{5x}, \\quad \\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}",
+          "steps": [
+            { "text": "sin 3x behaves like 3x near zero" },
+            { "tex": "\\frac{\\sin 3x}{5x} \\sim \\frac{3x}{5x} = \\frac{3}{5}" },
+            { "text": "1 − cos x behaves like x²/2" },
+            { "tex": "\\frac{1 - \\cos x}{x^2} \\sim \\frac{x^2/2}{x^2} = \\frac{1}{2}", "highlight": true }
+          ],
+          "result": "3/5  and  1/2",
+          "narration": "Two limits, no algebra — pure equivalence. First: sine of three x over five x. Replace the sine by its equivalent, three x: the quotient becomes three x over five x, which is three fifths. That is the limit. Second: one minus cosine of x, over x squared. The equivalent of one minus cosine is x squared over two, so the quotient tends to one half. Notice the replacements happen only inside products and quotients — that is where equivalence is licensed. And the numbers back it up: sine of zero point zero one differs from zero point zero one by only two parts in a hundred thousand."
+        },
+        {
+          "type": "concept",
+          "heading": "Big-O and Little-o",
+          "bullets": [
+            "f = O(g): |f/g| stays bounded",
+            "f = o(g): f/g → 0",
+            "little-o ⇒ big-O, not conversely",
+            "O(g) is a class, not a number"
+          ],
+          "formula": "f = O(g): \\ \\left|\\frac{f}{g}\\right| \\leq C; \\quad f = o(g): \\ \\frac{f}{g} \\to 0",
+          "formula_caption": "bounded versus negligible",
+          "narration": "Landau notation compares orders of growth. Big O: f is big O of g when the size of f over g stays bounded near the point — f has at most the order of g. Little o is stronger: f over g itself tends to zero — f is negligible against g. Little o implies big O, but never conversely: three x is big O of x, yet their ratio is the constant three, which does not tend to zero. One caution: f equals big O of g is not an equation in the ordinary sense — big O of g names an entire class of functions, all those bounded by a multiple of g."
+        },
+        {
+          "type": "example",
+          "heading": "Verifying O and o at Zero",
+          "problem": "\\sin x = O(x); \\quad 3x = O(x), \\ 3x \\neq o(x); \\quad x^2 = o(x)",
+          "steps": [
+            { "tex": "|\\sin x| \\leq |x| \\ \\Rightarrow \\ \\sin x = O(x)" },
+            { "tex": "\\frac{3x}{x} = 3 \\ \\Rightarrow \\ 3x = O(x)" },
+            { "tex": "\\frac{3x}{x} \\not\\to 0 \\ \\Rightarrow \\ 3x \\neq o(x)" },
+            { "tex": "\\frac{x^2}{x} = x \\to 0 \\ \\Rightarrow \\ x^2 = o(x)", "highlight": true }
+          ],
+          "result": "bounded versus vanishing ratio",
+          "narration": "Verify the definitions at zero. First: sine of x is big O of x, because the absolute value of sine never exceeds the absolute value of x — the ratio is bounded by one. Second: three x is big O of x, but not little o. The ratio, three x over x, is the constant three — bounded, yes; tending to zero, never. Third, the contrast: x squared over x is just x, which does tend to zero — so x squared is little o of x near zero. The same hierarchy runs at infinity: x to the tenth is little o of e to the x, because exponentials eventually dwarf every fixed power. Bounded versus vanishing — that is the entire distinction."
+        },
+        {
+          "type": "table",
+          "heading": "Big-O versus Little-o",
+          "columns": ["Big-O", "Little-o"],
+          "rows": [
+            ["ratio |f/g| bounded", "ratio f/g → 0"],
+            ["at most the order of g", "negligible against g"],
+            ["3x = O(x) at 0", "x² = o(x) at 0"],
+            ["f = g + O(g) is possible", "f ∼ g ⇔ f = g + o(g)"]
+          ],
+          "narration": "The comparison table. Big O keeps the ratio bounded; little o drives the ratio to zero. Big O means at most the order of g; little o means negligible against g. Three x is big O of x but not little o — the ratio sits at three. X squared is little o of x at zero — its ratio, plain x, vanishes. And the bridge to equivalence: f is equivalent to g exactly when f equals g plus little o of g. Even the exponential speaks this grammar: e to the x equals one plus x plus x squared over two, plus little o of x squared."
+        },
+        {
+          "type": "example",
+          "heading": "Who Dominates at Infinity",
+          "problem": "\\lim_{x \\to \\infty} \\frac{2x^3 + x}{5x^2 - 1}",
+          "steps": [
+            { "tex": "3x^2 + 5x - 1 \\sim 3x^2 \\ (x \\to \\infty)" },
+            { "tex": "\\frac{2x^3 + x}{5x^2 - 1} \\sim \\frac{2x^3}{5x^2} = \\frac{2}{5}x" },
+            { "tex": "\\frac{2}{5}x \\to +\\infty \\quad (x \\to \\infty)", "highlight": true }
+          ],
+          "result": "behaves like (2/5)·x; tends to +∞",
+          "narration": "Who rules at infinity? Take three x squared plus five x minus one. Divide by three x squared: one, plus corrections that melt to zero — so the polynomial is equivalent to three x squared. The highest degree always governs. Now the quotient: two x cubed plus x, over five x squared minus one. Replace each part by its dominant term: two x cubed over five x squared — two fifths of x. That grows without bound, and the original fraction behaves exactly like it. In Landau style: two x squared plus three x plus one equals two x squared plus big O of x."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "standard limits: sin, cos, e, ln",
+            "squeeze: bounded × 0 → 0",
+            "f ∼ g ⇔ f/g → 1",
+            "little-o is stronger than big-O",
+            "at ∞: the highest term rules"
+          ],
+          "narration": "The final chapter, summarized. Four standard limits at zero — sine, cosine, exponential, logarithm. The squeeze theorem tames oscillation. Equivalence means the ratio tends to one, and it licenses replacement inside products and quotients. Little o is the vanishing twin of big O. At infinity, the highest-degree term rules. One last look back."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "N ⊆ Z ⊆ Q ⊆ R ⊆ C; z = a + bi",
+            "domain: ÷0, roots, logs",
+            "composition, inverses, exp & log",
+            "limit ⇔ one-sided limits agree",
+            "0/0: factor; K/0: ±∞",
+            "∼, O, o: the comparison grammar"
+          ],
+          "narration": "The whole course in six lines. Number sets nest from the naturals to the complex numbers, and complex arithmetic runs on the conjugate. Functions live on natural domains, compose, and invert; the exponential-logarithm pair powers growth and decay. A limit exists exactly when both one-sided limits agree. Zero over zero calls for factoring or conjugates; nonzero over zero answers with a directed infinity. And the comparison grammar — equivalence, big O, little o — tells you which function wins the race. You have covered weeks one through four."
+        },
+        {
+          "type": "outro",
+          "message": "You covered all of weeks 1–4 — number systems, complex numbers, functions, and limits. Now take the test — you are ready.",
+          "narration": "That was the complete journey: number systems, complex numbers, functions, and limits with all their laws and shortcuts. Re-watch any chapter that feels shaky, redo the examples with pen and paper, and trust the process. The tools are yours — now go take that test. Good luck — you are ready."
+        }
+      ]
+    }
+  ],
+  "outro_message": "Good luck on the test — you are ready.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

@@ -1,0 +1,712 @@
+{
+  "id": "la_w14",
+  "language": "en",
+  "course_title": "Linear Algebra I",
+  "test_title": "Weeks 1–4 · Complete Guide",
+  "subtitle": "Vectors · Products · Matrices · Determinants · Rank and Inverse",
+  "chapters": [
+    {
+      "title": "Vectors: The Foundation",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "Welcome to the complete video guide to Linear Algebra One, weeks one to four. In the next half hour we will rebuild the entire first month of the course: vectors and linear combinations, the dot product and the cross product, matrices and matrix multiplication, determinants, and finally rank and the inverse matrix. Every idea comes with a fully worked example from your study guide. By the end you will be ready for test one. Let's begin."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Vectors: The Foundation",
+          "subtitle": "Combinations, span, independence",
+          "narration": "Chapter one. Vectors are the atoms of linear algebra: everything else is built from them. Here we learn to add them, to scale them, and to combine them, and we answer two questions: what is the span of a set of vectors, and when are they independent?"
+        },
+        {
+          "type": "concept",
+          "heading": "What Is a Vector?",
+          "bullets": [
+            "a vector is a column of n numbers",
+            "add component by component",
+            "scale: multiply every entry by c"
+          ],
+          "formula": "(u + v)_i = u_i + v_i",
+          "formula_caption": "read: the i-th component of the sum is the sum of the components",
+          "plot": {
+            "fn": "0.5*x",
+            "tex": "y = \\frac{x}{2}",
+            "x_range": [-4, 4],
+            "y_range": [-2, 2],
+            "point": [2, 1],
+            "point_label": "(2, 1)"
+          },
+          "narration": "A vector is an ordered list of numbers, written as a column. The vector two, one has first component two and second component one; in the picture it is the arrow from the origin to the point two, one, on the line y equals x over two. We add vectors component by component: first with first, second with second. Scalar multiplication multiplies every component by the same number: the direction stays, the length changes, and the vector flips when the scalar is negative. These two operations, addition and scaling, are the seeds from which all of linear algebra grows."
+        },
+        {
+          "type": "concept",
+          "heading": "Linear Combinations",
+          "bullets": [
+            "multiply each vector by its scalar",
+            "add the results into one vector",
+            "the scalars c1 to cn are weights"
+          ],
+          "formula": "c_1 v_1 + c_2 v_2 + \\cdots + c_n v_n",
+          "formula_caption": "read: c one times v one, plus c two times v two, and so on",
+          "narration": "Take several vectors, multiply each one by its own scalar, and add the results. That single operation is called a linear combination, and the scalars c one through c n are called the weights. Almost every question in this course is secretly a question about combinations: can a given target vector be reached, and which weights reach it? Five times v one plus two times v two is one particular combination. When we ask which vectors can be reached at all, we arrive at one of the most important definitions in the subject: the span."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Combining Vectors",
+          "problem": "u = \\begin{pmatrix} -2 \\\\ 3 \\end{pmatrix}, \\; v = \\begin{pmatrix} -1 \\\\ 5 \\end{pmatrix}: \\; u+v, \\; u-v, \\; 2u, \\; -3v, \\; 2u-3v",
+          "steps": [
+            { "tex": "u + v = \\begin{pmatrix} -3 \\\\ 8 \\end{pmatrix}, \\quad u - v = \\begin{pmatrix} -1 \\\\ -2 \\end{pmatrix}" },
+            { "tex": "2u = \\begin{pmatrix} -4 \\\\ 6 \\end{pmatrix}, \\quad -3v = \\begin{pmatrix} 3 \\\\ -15 \\end{pmatrix}" },
+            { "tex": "2u - 3v = \\begin{pmatrix} -4 + 3 \\\\ 6 - 15 \\end{pmatrix} = \\begin{pmatrix} -1 \\\\ -9 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "(-1, -9)",
+          "narration": "Here is the very first exercise from the guide. We are given u equals minus two, three, and v equals minus one, five. Everything works component by component. The sum adds the components: minus three and eight. The difference subtracts them: minus one and minus two. Two u doubles u into minus four, six, and minus three v becomes three, minus fifteen. Finally, two u minus three v: minus four plus three is minus one, and six minus fifteen is minus nine. Notice that subtracting three v means adding the vector three, minus fifteen. Simple arithmetic, but this is exactly how software computes with vectors."
+        },
+        {
+          "type": "concept",
+          "heading": "The Span of Vectors",
+          "bullets": [
+            "span: all linear combinations",
+            "one vector spans a line",
+            "two new directions span a plane"
+          ],
+          "formula": "\\mathrm{span}\\{v_1, \\ldots, v_n\\}",
+          "formula_caption": "read: the span of v one up to v n",
+          "narration": "The span of a set of vectors is the collection of all linear combinations you can build from them. Take a single vector, like minus two, three. Its multiples fill one straight line through the origin, the line y equals minus three halves x, and no multiple ever leaves that line. Add a second vector in a genuinely new direction, and the combinations fill a whole plane. Three independent vectors in three-dimensional space can fill all of it. The span is the reach of a set of vectors: the question is how far that reach extends."
+        },
+        {
+          "type": "plot",
+          "heading": "One Vector Spans a Line",
+          "functions": [
+            { "fn": "-1.5*x", "tex": "y = -\\frac{3}{2}x", "color": "yellow" },
+            { "fn": "0.5*x", "tex": "y = \\frac{x}{2}", "color": "blue" }
+          ],
+          "x_range": [-4, 4],
+          "y_range": [-4, 4],
+          "point": [-2, 3],
+          "point_label": "(-2, 3)",
+          "vline": null,
+          "narration": "Look at the yellow line. Every point on it is a multiple of the single vector minus two, three, the one marked on the graph. Doubling the vector, halving it, or reversing it keeps you on the same line through the origin: scaling changes only the length, never the direction. The blue line is the span of the vector two, one, which points in a new direction. Each line is a one-dimensional space of its own. Only by combining vectors from different directions can we escape a single line and reach the entire plane."
+        },
+        {
+          "type": "concept",
+          "heading": "Linear Independence",
+          "bullets": [
+            "dependent: a combination gives 0",
+            "independent: only the trivial one",
+            "dependence = no new direction"
+          ],
+          "formula": "c_1 v_1 + \\cdots + c_n v_n = 0 \\Rightarrow c_1 = \\cdots = c_n = 0",
+          "formula_caption": "read: a zero combination forces every c to be zero",
+          "narration": "Vectors are independent when the only way to combine them into the zero vector is the trivial way, with all weights equal to zero. If some non-trivial combination gives zero, the vectors are dependent, and one of them is secretly a combination of the others. Geometrically, dependence means no new direction: two dependent vectors lie on one line, three dependent vectors lie in one plane. The formula says it precisely: a combination equal to zero forces every coefficient to be zero. Independence is the key condition of the course, because it decides whether a system has exactly one solution."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Dependent or Independent?",
+          "problem": "v_1 = \\begin{pmatrix} 1 \\\\ 0 \\\\ 1 \\end{pmatrix}, \\; v_2 = \\begin{pmatrix} 0 \\\\ 1 \\\\ 1 \\end{pmatrix}, \\; v_3 = \\begin{pmatrix} 1 \\\\ 1 \\\\ 2 \\end{pmatrix}",
+          "steps": [
+            { "tex": "v_3 = v_1 + v_2" },
+            { "text": "check: 1 + 0 = 1, 0 + 1 = 1, 1 + 1 = 2 — every component agrees" },
+            { "tex": "v_1 + v_2 - v_3 = 0", "highlight": true },
+            { "text": "a non-trivial zero combination: the three vectors are dependent" }
+          ],
+          "result": "dependent",
+          "narration": "Are these three vectors independent? Try to build the third from the first two. Add them component by component: one plus zero is one, zero plus one is one, and one plus one is two, exactly the third vector. So v three equals v one plus v two, and rearranging gives a zero combination with weights one, one and minus one, non-trivial zeros. The vectors are dependent, and their span is only a plane, not all of three-dimensional space. As a quick second case, the vectors two, minus one and minus six, three are also dependent, since the second is minus three times the first."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Length, Unit Vector, Distance",
+          "problem": "u = (3, 4), \\; P = (1, -2, 3), \\; Q = (5, 1, -3)",
+          "steps": [
+            { "tex": "\\|u\\| = \\sqrt{3^2 + 4^2} = 5" },
+            { "tex": "\\hat{u} = \\frac{u}{\\|u\\|} = (\\frac{3}{5}, \\frac{4}{5})" },
+            { "tex": "Q - P = (4, \\; 3, \\; -6)" },
+            { "tex": "d(P, Q) = \\|Q - P\\| = \\sqrt{61}", "highlight": true }
+          ],
+          "result": "sqrt(61)",
+          "narration": "The length, or norm, of a vector is the square root of the sum of squared components: the Pythagorean theorem. For u equals three, four we get nine plus sixteen, twenty-five, so the norm is five. Dividing by the norm gives the unit vector, three fifths and four fifths, of length exactly one. Want a vector of length ten in the same direction? Take two u, six, minus eight: the norm doubles to ten. Distance is the norm of the difference: Q minus P is four, three, minus six, and the distance is the square root of sixteen plus nine plus thirty-six, the square root of sixty-one."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "add and scale component by component",
+            "combination: weighted sum of vectors",
+            "span: the set of all combinations",
+            "independent: only trivial zero combination",
+            "norm, unit vector, d(P,Q) = ||Q-P||"
+          ],
+          "narration": "Chapter one in brief. Vectors are added and scaled component by component. A linear combination weights each vector and adds. The span is everything reachable: a line, a plane, or all of space. Independence means only the trivial combination gives zero. The norm gives length, the unit vector is pure direction, and the distance between points is the norm of their difference."
+        }
+      ]
+    },
+    {
+      "title": "The Dot Product",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "The Dot Product",
+          "subtitle": "Angles, orthogonality, projections",
+          "narration": "Chapter two. The dot product takes two vectors and returns a single number, and that one number knows the angle between them. We will measure angles, define perpendicularity, and project one vector onto the direction of another. This is the geometry behind least squares and a large part of applied mathematics."
+        },
+        {
+          "type": "formula",
+          "heading": "The Dot Product",
+          "tex": "u \\cdot v = u_1 v_1 + u_2 v_2 + \\cdots + u_n v_n",
+          "parts": [
+            { "substr": "u \\cdot v", "color": "yellow", "note": "the result is one number: a scalar" },
+            { "substr": "u_1 v_1", "color": "blue", "note": "matching components multiply" },
+            { "substr": "u_n v_n", "color": "green", "note": "every pair joins the sum" }
+          ],
+          "narration": "The dot product multiplies matching components and adds them. The yellow part: u dot v is the final answer, one single number, a scalar, not a vector. The blue part shows the pattern: the first component of u times the first component of v. The green part reminds us that every pair joins the sum, down to the last one. For u equals three, minus two and v equals four, five, the dot product is twelve minus ten, two. Written as u transpose times v, it becomes our first glimpse of matrix multiplication: a row times a column."
+        },
+        {
+          "type": "concept",
+          "heading": "Dot Product and Angle",
+          "bullets": [
+            "cos θ compares two directions",
+            "positive dot product: acute angle",
+            "negative: obtuse, zero: right angle"
+          ],
+          "formula": "\\cos\\theta = \\frac{u \\cdot v}{\\|u\\| \\, \\|v\\|}",
+          "formula_caption": "read: cosine of the angle equals u dot v over the two lengths",
+          "narration": "Why does one number capture the angle? Because of this formula: the cosine of the angle equals the dot product divided by the product of the two lengths. The dot product measures how much two vectors agree in direction. When they point the same way, the cosine is one. When they are perpendicular, the cosine, and therefore the dot product, is zero. The sign alone is a complete classification: a positive dot product means an acute angle, below ninety degrees; a negative one means an obtuse angle, above ninety; zero means exactly a right angle."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Classify the Angle",
+          "problem": "u = (3, -2), \\; v = (4, 5); \\quad u = (3, 1), \\; v = (-2, 4)",
+          "steps": [
+            { "tex": "u \\cdot v = 3 \\cdot 4 + (-2) \\cdot 5 = 2 > 0" },
+            { "text": "positive dot product: the angle is acute" },
+            { "tex": "u \\cdot v = 3 \\cdot (-2) + 1 \\cdot 4 = -2 < 0" },
+            { "tex": "\\cos\\theta = \\frac{-2}{\\sqrt{10} \\, \\sqrt{20}} = -\\frac{\\sqrt{2}}{10} \\approx -0.141" },
+            { "tex": "\\theta \\approx 98^{\\circ}", "highlight": true }
+          ],
+          "result": "acute, then 98 degrees",
+          "narration": "First pair: u equals three, minus two, and v equals four, five. The dot product is twelve minus ten, which is two. Positive, so the angle is acute, and we are done; there was no need to compute a single square root. Second pair: three, one and minus two, four. The dot product is minus six plus four, which is minus two, so this angle is obtuse. To find its exact size, divide by the lengths, root ten and root twenty. The cosine is about minus zero point one four, so the angle is roughly ninety-eight degrees. The sign told us the type instantly; the formula delivered the exact size."
+        },
+        {
+          "type": "formula",
+          "heading": "Projection onto a Vector",
+          "tex": "\\mathrm{proj}_{v}\\,u = \\frac{u \\cdot v}{v \\cdot v}\\,v",
+          "parts": [
+            { "substr": "u \\cdot v", "color": "yellow", "note": "how far u reaches along v" },
+            { "substr": "v \\cdot v", "color": "blue", "note": "the squared length of v" },
+            { "substr": "\\mathrm{proj}_{v}", "color": "green", "note": "the shadow of u on the line of v" }
+          ],
+          "narration": "The projection is the shadow of u on the line of v. The green symbol names the operation. The yellow part, u dot v, measures how far u reaches in the direction of v. The blue part, v dot v, is the squared length of v; dividing by it makes the answer independent of how long v happens to be. The result is a multiple of v, so it lies on the line of v. The remainder, u minus the projection, is perpendicular to v: every vector splits into a part along v and a part orthogonal to v. That decomposition is the heart of this chapter."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Project u onto v",
+          "problem": "u = (4, 2), \\; v = (1, 1)",
+          "steps": [
+            { "tex": "u \\cdot v = 6, \\quad v \\cdot v = 2" },
+            { "tex": "\\mathrm{proj}_{v}\\,u = \\frac{6}{2}\\,v = 3v = (3, 3)" },
+            { "tex": "u - 3v = (1, -1), \\quad (u - 3v) \\cdot v = 1 - 1 = 0", "highlight": true },
+            { "text": "u = parallel part (3, 3) + perpendicular part (1, -1)" }
+          ],
+          "result": "(3, 3)",
+          "narration": "Project u equals four, two onto v equals one, one. First compute the two dot products: u dot v is four plus two, six, and v dot v is one plus one, two. The projection is six over two times v; that is three v, the vector three, three. Now check the remainder: u minus three v is one, minus one, and its dot product with v is one minus one, zero, perfectly perpendicular. So u splits into three, three along the line of v, plus one, minus one across it. The shadow and the error are orthogonal, and together they rebuild u exactly. This is the pattern behind least squares."
+        },
+        {
+          "type": "concept",
+          "heading": "Orthogonality",
+          "bullets": [
+            "orthogonal means u·v = 0",
+            "only 0 is orthogonal to itself",
+            "u+v ⊥ u-v iff equal lengths"
+          ],
+          "formula": "u \\perp v \\Leftrightarrow u \\cdot v = 0",
+          "formula_caption": "read: u is perpendicular to v exactly when u dot v is zero",
+          "narration": "Perpendicular, or orthogonal, is defined by the dot product: u is orthogonal to v exactly when u dot v equals zero, so the angle is ninety degrees. Only the zero vector is orthogonal to itself, because a non-zero vector dotted with itself gives its length squared, a positive number. A beautiful consequence: if u plus v and u minus v are orthogonal, then the parallelogram is a rectangle and the two vectors have equal lengths. Expand the product: the middle terms cancel, leaving the norm of u squared minus the norm of v squared, equal to zero."
+        },
+        {
+          "type": "plot",
+          "heading": "Perpendicular Directions",
+          "functions": [
+            { "fn": "2*x", "tex": "y = 2x", "color": "yellow" },
+            { "fn": "-0.5*x", "tex": "y = -\\frac{x}{2}", "color": "blue" }
+          ],
+          "x_range": [-4, 4],
+          "y_range": [-4, 4],
+          "point": [1, 2],
+          "point_label": "(1, 2)",
+          "vline": null,
+          "narration": "Two lines through the origin: the yellow one points in the direction one, two, the blue one in the direction two, minus one. Check with the dot product: one times two plus two times minus one is two minus two, zero. Zero dot product means a ninety-degree angle: the lines are perpendicular. This picture is worth memorizing, because orthogonality is how linear algebra formalizes independent directions. Notice that scaling either vector, moving along its line, changes nothing about the right angle. Perpendicularity is a property of directions, not of lengths."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Find k for Orthogonality",
+          "problem": "u = (2, k, 3), \\; v = (-1, 4, 2), \\quad u \\perp v",
+          "steps": [
+            { "tex": "u \\cdot v = -2 + 4k + 6 = 4k + 4" },
+            { "tex": "4k + 4 = 0 \\; \\Rightarrow \\; k = -1", "highlight": true },
+            { "text": "check: (2, -1, 3) · (-1, 4, 2) = -2 - 4 + 6 = 0" }
+          ],
+          "result": "k = -1",
+          "narration": "We want the unknown k that makes u orthogonal to v. Orthogonality is an equation: the dot product must be zero. Compute it: two times minus one is minus two, plus four k, plus three times two which is six; in total, four k plus four. Set it equal to zero and k is minus one. Verify with the value we found: two, minus one, three dotted with minus one, four, two gives minus two, minus four, plus six, which is zero. One unknown, one equation: orthogonality problems are always this direct, because the dot product turns geometry into simple algebra. A parameter inside a vector always means one linear equation in one unknown."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "u·v: multiply matching, add",
+            "cos θ = u·v / (||u||·||v||)",
+            "positive acute, zero right, negative obtuse",
+            "proj_v u = (u·v / v·v)·v",
+            "u ⊥ v iff u·v = 0"
+          ],
+          "narration": "Chapter two in one breath. The dot product multiplies matching components and adds. Divide by the lengths and you get the cosine of the angle: positive is acute, zero is right, negative is obtuse. The projection formula gives the shadow of u along v, and orthogonality is simply a zero dot product. Every fact of this chapter flows from that one number."
+        }
+      ]
+    },
+    {
+      "title": "The Cross Product",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "The Cross Product",
+          "subtitle": "Normals and areas in space",
+          "narration": "Chapter three. The cross product exists only in three-dimensional space, and it answers two questions at once: which direction is perpendicular to two given vectors, and what is the area of the parallelogram they span? One formula delivers a normal vector, an area, and a test for parallelism."
+        },
+        {
+          "type": "formula",
+          "heading": "Definition of the Cross Product",
+          "tex": "u \\times v = \\begin{pmatrix} u_2 v_3 - u_3 v_2 \\\\ u_3 v_1 - u_1 v_3 \\\\ u_1 v_2 - u_2 v_1 \\end{pmatrix}",
+          "parts": [
+            { "substr": "u_2 v_3 - u_3 v_2", "color": "yellow", "note": "component one: skip index one" },
+            { "substr": "u_3 v_1 - u_1 v_3", "color": "blue", "note": "component two: skip index two" },
+            { "substr": "u_1 v_2 - u_2 v_1", "color": "green", "note": "component three: skip index three" }
+          ],
+          "narration": "The cross product of two three-dimensional vectors is a new vector, built component by component. The yellow part is the first component: second of u times third of v, minus third of u times second of v; index one is skipped. The blue part is the second component, and it skips index two: third times first, minus first times third. The green part skips index three: first times second, minus second times first. Each row is a two-by-two determinant in disguise, and the cyclic pattern one-two-three is how people remember the formula. The result is perpendicular to both inputs, as we verify next."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Compute a Cross Product",
+          "problem": "u = (2, 0, 2), \\; v = (-1, 2, 0)",
+          "steps": [
+            { "tex": "u \\times v = \\begin{pmatrix} 0 \\cdot 0 - 2 \\cdot 2 \\\\ 2 \\cdot (-1) - 2 \\cdot 0 \\\\ 2 \\cdot 2 - 0 \\cdot (-1) \\end{pmatrix} = \\begin{pmatrix} -4 \\\\ -2 \\\\ 4 \\end{pmatrix}" },
+            { "tex": "(u \\times v) \\cdot u = -8 + 0 + 8 = 0" },
+            { "tex": "(u \\times v) \\cdot v = 4 - 4 + 0 = 0", "highlight": true },
+            { "text": "perpendicular to both inputs — a genuine normal vector" }
+          ],
+          "result": "(-4, -2, 4)",
+          "narration": "Cross u equals two, zero, two with v equals minus one, two, zero. First component: zero times zero minus two times two, minus four. Second: two times minus one minus two times zero, which is minus two. Third: two times two minus zero times minus one, four. So the cross product is minus four, minus two, four. Now the check that theory promises: dot it with u, and get minus eight plus zero plus eight, zero. Dot it with v, and get four minus four plus zero, again zero. The result is perpendicular to both inputs, a genuine normal vector, exactly as the formula guarantees."
+        },
+        {
+          "type": "concept",
+          "heading": "Properties of the Cross Product",
+          "bullets": [
+            "u×v = -(v×u): order matters",
+            "u×v is ⊥ to u and to v",
+            "parallel vectors give u×v = 0"
+          ],
+          "formula": "u \\times v = -(v \\times u)",
+          "formula_caption": "read: u cross v equals minus v cross u",
+          "narration": "Three properties. First, the cross product is anti-commutative: swapping the inputs reverses the sign, so u cross v and v cross u point in opposite directions. Second, the result is always perpendicular to both inputs, which makes the cross product the standard way to find a normal vector to a plane. Third, parallel vectors give cross product zero: no area, no perpendicular direction left. A subtle extra: since u cross v is perpendicular to u and to v, it is also perpendicular to every combination of them. For instance, its dot product with u plus v is zero."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Area of a Triangle",
+          "problem": "P = (1, 0, 1), \\; Q = (3, 1, 0), \\; R = (0, 2, 4)",
+          "steps": [
+            { "tex": "\\vec{PQ} = (2, 1, -1), \\quad \\vec{PR} = (-1, 2, 3)" },
+            { "tex": "\\vec{PQ} \\times \\vec{PR} = (5, -5, 5)" },
+            { "tex": "\\|\\vec{PQ} \\times \\vec{PR}\\| = \\sqrt{75} = 5\\sqrt{3}" },
+            { "tex": "S = \\frac{1}{2} \\cdot 5\\sqrt{3}", "highlight": true }
+          ],
+          "result": "5·sqrt(3)/2",
+          "narration": "To find the area of the triangle with vertices P, Q and R, build two edge vectors from one vertex: P Q is two, one, minus one, and P R is minus one, two, three. Their cross product: first component, one times three minus minus one times two, is five; second, one minus six, is minus five; third, four plus one, is five. The vector five, minus five, five has length the square root of seventy-five, which is five root three. That is the parallelogram area; the triangle is exactly half of it, five root three over two. Cross product, norm, halve: the complete recipe."
+        },
+        {
+          "type": "concept",
+          "heading": "Cross Product as Area",
+          "bullets": [
+            "area of parallelogram = ||u×v||",
+            "= ||u||·||v||·|sin θ|",
+            "triangle: half the parallelogram"
+          ],
+          "formula": "\\|u \\times v\\| = \\|u\\| \\, \\|v\\| \\, |\\sin\\theta|",
+          "formula_caption": "read: the norm of u cross v is the base times the height",
+          "narration": "The length of the cross product has a geometric meaning: it is the area of the parallelogram spanned by the two vectors. The reason is base times height: the base is the norm of u, and the height is the norm of v times the sine of the angle between them. Multiply and you get the formula, norm u times norm v times the absolute sine of theta. Perpendicular vectors give sine one, the maximal area. Parallel vectors give sine zero, and the parallelogram collapses. For a triangle, half a parallelogram, take half of the cross product norm."
+        },
+        {
+          "type": "example",
+          "heading": "Example: When Is the Cross Product Zero?",
+          "problem": "a = (1, t, 2), \\; b = (3, 6, 6), \\quad a \\times b = 0",
+          "steps": [
+            { "tex": "a \\times b = 0 \\; \\Rightarrow \\; a = c \\cdot b" },
+            { "tex": "1 = 3c, \\; 2 = 6c \\; \\Rightarrow \\; c = \\frac{1}{3}" },
+            { "tex": "t = 6c = 2", "highlight": true },
+            { "text": "check: (1, 2, 2) = one third of (3, 6, 6) — parallel" }
+          ],
+          "result": "t = 2",
+          "narration": "The cross product is zero exactly when the vectors are parallel, when one is a scalar multiple of the other. Write a equals c times b and compare components. First: one equals three c, so c is one third. Third: two equals six c, the same one third, consistent. The middle component fixes t: t equals six c, which is two. Check: one, two, two really is one third of three, six, six. So t equals two is the only value that makes the cross product vanish: the vectors become parallel and span no area. If any component had disagreed, no single c could exist."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "u×v exists only in 3D space",
+            "cyclic formula, component by component",
+            "⊥ to both inputs; order flips the sign",
+            "parallelogram area = ||u×v||",
+            "triangle area = half of it"
+          ],
+          "narration": "Chapter three compressed. The cross product lives only in three dimensions and follows the cyclic component formula. It flips sign when the order of the factors is swapped, and it is perpendicular to both inputs. Its length is the parallelogram area, half of it is the triangle area, and it vanishes exactly for parallel vectors."
+        }
+      ]
+    },
+    {
+      "title": "Matrices and Matrix Algebra",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "Matrices and Matrix Algebra",
+          "subtitle": "Products, transpose, the column picture",
+          "narration": "Chapter four. A matrix is a table of numbers and, at the same time, a machine that transforms vectors. We learn the rules of matrix algebra: how matrices add, how they multiply, why the order matters so much, and the two equivalent ways to understand A times x."
+        },
+        {
+          "type": "concept",
+          "heading": "What Is a Matrix?",
+          "bullets": [
+            "m rows and n columns, entries a_ij",
+            "a_ij sits in row i, column j",
+            "add and scale entry by entry"
+          ],
+          "formula": "A = [\\,a_{ij}\\,] \\in R^{m \\times n}",
+          "formula_caption": "read: A is the m by n matrix with entries a i j",
+          "narration": "A matrix is a rectangular array with m rows and n columns. The entry a i j sits in row i and column j; row first, column second, always. Matrices add only when they have exactly the same shape, entry by entry, just like vectors; scaling multiplies every entry. From the guide: if A is one minus two, three zero, then two A is two minus four, six zero, and subtracting B, two one, minus one four, leaves zero minus five, seven minus four. The two-one entry is two times three minus minus one, seven. If the shapes differ, the operation does not exist."
+        },
+        {
+          "type": "formula",
+          "heading": "Matrix Multiplication",
+          "tex": "(AB)_{ij} = \\sum_{k=1}^{n} a_{ik} b_{kj}",
+          "parts": [
+            { "substr": "(AB)_{ij}", "color": "yellow", "note": "entry i j of the product" },
+            { "substr": "\\sum_{k=1}^{n}", "color": "blue", "note": "sum over the shared inner index" },
+            { "substr": "a_{ik} b_{kj}", "color": "green", "note": "row of A times column of B" }
+          ],
+          "narration": "Here is the central operation of the course. The yellow part is what we are computing: entry i j of the product A B. The green part is the recipe: take row i of A and column j of B, multiply matching entries, and add. It is the dot product of a row with a column. The blue part says the sum runs over k from one to n, the shared inner dimension. That gives the size rule: m by n times n by p yields m by p. If the inner dimensions do not match, the product does not exist. Practice until row times column is automatic."
+        },
+        {
+          "type": "example",
+          "heading": "Example: AB Is Not BA",
+          "problem": "A = \\begin{pmatrix} 1 & -2 \\\\ 3 & 0 \\end{pmatrix}, \\; B = \\begin{pmatrix} 2 & 1 \\\\ -1 & 4 \\end{pmatrix}",
+          "steps": [
+            { "tex": "AB = \\begin{pmatrix} 4 & -7 \\\\ 6 & 3 \\end{pmatrix}" },
+            { "tex": "BA = \\begin{pmatrix} 5 & -2 \\\\ 11 & 2 \\end{pmatrix}" },
+            { "tex": "AB \\neq BA", "highlight": true },
+            { "text": "both products exist — and they are different matrices" }
+          ],
+          "result": "AB ≠ BA",
+          "narration": "The same two matrices: A is one minus two, three zero, and B is two one, minus one four. For A B, every entry is a row of A dotted with a column of B. First row, first column: one times two plus minus two times minus one, four. First row, second column: one minus eight, minus seven. Continuing gives the product four minus seven, six three. Now reverse the order: B times A is five minus two, eleven two. Both products exist, both are two by two, and they are different matrices. Matrix multiplication is not commutative; the order of the factors is a mathematical fact."
+        },
+        {
+          "type": "concept",
+          "heading": "Ax: The Column Picture",
+          "bullets": [
+            "Ax: weighted sum of columns",
+            "entries of x are the weights",
+            "row picture: rows dotted with x"
+          ],
+          "formula": "Ax = x_1 a_1 + x_2 a_2 + \\cdots + x_n a_n",
+          "formula_caption": "read: A x is x one times the first column, and so on",
+          "narration": "Multiplying a matrix by a vector has two equally valid pictures. The row picture: each component of the answer is a row of A dotted with x. The column picture is deeper: A x is the linear combination of the columns of A, with weights taken from x. The entries of x are not just numbers; they are the weights of a combination. This is why systems of equations, vector combinations, and matrix multiplication are all one subject in three disguises. And when the columns span the whole output space, every right-hand side can be reached."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Ax Two Ways",
+          "problem": "A = \\begin{pmatrix} 1 & 2 & 0 \\\\ -1 & 3 & 4 \\\\ 4 & 0 & 8 \\end{pmatrix}, \\; x = \\begin{pmatrix} 2 \\\\ -1 \\\\ 0 \\end{pmatrix}",
+          "steps": [
+            { "tex": "Ax = 2a_1 - a_2 + 0 \\cdot a_3" },
+            { "tex": "= 2\\begin{pmatrix} 1 \\\\ -1 \\\\ 4 \\end{pmatrix} - \\begin{pmatrix} 2 \\\\ 3 \\\\ 0 \\end{pmatrix} = \\begin{pmatrix} 0 \\\\ -5 \\\\ 8 \\end{pmatrix}" },
+            { "text": "rows: (1, 2, 0)·x = 0, (-1, 3, 4)·x = -5, (4, 0, 8)·x = 8" },
+            { "tex": "Ax = \\begin{pmatrix} 0 \\\\ -5 \\\\ 8 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "(0, -5, 8)",
+          "narration": "Compute A x for this three by three matrix, both ways. The column picture: x says take two of the first column, minus one of the second, zero of the third. Two times the first column, one minus one four, is two, minus two, eight; subtract the second column, two three zero; the result is zero, minus five, eight. The row picture: first row one two zero dotted with x gives two minus two, zero. Second row: minus two minus three, minus five. Third row: eight. The same vector arrives from both routes, and that is the point: the two pictures always agree, and together they make multiplication transparent."
+        },
+        {
+          "type": "concept",
+          "heading": "Transpose and Algebra Laws",
+          "bullets": [
+            "transpose: rows become columns",
+            "(AB)^T = B^T·A^T, order reverses",
+            "symmetric matrix: A^T = A"
+          ],
+          "formula": "(AB)^{T} = B^{T} A^{T}",
+          "formula_caption": "read: the transpose of A B is B transpose times A transpose",
+          "narration": "The transpose flips a matrix across its main diagonal: rows become columns. Transposing a product reverses the order: the transpose of A B equals B transpose times A transpose. Think socks and shoes: the last operation put on is the first taken off. Most of school algebra survives: addition commutes, multiplication is associative, distributivity holds. But commutativity is gone. A matrix equal to its own transpose is symmetric, and any matrix times its transpose, like C C transpose, is automatically symmetric. The guide checks it: for one two one, zero three two, the product is six four, four thirteen."
+        },
+        {
+          "type": "table",
+          "heading": "Matrix Algebra at a Glance",
+          "columns": ["Operation", "Rule"],
+          "rows": [
+            ["A + B", "= B + A, entry by entry"],
+            ["A · B", "usually not equal to B · A"],
+            ["A(BC)", "= (AB)C, associative"],
+            ["A(B + C)", "= AB + AC"],
+            ["(AB)^T", "= B^T · A^T, order reverses"],
+            ["I · A", "= A = A · I"]
+          ],
+          "narration": "The rulebook on one slide. Addition is commutative and entry-wise, but only for matrices of the same shape. Multiplication is associative: A B C can be grouped either way, and the distributive laws work as expected. The second row is the warning: A B and B A are usually different matrices. The transpose rule reverses the order of the product. And the identity matrix acts like the number one; it changes nothing. Notice what is missing: division. That gap is exactly what the inverse matrix will fill in chapter six."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "matrix: m×n array, entry a_ij",
+            "add entry-wise, same shape only",
+            "(AB)ij = sum of aik·bkj",
+            "inner dimensions must match",
+            "Ax = combination of columns",
+            "(AB)^T = B^T·A^T"
+          ],
+          "narration": "Chapter four in five lines. A matrix is an m by n array, added entry-wise when the shapes match, and multiplied row by column when the inner dimensions match. A times x is a combination of columns, and the transpose of a product reverses the order of the factors. And keep the one broken rule in mind: multiplication does not commute."
+        }
+      ]
+    },
+    {
+      "title": "Determinants",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Determinants",
+          "subtitle": "Signed area, volume, triple product",
+          "narration": "Chapter five. The determinant compresses an entire square matrix into a single number: the signed area or volume that the matrix produces. From the two-by-two formula, through cofactor expansion, to the effect of row operations, this chapter builds the machine that will decide invertibility."
+        },
+        {
+          "type": "formula",
+          "heading": "The 2×2 Determinant",
+          "tex": "\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc",
+          "parts": [
+            { "substr": "\\det", "color": "green", "note": "a number attached to a square matrix" },
+            { "substr": "ad", "color": "yellow", "note": "the main diagonal product" },
+            { "substr": "bc", "color": "blue", "note": "the anti-diagonal product" }
+          ],
+          "narration": "For a two by two matrix the determinant is one subtraction: the yellow product a d, down the main diagonal, minus the blue product b c, along the anti-diagonal. The green word det reminds us: this is a function from square matrices to numbers. Geometrically, the determinant is the signed area of the parallelogram spanned by the two columns. Signed means orientation matters: positive when the columns keep counterclockwise order, negative when they flip it. If the columns lie on one line, the area, and the determinant, is zero. The identity gives one times one minus zero times zero: one, the unit area."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Determinant as Area",
+          "problem": "E = \\begin{pmatrix} 3 & 1 \\\\ 1 & 2 \\end{pmatrix}",
+          "steps": [
+            { "tex": "\\det E = 3 \\cdot 2 - 1 \\cdot 1 = 5" },
+            { "tex": "S = |\\det E| = 5" },
+            { "tex": "S_{\\triangle} = \\frac{5}{2}", "highlight": true },
+            { "text": "det E > 0: orientation is preserved" }
+          ],
+          "result": "5",
+          "narration": "Take E, with columns three, one and one, two. The determinant: three times two minus one times one, five. So the parallelogram spanned by the columns has area five, and the triangle they cut off has half of it, five over two. Because the determinant is positive, orientation is preserved: the second column stays counterclockwise from the first, and nothing is flipped. One number delivered three facts: the area, the half-area, and the orientation. Notice that we never had to draw the parallelogram; the determinant did all of the work, and the same dictionary holds in three dimensions, with volumes. The determinant is geometry compressed into a single number."
+        },
+        {
+          "type": "formula",
+          "heading": "Cofactor Expansion",
+          "tex": "\\det A = a_{11} C_{11} + a_{12} C_{12} + a_{13} C_{13}, \\quad C_{ij} = (-1)^{i+j} \\det M_{ij}",
+          "parts": [
+            { "substr": "C_{ij}", "color": "yellow", "note": "the cofactor: a signed minor" },
+            { "substr": "(-1)^{i+j}", "color": "blue", "note": "the checkerboard of signs" },
+            { "substr": "M_{ij}", "color": "green", "note": "the minor: delete row i, column j" }
+          ],
+          "narration": "Three by three determinants expand along a row. Each entry of the row is multiplied by its cofactor, the yellow C i j. The cofactor has two ingredients. The green M i j is the minor: cross out row i and column j, and take the determinant of the two by two matrix that remains. The blue factor is the sign: minus one to the power i plus j, the alternating checkerboard, plus, minus, plus. Multiply entries by cofactors and add along the row. The remarkable fact: any row, or any column, gives the same answer, so a row full of zeros makes most of the arithmetic disappear."
+        },
+        {
+          "type": "example",
+          "heading": "Example: A 3×3 Determinant",
+          "problem": "F = \\begin{pmatrix} 2 & 1 & 0 \\\\ 0 & 3 & 1 \\\\ 1 & 0 & 2 \\end{pmatrix}",
+          "steps": [
+            { "tex": "\\det F = 2\\det\\begin{pmatrix} 3 & 1 \\\\ 0 & 2 \\end{pmatrix} - 1\\det\\begin{pmatrix} 0 & 1 \\\\ 1 & 2 \\end{pmatrix} + 0" },
+            { "tex": "= 2 \\cdot 6 - 1 \\cdot (-1) = 13" },
+            { "text": "first column check: 2·6 + 1·1 = 13 — the same value" },
+            { "tex": "\\det F = 13", "highlight": true }
+          ],
+          "result": "13",
+          "narration": "Expand along the first row. The first minor, deleting row one and column one, is three one, zero two, with determinant six; multiplied by the leading two, that gives twelve. The second minor is zero one, one two, with determinant minus one; with the alternating sign we subtract minus one, adding one. The third entry of the row is zero, so its cofactor contributes nothing at all. The total is thirteen. Expand instead down the first column: two times six plus one times one, thirteen again. Any row, any column: always the same number, and choosing the row with the most zeros is the professional move."
+        },
+        {
+          "type": "table",
+          "heading": "Row Operations and the Determinant",
+          "columns": ["Row operation", "Effect on det A"],
+          "rows": [
+            ["swap two rows", "sign flips"],
+            ["scale one row by c", "det is multiplied by c"],
+            ["add a row multiple", "no change"],
+            ["zero or equal rows", "det = 0"],
+            ["transpose", "det A^T = det A"],
+            ["product of matrices", "det(AB) = det A · det B"]
+          ],
+          "narration": "Elimination changes determinants in completely predictable ways, and this table is worth memorizing. Swapping two rows flips the sign. Scaling one row by c multiplies det by c, and scaling an entire n by n matrix scales its determinant by c to the n. Adding a multiple of one row to another changes nothing, which is why elimination is safe. A zero row, or two proportional rows, forces a zero determinant. Transposing changes nothing. And determinants multiply: the determinant of A B is det A times det B. One warning: the determinant of a sum is not the sum of the determinants."
+        },
+        {
+          "type": "concept",
+          "heading": "The Scalar Triple Product",
+          "bullets": [
+            "(u×v)·w = det[u v w]",
+            "absolute value: volume of the box",
+            "value 0: coplanar vectors"
+          ],
+          "formula": "(u \\times v) \\cdot w = \\det\\begin{pmatrix} u_1 & v_1 & w_1 \\\\ u_2 & v_2 & w_2 \\\\ u_3 & v_3 & w_3 \\end{pmatrix}",
+          "formula_caption": "read: u cross v, dotted with w, is the determinant of the three columns",
+          "narration": "The mixed product, also called the scalar triple product, closes the circle between products and determinants. Compute u cross v, then dot with w; or take the determinant of the matrix whose columns are u, v and w. Two roads, one number. Its absolute value is the volume of the parallelepiped, the skewed box spanned by the three vectors; the tetrahedron with those edges has exactly one sixth of that volume. The sign records orientation. And when the value is zero, the three vectors are coplanar: flat, volumeless, trapped in one plane. That zero test is our next example."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Volume of a Parallelepiped",
+          "problem": "u = (2, 0, 1), \\; v = (1, 2, 0), \\; w = (0, 1, 3)",
+          "steps": [
+            { "tex": "u \\times v = (-2, 1, 4)" },
+            { "tex": "(u \\times v) \\cdot w = 0 + 1 + 12 = 13" },
+            { "tex": "V = 13, \\quad V_{tetra} = \\frac{13}{6}", "highlight": true },
+            { "text": "swap u and v: the value becomes -13, the volumes stay" }
+          ],
+          "result": "13",
+          "narration": "First the cross product: u equals two, zero, one crossed with v equals one, two, zero gives minus two, one, four. Dot that with w, which is zero, one, three: zero plus one plus twelve, thirteen. The box spanned by the three vectors has volume thirteen, and the tetrahedron with vertices at the origin and the three vector tips has volume thirteen over six. Swap u and v: the triple product becomes minus thirteen, orientation flipped, but the volumes, which only care about the absolute value, stay the same. Had the result been zero, the vectors would have been coplanar, a flat box with no volume at all."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "2×2: ad - bc, signed area",
+            "cofactors: any row or column",
+            "swap flips, scaling multiplies",
+            "det(AB) = det A · det B",
+            "triple product: volume of the box"
+          ],
+          "narration": "Chapter five in brief. The two by two determinant is a d minus b c, the signed area of the column parallelogram. Bigger matrices expand by cofactors along any row or column. Row operations: swaps flip the sign, scalings multiply, additions do nothing. Determinants multiply over matrix products. The mixed product is that determinant: the volume of the box."
+        }
+      ]
+    },
+    {
+      "title": "Rank and the Inverse Matrix",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Rank and the Inverse Matrix",
+          "subtitle": "Pivots, invertibility, Gauss-Jordan",
+          "narration": "Chapter six, the finale. Two ideas tie the whole month together: the rank of a matrix, which counts its truly independent directions, and the inverse, which undoes a matrix. We will compute both, and we will meet the Gauss-Jordan algorithm, the systematic road from A to A inverse."
+        },
+        {
+          "type": "concept",
+          "heading": "Rank: Counting Pivots",
+          "bullets": [
+            "rank = number of pivots",
+            "rank A ≤ min(m, n)",
+            "rank n: independent columns"
+          ],
+          "formula": "\\mathrm{rank}\\,A \\leq \\min(m, n)",
+          "formula_caption": "read: the rank of A is at most the smaller of m and n",
+          "narration": "The rank counts independent directions. You compute it by elimination: clear below each pivot and count the pivots that survive. The rank can never exceed the number of rows or the number of columns, because each pivot consumes one row and one column. Full column rank n means the columns are independent, and the only solution of A x equals zero is x equals zero. A rank deficiency is often visible before any arithmetic: when one column is already a multiple of another, a pivot must vanish. The rank is the first number that measures how much information a matrix really carries."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Rank by Elimination",
+          "problem": "A = \\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 5 \\\\ 3 & 6 & 4 \\end{pmatrix}",
+          "steps": [
+            { "tex": "R_2 - 2R_1, \\; R_3 - 3R_1 \\Rightarrow \\begin{pmatrix} 1 & 2 & 1 \\\\ 0 & 0 & 3 \\\\ 0 & 0 & 1 \\end{pmatrix}" },
+            { "tex": "R_3 - \\frac{1}{3}R_2 \\Rightarrow \\begin{pmatrix} 1 & 2 & 1 \\\\ 0 & 0 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix}" },
+            { "tex": "\\mathrm{rank}\\,A = 2", "highlight": true },
+            { "text": "column 2 = 2 × column 1 — the deficiency was visible from the start" }
+          ],
+          "result": "rank A = 2",
+          "narration": "Eliminate under the first pivot. Row two minus two row one gives zero, zero, three. Row three minus three row one gives zero, zero, one. The entire second column vanished; its information was redundant, since column two was twice column one from the very beginning. The second pivot must therefore come from column three, and it is the three. Clear below it: row three minus one third of row two becomes all zeros. Two non-zero pivots survive, so the rank is two. A three by three matrix carrying only two independent directions: the rank is the true dimension of its column space. Elimination never lies about dimension."
+        },
+        {
+          "type": "formula",
+          "heading": "The Inverse of a 2×2 Matrix",
+          "tex": "A^{-1} = \\frac{1}{ad - bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}",
+          "parts": [
+            { "substr": "A^{-1}", "color": "teal", "note": "the matrix that undoes A" },
+            { "substr": "\\frac{1}{ad - bc}", "color": "yellow", "note": "divide by the determinant" },
+            { "substr": "\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}", "color": "blue", "note": "swap the diagonal, negate the rest" }
+          ],
+          "narration": "For two by two matrices the inverse is a formula worth knowing by heart. The blue matrix is almost A: the diagonal entries a and d swap places, while the off-diagonal entries b and c change sign. Then divide everything by the determinant, a d minus b c, the yellow fraction. Hidden in the denominator sits the entire theory: if the determinant is zero, the division is impossible and the inverse does not exist. Multiplying A by A inverse, in either order, returns the identity matrix. Learn it once, and you can invert any two by two matrix with a non-zero determinant in seconds."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Invert a 2×2 Matrix",
+          "problem": "A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}",
+          "steps": [
+            { "tex": "\\det A = 2 \\cdot 3 - 1 \\cdot 5 = 1" },
+            { "tex": "A^{-1} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}" },
+            { "tex": "A A^{-1} = \\begin{pmatrix} 6 - 5 & -2 + 2 \\\\ 15 - 15 & -5 + 6 \\end{pmatrix} = I", "highlight": true }
+          ],
+          "result": "(3, -1; -5, 2)",
+          "narration": "A is two one, five three. The determinant: two times three minus one times five, one. A determinant of one makes life easy: the inverse is exactly the swapped-and-negated matrix, three minus one, minus five two, with no division needed, and no fractions anywhere. Verify by multiplication: row one, column one, six minus five, one. Row one, column two, minus two plus two, zero. Row two: fifteen minus fifteen, and minus five plus six. The product is the identity, in both orders. The matrix has been completely undone. Notice the pattern: ones on the diagonal, zeros elsewhere. Multiplication by the inverse is the matrix version of division, and it works in both orders."
+        },
+        {
+          "type": "concept",
+          "heading": "When Does the Inverse Exist?",
+          "bullets": [
+            "invertible ⟺ rank n ⟺ n pivots",
+            "⟺ det A ≠ 0",
+            "⟺ Ax = b has one solution"
+          ],
+          "formula": "A^{-1}\\ \\mathrm{exists} \\iff \\det A \\neq 0",
+          "formula_caption": "read: A inverse exists exactly when the determinant of A is not zero",
+          "narration": "Everything converges here. For a square matrix of size n, these statements stand or fall together. A is invertible. The rank equals n. Elimination produces n pivots. The determinant is non-zero. And the system A x equals b has exactly one solution for every right-hand side. One failure kills them all: if some non-zero x solves A x equals zero, then no matrix can undo the damage, because no matrix maps the zero vector back to x. Two closing facts: the inverse of a product reverses the order, and the inverse of the transpose is the transpose of the inverse."
+        },
+        {
+          "type": "example",
+          "heading": "Example: Gauss-Jordan Elimination",
+          "problem": "A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix}",
+          "steps": [
+            { "tex": "[\\,A \\mid I\\,] = \\begin{pmatrix} 1 & 2 & 1 & 0 \\\\ 3 & 7 & 0 & 1 \\end{pmatrix}" },
+            { "tex": "R_2 - 3R_1 \\Rightarrow \\begin{pmatrix} 1 & 2 & 1 & 0 \\\\ 0 & 1 & -3 & 1 \\end{pmatrix}" },
+            { "tex": "R_1 - 2R_2 \\Rightarrow \\begin{pmatrix} 1 & 0 & 7 & -2 \\\\ 0 & 1 & -3 & 1 \\end{pmatrix}" },
+            { "tex": "A^{-1} = \\begin{pmatrix} 7 & -2 \\\\ -3 & 1 \\end{pmatrix}", "highlight": true }
+          ],
+          "result": "(7, -2; -3, 1)",
+          "narration": "Gauss-Jordan works for matrices of any size. Write A next to the identity: the augmented block A, I. Apply row operations to the whole wide matrix until the left block is the identity; the right block automatically becomes A inverse. Row two minus three row one: the left block is one two, zero one, and the right block picks up minus three and one. Clean upward: row one minus two row two turns the left block into the identity. Read off the answer: seven minus two, minus three one. Bonus: with b equals one, one, the solution of A x equals b is x equals A inverse b, five, minus two."
+        },
+        {
+          "type": "example",
+          "heading": "Example: A Singular Matrix",
+          "problem": "B = \\begin{pmatrix} 2 & 1 \\\\ 4 & 2 \\end{pmatrix}",
+          "steps": [
+            { "tex": "R_2 - 2R_1 \\Rightarrow (0, \\; 0)" },
+            { "tex": "\\det B = 2 \\cdot 2 - 1 \\cdot 4 = 0" },
+            { "tex": "B \\begin{pmatrix} 1 \\\\ -2 \\end{pmatrix} = \\begin{pmatrix} 0 \\\\ 0 \\end{pmatrix}", "highlight": true },
+            { "text": "pivots, determinant, null vector — all three tests agree: singular" }
+          ],
+          "result": "singular",
+          "narration": "Is B invertible? Three independent tests. Pivots: row two minus two row one collapses to zero, zero; only one pivot survives. Determinant: two times two minus one times four, zero. Null vector: multiply B by one, minus two, and get two minus two, four minus four, the zero vector; a non-zero input mapped to zero. All three tests agree: B is singular, and no inverse exists. They must agree, because they are three languages for one and the same fact. In practice one test is enough, and the other two are confirmation. The columns are proportional and the parallelogram they span has zero area: every viewpoint tells the same story."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "rank = number of pivots",
+            "invertible ⟺ rank n ⟺ det ≠ 0",
+            "2×2 inverse: swap, negate, divide",
+            "Gauss-Jordan: [A|I] becomes [I|A⁻¹]",
+            "x = A⁻¹b solves Ax = b"
+          ],
+          "narration": "The final chapter. The rank counts pivots, the true dimension of a matrix. Invertibility, full rank, a non-zero determinant and unique solutions are one condition in four disguises. The two by two inverse swaps the diagonal, negates the rest, and divides by the determinant. Gauss-Jordan turns A, I into I, A inverse, and x equals A inverse b then solves any system."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "vectors: combinations, span, independence",
+            "dot product: angle, projection, ⊥",
+            "cross product: normal and area",
+            "matrices: row×column, Ax = columns",
+            "determinants: signed area and volume",
+            "rank and inverse: solvability"
+          ],
+          "narration": "The whole month on one screen. Week one: vectors combine linearly, their span is the set of reachable vectors, and independence means only the trivial zero combination. Week two: the dot product measures angles, defines orthogonality, and builds projections. Week three: the cross product delivers a perpendicular vector whose length is an area. Week four: matrices multiply row by column, A x is a combination of columns, and determinants measure signed areas and volumes. Finally, rank and the inverse decide everything about solvability. Six ideas, one subject, every one of them worked out."
+        },
+        {
+          "type": "outro",
+          "message": "You covered all of weeks one to four: vectors, products, matrices, determinants, rank and inverses. Now take test one. You are ready.",
+          "narration": "That is the complete guide for weeks one through four. You can combine vectors, measure angles and project, multiply matrices, expand determinants, compute ranks and invert matrices: every skill that test one can ask for. Review the worked examples once more, sleep well, and walk in calmly. Good luck. You are ready."
+        }
+      ]
+    }
+  ],
+  "outro_message": "You covered all of weeks one to four: vectors, products, matrices, determinants, rank and inverses. Now take test one. You are ready.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

@@ -1,0 +1,221 @@
+[
+  {
+    "title": "Skalyar koʻpaytma",
+    "blocks": [
+      {
+        "type": "section",
+        "num": 2,
+        "title": "Skalyar koʻpaytma",
+        "subtitle": "Burchaklar, ortogonallik, proyeksiyalar",
+        "narration": "Ikkinchi bob. Skalyar koʻpaytma ikkita vektorni qabul qilib, bitta son qaytaradi — va oʻsha bir son ular orasidagi burchakni biladi. Biz burchaklarni oʻlchaymiz, perpendikulyarlikni taʼriflaymiz va bir vektorni boshqasining yoʻnalishiga proyeksiyalaymiz. Aynan shu geometriya eng kichik kvadratlar usulining va amaliy matematikaning katta qismining ortasidagi matematikadir."
+      },
+      {
+        "type": "formula",
+        "heading": "Skalyar koʻpaytma",
+        "tex": "u \\cdot v = u_1 v_1 + u_2 v_2 + \\cdots + u_n v_n",
+        "parts": [
+          { "substr": "u \\cdot v", "color": "yellow", "note": "natija — bitta son: skalyar" },
+          { "substr": "u_1 v_1", "color": "blue", "note": "mos komponentlar koʻpaytiriladi" },
+          { "substr": "u_n v_n", "color": "green", "note": "har bir juftlik yigʻindiga qoʻshiladi" }
+        ],
+        "narration": "Skalyar koʻpaytma mos komponentlarni koʻpaytirib, ularni qoʻshadi. Sariq qism: u va v ning skalyar koʻpaytmasi — yakuniy javob, bitta yagona son, skalyar, vektor emas. Koʻk qism naqshni koʻrsatadi: u ning birinchi komponenti v ning birinchi komponentiga koʻpaytiriladi. Yashil qism esa har bir juftlik, oxirgisigacha, yigʻindiga qoʻshilishini eslatadi. U teng uch, minus ikki va v teng toʻrt, besh uchun skalyar koʻpaytma oʻn ikki minus oʻn, yaʼni ikki boʻladi. Uni u transpozit marta v shaklida yozsangiz, matritsalar koʻpaytmasiga birinchi qarashimiz hosil boʻladi: qator ustunga skalyar koʻpaytiriladi. Ushbu sahna toʻrtinchi bobda yana sahnaga qaytadi."
+      },
+      {
+        "type": "concept",
+        "heading": "Skalyar koʻpaytma va burchak",
+        "bullets": [
+          "cos θ ikki yoʻnalishni solishtiradi",
+          "musbat koʻpaytma: oʻtkir burchak",
+          "manfiy: toʻmtoq, nol: toʻgʻri burchak"
+        ],
+        "formula": "\\cos\\theta = \\frac{u \\cdot v}{\\|u\\| \\, \\|v\\|}",
+        "formula_caption": "oʻqiladi: burchak kosinusi u va v koʻpaytmasini ikki uzunlik koʻpaytmasiga boʻlganiga teng",
+        "narration": "Nega bitta son burchakni toʻliq ifodalaydi? Chunki shu formula mavjud: burchak kosinusi skalyar koʻpaytma ikkita uzunlik koʻpaytmasiga boʻlinganiga teng. Skalyar koʻpaytma ikki vektor yoʻnalishi qanchalik mos kelishini oʻlchaydi. Ular bir tomonga qaraganda kosinus bir boʻladi. Perpendikulyar boʻlganda kosinus, demak skalyar koʻpaytma ham, nolga teng boʻladi. Faqatgina ishoraning oʻzi toʻliq tasnifdir: musbat skalyar koʻpaytma toʻqson darajadan kichik, oʻtkir burchakni; manfiy koʻpaytma toʻqson darajadan katta, toʻmtoq burchakni; nol esa aynan toʻgʻri burchakni bildiradi. Burchak turini bilish uchun bitta ishoraga qarash kifoya."
+      },
+      {
+        "type": "example",
+        "heading": "Misol: burchak turini aniqlash",
+        "problem": "u = (3, -2), \\; v = (4, 5); \\quad u = (3, 1), \\; v = (-2, 4)",
+        "steps": [
+          { "tex": "u \\cdot v = 3 \\cdot 4 + (-2) \\cdot 5 = 2 > 0" },
+          { "text": "musbat skalyar koʻpaytma: burchak oʻtkir" },
+          { "tex": "u \\cdot v = 3 \\cdot (-2) + 1 \\cdot 4 = -2 < 0" },
+          { "tex": "\\cos\\theta = \\frac{-2}{\\sqrt{10} \\, \\sqrt{20}} = -\\frac{\\sqrt{2}}{10} \\approx -0.141" },
+          { "tex": "\\theta \\approx 98^{\\circ}", "highlight": true }
+        ],
+        "result": "avval oʻtkir, soʻngra 98 daraja",
+        "narration": "Birinchi juftlik: u teng uch, minus ikki va v teng toʻrt, besh. Skalyar koʻpaytma oʻn ikki minus oʻn, yaʼni ikki. Musbat, demak burchak oʻtkir — va ish shu yerda tugadi; bitta ham kvadrat ildiz hisoblashga toʻgʻri kelmadi. Ikkinchi juftlik: uch, bir va minus ikki, toʻrt. Skalyar koʻpaytma minus olti plyus toʻrt, yaʼni minus ikki, demak bu burchak toʻmtoq. Aniq oʻlchamini topish uchun skalyar koʻpaytmani uzunliklarga, ildiz oʻn va ildiz yigirmaga boʻling. Kosinus taxminan minus nol butun oʻn toʻrt boʻladi, demak burchak toʻqson sakkiz daraja atrofida. Ishora bizga burchak turini bir zumda aytdi; formula esa aniq oʻlchamini yetkazdi. Ikkalasi birgalikda toʻliq javob beradi."
+      },
+      {
+        "type": "formula",
+        "heading": "Vektorga proyeksiya",
+        "tex": "\\mathrm{proj}_{v}\\,u = \\frac{u \\cdot v}{v \\cdot v}\\,v",
+        "parts": [
+          { "substr": "u \\cdot v", "color": "yellow", "note": "u v boʻylab qancha yetib boradi" },
+          { "substr": "v \\cdot v", "color": "blue", "note": "v ning kvadrat uzunligi" },
+          { "substr": "\\mathrm{proj}_{v}", "color": "green", "note": "u ning v chizigʻidagi soyasi" }
+        ],
+        "narration": "Proyeksiya — u ning v chizigʻidagi soyasidir. Yashil belgi amalning nomini bildiradi. Sariq qism, u va v ning skalyar koʻpaytmasi, u ning v yoʻnalishi boʻylab qancha yetib borishini oʻlchaydi. Koʻk qism, v va v ning koʻpaytmasi, v ning kvadrat uzunligi; unga boʻlish javobning v tasodifiy uzunligidan mustaqil boʻlishini taʼminlaydi. Natija v ning karralisi, shuning uchun u v chizigʻida yotadi. Qoldiq, yaʼni u minus proyeksiya, v ga perpendikulyar: har bir vektor v boʻylab yotgan qismga va v ga ortogonal qismga ajraladi. Ana shu parchalanish shu bobning yuragi, va u keyingi misolda qoʻl bilan tekshiriladi."
+      },
+      {
+        "type": "example",
+        "heading": "Misol: u ni v ga proyeksiyalash",
+        "problem": "u = (4, 2), \\; v = (1, 1)",
+        "steps": [
+          { "tex": "u \\cdot v = 6, \\quad v \\cdot v = 2" },
+          { "tex": "\\mathrm{proj}_{v}\\,u = \\frac{6}{2}\\,v = 3v = (3, 3)" },
+          { "tex": "u - 3v = (1, -1), \\quad (u - 3v) \\cdot v = 1 - 1 = 0", "highlight": true },
+          { "text": "u = parallel qism (3, 3) + perpendikulyar qism (1, -1)" }
+        ],
+        "result": "(3, 3)",
+        "narration": "U teng toʻrt, ikkini v teng bir, birga proyeksiyalang. Avval ikkita skalyar koʻpaytmani hisoblang: u va v — toʻrt plyus ikki, olti; v va v — bir plyus bir, ikki. Proyeksiya oltidan ikki marta v; bu uch karra v, yaʼni uch, uch vektori. Endi qoldiqni tekshiramiz: u minus uch v — bir, minus bir, uning v bilan skalyar koʻpaytmasi bir minus bir, nol — mukammal perpendikulyar. Shunday qilib, u v chizigʻi boʻylab uch, uchga va unga koʻndalang boʻlgan bir, minus birga ajraladi. Soya va xato ortogonal, va ular birgalikda u ni aynan tiklaydi. Mana bu naqsh eng kichik kvadratlar usulining ortasidagi naqshdir: maʼlumot vektordan uning proyeksiyasiga oʻtadi, xato esa perpendikulyar qoladi."
+      },
+      {
+        "type": "concept",
+        "heading": "Ortogonallik",
+        "bullets": [
+          "ortogonal — bu u·v = 0",
+          "faqat 0 vektor oʻziga ortogonal",
+          "u+v ⊥ u-v faqat uzunliklar teng boʻlsa"
+        ],
+        "formula": "u \\perp v \\Leftrightarrow u \\cdot v = 0",
+        "formula_caption": "oʻqiladi: u v ga perpendikulyar aynan u va v koʻpaytmasi nol boʻlganda",
+        "narration": "Perpendikulyar yoki ortogonal tushunchasi skalyar koʻpaytma orqali taʼriflanadi: u v ga aynan shunda ortogonalki, u va v ning skalyar koʻpaytmasi nolga teng, yaʼni burchak toʻqson daraja. Faqat nol vektor oʻziga ortogonal boʻla oladi, chunki nol boʻlmagan vektorning oʻziga skalyar koʻpaytmasi uzunligining kvadrati — har doim musbat sondir. Goʻzal bir natija: agar u plyus v va u minus v ortogonal boʻlsa, parallelogramm toʻgʻri toʻrtburchakka aylanadi va ikki vektorning uzunliklari teng boʻladi. Koʻpaytmani yoyib koʻring: oʻrta hadlar bir-birini yoʻq qiladi va faqat u normasining kvadrati minus v normasining kvadrati, nolga tengligi qoladi."
+      },
+      {
+        "type": "plot",
+        "heading": "Perpendikulyar yoʻnalishlar",
+        "functions": [
+          { "fn": "2*x", "tex": "y = 2x", "color": "yellow" },
+          { "fn": "-0.5*x", "tex": "y = -\\frac{x}{2}", "color": "blue" }
+        ],
+        "x_range": [-4, 4],
+        "y_range": [-4, 4],
+        "point": [1, 2],
+        "point_label": "(1, 2)",
+        "vline": null,
+        "narration": "Koordinata boshidan oʻtgan ikkita chiziq: sariq chiziq bir, ikki yoʻnalishiga, koʻk chiziq ikki, minus bir yoʻnalishiga ishora qiladi. Skalyar koʻpaytma bilan tekshiring: bir marta ikki plyus ikki marta minus bir — ikki minus ikki, nol. Nol koʻpaytma toʻqson graduslik burchakni bildiradi: chiziqlar perpendikulyar. Bu rasmni yodlab olishga arziydi, chunki ortogonallik — chiziqli algebraning mustaqil yoʻnalishlarni rasmiylashtirish usulidir. Shuni ham payqang: vektorlarning birortasini karralilash, chiziq boʻylab qayerga siljitishdan qatʼi nazar, toʻgʻri burchakka umuman taʼsir qilmaydi. Perpendikulyarlik — uzunliklarning emas, yoʻnalishlarning xossasidir."
+      },
+      {
+        "type": "example",
+        "heading": "Misol: ortogonallik uchun k ni topish",
+        "problem": "u = (2, k, 3), \\; v = (-1, 4, 2), \\quad u \\perp v",
+        "steps": [
+          { "tex": "u \\cdot v = -2 + 4k + 6 = 4k + 4" },
+          { "tex": "4k + 4 = 0 \\; \\Rightarrow \\; k = -1", "highlight": true },
+          { "text": "tekshirish: (2, -1, 3) · (-1, 4, 2) = -2 - 4 + 6 = 0" }
+        ],
+        "result": "k = -1",
+        "narration": "Biz u ni v ga ortogonal qiladigan nomaʼlum k ni qidirmoqdamiz. Ortogonallik — bu tenglama: skalyar koʻpaytma nol boʻlishi shart. Hisoblaymiz: ikki marta minus bir minus ikki, plyus toʻrt k, plyus uch marta ikki, yaʼni olti; jami toʻrt k plyus toʻrt. Uni nolga tenglashtiring va k minus bir boʻladi. Topgan qiymat bilan tekshiring: ikki, minus bir, uch vektorini minus bir, toʻrt, ikkiga skalyar koʻpaytirsak minus ikki, minus toʻrt, plyus oltini olamiz — nol. Bitta nomaʼlum, bitta tenglama: ortogonallik masalalari har doim shunday bevosita, chunki skalyar koʻpaytma geometriyani oddiy algebraga aylantiradi. Vektor ichidagi parametr har doim bitta nomaʼlumli bitta chiziqli tenglama degan xabarni beradi."
+      },
+      {
+        "type": "recap",
+        "items": [
+          "u·v: moslarni koʻpaytir, qoʻsh",
+          "cos θ = u·v / (||u||·||v||)",
+          "musbat oʻtkir, nol toʻgʻri, manfiy toʻmtoq",
+          "proj_v u = (u·v / v·v)·v",
+          "u ⊥ v faqat u·v = 0 boʻlganda"
+        ],
+        "narration": "Ikkinchi bob bir nafasda. Skalyar koʻpaytma mos komponentlarni koʻpaytirib qoʻshadi. Uzunliklarga boʻlsangiz, burchak kosinusini olasiz: musbat — oʻtkir, nol — toʻgʻri, manfiy — toʻmtoq. Proyeksiya formulasi u ning v boʻylab soyasini beradi, ortogonallik esa shunchaki nol skalyar koʻpaytmadir. Bu bobdagi har bir fakt oʻsha bir sondan oqib chiqadi. Ushbu beshta qoidani yodda saqlang — keyingi boblarda ular yana ishga tushadi."
+      }
+    ]
+  },
+  {
+    "title": "Vektor koʻpaytma",
+    "blocks": [
+      {
+        "type": "section",
+        "num": 3,
+        "title": "Vektor koʻpaytma",
+        "subtitle": "Fazodagi normallar va yuzalar",
+        "narration": "Uchinchi bob. Vektor koʻpaytma faqat uch oʻlchovli fazoda mavjud boʻlib, u bir vaqtda ikkita savolga javob beradi: berilgan ikki vektorga qaysi yoʻnalish perpendikulyar va ular qurgan parallelogrammning yuzi qancha? Bitta formula uchta javobni birga yetkazadi: normal vektor, yuza va parallellik testi. Uchalasi ham bitta hisobdan olinadi — buni misollar orqali koʻramiz."
+      },
+      {
+        "type": "formula",
+        "heading": "Vektor koʻpaytmaning taʼrifi",
+        "tex": "u \\times v = \\begin{pmatrix} u_2 v_3 - u_3 v_2 \\\\ u_3 v_1 - u_1 v_3 \\\\ u_1 v_2 - u_2 v_1 \\end{pmatrix}",
+        "parts": [
+          { "substr": "u_2 v_3 - u_3 v_2", "color": "yellow", "note": "birinchi komponent: birinchi indeks tashlanadi" },
+          { "substr": "u_3 v_1 - u_1 v_3", "color": "blue", "note": "ikkinchi komponent: ikkinchi indeks tashlanadi" },
+          { "substr": "u_1 v_2 - u_2 v_1", "color": "green", "note": "uchinchi komponent: uchinchi indeks tashlanadi" }
+        ],
+        "narration": "Ikkita uch oʻlchovli vektorning vektor koʻpaytmasi — komponentma-komponent qurilgan yangi vektor. Sariq qism birinchi komponent: u ning ikkinchisi v ning uchinchisiga koʻpaytirilib, undan u ning uchinchisi v ning ikkinchisi koʻpaytmasi ayiriladi; birinchi indeks tashlab ketilgan. Koʻk qism ikkinchi komponent boʻlib, ikkinchi indeksni tashlaydi: uchinchisi birinchiga, minus birinchisi uchinchisiga. Yashil qism uchinchi indeksni tashlaydi: birinchisi ikkinchiga, minus ikkinchisi birinchiga. Har bir qator yashirin holdagi ikki ikki determinant boʻlib, bir-ikki-uch tsiklik naqshi — odamlarning formulani eslab qolish usuli. Natija ikkala kirishga ham perpendikulyar, va buni keyingi misolda raqamlar bilan tekshiramiz."
+      },
+      {
+        "type": "example",
+        "heading": "Misol: vektor koʻpaytmani hisoblash",
+        "problem": "u = (2, 0, 2), \\; v = (-1, 2, 0)",
+        "steps": [
+          { "tex": "u \\times v = \\begin{pmatrix} 0 \\cdot 0 - 2 \\cdot 2 \\\\ 2 \\cdot (-1) - 2 \\cdot 0 \\\\ 2 \\cdot 2 - 0 \\cdot (-1) \\end{pmatrix} = \\begin{pmatrix} -4 \\\\ -2 \\\\ 4 \\end{pmatrix}" },
+          { "tex": "(u \\times v) \\cdot u = -8 + 0 + 8 = 0" },
+          { "tex": "(u \\times v) \\cdot v = 4 - 4 + 0 = 0", "highlight": true },
+          { "text": "ikkala kirishga ham perpendikulyar — haqiqiy normal vektor" }
+        ],
+        "result": "(-4, -2, 4)",
+        "narration": "U teng ikki, nol, ikkini v teng minus bir, ikki, nolga koʻpaytiring. Birinchi komponent: nol marta nol minus ikki marta ikki — minus toʻrt. Ikkinchi: ikki marta minus bir minus ikki marta nol — minus ikki. Uchinchi: ikki marta ikki minus nol marta minus bir — toʻrt. Demak, vektor koʻpaytma minus toʻrt, minus ikki, toʻrt. Endi nazariya vaʼda qilgan tekshiruv: uni u ga skalyar koʻpaytiring — minus sakkiz plyus nol plyus sakkiz, nol. Endi v ga koʻpaytiring — toʻrt minus toʻrt plyus nol, yana nol. Natija ikkala kirishga ham perpendikulyar — formulaning kafolatlaganidek haqiqiy normal vektor. Shu ketma-ketlik bilan fazodagi istalgan tekislikka normal topiladi."
+      },
+      {
+        "type": "concept",
+        "heading": "Vektor koʻpaytmaning xossalari",
+        "bullets": [
+          "u×v = -(v×u): tartib muhim",
+          "u×v ham u, ham v ga ⊥",
+          "parallel vektorlar: u×v = 0"
+        ],
+        "formula": "u \\times v = -(v \\times u)",
+        "formula_caption": "oʻqiladi: u va v vektor koʻpaytmasi v va u koʻpaytmasining manfiyiga teng",
+        "narration": "Uchta xossa. Birinchisi, vektor koʻpaytma antikommutativ: kirishlarning oʻrnini almashtirish ishorani oʻzgartiradi, shuning uchun u kesish v va v kesish u qarama-qarshi yoʻnalishlarga ishora qiladi. Ikkinchisi, natija har doim ikkala kirishga perpendikulyar — aynan shu xossa vektor koʻpaytmaga tekislikka normal vektor topishning standart usuli maqomini beradi. Uchinchisi, parallel vektorlar koʻpaytma nol beradi: yuza yoʻq, perpendikulyar yoʻnalish qolmagan. Nozik qoʻshimcha: u kesish v ham u, ham v ga perpendikulyar boʻlgani uchun ularning har qanday kombinatsiyasiga ham perpendikulyar. Masalan, uning u plyus v bilan skalyar koʻpaytmasi nolga teng boʻladi."
+      },
+      {
+        "type": "example",
+        "heading": "Misol: uchburchak yuzi",
+        "problem": "P = (1, 0, 1), \\; Q = (3, 1, 0), \\; R = (0, 2, 4)",
+        "steps": [
+          { "tex": "\\vec{PQ} = (2, 1, -1), \\quad \\vec{PR} = (-1, 2, 3)" },
+          { "tex": "\\vec{PQ} \\times \\vec{PR} = (5, -5, 5)" },
+          { "tex": "\\|\\vec{PQ} \\times \\vec{PR}\\| = \\sqrt{75} = 5\\sqrt{3}" },
+          { "tex": "S = \\frac{1}{2} \\cdot 5\\sqrt{3}", "highlight": true }
+        ],
+        "result": "5·sqrt(3)/2",
+        "narration": "P, Q va R uchburchak yuzini topish uchun bitta uchdan ikkita qirra vektor quring: P Q — ikki, bir, minus bir, P R — minus bir, ikki, uch. Ularning vektor koʻpaytmasi: birinchi komponent — bir marta uch minus minus bir marta ikki — besh; ikkinchi — bir minus olti — minus besh; uchinchisi — toʻrt plyus bir — besh. Besh, minus besh, besh vektorining uzunligi yetmish beshning kvadrat ildizi, yaʼni besh ildiz uch. Bu — parallelogramm yuzi; uchburchak uning aynan yarmi, besh ildiz uch boʻluv ikki. Vektor koʻpaytma, norma, ikkiga boʻlish — toʻliq retsept mana shu uch qadamdan iborat. Uni yodlab qoʻying."
+      },
+      {
+        "type": "concept",
+        "heading": "Vektor koʻpaytma yuza sifatida",
+        "bullets": [
+          "parallelogramm yuzi = ||u×v||",
+          "= ||u||·||v||·|sin θ|",
+          "uchburchak: parallelogrammning yarmi"
+        ],
+        "formula": "\\|u \\times v\\| = \\|u\\| \\, \\|v\\| \\, |\\sin\\theta|",
+        "formula_caption": "oʻqiladi: u kesish v normasi asosga balandlikni koʻpaytirganga teng",
+        "narration": "Vektor koʻpaytmaning uzunligi oʻziga xos geometrik maʼnoga ega: bu — ikki vektor qurgan parallelogrammning yuzasi. Sabab — asosga koʻpaytirilgan balandlik: asos u ning normasi, balandlik esa v ning normasi oradagi burchak sinusi bilan koʻpaytirilgani. Koʻpaytirsangiz, formula chiqadi: u normasi marta v normasi marta teta sinusining moduli. Perpendikulyar vektorlar sinus bir beradi — maksimal yuza. Parallel vektorlar sinus nol beradi va parallelogramm yiqilib, chiziqqa aylanadi. Uchburchak — parallelogrammning yarmi — uchun vektor koʻpaytma normasining yarmini oling. Shu ikki holat orasidagi barcha burchaklar ham xuddi shu formula bilan oʻlchanadi."
+      },
+      {
+        "type": "example",
+        "heading": "Misol: vektor koʻpaytma qachon nol boʻladi?",
+        "problem": "a = (1, t, 2), \\; b = (3, 6, 6), \\quad a \\times b = 0",
+        "steps": [
+          { "tex": "a \\times b = 0 \\; \\Rightarrow \\; a = c \\cdot b" },
+          { "tex": "1 = 3c, \\; 2 = 6c \\; \\Rightarrow \\; c = \\frac{1}{3}" },
+          { "tex": "t = 6c = 2", "highlight": true },
+          { "text": "tekshirish: (1, 2, 2) = (3, 6, 6) ning uchdan biri — parallel" }
+        ],
+        "result": "t = 2",
+        "narration": "Vektor koʻpaytma aynan vektorlar parallel boʻlganda — biri boshqasining skalyar karralisi boʻlganda — nolga teng. A teng c marta b deb yozing va komponentlarni solishtiring. Birinchi: bir teng uch c, demak c uchdan bir. Uchinchi: ikki teng olti c — xuddi shu uchdan bir, mos keladi. Oʻrta komponent t ni belgilaydi: t teng olti c, yaʼni ikki. Tekshiring: bir, ikki, ikki haqiqatan uch, olti, oltining uchdan biridir. Demak, t teng ikki — vektor koʻpaytma nolga aylanadigan yagona qiymat: vektorlar parallel boʻlib, hech qanday yuza qurmaydi. Agar qaysidir komponent mos kelmaganida, bitta c umuman mavjud boʻlolmas edi."
+      },
+      {
+        "type": "recap",
+        "items": [
+          "u×v faqat 3D fazoda mavjud",
+          "tsiklik formula, komponentma-komponent",
+          "ikkala kirishga ⊥; tartib ishorani oʻzgartiradi",
+          "parallelogramm yuzi = ||u×v||",
+          "uchburchak yuzi = uning yarmi"
+        ],
+        "narration": "Uchinchi bob siqilgan holda. Vektor koʻpaytma faqat uch oʻlchovda yashaydi va tsiklik komponent formulasiga boʻysunadi. Omillar tartibi almashtirilganda ishorasini oʻzgartiradi va ikkala kirishga perpendikulyar boʻladi. Uning uzunligi — parallelogramm yuzi, yarmi — uchburchak yuzi, va u aynan parallel vektorlar uchun nolga aylanadi. Bu uch xossa testda eng koʻp uchraydigan savollardan hisoblanadi."
+      }
+    ]
+  }
+]

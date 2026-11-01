@@ -1,0 +1,741 @@
+{
+  "id": "math1_w14",
+  "language": "uz",
+  "course_title": "Matematika I — matematik analiz",
+  "test_title": "1–4-haftalar · Toʻliq qoʻllanma",
+  "subtitle": "Son toʻplamlari · Kompleks sonlar · Funksiyalar · Limitlar",
+  "chapters": [
+    {
+      "title": "Son toʻplamlari va yozuv",
+      "blocks": [
+        {
+          "type": "title",
+          "narration": "Matematika I fanining birinchi dan toʻrtinchi haftalari boʻyicha toʻliq video qoʻllanmaga xush kelibsiz. Keyingi yarim soat ichida biz son toʻplamlari va kompleks sonlardan boshlab, funksiyalar orqali oʻtib, matematik tahlilning yuragiga — limitlarga yetib kelamiz. Yakuniga kelib siz limitlarni limit qoidalari yordamida hisoblay olasiz, noaniq koʻrinishlarni yechib tashlaysiz va funksiyalarni Landau belgilari bilan taqqoslaysiz. Bu materiallarning hammasi toʻgʻridan-toʻgʻri sizning oʻquv qoʻllanmangizdan olingan. Video oxirida sizda ham limit hisobi, ham taqqoslash tili tayyor boʻladi. Boshladik."
+        },
+        {
+          "type": "section",
+          "num": 1,
+          "title": "Son toʻplamlari va yozuv",
+          "subtitle": "har bir son yashaydigan toʻplamlar",
+          "narration": "Birinchi bob. Matematik tahlil biror xulosa chiqarishidan oldin, sonlar qayerda yashashini aniq bilishimiz kerak. Qanday son toʻplamlari mavjud va ular bir-biriga qanday ichma-ich joylashgan? Pozitsion tizimlar sonlarni turli asoslar bilan qanday yozadi? Va ilmiy hamda muhandislik yozuvi juda katta hamda juda kichik qiymatlar bilan qanday ishlaydi? Javoblar — shu bobning uchta blokida."
+        },
+        {
+          "type": "concept",
+          "heading": "Son toʻplamlarining ichma-ichligi",
+          "bullets": [
+            "natural sonlar N — sanash sonlari",
+            "butun sonlar Z: 0 va manfiylar qoʻshiladi",
+            "ratsional sonlar Q: a/b kasrlar",
+            "haqiqiy R, soʻngra kompleks C"
+          ],
+          "formula": "N \\subseteq Z \\subseteq Q \\subseteq R \\subseteq C",
+          "formula_caption": "oʻqiladi: N — Z qismi, Z — Q qismi, Q — R qismi, R — C qismi",
+          "narration": "Har bir son beshta ichma-ich toʻplamdan birida yashaydi. Natural sonlar — sanash sonlari. Nol va manfiy sonlarni qoʻshsangiz, butun sonlar paydo boʻladi. Ratsional sonlar — bu aynan kasrlar: a boʻluv b, bunda a va be butun sonlar, b esa noldan farqli. Haqiqiy sonlar irratsional sonlarni qoʻshadi: ikkining kvadrat ildizi va pi kabi, ularning oʻnli yozuvi hech qachon takrorlanmaydi. Kompleks sonlar, a plyus be i, hammasini oʻz ichiga oladi. Formulani oʻqiymiz: N — Z ning qismi, Z — Q ning qismi, Q — R ning qismi, R — C ning qismi. Sonning eng tor toʻplami — uning uyidir. Misol: minus uch — butun, demak u ratsional, haqiqiy va kompleks ham; lekin uning uyi — butun sonlar, eng tor qavat."
+        },
+        {
+          "type": "concept",
+          "heading": "Pozitsion sanoq tizimlari",
+          "bullets": [
+            "b asosda raqamlar 0 … b−1",
+            "qiymat = raqamlar × b darajalari",
+            "13 = ikkilikda 1101 = oʻn oltilikda D",
+            "ikkilik tizim: ikki ishonchli holat"
+          ],
+          "formula": "(a_n \\ldots a_1 a_0)_b = \\sum_{k=0}^{n} a_k b^k",
+          "formula_caption": "b asosdagi yozuv — raqamlarni b darajalariga koʻpaytirib qoʻshish",
+          "narration": "Asosi b boʻlgan pozitsion tizim har bir sonni raqamlar koʻpaytmasi, b ning darajalari koʻrinishida yozadi; har bir raqam noldan b minus birgacha olinadi. Bir qiymatning yozuvi koʻp boʻlishi mumkin: oʻn uch — ikkilikda bir-bir-nol-bir, sakkizlikda bir-besh, oʻn oltilikda esa D, bu yerda A dan F gacha harflar oʻndan oʻn beshgacha qiymatlarni belgilaydi. Ekrandagi formula har qanday yozuvni qiymatga qaytaradi: raqamlarni darajalarga koʻpaytirib, qoʻshib chiqishingiz kifoya. Nega esa kompyuterlar ikkilikda hisoblaydi? Chunki elektronika aniq ikkita holatni ishonchli ajratadi: oʻchirilgan va yoqilgan. Xar qanday yozuvni qiymatga aylantirish — shunchaki koʻpaytirib qoʻshish."
+        },
+        {
+          "type": "concept",
+          "heading": "Ilmiy va muhandislik yozuvi",
+          "bullets": [
+            "ilmiy: nuqtadan oldin bitta raqam",
+            "muhandislik: koʻrsatkich 3 ga karrali",
+            "koʻrsatkich SI prefiksi bilan juftlashadi",
+            "5 mW va 5 MW: katta-kichik harf muhim!"
+          ],
+          "formula": "z = a \\times 10^n,\\ 1 \\leq |a| < 10; \\quad z = a \\times 10^{3k},\\ 1 \\leq |a| < 1000",
+          "formula_caption": "avval ilmiy shakl, keyin muhandislik shakli",
+          "narration": "Ilmiy yozuv sonning tartibini ajratib koʻrsatadi: koeffitsient a — nuqtadan oldin aynan bitta nol boʻlmagan raqam bilan — oʻnning darajasiga koʻpaytirilgan; bir a dan katta emas, a esa oʻndan kichik qoladi. Muhandislik yozuvi yana bir qadam tashlaydi: koʻrsatkich uchga karrali boʻlishi shart, shuning uchun u toʻgʻridan-toʻgʻri SI prefiksi bilan juftlashadi: kilo, mega, milli, mikro. Katta-kichik harf hal qiluvchi ahamiyatga ega: kichik m bilan yozilgan besh milli vatt va katta M bilan yozilgan besh mega vatt bir milliard marta farq qiladi. Arifmetika ham yengillashadi: koeffitsientlar koʻpaytiriladi, koʻrsatkichlar qoʻshiladi. Amaliy misol: uch ming toʻrt yuz — uch nuqta toʻrt marta oʻnning uchinchi darajasi; nol nuqta nol nol bes — bes marta oʻnning minus toʻrtinchi darajasi."
+        },
+        {
+          "type": "table",
+          "heading": "SI prefikslari zinapoyasi",
+          "columns": ["Prefiks", "Belgi", "Daraja"],
+          "rows": [
+            ["giga", "G", "10⁹"],
+            ["mega", "M", "10⁶"],
+            ["kilo", "k", "10³"],
+            ["milli", "m", "10⁻³"],
+            ["mikro", "µ", "10⁻⁶"],
+            ["nano", "n", "10⁻⁹"]
+          ],
+          "narration": "Butun semestr davomida ishlatadigan prefikslar zinapoyasi — uni tepadan pastga oʻqing. Giga, katta ge: oʻnning toʻqqizinchi darajasi. Mega, katta em: oʻnning oltinchi darajasi. Kilo, kichik ka: oʻnning uchinchi darajasi. Endi birdan pastga tushamiz: milli, kichik em, — oʻnning minus uchinchi darajasi; mikro, yunoncha myu harfi, — minus oltinchi; nano, kichik en, — minus toʻqqizinchi. Tera yuqorida turadi, piko esa pastda davom etadi. Belgilarni katta-kichik harflari bilan birga yodlang: harf oʻlchami mazmunni olib yuradi. Darajalarni koʻraksiz songa aylantirishni mashq qiling — test vaqtini tejaydi."
+        },
+        {
+          "type": "example",
+          "heading": "Ratsionalmi yoki irratsionalmi?",
+          "problem": "0.375, \\quad 0.272727\\ldots, \\quad \\sqrt{50}, \\quad (1 + \\sqrt{5})(1 - \\sqrt{5})",
+          "steps": [
+            { "tex": "0.375 = \\frac{375}{1000} = \\frac{3}{8}" },
+            { "tex": "0.272727\\ldots = \\frac{27}{99} = \\frac{3}{11}" },
+            { "tex": "\\sqrt{50} = \\sqrt{25} \\cdot \\sqrt{2} = 5\\sqrt{2}" },
+            { "tex": "(1 + \\sqrt{5})(1 - \\sqrt{5}) = 1 - 5 = -4", "highlight": true }
+          ],
+          "result": "uchtasi ratsional; 5√2 irratsional",
+          "narration": "Toʻrt son — toʻrt hukm. Birinchisi: nol nuqta uch yetti besh — yozuvi cheklangan, demak son ratsional: uch yuz yetmish bes boʻluv ming qisqarib, uch boʻluv sakkiz boʻladi. Ikkinchisi: ikki-yetti bloki abadiy takrorlanadi, demak u ham ratsional: yigirma yetti boʻluv toʻqson toʻqqiz qisqarib, uch boʻluv oʻn bir boʻladi. Uchinchisi: ellikning kvadrat ildizi — bes koʻpaytma ildiz ikki; ildiz ikki irratsional boʻlgani uchun bes ildiz ikki ham irratsional. Toʻrtinchisi: qoʻshma koʻpaytuvchilarni oching — bir minus besh, minus toʻrt boʻladi, bu ratsional. Qoida: oʻnli kasr faqat cheklangan yoki davriy boʻlgandagina ratsionaldir, qoʻshma koʻpaytuvchilar esa har doim ildizni yoʻq qiladi. Bu testdagi har qanday tasnif savolini hal qiladi. Yana bir belgi: pi — nol nuqta bir toʻrt bir besh toʻqqiz va abadiy davom etadi, davriy emas — klassik irratsional qoʻshni."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "beshta ichma-ich toʻplam: N dan C gacha",
+            "b asos: raqamlar × b darajalari",
+            "cheklangan yoki davriy ⇔ ratsional",
+            "muhandislik: koʻrsatkich uchga karrali"
+          ],
+          "narration": "Birinchi bob mustahkamlandi. Beshta ichma-ich son toʻplami — naturallardan komplekslargacha. Pozitsion tizimlar sonni raqamlar koʻpaytmasi, asos darajalari koʻrinishida yozadi: bir qiymat — koʻp yozuv. Cheklangan va davriy kasrlar — aynan ratsional sonlardir. Muhandislik yozuvi esa koʻrsatkichni uchga karrali, SI prefiksi bilan juft ushlab turadi. Keyingi manzil: kompleks sonlar. U yerda algebra toʻliq yopiladi."
+        }
+      ]
+    },
+    {
+      "title": "Kompleks sonlar",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 2,
+          "title": "Kompleks sonlar",
+          "subtitle": "haqiqiy oʻqdan tashqaridagi algebra",
+          "narration": "Ikkinchi bob. Iks kvadrat plyus bir teng nol tenglamasining haqiqiy yechimi yoʻq. Kompleks sonlar ana shu boʻshliqni toʻldiradi. Biz mavhum birlikni belgilaymiz, a plyus be i shaklida amallar bajarimiz, qoʻshma va modul bilan tanishamiz va daraja hamda ildizlarni osonlashtiruvchi trigonometrik shaklni ochamiz."
+        },
+        {
+          "type": "concept",
+          "heading": "Mavhum birlik",
+          "bullets": [
+            "i² = −1 deb belgilanadi",
+            "z = a + bi: haqiqiy qism a, mavhum qism b",
+            "tenglik: ikkala qism alohida mos",
+            "i ning darajalari tsikl: i, −1, −i, 1"
+          ],
+          "formula": "i^2 = -1, \\quad z = a + bi, \\quad i^{n+4} = i^n",
+          "formula_caption": "i kvadrat minus bir; darajalar toʻrt qadamda takrorlanadi",
+          "narration": "Mavhum birlik i bitta xossa bilan belgilanadi: i kvadrat minus birga teng. Kompleks son — bu ze = a plyus be i: haqiqiy qism a, mavhum qism be. Ikkita kompleks son faqat ikkala qismi alohida-alohida mos kelganda teng boʻladi. i ning darajalari esa toʻrt davrli tsikl qiladi: birinchi daraja — i, ikkinchi — minus bir, uchinchi — minus i, toʻrtinchi — bir, keyin naqsh qaytadan boshlanadi. Katta koʻrsatkichni toʻrtga boʻlib, faqat qoldigʻini oling: qoldigʻi hamma narsani hal qiladi. Misol: i ning ikki ming yigirma uchinchi darajasi — qoldiq uch, demak javob minus i."
+        },
+        {
+          "type": "concept",
+          "heading": "Qoʻshma va modul",
+          "bullets": [
+            "qoʻshma be ning ishorasini almashtiradi",
+            "modul = √(a² + b²)",
+            "z · z̄ = |z|² — boʻlishga kalit",
+            "qoʻshma — haqiqiy oʻqqa nisbatan aks"
+          ],
+          "formula": "\\bar{z} = a - bi, \\quad |z| = \\sqrt{a^2 + b^2}, \\quad z\\bar{z} = |z|^2",
+          "formula_caption": "ze ning qoʻshmasi va ze ning moduli",
+          "narration": "Ikki vosita kompleks amallarni osonlashtiradi. a plyus be i ning qoʻshmasi — a minus be i; geometrik nuqtai nazardan — haqiqiy oʻqqa nisbatan oyna aksi. Modul — koordinatalar boshlanishigacha boʻlgan masofa: a kvadrat plyus be kvadratning kvadrat ildizi. Endi ze ni oʻz qoʻshmasiga koʻpaytirsangiz, chatqoch hadlar yoʻqoladi va a kvadrat plyus be kvadrat — modulning kvadrati — qoladi. Mana shu tenglik boʻlishni quvvatlaydi: kompleks songa boʻlish uchun surat va maxrajni maxrajning qoʻshmasiga koʻpaytiring — maxraj oddiy haqiqiy songa, modul kvadratiga aylanadi. Bu juftlik kvadrat tenglamalarning kompleks ildizlarini ham yigʻib beradi."
+        },
+        {
+          "type": "example",
+          "heading": "Kompleks sonlar bilan toʻrt amal",
+          "problem": "z_1 = 3 + 2i, \\quad z_2 = 1 - 4i",
+          "steps": [
+            { "tex": "z_1 + z_2 = (3 + 1) + (2 - 4)i = 4 - 2i" },
+            { "tex": "z_1 - z_2 = (3 - 1) + (2 + 4)i = 2 + 6i" },
+            { "tex": "z_1 z_2 = (3 + 8) + (-12 + 2)i = 11 - 10i" },
+            { "tex": "\\frac{z_1}{z_2} = \\frac{(3 + 2i)(1 + 4i)}{(1 - 4i)(1 + 4i)} = \\frac{-5 + 14i}{17}", "highlight": true }
+          ],
+          "result": "4 − 2i; 2 + 6i; 11 − 10i; (−5 + 14i)/17",
+          "narration": "Ze bir — uch plyus ikki i, ze ikki — bir minus toʻrt i boʻlsin. Qoʻshish va ayirish qismma-qism kechadi: yigʻindi — toʻrt minus ikki i; ayirma — ikki plyus olti i. Koʻpaytmada qavslarni oching va i kvadratning minus bir ekanini eslab qoling: haqiqiy qism — uch plyus sakkiz, yaʼni oʻn bir; mavhum qism — minus oʻn ikki plyus ikki, yaʼni minus oʻn. Koʻpaytma: oʻn bir minus oʻn i. Nisbatda esa yuqorini va pastni bir plyus toʻrt i ga — maxrajning qoʻshmasiga — koʻpaytiring: past oʻn yettiga, yuqori minus besh plyus toʻrt i ga aylanadi. Demak nisbat: minus besh oʻn yettidan plyus toʻrt oʻn yettidan i. Toʻrttala javob ham — yana a plyus be i koʻrinishidagi sonlar."
+        },
+        {
+          "type": "formula",
+          "heading": "Trigonometrik va koʻrsatkichli shakl",
+          "tex": "z = r(\\cos\\theta + i\\sin\\theta) = re^{i\\theta}, \\quad r = |z|",
+          "parts": [
+            { "substr": "r = |z|", "color": "yellow", "note": "modul — boshlanishgacha masofa" },
+            { "substr": "\\theta", "color": "blue", "note": "argument — burchak" },
+            { "substr": "e^{i\\theta}", "color": "green", "note": "Eylerning koʻrsatkichlarga koʻprigi" }
+          ],
+          "narration": "Har bir kompleks sonni a plyus be i shakli oʻrniga qutbiy koordinatalar bilan ham berish mumkin. Sariq qism: er — modul, koordinatalar boshlanishigacha boʻlgan masofa. Koʻk teta — argument: musbat haqiqiy yarim oʻqdan oʻlchanadigan burchak; kvadrantga eʼtibor bering, chunki yolgʻiz tangens ikki qiymat beradi. Yashil qism — Eylerning koʻprigi: e darajada i teta, kosinus teta plyus i sinus teta ga teng, shuning uchun trigonometrik shakl sof koʻrsatkichli shaklga aylanadi. Koʻpaytirish modullarni koʻpaytiradi va burchaklarni qoʻshadi, darajalar esa Muavr qoidasiga boʻysunadi. Mashhur bonus: e darajada i pi plyus bir teng nol. Kvadrantni a va be ning ishoralaridan tekshiring: ikkalasi musbat — birinchi, ikkalasi manfiy — uchinchi."
+        },
+        {
+          "type": "example",
+          "heading": "Muavr formulasi: (√3 + i)⁴",
+          "problem": "(\\sqrt{3} + i)^4",
+          "steps": [
+            { "tex": "|\\sqrt{3} + i| = \\sqrt{3 + 1} = 2" },
+            { "tex": "\\theta = \\arctan\\frac{1}{\\sqrt{3}} = \\frac{\\pi}{6}" },
+            { "tex": "\\sqrt{3} + i = 2e^{i\\pi/6}" },
+            { "tex": "(\\sqrt{3} + i)^4 = 16e^{i\\,4\\pi/6} = 16e^{i2\\pi/3}" },
+            { "tex": "= 16\\left(-\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i\\right) = -8 + 8\\sqrt{3}\\,i", "highlight": true }
+          ],
+          "result": "−8 + 8√3·i",
+          "narration": "Ildiz uch plyus i ning toʻrtinchi darajasini hisoblaymiz. Avval qutbiy maʼlumotlar. Modul: uch plyus bir — ildizi, ikki. Burchak: tangens teta bir boʻluv ildiz uchga teng, demak teta — pi oltidan bir. Koʻrsatkichli shakl: ikki e darajada i pi oltidan bir. Endi Muavr ishga tushadi: modulni toʻrtinchi darajaga koʻtaring — oʻn olti — va burchakni toʻrtga koʻpaytiring: ikki pi uchdan bir. Demak kerak: oʻn olti koʻpaytma kosinus ikki pi uchdan bir plyus i sinus ikki pi uchdan bir. Kosinus — minus bir ikkidan; sinus — ildiz uch ikkidan. Javob: minus sakkiz plyus sakkiz ildiz uchli i. Ikkilangan kvadratlash buni tasdiqlaydi. Diqqat: modul darajaga koʻtariladi, burchak esa koʻpaytiriladi — butun tejamkorlik shunda."
+        },
+        {
+          "type": "example",
+          "heading": "−8 ning hamma kub ildizlari",
+          "problem": "z^3 = -8",
+          "steps": [
+            { "tex": "-8 = 8e^{i(\\pi + 2k\\pi)}" },
+            { "text": "har bir ildizning moduli: 8 ning kub ildizi = 2" },
+            { "tex": "z_k = 2e^{i(\\pi + 2k\\pi)/3}, \\quad k = 0, 1, 2" },
+            { "tex": "z_0 = 1 + \\sqrt{3}i, \\quad z_1 = -2, \\quad z_2 = 1 - \\sqrt{3}i", "highlight": true }
+          ],
+          "result": "1 + √3·i, −2, 1 − √3·i",
+          "narration": "Ze kub teng minus sakkiz tenglamasining barcha kompleks yechimlarini topamiz. Minus sakkizni sakkiz e darajada i pi koʻrinishida yozamiz, toʻliq aylanishlarni — ikki ka pi — qoʻshib boramiz. Kub ildizlarning moduli — sakkizning kub ildizi, ikki — argumentlari esa pi plyus ikki ka pi boʻluv uch. Ka nolda: ikki e darajada i pi uchdan bir — bir plyus ildiz uchli i. Ka birda: ikki e darajada i pi — minus ikki, yagona haqiqiy ildiz. Ka ikkida: ikki e darajada i besh pi uchdan bir — bir minus ildiz uchli i. Geometrikada: radius ikki aylanasi ustida teng joylashgan uch nuqta — teng tomonli uchburchak. Uch ildizning yigʻindisi nolga teng — simmetriya algebrada ham seziladi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "i² = −1; darajalar toʻrt davrli",
+            "z · z̄ = |z|²",
+            "trigonometrik shakl: z = r·e^(iθ)",
+            "n ta ildiz — muntazam n koʻpburchak"
+          ],
+          "narration": "Ikkinchi bob bir nafasda. Mavhum birlik i kvadrat minus bir shartini qanoatlantiradi, uning darajalari toʻrt davrli tsikl qiladi. Qoʻshmaga koʻpaytirish boʻlishni haqiqiy arifmetikaga aylantiradi. Trigonometrik shakl, ze teng er koʻpaytma e darajada i teta, Muavr orqali darajalarni oson qiladi, sonning en ta ildizi esa muntazam en koʻpburchak hosil qiladi. Keyingi: funksiyalar."
+        }
+      ]
+    },
+    {
+      "title": "Funksiyalar",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "Funksiyalar",
+          "subtitle": "bitta kirish, aynan bitta chiqish",
+          "narration": "Uchinchi bob. Funksiyalar — matematikaning mashinalari: bitta kirish, aynan bitta chiqish. Biz ularni aniq belgilaymiz, tabiiy aniqlanish sohalarini topamiz, simmetriyasini tekshiramiz, kompozitsiya bilan zanjirlaymiz va teskari funksiyalar orqali qaytaramiz. Soʻngra koʻrsatkichli funksiyalar va logarifmlar kursdagi har bir oʻsish modelini quvvatlaydi."
+        },
+        {
+          "type": "concept",
+          "heading": "Funksiya nima?",
+          "bullets": [
+            "har bir kirish — aynan bitta chiqish",
+            "aniqlanish sohasi D = ruxsat etilgan kirishlar",
+            "qiymatlar sohasi = hosil boʻlgan chiqishlar",
+            "grafikda vertikal chiziq testi"
+          ],
+          "formula": "f : D \\to R, \\quad x \\mapsto f(x)",
+          "formula_caption": "ef D ni haqiqiy sonlarga koʻchiradi; iks — ef iks ga",
+          "narration": "Funksiya — bu D aniqlanish sohasidagi har bir iks kirishiga aynan bitta chiqish, ef iks, beradigan qoida. Aynan bitta — butun shartnomaning mazmuni shunda. Aniqlanish sohasi ruxsat etilgan kirishlarni, qiymatlar sohasi esa haqiqatda hosil boʻlgan chiqishlarni yigʻadi. Grafikda shartnomani vertikal chiziq testi nazorat qiladi: istalgan vertikal chiziq rasmni koʻpi bilan bir marta kesib oʻtishi kerak. Toʻliq doira bu testdan yiqiladi: u yerda deyarli har bir iks ga ikkita igrek qiymati mos keladi. Yozuv shunday oʻqiladi: ef D ni haqiqiy sonlarga koʻchiradi, iks esa ef iks ga oʻtadi. Mashina metaforasi: kirish — xomashyo, chiqish — mahsulot."
+        },
+        {
+          "type": "concept",
+          "heading": "Tabiiy aniqlanish sohasi",
+          "bullets": [
+            "boʻlish: maxraj ≠ 0",
+            "juft ildiz: ildiz ostidagi ifoda ≥ 0",
+            "logarifm: argument > 0",
+            "barcha shartlarni kesishtiring"
+          ],
+          "formula": "\\frac{1}{g(x)}: \\ g(x) \\neq 0; \\quad \\sqrt{g(x)}: \\ g(x) \\geq 0; \\quad \\log_b g(x): \\ g(x) > 0",
+          "formula_caption": "uchta standart toʻsiq",
+          "narration": "Tabiiy aniqlanish sohasi — formulaning mazmunli boʻlgan eng katta kirishlar toʻplami. Faqat uchta toʻsiq uchrashi mumkin. Boʻlish amali noldan farqli maxrajni talab qiladi. Juft darajali ildiz, masalan kvadrat ildiz, manfiy boʻlmagan ifodani talab qiladi. Logarifm esa qatʼiy ijobiy argument talab qiladi. Murakkab formula uchun har bir tarkibiy qismdan chiqqan shartni yozib, hammasini kesishtiring: javob odatda oraliqlar birlashmasi boʻladi; formulani tekshiruv roʻyxati kabi oʻqing. Bu uch qoida birinchi dan toʻrtinchi haftagacha boʻlgan barcha soha savollarini, testdagi koʻp savollarni ham yopadi. Kichik misol: iks minus ikkining logarifmi iks ikkidan katta boʻlishini soʻraydi."
+        },
+        {
+          "type": "concept",
+          "heading": "Juft va toq simmetriya",
+          "bullets": [
+            "juft: f(−x) = f(x) — igrek oʻqiga aks",
+            "toq: f(−x) = −f(x) — boshlanish atrofida yarim burilish",
+            "x³ − 4x: faqat toq darajalar",
+            "aralash darajalar: simmetriya yoʻq"
+          ],
+          "formula": "f(-x) = f(x), \\qquad f(-x) = -f(x)",
+          "formula_caption": "chapda juft, oʻngda toq",
+          "plot": {
+            "fn": "x**3 - 4*x",
+            "tex": "p(x) = x^3 - 4x",
+            "x_range": [-2.5, 2.5],
+            "y_range": [-6, 6],
+            "point": [2, 0],
+            "point_label": "(2, 0)"
+          },
+          "narration": "Simmetriyaning ikki turi bor. Funksiya juft boʻladi, agar ef minus iks teng ef iks boʻlsa — grafik igrek oʻqiga nisbatan aks etadi. Funksiya toq boʻladi, agar ef minus iks teng minus ef iks boʻlsa — grafik koordinatalar boshlanishi atrofida yarim aylanishga chidaydi. Grafikda pe funksiyasi, iks kub minus toʻrt iks, koʻrsatilgan: faqat toq darajalar, demak pe toq funksiya. Egri chiziq oʻqni minus ikki, nol va ikki nuqtalarida kesib oʻtadi — belgilangan nuqta. Aralash darajalar, masalan iks kub plyus iks kvadrat, hech qanday simmetriyaga ega emas. Juft va toq funksiyalarning yigʻindisi esa odatda umuman simmetrik boʻlmaydi."
+        },
+        {
+          "type": "concept",
+          "heading": "Kompozitsiya va teskari funksiya",
+          "bullets": [
+            "(f ∘ g)(x) = f(g(x))",
+            "tartib muhim: f∘g ≠ g∘f",
+            "teskarisi: y = f(x) dan x ni chiqaring",
+            "grafiklar y = x toʻgʻri chizigʻida akslanadi"
+          ],
+          "formula": "(f \\circ g)(x) = f(g(x)), \\qquad f^{-1}(f(x)) = x",
+          "formula_caption": "kompozitsiya zanjirlaydi; teskarisi bekor qiladi",
+          "narration": "Kompozitsiya ikki mashinani zanjirlaydi: iks ni ge ga bering, soʻngra natijani ef ga bering. Bu — ef ge dan keyin, ef ge iks deb yoziladi. Tartib rostdan ham muhim — keyingi misol ef ge dan keyin bilan ge ef dan keyin ning turli funksiyalar berishini koʻrsatadi. Teskari funksiya mashinani orqaga yuritadi: igrek teng ef iks tenglamasidan iks ni ifoda eting. Teskari faqat bir-ma-bir funksiyalarda mavjud — buni gorizontal chiziq testi tekshiradi — va teskarining grafigi asl nusxadan igrek teng iks toʻgʻri chizigʻida akslanadi. Funksiyani oʻz teskarisi bilan birlashtirsangiz — oddiy iks qaytib keladi. Grafik test: gorizontal chiziq grafikni faqat bir marta kesib oʻtsa — teskari mavjud."
+        },
+        {
+          "type": "concept",
+          "heading": "Koʻrsatkichli funksiyalar va logarifmlar",
+          "bullets": [
+            "log_b(x) = y ⇔ b^y = x",
+            "koʻpaytmaning logarifmi = logarifmlar yigʻindisi",
+            "ln va exp bir-birini bekor qiladi",
+            "oʻsish modeli: A(t) = A₀·e^(kt)"
+          ],
+          "formula": "\\log_b x = y \\iff b^y = x, \\quad \\log_b(xy) = \\log_b x + \\log_b y",
+          "formula_caption": "logarifm — bu koʻrsatkich",
+          "narration": "Koʻrsatkichli funksiya va logarifm — bir haqiqatning ikki koʻrinishi. X ning be asosli logarifmi — be darajada igrek, x ga teng boʻladigan koʻrsatkichdir. Qonunlar shundan keladi: koʻpaytmaning logarifmi logarifmlar yigʻindisiga teng; boʻlinmaning logarifmi — ayirmaga; daraja oldinga chiqadi. Natural juftlik, e darajada iks va ln iks, bir-birini bekor qiladi. Har bir oʻsish yoki soʻnish modeli esa a nol koʻpaytma e darajada ka te koʻrinishida boʻladi: musbat ka oʻsadi, manfiy ka soʻnadi."
+        },
+        {
+          "type": "example",
+          "heading": "Aniqlanish sohalarini topish",
+          "problem": "\\sqrt{5 - 2x}, \\quad \\sqrt{\\frac{x + 2}{x - 1}}",
+          "steps": [
+            { "text": "ildiz 5 − 2x ≥ 0 talab qiladi" },
+            { "tex": "x \\leq \\frac{5}{2}: \\quad D_1 = \\left(-\\infty, \\frac{5}{2}\\right]" },
+            { "text": "ildiz ostidagi boʻlinma ≥ 0, x ≠ 1" },
+            { "tex": "D_2 = (-\\infty, -2] \\cup (1, +\\infty)", "highlight": true }
+          ],
+          "result": "(−∞, 5/2] va (−∞, −2] ∪ (1, +∞)",
+          "narration": "Ikkita soha ovqati — toʻgʻridan amaliy mashgʻulotdan. Birinchisi: bes minus ikki iks ning kvadrat ildizi; ildiz bes minus ikki iks noldan katta boʻlishini talab qiladi, demak iks bes ikkidan katta emas — bes ikkigacha boʻlgan hammasi, qavs yopiqlangan. Ikkinchisi: iks plyus ikki boʻluv iks minus bir kasrning kvadrat ildizi; boʻlinma manfiy boʻlmagan, iks esa birga teng emas boʻlishi kerak. Kritik nuqtalar: minus ikki va bir. Oraliqlarni tekshirib, boʻlinma minus ikkigacha manfiy emas, birdan keyin esa qatʼiy musbat ekanini topamiz. Soha: minus ikkigacha boʻlgan hammasi, yopiq, birlan boshlanuvchi och nurni birlashtirib. Har doim shartni kritik nuqtalarga keltiring, soʻngra har bir oraliqda ishorani tekshiring. Bu algoritm — nuqtalarni joylashtir, oraliqlarni tekshir — ishonchli ishlaydi."
+        },
+        {
+          "type": "example",
+          "heading": "f∘g va g∘f",
+          "problem": "f(x) = 2x - 3, \\quad g(x) = x^2 + 1",
+          "steps": [
+            { "tex": "(f \\circ g)(x) = 2(x^2 + 1) - 3 = 2x^2 - 1" },
+            { "tex": "(g \\circ f)(x) = (2x - 3)^2 + 1 = 4x^2 - 12x + 10" },
+            { "text": "x = 0 da: −1 va 10" },
+            { "tex": "(f \\circ g)(x) \\neq (g \\circ f)(x)", "highlight": true }
+          ],
+          "result": "2x² − 1 va 4x² − 12x + 10",
+          "narration": "Ef iks — ikki iks minus uch, ge iks — iks kvadrat plyus bir boʻlsin. Avval ef ge dan keyin: ge ni ef ga qoʻying — ikki koʻpaytma iks kvadrat plyus bir, minus uch — natija ikki iks kvadrat minus bir. Aksincha tartib, ge ef dan keyin: butun ikki iks minus uchni kvadratga koʻtaring va bir qoʻshing — toʻrt iks kvadrat minus oʻn ikki iks plyus oʻn chiqadi. Bu boshqa funksiya: iks nolda birinchisi minus bir, ikkinchisi oʻn beradi. Kompozitsiya komutativ emas: avval surish, keyin kvadrat — kvadrat, keyin surish emas. Oʻz-oʻziga qoʻshilishi ham qonuniy: ge ge dan keyin iks toʻrtinchi plyus ikki iks kvadrat plyus ikki beradi. Yozuvdagi tartib ham oʻngdan chapga oʻqiladi: avval ge, keyin ef."
+        },
+        {
+          "type": "example",
+          "heading": "Batareya zaryadining tugashi",
+          "problem": "E(t) = E_0 e^{-0.025t}, \\quad t \\geq 0",
+          "steps": [
+            { "tex": "\\frac{E(10)}{E_0} = e^{-0.25} \\approx 0.7788" },
+            { "text": "10 soatdan keyin taxminan 77,9% qoladi" },
+            { "tex": "e^{-0.025t} = \\frac{1}{2} \\Rightarrow t = \\frac{\\ln 2}{0.025} \\approx 27.7" },
+            { "tex": "E(t) > 0; \\quad E(t) \\to 0 \\iff t \\to \\infty", "highlight": true }
+          ],
+          "result": "≈ 77,9% — 10 soatda; yarmi ≈ 27,7 soatda",
+          "narration": "Batareya quyidagi qonun bilan zaryadsizlanadi: E te teng a nol koʻpaytma e darajada minus nol nuqta nol nol ikki besh te, te soatlarda oʻlchanadi. Oʻn soatdan keyin qancha ulush qoladi? a nolga boʻling: e darajada minus nol nuqta ikki besh — taxminan nol nuqta yetti yetti sakkiz, yaʼni zaryadning yetmish sakkiz foizi atrofida qoladi. Qachon yarmi qoladi? Eksponentani bir ikkiga tenglang: te teng ln ikki boʻluv nol nuqta nol nol ikki besh — taxminan yigirma yetti nuqta yetti soat, deyarli bir sutka. Nega nol hech qachon erishilmaydi? Eksponenta har qanday chekli vaqtda qatʼiy musbat; u nolga faqat te cheksizlikka intilganda yaqinlashadi — bizning birinchi halol limitimiz. Eksponenta nolga hech qachon tegmaydi — unga faqat yopishib oladi."
+        },
+        {
+          "type": "table",
+          "heading": "Funksiya turlari",
+          "columns": ["Tur", "Namuna"],
+          "rows": [
+            ["chiziqli", "3x − 7"],
+            ["koʻphad", "x⁴ − 2x + 1"],
+            ["ratsional", "(x + 1)/(x² + 4)"],
+            ["algebraik", "√(x² + 1)"],
+            ["koʻrsatkichli", "2ˣ"],
+            ["trigonometrik", "sin x"]
+          ],
+          "narration": "Lugʻat jadvali. Chiziqli: uch iks minus yetti — toʻgʻri chiziq. Koʻphad: iks toʻrtinchi minus ikki iks plyus bir — hamma joyda silliq. Ratsional: koʻphadlar nisbati, masalan iks plyus bir boʻluv iks kvadrat plyus toʻrt — maxraj nol boʻlmagan joylarning hammasida aniqlangan. Algebraik: koʻphadlarning ildizlari, ildiz iks kvadrat plyus bir kabi. Koʻrsatkichli: ikki darajada iks — oʻzgaruvchi koʻrsatkichda yashaydi, demak funksiya transsendental. Trigonometrik: sinus iks — bu ham transsendental. Sinflar kesishadi: har bir koʻphad ham algebraik, shuning uchun eng tor sinfni nomlang. Transsendental funksiyalar koʻphad ildizlari orqali ifodalanmaydi — bu alohida qavat. Har bir qatorni ovoz chiqarib oʻqing — lugʻat tez yodda qoladi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "bitta kirish, aynan bitta chiqish",
+            "sohani ÷0, ildizlar, logarifmlar toʻsaydi",
+            "juft akslanadi; toq yarim buriladi",
+            "f∘g ≠ g∘f; teskarisi y = x da akslanadi",
+            "logarifm — bu koʻrsatkich"
+          ],
+          "narration": "Uchinchi bob siqilgan holda. Funksiya har bir kirishga aynan bitta chiqish beradi — buni vertikal chiziq testi tekshiradi. Aniqlanish sohasini faqat boʻlish, juft ildizlar va logarifmlar toʻsaydi. Juft funksiyalar oʻqdan akslanadi, toq funksiyalar boshlanish atrofida buriladi. Kompozitsiya tartibi muhim, teskarilar esa bir-ma-bir funksiyalarni bekor qiladi. Logarifm — oddiy koʻrsatkich. Endi kursning asosiy voqeasi: limitlar."
+        }
+      ]
+    },
+    {
+      "title": "Limitlar: asosiy gʻoya",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "Limitlar: asosiy gʻoya",
+          "subtitle": "yaqinlashish aslida nimani anglatadi?",
+          "narration": "Toʻrtinchi bob — kursning yuragi. Limitlar ikkita savolga javob beradi: biror narsa qancha tez oʻzgaryapti va funksiya qaysi tomonga ketmoqda? Biz gʻoyani kesuvchi qiyalik va oʻrtacha tezliklardan quramiz, uni epsilon va delta bilan oʻtkirlashtiramiz va muhandislik tizimlariga qoʻllaymiz. Javoblar ikkita: hosila va limit."
+        },
+        {
+          "type": "concept",
+          "heading": "Ikki asosiy masala",
+          "bullets": [
+            "kesuvchi qiyalik: Δf boʻluv Δx",
+            "oraliqdagi oʻrtacha tezlik",
+            "h qadamini nolga qisamiz",
+            "oniy tezlik = limit"
+          ],
+          "formula": "\\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h} = f'(a)",
+          "formula_caption": "oniy tezlik limit sifatida belgilanadi",
+          "narration": "Matematik tahlil ikkita savoldan tugʻiladi. Egri chiziq bitta nuqtada qancha tik koʻtariladi? Jism bitta lahzada qancha tez harakat qiladi? Ikkalasi ham bir hiylani ishlatadi. Ikkita yaqin nuqta orqali oʻtgan kesuvchining qiyaligi — ef oʻzgarishining iks oʻzgarishiga nisbati; oʻrtacha tezlik — yoʻlning vaqtga nisbati. Endi oraliqni qisamiz. Oʻrtacha qiymatlar bir songa intiladi — ekrandagi limit: ef a plyus h minus ef a, boʻluv h, h nolga intilganda. Bu limit — hosila, oniy tezlik. Gʻoya bitta: kichik oraliqda oʻrtachalashtiring, keyin oraliqni yoʻq boʻlib ketishga majbur qiling."
+        },
+        {
+          "type": "example",
+          "heading": "Robokart: oʻrtachadan oniyga",
+          "problem": "s(t) = 2t^2 + 3t; \\quad \\lim_{h \\to 0} \\frac{s(2+h) - s(2)}{h}",
+          "steps": [
+            { "tex": "s(2) = 8 + 6 = 14" },
+            { "tex": "s(2+h) = 14 + 11h + 2h^2" },
+            { "tex": "\\frac{s(2+h) - s(2)}{h} = 11 + 2h" },
+            { "tex": "\\lim_{h \\to 0} (11 + 2h) = 11", "highlight": true }
+          ],
+          "result": "11 m/s",
+          "narration": "Robokart es te teng ikki te kvadrat plyus uch te qonuni bilan, metrlarda, harakat qiladi. Te teng ikkida tezligi qancha? Avval langar: es ikki — oʻn toʻrt metr. Es ikki plyus h ni oching: oʻn toʻrt plyus oʻn bir h plyus ikki h kvadrat. Oʻrtacha tezlik — ayirma, oʻn bir h plyus ikki h kvadrat, boʻluv h; h ni qisqartiring: oʻn bir plyus ikki h. H nolga intilsin — qoldiqdagi ikki h nobud boʻladi va oʻrtachalar ikki tomondan oʻn birga siqiladi: oʻn bir nuqta nol uch, keyin oʻn bir nuqta nol nol uch. Te teng ikkidagi oniy tezlik — aynan oʻn bir metr sekundda. Soddalashtirish limitga yetib borishdan oldin bajarilgani diqqatga sazovor."
+        },
+        {
+          "type": "concept",
+          "heading": "Funksiyaning limiti",
+          "bullets": [
+            "iks a ga yaqinlashadi, a ga teng boʻlmaydi",
+            "ef iks qiymatlari el ga cheksiz yaqin keladi",
+            "ef a qiymatining oʻzi hisobga olinmaydi",
+            "limit mavjud boʻlsa — yagona"
+          ],
+          "formula": "\\lim_{x \\to a} f(x) = L",
+          "formula_caption": "iks a ga intilganda ef iks ning limiti el ga teng",
+          "narration": "Markaziy taʼrif. Iks a ga intilganda ef iks ning limiti el ga teng deymiz, agar iks a ga yaqinlashganda — ikki tomondan, lekin a ga hech qachon tegmasdan — ef iks qiymatlari el ga cheksiz yaqin kelsa. Uch muhim holat. Nuqtaning oʻzi hisobga olinmaydi: ef a da aniqlanmagan boʻlishi yoki u yerga xohlagan boshqa qiymat qoʻyilishi mumkin. Limit mavjud boʻlsa, u yagonaligi bilan ajralib turadi: hech bir funksiya bir vaqtda ikkita songa intilmaydi. Va bu — kafolat: ef dan talab qilingan har qanday yaqinlik uchun iks ning shunga mos yaqinligi topiladi. Yodda tuting: limit nuqtaning oʻzi haqida emas, nuqta atrofi haqida gapiradi."
+        },
+        {
+          "type": "concept",
+          "heading": "Bir tomonlama limitlar",
+          "bullets": [
+            "chapdan limit: iks a ga pastdan keladi",
+            "oʻngdan limit: iks a ga yuqoridan keladi",
+            "ikki tomonlama mavjud ⇔ ikkalasi mos",
+            "boʻlakli funksiya birlashmalari: ikkala tomonni tekshiring"
+          ],
+          "formula": "\\lim_{x \\to a} f(x) = L \\iff \\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = L",
+          "formula_caption": "limit aynan ikkala bir tomonlama mos kelganda mavjud",
+          "narration": "Chapdan va oʻngdan yaqinlashish ikkita bir tomonlama limit beradi. Ekrandagi mezon — kursning ish otidir: ikki tomonlama limit aynan chap va oʻng limitlar mavjud boʻlib, teng boʻlgandagina mavjud. Boʻlakli funksiyaning har bir birlashmasida ikkala shoxni hisoblang. Tezkor misol: iks ikkidan kichikda ikki iks plyus bir, kattaroqda yetti minus iks. Chap limit — besh, oʻng limit — besh: teng, demak limit besh va boʻlaklar bir-biriga qoʻshilib ketadi. Ikkalari mos kelmasa, ikki tomonlama limit mavjud boʻlmaydi — keyingi misol aynan shuni koʻrsatadi."
+        },
+        {
+          "type": "example",
+          "heading": "Kommutatsiya qurilmasi: kuchlanish sakrashi",
+          "problem": "V(t) = 2t + 1 \\ (t < 4); \\quad V(t) = 12 - t \\ (t \\geq 4)",
+          "steps": [
+            { "tex": "\\lim_{t \\to 4^-} (2t + 1) = 9" },
+            { "tex": "\\lim_{t \\to 4^+} (12 - t) = 8" },
+            { "text": "9 ≠ 8: bir tomonlama limitlar farq qiladi" },
+            { "tex": "\\lim_{t \\to 4} V(t) = \\mathrm{DNE}", "highlight": true }
+          ],
+          "result": "mavjud emas — bir voltlik sakrash",
+          "narration": "Kommutatsiya qurilmasi te toʻrtdan kichik boʻlganda ikki te plyus bir volt, toʻrt va undan keyin esa oʻn ikki minus te volt beradi. Te teng toʻrtda: chapdan birinchi shox ikki koʻpaytma toʻrt plyus bir — toʻqqiz volt beradi; oʻngdan ikkinchi shox oʻn ikki minus toʻrt — sakkiz volt. Toʻqqiz va sakkiz: bir tomonlama limitlar mos kelmaydi, demak ikki tomonlama limit mavjud emas. V toʻrt qiymatining oʻzi mavjud — sakkiz volt — lekin bitta qiymat sindirilgan limitni yopib bera olmaydi. Fizik nuqtai nazardan chiqish chegarani kesib oʻtgan onda bir voltga pogʻonama-pogʻona pastga sakraydi. Keskin sakrishlar oʻtish jarayonlarini qoʻzgʻatishi mumkin — shuning uchun muhandislar kommutatsiyani filtrlar yoki yumshoq ishga tushirish mantiqlari bilan silliqlaydi. Grafik esa pogʻonaga oʻxshaydi — sinfning birinchi turidagi uzilish."
+        },
+        {
+          "type": "plot",
+          "heading": "Nega 1/x nolda portlaydi",
+          "functions": [
+            { "fn": "1/x", "tex": "y = \\frac{1}{x}", "color": "yellow" },
+            { "fn": "-1/x", "tex": "y = -\\frac{1}{x}", "color": "blue" }
+          ],
+          "x_range": [-5, 5],
+          "y_range": [-5, 5],
+          "point": null,
+          "vline": 0,
+          "narration": "Ikkita egri chiziqqa qarang. Sariq — bir boʻluv iks. Noldan birdaroz oʻngda u cheksiz yuqoriga koʻtariladi: iks qanchalik kichik boʻlmasin, chiqish ulkan. Noldan birdaroz chapda esa u cheksiz pastga shoʻngʻiydi: chap limit minus cheksizlik, oʻng limit plyus cheksizlik. Koʻk egri chiziq, minus bir boʻluv iks, uni boshlanish nuqtasiga nisbatan akslantiradi. Ikkalasi ham nuqtali vertikal iks teng nol toʻgʻri chizigʻiga tekkizmaydi yopishib turadi — vertikal asimptota. Va ikkalasi ham uzoq chapda ham, uzoq oʻngda ham nolga yassiylanadi — gorizontal asimptotaga birinchi nazar. Bu rasm — andoza: qolgan vertikal asimptotalar ana shu bilan taqqoslanadi."
+        },
+        {
+          "type": "formula",
+          "heading": "Epsilon va delta: aniq taʼrif",
+          "tex": "\\lim_{x \\to a} f(x) = L \\iff \\forall \\varepsilon > 0 \\ \\exists \\delta > 0: \\ 0 < |x - a| < \\delta \\Rightarrow |f(x) - L| < \\varepsilon",
+          "parts": [
+            { "substr": "\\varepsilon", "color": "yellow", "note": "chegara — ef iks qanchalik el ga yaqin boʻlishi kerak" },
+            { "substr": "\\delta", "color": "blue", "note": "radius — iks qanchalik a ga yaqin boʻlishi kerak" },
+            { "substr": "0 < |x - a| < \\delta", "color": "green", "note": "iks a dan delta masofada, lekin teng emas" },
+            { "substr": "|f(x) - L| < \\varepsilon", "color": "red", "note": "ef iks el dan epsilon masofada" }
+          ],
+          "narration": "Sezgi ostidagi aniq mexanizm. Iks a ga intilganda ef iks ning limiti el ga teng boʻlishi uchun: har bir epsilon, noldan katta — sariq chegara — uchun delta, noldan katta — koʻk radius — topilishi kerak, shunday ki, iks a dan delta masofada, lekin a ga teng boʻlmagan holda turganda — yashil shart — ef iks el dan epsilon masofada turadi — qizil kafolat. Rasmda: iks a atrofidagi delta tasmada yashaydi; ef iks esa el atrofidagi epsilon tasmada javob qaytaradi. Qanday epsilon bilan chaqirsangiz ham, ishlaydigan delta topilishi shart. Misol uchun: epsilon nol nuqta bir deb talab qiling — kichik, lekin har doim ishlaydigan delta topiladi."
+        },
+        {
+          "type": "concept",
+          "heading": "Birinchi standart limit",
+          "bullets": [
+            "sin(x)/x → 1, iks → 0 da",
+            "burchak radianlarda boʻlishi shart",
+            "qiymatlar: 0.9983, 0.99998, …",
+            "siqish teoremasi bilan isbotlanadi"
+          ],
+          "formula": "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1",
+          "formula_caption": "sinus iks boʻluv iks nolda birga intiladi",
+          "narration": "Kursning eng mashhur limiti: sinus iks, boʻluv iks. Nolda bu — nol boʻluv nol, aniqlanmagan. Nol atrofida nisbat birga intiladi — bitta muhim shart bilan: iks radianlarda oʻlchanadi. Bu shart hal qiluvchi ahamiyatga ega. Sonlar ham rozilik bildiradi: bir oʻnda — nol nuqta toʻqqiz toʻqqiz sakkiz uch; bir yuzda — nol nuqta toʻqqiz toʻqqiz toʻqqiz sakkiz; bir mingda — yettita toʻqqiz: har bir qiymat oʻzidan oldingisidan yaqinroq. Isbot nisbatni kosinus va bir orasiga siqadi, ikkala chegara ham birga intiladi. Uni choʻntagida saqlang: oltinchi bob aynan shunga tayanadi."
+        },
+        {
+          "type": "example",
+          "heading": "RC zanjiri: limitgacha zaryadlanish",
+          "problem": "V(t) = 12\\left(1 - e^{-t/(RC)}\\right), \\quad RC = 1\\,\\mathrm{s}",
+          "steps": [
+            { "tex": "\\lim_{t \\to 0^+} V(t) = 12(1 - e^0) = 0" },
+            { "tex": "\\lim_{t \\to \\infty} e^{-t} = 0" },
+            { "tex": "\\lim_{t \\to \\infty} V(t) = 12(1 - 0) = 12", "highlight": true },
+            { "text": "1 s dan keyin ≈63%; 5 s dan keyin ≈99%" }
+          ],
+          "result": "boshlanishda 0 V; limitda 12 V",
+          "narration": "RC zanjiri oʻn ikki voltli manbaga tomon zaryadlanadi: V te teng oʻn ikki koʻpaytma bir minus e darajada minus te boʻluv er se, bu yerda er koʻpaytma se vaqt doimiysi bir sekundga teng. Boshlanishda eksponenta — e nol darajada, bir — demak V noldan boshlanadi: zaryadsiz kondensator. Vaqt oʻtgani sari e darajada minus te nolga soʻnadi, shuning uchun V oʻn ikki koʻpaytma bir minus nolga — oʻn ikki voltga, manba darajasiga intiladi. Yaqinlashish asimptotik: bir vaqt doimiysidan keyin taxminan oltmish uch foiz, beshtadan keyin toʻqson toʻqqiz foiz zaryad. Muhandislar buni limit tilida aytadi: te cheksizlikka intilganda V manba kuchlanishiga intiladi. Kondensator oʻn ikki voltga hech qachon yetib bormaydi — faqat yaqinlashib boradi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "oniy tezlik = limit",
+            "ikki tomonlama ⇔ bir tomonlamalar mos",
+            "1/x: nolda vertikal asimptota",
+            "ε–δ yaqinlikni aniq qiladi",
+            "sin(x)/x → 1 (radian!)"
+          ],
+          "narration": "Toʻrtinchi bob siqilgani. Oʻrtacha tezliklar limit orqali oniy tezlikka aylanadi. Ikki tomonlama limit aynan ikkala bir tomonlama mos kelganda mavjud. Bir boʻluv iks nolda portlaydi — vertikal asimptota. Epsilon va delta «cheksiz yaqin» tushunchasini aniq va tekshiriladigan qiladi. Va sinus iks boʻluv iks birga intiladi — doim radianlarda. Keyingi: limitlarni jadvallarsiz, qoidalar bilan tizimli hisoblash."
+        }
+      ]
+    },
+    {
+      "title": "Limit qoidalari va noaniq koʻrinishlar",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 5,
+          "title": "Limit qoidalari va noaniq koʻrinishlar",
+          "subtitle": "limitlarni hisoblashning ishchi vositalari",
+          "narration": "Beshinchi bob. Limitlarni jadvallar va grafiklar boʻyicha hisoblash — sekin va ishonchsiz usul. Bu bob algebra vositalar toʻplamini yigʻadi: limit qoidalari, toʻgʻridan-toʻgʻri qoʻyish va ikkita qutqaruvchi yurish — koʻpaytuvchilarga ajratish hamda qoʻshma — mashhur nol boʻluv nol koʻrinishi uchun, qoʻshimcha: konstanta boʻluv nol koʻrinishi va uning yoʻnaltirilgan cheksizliklari bilan. Har bir vosita — oʻz koʻrinishiga javob beradi."
+        },
+        {
+          "type": "formula",
+          "heading": "Limit qoidalari",
+          "tex": "\\lim_{x \\to a} [f(x) + g(x)] = L + M, \\quad \\lim_{x \\to a} [f(x) \\cdot g(x)] = L \\cdot M, \\quad \\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\frac{L}{M}",
+          "parts": [
+            { "substr": "[f(x) + g(x)]", "color": "yellow", "note": "yigʻindi: limitlar qoʻshiladi" },
+            { "substr": "[f(x) \\cdot g(x)]", "color": "green", "note": "koʻpaytma: limitlar koʻpaytiriladi" },
+            { "substr": "\\frac{f(x)}{g(x)}", "color": "blue", "note": "nisbat: boʻling — agar em noldan farqli boʻlsa" }
+          ],
+          "narration": "Limit qoidalari shuni deydi: limit arifmetikani hurmat qiladi. Ef el ga, ge esa em ga intilsa, iks a ga yaqinlashganda sariq yigʻindi el plyus em ga, yashil koʻpaytma el marta em ga, koʻk nisbat esa el boʻluv em ga intiladi — faqat em noldan farqli boʻlgan shart bilan. Ayirma, doimiy koʻpaytuvchi, daraja va ildiz qoidalarini qoʻshsangiz, istalgan ifoda boʻlaklarga yoyiladi. Namuna: ikki iks minus bir marta ildiz iks plyus toʻrt, minus uch nuqtada — minus yetti marta bir, yaʼni minus yetti. Asoslar: iks ning limiti a ga; doimiyning limiti — oʻzi. Mana shu qoidalarga keyingi hiylalar tayanadi."
+        },
+        {
+          "type": "concept",
+          "heading": "Toʻgʻridan-toʻgʻri qoʻyish",
+          "bullets": [
+            "koʻphad: pe a ni shunchaki qoʻying",
+            "kasr: p(a)/q(a), agar q(a) ≠ 0",
+            "a atrofida teng ⇒ limitlari teng",
+            "qisqartirishga ruxsat bor"
+          ],
+          "formula": "\\lim_{x \\to a} p(x) = p(a), \\quad \\lim_{x \\to a} \\frac{p(x)}{q(x)} = \\frac{p(a)}{q(a)}",
+          "formula_caption": "maxraj tirik qolgandagina toʻgʻridan qoʻying",
+          "narration": "Qoidalar darhol oʻzini oqlaydi. Koʻphadning a nuqtadagi limiti — shunchaki uning a nuqtadagi qiymati: toʻgʻridan qoʻying. Ratsional funksiyaning limiti — pe a boʻluv ku a, maxraj nol boʻlmaganda. Yana bir ruxsat: a atrofida — a ning oʻzidan tashqari — teng boʻlgan funksiyalar a da bir xil limitga ega. Aynan shu qoʻyishdan oldin umumiy koʻpaytuvchilarni qisqartirishga ruxsat beradi. Qoʻyish buzilganda u baland ovoz bilan buziladi: nol boʻluv nol yoki nol boʻlmagan boʻluv nol. Bular — signallar: har bir buzilish oʻz vositasini koʻrsatadi. Signalni eshitsangiz — darhol vositani tanlang. «Nol boʻluv nol» eshitsangiz — koʻpaytuvchilar tayyor; «nol boʻlmagan boʻluv nol» eshitsangiz — ishoralarni oʻqing."
+        },
+        {
+          "type": "concept",
+          "heading": "Nol boʻluv nol koʻrinishi",
+          "bullets": [
+            "0/0 — signal, qiymat emas",
+            "x/x → 1, lekin x/x² → 0",
+            "x²/x: ikki tomonlama limit yoʻq",
+            "davo: ajratish, qoʻshma, standart limit"
+          ],
+          "formula": "\\lim_{x \\to 0} \\frac{x}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{x}{x^2} = 0",
+          "formula_caption": "bir koʻrinish — turli yakunlar",
+          "narration": "Nol boʻluv nol — noaniq koʻrinish: noaniq, lekin imkonsiz emas. Koʻrinish oʻzi hech narsa aytmaydi; hammasi surat va maxraj nolga qanday yaqinlashishiga bogʻliq. Qarang: iks boʻluv iks birga intiladi. Iks boʻluv iks kvadrat nolga intiladi — maxraj tezroq qisiladi. Iks kvadrat boʻluv iks esa portlaydi: oʻngdan plyus cheksizlik, chapdan minus cheksizlik — ikki tomonlama limit umuman yoʻq. Uchta limit, bitta koʻrinish, uch xil taqdir. Yechish: koʻpaytuvchilarga ajratib qisqartiring, qoʻshma bilan ratsional qiling yoki standart limitni ishga soling — keyingi misollar ana shu yurishlarni koʻrsatadi. Qoida oddiy: avval koʻrinishni aniqla, keyin vositani tanla."
+        },
+        {
+          "type": "example",
+          "heading": "Koʻpaytuvchilarga ajratish",
+          "problem": "\\lim_{x \\to -3} \\frac{x^2 + 4x + 3}{x^2 - 9}",
+          "steps": [
+            { "text": "qoʻyish 0/0 beradi — signal" },
+            { "tex": "\\frac{(x + 1)(x + 3)}{(x + 3)(x - 3)} = \\frac{x + 1}{x - 3}" },
+            { "tex": "\\frac{-3 + 1}{-3 - 3} = \\frac{-2}{-6} = \\frac{1}{3}", "highlight": true }
+          ],
+          "result": "1/3",
+          "narration": "Iks kvadrat plyus toʻrt iks plyus uch boʻluv iks kvadrat minus toʻqqiz limitini, iks minus uchga intilganda, hisoblaymiz. Qoʻyish nol boʻluv nol beradi — ajratish signali. Surat iks plyus bir marta iks plyus uchga; maxraj iks plyus uch marta iks minus uchga yoyiladi. Iks plyus uch koʻpaytuvchisi — aybgor, aynan u ikkala qismni nolga aylantiradi — qisqartiramiz. Minus uch atrofidagi har bir iks uchun, lekin unga teng boʻlmagan holda, funksiya iks plyus bir boʻluv iks minus uchga teng. Endi qoʻyish xavfsiz: minus uch plyus bir — minus ikki; minus uch minus uch — minus olti. Limit — bir uchdan. Hech narsa oʻgʻirlanmadi: qisqartirish mumkin, chunki iks minus uchga teng emas."
+        },
+        {
+          "type": "example",
+          "heading": "Qoʻshma bilan yurish",
+          "problem": "\\lim_{x \\to 5} \\frac{\\sqrt{x - 1} - 2}{x - 5}",
+          "steps": [
+            { "text": "0/0 — qoʻshmaga koʻpaytiramiz" },
+            { "tex": "\\frac{(x - 1) - 4}{(x - 5)(\\sqrt{x - 1} + 2)} = \\frac{1}{\\sqrt{x - 1} + 2}" },
+            { "tex": "\\frac{1}{\\sqrt{4} + 2} = \\frac{1}{4}", "highlight": true }
+          ],
+          "result": "1/4",
+          "narration": "Ildizli limit: ildiz iks minus bir, minus ikki, hammasi boʻluv iks minus bes, iks besga intilganda. Qoʻyish: ildiz toʻrt — ikki, ikki minus ikki — nol: yana nol boʻluv nol. Ildizlar koʻpaytuvchilarga yoyilmaydi, shuning uchun ratsional qilamiz: yuqorini va pastni qoʻshmaga — ildiz iks minus bir plyus ikkiga — koʻpaytiring. Surat kvadratlar ayirmasiga aylanadi — iks minus bir minus toʻrt, yaʼni iks minus bes — va maxraj bilan qisqaradi. Funksiya bir boʻluv ildiz iks minus bir plyus ikkiga tenglashib qoladi. Besni qoʻying: bir boʻluv ikki plyus ikki. Limit — bir toʻrtdan. Qoʻshma — ildizli ayirmalarning universal kalitidir."
+        },
+        {
+          "type": "example",
+          "heading": "K boʻluv nol: ishoralarni oʻqing",
+          "problem": "\\lim_{x \\to -2^{\\pm}} \\frac{2x^2 + 7x - 4}{(x + 2)(x - 2)}",
+          "steps": [
+            { "tex": "2x^2 + 7x - 4 = (2x - 1)(x + 4)" },
+            { "text": "x = −2 da surat −10 ≠ 0" },
+            { "text": "−2 chapda: maxraj > 0, demak −∞" },
+            { "text": "−2 oʻngda: maxraj < 0, demak +∞" },
+            { "tex": "x = -2: \\ \\mathrm{vertical \\ asymptote}", "highlight": true }
+          ],
+          "result": "chapdan −∞; oʻngdan +∞",
+          "narration": "Ikki iks kvadrat plyus yetti iks minus toʻrt boʻluv iks plyus ikki marta iks minus ikki nisbatini iks minus ikki yaqinida oʻrganamiz. Surat ikki iks minus bir marta iks plyus toʻrtga yoyiladi; minus ikkida u minus oʻnga teng — noldan farqli doimiy: konstanta boʻluv nol koʻrinishi. Faqat ishora muhokama qilinadi. Minus ikki chapida maxrajning ikkala koʻpaytuvchisi manfiy — maxraj musbat, nisbat minus cheksizlikka shoʻngʻiydi. Minus ikki oʻngida iks plyus ikki musbatga aylanadi, iks minus ikki manfiy qolaveradi: maxraj manfiy, nisbat plyus cheksizlikka koʻtariladi. Ikki qarama-qarshi cheksizlik: ikki tomonlama limit yoʻq, iks minus ikki esa vertikal asimptota. Minus ikki nuqta bir ni qoʻysangiz, maxraj — nol nuqta qirq bir, nisbat — minus yigirma toʻrt atrofida: nolga yaqinlashganda u yana ham oʻsadi."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "qoidalar: yigʻindi, koʻpaytma, nisbat, daraja",
+            "koʻphadlar: toʻgʻridan qoʻying",
+            "0/0: ajratish yoki qoʻshma",
+            "K/0: ishoralar ±∞ beradi"
+          ],
+          "narration": "Beshinchi bob toʻrt qatorda. Limit qoidalari limitlarni arifmetika bilan birlashtiradi. Koʻphadlar va xavfsiz kasrlar: toʻgʻridan qoʻying. Nol boʻluv nol: ajratib qisqartiring yoki qoʻshma bilan ratsional qiling. Nol boʻlmagan boʻluv nol: har bir tomondan ishorani oʻqib, yoʻnaltirilgan cheksizlik bilan javob bering. Mana bu — birinchi testga olib kiradigan vositalar; keyin esa tezlashtiruvchi hiylalar keladi."
+        }
+      ]
+    },
+    {
+      "title": "Standart limitlar, ekvivalentlik, Landau belgilari",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 6,
+          "title": "Standart limitlar, ekvivalentlik, Landau belgilari",
+          "subtitle": "nuqta yaqinida funksiyalarni taqqoslash",
+          "narration": "Final. Standart limitlarning qisqa roʻyxati har qanday qisqartirishni quvvatlaydi. Siqish teoremasi buyuk tebranishlarni yumshatadi. Asimptotik ekvivalentlik murakkab funksiyalarni oddiylariga almashtiradi. Landau belgilari — katta O va kichik o — esa chegaralangan va arzimas uchun aniq grammatika beradi. Bob oxirida sizda taqqoslash tili tayyor boʻladi."
+        },
+        {
+          "type": "formula",
+          "heading": "Standart limitlar oilasi",
+          "tex": "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2} = \\frac{1}{2}, \\quad \\lim_{x \\to 0} \\frac{e^x - 1}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{\\ln(1 + x)}{x} = 1",
+          "parts": [
+            { "substr": "\\frac{\\sin x}{x}", "color": "yellow", "note": "sinus oʻz burchagida" },
+            { "substr": "\\frac{1 - \\cos x}{x^2}", "color": "blue", "note": "bir minus kosinus" },
+            { "substr": "\\frac{e^x - 1}{x}", "color": "green", "note": "eksponenta minus bir" },
+            { "substr": "\\frac{\\ln(1 + x)}{x}", "color": "teal", "note": "bir plyus iks ning logarifmi" }
+          ],
+          "narration": "Bu oilani yodlang: har bir vakil, iks nolga intilganda, oʻz qiymatiga intiladi. Sariq: sinus iks boʻluv iks birga. Koʻk: bir minus kosinus iks boʻluv iks kvadrat — bir ikkiga. Yashil: e darajada iks minus bir boʻluv iks — birga. Firuza: bir plyus iks ning logarifmi boʻluv iks — birga. Ular almashtirish orqali moslashadi: sinus bes iks boʻluv iks — bes marta sinus u boʻluv u, u bes iks bilan almashtirilsa, javob: bes. Yana bittasi: bir plyus iks darajada bir boʻluv iks — e ga intiladi. Radianlar — doim. Kalkulyatorni radian rejimda tekshirib koʻring va oʻzingiz ishonch hosil qiling."
+        },
+        {
+          "type": "concept",
+          "heading": "Siqish teoremasi",
+          "bullets": [
+            "ge qamaldi: f ≤ g ≤ h, a atrofida",
+            "f va h umumiy el limitiga ega",
+            "u holda ge ham el ga intiladi",
+            "buyuk tebranishlarni yumshatadi"
+          ],
+          "formula": "f(x) \\leq g(x) \\leq h(x), \\ \\lim_{x \\to a} f(x) = \\lim_{x \\to a} h(x) = L \\ \\Rightarrow \\ \\lim_{x \\to a} g(x) = L",
+          "formula_caption": "umumiy limitli ikki funksiya orasiga qamalgan",
+          "narration": "Koʻpgina funksiyalar shunday qattiq tebranadiki, hech qanday algebra ularni ushlab ololmaydi. Siqish teoremasi — aylanib oʻtish yoʻli. Agar a nuqta atrofida ge funksiyasi pastdan ef va yuqoridan ha orasiga qamalgan boʻlsa, va ikkalasi ham el soniga intilsa, ge ning erkinligi qolmaydi: u ham el ga intilishga majbur. Klassik qurilma: har qanday sinus yoki kosinus minus bir bilan bir orasida qamalgan; nolga intiluvchiga koʻpaytirsangiz, butun koʻpaytma nolga siqiladi. Keyingi misol aynan shu partiyani oʻynaydi. Siqish — algebrani emas, tartibni ishga soladi."
+        },
+        {
+          "type": "example",
+          "heading": "x²·sin(1/x) ni siqish",
+          "problem": "\\lim_{x \\to 0} x^2 \\sin\\frac{1}{x}",
+          "steps": [
+            { "tex": "-1 \\leq \\sin\\frac{1}{x} \\leq 1" },
+            { "tex": "-x^2 \\leq x^2\\sin\\frac{1}{x} \\leq x^2" },
+            { "tex": "-x^2 \\to 0, \\quad x^2 \\to 0" },
+            { "tex": "\\lim_{x \\to 0} x^2 \\sin\\frac{1}{x} = 0", "highlight": true }
+          ],
+          "result": "0",
+          "narration": "Iks kvadrat marta sinus bir boʻluv iks limitini, iks nolga intilganda, hisoblaymiz — testning mashhur savoli. Sinus bir boʻluv iks koʻpaytuvchisi nol atrofida cheksiz tez tebranadi: uning limiti yoʻq, hech qanday ajratish yordam bermaydi — bu yerda algebra ojiz. Lekin u chegaralangan: minus bir sinusdan katta emas, sinus birdan katta emas. Uch qismni ham iks kvadratga — manfiy boʻlmaganga — koʻpaytiring: tengsizliklar saqlanib qoladi, minus iks kvadrat funksiyamizdan katta emas, funksiya iks kvadratdan katta emas. Ikkala chegara ham, iks nolga intilganda, nolga intiladi. Oʻrtaga qamalgan funksiya — iks kvadrat marta sinus bir boʻluv iks — ham nolga intilishga majbur: siqish amalga oshdi, garchi tebranish toʻxtamagan boʻlsa ham. Nol nuqtada funksiyaning oʻzi aniqlanmagan — limitga bu qiziq emas."
+        },
+        {
+          "type": "concept",
+          "heading": "Asimptotik ekvivalentlik",
+          "bullets": [
+            "f ∼ g ⇔ f/g → 1",
+            "sin x ∼ x, tg x ∼ x, nolda",
+            "1 − cos x ∼ x²/2",
+            "koʻpaytiring va boʻling — hech qachon qoʻshmang"
+          ],
+          "formula": "f(x) \\sim g(x) \\iff \\lim_{x \\to a} \\frac{f(x)}{g(x)} = 1",
+          "formula_caption": "ef ge ga ekvivalent, nisbat birga intilganda",
+          "narration": "Ikki funksiya nuqta atrofida asimptotik ekvivalent boʻladi, agar ularning nisbati birga intilsa — yozilishi: ef ge ga ekvivalent. Nol atrofidagi lugʻat: sinus iks va tangens iks — iks ga; e darajada iks minus bir — iks ga; bir minus kosinus — iks kvadrat ikkiga; bir plyus iks ning logarifmi — iks ga. Ekvivalentlik nisbatan yaqin degani: yaqin, lekin aynan emas. Ish qoidasi: ekvivalentlar bilan koʻpaytirish va boʻlish mumkin, qoʻshish — hech qachon emas. Cheksizlikda esa eng yuqori daraja hukmronlik qiladi: uch iks kvadrat plyus bes iks minus bir — uch iks kvadrat kabi portlaydi."
+        },
+        {
+          "type": "example",
+          "heading": "Ekvivalentlik ishda",
+          "problem": "\\lim_{x \\to 0} \\frac{\\sin 3x}{5x}, \\quad \\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2}",
+          "steps": [
+            { "text": "sin 3x nol yaqinida 3x kabi" },
+            { "tex": "\\frac{\\sin 3x}{5x} \\sim \\frac{3x}{5x} = \\frac{3}{5}" },
+            { "text": "1 − cos x — x²/2 kabi" },
+            { "tex": "\\frac{1 - \\cos x}{x^2} \\sim \\frac{x^2/2}{x^2} = \\frac{1}{2}", "highlight": true }
+          ],
+          "result": "3/5 va 1/2",
+          "narration": "Ikkita limit, algebrasiz — toza ekvivalentlik. Birinchisi: sinus uch iks boʻluv bes iks. Sinusni uning ekvivalenti, uch iks, bilan almashtiring: kasr uch iks boʻluv bes iks boʻladi — uch besdan. Limit mana shu. Ikkinchisi: bir minus kosinus iks boʻluv iks kvadrat. Bir minus kosinusning ekvivalenti — iks kvadrat ikkiga, shuning uchun kasr bir ikkiga intiladi. Almashtirish faqat koʻpaytma va boʻlinmalar ichida yuritiladi — aynan u yerda ekvivalentlik ruhsat etilgan. Sonlar ham rozi: sinus nol nuqta nol bir — nol nuqta nol birdan yuz mingdan ikki ulushga farq qiladi. Ikki javob ham — bir qator algebrasiz. Ikkala javob ham bir daqiqada, qogʻoz-kalamga tegmasdan olindi."
+        },
+        {
+          "type": "concept",
+          "heading": "Katta O va kichik o",
+          "bullets": [
+            "f = O(g): |f/g| chegaralangan",
+            "f = o(g): f/g → 0",
+            "kichik o ⇒ katta O, aksincha emas",
+            "O(g) — sinf, son emas"
+          ],
+          "formula": "f = O(g): \\ \\left|\\frac{f}{g}\\right| \\leq C; \\quad f = o(g): \\ \\frac{f}{g} \\to 0",
+          "formula_caption": "chegaralangan va arzimas",
+          "narration": "Landau yozuvi oʻsishni taqqoslaydi. Katta O: ef boʻluv ge ning moduli nuqta atrofida chegaralangan qolsa, ef ge ning katta O sidir — koʻpi bilan ge tartibida. Kichik o kuchliroq: ef boʻluv ge nolga intiladi — ge ga nisbatan arzimas. Kichik o katta O ni keltiradi, aksincha emas: uch iks — iks ning katta O si, nisbat esa uch doimiysi. Ehtiyot boʻling: ef teng katta O ge — odatiy tenglama emas; katta O ge — ge ning koʻpaytmasi bilan chegaralangan butun sinf nomidir. Katta O ni undan tez emas, kichik o ni qiyoslab sekin deb oʻqing."
+        },
+        {
+          "type": "example",
+          "heading": "Nolda O va o ni tekshirish",
+          "problem": "\\sin x = O(x); \\quad 3x = O(x), \\ 3x \\neq o(x); \\quad x^2 = o(x)",
+          "steps": [
+            { "tex": "|\\sin x| \\leq |x| \\ \\Rightarrow \\ \\sin x = O(x)" },
+            { "tex": "\\frac{3x}{x} = 3 \\ \\Rightarrow \\ 3x = O(x)" },
+            { "tex": "\\frac{3x}{x} \\not\\to 0 \\ \\Rightarrow \\ 3x \\neq o(x)" },
+            { "tex": "\\frac{x^2}{x} = x \\to 0 \\ \\Rightarrow \\ x^2 = o(x)", "highlight": true }
+          ],
+          "result": "chegaralangan va nolga intiluvchi nisbat",
+          "narration": "Nolda taʼriflarni tekshiramiz. Birinchisi: sinus iks — iks ning katta O si, chunki sinusning moduli iksning modulidan oshmaydi — nisbat bir bilan chegaralangan. Ikkinchisi: uch iks — iks ning katta O si, lekin kichik o si emas: nisbat uch doimiysi — chegaralangan, ha; nolga intiladi, hech qachon emas. Uchinchisi, taqqoslash: iks kvadrat boʻluv iks — bu shunchaki iks, u nolga intiladi, demak iks kvadrat — iks ning kichik o sidir. Xuddi shu ierarxiya cheksizlikda ham ishlaydi: iks oʻninchi — e darajada iks ning kichik o si: eksponentalar har qanday belgilangan darajani bosib yuboradi. Chegaralangan va nolga intiluvchi — butun farq shunda."
+        },
+        {
+          "type": "table",
+          "heading": "Katta O va kichik o",
+          "columns": ["Katta O", "Kichik o"],
+          "rows": [
+            ["|f/g| nisbati chegaralangan", "f/g nisbati 0 ga intiladi"],
+            ["koʻpi bilan g tartibida", "g ga nisbatan arzimas"],
+            ["3x = O(x) nolda", "x² = o(x) nolda"],
+            ["f = g + O(g) mumkin", "f ∼ g ⇔ f = g + o(g)"]
+          ],
+          "narration": "Taqqoslash jadvali. Katta O nisbatni chegaralangan ushlab turadi; kichik o nisbatni nolga haydaydi. Katta O: koʻpi bilan ge tartibida; kichik o: ge ga nisbatan arzimas. Uch iks — iks ning katta O si, lekin kichik o si emas: nisbat uchda oʻtiradi. Iks kvadrat — nolda iks ning kichik o sidir. Ekvivalentlikka koʻprik: ef ge ga ekvivalent boʻladi aynan shu holatda — ef teng ge plyus iks ning kichik o si boʻlganda. Eksponentalar ham shunday deydi: e darajada iks — bu bir plyus iks plyus iks kvadrat ikkiga, qoʻshimcha iks kvadratning kichik o si. Jadvalni bir marta oʻqib chiqsangiz, farq ongda qoladi."
+        },
+        {
+          "type": "example",
+          "heading": "Cheksizlikda kim hukmronlik qiladi",
+          "problem": "\\lim_{x \\to \\infty} \\frac{2x^3 + x}{5x^2 - 1}",
+          "steps": [
+            { "tex": "3x^2 + 5x - 1 \\sim 3x^2 \\ (x \\to \\infty)" },
+            { "tex": "\\frac{2x^3 + x}{5x^2 - 1} \\sim \\frac{2x^3}{5x^2} = \\frac{2}{5}x" },
+            { "tex": "\\frac{2}{5}x \\to +\\infty \\quad (x \\to \\infty)", "highlight": true }
+          ],
+          "result": "(2/5)·x kabi; +∞ ga intiladi",
+          "narration": "Cheksizlikda kim hukmronlik qiladi? Uch iks kvadrat plyus bes iks minus birni olaylik. Uch iks kvadratga boʻling: bir chiqadi, qoʻshimchalar — nolga eriydigan tuzatishlar — koʻphad uch iks kvadratga ekvivalent ekanini koʻrsatadi. Eng yuqori daraja doim buyruq beradi. Endi nisbat: ikki iks kub plyus iks boʻluv bes iks kvadrat minus bir. Har bir qismni uning hukmron hadiga almashtiring: ikki iks kub boʻluv bes iks kvadrat — ikki besdan iks. U cheksiz oʻsadi, asl kasr ham xuddi shunday portlaydi. Landau uslubida: ikki iks kvadrat plyus uch iks plyus bir teng ikki iks kvadrat plyus iks ning katta O si. Hukmronlik savollari — odatiy ish: avval hamisha yetakchi hadalarni oʻqing."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "standart limitlar: sin, cos, e, ln",
+            "siqish: chegaralangan × 0 → 0",
+            "f ∼ g ⇔ f/g → 1",
+            "kichik o katta O dan kuchli",
+            "∞ da: yetakchi had hukmronlik qiladi"
+          ],
+          "narration": "Oltinchi bob, qisqacha. Nolda toʻrtta standart limit: sinus, kosinus, eksponenta, logarifm. Siqish teoremasi tebranishlarni yumshatadi. Ekvivalentlik — nisbat birga intiladi degani, va u koʻpaytma hamda boʻlinmalar ichida almashtirishga ruhsat beradi. Kichik o — katta O ning yoʻqolib boruvchi egizagi. Cheksizlikda yetakchi had hukmronlik qiladi, eksponenta esa ularning hammasidan ustun. Endi butun kursga oxirgi bir nazar."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "N ⊆ Z ⊆ Q ⊆ R ⊆ C; z = a + bi",
+            "soha: ÷0, ildizlar, logarifmlar",
+            "kompozitsiya, teskarilar, exp va log",
+            "limit ⇔ bir tomonlamalar mos",
+            "0/0: ajratish; K/0: ±∞",
+            "∼, O, o: taqqoslash grammatikasi"
+          ],
+          "narration": "Butun kurs olti qatorda. Son toʻplamlari naturallardan komplekslargacha ichma-ich; kompleks arifmetika qoʻshmaga tayanadi. Funksiyalar tabiiy sohalarda yashaydi va zanjirlanadi. Limit aynan ikkala bir tomonlama mos kelganda mavjud. Nol boʻluv nol: ajratish yoki qoʻshma. Nol boʻlmagan boʻluv nol: yoʻnaltirilgan cheksizlik. Taqqoslash grammatikasi — ekvivalentlik, katta O, kichik o — qaysi funksiya gʻolib boʻlishini aytadi. Siz birinchi dan toʻrtinchi haftalarni oʻtdingiz. Butun arsenal — ekrandagi olti qatorda."
+        },
+        {
+          "type": "outro",
+          "message": "Birinchi dan toʻrtinchi haftalarning hammasini oʻtdingiz: son toʻplamlari, kompleks sonlar, funksiyalar va limitlar. Endi testni topshiring — siz tayyorsiz.",
+          "narration": "Mana bu — toʻliq sayohat edi: son toʻplamlari, kompleks sonlar, funksiyalar va ularning barcha qoidalari hamda qisqartirishlari bilan limitlar. Qaysi bob shubhali boʻlsa, qayta koʻring; misallarni qogʻoz bilan yana bir marta yechib chiqing va jarayonga ishoning. Vositalar endi sizniki — boring va testni topshiring. Boblar mustaqil — istalgan tartibda qayta koʻrishingiz mumkin. Omad — siz tayyorsiz."
+        }
+      ]
+    }
+  ],
+  "outro_message": "Testda omad — siz tayyorsiz.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

@@ -1,0 +1,585 @@
+{
+  "id": "math1_w57",
+  "language": "en",
+  "course_title": "Math I — Mathematical Analysis",
+  "test_title": "Weeks 5–7 · Complete Guide",
+  "subtitle": "Continuity · Derivatives · Related Rates",
+  "chapters": [
+    {
+      "title": "Continuity: When Nothing Breaks",
+      "blocks": [
+        { "type": "title", "narration": "Welcome to the complete video guide to Math I, weeks five to seven. In the next half hour, continuity will finally click, two big theorems will guarantee your optima, the derivative will grow out of a simple picture, and related rates will tie calculus to balloons, ladders, and capacitors. Every worked example comes straight from your course files, solved step by step. Let's begin." },
+        { "type": "section", "num": 1, "title": "Continuity and Its Discontinuities", "subtitle": "Three conditions, four ways to fail",
+          "narration": "Chapter one. Week five asks: can you draw the graph without lifting the pencil? Continuity is the rigorous answer, and it rests on three checkable conditions. We will also meet the four ways continuity fails, and learn to classify each one on sight." },
+        { "type": "concept",
+          "heading": "The Three Conditions of Continuity",
+          "bullets": [
+            "f(a) must be defined",
+            "the limit as x approaches a exists",
+            "the limit equals the function value"
+          ],
+          "formula": "\\lim_{x \\to a} f(x) = f(a)",
+          "formula_caption": "read: the limit of f of x, as x approaches a, equals f of a",
+          "narration": "A function is continuous at a point when three conditions hold. First, the value f of a must be defined; the point exists. Second, the limit as x approaches a must exist, meaning the left and right limits agree. Third, that limit must equal the function value. Read the formula: the limit of f of x, as x approaches a, equals f of a. Fail one condition and the function is discontinuous. On an interval we require this at every point; engineers summarize it as: small input changes produce small output changes." },
+        { "type": "concept",
+          "heading": "Four Ways Continuity Fails",
+          "bullets": [
+            "removable: a hole in the graph",
+            "jump: finite but unequal sides",
+            "infinite: blow-up at an asymptote",
+            "oscillating: never settles down"
+          ],
+          "formula": "f(x) = \\sin\\frac{1}{x}",
+          "formula_caption": "oscillates endlessly near zero, so no limit",
+          "narration": "Discontinuities come in four flavors. Removable: the limit exists but the value is missing or different, a hole you could patch. Jump: both one-sided limits are finite but unequal, like a switch snapping between states. Infinite: the function blows up along a vertical asymptote, like one over x at zero. Oscillating: the function never settles; the formula shows sine of one over x, which oscillates infinitely fast near zero, so no limit exists. Classification is the first exam question, so learn the four rows by name. This skill opens the exam." },
+        { "type": "concept",
+          "heading": "Which Functions Are Continuous?",
+          "bullets": [
+            "polynomials: everywhere",
+            "rational: denominator nonzero",
+            "trig, exponential, log: on domains",
+            "sums, products, quotients survive"
+          ],
+          "formula": "\\lim_{x \\to a} f(g(x)) = f\\left(\\lim_{x \\to a} g(x)\\right)",
+          "formula_caption": "with continuity, the limit moves inside f",
+          "narration": "We rarely check limits from scratch; we use a catalog. Polynomials are continuous everywhere. Rational functions are continuous wherever the denominator is nonzero. Trigonometric, exponential, and logarithmic functions are continuous on their domains. Sums, differences, constant multiples, products, and quotients of continuous functions remain continuous. Best of all is composition, shown in the formula: if g tends to L and f is continuous at L, the limit moves inside f. That is why engineering models assembled from elementary pieces stay predictable. Memorize this short catalog before the exam: polynomials first, then everything built from them." },
+        { "type": "table",
+          "heading": "Classifying Discontinuities",
+          "columns": ["Type", "What happens", "Example"],
+          "rows": [
+            ["Removable", "limit exists, value wrong", "hole in the graph"],
+            ["Jump", "sides finite but unequal", "snapping switch"],
+            ["Infinite", "unbounded near the point", "1/x at zero"],
+            ["Oscillating", "no value approached", "sin(1/x) at zero"]
+          ],
+          "narration": "Here is the classification at a glance. A removable discontinuity is a hole: the limit exists but the value is wrong or missing. A jump has both one-sided limits finite and unequal; think of a protection controller snapping to zero. An infinite discontinuity is unbounded near the point, like one over x at zero. An oscillating one approaches no value at all, like sine of one over x at zero. When you classify, always compute the one-sided limits first, then match the row. This table is your first diagnostic tool." },
+        { "type": "example",
+          "heading": "Example: Is This Piecewise Function Continuous?",
+          "problem": "f(x)=\\begin{cases} x^{2}+1, & x<2 \\\\ 5, & x=2 \\\\ 3x-1, & x>2 \\end{cases}",
+          "steps": [
+            { "tex": "\\lim_{x \\to 2^{-}} f(x) = 2^{2}+1 = 5" },
+            { "tex": "\\lim_{x \\to 2^{+}} f(x) = 3\\cdot 2-1 = 5" },
+            { "tex": "f(2) = 5" },
+            { "tex": "\\lim_{x \\to 2} f(x) = f(2) = 5", "highlight": true }
+          ],
+          "result": "f is continuous at x = 2",
+          "narration": "A practical-session classic. Three pieces meet at x equals two: a parabola on the left, a single value at the point, a line on the right. Step one, the left-hand limit: two squared plus one gives five. Step two, the right-hand limit: three times two minus one, again five. Step three, the value at the point: f of two equals five. Five, five, five: the two one-sided limits and the value all agree, so all three continuity conditions hold. The function is continuous at two; the pieces join without a seam. Each branch is evaluated from its own side of the junction. This three-number check is the whole method." },
+        { "type": "example",
+          "heading": "Example: Patching a Hole (Find k)",
+          "problem": "f(x)=\\begin{cases} \\frac{x^{2}-9}{x-3}, & x \\neq 3 \\\\ k, & x=3 \\end{cases}",
+          "steps": [
+            { "tex": "\\frac{x^{2}-9}{x-3} = \\frac{(x-3)(x+3)}{x-3} = x+3" },
+            { "tex": "\\lim_{x \\to 3} f(x) = 3+3 = 6" },
+            { "tex": "k = \\lim_{x \\to 3} f(x) = 6", "highlight": true }
+          ],
+          "result": "k = 6",
+          "narration": "Now we repair a removable discontinuity. The function is a quotient undefined at x equals three, and we must choose k so it becomes continuous there. Step one: factor the numerator as a difference of squares and cancel. Away from three, the function is simply x plus three. Step two: the limit as x approaches three is six. Step three: continuity demands that the value equal the limit, so k must be six. With k equal to six the hole is filled and the graph becomes one straight, unbroken line. Every parameter problem in the homework reduces to this single equation: value equals limit. Remember this pattern." },
+        { "type": "example",
+          "heading": "Example: Two Discontinuities in One Function",
+          "problem": "f(x) = \\frac{x}{x^{2}-x}",
+          "steps": [
+            { "tex": "x^{2}-x = x(x-1)" },
+            { "tex": "f(x) = \\frac{x}{x(x-1)} = \\frac{1}{x-1}" },
+            { "text": "at x = 0: limit exists (-1), value missing: removable" },
+            { "text": "at x = 1: one-sided limits -∞ and +∞: infinite" },
+            { "tex": "x=0: \\ \\text{removable}, \\quad x=1: \\ \\text{infinite}", "highlight": true }
+          ],
+          "result": "removable at 0, infinite at 1",
+          "narration": "A textbook exercise with a twist: one function, two discontinuities, two different types. Step one: factor the denominator, x times x minus one. Step two: cancel the common factor x, leaving one over x minus one, valid away from zero and one. Now classify each suspect. At x equals zero the limit exists and equals minus one, but the original function is undefined there: a removable discontinuity, fixable by defining f of zero to be minus one. At x equals one the simplified denominator vanishes; the one-sided limits blow up to minus and plus infinity, an infinite discontinuity with a vertical asymptote. One function, two rows of our table." },
+        { "type": "recap",
+          "items": [
+            "continuous: value + limit + equality",
+            "four breaks: removable, jump, infinite, oscillating",
+            "polynomials, rational, trig, exp, log: continuous",
+            "composition moves the limit inside"
+          ],
+          "narration": "Let's consolidate chapter one. Continuity at a point means three things: the value exists, the limit exists, and they are equal. Failures come in four types: removable, jump, infinite, oscillating. Polynomials, rational, trigonometric, exponential, and logarithmic functions are continuous on their domains, and composition carries limits inside. That is week five's foundation. Next, two theorems that turn it into engineering guarantees." }
+      ]
+    },
+    {
+      "title": "Two Theorems Engineers Trust",
+      "blocks": [
+        { "type": "section", "num": 2, "title": "The IVT and the Weierstrass Theorem", "subtitle": "Existence guarantees you can build on",
+          "narration": "Chapter two. Continuity alone is nice, but theorems make it powerful. The Intermediate Value Theorem guarantees that every intermediate level is reached. The Weierstrass Theorem guarantees that a continuous function on a closed interval actually attains its maximum and minimum. These are the guarantees engineering design relies on." },
+        { "type": "concept",
+          "heading": "The Intermediate Value Theorem",
+          "bullets": [
+            "f continuous on [a, b]",
+            "every value between f(a) and f(b) is taken",
+            "existence guaranteed, uniqueness not"
+          ],
+          "narration": "Imagine a system warming continuously from forty degrees to eighty. Must it pass through sixty? Yes, and the theorem says why. If f is continuous on the closed interval from a to b, it takes every value between f of a and f of b: for any target z in between, some point c gives f of c equal to z. Note what is not promised: the point c need not be unique, and the theorem never tells you where it is. It is a pure existence guarantee, the kind that makes root-finding legitimate." },
+        { "type": "formula",
+          "heading": "The Root-Finding Form of the IVT",
+          "tex": "f(a) \\cdot f(b) < 0 \\ \\Rightarrow \\ \\exists\\, c \\in (a,b): \\ f(c) = 0",
+          "parts": [
+            { "substr": "f(a) \\cdot f(b) < 0", "color": "red", "note": "opposite signs at the endpoints" },
+            { "substr": "c \\in (a,b)", "color": "blue", "note": "a root lies strictly inside" },
+            { "substr": "f(c) = 0", "color": "green", "note": "the graph crosses the axis" }
+          ],
+          "narration": "The most useful special case targets zeros. Suppose f of a and f of b have opposite signs, one positive and one negative, shown in red. A continuous curve that starts above the axis and ends below it must cross somewhere: there exists a point c strictly inside the interval, in blue, where f of c equals zero, in green. This is how numerical methods bracket roots. Two requirements: continuity on the whole closed interval, and a genuine sign change. If the function only touches zero without crossing, the test is silent. Engineers use this to prove a solution exists before computing it." },
+        { "type": "concept",
+          "heading": "The Weierstrass Extreme Value Theorem",
+          "bullets": [
+            "continuous on a closed bounded interval",
+            "the absolute maximum is attained",
+            "the absolute minimum is attained",
+            "both conditions are essential"
+          ],
+          "formula": "f(x_{\\min}) \\leq f(x) \\leq f(x_{\\max})",
+          "formula_caption": "every value sits between the attained extremes",
+          "narration": "The Weierstrass Theorem, also called the Extreme Value Theorem, answers the question engineers ask daily: does an optimum exist? If f is continuous on a closed, bounded interval, it attains an absolute maximum and an absolute minimum: real values, at real points, as the formula shows, every x sits between the two extremes. Both conditions matter. Open the interval and the values may only be approached; break continuity and a jump can dodge the maximum. The theorem guarantees existence; finding the points is the job of derivatives, next week. Attained means actually reached, not merely approached." },
+        { "type": "example",
+          "heading": "Example: Proving a Root Exists",
+          "problem": "f(x) = x - \\cos x",
+          "steps": [
+            { "tex": "f(0) = 0 - \\cos 0 = -1 < 0" },
+            { "tex": "f\\left(\\frac{\\pi}{2}\\right) = \\frac{\\pi}{2} - 0 > 0" },
+            { "text": "sign change on [0, π/2] plus continuity: IVT applies" },
+            { "tex": "\\exists\\, c \\in \\left(0, \\frac{\\pi}{2}\\right): \\ f(c) = 0", "highlight": true }
+          ],
+          "result": "at least one zero",
+          "narration": "Can we prove that x minus cosine x crosses the axis, without solving anything? Yes, with the sign-change form. The function is continuous everywhere, a sum of continuous pieces. Evaluate at zero: zero minus cosine of zero is minus one, negative. Evaluate at pi over two: pi over two minus zero, positive. The endpoint values have opposite signs on the interval from zero to pi over two. By the Intermediate Value Theorem, some c inside satisfies f of c equals zero. The equation x equals cosine x has at least one solution: existence proved, no formula needed. A favorite exam trick: evaluate, compare signs, conclude." },
+        { "type": "example",
+          "heading": "Example: When the Theorem Says No",
+          "problem": "C(r) = \\pi r^{2} + \\frac{1}{r}, \\quad 0 < r \\leq 5",
+          "steps": [
+            { "text": "C is continuous, but is the domain closed?" },
+            { "text": "(0, 5] is not closed: 0 is excluded" },
+            { "tex": "r \\to 0^{+} \\ \\Rightarrow \\ \\frac{1}{r} \\to +\\infty" },
+            { "text": "no absolute maximum: cost grows without bound", "highlight": true }
+          ],
+          "result": "the student's claim is wrong",
+          "narration": "A student claims the cost function is continuous, so Weierstrass guarantees a maximum. Let's audit that. The cost of the pipe is pi r squared plus one over r, on the interval from zero, excluded, to five. The function is indeed continuous, but the domain is not closed: zero is missing. Near zero, one over r explodes to infinity, so the cost grows without bound. There is no absolute maximum, and the theorem was never applicable: continuity alone is not enough; the interval must be closed and bounded. This exercise teaches the flip side of every theorem: check every hypothesis before you invoke it. Domain first, always." },
+        { "type": "recap",
+          "items": [
+            "IVT: every intermediate value is hit",
+            "sign change means a root inside",
+            "Weierstrass: max and min attained",
+            "needs continuity + closed bounded set"
+          ],
+          "narration": "Chapter two in one breath. The Intermediate Value Theorem: a continuous function on a closed interval hits every value between its endpoint values; opposite signs mean a root inside. The Weierstrass Theorem: a continuous function on a closed, bounded interval attains its absolute maximum and minimum. Both demand continuity, and Weierstrass also demands a closed, bounded interval. Guarantees of existence: the backbone of engineering optimization." }
+      ]
+    },
+    {
+      "title": "Inverse Functions: Running Models Backwards",
+      "blocks": [
+        { "type": "section", "num": 3, "title": "Inverse Functions", "subtitle": "When can a model run backwards?",
+          "narration": "Chapter three. Sensors turn temperature into voltage, but engineers often need the reverse: what temperature produced this reading? That is an inverse function. We will see when inverses exist, why monotonicity is the key, and how to compute them safely." },
+        { "type": "concept",
+          "heading": "What an Inverse Function Is",
+          "bullets": [
+            "swaps input and output",
+            "undoes f: f⁻¹(f(x)) = x",
+            "warning: f⁻¹(x) is not 1/f(x)"
+          ],
+          "formula": "f^{-1}(f(x)) = x",
+          "formula_caption": "apply f, then the inverse: back to the start",
+          "narration": "An inverse function reverses the roles of input and output. If y equals f of x, the inverse returns x from y. The defining property: composing f with its inverse brings you back, f inverse of f of x equals x, and f of f inverse of y equals y. One warning before anything else: the notation f to the minus one means the inverse function, not one over f. For f of x equals three x plus two, solving y equals three x plus two gives x equals y minus two over three: that linear map, not a reciprocal, is the inverse." },
+        { "type": "concept",
+          "heading": "One-to-One, Monotonic, Invertible",
+          "bullets": [
+            "one-to-one: outputs never repeat",
+            "the horizontal line test",
+            "strictly monotonic means one-to-one",
+            "x² needs a restricted domain"
+          ],
+          "formula": "f(x_1) = f(x_2) \\Rightarrow x_1 = x_2",
+          "formula_caption": "equal outputs force equal inputs",
+          "narration": "Not every function can be inverted. The requirement is one-to-one: two different inputs must never share an output; equal outputs force equal inputs, as the formula says. Graphically, every horizontal line meets the graph at most once. The convenient sufficient condition is strict monotonicity: a function that only increases, or only decreases, never repeats a value, so it is one-to-one and invertible. Squaring fails on the whole line, since minus two and two both give four; but on the restricted domain from zero to infinity it is strictly increasing, and the inverse is the square root." },
+        { "type": "concept",
+          "heading": "Computing Inverses Safely",
+          "bullets": [
+            "solve y = f(x) for x",
+            "domain of the inverse = range of f",
+            "continuous and monotonic gives continuous inverse",
+            "classic pair: e^x and ln x"
+          ],
+          "formula": "y = e^{x} \\ \\Longleftrightarrow \\ x = \\ln y",
+          "formula_caption": "the exponential and logarithm undo each other",
+          "narration": "The recipe is mechanical. Write y equals f of x and solve for x; that solution is the inverse. Its domain is the range of the original function, so always compute the range first. The theory that makes inversion safe: a continuous, strictly monotonic function on an interval has a continuous inverse; no gaps appear when you reverse the direction. The classic pair: e to the x is continuous and strictly increasing with range zero to infinity, so its inverse is the natural logarithm, defined for positive inputs. The two graphs are mirror images." },
+        { "type": "plot",
+          "heading": "Mirror Images over the Line y = x",
+          "functions": [
+            { "fn": "np.exp(x)", "tex": "y = e^{x}", "color": "yellow" },
+            { "fn": "np.log(x)", "tex": "y = \\ln x", "color": "blue" },
+            { "fn": "x", "tex": "y = x", "color": "teal" }
+          ],
+          "x_range": [-3, 5], "y_range": [-3, 5],
+          "point": [0, 1], "point_label": "(0, 1) and (1, 0)",
+          "narration": "Here are the two curves with the diagonal y equals x between them. The exponential, in yellow, passes through zero, one; the logarithm, in blue, passes through one, zero. Each point of one graph is the mirror image of a point of the other, with coordinates swapped. Reflecting a strictly increasing continuous curve across the diagonal can never create a jump or a repeated value, which is exactly why the inverse of a continuous monotonic function is continuous. No breaks in the original, no breaks in the reflection: that is stable inversion." },
+        { "type": "example",
+          "heading": "Example: Thermistor Calibration",
+          "problem": "R(T) = 100\\, e^{-0.02\\,T}, \\quad T \\geq 0",
+          "steps": [
+            { "text": "continuous and strictly decreasing: invertible" },
+            { "tex": "\\frac{R}{100} = e^{-0.02\\,T}" },
+            { "tex": "\\ln\\frac{R}{100} = -0.02\\,T \\ \\Rightarrow \\ T(R) = -50\\,\\ln\\frac{R}{100}" },
+            { "tex": "T(40) = -50\\,\\ln 0.4 \\approx 45.8", "highlight": true }
+          ],
+          "result": "T(40 kΩ) ≈ 45.8 °C",
+          "narration": "A real sensor problem. A thermistor's resistance falls exponentially with temperature: R equals one hundred times e to the minus zero point zero two T. First, invertibility: the model is continuous and strictly decreasing for non-negative temperatures, so it is one-to-one with a continuous inverse. To find it, divide by one hundred, then take natural logarithms of both sides: the logarithm of R over one hundred equals minus zero point zero two T. Solve for T: T of R equals minus fifty times the logarithm of R over one hundred. Evaluate at forty kilo-ohms: minus fifty times the logarithm of zero point four is about forty-five point eight degrees Celsius." },
+        { "type": "example",
+          "heading": "Example: Inverse of a Linear Sensor",
+          "problem": "x(V) = 0.5\\,V + 2, \\quad 0 \\leq V \\leq 10",
+          "steps": [
+            { "text": "x(0) = 2, x(10) = 7, so the range is [2, 7]" },
+            { "tex": "x - 2 = 0.5\\,V" },
+            { "tex": "V(x) = 2(x-2) = 2x-4" },
+            { "tex": "V(x) = 2x-4, \\quad 2 \\leq x \\leq 7", "highlight": true }
+          ],
+          "result": "V(x) = 2x − 4 on [2, 7]",
+          "narration": "A drive displacement x depends linearly on the input voltage: x equals half V plus two, for voltages from zero to ten. Step one, the range: the function is increasing, so evaluate the endpoints; x of zero is two, x of ten is seven, and the range is the interval from two to seven. That interval becomes the domain of the inverse. Step two: solve the equation for V. Subtract two and multiply by two: the inverse is V of x equals two x minus four. Step three: the original is continuous and strictly increasing, so the inverse is continuous on its domain. Inversion complete, and safe." },
+        { "type": "recap",
+          "items": [
+            "inverse undoes f, not 1/f",
+            "one-to-one: horizontal line test",
+            "strictly monotonic means invertible",
+            "inverse domain = original range"
+          ],
+          "narration": "Chapter three wrapped up. The inverse swaps input and output and undoes f; it is not a reciprocal. Inverses exist exactly for one-to-one functions, checked by the horizontal line test, and strict monotonicity guarantees it. To compute: solve for x, and remember the inverse's domain is the original range. Continuous plus strictly monotonic gives a continuous inverse: the sensor engineer's daily guarantee." }
+      ]
+    },
+    {
+      "title": "The Derivative: From Secants to Instantaneous Rates",
+      "blocks": [
+        { "type": "section", "num": 4, "title": "The Derivative", "subtitle": "From two points to an instant",
+          "narration": "Chapter four. How fast is something moving right now, not on average but at this instant? Week six answers with the derivative: the limit of secant slopes. One idea powers tangents, velocities, growth rates, and marginal cost alike. Let's build it from two points on a curve." },
+        { "type": "concept",
+          "heading": "Secants and the Difference Quotient",
+          "bullets": [
+            "secant: line through two points",
+            "slope is rise over run",
+            "second point slides toward the first",
+            "the limit of secants is the tangent"
+          ],
+          "formula": "m_{sec} = \\frac{f(a+h) - f(a)}{h}",
+          "formula_caption": "average slope over the step h",
+          "narration": "Pick two points on a curve: a, f of a, and a step h later, a plus h, f of a plus h. The line through them is the secant, and its slope is the difference quotient: the change in f divided by the change in x. Now let h shrink. The second point slides along the curve toward the first, and the secant pivots into a limiting position, the tangent line at a. Near the point of tangency a smooth curve is almost straight, which is why linear approximations work so well." },
+        { "type": "formula",
+          "heading": "The Definition of the Derivative",
+          "tex": "f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}",
+          "parts": [
+            { "substr": "f'(a)", "color": "yellow", "note": "the derivative at a: one number" },
+            { "substr": "h \\to 0", "color": "blue", "note": "the step shrinks to nothing" },
+            { "substr": "f(a+h) - f(a)", "color": "green", "note": "how much f rose over the step" }
+          ],
+          "narration": "Here is the definition that runs the whole chapter. The derivative of f at a, in yellow, is the limit of the difference quotient as h tends to zero, in blue. The numerator, in green, is how much f changed when the input moved by h; dividing by h gives the average rate, and letting h shrink freezes that average into an instantaneous rate. If the limit exists as a finite number, f is differentiable at a. Read it as slope of the tangent, velocity at an instant, growth rate right now: same formula, different units." },
+        { "type": "plot",
+          "heading": "A Tangent Grows from the Curve",
+          "functions": [
+            { "fn": "x**2/4", "tex": "f(x) = \\frac{x^{2}}{4}", "color": "yellow" },
+            { "fn": "x - 1", "tex": "y = x - 1", "color": "blue" }
+          ],
+          "x_range": [-4, 4], "y_range": [0, 5],
+          "point": [2, 1], "point_label": "(2, 1)",
+          "narration": "The yellow parabola is f of x equals x squared over four. At x equals two the value is one, so the tangency point is two, one. The derivative, f prime of x equals x over two, gives f prime of two equals one, and the tangent is the blue line y equals x minus one. Zoom in near the point: curve and line become indistinguishable. That is local linearity, the geometric heart of differentiation, and the tangent is the best linear approximation of the curve there. Slope and point together fix the line completely; that is all a tangent is." },
+        { "type": "concept",
+          "heading": "The Derivative as a Function",
+          "bullets": [
+            "f'(x): one slope for each x",
+            "notations: y', dy/dx, d/dx f(x)",
+            "velocity v = s'(t)",
+            "acceleration a = s''(t)"
+          ],
+          "formula": "f'(x) = \\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}",
+          "formula_caption": "the same limit, at every point x",
+          "narration": "Take the definition and let the point a roam over the whole domain: the derivative becomes a function in its own right. Each x gets its own slope, its own instantaneous rate. Notations vary, f prime of x, y prime, dy by dx; they all mean the same object. Physics reads it directly: velocity is the derivative of position, and acceleration is the derivative of velocity, the second derivative of position. Economics does the same: marginal cost is the derivative of cost. Wherever something changes, the derivative measures how fast." },
+        { "type": "table",
+          "heading": "Derivatives in Mechanics",
+          "columns": ["Quantity", "Definition", "SI unit"],
+          "rows": [
+            ["Velocity", "v = s'(t)", "m/s"],
+            ["Speed", "|v(t)|", "m/s"],
+            ["Acceleration", "a = s''(t)", "m/s²"],
+            ["Jerk", "j = a'(t)", "m/s³"]
+          ],
+          "narration": "The lecture's quick reference for motion. Velocity is the derivative of position, in meters per second. Speed is its absolute value: how fast, ignoring direction. Acceleration is the derivative of velocity, equivalently the second derivative of position, in meters per second squared. And jerk, yes, that is the technical term, is the derivative of acceleration, in meters per second cubed; it matters in vibrations and passenger comfort. Each row is one more differentiation of the row above: position, velocity, acceleration, jerk. On the exam, always attach the units. Units reveal mistakes early." },
+        { "type": "example",
+          "heading": "Example: Derivative at a Point, by Definition",
+          "problem": "f(x) = x^{2} + 3x, \\quad f'(2) = \\, ?",
+          "steps": [
+            { "tex": "f(2) = 10, \\quad f(2+h) = 10 + 7h + h^{2}" },
+            { "tex": "f'(2) = \\lim_{h \\to 0} \\frac{7h + h^{2}}{h}" },
+            { "tex": "\\lim_{h \\to 0}\\, (7 + h) = 7", "highlight": true }
+          ],
+          "result": "f'(2) = 7: tangent slope at (2, 10)",
+          "narration": "No rules yet, pure definition. For f of x equals x squared plus three x, find the derivative at two. First evaluate: f of two is ten, and f of two plus h expands to ten plus seven h plus h squared. Form the difference quotient: seven h plus h squared, all over h. Cancel h: seven plus h. Let h tend to zero and the quotient tends to seven. So f prime of two equals seven, and the tangent at the point two, ten has slope seven. The h squared term dies in the limit; the seven survives. Notice how the expansion does all the work." },
+        { "type": "example",
+          "heading": "Example: The Reciprocal Function by Definition",
+          "problem": "f(x) = \\frac{1}{x}, \\quad x \\neq 0",
+          "steps": [
+            { "tex": "f'(x) = \\lim_{h \\to 0} \\frac{\\frac{1}{x+h} - \\frac{1}{x}}{h}" },
+            { "tex": "= \\lim_{h \\to 0} \\frac{-1}{x(x+h)} = -\\frac{1}{x^{2}}" },
+            { "tex": "f(2) = \\frac{1}{2}, \\quad f'(2) = -\\frac{1}{4}" },
+            { "tex": "y - \\frac{1}{2} = -\\frac{1}{4}(x-2)", "highlight": true }
+          ],
+          "result": "tangent: y = 1 − x/4",
+          "narration": "The reciprocal function, differentiated from scratch. Combine the fractions in the numerator: one over x plus h minus one over x gives minus h over x times x plus h. Divide by h and cancel: minus one over x times x plus h. Let h tend to zero and x plus h becomes x: f prime of x equals minus one over x squared, negative everywhere, so the curve always falls. At x equals two the value is one half and the slope is minus one fourth. The tangent reads y minus one half equals minus one fourth times x minus two, in other words y equals one minus x over four." },
+        { "type": "example",
+          "heading": "Example: A Falling Ball",
+          "problem": "s(t) = -16t^{2} + 64",
+          "steps": [
+            { "tex": "s(t) = 0 \\ \\Rightarrow \\ t = 2\\,s" },
+            { "tex": "v(t) = s'(t) = -32t" },
+            { "tex": "v(2) = -64\\,ft/s", "highlight": true },
+            { "text": "average on [0, 2]: (0 − 64)/2 = −32 ft/s" }
+          ],
+          "result": "v(2) = −64 ft/s",
+          "narration": "A ball drops from sixty-four feet: s of t equals minus sixteen t squared plus sixty-four. When does it land, and how fast is it moving at impact? Landing means height zero: minus sixteen t squared plus sixty-four equals zero, so t equals two seconds. Velocity is the derivative: v of t equals minus thirty-two t. At impact, v of two is minus sixty-four feet per second; the minus means downward. Compare the average velocity over the whole fall: zero minus sixty-four, divided by two, is minus thirty-two feet per second. The instantaneous impact speed is twice the average: the ball accelerates as it falls." },
+        { "type": "recap",
+          "items": [
+            "difference quotient gives tangent slope",
+            "f'(a): limit as h tends to 0",
+            "derivative = velocity or growth rate",
+            "tangent = best linear approximation"
+          ],
+          "narration": "Chapter four in focus. The difference quotient is a secant slope; letting the step shrink gives the derivative, the tangent slope at a point. The same limit is velocity in physics and marginal cost in economics: the instantaneous rate of change. Near the point, the tangent approximates the curve itself. Next come the shortcuts, so we never grind this limit again. That is the deal week six offers." }
+      ]
+    },
+    {
+      "title": "The Rules of Differentiation",
+      "blocks": [
+        { "type": "section", "num": 5, "title": "Differentiation Rules", "subtitle": "Power, product, quotient",
+          "narration": "Chapter five. Computing limits for every derivative would be torture. The rules rescue us: constants die, powers drop their exponent, sums split, and products and quotients follow two famous patterns you must never misremember. Let's drill them on real course problems." },
+        { "type": "concept",
+          "heading": "Constants, Powers, and Sums",
+          "bullets": [
+            "constant gives derivative 0",
+            "power rule: exponent drops in front",
+            "sums and multiples split apart",
+            "rewrite 6/x² as 6x⁻²"
+          ],
+          "formula": "\\frac{d}{dx}\\, x^{n} = n\\, x^{n-1}",
+          "formula_caption": "the power rule: the workhorse",
+          "narration": "Three foundations. The derivative of a constant is zero; a horizontal line has no slope. The power rule: bring the exponent down in front and reduce it by one, so x to the tenth becomes ten x to the ninth. Sums, differences, and constant multiples split apart, so polynomials differentiate term by term. One exam trick: rewrite fractions as negative powers before differentiating. Six over x squared is six x to the minus two, and the derivative falls straight out as minus twelve over x cubed, cheaper than the quotient rule." },
+        { "type": "formula",
+          "heading": "The Product Rule",
+          "tex": "(f \\cdot g)' = f' \\cdot g + g' \\cdot f",
+          "parts": [
+            { "substr": "(f \\cdot g)'", "color": "yellow", "note": "derivative of the whole product" },
+            { "substr": "f' \\cdot g", "color": "blue", "note": "first changes, second waits" },
+            { "substr": "g' \\cdot f", "color": "green", "note": "second changes, first waits" }
+          ],
+          "narration": "The most misused rule in calculus. The derivative of a product is not the product of the derivatives: for x times x that would give one, but the true answer is two x. The correct pattern: differentiate the first factor and keep the second, in blue; then keep the first and differentiate the second, in green; add the two pieces. Simple sanity check from the practical session: differentiate x squared times x cubed; the rule gives five x to the fourth, matching the derivative of x to the fifth. If your answer fails that test, redo it." },
+        { "type": "concept",
+          "heading": "The Quotient Rule",
+          "bullets": [
+            "quotient: (f'g - g'f)/g²",
+            "low d-high minus high d-low",
+            "divided by the square of low",
+            "never the quotient of derivatives"
+          ],
+          "formula": "\\left(\\frac{f}{g}\\right)' = \\frac{f'g - g'f}{g^{2}}",
+          "formula_caption": "the quotient rule",
+          "narration": "Quotients follow the sibling pattern: differentiate the top, keep the bottom, subtract the bottom-prime times the top, and divide by the bottom squared. The mnemonic chants: low d-high minus high d-low, over low squared. The twin warning: the derivative of a quotient is not the quotient of the derivatives. Quick workout from the lecture: for k of x equals five x squared over four x plus three, top-prime is ten x and bottom-prime is four, and the rule assembles ten x times four x plus three, minus twenty x squared, all over four x plus three squared." },
+        { "type": "concept",
+          "heading": "Higher Derivatives and the Increment Formula",
+          "bullets": [
+            "differentiate again: f'', f''', f(4)",
+            "polynomial degree drops each time",
+            "increment formula estimates nearby values",
+            "marginal cost is the derivative of cost"
+          ],
+          "formula": "f(a+h) \\approx f(a) + f'(a)\\, h",
+          "formula_caption": "a linear estimate one step h away",
+          "narration": "Since f prime is itself a function, differentiate it again: the second derivative, then the third, and so on. Each differentiation of a polynomial lowers its degree by one, until a constant appears, whose derivative is zero. The increment formula turns the derivative into a prediction tool: one step h away, the value is approximately the current value plus slope times step. If f of three is two and f prime of three is five, then f of three point two is roughly two plus five times zero point two, which is three. Economists read this as marginal cost, the price of one more unit." },
+        { "type": "example",
+          "heading": "Example: Product of Binomials",
+          "problem": "j(x) = (x^{2}+2)(3x^{3}-5x)",
+          "steps": [
+            { "tex": "j'(x) = 2x(3x^{3}-5x) + (9x^{2}-5)(x^{2}+2)" },
+            { "tex": "= (6x^{4}-10x^{2}) + (9x^{4}+13x^{2}-10)" },
+            { "tex": "j'(x) = 15x^{4}+3x^{2}-10", "highlight": true },
+            { "text": "check: j(x) = 3x⁵ + x³ − 10x gives the same" }
+          ],
+          "result": "j'(x) = 15x⁴ + 3x² − 10",
+          "narration": "From the required reading: j of x equals x squared plus two, times three x cubed minus five x. Product rule: derivative of the first, two x, times the second, plus the first times the derivative of the second, nine x squared minus five. Expand and collect: six x to the fourth plus nine x to the fourth makes fifteen x to the fourth; minus ten x squared plus thirteen x squared makes three x squared; then minus ten. So j prime is fifteen x to the fourth plus three x squared minus ten. Verify by expanding first: three x to the fifth plus x cubed minus ten x differentiates to the same answer." },
+        { "type": "example",
+          "heading": "Example: A Heating Experiment",
+          "problem": "T(t) = 20 + 8t - t^{2}, \\quad 0 \\leq t \\leq 4",
+          "steps": [
+            { "tex": "T'(t) = 8 - 2t" },
+            { "text": "T'(1) = 6 °C/min, T'(3) = 2 °C/min: still heating" },
+            { "tex": "\\frac{T(3)-T(1)}{3-1} = \\frac{35-27}{2} = 4" },
+            { "tex": "T(2.1) \\approx T(2) + T'(2)\\cdot 0.1 = 32.4", "highlight": true }
+          ],
+          "result": "estimate 32.4 °C, exact 32.39 °C",
+          "narration": "A heating component follows T of t equals twenty plus eight t minus t squared, over four minutes. Differentiate: T prime equals eight minus two t. At minute one the rate is six degrees per minute; at minute three it is two degrees per minute: still heating, but slowing. The average rate between minutes one and three: temperatures twenty-seven and thirty-five, so eight degrees over two minutes, four degrees per minute. Now the increment formula at minute two: temperature thirty-two, rate four, so one tenth of a minute later the estimate is thirty-two plus four tenths, thirty-two point four degrees. The exact value is thirty-two point three nine: the tangent is off by one hundredth." },
+        { "type": "recap",
+          "items": [
+            "power rule: n·x^(n-1)",
+            "product: f'g + g'f",
+            "quotient: (f'g - g'f)/g²",
+            "f(a+h) ≈ f(a) + f'(a)·h"
+          ],
+          "narration": "Chapter five, boxed. Constants give zero; powers drop the exponent in front; sums split. Products: f prime g plus g prime f, never the product of derivatives. Quotients: low d-high minus high d-low, over low squared. Higher derivatives repeat the process, and the increment formula converts slope into prediction. These five lines handle most of the midterm, so practice until they are reflexes." }
+      ]
+    },
+    {
+      "title": "When the Derivative Does Not Exist",
+      "blocks": [
+        { "type": "section", "num": 6, "title": "Differentiability and Continuity", "subtitle": "Corners, cusps, and vertical walls",
+          "narration": "Chapter six. Differentiability is stronger than continuity. A graph can be unbroken and still refuse to have a slope, at a corner, a cusp, a vertical tangent, or under infinite oscillation. We learn to diagnose each failure with one-sided derivatives." },
+        { "type": "concept",
+          "heading": "One-Sided Derivatives",
+          "bullets": [
+            "left slope and right slope, separately",
+            "f'(a) exists iff both match, finite",
+            "procedure: continuity first, then slopes"
+          ],
+          "formula": "f'_{-}(a) = \\lim_{h \\to 0^{-}} \\frac{f(a+h)-f(a)}{h}",
+          "formula_caption": "the left-hand derivative at a",
+          "narration": "At a junction point, approach the slope from each side separately. The left derivative lets h run to zero from below; the right derivative, from above. The criterion: the two-sided derivative exists exactly when both one-sided derivatives exist, are finite, and coincide, one number approached from both directions. The instructor's procedure: first check continuity; if the function is not continuous, stop, because no derivative is possible. If it is continuous, compute both one-sided slopes and compare. Piecewise functions hide their secrets at the junction; this tool exposes them. Master it before the exam." },
+        { "type": "concept",
+          "heading": "Differentiable Implies Continuous",
+          "bullets": [
+            "differentiable at a implies continuous at a",
+            "converse false: |x| at zero",
+            "proof: change in f = h times quotient",
+            "discontinuous means not differentiable"
+          ],
+          "formula": "f(a+h) - f(a) = h \\cdot \\frac{f(a+h)-f(a)}{h} \\to 0",
+          "formula_caption": "the change in f is squeezed to zero",
+          "narration": "Theorem three point one: if f is differentiable at a, it is automatically continuous there. The proof is one line of algebra: the change in f equals h times the difference quotient. As h tends to zero, the quotient tends to the finite derivative and h tends to zero, so the change in f is squeezed to zero, which is continuity. The converse fails: the absolute value function is continuous at zero yet has no derivative there; a corner blocks it. The contrapositive is a gift: discontinuous means not differentiable. Continuity is the cheap first test." },
+        { "type": "concept",
+          "heading": "Four Failure Modes",
+          "bullets": [
+            "kink: |x| at 0, slopes -1 and +1",
+            "cusp: |x|^(2/3), slopes -∞ and +∞",
+            "vertical tangent: x^(1/3), +∞ both sides",
+            "oscillation: x·sin(1/x)"
+          ],
+          "narration": "Four classic ways to lose the derivative, all at zero. A kink: the absolute value, slope minus one on the left, plus one on the right: two finite, different slopes. A cusp: the two-thirds power of the absolute value; slopes blow up to minus infinity and plus infinity, a sharp beak. A vertical tangent: the cube root of x; both slopes race to plus infinity and the tangent line stands vertical. And oscillation: x times sine of one over x is continuous, but its secant slopes oscillate endlessly, with no limit. All four are continuous; none is differentiable." },
+        { "type": "table",
+          "heading": "Four Cases at Zero",
+          "columns": ["Function", "Slopes L / R", "At zero"],
+          "rows": [
+            ["x²", "0 / 0", "horizontal tangent"],
+            ["|x|", "-1 / 1", "kink"],
+            ["|x|^(2/3)", "-∞ / +∞", "cusp"],
+            ["x^(1/3)", "+∞ / +∞", "vertical tangent"]
+          ],
+          "narration": "The instructor's table of the four canonical behaviors at zero. x squared: both slopes zero, perfectly differentiable, with a horizontal tangent. The absolute value: minus one and plus one, the kink. The absolute value to the two thirds: minus infinity and plus infinity, the cusp. The cube root of x: plus infinity on both sides, a vertical tangent: continuous, smoothly rounded, yet infinitely steep. Memorize the slope column: zero and zero, unequal finites, opposite infinities, matching infinities. Each row is a standard true-false question; know this table cold. It is pure exam currency." },
+        { "type": "example",
+          "heading": "Example: Absolute Value at Zero",
+          "problem": "f(x) = |x|",
+          "steps": [
+            { "tex": "\\lim_{x \\to 0} |x| = 0 = f(0)" },
+            { "tex": "\\frac{f(h)-f(0)}{h} = \\frac{|h|}{h} = \\begin{cases} -1, & h<0 \\\\ 1, & h>0 \\end{cases}" },
+            { "tex": "f'_{-}(0) = -1 \\neq 1 = f'_{+}(0)", "highlight": true }
+          ],
+          "result": "continuous, not differentiable",
+          "narration": "The full diagnosis, step by step. Continuity first: as x approaches zero, the absolute value approaches zero, which equals f of zero, so the function is continuous. Now the difference quotient at zero: f of h minus f of zero, over h, which is the absolute value of h over h. For negative h it equals minus one; for positive h, plus one. The left derivative is minus one and the right derivative is plus one: both are finite, but they disagree. The two-sided limit does not exist, so f prime of zero does not exist. Continuous, yes; differentiable, no. The graph is the V, with a corner at the vertex." },
+        { "type": "example",
+          "heading": "Example: Designing a Smooth Track",
+          "problem": "f(x)=\\begin{cases} \\frac{1}{10}x^{2}+bx+c, & x<-10 \\\\ -\\frac{1}{4}x+\\frac{5}{2}, & x \\geq -10 \\end{cases}",
+          "steps": [
+            { "tex": "10 - 10b + c = 5" },
+            { "text": "slopes must match: b − 2 = −1/4" },
+            { "tex": "b = \\frac{7}{4}, \\quad c = \\frac{25}{2}", "highlight": true }
+          ],
+          "result": "b = 7/4, c = 25/2",
+          "narration": "The richest problem of the week: a toy-car track leaves a parabola and joins a straight line at x equals minus ten; find b and c so the ride is smooth. Smooth means two conditions. Continuity: the parabola's value at minus ten, which is ten minus ten b plus c, must equal the line's value, five. Differentiability: the parabola's slope there, b minus two, must equal the line's slope, minus one quarter. Two equations, two unknowns. From the slope, b equals seven quarters; substituting, c equals ten b minus five, which is twenty-five halves. With both conditions holding, the track has no jump and no kink; the transition is seamless." },
+        { "type": "recap",
+          "items": [
+            "differentiable implies continuous",
+            "converse false: the |x| corner",
+            "f'(a) needs matching one-sided slopes",
+            "kink, cusp, vertical tangent, oscillation"
+          ],
+          "narration": "Chapter six, settled. Differentiability implies continuity, but not the other way: the absolute value is continuous with a corner. The derivative exists exactly when both one-sided derivatives exist, are finite, and match. The four failure modes to recognize instantly: kink, cusp, vertical tangent, oscillation. Check continuity first, then compare one-sided slopes, always in that order. That procedure alone earns points on the exam." }
+      ]
+    },
+    {
+      "title": "Related Rates and the Great Derivatives",
+      "blocks": [
+        { "type": "section", "num": 7, "title": "Related Rates and Elementary Derivatives", "subtitle": "Week 7: everything moves together",
+          "narration": "Chapter seven, the final stretch before the midterm. Several quantities depend on time and on each other: a balloon's radius and volume, a ladder's top and bottom. Related rates differentiate the relationship. We also bank the great derivatives: sine, cosine, exponential, logarithm." },
+        { "type": "concept",
+          "heading": "The Related-Rates Strategy",
+          "bullets": [
+            "draw and label what changes",
+            "write the geometric relation",
+            "differentiate with respect to t",
+            "substitute last; check units and sign"
+          ],
+          "narration": "Every related-rates problem follows the same five steps. One: read, draw a picture, label what changes and what stays constant. Two: write down the known rates, the wanted rate, and the specific instant, a snapshot such as r equals thirty. Three: write the relation between the quantities, a volume formula, the Pythagorean theorem, or similar triangles, and eliminate extra variables. Four: differentiate both sides with respect to time; every time-dependent variable contributes a factor. Five: substitute the numbers, solve, and check units and sign; a minus means shrinking. The classic blunder is substituting before differentiating: the rates vanish." },
+        { "type": "formula",
+          "heading": "Inflating a Balloon",
+          "tex": "V = \\frac{4}{3}\\pi r^{3} \\ \\Rightarrow \\ \\frac{dV}{dt} = 4\\pi r^{2} \\cdot \\frac{dr}{dt}",
+          "parts": [
+            { "substr": "\\frac{4}{3}\\pi r^{3}", "color": "yellow", "note": "the relation: sphere volume" },
+            { "substr": "\\frac{dV}{dt}", "color": "blue", "note": "how fast volume grows" },
+            { "substr": "4\\pi r^{2} \\cdot \\frac{dr}{dt}", "color": "green", "note": "surface area times radius rate" }
+          ],
+          "narration": "Here is the whole method in one line. The volume of a spherical balloon, in yellow, is four thirds pi r cubed; that is the relation between the quantities. Differentiate both sides with respect to time. The left side becomes d V by d t, in blue, how fast air is entering. The right side, in green, is four pi r squared, the surface area, multiplied by d r by d t, the radius rate; whatever depends on time brings its own rate with it. The same pattern governs cones, cylinders, circles, and right triangles: every geometric formula in the catalog." },
+        { "type": "concept",
+          "heading": "The Great Trigonometric Pair",
+          "bullets": [
+            "(sin x)' = cos x",
+            "(cos x)' = - sin x",
+            "tan: quotient rule gives sec² x",
+            "derivatives cycle with period 4"
+          ],
+          "formula": "\\frac{d}{dx}\\sin x = \\cos x, \\quad \\frac{d}{dx}\\cos x = -\\sin x",
+          "formula_caption": "the slope of sine is cosine",
+          "narration": "Two derivatives anchor trigonometry. The slope of sine is cosine; the slope of cosine is minus sine. The picture explains it: at every peak of sine the tangent is horizontal, so cosine is zero there; where sine rises, cosine is positive; where sine falls, negative. Tangent is sine over cosine, so the quotient rule gives one over cosine squared, which is secant squared; do not memorize it, derive it. Higher derivatives cycle with period four: sine, cosine, minus sine, minus cosine, back to sine. The seventy-fourth derivative? Seventy-four is four eighteens plus two, so it lands on minus sine." },
+        { "type": "concept",
+          "heading": "Exponentials and Logarithms",
+          "bullets": [
+            "(e^x)' = e^x: its own slope",
+            "(b^x)' = b^x · ln b",
+            "(ln x)' = 1/x",
+            "ln of a function: g'/g"
+          ],
+          "formula": "\\frac{d}{dx}e^{x} = e^{x}, \\quad \\frac{d}{dx}\\ln x = \\frac{1}{x}",
+          "formula_caption": "the exponential is its own derivative",
+          "narration": "The exponential is its own derivative: at every point, the slope of e to the x equals its value, and the tangent at zero is y equals x plus one. That property defines the number e. Other bases pay a toll: b to the x differentiates to itself times the natural logarithm of b. The natural logarithm gives one over x, and the logarithm of a function g gives g prime over g. Example: a discharging capacitor with voltage twelve e to the minus t over two changes at minus six e to the minus t over two volts per second, decaying ever slower." },
+        { "type": "example",
+          "heading": "Example: Inflating a Balloon",
+          "problem": "\\frac{dV}{dt} = 800\\ \\text{cm}^{3}/\\text{min}, \\quad r = 30\\ \\text{cm}",
+          "steps": [
+            { "tex": "V = \\frac{4}{3}\\pi r^{3}" },
+            { "tex": "\\frac{dV}{dt} = 4\\pi r^{2}\\,\\frac{dr}{dt}" },
+            { "tex": "800 = 4\\pi (30)^{2}\\,\\frac{dr}{dt}" },
+            { "tex": "\\frac{dr}{dt} = \\frac{800}{3600\\pi} = \\frac{2}{9\\pi}", "highlight": true }
+          ],
+          "result": "dr/dt = 2/(9π) ≈ 0.071 cm/min",
+          "narration": "Gas enters a spherical balloon at eight hundred cubic centimeters per minute. How fast is the radius growing when it reaches thirty centimeters? The relation is the sphere volume, four thirds pi r cubed. Differentiate with respect to time: d V by d t equals four pi r squared times d r by d t. Now substitute: eight hundred equals four pi times thirty squared times the radius rate. Thirty squared is nine hundred, so four pi times nine hundred is thirty-six hundred pi. The radius rate is eight hundred over thirty-six hundred pi, which is two over nine pi, about zero point zero seven centimeters per minute. Slow, because at that size the surface area is huge." },
+        { "type": "example",
+          "heading": "Example: The Sliding Ladder",
+          "problem": "x^{2} + y^{2} = 100, \\quad \\frac{dx}{dt} = 1\\ \\text{ft/s}",
+          "steps": [
+            { "text": "x = 6, so y² = 100 − 36 = 64 and y = 8" },
+            { "tex": "2x\\,\\frac{dx}{dt} + 2y\\,\\frac{dy}{dt} = 0" },
+            { "tex": "\\frac{dy}{dt} = -\\frac{x}{y}\\cdot\\frac{dx}{dt} = -\\frac{6}{8} = -\\frac{3}{4}", "highlight": true }
+          ],
+          "result": "dy/dt = −3/4 ft/s",
+          "narration": "A ten-foot ladder leans against a wall; its bottom slides away at one foot per second. How fast does the top slide down when the bottom is six feet out? Let x be the bottom's distance and y the top's height. Pythagoras binds them: x squared plus y squared equals one hundred. At that instant x is six, so y squared is sixty-four and y is eight. Differentiate the theorem with respect to time: two x x-dot plus two y y-dot equals zero. Solve for the wanted rate: y-dot equals minus x over y times x-dot, which is minus six eighths, minus three quarters feet per second. The minus sign means the height decreases." },
+        { "type": "recap",
+          "items": [
+            "picture, relation, d/dt, plug in last",
+            "(sin x)' = cos x",
+            "(e^x)' = e^x, (ln x)' = 1/x",
+            "never substitute before differentiating"
+          ],
+          "narration": "Final chapter, distilled. Related rates: picture, relation, differentiate with respect to time, substitute last, check units and sign. The slope of sine is cosine; the slope of cosine is minus sine; the exponential is its own derivative; the logarithm gives one over x. The fatal error to avoid is substituting numbers before differentiating. That is week seven. Review the formula catalog once more tonight." },
+        { "type": "recap",
+          "items": [
+            "continuity: three conditions, four breaks",
+            "IVT and Weierstrass: existence",
+            "inverses for one-to-one functions",
+            "the derivative: limit of quotients",
+            "rules: power, product, quotient",
+            "related rates: differentiate the relation"
+          ],
+          "narration": "The whole journey in six lines. Continuity: value, limit, equality, and four ways to break. Two existence theorems: intermediate values and attained extrema. Inverses for one-to-one monotonic functions. The derivative as the limit of difference quotients: velocity, rate, tangent. The rule set: power, product, quotient, plus the great elementary derivatives. And related rates, where geometry meets time. The midterm covers exactly this: two hours, pen and paper, chapters two point one through three point nine. You have every tool." },
+        { "type": "outro", "message": "You covered all of weeks 5–7: continuity, derivatives, and related rates. Take the Midterm on Monday — you are ready.",
+          "narration": "That completes the video guide for Math I, weeks five to seven. Continuity, the two great theorems, inverses, derivatives, and related rates: every tool for the midterm, each one earned through worked examples. Sleep well before Monday, trust your procedure, and good luck. You are ready. See you after the exam." }
+      ]
+    }
+  ],
+  "outro_message": "You covered all of weeks 5–7: continuity, derivatives, and related rates. Take the Midterm on Monday — you are ready.",
+  "narration_style": "conversational, clear, 3Blue1Brown-like: questions first, then answers"
+}

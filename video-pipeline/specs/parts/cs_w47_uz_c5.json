@@ -1,0 +1,120 @@
+{
+  "chapters": [
+    {
+      "title": "Xato ovi va qisqacha qoʻllanma",
+      "blocks": [
+        {
+          "title": "Xato ovi va qisqacha qoʻllanma",
+          "subtitle": "Top, tushuntir, tuzat",
+          "narration": "Oltinchi bob: xato ovi va qisqacha qoʻllanma. Biz xato oilalarini xaritaga tushiramiz, shartlari notoʻgʻri tartibda yozilgan kabisa yilini tuzatamiz, qotil nuqta-vergulni ushlab olamiz va satrlar bilan koʻrsatkichlarni xavfsiz saqlaydigan xotira qoidalarini mustahkamlaymiz."
+        },
+        {
+          "heading": "Xatolar qanday ovlanadi",
+          "bullets": [
+            "avval kutulgan xatti-harakatni oʻqing",
+            "-Wall va sanitizator bilan kompilyatsiya",
+            "xatoni bitta gapda tushuntiring",
+            "tuzating, soʻng kirishlarni sinang"
+          ],
+          "narration": "Ish varagʻidagi qoidalarni odatga aylantirishga arziydi. Birinchidan, kutulgan xatti-harakatni oʻqing: har bir masala dastur nima chop etishi kerakligini aytib beradi. Gcc, defis Wall va manzil sanitizatori bilan kompilyatsiya qiling — sanitizator xabarlari muhokama uchun ajoyib material, juftlikda ishlash formati esa ovoz chiqarib tushuntirishga majbur qiladi. Keyin xato qatorni toping, xatoni bitta gapda tushuntiring, tuzating va tavsiya etilgan kirishlar bilan sinab koʻring. Va sikllar varagʻidan saboq: eng birinchi masala chop etilgan holicha toʻgʻri edi — ishlayotgan kodni oʻzgartirishdan oldin natijani qoʻlda hisoblab chiqing."
+        },
+        {
+          "heading": "Xato xaritasi",
+          "columns": ["Xato oilasi", "Xato ovi"],
+          "rows": [
+            ["'\\0' yoki +1 bayt yoʻq", "1, 4, 9-xatolar"],
+            ["koʻrsatkich va massiv chalkashuvi", "2, 3-xatolar"],
+            ["faqat oʻqiladigan / osilgan xotira", "5, 6, 12-xatolar"],
+            ["boshlanmagan koʻrsatkich", "7, 11-xatolar"],
+            ["qiymat boʻyicha uzatish", "8-xato"],
+            ["belgisiz turda aylanish", "10-xato"]
+          ],
+          "narration": "Oʻqituvchining kaliti koʻrsatkich va satrlarga oid oʻn ikki xatoni oilalarga ajratadi. Uchtasi terminatorni yoki plus bir baytni unutadi: besh katakli massiv, olti baytlik nusxa uchun atigi besh baytli bufer, strlen plus birlisiz malloc. Ikkisi koʻrsatkichni massiv bilan chalkashtiradi: koʻrsatkichning sizeof i sakkizni qaytaradi, beshni emas; ikkilik tenglik ikkita har xil manzilni solishtiradi. Uchtasi taqiqlangan xotiraga tegadi: faqat oʻqiladigan literal, yoʻq boʻlib ketgan buferga osilib turgan koʻrsatkich, free dan keyingi oʻqish. Ikkisi koʻrsatkichiga umuman qiymat bermaydi. Bittasi havola orqali uzatishga umid qiladi; yana bittasi belgisiz tur bilan pastga sanaydi — minusga ketish oʻrniga aylanib ketadi."
+        },
+        {
+          "heading": "Xato: notoʻgʻri tartibdagi kabisa yili",
+          "narration": "Xato ovi C, uchinchi masala. Kutilgan natija: ming toʻqqiz yuz — oddiy yil, nol. Funksiya esa bir qaytaradi. Tartibni oʻqing: birinchi sinov — toʻrtga boʻlinish; ming toʻqqiz yuz undan oʻtib ketadi va zudlik bilan bir qaytaradi — xato. Pastdagi toʻrt yuzlik tarmoqqa mohiyatan yetib boʻlmaydi: toʻrt yuzning har qanday karralisi toʻrtga ham boʻlinadi va yuqorida ushlanib qoladi. Tuzatish birinchi bobni aks ettiradi: avval toʻrt yuzni, keyin yuzni, keyin toʻrtni tekshiring — yoki ixcham ifodani bitta qatorda qaytaring. Shartlarning tartibi — mantiqning bir qismi."
+        },
+        {
+          "heading": "Nega 11 chop etiladi",
+          "problem": "for (i = 1; i <= 10; i++);  { sum += i; }  printf(\"%d\", sum); — 55 oʻrniga nima uchun 11 chop etiladi?",
+          "steps": [
+            { "text": "for dan keyingi ';' tanani boʻsh qoldiradi" },
+            { "text": "sikl 10 marta hech narsa qilmay aylanadi" },
+            { "text": "i oʻn birda tugaydi" },
+            { "text": "blok bir marta ishlaydi: sum = 11", "highlight": true },
+            { "text": "';' ni olib tashlang → sum = 55" }
+          ],
+          "result": "11",
+          "narration": "Xato ovi, sikllar, ikkinchi masala — sekin kuzatamiz; xato koʻz oldida yashiringan. Boshlanish: i bir. Shart: koʻpi bilan oʻn — rost. Tana: boʻsh operator hech narsa qilmaydi. Yangilanish: i ikkiga aylanadi. Shu tarzda takrorlanaveradi, i oʻn birga yetguncha — shart yiqiladi va sikl tugaydi, i oʻn birga teng. Keyingi operator: blok i ni sum ga qoʻshadi — oʻn bir. Printf kutilgan ellik beshni emas, oʻn birni chop etadi. Jinoyatchi — for sarlavhasidagi nuqta-vergul: u sikl tanasini boʻsh qoldiradi va undan keyingi blok aynan bir marta ishlaydi. Uni oʻchirib tashlasangiz — yigʻindi ellik besh."
+        },
+        {
+          "heading": "Xato: satr emas",
+          "narration": "Birinchi raqamli xato. Massivda besh harf uchun aynan besh katak bor — nol baytga joy qolmaydi. Printf procent s bilan massiv oxiridan oʻtib ketadi va xotirada qayerdadur tasodifan nol baytga duch kelguncha oʻqiyveradi: oldindan aytib boʻlmaydigan axlat. Ikkita tuzatish bor: terminatori qoʻlda yozilgan oltita katak, yoki qoʻshtirnoq ichidagi hello bilan char s qavs — kompilyator oltita katakni oʻzi sanaydi va terminatorni oʻzi qoʻshadi. Xuddi shu oila malloc ni ham tishlaydi: besh harfli satr nusxasi strlen plus bir baytni talab qiladi, aks holda heap bloki aynan bitta baytga toshib ketadi."
+        },
+        {
+          "heading": "Xato: == va faqat oʻqiladigan literallar",
+          "narration": "Kalitdagi ikkita klassik masala. Birinchisi — satrlarda ikkilik tenglik: a va b — tasodifan bir xil matnni saqlab turgan ikkita alohida massiv; ikkilik tenglik ularning manzillarini solishtiradi, manzillar esa har xil, shuning uchun soʻzlar bir boʻlsa ham Different chop etiladi. Strcmp mazmunni solishtiradi va tenglar uchun nol qaytaradi — mana bu toʻgʻri test. Ikkinchisi — faqat oʻqiladigan literal: s koʻrsatkichi faqat oʻqiladigan xotiradagi hello ga nishon olgan; s nolga katta J yozish odatda segmentatsiya xatosi bilan halokatga olib keladi. Tuzatish — char s qavs hello — yozish mumkin boʻlgan nusxa yaratadi va Jello xursandchilik bilan chop etiladi."
+        },
+        {
+          "heading": "Eslab qolish kerak boʻlgan xotira xatolari",
+          "bullets": [
+            "literallar faqat oʻqiladigan",
+            "qaytarilgan lokal manzil osilgan boʻladi",
+            "boshlanmagan koʻrsatkich tasodifiy",
+            "free(p) dan keyin p ga tegmang"
+          ],
+          "narration": "Eslab qolishga arziydigan toʻrtta xotira qoidasi. Satr literallari faqat oʻqiladigan: oddiy char koʻrsatkichi orqali tahrirlash dasturni qulatadi; char s qavs esa yoziladigan nusxa yaratadi. Funksiyaning oʻz lokal massiviga qaytargan koʻrsatkichi osilgan boʻladi: kadr yoʻqolgan, manzil oʻlik, va kompilyator odatda ogohlantiradi. Boshlanmagan koʻrsatkich tasodifiy manzilni ushlab turadi: uning orqali yozish qayergadir tasodifiy joyga tushadi — hatto ishlagandek koʻrinishi ham mumkin, bu esa yanada yomonroq. Va free dan keyin koʻrsatkichga tegmang: uni NULL ga qoʻyib qoʻying va xato baland ovozda eshitilsin. Bu toʻrtta qoida varaqlardagi deyarli barcha oʻn ikki xatoni qamrab oladi — yuqoridagi xarita bilan tekshirib koʻring."
+        },
+        {
+          "heading": "Testdan oldingi asosiy qoidalar",
+          "bullets": [
+            "for dan keyingi ';' tanani boʻsh qiladi",
+            "argumentlar qiymat boʻyicha uzatiladi",
+            "rekursiya: baza + kichik + intilish",
+            "sizeof: bayt; strlen: belgi"
+          ],
+          "narration": "Qisqacha qoʻllanmaning asosiy qoidalari. For sarlavhasidan keyin turgan nuqta-vergul sikl tanasini boʻsh qoldiradi — undan keyingi blok bir marta ishlaydi. Argumentlar qiymat boʻyicha uzatiladi: chaqiruvchining oʻzgaruvchisini oʻzgartirish uchun koʻrsatkich uzating — ampersand x va ampersand y bilan swap. Rekursiya — baza holati plus kichikroq masala plus intilish; intilish boʻlmasa, stek buning narxini toʻlaydi. Sizeof baytlarni sanaydi, strlen esa belgilarni — va nusxa uchun terminatorga bitta bayt qoʻshing. Boshlanmagan oʻzgaruvchilar — bu axlat: C da umuman birlamchi qiymatlar mavjud emas."
+        },
+        {
+          "heading": "Operator ustuvorligi",
+          "columns": ["Daraja", "Operatorlar", "Izoh"],
+          "rows": [
+            ["1 (eng yuqori)", "++ -- (cast) sizeof", "unar"],
+            ["2", "* / %", "+ va - dan yuqori"],
+            ["3", "+ -", "qoʻshish-ayirish"],
+            ["4", "== !=", "&& || dan yuqori"],
+            ["5", "&& ||", "mantiqiy"],
+            ["6 (eng past)", "= += -= *= /= %=", "tayinlash"]
+          ],
+          "narration": "Ustuvorlik narvoni — tepadan pastga. Birinchi daraja: unar operatorlar — oshirish, kamaytirish, tur keltirish, sizeof. Ikkinchi daraja: koʻpaytiruvchi operatorlar — yulduzcha, slesh, procent — qoʻshuvchi plus va minusdan yuqori. Toʻrtinchi daraja: tenglik — ikkilik teng va teng emas — mantiqiy «va» va «yoki»dan yuqori. Tayinlash — eng pastda; shuning uchun y teng x karrali uch plus ikki, y teng x karrali uch plus ikki shaklida guruhlanadi. Slaydlardagi eng yaxshi maslahat: qavslardan saxiylik bilan foydalaning va aniq boʻlish mumkin boʻlgan joyda xotiraga tayanmang."
+        },
+        {
+          "items": [
+            "shart tartibi — mantiqning bir qismi",
+            "for dan keyingi nuqta-vergul tanani boʻsh qiladi",
+            "satrlarga '\\0' uchun joy kerak (+1 bayt)",
+            "== manzillarni solishtiradi; strcmp ishlating",
+            "literallar faqat oʻqiladigan — char s[] nusxalaydi"
+          ],
+          "narration": "Oltinchi bob mustahkamlandi. Shartlar tartibi — bu mantiq: avval toʻrt yuz, keyin yuz, keyin toʻrt. For dan keyingi nuqta-vergul sikl tanasini boʻsh qoldiradi. Satrlarga terminator uchun joy kerak, nusxalarga esa yana bitta bayt. Ikkilik tenglik manzillarni solishtiradi; strcmp matnni solishtiradi va tenglar uchun nol qaytaradi. Literallar faqat oʻqiladigan — char s qavs yoziladigan nusxa yaratadi."
+        },
+        {
+          "items": [
+            "4/3 va %f: 1.000000 chop etadi",
+            "case da break yoʻq: oqib tushish",
+            "do-while kamida bir marta ishlaydi",
+            "scanf ga &x kerak; massivlar manzil",
+            "count_down(3): 3 2 1; fibonacci(4): 3",
+            "sizeof — bayt; strlen — belgi"
+          ],
+          "narration": "Testgacha bitta sahifa qoldi. Operand turlari boʻlishni hal qiladi — toʻrt boʻlish uch — bir. Break yoʻq — oqib tushish bor. Do-while kamida bir marta ishlaydi; continue shartga sakraydi. Scanf ga manzillar kerak; massiv nomi allaqachon manzil. Chaqiruvchining oʻzgaruvchisini oʻzgartirish uchun koʻrsatkich uzating. Rekursiya: baza holati, kichikroq kirish, intilish. Sizeof baytni, strlen belgini sanaydi — nusxaga bittani qoʻshing. Chiqish tekshiruvlarini yana bir bor oʻtkazib chiqing — siz tayyorsiz."
+        },
+        {
+          "message": "4–7-haftalarning hammasini oʻtdingiz — turlar, boshqaruv, funksiyalar, koʻrsatkichlar, satrlar, rekursiya. Endi testni topshiring — siz tayyorsiz.",
+          "narration": "Bu — toʻrtinchi-yettinchi haftalarning toʻliq qoʻllanmasi edi: turlar va operatorlar, boshqaruv konstruktsiyalari, funksiyalar va strukturalar, koʻrsatkichlar, satrlar va rekursiya — va yoʻldagi har bir xato ovi tuzatildi. Qisqacha qoʻllanmani yana bir koʻrib chiqing, bir nechta dasturni qoʻlda kuzatib yuring — va testda omad tilaymiz. Siz tayyorsiz."
+        }
+      ]
+    }
+  ]
+}

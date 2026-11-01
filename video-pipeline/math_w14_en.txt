@@ -1,0 +1,2472 @@
+                              T E X T B O O K · FA L L 2 0 2 6
+
+
+
+
+                                      Math I
+                                   Weeks 1–4
+
+
+All questions and all formulas from every course file and the assigned book
+ sections — number systems, notation, complex numbers; functions; limits
+ and limit laws, standard limits, indeterminate forms, asymptotics and the
+  Landau symbols — each problem with a complete step-by-step solution.
+          Compiled for independent study and Test 1 preparation
+
+
+
+
+                   Tashkent Technological University · Fall 2026
+
+        Sources: course notes, lectures, ISA, practical sessions; OpenStax Calculus 1
+
+
+
+     QUESTIONBANK · FORMULACATALOG · FULLSOLUTIONSOCTOBER2 0 2 6
+Math I — weeks 1–4                                           Questions · Formulas · Solutions
+
+
+
+Contents
+
+1 Course Map and How to Use This Document                                                     2
+
+2 Week 1 — Number systems, notation, complex numbers (Math I)                                 2
+  2.1 Math I: Formula catalog for week 1 . . . . . . . . . . . . . . . . . . . . . . .        2
+  2.2 Math I: Week 1 Practical Session — questions and complete solutions . .                 5
+
+3 Week 2 — Functions (Math I)                                                               12
+  3.1 Math I: Formula catalog for week 2 . . . . . . . . . . . . . . . . . . . . . . . 12
+  3.2 Math I: Week 2 workshop (functions) — questions and full solutions . . . 13
+  3.3 Math I: Week 2 homework problems and complete solutions . . . . . . . . 16
+
+4 Week 3 — Limits (Math I)                                                                  18
+  4.1 Math I: Formula catalog for week 3 . . . . . . . . . . . . . . . . . . . . . . . 18
+  4.2 Math I: ISA for week 3 — questions and complete solutions . . . . . . . . 20
+  4.3 Math I: Week 3 practical session (engineering limits) — questions and
+      complete solutions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+  4.4 Math I: assigned textbook exercises (OpenStax §2.2, exercises 46–54
+      and 60–64) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+
+5 Week 4 — Limits II: limit laws, standard limits, indeterminacies, asymp-
+  totics, Landau symbols (Math I)                                          24
+  5.1 Formula catalog for week 4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24
+  5.2 OpenStax §2.3, check problems 2.11–2.20 — questions and complete
+      solutions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+  5.3 OpenStax §2.3, exercises 83–130 — questions and complete solutions . . 28
+  5.4 Solved examples from week 4’s notes — questions and complete solutions 34
+
+6 Textbook supplements — additional exercises for required reading with
+  full solutions                                                        35
+  6.1 OpenStax §1.2 (Basic Classes of Functions) — selected exercises solved                 35
+  6.2 OpenStax §1.5 (Exponential and Logarithmic Functions) — selected ex-
+      ercises solved . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+  6.3 OpenStax §2.2 — table exercises (42–45) solved . . . . . . . . . . . . . . . 39
+
+
+
+
+                                              1
+Math I — weeks 1–4                                                        Questions · Formulas · Solutions
+
+
+
+1 Course Map and How to Use This Document
+
+This document is a complete standalone guide for the first four weeks of the Math I
+course in the first semester (Fall 2026). It was manually compiled from each relevant
+source in the course-files/ folder of the course repository: weekly notes (Notes), lec-
+ture presentations, practical exercise sheets, independent study assignments (ISA),
+and designated sections of the OpenStax Calculus Volume 1 textbook. Problems are
+reproduced verbatim; solutions are complete, step-by-step, with verifications.
+
+
+ Week            Math I
+
+ 1               Number sets N ⊆ Z ⊆ Q ⊆ R ⊆ C; positional systems; scientific and
+                 engineering notation; complex numbers
+ 2               Functions: classes, domain/range, symmetry, composition, inverse
+                 functions; exponential and logarithmic functions (§1.2, §1.5)
+ 3               Limits: intuitive concept, one-sided and infinite limits, asymptotes,
+                 precise ε − δ definition (§2.2, §2.5)
+ 4               Limits II: limit laws, standard limits, indeterminate forms, squeeze
+                 theorem, asymptotic equivalence, Landau symbols Oando(§2.3)
+
+
+Notation. Powers and indices are written using ^{} and _: x2 , a11 , f (−1) . Sets are
+written conventionally: N ⊆ Z ⊆ Q ⊆ R ⊆ C. The derivative is denoted f ′(x)ordy/dx.
+
+
+2 Week 1 — Number systems, notation, complex numbers
+  (Math I)
+
+2.1 Math I: Formula catalog for week 1
+
+2.1.1 Number sets and positional systems
+The nesting of the standard number sets is the first structural fact of the course,
+and every later classification exercise relies on it. Rational numbers are exactly the
+fractions of integers, while irrational numbers are the real numbers that are not
+rational.
+
+               N ⊆ Z ⊆ Q ⊆ R ⊆ C,          R \ Q = {x ∈ R : x ∈
+                                                              / Q} (irrationals)                      (1)
+
+                        a
+           q∈Q⇔q=         , a ∈ Z, b ∈ Z, b 6= 0,            d(a, b) = |a − b| (distance in R)        (2)
+                        b
+A positional numeral system with base b writes a number through powers of the
+base; the same number admits many numerals, but its value is independent of the
+representation. Base conversion uses the expansion below or repeated division for
+the reverse direction.
+
+                                                    X
+                                                    n
+                        (an an−1 . . . a1 a0 )b =         a k bk ,   0 ≤ ak ≤ b − 1                   (3)
+                                                    k=0
+
+
+      1310 = 11012 = 158 = D16 ,     A = 10, B = 11, . . . , F = 15 (hexadecimal digits)              (4)
+
+
+
+                                                     2
+Math I — weeks 1–4                                                 Questions · Formulas · Solutions
+
+
+Roman numerals are non-positional: I = 1, V = 5, X = 10, L = 50, C = 100, so 13 =
+XIII; arithmetic in such systems is impractical, which is why computers use binary:
+electronics reliably distinguishes two states (low/high, off/on, 10 ).
+
+2.1.2 Scientific and engineering notation
+Scientific notation isolates the magnitude of a number into a coefficient with one
+nonzero digit before the decimal point and a power of ten; engineering notation con-
+strains the exponent to multiples of three so that the exponent couples to an SI prefix.
+
+                          scientific: z = a × 10n ,    1 ≤ |a| < 10, n ∈ Z                      (5)
+
+
+                     engineering: z = a × 103k ,        1 ≤ |a| < 1000, k ∈ Z                   (6)
+
+                                                          a × 10m   a
+                  (a × 10m )(b × 10n ) = ab × 10m+n ,              = × 10m−n                    (7)
+                                                          b × 10 n  b
+
+
+  (a × 10n )m = am × 10nm ,     add/subtract: rewrite to a common power of ten first            (8)
+
+The SI prefixes used all semester are:
+
+
+                                    Prefix   Symbol       Power
+
+                                    tera        T           1012
+                                    giga        G           109
+                                    mega        M           106
+                                    kilo        k           103
+                                    milli       m          10−3
+                                    micro       µ          10−6
+                                    nano        n          10−9
+                                    pico        p          10−12
+                                    femto       f          10−15
+
+
+Case matters: 5 mW = 5 × 10−3 W but5M W = 5 × 106 W . Reference values used through-
+out the course:
+
+
+  c = 2.99792458 × 108 m/s;       e = 1.602176634 × 10−19 C;       NA = 6.02214076 × 1023 mol−1 ;
+
+
+                   h = 6.62607015 × 10−34 J s;        101325 Pa = 101.325 kPa.
+
+2.1.3 Complex numbers
+Week 1 closes with the complex numbers, which arise because x2 + 1 = 0has no real
+solution. The imaginary unit, equality rule, the four arithmetic operations and the
+conjugate are the working tools.
+
+                          √
+                     i=       −1, i2 = −1, z = a + bi, Re(z) = a, Im(z) = b                     (9)
+
+
+                                                 3
+Math I — weeks 1–4                                                                    Questions · Formulas · Solutions
+
+
+
+
+     a + bi = c + di ⇔ a = c and b = d,               in+4 = in (i0 = 1, i1 = i, i2 = −1, i3 = −i)                  (10)
+
+
+                  z1 + z2 = (a + c) + (b + d)i,                  z1 − z2 = (a − c) + (b − d)i                       (11)
+
+                                                                                    z1   z1 z2
+                (a + bi)(c + di) = (ac − bd) + (ad + bc)i,                             =        (z2 6= 0)           (12)
+                                                                                    z2   |z2 |2
+
+              z̄ = a − bi, z + z̄ = 2 Re(z), z − z̄ = 2i Im(z), z z̄ = a2 + b2 = |z|2                               (13)
+
+                                    p                                                 z1   |z1 |
+                          |z| =         a 2 + b2 ,    |z1 z2 | = |z1 | |z2 |,            =                          (14)
+                                                                                      z2   |z2 |
+
+                           |z1 + z2 | ≤ |z1 | + |z2 | (triangle inequality)                                         (15)
+
+
+                                                                                                    b
+  arg z = θ + 2kπ, k ∈ Z;       Arg(z) ∈ (−π, π] principal value, tan θ =                             (quadrant!)   (16)
+                                                                                                    a
+
+
+                z = r(cos θ + i sin θ) = reiθ ,               r = |z|, a = r cos θ, b = r sin θ                     (17)
+
+
+                            eiθ = cos θ + i sin θ (Euler),                      eiπ + 1 = 0                         (18)
+
+                                                                   z1   r1 i(θ1 −θ2 )
+                                z1 z2 = r1 r2 ei(θ1 +θ2 ) ,           =    e                                        (19)
+                                                                   z2   r2
+                                                        
+                            z n = rn cos(nθ) + i sin(nθ) (de Moivre)                                                (20)
+
+                                                                          
+                                        θ + 2kπ         θ + 2kπ
+                 zk = r   1/n
+                                    cos         + i sin                         ,     k = 0, . . . , n − 1          (21)
+                                           n               n
+
+               z n = 1 ⇒ zk = e2πik/n ,              k = 0, . . . , n − 1 (n-th roots of unity)                     (22)
+
+                                √
+                       −b ±          b2 − 4ac
+                  z=                          (quadratic formula, valid over C)                                     (23)
+                                    2a
+The roots of z n = w = reiθ are given by (21); the n-th roots of unity form a regular
+n-gon on the unit circle. Non-real roots of real polynomials occur in conjugate pairs,
+and by the Fundamental Theorem of Algebra a degree-n polynomial has exactly n
+roots in C, counted with multiplicity.
+
+
+
+
+                                                             4
+Math I — weeks 1–4                                                Questions · Formulas · Solutions
+
+
+2.2 Math I: Week 1 Practical Session — questions and complete solu-
+    tions
+
+1. Classify each decimal as terminating, periodic, or non-periodic, and state
+   whether the corresponding number is rational: (1) 0.375; (2) 0.272727 .
+   . .; (3) 1.101001000100001 . . .; (4) 3.14159265 . . .; (5) 0.123123123 . .
+   .
+   [Source: Week 1, practical session, exercise 1]
+                                                                    375
+   Solution. (1) 0.375 is finite, therefore rational: 0.375 = 1000      = 38 . (2) Block 27
+                                                                                ab
+   repeats infinitely, therefore rational; for a purely periodic block ab = 99     , so 0.27 =
+   2799 = 311 . (3) The intervals between consecutive ones grow (1, 2, 3, . . . zeros),
+   so the fraction will never become periodic or terminate: the number is irrational.
+   (4)A finite number of digits shown with ellipsis does not define the number; if π =
+   3.14159265 . . . was intended, it is infinite and non-periodic, therefore irrational. (5)
+   Block 123 repeats, therefore rational: 0.123 =333 = . Principle: finite or eventually
+   periodic decimal fractions are exactly the41 rational numbers.
+
+2. Write each set in interval notation and represent it on the number line:
+   (1) {x ∈ R : −3 ≤ x < 4}; (2) {x ∈ R : x 6= 3}.
+   [Source: Week 1, practical session, exercise 2]
+   Solution. (1) The endpoint −3 is included (square bracket), 4 is excluded (paren-
+   thesis): [−3, 4); on the number line, this is shown as a filled point at −3and an
+   open point at 4, with the segment between them highlighted. (2) All real num-
+   bers except 3: (−∞, 3) ∪ (3, ∞); on the number line, the entire axis is filled with an
+   open point at 3. Infinity is never included, so parentheses are always used.
+
+3. Write each interval in inequality form: a. [−2, 5); b. (−∞, 4]; c.(1, ∞).
+   [Source: Week 1, practical session, exercise 3]
+   Solution. a. −2 ≤ x < 5 (left endpoint included, right endpoint excluded). b. x ≤ 4
+   (unbounded to the left, right endpoint included). c. x > 1 (strictly greater than,
+                                       √
+   since the parenthesis excludes 1).
+                                            √     √        √          √      √
+4. Classify as rational or irrational: a. 3; b. 25; c. 50; i. (1 + 5)(1 − 5).
+   [Source: Week 1, practical session, ex. 4]
+                                                   √                     √
+   Solution. a. 3isnota
+                √       perfect
+                         √      square,
+                                    √    therefore   3 is
+                                                       √  irrational. b.   25 = 5 ∈ Z ⊆ Q,
+   rational.
+       √     c.√ 50 = 5 2; since 2 is irrational, 5 2 is irrational. i. Expanding:
+   (1 + 5)(1 − 5) = 1 − 5 = −4, rational. The product of conjugates always eliminates
+   the radical.
+
+5. Given z1 = 3+ 2i and z2 = 1− 4i; compute z1 + z2 , z1 − z2 , z1 z2 , z1 /z2 , writing each
+   answer in the form a+ bi.
+   [Source: Week 1, practical session, ex. 5]
+   Solution. Addition and subtraction act on the real and imaginary parts separately:
+   z1 + z2 = (3 + 1) + (2 − 4)i = 4− 2i; z1 − z2 = (3 − 1) + (2 + 4)i = 2+6i. In the product, we
+   use i2 = −1and the rule (a + bi)(c + di) = (ac − bd) + (ad + bc)i: z1 z2 = (3 · 1 − 2 · (−4)) + (3 ·
+   (−4) + 2 · 1)i = (3 + 8) + (−12 + 2)i = 11− 10i. In the quotient, we multiply numerator
+   and denominator by the conjugate of the denominator:
+
+
+                         (z1 )/(z2 ) = ((3 + 2i)(1 + 4i))/((1 − 4i)(1 + 4i))
+                         (3 + 12i + 2i + 8i2 )/(1 + 16) = ((3 − 8) + (12+
+
+
+                                                  5
+Math I — weeks 1–4                                                     Questions · Formulas · Solutions
+
+
+
+                                                                   5     14
+                             2)i)/17 = (−5 + 14i)/17 = −              + ( )i.
+                                                                   17    17
+
+6. For the numbers    √ 3+ 4i, −2+ 5i, 6i, −7, find the conjugate and modulus;
+   verify zz̄ = |z|2 . a2 + b2 . 3+ 4i: z̄ = 3− 4i, |z| = 5,
+   [Source: Week 1, practical session, ex. 6]
+   Solution. For z = a + bi we have z̄ = a − biand|z| =
+
+                                        √ 2
+                                         a + b2
+                               √        √
+   . −2+ 5i: z̄ = −2− 5i, |z| = 4 + 25 = 29and(3 − 4i)(3 + 4i) = 9 + 16 = 25 = 52 . 29, and
+
+                         6i : z̄ = −6i, |z| = 6, and(−6i)(6i) = −36i2 = 36.
+
+   (−2 − 5i)(−2 + 5i) = 4 + 25 = 29. −7: z̄ = −7 (real numbers are conjugates of
+   themselves), |z| = 7, (−7)(−7) = 49. All four checks agree.
+   1
+
+7. Express 1/(1 + i)in the form a+ bi.
+   [Source: Week 1, practical session, ex. 7]
+   Solution. Multiply by the conjugate of the denominator:
+
+                                                                                1
+                    1/(1 + i) = (1 − i)/((1 + i)(1 − i)) = (1 − i)/2 =            − i/2
+                                                                                2
+
+8. Solve over C: x2 + 9 = 0.
+   [Source: Week 1, practical session, ex. 8]
+                                                  √
+   Solution. Rearranging, we get x2 = −9, so x = ± −9 = ±3i. Both solutions are
+   non-real complex numbers; there are no real solutions because a square in R is
+   never negative.
+
+9. For z = 2+ 3i on the complex plane, determine the real part, imaginary
+   part, modulus, and quadrant. What changes for 2 − 3i?
+   [Source: Week 1, practical session, ex. 9]
+   Solution. The point (2, 3) lies in the first quadrant: Re(z) = 2, Im(z) = 3, |z| =
+                                         p                √
+                                             22 + 3 2 =       13
+
+   . For z = 2− 3i, the point (2, −3)is the reflection across the real axis: the real
+   part and modulus do not change, the imaginary part changes sign, and the point
+   moves to the fourth quadrant.
+
+10. Write 1 + i in trigonometric form z = r(cos θ + i sin θ) and exponential form
+  z = reiθ , with θ in radians.
+   [Source: Week 1, practical session, ex. 10]
+                                    √        √
+   Solution. Here r = |1 + i| = √ 1 + 1 = 2, both coordinates
+                                                            √ iπ/4 are positive, so θ =
+           1
+   arctan( 1 ) = π/4. Thus, 1 + i = 2(cos π/4 + i sin π/4) = 2e   .
+
+11. √Using De Moivre’s formula [r(cos
+                                    √         sin θ)]n = rn (cos nθ + i sin
+                                         θ + i√                          √ nθ), compute
+  ( 3 + i) ; verify algebraically. | 3 + i| = 3 + 1 = 2, θ = arctan(1/ 3) = π/6.
+          4
+
+
+
+
+                                                  6
+Math I — weeks 1–4                                               Questions · Formulas · Solutions
+
+
+   [Source: Week 1, practical session, ex. 11]
+                                  √        √                        √
+   Solution. First, convert: r = | 3 + i| = 3 + 1 = 2, θ = arctan(1/ 3) = π/6. ByDe
+   Moivre’s,
+
+                   √                            √                      √
+                  ( 3 + i)4 = 24 (cos(4arctan(1/ 3)) + i sin(4arctan(1/ 3)))
+                                  16(cos(4π/6) + i sin(4π/6)) =
+
+                                                            r
+                                                    1           3            √
+                  16(cos(2π/3) + i sin(2π/3)) = 16(− +            i) = −8 + 8 3i.
+                                                    2           2
+   Algebraic verification:
+                               √               √               √
+                              ( 3 + i)2 = 3 + 2 3i + i2 = 2 + 2 3i;
+
+   squaring again,
+                                √            √                  √
+                          (2 + 2 3i)2 = 4 + 8 3i + 12i2 = −8 + 8 3i.
+
+   Both methods agree.
+
+12. Find all solutions to z 3 = −8 and plot them on the complex plane.
+   [Source: Week 1, practical session, exercise 12]
+   Solution. W e write −8 = 8ei(π+2kπ) . The cube roots have modulus 81/3 = 2 and
+   arguments (π + 2kπ)/3, k = 0, 1, 2:
+
+                                                  √
+                              z0 = 2eiπ/3 = 1 +    3i, z1 = 2eiπ = −2,
+                                                           √
+                                      z2 = 2ei5π/3 = 1 − 3i.
+
+   Geometrically, these are three equally spaced points on a circle of radius 2 cen-
+   tered at the origin (angles 60◦ , 180◦ , 300◦ ); note that z1 = −2is the only real solution,
+   which is consistent with (−2)3 = −8.
+
+13. For each number, specify       √ the smallest set from N, Z, Q, R, C to which it
+  belongs: 0, −7, 58 , 3.25, 16, 7, −9, π, π 2 , i, 4− 3i.
+   [Source: Week 1, ISA, assignment 2]
+   Solution. 0 ∈ N (by course convention) ⇒ smallest set N . −7 ∈ Z. 58 and3.25 =
+                                        √            √
+   13
+    4 lieinQ (finite decimal fractions). 16 = 4 ∈ N . 7 is irrational (7 is not a perfect
+                      √
+   square) ⇒ R. − 9 = −3 ∈ Z. πandπ 2 are irrational ⇒ R (squaring does not make
+   an irrational number rational). iand4− 3i are non-real ⇒ only C.
+
+14. True or false? Correct each false statement: (1)N ⊆ Z; (2)Z ⊆ Q; (3)R ⊆ Q;
+  (4)Q ⊆ R; (5)R ⊆ C; (6) every integer is natural; (7) every rational number
+  is real; (8) every complex number is real; (9) every real number can be
+  written as a complex number; (10)a number cannot be both rational and
+  real.
+   [Source: Week 1, ISA, assignment 3]
+                                                         √           √
+   Solution. (1) True. (2) True. (3) False — for example, 2 ∈ R, but 2 ∈ / Q; the
+   correct inclusion is Q ⊆ R. (4) True. (5) True. (6) False — negative integers,
+
+
+                                                  7
+Math I — weeks 1–4                                             Questions · Formulas · Solutions
+
+
+  for example −3, are not natural. (7) True. (8) False — for example, i is complex
+  but not real. (9) True — a = a+ 0i. (10) False — every rational number is real
+  (statement (4)), so rational numbers are both.
+                                                                   √
+15. Draw a diagram of nested sets N ⊂ Z ⊂ Q ⊂ R ⊂ C and place 5, −2, 23 , 2, π,
+  −4i, 3+ 2i in the correct regions.
+   [Source: Week 1, ISA, assignment 4]
+  Solution. Draw five nested ovals labeled
+                                     √      N (innermost)toC(outermost). Place-
+  ment: 5 ∈ N ; −2 ∈ Z N ; 23 ∈ Q Z; 2andπ ∈ R Q; −4i and 3+ 2i ∈ C R. The
+  diagram visually shows that each new set only adds numbers, removing nothing.
+                                     √
+16. Arrange in increasing order: − 5, −2, − 23 , 0, 2, 23 , π2 ; justify non-obvious
+  comparisons.
+
+                                          2    4
+                                         ( )2 = < (π/2)2
+                                          3    9
+   [Source: Week 1, ISA, assignment 5]
+                                                                       q          √
+   Solution. Squares give the order for positive numbers:                  3
+                                                                           4   = ( 3)/2 ≈ 0.866;
+   since π/2 ≈ 1.5708and 32 = 1.5, we have 23 < π/2. For negative numbers the order is
+               √                                    √                √
+   reversed: − 5 ≈ −2.236 < −2 < − 32 . In total: − 5 < −2 < − 32 < ( 3)/2 < 32 < π/2.
+
+                              √          3         3
+                             − 5 < −2 < − < 0 < 2 < < π/2
+                                         2         2
+
+17. Write each set in interval notation: (1) − 3 ≤ x < 4; (2)x > 2; (3)x ≤ −1;
+  (4) − 2 < x ≤ 5; (5)x 6= 3; then graph each on the number line.
+   [Source: Week 1, ISA, assignment 6]
+   Solution. (1) [−3, 4). (2)(2, ∞). (3)(−∞, −1].(4)(−2, 5].(5)(−∞, 3) ∪ (3, ∞).Onthe num-
+   ber line: filled points where the endpoint is included (≤, ≥), open points where it
+   is not (<, >), parentheses with infinities, and two rays for the union in (5).
+
+18. Write each interval as an inequality: a. [−2, 5); b. (−∞, 4]; c.(1, ∞); d.(−3,
+  0] ∪ [2, 6); e.R [−1, 1].
+   [Source: Week 1, ISA, assignment 7]
+   Solution. a. −2 ≤ x < 5. b. x ≤ 4. c. x > 1. d. −3 < x ≤ 0or2 ≤ x < 6. e. x < −1orx > 1;
+   equivalently |x| > 1.
+
+19. With d(a, b) = |a − b|: compute d(3, 8), d(−2, 5), d(−4, −9), d(2, 8); check d(a,
+  c) ≤ d(a, b) + d(b, c)f ora = −3, b = 2, c = 7.
+
+                                     d(2, 8) = |2 − 8|/2 = 2
+   [Source: Week 1, ISA, assignment 8]
+  Solution. d(3, 8) = |3 − 8| = 5; d(−2, 5) = 7; d(−4, −9) = 5; d(2, 8) = |2 − 8|/2 = 2.
+  Checking the triangle inequality: d(−3, 7) = 10, d(−3, 2) + d(2, 7) = 5 + 5 = 10, and
+  indeed 10 ≤ 10 (equality, since the points lie in order on a straight line). The
+  formula |a − b|isthe one-dimensional case of the norm from (28).
+                                                                                    √
+20. Determine
+     √      √ whether
+                   √     √ each
+                             √ number
+                                    √     √is rational
+                                                  √ 2 or irrational;
+                                                              √        √justify:√a. 49;
+  b. 18; c. 3 + 2; d. 2 · 5; e. 2 + 8; f . ( 3) ; g. (1 + 2)(1 − 2); h. 12.
+   [Source: Week 1, ISA, assignment 9]
+
+
+
+                                                8
+Math I — weeks 1–4                                                      Questions · Formulas · Solutions
+
+
+                √                        √        √                       √     √
+   Solution.
+      √ √    a.√  49 = 7 — rational. b.
+                                     √     18
+                                           √  = 3√  2 —   irrational.
+                                                          √       √    c.   3 +   2 — irrational.
+                                                                                          √
+   d. 2 · 5 = 10 — irrational.
+                       √       √ e.    2 +   8 =   2  + 2   2 = 3   2 — irrational.  f . ( 3)2 = 3
+   — rational.
+   √       √    g. (1 + 2)(1 − 2) = 1 − 2 = −1 — rational (product of conjugates). h.
+     12 = 2 3 — irrational. Practical
+                                √       rule:
+                                          √ simplification reveals nature; products of
+   conjugates of the form (a + b)(a − b) are always rational.
+
+21. Given z1 = 3+ 2i, z2 = 1− 4i; compute z1 + z2 , z1 − z2 , z1 z2 , z1 /z2 .
+   [Source: Week 1, ISA, assignment 10]
+   Solution. Same as exercise 5of the practical session above: z1 +z2 = 4− 2i, z1 −z2 =
+   2+ 6i, z1 z2 = 11− 10i, and z 1 = −175 + 1417i.
+
+                                                  z2 = 1 − 4i
+
+22. Compute i2 , i3 , i4 , i5 , i18 , i27 , i100 ; describe the repeating pattern and the
+  method based on dividing the exponent by 4.
+   [Source: Week 1, ISA, assignment 11]
+   Solution. i2 = −1; i3 = i2 i = −i; i4 = (i2 )2 = 1; i5 = i. Powers are cyclic with period
+   4: 1, i, −1, −i, . . . For a large exponent, divide by 4 with remainder r: in = ir . Then
+   18 = 4 · 4 + 2 ⇒ i18 = i2 = −1; 27 = 4 · 6 + 3 ⇒ i27 = i3 = −i; 100 = 4 · 25 ⇒ i100 = i0 = 1.
+
+23. For 3+ 4i, −2+ 5i, 6i, −7: find the conjugate and modulus, verify zz = |z|2 .
+   [Source: Week 1, ISA, assignment 12]
+                                                                         √
+   Solution. Same calculations as in exercise 6of the practical session: conjugates
+   3 − 4i, −2 − 5i, −6i, −7; moduli 5, 29, 6, 7; in each case zz = a2 + b2 = |z|2 holds
+   exactly.
+
+24. Express in the form a+ bi: a. 1/(1 + i); b. 3 + 2/(2 − i); c. 1 + 3/(4 − i); d. 5/(2 − i).
+   [Source: Week 1, ISA, assignment 13]
+   Solution. In each case, multiply numerator and denominator by the conjugate of
+   the denominator. a.
+
+
+                     (1 + i)/(1 − i) = (1 + i)2 /((1 − i)(1 + i)) = (1 + 2i + i2 )/(1 − i2 )
+                                    (1 + 2i − 1)/(1 − (−1)) = (2i)/2 = i
+
+   = i. b.
+
+
+          (3 + 2i)/(2 − i) = (3 + 2i)(2 + i)/((2 − i)(2 + i)) = (6 + 3i + 4i + 2i2 )/(4 − i2 )
+                                    (6 + 7i − 2)/(4 − (−1)) = (4 + 7i)/5
+
+   = 45 + 75 i. c.
+
+
+         (1 + 3i)/(4 − i) = (1 + 3i)(4 + i)/((4 − i)(4 + i)) = (4 + i + 12i + 3i2 )/(16 − i2 )
+                                  (4 + 13i − 3)/(16 − (−1)) = (1 + 13i)/17
+
+      1
+   = 17 + 13
+          17 i. d.
+
+
+
+
+                                                       9
+Math I — weeks 1–4                                                   Questions · Formulas · Solutions
+
+
+
+
+                    5i/(2 − i) = 5i(2 + i)/((2 − i)(2 + i)) = (10i + 5i2 )/(4 − i2 )
+                                (10i − 5)/(4 − (−1)) = (−5 + 10i)/5
+
+   = -1+ 2i.
+
+25. Solve over C, indicating which solutions are real: a. x2 + 9 = 0; b. x2 − 4x
+  +13 = 0; c. 2x2 + 4x +10 = 0; d. x4 − 16 = 0.
+   [Source: Week 1, ISA, assignment 14]
+   Solution. a. x = ±3i (non-real). b. Discriminant ∆ = (−4)2 − 4 · 13 = 16 − 52 = −36,
+   √
+     ∆ = 6i; x = (4 ± 6i)/2 = 2± 3i (non-real). c. Divide by 2:
+               p                                      √                    √               √
+   x = (−4 ±       42 − 4 · 2 · 10)/(2 · 2) = (−4 ±       −72)/4 = (−4 ± 6i 2)/4 = −1 ± (3i 2)/2
+                                          √
+   x2 + 2x +5 = 0: ∆ = 4 − 20 = −16,          ∆ = 4i; x = (−2 ± 4i)/2 = −1± 2i (non-real).
+   d. x4 = 16 gives real solutions x = ±2; over C the complete set is the four fourth
+   roots of 16: 2, −2, 2i, −2i (all solutions (x2 − 4)(x2 + 4) = 0).
+
+26. For 2+3i, −1+4i, −3 − 2i, 4−i: find the real part, imaginary part, modulus,
+              √
+  quadrant.
+   [Source: Week 1, ISA, assignment 15]
+                                                                                    √
+  Solution. 2+ 3i: (2, 3), modulus 13, quadrant I. −1+ 4i: (−1, 4), modulus 17,
+  quadrant II. −3 − 2i: (−3, −2), modulus 13, quadrant III. 4 − i: (4, −1), modulus
+  17, quadrant IV . Note that moduli pair up, since conjugation preserves a2 + b2 .
+                                                                             √
+27. Write in trigonometric and exponential forms (θ in radians): (1) 1 + i;
+                                            √
+  (2) − 1 + i; (3) − 3 − i; (4) 2i; (5) −4.
+   [Source: Week 1, ISA, assignment 16]
+   Solution. (1)r = 2, θ = π/4: 2eiπ/4 . (2)r = 2, quadrant
+   √                                                       √ II: θ = 3π/4: 2e
+                                                                               i3π/4 . (3)r =
+
+     3 + 1 = 2, quadrant III: reference angle arctan(1/ 3) = π/6, so θ = π + π/6 = 7π/6:
+   2ei7π/6 . (4)r = 2, θ = π/2: 2eiπ/2 . (5)r = 4, θ = π: 4eiπ . Each angle is taken from
+                                                                     √
+   tan θ = b/a with adjustment for quadrant, as warned in (16).
+
+28. Using De Moivre’s formula, calculate (1)(1 + i)6 ; (2)(3 + i)4 ; (3)(−1 + 3i)5 ; check
+                            √
+  one result algebraically.
+                                     √
+                         (1 + i)6 = ( 2)6 ei6π/4 = 8ei3π/2 = 8(0 − i) = −8i.
+   [Source: Week 1, ISA, assignment 17]
+                           √                         √
+   Solution. (1)1 + i = 2eiπ/4 . Then (1 + i)6 = ( 2)6 ei6π/4 =√8ei3π/2 = 8(0 − i) = −8i. (2)
+   From√exercise 11of the practical session: (3+i)4 = -8+8 3i. (3)z = −1+ 3i: modulus
+   |z| = 1 + 3 = 2; quadrant II, reference angle π/3,       √ so θ = 2π/3: z√= 2ei2π/3 . Then
+   z 5 = 25 ei10π/3 = 32ei(10π/3−2π) = 32ei4π/3 = 32(− 2 − i 3/2) = −16 − 16 3i. Verification
+                                                       1
+
+   (1) algebraically: (1 + i)2 = 2i, (1 + i)4 = (2i)2 = −4, (1 + i)6 = −4· 2i = −8i. Matches.
+
+29. Find all solutions and plot them on the complex plane: a. z 3 = 1; b. z 4 = 1;
+                                                                       √
+  c. z 3 = −8. Explain why the n-th roots are equidistant on a circle.
+   [Source: Week 1, ISA, assignment 18]
+   Solution. a. By(22): zk = e2πik/3 , k = 0, 1, 2: 1, − 12 + 32 i, − 12 − 23 i. b. zk = e2πik/4 :
+                                                                     √
+   1, i, −1, −i. c. From exercise 12of the practical session: 1+ 3i, −2, 1 − 3i. In
+
+                                                   10
+Math I — weeks 1–4                                               Questions · Formulas · Solutions
+
+
+   all cases, the roots have the same modulus r1/n (thus lie on the same circle), and
+   their arguments differ by exactly 2π
+                                      n (a full turn 2π is divided into n equal arcs) —
+   that’s why they form the vertices of a regular n-gon.
+
+30. The electric charge e = 0.0000000000000000001602176634C. Write it in scientific
+  and engineering notation.
+   [Source: Week 1, ISA, assignment 19]
+   Solution. W e count 18 digits so that the first non-zero digit is before the decimal
+   point: e = 1.602176634 × 10−19 C (scientific). In engineering notation, the expo-
+   nent must be a multiple of 3, so we shift by one digit: e = 160.2176634 × 10−21 C =
+   160.2176634 zC (zeptocoulombs); in practice, they write 160.2176634 × 10−21 C, since
+   below 10−24 there is only zepto (10−21 ) among the standard SI prefixes.
+
+31. Fill in the table of SI prefixes: powers 1012 , 106 , 103 , 10−6 , 10−9 , 10−12 with
+  prefixes/notations.
+   [Source: Week 1, ISA, assignment 20]
+   Solution. 1012 tera (T ); 106 mega (M ); 103 kilo (k); 10−6 micro (µ); 10−9 nano (n);
+   10−12 pico (p). Together with giga (G), milli (m), femto (f ), atto (a), this table forms
+   the complete SI ladder.
+
+32. Week 1 summary, part 2, in-class problems: (1) write 0.00000824 in
+  scientific and engineering notation; (2) write 7.35 × 108 Hz in engineering
+  notation; (3) write 0.0047F with an SI prefix.
+   [Source: Week 1 summary, part 2]
+   Solution. (1)0.00000824 = 8.24 × 10−6 (scientific); since −6isa multiple of 3, this
+   is already in engineering notation, for example 8.24 µAif the unit is ampere.
+   (2)108 isnota multiple of 3; we rewrite 7.35 × 108 = 735 × 106 = 735 MHz. (3)0.0047 =
+   4.7 × 10−3 = 4.7 mF.
+
+33. Week 1 summary, part 3, in-class problems: (1) draw a diagram of nested
+  sets N ⊂ Z ⊂ Q ⊂ R ⊂ C and place 2026, −9, 32 , 10, π, −5i, −2+ 2i; (2) rational or
+                √      √      √   √     √ √           √    √      √
+  irrational: a. 49, b. 18, c. 3 + 2, d. 2 · 5, e. 2 + 8, f . ( 5)2 .
+   [Source: Week 1 summary, part 3]
+   Solution. (1)2026 ∈ N ; −9 ∈ Z N ; 23 ∈ Q Z; 10andπ ∈ R Q; −5i and −2+ 2i ∈ C R.
+         √                       √        √                  √    √
+   √ √ 49√= 7 — rational. b. √ 18 =
+   (2)a.                              √3 2√  — irrational. c. 3 √
+                                                                + 2 — irrational. d.
+     2 · 5 = 10 — irrational. e. 2 + 8 = 3 2 — irrational. f . ( 5)2 = 5 — rational —
+   same logic as in assignment 9, which this exercise repeats with different numbers.
+
+34. Week 1 summary, part 3, in-class problems: given z1 = 2+ 3i, z2 = 1− 5i;
+  calculate z1 + z2 , z1 − z2 , z1 z2 , z1 /z2 .
+   [Source: Week 1 summary, part 3]
+   Solution. z1 + z2 = 3− 2i; z1 − z2 = 1+ 8i; product: (2 · 1 − 3 · (−5)) + (2 · (−5) + 3 · 1)i =
+   (2 + 15) + (−10 + 3)i = 17− 7i; quotient:
+
+
+                        (z1 )/(z2 ) = ((2 + 3i)(1 + 5i))/((1 − 5i)(1 + 5i))
+                     (2 + 10i + 3i + 15i2 )/(1 − (5i)2 ) = (2 + 13i − 15)/(1+
+
+
+                                                       1 1
+                               25) = (−13 + 13i)/26 = − + i.
+                                                       2 2
+
+
+                                                11
+Math I — weeks 1–4                                                   Questions · Formulas · Solutions
+
+
+                     √
+35. Explain why 1 + i 3 = 2 cos π3 + i sin π = 2eiπ/3 . 3
+
+                                     √       q         √     √
+                            |1 + i 3| =          12 + ( 3)2 = 1 + 3 = 2.
+
+   [Source: Week 1, notes, part 3]
+                                 √                 √
+          √ The modulus is |1 + i 3|. The point (1, 3) lies in the first quadrant, and
+   Solution.
+   tan θ = 3, from which θ = π/3. Substituting r = 2, θ = π/3 into the polar form (17),
+   and then into Euler’s formula (18), we obtain both equalities.
+
+
+3 Week 2 — Functions (Math I)
+
+3.1 Math I: Formula catalog for week 2
+
+3.1.1 Functions: definition, classes, symmetry, composition, inverses
+A function assigns to each xin its domain exactly one output f (x); the vertical-line test
+detects relations that fail this. The natural domain is the largest set of real inputs
+for which the formula makes sense; the three standard obstructions are division by
+zero, even roots of negatives, and logarithms of nonpositive numbers.
+
+               f : D → R, x 7→ f (x);     D = domain, range f = {f (x) : x ∈ D}                 (31)
+
+                    1                    p
+                        : g(x) 6= 0,         g(x) : g(x) ≥ 0,   logb g(x) : g(x) > 0            (32)
+                   g(x)
+
+Evenness and oddness reflect symmetry about the y-axis and about the origin respec-
+tively; composition chains functions; only one-to-one functions (horizontal-line test)
+possess inverses, recovered by solving y = f (x)f orx.
+
+                         even: f (−x) = f (x),           odd: f (−x) = −f (x)                   (33)
+
+                                         
+                      (f ◦ g)(x) = f g(x) ,        (f ◦ g) 6= (g ◦ f ) in general               (34)
+
+
+                           f one-to-one ⇔ f (x1 ) = f (x2 ) ⇒ x1 = x2                           (35)
+
+                                                           
+                               f −1 f (x) = x and f f −1 (y) = y                                (36)
+
+
+                      f −1 : graph = mirror of the graph of f in y = x                          (37)
+
+The function classes of §1.2 (OpenStax) are linear, polynomial, rational, root (al-
+gebraic), exponential/logarithmic and trigonometric (transcendental); every polyno-
+mial is smooth everywhere, and every rational function is defined wherever its de-
+nominator is nonzero.
+
+3.1.2 Exponential and logarithmic functions (§1.5, hyperbolic functions ex-
+cluded)
+
+
+
+
+                                                    12
+Math I — weeks 1–4                                                        Questions · Formulas · Solutions
+
+
+The exponential and logarithm are inverse to each other; the laws of exponents and
+logs convert multiplication into addition and are used in every growth/decay model
+of the course.
+
+                                                                                  1
+                        bx > 0,      bx+y = bx by ,    (bx )y = bxy ,     b−x =                       (38)
+                                                                                  bx
+
+                          logb x = y ⇔ by = x,             x > 0, b > 0, b 6= 1                       (39)
+
+                                                   x
+         logb (xy) = logb x + logb y,       logb     = logb x − logb y,          logb xn = n logb x   (40)
+                                                   y
+
+                                     ln x
+                        logb x =          (change of base),              bx = ex ln b                 (41)
+                                     ln b
+
+                                  eln x = x,       ln 1 = 0,    ln e = 1                              (42)
+
+Growth and decay models compare A(t) = A₀at with A₀ekt through the growth-rate
+constant; the doubling time is the benchmark quantity.
+
+           A(t) = A0 at = A0 ekt ,     k = ln a,      a > 1 : growth; 0 < a < 1 : decay               (43)
+
+
+                                                                ln 2             ln 2
+                       N (t) = N0 2t/Td = N0 ekt ,         k=        ,    Td =                        (44)
+                                                                 Td               k
+Degrees and radians convert through πrad = 180°:
+
+                                                              π
+                                           θrad = θdeg ·
+                                                             180
+
+3.2 Math I: Week 2 workshop (functions) — questions and full solu-
+    tions
+
+1. Determine whether each relation defines yasa function of x: a. y = 3x −
+
+                                               x2 + y 2 = 9.
+
+   2; b. Where appropriate, solve for y and apply the vertical line test.
+   [Source: Week 2, workshop, exercise 1]
+                                                                                   √
+   Solution. a. y = 3x − 2 gives exactly one y for each x: a function (a line).      b.
+   Solving gives y = ±9 − x2 : most x(f or example x = 0) give two y values = ±3, so a
+   vertical line intersects the circle twice; not a function.
+
+2. Let f (x) = 2x2 − 3x +1. Calculate and simplify f (0), f (−2), f (a), f (a + h)andf (a +
+   h) − f (a), h 6= 0. h
+   [Source: Week 2, workshop, exercise 2]
+   Solution. f (0) = 1; f (−2) = 2(4) + 6 + 1 = 15; f (a) = 2a2 − 3a +1; f (a + h) = 2(a + h)2 −
+   3(a + h) + 1 = 2a2 + 4ah + 2h2 − 3a − 3h +1. Difference quotient:
+
+                   (f (a + h) − f (a))/h = (4ah + 2h2 − 3h)/h = 4a + 2h − 3.
+
+
+                                                      13
+Math I — weeks 1–4                                                     Questions · Formulas · Solutions
+
+
+   This expression anticipates the derivative of weeks 3 − 4(ash → 0it approaches 4a
+   − 3).
+                                                         √
+                                      :x2+9 ; b.g(x) =       5 − 2x.
+
+3. Find the natural domain: a. f (x) =x−1 Write in interval notation. The
+  denominator x2 + 9 ≥ 9 > 0 never equals zero,
+   [Source: Week 2, practical session, ex. 3]
+   Solution. a. therefore the domain is all R = (−∞, ∞). b. W e need 5 − 2x ≥ 0 ⇐⇒
+   x ≤ 25 : domain (−∞, 25 ].
+
+4. Let f (x) = 2x −3, g(x) = x2 + 1. Find (f ◦g)(x)and(g◦f )(x); are they equal?
+   [Source: Week 2, practical session, ex. 4]
+   Solution. (f ◦g)(x) = f (g(x)) = 2(x2 +1)−3 = 2x2 −1; (g◦f )(x) = g(2x−3) = (2x−3)2 +1 =
+   4x2 − 12x +10. They are different (for example, at x = 0: −1vs10), which confirms:
+   composition is generally non-commutative — squaring then shifting is not the
+   same as shifting then squaring.
+
+5. Determine whether each function is even, odd, or of general form: |x| +
+          x
+   1and x2+1 ; check algebraically and graphically.
+   [Source: Week 2, practical session, ex. 5]
+   Solution. f (x) = |x| + 1: f (−x) = | − x| + 1 = |x| + 1 = f (x) — even; the graph is
+   symmetric with respect to the y-axis. g(x) = x/(x2 + 1): g(−x) = −x/(x2 + 1) = −g(x)
+   — odd; the graph is symmetric with respect to 180◦ rotation about the origin.
+
+6. Classify each function as linear,
+                               √     polynomial, rational, algebraic, or tran-
+   scendental (a function can x+1 x2 + 1. belong to more than one category):
+   x2+4 and
+   [Source: Week 2, practical session, ex. 6]
+   Solution.x+1 — a ratio of polynomials, hence rational (and
+                                                p
+                                                    x2 + 4
+
+   x2 + 1 — a root of a polynomial, hence algebraic algebraic). (not rational, as it is
+   not a ratio of polynomials).
+
+7. Temperature in an industrial chamber increases linearly from 20◦ Catt =
+   0to80◦ Catt = 15 min. (1) Find T (t); (2) interpret the slope and intercept; (3)
+   find T (8); (4) when will the chamber reach 60◦ C? (5) specify a physically
+   reasonable domain.
+   [Source: Week 2, practical session, ex. 7]
+   Solution. (1) Slope m = (80 − 20)/(15 − 0) = 4 °C/ min, so T (t) = 20+ 4t. (2) The
+   slope is the heating rate: +4 degrees per minute; the intercept 20is the initial
+   temperature. (3)T (8) = 20 + 32 = 52 °C. (4)20+ 4t = 60att = 10 minutes.
+
+8. For p(x) = x3 − 4x determine: domain; intercepts with axes; symmetry; end
+   behavior; points of discontinuity.
+   [Source: Week 2, practical session, ex. 8]
+   Solution. Domain R (polynomial). Intercepts: p(0) = 0; x3 − 4x = x(x − 2)(x + 2) = 0
+   gives x = −2, 0, 2 — all on the x-axis through the origin. Symmetry: p(−x) = −x3 +4x
+   = −p(x) — odd. End behavior: the leading term x3 with positive coefficient, so
+
+                                                    14
+Math I — weeks 1–4                                             Questions · Formulas · Solutions
+
+
+   p(x) → +∞asx → +∞andp(x) → −∞asx → −∞. The polynomial is defined every-
+   where: no points of discontinuity.
+
+9. An electricity supplier charges C(E) = 0.10Ef or0 ≤ E ≤ 200andC(E) = 20 +
+  0.15(E − 200)f orE > 200, in kWh. (1) Find C(150), C(200), C(350); (2) graph it;
+  (3)is the model continuous at E = 200? (4) meaning of each slope; (5) one
+  limitation.
+   [Source: Week 2, practical session, ex. 9]
+   Solution. (1)C(150) = 15; C(200) = 20; C(350) = 20 + 0.15 · 150 = 42.5(allin$). (2) Two
+   linear pieces: slope 0.10upto200, then 0.15 — a piecewise linear graph with a corner
+   at (200, 20). (3) Yes: both formulas give 20atE = 200, the pieces connect without
+   a jump. (4) The slopes are marginal prices: 0.10$/kWh for the first 200 kWh,
+   0.15$/kWh beyond. (5) Limitation: the price jump exactly at 200 kWh incentivizes
+   the consumer to stop just below the threshold; real tariffs change more smoothly
+   or in blocks.
+
+10. Find the inverse of f (x) = 4x − 7 and specify the domains; verify f (f (x)) =
+  x.−1
+   [Source: Week 2, practical session, ex. 10]
+   Solution. y = 4x −7 ⇒ x = (y + 7)/4, so f −1 (x) = (x + 7)/4 with domain R and range
+   R. Check: f (f −1 (x)) = 4 · (x + 7)/4 − 7 = x + 7 − 7 = x. Both are lines (the graphs are
+   symmetric about y = x).
+
+11. For each model, determine growth/decay and specify the initial value
+  and growth/decay rate: A(t) = 500(1.08)t , B(t) = 1200(0.85)t , C(t) = 40e0.03t , D(t) =
+  200e−0.4t .
+   [Source: Week 2, practical session, ex. 11]
+   Solution. A: growth, initial 500, rate 1.08(+8%per period). B: decay, initial 1200,
+   rate 0.85 (−15%). C: growth, initial 40, continuous rate k = 0.03. D: decay, initial
+   200, continuous rate k = −0.4. The sign of kinekt or whether a > 1inat determines
+   the direction.
+
+12. Solve 2x+1 = 16.
+   [Source: Week 2, practical session, ex. 12]
+   Solution. 16 = 24 , so x + 1 = 4andx = 3. (Equivalently, take log2 of both sides.)
+
+13. Battery discharge: E(t) = E0 e−0.025t , t in hours. (1) Fraction of remaining
+  energy after 10h? (2) When does 50% remain? (3) When does 10% remain?
+  (4) Why is exactly zero unreachable?
+   [Source: Week 2, practical session, ex. 13]
+   Solution. (1)E(10)/E₀ = e−0.25 ≈ 0.7788: about 77.9%. (2)e−0.025t = 21 ⇒ t = ln 02 .025 ≈
+   27.7h.
+   (3)e−0.025t = 0.1 ⇒ t = ln 10
+                               0 .025 ≈ 92h.
+
+
+                     E0 e−0.025t ≈ 92.1h.(4)T heexponentialisstrictlypositive
+
+   for any finite t; it approaches zero only as t → ∞ — first introduction to limits.
+
+14. Population growth: P (t) = 800e0.35t , t in hours. (1) Initial population? (2)
+  After 5h? (3) Doubling time? (4) Can the model remain realistic indefi-
+  nitely?
+   [Source: Week 2, practical session, ex. 14]
+
+
+                                                 15
+Math I — weeks 1–4                                              Questions · Formulas · Solutions
+
+
+   Solution.0ln.35 (1)P (0) = 800. (2)P (5) = 800e ≈ 800 · 5.755 ≈ 4603. (3)T =≈ 1.98h. (4)N o:
+   exponential growth ignores nutrient depletion and space;2 realistically, the model
+   works only near the start of the culture.
+
+
+3.3 Math I: Week 2 homework problems and complete solutions
+
+1. Determine whether each relation defines yasa function of x: a. y = 3x − 2;
+   b. x2 + y 2 = 9; c. y 2 = x + 1; d. x = y 3 − 2.
+   [Source: Week 2, ISA, task 2]
+                                                                                √
+   Solution. a. Function. b. Not a function (circle: two y for each x). c. y = ± x + 1:
+                                                          √
+   two values for x > −1, not a function. d. Solve for 3 x + 2; cube root is unique
+   for each real y: y = x, so it’s a function (passes vertical line test, though not
+   horizontal).
+
+2. For f (x) = 2x2 − 3x +1, calculate f (0), f (−2), f (a), f (a + h), f (a+h)−f (a) . h
+   [Source: Week 2, ISA, task 3]
+   Solution. Same as exercise 2of the practical session: 1; 15; 2a2 − 3a +1; 2a2 + 4ah
+   + 2h2 − 3a − 3h +1; difference quotient = 4a + 2h − 3.
+
+                               (f (a + h) − f (a))/h = 4a + 2h − 3.
+
+3. Find the natural domain: a. f (x) =x−1 q
+                                         p
+                                             (x + 2)/(x − 1)
+                            x+2
+   c. h(x) =x−4 ; d. p(x) = x−1 .
+   [Source: Week 2, ISA, task 4]
+   Solution. a. (−∞, ∞). b. (−∞, 52 ].c. Need x − 1 ≥ 0andx 6= 4: [1, 4) ∪ (4, ∞). d. Need
+   x−1 ≥ 0andx 6= 1: critical points −2and1; quotient non-negative on (−∞, −2] ∪ (1, ∞).
+   x+2
+
+                                                                      √
+4. Find the range: f (x) = x2 + 2, g(x) = −|x − 1| + 4, h(x) =            x + 3 − 2.
+   [Source: Week 2, ISA, task 5]
+   Solution. x2 ≥ 0 ⇒ f ≥ 2: range [2, ∞). |x − 1| ≥ 0 ⇒ −|x − 1| ≤ 0 ⇒ g ≤ 4: (−∞,
+      √
+   4]. x + 3 ≥ 0 ⇒ h ≥ −2 : [−2, ∞). Each answer follows from the extreme value of
+   the inner function.
+                             √
+5. Let f (x) = x2 − 1, g(x) = x + 2. Find f + g, f − g, fg, f /g and each new domain.
+   [Source: Week 2, ISA, task 6]
+                                     √                             √
+   Solution. (f ± g)(x) = x2 − 1 ±       x + 2; (f g)(x) = (x2 − 1) x + 2; (f /g)(x) =
+
+
+                                          √                        √
+                      (f + g)(x) = x2 +    x + 1; (f − g)(x) = x2 − x − 3;
+                                         √         f               √
+                      (f g)(x) = (x2 − 1) x + 2; ( )(x) = (x2 − 1)/ x + 2.
+                                                   g
+   √
+    x+2 . Domains: f + g, f − g, fg: x ≥ −2 (intersection of Rand[−2, ∞)), i.e. [−2, ∞).
+                        √
+   For f /g additionally x + 2 6= 0, i.e. x 6= −2: (−2, ∞).
+
+6. Let f (x) = 2x −3, g(x) = x2 + 1. Find (f ◦g)(x), (g◦f )(x), (f ◦f )(x), (g◦g)(x).
+   [Source: Week 2, ISA, assignment 7]
+
+
+                                                  16
+Math I — weeks 1–4                                           Questions · Formulas · Solutions
+
+
+   Solution. (f ◦g)(x) = 2x2 − 1; (g◦f )(x) = 4x2 −12x+10; (f ◦f )(x) = 2(2x − 3) − 3 = 4x−9;
+   (g◦g)(x) = (x2 + 1)2 + 1 = x4 +2x2 + 2. The first two are different, so composition is
+   non-commutative; the last two show that self-composition is perfectly valid.
+
+7. Determine whether each function is even, odd, or of general form: x4 −
+   2x2 ; x3 − 4x; x3 + x2 ; |x| + 1; x+1
+                                      x2
+                                         .
+   [Source: Week 2, ISA, assignment 8]
+   Solution. x4 −2x2 : only even powers — even. x3 −4x: only odd powers — odd.
+   x3 + x2 : mixed — general form. |x| + 1: even
+
+                                          x2 /(x + 1)
+
+   (practical exercise 5). g(−x) = x2 /(−x+1): the numerator is even, the denominator
+   changes sign: g(−x) 6= ±g(x) — general form.
+
+8. Classify: 3x − 7; x4 − 2x +1; x+1 x2 + 1; 2x ; sin x. x2+4 ;
+
+                                     (x4 − 2x + 1)/(x + 1)
+   [Source: Week 2, ISA, assignment 9]
+                                                                           √
+   Solution. 3x − 7: linear (polynomial). x4 − 2x +1: polynomial. x2+4 :     x2 + 1:
+                      x
+   algebraic (root). 2 : exponential — transcendental. sin x: trigonometric — tran-
+   scendental.
+
+9. Linear temperature model from practical exercise 10 — all five parts.
+   [Source: Week 2, ISA, assignment 10]
+   Solution. Same model and answers as in practical exercise 7: T (t) = 20+ 4t; slope
+   = heating rate 4◦ C/ min, intercept = initial 20◦ C; T (8) = 52◦ C; 60◦ Catt = 10 min;
+   domain [0, 15].
+
+10. For p(x) = x3 − 4x and r(x) = x−1
+                                  x+1
+                                      determine the domain, intercepts, symme-
+  try, end behavior, points of discontinuity.
+   [Source: Week 2, ISA, assignment 12]
+   Solution. p: as in practical exercise 8 (domain R; intercepts −2, 0, 2; odd; ±∞ at
+   ends; none). r: domain x 6= 1, i.e. (−∞, 1) ∪ (1, ∞). Intercepts: r(0) = −1; numerator
+   zero at x = −1. Symmetry: r(−x) = −x−1   −x+1
+                                                  = x−1
+                                                      x+1 6= ±r(x) — general form. End
+   behavior: r(x) → 1asx → ±∞ (horizontal asymptote y = 1); r(x) → ±∞asx → 1
+   (vertical asymptote x = 1). Undefined only at x = 1.
+
+11. Piecewise electricity tariff from practical exercise 9 — all five parts.
+   [Source: Week 2, ISA, assignment 13]
+   Solution. Same answers as in practical exercise 9: C(150) = 15, C(200) = 20,
+   C(350) = 42.5; continuous broken line graph; slopes — marginal prices; constraint
+   — discontinuity in incentive at the 200 kWh boundary.
+
+12. Convert 30◦ , 135◦ , 300◦ to radians and π6 , 5π   7π
+                                                   4 , 3 to degrees.
+   [Source: Week 2, ISA, assignment 14]
+   Solution.π Multiply by π/180: 30 = ; 135 = 3 ; 300 = 5 . Multiply by 180/π: = 30◦6 ;
+   5π      ◦ 7π      ◦
+    4 = 225 ; 3 = 420 .
+
+13. Is it bijective? a. f (x) = 3x −5, x ∈ R; b. g(x) = x2 , x ∈ R; c. h(x) = x2 , x ≥ 0; d.
+  p(x) = x1 , x 6= 0.
+
+
+                                              17
+Math I — weeks 1–4                                               Questions · Formulas · Solutions
+
+
+   [Source: Week 2, ISA, assignment 15]
+   Solution. a. Yes: non-decreasing line passes horizontal line test. b. N o: g(−2) =
+   g(2) = 4. c. Yes: squaring is injective on [0, ∞)(restriction restores horizontal line
+                  1
+   test). d. Yes: x1    1
+                     = x2 ⇒ x1 = x2 .
+
+14. Find inverses and their domains: a. f (x) = 4x − 7; b. g(x) = x+3
+                                                                   2 ; c. h(x) =
+  x2 + 1, x ≥ 0; d. p(x) = 2x+3
+                           x−1  , x 6
+                                    = 1; verify by composition.
+   [Source: Week 2, ISA, assignment 16]
+   Solution. a. f −1 (x) = (x + 7)/4, domain R (practical exercise 10). b. y = (x + 3)/2 ⇒
+                                                       p
+                                  y = (x + 1)2 ⇒ x =       y−1
+
+   x = 2y − 3, so g −1 (x) = 2x − 3, domain R. c. (positive root, since x ≥ 0): h−1 (x) =
+   √
+     x − 1, domain [1, ∞). d. y = (2x+3)/(x−1) ⇒ y(x−1) = 2x +3 ⇒ x(y −2) = y +3 ⇒ x =
+   (y + 3)/(y − 2): p−1 (x) = (x + 3)/(x − 2), domain x 6= 2. Each satisfies f (f −1 (x)) = x by
+   construction.
+
+15. Growth/decay classification for A, B, C, D (practical exercise 11).
+   [Source: Week 2, ISA, assignment 17]
+   Solution. Same: A growth (a = 1.08), B decay (a = 0.85), C growth (k = 0.03), D
+   decay (k = −0.4).
+
+16. Solve, giving exact answers first: a. 2x+1 = 16; b. 52 x = 125; c. e3 x = 7; d.
+  100e−0.2t = 20.
+   [Source: Week 2, ISA, assignment 18]
+                                                                                  7
+   Solution. a. x + 1 = 4 ⇒ x = 3. b. 2x = 3 ⇒ x = 23 . c. 3x = ln 7 ⇒ x = ln ≈ 0.6486. 3d.
+   e−0.2t = 0.2 ⇒ t = −ln0.2 = 5 ln 5 ≈ 8.047. 0.2
+
+17. Battery discharge (exercise 13 from practical session) — all four parts.
+   [Source: Week 2, ISA, assignment 19]
+   Solution.0ln0.025 Same: e ≈ 77.9% after 10h; 50% at ≈ 27.7h; 10% at ≈ 92.1h; expo-
+   nential never reaches zero in finite time.10
+
+18. Bacteria population (exercise 14 from practical session) — all four parts.
+   [Source: Week 2, ISA, assignment 20]
+   Solution. Same: P0 = 800; P (5) ≈ 4603; doubling time 00.35
+                                                          ln2
+                                                               ≈ 1.98h; purely exponen-
+   tial models fail in the long term (resources, space, waste).
+
+
+4 Week 3 — Limits (Math I)
+
+4.1 Math I: Formula catalog for week 3
+
+4.1.1 Rates of change and the two founding problems
+Limits enter the course through two questions: how fast is a quantity changing (tan-
+gent/velocity), and how do function values behave near a point. The average rate
+over a shrinking interval defines the instantaneous one.
+
+                         f (x) − f (a)
+                msec =                 (slope of the secant through (a, f (a)))             (51)
+                             x−a
+
+
+                                              18
+Math I — weeks 1–4                                                    Questions · Formulas · Solutions
+
+
+
+                                      s(t) − s(a)
+                             vave =               (average velocity on [a, t])                   (52)
+                                         t−a
+
+               f (a + h) − f (a)
+           lim                   = f ′ (a) (instantaneous rate; defined as a limit)              (53)
+           h→0         h
+
+4.1.2 The limit concept, one-sided and infinite limits
+The intuitive definition (OpenStax §2.2)andits one-sided variants are the operational
+heart of the week; the two-sided limit exists exactly when the two one-sided limits
+agree.
+
+                       lim f (x) = L ⇔ all f (x) (x 6= a) approach L as x → a                    (54)
+                       x→a
+
+
+                          lim f (x) = L,      lim f (x) = L (left/right limits)                  (55)
+                         x→a−                 x→a+
+
+
+                lim f (x) = L ⇔ lim f (x) = lim f (x) = L (existence criterion)                  (56)
+                x→a                   x→a−       x→a+
+
+
+            lim f (x) = ±∞,            lim f (x) = ±∞,    lim f (x) = ±∞ (infinite limits)       (57)
+           x→a−                       x→a+                x→a
+
+
+                               1                          1
+                       lim           = +∞,        lim           = +∞      (n even)               (58)
+                       x→a− (x − a)n              x→a+ (x − a)n
+
+
+
+            1                             1
+   lim            = −∞,         lim             = +∞      (n odd) : x = a vertical asymptote     (59)
+  x→a−   (x − a)n               x→a+   (x − a)n
+
+The line x = aisa vertical asymptote of f if at least one of the one-sided infinite limits
+(57) holds there.
+
+4.1.3 The precise definition (§2.5, lecture emphasis)
+The ε − δ definition converts ”arbitrarily close” into quantified distances; the equiva-
+lent absolute-value inequalities are the working tool.
+
+                 lim f (x) = L ⇔ ∀ε > 0 ∃δ > 0 : 0 < |x − a| < δ ⇒ |f (x) − L| < ε               (60)
+                 x→a
+
+
+                                 |f (x) − L| < ε ⇔ L − ε < f (x) < L + ε                         (61)
+
+
+                             0 < |x − a| < δ ⇔ a − δ < x < a + δ and x 6= a                      (62)
+
+4.1.4 Two standard limits seen this week
+
+
+       sin x
+   lim       = 1 (Table 2.2 of the lecture: values 0.9983, 0.99998, 0.9999998 . . . )            (63)
+   x→0   x
+
+                      1                                             1                  1
+          lim sin       does not exist (oscillation),        lim      = −∞,      lim     = +∞    (64)
+          x→0         x                                      x→0−   x         x→0+     x
+
+                                                     19
+Math I — weeks 1–4                                              Questions · Formulas · Solutions
+
+
+4.2 Math I: ISA for week 3 — questions and complete solutions
+
+1. Study all problems, exercises, and examples presented in the lecture and
+   practical session; be able to answer quickly and without errors.
+   [Source: Week 3, ISA, assignment 2]
+   Solution. This is a study instruction, not a calculation; the relevant material is fully
+   solved in the lecture examples, in the practical session block below (exercises 2–
+   8), and in the assigned textbook problems (following items).
+
+2. For f (x) = x3 , estimate the slope of the tangent at x = 1, using msec =
+  f (1 + h) − f (1)
+
+                                         msec = 3 + 3h + h2
+
+   from left and right to the same number?
+   [Source: Week 3, ISA, assignment 3]
+   Solution. Here f (1) = 1andf (1 + h) = (1 + h)3 = 1+ 3h + 3h2 + h3 , so msec = 3+ 3h +h2 .
+   Values: h = −0.1 ⇒ 2.71; −0.01 ⇒ 2.9701; −0.001 ⇒ 2.997; 0.001 ⇒ 3.003; 0.01 ⇒ 3.0301;
+   0.1 ⇒ 3.31. Both sides approach 3; indeed limh→0 (3 + 3h + h2 ) = 3 — the exact slope
+   of the tangent line (derivative of 3x2 atx = 1).
+
+3. Solve problems 46 − 49and60 − 64 from ”Chapter 1” (exercise list §2.2) of
+   OpenStax Calculus 1.
+   [Source: Week 3, ISA, assignment 4]
+   Solution. These graph reading exercises are written out and fully solved below in
+   §4.4; the numbering in the course sheet refers specifically to this exercise list.
+
+4. A temperature controller outputs C(T ) = 0 when T < 50andC(T ) = 10 when
+   T ≥ 50 (volts). Determine limT → 50 − C(T ), limT → 50 + C(T ), limT → 50C(T );
+   interpret as a switching operation.
+   [Source: Week 3, ISA, assignment 5]
+   Solution. On the left, the controller reads the ”off” branch: limT → 50 − C(T ) = 0.
+   On the right — the ”on”: limT → 50 + C(T ) = 10. Since the one-sided limits are
+   different, the two-sided limit does not exist (56). Interpretation: abrupt switching
+   at T = 50 — the output jumps from 0V to10V , which is exactly how a thermostat
+   controls a heater.
+
+                                    s(t) = 2t2 + 3t(m, s).(1)
+
+5. Position of a robot cart: (1) Average speed s(2 + h) − s(2)
+
+                         s(2 + h) − s(2) = (2(2 + h)2 + 3(2 + h)) − 14
+
+   (3) compute limh→0 ; (4) interpret. h
+
+                              s(3) − 14 = (27 − 14)/(14.72 − 14)
+   [Source: Week 3, ISA, assignment 6]
+   Solution. (1)s(2) = 14. Values: h = 1: = 13; h = 0.1: =
+
+        s(2 + h) − s(2)/h = (14.07(2 + h)2 − 14)/(h) = (14.07(4 + 4h + h2 ) − 14)/(h) =
+
+                                                20
+Math I — weeks 1–4                                                 Questions · Formulas · Solutions
+
+
+
+
+               (56.28 + 56.28h + 14.07h2 − 14)/(h) = (42.28 + 56.28h + 14.07h2 )/(h)
+                                     42.28/h + 56.28 + 14.07h(9)
+
+     7.2; h = 0.01: 14.0702−14 = 7.02; h = −0.01: 13.9302−14 = 6.98. (2)s(2 + h) = 2(2 + h)2 + 3(2+
+
+               s(2 + h) − s(2) = 2(2 + h)2 + 3(2 + h) − (2 · 22 + 3 · 2) = 8h + 2h2 , (2)
+
+     h) = 8+ 8h + 2h2 + 6+ 3h = 14+ 11h + 2h2 , therefore s(2+h)−s(2) = 11h+2h2 = 11+
+     2h. (3)hh limh→0 (11 + 2h) = 11m/s. (4) The instantaneous speed of the cart at t =
+     2sis11m/s; the average speeds approach it from both sides.
+
+6.     Two systems have outputs A(t) = (1.08)t andB(t) = e0.03t . (1) Compute
+     limt→∞ A(t)and limt→∞ B(t); (2) rewrite A(t)in the form ekt ; (3) which grows
+     faster? (4) Compute limt→∞ A(t)} for B(t); (5) interpret.
+     [Source: Week 3, ISA, assignment 7]
+     Solution. (1) Both bases are greater than 1, so both limits equal +∞. (2)A(t) =
+     etln1.08 , and ln 1.08 ≈ 0.0770, so A(t) = e0.0770t . (3)A grows faster since its rate constant
+     0.0770 > 0.03. (4) B(t)       (0.03−0.0770)t = e−0.047t → 0ast → ∞. (5) Although both diverge,
+                          A(t) = e
+     their ratio approaches zero: B becomes negligible compared to A — the seed of
+     ”little o” comparison from week 4.
+
+
+4.3 Math I: Week 3 practical session (engineering limits) — questions
+    and complete solutions
+
+Course requirements for this session: show mathematical procedure; include units;
+interpret in engineering terms; specify when the limit does not exist.
+
+1. Solve problems 50–54 from the exercise list §2.2of the textbook.
+     [Source: Week 3, practical session, exercise 1]
+     Solution. Written out and fully solved below in §4.4 (items 50–54).
+
+2. One-sided limits: f (x) = 2x+1 when x < 2, f (x) = 7 − x when x ≥ 2. Find
+  limx→2 −f, limx→2 +f, limx→2 f, f (2); explain whether the two-sided limit exists.
+     [Source: Week 3, practical session, exercise 2]
+     Solution. Left branch: limx→2 −(2x + 1) = 5. Right branch: limx→2 +(7 − x) = 5. They
+     are equal, so by (56) limx→2 f (x) = 5. Note, f (2) = 7 − 2 = 5 as well — the function
+     value equals the limit, so there is no discontinuity in the graph at x = 2.
+
+                                    V (T ) = (2500/T )M B, T ≥ 50
+
+3. Calibration near a missing measurement: V (T ) = mV, T 6= 50T − 50(T in◦ C).
+   (1) Why is V (50) undefined? (2) Evaluate limT → 50V (T ); (3)howcan the limit
+   replace the missing calibration value?
+     [Source: Week 3, practical session, ex. 3]
+     Solution. (1) The formula divides by T − 50, which equals 0 when T = 50; the
+     sensor model simply has no value there. (2)W e factor the difference of squares:
+     T − 2500 = (T − 50)(T + 50), so when T 6= 50, V (T ) = T + 50, and lim T →50
+                                                                              2
+                                                                                  V (T ) = 100 mV.
+                                                                      ◦
+     (3) The limit describes what the sensor would show at 50 C; filling the calibration
+
+
+                                                   21
+Math I — weeks 1–4                                          Questions · Formulas · Solutions
+
+
+   table with 100 mV at this point is justified because the output approaches this
+   value from both sides—it’s a ”removable” behavior, not a jump.
+
+4. Switching system: V (t) = 2t +1 when t < 4andV (t) = 12 − t when t ≥ 4(V ).
+  Determine the one-sided limits, the two-sided limit, and V (4); is there a
+  sharp voltage change at t = 4?
+   [Source: Week 3, practical session, ex. 4]
+   Solution. From the left: limt→4 −(2t + 1) = 9V . From the right: limt→4 +(12 − t) = 8V .
+   V (4) = 12 − 4 = 8V . The one-sided limits are different, so limt→4 V (t) does not exist:
+   at t = 4, the voltage drops sharply from 9V to8V . Engineering significance: a1V
+   step can excite transients in the controlled device; when steps are harmful, input
+   filters or soft-start logic are used.
+
+5. Stress-strain: σ(ε) = 200000ε when ε < 0.002andσ(ε) = 400+10000(ε−0.002) when ε ≥
+   0.002(σinM P a; Hooke’s region, then hardening). Find the one-sided limits
+   at ε = 0.002; does the two-sided limit exist? Does the model predict a jump?
+   Sketch the graph near the transition.
+   [Source: Week 3, practical session, ex. 5]
+   Solution. Elastic side: limε→0.002 −200000ε = 200000(0.002) = 400 MPa.
+
+
+                             lim −σ(ε) = 200000(0.002) = 400M P a;
+                            ε→0.002
+                            lim +σ(ε) = 400 + 10000(0.002 − 0.002) =
+                          ε→0.002
+
+
+
+                            400M P a; lim σ(ε) = 400M P a(exists).
+                                       ε→0.002
+
+   Plastic side: 400 + 10000(ε − 0.002) = 400 MPa. Both equal 400 MPa, so the two-
+   sided limit exists and equals 400 MPa; there is no jump—the piecewise model is
+   continuous at the yield point, only the slope changes (from 200, 000to10, 000 MPa
+   per unit strain). The graph is two straight line segments meeting at (0.002, 400)
+   with a distinct corner: elastic loading, then a much shallower plastic branch.
+
+6. Long-term response of an RC circuit: V (t) = Vs (1 − e−t/(RC) ) with Vs = 12V, R =
+   10000Ω, C = 100 µF . (1) Calculate limt→0 +V (t); (2) limt→∞ V (t); (3) interpret
+   both physically.
+   [Source: Week 3, practical session, ex. 6]
+   Solution. (1)Att = 0+ , the exponential equals e0 = 1, so V (0+ ) = 12(1 − 1) =
+   0(2)Ast → ∞, e−t/(RC) → 0, V — initially uncharged capacitor. so V → Vs = 12V .
+   (3) The capacitor charges from 0V toward the supply voltage of 12V , approaching
+   it asymptotically; the time constant τ = RC = 104 · 10−4 = 1s sets the pace (about
+   63% charge after 1s, 99% after 5τ ). The limiting language ”V → Vs ast → ∞” is
+   precisely how asymptotic charging is formulated.
+
+7. Terminal velocity: v(t) = vT (1 − e−kt ), vT > 0, k > 0. (1)v(0)? (2) limt→∞ v(t)? (3)
+   Why is this model more realistic than unlimited acceleration?
+   [Source: Week 3, practical session, ex. 7]
+   Solution. (1)v(0) = vT (1 − 1) = 0: the object starts from rest. (2)e−kt → 0, so v → vT :
+   the speed approaches the terminal value. (3) Air resistance increases with speed
+   until it balances gravity; after that, the net force is zero, and speed can no longer
+   increase—a falling body indeed approaches a finite limit, not accelerating forever.
+
+
+                                                 22
+Math I — weeks 1–4                                          Questions · Formulas · Solutions
+
+
+8. Data transfer rate: R(n) =100 n Mbps. (1) Calculate n + 20R(10), R(100), R(1000);
+   (2) limn→∞ R(n); (3) why does increasing n eventually give diminishing im-
+   provements? (4) maximum theoretical speed?
+   [Source: Week 3, practical session, ex. 8]
+   Solution. (1)R(10) ≈ 33.3, R(100) ≈ 83.3, R(1000) ≈ 98.0 Mbps. (2) Dividing by n:
+            100
+   R(n) = 1+20/n → 100 Mbps. (3) Each additional unit of resource is divided by an in-
+   creasingly large base, so the marginal benefit decreases — diminishing returns.
+   (4) The horizontal asymptote 100 Mbps is the ceiling of the model: values ap-
+   proach it but do not exceed it.
+
+
+4.4 Math I: assigned textbook exercises (OpenStax §2.2, exercises 46–
+    54 and 60–64)
+
+These graph reading exercises use four figures printed with the exercise set; the
+required values are read from the graphs as in the classroom. First the statements,
+then the solutions.
+
+1. From the first graph y = f (x), solve: (46) limx→10 −f (x) = 0; (47) limx→−2 +f (x) =
+   3; (48) limx→−8 f (x) = f (−8); (49) limx→6 f (x) = 5 — true or false?
+   [Source: OpenStax §2.2, ex. 46–49]
+   Solution. (46) True: as x → 10 from the left, the curve descends to the filled point
+   (10, 0), so the left limit is 0. (47) True: slightly to the right of −2, the graph is at
+   height 3 (filled point (−2, 3)). (48) False: near x = −8, the curve approaches an
+   open circle at height −6, so limx→−8 f (x) = −6, whereas f (−8) = −3 (filled point);
+   the limit and value may not coincide. (49) False: from the left, the curve descends
+   to an open circle (6, 2), so limx→6 − = 2, whereas the right branch emerges from
+   the filled point (6, 5), so limx→6 + = 5; the one-sided limits are different ⇒ the
+   two-sided limit does not exist, so it cannot equal 5.
+
+2. For the piecewise linear graph (line y = x + 1to the open point (1, 2); filled
+   point (1, 1); then line y = 3 − x), find (50) limx→1 −f ; (51) limx→1 +f ; (52) limx→1 f ;
+   (53) limx→2 f ; (54)f (1).
+   [Source: OpenStax §2.2, ex. 50–54]
+   Solution. (50) The left branch y = x + 1 → 2. (51) The right branch y = 3 − x → 2.
+   (52) Both sides equal 2, so limx→1 f (x) = 2 — even though f (1) = 1; the limit ignores
+   the point itself. (53)Atx = 2, only the right branch exists: 3 − 2 = 1. (54)f (1) = 1
+   (filled point).
+
+3. For the third graph (left: line descending to the open point (0, 1); right:
+   curve rising from the filled point (0, −4) and crossing zero near x = 2), find
+   (55) limx→0 −f ; (56) limx→0 +f ; (57) limx→0 f ; (58) limx→2 f .
+   [Source: OpenStax §2.2, ex. 55–58]
+   Solution. (55) 1. (56) −4. (57)1 6= −4, so the two-sided limit does not exist (56).
+   (58) The right branch crosses the axis at x = 2, so the limit is 0.
+
+4. For the fourth graph (three pieces: rising line to the open point (−2,
+  0); descending segment from the filled point (−2, 2) through the ori-
+  gin to (2, −2); rising line from the open point (2, 2)), find (59) limx→−2 −f ;
+  (60) limx→−2 +f ; (61) limx→−2 f ; (62) limx→2 −f ; (63) limx→2 +f ; (64) limx→2 f .
+   [Source: OpenStax §2.2, ex. 59–64]
+
+
+
+
+                                                23
+Math I — weeks 1–4                                           Questions · Formulas · Solutions
+
+
+   Solution. (59) 0. (60) 2. (61)0 6= 2: does not exist. (62) −2. (63) 2. (64) − 2 6= 2:
+   does not exist. Both junctions are actual jumps: no averaging can fix unequal
+   one-sided limits.
+
+
+5 Week 4 — Limits II: limit laws, standard limits, indeter-
+  minacies, asymptotics, Landau symbols (Math I)
+
+Week 4isthe key week before Test 1 review: it turns the limit apparatus of week 3
+into a working toolkit. Required reading is OpenStax §2.3 (Limit Laws), and week 4’s
+notes by Prof. Neophytides summarize general limit properties, standard limits, in-
+determinacies, asymptotic equivalence, and Landau symbols Oando. This section lists
+each equation from both sources, then solves each exercise in the §2.3set (exercises
+83–130) and each worked question from the notes.
+
+
+5.1 Formula catalog for week 4
+
+5.1.1 General properties of limits (Week 4 Notes)
+
+
+
+ lim f (x) = L : f (x) can be made arbitrarily close to L by taking x close to a (x 6= a)
+ x→a
+                                                                                         (78)
+
+             lim f (x) = L ⇔ lim f (x) = lim f (x) = L (two-sided criterion)             (79)
+             x→a               x→a−      x→a+
+
+a limit, when it exists, is unique.
+
+5.1.2 Limit laws (OpenStax Theorem 2.5)
+If lim x → af (x) = Land lim x → ag(x) = M (both existing), and cisa constant, then:
+
+         Sum: lim[f (x) + g(x)] = L + M ;    Difference: lim[f (x) − g(x)] = L − M       (80)
+                x→a                                        x→a
+
+
+           Constant multiple: lim c f (x) = cL;     Product: lim[f (x)g(x)] = LM         (81)
+                                 x→a                             x→a
+
+
+                           f (x)   L
+           Quotient: lim         =   (M 6= 0);    Power: lim[f (x)]n = Ln (n ∈ N)        (82)
+                       x→a g(x)    M                       x→a
+
+                             p        √
+                   Root: lim n f (x) = L (n odd: any L; n even: L ≥ 0)
+                                      n
+                                                                                         (83)
+                         x→a
+
+
+                                Basic: lim x = a,    lim c = c                           (84)
+                                       x→a           x→a
+
+
+                                                               p(x)   p(a)
+    Polynomials/rational functions: lim p(x) = p(a),       lim      =      (q(a) 6= 0)   (85)
+                                       x→a                 x→a q(x)   q(a)
+
+If f (x) = g(x)f orallx 6= a near a, then lim x → af (x) = lim x → ag(x) — the licence to
+cancel factors before substituting.
+
+5.1.3 The Squeeze (Pinching) Theorem (OpenStax Theorem 2.7)
+
+                                             24
+Math I — weeks 1–4                                                     Questions · Formulas · Solutions
+
+
+
+
+      f (x) ≤ g(x) ≤ h(x) near a (x 6= a),       lim f (x) = L = lim h(x) ⇒ lim g(x) = L          (86)
+                                                 x→a              x→a           x→a
+
+
+5.1.4 Standard limits and the derived trigonometric limits (Week 4 Notes)
+
+                           sin x              1 − cos x  1           ex − 1
+                       lim       = 1,     lim      2
+                                                        = ,      lim        =1                    (87)
+                       x→0   x            x→0    x       2       x→0    x
+
+                     ln(1 + x)                                      xn
+                 lim           = 1,       lim(1 + x)1/x = e,    lim    = 0 (n ∈ N)                (88)
+                 x→0     x                x→0                   x→∞ ex
+
+Angles in the trigonometric limits must be in radians. Adapting (87) by substitution,
+e.g.:
+
+
+        sin 5x         sin 5x               sin θ           1 − cos θ
+  lim          = 5 lim        = 5,      lim       = 1 ⇒ lim           = 0 (via conjugate)         (89)
+  x→0     x        x→0   5x             θ→0   θ         θ→0     θ
+
+5.1.5 Indeterminate forms (Week 4 Notes)
+
+                                0 ∞
+                                 ,  , 0 · ∞, ∞ − ∞, 00 , 1∞ , ∞0                                  (90)
+                                0 ∞
+The word ”indeterminate” does not mean that the limit fails to exist; it means that
+more analysis is required. The same initial form can resolve differently:
+
+                       x             x                 x2
+                   lim   = 1,    lim    = 0,       lim    does not exist (finite)                 (91)
+                   x→0 x         x→0 x2            x→0 x
+
+while lim x → 1(x² − 1)/(x − 1) = 2 after factoring. Resolution tools: factoring, rational-
+isation, standard limits, asymptotic equivalence, change of variable, algebraic rear-
+rangement, the Squeeze Theorem, Taylor expansions, and (later) L’Hôpital’s rule.
+
+5.1.6 Asymptotic equivalence (Week 4 Notes)
+
+                                                               f (x)
+                                f (x) ∼ g(x) (x → a) ⇔ lim             =1                         (92)
+                                                          x→a g(x)
+
+                                                             
+                         f (x) ∼ g(x) ⇔ f (x) = g(x) 1 + ε(x) , ε(x) → 0                          (93)
+
+
+                                         f ∼ g ⇔ f = g + o(g)                                     (94)
+
+
+                                                                        x2 x
+                  as x → 0 : sin x ∼ x, tan x ∼ x, 1 − cos x ∼            , e −1∼x                (95)
+                                                                        2
+
+                         ln(1 + x) ∼ x,       (1 + x)α − 1 ∼ αx (α constant)                      (96)
+
+Numerically, sin(0.01)/0.01 ≈ 0.999983 illustrates ”close, not equal”. At infinity the
+highest-degree term dominates:
+
+                                                       2x3 + x   2x3   2
+                 3x2 + 5x − 1 ∼ 3x2 (x → ∞),                   ∼      = x (x → ∞)                 (97)
+                                                       5x − 1
+                                                         2       5x 2  5
+
+                                                    25
+Math I — weeks 1–4                                             Questions · Formulas · Solutions
+
+
+Equivalences may be multiplied and divided, not generally added.
+
+5.1.7 Landau symbols: big-O and little-o (Week 4 Notes)
+
+                                        |f (x)|
+                f (x) = O g(x) (x → a) ⇔         remains bounded near a                   (98)
+                                         |g(x)|
+
+                                                         f (x)
+                             f (x) = o g(x) (x → a) ⇔ lim       =0                        (99)
+                                                      x→a g(x)
+
+
+                           f = o(g) ⇒ f = O(g);     f = O(g) ⇏ f = o(g)                  (100)
+
+
+                                  x2 = o(x), x3 = o(x2 ) (x → 0)                         (101)
+
+
+                                 x = o(x2 ), x10 = o(ex ) (x → ∞)                        (102)
+
+                                                                    3x
+                          3x = O(x) but 3x 6= o(x) (x → 0) since       =3                (103)
+                                                                    x
+
+                                                                          x2
+        sin x = x + o(x) (x → 0);     ex = 1 + x + o(x);   ex = 1 + x +      + o(x2 )    (104)
+                                                                          2
+
+                               2x2 + 3x + 1 = 2x2 + O(x) (x → ∞)                         (105)
+
+In words: big-O means f has at most the order of magnitude of g; little-o means f be-
+comes negligible compared with g. Caution: f = O(g)isnot an equation in the ordinary
+sense — O(g) denotes a whole class of functions.
+
+
+5.2 OpenStax §2.3, check problems 2.11–2.20 — questions and com-
+    plete solutions
+                                                 √
+1. Using the limit laws, compute limx→−3 (2x − 1) x + 4, indicating the law at
+   each step.
+   [Source: OpenStax §2.3, check 2.11]
+   Solution. Both limits of the factors exist, so we apply the product
+                                                                 √     law: lim(2x−1) =
+                                                       √
+   2(−3) − 1 = −7(sum, difference, basic limits); lim x + 4 = −3 + 4 = 1 (root law).
+   Product: −7 · 1 = −7.
+
+2. Compute limx→−2 (3x3 − 2x + 7).
+   [Source: Check 2.12]
+   Solution. Direct substitution is justified (85): 3(−8) − 2(−2) + 7 = −24 + 4 + 7 = −13.
+
+3. Compute limx→−3 (x2 + 4x + 3)/(x2 − 9).
+   [Source: Check 2.13]
+   Solution. 0/0 form. Factor both: (x2 +4x+3)/(x2 −9) = ((x+1)(x+3))/((x+3)(x−3)) =
+   (x + 1)/(x − 3) when x 6= −3. Limit: (−3 + 1)/(−3 − 3) = (−2)/(−6) = 13 .
+                      √
+4. Compute limx→5 ( x − 1 − 2)/(x − 5).
+   [Source: Check 2.14]
+
+
+                                               26
+Math I — weeks 1–4                                               Questions · Formulas · Solutions
+
+
+                                                        √
+   Solution. 0/0 form. Multiply by the conjugate            x − 1 + 2:
+
+                    √                                          √
+                   ( x − 1 − 2)/(x − 5) = (x − 1 − 4)/((x − 5)( x − 1 + 2))
+                                       √
+                                    1/( x − 1 + 2)(x 6= 5)
+                      √
+   so the limit is 1/( 5 − 1 + 2) = 14 .
+
+5. Compute limx→−3 (1/(x + 2) + 1)/(x + 3).
+   [Source: Check 2.15]
+   Solution. Simplify the complex fraction: 1/(x + 2) + 1 = (x + 3)/(x + 2), so the
+   expression equals (x+3)/((x+2)(x+3)) = 1/(x+2) when x 6= −3. Limit: 1/(−3+2) = −1.
+                 1
+6. Compute lim x→3x−3 −4 .
+
+                                     1/(x − 3) − 1/(x + 1)
+   [Source: Check 2.16]
+   Solution. Factor x2 − 2x −3 = (x − 3)(x + 1) and simplify:
+
+
+                1/(x − 3) − 4/((x − 3)(x + 1)) = ((x + 1) − 4)/((x − 3)(x + 1))
+                              (x − 3)/((x − 3)(x + 1)) = 1/(x + 1)
+
+
+                                            (x 6= 3),
+
+   so the limit is 1/4.
+
+7. Piecewise check: f (x) = x2 − xf orx ≤ 3andf (x) = x + 4f orx > 3; compute the
+   one-sided limits at the junction.
+   [Source: Check 2.17]
+   Solution. On the left, the parabolic branch gives limx→3− f (x) = 9; on the right, the
+   straight line gives limx→3 +(x + 4) = 7. Not equal, so limx→3 f (x) does not exist.
+                    x+2
+8. Compute limx→ 1 (x−1) 2 (method of example 2.23).
+   [Source: Check 2.18]
+   Solution. Numerator → 3 (nonzero), denominator → 0+ from both sides (square),
+   so the ratio → +∞: infinite limit, and x = 1isa vertical asymptote.
+
+9. Using the squeeze theorem, compute limx→0 x2 sin x1 .
+   [Source: Check 2.19]
+   Solution. Since −1 ≤ sin x1 ≤ 1, multiplying by x2 ≥ 0 gives −x2 ≤ x2 sin 1x ≤ x2 .
+   Both bounds → 0; by (86) the limit is 0.
+                 1−cosθ
+10. Compute lim θ→0sinθ .
+   [Source: Check 2.20]
+   Solution. Divide numerator and denominator by θ (legal since within the limit
+   θ 6= 0): 1 − cos θ1 − cos θ− → 0θ
+
+                                  (1 − cos θ)/(a sin θ) = 0, 1
+
+   sin θ sin θθ using 1−cosθ → 0 (example 2.25)andsinθ → 1(standard limit). θθ
+
+                                              27
+Math I — weeks 1–4                                           Questions · Formulas · Solutions
+
+
+5.3 OpenStax §2.3, exercises 83–130 — questions and complete solu-
+    tions
+
+5.3.1 Using limit laws (83–86)
+
+1. limx→0 (4x2 − 2x + 3).
+   [Source: §2.3, ex. 83]
+   Solution. Substitution by (85): 4(0)2 − 2(0) + 3 = 3.
+
+2. lim x3+3x2+5
+         x→1    . 4−7x
+   [Source: §2.3, ex. 84]
+   Solution. Denominator at 1is − 3 6= 0, so quotient law and substitution give =
+                   √
+   1+3+59
+     −3   = −3. −3
+                                          p
+                                    lim       x2 − 6x + 3.
+                                    x→9
+
+
+3. limx→−2
+   [Source: §2.3, ex. 85]
+                                                                                   √
+   Solution.
+      √      The radicand is continuous at −2 and positive there; root law:            4 + 12 +
+   3 = 19.
+
+4. limx→−1 (9x + 1)2 .
+   [Source: §2.3, exercise 86]
+   Solution. Power law, then substitution: (9(−1) + 1)2 = (−8)2 = 64.
+
+5.3.2 Direct Substitution (87–92)
+
+1. limx→7 x2 .
+   [Source: §2.3, exercise 87]
+   Solution. 49.
+
+2. limx→−2 (4x2 − 1).
+   [Source: §2.3, exercise 88]
+   Solution. 4(4) − 1 = 15.
+           1
+3. lim x→01+sinx .
+   [Source: §2.3, exercise 89]
+   Solution. Denominator 1 + sin 0 = 1 6= 0: quotient law gives 11 = 1.
+
+4. limx→2 e2x−x2 .
+   [Source: §2.3, exercise 90]
+   Solution. Exponent: 2(2) − 4 = 0; e0 = 1.
+        2+7x
+5. lim x→1x+6 .
+   [Source: §2.3, exercise 91]
+   Solution. 2+7                      3
+             1+6 = 97 . 6. limx→3 ln e x.
+   [Source: §2.3, exercise 92]
+   Solution. ln e3 x = 3x identically (logarithm and exponential are inverses), so the
+   limit is 3 · 3 = 9.
+
+
+                                               28
+Math I — weeks 1–4                                              Questions · Formulas · Solutions
+
+
+5.3.3 Indeterminate Form 0/0(93–102)
+
+        x2−16
+1. lim x→4x−4 .
+   [Source: §2.3, exercise 93]
+   Solution. Form 0/0. Factor: (x−4)(x+4) = x + 4 when x 6= 4; limit = 8. x − 4
+         x−2
+2. lim x→2x2−2x .
+   [Source: §2.3, exercise 94]
+                                  x−2
+   Solution. Factor denominator: x(x−2) = 1x when x 6= 2; limit = 12 .
+
+        3x−18
+3. lim x→62x−12 .
+   [Source: §2.3, exercise 95]
+             3(x−6)
+   Solution. 2(x−6) = 32 when x 6= 6; limit = 32 .
+
+                                        lim((1 + h)2 − 1)/h
+                                        h→0
+
+
+4. limh→0 . h
+   [Source: §2.3, exercise 96]
+   Solution.1+2h+h2−1 = h(2+h) = 2 + h; limit = 2 (this is the derivative of x2 at1). hh
+         t−9       √
+5. lim t→9t−3 .
+   [Source: §2.3, exercise 97]
+                                                                         √
+   Solution. Form 0/0. Multiply by conjugate of denominator:
+
+                                √                    √          √      √
+                    lim(t − 9)/( t − 3) = lim(t − 9)( t + 3)/(( t − 3)( t + 3))
+                    t→9                    t→9
+                                             √
+                                  lim(t − 9)( t + 3)/(t − 9) = lim
+                                  t→9                          t→9
+
+
+                                         √
+                                        ( t + 3) = 6(t 6= 9)
+
+   so the limit is 9 + 3 = 6.
+
+6. Find limh→0 (1/(a + h) − 1/a)/h, where aisa nonzero real constant.
+   [Source: §2.3, exercise 98]
+   Solution. Simplify numerator: a−(a+h)−h−1
+
+                        lim(aa+h − aa )/h, whereaisanonzerorealconstant.
+                        h→0
+
+   Limit: − a2
+             1
+               (derivative of 1/xata).
+         sinθ
+7. lim θ→πtanθ .
+   [Source: §2.3, exercise 99]
+   Solution. When θ 6= π near π: tanθ sinθ
+                                           = sin θ · cos sinθ
+                                                           θ
+                                                              = cos θ (cancellation is valid
+   since sin θ 6= 0 there). Limit: cos π = −1.
+        x3−1
+8. lim x→1x2−1 .
+   [Source: §2.3, exercise 100]
+
+
+
+                                                29
+Math I — weeks 1–4                                            Questions · Formulas · Solutions
+
+
+   Solution. Factor both: (x−1)(x2+x+1) =x2+x+1 ; limit = 23 .
+
+                                     (x − 1)(x + 1)/(x + 1)
+
+9. lim 2x2+3x−2
+         x→1/2 . 2x−1
+   [Source: §2.3, exercise 101]
+   Solution. 2x2 + 3x −2 = (2x − 1)(x + 2); cancel to x + 2; limit = 21 + 2 = 52 .
+
+                                          √
+                                              x+4−1
+
+10. limx→−3 . x + 3
+
+                                          √
+                                              x+4+1
+   [Source: §2.3, exercise 102]
+                                          √
+   Solution. Conjugate: multiply by           x+4+1 :
+
+                                √
+                  ((x + 4) − 1)/ x + 4 + 1 = 1/((x + 3)(x + 4 + 1)), (x 6= −3);
+            1
+   limit = 1+1 = 12 .
+
+5.3.4 Forms K/0: One-sided Infinite Limits (103–106)
+
+1. limx→−2 −2x2+7x−4
+
+                                        (x + 2)/(x − 2)
+   [Source: §2.3, exercise 103]
+   Solution. Factor: numerator = (2x−1)(x+4), denominator = (x+2)(x−1). Atx = −2,
+   numerator = (−5)(2) = −10 6= 0, while denominator → 0: form K/0. Sign near −2:
+   take x = −2.1: (x + 2) < 0, (x − 1) < 0, so denominator is positive; numerator
+   ≈ −10 < 0. Ratio → −∞.
+
+2. limx→−2 +2x2+7x−4
+
+                                        (x + 2)/(x − 2)
+   [Source: §2.3, exercise 104]
+   Solution. Same numerator; now (x + 2) > 0, (x − 1) < 0: denominator is negative.
+   Ratio → +∞.
+
+3. limx→1 −2x2+7x−4
+
+                                        (x + 2)/(x − 2)
+   [Source: §2.3, exercise 105]
+   Solution. Numerator at 1: (1)(5) = 5 > 0. When x → 1− : (x + 2) > 0, (x − 1) < 0,
+   denominator is negative: ratio → −∞.
+
+4. limx→1 +2x2+7x−4
+
+
+
+                                                 30
+Math I — weeks 1–4                                          Questions · Formulas · Solutions
+
+
+
+
+                                       (x + 2)/(x − 2)
+    [Source: §2.3, ex. 106]
+    Solution. The denominator is positive to the right of 1: the ratio → +∞. (The two-
+    sided limits at −2andat1 both do not exist; x = −2andx = 1 are vertical asymptotes.)
+
+5.3.5 Limit Laws with Given Limits (107–114)
+Throughout: limx→6 f (x) = 4, limx→6 g(x) = 9, limx→6 h(x) = 6.
+
+1. limx→6 2f (x)g(x).
+    [Source: §2.3, ex. 107]
+    Solution. Product, then constant factor: 2 · 4 · 9 = 72.
+
+                                           : g(x) − 1
+
+2. limx→6 f (x)}.
+    [Source: §2.3, ex. 108]
+    Solution. Law of quotients: 9−1 = 2.
+
+                                           lim f (x).
+                                           x→6
+
+
+3. limx→6 f (x) + 31 g(x).
+    [Source: §2.3, ex. 109]
+    Solution. Sum and constant factor: 4 + 39 = 7. 3 .
+
+4. limx→6 h(x)
+    [Source: §2.3, ex. 110]
+    Solution. Law of powers: 63 = 216. p
+
+5. limx→6 g(x) − f (x).
+    [Source: §2.3, ex. 111]
+                                       √           √
+    Solution. Difference, then root:       9−4=        5.
+
+6. limx→6 xh(x).
+    [Source: §2.3, ex. 112]
+    Solution. Law of product with lim x = 6: 6 · 6 = 36.
+
+7. limx→6 [(x + 1)f (x)].
+    [Source: §2.3, ex. 113]
+    Solution. (6 + 1) · 4 = 28.
+
+8. limx→6 f (x)g(x) − h(x).
+    [Source: §2.3, ex. 114]
+    Solution. 4 · 9 − 6 = 30.
+
+5.3.6 Piecewise Functions and Limits from Graphs (115–125)
+(
+
+
+
+                                              31
+Math I — weeks 1–4                                          Questions · Formulas · Solutions
+
+
+
+
+                                          x2 ≤ 3
+
+1. f (x) = x > 3: find a. limx→3 −f, b. limx→3 +f . x + 4
+   [Source: §2.3, ex. 115]
+   Solution. a. Parabolic branch: 9. b. Linear branch: 7. (Two-sided limit does N OT
+   exist.) (
+
+                                       (x3 − 1)/x ≤ 0
+
+2. g(x) = x > 0: find a. limx→0 −g, b. limx→0 +g. 1
+
+                                       03 − 1 = −1.
+   [Source: §2.3, ex. 116]
+   Solution. a. Cubic branch: b. Constant branch: 1. (Two-sided does N OT exist.)
+   (
+
+                                     x2 − 2x + 1, x < 2
+
+3. h(x) = x ≥ 2: find a. limx→2 −h, b. limx→2 +h. 3 − x
+   [Source: §2.3, ex. 117]
+   Solution. a. 4 − 4 + 1 = 1. b. 3 − 2 = 1. Both sides agree: limx→2 h(x) = 1 = h(2) —
+   continuous there, despite the piecewise definition.
+
+4. Let f andgbe two depicted functions (V-shaped f (x) = |x + 2|; piecewise g with
+   linear left branch g(x) = −x − 6 and curvilinear right branch), calculate
+   limx→−3 +(f (x) + g(x)).
+   [Source: §2.3, ex. 118]
+   Solution. From the graph: f (−3) = | − 3 + 2| = 1andon the curvilinear branch
+   g(−3+ ) = 1. Law of sum: 1 + 1 = 2.
+
+                              f (−3) − 3g(−3− ) = 1 − 3(−1) =
+   [Source: §2.3, ex. 119]
+   Solution. Left linear branch gives g(−3− ) = −(−3) − 6 = −3... reading the junction
+   from the graph, the value of the left branch at −3is − 1; we take the graph-value
+   g(−3− ) = −1: f (−3)− 3g(−3− ) = 1 − 3(−1) = 4.
+
+6. limx→0 . 3
+   [Source: §2.3, ex. 120]
+   Solution. f (0) = |2| = 2; g(0) = −2(the curve passes through (0, −2)). Product and
+   quotient: 2·(−2) = − 43 . 3
+
+                                      7. lim(2 + g(x))
+                                        x→3
+
+
+7. limx→−3 f (x)}.
+
+                              (2 + g)/(−3 − 2) + (−1)/(2 + 1)
+
+                                              32
+Math I — weeks 1–4                                             Questions · Formulas · Solutions
+
+
+   [Source: §2.3, ex. 121]
+   Solution. Left: limx→−3 f (x)} = 1; right: limx→−3 f (x)} = 3. One-sided
+
+                                                      1
+                                           f (−3) =
+                                                      2
+   limits are different, so two-sided limit does not exist. 2 .
+
+8. limx→1 f (x)
+   [Source: §2.3, ex. 122]
+   Solution. f (1) = |3| = 3; law of powers: 9.
+
+                                P3 = (1)/(3); canonicalf orm : 3.
+
+9. limx→1 f (x) − g(x).
+   [Source: §2.3, ex. 123]
+                                                                              √
+   Solution. From the graph, g(1) = −5andf (1) = 3: difference 8; cube root: 3 8 = 2.
+
+10. limx→−7 xg(x).
+   [Source: §2.3, ex. 124]
+   Solution. Atx = −7 the linear branch gives g(−7) = −(−7)−6 = 1; product: (−7)(1) =
+   −7.
+
+11. limx→−9 [xf (x) + 2g(x)].
+   [Source: §2.3, ex. 125]
+   Solution. f (−9) = | − 7| = 7; g(−9) = 9 − 6 = 3; (−9)(7) + 2(3) = −63 + 6 = −57.
+
+5.3.7 Squeeze Theorem and Applications (126–130)
+T True or false: if 2x−1 ≤ g(x) ≤ x2 −2x+3 near x = 2, then limx→2 g(x) = 0.
+[Source: §2.3, ex. 126]
+Solution. Incorrect. Both bounds at x = 2 equal 2(2) − 1 = 3 = 4 − 4 + 3, so by the
+squeeze theorem limx→2 g(x) = 3, not 0. (The theorem gives exactly the common limit
+of the bounds.)T limθ→0 θ2 cos 1θ .
+[Source: §2.3, ex. 127]
+Solution. −1 ≤ cos 1θ ≤ 1 gives −θ2 ≤ θ2 cos 1θ ≤ θ2 ; both bounds → 0; squeeze: limit
+= 0. ( 0, x rational
+
+1. limx→0 f (x), where f (x) = x irrational.
+
+                                          lim f (x) = 0
+                                          x→0
+
+   [Source: §2.3, ex. 128]
+   Solution. For all x: 0 ≤ f (x) ≤ x2 (rational x gives 0; irrational x gives x2 ≥ 0).
+   Since 0 → 0andx2 → 0, the squeeze theorem forces limx→0 f (x) = 0 — even though
+   f is wildly discontinuous at every point x 6= 0. q 10−19 ; compute limr→0 +E(r)andT
+   Coulomb’s law: E(r) = when q =
+
+                                      E(r) = f racq4πε0 r2
+
+   interpret; why right?
+
+
+                                                33
+Math I — weeks 1–4                                            Questions · Formulas · Solutions
+
+
+   [Source: §2.3, ex. 129]
+   Solution. The numerator is a positive constant; as r → 0+ the denominator →
+   0+ , so E(r) → +∞: the field magnitude grows without bound as the test point
+   approaches the charge. Only r → 0+ makes sense, because r is distance and
+   cannot be negative (andr = 0isthe location of the charge itself). T Density ρ = m/V
+   gives V (ρ) = m
+                 ρ ; when m = 8 kg compute limρ→0 +V (ρ) and explain the physical
+   meaning.
+   [Source: §2.3, ex. 130]ρ
+   ; as ρ → 0⁺ volume → +∞:
+   Solution. V (ρ) = an object of fixed mass but vanishing density must occupy infinite
+   volume (the formal statement of an ”ideal gas, thinning out”). The right-hand limit
+   is the only physical option, since density is positive.
+
+
+5.4 Solved examples from week 4’s notes — questions and complete
+    solutions
+
+1. Show that limx→1 (x2 − 1)/(x − 1)has the form 0/0, and compute it; compare
+   with limx→0 x/x, limx→0 x2 /x, limx→0 x/x2 .
+   [Source: Week 4 notes, indeterminacies]
+   Solution. Substituting x = 1 gives 0/0 — indeterminacy. Factoring: (x2 −1)/(x−1) =
+   (x − 1)(x + 1)/(x − 1) = x + 1 when x 6= 1, so the limit is 2. The three comparisons
+   resolve
+   2
+   the same form 0/0 in three different outcomes: = 1 → 1; = x → 0; =
+
+                                         lim(x − 1)/(x − 1)
+                                          x
+
+   → ±∞(no finite two-sided limit exists). This is why 0/0 carries no automatic value:
+   the outcome depends on how the numerator and denominator approach zero.
+                                sinx
+2. Using the standard limit lim x→0  = 1, compute lim sin5x
+                                                      x→0 . xx
+   [Source: Week 4 notes, standard limits]
+   Solution. Let u = 5x (sou → 0asx → 0): sin5x = 5·sin5x = 5·sinu → 5 · 1 = 5. x 5x u
+
+3. Using asymptotic equivalence, compute lim sin3x         1−cosx
+                                             x→0 and 5x lim x→0 .
+
+
+                                         sin 3x/5x∼3x/5x
+   [Source: Week 4 notes, asymptotics]
+   Solution. Since sin 3x ∼ 3x as x → 0, sin 3x/5x ∼ 3x/5x = 53 , so the limit is 3/5.
+   Since 1 − cos x ∼ x2 /2, (1 − cos x)/x2 ∼ 1/2, so the limit is 1/2.
+
+                                           3         1
+                                    lim(sin x)/(5x) = (16)
+                                    x→0              5
+   the standard limit (87) via equivalence.
+
+4. Show that 3x2 + 5x − 1 ∼ 3x2 asx → ∞, and compute limx→∞ (2x3 + x)/(5x2 − 1)
+   via equivalences.
+   [Source: Week 4 notes, equivalence at infinity]
+
+
+
+                                                34
+Math I — weeks 1–4                                              Questions · Formulas · Solutions
+
+
+   Solution. (3x2 + 5x − 1)/3x2 = 1 + 5/(3x) − 1/(3x2 ) → 1asx → ∞, therefore 3x2 + 5x −
+   1 ∼ 3x2 .
+
+               lim (3x2 + 5x − 1)/(3x2 ) = 1 + 0 − 0 = 1, equivalenceestablished :
+              x→∞
+
+   the highest degree term governs long-term behavior. Then (2x³+x)/(5x²−1) ≈ ( 25 )x.
+   limx→∞ (2x³ + x)/(5x² − 1) = ( 52 )x, which → +∞; more precisely, the ratio of the
+   original fraction to ( 52 )x approaches 1.
+
+5. Show that sin x = O(x)asx → 0, and that 3x = O(x), but 3x 6= o(x).
+   [Source: Week 4 Notes, Landau symbols]
+   Solution. The inequality | sin x| ≤ |x| holds for all real x(a standard geometric fact),
+   which precisely means
+
+                                           | sin x| ≤ 3|x|
+
+   that |x| : sin x = O(x). For 3x: = 3 is bounded, so |x| 3x = O(x); but 3xx = 3 → 0,
+   therefore 3x 6= o(x). This is the most vivid illustration of the difference between
+   Oando: big O allows any bounded ratio, little o requires the ratio to approach zero.
+
+6. Verify x2 = o(x)asx → 0andx = o(x2 ), x10 = o(ex )asx → ∞.
+
+                                  x2 − 2x + x = o(x)nearzero.
+   [Source: Week 4 Notes, Landau symbols]
+   Solution. = x → 0: At infinity =
+
+                                       x2 = o(x)asx → 0.(16)
+
+   o(x1/2 ); x10 /ex → 0by the standard limit limx→∞ xn /ex → 0(88): exponential growth
+   eventually dominates any fixed power.
+
+7. Write sin x ∼ xandex = 1+x+ x2    2
+                               2 +o(x ) in terms of little o. Why is f (x) = O(g(x))not
+   an ordinary equation?
+   [Source: Week 4 Notes, relations]
+   Solution. By(94), f ∼ gif and only if f = g + o(g): thus sin x ∼ x is rewritten as
+   sin x = x + o(x) — the error is negligible compared to x. For the exponential
+   ex = 1 + x + o(x) holds because ex−1−x → 0, x and keeping one more term gives
+   ex = 1 + x + x2     2
+                2 + o(x ). Finally, f = O(g)isnot an equation because O(g) denotes an
+   entire class of functions bounded by constant multiples of g; the notation 2x2 +3x
+   +1 = 2x2 + O(x) means precisely that the remainder 3x +1 grows no faster than a
+   constant multiple of x.
+
+
+6 Textbook supplements — additional exercises for re-
+  quired reading with full solutions
+
+6.1 OpenStax §1.2 (Basic Classes of Functions) — selected exercises
+    solved
+
+1. For each pair of points, find the slope of the line through them and say
+   whether the line is increasing, decreasing, horizontal, or vertical: (59)(−2,
+
+                                                 35
+Math I — weeks 1–4                                                Questions · Formulas · Solutions
+
+
+   4)and(1, 1); (61)(3, 5)and(−1, 2); (63)(2, 3)and(5, 7); (65)(2, 4)and(1, 4); (66)(1, 4)and(1,
+   0).
+   [Source: OpenStax §1.2, exercises 59–66]
+   Solution. Slope m = (y₂ − y₁)/(x₂ − x₁). (59)m = (−5 − 1)/(2 − (−4)) = − 66 = −1:
+   decreasing. (61)m = 4 > 0: increasing. (63)m = (7 − 3)/(5 − 2) = 34 : increasing.
+   (65)m = (4 − 4)/(1 − 2) = 0: horizontal. (66)∆x = 0: vertical, slope undefined.
+
+2. Write the equation in slope-intercept form: (67) slope −6, through (1, 3);
+   (70) slope 25 , x-intercept 8; (71) through (2, 1)and(−2, −1); (73) intercepts:
+   xat5andyat − 3.
+   [Source: OpenStax §1.2, exercises 67–73]
+   Solution. (67)y − 3 = −6(x − 1) ⇒ y = −6x +9. (70)x-intercept at 8 means the point
+   (8, 0): y − 0 = 25 (x − 8) ⇒ y = 25 x − 16
+                                            5 . (71)m = − −2−2 = − −4 = 12 ; y − 1 = 2 (x − 2) ⇒ y =
+                                                           1−1         2             1
+
+   12 x. (73) through (5, 0)and(0, −3): m = − 3−0   0−5 = 35 ; y = 35 x − 3.
+
+3. (75–76) For each linear equation, specify the slope m and intercept b: y =
+   2x − 3; y = − 17 x + 1.
+   [Source: OpenStax §1.2, exercises 75–76]
+   Solution. (75)m = 2, b = −3. (76)m = − 71 , b = 1.
+
+4. (81–82) Rewrite with slope and intercept: 2x + 3y = 6; 6x − 5y +15 = 0.
+   [Source: OpenStax §1.2, exercises 81–82]
+   Solution. (81)y = 2 − 32 x: m = − 32 , b = 2. (82)y = 65 x + 3: m = 65 , b = 3.
+
+5. (83–86) For each polynomial: degree; zeros; y-intercept; behavior at the
+   ends; parity. a. f (x) = 2x2 − 3x − 5; c. f (x) = x3 + 3x2 − x − 3.
+   [Source: OpenStax §1.2, exercises 83–86]
+   Solution. a. Degree 2; 2x2 −3x−5 = (2x − 5)(x + 1): zeros 52 and − 1; y-intercept −5;
+   branches upward (leading coefficient 2 > 0), so f → +∞ at both ends; neither
+   even nor odd (due to the odd term −3x and the constant). c. Degree 3; testing
+   x = −1: −1 + 3 + 1 − 3 = 0, so (x + 1)isa factor: x3 + 3x2 − x − 3 = (x + 1)(x2 − 1) =
+   (x + 1)(x − 1)(x + 1) = (x − 1)(x + 1)2 : zeros 1 (simple)and − 1(double); y-intercept
+   −3; cubic with positive leading coefficient: f → +∞asx → +∞, f → −∞asx → −∞;
+   neither even nor odd.
+
+6. (88–91) Describe the graph of g based on the basic graph: (88)g(x) = x2 − 1;
+                                      √                   √
+   (89)g(x) = (x + 3)2 + 1; (90)g(x) = x + 2; (91)g(x) = − x − 1.
+   [Source: OpenStax §1.2, exercises 88–91]
+   Solution. (88) Parabola y = x2 , shifted down by 1. (89) Parabola, shifted left
+   by 3andupby1 (vertex (−3, 1)). (90) Square root graph, shifted left by 2 (domain
+   [−2, ∞)). (91) Square root graph, reflected across the x-axis and shifted down by
+   1 (domain [0, ∞), values ≤ −1). (
+
+                                     f (x) = 4x + 3, x ≤ 0; (9)
+
+7. (94)f (x) = x > 0: calculate f (−3), f (0), f (2); sketch.
+
+                                              −x + 1
+   [Source: OpenStax §1.2, exercise 94]
+
+
+
+
+                                                36
+Math I — weeks 1–4                                             Questions · Formulas · Solutions
+
+
+   Solution. f (−3) = 4(−3) + 3 = −9 (left branch); f (0) = 3; f (2) = −2 + 1 = −1 (right
+   branch). Graph: increasing line to (0, 3), then decreasing line from open point
+   (0, 1) — jump discontinuity at 0. (
+
+                                 f (x) = (x − 3)/(x − 2), x 6= 2
+
+8. (97)g(x) = x = 2: calculate g(0), g(−4), g(2). 4,
+   [Source: OpenStax §1.2, exercise 97]
+                    3
+   Solution. g(0) = −2 = − 32 ; g(−4) = −6
+                                         3
+                                           = − 12 ; g(2) = 4 by special definition (formula
+                                                            √
+   undefined there — hence piecewise value given). 3 x —
+
+9. True or false (98–103): (98)f (x) = 4x+1
+                                       7x−2 is transcendental; (99)g(x) = isan odd
+   root function; (100) logarithmic function is algebraic; (101)f (x) = xb with
+   real constant bis an exponential function; (102) domain of even-degree
+   root is all real numbers; (103) company bought equipment for $20,500,
+   after 3 years worth $12,300 — find V (t) and interpret.
+   [Source: OpenStax §1.2, exercises 98–103]
+   Solution. (98) False: ratio of polynomials is rational, hence algebraic, not tran-
+   scendental. (99) True: cube roots defined for all reals and function is odd. (100)
+   False: xb isa power function; logarithms are transcendental. (101) False: ex-
+   ponential has variable in exponent, bx . (102) False: even-degree roots require
+   non-negative radicand, so domain excludes negatives (odd roots accept all reals).
+                                                                      3 t ≈ 20500−2733.33t.
+   (103) Linear depreciation: V (t) = 20500+12300−20500 t = 320500− 8200
+   V (0) = 20500 — purchase price; crosses t-axis at t ≈ 7.5 years — zero value moment;
+   V (5) = 20500−41000 ≈ $6833. 3
+
+
+6.2 OpenStax §1.5 (Exponential and Logarithmic Functions) — se-
+    lected exercises solved
+
+1. (239–245) Sketch; specify domain, range, horizontal asymptote: a. f (x) =
+   ex + 2; b. f (x) = −2x ; c. f (x) = 1 − 2−x ; d. f (x) = e−x − 1.
+   [Source: OpenStax §1.5, exercises 239–245]
+   Solution. a. ex , shifted up by 2: domain R, range (2, ∞), asymptote y = 2. b.
+   Reflection across x-axis: domain R, range (−∞, 0), asymptote y = 0. c. Asx →
+   +∞, 2−x → 0, so f → 1 from below; as x → −∞, 2−x → ∞, so f → −∞: increasing,
+   range (−∞, 1), asymptote y = 1. d. Mirror of ex (decay right): domain R, range
+   (−1, ∞), asymptote y = −1.
+
+2. (246–253) Rewrite in equivalent exponential form: a. log3 81 = 4; b. log8 2 =
+   3 ; c. log5 1 = 0; d. ln 1e3 = −3.
+   1
+
+   [Source: OpenStax §1.5, exercises 246–253]
+   Solution. By(39): a. 34 = 81. b. 81/3 = 2. c. 50 = 1. d. e−3 = 1/e3 .
+
+3. (254–262) Rewrite in equivalent logarithmic form: a. 23 = 8;
+   b. 4−2 = 16
+             1
+               ; c. 102 = 100; d. 34 = 81; e. 33 = 27; f . 9y = 150.
+   [Source: OpenStax §1.5, exercises 254–262]
+   Solution. a. log2 8 = 3. b. log1/4 16 = −2. c. log 100 = 2. d. log1/3 x means the
+   exponent: ( 13 )y = x; log64 4 = 13 . f . log9 150 = y.
+
+
+
+                                                37
+Math I — weeks 1–4                                                  Questions · Formulas · Solutions
+
+
+4. (264–266) Sketch; specify domain, range, vertical asymptote: a. f (x) =
+   3 + ln x; b. f (x) = ln(x − 1); c. f (x) = ln(−x).
+   [Source: OpenStax §1.5, exercises 264–266]
+   Solution. a. ln x, shifted up by 3: domain (0, ∞), range R, vertical asymptote x = 0.
+   b. Shift right by 1: domain (1, ∞), range R, asymptote x = 1. c. Reflection across
+   the y-axis: domain (−∞, 0), range R, asymptote x = 0.
+
+5. (270–275) Expand using logarithm laws: a. log x4 ; b. log 9a3
+                                                              b ; c. ln ab; d. p log5
+        3
+   125xy .
+   [Source: OpenStax §1.5, exercises 270–275]
+   Solution. a. 4 log x. b. log 9 + 3 log a − log b = 2 log 3 + 3 log a − log b. c. ln a + 31 ln b. d.
+   1             3
+   5 log5 (125xy ) = 15 (3 + log5 x + 3 log5 y).
+
+6. (276–283) Solve exactly: a. 5x = 125; b. e3 x − 15 = 0; c. 8x = 4; d. 4x+1 − 32 = 0; e.
+            1
+   3x/14 = 10 ; f . 10x = 7.21.
+   [Source: OpenStax §1.5, exercises 276–283]
+   Solution. a. x = 3 (since 125 = 53 ). b. 3x = ln 15, x =ln15 ≈ 0.9027. c. 23 x = 22 , 3x = 23 .
+   d. 4x+1 = 25 ⇒ 22x+2 = 25 ⇒ x = 3 14    x
+                                             ln 3 = − ln 10, x = − 14ln10
+                                                                       2 . e. ≈ −29.32. f .
+   ln 3x = log 7.21 ≈ 0.8580.
+
+7. (284–291) Solve exactly, if possible: a. log3 x = 0; b. log5 x = −2; c. log3 (x+5) =
+                                 √
+   0; d. log2 (2x − 7) = 0; e. ln x + 3 = 2; f . log6 (x + 9) + log6 x = 2; g. log4 (x + 2) −
+   log4 (x − 1) = 0.
+   [Source: OpenStax §1.5, exercises 284–291]
+   Solution. a. x = 30 = 1. b. x = 5−2 = 25 1
+                                              . c. x + 5 = 30 = 1, x = −4; check domain
+                                                                               √
+   x + 5 > 0: 1 > 0OK, so x = −4 is valid (log3 1 = 0). d. 2x −7 = 1, x = 4. e. x + 3 = e2 ,
+   x = e4 − 3 ≈ 51.60. f . Combine: log6
+
+                                        log6 (x(x + 9)) = 2
+
+   x(x + 9) = 36 ⇒ x2 + 9x −36 = 0 ⇒ (x + 12)(x − 3) = 0; domain requires x > 0, so x = 3.
+           x+2
+   g. log 4x−1 = 0 ⇒ x+2
+                      x−1 = 1 ⇒ x + 2 = x − 1: impossible; no solutions.
+
+8. (292–297) Change of base, approximation to four decimal places: a. log5 47;
+   b. log2 82; c. log0.5 211; d. log0.2 0.452.
+   [Source: OpenStax §1.5, exercises 292–297]
+
+                              ln5 ≈ 2.3922.         ln2 ≈ 6.3576.        ln0.5 ≈ −7.7181.         ln0.2 ≈
+                             ln47                  ln82                  ln211                   ln0.452
+   Solution. By(41): a.                       b.                    c.                      d.
+   0.3536.
+
+9. (307)A bacterial colony doubles in 12 hours, initially 1000. a. Using Q =
+   Q0 ekt , find k; b. how long until 200,000?
+   [Source: OpenStax §1.5, exercise 307]
+   Solution. a. Doubling: 2 = e12 k, so k = ln2 12 ≈ 0.0578 per hour. b. 200000 = 1000e :
+                                                                                       kt
+    kt
+   e = 200, t = ln200 = 12ln200 ≈ 92.1 hours. k ln 2
+
+10. (308)A rabbit population doubles every 6 months, initially 120. a. Using
+  P = P0 at , find a; b. when will it reach 3500?
+   [Source: OpenStax §1.5, exercise 308]
+   Solution. a. a = 2f ora6-month period (or per year: with t in years a = 4; for 6
+                                                                    6 ≈ 29.17, t =
+   months a = 2). b. 3500 = 120 · 2t (with tin6-month units): 2t = 175
+   log2 29.17 = ln29.17 ≈ 4.87 periods, i.e. about 2.4 years. ln 2
+
+                                                   38
+Math I — weeks 1–4                                        Questions · Formulas · Solutions
+
+
+11. (309) The 1906 San Francisco earthquake had magnitude 8.3; the
+  Japanese earthquake of the same year had magnitude 4.9. How much
+  more intense was San Francisco (Richter scale)?
+   [Source: OpenStax §1.5, exercise 309]
+   Solution. Ratio of Richter intensities: 108.3−4.9 = 103.4 ≈ 2512: the San Francisco
+   earthquake was about 2500 times more intense — a vivid demonstration of the
+   logarithmic scale from (40).
+
+
+6.3 OpenStax §2.2 — table exercises (42–45) solved
+
+1. Estimate limt→0+ cos t/t by table (t = 0.1, 0.01, 0.001, 0.0001).
+   [Source: OpenStax §2.2, exercise 42]
+   Solution. Values: t = 0.1: 0. 995004                         99995
+                                    0 .1 = 9.95004; t = 0.01: 0. 0 .01 = 99.995; t = 0.001:
+   0.9999995/0.001 = 999.9995; t = 0.0001: 9999.95. Values grow without bound: the
+   numerator → 1 while the denominator → 0⁺ — aK/0⁺ form, so the limit is +∞.
+
+                                      lim cos(t)/t = +∞
+                                      t→0+
+
+
+2. Estimate limx→2 (x − 2)/(x3 − 4x) by table.
+   [Source: OpenStax §2.2, exercise 43]
+   Solution. First simplify: (x−2)/(x3 −4x) = (x−2)/(x(x−2)(x+2)) = 1/(x(x+2))f orx 6= 2.
+   Table values: x = 1.99: 1/(1.99 · 3.99) = 71 .9401 ≈ 0.1259; x = 2.01: 1/(2.01 · 4.01) =
+   8 .0601 ≈ 0.1241 — approaching 0.125 = 8 . Algebra confirms the table: the limit is
+   1                                          1
+
+   1/(2 · 4) = 81 . T Guess from the table, then verify by the graph: limθ→0 sin(π/θ).
+   [Source: OpenStax §2.2, ex. 44]
+   Solution. Values: θ = 0.1: sin(10π) = 0; 0.01: sin(100π) = 0; 0.001: sin(1000π) = 0;
+   0.0001: 0. The table suggests 0 — but sin(π/θ) oscillates between −1and1 infinitely
+   fast near 0(f or example, θ = 32 gives sin(3π/2) = −1, and θ = 25 gives sin(5π/2) = 1).
+   The limit does not exist; the table was misleading because the sample points 1/n
+   were exactly zeros of sine. This is a cautionary exercise about the tabular method.
+   T Guess from the table, then verify by the graph: limα→0+ (1/α) · cos(π/α).
+   [Source: OpenStax §2.2, ex. 45]
+   Solution. When α = 1/n: (1/α) · cos(nπ) = n · (−1)n — the values ±n grow in mag-
+   nitude and alternate in sign. The graph oscillates between ever larger positive
+   and negative values: the limit does not exist (neither +∞nor − ∞ — the signs al-
+   ternate). The table at lucky points (α = 1/(2n) gives +2n → +∞) would have been
+   misleading in the opposite direction.
+
+
+
+
+                                             39
+

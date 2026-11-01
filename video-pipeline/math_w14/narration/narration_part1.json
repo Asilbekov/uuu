@@ -1,0 +1,81 @@
+{
+  "ColdOpen": [
+    "What are numbers, really? Counting seems simple enough — one sheep, two sheep, three. But hidden inside that innocent question is one of the greatest stories in mathematics.",
+    "Try subtracting five from three. In the counting numbers, that's illegal — there is no answer. So humanity extended the numbers: negative numbers were born, and we got the integers.",
+    "Then division broke them. One divided by two is not a whole number. So we invented fractions, and got the rationals. Then a simple square root broke those too — the diagonal of a unit square is not a fraction. So we filled in the line, and got the real numbers.",
+    "And still, one equation refused to cooperate. x squared plus one equals zero. No real number can do that — squaring anything real gives something positive. So mathematicians did something audacious: they invented a brand new kind of number, and unlocked an entirely new dimension.",
+    "That is week one of Math I. By week four, you will speak the precise language that all of calculus is built on: the language of limits. Let's begin."
+  ],
+  "TitleMap": [
+    "Welcome to the complete review of Math I, weeks one through four — the video companion to your study guide. Everything here mirrors the guide: the formula catalogs, the worked problems, the ideas behind them.",
+    "Here is our journey. Week one: number systems, notation, and complex numbers. Week two: functions — domain, composition, symmetry, and inverses. Week three: the intuitive idea of a limit, one-sided limits, and the precise epsilon-delta definition. Week four: limit laws, indeterminate forms, and the squeeze theorem.",
+    "Each part of this video stands on its own, so you can jump straight to the week you're revising. But if you watch it start to finish, you'll see how the four weeks form a single story.",
+    "Let's climb the number tower. Week one begins now."
+  ],
+  "WeekSting1": [
+    "Week one. Number systems, notation, and complex numbers."
+  ],
+  "W1NumberTower": [
+    "Every number you have ever met lives somewhere in this tower. The natural numbers — one, two, three, and so on — live on the ground floor. They are for counting.",
+    "Wrap around them the integers, and you gain zero and the negatives. The integers contain the naturals — every natural number is an integer. That is what this nesting means: each floor contains everyone from the floors below.",
+    "Next come the rationals — the fractions, numbers like two thirds and minus five halves. Any number you can write as a ratio of integers is rational. In decimal form, rationals are exactly the ones that terminate, like zero point two five, or fall into a repeating cycle, like zero point six six six, going on forever.",
+    "But not every number is that tidy. The square root of two is one point four one four two one three... and the digits never terminate and never repeat. Proving that root two cannot be a fraction was one of the first great theorems of mathematics. Numbers like root two and pi are irrational — they need a bigger home.",
+    "Fill in every gap on the number line and you get the real numbers. It feels complete... but we already know one equation with no real solution.",
+    "So the tower gets one more floor: the complex numbers, every number of the form a plus b i. The tower is complete — five nested sets, naturals inside integers inside rationals inside reals inside complex. Hold this picture in your mind: it is the map of week one."
+  ],
+  "W1Intervals": [
+    "Numbers are points; the number line is their home. Sets of numbers are stretches of that line, and we need a compact language for them: interval notation.",
+    "Square brackets mean the endpoint is included — a closed interval. Round brackets mean it is excluded — an open interval. Minus two to five, bracket to bracket, includes both minus two and five. Minus two to five, bracket to parenthesis, includes minus two but not five. On the line: a filled dot is included, a hollow dot is not.",
+    "Infinity always gets a round bracket, because infinity is not a number — it's a direction. The set of everything less than or equal to four is written minus infinity to four, parenthesis to bracket.",
+    "Every interval is also an inequality in disguise. The interval from minus two to five, including the left end only, is exactly the statement: x is greater than or equal to minus two, and x is less than five.",
+    "One more tool: distance. The distance between a and b is the absolute value of a minus b. The distance between three and eight is five. Notice how the inequality x minus a, absolute value, less than delta, is nothing but a statement that x stays within distance delta of a. Keep that in mind — it returns in week three."
+  ],
+  "W1Scientific": [
+    "Here is the electric charge of a single electron, in coulombs: zero point zero zero zero zero zero zero zero zero zero zero zero zero zero zero zero zero zero zero zero one six zero two one seven six six three four. Nineteen zeros. Physicists do not write this — ever.",
+    "Instead, we count the zeros and package them as a power of ten. The number becomes one point six zero two times ten to the minus nineteen. Same value, four percent of the ink. That is scientific notation: one digit before the decimal point, times a power of ten.",
+    "Engineering notation is a cousin: the exponent must be a multiple of three — ten to the minus eighteen, ten to the minus nine, ten to the sixth — because those powers match the SI prefixes.",
+    "And the prefixes are a language every engineer speaks. Tera is ten to the twelve. Giga, ten to the nine. Mega, ten to the sixth. Kilo, ten to the third. Then below one: milli is ten to the minus three, micro ten to the minus six, nano ten to the minus nine, pico ten to the minus twelve.",
+    "Your phone's processor ticks in nanoseconds. A nuclear reactor's power is measured in gigawatts. Scientific notation is not a formality — it is how the scale of the universe becomes writable."
+  ],
+  "W1ComplexPlane": [
+    "Let i be a new kind of number, defined by one property: i squared equals minus one. That single line unlocks everything.",
+    "A complex number is a plus b i: a real part plus an imaginary part. Three plus two i. Minus one plus four i. Even plain five is complex — with imaginary part zero. And here is the beautiful part: complex numbers are not a line. They are a plane.",
+    "The horizontal axis carries the real part. The vertical axis carries the imaginary part. The number three plus two i is the point you reach by going three right and two up. One number, one point — arithmetic becomes geometry.",
+    "Every complex number z has a mirror twin: its conjugate, z bar, with the imaginary part flipped in sign. Three plus two i reflects to three minus two i, straight across the real axis. Geometrically, conjugation is a reflection.",
+    "And the distance from the origin to z is called the modulus, written with absolute value bars. By Pythagoras, the modulus of a plus b i is the square root of a squared plus b squared. For three plus two i, that is the square root of thirteen.",
+    "One elegant identity ties it together: z times its conjugate equals the modulus squared. Multiply three plus two i by three minus two i: the cross terms cancel, and you get nine plus four — thirteen. Algebra and geometry, in perfect agreement."
+  ],
+  "W1Arithmetic": [
+    "Adding complex numbers is delightfully ordinary: real with real, imaginary with imaginary. Three plus two i, plus, one minus four i, gives four minus two i. On the plane, this is vector addition — tip to tail, just like forces in physics.",
+    "Subtraction works the same way, and geometrically it is the difference of vectors. So far, the plane behaves exactly like coordinates.",
+    "Multiplication is where it gets interesting. Multiply three plus two i by one minus four i with FOIL: three, minus twelve i, plus two i, minus eight i squared. The i squared is minus one, so that last term becomes plus eight. Collect everything: eleven minus ten i. It works — but what does it mean? Hold that thought sixty seconds.",
+    "Division is the trick everyone needs. Take one over one plus i. Multiply top and bottom by the conjugate, one minus i. The bottom becomes one squared plus one squared — two, a real number. The top becomes one minus i. Answer: one half minus one half i.",
+    "That is the universal move: to divide complex numbers, multiply by the conjugate of the denominator. The denominator becomes the modulus squared, always real, and the fraction collapses into the form a plus b i. Every operation on this plane is just algebra, plus one geometric secret — which is next."
+  ],
+  "W1DeMoivre": [
+    "Here is the secret. A complex number is a point; but it is also an arrow from the origin — with a length and a direction. Length r, angle theta, measured from the positive real axis.",
+    "Unfold the triangle: the horizontal leg is r cosine theta, the vertical leg is r sine theta. So z equals r cosine theta, plus i r sine theta. Factor out r: z equals r, times cosine theta plus i sine theta. This is the trigonometric form. And with Euler's notation it compresses to r e to the i theta.",
+    "Take one plus i. Its modulus is root two. Its angle: forty five degrees, or pi over four radians. So one plus i is root two, e to the i pi over four.",
+    "Now raise it to the sixth power — De Moivre's theorem. The moduli multiply: root two to the sixth is eight. The angles add: six times pi over four is three pi over two. So the answer is eight, e to the i three pi over two — which is minus eight i. Six multiplications, done in one line: powers are rotations.",
+    "This solves equations the real numbers never could. Find all cube roots of minus eight. Write minus eight as eight, e to the i pi. The real cube root of eight is two, and the angles are pi over three, plus two k pi over three, for k equal to zero, one, and two.",
+    "Three answers: two e to the i pi over three, two e to the i pi, and two e to the i five pi over three. Plot them: three points, evenly spaced on a circle of radius two.",
+    "Connect them and you get a perfect equilateral triangle. Every root of unity draws a regular polygon. This is the payoff of the number tower — equations that once had no solutions now have exactly as many solutions as their degree. Week one complete."
+  ],
+  "WeekSting2": [
+    "Week two. Functions."
+  ],
+  "WeekSting3": [
+    "Week three. Limits."
+  ],
+  "WeekSting4": [
+    "Week four. Limits, part two."
+  ],
+  "Outro": [
+    "Four weeks, one story. Week one: the tower of number systems, and the complex plane, where powers became rotations and every equation found its roots.",
+    "Week two: functions — machines with a contract. One input, one output. Domains where they jam, compositions that chain, symmetries that mirror, and inverses that undo, reflected across y equals x.",
+    "Week three: the limit — the value a function approaches. One-sided limits, vertical and horizontal asymptotes, and the epsilon-delta game that makes 'approaches' mathematically precise.",
+    "Week four: the machinery — limit laws, the zero over zero battle with factoring and conjugates, the squeeze theorem taming oscillations, and asymptotic equivalence: near zero, sine of x is x.",
+    "Here is the secret we saved for last. That last expression — the limit, as h goes to zero, of f of a plus h, minus f of a, over h — is not just another limit. It is the definition of the derivative. Weeks five through seven are built entirely on the four weeks you just mastered.",
+    "Rewatch any week, work the problems in the study guide, and check your solutions. You now speak the language of calculus. See you in the next video."
+  ]
+}

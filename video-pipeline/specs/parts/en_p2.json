@@ -1,0 +1,288 @@
+    {
+      "title": "Functions",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 3,
+          "title": "Functions",
+          "subtitle": "One input, exactly one output",
+          "narration": "Chapter three. Functions are the machines of mathematics: one input, exactly one output. We define them precisely, find their natural domains, test their symmetry, chain them by composition, and reverse them with inverses. Then the two transcendental families — exponentials and logarithms — power every growth and decay model in the course."
+        },
+        {
+          "type": "concept",
+          "heading": "What Is a Function?",
+          "bullets": [
+            "each input gives exactly one output",
+            "domain D = the allowed inputs",
+            "range = the outputs produced",
+            "vertical line test on the graph"
+          ],
+          "formula": "f : D \\to R, \\quad x \\mapsto f(x)",
+          "formula_caption": "f maps the domain D into the reals",
+          "narration": "A function is a rule assigning to every input x in the domain D exactly one output, f of x. Exactly one — that is the entire contract. The domain collects the allowed inputs; the range collects the outputs actually produced. On a graph, the vertical line test enforces the contract: any vertical line may cross the picture at most once. A full circle fails — almost every x there corresponds to two y values. The notation reads: f maps D into the reals, and x maps to f of x."
+        },
+        {
+          "type": "concept",
+          "heading": "The Natural Domain",
+          "bullets": [
+            "division: denominator ≠ 0",
+            "even root: radicand ≥ 0",
+            "logarithm: argument > 0",
+            "intersect all the conditions"
+          ],
+          "formula": "\\frac{1}{g(x)}: \\ g(x) \\neq 0; \\quad \\sqrt{g(x)}: \\ g(x) \\geq 0; \\quad \\log_b g(x): \\ g(x) > 0",
+          "formula_caption": "the three standard obstructions",
+          "narration": "The natural domain is the largest set of real inputs for which the formula makes sense. Only three obstructions ever occur. Division demands a nonzero denominator. An even root, such as a square root, demands a nonnegative radicand. A logarithm demands a strictly positive argument. For a complicated formula, write down the condition from each ingredient and intersect them all. These three rules settle every domain question in weeks one to four — and most domain questions on the test."
+        },
+        {
+          "type": "concept",
+          "heading": "Even and Odd Symmetry",
+          "bullets": [
+            "even: f(−x) = f(x) — y-axis mirror",
+            "odd: f(−x) = −f(x) — origin half-turn",
+            "x³ − 4x: odd powers only",
+            "mixed powers: no symmetry"
+          ],
+          "formula": "f(-x) = f(x), \\qquad f(-x) = -f(x)",
+          "formula_caption": "even on the left, odd on the right",
+          "plot": {
+            "fn": "x**3 - 4*x",
+            "tex": "p(x) = x^3 - 4x",
+            "x_range": [-2.5, 2.5],
+            "y_range": [-6, 6],
+            "point": [2, 0],
+            "point_label": "(2, 0)"
+          },
+          "narration": "Symmetry comes in two flavors. A function is even when f of minus x equals f of x — the graph mirrors across the y axis, like the absolute value of x plus one. It is odd when f of minus x equals minus f of x — the graph survives a half-turn about the origin. The plot shows p of x equals x cubed minus four x. Only odd powers appear, so p is odd: change the sign of x, and the output flips sign. The curve crosses the axis at minus two, zero, and two — the marked point. Mixed powers, like x cubed plus x squared, have neither symmetry."
+        },
+        {
+          "type": "concept",
+          "heading": "Composition and Inverses",
+          "bullets": [
+            "(f ∘ g)(x) = f(g(x))",
+            "order matters: f∘g ≠ g∘f",
+            "inverse: solve y = f(x) for x",
+            "graphs mirror in the line y = x"
+          ],
+          "formula": "(f \\circ g)(x) = f(g(x)), \\qquad f^{-1}(f(x)) = x",
+          "formula_caption": "composition chains; the inverse undoes",
+          "narration": "Composition chains two machines: feed x to g, then feed the result to f. That is f after g, written f of g of x. Order genuinely matters — the next example shows f after g and g after f giving different functions. The inverse runs the machine backwards: solve y equals f of x for x. Only one-to-one functions have inverses — checked by the horizontal line test — and the graph of the inverse mirrors the original across the line y equals x. Compose a function with its inverse, and you recover plain x."
+        },
+        {
+          "type": "concept",
+          "heading": "Exponentials and Logarithms",
+          "bullets": [
+            "log_b(x) = y ⇔ b^y = x",
+            "log of product = sum of logs",
+            "ln and exp undo each other",
+            "growth model: A(t) = A₀·e^(kt)"
+          ],
+          "formula": "\\log_b x = y \\iff b^y = x, \\quad \\log_b(xy) = \\log_b x + \\log_b y",
+          "formula_caption": "the logarithm is the exponent",
+          "narration": "Exponential and logarithm are two views of one fact. The logarithm base b of x is the exponent y such that b to the y equals x — that is the definition on screen. The laws follow: the log of a product is the sum of the logs; the log of a quotient is a difference; a power slides out front as a factor. The natural pair, e to the x and ln of x, undo each other. Every growth or decay model has the form A of t equals A zero times e to the k t: positive k grows, negative k decays, and the doubling time is ln two over k."
+        },
+        {
+          "type": "example",
+          "heading": "Finding Domains",
+          "problem": "\\sqrt{5 - 2x}, \\quad \\sqrt{\\frac{x + 2}{x - 1}}",
+          "steps": [
+            { "text": "root requires 5 − 2x ≥ 0" },
+            { "tex": "x \\leq \\frac{5}{2}: \\quad D_1 = \\left(-\\infty, \\frac{5}{2}\\right]" },
+            { "text": "quotient under the root ≥ 0, x ≠ 1" },
+            { "tex": "D_2 = (-\\infty, -2] \\cup (1, +\\infty)", "highlight": true }
+          ],
+          "result": "(−∞, 5/2]  and  (−∞, −2] ∪ (1, ∞)",
+          "narration": "Two domain hunts. First, the square root of five minus two x. The root demands a nonnegative radicand: five minus two x at least zero, so x is at most five halves. The domain is everything up to five halves, with the bracket closed at five halves. Second, the square root of x plus two over x minus one. We need the quotient nonnegative and x different from one. The critical points are minus two and one. Testing the intervals: the quotient is nonnegative up to minus two, and again strictly beyond one. The domain is everything up to minus two, closed, union the open ray from one onward."
+        },
+        {
+          "type": "example",
+          "heading": "f∘g versus g∘f",
+          "problem": "f(x) = 2x - 3, \\quad g(x) = x^2 + 1",
+          "steps": [
+            { "tex": "(f \\circ g)(x) = 2(x^2 + 1) - 3 = 2x^2 - 1" },
+            { "tex": "(g \\circ f)(x) = (2x - 3)^2 + 1 = 4x^2 - 12x + 10" },
+            { "text": "at x = 0:  −1 versus 10" },
+            { "tex": "(f \\circ g)(x) \\neq (g \\circ f)(x)", "highlight": true }
+          ],
+          "result": "2x² − 1  versus  4x² − 12x + 10",
+          "narration": "Let f of x be two x minus three, and g of x be x squared plus one. First, f after g: substitute g into f — two times x squared plus one, minus three — which simplifies to two x squared minus one. Now the other order, g after f: square the whole of two x minus three, then add one — four x squared minus twelve x plus ten. Different functions: check x equals zero, where the first gives minus one and the second gives ten. Composition is not commutative — shift then square is not square then shift. Self-composition, like g after g, is perfectly legal too."
+        },
+        {
+          "type": "example",
+          "heading": "Battery Discharge",
+          "problem": "E(t) = E_0 e^{-0.025t}, \\quad t \\geq 0",
+          "steps": [
+            { "tex": "\\frac{E(10)}{E_0} = e^{-0.25} \\approx 0.7788" },
+            { "text": "about 77.9% remains after 10 hours" },
+            { "tex": "e^{-0.025t} = \\frac{1}{2} \\Rightarrow t = \\frac{\\ln 2}{0.025} \\approx 27.7" },
+            { "tex": "E(t) > 0; \\quad E(t) \\to 0 \\iff t \\to \\infty", "highlight": true }
+          ],
+          "result": "≈ 77.9% after 10 h; half at ≈ 27.7 h",
+          "narration": "A battery discharges: E of t equals E zero times e to the minus zero point zero two five t, with t in hours. What fraction survives ten hours? Divide by E zero: e to the minus zero point two five is about zero point seven seven eight — roughly seventy eight percent remains. When is half left? Set the exponential to one half: t equals the natural log of two over zero point zero two five — about twenty seven point seven hours. And why is zero never reached? The exponential is strictly positive at every finite time; it approaches zero only as t tends to infinity — our first honest limit."
+        },
+        {
+          "type": "table",
+          "heading": "Classes of Functions",
+          "columns": ["Class", "Example"],
+          "rows": [
+            ["linear", "3x − 7"],
+            ["polynomial", "x⁴ − 2x + 1"],
+            ["rational", "(x + 1)/(x² + 4)"],
+            ["algebraic", "√(x² + 1)"],
+            ["exponential", "2ˣ"],
+            ["trigonometric", "sin x"]
+          ],
+          "narration": "A vocabulary table. Linear: three x minus seven — a straight line. Polynomial: x to the fourth minus two x plus one — smooth everywhere. Rational: a ratio of polynomials, like x plus one over x squared plus four — defined wherever the denominator is nonzero. Algebraic: roots of polynomials, like the square root of x squared plus one. Exponential: two to the x — the variable lives in the exponent, so it is transcendental. Trigonometric: sine x — also transcendental. The classes overlap: every polynomial is also algebraic, so always name the smallest class."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "one input, exactly one output",
+            "domain blocked by ÷0, roots, logs",
+            "even mirrors; odd half-turns",
+            "f∘g ≠ g∘f; inverse mirrors in y = x",
+            "the logarithm is the exponent"
+          ],
+          "narration": "Chapter three compressed. A function assigns each input exactly one output, and the vertical line test checks it. Domains are blocked only by division, even roots, and logarithms. Even functions mirror across the axis; odd ones rotate about the origin. Composition order matters, and inverses undo one-to-one functions. The logarithm is simply the exponent. Now, the main event: limits."
+        }
+      ]
+    },
+    {
+      "title": "Limits: The Core Idea",
+      "blocks": [
+        {
+          "type": "section",
+          "num": 4,
+          "title": "Limits: The Core Idea",
+          "subtitle": "What does approaching really mean?",
+          "narration": "Chapter four — the heart of the course. Limits answer two questions at once: how fast is something changing right now, and what value is a function heading toward? We build the idea from secant slopes and average speeds, sharpen it into one-sided and infinite limits, make it precise with epsilon and delta, and apply it to real engineering systems."
+        },
+        {
+          "type": "concept",
+          "heading": "Two Founding Problems",
+          "bullets": [
+            "secant slope: Δf over Δx",
+            "average velocity over an interval",
+            "shrink the step h toward zero",
+            "instantaneous rate = a limit"
+          ],
+          "formula": "\\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h} = f'(a)",
+          "formula_caption": "the instantaneous rate is defined as a limit",
+          "narration": "Calculus is born from two questions. How steeply does a curve rise at a single point? How fast does an object move at a single instant? Both answers use the same trick. The slope of the secant line through two nearby points is the change in f over the change in x. The average velocity over a time interval is displacement over time. Now shrink the interval. The average rates approach a number, and that number is defined as the limit on screen: f of a plus h minus f of a, over h, as h tends to zero. This limit is the derivative — the instantaneous rate."
+        },
+        {
+          "type": "example",
+          "heading": "Robot Cart: Average to Instantaneous",
+          "problem": "s(t) = 2t^2 + 3t; \\quad \\lim_{h \\to 0} \\frac{s(2+h) - s(2)}{h}",
+          "steps": [
+            { "tex": "s(2) = 8 + 6 = 14" },
+            { "tex": "s(2+h) = 14 + 11h + 2h^2" },
+            { "tex": "\\frac{s(2+h) - s(2)}{h} = 11 + 2h" },
+            { "tex": "\\lim_{h \\to 0} (11 + 2h) = 11", "highlight": true }
+          ],
+          "result": "11 m/s",
+          "narration": "A robot cart moves with position s of t equals two t squared plus three t, in meters. What is its speed at t equals two? Anchor first: s of two is eight plus six — fourteen meters. Expand s of two plus h: fourteen plus eleven h plus two h squared. The average speed over the interval is the difference, eleven h plus two h squared, divided by h. Cancel h: eleven plus two h. Now let h tend to zero — the leftover two h dies, and the averages close in on eleven from both sides. The instantaneous speed at t equals two is exactly eleven meters per second."
+        },
+        {
+          "type": "concept",
+          "heading": "The Limit of a Function",
+          "bullets": [
+            "x approaches a, never equals a",
+            "f(x) gets arbitrarily close to L",
+            "the value f(a) itself is ignored",
+            "a limit, when it exists, is unique"
+          ],
+          "formula": "\\lim_{x \\to a} f(x) = L",
+          "formula_caption": "the limit of f of x, as x approaches a, equals L",
+          "narration": "The central definition. We say the limit of f of x, as x approaches a, equals L, when the values f of x get arbitrarily close to L as x gets close to a — from both sides, but never actually reaching a. Three remarks. The point itself is ignored: f may be undefined at a, or defined to be anything else. When a limit exists, it is unique — no function approaches two numbers at once. And this is a guarantee: for every closeness demanded of f, some closeness of x must deliver it."
+        },
+        {
+          "type": "concept",
+          "heading": "One-Sided Limits",
+          "bullets": [
+            "left limit: x → a from below",
+            "right limit: x → a from above",
+            "two-sided exists ⇔ both agree",
+            "piecewise junctions: test both sides"
+          ],
+          "formula": "\\lim_{x \\to a} f(x) = L \\iff \\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = L",
+          "formula_caption": "the limit exists exactly when both one-sided limits agree",
+          "narration": "Approaching from the left and from the right gives two one-sided limits. The criterion on screen is the workhorse of the course: the two-sided limit exists exactly when the left and the right limits exist and are equal. At every piecewise junction, compute both branches. Quick example: a function equal to two x plus one below x equals two, and seven minus x above it. Left limit: five. Right limit: five. Equal — so the limit is five, and the pieces join seamlessly. When they disagree, the two-sided limit simply does not exist — as the next example shows."
+        },
+        {
+          "type": "example",
+          "heading": "Switching System: a Voltage Step",
+          "problem": "V(t) = 2t + 1 \\ (t < 4); \\quad V(t) = 12 - t \\ (t \\geq 4)",
+          "steps": [
+            { "tex": "\\lim_{t \\to 4^-} (2t + 1) = 9" },
+            { "tex": "\\lim_{t \\to 4^+} (12 - t) = 8" },
+            { "text": "9 ≠ 8: one-sided limits differ" },
+            { "tex": "\\lim_{t \\to 4} V(t) = \\mathrm{DNE}", "highlight": true }
+          ],
+          "result": "does not exist — a 1-volt step",
+          "narration": "A switching device outputs two t plus one volts below t equals four, and twelve minus t volts from four onward. At t equals four: from the left, the first branch gives two times four plus one — nine volts. From the right, the second branch gives twelve minus four — eight volts. Nine versus eight: the one-sided limits disagree, so the two-sided limit does not exist. Physically, the output steps down by one volt the instant the threshold is crossed. Sharp steps can excite transients in the controlled device — which is why engineers often soften switching with filters or soft-start logic."
+        },
+        {
+          "type": "plot",
+          "heading": "Why 1/x Blows Up at Zero",
+          "functions": [
+            { "fn": "1/x", "tex": "y = \\frac{1}{x}", "color": "yellow" },
+            { "fn": "-1/x", "tex": "y = -\\frac{1}{x}", "color": "blue" }
+          ],
+          "x_range": [-5, 5],
+          "y_range": [-5, 5],
+          "point": null,
+          "vline": 0,
+          "narration": "Watch the two curves. The yellow one is one over x. Just right of zero it climbs without end — however small x is, the output is enormous. Just left of zero it plunges without end: the left limit is minus infinity, the right limit plus infinity. The blue curve, minus one over x, is its mirror through the origin. Both hug the dashed vertical line x equals zero without ever touching it — the vertical asymptote. And notice how both flatten toward zero as x runs far left or far right — a first glimpse of a horizontal asymptote."
+        },
+        {
+          "type": "formula",
+          "heading": "The Precise Definition: Epsilon and Delta",
+          "tex": "\\lim_{x \\to a} f(x) = L \\iff \\forall \\varepsilon > 0 \\ \\exists \\delta > 0: \\ 0 < |x - a| < \\delta \\Rightarrow |f(x) - L| < \\varepsilon",
+          "parts": [
+            { "substr": "\\varepsilon", "color": "yellow", "note": "the tolerance — how close f(x) must be to L" },
+            { "substr": "\\delta", "color": "blue", "note": "the radius — how close x must be to a" },
+            { "substr": "0 < |x - a| < \\delta", "color": "green", "note": "x within delta of a, but not equal" },
+            { "substr": "|f(x) - L| < \\varepsilon", "color": "red", "note": "f(x) within epsilon of L" }
+          ],
+          "narration": "Now the precise engine beneath the intuition — read it with me. The limit of f of x as x approaches a equals L if and only if: for every epsilon greater than zero — the yellow tolerance, how close f of x must stay to L — there exists a delta greater than zero — the blue radius — such that whenever x is within delta of a but not equal to a — the green condition — then f of x is within epsilon of L — the red guarantee. In pictures: x lives in a delta band around a, and f of x must answer in an epsilon band around L. Any challenge epsilon must be met with a working delta."
+        },
+        {
+          "type": "concept",
+          "heading": "The First Standard Limit",
+          "bullets": [
+            "sin(x)/x → 1 as x → 0",
+            "the angle must be in radians",
+            "values: 0.9983, 0.99998, …",
+            "proved by the squeeze theorem"
+          ],
+          "formula": "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1",
+          "formula_caption": "sine of x over x tends to one at zero",
+          "narration": "The most famous limit of the course: sine of x, divided by x. At zero this is zero over zero — undefined. But near zero the ratio tends to one, provided x measures radians — that caveat is essential. The numbers tell the story: at x equal to one tenth, the ratio is zero point nine nine eight three; at one hundredth, zero point nine nine nine nine eight; at one thousandth, seven nines then an eight. The proof squeezes the ratio between cosine and one; both bounds approach one, forcing the ratio to one. Keep this limit in your pocket — chapter six leans on it constantly."
+        },
+        {
+          "type": "example",
+          "heading": "RC Circuit: Charging to a Limit",
+          "problem": "V(t) = 12\\left(1 - e^{-t/(RC)}\\right), \\quad RC = 1\\,\\mathrm{s}",
+          "steps": [
+            { "tex": "\\lim_{t \\to 0^+} V(t) = 12(1 - e^0) = 0" },
+            { "tex": "\\lim_{t \\to \\infty} e^{-t} = 0" },
+            { "tex": "\\lim_{t \\to \\infty} V(t) = 12(1 - 0) = 12", "highlight": true },
+            { "text": "≈63% charged after 1 s; ≈99% after 5 s" }
+          ],
+          "result": "0 V at the start; 12 V in the limit",
+          "narration": "An RC circuit charges toward a twelve-volt supply: V of t equals twelve times one minus e to the minus t over R C, with the time constant R times C equal to one second. At the very start the exponential is e to the zero — one — so V starts at zero: an uncharged capacitor. As time grows, e to the minus t decays to zero, so V tends to twelve times one minus zero — twelve volts, the supply level. The approach is asymptotic: roughly sixty three percent charged after one time constant, ninety nine percent after five. Engineers say it in limit language: V tends to the supply as t tends to infinity."
+        },
+        {
+          "type": "recap",
+          "items": [
+            "instantaneous rate = limit",
+            "two-sided ⇔ one-sided agree",
+            "1/x: vertical asymptote at 0",
+            "ε–δ makes closeness precise",
+            "sin(x)/x → 1 (radians!)"
+          ],
+          "narration": "Chapter four, distilled. Average rates become instantaneous rates through a limit. The two-sided limit exists exactly when both one-sided limits agree. One over x blows up at zero — a vertical asymptote. Epsilon and delta make arbitrarily close precise and checkable. And sine of x over x tends to one — in radians. Next: computing limits systematically."
+        }
+      ]
+    },
