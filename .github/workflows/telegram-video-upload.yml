@@ -1,0 +1,36 @@
+name: Telegram video upload
+
+# Manual one-shot: uploads the big course videos (>50 MB Bot API limit)
+# into the Telegram channel via MTProto and rewrites the Attachment rows
+# to tg:<file_id> (fallbackUrl keeps pointing at the GitHub backup host).
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: telegram-video-upload
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            scripts/telegram-video-upload
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: pip install telethon cryptg psycopg2-binary
+
+      - name: Upload videos to the Telegram channel
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+          DATABASE_URL: ${{ secrets.NEON_DATABASE_URL }}
+        run: python scripts/telegram-video-upload/upload_videos.py
