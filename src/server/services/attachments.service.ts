@@ -29,6 +29,8 @@ export async function listAttachments(testId: string) {
       url: true,
       size: true,
       orderNum: true,
+      tgMessageId: true,
+      fallbackUrl: true,
       createdAt: true,
     },
   });
@@ -38,7 +40,7 @@ export async function listAttachments(testId: string) {
 
 export async function addAttachment(
   testId: string,
-  input: { title?: string; type?: string; url: string; size?: number | null }
+  input: { title?: string; type?: string; url: string; size?: number | null; fallbackUrl?: string | null }
 ) {
   const test = await db.test.findUnique({
     where: { id: testId },
@@ -56,6 +58,7 @@ export async function addAttachment(
       type: input.type || "link",
       url: input.url,
       size: typeof input.size === "number" ? input.size : null,
+      fallbackUrl: input.fallbackUrl ?? null,
       orderNum: count,
     },
   });
@@ -65,7 +68,7 @@ export async function addAttachment(
 
 export async function updateAttachment(
   id: string,
-  input: { title?: string; type?: string; url?: string; size?: number | null; orderNum?: number }
+  input: { title?: string; type?: string; url?: string; size?: number | null; fallbackUrl?: string | null; orderNum?: number }
 ) {
   const attachment = await db.attachment.findUnique({ where: { id } });
   if (!attachment) throw ApiError.notFound("Attachment not found");
@@ -77,6 +80,7 @@ export async function updateAttachment(
       ...(input.type !== undefined && { type: input.type }),
       ...(input.url !== undefined && { url: input.url }),
       ...(input.size !== undefined && { size: input.size }),
+      ...(input.fallbackUrl !== undefined && { fallbackUrl: input.fallbackUrl }),
       ...(input.orderNum !== undefined && { orderNum: input.orderNum }),
     },
   });

@@ -350,6 +350,7 @@ export async function createTest(userId: string, body: CreateTestInput) {
               url: a.url,
               size: a.size ?? null,
               tgMessageId: typeof a.tgMessageId === "number" ? a.tgMessageId : null,
+              fallbackUrl: a.fallbackUrl ?? null,
               orderNum: a.orderNum ?? index,
             })),
           },
@@ -511,6 +512,7 @@ export async function updateTest(
           url: a.url,
           size: a.size ?? null,
           tgMessageId: typeof a.tgMessageId === "number" ? a.tgMessageId : null,
+          fallbackUrl: a.fallbackUrl ?? null,
           orderNum: a.orderNum ?? index,
         })),
       });
@@ -699,6 +701,7 @@ export async function copyTest(userId: string, id: string) {
               url: a.url, // tg: references / data: URLs / external links — all reusable
               size: a.size,
               tgMessageId: a.tgMessageId, // keeps the channel post traceable in the copy
+              fallbackUrl: a.fallbackUrl, // backup host reference travels with the copy
               orderNum: a.orderNum ?? index,
             })),
           }

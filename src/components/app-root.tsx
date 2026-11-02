@@ -1584,6 +1584,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
         size: a.size ?? null,
         orderNum: a.orderNum,
         tgMessageId: (a as any).tgMessageId ?? null,
+        fallbackUrl: (a as any).fallbackUrl ?? null,
       })));
       setEditingTestId(fullTest.id);
       // The card's «Редактировать» opens the EDIT WINDOW (the same sheet the
@@ -1653,6 +1654,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
             size: a.size ?? null,
             orderNum: a.orderNum,
             tgMessageId: a.tgMessageId ?? null,
+            fallbackUrl: a.fallbackUrl ?? null,
           })));
           setCurrentTest(copy);
           setEditingTestId(copy.id);
@@ -1792,6 +1794,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
           url: a.url,
           size: a.size ?? null,
           tgMessageId: a.tgMessageId ?? null,
+          fallbackUrl: a.fallbackUrl ?? null,
           orderNum: i,
         })),
       };

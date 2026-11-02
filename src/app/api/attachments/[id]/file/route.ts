@@ -73,6 +73,11 @@ function parseDataUrl(dataUrl: string): { contentType: string; buffer: Buffer } 
   return { contentType, buffer };
 }
 
+// Bot API getFile refuses to re-download channel files larger than 20 MB
+// ("file is too big") — such attachments are streamed from their recorded
+// fallbackUrl host instead.
+const TG_GETFILE_LIMIT_BYTES = 20 * 1024 * 1024;
+
 export const GET = withApi(async (ctx) => {
   const { req, params } = ctx;
   const attachment = await db.attachment.findUnique({ where: { id: params.id } });
@@ -81,6 +86,64 @@ export const GET = withApi(async (ctx) => {
   }
 
   const rangeHeader = req.headers.get('range');
+
+  // --- shared proxy for an external http(s) target: same-origin 307-redirect,
+  // private-host refusal (SSRF guard) and Range-passthrough streaming ---
+  const proxyExternal = async (rawUrl: string): Promise<Response> => {
+    let target: URL;
+    try {
+      target = new URL(rawUrl);
+    } catch {
+      return new Response('Invalid attachment URL', { status: 500 });
+    }
+
+    // --- same-origin URL: redirect straight to the file (no self-proxying) ---
+    const origin = requestOrigin(req);
+    if (target.origin === origin) {
+      return new Response(null, {
+        status: 307,
+        headers: { Location: target.toString(), 'Cache-Control': 'private, max-age=300' },
+      });
+    }
+
+    // --- external URL: proxy any PUBLIC host; refuse private targets (SSRF) ---
+    if (!/^https?:$/.test(target.protocol) || isPrivateHost(target.hostname)) {
+      return new Response('Host not allowed for file proxying', { status: 403 });
+    }
+
+    const upstreamHeaders: Record<string, string> = {};
+    if (rangeHeader) upstreamHeaders['Range'] = rangeHeader;
+
+    const upstream = await fetch(target.toString(), {
+      headers: upstreamHeaders,
+      redirect: 'follow',
+    });
+    if (!upstream.ok && upstream.status !== 206) {
+      return new Response(`Upstream fetch failed (${upstream.status})`, { status: 502 });
+    }
+
+    const upstreamType = upstream.headers.get('content-type')?.split(';')[0] || '';
+    // raw.githubusercontent.com often serves files as application/octet-stream,
+    // which browsers refuse to render inline — fall back to the guessed type.
+    const contentType =
+      upstreamType && !['application/octet-stream', 'text/plain'].includes(upstreamType)
+        ? upstreamType
+        : guessContentType(attachment);
+    const headers: Record<string, string> = {
+      'Content-Type': contentType,
+      'Cache-Control': 'private, max-age=3600',
+    };
+    const contentRange = upstream.headers.get('content-range');
+    if (contentRange) headers['Content-Range'] = contentRange;
+    const contentLength = upstream.headers.get('content-length');
+    if (contentLength) headers['Content-Length'] = contentLength;
+    if (upstream.headers.get('accept-ranges')) headers['Accept-Ranges'] = 'bytes';
+
+    return new Response(upstream.body, {
+      status: upstream.status,
+      headers,
+    });
+  };
 
   // --- data: URL (small uploaded files stored in DB) ---
   if (attachment.url.startsWith('data:')) {
@@ -124,87 +187,54 @@ export const GET = withApi(async (ctx) => {
 
   // --- Telegram storage: tg:<file_id> — stream the bytes from the owner's
   // channel (Range requests pass through; the bot token never reaches the
-  // client) ---
+  // client). Files OVER the 20 MB getFile limit (or any getFile failure with
+  // a recorded fallbackUrl) are streamed from the fallback host instead ---
   if (attachment.url.startsWith('tg:')) {
     const fileId = attachment.url.slice(3);
-    if (!fileId) return new Response('Invalid attachment reference', { status: 500 });
-    try {
-      const direct = await telegramFileUrl(fileId);
-      const upstreamHeaders: Record<string, string> = {};
-      if (rangeHeader) upstreamHeaders['Range'] = rangeHeader;
-      const upstream = await fetch(direct, { headers: upstreamHeaders, redirect: 'follow' });
-      if (!upstream.ok && upstream.status !== 206) {
-        return new Response(`Telegram fetch failed (${upstream.status})`, { status: 502 });
+    const fallback = attachment.fallbackUrl || null;
+    const exceedsGetFileLimit = (attachment.size ?? 0) > TG_GETFILE_LIMIT_BYTES;
+    if (fileId && !exceedsGetFileLimit) {
+      try {
+        const direct = await telegramFileUrl(fileId);
+        const upstreamHeaders: Record<string, string> = {};
+        if (rangeHeader) upstreamHeaders['Range'] = rangeHeader;
+        const upstream = await fetch(direct, { headers: upstreamHeaders, redirect: 'follow' });
+        if (!upstream.ok && upstream.status !== 206) {
+          if (!fallback) {
+            return new Response(`Telegram fetch failed (${upstream.status})`, { status: 502 });
+          }
+        } else {
+          const headers: Record<string, string> = {
+            'Content-Type': guessContentType(attachment),
+            'Cache-Control': 'private, max-age=300',
+          };
+          const contentRange = upstream.headers.get('content-range');
+          if (contentRange) headers['Content-Range'] = contentRange;
+          const contentLength = upstream.headers.get('content-length');
+          if (contentLength) headers['Content-Length'] = contentLength;
+          if (upstream.headers.get('accept-ranges')) headers['Accept-Ranges'] = 'bytes';
+          return new Response(upstream.body, { status: upstream.status, headers });
+        }
+      } catch (e: any) {
+        if (!fallback) {
+          if (String(e?.message || '').startsWith('TELEGRAM_NOT_CONFIGURED')) {
+            return new Response('Telegram storage is not configured', { status: 503 });
+          }
+          console.error('Telegram file fetch error:', e);
+          return new Response('Failed to fetch Telegram file', { status: 502 });
+        }
+        // getFile failed but a fallback host exists — serve from there
       }
-      const headers: Record<string, string> = {
-        'Content-Type': guessContentType(attachment),
-        'Cache-Control': 'private, max-age=300',
-      };
-      const contentRange = upstream.headers.get('content-range');
-      if (contentRange) headers['Content-Range'] = contentRange;
-      const contentLength = upstream.headers.get('content-length');
-      if (contentLength) headers['Content-Length'] = contentLength;
-      if (upstream.headers.get('accept-ranges')) headers['Accept-Ranges'] = 'bytes';
-      return new Response(upstream.body, { status: upstream.status, headers });
-    } catch (e: any) {
-      if (String(e?.message || '').startsWith('TELEGRAM_NOT_CONFIGURED')) {
-        return new Response('Telegram storage is not configured', { status: 503 });
-      }
-      console.error('Telegram file fetch error:', e);
-      return new Response('Failed to fetch Telegram file', { status: 502 });
     }
+    if (fallback) {
+      return proxyExternal(fallback);
+    }
+    if (!fileId) {
+      return new Response('Invalid attachment reference', { status: 500 });
+    }
+    return new Response('Failed to fetch Telegram file', { status: 502 });
   }
 
-  // --- same-origin URL: redirect straight to the file (no self-proxying) ---
-  let target: URL;
-  try {
-    target = new URL(attachment.url);
-  } catch {
-    return new Response('Invalid attachment URL', { status: 500 });
-  }
-  const origin = requestOrigin(req);
-  if (target.origin === origin) {
-    return new Response(null, {
-      status: 307,
-      headers: { Location: target.toString(), 'Cache-Control': 'private, max-age=300' },
-    });
-  }
-
-  // --- external URL: proxy any PUBLIC host; refuse private targets (SSRF) ---
-  if (!/^https?:$/.test(target.protocol) || isPrivateHost(target.hostname)) {
-    return new Response('Host not allowed for file proxying', { status: 403 });
-  }
-
-  const upstreamHeaders: Record<string, string> = {};
-  if (rangeHeader) upstreamHeaders['Range'] = rangeHeader;
-
-  const upstream = await fetch(target.toString(), {
-    headers: upstreamHeaders,
-    redirect: 'follow',
-  });
-  if (!upstream.ok && upstream.status !== 206) {
-    return new Response(`Upstream fetch failed (${upstream.status})`, { status: 502 });
-  }
-
-  const upstreamType = upstream.headers.get('content-type')?.split(';')[0] || '';
-  // raw.githubusercontent.com often serves files as application/octet-stream,
-  // which browsers refuse to render inline — fall back to the guessed type.
-  const contentType =
-    upstreamType && !['application/octet-stream', 'text/plain'].includes(upstreamType)
-      ? upstreamType
-      : guessContentType(attachment);
-  const headers: Record<string, string> = {
-    'Content-Type': contentType,
-    'Cache-Control': 'private, max-age=3600',
-  };
-  const contentRange = upstream.headers.get('content-range');
-  if (contentRange) headers['Content-Range'] = contentRange;
-  const contentLength = upstream.headers.get('content-length');
-  if (contentLength) headers['Content-Length'] = contentLength;
-  if (upstream.headers.get('accept-ranges')) headers['Accept-Ranges'] = 'bytes';
-
-  return new Response(upstream.body, {
-    status: upstream.status,
-    headers,
-  });
+  // --- external URL (or same-origin redirect) ---
+  return proxyExternal(attachment.url);
 });

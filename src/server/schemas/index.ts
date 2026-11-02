@@ -101,6 +101,9 @@ export const attachmentInputSchema = z.object({
   url: z.string().max(11_000_000),
   size: z.number().int().nullish(),
   tgMessageId: z.number().int().nullish(),
+  // Backup direct URL for big Telegram-hosted files (over the 20 MB getFile
+  // limit) — streamed by GET /api/attachments/[id]/file when tg: can't serve.
+  fallbackUrl: z.string().max(2048).nullish(),
   orderNum: z.number().int().optional(),
 });
 

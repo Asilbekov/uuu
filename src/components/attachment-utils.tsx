@@ -27,6 +27,10 @@ export interface AttachmentItem {
   // Telegram channel post that carries the file (upload response). Enables
   // real deletion from the channel when the attachment is removed.
   tgMessageId?: number | null;
+  // Backup direct URL (e.g. GitHub release asset) for Telegram-hosted files
+  // over the 20 MB getFile limit — round-tripped through saves so it is never
+  // lost when the test is edited.
+  fallbackUrl?: string | null;
   // client-only helpers for unsaved uploads
   blobUrl?: string; // preview URL for just-picked files
   uploading?: boolean; // row is mid-upload — locked until the file lands

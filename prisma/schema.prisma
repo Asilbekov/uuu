@@ -258,6 +258,11 @@ model Attachment {
   // Telegram channel bookkeeping: the channel post that carries this file.
   // Needed to DELETE the file from the channel when it is removed from the test.
   tgMessageId Int?
+  // Backup direct URL (e.g. GitHub release asset). The Bot API refuses to
+  // RE-DOWNLOAD channel files over 20 MB via getFile, so big media (course
+  // videos) is streamed from this URL instead — the Telegram post remains the
+  // canonical copy, this is the serving/backup host. NULL for small files.
+  fallbackUrl  String?
   orderNum    Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
