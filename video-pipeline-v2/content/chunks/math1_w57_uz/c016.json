@@ -1,0 +1,450 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Matematika I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu 5-7 haftalik matematika darsining asosiy mavzularini oʻz ichiga oladi. Hosilalarni hisoblash usullari va fizikada qoʻllanilishi haqida koʻp narsa bor.",
+   "Darsda hosilalarni hisoblashning asosiy qoidalari, trigonometrik funksiyalar, logarifmlar va bogʻliq tezliklar oʻrganiladi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Hosilalarni hisoblash",
+   "problem": "$f(x) = 2 \\cdot \\ln x - \\log_{10} x$ funksiyaning $x=1$ nuqtasida togʻri chiziq tenglamasini toping.",
+   "steps": [
+    "$\\ln x$ funksiyasining hosilasi $\\frac{1}{x}$",
+    "$\\log_{10} x$ ni $\\ln x / \\ln 10$ orqali ifodalaymiz",
+    "$(\\log_{10} x)' = \\frac{1}{x \\cdot \\ln 10}$",
+    "$f'(x) = \\frac{2}{x} - \\frac{1}{x \\cdot \\ln 10}$",
+    "$x=1$ da $f(1) = 2 \\cdot \\ln 1 - \\log_{10} 1 = 0$",
+    "$x=1$ da $f'(1) = 2 - \\frac{1}{\\ln 10}$"
+   ],
+   "result": "Togʻri chiziq: $y = \\left(2 - \\frac{1}{\\ln 10}\\right) \\cdot (x - 1)$"
+  },
+  "narr": [
+   "Keling, birinchi misolni koʻrib chiqaylik. Bizda $f(x) = 2 \\cdot \\ln x - \\log_{10} x$ funksiyasi berilgan.",
+   "Avvalo, $\\ln x$ funksiyasining hosilasini bilamiz, u $\\frac{1}{x}$ ga teng.",
+   "$\\log_{10} x$ ni ifodalash uchun esa $\\ln x / \\ln 10$ formulasidan foydalanamiz.",
+   "Shunday qilib, $\\log_{10} x$ ning hosilasi $\\frac{1}{x \\cdot \\ln 10}$ boʻladi.",
+   "Endi $f(x)$ funksiyasining hosilasini hisoblaymiz: $f'(x) = \\frac{2}{x} - \\frac{1}{x \\cdot \\ln 10}$",
+   "$x=1$ nuqtada funksiya qiymati $f(1) = 0$ ekanligini koʻramiz.",
+   "Va $x=1$ da hosilaning qiymati $f'(1) = 2 - \\frac{1}{\\ln 10}$",
+   "Demak, $x=1$ nuqtadagi togʻri chiziq tenglamasi shu koʻrinishda boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — Hosilalar",
+   "problem": "Differensiallang: a) $f(x) = x \\cdot \\ln x$, $x > 0$; b) $g(x) = \\frac{e^x}{x}$, $x \\neq 0$.",
+   "steps": [
+    "a) Koʻpaytma qoidasini qoʻllaymiz: $f'(x) = 1 \\cdot \\ln x + x \\cdot \\frac{1}{x} = \\ln x + 1$",
+    "b) Boʻlinma qoidasini qoʻllaymiz: $g'(x) = \\frac{x \\cdot e^x - e^x \\cdot 1}{x^2} = \\frac{e^x \\cdot (x - 1)}{x^2}$"
+   ],
+   "result": "a) $f'(x) = \\ln x + 1$; b) $g'(x) = \\frac{e^x \\cdot (x - 1)}{x^2}$"
+  },
+  "narr": [
+   "Endi birinchi mashqni koʻrib chiqaylik. Ushbu ikkita funksiyani differensiallash kerak.",
+   "a) Koʻrinishda $f(x) = x \\cdot \\ln x$ koʻpaytma funksiya. Koʻpaytma qoidasini qoʻllaymiz: birinchi hadning hosilasi ikkinchisiga, ikkinchi hadning hosilasi birinchisiga koʻpaytiramiz.",
+   "Shunday qilib, $f'(x) = 1 \\cdot \\ln x + x \\cdot \\frac{1}{x} = \\ln x + 1$",
+   "b) Ikkinchi funksiya $g(x) = \\frac{e^x}{x}$ boʻlib, bu boʻlinma funksiya. Boʻlinma qoidasini qoʻllaymiz.",
+   "Numeratorning hosilasi denominator, minus denominatorning hosilasi numerator, hammasi denominator kvadratga boʻlinadi.",
+   "Natija: $g'(x) = \\frac{x \\cdot e^x - e^x \\cdot 1}{x^2} = \\frac{e^x \\cdot (x - 1)}{x^2}$"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — Hosilalar",
+   "problem": "$f(x) = x^2 \\cdot e^x$ funksiyasining birinchi hosilasini toping.",
+   "steps": [
+    "Koʻpaytma qoidasini qoʻllaymiz: $u(x) = x^2$, $v(x) = e^x$",
+    "$u'(x) = 2x$, $v'(x) = e^x$",
+    "$(u \\cdot v)' = u' \\cdot v + u \\cdot v'$",
+    "$f'(x) = 2x \\cdot e^x + x^2 \\cdot e^x = e^x \\cdot (x^2 + 2x)$",
+    "Soddalashtiramiz: $f'(x) = x \\cdot e^x \\cdot (x + 2)$"
+   ],
+   "result": "$f'(x) = x \\cdot e^x \\cdot (x + 2)$, $x \\in \\mathbb{R}$"
+  },
+  "narr": [
+   "Keyingi mashqda $f(x) = x^2 \\cdot e^x$ funksiyasining hosilasini topishimiz kerak.",
+   "Bu koʻpaytma funksiya, shuning uchun koʻpaytma qoidasini qoʻllaymiz.",
+   "Birinchi had $u(x) = x^2$ uning hosilasi $u'(x) = 2x$",
+   "Ikkinchi had $v(x) = e^x$ uning hosilasi $v'(x) = e^x$",
+   "Koʻpaytma qoidasiga koʻra, $(u \\cdot v)' = u' \\cdot v + u \\cdot v'$",
+   "Shunday qilib, $f'(x) = 2x \\cdot e^x + x^2 \\cdot e^x = e^x \\cdot (x^2 + 2x)$",
+   "Ifodani soddalashtirsak: $f'(x) = x \\cdot e^x \\cdot (x + 2)$"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — Hosilalar",
+   "problem": "Zaryadlanayotgan kondensatorning kuchlanishi $V(t) = 12 \\cdot e^{-t/2}$ V, $t \\geq 0$ (vaqt sekundlarda). $V'(t)$, kuchlanishning boshlangʻich oʻzgarish tezligi va $V'(2)$ ni toping.",
+   "steps": [
+    "Koʻrsatkichli funksiyaning hosilasini hisoblaymiz",
+    "$(-t/2)' = -\\frac{1}{2}$",
+    "$V'(t) = 12 \\cdot e^{-t/2} \\cdot (-\\frac{1}{2}) = -6 \\cdot e^{-t/2}$ V/s",
+    "Boshlangʻich tezlik: $V'(0) = -6$ V/s",
+    "$t = 2$ da: $V'(2) = -6 \\cdot e^{-1} = -\\frac{6}{e} \\approx -2.21$ V/s"
+   ],
+   "result": "$V'(t) = -6 \\cdot e^{-t/2}$ V/s, $V'(0) = -6$ V/s, $V'(2) \\approx -2.21$ V/s"
+  },
+  "narr": [
+   "Bu mashqda fizikadan misol keltirilgan. Zaryadlanayotgan kondensatorning kuchlanishi $V(t) = 12 \\cdot e^{-t/2}$ V berilgan.",
+   "Biz kuchlanishning vaqt boʻyicha oʻzgarish tezligini, yaʼni $V'(t)$ ni topishimiz kerak.",
+   "Koʻrsatkichli funksiyaning hosilasini hisoblaymiz. Ichki funksiyaning hosilasi $(-t/2)' = -\\frac{1}{2}$",
+   "Shuning uchun $V'(t) = 12 \\cdot e^{-t/2} \\cdot (-\\frac{1}{2}) = -6 \\cdot e^{-t/2}$ V/s",
+   "Boshlangʻich oʻzgarish tezligi $t=0$ da: $V'(0) = -6$ V/s",
+   "$t = 2$ sekundda esa: $V'(2) = -6 \\cdot e^{-1} = -\\frac{6}{e} \\approx -2.21$ V/s",
+   "Manfiy belgi kuchlanish kamayayotganligini koʻrsatadi, va bu kamayish tezligi vaqt oʻtishi bilan asta-sekin kamayib boradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — REVIEW",
+   "problem": "Simning bir nuqtasidan oʻtgan zaryad $q(t) = t^3 + 2t^2 + 3t$ Kl. $t = 2$ da elektr tokini, $[0, 2]$ oraliqdagi oʻrtacha tokni va tokning oʻzgarish tezligini $t = 2$ da toping. (Elektr tok $I(t) = q'(t)$.).",
+   "steps": [
+    "Tok — zaryadning hosilasi: $I(t) = q'(t) = 3t^2 + 4t + 3$",
+    "$t = 2$ da: $I(2) = 3 \\cdot 2^2 + 4 \\cdot 2 + 3 = 12 + 8 + 3 = 23$ A",
+    "Oʻrtacha tok — zaryadning oʻrtacha oʻzgarish tezligi",
+    "$q(2) = 2^3 + 2 \\cdot 2^2 + 3 \\cdot 2 = 8 + 8 + 6 = 22$ Kl",
+    "$q(0) = 0$",
+    "Oʻrtacha tok: $I_{avg} = \\frac{q(2) - q(0)}{2 - 0} = \\frac{22}{2} = 11$ A"
+   ]
+  },
+  "narr": [
+   "Bu mashqda elektr toki va zaryad oʻrtasidagi bogʻliqlikni koʻrib chiqamiz.",
+   "Simning bir nuqtasidan oʻtgan zaryad $q(t) = t^3 + 2t^2 + 3t$ Kl berilgan.",
+   "Elektr tok — bu zaryadning vaqt boʻyicha hosilasi: $I(t) = q'(t) = 3t^2 + 4t + 3$",
+   "$t = 2$ da tok qiymati: $I(2) = 3 \\cdot 4 + 4 \\cdot 2 + 3 = 12 + 8 + 3 = 23$ A",
+   "Endi $[0, 2]$ oraliqdagi oʻrtacha tokni topamiz.",
+   "Buning uchun avval $q(2)$ va $q(0)$ ni hisoblaymiz.",
+   "$q(2) = 8 + 8 + 6 = 22$ Kl, $q(0) = 0$"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — REVIEW (cont.)",
+   "problem": "",
+   "steps": [
+    "Tokning oʻzgarish tezligi: $I'(t) = 6t + 4$",
+    "$t = 2$ da: $I'(2) = 6 \\cdot 2 + 4 = 16$ A/s"
+   ],
+   "result": "$I(2) = 23$ A, $I_{avg} = 11$ A, $I'(2) = 16$ A/s"
+  },
+  "narr": [
+   "Oʻrtacha tok: $I_{avg} = \\frac{q(2) - q(0)}{2 - 0} = \\frac{22}{2} = 11$ A",
+   "Nihoyat, tokning oʻzgarish tezligini topamiz: $I'(t) = 6t + 4$",
+   "$t = 2$ da: $I'(2) = 12 + 4 = 16$ A/s"
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 11 — REVIEW",
+   "problem": "$0 \\leq t \\leq 4$ uchun qurilmaning kuchlanishi $V(t) = 12 - t$ V va tok $I(t) = 1 + t$ A. Elektr quvvatini $P(t)$, uning hosilasini $P'(t)$ va ikkala kattalikning $t = 2$ dagi qiymatlarini toping. (Elektr quvvati $P(t) = V(t) \\cdot I(t)$.).",
+   "steps": [
+    "Elektr quvvati: $P(t) = V(t) \\cdot I(t) = (12 - t)(1 + t) = 12 + 11t - t^2$ Vt",
+    "Koʻpaytma qoidasiga koʻra $P' = V' \\cdot I + V \\cdot I'$",
+    "$V'(t) = -1$, $I'(t) = 1$",
+    "$P'(t) = (-1) \\cdot (1 + t) + (12 - t) \\cdot 1 = -1 - t + 12 - t = 11 - 2t$ Vt/s",
+    "$t = 2$ da: $P(2) = 12 + 11 \\cdot 2 - 2^2 = 12 + 22 - 4 = 30$ Vt",
+    "$t = 2$ da: $P'(2) = 11 - 2 \\cdot 2 = 11 - 4 = 7$ Vt/s"
+   ],
+   "result": "$P(t) = 12 + 11t - t^2$ Vt, $P'(t) = 11 - 2t$ Vt/s, $P(2) = 30$ Vt, $P'(2) = 7$ Vt/s"
+  },
+  "narr": [
+   "Yana bir mashqda elektr quvvatini hisoblashni koʻrib chiqamiz.",
+   "$0 \\leq t \\leq 4$ oraliqda qurilmaning kuchlanishi $V(t) = 12 - t$ V va tok $I(t) = 1 + t$ A.",
+   "Elektr quvvati kuchlanish va koʻpaytmasiga teng: $P(t) = V(t) \\cdot I(t) = (12 - t)(1 + t) = 12 + 11t - t^2$ Vt",
+   "Endi quvvatning vaqt boʻyicha oʻzgarish tezligini topamiz.",
+   "Koʻpaytma qoidasiga koʻra $P' = V' \\cdot I + V \\cdot I'$",
+   "Kuchlanishning hosilasi $V'(t) = -1$, tokning hosilasi $I'(t) = 1$",
+   "Shunday qilib, $P'(t) = (-1) \\cdot (1 + t) + (12 - t) \\cdot 1 = 11 - 2t$ Vt/s",
+   "$t = 2$ da quvvat: $P(2) = 12 + 22 - 4 = 30$ Vt",
+   "$t = 2$ da quvvatning oʻzgarish tezligi: $P'(2) = 11 - 4 = 7$ Vt/s",
+   "Bu shuni koʻrsatadiki, $t = 2$ da isteʼmol qilinayotgan quvvat oʻsib bormoqda."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Darsning asosiy gʻoyalari",
+   "items": [
+    "Bogʻliq tezliklar — \"rasmdan → bogʻliqlikdan → d/dt → sonlarni almashtirish\" sxemasi",
+    "Elementar funksiyalarning hosilalari yigʻindi, koʻpaytma va boʻlinma qoidalari bilan birlashtiriladi",
+    "Fizik kattaliklar hosilalar orqali bogʻlangan: tezlik s′, tezlanish s′′, tok I = q′, quvvat P = V · I"
+   ]
+  },
+  "narr": [
+   "Darsning asosiy gʻoyalari quyidagilardir:",
+   "Birinchidan, bogʻliq tezliklarni hisoblashning \"rasmdan → bogʻliqlikdan → d/dt → sonlarni almashtirish\" sxemasini oʻrganganmiz.",
+   "Ikkinchidan, elementar funksiyalarning hosilalarini yigʻindi, koʻpaytma va boʻlinma qoidalari yordamida hisoblashni oʻrgandik.",
+   "Uchinchidan, fizik kattaliklar oʻrtasidagi bogʻliqlikni hosilalar orqali ifodalash mumkinligini koʻrdik: tezlik s′, tezlanish s′′, tok I = q′, quvvat P = V · I."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 3 — 178-mashq",
+   "problem": "$y = x - x^3 \\cdot \\sin x$ funksiyasi uchun $\\frac{dy}{dx}$ ni toping.",
+   "steps": [
+    "$y' = 1 - (x^3 \\cdot \\sin x)'$",
+    "Koʻpaytma qoidasiga koʻra $(x^3 \\cdot \\sin x)' = 3x^2 \\cdot \\sin x + \\cos x \\cdot x^3$",
+    "Jami $y' = 1 - 3x^2 \\cdot \\sin x - x^3 \\cdot \\cos x$"
+   ],
+   "result": "$\\frac{dy}{dx} = 1 - 3x^2 \\cdot \\sin x - x^3 \\cdot \\cos x$"
+  },
+  "narr": [
+   "Endi mustaqil ish topshiriqlaridan birini koʻrib chiqaylik.",
+   "178-mashqda $y = x - x^3 \\cdot \\sin x$ funksiyasining hosilasini topishimiz kerak.",
+   "Bu ifodani ikki qismga ajratamiz: $y' = 1 - (x^3 \\cdot \\sin x)'$",
+   "Ikkinchi qismda koʻpaytma qoidasini qoʻllaymiz: $(x^3 \\cdot \\sin x)' = 3x^2 \\cdot \\sin x + \\cos x \\cdot x^3$",
+   "Shunday qilib, $y' = 1 - 3x^2 \\cdot \\sin x - x^3 \\cdot \\cos x$"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 3 — 181-mashq",
+   "problem": "$y = (x + \\cos x)(1 - \\sin x)$ funksiyasi uchun $\\frac{dy}{dx}$ ni toping.",
+   "steps": [
+    "Koʻpaytma qoidasini qoʻllaymiz",
+    "$u = x + \\cos x$, $u' = 1 - \\sin x$",
+    "$v = 1 - \\sin x$, $v' = -\\cos x$",
+    "$y' = (1 - \\sin x)^2 + (x + \\cos x) \\cdot (-\\cos x) = (1 - \\sin x)^2 - x \\cdot \\cos x - \\cos^2 x$",
+    "Kvadratni ochgach va $\\sin^2 x - \\cos^2 x = -\\cos 2x$ almashtirgandan soʻng:",
+    "$y' = 1 - 2 \\cdot \\sin x - \\cos 2x - x \\cdot \\cos x$"
+   ],
+   "result": "$\\frac{dy}{dx} = 1 - 2 \\cdot \\sin x - \\cos 2x - x \\cdot \\cos x$"
+  },
+  "narr": [
+   "Keyingi mashqda $y = (x + \\cos x)(1 - \\sin x)$ funksiyasining hosilasini topishimiz kerak.",
+   "Bu koʻpaytma funksiya, shuning uchun koʻpaytma qoidasini qoʻllaymiz.",
+   "Birinchi had $u = x + \\cos x$, uning hosilasi $u' = 1 - \\sin x$",
+   "Ikkinchi had $v = 1 - \\sin x$, uning hosilasi $v' = -\\cos x$",
+   "Koʻpaytma qoidasiga koʻra: $y' = u' \\cdot v + u \\cdot v' = (1 - \\sin x)^2 + (x + \\cos x) \\cdot (-\\cos x)$",
+   "Ifodani soddalashtiramiz: $y' = (1 - \\sin x)^2 - x \\cdot \\cos x - \\cos^2 x$",
+   "Kvadratni ochgach va $\\sin^2 x - \\cos^2 x = -\\cos 2x$ almashtirgandan soʻng:",
+   "$y' = 1 - 2 \\cdot \\sin x - \\cos 2x - x \\cdot \\cos x$"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 3 — 191-mashq",
+   "problem": "$y = x \\cdot \\sin x - \\cos x$ funksiyasi uchun $\\frac{d^2y}{dx^2}$ ni toping.",
+   "steps": [
+    "Birinchi hosilani topamiz: $y' = \\sin x + x \\cdot \\cos x + \\sin x = x \\cdot \\cos x + 2 \\cdot \\sin x$",
+    "Ikkinchi hosilani topamiz: $y'' = \\cos x - x \\cdot \\sin x + 2 \\cdot \\cos x = 3 \\cdot \\cos x - x \\cdot \\sin x$"
+   ],
+   "result": "$\\frac{d^2y}{dx^2} = 3 \\cdot \\cos x - x \\cdot \\sin x$"
+  },
+  "narr": [
+   "191-mashqda $y = x \\cdot \\sin x - \\cos x$ funksiyasining ikkinchi hosilasini topishimiz kerak.",
+   "Avval birinchi hosilani topamiz: $y' = \\sin x + x \\cdot \\cos x + \\sin x = x \\cdot \\cos x + 2 \\cdot \\sin x$",
+   "Endi ikkinchi hosilani topamiz: $y'' = \\cos x - x \\cdot \\sin x + 2 \\cdot \\cos x = 3 \\cdot \\cos x - x \\cdot \\sin x$"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 3 — 192-mashq",
+   "problem": "$y = \\sin x \\cdot \\cos x$ funksiyasi uchun $\\frac{d^2y}{dx^2}$ ni toping.",
+   "steps": [
+    "Birinchi hosilani topamiz: $y' = \\cos^2 x - \\sin^2 x = \\cos 2x$",
+    "Ikkinchi hosilani topamiz: $y'' = -2 \\cdot \\sin 2x$"
+   ],
+   "result": "$\\frac{d^2y}{dx^2} = -2 \\cdot \\sin 2x$"
+  },
+  "narr": [
+   "192-mashqda $y = \\sin x \\cdot \\cos x$ funksiyasining ikkinchi hosilasini topishimiz kerak.",
+   "Avval birinchi hosilani topamiz: $y' = \\cos^2 x - \\sin^2 x = \\cos 2x$",
+   "Endi ikkinchi hosilani topamiz: $y'' = -2 \\cdot \\sin 2x$"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 3 — 193-mashq",
+   "problem": "$y = x - \\frac{1}{2} \\cdot \\sin x$ funksiyasi uchun $\\frac{d^2y}{dx^2}$ ni toping.",
+   "steps": [
+    "Birinchi hosilani topamiz: $y' = 1 - \\frac{1}{2} \\cdot \\cos x$",
+    "Ikkinchi hosilani topamiz: $y'' = \\frac{1}{2} \\cdot \\sin x$"
+   ],
+   "result": "$\\frac{d^2y}{dx^2} = \\frac{1}{2} \\cdot \\sin x$"
+  },
+  "narr": [
+   "193-mashqda $y = x - \\frac{1}{2} \\cdot \\sin x$ funksiyasining ikkinchi hosilasini topishimiz kerak.",
+   "Avval birinchi hosilani topamiz: $y' = 1 - \\frac{1}{2} \\cdot \\cos x$",
+   "Endi ikkinchi hosilani topamiz: $y'' = \\frac{1}{2} \\cdot \\sin x$"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 3 — 331-mashq",
+   "problem": "$f(x) = e^{x^3}$ funksiyasining hosilasini toping.",
+   "steps": [
+    "Umumiy koʻrinishda $\\frac{d}{dx}e^{g(x)} = e^{g(x)} \\cdot g'(x)$",
+    "$g(x) = x^3$, $g'(x) = 3x^2$",
+    "Shuning uchun $f'(x) = 3x^2 \\cdot e^{x^3}$"
+   ],
+   "result": "$f'(x) = 3x^2 \\cdot e^{x^3}$"
+  },
+  "narr": [
+   "331-mashqda $f(x) = e^{x^3}$ funksiyasining hosilasini topishimiz kerak.",
+   "Bu koʻrsatkichli funksiya, shuning uchun umumiy qoidadan foydalanamiz.",
+   "$\\frac{d}{dx}e^{g(x)} = e^{g(x)} \\cdot g'(x)$",
+   "Bizda $g(x) = x^3$, uning hosilasi $g'(x) = 3x^2$",
+   "Shuning uchun $f'(x) = 3x^2 \\cdot e^{x^3}$",
+   "Ekstant \"oʻzini oʻzi saqlaydi\", zanjir qoidasi esa koʻrsatkichning hosilasini qoʻshadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Midterm imtihoni uchun tayyorgarlik",
+   "items": [
+    "2.1-2.4, 3.1-3.5 va 3.9 (3.9.3 dan tashqari) boblari va NOTES xulosalari",
+    "Imtihonda tushunchalar, yechim jarayoni va aniq mulohazalar muhim, ogʻir algebra emas",
+    "3.5 va 3.9 boʻlimlari ushbu bobning mashqlari bilan yopilgan",
+    "2.1–2.4 (chekli, uzluksizlik) va 3.1−3.4 (hosilaning taʼriflari, qoidalar) materiali — 5-6-haftalar"
+   ]
+  },
+  "narr": [
+   "Midterm imtihoni uchun tayyorgarlik qilishda quyidagilarga eʼtibor berish kerak:",
+   "Imtihon 2.1-2.4, 3.1-3.5 va 3.9 (3.9.3 dan tashqari) boblari va NOTES xulosalarini qamrab oladi.",
+   "Imtihonda tushunchalar, yechim jarayoni va aniq mulohazalar muhim, ogʻir algebra emas.",
+   "3.5 va 3.9 boʻlimlari ushbu bobning mashqlari bilan yopilgan.",
+   "2.1–2.4 (chekli, uzluksizlik) va 3.1−3.4 (hosilaning taʼriflari, qoidalar) materiali — 5-6-haftalarga tegishli."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

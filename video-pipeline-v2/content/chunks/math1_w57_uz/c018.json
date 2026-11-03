@@ -1,0 +1,354 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu 5-7 haftalarga oid matematika kursining qisqacha mazmuni. Biz bir nechta masalalarni yechamiz va asosiy tushunchalarni oʻrganamiz.",
+   "Boshlaymiz 3.9-boʻlimdagi birinchi masaladan."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.76 — Populyatsiyaning oʻsishi",
+   "problem": "Ayyorlar koloniyasining boshlangʻich populyatsiyasi 1000; t kun oʻtgach populyatsiya $A(t) = 1000 \\cdot e^{0.3t}$ ga teng. Populyatsiya oʻzgarish tezligining $A'(t)$ populyatsiyasiga $A(t)$ nisbatining doimiy ekanini koʻrsating.",
+   "steps": [
+    "Zanjir qoidasiga koʻra $A'(t) = 1000 \\cdot e^{0.3t} \\cdot 0.3 = 300 \\cdot e^{0.3t}$",
+    "Nisbatni hisoblaymiz: $\\frac{A'(t)}{A(t)} = \\frac{300 \\cdot e^{0.3t}}{1000 \\cdot e^{0.3t}} = 0.3$"
+   ],
+   "result": "Nisbat 0.3 — doimiy: eksponensial populyatsiyaning oʻsish tezligi populyatsiyaning oʻziga proportsional."
+  },
+  "narr": [
+   "Bu masalada biz eksponensial oʻsishni koʻrib chiqamiz. Boshlangʻich populyatsiya 1000 ta va vaqt oʻtishi bilan $A(t) = 1000 \\cdot e^{0.3t}$ formula bilan ifodalanadi.",
+   "Bizga populyatsiyani oʻzgarish tezligining populyatsiyaga nisbati doimiy ekanligini isbotlash kerak.",
+   "Buning uchun avval hosilani topamiz. Zanjir qoidasiga koʻra, $A(t)$ ning hosilasi $A'(t) = 1000 \\cdot e^{0.3t} \\cdot 0.3 = 300 \\cdot e^{0.3t}$ boʻladi.",
+   "Endi hosilani asl funksiyaga boʻlamiz: $\\frac{A'(t)}{A(t)} = \\frac{300 \\cdot e^{0.3t}}{1000 \\cdot e^{0.3t}} = 0.3$.",
+   "Koʻrib turganingizdek, nisbat 0.3 — bu doimiy son. Bu degani, eksponensial oʻsishda oʻsish tezligi har doim populyatsiyaning oʻziga proportsional boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.77 — Tabiiy logarifmning hosilasi",
+   "problem": "$f(x) = \\ln(x^3 + 3x - 4)$ funksiyaning hosilasini toping.",
+   "steps": [
+    "$g(x) = x^3 + 3x - 4$ deb belgilaymiz",
+    "$\\ln(g(x))$ funksiyasining hosilasi formulasi: $f'(x) = \\frac{g'(x)}{g(x)}$",
+    "Shunday qilib, $f'(x) = \\frac{3x^2 + 3}{x^3 + 3x - 4}$"
+   ],
+   "result": "$f'(x) = \\frac{3x^2 + 3}{x^3 + 3x - 4}$"
+  },
+  "narr": [
+   "Bu masalada tabiiy logarifmning hosilasini topamiz.",
+   "$f(x) = \\ln(x^3 + 3x - 4)$ funksiyasini koʻrib chiqamiz.",
+   "Buning uchun avval ichki funksiyani aniqlaymiz: $g(x) = x^3 + 3x - 4$",
+   "$\\ln(g(x))$ funksiyasining hosilasi formulasini eslaymiz: $f'(x) = \\frac{g'(x)}{g(x)}$",
+   "Endi $g(x)$ ning hosilasini topamiz: $g'(x) = 3x^2 + 3$",
+   "Shunday qilib, $f'(x) = \\frac{3x^2 + 3}{x^3 + 3x - 4}$"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.78 — Logarifmlarning xossalari hosilada",
+   "problem": "$f(x) = \\ln\\left(\\frac{x^2 \\cdot \\sin x}{2x + 1}\\right)$ funksiyaning hosilasini toping.",
+   "steps": [
+    "Avval logarifmning xossalari yordamida ifodani soddalashtiramiz: $f(x) = 2 \\cdot \\ln x + \\ln(\\sin x) - \\ln(2x + 1)$",
+    "Har bir hadni alohida differensiallaymiz",
+    "$\\frac{d}{dx}(2 \\cdot \\ln x) = \\frac{2}{x}$",
+    "$\\frac{d}{dx}(\\ln(\\sin x)) = \\frac{\\cos x}{\\sin x} = \\cot x$",
+    "$\\frac{d}{dx}(\\ln(2x + 1)) = \\frac{2}{2x + 1}$",
+    "Natijada: $f'(x) = \\frac{2}{x} + \\cot x - \\frac{2}{2x + 1}$"
+   ],
+   "result": "$f'(x) = \\frac{2}{x} + \\cot x - \\frac{2}{2x + 1}$"
+  },
+  "narr": [
+   "Bu masalada logarifmning xossalari yordamida ifodani soddalashtirib hosilani topamiz.",
+   "$f(x) = \\ln\\left(\\frac{x^2 \\cdot \\sin x}{2x + 1}\\right)$ funksiyasini koʻrib chiqamiz.",
+   "Avval logarifmning xossalari yordamida ifodani yozib olamiz: $f(x) = 2 \\cdot \\ln x + \\ln(\\sin x) - \\ln(2x + 1)$",
+   "Endi har bir hadni alohida differensiallaymiz.",
+   "Birinchi had: $\\frac{d}{dx}(2 \\cdot \\ln x) = \\frac{2}{x}$",
+   "Ikkinchi had: $\\frac{d}{dx}(\\ln(\\sin x)) = \\frac{\\cos x}{\\sin x} = \\cot x$",
+   "Uchinchi had: $\\frac{d}{dx}(\\ln(2x + 1)) = \\frac{2}{2x + 1}$",
+   "Barcha hadlarni birlashtiramiz: $f'(x) = \\frac{2}{x} + \\cot x - \\frac{2}{2x + 1}$"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.79 — Umumiy asos",
+   "problem": "$h(x) = \\frac{3^x}{3^x + 2}$ funksiyaning hosilasini toping.",
+   "steps": [
+    "Boʻlinma qoidasidan foydalanamiz: $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$",
+    "$u = 3^x$, $v = 3^x + 2$ deb belgilaymiz",
+    "$u' = 3^x \\cdot \\ln 3$, $v' = 3^x \\cdot \\ln 3$",
+    "$h'(x) = \\frac{3^x \\cdot \\ln 3 \\cdot (3^x + 2) - 3^x \\cdot \\ln 3 \\cdot 3^x}{(3^x + 2)^2}$",
+    "Numeratorda $3^x \\cdot \\ln 3 \\cdot ((3^x + 2) - 3^x) = 2 \\cdot 3^x \\cdot \\ln 3$ qoladi",
+    "Shuning uchun $h'(x) = \\frac{2 \\cdot 3^x \\cdot \\ln 3}{(3^x + 2)^2}$"
+   ],
+   "result": "$h'(x) = \\frac{2 \\cdot 3^x \\cdot \\ln 3}{(3^x + 2)^2}$"
+  },
+  "narr": [
+   "Bu masalada umumiy asosga ega boʻlgan funksiyaning hosilasini topamiz.",
+   "$h(x) = \\frac{3^x}{3^x + 2}$ funksiyasini koʻrib chiqamiz.",
+   "Boʻlinma qoidasidan foydalanamiz: $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$",
+   "$u = 3^x$, $v = 3^x + 2$ deb belgilaymiz",
+   "$u' = 3^x \\cdot \\ln 3$, $v' = 3^x \\cdot \\ln 3$",
+   "Endi hosilani hisoblaymiz: $h'(x) = \\frac{3^x \\cdot \\ln 3 \\cdot (3^x + 2) - 3^x \\cdot \\ln 3 \\cdot 3^x}{(3^x + 2)^2}$",
+   "Numeratorda $3^x \\cdot \\ln 3 \\cdot ((3^x + 2) - 3^x) = 2 \\cdot 3^x \\cdot \\ln 3$ qoladi",
+   "Shuning uchun $h'(x) = \\frac{2 \\cdot 3^x \\cdot \\ln 3}{(3^x + 2)^2}$"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.80 — Teginishning burchak koeffitsienti",
+   "problem": "$y = \\log_2(3x + 1)$ funksiya grafigiga $x = 1$ nuqtada teginish boʻlgan toʻgʻri chiziqning burchak koeffitsientini toping.",
+   "steps": [
+    "$(\\log_b(g(x)))' = \\frac{g'(x)}{g(x) \\cdot \\ln b}$ formulasiga koʻra",
+    "$\\frac{dy}{dx} = \\frac{3}{(3x + 1) \\cdot \\ln 2}$",
+    "$x = 1$ boʻlganda: $\\frac{dy}{dx} = \\frac{3}{(3 \\cdot 1 + 1) \\cdot \\ln 2} = \\frac{3}{4 \\cdot \\ln 2}$",
+    "$4 \\cdot \\ln 2 = \\ln 2^4 = \\ln 16$ ekanligini hisobga olsak",
+    "$\\frac{3}{4 \\cdot \\ln 2} = \\frac{3}{\\ln 16}$"
+   ],
+   "result": "Burchak koeffitsienti $\\frac{3}{\\ln 16}$ ga teng"
+  },
+  "narr": [
+   "Bu masalada funksiya grafigiga teginish chiziqining burchak koeffitsientini topamiz.",
+   "$y = \\log_2(3x + 1)$ funksiyasini koʻrib chiqamiz.",
+   "Avval hosilani topamiz. $(\\log_b(g(x)))' = \\frac{g'(x)}{g(x) \\cdot \\ln b)}$ formulasidan foydalanamiz.",
+   "Shunday qilib, $\\frac{dy}{dx} = \\frac{3}{(3x + 1) \\cdot \\ln 2}$",
+   "Endi $x = 1$ nuqtada hosilani hisoblaymiz: $\\frac{dy}{dx} = \\frac{3}{(3 \\cdot 1 + 1) \\cdot \\ln 2} = \\frac{3}{4 \\cdot \\ln 2}$",
+   "$4 \\cdot \\ln 2 = \\ln 2^4 = \\ln 16$ ekanligini hisobga olsak",
+   "$\\frac{3}{4 \\cdot \\ln 2} = \\frac{3}{\\ln 16}$"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Feniks shahrida yogʻingarchilik",
+   "problem": "Feniks (Arizona) shahridagi oylik yogʻingarchilik miqdori $y(t) = 0.5 + 0.3 \\cdot \\cos t$ funksiyasi bilan taxminan ifodalanadi, bunda $t$ - yanvardan boshlangan oy soni. $y'$ ni toping va yogʻingarchilik miqdori kamayadigan oraliqlarni aniqlang.",
+   "steps": [
+    "$y'(t) = -0.3 \\cdot \\sin t$ (radianlarda!)",
+    "Yogʻingarchilik $y' < 0$ boʻlganda kamayadi",
+    "$-0.3 \\cdot \\sin t < 0$ tengsizlikni yechamiz",
+    "$\\sin t > 0$ boʻlganda tengsizlik bajariladi",
+    "$(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida $\\sin t > 0$",
+    "$(\\pi, 2\\pi)$ va $(3\\pi, 12)$ oraliqlarida $\\sin t < 0$ (e'tibor bering: $12 < 4\\pi$)"
+   ],
+   "result": "Yogʻingarchilik $(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida kamayadi"
+  },
+  "narr": [
+   "Bu masalada Feniks shahridagi oylik yogʻingarchilikni koʻrib chiqamiz.",
+   "Yogʻingarchilik miqdori $y(t) = 0.5 + 0.3 \\cdot \\cos t$ funksiyasi bilan ifodalanadi, bunda $t$ - yanvardan boshlangan oy soni.",
+   "Avval hosilani topamiz: $y'(t) = -0.3 \\cdot \\sin t$ (buni radianlarda hisoblash kerak)",
+   "Yogʻingarchilik $y' < 0$ boʻlganda kamayadi",
+   "Shunday qilib, $-0.3 \\cdot \\sin t < 0$ tengsizlikni yechamiz",
+   "Bu tengsizlik $\\sin t > 0$ boʻlganda bajariladi",
+   "$(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida $\\sin t > 0$",
+   "$(\\pi, 2\\pi)$ va $(3\\pi, 12)$ oraliqlarida $\\sin t < 0$ (e'tibor bering: $12 < 4\\pi$)",
+   "Demak, yogʻingarchilik $(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida kamayadi"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Nyu-York grippi",
+   "problem": "1960-yil boshidan 1964-yil boshigacha Nyu-Yorkdagi gripp holatlari soni $N(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t}$, $0 \\leq t \\leq 4$ funksiyasi bilan modellashtirilgan, bunda $N(t)$ - holatlar soni (minglarda), $t$ - yillar, $t = 0$ - 1960-yil boshi. a) $N(0)$ va $N(4)$ ni hisoblang va tushuntiring. b) $N'(0)$ va $N'(3)$ ni hisoblang va tushuntiring.",
+   "steps": [
+    "a) $N(0) = 5.3 \\cdot e^0 = 5.3$ - taxminan 1960-yil boshida 5300 holat",
+    "$t = 4$ boʻlganda: $0.093 \\cdot 16 - 0.87 \\cdot 4 = -1.992$",
+    "$N(4) = 5.3 \\cdot e^{-1.992} \\� 0.723$ - taxminan 1964-yil boshida 723 holat",
+    "toʻrt yil ichida holatlar soni sezilarli kamaygan",
+    "b) Zanjir qoidasi: $N'(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t} \\cdot (0.186t - 0.87) = N(t) \\cdot (0.186t - 0.87)$",
+    "$N'(0) = 5.3 \\cdot (-0.87) = -4.611$ - 1960-yil boshida yiliga taxminan 4611 holat kamayib bormoqda"
+   ]
+  },
+  "narr": [
+   "Bu masalada Nyu-Yorkdagi gripp holatlari sonining oʻzgarishini koʻrib chiqamiz.",
+   "a) Avval $N(0)$ va $N(4)$ ni hisoblaymiz.",
+   "$N(0) = 5.3 \\cdot e^0 = 5.3$ - bu taxminan 1960-yil boshida 5300 holat degan maʼnoni anglatadi.",
+   "$t = 4$ boʻlganda: $0.093 \\cdot 16 - 0.87 \\cdot 4 = -1.992$",
+   "$N(4) = 5.3 \\cdot e^{-1.992} \\approx 0.723$ - bu taxminan 1964-yil boshida 723 holat degan maʼnoni anglatadi.",
+   "Koʻrib turganimizdek, toʻrt yil ichida holatlar soni sezilarli kamaygan.",
+   "b) Endi hosilalarni hisoblaymiz. Zanjir qoidasiga koʻra:",
+   "$N'(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t} \\cdot (0.186t - 0.87) = N(t) \\cdot (0.186t - 0.87)$",
+   "$N'(0) = 5.3 \\cdot (-0.87) = -4.611$ - bu 1960-yil boshida yiliga taxminan 4611 holat kamayib bormoqdan degan maʼnoni anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Nyu-York grippi (cont.)",
+   "problem": "",
+   "steps": [
+    "$t = 3$ boʻlganda: $0.093 \\cdot 9 - 0.87 \\cdot 3 = -1.773$ va $0.186 \\cdot 3 - 0.87 = -0.312$",
+    "$N'(3) = 5.3 \\cdot e^{-1.773} \\cdot (-0.312) \\� -0.2808$ - yiliga taxminan 281 holat kamayib bormoqda"
+   ],
+   "result": "a) 1960-yil boshida 5300 holat, 1964-yil boshida 723 holat; b) 1960-yil boshida yiliga 4611 holat, 1963-yil boshida yiliga 281 holat kamayib bormoqda"
+  },
+  "narr": [
+   "1960-yil boshidan 1964-yil boshigacha holatlar soni $N(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t}$ funksiyasi bilan modellashtirilgan.",
+   "$t = 3$ boʻlganda: $0.093 \\cdot 9 - 0.87 \\cdot 3 = -1.773$ va $0.186 \\cdot 3 - 0.87 = -0.312$",
+   "$N'(3) = 5.3 \\cdot e^{-1.773} \\cdot (-0.312) \\approx -0.2808$ - bu 1963-yil boshida yiliga taxminan 281 holat kamayib bormoqdan degan maʼnoni anglatadi.",
+   "Ikkala holatda ham hosila manfiy, ya'ni kasallik darajasi kamaymoqda. Lekin ularning moduli kamayib bormoqda, ya'ni pasayish sekinlashmoqda."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Imtihon oldidan tayyorgarlik",
+   "subtitle": "MATHI−Fall 2026. MIDTERM EXAM tayyorligi uchun YOʻRIQNOMA"
+  },
+  "narr": [
+   "Endi imtihon oldidan tayyorgarlik boʻlimiga oʻtamiz.",
+   "Bu yerda imtihon qoidalari va tayyorgarlik strategiyalari haqida maʼlumot berilgan."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Imtihon qoidalari",
+   "bullets": [
+    "Umumiy davomiyligi — 2 soat; imtihon dars boshlanishiga qatʼiy va 2 soatdan keyin tugaydi",
+    "Imtihon qogʻoz-qalam (pen-paper) boʻyicha. Elektron va raqamli uskunalar, kitoblar va yozmalar taqiqlanadi",
+    "Imtihon paytida hojatxonaga chiqishga ruxsat berilmaydi",
+    "Imtihon darslikning 2-bobi (§§2.1 −2.4) va 3-bobi (§§3.1 −3.5 va 3.9, 3.9.3 boʻlimidan tashqari) hamda Instructorʼs NOTES materialiga qaratilgan",
+    "Barcha berilgan materiallar (masala varaqalari, yechim varaqalari, chizmalar) qaytarib berilishi kerak",
+    "Imtihonni oldin tugatgan talaba chiqishi mumkin, lekin faqat barcha berilgan materiallarni topshirgandan keyin",
+    "Javoblarda quyidagilar kutiladi: tushunchalar va usullarni bilish, matematik jarayonni namoyish etish, tushunarli izohlar va asoslashlar"
+   ]
+  },
+  "narr": [
+   "Imtihon qoidalari quyidagilardan iborat:",
+   "Umumiy davomiyligi 2 soat, imtihon dars boshlanishiga qatʼiy va 2 soatdan keyin tugaydi",
+   "Imtihon qogʻoz-qalam boʻyicha oʻtkaziladi. Elektron va raqamli uskunalar, kitoblar va yozmalar taqiqlanadi",
+   "Imtihon paytida hojatxonaga chiqishga ruxsat berilmaydi",
+   "Imtihon darslikning 2-bobi va 3-bobining bir qismi hamda Instructorʼs NOTES materialiga qaratilgan",
+   "Barcha berilgan materiallar, masala varaqalari, yechim varaqalari va chizmalar qaytarib berilishi kerak",
+   "Imtihonni oldin tugatgan talaba chiqishi mumkin, lekin faqat barcha berilgan materiallarni topshirgandan keyin",
+   "Javoblarda quyidagilar kutiladi: tushunchalar va usullarni bilish, matematik jarayonni namoyish etish, tushunarli izohlar va asoslashlar"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tayyorgarlik strategiyasi",
+   "bullets": [
+    "Talab qilingan oʻqish (darslik boʻlimlari va qismlari) va Instructorʼs NOTES ni oʻrganing",
+    "Darslik prezentatsiyalarini va ularda koʻrilgan misollar va mashqlarni yaxshi oʻrganing",
+    "Amaliy mashqlar va Independent Study Assignments (ISA) ni yaxshi oʻrganing",
+    "Chiziqli algebra boʻyicha yoʻriqnoma bir xil: 1-7 hafta konspektlari, auditoriya mashqlari, amaliy mashqlar va ISA 2-4-boblarda toʻplangan"
+   ]
+  },
+  "narr": [
+   "Tayyorgarlik strategiyasi quyidagilardan iborat:",
+   "Avval talab qilingan oʻqish materiallari, ya'ni darslik boʻlimlari va qismlari hamda Instructorʼs NOTES ni oʻrganing",
+   "Keyin darslik prezentatsiyalarini va ularda koʻrilgan misollar va mashqlarni yaxshi oʻrganing - ular asosiy tushunchalar va usullarni qamrab oladi",
+   "Amaliy mashqlar va Independent Study Assignments (ISA) ni yaxshi oʻrganing - ularning barchasi ushbu qoʻllanmaning 2-4-boblarida koʻrib chiqilgan",
+   "Chiziqli algebra boʻyicha yoʻriqnoma bir xil: 1-7 hafta konspektlari (Strang §§1.2–1.4, 2.1–2.7 va §3.1 boshlanishi) toʻliq yechimlari bilan, auditoriya mashqlari, amaliy mashqlar va ISA 2-4-boblarda toʻplangan"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

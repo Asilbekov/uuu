@@ -1,0 +1,266 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "5-7 haftalar",
+   "subtitle": "Trigonometrik funksiyalarning hosilalari"
+  },
+  "narr": [
+   "5-7 haftalarda biz trigonometrik funksiyalarning hosilalarini, zanjir qoidasini va eksponensial va logarifmik funksiyalarning hosilalarini o'rganamiz.",
+   "Boshlanish nuqtasi sonli tajriba bo'lib, D(x) = (sin(x + 0.01) - sin x)/0.01 grafigi kosinusoidaga juda o'xshash ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy nuqtalar",
+   "bullets": [
+    "3.8-teorema: d/dx(sin x) = cos x, d/dx(cos x) = -sin x",
+    "Grafiklar o'rtasidagi bog'liqlik: sin x maksimum/minimum nuqtalarida urinma gorizontal va cos x = 0",
+    "tan, cot, sec, csc hosilalari bo'linma qoidasi bilan chiqariladi",
+    "Garmonik harakat sinus yoki kosinus bilan ifodalanadi",
+    "Zanjir qoidasi: x o'zgaruvchisi x³ ni, x³ esa sin(x³) ni o'zgartiradi"
+   ]
+  },
+  "narr": [
+   "Birinchidan, 3.8-teoremani ko'rib chiqamiz: sinusning hosilasi kosinus, kosinusning hosilasi esa manfiy sinus bo'ladi.",
+   "Ikkinchi, grafiklar o'rtasidagi bog'liqlikni tushunish muhim: sinus maksimum yoki minimum nuqtalarida kosinus nolga teng bo'ladi.",
+   "Uchinchi, boshqa trigonometrik funksiyalarning hosilalarini bo'linma qoidasi yordamida topish mumkin.",
+   "To'rtinchi, garmonik harakat, masalan prujinadagi massa yoki mayatnik harakati sinus yoki kosinus funksiyalari bilan ifodalanadi.",
+   "Va nihoyat, zanjir qoidasi murakkab funksiyalarning hosilalarini topishga im beradi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3.5-bo'lim, 3.41-misol — Tezlikka qo'llanilishi",
+   "problem": "Zarracha koordinata o'qi bo'ylab harakatlanadi, uning t vaqtidagi holati: s(t) = 2·sin t - t, 0 ≤ t ≤ 2π. Zarracha qaysi vaqtlarda tinch turadi?",
+   "steps": [
+    "Tinch holat uchun tezlik nolga teng bo'lishi kerak: v(t) = s'(t) = 0",
+    "s'(t) = 2·cos t - 1 = 0",
+    "cos t = 1/2",
+    "[0, 2π] oraliqda yechimlar: t = π/3 va t = 5π/3"
+   ],
+   "result": "Zarracha t = π/3 va t = 5π/3 vaqtlarida tinch turadi."
+  },
+  "narr": [
+   "Keling, birinchi misolni ko'rib chiqaylik. Zarracha s(t) = 2·sin t - t tenglama bilan harakatlanmoqda.",
+   "Zarracha qachon tinch turishini aniqlash uchun uning tezligi nolga teng bo'lgan vaqtni topishimiz kerak.",
+   "Shuning uchun, holat funksiyasining hosilasini olamiz: v(t) = s'(t) = 2·cos t - 1.",
+   "Tezlik nolga teng bo'lishi uchun 2·cos t - 1 = 0 tenglamani yechamiz.",
+   "Bu tenglamadan cos t = 1/2 kelib chiqadi.",
+   "[0, 2π] oraliqda bu tenglamaning ikkita yechimi mavjud: t = π/3 va t = 5π/3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3.5-bo'lim, 3.43-misol — Kotangensga tegishli chiziq",
+   "problem": "f(x) = cot x funksiya grafigiga x = π/4 nuqtada teg bo'lgan to'g'ri chiziqning tenglamasini toping.",
+   "steps": [
+    "Tegish nuqtasini topamiz: f(π/4) = cot(π/4) = 1, ya'ni (π/4, 1)",
+    "Nishabni topamiz: f'(x) = -csc²x",
+    "f'(π/4) = -csc²(π/4) = -(√2)² = -2",
+    "Tenglama: y - 1 = -2·(x - π/4)",
+    "Tenglama soddalashtirilganda: y = -2x + 1 + π/2"
+   ],
+   "result": "Tegish chiziqining tenglamasi: y = -2x + 1 + π/2"
+  },
+  "narr": [
+   "Endi ikkinchi misolga o'tamiz. Kotangens funksiyasiga teg bo'lgan to'g'ri chiziqni topishimiz kerak.",
+   "Avval tegish nuqtasini aniqlaymiz. x = π/4 bo'lganda, f(π/4) = cot(π/4) = 1, shuning uchun nuqta (π/4, 1) bo'ladi.",
+   "Keyin, funksiyaning hosilasini topamiz: f'(x) = -csc²x.",
+   "Tegish nuqtasidagi nishabni hisoblaymiz: f'(π/4) = -csc²(π/4) = -(√2)² = -2.",
+   "Endi, to'g'ri chiziqning tenglamasini yozamiz: y - 1 = -2·(x - π/4).",
+   "Tenglamani soddalashtirsak: y = -2x + 1 + π/2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3.5-bo'lim, 3.44-misol — Yig'indi va ko'paytma",
+   "problem": "f(x) = csc x + x·tan x funksiyaning hosilasini toping.",
+   "steps": [
+    "Yig'indi qoidasiga ko'ra f'(x) = d/dx(csc x) + d/dx(x·tan x)",
+    "d/dx(csc x) = -csc x·cot x",
+    "d/dx(x·tan x) = 1·tan x + sec²x·x (ko'paytma qoidasi)",
+    "Jami f'(x) = -csc x·cot x + tan x + x·sec²x"
+   ],
+   "result": "f'(x) = -csc x·cot x + tan x + x·sec²x"
+  },
+  "narr": [
+   "Uchinchi misolda f(x) = csc x + x·tan x funksiyaning hosilasini topishimiz kerak.",
+   "Yig'indi qoidasiga ko'ra, funksiyaning hosilasini alohida-alohida hisoblab, qo'shamiz.",
+   "Birinchidan, csc x ning hosilasini topamiz: d/dx(csc x) = -csc x·cot x.",
+   "Ikkinchidan, x·tan x ko'paytmasining hosilasini ko'paytma qoidasi bilan topamiz: 1·tan x + sec²x·x.",
+   "Ikkala hosilani qo'shib, f'(x) = -csc x·cot x + tan x + x·sec²x ekanligini hosil qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3.5-bo'lim, 3.47-misol — Tezlanishga qo'llanilishi",
+   "problem": "Zarracha s(t) = 2 - sin t tenglamasi bo'yicha harakatlanadi. v(π/4) va a(π/4) ni toping; bu qiymatlarni solishtiring va zarracha tezlashayotganmi yoki sekinlashayotganini aniqlang.",
+   "steps": [
+    "v(t) = s'(t) = -cos t",
+    "v(π/4) = -cos(π/4) = -1/√2",
+    "a(t) = v'(t) = sin t",
+    "a(π/4) = sin(π/4) = 1/√2",
+    "Tezlik manfiy, tezlanish musbat — ular qarama-qarshi yo'nalishda ta'sir qiladi: zarracha sekinlashadi"
+   ],
+   "result": "v(π/4) = -1/√2, a(π/4) = 1/√2. Zarracha sekinlashadi."
+  },
+  "narr": [
+   "To'rtinchi misolda zarrachaning tezligi va tezlanishini topishimiz kerak.",
+   "Zarrachaning holati s(t) = 2 - sin t bilan berilgan. Tezlik v(t) = s'(t) = -cos bo'ladi.",
+   "π/4 vaqtida tezlik v(π/4) = -cos(π/4) = -1/√2 ga teng.",
+   "Tezlanish a(t) = v'(t) = sin bo'ladi. π/4 da a(π/4) = sin(π/4) = 1/√2.",
+   "Tezlik manfiy, tezlanish musbat — bu ularning qarama-qarshi yo'nalishda ta'sir qilishini anglatadi.",
+   "Shuning uchun, zarracha harakat yo'nalishiga qarshi tezlanayotgan, ya'ni sekinlashayotgan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Eksponensial va logarifmik funksiyalarning hosilalari",
+   "subtitle": "3.9-bo'lim"
+  },
+  "narr": [
+   "Endi eksponensial va logarifmik funksiyalarning hosilalarini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy fikrlar",
+   "bullets": [
+    "B(x) = b^x (b > 0) funksiyasi uchun B'(x) = b^x · B'(0)",
+    "e soni — B'(0) = 1 bo'lgan yagona asos",
+    "E'(x) = e^x va d/dx e^(g(x)) = e^(g(x)) · g'(x)",
+    "(ln x)' = 1/x, x > 0",
+    "(b^x)' = b^x · ln b va (log_b x)' = 1/(x · ln b)",
+    "Logarifmik differensiallash g(x)^(f(x)) turdagi funksiyalarni differensiallaydi"
+   ]
+  },
+  "narr": [
+   "Birinchidan, B(x) = b^x funksiyasining hosilasi B'(x) = b^x · B'(0) ekanligini bilamiz.",
+   "e soni — B'(0) = 1 bo'lgan yagona asos bo'lib, bu funksiyaning maxsus xususiyati.",
+   "Eksponensial funksiyaning hosilasi E'(x) = e^x bo'ladi, umumiy holda esa d/dx e^(g(x)) = e^(g(x)) · g'(x).",
+   "Logarifmik funksiyaning hosilasi (ln x)' = 1/x, x > 0 bo'ladi.",
+   "Umumiy holda (b^x)' = b^x · ln b va (log_b x)' = 1/(x · ln b) bo'ladi.",
+   "Va nihoyat, logarifmik differensiallash murakkab ko'paytmalarni soddalashtirishga yordam beradi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3.9-bo'lim, 3.74-misol — Eksponensial bilan kompozitsiya",
+   "problem": "f(x) = e^(tan(2x)) funksiyaning hosilasini toping.",
+   "steps": [
+    "f'(x) = e^(tan(2x)) · d/dx(tan(2x))",
+    "d/dx(tan(2x)) = sec²(2x) · 2 (zanjir qoidasi)",
+    "f'(x) = e^(tan(2x)) · sec²(2x) · 2"
+   ],
+   "result": "f'(x) = 2·e^(tan(2x))·sec²(2x)"
+  },
+  "narr": [
+   "Birinchi misolda f(x) = e^(tan(2x)) funksiyaning hosilasini topishimiz kerak.",
+   "Eksponensial funksiyaning hosilasini topish uchun zanjir qoidasini qo'llaymiz.",
+   "f'(x) = e^(tan(2x)) · d/dx(tan(2x)) bo'ladi.",
+   "tan(2x) ning hosilasini ham zanjir qoidasi bilan topamiz: sec²(2x) · 2.",
+   "Shuning uchun, f'(x) = e^(tan(2x)) · sec²(2x) · 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3.9-bo'lim, 3.75-misol — Qoidalar kombinatsiyasi",
+   "problem": "y = e^(x²)/x funksiyaning hosilasini toping.",
+   "steps": [
+    "Bo'linma qoidasidan foydalanamiz: y' = ((e^(x²))' · x - e^(x²) · 1)/x²",
+    "(e^(x²))' = e^(x²) · 2x (zanjir qoidasi)",
+    "y' = ((e^(x²) · 2x) · x - e^(x²) · 1)/x²",
+    "y' = e^(x²) · (2x² - 1)/x²"
+   ],
+   "result": "y' = e^(x²) · (2x² - 1)/x²"
+  },
+  "narr": [
+   "Ikkinchi misolda y = e^(x²)/x funksiyaning hosilasini topishimiz kerak.",
+   "Bu funksiya bo'linma shaklida bo'lgani uchun bo'linma qoidasini qo'llaymiz.",
+   "y' = ((e^(x²))' · x - e^(x²) · 1)/x² formula yordamida hisoblaymiz.",
+   "e^(x²) ning hosilasini zanjir qoidasi bilan topamiz: e^(x²) · 2x.",
+   "Bu qiymatni asl formula qo'yamiz: y' = ((e^(x²) · 2x) · x - e^(x²) · 1)/x².",
+   "Soddalashtirsak: y' = e^(x²) · (2x² - 1)/x²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ }
+]
