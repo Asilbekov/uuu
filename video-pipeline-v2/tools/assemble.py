@@ -22,13 +22,32 @@ def build(spec_id, lang, chunks_dir, out_path):
         raise RuntimeError(f'old spec not found for {spec_id}_{lang}')
 
     blocks = []
-    files = sorted(f for f in os.listdir(chunks_dir) if f.endswith('.json'))
+    all_files = sorted(f for f in os.listdir(chunks_dir) if f.endswith('.json'))
+    # dedupe: when a full chunk cNNN.json exists, its split parts cNNN_pK.json
+    # are redundant (same source text) — drop the parts to avoid double content
+    fulls = {f for f in all_files if re.fullmatch(r'c\d+\.json', f)}
+    files = [f for f in all_files
+             if not (m := re.fullmatch(r'c(\d+)_p\d+\.json', f)) or f'c{m.group(1)}.json' not in fulls]
     for f in files:
         blocks.extend(json.load(open(os.path.join(chunks_dir, f))))
 
     # hard cleanup: drop unknown types / empty blocks
     VALID = {'section','concept','formula','example','table','plot','timeline','code','matrix','quote','recap'}
     blocks = [b for b in blocks if b.get('type') in VALID and isinstance(b.get('data'), dict)]
+
+    # currency guard: 'tex' fields must be real LaTeX; text that is merely money
+    # ($5.5 billion) breaks KaTeX — demote such cells to plain strings
+    # (string cells render through currency-safe richText)
+    def _tex_ok(v):
+        s = str(v)
+        return '\\' in s or not re.search(r'\$\s*\d', s)
+    for b in blocks:
+        d = b.get('data') or {}
+        for rows in (d.get('rows') if isinstance(d.get('rows'), list) else []):
+            for row in rows:
+                for ci_, c in enumerate(row):
+                    if isinstance(c, dict) and 'tex' in c and not _tex_ok(c['tex']):
+                        row[ci_] = str(c['tex'])
 
     # chapters: split on MAJOR section blocks only (Week/Chapter/Module-level);
     # minor headings (Course Map, Formula Catalog...) stay inside the chapter

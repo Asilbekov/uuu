@@ -1,0 +1,505 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5 through 7 of Linear Algebra I. In this section, we'll explore various exercises covering matrix operations, subspaces, and more.",
+   "Let's dive into our first question."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 1 — Symmetric Matrix",
+   "problem": "Is the matrix A symmetric? If yes, show why.",
+   "steps": [
+    {
+     "text": "Check if A equals its transpose A^T"
+    },
+    {
+     "text": "Verify that off-diagonal elements coincide"
+    }
+   ],
+   "result": "Yes: A^T = A — the off-diagonal elements coincide (a12 = a21 = -3)."
+  },
+  "narr": [
+   "Our first exercise asks us to determine if a matrix is symmetric.",
+   "A matrix is symmetric if it equals its transpose, meaning the off-diagonal elements coincide.",
+   "Let's check if A equals A transpose.",
+   "Yes, it is symmetric because the transpose equals the original matrix, and we can see that the off-diagonal elements are both -3."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 2 — Matrix Decomposition",
+   "problem": "Decompose matrix A into symmetric and skew-symmetric parts.",
+   "steps": [
+    {
+     "text": "Calculate symmetric part S = (A + A^T)/2"
+    },
+    {
+     "text": "Calculate skew-symmetric part K = (A - A^T)/2"
+    },
+    {
+     "text": "Verify that S + K = A"
+    }
+   ],
+   "result": "S = (A + A^T)/2 = [[1, 3], [3, 3]], K = (A - A^T)/2 = [[0, 1], [-1, 0]]; check: S + K = A."
+  },
+  "narr": [
+   "Next, we're asked to decompose a matrix into its symmetric and skew-symmetric parts.",
+   "The symmetric part is calculated as (A + A transpose) divided by 2.",
+   "The skew-symmetric part is (A - A transpose) divided by 2.",
+   "Let's compute these for our matrix.",
+   "Now we verify that adding these two parts gives us back the original matrix.",
+   "Indeed, S plus K equals A, confirming our decomposition is correct."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 3 — Matrix Multiplication",
+   "problem": "Find PA where P and A are given matrices.",
+   "steps": [
+    {
+     "text": "Multiply matrix P by matrix A"
+    },
+    {
+     "text": "Observe the effect on the rows of A"
+    }
+   ],
+   "result": "PA = [[3, 4], [1, 2]] — left multiplication swapped rows 1 and 2."
+  },
+  "narr": [
+   "In this exercise, we need to find the product of matrix P and matrix A.",
+   "When we multiply P by A on the left, we're performing row operations on A.",
+   "The result shows that left multiplication by this particular P matrix swaps rows 1 and 2 of A."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 4 — Matrix Multiplication Order",
+   "problem": "Find AP for the same matrices A and P.",
+   "steps": [
+    {
+     "text": "Multiply matrix A by matrix P"
+    },
+    {
+     "text": "Compare the result with PA from previous exercise"
+    }
+   ],
+   "result": "AP = [[2, 1], [4, 3]] — right multiplication swapped columns 1 and 2; note that AP ≠ PA."
+  },
+  "narr": [
+   "Now we're asked to find AP, which is matrix A multiplied by matrix P on the right.",
+   "When we multiply A by P on the right, we're performing column operations on A.",
+   "The result shows that right multiplication by P swaps columns 1 and 2 of A.",
+   "Notice that AP is not equal to PA, demonstrating that matrix multiplication is not commutative."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 5 — Matrix Inverse",
+   "problem": "Find P^-1 for the given permutation matrix P.",
+   "steps": [
+    {
+     "text": "Recognize that P is a permutation matrix"
+    },
+    {
+     "text": "Compute the transpose of P"
+    },
+    {
+     "text": "Verify that P^T P = I"
+    }
+   ],
+   "result": "P^-1 = P^T = [[0, 0, 1], [1, 0, 0], [0, 1, 0]]; check: P^T P = I."
+  },
+  "narr": [
+   "For this exercise, we need to find the inverse of matrix P.",
+   "Since P is a permutation matrix, its inverse is simply its transpose.",
+   "Let's compute the transpose of P.",
+   "We verify that P transpose times P equals the identity matrix, confirming that P transpose is indeed the inverse."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 6 — Permutation Matrix",
+   "problem": "Find the permutation matrix P that swaps rows 1 and 3 of a 3 × 3 matrix.",
+   "steps": [
+    {
+     "text": "Start with the 3 × 3 identity matrix"
+    },
+    {
+     "text": "Swap rows 1 and 3 in the identity matrix"
+    },
+    {
+     "text": "Verify that PA swaps rows 1 and 3 of any matrix A"
+    }
+   ],
+   "result": "P = [[0, 0, 1], [0, 1, 0], [1, 0, 0]] — swapping rows 1 and 3 in I3; PA swaps the first and third rows of any matrix."
+  },
+  "narr": [
+   "Now we need to find a permutation matrix that swaps rows 1 and 3.",
+   "A permutation matrix is obtained by swapping the corresponding rows in the identity matrix.",
+   "So we start with the 3 × 3 identity matrix and swap rows 1 and 3.",
+   "This resulting matrix P will swap rows 1 and 3 of any matrix it multiplies on the left."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 7 — LU Factorization with Row Exchange",
+   "problem": "Find P, L, U for matrix A with zero pivot.",
+   "steps": [
+    {
+     "text": "Identify the zero pivot requiring row exchange"
+    },
+    {
+     "text": "Find permutation matrix P to exchange rows"
+    },
+    {
+     "text": "Compute PA"
+    },
+    {
+     "text": "Perform elimination on PA"
+    },
+    {
+     "text": "Determine L and U matrices"
+    }
+   ],
+   "result": "P = [[0, 1], [1, 0]], PA = [[3, 4], [0, 2]]; elimination is already complete, so L = I2, U = PA; result: PA = LU."
+  },
+  "narr": [
+   "In this LU factorization problem, we encounter a zero pivot.",
+   "When we have a zero pivot, we need to perform a row exchange.",
+   "We find the permutation matrix P that exchanges the rows to move the zero pivot out of the way.",
+   "After applying P to A, we get PA.",
+   "In this case, elimination is already complete after the row exchange, so our L matrix is just the identity matrix, and U is PA.",
+   "Thus, we have PA = LU as our result."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 8 — LU Factorization without Row Exchange",
+   "problem": "Find L, U for matrix A without row exchanges.",
+   "steps": [
+    {
+     "text": "Compute the multiplier m21 = a21/a11"
+    },
+    {
+     "text": "Perform elimination step R2 ← R2 - m21*R1"
+    },
+    {
+     "text": "Construct L matrix with the multiplier"
+    },
+    {
+     "text": "Verify that LU = A"
+    }
+   ],
+   "result": "m21 = 6/2 = 3; step R2 ← R2 - 3*R1 gives U = [[2, 1], [0, 2]]; L = [[1, 0], [3, 1]]; check: LU = A."
+  },
+  "narr": [
+   "Now we perform LU factorization without row exchanges.",
+   "First, we compute the multiplier m21 as the ratio of a21 to a11.",
+   "We then perform the elimination step by subtracting m21 times row 1 from row 2.",
+   "This gives us our upper triangular matrix U.",
+   "The lower triangular matrix L contains the multiplier in the (2,1) position with 1s on the diagonal.",
+   "Finally, we verify that multiplying L and U gives us back the original matrix A."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 9 — Subspace Verification",
+   "problem": "Is W = {(x, y): y = 3x} a subspace of R²?",
+   "steps": [
+    {
+     "text": "Check if the zero vector is in W"
+    },
+    {
+     "text": "Verify closure under addition"
+    },
+    {
+     "text": "Verify closure under scalar multiplication"
+    }
+   ],
+   "result": "Yes: W = {t(1, 3): t ∈ R}, zero vector when t = 0, and a(s, 3s) + b(t, 3t) = (as + bt, 3(as + bt)) ∈ W."
+  },
+  "narr": [
+   "Moving on to subspace questions, we need to determine if set W is a subspace of R².",
+   "A subspace must contain the zero vector, be closed under addition, and be closed under scalar multiplication.",
+   "First, we check if the zero vector is in W by setting x = 0, which gives y = 0.",
+   "Next, we verify closure under addition by taking two vectors in W and adding them.",
+   "We also verify closure under scalar multiplication by scaling a vector in W.",
+   "Since all three conditions are satisfied, W is indeed a subspace of R²."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 10 — Non-Subspace Verification",
+   "problem": "Is S = {(x, y): y = 3x + 2} a subspace?",
+   "steps": [
+    {
+     "text": "Check if the zero vector is in S"
+    }
+   ],
+   "result": "No: (0, 0) does not satisfy the equation (0 ≠ 3 · 0 + 2) — no zero vector."
+  },
+  "narr": [
+   "Now we need to determine if set S is a subspace.",
+   "The first condition for a subspace is that it must contain the zero vector.",
+   "When we plug in x = 0 and y = 0 into the equation y = 3x + 2, we get 0 = 2, which is false.",
+   "Since the zero vector is not in S, S cannot be a subspace."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 11 — Subspace Verification with Linear Function",
+   "problem": "Is W = {(x, y, z): x + y - z = 0} a subspace?",
+   "steps": [
+    {
+     "text": "Check if the zero vector satisfies the equation"
+    },
+    {
+     "text": "Verify that the function f(x, y, z) = x + y - z is linear"
+    },
+    {
+     "text": "Verify that f preserves linear combinations"
+    }
+   ],
+   "result": "Yes: f(x, y, z) = x + y - z is linear, f(0, 0, 0) = 0 and f(au + bv) = a · f(u) + b · f(v) = 0 for u, v ∈ W."
+  },
+  "narr": [
+   "For this subspace question, we have a set defined by a linear equation.",
+   "First, we check if the zero vector satisfies the equation x + y - z = 0.",
+   "Indeed, when x = y = z = 0, the equation holds.",
+   "The function f(x, y, z) = x + y - z is linear because it satisfies the properties of linearity.",
+   "We can also verify that f preserves linear combinations of vectors in W.",
+   "Since all conditions are satisfied, W is a subspace."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 12 — Vector Combination",
+   "problem": "Express (4, 1) as a combination of vectors (1, 1) and (1, -1).",
+   "steps": [
+    {
+     "text": "Set up equations for the linear combination"
+    },
+    {
+     "text": "Solve the system of equations for coefficients c1 and c2"
+    },
+    {
+     "text": "Verify the solution by computing the combination"
+    }
+   ],
+   "result": "c1 + c2 = 4, c1 - c2 = 1 → c1 = 5/2, c2 = 3/2; verification: (5/2)(1, 1) + (3/2)(1, -1) = (4, 1)."
+  },
+  "narr": [
+   "Now we need to express a given vector as a linear combination of two other vectors.",
+   "We set up equations by equating the components of the linear combination to the target vector.",
+   "This gives us a system of two equations with two unknowns.",
+   "Solving this system, we find the coefficients c1 and c2.",
+   "Finally, we verify our solution by computing the linear combination with these coefficients."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 13 — Linear Span",
+   "problem": "Find the linear span of vectors (1, 2, 0) and (2, 4, 0).",
+   "steps": [
+    {
+     "text": "Check if the vectors are linearly independent"
+    },
+    {
+     "text": "Express the span as all linear combinations of the vectors"
+    }
+   ],
+   "result": "(2, 4, 0) = 2(1, 2, 0), so span{(1, 2, 0), (2, 4, 0)} = {t(1, 2, 0): t ∈ R} — a line."
+  },
+  "narr": [
+   "In this exercise, we need to find the linear span of two vectors.",
+   "First, we check if the vectors are linearly independent.",
+   "We notice that the second vector is just twice the first vector.",
+   "Since the vectors are linearly dependent, the span is just all scalar multiples of one of them.",
+   "Therefore, the span is a line in R³ defined by all multiples of (1, 2, 0)."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 14 — Null Space",
+   "problem": "Find Null(A) for the given matrix A.",
+   "steps": [
+    {
+     "text": "Solve the equation Ax = 0"
+    },
+    {
+     "text": "Express the solution in terms of free variables"
+    },
+    {
+     "text": "Write the null space as a span of basis vectors"
+    }
+   ],
+   "result": "x1 + 2x2 - x3 = 0 → x1 = -2s + t, x2 = s, x3 = t; Null(A) = span{(-2, 1, 0), (1, 0, 1)}."
+  },
+  "narr": [
+   "Now we find the null space of matrix A.",
+   "The null space consists of all vectors x such that Ax = 0.",
+   "We solve the homogeneous system represented by the matrix equation.",
+   "Expressing the solution in terms of free variables, we get a parametric form.",
+   "Finally, we write the null space as the span of the basis vectors corresponding to the free variables."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 15 — Column Space",
+   "problem": "Find Col(A) for the given matrix A and determine if (3, 6, 0) belongs to it.",
+   "steps": [
+    {
+     "text": "Identify the columns of A"
+    },
+    {
+     "text": "Determine if the columns are linearly independent"
+    },
+    {
+     "text": "Express the column space as the span of the columns"
+    },
+    {
+     "text": "Check if (3, 6, 0) can be expressed as a linear combination of the columns"
+    }
+   ],
+   "result": "Columns are proportional: Col(A) = span{(1, 2, 0)}; since (3, 6, 0) = 3(1, 2, 0), it belongs to Col(A)."
+  },
+  "narr": [
+   "For this exercise, we find the column space of matrix A.",
+   "The column space is the span of the column vectors of A.",
+   "We notice that the columns are proportional to each other.",
+   "Therefore, the column space is just the line spanned by one of the columns.",
+   "We then check if the vector (3, 6, 0) belongs to this column space.",
+   "Since (3, 6, 0) is just 3 times (1, 2, 0), it does indeed belong to the column space."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

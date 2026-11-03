@@ -1,0 +1,416 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5 through 7 of Linear Algebra. In this section, we'll explore permutation matrices, determinants, LU decomposition with pivoting, subspaces, and more.",
+   "Let's begin with our first exercise on permutation matrices."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 30 — Verification of P^T P = I",
+   "problem": "For P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 0 & 0 \\end{pmatrix}, verify P^T P = I.",
+   "steps": [
+    "Find the transpose of P",
+    "Multiply P^T by P",
+    "Observe the result"
+   ],
+   "result": "P^T P = I"
+  },
+  "narr": [
+   "Exercise 30 asks us to verify that P transpose times P equals the identity matrix for this permutation matrix P.",
+   "First, we find the transpose of P, which means swapping rows and columns. The rows of P become the columns of P transpose.",
+   "Looking at P, we see that the rows are e2, e3, e1, so P transpose has columns e2, e3, e1, which means P transpose equals this matrix.",
+   "Now we multiply P transpose by P. When we multiply these two matrices, we get the identity matrix.",
+   "This works because the rows of P transpose are actually the columns of P, and their scalar products give us the Kronecker delta, which is 1 when the indices match and 0 otherwise.",
+   "The important consequence is that for this permutation matrix, P inverse equals P transpose."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 31 — Determinant of permutation matrix",
+   "problem": "Find the determinant of the permutation matrix that exchanges rows 1 and 3.",
+   "steps": [
+    "Write the permutation matrix P",
+    "Recognize that one row exchange changes the sign",
+    "Verify by expansion along the first row"
+   ],
+   "result": "det P = -1"
+  },
+  "narr": [
+   "In Exercise 31, we need to find the determinant of a permutation matrix that exchanges rows 1 and 3.",
+   "First, we write the permutation matrix P. When rows 1 and 3 are exchanged, the matrix looks like this.",
+   "We know that each row exchange changes the sign of the determinant. Since we've performed one row exchange, the determinant should be -1.",
+   "To verify, we can expand along the first row. The only non-zero entry in the first row is the 1 in position (1,3), which has a sign of (-1)^(1+3) = 1.",
+   "The minor is the 2x2 matrix in the bottom right, whose determinant is -1.",
+   "So the determinant is 1 × 1 × (-1) = -1, confirming our result."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 32 — PA = LU for 2 × 2",
+   "problem": "Find P, L, U for A = \\begin{pmatrix} 0 & 1 \\\\ 4 & 2 \\end{pmatrix}.",
+   "steps": [
+    "Check the pivot element a11",
+    "Determine if row exchange is needed",
+    "Perform the row exchange if necessary",
+    "Complete the elimination process",
+    "Identify L and U"
+   ],
+   "result": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, L = I_2, U = \\begin{pmatrix} 4 & 2 \\\\ 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Exercise 32 asks us to find the permutation matrix P, lower triangular matrix L, and upper triangular matrix U for this 2x2 matrix A.",
+   "First, we check the pivot element a11, which is 0. Since it's zero, we need to exchange rows.",
+   "The permutation matrix P that exchanges rows 1 and 2 is this matrix.",
+   "When we multiply P by A, we get this matrix where the first row is now [4, 2].",
+   "Below the pivot 4, we have 0, so elimination is complete. Since no elimination was needed after the row exchange, L is just the identity matrix.",
+   "U is the matrix after elimination, which is the same as PA in this case.",
+   "So we have PA = LU with P, L, and U as identified."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 33 — Partial pivoting",
+   "problem": "Apply partial pivoting to A = \\begin{pmatrix} 0.001 & 1 \\\\ 2 & 1 \\end{pmatrix}; compare the multipliers before and after the exchange.",
+   "steps": [
+    "Perform elimination without pivoting",
+    "Calculate the multiplier without pivoting",
+    "Apply partial pivoting",
+    "Calculate the multiplier with pivoting",
+    "Compare the multipliers"
+   ],
+   "result": "Without pivoting: multiplier = 2000; With pivoting: multiplier = 0.0005"
+  },
+  "narr": [
+   "Exercise 33 demonstrates the importance of partial pivoting. We need to apply partial pivoting to this matrix and compare the multipliers before and after the exchange.",
+   "Without pivoting, our pivot element is 0.001, and the multiplier m21 would be 2 divided by 0.001, which equals 2000. This is a huge multiplier that would strongly amplify errors when we subtract 2000 times the first row from the second row.",
+   "With partial pivoting, we look for the largest by magnitude candidate in column 1, which is 2. After exchanging rows using this permutation matrix, we get PA.",
+   "Now the multiplier m21 is 0.001 divided by 2, which equals 0.0005.",
+   "The exchange reduced the multiplier from 2000 to 0.0005, a reduction by a factor of 4 million, making the computation much more numerically stable."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 34 — Subspace verification",
+   "problem": "Check if W = {(x, y): x + 2y = 0} is a subspace.",
+   "steps": [
+    "Check if the zero vector is in W",
+    "Check closure under addition",
+    "Check closure under scalar multiplication",
+    "Interpret the result geometrically"
+   ],
+   "result": "Yes, W is a subspace. Specifically, W = span{(-2, 1)} — a line through the origin."
+  },
+  "narr": [
+   "Exercise 34 asks us to check if the set W defined by x + 2y = 0 is a subspace.",
+   "First, we check if the zero vector is in W. Plugging in x=0 and y=0, we get 0 + 2×0 = 0, which is true, so the zero vector is in W.",
+   "Next, we check closure under addition. If we have two vectors (x, y) and (x', y') in W, then x + 2y = 0 and x' + 2y' = 0. Adding these equations, we get (x + x') + 2(y + y') = 0, so the sum is also in W.",
+   "For closure under scalar multiplication, if (x, y) is in W, then cx + 2cy = c(x + 2y) = c×0 = 0, so the scalar multiple is also in W.",
+   "Since all three conditions are satisfied, W is a subspace. Geometrically, it's the line spanned by the vector (-2, 1), which passes through the origin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 35 — Subspace verification",
+   "problem": "Check if W = {(x, y): x + 2y = 3} is a subspace.",
+   "steps": [
+    "Check if the zero vector is in W",
+    "Analyze the result",
+    "Consider the geometric interpretation"
+   ],
+   "result": "No, W is not a subspace because it does not contain the zero vector."
+  },
+  "narr": [
+   "Exercise 35 asks us to check if the set W defined by x + 2y = 3 is a subspace.",
+   "First, we check if the zero vector is in W. Plugging in x=0 and y=0, we get 0 + 2×0 = 0, which is not equal to 3. So the zero vector is not in W.",
+   "A subspace must contain the zero vector, so we can immediately conclude that W is not a subspace.",
+   "Geometrically, this is a line that doesn't pass through the origin, which is why it can't be a subspace."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 36 — Subspace verification",
+   "problem": "Check if W = {(x, y): x ≥ 0} is a subspace.",
+   "steps": [
+    "Check if the zero vector is in W",
+    "Check closure under addition",
+    "Check closure under scalar multiplication",
+    "Analyze the result"
+   ],
+   "result": "No, W is not a subspace because it is not closed under scalar multiplication."
+  },
+  "narr": [
+   "Exercise 36 asks us to check if the set W defined by x ≥ 0 is a subspace.",
+   "First, we check if the zero vector is in W. Since x=0 ≥ 0, the zero vector is in W.",
+   "Next, we check closure under addition. If we have two vectors (x, y) and (x', y') in W, then x ≥ 0 and x' ≥ 0. The sum has x-coordinate x + x' ≥ 0, so it's also in W.",
+   "However, closure under scalar multiplication fails. For example, the vector (1, 0) is in W, but if we multiply by -1, we get (-1, 0), which has x-coordinate -1 < 0, so it's not in W.",
+   "Geometrically, W is a half-plane, which is not a subspace because it's not closed under scalar multiplication."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 37 — Subspace verification",
+   "problem": "Check if W = {(x, y, z): x - y + z = 0} is a subspace.",
+   "steps": [
+    "Recognize that the defining equation is linear",
+    "Check if the zero vector satisfies the equation",
+    "Verify linearity properties",
+    "Find a basis for W"
+   ],
+   "result": "Yes, W is a subspace. Specifically, W = span{(1, 1, 0), (-1, 0, 1)} — a plane through the origin."
+  },
+  "narr": [
+   "Exercise 37 asks us to check if the set W defined by x - y + z = 0 is a subspace.",
+   "The function f(x, y, z) = x - y + z is linear, and f(0, 0, 0) = 0, so the zero vector is in W.",
+   "Moreover, f(au + bv) = a·f(u) + b·f(v) = 0 for u, v in W, which shows that W is closed under addition and scalar multiplication.",
+   "To find a basis, we can express x in terms of y and z: x = y - z. Then any vector in W can be written as y(1, 1, 0) + z(-1, 0, 1).",
+   "So W is spanned by the vectors (1, 1, 0) and (-1, 0, 1), making it a two-dimensional subspace, specifically a plane through the origin in R³."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 38 — Linear combination",
+   "problem": "Express (6, 2) as a combination of vectors (1, 1) and (1, -1).",
+   "steps": [
+    "Set up the system of equations",
+    "Solve for the coefficients",
+    "Verify the solution"
+   ],
+   "result": "(6, 2) = 4(1, 1) + 2(1, -1)"
+  },
+  "narr": [
+   "Exercise 38 asks us to express the vector (6, 2) as a linear combination of the vectors (1, 1) and (1, -1).",
+   "Let c1 and c2 be the coefficients we're looking for. Then we have c1 + c2 = 6 for the first component, and c1 - c2 = 2 for the second component.",
+   "Adding these equations gives 2c1 = 8, so c1 = 4. Substituting back, we get 4 + c2 = 6, so c2 = 2.",
+   "To verify, we compute 4(1, 1) + 2(1, -1) = (4 + 2, 4 - 2) = (6, 2), which matches our target vector."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 39 — Geometry of span",
+   "problem": "Describe geometrically span{(1, 2, 0), (0, 1, 2)}.",
+   "steps": [
+    "Check if the vectors are proportional",
+    "Express points in the span",
+    "Eliminate parameters to find the equation",
+    "Verify the equation with the given vectors"
+   ],
+   "result": "The span is a two-dimensional plane through the origin with equation 4x - 2y + z = 0."
+  },
+  "narr": [
+   "Exercise 39 asks us to describe geometrically the span of the vectors (1, 2, 0) and (0, 1, 2).",
+   "First, we check if these vectors are proportional. Since there's no scalar k such that k(1, 2, 0) = (0, 1, 2), the vectors are not proportional.",
+   "The span of two non-proportional vectors in R³ is a two-dimensional subspace, specifically a plane through the origin.",
+   "Points in the span can be written as s(1, 2, 0) + t(0, 1, 2) = (s, 2s + t, 2t).",
+   "Eliminating parameters, we set s = x and t = z/2, then substitute into the second equation to get y = 2x + z/2, which simplifies to 4x - 2y + z = 0.",
+   "Verifying with the given vectors: for (1, 2, 0), we have 4×1 - 2×2 + 0 = 0, and for (0, 1, 2), we have 4×0 - 2×1 + 2 = 0, confirming our equation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 40 — Null space of 2 × 3 matrix",
+   "problem": "Find Null(A) for A = \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 1 \\end{pmatrix} (2 × 3 matrix, written row-wise).",
+   "steps": [
+    "Solve the system Ax = 0",
+    "Identify free variables",
+    "Express the solution in parametric form",
+    "Write the null space as a span"
+   ],
+   "result": "Null(A) = span{(0, -1, 1)} — a line in R³"
+  },
+  "narr": [
+   "Exercise 40 asks us to find the null space of this 2×3 matrix A.",
+   "To find the null space, we solve the system Ax = 0. From the second row, we get x2 + x3 = 0, so x2 = -x3.",
+   "Substituting into the first row, we get x1 + x2 + x3 = 0, so x1 - x3 + x3 = 0, which gives x1 = 0.",
+   "We have one free variable, x3 = t. Then x2 = -t and x1 = 0, so the solution is x = t(0, -1, 1).",
+   "Therefore, the null space is the span of the vector (0, -1, 1), which is a line through the origin in R³.",
+   "To verify, we multiply A by this vector and get the zero vector, confirming it's indeed in the null space."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 41 — Column space of 3 × 2 matrix",
+   "problem": "Find Col(A) for A = \\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\\\ 3 & 6 \\end{pmatrix}.",
+   "steps": [
+    "Examine the columns of A",
+    "Check if they are proportional",
+    "Express the column space as a span",
+    "Describe the geometric interpretation"
+   ],
+   "result": "Col(A) = span{(1, 2, 3)} — a line in R³"
+  },
+  "narr": [
+   "Exercise 41 asks us to find the column space of this 3×2 matrix A.",
+   "The columns of A are a1 = (1, 2, 3) and a2 = (2, 4, 6). We notice that a2 = 2a1, so the columns are proportional.",
+   "Since the columns are proportional, any linear combination of them is just a multiple of a1.",
+   "Therefore, the column space is the span of the vector (1, 2, 3), which is a line through the origin in R³.",
+   "Vectors in the column space have the form (t, 2t, 3t) for some scalar t."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 42 — Membership in column space",
+   "problem": "Does (1, 1, 1) belong to the column space Col(A) for A = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\\\ 1 & 1 \\end{pmatrix} (3 × 2 matrix)?",
+   "steps": [
+    "Set up the equation for membership",
+    "Solve the system for the coefficients",
+    "Check for consistency",
+    "Interpret the result geometrically"
+   ],
+   "result": "No, (1, 1, 1) does not belong to Col(A)"
+  },
+  "narr": [
+   "Exercise 42 asks us to determine if the vector (1, 1, 1) belongs to the column space of this 3×2 matrix A.",
+   "To check membership in the column space, we need to see if there exist coefficients c1 and c2 such that c1 times the first column plus c2 times the second column equals (1, 1, 1).",
+   "Looking at the first two coordinates, we get c1 = 1 and c2 = 1. However, when we check the third coordinate, we get c1 + c2 = 1 + 1 = 2, which does not equal 1.",
+   "This is a contradiction, so there are no such coefficients, meaning (1, 1, 1) is not in the column space.",
+   "Geometrically, the column space is the plane z = x + y, and the point (1, 1, 1) does not satisfy this equation since 1 ≠ 1 + 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 43 — Intersection of subspaces",
+   "problem": "Prove that the intersection of two subspaces is a subspace.",
+   "steps": [
+    "Verify the zero vector is in the intersection",
+    "Check closure under addition",
+    "Check closure under scalar multiplication",
+    "Conclude the proof"
+   ],
+   "result": "The intersection of two subspaces is indeed a subspace."
+  },
+  "narr": [
+   "Exercise 43 asks us to prove that the intersection of two subspaces is itself a subspace.",
+   "Let U and W be two subspaces of a vector space V. First, we need to show that the zero vector is in U ∩ W. Since U and W are both subspaces, they each contain the zero vector, so the zero vector is in their intersection.",
+   "Next, we check closure under addition. If u and v are in U ∩ W, then they are in both U and W. Since U and W are closed under addition, u + v is in both U and W, hence in U ∩ W.",
+   "For closure under scalar multiplication, if u is in U ∩ W, then it's in both U and W. Since both are closed under scalar multiplication, cu is in both U and W, hence in U ∩ W.",
+   "Since all three subspace conditions are satisfied, the intersection U ∩ W is indeed a subspace."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ }
+]

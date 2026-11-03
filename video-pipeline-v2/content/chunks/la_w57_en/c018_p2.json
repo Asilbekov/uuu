@@ -1,0 +1,351 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Matrix Transposition",
+   "subtitle": "Properties and Applications"
+  },
+  "narr": [
+   "Let's dive into the concept of matrix transposition and its various properties.",
+   "We'll start with some basic exercises to understand how transposition works.",
+   "Then we'll explore more advanced properties like the transpose of sums and products.",
+   "Finally, we'll look at symmetric matrices and permutation matrices."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 20 — Transpose and Determinant",
+   "problem": "For matrix A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}, find A^T and det(A).",
+   "steps": [
+    "Find the transpose by flipping rows and columns",
+    "Notice A is upper triangular",
+    "The determinant of a triangular matrix is the product of diagonal elements"
+   ],
+   "result": "A^T = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 2 \\end{pmatrix}; det(A) = 1 · 1 · 2 = 2 = det(A^T)"
+  },
+  "narr": [
+   "Let's look at our first exercise with matrix A.",
+   "We need to find its transpose and determinant.",
+   "To find the transpose, we simply flip the rows and columns.",
+   "The transpose A^T places the rows of A as columns.",
+   "Notice that matrix A is upper triangular.",
+   "The determinant of a triangular matrix is just the product of its diagonal elements.",
+   "So det(A) equals 1 times 1 times 2, which is 2.",
+   "Interestingly, the determinant of A equals the determinant of its transpose."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 21 — Dimensions of Transpose",
+   "problem": "For A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}, compute A^T and specify dimensions.",
+   "steps": [
+    "Identify the dimensions of the original matrix",
+    "Transpose by flipping rows and columns",
+    "Observe how dimensions change"
+   ],
+   "result": "A is 2 × 3; A^T = \\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix} is 3 × 2"
+  },
+  "narr": [
+   "Now let's examine how dimensions change with transposition.",
+   "Our matrix A is a 2 × 3 matrix with 2 rows and 3 columns.",
+   "When we transpose it, we flip the rows and columns.",
+   "The transpose A^T becomes a 3 × 2 matrix.",
+   "Notice how the dimensions swap: an m × n matrix becomes n × m when transposed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 22 — Proof of Transpose of Sum",
+   "problem": "Prove (A + B)^T = A^T + B^T element-wise.",
+   "steps": [
+    "Consider the definition of matrix addition",
+    "Examine the ij-th element of (A + B)^T",
+    "Show it equals the ij-th element of A^T + B^T"
+   ],
+   "result": "For A = (a_{ij}), B = (b_{ij}) of size m × n and each i, j: ((A + B)^T)_{ij} = (A + B)_{ji} = a_{ji} + b_{ji} = (A^T)_{ij} + (B^T)_{ij} = (A^T + B^T)_{ij}"
+  },
+  "narr": [
+   "Let's prove an important property: the transpose of a sum.",
+   "We need to show that (A + B)^T equals A^T + B^T.",
+   "Let's consider the ij-th element of (A + B)^T.",
+   "By definition, this equals the ji-th element of (A + B).",
+   "The ji-th element of (A + B) is simply a_{ji} + b_{ji}.",
+   "This equals the ij-th element of A^T plus the ij-th element of B^T.",
+   "Therefore, the matrices (A + B)^T and A^T + B^T have identical elements.",
+   "Since all elements match, the matrices are equal."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 23 — Proof of Transpose of Product",
+   "problem": "Prove (AB)^T = B^T A^T for compatible matrices.",
+   "steps": [
+    "Assume A is m × n and B is n × p",
+    "Examine the ij-th element of (AB)^T",
+    "Show it equals the ij-th element of B^T A^T"
+   ],
+   "result": "Let A be m × n, B be n × p. For each i, j: ((AB)^T)_{ij} = (AB)_{ji} = Σ_k a_{jk} b_{ki} = Σ_k (B^T)_{ik} (A^T)_{kj} = (B^T A^T)_{ij}"
+  },
+  "narr": [
+   "Now let's prove a more complex property: the transpose of a product.",
+   "We need to show that (AB)^T equals B^T A^T.",
+   "Let A be an m × n matrix and B be an n × p matrix.",
+   "Consider the ij-th element of (AB)^T.",
+   "By definition, this equals the ji-th element of AB.",
+   "The ji-th element of AB is the sum over k of a_{jk} b_{ki}.",
+   "This sum can be rewritten using the transpose notation.",
+   "It equals the sum over k of (B^T)_{ik} (A^T)_{kj}.",
+   "This is precisely the ij-th element of B^T A^T.",
+   "Therefore, (AB)^T equals B^T A^T.",
+   "Notice how the order of factors is reversed when taking the transpose of a product."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 24 — Product A^T A",
+   "problem": "Compute A^T A for A = \\begin{pmatrix} 1 & 0 \\\\ 2 & 1 \\\\ 0 & 3 \\end{pmatrix}",
+   "steps": [
+    "Find the transpose of A",
+    "Multiply A^T by A",
+    "Observe the symmetry of the result"
+   ],
+   "result": "A^T A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 3 \\end{pmatrix} · \\begin{pmatrix} 1 & 0 \\\\ 2 & 1 \\\\ 0 & 3 \\end{pmatrix} = \\begin{pmatrix} 5 & 2 \\\\ 2 & 10 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's compute a specific product: A^T A.",
+   "Our matrix A is a 3 × 2 matrix.",
+   "First, we find its transpose A^T, which is a 2 × 3 matrix.",
+   "Now we multiply A^T by A.",
+   "The result is a 2 × 2 matrix.",
+   "Notice that the resulting matrix is symmetric.",
+   "This isn't a coincidence - as we'll see in the next exercise, A^T A is always symmetric."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 25 — Symmetric and Skew-Symmetric Parts",
+   "problem": "For A = \\begin{pmatrix} 1 & 3 \\\\ -2 & 4 \\end{pmatrix}, find the symmetric and skew-symmetric parts.",
+   "steps": [
+    "Find the transpose of A",
+    "Compute the symmetric part S = (A + A^T)/2",
+    "Compute the skew-symmetric part K = (A - A^T)/2",
+    "Verify that S + K = A, S^T = S, and K^T = -K"
+   ],
+   "result": "A^T = \\begin{pmatrix} 1 & -2 \\\\ 3 & 4 \\end{pmatrix}. S = (A + A^T)/2 = \\begin{pmatrix} 1 & 1/2 \\\\ 1/2 & 4 \\end{pmatrix}, K = (A - A^T)/2 = \\begin{pmatrix} 0 & 5/2 \\\\ -5/2 & 0 \\end{pmatrix}"
+  },
+  "narr": [
+   "Any square matrix can be decomposed into symmetric and skew-symmetric parts.",
+   "Let's take our matrix A and find these components.",
+   "First, we find the transpose of A.",
+   "The symmetric part S is calculated as (A + A^T)/2.",
+   "The skew-symmetric part K is (A - A^T)/2.",
+   "Notice that S is symmetric: S^T equals S.",
+   "And K is skew-symmetric: K^T equals -K.",
+   "When we add S and K, we get back our original matrix A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 26 — Symmetry of A^T A",
+   "problem": "Show that A^T A is symmetric for any real matrix A.",
+   "steps": [
+    "Consider the transpose of A^T A",
+    "Apply the product rule for transposes",
+    "Show that (A^T A)^T equals A^T A"
+   ],
+   "result": "(A^T A)^T = A^T (A^T)^T = A^T A"
+  },
+  "narr": [
+   "Let's prove that A^T A is always symmetric for any real matrix A.",
+   "A matrix is symmetric if it equals its own transpose.",
+   "So we need to show that (A^T A)^T equals A^T A.",
+   "Using the product rule for transposes, we have (AB)^T = B^T A^T.",
+   "Applying this to A^T A, we get (A^T A)^T = A^T (A^T)^T.",
+   "The transpose of a transpose is the original matrix, so (A^T)^T equals A.",
+   "Therefore, (A^T A)^T equals A^T A, which means A^T A is symmetric.",
+   "Note that for A of size m × n, the product A^T A is a square n × n matrix."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 27 — Scalar and Outer Product",
+   "problem": "Compute u^T v and u v^T for u = (2, -1)^T, v = (3, 4)^T.",
+   "steps": [
+    "Compute the scalar product u^T v",
+    "Compute the outer product u v^T",
+    "Note the difference in dimensions and results"
+   ],
+   "result": "u^T v = 2 · 3 + (-1) · 4 = 2 (scalar product); u v^T = \\begin{pmatrix} 2 \\\\ -1 \\end{pmatrix} · \\begin{pmatrix} 3 & 4 \\end{pmatrix} = \\begin{pmatrix} 6 & 8 \\\\ -3 & -4 \\end{pmatrix} (outer product)"
+  },
+  "narr": [
+   "Let's explore the difference between scalar and outer products.",
+   "We have two vectors u and v.",
+   "First, we compute the scalar product u^T v.",
+   "This is simply the dot product of u and v.",
+   "The result is a single number, a scalar.",
+   "Now, let's compute the outer product u v^T.",
+   "This is different - we're multiplying a column vector by a row vector.",
+   "The result is a matrix, not a scalar.",
+   "Notice how the dimensions differ: scalar product gives a 1 × 1 result, while outer product gives a 2 × 2 matrix."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 28 — Permutation Matrix",
+   "problem": "Construct the permutation matrix that exchanges rows 1 and 2 of I_3.",
+   "steps": [
+    "Start with the 3 × 3 identity matrix",
+    "Swap rows 1 and 2",
+    "Verify that multiplying by this matrix swaps rows"
+   ],
+   "result": "P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's explore permutation matrices, which are used to swap rows or columns.",
+   "We need to construct a permutation matrix that exchanges rows 1 and 2 of the 3 × 3 identity matrix.",
+   "The identity matrix has ones on the diagonal and zeros elsewhere.",
+   "To swap rows 1 and 2, we simply swap these rows in the identity matrix.",
+   "The resulting matrix P has ones in positions (1,2) and (2,1), and zeros elsewhere.",
+   "When we multiply P by any matrix A with three rows, it swaps the first two rows of A.",
+   "This is a fundamental property of permutation matrices."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 29 — PA vs AP",
+   "problem": "For P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} compare PA and AP for A = \\begin{pmatrix} 2 & 5 \\\\ 7 & 1 \\end{pmatrix}.",
+   "steps": [
+    "Compute PA (left multiplication)",
+    "Compute AP (right multiplication)",
+    "Observe how PA and AP differ"
+   ],
+   "result": "PA = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} · \\begin{pmatrix} 2 & 5 \\\\ 7 & 1 \\end{pmatrix} = \\begin{pmatrix} 7 & 1 \\\\ 2 & 5 \\end{pmatrix} (rows permuted); AP = \\begin{pmatrix} 2 & 5 \\\\ 7 & 1 \\end{pmatrix} · \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} = \\begin{pmatrix} 5 & 2 \\\\ 1 & 7 \\end{pmatrix} (columns permuted)"
+  },
+  "narr": [
+   "Let's compare what happens when we multiply by a permutation matrix on the left versus on the right.",
+   "We have our permutation matrix P and matrix A.",
+   "First, let's compute PA, which is P multiplied by A on the left.",
+   "As expected, this swaps the rows of A.",
+   "Now, let's compute AP, which is A multiplied by P on the right.",
+   "This time, the columns of A are swapped instead.",
+   "This demonstrates a fundamental principle: left multiplication by a permutation matrix affects rows, while right multiplication affects columns.",
+   "And as we can see, PA is not equal to AP in general."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ }
+]
