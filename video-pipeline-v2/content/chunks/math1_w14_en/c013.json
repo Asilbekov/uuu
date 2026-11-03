@@ -1,0 +1,387 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "We begin with a fundamental concept in physics and mathematics: how field strength behaves as we approach a point charge.",
+   "Let's examine the first example from section 2.3."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Field Magnitude Near a Point Charge",
+   "problem": "Given the electric field magnitude E(r) = kq/r² where kq is a positive constant, analyze the behavior as r →0⁺. Also, given density ρ = m/V, compute limρ→0⁺V(ρ) for m = 8 kg and explain the physical meaning.",
+   "steps": [
+    "Analyze E(r) = kq/r² as r →0⁺",
+    "Note that r represents distance and cannot be negative",
+    "Compute V(ρ) = m/ρ for m = 8 kg",
+    "Analyze limρ→0⁺V(ρ)"
+   ],
+   "result": "As r →0⁺, E(r) →+∞ (field magnitude grows without bound). As ρ →0⁺, V(ρ) →+∞ (an object of fixed mass but vanishing density must occupy infinite volume)."
+  },
+  "narr": [
+   "First, let's consider the electric field E(r).",
+   "The numerator is a positive constant, and as r approaches 0 from the positive side, the denominator approaches 0 from the positive side.",
+   "Therefore, E(r) approaches positive infinity.",
+   "This makes physical sense: the field strength becomes infinitely large as we approach the charge itself.",
+   "Now, let's look at the volume-density relationship.",
+   "Given density ρ = m/V, we can express volume as V(ρ) = m/ρ.",
+   "For a fixed mass of 8 kg, as density approaches 0 from the positive side, volume approaches positive infinity.",
+   "This represents the physical concept that an object with fixed mass but vanishing density must occupy infinite volume - similar to how an ideal gas would behave if it thinned out completely."
+  ],
+  "narr_item": [
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "5.4 Solved examples from week 4's notes",
+   "subtitle": "Questions and complete solutions"
+  },
+  "narr": [
+   "Now let's move on to solved examples from week 4's notes, focusing on limits and indeterminate forms."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Indeterminate Form 0/0",
+   "problem": "Show that limx→1(x²−1)/(x−1) has the form 0/0, and compute it; compare with limx→0 x/x, limx→0 x²/x, limx→0 x/x².",
+   "steps": [
+    "Substitute x = 1 to verify the form 0/0",
+    "Factor the numerator: (x²−1) = (x−1)(x+1)",
+    "Simplify the expression for x ≠ 1",
+    "Compute the limit",
+    "Compare with the other three limits"
+   ],
+   "result": "The limit is 2. The three comparisons all have the form 0/0 but yield different results: 1, 0, and ±∞ respectively."
+  },
+  "narr": [
+   "First, let's examine this limit: as x approaches 1 of (x²−1)/(x−1).",
+   "Substituting x = 1 directly gives us 0/0 - an indeterminate form.",
+   "To resolve this, we can factor the numerator as a difference of squares.",
+   "This gives us (x−1)(x+1)/(x−1).",
+   "For x ≠ 1, we can cancel the (x−1) terms, leaving us with x+1.",
+   "Therefore, the limit as x approaches 1 is simply 1+1 = 2.",
+   "Now, let's compare this with three similar limits.",
+   "First, limx→0 x/x: this is also 0/0, but simplifies to 1, so the limit is 1.",
+   "Second, limx→0 x²/x: again 0/0, but simplifies to x, so the limit is 0.",
+   "Third, limx→0 x/x²: once more 0/0, but simplifies to 1/x, which approaches ±∞ as x approaches 0.",
+   "This demonstrates why 0/0 is indeterminate - the same form can lead to different results depending on how the numerator and denominator approach zero."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Standard Limits",
+   "problem": "Using the standard limit limx→0 sinx/x = 1, compute limx→0 sin5x/x.",
+   "steps": [
+    "Substitute u = 5x",
+    "Express sin5x in terms of u",
+    "Compute the limit in terms of u",
+    "Apply the standard limit"
+   ],
+   "result": "The limit is 5."
+  },
+  "narr": [
+   "For this problem, we're given the standard limit: as x approaches 0, sinx/x approaches 1.",
+   "We need to compute: as x approaches 0, sin5x/x.",
+   "Let's make a substitution: let u = 5x.",
+   "As x approaches 0, u also approaches 0.",
+   "Now, we can rewrite sin5x as sinu.",
+   "But we need to express everything in terms of u, so we note that x = u/5.",
+   "Therefore, sin5x/x = sinu/(u/5) = 5(sinu/u).",
+   "Taking the limit as u approaches 0, we get 5 times the standard limit.",
+   "Since sinu/u approaches 1, our limit is 5 × 1 = 5."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Asymptotic Equivalence",
+   "problem": "Using asymptotic equivalence, compute limx→0 sin3x/5x and limx→0 (1−cosx)/x².",
+   "steps": [
+    "Recall that sin3x ∼ 3x as x → 0",
+    "Apply this to sin3x/5x",
+    "Compute the first limit",
+    "Recall that 1−cosx ∼ x²/2 as x → 0",
+    "Apply this to (1−cosx)/x²",
+    "Compute the second limit"
+   ],
+   "result": "The first limit is 3/5 and the second limit is 1/2."
+  },
+  "narr": [
+   "Now let's explore asymptotic equivalence.",
+   "We know that sin3x is asymptotically equivalent to 3x as x approaches 0.",
+   "Therefore, sin3x/5x is asymptotically equivalent to 3x/5x = 3/5.",
+   "So the limit as x approaches 0 of sin3x/5x is 3/5.",
+   "For the second limit, we recall that 1−cosx is asymptotically equivalent to x²/2 as x approaches 0.",
+   "Therefore, (1−cosx)/x² is asymptotically equivalent to (x²/2)/x² = 1/2.",
+   "So the limit as x approaches 0 of (1−cosx)/x² is 1/2."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Equivalence at Infinity",
+   "problem": "Show that 3x²+5x−1 ∼ 3x² as x → ∞, and compute limx→∞ (2x³+x)/(5x²−1) via equivalences.",
+   "steps": [
+    "Compute the ratio (3x²+5x−1)/3x²",
+    "Take the limit as x → ∞",
+    "Establish the equivalence",
+    "Apply this to the limit (2x³+x)/(5x²−1)",
+    "Compute the limit"
+   ],
+   "result": "3x²+5x−1 ∼ 3x² as x → ∞, and limx→∞ (2x³+x)/(5x²−1) = +∞."
+  },
+  "narr": [
+   "Let's examine behavior at infinity.",
+   "First, we want to show that 3x²+5x−1 is asymptotically equivalent to 3x² as x approaches infinity.",
+   "To do this, we compute the ratio (3x²+5x−1)/3x² = 1 + 5/(3x) − 1/(3x²).",
+   "As x approaches infinity, the terms 5/(3x) and 1/(3x²) both approach 0.",
+   "Therefore, the ratio approaches 1, establishing the equivalence.",
+   "Now, let's use this to compute limx→∞ (2x³+x)/(5x²−1).",
+   "For large x, the highest degree terms dominate, so (2x³+x)/(5x²−1) behaves like 2x³/5x² = (2/5)x.",
+   "As x approaches infinity, (2/5)x approaches positive infinity.",
+   "More precisely, the ratio of the original fraction to (2/5)x approaches 1."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   1,
+   2,
+   3,
+   3,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Landau Symbols",
+   "problem": "Show that sinx = O(x) as x → 0, and that 3x = O(x), but 3x ≠ o(x).",
+   "steps": [
+    "Recall the definition of big O notation",
+    "Show that |sinx| ≤ |x| for all real x",
+    "Conclude that sinx = O(x)",
+    "Show that 3x/x = 3 is bounded",
+    "Conclude that 3x = O(x)",
+    "Show that 3x/x does not approach 0",
+    "Conclude that 3x ≠ o(x)"
+   ],
+   "result": "sinx = O(x) and 3x = O(x), but 3x ≠ o(x)."
+  },
+  "narr": [
+   "Now let's explore Landau symbols, specifically big O and little o notation.",
+   "First, we want to show that sinx is big O of x as x approaches 0.",
+   "The inequality |sinx| ≤ |x| holds for all real x, which is a standard geometric fact.",
+   "This means |sinx| ≤ 1·|x|, so by definition, sinx = O(x).",
+   "Next, we consider 3x.",
+   "The ratio |3x|/|x| = 3, which is bounded.",
+   "Therefore, 3x = O(x).",
+   "However, 3x is not little o of x because the ratio 3x/x = 3 does not approach 0 as x approaches 0.",
+   "This illustrates the key difference between big O and little o: big O allows any bounded ratio, while little o requires the ratio to approach zero."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   3,
+   3,
+   4,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Little o Verification",
+   "problem": "Verify x² = o(x) as x → 0, x = o(x²) as x → 0, and x¹⁰ = o(eˣ) as x → ∞.",
+   "steps": [
+    "Show that x²/x → 0 as x → 0",
+    "Conclude x² = o(x) as x → 0",
+    "Show that x/x² → 0 as x → 0",
+    "Conclude x = o(x²) as x → 0",
+    "Show that x¹⁰/eˣ → 0 as x → ∞",
+    "Conclude x¹⁰ = o(eˣ) as x → ∞"
+   ],
+   "result": "All three statements are verified: x² = o(x), x = o(x²), and x¹⁰ = o(eˣ)."
+  },
+  "narr": [
+   "Let's verify some relationships using little o notation.",
+   "First, we want to show that x² is little o of x as x approaches 0.",
+   "This means we need to show that x²/x approaches 0 as x approaches 0.",
+   "Indeed, x²/x = x, which approaches 0 as x approaches 0.",
+   "Therefore, x² = o(x) as x → 0.",
+   "Next, we want to show that x is little o of x² as x approaches 0.",
+   "This means we need to show that x/x² approaches 0 as x approaches 0.",
+   "Indeed, x/x² = 1/x, which approaches 0 as x approaches 0 from the positive side.",
+   "Therefore, x = o(x²) as x → 0.",
+   "Finally, we want to show that x¹⁰ is little o of eˣ as x approaches infinity.",
+   "This means we need to show that x¹⁰/eˣ approaches 0 as x approaches infinity.",
+   "This is a standard result: exponential growth eventually dominates any fixed power.",
+   "Therefore, x¹⁰ = o(eˣ) as x → ∞."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3,
+   4,
+   4,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Relations in Terms of Little o",
+   "problem": "Write sinx ∼ x and eˣ = 1+x+ x²/2 +o(x²) in terms of little o. Explain why f(x) = O(g(x)) is not an ordinary equation.",
+   "steps": [
+    "Recall that f ∼ g if and only if f = g + o(g)",
+    "Apply this to sinx ∼ x",
+    "Write sinx in terms of little o",
+    "Apply this to eˣ = 1+x+ x²/2 +o(x²)",
+    "Explain why f = O(g) is not an ordinary equation"
+   ],
+   "result": "sinx = x + o(x) and eˣ = 1+x+ x²/2 +o(x²). f = O(g) is not an ordinary equation because O(g) denotes a class of functions, not a specific function."
+  },
+  "narr": [
+   "Now let's express some asymptotic relationships in terms of little o notation.",
+   "First, recall that f is asymptotically equivalent to g if and only if f = g + o(g).",
+   "Applying this to sinx ∼ x, we can write sinx = x + o(x).",
+   "This means the difference between sinx and x is negligible compared to x as x approaches 0.",
+   "For the exponential function, we have eˣ = 1+x+ x²/2 +o(x²).",
+   "This means that if we keep terms up to x², the remainder is negligible compared to x² as x approaches 0.",
+   "Finally, f = O(g) is not an ordinary equation because O(g) denotes an entire class of functions bounded by constant multiples of g.",
+   "For example, when we write 2x²+3x+1 = 2x² + O(x), we're saying that the remainder 3x+1 grows no faster than a constant multiple of x."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "6 Textbook supplements",
+   "subtitle": "Additional exercises for required reading with full solutions"
+  },
+  "narr": [
+   "Let's conclude with some additional exercises from the textbook supplements."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "6.1 OpenStax §1.2",
+   "subtitle": "Basic Classes of Functions — selected exercises solved"
+  },
+  "narr": [
+   "We'll look at selected exercises from OpenStax section 1.2 on basic classes of functions."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Line Slopes",
+   "problem": "For each pair of points, find the slope of the line through them and say whether the line is increasing, decreasing, horizontal, or vertical.",
+   "steps": [
+    "Recall the slope formula: m = (y₂-y₁)/(x₂-x₁)",
+    "Apply to given pairs of points",
+    "Determine if the line is increasing, decreasing, horizontal, or vertical based on the slope"
+   ],
+   "result": "The solution would involve computing slopes for specific point pairs and classifying each line."
+  },
+  "narr": [
+   "This problem asks us to find the slope of lines passing through given pairs of points.",
+   "The slope is calculated using the formula m = (y₂-y₁)/(x₂-x₁).",
+   "Once we have the slope, we can determine if the line is increasing (positive slope), decreasing (negative slope), horizontal (zero slope), or vertical (undefined slope).",
+   "The specific point pairs would be provided in the complete problem statement."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2
+  ]
+ }
+]

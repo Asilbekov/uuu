@@ -1,0 +1,584 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this section, we're going to explore the fascinating world of linear algebra, focusing on weeks 5 through 7. We'll dive into questions, formulas, and solutions that reveal the beautiful structure of linear systems.",
+   "Both pictures are the same equation Ax = b: rows are intersections (equations), columns are linear combinations (vectors)."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Three possible outcomes",
+   "bullets": [
+    "One solution—independent constraints.",
+    "Infinitely many solutions: x + y = 2 and 2x + 2y = 4—the second equation is twice the first, the lines coincide.",
+    "No solutions: x + y = 2 and 2x + 2y = 5—the left sides are proportional, the right sides are not, the lines are parallel."
+   ]
+  },
+  "narr": [
+   "When solving linear systems, we encounter three possible outcomes. First, there might be exactly one solution, which happens when our constraints are independent.",
+   "Second, we might have infinitely many solutions, like when we have equations that are essentially the same, just scaled versions of each other.",
+   "Third, there might be no solution at all, which occurs when our constraints contradict each other."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Elimination reveals outcome",
+   "tex": "[00 \\dots 0|0] \\rightarrow 0 = 0 \\text{— infinitely many solutions}; [00 \\dots 0|c], c \\neq 0 \\rightarrow 0 = c \\text{— no solutions}",
+   "parts": [
+    {
+     "substr": "00 \\dots 0|0",
+     "color": "#4C5FD5",
+     "note": "All zeros in the coefficient matrix with zero on the right"
+    },
+    {
+     "substr": "0 = 0",
+     "color": "#0E7C7B",
+     "note": "Always true equation"
+    },
+    {
+     "substr": "00 \\dots 0|c",
+     "color": "#4C5FD5",
+     "note": "All zeros in the coefficient matrix with non-zero on the right"
+    },
+    {
+     "substr": "c \\neq 0",
+     "color": "#A03040",
+     "note": "Non-zero constant"
+    },
+    {
+     "substr": "0 = c",
+     "color": "#0E7C7B",
+     "note": "Contradiction"
+    }
+   ]
+  },
+  "narr": [
+   "Gaussian elimination helps us reveal these outcomes. When we end up with all zeros in the coefficient matrix and zero on the right side, we get 0 = 0, which is always true, indicating infinitely many solutions.",
+   "But if we have all zeros in the coefficient matrix but a non-zero constant on the right, we get 0 = c, which is a contradiction, meaning no solutions exist."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Pivot, multiplier, and forward elimination",
+   "bullets": [
+    "λ_{ij} = \\frac{a_{ij}}{a_{jj}}",
+    "Operation: R_i ← R_i - λ_{ij} · R_j",
+    "To eliminate element a_{ij} below a nonzero pivot a_{jj}, subtract row j multiplied by λ_{ij} from row i."
+   ]
+  },
+  "narr": [
+   "Let's talk about the key components of elimination: pivots, multipliers, and forward elimination.",
+   "The multiplier λ_{ij} is calculated as the ratio of the element we want to eliminate to the pivot element.",
+   "The actual elimination operation subtracts the pivot row multiplied by this multiplier from the target row."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "Running example",
+   "tex": "\\begin{bmatrix} 2 & 1 & 1 & | & 5 \\\\ 4 & -6 & 0 & | & -2 \\\\ -2 & 7 & 2 & | & 9 \\end{bmatrix}",
+   "steps": [
+    "Pivot: 2",
+    "Multipliers: λ_{21} = \\frac{4}{2} = 2 and λ_{31} = \\frac{-2}{2} = -1",
+    "Operations: R_2 ← R_2 - 2R_1, R_3 ← R_3 + R_1",
+    "Result: \\begin{bmatrix} 2 & 1 & 1 & | & 5 \\\\ 0 & -8 & -2 & | & -12 \\\\ 0 & 8 & 3 & | & 14 \\end{bmatrix}",
+    "Second pivot: -8",
+    "Multiplier: λ_{32} = \\frac{8}{-8} = -1"
+   ]
+  },
+  "narr": [
+   "Let's walk through a concrete example to see elimination in action.",
+   "We start with this augmented matrix. Our first pivot is 2.",
+   "The multipliers for eliminating below this pivot are 2 and -1.",
+   "Applying the elimination operations gives us this new matrix.",
+   "Our second pivot is -8.",
+   "The multiplier for eliminating below this pivot is -1."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "Running example (cont.)",
+   "tex": "\\begin{bmatrix} 2 & 1 & 1 & | & 5 \\\\ 4 & -6 & 0 & | & -2 \\\\ -2 & 7 & 2 & | & 9 \\end{bmatrix}",
+   "steps": [
+    "Operation: R_3 ← R_3 + R_2",
+    "Triangular system: \\begin{bmatrix} 2 & 1 & 1 & | & 5 \\\\ 0 & -8 & -2 & | & -12 \\\\ 0 & 0 & 1 & | & 2 \\end{bmatrix}",
+    "Upper triangular matrix U: \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & -8 & -2 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "Pivot elements: 2, -8, 1"
+   ],
+   "problem": ""
+  },
+  "narr": [
+   "Applying this final elimination step gives us our triangular system.",
+   "The upper triangular matrix U contains our pivots 2, -8, and 1."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Back substitution",
+   "bullets": [
+    "w = 2",
+    "-8v - 2w = -12 → v = 1",
+    "2u + v + w = 5 → u = 1",
+    "Solution: x = \\begin{bmatrix} 1 \\\\ 1 \\\\ 2 \\end{bmatrix}",
+    "The triangular system is solved from bottom up",
+    "The answer is verified by substitution into the original equation"
+   ]
+  },
+  "narr": [
+   "Once we have our triangular system, we solve it using back substitution, working from the bottom up.",
+   "The last equation gives us w directly.",
+   "The second equation allows us to solve for v once we know w.",
+   "The first equation then lets us solve for u.",
+   "Our solution vector is [1, 1, 2].",
+   "We can verify this by substituting back into the original equation."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Verification",
+   "tex": "\\begin{bmatrix} 2 & 1 & 1 \\\\ 4 & -6 & 0 \\\\ -2 & 7 & 2 \\end{bmatrix} \\cdot \\begin{bmatrix} 1 \\\\ 1 \\\\ 2 \\end{bmatrix} = \\begin{bmatrix} 5 \\\\ -2 \\\\ 9 \\end{bmatrix}",
+   "parts": [
+    {
+     "substr": "A·x",
+     "color": "#4C5FD5",
+     "note": "Original matrix multiplied by solution vector"
+    },
+    {
+     "substr": "b",
+     "color": "#0E7C7B",
+     "note": "Original right-hand side vector"
+    }
+   ]
+  },
+  "narr": [
+   "Here's the verification step. Multiplying our original matrix by the solution vector gives us back the original right-hand side, confirming our solution is correct."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Important note",
+   "bullets": [
+    "A row operation is reversible (add 2R_1 back)",
+    "Elimination preserves solutions",
+    "The operation must be applied to both left and right sides",
+    "Otherwise the equations are not equivalent"
+   ]
+  },
+  "narr": [
+   "It's crucial to remember that row operations are reversible, which means elimination preserves solutions.",
+   "However, we must apply the same operations to both sides of the equation.",
+   "If we don't, the equations won't remain equivalent."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Elimination matrices E",
+   "bullets": [
+    "E_{21} = \\begin{bmatrix} 1 & 0 & 0 \\\\ -2 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "E_{21} · A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & -8 & -2 \\\\ -2 & 7 & 2 \\end{bmatrix}",
+    "E_{21} · b = \\begin{bmatrix} 5 \\\\ -12 \\\\ 9 \\end{bmatrix}",
+    "Left multiplication performs a row operation",
+    "The right side is transformed by the same matrix",
+    "Ax = b becomes (E_{21}A)x = E_{21}b"
+   ]
+  },
+  "narr": [
+   "Each row operation can be represented by an elimination matrix E.",
+   "For example, E_{21} performs the operation R_2 ← R_2 - 2R_1.",
+   "When we multiply E_{21} by A, we get the transformed matrix.",
+   "Similarly, multiplying E_{21} by b transforms the right side.",
+   "This shows that left multiplication by E performs the row operation.",
+   "The system Ax = b becomes (E_{21}A)x = E_{21}b after the operation."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "Full elimination process",
+   "tex": "E_{32} · E_{31} · E_{21} · A = U",
+   "steps": [
+    "E_{31} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 1 \\end{bmatrix}",
+    "E_{32} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 1 & 1 \\end{bmatrix}",
+    "The rightmost multiplier acts first—order of multiplication matters",
+    "Undo step: subtraction is replaced by addition",
+    "For E = \\begin{bmatrix} 1 & 0 \\\\ -3 & 1 \\end{bmatrix}, the inverse is E^{-1} = \\begin{bmatrix} 1 & 0 \\\\ 3 & 1 \\end{bmatrix}",
+    "E^{-1} · E = I"
+   ]
+  },
+  "narr": [
+   "To complete the full elimination process, we multiply by all the elimination matrices in order.",
+   "The rightmost multiplier acts first, which is why the order of multiplication matters.",
+   "To undo an elimination step, we simply reverse the operation—subtraction becomes addition.",
+   "The inverse of an elimination matrix E performs this undo operation.",
+   "Multiplying E by its inverse gives us the identity matrix I."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Zero pivot: permutation matrices P",
+   "bullets": [
+    "\\begin{bmatrix} 0 & 2 & | & 4 \\\\ 3 & 1 & | & 7 \\end{bmatrix} → \\begin{bmatrix} 3 & 1 & | & 7 \\\\ 0 & 2 & | & 4 \\end{bmatrix} (row exchange)",
+    "Then y = 2, x = 5/3",
+    "A zero pivot does not necessarily mean singularity",
+    "If there is a nonzero element below, rows are swapped",
+    "The swap is performed by a permutation matrix P",
+    "P also transforms the right side: PAx = Pb"
+   ]
+  },
+  "narr": [
+   "What happens when we encounter a zero pivot? It doesn't necessarily mean the system is singular.",
+   "If there's a nonzero element below the zero pivot, we can swap rows.",
+   "This swap is performed by a permutation matrix P.",
+   "The permutation matrix also transforms the right side of the equation.",
+   "The system becomes PAx = Pb after the permutation."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "Properties of permutation matrices",
+   "tex": "P = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}",
+   "steps": [
+    "One 1 in each row and column, rest zeros",
+    "P^{-1} = P^T",
+    "For a single swap P^2 = I",
+    "Swapping rows 1 and 3: P_{13} = \\begin{bmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{bmatrix}",
+    "Left multiplication changes equations, not unknowns"
+   ]
+  },
+  "narr": [
+   "Permutation matrices have some interesting properties.",
+   "They contain exactly one 1 in each row and column, with zeros elsewhere.",
+   "The inverse of a permutation matrix is its transpose.",
+   "For a single swap, P squared equals the identity matrix.",
+   "When we left-multiply by P, we're changing the equations, not the unknowns."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Elimination failures",
+   "bullets": [
+    "Temporary — zero pivot with nonzero element below (swap saves)",
+    "Permanent — no available pivot in column (singularity: no solution or infinitely many)"
+   ]
+  },
+  "narr": [
+   "There are two types of elimination failures. Temporary failures occur when we have a zero pivot but a nonzero element below, which we can fix by swapping.",
+   "Permanent failures happen when there's no available pivot in a column, indicating singularity—either no solution or infinitely many solutions."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Looking ahead: A = LU and PA = LU",
+   "bullets": [
+    "Without row exchanges: A = LU (U — upper triangular, L stores elimination factors)",
+    "With exchanges: PA = LU"
+   ]
+  },
+  "narr": [
+   "Looking ahead to future topics, we'll learn about LU decomposition.",
+   "Without row exchanges, A can be factored into LU, where U is upper triangular and L stores the elimination factors.",
+   "With row exchanges, we have PA = LU, where P is the permutation matrix."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Week summary",
+   "items": [
+    "Rows — intersections, columns — combinations",
+    "Elimination — zeros below pivots plus back substitution",
+    "E — row replacement, P — row swap",
+    "LU decomposition (A = LU, PA = LU) is built in week 6"
+   ]
+  },
+  "narr": [
+   "To summarize this week's content:",
+   "We've seen how rows represent intersections of equations, while columns represent linear combinations of vectors.",
+   "Elimination involves creating zeros below pivots followed by back substitution.",
+   "We've introduced elimination matrices E for row replacement and permutation matrices P for row swaps.",
+   "Finally, we've previewed LU decomposition, which we'll explore more in week 6."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Row picture and column picture",
+   "problem": "Solve the system \\begin{bmatrix} 2 & -1 \\\\ 1 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 1 \\\\ 5 \\end{bmatrix} and describe both geometric pictures.",
+   "steps": [
+    "Add equations: 3x = 6, x = 2",
+    "Then y = 5 - 2 = 3",
+    "Lines 2x - y = 1 and x + y = 5 intersect at (2, 3)",
+    "By columns: 2·\\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix} + 3·\\begin{bmatrix} -1 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 4 - 3 \\\\ 2 + 3 \\end{bmatrix} = \\begin{bmatrix} 1 \\\\ 5 \\end{bmatrix}"
+   ],
+   "result": "x = 2, y = 3"
+  },
+  "narr": [
+   "Let's solve our first exercise. We need to solve this 2x2 system and describe both the row and column pictures.",
+   "Adding the two equations gives us 3x = 6, so x = 2.",
+   "Substituting back, we find y = 5 - 2 = 3.",
+   "Geometrically, the lines represented by these equations intersect at the point (2, 3).",
+   "In the column picture, we're finding coefficients that combine the column vectors to give the right-hand side vector."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Three outcomes",
+   "problem": "Classify the system \\begin{bmatrix} 1 & 1 \\\\ 2 & 2 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 2 \\\\ c \\end{bmatrix} for c = 4 and c = 5.",
+   "steps": [
+    "R_2 ← R_2 - 2R_1 gives row [0 0|c - 4]",
+    "When c = 4, this is 0 = 0: x + y = 2 remains",
+    "Infinitely many solutions — \\begin{bmatrix} 2 - t \\\\ t \\end{bmatrix}",
+    "When c = 5, this is 0 = 1 — contradiction",
+    "No solution"
+   ],
+   "result": "For c = 4: infinitely many solutions; for c = 5: no solution"
+  },
+  "narr": [
+   "In this exercise, we classify the system for two different values of c.",
+   "Applying elimination, we get a row of [0 0|c - 4].",
+   "When c = 4, this becomes 0 = 0, which is always true. We're left with just x + y = 2, giving infinitely many solutions.",
+   "When c = 5, we get 0 = 1, which is a contradiction.",
+   "So for c = 5, there's no solution."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Find the multiplier",
+   "problem": "Eliminate below the first pivot in the augmented matrix \\begin{bmatrix} 2 & 3 & | & 7 \\\\ 8 & 13 & | & 29 \\end{bmatrix} and find both pivots.",
+   "steps": [
+    "Multiplier λ_{21} = 8/2 = 4",
+    "R_2 ← R_2 - 4R_1: [8, 13|29] - 4 · [2, 3|7] = [0, 1|1]",
+    "Result: \\begin{bmatrix} 2 & 3 & | & 7 \\\\ 0 & 1 & | & 1 \\end{bmatrix}",
+    "Pivots are 2 and 1"
+   ],
+   "result": "Multiplier: 4; Pivots: 2 and 1"
+  },
+  "narr": [
+   "For this exercise, we need to find the multiplier and perform elimination.",
+   "The multiplier λ_{21} is 8/2 = 4.",
+   "Applying the elimination operation R_2 ← R_2 - 4R_1 gives us this new matrix.",
+   "The pivots in the resulting matrix are 2 and 1."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Back substitution",
+   "problem": "Solve the system \\begin{bmatrix} 2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 3 \\\\ 7 \\\\ 8 \\end{bmatrix}.",
+   "steps": [
+    "Bottom up: 4z = 8, z = 2",
+    "3y + 2 · 2 = 7, y = 1",
+    "2x + 1 - 2 = 3, x = 2",
+    "Answer: \\begin{bmatrix} 2 \\\\ 1 \\\\ 2 \\end{bmatrix}",
+    "Check: 2 · 2 + 1 - 2 = 3, 3 + 4 = 7, 8 = 8 — correct"
+   ],
+   "result": "x = \\begin{bmatrix} 2 \\\\ 1 \\\\ 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Now we practice back substitution on this triangular system.",
+   "Starting from the bottom, we find z = 2 directly.",
+   "Using this value, we solve for y: 3y + 2 · 2 = 7 gives y = 1.",
+   "Finally, we solve for x: 2x + 1 - 2 = 3 gives x = 2.",
+   "Our solution is [2, 1, 2], which we verify by substituting back into the original equations."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Full elimination",
+   "problem": "Solve the system \\begin{bmatrix} 1 & 1 & 1 & | & 6 \\\\ 2 & 3 & 1 & | & 10 \\\\ 1 & 2 & 3 & | & 14 \\end{bmatrix} by elimination.",
+   "steps": [
+    "R_2 ← R_2 - 2R_1 → [0 1 -1| -2]",
+    "R_3 ← R_3 - R_1 → [0 1 2|8]",
+    "R_3 ← R_3 - R_2 → [0 0 3|10]",
+    "So 3z = 10",
+    "Back substitution: z = 10/3",
+    "y - z = -2 → y = 4/3",
+    "x + y + z = 6 → x = 4/3"
+   ],
+   "result": "[4/3; 4/3; 10/3]"
+  },
+  "narr": [
+   "In this exercise, we perform full elimination on a 3x3 system.",
+   "First, we eliminate below the first pivot, getting these two new rows.",
+   "Next, we eliminate below the second pivot, resulting in this triangular form.",
+   "Now we can solve for z directly: 3z = 10 gives z = 10/3.",
+   "Using this value, we solve for y: y - 10/3 = -2 gives y = 4/3.",
+   "Finally, we solve for x: x + 4/3 + 10/3 = 6 gives x = 4/3."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Identify elementary matrix",
+   "problem": "Find E that performs R_3 ← R_3 - 4R_1 on a 3 × 3 matrix.",
+   "steps": [
+    "E is identity matrix with -4 in position (3, 1)",
+    "E = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{bmatrix}",
+    "Row 3 of EA equals (row 3) - 4 · (row 1)",
+    "Rows 1-2 unchanged",
+    "Inverse operation is addition",
+    "E^{-1} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 4 & 0 & 1 \\end{bmatrix} with +4 in position (3, 1)"
+   ],
+   "result": "E = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\{bmatrix}"
+  },
+  "narr": [
+   "For our final exercise, we need to find the elementary matrix that performs a specific row operation.",
+   "The matrix E is the identity matrix with -4 in position (3, 1).",
+   "When we multiply E by A, row 3 of the result is row 3 minus 4 times row 1, while rows 1 and 2 remain unchanged.",
+   "The inverse operation would be addition, so E^{-1} has +4 in position (3, 1)."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

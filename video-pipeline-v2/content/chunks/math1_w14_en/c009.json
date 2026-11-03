@@ -1,0 +1,288 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to our exploration of limits and their applications in engineering and physics. Today we'll examine several practical problems involving one-sided and two-sided limits, and their significance in real-world systems."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Switching System Voltage",
+   "problem": "Switching system: V(t) = 2t + 1 when t < 4 and V(t) = 12 − t when t ≥ 4. Determine the one-sided limits, the two-sided limit, and V(4); is there a sharp voltage change at t = 4?",
+   "steps": [
+    "Calculate the left-hand limit as t approaches 4",
+    "Calculate the right-hand limit as t approaches 4",
+    "Determine the value of V(4)",
+    "Compare the limits to determine if a two-sided limit exists",
+    "Assess whether there's a sharp voltage change at t = 4"
+   ],
+   "result": "From the left: lim_{t→4⁻}(2t+1) = 9V. From the right: lim_{t→4⁺}(12−t) = 8V. V(4) = 12−4 = 8V. The one-sided limits are different, so lim_{t→4} V(t) does not exist: at t = 4, the voltage drops sharply from 9V to 8V."
+  },
+  "narr": [
+   "Let's examine our first problem involving a switching system with a voltage function that changes at t = 4.",
+   "To find the left-hand limit, we evaluate the first piece of the function as t approaches 4 from the left: lim_{t→4⁻}(2t+1) = 9V.",
+   "For the right-hand limit, we use the second piece as t approaches 4 from the right: lim_{t→4⁺}(12−t) = 8V.",
+   "The actual value at t = 4 is given by the second piece since it's defined for t ≥ 4: V(4) = 12−4 = 8V.",
+   "Since the left-hand limit (9V) and right-hand limit (8V) are different, the two-sided limit does not exist.",
+   "This indicates a sharp voltage change at t = 4, where the voltage drops from 9V to 8V instantaneously."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Stress-Strain Relationship",
+   "problem": "Stress-strain: σ(ε) = 200000ε when ε < 0.002 and σ(ε) = 400 + 10000(ε−0.002) when ε ≥ 0.002 (σ in MPa; Hooke's region, then hardening). Find the one-sided limits at ε = 0.002; does the two-sided limit exist? Does the model predict a jump?",
+   "steps": [
+    "Calculate the left-hand limit as ε approaches 0.002",
+    "Calculate the right-hand limit as ε approaches 0.002",
+    "Compare the limits to determine if a two-sided limit exists",
+    "Assess whether the model predicts a jump discontinuity"
+   ],
+   "result": "Elastic side: lim_{ε→0.002⁻}σ(ε) = 200000(0.002) = 400 MPa. Plastic side: lim_{ε→0.002⁺}σ(ε) = 400 + 10000(0.002−0.002) = 400 MPa. Both equal 400 MPa, so the two-sided limit exists and equals 400 MPa; there is no jump—the piecewise model is continuous at the yield point, only the slope changes."
+  },
+  "narr": [
+   "Next, let's explore a stress-strain relationship in materials science, which has different behaviors in the elastic and plastic regions.",
+   "For the elastic region (ε < 0.002), we calculate the left-hand limit: lim_{ε→0.002⁻}σ(ε) = 200000(0.002) = 400 MPa.",
+   "For the plastic region (ε ≥ 0.002), we find the right-hand limit: lim_{ε→0.002⁺}σ(ε) = 400 + 10000(0.002−0.002) = 400 MPa.",
+   "Since both one-sided limits equal 400 MPa, the two-sided limit exists and equals 400 MPa.",
+   "The model is continuous at the yield point with no jump discontinuity—only the slope changes from 200,000 to 10,000 MPa per unit strain."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — RC Circuit Response",
+   "problem": "Long-term response of an RC circuit: V(t) = Vs(1 − e^{-t/(RC)}) with Vs = 12V, R = 10000Ω, C = 100 µF. (1) Calculate lim_{t→0⁺}V(t); (2) lim_{t→∞}V(t); (3) interpret both physically.",
+   "steps": [
+    "Calculate the limit as t approaches 0 from the right",
+    "Calculate the limit as t approaches infinity",
+    "Interpret both limits physically in terms of circuit behavior"
+   ],
+   "result": "(1) At t = 0⁺, V(0⁺) = 12(1−1) = 0. (2) As t →∞, V →Vs = 12V. (3) The capacitor charges from 0V toward the supply voltage of 12V, approaching it asymptotically; the time constant τ = RC = 1s sets the pace."
+  },
+  "narr": [
+   "Now let's examine an RC circuit's voltage response over time, which demonstrates exponential charging behavior.",
+   "For the first limit as t approaches 0 from the right, we find V(0⁺) = 12(1−1) = 0, indicating the capacitor starts uncharged.",
+   "As time approaches infinity, the exponential term vanishes, so V →Vs = 12V, meaning the capacitor eventually reaches the supply voltage.",
+   "Physically, this represents a capacitor charging from 0V toward 12V, with the time constant τ = RC = 1s determining the charging rate."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Terminal Velocity Model",
+   "problem": "Terminal velocity: v(t) = vT(1 − e^{-kt}), vT > 0, k > 0. (1) v(0)? (2) lim_{t→∞}v(t)? (3) Why is this model more realistic than unlimited acceleration?",
+   "steps": [
+    "Calculate the velocity at time t = 0",
+    "Find the limit as time approaches infinity",
+    "Explain why this model is more realistic than unlimited acceleration"
+   ],
+   "result": "(1) v(0) = vT(1−1) = 0: the object starts from rest. (2) e^{-kt} →0, so v →vT: the speed approaches the terminal value. (3) Air resistance increases with speed until it balances gravity; after that, the net force is zero, and speed can no longer increase."
+  },
+  "narr": [
+   "Let's consider a model for terminal velocity, which describes how objects falling through a fluid reach a maximum speed.",
+   "At time zero, v(0) = vT(1−1) = 0, indicating the object starts from rest.",
+   "As time approaches infinity, the exponential term diminishes, so v →vT, meaning the speed approaches a terminal value.",
+   "This model is more realistic than unlimited acceleration because it accounts for air resistance that eventually balances gravitational force, resulting in zero net force and constant velocity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Data Transfer Rate",
+   "problem": "Data transfer rate: R(n) = 100/(n+20) Mbps. (1) Calculate R(10), R(100), R(1000); (2) lim_{n→∞}R(n); (3) why does increasing n eventually give diminishing improvements? (4) maximum theoretical speed?",
+   "steps": [
+    "Calculate R(n) for n = 10, 100, and 1000",
+    "Find the limit as n approaches infinity",
+    "Explain the concept of diminishing returns",
+    "Identify the maximum theoretical speed"
+   ],
+   "result": "(1) R(10) ≈33.3, R(100) ≈83.3, R(1000) ≈98.0 Mbps. (2) R(n) = 100/(1+20/n) →100 Mbps. (3) Each additional unit of resource is divided by an increasingly large base, so marginal benefit decreases. (4) The horizontal asymptote 100 Mbps is the ceiling of the model."
+  },
+  "narr": [
+   "Our final example examines a data transfer rate model that demonstrates diminishing returns.",
+   "Calculating R(n) for specific values: R(10) ≈33.3, R(100) ≈83.3, and R(1000) ≈98.0 Mbps.",
+   "As n approaches infinity, R(n) approaches 100 Mbps, which represents the theoretical maximum transfer rate.",
+   "This exhibits diminishing returns because each additional resource unit provides progressively smaller improvements.",
+   "The horizontal asymptote at 100 Mbps represents the absolute ceiling of this transfer model."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Now we'll turn to some textbook exercises that involve interpreting limits from graphs. These problems help develop visual understanding of limit concepts."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Graph Interpretation Exercise",
+   "problem": "From the first graph y = f(x), solve: (46) lim_{x→10⁻}f(x) = 0; (47) lim_{x→−2⁺}f(x) = 3; (48) lim_{x→−8}f(x) = f(−8); (49) lim_{x→6}f(x) = 5 — true or false?",
+   "steps": [
+    "Evaluate whether lim_{x→10⁻}f(x) = 0 is true",
+    "Evaluate whether lim_{x→−2⁺}f(x) = 3 is true",
+    "Evaluate whether lim_{x→−8}f(x) = f(−8) is true",
+    "Evaluate whether lim_{x→6}f(x) = 5 is true"
+   ],
+   "result": "(46) True: as x →10 from the left, the curve descends to the filled point (10, 0). (47) True: slightly to the right of −2, the graph is at height 3. (48) False: lim_{x→−8}f(x) = −6, whereas f(−8) = −3. (49) False: the one-sided limits are different (2 and 5), so the two-sided limit does not exist."
+  },
+  "narr": [
+   "Let's work through some graph interpretation exercises. For the first graph:",
+   "Statement (46) is true because as x approaches 10 from the left, the curve descends to the filled point (10, 0).",
+   "Statement (47) is true because slightly to the right of −2, the graph is at height 3, as indicated by the filled point (−2, 3).",
+   "Statement (48) is false because near x = −8, the curve approaches an open circle at height −6, so lim_{x→−8}f(x) = −6, whereas f(−8) = −3 at the filled point.",
+   "Statement (49) is false because from the left, the curve descends to an open circle (6, 2), while the right branch emerges from (6, 5), making the one-sided limits different."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Piecewise Linear Graph",
+   "problem": "For the piecewise linear graph (line y = x + 1 to the open point (1, 2); filled point (1, 1); then line y = 3 − x), find (50) lim_{x→1⁻}f; (51) lim_{x→1⁺}f; (52) lim_{x→1}f; (53) lim_{x→2}f; (54)f(1).",
+   "steps": [
+    "Find the left-hand limit as x approaches 1",
+    "Find the right-hand limit as x approaches 1",
+    "Determine if the two-sided limit exists at x = 1",
+    "Find the limit as x approaches 2",
+    "Determine the function value at x = 1"
+   ],
+   "result": "(50) The left branch y = x + 1 →2. (51) The right branch y = 3 − x →2. (52) Both sides equal 2, so lim_{x→1}f(x) = 2 — even though f(1) = 1. (53) At x = 2, only the right branch exists: 3 − 2 = 1. (54) f(1) = 1 (filled point)."
+  },
+  "narr": [
+   "Now let's analyze a piecewise linear graph with a discontinuity at x = 1.",
+   "For the left-hand limit as x approaches 1, we follow the left branch y = x + 1, which approaches 2.",
+   "For the right-hand limit as x approaches 1, we follow the right branch y = 3 − x, which also approaches 2.",
+   "Since both one-sided limits equal 2, the two-sided limit exists and equals 2, even though f(1) = 1 at the filled point.",
+   "At x = 2, only the right branch exists, so the limit is 3 − 2 = 1.",
+   "The function value at x = 1 is explicitly given as f(1) = 1 at the filled point."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Discontinuous Graph",
+   "problem": "For the third graph (left: line descending to the open point (0, 1); right: curve rising from the filled point (0, −4) and crossing zero near x = 2), find (55) lim_{x→0⁻}f; (56) lim_{x→0⁺}f; (57) lim_{x→0}f; (58) lim_{x→2}f.",
+   "steps": [
+    "Find the left-hand limit as x approaches 0",
+    "Find the right-hand limit as x approaches 0",
+    "Determine if the two-sided limit exists at x = 0",
+    "Find the limit as x approaches 2"
+   ],
+   "result": "(55) 1. (56) −4. (57) 1 ≠ −4, so the two-sided limit does not exist. (58) The right branch crosses the axis at x = 2, so the limit is 0."
+  },
+  "narr": [
+   "Next, we examine a graph with a discontinuity at x = 0.",
+   "The left-hand limit as x approaches 0 is 1, as indicated by the open point (0, 1).",
+   "The right-hand limit as x approaches 0 is −4, as shown by the filled point (0, −4).",
+   "Since the left-hand limit (1) and right-hand limit (−4) are not equal, the two-sided limit does not exist at x = 0.",
+   "At x = 2, the right branch crosses the x-axis, so the limit is 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Multi-segment Graph",
+   "problem": "For the fourth graph (three pieces: rising line to the open point (−2, 0); descending segment from the filled point (−2, 2) through the origin to (2, −2); rising line from the open point (2, 2)), find (59) lim_{x→−2⁻}f; (60) lim_{x→−2⁺}f; (61) lim_{x→−2}f; (62) lim_{x→2⁻}f; (63) lim_{x→2⁺}f; (64) lim_{x→2}f.",
+   "steps": [
+    "Find the left-hand limit as x approaches −2",
+    "Find the right-hand limit as x approaches −2",
+    "Determine if the two-sided limit exists at x = −2",
+    "Find the left-hand limit as x approaches 2",
+    "Find the right-hand limit as x approaches 2",
+    "Determine if the two-sided limit exists at x = 2"
+   ],
+   "result": "(59) 0 (from the rising line to the open point). (60) 2 (from the filled point). (61) The two-sided limit does not exist since 0 ≠ 2. (62) −2 (from the descending segment). (63) 2 (from the rising line). (64) The two-sided limit does not exist since −2 ≠ 2."
+  },
+  "narr": [
+   "Finally, let's analyze a complex graph with three segments and discontinuities at x = −2 and x = 2.",
+   "As x approaches −2 from the left, the rising line goes to the open point (−2, 0), so the left-hand limit is 0.",
+   "As x approaches −2 from the right, we start at the filled point (−2, 2), so the right-hand limit is 2.",
+   "Since the left-hand limit (0) and right-hand limit (2) are different, the two-sided limit does not exist at x = −2.",
+   "As x approaches 2 from the left, we follow the descending segment to (2, −2), so the left-hand limit is −2.",
+   "As x approaches 2 from the right, we start with the rising line from the open point (2, 2), so the right-hand limit is 2.",
+   "Again, since the left-hand limit (−2) and right-hand limit (2) are different, the two-sided limit does not exist at x = 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

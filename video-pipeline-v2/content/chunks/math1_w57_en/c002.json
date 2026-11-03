@@ -1,0 +1,445 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Let's dive into weeks 5-7 of Math I, focusing on inverse functions, continuity, and their applications.",
+   "We'll start by understanding when a function has an inverse and how to compute it."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Inverse Functions",
+   "bullets": [
+    "A function has an inverse on its domain if and only if it is one-to-one",
+    "Graphically: each horizontal line intersects the graph at most once",
+    "A continuous and strictly monotonic function on an interval is one-to-one there and therefore invertible",
+    "Example of domain restriction: f(x) = x² is not one-to-one on R, since f(−2) = f(2) = 4; on [0, +∞) it is strictly increasing and f⁻¹(x) = √x"
+   ]
+  },
+  "narr": [
+   "A function has an inverse if and only if it's one-to-one, meaning each input corresponds to exactly one output.",
+   "Graphically, this means any horizontal line will intersect the graph at most once.",
+   "If a function is continuous and strictly monotonic (either always increasing or always decreasing) on an interval, it's guaranteed to be one-to-one there and thus invertible.",
+   "Consider f(x) = x². On all real numbers, it's not one-to-one because f(-2) = f(2) = 4.",
+   "But if we restrict the domain to [0, +∞), it becomes strictly increasing and has an inverse f⁻¹(x) = √x."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Computing the Inverse Function",
+   "tex": "f\\text{ is continuous and strictly monotonic on interval } I \\rightarrow f\\text{ is one-to-one, and } f^{-1}: f(I) \\rightarrow I\\text{ exists and is continuous}",
+   "parts": [
+    {
+     "substr": "continuous",
+     "color": "#4C5FD5",
+     "note": "no value gaps"
+    },
+    {
+     "substr": "strictly monotonic",
+     "color": "#B45309",
+     "note": "no value repetitions"
+    },
+    {
+     "substr": "continuous inverse",
+     "color": "#0E7C7B",
+     "note": "stable inversion"
+    }
+   ]
+  },
+  "narr": [
+   "When computing the inverse of a function, we need two key properties: continuity and strict monotonicity.",
+   "Continuity ensures there are no gaps in the function's values.",
+   "Strict monotonicity ensures there are no repeated values.",
+   "Together, these guarantee that the inverse function exists and is also continuous.",
+   "The recipe for computing an inverse is straightforward: solve the equation y = f(x) for x.",
+   "The domain of the inverse function coincides with the range of the original function."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Classic Inverse Pair",
+   "problem": "Find the inverse of f(x) = eˣ and explain its properties.",
+   "steps": [
+    "f(x) = eˣ is continuous and strictly increasing on R",
+    "Range of f is (0, +∞)",
+    "Solve y = eˣ for x: x = ln y",
+    "Therefore, f⁻¹(x) = ln x for x > 0",
+    "The graphs of y = eˣ and y = ln x are reflections over y = x",
+    "Example points: e⁰ = 1 (point (0,1) on y = eˣ) and ln 1 = 0 (point (1,0) on y = ln x)"
+   ],
+   "result": "f⁻¹(x) = ln x, x > 0"
+  },
+  "narr": [
+   "Let's look at a classic example: the exponential function f(x) = eˣ.",
+   "This function is continuous and strictly increasing on all real numbers.",
+   "Its range is (0, +∞), meaning it only outputs positive values.",
+   "To find the inverse, we solve y = eˣ for x, which gives us x = ln y.",
+   "Therefore, the inverse function is f⁻¹(x) = ln x, defined for x > 0.",
+   "The graphs of y = eˣ and y = ln x are mirror images of each other across the line y = x.",
+   "For example, e⁰ = 1 corresponds to the point (0,1) on y = eˣ, while ln 1 = 0 corresponds to (1,0) on y = ln x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Continuity",
+   "bullets": [
+    "A function f is continuous at x = a if f(a) is defined, lim x→a f(x) exists, and lim x→a f(x) = f(a)",
+    "Types of discontinuities:",
+    "Removable: the limit exists but differs from f(a) or f(a) is undefined",
+    "Jump: one-sided limits are finite but not equal",
+    "Infinite: the function is unbounded near the point",
+    "Oscillating: oscillations without approaching one value"
+   ]
+  },
+  "narr": [
+   "Now let's shift our focus to continuity.",
+   "A function is continuous at a point if three conditions are met: the function is defined at that point, the limit exists at that point, and the limit equals the function's value.",
+   "There are several types of discontinuities we should be aware of.",
+   "First, removable discontinuities occur when the limit exists but doesn't equal the function's value, or when the function is undefined at that point.",
+   "Jump discontinuities happen when the left-hand and right-hand limits both exist but aren't equal.",
+   "Infinite discontinuities occur when the function becomes unbounded near the point.",
+   "Finally, oscillating discontinuities happen when the function oscillates without approaching any single value."
+  ],
+  "narr_item": [
+   0,
+   0,
+   -1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 1 — Checking Continuity",
+   "problem": "Determine if the function f(x) = {x² + 1, if x < 2; 5, if x = 2; 3x - 1, if x > 2} is continuous at x = 2.",
+   "steps": [
+    "Left-hand limit: lim x→2⁻ f(x) = 2² + 1 = 5",
+    "Right-hand limit: lim x→2⁺ f(x) = 3 · 2 - 1 = 5",
+    "Value at the point: f(2) = 5",
+    "Since lim x→2 f(x) = f(2) = 5, the function is continuous at x = 2"
+   ],
+   "result": "The function is continuous at x = 2"
+  },
+  "narr": [
+   "Let's practice checking continuity with this piecewise function.",
+   "First, we find the left-hand limit as x approaches 2: lim x→2⁻ f(x) = 2² + 1 = 5.",
+   "Next, we find the right-hand limit as x approaches 2: lim x→2⁺ f(x) = 3 · 2 - 1 = 5.",
+   "Then we evaluate the function at x = 2: f(2) = 5.",
+   "Since both limits equal the function's value at that point, the function is continuous at x = 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 2 — Removing a Discontinuity",
+   "problem": "Find the value of k for which the function f(x) = {(x² - 9)/(x - 3), if x ≠ 3; k, if x = 3} is continuous at x = 3.",
+   "steps": [
+    "For x ≠ 3: f(x) = ((x - 3)(x + 3))/(x - 3) = x + 3",
+    "Therefore lim x→3 f(x) = 6",
+    "Continuity requires k = lim x→3 f(x)",
+    "Therefore, k = 6"
+   ],
+   "result": "k = 6"
+  },
+  "narr": [
+   "Now let's see how to remove a discontinuity by finding the right value for k.",
+   "For x ≠ 3, we can simplify the function: f(x) = ((x - 3)(x + 3))/(x - 3) = x + 3.",
+   "Taking the limit as x approaches 3, we get lim x→3 f(x) = 6.",
+   "For the function to be continuous at x = 3, k must equal this limit.",
+   "Therefore, k = 6 makes the function continuous at that point."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 3 — Continuous Switching Law",
+   "problem": "A power converter is described by P(t) = {4t + 1, if t < 2; a·t² - 1, if t ≥ 2}. Find a for which P is continuous at t = 2.",
+   "steps": [
+    "Left-hand limit: lim t→2⁻ P(t) = 4 · 2 + 1 = 9",
+    "From the right: P(2) = 4a - 1",
+    "For continuity: 4a - 1 = 9",
+    "Thus, 4a = 10 and a = 5/2"
+   ],
+   "result": "a = 5/2"
+  },
+  "narr": [
+   "This exercise involves finding a parameter that makes a piecewise function continuous.",
+   "First, we find the left-hand limit as t approaches 2: lim t→2⁻ P(t) = 4 · 2 + 1 = 9.",
+   "From the right, we evaluate the function at t = 2: P(2) = 4a - 1.",
+   "For continuity, these must be equal: 4a - 1 = 9.",
+   "Solving for a, we get 4a = 10 and a = 5/2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 4 — Composition and Continuity",
+   "problem": "Let f(x) = √x and g(t) = 4 - t². Determine the domain of h(t) = f(g(t)) and specify where h is continuous.",
+   "steps": [
+    "Composition: h(t) = √(4 - t²)",
+    "The expression under the root must be non-negative: 4 - t² ≥ 0",
+    "Solving: -2 ≤ t ≤ 2",
+    "Both functions are continuous on their respective domains",
+    "Therefore, h(t) = √(4 - t²) is continuous on [-2, 2]"
+   ],
+   "result": "Domain: [-2, 2], continuous on [-2, 2]"
+  },
+  "narr": [
+   "Now let's explore composition of functions and continuity.",
+   "We have h(t) = f(g(t)) = √(4 - t²).",
+   "For the square root to be defined, the expression inside must be non-negative: 4 - t² ≥ 0.",
+   "Solving this inequality gives us -2 ≤ t ≤ 2.",
+   "Both g(t) and the square root function are continuous on their domains.",
+   "Therefore, h(t) = √(4 - t²) is continuous on the interval [-2, 2]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 5 — Finding the Inverse",
+   "problem": "The drive displacement x is related to the input voltage V by x(V) = 0.5 · V + 2, 0 ≤ V ≤ 10. (1) Find the range of x. (2) Find the inverse function V(x). (3) Explain why the inverse is continuous.",
+   "steps": [
+    "At the endpoints: x(0) = 2, x(10) = 7",
+    "Since x(V) is increasing, its range is [2, 7]",
+    "To find the inverse, solve x = 0.5 · V + 2 for V",
+    "x - 2 = 0.5 · V, from which V(x) = 2 · (x - 2) = 2x - 4, 2 ≤ x ≤ 7",
+    "The original function is continuous and strictly increasing on [0, 10], so its inverse is continuous on [2, 7]"
+   ],
+   "result": "Range: [2, 7], Inverse: V(x) = 2x - 4, 2 ≤ x ≤ 7"
+  },
+  "narr": [
+   "Let's practice finding inverse functions with this practical example.",
+   "First, we find the range of x by evaluating at the endpoints: x(0) = 2 and x(10) = 7.",
+   "Since x(V) is increasing, its range is [2, 7].",
+   "To find the inverse, we solve x = 0.5 · V + 2 for V, giving us V(x) = 2x - 4.",
+   "The domain of the inverse is [2, 7], corresponding to the range of the original function.",
+   "The original function is continuous and strictly increasing on [0, 10], so its inverse is continuous on [2, 7]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 6 — Why Domain Restriction is Needed",
+   "problem": "Consider f(x) = x². (1) Explain why f has no inverse on R. (2) Find the inverse when the domain is restricted to [0, +∞). (3) Find the inverse when restricted to (-∞, 0].",
+   "steps": [
+    "On R: f(-x) = f(x), meaning different inputs can give the same output",
+    "For example, f(-3) = f(3) = 9",
+    "Thus, f is not one-to-one on R and has no inverse",
+    "On [0, +∞) the function is strictly increasing, so f⁻¹(y) = √y",
+    "On (-∞, 0] the function is strictly decreasing: larger inputs give smaller outputs",
+    "The inverse must return a non-positive number, so f⁻¹(y) = -√y",
+    "Both inverse functions are continuous for y ≥ 0"
+   ],
+   "result": "No inverse on R; f⁻¹(y) = √y on [0, +∞); f⁻¹(y) = -√y on (-∞, 0]"
+  },
+  "narr": [
+   "This exercise demonstrates why domain restriction is sometimes necessary for finding inverses.",
+   "On the entire real line R, f(-x) = f(x), meaning different inputs can give the same output.",
+   "For example, f(-3) = f(3) = 9, so the function isn't one-to-one and has no inverse.",
+   "When we restrict the domain to [0, +∞), the function becomes strictly increasing, and its inverse is f⁻¹(y) = √y.",
+   "When restricted to (-∞, 0], the function is strictly decreasing: as x increases (becomes less negative), f(x) decreases.",
+   "The inverse must return a non-positive number, so f⁻¹(y) = -√y.",
+   "Both inverse functions are continuous for y ≥ 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 7 — Thermistor Calibration",
+   "problem": "Thermistor model: R(T) = 100·e^(-0.02·T), T ≥ 0, where R is resistance in kΩ, T is temperature in degrees Celsius. (1) Show that the function has an inverse. (2) Find T(R). (3) Calculate the temperature when R = 40kΩ.",
+   "steps": [
+    "The function is continuous and strictly decreasing for T ≥ 0",
+    "Therefore, it is one-to-one and has a continuous inverse",
+    "Start with R = 100 · e^(-0.02·T)",
+    "Divide by 100: R/100 = e^(-0.02·T)",
+    "Take natural logarithms: ln(R/100) = -0.02 · T",
+    "Therefore, T(R) = -50 · ln(R/100)",
+    "When R = 40: T = -50 · ln(0.4) ≈ 45.8°C"
+   ],
+   "result": "T(R) = -50 · ln(R/100), T ≈ 45.8°C when R = 40kΩ"
+  },
+  "narr": [
+   "Let's apply our knowledge of inverse functions to a real-world problem: thermistor calibration.",
+   "First, we need to show that R(T) has an inverse. The function is continuous and strictly decreasing for T ≥ 0, so it's one-to-one and has a continuous inverse.",
+   "To find the inverse, we start with R = 100 · e^(-0.02·T).",
+   "Dividing both sides by 100 gives us R/100 = e^(-0.02·T).",
+   "Taking natural logarithms of both sides: ln(R/100) = -0.02 · T.",
+   "Solving for T gives us T(R) = -50 · ln(R/100).",
+   "Finally, when R = 40kΩ, T = -50 · ln(0.4) ≈ 45.8°C."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 8 — Application of the Intermediate Value Theorem",
+   "problem": "The temperature of a component is modeled by T(t) = 20 + 5t - t², 0 ≤ t ≤ 4. Show that the component reaches 25°C during this interval.",
+   "steps": [
+    "The function is a polynomial and therefore continuous",
+    "Evaluate at two convenient times: T(1) = 20 + 5 - 1 = 24",
+    "T(2) = 20 + 10 - 4 = 26",
+    "Since 24 < 25 < 26, the Intermediate Value Theorem guarantees a c ∈ (1, 2) where T(c) = 25",
+    "To find exact times: solve 20 + 5t - t² = 25",
+    "This gives t² - 5t + 5 = 0"
+   ]
+  },
+  "narr": [
+   "Now let's apply the Intermediate Value Theorem to this temperature model.",
+   "The function T(t) = 20 + 5t - t² is a polynomial, so it's continuous everywhere.",
+   "We evaluate it at two convenient times: T(1) = 24 and T(2) = 26.",
+   "Since 24 < 25 < 26, the Intermediate Value Theorem guarantees there's at least one time c between 1 and 2 when T(c) = 25.",
+   "To find the exact times, we solve 20 + 5t - t² = 25, which simplifies to t² - 5t + 5 = 0.",
+   "The solutions are t = (5 - √5)/2 ≈ 1.382 and t = (5 + √5)/2 ≈ 3.618.",
+   "Both values are within our interval [0, 4], so the component reaches 25°C twice during this period."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 8 — Application of the Intermediate Value Theorem (cont.)",
+   "problem": "",
+   "steps": [
+    "Solutions: t = (5 - √5)/2 ≈ 1.382 and t = (5 + √5)/2 ≈ 3.618",
+    "Both values are in [0, 4], so the component reaches 25°C twice"
+   ],
+   "result": "The component reaches 25°C at t ≈ 1.382 and t ≈ 3.618"
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 9 — Application of the Weierstrass Theorem",
+   "problem": "The power of a small device is modeled by P(t) = -2t² + 12t + 5, 0 ≤ t ≤ 5. (1) Explain why P has absolute maximum and minimum. (2) Find both extrema.",
+   "steps": [
+    "The function is a polynomial, so it is continuous",
+    "Its domain [0, 5] is closed and bounded",
+    "Therefore, the Weierstrass Theorem guarantees the existence of both an absolute maximum and an absolute minimum",
+    "Part 2 is postponed to next week as it requires additional techniques"
+   ],
+   "result": "Absolute maximum and minimum exist by the Weierstrass Theorem"
+  },
+  "narr": [
+   "Finally, let's look at an application of the Weierstrass Theorem.",
+   "The power function P(t) = -2t² + 12t + 5 is a polynomial, so it's continuous everywhere.",
+   "Its domain [0, 5] is both closed and bounded.",
+   "According to the Weierstrass Theorem, these conditions guarantee the existence of both an absolute maximum and an absolute minimum.",
+   "Finding these extrema requires additional techniques that we'll cover next week."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

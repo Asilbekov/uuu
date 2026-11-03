@@ -1,0 +1,201 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this video, we'll explore the fundamental concepts of continuity, the Intermediate Value Theorem, the Weierstrass Extreme Value Theorem, and inverse functions.",
+   "Let's start with the algebra of continuous functions."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Algebra of Continuous Functions",
+   "bullets": [
+    "If f and g are continuous at point a, then f + g, f - g, c · f, and f · g are continuous at a",
+    "f/g is continuous at a, if f and g are continuous at a and g(a) ≠ 0",
+    "Polynomial functions are continuous everywhere",
+    "Rational functions are continuous where the denominator is not zero",
+    "Exponential, logarithmic, and trigonometric functions are continuous on their domains"
+   ]
+  },
+  "narr": [
+   "The algebra of continuous functions tells us how we can combine continuous functions to create new continuous functions.",
+   "If f and g are continuous at a point a, then their sum, difference, scalar multiple, and product are also continuous at a.",
+   "The quotient f/g is also continuous at a, provided that g is not zero at that point.",
+   "This is very useful for engineering applications where we often work with combinations of basic functions.",
+   "We also know that polynomial functions are continuous everywhere, while rational functions are continuous except where their denominator is zero.",
+   "Similarly, exponential, logarithmic, and trigonometric functions are continuous on their respective domains."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Limit of Composite Functions",
+   "tex": "\\lim_{x \\to a} f(g(x)) = f(\\lim_{x \\to a} g(x)) = f(L), \\text{ if } f \\text{ is continuous at } L \\text{ and } \\lim_{x \\to a} g(x) = L",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a} f(g(x))",
+     "color": "#4C5FD5",
+     "note": "limit of composite function"
+    },
+    {
+     "substr": "f(\\lim_{x \\to a} g(x))",
+     "color": "#B45309",
+     "note": "function applied to the limit"
+    },
+    {
+     "substr": "= f(L)",
+     "color": "#0E7C7B",
+     "note": "simplified result"
+    },
+    {
+     "substr": "f \\text{ is continuous at } L",
+     "color": "#A03040",
+     "note": "required condition"
+    },
+    {
+     "substr": "\\lim_{x \\to a} g(x) = L",
+     "color": "#A03040",
+     "note": "required condition"
+    }
+   ]
+  },
+  "narr": [
+   "An important result about limits and continuous functions is the Composite Function Theorem.",
+   "This theorem states that if f is continuous at L and the limit of g(x) as x approaches a is L, then the limit can be moved inside the function f.",
+   "This means we can evaluate the limit of a composite function by first finding the limit of the inner function and then applying the outer function to that result.",
+   "The key conditions here are that f must be continuous at the limit point L, and g must approach L as x approaches a.",
+   "As a corollary, we can say that the composition of continuous functions is itself continuous."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Intermediate Value Theorem (IVT)",
+   "bullets": [
+    "If f is continuous on [a, b] and z lies between f(a) and f(b), then there exists c ∈ [a, b] such that f(c) = z",
+    "Special case: If f(a) · f(b) < 0, then there exists c ∈ (a, b) such that f(c) = 0",
+    "Important for engineering: guarantees that a continuous function takes every intermediate value",
+    "For a discontinuous model, this conclusion is not guaranteed",
+    "The theorem guarantees existence, but not uniqueness"
+   ]
+  },
+  "narr": [
+   "The Intermediate Value Theorem is a fundamental result about continuous functions.",
+   "It states that if a function f is continuous on a closed interval [a, b], and z is any value between f(a) and f(b), then there must be some point c in [a, b] where f(c) = z.",
+   "A special case of this theorem is when the function values at the endpoints have opposite signs, meaning their product is negative.",
+   "In this case, the theorem guarantees that there must be at least one root of the function in the open interval (a, b).",
+   "This theorem is particularly important for engineering applications because it guarantees that a continuously operating system will pass through every intermediate value.",
+   "For example, if a system's temperature rises continuously from 40°C to 80°C, it must pass through 60°C at some point.",
+   "However, it's important to note that the theorem only guarantees the existence of such a point, not its uniqueness.",
+   "For discontinuous models, this conclusion is not guaranteed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Weierstrass Theorem (Extreme Value Theorem)",
+   "bullets": [
+    "If f is continuous on the closed bounded interval [a, b], then f reaches absolute maximum and minimum on [a, b]",
+    "There exist points x_min, x_max ∈ [a, b] such that f(x_min) ≤ f(x) ≤ f(x_max) for all x ∈ [a, b]",
+    "Both conditions are essential: (1) the function must be continuous; (2) the interval must be closed and bounded",
+    "The theorem guarantees existence, but does not say where the extrema are, if they are unique, or how to compute them",
+    "Practical search for absolute extrema involves finding critical points and comparing function values"
+   ]
+  },
+  "narr": [
+   "The Weierstrass Theorem, also known as the Extreme Value Theorem, tells us about the behavior of continuous functions on closed intervals.",
+   "It states that if a function f is continuous on a closed and bounded interval [a, b], then f must attain both an absolute maximum and an absolute minimum on that interval.",
+   "This means there are points x_min and x_max in [a, b] where the function takes its smallest and largest values, respectively.",
+   "Both conditions are essential: the function must be continuous, and the interval must be both closed and bounded.",
+   "The theorem guarantees the existence of these extrema, but doesn't tell us where they are located, whether they're unique, or how to compute them.",
+   "To find absolute extrema in practice, we typically find critical points by solving f'(x) = 0, evaluate the function at these points and at the endpoints, and then compare all these values.",
+   "The Weierstrass theorem is important in engineering as a guarantee of existence of an optimum in continuous models with closed bounded feasible sets.",
+   "This principle underlies many engineering applications including structural optimization, power management, control theory, circuit design, and numerical optimization.",
+   "Before seeking an optimum, an engineer must ask whether its existence is guaranteed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1,
+   4,
+   -1,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Inverse Functions: Monotonicity and Domain Restriction",
+   "bullets": [
+    "The inverse function reverses the input-output relationship: if y = f(x), then x = f^(-1)(y)",
+    "Defining properties: f^(-1)(f(x)) = x and f(f^(-1)(y)) = y",
+    "Attention: f^(-1)(x) does not mean 1/f(x)",
+    "Monotonicity: a function is monotonic if its values consistently move in one direction as x increases",
+    "Types of monotonic functions: increasing, strictly increasing, decreasing, strictly decreasing",
+    "Strictly monotonic functions are one-to-one: different inputs cannot give the same output"
+   ]
+  },
+  "narr": [
+   "Now let's discuss inverse functions, which reverse the input-output relationship of a function.",
+   "If y = f(x), then the inverse function f^(-1) satisfies x = f^(-1)(y).",
+   "The defining properties of inverse functions are that f^(-1)(f(x)) = x and f(f^(-1)(y)) = y.",
+   "It's important to note that the notation f^(-1)(x) does not mean 1/f(x).",
+   "For example, if f(x) = 3x + 2, then solving for x gives x = (y - 2)/3, so f^(-1)(y) = (y - 2)/3.",
+   "A function is monotonic on an interval if its values consistently move in one direction as x increases.",
+   "There are different types of monotonic functions: increasing, strictly increasing, decreasing, and strictly decreasing.",
+   "A strictly monotonic function is either strictly increasing or strictly decreasing.",
+   "Every strictly monotonic function is one-to-one, meaning that different inputs cannot give the same output.",
+   "This one-to-one correspondence can be verified using the horizontal line test."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1,
+   4,
+   5,
+   -1,
+   5
+  ]
+ }
+]

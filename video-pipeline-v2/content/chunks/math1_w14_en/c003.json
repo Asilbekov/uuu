@@ -1,0 +1,350 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to our exploration of mathematical concepts from weeks 1 to 4. We'll cover rational and irrational numbers, complex number operations, and their geometric representations.",
+   "Let's begin with understanding the nature of numbers."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Classifying Numbers",
+   "problem": "Classify each of the following as rational or irrational: a. √49, b. √18, c. √3 + √2, d. √2·√5, e. √2+√8, f. (√3)², g. (1+√2)(1−√2), h. √12",
+   "steps": [
+    "Simplify each expression",
+    "Apply the definition: rational numbers can be expressed as fractions of integers",
+    "Note that products of conjugates (a+√b)(a−√b) are always rational"
+   ],
+   "result": "a. rational (7), b. irrational (3√2), c. irrational, d. irrational (√10), e. irrational (3√2), f. rational (3), g. rational (-1), h. irrational (2√3)"
+  },
+  "narr": [
+   "Let's classify each number as rational or irrational.",
+   "For a: √49 simplifies to 7, which is clearly rational.",
+   "For b: √18 simplifies to 3√2, which is irrational since √2 cannot be expressed as a fraction.",
+   "For c: √3 + √2 is irrational as the sum of two irrational numbers.",
+   "For d: √2·√5 = √10, which is irrational.",
+   "For e: √2+√8 = √2+2√2 = 3√2, which is irrational.",
+   "For f: (√3)² = 3, which is rational.",
+   "For g: (1+√2)(1−√2) = 1−2 = −1, which is rational - this is a product of conjugates.",
+   "For h: √12 = 2√3, which is irrational.",
+   "The practical rule is that simplification reveals the nature of the number, and products of conjugates are always rational."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 21 — Complex Number Operations",
+   "problem": "Given z1 = 3+2i, z2 = 1−4i; compute z1 + z2, z1 −z2, z1z2, z1/z2.",
+   "steps": [
+    "Addition: (a+bi) + (c+di) = (a+c) + (b+d)i",
+    "Subtraction: (a+bi) − (c+di) = (a−c) + (b−d)i",
+    "Multiplication: (a+bi)(c+di) = (ac−bd) + (ad+bc)i",
+    "Division: Multiply numerator and denominator by conjugate of denominator"
+   ],
+   "result": "z1+z2 = 4−2i, z1−z2 = 2+6i, z1z2 = 11−10i, z1/z2 = −1/17 + 15/17i"
+  },
+  "narr": [
+   "Now let's perform basic operations with complex numbers.",
+   "For addition: z1 + z2 = (3+2i) + (1−4i) = (3+1) + (2−4)i = 4−2i.",
+   "For subtraction: z1 − z2 = (3+2i) − (1−4i) = (3−1) + (2−(−4))i = 2+6i.",
+   "For multiplication: z1z2 = (3+2i)(1−4i) = 3·1 + 3·(−4i) + 2i·1 + 2i·(−4i) = 3−12i+2i−8i² = 3−10i+8 = 11−10i.",
+   "For division: z1/z2 = (3+2i)/(1−4i). Multiply numerator and denominator by conjugate of denominator: (1+4i).",
+   "This gives us: ((3+2i)(1+4i))/((1−4i)(1+4i)) = (3+12i+2i+8i²)/(1−16i²) = (3+14i−8)/(1+16) = (−5+14i)/17 = −5/17 + 14/17i."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 22 — Powers of i",
+   "problem": "Compute i², i³, i⁴, i⁵, i¹⁸, i²⁷, i¹⁰⁰; describe the repeating pattern and the method based on dividing the exponent by 4.",
+   "steps": [
+    "Recall that i = √−1",
+    "Compute successive powers: i² = −1, i³ = −i, i⁴ = 1",
+    "Notice the cycle: 1, i, −1, −i, ... with period 4",
+    "For large exponents, divide by 4 and use the remainder"
+   ],
+   "result": "i² = −1, i³ = −i, i⁴ = 1, i⁵ = i, i¹⁸ = −1, i²⁷ = −i, i¹⁰⁰ = 1"
+  },
+  "narr": [
+   "Let's explore the powers of the imaginary unit i.",
+   "We know i = √−1, so i² = −1.",
+   "Then i³ = i²·i = −1·i = −i.",
+   "And i⁴ = (i²)² = (−1)² = 1.",
+   "i⁵ = i⁴·i = 1·i = i, and the cycle repeats: 1, i, −1, −i, ... with period 4.",
+   "For large exponents, we can divide by 4 and use the remainder: iⁿ = iʳ where n = 4q + r.",
+   "For i¹⁸: 18 = 4·4 + 2, so i¹⁸ = i² = −1.",
+   "For i²⁷: 27 = 4·6 + 3, so i²⁷ = i³ = −i.",
+   "For i¹⁰⁰: 100 = 4·25, so i¹⁰⁰ = i⁰ = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 23 — Conjugates and Moduli",
+   "problem": "For 3+4i, −2+5i, 6i, −7: find the conjugate and modulus, verify zz̄ = |z|².",
+   "steps": [
+    "Conjugate of a+bi is a−bi",
+    "Modulus |z| = √(a²+b²)",
+    "Verify zz̄ = (a+bi)(a−bi) = a²+b² = |z|²"
+   ],
+   "result": "Conjugates: 3−4i, −2−5i, −6i, −7; Moduli: 5, √29, 6, 7; zz̄ = |z|² holds for all"
+  },
+  "narr": [
+   "Let's find conjugates and moduli of complex numbers.",
+   "For 3+4i: the conjugate is 3−4i, and the modulus is √(3²+4²) = √25 = 5.",
+   "For −2+5i: the conjugate is −2−5i, and the modulus is √((−2)²+5²) = √29.",
+   "For 6i: the conjugate is −6i, and the modulus is √(0²+6²) = 6.",
+   "For −7: the conjugate is −7, and the modulus is √((−7)²+0²) = 7.",
+   "In each case, zz̄ = |z|² holds exactly: for 3+4i, (3+4i)(3−4i) = 9−16i² = 9+16 = 25 = 5²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 24 — Expressing in a+bi Form",
+   "problem": "Express in the form a+bi: a. 1/(1+i); b. 3+2/(2−i); c. 1+3/(4−i); d. 5/(2−i).",
+   "steps": [
+    "Multiply numerator and denominator by the conjugate of the denominator",
+    "Simplify the expression",
+    "Write in standard a+bi form"
+   ],
+   "result": "a. i, b. 4/5 + 7/5i, c. 1/17 + 13/17i, d. −1+2i"
+  },
+  "narr": [
+   "Let's express these complex fractions in standard a+bi form.",
+   "For a: 1/(1+i). Multiply numerator and denominator by the conjugate (1−i):",
+   "(1−i)/((1+i)(1−i)) = (1−i)/(1−i²) = (1−i)/(1−(−1)) = (1−i)/2 = 1/2 − 1/2i.",
+   "For b: 3+2/(2−i). First handle the fraction: 2/(2−i). Multiply by conjugate (2+i):",
+   "2(2+i)/((2−i)(2+i)) = (4+2i)/(4−i²) = (4+2i)/5 = 4/5 + 2/5i.",
+   "Then add 3: 3 + 4/5 + 2/5i = 19/5 + 2/5i.",
+   "For c: 1+3/(4−i). First handle the fraction: 3/(4−i). Multiply by conjugate (4+i):",
+   "3(4+i)/((4−i)(4+i)) = (12+3i)/(16−i²) = (12+3i)/17 = 12/17 + 3/17i.",
+   "Then add 1: 1 + 12/17 + 3/17i = 29/17 + 3/17i.",
+   "For d: 5/(2−i). Multiply by conjugate (2+i):",
+   "5(2+i)/((2−i)(2+i)) = (10+5i)/(4−i²) = (10+5i)/5 = 2+i."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 25 — Solving Equations over C",
+   "problem": "Solve over C, indicating which solutions are real: a. x²+9=0; b. x²−4x+13=0; c. 2x²+4x+10=0; d. x⁴−16=0.",
+   "steps": [
+    "For quadratic equations, use the quadratic formula: x = (−b±√(b²−4ac))/(2a)",
+    "For higher degree equations, factor when possible",
+    "Identify real solutions (imaginary part = 0)"
+   ],
+   "result": "a. x = ±3i (non-real); b. x = 2±3i (non-real); c. x = −1±i√2 (non-real); d. x = ±2, ±2i (two real)"
+  },
+  "narr": [
+   "Let's solve these equations over the complex numbers.",
+   "For a: x²+9=0 → x² = −9 → x = ±√−9 = ±3i (both non-real).",
+   "For b: x²−4x+13=0. Use quadratic formula: ∆ = (−4)²−4·13 = 16−52 = −36.",
+   "√∆ = √−36 = 6i. So x = (4±6i)/2 = 2±3i (both non-real).",
+   "For c: 2x²+4x+10=0. Divide by 2: x²+2x+5=0.",
+   "∆ = 4−20 = −16. √∆ = 4i. So x = (−2±4i)/2 = −1±2i (both non-real).",
+   "For d: x⁴−16=0 → x⁴ = 16. Real solutions are x = ±2.",
+   "Over C, we have four fourth roots of 16: 2, −2, 2i, −2i."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 26 — Complex Number Properties",
+   "problem": "For 2+3i, −1+4i, −3−2i, 4−i: find the real part, imaginary part, modulus, quadrant.",
+   "steps": [
+    "Real part: coefficient of the term without i",
+    "Imaginary part: coefficient of the i term",
+    "Modulus: |z| = √(a²+b²)",
+    "Quadrant determined by signs of real and imaginary parts"
+   ],
+   "result": "2+3i: Re=2, Im=3, |z|=√13, QI; −1+4i: Re=−1, Im=4, |z|=√17, QII; −3−2i: Re=−3, Im=−2, |z|=√13, QIII; 4−i: Re=4, Im=−1, |z|=√17, QIV"
+  },
+  "narr": [
+   "Let's analyze these complex numbers by their components.",
+   "For 2+3i: real part is 2, imaginary part is 3, modulus is √(2²+3²) = √13, and it's in Quadrant I.",
+   "For −1+4i: real part is −1, imaginary part is 4, modulus is √((−1)²+4²) = √17, and it's in Quadrant II.",
+   "For −3−2i: real part is −3, imaginary part is −2, modulus is √((−3)²+(−2)²) = √13, and it's in Quadrant III.",
+   "For 4−i: real part is 4, imaginary part is −1, modulus is √(4²+(−1)²) = √17, and it's in Quadrant IV.",
+   "Note that moduli pair up: √13 appears twice, and √17 appears twice, since conjugation preserves a²+b²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 27 — Trigonometric and Exponential Forms",
+   "problem": "Write in trigonometric and exponential forms (θ in radians): (1) √1+i; (2) −1+i; (3) −3−i; (4) 2i; (5) −4.",
+   "steps": [
+    "Find modulus r = |z| = √(a²+b²)",
+    "Find argument θ using tan θ = b/a with quadrant adjustment",
+    "Write in exponential form: re^(iθ)"
+   ],
+   "result": "(1) √2e^(iπ/4); (2) √2e^(i3π/4); (3) 2e^(i7π/6); (4) 2e^(iπ/2); (5) 4e^(iπ)"
+  },
+  "narr": [
+   "Let's express these complex numbers in exponential form.",
+   "For (1) √1+i = 1+i: r = √(1²+1²) = √2, θ = π/4 (Quadrant I), so √2e^(iπ/4).",
+   "For (2) −1+i: r = √((−1)²+1²) = √2, θ = 3π/4 (Quadrant II), so √2e^(i3π/4).",
+   "For (3) −3−i: r = √((−3)²+(−1)²) = √10, reference angle arctan(1/3), θ = π + arctan(1/3) in Quadrant III.",
+   "For (4) 2i: r = 2, θ = π/2, so 2e^(iπ/2).",
+   "For (5) −4: r = 4, θ = π, so 4e^(iπ).",
+   "Each angle is determined by tan θ = b/a with adjustment for the quadrant."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 28 — De Moivre's Formula",
+   "problem": "Using De Moivre's formula, calculate (1)(1+i)^6; (2)(3+i)^4; (3)(−1+3i)^5; check one result algebraically.",
+   "steps": [
+    "Express in exponential form: z = re^(iθ)",
+    "Apply De Moivre's formula: z^n = r^n e^(inθ)",
+    "Convert back to rectangular form",
+    "Verify algebraically for one case"
+   ],
+   "result": "(1) −8i; (2) −8+8√3i; (3) −16−16√3i; Verification: (1+i)^2 = 2i, (1+i)^4 = −4, (1+i)^6 = −8i"
+  },
+  "narr": [
+   "Let's use De Moivre's formula to compute powers of complex numbers.",
+   "For (1) (1+i)^6: First express 1+i in exponential form: √2e^(iπ/4).",
+   "Then (1+i)^6 = (√2)^6 e^(i6π/4) = 8e^(i3π/2) = 8(0−i) = −8i.",
+   "For (2) (3+i)^4: From previous work, (3+i)^4 = −8+8√3i.",
+   "For (3) (−1+3i)^5: First express −1+3i in exponential form: r = 2, θ = 2π/3 (Quadrant II).",
+   "Then (−1+3i)^5 = 2^5 e^(i10π/3) = 32e^(i4π/3) = 32(−1/2−i√3/2) = −16−16√3i.",
+   "Let's verify (1) algebraically: (1+i)^2 = 1+2i+i² = 2i.",
+   "(1+i)^4 = (2i)^2 = 4i² = −4.",
+   "(1+i)^6 = (1+i)^4(1+i)^2 = (−4)(2i) = −8i. Matches our result."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 29 — Roots of Complex Numbers",
+   "problem": "Find all solutions and plot them on the complex plane: a. z³=1; b. z⁴=1; c. z³=−8. Explain why the n-th roots are equidistant on a circle.",
+   "steps": [
+    "For z^n = r(cos θ + i sin θ), the roots are z_k = r^(1/n)[cos((θ+2πk)/n) + i sin((θ+2πk)/n)] for k = 0,1,...,n−1",
+    "Plot the roots in the complex plane",
+    "Note they lie on a circle of radius r^(1/n) and are equally spaced"
+   ],
+   "result": "a. 1, −1/2 + √3/2 i, −1/2 − √3/2 i; b. 1, i, −1, −i; c. −2, 1+√3 i, 1−√3 i; The n-th roots are vertices of a regular n-gon on a circle"
+  },
+  "narr": [
+   "Let's find all solutions to these equations involving roots of complex numbers.",
+   "For a. z³=1: The solutions are the cube roots of unity: 1, e^(i2π/3), e^(i4π/3).",
+   "In rectangular form: 1, −1/2 + √3/2 i, −1/2 − √3/2 i.",
+   "For b. z⁴=1: The solutions are the fourth roots of unity: 1, i, −1, −i.",
+   "For c. z³=−8: The solutions are the cube roots of −8: −2, 1+√3 i, 1−√3 i.",
+   "These n-th roots are equidistant on a circle because they can be expressed as r^(1/n)e^(i(θ+2πk)/n) for k=0,1,...,n−1.",
+   "They all have the same magnitude r^(1/n) and arguments differing by 2π/n, forming a regular n-gon on the circle."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ }
+]

@@ -1,0 +1,613 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — Weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5-7 of Linear Algebra I. In this section, we'll explore matrix operations, systems of equations, and factorization techniques.",
+   "Let's start with an important property of matrix inverses."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matrix Inverse Property",
+   "bullets": [
+    "For a matrix A and its inverse A⁻¹, the product A·A⁻¹ equals the identity matrix I",
+    "The diagonal elements of I are 1",
+    "The off-diagonal elements of I are 0"
+   ]
+  },
+  "narr": [
+   "When we multiply a matrix by its inverse, we get the identity matrix. Let's examine the elements of this product.",
+   "For element (1,1), we have 3·(1/3) + (-1)·(1/3) = 1.",
+   "For element (2,2), we have (-1/3)·(-1) + (4/3)·(1/3) = 1.",
+   "And as expected, the off-diagonal elements are zero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — 2×2 System Solution",
+   "problem": "Solve Ax = b, where A = [[3, 1], [2, 5]], b = [[8], [14]]",
+   "steps": [
+    "Write the system of equations: 3x + y = 8, 2x + 5y = 14",
+    "Multiply the first equation by 5: 15x + 5y = 40",
+    "Subtract the second equation: 15x + 5y - (2x + 5y) = 40 - 14",
+    "Simplify: 13x = 26",
+    "Solve for x: x = 2",
+    "Substitute x = 2 into first equation: 3(2) + y = 8",
+    "Solve for y: y = 2"
+   ],
+   "result": "x = [[2], [2]]"
+  },
+  "narr": [
+   "Let's solve a 2×2 system using matrix notation.",
+   "First, we write out the system of equations represented by Ax = b.",
+   "To eliminate y, we multiply the first equation by 5.",
+   "Then subtract the second equation from this result.",
+   "This gives us 13x = 26, so x = 2.",
+   "Now substitute x back into the first equation to find y.",
+   "We get y = 2, so our solution vector is x = [[2], [2]]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — 2×2 Factorization",
+   "problem": "Find A = LU = LDU for A = [[3, 1], [5, 5]]",
+   "steps": [
+    "Find the multiplier m21 = 5/3",
+    "Apply row operation R2 ← R2 - (5/3)R1 to get U",
+    "U = [[3, 1], [0, 10/3]]",
+    "Construct L with 1s on diagonal and m21 in (2,1) position",
+    "L = [[1, 0], [5/3, 1]]",
+    "Verify A = LU"
+   ]
+  },
+  "narr": [
+   "Now let's factorize a 2×2 matrix into LU and LDU forms.",
+   "First, we find the multiplier m21 = 5/3.",
+   "Applying the row operation R2 ← R2 - (5/3)R1 gives us the upper triangular matrix U.",
+   "We construct L with 1s on the diagonal and the multiplier in the (2,1) position.",
+   "Let's verify that A = LU by multiplying these matrices.",
+   "For the LDU factorization, we extract the diagonal elements to form D.",
+   "Then we calculate D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — 2×2 Factorization (cont.)",
+   "problem": "",
+   "steps": [
+    "Find D by taking diagonal of U",
+    "D = [[3, 0], [0, 10/3]]",
+    "Calculate D⁻¹U",
+    "Verify A = L·D·D⁻¹U"
+   ],
+   "result": "L = [[1, 0], [5/3, 1]], U = [[3, 1], [0, 10/3]], D = [[3, 0], [0, 10/3]], D⁻¹U = [[1, 1/3], [0, 1]]"
+  },
+  "narr": [
+   "Finally, we verify that A equals L·D·D⁻¹U."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — 2×2 Factorization",
+   "problem": "Find A = LU = LDU for A = [[1, 1], [2, 3]]",
+   "steps": [
+    "Find the multiplier m21 = 2",
+    "Apply row operation R2 ← R2 - 2R1 to get U",
+    "U = [[1, 1], [0, 1]]",
+    "Construct L with 1s on diagonal and m21 in (2,1) position",
+    "L = [[1, 0], [2, 1]]",
+    "Verify A = LU"
+   ]
+  },
+  "narr": [
+   "Let's factorize another 2×2 matrix.",
+   "First, find the multiplier m21 = 2.",
+   "Applying the row operation R2 ← R2 - 2R1 gives us U.",
+   "We construct L with 1s on the diagonal and the multiplier in the (2,1) position.",
+   "Let's verify that A = LU.",
+   "Since both pivots are 1, D is the identity matrix.",
+   "Therefore, D⁻¹U is just U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — 2×2 Factorization (cont.)",
+   "problem": "",
+   "steps": [
+    "Check if pivots are 1 (they are), so D = I",
+    "D⁻¹U = U since D = I",
+    "Verify A = L·D·D⁻¹U = L·U"
+   ],
+   "result": "L = [[1, 0], [2, 1]], U = [[1, 1], [0, 1]], D = I, D⁻¹U = U"
+  },
+  "narr": [
+   "And we verify that A = L·D·D⁻¹U = L·U."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — 2×2 Factorization",
+   "problem": "Find A = LU = LDU for A = [[2, 1], [3, 4]]",
+   "steps": [
+    "Find the multiplier m21 = 3/2",
+    "Apply row operation R2 ← R2 - (3/2)R1 to get U",
+    "U = [[2, 1], [0, 5/2]]",
+    "Construct L with 1s on diagonal and m21 in (2,1) position",
+    "L = [[1, 0], [3/2, 1]]",
+    "Verify A = LU"
+   ]
+  },
+  "narr": [
+   "Let's continue with another 2×2 factorization.",
+   "First, find the multiplier m21 = 3/2.",
+   "Applying the row operation R2 ← R2 - (3/2)R1 gives us U.",
+   "We construct L with 1s on the diagonal and the multiplier in the (2,1) position.",
+   "Let's verify that A = LU.",
+   "For the LDU factorization, we extract the diagonal elements to form D.",
+   "Then we calculate D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — 2×2 Factorization (cont.)",
+   "problem": "",
+   "steps": [
+    "Find D by taking diagonal of U",
+    "D = [[2, 0], [0, 5/2]]",
+    "Calculate D⁻¹U",
+    "Verify A = L·D·D⁻¹U"
+   ],
+   "result": "L = [[1, 0], [3/2, 1]], U = [[2, 1], [0, 5/2]], D = [[2, 0], [0, 5/2]], D⁻¹U = [[1, 1/2], [0, 1]]"
+  },
+  "narr": [
+   "Finally, we verify that A equals L·D·D⁻¹U."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — 2×2 Factorization",
+   "problem": "Find A = LU = LDU for A = [[3, 1], [4, 5]]",
+   "steps": [
+    "Find the multiplier m21 = 4/3",
+    "Apply row operation R2 ← R2 - (4/3)R1 to get U",
+    "U = [[3, 1], [0, 11/3]]",
+    "Construct L with 1s on diagonal and m21 in (2,1) position",
+    "L = [[1, 0], [4/3, 1]]",
+    "Verify A = LU"
+   ]
+  },
+  "narr": [
+   "Let's do one more 2×2 factorization example.",
+   "First, find the multiplier m21 = 4/3.",
+   "Applying the row operation R2 ← R2 - (4/3)R1 gives us U.",
+   "We construct L with 1s on the diagonal and the multiplier in the (2,1) position.",
+   "Let's verify that A = LU.",
+   "For the LDU factorization, we extract the diagonal elements to form D.",
+   "Then we calculate D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — 2×2 Factorization (cont.)",
+   "problem": "",
+   "steps": [
+    "Find D by taking diagonal of U",
+    "D = [[3, 0], [0, 11/3]]",
+    "Calculate D⁻¹U",
+    "Verify A = L·D·D⁻¹U"
+   ],
+   "result": "L = [[1, 0], [4/3, 1]], U = [[3, 1], [0, 11/3]], D = [[3, 0], [0, 11/3]], D⁻¹U = [[1, 1/3], [0, 1]]"
+  },
+  "narr": [
+   "Finally, we verify that A equals L·D·D⁻¹U."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — 3×3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [[1, 1, 1], [2, 3, 2], [1, 2, 4]], b = [[2], [6], [1]]",
+   "steps": [
+    "Write the system of equations and augmented matrix",
+    "Eliminate x using m21 = 2, m31 = 1",
+    "New second row: (2, 3, 2|6) - 2·(1, 1, 1|2) = (0, 1, 0|2)",
+    "New third row: (1, 2, 4|1) - (1, 1, 1|2) = (0, 1, 3|-1)",
+    "Eliminate y using m32 = 1",
+    "New third row: (0, 1, 3|-1) - (0, 1, 0|2) = (0, 0, 3|-3)"
+   ]
+  },
+  "narr": [
+   "Now let's move to 3×3 systems and Gaussian elimination.",
+   "First, we write out the system of equations and the augmented matrix.",
+   "To eliminate x from the second and third rows, we use multipliers m21 = 2 and m31 = 1.",
+   "This gives us a new second row and a new third row.",
+   "Next, we eliminate y from the third row using m32 = 1.",
+   "Now we have an upper triangular system.",
+   "We solve by back substitution: first z, then y, then x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — 3×3 Elimination (cont.)",
+   "problem": "",
+   "steps": [
+    "Solve triangular system: x + y + z = 2, y = 2, 3z = -3",
+    "Back substitution: z = -1, y = 2, x = 1"
+   ],
+   "result": "x = [[1], [2], [-1]]"
+  },
+  "narr": [
+   "Our solution is x = [[1], [2], [-1]]."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — 3×3 Elimination (Infinitely Many Solutions)",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [[1, 2, 1], [2, 4, 2], [1, 3, 5]], b = [[4], [8], [2]]",
+   "steps": [
+    "Write the system of equations and augmented matrix",
+    "Eliminate x using m21 = 2, m31 = 1",
+    "New second row: (2, 4, 2|8) - 2·(1, 2, 1|4) = (0, 0, 0|0)",
+    "New third row: (1, 3, 5|2) - (1, 2, 1|4) = (0, 1, 4|-2)",
+    "Swap rows 2 and 3 to get echelon form",
+    "Identify two pivots for three unknowns (infinitely many solutions)"
+   ]
+  },
+  "narr": [
+   "Let's examine a special case where our system has infinitely many solutions.",
+   "First, we write out the system of equations and the augmented matrix.",
+   "Eliminating x gives us an interesting result - the second row becomes all zeros.",
+   "This means the second equation is redundant (it's twice the first equation).",
+   "After swapping rows, we have an echelon form with only two pivots for three unknowns.",
+   "This indicates infinitely many solutions. We let z be a free variable t.",
+   "From the second row, we express y in terms of t."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — 3×3 Elimination (Infinitely Many Solutions) (cont.)",
+   "problem": "",
+   "steps": [
+    "Let z = t (free variable)",
+    "From second row: y = -2 - 4t",
+    "From first row: x = 4 - 2y - z = 8 + 7t",
+    "Express solution in vector form"
+   ],
+   "result": "x = [[8 + 7t], [-2 - 4t], [t]] for t ∈ ℝ"
+  },
+  "narr": [
+   "From the first row, we express x in terms of t.",
+   "The complete solution is a line in 3D space parameterized by t."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — 3×3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [[1, 3, 1], [2, 5, 2], [1, 4, 4]], b = [[6], [10], [5]]",
+   "steps": [
+    "Write the system of equations and augmented matrix",
+    "Eliminate x using m21 = 2, m31 = 1",
+    "New second row: (2, 5, 2|10) - 2·(1, 3, 1|6) = (0, -1, 0|-2)",
+    "New third row: (1, 4, 4|5) - (1, 3, 1|6) = (0, 1, 3|-1)",
+    "Eliminate y using m32 = -1",
+    "New third row: (0, 1, 3|-1) + (0, -1, 0|-2) = (0, 0, 3|-3)"
+   ]
+  },
+  "narr": [
+   "Let's solve another 3×3 system using Gaussian elimination.",
+   "First, we write out the system of equations and the augmented matrix.",
+   "Eliminating x gives us new second and third rows.",
+   "The second pivot is -1, so to eliminate y from the third row, we add row 2 to row 3.",
+   "Now we have an upper triangular system.",
+   "We solve by back substitution: first z, then y, then x.",
+   "Our solution is x = [[1], [2], [-1]]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — 3×3 Elimination (cont.)",
+   "problem": "",
+   "steps": [
+    "Solve triangular system: x + 3y + z = 6, -y = -2, 3z = -3",
+    "Back substitution: z = -1, y = 2, x = 1"
+   ],
+   "result": "x = [[1], [2], [-1]]"
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — 3×3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [[1, 1, 1], [2, 3, 2], [1, 2, 3]], b = [[2], [6], [2]]",
+   "steps": [
+    "Write the system of equations and augmented matrix",
+    "Eliminate x using m21 = 2, m31 = 1",
+    "New second row: (2, 3, 2|6) - 2·(1, 1, 1|2) = (0, 1, 0|2)",
+    "New third row: (1, 2, 3|2) - (1, 1, 1|2) = (0, 1, 2|0)",
+    "Eliminate y using m32 = 1",
+    "New third row: (0, 1, 2|0) - (0, 1, 0|2) = (0, 0, 2|-2)"
+   ]
+  },
+  "narr": [
+   "Let's do one more 3×3 elimination example.",
+   "First, we write out the system of equations and the augmented matrix.",
+   "Eliminating x gives us new second and third rows.",
+   "Next, we eliminate y from the third row.",
+   "Now we have an upper triangular system.",
+   "We solve by back substitution: first z, then y, then x.",
+   "Our solution is x = [[1], [2], [-1]]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — 3×3 Elimination (cont.)",
+   "problem": "",
+   "steps": [
+    "Solve triangular system: x + y + z = 2, y = 2, 2z = -2",
+    "Back substitution: z = -1, y = 2, x = 1"
+   ],
+   "result": "x = [[1], [2], [-1]]"
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — LU and LDU Factorization for 3×3 Matrix",
+   "problem": "Find LU and LDU for A = [[2, 1, 1], [4, 5, 3], [-2, 5, 3]]",
+   "steps": [
+    "Find multipliers m21 = 2, m31 = -1",
+    "Apply row operations: R2 - 2R1 = (0, 3, 1), R3 + R1 = (0, 6, 4)",
+    "Find second multiplier m32 = 2",
+    "Apply row operation: R3 - 2R2 = (0, 0, 2)",
+    "Construct L with 1s on diagonal and multipliers in appropriate positions",
+    "L = [[1, 0, 0], [2, 1, 0], [-1, 2, 1]]"
+   ]
+  },
+  "narr": [
+   "Now let's extend our factorization techniques to 3×3 matrices.",
+   "First, we find the multipliers for the first elimination step: m21 = 2 and m31 = -1.",
+   "Applying these row operations gives us intermediate results.",
+   "Next, we find the multiplier for the second elimination step: m32 = 2.",
+   "Applying this row operation completes our upper triangular matrix U.",
+   "We construct L with 1s on the diagonal and the multipliers in the appropriate positions.",
+   "Let's verify that A = LU."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — LU and LDU Factorization for 3×3 Matrix (cont.)",
+   "problem": "",
+   "steps": [
+    "U is the upper triangular result: [[2, 1, 1], [0, 3, 1], [0, 0, 2]]",
+    "Verify A = LU",
+    "Find D by taking diagonal of U",
+    "D = [[2, 0, 0], [0, 3, 0], [0, 0, 2]]",
+    "Calculate D⁻¹U",
+    "Verify A = L·D·D⁻¹U"
+   ],
+   "result": "L = [[1, 0, 0], [2, 1, 0], [-1, 2, 1]], U = [[2, 1, 1], [0, 3, 1], [0, 0, 2]], D = [[2, 0, 0], [0, 3, 0], [0, 0, 2]], D⁻¹U = [[1, 1/2, 1/2], [0, 1, 1/3], [0, 0, 1]]"
+  },
+  "narr": [
+   "For the LDU factorization, we extract the diagonal elements to form D.",
+   "Then we calculate D⁻¹U.",
+   "Finally, we verify that A equals L·D·D⁻¹U."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — LU and LDU Factorization for 3×3 Matrix",
+   "problem": "Find LU and LDU for A = [[2, 1, 1], [2, 5, 2], [-2, 11, 5]]",
+   "steps": [
+    "Find multipliers m21 = 1, m31 = -1",
+    "Apply row operations: R2 - R1 = (0, 4, 1), R3 + R1 = (0, 12, 6)",
+    "Find second multiplier m32 = 3",
+    "Apply row operation: R3 - 3R2 = (0, 0, 3)",
+    "Construct L with 1s on diagonal and multipliers in appropriate positions",
+    "L = [[1, 0, 0], [1, 1, 0], [-1, 3, 1]]"
+   ]
+  },
+  "narr": [
+   "Let's do one more 3×3 factorization example.",
+   "First, we find the multipliers for the first elimination step: m21 = 1 and m31 = -1.",
+   "Applying these row operations gives us intermediate results.",
+   "Next, we find the multiplier for the second elimination step: m32 = 3.",
+   "Applying this row operation completes our upper triangular matrix U.",
+   "We construct L with 1s on the diagonal and the multipliers in the appropriate positions.",
+   "Let's verify that A = LU."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — LU and LDU Factorization for 3×3 Matrix (cont.)",
+   "problem": "",
+   "steps": [
+    "U is the upper triangular result: [[2, 1, 1], [0, 4, 1], [0, 0, 3]]",
+    "Verify A = LU",
+    "Find D by taking diagonal of U",
+    "D = [[2, 0, 0], [0, 4, 0], [0, 0, 3]]",
+    "Calculate D⁻¹U",
+    "Verify A = L·D·D⁻¹U"
+   ],
+   "result": "L = [[1, 0, 0], [1, 1, 0], [-1, 3, 1]], U = [[2, 1, 1], [0, 4, 1], [0, 0, 3]], D = [[2, 0, 0], [0, 4, 0], [0, 0, 3]], D⁻¹U = [[1, 1/2, 1/2], [0, 1, 1/4], [0, 0, 1]]"
+  },
+  "narr": [
+   "For the LDU factorization, we extract the diagonal elements to form D.",
+   "Then we calculate D⁻¹U.",
+   "Finally, we verify that A equals L·D·D⁻¹U."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ }
+]

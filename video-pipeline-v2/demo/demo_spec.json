@@ -1,0 +1,402 @@
+{
+ "id": "demo",
+ "language": "en",
+ "course_title": "Demo Course",
+ "weeks_label": "Weeks 1–2",
+ "test_title": "Demo Proof Render",
+ "chapters": [
+  {
+   "title": "Chapter One — The Visual Grammar",
+   "blocks": [
+    {
+     "type": "title",
+     "data": {
+      "kicker": "Complete video guide",
+      "title": "Mathematics of Change",
+      "subtitle": "Every formula, every problem, every step — nothing left out.",
+      "chips": [
+       "12 formulas",
+       "40 problems",
+       "Full solutions"
+      ]
+     },
+     "narr": [
+      "Welcome to the complete video guide. Today we cover every formula and every problem, with nothing left out."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "section",
+     "data": {
+      "num": 1,
+      "title": "The Visual Grammar",
+      "subtitle": "How this guide shows you mathematics"
+     },
+     "narr": [
+      "Chapter one. The visual grammar of this course."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Three ideas drive everything",
+      "bullets": [
+       "A limit describes approach, not arrival",
+       "Continuity means no jumps",
+       "The derivative is a slope — a ratio of vanishing quantities"
+      ]
+     },
+     "narr": [
+      "Three ideas drive everything in this chapter.",
+      "A limit describes approach, not arrival.",
+      "Continuity means no jumps anywhere.",
+      "And the derivative is a slope, a ratio of vanishing quantities."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "The definition of the derivative",
+      "tex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+      "parts": [
+       {
+        "substr": "\\lim",
+        "color": "#4C5FD5",
+        "note": "the limit: what the ratio approaches"
+       },
+       {
+        "substr": "h\\to 0",
+        "color": "#B45309",
+        "note": "h shrinks to zero — never equals it"
+       },
+       {
+        "substr": "f(x+h)-f(x)",
+        "color": "#0E7C7B",
+        "note": "rise: the change in output"
+       }
+      ]
+     },
+     "narr": [
+      "Here is the definition of the derivative.",
+      "The limit tells us what the ratio approaches.",
+      "H shrinks to zero, but never equals it.",
+      "And the numerator is the rise: the change in output."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "plot",
+     "data": {
+      "heading": "Position under gravity",
+      "functions": [
+       {
+        "fn": "100 - 4.9*x**2",
+        "tex": "y(t)",
+        "color": "#4C5FD5"
+       },
+       {
+        "fn": "100 - 24.5*x + 12.25",
+        "tex": "tangent",
+        "color": "#B45309"
+       }
+      ],
+      "x_range": [
+       0,
+       4.6
+      ],
+      "y_range": [
+       0,
+       110
+      ],
+      "point": [
+       2.5,
+       69
+      ],
+      "vline": 2.5,
+      "x_label": "t (s)",
+      "y_label": "y (m)"
+     },
+     "narr": [
+      "Watch the position curve under gravity.",
+      "The tangent line touches it at exactly two point five seconds."
+     ],
+     "narr_item": [
+      -1,
+      0
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "A limit you must know cold",
+      "problem": "Compute the limit of x squared minus nine over x minus three, as x approaches three.",
+      "steps": [
+       {
+        "text": "Direct substitution gives zero over zero — indeterminate"
+       },
+       {
+        "text": "Factor the numerator: (x−3)(x+3)"
+       },
+       {
+        "text": "Cancel the common factor (x−3)"
+       }
+      ],
+      "result": "lim = 6"
+     },
+     "narr": [
+      "Here is a limit you must know cold.",
+      "Direct substitution gives zero over zero, which is indeterminate.",
+      "Factor the numerator into x minus three times x plus three.",
+      "Cancel the common factor.",
+      "The answer is six."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chapter Two — Practice and Recap",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 2,
+      "title": "Practice and Recap",
+      "subtitle": "Working the machinery"
+     },
+     "narr": [
+      "Chapter two. Practice and recap."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "code",
+     "data": {
+      "heading": "Numerically, in Python",
+      "code": "h = 1.0\nfor i in range(6):\n    d = (f(x + h) - f(x)) / h\n    print(h, d)\n    h = h / 10",
+      "highlight": [
+       2,
+       4
+      ]
+     },
+     "narr": [
+      "And numerically, in Python, we shrink h by tens.",
+      "Each iteration prints the ratio."
+     ],
+     "narr_item": [
+      -1,
+      0
+     ]
+    },
+    {
+     "type": "table",
+     "data": {
+      "heading": "The standard limits",
+      "columns": [
+       "Form",
+       "Limit",
+       "Note"
+      ],
+      "rows": [
+       [
+        {
+         "tex": "\\dfrac{\\sin x}{x}"
+        },
+        {
+         "tex": "1"
+        },
+        "as x → 0"
+       ],
+       [
+        {
+         "tex": "\\dfrac{1-\\cos x}{x}"
+        },
+        {
+         "tex": "0"
+        },
+        "as x → 0"
+       ],
+       [
+        {
+         "tex": "\\dfrac{e^x-1}{x}"
+        },
+        {
+         "tex": "1"
+        },
+        "as x → 0"
+       ],
+       [
+        {
+         "tex": "\\dfrac{\\ln(1+x)}{x}"
+        },
+        {
+         "tex": "1"
+        },
+        "as x → 0"
+       ]
+      ]
+     },
+     "narr": [
+      "Here are the standard limits you must memorize.",
+      "Sine over x tends to one.",
+      "One minus cosine over x tends to zero.",
+      "E to the x minus one over x tends to one.",
+      "And the natural log of one plus x, over x, also tends to one."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "timeline",
+     "data": {
+      "heading": "Calculus on one line of time",
+      "events": [
+       {
+        "year": "1665",
+        "text": "Newton's year of wonders"
+       },
+       {
+        "year": "1675",
+        "text": "Leibniz invents the notation"
+       },
+       {
+        "year": "1821",
+        "text": "Cauchy writes the formal limit"
+       },
+       {
+        "year": "1861",
+        "text": "Weierstrass gives epsilon–delta"
+       }
+      ]
+     },
+     "narr": [
+      "Calculus itself has a timeline.",
+      "Sixteen sixty five, Newton's year of wonders.",
+      "Sixteen seventy five, Leibniz invents the notation.",
+      "Eighteen twenty one, Cauchy writes the formal limit.",
+      "And Weierstrass closes with epsilon and delta."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "matrix",
+     "data": {
+      "heading": "Solving a system the clean way",
+      "tex": "\\begin{pmatrix} 2 & 1 \\\\ 1 & 3 \\end{pmatrix}\\begin{pmatrix} x \\\\ y \\end{pmatrix}=\\begin{pmatrix} 5 \\\\ 10 \\end{pmatrix}",
+      "steps": [
+       {
+        "text": "Swap rows: the pivot 1 comes first"
+       },
+       {
+        "text": "Eliminate below: R2 − 2·R1"
+       },
+       {
+        "text": "Back-substitute: y = 3, then x = 1"
+       }
+      ]
+     },
+     "narr": [
+      "Systems of equations solve cleanly with matrices.",
+      "Swap rows so the pivot one comes first.",
+      "Eliminate below with row two minus two row one.",
+      "Back substitute: y equals three, then x equals one."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "quote",
+     "data": {
+      "text": "The ultimate authority in mathematics is calculation — but the soul of mathematics is the picture.",
+      "who": "A study guide, probably"
+     },
+     "narr": [
+      "The ultimate authority is calculation, but the soul is the picture."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "recap",
+     "data": {
+      "heading": "Chapter two in four lines",
+      "items": [
+       "Numerics converge as h shrinks",
+       "Four standard limits memorized",
+       "Gaussian elimination: swap, eliminate, back-substitute",
+       "A picture beats a paragraph"
+      ]
+     },
+     "narr": [
+      "Chapter two in four lines.",
+      "Numerics converge as h shrinks.",
+      "Four standard limits, memorized.",
+      "Gaussian elimination: swap, eliminate, back substitute.",
+      "And a picture beats a paragraph."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "outro",
+     "data": {
+      "kicker": "Guide complete",
+      "message": "Every formula. Every problem. Every step.",
+      "chip": "Good luck on the test!"
+     },
+     "narr": [
+      "You made it. Every formula, every problem, every step. Good luck on the test."
+     ],
+     "narr_item": [
+      -1
+     ]
+    }
+   ]
+  }
+ ]
+}

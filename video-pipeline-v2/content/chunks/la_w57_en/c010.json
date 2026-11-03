@@ -1,0 +1,406 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — Weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to this section on Linear Algebra covering weeks 5 through 7. We'll explore various concepts including matrix inverses, solving systems of equations, and matrix decompositions through a series of exercises.",
+   "Let's begin with some fundamental problems on 2x2 matrices."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — 2×2 Inverse",
+   "problem": "Find A⁻¹ for A = [2 2; 1 6]. Verify by multiplication.",
+   "steps": [
+    "Calculate det(A) = 2·6 - 2·1 = 10 ≠ 0",
+    "Apply inverse formula: A⁻¹ = (1/10)·[6 -2; -1 2]",
+    "Simplify: A⁻¹ = [3/5 -1/5; -1/10 1/5]"
+   ],
+   "result": "A⁻¹ = [3/5 -1/5; -1/10 1/5]"
+  },
+  "narr": [
+   "Our first exercise asks us to find the inverse of a 2×2 matrix.",
+   "We start by calculating the determinant, which is non-zero, confirming the inverse exists.",
+   "The inverse is then found using the standard formula for 2×2 matrices.",
+   "Finally, we verify our result by multiplying A with A⁻¹ to get the identity matrix."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — 2×2 System Solution",
+   "problem": "Solve Ax = b, where A = [3 1; 2 3], b = [8; 10].",
+   "steps": [
+    "Write the system: 3x + y = 8, 2x + 3y = 10",
+    "Multiply first equation by 3: 9x + 3y = 24",
+    "Subtract second equation: 7x = 14",
+    "Solve for x: x = 2",
+    "Substitute back: y = (8 - 6)/1 = 2"
+   ],
+   "result": "x = [2; 2]"
+  },
+  "narr": [
+   "Next, we solve a system of linear equations using matrix methods.",
+   "First, we write out the system corresponding to Ax = b.",
+   "We then use elimination to solve for x and y.",
+   "After finding x = 2, we substitute back to find y = 2.",
+   "Our solution is verified by multiplying A with x to get back b."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — 2×2 Inverse",
+   "problem": "Find A⁻¹ for A = [4 2; 1 4]. Verify by multiplication.",
+   "steps": [
+    "Calculate det(A) = 4·4 - 2·1 = 14 ≠ 0",
+    "Apply inverse formula: A⁻¹ = (1/14)·[4 -2; -1 4]",
+    "Simplify: A⁻¹ = [2/7 -1/7; -1/14 2/7]"
+   ],
+   "result": "A⁻¹ = [2/7 -1/7; -1/14 2/7]"
+  },
+  "narr": [
+   "Another inverse problem, this time with a different 2×2 matrix.",
+   "Again, we start with the determinant to confirm invertibility.",
+   "The inverse formula gives us our result.",
+   "Verification shows that A·A⁻¹ equals the identity matrix."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — 2×2 System Solution",
+   "problem": "Solve Ax = b, where A = [2 1; 2 5], b = [4; 12].",
+   "steps": [
+    "Write the system: 2x + y = 4, 2x + 5y = 12",
+    "Subtract first equation from second: 4y = 8",
+    "Solve for y: y = 2",
+    "Substitute back: 2x = 4 - 2, x = 1"
+   ],
+   "result": "x = [1; 2]"
+  },
+  "narr": [
+   "Our fourth exercise is another system of equations.",
+   "We write out the system and use elimination to solve.",
+   "Subtracting the equations eliminates x, allowing us to solve for y.",
+   "With y found, we substitute back to find x.",
+   "Verification confirms our solution is correct."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — 2×2 Decomposition",
+   "problem": "Find A = LU = LDU for A = [2 1; 5 4].",
+   "steps": [
+    "Calculate multiplier: m₂₁ = 5/2",
+    "Apply elimination: R₂ ← R₂ - (5/2)R₁",
+    "Result: U = [2 1; 0 3/2]",
+    "Construct L: L = [1 0; 5/2 1]",
+    "Verify LU = A",
+    "For LDU: D = [2 0; 0 3/2], D⁻¹U = [1 1/2; 0 1]"
+   ],
+   "result": "L = [1 0; 5/2 1], U = [2 1; 0 3/2], D = [2 0; 0 3/2]"
+  },
+  "narr": [
+   "Now we move to matrix decomposition, specifically LU decomposition.",
+   "We begin by finding the multiplier for elimination.",
+   "Applying elimination gives us the upper triangular matrix U.",
+   "The lower triangular matrix L is constructed from the multipliers.",
+   "We verify that LU equals our original matrix A.",
+   "For LDU decomposition, we factor U into D and a unit upper triangular matrix."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — 2×2 Decomposition",
+   "problem": "Find A = LU = LDU for A = [3 1; 2 5].",
+   "steps": [
+    "Calculate multiplier: m₂₁ = 2/3",
+    "Apply elimination: R₂ ← R₂ - (2/3)R₁",
+    "Result: U = [3 1; 0 13/3]",
+    "Construct L: L = [1 0; 2/3 1]",
+    "Verify LU = A",
+    "For LDU: D = [3 0; 0 13/3], D⁻¹U = [1 1/3; 0 1]"
+   ],
+   "result": "L = [1 0; 2/3 1], U = [3 1; 0 13/3], D = [3 0; 0 13/3]"
+  },
+  "narr": [
+   "Another LU decomposition problem with a different matrix.",
+   "The multiplier is calculated as the ratio needed to eliminate the (2,1) entry.",
+   "Applying elimination gives us U.",
+   "L is constructed from the multiplier.",
+   "We verify the product LU equals A.",
+   "For LDU, we separate the diagonal elements into D."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — 2×2 Decomposition",
+   "problem": "Find A = LU = LDU for A = [1 1; 3 5].",
+   "steps": [
+    "Calculate multiplier: m₂₁ = 3",
+    "Apply elimination: R₂ ← R₂ - 3R₁",
+    "Result: U = [1 1; 0 2]",
+    "Construct L: L = [1 0; 3 1]",
+    "Verify LU = A",
+    "For LDU: D = [1 0; 0 2], D⁻¹U = [1 1; 0 1]"
+   ],
+   "result": "L = [1 0; 3 1], U = [1 1; 0 2], D = [1 0; 0 2]"
+  },
+  "narr": [
+   "Our third decomposition exercise with an integer matrix.",
+   "The multiplier is simply 3 in this case.",
+   "Elimination gives us an upper triangular matrix with integer entries.",
+   "L is straightforward with the multiplier in the (2,1) position.",
+   "Verification confirms our decomposition.",
+   "For LDU, D contains the diagonal elements of U."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — 2×2 Decomposition",
+   "problem": "Find A = LU = LDU for A = [2 1; 4 4].",
+   "steps": [
+    "Calculate multiplier: m₂₁ = 2",
+    "Apply elimination: R₂ ← R₂ - 2R₁",
+    "Result: U = [2 1; 0 2]",
+    "Construct L: L = [1 0; 2 1]",
+    "Verify LU = A",
+    "For LDU: D = [2 0; 0 2], D⁻¹U = [1 1/2; 0 1]"
+   ],
+   "result": "L = [1 0; 2 1], U = [2 1; 0 2], D = [2 0; 0 2]"
+  },
+  "narr": [
+   "Another decomposition exercise with a matrix that has equal diagonal elements.",
+   "The multiplier is 2 to eliminate the (2,1) entry.",
+   "Elimination gives us U with equal diagonal entries.",
+   "L contains the multiplier in the (2,1) position.",
+   "Verification confirms our LU decomposition.",
+   "For LDU, since the diagonal entries are equal, D is a scalar multiple of I."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — 3×3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [1 3 1; 2 5 2; 1 4 4], b = [6; 10; 5].",
+   "steps": [
+    "Write augmented matrix: [1 3 1 | 6; 2 5 2 | 10; 1 4 4 | 5]",
+    "Step 1 (m₂₁=2, m₃₁=1): R₂-2R₁ = (0,-1,0|-2); R₃-R₁ = (0,1,3|-1)",
+    "Step 2 (m₃₂=-1): R₃+R₂ = (0,0,3|-3)",
+    "Back substitution: z = -1, y = 2, x = 1"
+   ],
+   "result": "x = [1; 2; -1]"
+  },
+  "narr": [
+   "Now we move to 3×3 systems, starting with Gaussian elimination.",
+   "First, we write the augmented matrix combining A and b.",
+   "In the first elimination step, we eliminate below the first pivot.",
+   "In the second step, we eliminate below the second pivot.",
+   "Back substitution gives us the solution vector x.",
+   "Verification confirms that Ax equals b."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — 3×3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [1 1 1; 2 3 2; 1 2 3], b = [2; 6; 2].",
+   "steps": [
+    "Write augmented matrix: [1 1 1 | 2; 2 3 2 | 6; 1 2 3 | 2]",
+    "Step 1 (m₂₁=2, m₃₁=1): R₂-2R₁ = (0,1,0|2); R₃-R₁ = (0,1,2|0)",
+    "Step 2 (m₃₂=1): R₃-R₂ = (0,0,2|-2)",
+    "Back substitution: z = -1, y = 2, x = 1"
+   ],
+   "result": "x = [1; 2; -1]"
+  },
+  "narr": [
+   "Another 3×3 system to solve using Gaussian elimination.",
+   "We set up the augmented matrix as before.",
+   "First elimination step creates zeros below the first pivot.",
+   "Second elimination step creates a zero below the second pivot.",
+   "Back substitution gives us the solution.",
+   "Verification confirms our solution is correct."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — 3×3 Elimination (infinitely many solutions)",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [1 2 1; 2 4 2; 1 3 6], b = [4; 8; 1].",
+   "steps": [
+    "Write augmented matrix: [1 2 1 | 4; 2 4 2 | 8; 1 3 6 | 1]",
+    "Step 1 (m₂₁=2, m₃₁=1): R₂-2R₁ = (0,0,0|0); R₃-R₁ = (0,1,5|-3)",
+    "Swap rows 2 and 3: [1 2 1 | 4; 0 1 5 |-3; 0 0 0 | 0]",
+    "Identify free variable: z = t",
+    "Express solution: y = -3-5t, x = 10+9t"
+   ],
+   "result": "x = [10+9t; -3-5t; t], t ∈ ℝ"
+  },
+  "narr": [
+   "This system has infinitely many solutions, which we'll explore.",
+   "After setting up the augmented matrix, we begin elimination.",
+   "We notice the second equation is redundant (twice the first).",
+   "After swapping rows, we have a free variable since there are only two pivots.",
+   "The solution is expressed in terms of the free variable t.",
+   "A particular solution corresponds to t = -1."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — 3×3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [1 3 1; 2 5 2; 1 4 3], b = [6; 10; 6].",
+   "steps": [
+    "Write augmented matrix: [1 3 1 | 6; 2 5 2 | 10; 1 4 3 | 6]",
+    "Step 1 (m₂₁=2, m₃₁=1): R₂-2R₁ = (0,-1,0|-2); R₃-R₁ = (0,1,2|0)",
+    "Step 2 (m₃₂=-1): R₃+R₂ = (0,0,2|-2)",
+    "Back substitution: z = -1, y = 2, x = 1"
+   ],
+   "result": "x = [1; 2; -1]"
+  },
+  "narr": [
+   "Back to a standard 3×3 system with a unique solution.",
+   "We set up the augmented matrix and proceed with elimination.",
+   "First elimination step creates zeros below the first pivot.",
+   "Second elimination step creates a zero below the second pivot.",
+   "Back substitution gives us the solution vector.",
+   "Verification confirms that Ax equals b."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — LU and LDU 3×3",
+   "problem": "Compute LU and LDU for A = [2 1 1; 4 4 3; -2 1 1].",
+   "steps": [
+    "Calculate multipliers: m₂₁=2, m₃₁=-1",
+    "Apply elimination: R₂-2R₁ = (0,2,1); R₃+R₁ = (0,2,2)",
+    "Second pivot: 2, m₃₂=1: R₃-R₂ = (0,0,1)",
+    "Construct L: L = [1 0 0; 2 1 0; -1 1 1]",
+    "Construct U: U = [2 1 1; 0 2 1; 0 0 1]",
+    "For LDU: D = [2 0 0; 0 2 0; 0 0 1], D⁻¹U = [1 1/2 1/2; 0 1 1/2; 0 0 1]"
+   ],
+   "result": "L = [1 0 0; 2 1 0; -1 1 1], U = [2 1 1; 0 2 1; 0 0 1]"
+  },
+  "narr": [
+   "Finally, we compute LU and LDU decompositions for a 3×3 matrix.",
+   "First, we calculate the multipliers for elimination.",
+   "Applying elimination gives us the upper triangular matrix U.",
+   "The lower triangular matrix L is constructed from the multipliers.",
+   "We verify that LU equals our original matrix A.",
+   "For LDU decomposition, we factor U into D and a unit upper triangular matrix."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

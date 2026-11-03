@@ -1,0 +1,561 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to this comprehensive guide on Linear Algebra covering weeks 1 through 4. We'll explore fundamental concepts, solve problems, and understand the key formulas that form the foundation of linear algebra.",
+   "Let's begin with week 1 problems and solutions."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Vector Addition and Midpoint",
+   "problem": "Let a = (−1, 3, 2), b = (4, 0, −2). Compute a + b and 3a − b; find the midpoint between a and b.",
+   "steps": [
+    "Compute a + b by adding corresponding components",
+    "Compute 3a − b by scalar multiplication and subtraction",
+    "Find the midpoint using the average of components"
+   ],
+   "result": "a + b = (3, 3, 0); 3a − b = (−7, 9, 8); midpoint = (3/2, 3/2, 0)"
+  },
+  "narr": [
+   "Our first problem involves basic vector operations. We need to compute vector addition, scalar multiplication and subtraction, and find the midpoint between two vectors.",
+   "First, let's find a + b. This is straightforward - we simply add the corresponding components of each vector.",
+   "For the midpoint, we use the same averaging concept as in the scalar formula for the midpoint of a segment - we take the average of each component."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Solving for Vectors",
+   "problem": "Given p + q = (5, 7) and p − q = (−1, 3); find p and q.",
+   "steps": [
+    "Add the two equations to solve for p",
+    "Subtract the equations to solve for q",
+    "Verify the solution by checking both original equations"
+   ],
+   "result": "p = (2, 5); q = (3, 2)"
+  },
+  "narr": [
+   "In our second problem, we have a system of vector equations. The 'add and subtract' method is the vector analog of simultaneously solving two scalar equations.",
+   "By adding the two equations, we can isolate p and solve for it directly.",
+   "Then, by subtracting the equations, we can isolate q and solve for it.",
+   "Finally, we verify our solution by checking both original equations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Linear Combinations",
+   "problem": "Let u = (1, 2, −1), v = (2, −1, 0). Compute −u + 3v; write cu + dv component-wise; can cu + dv equal (5, 0, −1)?",
+   "steps": [
+    "Compute −u + 3v by scalar multiplication and addition",
+    "Express cu + dv in component form",
+    "Set up equations to check if cu + dv can equal (5, 0, −1)",
+    "Solve the system of equations for c and d"
+   ],
+   "result": "−u + 3v = (5, −5, 1); cu + dv = (c + 2d, 2c − d, −c); Yes, when c = 1, d = 2"
+  },
+  "narr": [
+   "Our third problem introduces linear combinations of vectors. We need to compute a specific combination, express a general combination component-wise, and determine if a particular vector can be expressed as such a combination.",
+   "First, we compute −u + 3v by applying scalar multiplication and then vector addition.",
+   "Next, we express cu + dv in component form, which will help us answer the third part of the question.",
+   "To determine if cu + dv can equal (5, 0, −1), we set up a system of equations based on the components.",
+   "Solving this system, we find that c = 1 and d = 2 satisfy all three equations simultaneously."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Vector Span and Dependence",
+   "problem": "Let r = (2, −1), s = (−6, 3). Describe all combinations cr + ds; do the vectors span R²? Find the dependence relation.",
+   "steps": [
+    "Notice the relationship between r and s",
+    "Express all combinations cr + ds in simplified form",
+    "Determine if the vectors span R²",
+    "Find a non-trivial dependence relation"
+   ],
+   "result": "All combinations are multiples of r; The vectors span only a line (not R²); 3r + s = 0"
+  },
+  "narr": [
+   "In this problem, we explore the concepts of vector span and linear dependence.",
+   "First, we notice that s is a scalar multiple of r, specifically s = −3r.",
+   "This means any combination cr + ds can be simplified to a multiple of r alone.",
+   "Consequently, the span of these vectors is only the line through r, not the entire R² plane.",
+   "Since one vector is a multiple of the other, they are linearly dependent, with the relation 3r + s = 0 being non-trivial."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Plane Equation from Vectors",
+   "problem": "Let v = (1, 0, 1), w = (1, 2, 0). Write cv + dw = (x, y, z); find one equation relating x, y, z; check b = (4, 6, 1).",
+   "steps": [
+    "Express cv + dw in component form",
+    "Relate the components to find an equation between x, y, z",
+    "Check if the vector b satisfies this equation"
+   ],
+   "result": "cv + dw = (c + d, 2d, c); Equation: x = z + y/2; b lies in the plane"
+  },
+  "narr": [
+   "This problem demonstrates how to find the equation of a plane spanned by two vectors.",
+   "First, we express the linear combination cv + dw in terms of its components.",
+   "By relating these components, we can derive a single linear equation that describes all points in the plane spanned by v and w.",
+   "Finally, we check if a given vector b satisfies this equation, determining whether it lies in the plane."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Solving for Coefficients",
+   "problem": "Find c, d such that c(1, 2) + d(3, −1) = (7, 3); write and solve the component-wise equations.",
+   "steps": [
+    "Set up component-wise equations",
+    "Solve the system of equations for c and d",
+    "Verify the solution by plugging back into the original equation"
+   ],
+   "result": "c = 16/7, d = 11/7"
+  },
+  "narr": [
+   "In this problem, we need to find the coefficients that express a given vector as a linear combination of two other vectors.",
+   "We start by setting up a system of equations based on the components.",
+   "Solving this system, we find the values of c and d that satisfy both equations.",
+   "Finally, we verify our solution by substituting these values back into the original vector equation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Span and Dependence of Three Vectors",
+   "problem": "Let u = (1, 1, 0), v = (0, 1, 1), w = (1, 2, 1). Does w add a new direction? Describe span{u, v, w}; give a relation equal to zero.",
+   "steps": [
+    "Check if w can be expressed as a combination of u and v",
+    "Determine if the vectors are linearly dependent",
+    "Find a non-trivial linear relation equal to zero",
+    "Describe the span of the three vectors"
+   ],
+   "result": "w = u + v; The vectors are dependent; u + v − w = 0; The span is a plane"
+  },
+  "narr": [
+   "This problem explores whether adding a third vector increases the span and tests for linear dependence.",
+   "We find that w can be expressed as the sum of u and v, meaning it doesn't add a new direction.",
+   "Since w is redundant, the three vectors are linearly dependent, with the relation u + v − w = 0.",
+   "The span of these vectors is just the plane spanned by u and v, as w doesn't extend it to three dimensions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Spanning Space with Vectors",
+   "problem": "Can two vectors span all of R³? Can three vectors span R³ and at the same time be dependent? Explain through 'new directions.'",
+   "steps": [
+    "Analyze the maximum span of two vectors",
+    "Explain why three dependent vectors cannot span R³",
+    "Connect the concept to the idea of 'new directions'"
+   ],
+   "result": "Two vectors can span at most a plane; Three dependent vectors cannot span R³; Each vector can add at most one new direction"
+  },
+  "narr": [
+   "Our final problem explores fundamental concepts about vector spans and dimensionality.",
+   "Two vectors can span at most a plane in R³, as each vector provides at most one new direction, and two directions cannot fill three-dimensional space.",
+   "Similarly, three dependent vectors also span at most a plane, since dependence means one vector doesn't add a new direction beyond what the others provide.",
+   "To span all of R³, we need three linearly independent vectors, each adding a distinct new direction to the span."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 2 — Scalar and Vector Products, Introduction to Matrices",
+   "subtitle": "Linear Algebra I"
+  },
+  "narr": [
+   "Moving on to week 2, we'll explore the two fundamental products of vector geometry and begin our study of matrices.",
+   "These concepts are crucial for understanding more advanced linear algebra topics."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Scalar Product (Dot Product)",
+   "tex": "u \\cdot v = u_1v_1 + \\cdots + u_nv v_n = u^T v",
+   "parts": [
+    {
+     "substr": "u \\cdot v",
+     "color": "#4C5FD5",
+     "note": "Dot product of vectors u and v"
+    },
+    {
+     "substr": "u^T v",
+     "color": "#B45309",
+     "note": "Matrix notation for dot product"
+    }
+   ]
+  },
+  "narr": [
+   "The scalar product, also known as the dot product, is a fundamental operation in vector geometry.",
+   "It can be computed as the sum of the products of corresponding components, or equivalently as the matrix product of the transpose of u with v."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Cosine of Angle Between Vectors",
+   "tex": "\\cos \\theta = \\frac{u \\cdot v}{\\|u\\|\\|v\\|}",
+   "parts": [
+    {
+     "substr": "\\cos \\theta",
+     "color": "#4C5FD5",
+     "note": "Cosine of the angle between vectors"
+    },
+    {
+     "substr": "u \\cdot v",
+     "color": "#B45309",
+     "note": "Dot product in the numerator"
+    },
+    {
+     "substr": "\\|u\\|\\|v\\|",
+     "color": "#0E7C7B",
+     "note": "Product of vector magnitudes in denominator"
+    }
+   ]
+  },
+  "narr": [
+   "The cosine of the angle between two vectors can be computed using their dot product and magnitudes.",
+   "This formula shows that the dot product relates to the geometric concept of angle between vectors."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Orthogonality Condition",
+   "tex": "u \\perp v \\Leftrightarrow u \\cdot v = 0",
+   "parts": [
+    {
+     "substr": "u \\perp v",
+     "color": "#4C5FD5",
+     "note": "Vectors u and v are perpendicular"
+    },
+    {
+     "substr": "u \\cdot v = 0",
+     "color": "#B45309",
+     "note": "Condition for orthogonality"
+    }
+   ]
+  },
+  "narr": [
+   "Two vectors are orthogonal (perpendicular) if and only if their dot product is zero.",
+   "This is a fundamental property that connects algebraic and geometric perspectives on vectors."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Vector Projection",
+   "tex": "\\text{proj}_v u = \\frac{u \\cdot v}{v \\cdot v} v",
+   "parts": [
+    {
+     "substr": "\\text{proj}_v u",
+     "color": "#4C5FD5",
+     "note": "Projection of u onto v"
+    },
+    {
+     "substr": "u \\cdot v",
+     "color": "#B45309",
+     "note": "Dot product in the numerator"
+    },
+    {
+     "substr": "v \\cdot v",
+     "color": "#0E7C7B",
+     "note": "Dot product of v with itself (magnitude squared)"
+    }
+   ]
+  },
+  "narr": [
+   "The projection of vector u onto vector v gives the component of u in the direction of v.",
+   "It's computed using the dot product and is a fundamental operation in vector geometry."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Cross Product",
+   "tex": "u \\times v = \\begin{pmatrix} u_2v_3 - u_3v_2 \\\\ u_3v_1 - u_1v_3 \\\\ u_1v_2 - u_2v_1 \\end{pmatrix}",
+   "parts": [
+    {
+     "substr": "u \\times v",
+     "color": "#4C5FD5",
+     "note": "Cross product of vectors u and v"
+    },
+    {
+     "substr": "u_2v_3 - u_3v_2",
+     "color": "#B45309",
+     "note": "First component of cross product"
+    },
+    {
+     "substr": "u_3v_1 - u_1v_3",
+     "color": "#B45309",
+     "note": "Second component of cross product"
+    },
+    {
+     "substr": "u_1v_2 - u_2v_1",
+     "color": "#B45309",
+     "note": "Third component of cross product"
+    }
+   ]
+  },
+  "narr": [
+   "The cross product is another fundamental operation in vector geometry, defined for three-dimensional vectors.",
+   "It results in a vector that is perpendicular to both input vectors, with magnitude equal to the area of the parallelogram they span."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Magnitude of Cross Product",
+   "tex": "\\|u \\times v\\| = \\|u\\|\\|v\\||\\sin \\theta|",
+   "parts": [
+    {
+     "substr": "\\|u \\times v\\|",
+     "color": "#4C5FD5",
+     "note": "Magnitude of cross product"
+    },
+    {
+     "substr": "\\|u\\|\\|v\\|",
+     "color": "#B45309",
+     "note": "Product of vector magnitudes"
+    },
+    {
+     "substr": "|\\sin \\theta|",
+     "color": "#0E7C7B",
+     "note": "Absolute value of sine of angle between vectors"
+    }
+   ]
+  },
+  "narr": [
+   "The magnitude of the cross product equals the product of the vector magnitudes multiplied by the absolute value of the sine of the angle between them.",
+   "Geometrically, this represents the area of the parallelogram spanned by the two vectors."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Cross Product Properties",
+   "tex": "u \\times v = -(v \\times u), \\quad (u \\times v) \\perp u, v",
+   "parts": [
+    {
+     "substr": "u \\times v = -(v \\times u)",
+     "color": "#4C5FD5",
+     "note": "Anti-commutativity of cross product"
+    },
+    {
+     "substr": "(u \\times v) \\perp u, v",
+     "color": "#B45309",
+     "note": "Result is perpendicular to both vectors"
+    }
+   ]
+  },
+  "narr": [
+   "The cross product has two important properties: it's anti-commutative, meaning swapping the vectors negates the result.",
+   "Additionally, the result is always perpendicular to both input vectors."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matrix Definition",
+   "tex": "A = [a_{ij}] \\in \\mathbb{R}^{m \\times n}",
+   "parts": [
+    {
+     "substr": "A = [a_{ij}]",
+     "color": "#4C5FD5",
+     "note": "Matrix with elements a_{ij}"
+    },
+    {
+     "substr": "\\mathbb{R}^{m \\times n}",
+     "color": "#B45309",
+     "note": "Set of m×n real matrices"
+    }
+   ]
+  },
+  "narr": [
+   "A matrix is a rectangular array of numbers, with m rows and n columns in this case.",
+   "Each element a_{ij} is located at the intersection of the i-th row and j-th column."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matrix Addition and Scalar Multiplication",
+   "tex": "(A + B)_{ij} = a_{ij} + b_{ij}, \\quad (cA)_{ij} = c a_{ij}",
+   "parts": [
+    {
+     "substr": "(A + B)_{ij}",
+     "color": "#4C5FD5",
+     "note": "Element-wise matrix addition"
+    },
+    {
+     "substr": "(cA)_{ij}",
+     "color": "#B45309",
+     "note": "Scalar multiplication of matrix"
+    }
+   ]
+  },
+  "narr": [
+   "Matrix addition is performed element-wise, as is scalar multiplication of a matrix.",
+   "These operations are fundamental for working with matrices in linear algebra."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matrix-Vector Product (Column Picture)",
+   "tex": "Ax = x_1a_1 + \\cdots + x_na_n",
+   "parts": [
+    {
+     "substr": "Ax",
+     "color": "#4C5FD5",
+     "note": "Matrix-vector product"
+    },
+    {
+     "substr": "x_1a_1 + \\cdots + x_na_n",
+     "color": "#B45309",
+     "note": "Linear combination of columns"
+    }
+   ]
+  },
+  "narr": [
+   "The matrix-vector product Ax can be interpreted as a linear combination of the columns of A, with coefficients given by the components of x.",
+   "This column picture is one of the fundamental ways to understand matrix operations."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Diagonal Matrix",
+   "tex": "D = \\text{diag}(d_1, \\ldots, d_n), \\quad Dx = (d_1x_1, \\ldots, d_nx_n)^T",
+   "parts": [
+    {
+     "substr": "D = \\text{diag}(d_1, \\ldots, d_n)",
+     "color": "#4C5FD5",
+     "note": "Diagonal matrix with diagonal entries d_i"
+    },
+    {
+     "substr": "Dx",
+     "color": "#B45309",
+     "note": "Matrix-vector product with diagonal matrix"
+    }
+   ]
+  },
+  "narr": [
+   "A diagonal matrix has non-zero entries only on its main diagonal.",
+   "When multiplying a diagonal matrix with a vector, it simply scales each component of the vector by the corresponding diagonal entry."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ }
+]

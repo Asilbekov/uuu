@@ -1,0 +1,445 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 20,
+   "title": "Matrix Representation and Linear Combinations",
+   "subtitle": "Exercise 20"
+  },
+  "narr": [
+   "Let's start with an interesting problem about matrix representation and linear combinations.",
+   "We have a matrix A with size 3×2, and we're given two key pieces of information.",
+   "First, when A multiplies the vector [1, 0], it gives us [2, -1, 4].",
+   "Second, when A multiplies [0, 1], it gives us [3, 2, 0].",
+   "Our task is to write down the matrix A and then compute A[-2, 5] without using row dot products.",
+   "The solution involves understanding how matrix columns correspond to these transformations."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 20 — Matrix Construction",
+   "problem": "A has size 3×2, with A[1, 0] = [2, -1, 4] and A[0, 1] = [3, 2, 0]. Write down A and compute A[-2, 5] without row dot products.",
+   "steps": [
+    "The two images are the columns of A",
+    "A = [[2, 3], [-1, 2], [4, 0]]",
+    "Using linearity: A[-2, 5] = -2·A[1, 0] + 5·A[0, 1]",
+    "A[-2, 5] = -2·[2, -1, 4] + 5·[3, 2, 0]",
+    "A[-2, 5] = [-4 + 15, 2 + 10, -8 + 0]",
+    "A[-2, 5] = [11, 12, -8]"
+   ],
+   "result": "A = [[2, 3], [-1, 2], [4, 0]] and A[-2, 5] = [11, 12, -8]"
+  },
+  "narr": [
+   "The key insight here is that the images of the standard basis vectors become the columns of our matrix.",
+   "So the first column is A[1, 0] = [2, -1, 4] and the second column is A[0, 1] = [3, 2, 0].",
+   "This gives us our matrix A directly.",
+   "Now to compute A[-2, 5], we use the linearity property of matrix transformations.",
+   "We can express this as a linear combination of the two basis images.",
+   "Multiplying through and adding the vectors gives us our final result."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 21 — Vector Orthogonality",
+   "problem": "Expand (u + v)·(u - v) for vectors of the same dimension; prove that u + v ⊥ u - v if and only if ||u|| = ||v||.",
+   "steps": [
+    "Distribute the dot product: (u + v)·(u - v) = u·u - u·v + v·u - v·v",
+    "Simplify using dot product properties: u·u - u·v + u·v - v·v = ||u||² - ||v||²",
+    "The middle terms cancel out",
+    "Orthogonality means this equals zero: ||u||² - ||v||² = 0",
+    "Therefore ||u||² = ||v||²",
+    "Since norms are non-negative, this implies ||u|| = ||v||"
+   ],
+   "result": "(u + v)·(u - v) = ||u||² - ||v||², and u + v ⊥ u - v if and only if ||u|| = ||v||"
+  },
+  "narr": [
+   "This problem explores an interesting relationship between vector addition, subtraction, and orthogonality.",
+   "We start by expanding the dot product using the distributive property.",
+   "Notice how the cross terms u·v and v·u cancel each other out since the dot product is commutative.",
+   "This simplifies nicely to the difference of the squared norms.",
+   "For the vectors to be orthogonal, this expression must equal zero.",
+   "Which directly gives us the condition that the norms must be equal."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Self-Check Questions",
+   "bullets": [
+    "What object gives the scalar product, and what gives the vector product?",
+    "How does the sign of u·v classify the angle?",
+    "Why does a 2×3 matrix multiply a vector from R³ but not from R²?",
+    "How do components of x act in Ax?",
+    "Which operations from week 2 require equal dimensions, and which require vectors specifically from R³?"
+   ]
+  },
+  "narr": [
+   "Let's quickly review some fundamental concepts from week 2 with these self-check questions.",
+   "First, the scalar product is given by the dot product operation, while the vector product is specific to R³ and gives another vector.",
+   "The sign of the dot product tells us about the angle between vectors: positive for acute angles, zero for right angles, and negative for obtuse angles.",
+   "Matrix-vector multiplication requires matching dimensions. A 2×3 matrix can multiply a 3×1 vector from R³ but not a 2×1 vector from R².",
+   "In Ax, the components of x act as weights in a linear combination of the columns of A.",
+   "Operations like dot product and vector addition require equal dimensions, while the cross product and related geometric concepts exist only in R³."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Dot Product and Angle Classification",
+   "problem": "Given a = [-2, 4] and b = [5, 1], compute a·b and classify the angle.",
+   "steps": [
+    "Compute the dot product: a·b = (-2)·5 + 4·1 = -10 + 4 = -6",
+    "Since the dot product is negative, the angle between the vectors is obtuse"
+   ],
+   "result": "a·b = -6, angle is obtuse"
+  },
+  "narr": [
+   "Starting with a basic dot product calculation.",
+   "We multiply corresponding components and add them up.",
+   "The result is negative, which tells us about the angle between these vectors.",
+   "A negative dot product means the angle is obtuse, greater than 90 degrees."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Norm and Unit Vector",
+   "problem": "Find the norm and the unit vector in the direction of v = [-2, 1, 2].",
+   "steps": [
+    "Compute the norm: ||v|| = √((-2)² + 1² + 2²) = √(4 + 1 + 4) = √9 = 3",
+    "Find the unit vector: v̂ = v/||v|| = [-2/3, 1/3, 2/3]"
+   ],
+   "result": "||v|| = 3, unit vector = [-2/3, 1/3, 2/3]"
+  },
+  "narr": [
+   "Now let's find the norm of a vector and its corresponding unit vector.",
+   "The norm is simply the square root of the sum of squared components.",
+   "The unit vector is obtained by dividing each component by the norm.",
+   "This gives us a vector in the same direction but with length 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Distance Between Points",
+   "problem": "Find the distance between p = [-2, 4, 3] and q = [2, 1, 0].",
+   "steps": [
+    "Compute the difference vector: p - q = [-2 - 2, 4 - 1, 3 - 0] = [-4, 3, 3]",
+    "Find the norm of the difference: ||p - q|| = √((-4)² + 3² + 3²) = √(16 + 9 + 9) = √34"
+   ],
+   "result": "Distance = √34"
+  },
+  "narr": [
+   "The distance between two points in space is found by computing the norm of their difference vector.",
+   "First, we find the vector from q to p by subtracting corresponding components.",
+   "Then we compute the norm of this difference vector.",
+   "This gives us the Euclidean distance between the two points."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Orthogonal Vector",
+   "problem": "Find t if [2, t, 4] is orthogonal to [1, -3, 2].",
+   "steps": [
+    "Set up the dot product equation: [2, t, 4]·[1, -3, 2] = 0",
+    "Compute: 2·1 + t·(-3) + 4·2 = 0",
+    "Simplify: 2 - 3t + 8 = 0",
+    "Solve for t: -3t = -10, so t = 10/3"
+   ],
+   "result": "t = 10/3"
+  },
+  "narr": [
+   "When two vectors are orthogonal, their dot product equals zero.",
+   "We can use this property to find the unknown value t.",
+   "Setting up the equation and solving gives us our answer.",
+   "This is a straightforward application of the orthogonality condition."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Angle Between Vectors",
+   "problem": "Find cos θ for u = [2, 1], v = [-1, 3].",
+   "steps": [
+    "Compute the dot product: u·v = 2·(-1) + 1·3 = -2 + 3 = 1",
+    "Find the norms: ||u|| = √(2² + 1²) = √5, ||v|| = √((-1)² + 3²) = √10",
+    "Compute cos θ = (u·v)/(||u||·||v||) = 1/√50 = √2/10 ≈ 0.141",
+    "Therefore θ ≈ 82°"
+   ],
+   "result": "cos θ = √2/10 ≈ 0.141, θ ≈ 82°"
+  },
+  "narr": [
+   "To find the angle between two vectors, we use the dot product formula.",
+   "First, we compute the dot product of the two vectors.",
+   "Then we find the norms of each vector.",
+   "Finally, we use these to compute the cosine of the angle between them.",
+   "The actual angle can be found using the arccosine function."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Vector Projection",
+   "problem": "Project u = (5, -1) onto v = (2, 1); write u as parallel + orthogonal components.",
+   "steps": [
+    "Compute the dot product: u·v = 5·2 + (-1)·1 = 10 - 1 = 9",
+    "Compute v·v = 2·2 + 1·1 = 4 + 1 = 5",
+    "Find the projection: proj_v u = (u·v)/(v·v) · v = (9/5) · [2, 1] = [18/5, 9/5]",
+    "Find the orthogonal component: u - proj_v u = [5, -1] - [18/5, 9/5] = [7/5, -18/5]",
+    "Write the decomposition: u = [18/5, 9/5] + [7/5, -18/5]"
+   ],
+   "result": "u = [18/5, 9/5] + [7/5, -18/5]"
+  },
+  "narr": [
+   "Vector projection allows us to decompose a vector into components parallel and perpendicular to another vector.",
+   "First, we compute the dot product of u and v.",
+   "Then we find the projection of u onto v using the formula.",
+   "The orthogonal component is found by subtracting the projection from the original vector.",
+   "Finally, we express u as the sum of these two components."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Cross Product",
+   "problem": "Compute a × b for a = [2, -1, 3], b = [0, 4, 1].",
+   "steps": [
+    "Use the cross product formula: a × b = [(-1)·1 - 3·4, 3·0 - 2·1, 2·4 - (-1)·0]",
+    "Calculate each component: [-1 - 12, 0 - 2, 8 - 0]",
+    "Simplify: [-13, -2, 8]"
+   ],
+   "result": "a × b = [-13, -2, 8]"
+  },
+  "narr": [
+   "The cross product is an operation specific to vectors in R³ that gives another vector perpendicular to both.",
+   "We can compute it using the determinant formula for the cross product.",
+   "Each component is calculated using the remaining components after removing the corresponding row and column.",
+   "The result is a vector perpendicular to both input vectors."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Area of Triangle",
+   "problem": "Given points A = (0, 0, 0), B = (2, 1, 0), C = (1, 0, 3), find the area of the triangle.",
+   "steps": [
+    "Find vectors AB and AC: AB = [2, 1, 0], AC = [1, 0, 3]",
+    "Compute the cross product AB × AC = [1·3 - 0·0, 0·1 - 2·3, 2·0 - 1·1] = [3, -6, -1]",
+    "Find the norm of the cross product: ||AB × AC|| = √(3² + (-6)² + (-1)²) = √(9 + 36 + 1) = √46",
+    "The area of the triangle is half of this norm: Area = √46/2"
+   ],
+   "result": "Area = √46/2"
+  },
+  "narr": [
+   "We can find the area of a triangle in 3D space using vectors and the cross product.",
+   "First, we find two vectors that form the sides of the triangle.",
+   "The cross product of these vectors gives a vector whose magnitude is equal to the area of the parallelogram they form.",
+   "Since we want the area of the triangle, we take half of this magnitude."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Matrix Properties",
+   "problem": "For M = [[1, 0, -2], [4, 3, 5]], find size, m₂₁, and all columns.",
+   "steps": [
+    "The size is 2×3 (2 rows, 3 columns)",
+    "m₂₁ is the element in row 2, column 1, which is 4",
+    "The columns are: [1, 4], [0, 3], and [-2, 5]"
+   ],
+   "result": "Size: 2×3, m₂₁: 4, Columns: [1, 4], [0, 3], [-2, 5]"
+  },
+  "narr": [
+   "This problem tests our understanding of basic matrix notation and properties.",
+   "The size of a matrix is given by the number of rows followed by the number of columns.",
+   "The notation mᵢⱼ refers to the element in the i-th row and j-th column.",
+   "The columns of a matrix are the vectors formed by taking elements from each row in the same column position."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Matrix Addition",
+   "problem": "Given A = [[2, 1], [-1, 3]], B = [[0, 4], [2, -2]], find 3A + 2B.",
+   "steps": [
+    "Compute 3A = 3·[[2, 1], [-1, 3]] = [[6, 3], [-3, 9]]",
+    "Compute 2B = 2·[[0, 4], [2, -2]] = [[0, 8], [4, -4]]",
+    "Add the matrices: 3A + 2B = [[6+0, 3+8], [-3+4, 9+(-4)]] = [[6, 11], [1, 5]]"
+   ],
+   "result": "3A + 2B = [[6, 11], [1, 5]]"
+  },
+  "narr": [
+   "Matrix addition and scalar multiplication are fundamental operations in linear algebra.",
+   "To multiply a matrix by a scalar, we multiply each element by that scalar.",
+   "To add two matrices, we add corresponding elements.",
+   "These operations follow the same rules as their vector counterparts but extend to two dimensions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Matrix-Vector Multiplication",
+   "problem": "Given A = [[2, -1, 3], [0, 4, 1]], x = [1, -2, 3], compute Ax as a combination of columns.",
+   "steps": [
+    "Express Ax as a linear combination of columns: Ax = 1·[2, 0] + (-2)·[-1, 4] + 3·[3, 1]",
+    "Compute each term: 1·[2, 0] = [2, 0], (-2)·[-1, 4] = [2, -8], 3·[3, 1] = [9, 3]",
+    "Add the vectors: [2, 0] + [2, -8] + [9, 3] = [13, -5]"
+   ],
+   "result": "Ax = [13, -5]"
+  },
+  "narr": [
+   "Matrix-vector multiplication can be understood as a linear combination of the matrix columns.",
+   "Each component of the vector x serves as a weight for the corresponding column of A.",
+   "In this case, we multiply each column by its corresponding weight and sum the results.",
+   "This perspective is fundamental to understanding linear transformations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Solving Linear Systems",
+   "problem": "Given a₁ = [2, 4], a₂ = [1, 3], b = [6, 2], find all x with [a₁ a₂]x = b.",
+   "steps": [
+    "Set up the system: [2, 1; 4, 3]·[x₁; x₂] = [6; 2]",
+    "Write as equations: 2x₁ + x₂ = 6 and 4x₁ + 3x₂ = 2",
+    "Solve the first equation for x₂: x₂ = 6 - 2x₁",
+    "Substitute into the second equation: 4x₁ + 3(6 - 2x₁) = 2",
+    "Simplify: 4x₁ + 18 - 6x₁ = 2",
+    "Solve: -2x₁ = -16, so x₁ = 8"
+   ]
+  },
+  "narr": [
+   "This problem involves solving a system of linear equations using matrix notation.",
+   "We can think of this as finding coefficients that express b as a linear combination of a₁ and a₂.",
+   "Setting up the equations and solving systematically gives us our solution.",
+   "This is equivalent to finding the inverse of the matrix [a₁ a₂] and multiplying it by b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Solving Linear Systems (cont.)",
+   "problem": "",
+   "steps": [
+    "Find x₂: x₂ = 6 - 2(8) = 6 - 16 = -10",
+    "Solution: x = [8, -10]"
+   ],
+   "result": "x = [8, -10]"
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]

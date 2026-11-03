@@ -1,0 +1,324 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Matrix Multiplication and Transposition",
+   "subtitle": "Week 3 Problems"
+  },
+  "narr": [
+   "Let's start by exploring matrix multiplication and transposition with a concrete example.",
+   "We have two matrices A and B, and we'll multiply them, then compare the result with the transpose of their product.",
+   "As we can see, multiplying A and B gives us this result.",
+   "Now, let's transpose each matrix individually and then multiply them.",
+   "Interesting! The product of the transposed matrices is different from the transpose of the product.",
+   "This shows us that (AB)^T is not equal to A^T B^T, but rather to B^T A^T."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Determinant and Area",
+   "problem": "Let E = [3 1; 1 2]. Compute det E; find the areas of the parallelogram and triangle spanned by its columns; is orientation preserved?",
+   "steps": [
+    "Compute determinant: det E = 3·2 - 1·1 = 5",
+    "Parallelogram area = |det E| = 5",
+    "Triangle area = |det E|/2 = 5/2",
+    "Orientation is preserved since det E > 0"
+   ],
+   "result": "det E = 5, parallelogram area = 5, triangle area = 5/2, orientation preserved"
+  },
+  "narr": [
+   "Let's move on to our first determinant problem.",
+   "We have a 2x2 matrix E, and we need to find its determinant.",
+   "The determinant is calculated as ad - bc, which gives us 5.",
+   "The determinant also gives us the area of the parallelogram spanned by the column vectors.",
+   "For the triangle area, we simply take half of that.",
+   "Since the determinant is positive, the orientation is preserved."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — 3x3 Determinant by Cofactors",
+   "problem": "Compute det F for F = [2 1 0; 0 3 1; 1 0 2] by cofactors of the first row; check by the first column.",
+   "steps": [
+    "First row expansion: det F = 2·det([3 1; 0 2]) - 1·det([0 1; 1 2]) + 0·det([0 3; 1 0])",
+    "Calculate minors: det([3 1; 0 2]) = 6, det([0 1; 1 2]) = -1",
+    "Combine: det F = 2·6 - 1·(-1) = 13",
+    "First column expansion: det F = 2·det([3 1; 0 2]) + 1·det([1 0; 0 2])",
+    "Calculate minors: det([3 1; 0 2]) = 6, det([1 0; 0 2]) = 2",
+    "Combine: det F = 2·6 + 1·2 = 13"
+   ],
+   "result": "det F = 13 (verified by both row and column expansion)"
+  },
+  "narr": [
+   "Now let's tackle a 3x3 determinant using cofactor expansion.",
+   "We'll expand along the first row, which has a zero that simplifies our calculations.",
+   "For each element, we multiply by its cofactor determinant.",
+   "The zero term drops out, leaving us with two terms to calculate.",
+   "As we can see, both expansions give us the same result.",
+   "This confirms that the determinant is the same regardless of which row or column we expand along."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Determinant Properties",
+   "problem": "For a 3×3 matrix M, det M = 5 is known. Form N: swap rows 1,2; multiply row 3 by 2; add 3 × (new row 1) to row 2. Find det N, det(2M), det(M^T M).",
+   "steps": [
+    "Swapping rows changes the sign: -5",
+    "Multiplying row 3 by 2 scales determinant by 2: -5 × 2 = -10",
+    "Adding a multiple of one row to another doesn't change determinant",
+    "det N = -10",
+    "Scaling all rows by 2 scales determinant by 2^3: 5 × 8 = 40",
+    "det(M^T M) = det(M^T) × det(M) = 5 × 5 = 25"
+   ],
+   "result": "det N = -10, det(2M) = 40, det(M^T M) = 25"
+  },
+  "narr": [
+   "This problem tests our understanding of how row operations affect determinants.",
+   "First, we swap two rows, which changes the sign of the determinant.",
+   "Next, we multiply one row by 2, which scales the determinant by that factor.",
+   "Adding a multiple of one row to another doesn't change the determinant.",
+   "For det(2M), we're scaling all three rows by 2, so the determinant scales by 2^3.",
+   "Finally, for det(M^T M), we use the property that det(AB) = det(A)det(B) and det(M^T) = det(M)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Triple Product and Volume",
+   "problem": "Let u = [2; 0; 1], v = [1; 2; 0], w = [0; 1; 3]. Compute (u × v) · w, the parallelepiped and tetrahedron volumes for vertices 0, u, v, w; what changes if u and v are exchanged?",
+   "steps": [
+    "Compute cross product u × v = [0·1-2·1; 1·0-1·3; 1·2-0·0] = [-2; -3; 2]",
+    "Compute dot product (u × v) · w = -2·0 + (-3)·1 + 2·3 = 3",
+    "Parallelepiped volume = |(u × v) · w| = 3",
+    "Tetrahedron volume = |(u × v) · w|/6 = 0.5",
+    "If u and v are exchanged, (v × u) · w = -(u × v) · w = -3",
+    "Volume magnitudes remain the same: 3 and 0.5"
+   ],
+   "result": "(u × v) · w = 3, parallelepiped volume = 3, tetrahedron volume = 0.5; exchanging u and v changes sign but not magnitude"
+  },
+  "narr": [
+   "Now let's explore the triple product and its geometric interpretation.",
+   "First, we compute the cross product of u and v.",
+   "Then we take the dot product with w to get the scalar triple product.",
+   "The absolute value of this gives us the volume of the parallelepiped formed by these vectors.",
+   "For the tetrahedron volume, we simply divide by 6.",
+   "If we exchange u and v, the sign changes but the magnitude remains the same, as expected."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Coplanar Vectors",
+   "problem": "For u = [1; 0; 1], v = [0; 2; 1], w = [1; 1; k] find all k for which the vectors are coplanar; at that k express w in terms of u, v.",
+   "steps": [
+    "Vectors are coplanar iff the scalar triple product is 0",
+    "Compute u × v = [0·1-1·2; 1·0-1·1; 1·2-0·0] = [-2; -1; 2]",
+    "Compute triple product w · (u × v) = 1·(-2) + 1·(-1) + k·2 = 2k - 3",
+    "Set to zero: 2k - 3 = 0 ⇒ k = 3/2",
+    "Express w = αu + βv: first coordinate gives α = 1",
+    "Second coordinate gives 2β = 1 ⇒ β = 1/2",
+    "Third coordinate: 1 + (1/2)·1 = 3/2, consistent"
+   ],
+   "result": "k = 3/2, w = u + (1/2)v"
+  },
+  "narr": [
+   "Let's examine when three vectors are coplanar.",
+   "Vectors are coplanar if their scalar triple product is zero.",
+   "We compute the cross product of u and v first.",
+   "Then we take the dot product with w and set it to zero.",
+   "Solving for k gives us the specific value where they become coplanar.",
+   "At this k, we can express w as a linear combination of u and v."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Commuting Matrices",
+   "problem": "Let D = [2 0; 0 3], X = [a b; c d]. Find all X with DX = XD; what if both diagonal elements of D are equal?",
+   "steps": [
+    "Compute DX = [2a 2b; 3c 3d]",
+    "Compute XD = [2a 3b; 2c 3d]",
+    "Set equal: [2a 2b; 3c 3d] = [2a 3b; 2c 3d]",
+    "This requires b = c = 0, with a and d free",
+    "Solution: X must be diagonal: X = [a 0; 0 d]",
+    "If D = λI, then DX = λX = XD for any X"
+   ],
+   "result": "X must be diagonal: [a 0; 0 d]; if D = λI, any X commutes with D"
+  },
+  "narr": [
+   "Now let's explore which matrices commute with a given diagonal matrix.",
+   "We compute both products DX and XD.",
+   "Setting them equal gives us conditions on the elements of X.",
+   "We find that b and c must be zero, while a and d can be anything.",
+   "This means X must also be diagonal.",
+   "If D is a scalar multiple of the identity, then any matrix X commutes with D."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — Linear Transformation of Volume",
+   "problem": "Let u = [2; 0; 1], v = [1; 2; 0], w = [0; 1; 3] and L = [2 1 0; 0 1 0; 0 0 -1]. Without recalculating the edges, find the signed triple product and the volume after applying L to every edge; why is the volume factor universal?",
+   "steps": [
+    "From problem 12, det U = 13 where U = [u v w]",
+    "Transformed edges form LU",
+    "det(LU) = det L × det U = (-2) × 13 = -26",
+    "New volume = |det(LU)| = 26",
+    "Volume scaling factor = |det L| = 2",
+    "This factor is universal because det(LU) = det L × det U for any U"
+   ],
+   "result": "New triple product = -26, new volume = 26; volume scaling factor |det L| = 2 is universal"
+  },
+  "narr": [
+   "Our final problem explores how linear transformations affect volume.",
+   "We already know the determinant of the matrix formed by our vectors from problem 12.",
+   "When we apply transformation L to each vector, the new matrix is LU.",
+   "The determinant of this product is the product of the determinants.",
+   "The absolute value gives us the new volume, which is scaled by |det L|.",
+   "This scaling factor is universal because it depends only on L, not on the specific vectors."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Matrix Rank and Inverse Matrix",
+   "subtitle": "Week 4"
+  },
+  "narr": [
+   "Moving on to Week 4, we'll explore matrix rank and matrix inversion.",
+   "These concepts are fundamental to understanding the properties of linear transformations and systems of equations.",
+   "We'll start with the key formulas related to matrix rank and elimination.",
+   "Then we'll examine the properties of inverse matrices and how to compute them."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matrix Rank and Elimination",
+   "bullets": [
+    "rank A ≤ min(m, n)",
+    "For A ∈ R^n×n: rank A = n ⇔ Ax = 0 has only x = 0",
+    "A invertible ⇔ rank A = n ⇔ n pivots ⇔ det A ≠ 0",
+    "A invertible ⇔ Ax = b has exactly one solution, for every b"
+   ]
+  },
+  "narr": [
+   "Let's begin with the fundamental properties of matrix rank.",
+   "The rank of a matrix is always less than or equal to the minimum of its dimensions.",
+   "For a square matrix, full rank means the only solution to Ax = 0 is the zero vector.",
+   "A matrix is invertible if and only if it has full rank, n pivots, and a non-zero determinant.",
+   "And equivalently, if and only if the system Ax = b has exactly one solution for every b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Inverse Matrix Properties",
+   "bullets": [
+    "AA^-1 = I = A^-1A; x = A^-1b solves Ax = b",
+    "A^-1 exists ⇔ elimination gives n pivots (row exchanges allowed)",
+    "[a b; c d]^-1 = 1/(ad-bc) [d -b; -c a] (ad-bc ≠ 0)",
+    "(AB)^-1 = B^-1A^-1; (ABC)^-1 = C^-1B^-1A^-1 (reverse order)",
+    "diag(d1, ..., dn)^-1 = diag(1/d1, ..., 1/dn) (di ≠ 0)"
+   ]
+  },
+  "narr": [
+   "Now let's examine the properties of inverse matrices.",
+   "The inverse of a matrix A satisfies AA^-1 = I = A^-1A, and provides the solution to Ax = b.",
+   "An inverse exists if and only if elimination produces n pivots, possibly requiring row exchanges.",
+   "For a 2x2 matrix, there's a simple formula for the inverse involving the determinant.",
+   "For products of matrices, the inverse reverses the order of multiplication.",
+   "For diagonal matrices, the inverse is simply the diagonal matrix with reciprocal elements."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

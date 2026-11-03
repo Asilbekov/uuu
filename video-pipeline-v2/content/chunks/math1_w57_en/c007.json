@@ -1,0 +1,331 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to this educational video covering weeks 5-7 of Math I. We'll explore continuity, derivatives, and linear algebra concepts with visual explanations and step-by-step solutions.",
+   "Let's begin with some exercises on continuity and limits."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Continuity of Rational Function",
+   "problem": "Find k such that f(x) is continuous at x = -2, where f(x) = (x² + 3x + 2)/(x + 2) for x ≠ -2 and f(x) = k for x = -2.",
+   "steps": [
+    "Factor the numerator: x² + 3x + 2 = (x + 1)(x + 2)",
+    "Simplify for x ≠ -2: f(x) = ((x + 1)(x + 2))/(x + 2) = x + 1",
+    "Calculate the limit as x approaches -2: lim x→-2 f(x) = lim x→-2 (x + 1) = -1",
+    "For continuity, f(-2) must equal this limit: k = -1"
+   ],
+   "result": "k = -1"
+  },
+  "narr": [
+   "First, we need to find the value of k that makes this function continuous at x = -2.",
+   "The first step is to factor the numerator of the rational expression.",
+   "With the numerator factored, we can simplify the function for all x except -2.",
+   "Now, we can find the limit as x approaches -2, which gives us the value that fills the 'hole' in the graph.",
+   "For the function to be continuous at x = -2, the function value must equal this limit.",
+   "Therefore, k must be -1 to make the function continuous at that point."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Continuity of Piecewise Function with Exponential",
+   "problem": "Find k for which f is continuous, where f(x) = {e^(k·x), if 0 ≤ x ≤ 4; x + 3, if 4 ≤ x ≤ 8}.",
+   "steps": [
+    "Identify where the branches meet: at x = 4",
+    "Calculate f(4) from the first branch: f(4) = e^(4k)",
+    "Calculate f(4) from the second branch: f(4) = 4 + 3 = 7",
+    "Set the values equal for continuity: e^(4k) = 7",
+    "Take natural logarithms of both sides: 4k = ln 7",
+    "Solve for k: k = ln(7)/4 ≈ 0.4865"
+   ],
+   "result": "k = ln(7)/4 ≈ 0.4865"
+  },
+  "narr": [
+   "Now let's look at a piecewise function with an exponential component.",
+   "The critical point where continuity needs to be checked is where the two pieces meet, which is at x = 4.",
+   "We evaluate the first piece at x = 4, which gives us e^(4k).",
+   "We evaluate the second piece at x = 4, which is straightforward: 4 + 3 = 7.",
+   "For the function to be continuous at x = 4, these two values must be equal.",
+   "To solve for k, we take the natural logarithm of both sides.",
+   "Finally, we solve for k and get the numerical approximation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Continuity of Piecewise Function with Square Root",
+   "problem": "Find k for which f is continuous, where f(x) = {√(k · x), if 0 ≤ x ≤ 3; x + 1, if 3 < x ≤ 10}.",
+   "steps": [
+    "Identify the potential discontinuity point: at x = 3",
+    "Calculate f(3) from the first branch: f(3) = √(3k)",
+    "Find the right-hand limit from the second branch: lim x→3⁺ (x + 1) = 4",
+    "Set the values equal for continuity: √(3k) = 4",
+    "Square both sides: 3k = 16",
+    "Solve for k: k = 16/3",
+    "Verify the solution: f(3) = √(3 · 16/3) = √16 = 4, which matches the right-hand limit"
+   ],
+   "result": "k = 16/3"
+  },
+  "narr": [
+   "For our third example, we have another piecewise function, this time with a square root.",
+   "The potential discontinuity is at x = 3 where the two pieces meet.",
+   "We evaluate the first piece at x = 3, which gives √(3k).",
+   "We find the right-hand limit from the second piece as x approaches 3.",
+   "For continuity, these values must be equal.",
+   "We solve for k by squaring both sides.",
+   "Finally, we verify that our solution works by plugging back in."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 5 — Linear Algebra I",
+   "subtitle": "Geometry of Ax = b and Gaussian Elimination"
+  },
+  "narr": [
+   "Now let's shift to Week 5 of Linear Algebra I, where we'll connect the geometry of the equation Ax = b with the algorithm for solving it—Gaussian elimination.",
+   "This week covers the row and column pictures of linear equations, elimination with multipliers, back substitution, and elimination matrices."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Concepts: Linear Algebra",
+   "bullets": [
+    "Ax = b represents the intersection of lines and planes (row picture)",
+    "Ax = b represents a linear combination of columns (column picture)",
+    "Gaussian elimination with multipliers and back substitution",
+    "Row operations represented by matrices E",
+    "Inverse matrices E⁻¹ cancel the effect of E",
+    "Permutation matrices P swap equations"
+   ]
+  },
+  "narr": [
+   "In linear algebra, we have two fundamental ways to interpret the equation Ax = b.",
+   "First, we can think of it as finding the intersection of lines or planes, which we call the row picture.",
+   "Second, we can think of it as finding coefficients for a linear combination of columns, which is the column picture.",
+   "To solve these systems, we use Gaussian elimination with multipliers and back substitution.",
+   "We can represent row operations using elimination matrices E.",
+   "The effect of these matrices can be canceled using their inverses E⁻¹.",
+   "And we can swap equations using permutation matrices P."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Week 6 — Derivatives",
+   "subtitle": "Math I"
+  },
+  "narr": [
+   "Moving on to Week 6, we'll explore the fundamental concept of derivatives, which measures how functions change.",
+   "We'll cover difference quotients, secant and tangent lines, derivatives at points, and applications like velocity."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Difference Quotient and Tangent Line",
+   "bullets": [
+    "Slope of secant line: m_sec = (f(x) - f(a))/(x - a)",
+    "Alternative form with increment h: m_sec = (f(a + h) - f(a))/h",
+    "Slope of tangent line (derivative): m_tan = lim x→a (f(x) - f(a))/(x - a)",
+    "Alternative limit form: m_tan = lim h→0 (f(a + h) - f(a))/h",
+    "Near the point of tangency, the graph is locally linear"
+   ]
+  },
+  "narr": [
+   "The derivative is fundamentally about understanding how functions change, and we start with the difference quotient.",
+   "The difference quotient gives us the slope of a secant line through two points on the graph.",
+   "We can express this with an increment h as (f(a + h) - f(a))/h.",
+   "As the second point approaches the first, the secant lines approach the tangent line.",
+   "The slope of this tangent line is given by the limit of the difference quotient.",
+   "This limit defines the derivative, and near the point of tangency, the function behaves like its tangent line."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Derivative Definitions",
+   "tex": "f'(a) = \\lim_{x \\to a} \\frac{f(x) - f(a)}{x - a}",
+   "parts": [
+    {
+     "substr": "f'(a)",
+     "color": "#4C5FD5",
+     "note": "The derivative of f at point a"
+    },
+    {
+     "substr": "\\lim_{x \\to a}",
+     "color": "#B45309",
+     "note": "Limit as x approaches a"
+    },
+    {
+     "substr": "\\frac{f(x) - f(a)}{x - a}",
+     "color": "#0E7C7B",
+     "note": "Difference quotient"
+    }
+   ]
+  },
+  "narr": [
+   "The derivative can be defined in two equivalent forms using limits.",
+   "In both cases, we're looking at the limit of the difference quotient.",
+   "The first form approaches the point a directly from the x-values.",
+   "The second form uses an increment h that approaches 0.",
+   "Both definitions give us the slope of the tangent line at point a."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Derivative Function and Applications",
+   "bullets": [
+    "Derivative function: f'(x) = lim h→0 (f(x + h) - f(x))/h",
+    "A function is differentiable at a point if f'(a) exists",
+    "Derivatives appear in physics (velocity, acceleration), economics (marginal functions), biology (growth rates)",
+    "Common derivative notations: f'(x), y', dy/dx, d/dx(f(x))",
+    "Leibniz notation: dy/dx = lim Δx→0 Δy/Δx"
+   ]
+  },
+  "narr": [
+   "The derivative function f'(x) gives us the instantaneous rate of change at any point.",
+   "A function is differentiable at a point if this limit exists there.",
+   "Derivatives have applications across many fields.",
+   "In physics, velocity is the derivative of position, and acceleration is the derivative of velocity.",
+   "In economics, marginal functions are derivatives of total functions.",
+   "In biology, growth rates are often expressed as derivatives.",
+   "There are several notations for derivatives, each with its own advantages in different contexts."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Rates of Change in Physics",
+   "columns": [
+    "Quantity",
+    "Definition",
+    "Interpretation",
+    "SI Unit"
+   ],
+   "rows": [
+    [
+     "Velocity",
+     "v = dr/dt",
+     "Rate of change of position",
+     "m/s"
+    ],
+    [
+     "Speed",
+     "v = ds/dt = |dr/dt|",
+     "Rate of change of distance traveled",
+     "m/s"
+    ],
+    [
+     "Acceleration",
+     "a = dv/dt = d²r/dt²",
+     "Rate of change of velocity",
+     "m/s²"
+    ],
+    [
+     "Jerk",
+     "j = da/dt",
+     "Rate of change of acceleration; important for vibrations and smooth motion",
+     "m/s³"
+    ]
+   ]
+  },
+  "narr": [
+   "In physics, derivatives help us describe various rates of change.",
+   "Velocity is the rate of change of position with respect to time.",
+   "Speed is the absolute value of velocity, representing the rate of change of distance traveled.",
+   "Acceleration is the rate of change of velocity, or the second derivative of position.",
+   "Jerk is the rate of change of acceleration, which is important for understanding vibrations and smooth motion."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

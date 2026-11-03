@@ -1,0 +1,1017 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Course Map and How to Use This Document",
+   "subtitle": "Math I — weeks 1–4"
+  },
+  "narr": [
+   "This document is a complete standalone guide for the first four weeks of the Math I course in the first semester.",
+   "It was manually compiled from each relevant source in the course-files/ folder.",
+   "Problems are reproduced verbatim; solutions are complete, step-by-step, with verifications."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Week 1 — Number systems, notation, complex numbers",
+   "subtitle": "Math I"
+  },
+  "narr": [
+   "Let's begin our journey into week 1, where we'll explore number systems, notation, and complex numbers."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Formula catalog for week 1",
+   "subtitle": "Number sets and positional systems"
+  },
+  "narr": [
+   "First, let's look at the nesting of standard number sets, which is the first structural fact of this course."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Number sets nesting",
+   "tex": "N \\subseteq Z \\subseteq Q \\subseteq R \\subseteq C",
+   "parts": [
+    {
+     "substr": "N",
+     "color": "#4C5FD5",
+     "note": "Natural numbers"
+    },
+    {
+     "substr": "Z",
+     "color": "#B45309",
+     "note": "Integers"
+    },
+    {
+     "substr": "Q",
+     "color": "#0E7C7B",
+     "note": "Rational numbers"
+    },
+    {
+     "substr": "R",
+     "color": "#A03040",
+     "note": "Real numbers"
+    },
+    {
+     "substr": "C",
+     "color": "#4C5FD5",
+     "note": "Complex numbers"
+    }
+   ]
+  },
+  "narr": [
+   "We start with the natural numbers, which are a subset of integers.",
+   "Integers are a subset of rational numbers.",
+   "Rational numbers are a subset of real numbers.",
+   "And finally, real numbers are a subset of complex numbers.",
+   "Rational numbers are exactly the fractions of integers, while irrational numbers are the real numbers that are not rational."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Rational numbers definition",
+   "tex": "q \\in Q \\Leftrightarrow q = \\frac{a}{b}, a \\in Z, b \\in Z, b \\neq 0",
+   "parts": [
+    {
+     "substr": "q \\in Q",
+     "color": "#4C5FD5",
+     "note": "q is a rational number"
+    },
+    {
+     "substr": "\\frac{a}{b}",
+     "color": "#B45309",
+     "note": "a fraction of integers"
+    },
+    {
+     "substr": "a \\in Z",
+     "color": "#0E7C7B",
+     "note": "a is an integer"
+    },
+    {
+     "substr": "b \\in Z",
+     "color": "#0E7C7B",
+     "note": "b is an integer"
+    },
+    {
+     "substr": "b \\neq 0",
+     "color": "#A03040",
+     "note": "b cannot be zero"
+    }
+   ]
+  },
+  "narr": [
+   "A number is rational if it can be expressed as a fraction of two integers, where the denominator is not zero."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Positional numeral system",
+   "tex": "(a_n a_{n-1} \\ldots a_1 a_0)_b = \\sum_{k=0}^{n} a_k b^k, 0 \\leq a_k \\leq b - 1",
+   "parts": [
+    {
+     "substr": "(a_n a_{n-1} \\ldots a_1 a_0)_b",
+     "color": "#4C5FD5",
+     "note": "Number in base b"
+    },
+    {
+     "substr": "\\sum_{k=0}^{n} a_k b^k",
+     "color": "#B45309",
+     "note": "Sum of powers"
+    },
+    {
+     "substr": "0 \\leq a_k \\leq b - 1",
+     "color": "#0E7C7B",
+     "note": "Digit constraints"
+    }
+   ]
+  },
+  "narr": [
+   "A positional numeral system with base b writes a number through powers of the base.",
+   "Each digit a_k satisfies 0 ≤ a_k ≤ b - 1."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Base conversion examples",
+   "tex": "1310 = 11012 = 158 = D16",
+   "parts": [
+    {
+     "substr": "1310",
+     "color": "#4C5FD5",
+     "note": "Decimal (base 10)"
+    },
+    {
+     "substr": "11012",
+     "color": "#B45309",
+     "note": "Binary (base 2)"
+    },
+    {
+     "substr": "158",
+     "color": "#0E7C7B",
+     "note": "Octal (base 8)"
+    },
+    {
+     "substr": "D16",
+     "color": "#A03040",
+     "note": "Hexadecimal (base 16)"
+    }
+   ]
+  },
+  "narr": [
+   "The same number can be represented in different bases.",
+   "For example, 13 in decimal is equal to 1101 in binary, 15 in octal, and D in hexadecimal.",
+   "In hexadecimal, A = 10, B = 11, ..., F = 15."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Numeral systems comparison",
+   "bullets": [
+    "Roman numerals are non-positional: I = 1, V = 5, X = 10, L = 50, C = 100",
+    "Example: 13 = XIII",
+    "Arithmetic in such systems is impractical",
+    "Computers use binary: electronics reliably distinguishes two states (0/1)"
+   ]
+  },
+  "narr": [
+   "Let's compare different numeral systems.",
+   "Roman numerals are non-positional, making arithmetic operations impractical.",
+   "For example, 13 is represented as XIII in Roman numerals.",
+   "That's why computers use binary systems, which can reliably distinguish between two states: 0 and 1."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Scientific and engineering notation",
+   "subtitle": "Formula catalog for week 1"
+  },
+  "narr": [
+   "Now let's explore scientific and engineering notation, which are ways to express very large or very small numbers."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Scientific notation",
+   "tex": "z = a \\times 10^n, 1 \\leq |a| < 10, n \\in Z",
+   "parts": [
+    {
+     "substr": "z = a \\times 10^n",
+     "color": "#4C5FD5",
+     "note": "Scientific notation form"
+    },
+    {
+     "substr": "1 \\leq |a| < 10",
+     "color": "#B45309",
+     "note": "Coefficient constraint"
+    },
+    {
+     "substr": "n \\in Z",
+     "color": "#0E7C7B",
+     "note": "Integer exponent"
+    }
+   ]
+  },
+  "narr": [
+   "Scientific notation isolates the magnitude of a number into a coefficient with one nonzero digit before the decimal point and a power of ten.",
+   "The coefficient a satisfies 1 ≤ |a| < 10, and n is an integer."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Engineering notation",
+   "tex": "z = a \\times 10^{3k}, 1 \\leq |a| < 1000, k \\in Z",
+   "parts": [
+    {
+     "substr": "z = a \\times 10^{3k}",
+     "color": "#4C5FD5",
+     "note": "Engineering notation form"
+    },
+    {
+     "substr": "1 \\leq |a| < 1000",
+     "color": "#B45309",
+     "note": "Coefficient constraint"
+    },
+    {
+     "substr": "k \\in Z",
+     "color": "#0E7C7B",
+     "note": "Integer multiple of 3"
+    }
+   ]
+  },
+  "narr": [
+   "Engineering notation constrains the exponent to multiples of three so that the exponent couples to an SI prefix.",
+   "The coefficient a satisfies 1 ≤ |a| < 1000, and k is an integer."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Operations with scientific notation",
+   "tex": "(a \\times 10^m)(b \\times 10^n) = ab \\times 10^{m+n}",
+   "parts": [
+    {
+     "substr": "(a \\times 10^m)(b \\times 10^n)",
+     "color": "#4C5FD5",
+     "note": "Multiplication"
+    },
+    {
+     "substr": "ab \\times 10^{m+n}",
+     "color": "#B45309",
+     "note": "Result"
+    }
+   ]
+  },
+  "narr": [
+   "When multiplying numbers in scientific notation, we multiply the coefficients and add the exponents."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Division with scientific notation",
+   "tex": "\\frac{a \\times 10^m}{b \\times 10^n} = \\frac{a}{b} \\times 10^{m-n}",
+   "parts": [
+    {
+     "substr": "\\frac{a \\times 10^m}{b \\times 10^n}",
+     "color": "#4C5FD5",
+     "note": "Division"
+    },
+    {
+     "substr": "\\frac{a}{b} \\times 10^{m-n}",
+     "color": "#B45309",
+     "note": "Result"
+    }
+   ]
+  },
+  "narr": [
+   "When dividing numbers in scientific notation, we divide the coefficients and subtract the exponents."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Power with scientific notation",
+   "tex": "(a \\times 10^n)^m = a^m \\times 10^{nm}",
+   "parts": [
+    {
+     "substr": "(a \\times 10^n)^m",
+     "color": "#4C5FD5",
+     "note": "Power operation"
+    },
+    {
+     "substr": "a^m \\times 10^{nm}",
+     "color": "#B45309",
+     "note": "Result"
+    }
+   ]
+  },
+  "narr": [
+   "When raising a number in scientific notation to a power, we raise the coefficient to that power and multiply the exponent by the power."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Addition/subtraction with scientific notation",
+   "tex": "\\text{add/subtract: rewrite to a common power of ten first}",
+   "parts": [
+    {
+     "substr": "add/subtract",
+     "color": "#4C5FD5",
+     "note": "Operation"
+    },
+    {
+     "substr": "common power of ten",
+     "color": "#B45309",
+     "note": "Requirement"
+    }
+   ]
+  },
+  "narr": [
+   "For addition and subtraction with scientific notation, we first need to rewrite the numbers to have a common power of ten."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "SI prefixes",
+   "columns": [
+    "Prefix",
+    "Symbol",
+    "Power"
+   ],
+   "rows": [
+    [
+     "tera",
+     "T",
+     "10^12"
+    ],
+    [
+     "giga",
+     "G",
+     "10^9"
+    ],
+    [
+     "mega",
+     "M",
+     "10^6"
+    ],
+    [
+     "kilo",
+     "k",
+     "10^3"
+    ],
+    [
+     "milli",
+     "m",
+     "10^{-3}"
+    ],
+    [
+     "micro",
+     "µ",
+     "10^{-6}"
+    ],
+    [
+     "nano",
+     "n",
+     "10^{-9}"
+    ],
+    [
+     "pico",
+     "p",
+     "10^{-12}"
+    ],
+    [
+     "femto",
+     "f",
+     "10^{-15}"
+    ]
+   ]
+  },
+  "narr": [
+   "The SI prefixes used throughout this course are shown in this table.",
+   "Note that case matters: 5 mW = 5 × 10^{-3} W but 5 MW = 5 × 10^6 W."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Reference values",
+   "bullets": [
+    "c = 2.99792458 × 10^8 m/s (speed of light)",
+    "e = 1.602176634 × 10^{-19} C (elementary charge)",
+    "N_A = 6.02214076 × 10^{23} mol^{-1} (Avogadro's number)",
+    "h = 6.62607015 × 10^{-34} J s (Planck's constant)",
+    "101325 Pa = 101.325 kPa (standard atmospheric pressure)"
+   ]
+  },
+  "narr": [
+   "Throughout this course, we'll use these reference values.",
+   "These include the speed of light, elementary charge, Avogadro's number, Planck's constant, and standard atmospheric pressure."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Complex numbers",
+   "subtitle": "Formula catalog for week 1"
+  },
+  "narr": [
+   "Week 1 closes with complex numbers, which arise because x^2 + 1 = 0 has no real solution."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Imaginary unit and complex number",
+   "tex": "i = \\sqrt{-1}, i^2 = -1, z = a + bi, \\text{Re}(z) = a, \\text{Im}(z) = b",
+   "parts": [
+    {
+     "substr": "i = \\sqrt{-1}",
+     "color": "#4C5FD5",
+     "note": "Imaginary unit"
+    },
+    {
+     "substr": "i^2 = -1",
+     "color": "#B45309",
+     "note": "Property of i"
+    },
+    {
+     "substr": "z = a + bi",
+     "color": "#0E7C7B",
+     "note": "Complex number form"
+    },
+    {
+     "substr": "\\text{Re}(z) = a",
+     "color": "#A03040",
+     "note": "Real part"
+    },
+    {
+     "substr": "\\text{Im}(z) = b",
+     "color": "#A03040",
+     "note": "Imaginary part"
+    }
+   ]
+  },
+  "narr": [
+   "The imaginary unit i is defined as the square root of -1, with the property that i^2 = -1.",
+   "A complex number z is written as a + bi, where a is the real part and b is the imaginary part."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Equality and powers of i",
+   "tex": "a + bi = c + di \\Leftrightarrow a = c \\text{ and } b = d, i^{n+4} = i^n",
+   "parts": [
+    {
+     "substr": "a + bi = c + di \\Leftrightarrow a = c \\text{ and } b = d",
+     "color": "#4C5FD5",
+     "note": "Equality rule"
+    },
+    {
+     "substr": "i^{n+4} = i^n",
+     "color": "#B45309",
+     "note": "Periodicity"
+    },
+    {
+     "substr": "i^0 = 1, i^1 = i, i^2 = -1, i^3 = -i",
+     "color": "#0E7C7B",
+     "note": "Basic powers"
+    }
+   ]
+  },
+  "narr": [
+   "Two complex numbers are equal if and only if their real parts are equal and their imaginary parts are equal.",
+   "The powers of i are periodic with period 4: i^{n+4} = i^n.",
+   "The basic powers are: i^0 = 1, i^1 = i, i^2 = -1, i^3 = -i."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Addition and subtraction of complex numbers",
+   "tex": "z_1 + z_2 = (a + c) + (b + d)i, z_1 - z_2 = (a - c) + (b - d)i",
+   "parts": [
+    {
+     "substr": "z_1 + z_2 = (a + c) + (b + d)i",
+     "color": "#4C5FD5",
+     "note": "Addition"
+    },
+    {
+     "substr": "z_1 - z_2 = (a - c) + (b - d)i",
+     "color": "#B45309",
+     "note": "Subtraction"
+    }
+   ]
+  },
+  "narr": [
+   "When adding complex numbers, we add their real parts and their imaginary parts separately.",
+   "Similarly, when subtracting, we subtract the real parts and the imaginary parts separately."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Multiplication and division of complex numbers",
+   "tex": "(a + bi)(c + di) = (ac - bd) + (ad + bc)i, \\frac{z_1}{z_2} = \\frac{z_1 \\overline{z_2}}{|z_2|^2} (z_2 \\neq 0)",
+   "parts": [
+    {
+     "substr": "(a + bi)(c + di) = (ac - bd) + (ad + bc)i",
+     "color": "#4C5FD5",
+     "note": "Multiplication"
+    },
+    {
+     "substr": "\\frac{z_1}{z_2} = \\frac{z_1 \\overline{z_2}}{|z_2|^2}",
+     "color": "#B45309",
+     "note": "Division"
+    },
+    {
+     "substr": "z_2 \\neq 0",
+     "color": "#A03040",
+     "note": "Condition"
+    }
+   ]
+  },
+  "narr": [
+   "For multiplication of complex numbers, we use the distributive property and i^2 = -1.",
+   "For division, we multiply numerator and denominator by the complex conjugate of the denominator."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Complex conjugate",
+   "tex": "\\overline{z} = a - bi, z + \\overline{z} = 2\\text{Re}(z), z - \\overline{z} = 2i\\text{Im}(z), z\\overline{z} = a^2 + b^2 = |z|^2",
+   "parts": [
+    {
+     "substr": "\\overline{z} = a - bi",
+     "color": "#4C5FD5",
+     "note": "Conjugate definition"
+    },
+    {
+     "substr": "z + \\overline{z} = 2\\text{Re}(z)",
+     "color": "#B45309",
+     "note": "Sum with conjugate"
+    },
+    {
+     "substr": "z - \\overline{z} = 2i\\text{Im}(z)",
+     "color": "#0E7C7B",
+     "note": "Difference with conjugate"
+    },
+    {
+     "substr": "z\\overline{z} = a^2 + b^2 = |z|^2",
+     "color": "#A03040",
+     "note": "Product with conjugate"
+    }
+   ]
+  },
+  "narr": [
+   "The complex conjugate of z = a + bi is \\overline{z} = a - bi.",
+   "The sum of a complex number and its conjugate is twice the real part.",
+   "The difference is 2i times the imaginary part.",
+   "The product is the square of the magnitude."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Magnitude of complex numbers",
+   "tex": "|z| = \\sqrt{a^2 + b^2}, |z_1 z_2| = |z_1| |z_2|, \\left| \\frac{z_1}{z_2} \\right| = \\frac{|z_1|}{|z_2|}",
+   "parts": [
+    {
+     "substr": "|z| = \\sqrt{a^2 + b^2}",
+     "color": "#4C5FD5",
+     "note": "Magnitude definition"
+    },
+    {
+     "substr": "|z_1 z_2| = |z_1| |z_2|",
+     "color": "#B45309",
+     "note": "Magnitude of product"
+    },
+    {
+     "substr": "\\left| \\frac{z_1}{z_2} \\right| = \\frac{|z_1|}{|z_2|}",
+     "color": "#0E7C7B",
+     "note": "Magnitude of quotient"
+    }
+   ]
+  },
+  "narr": [
+   "The magnitude of a complex number z = a + bi is |z| = \\sqrt{a^2 + b^2}.",
+   "The magnitude of a product is the product of magnitudes.",
+   "The magnitude of a quotient is the quotient of magnitudes."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Triangle inequality",
+   "tex": "|z_1 + z_2| \\leq |z_1| + |z_2|",
+   "parts": [
+    {
+     "substr": "|z_1 + z_2| \\leq |z_1| + |z_2|",
+     "color": "#4C5FD5",
+     "note": "Triangle inequality"
+    }
+   ]
+  },
+  "narr": [
+   "The magnitude of a sum is less than or equal to the sum of magnitudes, which is known as the triangle inequality."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Argument of complex numbers",
+   "tex": "\\arg z = \\theta + 2k\\pi, k \\in Z; \\text{Arg}(z) \\in (-\\pi, \\pi] \\text{ principal value}, \\tan \\theta = \\frac{b}{a} \\text{ (quadrant!)}",
+   "parts": [
+    {
+     "substr": "\\arg z = \\theta + 2k\\pi",
+     "color": "#4C5FD5",
+     "note": "General argument"
+    },
+    {
+     "substr": "\\text{Arg}(z) \\in (-\\pi, \\pi]",
+     "color": "#B45309",
+     "note": "Principal value"
+    },
+    {
+     "substr": "\\tan \\theta = \\frac{b}{a}",
+     "color": "#0E7C7B",
+     "note": "Tangent relation"
+    },
+    {
+     "substr": "quadrant!",
+     "color": "#A03040",
+     "note": "Important consideration"
+    }
+   ]
+  },
+  "narr": [
+   "The argument of a complex number is the angle it makes with the positive real axis.",
+   "The general argument includes all coterminal angles, differing by multiples of 2π.",
+   "The principal value lies in (-π, π].",
+   "To find the argument, we use tan θ = b/a, but we must consider the quadrant to determine the correct angle."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Polar form",
+   "tex": "z = r(\\cos \\theta + i \\sin \\theta) = re^{i\\theta}, r = |z|, a = r \\cos \\theta, b = r \\sin \\theta",
+   "parts": [
+    {
+     "substr": "z = r(\\cos \\theta + i \\sin \\theta)",
+     "color": "#4C5FD5",
+     "note": "Trigonometric form"
+    },
+    {
+     "substr": "z = re^{i\\theta}",
+     "color": "#B45309",
+     "note": "Exponential form"
+    },
+    {
+     "substr": "r = |z|",
+     "color": "#0E7C7B",
+     "note": "Magnitude"
+    },
+    {
+     "substr": "a = r \\cos \\theta, b = r \\sin \\theta",
+     "color": "#A03040",
+     "note": "Real and imaginary parts"
+    }
+   ]
+  },
+  "narr": [
+   "A complex number can be represented in polar form as r(cos θ + i sin θ) or using Euler's formula as re^{iθ}.",
+   "Here, r is the magnitude |z|, and θ is the argument.",
+   "The real part a = r cos θ and the imaginary part b = r sin θ."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Euler's formula",
+   "tex": "e^{i\\theta} = \\cos \\theta + i \\sin \\theta, e^{i\\pi} + 1 = 0",
+   "parts": [
+    {
+     "substr": "e^{i\\theta} = \\cos \\theta + i \\sin \\theta",
+     "color": "#4C5FD5",
+     "note": "Euler's formula"
+    },
+    {
+     "substr": "e^{i\\pi} + 1 = 0",
+     "color": "#B45309",
+     "note": "Euler's identity"
+    }
+   ]
+  },
+  "narr": [
+   "Euler's formula connects complex exponentials with trigonometric functions.",
+   "A special case is Euler's identity: e^{iπ} + 1 = 0, which is often considered one of the most beautiful equations in mathematics."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Multiplication and division in polar form",
+   "tex": "z_1 z_2 = r_1 r_2 e^{i(\\theta_1+\\theta_2)}, \\frac{z_1}{z_2} = \\frac{r_1}{r_2} e^{i(\\theta_1-\\theta_2)}",
+   "parts": [
+    {
+     "substr": "z_1 z_2 = r_1 r_2 e^{i(\\theta_1+\\theta_2)}",
+     "color": "#4C5FD5",
+     "note": "Product in polar form"
+    },
+    {
+     "substr": "\\frac{z_1}{z_2} = \\frac{r_1}{r_2} e^{i(\\theta_1-\\theta_2)}",
+     "color": "#B45309",
+     "note": "Quotient in polar form"
+    }
+   ]
+  },
+  "narr": [
+   "In polar form, multiplication involves multiplying the magnitudes and adding the arguments.",
+   "Division involves dividing the magnitudes and subtracting the arguments."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "De Moivre's theorem",
+   "tex": "z^n = r^n [\\cos(n\\theta) + i \\sin(n\\theta)]",
+   "parts": [
+    {
+     "substr": "z^n = r^n [\\cos(n\\theta) + i \\sin(n\\theta)]",
+     "color": "#4C5FD5",
+     "note": "De Moivre's theorem"
+    }
+   ]
+  },
+  "narr": [
+   "De Moivre's theorem states that raising a complex number in polar form to a power n involves raising the magnitude to the power n and multiplying the argument by n."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Roots of complex numbers",
+   "tex": "z^{1/n} = r^{1/n} \\left[ \\cos \\left( \\frac{\\theta + 2k\\pi}{n} \\right) + i \\sin \\left( \\frac{\\theta + 2k\\pi}{n} \\right) \\right], k = 0, \\ldots, n-1",
+   "parts": [
+    {
+     "substr": "z^{1/n}",
+     "color": "#4C5FD5",
+     "note": "n-th root"
+    },
+    {
+     "substr": "r^{1/n}",
+     "color": "#B45309",
+     "note": "Magnitude root"
+    },
+    {
+     "substr": "\\frac{\\theta + 2k\\pi}{n}",
+     "color": "#0E7C7B",
+     "note": "Argument division"
+    },
+    {
+     "substr": "k = 0, \\ldots, n-1",
+     "color": "#A03040",
+     "note": "Distinct roots"
+    }
+   ]
+  },
+  "narr": [
+   "The n-th roots of a complex number z = re^{iθ} are given by this formula.",
+   "There are n distinct roots, corresponding to k = 0, 1, ..., n-1.",
+   "Each root has magnitude r^{1/n} and argument (θ + 2kπ)/n."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Roots of unity",
+   "tex": "z^n = 1 \\Rightarrow z_k = e^{2\\pi i k/n}, k = 0, \\ldots, n-1 \\text{ (n-th roots of unity)}",
+   "parts": [
+    {
+     "substr": "z^n = 1",
+     "color": "#4C5FD5",
+     "note": "Equation"
+    },
+    {
+     "substr": "z_k = e^{2\\pi i k/n}",
+     "color": "#B45309",
+     "note": "Roots"
+    },
+    {
+     "substr": "k = 0, \\ldots, n-1",
+     "color": "#0E7C7B",
+     "note": "Indices"
+    },
+    {
+     "substr": "n-th roots of unity",
+     "color": "#A03040",
+     "note": "Special case"
+    }
+   ]
+  },
+  "narr": [
+   "The n-th roots of unity are the solutions to z^n = 1.",
+   "They form a regular n-gon on the unit circle in the complex plane.",
+   "These roots are given by z_k = e^{2πik/n} for k = 0, 1, ..., n-1."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Quadratic formula",
+   "tex": "z = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} \\text{ (quadratic formula, valid over } \\mathbb{C})",
+   "parts": [
+    {
+     "substr": "z = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+     "color": "#4C5FD5",
+     "note": "Quadratic formula"
+    },
+    {
+     "substr": "valid over \\mathbb{C}",
+     "color": "#B45309",
+     "note": "Domain"
+    }
+   ]
+  },
+  "narr": [
+   "The quadratic formula works over the complex numbers as well as the reals.",
+   "It gives the solutions to the quadratic equation az^2 + bz + c = 0."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Properties of polynomial roots",
+   "bullets": [
+    "Non-real roots of real polynomials occur in conjugate pairs",
+    "By the Fundamental Theorem of Algebra, a degree-n polynomial has exactly n roots in C, counted with multiplicity"
+   ]
+  },
+  "narr": [
+   "An important property of polynomials with real coefficients is that non-real roots occur in conjugate pairs.",
+   "The Fundamental Theorem of Algebra tells us that a polynomial of degree n has exactly n roots in the complex plane, counting multiplicities."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ }
+]

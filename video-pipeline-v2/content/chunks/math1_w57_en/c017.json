@@ -1,0 +1,466 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5-7 of Math I, where we'll explore applications of derivatives, exponential and logarithmic functions, and connect matrix algebra with geometry.",
+   "Let's start with an application of derivatives to motion analysis."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Application to acceleration",
+   "problem": "A particle moves such that s(t) = 2 − sin t. Find v(π/4) and a(π/4); compare these values and determine whether the particle is speeding up or slowing down.",
+   "steps": [
+    "Find velocity: v(t) = s'(t) = -cos t",
+    "Find acceleration: a(t) = v'(t) = sin t",
+    "Evaluate at t = π/4: v(π/4) = -cos(π/4) = -1/√2",
+    "Evaluate at t = π/4: a(π/4) = sin(π/4) = 1/√2"
+   ],
+   "result": "Velocity is negative, acceleration is positive — they act in opposite directions: the object is accelerating against the direction of motion, meaning the particle is slowing down."
+  },
+  "narr": [
+   "Let's analyze the motion of a particle with position function s(t) = 2 - sin t.",
+   "First, we find the velocity by taking the derivative of position: v(t) = s'(t) = -cos t.",
+   "Then, we find the acceleration by taking the derivative of velocity: a(t) = v'(t) = sin t.",
+   "Now, let's evaluate these at t = π/4: v(π/4) = -cos(π/4) = -1/√2.",
+   "And a(π/4) = sin(π/4) = 1/√2.",
+   "The velocity is negative while acceleration is positive, meaning they act in opposite directions.",
+   "This indicates the particle is slowing down as it accelerates against its direction of motion."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key points: Exponential and logarithmic functions",
+   "bullets": [
+    "Assumptions: B(x) = b^x (b > 0) is defined everywhere, continuous, and differentiable at zero; then B'(x) = b^x · B'(0) (the proof uses b^(x+h) = b^x · b^h). The number e is the unique base with B'(0) = 1; 4^π ≈ 77.88 illustrates the definition of b^r for irrational r as a limit over rational approximations.",
+    "Theorem 3.14: E'(x) = e^x and in general d/dx e^(g(x)) = e^(g(x)) · g'(x); the graph of e^x lies between 2^x and 3^x, the tangent at zero is y = x + 1.",
+    "Theorem 3.15: (ln x)' = 1/x for x > 0; for ln(g(x)) — g'(x)/g(x) for g(x) > 0. The proof uses implicit differentiation of e^y = x: e^y · (dy/dx) = 1, from which dy/dx = 1/x.",
+    "Theorem 3.16: (b^x)' = b^x · ln b and (log_b x)' = 1/(x · ln b); general forms with g(x) follow from the chain rule (using b^x = e^(x·ln b), log_b x = ln x/ ln b).",
+    "Logarithmic differentiation (3.9.3, a five-step strategy) differentiates functions of the form g(x)^(f(x)) (e.g., x^x) and simplifies cumbersome products."
+   ]
+  },
+  "narr": [
+   "Now, let's cover the key points about exponential and logarithmic functions.",
+   "First, we have the basic assumptions about exponential functions B(x) = b^x.",
+   "The number e is special because it's the unique base where B'(0) = 1.",
+   "Theorem 3.14 tells us that the derivative of e^x is itself, and more generally, the derivative of e^(g(x)) involves the chain rule.",
+   "Theorem 3.15 gives us the derivative of the natural logarithm function.",
+   "Theorem 3.16 extends these results to general exponential and logarithmic functions with any base.",
+   "Finally, logarithmic differentiation is a powerful technique for differentiating complex functions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Composition with an exponential",
+   "problem": "Find the derivative f(x) = e^(tan(2x)).",
+   "steps": [
+    "Apply the chain rule: f'(x) = e^(tan(2x)) · d/dx(tan(2x))",
+    "Differentiate the inner function: d/dx(tan(2x)) = sec^2(2x) · 2",
+    "Combine results: f'(x) = e^(tan(2x)) · sec^2(2x) · 2"
+   ],
+   "result": "f'(x) = 2e^(tan(2x))sec^2(2x)"
+  },
+  "narr": [
+   "Let's find the derivative of f(x) = e^(tan(2x)).",
+   "This is a composition of functions, so we'll use the chain rule.",
+   "The derivative of e^u is e^u times the derivative of u.",
+   "Here, u = tan(2x), so we need to differentiate tan(2x).",
+   "The derivative of tan(v) is sec^2(v), and by the chain rule, we multiply by the derivative of v = 2x, which is 2.",
+   "Putting it all together, f'(x) = e^(tan(2x)) · sec^2(2x) · 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Combination of rules",
+   "problem": "Find the derivative y = e^(x^2)/x.",
+   "steps": [
+    "Apply the quotient rule: y' = [(e^(x^2))' · x - e^(x^2) · x'] / x^2",
+    "Differentiate e^(x^2) using chain rule: (e^(x^2))' = e^(x^2) · 2x",
+    "Substitute back: y' = [e^(x^2) · 2x · x - e^(x^2) · 1] / x^2",
+    "Factor numerator: y' = e^(x^2)(2x^2 - 1)/x^2"
+   ],
+   "result": "y' = e^(x^2)(2x^2 - 1)/x^2"
+  },
+  "narr": [
+   "Now, let's find the derivative of y = e^(x^2)/x.",
+   "This requires the quotient rule since we have a division of functions.",
+   "The quotient rule states that (u/v)' = (u'v - uv')/v^2.",
+   "Here, u = e^(x^2) and v = x.",
+   "First, we need u' = (e^(x^2))' = e^(x^2) · 2x by the chain rule.",
+   "Now, applying the quotient rule: y' = [e^(x^2) · 2x · x - e^(x^2) · 1] / x^2.",
+   "Factoring the numerator, we get y' = e^(x^2)(2x^2 - 1)/x^2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Population growth",
+   "problem": "A mosquito colony has an initial population of 1000; after t days the population is A(t) = 1000·e^(0.3t). Show that the ratio of the rate of change of the population A'(t) to the population A(t) is constant.",
+   "steps": [
+    "Find A'(t) using chain rule: A'(t) = 1000 · e^(0.3t) · 0.3",
+    "Simplify: A'(t) = 300 · e^(0.3t)",
+    "Compute ratio A'(t)/A(t) = 300·e^(0.3t)/(1000·e^(0.3t))",
+    "Simplify ratio: A'(t)/A(t) = 300/1000 = 0.3"
+   ],
+   "result": "The ratio A'(t)/A(t) = 0.3 is constant, showing that the growth rate of an exponential population is proportional to the population itself."
+  },
+  "narr": [
+   "Let's examine a population growth problem with A(t) = 1000·e^(0.3t).",
+   "First, we find the rate of change A'(t) using the chain rule.",
+   "The derivative of e^(0.3t) is e^(0.3t) · 0.3, so A'(t) = 1000 · e^(0.3t) · 0.3 = 300 · e^(0.3t).",
+   "Now, we compute the ratio A'(t)/A(t) = 300·e^(0.3t)/(1000·e^(0.3t)).",
+   "The exponential terms cancel, leaving us with 300/1000 = 0.3.",
+   "This constant ratio shows that for exponential growth, the rate of change is proportional to the current population."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Derivative of the natural logarithm",
+   "problem": "Find the derivative f(x) = ln(x^3 + 3x - 4).",
+   "steps": [
+    "Apply the chain rule for ln(g(x)): f'(x) = g'(x)/g(x)",
+    "Identify g(x) = x^3 + 3x - 4",
+    "Find g'(x) = 3x^2 + 3",
+    "Combine: f'(x) = (3x^2 + 3)/(x^3 + 3x - 4)"
+   ],
+   "result": "f'(x) = (3x^2 + 3)/(x^3 + 3x - 4)"
+  },
+  "narr": [
+   "Now, let's find the derivative of f(x) = ln(x^3 + 3x - 4).",
+   "For the natural logarithm of a function, we use the formula f'(x) = g'(x)/g(x).",
+   "Here, g(x) = x^3 + 3x - 4.",
+   "First, we find g'(x) = 3x^2 + 3.",
+   "Then, applying the formula, f'(x) = (3x^2 + 3)/(x^3 + 3x - 4)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Logarithmic properties in the derivative",
+   "problem": "Find the derivative f(x) = ln(x^2 · sin x/(2x + 1)).",
+   "steps": [
+    "Expand logarithm using properties: f(x) = 2·ln x + ln(sin x) - ln(2x + 1)",
+    "Differentiate each term separately",
+    "Derivative of 2·ln x is 2/x",
+    "Derivative of ln(sin x) is cos x/sin x = cot x",
+    "Derivative of ln(2x + 1) is 2/(2x + 1)",
+    "Combine results: f'(x) = 2/x + cot x - 2/(2x + 1)"
+   ],
+   "result": "f'(x) = 2/x + cot x - 2/(2x + 1)"
+  },
+  "narr": [
+   "Let's find the derivative of f(x) = ln(x^2 · sin x/(2x + 1)).",
+   "First, we can simplify using logarithmic properties: f(x) = 2·ln x + ln(sin x) - ln(2x + 1).",
+   "Now, we can differentiate each term separately.",
+   "The derivative of 2·ln x is 2/x.",
+   "The derivative of ln(sin x) requires the chain rule: (cos x)/sin x = cot x.",
+   "The derivative of ln(2x + 1) is 2/(2x + 1).",
+   "Combining these, we get f'(x) = 2/x + cot x - 2/(2x + 1)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Common base",
+   "problem": "Find the derivative h(x) = 3^x/(3^x + 2).",
+   "steps": [
+    "Apply the quotient rule: h'(x) = [(3^x)' · (3^x + 2) - 3^x · (3^x + 2)']/(3^x + 2)^2",
+    "Find (3^x)' = 3^x · ln 3",
+    "Find (3^x + 2)' = 3^x · ln 3",
+    "Substitute: h'(x) = [3^x · ln 3 · (3^x + 2) - 3^x · 3^x · ln 3]/(3^x + 2)^2",
+    "Factor numerator: h'(x) = [3^x · ln 3 · ((3^x + 2) - 3^x)]/(3^x + 2)^2",
+    "Simplify: h'(x) = [3^x · ln 3 · 2]/(3^x + 2)^2"
+   ],
+   "result": "h'(x) = 2·3^x·ln 3/(3^x + 2)^2"
+  },
+  "narr": [
+   "Now, let's find the derivative of h(x) = 3^x/(3^x + 2).",
+   "We'll use the quotient rule: h'(x) = [(3^x)' · (3^x + 2) - 3^x · (3^x + 2)']/(3^x + 2)^2.",
+   "First, we need (3^x)' = 3^x · ln 3.",
+   "The derivative of the denominator (3^x + 2)' is also 3^x · ln 3.",
+   "Substituting these in, we get h'(x) = [3^x · ln 3 · (3^x + 2) - 3^x · 3^x · ln 3]/(3^x + 2)^2.",
+   "Factoring the numerator, we have 3^x · ln 3 · ((3^x + 2) - 3^x).",
+   "Simplifying, we get h'(x) = 2·3^x·ln 3/(3^x + 2)^2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Slope of the tangent",
+   "problem": "Find the slope of the line tangent to the graph y = log_2(3x + 1) at the point x = 1.",
+   "steps": [
+    "Apply the derivative formula for log_b(g(x)): dy/dx = g'(x)/(g(x)·ln b)",
+    "Here, g(x) = 3x + 1, so g'(x) = 3",
+    "Substitute: dy/dx = 3/((3x + 1)·ln 2)",
+    "Evaluate at x = 1: dy/dx = 3/(4·ln 2)",
+    "Simplify using logarithm property: 4·ln 2 = ln(2^4) = ln 16",
+    "Final result: dy/dx = 3/ln 16"
+   ],
+   "result": "The slope of the tangent at x = 1 is 3/ln 16"
+  },
+  "narr": [
+   "Let's find the slope of the tangent to y = log_2(3x + 1) at x = 1.",
+   "For logarithmic functions with base b, we use the formula dy/dx = g'(x)/(g(x)·ln b).",
+   "Here, g(x) = 3x + 1, so g'(x) = 3.",
+   "Substituting, we get dy/dx = 3/((3x + 1)·ln 2).",
+   "At x = 1, this becomes dy/dx = 3/(4·ln 2).",
+   "We can simplify this using logarithm properties: 4·ln 2 = ln(2^4) = ln 16.",
+   "So the slope is 3/ln 16."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Rainfall in Phoenix",
+   "problem": "The amount of rainfall in a month in Phoenix (Arizona) is approximately described by the function y(t) = 0.5 + 0.3·cos t, where t is the number of months since January. Find y' and determine the intervals on which the amount of rainfall is decreasing.",
+   "steps": [
+    "Find derivative: y'(t) = -0.3·sin t",
+    "Rainfall decreases where y' < 0",
+    "Solve -0.3·sin t < 0, which simplifies to sin t > 0",
+    "Identify intervals where sin t > 0: (0, π) and (2π, 3π)",
+    "Note that on (π, 2π) and (3π, 12), sin t < 0 and rainfall increases"
+   ],
+   "result": "Rainfall decreases on the intervals (0, π) and (2π, 3π)"
+  },
+  "narr": [
+   "Let's analyze rainfall in Phoenix modeled by y(t) = 0.5 + 0.3·cos t.",
+   "First, we find the derivative: y'(t) = -0.3·sin t.",
+   "Rainfall decreases where y' < 0, which means -0.3·sin t < 0.",
+   "Dividing by -0.3 (and reversing the inequality), we get sin t > 0.",
+   "The sine function is positive on the intervals (0, π) and (2π, 3π).",
+   "On the intervals (π, 2π) and (3π, 12), sin t < 0, so rainfall increases."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Flu in New York",
+   "problem": "The number of flu cases in New York from the beginning of 1960 to the beginning of 1964 is modeled by the function N(t) = 5.3·e^(0.093t^2−0.87t), 0 ≤ t ≤ 4, where N(t) is the number of cases (in thousands), t is time in years, t = 0 is the beginning of 1960. a) Calculate N(0) and N(4) and describe their meaning. b) Calculate N'(0) and N'(3) and describe their meaning.",
+   "steps": [
+    "Part a: Calculate N(0) = 5.3·e^0 = 5.3 (approximately 5300 cases)",
+    "Calculate N(4): First compute exponent 0.093·16 - 0.87·4 = -1.992",
+    "Then N(4) = 5.3·e^(-1.992) ≈ 0.723 (approximately 723 cases)",
+    "Part b: Find N'(t) using chain rule: N'(t) = 5.3·e^(0.093t^2−0.87t)·(0.186t - 0.87) = N(t)·(0.186t - 0.87)",
+    "Calculate N'(0) = 5.3·(-0.87) = -4.611 (decrease of about 4611 cases per year)",
+    "Calculate N'(3): First compute exponent 0.093·9 - 0.87·3 = -1.773"
+   ]
+  },
+  "narr": [
+   "Let's examine a flu outbreak model in New York: N(t) = 5.3·e^(0.093t^2−0.87t).",
+   "Part a: First, we calculate N(0) = 5.3·e^0 = 5.3, representing about 5300 cases at the start of 1960.",
+   "Then N(4): First compute the exponent 0.093·16 - 0.87·4 = -1.992.",
+   "So N(4) = 5.3·e^(-1.992) ≈ 0.723, representing about 723 cases at the start of 1964.",
+   "This shows a significant decrease in cases over four years.",
+   "Part b: For the rate of change, we use the chain rule to find N'(t).",
+   "N'(t) = 5.3·e^(0.093t^2−0.87t)·(0.186t - 0.87) = N(t)·(0.186t - 0.87)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Flu in New York (cont.)",
+   "problem": "",
+   "steps": [
+    "Then 0.186·3 - 0.87 = -0.312",
+    "So N'(3) = 5.3·e^(-1.773)·(-0.312) ≈ -0.2808 (about 281 cases per year)"
+   ],
+   "result": "a) N(0) = 5.3 (5300 cases) and N(4) ≈ 0.723 (723 cases), showing a significant decrease over four years. b) N'(0) ≈ -4.611 and N'(3) ≈ -0.2808, both negative but with decreasing absolute values, indicating the decline is slowing down."
+  },
+  "narr": [
+   "At t = 0, N'(0) = 5.3·(-0.87) = -4.611, indicating a decrease of about 4611 cases per year.",
+   "At t = 3, we first compute the exponent 0.093·9 - 0.87·3 = -1.773.",
+   "Then 0.186·3 - 0.87 = -0.312.",
+   "So N'(3) = 5.3·e^(-1.773)·(-0.312) ≈ -0.2808, about 281 cases per year.",
+   "Both derivatives are negative, showing decreasing cases, but their magnitudes are decreasing, meaning the decline is slowing down."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 7 of Linear Algebra I",
+   "subtitle": "Matrix algebra and geometry of spaces"
+  },
+  "narr": [
+   "Now, let's transition to Week 7 of Linear Algebra I, where we'll connect matrix algebra with the geometry of spaces."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key results: Transposes and permutations",
+   "bullets": [
+    "Section 2.7 of G. Strang's textbook covers transposes and permutations",
+    "Matrix transpose identities: (A^T)^T = A, (A + B)^T = A^T + B^T, (AB)^T = B^T A^T, (A^{-1})^T = (A^T)^{-1}",
+    "Symmetric matrices satisfy A^T = A",
+    "Products of the form R^T R are always symmetric",
+    "Permutation matrices satisfy P^T = P^{-1}",
+    "PA = LU decomposition uses permutation matrices"
+   ]
+  },
+  "narr": [
+   "Week 7 covers section 2.7 on transposes and permutations from Strang's textbook.",
+   "We'll explore several important identities involving matrix transposes.",
+   "For symmetric matrices, we have A^T = A.",
+   "Products of the form R^T R are always symmetric.",
+   "Permutation matrices have the special property that P^T = P^{-1}.",
+   "These are used in the PA = LU decomposition."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Vector spaces and subspaces",
+   "bullets": [
+    "Section 3.1 introduces vector spaces and subspaces",
+    "R^n represents the standard n-dimensional vector space",
+    "Subspaces are subsets that are closed under addition and scalar multiplication",
+    "Column space C(A) represents the span of the columns of matrix A",
+    "Null space N(A) represents the solution set of Ax = 0",
+    "The language of column space and null space helps describe the solvability of systems Ax = b"
+   ]
+  },
+  "narr": [
+   "We'll also cover section 3.1 on vector spaces and subspaces.",
+   "R^n represents the standard n-dimensional vector space.",
+   "Subspaces are subsets that are closed under vector addition and scalar multiplication.",
+   "The column space C(A) is the span of the columns of matrix A.",
+   "The null space N(A) is the solution set of the homogeneous equation Ax = 0.",
+   "Understanding these concepts helps us describe the solvability of linear systems."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

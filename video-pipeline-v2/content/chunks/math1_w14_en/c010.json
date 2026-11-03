@@ -1,0 +1,551 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Week 4 — Limits II",
+   "subtitle": "limit laws, standard limits, indeterminacies, asymptotics, Landau symbols"
+  },
+  "narr": [
+   "Welcome to Week 4, a crucial week that transforms the limit apparatus from Week 3 into a practical toolkit. We'll cover general limit properties, standard limits, indeterminacies, asymptotic equivalence, and Landau symbols.",
+   "Let's begin with the formula catalog for Week 4."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "General properties of limits",
+   "bullets": [
+    "lim(x→a) f(x) = L : f(x) can be made arbitrarily close to L by taking x close to a (x ≠ a)",
+    "lim(x→a) f(x) = L ⇔ lim(x→a-) f(x) = lim(x→a+) f(x) = L (two-sided criterion)",
+    "A limit, when it exists, is unique."
+   ]
+  },
+  "narr": [
+   "First, let's review the general properties of limits.",
+   "The fundamental definition states that the limit of f(x) as x approaches a is L if f(x) can be made arbitrarily close to L by taking x sufficiently close to a, but not equal to a.",
+   "The two-sided criterion tells us that a limit exists if and only if both the left-hand and right-hand limits exist and are equal.",
+   "Finally, a fundamental property is that when a limit exists, it is unique."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Limit laws",
+   "bullets": [
+    "If lim(x→a) f(x) = L and lim(x→a) g(x) = M (both existing), and c is a constant:",
+    "Sum: lim(x→a)[f(x) + g(x)] = L + M",
+    "Difference: lim(x→a)[f(x) - g(x)] = L - M",
+    "Constant multiple: lim(x→a) c·f(x) = c·L",
+    "Product: lim(x→a)[f(x)·g(x)] = L·M",
+    "Quotient: lim(x→a) f(x)/g(x) = L/M (M ≠ 0)"
+   ]
+  },
+  "narr": [
+   "Now, let's explore the limit laws that allow us to compute complex limits by breaking them into simpler parts.",
+   "If we have two functions, f(x) and g(x), with existing limits L and M as x approaches a, we can apply several laws.",
+   "The sum law tells us that the limit of a sum is the sum of the limits.",
+   "Similarly, the difference law states that the limit of a difference is the difference of the limits.",
+   "The constant multiple law lets us factor out constants when taking limits.",
+   "The product law allows us to compute the limit of a product as the product of the limits."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Limit laws (continued)",
+   "bullets": [
+    "Power: lim(x→a)[f(x)]^n = L^n (n ∈ ℕ)",
+    "Root: lim(x→a)ⁿ√f(x) = ⁿ√L (n odd: any L; n even: L ≥ 0)",
+    "Basic: lim(x→a) x = a, lim(x→a) c = c",
+    "Polynomials/rational functions: lim(x→a) p(x) = p(a), lim(x→a) p(x)/q(x) = p(a)/q(a) (q(a) ≠ 0)",
+    "If f(x) = g(x) for all x ≠ a near a, then lim(x→a) f(x) = lim(x→a) g(x)"
+   ]
+  },
+  "narr": [
+   "Continuing with the limit laws, we have the power law, which allows us to take limits of powers.",
+   "The root law is similar but has special conditions for even roots, requiring the expression inside to be non-negative.",
+   "These include the basic limits of x and constants.",
+   "For polynomials and rational functions, we can directly substitute the value into the function.",
+   "Finally, if two functions are equal near a point (except possibly at the point itself), their limits as x approaches that point are equal."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Limit laws",
+   "tex": "\\lim_{x \\to a}[f(x) + g(x)] = L + M",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a}[f(x) + g(x)]",
+     "color": "#4C5FD5",
+     "note": "The limit of a sum"
+    },
+    {
+     "substr": "L + M",
+     "color": "#0E7C7B",
+     "note": "The sum of the individual limits"
+    }
+   ]
+  },
+  "narr": [
+   "Here's a visual representation of the sum law for limits.",
+   "The limit of the sum f(x) + g(x) as x approaches a is equal to the sum of their individual limits L and M."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Limit laws",
+   "tex": "\\lim_{x \\to a}[f(x) \\cdot g(x)] = L \\cdot M",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a}[f(x) \\cdot g(x)]",
+     "color": "#4C5FD5",
+     "note": "The limit of a product"
+    },
+    {
+     "substr": "L \\cdot M",
+     "color": "#0E7C7B",
+     "note": "The product of the individual limits"
+    }
+   ]
+  },
+  "narr": [
+   "Similarly, the product law states that the limit of the product f(x) · g(x) is equal to the product of their individual limits L and M."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Squeeze (Pinching) Theorem",
+   "bullets": [
+    "If f(x) ≤ g(x) ≤ h(x) near a (x ≠ a),",
+    "and lim(x→a) f(x) = L = lim(x→a) h(x),",
+    "then lim(x→a) g(x) = L"
+   ]
+  },
+  "narr": [
+   "The Squeeze Theorem provides a way to find limits of functions that are 'squeezed' between two other functions with known limits.",
+   "If a function g(x) is bounded between f(x) and h(x) near point a,",
+   "and both f(x) and h(x) approach the same limit L as x approaches a,",
+   "then g(x) must also approach L as x approaches a."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Standard limits and trigonometric limits",
+   "bullets": [
+    "lim(x→0) sin(x)/x = 1",
+    "lim(x→0) (1 - cos(x))/x² = 1/2",
+    "lim(x→0) (e^x - 1)/x = 1",
+    "lim(x→0) ln(1 + x)/x = 1",
+    "lim(x→0) (1 + x)^(1/x) = e"
+   ]
+  },
+  "narr": [
+   "Let's look at some standard limits that are frequently used in calculus.",
+   "The first limit involves the sine function and is fundamental in trigonometry.",
+   "The second limit involves cosine and appears in many applications.",
+   "The exponential limit shows how the exponential function relates to its tangent at x=0.",
+   "The logarithmic limit is the counterpart to the exponential limit.",
+   "This limit involving the exponential function defines the number e."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Standard limits (continued)",
+   "bullets": [
+    "lim(x→∞) x^n/e^x = 0 (n ∈ ℕ)",
+    "Adapting by substitution:",
+    "lim(x→0) sin(5x)/x = 5·lim(x→0) sin(5x)/(5x) = 5",
+    "lim(θ→0) sin(θ)/θ = 1 ⇒ lim(θ→0) (1 - cos(θ))/θ = 0 (via conjugate)"
+   ]
+  },
+  "narr": [
+   "This limit shows that exponential functions grow faster than polynomial functions as x approaches infinity.",
+   "We can adapt these standard limits using substitution techniques.",
+   "For example, we can find the limit of sin(5x)/x by recognizing it as a variation of the standard sine limit.",
+   "Similarly, we can derive the limit of (1 - cos(θ))/θ using the conjugate method and the standard sine limit."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Indeterminate forms",
+   "bullets": [
+    "0/0, ∞/∞, 0·∞, ∞-∞, 0^0, 1^∞, ∞^0",
+    "The word 'indeterminate' means more analysis is required, not that the limit fails to exist.",
+    "The same initial form can resolve differently:",
+    "lim(x→0) x/x = 1",
+    "lim(x→0) x/x² = 0",
+    "lim(x→0) x²/x does not exist (finite)"
+   ]
+  },
+  "narr": [
+   "When evaluating limits, we sometimes encounter indeterminate forms, which require special techniques to resolve.",
+   "It's important to understand that 'indeterminate' doesn't mean the limit doesn't exist, but rather that we need to do more work to find it.",
+   "The same indeterminate form can lead to different results depending on the specific functions involved.",
+   "For example, the limit of x/x as x approaches 0 is 1.",
+   "But the limit of x/x² as x approaches 0 is 0.",
+   "And the limit of x²/x as x approaches 0 doesn't exist as a finite value."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Indeterminate forms (continued)",
+   "bullets": [
+    "While lim(x→1) (x²-1)/(x-1) = 2 after factoring.",
+    "Resolution tools include:",
+    "Factoring, rationalization, standard limits",
+    "Asymptotic equivalence, change of variable",
+    "Algebraic rearrangement, the Squeeze Theorem",
+    "Taylor expansions, and L'Hôpital's rule"
+   ]
+  },
+  "narr": [
+   "Sometimes, what appears to be an indeterminate form can be resolved through algebraic manipulation.",
+   "For example, the limit of (x²-1)/(x-1) as x approaches 1 simplifies to 2 after factoring.",
+   "There are many tools we can use to resolve indeterminate forms.",
+   "These include factoring and rationalization techniques.",
+   "We can also use standard limits and asymptotic equivalence.",
+   "Change of variables and algebraic rearrangements are helpful strategies.",
+   "The Squeeze Theorem can be applied in certain cases.",
+   "And for more complex situations, we can use Taylor expansions or L'Hôpital's rule."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asymptotic equivalence",
+   "bullets": [
+    "f(x) ∼ g(x) (x → a) ⇔ lim(x→a) f(x)/g(x) = 1",
+    "f(x) ∼ g(x) ⇔ f(x) = g(x)(1 + ε(x)), ε(x) → 0",
+    "f ∼ g ⇔ f = g + o(g)",
+    "As x → 0: sin x ∼ x, tan x ∼ x, 1 - cos x ∼ x²/2, e^x - 1 ∼ x",
+    "ln(1 + x) ∼ x, (1 + x)^α - 1 ∼ αx (α constant)"
+   ]
+  },
+  "narr": [
+   "Asymptotic equivalence is a concept that helps us understand how functions behave near a point or at infinity.",
+   "Two functions are asymptotically equivalent if their ratio approaches 1 as x approaches a.",
+   "This can also be expressed in terms of an error term that approaches zero.",
+   "Or using little-o notation, where the difference is negligible compared to g(x).",
+   "Near x = 0, many common functions have simple asymptotic equivalents.",
+   "For example, sine and tangent are approximately equal to x near zero.",
+   "Similarly, 1 - cos(x) is approximately x²/2 near zero.",
+   "The exponential function minus 1 is approximately x near zero.",
+   "The natural logarithm of (1 + x) is approximately x near zero.",
+   "And more generally, (1 + x)^α - 1 is approximately αx for any constant α."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asymptotic equivalence (continued)",
+   "bullets": [
+    "Numerically, sin(0.01)/0.01 ≈ 0.999983 illustrates 'close, not equal'.",
+    "At infinity, the highest-degree term dominates:",
+    "3x² + 5x - 1 ∼ 3x² (x → ∞)",
+    "(2x³ + x)/(5x² - 1) ∼ 2x³/5x² = 2/(5x) (x → ∞)",
+    "Equivalences may be multiplied and divided, not generally added."
+   ]
+  },
+  "narr": [
+   "Numerically, we can see that sin(0.01)/0.01 is approximately 0.999983, which is close to but not exactly 1.",
+   "When considering behavior at infinity, the highest-degree term in a polynomial dominates.",
+   "For example, 3x² + 5x - 1 behaves like 3x² as x approaches infinity.",
+   "For rational functions, we can simplify by keeping only the highest-degree terms in numerator and denominator.",
+   "However, it's important to remember that asymptotic equivalences can be multiplied and divided, but not generally added."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Landau symbols: big-O and little-o",
+   "bullets": [
+    "f(x) = O(g(x)) (x → a) ⇔ |f(x)|/|g(x)| remains bounded near a",
+    "f(x) = o(g(x)) (x → a) ⇔ lim(x→a) f(x)/g(x) = 0",
+    "f = o(g) ⇒ f = O(g); f = O(g) ⇏ f = o(g)",
+    "x² = o(x), x³ = o(x²) (x → 0)",
+    "x = o(x²), x¹⁰ = o(e^x) (x → ∞)"
+   ]
+  },
+  "narr": [
+   "Landau symbols, big-O and little-o, provide a way to describe the growth of functions relative to each other.",
+   "Big-O notation means that the absolute value of f(x) divided by g(x) remains bounded near a.",
+   "Little-o notation is stronger, meaning that the ratio of f(x) to g(x) approaches 0 as x approaches a.",
+   "If f is little-o of g, then it's also big-O of g, but the converse isn't necessarily true.",
+   "For example, as x approaches 0, x² is little-o of x, meaning x² becomes negligible compared to x.",
+   "Similarly, x³ is little-o of x² as x approaches 0.",
+   "At infinity, x is little-o of x², meaning x becomes negligible compared to x².",
+   "And x¹⁰ is little-o of e^x as x approaches infinity, showing exponential growth dominates polynomial growth."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Landau symbols (continued)",
+   "bullets": [
+    "3x = O(x) but 3x ≠ o(x) (x → 0) since 3x/x = 3",
+    "sin x = x + o(x) (x → 0); e^x = 1 + x + o(x); e^x = 1 + x + x²/2 + o(x²)",
+    "2x² + 3x + 1 = 2x² + O(x) (x → ∞)",
+    "In words: big-O means f has at most the order of magnitude of g; little-o means f becomes negligible compared with g.",
+    "Caution: f = O(g) is not an equation in the ordinary sense — O(g) denotes a whole class of functions."
+   ]
+  },
+  "narr": [
+   "Here's an example showing the difference between big-O and little-o: 3x is big-O of x as x approaches 0, but not little-o, since their ratio is constantly 3.",
+   "Landau notation is useful for expressing functions with their dominant terms plus smaller-order terms.",
+   "For example, sin(x) can be expressed as x plus a term that's negligible compared to x as x approaches 0.",
+   "Similarly, the exponential function can be expressed with increasing precision by including more terms.",
+   "At infinity, we can express 2x² + 3x + 1 as 2x² plus a term that's at most the order of x.",
+   "In summary, big-O means f has at most the order of magnitude of g, while little-o means f becomes negligible compared to g.",
+   "It's important to remember that f = O(g) is not an equation in the ordinary sense, but rather a statement about the growth class of f relative to g."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Using limit laws",
+   "problem": "Compute lim(x→-3) (2x - 1)√(x + 4), indicating the law at each step.",
+   "steps": [
+    "Both limits of the factors exist, so apply the product law",
+    "lim(x→-3) (2x - 1) = 2(-3) - 1 = -7 (sum, difference, basic limits)",
+    "lim(x→-3) √(x + 4) = √(-3 + 4) = 1 (root law)",
+    "Product: -7 · 1 = -7"
+   ],
+   "result": "-7"
+  },
+  "narr": [
+   "Now let's apply these limit laws to some concrete examples.",
+   "Our first problem is to compute the limit as x approaches -3 of (2x - 1) times the square root of (x + 4).",
+   "We need to indicate which limit law we're using at each step.",
+   "Both factors have existing limits, so we can apply the product law.",
+   "For the first factor, 2x - 1, we apply the sum and difference laws along with basic limits to get -7.",
+   "For the second factor, the square root of (x + 4), we apply the root law to get 1.",
+   "Finally, we multiply these results to get the final answer of -7."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Direct substitution",
+   "problem": "Compute lim(x→-2) (3x³ - 2x + 7).",
+   "steps": [
+    "Direct substitution is justified for polynomials",
+    "3(-2)³ - 2(-2) + 7 = 3(-8) + 4 + 7 = -24 + 4 + 7 = -13"
+   ],
+   "result": "-13"
+  },
+  "narr": [
+   "For our second problem, we need to compute the limit as x approaches -2 of the polynomial 3x³ - 2x + 7.",
+   "For polynomial functions, we can directly substitute the value into the function.",
+   "Substituting x = -2, we get 3(-2)³ - 2(-2) + 7.",
+   "Calculating this, we get 3(-8) + 4 + 7 = -24 + 4 + 7 = -13.",
+   "So the limit is -13."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Factoring to resolve 0/0 form",
+   "problem": "Compute lim(x→-3) (x² + 4x + 3)/(x² - 9).",
+   "steps": [
+    "Direct substitution gives 0/0 form, which is indeterminate",
+    "Factor both numerator and denominator",
+    "Numerator: x² + 4x + 3 = (x + 1)(x + 3)",
+    "Denominator: x² - 9 = (x + 3)(x - 3)",
+    "Simplify: (x² + 4x + 3)/(x² - 9) = (x + 1)/(x - 3) when x ≠ -3",
+    "Now substitute x = -3: (-3 + 1)/(-3 - 3) = (-2)/(-6) = 1/3"
+   ],
+   "result": "1/3"
+  },
+  "narr": [
+   "For our third problem, we need to compute the limit as x approaches -3 of (x² + 4x + 3)/(x² - 9).",
+   "If we try direct substitution, we get 0/0, which is an indeterminate form.",
+   "To resolve this, we need to factor both the numerator and denominator.",
+   "The numerator x² + 4x + 3 factors to (x + 1)(x + 3).",
+   "The denominator x² - 9 is a difference of squares and factors to (x + 3)(x - 3).",
+   "We can simplify the expression to (x + 1)/(x - 3) when x ≠ -3.",
+   "Now we can substitute x = -3 to get (-3 + 1)/(-3 - 3) = (-2)/(-6) = 1/3.",
+   "So the limit is 1/3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Rationalizing to resolve 0/0 form",
+   "problem": "Compute lim(x→5) (√(x - 1) - 2)/(x - 5).",
+   "steps": [
+    "Direct substitution gives 0/0 form, which is indeterminate",
+    "Rationalize the numerator by multiplying by the conjugate",
+    "Multiply numerator and denominator by (√(x - 1) + 2)",
+    "Numerator becomes: (√(x - 1))² - 2² = (x - 1) - 4 = x - 5",
+    "Denominator becomes: (x - 5)(√(x - 1) + 2)",
+    "Simplify: (x - 5)/((x - 5)(√(x - 1) + 2)) = 1/(√(x - 1) + 2) when x ≠ 5",
+    "Now substitute x = 5: 1/(√(5 - 1) + 2) = 1/(2 + 2) = 1/4"
+   ],
+   "result": "1/4"
+  },
+  "narr": [
+   "For our fourth problem, we need to compute the limit as x approaches 5 of (√(x - 1) - 2)/(x - 5).",
+   "Direct substitution gives us 0/0, an indeterminate form.",
+   "To resolve this, we can rationalize the numerator by multiplying by its conjugate.",
+   "We multiply both numerator and denominator by (√(x - 1) + 2).",
+   "The numerator simplifies to (√(x - 1))² - 2² = (x - 1) - 4 = x - 5.",
+   "The denominator becomes (x - 5)(√(x - 1) + 2).",
+   "We can cancel the (x - 5) terms (since x ≠ 5), leaving us with 1/(√(x - 1) + 2).",
+   "Now we can substitute x = 5 to get 1/(√(5 - 1) + 2) = 1/(2 + 2) = 1/4.",
+   "So the limit is 1/4."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ }
+]

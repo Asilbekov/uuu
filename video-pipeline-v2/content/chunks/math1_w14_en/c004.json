@@ -1,0 +1,456 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this section, we'll explore complex numbers, scientific notation, and functions.",
+   "Let's start by examining the properties of complex roots."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Complex Roots",
+   "bullets": [
+    "All roots have the same modulus $r^{1/n}$",
+    "Roots lie on the same circle",
+    "Arguments differ by exactly $\\frac{2\\pi}{n}$",
+    "Form vertices of a regular n-gon"
+   ]
+  },
+  "narr": [
+   "When finding the n-th roots of a complex number, something fascinating happens.",
+   "All roots share the same modulus, meaning they all lie on a circle in the complex plane.",
+   "The arguments of these roots are equally spaced, differing by exactly $\\frac{2\\pi}{n}$.",
+   "This equal spacing means the roots form the vertices of a regular n-gon."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 30 — Scientific Notation",
+   "problem": "The electric charge $e = 0.0000000000000000001602176634$C. Write it in scientific and engineering notation.",
+   "steps": [
+    "Count digits to place first non-zero digit before decimal point",
+    "For scientific notation: $e = 1.602176634 \\times 10^{-19}$C",
+    "For engineering notation, exponent must be multiple of 3",
+    "Shift by one digit: $e = 160.2176634 \\times 10^{-21}$C",
+    "Express with SI prefix: $e = 160.2176634$ zC (zeptocoulombs)"
+   ],
+   "result": "$e = 1.602176634 \\times 10^{-19}$C (scientific); $e = 160.2176634 \\times 10^{-21}$C or 160.2176634 zC (engineering)"
+  },
+  "narr": [
+   "Let's tackle our first problem on scientific notation.",
+   "We're given a very small electric charge value and need to express it in both scientific and engineering notation.",
+   "First, we count 18 digits to place the first non-zero digit before the decimal point.",
+   "This gives us the scientific notation: $e = 1.602176634 \\times 10^{-19}$C.",
+   "For engineering notation, the exponent must be a multiple of 3, so we shift by one digit.",
+   "This results in $e = 160.2176634 \\times 10^{-21}$C, which can also be expressed as 160.2176634 zC using the zepto prefix."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 31 — SI Prefixes",
+   "problem": "Fill in the table of SI prefixes: powers $10^{12}$, $10^6$, $10^3$, $10^{-6}$, $10^{-9}$, $10^{-12}$ with prefixes/notations.",
+   "steps": [
+    "$10^{12}$: tera (T)",
+    "$10^6$: mega (M)",
+    "$10^3$: kilo (k)",
+    "$10^{-6}$: micro (µ)",
+    "$10^{-9}$: nano (n)",
+    "$10^{-12}$: pico (p)"
+   ],
+   "result": "$10^{12}$ tera (T); $10^6$ mega (M); $10^3$ kilo (k); $10^{-6}$ micro (µ); $10^{-9}$ nano (n); $10^{-12}$ pico (p)"
+  },
+  "narr": [
+   "Now let's test our knowledge of SI prefixes.",
+   "We need to match these powers of 10 with their correct prefixes.",
+   "$10^{12}$ corresponds to tera, abbreviated as T.",
+   "$10^6$ corresponds to mega, abbreviated as M.",
+   "$10^3$ corresponds to kilo, abbreviated as k.",
+   "$10^{-6}$ corresponds to micro, abbreviated as µ.",
+   "$10^{-9}$ corresponds to nano, abbreviated as n.",
+   "$10^{-12}$ corresponds to pico, abbreviated as p."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 32 — Scientific and Engineering Notation Practice",
+   "problem": "Week 1 summary, part 2, in-class problems: (1) write 0.00000824 in scientific and engineering notation; (2) write $7.35 \\times 10^8$Hz in engineering notation; (3) write 0.0047F with an SI prefix.",
+   "steps": [
+    "(1) 0.00000824 = 8.24 × 10^{-6} (scientific); since -6 is a multiple of 3, this is already in engineering notation, for example 8.24 µA if the unit is ampere.",
+    "(2) $10^8$ is not a multiple of 3; we rewrite $7.35 \\times 10^8 = 735 \\times 10^6 = 735$ MHz.",
+    "(3) 0.0047 = $4.7 \\times 10^{-3} = 4.7$ mF."
+   ],
+   "result": "(1) $8.24 \\times 10^{-6}$ (scientific), $8.24 \\times 10^{-6}$ (engineering); (2) 735 MHz; (3) 4.7 mF"
+  },
+  "narr": [
+   "Let's practice scientific and engineering notation with some problems from the week 1 summary.",
+   "First problem: express 0.00000824 in both scientific and engineering notation.",
+   "For scientific notation, we get $8.24 \\times 10^{-6}$.",
+   "Since -6 is already a multiple of 3, this is also in engineering notation.",
+   "Second problem: convert $7.35 \\times 10^8$ Hz to engineering notation.",
+   "Since $10^8$ isn't a multiple of 3, we rewrite it as $735 \\times 10^6$, which is 735 MHz.",
+   "Third problem: express 0.0047 F with an appropriate SI prefix.",
+   "This becomes $4.7 \\times 10^{-3}$ F, or 4.7 mF using the milli prefix."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 33 — Number Sets and Rationality",
+   "problem": "Week 1 summary, part 3, in-class problems: (1) draw a diagram of nested sets $\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R} \\subset \\mathbb{C}$ and place 2026, -9, $\\frac{2}{3}$, 10, $\\pi$, -5i, -2+2i; (2) rational or irrational: a. $\\sqrt{49}$, b. $\\sqrt{18}$, c. $\\sqrt{3} + \\sqrt{2}$, d. $\\sqrt{2} \\cdot \\sqrt{5}$, e. $\\sqrt{2} + \\sqrt{8}$, f. $\\left(\\sqrt{5}\\right)^2$.",
+   "steps": [
+    "(1) 2026 $\\in$ $\\mathbb{N}$; -9 $\\in$ $\\mathbb{Z}$ $\\setminus$ $\\mathbb{N}$; $\\frac{2}{3}$ $\\in$ $\\mathbb{Q}$ $\\setminus$ $\\mathbb{Z}$; 10 and $\\pi$ $\\in$ $\\mathbb{R}$ $\\setminus$ $\\mathbb{Q}$; -5i and -2+2i $\\in$ $\\mathbb{C}$ $\\setminus$ $\\mathbb{R}$.",
+    "(2) a. $\\sqrt{49} = 7$ — rational. b. $\\sqrt{18} = 3\\sqrt{2}$ — irrational. c. $\\sqrt{3} + \\sqrt{2}$ — irrational. d. $\\sqrt{2} \\cdot \\sqrt{5} = \\sqrt{10}$ — irrational. e. $\\sqrt{2} + \\sqrt{8} = 3\\sqrt{2}$ — irrational. f. $\\left(\\sqrt{5}\\right)^2 = 5$ — rational."
+   ],
+   "result": "(1) Numbers placed in appropriate sets; (2) a. rational, b. irrational, c. irrational, d. irrational, e. irrational, f. rational"
+  },
+  "narr": [
+   "Moving on to number sets and determining rationality.",
+   "First, we need to place these numbers in the correct nested sets of numbers.",
+   "2026 is a natural number, so it belongs to $\\mathbb{N}$.",
+   "-9 is an integer but not natural, so it belongs to $\\mathbb{Z}$ but not $\\mathbb{N}$.",
+   "$\\frac{2}{3}$ is rational but not integer, so it belongs to $\\mathbb{Q}$ but not $\\mathbb{Z}$.",
+   "10 is real and rational, while $\\pi$ is real but irrational.",
+   "-5i and -2+2i are complex but not real numbers.",
+   "Now, let's determine which of these are rational or irrational.",
+   "$\\sqrt{49}$ simplifies to 7, which is rational.",
+   "$\\sqrt{18}$ simplifies to $3\\sqrt{2}$, which is irrational.",
+   "$\\sqrt{3} + \\sqrt{2}$ is irrational as the sum of two irrationals.",
+   "$\\sqrt{2} \\cdot \\sqrt{5} = \\sqrt{10}$, which is irrational.",
+   "$\\sqrt{2} + \\sqrt{8} = 3\\sqrt{2}$, which is irrational.",
+   "$\\left(\\sqrt{5}\\right)^2 = 5$, which is rational."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 34 — Complex Number Operations",
+   "problem": "Given $z_1 = 2+3i$, $z_2 = 1-5i$; calculate $z_1 + z_2$, $z_1 - z_2$, $z_1 z_2$, $z_1/z_2$.",
+   "steps": [
+    "$z_1 + z_2 = (2+3i) + (1-5i) = 3-2i$",
+    "$z_1 - z_2 = (2+3i) - (1-5i) = 1+8i$",
+    "Product: $(2+3i)(1-5i) = 2 \\cdot 1 - 3 \\cdot (-5) + (2 \\cdot (-5) + 3 \\cdot 1)i = (2+15) + (-10+3)i = 17-7i$",
+    "Quotient: $\\frac{z_1}{z_2} = \\frac{(2+3i)(1+5i)}{(1-5i)(1+5i)} = \\frac{2+10i+3i+15i^2}{1-(5i)^2} = \\frac{2+13i-15}{1+25} = \\frac{-13+13i}{26} = -\\frac{1}{2} + \\frac{1}{2}i$"
+   ],
+   "result": "$z_1 + z_2 = 3-2i$; $z_1 - z_2 = 1+8i$; $z_1 z_2 = 17-7i$; $\\frac{z_1}{z_2} = -\\frac{1}{2} + \\frac{1}{2}i$"
+  },
+  "narr": [
+   "Now let's perform operations with complex numbers.",
+   "Given $z_1 = 2+3i$ and $z_2 = 1-5i$, we'll calculate their sum, difference, product, and quotient.",
+   "For addition, we simply add the real and imaginary parts: $(2+1) + (3-5)i = 3-2i$.",
+   "For subtraction, we subtract the real and imaginary parts: $(2-1) + (3-(-5))i = 1+8i$.",
+   "For multiplication, we use the distributive property: $(2+3i)(1-5i) = 17-7i$.",
+   "For division, we multiply numerator and denominator by the conjugate of the denominator: $\\frac{z_1}{z_2} = -\\frac{1}{2} + \\frac{1}{2}i$."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 35 — Polar Form of Complex Numbers",
+   "problem": "Explain why $1 + i\\sqrt{3} = 2\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3} = 2e^{i\\pi/3}$.",
+   "steps": [
+    "First, find the modulus: $|1 + i\\sqrt{3}| = \\sqrt{1^2 + (\\sqrt{3})^2} = \\sqrt{1+3} = 2$",
+    "The point $(1, \\sqrt{3})$ lies in the first quadrant",
+    "Find the argument: $\\tan\\theta = \\frac{\\sqrt{3}}{1} = \\sqrt{3}$, so $\\theta = \\frac{\\pi}{3}$",
+    "Substitute into polar form: $2(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3})$",
+    "Using Euler's formula: $2e^{i\\pi/3}$"
+   ],
+   "result": "$1 + i\\sqrt{3} = 2\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3} = 2e^{i\\pi/3}$"
+  },
+  "narr": [
+   "Let's explore the polar form of complex numbers with this example.",
+   "We need to explain why $1 + i\\sqrt{3}$ can be expressed in these equivalent forms.",
+   "First, we find the modulus of the complex number: $|1 + i\\sqrt{3}| = \\sqrt{1^2 + (\\sqrt{3})^2} = 2$.",
+   "The point $(1, \\sqrt{3})$ lies in the first quadrant of the complex plane.",
+   "To find the argument, we calculate $\\tan\\theta = \\frac{\\sqrt{3}}{1} = \\sqrt{3}$, which gives us $\\theta = \\frac{\\pi}{3}$.",
+   "Substituting the modulus and argument into the polar form, we get $2(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3})$.",
+   "Finally, using Euler's formula, this can be written as $2e^{i\\pi/3}$."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 2 — Functions",
+   "subtitle": "Math I"
+  },
+  "narr": [
+   "Now we move to week 2, where we'll focus on functions.",
+   "Let's start with the fundamental concepts and definitions."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Functions: Definition and Properties",
+   "bullets": [
+    "A function assigns to each x in its domain exactly one output f(x)",
+    "Vertical-line test detects relations that fail this property",
+    "Natural domain is the largest set of real inputs for which the formula makes sense",
+    "Standard obstructions: division by zero, even roots of negatives, logarithms of nonpositive numbers"
+   ]
+  },
+  "narr": [
+   "Let's begin with the fundamental definition of a function.",
+   "A function assigns to each x in its domain exactly one output f(x).",
+   "The vertical-line test helps us detect relations that fail this property.",
+   "The natural domain is the largest set of real inputs for which the formula makes sense.",
+   "There are three standard obstructions that can limit a function's domain: division by zero, even roots of negative numbers, and logarithms of nonpositive numbers."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Function Notation",
+   "tex": "f : D \\to \\mathbb{R}, x \\mapsto f(x); \\quad D = \\text{domain}, \\quad \\text{range } f = \\{f(x) : x \\in D\\}",
+   "parts": [
+    {
+     "substr": "f : D \\to \\mathbb{R}",
+     "color": "#4C5FD5",
+     "note": "Function mapping from domain D to real numbers"
+    },
+    {
+     "substr": "x \\mapsto f(x)",
+     "color": "#B45309",
+     "note": "Input x maps to output f(x)"
+    },
+    {
+     "substr": "D = domain",
+     "color": "#0E7C7B",
+     "note": "Domain is the set of all valid inputs"
+    },
+    {
+     "substr": "range f = \\{f(x) : x \\in D\\}",
+     "color": "#A03040",
+     "note": "Range is the set of all possible outputs"
+    }
+   ]
+  },
+  "narr": [
+   "Here's the formal notation for functions.",
+   "We write f : D → ℝ to indicate a function mapping from domain D to real numbers.",
+   "The notation x ↦ f(x) shows how input x maps to output f(x).",
+   "D represents the domain, the set of all valid inputs for the function.",
+   "The range of f is the set of all possible outputs, written as {f(x) : x ∈ D}."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Domain Restrictions",
+   "tex": "\\frac{1}{g(x)} : g(x) \\neq 0, \\quad \\sqrt{g(x)} : g(x) \\geq 0, \\quad \\log_b g(x) : g(x) > 0",
+   "parts": [
+    {
+     "substr": "\\frac{1}{g(x)} : g(x) \\neq 0",
+     "color": "#4C5FD5",
+     "note": "Denominator cannot be zero"
+    },
+    {
+     "substr": "\\sqrt{g(x)} : g(x) \\geq 0",
+     "color": "#B45309",
+     "note": "Expression under square root must be non-negative"
+    },
+    {
+     "substr": "\\log_b g(x) : g(x) > 0",
+     "color": "#0E7C7B",
+     "note": "Logarithm argument must be positive"
+    }
+   ]
+  },
+  "narr": [
+   "Functions often have domain restrictions based on their operations.",
+   "For a reciprocal function 1/g(x), the denominator g(x) cannot be zero.",
+   "For a square root function √g(x), the expression under the root must be non-negative.",
+   "For a logarithmic function log_b g(x), the argument must be positive."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Function Properties",
+   "bullets": [
+    "Evenness: f(-x) = f(x) (symmetry about y-axis)",
+    "Oddness: f(-x) = -f(x) (symmetry about origin)",
+    "Composition: (f ◦ g)(x) = f(g(x))",
+    "Composition is not commutative: (f ◦ g) ≠ (g ◦ f) in general",
+    "One-to-one functions pass the horizontal-line test",
+    "Inverse functions satisfy f^{-1}(f(x)) = x and f(f^{-1}(y)) = y"
+   ]
+  },
+  "narr": [
+   "Functions have several important properties we should understand.",
+   "Evenness means f(-x) = f(x), reflecting symmetry about the y-axis.",
+   "Oddness means f(-x) = -f(x), reflecting symmetry about the origin.",
+   "Composition chains functions together as (f ◦ g)(x) = f(g(x)).",
+   "Importantly, composition is not commutative - (f ◦ g) ≠ (g ◦ f) in general.",
+   "Only one-to-one functions pass the horizontal-line test and possess inverses.",
+   "Inverse functions satisfy f^{-1}(f(x)) = x and f(f^{-1}(y)) = y.",
+   "The graph of f^{-1} is a mirror reflection of the graph of f across the line y = x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Function Classes",
+   "tex": "\\text{Linear, Polynomial, Rational, Root (Algebraic), Exponential/Logarithmic, Trigonometric}",
+   "parts": [
+    {
+     "substr": "Linear, Polynomial",
+     "color": "#4C5FD5",
+     "note": "Polynomial functions of degree 1 and higher"
+    },
+    {
+     "substr": "Rational",
+     "color": "#B45309",
+     "note": "Ratio of two polynomials"
+    },
+    {
+     "substr": "Root (Algebraic)",
+     "color": "#0E7C7B",
+     "note": "Functions involving roots"
+    },
+    {
+     "substr": "Exponential/Logarithmic",
+     "color": "#A03040",
+     "note": "Transcendental functions"
+    },
+    {
+     "substr": "Trigonometric",
+     "color": "#4C5FD5",
+     "note": "Periodic transcendental functions"
+    }
+   ]
+  },
+  "narr": [
+   "Functions can be classified into several classes.",
+   "Linear and polynomial functions include functions like f(x) = mx + b and higher degree polynomials.",
+   "Rational functions are ratios of two polynomials.",
+   "Root functions, also called algebraic functions, involve roots.",
+   "Exponential and logarithmic functions are transcendental.",
+   "Trigonometric functions are also transcendental and periodic.",
+   "Every polynomial is smooth everywhere, while rational functions are defined wherever their denominator is nonzero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ }
+]

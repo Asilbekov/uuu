@@ -1,0 +1,487 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Let's dive into the solutions for the first four weeks of Math I. We'll start with function composition and work our way through various topics.",
+   "First, let's look at function composition and whether it's commutative."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Function Composition",
+   "problem": "Find (f◦g)(x), (g◦f)(x), (f◦f)(x), and (g◦g)(x). Determine if composition is commutative.",
+   "steps": [
+    "Compute (f◦g)(x) = f(g(x))",
+    "Compute (g◦f)(x) = g(f(x))",
+    "Compute (f◦f)(x) = f(f(x))",
+    "Compute (g◦g)(x) = g(g(x))",
+    "Compare (f◦g)(x) and (g◦f)(x)"
+   ],
+   "result": "(f◦g)(x) = 2x^2 − 1; (g◦f)(x) = 4x^2 − 12x + 10; (f◦f)(x) = 4x − 9; (g◦g)(x) = x^4 + 2x^2 + 2. Composition is non-commutative since (f◦g)(x) ≠ (g◦f)(x)."
+  },
+  "narr": [
+   "For the first problem, we need to compute various compositions of functions f and g.",
+   "Starting with (f◦g)(x), we substitute g(x) into f.",
+   "Next, we compute (g◦f)(x) by substituting f(x) into g.",
+   "Then we find (f◦f)(x) by composing f with itself.",
+   "Similarly, we compute (g◦g)(x) by composing g with itself.",
+   "Finally, we compare the first two results to see if composition is commutative."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Even, Odd, or General Functions",
+   "problem": "Determine whether each function is even, odd, or of general form: x^4 − 2x^2; x^3 − 4x; x^3 + x^2; |x| + 1; x^2/(x+1)",
+   "steps": [
+    "Check x^4 − 2x^2 for even/odd properties",
+    "Check x^3 − 4x for even/odd properties",
+    "Check x^3 + x^2 for even/odd properties",
+    "Check |x| + 1 for even/odd properties",
+    "Check x^2/(x+1) for even/odd properties"
+   ],
+   "result": "x^4 − 2x^2: even (only even powers); x^3 − 4x: odd (only odd powers); x^3 + x^2: general form (mixed powers); |x| + 1: even; x^2/(x+1): general form"
+  },
+  "narr": [
+   "Now we need to classify each function as even, odd, or of general form.",
+   "For x^4 − 2x^2, we see only even powers, so it's even.",
+   "For x^3 − 4x, we see only odd powers, so it's odd.",
+   "For x^3 + x^2, we have both even and odd powers, so it's general form.",
+   "For |x| + 1, the absolute value makes it even.",
+   "For x^2/(x+1), we need to check g(-x) = x^2/(-x+1), which doesn't equal ±g(x), so it's general form."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Classifying Functions",
+   "problem": "Classify each function: 3x − 7; x^4 − 2x + 1; √(x^2 + 1); 2^x; sin x; (x^4 − 2x + 1)/(x + 1)",
+   "steps": [
+    "Classify 3x − 7",
+    "Classify x^4 − 2x + 1",
+    "Classify √(x^2 + 1)",
+    "Classify 2^x",
+    "Classify sin x",
+    "Classify (x^4 − 2x + 1)/(x + 1)"
+   ],
+   "result": "3x − 7: linear (polynomial); x^4 − 2x + 1: polynomial; √(x^2 + 1): algebraic (root); 2^x: exponential — transcendental; sin x: trigonometric — transcendental; (x^4 − 2x + 1)/(x + 1): rational function"
+  },
+  "narr": [
+   "Next, we classify various functions by their type.",
+   "3x − 7 is a linear polynomial function.",
+   "x^4 − 2x + 1 is a polynomial function.",
+   "√(x^2 + 1) is an algebraic function involving a root.",
+   "2^x is an exponential transcendental function.",
+   "sin x is a trigonometric transcendental function.",
+   "(x^4 − 2x + 1)/(x + 1) is a rational function."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Linear Temperature Model",
+   "problem": "For the linear temperature model T(t) = 20 + 4t: find slope and intercept, T(8), time when T = 60°C, and domain.",
+   "steps": [
+    "Identify slope and its meaning",
+    "Identify intercept and its meaning",
+    "Calculate T(8)",
+    "Find t when T(t) = 60",
+    "Determine the domain of the function"
+   ],
+   "result": "Slope = 4°C/min (heating rate); Intercept = 20°C (initial temperature); T(8) = 52°C; T = 60°C at t = 10 min; Domain: [0, 15]"
+  },
+  "narr": [
+   "For the linear temperature model, we need to analyze several aspects.",
+   "The slope of 4 represents the heating rate of 4°C per minute.",
+   "The intercept of 20 represents the initial temperature of 20°C.",
+   "To find T(8), we substitute t = 8 into the equation.",
+   "To find when T = 60°C, we solve 60 = 20 + 4t.",
+   "The domain is given as [0, 15], representing the valid time interval."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Function Analysis",
+   "problem": "For p(x) = x^3 − 4x and r(x) = (x+1)/(x−1), determine domain, intercepts, symmetry, end behavior, and points of discontinuity.",
+   "steps": [
+    "Analyze p(x) = x^3 − 4x",
+    "Analyze r(x) = (x+1)/(x−1)"
+   ],
+   "result": "p(x): Domain = ℝ; Intercepts = -2, 0, 2; Odd function; End behavior: ±∞; No discontinuities. r(x): Domain = x ≠ 1; Intercepts: (0, -1) and (-1, 0); General form; End behavior: y→1 as x→±∞, y→±∞ as x→1; Discontinuity at x=1."
+  },
+  "narr": [
+   "Now we analyze two functions in detail.",
+   "For p(x) = x^3 − 4x, we find its domain is all real numbers, with intercepts at -2, 0, and 2.",
+   "p(x) is an odd function with end behavior going to ±∞.",
+   "For r(x) = (x+1)/(x−1), the domain excludes x=1.",
+   "It has intercepts at (0, -1) and (-1, 0), and is of general form.",
+   "The end behavior shows a horizontal asymptote at y=1 and a vertical asymptote at x=1.",
+   "There's a discontinuity at x=1."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Piecewise Electricity Tariff",
+   "problem": "For the piecewise electricity tariff, find C(150), C(200), C(350), describe the graph, and explain the constraint.",
+   "steps": [
+    "Calculate C(150)",
+    "Calculate C(200)",
+    "Calculate C(350)",
+    "Describe the graph",
+    "Explain the constraint"
+   ],
+   "result": "C(150) = 15; C(200) = 20; C(350) = 42.5; Graph is a continuous broken line; Slopes represent marginal prices; Constraint is discontinuity in incentive at 200 kWh boundary."
+  },
+  "narr": [
+   "For the piecewise electricity tariff, we need to calculate several values.",
+   "C(150) = 15, representing the cost for 150 kWh.",
+   "C(200) = 20, representing the cost for 200 kWh.",
+   "C(350) = 42.5, representing the cost for 350 kWh.",
+   "The graph is a continuous broken line with different slopes.",
+   "The slopes represent marginal prices, with a constraint at the 200 kWh boundary."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Angle Conversion",
+   "problem": "Convert 30°, 135°, 300° to radians and π/6, 5π/4, 7π/3 to degrees.",
+   "steps": [
+    "Convert 30° to radians",
+    "Convert 135° to radians",
+    "Convert 300° to radians",
+    "Convert π/6 to degrees",
+    "Convert 5π/4 to degrees",
+    "Convert 7π/3 to degrees"
+   ],
+   "result": "30° = π/6; 135° = 3π/4; 300° = 5π/3; π/6 = 30°; 5π/4 = 225°; 7π/3 = 420°"
+  },
+  "narr": [
+   "Now we need to convert between degrees and radians.",
+   "To convert 30° to radians, we multiply by π/180, getting π/6.",
+   "For 135°, we multiply by π/180, getting 3π/4.",
+   "For 300°, we multiply by π/180, getting 5π/3.",
+   "To convert π/6 to degrees, we multiply by 180/π, getting 30°.",
+   "For 5π/4, we multiply by 180/π, getting 225°.",
+   "For 7π/3, we multiply by 180/π, getting 420°."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Bijective Functions",
+   "problem": "Determine if each function is bijective: a. f(x) = 3x − 5, x ∈ ℝ; b. g(x) = x^2, x ∈ ℝ; c. h(x) = x^2, x ≥ 0; d. p(x) = 1/x, x ≠ 0.",
+   "steps": [
+    "Check if f(x) = 3x − 5 is bijective",
+    "Check if g(x) = x^2 is bijective",
+    "Check if h(x) = x^2 (x ≥ 0) is bijective",
+    "Check if p(x) = 1/x is bijective"
+   ],
+   "result": "a. Yes: non-decreasing line passes horizontal line test; b. No: g(-2) = g(2) = 4; c. Yes: squaring is injective on [0, ∞); d. Yes: 1/x₁ = 1/x₂ ⇒ x₁ = x₂"
+  },
+  "narr": [
+   "We need to determine if each function is bijective.",
+   "For f(x) = 3x - 5, it's a non-decreasing line that passes the horizontal line test, so it's bijective.",
+   "For g(x) = x^2 with domain all real numbers, it's not bijective because g(-2) = g(2) = 4.",
+   "For h(x) = x^2 with domain x ≥ 0, it is bijective because the restriction makes it injective.",
+   "For p(x) = 1/x with x ≠ 0, it is bijective because 1/x₁ = 1/x₂ implies x₁ = x₂."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Inverse Functions",
+   "problem": "Find inverses and their domains: a. f(x) = 4x − 7; b. g(x) = (x+3)/2; c. h(x) = x^2 + 1, x ≥ 0; d. p(x) = (2x+3)/(x−1), x ≠ 1; verify by composition.",
+   "steps": [
+    "Find f⁻¹(x) for f(x) = 4x − 7",
+    "Find g⁻¹(x) for g(x) = (x+3)/2",
+    "Find h⁻¹(x) for h(x) = x^2 + 1, x ≥ 0",
+    "Find p⁻¹(x) for p(x) = (2x+3)/(x−1), x ≠ 1",
+    "Verify each inverse by composition"
+   ],
+   "result": "a. f⁻¹(x) = (x + 7)/4, domain ℝ; b. g⁻¹(x) = 2x − 3, domain ℝ; c. h⁻¹(x) = √(x − 1), domain [1, ∞); d. p⁻¹(x) = (x + 3)/(x − 2), domain x ≠ 2; Each satisfies f(f⁻¹(x)) = x by construction."
+  },
+  "narr": [
+   "Now we find the inverse functions and their domains.",
+   "For f(x) = 4x - 7, we solve for x to get f⁻¹(x) = (x + 7)/4 with domain all real numbers.",
+   "For g(x) = (x+3)/2, we solve for x to get g⁻¹(x) = 2x - 3 with domain all real numbers.",
+   "For h(x) = x^2 + 1 with x ≥ 0, we take the positive root to get h⁻¹(x) = √(x - 1) with domain [1, ∞).",
+   "For p(x) = (2x+3)/(x-1), we solve for x to get p⁻¹(x) = (x + 3)/(x - 2) with domain x ≠ 2.",
+   "Each inverse satisfies f(f⁻¹(x)) = x by construction."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Growth/Decay Classification",
+   "problem": "Classify A, B, C, D as growth or decay models.",
+   "steps": [
+    "Classify A",
+    "Classify B",
+    "Classify C",
+    "Classify D"
+   ],
+   "result": "A: growth (a = 1.08); B: decay (a = 0.85); C: growth (k = 0.03); D: decay (k = -0.4)"
+  },
+  "narr": [
+   "We classify each model as growth or decay.",
+   "Model A shows growth with a = 1.08.",
+   "Model B shows decay with a = 0.85.",
+   "Model C shows growth with k = 0.03.",
+   "Model D shows decay with k = -0.4."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Exponential Equations",
+   "problem": "Solve, giving exact answers first: a. 2^(x+1) = 16; b. 5^(2x) = 125; c. e^(3x) = 7; d. 100e^(-0.2t) = 20.",
+   "steps": [
+    "Solve 2^(x+1) = 16",
+    "Solve 5^(2x) = 125",
+    "Solve e^(3x) = 7",
+    "Solve 100e^(-0.2t) = 20"
+   ],
+   "result": "a. x + 1 = 4 ⇒ x = 3; b. 2x = 3 ⇒ x = 3/2; c. 3x = ln 7 ⇒ x = ln(7)/3 ≈ 0.6486; d. e^(-0.2t) = 0.2 ⇒ t = -ln(0.2) = 5 ln(5) ≈ 8.047"
+  },
+  "narr": [
+   "Now we solve exponential equations.",
+   "For 2^(x+1) = 16, we rewrite 16 as 2^4, so x+1 = 4, giving x = 3.",
+   "For 5^(2x) = 125, we rewrite 125 as 5^3, so 2x = 3, giving x = 3/2.",
+   "For e^(3x) = 7, we take natural logs, getting 3x = ln(7), so x = ln(7)/3.",
+   "For 100e^(-0.2t) = 20, we simplify to e^(-0.2t) = 0.2, then take natural logs to get t = -ln(0.2) = 5 ln(5)."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Battery Discharge",
+   "problem": "For the battery discharge model, find: percentage after 10h, time for 50% discharge, time for 10% discharge, and long-term behavior.",
+   "steps": [
+    "Find percentage after 10h",
+    "Find time for 50% discharge",
+    "Find time for 10% discharge",
+    "Describe long-term behavior"
+   ],
+   "result": "77.9% after 10h; 50% at ≈27.7h; 10% at ≈92.1h; Exponential never reaches zero in finite time."
+  },
+  "narr": [
+   "For the battery discharge model, we analyze several aspects.",
+   "After 10 hours, approximately 77.9% of the battery remains.",
+   "The battery reaches 50% discharge at approximately 27.7 hours.",
+   "It reaches 10% discharge at approximately 92.1 hours.",
+   "Importantly, the exponential model never reaches zero charge in finite time."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Bacteria Population",
+   "problem": "For the bacteria population model, find: initial population, population after 5h, doubling time, and long-term limitations.",
+   "steps": [
+    "Find initial population P₀",
+    "Find population after 5h",
+    "Find doubling time",
+    "Discuss long-term limitations"
+   ],
+   "result": "P₀ = 800; P(5) ≈ 4603; Doubling time ≈ 1.98h; Purely exponential models fail in the long term due to resource limitations."
+  },
+  "narr": [
+   "For the bacteria population model, we analyze several aspects.",
+   "The initial population P₀ is 800 bacteria.",
+   "After 5 hours, the population grows to approximately 4603 bacteria.",
+   "The doubling time is approximately 1.98 hours.",
+   "We note that purely exponential models fail in the long term due to real-world constraints like resources and space."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 3 — Limits",
+   "subtitle": "Math I"
+  },
+  "narr": [
+   "Now we move to Week 3, focusing on limits in calculus.",
+   "Limits help us understand how functions behave near specific points."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Rates of Change and the Two Founding Problems",
+   "bullets": [
+    "Limits address two fundamental questions",
+    "How fast is a quantity changing?",
+    "How do function values behave near a point?",
+    "Average rate over shrinking interval defines instantaneous rate"
+   ]
+  },
+  "narr": [
+   "Limits enter calculus through two founding problems.",
+   "First, determining how fast a quantity is changing.",
+   "Second, understanding how function values behave near a specific point.",
+   "The average rate of change over a shrinking interval defines the instantaneous rate."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Slope of the Secant Line",
+   "tex": "m_{sec} = \\frac{f(x) - f(a)}{x - a}",
+   "parts": [
+    {
+     "substr": "m_{sec}",
+     "color": "#4C5FD5",
+     "note": "slope of the secant line"
+    },
+    {
+     "substr": "f(x) - f(a)",
+     "color": "#B45309",
+     "note": "change in function values"
+    },
+    {
+     "substr": "x - a",
+     "color": "#0E7C7B",
+     "note": "change in x values"
+    }
+   ]
+  },
+  "narr": [
+   "The slope of the secant line through points (a, f(a)) and (x, f(x)) is given by this formula.",
+   "This represents the average rate of change between these two points.",
+   "As x approaches a, this secant slope approaches the tangent slope.",
+   "This is the foundation for the derivative in calculus."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

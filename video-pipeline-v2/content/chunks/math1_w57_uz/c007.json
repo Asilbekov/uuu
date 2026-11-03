@@ -1,0 +1,504 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "5–7 haftalarda biz funksiyalarning uzluksizligini va chiziqli algebraning asoslarini o'rganamiz.",
+   "Keling, avval funksiyalarning uzluksizligi masalalarini ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1",
+   "problem": "f(t) = (t+3)/((t+2)(t+3)) funksiyasining uzilish nuqtalarini aniqlang va ularning turini belgilang.",
+   "steps": [
+    "Maxrajni ajratamiz: t^2 + 5t + 6 = (t+2)(t+3)",
+    "f(t) = (t+3)/((t+2)(t+3)) = 1/(t + 2), t ≠ −3, −2 bo'lganda",
+    "Boshlang'ich funksiya t = −3 va t = −2 da aniqlanmagan",
+    "t = −3 da: (t + 3) ko'paytuvchini qisqartiramiz va lim t →−3 f(t) = 1/(−3 + 2) = −1",
+    "Chek mavjud, lekin boshlang'ich funksiya nuqtada aniqlanmagan — demak, t = −3 — bartaraf etiluvchi uzilish",
+    "t = −2 da: qolgan maxraj nolga aylanadi — lim t →−2 − f(t) = −∞ va lim t →−2 + f(t) = +∞"
+   ],
+   "result": "Natija: t = −3 — bartaraf etiluvchi uzilish; t = −2 — cheksiz uzilish"
+  },
+  "narr": [
+   "Birinchi masalada biz ratsional funksiyaning uzilish nuqtalarini ko'rib chiqamiz.",
+   "Avval maxrajni ko'paytuvchilarga ajratamiz.",
+   "Keyin funksiyani soddalashtiramiz, bunda t ≠ −3, −2 shartlarini hisobga olamiz.",
+   "Boshlang'ich funksiya t = −3 va t = −2 nuqtalarda aniqlanmagan, chunki maxraj nolga teng bo'ladi.",
+   "t = −3 nuqtada chap va o'ng cheklarni hisoblaymiz. Limit mavjud, shuning uchun bu bartaraf etiluvchi uzilishdir.",
+   "t = −2 nuqtada chap chek −∞, o'ng chek +∞ ga intiladi. Bu esa cheksiz uzilishdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Umumiy usul",
+   "bullets": [
+    "Qismli funksiyalar uchun alohida formulalar o'z intervalalarida uzluksiz bo'ladi",
+    "Shuning uchun faqat formulalarni almashtirish nuqtasini tekshirish kerak",
+    "Uzluksizlik uchun chap va o'ng cheklar teng bo'lishi lozim",
+    "Bartaraf etiluvchi uzilishda limit mavjud, lekin funksiya aniqlanmagan",
+    "Cheksiz uzilishda chap va o'ng cheklar turli cheklarga intiladi yoki cheksizlikka intiladi"
+   ]
+  },
+  "narr": [
+   "Qismli funksiyalarni tahlil qilishda umumiy usul mavjud.",
+   "Qismli funksiyalar har bir intervalda uzluksiz bo'ladi, shuning uchun yagona potensial uzilish nuqtasi formulalar almashtiriladigan joydir.",
+   "Uzluksizlik sharti shundan iboratki, chap va o'ng cheklar teng bo'lishi kerak.",
+   "Bartaraf etiluvchi uzilishda limit mavjud, lekin funksiya shu nuqtada aniqlanmagan.",
+   "Cheksiz uzilishda esa chap va o'ng cheklar turli cheklarga intiladi yoki cheksizlikka intiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 145",
+   "problem": "f(x) = {3x + 2, agar x < k; 2x − 3, agar k ≤ x ≤ 8} funksiya uzluksiz bo'ladigan k ni toping.",
+   "steps": [
+    "Mumkin bo'lgan uzilish — faqat x = k nuqtada",
+    "Chap chek: lim x →k− f(x) = 3k + 2",
+    "Qiymat va o'ng chek ikkinchi shoxdan: f(k) = 2k − 3 va lim x →k+ f(x) = 2k − 3",
+    "Uzluksizlik uchun: 3k + 2 = 2k − 3",
+    "Yechib, k = −5 ni hosil qilamiz",
+    "Tekshirish: 3 · (−5) + 2 = −13 va 2 · (−5) − 3 = −13 — ikkala shox (−5, −13) nuqtada birlashadi"
+   ],
+   "result": "k = −5"
+  },
+  "narr": [
+   "Endi birinchi mashqni ko'rib chiqaylik.",
+   "Bu erda ikkita chiziqli funksiya bor ular x = k nuqtada uchrashadi.",
+   "Uzluksizlik uchun chap chek (3k + 2) o'ng chekka (2k - 3) ga teng bo'lishi kerak.",
+   "Tenglamani yechamiz: 3k + 2 = 2k - 3.",
+   "Yechim k = -5 ni beradi.",
+   "Tekshirib ko'ramiz: ikkala ifoda ham x = -5 nuqtada -13 qiymatini beradi, shuning uchun funksiya uzluksiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 146",
+   "problem": "f(θ) = {sin θ, agar 0 ≤ θ < π/2; cos(θ + k), agar π/2 ≤ θ ≤ π} funksiya uzluksiz bo'ladigan k ni toping.",
+   "steps": [
+    "Yagona mumkin bo'lgan uzilish — θ = π/2 nuqtada",
+    "Chap chek: lim θ → (π/2)− sin θ = 1",
+    "Ikkinchi shoxdan qiymat: f(π/2) = cos(π/2 + k)",
+    "Uzluksizlik cos(π/2 + k) = 1 ni talab qiladi",
+    "Kosinus 1 ga uning argumenti 2π ning butun karrali bo'lganda teng: π/2 + k = 2π · n, n ∈ Z",
+    "Bundan k = 2π · n − π/2, n ∈ Z (masalan, n = 0 bo'lganda k = −π/2)"
+   ],
+   "result": "k = 2π · n − π/2, n ∈ Z"
+  },
+  "narr": [
+   "Ikkinchi mashqda trigonometrik funksiyalar bilan ishlashimiz kerak.",
+   "Bu erda ham yagona potensial uzilish nuqtasi θ = π/2 da.",
+   "Chap chek sin(π/2) = 1 ni beradi.",
+   "O'ng chek cos(π/2 + k) ifodasini beradi.",
+   "Uzluksizlik uchun bu ikki qiymat teng bo'lishi kerak: cos(π/2 + k) = 1.",
+   "Bu tenglamani yechamiz: π/2 + k = 2π · n, n ∈ Z dan k = 2π · n − π/2 ni hosil qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 147",
+   "problem": "f(x) = {(x^2 + 3x + 2)/(x + 2), agar x ≠ −2; k, agar x = −2} funksiya x = −2 nuqtada uzluksiz bo'ladigan k ni toping.",
+   "steps": [
+    "Numeratorni ajratamiz: x^2 + 3x + 2 = (x + 1)(x + 2)",
+    "x ≠ −2 uchun: f(x) = ((x + 1)(x + 2))/(x + 2) = x + 1",
+    "Shuning uchun lim x →−2 f(x) = lim x →−2 (x + 1) = −1",
+    "Uzluksizlik uchun funksiya qiymati nuqtada bu chekka teng bo'lishi kerak: k = −1",
+    "Bunday aniqlash boshlang'ich ratsional ifodadagi bartaraf etiluvchi 'tirqishni' to'ldiradi"
+   ],
+   "result": "k = −1"
+  },
+  "narr": [
+   "Uchinchi mashqda ratsional funksiyaning uzluksizligini ko'rib chiqamiz.",
+   "Avval numeratorni ko'paytuvchilarga ajratamiz.",
+   "Keyin funksiyani soddalashtiramiz (x ≠ −2 sharti bilan).",
+   "Limitni hisoblaymiz: x → −2 bo'lganda f(x) → −1.",
+   "Uzluksizlik uchun f(-2) = -1 bo'lishi kerak, shuning uchun k = -1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 148",
+   "problem": "f(x) = {e^(k·x), agar 0 ≤ x ≤ 4; x + 3, agar 4 ≤ x ≤ 8} funksiya uzluksiz bo'ladigan k ni toping.",
+   "steps": [
+    "Shoxlar x = 4 da birlashadi",
+    "Birinchi shoxdan: f(4) = e^(4k)",
+    "Ikkinchi shoxdan: f(4) = 4 + 3 = 7",
+    "To'g'rilik va x = 4 nuqtadagi uzluksizlik uchun bu qiymatlar bir-biriga teng bo'lishi kerak: e^(4k) = 7",
+    "Natural logarifmlarni olamiz: 4k = ln 7",
+    "Demak, k = ln(7)/4 ≈ 0.4865"
+   ],
+   "result": "k = ln(7)/4 ≈ 0.4865"
+  },
+  "narr": [
+   "To'rtinchi mashqda eksponensial funksiya bilan ishlashimiz kerak.",
+   "Bu erda ham ikkita funksiya x = 4 da uchrashadi.",
+   "Birinchi funksiya x = 4 da e^(4k) ni beradi.",
+   "Ikkinchi funksiya x = 4 da 7 ni beradi.",
+   "Uzluksizlik uchun bu ikki qiymat teng bo'lishi kerak: e^(4k) = 7.",
+   "Tenglamani yechamiz: 4k = ln 7, demak k = ln(7)/4 ≈ 0.4865."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 149",
+   "problem": "f(x) = {√(k · x), agar 0 ≤ x ≤ 3; x + 1, agar 3 < x ≤ 10} funksiya uzluksiz bo'ladigan k ni toping.",
+   "steps": [
+    "Mumkin bo'lgan uzilish — x = 3 da",
+    "Birinchi shoxdan: f(3) = √(3k)",
+    "Ikkinchi shoxdan o'ng chek: lim x →3+ (x + 1) = 4",
+    "Uzluksizlik √(3k) = 4 ni talab qiladi",
+    "Ikkala tomonni kvadratga olib, 3k = 16 ni hosil qilamiz, bundan k = 16/3",
+    "Bu qiymat musbat, shuning uchun √(k · x) har xil x ∈ [0, 3] da haqiqiy son"
+   ],
+   "result": "k = 16/3"
+  },
+  "narr": [
+   "Beshinchi mashqda ildiz funksiyasi bilan ishlashimiz kerak.",
+   "Bu erda ham yagona potensial uzilish nuqtasi x = 3 da.",
+   "Birinchi funksiya x = 3 da √(3k) ni beradi.",
+   "Ikkinchi funksiyaning o'ng cheki 4 ga intiladi.",
+   "Uzluksizlik uchun √(3k) = 4 bo'lishi kerak.",
+   "Tenglamani yechamiz: 3k = 16, demak k = 16/3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "6-hafta",
+   "subtitle": "Hosilalar"
+  },
+  "narr": [
+   "6-haftada hosilalar (differentsiallash) mavzusini o'rganamiz.",
+   "Hosilalar funksiyalarning o'zgarish tezligini o'lchaydigan asosiy tushunchadir."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Farq nisbati va tegish chizig'i",
+   "bullets": [
+    "y = f(x) grafigiga (a, f(a)) va (x, f(x)) nuqtalari orqali o'tuvchi kesuvchining egilishi farq nisbati bilan beriladi",
+    "m_sec = (f(x) − f(a))/(x − a)",
+    "x ni a + h almashtirish h ortishli formulani beradi: m_sec = (f(a + h) − f(a))/h",
+    "Ikkinchi nuqta birinchiga yaqinlashganda (x → a yoki h → 0), kesuvchilar chekli to'g'ri chiziqqa — tegish chizig'iga yaqinlashadi",
+    "Tegish chizig'ining egiligi: m_tan = lim x → a (f(x) − f(a))/(x − a) yoki m_tan = lim h → 0 (f(a + h) − f(a))/h"
+   ]
+  },
+  "narr": [
+   "Hosilalar mavzusiga kirish uchun avval farq nisbatini va tegish chizig'ini tushunishimiz kerak.",
+   "Farq nisbati ikki nuqta orasidagi kesuvchining egilisini ifodalaydi.",
+   "Bu ikki shaklda ifodalanishi mumkin: asosiy shakl va h ortishli shakl.",
+   "Ikkinchi nuqta birinchiga yaqinlashganda, kesuvchi tegish chizig'iga aylanadi.",
+   "Tegish chizig'ining egiligi shu limit orqali aniqlanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Farq nisbati formulalari",
+   "tex": "m_{sec} = \\frac{f(x) - f(a)}{x - a}",
+   "parts": [
+    {
+     "substr": "m_{sec}",
+     "color": "#4C5FD5",
+     "note": "kesuvchining egilishi"
+    },
+    {
+     "substr": "f(x) - f(a)",
+     "color": "#B45309",
+     "note": "funktsiyaning o'zgarishi"
+    },
+    {
+     "substr": "x - a",
+     "color": "#0E7C7B",
+     "note": "argumentning o'zgarishi"
+    }
+   ]
+  },
+  "narr": [
+   "Bu asosiy farq nisbati formulasi.",
+   "Bu erda m_sec kesuvchining egilisini bildiradi.",
+   "Numerator funksiyaning ikki nuqtadagi qiymatlari orasidagi farqni ifodalaydi.",
+   "Maxraj argumentning ikki nuqtadagi qiymatlari orasidagi farqni ifodalaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "h ortishli farq nisbati",
+   "tex": "m_{sec} = \\frac{f(a + h) - f(a)}{h}",
+   "parts": [
+    {
+     "substr": "f(a + h) - f(a)",
+     "color": "#B45309",
+     "note": "funktsiyaning o'zgarishi"
+    },
+    {
+     "substr": "h",
+     "color": "#0E7C7B",
+     "note": "argumentning o'zgarishi"
+    }
+   ]
+  },
+  "narr": [
+   "Bu h ortishli formuladir, u hisoblashda ko'proq qulay bo'lishi mumkin.",
+   "Bu erda ham funksiyaning o'zgarishi va argumentning o'zgarishi ko'rsatilgan."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Tegish chizig'ining egilishi",
+   "tex": "m_{tan} = \\lim_{x \\to a} \\frac{f(x) - f(a)}{x - a}",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a}",
+     "color": "#4C5FD5",
+     "note": "limit"
+    },
+    {
+     "substr": "\\frac{f(x) - f(a)}{x - a}",
+     "color": "#B45309",
+     "note": "farq nisbati"
+    }
+   ]
+  },
+  "narr": [
+   "Tegish chizig'ining egiligi farq nisbatining limitidir.",
+   "Bu erda x a nuqtasiga intiladi.",
+   "Bu limit mavjud bo'lgina, tegish chizig'i mavjud bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "h ortishli tegish chizig'ining egilishi",
+   "tex": "m_{tan} = \\lim_{h \\to 0} \\frac{f(a + h) - f(a)}{h}",
+   "parts": [
+    {
+     "substr": "\\lim_{h \\to 0}",
+     "color": "#4C5FD5",
+     "note": "limit"
+    },
+    {
+     "substr": "\\frac{f(a + h) - f(a)}{h}",
+     "color": "#B45309",
+     "note": "farq nisbati"
+    }
+   ]
+  },
+  "narr": [
+   "Bu h ortishli formuladir, u hisoblashda ko'proq qulay bo'lishi mumkin.",
+   "Bu erda h 0 ga intiladi.",
+   "Ikkala formula bir-biriga teng bo'lishi mumkin, tanlov hisoblash qulayligiga bog'liq."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Nuqtadagi hosila",
+   "bullets": [
+    "(3.3)–(3.4) shaklidagi limit fizikada (tezlik, tezlanish), iqtisodiyotda (marjinal funksiyalar), biologiyada (o'sish tezliklari) paydo bo'ladi",
+    "Shuning uchun unga hosila (derivative) nomi berilgan",
+    "Uning topilish jarayoni differensiallash (differentiation) deb ataladi",
+    "f'(a) = lim x → a (f(x) − f(a))/(x − a) — bu a nuqtadagi hosila"
+   ]
+  },
+  "narr": [
+   "Bu limit tushunchasi turli sohalarda keng qo'llaniladi.",
+   "Fizikada bu tezlik va tezlanishni, iqtisodiyotda marjinal funksiyalarni, biologiyada esa o'sish tezliklarini ifodalaydi.",
+   "Shuning uchun bu limitga hosila (derivative) nomi berilgan.",
+   "Hosilani topish jarayoni differensiallash (differentiation) deb ataladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Hosila formulasi",
+   "tex": "f'(a) = \\lim_{x \\to a} \\frac{f(x) - f(a)}{x - a}",
+   "parts": [
+    {
+     "substr": "f'(a)",
+     "color": "#4C5FD5",
+     "note": "hosila"
+    },
+    {
+     "substr": "\\lim_{x \\to a}",
+     "color": "#B45309",
+     "note": "limit"
+    },
+    {
+     "substr": "\\frac{f(x) - f(a)}{x - a}",
+     "color": "#0E7C7B",
+     "note": "farq nisbati"
+    }
+   ]
+  },
+  "narr": [
+   "Bu a nuqtadagi hosilani ifodalaydigan formula.",
+   "f'(a) a nuqtadagi hosilani bildiradi.",
+   "Bu erda x a ga intiladi.",
+   "Va bu erda funksiyaning farq nisbati ko'rsatilgan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "plot",
+  "data": {
+   "heading": "f(x) = √x va uning tegish chizig'i",
+   "functions": [
+    {
+     "fn": "np.sqrt(x)",
+     "tex": "f(x) = \\sqrt{x}",
+     "color": "#4C5FD5"
+    },
+    {
+     "fn": "1 + 0.5 * (x - 1)",
+     "tex": "y = 1 + \\frac{1}{2}(x - 1)",
+     "color": "#B45309"
+    }
+   ],
+   "x_range": [
+    0,
+    3
+   ],
+   "y_range": [
+    0,
+    2
+   ],
+   "point": [
+    1,
+    1
+   ],
+   "x_label": "x",
+   "y_label": "y"
+  },
+  "narr": [
+   "f(x) = √x funksiyasining (1, 1) nuqtasidagi tegish chizig'ini ko'rib chiqaylik.",
+   "Bu nuqtada hosila f'(1) = 1/2 ga teng.",
+   "Tegish chizig'ining tenglamasi y = 1 + (1/2)(x - 1).",
+   "Keling, grafikda bu funksiyani va uning tegish chizig'ini ko'rib chiqaylik.",
+   "(1, 1) nuqtada ikkalasi ham kesishadi va yaqin nuqtalarda ular deyarli ustma-ust tushadi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

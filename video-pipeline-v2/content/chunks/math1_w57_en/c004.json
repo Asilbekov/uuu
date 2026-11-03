@@ -1,0 +1,417 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this section, we'll explore the concept of continuity in functions, examining various examples and theorems that help us understand when functions behave predictably.",
+   "Let's start by examining a function with an oscillating discontinuity."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Oscillating Discontinuity",
+   "bullets": [
+    "A function has an oscillating discontinuity when the limit does not exist due to oscillations",
+    "No choice of function value at the point can make it continuous"
+   ]
+  },
+  "narr": [
+   "Consider a function s(t) that oscillates as t approaches zero. The limit as t approaches zero does not exist for any choice of s(0).",
+   "This means there's no way to define s(0) that would make the function continuous at zero."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Continuity at Zero",
+   "problem": "Consider y(t) = {t · sin(1/t), if t ≠ 0; 0, if t = 0}. Is y continuous at t = 0?",
+   "steps": [
+    "For t ≠ 0, we have |y(t)| = |t| · |sin(1/t)| ≤ |t| (since |sin| ≤ 1)",
+    "As t → 0, both bounding functions -|t| and |t| approach zero",
+    "By the squeeze theorem, lim t→0 t · sin(1/t) = 0",
+    "Since y(0) = 0, we have lim t→0 y(t) = y(0)"
+   ],
+   "result": "Yes, the function is continuous at t = 0. All three conditions of continuity are satisfied: y(0) is defined, the limit exists, and the limit equals the function value."
+  },
+  "narr": [
+   "Let's examine our first problem about continuity.",
+   "We need to determine if y(t) is continuous at t = 0.",
+   "For t not equal to zero, we can bound y(t) using the fact that the absolute value of sine is at most 1.",
+   "As t approaches zero, both the upper and lower bounds approach zero.",
+   "By the squeeze theorem, the limit of y(t) as t approaches zero is zero.",
+   "Since y(0) is defined as zero, the limit equals the function value, confirming continuity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Continuous Sensor Model",
+   "problem": "A sensor uses the model S(x) = {a · x + b, if x < 1; 3, if x = 1; x² + 2, if x > 1}. Find the condition on a and b for which S is continuous at x = 1. Specify two possible pairs (a, b).",
+   "steps": [
+    "At x = 1, the left-hand limit equals a·1 + b = a + b",
+    "The function value at x = 1 is S(1) = 3",
+    "The right-hand limit equals 1² + 2 = 3",
+    "For continuity, all three values must be equal: a + b = 3"
+   ],
+   "result": "The condition for continuity is a + b = 3. Two possible pairs are (a, b) = (1, 2) and (a, b) = (2, 1), since in both cases a + b = 3."
+  },
+  "narr": [
+   "Now let's look at a practical application of continuity in sensor design.",
+   "We need to find the condition on parameters a and b that makes this sensor model continuous at x = 1.",
+   "First, we evaluate the left-hand limit as x approaches 1.",
+   "Next, we note the function value at exactly x = 1.",
+   "Then, we evaluate the right-hand limit as x approaches 1.",
+   "For continuity, these three values must be equal, giving us the condition a + b = 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Key Points of Continuity",
+   "subtitle": "Fundamental Concepts and Theorems"
+  },
+  "narr": [
+   "Let's summarize the key points about continuity that we've covered."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Informal Meaning of Continuity",
+   "bullets": [
+    "The graph of a function has no breaks, jumps, holes, or vertical asymptotes",
+    "In engineering: small changes in input lead to small changes in output"
+   ]
+  },
+  "narr": [
+   "Informally, continuity means the graph of a function has no breaks or jumps.",
+   "In engineering terms, if y = f(x) is continuous near x = a, then a small change in x produces a small change in y."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Continuity at a Point",
+   "bullets": [
+    "Three requirements: f(a) is defined, the limit exists, and the limit equals f(a)",
+    "Equivalent to: lim x→a⁻ f(x) = lim x→a⁺ f(x) = f(a)"
+   ]
+  },
+  "narr": [
+   "Formally, for a function to be continuous at a point a, three conditions must be met.",
+   "First, f(a) must be defined. Second, the limit as x approaches a must exist. Third, this limit must equal f(a).",
+   "This is equivalent to saying the left-hand limit equals the right-hand limit, and both equal the function value at a."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Continuity on an Interval",
+   "bullets": [
+    "On (a, b): continuity at each point",
+    "On [a, b]: additionally continuity from the right at a and from the left at b"
+   ]
+  },
+  "narr": [
+   "When we talk about continuity on an interval, we need to consider whether the endpoints are included.",
+   "On an open interval (a, b), we require continuity at each point.",
+   "On a closed interval [a, b], we additionally need continuity from the right at a and from the left at b, since the function may not be defined outside the interval."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Algebra of Continuous Functions",
+   "bullets": [
+    "If f and g are continuous at a, then f+g, f-g, c·f, f·g, and f/g are continuous at g(a) ≠ 0",
+    "Polynomials are continuous everywhere",
+    "Rational functions are continuous where the denominator is non-zero",
+    "Exponential, logarithmic, and trigonometric functions are continuous on their domains"
+   ]
+  },
+  "narr": [
+   "The algebra of continuous functions tells us how we can combine continuous functions.",
+   "If f and g are continuous at a point a, then their sum, difference, product, and quotient (where the denominator isn't zero) are also continuous at a.",
+   "Specifically, polynomials are continuous everywhere, while rational functions are continuous where the denominator isn't zero.",
+   "Elementary functions like exponentials, logarithms, and trigonometric functions are continuous on their respective domains."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Theorem on Composition",
+   "bullets": [
+    "If g is continuous at a, and f is continuous at g(a), then the composition f∘g is continuous at a",
+    "Consequently, lim x→a f(g(x)) = f(lim x→a g(x)) under appropriate continuity conditions"
+   ]
+  },
+  "narr": [
+   "An important theorem about continuous functions is the composition theorem.",
+   "If g is continuous at a, and f is continuous at g(a), then their composition f∘g is continuous at a.",
+   "This also means we can bring the limit inside the function: the limit of f(g(x)) as x approaches a is f of the limit of g(x) as x approaches a."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Types of Discontinuities",
+   "bullets": [
+    "Removable: the limit exists but doesn't equal the function value",
+    "Jump: left and right limits exist but are different",
+    "Infinite: the function approaches infinity",
+    "Oscillating: the function oscillates without approaching a limit"
+   ]
+  },
+  "narr": [
+   "There are several types of discontinuities that functions can exhibit.",
+   "A removable discontinuity occurs when the limit exists but doesn't equal the function value.",
+   "A jump discontinuity happens when the left and right limits exist but are different.",
+   "An infinite discontinuity occurs when the function approaches infinity near the point.",
+   "An oscillating discontinuity, as we saw earlier, occurs when the function oscillates without approaching any particular value."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Inverse Functions",
+   "bullets": [
+    "y = f(x) is inverted to x = f⁻¹(y)",
+    "Defining properties: f⁻¹(f(x)) = x and f(f⁻¹(y)) = y",
+    "The notation f⁻¹(x) does not mean 1/f(x)",
+    "The inverse exists if the function is one-to-one (horizontal line test)",
+    "A continuous strictly monotonic function on an interval is one-to-one and invertible"
+   ]
+  },
+  "narr": [
+   "Inverse functions are another important concept related to continuity.",
+   "When we invert a function y = f(x), we get x = f⁻¹(y).",
+   "The defining properties of inverse functions are that f⁻¹(f(x)) = x and f(f⁻¹(y)) = y.",
+   "It's important to note that f⁻¹(x) does not mean 1/f(x); that would be written as [f(x)]⁻¹.",
+   "For a function to have an inverse, it must be one-to-one, meaning it passes the horizontal line test.",
+   "A useful theorem states that a continuous strictly monotonic function on an interval is one-to-one and therefore invertible."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Continuity of the Inverse",
+   "bullets": [
+    "If f is continuous and strictly monotonic on an interval I, then its inverse f⁻¹ is continuous",
+    "Geometrically: the graph of f⁻¹ is the reflection of the graph of f across the line y = x"
+   ]
+  },
+  "narr": [
+   "Not only is a continuous strictly monotonic function invertible, but its inverse is also continuous.",
+   "Geometrically, this makes sense because the graph of the inverse function is simply the reflection of the original function's graph across the line y = x.",
+   "If the original graph has no discontinuities, then neither will its reflection."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Engineering Interpretation of Inverse Functions",
+   "bullets": [
+    "If a sensor is defined by V = f(T) with a continuous strictly increasing f, then:",
+    "Each temperature gives exactly one voltage",
+    "Each voltage corresponds to exactly one temperature",
+    "Calibration can be reversed: T = f⁻¹(V)",
+    "Small changes in voltage give small changes in recovered temperature"
+   ]
+  },
+  "narr": [
+   "In engineering applications, inverse functions allow us to reverse measurements.",
+   "Consider a sensor defined by V = f(T) with a continuous strictly increasing function f.",
+   "In this case, each temperature measurement gives exactly one voltage reading.",
+   "Conversely, each voltage in the sensor's range corresponds to exactly one temperature.",
+   "This means we can reverse the calibration: given a voltage, we can find the corresponding temperature using T = f⁻¹(V).",
+   "Moreover, because f is continuous, small changes in voltage will result in small changes in the recovered temperature."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Intermediate Value Theorem",
+   "bullets": [
+    "If f is continuous on [a, b] and L lies between f(a) and f(b), then there exists at least one c ∈ [a, b] such that f(c) = L",
+    "In particular, if f(a)·f(b) < 0, there exists c ∈ (a, b) with f(c) = 0",
+    "Existence is guaranteed, but not uniqueness"
+   ]
+  },
+  "narr": [
+   "The Intermediate Value Theorem is a fundamental result about continuous functions.",
+   "It states that if a function f is continuous on a closed interval [a, b], and L is any value between f(a) and f(b), then there's at least one point c in [a, b] where f(c) = L.",
+   "A special case occurs when f(a) and f(b) have opposite signs, guaranteeing a root in the interval.",
+   "It's important to note that while the theorem guarantees existence, it doesn't guarantee uniqueness - there might be multiple points where the function equals L."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Engineering Meaning of Intermediate Value Theorem",
+   "bullets": [
+    "The temperature of a continuously operating system rising from 40°C to 80°C must pass through all intermediate values, including 60°C",
+    "For a discontinuous model, this is not necessarily true"
+   ]
+  },
+  "narr": [
+   "The Intermediate Value Theorem has important engineering implications.",
+   "Consider a system whose temperature rises continuously from 40°C to 80°C. The theorem guarantees that the temperature must pass through every intermediate value, including 60°C.",
+   "However, if our model of the system is discontinuous, this guarantee no longer holds - the temperature might jump over certain values."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Weierstrass Theorem",
+   "bullets": [
+    "If f is continuous on a closed bounded [a, b], then f attains its absolute maximum and minimum",
+    "There exist x_min, x_max ∈ [a, b] such that f(x_min) ≤ f(x) ≤ f(x_max) for all x ∈ [a, b]",
+    "Both conditions (closed and bounded) are essential",
+    "In several variables: if f: Rⁿ → R is continuous and the feasible set K is non-empty and compact, then f attains its maximum and minimum on K"
+   ]
+  },
+  "narr": [
+   "The Weierstrass Theorem tells us about the existence of extreme values for continuous functions.",
+   "It states that if a function is continuous on a closed bounded interval [a, b], then it attains both an absolute maximum and minimum on that interval.",
+   "This means there are points x_min and x_max in [a, b] where the function takes on its smallest and largest values, respectively.",
+   "It's important to note that both conditions - the interval being closed and bounded - are essential. If either condition is violated, the theorem may not hold.",
+   "The theorem generalizes to several dimensions: if a function is continuous on a non-empty compact (closed and bounded) set, then it attains its maximum and minimum on that set."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example — Continuity of Charging Capacitor",
+   "problem": "Why is the voltage of a charging capacitor V(t) = Vs · (1 - e^(-t/(R·C))) continuous for t ≥ 0?",
+   "steps": [
+    "The function is a composition of continuous functions",
+    "Exponential function e^x is continuous everywhere",
+    "Linear functions are continuous everywhere",
+    "The composition of continuous functions is continuous"
+   ],
+   "result": "The voltage function is continuous for t ≥ 0 because it's a composition of continuous functions: the exponential function and linear functions, and the composition of continuous functions is continuous."
+  },
+  "narr": [
+   "Let's apply our knowledge of continuity to a practical engineering example.",
+   "Consider the voltage across a charging capacitor: V(t) = Vs · (1 - e^(-t/(R·C))).",
+   "This function is a composition of several continuous functions.",
+   "First, the exponential function e^x is continuous everywhere.",
+   "Second, linear functions like -t/(R·C) are continuous everywhere.",
+   "Third, the composition of these continuous functions is also continuous.",
+   "Therefore, the voltage function is continuous for all t ≥ 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ }
+]

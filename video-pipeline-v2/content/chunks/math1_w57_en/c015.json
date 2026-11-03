@@ -1,0 +1,619 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5-7 of Math I, where we explore differentiation techniques and their applications in various contexts.",
+   "In this section, we'll cover related rates problems and derivatives of elementary functions through practical exercises."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Related Rates",
+   "problem": "Given y = √x = x^(1/2), find dy/dt when x = 4 and dx/dt = 2.",
+   "steps": [
+    "Differentiate with respect to t using the chain rule",
+    "dy/dt = (1/2)·x^(-1/2)·(dx/dt)",
+    "Simplify to dy/dt = (1/(2·√x))·(dx/dt)",
+    "Substitute x = 4 and dx/dt = 2",
+    "Calculate dy/dt = (1/4)·2 = 1/2"
+   ],
+   "result": "dy/dt = 1/2 units/s — the y-coordinate is increasing at 0.5 units/s."
+  },
+  "narr": [
+   "Let's start with a related rates problem involving the square root function.",
+   "We need to find how fast y is changing with respect to time, given how fast x is changing.",
+   "First, we recognize that y is a function of x, and x is changing with time.",
+   "Applying the chain rule, we differentiate y with respect to t.",
+   "The derivative of x^(1/2) is (1/2)x^(-1/2), which simplifies to 1/(2√x).",
+   "We multiply this by dx/dt to complete the chain rule application.",
+   "Now we substitute the given values: x = 4 and dx/dt = 2.",
+   "This gives us dy/dt = (1/4)·2 = 1/2.",
+   "So the y-coordinate is increasing at a rate of 0.5 units per second."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Oil Slick",
+   "problem": "The radius of a circular oil slick is expanding at a constant rate of 2m/min. At what rate is the area of the slick growing when the radius is 30m?",
+   "steps": [
+    "Recall the area of a circle: A = πr²",
+    "Differentiate with respect to t: dA/dt = 2πr·(dr/dt)",
+    "Substitute r = 30 and dr/dt = 2",
+    "Calculate dA/dt = 2π·30·2 = 120π"
+   ],
+   "result": "dA/dt = 120π ≈ 376.99 m²/min (approximately 377 m²/min)"
+  },
+  "narr": [
+   "Now let's apply related rates to a real-world scenario: an expanding oil slick.",
+   "We know the radius is expanding at 2 meters per minute, and we need to find how fast the area is growing when the radius is 30 meters.",
+   "First, we recall the formula for the area of a circle: A = πr².",
+   "To find how the area changes with time, we differentiate both sides with respect to t.",
+   "Applying the chain rule, we get dA/dt = 2πr·(dr/dt).",
+   "Now we substitute the given values: r = 30 meters and dr/dt = 2 m/min.",
+   "This gives us dA/dt = 2π·30·2 = 120π.",
+   "Approximating, this is about 377 square meters per minute."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Trigonometric Functions",
+   "problem": "Differentiate the following trigonometric functions: a) 3·sin x − 2·cos x; b) tan x + cot x; c) sec x − csc x",
+   "steps": [
+    "For a): Apply derivative rules to each term separately",
+    "d/dx(3 sin x) = 3 cos x",
+    "d/dx(−2 cos x) = −2·(−sin x) = 2 sin x",
+    "Combine: 3 cos x + 2 sin x",
+    "For b): Use known derivatives of tan x and cot x",
+    "d/dx(tan x) = sec²x"
+   ]
+  },
+  "narr": [
+   "Moving on to derivatives of trigonometric functions.",
+   "We apply the derivative rules to each term separately.",
+   "The derivative of sin x is cos x, so 3·sin x becomes 3 cos x.",
+   "The derivative of cos x is −sin x, so −2·cos x becomes 2 sin x.",
+   "Combining these, we get 3 cos x + 2 sin x.",
+   "For part b), we have tan x + cot x.",
+   "Using the known derivatives, d/dx(tan x) = sec²x and d/dx(cot x) = −csc²x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Trigonometric Functions (cont.)",
+   "problem": "",
+   "steps": [
+    "d/dx(cot x) = −csc²x",
+    "Combine: sec²x − csc²x",
+    "For c): Use known derivatives of sec x and csc x",
+    "d/dx(sec x) = sec x·tan x",
+    "d/dx(−csc x) = −(−csc x·cot x) = csc x·cot x",
+    "Combine: sec x·tan x + csc x·cot x"
+   ],
+   "result": "a) 3 cos x + 2 sin x; b) sec²x − csc²x; c) sec x·tan x + csc x·cot x"
+  },
+  "narr": [
+   "For part a), we have 3·sin x − 2·cos x.",
+   "So the derivative is sec²x − csc²x.",
+   "For part c), we have sec x − csc x.",
+   "The derivative of sec x is sec x·tan x, and the derivative of −csc x is csc x·cot x.",
+   "Combining these, we get sec x·tan x + csc x·cot x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Derivative of Tangent",
+   "problem": "Starting from tan x = sin x/cos x, derive the derivative of tan x using the quotient rule.",
+   "steps": [
+    "Express tan x as a quotient: f(x) = sin x/cos x",
+    "Apply the quotient rule: f'(x) = (cos x·cos x − sin x·(−sin x))/cos²x",
+    "Simplify numerator: cos²x + sin²x",
+    "Apply Pythagorean identity: cos²x + sin²x = 1",
+    "Simplify to f'(x) = 1/cos²x",
+    "Express in terms of secant: f'(x) = sec²x (for cos x ≠ 0)"
+   ],
+   "result": "The derivative of tan x is sec²x (for cos x ≠ 0)"
+  },
+  "narr": [
+   "Let's derive the derivative of tangent from first principles using the quotient rule.",
+   "We start with the definition tan x = sin x/cos x.",
+   "Let f(x) = sin x/cos x, so we can apply the quotient rule.",
+   "The quotient rule states that (u/v)' = (u'v - uv')/v².",
+   "Here, u = sin x and v = cos x, so u' = cos x and v' = −sin x.",
+   "Applying the quotient rule, we get f'(x) = (cos x·cos x − sin x·(−sin x))/cos²x.",
+   "Simplifying the numerator gives cos²x + sin²x.",
+   "Using the Pythagorean identity cos²x + sin²x = 1, we get f'(x) = 1/cos²x.",
+   "Finally, since sec x = 1/cos x, we can write this as sec²x.",
+   "This is valid for all x where cos x ≠ 0."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Quotient with Cosine",
+   "problem": "Differentiate f(x) = sin x/(1 + cos x), where 1 + cos x ≠ 0.",
+   "steps": [
+    "Apply the quotient rule: f'(x) = [cos x·(1 + cos x) − sin x·(−sin x)]/(1 + cos x)²",
+    "Expand the numerator: cos x + cos²x + sin²x",
+    "Apply Pythagorean identity: cos²x + sin²x = 1",
+    "Simplify numerator to 1 + cos x",
+    "Simplify the expression: f'(x) = (1 + cos x)/(1 + cos x)²",
+    "Cancel common terms: f'(x) = 1/(1 + cos x)"
+   ],
+   "result": "f'(x) = 1/(1 + cos x) (for 1 + cos x ≠ 0)"
+  },
+  "narr": [
+   "Now let's tackle a quotient involving sine and cosine.",
+   "We need to differentiate f(x) = sin x/(1 + cos x).",
+   "Applying the quotient rule, we get f'(x) = [cos x·(1 + cos x) − sin x·(−sin x)]/(1 + cos x)².",
+   "Expanding the numerator gives cos x + cos²x + sin²x.",
+   "Using the Pythagorean identity cos²x + sin²x = 1, we simplify the numerator to 1 + cos x.",
+   "Now our expression is f'(x) = (1 + cos x)/(1 + cos x)².",
+   "Canceling the common term, we get f'(x) = 1/(1 + cos x).",
+   "This is valid for all x where 1 + cos x ≠ 0."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Vibrating Component",
+   "problem": "A vibrating component has displacement s(t) = 0.02·cos t m at angular frequency 1 rad/s. Find the velocity and acceleration, calculate them at t = π/2 s, and also find d⁴s/dt⁴.",
+   "steps": [
+    "Find velocity: v(t) = s'(t) = −0.02·sin t m/s",
+    "Find acceleration: a(t) = v'(t) = −0.02·cos t m/s²",
+    "Calculate at t = π/2: v = −0.02·sin(π/2) = −0.02 m/s",
+    "Calculate at t = π/2: a = −0.02·cos(π/2) = 0",
+    "Find third derivative: s'''(t) = 0.02·sin t",
+    "Find fourth derivative: s⁴(t) = 0.02·cos t m/s⁴"
+   ],
+   "result": "v = −0.02 m/s, a = 0 at t = π/2; s⁴(t) = 0.02·cos t m/s⁴"
+  },
+  "narr": [
+   "Let's apply differentiation to a physics problem involving a vibrating component.",
+   "The displacement is given by s(t) = 0.02·cos t meters.",
+   "First, we find the velocity by differentiating displacement: v(t) = s'(t) = −0.02·sin t m/s.",
+   "Next, we find the acceleration by differentiating velocity: a(t) = v'(t) = −0.02·cos t m/s².",
+   "Now we evaluate these at t = π/2 seconds.",
+   "Velocity at t = π/2: v = −0.02·sin(π/2) = −0.02 m/s.",
+   "Acceleration at t = π/2: a = −0.02·cos(π/2) = 0.",
+   "Finally, we find higher-order derivatives.",
+   "The third derivative is s'''(t) = 0.02·sin t.",
+   "The fourth derivative is s⁴(t) = 0.02·cos t m/s⁴.",
+   "Notice that the fourth derivative has the same form as the original displacement function."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Different Bases",
+   "problem": "Differentiate f(x) = 3e^x + 2^x − 5 and find f'(0).",
+   "steps": [
+    "Differentiate each term separately",
+    "d/dx(3e^x) = 3e^x",
+    "For 2^x: rewrite as e^(x·ln 2)",
+    "Apply chain rule: d/dx(2^x) = e^(x·ln 2)·ln 2 = 2^x·ln 2",
+    "Derivative of constant is 0",
+    "Combine: f'(x) = 3e^x + 2^x·ln 2",
+    "Evaluate at x = 0: f'(0) = 3·e^0 + 2^0·ln 2 = 3 + ln 2"
+   ],
+   "result": "f'(x) = 3e^x + 2^x·ln 2; f'(0) = 3 + ln 2 ≈ 3.693"
+  },
+  "narr": [
+   "Now let's tackle exponential functions with different bases.",
+   "We need to differentiate f(x) = 3e^x + 2^x − 5.",
+   "First, we handle the exponential terms separately.",
+   "The derivative of 3e^x is straightforward: 3e^x.",
+   "For 2^x, we need to be careful since the base is not e.",
+   "We rewrite 2^x as e^(x·ln 2) using the identity a^x = e^(x·ln a).",
+   "Now we can apply the chain rule: d/dx(2^x) = e^(x·ln 2)·ln 2 = 2^x·ln 2.",
+   "The derivative of the constant −5 is 0.",
+   "Combining these, we get f'(x) = 3e^x + 2^x·ln 2.",
+   "Now we evaluate at x = 0: f'(0) = 3·e^0 + 2^0·ln 2 = 3 + ln 2 ≈ 3.693."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Logarithms and Tangent",
+   "problem": "Differentiate f(x) = 2·ln x − log₁₀ x, x > 0, and find the equation of the tangent at x = 1.",
+   "steps": [
+    "Differentiate each logarithmic term separately",
+    "d/dx(2·ln x) = 2/x",
+    "For log₁₀ x: use change of base formula log₁₀ x = ln x/ln 10",
+    "Differentiate: d/dx(log₁₀ x) = 1/(x·ln 10)",
+    "Combine: f'(x) = 2/x − 1/(x·ln 10)",
+    "Find point of tangency: f(1) = 2·ln 1 − log₁₀ 1 = 0"
+   ]
+  },
+  "narr": [
+   "Let's work with logarithmic functions of different bases.",
+   "First, we differentiate the natural logarithm term: d/dx(2·ln x) = 2/x.",
+   "For the common logarithm, we use the change of base formula: log₁₀ x = ln x/ln 10.",
+   "Now we differentiate this: d/dx(log₁₀ x) = 1/(x·ln 10).",
+   "Combining these, we get f'(x) = 2/x − 1/(x·ln 10).",
+   "Next, we find the equation of the tangent line at x = 1.",
+   "First, find the y-coordinate: f(1) = 2·ln 1 − log₁₀ 1 = 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Logarithms and Tangent (cont.)",
+   "problem": "",
+   "steps": [
+    "Find slope: f'(1) = 2 − 1/ln 10",
+    "Write tangent equation: y = (2 − 1/ln 10)·(x − 1)"
+   ],
+   "result": "f'(x) = 2/x − 1/(x·ln 10); tangent: y = (2 − 1/ln 10)·(x − 1)"
+  },
+  "narr": [
+   "We need to differentiate f(x) = 2·ln x − log₁₀ x for x > 0.",
+   "Then find the slope: f'(1) = 2 − 1/ln 10.",
+   "Using the point-slope form, the tangent equation is y = (2 − 1/ln 10)·(x − 1)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Product and Quotient",
+   "problem": "Differentiate: a) f(x) = x·ln x, x > 0; b) g(x) = e^x/x, x ≠ 0",
+   "steps": [
+    "For a): Apply product rule to f(x) = x·ln x",
+    "Let u = x, v = ln x, so u' = 1, v' = 1/x",
+    "f'(x) = u'v + uv' = 1·ln x + x·(1/x) = ln x + 1",
+    "For b): Apply quotient rule to g(x) = e^x/x",
+    "Let u = e^x, v = x, so u' = e^x, v' = 1",
+    "g'(x) = (u'v - uv')/v² = (e^x·x - e^x·1)/x² = e^x(x - 1)/x²"
+   ],
+   "result": "a) f'(x) = ln x + 1; b) g'(x) = e^x(x - 1)/x²"
+  },
+  "narr": [
+   "Now let's practice product and quotient rules with combinations of functions.",
+   "For part a), we have f(x) = x·ln x for x > 0.",
+   "We apply the product rule: (uv)' = u'v + uv'.",
+   "Let u = x and v = ln x, so u' = 1 and v' = 1/x.",
+   "Thus f'(x) = 1·ln x + x·(1/x) = ln x + 1.",
+   "For part b), we have g(x) = e^x/x for x ≠ 0.",
+   "We apply the quotient rule: (u/v)' = (u'v - uv')/v².",
+   "Let u = e^x and v = x, so u' = e^x and v' = 1.",
+   "Thus g'(x) = (e^x·x - e^x·1)/x² = e^x(x - 1)/x²."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Product with Exponential",
+   "problem": "Find the first derivative of the function f(x) = x²·e^x.",
+   "steps": [
+    "Apply product rule to f(x) = x²·e^x",
+    "Let u = x², v = e^x, so u' = 2x, v' = e^x",
+    "f'(x) = u'v + uv' = 2x·e^x + x²·e^x",
+    "Factor out common terms: f'(x) = e^x(x² + 2x)",
+    "Alternative factoring: f'(x) = x·e^x(x + 2)"
+   ],
+   "result": "f'(x) = e^x(x² + 2x) = x·e^x(x + 2), x ∈ R"
+  },
+  "narr": [
+   "Let's tackle a product involving a polynomial and an exponential function.",
+   "We need to differentiate f(x) = x²·e^x.",
+   "Applying the product rule, we let u = x² and v = e^x.",
+   "Then u' = 2x and v' = e^x.",
+   "Applying the product rule formula f'(x) = u'v + uv', we get f'(x) = 2x·e^x + x²·e^x.",
+   "We can factor out the common term e^x: f'(x) = e^x(x² + 2x).",
+   "Alternatively, we can factor out x·e^x: f'(x) = x·e^x(x + 2).",
+   "This derivative is valid for all real numbers x."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Discharging Capacitor",
+   "problem": "A discharging capacitor has voltage V(t) = 12·e^(-t/2) V, t ≥ 0 (time in seconds). Find V'(t), initial rate of voltage change, and V'(2).",
+   "steps": [
+    "Differentiate V(t) = 12·e^(-t/2)",
+    "Apply chain rule: derivative of exponent (-t/2)' = -1/2",
+    "V'(t) = 12·e^(-t/2)·(-1/2) = -6·e^(-t/2) V/s",
+    "Find initial rate: V'(0) = -6·e^0 = -6 V/s",
+    "Find at t = 2: V'(2) = -6·e^(-1) = -6/e ≈ -2.21 V/s"
+   ],
+   "result": "V'(t) = -6·e^(-t/2) V/s; V'(0) = -6 V/s; V'(2) ≈ -2.21 V/s"
+  },
+  "narr": [
+   "Let's apply differentiation to a physics problem involving a discharging capacitor.",
+   "The voltage is given by V(t) = 12·e^(-t/2) volts for t ≥ 0.",
+   "To find how the voltage changes with time, we differentiate V(t).",
+   "Applying the chain rule, we first find the derivative of the exponent: (-t/2)' = -1/2.",
+   "Thus V'(t) = 12·e^(-t/2)·(-1/2) = -6·e^(-t/2) V/s.",
+   "The initial rate of voltage change is V'(0) = -6·e^0 = -6 V/s.",
+   "At t = 2 seconds, V'(2) = -6·e^(-1) = -6/e ≈ -2.21 V/s.",
+   "The negative sign indicates that the voltage is decreasing, and the rate of decrease decreases in magnitude over time."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Charge and Electric Current",
+   "problem": "Charge passing through a point in a wire is q(t) = t³ + 2t² + 3t C. Find the electric current at t = 2, average current on [0, 2], and rate of change of current at t = 2.",
+   "steps": [
+    "Find current: I(t) = q'(t) = 3t² + 4t + 3",
+    "Calculate at t = 2: I(2) = 3(2)² + 4(2) + 3 = 12 + 8 + 3 = 23 A",
+    "Find q(2) = (2)³ + 2(2)² + 3(2) = 8 + 8 + 6 = 22 C",
+    "Find q(0) = 0 + 0 + 0 = 0 C",
+    "Calculate average current: Iavg = (q(2) - q(0))/(2 - 0) = 22/2 = 11 A",
+    "Find rate of change of current: I'(t) = 6t + 4",
+    "Calculate at t = 2: I'(2) = 6(2) + 4 = 16 A/s"
+   ],
+   "result": "I(2) = 23 A; Iavg = 11 A; I'(2) = 16 A/s"
+  },
+  "narr": [
+   "Now let's explore the relationship between charge and electric current.",
+   "The charge passing through a point in a wire is q(t) = t³ + 2t² + 3t coulombs.",
+   "Electric current is the derivative of charge with respect to time: I(t) = q'(t).",
+   "Differentiating, we get I(t) = 3t² + 4t + 3 amperes.",
+   "At t = 2 seconds, I(2) = 3(2)² + 4(2) + 3 = 23 A.",
+   "The average current on the interval [0, 2] is the total charge divided by time.",
+   "We have q(2) = 22 C and q(0) = 0 C, so Iavg = (22 - 0)/(2 - 0) = 11 A.",
+   "The rate of change of current is I'(t) = 6t + 4.",
+   "At t = 2, I'(2) = 6(2) + 4 = 16 A/s."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Electric Power",
+   "problem": "For 0 ≤ t ≤ 4, a device has voltage V(t) = 12 - t V and current I(t) = 1 + t A. Find the electric power P(t), its derivative P'(t), and values of both quantities at t = 2.",
+   "steps": [
+    "Recall power formula: P(t) = V(t)·I(t)",
+    "Calculate P(t) = (12 - t)(1 + t) = 12 + 11t - t² W",
+    "Differentiate using product rule: P'(t) = V'(t)·I(t) + V(t)·I'(t)",
+    "Find derivatives: V'(t) = -1, I'(t) = 1",
+    "Calculate P'(t) = (-1)(1 + t) + (12 - t)(1) = 11 - 2t W/s",
+    "Evaluate at t = 2: P(2) = 12 + 11(2) - (2)² = 30 W",
+    "Evaluate at t = 2: P'(2) = 11 - 2(2) = 7 W/s"
+   ],
+   "result": "P(t) = 12 + 11t - t² W; P'(t) = 11 - 2t W/s; P(2) = 30 W; P'(2) = 7 W/s"
+  },
+  "narr": [
+   "Finally, let's examine the relationship between voltage, current, and power.",
+   "For a device with voltage V(t) = 12 - t volts and current I(t) = 1 + t amperes,",
+   "we need to find the electric power P(t) = V(t)·I(t).",
+   "Multiplying these functions, we get P(t) = (12 - t)(1 + t) = 12 + 11t - t² watts.",
+   "To find how power changes with time, we differentiate P(t) using the product rule.",
+   "The derivatives are V'(t) = -1 and I'(t) = 1.",
+   "Applying the product rule, P'(t) = (-1)(1 + t) + (12 - t)(1) = 11 - 2t watts per second.",
+   "At t = 2 seconds, P(2) = 30 watts and P'(2) = 7 watts per second.",
+   "The positive derivative indicates that the power being consumed is increasing."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Main Ideas of the Lesson",
+   "items": [
+    "Related rates problems follow the 'picture → relation → d/dt → plug in numbers' scheme",
+    "Derivatives of elementary functions are combined using sum, product, and quotient rules",
+    "Physical quantities are related by derivatives: velocity s', acceleration s'', current I = q', power P = V·I"
+   ]
+  },
+  "narr": [
+   "Let's summarize the main ideas from this section on differentiation.",
+   "First, for related rates problems, we follow a systematic approach:",
+   "Start with a picture or diagram of the situation,",
+   "Establish a relationship between the variables,",
+   "Differentiate both sides with respect to time,",
+   "And finally plug in the known values to find the desired rate.",
+   "Second, we've seen how derivatives of elementary functions can be combined using the sum, product, and quotient rules.",
+   "Third, we've explored how physical quantities are related through derivatives:",
+   "Velocity is the derivative of displacement with respect to time,",
+   "Acceleration is the derivative of velocity with respect to time,",
+   "Electric current is the derivative of charge with respect to time,",
+   "And electric power is the product of voltage and current."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Independent Study Assignments",
+   "subtitle": "Homework for Week 7"
+  },
+  "narr": [
+   "Now let's discuss the independent study assignments for Week 7.",
+   "These homework assignments are not submitted or graded, but their purpose is to help you master the material more deeply before the midterm.",
+   "You're encouraged to solve these problems independently, with classmates, or with an AI assistant to clarify concepts.",
+   "The assignment is to solve exercises 178, 181, 191, 192, 193, and 331 from Chapter 3 of the textbook.",
+   "There's also an optional assignment involving interaction with an AI assistant.",
+   "For this assignment, you would formulate the most important points of the lecture content and ask the assistant to evaluate your answer for content and clarity.",
+   "If you find any erroneous conclusions or contradictions, you should ask for explanations.",
+   "If contradictions aren't resolved, you should consult the instructor."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

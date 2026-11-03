@@ -1,0 +1,235 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Course Map and How to Use This Document",
+   "subtitle": "Linear Algebra I — weeks 5–7"
+  },
+  "narr": [
+   "Welcome to the Linear Algebra I resource for weeks 5 through 7. This comprehensive guide collects every question and formula from course files and textbook sections, with complete step-by-step solutions.",
+   "The document covers three main weeks: Week 5 on Geometry and Elimination, Week 6 on Matrix Operations and Decompositions, and Week 7 on Transposes, Permutations and Vector Spaces.",
+   "Each week is organized with a formula catalog followed by questions and solutions from various sources including lectures, practical sessions, Independent Study Assignments, and extra material."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 5 — Geometry and Elimination",
+   "subtitle": "Linear Algebra I"
+  },
+  "narr": [
+   "Week 5 focuses on Geometry and Elimination, covering the row picture and column picture, Gaussian elimination, back substitution, elimination matrices, permutation matrices, and the connection with rank, including the LU decomposition."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Connection with rank: n pivots mean invertibility",
+   "bullets": [
+    "For an n × n square matrix, having n pivots is equivalent to invertibility",
+    "If A has n pivots, then Ax = b has a unique solution for every b",
+    "The number of pivots found by elimination is the rank of A",
+    "Gauss-Jordan elimination reduces the matrix to reduced echelon form",
+    "Gaussian elimination stops at upper triangular U and completes with back substitution"
+   ]
+  },
+  "narr": [
+   "Let's explore the connection between matrix rank and invertibility. A key fact in linear algebra is that for an n × n square matrix, having n pivots is equivalent to the matrix being invertible.",
+   "When a matrix has n pivots, the equation Ax = b has a unique solution for every vector b. The number of pivots found through elimination determines the rank of the matrix.",
+   "There are two main elimination algorithms: Gauss-Jordan elimination, which reduces the matrix to reduced echelon form, and Gaussian elimination, which stops at upper triangular form and completes the solution through back substitution."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Matrix rank and invertibility",
+   "problem": "Consider matrix A = [1 2; 2 4]. Determine its rank and whether it has an inverse. Also analyze the solutions to Ax = [3 6] and Ax = [3 7].",
+   "steps": [
+    "Find the rank of matrix A through elimination",
+    "Determine if A has an inverse based on its rank",
+    "Solve Ax = [3 6] and analyze the solution set",
+    "Solve Ax = [3 7] and analyze the solution set"
+   ],
+   "result": "Matrix A has rank 1 and no inverse. Ax = [3 6] has infinitely many solutions, while Ax = [3 7] has no solution."
+  },
+  "narr": [
+   "Let's examine a concrete example to understand these concepts. Consider matrix A = [1 2; 2 4].",
+   "First, we find the rank of A through elimination. Subtracting 2 times the first row from the second row gives us [1 2; 0 0], showing only one pivot position.",
+   "Since A is a 2×2 matrix with only one pivot, it has rank 1 and cannot be invertible.",
+   "Now let's solve Ax = [3 6]. The system becomes x + 2y = 3, which has infinitely many solutions parameterized by y.",
+   "For Ax = [3 7], we get x + 2y = 3 and 0 = 1, which is impossible, so there are no solutions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Row picture: rows as lines and planes",
+   "bullets": [
+    "Each row of matrix A represents one geometric constraint",
+    "In 2D, each row equation represents a line",
+    "In 3D, each row equation represents a plane",
+    "The solution to Ax = b is the intersection point of these lines or planes"
+   ]
+  },
+  "narr": [
+   "Now let's visualize the system of equations geometrically through the row picture.",
+   "In the row picture, each row of matrix A represents one geometric constraint. In two dimensions, each row equation represents a line, and in three dimensions, each represents a plane.",
+   "The solution to Ax = b corresponds to the point where all these lines or planes intersect in space."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Row picture in 2D",
+   "problem": "Solve the system 2x - y = 1, x + y = 5 using the row picture approach.",
+   "steps": [
+    "Write the system in matrix form Ax = b",
+    "Graph the first equation as a line in 2D",
+    "Graph the second equation as a line in 2D",
+    "Find the intersection point of the two lines"
+   ],
+   "result": "The lines intersect at (x, y) = (2, 3), which is the solution to the system."
+  },
+  "narr": [
+   "Consider the system of equations: 2x - y = 1 and x + y = 5. In matrix form, this is [2 -1; 1 1] · [x; y] = [1; 5].",
+   "Graphically, the first equation 2x - y = 1 represents a line with slope 2 and y-intercept -1.",
+   "The second equation x + y = 5 represents a line with slope -1 and y-intercept 5.",
+   "These two lines intersect at the point (x, y) = (2, 3), which is our solution to the system."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Row picture in 3D",
+   "problem": "Find the intersection point of the three planes defined by [2 1 1; 4 -6 0; -2 7 2] · [u; v; w] = [5; -2; 9].",
+   "steps": [
+    "Visualize each plane equation in 3D space",
+    "Find the intersection of the first two planes",
+    "Find where this intersection line meets the third plane",
+    "Verify the solution satisfies all three equations"
+   ],
+   "result": "The three planes intersect at (u, v, w) = (1, 1, 2)."
+  },
+  "narr": [
+   "Extending to three dimensions, consider the system defined by [2 1 1; 4 -6 0; -2 7 2] · [u; v; w] = [5; -2; 9].",
+   "Each equation represents a plane in 3D space. The first plane has normal vector [2, 1, 1], the second [4, -6, 0], and the third [-2, 7, 2].",
+   "The solution to this system is the point where all three planes intersect. After solving, we find this intersection occurs at (u, v, w) = (1, 1, 2).",
+   "We can verify this solution by plugging these values back into all three equations to confirm they are satisfied."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Column picture: Ax as a linear combination of columns",
+   "bullets": [
+    "Ax represents a linear combination of the columns of A",
+    "The coefficients in the combination are the components of x",
+    "The solution x gives the weights needed to combine columns to equal b",
+    "This provides an alternative geometric interpretation to the row picture"
+   ]
+  },
+  "narr": [
+   "Now let's examine the column picture of matrix equations, which provides a complementary geometric perspective.",
+   "In the column picture, Ax represents a linear combination of the columns of matrix A, with the components of x serving as the coefficients.",
+   "Finding the solution to Ax = b means determining the weights needed to combine the columns of A to exactly equal the vector b.",
+   "This interpretation offers a different but equivalent geometric understanding of the solution to the system."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Column picture in 2D",
+   "problem": "Express the equation [2 -1; 1 1] · [x; y] = [1; 5] as a linear combination of columns and find the solution.",
+   "steps": [
+    "Write the system as a linear combination of columns",
+    "Set up the equation x · [2; 1] + y · [-1; 1] = [1; 5]",
+    "Find x and y such that the combination equals [1; 5]",
+    "Verify the solution by computing the linear combination"
+   ],
+   "result": "The solution is x = 2, y = 3, as 2 · [2; 1] + 3 · [-1; 1] = [1; 5]."
+  },
+  "narr": [
+   "Let's revisit our 2D example using the column picture. The matrix equation [2 -1; 1 1] · [x; y] = [1; 5] can be written as x · [2; 1] + y · [-1; 1] = [1; 5].",
+   "Geometrically, we're looking for scalars x and y such that when we scale the first column by x and the second column by y and add them together, we get the vector [1; 5].",
+   "Through calculation, we find that x = 2 and y = 3 satisfy this equation, as 2 · [2; 1] + 3 · [-1; 1] = [4 - 3; 2 + 3] = [1; 5].",
+   "This confirms our solution from the row picture, demonstrating the equivalence of these two perspectives."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Column picture in 3D",
+   "problem": "Express the equation [2 4 -2; 1 -6 7; 1 0 2] · [u; v; w] = [5; -2; 9] as a linear combination of columns and find the solution.",
+   "steps": [
+    "Write the system as a linear combination of columns",
+    "Set up the equation u · [2; 1; 1] + v · [4; -6; 0] + w · [-2; 7; 2] = [5; -2; 9]",
+    "Find u, v, w such that the combination equals [5; -2; 9]",
+    "Verify the solution by computing the linear combination"
+   ],
+   "result": "The solution is u = 1, v = 1, w = 2, as 1 · [2; 1; 1] + 1 · [4; -6; 0] + 2 · [-2; 7; 2] = [5; -2; 9]."
+  },
+  "narr": [
+   "Extending to three dimensions, consider the equation [2 4 -2; 1 -6 7; 1 0 2] · [u; v; w] = [5; -2; 9].",
+   "In the column picture, this becomes u · [2; 1; 1] + v · [4; -6; 0] + w · [-2; 7; 2] = [5; -2; 9].",
+   "We need to find the weights u, v, w that combine these three column vectors to equal [5; -2; 9].",
+   "Through calculation, we find that u = 1, v = 1, w = 2 satisfy this equation, confirming the solution (u, v, w) = (1, 1, 2) that we found earlier using the row picture."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

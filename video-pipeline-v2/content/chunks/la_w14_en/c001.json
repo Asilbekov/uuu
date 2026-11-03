@@ -1,0 +1,255 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this section, we'll explore several problems related to vector spans and linear independence.",
+   "Let's start with our first problem."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Vector Combination",
+   "problem": "Determine if b = \\begin{bmatrix} 5 \\\\ 1 \\\\ 4 \\end{bmatrix} can be written as b = c1 · v1 + c2 · v2 + c3 · v3, where v1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}, v2 = \\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}, v3 = \\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\end{bmatrix}.",
+   "steps": [
+    "Set up the system of equations: c1 + c3 = 5, c2 + c3 = 1, c1 + c2 = 4",
+    "Add the first two equations: c1 + c2 + 2c3 = 6",
+    "Subtract the third equation: 2c3 = 2",
+    "Solve for c3: c3 = 1",
+    "Substitute back to find c1 and c2: c1 = 4, c2 = 0"
+   ],
+   "result": "The combination exists: b = 4v1 + 0 · v2 + 1 · v3. The uniqueness of the solution also shows that the three vectors are independent."
+  },
+  "narr": [
+   "We need to determine if vector b can be expressed as a linear combination of vectors v1, v2, and v3.",
+   "This gives us a system of three equations based on the components.",
+   "By adding the first two equations and subtracting the third, we can solve for c3.",
+   "Once we have c3, we can find c1 and c2 by substitution.",
+   "The solution shows that such a combination exists, and since the solution is unique, the vectors are linearly independent."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Geometric Description of Span",
+   "problem": "Describe geometrically all vectors c· \\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}, c ∈ R; do the vectors \\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix}, \\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}, \\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix} belong to this span?",
+   "steps": [
+    "The span of a single vector is all scalar multiples of that vector",
+    "This forms a line through the origin in the direction of the vector",
+    "Check if \\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix} is in the span: solve c·(-2) = 4 and c·3 = -6",
+    "Check if \\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix} is in the span: solve c·(-2) = -2 and c·3 = 3",
+    "Check if \\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix} is in the span: solve c·(-2) = 6 and c·3 = -8"
+   ],
+   "result": "The span is the entire line through the origin in the direction (-2, 3). \\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix} belongs to the span (c = -2), \\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix} belongs to the span (c = 1), but \\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix} does not belong to the span (contradiction in values of c)."
+  },
+  "narr": [
+   "We need to describe the geometric representation of all scalar multiples of a given vector.",
+   "The span of a single vector is a line passing through the origin in the direction of that vector.",
+   "To check if other vectors belong to this span, we need to see if they can be expressed as scalar multiples of our original vector.",
+   "For the first vector, we find a consistent scalar value c that satisfies both component equations.",
+   "For the second vector, we again find a consistent scalar value.",
+   "For the third vector, we get contradictory values for c, meaning it doesn't lie on the line."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Linear Independence",
+   "problem": "Are v1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}, v2 = \\begin{bmatrix} 3 \\\\ 0 \\\\ 3 \\end{bmatrix} linearly independent? Find non-zero c1, c2 with c1v1 + c2v2 = 0 and explain geometrically.",
+   "steps": [
+    "Check if one vector is a scalar multiple of the other",
+    "Observe that v2 = 3v1",
+    "Set up the equation c1v1 + c2v2 = 0",
+    "Substitute v2 = 3v1: c1v1 + c2(3v1) = 0",
+    "Factor out v1: (c1 + 3c2)v1 = 0",
+    "Choose c1 = 3 and c2 = -1 to satisfy the equation"
+   ],
+   "result": "v2 = 3v1, so 3v1 - v2 = 0 — a non-trivial dependence (c1 = 3, c2 = -1). The vectors are dependent. Geometrically, both lie on the same line through the origin, so together they still only span this line — dependence means that one vector does not give a new direction."
+  },
+  "narr": [
+   "We need to determine if two vectors are linearly independent.",
+   "Two vectors are linearly dependent if one is a scalar multiple of the other.",
+   "In this case, we can see that v2 is exactly 3 times v1.",
+   "This means we can find non-zero coefficients c1 and c2 such that c1v1 + c2v2 = 0.",
+   "Geometrically, since both vectors lie on the same line through the origin, they don't provide independent directions in space."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Linear Independence of Three Vectors",
+   "problem": "Are v1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}, v2 = \\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}, v3 = \\begin{bmatrix} 1 \\\\ 1 \\\\ 2 \\end{bmatrix} linearly independent? If dependent, express one through a combination of the others.",
+   "steps": [
+    "Assume v3 can be expressed as a linear combination of v1 and v2: v3 = αv1 + βv2",
+    "Set up equations based on components: α = 1 (first component), β = 1 (second component)",
+    "Check consistency with third component: α + β = 1 + 1 = 2",
+    "Verify that this matches the third component of v3",
+    "Conclude that v3 = v1 + v2"
+   ],
+   "result": "v3 = v1 + v2, a non-trivial dependence exists, and the set is dependent. Only two independent directions are present; the span is a plane."
+  },
+  "narr": [
+   "We need to determine if three vectors are linearly independent.",
+   "We can check if one vector can be expressed as a linear combination of the others.",
+   "By setting up equations based on the components, we can solve for the coefficients.",
+   "In this case, we find consistent values that express v3 as a combination of v1 and v2.",
+   "This means the three vectors are linearly dependent and only span a plane in 3D space."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — Spanning R²",
+   "problem": "Let v1 = \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}, v2 = \\begin{bmatrix} 3 \\\\ 1 \\end{bmatrix}. (1) Do they span R²? (2) For b = \\begin{bmatrix} b1 \\\\ b2 \\end{bmatrix} find c1, c2 with c1v1 + c2v2 = b. (3) Express b = \\begin{bmatrix} 7 \\\\ 4 \\end{bmatrix} using the formula.",
+   "steps": [
+    "Set up the system: c1 + 3c2 = b1, 2c1 + c2 = b2",
+    "Solve for c1 in terms of c2: c1 = b1 - 3c2",
+    "Substitute into second equation: 2(b1 - 3c2) + c2 = b2",
+    "Solve for c2: c2 = (2b1 - b2)/5",
+    "Find c1: c1 = (-b1 + 3b2)/5",
+    "Apply to specific case: c1 = (-7 + 12)/5 = 1, c2 = (14 - 4)/5 = 2"
+   ],
+   "result": "(1) The formulas are defined for any (b1, b2), so yes, the two vectors span R². (2) c1 = (-b1 + 3b2)/5, c2 = (2b1 - b2)/5. (3) b = v1 + 2v2."
+  },
+  "narr": [
+   "We need to determine if two vectors can span the entire R² space.",
+   "To check this, we see if we can express any vector b as a linear combination of v1 and v2.",
+   "Setting up the system of equations, we can solve for the coefficients c1 and c2 in terms of b1 and b2.",
+   "Since we can find formulas for c1 and c2 that work for any b1 and b2, the vectors do span R².",
+   "For a specific vector b, we can use these formulas to find the exact coefficients."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 16 — Dependent Vectors",
+   "problem": "Let u1 = \\begin{bmatrix} -1 \\\\ 2 \\end{bmatrix}, u2 = \\begin{bmatrix} -6 \\\\ 3 \\end{bmatrix}. (1) Do they span R²? (2) Describe span{u1, u2} geometrically; (3) do the vectors \\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix} and \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix} belong to it?",
+   "steps": [
+    "Note that u2 = 6u1 (in the standard version u2 = 3u1)",
+    "Since u2 is a scalar multiple of u1, the span is only span{u1}",
+    "Geometrically, this is a single line through the origin in the direction (-1, 2)",
+    "Check if \\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix} belongs to the span: solve -c = 8 and 2c = -4",
+    "Check if \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix} belongs to the span: solve -c = 1 and 2c = 2"
+   ],
+   "result": "u2 = 3u1, so the span is only span{u1}. Geometrically it is the single line through the origin in the direction (-1, 2). Neither \\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix} nor \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix} belong to the span (both give contradictory values for c)."
+  },
+  "narr": [
+   "We have two vectors where one is a scalar multiple of the other.",
+   "This means they are linearly dependent and only span a one-dimensional subspace.",
+   "Geometrically, this is a line through the origin in the direction of the vectors.",
+   "To check if other vectors belong to this span, we need to see if they can be expressed as scalar multiples.",
+   "For both test vectors, we get contradictory values for the scalar, so they don't belong to the span."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 17 — Spanning R³",
+   "problem": "Let v1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}, v2 = \\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}, v3 = \\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\end{bmatrix}. (1) Solve c1v1 + c2v2 + c3v3 = b for an arbitrary b = \\begin{bmatrix} b1 \\\\ b2 \\\\ b3 \\end{bmatrix}; (2) explain why the three vectors span R³; (3) express b = \\begin{bmatrix} 4 \\\\ 2 \\\\ 6 \\end{bmatrix}.",
+   "steps": [
+    "Set up the system: c1 + c3 = b1, c2 + c3 = b2, c1 + c2 = b3",
+    "Add all three equations: 2(c1 + c2 + c3) = b1 + b2 + b3",
+    "Solve for c1: c1 = (b1 - b2 + b3)/2",
+    "Solve for c2: c2 = (-b1 + b2 + b3)/2",
+    "Solve for c3: c3 = (b1 + b2 - b3)/2",
+    "Apply to specific case: c1 = 4, c2 = 2, c3 = 0"
+   ],
+   "result": "(1) c1 = (b1 - b2 + b3)/2, c2 = (-b1 + b2 + b3)/2, c3 = (b1 + b2 - b3)/2. (2) A solution exists and is unique for every right-hand side, so the span is all of R³ (and the vectors are independent). (3) b = 4v1 + 2v2."
+  },
+  "narr": [
+   "We need to solve for the coefficients that express an arbitrary vector b as a linear combination of three given vectors.",
+   "Setting up the system of equations based on components, we can solve for c1, c2, and c3.",
+   "By adding all three equations, we can find a relationship that helps us solve for each coefficient.",
+   "Since we can find unique coefficients for any b, the three vectors span the entire R³ space.",
+   "For a specific vector, we can use these formulas to find the exact coefficients."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 18 — Resultant Force and Equilibrium",
+   "problem": "Three forces act on a part: F1 = \\begin{bmatrix} 40 \\\\ -15 \\\\ -20 \\end{bmatrix} N, F2 = \\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\end{bmatrix} N, F3 = \\begin{bmatrix} 10 \\\\ 25 \\\\ -5 \\end{bmatrix} N. (1) Find the resultant force; (2) find F4 that brings the part into equilibrium: F1 + F2 + F3 + F4 = 0.",
+   "steps": [
+    "Add the given forces component-wise to find the resultant",
+    "Calculate F1 + F2 + F3 = \\begin{bmatrix} 40 + 0 + 10 \\\\ -15 + 0 + 25 \\\\ -20 + 0 - 5 \\end{bmatrix} = \\begin{bmatrix} 50 \\\\ 10 \\\\ -25 \\end{bmatrix}",
+    "For equilibrium, the sum of all forces must be zero",
+    "Solve for F4: F4 = -(F1 + F2 + F3)",
+    "Calculate F4 = \\begin{bmatrix} -50 \\\\ -10 \\\\ 25 \\end{bmatrix}"
+   ],
+   "result": "(1) The resultant force is \\begin{bmatrix} 50 \\\\ 10 \\\\ -25 \\end{bmatrix} N. (2) The force that brings the system into equilibrium is \\begin{bmatrix} -50 \\\\ -10 \\\\ 25 \\end{bmatrix} N."
+  },
+  "narr": [
+   "We have three forces acting on a part, and we need to find their resultant.",
+   "The resultant force is simply the vector sum of all the individual forces.",
+   "For the system to be in equilibrium, the sum of all forces must be zero.",
+   "This means we need to find a fourth force that cancels out the resultant of the first three.",
+   "This equilibrium force is simply the negative of the resultant force."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

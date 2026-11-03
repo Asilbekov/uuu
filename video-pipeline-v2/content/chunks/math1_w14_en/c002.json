@@ -1,0 +1,411 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I",
+   "subtitle": "Weeks 1-4"
+  },
+  "narr": [
+   "Welcome to our exploration of fundamental mathematical concepts. We'll start with complex numbers and work through various problem types that build mathematical intuition.",
+   "Let's begin with our first example involving complex numbers and De Moivre's theorem."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Complex Number Power",
+   "problem": "Compute $(\\sqrt{3} + i)^4$ using De Moivre's theorem and verify algebraically.",
+   "steps": [
+    "Convert to polar form: $r = |\\sqrt{3} + i| = \\sqrt{3 + 1} = 2$, $\\theta = \\arctan(1/\\sqrt{3}) = \\pi/6$",
+    "Apply De Moivre's theorem: $(\\sqrt{3} + i)^4 = 2^4(\\cos(4 \\cdot \\pi/6) + i \\sin(4 \\cdot \\pi/6))$",
+    "Simplify: $16(\\cos(2\\pi/3) + i \\sin(2\\pi/3)) = 16(-\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i) = -8 + 8\\sqrt{3}i$",
+    "Algebraic verification: $(\\sqrt{3} + i)^2 = 3 + 2\\sqrt{3}i + i^2 = 2 + 2\\sqrt{3}i$",
+    "Square again: $(2 + 2\\sqrt{3}i)^2 = 4 + 8\\sqrt{3}i + 12i^2 = -8 + 8\\sqrt{3}i$"
+   ],
+   "result": "Both methods yield $-8 + 8\\sqrt{3}i$"
+  },
+  "narr": [
+   "Our first challenge involves raising a complex number to the fourth power. We can approach this in two ways: using De Moivre's theorem with polar form, or through direct algebraic expansion.",
+   "First, we convert the complex number to polar form by finding its magnitude and argument.",
+   "With the polar form, we can apply De Moivre's theorem, which states that $(r(\\cos\\theta + i\\sin\\theta))^n = r^n(\\cos(n\\theta) + i\\sin(n\\theta))$.",
+   "Simplifying the trigonometric expressions gives us our result.",
+   "For verification, we can square the complex number directly, then square the result again.",
+   "As we see, both methods agree, confirming our answer."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Cube Roots of a Complex Number",
+   "problem": "Find all solutions to $z^3 = -8$ and plot them on the complex plane.",
+   "steps": [
+    "Express $-8$ in polar form: $-8 = 8e^{i(\\pi + 2k\\pi)}$",
+    "Find the modulus of the cube roots: $8^{1/3} = 2$",
+    "Find the arguments: $(\\pi + 2k\\pi)/3$ for $k = 0, 1, 2$",
+    "Calculate the three roots: $z_0 = 2e^{i\\pi/3} = 1 + \\sqrt{3}i$, $z_1 = 2e^{i\\pi} = -2$, $z_2 = 2e^{i5\\pi/3} = 1 - \\sqrt{3}i$",
+    "Note that these are equally spaced points on a circle of radius 2"
+   ],
+   "result": "The solutions are $1 + \\sqrt{3}i$, $-2$, and $1 - \\sqrt{3}i$"
+  },
+  "narr": [
+   "Next, we find all solutions to the equation $z^3 = -8$. This means we're looking for the cube roots of $-8$ in the complex plane.",
+   "First, we express $-8$ in polar form, which helps us find the roots using the formula for roots of complex numbers.",
+   "The modulus of each root is the cube root of the original modulus, which is 2 in this case.",
+   "The arguments are given by dividing the original argument by 3 and adding multiples of $2\\pi/3$ to get all distinct roots.",
+   "This gives us three solutions that are equally spaced around a circle of radius 2 in the complex plane.",
+   "Geometrically, we can see that only one of these roots is real, which makes sense since $(-2)^3 = -8$."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Number Sets",
+   "problem": "For each number, specify the smallest set from N, Z, Q, R, C to which it belongs: $0, -7, \\frac{5}{8}, 3.25, \\sqrt{16}, \\sqrt{7}, \\sqrt{-9}, \\pi, \\pi^2, i, 4-3i$.",
+   "steps": [
+    "$0 \\in \\mathbb{N}$ (by course convention)",
+    "$-7 \\in \\mathbb{Z}$",
+    "$\\frac{5}{8}$ and $3.25 = \\frac{13}{4}$ are in $\\mathbb{Q}$ (finite decimal fractions)",
+    "$\\sqrt{16} = 4 \\in \\mathbb{N}$",
+    "$\\sqrt{7}$ is irrational (7 is not a perfect square) $\\Rightarrow \\mathbb{R}$",
+    "$\\sqrt{-9} = -3 \\in \\mathbb{Z}$"
+   ]
+  },
+  "narr": [
+   "Now we turn to classifying numbers into different sets: natural numbers, integers, rationals, reals, and complexes.",
+   "Starting with 0, which by our course convention is considered a natural number.",
+   "Negative integers like -7 belong to the set of integers but not natural numbers.",
+   "Fractions like 5/8 and decimals like 3.25 are rational numbers.",
+   "Square roots of perfect squares like √16 are integers, and thus also natural numbers.",
+   "However, square roots of non-perfect squares like √7 are irrational numbers.",
+   "Negative numbers under the square root become imaginary, but their principal square roots can be real, like √-9 = -3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Number Sets (cont.)",
+   "problem": "",
+   "steps": [
+    "$\\pi$ and $\\pi^2$ are irrational $\\Rightarrow \\mathbb{R}$",
+    "$i$ and $4-3i$ are non-real $\\Rightarrow$ only $\\mathbb{C}$"
+   ],
+   "result": "Each number belongs to the smallest set as specified in the solution."
+  },
+  "narr": [
+   "Both π and π² are irrational numbers that cannot be expressed as fractions.",
+   "Finally, purely imaginary numbers like i and complex numbers like 4-3i belong to the set of complex numbers."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Set Inclusions",
+   "problem": "True or false? Correct each false statement: (1) $\\mathbb{N} \\subseteq \\mathbb{Z}$; (2) $\\mathbb{Z} \\subseteq \\mathbb{Q}$; (3) $\\mathbb{R} \\subseteq \\mathbb{Q}$; (4) $\\mathbb{Q} \\subseteq \\mathbb{R}$; (5) $\\mathbb{R} \\subseteq \\mathbb{C}$; (6) every integer is natural; (7) every rational number is real; (8) every complex number is real; (9) every real number can be written as a complex number; (10) a number cannot be both rational and real.",
+   "steps": [
+    "(1) True - Natural numbers are a subset of integers",
+    "(2) True - Integers are a subset of rationals",
+    "(3) False - For example, $\\sqrt{2} \\in \\mathbb{R}$, but $\\sqrt{2} \\notin \\mathbb{Q}$; the correct inclusion is $\\mathbb{Q} \\subseteq \\mathbb{R}$",
+    "(4) True - Rational numbers are a subset of reals",
+    "(5) True - Real numbers are a subset of complex numbers",
+    "(6) False - Negative integers, for example -3, are not natural"
+   ]
+  },
+  "narr": [
+   "Let's explore the relationships between different number sets through true/false questions.",
+   "First, we know that natural numbers are indeed a subset of integers - this is true.",
+   "Similarly, integers are a subset of rational numbers, which is also true.",
+   "However, real numbers are not a subset of rational numbers - this is false. The correct relationship is that rationals are a subset of reals.",
+   "Rational numbers are indeed a subset of real numbers.",
+   "Real numbers are a subset of complex numbers, as any real number can be written as a complex number with imaginary part zero.",
+   "Not every integer is natural - negative integers are integers but not natural numbers."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Set Inclusions (cont.)",
+   "problem": "",
+   "steps": [
+    "(7) True - All rational numbers are real",
+    "(8) False - For example, $i$ is complex but not real",
+    "(9) True - $a = a + 0i$",
+    "(10) False - Every rational number is real (statement (4)), so rational numbers are both"
+   ],
+   "result": "Statements (1), (2), (4), (5), (7), (9) are true; statements (3), (6), (8), (10) are false with corrections provided."
+  },
+  "narr": [
+   "Every rational number is indeed a real number.",
+   "Not every complex number is real - imaginary numbers like i are complex but not real.",
+   "Every real number can be written as a complex number with imaginary part zero.",
+   "Finally, numbers can be both rational and real - in fact, all rational numbers are real."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Set Visualization",
+   "problem": "Draw a diagram of nested sets $\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R} \\subset \\mathbb{C}$ and place $\\sqrt{5}, -2, \\frac{2}{3}, 2, \\pi, -4i, 3+2i$ in the correct regions.",
+   "steps": [
+    "Draw five nested ovals labeled $\\mathbb{N}$ (innermost) to $\\mathbb{C}$ (outermost)",
+    "Place $\\sqrt{5} \\in \\mathbb{R} \\setminus \\mathbb{Q}$",
+    "Place $-2 \\in \\mathbb{Z} \\setminus \\mathbb{N}$",
+    "Place $\\frac{2}{3} \\in \\mathbb{Q} \\setminus \\mathbb{Z}$",
+    "Place $2 \\in \\mathbb{N}$",
+    "Place $\\pi \\in \\mathbb{R} \\setminus \\mathbb{Q}$",
+    "Place $-4i$ and $3+2i \\in \\mathbb{C} \\setminus \\mathbb{R}$"
+   ],
+   "result": "The diagram visually shows the nested nature of number sets and where each number belongs."
+  },
+  "narr": [
+   "Now we visualize the relationships between number sets by drawing a diagram of nested sets.",
+   "We start by drawing five concentric ovals, with the innermost labeled N for natural numbers and the outermost C for complex numbers.",
+   "√5 is an irrational number, so it belongs to the reals but not the rationals.",
+   "-2 is a negative integer, so it belongs to the integers but not the natural numbers.",
+   "2/3 is a fraction that's not an integer, so it belongs to the rationals but not the integers.",
+   "2 is a natural number, so it belongs to the innermost set.",
+   "π is also an irrational number, so like √5, it belongs to the reals but not the rationals.",
+   "-4i and 3+2i are non-real complex numbers, so they belong to the complex numbers but not the reals."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Ordering Numbers",
+   "problem": "Arrange in increasing order: $-\\sqrt{5}, -2, -\\frac{3}{2}, 0, 2, \\frac{3}{2}, \\frac{\\pi}{2}$; justify non-obvious comparisons.",
+   "steps": [
+    "For negative numbers, the order is reversed: $-\\sqrt{5} \\approx -2.236 < -2 < -\\frac{3}{2}$",
+    "For positive numbers, compare by squaring: $\\left(\\frac{\\sqrt{3}}{2}\\right)^2 = \\frac{3}{4} = 0.75$",
+    "Since $\\frac{\\pi}{2} \\approx 1.5708$ and $\\frac{3}{2} = 1.5$, we have $\\frac{3}{2} < \\frac{\\pi}{2}$",
+    "Combine all parts: $-\\sqrt{5} < -2 < -\\frac{3}{2} < 0 < \\frac{\\sqrt{3}}{2} < \\frac{3}{2} < \\frac{\\pi}{2}$"
+   ],
+   "result": "$-\\sqrt{5} < -2 < -\\frac{3}{2} < 0 < 2 < \\frac{3}{2} < \\frac{\\pi}{2}$"
+  },
+  "narr": [
+   "Let's arrange these numbers in increasing order. For negative numbers, remember that the larger magnitude means the smaller value.",
+   "So -√5 ≈ -2.236 is less than -2, which is less than -3/2.",
+   "For positive numbers, we can compare them by squaring when it's not immediately obvious.",
+   "We find that √3/2 ≈ 0.866, and since π/2 ≈ 1.5708 is greater than 3/2 = 1.5, we have our ordering.",
+   "Putting it all together gives us the complete increasing order of these numbers."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Interval Notation",
+   "problem": "Write each set in interval notation: (1) $-3 \\leq x < 4$; (2) $x > 2$; (3) $x \\leq -1$; (4) $-2 < x \\leq 5$; (5) $x \\neq 3$; then graph each on the number line.",
+   "steps": [
+    "(1) $[-3, 4)$ - closed bracket at -3 (included), open parenthesis at 4 (not included)",
+    "(2) $(2, \\infty)$ - open parenthesis at 2, extends to infinity",
+    "(3) $(-\\infty, -1]$ - extends to negative infinity, closed bracket at -1",
+    "(4) $(-2, 5]$ - open parenthesis at -2, closed bracket at 5",
+    "(5) $(-\\infty, 3) \\cup (3, \\infty)$ - all numbers except 3"
+   ],
+   "result": "Each interval is written in standard notation and can be graphed with appropriate open/closed points."
+  },
+  "narr": [
+   "Now we practice converting inequalities to interval notation and representing them on number lines.",
+   "For -3 ≤ x < 4, we use a closed bracket at -3 since it's included, and an open parenthesis at 4 since it's not included.",
+   "For x > 2, we have an open parenthesis at 2 and extend to infinity.",
+   "For x ≤ -1, we extend to negative infinity and use a closed bracket at -1.",
+   "For -2 < x ≤ 5, we use an open parenthesis at -2 and a closed bracket at 5.",
+   "For x ≠ 3, we need to exclude 3, so we write the union of two intervals: from negative infinity to 3 and from 3 to infinity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Interval to Inequality",
+   "problem": "Write each interval as an inequality: a. $[-2, 5)$; b. $(-\\infty, 4]$; c. $(1, \\infty)$; d. $(-3, 0] \\cup [2, 6)$; e. $\\mathbb{R} \\setminus [-1, 1]$.",
+   "steps": [
+    "a. $-2 \\leq x < 5$ - includes -2, excludes 5",
+    "b. $x \\leq 4$ - all numbers up to and including 4",
+    "c. $x > 1$ - all numbers greater than 1",
+    "d. $-3 < x \\leq 0$ or $2 \\leq x < 6$ - union of two intervals",
+    "e. $x < -1$ or $x > 1$ - all numbers except those between -1 and 1 inclusive; equivalently $|x| > 1$"
+   ],
+   "result": "Each interval is converted to its corresponding inequality representation."
+  },
+  "narr": [
+   "Let's reverse the process by converting interval notation back to inequalities.",
+   "For [-2, 5), we have -2 ≤ x < 5, where -2 is included but 5 is not.",
+   "For (-∞, 4], we have x ≤ 4, which includes all numbers up to and including 4.",
+   "For (1, ∞), we have x > 1, which includes all numbers greater than 1.",
+   "For (-3, 0] ∪ [2, 6), we have two separate intervals: -3 < x ≤ 0 and 2 ≤ x < 6.",
+   "For R \\ [-1, 1], we need all numbers except those between -1 and 1 inclusive, which can be written as x < -1 or x > 1, or equivalently |x| > 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Distance on the Number Line",
+   "problem": "With $d(a, b) = |a - b|$: compute $d(3, 8)$, $d(-2, 5)$, $d(-4, -9)$, $d(2, 8)$; check $d(a, c) \\leq d(a, b) + d(b, c)$ for $a = -3$, $b = 2$, $c = 7$.",
+   "steps": [
+    "$d(3, 8) = |3 - 8| = 5$",
+    "$d(-2, 5) = |-2 - 5| = 7$",
+    "$d(-4, -9) = |-4 - (-9)| = 5$",
+    "$d(2, 8) = |2 - 8| = 6$",
+    "Check triangle inequality: $d(-3, 7) = |-3 - 7| = 10$",
+    "$d(-3, 2) + d(2, 7) = |-3 - 2| + |2 - 7| = 5 + 5 = 10$",
+    "Indeed $10 \\leq 10$ (equality, since the points lie in order on a straight line)"
+   ],
+   "result": "All distances computed, and the triangle inequality holds with equality for colinear points."
+  },
+  "narr": [
+   "Now we explore the concept of distance on the number line using the absolute value function.",
+   "The distance between two points a and b is given by d(a, b) = |a - b|.",
+   "For d(3, 8), we calculate |3 - 8| = 5.",
+   "For d(-2, 5), we calculate |-2 - 5| = 7.",
+   "For d(-4, -9), we calculate |-4 - (-9)| = 5.",
+   "For d(2, 8), we calculate |2 - 8| = 6.",
+   "Next, we verify the triangle inequality: d(a, c) ≤ d(a, b) + d(b, c) for a = -3, b = 2, c = 7.",
+   "We find that d(-3, 7) = 10 and d(-3, 2) + d(2, 7) = 5 + 5 = 10, so equality holds.",
+   "This makes sense because the points lie in order on a straight line, which is when equality occurs in the triangle inequality."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Rational and Irrational Numbers",
+   "problem": "Determine whether each number is rational or irrational; justify: a. $\\sqrt{49}$; b. $\\sqrt{18}$; c. $\\sqrt{3} + \\sqrt{2}$; d. $\\sqrt{2} \\cdot \\sqrt{5}$; e. $\\sqrt{2} + \\sqrt{8}$; f. $(\\sqrt{3})^2$; g. $(1 + \\sqrt{2})(1 - \\sqrt{2})$; h. $\\sqrt{12}$.",
+   "steps": [
+    "a. $\\sqrt{49} = 7$ - rational (perfect square)",
+    "b. $\\sqrt{18} = 3\\sqrt{2}$ - irrational (simplifies to integer times irrational)",
+    "c. $\\sqrt{3} + \\sqrt{2}$ - irrational (sum of distinct irrationals)",
+    "d. $\\sqrt{2} \\cdot \\sqrt{5} = \\sqrt{10}$ - irrational (product of distinct primes under square root)",
+    "e. $\\sqrt{2} + \\sqrt{8} = \\sqrt{2} + 2\\sqrt{2} = 3\\sqrt{2}$ - irrational (simplifies to integer times irrational)",
+    "f. $(\\sqrt{3})^2 = 3$ - rational (square of irrational can be rational)"
+   ]
+  },
+  "narr": [
+   "Finally, we determine whether various numbers are rational or irrational and justify our answers.",
+   "For √49, we get 7, which is a perfect square and therefore rational.",
+   "For √18, we simplify to 3√2, which is an integer times an irrational number, making it irrational.",
+   "For √3 + √2, we have the sum of two distinct irrational numbers, which is irrational.",
+   "For √2 · √5, we get √10, which is the square root of a non-perfect square, making it irrational.",
+   "For √2 + √8, we simplify to 3√2, which is an integer times an irrational number, making it irrational.",
+   "For (√3)², we get 3, which is rational - the square of an irrational number can be rational."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Rational and Irrational Numbers (cont.)",
+   "problem": "",
+   "steps": [
+    "g. $(1 + \\sqrt{2})(1 - \\sqrt{2}) = 1 - 2 = -1$ - rational (difference of squares)",
+    "h. $\\sqrt{12} = 2\\sqrt{3}$ - irrational (simplifies to integer times irrational)"
+   ],
+   "result": "a. Rational, b. Irrational, c. Irrational, d. Irrational, e. Irrational, f. Rational, g. Rational, h. Irrational"
+  },
+  "narr": [
+   "For (1 + √2)(1 - √2), we use the difference of squares to get -1, which is rational.",
+   "For √12, we simplify to 2√3, which is an integer times an irrational number, making it irrational."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ }
+]

@@ -1,0 +1,565 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this section, we'll explore the concept of continuity in functions, including definitions, examples, and applications of important theorems.",
+   "Let's begin by understanding what it means for a function to be continuous."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Continuity of Functions",
+   "bullets": [
+    "A function is continuous at a point if three conditions are met:",
+    "1. The function is defined at that point",
+    "2. The limit exists at that point",
+    "3. The limit equals the function value",
+    "Continuity is preserved under composition and combination of continuous functions",
+    "Common types of discontinuities: removable, jump, infinite"
+   ]
+  },
+  "narr": [
+   "Continuity is a fundamental concept in calculus that describes how smoothly a function behaves.",
+   "For a function to be continuous at a point, three conditions must be satisfied.",
+   "First, the function must be defined at that point.",
+   "Second, the limit must exist at that point.",
+   "Third, the limit must equal the function value.",
+   "When we combine continuous functions through addition, subtraction, multiplication, or composition, the resulting function remains continuous.",
+   "There are different types of discontinuities that can occur, including removable discontinuities (like a hole in the graph), jump discontinuities, and infinite discontinuities."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Continuity of an Exponential Model",
+   "problem": "Explain the continuity of the model T(t) = 20 + 50 · e^(-0.2·t²).",
+   "steps": [
+    "Identify the components of the function",
+    "Verify each component is continuous",
+    "Apply continuity preservation rules"
+   ],
+   "result": "T(t) is continuous since it is formed by composition and combination of continuous functions: t² is continuous, e^(-0.2·t²) is a composition of the continuous exponential with a continuous function, adding the constant 20 preserves continuity."
+  },
+  "narr": [
+   "Let's examine our first example involving continuity.",
+   "We need to explain why the function T(t) = 20 + 50 · e^(-0.2·t²) is continuous.",
+   "First, let's identify the components of this function.",
+   "We have a constant term 20, a coefficient 50, and an exponential function with argument -0.2·t².",
+   "The function t² is continuous everywhere as it's a polynomial.",
+   "The exponential function e^x is continuous everywhere.",
+   "The composition e^(-0.2·t²) is therefore continuous as it's a composition of continuous functions.",
+   "Multiplying by the constant 50 preserves continuity.",
+   "Adding the constant 20 also preserves continuity.",
+   "Therefore, T(t) is continuous everywhere as it's formed by composition and combination of continuous functions."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Discontinuity by Definition",
+   "problem": "Determine by definition whether the function f(x) = (x² - 4)/(x - 2) is continuous at the point x = 2.",
+   "steps": [
+    "Check if f(2) is defined",
+    "Calculate the limit as x approaches 2",
+    "Compare the function value and limit"
+   ],
+   "result": "f(x) = (x² - 4)/(x - 2) is discontinuous at the point 2, since f(2) is undefined (the first condition of continuity is violated; on the graph — a line with a 'hole'). The discontinuity is removable — defining f(2) = 4 makes the function continuous."
+  },
+  "narr": [
+   "Now let's look at an example where we need to determine continuity by definition.",
+   "Consider the function f(x) = (x² - 4)/(x - 2) at the point x = 2.",
+   "First, we need to check if f(2) is defined.",
+   "When we substitute x = 2, we get (2² - 4)/(2 - 2) = 0/0, which is undefined.",
+   "Since the function is not defined at x = 2, the first condition of continuity is violated.",
+   "For x ≠ 2, we can simplify f(x) = (x² - 4)/(x - 2) = x + 2.",
+   "The limit as x approaches 2 of f(x) is therefore 4.",
+   "Even though the limit exists, the function is still discontinuous at x = 2 because it's not defined there.",
+   "This is an example of a removable discontinuity. If we define f(2) = 4, the function becomes continuous."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Jump Discontinuity",
+   "problem": "Determine by definition whether the function f(x) = {-x² + 4, if x ≤ 3; 4x - 8, if x > 3} is continuous at the point x = 3.",
+   "steps": [
+    "Check if f(3) is defined",
+    "Calculate the left-hand limit as x approaches 3",
+    "Calculate the right-hand limit as x approaches 3",
+    "Compare the limits and function value"
+   ],
+   "result": "f(x) is not continuous at the point 3 (the second condition is violated; on the graph — a jump)."
+  },
+  "narr": [
+   "Let's examine another example of continuity, this time with a piecewise function.",
+   "Consider f(x) = {-x² + 4, if x ≤ 3; 4x - 8, if x > 3} at x = 3.",
+   "First, we check if f(3) is defined. Using the first piece, f(3) = -3² + 4 = -5.",
+   "Next, we calculate the left-hand limit as x approaches 3: lim(x→3⁻) f(x) = -3² + 4 = -5.",
+   "Now, we calculate the right-hand limit as x approaches 3: lim(x→3⁺) f(x) = 4·3 - 8 = 4.",
+   "Since the left-hand limit (-5) and right-hand limit (4) are not equal, the limit as x approaches 3 does not exist.",
+   "Therefore, the second condition of continuity is violated, and f(x) is not continuous at x = 3.",
+   "This creates a jump discontinuity in the graph of the function."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Continuity at a Point",
+   "problem": "Determine whether the function f(x) = {sin(x)/x, if x ≠ 0; 1, if x = 0} is continuous at the point x = 0.",
+   "steps": [
+    "Check if f(0) is defined",
+    "Calculate the limit as x approaches 0",
+    "Compare the function value and limit"
+   ],
+   "result": "All three conditions of the definition of continuity are satisfied, therefore f(x) is continuous at the point x = 0."
+  },
+  "narr": [
+   "Now let's examine a function that appears to have a discontinuity but is actually continuous.",
+   "Consider f(x) = {sin(x)/x, if x ≠ 0; 1, if x = 0} at x = 0.",
+   "First, we check if f(0) is defined. By definition, f(0) = 1.",
+   "Next, we calculate the limit as x approaches 0 of f(x). For x ≠ 0, f(x) = sin(x)/x.",
+   "We know that lim(x→0) sin(x)/x = 1, which is a standard limit result.",
+   "Now, we compare f(0) and the limit: f(0) = 1 = lim(x→0) f(x).",
+   "All three conditions of continuity are satisfied: the function is defined at 0, the limit exists at 0, and they are equal.",
+   "Therefore, f(x) is continuous at x = 0, despite the apparent discontinuity in the formula."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Continuity of Rational Functions",
+   "problem": "For which x is the rational function f(x) = (x + 1)/(x - 5) continuous?",
+   "steps": [
+    "Identify the type of function",
+    "Find where the function is undefined",
+    "Determine continuity based on the domain"
+   ],
+   "result": "The rational function f(x) = (x + 1)/(x - 5) is continuous for all values of x, except x = 5 (where the denominator becomes zero)."
+  },
+  "narr": [
+   "Let's now examine the continuity of rational functions.",
+   "Consider f(x) = (x + 1)/(x - 5).",
+   "This is a rational function, which is a ratio of two polynomials.",
+   "Rational functions are continuous everywhere in their domain.",
+   "The domain of a rational function excludes values where the denominator equals zero.",
+   "For our function, the denominator x - 5 = 0 when x = 5.",
+   "Therefore, f(x) is continuous for all real numbers except x = 5.",
+   "At x = 5, the function has an infinite discontinuity."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Intervals of Continuity for Rational Functions",
+   "problem": "Specify the intervals of continuity of the function f(x) = (x - 1)/(x² + 2x).",
+   "steps": [
+    "Identify the type of function",
+    "Find the domain by setting the denominator ≠ 0",
+    "Factor the denominator",
+    "Solve for x where denominator = 0",
+    "Determine intervals of continuity"
+   ],
+   "result": "Since f is a rational function, it is continuous at every point of its domain. The domain: the denominator x² + 2x = x · (x + 2) ≠ 0, that is, x ≠ 0 and x ≠ -2. Thus, f is continuous on each of the intervals (-∞, -2), (-2, 0) and (0, +∞)."
+  },
+  "narr": [
+   "Let's find the intervals of continuity for another rational function.",
+   "Consider f(x) = (x - 1)/(x² + 2x).",
+   "As a rational function, f is continuous at every point of its domain.",
+   "To find the domain, we need to determine where the denominator is not zero.",
+   "Factor the denominator: x² + 2x = x(x + 2).",
+   "Set the denominator equal to zero: x(x + 2) = 0, which gives x = 0 or x = -2.",
+   "Therefore, the domain excludes x = 0 and x = -2.",
+   "The function is continuous on the intervals (-∞, -2), (-2, 0), and (0, +∞)."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Continuity of Square Root Functions",
+   "problem": "Specify the intervals of continuity of the function f(x) = √(4 - x²).",
+   "steps": [
+    "Identify the type of function",
+    "Find the domain by setting the expression under the root ≥ 0",
+    "Evaluate limits at endpoints",
+    "Determine continuity on the interval"
+   ],
+   "result": "f(x) is continuous on the entire interval [-2, 2]."
+  },
+  "narr": [
+   "Now let's examine the continuity of a square root function.",
+   "Consider f(x) = √(4 - x²).",
+   "For the square root to be defined, the expression inside must be non-negative.",
+   "So we need 4 - x² ≥ 0, which gives x² ≤ 4, or -2 ≤ x ≤ 2.",
+   "By the laws of limits, lim(x→a) √(4 - x²) = √(4 - a²) for all a in (-2, 2).",
+   "Additionally, the one-sided limits at the endpoints exist: lim(x→-2⁺) √(4 - x²) = 0 and lim(x→2⁻) √(4 - x²) = 0.",
+   "Therefore, f(x) is continuous on the entire interval [-2, 2]."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Limit of a Composite Function",
+   "problem": "Calculate lim(x→π/2) cos(x - π/2).",
+   "steps": [
+    "Identify the composition of functions",
+    "Evaluate the inner limit",
+    "Apply the continuity of the outer function"
+   ],
+   "result": "lim(x→π/2) cos(x - π/2) = cos(lim(x→π/2)(x - π/2)) = cos(0) = 1."
+  },
+  "narr": [
+   "Let's calculate a limit involving a composite function.",
+   "We need to find lim(x→π/2) cos(x - π/2).",
+   "This function is a composition of cos(x) and (x - π/2).",
+   "First, we evaluate the limit of the inner function: lim(x→π/2)(x - π/2) = 0.",
+   "Since cos(x) is continuous at 0, we can apply the theorem on composite functions.",
+   "This allows us to bring the limit inside: lim(x→π/2) cos(x - π/2) = cos(lim(x→π/2)(x - π/2)).",
+   "Substituting our earlier result: cos(0) = 1.",
+   "Therefore, the limit is 1."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Intermediate Value Theorem Application",
+   "problem": "Show that f(x) = x - cos(x) has at least one zero.",
+   "steps": [
+    "Verify the function is continuous",
+    "Find an interval [a, b] where f(a) and f(b) have opposite signs",
+    "Apply the Intermediate Value Theorem"
+   ],
+   "result": "By IVT there exists a real number c ∈ [0, π/2] for which f(c) = 0. Therefore, f(x) = x - cos(x) has at least one zero."
+  },
+  "narr": [
+   "Now let's apply the Intermediate Value Theorem to show that a function has a zero.",
+   "Consider f(x) = x - cos(x).",
+   "First, we verify that f is continuous on (-∞, +∞), which it is since both x and cos(x) are continuous everywhere.",
+   "To apply the IVT, we need to find an interval [a, b] where f(a) and f(b) have opposite signs.",
+   "Let's try a = 0: f(0) = 0 - cos(0) = -1 < 0.",
+   "Now let's try b = π/2: f(π/2) = π/2 - cos(π/2) = π/2 > 0.",
+   "Since f(0) < 0 and f(π/2) > 0, and f is continuous on [0, π/2], the IVT guarantees there exists a c in (0, π/2) such that f(c) = 0.",
+   "Therefore, f(x) = x - cos(x) has at least one zero."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Misapplication of the Intermediate Value Theorem",
+   "problem": "Let f(x) be continuous on [0, 2], with f(0) > 0 and f(2) > 0. Can we conclude by the Intermediate Value Theorem that f(x) has no zeros on [0, 2]?",
+   "steps": [
+    "Recall the statement of the Intermediate Value Theorem",
+    "Identify what the theorem does and does not guarantee",
+    "Provide a counterexample"
+   ],
+   "result": "No. The Intermediate Value Theorem only allows us to conclude that f takes all values between f(0) and f(2); it does not allow us to conclude that f does not take other values. Counterexample: f(x) = (x - 1)² satisfies f(0) = 1 > 0, f(2) = 1 > 0, but f(1) = 0 — there is a zero on the interval."
+  },
+  "narr": [
+   "Let's consider a common misconception about the Intermediate Value Theorem.",
+   "Suppose f(x) is continuous on [0, 2], with f(0) > 0 and f(2) > 0.",
+   "Can we conclude that f(x) has no zeros on [0, 2]?",
+   "The answer is no. The Intermediate Value Theorem only guarantees that f takes all values between f(0) and f(2).",
+   "It does not guarantee that f doesn't take values outside this range.",
+   "For a counterexample, consider f(x) = (x - 1)².",
+   "This function satisfies f(0) = 1 > 0 and f(2) = 1 > 0.",
+   "However, f(1) = 0, so there is a zero at x = 1 in the interval.",
+   "Therefore, we cannot conclude that f has no zeros just because f(0) and f(2) are both positive."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — When the Intermediate Value Theorem Doesn't Apply",
+   "problem": "For f(x) = 1/x we have f(-1) = -1 < 0 and f(1) = 1 > 0. Can we conclude that f(x) has a zero on the interval [-1, 1]?",
+   "steps": [
+    "Check the continuity of f on the interval",
+    "Identify where the function is discontinuous",
+    "Explain why the IVT doesn't apply"
+   ],
+   "result": "No. The function is not continuous on [-1, 1] (it has an infinite discontinuity at zero), so the Intermediate Value Theorem is not applicable here."
+  },
+  "narr": [
+   "Another important consideration with the Intermediate Value Theorem is the requirement of continuity.",
+   "Consider f(x) = 1/x on the interval [-1, 1].",
+   "We have f(-1) = -1 < 0 and f(1) = 1 > 0.",
+   "At first glance, it might seem that since the function changes sign, there must be a zero.",
+   "However, f(x) = 1/x is not continuous on [-1, 1] because it has an infinite discontinuity at x = 0.",
+   "The Intermediate Value Theorem requires continuity on the entire closed interval.",
+   "Since this condition is violated, we cannot apply the theorem to conclude there is a zero.",
+   "In fact, f(x) = 1/x has no zeros anywhere in its domain."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Continuous Inverse Functions",
+   "problem": "Explain why the function f(x) = e^x has a continuous inverse, and find it.",
+   "steps": [
+    "Check if f is continuous",
+    "Verify f is strictly monotonic",
+    "Determine the range of f",
+    "Find the inverse function"
+   ],
+   "result": "The function f(x) = e^x is continuous and strictly increasing on R; its range is (0, +∞). Therefore it is bijective and has a continuous inverse: f^(-1)(x) = ln x, x > 0."
+  },
+  "narr": [
+   "Let's explore when a function has a continuous inverse.",
+   "Consider f(x) = e^x.",
+   "First, we check if f is continuous. The exponential function is continuous everywhere on R.",
+   "Next, we verify that f is strictly monotonic. The derivative f'(x) = e^x > 0 for all x, so f is strictly increasing.",
+   "The range of f(x) = e^x is (0, +∞).",
+   "Since f is continuous and strictly increasing on R, it is bijective (one-to-one and onto) from R to (0, +∞).",
+   "Therefore, f has a continuous inverse function.",
+   "To find the inverse, we solve y = e^x for x: x = ln y.",
+   "So the inverse function is f^(-1)(x) = ln x for x > 0."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Inverting a Sensor Model",
+   "problem": "The sensor follows the relationship V(T) = 2 + 0.01 · T², T ≥ 0. The function is continuous and strictly increasing for T ≥ 0 — hence it has a continuous inverse. Find T(V) and calculate the temperature at V = 11V.",
+   "steps": [
+    "Solve for T in terms of V",
+    "Consider the domain restriction T ≥ 0",
+    "Calculate T when V = 11"
+   ],
+   "result": "T(V) = 10 · √(V - 2), V ≥ 2. At V = 11V: T = 10 · √(11 - 2) = 10 · 3 = 30. The measured temperature is 30°C."
+  },
+  "narr": [
+   "Let's apply our knowledge of inverse functions to a practical sensor model.",
+   "The sensor follows the relationship V(T) = 2 + 0.01 · T² for T ≥ 0.",
+   "We're told this function is continuous and strictly increasing for T ≥ 0, so it has a continuous inverse.",
+   "To find the inverse function T(V), we solve for T in terms of V.",
+   "Starting with V = 2 + 0.01 · T², we subtract 2: V - 2 = 0.01 · T².",
+   "Then multiply by 100: 100(V - 2) = T².",
+   "Since T ≥ 0, we take the non-negative root: T = 10 · √(V - 2).",
+   "This is defined for V ≥ 2.",
+   "Now, to find the temperature when V = 11, we substitute: T = 10 · √(11 - 2) = 10 · 3 = 30.",
+   "Therefore, the measured temperature is 30°C."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Weierstrass Theorem Conditions: Open Interval",
+   "problem": "Consider f(x) = x on the interval (0, 1). Why doesn't the Weierstrass Theorem guarantee extrema?",
+   "steps": [
+    "Recall the Weierstrass Extreme Value Theorem",
+    "Check the conditions of the theorem",
+    "Explain why the theorem doesn't apply"
+   ],
+   "result": "The function is continuous, but the interval is not closed. The function approaches 0 and 1 but does not achieve either value. Therefore on (0, 1) it has no absolute maximum or absolute minimum."
+  },
+  "narr": [
+   "Let's examine the importance of the conditions in the Weierstrass Extreme Value Theorem.",
+   "Consider f(x) = x on the interval (0, 1).",
+   "The Weierstrass Theorem states that a continuous function on a closed interval must attain both a maximum and minimum value.",
+   "Our function f(x) = x is continuous on (0, 1), but the interval (0, 1) is not closed.",
+   "The function approaches 0 as x approaches 0 from the right, but never actually reaches 0.",
+   "Similarly, it approaches 1 as x approaches 1 from the left, but never reaches 1.",
+   "Therefore, on the open interval (0, 1), f(x) has no absolute maximum or minimum value.",
+   "This shows that the closed interval condition in the Weierstrass Theorem is necessary."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — Weierstrass Theorem Conditions: Discontinuous Function",
+   "problem": "Consider f(x) = {x, if 0 ≤ x < 1; 0, if x = 1} on [0, 1]. Why does the function have no absolute maximum?",
+   "steps": [
+    "Recall the Weierstrass Extreme Value Theorem",
+    "Check the continuity of the function",
+    "Identify the behavior near the discontinuity",
+    "Explain why the theorem doesn't apply"
+   ],
+   "result": "The function has a discontinuity at x = 1, where it jumps from approaching 1 to being 0. Therefore, it never attains a maximum value on [0, 1]."
+  },
+  "narr": [
+   "Now let's see what happens when the continuity condition of the Weierstrass Theorem is violated.",
+   "Consider f(x) = {x, if 0 ≤ x < 1; 0, if x = 1} on [0, 1].",
+   "This function is defined on a closed interval [0, 1], but it's not continuous everywhere on this interval.",
+   "Specifically, there's a discontinuity at x = 1.",
+   "As x approaches 1 from the left, f(x) approaches 1.",
+   "However, at x = 1, f(1) = 0.",
+   "Therefore, the function gets arbitrarily close to 1 but never actually reaches it.",
+   "Since f(x) < 1 for all x in [0, 1], and the function approaches 1 but never attains it, there is no absolute maximum.",
+   "This demonstrates that the continuity condition in the Weierstrass Theorem is necessary."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ }
+]

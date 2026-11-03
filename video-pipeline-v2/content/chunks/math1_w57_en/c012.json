@@ -1,0 +1,365 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — Weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "We're diving into weeks 5-7 of Math I, focusing on derivatives and their applications.",
+   "Let's start with a fundamental concept about differentiability."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Differentiability at a Point",
+   "bullets": [
+    "A function can be continuous but not differentiable",
+    "Example: sin(1/x) at x=0",
+    "The limit of the difference quotient does not exist"
+   ]
+  },
+  "narr": [
+   "Consider the function sin(1/x). At x=0, the function is continuous but not differentiable.",
+   "The slopes of the secant lines constantly change direction, so the limit does not exist."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Derivative at a Point",
+   "problem": "For f(x) = x² + 3x, using the definition f'(a) = lim_{h→0} [(f(a+h) - f(a))/h], find f'(2) and explain the geometric meaning.",
+   "steps": [
+    "Find f(2) = 2² + 3(2) = 10",
+    "Find f(2+h) = (2+h)² + 3(2+h) = 10 + 7h + h²",
+    "Compute the difference quotient: [(10 + 7h + h²) - 10]/h = (7h + h²)/h = 7 + h",
+    "Take the limit as h approaches 0: lim_{h→0} (7 + h) = 7"
+   ],
+   "result": "f'(2) = 7. Geometric meaning: the tangent at (2, 10) has slope 7."
+  },
+  "narr": [
+   "Let's find the derivative of f(x) = x² + 3x at x=2 using the definition.",
+   "First, we evaluate f(2), which is 10.",
+   "Next, we find f(2+h), which expands to 10 + 7h + h².",
+   "The difference quotient simplifies to 7 + h.",
+   "Taking the limit as h approaches 0 gives us 7.",
+   "This means the tangent line at (2,10) has a slope of 7."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Derivative as a Function",
+   "problem": "For f(x) = 3x² - 2x + 4, using the definition: (a) find f'(x); (b) the slope of the tangent at x=1; (c) the equation of this tangent.",
+   "steps": [
+    "Apply the definition: f'(x) = lim_{h→0} [(3(x+h)² - 2(x+h) + 4 - (3x² - 2x + 4))/h]",
+    "Expand and simplify: lim_{h→0} [(6xh + 3h² - 2h)/h] = lim_{h→0} (6x + 3h - 2)",
+    "Evaluate the limit: f'(x) = 6x - 2",
+    "Find f'(1) = 6(1) - 2 = 4",
+    "Find f(1) = 3(1)² - 2(1) + 4 = 5",
+    "Write the tangent equation: y - 5 = 4(x - 1), which simplifies to y = 4x + 1"
+   ],
+   "result": "(a) f'(x) = 6x - 2; (b) slope at x=1 is 4; (c) tangent equation is y = 4x + 1"
+  },
+  "narr": [
+   "Now let's find the derivative as a function for f(x) = 3x² - 2x + 4.",
+   "Applying the definition, we expand and simplify the difference quotient.",
+   "The limit simplifies to 6x - 2.",
+   "For part (b), we find the slope at x=1 is 4.",
+   "For part (c), we find the point (1,5) and write the tangent equation.",
+   "The tangent equation is y = 4x + 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Differentiating Polynomials",
+   "problem": "Find the derivatives: (a) f(x) = 5x⁴ - 3x³ + 2x - 7; (b) g(x) = x⁵/5 - 3x²/2 + 8; (c) p(x) = 7 - 4x + x⁶.",
+   "steps": [
+    "(a) Apply power rule to each term: f'(x) = 20x³ - 9x² + 2",
+    "(b) Apply power rule to each term: g'(x) = x⁴ - 3x",
+    "(c) Apply power rule to each term: p'(x) = 6x⁵ - 4"
+   ],
+   "result": "(a) f'(x) = 20x³ - 9x² + 2; (b) g'(x) = x⁴ - 3x; (c) p'(x) = 6x⁵ - 4"
+  },
+  "narr": [
+   "Let's differentiate some polynomials using the power rule.",
+   "For f(x) = 5x⁴ - 3x³ + 2x - 7, the derivative is 20x³ - 9x² + 2.",
+   "For g(x) = x⁵/5 - 3x²/2 + 8, the derivative is x⁴ - 3x.",
+   "For p(x) = 7 - 4x + x⁶, the derivative is 6x⁵ - 4."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Powers",
+   "problem": "Rewrite using powers and differentiate; specify the domain of the derivative: (a) f(x) = 3/x²; (b) g(x) = 2·√x - 1/x; (c) p(x) = x^(1/3) + x².",
+   "steps": [
+    "(a) Rewrite: f(x) = 3x⁻², then f'(x) = -6x⁻³ = -6/x³, x ≠ 0",
+    "(b) Rewrite: g(x) = 2x^(1/2) - x⁻¹, then g'(x) = x^(-1/2) + x⁻² = 1/√x + 1/x², x > 0",
+    "(c) Differentiate: p'(x) = (1/3)x^(-2/3) + 2x = 1/(3x^(2/3)) + 2x, x ≠ 0",
+    "Note: p is defined at x=0, but there's no finite derivative there (vertical tangent)"
+   ],
+   "result": "(a) f'(x) = -6/x³, x ≠ 0; (b) g'(x) = 1/√x + 1/x², x > 0; (c) p'(x) = 1/(3x^(2/3)) + 2x, x ≠ 0"
+  },
+  "narr": [
+   "Now let's rewrite functions using powers and differentiate them.",
+   "For f(x) = 3/x², we rewrite as 3x⁻² and get f'(x) = -6x⁻³ = -6/x³ for x ≠ 0.",
+   "For g(x) = 2·√x - 1/x, we rewrite as 2x^(1/2) - x⁻¹ and get g'(x) = 1/√x + 1/x² for x > 0.",
+   "For p(x) = x^(1/3) + x², we get p'(x) = 1/(3x^(2/3)) + 2x for x ≠ 0.",
+   "Note that p is defined at x=0, but there's no finite derivative there due to a vertical tangent."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — The Quotient Rule",
+   "problem": "Let f(x) = (x²+1)/(x+2), x ≠ -2. (a) Find f'(x) using the quotient rule. (b) Find f'(0). (c) Find the tangent at x=0. (d) Why is there no derivative at x=-2?",
+   "steps": [
+    "(a) Apply quotient rule: f'(x) = [(2x)(x+2) - (x²+1)(1)]/(x+2)²",
+    "Simplify: f'(x) = (x² + 4x - 1)/(x+2)²",
+    "(b) Evaluate at x=0: f'(0) = -1/4",
+    "(c) Find f(0) = 1/2, tangent: y - 1/2 = (-1/4)(x - 0), so y = 1/2 - x/4",
+    "(d) At x=-2, the function is undefined (denominator is zero), so no derivative exists"
+   ],
+   "result": "(a) f'(x) = (x² + 4x - 1)/(x+2)²; (b) f'(0) = -1/4; (c) tangent: y = 1/2 - x/4; (d) Function undefined at x=-2"
+  },
+  "narr": [
+   "Let's use the quotient rule to differentiate f(x) = (x²+1)/(x+2).",
+   "Applying the quotient rule gives us f'(x) = (x² + 4x - 1)/(x+2)².",
+   "At x=0, the derivative is -1/4.",
+   "The tangent line at x=0 is y = 1/2 - x/4.",
+   "At x=-2, the function is undefined because the denominator is zero, so no derivative exists there."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Higher Derivatives",
+   "problem": "For f(x) = 2x⁴ - 3x³ + x² - 5x + 6 find f'(x), f''(x), f'''(x), f⁽⁴⁾(x), f⁽⁵⁾(x) and explain the meaning of the fifth derivative.",
+   "steps": [
+    "f'(x) = 8x³ - 9x² + 2x - 5",
+    "f''(x) = 24x² - 18x + 2",
+    "f'''(x) = 48x - 18",
+    "f⁽⁴⁾(x) = 48",
+    "f⁽⁵⁾(x) = 0",
+    "Explanation: Each differentiation reduces the degree by 1; after four steps we get the constant 48, and the derivative of a constant is zero."
+   ],
+   "result": "f'(x) = 8x³ - 9x² + 2x - 5; f''(x) = 24x² - 18x + 2; f'''(x) = 48x - 18; f⁽⁴⁾(x) = 48; f⁽⁵⁾(x) = 0"
+  },
+  "narr": [
+   "Now let's find higher-order derivatives for f(x) = 2x⁴ - 3x³ + x² - 5x + 6.",
+   "The first derivative is f'(x) = 8x³ - 9x² + 2x - 5.",
+   "The second derivative is f''(x) = 24x² - 18x + 2.",
+   "The third derivative is f'''(x) = 48x - 18.",
+   "The fourth derivative is f⁽⁴⁾(x) = 48.",
+   "The fifth derivative is f⁽⁵⁾(x) = 0.",
+   "Each differentiation reduces the degree by 1. After four steps, we get the constant 48, and the derivative of a constant is zero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Two Methods",
+   "problem": "Differentiate f(x) = √x·(x²+4), x > 0: (a) using the product rule; (b) by expanding into powers; (c) show equivalence.",
+   "steps": [
+    "(a) Apply product rule: f'(x) = (1/(2√x))(x²+4) + √x(2x)",
+    "Simplify: f'(x) = (x²+4)/(2√x) + 2x√x",
+    "Combine terms: f'(x) = (x²+4)/(2√x) + 4x²/(2√x) = (5x²+4)/(2√x)",
+    "(b) Expand: f(x) = x^(5/2) + 4x^(1/2)",
+    "Differentiate: f'(x) = (5/2)x^(3/2) + 2x^(-1/2)",
+    "(c) Show equivalence: (5/2)x^(3/2) = 5x²/(2√x) and 2x^(-1/2) = 4/(2√x), so sum is (5x²+4)/(2√x)"
+   ],
+   "result": "Both methods yield f'(x) = (5x²+4)/(2√x)"
+  },
+  "narr": [
+   "Let's differentiate f(x) = √x·(x²+4) using two different methods.",
+   "First, using the product rule: f'(x) = (x²+4)/(2√x) + 2x√x.",
+   "Combining terms gives us (5x²+4)/(2√x).",
+   "Second, by expanding into powers: f(x) = x^(5/2) + 4x^(1/2).",
+   "Differentiating gives f'(x) = (5/2)x^(3/2) + 2x^(-1/2).",
+   "Both methods are equivalent as shown by rewriting with common denominator."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Cart Motion",
+   "problem": "A cart moves according to the law s(t) = t⁴ - 4t³ + 6t² (meters), 0 ≤ t ≤ 3s. (a) Find the velocity v(t). (b) The acceleration a(t). (c) The jerk j(t). (d) Calculate all three at t=1s with units.",
+   "steps": [
+    "(a) Velocity is derivative of position: v(t) = 4t³ - 12t² + 12t",
+    "(b) Acceleration is derivative of velocity: a(t) = 12t² - 24t + 12",
+    "(c) Jerk is derivative of acceleration: j(t) = 24t - 24",
+    "(d) At t=1s: v(1) = 4m/s, a(1) = 0m/s², j(1) = 0m/s³"
+   ],
+   "result": "(a) v(t) = 4t³ - 12t² + 12t; (b) a(t) = 12t² - 24t + 12; (c) j(t) = 24t - 24; (d) At t=1: v=4m/s, a=0m/s², j=0m/s³"
+  },
+  "narr": [
+   "Now let's analyze the motion of a cart with position function s(t) = t⁴ - 4t³ + 6t².",
+   "Velocity is the derivative of position: v(t) = 4t³ - 12t² + 12t.",
+   "Acceleration is the derivative of velocity: a(t) = 12t² - 24t + 12.",
+   "Jerk is the derivative of acceleration: j(t) = 24t - 24.",
+   "At t=1s, we have v(1) = 4m/s, a(1) = 0m/s², and j(1) = 0m/s³."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Small Vehicle",
+   "problem": "Position s(t) = t³ - 6t² + 9t, 0 ≤ t ≤ 4 (in meters, t in seconds). (a) Average velocity on [0,2]. (b) Instantaneous velocity at t=2. (c) All moments when the vehicle is at rest.",
+   "steps": [
+    "(a) s(0) = 0, s(2) = 8 - 24 + 18 = 2; v_avg = (2-0)/(2-0) = 1m/s",
+    "(b) v(t) = 3t² - 12t + 9 = 3(t-1)(t-3); v(2) = -3m/s",
+    "(c) Rest occurs when v(t) = 0: t = 1s and t = 3s"
+   ],
+   "result": "(a) Average velocity = 1m/s; (b) Instantaneous velocity at t=2 = -3m/s; (c) Vehicle at rest at t=1s and t=3s"
+  },
+  "narr": [
+   "Let's analyze the motion of a small vehicle with position s(t) = t³ - 6t² + 9t.",
+   "For average velocity on [0,2], we calculate s(2) - s(0) over 2-0, which gives 1m/s.",
+   "For instantaneous velocity at t=2, we find v(t) = 3t² - 12t + 9 and evaluate at t=2, getting -3m/s.",
+   "The vehicle is at rest when velocity is zero, which occurs at t=1s and t=3s."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 7 — Related Rates and Review",
+   "subtitle": "Derivatives of Elementary Functions"
+  },
+  "narr": [
+   "Moving to Week 7, we'll explore related rates and review Chapter 3.",
+   "Related rates problems involve multiple quantities that change over time and are related by an equation."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Related Rates: Idea and Strategy",
+   "bullets": [
+    "Several quantities depend on time t",
+    "Quantities are related by an equation",
+    "Differentiate the relationship with respect to t",
+    "The differentiated equation relates the rates of change"
+   ]
+  },
+  "narr": [
+   "In related rates problems, we have multiple quantities that depend on time t.",
+   "These quantities are related by an equation (volume formula, Pythagorean theorem, etc.).",
+   "To find the rate of change of a desired quantity, we differentiate the relationship with respect to t.",
+   "The original equation relates the quantities, and the differentiated equation relates their rates."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Related Rates Example — Inflating Balloon",
+   "problem": "A spherical balloon is being inflated. Find the relationship between the rate of change of volume and the rate of change of radius.",
+   "steps": [
+    "Volume formula: V = (4/3)πr³",
+    "Differentiate both sides with respect to t: dV/dt = 4πr² · dr/dt",
+    "This relates the rate of change of volume to the rate of change of radius"
+   ],
+   "result": "dV/dt = 4πr² · dr/dt"
+  },
+  "narr": [
+   "Consider a spherical balloon being inflated.",
+   "The volume is given by V = (4/3)πr³.",
+   "Differentiating both sides with respect to time t gives us dV/dt = 4πr² · dr/dt.",
+   "This equation relates the rate of change of volume to the rate of change of radius."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

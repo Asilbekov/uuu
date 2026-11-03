@@ -1,0 +1,369 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Matematika I — 5-7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu haftalarda biz funksiyalarning uzluksizligi, teskari funksiyalar va Veiershtress teoremasini oʻrganamiz.",
+   "Keling, birinchi misolni koʻrib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Eksponent funksiyaning teskarisini topish",
+   "problem": "f(x) = e^x funksiyaning uzluksiz teskari funksiyasini mavjudligini tushuntiring va uni toping.",
+   "steps": [
+    "f(x) = e^x funksiyasi R da uzluksiz va qat'iy o'suvchi ekanligini tekshiramiz.",
+    "Funksiyaning qiymatlar sohasi (0, +∞) ekanligini aniqlaymiz.",
+    "Shartlarni qanoatlantirgani uchun teskari funksiyaning mavjudligini isbotlaymiz."
+   ],
+   "result": "f^(-1)(x) = ln x, x > 0"
+  },
+  "narr": [
+   "Eksponent funksiya haqida gapiramiz. f(x) = e^x funksiyasi butun haqiqiy sonlar oʻqida uzluksiz va qat'iy o'suvchi funksiya bo'lib, uning qiymatlar sohasi (0, +∞) oraliqni tashkil qiladi.",
+   "Shuning uchun uning teskari funksiyasi ham mavjud bo'ladi.",
+   "Bu teskari funksiya natural logarifmdir: f^(-1)(x) = ln x, x > 0.",
+   "Ikkala grafikning nuqtalari bir-biriga teskari joylashgan. Masalan, e^0 = 1 degani (0, 1) nuqta y = e^x grafikda joylashganligini, ln 1 = 0 degani (1, 0) nuqta y = ln x grafikda joylashganligini bildiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Sensor modelining teskarisini topish",
+   "problem": "Sensor V(T) = 2 + 0.01 · T^2, T ≥ 0 bogʻliqliqqa boʻysunadi. T(V) ni topib, V = 11V da haroratni hisoblang.",
+   "steps": [
+    "V(T) = 2 + 0.01 · T^2 tenglamani T ga nisbatan yechamiz.",
+    "T^2 = 100 · (V - 2) tenglamaga kelamiz.",
+    "T ≥ 0 shartni hisobga olib, ildizni olamiz."
+   ],
+   "result": "T = 30°C"
+  },
+  "narr": [
+   "Sensor modelining teskarisini topish masalasini koʻrib chiqaylik.",
+   "V(T) = 2 + 0.01 · T^2 funksiyasi T ≥ 0 da uzluksiz va qat'iy o'suvchi, shuning uchun uning teskari funksiyasi mavjud.",
+   "T ga nisbatan tenglamani yechamiz: V - 2 = 0.01 · T^2, bundan T^2 = 100 · (V - 2).",
+   "T ≥ 0 bo'lgani uchun manfiy bo'lmagan ildizni tanlaymiz: T(V) = 10 · √(V - 2), V ≥ 2.",
+   "V = 11V da: T = 10 · √(11 - 2) = 10 · 3 = 30.",
+   "Demak, o'lchangan harorat 30°C."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3 — Veiershtress teoremasining ahamiyati (ochiq interval)",
+   "problem": "f(x) = x funksiyasini (0, 1) intervalda koʻrib chiqamiz. Nima uchun Veiershtress teoremasi ekstremumlarni kafolatlamaydi?",
+   "steps": [
+    "Funksiyaning (0, 1) intervaldagi xossalarini tekshiramiz.",
+    "Intervalning yopiq emasligini va funksiya chegaraviy qiymatlarga yetmayotganini ko'ramiz."
+   ],
+   "result": "Interval yopiq emasligi sababli funksiyaning mutlaq maksimumi va minimumi yo'q."
+  },
+  "narr": [
+   "Endi Veiershtress teoremasining ahamiyatini ko'rib chiqaylik.",
+   "f(x) = x funksiyasini (0, 1) ochiq intervalda ko'rib chiqaylik.",
+   "Funksiya bu intervalda uzluksiz bo'lishiga qaramay, Veiershtress teoremasi uning ekstremumlarini kafolatlamaydi.",
+   "Chunki interval yopiq emas. Funksiya 0 va 1 ga yaqinlashadi, lekin hech qaysi qiymatga yetmaydi.",
+   "Shuning uchun (0, 1) da uning mutlaq maksimumi ham, mutlaq minimumi ham yo'q.",
+   "Teorema shartlari yetarli: agar kamida bittasi buzilsa, teorema natijani kafolatlamaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 4 — Veiershtress teoremasining ahamiyati (uzilishli funksiya)",
+   "problem": "f(x) = {x, agar 0 ≤ x < 1; 0, agar x = 1} funksiyasini [0, 1] da koʻrib chiqamiz. Nima uchun funksiyaning mutlaq maksimumi yo'q?",
+   "steps": [
+    "Funksiyaning [0, 1] oraliqdagi uzilish nuqtalarini aniqlaymiz.",
+    "Funksiya qiymatlarining chegaraviy holatini tekshiramiz."
+   ],
+   "result": "x = 1 nuqtada uzilish tufayli funksiyaning mutlaq maksimumi yo'q."
+  },
+  "narr": [
+   "Yana bir misol ko'rib chiqaylik.",
+   "f(x) = {x, agar 0 ≤ x < 1; 0, agar x = 1} funksiyasini [0, 1] yopiq oraliqda ko'rib chiqaylik.",
+   "Aniqlanish sohasi [0, 1] yopiq va cheklangan, lekin f funksiya x = 1 nuqtada uzilishga uchraydi.",
+   "Funksiya qiymatlari 1 ga yaqinlashadi, lekin hech qanday nuqtada f(x) = 1 qiymatiga erishmaydi.",
+   "Shunday qilib, mutlaq maksimum yo'q — Veiershtress teoremasi uzilish tufayli qo'llanilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Mashqlar — Uzluksizlik nuqtalarini aniqlash va tasniflash",
+   "subtitle": "2.4-bo'lim"
+  },
+  "narr": [
+   "Endi 2.4-bo'limdagi mashqlarni yechamiz. Har bir funksiya uchun uzluksizlik nuqtalarini aniqlaymiz va ularni tasniflaymiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 131",
+   "problem": "f(x) = 1/√x. Uzluksizlik nuqtalarini aniqlang va tasniflang.",
+   "steps": [
+    "Funksiyaning aniqlanish sohasini topamiz.",
+    "Chegaraviy holatda funksiya xatti-harakatini tekshiramiz."
+   ],
+   "result": "x = 0 cheksiz uzluksizlik."
+  },
+  "narr": [
+   "Mashq 131: f(x) = 1/√x funksiyasini ko'rib chiqaylik.",
+   "Haqiqiy qiymatli funksiya uchun ildiz belgisi x ≥ 0 ni talab qiladi, lekin maxraj nolga teng bo'lishi mumkin emas.",
+   "Shuning uchun Dom(f) = (0, +∞).",
+   "x → 0+ bo'lganda 1/√x → +∞ bo'ladi.",
+   "Demak, x = 0 chiziqi vertikal asimptota va x = 0 cheksiz uzluksizlik nuqtasi.",
+   "Funksiya o'z aniqlanish sohasida (0, +∞) butunlay uzluqsiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 132",
+   "problem": "f(x) = 2/(x^2 + 1). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
+   "steps": [
+    "Maxrajning nolga teng bo'lish holatini tekshiramiz.",
+    "Ratsional funksiyaning uzluksizlik xossalarini qo'llaymiz."
+   ],
+   "result": "Uzluksizliklar yo'q."
+  },
+  "narr": [
+   "Mashq 132: f(x) = 2/(x^2 + 1) funksiyasini ko'rib chiqaylik.",
+   "x^2 + 1 ≥ 1 > 0 har bir haqiqiy x uchun, shuning uchun maxraj hech qachon nolga teng emas.",
+   "Ratsional funksiya maxraj noldan farqli bo'lgan hamma joyda uzluqsiz.",
+   "Shuning uchun f har bir x ∈ R da uzluqsiz.",
+   "Uzluksizliklar yo'q."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 133",
+   "problem": "f(x) = x/(x^2 - x). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
+   "steps": [
+    "Maxrajni ko'paytuvchilarga ajratamiz.",
+    "Nuqtalarda limitlarni hisoblaymiz.",
+    "Uzluksizlik turlarini aniqlaymiz."
+   ],
+   "result": "x = 0 olinadigan uzluksizlik; x = 1 cheksiz uzluksizlik."
+  },
+  "narr": [
+   "Mashq 133: f(x) = x/(x^2 - x) funksiyasini ko'rib chiqaylik.",
+   "Maxrajni ko'paytuvchilarga ajratamiz: x^2 - x = x·(x - 1).",
+   "U holda f(x) = x/(x·(x - 1)) = 1/(x - 1), x ≠ 0, 1 uchun.",
+   "Boshlang'ich funksiya x = 0 va x = 1 da aniqlanmagan.",
+   "x = 0 da: x ko'paytuvchisi qisqaradi va lim x → 0 f(x) = 1/(0 - 1) = -1.",
+   "Limit mavjud va chekli, lekin f(0) aniqlanmagan — demak, x = 0 olinadigan uzluksizlik.",
+   "x = 1 da: soddalashtirilgan ifodadan f(x) = 1/(x - 1) foydalanib, lim x → 1- f(x) = -∞ va lim x → 1+ f(x) = +∞.",
+   "Demak, x = 1 cheksiz uzluksizlik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 134",
+   "problem": "g(t) = t^(-1) + 1. Uzluksizlik nuqtalarini aniqlang va tasniflang.",
+   "steps": [
+    "Funksiyani soddalashtiramiz.",
+    "Tengsizlik nuqtasida limitlarni hisoblaymiz."
+   ],
+   "result": "t = 0 cheksiz uzluksizlik."
+  },
+  "narr": [
+   "Mashq 134: g(t) = t^(-1) + 1 funksiyasini ko'rib chiqaylik.",
+   "Funksiyani g(t) = 1/t + 1 deb yozamiz.",
+   "t = 0 da aniqlanmagan.",
+   "Shu bilan birga, lim t → 0- (1/t + 1) = -∞, lim t → 0+ (1/t + 1) = +∞.",
+   "Demak, t = 0 vertikal asimptota: cheksiz uzluksizlik nuqtasi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 135",
+   "problem": "f(x) = 5/(e^x - 2). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
+   "steps": [
+    "Maxrajning nolga teng bo'lish holatini topamiz.",
+    "Chegaraviy holatlarda funksiya xatti-harakatini tekshiramiz."
+   ],
+   "result": "x = ln 2 cheksiz uzluksizlik."
+  },
+  "narr": [
+   "Mashq 135: f(x) = 5/(e^x - 2) funksiyasini ko'rib chiqaylik.",
+   "Maxraj e^x - 2 = 0, ya'ni e^x = 2 bo'lganda nolga aylanadi, bundan x = ln 2 kelib chiqadi.",
+   "x → (ln 2)- bo'lganda e^x - 2 → 0-, shuning uchun lim x → (ln 2)- 5/(e^x - 2) = -∞.",
+   "x → (ln 2)+ bo'lganda e^x - 2 → 0+, shuning uchun lim x → (ln 2)+ 5/(e^x - 2) = +∞.",
+   "Demak, x = ln 2 cheksiz uzluksizlik nuqtasi, x = ln 2 chiziqi vertikal asimptota."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 136",
+   "problem": "f(x) = |x-2|/(x-2). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
+   "steps": [
+    "Funksiyani modul sifatida ifodalaymiz.",
+    "Bir tomonlama limitlarni hisoblaymiz."
+   ],
+   "result": "x = 2 sakchib uzluksizlik (jump)."
+  },
+  "narr": [
+   "Mashq 136: f(x) = |x-2|/(x-2) funksiyasini ko'rib chiqaylik.",
+   "Funksiya x = 2 da aniqlanmagan.",
+   "Modulni ochishni eslaymiz: |x - 2| = {-(x - 2), agar x < 2; x - 2, agar x > 2}.",
+   "Bir tomonlama limitlar: lim x → 2- f(x) = -1 va lim x → 2+ f(x) = 1.",
+   "Ushbu limitlar har xil bo'lgani uchun ikki tomonlama limit mavjud emas.",
+   "x = 2 nuqtasida qiymatni qo'shimcha aniqlab uzluksizlikni bartaraf etib bo'lmaydi — bir tomonlama limitlar teng emas.",
+   "Natija: x = 2 sakchib uzluksizlik (jump)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 137",
+   "problem": "H(x) = tan(2x). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
+   "steps": [
+    "Tangens funksiyasining aniqlanish sohasini topamiz.",
+    "Uzilish nuqtalarini aniqlaymiz."
+   ],
+   "result": "x = π/4 + k·π/2, k ∈ Z — cheksiz uzluksizlik nuqtalari."
+  },
+  "narr": [
+   "Mashq 137: H(x) = tan(2x) funksiyasini ko'rib chiqaylik.",
+   "Eslaymiz: tan(2x) = sin(2x)/cos(2x).",
+   "Funksiya cos(2x) = 0 bo'lganda aniqlanmagan.",
+   "Bu 2x = π/2 + k·π, k ∈ Z bo'lganda sodir bo'ladi; 2 ga bo'lib, x = π/4 + k·π/2 hosil bo'ladi.",
+   "Bu nuqtalarning har birida tangens cheksizlikka intiladi va vertikal asimptotaga ega.",
+   "Demak, x = π/4 + k·π/2, k ∈ Z — cheksiz uzluksizlik nuqtalari."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 138",
+   "problem": "f(t) = (t + 3)/(t^2 + 5t + 6). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
+   "steps": [
+    "Maxrajni ko'paytuvchilarga ajratamiz.",
+    "Nuqtalarda limitlarni hisoblaymiz."
+   ],
+   "result": "t = -2 cheksiz uzluksizlik; t = -3 olinadigan uzluksizlik."
+  },
+  "narr": [
+   "Mashq 138: f(t) = (t + 3)/(t^2 + 5t + 6) funksiyasini ko'rib chiqaylik.",
+   "Maxrajni ko'paytuvchilarga ajratamiz: t^2 + 5t + 6 = (t + 2)(t + 3).",
+   "Shuning uchun f(t) = (t + 3)/((t + 2)(t + 3)) = 1/(t + 2), t ≠ -3 uchun.",
+   "Boshlang'ich funksiya t = -2 va t = -3 da aniqlanmagan.",
+   "t = -3 da: (t + 3) ko'paytuvchisi qisqaradi va lim t → -3 f(t) = 1/(-3 + 2) = -1.",
+   "Limit mavjud va chekli, lekin f(-3) aniqlanmagan — demak, t = -3 olinadigan uzluksizlik.",
+   "t = -2 da: soddalashtirilgan ifodadan f(t) = 1/(t + 2) foydalanib, lim t → -2- f(t) = -∞ va lim t → -2+ f(t) = +∞.",
+   "Demak, t = -2 cheksiz uzluksizlik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ }
+]

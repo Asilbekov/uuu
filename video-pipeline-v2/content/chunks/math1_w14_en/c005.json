@@ -1,0 +1,612 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this series, we'll explore fundamental mathematical concepts that form the foundation of your course. We'll start by examining exponential and logarithmic functions, their properties, and their applications in growth and decay models.",
+   "Then we'll dive into functions, exploring their properties, domains, compositions, and classifications."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Exponential and Logarithmic Functions",
+   "bullets": [
+    "Exponential and logarithm are inverse to each other",
+    "Laws of exponents and logs convert multiplication into addition",
+    "Used in every growth/decay model of the course"
+   ]
+  },
+  "narr": [
+   "Let's begin with exponential and logarithmic functions. These two functions are inverses of each other, meaning they 'undo' each other's operations. The laws of exponents and logarithms are particularly elegant because they convert multiplication into addition, which simplifies many calculations.",
+   "These functions are essential tools for modeling growth and decay processes throughout this course."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Laws of Exponents",
+   "tex": "b^x > 0, \\quad b^{x+y} = b^x b^y, \\quad (b^x)^y = b^{xy}, \\quad b^{-x} = \\frac{1}{b^x}",
+   "parts": [
+    {
+     "substr": "b^x > 0",
+     "color": "#4C5FD5",
+     "note": "Exponential functions are always positive"
+    },
+    {
+     "substr": "b^{x+y} = b^x b^y",
+     "color": "#B45309",
+     "note": "Product of same base: add exponents"
+    },
+    {
+     "substr": "(b^x)^y = b^{xy}",
+     "color": "#0E7C7B",
+     "note": "Power of a power: multiply exponents"
+    },
+    {
+     "substr": "b^{-x} = \\frac{1}{b^x}",
+     "color": "#A03040",
+     "note": "Negative exponent means reciprocal"
+    }
+   ]
+  },
+  "narr": [
+   "First, let's review the laws of exponents. These rules govern how exponential expressions behave when we multiply them, raise them to powers, or deal with negative exponents.",
+   "The first law states that any exponential expression with a positive base is always positive.",
+   "The second law tells us that when multiplying two exponential expressions with the same base, we can simply add their exponents.",
+   "The third law shows that when raising an exponential expression to another power, we multiply the exponents.",
+   "Finally, the fourth law explains that a negative exponent indicates the reciprocal of the positive exponent."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Logarithmic Functions",
+   "tex": "\\log_b x = y \\Leftrightarrow b^y = x, \\quad x > 0, b > 0, b \\neq 1",
+   "parts": [
+    {
+     "substr": "\\log_b x = y \\Leftrightarrow b^y = x",
+     "color": "#4C5FD5",
+     "note": "Definition of logarithm"
+    },
+    {
+     "substr": "x > 0, b > 0, b \\neq 1",
+     "color": "#B45309",
+     "note": "Domain and base restrictions"
+    }
+   ]
+  },
+  "narr": [
+   "Now let's look at logarithmic functions. The logarithm base b of x equals y if and only if b raised to the power y equals x.",
+   "It's important to note the domain restrictions: x must be positive, and the base b must be positive and not equal to 1."
+  ],
+  "narr_item": [
+   -1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Laws of Logarithms",
+   "tex": "\\log_b(xy) = \\log_b x + \\log_b y, \\quad \\log_b \\frac{x}{y} = \\log_b x - \\log_b y, \\quad \\log_b x^n = n \\log_b x",
+   "parts": [
+    {
+     "substr": "\\log_b(xy) = \\log_b x + \\log_b y",
+     "color": "#4C5FD5",
+     "note": "Log of product: sum of logs"
+    },
+    {
+     "substr": "\\log_b \\frac{x}{y} = \\log_b x - \\log_b y",
+     "color": "#B45309",
+     "note": "Log of quotient: difference of logs"
+    },
+    {
+     "substr": "\\log_b x^n = n \\log_b x",
+     "color": "#0E7C7B",
+     "note": "Log of power: multiply by exponent"
+    }
+   ]
+  },
+  "narr": [
+   "The laws of logarithms are beautifully analogous to the laws of exponents. The logarithm of a product equals the sum of the logarithms.",
+   "Similarly, the logarithm of a quotient equals the difference of the logarithms.",
+   "And when taking the logarithm of a number raised to a power, we can multiply the logarithm by that power."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Change of Base and Exponential Identity",
+   "tex": "\\log_b x = \\frac{\\ln x}{\\ln b} \\text{ (change of base)}, \\quad b^x = e^{x \\ln b}",
+   "parts": [
+    {
+     "substr": "\\log_b x = \\frac{\\ln x}{\\ln b}",
+     "color": "#4C5FD5",
+     "note": "Change of base formula"
+    },
+    {
+     "substr": "b^x = e^{x \\ln b}",
+     "color": "#B45309",
+     "note": "Exponential in terms of natural base"
+    }
+   ]
+  },
+  "narr": [
+   "Two important identities are the change of base formula and the expression of any exponential function in terms of the natural exponential function.",
+   "The change of base formula allows us to compute logarithms with any base using the natural logarithm.",
+   "And any exponential function can be rewritten using the natural exponential function and the natural logarithm of the base."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Special Values",
+   "tex": "e^{\\ln x} = x, \\quad \\ln 1 = 0, \\quad \\ln e = 1",
+   "parts": [
+    {
+     "substr": "e^{\\ln x} = x",
+     "color": "#4C5FD5",
+     "note": "Exponential and log are inverses"
+    },
+    {
+     "substr": "\\ln 1 = 0",
+     "color": "#B45309",
+     "note": "Natural log of 1 is 0"
+    },
+    {
+     "substr": "\\ln e = 1",
+     "color": "#0E7C7B",
+     "note": "Natural log of base is 1"
+    }
+   ]
+  },
+  "narr": [
+   "Let's look at some special values that are worth remembering. The exponential of the natural logarithm of x equals x, showing they are inverse operations.",
+   "The natural logarithm of 1 is 0, since e raised to the power 0 equals 1.",
+   "And the natural logarithm of e itself is 1, since e raised to the power 1 equals e."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Growth and Decay Models",
+   "tex": "A(t) = A_0 a^t = A_0 e^{kt}, \\quad k = \\ln a, \\quad a > 1 : \\text{ growth}; \\quad 0 < a < 1 : \\text{ decay}",
+   "parts": [
+    {
+     "substr": "A(t) = A_0 a^t = A_0 e^{kt}",
+     "color": "#4C5FD5",
+     "note": "Two equivalent forms of exponential model"
+    },
+    {
+     "substr": "k = \\ln a",
+     "color": "#B45309",
+     "note": "Relationship between growth rates"
+    },
+    {
+     "substr": "a > 1 : \\text{ growth}; \\quad 0 < a < 1 : \\text{ decay}",
+     "color": "#0E7C7B",
+     "note": "Interpretation of base a"
+    }
+   ]
+  },
+  "narr": [
+   "Now let's examine growth and decay models. These can be expressed in two equivalent forms: using an arbitrary base a or using the natural exponential function with growth rate constant k.",
+   "The growth rate constant k is simply the natural logarithm of the base a.",
+   "When the base a is greater than 1, we have growth; when it's between 0 and 1, we have decay."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Doubling Time",
+   "tex": "N(t) = N_0 2^{t/T_d} = N_0 e^{kt}, \\quad k = \\frac{\\ln 2}{T_d}, \\quad T_d = \\frac{\\ln 2}{k}",
+   "parts": [
+    {
+     "substr": "N(t) = N_0 2^{t/T_d} = N_0 e^{kt}",
+     "color": "#4C5FD5",
+     "note": "Exponential model with doubling time"
+    },
+    {
+     "substr": "k = \\frac{\\ln 2}{T_d}",
+     "color": "#B45309",
+     "note": "Growth rate in terms of doubling time"
+    },
+    {
+     "substr": "T_d = \\frac{\\ln 2}{k}",
+     "color": "#0E7C7B",
+     "note": "Doubling time in terms of growth rate"
+    }
+   ]
+  },
+  "narr": [
+   "A particularly useful concept in exponential growth is the doubling time, denoted T_d. This is the time it takes for a quantity to double in size.",
+   "The growth rate constant k can be expressed in terms of the doubling time as the natural logarithm of 2 divided by T_d.",
+   "Conversely, if we know the growth rate constant k, we can find the doubling time by dividing the natural logarithm of 2 by k."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Degrees and Radians",
+   "tex": "\\theta_{\\text{rad}} = \\theta_{\\text{deg}} \\cdot \\frac{\\pi}{180}",
+   "parts": [
+    {
+     "substr": "\\theta_{\\text{rad}} = \\theta_{\\text{deg}} \\cdot \\frac{\\pi}{180}",
+     "color": "#4C5FD5",
+     "note": "Conversion from degrees to radians"
+    }
+   ]
+  },
+  "narr": [
+   "Finally, let's review the conversion between degrees and radians. To convert an angle from degrees to radians, we multiply by π/180."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Math I: Week 2 workshop (functions)",
+   "subtitle": "Questions and full solutions"
+  },
+  "narr": [
+   "Now let's move on to functions, which are fundamental to mathematics. In this week's workshop, we'll explore various aspects of functions including determining if a relation defines a function, evaluating functions, finding domains, composing functions, and classifying functions."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Determine if a relation defines y as a function of x",
+   "problem": "Determine whether each relation defines y as a function of x: a. y = 3x - 2; b. x² + y² = 9. Where appropriate, solve for y and apply the vertical line test.",
+   "steps": [
+    {
+     "text": "For part a: y = 3x - 2 gives exactly one y for each x"
+    },
+    {
+     "text": "For part b: Solve for y to get y = ±√(9 - x²)"
+    },
+    {
+     "text": "Most x values (like x = 0) give two y values (±3)"
+    },
+    {
+     "text": "A vertical line intersects the circle twice"
+    }
+   ],
+   "result": "a. Function (a line); b. Not a function"
+  },
+  "narr": [
+   "Let's start with our first problem. We need to determine if each relation defines y as a function of x. A function must assign exactly one y value to each x value in its domain.",
+   "For part a, we have y = 3x - 2. This is a linear equation that gives exactly one y value for each x value, so it is indeed a function.",
+   "For part b, we have x² + y² = 9, which is the equation of a circle. If we solve for y, we get y = ±√(9 - x²).",
+   "This means that for most x values (like x = 0), there are two corresponding y values (±3).",
+   "If we apply the vertical line test, a vertical line would intersect the circle at two points, confirming that this relation does not define y as a function of x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Evaluate and simplify a function",
+   "problem": "Let f(x) = 2x² - 3x + 1. Calculate and simplify f(0), f(-2), f(a), f(a + h) and [f(a + h) - f(a)]/h, h ≠ 0.",
+   "steps": [
+    {
+     "text": "f(0) = 2(0)² - 3(0) + 1 = 1"
+    },
+    {
+     "text": "f(-2) = 2(-2)² - 3(-2) + 1 = 2(4) + 6 + 1 = 15"
+    },
+    {
+     "text": "f(a) = 2a² - 3a + 1"
+    },
+    {
+     "text": "f(a + h) = 2(a + h)² - 3(a + h) + 1 = 2a² + 4ah + 2h² - 3a - 3h + 1"
+    },
+    {
+     "text": "[f(a + h) - f(a)]/h = (4ah + 2h² - 3h)/h = 4a + 2h - 3"
+    }
+   ],
+   "result": "f(0) = 1; f(-2) = 15; f(a) = 2a² - 3a + 1; f(a + h) = 2a² + 4ah + 2h² - 3a - 3h + 1; [f(a + h) - f(a)]/h = 4a + 2h - 3"
+  },
+  "narr": [
+   "In our second problem, we're working with the function f(x) = 2x² - 3x + 1. We need to evaluate this function at several points and simplify the expressions.",
+   "First, let's evaluate f(0). Substituting 0 for x, we get f(0) = 2(0)² - 3(0) + 1 = 1.",
+   "Next, let's evaluate f(-2). Substituting -2 for x, we get f(-2) = 2(-2)² - 3(-2) + 1 = 2(4) + 6 + 1 = 15.",
+   "Now, let's find f(a), which is simply 2a² - 3a + 1.",
+   "For f(a + h), we substitute (a + h) for x: f(a + h) = 2(a + h)² - 3(a + h) + 1 = 2a² + 4ah + 2h² - 3a - 3h + 1.",
+   "Finally, we need to find the difference quotient [f(a + h) - f(a)]/h. After simplifying, we get (4ah + 2h² - 3h)/h = 4a + 2h - 3. This expression is important as it anticipates the derivative, which we'll study in weeks 3-4. As h approaches 0, this expression approaches 4a - 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Find the natural domain",
+   "problem": "Find the natural domain: a. f(x) = (x - 1)/(x² + 9); b. g(x) = √(5 - 2x). Write in interval notation.",
+   "steps": [
+    {
+     "text": "For part a: The denominator x² + 9 ≥ 9 > 0 never equals zero"
+    },
+    {
+     "text": "Therefore the domain is all R = (-∞, ∞)"
+    },
+    {
+     "text": "For part b: We need 5 - 2x ≥ 0 ⇔ x ≤ 5/2"
+    },
+    {
+     "text": "Domain is (-∞, 5/2]"
+    }
+   ],
+   "result": "a. (-∞, ∞); b. (-∞, 5/2]"
+  },
+  "narr": [
+   "In problem 3, we need to find the natural domain of two functions and express them in interval notation.",
+   "For part a, we have f(x) = (x - 1)/(x² + 9). The denominator x² + 9 is always at least 9, which is greater than 0, so it never equals zero.",
+   "Therefore, the domain is all real numbers, which we write as (-∞, ∞) in interval notation.",
+   "For part b, we have g(x) = √(5 - 2x). For the square root to be defined, the expression inside must be non-negative: 5 - 2x ≥ 0, which simplifies to x ≤ 5/2.",
+   "So the domain is all real numbers less than or equal to 5/2, which we write as (-∞, 5/2] in interval notation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Function composition",
+   "problem": "Let f(x) = 2x - 3, g(x) = x² + 1. Find (f◦g)(x) and (g◦f)(x); are they equal?",
+   "steps": [
+    {
+     "text": "(f◦g)(x) = f(g(x)) = 2(x² + 1) - 3 = 2x² - 1"
+    },
+    {
+     "text": "(g◦f)(x) = g(2x - 3) = (2x - 3)² + 1 = 4x² - 12x + 10"
+    },
+    {
+     "text": "They are different (for example, at x = 0: -1 vs 10)"
+    },
+    {
+     "text": "Composition is generally non-commutative"
+    }
+   ],
+   "result": "(f◦g)(x) = 2x² - 1; (g◦f)(x) = 4x² - 12x + 10; They are not equal"
+  },
+  "narr": [
+   "Problem 4 introduces function composition. We have two functions: f(x) = 2x - 3 and g(x) = x² + 1. We need to find (f◦g)(x) and (g◦f)(x) and determine if they're equal.",
+   "First, let's find (f◦g)(x), which means f(g(x)). We substitute g(x) into f: f(g(x)) = 2(x² + 1) - 3 = 2x² - 1.",
+   "Next, let's find (g◦f)(x), which means g(f(x)). We substitute f(x) into g: g(2x - 3) = (2x - 3)² + 1 = 4x² - 12x + 10.",
+   "These two compositions are not equal. For example, at x = 0, (f◦g)(0) = -1 while (g◦f)(0) = 10.",
+   "This confirms an important property: function composition is generally non-commutative. Squaring then shifting is not the same as shifting then squaring."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Even and odd functions",
+   "problem": "Determine whether each function is even, odd, or of general form: f(x) = |x| + 1 and g(x) = x/(x² + 1). Check algebraically and graphically.",
+   "steps": [
+    {
+     "text": "For f(x) = |x| + 1: f(-x) = |-x| + 1 = |x| + 1 = f(x) — even"
+    },
+    {
+     "text": "The graph is symmetric with respect to the y-axis"
+    },
+    {
+     "text": "For g(x) = x/(x² + 1): g(-x) = -x/(x² + 1) = -g(x) — odd"
+    },
+    {
+     "text": "The graph is symmetric with respect to 180° rotation about the origin"
+    }
+   ],
+   "result": "f(x) is even; g(x) is odd"
+  },
+  "narr": [
+   "In problem 5, we need to determine if two functions are even, odd, or neither. A function is even if f(-x) = f(x) for all x in the domain, and odd if f(-x) = -f(x) for all x in the domain.",
+   "For f(x) = |x| + 1, we find f(-x) = |-x| + 1 = |x| + 1 = f(x). Since f(-x) = f(x), this function is even. Graphically, even functions are symmetric with respect to the y-axis.",
+   "For g(x) = x/(x² + 1), we find g(-x) = -x/(x² + 1) = -g(x). Since g(-x) = -g(x), this function is odd. Graphically, odd functions are symmetric with respect to a 180° rotation about the origin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Classify functions",
+   "problem": "Classify each function as linear, polynomial, rational, algebraic, or transcendental: f(x) = (x + 1)/(x² + 4) and g(x) = √(x² + 4)/(x² + 1).",
+   "steps": [
+    {
+     "text": "f(x) = (x + 1)/(x² + 4) is a ratio of polynomials, hence rational"
+    },
+    {
+     "text": "Since it's a ratio of polynomials, it's also algebraic"
+    },
+    {
+     "text": "g(x) = √(x² + 4)/(x² + 1) is a root of a polynomial, hence algebraic"
+    },
+    {
+     "text": "It's not rational because it's not a ratio of polynomials"
+    }
+   ],
+   "result": "f(x) is rational and algebraic; g(x) is algebraic but not rational"
+  },
+  "narr": [
+   "Problem 6 asks us to classify functions into different categories: linear, polynomial, rational, algebraic, or transcendental. Note that a function can belong to more than one category.",
+   "For f(x) = (x + 1)/(x² + 4), we see that it's a ratio of two polynomials. This makes it a rational function. Since rational functions are a subset of algebraic functions, it's also algebraic.",
+   "For g(x) = √(x² + 4)/(x² + 1), we have a square root in the numerator, which means it's a root of a polynomial. This makes it algebraic. However, it's not rational because it's not a ratio of polynomials (due to the square root).",
+   "Neither function is transcendental, as transcendental functions are those that cannot be expressed as roots of polynomials with rational coefficients, such as exponential, logarithmic, and trigonometric functions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Linear function application",
+   "problem": "Temperature in an industrial chamber increases linearly from 20°C at t = 0 to 80°C at t = 15 min. (1) Find T(t); (2) interpret the slope and intercept; (3) find T(8); (4) when will the chamber reach 60°C? (5) specify a physically reasonable domain.",
+   "steps": [
+    {
+     "text": "Slope m = (80 - 20)/(15 - 0) = 4 °C/min"
+    },
+    {
+     "text": "T(t) = 20 + 4t"
+    },
+    {
+     "text": "The slope is the heating rate: +4 degrees per minute"
+    },
+    {
+     "text": "The intercept 20 is the initial temperature"
+    },
+    {
+     "text": "T(8) = 20 + 32 = 52 °C"
+    },
+    {
+     "text": "20 + 4t = 60 at t = 10 minutes"
+    },
+    {
+     "text": "Physically reasonable domain: [0, 15] or [0, ∞) depending on the chamber's capacity"
+    }
+   ],
+   "result": "T(t) = 20 + 4t; Slope = 4 °C/min (heating rate); Intercept = 20°C (initial temperature); T(8) = 52°C; Reaches 60°C at t = 10 min"
+  },
+  "narr": [
+   "Problem 7 presents a real-world application of linear functions. The temperature in an industrial chamber increases linearly from 20°C at t = 0 to 80°C at t = 15 minutes.",
+   "First, we need to find the equation T(t) that models this temperature increase. The slope m is (80 - 20)/(15 - 0) = 4 °C/min. Using the point-slope form, we get T(t) = 20 + 4t.",
+   "The slope represents the heating rate, which is +4 degrees per minute. The intercept of 20 represents the initial temperature at t = 0.",
+   "To find the temperature at t = 8 minutes, we substitute: T(8) = 20 + 4(8) = 20 + 32 = 52°C.",
+   "To find when the chamber reaches 60°C, we solve 20 + 4t = 60, which gives t = 10 minutes.",
+   "For a physically reasonable domain, we might consider [0, 15] since the data only goes up to 15 minutes, or [0, ∞) if we assume the chamber can continue heating indefinitely without limitations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Analyze a polynomial function",
+   "problem": "For p(x) = x³ - 4x determine: domain; intercepts with axes; symmetry; end behavior; points of discontinuity.",
+   "steps": [
+    {
+     "text": "Domain: R (all real numbers, as it's a polynomial)"
+    },
+    {
+     "text": "Intercepts: p(0) = 0; x³ - 4x = x(x - 2)(x + 2) = 0 gives x = -2, 0, 2"
+    },
+    {
+     "text": "All intercepts are on the x-axis through the origin"
+    },
+    {
+     "text": "Symmetry: p(-x) = -x³ + 4x = -p(x) — odd function"
+    },
+    {
+     "text": "End behavior: leading term x³ with positive coefficient"
+    },
+    {
+     "text": "Points of discontinuity: none (polynomials are continuous everywhere)"
+    }
+   ],
+   "result": "Domain: R; Intercepts: (-2, 0), (0, 0), (2, 0); Symmetry: odd; End behavior: rises to right, falls to left; No points of discontinuity"
+  },
+  "narr": [
+   "In our final problem, we need to analyze the polynomial function p(x) = x³ - 4x. Let's determine its key properties.",
+   "First, the domain. Since this is a polynomial function, it's defined for all real numbers, so the domain is R.",
+   "Next, let's find the intercepts with the axes. For the y-intercept, we set x = 0: p(0) = 0³ - 4(0) = 0. For the x-intercepts, we set p(x) = 0: x³ - 4x = 0. Factoring gives x(x - 2)(x + 2) = 0, so x = -2, 0, 2. All intercepts are on the x-axis through the origin.",
+   "For symmetry, we check p(-x) = (-x)³ - 4(-x) = -x³ + 4x = -(x³ - 4x) = -p(x). Since p(-x) = -p(x), this is an odd function, symmetric with respect to a 180° rotation about the origin.",
+   "For end behavior, we look at the leading term x³, which has a positive coefficient. As x approaches ∞, p(x) approaches ∞; as x approaches -∞, p(x) approaches -∞.",
+   "Finally, since p(x) is a polynomial, it's continuous everywhere, so there are no points of discontinuity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   3
+  ]
+ }
+]

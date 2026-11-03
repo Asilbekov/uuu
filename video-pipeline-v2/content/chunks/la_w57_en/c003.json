@@ -1,0 +1,460 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5-7 of Linear Algebra. Today we'll explore fundamental concepts of matrix operations, elimination, and solving systems of equations.",
+   "Let's dive into our exercises."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Construct E32",
+   "problem": "Write the 3×3 matrix for the operation R3 ← R3 + 5R2.",
+   "steps": [
+    "E32 is the identity matrix with 5 in position (3, 2)",
+    "Rows 1-2 are unchanged",
+    "Row 3 of the product equals (row3) + 5 · (row2)"
+   ],
+   "result": "E32 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 5 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Our first problem asks us to construct a specific elementary matrix E32 that performs the row operation R3 ← R3 + 5R2.",
+   "Elementary matrices are created by performing a single row operation on the identity matrix.",
+   "For E32, we're adding 5 times row 2 to row 3, so we place a 5 in position (3, 2) of the identity matrix.",
+   "The first two rows remain unchanged, as they're not involved in this operation.",
+   "When we multiply this matrix by another matrix, it will add 5 times the second row to the third row.",
+   "So the resulting matrix is E32 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 5 & 1 \\end{pmatrix}"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Find the inverse matrix",
+   "problem": "Find the inverse matrix for E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & -3 & 1 \\end{pmatrix}",
+   "steps": [
+    "E implements R3 ← R3 - 3R2 (subtracting three times row2)",
+    "The inverse operation is addition: E^{-1} = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 3 & 1 \\end{pmatrix}",
+    "Verification: E^{-1} · E = I"
+   ],
+   "result": "E^{-1} = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 3 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now let's find the inverse of a given elementary matrix E.",
+   "First, we recognize that E performs the operation R3 ← R3 - 3R2.",
+   "The inverse operation would be to reverse this, which means adding 3 times row 2 to row 3.",
+   "So we create E^{-1} by changing the sign of the off-diagonal element in position (3, 2).",
+   "To verify, we can multiply E^{-1} by E and check if we get the identity matrix.",
+   "Indeed, \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 3 & 1 \\end{pmatrix} · \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & -3 & 1 \\end{pmatrix} = I"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Transform the right-hand side",
+   "problem": "Apply E = \\begin{pmatrix} 1 & 0 & 0 \\\\ -2 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix} to b = \\begin{pmatrix} 3 \\\\ 5 \\\\ 7 \\end{pmatrix}",
+   "steps": [
+    "Eb = [3; 5 - 2 · 3; 7]",
+    "The second component becomes 5 - 2 · 3 = -1",
+    "E eliminates x from the second equation with multiplier 2",
+    "The right-hand side is transformed by the same operation"
+   ],
+   "result": "Eb = \\begin{pmatrix} 3 \\\\ -1 \\\\ 7 \\end{pmatrix}"
+  },
+  "narr": [
+   "In this problem, we need to apply an elementary matrix E to a vector b.",
+   "Multiplying E by b transforms the right-hand side of a system.",
+   "The operation E performs is R2 ← R2 - 2R1, which eliminates x from the second equation.",
+   "Applying this to b, we get: first component remains 3, second becomes 5 - 2·3 = -1, third remains 7.",
+   "This shows how the same elimination operation is applied to both the matrix and the right-hand side.",
+   "So the transformed vector is \\begin{pmatrix} 3 \\\\ -1 \\\\ 7 \\end{pmatrix}"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Row exchange matrix",
+   "problem": "Find P that swaps rows 2 and 3 of a 3×3 matrix.",
+   "steps": [
+    "P is the identity matrix with rows 2 and 3 swapped",
+    "A double swap returns the original order: P^2 = I",
+    "Therefore P^{-1} = P (consistent with P^{-1} = P^T)",
+    "Left multiplication swaps equations, not unknowns"
+   ],
+   "result": "P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now we need to find a permutation matrix P that swaps rows 2 and 3.",
+   "This is created by swapping rows 2 and 3 in the identity matrix.",
+   "Notice that if we apply this swap twice, we get back to the original order, so P^2 = I.",
+   "This means P is its own inverse: P^{-1} = P.",
+   "This is consistent with the property that permutation matrices are orthogonal, so P^{-1} = P^T.",
+   "When we left-multiply by P, it swaps the equations in a system.",
+   "The resulting matrix is P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — System requiring exchange",
+   "problem": "Solve the system \\begin{pmatrix} 0 & 1 \\\\ 2 & 3 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 14 \\end{pmatrix}",
+   "steps": [
+    "The pivot in position (1, 1) is zero",
+    "Swap rows: 2x + 3y = 14 and y = 4",
+    "Then 2x + 12 = 14, x = 1",
+    "Check: 0 · 1 + 4 = 4, 2 + 12 = 14 — correct"
+   ],
+   "result": "Answer: (1, 4)"
+  },
+  "narr": [
+   "This system requires row exchange because the pivot in position (1,1) is zero.",
+   "We swap the rows to get a non-zero pivot, resulting in the equations: 2x + 3y = 14 and y = 4.",
+   "Now we can solve by substitution: plugging y = 4 into the first equation gives 2x + 12 = 14, so x = 1.",
+   "Checking our solution: 0 · 1 + 4 = 4, and 2 · 1 + 3 · 4 = 14, which is correct.",
+   "So the solution is (1, 4)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Free variable",
+   "problem": "Solve the system \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 3 \\\\ 0 \\end{pmatrix}",
+   "steps": [
+    "The third row is 0 = 0, giving no constraints",
+    "There are two pivots and three unknowns",
+    "Let z = t: y + t = 3 → y = 3 - t",
+    "x + (3 - t) + t = 4 → x = 1",
+    "Check at t = 0: \\begin{pmatrix} 1 \\\\ 3 \\\\ 0 \\end{pmatrix} gives 4, 3, 0 — correct"
+   ],
+   "result": "Answer: \\begin{pmatrix} 1 \\\\ 3 - t \\\\ t \\end{pmatrix}"
+  },
+  "narr": [
+   "This system has a free variable because the third row is all zeros.",
+   "With two pivots and three unknowns, we have infinitely many solutions.",
+   "We let z = t (a free parameter), then solve for y: y + t = 3, so y = 3 - t.",
+   "Substituting into the first equation: x + (3 - t) + t = 4, so x = 1.",
+   "The solution is \\begin{pmatrix} 1 \\\\ 3 - t \\\\ t \\end{pmatrix} for any t.",
+   "Checking with t = 0: \\begin{pmatrix} 1 \\\\ 3 \\\\ 0 \\end{pmatrix} gives the right-hand side 4, 3, 0, which is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Inconsistent row",
+   "problem": "Explain why the system \\begin{pmatrix} 1 & 1 & 0 \\\\ 1 & 1 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 0 \\\\ 1 \\end{pmatrix} has no solutions",
+   "steps": [
+    "The last row reads as 0 · x + 0 · y + 0 · z = 1",
+    "This is equivalent to 0 = 1",
+    "A zero left-hand side cannot give a nonzero right-hand side for any x, y, z",
+    "The system is inconsistent"
+   ],
+   "result": "The system has no solutions because it contains the impossible equation 0 = 1"
+  },
+  "narr": [
+   "This system appears to have a solution at first glance, but it's actually inconsistent.",
+   "Looking at the third row, we see 0 · x + 0 · y + 0 · z = 1, which simplifies to 0 = 1.",
+   "This is an impossible equality - no values of x, y, z can satisfy this equation.",
+   "When a system has a row where all coefficients are zero but the right-hand side is nonzero, it's inconsistent.",
+   "Therefore, this system has no solutions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Compare EP and PE",
+   "problem": "For E = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1 \\end{pmatrix} and P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} compute both products",
+   "steps": [
+    "EP: row1 = [0, 1], row2 = 4 · [0, 1] + [1, 0] = [1, 4]",
+    "EP = \\begin{pmatrix} 0 & 1 \\\\ 1 & 4 \\end{pmatrix}",
+    "PE: row1 = 1 · [4, 1] = [4, 1], row2 = [1, 0]",
+    "PE = \\begin{pmatrix} 4 & 1 \\\\ 1 & 0 \\end{pmatrix}",
+    "The products are different: \"first elimination, then exchange\" and \"first exchange, then elimination\" give different matrices"
+   ],
+   "result": "EP = \\begin{pmatrix} 0 & 1 \\\\ 1 & 4 \\end{pmatrix}, PE = \\begin{pmatrix} 4 & 1 \\\\ 1 & 0 \\end{pmatrix}"
+  },
+  "narr": [
+   "Matrix multiplication is not commutative, meaning order matters.",
+   "Let's compute EP and PE for E = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1 \\end{pmatrix} and P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}.",
+   "For EP, we first apply E then P: row1 becomes [0, 1], row2 becomes 4 · [0, 1] + [1, 0] = [1, 4].",
+   "For PE, we first apply P then E: row1 becomes [4, 1], row2 becomes [1, 0].",
+   "The products are different, showing that \"first elimination, then exchange\" is not the same as \"first exchange, then elimination\".",
+   "This demonstrates the non-commutativity of matrix multiplication."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Column space test",
+   "problem": "Can the system \\begin{pmatrix} 1 & 3 \\\\ 2 & 6 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 5 \\end{pmatrix} be solved?",
+   "steps": [
+    "Both columns have the second component twice the first: \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} and \\begin{pmatrix} 3 \\\\ 6 \\end{pmatrix} = 3 · \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}",
+    "Any combination x · \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} + y · \\begin{pmatrix} 3 \\\\ 6 \\end{pmatrix} has the form \\begin{pmatrix} s \\\\ 2s \\end{pmatrix}",
+    "For b = \\begin{pmatrix} 2 \\\\ 5 \\end{pmatrix} we have 5 ≠ 2 · 2 = 4",
+    "b is not in the column space",
+    "Answer: no (doubling the first equation gives 2x + 6y = 4 ≠ 5 — the lines are parallel)"
+   ],
+   "result": "No, the system cannot be solved"
+  },
+  "narr": [
+   "To determine if this system can be solved, we need to check if b is in the column space of A.",
+   "Looking at the columns of A, we see that \\begin{pmatrix} 3 \\\\ 6 \\end{pmatrix} = 3 · \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}, so the columns are linearly dependent.",
+   "Any linear combination of these columns will have the form \\begin{pmatrix} s \\\\ 2s \\end{pmatrix}.",
+   "For b = \\begin{pmatrix} 2 \\\\ 5 \\end{pmatrix}, we see that 5 ≠ 2 · 2 = 4, so b is not in the column space.",
+   "Geometrically, this means the two equations represent parallel lines that never intersect.",
+   "Therefore, the system has no solution."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — Challenge: construct a permutation",
+   "problem": "Construct P that maps rows (R1, R2, R3) to (R3, R1, R2)",
+   "steps": [
+    "New row1 is old R3, new 2 is old R1, new 3 is old R2",
+    "The rows of P are the rows of the identity matrix in order 3, 1, 2",
+    "Check on rows \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix}: P · A = \\begin{pmatrix} 7 & 8 & 9 \\\\ 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}",
+    "Left multiplication permutes rows; P^3 = I"
+   ],
+   "result": "P = \\begin{pmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}"
+  },
+  "narr": [
+   "This challenge asks us to construct a permutation matrix that cycles the rows: R1→R2→R3→R1.",
+   "To create P, we arrange the rows of the identity matrix in the order 3, 1, 2.",
+   "This means the first row of P is the third row of I, the second row is the first row of I, and the third row is the second row of I.",
+   "When we multiply P by any matrix A, it will permute the rows of A according to this cycle.",
+   "For example, applying P to \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix} gives \\begin{pmatrix} 7 & 8 & 9 \\\\ 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}.",
+   "Notice that applying this permutation three times returns to the original order, so P^3 = I."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 1 — Row picture and column picture",
+   "problem": "Solve the system \\begin{pmatrix} 2 & -1 \\\\ 1 & 1 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}. Describe both geometric pictures.",
+   "steps": [
+    "Add the equations: 3x = 6, x = 2, y = 3",
+    "The lines 2x - y = 1 and x + y = 5 intersect at (2, 3)",
+    "In columns: 2 · \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix} + 3 · \\begin{pmatrix} -1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}",
+    "Check: 2·2 - 3 = 1, 2 + 3 = 5"
+   ],
+   "result": "Answer: x = 2, y = 3"
+  },
+  "narr": [
+   "Let's solve this system and explore both the row and column pictures.",
+   "Adding the two equations gives 3x = 6, so x = 2. Substituting back, we find y = 3.",
+   "Geometrically, the two lines 2x - y = 1 and x + y = 5 intersect at the point (2, 3).",
+   "In the column picture, we're looking for a linear combination of the columns that equals the right-hand side.",
+   "Indeed, 2 times the first column plus 3 times the second column gives us \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}.",
+   "Checking our solution: 2·2 - 3 = 1 and 2 + 3 = 5, which is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 2 — Three outcomes",
+   "problem": "Classify the system \\begin{pmatrix} 1 & 1 \\\\ 2 & 2 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ c \\end{pmatrix} for c = 4 and c = 5.",
+   "steps": [
+    "R2 ← R2 - 2R1 gives \\begin{pmatrix} 1 & 1 \\\\ 0 & 0 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ c - 4 \\end{pmatrix}",
+    "For c = 4: 0 = 0, solutions \\begin{pmatrix} 2 - t \\\\ t \\end{pmatrix}",
+    "Check: (2 - t) + t = 2, 2(2 - t) + 2t = 4",
+    "For c = 5: 0 = 1 — no solutions"
+   ],
+   "result": "For c = 4: infinitely many solutions; for c = 5: no solutions"
+  },
+  "narr": [
+   "This system demonstrates the three possible outcomes for linear systems.",
+   "First, we perform elimination: R2 ← R2 - 2R1, which gives us \\begin{pmatrix} 1 & 1 \\\\ 0 & 0 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ c - 4 \\end{pmatrix}.",
+   "When c = 4, we get 0 = 0, which is always true. This means we have infinitely many solutions: \\begin{pmatrix} 2 - t \\\\ t \\end{pmatrix} for any t.",
+   "When c = 5, we get 0 = 1, which is impossible. This means there are no solutions.",
+   "This illustrates how different right-hand sides can lead to either infinitely many solutions or no solutions when the matrix is singular."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 3 — Find the multiplier",
+   "problem": "Eliminate below the first pivot in \\begin{pmatrix} 2 & 3 \\\\ 8 & 13 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 29 \\end{pmatrix}; find both pivots.",
+   "steps": [
+    "λ21 = 8/2 = 4",
+    "R2 ← R2 - 4R1: [8, 13|29] - 4 · [2, 3|7] = [0, 1|1]",
+    "Result: \\begin{pmatrix} 2 & 3 \\\\ 0 & 1 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 1 \\end{pmatrix}",
+    "Pivots are 2 and 1",
+    "Check by invertibility: [0, 1|1] + 4 · [2, 3|7] = [8, 13|29]"
+   ],
+   "result": "Pivots are 2 and 1"
+  },
+  "narr": [
+   "In this elimination problem, we need to find the multiplier and perform elimination.",
+   "The multiplier λ21 is calculated as 8/2 = 4.",
+   "Applying R2 ← R2 - 4R1, we get [8, 13|29] - 4 · [2, 3|7] = [0, 1|1].",
+   "The resulting matrix is \\begin{pmatrix} 2 & 3 \\\\ 0 & 1 \\end{pmatrix}, with pivots 2 and 1.",
+   "To verify, we can reverse the operation: [0, 1|1] + 4 · [2, 3|7] = [8, 13|29], which matches our original second row."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 4 — Back substitution",
+   "problem": "Solve \\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 7 \\\\ 8 \\end{pmatrix}",
+   "steps": [
+    "From bottom up: z = 8/4 = 2",
+    "3y + 2 · 2 = 7, y = 1",
+    "2x + 1 - 2 = 3, x = 2",
+    "Verification: \\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4 \\end{pmatrix} · \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 7 \\\\ 8 \\end{pmatrix}"
+   ],
+   "result": "Answer: \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "This system is already in upper triangular form, so we can use back substitution.",
+   "Starting from the bottom equation: 4z = 8, so z = 2.",
+   "Moving up: 3y + 2·2 = 7, so 3y = 3, and y = 1.",
+   "Finally: 2x + 1 - 2 = 3, so 2x = 4, and x = 2.",
+   "Verifying our solution: \\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4 \\end{pmatrix} · \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 7 \\\\ 8 \\end{pmatrix}, which is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 5 — Complete elimination",
+   "problem": "Solve the system \\begin{pmatrix} 1 & 1 & 1 \\\\ 2 & 3 & 1 \\\\ 1 & 2 & 3 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ 10 \\\\ 14 \\end{pmatrix} by elimination",
+   "steps": [
+    "R2 ← R2 - 2R1 and R3 ← R3 - R1 give \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 1 & 2 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ -2 \\\\ 8 \\end{pmatrix}",
+    "Then R3 ← R3 - R2 gives \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 3 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ -2 \\\\ 10 \\end{pmatrix}",
+    "Backwards: z = 10/3, y = z - 2 = 4/3, x = 6 - y - z = 4/3",
+    "Verification: the rows give 6, 10, 14 — correct"
+   ],
+   "result": "Answer: \\begin{pmatrix} 4/3 \\\\ 4/3 \\\\ 10/3 \\end{pmatrix}"
+  },
+  "narr": [
+   "This problem requires complete elimination to solve the system.",
+   "First, we eliminate below the first pivot: R2 ← R2 - 2R1 and R3 ← R3 - R1, giving us \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 1 & 2 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ -2 \\\\ 8 \\end{pmatrix}.",
+   "Next, we eliminate below the second pivot: R3 ← R3 - R2, resulting in \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 3 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ -2 \\\\ 10 \\end{pmatrix}.",
+   "Now we use back substitution: z = 10/3, y = z - 2 = 4/3, and x = 6 - y - z = 4/3.",
+   "Verifying: plugging these values back gives the original right-hand side 6, 10, 14, which is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ }
+]

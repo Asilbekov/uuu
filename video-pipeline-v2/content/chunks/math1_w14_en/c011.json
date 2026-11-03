@@ -1,0 +1,857 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Let's dive into our first set of limit problems, starting with a tricky 0/0 form.",
+   "We'll multiply by the conjugate to simplify the expression.",
+   "After simplifying, we can evaluate the limit directly.",
+   "Now let's try another complex fraction that needs simplification.",
+   "By combining the fractions, we can cancel out the problematic term.",
+   "The next problem involves factoring a quadratic expression.",
+   "After factoring, we can simplify and find the limit.",
+   "Now we'll examine a piecewise function at its junction point.",
+   "By evaluating the one-sided limits separately, we can determine if the overall limit exists.",
+   "Our next example shows how to handle infinite limits.",
+   "When the numerator approaches a non-zero value while the denominator approaches zero, we have an infinite limit.",
+   "The squeeze theorem is a powerful tool for evaluating limits with oscillating functions.",
+   "By bounding the function between two others that approach the same limit, we can find the solution.",
+   "Finally, let's evaluate a trigonometric limit using standard results.",
+   "Dividing numerator and denominator by θ allows us to use known limits for sine and cosine."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Evaluating a limit with conjugate",
+   "problem": "Compute lim_{x→5} (√(x−1)−2)/(x−5)",
+   "steps": [
+    "Recognize 0/0 form",
+    "Multiply by conjugate (√(x−1)+2)",
+    "Simplify numerator: (x−1)−4 = x−5",
+    "Cancel (x−5) terms",
+    "Evaluate at x=5"
+   ],
+   "result": "1/(√5−1+2) = 1"
+  },
+  "narr": [
+   "First, we have a limit that gives us a 0/0 form when we substitute x=5.",
+   "To resolve this, we multiply by the conjugate of the numerator.",
+   "After multiplying, we simplify the numerator to get x−5.",
+   "Now we can cancel the (x−5) terms in numerator and denominator.",
+   "Finally, we substitute x=5 to get our limit value of 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Complex fraction limit",
+   "problem": "Compute lim_{x→−3} (1/(x+2)+1)/(x+3)",
+   "steps": [
+    "Combine the fractions in the numerator",
+    "Find common denominator (x+2)",
+    "Simplify the expression",
+    "Cancel (x+3) terms",
+    "Evaluate at x=−3"
+   ],
+   "result": "1/(−3+2) = −1"
+  },
+  "narr": [
+   "For this problem, we have a complex fraction that needs simplification.",
+   "First, we combine the fractions in the numerator over a common denominator.",
+   "This simplifies to (x+3)/(x+2).",
+   "Now we can cancel the (x+3) terms in numerator and denominator.",
+   "Finally, we substitute x=−3 to get our limit value of −1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Factoring to evaluate limit",
+   "problem": "Compute lim_{x→3} (1/(x−3)−1/(x+1))/(x−3)",
+   "steps": [
+    "Combine the fractions in the numerator",
+    "Find common denominator (x−3)(x+1)",
+    "Simplify the expression",
+    "Factor numerator: x−3",
+    "Cancel (x−3) terms",
+    "Evaluate at x=3"
+   ],
+   "result": "1/(3+1) = 1/4"
+  },
+  "narr": [
+   "This problem requires us to factor a quadratic expression in the denominator.",
+   "First, we combine the fractions in the numerator over a common denominator.",
+   "The denominator factors to (x−3)(x+1).",
+   "After simplifying, we see the numerator is x−3.",
+   "We can cancel the (x−3) terms in numerator and denominator.",
+   "Finally, we substitute x=3 to get our limit value of 1/4."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Piecewise function limit",
+   "problem": "For f(x) = {x²−x if x≤3, x+4 if x>3}, compute the one-sided limits at x=3",
+   "steps": [
+    "Evaluate left-hand limit using x²−x",
+    "Substitute x=3 into the first piece",
+    "Evaluate right-hand limit using x+4",
+    "Substitute x=3 into the second piece",
+    "Compare the two limits"
+   ],
+   "result": "Left limit = 9, right limit = 7; limit does not exist"
+  },
+  "narr": [
+   "Now we examine a piecewise function at its junction point.",
+   "For the left-hand limit, we use the first piece: x²−x.",
+   "Substituting x=3 gives us 9.",
+   "For the right-hand limit, we use the second piece: x+4.",
+   "Substituting x=3 gives us 7.",
+   "Since the left and right limits are not equal, the overall limit does not exist."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Infinite limit",
+   "problem": "Compute lim_{x→1} (x+2)/(x−1)²",
+   "steps": [
+    "Analyze numerator as x approaches 1",
+    "Analyze denominator as x approaches 1",
+    "Determine the behavior of the fraction",
+    "Conclude about the limit"
+   ],
+   "result": "+∞ (infinite limit, vertical asymptote at x=1)"
+  },
+  "narr": [
+   "This example shows how to handle infinite limits.",
+   "As x approaches 1, the numerator approaches 3, a non-zero value.",
+   "The denominator approaches 0 from both sides since it's squared.",
+   "When a non-zero number is divided by something approaching zero, the result approaches infinity.",
+   "Therefore, we have an infinite limit with a vertical asymptote at x=1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Squeeze theorem application",
+   "problem": "Compute lim_{x→0} x² sin(1/x)",
+   "steps": [
+    "Recall the range of sine function",
+    "Apply the bounds to our function",
+    "Multiply by x² (which is non-negative)",
+    "Evaluate the limits of the bounds",
+    "Apply the squeeze theorem"
+   ],
+   "result": "0"
+  },
+  "narr": [
+   "The squeeze theorem is useful for functions with oscillating behavior like this one.",
+   "We know that the sine function is always between -1 and 1.",
+   "Multiplying by x² (which is non-negative), we get −x² ≤ x² sin(1/x) ≤ x².",
+   "Both the lower bound −x² and upper bound x² approach 0 as x approaches 0.",
+   "By the squeeze theorem, our function must also approach 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Trigonometric limit",
+   "problem": "Compute lim_{θ→0} (1−cosθ)/sinθ",
+   "steps": [
+    "Divide numerator and denominator by θ",
+    "Rewrite the expression",
+    "Use standard limits: sinθ/θ → 1",
+    "Use result: (1−cosθ)/θ → 0",
+    "Evaluate the limit"
+   ],
+   "result": "0"
+  },
+  "narr": [
+   "Finally, let's evaluate a trigonometric limit using standard results.",
+   "We divide both numerator and denominator by θ (valid since θ ≠ 0 in the limit).",
+   "This gives us [(1−cosθ)/θ] / [sinθ/θ].",
+   "We know that sinθ/θ approaches 1 as θ approaches 0.",
+   "And (1−cosθ)/θ approaches 0 as θ approaches 0.",
+   "Therefore, the limit is 0/1 = 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "OpenStax §2.3 exercises",
+   "subtitle": "Questions and complete solutions"
+  },
+  "narr": [
+   "Now we'll work through selected exercises from OpenStax §2.3.",
+   "We'll start with problems using limit laws.",
+   "Then we'll try direct substitution problems.",
+   "Next, we'll tackle indeterminate forms of type 0/0.",
+   "Finally, we'll examine forms K/0 that lead to one-sided infinite limits."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Limit laws application",
+   "problem": "Compute lim_{x→0} (4x²−2x+3)",
+   "steps": [
+    "Apply direct substitution",
+    "Evaluate each term",
+    "Combine results"
+   ],
+   "result": "3"
+  },
+  "narr": [
+   "For our first problem, we can directly substitute x=0 into the expression.",
+   "This gives us 4(0)²−2(0)+3.",
+   "Simplifying, we get 0−0+3 = 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Quotient with direct substitution",
+   "problem": "Compute lim_{x→1} (x³+3x²+5)/(4−7x)",
+   "steps": [
+    "Check denominator at x=1",
+    "Apply quotient law",
+    "Substitute x=1",
+    "Simplify"
+   ],
+   "result": "-3"
+  },
+  "narr": [
+   "For this limit, we first check the denominator at x=1.",
+   "The denominator is 4−7(1) = −3, which is not zero.",
+   "Since the denominator is non-zero, we can apply the quotient law.",
+   "Substituting x=1 gives us (1+3+5)/(−3) = 9/(−3) = −3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Square root limit",
+   "problem": "Compute lim_{x→−2} √(x²−6x+3)",
+   "steps": [
+    "Check if radicand is defined at x=−2",
+    "Verify the radicand is positive",
+    "Apply root law",
+    "Substitute x=−2"
+   ],
+   "result": "√19"
+  },
+  "narr": [
+   "For this limit, we need to check the radicand at x=−2.",
+   "The radicand is x²−6x+3 = 4+12+3 = 19, which is positive.",
+   "Since the radicand is continuous and positive at x=−2, we can apply the root law.",
+   "Substituting x=−2 gives us √19."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Power law application",
+   "problem": "Compute lim_{x→−1} (9x+1)²",
+   "steps": [
+    "Apply power law",
+    "Substitute x=−1",
+    "Simplify"
+   ],
+   "result": "64"
+  },
+  "narr": [
+   "This problem requires applying the power law.",
+   "First, we substitute x=−1 into the expression inside the power.",
+   "This gives us 9(−1)+1 = −8.",
+   "Then we square the result: (−8)² = 64."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Direct substitution with trigonometric function",
+   "problem": "Compute lim_{x→0} 1/(1+sinx)",
+   "steps": [
+    "Check denominator at x=0",
+    "Apply quotient law",
+    "Substitute x=0",
+    "Simplify"
+   ],
+   "result": "1"
+  },
+  "narr": [
+   "For this limit, we check the denominator at x=0.",
+   "The denominator is 1+sin(0) = 1, which is not zero.",
+   "Since the denominator is non-zero, we can apply the quotient law.",
+   "Substituting x=0 gives us 1/1 = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Exponential function limit",
+   "problem": "Compute lim_{x→2} e^{2x−x²}",
+   "steps": [
+    "Evaluate exponent at x=2",
+    "Simplify exponent",
+    "Apply exponential function"
+   ],
+   "result": "1"
+  },
+  "narr": [
+   "For this exponential limit, we first evaluate the exponent at x=2.",
+   "The exponent is 2(2)−2² = 4−4 = 0.",
+   "Then we apply the exponential function: e⁰ = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Rational function limit",
+   "problem": "Compute lim_{x→1} (2+7x)/(x+6)",
+   "steps": [
+    "Apply quotient law",
+    "Substitute x=1",
+    "Simplify"
+   ],
+   "result": "9/7"
+  },
+  "narr": [
+   "This is a straightforward rational function limit.",
+   "Since the denominator is not zero at x=1, we can apply the quotient law.",
+   "Substituting x=1 gives us (2+7(1))/(1+6) = 9/7."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Logarithmic function limit",
+   "problem": "Compute lim_{x→3} ln(e^{3x})",
+   "steps": [
+    "Simplify using logarithm properties",
+    "Apply inverse relationship",
+    "Substitute x=3",
+    "Simplify"
+   ],
+   "result": "9"
+  },
+  "narr": [
+   "For this logarithmic limit, we use the inverse relationship between ln and e.",
+   "We know that ln(e^y) = y for any real number y.",
+   "Therefore, ln(e^{3x}) = 3x.",
+   "Substituting x=3 gives us 3(3) = 9."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Factoring to resolve 0/0 form",
+   "problem": "Compute lim_{x→4} (x²−16)/(x−4)",
+   "steps": [
+    "Recognize 0/0 form",
+    "Factor numerator",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "8"
+  },
+  "narr": [
+   "This limit gives us a 0/0 form when we substitute x=4.",
+   "To resolve this, we factor the numerator: x²−16 = (x−4)(x+4).",
+   "After factoring, we can cancel the (x−4) terms.",
+   "This leaves us with x+4, and substituting x=4 gives us 8."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Factoring denominator to resolve 0/0 form",
+   "problem": "Compute lim_{x→2} (x−2)/(x²−2x)",
+   "steps": [
+    "Recognize 0/0 form",
+    "Factor denominator",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "1/2"
+  },
+  "narr": [
+   "For this limit, we have a 0/0 form when we substitute x=2.",
+   "We factor the denominator: x²−2x = x(x−2).",
+   "After factoring, we can cancel the (x−2) terms.",
+   "This leaves us with 1/x, and substituting x=2 gives us 1/2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Simple factoring to resolve 0/0 form",
+   "problem": "Compute lim_{x→6} (3x−18)/(2x−12)",
+   "steps": [
+    "Recognize 0/0 form",
+    "Factor numerator and denominator",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "3/2"
+  },
+  "narr": [
+   "This is a simple factoring problem to resolve a 0/0 form.",
+   "We factor the numerator: 3x−18 = 3(x−6).",
+   "We factor the denominator: 2x−12 = 2(x−6).",
+   "After canceling the (x−6) terms, we're left with 3/2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Derivative definition limit",
+   "problem": "Compute lim_{h→0} ((1+h)²−1)/h",
+   "steps": [
+    "Expand the numerator",
+    "Simplify the expression",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "2"
+  },
+  "narr": [
+   "This limit is actually the definition of the derivative of x² at x=1.",
+   "First, we expand the numerator: (1+h)²−1 = 1+2h+h²−1 = 2h+h².",
+   "Now we can rewrite the expression as (2h+h²)/h.",
+   "Canceling h gives us 2+h, and as h approaches 0, we get 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Conjugate method for square root",
+   "problem": "Compute lim_{x→9} (x−9)/(√x−3)",
+   "steps": [
+    "Recognize 0/0 form",
+    "Multiply by conjugate of denominator",
+    "Simplify numerator",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "6"
+  },
+  "narr": [
+   "For this limit involving a square root, we use the conjugate method.",
+   "We multiply by the conjugate of the denominator: (√x+3).",
+   "The numerator becomes (x−9)(√x+3).",
+   "The denominator becomes (√x−3)(√x+3) = x−9.",
+   "After canceling (x−9), we're left with √x+3, and substituting x=9 gives us 6."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Derivative of 1/x",
+   "problem": "Compute lim_{h→0} (1/(a+h)−1/a)/h, where a is a nonzero constant",
+   "steps": [
+    "Combine fractions in numerator",
+    "Simplify expression",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "-1/a²"
+  },
+  "narr": [
+   "This limit is the definition of the derivative of 1/x at x=a.",
+   "First, we combine the fractions in the numerator: (a−(a+h))/(a(a+h)).",
+   "This simplifies to -h/(a(a+h)).",
+   "Now our expression becomes [-h/(a(a+h))]/h = -1/(a(a+h)).",
+   "As h approaches 0, we get -1/a²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — Trigonometric identity application",
+   "problem": "Compute lim_{θ→π} sinθ/tanθ",
+   "steps": [
+    "Simplify using trigonometric identities",
+    "Express tanθ in terms of sin and cos",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "-1"
+  },
+  "narr": [
+   "For this trigonometric limit, we can simplify using identities.",
+   "We know that tanθ = sinθ/cosθ.",
+   "Substituting this in, we get sinθ/(sinθ/cosθ) = cosθ.",
+   "As θ approaches π, cosθ approaches -1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 16 — Factoring both numerator and denominator",
+   "problem": "Compute lim_{x→1} (x³−1)/(x²−1)",
+   "steps": [
+    "Recognize 0/0 form",
+    "Factor numerator and denominator",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "3/2"
+  },
+  "narr": [
+   "This limit requires factoring both numerator and denominator.",
+   "The numerator factors as (x−1)(x²+x+1).",
+   "The denominator factors as (x−1)(x+1).",
+   "After canceling (x−1), we're left with (x²+x+1)/(x+1).",
+   "Substituting x=1 gives us (1+1+1)/(1+1) = 3/2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 17 — Factoring quadratic numerator",
+   "problem": "Compute lim_{x→1/2} (2x²+3x−2)/(2x−1)",
+   "steps": [
+    "Recognize 0/0 form",
+    "Factor numerator",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "5/2"
+  },
+  "narr": [
+   "For this limit, we factor the quadratic in the numerator.",
+   "The numerator 2x²+3x−2 factors as (2x−1)(x+2).",
+   "After canceling (2x−1), we're left with x+2.",
+   "Substituting x=1/2 gives us 1/2+2 = 5/2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 18 — Conjugate method with square root",
+   "problem": "Compute lim_{x→−3} (√(x+4)−1)/(x+3)",
+   "steps": [
+    "Recognize 0/0 form",
+    "Multiply by conjugate of numerator",
+    "Simplify numerator",
+    "Cancel common factors",
+    "Evaluate limit"
+   ],
+   "result": "1/2"
+  },
+  "narr": [
+   "This limit requires the conjugate method with a square root.",
+   "We multiply by the conjugate of the numerator: (√(x+4)+1).",
+   "The numerator becomes (x+4)−1 = x+3.",
+   "The denominator becomes (x+3)(√(x+4)+1).",
+   "After canceling (x+3), we're left with 1/(√(x+4)+1).",
+   "Substituting x=−3 gives us 1/(√1+1) = 1/2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 19 — One-sided infinite limit",
+   "problem": "Compute lim_{x→−2⁻} (−2x²+7x−4)/((x+2)(x−1))",
+   "steps": [
+    "Factor numerator",
+    "Analyze behavior as x approaches -2 from left",
+    "Determine sign of numerator and denominator",
+    "Conclude about limit"
+   ],
+   "result": "-∞"
+  },
+  "narr": [
+   "For this one-sided infinite limit, we first factor the numerator.",
+   "The numerator factors as (2x−1)(x+4).",
+   "As x approaches -2 from the left, (x+2) < 0 and (x−1) < 0.",
+   "The denominator is positive while the numerator is negative.",
+   "Therefore, the limit is -∞."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 20 — One-sided infinite limit from the right",
+   "problem": "Compute lim_{x→−2⁺} (−2x²+7x−4)/((x+2)(x−1))",
+   "steps": [
+    "Factor numerator",
+    "Analyze behavior as x approaches -2 from right",
+    "Determine sign of numerator and denominator",
+    "Conclude about limit"
+   ],
+   "result": "+∞"
+  },
+  "narr": [
+   "This is similar to the previous problem but from the right side.",
+   "The numerator factors as (2x−1)(x+4).",
+   "As x approaches -2 from the right, (x+2) > 0 and (x−1) < 0.",
+   "The denominator is negative while the numerator is negative.",
+   "Therefore, the limit is +∞."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 21 — One-sided infinite limit at x=1 from left",
+   "problem": "Compute lim_{x→1⁻} (−2x²+7x−4)/((x+2)(x−1))",
+   "steps": [
+    "Factor numerator",
+    "Analyze behavior as x approaches 1 from left",
+    "Determine sign of numerator and denominator",
+    "Conclude about limit"
+   ],
+   "result": "-∞"
+  },
+  "narr": [
+   "For this limit at x=1 from the left, we factor the numerator.",
+   "The numerator factors as (2x−1)(x+4).",
+   "As x approaches 1 from the left, (x+2) > 0 and (x−1) < 0.",
+   "The denominator is negative while the numerator is positive.",
+   "Therefore, the limit is -∞."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 22 — One-sided infinite limit at x=1 from right",
+   "problem": "Compute lim_{x→1⁺} (−2x²+7x−4)/((x+2)(x−1))",
+   "steps": [
+    "Factor numerator",
+    "Analyze behavior as x approaches 1 from right",
+    "Determine sign of numerator and denominator",
+    "Conclude about limit"
+   ],
+   "result": "+∞"
+  },
+  "narr": [
+   "This is similar to the previous problem but from the right side.",
+   "The numerator factors as (2x−1)(x+4).",
+   "As x approaches 1 from the right, (x+2) > 0 and (x−1) > 0.",
+   "The denominator is positive while the numerator is positive.",
+   "Therefore, the limit is +∞."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ }
+]

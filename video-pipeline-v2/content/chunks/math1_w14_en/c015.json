@@ -1,0 +1,355 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "We're starting with a series of problems from logarithmic functions and their applications.",
+   "Let's begin with problem 4."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Sketch and analyze logarithmic functions",
+   "problem": "Sketch; specify domain, range, vertical asymptote: a. f(x) = 3 + ln x; b. f(x) = ln(x −1); c. f(x) = ln(−x).",
+   "steps": [
+    "a. ln x, shifted up by 3",
+    "b. Shift right by 1",
+    "c. Reflection across the y-axis"
+   ],
+   "result": "a. Domain (0, ∞), range R, vertical asymptote x = 0.\nb. Domain (1, ∞), range R, asymptote x = 1.\nc. Domain (−∞, 0), range R, asymptote x = 0."
+  },
+  "narr": [
+   "For part a, we have the natural logarithm function shifted vertically upward by 3 units.",
+   "This transformation doesn't change the domain or the vertical asymptote, but shifts the entire graph up.",
+   "For part b, we have a horizontal shift to the right by 1 unit.",
+   "This moves the vertical asymptote from x = 0 to x = 1.",
+   "Part c shows a reflection across the y-axis, which flips the domain to negative values."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Expand using logarithm laws",
+   "problem": "Expand using logarithm laws: a. log x⁴; b. log(9a³/b); c. ln(a√b); d. (1/5)log₅(125xy³).",
+   "steps": [
+    "a. Apply power rule: log(x⁴) = 4 log x",
+    "b. Apply product and quotient rules: log(9a³/b) = log 9 + log(a³) - log b",
+    "c. Apply power rule to square root: ln(a√b) = ln a + ln(b^(1/2))",
+    "d. Apply power rule and evaluate constant: (1/5)log₅(125xy³) = (1/5)(log₅125 + log₅x + log₅y³)"
+   ],
+   "result": "a. 4 log x\nb. log 9 + 3 log a - log b = 2 log 3 + 3 log a - log b\nc. ln a + (1/3) ln b\nd. (1/5)(3 + log₅x + 3 log₅y)"
+  },
+  "narr": [
+   "Let's expand these logarithmic expressions using the logarithm properties.",
+   "For part a, we apply the power rule which allows us to bring the exponent down as a coefficient.",
+   "In part b, we use both the product rule and quotient rule to separate the terms.",
+   "Part c requires recognizing that a square root is equivalent to an exponent of 1/2.",
+   "Finally, part d combines the power rule with evaluating the logarithm of a constant."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Solve exponential equations",
+   "problem": "Solve exactly: a. 5ˣ = 125; b. e³ˣ - 15 = 0; c. 8ˣ = 4; d. 4ˣ⁺¹ - 32 = 0; e. 3ˣ/¹⁴ = 1/10; f. 10ˣ = 7.21.",
+   "steps": [
+    "a. Express both sides with same base: 5ˣ = 5³",
+    "b. Isolate exponential: e³ˣ = 15",
+    "c. Express with same base: 2³ˣ = 2²",
+    "d. Express with same base: 2²ˣ⁺² = 2⁵",
+    "e. Take logarithm of both sides: (x/14)ln 3 = ln(1/10)",
+    "f. Take logarithm of both sides: x = log(7.21)"
+   ],
+   "result": "a. x = 3 (since 125 = 5³)\nb. 3x = ln 15, x = ln15/3 ≈ 0.9027\nc. 3x = 2, x = 2/3\nd. x = 3/2\ne. x = -14ln10/ln3 ≈ -29.32\nf. x = log 7.21 ≈ 0.8580"
+  },
+  "narr": [
+   "Now we'll solve exponential equations by various methods.",
+   "For part a, we can express both sides with the same base and equate exponents.",
+   "Part b requires isolating the exponential term and then taking the natural logarithm.",
+   "In part c, we rewrite both sides with base 2 to simplify the equation.",
+   "Part d also uses the same base technique after some initial algebraic manipulation.",
+   "For parts e and f, we take logarithms of both sides to solve for the variable exponent."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Solve logarithmic equations",
+   "problem": "Solve exactly, if possible: a. log₃ x = 0; b. log₅ x = -2; c. log₃(x+5) = 0; d. log₂(2x-7) = 0; e. ln(√x) + 3 = 2; f. log₆(x + 9) + log₆ x = 2; g. log₄(x + 2) - log₄(x-1) = 0.",
+   "steps": [
+    "a. Convert to exponential form: x = 3⁰",
+    "b. Convert to exponential form: x = 5⁻²",
+    "c. Convert to exponential form: x + 5 = 3⁰",
+    "d. Convert to exponential form: 2x - 7 = 2⁰",
+    "e. Isolate logarithm: ln(√x) = -1",
+    "f. Combine logarithms: log₆(x(x+9)) = 2",
+    "g. Combine logarithms: log₄((x+2)/(x-1)) = 0"
+   ],
+   "result": "a. x = 3⁰ = 1\nb. x = 5⁻² = 1/25\nc. x + 5 = 3⁰ = 1, x = -4 (valid after domain check)\nd. 2x - 7 = 1, x = 4\ne. √x = e⁻¹, x = e⁻² ≈ 0.1353\nf. x(x+9) = 6², x = 3 (after domain check)\ng. (x+2)/(x-1) = 1, no solution"
+  },
+  "narr": [
+   "Let's solve logarithmic equations by converting them to exponential form when possible.",
+   "For parts a and b, we can directly convert to exponential form since they're simple equations.",
+   "Parts c and d require solving linear equations after converting to exponential form.",
+   "Part e needs isolation of the logarithm before converting to exponential form.",
+   "In part f, we first combine the logarithms using the product rule.",
+   "Part g combines logarithms using the quotient rule, leading to an impossible equation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Change of base formula",
+   "problem": "Change of base, approximation to four decimal places: a. log₅ 47; b. log₂ 82; c. log₀.₅ 211; d. log₀.₂ 0.452.",
+   "steps": [
+    "a. Apply change of base formula: log₅ 47 = ln 47/ln 5",
+    "b. Apply change of base formula: log₂ 82 = ln 82/ln 2",
+    "c. Apply change of base formula: log₀.₅ 211 = ln 211/ln 0.5",
+    "d. Apply change of base formula: log₀.₂ 0.452 = ln 0.452/ln 0.2"
+   ],
+   "result": "a. ln 47/ln 5 ≈ 2.3922\nb. ln 82/ln 2 ≈ 6.3576\nc. ln 211/ln 0.5 ≈ -7.7181\nd. ln 0.452/ln 0.2 ≈ 0.3536"
+  },
+  "narr": [
+   "Now we'll use the change of base formula to evaluate logarithms with different bases.",
+   "The change of base formula allows us to express any logarithm in terms of natural logarithms.",
+   "For each part, we apply the formula log_b a = ln a/ln b.",
+   "Then we calculate the numerical approximation to four decimal places."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Bacterial growth model",
+   "problem": "A bacterial colony doubles in 12 hours, initially 1000. a. Using Q = Q₀eᵏᵗ, find k; b. how long until 200,000?",
+   "steps": [
+    "a. Use doubling condition: 2 = e¹²ᵏ",
+    "b. Solve for target population: 200,000 = 1000eᵏᵗ"
+   ],
+   "result": "a. k = ln 2/12 ≈ 0.0578 per hour\nb. 200 = eᵏᵗ, t = ln 200/k ≈ 92.1 hours"
+  },
+  "narr": [
+   "Let's model bacterial growth using the exponential growth formula Q = Q₀eᵏᵗ.",
+   "For part a, we use the fact that the colony doubles in 12 hours to find the growth constant k.",
+   "For part b, we determine how long it takes for the colony to reach 200,000 bacteria.",
+   "This demonstrates the practical application of exponential growth models."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Rabbit population growth",
+   "problem": "A rabbit population doubles every 6 months, initially 120. a. Using P = P₀aᵗ, find a; b. when will it reach 3500?",
+   "steps": [
+    "a. Determine growth factor for 6-month period",
+    "b. Solve for time: 3500 = 120·2ᵗ"
+   ],
+   "result": "a. a = 2 for 6-month period\nb. t = log₂(3500/120) ≈ 4.87 periods (about 2.4 years)"
+  },
+  "narr": [
+   "Now we'll model rabbit population growth using a slightly different exponential form.",
+   "For part a, we identify the growth factor for the 6-month doubling period.",
+   "For part b, we calculate how many doubling periods are needed to reach the target population.",
+   "This shows how exponential growth can be measured in terms of doubling times."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Richter scale comparison",
+   "problem": "The 1906 San Francisco earthquake had magnitude 8.3; the Japanese earthquake of the same year had magnitude 4.9. How much more intense was San Francisco (Richter scale)?",
+   "steps": [
+    "Apply the Richter scale intensity formula: I₁/I₂ = 10^(M₁-M₂)",
+    "Calculate the intensity ratio"
+   ],
+   "result": "Intensity ratio = 10^(8.3-4.9) = 10^3.4 ≈ 2512: the San Francisco earthquake was about 2500 times more intense"
+  },
+  "narr": [
+   "Let's apply logarithmic scales to compare earthquake intensities.",
+   "The Richter scale is logarithmic, so each unit represents a tenfold increase in intensity.",
+   "To find how much more intense one earthquake was than another, we calculate 10 raised to the difference in magnitudes.",
+   "This calculation shows the dramatic difference between the two earthquakes."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Now we'll move to limit problems using tabular methods.",
+   "Let's start with problem 1."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Estimate limit using table",
+   "problem": "Estimate lim(t→0⁺) cos t/t by table (t = 0.1, 0.01, 0.001, 0.0001).",
+   "steps": [
+    "Calculate values for t approaching 0 from the right",
+    "Analyze the behavior as t approaches 0"
+   ],
+   "result": "t = 0.1: 9.95004; t = 0.01: 99.995; t = 0.001: 999.9995; t = 0.0001: 9999.95\nThe limit is +∞ (K/0⁺ form)"
+  },
+  "narr": [
+   "For this limit problem, we'll use a table approach to estimate the behavior as t approaches 0 from the right.",
+   "As we calculate the values for smaller and smaller positive t, we see the results growing without bound.",
+   "This indicates a vertical asymptote approaching positive infinity.",
+   "The numerator approaches 1 while the denominator approaches 0 from the positive side, creating a K/0⁺ form."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Estimate limit using table",
+   "problem": "Estimate lim(x→2) (x-2)/(x³-4x) by table.",
+   "steps": [
+    "First simplify the expression by factoring",
+    "Calculate values for x approaching 2",
+    "Compare with algebraic evaluation"
+   ],
+   "result": "Simplified: 1/(x(x+2)) for x ≠ 2\nTable values approach 0.125\nAlgebraic limit: 1/(2·4) = 1/8 = 0.125"
+  },
+  "narr": [
+   "For this limit, we first simplify the expression by factoring the denominator.",
+   "After canceling the common factor, we evaluate the simplified expression.",
+   "Creating a table with values approaching 2 from both sides confirms our algebraic result.",
+   "This demonstrates how simplification can make limit evaluation more straightforward."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Limit with oscillation",
+   "problem": "Guess from the table, then verify by the graph: lim(θ→0) sin(π/θ).",
+   "steps": [
+    "Calculate values for θ approaching 0",
+    "Examine the behavior of sin(π/θ) near 0",
+    "Consider specific points where the function doesn't approach 0"
+   ],
+   "result": "Table suggests 0 (at θ = 1/n), but limit does not exist due to oscillation between -1 and 1"
+  },
+  "narr": [
+   "This problem reveals a limitation of the tabular method for certain limits.",
+   "At first glance, the table values suggest the limit is 0.",
+   "However, the function sin(π/θ) oscillates infinitely fast between -1 and 1 as θ approaches 0.",
+   "The sample points θ = 1/n happened to be zeros of the sine function, creating a misleading table.",
+   "This serves as an important caution about relying solely on tabular methods."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Oscillating limit with unbounded values",
+   "problem": "Guess from the table, then verify by the graph: lim(α→0⁺) (1/α)·cos(π/α).",
+   "steps": [
+    "Calculate values for α approaching 0 from the right",
+    "Examine the behavior of (1/α)·cos(π/α) near 0",
+    "Consider the alternating sign and growing magnitude"
+   ],
+   "result": "The limit does not exist (oscillates between ever larger positive and negative values)"
+  },
+  "narr": [
+   "This problem demonstrates another case where the tabular method can be misleading.",
+   "When α = 1/n, the values are n·(-1)ⁿ, which grow in magnitude and alternate in sign.",
+   "The graph oscillates between increasingly large positive and negative values.",
+   "Unlike a simple infinite limit, the values alternate signs, so the limit does not exist at all.",
+   "This shows how important it is to consider the full behavior, not just selected points."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ }
+]

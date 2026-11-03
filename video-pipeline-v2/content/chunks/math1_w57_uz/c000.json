@@ -1,0 +1,205 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kurs xaritasi va hujjatdan qanday foydalanish",
+   "subtitle": "Math I — 5–7 haftalar"
+  },
+  "narr": [
+   "Bu qo'llanma Math I kursining 5, 6 va 7 haftalarini o'z ichiga oladi. Unda har haftaning aspektlari, formulalari va masalalari to'liq yechimlari bilan berilgan.",
+   "5-haftada biz uzluksizlik va teskari funksiyalarni o'rganamiz.",
+   "6-haftada hosilalar, farq nisbati va kesmalar, limit orqali ta'rif, tegishlar va tezliklar, differensiallash qoidalari va boshqa mavzularni ko'rib chiqamiz.",
+   "7-haftada bog'liq tezliklar, eksponensial va logarifmik funksiyalarning hosilalari va 3-bobni takrorlashga e'tibor qaratamiz.",
+   "Har bir hafta formulalar katalogi bilan boshlanadi, so'ngra har bir manba fayli uchun 'savollar va to'liq yechimlar' bo'limi keladi.",
+   "7-hafta Midterm imtihonidan oldin o'tadi, imtihon 2-noyabr kuni bo'lib o'tadi va 2 soat davom etadi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "5-hafta — Uzluksizlik va teskari funksiyalar",
+   "subtitle": "Math I"
+  },
+  "narr": [
+   "5-hafta mavzusi uzluksizlik va teskari funksiyalarni o'z ichiga oladi. Bu mavzular asosan darslikning 2.4-bo'limi va o'qituvchining yozuvlariga asoslangan."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Nuqtadagi uzluksizlik ta'rifi",
+   "bullets": [
+    "Funksiya uzluksiz deb ataladi, agar uning grafigi qalamni qog'ozdan uzmasdan chizish mumkin bo'lsa.",
+    "Rasmiy ravishda: f funksiyasi x = a nuqtasida uzluksiz, agar $\\lim_{x \\to a} f(x) = f(a)$"
+   ]
+  },
+  "narr": [
+   "Uzluksizlik tushunchasini grafik va rasmiy ta'riflar orqali tushunish mumkin.",
+   "Grafik ta'rifga ko'ra, agar funksiya grafigini qalamni qog'ozdan uzmasdan chizish mumkin bo'lsa, u uzluksiz hisoblanadi.",
+   "Rasmiy ta'rif esa shunday deydi: f funksiyasi x = a nuqtasida uzluksiz, agar x a ga intilganda f(x) ning limiti f(a) ga teng bo'lsa."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Uzluksizlik sharti",
+   "tex": "\\lim_{x \\to a} f(x) = f(a)",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a}",
+     "color": "#4C5FD5",
+     "note": "x a ga intilganda"
+    },
+    {
+     "substr": "f(x)",
+     "color": "#B45309",
+     "note": "funksiyaning qiymati"
+    },
+    {
+     "substr": "= f(a)",
+     "color": "#0E7C7B",
+     "note": "funksiyaning a nuqtadagi qiymatiga teng"
+    }
+   ]
+  },
+  "narr": [
+   "Uzluksizlik sharti uchta talabni o'z ichiga oladi:",
+   "Birinchidan, f(a) aniqlangan bo'lishi kerak.",
+   "Ikkinchidan, lim x→a f(x) mavjud bo'lishi kerak.",
+   "Uchinchidan, bu limit funksiyaning a nuqtadagi qiymatiga teng bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Chap va o'ng chegaralar orqali ifodalash",
+   "tex": "\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = f(a)",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a^-}",
+     "color": "#4C5FD5",
+     "note": "chap chegaralar limiti"
+    },
+    {
+     "substr": "\\lim_{x \\to a^+}",
+     "color": "#4C5FD5",
+     "note": "o'ng chegaralar limiti"
+    },
+    {
+     "substr": "= f(a)",
+     "color": "#0E7C7B",
+     "note": "funksiyaning a nuqtadagi qiymatiga teng"
+    }
+   ]
+  },
+  "narr": [
+   "Uzluksizlik shartini chap va o'ng chegaralar orqali ham ifodalash mumkin.",
+   "Bu shartga ko'ra, chap va o'ng chegaralar bir-biriga teng va ular a nuqtadagi funksiya qiymatiga teng bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Nuqtada uzluksizlikni tekshirish strategiyasi",
+   "bullets": [
+    "1-bosqich: f(a) aniqlanganligini tekshiring. Agar f(a) aniqlanmagan bo'lsa — funksiya a nuqtada uzluksiz emas.",
+    "2-bosqich: lim x→a f(x) ni hisoblang (agar kerak bo'lsa, avval chap va o'ng chegaralarni hisoblang). Agar limit mavjud bo'lmasa — funksiya a nuqtada uzluksiz emas.",
+    "3-bosqich: f(a) va lim x→a f(x) ni solishtiring. Agar ular teng bo'lsa — uzluksiz; aks holda — uzluksiz emas."
+   ]
+  },
+  "narr": [
+   "Nuqtada uzluksizlikni tekshirish uchun uch bosqichli strategiyadan foydalanamiz.",
+   "Birinchi bosqichda, funksiyaning berilgan nuqtadagi qiymati aniqlanganligini tekshiramiz.",
+   "Agar qiymat aniqlanmagan bo'lsa, funksiya shu nuqtada uzluksiz emas.",
+   "Ikkinchi bosqichda, funksiyaning limitini hisoblaymiz.",
+   "Agar limit mavjud bo'lmasa, funksiya shu nuqtada uzluksiz emas.",
+   "Uchinchi bosqichda, funksiyaning qiymati va limitini solishtiramiz.",
+   "Agar ular teng bo'lsa, funksiya shu nuqtada uzluksiz; aks holda uzluksiz emas."
+  ],
+  "narr_item": [
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Intervaldagi uzluksizlik",
+   "bullets": [
+    "Funksiya ochiq intervalda (a, b) uzluksiz bo'lsa, agar u har bir nuqtada uzluksiz bo'lsa.",
+    "Funksiya yopiq intervalda [a, b] uzluksiz bo'lsa, agar qo'shimcha ravishda a nuqtadan o'ngda uzluksiz bo'lsa: lim x→a⁺ f(x) = f(a), va b nuqtadan chapda uzluksiz bo'lsa: lim x→b⁻ f(x) = f(b)."
+   ]
+  },
+  "narr": [
+   "Uzluksizlik tushunchasini butun intervalga ham kengaytirish mumkin.",
+   "Ochiq intervalda funksiya har bir nuqtada uzluksiz bo'lishi kerak.",
+   "Yopiq intervalda esa qo'shimcha ravishda intervalning chekki nuqtalarida ham uzluksizlik shartlari qo'llaniladi."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Uzilish turlari",
+   "bullets": [
+    "Olib tashlanadigan uzilish (removable discontinuity): lim x→a f(x) mavjud va haqiqiy son L ga teng, lekin f(a) aniqlanmagan yoki f(a) ≠ L — grafikda 'tirqish'.",
+    "Sakrash (jump discontinuity): lim x→a⁻ f(x) va lim x→a⁺ f(x) ikkalasi ham mavjud va chekli, lekin lim x→a⁻ f(x) ≠ lim x→a⁺ f(x) — grafik qismlari birlashmaydi.",
+    "Cheksiz uzilish (infinite discontinuity): lim x→a⁻ f(x) = ±∞ va/ yoki lim x→a⁺ f(x) = ±∞ — vertikal asimptotadagi uzilish.",
+    "O'siladigan uzilish (oscillatory): funksiya hech qanday qiymatga intilmaydi."
+   ]
+  },
+  "narr": [
+   "Agar funksiya biror nuqtada uzluksiz bo'lmasa, biz buni uzilish deb ataymiz.",
+   "Uzilishlarning to'rtta asosiy turi mavjud.",
+   "Birinchisi, olib tashlanadigan uzilish, bunda limit mavjud lekin funksiya qiymati shu nuqtada aniqlanmagan yoki limitga teng emas.",
+   "Ikkinchisi, sakrash uzilishi, bunda chap va o'ng chegaralar mavjud lekin ular bir-biriga teng emas.",
+   "Uchinchisi, cheksiz uzilish, bunda funksiya qiymati cheksizlikka intiladi.",
+   "To'rtinchisi, o'siladigan uzilish, bunda funksiya hech qanday qiymatga intilmaydi."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   2
+  ]
+ }
+]

@@ -1,0 +1,411 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5-7 of Linear Algebra. In this section, we'll explore matrix operations, solving systems of equations, and understanding consistency conditions.",
+   "Let's start with some fundamental concepts and exercises."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — System of two lines",
+   "problem": "Solve the system $\\begin{bmatrix} 1 & 2 \\\\ 3 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 7 \\\\ 8 \\end{bmatrix}$.",
+   "steps": [
+    "R2 ← R2 - 3R1: (1-6)y = 8-21",
+    "-5y = -13, y = 13/5",
+    "x = 7 - 2·(13/5) = 9/5"
+   ],
+   "result": "Answer: (9/5, 13/5)"
+  },
+  "narr": [
+   "Our first problem involves solving a system of two linear equations.",
+   "We perform row operations to eliminate variables.",
+   "First, we eliminate y from the second equation by subtracting 3 times the first row from the second row.",
+   "This gives us -5y = -13, so y = 13/5.",
+   "Substituting back, we find x = 9/5.",
+   "Verification confirms our solution is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Parallel or coincident?",
+   "problem": "Classify the system $\\begin{bmatrix} 2 & 4 \\\\ 1 & 2 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 6 \\\\ c \\end{bmatrix}$ for c = 3 and c = 4.",
+   "steps": [
+    "Row 1 is twice row 2 on the left",
+    "Consistency requires the same on the right: 6 = 2c",
+    "For c = 3, we have infinitely many solutions: [3-2t, t]",
+    "For c = 4, the lines are parallel with no solutions"
+   ],
+   "result": "For c = 3: infinitely many solutions (lines coincide). For c = 4: no solutions (lines are parallel)."
+  },
+  "narr": [
+   "Now let's classify systems based on their consistency.",
+   "We observe that the first row is twice the second row on the left side.",
+   "For the system to be consistent, this relationship must hold on the right side as well.",
+   "When c = 3, the equations represent the same line, giving infinitely many solutions.",
+   "When c = 4, the equations represent parallel lines with no intersection, hence no solutions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — One elimination step",
+   "problem": "Eliminate below the first pivot in the matrix $\\begin{bmatrix} 3 & 2 \\\\ 9 & 8 \\end{bmatrix}$.",
+   "steps": [
+    "The multiplier λ21 = 9/3 = 3",
+    "R2 ← R2 - 3R1: [9-9, 8-6] = [0, 2]"
+   ],
+   "result": "Result: $\\begin{bmatrix} 3 & 2 \\\\ 0 & 2 \\end{bmatrix}$; pivots 3 and 2"
+  },
+  "narr": [
+   "Let's practice Gaussian elimination with a simple matrix.",
+   "First, we identify the multiplier needed to eliminate the element below the pivot.",
+   "The multiplier is 9/3 = 3.",
+   "We subtract 3 times the first row from the second row.",
+   "This gives us an upper triangular matrix with pivots 3 and 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Triangular system",
+   "problem": "Solve $\\begin{bmatrix} 1 & 2 & 1 \\\\ 0 & 2 & -2 \\\\ 0 & 0 & 3 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 8 \\\\ 0 \\\\ 6 \\end{bmatrix}$.",
+   "steps": [
+    "From bottom up: 3z = 6, z = 2",
+    "2y - 2·2 = 0, y = 2",
+    "x + 4 + 2 = 8, x = 2"
+   ],
+   "result": "Answer: $\\begin{bmatrix} 2 \\\\ 2 \\\\ 2 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Now we solve a triangular system using back substitution.",
+   "Starting from the bottom equation, we find z = 2.",
+   "Substituting z into the second equation gives us y = 2.",
+   "Finally, substituting y and z into the first equation gives x = 2.",
+   "Verification confirms our solution satisfies all three equations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Complete system with three unknowns",
+   "problem": "Solve the system $\\begin{bmatrix} 1 & 1 & 0 & | & 3 \\\\ 2 & 3 & 1 & | & 9 \\\\ 1 & 0 & 1 & | & 4 \\end{bmatrix}$.",
+   "steps": [
+    "R2 ← R2 - 2R1 → [0 1 1 | 3]",
+    "R3 ← R3 - R1 → [0 -1 1 | 1]",
+    "R3 ← R3 + R2 → [0 0 2 | 4], so z = 2",
+    "Backwards: y + z = 3 → y = 1",
+    "x + y = 3 → x = 2"
+   ],
+   "result": "Answer: $\\begin{bmatrix} 2 \\\\ 1 \\\\ 2 \\endmatrix$"
+  },
+  "narr": [
+   "Let's solve a complete system with three unknowns using Gaussian elimination.",
+   "First, we eliminate x from the second and third equations.",
+   "Then, we eliminate y from the third equation.",
+   "This gives us z = 2, which we substitute back to find y = 1.",
+   "Finally, we find x = 2 by substituting y and z.",
+   "Verification confirms our solution is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — EA multiplication",
+   "problem": "Let E = $\\begin{bmatrix} 1 & 0 \\\\ -2 & 1 \\end{bmatrix}$ and A = $\\begin{bmatrix} 3 & 1 \\\\ 6 & 5 \\end{bmatrix}$. Compute EA and explain the operation performed.",
+   "steps": [
+    "Row 1 of product: [3 1]",
+    "Row 2: -2·[3 1] + [6 5] = [0 3]"
+   ],
+   "result": "EA = $\\begin{bmatrix} 3 & 1 \\\\ 0 & 3 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Now let's explore matrix multiplication as a row operation.",
+   "We're multiplying matrix E with matrix A.",
+   "The first row of the product is simply the first row of A.",
+   "The second row is a linear combination: -2 times the first row plus the second row.",
+   "This operation subtracts twice row 1 from row 2, performing elimination with multiplier 6/3 = 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Transformed right side",
+   "problem": "For A = $\\begin{bmatrix} 3 & 1 \\\\ 6 & 5 \\end{bmatrix}$ and b = $\\begin{bmatrix} 4 \\\\ 17 \\end{bmatrix}$, use E = $\\begin{bmatrix} 1 & 0 \\\\ -2 & 1 \\end{bmatrix}$ to solve the system.",
+   "steps": [
+    "Eb = $\\begin{bmatrix} 4 \\\\ -8 + 17 \\end{bmatrix}$ = $\\begin{bmatrix} 4 \\\\ 9 \\end{bmatrix}$",
+    "With EA = $\\begin{bmatrix} 3 & 1 \\\\ 0 & 3 \\end{bmatrix}$ from exercise 6",
+    "We get 3y = 9, y = 3",
+    "3x + 3 = 4, x = 1/3"
+   ],
+   "result": "Solution: x = 1/3, y = 3"
+  },
+  "narr": [
+   "Let's see how to solve a system using elimination matrices.",
+   "First, we apply the same elimination matrix E to the right-hand side vector b.",
+   "This gives us a transformed system with an upper triangular coefficient matrix.",
+   "We can then solve this simplified system using back substitution.",
+   "Verification in the original system confirms our solution is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Zero pivot",
+   "problem": "Solve the system $\\begin{bmatrix} 0 & 2 \\\\ 3 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 4 \\\\ 7 \\end{bmatrix}$ by row swap; find P.",
+   "steps": [
+    "Zero in position (1,1) is temporary failure",
+    "P = $\\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$",
+    "PA = $\\begin{bmatrix} 3 & 1 \\\\ 0 & 2 \\end{bmatrix}$, Pb = $\\begin{bmatrix} 7 \\\\ 4 \\end{bmatrix}$",
+    "Then 2y = 4, y = 2",
+    "3x + y = 7, x = 5/3"
+   ],
+   "result": "Solution: x = 5/3, y = 2"
+  },
+  "narr": [
+   "What happens when we encounter a zero pivot?",
+   "A zero in the pivot position prevents elimination, but we can swap rows.",
+   "The permutation matrix P swaps rows 1 and 2.",
+   "Applying P to both A and b gives us a system we can solve.",
+   "Importantly, a zero pivot doesn't necessarily mean the system is singular."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Three-row permutation",
+   "problem": "Find P that swaps rows 1 and 3 of matrix A = $\\begin{bmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 3 \\\\ 4 & 0 & 2 \\end{bmatrix}$; compute PA.",
+   "steps": [
+    "P = $\\begin{bmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{bmatrix}$ — rows of identity matrix in order 3, 2, 1",
+    "Row 1 of PA equals row 3 of matrix A",
+    "PA = $\\begin{bmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{bmatrix}$",
+    "Swap 1 ↔ 3 is involution: P⁻¹ = P and P² = I"
+   ],
+   "result": "PA = $\\begin{bmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Let's extend permutation matrices to larger systems.",
+   "To swap rows 1 and 3, we arrange the rows of the identity matrix in the order 3, 2, 1.",
+   "When we multiply P by A, row 1 of PA becomes row 3 of A, and so on.",
+   "Notably, swapping rows twice returns us to the original order, making P its own inverse.",
+   "This property is consistent with P⁻¹ = Pᵀ for permutation matrices."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Singular but consistent",
+   "problem": "Solve the system $\\begin{bmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 0 & 1 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 3 \\\\ 6 \\\\ 2 \\end{bmatrix}$.",
+   "steps": [
+    "Row 2 with the right-hand side (6 = 2·3) is twice row 1",
+    "R2 ← R2 - 2R1 gives 0 = 0",
+    "We are left with x + 2y + z = 3 and y + z = 2",
+    "Let z = t (free variable): y = 2 - t",
+    "x + 2(2 - t) + t = 3 → x = t - 1"
+   ],
+   "result": "Answer: $\\begin{bmatrix} t-1 \\\\ 2-t \\\\ t \\end{bmatrix}$ — infinitely many solutions"
+  },
+  "narr": [
+   "Now let's examine a system that's singular but still consistent.",
+   "We notice that the second equation is exactly twice the first equation.",
+   "When we subtract twice the first row from the second, we get 0 = 0, which doesn't constrain our solution.",
+   "This leaves us with two equations and three variables, making z a free variable.",
+   "The system has infinitely many solutions parameterized by t."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Degenerate and inconsistent",
+   "problem": "Replace the right-hand side in the previous system with b = $\\begin{bmatrix} 3 \\\\ 7 \\\\ 2 \\end{bmatrix}$. Is the system consistent?",
+   "steps": [
+    "Now 7 ≠ 2·3",
+    "R2 ← R2 - 2R1 gives the row [0 0 0 | 7-6] = [0 0 0 | 1]",
+    "This means 0 = 1 — a contradiction"
+   ],
+   "result": "The system is inconsistent: the right-hand side violates the necessary condition b₂ = 2b₁"
+  },
+  "narr": [
+   "What happens when we change the right-hand side in our previous system?",
+   "Now the second component (7) is not twice the first component (3).",
+   "When we perform the elimination, we get the equation 0 = 1, which is a contradiction.",
+   "This shows the system is inconsistent, with no solution.",
+   "The right-hand side must satisfy the same linear relationships as the rows of the matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Column interpretation of consistency",
+   "problem": "For A = $\\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix}$, which vectors b = $\\begin{bmatrix} b₁ \\\\ b₂ \\end{bmatrix}$ admit a solution Ax = b?",
+   "steps": [
+    "The second row is twice the first",
+    "After R2 ← R2 - 2R1 we have [0 0 | b₂ - 2b₁]",
+    "Consistency requires b₂ = 2b₁",
+    "The columns $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ and $\\begin{bmatrix} 2 \\\\ 4 \\end{bmatrix}$ = 2·$\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ are multiples of each other",
+    "Ax always lies on the line b₂ = 2b₁"
+   ],
+   "result": "Answer: b = $\\begin{bmatrix} b₁ \\\\ 2b₁ \\end{bmatrix}$ — b must lie on the line through the columns of A"
+  },
+  "narr": [
+   "Let's explore consistency from a column perspective.",
+   "We observe that the second column is exactly twice the first column.",
+   "For Ax = b to have a solution, b must be a linear combination of the columns of A.",
+   "Since the columns are linearly dependent, b must lie on the line they span.",
+   "This means b₂ must equal 2b₁, the same condition we found through row operations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Order of matrix operations",
+   "problem": "Let E = $\\begin{bmatrix} 1 & 0 \\\\ -2 & 1 \\end{bmatrix}$ and P = $\\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$. Compare EP and PE.",
+   "steps": [
+    "EP: row 1 = [0 1], row 2 = -2·[0 1] + [1 0] = [1 -2]",
+    "EP = $\\begin{bmatrix} 0 & 1 \\\\ 1 & -2 \\end{bmatrix}$",
+    "PE: row 1 = 1·[-2 1] = [-2 1], row 2 = [1 0]",
+    "PE = $\\begin{bmatrix} -2 & 1 \\\\ 1 & 0 \\end{bmatrix}$"
+   ],
+   "result": "The products are different: row operations, in general, do not commute"
+  },
+  "narr": [
+   "Matrix multiplication is not commutative, meaning the order matters.",
+   "Let's compute the product EP, where E is our elimination matrix and P is our permutation matrix.",
+   "For EP, we apply P first, then E to the rows.",
+   "Now for PE, we apply E first, then P to the rows.",
+   "The results are different, showing that row operations don't generally commute."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Challenge: construct a system",
+   "problem": "Build a 3×3 system requiring row exchange, with three pivots and solution x = $\\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix}$.",
+   "steps": [
+    "A zero in position (1,1) with a nonzero element below: A = $\\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$",
+    "Set the right-hand side by the column picture: b = A·$\\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix}$ = $\\begin{bmatrix} 2 \\\\ 1 \\\\ 3 \\end{bmatrix}$",
+    "Swapping rows 1 and 2 (P = $\\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$) turns A into the identity matrix",
+    "Pivots are 1, 1, 1, solution x = $\\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix}$"
+   ],
+   "result": "System: $\\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$·$\\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix}$ = $\\begin{bmatrix} 2 \\\\ 1 \\\\ 3 \\end{bmatrix}$"
+  },
+  "narr": [
+   "For our final challenge, let's construct a system that requires row exchange.",
+   "We need a zero in the (1,1) position with a nonzero element below it.",
+   "The right-hand side is determined by multiplying our matrix A with the desired solution.",
+   "Swapping rows 1 and 2 gives us an identity matrix with three pivots.",
+   "Verification confirms our solution works for the original system."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

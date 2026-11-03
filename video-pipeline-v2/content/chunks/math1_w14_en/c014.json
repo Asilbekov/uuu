@@ -1,0 +1,438 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Functions and Slope",
+   "subtitle": "Week 1-4 Exercises"
+  },
+  "narr": [
+   "Let's start by exploring the fundamental concept of linear functions and their slopes.",
+   "We'll begin with calculating slopes between two points and determining whether functions are increasing or decreasing.",
+   "Then we'll move on to writing equations in slope-intercept form.",
+   "Finally, we'll analyze polynomials and their graphs."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 59-66 — Calculating Slope",
+   "problem": "Find the slope between the given points and determine if the function is increasing, decreasing, horizontal, or vertical: (59) (-4, 1) and (2, -5); (61) (3, 5) and (-1, 2); (63) (2, 3) and (5, 7); (65) (2, 4) and (1, 4); (66) (1, 4) and (1, 0)",
+   "steps": [
+    "Use the slope formula: m = (y₂ - y₁)/(x₂ - x₁)",
+    "For (59): m = (-5 - 1)/(2 - (-4)) = -6/6 = -1",
+    "For (61): m = (2 - 5)/(-1 - 3) = -3/-4 = 3/4",
+    "For (63): m = (7 - 3)/(5 - 2) = 4/3",
+    "For (65): m = (4 - 4)/(1 - 2) = 0/-1 = 0",
+    "For (66): x₂ - x₁ = 0, so slope is undefined (vertical line)"
+   ],
+   "result": "(59) m = -1, decreasing; (61) m = 3/4 > 0, increasing; (63) m = 4/3 > 0, increasing; (65) m = 0, horizontal; (66) vertical, slope undefined"
+  },
+  "narr": [
+   "The slope of a line is calculated as the change in y divided by the change in x between two points.",
+   "For problem 59, we find the slope is negative one, which means the function is decreasing.",
+   "For problem 61, the slope is positive three-fourths, indicating an increasing function.",
+   "For problem 63, the slope is positive four-thirds, also increasing.",
+   "For problem 65, the slope is zero, which gives us a horizontal line.",
+   "And for problem 66, since the x-values are the same, we have a vertical line with undefined slope."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 67-73 — Writing Equations in Slope-Intercept Form",
+   "problem": "Write the equation in slope-intercept form: (67) slope -6, through (1, 3); (70) slope 2/5, x-intercept 8; (71) through (2, 1) and (-2, -1); (73) intercepts: x at 5 and y at -3",
+   "steps": [
+    "Use point-slope form: y - y₁ = m(x - x₁)",
+    "For (67): y - 3 = -6(x - 1)",
+    "For (70): x-intercept at 8 means the point (8, 0), so y - 0 = (2/5)(x - 8)",
+    "For (71): First find slope m = (-1 - 1)/(-2 - 2) = -2/-4 = 1/2, then y - 1 = (1/2)(x - 2)",
+    "For (73): Points are (5, 0) and (0, -3), slope m = (-3 - 0)/(0 - 5) = 3/5, then y = (3/5)x - 3"
+   ],
+   "result": "(67) y = -6x + 9; (70) y = (2/5)x - 16/5; (71) y = (1/2)x; (73) y = (3/5)x - 3"
+  },
+  "narr": [
+   "To write equations in slope-intercept form, we use the point-slope form and solve for y.",
+   "For problem 67, with slope -6 passing through (1, 3), we get y = -6x + 9.",
+   "For problem 70, we use the x-intercept point (8, 0) to get y = (2/5)x - 16/5.",
+   "For problem 71, we first calculate the slope between the two points, then use point-slope form to get y = (1/2)x.",
+   "For problem 73, using the intercepts as points, we find the slope and write the equation as y = (3/5)x - 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 75-76 — Identifying Slope and Intercept",
+   "problem": "For each linear equation, specify the slope m and intercept b: (75) y = 2x - 3; (76) y = (-1/7)x + 1",
+   "steps": [
+    "Compare each equation to the slope-intercept form y = mx + b",
+    "For (75): m = 2, b = -3",
+    "For (76): m = -1/7, b = 1"
+   ],
+   "result": "(75) m = 2, b = -3; (76) m = -1/7, b = 1"
+  },
+  "narr": [
+   "Identifying the slope and y-intercept is straightforward when the equation is already in slope-intercept form.",
+   "For equation 75, y = 2x - 3, the slope is 2 and the y-intercept is -3.",
+   "For equation 76, y = (-1/7)x + 1, the slope is -1/7 and the y-intercept is 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 81-82 — Rewriting with Slope and Intercept",
+   "problem": "Rewrite with slope and intercept: (81) 2x + 3y = 6; (82) 6x - 5y + 15 = 0",
+   "steps": [
+    "Solve each equation for y to put in slope-intercept form",
+    "For (81): 3y = 6 - 2x, so y = 2 - (2/3)x",
+    "For (82): -5y = -6x - 15, so y = (6/5)x + 3"
+   ],
+   "result": "(81) y = - (2/3)x + 2, so m = -2/3, b = 2; (82) y = (6/5)x + 3, so m = 6/5, b = 3"
+  },
+  "narr": [
+   "When equations aren't in slope-intercept form, we need to solve for y to identify the slope and intercept.",
+   "For equation 81, we isolate y to get y = - (2/3)x + 2, showing m = -2/3 and b = 2.",
+   "For equation 82, solving for y gives y = (6/5)x + 3, with m = 6/5 and b = 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 83-86 — Analyzing Polynomials",
+   "problem": "For each polynomial: degree; zeros; y-intercept; behavior at the ends; parity. a. f(x) = 2x² - 3x - 5; c. f(x) = x³ + 3x² - x - 3",
+   "steps": [
+    "For polynomial a: Factor 2x² - 3x - 5 = (2x - 5)(x + 1)",
+    "Find zeros: 2x - 5 = 0 ⇒ x = 5/2; x + 1 = 0 ⇒ x = -1",
+    "Y-intercept is f(0) = -5",
+    "Degree 2 with positive leading coefficient: branches upward, f → +∞ at both ends",
+    "Neither even nor odd due to the -3x term and constant",
+    "For polynomial c: Test x = -1: (-1)³ + 3(-1)² - (-1) - 3 = 0, so (x + 1) is a factor"
+   ]
+  },
+  "narr": [
+   "When analyzing polynomials, we look at several key characteristics.",
+   "For polynomial a, we factor it to find the zeros at 5/2 and -1, with y-intercept at -5.",
+   "Since it's a quadratic with positive leading coefficient, both ends go to positive infinity.",
+   "The presence of an odd-degree term and constant makes it neither even nor odd.",
+   "For polynomial c, we find that x = -1 is a root, allowing us to factor completely.",
+   "The zeros are at x = 1 (simple root) and x = -1 (double root), with y-intercept at -3.",
+   "As a cubic with positive leading coefficient, it goes to positive infinity as x increases and to negative infinity as x decreases."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 83-86 — Analyzing Polynomials (cont.)",
+   "problem": "",
+   "steps": [
+    "Factor: x³ + 3x² - x - 3 = (x + 1)(x² - 1) = (x + 1)(x - 1)(x + 1) = (x - 1)(x + 1)²",
+    "Zeros: x = 1 (simple), x = -1 (double)",
+    "Y-intercept is f(0) = -3",
+    "Cubic with positive leading coefficient: f → +∞ as x → +∞, f → -∞ as x → -∞",
+    "Neither even nor odd"
+   ],
+   "result": "a. Degree 2; zeros 5/2 and -1; y-intercept -5; branches upward; neither even nor odd. c. Degree 3; zeros 1 (simple) and -1 (double); y-intercept -3; f → +∞ as x → +∞, f → -∞ as x → -∞; neither even nor odd"
+  },
+  "narr": [
+   "Like polynomial a, it's neither even nor odd."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 88-91 — Transforming Basic Graphs",
+   "problem": "Describe the graph of g based on the basic graph: (88) g(x) = x² - 1; (89) g(x) = (x + 3)² + 1; (90) g(x) = √x + 2; (91) g(x) = -√x - 1",
+   "steps": [
+    "For (88): Compare to y = x², shifted down by 1",
+    "For (89): Compare to y = x², shifted left by 3 and up by 1 (vertex at (-3, 1))",
+    "For (90): Compare to y = √x, shifted left by 2 (domain [-2, ∞))",
+    "For (91): Compare to y = √x, reflected across x-axis and shifted down by 1 (domain [0, ∞), values ≤ -1)"
+   ],
+   "result": "(88) Parabola y = x², shifted down by 1; (89) Parabola, shifted left by 3 and up by 1 (vertex (-3, 1)); (90) Square root graph, shifted left by 2 (domain [-2, ∞)); (91) Square root graph, reflected across x-axis and shifted down by 1 (domain [0, ∞), values ≤ -1)"
+  },
+  "narr": [
+   "We can understand transformed functions by comparing them to their basic forms.",
+   "For g(x) = x² - 1, this is the basic parabola shifted down by 1 unit.",
+   "For g(x) = (x + 3)² + 1, it's the parabola shifted left by 3 and up by 1, with vertex at (-3, 1).",
+   "For g(x) = √x + 2, this is the square root function shifted left by 2, with domain [-2, ∞).",
+   "For g(x) = -√x - 1, it's the square root function reflected across the x-axis and shifted down by 1, with domain [0, ∞) and values ≤ -1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 94 — Piecewise Function",
+   "problem": "f(x) = {4x + 3, x ≤ 0; -x + 1, x > 0}: calculate f(-3), f(0), f(2); sketch",
+   "steps": [
+    "For f(-3): Since -3 ≤ 0, use f(x) = 4x + 3",
+    "f(-3) = 4(-3) + 3 = -12 + 3 = -9",
+    "For f(0): Since 0 ≤ 0, use f(x) = 4x + 3",
+    "f(0) = 4(0) + 3 = 3",
+    "For f(2): Since 2 > 0, use f(x) = -x + 1",
+    "f(2) = -2 + 1 = -1",
+    "Graph: Increasing line to (0, 3), then decreasing line from open point (0, 1) - jump discontinuity at 0"
+   ],
+   "result": "f(-3) = -9; f(0) = 3; f(2) = -1. Graph shows increasing line to (0, 3), then decreasing line from open point (0, 1) with jump discontinuity at 0"
+  },
+  "narr": [
+   "Piecewise functions have different definitions based on the input value.",
+   "For f(-3), we use the first piece since -3 ≤ 0, giving f(-3) = -9.",
+   "For f(0), we also use the first piece since 0 ≤ 0, giving f(0) = 3.",
+   "For f(2), we use the second piece since 2 > 0, giving f(2) = -1.",
+   "The graph shows an increasing line to (0, 3), then a decreasing line starting from an open point at (0, 1), creating a jump discontinuity at x = 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 97 — Function with Special Definition",
+   "problem": "g(x) = {(x - 3)/(x - 2), x ≠ 2; 4, x = 2}: calculate g(0), g(-4), g(2)",
+   "steps": [
+    "For g(0): Since 0 ≠ 2, use g(x) = (x - 3)/(x - 2)",
+    "g(0) = (0 - 3)/(0 - 2) = -3/-2 = 3/2",
+    "For g(-4): Since -4 ≠ 2, use g(x) = (x - 3)/(x - 2)",
+    "g(-4) = (-4 - 3)/(-4 - 2) = -7/-6 = 7/6",
+    "For g(2): Since x = 2, use the special definition g(x) = 4"
+   ],
+   "result": "g(0) = 3/2; g(-4) = 7/6; g(2) = 4 (by special definition)"
+  },
+  "narr": [
+   "This function has a special definition at x = 2 where the regular formula would be undefined.",
+   "For g(0), we use the regular formula since 0 ≠ 2, giving g(0) = 3/2.",
+   "For g(-4), we also use the regular formula since -4 ≠ 2, giving g(-4) = 7/6.",
+   "For g(2), we must use the special definition, which gives g(2) = 4."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 98-103 — True or False Questions",
+   "problem": "True or false: (98) f(x) = (4x + 1)/(7x - 2) is transcendental; (99) g(x) = 3√x is an odd root function; (100) logarithmic function is algebraic; (101) f(x) = x^b with real constant b is an exponential function; (102) domain of even-degree root is all real numbers; (103) company bought equipment for $20,500, after 3 years worth $12,300 — find V(t) and interpret",
+   "steps": [
+    "(98) False: ratio of polynomials is rational, hence algebraic, not transcendental",
+    "(99) True: cube roots defined for all reals and function is odd",
+    "(100) False: x^b is a power function; logarithms are transcendental",
+    "(101) False: exponential has variable in exponent, b^x",
+    "(102) False: even-degree roots require non-negative radicand, so domain excludes negatives",
+    "(103) Linear depreciation: V(t) = 20500 + (12300 - 20500)/3 * t ≈ 20500 - 2733.33t",
+    "V(0) = 20500 (purchase price); crosses t-axis at t ≈ 7.5 years (zero value moment); V(3) = 12300"
+   ],
+   "result": "(98) False; (99) True; (100) False; (101) False; (102) False; (103) V(t) ≈ 20500 - 2733.33t, linear depreciation model"
+  },
+  "narr": [
+   "Let's evaluate these true or false statements about functions.",
+   "Statement 98 is false because a ratio of polynomials is a rational function, which is algebraic, not transcendental.",
+   "Statement 99 is true because cube roots are defined for all real numbers and the function is odd.",
+   "Statement 100 is false because x^b is a power function, while logarithms are transcendental.",
+   "Statement 101 is false because an exponential function has the variable in the exponent, like b^x.",
+   "Statement 102 is false because even-degree roots require non-negative radicands, so their domain excludes negative numbers.",
+   "For statement 103, we model the equipment's value with linear depreciation: V(t) ≈ 20500 - 2733.33t, where V(0) is the purchase price and it reaches zero value at about 7.5 years."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Exponential and Logarithmic Functions",
+   "subtitle": "OpenStax §1.5 Selected Exercises"
+  },
+  "narr": [
+   "Now let's explore exponential and logarithmic functions, which are fundamental in mathematics and have many real-world applications.",
+   "We'll start by sketching exponential functions and identifying their domain, range, and asymptotes.",
+   "Then we'll practice converting between exponential and logarithmic forms.",
+   "These concepts are crucial for understanding growth and decay processes."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 239-245 — Sketching Exponential Functions",
+   "problem": "Sketch; specify domain, range, horizontal asymptote: a. f(x) = e^x + 2; b. f(x) = -2^x; c. f(x) = 1 - 2^(-x); d. f(x) = e^(-x) - 1",
+   "steps": [
+    "For a: e^x shifted up by 2",
+    "Domain: R, range: (2, ∞), asymptote: y = 2",
+    "For b: Reflection of 2^x across x-axis",
+    "Domain: R, range: (-∞, 0), asymptote: y = 0",
+    "For c: As x → +∞, 2^(-x) → 0, so f → 1 from below",
+    "As x → -∞, 2^(-x) → ∞, so f → -∞"
+   ]
+  },
+  "narr": [
+   "When sketching exponential functions, we consider transformations of basic forms.",
+   "For f(x) = e^x + 2, it's the basic exponential shifted up by 2, with domain all real numbers, range (2, ∞), and horizontal asymptote at y = 2.",
+   "For f(x) = -2^x, it's the basic exponential reflected across the x-axis, with domain all real numbers, range (-∞, 0), and asymptote at y = 0.",
+   "For f(x) = 1 - 2^(-x), as x approaches positive infinity, f approaches 1 from below, and as x approaches negative infinity, f approaches negative infinity.",
+   "The function is increasing with range (-∞, 1) and asymptote at y = 1.",
+   "For f(x) = e^(-x) - 1, it's a mirror of the basic exponential function (decay to the right), with domain all real numbers, range (-1, ∞), and asymptote at y = -1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 239-245 — Sketching Exponential Functions (cont.)",
+   "problem": "",
+   "steps": [
+    "Increasing function, range: (-∞, 1), asymptote: y = 1",
+    "For d: Mirror of e^x (decay right)",
+    "Domain: R, range: (-1, ∞), asymptote: y = -1"
+   ],
+   "result": "a. e^x shifted up by 2: domain R, range (2, ∞), asymptote y = 2; b. Reflection across x-axis: domain R, range (-∞, 0), asymptote y = 0; c. Increasing, range (-∞, 1), asymptote y = 1; d. Mirror of e^x: domain R, range (-1, ∞), asymptote y = -1"
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 246-253 — Converting to Exponential Form",
+   "problem": "Rewrite in equivalent exponential form: a. log₃ 81 = 4; b. log₈ 2 = 1/3; c. log₅ 1 = 0; d. ln(1/e³) = -3",
+   "steps": [
+    "Recall that log_b a = c means b^c = a",
+    "For a: log₃ 81 = 4 means 3^4 = 81",
+    "For b: log₈ 2 = 1/3 means 8^(1/3) = 2",
+    "For c: log₅ 1 = 0 means 5^0 = 1",
+    "For d: ln(1/e³) = -3 means e^(-3) = 1/e³"
+   ],
+   "result": "a. 3^4 = 81; b. 8^(1/3) = 2; c. 5^0 = 1; d. e^(-3) = 1/e³"
+  },
+  "narr": [
+   "Converting logarithmic equations to exponential form is straightforward using the definition of logarithms.",
+   "For log₃ 81 = 4, this means 3 raised to the power of 4 equals 81.",
+   "For log₈ 2 = 1/3, this means 8 raised to the power of 1/3 equals 2.",
+   "For log₅ 1 = 0, this means 5 raised to the power of 0 equals 1.",
+   "For ln(1/e³) = -3, this means e raised to the power of -3 equals 1/e³."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 254-262 — Converting to Logarithmic Form",
+   "problem": "Rewrite in equivalent logarithmic form: a. 2³ = 8; b. 4^(-2) = 1/16; c. 10² = 100; d. (1/3)^4 = 1/81; e. 3³ = 27; f. 9^y = 150",
+   "steps": [
+    "Recall that b^c = a means log_b a = c",
+    "For a: 2³ = 8 means log₂ 8 = 3",
+    "For b: 4^(-2) = 1/16 means log₄ (1/16) = -2",
+    "For c: 10² = 100 means log 100 = 2",
+    "For d: (1/3)^4 = 1/81 means log_(1/3) (1/81) = 4",
+    "For e: 3³ = 27 means log₃ 27 = 3",
+    "For f: 9^y = 150 means log₉ 150 = y"
+   ],
+   "result": "a. log₂ 8 = 3; b. log₄ (1/16) = -2; c. log 100 = 2; d. log_(1/3) (1/81) = 4; e. log₃ 27 = 3; f. log₉ 150 = y"
+  },
+  "narr": [
+   "Converting exponential equations to logarithmic form also uses the fundamental relationship between exponents and logarithms.",
+   "For 2³ = 8, this means log base 2 of 8 equals 3.",
+   "For 4^(-2) = 1/16, this means log base 4 of 1/16 equals -2.",
+   "For 10² = 100, this means log base 10 of 100 equals 2, or simply log 100 = 2.",
+   "For (1/3)^4 = 1/81, this means log base 1/3 of 1/81 equals 4.",
+   "For 3³ = 27, this means log base 3 of 27 equals 3.",
+   "For 9^y = 150, this means log base 9 of 150 equals y."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

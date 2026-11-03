@@ -1,0 +1,577 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to this section on vector operations and linear algebra concepts.",
+   "We'll explore various problems involving dot products, cross products, matrix operations, and more."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Vector Directions",
+   "problem": "Nonzero p, q satisfy p · q = ∥p∥∥q∥. What can you conclude about their directions?",
+   "steps": [
+    "Recall the angle formula: cos θ = (p · q) / (∥p∥∥q∥)",
+    "Given p · q = ∥p∥∥q∥, we have cos θ = 1",
+    "This implies θ = 0 degrees"
+   ],
+   "result": "The vectors are directed exactly the same (one is a positive multiple of the other)."
+  },
+  "narr": [
+   "Let's consider this problem about vector directions.",
+   "We start with the angle formula between two vectors.",
+   "Given the condition, we can solve for the angle.",
+   "The cosine of the angle is 1, which means the angle is zero degrees.",
+   "This tells us something important about the vectors' directions.",
+   "This equality represents a limiting case of the Cauchy-Bunyakovsky-Schwarz inequality."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Cross Product Calculation",
+   "problem": "For a = (2, 1, −1)^T, b = (0, 3, 2)^T compute a×b and b×a; verify the sign relationship.",
+   "steps": [
+    "Compute a×b using the determinant formula",
+    "a×b = ((1)(2) - (-1)(3), -((2)(2) - (-1)(0)), (2)(3) - (1)(0))",
+    "a×b = (2 + 3, -(4 - 0), 6 - 0) = (5, -4, 6)",
+    "Compute b×a similarly",
+    "b×a = ((3)(-1) - (2)(1), -((0)(-1) - (2)(2)), (0)(1) - (3)(2))",
+    "b×a = (-3 - 2, -(0 - 4), 0 - 6) = (-5, 4, -6)"
+   ],
+   "result": "b×a = -(a×b), confirming the anti-commutative property of the cross product."
+  },
+  "narr": [
+   "Now let's compute cross products and verify their relationship.",
+   "For vectors a and b, we need to compute a×b.",
+   "Using the determinant formula, we calculate each component.",
+   "The first component is (1)(2) - (-1)(3) = 2 + 3 = 5.",
+   "The second component is negative of (2)(2) - (-1)(0) = -(4 - 0) = -4.",
+   "The third component is (2)(3) - (1)(0) = 6 - 0 = 6.",
+   "So a×b = (5, -4, 6).",
+   "Now let's compute b×a.",
+   "The first component is (3)(-1) - (2)(1) = -3 - 2 = -5.",
+   "The second component is negative of (0)(-1) - (2)(2) = -(0 - 4) = 4.",
+   "The third component is (0)(1) - (3)(2) = 0 - 6 = -6.",
+   "So b×a = (-5, 4, -6).",
+   "As we can see, b×a = -(a×b), confirming the anti-commutative property."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Orthogonality Check",
+   "problem": "Verify that a × b from exercise 7 is orthogonal to both a and b.",
+   "steps": [
+    "Compute a · (a×b)",
+    "Compute b · (a×b)",
+    "Check if both dot products equal zero"
+   ],
+   "result": "Both dot products are zero, confirming that a×b is orthogonal to both a and b."
+  },
+  "narr": [
+   "Let's verify that the cross product we computed is orthogonal to both original vectors.",
+   "First, we'll compute the dot product of a with a×b.",
+   "a · (a×b) = (2)(5) + (1)(-4) + (-1)(6) = 10 - 4 - 6 = 0.",
+   "Now, let's compute the dot product of b with a×b.",
+   "b · (a×b) = (0)(5) + (3)(-4) + (2)(6) = 0 - 12 + 12 = 0.",
+   "Both dot products equal zero, confirming that a×b is orthogonal to both a and b.",
+   "This is guaranteed by the properties of the cross product."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1,
+   2,
+   -1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Parallelogram Area",
+   "problem": "Find the area of the parallelogram with sides u = (1, 2, 2)^T, v = (3, −1, 0)^T.",
+   "steps": [
+    "Compute the cross product u × v",
+    "u × v = ((2)(0) - (2)(-1), -((1)(0) - (2)(3)), (1)(-1) - (2)(3))",
+    "u × v = (0 + 2, -(0 - 6), -1 - 6) = (2, 6, -7)",
+    "Compute the norm of u × v",
+    "||u × v|| = √(2² + 6² + (-7)²) = √(4 + 36 + 49) = √89"
+   ],
+   "result": "The area of the parallelogram is √89 square units."
+  },
+  "narr": [
+   "Now let's find the area of a parallelogram defined by two vectors.",
+   "The area is given by the magnitude of the cross product of the vectors.",
+   "First, we compute u × v.",
+   "The first component is (2)(0) - (2)(-1) = 0 + 2 = 2.",
+   "The second component is negative of (1)(0) - (2)(3) = -(0 - 6) = 6.",
+   "The third component is (1)(-1) - (2)(3) = -1 - 6 = -7.",
+   "So u × v = (2, 6, -7).",
+   "Now we compute the norm of this vector.",
+   "||u × v|| = √(2² + 6² + (-7)²) = √(4 + 36 + 49) = √89.",
+   "Therefore, the area of the parallelogram is √89 square units."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Triangle Area",
+   "problem": "P = (1, 0, 1), Q = (3, 1, 0), R = (0, 2, 4): find the area of triangle PQR.",
+   "steps": [
+    "Find vectors PQ and PR",
+    "PQ = Q - P = (2, 1, -1)^T",
+    "PR = R - P = (-1, 2, 3)^T",
+    "Compute the cross product PQ × PR",
+    "PQ × PR = ((1)(3) - (-1)(2), -((-1)(3) - (2)(-1)), (2)(2) - (1)(-1))",
+    "PQ × PR = (3 + 2, -(-3 + 2), 4 + 1) = (5, 1, 5)"
+   ]
+  },
+  "narr": [
+   "Let's find the area of a triangle defined by three points in space.",
+   "First, we need to find two vectors that form the sides of the triangle.",
+   "Vector PQ = Q - P = (3-1, 1-0, 0-1) = (2, 1, -1)^T.",
+   "Vector PR = R - P = (0-1, 2-0, 4-1) = (-1, 2, 3)^T.",
+   "Now we compute the cross product PQ × PR.",
+   "The first component is (1)(3) - (-1)(2) = 3 + 2 = 5.",
+   "The second component is negative of (-1)(3) - (2)(-1) = -(-3 + 2) = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Triangle Area (cont.)",
+   "problem": "",
+   "steps": [
+    "Compute the norm of PQ × PR",
+    "||PQ × PR|| = √(5² + 1² + 5²) = √(25 + 1 + 25) = √51",
+    "Find half the norm for triangle area"
+   ],
+   "result": "Triangle area = (1/2) × √51 = √51/2 square units."
+  },
+  "narr": [
+   "The third component is (2)(2) - (1)(-1) = 4 + 1 = 5.",
+   "So PQ × PR = (5, 1, 5).",
+   "Now we compute the norm of this vector.",
+   "||PQ × PR|| = √(5² + 1² + 5²) = √(25 + 1 + 25) = √51.",
+   "The area of the triangle is half the area of the parallelogram, so we take half of this norm.",
+   "Triangle area = (1/2) × √51 = √51/2 square units."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Parallel Vectors",
+   "problem": "Find all real t for which a = (1, t, 2)^T and b = (3, 6, 6)^T satisfy a × b = 0; if none, explain.",
+   "steps": [
+    "Recall that parallel vectors have a zero cross product",
+    "Set a = cb for some scalar c",
+    "From the first component: 1 = 3c ⇒ c = 1/3",
+    "From the second component: t = 6c = 6(1/3) = 2",
+    "From the third component: 2 = 6c = 6(1/3) = 2 (consistent)",
+    "Verify that a × b = 0 when t = 2"
+   ],
+   "result": "t = 2 is the only value (then a = (1/3)b)."
+  },
+  "narr": [
+   "Let's find when two vectors are parallel by setting their cross product to zero.",
+   "We know that parallel vectors have a zero cross product.",
+   "So we need a to be a scalar multiple of b: a = cb.",
+   "From the first component: 1 = 3c ⇒ c = 1/3.",
+   "From the second component: t = 6c = 6(1/3) = 2.",
+   "From the third component: 2 = 6c = 6(1/3) = 2, which is consistent.",
+   "Therefore, t = 2 is the only value that satisfies the condition.",
+   "When t = 2, a = (1, 2, 2)^T and b = (3, 6, 6)^T, so a = (1/3)b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Scalar Triple Product",
+   "problem": "Let a = (1, 0, 2)^T, b = (2, 1, −1)^T, c = (0, 3, 1)^T. Compute a · (b × c); interpret the value.",
+   "steps": [
+    "First compute b × c",
+    "b × c = ((1)(1) - (-1)(3), -((2)(1) - (-1)(0)), (2)(3) - (1)(0))",
+    "b × c = (1 + 3, -(2 - 0), 6 - 0) = (4, -2, 6)",
+    "Now compute a · (b × c)",
+    "a · (b × c) = (1)(4) + (0)(-2) + (2)(6) = 4 + 0 + 12 = 16"
+   ],
+   "result": "The scalar triple product is 16, which represents the signed volume of the parallelepiped spanned by the three vectors."
+  },
+  "narr": [
+   "Now let's compute the scalar triple product a · (b × c).",
+   "First, we need to compute b × c.",
+   "The first component is (1)(1) - (-1)(3) = 1 + 3 = 4.",
+   "The second component is negative of (2)(1) - (-1)(0) = -(2 - 0) = -2.",
+   "The third component is (2)(3) - (1)(0) = 6 - 0 = 6.",
+   "So b × c = (4, -2, 6).",
+   "Now we compute the dot product of a with this result.",
+   "a · (b × c) = (1)(4) + (0)(-2) + (2)(6) = 4 + 0 + 12 = 16.",
+   "This scalar triple product represents the signed volume of the parallelepiped spanned by the three vectors.",
+   "A zero value would indicate that the vectors are coplanar, but here we have a volume of 16 cubic units."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Matrix Components",
+   "problem": "Let A = [2 -1 0; 4 3 5]. Specify the size; find a12, a23; write each row and column as a vector.",
+   "steps": [
+    "Identify the matrix size (rows × columns)",
+    "Find the element at row 1, column 2 (a12)",
+    "Find the element at row 2, column 3 (a23)",
+    "Write the first row as a vector",
+    "Write the second row as a vector",
+    "Write each column as a vector"
+   ],
+   "result": "Size: 2×3; a12 = -1; a23 = 5; Rows: [2 -1 0], [4 3 5]; Columns: [2 4], [-1 3], [0 5]."
+  },
+  "narr": [
+   "Let's examine the components of a matrix.",
+   "Matrix A has 2 rows and 3 columns, so its size is 2×3.",
+   "The element a12 is at row 1, column 2, which is -1.",
+   "The element a23 is at row 2, column 3, which is 5.",
+   "The first row as a vector is [2 -1 0].",
+   "The second row as a vector is [4 3 5].",
+   "The first column as a vector is [2 4].",
+   "The second column as a vector is [-1 3].",
+   "The third column as a vector is [0 5]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Matrix Operations",
+   "problem": "Let A = [1 3; -2 4], B = [5 -1; 0 2]. Compute A + B, A − B, −2A, 3A − 2B.",
+   "steps": [
+    "Compute A + B by adding corresponding elements",
+    "Compute A − B by subtracting corresponding elements",
+    "Compute −2A by multiplying each element by -2",
+    "Compute 3A − 2B by first scaling then subtracting"
+   ],
+   "result": "A + B = [6 2; -2 6]; A − B = [-4 4; -2 2]; −2A = [-2 -6; 4 -8]; 3A − 2B = [-7 11; -6 8]."
+  },
+  "narr": [
+   "Let's perform basic matrix operations.",
+   "For A + B, we add corresponding elements: [1+5 3+(-1); -2+0 4+2] = [6 2; -2 6].",
+   "For A − B, we subtract corresponding elements: [1-5 3-(-1); -2-0 4-2] = [-4 4; -2 2].",
+   "For −2A, we multiply each element by -2: [-2×1 -2×3; -2×(-2) -2×4] = [-2 -6; 4 -8].",
+   "For 3A − 2B, we first multiply each matrix by their scalar: [3×1 3×3; 3×(-2) 3×4] = [3 9; -6 12] and [2×5 2×(-1); 2×0 2×2] = [10 -2; 0 4].",
+   "Then subtract: [3-10 9-(-2); -6-0 12-4] = [-7 11; -6 8]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — Matrix-Vector Multiplication",
+   "problem": "A has size 4 × 3, B — 3 × 2, x ∈ R², y ∈ R³, z ∈ R⁴. Which of Ax, Ay, Az, Bx, By, Bz are defined and with what output dimensions?",
+   "steps": [
+    "Check Ax: (4×3)(4×1) - inner dimensions don't match",
+    "Check Ay: (4×3)(3×1) - inner dimensions match, result is R⁴",
+    "Check Az: (4×3)(4×1) - inner dimensions don't match",
+    "Check Bx: (3×2)(2×1) - inner dimensions match, result is R³",
+    "Check By: (3×2)(3×1) - inner dimensions don't match",
+    "Check Bz: (3×2)(4×1) - inner dimensions don't match"
+   ],
+   "result": "Only Ay and Bx are defined: Ay outputs in R⁴, Bx outputs in R³."
+  },
+  "narr": [
+   "Let's determine which matrix-vector multiplications are defined.",
+   "For matrix multiplication, the inner dimensions must match.",
+   "Checking Ax: A is 4×3 and x is 4×1. The inner dimensions (3 and 4) don't match, so Ax is undefined.",
+   "Checking Ay: A is 4×3 and y is 3×1. The inner dimensions (3 and 3) match, so Ay is defined with output in R⁴.",
+   "Checking Az: A is 4×3 and z is 4×1. The inner dimensions (3 and 4) don't match, so Az is undefined.",
+   "Checking Bx: B is 3×2 and x is 2×1. The inner dimensions (2 and 2) match, so Bx is defined with output in R³.",
+   "Checking By: B is 3×2 and y is 3×1. The inner dimensions (2 and 3) don't match, so By is undefined.",
+   "Checking Bz: B is 3×2 and z is 4×1. The inner dimensions (2 and 4) don't match, so Bz is undefined.",
+   "Therefore, only Ay and Bx are defined, with outputs in R⁴ and R³ respectively."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 16 — Diagonal Matrix Action",
+   "problem": "Let D = diag(−2, 3, 1), x = (4, −1, 5)^T. Compute Dx; describe what D does to each coordinate.",
+   "steps": [
+    "Write D as a matrix",
+    "Compute the matrix-vector product Dx",
+    "Analyze how each coordinate is transformed"
+   ],
+   "result": "Dx = (-8, -3, 5)^T. D scales the first coordinate by -2, the second by 3, and leaves the third unchanged."
+  },
+  "narr": [
+   "Let's examine how a diagonal matrix transforms a vector.",
+   "First, we write D as a matrix: D = [-2 0 0; 0 3 0; 0 0 1].",
+   "Now we compute Dx: [-2×4 + 0×(-1) + 0×5; 0×4 + 3×(-1) + 0×5; 0×4 + 0×(-1) + 1×5] = [-8; -3; 5].",
+   "A diagonal matrix performs independent scaling of each coordinate.",
+   "The first coordinate is scaled by -2 (stretching with reflection).",
+   "The second coordinate is scaled by 3.",
+   "The third coordinate is scaled by 1 (unchanged).",
+   "This represents three independent scalings along the coordinate axes."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 17 — Matrix-Vector Multiplication Perspectives",
+   "problem": "Let A = [1 -2 3; 4 0 -1; 2 2 2], x = (2, -1, 3)^T. Compute Ax (a) as a combination of columns, (b) through scalar products of rows.",
+   "steps": [
+    "(a) Express Ax as a linear combination of columns of A",
+    "Ax = 2×[1; 4; 2] + (-1)×[-2; 0; 2] + 3×[3; -1; 2]",
+    "Calculate each term: [2; 8; 4] + [2; 0; -2] + [9; -3; 6]",
+    "Add the vectors: [2+2+9; 8+0-3; 4-2+6] = [13; 5; 10]",
+    "(b) Compute Ax as dot products of rows with x",
+    "Row 1 · x = 1×2 + (-2)×(-1) + 3×3 = 2 + 2 + 9 = 13"
+   ]
+  },
+  "narr": [
+   "Let's explore two perspectives on matrix-vector multiplication.",
+   "First, we can view Ax as a linear combination of the columns of A.",
+   "Ax = 2×[1; 4; 2] + (-1)×[-2; 0; 2] + 3×[3; -1; 2].",
+   "Calculating each term: [2; 8; 4] + [2; 0; -2] + [9; -3; 6].",
+   "Adding these vectors: [2+2+9; 8+0-3; 4-2+6] = [13; 5; 10].",
+   "Second, we can view Ax as dot products of the rows of A with x.",
+   "Row 1 · x = 1×2 + (-2)×(-1) + 3×3 = 2 + 2 + 9 = 13."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 17 — Matrix-Vector Multiplication Perspectives (cont.)",
+   "problem": "",
+   "steps": [
+    "Row 2 · x = 4×2 + 0×(-1) + (-1)×3 = 8 + 0 - 3 = 5",
+    "Row 3 · x = 2×2 + 2×(-1) + 2×3 = 4 - 2 + 6 = 8"
+   ],
+   "result": "Ax = [13; 5; 10]. Both methods give the same result, as expected."
+  },
+  "narr": [
+   "Row 2 · x = 4×2 + 0×(-1) + (-1)×3 = 8 + 0 - 3 = 5.",
+   "Row 3 · x = 2×2 + 2×(-1) + 2×3 = 4 - 2 + 6 = 8.",
+   "Both methods give the same result: [13; 5; 10], as expected."
+  ],
+  "narr_item": [
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 18 — Solving Vector Equation",
+   "problem": "Let a1 = (1, 2)^T, a2 = (3, −1)^T. Find x = (x1, x2)^T with x1a1 + x2a2 = (11, 1)^T.",
+   "steps": [
+    "Set up the system of equations from the vector equation",
+    "x1 + 3x2 = 11 (from first component)",
+    "2x1 - x2 = 1 (from second component)",
+    "Solve the second equation for x2: x2 = 2x1 - 1",
+    "Substitute into the first equation: x1 + 3(2x1 - 1) = 11",
+    "Solve for x1: x1 + 6x1 - 3 = 11 ⇒ 7x1 = 14 ⇒ x1 = 2",
+    "Find x2: x2 = 2(2) - 1 = 3"
+   ],
+   "result": "x = (2, 3)^T"
+  },
+  "narr": [
+   "Let's solve a vector equation to find the coefficients.",
+   "We have x1a1 + x2a2 = (11, 1)^T.",
+   "This gives us a system of equations:",
+   "From the first component: x1 + 3x2 = 11",
+   "From the second component: 2x1 - x2 = 1",
+   "Let's solve the second equation for x2: x2 = 2x1 - 1",
+   "Substitute this into the first equation: x1 + 3(2x1 - 1) = 11",
+   "Simplify: x1 + 6x1 - 3 = 11 ⇒ 7x1 = 14 ⇒ x1 = 2",
+   "Now find x2: x2 = 2(2) - 1 = 3",
+   "Therefore, x = (2, 3)^T is the solution."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 19 — Null Space and Column Dependence",
+   "problem": "Let A = [2 4; -1 -2]. Describe all x with Ax = 0; why are the columns dependent?",
+   "steps": [
+    "Set up the system Ax = 0",
+    "2x1 + 4x2 = 0",
+    "-x1 - 2x2 = 0",
+    "Notice both equations are equivalent: x1 = -2x2",
+    "Express the solution in parametric form",
+    "Find a nontrivial combination of columns that equals zero"
+   ],
+   "result": "All solutions are x = t·[-2; 1], t ∈ R. The columns are dependent because -2·a1 + 1·a2 = 0."
+  },
+  "narr": [
+   "Let's find the null space of a matrix and analyze column dependence.",
+   "For matrix A = [2 4; -1 -2], we solve Ax = 0.",
+   "This gives us the system:",
+   "2x1 + 4x2 = 0",
+   "-x1 - 2x2 = 0",
+   "Notice both equations are equivalent: x1 = -2x2.",
+   "The solutions can be expressed as x = t·[-2; 1], where t is any real number.",
+   "This represents a line of solutions in R².",
+   "The columns are dependent because there exists a nontrivial combination that equals zero:",
+   "-2·[2; -1] + 1·[4; -2] = [-4; 2] + [4; -2] = [0; 0].",
+   "In fact, column 2 equals -2 times column 1, showing linear dependence."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

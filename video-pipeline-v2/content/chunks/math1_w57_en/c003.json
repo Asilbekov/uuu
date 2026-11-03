@@ -1,0 +1,359 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5-7 of Math I, where we explore the fascinating world of continuity, extrema, and the powerful theorems that govern them.",
+   "Let's dive into the exercises that will help us master these concepts."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 10 — Importance of Closed Intervals",
+   "problem": "Consider the efficiency model η(v) = v, 0 < v < 10. Does the Weierstrass theorem guarantee a maximum and minimum?",
+   "steps": [
+    "The function is continuous, but the interval (0, 10) is open, not closed.",
+    "The function approaches 0 as v → 0+, but never reaches 0.",
+    "It approaches 10 as v → 10−, but never reaches 10."
+   ],
+   "result": "Therefore, the function has neither an absolute minimum nor an absolute maximum on this domain. The Weierstrass theorem does not apply because the domain is not closed."
+  },
+  "narr": [
+   "Let's consider our first exercise about why closed intervals matter for the Weierstrass theorem.",
+   "We have an efficiency model defined as η(v) = v on the open interval (0, 10).",
+   "The function is indeed continuous, but here's the catch: the interval is open, not closed.",
+   "As v approaches 0 from the right, the function approaches 0 but never actually reaches it.",
+   "Similarly, as v approaches 10 from the left, the function approaches 10 but never reaches it.",
+   "Therefore, the function has neither an absolute minimum nor maximum on this domain, and the Weierstrass theorem doesn't apply because the domain isn't closed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 11 — Structural Optimization Problem",
+   "problem": "The temperature along a metal component is approximately described by the function T(x) = 40 + 12x - 3x², 0 ≤ x ≤ 5, where x is measured in meters. (1) Using the Weierstrass theorem, justify the existence of the hottest and coldest points. (2) Find their locations and temperatures.",
+   "steps": [
+    "(1) Since T(x) is a polynomial, it is continuous; the interval [0, 5] is closed and bounded. Therefore, absolute extrema exist.",
+    "(2) In the course materials, this part is postponed: 'For part 2 (Find both extrema) wait till next week — we need derivatives!' — derivatives are needed (week 6); use the procedure for finding absolute extrema from the formula catalog of week 5."
+   ],
+   "result": "Absolute extrema exist due to the Weierstrass theorem, but finding their exact locations requires derivatives from week 6 material."
+  },
+  "narr": [
+   "Now let's look at a structural optimization problem involving temperature distribution.",
+   "We have a temperature function T(x) = 40 + 12x - 3x² defined on the closed interval [0, 5].",
+   "First, we need to justify the existence of hottest and coldest points using the Weierstrass theorem.",
+   "Since T(x) is a polynomial, it's continuous everywhere, and the interval [0, 5] is both closed and bounded.",
+   "Therefore, by the Weierstrass theorem, absolute extrema must exist.",
+   "For part 2, finding the exact locations and temperatures requires derivatives, which we'll cover in week 6."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 12 — Connecting All Three Ideas",
+   "problem": "A pressure sensor is modeled by the function V(p) = √p + 1, 0 ≤ p ≤ 8. (1) Show that V is continuous. (2) Explain why it has a continuous inverse. (3) Find the inverse. (4) Using the Weierstrass theorem, specify the minimum and maximum voltage of the sensor.",
+   "steps": [
+    "(1) The function p + 1 is continuous, and the square root is continuous for non-negative inputs, so V is continuous on [0, 8].",
+    "(2) It is also strictly increasing, hence one-to-one; therefore, a continuous inverse exists.",
+    "(3) Start with V = √p + 1; square both sides: V² = p + 1, from which p(V) = V² - 1.",
+    "(4) The voltage range is obtained at the endpoints: V(0) = 1, V(8) = 3. By the Weierstrass theorem, these extrema are achieved: Vmin = 1 at p = 0 and Vmax = 3 at p = 8. The inverse is defined for 1 ≤ V ≤ 3."
+   ],
+   "result": "Vmin = 1 at p = 0 and Vmax = 3 at p = 8"
+  },
+  "narr": [
+   "This exercise connects three important ideas: continuity, inverse functions, and the Weierstrass theorem.",
+   "We have a pressure sensor modeled by V(p) = √p + 1 on [0, 8].",
+   "First, we need to show V is continuous. The function p + 1 is continuous, and the square root is continuous for non-negative inputs, so V is continuous on [0, 8].",
+   "Next, we explain why it has a continuous inverse. Since V is strictly increasing, it's one-to-one, which guarantees a continuous inverse.",
+   "To find the inverse, we start with V = √p + 1, square both sides to get V² = p + 1, and solve for p to get p(V) = V² - 1.",
+   "Finally, using the Weierstrass theorem, we find the minimum and maximum voltage at the endpoints: V(0) = 1 and V(8) = 3, giving us Vmin = 1 at p = 0 and Vmax = 3 at p = 8."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 13 — When the Theorem Cannot Be Applied",
+   "problem": "The cost of constructing a pipe: C(r) = π·r² + 1/r, 0 < r ≤ 5. A student claims: 'The cost is continuous, so the Weierstrass theorem guarantees a maximum.' Evaluate this statement.",
+   "steps": [
+    "The function is continuous for r > 0, but the domain (0, 5] is not closed, as it does not contain r = 0.",
+    "As r → 0+, we have 1/r → +∞, so C(r) → +∞.",
+    "Therefore, the function has no absolute maximum on (0, 5] — it becomes arbitrarily large as r approaches zero."
+   ],
+   "result": "The student's reasoning is incorrect: continuity alone is insufficient; the Weierstrass theorem requires a closed and bounded domain."
+  },
+  "narr": [
+   "Let's examine a case where the Weierstrass theorem cannot be applied.",
+   "We have a cost function C(r) = π·r² + 1/r defined on (0, 5].",
+   "The function is indeed continuous for r > 0, but the domain (0, 5] is not closed because it doesn't contain r = 0.",
+   "As r approaches 0 from the right, 1/r grows without bound, causing C(r) to approach infinity.",
+   "Therefore, the function has no absolute maximum on this domain—it becomes arbitrarily large as r approaches zero.",
+   "The student's claim is incorrect because continuity alone isn't sufficient; the Weierstrass theorem requires a closed and bounded domain."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 14 — Discontinuous Protection System",
+   "problem": "A protection controller has an output u(T) = {T, if 0 ≤ T < 100; 0, if T = 100}. (1) Is the domain closed and bounded? (2) Is u continuous? (3) Does u achieve an absolute maximum? (4) Why is the Weierstrass theorem not applicable?",
+   "steps": [
+    "(1) The domain [0, 100] is closed and bounded.",
+    "(2) However, lim T→100− u(T) = 100, while u(100) = 0; therefore, the function is discontinuous at T = 100.",
+    "(3) The function takes values arbitrarily close to 100 but never equal to 100: for each T < 100, there exists a value closer to 100 that gives a larger output. Thus, u has no absolute maximum.",
+    "(4) The Weierstrass theorem is not applicable because the function is not continuous on the closed interval."
+   ],
+   "result": "A useful warning: even a finite operating range does not guarantee the achievement of the worst-case value if the model contains discontinuous switches."
+  },
+  "narr": [
+   "Our final exercise involves a discontinuous protection system.",
+   "The output function u(T) is defined piecewise: T for 0 ≤ T < 100, and 0 when T = 100.",
+   "First, we note that the domain [0, 100] is indeed closed and bounded.",
+   "However, the function is discontinuous at T = 100 because the left-hand limit is 100 while the function value is 0.",
+   "The function approaches but never reaches 100, meaning it has no absolute maximum.",
+   "This shows why the Weierstrass theorem doesn't apply here—it requires continuity on the closed interval.",
+   "This serves as a useful warning: even with a finite operating range, discontinuous switches can prevent achieving extreme values."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Main Concepts to Remember",
+   "bullets": [
+    "Continuity means lim x→a f(x) = f(a)",
+    "Continuous functions preserve smooth 'input-output' behavior",
+    "A function must be bijective to have an inverse",
+    "A continuous strictly monotonic function on an interval has a continuous inverse",
+    "The Intermediate Value Theorem guarantees that continuous functions take every intermediate value",
+    "The Weierstrass Theorem guarantees that a continuous function on a closed bounded interval attains its absolute maximum and minimum",
+    "Weierstrass guarantees the existence of extrema — derivatives help find them"
+   ]
+  },
+  "narr": [
+   "Let's recap the main concepts from this section.",
+   "Continuity means that the limit as x approaches a equals the function value at a.",
+   "Continuous functions preserve smooth input-output behavior without sudden jumps.",
+   "For a function to have an inverse, it must be bijective—both injective and surjective.",
+   "A continuous strictly monotonic function on an interval will have a continuous inverse.",
+   "The Intermediate Value Theorem ensures that continuous functions take on every intermediate value between any two points.",
+   "The Weierstrass Theorem is crucial: it guarantees that continuous functions on closed bounded intervals attain their absolute maximum and minimum values.",
+   "Remember that Weierstrass only guarantees the existence of extrema—derivatives, which we'll cover next week, help us find their exact locations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Independent Study Assignments",
+   "subtitle": "Homework assignments for mastering the week's material"
+  },
+  "narr": [
+   "Now let's look at the independent study assignments for this week.",
+   "These are not submitted or graded, but they're designed to help you master the material through independent problem solving."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Assignment 1 — AI Interaction",
+   "problem": "Interact with an AI assistant in a structured conversation: formulate the most important points of the lecture content and ask the assistant to evaluate your answer.",
+   "steps": [
+    "Make a list of the key ideas of week 5:",
+    "- Three conditions of continuity",
+    "- Types of discontinuities",
+    "- Algebra of continuous functions",
+    "- Theorem on composite functions",
+    "- Intermediate Value Theorem"
+   ]
+  },
+  "narr": [
+   "Your first assignment involves interacting with an AI assistant like ChatGPT or Claude.",
+   "You should create a list of key ideas from week 5, including:",
+   "The three conditions of continuity",
+   "Types of discontinuities",
+   "Algebra of continuous functions",
+   "The theorem on composite functions",
+   "The Intermediate Value Theorem"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Assignment 1 — AI Interaction (cont.)",
+   "problem": "",
+   "steps": [
+    "- Inverse functions and monotonicity",
+    "- Weierstrass Theorem and its conditions"
+   ],
+   "result": "This assignment has no single solution—it's about engaging with AI to evaluate and deepen your understanding of the concepts."
+  },
+  "narr": [
+   "The goal is to formulate the most important points from the lecture and have the AI evaluate your answer.",
+   "Inverse functions and monotonicity",
+   "And the Weierstrass Theorem with its conditions",
+   "After getting feedback, analyze any comments or corrections from the AI to deepen your understanding."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Assignment 2 — Study All Problems",
+   "problem": "Study thoroughly all problems, exercises, and examples discussed in the lecture and practical session.",
+   "steps": [
+    "Review all exercises of the practical session (exercises 1-14)",
+    "Study examples from the lecture and notes",
+    "Examine solutions to in-class exercises"
+   ],
+   "result": "Complete understanding of all provided solutions and examples."
+  },
+  "narr": [
+   "For your second assignment, you should thoroughly study all problems, exercises, and examples.",
+   "This includes all exercises from the practical session (1-14), which are provided with complete solutions.",
+   "You should also review examples from the lecture and notes in the required reading section.",
+   "Additionally, examine the solutions to in-class exercises in the EXTRA section.",
+   "The goal is to achieve a complete understanding of all provided solutions and examples."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Assignment 3 — Textbook Exercises",
+   "problem": "From section 2.4 of the textbook (OpenStax Calculus 1), solve exercises 131-136, 138, 145, 147, 149.",
+   "steps": [
+    "Complete solutions to all listed exercises are contained in the EXTRA material",
+    "Exercises 131-136 and 138 focus on classification of discontinuity points",
+    "Exercises 145, 147, 149 involve finding continuity parameters for piecewise functions"
+   ],
+   "result": "Complete all textbook exercises using the provided solutions as reference."
+  },
+  "narr": [
+   "Your third assignment involves solving specific exercises from section 2.4 of the OpenStax Calculus 1 textbook.",
+   "You should work on exercises 131-136, 138, 145, 147, and 149.",
+   "Complete solutions to all these exercises are provided in the EXTRA material for week 5.",
+   "Exercises 131-136 and 138 focus on classifying discontinuity points.",
+   "Exercises 145, 147, and 149 involve finding continuity parameters for piecewise functions.",
+   "Note that exercise 137, which was allowed to be skipped, is also analyzed in the extra material if you're interested."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Assignment 4 — Continuity at a Point",
+   "problem": "Consider s(t) = sin(1/t) for t ≠ 0. Can we define s(0) so that s becomes continuous at t = 0?",
+   "steps": [
+    "As t → 0, the argument 1/t grows without bound",
+    "sin(1/t) oscillates infinitely between -1 and 1",
+    "The function does not approach any specific value as t approaches 0"
+   ],
+   "result": "No, we cannot define s(0) to make s continuous at t = 0 because lim t→0 sin(1/t) does not exist."
+  },
+  "narr": [
+   "For your final assignment, consider the function s(t) = sin(1/t) for t ≠ 0.",
+   "The question is whether we can define s(0) in a way that makes s continuous at t = 0.",
+   "As t approaches 0, the argument 1/t grows without bound.",
+   "This causes sin(1/t) to oscillate infinitely between -1 and 1.",
+   "Because the function doesn't approach any specific value as t approaches 0, the limit does not exist.",
+   "Therefore, no matter how we define s(0), the function cannot be made continuous at t = 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ }
+]

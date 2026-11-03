@@ -1,0 +1,459 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu haftalarda hosilalar (derivative) tushunchasini chuqurroq o'rganamiz. Hosila funksiyaning o'zgarish tezligini ifodalaydi.",
+   "Keling, hosilaning asosiy ta'rifini ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Hosilaning ta'riifi",
+   "tex": "f'(a) = \\lim_{h \\to 0} \\frac{f(a + h) - f(a)}{h}",
+   "parts": [
+    {
+     "substr": "f'(a)",
+     "color": "#4C5FD5",
+     "note": "Funksiyaning a nuqtadagi hosilasi"
+    },
+    {
+     "substr": "lim h →0",
+     "color": "#B45309",
+     "note": "Chekli limit, h nolga intiladi"
+    },
+    {
+     "substr": "(f(a + h) −f(a))/h",
+     "color": "#0E7C7B",
+     "note": "Funksiyaning o'zgarish nisbati"
+    }
+   ]
+  },
+  "narr": [
+   "Funksiya a nuqtada differensiallanuvchan (differentiable at a), agar f'(a) mavjud bo'lsa.",
+   "Agar funksiya ochiq S to'plamida differensiallanuvchan bo'lsa, bu f'(x) funksiyasining S to'plamining har bir nuqtasida mavjudligini anglatadi.",
+   "E'tibor bering, (3.9) formulasi hosila funksiyasini f'(x) belgilaydi.",
+   "Funksiyaning a nuqtadagi lazhaviy o'zgarish tezligi aynan f'(a) ga teng."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Hosilani belgilash usullari",
+   "bullets": [
+    "f'(x) — Lagranj belgisi",
+    "y′ — oddiy belgi",
+    "dy/dx — Leybnits notatsiyasi",
+    "d/dx(f(x)) — operator ko'rinishi",
+    "dy/dx|_x = a — aniq nuqtadagi hosila"
+   ]
+  },
+  "narr": [
+   "Hosilani turli usullarda belash mumkin. Leybnits notatsiyasi dy/dx = lim ∆x →0 ∆y/∆x deb ifodalanadi.",
+   "Bu belgilar matematikada keng qo'llaniladi va ularning har biri o'ziga xos ma'noga ega."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Elementar funksiyalarning hosilalari",
+   "tex": "\\frac{d}{dx}(x^2) = 2x, \\quad \\frac{d}{dx}(\\sqrt{x}) = \\frac{1}{2\\sqrt{x}}, \\quad \\frac{d}{dx}(\\frac{1}{x}) = -\\frac{1}{x^2}",
+   "parts": [
+    {
+     "substr": "d/dx(x2) = 2x",
+     "color": "#4C5FD5",
+     "note": "Kvadrat funksiyaning hosilasi"
+    },
+    {
+     "substr": "d/dx(√x) = 1/(2 · √x)",
+     "color": "#B45309",
+     "note": "Ildiz funksiyasining hosilasi"
+    },
+    {
+     "substr": "d/dx(1/x) = −1/x2",
+     "color": "#0E7C7B",
+     "note": "Teskari funksiyaning hosilasi"
+    }
+   ]
+  },
+  "narr": [
+   "Elementar funksiyalarning hosilalari ta'rif bo'yicha hisoblanishi mumkin. Masalan, lim t →0(sin t)/t = 1.",
+   "Xuddi shunday, x2 funksiyasi uchun (x2 −9)/(x −3) nisbat x →3 da 5.9, 5.99, 5.999, ... qiymatlarni qabul qilib, f'(3) = 6 ekanligini ko'rish mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "3.1.3 Tezlik va o'zgarish tezliklari"
+  },
+  "narr": [
+   "Endi fizikada hosilalarning qo'llanilishini ko'rib chiqaylik. Tezlik va o'zgarish tezliklari tushunchalari."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "O'rtacha va lahzaviy tezlik",
+   "tex": "\\text{O'rtacha tezlik: } v_{ave} = \\frac{s(t) - s(a)}{t - a}, \\quad \\text{Lahzaviy tezlik: } v(a) = s'(a) = \\lim_{t \\to a} \\frac{s(t) - s(a)}{t - a}",
+   "parts": [
+    {
+     "substr": "vave = (s(t) −s(a))/(t −a)",
+     "color": "#4C5FD5",
+     "note": "[a, t] oraliqdagi o'rtacha tezlik"
+    },
+    {
+     "substr": "v(a) = s′(a) = lim t →a(s(t) −s(a))/(t −a)",
+     "color": "#B45309",
+     "note": "a nuqtadagi lahzaviy tezlik"
+    }
+   ]
+  },
+  "narr": [
+   "Agar s(t) — ob'ektning koordinata o'qidagi joylashuvi bo'lsa, [a, t] dagi o'rtacha tezlik bu (3.7) farq nisbati, a lahzasidagi tezlik esa joylashuvning hosilasi (3.8)."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Mexanikadagi hosilalar",
+   "columns": [
+    "№",
+    "Kattalik",
+    "Ta'rif",
+    "Tushuntirish",
+    "SI birligi"
+   ],
+   "rows": [
+    [
+     "1",
+     "Tezlik (velocity)",
+     "v = dr/dt",
+     "Joylashuvning o'zgarish tezligi",
+     "m/s"
+    ],
+    [
+     "2",
+     "Harakat tezligi (speed)",
+     "v = ds/dt = |dr/dt|",
+     "Bosib o'tilgan yo'lning o'zgarish tezligi",
+     "m/s"
+    ],
+    [
+     "3",
+     "Tezlanish (acceleration)",
+     "a = dv/dt = d²r/dt²",
+     "Tezlikning o'zgarish tezligi",
+     "m/s²"
+    ],
+    [
+     "4",
+     "Zarba (jerk)",
+     "j = da/dt",
+     "Tezlanishning o'zgarish tezligi; tebranishlar va silliq harakat uchun muhim",
+     "m/s³"
+    ]
+   ]
+  },
+  "narr": [
+   "Jadvalda mexanikaning asosiy kattaliklari va ularning hosilalar orqali ifodalanishi ko'rsatilgan.",
+   "Tezlik — joylashuvning o'zgarish tezligi, harakat tezligi esa uning mutlaq qiymati.",
+   "Tezlanish tezlikning o'zgarish tezligi, zarba esa tezlanishning o'zgarish tezligidir."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "3.1.4 Differensiallash qoidalari"
+  },
+  "narr": [
+   "Hosilalarni ta'rif bo'yicha topish uzoq vaqtni talab qiladi. Shuning uchun differensiallash qoidalari yordamida hisoblashni soddalashtirish mumkin."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Asosiy differensiallash qoidalari",
+   "tex": "\\frac{d}{dx}(c) = 0 \\quad \\text{(doimiy qoida)} \\\\ \\frac{d}{dx}(x^n) = n \\cdot x^{n-1} \\quad \\text{(daraja qoidasi)} \\\\ \\frac{d}{dx}(x^k) = k \\cdot x^{k-1} \\quad \\text{(kengaytirilgan daraja qoidasi, k—butun)} \\\\ (f + g)' = f' + g' \\quad (f - g)' = f' - g' \\quad (k \\cdot f)' = k \\cdot f' \\\\ (f \\cdot g)' = f' \\cdot g + g' \\cdot f \\quad \\text{(ko'paytma qoidasi)} \\\\ \\left(\\frac{f}{g}\\right)' = \\frac{f' \\cdot g - g' \\cdot f}{g^2} \\quad \\text{(bo'linma qoidasi)} \\\\ (f \\cdot g \\cdot h)' = f' \\cdot g \\cdot h + f \\cdot g' \\cdot h + f \\cdot g \\cdot h' \\quad \\text{(kengaytirilgan ko'paytma qoidasi)}",
+   "parts": [
+    {
+     "substr": "d/dx(c) = 0",
+     "color": "#4C5FD5",
+     "note": "Doimiy funksiyaning hosilasi nolga teng"
+    },
+    {
+     "substr": "d/dx(xn) = n · xn−1",
+     "color": "#B45309",
+     "note": "Daraja funksiyasining hosilasi"
+    },
+    {
+     "substr": "d/dx(xk) = k · xk−1",
+     "color": "#0E7C7B",
+     "note": "Kengaytirilgan daraja qoidasi"
+    },
+    {
+     "substr": "(f + g)′ = f′ + g′",
+     "color": "#A03040",
+     "note": "Yig'indining hosilasi"
+    },
+    {
+     "substr": "(f · g)′ = f′ · g + g′ · f",
+     "color": "#4C5FD5",
+     "note": "Ko'paytmaning hosilasi"
+    },
+    {
+     "substr": "(f/g)′ = (f′ · g −g′ · f)/g2",
+     "color": "#B45309",
+     "note": "Bo'linmaning hosilasi"
+    }
+   ]
+  },
+  "narr": [
+   "Asosiy differensiallash qoidalari: doimiy funksiyaning hosilasi nolga teng, daraja funksiyasida esa daraja koeffitsientga aylanadi va daraja 1 ga kamayadi.",
+   "Yig'indining hosilasi hosilalar yig'indisiga, ko'paytmaning hosilasi esa hosilalar ko'paytmasiga emas, balki f'·g + g'·f ko'rinishida bo'ladi.",
+   "Bo'linmaning hosilasi ham shunga o'xshash qoidaga bo'ysunadi, lekin biroz murakkabroq ifodaga ega."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Differensiallash qoidalariga misollar",
+   "bullets": [
+    "Doimiy — gorizontal to'g'ri chiziq: d/dx(8) = 0",
+    "Daraja qoidasi: daraja koeffitsientga aylanadi, daraja 1 ga kamayadi (d/dx(x^10) = 10x^9)",
+    "Ko'paytmaning hosilasi hosilalar ko'paytmasiga teng emas (x·x uchun 1 bo'lmasdan, 2x bo'ladi)",
+    "Bo'linmaning hosilasi hosilalar bo'linmasiga teng emas",
+    "Kasrlarni darajalar sifatida yozish — d/dx(6/x^2) = d/dx(6x^-2) = -12/x^3"
+   ]
+  },
+  "narr": [
+   "3.21-misol: d/dx(2x^5 + 7) = 10x^4 (tartib: yig'indi → ko'paytuvchi → daraja/doimiy)",
+   "3.28-misol: k(x) = 3h(x) + x^2 · g(x) → k'(x) = 3h'(x) + 2x·g(x) + x^2 · g'(x): qoidalar funksiya hisoblanish tartibining teskarisida qo'llanadi."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "3.1.5 Bir tomonlama hosilalar; differensiallanuvchanlik va uzluksizlik"
+  },
+  "narr": [
+   "Ba'zi hollarda funksiyaning faqat bir tomondan hosilasi bo'lishi mumkin. Shuning uchun bir tomonlama hosilalar tushunchasini kiritamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Bir tomonlama hosilalar",
+   "tex": "f'_-(a) = \\lim_{h \\to 0^-} \\frac{f(a + h) - f(a)}{h}, \\quad f'_+(a) = \\lim_{h \\to 0^+} \\frac{f(a + h) - f(a)}{h}",
+   "parts": [
+    {
+     "substr": "f′−(a) = lim h →0 −(f(a + h) −f(a))/h",
+     "color": "#4C5FD5",
+     "note": "Chap tomondan hosila"
+    },
+    {
+     "substr": "f′+(a) = lim h →0 + (f(a + h) −f(a))/h",
+     "color": "#B45309",
+     "note": "O'ng tomondan hosila"
+    }
+   ]
+  },
+  "narr": [
+   "Funksiyaning a nuqtada differensiallanishi uchun uning chap va o'ng tomondan hosilalari mavjud va teng bo'lishi kerak.",
+   "Agar funksiya a nuqtada differensiallanadigan bo'lsa, u shu nuqtada uzluksiz bo'ladi. Ammo aksinchi to'g'ri emas — uzluksiz funksiya har doim differensiallanmaydi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Hosilaning mavjud bo'lmasligining sabablari",
+   "bullets": [
+    "Uzilish: nuqtada uzluksiz bo'lmagan funksiya differensiallanmaydi",
+    "Burilish (kink/corner): ikki xil chekli bir tomonlama nishablar — |x| nolda",
+    "Uch (cusp): qarama-qarshi ishorali cheksiz nishablar — |x|^(2/3)",
+    "Vertikal urinma: bir xil cheksiz nishablar — x^(1/3)",
+    "Osillyatsiya: f(x) = {x · sin(1/x), x ≠ 0; 0, x = 0} funksiyasi uchun noldagi faratiy nisbat sin(1/x) — cheksiz yo'q"
+   ]
+  },
+  "narr": [
+   "|x| funksiyasi nol nuqtada chap tomondan -1, o'ng tomondan +1 qiymatlarini qabul qiladi, shuning uchun differensiallanmaydi.",
+   "|x|^(2/3) funksiyasida nol nuqtada chapdan -∞, o'ngdan +∞ cheksiz nishablar mavjud.",
+   "x^(1/3) funksiyasida nol nuqtada ikkala tomondan +∞ cheksiz nishab mavjud, lekin bu holatda differensiallanmaydi."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "3.1.6 Yuqori hosilalar"
+  },
+  "narr": [
+   "Hosila — o'zi funksiya, shuning uchun uni yana differensiallash mumkin. Bu yuqori hosilalar deb ataladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Yuqori hosilalar",
+   "tex": "f''(x), f'''(x), f^{(4)}(x), \\ldots, f^{(n)}(x); \\quad \\frac{d^2y}{dx^2}, \\frac{d^3y}{dx^3}, \\ldots, \\frac{d^ny}{dx^n}",
+   "parts": [
+    {
+     "substr": "f″(x), f‴(x), f (4)(x), . . . , f (n)(x)",
+     "color": "#4C5FD5",
+     "note": "Primalar yordamidagi belgilash"
+    },
+    {
+     "substr": "d2y/dx2, d3y/dx3, . . . , dny/dxn",
+     "color": "#B45309",
+     "note": "Leybnits notatsiyasi"
+    }
+   ]
+  },
+  "narr": [
+   "Har bir differensiallash polinom darajasini 1 ga kamaytiradi, konstantaga yetguncha, uning hosilasi 0 bo'ladi.",
+   "Fizikada holatning hosilasi tezlik, tezlikning hosilasi tezlanishni beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "3.1.7 Hosilalar o'zgarish tezligi sifatida"
+  },
+  "narr": [
+   "Hosilani o'zgarish tezligi sifatida talqin qilish mumkin. Bu esa amaliyotda keng qo'llaniladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "O'shish formulasi",
+   "tex": "f(a + h) \\approx f(a) + f'(a) \\cdot h",
+   "parts": [
+    {
+     "substr": "f(a + h) ≈f(a) + f′(a) · h",
+     "color": "#4C5FD5",
+     "note": "O'shish formulasi"
+    }
+   ]
+  },
+  "narr": [
+   "O'shish formulasi noma'lum yaqin qiymatni ma'lum qiymat va o'zgarish tezligi bilan baholaydi.",
+   "3.33-misol: f(3) = 2, f'(3) = 5 → f(3.2) ≈ 2 + 0.2 · 5 = 3"
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Hosilalarning qo'llanilishi",
+   "bullets": [
+    "v(t) = s′(t) — tezlik; |v(t)| — skalyar tezlik (speed)",
+    "a(t) = v′(t) = s″(t) — tezlanish",
+    "P′(t) — aholi o'sish tezligi",
+    "MC(x) = C′(x), MR(x) = R′(x), MP(x) = P′(x) = R′(x) − C′(x) — iqtisodiyotdagi chegara miqdorlar"
+   ]
+  },
+  "narr": [
+   "Iqtisodiyotda xarajatlar C(x), daromadlar R(x) va foyda P(x) = R(x) − C(x) funksiyalarining hosilalari chegara miqdorlarni ifodalaydi.",
+   "h = 1 qo'yish MC(x) ≈ C(x + 1) − C(x) ni beradi: hosila bitta qo'shimcha birlik ishlab chiqarishdagi o'zgarinni baholaydi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Haftani xulosa",
+   "items": [
+    "Hosilaning asosiy ta'riflari va belgilash usullari",
+    "Differensiallashning asosiy qoidalari",
+    "Bir tomonlama va yuqori hosilalar",
+    "Hosilalarning fizika va iqtisodiyotdagi qo'llanilishi"
+   ]
+  },
+  "narr": [
+   "Bu hafta zanjir qoidasi, noaniq va trigonometrik differensiallash talab qilinmaydi.",
+   "\"Differensiallanuvchanlik\" chekli hosilani anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ }
+]

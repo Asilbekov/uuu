@@ -1,0 +1,399 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this section, we'll explore logarithm properties, change of base formulas, and logarithmic differentiation.",
+   "We'll then dive into related rates problems and derivatives of elementary functions."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Logarithm Properties",
+   "bullets": [
+    "log_b(a · c) = log_b a + log_b c",
+    "log_b(a/c) = log_b a - log_b c",
+    "log_b(a^r) = r · log_b a"
+   ]
+  },
+  "narr": [
+   "First, let's review the fundamental properties of logarithms.",
+   "The logarithm of a product equals the sum of the logarithms.",
+   "The logarithm of a quotient equals the difference of the logarithms.",
+   "And the logarithm of a power equals the exponent times the logarithm of the base."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Change of Base Formula",
+   "bullets": [
+    "a^x = e^(x·ln a)",
+    "log_a x = (ln x)/(ln a)",
+    "Derivative: (log_a x)' = 1/(x · ln a)"
+   ]
+  },
+  "narr": [
+   "Next, the change of base formula allows us to express exponential and logarithmic functions in terms of natural logarithms.",
+   "For exponentials, a^x equals e raised to the power of x times ln a.",
+   "For logarithms, log_a x equals the natural log of x divided by the natural log of a.",
+   "This gives us a straightforward derivative formula for logarithms with any base."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Logarithmic Differentiation",
+   "bullets": [
+    "Take the logarithm of y = h(x)",
+    "Expand using logarithm properties",
+    "Differentiate (left side gives (1/y)·y')",
+    "Multiply by y and replace with h(x)",
+    "Useful for functions of the form g(x)^f(x)"
+   ]
+  },
+  "narr": [
+   "Logarithmic differentiation is a powerful technique for complex functions.",
+   "First, take the logarithm of both sides of y = h(x).",
+   "Then expand the logarithm using its properties.",
+   "Differentiate both sides with respect to x - the left side will yield (1/y)·y'.",
+   "Finally, multiply by y and replace y with h(x).",
+   "This method is particularly useful for functions of the form g(x) raised to the power of f(x), like x^x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Related Rates: Inflating a Balloon",
+   "problem": "A spherical balloon is being inflated with gas at a rate of 800 cm³/min. How fast is the radius of the balloon increasing at the moment when the radius is 30 cm?",
+   "steps": [
+    "Volume of a sphere: V = (4/3)πr³",
+    "Differentiate with respect to t: dV/dt = 4πr²·(dr/dt)",
+    "Substitute dV/dt = 800 and r = 30",
+    "Solve for dr/dt"
+   ],
+   "result": "dr/dt = 2/(9π) ≈ 0.0707 cm/min"
+  },
+  "narr": [
+   "Let's start with a classic related rates problem: inflating a spherical balloon.",
+   "We're given that the volume is increasing at 800 cm³/min, and we need to find how fast the radius is increasing when r = 30 cm.",
+   "First, recall the volume formula for a sphere: V = (4/3)πr³.",
+   "Differentiating both sides with respect to time t gives us dV/dt = 4πr²·(dr/dt).",
+   "Now we substitute the given values: dV/dt = 800 and r = 30.",
+   "Solving for dr/dt, we get dr/dt = 800/(4π·30²) = 2/(9π) ≈ 0.0707 cm/min."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Related Rates: Ladder Against a Wall",
+   "problem": "A 10-foot ladder leans against a vertical wall. If the bottom end of the ladder slides away from the wall at a rate of 1 ft/s, how fast is the top end sliding down the wall when the bottom end is 6 feet from the wall?",
+   "steps": [
+    "Let x = distance from bottom to wall, y = height of top end",
+    "By Pythagoras: x² + y² = 10² = 100",
+    "Given dx/dt = 1 ft/s, find dy/dt when x = 6",
+    "When x = 6, y = 8 (from 36 + y² = 100)",
+    "Differentiate: 2x·(dx/dt) + 2y·(dy/dt) = 0",
+    "Solve for dy/dt"
+   ],
+   "result": "dy/dt = -3/4 ft/s (0.75 ft/s)"
+  },
+  "narr": [
+   "Next, a ladder sliding down a wall.",
+   "We have a 10-foot ladder with the bottom sliding away at 1 ft/s, and we need to find how fast the top is sliding down when the bottom is 6 feet from the wall.",
+   "Let x be the distance from the bottom to the wall, and y be the height of the top end.",
+   "By Pythagoras' theorem, x² + y² = 10² = 100.",
+   "When x = 6, we can find y = 8 (since 36 + y² = 100).",
+   "Differentiating both sides with respect to t gives us 2x·(dx/dt) + 2y·(dy/dt) = 0.",
+   "Solving for dy/dt, we get dy/dt = -(x/y)·(dx/dt) = -(6/8)·1 = -3/4 ft/s.",
+   "The negative sign indicates the height is decreasing, so the top end slides down at 3/4 ft/s."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Related Rates: Shadow from a Lamp",
+   "problem": "A 6-foot tall person walks away from a lamp post that is 15 feet tall at a rate of 5 ft/s. How fast is the tip of their shadow moving when they are 40 feet from the post?",
+   "steps": [
+    "Let x = distance from person to post",
+    "Let s = length of shadow",
+    "Let L = x + s = distance from post to shadow tip",
+    "From similar triangles: 15/(x + s) = 6/s",
+    "Simplify to: s = (2/3)x, so L = (5/3)x",
+    "Differentiate: dL/dt = (5/3)·(dx/dt)"
+   ],
+   "result": "dL/dt = 25/3 ≈ 8.33 ft/s"
+  },
+  "narr": [
+   "Now, a shadow problem with a person walking away from a lamp post.",
+   "We have a 6-foot tall person walking away from a 15-foot lamp post at 5 ft/s.",
+   "We need to find how fast the tip of their shadow is moving when they're 40 feet from the post.",
+   "Let x be the distance from the person to the post, s be the length of the shadow, and L = x + s be the distance from the post to the shadow tip.",
+   "From similar triangles, we get 15/(x + s) = 6/s, which simplifies to s = (2/3)x and L = (5/3)x.",
+   "Differentiating with respect to t gives dL/dt = (5/3)·(dx/dt) = (5/3)·5 = 25/3 ≈ 8.33 ft/s.",
+   "Interestingly, the speed of the shadow tip is constant and doesn't depend on the distance to the post."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Related Rates: Conical Tank with Leak",
+   "problem": "Water is supplied to an inverted conical tank at a constant rate of 9 m³/min. The tank has a height of 12 m and a radius of 6 m at the top edge. If the water level is rising at a rate of 0.2 m/min at the moment when the water depth is 4 m, find the rate at which water is leaking from the tank.",
+   "steps": [
+    "Let V = volume of water, h = depth, r = radius of surface",
+    "From similarity: r/h = 6/12 = 1/2, so r = h/2",
+    "Volume: V = (1/3)π(h/2)²·h = (π/12)h³",
+    "Differentiate: dV/dt = (πh²/4)·(dh/dt)",
+    "When h = 4 and dh/dt = 0.2: dV_net/dt = 0.8π ≈ 2.513 m³/min",
+    "From dV_net/dt = Q_in - Q_out: Q_out = 9 - 0.8π ≈ 6.49 m³/min"
+   ],
+   "result": "Q_out ≈ 6.49 m³/min"
+  },
+  "narr": [
+   "Now, a conical tank with a leak.",
+   "Water is supplied at 9 m³/min to an inverted conical tank with height 12 m and top radius 6 m.",
+   "The water level is rising at 0.2 m/min when the depth is 4 m, and we need to find the leak rate.",
+   "Let V be the volume, h the depth, and r the radius of the water surface.",
+   "From similarity, r/h = 6/12 = 1/2, so r = h/2.",
+   "The volume is V = (1/3)π(h/2)²·h = (π/12)h³.",
+   "Differentiating gives dV/dt = (πh²/4)·(dh/dt), which is the net rate of volume change.",
+   "When h = 4 and dh/dt = 0.2, dV_net/dt = 0.8π ≈ 2.513 m³/min.",
+   "Since dV_net/dt = Q_in - Q_out, we get Q_out = 9 - 0.8π ≈ 6.49 m³/min."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Related Rates: Two Cars",
+   "problem": "Two cars start from the same point. One travels south at 60 km/h, the other west at 50 km/h. At what rate is the distance between the cars increasing two hours later?",
+   "steps": [
+    "Let x = distance traveled by westbound car (dx/dt = 50 km/h)",
+    "Let y = distance traveled by southbound car (dy/dt = 60 km/h)",
+    "Let z = distance between cars: z² = x² + y²",
+    "After 2 hours: x = 100 km, y = 120 km, z = √(100² + 120²) = 20√61 ≈ 156.2 km",
+    "Differentiate: 2z·(dz/dt) = 2x·(dx/dt) + 2y·(dy/dt)",
+    "Solve for dz/dt"
+   ],
+   "result": "dz/dt = 10√61 ≈ 78.1 km/h"
+  },
+  "narr": [
+   "Now, two cars moving in perpendicular directions.",
+   "One car travels south at 60 km/h, the other west at 50 km/h.",
+   "We need to find how fast the distance between them is increasing after 2 hours.",
+   "Let x be the distance traveled by the westbound car, y by the southbound car, and z the distance between them.",
+   "After 2 hours, x = 100 km, y = 120 km, and z = √(100² + 120²) = 20√61 ≈ 156.2 km.",
+   "Differentiating z² = x² + y² gives 2z·(dz/dt) = 2x·(dx/dt) + 2y·(dy/dt).",
+   "Solving for dz/dt, we get dz/dt = (100·50 + 120·60)/(20√61) = 10√61 ≈ 78.1 km/h."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Related Rates: Plane Over Radar",
+   "problem": "A plane flies horizontally at an altitude of 2 km with a speed of 800 km/h and passes directly over a radar station. Find the rate at which the distance from the plane to the station is increasing when it is equal to 3 km.",
+   "steps": [
+    "Let x = horizontal distance from station to point under plane",
+    "Let s = direct distance to plane",
+    "Height h = 2 km is constant, so s² = x² + 4",
+    "When s = 3: x² = 5, x = √5 km",
+    "Differentiate: 2s·(ds/dt) = 2x·(dx/dt)",
+    "Solve for ds/dt"
+   ],
+   "result": "ds/dt = 800√5/3 ≈ 596.27 km/h"
+  },
+  "narr": [
+   "Next, a plane flying over a radar station.",
+   "The plane flies horizontally at 2 km altitude with 800 km/h speed, passing directly over the station.",
+   "We need to find how fast the distance from the plane to the station is increasing when it's 3 km away.",
+   "Let x be the horizontal distance from the station to the point under the plane, and s be the direct distance to the plane.",
+   "With constant height h = 2 km, we have s² = x² + 4.",
+   "When s = 3, x = √5 km.",
+   "Differentiating gives 2s·(ds/dt) = 2x·(dx/dt), so ds/dt = (x/s)·(dx/dt) = (√5/3)·800 = 800√5/3 ≈ 596.27 km/h."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Related Rates: Gravel Pile",
+   "problem": "Gravel falls from a conveyor belt at a rate of 30 ft³/min, and its granularity is such that it forms a pile in the shape of a cone whose base diameter and height are always equal. How fast is the height of the pile growing when it is 10 feet high?",
+   "steps": [
+    "Diameter equals height: 2r = h, so r = h/2",
+    "Volume: V = (π/12)h³",
+    "Differentiate: dV/dt = (πh²/4)·(dh/dt)",
+    "Solve for dh/dt: dh/dt = 4·(dV/dt)/(πh²)",
+    "Substitute dV/dt = 30 and h = 10"
+   ],
+   "result": "dh/dt = 6/(5π) ≈ 0.382 ft/min"
+  },
+  "narr": [
+   "Now, a gravel pile forming a cone.",
+   "Gravel falls at 30 ft³/min, forming a cone where base diameter equals height.",
+   "We need to find how fast the height is growing when it's 10 feet high.",
+   "Since diameter equals height, we have 2r = h, so r = h/2.",
+   "The volume is V = (π/12)h³.",
+   "Differentiating gives dV/dt = (πh²/4)·(dh/dt).",
+   "Solving for dh/dt and substituting the values, we get dh/dt = 4·30/(π·100) = 6/(5π) ≈ 0.382 ft/min."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Related Rates: Boat and Pulley",
+   "problem": "A boat is pulled toward a dock by a rope attached to the bow of the boat and passing through a pulley on the dock located 1 m above the bow of the boat. If the rope is pulled at a rate of 1 m/s, how fast is the boat approaching the dock when it is 8 m from it?",
+   "steps": [
+    "Let x = horizontal distance from boat to dock",
+    "Let l = length of rope from pulley to boat",
+    "Pulley is 1 m above bow, so l² = x² + 1",
+    "Rope is shortening: dl/dt = -1 m/s",
+    "When x = 8: l = √65",
+    "Differentiate: 2l·(dl/dt) = 2x·(dx/dt)",
+    "Solve for dx/dt"
+   ],
+   "result": "dx/dt = -√65/8 ≈ -1.008 m/s (approaching at ≈1.01 m/s)"
+  },
+  "narr": [
+   "Next, a boat being pulled by a rope through a pulley.",
+   "A boat is pulled toward a dock by a rope through a pulley 1 m above the bow.",
+   "The rope is pulled at 1 m/s, and we need to find how fast the boat is approaching when it's 8 m from the dock.",
+   "Let x be the horizontal distance from the boat to the dock, and l be the length of the rope from the pulley to the boat.",
+   "With the pulley 1 m above the bow, we have l² = x² + 1.",
+   "The rope is shortening at dl/dt = -1 m/s.",
+   "When x = 8, l = √65.",
+   "Differentiating gives 2l·(dl/dt) = 2x·(dx/dt), so dx/dt = (l/x)·(dl/dt) = (√65/8)·(-1) ≈ -1.008 m/s.",
+   "The negative sign indicates the distance is decreasing, so the boat is approaching at √65/8 ≈ 1.01 m/s."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Related Rates: Particle on a Curve",
+   "problem": "A particle moves along the curve y = √x such that its x-coordinate increases at a rate of 2 units/s. How fast is the y-coordinate of the particle changing when the particle is at the point (4, 2)?",
+   "steps": [
+    "Given y = √x and dx/dt = 2 units/s",
+    "Find dy/dt when x = 4, y = 2",
+    "Differentiate y = √x with respect to t: dy/dt = (1/(2√x))·(dx/dt)",
+    "Substitute x = 4 and dx/dt = 2"
+   ],
+   "result": "dy/dt = 1/(2√4)·2 = 0.5 units/s"
+  },
+  "narr": [
+   "Finally, a particle moving along a curve.",
+   "A particle moves along y = √x with dx/dt = 2 units/s.",
+   "We need to find how fast the y-coordinate is changing when the particle is at (4, 2).",
+   "Differentiating y = √x with respect to t gives dy/dt = (1/(2√x))·(dx/dt).",
+   "Substituting x = 4 and dx/dt = 2, we get dy/dt = (1/(2√4))·2 = 0.5 units/s."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

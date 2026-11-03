@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="__LANG__">
+<head>
+<meta charset="utf-8">
+<title>__TITLE__</title>
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<link rel="stylesheet" href="assets/fonts.css">
+<script src="assets/katex/katex.min.js"></script>
+<script src="assets/motion.js"></script>
+<style>
+  /* ── series look: warm paper, ink, per-subject accent ─────────────── */
+  :root{
+    --paper:#FBF9F4; --card:#FFFFFF; --ink:#25243A; --ink-soft:#6D6B80;
+    --line:#E7E2D6; --accent:__ACCENT__; --accent-soft:__ACCENT_SOFT__;
+    --serif:'Noto Serif',serif; --sans:'Noto Sans',sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1920px;height:1080px;overflow:hidden;background:var(--paper);
+    font-family:var(--sans);color:var(--ink);
+    /* fine paper grain + vignette, static */
+    background-image:
+      radial-gradient(ellipse 130% 100% at 50% 42%, rgba(0,0,0,0) 55%, rgba(60,50,20,.05) 100%);
+  }
+  #stage{position:absolute;inset:0;transform-origin:50% 50%}
+  .grain{position:absolute;inset:0;opacity:.5;pointer-events:none}
+
+  /* persistent header ribbon — the carry element across every beat */
+  #ribbon{position:absolute;top:0;left:0;right:0;height:112px;display:flex;align-items:center;
+    justify-content:space-between;padding:0 72px;z-index:5}
+  #rb-course{font-family:var(--sans);font-size:26px;letter-spacing:.14em;font-weight:600;
+    color:var(--ink-soft);text-transform:uppercase;white-space:nowrap}
+  #rb-weeks{font-family:var(--serif);font-size:24px;color:var(--ink-soft);font-style:italic;white-space:nowrap;margin-left:28px}
+  #rb-dots{display:flex;gap:14px;align-items:center}
+  .rb-dot{width:12px;height:12px;border-radius:50%;background:var(--line);border:2px solid var(--line)}
+  .rb-dot.active{background:var(--accent);border-color:var(--accent)}
+  #rb-rule{position:absolute;left:72px;right:72px;bottom:0;height:2px;background:var(--line)}
+  #rb-rule-fill{position:absolute;left:0;top:0;height:2px;background:var(--accent);width:0}
+
+  /* the ground where blocks live */
+  #ground{position:absolute;left:72px;right:72px;top:150px;bottom:96px}
+
+  .block{position:absolute;inset:0;visibility:hidden}
+  .block.on{visibility:visible}
+
+  /* shared */
+  .hd{font-family:var(--serif);font-weight:700;color:var(--ink);line-height:1.12}
+  .kicker{font-family:var(--sans);font-size:24px;letter-spacing:.22em;font-weight:700;
+    color:var(--accent);text-transform:uppercase}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;
+    box-shadow:0 24px 60px -30px rgba(48,40,16,.25), 0 2px 6px rgba(48,40,16,.05)}
+  .katex{font-size:1em}
+
+  /* ── title ─────────────────────────────────────────────────────────── */
+  .b-title{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+  .b-title .kicker{margin-bottom:34px}
+  .b-title h1{font-size:108px;font-family:var(--serif);font-weight:800;line-height:1.04;max-width:1500px}
+  .b-title .sub{margin-top:38px;font-size:40px;color:var(--ink-soft);font-family:var(--serif);font-style:italic;max-width:1400px;line-height:1.35}
+  .b-title .chips{margin-top:56px;display:flex;gap:18px;flex-wrap:wrap}
+  .chip{padding:14px 30px;border:2px solid var(--accent);color:var(--accent);border-radius:999px;
+    font-size:28px;font-weight:600;letter-spacing:.02em}
+
+  /* ── section ───────────────────────────────────────────────────────── */
+  .b-section{display:flex;align-items:center;gap:76px;justify-content:center}
+  .b-section .num{font-family:var(--serif);font-size:360px;font-weight:800;color:var(--accent);
+    line-height:.8;letter-spacing:-.04em}
+  .b-section .txt{max-width:1150px}
+  .b-section h2{font-size:84px;font-family:var(--serif);font-weight:800;line-height:1.08}
+  .b-section .ssub{margin-top:26px;font-size:36px;color:var(--ink-soft);font-style:italic;font-family:var(--serif)}
+
+  /* ── concept ───────────────────────────────────────────────────────── */
+  .b-concept{display:flex;flex-direction:column;justify-content:center;gap:44px;padding:0 40px}
+  .b-concept h2{font-size:64px}
+  .bullets{display:flex;flex-direction:column;gap:26px;max-width:1640px}
+  .bullet{display:flex;gap:26px;align-items:flex-start}
+  .bullet .tick{flex:0 0 auto;width:52px;height:8px;border-radius:4px;background:var(--accent);
+    margin-top:26px;transform-origin:0 50%}
+  .bullet .tx{font-size:40px;line-height:1.4;color:var(--ink-soft);font-weight:500}
+  .bullet.lit .tx{color:var(--ink);font-weight:650}
+
+  /* ── formula ───────────────────────────────────────────────────────── */
+  .b-formula{display:flex;flex-direction:column;justify-content:center;gap:40px;padding:0 40px}
+  .b-formula h2{font-size:58px}
+  .f-wrap{display:flex;justify-content:center;padding:56px 70px}
+  .f-eq{font-size:64px;align-self:center}
+  .f-eq .pmark{transition:none}
+  .f-parts{display:flex;flex-direction:column;gap:20px;max-width:1640px}
+  .f-part{display:flex;gap:24px;align-items:flex-start}
+  .f-part .swatch{flex:0 0 auto;width:26px;height:26px;border-radius:8px;margin-top:12px}
+  .f-part .pt{font-size:34px;line-height:1.4;color:var(--ink-soft)}
+  .f-part.lit .pt{color:var(--ink);font-weight:600}
+
+  /* ── plot ──────────────────────────────────────────────────────────── */
+  .b-plot{display:flex;flex-direction:column;justify-content:center;gap:36px;padding:0 40px}
+  .b-plot h2{font-size:58px}
+  .plot-card{align-self:center;padding:34px 44px}
+  .plot-card svg{display:block}
+  .axis-t{font-family:var(--sans);font-size:26px;fill:var(--ink-soft)}
+  .curve-t{font-family:var(--sans);font-size:28px;font-weight:700}
+
+  /* ── example ───────────────────────────────────────────────────────── */
+  .b-example{display:flex;flex-direction:column;justify-content:center;gap:34px;padding:0 40px}
+  .b-example h2{font-size:56px}
+  .ex-problem{padding:34px 44px;border-left:10px solid var(--accent);max-width:1640px}
+  .ex-problem .q{font-family:var(--serif);font-size:40px;font-style:italic;line-height:1.4}
+  .ex-steps{display:flex;flex-direction:column;gap:18px;max-width:1640px}
+  .ex-step{display:flex;gap:24px;align-items:flex-start}
+  .ex-step .n{flex:0 0 auto;width:52px;height:52px;border-radius:50%;border:3px solid var(--accent);
+    color:var(--accent);font-family:var(--serif);font-size:30px;font-weight:700;display:flex;
+    align-items:center;justify-content:center;margin-top:4px}
+  .ex-step .tx{font-size:36px;line-height:1.42;color:var(--ink-soft)}
+  .ex-step.lit .tx{color:var(--ink)}
+  .ex-result{align-self:flex-start;padding:24px 46px;background:var(--accent);color:#fff;
+    border-radius:16px;font-size:40px;font-weight:700;box-shadow:0 18px 40px -18px var(--accent-soft)}
+
+  /* ── code ──────────────────────────────────────────────────────────── */
+  .b-code{display:flex;flex-direction:column;justify-content:center;gap:36px;padding:0 40px}
+  .b-code h2{font-size:56px}
+  .code-card{max-width:1560px;overflow:hidden;border-radius:22px}
+  .code-chrome{height:52px;background:#2B2A40;display:flex;align-items:center;gap:10px;padding:0 24px}
+  .code-chrome i{width:16px;height:16px;border-radius:50%;background:#55536e}
+  .code-body{background:#1E1E2E;padding:34px 40px;font-family:var(--mono);font-size:33px;
+    line-height:1.62;color:#E6E6F0;white-space:pre}
+  .code-line{display:block}
+  .code-line.hl{background:rgba(255,255,255,.09);box-shadow:inset 4px 0 0 var(--accent)}
+
+  /* ── table ─────────────────────────────────────────────────────────── */
+  .b-table{display:flex;flex-direction:column;justify-content:center;gap:36px;padding:0 40px}
+  .b-table h2{font-size:58px}
+  .t-card{max-width:1720px;overflow:hidden;border-radius:20px}
+  table.tt{border-collapse:collapse;width:100%}
+  table.tt th{background:var(--accent);color:#fff;font-size:33px;padding:20px 30px;text-align:left;
+    font-weight:650;letter-spacing:.02em}
+  table.tt td{font-size:32px;padding:17px 30px;border-top:1px solid var(--line);color:var(--ink)}
+  table.tt tr{background:var(--card)}
+  table.tt tr.lit{background:var(--accent-soft)}
+
+  /* ── timeline ──────────────────────────────────────────────────────── */
+  .b-timeline{display:flex;flex-direction:column;justify-content:center;gap:44px;padding:0 40px}
+  .b-timeline h2{font-size:58px}
+  .tl-lane{position:relative;height:360px;margin:0 30px}
+  .tl-axis{position:absolute;left:0;right:0;top:50%;height:4px;background:var(--line);border-radius:2px}
+  .tl-axis-fill{position:absolute;left:0;top:0;height:4px;background:var(--accent);width:0;border-radius:2px}
+  .tl-ev{position:absolute;width:320px;margin-left:-160px;text-align:center}
+  .tl-ev .dot{width:26px;height:26px;border-radius:50%;background:var(--accent);margin:0 auto;
+    box-shadow:0 0 0 8px var(--accent-soft)}
+  .tl-ev .yr{font-family:var(--serif);font-size:34px;font-weight:800;color:var(--accent);margin:18px 0 8px}
+  .tl-ev .tx{font-size:27px;line-height:1.35;color:var(--ink-soft)}
+  .tl-ev.up{bottom:50%;padding-bottom:64px}
+  .tl-ev.down{top:50%;padding-top:64px}
+  .tl-ev.up .dot{position:absolute;bottom:18px;left:50%;transform:translateX(-50%)}
+  .tl-ev.down .dot{position:absolute;top:18px;left:50%;transform:translateX(-50%)}
+
+  /* ── matrix ────────────────────────────────────────────────────────── */
+  .b-matrix{display:flex;flex-direction:column;justify-content:center;gap:38px;padding:0 40px}
+  .b-matrix h2{font-size:58px}
+  .m-wrap{display:flex;justify-content:center;padding:40px 60px}
+  .m-eq{font-size:60px}
+
+  /* ── recap ─────────────────────────────────────────────────────────── */
+  .b-recap{display:flex;flex-direction:column;justify-content:center;gap:44px;padding:0 40px}
+  .b-recap h2{font-size:60px}
+  .checks{display:flex;flex-direction:column;gap:24px;max-width:1640px}
+  .check{display:flex;gap:26px;align-items:center}
+  .check .box{flex:0 0 auto;width:54px;height:54px;border-radius:14px;border:3px solid var(--accent);
+    display:flex;align-items:center;justify-content:center}
+  .check .box svg{width:34px;height:34px;stroke:#fff;stroke-width:4;fill:none;
+    stroke-linecap:round;stroke-linejoin:round}
+  .check .tx{font-size:38px;color:var(--ink-soft);font-weight:500}
+  .check.lit .tx{color:var(--ink);font-weight:650}
+  .check.done .box{background:var(--accent);border-color:var(--accent)}
+
+  /* ── quote ─────────────────────────────────────────────────────────── */
+  .b-quote{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:40px;padding:0 120px;text-align:center}
+  .b-quote .q{font-family:var(--serif);font-size:66px;font-style:italic;line-height:1.35;max-width:1560px}
+  .b-quote .who{font-size:34px;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+
+  /* ── outro ─────────────────────────────────────────────────────────── */
+  .b-outro{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:48px;text-align:center}
+  .b-outro .msg{font-family:var(--serif);font-size:76px;font-weight:800;line-height:1.25;max-width:1560px}
+  .b-outro .chip{font-size:34px}
+
+  /* word-sync highlight (subframe: word by word) */
+  .wspan{border-bottom:3px solid transparent;transition:none;padding:0 1px}
+  .wspan.wcur{border-bottom-color:var(--accent);background:var(--accent-soft);
+    border-radius:4px}
+  /* odometer digits (subframe: digits on a roll) */
+  .odo{display:inline-flex;overflow:hidden;height:.82em;line-height:.82em}
+  .odo .strip{display:flex;flex-direction:column;will-change:transform}
+  .odo .strip span{height:.82em;display:flex;align-items:center}
+  /* heading light sweep (subframe: light across type) */
+  .hd{position:relative;overflow:hidden}
+  .hd .sweep{position:absolute;top:0;bottom:0;width:42%;
+    background:linear-gradient(105deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.055) 50%,rgba(0,0,0,0) 100%);
+    pointer-events:none;left:-45%;opacity:0}
+  td .katex{font-size:.92em}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="ribbon">
+    <div style="display:flex;align-items:baseline"><span id="rb-course"></span><span id="rb-weeks"></span></div>
+    <div id="rb-dots"></div>
+    <div id="rb-rule"><div id="rb-rule-fill"></div></div>
+  </div>
+  <div id="ground"></div>
+</div>
+<script>
+/* ════════════════════════════════════════════════════════════════════════
+   uuu course studio · comp engine (onetake technique)
+   One HTML composition, every value a pure function of time:
+   window.__seek(t) — place every element for time t (seconds)
+   window.__motion(t0,t1) — max px any element travels in [t0,t1] (from the
+     build-time move registry: exact, no DOM diffing)
+   window.__ready — promise resolved when fonts+DOM are primed
+   Deterministic: no Date, no Math.random; sims from OM.rng(seed).
+   ════════════════════════════════════════════════════════════════════════ */
+const DATA = __DATA__;
+const FPS = 30;
+const OM = window.OM;
+
+/* ── move registry: filled as blocks are built; powers __motion ─────── */
+const MOVES = []; // {t0,t1,px}
+function move(t0, t1, px){ MOVES.push({t0,t1,px:Math.abs(px||0)}); }
+window.__movesList = ()=> MOVES.slice();
+window.__motion = (t0,t1)=> Math.max(0, ...MOVES.filter(m=>m.t1>t0 && m.t0<t1).map(m=>m.px));
+
+/* ── tiny helpers on top of OM ──────────────────────────────────────── */
+const $ = s=>document.querySelector(s);
+function el(tag, cls, parent){ const e=document.createElement(tag); if(cls) e.className=cls;
+  (parent||document.body).appendChild(e); return e; }
+/* px travelled by a transform that goes from off→on over dur (upper bound) */
+const travel = dist => Math.abs(dist);
+
+/* block item reveal: returns animator(tLocal) where item appears in [c-…] */
+function itemReveal(node, cueT, dist, t0block){
+  /* spring entrance 0.42s starting at cueT; dist px rise + fade */
+  const D = 0.42;
+  move(t0block+cueT, t0block+cueT+D, dist);
+  return (tl)=>{
+    if (tl < cueT){ node.style.opacity='0'; node.style.transform=`translateY(${dist}px)`; return; }
+    const k = spr(clamp01((tl-cueT)/D), 0.6, 0.82, 14);  // slight overshoot
+    node.style.opacity = String(k);
+    node.style.transform = `translateY(${(1-k)*dist}px)`;
+  };
+}
+function clamp01(v){ return Math.max(0,Math.min(1,v)); }
+/* normalized spring: p in 0..1 over dur seconds, zeta damping, omega rad/s */
+function spr(p, dur, zeta=0.8, omega=15){
+  if (p <= 0) return 0;
+  return OM.spring(Math.min(p,1)*dur, zeta, omega);
+}
+
+/* highlight pulse for an item while its narration segment plays */
+function itemLit(node, onK){
+  /* onK: 0..1 how lit (we drive from segment activity, eased) */
+  node.classList.toggle('lit', onK > 0.5);
+}
+
+/* word spans for voice-synced highlight (word boundaries from edge-tts) */
+function wordSpans(node, text){
+  node.textContent='';
+  const spans=[];
+  String(text).split(/\s+/).forEach((w,i)=>{
+    if(i>0) node.appendChild(document.createTextNode(' '));
+    const s=el('span','wspan',node); s.textContent=w; spans.push(s);
+  });
+  return spans;
+}
+function wordDriver(spans, words, item, tl, tEnter){
+  if(!spans.length || !words || !words.length){ return; }
+  const mine = words.filter(w=>w.it===item);
+  if(!mine.length) return;
+  let cur=-1;
+  for(let i=0;i<mine.length;i++){ if(tl>=mine[i].t-0.05){ cur=i; } }
+  if(cur<0) return;
+  const k = Math.min(cur, spans.length-1);
+  spans.forEach((s,i)=> s.classList.toggle('wcur', i===k));
+}
+function odometer(node, numStr, k){
+  if(node.dataset.odoBuilt !== '1'){
+    node.textContent='';
+    node.dataset.odoBuilt='1';
+    for(const ch of String(numStr)){
+      if(ch>='0'&&ch<='9'){
+        const od=el('span','odo',node);
+        const strip=el('span','strip',od);
+        for(let d=0;d<10;d++){ const s=el('span','',strip); s.textContent=String(d); }
+        od.dataset.target=ch;
+      } else {
+        const s=el('span','',node); s.textContent=ch;
+      }
+    }
+  }
+  const kk = OM.ease.expoOut(clamp01(k));
+  node.querySelectorAll('.odo').forEach(od=>{
+    const target = parseInt(od.dataset.target,10);
+    od.querySelector('.strip').style.transform = `translateY(${-target*kk*0.82}em)`;
+  });
+}
+function headingSweep(h2node, t0block, tStart, D){
+  const sw = el('div','sweep', h2node);
+  move(t0block+tStart, t0block+tStart+D, 900);
+  return (tl)=>{
+    const k = clamp01((tl-tStart)/D);
+    sw.style.left = (-45 + 145*k)+'%';
+    sw.style.opacity = (k>0&&k<1) ? '1':'0';
+  };
+}
+
+/* KaTeX (safe: no \htmlClass trust needed — parts colorized via DOM query) */
+function tex(elNode, src, display=true){
+  try{
+    katex.render(src, elNode, {displayMode:display, throwOnError:true, strict:'ignore'});
+    return true;
+  }catch(e){
+    window.__katexError = window.__katexError||[]; window.__katexError.push([src, String(e).slice(0,200)]);
+    elNode.textContent = src; elNode.classList.add('tex-err');
+    return false;
+  }
+}
+
+/* ════════════════ block builders ═════════════════════════════════════
+   Each builder: (blk) → { node, anim(tLocal) } — tLocal = t - blk.t0.
+   Entrance D_IN (0.9s) plays at block start; exit D_OUT (0.5s) at end.
+   Item cues: blk.cues[k] = time (local) when item k reveals; item stays.
+   ═══════════════════════════════════════════════════════════════════ */
+const D_IN = 0.9, D_OUT = 0.5;
+const BUILDERS = {};
+
+BUILDERS.title = (blk, t0)=>{
+  const root = el('div','block b-title', $('#ground'));
+  const kick = el('div','kicker', root); kick.textContent = blk.data.kicker || DATA.meta.test_title;
+  const h1 = el('h1','', root); h1.textContent = blk.data.title;
+  const sub = el('div','sub', root); sub.textContent = blk.data.subtitle || '';
+  const chips = el('div','chips', root);
+  (blk.data.chips||[]).forEach(c=>{ const ch=el('div','chip',chips); ch.textContent=c; });
+  /* letter-drop for the headline (onetake enter.letterDrop spirit) */
+  const words = h1.textContent.split(' ');
+  h1.textContent='';
+  const spans=[];
+  words.forEach((w,i)=>{ const s=el('span','',h1); s.textContent=w; s.style.display='inline-block';
+    s.style.whiteSpace='pre'; spans.push(s); if(i<words.length-1) s.textContent+=' '; });
+  const per = 0.055, d0 = 0.25, D = 0.55;
+  spans.forEach((s,i)=>{ move(t0+d0+i*per, t0+d0+i*per+D, 90); });
+  move(t0, t0+0.7, 60); // kicker + rule
+  return (tl)=>{
+    const kk = spr(clamp01(tl/0.7), 0.7, .8, 14);
+    kick.style.opacity=String(kk); kick.style.transform=`translateY(${(1-kk)*30}px)`;
+    spans.forEach((s,i)=>{
+      const k = spr(clamp01((tl-d0-i*per)/D), 0.6, .86, 14);
+      s.style.opacity=String(k); s.style.transform=`translateY(${(1-k)*90}px)`;
+    });
+    const ks = spr(clamp01((tl-0.75)/0.6), 0.6, .8, 14);
+    sub.style.opacity=String(ks); sub.style.transform=`translateY(${(1-ks)*40}px)`;
+    const kc = spr(clamp01((tl-1.05)/0.6), 0.6, .8, 14);
+    chips.style.opacity=String(kc); chips.style.transform=`translateY(${(1-kc)*40}px)`;
+  };
+};
+
+BUILDERS.section = (blk, t0)=>{
+  const root = el('div','block b-section', $('#ground'));
+  const num = el('div','num', root); num.textContent = String(blk.data.num);
+  const txt = el('div','txt', root);
+  const h2 = el('h2','', txt); h2.textContent = blk.data.title;
+  const ssub = el('div','ssub', txt); ssub.textContent = blk.data.subtitle || '';
+  move(t0, t0+0.85, 140);
+  return (tl)=>{
+    /* the number lands with squash; the title rides behind it */
+    const kn = spr(clamp01(tl/0.8), 0.8, .7, 14);
+    num.style.opacity=String(kn);
+    odometer(num, String(blk.data.num), clamp01((tl-0.05)/0.75));
+    num.style.transform=`translateX(${(1-kn)*-160}px) scale(${.8+.2*kn}) rotate(${(1-kn)*-4}deg)`;
+    const kt = spr(clamp01((tl-0.25)/0.75), 0.75, .8, 14);
+    h2.style.opacity=String(kt); h2.style.transform=`translateX(${(1-kt)*120}px)`;
+    ssub.style.opacity=String(spr(clamp01((tl-0.5)/0.7), 0.7, .8, 14));
+  };
+};
+
+BUILDERS.concept = (blk, t0)=>{
+  const root = el('div','block b-concept', $('#ground'));
+  const h2 = el('h2','hd', root); h2.textContent = blk.data.heading;
+  const sweep = headingSweep(h2, t0, 0.15, 0.9);
+  const list = el('div','bullets', root);
+  const items = (blk.data.bullets||[]).map(b=>{
+    const it = el('div','bullet', list);
+    el('div','tick', it);
+    const tx = el('div','tx', it);
+    const spans = wordSpans(tx, b);
+    return {it, spans};
+  });
+  move(t0, t0+0.8, 70);
+  const anims = items.map((o,k)=>{
+    const cue = blk.cues && blk.cues[k]!=null ? blk.cues[k] : 0.6+k*0.5;
+    return { fn: itemReveal(o.it, cue, 46, t0), node: o.it, cue, spans: o.spans };
+  });
+  return (tl)=>{
+    sweep(tl);
+    const kh = spr(clamp01(tl/0.7), 0.7, .8, 14);
+    h2.style.opacity=String(kh); h2.style.transform=`translateY(${(1-kh)*40}px)`;
+    anims.forEach((a,k)=>{
+      a.fn(tl);
+      const nextCue = anims[k+1] ? anims[k+1].cue : Infinity;
+      itemLit(a.node, tl>nextCue-0.25 ? 0 : 1);
+      if(tl>=a.cue) wordDriver(a.spans, blk.words, k, tl, a.cue);
+    });
+  };
+};
+
+BUILDERS.formula = (blk, t0)=>{
+  const root = el('div','block b-formula', $('#ground'));
+  const h2 = el('h2','hd', root); h2.textContent = blk.data.heading;
+  const sweep = headingSweep(h2, t0, 0.12, 0.85);
+  const wrap = el('div','f-wrap card', root);
+  const eq = el('div','f-eq', wrap);
+  const ok = tex(eq, blk.data.tex, true);
+  const parts = el('div','f-parts', root);
+  const pNodes = (blk.data.parts||[]).map(p=>{
+    const it = el('div','f-part', parts);
+    const sw = el('div','swatch', it); sw.style.background = p.color || 'var(--accent)';
+    const tx = el('div','pt', it);
+    const spans = wordSpans(tx, p.note);
+    return {it, sw, spans};
+  });
+  move(t0, t0+0.9, 90);
+  const anims = pNodes.map((o,k)=>{
+    const cue = blk.cues && blk.cues[k]!=null ? blk.cues[k] : 0.9+k*0.6;
+    return { fn: itemReveal(o.it, cue, 40, t0), node: o.it, cue, spans:o.spans, sw:o.sw };
+  });
+  return (tl)=>{
+    sweep(tl);
+    const kh = spr(clamp01(tl/0.65), 0.65, .8, 14);
+    h2.style.opacity=String(kh); h2.style.transform=`translateY(${(1-kh)*36}px)`;
+    const ke = spr(clamp01((tl-0.2)/0.8), 0.8, .76, 14);
+    eq.style.opacity=String(ke); eq.style.transform=`scale(${.94+.06*ke}) translateY(${(1-ke)*26}px)`;
+    anims.forEach((a,k)=>{
+      a.fn(tl);
+      const nextCue = anims[k+1] ? anims[k+1].cue : Infinity;
+      itemLit(a.node, tl>nextCue-0.25 ? 0:1);
+      const active = tl>=a.cue && tl<nextCue;
+      if(a.sw) a.sw.style.transform = active ? 'scale(1.25)' : 'scale(1)';
+      if(tl>=a.cue) wordDriver(a.spans, blk.words, k, tl, a.cue);
+    });
+  };
+};
+
+BUILDERS.plot = (blk, t0)=>{
+  const root = el('div','block b-plot', $('#ground'));
+  const h2 = el('h2','hd', root); h2.textContent = blk.data.heading;
+  const cardEl = el('div','plot-card card', root);
+  /* svg assembled from precomputed samples (build-time python) */
+  cardEl.innerHTML = blk.data.svg;
+  move(t0, t0+1.0, 90);
+  return (tl)=>{
+    const kh = spr(clamp01(tl/0.65), 0.65, .8, 14);
+    h2.style.opacity=String(kh); h2.style.transform=`translateY(${(1-kh)*36}px)`;
+    const kc = spr(clamp01((tl-0.25)/0.85), 0.85, .76, 14);
+    cardEl.style.opacity=String(kc); cardEl.style.transform=`translateY(${(1-kc)*50}px) scale(${.97+.03*kc})`;
+    /* draw-on effect: clip the curves by progress */
+    const svg = cardEl.querySelector('svg');
+    if(svg){ svg.style.setProperty('--p', String(clamp01((tl-0.45)/0.9))); }
+  };
+};
+
+BUILDERS.example = (blk, t0)=>{
+  const root = el('div','block b-example', $('#ground'));
+  const h2 = el('h2','hd', root); h2.textContent = blk.data.heading;
+  let pr = null;
+  if ((blk.data.problem || '').trim()){
+    pr = el('div','ex-problem card', root);
+    const q = el('div','q', pr); q.textContent = blk.data.problem;
+  }
+  const steps = el('div','ex-steps', root);
+  const sNodes = (blk.data.steps||[]).map(s=>{
+    const it = el('div','ex-step', steps);
+    const n = el('div','n', it); n.textContent='•';
+    const tx = el('div','tx', it);
+    const spans = wordSpans(tx, s.text);
+    return {it, spans};
+  });
+  let resNode=null;
+  if(blk.data.result){ resNode = el('div','ex-result', root); resNode.textContent = blk.data.result; }
+  move(t0, t0+0.9, 80);
+  const stepAnims = sNodes.map((o,k)=>{
+    const cue = blk.cues && blk.cues[k]!=null ? blk.cues[k] : 1.4+k*0.9;
+    return { fn:itemReveal(o.it, cue, 44, t0), node:o.it, cue, spans:o.spans };
+  });
+  const resCue = blk.cues && blk.cues[blk.data.steps.length]!=null ? blk.cues[blk.data.steps.length]
+                 : (stepAnims.length? stepAnims[stepAnims.length-1].cue+1.6 : 2.5);
+  if(resNode){ move(t0+resCue, t0+resCue+0.5, 26); }
+  return (tl)=>{
+    const kh = spr(clamp01(tl/0.6), 0.6, .8, 14);
+    h2.style.opacity=String(kh); h2.style.transform=`translateY(${(1-kh)*34}px)`;
+    if (pr){ const kp = spr(clamp01((tl-0.2)/0.75), 0.75, .78, 14);
+      pr.style.opacity=String(kp); pr.style.transform=`translateY(${(1-kp)*44}px)`; }
+    stepAnims.forEach((a,k)=>{
+      a.fn(tl);
+      const nextCue = stepAnims[k+1] ? stepAnims[k+1].cue : resCue;
+      itemLit(a.node, tl>nextCue-0.25?0:1);
+      if(tl>=a.cue) wordDriver(a.spans, blk.words, k, tl, a.cue);
+    });
+    if(resNode){
+      const kr = spr(clamp01((tl-resCue)/0.55), 0.55, .6, 14);
+      resNode.style.opacity=String(kr);
+      resNode.style.transform=`scale(${.9+.1*kr}) translateY(${(1-kr)*26}px)`;
+    }
+  };
+};
+
+BUILDERS.code = (blk, t0)=>{
+  const root = el('div','block b-code', $('#ground'));
+  const h2 = el('h2','hd', root); h2.textContent = blk.data.heading;
+  const cardEl = el('div','code-card card', root);
+  const chrome = el('div','code-chrome', cardEl);
+  for(let i=0;i<3;i++) el('i','',chrome);
+  const body = el('div','code-body', cardEl);
+  const lines = String(blk.data.code).split('\n');
+  const lNodes = lines.map(ln=>{ const l=el('span','code-line',body); l.textContent=ln.length?ln:' ';
+    return l; });
+  const hi = new Set(blk.data.highlight||[]);
+  move(t0, t0+0.9, 70);
+  const cue = blk.cues&&blk.cues[0]!=null? blk.cues[0] : 1.2;
+  return (tl)=>{
+    const kh = spr(clamp01(tl/0.6), 0.6, .8, 14);
+    h2.style.opacity=String(kh); h2.style.transform=`translateY(${(1-kh)*34}px)`;
+    const kc = spr(clamp01((tl-0.2)/0.8), 0.8, .78, 14);
+    cardEl.style.opacity=String(kc); cardEl.style.transform=`translateY(${(1-kc)*50}px)`;
+    /* line-by-line typing reveal */
+    lNodes.forEach((l,i)=>{
+      const on = tl >= 0.45 + i*0.14;   /* code shows early, never hollow */
+      l.style.opacity = on ? '1':'0';
+      l.classList.toggle('hl', hi.has(i+1) && tl>cue);
+    });
+  };
+};
+
+BUILDERS.table = (blk, t0)=>{
+  const root = el('div','block b-table', $('#ground'));
+  const h2 = el('h2','hd', root); h2.textContent = blk.data.heading;
+  const cardEl = el('div','t-card card', root);
+  const t = el('table','tt', cardEl);
+  const thead = el('thead','',t); const htr = el('tr','',thead);
+  (blk.data.columns||[]).forEach(c=>{ const th=el('th','',htr); th.textContent=c; });
+  const tbody = el('tbody','',t);
+  const rNodes = (blk.data.rows||[]).map(r=>{
+    const tr = el('tr','',tbody);
+    r.forEach(c=>{
+      const td=el('td','',tr);
+      if(c && typeof c==='object' && c.tex){ tex(td, c.tex, false); }
+      else td.textContent = String(c);
+    });
+    return tr;
+  });
+  move(t0, t0+0.85, 70);
+  const anims = rNodes.map((tr,k)=>{
+    const cue = blk.cues && blk.cues[k]!=null ? blk.cues[k] : 0.7+k*0.45;
+    return { fn:itemReveal(tr, cue, 26, t0), node:tr, cue };
+  });
+  return (tl)=>{
+    const kh = spr(clamp01(tl/0.6), 0.6, .8, 14);
+    h2.style.opacity=String(kh); h2.style.transform=`translateY(${(1-kh)*34}px)`;
+    anims.forEach((a,k)=>{
+      a.fn(tl);
+      const nextCue = anims[k+1]? anims[k+1].cue : Infinity;
+      a.node.classList.toggle('lit', tl>=a.cue && tl<nextCue-0.25);
+    });
+  };
+};
+
+BUILDERS.timeline = (blk, t0)=>{
+  const root = el('div','block b-timeline', $('#ground'));
+  const h2 = el('h2','hd', root); h2.textContent = blk.data.heading;
+  const lane = el('div','tl-lane', root);
+  const axis = el('div','tl-axis', lane); const fill = el('div','tl-axis-fill', axis);
+  const evs = (blk.data.events||[]);
+  const N = evs.length;
+  const eNodes = evs.map((ev,i)=>{
+    const it = el('div','tl-ev '+(i%2? 'down':'up'), lane);
+    const pct = 100*(i+0.5)/N;
+    it.style.left = `clamp(170px, ${pct}%, calc(100% - 170px))`;
+    const dot = el('div','dot', it);
+    const yr = el('div','yr', it); yr.textContent = ev.year;
+    const tx = el('div','tx', it); tx.textContent = ev.text;
+    return it;
+  });
+  move(t0, t0+1.0, 110);
+  const anims = eNodes.map((it,k)=>{
+    const cue = blk.cues && blk.cues[k]!=null ? blk.cues[k] : 0.8+k*0.8;
+    return { fn:itemReveal(it, cue, i_up(k)? 70:-70, t0), node:it, cue };
+  });
+  function i_up(k){ return k%2===0; }
+  return (tl)=>{
+    const kh = spr(clamp01(tl/0.6), 0.6, .8, 14);
+    h2.style.opacity=String(kh); h2.style.transform=`translateY(${(1-kh)*34}px)`;
+    const last = anims.length? anims[anims.length-1].cue+0.6 : 2;
+    fill.style.width = (100*clamp01(tl/last))+'%';
+    anims.forEach(a=>a.fn(tl));
+  };
+};
+
+BUILDERS.matrix = (blk, t0)=>{
+  const root = el('div','block b-matrix', $('#ground'));
+  const h2 = el('h2','hd', root); h2.textContent = blk.data.heading;
+  const wrap = el('div','m-wrap card', root);
+  const eq = el('div','m-eq', wrap); tex(eq, blk.data.tex, true);
+  const steps = el('div','ex-steps', root);
+  const sNodes = (blk.data.steps||[]).map(s=>{
+    const it = el('div','ex-step', steps);
+    const n = el('div','n', it); n.textContent='→';
+    const tx = el('div','tx', it); tx.textContent = s.text;
+    return it;
+  });
+  move(t0, t0+0.9, 85);
+  const anims = sNodes.map((it,k)=>{
+    const cue = blk.cues&&blk.cues[k]!=null? blk.cues[k] : 1.0+k*0.8;
+    return { fn:itemReveal(it, cue, 40, t0), node:it, cue };
+  });
+  return (tl)=>{
+    const kh = spr(clamp01(tl/0.6), 0.6, .8, 14);
+    h2.style.opacity=String(kh); h2.style.transform=`translateY(${(1-kh)*34}px)`;
+    const ke = spr(clamp01((tl-0.2)/0.8), 0.8, .76, 14);
+    wrap.style.opacity=String(ke); wrap.style.transform=`translateY(${(1-ke)*44}px) scale(${.96+.04*ke})`;
+    anims.forEach((a,k)=>{
+      a.fn(tl);
+      const nextCue = anims[k+1]? anims[k+1].cue : Infinity;
+      itemLit(a.node, tl>nextCue-0.25?0:1);
+    });
+  };
+};
+
+BUILDERS.recap = (blk, t0)=>{
+  const root = el('div','block b-recap', $('#ground'));
+  const h2 = el('h2','hd', root); h2.textContent = blk.data.heading || (DATA.meta.lang==='ru'?'Итоги главы':'Recap');
+  const list = el('div','checks', root);
+  const items = (blk.data.items||[]).map(txt=>{
+    const it = el('div','check', list);
+    const box = el('div','box', it);
+    box.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+    const tx = el('div','tx', it); tx.textContent = txt;
+    return {it, box, tx};
+  });
+  move(t0, t0+0.8, 70);
+  const anims = items.map((o,k)=>{
+    const cue = blk.cues&&blk.cues[k]!=null? blk.cues[k] : 0.6+k*0.55;
+    return { ...o, fn:itemReveal(o.it, cue, 40, t0), cue };
+  });
+  return (tl)=>{
+    const kh = spr(clamp01(tl/0.6), 0.6, .8, 14);
+    h2.style.opacity=String(kh); h2.style.transform=`translateY(${(1-kh)*34}px)`;
+    anims.forEach((a,k)=>{
+      a.fn(tl);
+      /* tick pops in slightly after the reveal */
+      const kt = spr(clamp01((tl-a.cue-0.18)/0.4), 0.4, .6, 14);
+      a.box.style.background = kt>0.5? 'var(--accent)':'transparent';
+      a.box.style.borderColor = kt>0.5? 'var(--accent)':'var(--accent)';
+      const path = a.box.querySelector('path');
+      if(path){ const len=24; path.style.strokeDasharray=String(len);
+        path.style.strokeDashoffset=String(len*(1-kt)); }
+      const nextCue = anims[k+1]? anims[k+1].cue : Infinity;
+      a.it.classList.toggle('done', tl>a.cue+0.3);
+      a.it.classList.toggle('lit', tl>=a.cue && tl<nextCue-0.25);
+    });
+  };
+};
+
+BUILDERS.quote = (blk, t0)=>{
+  const root = el('div','block b-quote', $('#ground'));
+  const q = el('div','q', root); q.textContent = '“'+blk.data.text+'”';
+  const who = el('div','who', root); who.textContent = blk.data.who || '';
+  move(t0, t0+1.0, 80);
+  return (tl)=>{
+    const kq = spr(clamp01(tl/0.95), 0.95, .78, 14);
+    q.style.opacity=String(kq); q.style.transform=`translateY(${(1-kq)*70}px)`;
+    const kw = spr(clamp01((tl-0.5)/0.7), 0.7, .8, 14);
+    who.style.opacity=String(kw);
+  };
+};
+
+BUILDERS.outro = (blk, t0)=>{
+  const root = el('div','block b-outro', $('#ground'));
+  const kick = el('div','kicker', root);
+  kick.textContent = blk.data.kicker || (DATA.meta.lang==='ru'?'Курс завершён':'Course complete');
+  const msg = el('div','msg', root); msg.textContent = blk.data.message;
+  const chip = el('div','chip', root);
+  chip.textContent = blk.data.chip || (DATA.meta.lang==='ru'?'Удачи на тесте!':'Good luck on the test!');
+  move(t0, t0+1.2, 90);
+  return (tl)=>{
+    const kk = spr(clamp01(tl/0.8), 0.8, .8, 14);
+    kick.style.opacity=String(kk); kick.style.transform=`translateY(${(1-kk)*30}px)`;
+    const km = spr(clamp01((tl-0.35)/0.9), 0.9, .76, 14);
+    msg.style.opacity=String(km); msg.style.transform=`translateY(${(1-km)*60}px) scale(${.97+.03*km})`;
+    const kc = spr(clamp01((tl-0.9)/0.7), 0.7, .65, 14);
+    chip.style.opacity=String(kc); chip.style.transform=`scale(${.85+.15*kc})`;
+  };
+};
+
+/* assemble timeline */
+const blockNodes = [];   // {node, anim, t0, t1}
+const chapterOf = [];    // blockIdx -> chapter index (for ribbon dots)
+
+(function build(){
+  let chapterIdx = -1;
+  DATA.blocks.forEach((blk, i)=>{
+    if(blk.type==='section') chapterIdx++;
+    /* word-sync: every word boundary needs its frame captured (the .wcur
+       highlight switches there) — register a 1px move so the planner keeps it */
+    if(blk.words) blk.words.forEach(w=> move(blk.t0 + w.t, blk.t0 + w.t + 0.05, 1));
+    const mk = BUILDERS[blk.type];
+    if(!mk) throw new Error('no builder for block type '+blk.type);
+    /* builders append their own .block root to #ground */
+    const nBefore = $('#ground').children.length;
+    const anim = mk(blk, blk.t0);
+    const node = $('#ground').children.length > nBefore ? $('#ground').lastElementChild : null;
+    if(!node || !node.classList.contains('block'))
+      throw new Error('builder for '+blk.type+' did not create a .block root');
+    blockNodes.push({node, anim, t0:blk.t0, t1:blk.t1});
+    chapterOf[i] = Math.max(0, chapterIdx);
+  });
+})();
+
+/* ribbon */
+(function ribbon(){
+  $('#rb-course').textContent = DATA.meta.course_title;
+  $('#rb-weeks').textContent = DATA.meta.weeks_label || '';
+  const dots = $('#rb-dots');
+  DATA.chapters.forEach(()=>{ el('div','rb-dot', dots); });
+  const dotEls = [...dots.children];
+  const ruleFill = $('#rb-rule-fill');
+  const T = DATA.meta.total;
+  let lastCh = -1;
+  window.__ribbon = (t)=>{
+    const bIdx = DATA.blocks.findIndex((b,i)=> t >= b.t0 && t < b.t1);
+    const ch = bIdx>=0? chapterOf[bIdx] : lastCh;
+    if(ch!==lastCh && ch>=0){
+      dotEls.forEach((d,i)=> d.classList.toggle('active', i<=ch));
+      lastCh = ch;
+    }
+    ruleFill.style.width = (100*clamp01(t/T))+'%';
+  };
+})();
+
+/* ════════════════ seek: the single entry point ═════════════════════ */
+window.__seek = function(t){
+  t = Math.max(0, Math.min(t, DATA.meta.total));
+  DATA.blocks.forEach((blk, i)=>{
+    const rec = blockNodes[i];
+    const on = t >= blk.t0 && t < blk.t1;
+    rec.node.classList.toggle('on', on);
+    if(on){
+      const tl = t - blk.t0;
+      /* exit fade in the last D_OUT seconds */
+      rec.anim(tl);
+      if(blk.t1 - t < D_OUT){
+        const k = clamp01((blk.t1 - t)/D_OUT);
+        rec.node.style.opacity = String(k);
+        rec.node.style.transform = `translateY(${-14*(1-k)}px)`;
+      } else {
+        rec.node.style.opacity='1'; rec.node.style.transform='';
+      }
+    }
+  });
+  window.__ribbon(t);
+};
+window.__meta = { inFrame: ['ribbon'], fps: FPS, total: DATA.meta.total,
+  blocks: DATA.blocks.map(b=>({type:b.type, t0:b.t0, t1:b.t1})) };
+
+/* fonts → ready */
+window.__ready = (document.fonts && document.fonts.ready)
+  ? document.fonts.ready.then(()=>true) : Promise.resolve(true);
+</script>
+</body>
+</html>

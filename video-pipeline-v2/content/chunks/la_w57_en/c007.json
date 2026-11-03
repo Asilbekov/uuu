@@ -1,0 +1,369 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Linear Algebra I",
+   "subtitle": "weeks 5–7"
+  },
+  "narr": [
+   "Welcome to weeks 5 through 7 of Linear Algebra I. In this section, we'll explore various exercises covering LU and LDU decomposition, row permutations, transpose and inverse operations, symmetric LDLT factorization, and a challenge problem involving tridiagonal matrices.",
+   "Let's begin with our first exercise on LU and LDU decomposition for 3x3 matrices."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — LU and LDU Decomposition",
+   "problem": "Find LU and LDU for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 1 & 2 & 3 \\\\ -2 & 1 & 1 \\end{pmatrix}.",
+   "steps": [
+    "Multipliers: m21 = 1, m31 = -1",
+    "R2 - R1 = (0, 2, 1)",
+    "R3 + R1 = (0, 2, 2)",
+    "Second pivot is 2, m32 = 1",
+    "R3 - R2 = (0, 0, 1)"
+   ],
+   "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/2 \\\\ 0 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's tackle our first problem: finding the LU and LDU decomposition of matrix A.",
+   "First, we identify the multipliers needed for elimination.",
+   "For row 2, we subtract row 1 (m21 = 1), giving us (0, 2, 1).",
+   "For row 3, we add row 1 (m31 = -1), resulting in (0, 2, 2).",
+   "Our second pivot is 2, and we use m32 = 1 to eliminate the element below it.",
+   "Finally, we subtract row 2 from row 3 to get our upper triangular matrix U.",
+   "The lower triangular matrix L contains our multipliers.",
+   "For the LDU decomposition, we extract the diagonal elements into D and normalize U to get D^{-1}U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — LU and LDU Decomposition",
+   "problem": "Find LU and LDU for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & 5 & 3 \\\\ -2 & 5 & 3 \\end{pmatrix}.",
+   "steps": [
+    "Multipliers: m21 = 2, m31 = -1",
+    "R2 - 2R1 = (0, 3, 1)",
+    "R3 + R1 = (0, 6, 4)",
+    "Second pivot is 3, m32 = 2",
+    "R3 - 2R2 = (0, 0, 2)"
+   ],
+   "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 2 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}, D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/3 \\\\ 0 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now let's work through another LU and LDU decomposition problem.",
+   "We start by identifying our multipliers: m21 = 2 and m31 = -1.",
+   "Applying these operations, we get new rows 2 and 3.",
+   "Our second pivot is 3, with m32 = 2.",
+   "After elimination, we obtain our upper triangular matrix U.",
+   "The lower triangular matrix L is constructed with our multipliers.",
+   "Finally, we create the diagonal matrix D and the normalized upper matrix D^{-1}U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — LU and LDU Decomposition",
+   "problem": "Find LU and LDU for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 2 & 5 & 2 \\\\ -2 & 11 & 5 \\end{pmatrix}.",
+   "steps": [
+    "Multipliers: m21 = 1, m31 = -1",
+    "R2 - R1 = (0, 4, 1)",
+    "R3 + R1 = (0, 12, 6)",
+    "Second pivot is 4, m32 = 3",
+    "R3 - 3R2 = (0, 0, 3)"
+   ],
+   "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 3 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 4 & 1 \\\\ 0 & 0 & 3 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 4 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix}, D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/4 \\\\ 0 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Moving on to our third decomposition problem.",
+   "Our multipliers are m21 = 1 and m31 = -1.",
+   "Applying these operations gives us new rows 2 and 3.",
+   "The second pivot is 4, requiring m32 = 3.",
+   "After elimination, we obtain our upper triangular matrix U.",
+   "The lower triangular matrix L contains our multipliers.",
+   "For the LDU decomposition, we extract the diagonal elements into D and normalize U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 16 — LU and LDU Decomposition",
+   "problem": "Find LU and LDU for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & 4 & 3 \\\\ -2 & 1 & 1 \\end{pmatrix}.",
+   "steps": [
+    "Multipliers: m21 = 2, m31 = -1",
+    "R2 - 2R1 = (0, 2, 1)",
+    "R3 + R1 = (0, 2, 2)",
+    "Second pivot is 2, m32 = 1",
+    "R3 - R2 = (0, 0, 1)"
+   ],
+   "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/2 \\\\ 0 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's solve one more LU and LDU decomposition problem.",
+   "Our multipliers are m21 = 2 and m31 = -1.",
+   "Applying these operations gives us new rows 2 and 3.",
+   "The second pivot is 2, requiring m32 = 1.",
+   "After elimination, we obtain our upper triangular matrix U.",
+   "The lower triangular matrix L contains our multipliers.",
+   "For the LDU decomposition, we extract the diagonal elements into D and normalize U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 17 — Row Permutation and PLU",
+   "problem": "Find the row permutation P and factors satisfying PA = LU, for A = \\begin{pmatrix} 0 & 2 & 1 \\\\ 1 & 1 & 0 \\\\ 2 & 3 & 2 \\end{pmatrix}.",
+   "steps": [
+    "First diagonal element is zero — swap rows 1 and 2",
+    "P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, PA = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 2 & 3 & 2 \\end{pmatrix}",
+    "Elimination: m21 = 0 (already zero), m31 = 2",
+    "R3 - 2R1 = (0, 1, 2)",
+    "m32 = 1/2",
+    "R3 - (1/2)R2 = (0, 0, 3/2)"
+   ],
+   "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & 1/2 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 3/2 \\end{pmatrix}, PA = LU"
+  },
+  "narr": [
+   "Now let's explore row permutation with PLU decomposition.",
+   "We notice our first pivot element is zero, which would cause problems.",
+   "To resolve this, we swap rows 1 and 2, creating our permutation matrix P.",
+   "With this swap, we can proceed with elimination.",
+   "The element (2,1) is already zero, so m21 = 0.",
+   "For row 3, we use m31 = 2 to eliminate the element below the first pivot.",
+   "Then, we use m32 = 1/2 to eliminate the element below the second pivot.",
+   "Finally, we obtain our L and U matrices such that PA = LU."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 18 — Transpose and Inverse",
+   "problem": "For A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 2 & 0 & 1 \\end{pmatrix}, compute A^T and verify (A^T)^{-1} = (A^{-1})^T.",
+   "steps": [
+    "Transpose: A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}",
+    "det A = 1 · (1 · 1 - 1 · 0) - 2 · (0 · 1 - 1 · 2) + 0 = 1 + 4 = 5",
+    "(A^T)^{-1} = (1/5) · \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}",
+    "A^{-1} = (1/5) · \\begin{pmatrix} 1 & -2 & 2 \\\\ 2 & 1 & -1 \\\\ -2 & 4 & 1 \\end{pmatrix}",
+    "(A^{-1})^T = (1/5) · \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix} = (A^T)^{-1}"
+   ],
+   "result": "A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}, (A^T)^{-1} = (1/5) · \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's now examine the relationship between transpose and inverse operations.",
+   "First, we compute the transpose of matrix A by swapping rows and columns.",
+   "Next, we calculate the determinant of A, which is 5.",
+   "Using the adjugate matrix, we find (A^T)^{-1}.",
+   "Independently, we compute A^{-1} and then take its transpose.",
+   "We verify that (A^{-1})^T equals (A^T)^{-1}, confirming the property.",
+   "Finally, we check that A^T · (A^T)^{-1} equals the identity matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 19 — Symmetric LDL^T Factorization",
+   "problem": "Factor the symmetric A = \\begin{pmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{pmatrix} as LDL^T.",
+   "steps": [
+    "Pivot element 2; m21 = 2/2 = 1, m31 = 0",
+    "R2 - R1 = (0, 3, 1)",
+    "Second pivot element 3; m32 = 1/3",
+    "R3 - (1/3)R2 = (0, 0, 8/3)"
+   ],
+   "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{pmatrix}, A = LDL^T"
+  },
+  "narr": [
+   "Now let's explore symmetric LDL^T factorization for a symmetric matrix.",
+   "Our first pivot element is 2, with m21 = 1 and m31 = 0.",
+   "Applying the elimination to row 2 gives us (0, 3, 1).",
+   "Our second pivot is 3, requiring m32 = 1/3.",
+   "After elimination, we obtain our final matrix.",
+   "For symmetric matrices without exchanges, the normalized upper multiplier is L^T.",
+   "Thus, A = LDL^T, where L contains our multipliers and D is the diagonal matrix of pivots."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 20 — Challenge Problem: Tridiagonal Model",
+   "problem": "Solve Ax = b using LU for A = \\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 0 \\\\ 2 \\end{pmatrix}. Interpret the nearest neighbor structure.",
+   "steps": [
+    "Factorization: m21 = -1/2, R2 ← R2 + (1/2)R1: (0, 3/2, -1)",
+    "m32 = -2/3, R3 ← R3 + (2/3)R2: (0, 0, 4/3)",
+    "Forward substitution Ly = b: y1 = 2, y2 = 1, y3 = 8/3",
+    "Back substitution Ux = y: x3 = 2, x2 = 2, x1 = 2"
+   ],
+   "result": "x = \\begin{pmatrix} 2 \\\\ 2 \\\\ 2 \\end{pmatrix}. The matrix is tridiagonal — nonzero elements only on the main diagonal and adjacent positions: each unknown is connected only to its nearest neighbors."
+  },
+  "narr": [
+   "Let's tackle our challenge problem involving a tridiagonal matrix.",
+   "First, we perform LU factorization with our multipliers m21 = -1/2 and m32 = -2/3.",
+   "After elimination, we obtain our L and U matrices.",
+   "Using forward substitution, we solve Ly = b to find y.",
+   "Then, using back substitution, we solve Ux = y to find our solution x.",
+   "We verify that Ax equals our original b vector.",
+   "Finally, we note that this matrix is tridiagonal, meaning each unknown is connected only to its nearest neighbors."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — 2 × 2 Inverse",
+   "problem": "Find A^{-1} for A = \\begin{pmatrix} 3 & 2 \\\\ 1 & 6 \\end{pmatrix}. Verify by multiplication.",
+   "steps": [
+    "det A = 3 · 6 - 2 · 1 = 16 ≠ 0",
+    "A^{-1} = (1/16) · \\begin{pmatrix} 6 & -2 \\\\ -1 & 3 \\end{pmatrix} = \\begin{pmatrix} 3/8 & -1/8 \\\\ -1/16 & 3/16 \\end{pmatrix}",
+    "Check: A · A^{-1} = I"
+   ],
+   "result": "A^{-1} = \\begin{pmatrix} 3/8 & -1/8 \\\\ -1/16 & 3/16 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's start with a simpler 2×2 inverse problem.",
+   "First, we calculate the determinant of A, which is 16.",
+   "Since the determinant is non-zero, the inverse exists.",
+   "Using the formula for 2×2 matrices, we find A^{-1}.",
+   "Finally, we verify our solution by multiplying A and A^{-1} to get the identity matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — 2 × 2 System Solution",
+   "problem": "Solve Ax = b, where A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 3 \\end{pmatrix}, b = \\begin{pmatrix} 14 \\\\ 12 \\end{pmatrix}.",
+   "steps": [
+    "System: 4x + y = 14, 2x + 3y = 12",
+    "Multiply first equation by 3 and subtract the second",
+    "10x = 30 ⇒ x = 3",
+    "y = 14 - 12 = 2"
+   ],
+   "result": "x = \\begin{pmatrix} 3 \\\\ 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now let's solve a 2×2 system of linear equations.",
+   "We have two equations with two variables.",
+   "To solve, we can use elimination by multiplying the first equation by 3 and subtracting the second.",
+   "This gives us 10x = 30, so x = 3.",
+   "Substituting back, we find y = 2.",
+   "Finally, we verify our solution by multiplying A with x to get b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — 2 × 2 Inverse",
+   "problem": "Find A^{-1} for A = \\begin{pmatrix} 2 & 2 \\\\ 1 & 4 \\end{pmatrix}. Verify by multiplication.",
+   "steps": [
+    "det A = 2 · 4 - 2 · 1 = 6 ≠ 0",
+    "A^{-1} = (1/6) · \\begin{pmatrix} 4 & -2 \\\\ -1 & 2 \\end{pmatrix} = \\begin{pmatrix} 2/3 & -1/3 \\\\ -1/6 & 1/3 \\end{pmatrix}",
+    "Check: A · A^{-1} = I"
+   ],
+   "result": "A^{-1} = \\begin{pmatrix} 2/3 & -1/3 \\\\ -1/6 & 1/3 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's solve another 2×2 inverse problem.",
+   "First, we calculate the determinant of A, which is 6.",
+   "Since the determinant is non-zero, the inverse exists.",
+   "Using the formula for 2×2 matrices, we find A^{-1}.",
+   "Finally, we verify our solution by multiplying A and A^{-1} to get the identity matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ }
+]

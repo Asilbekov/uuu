@@ -1,0 +1,433 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu dastlabki qismda uzluksiz funksiyalar haqida gapiramiz. Uzluksizlik funksiyalarning xossalari va amaliy ahamiyati haqida tushuncha beradi.",
+   "Agar funksiya uzluksiz va qat'iy o'suvchi bo'lsa, har bir harorat aniq bir kuchlanishni beradi. Sensor oralig'idagi har bir kuchlanishga aniq bir harorat to'g'ri keladi.",
+   "Kalibrovkani teskarisiga o'tkazish mumkin: T = f^{-1}(V). O'lchangan kuchlanishdagi kichik o'zgarishlar tiklangan haroratdagi kichik o'zgarishlarni keltirib chiqaradi.",
+   "Teskarisiga o'tkazish uchun faqat uzluksizlik yetarli emas — kalibrovka egri chizig'i bir qiymatli bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Orta qiymatlar teoremasi",
+   "bullets": [
+    "Agar f[a, b] da uzluksiz bo'lsa va f(a) < L < f(b) orasida yotsa, kamida bitta c ∈[a, b] nuqta bunda f(c) = L bo'lgan mavjud.",
+    "Ayniqsa, f(a) · f(b) < 0 bo'lsa, f(c) = 0 bo'lgan c ∈(a, b) mavjud.",
+    "Mavjudligi kafolatlanadi, lekin birlik emas.",
+    "Muhandislik ma'nosi: 40°C dan 80°C gacha uzluksish ishlayotgan va o'sayotgan tizma harorati 60°C ni o'z ichiga olgan barcha oraliq qiymatlardan o'tishi shart.",
+    "Uzilishli model uchun bu shart emas."
+   ]
+  },
+  "narr": [
+   "Orta qiymatlar teoremasi funksiyalar orasidagi muhim bog'liqlikni ko'rsatadi.",
+   "Agar funksiya berilgan oraliqda uzluksiz bo'lsa va qiymati oraliqning ikki uchidagi qiymatlar orasida bo'lsa, u holda funksiya ushbu oraliqdagi har bir qiymatni kamida bir marta qabul qiladi.",
+   "Ayniqsa, agar funksiya oraliqning ikki uchida turli ishorada qiymat qabul qilsa, u holda ushbu oraliqda nol qiymatga ega bo'lgan nuqta mavjud.",
+   "Bu teorema muhandislikda keng qo'llaniladi. Masalan, 40°C dan 80°C gacha uzluksish ishlayotgan va o'sayotgan tizma harorati 60°C ni o'z ichiga olgan barcha oraliq qiymatlardan o'tishi shart.",
+   "Lekin, agar modelda uzilish bo'lsa, bu shart bajarilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Veýershtrass teoremasi",
+   "bullets": [
+    "Agar f[a, b] yopiq chekli oraliqda uzluksiz bo'lsa, u holda f mutlaq maksimum va minimumga erishadi.",
+    "xmin, xmax ∈[a, b] bunda f(xmin) ≤ f(x) ≤ f(xmax) barcha x ∈[a, b] uchun.",
+    "«Erishadi» so'zi ekstremumlar funksiyaning haqiqiy qiymatlari ekanligini anglatadi.",
+    "Ikkala shart ham muhim (qa'da misollar mavjud).",
+    "Bir necha o'zgaruvchilarda: agar f: R^n → R uzluksiz va ruxsat etilgan K to'plami bo'sh emas va kompakt (chekli o'lchovli loyihalashda «kompakt» «yopiq va chekli» degan ma'noni anglatadi), u holda f_K da maksimum va minimumga erishadi."
+   ]
+  },
+  "narr": [
+   "Veýershtrass teoremasi yana bir muhim natijadir.",
+   "Unga ko'ra, agar funksiya yopiq chekli oraliqda uzluksiz bo'lsa, u holda ushbu oraliqda maksimum va minimum qiymatga erishadi.",
+   "«Erishadi» so'zi ushbu ekstremumlarning funksiyaning haqiqiy qiymati ekanligini anglatadi.",
+   "Bu teorema uchun yopiq chekli oraliq sharti juda muhim.",
+   "Bu natija bir necha o'zgaruvchili funksiyalar uchun ham umumlashtiriladi. Agar funksiya kompakt to'plamda uzluksiz bo'lsa, u holda ushbu to'plamda maksimum va minimumga erishadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Zaryadlanayotgan kondensatorning kuchlanishi",
+   "problem": "Zaryadlanayotgan kondensatorning V(t) = Vs · (1 − e^(-t/(R · C))) kuchlanishi t ≥ 0 da nima uchun uzluksiz?",
+   "steps": [
+    "Funksiya uzluksiz funksiyalarning kompozitsiyasi va kombinatsiyasidan hosil bo'lgan.",
+    "Eksponensial funksiya hamma joyda uzluksiz.",
+    "Chiziqli funksiya t/(R · C) uzluksiz.",
+    "Doimiyga ko'paytirish va doimiydan ayirish uzluksizlikni saqlaydi."
+   ],
+   "result": "Model kuchlanishning tez o'zgarishini, sakchiga emas, bashorat qiladi."
+  },
+  "narr": [
+   "Keling, birinchi misolni ko'rib chiqaylik.",
+   "Bu misolda zaryadlanayotgan kondensatorning kuchlanishi berilgan va biz funksiyaning uzluksizligini tushuntirishimiz kerak.",
+   "Funksiya eksponensial va chiziqli funksiyalarning kombinatsiyasidan hosil bo'lgan.",
+   "Eksponensial funksiya hamma joyda uzluksiz, chiziqli funksiya ham uzluksiz.",
+   "Doimiy ko'paytirish va ayirish amallari uzluksizlikni saqlaydi.",
+   "Shuning uchun butun funksiya uzluksizdir. Bu model kuchlanishning tez o'zgarishini, sakchiga emas, bashorat qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Harorat modelining uzluksizligi",
+   "problem": "Modelning T(t) = 20 + 50 · e^(-0.2·t^2) uzluksizligini tushuntiring.",
+   "steps": [
+    "T(t) uzluksiz, chunki u uzluksiz funksiyalarning kompozitsiyasi va kombinatsiyasidan hosil bo'lgan.",
+    "t^2 uzluksiz.",
+    "e^(-0.2·t^2) — uzluksiz eksponensial va uzluksiz funksiyaning kompozitsiyasi.",
+    "20 doimiyini qo'shish uzluksizlikni saqlaydi."
+   ],
+   "result": "Shunday qilib, T(t) funksiyasi butun aniqlanish sohasida uzluksizdir."
+  },
+  "narr": [
+   "Ikkinchi misolda harorat modeli berilgan.",
+   "Funksiya T(t) = 20 + 50 · e^(-0.2·t^2) ko'rinishida.",
+   "Bu funksiya ham uzluksiz funksiyalarning kombinatsiyasidan hosil bo'lgan.",
+   "t^2 funksiyasi uzluksiz, unga eksponensial funksiya qo'llanganda ham uzluksizlik saqlanadi.",
+   "Doimiyni qo'shish uzluksizlikni buzmaydi.",
+   "Shunday qilib, T(t) funksiyasi butun aniqlanish sohasida uzluksizdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3 — Uzluksizlikning birinchi sharti",
+   "problem": "Ta'rif bo'yicha, x = 2 nuqtada f(x) = (x^2 −4)/(x −2) funksiya uzluksizmi?",
+   "steps": [
+    "f(2) ni hisoblaymiz: 0/0 — qiymat aniqlanmagan.",
+    "Shuning uchun f(x) = (x^2 −4)/(x −2) funksiya 2 nuqtada uzluksiz emas.",
+    "Chunki f(2) aniqlanmagan (uzluksizlikning birinchi sharti buzilgan; grafikda 'tugun' bor).",
+    "x ≠ 2 uchun f(x) = x+2 va lim x →2 f(x) = 4.",
+    "Shuning uchun uzilish bartaraf etilishi mumkin — f(2) = 4 deb aniqlash funksiyani uzluksiz qiladi."
+   ],
+   "result": "Asl funksiya x = 2 da uzluksiz emas, lekin uzilishni bartaraf etish orqali uzluksiz funksiyaga aylantirish mumkin."
+  },
+  "narr": [
+   "Uchinchi misolda uzluksizlikning birinchi shartini ko'rib chiqamiz.",
+   "Bu yerda f(x) = (x^2 −4)/(x −2) funksiyasi berilgan.",
+   "Avval f(2) ni hisoblaymiz: 0/0 — bu aniqlanmagan holat.",
+   "Shuning uchun funksiya x = 2 nuqtada aniqlanmagan, ya'ni uzluksizlikning birinchi sharti buzilgan.",
+   "Grafikda bu nuqtada 'tugun' bor.",
+   "Lekin, agar x ≠ 2 bo'lganda f(x) = x+2 ekanligini va lim x →2 f(x) = 4 ekanligini hisobga olsak, f(2) = 4 deb aniqlash orqali funksiyani uzluksiz qilish mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 4 — Uzluksizlikning ikkinchi sharti",
+   "problem": "Ta'rif bo'yicha, x = 3 nuqtada f(x) = {−x^2 + 4, agar x ≤ 3; 4x − 8, agar x > 3} funksiya uzluksizmi?",
+   "steps": [
+    "f(3) = −(3^2) + 4 = −5 — qiymat aniqlangan.",
+    "Bir tomonlama limitlarni hisoblaymiz: lim x →3− f(x) = −(3^2) + 4 = −5",
+    "va lim x →3+ f(x) = 4 · 3 − 8 = 4.",
+    "Bir tomonlama limitlar teng emasligi sababli, lim x →3 f(x) mavjud emas.",
+    "Demak, f(x) funksiya 3 nuqtada uzluksiz emas (ikkinchi sharti buzilgan; grafikda sakchi bor)."
+   ],
+   "result": "Funksiya x = 3 da uzluksiz emas, chunki bir tomonlama limitlar teng emas."
+  },
+  "narr": [
+   "To'rtinchi misolda uzluksizlikning ikkinchi shartini ko'rib chiqamiz.",
+   "Bu yerda ikki qismli funksiya berilgan.",
+   "Avval f(3) ni hisoblaymiz: −(3^2) + 4 = −5 — qiymat aniqlangan.",
+   "Endi bir tomonlama limitlarni hisoblaymiz: chap tomondan limit −5, o'ng tomondan limit 4.",
+   "Bir tomonlama limitlar teng emas, shuning uchun umumiy limit mavjud emas.",
+   "Demak, funksiya x = 3 nuqtada uzluksiz emas, chunki ikkinchi sharti (limit mavjudligi) buzilgan. Grafikda bu nuqtada 'sakchi' bor."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 5 — Uzluksizlikning uchinchi sharti",
+   "problem": "f(x) = {sin(x)/x, agar x ≠ 0; 1, agar x = 0} funksiya x = 0 nuqtada uzluksizmi?",
+   "steps": [
+    "Birinchidan, f(0) = 1.",
+    "Ikkinchidan, lim x →0 f(x) = lim x →0 sin(x)/x = 1.",
+    "Uchinchidan, solishtiramiz: f(0) = 1 = lim x →0 f(x).",
+    "Uzluksizlik ta'rifining barcha uch sharti bajarilgan.",
+    "Shuning uchun f(x) funksiya x = 0 nuqtada uzluksiz."
+   ],
+   "result": "Funksiya x = 0 nuqtada uzluksizdir, chunki uchta shart ham qanoatlantirilgan."
+  },
+  "narr": [
+   "Beshinchi misolda uzluksizlikning uchinchi shartini ko'rib chiqamiz.",
+   "Bu funksiya x = 0 da maxraj nolga teng bo'lganda aniqlanmagan, lekin alohida belgilangan.",
+   "Avval f(0) ni ko'ramiz: f(0) = 1.",
+   "Keyin limitni hisoblaymiz: lim x →0 sin(x)/x = 1.",
+   "Endi f(0) va limitni solishtiramiz: ikkalasi ham 1 ga teng.",
+   "Shuning uchun uzluksizlik ta'rifining barcha uch sharti bajarilgan va funksiya x = 0 nuqtada uzluksizdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 6 — Ratsional funksiyaning uzluksizligi",
+   "problem": "f(x) = (x + 1)/(x − 5) ratsional funksiya qaysi x larda uzluksiz?",
+   "steps": [
+    "f(x) = (x + 1)/(x − 5) ratsional funksiya barcha x qiymatlarida, x = 5 dan tashqari uzluksiz.",
+    "Bu nuqtada maxraj nolga teng bo'ladi.",
+    "Ratsional funksiyalar maxraj nolga teng bo'lmagan barcha nuqtalarda uzluksiz bo'ladi.",
+    "Shuning uchun f(x) funksiyasi x ≠ 5 bo'lgan barcha nuqtalarda uzluksizdir."
+   ],
+   "result": "Funksiya x = 5 dan boshqa barcha haqiqiy sonlar uzluksizdir."
+  },
+  "narr": [
+   "Oltinchi misolda ratsional funksiyaning uzluksizligini ko'rib chiqamiz.",
+   "Berilgan f(x) = (x + 1)/(x − 5) ratsional funksiya.",
+   "Ratsional funksiyalar maxraj nolga teng bo'lmagan barcha nuqtalarda uzluksiz bo'ladi.",
+   "Bu funksiya uchun maxraj x − 5 = 0 bo'lganda, ya'ni x = 5 da maxraj nolga teng bo'ladi.",
+   "Shuning uchun funksiya x = 5 dan boshqa barcha haqiqiy sonlar uzluksizdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 7 — Yana bir ratsional funksiyaning uzluksizligi",
+   "problem": "f(x) = (x − 1)/(x^2 + 2x) funksiyaning uzluksizlik intervallarini ko'rsating.",
+   "steps": [
+    "f ratsional funksiya bo'lgani uchun, u aniqlanish sohasining har bir nuqtasida uzluksizdir.",
+    "Aniqlanish sohasi: maxraj x^2 + 2x = x · (x + 2) ≠ 0, ya'ni x ≠ 0 va x ≠ −2.",
+    "Shunday qilib, f har bir (−∞, −2), (−2, 0) va (0, +∞) intervallarida uzluksiz."
+   ],
+   "result": "Funksiya (−∞, −2), (−2, 0) va (0, +∞) intervallarida uzluksizdir."
+  },
+  "narr": [
+   "Yettinchi misolda yana bir ratsional funksiyaning uzluksizligini ko'rib chiqamiz.",
+   "Bu funksiya f(x) = (x − 1)/(x^2 + 2x) ko'rinishida.",
+   "Ratsional funksiyalar aniqlanish sohasining har bir nuqtasida uzluksiz bo'ladi.",
+   "Aniqlanish sohasini topamiz: maxraj nolga teng bo'lmagan qiymatlar.",
+   "x^2 + 2x = x · (x + 2) ≠ 0, ya'ni x ≠ 0 va x ≠ −2.",
+   "Shunday qilib, funksiya (−∞, −2), (−2, 0) va (0, +∞) intervallarida uzluksizdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 8 — Ildiz funksiyasining uzluksizligi",
+   "problem": "f(x) = √(4 − x^2) funksiyaning uzluksizlik intervallarini ko'rsating.",
+   "steps": [
+    "Limitlar qonunlariga ko'ra, lim x →a √(4 − x^2) = √(4 − a^2) barcha (−2, 2) dagi a qiymatlarida.",
+    "Bundan tashqari, lim x →−2+ √(4 − x^2) = 0 mavjud va lim x →2− √(4 − x^2) = 0 mavjud.",
+    "Shuning uchun f(x) funksiya butun [−2, 2] kesmada uzluksiz."
+   ],
+   "result": "Funksiya [−2, 2] kesmada uzluksizdir."
+  },
+  "narr": [
+   "Sakkizinchi misolda ildiz funksiyasining uzluksizligini ko'rib chiqamiz.",
+   "Berilgan f(x) = √(4 − x^2) funksiya.",
+   "Ildiz funksiyasi aniqlanish sohasida uzluksiz bo'ladi.",
+   "Bu funksiya uchun aniqlanish sohasi 4 − x^2 ≥ 0, ya'ni x ∈ [−2, 2].",
+   "Chekki nuqtalarda ham limit mavjud: lim x →−2+ √(4 − x^2) = 0 va lim x →2− √(4 − x^2) = 0.",
+   "Shuning uchun funksiya butun [−2, 2] kesmada uzluksizdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 9 — Murakkab funksiyaning limiti",
+   "problem": "lim x →π/2 cos(x − π/2) ni hisoblang.",
+   "steps": [
+    "Berilgan funksiya cos x va x − π/2 funksiyalarining kompozitsiyasidir.",
+    "lim x →π/2 (x − π/2) = 0",
+    "cos x funksiya 0 nuqtada uzluksiz bo'lgani uchun, murakkab funksiya teoremasini qo'llash mumkin:",
+    "lim x →π/2 cos(x − π/2) = cos(lim x →π/2 (x − π/2)) = cos(0) = 1"
+   ],
+   "result": "lim x →π/2 cos(x − π/2) = 1"
+  },
+  "narr": [
+   "To'qqizinchi misolda murakkab funksiyaning limitini hisoblaymiz.",
+   "Berilgan lim x →π/2 cos(x − π/2).",
+   "Bu funksiya cos x va x − π/2 funksiyalarining kompozitsiyasidir.",
+   "Avval ichki funksiyaning limitini hisoblaymiz: lim x →π/2 (x − π/2) = 0.",
+   "cos x funksiya 0 nuqtada uzluksiz bo'lgani uchun, murakkab funksiya teoremasini qo'llash mumkin.",
+   "Shuning uchun lim x →π/2 cos(x − π/2) = cos(lim x →π/2 (x − π/2)) = cos(0) = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 10 — Oraliq qiymatlari teoremasi qo'llanilishi",
+   "problem": "f(x) = x − cos x funksiyanida kamida bitta nol borligini ko'rsating.",
+   "steps": [
+    "f(x) = x − cos x funksiyasi (−∞, +∞) da uzluksiz, demak, [a, b] ko'rinishidagi har qanday yopiq intervalda uzluksiz.",
+    "Agar [a, b] intervalini topish mumkin bo'lsa, uning uchlarida f(a) va f(b) turli ishoraga ega bo'lsa, u holda oraliq qiymatlari teoremasiga ko'ra, f(c) = 0 bo'ladigan haqiqiy son c ∈(a, b) mavjud.",
+    "E'tibor bering: f(0) = 0 − cos(0) = −1 < 0 va f(π/2) = π/2 − cos(π/2) = π/2 > 0.",
+    "IV T ga ko'ra, f(c) = 0 bo'lgan haqiqiy son c ∈[0, π/2] mavjud.",
+    "Shuning uchun f(x) = x − cos x kamida bir nolga ega."
+   ],
+   "result": "f(x) = x − cos x funksiyasi kamida bitta nolga ega."
+  },
+  "narr": [
+   "O'ninchi misolda oraliq qiymatlari teoremasini qo'llaymiz.",
+   "Berilgan f(x) = x − cos x funksiyasi.",
+   "Bu funksiya (−∞, +∞) da uzluksiz, shuning uchun har qanday yopiq intervalda uzluksizdir.",
+   "Oraliq qiymatlari teoremasini qo'llash uchun intervalni topish kerak bo'lib, uning uchlarida funksiya qiymati turli ishorada bo'lishi kerak.",
+   "f(0) = 0 − cos(0) = −1 < 0 va f(π/2) = π/2 − cos(π/2) = π/2 > 0.",
+   "Demak, [0, π/2] oraliqda f(c) = 0 bo'lgan c mavjud.",
+   "Shuning uchun f(x) = x − cos x funksiyasi kamida bitta nolga ega."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 11 — Oraliq qiymatlari teoremasining noto'g'ri qo'llanilishi",
+   "problem": "f(x) funksiya [0, 2] da uzluksiz, f(0) > 0 va f(2) > 0 bo'lsin. Oraliq qiymatlari teoremasiga asosan, f(x) funksiyaning [0, 2] da nolga ega emasligini xulosa qilish mumkinmi?",
+   "steps": [
+    "Yo'q. Oraliq qiymatlari teoremasi f funksiyaning f(0) va f(2) orasidagi barcha qiymatlarni qabul qilishini xulosa qilishga imkon beradi;",
+    "u funksiyaning boshqa qiymatlarni qabul qilmasligini xulosa qilishga imkon bermaydi.",
+    "Kontrmisol: f(x) = (x − 1)^2 funksiyasi f(0) = 1 > 0, f(2) = 1 > 0 shartlarni qanoatlantiradi, lekin f(1) = 0 — intervalda nol mavjud."
+   ],
+   "result": "Xulosa noto'g'ri, chunki funksiya intervalda nolga ega bo'lishi mumkin."
+  },
+  "narr": [
+   "O'n birinchi misolda oraliq qiymatlari teoremasining noto'g'ri qo'llanilishini ko'rib chiqamiz.",
+   "Savol shunday: agar funksiya [0, 2] da uzluksiz bo'lib, f(0) > 0 va f(2) > 0 bo'lsa, u holda funksiyaning [0, 2] da nolga ega emasligini xulosa qilish mumkinmi?",
+   "Javob: yo'q. Oraliq qiymatlari teoremasi faqat funksiyanin f(0) va f(2) orasidagi qiymatlarni qabul qilishini xulosa qiladi.",
+   "Lekin bu funksiyaning boshqa qiymatlarni qabul qilmasligini anglatmaydi.",
+   "Misol sifatida f(x) = (x − 1)^2 funksiyasini ko'rsatish mumkin. Bu funksiya f(0) = 1 > 0 va f(2) = 1 > 0, lekin f(1) = 0, ya'ni intervalda nol mavjud."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 12 — Uzluksizlikning ahamiyati",
+   "problem": "f(x) = 1/x uchun f(−1) = −1 < 0 va f(1) = 1 > 0. f(x) funksiyaning [−1, 1] intervalda nolga ega ekanligini xulosa qilish mumkinmi?",
+   "steps": [
+    "Yo'q. Funksiya [−1, 1] da uzluksiz emas (nol nuqtada cheksiz uzilish),",
+    "shuning uchun oraliq qiymatlari teoremasi bu yerda qo'llanilmaydi."
+   ],
+   "result": "Xulosa noto'g'ri, chunki funksiya [−1, 1] da uzluksiz emas."
+  },
+  "narr": [
+   "O'n ikkinchi misolda oraliq qiymatlari teoremasini qo'llashda uzluksizlik shartining ahamiyatini ko'rib chiqamiz.",
+   "Berilgan f(x) = 1/x funksiya, f(−1) = −1 < 0 va f(1) = 1 > 0.",
+   "Savol: funksiyaning [−1, 1] intervalda nolga ega ekanligini xulosa qilish mumkinmi?",
+   "Javob: yo'q. Chunki funksiya [−1, 1] da uzluksiz emas, x = 0 nuqtada cheksiz uzilish mavjud.",
+   "Oraliq qiymatlari teoremasi faqat funksiya yopiq chekli oraliqda uzluksiz bo'lgagina qo'llaniladi.",
+   "Shuning uchun bu holda teorema qo'llanilmaydi va funksiyaning [−1, 1] da nolga ega emasligini xulosa qilib bo'lmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ }
+]

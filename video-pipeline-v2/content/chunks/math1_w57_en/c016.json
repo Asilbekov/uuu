@@ -1,0 +1,463 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this video, we'll explore key concepts from weeks 5-7 of Math I, focusing on derivatives, trigonometric functions, and their applications.",
+   "Let's begin with the assignments and solutions."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Assignment 2",
+   "bullets": [
+    "Thoroughly study all problems, exercises, and examples covered in the lecture and practical session of week 7",
+    "Complete all 21 exercises of the practical session (10 problems on related rates and 11 on derivatives)",
+    "Review examples from the lecture and required reading (3.39–3.47, 3.74–3.80, problem 204 on precipitation, the flu problem)"
+   ]
+  },
+  "narr": [
+   "For Assignment 2, you need to thoroughly study all problems, exercises, and examples covered in week 7.",
+   "This includes completing all 21 exercises from the practical session - 10 on related rates and 11 on derivatives.",
+   "You should also review examples from the lecture and required reading sections 3.39-3.47, 3.74-3.80, problem 204 on precipitation, and the flu problem."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 178 — Find dy/dx for the function y = x - x³ · sin x",
+   "problem": "Find dy/dx for the function y = x - x³ · sin x",
+   "steps": [
+    "y′ = 1 - (x³ · sin x)′",
+    "By the product rule (x³ · sin x)′ = 3x² · sin x + cos x · x³",
+    "Thus y′ = 1 - 3x² · sin x - x³ · cos x"
+   ],
+   "result": "y′ = 1 - 3x² · sin x - x³ · cos x"
+  },
+  "narr": [
+   "Let's solve exercise 178: Find dy/dx for y = x - x³ · sin x.",
+   "First, we differentiate both terms: y′ = 1 - (x³ · sin x)′",
+   "Using the product rule for the second term: (x³ · sin x)′ = 3x² · sin x + cos x · x³",
+   "Putting it together: y′ = 1 - 3x² · sin x - x³ · cos x"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 181 — Find dy/dx for the function y = (x + cos x)(1 - sin x)",
+   "problem": "Find dy/dx for the function y = (x + cos x)(1 - sin x)",
+   "steps": [
+    "Product rule with u = x + cos x (u′ = 1 - sin x) and v = 1 - sin x (v′ = -cos x)",
+    "y′ = (1 - sin x)² + (x + cos x) · (-cos x)",
+    "Simplify: y′ = (1 - sin x)² - x · cos x - cos² x",
+    "After expanding the square and replacing sin² x - cos² x = -cos 2x",
+    "y′ = 1 - 2 · sin x - cos 2x - x · cos x"
+   ],
+   "result": "y′ = 1 - 2 · sin x - cos 2x - x · cos x"
+  },
+  "narr": [
+   "Now for exercise 181: Find dy/dx for y = (x + cos x)(1 - sin x).",
+   "We apply the product rule with u = x + cos x (u′ = 1 - sin x) and v = 1 - sin x (v′ = -cos x)",
+   "This gives us: y′ = (1 - sin x)² + (x + cos x) · (-cos x)",
+   "Simplifying: y′ = (1 - sin x)² - x · cos x - cos² x",
+   "After expanding the square and using the identity sin² x - cos² x = -cos 2x",
+   "We get: y′ = 1 - 2 · sin x - cos 2x - x · cos x"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 191 — Find d²y/dx² for the function y = x · sin x - cos x",
+   "problem": "Find d²y/dx² for the function y = x · sin x - cos x",
+   "steps": [
+    "First derivative: y′ = sin x + x · cos x + sin x = x · cos x + 2 · sin x",
+    "Second derivative: y″ = cos x - x · sin x + 2 · cos x = 3 · cos x - x · sin x"
+   ],
+   "result": "y″ = 3 · cos x - x · sin x"
+  },
+  "narr": [
+   "Exercise 191 asks for the second derivative of y = x · sin x - cos x.",
+   "First, we find the first derivative: y′ = sin x + x · cos x + sin x = x · cos x + 2 · sin x",
+   "Then, we differentiate again to get the second derivative: y″ = cos x - x · sin x + 2 · cos x = 3 · cos x - x · sin x"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 192 — Find d²y/dx² for the function y = sin x · cos x",
+   "problem": "Find d²y/dx² for the function y = sin x · cos x",
+   "steps": [
+    "First derivative: y′ = cos² x - sin² x = cos 2x",
+    "Second derivative: y″ = -2 · sin 2x"
+   ],
+   "result": "y″ = -2 · sin 2x"
+  },
+  "narr": [
+   "For exercise 192, find the second derivative of y = sin x · cos x.",
+   "First derivative: y′ = cos² x - sin² x, which simplifies to cos 2x using the double-angle identity",
+   "Then, the second derivative is: y″ = -2 · sin 2x"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 193 — Find d²y/dx² for the function y = x - (1/2) · sin x",
+   "problem": "Find d²y/dx² for the function y = x - (1/2) · sin x",
+   "steps": [
+    "First derivative: y′ = 1 - (1/2) · cos x",
+    "Second derivative: y″ = (1/2) · sin x"
+   ],
+   "result": "y″ = (1/2) · sin x"
+  },
+  "narr": [
+   "Exercise 193: Find the second derivative of y = x - (1/2) · sin x.",
+   "First derivative: y′ = 1 - (1/2) · cos x",
+   "Second derivative: y″ = (1/2) · sin x"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 331 — Find the derivative of the function f(x) = e^(x³)",
+   "problem": "Find the derivative of the function f(x) = e^(x³)",
+   "steps": [
+    "By Theorem 3.14: d/dx e^(g(x)) = e^(g(x)) · g′(x)",
+    "With g(x) = x³, g′(x) = 3x²",
+    "Thus f′(x) = 3x² · e^(x³)"
+   ],
+   "result": "f′(x) = 3x² · e^(x³)"
+  },
+  "narr": [
+   "Exercise 331: Find the derivative of f(x) = e^(x³).",
+   "Using Theorem 3.14: d/dx e^(g(x)) = e^(g(x)) · g′(x)",
+   "Here g(x) = x³, so g′(x) = 3x²",
+   "Therefore, f′(x) = 3x² · e^(x³)"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Assignments 4 & 5",
+   "bullets": [
+    "Assignment 4: Read the instructions in the 'Guide to Midterm Exam' document",
+    "Assignment 5: Practice problems from sections 2.1-2.4, 3.1-3.5, and 3.9"
+   ]
+  },
+  "narr": [
+   "For Assignment 4, you should read the instructions in the 'Guide to Midterm Exam' document.",
+   "Assignment 5 involves practicing problems from sections 2.1-2.4, 3.1-3.5, and 3.9, which will be the main focus of the midterm."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Midterm Exam Information",
+   "bullets": [
+    "Written 'pen and paper' exam, 2 hours",
+    "No books, notes, or devices allowed",
+    "Covers chapters 2.1-2.4, 3.1-3.5, and 3.9 (except 3.9.3)",
+    "Values concepts, solution procedure, and clear reasoning over heavy algebra"
+   ]
+  },
+  "narr": [
+   "The midterm exam is a written 'pen and paper' exam lasting 2 hours.",
+   "No books, notes, or devices are allowed.",
+   "It covers chapters 2.1-2.4, 3.1-3.5, and 3.9 (except section 3.9.3), along with the NOTES handouts.",
+   "The exam emphasizes understanding concepts, solution procedures, and clear reasoning rather than heavy algebraic manipulation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Section 3.5 — Derivatives of Trigonometric Functions",
+   "subtitle": "Key concepts and examples"
+  },
+  "narr": [
+   "Now let's focus on section 3.5 of the textbook, which covers derivatives of trigonometric functions.",
+   "The section begins with a numerical experiment showing that the graph of D(x) = (sin(x+0.01) - sin x)/0.01 almost coincides with a cosine curve."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Theorem 3.8 — Basic Trigonometric Derivatives",
+   "bullets": [
+    "d/dx(sin x) = cos x",
+    "d/dx(cos x) = -sin x",
+    "Proof uses the definition of derivative, sine addition formula, and limits lim h→0 (sin h)/h = 1 and lim h→0 (cos h - 1)/h = 0"
+   ]
+  },
+  "narr": [
+   "Theorem 3.8 establishes the basic derivatives of sine and cosine.",
+   "The derivative of sin x is cos x, and the derivative of cos x is -sin x.",
+   "The proof relies on the definition of the derivative, the sine addition formula, and the fundamental limits: lim h→0 (sin h)/h = 1 and lim h→0 (cos h - 1)/h = 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Connection Between Graphs",
+   "bullets": [
+    "At maximum/minimum points of sin x, the tangent is horizontal and cos x = 0",
+    "Where sin x is increasing, cos x > 0",
+    "Where sin x is decreasing, cos x < 0"
+   ]
+  },
+  "narr": [
+   "There's an interesting connection between the graphs of sine and cosine functions.",
+   "At maximum and minimum points of sin x, the tangent is horizontal and cos x equals zero.",
+   "Where sin x is increasing, cos x is positive, and where sin x is decreasing, cos x is negative."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Derivatives of Other Trigonometric Functions",
+   "bullets": [
+    "Theorem 3.9 provides derivatives of tan x, cot x, sec x, and csc x",
+    "These are derived using the quotient rule",
+    "No need to memorize - they can be derived when needed"
+   ]
+  },
+  "narr": [
+   "Theorem 3.9 extends these derivatives to other trigonometric functions.",
+   "The derivatives of tan x, cot x, sec x, and csc x can be derived using the quotient rule.",
+   "You don't need to memorize all these formulas - you can derive them when needed using the basic derivatives we've already established."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.42 — Derivative of sec²x",
+   "problem": "Find the derivative of sec²x",
+   "steps": [
+    "Recall that sec x = 1/cos x",
+    "Using the chain rule and quotient rule",
+    "d/dx(sec²x) = 2 · sec x · sec x · tan x = 2 · sec²x · tan x"
+   ],
+   "result": "d/dx(sec²x) = 2 · sec²x · tan x"
+  },
+  "narr": [
+   "Example 3.42 shows how to find the derivative of sec²x.",
+   "First, recall that sec x = 1/cos x",
+   "Using the chain rule and quotient rule, we find that d/dx(sec²x) = 2 · sec x · sec x · tan x = 2 · sec²x · tan x"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Harmonic Motion",
+   "bullets": [
+    "Described by sine or cosine functions",
+    "s′ represents velocity",
+    "s″ represents acceleration",
+    "Higher-order derivatives of sin x are cyclic with period 4"
+   ]
+  },
+  "narr": [
+   "Harmonic motion, such as a mass on a spring or pendulum, is described by sine or cosine functions.",
+   "In this context, the first derivative s′ represents velocity, and the second derivative s″ represents acceleration.",
+   "Interestingly, higher-order derivatives of sin x follow a cyclic pattern with period 4."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Chain Rule Introduction",
+   "bullets": [
+    "The beginning of section 3.6 introduces the chain rule",
+    "Described as a 'chain reaction' where x changes x³, and x³ changes sin(x³)",
+    "Derivative of sin(x³) is found by multiplying the difference quotient by (x³ - a³)/(x³ - a³)"
+   ]
+  },
+  "narr": [
+   "The beginning of section 3.6 introduces the chain rule.",
+   "Think of it as a 'chain reaction' where x changes x³, and x³ changes sin(x³).",
+   "The derivative of sin(x³) is found by multiplying the difference quotient by (x³ - a³)/(x³ - a³), which is essentially 1 but helps in the derivation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.41 — Particle at Rest",
+   "problem": "A particle moves along the coordinate axis with position s(t) = 2 · sin t - t for 0 ≤ t ≤ 2π. At what moments is the particle at rest?",
+   "steps": [
+    "The particle is at rest when v(t) = s′(t) = 0",
+    "s′(t) = 2 · cos t - 1",
+    "Set equal to zero: 2 · cos t - 1 = 0",
+    "Thus cos t = 1/2",
+    "On [0, 2π], the solutions are t = π/3 and t = 5π/3"
+   ],
+   "result": "The particle is at rest at t = π/3 and t = 5π/3"
+  },
+  "narr": [
+   "Example 3.41 applies these concepts to a particle moving along a coordinate axis.",
+   "The position is given by s(t) = 2 · sin t - t for 0 ≤ t ≤ 2π.",
+   "The particle is at rest when its velocity v(t) = s′(t) = 0.",
+   "Differentiating: s′(t) = 2 · cos t - 1",
+   "Setting this equal to zero: 2 · cos t - 1 = 0, so cos t = 1/2",
+   "On the interval [0, 2π], the solutions are t = π/3 and t = 5π/3"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.43 — Tangent to Cotangent",
+   "problem": "Find the equation of the line tangent to the graph of f(x) = cot x at the point x = π/4",
+   "steps": [
+    "Point of tangency: f(π/4) = cot(π/4) = 1, so the point is (π/4, 1)",
+    "Slope: f′(x) = -csc²x",
+    "f′(π/4) = -csc²(π/4) = -(√2)² = -2",
+    "Equation: y - 1 = -2 · (x - π/4)",
+    "Simplify: y = -2x + 1 + π/2"
+   ],
+   "result": "y = -2x + 1 + π/2"
+  },
+  "narr": [
+   "Example 3.43 shows how to find the tangent line to the cotangent function.",
+   "For f(x) = cot x at x = π/4, the point of tangency is (π/4, 1) since cot(π/4) = 1.",
+   "The slope is given by the derivative: f′(x) = -csc²x",
+   "At x = π/4: f′(π/4) = -csc²(π/4) = -(√2)² = -2",
+   "The equation of the tangent line is y - 1 = -2 · (x - π/4)",
+   "Which simplifies to y = -2x + 1 + π/2"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.44 — Sum and Product",
+   "problem": "Find the derivative f(x) = csc x + x · tan x",
+   "steps": [
+    "By the sum rule: f′(x) = d/dx(csc x) + d/dx(x · tan x)",
+    "d/dx(csc x) = -csc x · cot x",
+    "For d/dx(x · tan x), use the product rule: 1 · tan x + sec²x · x",
+    "Thus f′(x) = -csc x · cot x + tan x + x · sec²x"
+   ],
+   "result": "f′(x) = -csc x · cot x + tan x + x · sec²x"
+  },
+  "narr": [
+   "Finally, Example 3.44 combines sum and product rules.",
+   "For f(x) = csc x + x · tan x, we use the sum rule: f′(x) = d/dx(csc x) + d/dx(x · tan x)",
+   "The derivative of csc x is -csc x · cot x",
+   "For the second term, we use the product rule: d/dx(x · tan x) = 1 · tan x + sec²x · x",
+   "Putting it together: f′(x) = -csc x · cot x + tan x + x · sec²x"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

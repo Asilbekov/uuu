@@ -1,0 +1,291 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I: Week 1 Practical Session",
+   "subtitle": "Questions and Complete Solutions"
+  },
+  "narr": [
+   "Welcome to Week 1 of our Math I practical session. Today, we'll explore decimal classification, interval notation, rational and irrational numbers, complex numbers, and more. Let's dive into these fundamental concepts with detailed examples and solutions."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Classifying Decimal Numbers",
+   "problem": "Classify each decimal as terminating, periodic, or non-periodic, and state whether the corresponding number is rational: (1) 0.375; (2) 0.272727...; (3) 1.101001000100001...; (4) 3.14159265...; (5) 0.123123123...",
+   "steps": [
+    "0.375 is finite, therefore rational",
+    "0.272727... has a repeating block, therefore rational",
+    "1.101001000100001... has increasing intervals between ones, so never periodic or terminating",
+    "3.14159265... if intended as π, is infinite and non-periodic",
+    "0.123123123... has a repeating block, therefore rational"
+   ],
+   "result": "Finite or eventually periodic decimal fractions are exactly the rational numbers."
+  },
+  "narr": [
+   "Let's start with classifying decimal numbers. First, 0.375 is a terminating decimal, which means it's rational. We can express it as 375/1000, which simplifies to 3/8.",
+   "Second, 0.272727... is a periodic decimal with '27' repeating. For a purely periodic decimal, we can use the formula ab/99, so 0.27 equals 27/99, which simplifies to 3/11.",
+   "Third, 1.101001000100001... is non-periodic because the intervals between consecutive ones grow (1, 2, 3, ... zeros), so the decimal never becomes periodic or terminates. This makes the number irrational.",
+   "Fourth, 3.14159265... - if this is intended to represent π, it's an infinite non-periodic decimal, making it irrational.",
+   "Fifth, 0.123123123... has a repeating block '123', so it's periodic and rational. We can express it as 123/999, which simplifies to 41/333.",
+   "The key principle here is that finite or eventually periodic decimal fractions are exactly the rational numbers."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Interval Notation",
+   "problem": "Write each set in interval notation and represent it on the number line: (1) {x ∈ R : −3 ≤ x < 4}; (2) {x ∈ R : x ≠ 3}",
+   "steps": [
+    "For {x ∈ R : −3 ≤ x < 4}, the endpoint −3 is included (square bracket), 4 is excluded (parenthesis)",
+    "For {x ∈ R : x ≠ 3}, this includes all real numbers except 3",
+    "Infinity is never included, so parentheses are always used with infinity"
+   ],
+   "result": "(1) [−3, 4); (2) (−∞, 3) ∪ (3, ∞)"
+  },
+  "narr": [
+   "Now let's work with interval notation. For the first set {x ∈ R : −3 ≤ x < 4}, the endpoint −3 is included (shown with a square bracket), while 4 is excluded (shown with a parenthesis). So in interval notation, this is written as [−3, 4).",
+   "On the number line, this would be shown as a filled point at −3 and an open point at 4, with the segment between them highlighted.",
+   "For the second set {x ∈ R : x ≠ 3}, this includes all real numbers except 3. In interval notation, this is written as (−∞, 3) ∪ (3, ∞).",
+   "On the number line, the entire axis would be filled with an open point at 3. Remember, infinity is never included, so we always use parentheses with infinity."
+  ],
+  "narr_item": [
+   0,
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Interval to Inequality",
+   "problem": "Write each interval in inequality form: a. [−2, 5); b. (−∞, 4]; c. (1, ∞)",
+   "steps": [
+    "For [−2, 5), the left endpoint is included, right endpoint is excluded",
+    "For (−∞, 4], it's unbounded to the left, right endpoint is included",
+    "For (1, ∞), it's strictly greater than 1 since the parenthesis excludes 1"
+   ],
+   "result": "a. −2 ≤ x < 5; b. x ≤ 4; c. x > 1"
+  },
+  "narr": [
+   "Let's convert intervals back to inequality notation. For interval [−2, 5), the left endpoint −2 is included (≤) while the right endpoint 5 is excluded (<), so the inequality is −2 ≤ x < 5.",
+   "For interval (−∞, 4], it's unbounded to the left (all numbers less than or equal to 4), so the inequality is x ≤ 4.",
+   "For interval (1, ∞), it's all numbers strictly greater than 1 (since the parenthesis excludes 1), so the inequality is x > 1."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Classifying Rational and Irrational Numbers",
+   "problem": "Classify as rational or irrational: a. √3; b. √25; c. √50; i. (1 + √5)(1 − √5)",
+   "steps": [
+    "√3 is not a perfect square, therefore irrational",
+    "√25 = 5, which is an integer, therefore rational",
+    "√50 = 5√2, and since √2 is irrational, 5√2 is irrational",
+    "For (1 + √5)(1 − √5), expand to eliminate the radical"
+   ],
+   "result": "a. irrational; b. rational; c. irrational; i. rational"
+  },
+  "narr": [
+   "Now let's classify numbers as rational or irrational. First, √3 is not a perfect square, so it's irrational.",
+   "Second, √25 equals 5, which is an integer, and all integers are rational numbers.",
+   "Third, √50 can be simplified to 5√2. Since √2 is irrational, multiplying it by 5 still results in an irrational number.",
+   "Fourth, for (1 + √5)(1 − √5), we can expand this expression. Notice this is a product of conjugates, which eliminates the radical: (1 + √5)(1 − √5) = 1 − 5 = −4, which is rational."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Operations with Complex Numbers",
+   "problem": "Given z1 = 3 + 2i and z2 = 1 − 4i, compute z1 + z2, z1 − z2, z1z2, z1/z2, writing each answer in the form a + bi",
+   "steps": [
+    "For addition and subtraction, act on real and imaginary parts separately",
+    "For multiplication, use i² = −1 and the distributive property",
+    "For division, multiply numerator and denominator by the conjugate of the denominator"
+   ],
+   "result": "z1 + z2 = 4 − 2i; z1 − z2 = 2 + 6i; z1z2 = 11 − 10i; z1/z2 = −5/17 + (14/17)i"
+  },
+  "narr": [
+   "Let's perform operations with complex numbers. Given z1 = 3 + 2i and z2 = 1 − 4i.",
+   "For addition, we combine the real parts and the imaginary parts separately: z1 + z2 = (3 + 1) + (2 − 4)i = 4 − 2i.",
+   "For subtraction, similarly: z1 − z2 = (3 − 1) + (2 − (−4))i = 2 + 6i.",
+   "For multiplication, we use the distributive property and remember that i² = −1: z1z2 = (3 + 2i)(1 − 4i) = 3·1 − 3·4i + 2i·1 − 2i·4i = 3 − 12i + 2i − 8i² = 3 − 10i + 8 = 11 − 10i.",
+   "For division, we multiply numerator and denominator by the conjugate of the denominator: z1/z2 = (3 + 2i)/(1 − 4i) · (1 + 4i)/(1 + 4i) = (3 + 12i + 2i + 8i²)/(1 + 16) = (3 − 8 + 14i)/17 = (−5 + 14i)/17 = −5/17 + (14/17)i."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Conjugates and Modulus of Complex Numbers",
+   "problem": "For the numbers 3 + 4i, −2 + 5i, 6i, −7, find the conjugate and modulus; verify zz̄ = |z|²",
+   "steps": [
+    "For z = a + bi, the conjugate is z̄ = a − bi and |z| = √(a² + b²)",
+    "Compute for each number and verify zz̄ = |z|²"
+   ],
+   "result": "All four checks confirm that zz̄ = |z|²"
+  },
+  "narr": [
+   "Now let's find conjugates and moduli of complex numbers and verify the property zz̄ = |z|².",
+   "For z = 3 + 4i, the conjugate is z̄ = 3 − 4i and |z| = √(3² + 4²) = 5. Verifying: zz̄ = (3 + 4i)(3 − 4i) = 9 − 12i + 12i − 16i² = 9 + 16 = 25 = 5².",
+   "For z = −2 + 5i, the conjugate is z̄ = −2 − 5i and |z| = √((−2)² + 5²) = √29. Verifying: zz̄ = (−2 + 5i)(−2 − 5i) = 4 + 10i − 10i − 25i² = 4 + 25 = 29 = (√29)².",
+   "For z = 6i, which is 0 + 6i, the conjugate is z̄ = −6i and |z| = √(0² + 6²) = 6. Verifying: zz̄ = (6i)(−6i) = −36i² = 36 = 6².",
+   "For z = −7, which is a real number, the conjugate is z̄ = −7 (real numbers are their own conjugates) and |z| = √((−7)² + 0²) = 7. Verifying: zz̄ = (−7)(−7) = 49 = 7²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Rationalizing Complex Denominators",
+   "problem": "Express 1/(1 + i) in the form a + bi",
+   "steps": [
+    "Multiply numerator and denominator by the conjugate of the denominator"
+   ],
+   "result": "1/2 − (1/2)i"
+  },
+  "narr": [
+   "To express 1/(1 + i) in the form a + bi, we multiply numerator and denominator by the conjugate of the denominator, which is 1 − i:",
+   "1/(1 + i) = (1 − i)/((1 + i)(1 − i)) = (1 − i)/(1 − i²) = (1 − i)/(1 − (−1)) = (1 − i)/2 = 1/2 − (1/2)i."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Solving Complex Equations",
+   "problem": "Solve over C: x² + 9 = 0",
+   "steps": [
+    "Rearrange to isolate x²",
+    "Take square roots, remembering to include both positive and negative roots"
+   ],
+   "result": "x = ±3i"
+  },
+  "narr": [
+   "Let's solve the equation x² + 9 = 0 over the complex numbers.",
+   "First, we rearrange to isolate x²: x² = −9.",
+   "Then, we take square roots of both sides: x = ±√−9 = ±3i.",
+   "Both solutions are non-real complex numbers. There are no real solutions because a square of a real number is never negative."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Complex Numbers in the Complex Plane",
+   "problem": "For z = 2 + 3i on the complex plane, determine the real part, imaginary part, modulus, and quadrant. What changes for 2 − 3i?",
+   "steps": [
+    "Identify the real and imaginary parts",
+    "Compute the modulus using |z| = √(a² + b²)",
+    "Determine the quadrant based on the signs of the real and imaginary parts"
+   ],
+   "result": "For z = 2 + 3i: Re(z) = 2, Im(z) = 3, |z| = √13, first quadrant. For z = 2 − 3i: Re(z) = 2, Im(z) = −3, |z| = √13, fourth quadrant."
+  },
+  "narr": [
+   "For z = 2 + 3i in the complex plane, the real part is 2 and the imaginary part is 3. The modulus is |z| = √(2² + 3²) = √13. Since both coordinates are positive, the point (2, 3) lies in the first quadrant.",
+   "For z = 2 − 3i, which is the reflection across the real axis, the real part remains 2, but the imaginary part changes sign to −3. The modulus remains √13, but now the point (2, −3) is in the fourth quadrant."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Trigonometric and Exponential Forms of Complex Numbers",
+   "problem": "Write 1 + i in trigonometric form z = r(cos θ + i sin θ) and exponential form z = re^(iθ), with θ in radians",
+   "steps": [
+    "Find r = |1 + i| = √(1² + 1²) = √2",
+    "Find θ = arctan(Im(z)/Re(z)) = arctan(1/1) = π/4",
+    "Write in both forms using r and θ"
+   ],
+   "result": "1 + i = √2(cos π/4 + i sin π/4) = √2e^(iπ/4)"
+  },
+  "narr": [
+   "To write 1 + i in trigonometric and exponential forms, we first find the modulus r = |1 + i| = √(1² + 1²) = √2.",
+   "Next, we find the argument θ. Since both coordinates are positive, θ = arctan(1/1) = π/4.",
+   "In trigonometric form, this is z = r(cos θ + i sin θ) = √2(cos π/4 + i sin π/4).",
+   "In exponential form, this is z = re^(iθ) = √2e^(iπ/4)."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — De Moivre's Formula",
+   "problem": "Using De Moivre's formula [r(cos θ + i sin θ)]^n = r^n(cos nθ + i sin nθ), compute (√3 + i)^4; verify algebraically",
+   "steps": [
+    "Find r = |√3 + i| = √(3 + 1) = 2",
+    "Find θ = arctan(1/√3) = π/6",
+    "Apply De Moivre's formula: (√3 + i)^4 = 2^4(cos(4·π/6) + i sin(4·π/6)) = 16(cos(2π/3) + i sin(2π/3))",
+    "Verify by expanding (√3 + i)^4 algebraically"
+   ],
+   "result": "(√3 + i)^4 = 16(cos(2π/3) + i sin(2π/3)) = 16(−1/2 + i√3/2) = −8 + 8i√3"
+  },
+  "narr": [
+   "Let's use De Moivre's formula to compute (√3 + i)^4.",
+   "First, we find the modulus r = |√3 + i| = √((√3)² + 1²) = √(3 + 1) = 2.",
+   "Next, we find the argument θ = arctan(1/√3) = π/6.",
+   "Applying De Moivre's formula: (√3 + i)^4 = [2(cos π/6 + i sin π/6)]^4 = 2^4(cos(4·π/6) + i sin(4·π/6)) = 16(cos(2π/3) + i sin(2π/3)).",
+   "We can verify this algebraically by expanding (√3 + i)^4 directly, which gives the same result: −8 + 8i√3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

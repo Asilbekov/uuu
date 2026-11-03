@@ -1,0 +1,452 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Let's start with some fundamental concepts about matrix invertibility.",
+   "First, what does it mean when we have a matrix equation Ax = 0 with a non-zero solution x?",
+   "And how does this relate to the invertibility of matrix A?",
+   "Also, what happens when we have two matrices B and C such that BA = I and AC = I? Does this imply B = C?"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Invertibility Condition",
+   "tex": "Ax = 0 \\text{ for some } x \\neq 0 \\Rightarrow A \\text{ is not invertible}",
+   "parts": [
+    {
+     "substr": "Ax = 0",
+     "color": "#4C5FD5",
+     "note": "Matrix equation with zero vector"
+    },
+    {
+     "substr": "x \\neq 0",
+     "color": "#B45309",
+     "note": "Non-zero solution exists"
+    },
+    {
+     "substr": "A \\text{ is not invertible}",
+     "color": "#A03040",
+     "note": "Matrix is singular"
+    }
+   ]
+  },
+  "narr": [
+   "This equation tells us that if there's a non-zero vector x that gets mapped to zero by matrix A, then A cannot be invertible.",
+   "The interpretation is profound: no matrix can bring the zero vector back to a non-zero vector x.",
+   "This is a fundamental property that distinguishes invertible from non-invertible matrices."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Uniqueness of Inverse",
+   "tex": "BA = I, AC = I \\Rightarrow B = B(AC) = (BA)C = C",
+   "parts": [
+    {
+     "substr": "BA = I",
+     "color": "#4C5FD5",
+     "note": "B is left-inverse of A"
+    },
+    {
+     "substr": "AC = I",
+     "color": "#4C5FD5",
+     "note": "C is right-inverse of A"
+    },
+    {
+     "substr": "B = B(AC)",
+     "color": "#B45309",
+     "note": "Substitution using AC = I"
+    },
+    {
+     "substr": "(BA)C",
+     "color": "#B45309",
+     "note": "Associative property"
+    },
+    {
+     "substr": "B = C",
+     "color": "#A03040",
+     "note": "Uniqueness of inverse"
+    }
+   ]
+  },
+  "narr": [
+   "Here we see that if B is a left-inverse of A and C is a right-inverse of A, then B must equal C.",
+   "This shows that any matrix that has both a left-inverse and a right-inverse must have a unique inverse.",
+   "The proof relies on the associative property of matrix multiplication."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Gauss-Jordan Elimination",
+   "bullets": [
+    "Method to find matrix inverse",
+    "Uses elementary row operations",
+    "Transforms [A | I] to [I | A⁻¹]",
+    "Same operations turn A into I and I into A⁻¹",
+    "Three types of row operations",
+    "Each corresponds to an elementary matrix"
+   ]
+  },
+  "narr": [
+   "Now let's look at Gauss-Jordan elimination, a powerful method for finding matrix inverses.",
+   "The process starts with the augmented matrix [A | I], where I is the identity matrix.",
+   "Through a series of elementary row operations, we transform this into [I | A⁻¹].",
+   "The same row operations that turn A into I will turn I into A⁻¹.",
+   "There are three types of elementary row operations: exchanging two rows, multiplying a row by a non-zero constant, and adding a multiple of one row to another.",
+   "Each operation corresponds to an elementary matrix with an easy inverse, which is why the inverse operations come out in reverse order."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Practice problems for week 4",
+   "subtitle": "rank, inverse, Gauss-Jordan"
+  },
+  "narr": [
+   "Let's move on to some practice problems that cover rank, inverse, and Gauss-Jordan elimination.",
+   "We'll work through several examples with full solutions to reinforce these concepts."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Compute rank",
+   "problem": "Compute rank(A) for A = \n\\begin{bmatrix}\n1 & 2 & 3 \\\\\n2 & 4 & 6 \\\\\n3 & 6 & 9\n\\end{bmatrix}\nby elimination.",
+   "steps": [
+    "Eliminate under the first pivot (1): R2 - 2R1 → (0, 0, 0)",
+    "R3 - 3R1 → (0, 0, 0)",
+    "The second column entries vanished, so the second pivot must come from column 3",
+    "Pivot = 0 (from the second row)",
+    "Eliminate under it: R3 - 0·R2 → (0, 0, 0)",
+    "One non-zero pivot: rank(A) = 1"
+   ],
+   "result": "rank(A) = 1"
+  },
+  "narr": [
+   "Our first problem asks us to compute the rank of matrix A through elimination.",
+   "We start by eliminating under the first pivot, which is 1 in the top-left corner.",
+   "Subtracting 2 times the first row from the second row gives us a row of zeros.",
+   "Similarly, subtracting 3 times the first row from the third row also gives us a row of zeros.",
+   "Notice that column 2 is exactly twice column 1, which is a rank deficiency signal visible from the start.",
+   "Since we only have one non-zero pivot after elimination, the rank of matrix A is 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Determine invertibility",
+   "problem": "Determine if B = \n\\begin{bmatrix}\n2 & 1 \\\\\n4 & 2\n\\end{bmatrix}\nis invertible by three methods: pivots, determinant, and nonzero null-vector.",
+   "steps": [
+    "(Pivots) R2 - 2R1 → (0, 0): only one pivot — singular",
+    "(Determinant) ad - bc = 2·2 - 1·4 = 0 — singular",
+    "(Null-vector) The equation Bx = 0 has solution x = (1, -2)ᵀ ≠ 0",
+    "All three methods confirm the matrix is singular"
+   ],
+   "result": "Matrix B is not invertible (singular)"
+  },
+  "narr": [
+   "For our second problem, we need to determine if matrix B is invertible using three different methods.",
+   "First, using the pivot method: we subtract 2 times the first row from the second row, resulting in a row of zeros. This means we only have one pivot, indicating the matrix is singular.",
+   "Second, using the determinant: for a 2×2 matrix, the determinant is ad - bc. Here it's 2·2 - 1·4 = 0, which confirms the matrix is singular.",
+   "Third, we can find a non-zero null-vector: the equation Bx = 0 has solution x = (1, -2)ᵀ ≠ 0, which by our earlier result means B is not invertible.",
+   "All three methods agree that matrix B is not invertible."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Find inverse",
+   "problem": "Find the inverse of A = \n\\begin{bmatrix}\n2 & 1 \\\\\n5 & 3\n\\end{bmatrix}.",
+   "steps": [
+    "det(A) = 2·3 - 1·5 = 6 - 5 = 1",
+    "Using the formula for 2×2 inverse: A⁻¹ = (1/det(A))·[d, -b; -c, a]",
+    "A⁻¹ = (1/1)·[3, -1; -5, 2] = [3, -1; -5, 2]",
+    "Check: A·A⁻¹ = [2·3 + 1·(-5), 2·(-1) + 1·2; 5·3 + 3·(-5), 5·(-1) + 3·2] = [1, 0; 0, 1] = I"
+   ],
+   "result": "A⁻¹ = \n\\begin{bmatrix}\n3 & -1 \\\\\n-5 & 2\n\\end{bmatrix}"
+  },
+  "narr": [
+   "Now let's find the inverse of matrix A.",
+   "First, we calculate the determinant: det(A) = 2·3 - 1·5 = 6 - 5 = 1.",
+   "Since the determinant is non-zero, the matrix is invertible.",
+   "For a 2×2 matrix, the inverse can be found using the formula: A⁻¹ = (1/det(A))·[d, -b; -c, a].",
+   "Applying this formula, we get A⁻¹ = [3, -1; -5, 2].",
+   "We can verify this by multiplying A and A⁻¹, which gives us the identity matrix I."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Gauss-Jordan elimination",
+   "problem": "Apply Gauss-Jordan to [A | I], to invert A = \n\\begin{bmatrix}\n1 & 2 \\\\\n3 & 7\n\\end{bmatrix}.",
+   "steps": [
+    "Start with [A | I] = \n\\begin{bmatrix}\n1 & 2 & | & 1 & 0 \\\\\n3 & 7 & | & 0 & 1\n\\end{bmatrix}",
+    "R2 - 3R1 → \n\\begin{bmatrix}\n1 & 2 & | & 1 & 0 \\\\\n0 & 1 & | & -3 & 1\n\\end{bmatrix}",
+    "R1 - 2R2 → \n\\begin{bmatrix}\n1 & 0 & | & 7 & -2 \\\\\n0 & 1 & | & -3 & 1\n\\end{bmatrix}",
+    "The right block is now A⁻¹ = [7, -2; -3, 1]"
+   ],
+   "result": "A⁻¹ = \n\\begin{bmatrix}\n7 & -2 \\\\\n-3 & 1\n\\end{bmatrix}"
+  },
+  "narr": [
+   "For our fourth problem, we'll use Gauss-Jordan elimination to find the inverse of matrix A.",
+   "We start with the augmented matrix [A | I], where I is the 2×2 identity matrix.",
+   "First, we eliminate the entry below the first pivot by subtracting 3 times the first row from the second row.",
+   "Next, we eliminate the entry above the second pivot by subtracting 2 times the second row from the first row.",
+   "The right block of the resulting matrix is now A⁻¹ = [7, -2; -3, 1].",
+   "We can verify this by multiplying A and A⁻¹, which gives us the identity matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Invert with Gauss-Jordan",
+   "problem": "Invert by Gauss-Jordan and check that the product of pivots equals det(K), where K = \n\\begin{bmatrix}\n2 & -1 & 0 \\\\\n-1 & 2 & -1 \\\\\n0 & -1 & 2\n\\end{bmatrix}.",
+   "steps": [
+    "Work on [K | I]: eliminate with first pivot 2 (R2 + 1/2 R1)",
+    "Then with second pivot 3/2 (R3 + 2/3 R2)",
+    "Arrive at upper triangular form with pivots 2, 3/2, 4/3",
+    "Clean upward and divide each row by its pivot",
+    "The right block becomes K⁻¹ = (1/4)·[3/2, 1, 1/4; 1, 2, 1/2; 1/4, 1/2, 3/4]"
+   ],
+   "result": "K⁻¹ = (1/4)·\n\\begin{bmatrix}\n3/2 & 1 & 1/4 \\\\\n1 & 2 & 1/2 \\\\\n1/4 & 1/2 & 3/4\n\\end{bmatrix}"
+  },
+  "narr": [
+   "This problem, one of Strang's favorite examples, asks us to invert a 3×3 matrix using Gauss-Jordan elimination.",
+   "We start with the augmented matrix [K | I] and perform elimination operations.",
+   "First, we eliminate with the first pivot 2 by adding 1/2 times the first row to the second row.",
+   "Next, we eliminate with the second pivot 3/2 by adding 2/3 times the second row to the third row.",
+   "This gives us an upper triangular matrix with pivots 2, 3/2, and 4/3.",
+   "The product of these pivots is 2·(3/2)·(4/3) = 4, which equals det(K).",
+   "After cleaning upward and dividing each row by its pivot, we obtain K⁻¹."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Solve using inverse",
+   "problem": "Solve Ax = b for A = \n\\begin{bmatrix}\n1 & 2 \\\\\n3 & 7\n\\end{bmatrix}, b = \n\\begin{bmatrix}\n1 \\\\\n1\n\\end{bmatrix}, using the A⁻¹ from problem 4.",
+   "steps": [
+    "From problem 4, we have A⁻¹ = [7, -2; -3, 1]",
+    "The solution is x = A⁻¹b",
+    "x = [7·1 + (-2)·1; -3·1 + 1·1] = [5; -2]",
+    "So x = (5, -2)ᵀ"
+   ],
+   "result": "x = \n\\begin{bmatrix}\n5 \\\\\n-2\n\\end{bmatrix}"
+  },
+  "narr": [
+   "For our sixth problem, we'll solve the system Ax = b using the inverse we found earlier.",
+   "From problem 4, we have A⁻¹ = [7, -2; -3, 1].",
+   "The solution to the system Ax = b is given by x = A⁻¹b.",
+   "Multiplying A⁻¹ by b = (1, 1)ᵀ, we get x = [5; -2].",
+   "This means the solution to the system is x = (5, -2)ᵀ."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Inverse of product",
+   "problem": "Given A = \n\\begin{bmatrix}\n1 & 2 \\\\\n-3 & 1\n\\end{bmatrix} and B = \n\\begin{bmatrix}\n0 & 2 \\\\\n1 & 1\n\\end{bmatrix}; compute (AB)⁻¹ without multiplying first, then check.",
+   "steps": [
+    "By the inverse of product property, (AB)⁻¹ = B⁻¹A⁻¹",
+    "det(A) = 1·1 - 2·(-3) = 7, so A⁻¹ = (1/7)·[1, -2; 3, 1]",
+    "det(B) = 0·1 - 2·1 = -2, so B⁻¹ = (1/-2)·[1, -2; -1, 0] = [-1/2, 1; 1/2, 0]",
+    "(AB)⁻¹ = B⁻¹A⁻¹ = [-1/2, 1; 1/2, 0]·(1/7)·[1, -2; 3, 1] = (1/14)·[5, 4; 1, -2]",
+    "Check: AB = [1·0+2·1, 1·2+2·1; -3·0+1·1, -3·2+1·1] = [2, 4; 1, -5]",
+    "det(AB) = 2·(-5) - 4·1 = -14 = 7·(-2) = det(A)·det(B)"
+   ],
+   "result": "(AB)⁻¹ = (1/14)·\n\\begin{bmatrix}\n5 & 4 \\\\\n1 & -2\n\\end{bmatrix}"
+  },
+  "narr": [
+   "This problem asks us to compute the inverse of a product without first multiplying the matrices.",
+   "We use the property that (AB)⁻¹ = B⁻¹A⁻¹.",
+   "First, we find A⁻¹: det(A) = 7, so A⁻¹ = (1/7)·[1, -2; 3, 1].",
+   "Next, we find B⁻¹: det(B) = -2, so B⁻¹ = [-1/2, 1; 1/2, 0].",
+   "Now we multiply B⁻¹ and A⁻¹ to get (AB)⁻¹ = (1/14)·[5, 4; 1, -2].",
+   "We can verify this by computing AB directly and finding its inverse, which gives the same result.",
+   "We also note that det(AB) = det(A)·det(B) = -14, which is consistent."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — True or false",
+   "problem": "True or false, with justification: (a) If A is invertible, then Aᵀ is invertible. (b) If Ax = λx with x ≠ 0 and λ = 0, then A is not invertible. (c) The product of invertible 3×3 matrices can be singular. (d) rank(A) ≤ 2 for any 2×3 matrix.",
+   "steps": [
+    "(a) True: A has n pivots ⇐⇒ Aᵀ has n pivots (row rank = column rank); formally (Aᵀ)⁻¹ = (A⁻¹)ᵀ",
+    "(b) True: non-zero x with Ax = 0·x = 0 violates the condition that Ax = 0 implies x = 0 for invertible A",
+    "(c) False: by the inverse of product property, the product of invertibles is invertible",
+    "(d) True: rank does not exceed the number of rows (each pivot uses one row), so rank ≤ 2 < 3"
+   ],
+   "result": "(a) True (b) True (c) False (d) True"
+  },
+  "narr": [
+   "Now we have a conceptual problem with true/false statements about matrix properties.",
+   "For (a): If A is invertible, then Aᵀ is also invertible. This is true because A and Aᵀ have the same number of pivots, and formally, (Aᵀ)⁻¹ = (A⁻¹)ᵀ.",
+   "For (b): If Ax = λx with x ≠ 0 and λ = 0, then A is not invertible. This is true because it means there's a non-zero vector x such that Ax = 0, which violates the condition for invertibility.",
+   "For (c): The product of invertible 3×3 matrices can be singular. This is false because the product of invertible matrices is always invertible.",
+   "For (d): rank(A) ≤ 2 for any 2×3 matrix. This is true because the rank cannot exceed the number of rows, which is 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Singularity condition",
+   "problem": "For what value(s) of c is the matrix A = \n\\begin{bmatrix}\n1 & c \\\\\n4 & 2\n\\end{bmatrix}\nsingular? For the remaining values solve Ax = \n\\begin{bmatrix}\n6 \\\\\n4\n\\end{bmatrix}.",
+   "steps": [
+    "det(A) = 1·2 - c·4 = 2 - 4c",
+    "A is singular exactly when det(A) = 0, i.e., when 2 - 4c = 0 ⇒ c = 1/2",
+    "For c ≠ 1/2, A is invertible with A⁻¹ = (1/(2-4c))·[2, -c; -4, 1]",
+    "Then x = A⁻¹b = (1/(2-4c))·[2·6 - c·4; -4·6 + 1·4] = (1/(2-4c))·[12-4c; -20]",
+    "For example, when c = 0: x = (1/2)·[12; -20] = [6; -10]",
+    "When c = 1: x = (1/(-2))·[8; -20] = [-4; 10]"
+   ],
+   "result": "A is singular when c = 1/2. For other values, x = (1/(2-4c))·[12-4c; -20]"
+  },
+  "narr": [
+   "This problem asks us to find when a matrix is singular and then solve a system for non-singular cases.",
+   "First, we find when A is singular by setting its determinant to zero: det(A) = 2 - 4c = 0 ⇒ c = 1/2.",
+   "For c ≠ 1/2, the matrix is invertible, and we can find A⁻¹ using the formula for 2×2 matrices.",
+   "Then the solution to Ax = b is given by x = A⁻¹b.",
+   "We can compute this for specific values of c, such as c = 0 or c = 1.",
+   "The solution depends on the value of c, but the form remains the same."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Rank preservation",
+   "problem": "Show that if A is invertible, then rank(AB) = rank(B) for any compatible B.",
+   "steps": [
+    "Multiplication by an invertible matrix does not change the number of pivots",
+    "Standard reasoning: rank(AB) ≤ rank(B) because rows of AB are combinations of rows of B",
+    "Applying the same to B = A⁻¹(AB), we get rank(B) ≤ rank(AB)",
+    "Both inequalities force equality: rank(AB) = rank(B)",
+    "Intuition: an invertible factor only stretches/rotates/shifts spaces, but does not flatten them"
+   ],
+   "result": "If A is invertible, then rank(AB) = rank(B) for any compatible matrix B"
+  },
+  "narr": [
+   "Our final problem is an advanced one about rank preservation under matrix multiplication.",
+   "We need to show that if A is invertible, then multiplying by A doesn't change the rank of B.",
+   "First, we note that rank(AB) ≤ rank(B) because the rows of AB are linear combinations of the rows of B.",
+   "Next, we can write B = A⁻¹(AB), which shows that rank(B) ≤ rank(AB).",
+   "Combining these two inequalities, we get rank(AB) = rank(B).",
+   "Intuitively, multiplying by an invertible matrix only transforms the space through rotation, scaling, or translation, but doesn't reduce its dimension, so the rank is preserved."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

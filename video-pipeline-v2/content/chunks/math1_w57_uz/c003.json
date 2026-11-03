@@ -1,0 +1,348 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Math I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu hafta biz Veershtrass teoremasi va uzluksizlik tushunchalarini o'rganamiz.",
+   "Keling, birinchi masalani ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Tenglama yechimi",
+   "problem": "5t + 5 = 0 tenglamani yechamiz, bundan t = (5 - √5)/2 yoki t = (5 + √5)/2.",
+   "steps": [
+    "Tenglamani yechamiz: 5t + 5 = 0",
+    "Ikkala yechim ham [0, 4] oralig'ida joylashgan",
+    "t₁ = (5 - √5)/2 ≈ 1.382",
+    "t₂ = (5 + √5)/2 ≈ 3.618"
+   ],
+   "result": "Komponent 25°C ga ikki marta yetadi: t₁ ≈ 1.382 va t₂ ≈ 3.618"
+  },
+  "narr": [
+   "Bu tenglamani yechamiz va ikkala yechimni ham topamiz.",
+   "Ikkala qiymat ham berilgan oraliqda joylashgan.",
+   "Shunday qilib, komponent haroratga ikki marta yetadi.",
+   "Teorema bu yechimlarning mavjudligini kafolatlaydi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Veershtrass teoremasini qo'llash",
+   "problem": "Kichik qurilma quvvati P(t) = -2t² + 12t + 5, 0 ≤ t ≤ 5 funksiyasi bilan modellashtiriladi. (1) P ning mutlaq maksimum va minimumi borligini tushuntiring. (2) Ikkala ekstremumni toping.",
+   "steps": [
+    "(1) Funksiya polinomial, demak uzluksiz; uning aniqlanish sohasi [0, 5] yopiq va cheklangan.",
+    "Veershtrass teoremasi mutlaq maksimum va minimumning mavjudligini kafolatlaydi.",
+    "(2) Ekstremumlarni topish uchun hosilalar kerak (6-hafta materiali)."
+   ],
+   "result": "(1) Veershtrass teoremasi shartlari bajarilgan, shuning uchun mutlaq ekstremumlar mavjud. (2) Ekstremumlarni topish keyingi hafta ko'rib chiqiladi."
+  },
+  "narr": [
+   "Bu masalada biz Veershtrass teoremasini qo'llaymiz.",
+   "Funksiya polinomial bo'lgani uchun uzluksiz.",
+   "Aniqlanish sohasi yopiq va cheklangan.",
+   "Shuning uchun teorema mutlaq ekstremumlar mavjudligini kafolatlaydi.",
+   "Ekstremumlarni topish uchun hosilalarni bilish kerak, bu esa keyingi hafta ko'rib chiqiladi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   -1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Intervalning yopiq bo'lishi ahamiyati",
+   "problem": "Samaradorlik modelini η(v) = v, 0 < v < 10 deb ko'rib chiqaylik. Veershtrass teoremasi maksimum va minimumni kafolatlaydimi?",
+   "steps": [
+    "Funksiya uzluksiz, lekin (0, 10) intervali ochiq, yopiq emas.",
+    "v → 0⁺ da η(v) → 0 ga yaqinlashadi, lekin hech qachon 0 ga yetmaydi.",
+    "v → 10⁻ da η(v) → 10 ga yaqinlashadi, lekin hech qachon 10 ga yetmaydi.",
+    "Shuning uchun bu hududda funksiyaning hech qanday mutlaq minimumi yoki maksimumi yo'q."
+   ],
+   "result": "Veýershtrass teoremasi qo'llanilmaydi, chunki aniqlanish sohasi yopiq emas."
+  },
+  "narr": [
+   "Bu masalada biz intervalning yopiq bo'lishining ahamiyatini ko'rib chiqamiz.",
+   "Funksiya uzluksiz, lekin aniqlanish sohasi ochik.",
+   "Chekka nuqtalarda funksiya chegaraviy qiymatlarga intiladi, lekin ularni hech qachon erishmaydi.",
+   "Shuning uchun mutlaq ekstremumlar mavjud emas.",
+   "Veershtrass teoremasi faqat yopiq va chekli sohalarda ishlaydi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Konstruktsiyaning optimizatsiya masalasi",
+   "problem": "Metall detal bo'ylab harorat T(x) = 40 + 12x - 3x², 0 ≤ x ≤ 5 funksiya bilan taxminan ifodalanadi, bunda x metrlarda o'lchanadi. (1) Veýershtrass teoremasidan foydalanib eng issiq va eng sovuq nuqtalarning mavjudligini asoslang. (2) Ular joylashgan joylarini va haroratlarini toping.",
+   "steps": [
+    "(1) T(x) — ko'phad, shuning uchun uzluksiz; [0, 5] intervali yopiq va chekli.",
+    "Demak, mutlaq ekstremumlar mavjud.",
+    "(2) Ekstremumlarni topish uchun hosilalar kerak (6-hafta materiali)."
+   ],
+   "result": "(1) Teorema shartlari bajarilgan, shuning uchun mutlaq ekstremumlar mavjud. (2) Ekstremumlarni topish keyingi hafta ko'rib chiqiladi."
+  },
+  "narr": [
+   "Bu masalada biz harorat taqsimotini optimallashtirishni ko'rib chiqamiz.",
+   "Harorat funksiyasi ko'phad bo'lgani uchun uzluksiz.",
+   "Aniqlanish sohasi yopiq va cheklangan.",
+   "Shuning uchun eng issiq va eng sovuq nuqtalar mavjud.",
+   "Bu nuqtalarni topish uchun hosilalardan foydalanamiz, bu esa keyingi hafta ko'rib chiqiladi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   -1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Uchta fikrning barchasini bog'lash",
+   "problem": "Bosim sensori V(p) = √p + 1, 0 ≤ p ≤ 8 funksiya bilan modellashtirilgan. (1) V ning uzluksiz ekanligini ko'rsating. (2) Nega u uzluksiy teskari funksiyaga ega ekanligini tushuntiring. (3) Teskari funksiyani toping. (4) Veýershtrass teoremasidan foydalanib sensorning minimal va maksimal kuchlanishini ko'rsating.",
+   "steps": [
+    "(1) p + 1 funksiyasi uzluksiz, kvadrat ildiz manfiy bo'lmagan kirishlar uchun uzluksiz, shuning uchun V [0, 8] da uzluksiz.",
+    "(2) U qat'iy o'suvchi, demak, bir-biriga ko'proq mos; shu sababli uzluksiy teskari funksiya mavjud.",
+    "(3) V = √p + 1 dan boshlaymiz; ikkala tomonni kvadratga ko'ramiz: V² = p + 1, bundan p(V) = V² - 1.",
+    "(4) Kuchlanishlar oralig'i uchlarda hosil bo'ladi: V(0) = 1, V(8) = 3."
+   ],
+   "result": "Vmin = 1 (p = 0 da), Vmax = 3 (p = 8 da). Teskari funksiya 1 ≤ V ≤ 3 da aniqlangan."
+  },
+  "narr": [
+   "Bu masalada biz bir nechta tushunchalarni birlashtiramiz.",
+   "Avval funksiyaning uzluksililigini ko'rsatamiz.",
+   "Keyin teskari funksiyaning mavjudligini tushuntiramiz.",
+   "Teskari funksiyani topamiz.",
+   "Nihoyat, Veershtrass teoremasidan foydalanib ekstremumlarini topamiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Teorema qachon qo'llanilmaydi",
+   "problem": "Trubaning konstruksiyasi narxi C(r) = π · r² + 1/r, 0 < r ≤ 5. Talaba: \"Narx uzluksiz, demak Veýershtrass teoremasi maksimumni kafolatlaydi\", deydi. Bu fikrni baholang.",
+   "steps": [
+    "Funksiya r > 0 da uzluksiz, lekin (0, 5] sohasi yopiq emas, chunki r = 0 ni o'z ichiga olmaydi.",
+    "r → 0⁺ da 1/r → +∞, shuning uchun C(r) → +∞.",
+    "Demak, funksiya (0, 5] da mutlaq maksimumga ega emas — r nolga yaqinlashganda istalgan katta qiymatga erishadi."
+   ],
+   "result": "Talabasi fikri noto'g'ri: faqat uzluksizlik yetarli emas, Veýershtrass teoremasi yopiq va chekli sohani talab qiladi."
+  },
+  "narr": [
+   "Bu masalada biz Veershtrass teoremasining cheklligini ko'rib chiqamiz.",
+   "Funksiya uzluksiz bo'lishiga qaramay, teorema shartlari bajarilmaydi.",
+   "Aniqlanish sohasi yopiq emas.",
+   "Shuning uchun funksiya maksimumga ega emas.",
+   "Bu talabaning fikrini noto'g'ri ekanligini ko'rsatadi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   -1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Uzluksiz himoya tizimi",
+   "problem": "Himoya regulyatori chiqishi u(T) = {T, agar 0 ≤ T < 100; 0, agar T = 100}. (1) Aniqlanish sohasi yopiqmi va cheklimi? (2) u uzluksizmi? (3) u mutlaq maksimumga erishadimi? (4) Nima uchun Veýershtrass teoremasi qo'llanilmaydi?",
+   "steps": [
+    "(1) Aniqlanish sohasi [0, 100] yopiq va chekli.",
+    "(2) Biroq lim T→100⁻ u(T) = 100, u(100) = 0; shuning uchun funksiya T = 100 nuqtasida uzluksiz emas.",
+    "(3) Funksiya 100 ga yaqin, lekin hech qachon 100 ga teng bo'lmagan qiymatlarni qabul qiladi.",
+    "(4) Veýershtrass teoremasi qo'llanilmaydi, chunki funksiya yopiq intervalda uzluksiz emas."
+   ],
+   "result": "(1) Yopiq va chekli. (2) Uzluksiz emas. (3) Mutlaq maksimumga ega emas. (4) Funksiya uzluksiz emasligi sababli."
+  },
+  "narr": [
+   "Bu masalada biz uzluksizlikning ahamiyatini yana bir bor ko'rib chiqamiz.",
+   "Aniqlanish sohasi yopiq va chekli bo'lishiga qaramay, funksiya uzluksiz emas.",
+   "Funksiyada uzilish nuqtasi mavjud.",
+   "Shuning uchun mutlaq maksimum mavjud emas.",
+   "Bu Veershtrass teoremasining faqat uzluksiz funksiyalar uchun ishlayotganini ko'rsatadi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Darsning asosiy g'oyalari",
+   "items": [
+    "uzluksizlik lim x→a f(x) = f(a) degan ma'noni anglatadi",
+    "uzluksiz funksiyalar \"kirish-chiqish\" oqimini o'zgartirmaydi",
+    "funksiyaning teskarisiga ega bo'lishi uchun u bir qiymatli bo'lishi kerak",
+    "intervaldagi uzluksiz qat'iy monoton funksiyaning teskarisi ham uzluksizdir",
+    "oraliq qiymatlari teoremasi uzluksiz funksiyalar barcha oraliq qiymatlarni qabul qilishlarini ta'minlaydi",
+    "Veyershtrass teoremasi yopiq cheklangan intervaldagi uzluksiz funksiyaning mutlaq maksimum va minimumga erishishini ta'minlaydi",
+    "Veyershtrass ekstremumlarning mavjudligini ta'minlaydi — hosilalar ularni topishga yordam beradi"
+   ]
+  },
+  "narr": [
+   "Keling, ushbu hafta o'rganilgan asosiy g'oyalarni eslab chiqaylik.",
+   "Birinchidan, uzluksizlik tushunchasini aniqlab o'tdik.",
+   "Keyin uzluksiz funksiyalarning xossalarini ko'rib chiqdik.",
+   "Teskari funksiyalar va ularning uzluksilligini o'rgandik.",
+   "Oraliq qiymatlari teoremasini tushuntirdik.",
+   "Va eng muhimi, Veershtrass teoremasini va uning qo'llanilish shartlarini o'rgandik.",
+   "Bularning barchasi matematikaning asosiy tushunchalari bo'lib, keyingi mavzularda muhim rol o'ynaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Mustaqil o'qish topshiriqlari (ISA)",
+   "subtitle": "Topshirilmaydi va baholanmaydigan uy ishlari"
+  },
+  "narr": [
+   "Endi sizga mustaqil o'qish topshiriqlari (ISA) taqdim etiladi.",
+   "Bu topshiriqlar baholanmaydi, lekin ular sizning tushunchalaringizni chuqurroq o'rganishingizga yordam beradi.",
+   "Ushbu topshiriqlarni yechish orqali siz mavzuni mustaqil ravishda o'rganishingiz mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 1 — Sun'iy intellekt bilan ishlash",
+   "problem": "Sun'iy intellekt yordamchisi (ChatGPT, Claude, DeepSeek, Gemini va boshqalar) bilan tuzilgan suhbatda bo'ling: ma'ruzada eng muhim tushunchalarni ifodalang va yordamchidan javobingizni bahosini so'ring.",
+   "steps": [
+    "5-haftaning asosiy g'oyalari ro'yxatini tuzing:",
+    "- uchta uzluksizlik sharti",
+    "- uzilish turlari",
+    "- uzluksiz funksiyalar algebrasi",
+    "- murakkab funksiya teoremasi",
+    "- IV T (oralik qiymatlari teoremasi)"
+   ]
+  },
+  "narr": [
+   "Bu topshiriqda siz sun'iy intellekt yordamchisi bilan suhbat olib borishingiz kerak.",
+   "Siz 5-haftaning asosiy g'oyalari ro'yxatini tuzsiz.",
+   "Keyin yordamchidan ushbu ifodalarning to'liqligi va aniqligini bahosini so'rashingiz kerak.",
+   "Agar xato yoki nomuvofiqlik topsangiz, uni tushuntirib bering."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 1 — Sun'iy intellekt bilan ishlash (cont.)",
+   "problem": "",
+   "steps": [
+    "- teskari funksiyalar va monotonlik",
+    "- Veyershtrass teoremasi va uning shartlari"
+   ],
+   "result": "Yordamchidan ifodalarning to'liqligi va aniqligini bahosini so'ring, keyin har bir e'tirozni tahlil qiling."
+  },
+  "narr": [
+   "Bu topshiriq sizning tushunchalaringizni mustahkamlashga yordam beradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 2 — Barcha yechilgan masalalar",
+   "problem": "Ma'ruzada va amaliy mashg'ulotda yechilgan barcha masalalarni qayta ko'rib chiqing.",
+   "steps": [
+    "Ushbu haftada yechilgan barcha masalalarni qayta ko'rib chiqing:",
+    "- Tenglama yechimi",
+    "- Veershtrass teoremasini qo'llash",
+    "- Intervalning yopiq bo'lishi ahamiyati",
+    "- Konstruktsiyaning optimizatsiya masalasi",
+    "- Uchta fikrning barchasini bog'lash"
+   ]
+  },
+  "narr": [
+   "Ikkinchi topshiriqda siz ushbu haftada yechilgan barcha masalalarni qayta ko'rib chiqishingiz kerak.",
+   "Har bir masalada qo'llanilgan asosiy g'oyalarni tushunting.",
+   "Ushbu g'oyalarning o'zaro bog'liqligini aniqlang."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 2 — Barcha yechilgan masalalar (cont.)",
+   "problem": "",
+   "steps": [
+    "- Teorema qachon qo'llanilmaydi",
+    "- Uzluksiz himoya tizimi"
+   ],
+   "result": "Har bir masalada qo'llanilgan asosiy g'oyalarni aniqlab oling."
+  },
+  "narr": [
+   "Bu sizning mavzuni to'liq o'rganishingizga yordam beradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]

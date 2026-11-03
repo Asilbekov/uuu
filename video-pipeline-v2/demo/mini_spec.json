@@ -1,0 +1,157 @@
+{
+ "id": "math1_w14",
+ "language": "en",
+ "course_title": "Math I — Mathematical Analysis",
+ "weeks_label": "Weeks 1–4 · Complete Guide",
+ "test_title": "Weeks 1–4 · Complete Guide",
+ "chapters": [
+  {
+   "title": "Sample chapter",
+   "blocks": [
+    {
+     "type": "title",
+     "data": {
+      "kicker": "Weeks 1–4 · Complete Guide",
+      "title": "Math I — Mathematical Analysis",
+      "subtitle": "Number Systems · Complex Numbers · Functions · Limits",
+      "chips": [
+       "Course Map and How to Use This D…",
+       "Week 1 — Number systems, notatio…",
+       "Formula catalog for week 1",
+       "Scientific and engineering notat…",
+       "Complex numbers",
+       "Math I: Week 1 Practical Session"
+      ]
+     },
+     "narr": [
+      "Welcome to the complete video guide to Math I, weeks one to four. In the next half hour we travel from number sets and complex numbers through functions straight into the heart of calculus: limits. By the end you will compute limits with the limit laws, untangle indeterminate forms, and compare functions with Landau symbols. Everything comes straight from your course guide. Let's begin."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "section",
+     "data": {
+      "num": 1,
+      "title": "Course Map and How to Use This Document",
+      "subtitle": "Math I — weeks 1–4"
+     },
+     "narr": [
+      "This document is a complete standalone guide for the first four weeks of the Math I course in the first semester.",
+      "It was manually compiled from each relevant source in the course-files/ folder.",
+      "Problems are reproduced verbatim; solutions are complete, step-by-step, with verifications."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Numeral systems comparison",
+      "bullets": [
+       "Roman numerals are non-positional: I = 1, V = 5, X = 10, L = 50, C = 100",
+       "Example: 13 = XIII",
+       "Arithmetic in such systems is impractical",
+       "Computers use binary: electronics reliably distinguishes two states (0/1)"
+      ]
+     },
+     "narr": [
+      "Let's compare different numeral systems.",
+      "Roman numerals are non-positional, making arithmetic operations impractical.",
+      "For example, 13 is represented as XIII in Roman numerals.",
+      "That's why computers use binary systems, which can reliably distinguish between two states: 0 and 1."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Number sets nesting",
+      "tex": "N \\subseteq Z \\subseteq Q \\subseteq R \\subseteq C",
+      "parts": [
+       {
+        "substr": "N",
+        "color": "#4C5FD5",
+        "note": "Natural numbers"
+       },
+       {
+        "substr": "Z",
+        "color": "#B45309",
+        "note": "Integers"
+       },
+       {
+        "substr": "Q",
+        "color": "#0E7C7B",
+        "note": "Rational numbers"
+       },
+       {
+        "substr": "R",
+        "color": "#A03040",
+        "note": "Real numbers"
+       },
+       {
+        "substr": "C",
+        "color": "#4C5FD5",
+        "note": "Complex numbers"
+       }
+      ]
+     },
+     "narr": [
+      "We start with the natural numbers, which are a subset of integers.",
+      "Integers are a subset of rational numbers.",
+      "Rational numbers are a subset of real numbers.",
+      "And finally, real numbers are a subset of complex numbers.",
+      "Rational numbers are exactly the fractions of integers, while irrational numbers are the real numbers that are not rational."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 1 — Classifying Decimal Numbers",
+      "problem": "Classify each decimal as terminating, periodic, or non-periodic, and state whether the corresponding number is rational: (1) 0.375; (2) 0.272727...; (3) 1.101001000100001...; (4) 3.14159265...; (5) 0.123123123...",
+      "steps": [
+       "0.375 is finite, therefore rational",
+       "0.272727... has a repeating block, therefore rational",
+       "1.101001000100001... has increasing intervals between ones, so never periodic or terminating",
+       "3.14159265... if intended as π, is infinite and non-periodic",
+       "0.123123123... has a repeating block, therefore rational"
+      ],
+      "result": "Finite or eventually periodic decimal fractions are exactly the rational numbers."
+     },
+     "narr": [
+      "Let's start with classifying decimal numbers. First, 0.375 is a terminating decimal, which means it's rational. We can express it as 375/1000, which simplifies to 3/8.",
+      "Second, 0.272727... is a periodic decimal with '27' repeating. For a purely periodic decimal, we can use the formula ab/99, so 0.27 equals 27/99, which simplifies to 3/11.",
+      "Third, 1.101001000100001... is non-periodic because the intervals between consecutive ones grow (1, 2, 3, ... zeros), so the decimal never becomes periodic or terminates. This makes the number irrational.",
+      "Fourth, 3.14159265... - if this is intended to represent π, it's an infinite non-periodic decimal, making it irrational.",
+      "Fifth, 0.123123123... has a repeating block '123', so it's periodic and rational. We can express it as 123/999, which simplifies to 41/333.",
+      "The key principle here is that finite or eventually periodic decimal fractions are exactly the rational numbers."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      -1
+     ]
+    }
+   ]
+  }
+ ]
+}

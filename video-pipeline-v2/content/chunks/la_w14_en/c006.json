@@ -1,0 +1,643 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I",
+   "subtitle": "weeks 1–4"
+  },
+  "narr": [
+   "Welcome to Linear Algebra I. In this video, we'll cover weeks 1 through 4, focusing on questions, formulas, and solutions.",
+   "Let's start with problem 13 from week 2."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — System of Equations",
+   "problem": "Both equations reduce to x₁ + 2x₂ = 3 (system is consistent but redundant). General solution: x = [3, 2t, -7, 2, -9, 4]ᵀ, t ∈ ℝ — t infinitely many weights for the same combination.",
+   "steps": [
+    "The system reduces to x₁ + 2x₂ = 3",
+    "The system is consistent but redundant since a₂ = 2a₁ and b = 3a₁",
+    "General solution has infinitely many weights for the same combination"
+   ],
+   "result": "x = [3, 2t, -7, 2, -9, 4]ᵀ, t ∈ ℝ"
+  },
+  "narr": [
+   "Consider this system of equations that reduces to a single equation.",
+   "The system is consistent, meaning it has solutions, but it's redundant because one equation is just a multiple of the other.",
+   "This leads to infinitely many solutions parameterized by t."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Cross Product Property",
+   "problem": "Without revealing coordinates, explain why (u×v) · (u + v) = 0.",
+   "steps": [
+    "The cross product u×v is orthogonal to both u and v",
+    "Therefore, (u×v) · u = 0 and (u×v) · v = 0",
+    "Adding these gives (u×v) · (u + v) = 0 + 0 = 0"
+   ],
+   "result": "(u×v) · (u + v) = 0"
+  },
+  "narr": [
+   "Now let's look at a property of the cross product.",
+   "The cross product of two vectors is orthogonal to both original vectors.",
+   "This orthogonality means the dot product with either vector is zero.",
+   "When we take the dot product with their sum, it's still zero."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Matrix Transformation",
+   "problem": "A has size 2 × 2, with A · [1, 0]ᵀ = [2, -1]ᵀ and A · [0, 1]ᵀ = [3, 4]ᵀ. Find A and A · [5, -2]ᵀ.",
+   "steps": [
+    "The images of the standard basis vectors are the columns of A",
+    "Therefore, A = [2, 3; -1, 4]",
+    "To find A · [5, -2]ᵀ, we use linearity: 5 · [2, -1]ᵀ - 2 · [3, 4]ᵀ"
+   ],
+   "result": "A = [2, 3; -1, 4], A · [5, -2]ᵀ = [4, -13]ᵀ"
+  },
+  "narr": [
+   "Next, let's work with matrix transformations.",
+   "When a matrix multiplies the standard basis vectors, the results are the columns of the matrix.",
+   "Using this property, we can determine the matrix A.",
+   "Then, applying linearity, we can find how A transforms any vector."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 3 — Matrix algebra, determinants, mixed product",
+   "subtitle": "Linear Algebra I"
+  },
+  "narr": [
+   "Moving on to week 3, where we'll explore matrix algebra, determinants, and the mixed product."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matrix Operations",
+   "bullets": [
+    "(A + B)ᵢⱼ = aᵢⱼ + bᵢⱼ",
+    "(cA)ᵢⱼ = c·aᵢⱼ",
+    "(Aᵀ)ᵢⱼ = aⱼᵢ",
+    "(Aᵀ)ᵀ = A",
+    "(A + B)ᵀ = Aᵀ + Bᵀ",
+    "(cA)ᵀ = cAᵀ"
+   ]
+  },
+  "narr": [
+   "Let's start with basic matrix operations.",
+   "Matrix addition is performed element-wise.",
+   "Scalar multiplication multiplies each element by the scalar.",
+   "The transpose operation swaps rows and columns.",
+   "The transpose of a sum is the sum of transposes.",
+   "The transpose of a scalar multiple is the scalar multiple of the transpose."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   2,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matrix Multiplication",
+   "bullets": [
+    "A ∈ ℝᵐˣⁿ, B ∈ ℝⁿˣᵖ ⇒ AB ∈ ℝᵐˣᵖ",
+    "(AB)ᵢⱼ = ∑ₖ₌₁ⁿ aᵢₖbₖⱼ",
+    "A(BC) = (AB)C (associative)",
+    "A(B + C) = AB + AC (left distributive)",
+    "(A + B)C = AC + BC (right distributive)",
+    "(AB)ᵀ = BᵀAᵀ"
+   ]
+  },
+  "narr": [
+   "Now let's look at matrix multiplication.",
+   "The number of columns in the first matrix must match the number of rows in the second.",
+   "Each element of the product is the sum of products of corresponding elements.",
+   "Matrix multiplication is associative, meaning the grouping doesn't matter.",
+   "It's also distributive over addition from both sides.",
+   "The transpose of a product is the product of transposes in reverse order."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Special Matrix Properties",
+   "bullets": [
+    "IₘA = A = AIₙ (identity matrix)",
+    "A[b₁ ··· bₚ] = [Ab₁ ··· Abₚ] (column rule)",
+    "uᵀv = scalar (inner product)",
+    "uvᵀ = matrix (outer product)",
+    "A = Aᵀ (symmetric matrix)"
+   ]
+  },
+  "narr": [
+   "Let's examine some special matrix properties.",
+   "Multiplying by the identity matrix leaves the matrix unchanged.",
+   "A matrix times a matrix of columns is a matrix of the matrix times each column.",
+   "The product of a row vector and column vector is a scalar (inner product).",
+   "The product of a column vector and row vector is a matrix (outer product).",
+   "A symmetric matrix equals its own transpose."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Determinant of a 2×2 Matrix",
+   "tex": "\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc",
+   "parts": [
+    {
+     "substr": "ad - bc",
+     "color": "#4C5FD5",
+     "note": "signed area of the column parallelogram"
+    }
+   ]
+  },
+  "narr": [
+   "Now let's discuss determinants.",
+   "For a 2×2 matrix, the determinant is calculated as ad - bc.",
+   "This value represents the signed area of the parallelogram formed by the column vectors."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Cofactor Expansion",
+   "tex": "C_{ij} = (-1)^{i+j} \\det M_{ij}",
+   "parts": [
+    {
+     "substr": "C_{ij}",
+     "color": "#4C5FD5",
+     "note": "cofactor"
+    },
+    {
+     "substr": "M_{ij}",
+     "color": "#B45309",
+     "note": "minor (delete row i, column j)"
+    }
+   ]
+  },
+  "narr": [
+   "For larger matrices, we use cofactor expansion.",
+   "Each cofactor is calculated with a sign based on position and the determinant of the minor.",
+   "The minor is obtained by deleting the ith row and jth column."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Determinant Rules for Square Matrices",
+   "columns": [
+    "Operation on A",
+    "Effect on det A"
+   ],
+   "rows": [
+    [
+     "Exchange two rows",
+     "reverses the sign"
+    ],
+    [
+     "Multiply one row by c",
+     "multiplies the determinant by c"
+    ],
+    [
+     "Add a multiple of one row to another",
+     "no change"
+    ],
+    [
+     "A zero row, or two proportional rows",
+     "determinant is 0"
+    ],
+    [
+     "Transpose",
+     "det(Aᵀ) = det A"
+    ],
+    [
+     "Product of equally sized square matrices",
+     "det(AB) = det A det B"
+    ]
+   ]
+  },
+  "narr": [
+   "Here are some important rules for determinants.",
+   "Exchanging two rows reverses the sign of the determinant.",
+   "Multiplying a row by a scalar multiplies the determinant by that scalar.",
+   "Adding a multiple of one row to another doesn't change the determinant.",
+   "A zero row or proportional rows make the determinant zero.",
+   "The determinant of a transpose equals the determinant of the original matrix.",
+   "The determinant of a product equals the product of determinants."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Scalar Triple Product",
+   "tex": "(\\mathbf{u} \\times \\mathbf{v}) \\cdot \\mathbf{w} = \\mathbf{u} \\cdot (\\mathbf{v} \\times \\mathbf{w}) = \\det[\\mathbf{u} \\mathbf{v} \\mathbf{w}]",
+   "parts": [
+    {
+     "substr": "\\mathbf{u} \\times \\mathbf{v}",
+     "color": "#4C5FD5",
+     "note": "cross product"
+    },
+    {
+     "substr": "\\cdot \\mathbf{w}",
+     "color": "#B45309",
+     "note": "dot product"
+    },
+    {
+     "substr": "\\det[\\mathbf{u} \\mathbf{v} \\mathbf{w}]",
+     "color": "#0E7C7B",
+     "note": "determinant of matrix with columns u, v, w"
+    }
+   ]
+  },
+  "narr": [
+   "The scalar triple product combines cross and dot products.",
+   "It's equal to the determinant of a matrix with the three vectors as columns.",
+   "This value relates to the volume of the parallelepiped formed by the three vectors."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Volume Calculations",
+   "tex": "V_{parallelepiped} = |(\\mathbf{u} \\times \\mathbf{v}) \\cdot \\mathbf{w}|, \\quad h = \\frac{|(\\mathbf{u} \\times \\mathbf{v}) \\cdot \\mathbf{w}|}{\\|\\mathbf{u} \\times \\mathbf{v}\\|}",
+   "parts": [
+    {
+     "substr": "V_{parallelepiped}",
+     "color": "#4C5FD5",
+     "note": "volume of parallelepiped"
+    },
+    {
+     "substr": "h",
+     "color": "#B45309",
+     "note": "height of parallelepiped"
+    }
+   ]
+  },
+  "narr": [
+   "The scalar triple product gives us the volume of the parallelepiped.",
+   "It can also help us find the height of the parallelepiped when we know the base area."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Tetrahedron Volume",
+   "tex": "V_{tetrahedron} = \\frac{1}{6} |\\det[\\mathbf{u} \\mathbf{v} \\mathbf{w}]|, \\quad T = 0 \\Leftrightarrow \\mathbf{u}, \\mathbf{v}, \\mathbf{w} \\text{ coplanar}",
+   "parts": [
+    {
+     "substr": "V_{tetrahedron}",
+     "color": "#4C5FD5",
+     "note": "volume of tetrahedron"
+    },
+    {
+     "substr": "T = 0",
+     "color": "#B45309",
+     "note": "vectors are coplanar"
+    }
+   ]
+  },
+  "narr": [
+   "For a tetrahedron formed by three vectors, the volume is one-sixth of the parallelepiped volume.",
+   "If the determinant is zero, the vectors are coplanar, meaning they lie in the same plane."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Matrix Operations",
+   "problem": "Let A = [1, -2; 3, 0], B = [2, 1; -1, 4]. Compute 2A - B and specify the (2, 1) element; can you add A to a 2×3 matrix?",
+   "steps": [
+    "Compute 2A = [2, -4; 6, 0]",
+    "Compute 2A - B = [0, -5; 7, -4]",
+    "The (2, 1) element is 7",
+    "Addition with a 2×3 matrix is undefined - dimensions must match"
+   ],
+   "result": "2A - B = [0, -5; 7, -4], (2, 1) element is 7"
+  },
+  "narr": [
+   "Let's solve some matrix problems from week 3.",
+   "First, we need to compute 2A - B for given matrices A and B.",
+   "Scalar multiplication is done element-wise.",
+   "Matrix subtraction is also element-wise.",
+   "The (2, 1) element is simply the element in the second row, first column.",
+   "Finally, we can't add matrices of different dimensions, even if they have the same number of elements."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Matrix Transpose",
+   "problem": "Let C = [1, 2, -1; 0, 3, 2]. Write Cᵀ with its size; compute CᵀC; is it symmetric?",
+   "steps": [
+    "Cᵀ = [1, 0; 2, 3; -1, 2] (3×2)",
+    "Compute CᵀC = [6, 4; 4, 13]",
+    "The matrix is symmetric because off-diagonal elements are equal"
+   ],
+   "result": "Cᵀ = [1, 0; 2, 3; -1, 2] (3×2), CᵀC = [6, 4; 4, 13], symmetric"
+  },
+  "narr": [
+   "Next, let's work with matrix transposes.",
+   "The transpose swaps rows and columns, changing the matrix dimensions.",
+   "When we multiply Cᵀ by C, we get a square matrix.",
+   "Notice that the off-diagonal elements are equal, which means the matrix is symmetric."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Matrix-Vector Multiplication",
+   "problem": "For C above and x = [2; -1; 1], compute Cx both ways.",
+   "steps": [
+    "Using rows: 1·2 + 2·(-1) + (-1)·1 = -1; 0·2 + 3·(-1) + 2·1 = -1",
+    "Using columns: 2·[1; 0] + (-1)·[2; 3] + 1·[-1; 2] = [-1; -1]",
+    "Both methods give the same result: Cx = [-1; -1]"
+   ],
+   "result": "Cx = [-1; -1]"
+  },
+  "narr": [
+   "Now let's multiply matrix C by vector x using two different methods.",
+   "First, we can compute it as dot products of rows with the vector.",
+   "Second, we can use a linear combination of the columns.",
+   "Both approaches should give the same result, demonstrating the consistency of matrix operations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Matrix Multiplication Order",
+   "problem": "With A, B from problem 1 compute AB and BA. Are they equal?",
+   "steps": [
+    "Compute AB = [6, 3; 8, 7]",
+    "Compute BA = [8, 10; 0, 0]",
+    "AB ≠ BA, showing that matrix multiplication is not commutative"
+   ],
+   "result": "AB = [6, 3; 8, 7], BA = [8, 10; 0, 0], not equal"
+  },
+  "narr": [
+   "Matrix multiplication order matters.",
+   "When we multiply A by B, we get one result.",
+   "When we multiply B by A, we get a different result.",
+   "This demonstrates that matrix multiplication is not commutative - the order of multiplication affects the result."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Matrix Multiplication Dimensions",
+   "problem": "Let C = [1, 2, -1; 0, 3, 2], D = [2, 0; -1, 3; 2, 1]. Predict the sizes of CD and DC, then compute both.",
+   "steps": [
+    "CD: (2×3)(3×2) = 2×2",
+    "DC: (3×2)(2×3) = 3×3",
+    "Compute CD = [1, -4; 9, 1]",
+    "Compute DC = [2, 4, -2; 1, -1, -3; 3, 12, 1]"
+   ],
+   "result": "CD = [1, -4; 9, 1] (2×2), DC = [2, 4, -2; 1, -1, -3; 3, 12, 1] (3×3)"
+  },
+  "narr": [
+   "Let's examine how matrix dimensions affect multiplication.",
+   "For CD, we have a (2×3) matrix multiplied by a (3×2) matrix, resulting in a (2×2) matrix.",
+   "For DC, we have a (3×2) matrix multiplied by a (2×3) matrix, resulting in a (3×3) matrix.",
+   "Notice how the inner dimensions must match, but the outer dimensions determine the result size.",
+   "The actual products are different matrices, showing again that order matters."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Transformation Order",
+   "problem": "Let S = (shift), H = (stretch), x = [1; 1]. Compute HSx and SHx; describe each transformation.",
+   "steps": [
+    "Compute Sx = [1; 1; 0; 1]",
+    "Compute HSx = [2; 4; 2; 3]",
+    "Compute Hx = [2; 4; 2; 3]",
+    "Compute SHx = [0; 1; 0; 1; 1]",
+    "In HS, the shift comes after the stretch; in SH, the stretch happens first, then the shift"
+   ],
+   "result": "HSx = [2; 4; 2; 3], SHx = [0; 1; 0; 1; 1]"
+  },
+  "narr": [
+   "Now let's explore how the order of transformations affects the result.",
+   "First, we apply the shift transformation S to x, then apply the stretch H to the result.",
+   "Next, we reverse the order: first apply the stretch H to x, then apply the shift S.",
+   "As we can see, the order of transformations matters - we get different results.",
+   "This demonstrates that matrices don't commute, just like in our earlier example."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Inner and Outer Products",
+   "problem": "For u = [2; 0; -1], v = [2; 1; 0]: compute uᵀv and uvᵀ; check (uvᵀ)ᵀ = vuᵀ.",
+   "steps": [
+    "Compute inner product uᵀv = 2 + 0 + 0 = 2 (scalar)",
+    "Compute outer product uvᵀ = [4, 2, 0; 0, 0, 0; -2, -1, 0] (3×3)",
+    "Check (uvᵀ)ᵀ = [4, 0, -2; 2, 0, -1; 0, 0, 0]",
+    "Notice that (uvᵀ)ᵀ = vuᵀ"
+   ],
+   "result": "uᵀv = 2 (scalar), uvᵀ = [4, 2, 0; 0, 0, 0; -2, -1, 0] (3×3)"
+  },
+  "narr": [
+   "Let's distinguish between inner and outer products.",
+   "The inner product uᵀv results in a scalar - just a single number.",
+   "The outer product uvᵀ results in a matrix.",
+   "When we transpose the outer product, we get vuᵀ.",
+   "This shows an important property of outer products: their transpose reverses the order of multiplication."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Transpose of Product",
+   "problem": "Using A, B from problem 1, compute (AB)ᵀ and AᵀBᵀ independently; does AᵀBᵀ match?",
+   "steps": [
+    "From problem 1, AB = [6, 3; 8, 7]",
+    "Compute (AB)ᵀ = [6, 8; 3, 7]",
+    "Compute Aᵀ = [1, 3; -2, 0]",
+    "Compute Bᵀ = [2, -1; 1, 4]",
+    "Compute AᵀBᵀ = [4, -1; -4, 4]",
+    "Compare (AB)ᵀ and AᵀBᵀ - they are not equal"
+   ],
+   "result": "(AB)ᵀ = [6, 8; 3, 7], AᵀBᵀ = [4, -1; -4, 4], not equal"
+  },
+  "narr": [
+   "Finally, let's explore the transpose of a matrix product.",
+   "We know from our earlier formula that (AB)ᵀ should equal BᵀAᵀ.",
+   "Let's compute (AB)ᵀ directly from our previous result.",
+   "Now let's compute AᵀBᵀ.",
+   "As we can see, (AB)ᵀ is not equal to AᵀBᵀ.",
+   "This confirms our formula - the correct order is BᵀAᵀ, not AᵀBᵀ."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Week 3 Summary",
+   "items": [
+    "Matrix operations: addition, scalar multiplication, transpose",
+    "Matrix multiplication rules and properties",
+    "Determinants and their properties",
+    "Scalar triple product and volume calculations",
+    "Matrix transformation order matters",
+    "Transpose of a product reverses the order"
+   ]
+  },
+  "narr": [
+   "Let's recap what we've covered in week 3.",
+   "We explored matrix operations including addition, scalar multiplication, and transposition.",
+   "We examined matrix multiplication rules and important properties like associativity and distributivity.",
+   "We studied determinants and their various properties for different matrix operations.",
+   "We learned about the scalar triple product and how it relates to volume calculations.",
+   "We saw that the order of matrix transformations matters - they don't commute.",
+   "Finally, we confirmed that the transpose of a product reverses the order of multiplication."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

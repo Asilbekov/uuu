@@ -1,0 +1,329 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Course Map and How to Use This Document",
+   "subtitle": "Linear Algebra I — Weeks 1–4"
+  },
+  "narr": [
+   "This document is a complete standalone guide for the first four weeks of the Linear Algebra I course. It was compiled from various sources including weekly notes, lecture presentations, exercise sheets, assignments, and textbook sections.",
+   "The course content covers vectors, linear combinations and span, dot and cross products, matrices, matrix algebra, determinants, rank, and the inverse matrix.",
+   "Each problem is presented with a complete step-by-step solution to help with independent study and test preparation."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 1 — Vectors",
+   "subtitle": "Linear Algebra I"
+  },
+  "narr": [
+   "Week 1 introduces fundamental concepts of vectors in linear algebra. We'll cover vector operations, linear combinations, span, and linear independence."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Week 1 Formula Catalog",
+   "bullets": [
+    "Vectors are columns in R^n; all operations are componentwise",
+    "Linear combinations: c1v1 + · · · + cnvn",
+    "Span{v1, . . . , vn} = the set of all linear combinations",
+    "Linear independence: c1v1 + · · · + cnvn = 0 ⇒ c1 = · · · = cn = 0",
+    "Vector length: ∥x∥ = √(x1² + · · · + xn²)",
+    "Unit vector: ˆx = x/∥x∥"
+   ]
+  },
+  "narr": [
+   "Let's review the key formulas for Week 1. Vectors are treated as columns in R^n, and operations like addition and scalar multiplication are performed componentwise.",
+   "A linear combination is formed by scaling vectors and adding them together. The span of a set of vectors is all possible linear combinations of those vectors.",
+   "Vectors are linearly independent if the only solution to c1v1 + · · · + cnvn = 0 is when all coefficients are zero.",
+   "The length or norm of a vector is calculated using the Euclidean norm, and a unit vector has length 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Vector Operations",
+   "problem": "Given u = [-2, 3] and v = [-1, 5], compute u + v, u - v, 2u, -3v, 2u - 3v.",
+   "steps": [
+    "Component-wise addition: u + v = [-2 + (-1), 3 + 5] = [-3, 8]",
+    "Component-wise subtraction: u - v = [-2 - (-1), 3 - 5] = [-1, -2]",
+    "Scalar multiplication: 2u = [2 × (-2), 2 × 3] = [-4, 6]",
+    "Scalar multiplication: -3v = [-3 × (-1), -3 × 5] = [3, -15]",
+    "Combination: 2u - 3v = [-4 + 3, 6 + (-15)] = [-1, -9]"
+   ],
+   "result": "u + v = [-3, 8], u - v = [-1, -2], 2u = [-4, 6], -3v = [3, -15], 2u - 3v = [-1, -9]"
+  },
+  "narr": [
+   "Let's start with some basic vector operations. Given vectors u and v, we need to compute various combinations.",
+   "First, we add the vectors componentwise: u + v equals [-2 + (-1), 3 + 5], which gives us [-3, 8].",
+   "Next, we subtract the vectors componentwise: u - v equals [-2 - (-1), 3 - 5], which gives us [-1, -2].",
+   "For scalar multiplication, we multiply each component by the scalar: 2u equals [2 × (-2), 2 × 3], which is [-4, 6].",
+   "Similarly, -3v equals [-3 × (-1), -3 × 5], which is [3, -15].",
+   "Finally, we combine these results: 2u - 3v equals [-4 + 3, 6 + (-15)], which is [-1, -9]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Vector Combinations",
+   "problem": "Given a = [-1, 4] and b = [2, -2], find a + b, a - b, 3a + 2b.",
+   "steps": [
+    "Component-wise addition: a + b = [-1 + 2, 4 + (-2)] = [1, 2]",
+    "Component-wise subtraction: a - b = [-1 - 2, 4 - (-2)] = [-3, 6]",
+    "Linear combination: 3a + 2b = [3 × (-1) + 2 × 2, 3 × 4 + 2 × (-2)] = [1, 8]"
+   ],
+   "result": "a + b = [1, 2], a - b = [-3, 6], 3a + 2b = [1, 8]"
+  },
+  "narr": [
+   "Now let's practice more vector combinations with vectors a and b.",
+   "First, we add them componentwise: a + b equals [-1 + 2, 4 + (-2)], which is [1, 2].",
+   "Next, we subtract them componentwise: a - b equals [-1 - 2, 4 - (-2)], which is [-3, 6].",
+   "Finally, we compute the linear combination 3a + 2b: [3 × (-1) + 2 × 2, 3 × 4 + 2 × (-2)], which simplifies to [1, 8]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Solving for a Vector",
+   "problem": "Find x, if x + [2, -4, 1] = [7, 3, -2].",
+   "steps": [
+    "Subtract the known vector from both sides: x = [7, 3, -2] - [2, -4, 1]",
+    "Perform component-wise subtraction: x = [7 - 2, 3 - (-4), -2 - 1]",
+    "Calculate the result: x = [5, 7, -3]"
+   ],
+   "result": "x = [5, 7, -3]"
+  },
+  "narr": [
+   "Let's solve for an unknown vector x in this equation: x plus another vector equals a third vector.",
+   "To isolate x, we subtract the known vector from both sides of the equation.",
+   "This gives us x equals the difference between the two known vectors.",
+   "Performing component-wise subtraction: [7 - 2, 3 - (-4), -2 - 1] = [5, 7, -3].",
+   "So the solution is x = [5, 7, -3]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Solving Vector Equation",
+   "problem": "Find x, if 3x - 2u = v, where u = [-2, 1] and v = [8, 2].",
+   "steps": [
+    "Isolate the term with x: 3x = v + 2u",
+    "Substitute the given vectors: 3x = [8, 2] + 2[-2, 1] = [8, 2] + [-4, 2]",
+    "Perform vector addition: 3x = [8 - 4, 2 + 2] = [4, 4]",
+    "Solve for x by scalar division: x = [4/3, 4/3]"
+   ],
+   "result": "x = [4/3, 4/3]"
+  },
+  "narr": [
+   "Now let's solve a vector equation where x is multiplied by a scalar.",
+   "First, we isolate the term containing x by adding 2u to both sides.",
+   "Substituting the given vectors, we get 3x equals [8, 2] plus 2 times [-2, 1].",
+   "Performing the scalar multiplication and vector addition, we get 3x equals [4, 4].",
+   "Finally, we solve for x by dividing each component by 3, giving us x = [4/3, 4/3]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Vector Length",
+   "problem": "Compute the Euclidean length of the vectors u = [3, 4], v = [2, -3, 6], w = [0, 0, 0].",
+   "steps": [
+    "For u: ∥u∥ = √(3² + 4²) = √(9 + 16) = √25 = 5",
+    "For v: ∥v∥ = √(2² + (-3)² + 6²) = √(4 + 9 + 36) = √49 = 7",
+    "For w: ∥w∥ = √(0² + 0² + 0²) = √0 = 0"
+   ],
+   "result": "∥u∥ = 5, ∥v∥ = 7, ∥w∥ = 0"
+  },
+  "narr": [
+   "Let's compute the Euclidean length of several vectors.",
+   "For vector u = [3, 4], we calculate ∥u∥ = √(3² + 4²) = √(9 + 16) = √25 = 5.",
+   "For vector v = [2, -3, 6], we calculate ∥v∥ = √(2² + (-3)² + 6²) = √(4 + 9 + 36) = √49 = 7.",
+   "For the zero vector w = [0, 0, 0], we get ∥w∥ = √(0² + 0² + 0²) = √0 = 0, which makes sense as only the zero vector has length zero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Unit Vector",
+   "problem": "Find the unit vector in the same direction as v = [-4, 3], and verify that its length is 1.",
+   "steps": [
+    "Calculate the length of v: ∥v∥ = √((-4)² + 3²) = √(16 + 9) = √25 = 5",
+    "Compute the unit vector: ˆv = v/∥v∥ = [-4/5, 3/5]",
+    "Verify the length: ∥ˆv∥ = √((-4/5)² + (3/5)²) = √(16/25 + 9/25) = √(25/25) = √1 = 1"
+   ],
+   "result": "Unit vector: [-4/5, 3/5]"
+  },
+  "narr": [
+   "A unit vector has length 1 and points in the same direction as the original vector.",
+   "First, we calculate the length of v: ∥v∥ = √((-4)² + 3²) = √(16 + 9) = √25 = 5.",
+   "To get the unit vector, we divide v by its length: ˆv = v/5 = [-4/5, 3/5].",
+   "Finally, we verify that this vector has length 1: ∥ˆv∥ = √((-4/5)² + (3/5)²) = √(16/25 + 9/25) = √(25/25) = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Vector of Specific Length",
+   "problem": "Find the vector of length 10 in the same direction as v = [3, -8].",
+   "steps": [
+    "Calculate the length of v: ∥v∥ = √(3² + (-8)²) = √(9 + 64) = √73",
+    "Scale v by the factor 10/∥v∥: (10/√73) × [3, -8] = [30/√73, -80/√73]",
+    "Verify the length: ∥(10/√73) × v∥ = (10/√73) × ∥v∥ = (10/√73) × √73 = 10"
+   ],
+   "result": "Vector: [30/√73, -80/√73]"
+  },
+  "narr": [
+   "Now let's find a vector with a specific length in the same direction as a given vector.",
+   "First, we calculate the length of v: ∥v∥ = √(3² + (-8)²) = √(9 + 64) = √73.",
+   "To get a vector of length 10 in the same direction, we scale v by 10/∥v∥: (10/√73) × [3, -8] = [30/√73, -80/√73].",
+   "We can verify that this vector has length 10: ∥(10/√73) × v∥ = (10/√73) × ∥v∥ = (10/√73) × √73 = 10."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Distance Between Points",
+   "problem": "Using vector subtraction and length, find the distance between P = (1, -2, 3) and Q = (5, 1, -3).",
+   "steps": [
+    "Form the vector PQ = Q - P = [5 - 1, 1 - (-2), -3 - 3] = [4, 3, -6]",
+    "Calculate the length of PQ: ∥PQ∥ = √(4² + 3² + (-6)²) = √(16 + 9 + 36) = √61"
+   ],
+   "result": "Distance = √61"
+  },
+  "narr": [
+   "The distance between two points in space can be found using vector subtraction and the norm.",
+   "First, we form the vector from P to Q by subtracting P from Q: PQ = Q - P = [5 - 1, 1 - (-2), -3 - 3] = [4, 3, -6].",
+   "Then, we calculate the length of this vector: ∥PQ∥ = √(4² + 3² + (-6)²) = √(16 + 9 + 36) = √61.",
+   "So the distance between points P and Q is √61 units."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Vector Combinations",
+   "problem": "Let v1 = [1, 2, 3] and v2 = [2, 3, 4]. Compute 2v1 + v2, -v1 + 3v2, 4v1 - 2v2, 0v1 + 5v2.",
+   "steps": [
+    "2v1 + v2 = 2[1, 2, 3] + [2, 3, 4] = [2, 4, 6] + [2, 3, 4] = [4, 7, 10]",
+    "-v1 + 3v2 = -[1, 2, 3] + 3[2, 3, 4] = [-1, -2, -3] + [6, 9, 12] = [5, 7, 9]",
+    "4v1 - 2v2 = 4[1, 2, 3] - 2[2, 3, 4] = [4, 8, 12] - [4, 6, 8] = [0, 2, 4]",
+    "0v1 + 5v2 = 0[1, 2, 3] + 5[2, 3, 4] = [0, 0, 0] + [10, 15, 20] = [10, 15, 20]"
+   ],
+   "result": "2v1 + v2 = [4, 7, 10], -v1 + 3v2 = [5, 7, 9], 4v1 - 2v2 = [0, 2, 4], 0v1 + 5v2 = [10, 15, 20]"
+  },
+  "narr": [
+   "Let's practice more vector combinations with vectors v1 and v2.",
+   "First, we compute 2v1 + v2: 2 times [1, 2, 3] plus [2, 3, 4] equals [2, 4, 6] + [2, 3, 4] = [4, 7, 10].",
+   "Next, -v1 + 3v2: negative [1, 2, 3] plus 3 times [2, 3, 4] equals [-1, -2, -3] + [6, 9, 12] = [5, 7, 9].",
+   "Then, 4v1 - 2v2: 4 times [1, 2, 3] minus 2 times [2, 3, 4] equals [4, 8, 12] - [4, 6, 8] = [0, 2, 4].",
+   "Finally, 0v1 + 5v2: 0 times [1, 2, 3] plus 5 times [2, 3, 4] equals [0, 0, 0] + [10, 15, 20] = [10, 15, 20]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Solving for Coefficients",
+   "problem": "Find c1, c2 such that c1v1 + c2v2 = [1, 2], where v1 = [1, 1] and v2 = [-1, 2]. Check by substitution.",
+   "steps": [
+    "Set up the system of equations: c1 - c2 = 1 and c1 + 2c2 = 2",
+    "Subtract the first equation from the second: (c1 + 2c2) - (c1 - c2) = 2 - 1",
+    "Simplify: 3c2 = 1, so c2 = 1/3",
+    "Substitute back: c1 - (1/3) = 1, so c1 = 4/3",
+    "Verify: (4/3)[1, 1] + (1/3)[-1, 2] = [4/3, 4/3] + [-1/3, 2/3] = [1, 2]"
+   ],
+   "result": "c1 = 4/3, c2 = 1/3"
+  },
+  "narr": [
+   "Now let's solve for the coefficients in a linear combination.",
+   "We need to find c1 and c2 such that c1v1 + c2v2 equals [1, 2], where v1 = [1, 1] and v2 = [-1, 2].",
+   "This gives us a system of equations: c1 - c2 = 1 and c1 + 2c2 = 2.",
+   "Subtracting the first equation from the second: (c1 + 2c2) - (c1 - c2) = 2 - 1, which simplifies to 3c2 = 1, so c2 = 1/3.",
+   "Substituting back: c1 - (1/3) = 1, so c1 = 4/3.",
+   "We verify by substitution: (4/3)[1, 1] + (1/3)[-1, 2] = [4/3, 4/3] + [-1/3, 2/3] = [1, 2], which matches our target vector."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

@@ -1,0 +1,451 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this video, we'll explore polynomial behavior, piecewise functions, inverse functions, exponential growth and decay, and more from the Math I course.",
+   "Let's start by examining the behavior of polynomials."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Polynomial Behavior",
+   "bullets": [
+    "As x approaches positive infinity, p(x) approaches positive infinity",
+    "As x approaches negative infinity, p(x) approaches negative infinity",
+    "Polynomials are defined everywhere with no points of discontinuity"
+   ]
+  },
+  "narr": [
+   "Consider a polynomial function. Its end behavior depends on the leading term.",
+   "As x approaches positive infinity, p(x) approaches positive infinity.",
+   "As x approaches negative infinity, p(x) approaches negative infinity.",
+   "Polynomials are continuous everywhere, meaning they have no points of discontinuity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Electricity Cost Function",
+   "problem": "An electricity supplier charges C(E) = 0.10E for 0 ≤ E ≤ 200 and C(E) = 20 + 0.15(E − 200) for E > 200, in kWh.",
+   "steps": [
+    "Find C(150), C(200), C(350)",
+    "Graph the function",
+    "Determine if the model is continuous at E = 200",
+    "Explain the meaning of each slope",
+    "Identify one limitation of this model"
+   ],
+   "result": "C(150) = 15; C(200) = 20; C(350) = 42.5 (all in $). The function is piecewise linear with slopes 0.10 and 0.15. It is continuous at E = 200. The slopes represent marginal prices. Limitation: price jump at 200 kWh incentivizes consumers to stop just below the threshold."
+  },
+  "narr": [
+   "Let's examine a piecewise function modeling electricity costs.",
+   "First, we need to calculate the cost at three different consumption levels.",
+   "For 150 kWh, we use the first formula: C(150) = 0.10 × 150 = 15 dollars.",
+   "For 200 kWh, both formulas give the same result: C(200) = 0.10 × 200 = 20 dollars.",
+   "For 350 kWh, we use the second formula: C(350) = 20 + 0.15 × (350 - 200) = 42.5 dollars.",
+   "Next, let's visualize this function. It has two linear pieces with different slopes.",
+   "The first piece has a slope of 0.10 up to 200 kWh, and the second piece has a slope of 0.15 beyond that.",
+   "The graph has a corner at the point (200, 20).",
+   "Now, we need to determine if the function is continuous at E = 200.",
+   "Since both formulas give 20 at E = 200, the pieces connect without a jump, so yes, it is continuous.",
+   "The slopes represent marginal prices: 0.10$/kWh for the first 200 kWh and 0.15$/kWh beyond.",
+   "Finally, one limitation of this model is that the price jump exactly at 200 kWh incentivizes consumers to stop just below the threshold. Real tariffs typically change more smoothly or in blocks."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   2,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Inverse Function",
+   "problem": "Find the inverse of f(x) = 4x - 7 and specify the domains; verify f(f⁻¹(x)) = x.",
+   "steps": [
+    "Set y = f(x) and solve for x",
+    "Express the inverse function",
+    "Specify domain and range",
+    "Verify f(f⁻¹(x)) = x"
+   ],
+   "result": "f⁻¹(x) = (x + 7)/4 with domain R and range R. Verification: f(f⁻¹(x)) = 4 × (x + 7)/4 - 7 = x."
+  },
+  "narr": [
+   "Now let's find the inverse of a linear function.",
+   "Start by setting y = f(x), so y = 4x - 7.",
+   "To find the inverse, solve for x in terms of y.",
+   "Adding 7 to both sides gives y + 7 = 4x.",
+   "Dividing by 4, we get x = (y + 7)/4.",
+   "Therefore, the inverse function is f⁻¹(x) = (x + 7)/4.",
+   "The domain and range are both all real numbers.",
+   "To verify, we compose f and f⁻¹: f(f⁻¹(x)) = 4 × (x + 7)/4 - 7 = x + 7 - 7 = x.",
+   "Both functions are lines, and their graphs are symmetric about y = x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Exponential Models",
+   "problem": "For each model, determine growth/decay and specify the initial value and growth/decay rate: A(t) = 500(1.08)^t, B(t) = 1200(0.85)^t, C(t) = 40e^(0.03t), D(t) = 200e^(-0.4t).",
+   "steps": [
+    "Analyze each function for growth or decay",
+    "Identify initial values",
+    "Determine growth/decay rates"
+   ],
+   "result": "A: growth, initial 500, rate 1.08 (+8% per period). B: decay, initial 1200, rate 0.85 (-15%). C: growth, initial 40, continuous rate k = 0.03. D: decay, initial 200, continuous rate k = -0.4."
+  },
+  "narr": [
+   "Let's analyze several exponential models to determine if they represent growth or decay.",
+   "For A(t) = 500(1.08)^t, since the base 1.08 > 1, this represents growth.",
+   "The initial value is 500, and the growth rate is 1.08, which corresponds to an 8% increase per period.",
+   "For B(t) = 1200(0.85)^t, since the base 0.85 < 1, this represents decay.",
+   "The initial value is 1200, and the decay rate is 0.85, which corresponds to a 15% decrease per period.",
+   "For C(t) = 40e^(0.03t), since the coefficient of t is positive, this represents growth.",
+   "The initial value is 40, and the continuous growth rate is k = 0.03.",
+   "For D(t) = 200e^(-0.4t), since the coefficient of t is negative, this represents decay.",
+   "The initial value is 200, and the continuous decay rate is k = -0.4.",
+   "In general, the sign of k in e^(kt) or whether a > 1 in a^t determines the direction of growth or decay."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Exponential Equation",
+   "problem": "Solve 2^(x+1) = 16.",
+   "steps": [
+    "Express both sides with the same base",
+    "Set exponents equal",
+    "Solve for x"
+   ],
+   "result": "x = 3"
+  },
+  "narr": [
+   "Now let's solve an exponential equation: 2^(x+1) = 16.",
+   "First, express both sides with the same base.",
+   "We know that 16 = 2^4, so the equation becomes 2^(x+1) = 2^4.",
+   "When the bases are equal, we can set the exponents equal: x + 1 = 4.",
+   "Solving for x gives x = 3.",
+   "Alternatively, we could take log₂ of both sides to reach the same solution."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Battery Discharge",
+   "problem": "Battery discharge: E(t) = E₀e^(-0.025t), t in hours. (1) Fraction of remaining energy after 10h? (2) When does 50% remain? (3) When does 10% remain? (4) Why is exactly zero unreachable?",
+   "steps": [
+    "Calculate E(10)/E₀",
+    "Solve for t when E(t)/E₀ = 0.5",
+    "Solve for t when E(t)/E₀ = 0.1",
+    "Explain why E(t) never reaches zero"
+   ],
+   "result": "(1) e^(-0.25) ≈ 0.7788 (about 77.9%). (2) t ≈ 27.7h. (3) t ≈ 92h. (4) The exponential is strictly positive for any finite t; it approaches zero only as t → ∞."
+  },
+  "narr": [
+   "Let's model battery discharge with the exponential function E(t) = E₀e^(-0.025t).",
+   "First, we want to find the fraction of remaining energy after 10 hours.",
+   "This is E(10)/E₀ = e^(-0.025×10) = e^(-0.25) ≈ 0.7788, or about 77.9%.",
+   "Next, we want to find when 50% of the energy remains.",
+   "Set E(t)/E₀ = 0.5, so e^(-0.025t) = 0.5.",
+   "Taking the natural logarithm of both sides gives -0.025t = ln(0.5) = -ln(2).",
+   "Solving for t, we get t = ln(2)/0.025 ≈ 27.7 hours.",
+   "For 10% remaining, set E(t)/E₀ = 0.1.",
+   "So e^(-0.025t) = 0.1, and -0.025t = ln(0.1) = -ln(10).",
+   "Thus, t = ln(10)/0.025 ≈ 92 hours.",
+   "Finally, why is exactly zero energy unreachable?",
+   "The exponential function e^(-0.025t) is always positive for any finite t.",
+   "It only approaches zero as t approaches infinity, which is our first introduction to limits."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   2,
+   2,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Population Growth",
+   "problem": "Population growth: P(t) = 800e^(0.35t), t in hours. (1) Initial population? (2) After 5h? (3) Doubling time? (4) Can the model remain realistic indefinitely?",
+   "steps": [
+    "Find P(0)",
+    "Calculate P(5)",
+    "Find doubling time T",
+    "Evaluate model realism"
+   ],
+   "result": "(1) P(0) = 800. (2) P(5) ≈ 4603. (3) T ≈ 1.98h. (4) No: exponential growth ignores resource limitations."
+  },
+  "narr": [
+   "Now let's model population growth with P(t) = 800e^(0.35t).",
+   "First, the initial population is P(0) = 800e^0 = 800.",
+   "After 5 hours, P(5) = 800e^(0.35×5) = 800e^(1.75) ≈ 800 × 5.755 ≈ 4603.",
+   "For the doubling time, we set P(t) = 2P(0), so 800e^(0.35t) = 2×800.",
+   "Dividing both sides by 800 gives e^(0.35t) = 2.",
+   "Taking the natural logarithm: 0.35t = ln(2).",
+   "Thus, t = ln(2)/0.35 ≈ 1.98 hours.",
+   "Can this model remain realistic indefinitely?",
+   "No, exponential growth ignores nutrient depletion and space limitations.",
+   "Realistically, the model only works near the start of the population growth."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Math I: Week 2 homework problems",
+   "subtitle": "Complete solutions"
+  },
+  "narr": [
+   "Now let's work through some homework problems from Week 2.",
+   "We'll start with function identification and then explore domains, ranges, and function operations."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Function Identification",
+   "problem": "Determine whether each relation defines y as a function of x: a. y = 3x - 2; b. x² + y² = 9; c. y² = x + 1; d. x = y³ - 2.",
+   "steps": [
+    "Check if each relation passes the vertical line test",
+    "Analyze each case individually"
+   ],
+   "result": "a. Function. b. Not a function (circle: two y for each x). c. Not a function (two values for x > -1). d. Function (cube root is unique for each real y)."
+  },
+  "narr": [
+   "Let's determine which relations define y as a function of x.",
+   "For relation a: y = 3x - 2. This is a linear equation, so it passes the vertical line test and is a function.",
+   "For relation b: x² + y² = 9. This is a circle equation. For each x between -3 and 3 (except endpoints), there are two y values, so it's not a function.",
+   "For relation c: y² = x + 1. This gives y = ±√(x + 1), so for x > -1, there are two y values, making it not a function.",
+   "For relation d: x = y³ - 2. Solving for y gives y = ∛(x + 2). The cube root is unique for each real y, so it is a function, though it doesn't pass the horizontal line test."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Function Evaluation",
+   "problem": "For f(x) = 2x² - 3x + 1, calculate f(0), f(-2), f(a), f(a + h), [f(a + h) - f(a)]/h.",
+   "steps": [
+    "Evaluate at specific points",
+    "Evaluate at variable points",
+    "Calculate the difference quotient"
+   ],
+   "result": "f(0) = 1; f(-2) = 15; f(a) = 2a² - 3a + 1; f(a + h) = 2a² + 4ah + 2h² - 3a - 3h + 1; difference quotient = 4a + 2h - 3."
+  },
+  "narr": [
+   "Now let's evaluate a quadratic function at various points.",
+   "First, f(0) = 2(0)² - 3(0) + 1 = 1.",
+   "Next, f(-2) = 2(-2)² - 3(-2) + 1 = 2(4) + 6 + 1 = 15.",
+   "For f(a), we substitute x with a: f(a) = 2a² - 3a + 1.",
+   "For f(a + h), we substitute x with (a + h): f(a + h) = 2(a + h)² - 3(a + h) + 1 = 2(a² + 2ah + h²) - 3a - 3h + 1 = 2a² + 4ah + 2h² - 3a - 3h + 1.",
+   "Finally, the difference quotient is [f(a + h) - f(a)]/h = [4ah + 2h² - 3h]/h = 4a + 2h - 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Natural Domain",
+   "problem": "Find the natural domain: a. f(x) = √(x - 1); b. g(x) = √(5 - 2x); c. h(x) = √(x - 1)/(x - 4); d. p(x) = √((x + 2)/(x - 1)).",
+   "steps": [
+    "Determine where expressions under square roots are non-negative",
+    "Exclude points where denominators are zero"
+   ],
+   "result": "a. [1, ∞). b. (-∞, 5/2]. c. [1, 4) ∪ (4, ∞). d. (-∞, -2] ∪ (1, ∞)."
+  },
+  "narr": [
+   "Let's find the natural domain of several functions.",
+   "For a. f(x) = √(x - 1), the expression under the square root must be non-negative: x - 1 ≥ 0, so x ≥ 1. The domain is [1, ∞).",
+   "For b. g(x) = √(5 - 2x), we need 5 - 2x ≥ 0, so x ≤ 5/2. The domain is (-∞, 5/2].",
+   "For c. h(x) = √(x - 1)/(x - 4), we need both √(x - 1) defined and the denominator non-zero.",
+   "So x - 1 ≥ 0 and x ≠ 4, giving [1, 4) ∪ (4, ∞).",
+   "For d. p(x) = √((x + 2)/(x - 1)), we need the fraction non-negative and the denominator non-zero.",
+   "The critical points are -2 and 1. Testing intervals, the fraction is non-negative on (-∞, -2] ∪ (1, ∞)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Function Range",
+   "problem": "Find the range: f(x) = x² + 2, g(x) = -|x - 1| + 4, h(x) = √(x + 3) - 2.",
+   "steps": [
+    "Determine the minimum/maximum values of each function",
+    "Consider the behavior of each function type"
+   ],
+   "result": "f: [2, ∞). g: (-∞, 4]. h: [-2, ∞)."
+  },
+  "narr": [
+   "Now let's find the range of three different functions.",
+   "For f(x) = x² + 2, since x² ≥ 0 for all x, f(x) ≥ 2. As x approaches ±∞, f(x) approaches ∞. So the range is [2, ∞).",
+   "For g(x) = -|x - 1| + 4, the absolute value |x - 1| ≥ 0, so -|x - 1| ≤ 0. Thus g(x) ≤ 4. As x approaches ±∞, g(x) approaches -∞. The range is (-∞, 4].",
+   "For h(x) = √(x + 3) - 2, the square root √(x + 3) ≥ 0, so h(x) ≥ -2. As x approaches ∞, h(x) approaches ∞. The range is [-2, ∞)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Function Operations",
+   "problem": "Let f(x) = x² - 1, g(x) = √(x + 2). Find f + g, f - g, fg, f/g and each new domain.",
+   "steps": [
+    "Perform each operation algebraically",
+    "Determine the domain for each resulting function"
+   ],
+   "result": "(f + g)(x) = x² + √(x + 1); (f - g)(x) = x² - √(x + 1); (fg)(x) = (x² - 1)√(x + 2); (f/g)(x) = (x² - 1)/√(x + 2). Domains: f + g, f - g, fg: [-2, ∞); f/g: (-2, ∞)."
+  },
+  "narr": [
+   "Let's perform operations on two functions: f(x) = x² - 1 and g(x) = √(x + 2).",
+   "For (f + g)(x), we add the functions: (f + g)(x) = f(x) + g(x) = x² - 1 + √(x + 2).",
+   "For (f - g)(x), we subtract: (f - g)(x) = f(x) - g(x) = x² - 1 - √(x + 2).",
+   "For (fg)(x), we multiply: (fg)(x) = f(x) × g(x) = (x² - 1)√(x + 2).",
+   "For (f/g)(x), we divide: (f/g)(x) = f(x)/g(x) = (x² - 1)/√(x + 2).",
+   "Now, let's determine the domains.",
+   "For f + g, f - g, and fg, we need both functions defined, so x ≥ -2 (intersection of ℝ and [-2, ∞)), giving [-2, ∞).",
+   "For f/g, we additionally need g(x) ≠ 0, so √(x + 2) ≠ 0, which means x ≠ -2. The domain is (-2, ∞)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Function Composition",
+   "problem": "Let f(x) = 2x - 3, g(x) = x² + 1. Find (f◦g)(x), (g◦f)(x), (f◦f)(x), (g◦g)(x).",
+   "steps": [
+    "Compute each composition by substituting one function into another",
+    "Simplify the resulting expressions"
+   ],
+   "result": "(f◦g)(x) = 2(x² + 1) - 3 = 2x² - 1; (g◦f)(x) = (2x - 3)² + 1 = 4x² - 12x + 10; (f◦f)(x) = 2(2x - 3) - 3 = 4x - 9; (g◦g)(x) = (x² + 1)² + 1 = x⁴ + 2x² + 2."
+  },
+  "narr": [
+   "Finally, let's explore function composition with f(x) = 2x - 3 and g(x) = x² + 1.",
+   "For (f◦g)(x), we substitute g(x) into f: f(g(x)) = 2(g(x)) - 3 = 2(x² + 1) - 3 = 2x² - 1.",
+   "For (g◦f)(x), we substitute f(x) into g: g(f(x)) = (f(x))² + 1 = (2x - 3)² + 1 = 4x² - 12x + 10.",
+   "For (f◦f)(x), we substitute f(x) into itself: f(f(x)) = 2(f(x)) - 3 = 2(2x - 3) - 3 = 4x - 9.",
+   "For (g◦g)(x), we substitute g(x) into itself: g(g(x)) = (g(x))² + 1 = (x² + 1)² + 1 = x⁴ + 2x² + 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ }
+]

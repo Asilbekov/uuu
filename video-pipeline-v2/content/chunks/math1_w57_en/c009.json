@@ -1,0 +1,390 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Let's dive into our calculus journey, exploring the fascinating world of derivatives and their applications. We'll start by examining differentiability, continuity, and various special cases in functions.",
+   "First, let's look at a derivative problem involving the function f(x) = 1/x."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Derivative of 1/x",
+   "problem": "Find the derivative of f(x) = 1/x.",
+   "steps": [
+    "For x ≠ 0: f'(x) = lim h→0 (1/(x + h) - 1/x)/h",
+    "Simplify the expression: lim h→0 [(x - (x + h))/(x(x + h))]/h",
+    "Further simplification: lim h→0 (-1)/(x(x + h))",
+    "Final result: f'(x) = -1/x²"
+   ],
+   "result": "f'(x) = -1/x²"
+  },
+  "narr": [
+   "Let's find the derivative of f(x) = 1/x using the limit definition.",
+   "We start with the difference quotient: (1/(x + h) - 1/x)/h.",
+   "Simplifying the numerator gives us (x - (x + h))/(x(x + h)).",
+   "Dividing by h, we get -1/(x(x + h)).",
+   "Taking the limit as h approaches 0, we obtain -1/x²."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1b — Tangent Line",
+   "problem": "Find the tangent line to f(x) = 1/x at x = 2.",
+   "steps": [
+    "Point of tangency: f(2) = 1/2",
+    "Slope: f'(2) = -1/4",
+    "Equation: y - 1/2 = -(1/4)(x - 2)",
+    "Simplified: y = 1 - x/4"
+   ],
+   "result": "y = 1 - x/4"
+  },
+  "narr": [
+   "Now, let's find the tangent line to this function at x = 2.",
+   "First, we find the point of tangency: f(2) = 1/2.",
+   "The slope of the tangent is given by the derivative at that point: f'(2) = -1/4.",
+   "Using point-slope form, we get y - 1/2 = -(1/4)(x - 2).",
+   "Simplifying, we find the equation of the tangent line is y = 1 - x/4."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1c — Interpretation",
+   "problem": "Interpret the slope of f(x) = 1/x at x = 2.",
+   "steps": [
+    "The slope is negative: -1/4 < 0",
+    "This means the function is decreasing at x = 2",
+    "As x increases, the function values decrease"
+   ],
+   "result": "The graph of 1/x near x = 2 is decreasing"
+  },
+  "narr": [
+   "What does this negative slope tell us about the function?",
+   "The slope is negative (-1/4 < 0), which means the function is decreasing at x = 2.",
+   "As x increases, the function values decrease in this region."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Absolute Value Function",
+   "problem": "Let f(x) = |x|. (a) Show that f is continuous at zero. (b) Using difference quotients, find f'_-(0) and f'_+(0). (c) Explain why f'(0) does not exist. (d) Sketch the graph and indicate the corner point.",
+   "steps": [
+    "(a) lim x→0 |x| = 0 = f(0) — f is continuous at zero.",
+    "(b) Difference quotient: (f(h) - f(0))/(h - 0) = |h|/h = -1 for h < 0 and 1 for h > 0",
+    "Therefore, f'_-(0) = -1, f'_+(0) = 1",
+    "(c) The one-sided derivatives are different (-1 ≠ 1) — the two-sided limit does not exist",
+    "(d) The graph is a V-shaped broken line; a corner (kink) at the vertex (0, 0)"
+   ],
+   "result": "f is continuous but not differentiable at x = 0"
+  },
+  "narr": [
+   "Let's examine the absolute value function f(x) = |x|.",
+   "First, we show it's continuous at zero: lim x→0 |x| = 0 = f(0).",
+   "Now, let's find the one-sided derivatives using difference quotients.",
+   "For h < 0, the difference quotient is -1, and for h > 0, it's 1.",
+   "So f'_-(0) = -1 and f'_+(0) = 1.",
+   "Since these one-sided derivatives are different, f'(0) does not exist.",
+   "The graph has a V-shape with a corner at (0, 0)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Branch Junction",
+   "problem": "Consider f(x) = {x², if x ≤ 1; 2x - 1, if x > 1}. (a) Is f continuous at x = 1? (b) Calculate the left-hand and right-hand derivatives at x = 1. (c) Is f differentiable there? (d) Find the tangent at the junction point, if it exists.",
+   "steps": [
+    "(a) f(1) = 1; lim x→1⁻ f(x) = 1; lim x→1⁺ f(x) = 2·1 - 1 = 1 — all three quantities are equal, f is continuous at 1.",
+    "(b) f'_-(1) = (x²)'|x=1 = 2; f'_+(1) = (2x - 1)'|x=1 = 2.",
+    "(c) The one-sided derivatives exist, are finite, and are equal: f is differentiable at 1, f'(1) = 2.",
+    "(d) Tangent through (1, 1) with slope 2: y = 2x - 1. Note: the right branch itself is this tangent, so the junction is smooth."
+   ],
+   "result": "f is continuous and differentiable at x = 1 with tangent y = 2x - 1"
+  },
+  "narr": [
+   "Now, let's examine a piecewise function with a junction at x = 1.",
+   "First, we check continuity: f(1) = 1, and both one-sided limits equal 1, so it's continuous.",
+   "Next, we find the one-sided derivatives: both are 2.",
+   "Since the one-sided derivatives are equal, the function is differentiable at x = 1.",
+   "The tangent line is y = 2x - 1, which coincides with the right branch, making the junction smooth."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — True or False",
+   "problem": "Determine whether each statement is true or false with justification. (a) If f is differentiable at a, then f is continuous at a. (b) If f is continuous at a, then f is differentiable at a. (c) If f'(a) = 0, then f must be a constant. (d) If both one-sided derivatives exist and are finite, then f'(a) exists. (e) A function can have a vertical tangent at a point where it is continuous. (f) A corner can occur where two smooth pieces of the graph meet.",
+   "steps": [
+    "(a) True: Theorem 3.1 'differentiability implies continuity'.",
+    "(b) False: counterexample — |x| at zero: continuous, but f'(0) does not exist.",
+    "(c) False: counterexample — x²: f'(0) = 0, but the function is not constant.",
+    "(d) False: the one-sided derivatives must also coincide; for |x| at zero, both are finite (-1 and 1), but f'(0) does not exist.",
+    "(e) True: x^(1/3) is continuous at zero and has a vertical tangent there.",
+    "(f) True: two smooth pieces can meet with different slopes — like the rays y = -x and y = x for the function |x|."
+   ],
+   "result": "(a) True, (b) False, (c) False, (d) False, (e) True, (f) True"
+  },
+  "narr": [
+   "Let's test our understanding with some true or false questions.",
+   "First, differentiability implies continuity - this is true, as stated in Theorem 3.1.",
+   "However, the converse is false - the absolute value function is continuous but not differentiable at zero.",
+   "Having a derivative of zero at a point doesn't make the function constant - consider x² at zero.",
+   "For a derivative to exist, the one-sided derivatives must not only be finite but also equal.",
+   "A function can have a vertical tangent and still be continuous, like x^(1/3) at zero.",
+   "Finally, corners can occur where smooth pieces meet with different slopes, as in |x|."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Four Cases at Zero",
+   "problem": "For each function, determine whether it is continuous and differentiable at zero; indicate a corner, cusp, or vertical tangent: (a) f(x) = x²; (b) g(x) = |x|; (c) p(x) = |x|^(2/3); (d) q(x) = x^(1/3).",
+   "steps": [
+    "(a) x² is continuous; (h² - 0)/h = h → 0, therefore f'(0) = 0 — horizontal tangent.",
+    "(b) |x| is continuous; f'_-(0) = -1, f'_+(0) = 1 — kink, derivative does not exist.",
+    "(c) |x|^(2/3) is continuous; |h|^(2/3)/h → -∞ from the left and +∞ from the right — cusp: no finite derivative.",
+    "(d) x^(1/3) is continuous; (h^(1/3) - 0)/h = 1/h^(2/3) → +∞ from both sides — vertical tangent; no (finite) derivative."
+   ],
+   "result": "All four functions are continuous at zero, derivative exists only for x²"
+  },
+  "narr": [
+   "Let's examine four different functions at x = 0 to understand various behaviors.",
+   "First, f(x) = x² is continuous with a horizontal tangent at zero.",
+   "Second, g(x) = |x| is continuous but has a corner (kink) at zero.",
+   "Third, p(x) = |x|^(2/3) has a cusp at zero with infinite slopes from both sides.",
+   "Fourth, q(x) = x^(1/3) has a vertical tangent at zero with infinite slope.",
+   "Interestingly, all four functions are continuous at zero, but only x² is differentiable there."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — The Function x · |x|",
+   "problem": "Let f(x) = x · |x|. (a) Write f piecewise. (b) Find f'(0) by definition. (c) Find f'(x) for x ≠ 0. (d) Is f' continuous at zero? (e) Does f''(0) exist? Explain using one-sided limits.",
+   "steps": [
+    "(a) f(x) = {-x², if x < 0; x², if x ≥ 0}.",
+    "(b) f'(0) = lim h→0 (h · |h| - 0)/h = lim h→0 |h| = 0.",
+    "(c) For x ≠ 0: f'(x) = -2x for x < 0 and 2x for x > 0; together f'(x) = 2|x|.",
+    "(d) 2|x| → 0 = f'(0) as x → 0 — f' is continuous at zero.",
+    "(e) (f'(h) - f'(0))/h = 2|h|/h → -2 from the left and +2 from the right; the one-sided limits are different, therefore f''(0) does not exist."
+   ],
+   "result": "f is differentiable everywhere, but f''(0) does not exist"
+  },
+  "narr": [
+   "Now, let's examine the function f(x) = x · |x|.",
+   "First, we express it piecewise: f(x) = -x² for x < 0 and x² for x ≥ 0.",
+   "Using the definition, we find f'(0) = 0.",
+   "For x ≠ 0, f'(x) = -2x for x < 0 and 2x for x > 0, which simplifies to f'(x) = 2|x|.",
+   "The derivative f' is continuous at zero since 2|x| approaches 0 as x approaches 0.",
+   "However, the second derivative doesn't exist at zero because the one-sided limits of the difference quotient are different (-2 and +2)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Removable 'Hole'",
+   "problem": "Consider f(x) = (x² - 4)/(x - 2), x ≠ 2. (a) Simplify the expression while preserving the domain restriction. (b) Find f'(x) on its domain. (c) Does the original function have a derivative at point 2? (d) Define an extension at point 2 that will be differentiable.",
+   "steps": [
+    "(a) For x ≠ 2: f(x) = ((x - 2)(x + 2))/(x - 2) = x + 2 — point x = 2 is still excluded.",
+    "(b) f'(x) = 1 for x ≠ 2.",
+    "(c) The original function is not defined at point 2, therefore it has no derivative at point 2.",
+    "(d) Extend f̃(2) = 4 = lim x→2 f(x); then f̃(x) = x + 2 for all x and f̃'(2) = 1 — the extension removed the 'hole' and made the function differentiable."
+   ],
+   "result": "The extension f̃(x) = x + 2 is differentiable everywhere"
+  },
+  "narr": [
+   "Let's explore a function with a removable discontinuity.",
+   "First, we simplify f(x) = (x² - 4)/(x - 2) to x + 2, but still exclude x = 2.",
+   "The derivative is simply 1 for all x ≠ 2.",
+   "The original function isn't defined at x = 2, so it can't have a derivative there.",
+   "However, if we extend the function by defining f(2) = 4, we get a differentiable function everywhere."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Correcting Common Mistakes",
+   "problem": "A student writes: (a) d/dx(x² · x³) = (2x)(3x²) = 6x³; (b) d/dx((x² + 1)/(x + 1)) = 2x/1; (c) d/dx(7x³ + 5) = 21x² + 5. For each statement, indicate the error, give the correct derivative, and name the corresponding rule.",
+   "steps": [
+    "(a) Error: the derivative of a product is not the product of derivatives. Correctly (product rule): d/dx(x² · x³) = (2x) · x³ + x² · (3x²) = 5x⁴.",
+    "(b) Error: the derivative of a quotient is not the quotient of derivatives. Correctly (quotient rule): d/dx((x²+1)/(x+1)) = (2x(x+1) - (x²+1))/(x+1)² = (x² + 2x - 1)/(x + 1)², x ≠ -1.",
+    "(c) Error: the derivative of a constant is zero. Correctly: d/dx(7x³ + 5) = 21x²."
+   ],
+   "result": "(a) 5x⁴ (product rule), (b) (x² + 2x - 1)/(x + 1)² (quotient rule), (c) 21x² (constant rule)"
+  },
+  "narr": [
+   "Let's correct some common mistakes students make when finding derivatives.",
+   "First, the derivative of a product is not the product of derivatives. Using the product rule correctly gives us 5x⁴.",
+   "Second, the derivative of a quotient is not the quotient of derivatives. Applying the quotient rule properly yields (x² + 2x - 1)/(x + 1)².",
+   "Third, the derivative of a constant is zero, not the constant itself. The correct derivative is 21x²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Higher Derivatives of 1/x",
+   "problem": "Let f(x) = 1/x, x ≠ 0. (a) Find f'(x), f''(x), f'''(x). (b) Describe the pattern in signs and coefficients. (c) Propose a formula for f⁽ⁿ⁾(x).",
+   "steps": [
+    "(a) f'(x) = -1/x²; f''(x) = 2/x³; f'''(x) = -6/x⁴.",
+    "(b) Signs alternate (-, +, -, ...), absolute values of coefficients are factorials (1 = 1!, 2 = 2!, 6 = 3!), the exponent of the denominator increases by 1.",
+    "(c) f⁽ⁿ⁾(x) = (-1)ⁿ · n!/xⁿ⁺¹, x ≠ 0. Check for n = 3: (-1)³ · 3!/x⁴ = -6/x⁴ — matches."
+   ],
+   "result": "f⁽ⁿ⁾(x) = (-1)ⁿ · n!/xⁿ⁺¹"
+  },
+  "narr": [
+   "Let's explore the higher derivatives of the function f(x) = 1/x.",
+   "First, we find the first three derivatives: f'(x) = -1/x², f''(x) = 2/x³, and f'''(x) = -6/x⁴.",
+   "We notice a pattern: the signs alternate, the coefficients are factorials, and the denominator's exponent increases.",
+   "This leads us to the general formula for the nth derivative: f⁽ⁿ⁾(x) = (-1)ⁿ · n!/xⁿ⁺¹."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Heating Experiment",
+   "problem": "During an experiment T(t) = 20 + 8t - t², 0 ≤ t ≤ 4 (T in degrees Celsius, t in minutes). (a) Find T'(t). (b) Interpret T'(1) and T'(3). (c) Find the average heating rate on [1, 3]. (d) Using T(2) and T'(2), estimate T(2.1). (e) Calculate the exact T(2.1) and the estimation error.",
+   "steps": [
+    "(a) T'(t) = 8 - 2t.",
+    "(b) T'(1) = 6 °C/min, T'(3) = 2 °C/min: the component is heating at both moments, but slower at t = 3.",
+    "(c) T(1) = 27, T(3) = 35; average rate (35 - 27)/(3 - 1) = 4 °C/min.",
+    "(d) T(2) = 32, T'(2) = 4; using the increment formula T(2.1) ≈ 32 + 4 · 0.1 = 32.4 °C.",
+    "(e) Exactly: T(2.1) = 20 + 16.8 - 4.41 = 32.39 °C; the tangent overestimates by 0.01 °C."
+   ],
+   "result": "The tangent line approximation overestimates by 0.01 °C"
+  },
+  "narr": [
+   "Let's apply our derivative knowledge to a heating experiment.",
+   "The temperature function is T(t) = 20 + 8t - t².",
+   "The derivative T'(t) = 8 - 2t tells us the rate of temperature change.",
+   "At t = 1, the heating rate is 6 °C/min, and at t = 3, it's 2 °C/min.",
+   "The average heating rate between t = 1 and t = 3 is 4 °C/min.",
+   "Using the tangent line at t = 2, we estimate T(2.1) ≈ 32.4 °C.",
+   "The exact value is 32.39 °C, so our tangent approximation overestimates by 0.01 °C."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Main Ideas of the Lesson",
+   "items": [
+    "Smoothness of a piecewise function's joint requires both continuity and matching one-sided slopes",
+    "Continuity does not guarantee differentiability (kink |x|, cusp |x|^(2/3), vertical tangent x^(1/3))",
+    "Derivatives of products and quotients are not replaced by products/quotients of derivatives",
+    "Extension can remove a 'hole' and restore differentiability"
+   ]
+  },
+  "narr": [
+   "Let's summarize the main ideas from this lesson.",
+   "First, for a piecewise function to be smooth at a joint point, it must be continuous there and have matching one-sided derivatives.",
+   "Second, continuity alone doesn't guarantee differentiability, as we saw with functions that have kinks, cusps, or vertical tangents.",
+   "Third, when finding derivatives of products and quotients, we must use the proper rules, not just take derivatives of individual parts.",
+   "Finally, removable discontinuities can be 'filled' with extensions to make functions differentiable at those points."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

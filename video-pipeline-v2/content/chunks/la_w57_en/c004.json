@@ -1,0 +1,583 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5 through 7 of Linear Algebra I. In this section, we'll explore various matrix operations, elementary matrices, and system solutions.",
+   "Let's start with practice problems that will help us understand these concepts better."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 6 — Elementary Matrix",
+   "problem": "Identify the elementary matrix. Find E that implements R3 ← R3 − 4R1 on a 3 × 3 matrix. Show each step and verify the answer.",
+   "steps": [
+    "The elementary matrix E is the identity matrix with the operation applied",
+    "For R3 ← R3 − 4R1, we modify the (3,1) position of the identity matrix",
+    "E = [[1, 0, 0], [0, 1, 0], [-4, 0, 1]]",
+    "Verification: The third row of EA is (row3) - 4·(row1)",
+    "Let's verify with matrix A = [[1, 1, 1], [2, 3, 1], [1, 2, 3]]",
+    "Row3 of EA = [1, 2, 3] - 4·[1, 1, 1] = [-3, -2, -1]",
+    "The inverse of E is E⁻¹ = [[1, 0, 0], [0, 1, 0], [4, 0, 1]]"
+   ],
+   "result": "E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{pmatrix}, E⁻¹ = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 4 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's tackle our first problem on elementary matrices.",
+   "An elementary matrix performs a single elementary row operation when multiplied by another matrix.",
+   "For the operation R3 ← R3 - 4R1, we start with the identity matrix and modify it accordingly.",
+   "The identity matrix for 3×3 is [[1,0,0],[0,1,0],[0,0,1]].",
+   "To implement R3 ← R3 - 4R1, we replace the (3,1) entry with -4.",
+   "So E = [[1,0,0],[0,1,0],[-4,0,1]].",
+   "Let's verify this by multiplying E with matrix A = [[1,1,1],[2,3,1],[1,2,3]].",
+   "The third row of EA should be the third row of A minus 4 times the first row.",
+   "Calculating: [1,2,3] - 4·[1,1,1] = [-3,-2,-1].",
+   "The inverse of E would be the matrix that reverses this operation, which is E⁻¹ = [[1,0,0],[0,1,0],[4,0,1]]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 7 — Matrix Multiplication EA",
+   "problem": "Let E = [[1,0],[-2,1]], A = [[3,1],[6,5]]. Compute EA and explain the operation. Show each step and verify the answer.",
+   "steps": [
+    "Row 1 of EA = [3,1] (unchanged)",
+    "Row 2 of EA = [6,5] - 2·[3,1] = [0,3]",
+    "EA = [[3,1],[0,3]]",
+    "This operation subtracts twice row 1 from row 2 (multiplier 2)",
+    "The inverse of E is E⁻¹ = [[1,0],[2,1]]",
+    "Verification: E⁻¹·EA = A"
+   ],
+   "result": "EA = \\begin{pmatrix} 3 & 1 \\\\ 0 & 3 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now let's look at matrix multiplication with an elementary matrix.",
+   "Given E = [[1,0],[-2,1]] and A = [[3,1],[6,5]], we need to compute EA.",
+   "When multiplying E by A, each row of EA is a linear combination of the rows of A.",
+   "Specifically, row 1 of EA is just row 1 of A, unchanged.",
+   "Row 2 of EA is row 2 of A minus 2 times row 1 of A.",
+   "So row 2 = [6,5] - 2·[3,1] = [0,3].",
+   "Therefore, EA = [[3,1],[0,3]].",
+   "This operation represents subtracting twice row 1 from row 2.",
+   "The inverse of E would be E⁻¹ = [[1,0],[2,1]], which reverses this operation.",
+   "Verification: E⁻¹·EA = A, confirming our result."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 8 — Transformed Right-Hand Side",
+   "problem": "For A = [[3,1],[6,5]] and b = [[4],[17]], use E = [[1,0],[-2,1]] to solve the system. Show each step and verify the answer.",
+   "steps": [
+    "First compute Eb = [[4],[-2·4 + 17]] = [[4],[9]]",
+    "We already have EA = [[3,1],[0,3]] from the previous problem",
+    "Now solve the triangular system: 3y = 9 → y = 3",
+    "Then 3x + y = 4 → 3x + 3 = 4 → x = 1/3",
+    "The solution is x = [1/3, 3]",
+    "Verification in the original system: 3·(1/3) + 3 = 4, 6·(1/3) + 5·3 = 17"
+   ],
+   "result": "Solution: x = \\begin{pmatrix} \\frac{1}{3} \\\\ 3 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's see how we can use elementary matrices to solve a system of equations.",
+   "Given A = [[3,1],[6,5]] and b = [[4],[17]], with E = [[1,0],[-2,1]].",
+   "First, we transform the right-hand side by computing Eb.",
+   "Eb = [[4],[-2·4 + 17]] = [[4],[9]].",
+   "We already computed EA in the previous problem as [[3,1],[0,3]].",
+   "Now we have a triangular system that's easier to solve.",
+   "Starting from the bottom: 3y = 9 → y = 3.",
+   "Then 3x + y = 4 → 3x + 3 = 4 → x = 1/3.",
+   "So the solution is x = [1/3, 3].",
+   "Let's verify this in the original system: 3·(1/3) + 3 = 4 and 6·(1/3) + 5·3 = 17, both correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 9 — Zero Pivot Element",
+   "problem": "Solve [[0,2],[3,1]]·[[x],[y]] = [[4],[7]] by row exchange; find P. Show each step and verify the answer.",
+   "steps": [
+    "The matrix has a zero in the pivot position (1,1), requiring row exchange",
+    "The permutation matrix P that swaps rows 1 and 2 is P = [[0,1],[1,0]]",
+    "Compute PA = [[3,1],[0,2]] and Pb = [[7],[4]]",
+    "Now solve the triangular system: 2y = 4 → y = 2",
+    "Then 3x + y = 7 → 3x + 2 = 7 → x = 5/3",
+    "The solution is x = [5/3, 2]",
+    "Verification: 0·(5/3) + 2·2 = 4, 3·(5/3) + 2 = 7"
+   ],
+   "result": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, Solution: x = \\begin{pmatrix} \\frac{5}{3} \\\\ 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "What happens when we encounter a zero pivot element?",
+   "In this system [[0,2],[3,1]]·[[x],[y]] = [[4],[7]], we have a zero in the (1,1) position.",
+   "This requires a row exchange to proceed with elimination.",
+   "The permutation matrix P that swaps rows 1 and 2 is P = [[0,1],[1,0]].",
+   "Applying this, we get PA = [[3,1],[0,2]] and Pb = [[7],[4]].",
+   "Now we can solve the triangular system: 2y = 4 → y = 2.",
+   "Then 3x + y = 7 → 3x + 2 = 7 → x = 5/3.",
+   "The solution is x = [5/3, 2].",
+   "Verification: 0·(5/3) + 2·2 = 4 and 3·(5/3) + 2 = 7, both correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 10 — Permutation of Three Rows",
+   "problem": "Find P that swaps rows 1 and 3 of matrix A = [[1,2,0],[0,1,3],[4,0,2]]; compute PA. Show each step and verify the answer.",
+   "steps": [
+    "The permutation matrix P that swaps rows 1 and 3 is P = [[0,0,1],[0,1,0],[1,0,0]]",
+    "Row 1 of PA = row 3 of A = [4,0,2]",
+    "Row 2 of PA = row 2 of A = [0,1,3] (unchanged)",
+    "Row 3 of PA = row 1 of A = [1,2,0]",
+    "So PA = [[4,0,2],[0,1,3],[1,2,0]]",
+    "Verification: P² = I, meaning P·PA = A",
+    "Also, P⁻¹ = P = Pᵀ"
+   ],
+   "result": "P = \\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}, PA = \\begin{pmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's extend our understanding to permutations of three rows.",
+   "We need to find P that swaps rows 1 and 3 of matrix A = [[1,2,0],[0,1,3],[4,0,2]].",
+   "The permutation matrix P that swaps rows 1 and 3 is P = [[0,0,1],[0,1,0],[1,0,0]].",
+   "When we multiply P by A, row 1 of PA becomes row 3 of A = [4,0,2].",
+   "Row 2 of PA remains row 2 of A = [0,1,3] (unchanged).",
+   "Row 3 of PA becomes row 1 of A = [1,2,0].",
+   "So PA = [[4,0,2],[0,1,3],[1,2,0]].",
+   "We can verify that P² = I, meaning P·PA = A.",
+   "Also, P⁻¹ = P = Pᵀ, showing that P is its own inverse and symmetric."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 11 — Degenerate but Consistent System",
+   "problem": "Solve [[1,2,1],[2,4,2],[0,1,1]]·[[x],[y],[z]] = [[3],[6],[2]]. Show each step and verify the answer.",
+   "steps": [
+    "Perform R2 ← R2 - 2R1: [[1,2,1],[0,0,0],[0,1,1]]·[[x],[y],[z]] = [[3],[0],[2]]",
+    "The second row [000|0] indicates a dependent system (degenerate)",
+    "The system is consistent but has infinitely many solutions",
+    "Remaining equations: x + 2y + z = 3 and y + z = 2",
+    "Let z = t (free variable), then y = 2 - t",
+    "Substituting: x + 2(2 - t) + t = 3 → x + 4 - 2t + t = 3 → x = t - 1"
+   ]
+  },
+  "narr": [
+   "Now let's examine a degenerate but consistent system.",
+   "We need to solve [[1,2,1],[2,4,2],[0,1,1]]·[[x],[y],[z]] = [[3],[6],[2]].",
+   "Performing elimination: R2 ← R2 - 2R1 gives [[1,2,1],[0,0,0],[0,1,1]]·[[x],[y],[z]] = [[3],[0],[2]].",
+   "The second row [000|0] indicates a dependent system (degenerate).",
+   "The system is consistent but has infinitely many solutions.",
+   "We're left with two equations: x + 2y + z = 3 and y + z = 2.",
+   "Let z = t (free variable), then y = 2 - t."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 11 — Degenerate but Consistent System (cont.)",
+   "problem": "",
+   "steps": [
+    "Solution: x = [[t-1],[2-t],[t]] for any t",
+    "Verification at t = 2: [[1],[0],[2]] gives 3, 6, 2 — correct"
+   ],
+   "result": "Solution: x = \\begin{pmatrix} t-1 \\\\ 2-t \\\\ t \\end{pmatrix} for any t"
+  },
+  "narr": [
+   "Substituting: x + 2(2 - t) + t = 3 → x + 4 - 2t + t = 3 → x = t - 1.",
+   "So the solution is x = [[t-1],[2-t],[t]] for any t.",
+   "Verification at t = 2: [[1],[0],[2]] gives 3, 6, 2 — correct."
+  ],
+  "narr_item": [
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 12 — Degenerate and Inconsistent System",
+   "problem": "In the previous system, replace the right-hand side with b = [[3],[7],[2]]. Is the system consistent? Show each step and verify the answer.",
+   "steps": [
+    "The system is now [[1,2,1],[2,4,2],[0,1,1]]·[[x],[y],[z]] = [[3],[7],[2]]",
+    "Perform R2 ← R2 - 2R1: [[1,2,1],[0,0,0],[0,1,1]]·[[x],[y],[z]] = [[3],[1],[2]]",
+    "The second row [000|1] gives 0 = 1 — a contradiction",
+    "The system is inconsistent",
+    "The necessary condition b₂ = 2b₁ is violated (7 ≠ 6)",
+    "No solution exists for this system"
+   ],
+   "result": "The system is inconsistent — no solution exists"
+  },
+  "narr": [
+   "What happens when we modify the right-hand side of the previous system?",
+   "Now we have [[1,2,1],[2,4,2],[0,1,1]]·[[x],[y],[z]] = [[3],[7],[2]].",
+   "Performing elimination: R2 ← R2 - 2R1 gives [[1,2,1],[0,0,0],[0,1,1]]·[[x],[y],[z]] = [[3],[1],[2]].",
+   "The second row [000|1] gives 0 = 1 — a contradiction.",
+   "The system is inconsistent.",
+   "We can see that the necessary condition b₂ = 2b₁ is violated (7 ≠ 6).",
+   "Therefore, no solution exists for this system."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 13 — Column Interpretation of Consistency",
+   "problem": "For A = [[1,2],[2,4]], which vectors b = [[b₁],[b₂]] admit a solution to Ax = b? Show each step and verify the answer.",
+   "steps": [
+    "Perform R2 ← R2 - 2R1: [[1,2],[0,0]]·[[x],[y]] = [[b₁],[b₂ - 2b₁]]",
+    "Consistency requires b₂ - 2b₁ = 0, or b₂ = 2b₁",
+    "The columns [[1],[2]] and [[2],[4]] = 2·[[1],[2]] are multiples of each other",
+    "Ax always lies on the line b₂ = 2b₁",
+    "Answer: b = [[b₁],[2b₁]] for any b₁",
+    "Verification: [[4],[8]] is solved (x = 4, y = 0), [[4],[9]] is not"
+   ],
+   "result": "Solution exists for b = \\begin{pmatrix} b_1 \\\\ 2b_1 \\end{pmatrix} for any b₁"
+  },
+  "narr": [
+   "Let's explore the column interpretation of consistency.",
+   "For matrix A = [[1,2],[2,4]], we want to find which vectors b = [[b₁],[b₂]] admit a solution to Ax = b.",
+   "Performing elimination: R2 ← R2 - 2R1 gives [[1,2],[0,0]]·[[x],[y]] = [[b₁],[b₂ - 2b₁]].",
+   "Consistency requires b₂ - 2b₁ = 0, or b₂ = 2b₁.",
+   "Looking at the columns: [[1],[2]] and [[2],[4]] = 2·[[1],[2]] are multiples of each other.",
+   "This means Ax always lies on the line b₂ = 2b₁.",
+   "Therefore, solution exists for b = [[b₁],[2b₁]] for any b₁.",
+   "Verification: For b = [[4],[8]], we can find a solution (x = 4, y = 0), but for b = [[4],[9]], no solution exists."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 14 — Order of Matrix Operations",
+   "problem": "Let E = [[1,0],[-2,1]] and P = [[0,1],[1,0]]. Compare EP and PE. Show each step and verify the answer.",
+   "steps": [
+    "Compute EP: E·P = [[1·0 + 0·1, 1·1 + 0·0], [-2·0 + 1·1, -2·1 + 1·0]] = [[0,1],[1,-2]]",
+    "Compute PE: P·E = [[0·1 + 1·-2, 0·0 + 1·1], [1·1 + 0·-2, 1·0 + 0·1]] = [[-2,1],[1,0]]",
+    "EP = [[0,1],[1,-2]] and PE = [[-2,1],[1,0]]",
+    "The products are different — row operations do not commute",
+    "In EP, elimination acts on the permuted rows",
+    "In PE, elimination acts on the original rows"
+   ],
+   "result": "EP = \\begin{pmatrix} 0 & 1 \\\\ 1 & -2 \\end{pmatrix}, PE = \\begin{pmatrix} -2 & 1 \\\\ 1 & 0 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's explore the order of matrix operations and how it affects the result.",
+   "Given E = [[1,0],[-2,1]] and P = [[0,1],[1,0]], we need to compare EP and PE.",
+   "First, compute EP: E·P = [[1·0 + 0·1, 1·1 + 0·0], [-2·0 + 1·1, -2·1 + 1·0]] = [[0,1],[1,-2]].",
+   "Now compute PE: P·E = [[0·1 + 1·-2, 0·0 + 1·1], [1·1 + 0·-2, 1·0 + 0·1]] = [[-2,1],[1,0]].",
+   "We see that EP = [[0,1],[1,-2]] and PE = [[-2,1],[1,0]] are different.",
+   "This demonstrates that row operations do not commute — the order matters.",
+   "In EP, the elimination acts on the permuted rows.",
+   "In PE, the elimination acts on the original rows."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 15 — Challenge: Construct a System",
+   "problem": "Build a 3 × 3 system that requires row exchange, with three pivots and solution x = [[1],[2],[3]]. Show each step and verify the answer.",
+   "steps": [
+    "We need a matrix with a zero in the (1,1) position but a non-zero below it",
+    "Let A = [[0,1,0],[1,0,0],[0,0,1]] — zero in position (1,1), with a one below",
+    "Compute b = A·x = [[0,1,0],[1,0,0],[0,0,1]]·[[1],[2],[3]] = [[2],[1],[3]]",
+    "The permutation matrix P that swaps rows 1 and 2 is P = [[0,1,0],[1,0,0],[0,0,1]]",
+    "Applying P: PA = [[1,0,0],[0,1,0],[0,0,1]] = I (identity matrix)",
+    "Pb = [[1],[2],[3]] = x"
+   ]
+  },
+  "narr": [
+   "For our final challenge, let's construct a 3×3 system that requires row exchange.",
+   "We need a matrix with a zero in the (1,1) position but a non-zero below it.",
+   "Let A = [[0,1,0],[1,0,0],[0,0,1]] — zero in position (1,1), with a one below.",
+   "Compute b = A·x = [[0,1,0],[1,0,0],[0,0,1]]·[[1],[2],[3]] = [[2],[1],[3]].",
+   "The permutation matrix P that swaps rows 1 and 2 is P = [[0,1,0],[1,0,0],[0,0,1]].",
+   "Applying P: PA = [[1,0,0],[0,1,0],[0,0,1]] = I (identity matrix).",
+   "Pb = [[1],[2],[3]] = x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practice 15 — Challenge: Construct a System (cont.)",
+   "problem": "",
+   "steps": [
+    "The system has pivots 1, 1, 1 and solution x = [[1],[2],[3]]",
+    "Verification: A·x = [[0,1,0],[1,0,0],[0,0,1]]·[[1],[2],[3]] = [[2],[1],[3]] = b"
+   ],
+   "result": "A = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}"
+  },
+  "narr": [
+   "The system has pivots 1, 1, 1 and solution x = [[1],[2],[3]].",
+   "Verification: A·x = [[0,1,0],[1,0,0],[0,0,1]]·[[1],[2],[3]] = [[2],[1],[3]] = b."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 6 — Matrix Operations, Inverses and Decompositions",
+   "subtitle": "Linear Algebra I"
+  },
+  "narr": [
+   "Welcome to Week 6, where we'll explore matrix operations, inverses, and decompositions.",
+   "We'll review the two pictures of linear systems and elimination methods.",
+   "Then we'll dive deeper into matrix multiplication and its various interpretations."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Review of Week 5: Two Pictures of the System",
+   "bullets": [
+    "Row picture: Equations are intersecting lines or planes",
+    "Column picture: Ax = x₁·a₁ + ... + xₙ·aₙ = b",
+    "Both pictures describe the same system",
+    "Example: [[2,1],[1,1]]·[[x],[y]] = [[5],[3]] gives (x,y) = (2,1)"
+   ]
+  },
+  "narr": [
+   "Let's review the two fundamental pictures of linear systems from Week 5.",
+   "First, the row picture: where we view equations as intersecting lines or planes in space.",
+   "Second, the column picture: where we see Ax as a combination of the columns of A.",
+   "Specifically, Ax = x₁·a₁ + ... + xₙ·aₙ = b.",
+   "Both pictures describe the same system but from different perspectives.",
+   "For example, the system [[2,1],[1,1]]·[[x],[y]] = [[5],[3]] has solution (x,y) = (2,1).",
+   "This means the point (2,1) lies on both lines defined by the equations.",
+   "It also means that 2·[2,1] + 1·[1,1] = [5,3]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Elimination Process",
+   "bullets": [
+    "With pivot aₖₖ ≠ 0, the multiplier mᵢₖ = aᵢₖ/aₖₖ is taken",
+    "Perform Ri ← Ri - mᵢₖ·Rk to eliminate elements below the pivot",
+    "Example: [[1,2,1],[2,5,3],[1,3,3]] → [[1,2,1],[0,1,1],[0,1,2]] → [[1,2,1],[0,1,1],[0,0,1]]",
+    "Back substitution solves the triangular system",
+    "Degeneracy occurs when a pivot is zero or becomes zero during elimination",
+    "For square matrices, a full set of pivots means a unique solution for any right-hand side"
+   ]
+  },
+  "narr": [
+   "The elimination process is fundamental to solving linear systems.",
+   "With a non-zero pivot aₖₖ, we compute the multiplier mᵢₖ = aᵢₖ/aₖₖ.",
+   "Then we perform the row operation Ri ← Ri - mᵢₖ·Rk to eliminate elements below the pivot.",
+   "Let's see an example: starting with [[1,2,1],[2,5,3],[1,3,3]],",
+   "we eliminate to get [[1,2,1],[0,1,1],[0,1,2]],",
+   "then continue to get [[1,2,1],[0,1,1],[0,0,1]].",
+   "Once we have an upper triangular matrix, we use back substitution to find the solution.",
+   "Degeneracy occurs when a pivot is zero or becomes zero during elimination.",
+   "For square matrices, having a full set of pivots means a unique solution for any right-hand side."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matrix Multiplication Rules",
+   "bullets": [
+    "A(m×n), B(n×p) → AB(m×p)",
+    "(AB)ᵢⱼ = ∑ₖ aᵢₖ·bₖⱼ",
+    "Example: [[1,2,0],[-1,3,4]]·[[2,1],[0,-1],[3,2]] = [[2,-1],[10,4]]",
+    "Properties: (AB)C = A(BC), A(B+C) = AB+AC, (A+B)C = AC+BC, AI = IA = A",
+    "Generally, AB ≠ BA; matrix multiplication is not commutative",
+    "(A+B)² = A² + AB + BA + B² ≠ A² + 2AB + B²"
+   ]
+  },
+  "narr": [
+   "Now let's review matrix multiplication and its properties.",
+   "When multiplying matrices A(m×n) and B(n×p), the result AB is m×p.",
+   "Each element (AB)ᵢⱼ is computed as ∑ₖ aᵢₖ·bₖⱼ.",
+   "For example: [[1,2,0],[-1,3,4]]·[[2,1],[0,-1],[3,2]] = [[2,-1],[10,4]].",
+   "Matrix multiplication has several important properties:",
+   "(AB)C = A(BC) — associative property",
+   "A(B+C) = AB+AC and (A+B)C = AC+BC — distributive properties",
+   "AI = IA = A — identity property",
+   "However, matrix multiplication is not commutative: generally AB ≠ BA.",
+   "This means (A+B)² = A² + AB + BA + B² ≠ A² + 2AB + B²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Four Interpretations of AB",
+   "bullets": [
+    "Element-wise: Row i of matrix A is multiplied by column j of matrix B",
+    "Column-wise: AB = [Ab₁ ... Abₚ] — each column of AB is A times the corresponding column of B",
+    "Row-wise: Each row of AB is a combination of rows of B",
+    "Outer products: AB = ∑ₖ aₖ · rₖ — column k of A times row k of B"
+   ]
+  },
+  "narr": [
+   "Matrix multiplication can be viewed in four different ways, each providing insight.",
+   "First, the element-wise view: (AB)ᵢⱼ is the dot product of row i of A and column j of B.",
+   "Second, the column-wise view: AB = [Ab₁ ... Abₚ], where each column of AB is A times the corresponding column of B.",
+   "Third, the row-wise view: Each row of AB is a linear combination of the rows of B.",
+   "Fourth, the outer products view: AB = ∑ₖ aₖ · rₖ, where aₖ is column k of A and rₖ is row k of B.",
+   "Each perspective is useful in different contexts and helps build intuition about matrix operations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ }
+]

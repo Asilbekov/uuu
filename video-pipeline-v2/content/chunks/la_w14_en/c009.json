@@ -1,0 +1,287 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to this comprehensive guide covering the first four weeks of Linear Algebra. We'll explore key concepts through textbook supplements, additional required reading, and exercises with full solutions.",
+   "Let's begin with the first set of problems from Strang's Introduction to Linear Algebra."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Vector Combinations",
+   "problem": "Describe all cu for u = (2, 1) and all combinations cu + dv for u = (2, 1), v = (1, 2); when do the combinations cu + dv fill the plane?",
+   "steps": [
+    "cu fills the line through (2, 1): every vector on it is a multiple",
+    "cu + dv fill the plane if u, v are not collinear"
+   ],
+   "result": "The set of all cu forms a line through the origin in the direction of (2, 1). The set of all combinations cu + dv fills the entire plane when u and v are not collinear (i.e., when they point in different directions)."
+  },
+  "narr": [
+   "Our first problem explores vector combinations and when they fill the plane.",
+   "When we take all scalar multiples cu, where u = (2, 1), we get a line through the origin in the direction of u.",
+   "When we consider all combinations cu + dv, where u = (2, 1) and v = (1, 2), these combinations will fill the entire plane if and only if u and v are not collinear.",
+   "This means they must point in different directions - one cannot be a scalar multiple of the other."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Dot Product and Cross Product",
+   "problem": "Compute the dot products: u·v for u = (1, 2, 1), v = (3, 0, 2); find a vector w perpendicular to both.",
+   "steps": [
+    "u · v = 1·3 + 2·0 + 1·2 = 3 + 0 + 2 = 5",
+    "A perpendicular vector is the cross product w = u × v",
+    "w = [(2·2 - 1·0), (1·3 - 1·2), (1·0 - 2·3)] = [4, 1, -6]",
+    "Check: w · u = 4 + 2 - 6 = 0 and w · v = 12 + 0 - 12 = 0"
+   ],
+   "result": "u · v = 5. A vector perpendicular to both u and v is w = (4, 1, -6)."
+  },
+  "narr": [
+   "Next, let's compute dot products and find a perpendicular vector.",
+   "First, we calculate the dot product of u and v.",
+   "The dot product u · v equals 1·3 + 2·0 + 1·2 = 5.",
+   "To find a vector perpendicular to both u and v, we compute their cross product.",
+   "The cross product gives us w = (4, 1, -6).",
+   "We verify that w is indeed perpendicular to both u and v by checking that their dot products are zero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Dot Product Properties",
+   "problem": "When is u · v = v · u negative and what does that say about the angle? When is it zero?",
+   "steps": [
+    "u · v = v · u is negative when cos θ < 0",
+    "This occurs when the angle between vectors is greater than 90° (obtuse)",
+    "The dot product is zero when θ = 90° (perpendicular vectors)"
+   ],
+   "result": "The dot product u · v is negative when the angle between vectors is obtuse (>90°), and zero when the vectors are perpendicular (90°)."
+  },
+  "narr": [
+   "This problem explores properties of the dot product.",
+   "The dot product u · v equals v · u is negative when the cosine of the angle between them is negative.",
+   "This happens when the angle between the vectors is greater than 90 degrees, making it obtuse.",
+   "The dot product is zero when the angle is exactly 90 degrees, indicating perpendicular vectors.",
+   "This classification is important for problems in week 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Solving Linear Systems",
+   "problem": "Solve Ax = b with A = [[2, 1, 2], [3, -4, 2], [2, 3, 0]] and b = (3, 4)ᵀ.",
+   "steps": [
+    "det A = 2(0 - 6) - 1(0 - 2) + 2(9 - (-8)) = -12 + 2 + 34 = 24",
+    "A⁻¹ = (1/24)[[0, -6, -10], [0, -4, -2], [17, -1, -11]]",
+    "x = A⁻¹b = (1/24)[[0, -6, -10], [0, -4, -2], [17, -1, -11]] × [3, 4, 0]ᵀ",
+    "x = (1/24)[[-24], [-16], [51]] = [-1, -2/3, 17/8]ᵀ",
+    "Check: 2(-1) + 1(-2/3) + 2(17/8) = 3, 3(-1) + (-4)(-2/3) + 2(17/8) = 4"
+   ],
+   "result": "The solution is x = [-1, -2/3, 17/8]ᵀ."
+  },
+  "narr": [
+   "Now we'll solve a linear system using matrix inversion.",
+   "First, we need to find the determinant of matrix A.",
+   "The determinant is 24, which is non-zero, confirming that A is invertible.",
+   "Next, we find the inverse of A using the adjugate matrix.",
+   "We then multiply A⁻¹ by b to find the solution vector x.",
+   "Finally, we verify our solution by checking that Ax equals b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Invertibility and Solutions",
+   "problem": "Why does a nonzero solution to Ax = 0 rule out invertibility?",
+   "steps": [
+    "If Ax = 0 with x ≠ 0 and A had an inverse, then x = A⁻¹Ax = A⁻¹0 = 0",
+    "This leads to a contradiction since we assumed x ≠ 0",
+    "The zero vector has no 'preimage' only when the mapping is one-to-one",
+    "A nonzero solution to Ax = 0 proves that the mapping is not one-to-one"
+   ],
+   "result": "A nonzero solution to Ax = 0 means A cannot be invertible because it would lead to the contradiction that x = 0."
+  },
+  "narr": [
+   "This problem explores the relationship between invertibility and solutions to homogeneous systems.",
+   "If there exists a nonzero solution to Ax = 0, then A cannot be invertible.",
+   "If A were invertible, we could multiply both sides by A⁻¹ to get x = 0, contradicting our assumption that x ≠ 0.",
+   "This means the mapping is not one-to-one, which is a requirement for invertibility."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Matrix Inverses",
+   "problem": "If A and C are invertible 3 × 3 matrices, is A + C invertible? What about AC? What about A⁻¹C?",
+   "steps": [
+    "A + C: Not necessarily invertible (for example, C = -A gives 0)",
+    "Sums of invertible matrices can be singular",
+    "AC: Yes, invertible with (AC)⁻¹ = C⁻¹A⁻¹",
+    "A⁻¹C: Yes, product of two invertible matrices"
+   ],
+   "result": "A + C is not necessarily invertible, but AC and A⁻¹C are always invertible when A and C are invertible."
+  },
+  "narr": [
+   "Let's explore properties of matrix operations with invertible matrices.",
+   "First, consider the sum A + C. This is not necessarily invertible. For example, if C = -A, then A + C = 0, which is not invertible.",
+   "Next, consider the product AC. This is always invertible when A and C are invertible, with (AC)⁻¹ = C⁻¹A⁻¹.",
+   "Finally, consider A⁻¹C. This is also always invertible since it's the product of two invertible matrices."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Strang, Linear Algebra and its Applications 4e, §1.6",
+   "subtitle": "Inverses and Transposes — key results and worked examples"
+  },
+  "narr": [
+   "Now we move to §1.6 from Strang's Linear Algebra and its Applications, which covers inverses and transposes.",
+   "This section adds three important items to our catalog: Gauss-Jordan elimination for finding inverses, the relationship between determinants and inverses, and properties of matrix transposition."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Gauss-Jordan Elimination",
+   "problem": "Perform Gauss-Jordan elimination on A = [[2, 1, 1], [4, -6, 0], [-2, 7, 2]] and find A⁻¹.",
+   "steps": [
+    "Set up augmented matrix [A|I]",
+    "Apply row operations: R2 - 2R1, R3 + R1",
+    "Continue with R3 + (3/4)R2 over the reduced rows",
+    "Clear above pivots and divide rows by 2, -8, 1",
+    "Result: A⁻¹ = (1/8)[[12, -5, -6], [8, -3, -2], [-1, 1, 1]]"
+   ],
+   "result": "A⁻¹ = (1/8)[[12, -5, -6], [8, -3, -2], [-1, 1, 1]]"
+  },
+  "narr": [
+   "First, we'll perform Gauss-Jordan elimination to find the inverse of matrix A.",
+   "We start by setting up the augmented matrix [A|I].",
+   "We apply row operations: R2 - 2R1 and R3 + R1.",
+   "Continuing, we use R3 + (3/4)R2 over the reduced rows.",
+   "Finally, we clear above pivots and divide rows by 2, -8, 1 to get the inverse.",
+   "The determinant equals the product of pivots: 2(-8)(1) = -16, and A⁻¹ shows division by det A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Determinant-Transposition Identities",
+   "problem": "State the determinant-transposition identities used in §1.6.",
+   "steps": [
+    "det(Aᵀ) = det A",
+    "det(AB) = det A det B",
+    "det(A⁻¹) = 1/det A (from det(A) det(A⁻¹) = det I = 1)"
+   ],
+   "result": "The key identities are: det(Aᵀ) = det A, det(AB) = det A det B, and det(A⁻¹) = 1/det A."
+  },
+  "narr": [
+   "Next, we'll state the important determinant-transposition identities from §1.6.",
+   "First, the determinant of a transpose equals the determinant of the original matrix: det(Aᵀ) = det A.",
+   "Second, the determinant of a product equals the product of determinants: det(AB) = det A det B.",
+   "Third, the determinant of an inverse is the reciprocal of the determinant: det(A⁻¹) = 1/det A.",
+   "This last identity connects the catalog of determinants with inverses, showing that a matrix is invertible if and only if its determinant is non-zero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Symmetric Matrices",
+   "problem": "Prove (A⁻¹)ᵀ = (Aᵀ)⁻¹ and explain why AᵀA is symmetric with nonnegative diagonal.",
+   "steps": [
+    "Start with AA⁻¹ = I",
+    "Transpose both sides: (A⁻¹)ᵀAᵀ = I",
+    "This shows (A⁻¹)ᵀ = (Aᵀ)⁻¹",
+    "For AᵀA: (AᵀA)ᵀ = Aᵀ(Aᵀ)ᵀ = AᵀA, so it's symmetric",
+    "Diagonal elements: aᵢᵢ = Σₖ₌₁ⁿ a²ₖᵢ ≥ 0 (sum of squares)"
+   ],
+   "result": "(A⁻¹)ᵀ = (Aᵀ)⁻¹, and AᵀA is symmetric with nonnegative diagonal elements because they are sums of squares."
+  },
+  "narr": [
+   "Finally, we'll prove two important properties about matrix transposition and symmetry.",
+   "First, we prove that (A⁻¹)ᵀ = (Aᵀ)⁻¹ by starting with AA⁻¹ = I and transposing both sides.",
+   "This gives us (A⁻¹)ᵀAᵀ = I, which shows that (A⁻¹)ᵀ is the inverse of Aᵀ.",
+   "Next, we show why AᵀA is symmetric by computing its transpose.",
+   "We also explain why the diagonal elements of AᵀA are nonnegative - they are sums of squares, which are always non-negative.",
+   "This fact is important in understanding matrices like CᵀC from week 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

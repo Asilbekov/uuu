@@ -1,0 +1,581 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "In this section, we'll explore related rates problems, geometric formulas, and differentiation rules.",
+   "Let's start with the approach to solving related rates problems."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Solving Related Rates Problems",
+   "bullets": [
+    "Step 2: Write down the known rates and the desired rate; note the specific moment (\"when r = 30\") — this is an instantaneous snapshot, numbers are substituted at the end.",
+    "Step 3: Write the relationship equation (geometric formula, Pythagorean theorem, similarity); eliminate extra variables, for example r = h/2 from similarity.",
+    "Step 4: Differentiate both sides with respect to t (chain rule): each variable dependent on t gives a factor d(·)/dt; numbers — only AFTER differentiation.",
+    "Step 5: Substitute known values, solve for the desired rate; check units and sign: minus indicates decreasing."
+   ]
+  },
+  "narr": [
+   "When solving related rates problems, there's a systematic approach to follow.",
+   "First, identify the known rates and what you're trying to find, noting the specific moment in time.",
+   "Next, establish the relationship between quantities using geometric formulas or theorems, eliminating any unnecessary variables.",
+   "Then differentiate both sides with respect to time, applying the chain rule properly.",
+   "Finally, substitute known values and solve for the desired rate, being careful with units and signs."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Common Mistakes",
+   "bullets": [
+    "A typical mistake is to substitute numbers before differentiation: the equation becomes constant, and rates will be lost.",
+    "Decreasing quantities have negative speed (a rope being pulled at 1m/s: dl/dt = −1m/s).",
+    "The answer is the instantaneous speed at the specified moment, not the average."
+   ]
+  },
+  "narr": [
+   "There are some common pitfalls to avoid when solving related rates problems.",
+   "Substituting numerical values before differentiation is a critical error that eliminates the rates from your equation.",
+   "Remember that decreasing quantities have negative rates, and always distinguish between instantaneous and average rates."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Typical Geometric Formulas",
+   "subtitle": "Essential formulas for related rates problems"
+  },
+  "narr": [
+   "Let's review some geometric formulas that frequently appear in related rates problems."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Geometric Formulas",
+   "columns": [
+    "Quantity / figure",
+    "Formula"
+   ],
+   "rows": [
+    [
+     "Sphere: volume",
+     "$V = \\frac{4}{3}\\pi r^3$"
+    ],
+    [
+     "Sphere: surface area",
+     "$S = 4\\pi r^2$"
+    ],
+    [
+     "Circle: area",
+     "$A = \\pi r^2$"
+    ],
+    [
+     "Circle: circumference",
+     "$C = 2\\pi r$"
+    ],
+    [
+     "Cylinder: volume",
+     "$V = \\pi r^2 h$"
+    ],
+    [
+     "Cone: volume",
+     "$V = \\frac{1}{3}\\pi r^2 h$"
+    ],
+    [
+     "Triangle: area",
+     "$A = \\frac{1}{2} \\cdot \\text{base} \\cdot \\text{height}$"
+    ],
+    [
+     "Right triangle",
+     "$a^2 + b^2 = c^2$ (Pythagorean theorem)"
+    ],
+    [
+     "Similar triangles",
+     "corresponding sides are proportional, e.g. $\\frac{15}{x+s} = \\frac{6}{s}$"
+    ]
+   ]
+  },
+  "narr": [
+   "Here's a table of common geometric formulas you'll need for related rates problems.",
+   "For spheres, we have volume and surface area formulas.",
+   "For circles, we need area and circumference formulas.",
+   "Cylinders and cones have specific volume formulas.",
+   "Triangles have area formulas, and right triangles follow the Pythagorean theorem.",
+   "Similar triangles have proportional corresponding sides, which is useful for many problems."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Special Cases and Applications",
+   "bullets": [
+    "If a cone has base diameter equal to height (2r = h), then $V = \\frac{1}{3}\\pi(\\frac{h}{2})^2 \\cdot h = \\frac{\\pi}{12}h^3$ and $\\frac{dV}{dt} = \\frac{\\pi h^2}{4} \\cdot \\frac{dh}{dt}$",
+    "Water in a conical tank forms a cone similar to the tank, so $\\frac{r}{h} = \\frac{R}{H}$",
+    "The shadow problem is solved by similarity of triangles"
+   ]
+  },
+  "narr": [
+   "There are some special cases and applications of these formulas that are particularly useful.",
+   "When a cone's diameter equals its height, we can derive a simplified volume formula and its derivative.",
+   "In conical tanks, the water forms a similar cone, maintaining a constant ratio of radius to height.",
+   "Shadow problems often rely on the similarity of triangles to establish relationships between changing quantities."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Differentiation Rules",
+   "subtitle": "Review of essential differentiation techniques"
+  },
+  "narr": [
+   "Now let's review the fundamental differentiation rules that will be used in related rates problems."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Basic Differentiation Rules",
+   "bullets": [
+    "$\\frac{d}{dx}(x^n) = n \\cdot x^{n-1}$",
+    "$(f + g)' = f' + g'$, $(f - g)' = f' - g'$",
+    "$(k \\cdot f)' = k \\cdot f'$ (theorems 3.3-3.4)",
+    "$(f \\cdot g)' = f' \\cdot g + g' \\cdot f$ (product rule, theorem 3.5)",
+    "$(\\frac{f}{g})' = \\frac{f' \\cdot g - g' \\cdot f}{g^2}$ (quotient rule, theorem 3.6)"
+   ]
+  },
+  "narr": [
+   "Let's start with the basic differentiation rules.",
+   "The power rule states that the derivative of $x^n$ is $n \\cdot x^{n-1}$.",
+   "The derivative of a sum or difference is the sum or difference of the derivatives.",
+   "Constants can be factored out when taking derivatives.",
+   "The product rule and quotient rule are essential for differentiating more complex functions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 1 — Product Rule",
+   "problem": "Find the derivative of $j(x) = (x^2 + 2)(3x^3 - 5x)$ using the product rule.",
+   "steps": [
+    "Apply the product rule: $j'(x) = \\frac{d}{dx}(x^2 + 2) \\cdot (3x^3 - 5x) + (x^2 + 2) \\cdot \\frac{d}{dx}(3x^3 - 5x)$",
+    "Compute the derivatives: $\\frac{d}{dx}(x^2 + 2) = 2x$ and $\\frac{d}{dx}(3x^3 - 5x) = 9x^2 - 5$",
+    "Substitute back: $j'(x) = 2x \\cdot (3x^3 - 5x) + (x^2 + 2) \\cdot (9x^2 - 5)$",
+    "Expand and simplify: $j'(x) = 6x^4 - 10x^2 + 9x^4 - 5x^2 + 18x^2 - 10 = 15x^4 + 3x^2 - 10$"
+   ],
+   "result": "$j'(x) = 15x^4 + 3x^2 - 10$"
+  },
+  "narr": [
+   "Let's work through an example using the product rule.",
+   "We need to find the derivative of $j(x) = (x^2 + 2)(3x^3 - 5x)$.",
+   "First, we apply the product rule, which involves taking derivatives of each part.",
+   "Next, we compute the individual derivatives of each component.",
+   "Then we substitute these derivatives back into our product rule expression.",
+   "Finally, we expand and simplify to get our final answer."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 2 — Quotient Rule",
+   "problem": "Find the derivative of $k(x) = \\frac{5x^2}{4x+3}$ using the quotient rule.",
+   "steps": [
+    "Apply the quotient rule: $k'(x) = \\frac{\\frac{d}{dx}(5x^2) \\cdot (4x+3) - 5x^2 \\cdot \\frac{d}{dx}(4x+3)}{(4x+3)^2}$",
+    "Compute the derivatives: $\\frac{d}{dx}(5x^2) = 10x$ and $\\frac{d}{dx}(4x+3) = 4$",
+    "Substitute back: $k'(x) = \\frac{10x(4x+3) - 5x^2 \\cdot 4}{(4x+3)^2}$",
+    "Expand and simplify: $k'(x) = \\frac{40x^2 + 30x - 20x^2}{(4x+3)^2} = \\frac{20x^2 + 30x}{(4x+3)^2}$"
+   ],
+   "result": "$k'(x) = \\frac{20x^2 + 30x}{(4x+3)^2}$"
+  },
+  "narr": [
+   "Now let's look at an example using the quotient rule.",
+   "We need to find the derivative of $k(x) = \\frac{5x^2}{4x+3}$.",
+   "First, we apply the quotient rule, which involves derivatives of both numerator and denominator.",
+   "Next, we compute the individual derivatives.",
+   "Then we substitute these derivatives back into our quotient rule expression.",
+   "Finally, we expand and simplify to get our final answer."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Derivatives of Trigonometric Functions",
+   "subtitle": "Essential trigonometric derivatives"
+  },
+  "narr": [
+   "Now let's explore the derivatives of trigonometric functions, which are essential for many applications."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Basic Trigonometric Derivatives",
+   "tex": "\\frac{d}{dx}(\\sin x) = \\cos x, \\frac{d}{dx}(\\cos x) = -\\sin x \\text{ (theorem 3.8)}",
+   "parts": [
+    {
+     "substr": "\\frac{d}{dx}(\\sin x) = \\cos x",
+     "color": "#4C5FD5",
+     "note": "The derivative of sine is cosine"
+    },
+    {
+     "substr": "\\frac{d}{dx}(\\cos x) = -\\sin x",
+     "color": "#4C5FD5",
+     "note": "The derivative of cosine is negative sine"
+    }
+   ]
+  },
+  "narr": [
+   "The most fundamental trigonometric derivatives are those for sine and cosine.",
+   "The derivative of sine is cosine, and the derivative of cosine is negative sine."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Graphical Interpretation",
+   "bullets": [
+    "At maximum and minimum points of $\\sin x$, the tangent is horizontal and $\\cos x = 0$",
+    "Where $\\sin x$ is increasing — $\\cos x > 0$",
+    "Where $\\sin x$ is decreasing — $\\cos x < 0$"
+   ]
+  },
+  "narr": [
+   "Graphically, these derivatives have important interpretations.",
+   "At the peaks and valleys of the sine function, the tangent is horizontal, which corresponds to cosine being zero.",
+   "Where the sine function is increasing, its derivative cosine is positive.",
+   "Where the sine function is decreasing, its derivative cosine is negative."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Other Trigonometric Derivatives",
+   "tex": "\\frac{d}{dx}(\\tan x) = \\sec^2 x, \\frac{d}{dx}(\\cot x) = -\\csc^2 x, \\frac{d}{dx}(\\sec x) = \\sec x \\cdot \\tan x, \\frac{d}{dx}(\\csc x) = -\\csc x \\cdot \\cot x \\text{ (theorem 3.9)}",
+   "parts": [
+    {
+     "substr": "\\frac{d}{dx}(\\tan x) = \\sec^2 x",
+     "color": "#4C5FD5",
+     "note": "The derivative of tangent is secant squared"
+    },
+    {
+     "substr": "\\frac{d}{dx}(\\cot x) = -\\csc^2 x",
+     "color": "#4C5FD5",
+     "note": "The derivative of cotangent is negative cosecant squared"
+    },
+    {
+     "substr": "\\frac{d}{dx}(\\sec x) = \\sec x \\cdot \\tan x",
+     "color": "#4C5FD5",
+     "note": "The derivative of secant is secant times tangent"
+    },
+    {
+     "substr": "\\frac{d}{dx}(\\csc x) = -\\csc x \\cdot \\cot x",
+     "color": "#4C5FD5",
+     "note": "The derivative of cosecant is negative cosecant times cotangent"
+    }
+   ]
+  },
+  "narr": [
+   "The derivatives of other trigonometric functions can be derived from sine and cosine.",
+   "The derivative of tangent is secant squared.",
+   "The derivative of cotangent is negative cosecant squared.",
+   "The derivative of secant is secant times tangent.",
+   "The derivative of cosecant is negative cosecant times cotangent."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Lecturer's Advice",
+   "bullets": [
+    "\"Do not memorize them!\" — derivatives of tan, cot, sec, csc are not memorized: each is derived from sin and cos using the quotient rule",
+    "Harmonic oscillation: $s'$ — velocity, $s''$ — acceleration",
+    "Higher-order derivatives of sine are cyclic with period 4: $\\sin x \\rightarrow \\cos x \\rightarrow -\\sin x \\rightarrow -\\cos x \\rightarrow \\sin x \\rightarrow \\ldots$"
+   ]
+  },
+  "narr": [
+   "The lecturer has some important advice regarding these derivatives.",
+   "Rather than memorizing all these derivatives, it's better to understand how to derive them from sine and cosine using the quotient rule.",
+   "In harmonic oscillation, the first derivative represents velocity and the second derivative represents acceleration.",
+   "Higher-order derivatives of sine follow a cyclic pattern with a period of 4."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3 — Higher-Order Derivatives",
+   "problem": "Find the 74th derivative of $\\sin x$.",
+   "steps": [
+    "Recognize that the derivatives of sine follow a cycle: $\\sin x \\rightarrow \\cos x \\rightarrow -\\sin x \\rightarrow -\\cos x \\rightarrow \\sin x \\rightarrow \\ldots$",
+    "Determine the position in the cycle: $74 \\mod 4 = 2$ (since $74 = 4 \\cdot 18 + 2$)",
+    "The 74th derivative corresponds to the 2nd position in the cycle"
+   ],
+   "result": "The 74th derivative of $\\sin x$ is $-\\sin x$"
+  },
+  "narr": [
+   "Let's work through an example involving higher-order derivatives.",
+   "We need to find the 74th derivative of sine.",
+   "First, we recognize that the derivatives of sine follow a cyclic pattern.",
+   "Next, we determine where the 74th derivative falls in this cycle.",
+   "Since the cycle has period 4, we find that the 74th derivative corresponds to the 2nd position in the cycle."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Derivatives of Exponential and Logarithmic Functions",
+   "subtitle": "Essential exponential and logarithmic derivatives"
+  },
+  "narr": [
+   "Finally, let's explore the derivatives of exponential and logarithmic functions."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Exponential Derivatives",
+   "tex": "\\frac{d}{dx}(e^x) = e^x, \\frac{d}{dx}(e^{g(x)}) = e^{g(x)} \\cdot g'(x) \\text{ (theorem 3.14)}",
+   "parts": [
+    {
+     "substr": "\\frac{d}{dx}(e^x) = e^x",
+     "color": "#4C5FD5",
+     "note": "The derivative of e^x is itself"
+    },
+    {
+     "substr": "\\frac{d}{dx}(e^{g(x)}) = e^{g(x)} \\cdot g'(x)",
+     "color": "#4C5FD5",
+     "note": "Chain rule for exponential functions"
+    }
+   ]
+  },
+  "narr": [
+   "The exponential function has a remarkable property: its derivative is itself.",
+   "For composite exponential functions, we apply the chain rule."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "General Exponential and Logarithmic Derivatives",
+   "tex": "\\frac{d}{dx}(b^x) = b^x \\cdot \\ln b, \\frac{d}{dx}(\\ln x) = \\frac{1}{x}, \\frac{d}{dx}(\\ln(g(x))) = \\frac{g'(x)}{g(x)}, \\frac{d}{dx}(\\log_b x) = \\frac{1}{x \\cdot \\ln b} \\text{ (theorems 3.15-3.16)}",
+   "parts": [
+    {
+     "substr": "\\frac{d}{dx}(b^x) = b^x \\cdot \\ln b",
+     "color": "#4C5FD5",
+     "note": "Derivative of general exponential function"
+    },
+    {
+     "substr": "\\frac{d}{dx}(\\ln x) = \\frac{1}{x}",
+     "color": "#4C5FD5",
+     "note": "Derivative of natural logarithm"
+    },
+    {
+     "substr": "\\frac{d}{dx}(\\ln(g(x))) = \\frac{g'(x)}{g(x)}",
+     "color": "#4C5FD5",
+     "note": "Chain rule for logarithmic functions"
+    },
+    {
+     "substr": "\\frac{d}{dx}(\\log_b x) = \\frac{1}{x \\cdot \\ln b}",
+     "color": "#4C5FD5",
+     "note": "Derivative of general logarithm"
+    }
+   ]
+  },
+  "narr": [
+   "For general exponential functions with base b, the derivative includes a natural logarithm factor.",
+   "The derivative of the natural logarithm is 1/x.",
+   "For composite logarithmic functions, we apply the chain rule.",
+   "The derivative of a general logarithm with base b also includes a natural logarithm factor."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Number e",
+   "bullets": [
+    "e is the unique base b > 0 for which the function B(x) = b^x satisfies B'(0) = 1",
+    "2.7182 < e < 2.7183 (e ≈ 2.718282)",
+    "The tangent to e^x at zero is the line y = x + 1"
+   ]
+  },
+  "narr": [
+   "The number e has special properties in calculus.",
+   "It's the unique base where the exponential function has a derivative of 1 at x = 0.",
+   "e is approximately 2.718282, and the tangent to e^x at zero is the line y = x + 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 4 — Exponential Derivatives",
+   "problem": "Find the derivatives of the following functions:",
+   "steps": [
+    "$\\frac{d}{dx}(e^{2x}) = 2 \\cdot e^{2x}$ (chain rule)",
+    "$\\frac{d}{dx}(e^{3x^2}) = 6x \\cdot e^{3x^2}$ (chain rule)",
+    "$\\frac{d}{dx}(e^{3x^2+5x^3}) = (6x + 15x^2) \\cdot e^{3x^2+5x^3}$ (chain rule)"
+   ],
+   "result": "The derivatives are $2e^{2x}$, $6xe^{3x^2}$, and $(6x + 15x^2)e^{3x^2+5x^3}$ respectively"
+  },
+  "narr": [
+   "Let's work through some examples involving exponential derivatives.",
+   "For $e^{2x}$, we apply the chain rule, multiplying by the derivative of the exponent 2x.",
+   "For $e^{3x^2}$, we again apply the chain rule, multiplying by the derivative of $3x^2$.",
+   "For $e^{3x^2+5x^3}$, we apply the chain rule to the sum in the exponent."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Exponent Laws",
+   "bullets": [
+    "$b^x \\cdot b^y = b^{x+y}$",
+    "$\\frac{b^x}{b^y} = b^{x-y}$",
+    "$(b^x)^y = b^{xy}$",
+    "$(ab)^x = a^x \\cdot b^x$",
+    "$(\\frac{a}{b})^x = \\frac{a^x}{b^x}$"
+   ]
+  },
+  "narr": [
+   "Remember these exponent laws for simplifying expressions involving exponentials.",
+   "When multiplying exponentials with the same base, add the exponents.",
+   "When dividing exponentials with the same base, subtract the exponents.",
+   "When raising an exponential to another power, multiply the exponents.",
+   "The power of a product can be distributed to each factor.",
+   "Similarly, the power of a quotient can be distributed to numerator and denominator."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

@@ -1,0 +1,876 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 1–4",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Let's start our journey into calculus with the fundamental concept of limits and how they help us understand instantaneous rates of change.",
+   "We'll begin with the intuitive definition and gradually build up to the precise epsilon-delta definition."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Average Velocity",
+   "tex": "v_{ave} = \\frac{s(t) - s(a)}{t - a}",
+   "parts": [
+    {
+     "substr": "v_{ave}",
+     "color": "#4C5FD5",
+     "note": "average velocity"
+    },
+    {
+     "substr": "s(t) - s(a)",
+     "color": "#B45309",
+     "note": "change in position"
+    },
+    {
+     "substr": "t - a",
+     "color": "#0E7C7B",
+     "note": "change in time"
+    }
+   ]
+  },
+  "narr": [
+   "The average velocity over an interval is simply the change in position divided by the change in time.",
+   "This gives us the slope of the secant line connecting two points on a position-time graph."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Instantaneous Rate of Change",
+   "tex": "\\lim_{h \\to 0} \\frac{f(a + h) - f(a)}{h} = f'(a)",
+   "parts": [
+    {
+     "substr": "\\lim_{h \\to 0}",
+     "color": "#4C5FD5",
+     "note": "the limit as h approaches zero"
+    },
+    {
+     "substr": "f(a + h) - f(a)",
+     "color": "#B45309",
+     "note": "change in function value"
+    },
+    {
+     "substr": "h",
+     "color": "#0E7C7B",
+     "note": "change in input"
+    },
+    {
+     "substr": "f'(a)",
+     "color": "#A03040",
+     "note": "the derivative at point a"
+    }
+   ]
+  },
+  "narr": [
+   "To find the instantaneous rate of change, we take the limit of the average rate as the interval approaches zero.",
+   "This limit, when it exists, is the derivative of the function at that point, representing the slope of the tangent line."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Limit Concept",
+   "bullets": [
+    "Intuitive definition of limits",
+    "One-sided limits (left and right)",
+    "Two-sided limits and their existence criterion",
+    "Infinite limits",
+    "Vertical asymptotes"
+   ]
+  },
+  "narr": [
+   "The limit concept is the operational heart of our study this week.",
+   "Let's explore the intuitive definition first, then move to one-sided and infinite limits."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Intuitive Definition of a Limit",
+   "tex": "\\lim_{x \\to a} f(x) = L \\Leftrightarrow \\text{all } f(x) (x \\neq a) \\text{ approach } L \\text{ as } x \\to a",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a} f(x)",
+     "color": "#4C5FD5",
+     "note": "the limit of f(x) as x approaches a"
+    },
+    {
+     "substr": "= L",
+     "color": "#B45309",
+     "note": "equals L"
+    },
+    {
+     "substr": "x \\neq a",
+     "color": "#0E7C7B",
+     "note": "x not equal to a"
+    }
+   ]
+  },
+  "narr": [
+   "Intuitively, the limit of f(x) as x approaches a is L if all function values get arbitrarily close to L as x gets close to a (but not equal to a)."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "One-Sided Limits",
+   "tex": "\\lim_{x \\to a^-} f(x) = L, \\lim_{x \\to a^+} f(x) = L",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a^-} f(x)",
+     "color": "#4C5FD5",
+     "note": "left-hand limit"
+    },
+    {
+     "substr": "\\lim_{x \\to a^+} f(x)",
+     "color": "#B45309",
+     "note": "right-hand limit"
+    },
+    {
+     "substr": "= L",
+     "color": "#0E7C7B",
+     "note": "both equal L"
+    }
+   ]
+  },
+  "narr": [
+   "One-sided limits consider approaching a point only from the left (a⁻) or only from the right (a⁺)."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Existence Criterion for Two-Sided Limits",
+   "tex": "\\lim_{x \\to a} f(x) = L \\Leftrightarrow \\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = L",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a} f(x)",
+     "color": "#4C5FD5",
+     "note": "two-sided limit"
+    },
+    {
+     "substr": "\\lim_{x \\to a^-} f(x)",
+     "color": "#B45309",
+     "note": "left-hand limit"
+    },
+    {
+     "substr": "\\lim_{x \\to a^+} f(x)",
+     "color": "#0E7C7B",
+     "note": "right-hand limit"
+    }
+   ]
+  },
+  "narr": [
+   "A two-sided limit exists if and only if both one-sided limits exist and are equal to each other."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Infinite Limits",
+   "tex": "\\lim_{x \\to a^-} f(x) = \\pm\\infty, \\lim_{x \\to a^+} f(x) = \\pm\\infty, \\lim_{x \\to a} f(x) = \\pm\\infty",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a^-} f(x)",
+     "color": "#4C5FD5",
+     "note": "left-hand infinite limit"
+    },
+    {
+     "substr": "\\lim_{x \\to a^+} f(x)",
+     "color": "#B45309",
+     "note": "right-hand infinite limit"
+    },
+    {
+     "substr": "\\lim_{x \\to a} f(x)",
+     "color": "#0E7C7B",
+     "note": "two-sided infinite limit"
+    },
+    {
+     "substr": "\\pm\\infty",
+     "color": "#A03040",
+     "note": "positive or negative infinity"
+    }
+   ]
+  },
+  "narr": [
+   "Sometimes functions grow without bound as they approach a point, leading to infinite limits."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Behavior of 1/(x-a)^n",
+   "tex": "\\lim_{x \\to a^-} \\frac{1}{(x-a)^n} = +\\infty, \\lim_{x \\to a^+} \\frac{1}{(x-a)^n} = +\\infty \\text{ (n even)}",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a^-}",
+     "color": "#4C5FD5",
+     "note": "left-hand limit"
+    },
+    {
+     "substr": "\\lim_{x \\to a^+}",
+     "color": "#B45309",
+     "note": "right-hand limit"
+    },
+    {
+     "substr": "n \\text{ even}",
+     "color": "#0E7C7B",
+     "note": "when n is even"
+    },
+    {
+     "substr": "+\\infty",
+     "color": "#A03040",
+     "note": "approaches positive infinity"
+    }
+   ]
+  },
+  "narr": [
+   "For even powers of n, the function 1/(x-a)^n approaches positive infinity from both sides."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Behavior of 1/(x-a)^n (continued)",
+   "tex": "\\lim_{x \\to a^-} \\frac{1}{(x-a)^n} = -\\infty, \\lim_{x \\to a^+} \\frac{1}{(x-a)^n} = +\\infty \\text{ (n odd)}",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to a^-}",
+     "color": "#4C5FD5",
+     "note": "left-hand limit"
+    },
+    {
+     "substr": "\\lim_{x \\to a^+}",
+     "color": "#B45309",
+     "note": "right-hand limit"
+    },
+    {
+     "substr": "n \\text{ odd}",
+     "color": "#0E7C7B",
+     "note": "when n is odd"
+    },
+    {
+     "substr": "-\\infty, +\\infty",
+     "color": "#A03040",
+     "note": "different infinities from each side"
+    }
+   ]
+  },
+  "narr": [
+   "For odd powers of n, the function approaches negative infinity from the left and positive infinity from the right.",
+   "This creates a vertical asymptote at x = a."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Vertical Asymptotes",
+   "bullets": [
+    "The line x = a is a vertical asymptote of f if at least one of the one-sided infinite limits holds there.",
+    "Vertical asymptotes indicate where a function grows without bound.",
+    "They often occur where denominators approach zero while numerators don't."
+   ]
+  },
+  "narr": [
+   "Vertical asymptotes are important features in the graphs of functions.",
+   "They represent values where the function is undefined and grows without bound."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "The Precise Definition of a Limit",
+   "subtitle": "ε-δ Definition"
+  },
+  "narr": [
+   "Now let's move from the intuitive definition to the precise ε-δ definition of a limit.",
+   "This definition formalizes the idea of 'arbitrarily close' using quantified distances."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "ε-δ Definition of a Limit",
+   "tex": "\\lim_{x \\to a} f(x) = L \\Leftrightarrow \\forall\\epsilon > 0 \\exists\\delta > 0 : 0 < |x - a| < \\delta \\Rightarrow |f(x) - L| < \\epsilon",
+   "parts": [
+    {
+     "substr": "\\forall\\epsilon > 0",
+     "color": "#4C5FD5",
+     "note": "for all positive epsilon"
+    },
+    {
+     "substr": "\\exists\\delta > 0",
+     "color": "#B45309",
+     "note": "there exists a positive delta"
+    },
+    {
+     "substr": "0 < |x - a| < \\delta",
+     "color": "#0E7C7B",
+     "note": "x is within delta of a (but not equal to a)"
+    },
+    {
+     "substr": "|f(x) - L| < \\epsilon",
+     "color": "#A03040",
+     "note": "f(x) is within epsilon of L"
+    }
+   ]
+  },
+  "narr": [
+   "The ε-δ definition says that for any small distance ε from L, we can find a distance δ from a such that when x is within δ of a (but not equal to a), f(x) is within ε of L."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Absolute Value Inequalities",
+   "tex": "|f(x) - L| < \\epsilon \\Leftrightarrow L - \\epsilon < f(x) < L + \\epsilon",
+   "parts": [
+    {
+     "substr": "|f(x) - L| < \\epsilon",
+     "color": "#4C5FD5",
+     "note": "distance between f(x) and L is less than epsilon"
+    },
+    {
+     "substr": "L - \\epsilon < f(x)",
+     "color": "#B45309",
+     "note": "f(x) is greater than L minus epsilon"
+    },
+    {
+     "substr": "f(x) < L + \\epsilon",
+     "color": "#0E7C7B",
+     "note": "f(x) is less than L plus epsilon"
+    }
+   ]
+  },
+  "narr": [
+   "The absolute value inequality |f(x) - L| < ε can be rewritten as a compound inequality.",
+   "This shows that f(x) is trapped between L - ε and L + ε."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Absolute Value Inequalities (continued)",
+   "tex": "0 < |x - a| < \\delta \\Leftrightarrow a - \\delta < x < a + \\delta \\text{ and } x \\neq a",
+   "parts": [
+    {
+     "substr": "0 < |x - a| < \\delta",
+     "color": "#4C5FD5",
+     "note": "distance between x and a is less than delta"
+    },
+    {
+     "substr": "a - \\delta < x",
+     "color": "#B45309",
+     "note": "x is greater than a minus delta"
+    },
+    {
+     "substr": "x < a + \\delta",
+     "color": "#0E7C7B",
+     "note": "x is less than a plus delta"
+    },
+    {
+     "substr": "x \\neq a",
+     "color": "#A03040",
+     "note": "x is not equal to a"
+    }
+   ]
+  },
+  "narr": [
+   "Similarly, the condition on x can be rewritten to show that x is trapped between a - δ and a + δ, but not equal to a."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Two Standard Limits",
+   "subtitle": "Important limits to remember"
+  },
+  "narr": [
+   "Let's look at two standard limits that are particularly important in calculus.",
+   "The first one involves the sine function and will be crucial for derivatives of trigonometric functions."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Standard Limit: sin(x)/x",
+   "tex": "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to 0}",
+     "color": "#4C5FD5",
+     "note": "limit as x approaches 0"
+    },
+    {
+     "substr": "\\frac{\\sin x}{x}",
+     "color": "#B45309",
+     "note": "sine of x divided by x"
+    },
+    {
+     "substr": "= 1",
+     "color": "#0E7C7B",
+     "note": "the limit equals 1"
+    }
+   ]
+  },
+  "narr": [
+   "The limit of sin(x)/x as x approaches 0 is 1.",
+   "This can be seen from the values: 0.9983, 0.99998, 0.9999998, etc. as x gets closer to 0."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Standard Limit: sin(1/x)",
+   "tex": "\\lim_{x \\to 0} \\sin \\frac{1}{x} \\text{ does not exist (oscillation)}",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to 0}",
+     "color": "#4C5FD5",
+     "note": "limit as x approaches 0"
+    },
+    {
+     "substr": "\\sin \\frac{1}{x}",
+     "color": "#B45309",
+     "note": "sine of 1/x"
+    },
+    {
+     "substr": "\\text{does not exist}",
+     "color": "#0E7C7B",
+     "note": "the limit does not exist"
+    },
+    {
+     "substr": "\\text{(oscillation)}",
+     "color": "#A03040",
+     "note": "due to oscillation"
+    }
+   ]
+  },
+  "narr": [
+   "In contrast, the limit of sin(1/x) as x approaches 0 does not exist because the function oscillates infinitely often as x approaches 0."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Infinite Limits for 1/x",
+   "tex": "\\lim_{x \\to 0^-} \\frac{1}{x} = -\\infty, \\lim_{x \\to 0^+} \\frac{1}{x} = +\\infty",
+   "parts": [
+    {
+     "substr": "\\lim_{x \\to 0^-}",
+     "color": "#4C5FD5",
+     "note": "left-hand limit as x approaches 0"
+    },
+    {
+     "substr": "\\lim_{x \\to 0^+}",
+     "color": "#B45309",
+     "note": "right-hand limit as x approaches 0"
+    },
+    {
+     "substr": "\\frac{1}{x}",
+     "color": "#0E7C7B",
+     "note": "1 divided by x"
+    },
+    {
+     "substr": "-\\infty, +\\infty",
+     "color": "#A03040",
+     "note": "negative and positive infinity"
+    }
+   ]
+  },
+  "narr": [
+   "The function 1/x has different infinite limits from the left and right as x approaches 0.",
+   "From the left, it approaches negative infinity; from the right, it approaches positive infinity."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Math I: ISA for week 3 — questions and complete solutions",
+   "subtitle": "Problems and detailed solutions"
+  },
+  "narr": [
+   "Now let's work through some problems from the ISA (Individual Study Assignment) for week 3.",
+   "These problems will help solidify our understanding of limits and their applications."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Study Instruction",
+   "problem": "Study all problems, exercises, and examples presented in the lecture and practical session; be able to answer quickly and without errors.",
+   "steps": [
+    {
+     "text": "This is a study instruction, not a calculation problem."
+    },
+    {
+     "text": "The relevant material includes lecture examples, practical session exercises, and assigned textbook problems."
+    },
+    {
+     "text": "Focus on understanding the concepts and practicing similar problems."
+    }
+   ],
+   "result": "Review all course materials thoroughly and practice solving similar problems."
+  },
+  "narr": [
+   "Our first problem isn't a calculation but a study instruction.",
+   "It emphasizes the importance of reviewing all course materials and practicing problems."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Estimating Tangent Slope",
+   "problem": "For f(x) = x³, estimate the slope of the tangent at x = 1, using m_sec = [f(1 + h) - f(1)]/h from left and right to the same number?",
+   "steps": [
+    {
+     "text": "Given f(x) = x³, find f(1) = 1³ = 1."
+    },
+    {
+     "text": "Find f(1 + h) = (1 + h)³ = 1 + 3h + 3h² + h³."
+    },
+    {
+     "text": "Calculate the secant slope: m_sec = [f(1 + h) - f(1)]/h = [1 + 3h + 3h² + h³ - 1]/h = 3 + 3h + h²."
+    },
+    {
+     "text": "Evaluate from left: h = -0.1 ⇒ 2.71; h = -0.01 ⇒ 2.9701; h = -0.001 ⇒ 2.997."
+    },
+    {
+     "text": "Evaluate from right: h = 0.001 ⇒ 3.003; h = 0.01 ⇒ 3.0301; h = 0.1 ⇒ 3.31."
+    },
+    {
+     "text": "Both sides approach 3, so lim(h→0)(3 + 3h + h²) = 3."
+    }
+   ],
+   "result": "The exact slope of the tangent line (derivative) at x = 1 is 3."
+  },
+  "narr": [
+   "For this problem, we're estimating the slope of the tangent to f(x) = x³ at x = 1.",
+   "We'll use secant slopes from both sides and see what value they approach."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Textbook Problems",
+   "problem": "Solve problems 46-49 and 60-64 from 'Chapter 1' (exercise list §2.2) of OpenStax Calculus 1.",
+   "steps": [
+    {
+     "text": "These are graph reading exercises from the textbook."
+    },
+    {
+     "text": "The problems require interpreting limits from graphical representations."
+    },
+    {
+     "text": "Solutions are provided in §4.4 of the course materials."
+    }
+   ],
+   "result": "Complete the graph reading exercises and verify solutions in the course materials."
+  },
+  "narr": [
+   "This problem directs us to specific exercises from the OpenStax Calculus 1 textbook.",
+   "These exercises focus on reading limits from graphs, which is an important skill."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Temperature Controller",
+   "problem": "A temperature controller outputs C(T) = 0 when T < 50 and C(T) = 10 when T ≥ 50 (volts). Determine lim(T→50⁻)C(T), lim(T→50⁺)C(T), lim(T→50)C(T); interpret as a switching operation.",
+   "steps": [
+    {
+     "text": "For T < 50, C(T) = 0, so lim(T→50⁻)C(T) = 0."
+    },
+    {
+     "text": "For T ≥ 50, C(T) = 10, so lim(T→50⁺)C(T) = 10."
+    },
+    {
+     "text": "Since the one-sided limits are different (0 ≠ 10), the two-sided limit does not exist."
+    },
+    {
+     "text": "Interpretation: This represents an abrupt switching at T = 50V, where the output jumps from 0V to 10V."
+    }
+   ],
+   "result": "Left limit: 0V, Right limit: 10V, Two-sided limit: Does not exist. This represents a thermostat switching operation."
+  },
+  "narr": [
+   "This problem models a temperature controller with a step function behavior.",
+   "We'll find the one-sided limits and determine if the two-sided limit exists."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Robot Cart Position",
+   "problem": "Position of a robot cart: s(t) = 2t² + 3t (m, s). (1) Find average speed on [2, 2 + h]. (2) Compute lim(h→0). (3) Interpret.",
+   "steps": [
+    {
+     "text": "Given s(t) = 2t² + 3t, find s(2) = 2(2)² + 3(2) = 14m."
+    },
+    {
+     "text": "Find s(2 + h) = 2(2 + h)² + 3(2 + h) = 2(4 + 4h + h²) + 6 + 3h = 14 + 11h + 2h²."
+    },
+    {
+     "text": "Average speed = [s(2 + h) - s(2)]/h = [14 + 11h + 2h² - 14]/h = 11 + 2h."
+    },
+    {
+     "text": "Compute lim(h→0)(11 + 2h) = 11 m/s."
+    },
+    {
+     "text": "Interpretation: The instantaneous speed at t = 2s is 11 m/s."
+    }
+   ],
+   "result": "The instantaneous speed of the cart at t = 2s is 11 m/s."
+  },
+  "narr": [
+   "This problem involves a robot cart with position function s(t) = 2t² + 3t.",
+   "We'll find the average speed over a small interval and then take the limit to find instantaneous speed."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Growth Comparison",
+   "problem": "Two systems have outputs A(t) = (1.08)^t and B(t) = e^(0.03t). (1) Compute lim(t→∞)A(t) and lim(t→∞)B(t); (2) rewrite A(t) in the form e^(kt); (3) which grows faster? (4) Compute lim(t→∞)B(t)/A(t); (5) interpret.",
+   "steps": [
+    {
+     "text": "For A(t) = (1.08)^t, since 1.08 > 1, lim(t→∞)A(t) = +∞."
+    },
+    {
+     "text": "For B(t) = e^(0.03t), since 0.03 > 0, lim(t→∞)B(t) = +∞."
+    },
+    {
+     "text": "Rewrite A(t) = (1.08)^t = e^(t·ln(1.08)) ≈ e^(0.0770t)."
+    },
+    {
+     "text": "A grows faster since its rate constant 0.0770 > 0.03."
+    },
+    {
+     "text": "Compute B(t)/A(t) = e^(0.03t)/e^(0.0770t) = e^(-0.047t) → 0 as t → ∞."
+    },
+    {
+     "text": "Interpretation: Although both diverge, B becomes negligible compared to A as t increases."
+    }
+   ],
+   "result": "Both functions grow to infinity, but A(t) grows faster. The ratio B(t)/A(t) approaches 0, showing B becomes negligible compared to A."
+  },
+  "narr": [
+   "This problem compares the growth of two exponential functions.",
+   "We'll analyze their long-term behavior and determine which grows faster."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Math I: Week 3 practical session (engineering limits)",
+   "subtitle": "Questions and complete solutions"
+  },
+  "narr": [
+   "Now let's move to the practical session problems for week 3.",
+   "These problems focus on engineering applications of limits."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practical Problem 1 — Textbook Exercises",
+   "problem": "Solve problems 50-54 from the exercise list §2.2 of the textbook.",
+   "steps": [
+    {
+     "text": "These are additional graph reading exercises from the textbook."
+    },
+    {
+     "text": "The problems require interpreting limits from graphical representations."
+    },
+    {
+     "text": "Solutions are provided in §4.4 of the course materials (items 50-54)."
+    }
+   ],
+   "result": "Complete the graph reading exercises and verify solutions in the course materials."
+  },
+  "narr": [
+   "This practical problem directs us to additional exercises from the textbook.",
+   "Like problem 3, these focus on reading limits from graphs."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practical Problem 2 — One-Sided Limits",
+   "problem": "f(x) = 2x + 1 when x < 2, f(x) = 7 - x when x ≥ 2. Find lim(x→2⁻)f, lim(x→2⁺)f, lim(x→2)f, f(2); explain whether the two-sided limit exists.",
+   "steps": [
+    {
+     "text": "For x < 2, f(x) = 2x + 1, so lim(x→2⁻)f(x) = 2(2) + 1 = 5."
+    },
+    {
+     "text": "For x ≥ 2, f(x) = 7 - x, so lim(x→2⁺)f(x) = 7 - 2 = 5."
+    },
+    {
+     "text": "Since both one-sided limits equal 5, lim(x→2)f(x) = 5."
+    },
+    {
+     "text": "f(2) = 7 - 2 = 5, which equals the limit."
+    },
+    {
+     "text": "Conclusion: The two-sided limit exists and equals 5, and the function is continuous at x = 2."
+    }
+   ],
+   "result": "Left limit: 5, Right limit: 5, Two-sided limit: 5, f(2) = 5. The two-sided limit exists and the function is continuous at x = 2."
+  },
+  "narr": [
+   "This problem involves a piecewise function with a potential discontinuity at x = 2.",
+   "We'll find the one-sided limits and determine if the function is continuous at that point."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Practical Problem 3 — Calibration Near Missing Measurement",
+   "problem": "V(T) = (2500/T) MB, T ≥ 50; V(T) = mV, T ≠ 50; T - 50 (T in °C). (1) Why is V(50) undefined? (2) Evaluate lim(T→50)V(T); (3) how can the limit replace the missing calibration value?",
+   "steps": [
+    {
+     "text": "V(50) is undefined because the formula divides by T - 50, which equals 0 when T = 50."
+    },
+    {
+     "text": "To find lim(T→50)V(T), factor the difference of squares: T² - 2500 = (T - 50)(T + 50)."
+    },
+    {
+     "text": "For T ≠ 50, V(T) = (T² - 2500)/(T - 50) = T + 50."
+    },
+    {
+     "text": "Therefore, lim(T→50)V(T) = 50 + 50 = 100 mV."
+    },
+    {
+     "text": "The limit can replace the missing calibration value as it represents what the sensor would show at 50°C."
+    }
+   ],
+   "result": "V(50) is undefined due to division by zero. The limit is 100 mV, which can be used as the calibration value at T = 50°C."
+  },
+  "narr": [
+   "This problem involves a sensor calibration with a missing measurement at T = 50°C.",
+   "We'll analyze why the value is undefined and how the limit can provide a replacement value."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ }
+]

@@ -1,0 +1,295 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Matematika I — 5-7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "5-7 haftalar oralig'ida funksiyalarning uzluksizligi va xossalari bilan tanishamiz.",
+   "Bizning asosiy e'tibarimiz funksiyalarning uzluksizligi, o'rta qiymat teoremasi, Veyershtrass teoremasi va teskari funksiyalar bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Uzluksizlikning asosiy tushunchasi",
+   "bullets": [
+    "Ba'zi funksiyalar yaqinlashmasdan tebranadi, masalan, f(x) = sin(1/x) x → 0 da",
+    "lim x → 0 f(x) mavjud emas"
+   ]
+  },
+  "narr": [
+   "Funksiyalarning uzluksizligi haqida gapirganda, birinchi navbatda funksiya beriligan nuqtada limitga ega bo'lishini tekshirish kerak.",
+   "Agar funksiya yaqinlashmasdan tebranib tursa, u holda u nuqtada uzluksiz bo'lmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Elementar funksiyalarning uzluksizligi",
+   "bullets": [
+    "2.8-teorema: ko'phadlar va ratsional funksiyalar aniqlanish sohasining har bir nuqtasida uzluksizdir",
+    "2.10-teorema: trigonometrik funksiyalar aniqlanish sohasining barcha nuqtalarida uzluksizdir"
+   ]
+  },
+  "narr": [
+   "Ko'phad funksiyalar hamma joyda uzluksiz bo'ladi.",
+   "Ratsional funksiyalar esa maxraj nolga teng bo'lmagan joylarda uzluksiz bo'ladi.",
+   "Trigonometrik funksiyalar ularning aniqlanish sohalarida uzluksizdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Uzluksiz funksiyalarning algebrasi",
+   "bullets": [
+    "f + g, f - g, c · f, f · g — anuqtada uzluksiz, agar f va g da uzluksiz bo'lsa",
+    "f/g — anuqtada uzluksiz, agar f va g da uzluksiz bo'lsa va g(a) ≠ 0 bo'lsa"
+   ]
+  },
+  "narr": [
+   "Uzluksiz funksiyalarning qo'shilishi, ayirilishi, ko'paytirilishi va bo'linishi ham uzluksiz funksiyalar beradi.",
+   "Bu muhandislik uchun juda foydali xususiyatdir!",
+   "Eslatib o'tish kerak: bo'linishda maxraj nolga teng bo'lmagan shartga e'tibor berish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Murakkab funksiya teoremasi",
+   "tex": "\\lim_{x \\to a} f(g(x)) = f(\\lim_{x \\to a} g(x)) = f(L), agar f da uzluksiz bo'lsa va \\lim_{x \\to a} g(x) = L bo'lsa",
+   "parts": [
+    {
+     "substr": "f(g(x))",
+     "color": "#4C5FD5",
+     "note": "murakkab funksiya"
+    },
+    {
+     "substr": "f(L)",
+     "color": "#B45309",
+     "note": "funktsiya chegarasidagi qiymat"
+    },
+    {
+     "substr": "uzluksiz",
+     "color": "#0E7C7B",
+     "note": "asosiy shart"
+    }
+   ]
+  },
+  "narr": [
+   "2.9-teorema (murakkab funksiya haqida) shuni aytadiki, agar f da uzluksiz bo'lsa va lim x → a g(x) = L bo'lsa, u holda limitni f ichiga olish mumkin.",
+   "Bu natijadan foydalanib, biz murakkab funksiyalarning limitlarini hisoblashimiz mumkin.",
+   "Natija: uzluksiz funksiyalarning tarkibi uzluksizdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'rta qiymat teoremasi (IVT)",
+   "bullets": [
+    "f[a, b] da uzluksiz, z f(a) va f(b) orasidayotgan son → c ∈ [a, b] mavjud: f(c) = z",
+    "Maxsus holat: agar f(a) · f(b) < 0 → c ∈ (a, b) mavjud: f(c) = 0"
+   ]
+  },
+  "narr": [
+   "2.11-teorema (o'rta qiymat teoremasi) yopiq chekli intervalda uzluksiz funksiya har bir o'rta qiymatni qabul qiladi.",
+   "Bu muhandislik uchun juda muhim teoremadir.",
+   "Maxsus holatda, agar chekka nuqtalardagi qiymatlar turli ishoraga ega bo'lsa, intervalda ildiz mavjud.",
+   "Muhandislik ma'nosi: agar uzluq ishlaydigan sistema harorati 40°C dan 80°C gacha o'ssa, u har bir o'rta qiymatni, jumladan 60°C ni ham o'tishi shart.",
+   "E'tibor bering: teorema mavjudligini, lekin yagonaligini kafolatlamaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Veyershtrass teoremasi (Extreme Value Theorem)",
+   "bullets": [
+    "f[a, b] yopiq cheklangan oraliqda uzluksiz → f[a, b] da absolyut maksimum va minimumga erishadi",
+    "mavjud x_min, x_max nuqtalar [a, b] oraliqda: f(x_min) ≤ f(x) ≤ f(x_max) barcha x ∈ [a, b] uchun"
+   ]
+  },
+  "narr": [
+   "Veyershtrass teoremasiga ko'ra, yopiq cheklangan oraliqda uzluksiz funksiya mutlaq maksimum va minimumga erishadi.",
+   "'Erishadi' so'ziga e'tibor bering: maksimum va minimum - bu funksiyaning haqiqiy qiymatlari, funksiya yaqinlashadigan qiymatlar emas.",
+   "Ikkala shart ham muhim: (1) funksiya uzluksiz bo'lishi kerak; (2) interval yopiq va chekli bo'lishi kerak.",
+   "Teorema mavjudligini kafolatlaydi, lekin ekstremumlar qayerda joylashganligini, arning yagonaligini, ularni qanday hisoblash mumkinligini va lokal ekstremum global bo'lishi mumkinligini aytmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Mutlaq ekstremumni topish usullari",
+   "bullets": [
+    "1-bosqich: (a, b) ichidagi kritik nuqtalarni toping, odatda f'(x) = 0 (hosilalar — 6-haftada o'rganiladi)",
+    "2-bosqich: barcha kritik nuqtalarda f ni hisoblang",
+    "3-bosqich: f(a) va f(b) ni hisoblang",
+    "4-qadam: barcha qiymatlarni solishtiring — eng kattasi absolyut maksimum, eng kichigi absolyut minimum bo'ladi"
+   ]
+  },
+  "narr": [
+   "Veyershtrass teoremasi bu ekstremumlar mavjudligini ta'minlaydi, differensial hisob esa ularni topishga yordam beradi.",
+   "Mutlaq ekstremumni topish uchun quyidagi bosqichlarni amalga oshiring:",
+   "Birinchidan, (a, b) oraliq ichidagi kritik nuqtalarni toping, bu odatda f'(x) = 0 shartini qanoatlantiruvchi nuqtalardir.",
+   "Ikkinchidan, topilgan barcha kritik nuqtalarda funksiya qiymatlarini hisoblang.",
+   "Uchinchidan, oraliq chegaralarida (a va b nuqtalarda) funksiya qiymatlarini hisoblang.",
+   "To'rtinchidan, barcha hisoblangan qiymatlarni solishtiring — eng kattasi absolyut maksimum, eng kichigi esa absolyut minimum bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Veyershtrass teoremasining muhandislik talqini",
+   "bullets": [
+    "Veyershtrass teoremasi hisoblash usuli sifatida emas, balki optimum mavjudligini kafolatlash sifatida muhimdir",
+    "Uzluksiz model + yopiq cheklangan ruxsat berilgan to'plam → erishiladigan maksimum va minimum",
+    "Bu tamoyil struktura optimizatsiyasi, energiya iste'moli boshqaruvi, boshqar nazariyasi, sxematexnika, issiqlik tahlili, materiallarni tanlash va sonli optimizatsiya asosida yotadi"
+   ]
+  },
+  "narr": [
+   "Muhandislik uchun Veyershtrass teoremasini uchta xulosaga keltirish mumkin:",
+   "Birinchidan, optimal dizayn mavjudligini kafolatlaydi.",
+   "Ikkinchidan, eng yomon ish rejimi mavjudligini anglatadi - cheklangan ish oralig'idagi uzluksiz kuchlanish, harorat, xato yoki tebranish funksiyasi o'zining eng katta qiymatiga erishadi.",
+   "Uchinchidan, sonli optimizatsiya ma'noga egadir.",
+   "Optimumni topishdan oldin, muhandis uning mavjudligi kafolatlanganligini so'rashi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Teskari funksiyalar: monotonlik va sohani cheklash",
+   "bullets": [
+    "Teskari funksiya (inverse function) 'kirish-chiqish' bog'liqlikni teskarisiga aylantiradi: agar y = f(x) bo'lsa, u holda x = f^(-1)(y)",
+    "Ta'rif xususiyatlari: f^(-1)(f(x)) = x va f(f^(-1)(y)) = y",
+    "f^(-1)(x) ≠ 1/f(x) - e'tibor bering!"
+   ]
+  },
+  "narr": [
+   "Teskari funksiya tushunchasini ko'rib chiqaylik.",
+   "Teskari funksiya 'kirish-chiqish' bog'liqlikni teskarisiga aylantiradi.",
+   "Agar y = f(x) bo'lsa, u holda x = f^(-1)(y) bo'ladi.",
+   "Teskari funksiya ikkita asosiy xususiyatga ega: f^(-1)(f(x)) = x va f(f^(-1)(y)) = y.",
+   "E'tibor bering: f^(-1)(x) yozuvi 1/f(x) ni anglatmaydi!"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Teskari funksiya topish",
+   "problem": "f(x) = 3x + 2 funksiyaning teskarisini toping",
+   "steps": [
+    "y = f(x) = 3x + 2 tenglamani yozamiz",
+    "Tenglamani x bo'yicha yechamiz: y - 2 = 3x, x = (y - 2)/3",
+    "Teskari funksiyani f^(-1)(y) = (y - 2)/3 deb belgilaymiz"
+   ],
+   "result": "f^(-1)(x) = (x - 2)/3"
+  },
+  "narr": [
+   "Teskari funksiyani topish usulini misol ko'rib chiqaylik.",
+   "f(x) = 3x + 2 funksiyaning teskarisini topish kerak.",
+   "Birinchidan, y = f(x) = 3x + 2 tenglamani yozamiz.",
+   "Keyin, bu tenglamani x bo'yicha yechamiz: y - 2 = 3x, x = (y - 2)/3.",
+   "Oxirgi bosqichda, teskari funksiyani f^(-1)(y) = (y - 2)/3 deb belgilaymiz.",
+   "Shunday qilib, f(x) = 3x + 2 funksiyaning teskarisi f^(-1)(x) = (x - 2)/3 bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Intervaldagi monotonlik",
+   "bullets": [
+    "Funksiya monoton, agar x o'sishi bilan uning qiymatlari bir yo'nalishda ketma-ket harakat qilsa",
+    "O'suvchi: x₁ < x₂ → f(x₁) ≤ f(x₂)",
+    "Qat'iy o'suvchi: x₁ < x₂ → f(x₁) < f(x₂)",
+    "Kamayuvchi: x₁ < x₂ → f(x₁) ≥ f(x₂)",
+    "Qat'iy kamayuvchi: x₁ < x₂ → f(x₁) > f(x₂)",
+    "Qat'iy monoton = qat'iy o'suvchi yoki qat'iy kamayuvchi"
+   ]
+  },
+  "narr": [
+   "Intervaldagi monotonlik tushunchasini ko'rib chiqaylik.",
+   "Funksiya monoton, agar x o'sishi bilan uning qiymatlari bir yo'nalishda ketma-ket harakat qilsa.",
+   "O'suvchi funksiya uchun: x₁ < x₂ → f(x₁) ≤ f(x₂).",
+   "Qat'iy o'suvchi funksiya uchun: x₁ < x₂ → f(x₁) < f(x₂).",
+   "Kamayuvchi funksiya uchun: x₁ < x₂ → f(x₁) ≥ f(x₂).",
+   "Qat'iy kamayuvchi funksiya uchun: x₁ < x₂ → f(x₁) > f(x₂).",
+   "Qat'iy monoton funksiya - bu qat'iy o'suvchi yoki qat'iy kamayuvchi funksiya."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

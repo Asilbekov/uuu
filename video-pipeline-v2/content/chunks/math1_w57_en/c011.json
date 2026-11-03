@@ -1,0 +1,426 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to our exploration of differentiability and its implications in calculus. We'll start by understanding what it means for a function to be differentiable at a point.",
+   "Differentiability at a point 'a' means that the limit as h approaches 0 of the difference quotient (f(a + h) - f(a))/h exists as a finite number. This difference quotient represents the slope of the secant line approaching the slope of the tangent line."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Differentiability and Continuity",
+   "bullets": [
+    "Differentiability at a point implies continuity at that point",
+    "The converse is not true (e.g., |x| at zero is continuous but not differentiable)",
+    "Reason: f(a + h) - f(a) = h · (f(a + h) - f(a))/h → 0 · f'(a) = 0, so f(a + h) → f(a)"
+   ]
+  },
+  "narr": [
+   "The main relationship between differentiability and continuity is that differentiability implies continuity, but not vice versa. A classic example is the absolute value function at zero - it's continuous but has a sharp angle that prevents differentiability.",
+   "The mathematical reason is that when a function is differentiable, the difference quotient approaches a finite limit, which forces the function to be continuous. The proof shows that f(a + h) - f(a) approaches zero as h approaches zero."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "One-sided Derivatives and Special Cases",
+   "bullets": [
+    "One-sided derivatives f'_-(a), f'_+(a)",
+    "At an interior point, f'(a) exists if and only if the one-sided derivatives are equal and finite",
+    "Kink: two different finite slopes (e.g., |x| has -1 and 1)",
+    "Cusp: infinite slopes of opposite signs (e.g., |x|^(2/3) has -∞ and +∞)",
+    "Vertical tangent: identical infinite slopes (e.g., x^(1/3) has +∞ from both sides)"
+   ]
+  },
+  "narr": [
+   "When dealing with differentiability, we often consider one-sided derivatives. At an interior point, the derivative exists if and only if these one-sided derivatives are equal and finite.",
+   "There are several special cases to be aware of. A kink occurs when we have two different finite slopes, like in the absolute value function. A cusp has infinite slopes of opposite signs, and a vertical tangent has identical infinite slopes from both sides."
+  ],
+  "narr_item": [
+   -1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Procedure for Checking Differentiability",
+   "bullets": [
+    "First check continuity (no continuity means no differentiability)",
+    "Compare one-sided difference quotients",
+    "Other failures are possible: slopes of secants may oscillate without limit (e.g., x · sin(1/x))"
+   ]
+  },
+  "narr": [
+   "To determine if a function is differentiable at a point, we should first check if it's continuous there. If it's not continuous, it can't be differentiable.",
+   "If the function is continuous, then we compare the one-sided difference quotients. If they're equal and finite, the function is differentiable at that point. There are other ways differentiability can fail, such as when the slopes oscillate without limit."
+  ],
+  "narr_item": [
+   -1,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Four Main Cases of Behavior at Zero",
+   "columns": [
+    "Function",
+    "Left slope",
+    "Right slope",
+    "Continuous at 0?",
+    "Differentiable at 0?",
+    "Behavior"
+   ],
+   "rows": [
+    [
+     "x²",
+     "0",
+     "0",
+     "yes",
+     "yes",
+     "horizontal tangent"
+    ],
+    [
+     "|x|",
+     "-1",
+     "1",
+     "yes",
+     "no",
+     "kink"
+    ],
+    [
+     "|x|^(2/3)",
+     "-∞",
+     "+∞",
+     "yes",
+     "no",
+     "cusp"
+    ],
+    [
+     "x^(1/3)",
+     "+∞",
+     "+∞",
+     "yes",
+     "no",
+     "vertical tangent"
+    ]
+   ]
+  },
+  "narr": [
+   "Let's examine these cases in a table. For x², both left and right slopes approach 0, giving us a horizontal tangent.",
+   "For |x|, we have different slopes from left and right (-1 and 1), creating a kink.",
+   "For |x|^(2/3), we have infinite slopes of opposite signs, creating a cusp.",
+   "Finally, for x^(1/3), we have identical infinite slopes from both sides, resulting in a vertical tangent."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.8RR — Rate of Change of Speed",
+   "problem": "Hennessey Venom GT accelerates from 0 to 60 mph in 3.05s, to 100 mph in 5.88s, to 200 mph in 14.51s, and to 229.9 mph in 19.96s. What happens to the acceleration as it approaches 229.9 mph: does it increase, decrease, or remain constant?",
+   "steps": [
+    "Convert speeds to ft/s: 60 mph = 88; 100 ≈ 146.67; 200 ≈ 293.33; 229.9 ≈ 337.19",
+    "Calculate average accelerations (v(t) - 337.19)/(t - 19.96) on intervals [t, 19.96]",
+    "Values: 16.89; 14.74; 13.53; 8.05 ft/s per second at t = 0; 3.05; 5.88; 14.51 respectively"
+   ],
+   "result": "The accelerations are decreasing — the acceleration decreases as it approaches 229.9 mph."
+  },
+  "narr": [
+   "Let's consider a practical example involving a high-performance car. The Hennessey Venom GT accelerates from 0 to various speeds at different times.",
+   "First, we need to convert all speeds to consistent units, feet per second.",
+   "Then, we calculate the average accelerations on intervals approaching the final speed.",
+   "We can see that these average accelerations are decreasing as we approach the final speed of 229.9 mph."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.10RR — Rate of Change of Profit",
+   "problem": "A firm sells x game consoles at price p = -0.01x + 400 dollars; costs C(x) = 100x + 10000 dollars. Find the rate of change of profit when producing 10000 games. Should production be increased?",
+   "steps": [
+    "Revenue R(x) = x · p = -0.01x² + 400x",
+    "Profit P(x) = R - C = -0.01x² + 300x - 10000",
+    "Calculate P(10000) = 1,990,000 dollars",
+    "Find P'(10000) = lim x→10000 (P(x) - P(10000))/(x - 10000)",
+    "Factor the numerator: -0.01(x - 10000)(x - 20000)",
+    "Evaluate the limit: -0.01 · (10000 - 20000) = 100"
+   ],
+   "result": "P'(10000) = 100 > 0 and P(10000) > 0 — profit is increasing, the firm should increase production."
+  },
+  "narr": [
+   "Now let's look at a business application. A firm sells game consoles with a given price function and cost function.",
+   "First, we define the revenue function as the product of quantity and price.",
+   "Then, we define the profit function as revenue minus cost.",
+   "We calculate the profit at 10,000 units, which is $1,990,000.",
+   "To find the rate of change of profit, we calculate the derivative at 10,000 units.",
+   "By factoring the numerator, we can evaluate the limit and find that the derivative is 100.",
+   "Since the derivative is positive and the profit is positive, increasing production will increase profit."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.13RR — Sketch of Derivative",
+   "problem": "From the graph of f(x) with a local maximum at (3, 6) and a local minimum at (-2, 2), sketch the graph of f'(x).",
+   "steps": [
+    "The function increases on (-2, 3) and decreases on (-∞, -2) and (3, +∞)",
+    "Therefore, f'(x) > 0 on (-2, 3), f'(x) < 0 outside this interval",
+    "At points of horizontal tangents f'(-2) = 0 and f'(3) = 0",
+    "The derivative graph lies above the x-axis on (-2, 3), crosses it at points -2 and 3, and lies below outside"
+   ],
+   "result": "The derivative graph is positive between -2 and 3, negative elsewhere, and zero at -2 and 3."
+  },
+  "narr": [
+   "Let's consider a graphical example. We're given a function with a local maximum at (3, 6) and a local minimum at (-2, 2), and we need to sketch its derivative.",
+   "First, we determine where the function is increasing and decreasing. It increases between -2 and 3, and decreases elsewhere.",
+   "This means the derivative is positive between -2 and 3, and negative outside this interval.",
+   "At the local extrema, the derivative is zero.",
+   "So the derivative graph will be above the x-axis between -2 and 3, below elsewhere, and cross the x-axis at -2 and 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.24RR — Product of Binomials",
+   "problem": "For j(x) = (x² + 2)(3x³ - 5x), find j'(x) using the product rule and verify the result by expanding the product.",
+   "steps": [
+    "Identify f(x) = x² + 2 (f' = 2x) and g(x) = 3x³ - 5x (g' = 9x² - 5)",
+    "Apply product rule: j'(x) = f'(x)g(x) + f(x)g'(x)",
+    "Calculate: j'(x) = 2x(3x³ - 5x) + (9x² - 5)(x² + 2)",
+    "Expand: (6x⁴ - 10x²) + (9x⁴ + 13x² - 10)",
+    "Combine like terms: 15x⁴ + 3x² - 10",
+    "Verify by expanding j(x): j(x) = 3x⁵ + x³ - 10x",
+    "Differentiate: j'(x) = 15x⁴ + 3x² - 10"
+   ],
+   "result": "Both methods give the same result: j'(x) = 15x⁴ + 3x² - 10"
+  },
+  "narr": [
+   "Now let's practice the product rule with a function that's a product of two binomials.",
+   "First, we identify the two functions and their derivatives.",
+   "Then we apply the product rule, which states that the derivative of a product is the derivative of the first times the second plus the first times the derivative of the second.",
+   "We expand and combine like terms to get the derivative.",
+   "To verify, we expand the original function first and then differentiate term by term.",
+   "Both methods give us the same result, confirming our calculation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.25RR — Quotient Rule",
+   "problem": "Find the derivative of k(x) = 5x²/(4x + 3).",
+   "steps": [
+    "Identify f(x) = 5x² (f' = 10x) and g(x) = 4x + 3 (g' = 4)",
+    "Apply quotient rule: k'(x) = (f'(x)g(x) - f(x)g'(x))/g(x)²",
+    "Calculate: k'(x) = (10x(4x + 3) - 4·5x²)/(4x + 3)²",
+    "Expand numerator: 20x² + 30x - 20x² = 30x",
+    "Simplify: k'(x) = 30x/(4x + 3)²"
+   ],
+   "result": "k'(x) = 30x/(4x + 3)²"
+  },
+  "narr": [
+   "Let's practice the quotient rule with a rational function.",
+   "First, we identify the numerator and denominator functions and their derivatives.",
+   "Then we apply the quotient rule, which states that the derivative of a quotient is the derivative of the numerator times the denominator minus the numerator times the derivative of the denominator, all over the denominator squared.",
+   "We expand and simplify the numerator.",
+   "The final derivative is 30x/(4x + 3)²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.31RR — Horizontal Tangents",
+   "problem": "Determine the values of x at which f(x) = x³ - 7x² + 8x + 1 has a horizontal tangent.",
+   "steps": [
+    "Horizontal tangent occurs where f'(x) = 0",
+    "Find f'(x) = 3x² - 14x + 8",
+    "Factor the derivative: (3x - 2)(x - 4)",
+    "Set each factor equal to zero: 3x - 2 = 0 and x - 4 = 0",
+    "Solve for x: x = 2/3 and x = 4"
+   ],
+   "result": "The function has horizontal tangents at x = 2/3 and x = 4."
+  },
+  "narr": [
+   "A horizontal tangent occurs where the derivative is zero. Let's find where this happens for the given cubic function.",
+   "First, we find the derivative of the function.",
+   "Then we factor the derivative to find its roots.",
+   "Setting each factor equal to zero gives us the solutions.",
+   "The function has horizontal tangents at x = 2/3 and x = 4."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.36RR — Position and Velocity",
+   "problem": "Position of a particle: s(t) = t³ - 9t² + 24t + 4, t ≥ 0. (a) Find v(t). (b) When is the particle at rest? (c) Where is it moving left and where right? (d) Sketch the path on the coordinate axis.",
+   "steps": [
+    "(a) Velocity is the derivative of position: v(t) = s'(t) = 3t² - 18t + 24",
+    "(b) At rest when v(t) = 0: 3(t - 2)(t - 4) = 0, so t = 2 and t = 4",
+    "(c) v(t) > 0 on [0, 2) ∪ (4, +∞) — moving left to right; v(t) < 0 on (2, 4) — moving right to left",
+    "(d) Key positions: s(0) = 4, s(2) = 24, s(4) = 20: particle starts at 4, moves right to 24 (t = 2), then left to 20 (t = 4), then right again"
+   ],
+   "result": "The particle has velocity v(t) = 3t² - 18t + 24, is at rest at t = 2 and t = 4, moves left to right when t < 2 or t > 4, and moves right to left when 2 < t < 4."
+  },
+  "narr": [
+   "Let's analyze the motion of a particle given its position function.",
+   "First, we find the velocity function by differentiating the position function.",
+   "The particle is at rest when velocity is zero, which occurs at t = 2 and t = 4.",
+   "We determine when the particle is moving left or right by analyzing the sign of the velocity.",
+   "Finally, we can sketch the path by evaluating the position at key times."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.37RR — Population Estimation",
+   "problem": "A city's population triples every 5 years; currently 10,000. What is the approximate population in 2 years?",
+   "steps": [
+    "Let P(t) be the population (in thousands) after t years: P(0) = 10, P(5) = 30",
+    "Growth rate estimate: P'(0) ≈ (30 - 10)/5 = 4 (thousands per year)",
+    "Using the increment formula: P(2) ≈ P(0) + 2·P'(0) ≈ 10 + 8 = 18"
+   ],
+   "result": "The approximate population in 2 years is 18,000 people."
+  },
+  "narr": [
+   "Now let's apply calculus to population growth. We know the population triples every 5 years, starting at 10,000.",
+   "We model the population as a function of time, with P(0) = 10 (thousands) and P(5) = 30.",
+   "We estimate the growth rate at t = 0 using the average rate of change over the first 5 years.",
+   "Then we use the linear approximation formula to estimate the population after 2 years.",
+   "The result is approximately 18,000 people."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3.38RR — Marginal Revenue",
+   "problem": "Price for BBQ lunches p(x) = 9 - 0.03x, 0 ≤ x ≤ 300; revenue R(x) = x · p(x) = -0.03x² + 9x. Estimate using marginal revenue the revenue from selling the 101st lunch and compare with the actual value.",
+   "steps": [
+    "Marginal revenue is the derivative of the revenue function: MR(x) = R'(x) = -0.06x + 9",
+    "Evaluate at x = 100: MR(100) = -0.06(100) + 9 = 3",
+    "Estimated revenue from the 101st lunch: $3",
+    "Actual revenue: R(101) - R(100) = 602.97 - 600 = 2.97 dollars"
+   ],
+   "result": "The marginal revenue estimate of $3 is close to the actual value of $2.97, showing that marginal revenue is a sufficiently accurate and simple to calculate estimate."
+  },
+  "narr": [
+   "Let's examine the concept of marginal revenue in economics. The price function for BBQ lunches is given, and we can derive the revenue function.",
+   "Marginal revenue is the derivative of the revenue function, which gives the approximate revenue from selling one additional unit.",
+   "We evaluate the marginal revenue at x = 100 to estimate the revenue from the 101st lunch.",
+   "Then we calculate the actual revenue from the 101st lunch by finding the difference between R(101) and R(100).",
+   "We see that the marginal revenue estimate is very close to the actual value, demonstrating its usefulness."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example — Oscillation of Slopes",
+   "problem": "Investigate f(x) = {x · sin(1/x), if x ≠ 0; 0, if x = 0} at zero: is it continuous? is it differentiable?",
+   "steps": [
+    "Check continuity: |f(x)| = |x|·|sin(1/x)| ≤ |x| → 0",
+    "By the squeeze theorem, lim x→0 f(x) = 0 = f(0), so f is continuous at 0",
+    "Check differentiability: f'(0) = lim x→0 (x · sin(1/x))/x = lim x→0 sin(1/x)",
+    "As x approaches 0, 1/x approaches infinity, and sin(1/x) oscillates between -1 and 1 without approaching a limit"
+   ],
+   "result": "The function is continuous at 0 but not differentiable at 0 because the limit of the difference quotient does not exist (it oscillates)."
+  },
+  "narr": [
+   "Finally, let's investigate a more complex function that oscillates infinitely often near zero.",
+   "First, we check continuity by bounding the function and using the squeeze theorem.",
+   "We find that the function is indeed continuous at zero.",
+   "When we check differentiability, we see that the difference quotient simplifies to sin(1/x), which oscillates between -1 and 1 as x approaches zero.",
+   "Since this limit does not exist, the function is not differentiable at zero, even though it's continuous there."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ }
+]

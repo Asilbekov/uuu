@@ -1,0 +1,453 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Let's dive into the fundamentals of linear algebra covering weeks 5 through 7. We'll explore matrix inverses, solving systems, and matrix decompositions.",
+   "We'll start with some key concepts that form the foundation of this section."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Concepts",
+   "bullets": [
+    "The inverse exists only for non-singular square matrices.",
+    "Elimination is encoded in A = LU = LDU.",
+    "Row exchanges are encoded by the matrix P: PA = LU.",
+    "Transpositions and permutations prepare for the vector spaces of week 7."
+   ]
+  },
+  "narr": [
+   "First, remember that a matrix inverse only exists for non-singular square matrices - those with a non-zero determinant.",
+   "The elimination process we use to solve systems can be efficiently represented through matrix decomposition as A = LU or A = LDU.",
+   "When row exchanges are needed during elimination, we can represent this with a permutation matrix P such that PA = LU.",
+   "Understanding transpositions and permutations will be crucial when we explore vector spaces in week 7."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — 2 × 2 inverse",
+   "problem": "Find A⁻¹ for A = \\begin{pmatrix} 2 & 1 \\\\ 2 & 3 \\end{pmatrix}. Verify by multiplication.",
+   "steps": [
+    "Calculate det(A) = 2 · 3 - 1 · 2 = 4 ≠ 0",
+    "Apply the 2 × 2 inverse formula: A⁻¹ = (1/det(A)) · \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}",
+    "Substitute values: A⁻¹ = (1/4) · \\begin{pmatrix} 3 & -1 \\\\ -2 & 2 \\end{pmatrix}",
+    "Simplify: A⁻¹ = \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{pmatrix}",
+    "Verify by multiplying A · A⁻¹"
+   ],
+   "result": "A⁻¹ = \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's find the inverse of a simple 2 × 2 matrix.",
+   "First, we calculate the determinant to ensure the inverse exists.",
+   "Since the determinant is non-zero, we can proceed with finding the inverse.",
+   "Using the 2 × 2 inverse formula, we swap the diagonal elements and change the sign of the off-diagonal elements.",
+   "Then we multiply by 1 over the determinant to get our inverse matrix.",
+   "Finally, we verify our result by multiplying the original matrix with its inverse, which should give us the identity matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — 2 × 2 system solution",
+   "problem": "Solve Ax = b, where A = \\begin{pmatrix} 3 & 2 \\\\ 1 & 4 \\end{pmatrix}, b = \\begin{pmatrix} 8 \\\\ 6 \\end{pmatrix}.",
+   "steps": [
+    "Write the system of equations: 3x + 2y = 8, x + 4y = 6",
+    "Multiply the second equation by 3: 3x + 12y = 18",
+    "Subtract the first equation from this result: (3x + 12y) - (3x + 2y) = 18 - 8",
+    "Simplify: 10y = 10, so y = 1",
+    "Substitute y back into the second equation: x + 4(1) = 6, so x = 2"
+   ],
+   "result": "x = \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now let's solve a 2 × 2 system using elimination.",
+   "First, we write out the system of equations represented by Ax = b.",
+   "To eliminate x from the second equation, we multiply the second equation by 3.",
+   "Subtracting the first equation from this new equation eliminates x and lets us solve for y.",
+   "Once we have y, we substitute it back into one of the original equations to find x.",
+   "The solution vector x is \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — 2 × 2 inverse",
+   "problem": "Find A⁻¹ for A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 5 \\end{pmatrix}. Verify by multiplication.",
+   "steps": [
+    "Calculate det(A) = 4 · 5 - 1 · 2 = 18 ≠ 0",
+    "Apply the 2 × 2 inverse formula: A⁻¹ = (1/det(A)) · \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}",
+    "Substitute values: A⁻¹ = (1/18) · \\begin{pmatrix} 5 & -1 \\\\ -2 & 4 \\end{pmatrix}",
+    "Simplify: A⁻¹ = \\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{pmatrix}",
+    "Verify by checking specific elements of A · A⁻¹"
+   ],
+   "result": "A⁻¹ = \\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's find another 2 × 2 matrix inverse.",
+   "First, we calculate the determinant to confirm the inverse exists.",
+   "Applying the inverse formula, we swap the diagonal elements and negate the off-diagonal elements.",
+   "Then we multiply by 1 over the determinant to get our inverse matrix.",
+   "To verify, we can check that specific elements of A · A⁻¹ equal those in the identity matrix.",
+   "For example, the (1,1) element should be 1, the (2,2) element should be 1, and the off-diagonal elements should be 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Solving a 2 × 2 system",
+   "problem": "Solve Ax = b, where A = \\begin{pmatrix} 2 & 2 \\\\ 1 & 6 \\end{pmatrix}, b = \\begin{pmatrix} 4 \\\\ 7 \\end{pmatrix}.",
+   "steps": [
+    "Write the system of equations: 2x + 2y = 4, x + 6y = 7",
+    "Simplify the first equation: x + y = 2",
+    "Subtract this from the second equation: (x + 6y) - (x + y) = 7 - 2",
+    "Simplify: 5y = 5, so y = 1",
+    "Substitute y back into the simplified first equation: x + 1 = 2, so x = 1"
+   ],
+   "result": "x = \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now let's solve another 2 × 2 system using elimination.",
+   "First, we write out the system of equations.",
+   "We can simplify the first equation by dividing by 2, making it easier to work with.",
+   "Subtracting this simplified equation from the second eliminates x and lets us solve for y.",
+   "Once we have y, we substitute it back into the simplified equation to find x.",
+   "The solution vector x is \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — 2 × 2 decomposition",
+   "problem": "Find A = LU = LDU for A = \\begin{pmatrix} 2 & 1 \\\\ 2 & 4 \\end{pmatrix}.",
+   "steps": [
+    "Identify the pivot element a₁₁ = 2",
+    "Calculate the multiplier m₂₁ = a₂₁/a₁₁ = 2/2 = 1",
+    "Apply elimination: R₂ ← R₂ - R₁ to get U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}",
+    "Construct L with the multiplier: L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}",
+    "Verify A = LU by matrix multiplication",
+    "Extract pivot elements to D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}",
+    "Normalize rows of U to get D⁻¹U = \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{pmatrix}"
+   ],
+   "result": "A = LU = L · D · D⁻¹U"
+  },
+  "narr": [
+   "Now let's explore matrix decomposition, specifically finding the LU and LDU factorizations.",
+   "For LU decomposition, we start by identifying the first pivot element.",
+   "The multiplier is calculated as the ratio of the element to eliminate to the pivot.",
+   "Applying the elimination step transforms A into upper triangular form U.",
+   "The lower triangular matrix L is constructed with the multipliers below the diagonal.",
+   "We verify that A equals LU by multiplying these matrices.",
+   "For LDU decomposition, we extract the pivot elements into a diagonal matrix D.",
+   "Finally, we normalize the rows of U by dividing by the pivot elements to get D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — 2 × 2 decomposition",
+   "problem": "Find A = LU = LDU for A = \\begin{pmatrix} 3 & 1 \\\\ 3 & 5 \\end{pmatrix}.",
+   "steps": [
+    "Identify the pivot element a₁₁ = 3",
+    "Calculate the multiplier m₂₁ = a₂₁/a₁₁ = 3/3 = 1",
+    "Apply elimination: R₂ ← R₂ - R₁ to get U = \\begin{pmatrix} 3 & 1 \\\\ 0 & 4 \\end{pmatrix}",
+    "Construct L with the multiplier: L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}",
+    "Verify A = LU by matrix multiplication",
+    "Extract pivot elements to D = \\begin{pmatrix} 3 & 0 \\\\ 0 & 4 \\end{pmatrix}",
+    "Normalize rows of U to get D⁻¹U = \\begin{pmatrix} 1 & 1/3 \\\\ 0 & 1 \\end{pmatrix}"
+   ],
+   "result": "A = LU = L · D · D⁻¹U"
+  },
+  "narr": [
+   "Let's find the LU and LDU factorizations for another 2 × 2 matrix.",
+   "First, we identify the pivot element in the top-left corner.",
+   "The multiplier is calculated as the ratio of the element to eliminate to the pivot.",
+   "Applying the elimination step transforms A into upper triangular form U.",
+   "The lower triangular matrix L is constructed with the multipliers below the diagonal.",
+   "We verify that A equals LU by multiplying these matrices.",
+   "For LDU decomposition, we extract the pivot elements into a diagonal matrix D.",
+   "Finally, we normalize the rows of U by dividing by the pivot elements to get D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — 2 × 2 decomposition",
+   "problem": "Find A = LU = LDU for A = \\begin{pmatrix} 1 & 1 \\\\ 4 & 3 \\end{pmatrix}.",
+   "steps": [
+    "Identify the pivot element a₁₁ = 1",
+    "Calculate the multiplier m₂₁ = a₂₁/a₁₁ = 4/1 = 4",
+    "Apply elimination: R₂ ← R₂ - 4R₁ to get U = \\begin{pmatrix} 1 & 1 \\\\ 0 & -1 \\end{pmatrix}",
+    "Construct L with the multiplier: L = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1 \\end{pmatrix}",
+    "Verify A = LU by matrix multiplication",
+    "Extract pivot elements to D = \\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}",
+    "Normalize rows of U to get D⁻¹U = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}"
+   ],
+   "result": "A = LU = L · D · D⁻¹U"
+  },
+  "narr": [
+   "Let's try a matrix where the second pivot element is negative.",
+   "First, we identify the pivot element in the top-left corner.",
+   "The multiplier is calculated as the ratio of the element to eliminate to the pivot.",
+   "Applying the elimination step transforms A into upper triangular form U.",
+   "The lower triangular matrix L is constructed with the multipliers below the diagonal.",
+   "We verify that A equals LU by multiplying these matrices.",
+   "For LDU decomposition, we extract the pivot elements into a diagonal matrix D.",
+   "Even though the second pivot is negative, the decomposition still works as expected."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — 2 × 2 decomposition",
+   "problem": "Find A = LU = LDU for A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 4 \\end{pmatrix}.",
+   "steps": [
+    "Identify the pivot element a₁₁ = 2",
+    "Calculate the multiplier m₂₁ = a₂₁/a₁₁ = 5/2",
+    "Apply elimination: R₂ ← R₂ - (5/2)R₁ to get U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3/2 \\end{pmatrix}",
+    "Construct L with the multiplier: L = \\begin{pmatrix} 1 & 0 \\\\ 5/2 & 1 \\end{pmatrix}",
+    "Verify A = LU by matrix multiplication",
+    "Extract pivot elements to D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3/2 \\end{pmatrix}",
+    "Normalize rows of U to get D⁻¹U = \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{pmatrix}"
+   ],
+   "result": "A = LU = L · D · D⁻¹U"
+  },
+  "narr": [
+   "Now let's work with a matrix that requires a fractional multiplier.",
+   "First, we identify the pivot element in the top-left corner.",
+   "The multiplier is calculated as the ratio of the element to eliminate to the pivot, which gives us 5/2 in this case.",
+   "Applying the elimination step transforms A into upper triangular form U.",
+   "The lower triangular matrix L is constructed with the multipliers below the diagonal.",
+   "We verify that A equals LU by multiplying these matrices.",
+   "For LDU decomposition, we extract the pivot elements into a diagonal matrix D.",
+   "Finally, we normalize the rows of U by dividing by the pivot elements to get D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — 3 × 3 elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = \\begin{pmatrix} 1 & 3 & 1 \\\\ 2 & 5 & 2 \\\\ 1 & 4 & 3 \\end{pmatrix}, b = \\begin{pmatrix} 6 \\\\ 10 \\\\ 6 \\end{pmatrix}.",
+   "steps": [
+    "Write the augmented matrix: \\begin{pmatrix} 1 & 3 & 1 & | & 6 \\\\ 2 & 5 & 2 & | & 10 \\\\ 1 & 4 & 3 & | & 6 \\end{pmatrix}",
+    "Step 1: m₂₁ = 2, m₃₁ = 1. Apply R₂ - 2R₁ = (0, -1, 0 | -2)",
+    "Apply R₃ - R₁ = (0, 1, 2 | 0)",
+    "Step 2: m₃₂ = -1. Apply R₃ + R₂ = (0, 0, 2 | -2)",
+    "Write the triangular system: x + 3y + z = 6, -y = -2, 2z = -2",
+    "Back substitution: z = -1, y = 2, x = 6 - 6 + 1 = 1"
+   ],
+   "result": "x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now let's move on to solving 3 × 3 systems using Gaussian elimination.",
+   "First, we write out the augmented matrix combining A and b.",
+   "In the first elimination step, we eliminate the first element in rows 2 and 3 using the first row.",
+   "In the second elimination step, we eliminate the second element in row 3 using the updated row 2.",
+   "Now we have a triangular system that we can solve through back substitution.",
+   "Starting from the bottom, we solve for z, then y, and finally x.",
+   "The solution vector x is \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — 3 × 3 elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = \\begin{pmatrix} 1 & 1 & 1 \\\\ 2 & 3 & 2 \\\\ 1 & 2 & 4 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 6 \\\\ 1 \\end{pmatrix}.",
+   "steps": [
+    "Write the augmented matrix: \\begin{pmatrix} 1 & 1 & 1 & | & 2 \\\\ 2 & 3 & 2 & | & 6 \\\\ 1 & 2 & 4 & | & 1 \\end{pmatrix}",
+    "Step 1: m₂₁ = 2, m₃₁ = 1. Apply R₂ - 2R₁ = (0, 1, 0 | 2)",
+    "Apply R₃ - R₁ = (0, 1, 3 | -1)",
+    "Step 2: m₃₂ = 1. Apply R₃ - R₂ = (0, 0, 3 | -3)",
+    "Write the triangular system: x + y + z = 2, y = 2, 3z = -3",
+    "Back substitution: z = -1, y = 2, x = 2 - 2 + 1 = 1"
+   ],
+   "result": "x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's solve another 3 × 3 system using Gaussian elimination.",
+   "First, we write out the augmented matrix combining A and b.",
+   "In the first elimination step, we eliminate the first element in rows 2 and 3 using the first row.",
+   "In the second elimination step, we eliminate the second element in row 3 using the updated row 2.",
+   "Now we have a triangular system that we can solve through back substitution.",
+   "Starting from the bottom, we solve for z, then y, and finally x.",
+   "The solution vector x is \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — 3 × 3 Elimination (degenerate case)",
+   "problem": "Solve Ax = b by Gaussian elimination for A = \\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 1 & 3 & 5 \\end{pmatrix}, b = \\begin{pmatrix} 4 \\\\ 8 \\\\ 2 \\end{pmatrix}.",
+   "steps": [
+    "Write the augmented matrix: \\begin{pmatrix} 1 & 2 & 1 & | & 4 \\\\ 2 & 4 & 2 & | & 8 \\\\ 1 & 3 & 5 & | & 2 \\end{pmatrix}",
+    "Step 1: m₂₁ = 2, m₃₁ = 1. Apply R₂ - 2R₁ = (0, 0, 0 | 0)",
+    "Apply R₃ - R₁ = (0, 1, 4 | -2)",
+    "Swap rows 2 and 3: \\begin{pmatrix} 1 & 2 & 1 & | & 4 \\\\ 0 & 1 & 4 & | & -2 \\\\ 0 & 0 & 0 & | & 0 \\end{pmatrix}",
+    "Recognize we have two pivots for three unknowns, so one free variable",
+    "Let z = t: y = -2 - 4t (from y + 4z = -2)",
+    "x = 4 - 2y - z = 8 + 7t"
+   ],
+   "result": "General solution x = \\begin{pmatrix} 8 + 7t \\\\ -2 - 4t \\\\ t \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ -2 \\\\ 0 \\end{pmatrix} + t · \\begin{pmatrix} 7 \\\\ -4 \\\\ 1 \\end{pmatrix}, t ∈ ℝ"
+  },
+  "narr": [
+   "Now let's examine a degenerate case where we have infinitely many solutions.",
+   "First, we write out the augmented matrix combining A and b.",
+   "In the first elimination step, we find that the second equation is exactly twice the first.",
+   "This means we have a dependent system with fewer independent equations than unknowns.",
+   "After swapping rows to get a triangular form, we see we have two pivots for three unknowns.",
+   "This indicates one free variable, which we can express as a parameter t.",
+   "The general solution is expressed as a particular solution plus a linear combination of the free variable.",
+   "Geometrically, this represents the intersection of planes forming a line in 3D space."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — 3 × 3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = \\begin{pmatrix} 1 & 3 & 1 \\\\ 2 & 5 & 2 \\\\ 1 & 4 & 4 \\end{pmatrix}, b = \\begin{pmatrix} 6 \\\\ 10 \\\\ 5 \\end{pmatrix}.",
+   "steps": [
+    "Write the augmented matrix: \\begin{pmatrix} 1 & 3 & 1 & | & 6 \\\\ 2 & 5 & 2 & | & 10 \\\\ 1 & 4 & 4 & | & 5 \\end{pmatrix}",
+    "Step 1: m₂₁ = 2, m₃₁ = 1. Apply R₂ - 2R₁ = (0, -1, 0 | -2)",
+    "Apply R₃ - R₁ = (0, 1, 3 | -1)",
+    "Step 2: m₃₂ = -1. Apply R₃ + R₂ = (0, 0, 3 | -3)",
+    "Write the triangular system: x + 3y + z = 6, -y = -2, 3z = -3",
+    "Back substitution: z = -1, y = 2, x = 6 - 6 + 1 = 1"
+   ],
+   "result": "x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Finally, let's solve one more 3 × 3 system using Gaussian elimination.",
+   "First, we write out the augmented matrix combining A and b.",
+   "In the first elimination step, we eliminate the first element in rows 2 and 3 using the first row.",
+   "In the second elimination step, we eliminate the second element in row 3 using the updated row 2.",
+   "Now we have a triangular system that we can solve through back substitution.",
+   "Starting from the bottom, we solve for z, then y, and finally x.",
+   "The solution vector x is \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]
