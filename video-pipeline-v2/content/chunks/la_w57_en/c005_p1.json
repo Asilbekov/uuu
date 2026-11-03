@@ -1,0 +1,483 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5 through 7 of Linear Algebra I. In this section, we'll explore matrix operations, special matrices, and methods for solving systems of equations.",
+   "Let's begin with an explicit example of non-commutativity in matrix multiplication."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Non-commutative matrices",
+   "problem": "Given matrices A = $\\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}$ and B = $\\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}$, compute AB and BA.",
+   "steps": [
+    "Compute AB by multiplying the matrices",
+    "Compute BA by multiplying the matrices in reverse order",
+    "Compare the results to show non-commutativity"
+   ],
+   "result": "AB = $\\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix}$, BA = $\\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Let's consider two matrices A and B. Matrix A has elements 1, 1 in the first row and 0, 1 in the second row.",
+   "Matrix B has elements 1, 0 in the first row and 1, 1 in the second row.",
+   "When we multiply A by B, we get AB = $\\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix}$.",
+   "However, when we multiply B by A, we get BA = $\\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}$.",
+   "This demonstrates that matrix multiplication is not commutative - the order matters. This shows how horizontal and vertical shears depend on the order of application."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Special matrices and elimination matrices",
+   "subtitle": "3.5.3"
+  },
+  "narr": [
+   "Now let's explore special types of matrices and elimination matrices."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Types of Special Matrices",
+   "bullets": [
+    "Identity matrix I leaves vectors unchanged",
+    "Diagonal D = diag(d1, ..., dn) scales coordinates",
+    "Upper triangular matrices have zeros below the diagonal",
+    "Lower triangular matrices have zeros above the diagonal",
+    "Triangular systems are solved by forward/backward substitution"
+   ]
+  },
+  "narr": [
+   "The identity matrix, denoted I, is a special matrix that leaves any vector unchanged when multiplied.",
+   "A diagonal matrix scales coordinates along each axis by the corresponding diagonal element.",
+   "Upper triangular matrices have all zeros below the main diagonal.",
+   "Lower triangular matrices have all zeros above the main diagonal.",
+   "Systems with triangular matrices can be efficiently solved using forward or backward substitution methods."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Elimination Matrices",
+   "bullets": [
+    "The elimination operation itself can be represented as a matrix",
+    "Row operation R2 ← R2 - 3R1 corresponds to matrix E = $\\begin{pmatrix} 1 & 0 \\\\ -3 & 1 \\end{pmatrix}$",
+    "Applying E to matrix A = $\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}$ gives EA = $\\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}$",
+    "The inverse of E is E⁻¹ = $\\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}$, which restores the original rows"
+   ]
+  },
+  "narr": [
+   "Interestingly, the elimination operation itself can be represented as a matrix multiplication.",
+   "For example, the row operation R2 ← R2 - 3R1 corresponds to the elimination matrix E = $\\begin{pmatrix} 1 & 0 \\\\ -3 & 1 \\end{pmatrix}$.",
+   "When we multiply E by matrix A = $\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}$, we get EA = $\\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}$, which represents the transformed system.",
+   "The inverse of E is E⁻¹ = $\\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}$, which when applied restores the original rows."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "The inverse matrix",
+   "subtitle": "3.5.4 Definition, criteria, rules"
+  },
+  "narr": [
+   "Let's now discuss the concept of matrix inverses."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Inverse Matrix Definition",
+   "bullets": [
+    "A matrix A⁻¹ is the inverse of A if AA⁻¹ = A⁻¹A = I",
+    "If A⁻¹ exists, then Ax = b has solution x = A⁻¹b for any b",
+    "The inverse reverses the linear transformation",
+    "If Ax = 0 for nonzero x, the inverse does not exist"
+   ]
+  },
+  "narr": [
+   "The inverse matrix A⁻¹ is defined such that when multiplied by A, it gives the identity matrix I.",
+   "If a matrix has an inverse, then the system Ax = b can be solved as x = A⁻¹b for any vector b.",
+   "Conceptually, the inverse matrix reverses the linear transformation applied by the original matrix.",
+   "However, if there exists a nonzero vector x such that Ax = 0, then the inverse does not exist."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Criteria for Existence of Inverse",
+   "bullets": [
+    "For a square matrix A, the following are equivalent:",
+    "The inverse exists ⇔ all pivots are nonzero (after possible exchanges)",
+    "The inverse exists ⇔ columns are independent",
+    "The inverse exists ⇔ Ax = 0 only when x = 0",
+    "The inverse exists ⇔ Ax = b has a unique solution for any b"
+   ]
+  },
+  "narr": [
+   "For a square matrix A, several equivalent conditions determine whether an inverse exists.",
+   "First, an inverse exists if and only if all pivots are nonzero, possibly after row exchanges.",
+   "Equivalently, an inverse exists if and only if the columns of A are linearly independent.",
+   "This is also equivalent to the condition that Ax = 0 only has the trivial solution x = 0.",
+   "Finally, an inverse exists if and only if Ax = b has a unique solution for any vector b."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Rules for Inverse Matrices",
+   "bullets": [
+    "(AB)⁻¹ = B⁻¹A⁻¹",
+    "(Aᵀ)⁻¹ = (A⁻¹)ᵀ",
+    "(A⁻¹)⁻¹ = A",
+    "(Aᵏ)⁻¹ = (A⁻¹)ᵏ"
+   ]
+  },
+  "narr": [
+   "There are several important rules for working with inverse matrices.",
+   "The inverse of a product is the product of inverses in reverse order: (AB)⁻¹ = B⁻¹A⁻¹.",
+   "The inverse of a transpose is the transpose of the inverse: (Aᵀ)⁻¹ = (A⁻¹)ᵀ.",
+   "The inverse of an inverse is the original matrix: (A⁻¹)⁻¹ = A.",
+   "For powers, (Aᵏ)⁻¹ = (A⁻¹)ᵏ."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "The inverse of 2×2 matrices and Gauss-Jordan method",
+   "subtitle": "3.5.5"
+  },
+  "narr": [
+   "Let's now focus specifically on 2×2 matrices and explore how to find their inverses using both a direct formula and the Gauss-Jordan method."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Inverse of a 2×2 Matrix",
+   "tex": "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}^{-1} = \\frac{1}{ad-bc} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}",
+   "parts": [
+    {
+     "substr": "ad-bc",
+     "color": "#4C5FD5",
+     "note": "determinant"
+    },
+    {
+     "substr": "d",
+     "color": "#B45309",
+     "note": "swap positions"
+    },
+    {
+     "substr": "-b",
+     "color": "#0E7C7B",
+     "note": "change sign"
+    },
+    {
+     "substr": "-c",
+     "color": "#0E7C7B",
+     "note": "change sign"
+    },
+    {
+     "substr": "a",
+     "color": "#B45309",
+     "note": "swap positions"
+    }
+   ]
+  },
+  "narr": [
+   "For a 2×2 matrix, there's a direct formula to find its inverse.",
+   "The inverse is equal to 1 over the determinant times a modified version of the original matrix.",
+   "The determinant is ad-bc, which must be nonzero for the inverse to exist.",
+   "To form the modified matrix, we swap the positions of a and d.",
+   "Then we change the signs of b and c."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Inverse of a specific 2×2 matrix",
+   "problem": "Find the inverse of A = $\\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}$.",
+   "steps": [
+    "Calculate the determinant: det(A) = 2·3 - 1·5 = 6 - 5 = 1",
+    "Apply the inverse formula: A⁻¹ = (1/1)·$\\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}$",
+    "Simplify to get the final inverse matrix"
+   ],
+   "result": "A⁻¹ = $\\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Let's find the inverse of the specific 2×2 matrix A = $\\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}$.",
+   "First, we calculate the determinant: 2·3 - 1·5 = 6 - 5 = 1.",
+   "Since the determinant is nonzero, the inverse exists.",
+   "Applying the inverse formula, we get A⁻¹ = (1/1)·$\\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}$.",
+   "Simplifying, we find that A⁻¹ = $\\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}$."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Gauss-Jordan Method for Finding Inverses",
+   "bullets": [
+    "Start with the augmented matrix [A|I]",
+    "Apply row operations to transform A into I",
+    "The same operations transform I into A⁻¹",
+    "Final result is [I|A⁻¹]"
+   ]
+  },
+  "narr": [
+   "For larger matrices, we can use the Gauss-Jordan method to find the inverse.",
+   "We start by creating an augmented matrix with A on the left and the identity matrix I on the right.",
+   "Then we apply a series of row operations to transform the left side into the identity matrix.",
+   "The same operations, when applied to the right side, will transform it into the inverse matrix A⁻¹.",
+   "The final result is the augmented matrix [I|A⁻¹]."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Finding inverse using Gauss-Jordan method",
+   "problem": "Find the inverse of A = $\\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix}$ using Gauss-Jordan method.",
+   "steps": [
+    "Set up the augmented matrix [A|I] = $\\begin{pmatrix} 1 & 2 & | & 1 & 0 \\\\ 3 & 7 & | & 0 & 1 \\end{pmatrix}$",
+    "Apply row operation: R2 ← R2 - 3R1 to get $\\begin{pmatrix} 1 & 2 & | & 1 & 0 \\\\ 0 & 1 & | & -3 & 1 \\end{pmatrix}$",
+    "Apply row operation: R1 ← R1 - 2R2 to get $\\begin{pmatrix} 1 & 0 & | & 7 & -2 \\\\ 0 & 1 & | & -3 & 1 \\end{pmatrix}$",
+    "Identify the inverse matrix from the right side"
+   ],
+   "result": "A⁻¹ = $\\begin{pmatrix} 7 & -2 \\\\ -3 & 1 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Let's find the inverse of A = $\\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix}$ using the Gauss-Jordan method.",
+   "First, we set up the augmented matrix [A|I] = $\\begin{pmatrix} 1 & 2 & | & 1 & 0 \\\\ 3 & 7 & | & 0 & 1 \\end{pmatrix}$.",
+   "Applying the row operation R2 ← R2 - 3R1, we get $\\begin{pmatrix} 1 & 2 & | & 1 & 0 \\\\ 0 & 1 & | & -3 & 1 \\end{pmatrix}$.",
+   "Next, we apply R1 ← R1 - 2R2 to get $\\begin{pmatrix} 1 & 0 & | & 7 & -2 \\\\ 0 & 1 & | & -3 & 1 \\end{pmatrix}$.",
+   "Now the left side is the identity matrix, so the right side gives us the inverse: A⁻¹ = $\\begin{pmatrix} 7 & -2 \\\\ -3 & 1 \\end{pmatrix}$."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Columns of the Inverse Matrix",
+   "bullets": [
+    "If A⁻¹ = [x₁ ... xₙ], then Axⱼ = eⱼ",
+    "Finding the inverse means solving n systems of equations",
+    "For a single system Ax = b, triangular elimination is usually preferable to explicit computation of A⁻¹"
+   ]
+  },
+  "narr": [
+   "An interesting perspective on the inverse matrix is to consider its columns.",
+   "If we denote the columns of A⁻¹ as x₁ through xₙ, then each column satisfies Axⱼ = eⱼ, where eⱼ is the j-th standard basis vector.",
+   "This means that finding the inverse is equivalent to solving n separate systems of equations.",
+   "For this reason, when solving a single system Ax = b, it's usually more efficient to use triangular elimination methods rather than computing the full inverse matrix."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "LU decomposition and solving systems through factors",
+   "subtitle": "3.5.6"
+  },
+  "narr": [
+   "Finally, let's explore LU decomposition, a method for factoring matrices that simplifies solving systems of equations."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "LU Decomposition",
+   "bullets": [
+    "A = LU where L is unit lower triangular and U is upper triangular",
+    "L contains elimination factors below the diagonal",
+    "U contains the elimination result (upper triangular form)",
+    "Example: $\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}$ = $\\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}$ · $\\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}$"
+   ]
+  },
+  "narr": [
+   "LU decomposition factors a matrix A into the product of two matrices: L and U.",
+   "L is a unit lower triangular matrix, meaning it has 1's on the diagonal and contains the elimination factors below the diagonal.",
+   "U is an upper triangular matrix that contains the result after elimination.",
+   "For example, the matrix $\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}$ can be factored as L = $\\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}$ and U = $\\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}$."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Relationship to Elimination Matrices",
+   "bullets": [
+    "The elimination process can be written as Ek · · · E₂E₁A = U",
+    "Therefore, A = E₁⁻¹E₂⁻¹ · · · Ek⁻¹U = LU",
+    "The inverse of 'subtract a multiple of a row' is 'add that multiple back'",
+    "The order of factors is crucial (the right operation acts first)"
+   ]
+  },
+  "narr": [
+   "LU decomposition is directly related to the elimination matrices we discussed earlier.",
+   "The elimination process can be written as a product of elimination matrices Ek · · · E₂E₁A = U.",
+   "Therefore, A can be expressed as A = E₁⁻¹E₂⁻¹ · · · Ek⁻¹U = LU.",
+   "The inverse of an operation that 'subtracts a multiple of a row' is one that 'adds that multiple back'.",
+   "It's important to remember that the order of factors is crucial in matrix multiplication, as the rightmost operation acts first."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — LU decomposition of a 3×3 matrix",
+   "problem": "Find the LU decomposition of A = $\\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & 5 & 4 \\\\ -2 & 2 & 3 \\end{pmatrix}$.",
+   "steps": [
+    "Identify the multipliers: m₂₁ = 2, m₃₁ = -1, m₃₂ = 1",
+    "Construct L with these multipliers: L = $\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}$",
+    "Construct U by applying elimination: U = $\\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 2 \\end{pmatrix}$",
+    "Verify that LU = A by multiplying the matrices"
+   ],
+   "result": "L = $\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}$, U = $\\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 2 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Let's find the LU decomposition of a 3×3 matrix A = $\\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & 5 & 4 \\\\ -2 & 2 & 3 \\end{pmatrix}$.",
+   "First, we identify the multipliers used in elimination: m₂₁ = 2, m₃₁ = -1, and m₃₂ = 1.",
+   "We construct L with these multipliers below the diagonal: L = $\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}$.",
+   "Then we construct U by applying elimination to A: U = $\\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 2 \\end{pmatrix}$.",
+   "We can verify that LU = A by multiplying these matrices row by row."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Solving Systems Using LU Decomposition",
+   "bullets": [
+    "To solve Ax = b using LU decomposition:",
+    "First solve Ly = b by forward substitution",
+    "Then solve Ux = y by backward substitution",
+    "This is more efficient than computing A⁻¹ directly"
+   ]
+  },
+  "narr": [
+   "Once we have the LU decomposition of A, we can use it to solve systems of equations efficiently.",
+   "To solve Ax = b, we first solve Ly = b using forward substitution since L is lower triangular.",
+   "Then we solve Ux = y using backward substitution since U is upper triangular.",
+   "This approach is generally more efficient than computing the inverse matrix A⁻¹ directly, especially for large systems."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

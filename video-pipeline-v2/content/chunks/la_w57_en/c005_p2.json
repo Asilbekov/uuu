@@ -1,0 +1,617 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Week 5–7",
+   "subtitle": "Linear Algebra I"
+  },
+  "narr": [
+   "Let's dive into the fascinating world of matrix decompositions and their applications in linear algebra.",
+   "We'll explore various factorization methods, their properties, and how they help us solve systems of equations efficiently."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Solving Systems with LU Decomposition",
+   "problem": "Given matrices L = \\begin{bmatrix} 1 & 0 \\\\ 3 & 1 \\end{bmatrix}, U = \\begin{bmatrix} 2 & 1 \\\\ 0 & 2 \\end{bmatrix}, and b = \\begin{bmatrix} 5 \\\\ 19 \\end{bmatrix}, solve for x using backward substitution.",
+   "steps": [
+    "First solve Ly = b for y using forward substitution",
+    "Then solve Ux = y for x using backward substitution"
+   ],
+   "result": "Solution: y = \\begin{bmatrix} 5 \\\\ 4 \\end{bmatrix}, x = \\begin{bmatrix} 3 \\\\ 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Let's see how LU decomposition works in practice.",
+   "By decomposing matrix A once, we can efficiently solve systems with multiple right-hand sides.",
+   "First, we solve Ly = b using forward substitution.",
+   "Then, we solve Ux = y using backward substitution to find our solution.",
+   "This approach is particularly useful when we need to solve the same system with different right-hand sides."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "LDU Decomposition",
+   "subtitle": "Pivots and Determinant"
+  },
+  "narr": [
+   "Now let's explore the LDU decomposition, which separates the diagonal elements from the upper triangular matrix.",
+   "This factorization reveals important properties about the matrix, including its pivots and determinant."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "LDU Factorization",
+   "tex": "U = D \\cdot (D^{-1}U), \\text{ where } D \\text{ contains reference elements of } U; \\\\ A = L \\cdot D \\cdot (D^{-1}U) \\text{ with unit diagonals for } L \\text{ and } D^{-1U}",
+   "parts": [
+    {
+     "substr": "U = D · (D−1U)",
+     "color": "#4C5FD5",
+     "note": "The upper triangular matrix U can be factored into a diagonal matrix D and another upper triangular matrix with unit diagonal"
+    },
+    {
+     "substr": "A = L · D · (D−1U)",
+     "color": "#B45309",
+     "note": "The original matrix A is factored into lower triangular L, diagonal D, and unit upper triangular D^{-1}U"
+    },
+    {
+     "substr": "unit diagonals",
+     "color": "#0E7C7B",
+     "note": "Both L and D^{-1}U have ones on their main diagonals"
+    }
+   ]
+  },
+  "narr": [
+   "In LDU decomposition, we separate the diagonal elements into a separate matrix D.",
+   "The matrix U is expressed as D times another upper triangular matrix with unit diagonal.",
+   "The original matrix A can then be written as L times D times this unit upper triangular matrix.",
+   "This normalized form has unit diagonals for both L and the modified upper triangular factor.",
+   "Let's see an example of this decomposition."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — LDU Decomposition Example",
+   "problem": "Find the LDU decomposition of A = \\begin{bmatrix} 2 & 1 \\\\ 6 & 5 \\end{bmatrix}",
+   "steps": [
+    "Perform elimination to get U",
+    "Extract diagonal elements to form D",
+    "Compute D^{-1}U",
+    "Determine L from the elimination steps"
+   ],
+   "result": "A = \\begin{bmatrix} 1 & 0 \\\\ 3 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} 2 & 0 \\\\ 0 & 2 \\end{bmatrix} \\cdot \\begin{bmatrix} 1 & 0.5 \\\\ 0 & 1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Consider the matrix A = [2, 1; 6, 5].",
+   "First, we perform elimination to get our upper triangular matrix U.",
+   "The diagonal elements of U form our diagonal matrix D.",
+   "We then compute D^{-1}U, which gives us a unit upper triangular matrix.",
+   "Finally, we determine L from the multipliers used during elimination.",
+   "The result is the LDU decomposition of A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Pivots and Determinant",
+   "tex": "For A = \\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix} with a \\neq 0, \\text{ the pivots are } a \\text{ and } d - \\frac{cb}{a}, \\text{ and their product is } ad - bc = \\det A",
+   "parts": [
+    {
+     "substr": "pivots are a and d - cb/a",
+     "color": "#4C5FD5",
+     "note": "The first pivot is a, the second pivot is d - cb/a"
+    },
+    {
+     "substr": "ad - bc = det A",
+     "color": "#B45309",
+     "note": "The product of pivots equals the determinant of A"
+    }
+   ]
+  },
+  "narr": [
+   "The pivots in LDU decomposition reveal important properties of the matrix.",
+   "For a 2×2 matrix [a, b; c, d], the first pivot is simply a.",
+   "The second pivot is d - cb/a, which is the element after elimination.",
+   "The product of these pivots equals the determinant of the matrix.",
+   "Without row exchanges, the determinant is simply the product of pivots.",
+   "When nonzero pivots exist, the normalized LDU decomposition is unique."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Permutations and Partial Pivoting",
+   "subtitle": "PA = LU Decomposition"
+  },
+  "narr": [
+   "Sometimes we need to exchange rows to avoid zero pivots or numerical instability.",
+   "This leads us to consider permutation matrices and partial pivoting strategies."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Why Exchange Rows?",
+   "problem": "Consider A = \\begin{bmatrix} 0 & 2 \\\\ 3 & 4 \\end{bmatrix}",
+   "steps": [
+    "Attempt standard LU decomposition",
+    "Notice the first pivot is zero",
+    "Exchange rows to get PA = \\begin{bmatrix} 3 & 4 \\\\ 0 & 2 \\end{bmatrix}",
+    "Perform LU decomposition on the permuted matrix"
+   ],
+   "result": "A zero pivot doesn't necessarily mean the matrix is singular - it may just indicate poor row ordering."
+  },
+  "narr": [
+   "Consider the matrix A = [0, 2; 3, 4].",
+   "If we try standard LU decomposition, our first pivot is zero.",
+   "This doesn't mean the matrix is singular - it's actually invertible.",
+   "By exchanging rows, we get PA = [3, 4; 0, 2], which has a valid LU decomposition.",
+   "A zero pivot may indicate poor row ordering, not singularity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Permutation Matrices",
+   "bullets": [
+    "Permutation matrices permute rows of the identity matrix",
+    "Exactly one 1 in each row and each column",
+    "P^{-1} = P^T (since P^T · P = I)",
+    "PA permutes rows of A, AP permutes columns of A"
+   ]
+  },
+  "narr": [
+   "Let's explore permutation matrices more deeply.",
+   "A permutation matrix is obtained by rearranging the rows of the identity matrix.",
+   "Each permutation matrix has exactly one 1 in each row and each column.",
+   "The inverse of a permutation matrix is its transpose.",
+   "When we multiply PA, we permute the rows of A.",
+   "When we multiply AP, we permute the columns of A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Permutation Matrix Example",
+   "problem": "Consider P = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix} and A = \\begin{bmatrix} 0 & 2 \\\\ 3 & 4 \\end{bmatrix}",
+   "steps": [
+    "Compute PA to see row permutation",
+    "Compute AP to see column permutation",
+    "Verify that P^{-1} = P^T",
+    "Find LU decomposition of PA"
+   ],
+   "result": "PA = \\begin{bmatrix} 3 & 4 \\\\ 0 & 2 \\end{bmatrix}, LU = \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} 3 & 4 \\\\ 0 & 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Consider the permutation matrix P = [0, 1; 1, 0] and matrix A = [0, 2; 3, 4].",
+   "When we compute PA, we get [3, 4; 0, 2], which exchanges the rows of A.",
+   "When we compute AP, we get [2, 0; 4, 3], which exchanges the columns of A.",
+   "The transpose of P is itself, and P^T · P = I, confirming that P^{-1} = P^T.",
+   "With row exchanges, we can write PA = LU, where L and U are the lower and upper triangular factors.",
+   "In this case, L is simply the identity matrix since no elimination was needed after row exchange."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Partial Pivoting",
+   "bullets": [
+    "Choose the largest element in magnitude in the active column",
+    "Below and including the pivot position",
+    "Avoids large multipliers that can amplify rounding errors",
+    "Ensures numerical stability in computations"
+   ]
+  },
+  "narr": [
+   "Partial pivoting is a strategy to maintain numerical stability in LU decomposition.",
+   "The rule is to select the largest element in magnitude in the active column.",
+   "This includes elements below and including the pivot position.",
+   "By choosing the largest pivot, we avoid large multipliers.",
+   "Large multipliers can amplify rounding errors and lead to inaccurate results.",
+   "Partial pivoting ensures our computations remain stable and reliable."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Transposition and Symmetric Matrices",
+   "subtitle": "LDL^T Decomposition"
+  },
+  "narr": [
+   "Now let's explore matrix transposition and symmetric matrices.",
+   "We'll see how these concepts lead to a special form of decomposition called LDL^T."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matrix Transposition Properties",
+   "tex": "(A^T)_{ij} = a_{ji}, \\quad (A + B)^T = A^T + B^T, \\quad (AB)^T = B^T \\cdot A^T",
+   "parts": [
+    {
+     "substr": "(A^T)_{ij} = a_{ji}",
+     "color": "#4C5FD5",
+     "note": "The ij-th element of A transpose equals the ji-th element of A"
+    },
+    {
+     "substr": "(A + B)^T = A^T + B^T",
+     "color": "#B45309",
+     "note": "The transpose of a sum equals the sum of transposes"
+    },
+    {
+     "substr": "(AB)^T = B^T · A^T",
+     "color": "#0E7C7B",
+     "note": "The transpose of a product equals the product of transposes in reverse order"
+    }
+   ]
+  },
+  "narr": [
+   "Matrix transposition has several important properties.",
+   "The ij-th element of A transpose equals the ji-th element of A.",
+   "The transpose of a sum of matrices equals the sum of their transposes.",
+   "The transpose of a product equals the product of transposes in reverse order.",
+   "Let's see an example of matrix transposition in action."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Matrix Transposition Example",
+   "problem": "Find the transpose of A = \\begin{bmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{bmatrix}",
+   "steps": [
+    "Identify rows and columns of A",
+    "Swap rows and columns to get A^T",
+    "Verify the dimensions are swapped"
+   ],
+   "result": "A^T = \\begin{bmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{bmatrix}"
+  },
+  "narr": [
+   "Consider the matrix A = [1, 2, 3; 4, 5, 6].",
+   "To find its transpose, we swap its rows and columns.",
+   "The first row [1, 2, 3] becomes the first column of A^T.",
+   "The second row [4, 5, 6] becomes the second column of A^T.",
+   "As a result, A^T is a 3×2 matrix, which is the transpose of the original 2×3 matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Symmetric Matrices",
+   "bullets": [
+    "A matrix is symmetric if A^T = A",
+    "Elements satisfy a_{ij} = a_{ji}",
+    "For symmetric matrices without row exchanges, LDU becomes LDL^T",
+    "The upper triangular factor equals the transpose of the lower triangular factor"
+   ]
+  },
+  "narr": [
+   "A symmetric matrix satisfies A^T = A.",
+   "This means the elements satisfy a_{ij} = a_{ji} for all i and j.",
+   "For symmetric matrices that have an LDU decomposition without row exchanges,",
+   "the normalized upper factor equals the transpose of the lower factor.",
+   "This gives us the special LDL^T decomposition.",
+   "Let's see an example of this special decomposition."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — LDL^T Decomposition",
+   "problem": "Find the LDL^T decomposition of A = \\begin{bmatrix} 2 & 2 \\\\ 2 & 5 \\end{bmatrix}",
+   "steps": [
+    "Verify A is symmetric (A^T = A)",
+    "Perform elimination to get U",
+    "Extract diagonal elements to form D",
+    "Compute D^{-1}U to get unit upper triangular",
+    "Notice that D^{-1}U = L^T"
+   ],
+   "result": "A = \\begin{bmatrix} 1 & 0 \\\\ 1 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} 2 & 0 \\\\ 0 & 3 \\end{bmatrix} \\cdot \\begin{bmatrix} 1 & 1 \\\\ 0 & 1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Consider the symmetric matrix A = [2, 2; 2, 5].",
+   "First, we verify that A is indeed symmetric since A^T = A.",
+   "We perform elimination to get our upper triangular matrix U.",
+   "The diagonal elements of U form our diagonal matrix D.",
+   "We then compute D^{-1}U, which gives us a unit upper triangular matrix.",
+   "For symmetric matrices, this upper triangular matrix equals L^T,",
+   "giving us the special LDL^T decomposition."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Applications",
+   "subtitle": "Differences, Sums, and Tridiagonal Systems"
+  },
+  "narr": [
+   "Matrix decompositions have numerous applications in various fields.",
+   "Let's explore some specific applications including difference matrices,",
+   "cumulative sums, and tridiagonal systems."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Difference Matrix",
+   "bullets": [
+    "The difference matrix A computes finite differences: Ax = (x1, x2-x1, x3-x2, ...)^T",
+    "It's the discrete analog of differentiation",
+    "Its inverse computes cumulative sums",
+    "The inverse is the discrete analog of integration"
+   ]
+  },
+  "narr": [
+   "The difference matrix is a special matrix that computes finite differences.",
+   "For a vector x, multiplying by the difference matrix gives",
+   "the differences between consecutive elements: (x1, x2-x1, x3-x2, ...)^T.",
+   "This operation is the discrete analog of differentiation in calculus.",
+   "The inverse of the difference matrix computes cumulative sums.",
+   "This inverse operation is the discrete analog of integration."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Difference Matrix Example",
+   "problem": "Consider the difference matrix A = \\begin{bmatrix} 1 & 0 & 0 \\\\ -1 & 1 & 0 \\\\ 0 & -1 & 1 \\end{bmatrix}",
+   "steps": [
+    "Compute Ax for x = (x1, x2, x3)^T",
+    "Show that Ax gives differences: (x1, x2-x1, x3-x2)^T",
+    "Find the inverse matrix A^{-1}",
+    "Show that A^{-1}x gives cumulative sums"
+   ],
+   "result": "A^{-1} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 1 & 1 & 1 \\end{bmatrix}, which computes cumulative sums"
+  },
+  "narr": [
+   "Consider the difference matrix A = [1, 0, 0; -1, 1, 0; 0, -1, 1].",
+   "When we multiply A by x = (x1, x2, x3)^T, we get",
+   "(x1, x2-x1, x3-x2)^T, which are the differences between consecutive elements.",
+   "The inverse of this matrix is A^{-1} = [1, 0, 0; 1, 1, 0; 1, 1, 1].",
+   "When we multiply A^{-1} by x, we get",
+   "(x1, x1+x2, x1+x2+x3)^T, which are the cumulative sums.",
+   "This demonstrates the discrete analog of differentiation and integration."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tridiagonal Systems",
+   "bullets": [
+    "Tridiagonal matrices have nonzero elements only on the main diagonal and adjacent diagonals",
+    "They often arise in problems with nearest neighbor connections",
+    "Their LU factors preserve the narrow band structure",
+    "Solving via LU takes advantage of this sparsity"
+   ]
+  },
+  "narr": [
+   "Tridiagonal matrices are matrices with nonzero elements only on",
+   "the main diagonal and the diagonals immediately above and below it.",
+   "They frequently appear in problems involving nearest neighbor connections,",
+   "such as finite difference equations for differential equations.",
+   "When we perform LU decomposition on a tridiagonal matrix,",
+   "the factors L and U also preserve this narrow band structure.",
+   "By taking advantage of this sparsity, we can solve the system efficiently",
+   "without computing or storing the full inverse matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Tridiagonal System Example",
+   "problem": "Consider the tridiagonal matrix A = \\begin{bmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{bmatrix}",
+   "steps": [
+    "Perform LU decomposition on A",
+    "Observe that L and U are also tridiagonal",
+    "Solve Ax = b using forward and backward substitution",
+    "Compare with solving using the inverse matrix"
+   ],
+   "result": "LU decomposition preserves the tridiagonal structure, making it more efficient than computing the dense inverse"
+  },
+  "narr": [
+   "Consider the tridiagonal matrix A that describes nearest neighbor connections.",
+   "When we perform LU decomposition, we find that L and U are also tridiagonal.",
+   "This preserves the narrow band structure of the original matrix.",
+   "When solving Ax = b, we can use forward and backward substitution",
+   "that takes advantage of this sparsity.",
+   "This approach is much more efficient than computing and using",
+   "the dense inverse matrix, especially for large systems."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Week's Summary",
+   "subtitle": "Key Takeaways"
+  },
+  "narr": [
+   "Let's summarize the key concepts we've covered in this week's material.",
+   "These insights form the foundation for understanding more advanced topics in linear algebra."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Matrix Multiplication",
+   "items": [
+    "Matrix multiplication has several equivalent interpretations",
+    "Matrix multiplication is non-commutative (AB ≠ BA in general)"
+   ]
+  },
+  "narr": [
+   "Matrix multiplication is a fundamental operation with multiple interpretations,",
+   "including linear transformations, composition of functions, and more.",
+   "It's important to remember that matrix multiplication is generally non-commutative,",
+   "meaning that AB does not equal BA in most cases.",
+   "This property distinguishes matrix multiplication from ordinary scalar multiplication."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1,
+   -1
+  ]
+ }
+]

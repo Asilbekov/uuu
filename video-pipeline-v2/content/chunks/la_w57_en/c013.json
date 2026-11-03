@@ -1,0 +1,269 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I",
+   "subtitle": "weeks 5–7"
+  },
+  "narr": [
+   "In this section, we'll explore some key concepts and exercises from weeks 5 through 7 of Linear Algebra.",
+   "We'll cover symmetric LDLT factorization, solving systems using LU decomposition, and Gaussian elimination techniques."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 39 — Symmetric LDLT Factorization",
+   "problem": "Factor the symmetric matrix A = \\begin{pmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{pmatrix} as LDLT.",
+   "steps": [
+    "Find the multipliers: m21 = 1, m31 = 0, m32 = 1/3",
+    "Construct matrix L with unit diagonal and multipliers below diagonal",
+    "Construct diagonal matrix D with pivots",
+    "Verify that A = L · D · LT"
+   ],
+   "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's tackle our first exercise: symmetric LDLT factorization.",
+   "We need to factor this symmetric matrix A into LDLT form.",
+   "First, we find the multipliers for elimination.",
+   "For m21, we take the element a21 divided by a11, which is 2/2 = 1.",
+   "For m31, it's a31/a11 = 0/2 = 0.",
+   "After eliminating the first column, we find m32 = a32/a22 = 1/3.",
+   "Now we can construct our L matrix with these multipliers below the diagonal.",
+   "The D matrix contains the pivots from our elimination process.",
+   "Finally, we verify that multiplying L, D, and LT gives us back our original matrix A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 40 — Tridiagonal Model",
+   "problem": "Solve Ax = b using LU decomposition for A = \\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 0 \\\\ 2 \\end{pmatrix}. Interpret the nearest neighbor structure.",
+   "steps": [
+    "Find LU decomposition with multipliers m21 = -1/2, m32 = -2/3",
+    "Perform forward substitution Ly = b to find y",
+    "Perform backward substitution Ux = y to find x",
+    "Verify the solution by checking Ax = b",
+    "Interpret the tridiagonal structure"
+   ],
+   "result": "Solution: x = \\begin{pmatrix} 2 \\\\ 2 \\\\ 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now let's look at a challenge problem involving a tridiagonal matrix.",
+   "We need to solve this system Ax = b using LU decomposition.",
+   "First, we find our LU decomposition with the given multipliers.",
+   "Notice that the multipliers are stored in L with their original signs.",
+   "For forward substitution, we solve Ly = b to get y = [2, 1, 8/3].",
+   "Then for backward substitution, we solve Ux = y to find our solution x.",
+   "The solution is x1 = 2, x2 = 2, x3 = 2.",
+   "We verify by multiplying A and x to get back our original b vector.",
+   "The matrix has a tridiagonal structure, meaning each unknown is only connected to its nearest neighbors.",
+   "This narrow structure makes LU decomposition particularly efficient, as both L and U are bidiagonal."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Points of Gaussian Elimination",
+   "bullets": [
+    "Systems can be viewed in three pictures: row (equations as planes), matrix (Ax = b), and column (combination of columns)",
+    "Three reversible row operations: swapping equations, multiplying by nonzero, adding multiples",
+    "Procedure for 3×3 systems: write augmented matrix, select pivots, eliminate elements, check for contradictions, perform backward substitution",
+    "Backward substitution formulas: z = c3/u33, y = (c2 - u23·z)/u22, x = (c1 - u12·y - u13·z)/u11",
+    "Common errors: forgetting to update right-hand side, using old row after changes, confusing multiplier direction, treating zero pivot as degeneracy"
+   ]
+  },
+  "narr": [
+   "Let's review some key points about Gaussian elimination.",
+   "First, remember that a system can be viewed in three different ways: as equations represented by planes, as a matrix equation Ax = b, or as a combination of columns.",
+   "When performing elimination, we have three reversible row operations we can use.",
+   "The procedure for a 3×3 system involves writing the augmented matrix, selecting pivots, eliminating elements, checking for contradictions, and performing backward substitution.",
+   "For backward substitution, we have specific formulas to find each variable.",
+   "Be aware of common errors that can occur during the elimination process."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 1 — LU, Normalization, and LDU",
+   "problem": "Find the LU and LDU decompositions of the matrix A = \\begin{pmatrix} 2 & 4 & 2 \\\\ 4 & 11 & 7 \\\\ 2 & 7 & 8 \\end{pmatrix}.",
+   "steps": [
+    "Eliminate under first pivot element 2: R2 ← R2 - 2R1 and R3 ← R3 - R1",
+    "Eliminate under second pivot element 3: R3 ← R3 - R2",
+    "Construct L with multipliers and U from elimination",
+    "Normalize U by factoring out diagonal elements into D",
+    "Express A as LDU decomposition"
+   ],
+   "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 1 & 1 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 4 & 2 \\\\ 0 & 3 & 3 \\\\ 0 & 0 & 3 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's work through an example of finding LU and LDU decompositions.",
+   "We start with our matrix A and eliminate under the first pivot element.",
+   "For R2, we subtract 2 times R1, and for R3, we subtract R1.",
+   "Now we eliminate under the second pivot element by subtracting R2 from R3.",
+   "The multipliers are m21 = 2, m31 = 1, m32 = 1, so we construct L with these values.",
+   "Our U matrix comes directly from the elimination process.",
+   "For normalization, we factor out the diagonal elements into a diagonal matrix D.",
+   "This gives us the LDU decomposition where both L and the third factor have unit diagonals."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 2 — Solving a System Using Factors",
+   "problem": "Using the decomposition from example 1, solve Ax = \\begin{pmatrix} 8 \\\\ 22 \\\\ 17 \\end{pmatrix}.",
+   "steps": [
+    "Perform forward substitution Ly = b",
+    "Solve for y1 = 8",
+    "Solve for y2 using 2y1 + y2 = 22",
+    "Solve for y3 using y1 + y2 + y3 = 17",
+    "Perform backward substitution Ux = y",
+    "Solve for x3 using 3x3 = 3"
+   ]
+  },
+  "narr": [
+   "Now let's use the LU decomposition from our previous example to solve a system.",
+   "We perform forward substitution to solve Ly = b.",
+   "First, we find y1 = 8 directly.",
+   "Then we solve for y2 using the equation 2y1 + y2 = 22, which gives y2 = 6.",
+   "Next, we solve for y3 using y1 + y2 + y3 = 17, giving y3 = 3.",
+   "Now we perform backward substitution to solve Ux = y.",
+   "Starting with x3 = 3/3 = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 2 — Solving a System Using Factors (cont.)",
+   "problem": "",
+   "steps": [
+    "Solve for x2 using 3x2 + 3x3 = 6",
+    "Solve for x1 using 2x1 + 4x2 + 2x3 = 8"
+   ],
+   "result": "Solution: x = \\begin{pmatrix} 1 \\\\ 1 \\\\ 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Then we solve for x2 using 3x2 + 3x3 = 6, which gives x2 = 1.",
+   "Finally, we solve for x1 using 2x1 + 4x2 + 2x3 = 8, giving x1 = 1.",
+   "So our solution is x = [1, 1, 1]."
+  ],
+  "narr_item": [
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3 — Complete Gaussian Elimination",
+   "problem": "Solve the system 2x + y - z = 1, 4x + 3y + z = 13, -2x + y + 2z = 6.",
+   "steps": [
+    "Write augmented matrix [A|b]",
+    "First pivot element is 2, multiplier m21 = 4/2 = 2",
+    "R2 ← R2 - 2R1: (4x + 3y + z) - 2(2x + y - z) = 13 - 2·1",
+    "Second multiplier m31 = -2/2 = -1",
+    "R3 ← R3 + R1: (-2x + y + 2z) + (2x + y - z) = 6 + 1",
+    "Second pivot element is 1, multiplier m32 = 2/1 = 2"
+   ]
+  },
+  "narr": [
+   "Let's work through a complete Gaussian elimination example.",
+   "We start with our system of equations and write the augmented matrix.",
+   "Our first pivot element is 2 in the top-left position.",
+   "The multiplier m21 is a21/a11 = 4/2 = 2.",
+   "We perform the operation R2 ← R2 - 2R1 to eliminate the x term from the second equation.",
+   "For the third row, multiplier m31 = a31/a11 = -2/2 = -1.",
+   "We perform R3 ← R3 + R1 to eliminate the x term from the third equation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3 — Complete Gaussian Elimination (cont.)",
+   "problem": "",
+   "steps": [
+    "R3 ← R3 - 2R2: (2y + z) - 2(y + 3z) = 7 - 22",
+    "Solve for z, then y, then x"
+   ],
+   "result": "Solution: x = 2, y = 4, z = 3"
+  },
+  "narr": [
+   "Now our second pivot element is 1 (coefficient of y in the updated second equation).",
+   "The multiplier m32 = a32/a22 = 2/1 = 2.",
+   "We perform R3 ← R3 - 2R2 to eliminate the y term from the third equation.",
+   "Now we have an upper triangular system and can solve by backward substitution."
+  ],
+  "narr_item": [
+   0,
+   1,
+   -1,
+   -1
+  ]
+ }
+]

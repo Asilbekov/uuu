@@ -1,0 +1,552 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Linear Algebra I",
+   "subtitle": "weeks 5–7"
+  },
+  "narr": [
+   "Welcome to weeks 5 through 7 of Linear Algebra I. In this section, we'll explore questions, formulas, and solutions related to matrix decompositions and operations.",
+   "We'll start by looking at row operations and matrix factorizations, including LU and LDU decompositions.",
+   "Let's dive into some exercises to understand these concepts better."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Row Operation Example",
+   "problem": "Demonstrate the following row operation: [-2, 1, 1] = [-2, 1, 1] + [0, 2, 1] + [0, 0, 1]",
+   "steps": [
+    "The operation shows how to construct a row vector as a sum of other vectors",
+    "Each added vector contributes to specific positions in the result",
+    "This demonstrates the concept of vector addition in linear algebra"
+   ],
+   "result": "The operation correctly shows that [-2, 1, 1] can be expressed as the sum of three vectors"
+  },
+  "narr": [
+   "Let's look at a simple row operation example. Here we see how a row vector can be expressed as a sum of other vectors.",
+   "Each vector in the sum contributes to specific positions in the final result.",
+   "This demonstrates the fundamental concept of vector addition in linear algebra.",
+   "The operation shows that by adding these three vectors together, we get the original row vector."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matrix D",
+   "tex": "\\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+   "parts": [
+    {
+     "substr": "2",
+     "color": "#4C5FD5",
+     "note": "diagonal elements"
+    },
+    {
+     "substr": "0",
+     "color": "#0E7C7B",
+     "note": "off-diagonal elements"
+    }
+   ]
+  },
+  "narr": [
+   "Here we have a diagonal matrix D, where all off-diagonal elements are zero.",
+   "The diagonal elements are 2, 2, and 1, which means this matrix scales different dimensions by different factors.",
+   "Diagonal matrices are particularly useful in matrix factorizations as they represent simple scaling operations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matrix D^{-1}U",
+   "tex": "\\begin{bmatrix} 1 & \\frac{1}{2} & \\frac{1}{2} \\\\ 0 & 1 & \\frac{1}{2} \\\\ 0 & 0 & 1 \\end{bmatrix}",
+   "parts": [
+    {
+     "substr": "1",
+     "color": "#4C5FD5",
+     "note": "diagonal elements"
+    },
+    {
+     "substr": "\\frac{1}{2}",
+     "color": "#B45309",
+     "note": "upper triangular elements"
+    },
+    {
+     "substr": "0",
+     "color": "#0E7C7B",
+     "note": "lower triangular elements"
+    }
+   ]
+  },
+  "narr": [
+   "This is the matrix D^{-1}U, which is an upper triangular matrix.",
+   "Notice how all elements below the diagonal are zero, while elements above the diagonal can be non-zero.",
+   "The diagonal elements are all 1, which means this matrix doesn't scale any dimensions, only rotates or shears them."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 14 — LU and LDU Factorization for 3×3 Matrix",
+   "problem": "Compute LU and LDU factorization for A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 2 & 4 & 2 \\\\ -2 & 5 & 3 \\end{bmatrix}",
+   "steps": [
+    "m21 = 1, m31 = -1: R2-R1 = (0, 3, 1); R3+R1 = (0, 6, 4)",
+    "Second pivot 3, m32 = 2: R3 - 2R2 = (0, 0, 2)",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 2 & 1 \\end{bmatrix}",
+    "U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 1 \\\\ 0 & 0 & 2 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 2 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & \\frac{1}{2} & \\frac{1}{2} \\\\ 0 & 1 & \\frac{1}{3} \\\\ 0 & 0 & 1 \\end{bmatrix}"
+   ],
+   "result": "A = LU = L · D · D^{-1}U"
+  },
+  "narr": [
+   "Let's tackle our first exercise: computing LU and LDU factorization for a 3×3 matrix.",
+   "First, we determine the multipliers m21 and m31, which are 1 and -1 respectively.",
+   "Using these multipliers, we perform row operations to eliminate elements below the first pivot.",
+   "Next, we find the second multiplier m32 = 2 based on the second pivot element.",
+   "After completing the elimination process, we obtain our L and U matrices.",
+   "For the LDU factorization, we extract the diagonal elements into matrix D.",
+   "Finally, we can express A as the product of L, D, and D^{-1}U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 15 — LU and LDU Factorization for 3×3 Matrix",
+   "problem": "Compute LU and LDU factorization for A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 4 & 6 & 3 \\\\ -2 & 11 & 5 \\end{bmatrix}",
+   "steps": [
+    "m21 = 2, m31 = -1: R2 - 2R1 = (0, 4, 1); R3 + R1 = (0, 12, 6)",
+    "Second pivot 4, m32 = 3: R3 - 3R2 = (0, 0, 3)",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 3 & 1 \\end{bmatrix}",
+    "U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 4 & 1 \\\\ 0 & 0 & 3 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 4 & 0 \\\\ 0 & 0 & 3 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & \\frac{1}{2} & \\frac{1}{2} \\\\ 0 & 1 & \\frac{1}{4} \\\\ 0 & 0 & 1 \\end{bmatrix}"
+   ],
+   "result": "A = LU = L · D · D^{-1}U"
+  },
+  "narr": [
+   "Now let's work through another exercise with a different 3×3 matrix.",
+   "Here, our multipliers are m21 = 2 and m31 = -1.",
+   "We perform the row operations to eliminate elements below the first pivot.",
+   "Next, we find m32 = 3 based on the second pivot element of 4.",
+   "This gives us our L and U matrices.",
+   "For the LDU factorization, we extract the diagonal elements into D.",
+   "Finally, we can express A as the product of L, D, and D^{-1}U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 16 — LU and LDU Factorization for 3×3 Matrix",
+   "problem": "Compute LU and LDU factorization for A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 2 & 3 & 2 \\\\ -2 & 1 & 1 \\end{bmatrix}",
+   "steps": [
+    "m21 = 1, m31 = -1: R2-R1 = (0, 2, 1); R3+R1 = (0, 2, 2)",
+    "Second pivot 2, m32 = 1: R3 - R2 = (0, 0, 1)",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 1 & 1 \\end{bmatrix}",
+    "U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & \\frac{1}{2} & \\frac{1}{2} \\\\ 0 & 1 & \\frac{1}{2} \\\\ 0 & 0 & 1 \\end{bmatrix}"
+   ],
+   "result": "A = LU = L · D · D^{-1}U"
+  },
+  "narr": [
+   "Let's continue with another exercise involving LU and LDU factorization.",
+   "Here, our multipliers are m21 = 1 and m31 = -1.",
+   "We perform the row operations to eliminate elements below the first pivot.",
+   "Next, we find m32 = 1 based on the second pivot element of 2.",
+   "This gives us our L and U matrices.",
+   "For the LDU factorization, we extract the diagonal elements into D.",
+   "Finally, we can express A as the product of L, D, and D^{-1}U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 17 — Row Permutation and PLU Factorization",
+   "problem": "Find a row permutation P and factors satisfying PA = LU, for A = \\begin{bmatrix} 0 & 2 & 1 \\\\ 1 & 1 & 0 \\\\ 2 & 3 & 2 \\end{bmatrix}",
+   "steps": [
+    "Zero first pivot — swap rows 1 and 2: P = \\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "PA = \\begin{bmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 2 & 3 & 2 \\end{bmatrix}",
+    "Elimination: m31 = 2 (R3 - 2R1 = (0, 1, 2))",
+    "m32 = 1/2 (R3 - (1/2)R2 = (0, 0, 3/2))",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & 1/2 & 1 \\end{bmatrix}",
+    "U = \\begin{bmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 3/2 \\end{bmatrix}"
+   ],
+   "result": "PA = LU"
+  },
+  "narr": [
+   "Now we encounter a situation where the first pivot element is zero, which prevents us from proceeding with standard elimination.",
+   "To handle this, we need to perform a row permutation by swapping rows 1 and 2.",
+   "This gives us our permutation matrix P and the permuted matrix PA.",
+   "Now we can proceed with elimination using the new first row.",
+   "We find multipliers m31 = 2 and m32 = 1/2.",
+   "This gives us our L and U matrices such that PA = LU."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 18 — Transpose and Inverse",
+   "problem": "For A = \\begin{bmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 2 & 0 & 1 \\end{bmatrix} compute A^T and verify (A^T)^{-1} = (A^{-1})^T",
+   "steps": [
+    "A^T = \\begin{bmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{bmatrix}",
+    "det A = 1·(1-0) - 2·(0-2) + 0 = 5",
+    "(A^T)^{-1} = (1/5)·\\begin{bmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{bmatrix}",
+    "A^{-1} = (1/5)·\\begin{bmatrix} 1 & -2 & 2 \\\\ 2 & 1 & -1 \\\\ -2 & 4 & 1 \\end{bmatrix}",
+    "(A^{-1})^T = (1/5)·\\begin{bmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{bmatrix}"
+   ],
+   "result": "(A^T)^{-1} = (A^{-1})^T"
+  },
+  "narr": [
+   "Let's explore the relationship between matrix transpose and inverse.",
+   "First, we compute the transpose of A, which we denote as A^T.",
+   "Next, we calculate the determinant of A, which is 5.",
+   "Using this, we can find the inverse of A^T.",
+   "We also independently compute the inverse of A and then take its transpose.",
+   "We verify that these two results are equal, confirming the property that (A^T)^{-1} = (A^{-1})^T."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 19 — Symmetric LDL^T Factorization",
+   "problem": "Factor the symmetric A = \\begin{bmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{bmatrix} as LDL^T",
+   "steps": [
+    "The multipliers are m21 = 1, m31 = 0, m32 = 1/3",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{bmatrix}",
+    "For a symmetric matrix without pivoting, A = LDL^T"
+   ],
+   "result": "L · D · L^T = A"
+  },
+  "narr": [
+   "Now we'll look at a special case of matrix factorization for symmetric matrices.",
+   "For symmetric matrices, we can use the LDL^T factorization, which is similar to LDU but with the transpose of L.",
+   "First, we determine the multipliers for elimination: m21 = 1, m31 = 0, and m32 = 1/3.",
+   "This gives us our lower triangular matrix L.",
+   "The diagonal matrix D contains the pivots from the elimination process.",
+   "For symmetric matrices without pivoting, we have the nice property that A = LDL^T."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 20 — Challenge Problem: Tridiagonal Model",
+   "problem": "Solve Ax = b using LU for A = \\begin{bmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{bmatrix}, b = \\begin{bmatrix} 2 \\\\ 0 \\\\ 2 \\end{bmatrix}",
+   "steps": [
+    "LU: m21 = -1/2 and m32 = -2/3, so L = \\begin{bmatrix} 1 & 0 & 0 \\\\ -1/2 & 1 & 0 \\\\ 0 & -2/3 & 1 \\end{bmatrix}",
+    "U = \\begin{bmatrix} 2 & -1 & 0 \\\\ 0 & 3/2 & -1 \\\\ 0 & 0 & 4/3 \\end{bmatrix}",
+    "Forward substitution Ly = b: y1 = 2, y2 = 1, y3 = 8/3",
+    "Back substitution Ux = y: x3 = 2, x2 = 2, x1 = 2"
+   ],
+   "result": "x = \\begin{bmatrix} 2 \\\\ 2 \\\\ 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Let's tackle a challenge problem involving a tridiagonal matrix.",
+   "First, we perform LU factorization with multipliers m21 = -1/2 and m32 = -2/3.",
+   "This gives us our lower triangular matrix L and upper triangular matrix U.",
+   "We then solve the system using forward substitution to find y.",
+   "Finally, we use back substitution to find x from y.",
+   "The solution is x = [2, 2, 2], which we verify by multiplying A with x.",
+   "Notice that the original matrix A is tridiagonal, meaning it only has non-zero elements on the main diagonal and the adjacent diagonals.",
+   "This structure is preserved in the LU factorization, where L and U are bidiagonal."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 21 — 2×2 Inverse",
+   "problem": "Find A^{-1} for A = \\begin{bmatrix} 2 & 1 \\\\ 2 & 3 \\end{bmatrix}. Verify by multiplication.",
+   "steps": [
+    "det A = 2·3 - 1·2 = 4 ≠ 0",
+    "A^{-1} = (1/4)·\\begin{bmatrix} 3 & -1 \\\\ -2 & 2 \\end{bmatrix} = \\begin{bmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{bmatrix}",
+    "Verification: A · A^{-1} = \\begin{bmatrix} 2 & 1 \\\\ 2 & 3 \\end{bmatrix} · \\begin{bmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{bmatrix} = \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} = I"
+   ],
+   "result": "A^{-1} = \\begin{bmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Now let's move on to 2×2 matrices, starting with finding the inverse of a matrix.",
+   "First, we calculate the determinant of A, which is 4, confirming that the inverse exists.",
+   "Using the formula for the inverse of a 2×2 matrix, we find A^{-1}.",
+   "We then verify our result by multiplying A with A^{-1}, which should give us the identity matrix.",
+   "Indeed, the product is the identity matrix, confirming that our inverse is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 22 — Solving a 2×2 System",
+   "problem": "Solve Ax = b, where A = \\begin{bmatrix} 3 & 2 \\\\ 1 & 4 \\end{bmatrix}, b = \\begin{bmatrix} 8 \\\\ 6 \\end{bmatrix}",
+   "steps": [
+    "System: 3x + 2y = 8, x + 4y = 6",
+    "From the second equation x = 6 - 4y",
+    "Substitution: 3(6 - 4y) + 2y = 8, that is 18 - 10y = 8, y = 1",
+    "x = 6 - 4(1) = 2"
+   ],
+   "result": "x = \\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Let's solve a 2×2 system of linear equations.",
+   "First, we write down the system of equations represented by Ax = b.",
+   "We can solve this by substitution, expressing x in terms of y from the second equation.",
+   "Substituting this into the first equation allows us to solve for y.",
+   "Once we have y, we can find x using our earlier expression.",
+   "The solution is x = [2, 1], which we verify by multiplying A with x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 23 — 2×2 Inverse",
+   "problem": "Find A^{-1} for A = \\begin{bmatrix} 4 & 1 \\\\ 2 & 5 \\end{bmatrix}. Verify by multiplication.",
+   "steps": [
+    "det A = 4 · 5 - 1 · 2 = 18 ≠ 0",
+    "A^{-1} = (1/18)·\\begin{bmatrix} 5 & -1 \\\\ -2 & 4 \\end{bmatrix} = \\begin{bmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{bmatrix}",
+    "Verification: A · A^{-1} = I — element (1,1) equals 20/18 - 2/18 = 1, element (2,2) equals -2/18 + 20/18 = 1, off-diagonal elements are zeros"
+   ],
+   "result": "A^{-1} = \\begin{bmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{bmatrix}"
+  },
+  "narr": [
+   "Let's find another 2×2 inverse matrix.",
+   "First, we calculate the determinant of A, which is 18, confirming that the inverse exists.",
+   "Using the formula for the inverse of a 2×2 matrix, we find A^{-1}.",
+   "To verify, we check that the product of A and A^{-1} gives us the identity matrix.",
+   "We verify each element of the resulting matrix to confirm it's indeed the identity matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 24 — Solving a 2×2 System",
+   "problem": "Solve Ax = b, where A = \\begin{bmatrix} 2 & 2 \\\\ 1 & 6 \\end{bmatrix}, b = \\begin{bmatrix} 4 \\\\ 7 \\end{bmatrix}",
+   "steps": [
+    "System: 2x + 2y = 4 (that is, x + y = 2), x + 6y = 7",
+    "Subtracting the first equation from the second: 5y = 5, y = 1",
+    "x = 2 - y = 2 - 1 = 1"
+   ],
+   "result": "x = \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Let's solve another 2×2 system of linear equations.",
+   "First, we write down the system of equations represented by Ax = b.",
+   "We can simplify the first equation by dividing by 2.",
+   "Then, we subtract the first equation from the second to eliminate x and solve for y.",
+   "Once we have y, we can find x using our simplified first equation.",
+   "The solution is x = [1, 1], which we verify by multiplying A with x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 25 — 2×2 Factorization",
+   "problem": "Find A = LU = LDU for A = \\begin{bmatrix} 2 & 1 \\\\ 2 & 4 \\end{bmatrix}",
+   "steps": [
+    "m21 = 1: R2 ← R2 - R1 gives U = \\begin{bmatrix} 2 & 1 \\\\ 0 & 3 \\end{bmatrix}",
+    "L = \\begin{bmatrix} 1 & 0 \\\\ 1 & 1 \\end{bmatrix}",
+    "Verification: \\begin{bmatrix} 2 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 3 \\end{bmatrix} = \\begin{bmatrix} 2 & 4 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 2 & 0 \\\\ 0 & 3 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{bmatrix}",
+    "A = L · D · D^{-1}U"
+   ],
+   "result": "A = LU = L · D · D^{-1}U"
+  },
+  "narr": [
+   "Now let's factorize a 2×2 matrix into LU and LDU forms.",
+   "First, we find the multiplier m21 = 1 and use it to eliminate the element below the first pivot.",
+   "This gives us our upper triangular matrix U.",
+   "The lower triangular matrix L contains the multipliers.",
+   "We verify that LU equals A by adding the rows of U appropriately.",
+   "For the LDU factorization, we extract the diagonal elements into D.",
+   "Finally, we can express A as the product of L, D, and D^{-1}U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 26 — 2×2 Factorization",
+   "problem": "Find A = LU = LDU for A = \\begin{bmatrix} 3 & 1 \\\\ 3 & 5 \\end{bmatrix}",
+   "steps": [
+    "m21 = 1: R2 ← R2 - R1 gives U = \\begin{bmatrix} 3 & 1 \\\\ 0 & 4 \\end{bmatrix}",
+    "L = \\begin{bmatrix} 1 & 0 \\\\ 1 & 1 \\end{bmatrix}",
+    "Verification: \\begin{bmatrix} 3 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 4 \\end{bmatrix} = \\begin{bmatrix} 3 & 5 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 3 & 0 \\\\ 0 & 4 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1/3 \\\\ 0 & 1 \\end{bmatrix}",
+    "A = L · D · D^{-1}U"
+   ],
+   "result": "A = LU = L · D · D^{-1}U"
+  },
+  "narr": [
+   "Let's factorize another 2×2 matrix into LU and LDU forms.",
+   "First, we find the multiplier m21 = 1 and use it to eliminate the element below the first pivot.",
+   "This gives us our upper triangular matrix U.",
+   "The lower triangular matrix L contains the multipliers.",
+   "We verify that LU equals A by adding the rows of U appropriately.",
+   "For the LDU factorization, we extract the diagonal elements into D.",
+   "Finally, we can express A as the product of L, D, and D^{-1}U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 27 — 2×2 Factorization",
+   "problem": "Find A = LU = LDU for A = \\begin{bmatrix} 1 & 1 \\\\ 4 & 3 \\end{bmatrix}",
+   "steps": [
+    "m21 = 4: R2 ← R2 - 4R1 gives U = \\begin{bmatrix} 1 & 1 \\\\ 0 & -1 \\end{bmatrix}",
+    "L = \\begin{bmatrix} 1 & 0 \\\\ 4 & 1 \\end{bmatrix}",
+    "Verification: \\begin{bmatrix} 1 & 1 \\end{bmatrix} + 4·\\begin{bmatrix} 0 & -1 \\end{bmatrix} = \\begin{bmatrix} 1 & -3 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 1 & 0 \\\\ 0 & -1 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1 \\\\ 0 & 1 \\end{bmatrix}",
+    "A = L · D · D^{-1}U"
+   ],
+   "result": "A = LU = L · D · D^{-1}U"
+  },
+  "narr": [
+   "Let's factorize our final 2×2 matrix into LU and LDU forms.",
+   "First, we find the multiplier m21 = 4 and use it to eliminate the element below the first pivot.",
+   "This gives us our upper triangular matrix U.",
+   "The lower triangular matrix L contains the multipliers.",
+   "We verify that LU equals A by combining the rows of U appropriately.",
+   "For the LDU factorization, we extract the diagonal elements into D.",
+   "Finally, we can express A as the product of L, D, and D^{-1}U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

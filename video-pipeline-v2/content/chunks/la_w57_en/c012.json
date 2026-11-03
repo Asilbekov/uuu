@@ -1,0 +1,505 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks 5 through 7 of Linear Algebra. In this section, we'll explore matrix factorizations, Gaussian elimination, and related concepts through a series of exercises and solutions.",
+   "Let's begin with LU factorization, a fundamental technique in linear algebra."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — LU Factorization",
+   "problem": "Find A = LU and A = LDU for A = [[1, 1], [4, 3]]",
+   "steps": [
+    "m21 = 4: R2 ← R2 − 4R1 gives U = [[1, 1], [0, -1]]",
+    "L = [[1, 0], [4, 1]]",
+    "A = LU (verification: 4·[[1, 1]] + [[0, -1]] = [[4, 3]])",
+    "D = [[1, 0], [0, -1]] (negative pivot is acceptable)",
+    "D⁻¹U = [[1, 1], [0, 1]]",
+    "A = L · D · D⁻¹U"
+   ],
+   "result": "A = LU = [[1, 0], [4, 1]] · [[1, 1], [0, -1]] = [[1, 1], [4, 3]]"
+  },
+  "narr": [
+   "Let's start with our first problem involving LU factorization. We have a 2x2 matrix A.",
+   "To find the LU factorization, we perform elimination to get the upper triangular matrix U.",
+   "The multiplier m21 is 4, so we subtract 4 times row 1 from row 2.",
+   "This gives us U = [[1, 1], [0, -1]].",
+   "The lower triangular matrix L contains the multipliers, with 1s on the diagonal.",
+   "So L = [[1, 0], [4, 1]].",
+   "We can verify that LU equals our original matrix A.",
+   "For the LDU factorization, we extract the diagonal entries into D.",
+   "D = [[1, 0], [0, -1]] in this case.",
+   "Then D⁻¹U gives us a new upper triangular matrix with 1s on the diagonal.",
+   "Finally, we can express A as L · D · D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — 2 × 2 Factorization",
+   "problem": "Find A = LU = LDU for A = [[2, 1], [5, 4]]",
+   "steps": [
+    "m21 = 5/2: R2 ← R2 − (5/2)R1 gives U = [[2, 1], [0, 3/2]]",
+    "L = [[1, 0], [5/2, 1]]",
+    "A = LU (verification: (5/2)·[[2, 1]] + [0, 3/2] = [5, 4])",
+    "D = [[2, 0], [0, 3/2]]",
+    "D⁻¹U = [[1, 1/2], [0, 1]]",
+    "A = L · D · D⁻¹U"
+   ],
+   "result": "A = LU = [[1, 0], [5/2, 1]] · [[2, 1], [0, 3/2]] = [[2, 1], [5, 4]]"
+  },
+  "narr": [
+   "Now let's try another 2x2 factorization problem.",
+   "For matrix A = [[2, 1], [5, 4]], we first find the multiplier m21 = 5/2.",
+   "Subtracting (5/2) times row 1 from row 2 gives us U.",
+   "The lower triangular matrix L contains the multiplier 5/2.",
+   "We verify that LU equals our original matrix A.",
+   "For the LDU factorization, we extract the diagonal entries into D.",
+   "Then we compute D⁻¹U to get an upper triangular matrix with 1s on the diagonal.",
+   "Finally, we express A as L · D · D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — 3 × 3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [[1, 3, 1], [2, 5, 2], [1, 4, 3]], b = [[6], [10], [6]]",
+   "steps": [
+    "Augmented matrix: [[1, 3, 1, 6], [2, 5, 2, 10], [1, 4, 3, 6]]",
+    "Step 1 (m21 = 2, m31 = 1): R2 − 2R1 = (0, -1, 0| -2); R3 − R1 = (0, 1, 2|0)",
+    "Step 2 (m32 = -1): R3 + R2 = (0, 0, 2| -2)",
+    "Back substitution: z = -1, y = 2, x = 1",
+    "Thus, x = [[1], [2], [-1]]"
+   ],
+   "result": "x = [[1], [2], [-1]]"
+  },
+  "narr": [
+   "Moving on to 3x3 systems, let's solve Ax = b using Gaussian elimination.",
+   "First, we set up the augmented matrix with A and b.",
+   "In step 1, we eliminate the first column below the pivot using multipliers m21 = 2 and m31 = 1.",
+   "In step 2, we eliminate the second column below the pivot using multiplier m32 = -1.",
+   "Now we have an upper triangular system, which we solve by back substitution.",
+   "Starting from the bottom, we find z = -1.",
+   "Then we substitute back to find y = 2.",
+   "Finally, we find x = 1.",
+   "Our solution vector is x = [[1], [2], [-1]]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — 3 × 3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [[1, 1, 1], [2, 3, 2], [1, 2, 4]], b = [[2], [6], [1]]",
+   "steps": [
+    "The augmented matrix is [[1, 1, 1, 2], [2, 3, 2, 6], [1, 2, 4, 1]]",
+    "Step 1 (m21 = 2, m31 = 1): R2 − 2R1 = (0, 1, 0|2); R3 − R1 = (0, 1, 3|-1)",
+    "Step 2 (m32 = 1): R3 − R2 = (0, 0, 3|-3)",
+    "Back substitution: z = -1, y = 2, x = 1",
+    "Thus, x = [[1], [2], [-1]]"
+   ],
+   "result": "x = [[1], [2], [-1]]"
+  },
+  "narr": [
+   "Let's solve another 3x3 system using Gaussian elimination.",
+   "We start with the augmented matrix combining A and b.",
+   "In step 1, we eliminate the first column below the pivot with multipliers m21 = 2 and m31 = 1.",
+   "In step 2, we eliminate the second column below the pivot with multiplier m32 = 1.",
+   "Now we have an upper triangular system to solve by back substitution.",
+   "From the bottom equation, we find z = -1.",
+   "Substituting back, we get y = 2.",
+   "Finally, we find x = 1.",
+   "Our solution is x = [[1], [2], [-1]]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — 3 × 3 Elimination (infinitely many solutions)",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [[1, 2, 1], [2, 4, 2], [1, 3, 5]], b = [[4], [8], [2]]",
+   "steps": [
+    "The augmented matrix is [[1, 2, 1, 4], [2, 4, 2, 8], [1, 3, 5, 2]]",
+    "Step 1 (m21 = 2, m31 = 1): R2 − 2R1 = (0, 0, 0|0) — the second equation is twice the first; R3 − R1 = (0, 1, 4|-2)",
+    "After swapping rows 2 and 3: [[1, 2, 1, 4], [0, 1, 4, -2], [0, 0, 0, 0]]",
+    "Free variable z = t: y = -2 - 4t, x = 4 - 2y - z = 8 + 7t",
+    "Infinitely many solutions: x = [[8 + 7t], [-2 - 4t], [t]], t ∈ ℝ",
+    "Particular solution x = [[1], [2], [-1]] (t = -1)"
+   ],
+   "result": "x = [[8 + 7t], [-2 - 4t], [t]], t ∈ ℝ"
+  },
+  "narr": [
+   "Now let's look at a system with infinitely many solutions.",
+   "We start with the augmented matrix for A and b.",
+   "In step 1, we find that the second equation is just twice the first, which means we have a dependent system.",
+   "After swapping rows to get a non-zero pivot, we have [[1, 2, 1, 4], [0, 1, 4, -2], [0, 0, 0, 0]].",
+   "The last row tells us we have a free variable, which we'll call t.",
+   "We express y in terms of t: y = -2 - 4t.",
+   "Then we express x in terms of t: x = 8 + 7t.",
+   "So we have infinitely many solutions parameterized by t.",
+   "A particular solution occurs when t = -1, giving x = [[1], [2], [-1]]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — 3 × 3 Elimination",
+   "problem": "Solve Ax = b by Gaussian elimination for A = [[1, 3, 1], [2, 5, 2], [1, 4, 4]], b = [[6], [10], [5]]",
+   "steps": [
+    "The augmented matrix is [[1, 3, 1, 6], [2, 5, 2, 10], [1, 4, 4, 5]]",
+    "Step 1 (m21 = 2, m31 = 1): R2 − 2R1 = (0, -1, 0| -2); R3 − R1 = (0, 1, 3| -1)",
+    "Step 2 (m32 = -1): R3 + R2 = (0, 0, 3| -3)",
+    "Back substitution: z = -1, y = 2, x = 1",
+    "Thus, x = [[1], [2], [-1]]"
+   ],
+   "result": "x = [[1], [2], [-1]]"
+  },
+  "narr": [
+   "Let's solve one more 3x3 system using Gaussian elimination.",
+   "We begin with the augmented matrix combining A and b.",
+   "In step 1, we eliminate the first column below the pivot using multipliers m21 = 2 and m31 = 1.",
+   "In step 2, we eliminate the second column below the pivot with multiplier m32 = -1.",
+   "Now we have an upper triangular system to solve by back substitution.",
+   "From the bottom equation, we find z = -1.",
+   "Substituting back, we get y = 2.",
+   "Finally, we find x = 1.",
+   "Our solution is x = [[1], [2], [-1]]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — LU and LDU 3 × 3",
+   "problem": "Compute LU and LDU for A = [[2, 1, 1], [2, 3, 2], [-2, 1, 1]]",
+   "steps": [
+    "m21 = 1, m31 = -1, m32 = 1: R2 − R1 = (0, 2, 1); R3 + R1 = (0, 2, 2); R3 − R2 = (0, 0, 1)",
+    "L = [[1, 0, 0], [1, 1, 0], [-1, 1, 1]]",
+    "U = [[2, 1, 1], [0, 2, 1], [0, 0, 1]]",
+    "Verification: LU = A",
+    "D = [[2, 0, 0], [0, 2, 0], [0, 0, 1]]",
+    "D⁻¹U = [[1, 1/2, 1/2], [0, 1, 1/2], [0, 0, 1]]",
+    "A = LU = L · D · D⁻¹U"
+   ],
+   "result": "LU = [[1, 0, 0], [1, 1, 0], [-1, 1, 1]] · [[2, 1, 1], [0, 2, 1], [0, 0, 1]] = A"
+  },
+  "narr": [
+   "Now let's move to LU factorization for 3x3 matrices.",
+   "For matrix A = [[2, 1, 1], [2, 3, 2], [-2, 1, 1]], we perform elimination.",
+   "The multipliers are m21 = 1, m31 = -1, and m32 = 1.",
+   "Applying these operations gives us the upper triangular matrix U.",
+   "The lower triangular matrix L contains these multipliers.",
+   "We can verify that LU equals our original matrix A.",
+   "For the LDU factorization, we extract the diagonal entries into D.",
+   "Then D⁻¹U gives us an upper triangular matrix with 1s on the diagonal.",
+   "Finally, we can express A as L · D · D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — LU and LDU 3 × 3",
+   "problem": "Compute LU and LDU for A = [[2, 1, 1], [4, 5, 3], [-2, 5, 3]]",
+   "steps": [
+    "m21 = 2, m31 = -1, m32 = 2: R2 − 2R1 = (0, 3, 1); R3 + R1 = (0, 6, 4); R3 − 2R2 = (0, 0, 2)",
+    "L = [[1, 0, 0], [2, 1, 0], [-1, 2, 1]]",
+    "U = [[2, 1, 1], [0, 3, 1], [0, 0, 2]]",
+    "Verification: LU = A (third row: −[2, 1, 1] + 2·[0, 3, 1] + [0, 0, 2] = [-2, 5, 3])",
+    "D = [[2, 0, 0], [0, 3, 0], [0, 0, 2]]",
+    "D⁻¹U = [[1, 1/2, 1/2], [0, 1, 1/3], [0, 0, 1]]",
+    "A = LU = L · D · D⁻¹U"
+   ],
+   "result": "LU = [[1, 0, 0], [2, 1, 0], [-1, 2, 1]] · [[2, 1, 1], [0, 3, 1], [0, 0, 2]] = A"
+  },
+  "narr": [
+   "Let's try another 3x3 LU factorization.",
+   "For matrix A = [[2, 1, 1], [4, 5, 3], [-2, 5, 3]], we find the multipliers.",
+   "The multipliers are m21 = 2, m31 = -1, and m32 = 2.",
+   "Applying these operations gives us the upper triangular matrix U.",
+   "The lower triangular matrix L contains these multipliers.",
+   "We verify that LU equals our original matrix A.",
+   "For the LDU factorization, we extract the diagonal entries into D.",
+   "Then D⁻¹U gives us an upper triangular matrix with 1s on the diagonal.",
+   "Finally, we can express A as L · D · D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — LU and LDU 3 × 3",
+   "problem": "Compute LU and LDU for A = [[2, 1, 1], [2, 5, 2], [-2, 11, 5]]",
+   "steps": [
+    "m21 = 1, m31 = -1, m32 = 3: R2 − R1 = (0, 4, 1); R3 + R1 = (0, 12, 6); R3 − 3R2 = (0, 0, 3)",
+    "L = [[1, 0, 0], [1, 1, 0], [-1, 3, 1]]",
+    "U = [[2, 1, 1], [0, 4, 1], [0, 0, 3]]",
+    "Verification: LU = A (third row: −[2, 1, 1] + 3·[0, 4, 1] + [0, 0, 3] = [-2, 11, 5])",
+    "D = [[2, 0, 0], [0, 4, 0], [0, 0, 3]]",
+    "D⁻¹U = [[1, 1/2, 1/2], [0, 1, 1/4], [0, 0, 1]]",
+    "A = LU = L · D · D⁻¹U"
+   ],
+   "result": "LU = [[1, 0, 0], [1, 1, 0], [-1, 3, 1]] · [[2, 1, 1], [0, 4, 1], [0, 0, 3]] = A"
+  },
+  "narr": [
+   "Let's continue with another 3x3 LU factorization.",
+   "For matrix A = [[2, 1, 1], [2, 5, 2], [-2, 11, 5]], we find the multipliers.",
+   "The multipliers are m21 = 1, m31 = -1, and m32 = 3.",
+   "Applying these operations gives us the upper triangular matrix U.",
+   "The lower triangular matrix L contains these multipliers.",
+   "We verify that LU equals our original matrix A.",
+   "For the LDU factorization, we extract the diagonal entries into D.",
+   "Then D⁻¹U gives us an upper triangular matrix with 1s on the diagonal.",
+   "Finally, we can express A as L · D · D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — LU and LDU 3 × 3",
+   "problem": "Compute LU and LDU for A = [[2, 1, 1], [4, 4, 3], [-2, 1, 1]]",
+   "steps": [
+    "m21 = 2, m31 = -1, m32 = 1: R2 − 2R1 = (0, 2, 1); R3 + R1 = (0, 2, 2); R3 − R2 = (0, 0, 1)",
+    "L = [[1, 0, 0], [2, 1, 0], [-1, 1, 1]]",
+    "U = [[2, 1, 1], [0, 2, 1], [0, 0, 1]]",
+    "Verification: LU = A",
+    "D = [[2, 0, 0], [0, 2, 0], [0, 0, 1]]",
+    "D⁻¹U = [[1, 1/2, 1/2], [0, 1, 1/2], [0, 0, 1]]",
+    "A = LU = L · D · D⁻¹U"
+   ],
+   "result": "LU = [[1, 0, 0], [2, 1, 0], [-1, 1, 1]] · [[2, 1, 1], [0, 2, 1], [0, 0, 1]] = A"
+  },
+  "narr": [
+   "Let's try one more 3x3 LU factorization.",
+   "For matrix A = [[2, 1, 1], [4, 4, 3], [-2, 1, 1]], we find the multipliers.",
+   "The multipliers are m21 = 2, m31 = -1, and m32 = 1.",
+   "Applying these operations gives us the upper triangular matrix U.",
+   "The lower triangular matrix L contains these multipliers.",
+   "We verify that LU equals our original matrix A.",
+   "For the LDU factorization, we extract the diagonal entries into D.",
+   "Then D⁻¹U gives us an upper triangular matrix with 1s on the diagonal.",
+   "Finally, we can express A as L · D · D⁻¹U."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Row Permutation and PLU",
+   "problem": "Find a row permutation P and factors satisfying PA = LU, for A = [[0, 2, 1], [1, 1, 0], [2, 3, 2]]",
+   "steps": [
+    "Swap rows 1 and 2 (zero first pivot): P = [[0, 1, 0], [1, 0, 0], [0, 0, 1]]",
+    "PA = [[1, 1, 0], [0, 2, 1], [2, 3, 2]]",
+    "Elimination: m31 = 2 (R3 − 2R1 = (0, 1, 2)); m32 = 1/2 (R3 − (1/2)R2 = (0, 0, 3/2))",
+    "L = [[1, 0, 0], [0, 1, 0], [2, 1/2, 1]]",
+    "U = [[1, 1, 0], [0, 2, 1], [0, 0, 3/2]]",
+    "Verification: LU = PA",
+    "Thus, PA = LU"
+   ],
+   "result": "P = [[0, 1, 0], [1, 0, 0], [0, 0, 1]], L = [[1, 0, 0], [0, 1, 0], [2, 1/2, 1]], U = [[1, 1, 0], [0, 2, 1], [0, 0, 3/2]]"
+  },
+  "narr": [
+   "Now let's explore what happens when we need row permutations in LU factorization.",
+   "For matrix A = [[0, 2, 1], [1, 1, 0], [2, 3, 2]], we have a zero in the pivot position.",
+   "We need to swap rows to get a non-zero pivot. Let's swap rows 1 and 2.",
+   "This gives us the permutation matrix P and the permuted matrix PA.",
+   "Now we can perform elimination on PA with multipliers m31 = 2 and m32 = 1/2.",
+   "The lower triangular matrix L contains these multipliers.",
+   "The upper triangular matrix U is the result of elimination.",
+   "We verify that LU equals our permuted matrix PA.",
+   "Thus, we have PA = LU, where P is the permutation matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Transpose and Inverse",
+   "problem": "For A = [[1, 2, 0], [0, 1, 1], [2, 0, 1]] compute A^T and verify (A^T)⁻¹ = (A⁻¹)^T",
+   "steps": [
+    "A^T = [[1, 0, 2], [2, 1, 0], [0, 1, 1]]",
+    "det A = 5",
+    "(A^T)⁻¹ = (1/5) · [[1, 2, -2], [-2, 1, 4], [2, -1, 1]]",
+    "A⁻¹ = (1/5) · [[1, -2, 2], [2, 1, -1], [-2, 4, 1]]",
+    "(A⁻¹)^T = (1/5) · [[1, 2, -2], [-2, 1, 4], [2, -1, 1]]",
+    "The equality holds; verification: A^T · (A^T)⁻¹ = I"
+   ],
+   "result": "(A^T)⁻¹ = (A⁻¹)^T = (1/5) · [[1, 2, -2], [-2, 1, 4], [2, -1, 1]]"
+  },
+  "narr": [
+   "Finally, let's explore the relationship between transpose and inverse operations.",
+   "For matrix A = [[1, 2, 0], [0, 1, 1], [2, 0, 1]], we first find its transpose A^T.",
+   "The determinant of A is 5, which is non-zero, so A is invertible.",
+   "We compute the inverse of A^T, which gives us (A^T)⁻¹.",
+   "We also compute the inverse of A, and then take its transpose to get (A⁻¹)^T.",
+   "We observe that these two matrices are equal, verifying the property that (A^T)⁻¹ = (A⁻¹)^T.",
+   "We can further verify this by multiplying A^T by (A^T)⁻¹, which gives us the identity matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Summary of Key Concepts",
+   "items": [
+    "LU factorization decomposes a matrix into lower and upper triangular matrices",
+    "LDU factorization further separates the diagonal entries into a diagonal matrix",
+    "Gaussian elimination can be used to solve systems of linear equations",
+    "Row permutations may be needed when zero pivots are encountered (PLU factorization)",
+    "The inverse of a transpose equals the transpose of an inverse: (A^T)⁻¹ = (A⁻¹)^T"
+   ]
+  },
+  "narr": [
+   "Let's summarize the key concepts we've covered in this section.",
+   "We explored LU factorization, which decomposes a matrix into lower and upper triangular matrices.",
+   "We also looked at LDU factorization, which further separates the diagonal entries.",
+   "Gaussian elimination is a fundamental technique for solving systems of linear equations.",
+   "When zero pivots are encountered, we may need row permutations, leading to PLU factorization.",
+   "Finally, we verified the property that the inverse of a transpose equals the transpose of an inverse.",
+   "These concepts form the foundation for many advanced topics in linear algebra."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ }
+]

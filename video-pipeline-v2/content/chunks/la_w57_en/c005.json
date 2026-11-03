@@ -1,0 +1,751 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Welcome to weeks five through seven of Linear Algebra I. We'll explore matrix operations, special matrices, inverses, and decomposition methods.",
+   "Let's start with an explicit example of non-commutativity."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 1 — Non-commutativity of matrices",
+   "problem": "Given matrices A = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix} and B = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}, find AB and BA.",
+   "steps": [
+    "Multiply AB: \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix} \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix} = \\begin{pmatrix} 1·1 + 1·1 & 1·0 + 1·1 \\\\ 0·1 + 1·1 & 0·0 + 1·1 \\end{pmatrix}",
+    "Multiply BA: \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix} \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix} = \\begin{pmatrix} 1·1 + 0·0 & 1·1 + 0·1 \\\\ 1·1 + 1·0 & 1·1 + 1·1 \\end{pmatrix}",
+    "Compare results: AB = \\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix}, BA = \\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}"
+   ],
+   "result": "AB = \\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix}, BA = \\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's consider two simple matrices A and B.",
+   "When we multiply A by B, we get this result.",
+   "But when we multiply B by A, we get a different result.",
+   "This shows that matrix multiplication is non-commutative - the order matters."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "3.5.3 Special matrices and elimination matrices",
+   "subtitle": "Identity, diagonal, triangular matrices and elimination"
+  },
+  "narr": [
+   "Now let's explore special types of matrices and elimination matrices.",
+   "The identity matrix leaves vectors unchanged.",
+   "Diagonal matrices scale coordinates.",
+   "Upper triangular matrices have zeros below the diagonal.",
+   "Lower triangular matrices have zeros above the diagonal."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Special matrix types",
+   "bullets": [
+    "Identity matrix I: leaves vectors unchanged",
+    "Diagonal D = diag(d₁, ..., dₙ): scales coordinates",
+    "Upper triangular: zeros below the diagonal",
+    "Lower triangular: zeros above the diagonal",
+    "Triangular systems: solved by forward/backward substitution"
+   ]
+  },
+  "narr": [
+   "The identity matrix is special because it doesn't change vectors at all.",
+   "Diagonal matrices simply scale each coordinate by a different factor.",
+   "Upper triangular matrices have all zeros below the main diagonal.",
+   "Lower triangular matrices have all zeros above the main diagonal.",
+   "Solving systems with triangular matrices is efficient using forward or backward substitution."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 2 — Elimination matrix",
+   "problem": "Show how the elimination operation R₂ ← R₂ - 3R₁ corresponds to matrix multiplication.",
+   "steps": [
+    "The elimination operation is represented by matrix E = \\begin{pmatrix} 1 & 0 \\\\ -3 & 1 \\end{pmatrix}",
+    "Multiply E by the original matrix: E · \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+    "The inverse of E is E⁻¹ = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}, which restores the original rows"
+   ],
+   "result": "The transformed system is EAx = Eb, and E⁻¹ restores the original rows."
+  },
+  "narr": [
+   "Elimination operations can be represented as matrix multiplication.",
+   "The operation R₂ ← R₂ - 3R₁ corresponds to multiplying by this matrix E.",
+   "When we apply E to our original matrix, we get the transformed matrix.",
+   "The inverse of E allows us to restore the original rows."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "3.5.4 The inverse matrix: definition, criteria, rules",
+   "subtitle": "Understanding matrix inverses"
+  },
+  "narr": [
+   "Let's dive deeper into inverse matrices.",
+   "The inverse of a matrix reverses its linear transformation.",
+   "For a matrix A, its inverse A⁻¹ satisfies AA⁻¹ = A⁻¹A = I.",
+   "This means that if Ax = b, then x = A⁻¹b for any b."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Inverse matrix properties",
+   "bullets": [
+    "AA⁻¹ = A⁻¹A = I",
+    "If Ax = 0 for nonzero x, the inverse does not exist",
+    "For a square A, these are equivalent: inverse exists ⇔ all pivots nonzero ⇔ columns independent ⇔ Ax = 0 only when x = 0 ⇔ Ax = b has unique solution for any b",
+    "(AB)⁻¹ = B⁻¹A⁻¹",
+    "(Aᵀ)⁻¹ = (A⁻¹)ᵀ",
+    "(A⁻¹)⁻¹ = A",
+    "(Aᵏ)⁻¹ = (A⁻¹)ᵏ"
+   ]
+  },
+  "narr": [
+   "The inverse matrix satisfies this fundamental property.",
+   "If a matrix maps a nonzero vector to zero, it can't have an inverse.",
+   "For square matrices, several conditions are equivalent to having an inverse.",
+   "The order of factors in the inverse of a product is reversed.",
+   "The inverse of a transpose is the transpose of the inverse.",
+   "The inverse of an inverse is the original matrix.",
+   "The inverse of a power is the power of the inverse."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "3.5.5 The inverse of 2 × 2 and the Gauss-Jordan method",
+   "subtitle": "Computing inverses for 2×2 matrices and beyond"
+  },
+  "narr": [
+   "Let's look at how to compute inverses specifically for 2×2 matrices.",
+   "We'll also explore the Gauss-Jordan method for finding inverses."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Inverse of a 2×2 matrix",
+   "tex": "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}^{-1} = \\frac{1}{ad-bc} \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}",
+   "parts": [
+    {
+     "substr": "ad-bc",
+     "color": "#4C5FD5",
+     "note": "determinant"
+    }
+   ]
+  },
+  "narr": [
+   "For a 2×2 matrix, the inverse can be computed directly using this formula.",
+   "The denominator is the determinant of the matrix.",
+   "If the determinant is zero, the matrix doesn't have an inverse."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 3 — 2×2 inverse",
+   "problem": "Find the inverse of \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}",
+   "steps": [
+    "Compute determinant: ad-bc = 2·3 - 1·5 = 6-5 = 1",
+    "Apply formula: \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}^{-1} = \\frac{1}{1} \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}"
+   ],
+   "result": "\\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}^{-1} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's find the inverse of this specific 2×2 matrix.",
+   "First, we compute its determinant, which happens to be 1.",
+   "Then we apply the inverse formula to get our result."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 4 — Gauss-Jordan method",
+   "problem": "Find the inverse of \\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix} using Gauss-Jordan elimination",
+   "steps": [
+    "Set up augmented matrix [A|I]: \\begin{pmatrix} 1 & 2 & | & 1 & 0 \\\\ 3 & 7 & | & 0 & 1 \\end{pmatrix}",
+    "Apply row operations: R₂ ← R₂ - 3R₁ → \\begin{pmatrix} 1 & 2 & | & 1 & 0 \\\\ 0 & 1 & | & -3 & 1 \\end{pmatrix}",
+    "Apply row operations: R₁ ← R₁ - 2R₂ → \\begin{pmatrix} 1 & 0 & | & 7 & -2 \\\\ 0 & 1 & | & -3 & 1 \\end{pmatrix}",
+    "Read the inverse: \\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix}^{-1} = \\begin{pmatrix} 7 & -2 \\\\ -3 & 1 \\end{pmatrix}"
+   ],
+   "result": "\\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix}^{-1} = \\begin{pmatrix} 7 & -2 \\\\ -3 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "For larger matrices, we can use the Gauss-Jordan method.",
+   "We start with the augmented matrix [A|I].",
+   "Then we apply row operations to transform A into I.",
+   "When we're done, I will have been transformed into A⁻¹.",
+   "This method works for any size matrix, not just 2×2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Columns of the inverse matrix",
+   "bullets": [
+    "If A⁻¹ = [x₁ ... xₙ], then Axⱼ = eⱼ",
+    "Finding the inverse means solving n systems",
+    "For a single system Ax = b, triangular elimination is usually preferable to explicit computation of A⁻¹"
+   ]
+  },
+  "narr": [
+   "The columns of the inverse matrix have an interesting interpretation.",
+   "Each column xⱼ of A⁻¹ satisfies Axⱼ = eⱼ, where eⱼ is the j-th standard basis vector.",
+   "This means finding the inverse is equivalent to solving n different systems.",
+   "For solving a single system Ax = b, it's often better to use triangular elimination rather than computing the full inverse."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "3.5.6 LU decomposition and solving systems through factors",
+   "subtitle": "Factorizing matrices into lower and upper triangular matrices"
+  },
+  "narr": [
+   "Now let's explore LU decomposition, which factorizes a matrix into lower and upper triangular matrices.",
+   "This approach is efficient for solving systems with multiple right-hand sides."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "LU decomposition",
+   "bullets": [
+    "A = LU: elimination factors",
+    "L is unit lower triangular (1s on diagonal)",
+    "U is upper triangular",
+    "Ek · · · E₂E₁A = U → A = E₁⁻¹E₂⁻¹ · · · Ek⁻¹U = LU",
+    "Solving: first Ly = b by forward substitution, then Ux = y by backward substitution"
+   ]
+  },
+  "narr": [
+   "LU decomposition factorizes a matrix A into L and U.",
+   "L is a unit lower triangular matrix with 1s on the diagonal.",
+   "U is an upper triangular matrix.",
+   "The elimination matrices E₁, E₂, etc., combine to form L.",
+   "To solve Ax = b, we first solve Ly = b, then Ux = y."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 5 — LU decomposition",
+   "problem": "Find LU decomposition of A = \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}",
+   "steps": [
+    "Apply elimination: R₂ ← R₂ - 3R₁ → \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+    "The elimination matrix is E = \\begin{pmatrix} 1 & 0 \\\\ -3 & 1 \\end{pmatrix}",
+    "The inverse of E is L = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}",
+    "The upper triangular matrix is U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+    "Verify: LU = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = A"
+   ],
+   "result": "A = LU where L = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} and U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's find the LU decomposition of this matrix.",
+   "First, we perform elimination to get the upper triangular matrix U.",
+   "The elimination operation corresponds to matrix E.",
+   "The inverse of E gives us L.",
+   "We verify that LU equals our original matrix A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 6 — Solving with LU decomposition",
+   "problem": "Solve Ax = b where A = \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}, b = \\begin{pmatrix} 5 \\\\ 19 \\end{pmatrix}",
+   "steps": [
+    "Use LU decomposition: A = LU where L = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+    "First solve Ly = b: \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} y₁ \\\\ y₂ \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 19 \\end{pmatrix}",
+    "Forward substitution: y₁ = 5, 3y₁ + y₂ = 19 → y₂ = 4",
+    "Then solve Ux = y: \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix} \\begin{pmatrix} x₁ \\\\ x₂ \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 4 \\end{pmatrix}",
+    "Backward substitution: 2x₂ = 4 → x₂ = 2, 2x₁ + x₂ = 5 → x₁ = 3/2"
+   ],
+   "result": "x = \\begin{pmatrix} 3/2 \\\\ 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Once we have the LU decomposition, solving systems becomes efficient.",
+   "We first solve Ly = b using forward substitution.",
+   "Then we solve Ux = y using backward substitution.",
+   "This approach is particularly useful when we need to solve multiple systems with the same matrix A but different right-hand sides."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "3.5.7 LDU decomposition, pivots and determinant",
+   "subtitle": "Refining LU decomposition and connecting to determinants"
+  },
+  "narr": [
+   "Let's refine our LU decomposition to LDU form and connect it to pivots and determinants."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "LDU decomposition",
+   "bullets": [
+    "U = D · (D⁻¹U), where D contains reference elements of U",
+    "A = L · D · (D⁻¹U) with unit diagonals for L and D⁻¹U",
+    "Example: \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} · \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix} · \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{pmatrix}"
+   ]
+  },
+  "narr": [
+   "LDU decomposition further refines LU by factoring out the diagonal.",
+   "D contains the diagonal elements of U.",
+   "This gives us matrices with unit diagonals for L and D⁻¹U."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Pivots and determinant",
+   "tex": "For A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} with a ≠ 0, the pivots are a and d - cb/a, and their product is ad - bc = det A",
+   "parts": [
+    {
+     "substr": "ad - bc",
+     "color": "#4C5FD5",
+     "note": "determinant"
+    },
+    {
+     "substr": "a",
+     "color": "#B45309",
+     "note": "first pivot"
+    },
+    {
+     "substr": "d - cb/a",
+     "color": "#0E7C7B",
+     "note": "second pivot"
+    }
+   ]
+  },
+  "narr": [
+   "The pivots are important in understanding the matrix.",
+   "For a 2×2 matrix, the first pivot is simply the top-left element.",
+   "The second pivot is adjusted based on the elimination.",
+   "The product of the pivots equals the determinant of the matrix."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Determinant properties",
+   "bullets": [
+    "Without row exchanges, det(A) equals the product of pivots",
+    "The normalized LDU is unique when it exists with nonzero pivots"
+   ]
+  },
+  "narr": [
+   "When no row exchanges are needed, the determinant is simply the product of the pivots.",
+   "The normalized LDU decomposition is unique when it exists with nonzero pivots."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "3.5.8 Permutations, PA = LU and partial pivoting",
+   "subtitle": "Handling zero pivots with row exchanges"
+  },
+  "narr": [
+   "Sometimes we encounter zero pivots, which can be handled through row exchanges.",
+   "Let's explore how permutation matrices help with this."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Permutation matrices",
+   "bullets": [
+    "Permutation matrices permute rows of I",
+    "There is exactly one 1 in each row and each column",
+    "Example: P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} exchanges rows",
+    "P⁻¹ = Pᵀ (since Pᵀ · P = I)"
+   ]
+  },
+  "narr": [
+   "Permutation matrices are formed by rearranging the rows of the identity matrix.",
+   "Each permutation matrix has exactly one 1 in each row and column.",
+   "For example, this matrix swaps the two rows of a matrix it multiplies.",
+   "The inverse of a permutation matrix is its transpose."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 7 — PA = LU decomposition",
+   "problem": "Find PA = LU for A = \\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\end{pmatrix}",
+   "steps": [
+    "Since the first pivot is zero, we need to exchange rows",
+    "Use permutation matrix P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}",
+    "Compute PA = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} \\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\end{pmatrix} = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}",
+    "Now we have PA = LU where L = I and U = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}"
+   ],
+   "result": "PA = LU where P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, L = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "When we encounter a zero pivot, we can exchange rows to proceed.",
+   "This is done using a permutation matrix P.",
+   "Multiplying by P exchanges the rows of A.",
+   "Now we can perform LU decomposition on PA instead of A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Partial pivoting",
+   "bullets": [
+    "Rule: take the largest in magnitude element of the active column",
+    "Avoids multipliers that are too large",
+    "Example: for \\begin{pmatrix} 10^{-8} & 1 \\\\ 1 & 1 \\end{pmatrix}, exchanging rows avoids a multiplier of 10^8"
+   ]
+  },
+  "narr": [
+   "Partial pivoting is a strategy to improve numerical stability.",
+   "The rule is to select the largest element in magnitude in the current column as the pivot.",
+   "This helps avoid large multipliers that can amplify rounding errors.",
+   "In this example, exchanging rows prevents an extremely large multiplier."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 8,
+   "title": "3.5.9 Transposition, symmetric matrices, LDLᵀ",
+   "subtitle": "Working with transposes and symmetric matrices"
+  },
+  "narr": [
+   "Let's explore matrix transposition and symmetric matrices.",
+   "We'll also look at the special LDLᵀ decomposition for symmetric matrices."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matrix transposition",
+   "bullets": [
+    "(Aᵀ)ᵢⱼ = aⱼᵢ",
+    "(A + B)ᵀ = Aᵀ + Bᵀ",
+    "(AB)ᵀ = Bᵀ · Aᵀ"
+   ]
+  },
+  "narr": [
+   "The transpose of a matrix flips its rows and columns.",
+   "The transpose of a sum is the sum of transposes.",
+   "The transpose of a product reverses the order of multiplication."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 8 — Matrix transposition",
+   "problem": "Find the transpose of A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}",
+   "steps": [
+    "Flip rows and columns: (Aᵀ)ᵢⱼ = aⱼᵢ",
+    "Aᵀ = \\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix}"
+   ],
+   "result": "Aᵀ = \\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's see how to compute the transpose of a matrix.",
+   "We simply flip the rows and columns.",
+   "The element at position (i,j) in the transpose comes from position (j,i) in the original."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Symmetric matrices and LDLᵀ decomposition",
+   "bullets": [
+    "A symmetric matrix satisfies Aᵀ = A",
+    "If a symmetric A has an LDU decomposition without exchanges, its normalized upper factor equals Lᵀ: A = LDLᵀ",
+    "Example: \\begin{pmatrix} 2 & 2 \\\\ 2 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix} · \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix} · \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}"
+   ]
+  },
+  "narr": [
+   "A symmetric matrix is equal to its own transpose.",
+   "For symmetric matrices, we can use a special LDLᵀ decomposition.",
+   "This is similar to LDU but with the upper triangular matrix being the transpose of L."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 9,
+   "title": "3.5.10 Applications: differences, sums, tridiagonal systems",
+   "subtitle": "Practical applications of matrix decompositions"
+  },
+  "narr": [
+   "Let's explore some practical applications of matrix decompositions.",
+   "We'll look at difference matrices, sum matrices, and tridiagonal systems."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Difference matrix",
+   "bullets": [
+    "A = \\begin{pmatrix} 1 & 0 & 0 \\\\ -1 & 1 & 0 \\\\ 0 & -1 & 1 \\end{pmatrix}",
+    "Ax = (x₁, x₂ - x₁, x₃ - x₂)ᵀ",
+    "Its inverse A⁻¹ = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 1 & 1 & 1 \\end{pmatrix} gives cumulative sums",
+    "This is the discrete analog of differentiation and integration"
+   ]
+  },
+  "narr": [
+   "The difference matrix computes discrete differences between consecutive elements.",
+   "When applied to a vector x, it gives the differences between consecutive elements.",
+   "Its inverse computes cumulative sums, which is like integration.",
+   "Together, they represent discrete differentiation and integration."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tridiagonal systems",
+   "bullets": [
+    "A = \\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix}",
+    "Describes nearest neighbor connections (finite difference equations)",
+    "Its factors preserve the narrow band",
+    "Solving via LU uses the structure, avoiding the dense inverse matrix"
+   ]
+  },
+  "narr": [
+   "Tridiagonal matrices have nonzero elements only on the main diagonal and adjacent diagonals.",
+   "They often arise in problems involving nearest neighbor connections.",
+   "When solving systems with tridiagonal matrices, LU decomposition preserves the structure.",
+   "This is more efficient than computing the full inverse matrix."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 10,
+   "title": "3.5.11 Week's Summary",
+   "subtitle": "Key takeaways from weeks 5–7"
+  },
+  "narr": [
+   "Let's summarize the key concepts we've covered in weeks five through seven."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key concepts",
+   "items": [
+    "Matrix multiplication is non-commutative",
+    "Special matrices: identity, diagonal, triangular",
+    "Inverse matrices and their properties",
+    "LU and LDU decompositions",
+    "Permutation matrices and partial pivoting",
+    "Symmetric matrices and LDLᵀ decomposition",
+    "Applications: difference matrices, tridiagonal systems"
+   ]
+  },
+  "narr": [
+   "Matrix multiplication is non-commutative - the order matters.",
+   "We explored various special matrices including identity, diagonal, and triangular matrices.",
+   "Inverse matrices reverse linear transformations and have specific properties.",
+   "LU and LDU decompositions help solve systems efficiently.",
+   "Permutation matrices handle zero pivots through row exchanges.",
+   "Symmetric matrices have special properties and decompositions.",
+   "Finally, we saw practical applications in difference matrices and tridiagonal systems."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ }
+]
