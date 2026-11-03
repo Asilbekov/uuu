@@ -593,12 +593,18 @@ BUILDERS.table = (blk, t0)=>{
   const cardEl = el('div','t-card card', root);
   const t = el('table','tt', cardEl);
   const thead = el('thead','',t); const htr = el('tr','',thead);
-  (blk.data.columns||[]).forEach(c=>{ const th=el('th','',htr); th.textContent=c; });
+  // adaptive fit: many rows → smaller font/padding so the table never overflows 1080p
+  const R = (blk.data.rows||[]).length;
+  const rowFont = R > 9 ? Math.max(19, Math.min(32, Math.floor(760/R/2.2))) : 32;
+  const rowPad = R > 9 ? Math.max(6, Math.floor(rowFont*0.5)) : 17;
+  const thFont = R > 9 ? Math.max(22, rowFont) : 33;
+  (blk.data.columns||[]).forEach(c=>{ const th=el('th','',htr); th.textContent=c; th.style.fontSize=thFont+'px'; th.style.padding=Math.floor(rowPad*0.8)+'px 30px'; });
   const tbody = el('tbody','',t);
   const rNodes = (blk.data.rows||[]).map(r=>{
     const tr = el('tr','',tbody);
     r.forEach(c=>{
       const td=el('td','',tr);
+      td.style.fontSize=rowFont+'px'; td.style.padding=rowPad+'px 30px';
       if(c && typeof c==='object' && c.tex){ tex(td, c.tex, false); }
       else if(hasMath(c)) richText(td, String(c));
       else td.textContent = String(c);
