@@ -86,13 +86,19 @@ def download(url, dest):
     os.rename(dest + '.part', dest)
 
 
+def db_cursor():
+    """Fresh connection per use: Neon drops idle SSL during long uploads."""
+    conn = psycopg2.connect(DB_URL, connect_timeout=30)
+    conn.autocommit = True
+    return conn, conn.cursor()
+
+
 async def main():
     os.makedirs(WORKDIR, exist_ok=True)
-    conn = psycopg2.connect(DB_URL)
-    conn.autocommit = True
-    cur = conn.cursor()
+    conn, cur = db_cursor()
     cur.execute(SOURCE_SQL)
     rows = cur.fetchall()
+    conn.close()
 
     groups = {}  # url -> {title}
     for url, _id, title, size in rows:
@@ -145,7 +151,9 @@ async def main():
                 raise RuntimeError('no file_id in forward result')
             print(f'  bot file_id: {file_id[:28]}…', flush=True)
 
-            # --- rewrite the DB rows ---
+            # --- rewrite the DB rows (fresh connection: the old one may have
+            #     been dropped by Neon while the upload was running) ---
+            conn, cur = db_cursor()
             cur.execute(
                 '''UPDATE "Attachment"
                    SET url = %s, "tgMessageId" = %s, size = %s,
@@ -154,6 +162,7 @@ async def main():
                 (f'tg:{file_id}', msg.id, size, url, url),
             )
             updated = cur.rowcount
+            conn.close()
             print(f'OK {name}: msg={msg.id} rows={updated}', flush=True)
             done += 1
             os.remove(dest)
