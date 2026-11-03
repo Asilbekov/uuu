@@ -1,0 +1,478 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "In this video, we'll explore the essential steps of engineering modeling through the EV Charging Station case study.",
+   "Let's break down the systematic approach to building and evaluating mathematical models."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Engineering Modeling Process",
+   "bullets": [
+    "Build the anatomy: inputs, parameters, relationships, outputs — all with units",
+    "Fill in Need–Know–How–Solve",
+    "Write out at least 6 assumptions: simplifying, data, boundary — using the template",
+    "Label each assumption Safe / Risky / Need Data",
+    "Change one assumption; explain the effect on the output",
+    "Check the model: units, order of magnitude, a known value",
+    "Rate the model: Too Simple / Fit for Purpose / Too Detailed",
+    "Name one revision and one additional need for data"
+   ]
+  },
+  "narr": [
+   "The engineering modeling process follows a systematic approach with several key steps.",
+   "First, you build the model's anatomy by identifying inputs, parameters, relationships, and outputs — making sure to include units for each element.",
+   "Next, you fill in the Need–Know–How–Solve framework to clarify what information you need, what you already know, how you'll approach the solution, and how you'll solve it.",
+   "Then, you document at least six assumptions using a specific template, categorizing each as simplifying, data, or boundary assumptions.",
+   "Each assumption must be labeled as Safe, Risky, or Need Data based on how likely it is to affect the outcome.",
+   "After that, you test the model by changing one assumption and explaining its effect on the output.",
+   "You then perform three checks: verifying units, checking order of magnitude, and comparing with a known value.",
+   "Finally, you rate the model as Too Simple, Fit for Purpose, or Too Detailed, and suggest one revision and one additional data need."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Grading Criteria",
+   "bullets": [
+    "3 — good/fully done",
+    "2 — partially",
+    "1 — present, almost nothing done",
+    "0 — missing",
+    "Work is graded live on all ten steps",
+    "Complete steps in order — each depends on the previous"
+   ]
+  },
+  "narr": [
+   "Your work will be graded on a scale of 0 to 3 for each step, with 3 indicating good or fully completed work.",
+   "A score of 2 means partially done, 1 means present but almost nothing done, and 0 means missing.",
+   "The grading happens live on all ten steps, so it's crucial to complete them in order since each next step depends on what's written in the previous ones."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — EV Charging & Battery Test Station",
+   "problem": "Will the station's peak power draw stay within the grid operator's 150 kW limit during the busiest hour?",
+   "steps": [
+    {
+     "text": "Identify the model's question and type"
+    },
+    {
+     "text": "Define the model's anatomy: inputs, parameters, relationships, outputs"
+    },
+    {
+     "text": "Fill in Need–Know–How–Solve"
+    },
+    {
+     "text": "Document and classify six assumptions"
+    },
+    {
+     "text": "Change one assumption and explain its effect"
+    },
+    {
+     "text": "Perform three model checks: units, order of magnitude, known value"
+    },
+    {
+     "text": "Rate the model and suggest revision and additional data need"
+    }
+   ],
+   "result": "The model shows that with 4 chargers each drawing 22 kW, the total power is 88 kW, which is within the 150 kW limit. However, if chargers are upgraded to 50 kW each, the total would exceed the limit."
+  },
+  "narr": [
+   "Let's walk through a model answer for the EV Charging & Battery Test Station scenario.",
+   "The model's question is: Will the station's peak power draw stay within the grid operator's 150 kW limit during the busiest hour?",
+   "The type of model chosen is mathematical because the question involves a direct calculation: power per charger multiplied by the number of chargers in use, compared against the limit.",
+   "Now, let's examine the anatomy of the model, which includes inputs, parameters, relationships, and outputs."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Anatomy of the Charging Station Model",
+   "columns": [
+    "Part",
+    "Name (with unit)",
+    "Role"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Inputs"
+     },
+     {
+      "text": "chargers in use n [units]; power per charger P₁ [kW]"
+     },
+     {
+      "text": "what we feed in / can choose"
+     }
+    ],
+    [
+     {
+      "text": "Parameters"
+     },
+     {
+      "text": "grid limit L = 150 [kW]; number of chargers = 4"
+     },
+     {
+      "text": "what we keep fixed"
+     }
+    ],
+    [
+     {
+      "text": "Relationships"
+     },
+     {
+      "text": "total power: P = n × P₁; compliant if P ≤ L"
+     },
+     {
+      "text": "equation / rule"
+     }
+    ],
+    [
+     {
+      "text": "Outputs"
+     },
+     {
+      "text": "total power P [kW]; compliance (yes/no)"
+     },
+     {
+      "text": "what the model predicts"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "The model anatomy consists of four key parts:",
+   "Inputs are what we feed into the model or can choose, such as the number of chargers in use and the power per charger.",
+   "Parameters are values we keep fixed, like the 150 kW grid limit and the fact that there are 4 chargers.",
+   "Relationships define the equations or rules, in this case, the total power equals the number of chargers times the power per charger, with compliance determined by whether this total is less than or equal to the limit.",
+   "Outputs are what the model predicts, which includes the total power and whether the system is compliant with the limit."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Need–Know–How–Solve",
+   "problem": "Will the station's peak power draw stay within the grid operator's 150 kW limit during the busiest hour?",
+   "steps": [
+    {
+     "text": "Need — the peak power [kW]"
+    },
+    {
+     "text": "Know — P₁ = 22 kW per charger; 4 chargers; the 150 kW limit"
+    },
+    {
+     "text": "How — P = n × P₁, with n = 4 at the peak"
+    },
+    {
+     "text": "Solve — P = 4 × 22 = 88 kW ≤ 150 kW; compliance is confirmed"
+    }
+   ],
+   "result": "The peak power draw is 88 kW, which is within the 150 kW limit, so compliance is confirmed."
+  },
+  "narr": [
+   "Now let's apply the Need–Know–How–Solve framework to this problem.",
+   "First, what do we need? We need to determine the peak power in kilowatts.",
+   "What do we already know? We know that each charger has a power rating of 22 kW, there are 4 chargers, and the grid limit is 150 kW.",
+   "How will we solve it? We'll use the equation P = n × P₁, with n equal to 4 at peak usage.",
+   "Finally, solving gives us P = 4 × 22 = 88 kW, which is less than or equal to 150 kW, confirming compliance with the grid limit."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Model Assumptions and Classification",
+   "columns": [
+    "We assume...",
+    "Because...",
+    "Kind",
+    "Risk",
+    "If wrong..."
+   ],
+   "rows": [
+    [
+     {
+      "text": "All 4 chargers draw 22 kW simultaneously at the peak"
+     },
+     {
+      "text": "because that is the rated power of each unit"
+     },
+     {
+      "text": "data"
+     },
+     {
+      "text": "Safe"
+     },
+     {
+      "text": "the actual peak power will be lower, not higher"
+     }
+    ],
+    [
+     {
+      "text": "Charging power is constant over a session"
+     },
+     {
+      "text": "because we ignore the power taper near full charge"
+     },
+     {
+      "text": "simplifying"
+     },
+     {
+      "text": "Risky"
+     },
+     {
+      "text": "the real peak is slightly below the modelled one"
+     }
+    ],
+    [
+     {
+      "text": "The diagnostic test consumes a negligible amount"
+     },
+     {
+      "text": "because it is a low-current measurement"
+     },
+     {
+      "text": "simplifying"
+     },
+     {
+      "text": "Safe"
+     },
+     {
+      "text": "the model slightly understates consumption"
+     }
+    ],
+    [
+     {
+      "text": "Only the 4 charging bays are inside the model boundary"
+     },
+     {
+      "text": "because the building's lighting/HVAC is metered separately"
+     },
+     {
+      "text": "boundary"
+     },
+     {
+      "text": "Need Data"
+     },
+     {
+      "text": "the building load may add to the connection"
+     }
+    ],
+    [
+     {
+      "text": "Battery condition checks add no electrical load"
+     },
+     {
+      "text": "because they use the charger's own diagnostics"
+     },
+     {
+      "text": "boundary"
+     },
+     {
+      "text": "Safe"
+     },
+     {
+      "text": "no change to the result is expected"
+     }
+    ],
+    [
+     {
+      "text": "All 4 chargers can be occupied simultaneously in the peak hour"
+     },
+     {
+      "text": "because this is the worst case, not the average"
+     },
+     {
+      "text": "data"
+     },
+     {
+      "text": "Risky"
+     },
+     {
+      "text": "if fewer than 4 are occupied at once, consumption is lower"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Next, let's examine the six assumptions made in this model and their classification.",
+   "The first assumption is that all 4 chargers draw 22 kW simultaneously at the peak because that's their rated power. This is classified as a data assumption and is considered Safe, meaning if wrong, the actual peak power would be lower, not higher.",
+   "The second assumption is that charging power remains constant throughout a session, ignoring the power taper near full charge. This is a simplifying assumption and is Risky because if wrong, the real peak would be slightly below what's modeled.",
+   "The third assumption is that diagnostic tests consume negligible power since they're low-current measurements. This is a simplifying assumption and is Safe, meaning the model might slightly underestimate consumption.",
+   "The fourth assumption is that only the 4 charging bays are within the model boundary, as building systems are metered separately. This is a boundary assumption and requires more data, as building loads might add to the connection.",
+   "The fifth assumption is that battery condition checks add no electrical load since they use the charger's diagnostics. This is a boundary assumption and is considered Safe, with no expected change to the result.",
+   "The final assumption is that all 4 chargers can be occupied simultaneously during peak hours, representing the worst case. This is a data assumption and is Risky, as fewer occupied chargers would mean lower consumption."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Changing an Assumption",
+   "problem": "What happens if we change one of our assumptions?",
+   "steps": [
+    {
+     "text": "Change: The chargers are switched to fast charging, with P₁ rising from 22 to 50 kW per charger"
+    },
+    {
+     "text": "Recalculate: P = 4 × 50 = 200 kW"
+    },
+    {
+     "text": "Compare: 200 kW > 150 kW limit"
+    },
+    {
+     "text": "Conclusion: The model exposes a compliance violation that was hidden by the original assumption"
+    }
+   ],
+   "result": "With fast chargers at 50 kW each, the total power draw becomes 200 kW, exceeding the 150 kW limit and revealing a compliance issue."
+  },
+  "narr": [
+   "Now let's test the model by changing one assumption and explaining its effect on the output.",
+   "We'll change the assumption about charger power, switching from standard 22 kW chargers to fast chargers rated at 50 kW each.",
+   "Recalculating with this new value gives us P = 4 × 50 = 200 kW.",
+   "Comparing this to the 150 kW limit, we see that 200 kW exceeds the limit, meaning the system would no longer be compliant.",
+   "This exercise shows how the model can expose compliance violations that might be hidden by original assumptions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Sanity Checks for the Station Model",
+   "columns": [
+    "Check",
+    "Result"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Units"
+     },
+     {
+      "text": "n [units] × P₁ [kW] = P [kW] — the units are consistent"
+     }
+    ],
+    [
+     {
+      "text": "Order of magnitude"
+     },
+     {
+      "text": "88 kW for 4 fast chargers is plausible; not 8 kW (too small) and not 8,000 kW (too large)"
+     }
+    ],
+    [
+     {
+      "text": "A known value"
+     },
+     {
+      "text": "matches the datasheets of public DC chargers (~20–25 kW per standard unit)"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "After testing assumptions, we perform three sanity checks on the model.",
+   "First, we check the units. The calculation n [units] × P₁ [kW] = P [kW] shows that the units are consistent throughout the model.",
+   "Next, we verify the order of magnitude. The result of 88 kW for 4 chargers is plausible; it's not unrealistically low like 8 kW, nor is it excessively high like 8,000 kW.",
+   "Finally, we compare with a known value. Our result matches the datasheets of public DC chargers, which typically show around 20–25 kW per standard unit."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Model Evaluation and Improvement",
+   "problem": "How should we rate this model and what improvements could be made?",
+   "steps": [
+    {
+     "text": "Verdict: Fit for Purpose — answers the compliance question with available data"
+    },
+    {
+     "text": "Revision: Replace worst-case 'all 4 occupied at once' with measured diversity factor"
+    },
+    {
+     "text": "Additional need for data: Week of measured power per charger"
+    }
+   ],
+   "result": "The model is rated as Fit for Purpose for answering the compliance question, but could be improved by incorporating measured diversity factors and actual power consumption data."
+  },
+  "narr": [
+   "Finally, let's evaluate the model and identify areas for improvement.",
+   "The verdict is that the model is Fit for Purpose because it successfully answers the compliance question with the data available, without needing to simulate the minute-by-minute load curve.",
+   "One revision we could make is to replace the worst-case assumption of 'all 4 occupied at once' with a measured diversity factor derived from real usage logs.",
+   "Additionally, we need a week of measured power per charger data to confirm that the 22 kW rating holds in practice."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

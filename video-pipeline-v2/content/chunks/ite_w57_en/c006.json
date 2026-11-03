@@ -1,0 +1,431 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering — Weeks 5–7",
+   "subtitle": "Study Guide"
+  },
+  "narr": [
+   "Welcome to this study guide covering weeks 5 through 7 of your Introduction to Engineering course. We'll explore system performance modeling, problem framing, and quantitative reasoning concepts.",
+   "Let's start with understanding how we define system performance."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Final Working Definition of System Performance",
+   "bullets": [
+    "Complete the sentence: “The performance of ___ is judged by ___, ___ and ___, each with units and a target, through the eyes of ___”",
+    "Example: The performance of the EV Charging & Battery Test Station is judged by the total peak power P [kW] and compliance with the 150 kW limit (yes/no), with units and targets, through the eyes of the grid operator."
+   ]
+  },
+  "narr": [
+   "When defining system performance, we need to identify what aspects matter most and who's evaluating them.",
+   "The complete sentence requires filling in four blanks: what system we're evaluating, what performance metrics we're using, what units these metrics have, and who's perspective we're considering.",
+   "For instance, an EV charging station's performance might be judged by its peak power output and whether it complies with grid limits, from the grid operator's perspective."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "60-Second Team Report-Out",
+   "bullets": [
+    "Four key questions to consider:",
+    "What is your solution-free problem statement?",
+    "Which 2–3 variables and units matter most?",
+    "Which stakeholder matters most in your statement, and why?",
+    "Which one must-have goal and one nice-to-have goal?"
+   ]
+  },
+  "narr": [
+   "When presenting your team's work, be prepared to answer these four fundamental questions.",
+   "First, clearly state the problem without jumping to solutions.",
+   "Next, identify the most critical variables and their units that define the problem space.",
+   "Then, determine which stakeholder's perspective is most important and explain why.",
+   "Finally, distinguish between essential goals and desirable but non-critical goals."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Assignment L5-4: Milestone 2 — Independent Study",
+   "problem": "Create a problem-framing document and modeling assumptions for your engineering system.",
+   "steps": [
+    "Write a problem-framing document including: the problem statement, performance variables, demands and wishes",
+    "Draw the model as a block diagram showing: inputs, parameters, relationships, outputs — each with units",
+    "Write out at least eight assumptions: what we assume, why, and what changes if it is wrong",
+    "Label each assumption as safe, risky or needs data"
+   ],
+   "result": "The team deliverable is a problem-framing document and a list of modeling assumptions. Next week, the course will focus on putting numbers into the model."
+  },
+  "narr": [
+   "For your independent study assignment, you'll need to complete several tasks related to problem framing.",
+   "First, write a comprehensive problem-framing document that clearly states the problem and identifies key performance variables.",
+   "Next, create a block diagram model showing all components with their units.",
+   "Then, document at least eight assumptions, explaining their importance and consequences if wrong.",
+   "Finally, categorize each assumption as safe, risky, or needing additional data.",
+   "Your team's deliverable will be this problem-framing document and assumption list, which will serve as the foundation for quantitative modeling next week."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 5 — Glossary of Terms",
+   "subtitle": "Atamalar"
+  },
+  "narr": [
+   "Let's review some key engineering modeling terminology from week 5."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Engineering Modeling Terms",
+   "columns": [
+    "Term (RU)",
+    "English",
+    "One-phrase definition"
+   ],
+   "rows": [
+    [
+     "Model",
+     "Model",
+     "A simplified representation of a real system, built to answer a specific question"
+    ],
+    [
+     "Physical model",
+     "Physical model",
+     "A real scaled-down or simplified copy: a turbine blade in a wind tunnel"
+    ],
+    [
+     "Graphical model",
+     "Graphical model",
+     "A diagram of parts and connections: a one-line diagram, an energy-flow diagram"
+    ],
+    [
+     "Mathematical model",
+     "Mathematical model",
+     "Equations between variables: Ohm's law, an energy balance"
+    ],
+    [
+     "Computational model",
+     "Computational model",
+     "Rules executed step by step on a computer: a table of hourly demand"
+    ],
+    [
+     "Inputs",
+     "Inputs",
+     "What we feed into the model and can choose: battery size, speed, route length"
+    ],
+    [
+     "Parameters",
+     "Parameters",
+     "What we keep fixed: consumption per km, the usable share of the battery"
+    ],
+    [
+     "Relationships",
+     "Relationships",
+     "The rules linking the model's numbers: Energy = energy per km × distance"
+    ],
+    [
+     "Outputs",
+     "Outputs",
+     "The predictions we evaluate: range [km], energy [kWh/day]"
+    ],
+    [
+     "Simplifying assumption",
+     "Simplifying assumption",
+     "What we ignore: hills, traffic lights, differences between drivers"
+    ],
+    [
+     "Data assumption",
+     "Data assumption",
+     "What we fix: e = 1, 2 kWh/km; C = 200 kWh, u = 0, 8"
+    ],
+    [
+     "Boundary assumption",
+     "Boundary assumption",
+     "What we leave outside the model: passengers, charging, the grid"
+    ],
+    [
+     "Fit for purpose",
+     "Fit for purpose",
+     "The simplest model that answers the question well enough for a decision"
+    ],
+    [
+     "Sanity check",
+     "Sanity check",
+     "Units, order of magnitude, comparison with a known value"
+    ]
+   ]
+  },
+  "narr": [
+   "In engineering modeling, we use various types of models to represent real systems.",
+   "Physical models are tangible representations, like scaled-down versions tested in wind tunnels.",
+   "Graphical models use diagrams to show parts and connections, such as one-line electrical diagrams.",
+   "Mathematical models express relationships through equations, like Ohm's law or energy balances.",
+   "Computational models implement rules step-by-step on a computer, such as simulating hourly demand.",
+   "Inputs are variables we can control, like battery size or speed.",
+   "Parameters are fixed values we don't change, like energy consumption per kilometer.",
+   "Relationships define how variables connect, such as energy being the product of energy per km and distance.",
+   "Outputs are the results we evaluate, like range or daily energy consumption.",
+   "Assumptions help simplify our models: we might ignore certain factors, fix specific values, or define boundaries.",
+   "A model is 'fit for purpose' if it's simplest version that still answers our question well enough to make decisions.",
+   "Finally, a sanity check verifies our model using units, order of magnitude, and comparison with known values."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Week 6 — Quantitative Reasoning I",
+   "subtitle": "Key statements and concepts"
+  },
+  "narr": [
+   "Moving into week 6, we'll focus on quantitative reasoning, putting numbers on demand, capacity, intensities and flows.",
+   "Let's start with a recap of week 5 concepts before diving into quantitative analysis."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Recap of Week 5 Modeling Concepts",
+   "bullets": [
+    "Models are purposeful simplified representations of real systems",
+    "Four key parts: inputs, parameters, relationships, outputs — all with units",
+    "Assumptions: what we ignore, fix or leave outside, and we document them",
+    "Fit for purpose: the simplest model that answers the question well enough to decide"
+   ]
+  },
+  "narr": [
+   "Before we quantify our models, let's remember the fundamental concepts from week 5.",
+   "Models are intentionally simplified representations designed to answer specific questions.",
+   "Effective models have four clearly defined components with proper units.",
+   "We must document our assumptions to understand what we're ignoring or fixing.",
+   "The goal is to create the simplest model that still provides sufficient information for decision-making."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Demand and Capacity",
+   "bullets": [
+    "Demand is what the system must deliver",
+    "Capacity is the maximum the system can deliver",
+    "Both need units and a time basis: passengers per hour, kW at 13:00, kWh per day",
+    "A number without a time basis is as incomplete as a number without units"
+   ]
+  },
+  "narr": [
+   "In quantitative reasoning, we distinguish between demand and capacity.",
+   "Demand represents what the system must provide to meet requirements.",
+   "Capacity indicates the maximum output the system can possibly deliver.",
+   "Both measurements require proper units and a time basis to be meaningful.",
+   "Remember, a number without units or time context is incomplete and potentially misleading."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Demand and Capacity in Various Systems",
+   "columns": [
+    "System",
+    "Demand",
+    "Capacity",
+    "Unit"
+   ],
+   "rows": [
+    {
+     "text": "Campus bus at the peak",
+     "demand": "300 passengers want to ride",
+     "capacity": "240 can be carried (40 seats × 6 buses)",
+     "unit": "per hour"
+    },
+    {
+     "text": "Canteen at lunch",
+     "demand": "360 diners arrive",
+     "capacity": "400 meals can be served",
+     "unit": "per hour"
+    },
+    {
+     "text": "Depot connection",
+     "demand": "360 kW if six chargers run",
+     "capacity": "200 kW provided by the connection",
+     "unit": "kW"
+    },
+    {
+     "text": "Faculty building at the peak",
+     "demand": "180 kW consumed at 13:00",
+     "capacity": "250 kW transformer rating",
+     "unit": "kW"
+    }
+   ]
+  },
+  "narr": [
+   "Let's examine demand and capacity in different systems to understand these concepts better.",
+   "For the campus bus system, demand is 300 passengers per hour during peak times, while capacity is only 240 passengers per hour with the available buses.",
+   "In the canteen during lunch, 360 diners arrive per hour, but 400 meals can be served, providing some margin.",
+   "The depot connection shows a critical imbalance: 360 kW demanded by six chargers exceeds the 200 kW capacity of the connection.",
+   "The faculty building has a demand of 180 kW at peak time with a 250 kW transformer capacity, providing comfortable headroom.",
+   "Always compare like with like - ensure both demand and capacity use the same units and time basis."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Utilization Calculation",
+   "tex": "Utilisation = \\frac{Demand}{Capacity}",
+   "parts": [
+    {
+     "substr": "Utilisation",
+     "color": "#4C5FD5",
+     "note": "The ratio of demand to capacity"
+    },
+    {
+     "substr": "Demand",
+     "color": "#B45309",
+     "note": "What the system must deliver"
+    },
+    {
+     "substr": "Capacity",
+     "color": "#0E7C7B",
+     "note": "Maximum the system can deliver"
+    }
+   ]
+  },
+  "narr": [
+   "Utilization is a critical metric that compares demand to capacity.",
+   "It's calculated as the ratio of demand to capacity, using the same units and time basis for both.",
+   "For the faculty building, utilization would be 180 divided by 250, which equals 0.72 - considered comfortable.",
+   "The canteen's utilization is 360 divided by 400 per hour, equaling 0.90 - which is tight.",
+   "The campus bus shows 300 divided by 240 per hour, equaling 1.25 - indicating overload.",
+   "The depot connection has the most extreme case at 360 divided by 200 kW, equaling 1.80 - severe overload."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Utilization Thresholds",
+   "bullets": [
+    "Below ~0.8 — comfortable (margin to absorb variation)",
+    "~0.8–1.0 — tight (little margin, delays appear)",
+    "Above 1.0 — overload (demand is turned away or a queue grows)"
+   ]
+  },
+  "narr": [
+   "Utilization thresholds help us understand system performance at a glance.",
+   "When utilization is below approximately 0.8, the system is comfortable with margin to handle variations.",
+   "Between 0.8 and 1.0, the system is tight with little margin, where delays may start appearing.",
+   "Above 1.0, the system is overloaded, leading to either demand being turned away or queues forming."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Average Hides the Peak",
+   "bullets": [
+    "Faculty building example: average of 94 kW, peak of 180 kW at 13:00",
+    "Transformer capacity: 250 kW",
+    "Key rule: Size for the peak, not for the average",
+    "Average charging power of 86 kW doesn't mean six 60-kW chargers can run simultaneously"
+   ]
+  },
+  "narr": [
+   "A critical principle in system design is that the average can hide important peak demands.",
+   "Consider the faculty building with an average consumption of 94 kW but a peak of 180 kW at 13:00.",
+   "If we sized the system based on average consumption, it would fail during peak times.",
+   "The fundamental rule is to size systems for peak demand, not average demand.",
+   "This is why 86 kW of average charging power doesn't guarantee that six 60-kW chargers can operate simultaneously - the peak might exceed available capacity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

@@ -1,0 +1,593 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "Welcome to this study guide covering weeks 5 through 7 of your Introduction to Engineering course. We'll explore concepts of power, energy, demand, capacity, and estimation techniques through everyday examples and practical problems.",
+   "Let's start by examining some everyday anchors for powers and energies to help us develop intuition for these quantities."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Everyday anchors for powers and energies",
+   "columns": [
+    "Thing",
+    "Typical size",
+    "In other units"
+   ],
+   "rows": [
+    [
+     "LED lamp",
+     "10 W",
+     "0.01 kW"
+    ],
+    [
+     "Electric kettle",
+     "2 kW",
+     "2,000 W"
+    ],
+    [
+     "Phone battery",
+     "15 Wh",
+     "0.015 kWh"
+    ],
+    [
+     "City electric bus battery",
+     "200 kWh",
+     "0.2 MWh"
+    ],
+    [
+     "Faculty building at the peak (our example)",
+     "180 kW",
+     "0.18 MW"
+    ]
+   ]
+  },
+  "narr": [
+   "Here's a table comparing various everyday items and their power or energy ratings. Notice how the same quantity can be expressed in different units - like how a 10-watt LED lamp is also 0.01 kilowatts.",
+   "This helps us understand the scale of different energy systems - from small devices like phone batteries to large systems like city bus batteries and faculty buildings."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Solar installation for a bus",
+   "problem": "Calculate the required solar panel installation size for a city electric bus that needs 115 kWh per day. Assume 4 kWh per kW of panels per day (annual average).",
+   "steps": [
+    {
+     "text": "Calculate installation size: 115 kWh/day ÷ 4 kWh/kW-day ≈ 29 kW"
+    },
+    {
+     "text": "Calculate required roof area: 29 kW × 5 m²/kW ≈ 145 m²"
+    }
+   ],
+   "result": "About 30 kW solar panels covering approximately 150 m² of roof area"
+  },
+  "narr": [
+   "Let's work through an example: sizing a solar installation for an electric bus. The bus needs 115 kilowatt-hours per day, and our solar panels produce about 4 kilowatt-hours per kilowatt of panels per day.",
+   "To find the installation size, we divide the daily energy need by the daily production per kilowatt of panels: 115 divided by 4 gives us approximately 29 kilowatts.",
+   "Now, if each kilowatt of panels requires about 5 square meters of roof space, we multiply 29 by 5 to get approximately 145 square meters - which is about the size of a roof, not a field.",
+   "The unit analysis works out nicely: kilowatt-hours per day divided by kilowatt-hours per kilowatt-day gives us kilowatts, and then kilowatts multiplied by square meters per kilowatt gives us square meters."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Bounding the estimate",
+   "problem": "Consider different scenarios for solar panel production: optimistic (5 kWh/kW-day), best guess (4 kWh/kW-day), and cautious (3 kWh/kW-day). How does this affect the installation size?",
+   "steps": [
+    {
+     "text": "Optimistic scenario: 115 ÷ 5 ≈ 23 kW"
+    },
+    {
+     "text": "Best guess scenario: 115 ÷ 4 ≈ 29 kW"
+    },
+    {
+     "text": "Cautious scenario: 115 ÷ 3 ≈ 38 kW"
+    }
+   ],
+   "result": "Installation size ranges from 23 kW to 38 kW depending on solar panel efficiency"
+  },
+  "narr": [
+   "Now let's bound our estimate by considering different scenarios. In an optimistic scenario where panels produce 5 kilowatt-hours per kilowatt per day, we'd need only about 23 kilowatts of panels.",
+   "With our best guess of 4 kilowatt-hours per kilowatt per day, we need about 29 kilowatts.",
+   "In a cautious scenario with only 3 kilowatt-hours per kilowatt per day, we'd need about 38 kilowatts.",
+   "The important lesson here is that precise numbers aren't always more correct. We should report 'about 30 kW' rather than '29.17 kW' when our input values are estimates.",
+   "When the range of our estimates - from 23 to 38 kilowatts - doesn't change our fundamental decision (that we need a rooftop installation), we should stop refining the estimate."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Common estimation errors",
+   "bullets": [
+    "Confusing kW and kWh",
+    "Forgetting the peak (sizing for average instead of peak)",
+    "Double counting (counting the same thing twice)",
+    "False precision (reporting too many decimal places from rough estimates)"
+   ]
+  },
+  "narr": [
+   "When making estimates, we should be aware of common errors. These include confusing power and energy units - kilowatts versus kilowatt-hours.",
+   "Another common mistake is forgetting to account for peak demand and instead sizing systems for average values.",
+   "Double counting occurs when we count the same thing twice - like counting both seats per bus and seats per trip.",
+   "Finally, false precision happens when we report numbers with many decimal places when our input values are rough estimates - like reporting '29.17 kW' when our inputs are approximate.",
+   "Most estimation errors are actually errors of units or counting, not mathematical mistakes."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 6 — Lecture and Lab Questions",
+   "subtitle": "Model answers"
+  },
+  "narr": [
+   "Now let's move to the questions from week 6's lecture and lab sessions, along with their model answers. These questions explore concepts of demand, capacity, utilization, and proper unit handling."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S1 — Demand and capacity",
+   "problem": "What are demand and capacity? Why does every number need a time basis?",
+   "steps": [
+    {
+     "text": "Define demand: what the system must deliver"
+    },
+    {
+     "text": "Define capacity: the maximum the system can deliver"
+    },
+    {
+     "text": "Explain time basis: what the number is per (per hour, per day, etc.)"
+    }
+   ],
+   "result": "Demand is what must be delivered, capacity is the maximum that can be delivered, and time basis specifies the period (per hour, per day, etc.)"
+  },
+  "narr": [
+   "Question S1 asks about demand and capacity, and why every number needs a time basis.",
+   "Demand refers to what the system must deliver - like the passengers who need a bus at 8:30, or the kilowatts consumed by buses that are switched on.",
+   "Capacity is the maximum the system can deliver - like the number of seats available per hour, or the maximum kilowatts the electrical connection can provide.",
+   "The time basis tells us what the number is per - passengers per hour, kilowatts at a specific time, or kilowatt-hours per day.",
+   "A number without a time basis is as incomplete as a number without units. For example, 360 kilowatts at 10:00 and 360 kilowatt-hours per day are completely different statements."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S2 — Demand and capacity in four systems",
+   "problem": "Name the demand and the capacity in the lecture's four systems.",
+   "steps": [
+    {
+     "text": "Campus bus at peak: demand — 300 passengers per hour; capacity — 240 passengers per hour (40 seats × 6 buses)"
+    },
+    {
+     "text": "Canteen at lunch: demand — 360 diners per hour; capacity — 400 meals per hour"
+    },
+    {
+     "text": "Depot connection: demand — 360 kW if six chargers run; capacity — 200 kW"
+    },
+    {
+     "text": "Faculty building at peak: demand — 180 kW at 13:00; capacity — 250 kW (transformer rating)"
+    }
+   ],
+   "result": "Each system has specific demand and capacity values with consistent units and time bases"
+  },
+  "narr": [
+   "Question S2 asks us to identify demand and capacity in four different systems from the lecture.",
+   "For the campus bus at peak, demand is 300 passengers per hour who want to ride, while capacity is 240 passengers per hour that can be carried (40 seats times 6 buses).",
+   "At the canteen during lunch, demand is 360 diners arriving per hour, and capacity is 400 meals that can be served per hour.",
+   "For the depot connection, demand is 360 kilowatts if six chargers are running simultaneously, while capacity is the 200 kilowatts the connection can provide.",
+   "For the faculty building at peak, demand is 180 kilowatts consumed at 1:00 PM, while capacity is the 250 kilowatt rating of the transformer.",
+   "The key principle is to always compare like with like - using the same units and time basis for both demand and capacity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S3 — Utilization and thresholds",
+   "problem": "What is utilization, what are the thresholds, and what are the values in the four systems?",
+   "steps": [
+    {
+     "text": "Define utilization: demand ÷ capacity"
+    },
+    {
+     "text": "Calculate for faculty building: 180 ÷ 250 kW = 0.72 (comfortable)"
+    },
+    {
+     "text": "Calculate for canteen: 360 ÷ 400 per hour = 0.90 (tight)"
+    },
+    {
+     "text": "Calculate for bus: 300 ÷ 240 per hour = 1.25 (overload)"
+    },
+    {
+     "text": "Calculate for depot: 360 ÷ 200 kW = 1.80 (overload)"
+    },
+    {
+     "text": "Define thresholds: below ~0.8 (comfortable), ~0.8–1.0 (tight), above 1.0 (overload)"
+    }
+   ],
+   "result": "Utilization values range from 0.72 (comfortable) to 1.80 (overload) depending on the system"
+  },
+  "narr": [
+   "Question S3 asks about utilization and its thresholds in the four systems.",
+   "Utilization is simply demand divided by capacity.",
+   "For the faculty building, utilization is 180 kilowatts divided by 250 kilowatts, which equals 0.72 - considered comfortable.",
+   "At the canteen, utilization is 360 diners per hour divided by 400 meals per hour, which equals 0.90 - considered tight.",
+   "For the campus bus, utilization is 300 passengers per hour divided by 240 passengers per hour, which equals 1.25 - an overload situation.",
+   "For the depot with all six chargers, utilization is 360 kilowatts divided by 200 kilowatts, which equals 1.80 - also an overload.",
+   "The thresholds are: below approximately 0.8 is comfortable with margin for variation; between 0.8 and 1.0 is tight with little margin where delays appear; and above 1.0 is overload where demand is turned away or a queue grows."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S4 — Sizing for peak vs. average",
+   "problem": "Why should we size systems for peak demand rather than average demand?",
+   "steps": [
+    {
+     "text": "Faculty building profile: average 94 kW, peak 180 kW at 13:00"
+    },
+    {
+     "text": "A system sized for average would fail at midday"
+    },
+    {
+     "text": "Average hides the peak demand"
+    },
+    {
+     "text": "Same principle applies to charging: average 86 kW doesn't guarantee six 60-kW chargers can run simultaneously (peak is 360 kW)"
+    }
+   ],
+   "result": "Systems should be sized for peak demand because that's when the maximum load occurs"
+  },
+  "narr": [
+   "Question S4 asks why we should size systems for peak demand rather than average demand.",
+   "Consider the faculty building's power profile: it has an average consumption of 94 kilowatts, but a peak of 180 kilowatts at 1:00 PM.",
+   "If we sized the electrical system for the average of 94 kilowatts, it would fail at midday when the actual demand reaches 180 kilowatts.",
+   "The key point is that the average consumption hides the peak demand, which is what actually stresses the system.",
+   "The same principle explains why an average charging power of 86 kilowatts doesn't guarantee that six 60-kilowatt chargers can run simultaneously - the peak requirement is 360 kilowatts."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S5 — Closing the gap between demand and capacity",
+   "problem": "In what three ways can the gap between demand and capacity be closed?",
+   "steps": [
+    {
+     "text": "Reduce or shift the demand (e.g., charge buses in two batches of three)"
+    },
+    {
+     "text": "Raise the capacity (e.g., install a larger connection or transformer)"
+    },
+    {
+     "text": "Accept the waiting (allow queues to grow and determine tolerable wait times)"
+    }
+   ],
+   "result": "Three approaches: reduce/shift demand, increase capacity, or accept waiting"
+  },
+  "narr": [
+   "Question S5 asks about three ways to close the gap between demand and capacity.",
+   "First, we can reduce or shift the demand. For example, instead of charging all six buses simultaneously, we could charge them in two batches of three.",
+   "Second, we can raise the capacity by installing a larger electrical connection or transformer. However, this approach costs money and time.",
+   "Third, we can accept waiting by allowing queues to grow and then deciding how much waiting is tolerable.",
+   "Which option is better involves trade-offs, a topic the course will return to in week 10."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S6 — Labeling demand and capacity",
+   "problem": "Label A-F as demand or capacity and compute utilization of the pairs.",
+   "steps": [
+    {
+     "text": "A 'the depot connection can give 200 kW' — capacity"
+    },
+    {
+     "text": "B 'six buses at 22:00 would draw 360 kW' — demand"
+    },
+    {
+     "text": "Pair utilization: 360 ÷ 200 = 1.8 — overload"
+    },
+    {
+     "text": "C 'the stop carries at most 240 per hour' — capacity"
+    },
+    {
+     "text": "D '300 per hour want the 8:30 bus' — demand"
+    },
+    {
+     "text": "Pair utilization: 300 ÷ 240 = 1.25 — overload"
+    }
+   ]
+  },
+  "narr": [
+   "Question S6 presents six statements labeled A through F, and asks us to identify which are demand and which are capacity, then compute utilization for each pair.",
+   "Statement A 'the depot connection can give 200 kilowatts' describes capacity - it's what the system can provide.",
+   "Statement B 'six buses at 22:00 would draw 360 kilowatts' describes demand - it's what the system needs to deliver.",
+   "Statement C 'the stop carries at most 240 per hour' describes capacity, while statement D '300 per hour want the 8:30 bus' describes demand.",
+   "Their utilization is 300 divided by 240, which equals 1.25 - also an overload.",
+   "Their utilization is 180 divided by 250, which equals 0.72 - a comfortable level.",
+   "Before dividing, always check that both values have the same units and time basis."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S6 — Labeling demand and capacity (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "E 'the faculty transformer is rated 250 kW' — capacity"
+    },
+    {
+     "text": "F 'the building's peak of 180 kW at 13:00' — demand"
+    },
+    {
+     "text": "Pair utilization: 180 ÷ 250 = 0.72 — comfortable"
+    }
+   ],
+   "result": "Three pairs: depot (1.8 overload), bus stop (1.25 overload), faculty building (0.72 comfortable)"
+  },
+  "narr": [
+   "The utilization for this pair is 360 divided by 200, which equals 1.8 - an overload situation.",
+   "Statement E 'the faculty transformer is rated 250 kilowatts' is capacity, and statement F 'the building's peak of 180 kilowatts at 13:00' is demand."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S7 — kW vs. kWh and proper unit handling",
+   "problem": "What is the difference between kW and kWh, and how should units be written in calculations?",
+   "steps": [
+    {
+     "text": "kW is power (intensity), kWh is energy (amount)"
+    },
+    {
+     "text": "Power × time = energy"
+    },
+    {
+     "text": "Carry units in square brackets: 60 [kW] × 2 [h] = 120 [kWh]"
+    },
+    {
+     "text": "Common traps: confusing charger rating (60 kW) with consumption (60 kWh); missing units and time basis; unit conversion errors"
+    }
+   ],
+   "result": "kW measures power (rate), kWh measures energy (total amount); always track units in calculations"
+  },
+  "narr": [
+   "Question S7 asks about the difference between kilowatts and kilowatt-hours, and how to properly handle units in calculations.",
+   "Kilowatt is a unit of power, which is an intensity - like the flow rate of a river. Kilowatt-hour is a unit of energy, which is an amount - like the total volume of water in a lake.",
+   "The relationship is that power multiplied by time equals energy.",
+   "Following the Kosky style, we should carry units in square brackets throughout our calculations. For example, 60 kilowatts multiplied by 2 hours equals 120 kilowatt-hours.",
+   "This unit checking helps verify both our method and our answer.",
+   "Common traps include confusing a charger's power rating (60 kilowatts) with energy consumption (60 kilowatt-hours), omitting units and time basis, and making unit conversion errors - like thinking 0.2 megawatts equals 200 watts instead of 200 kilowatts, or thinking 36 minutes equals 0.36 hours instead of 0.6 hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S8 — Stock and flow",
+   "problem": "What are stock and flow? How many hours does a bus run on 160 kWh at 20 km/h?",
+   "steps": [
+    {
+     "text": "Stock: amount in a system (queue, buffer, battery)"
+    },
+    {
+     "text": "Flow: rate of change in stock (inflow - outflow)"
+    },
+    {
+     "text": "Calculate power consumption: 1.2 [kWh/km] × 20 [km/h] = 24 [kW]"
+    },
+    {
+     "text": "Calculate operating time: 160 [kWh] ÷ 24 [kW] ≈ 6.7 [h]"
+    }
+   ],
+   "result": "Bus operates for approximately 6.7 hours on 160 kWh at 20 km/h"
+  },
+  "narr": [
+   "Question S8 introduces the concepts of stock and flow, and asks how long a bus can run on 160 kilowatt-hours at 20 kilometers per hour.",
+   "Stock refers to the amount in a system - like a queue, buffer, or battery. Flow is the rate of change in stock - calculated as inflow minus outflow.",
+   "A stock grows when inflow exceeds outflow and is depleted when outflow exceeds inflow.",
+   "To solve the bus problem, first we calculate the power consumption. If the bus uses 1.2 kilowatt-hours per kilometer and travels at 20 kilometers per hour, its power consumption is 1.2 times 20, which equals 24 kilowatts.",
+   "Then, to find how long 160 kilowatt-hours will last, we divide 160 by 24, which gives approximately 6.7 hours.",
+   "The buffer filling time can be calculated as free space divided by (inflow minus outflow)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S9 — Bus charging time",
+   "problem": "How long does it take to charge one bus?",
+   "steps": [
+    {
+     "text": "Identify what we need: time to restore daily energy [hours]"
+    },
+    {
+     "text": "Identify what we know: energy needed is 115 kWh, charger power is 60 kW"
+    },
+    {
+     "text": "Determine method: time = energy ÷ power"
+    },
+    {
+     "text": "State assumptions: constant power, no losses"
+    },
+    {
+     "text": "Calculate: 115 [kWh] ÷ 60 [kW] ≈ 1.9 [h]"
+    },
+    {
+     "text": "Check units: [kWh] ÷ [kW] = [h] - correct unit for the answer"
+    }
+   ],
+   "result": "Approximately 1.9 hours to charge one bus (assuming constant power and no losses)"
+  },
+  "narr": [
+   "Question S9 asks how long it takes to charge one bus.",
+   "First, we identify what we need: the time to restore the daily energy in hours.",
+   "Next, we identify what we know: the bus needs 115 kilowatt-hours of energy, and the charger provides 60 kilowatts of power.",
+   "The method is straightforward: time equals energy divided by power.",
+   "We should state our assumptions: constant power charging with no energy losses.",
+   "Solving the equation: 115 kilowatt-hours divided by 60 kilowatts gives approximately 1.9 hours.",
+   "We check our units: kilowatt-hours divided by kilowatts equals hours - which is exactly the unit we wanted for our answer.",
+   "In reality, charging slows down near full charge and loses some energy, so the true time would be longer than our estimate."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S10 — Charging multiple buses",
+   "problem": "Can six buses charge overnight on a 200 kW connection?",
+   "steps": [
+    {
+     "text": "Calculate total energy needed: 6 × 115 kWh = 690 kWh"
+    },
+    {
+     "text": "Determine charging window: 22:00–06:00 = 8 hours"
+    },
+    {
+     "text": "Calculate average power: 690 kWh ÷ 8 h = 86.25 kW"
+    },
+    {
+     "text": "Check peak power requirement: 6 × 60 kW = 360 kW"
+    },
+    {
+     "text": "Compare to connection capacity: 360 kW > 200 kW (utilization = 1.8)"
+    },
+    {
+     "text": "Solution: shift demand - charge in two batches of three buses"
+    }
+   ],
+   "result": "No, all six buses cannot charge simultaneously on a 200 kW connection, but they can charge in two batches of three"
+  },
+  "narr": [
+   "Finally, question S10 asks whether six buses can charge overnight on a 200 kilowatt connection.",
+   "First, we calculate the total energy needed: six buses times 115 kilowatt-hours each equals 690 kilowatt-hours.",
+   "The overnight charging window is from 10:00 PM to 6:00 AM, which is 8 hours.",
+   "If we divide the total energy by the time, we get an average power requirement of about 86 kilowatts - which is well within the 200 kilowatt capacity.",
+   "However, energy isn't the problem - power is. If all six chargers run simultaneously, they would draw 6 times 60 kilowatts, which equals 360 kilowatts.",
+   "This exceeds the 200 kilowatt connection capacity, giving a utilization of 1.8 - an overload situation.",
+   "The solution is to shift the demand by charging the buses in two batches of three. Each batch would draw 180 kilowatts, which is within the connection capacity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   3,
+   4
+  ]
+ }
+]

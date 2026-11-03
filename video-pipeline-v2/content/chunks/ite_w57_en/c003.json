@@ -1,0 +1,593 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering — Weeks 5–7",
+   "subtitle": "Study Guide"
+  },
+  "narr": [
+   "In this study guide, we'll explore engineering modeling concepts through several examples and exercises.",
+   "Let's start with a practical application using a bus model."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S6 — Bus Model Calculations",
+   "problem": "Substitute the numbers into the bus model: what are the usable energy, the range and the daily requirement?",
+   "steps": [
+    {
+     "text": "Calculate usable energy: u × C = 0.8 × 200 kWh = 160 kWh"
+    },
+    {
+     "text": "Calculate range: R = 160 kWh ÷ 1.2 kWh/km = 133 km"
+    },
+    {
+     "text": "Calculate daily requirement: 8 laps × 12 km = 96 km"
+    }
+   ],
+   "result": "The model's conclusion: one charge covers the day with a margin of about 37 km."
+  },
+  "narr": [
+   "Let's work through problem S6, which involves calculating various parameters for a bus model.",
+   "First, we calculate the usable energy by multiplying the efficiency factor u by the battery capacity C.",
+   "Next, we determine the range by dividing the usable energy by the energy consumption rate.",
+   "Then, we calculate the daily requirement based on the number of laps and distance per lap.",
+   "The model shows that one charge can cover the daily requirement with some margin.",
+   "However, we should remember that these values are illustrative, not measured data, and their reliability depends on the assumptions made."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Types of Assumptions in Modeling",
+   "bullets": [
+    "Simplifying assumptions — what we ignore",
+    "Data assumptions — what we fix",
+    "Boundary assumptions — what we leave outside the model"
+   ]
+  },
+  "narr": [
+   "Now, let's discuss the three types of assumptions that the course distinguishes.",
+   "First, simplifying assumptions refer to what we choose to ignore in our model.",
+   "For the bus model, this includes hills, traffic lights, stops, and differences between drivers.",
+   "Second, data assumptions are the values we fix in our model.",
+   "In the bus model, these include e = 1.2 kWh/km, C = 200 kWh, and u = 0.8.",
+   "Third, boundary assumptions define what we leave outside the model.",
+   "For the bus, this includes passengers, the charger, and the grid; only the bus itself is included.",
+   "Each assumption should be documented using a specific template: 'We assume... because... If it is wrong...'"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S7 — Identifying Assumptions",
+   "problem": "Which three kinds of assumptions does the course distinguish? Give an example of each for the bus model.",
+   "steps": [
+    {
+     "text": "Simplifying: ignoring hills, traffic lights, stops, driver differences"
+    },
+    {
+     "text": "Data: fixing e = 1.2 kWh/km, C = 200 kWh, u = 0.8"
+    },
+    {
+     "text": "Boundary: excluding passengers, charger, grid; including only the bus"
+    }
+   ],
+   "result": "Each assumption is documented with: 'We assume... because... If it is wrong...'"
+  },
+  "narr": [
+   "Problem S7 asks us to identify and give examples of the three types of assumptions.",
+   "For simplifying assumptions, we consider what elements we're ignoring in the bus model.",
+   "For data assumptions, we identify the fixed values we're using.",
+   "For boundary assumptions, we determine what elements are outside our model's scope.",
+   "The key takeaway is that every assumption represents a choice that should be explicitly documented."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S8 — Spot the Hidden Assumptions",
+   "problem": "Find the hidden assumption in the statement 'The dormitory needs a 2 kW heater, so a day costs 48 kWh' and rewrite it with the template.",
+   "steps": [
+    {
+     "text": "Identify hidden assumption: the heater runs at full power for all 24 hours"
+    },
+    {
+     "text": "Rewrite using template: 'We assume the heater is always on, because we have no thermostat data. If it switches off in cycles, the energy is below 48 kWh'"
+    }
+   ],
+   "result": "Other examples: '3000 kWh/day → 90000 kWh over 30 days' assumes every day is average; '1.2 kWh/km → ten buses over 12 km each = 144 kWh' assumes equal consumption and one lap each."
+  },
+  "narr": [
+   "Problem S8 challenges us to spot hidden assumptions in statements.",
+   "In the dormitory heater example, the hidden assumption is that the heater runs continuously at full power.",
+   "We should rewrite such statements using the template to make assumptions explicit.",
+   "Similar hidden assumptions exist in other statements like daily energy projections or bus consumption calculations.",
+   "The lesson here is to always question what assumptions might be hiding behind seemingly straightforward calculations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S9 — Range Under Different Conditions",
+   "problem": "How does the range change under full passenger load, an old battery and winter heating?",
+   "steps": [
+    {
+     "text": "Base case: 133 km"
+    },
+    {
+     "text": "Full passenger load: 114 km"
+    },
+    {
+     "text": "Old battery: 107 km"
+    },
+    {
+     "text": "Winter heating: 89 km"
+    },
+    {
+     "text": "Winter + old battery: 71 km"
+    }
+   ],
+   "result": "The daily requirement is 96 km. The first three cases cover the day; winter heating and 'winter + old battery' do not. The conclusion: 'one charge covers the day' only holds as long as the assumptions hold."
+  },
+  "narr": [
+   "Problem S9 examines how range changes under different conditions.",
+   "Starting with the base case of 133 km, we see how various factors reduce the range.",
+   "Full passenger load reduces range to 114 km.",
+   "An old battery further reduces it to 107 km.",
+   "Winter heating significantly reduces range to 89 km.",
+   "The combination of winter heating and an old battery drops range to just 71 km.",
+   "Since the daily requirement is 96 km, we see that only the first three scenarios would suffice.",
+   "This illustrates that our model's conclusions are only valid as long as our assumptions hold."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S10 — Solar Array Estimate",
+   "problem": "Why is the naive estimate of a solar array, 5 kW × 24h = 120 kWh/day, nearly four times too high?",
+   "steps": [
+    {
+     "text": "Identify hidden assumption: the sun shines at full power all day"
+    },
+    {
+     "text": "Naive model calculation: 5 kW × 24h = 120 kWh per day"
+    },
+    {
+     "text": "Realistic clear-day profile: about 31 kWh per day"
+    }
+   ],
+   "result": "The naive estimate is nearly four times higher than the realistic value."
+  },
+  "narr": [
+   "Problem S10 looks at why a naive solar array estimate is unrealistic.",
+   "The naive estimate assumes the sun shines at full power all day.",
+   "This leads to a calculation of 5 kW × 24h = 120 kWh per day.",
+   "However, a realistic clear-day profile gives only about 31 kWh per day.",
+   "This means the naive estimate is nearly four times too high.",
+   "The lesson here is to always ask what conditions a number silently assumes.",
+   "Also, it's important to keep units clear: kW is power, while kWh is energy."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Fit for Purpose Modeling",
+   "bullets": [
+    "A model is fit for purpose if it's good enough to answer the question and make a decision",
+    "Two ways models can fail:",
+    "- Too simple: ignores important variables",
+    "- Too detailed: includes unnecessary complexity",
+    "The rule: choose the simplest model that answers the question well enough"
+   ]
+  },
+  "narr": [
+   "Let's discuss what 'fit for purpose' means in modeling.",
+   "A model is fit for purpose if it's good enough to answer our question and make a decision.",
+   "Models can fail in two opposite ways.",
+   "First, they can be too simple, like assuming the same range for every day of the year and ignoring winter, hills, and battery aging.",
+   "Second, they can be too detailed, including unnecessary complexity like battery chemistry, every traffic light, or every driver's habits.",
+   "A fit-for-purpose model might include separate consumption values for summer and winter plus a safety margin.",
+   "The rule is to choose the simplest model that answers the question well enough to make a decision."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S11 — Fit for Purpose",
+   "problem": "What does 'fit for purpose' mean, and what are the two opposite ways a model can fail?",
+   "steps": [
+    {
+     "text": "Fit for purpose: the model is good enough to answer the question and make a decision"
+    },
+    {
+     "text": "Too simple failure: ignores important variables like winter, hills, aging"
+    },
+    {
+     "text": "Too detailed failure: includes unnecessary complexity and inaccessible data"
+    }
+   ],
+   "result": "A fit-for-purpose model uses separate consumption for summer/winter plus safety margin. Rule: choose the simplest model that answers the question well enough."
+  },
+  "narr": [
+   "Problem S11 asks about the concept of 'fit for purpose' in modeling.",
+   "A model is fit for purpose when it's good enough to answer our specific question and support decision-making.",
+   "Models can fail by being too simple, ignoring important variables like seasonal changes or aging components.",
+   "Alternatively, they can fail by being too detailed, including unnecessary complexity that requires inaccessible data.",
+   "A good approach might be to use separate consumption values for different seasons plus a safety margin.",
+   "The guiding principle is to choose the simplest model that adequately answers our question."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model Sanity Checks",
+   "bullets": [
+    "Three sanity checks models should pass:",
+    "- Units check: ensure units are consistent and correct",
+    "- Order of magnitude: verify the result is plausible",
+    "- Known value: compare with datasheets, tests, or historical data",
+    "Models mislead outside their assumption range"
+   ]
+  },
+  "narr": [
+   "Now let's discuss sanity checks that models should pass.",
+   "First, units check: we verify that our calculations have consistent and correct units.",
+   "For example, in our bus model, (u × C) in kWh divided by e in kWh/km gives us km, which is correct for range.",
+   "Second, order of magnitude check: we verify that our result is plausible.",
+   "A range of 133 km is plausible for a city bus (tens to hundreds of km, not 3 or 3,000).",
+   "Third, known value check: we compare our result with trusted sources like datasheets, test drives, or historical logs.",
+   "Models can mislead when used outside the range of their assumptions.",
+   "For example, our autumn range model might fail during a winter cold snap.",
+   "Every model has a range of validity, and we need to know and state this range."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S12 — Sanity Checks",
+   "problem": "Which three sanity checks does a model pass, and when does a model 'mislead'?",
+   "steps": [
+    {
+     "text": "Units check: (u × C) [kWh] ÷ e [kWh/km] gives km"
+    },
+    {
+     "text": "Order of magnitude: 133 km is plausible for a city bus"
+    },
+    {
+     "text": "Known value: compare with datasheets, test drives, logs"
+    }
+   ],
+   "result": "Models mislead outside their assumption range: autumn range model in winter, summer profile in cloudy winter, 2 kW load in frosty weather. Know and state the valid range."
+  },
+  "narr": [
+   "Problem S12 focuses on sanity checks and when models can mislead.",
+   "First, we check units to ensure they're consistent and correct.",
+   "Second, we verify the order of magnitude to ensure our result is plausible.",
+   "Third, we compare with known values from trusted sources.",
+   "Models mislead when used outside the range of their assumptions.",
+   "Examples include using an autumn range model in winter, or a summer profile in cloudy winter.",
+   "It's crucial to know and state the valid range for each model."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S13 — Lab 5 Team Work",
+   "problem": "What does the assessed team work consist of (ten steps), and how is it graded?",
+   "steps": [
+    {
+     "text": "The model's question"
+    },
+    {
+     "text": "The type, with justification"
+    },
+    {
+     "text": "The anatomy — inputs, parameters, relationships, outputs, with units"
+    },
+    {
+     "text": "Need–Know–How–Solve"
+    },
+    {
+     "text": "At least six assumptions using the template"
+    },
+    {
+     "text": "Labelling Safe/Risky/Need Data"
+    }
+   ]
+  },
+  "narr": [
+   "Problem S13 describes the assessed team work in Lab 5 and its grading.",
+   "Teams work through ten sequential steps in 45 minutes.",
+   "First, they define the model's question clearly.",
+   "Then, they choose the model type with justification.",
+   "Next, they detail the anatomy including inputs, parameters, relationships, and outputs.",
+   "They apply the Need–Know–How–Solve framework.",
+   "Teams must include at least six assumptions using the template."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S13 — Lab 5 Team Work (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "Changing one assumption and the effect on output"
+    },
+    {
+     "text": "The checks — units, order of magnitude, known value"
+    },
+    {
+     "text": "The verdict Too Simple/Fit for Purpose/Too Detailed"
+    },
+    {
+     "text": "A revision and the need for data"
+    }
+   ],
+   "result": "Grading per step: 3/2/1/0 (fully/partially/almost nothing/missing); steps are sequential with dependencies."
+  },
+  "narr": [
+   "They label assumptions as Safe, Risky, or Need Data.",
+   "They test changing one assumption and note the effect.",
+   "They perform sanity checks including units, magnitude, and known values.",
+   "Finally, they give a verdict and suggest revisions.",
+   "Grading is 3/2/1/0 per step, with sequential dependencies."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S14 — EV Charging Station Model",
+   "problem": "What are the model's question, type, anatomy and result? What happens on switching to 50 kW fast charging?",
+   "steps": [
+    {
+     "text": "Question: Will the station's peak power stay within the 150 kW limit?"
+    },
+    {
+     "text": "Type: Mathematical model"
+    },
+    {
+     "text": "Anatomy: inputs (n, P₁), parameters (L=150kW, 4 chargers), relationship (P=n×P₁), outputs (P, yes/no)"
+    },
+    {
+     "text": "Solution: P=4×22=88kW ≤150kW"
+    },
+    {
+     "text": "Stress test: At P₁=50kW, P=4×50=200kW (exceeds limit)"
+    }
+   ],
+   "result": "Verdict: Fit for Purpose. Revision: Use measured diversity factor instead of worst case. Data needed: Week of measurements per charger."
+  },
+  "narr": [
+   "Problem S14 presents a model for an EV charging station.",
+   "The question is whether the station's peak power will stay within the grid operator's 150 kW limit.",
+   "The model type is mathematical, with clear inputs, parameters, relationships, and outputs.",
+   "The solution shows that with 4 chargers at 22 kW each, the total power is 88 kW, which is within the limit.",
+   "A stress test with 50 kW chargers reveals a problem: 4 × 50 kW = 200 kW exceeds the limit.",
+   "The verdict is that the model is fit for purpose, but could be revised to use measured diversity factors.",
+   "The needed data is a week of measurements per charger."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Lab 5 Structure",
+   "subtitle": "Assignment and Process"
+  },
+  "narr": [
+   "Now let's look at the structure of Lab 5 and the assignment details.",
+   "Lab 5 lasts 80 minutes and follows a specific sequence of activities."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Lab 5 Structure",
+   "problem": "Describe the structure and timing of Lab 5.",
+   "steps": [
+    {
+     "text": "Recap of lecture 5 (15 min): model definition, types, anatomy, assumptions"
+    },
+    {
+     "text": "Returning scenario cards (5 min): same ten cards from Lab 4/Homework"
+    },
+    {
+     "text": "Team work 'Build & Check a Model' (45 min, assessed)"
+    },
+    {
+     "text": "Model answer walkthrough (15 min): worked example for EV scenario"
+    }
+   ],
+   "result": "Teams use their scenario cards to build and check a model following the ten-step process."
+  },
+  "narr": [
+   "Lab 5 is structured as an 80-minute session with several components.",
+   "First, there's a 15-minute recap of lecture 5 covering model fundamentals.",
+   "Then, 5 minutes are spent returning the scenario cards, which are the same as in Lab 4.",
+   "The main activity is a 45-minute team assessment to build and check a model.",
+   "Finally, there's a 15-minute walkthrough of a model answer for the EV charging scenario.",
+   "Teams work with their scenario cards to apply the ten-step modeling process."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Assignment L5-1 — Build & Check a Model",
+   "problem": "Describe the ten steps for the assessed team work in Lab 5.",
+   "steps": [
+    {
+     "text": "Define one clear question/purpose of the model (write as a question)"
+    },
+    {
+     "text": "Choose the type of model and justify it"
+    },
+    {
+     "text": "Detail the anatomy: inputs, parameters, relationships, outputs with units"
+    },
+    {
+     "text": "Apply Need–Know–How–Solve framework"
+    },
+    {
+     "text": "Include at least six assumptions using the template"
+    },
+    {
+     "text": "Label assumptions as Safe/Risky/Need Data"
+    }
+   ],
+   "result": "The assignment continues with four more steps: changing assumptions, performing checks, giving verdict, and suggesting revisions."
+  },
+  "narr": [
+   "Assignment L5-1 details the ten-step process for building and checking a model.",
+   "First, teams must define a clear question or purpose for their model.",
+   "Next, they choose the appropriate model type with justification.",
+   "Then, they detail the model's anatomy including all components with units.",
+   "They apply the Need–Know–How–Solve framework to structure their approach.",
+   "Teams must include at least six assumptions using the standard template.",
+   "Finally, they label each assumption as Safe, Risky, or Need Data.",
+   "The remaining steps involve testing assumptions, performing checks, giving a verdict, and suggesting revisions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   -1
+  ]
+ }
+]

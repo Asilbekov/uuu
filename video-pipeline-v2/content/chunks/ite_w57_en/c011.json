@@ -1,0 +1,630 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "In this video, we'll explore key concepts from weeks 5 to 7 of your engineering studies, focusing on demand, capacity, and system utilization.",
+   "Let's start by understanding the fundamental concepts that will form the foundation of our analysis."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Average vs Peak Demand",
+   "bullets": [
+    "The bottleneck's utilization at average demand",
+    "The bottleneck's utilization at peak demand",
+    "Does the system cope with peak demand?",
+    "How does the system behave differently at peak times?"
+   ]
+  },
+  "narr": [
+   "First, let's consider the difference between average and peak demand. How does the bottleneck's utilization change between these two scenarios?",
+   "The system must be able to handle peak demand without breaking down, but this often comes with different behavior patterns compared to average demand.",
+   "Understanding these differences is crucial for designing robust systems that can handle variations in demand."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "One Quantified Improvement",
+   "bullets": [
+    "Reduce/shift the demand",
+    "Raise the capacity",
+    "Accept/manage the waiting",
+    "What exactly you change",
+    "Target utilization",
+    "Calculation method",
+    "New capacity or utilization",
+    "Side effect: which stage is now the tightest"
+   ]
+  },
+  "narr": [
+   "When looking to improve a system, we have three main approaches: reducing or shifting demand, increasing capacity, or accepting and managing waiting times.",
+   "Each approach requires specific changes to the system. For example, if we choose to raise capacity, we need to determine exactly what components need upgrading.",
+   "We must also establish a target utilization rate - typically around 80% for comfortable operation, though this can vary by industry.",
+   "After implementing changes, we recalculate the new capacity or utilization and identify any new bottlenecks that may have emerged.",
+   "It's important to consider side effects, as improving one part of the system might create a new constraint elsewhere."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Order-of-Magnitude / Reasonableness Check",
+   "bullets": [
+    "Checking the answer",
+    "Expected scale (tens/hundreds/thousands)",
+    "Quick estimate",
+    "Units and time basis verification",
+    "Result plausibility assessment"
+   ]
+  },
+  "narr": [
+   "After performing calculations, we should always verify our results through order-of-magnitude checks.",
+   "First, consider the expected scale of your answer - should it be in tens, hundreds, or thousands?",
+   "Perform a quick estimate to ensure your detailed calculation is in the right ballpark.",
+   "Check that your units and time basis are consistent throughout the calculation.",
+   "Finally, assess whether the result makes sense in the context of the system being analyzed."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Semiconductor Wafer Packaging Line",
+   "problem": "Analyze the semiconductor wafer packaging line system using the provided tables and steps.",
+   "steps": [
+    {
+     "text": "Identify the bottleneck stage in the production line"
+    },
+    {
+     "text": "Calculate the utilization at average demand"
+    },
+    {
+     "text": "Calculate the utilization at peak demand"
+    },
+    {
+     "text": "Determine if the system can cope with peak demand"
+    },
+    {
+     "text": "Identify potential improvements to the system"
+    }
+   ],
+   "result": "The system may or may not cope with peak demand depending on the specific bottleneck analysis; improvements could include increasing capacity at the bottleneck stage or implementing demand management strategies."
+  },
+  "narr": [
+   "Let's apply these concepts to a real-world example: the semiconductor wafer packaging line.",
+   "First, we need to identify the bottleneck stage in the production line - this is the stage with the smallest capacity that determines the overall system throughput.",
+   "Next, we calculate the utilization at both average and peak demand to understand how the system performs under different conditions.",
+   "By comparing these utilization rates, we can determine if the system can handle peak demand without becoming overloaded.",
+   "Finally, we consider potential improvements, such as increasing capacity at the bottleneck or implementing demand management strategies.",
+   "The solution involves careful analysis of the specific parameters provided in the case study."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Demand or Capacity?",
+   "problem": "Label each statement as D (demand) or C (capacity), then form pairs and calculate utilization.",
+   "steps": [
+    {
+     "text": "Label A: the depot connection can give 200 kW"
+    },
+    {
+     "text": "Label B: six buses plugged in at 22:00 would draw 360 kW"
+    },
+    {
+     "text": "Calculate utilization for pair A-B"
+    },
+    {
+     "text": "Label C: the stop can carry at most 240 passengers per hour"
+    },
+    {
+     "text": "Label D: 300 passengers per hour want the 8:30 bus"
+    },
+    {
+     "text": "Calculate utilization for pair C-D"
+    }
+   ]
+  },
+  "narr": [
+   "Let's practice identifying demand and capacity with some quick exercises.",
+   "First, we need to distinguish between capacity statements (what a system can provide) and demand statements (what is being requested).",
+   "For pair A-B, we have a depot connection providing 200 kW of capacity and six buses drawing 360 kW of demand.",
+   "Calculating utilization gives us 360 divided by 200, which equals 1.8 - indicating an overload situation.",
+   "For pair C-D, we have a bus stop capacity of 240 passengers per hour and demand of 300 passengers per hour.",
+   "The utilization here is 300 divided by 240, which equals 1.25 - again an overload.",
+   "Finally, for pair E-F, we have a transformer capacity of 250 kW and building peak demand of 180 kW."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Demand or Capacity? (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "Label E: the faculty transformer is rated 250 kW"
+    },
+    {
+     "text": "Label F: the faculty building's peak of 180 kW at 13:00"
+    },
+    {
+     "text": "Calculate utilization for pair E-F"
+    }
+   ],
+   "result": "A: Capacity (200 kW), B: Demand (360 kW), Utilization = 360÷200 = 1.8 (overload); C: Capacity (240 passengers/hour), D: Demand (300 passengers/hour), Utilization = 300÷240 = 1.25 (overload); E: Capacity (250 kW), F: Demand (180 kW), Utilization = 180÷250 = 0.72 (comfortable)"
+  },
+  "narr": [
+   "The utilization is 180 divided by 250, which equals 0.72 - a comfortable operating level."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Can Ten Buses Charge?",
+   "problem": "Determine if 10 buses can be charged with given parameters: 115 kWh per bus, 60 kW chargers, 200 kW connection, 8-hour window.",
+   "steps": [
+    {
+     "text": "Calculate total energy required (10 buses × 115 kWh)"
+    },
+    {
+     "text": "Calculate average power needed (total energy ÷ 8 hours)"
+    },
+    {
+     "text": "Determine number of chargers that can operate simultaneously (200 kW ÷ 60 kW)"
+    },
+    {
+     "text": "Calculate number of batches needed (10 buses ÷ chargers per batch)"
+    },
+    {
+     "text": "Calculate total time required (batches × time per batch)"
+    },
+    {
+     "text": "Compare with available time window"
+    }
+   ],
+   "result": "Total energy: 1,150 kWh; Average power: ~144 kW; Simultaneous chargers: 3 (200÷60 = 3.3, round down); Batches: 4 (10÷3 = 3.3, round up); Time: ~7.7 hours (4 × 1.9); Result: It fits within 8 hours but with minimal margin for error."
+  },
+  "narr": [
+   "Now let's tackle a more complex problem: determining whether ten buses can be charged within an 8-hour window.",
+   "First, we calculate the total energy required, which is 10 buses multiplied by 115 kWh per bus, giving us 1,150 kWh.",
+   "Next, we determine the average power needed by dividing total energy by the 8-hour window, resulting in approximately 144 kW.",
+   "Then, we calculate how many chargers can operate simultaneously by dividing the 200 kW connection capacity by the 60 kW per charger, which gives us 3.3 - we round down to 3 chargers.",
+   "With 3 chargers operating at a time, we need 4 batches to charge all 10 buses (10 divided by 3 equals 3.3, rounded up).",
+   "Assuming each batch takes about 1.9 hours (115 kWh ÷ 60 kW), the total time required is approximately 7.7 hours.",
+   "The conclusion is that it fits within the 8-hour window, but with minimal margin for error - any delay could break the plan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Estimate It in Your Team",
+   "problem": "Choose one question and follow the four-step estimation method: identify → break into factors → estimate and round → check units.",
+   "steps": [
+    {
+     "text": "Option A: How many passengers can the campus bus carry per hour?"
+    },
+    {
+     "text": "Option B: How much electricity does the faculty building consume per day?"
+    },
+    {
+     "text": "Step 1: Identify the key factors affecting the estimate"
+    },
+    {
+     "text": "Step 2: Break the problem into manageable components"
+    },
+    {
+     "text": "Step 3: Make reasonable estimates and round appropriately"
+    },
+    {
+     "text": "Step 4: Check units and verify plausibility"
+    },
+    {
+     "text": "Share results with uncertainty: 'About X, give or take a factor of 3, assuming...'"
+    }
+   ],
+   "result": "For option A: Consider number of seats, trips per hour, standing capacity. For option B: Consider number of rooms, lighting power, computer equipment, hours of use. Final estimate should include uncertainty range and key assumptions."
+  },
+  "narr": [
+   "Now it's time for a team estimation exercise. You can choose between two questions.",
+   "Option A asks how many passengers a campus bus can carry per hour, considering seats, trips per hour, and standing places.",
+   "Option B asks about the daily electricity consumption of the faculty building, considering rooms, lamps, computers, and hours of use.",
+   "Follow the four-step estimation method: first, identify the key factors; second, break the problem into manageable components.",
+   "Third, make reasonable estimates and round appropriately to avoid false precision.",
+   "Finally, check your units and verify the plausibility of your result.",
+   "Share your findings with appropriate uncertainty: 'About X, give or take a factor of 3, assuming...'"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Independent Study: Numbers for Your System",
+   "problem": "Analyze your own system by identifying demand and capacity, performing calculations, and checking results.",
+   "steps": [
+    {
+     "text": "Write down demand with units and time basis"
+    },
+    {
+     "text": "Write down capacity with units and time basis"
+    },
+    {
+     "text": "Calculate utilization (demand ÷ capacity)"
+    },
+    {
+     "text": "Perform one intensity or flow calculation with units"
+    },
+    {
+     "text": "Make one order-of-magnitude estimate with assumptions"
+    },
+    {
+     "text": "Check results: units, size, and known values"
+    }
+   ],
+   "result": "Documentation of your system's parameters, calculations, and verification steps. This working material prepares for next week's analysis with limited but focused data."
+  },
+  "narr": [
+   "For independent study, apply these concepts to your own system.",
+   "First, document both demand and capacity with appropriate units and time basis - this clarity is essential for meaningful analysis.",
+   "Calculate the utilization by dividing demand by capacity to understand how heavily your system is being used.",
+   "Perform at least one intensity or flow calculation, carefully tracking units throughout the process.",
+   "Make an order-of-magnitude estimate for a key parameter, explicitly stating your assumptions.",
+   "Finally, verify all your results by checking units, assessing the size of numbers, and comparing with known values.",
+   "This working material will prepare you for next week's analysis, even with limited data."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Glossary of Week 6",
+   "subtitle": "Key Terms and Definitions"
+  },
+  "narr": [
+   "Let's review the key terminology from week 6 to ensure we have a solid foundation for these concepts."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Engineering System Terms",
+   "columns": [
+    "Term",
+    "English",
+    "Definition"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Demand"
+     },
+     {
+      "text": "Demand"
+     },
+     {
+      "text": "What the system must deliver: 300 passengers per hour, 360 kW"
+     }
+    ],
+    [
+     {
+      "text": "Capacity"
+     },
+     {
+      "text": "Capacity (throughput)"
+     },
+     {
+      "text": "The maximum the system can deliver: 240 passengers per hour, 200 kW"
+     }
+    ],
+    [
+     {
+      "text": "Utilisation"
+     },
+     {
+      "text": "Utilisation"
+     },
+     {
+      "text": "Demand ÷ capacity; < ~0.8 comfortable, ~0.8–1.0 tight, > 1.0 overload"
+     }
+    ],
+    [
+     {
+      "text": "Time basis"
+     },
+     {
+      "text": "Time basis"
+     },
+     {
+      "text": "What the number is per: per hour, at 13:00, per day — without it the number is incomplete"
+     }
+    ],
+    [
+     {
+      "text": "Peak"
+     },
+     {
+      "text": "Peak"
+     },
+     {
+      "text": "The maximum demand (180 kW at 13:00 against an average of 94 kW); size the system for the peak"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's start with the fundamental terms: demand, capacity, and utilization.",
+   "Demand represents what the system must deliver, such as 300 passengers per hour or 360 kW of power.",
+   "Capacity is the maximum the system can deliver, like 240 passengers per hour or 200 kW.",
+   "Utilization is simply demand divided by capacity, with different ranges indicating system comfort: below 0.8 is comfortable, between 0.8 and 1.0 is tight, and above 1.0 indicates overload.",
+   "Time basis is crucial - it specifies what the number refers to (per hour, at a specific time, per day) and makes the number meaningful.",
+   "Peak represents the maximum demand, which systems must be designed to handle, even if it significantly exceeds average demand."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Engineering System Terms (continued)",
+   "columns": [
+    "Term",
+    "English",
+    "Definition"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Rate"
+     },
+     {
+      "text": "Rate"
+     },
+     {
+      "text": "An amount per unit of time: km/h, kW = kWh/h, people/min"
+     }
+    ],
+    [
+     {
+      "text": "Stock and flow"
+     },
+     {
+      "text": "Stock and flow"
+     },
+     {
+      "text": "A stock changes: change = inflow − outflow (a queue, a buffer, a battery)"
+     }
+    ],
+    [
+     {
+      "text": "Buffer"
+     },
+     {
+      "text": "Buffer"
+     },
+     {
+      "text": "A stock between stages; fills when inflow > outflow (40 units/h → full in 20 h)"
+     }
+    ],
+    [
+     {
+      "text": "Bottleneck"
+     },
+     {
+      "text": "Bottleneck"
+     },
+     {
+      "text": "The stage with the smallest capacity (Wire Bonding 6,960 units/day); sets the system's maximum"
+     }
+    ],
+    [
+     {
+      "text": "Order of magnitude"
+     },
+     {
+      "text": "Order of magnitude"
+     },
+     {
+      "text": "An estimate correct to a factor of ~10: 21 barbershops against 23 in the directory"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Rate refers to an amount per unit of time, such as kilometers per hour or kilowatts (which equals kilowatt-hours per hour).",
+   "Stock and flow describe how quantities change over time, with the change in stock equal to inflow minus outflow - think of queues, buffers, or batteries.",
+   "A buffer is a stock between stages that fills when inflow exceeds outflow, providing temporary storage capacity.",
+   "The bottleneck is the stage with the smallest capacity that determines the overall system throughput - improving other stages won't increase overall output.",
+   "Order of magnitude estimation provides quick checks within a factor of about 10, helping verify that calculations are in the right ballpark."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Engineering System Terms (concluded)",
+   "columns": [
+    "Term",
+    "English",
+    "Definition"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Everyday anchor"
+     },
+     {
+      "text": "Everyday anchor"
+     },
+     {
+      "text": "Everyday scales for checking: a lamp 10 W, a kettle 2 kW, a bus battery 200 kWh"
+     }
+    ],
+    [
+     {
+      "text": "Bounding"
+     },
+     {
+      "text": "Bounding"
+     },
+     {
+      "text": "A low / typical / high estimate (23/29/38 kW); stop when the decision no longer changes"
+     }
+    ],
+    [
+     {
+      "text": "False precision"
+     },
+     {
+      "text": "False precision"
+     },
+     {
+      "text": "\"29.17 kW\" from rough guesses; keep one–two significant figures"
+     }
+    ],
+    [
+     {
+      "text": "Queue"
+     },
+     {
+      "text": "Queue"
+     },
+     {
+      "text": "The consequence of utilisation above 1: demand is turned away or waits; in detail in week 9"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Everyday anchors provide familiar reference points for estimation, like knowing a lamp uses about 10 watts or a kettle uses 2 kilowatts.",
+   "Bounding involves estimating low, typical, and high values to understand the range of possibilities, stopping when the decision doesn't change within the range.",
+   "False precision refers to presenting estimates with unwarranted accuracy - from rough guesses, we should keep only one or two significant figures.",
+   "Queues form when utilization exceeds 1, meaning demand exceeds capacity, resulting in either customers being turned away or having to wait - a topic we'll explore in more detail in week 9."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Takeaways",
+   "items": [
+    "Distinguish between demand and capacity with clear units and time basis",
+    "Calculate utilization to understand system stress levels",
+    "Design systems for peak demand, not just average",
+    "Identify bottlenecks to understand system limitations",
+    "Use estimation techniques to verify calculations",
+    "Check units and plausibility of all results"
+   ]
+  },
+  "narr": [
+   "As we conclude this overview of weeks 5-7, remember these key principles:",
+   "Always clearly distinguish between demand and capacity, specifying both units and time basis to avoid confusion.",
+   "Utilization calculation reveals how heavily your system is being used and helps identify potential stress points.",
+   "Systems must be designed to handle peak demand, not just average, to ensure reliable operation.",
+   "Identifying bottlenecks is crucial for understanding system limitations and focusing improvement efforts.",
+   "Estimation techniques provide valuable checks for detailed calculations, helping catch errors early.",
+   "Finally, always verify units and plausibility of results to ensure they make sense in the real world."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

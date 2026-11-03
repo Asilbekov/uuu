@@ -1,0 +1,545 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Week 6: Demand and Capacity",
+   "subtitle": "Understanding Utilization and System Capacity"
+  },
+  "narr": [
+   "In this section, we're going to explore a fundamental concept in engineering systems: the relationship between demand and capacity.",
+   "We'll look at how to calculate utilization and why it's crucial to size systems for peak demand rather than average demand.",
+   "Let's dive into the three ways a system can handle situations where demand exceeds capacity."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Three Ways to Close the Gap",
+   "bullets": [
+    "Reduce or shift demand",
+    "Raise capacity",
+    "Accept waiting"
+   ]
+  },
+  "narr": [
+   "When demand exceeds capacity, a system has three options to handle the imbalance.",
+   "First, you can reduce or shift the demand - for example, by charging buses in two batches of three instead of all at once.",
+   "Second, you can raise the capacity by installing a larger connection or transformer, though this costs money and time.",
+   "Third, you can accept the waiting, allowing queues to grow while deciding how much waiting is tolerable.",
+   "The choice between these options involves trade-offs, a topic we'll revisit in week 10."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Understanding Utilization",
+   "bullets": [
+    "Utilization = demand ÷ capacity",
+    "Size for peak, not for average",
+    "Higher utilization means less spare capacity"
+   ]
+  },
+  "narr": [
+   "A key metric here is utilization, which is simply the demand divided by the capacity.",
+   "It's important to remember that systems should be sized for peak demand, not average demand.",
+   "Higher utilization means less spare capacity in the system, which can lead to bottlenecks."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Intensities: Amounts Per Unit of Time",
+   "subtitle": "Understanding Power, Energy, and Unit Traps"
+  },
+  "narr": [
+   "Now let's talk about intensities - amounts per unit of time, which are fundamental in engineering calculations.",
+   "We'll explore common examples like speed, power, and arrival rates, and learn about common unit traps to avoid."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "What is an Intensity?",
+   "bullets": [
+    "Amount per unit of time",
+    "Examples: speed (km/h), power (kW), arrival rate (students/min)",
+    "Power × time = energy"
+   ]
+  },
+  "narr": [
+   "An intensity is defined as an amount per unit of time.",
+   "Common examples include a speed of 20 km/h, a power rating of 60 kW, or arrivals of 10 students per minute.",
+   "Remember that power multiplied by time equals energy - for example, a 60 kW charger delivers 60 kWh every hour."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Common Unit Traps",
+   "columns": [
+    "Trap",
+    "Why it is wrong",
+    "How to say it correctly"
+   ],
+   "rows": [
+    [
+     {
+      "text": "The charger consumes 60 kWh"
+     },
+     {
+      "text": "kWh is energy; the charger's rating is an intensity"
+     },
+     {
+      "text": "It delivers 60 kW, or 60 kWh every hour"
+     }
+    ],
+    [
+     {
+      "text": "The bus needs 115"
+     },
+     {
+      "text": "No unit and no time basis"
+     },
+     {
+      "text": "115 kWh per bus per day"
+     }
+    ],
+    [
+     {
+      "text": "A 0,2 MW connection is 20 kW"
+     },
+     {
+      "text": "MW → kW is a factor of 1,000"
+     },
+     {
+      "text": "0,2 MW = 200 kW"
+     }
+    ],
+    [
+     {
+      "text": "36 minutes is 0,36 hours"
+     },
+     {
+      "text": "Minutes are not decimal fractions of the hour"
+     },
+     {
+      "text": "36 min ÷ 60 = 0,6 h"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "When working with units, it's easy to fall into common traps.",
+   "For example, saying a charger consumes 60 kWh is wrong because kWh is energy, while the charger's rating is an intensity.",
+   "Similarly, saying 'the bus needs 115' is incomplete without units and time basis.",
+   "Remember that MW to kW is a factor of 1,000, so 0,2 MW equals 200 kW, not 20 kW.",
+   "And minutes aren't decimal fractions of an hour - 36 minutes equals 0,6 hours, not 0,36.",
+   "When an answer looks strange, always check the units and time basis first."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Stock and Flow",
+   "subtitle": "Understanding System Dynamics"
+  },
+  "narr": [
+   "Now let's explore the relationship between stock and flow - a fundamental concept in system dynamics.",
+   "We'll look at how stocks change based on the difference between inflow and outflow, and work through some practical examples."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Stock and Flow Relationship",
+   "bullets": [
+    "Change in stock = flow in − flow out",
+    "Stocks: queues, buffers, batteries",
+    "Stock grows when inflow > outflow",
+    "Buffer filling time = free space ÷ (inflow − outflow)"
+   ]
+  },
+  "narr": [
+   "The fundamental relationship is that the change in stock equals the flow in minus the flow out.",
+   "Stocks can be anything from queues and buffers to batteries - anything that accumulates over time.",
+   "A stock grows when the inflow exceeds the outflow, and is depleted the other way around.",
+   "For example, the time to fill a buffer is equal to the free space divided by the difference between inflow and outflow."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Battery Discharge Time",
+   "problem": "Calculate how long a 160 kWh battery will last when driving at 20 km/h with a consumption of 1,2 kWh/km.",
+   "steps": [
+    {
+     "text": "Identify the given values: battery capacity = 160 kWh, speed = 20 km/h, consumption = 1,2 kWh/km"
+    },
+    {
+     "text": "Calculate power consumption: consumption × speed = 1,2 [kWh/km] × 20 [km/h] = 24 [kW]"
+    },
+    {
+     "text": "Calculate discharge time: battery capacity ÷ power consumption = 160 [kWh] ÷ 24 [kW] ≈ 6,7 [h]"
+    },
+    {
+     "text": "Check units: [kWh] ÷ [kW] = [h], which confirms our calculation is dimensionally correct"
+    }
+   ],
+   "result": "The battery will last approximately 6,7 hours."
+  },
+  "narr": [
+   "Let's work through an example to illustrate the stock and flow concept.",
+   "We want to calculate how long a 160 kWh battery will last when driving at 20 km/h with a consumption of 1,2 kWh/km.",
+   "First, we identify our given values: battery capacity, speed, and consumption rate.",
+   "Next, we calculate the power consumption by multiplying consumption by speed: 1,2 kWh/km times 20 km/h equals 24 kW.",
+   "Then, we find the discharge time by dividing battery capacity by power consumption: 160 kWh divided by 24 kW gives approximately 6,7 hours.",
+   "Finally, we check our units: kWh divided by kW equals hours, confirming our calculation is dimensionally correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "The Week's Hook: Six Buses, a 200 kW Connection",
+   "subtitle": "Applying Need-Know-How-Solve to a Real Problem"
+  },
+  "narr": [
+   "Now let's tackle a practical problem that ties together several concepts we've discussed: six buses needing to charge overnight with a limited power connection.",
+   "We'll apply the Need-Know-How-Solve framework to understand whether this is an energy or power problem, and how to solve it."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Single Bus Charging Time",
+   "problem": "Calculate the time needed to restore 115 kWh of energy to a bus using a 60 kW charger.",
+   "steps": [
+    {
+     "text": "Need: time to restore daily energy [h]"
+    },
+    {
+     "text": "Know: energy required = 115 kWh, charger power = 60 kW"
+    },
+    {
+     "text": "How: time = energy ÷ power, under assumptions of constant power and no losses"
+    },
+    {
+     "text": "Solve: 115 [kWh] ÷ 60 [kW] ≈ 1,9 [h]"
+    },
+    {
+     "text": "Check units: [kWh] ÷ [kW] = [h], confirming the calculation"
+    },
+    {
+     "text": "Note: real charging slows near full and loses some energy, so actual time is longer"
+    }
+   ],
+   "result": "Approximately 1,9 hours of charging time needed per bus."
+  },
+  "narr": [
+   "First, let's model a single bus using the Need-Know-How-Solve framework.",
+   "What we need is the time to restore the daily energy in hours.",
+   "What we know is that the bus needs 115 kWh of energy and the charger provides 60 kW of power.",
+   "How to solve this: time equals energy divided by power, under the assumptions of constant power and no losses.",
+   "Solving this gives us 115 kWh divided by 60 kW, which equals approximately 1,9 hours.",
+   "We check our units: kWh divided by kW equals hours, confirming our calculation is dimensionally correct.",
+   "It's important to note that in reality, charging slows down near full capacity and loses some energy, so the actual time is longer."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Six Buses Charging Challenge",
+   "problem": "Six buses each need 115 kWh by 06:00 using one 200 kW connection available from 22:00–06:00 (8h window). Can all buses be charged simultaneously?",
+   "steps": [
+    {
+     "text": "Calculate total energy needed: 6 buses × 115 kWh/bus = 690 kWh"
+    },
+    {
+     "text": "Calculate available charging time: 22:00–06:00 = 8 hours"
+    },
+    {
+     "text": "Calculate average power required: 690 kWh ÷ 8 h ≈ 86 kW"
+    },
+    {
+     "text": "Calculate peak power if all charge simultaneously: 6 buses × 60 kW/bus = 360 kW"
+    },
+    {
+     "text": "Compare with available capacity: 360 kW > 200 kW (utilization = 360/200 = 1,8)"
+    },
+    {
+     "text": "Solution: shift demand to two batches of three buses"
+    }
+   ],
+   "result": "All buses cannot be charged simultaneously due to power constraints. Solution: charge in two batches of three buses (3 × 60 kW = 180 kW, utilization = 0,9), requiring approximately 3,8 hours total charging time within the 8-hour window."
+  },
+  "narr": [
+   "Now for the full problem: six buses each needing 115 kWh by 06:00 with one 200 kW connection available from 22:00–06:00.",
+   "First, we calculate the total energy needed: 6 buses times 115 kWh per bus equals 690 kWh.",
+   "The available charging time is from 22:00 to 06:00, which is 8 hours.",
+   "The average power required would be 690 kWh divided by 8 hours, approximately 86 kW.",
+   "However, if all buses charge simultaneously, the peak power would be 6 buses times 60 kW per bus, equaling 360 kW.",
+   "This exceeds our 200 kW capacity, giving a utilization of 1,8, which is too high.",
+   "The solution is to shift demand by charging in two batches of three buses, requiring 180 kW with a utilization of 0,9, and taking about 3,8 hours total within our 8-hour window."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Insight from the Example",
+   "bullets": [
+    "Energy was never the problem",
+    "Power was the constraint",
+    "Staggering charging solves the problem",
+    "Utilization matters more than total energy"
+   ]
+  },
+  "narr": [
+   "The crucial insight from this example is that energy was never the problem - power was.",
+   "By staggering the charging into two batches of three buses, we solved the power constraint issue.",
+   "This demonstrates that utilization matters more than total energy when designing systems with limited capacity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Two Rules of Flows",
+   "subtitle": "Fundamental Principles in Flow Systems"
+  },
+  "narr": [
+   "Let's explore two fundamental rules that govern flow systems - principles that apply to everything from traffic to queues to charging systems."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Rule 1: Flow = Speed × Density",
+   "bullets": [
+    "Flow rate equals speed multiplied by density",
+    "Example: cars passing a point per hour = speed × cars per km",
+    "15 [km/h] × 20 [cars/km] = 300 [cars/h]"
+   ]
+  },
+  "narr": [
+   "The first rule states that flow equals speed multiplied by density.",
+   "For example, the number of cars passing a point per hour equals the speed in km/h multiplied by the density in cars per km.",
+   "As a concrete example, 15 km/h times 20 cars per km equals 300 cars per hour."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Rule 2: Number Inside = Arrival Intensity × Time Inside",
+   "bullets": [
+    "The number of items in a system equals arrival rate multiplied by average time spent",
+    "Example: people in a queue = arrivals per minute × average time in minutes",
+    "10 [students/min] × 3 [min] = 30 students"
+   ]
+  },
+  "narr": [
+   "The second rule states that the number of items inside a system equals the arrival intensity multiplied by the average time spent inside.",
+   "For example, the number of people in a queue equals the arrivals per minute multiplied by the average time spent in minutes.",
+   "Specifically, 10 students per minute times 3 minutes equals 30 students in the queue."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Important Notes on Flow Rules",
+   "bullets": [
+    "Both rules apply under steady-state conditions",
+    "These principles apply to traffic, queues, charging systems, and more",
+    "We'll return to queues in week 9"
+   ]
+  },
+  "narr": [
+   "It's important to note that both rules hold under steady-state conditions - when the system has stabilized.",
+   "These principles are remarkably versatile, applying to traffic, queues, charging systems, and many other engineering contexts.",
+   "The course will return to the topic of queues in more detail in week 9."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Order of Magnitude Estimation",
+   "subtitle": "Estimating Before Calculating"
+  },
+  "narr": [
+   "Finally, let's discuss the importance of order-of-magnitude estimation - a skill that helps engineers quickly assess whether results make sense before and after detailed calculations."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Why Estimate?",
+   "bullets": [
+    "Before calculation: know expected size (tens, hundreds, thousands?)",
+    "During calculation: catch errors of powers of ten or units",
+    "After calculation: check if result is sensible compared to known values"
+   ]
+  },
+  "narr": [
+   "Estimation is valuable at multiple points in the problem-solving process.",
+   "Before calculation, it helps you know what order of magnitude to expect - is the answer in tens, hundreds, or thousands?",
+   "During calculation, it helps catch errors of powers of ten or unit mistakes immediately.",
+   "After calculation, it helps verify if the result makes sense compared to something you already know."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Order-of-Magnitude Estimation",
+   "bullets": [
+    "Correct to within a factor of ~10",
+    "Often much closer than expected",
+    "Example: Kosky estimated 21 barbershops for a city of 60,000; actual was 23"
+   ]
+  },
+  "narr": [
+   "An order-of-magnitude estimate is correct to within a factor of about 10 and often much closer.",
+   "For example, Kosky estimated the number of barbershops in a city of 60,000 people at 21, while the phone directory showed 23 - remarkably close!"
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Four-Step Estimation Method",
+   "bullets": [
+    "(1) Identify the quantity and its units",
+    "(2) Break it into factors you can estimate",
+    "(3) Round each factor to one digit and multiply",
+    "(4) Check units and compare with known value"
+   ]
+  },
+  "narr": [
+   "Here's a four-step method for making order-of-magnitude estimates.",
+   "First, identify the quantity you want to estimate and its units.",
+   "Second, break it into factors that you can reasonably estimate.",
+   "Third, round each factor to one significant digit and multiply them.",
+   "Finally, check the units and compare your result with a known value.",
+   "Remember to carry units in square brackets throughout - this helps both with the method and verifying the answer."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ }
+]

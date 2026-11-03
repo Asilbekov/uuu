@@ -1,0 +1,474 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "Welcome to this study guide covering Weeks 5 through 7 of your Introduction to Engineering course. We'll be exploring manufacturing processes, capacity analysis, and bottleneck identification through a comprehensive case study.",
+   "Let's begin by examining the initial stages of the production line and their daily capacities."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Table 3.4: Steps 1–2 - Production Line Stages and Daily Capacity",
+   "columns": [
+    "Stage",
+    "Rate [units/h]",
+    "Time [h/day]",
+    "Capacity [units/day]"
+   ],
+   "rows": [
+    [
+     "Die Sort",
+     "680",
+     "12",
+     "8160(= 680 × 12)"
+    ],
+    [
+     "Die Attach",
+     "620",
+     "12",
+     "7440"
+    ],
+    [
+     "Wire Bonding",
+     "580",
+     "12",
+     "6960"
+    ],
+    [
+     "Electrical Test",
+     "600",
+     "12",
+     "7200"
+    ]
+   ]
+  },
+  "narr": [
+   "Here we see the first four stages of our production line. Each stage has a production rate in units per hour, operates for a certain number of hours per day, and thus has a calculated daily capacity.",
+   "For example, Die Sort operates at 680 units per hour for 12 hours per day, giving it a daily capacity of 8,160 units."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Production Line Parameters",
+   "bullets": [
+    "Demand: 6,000 units/day (average)",
+    "Demand: 7,000 units/day (peak)",
+    "Capacity is measured in units per day",
+    "Utilization = demand [units/day] ÷ capacity [units/day]"
+   ]
+  },
+  "narr": [
+   "The production line faces two demand scenarios: an average of 6,000 units per day and a peak of 7,000 units per day. To analyze the line's performance, we calculate utilization for each stage by dividing demand by capacity."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Table 3.5: Steps 3–4 - Utilization Analysis",
+   "columns": [
+    "Stage",
+    "Capacity [units/day]",
+    "Util. at 6,000",
+    "Util. at 7,000",
+    "Verdict at the peak"
+   ],
+   "rows": [
+    [
+     "Die Sort",
+     "8160",
+     "0.74",
+     "0.86",
+     "tight"
+    ],
+    [
+     "Die Attach",
+     "7440",
+     "0.81",
+     "0.94",
+     "tight"
+    ],
+    [
+     "Wire Bonding",
+     "6960",
+     "0.86",
+     "1.01",
+     "overload"
+    ],
+    [
+     "Electrical Test",
+     "7200",
+     "0.83",
+     "0.97",
+     "tight"
+    ],
+    [
+     "Final Packaging",
+     "7680",
+     "0.78",
+     "0.91",
+     "tight"
+    ]
+   ]
+  },
+  "narr": [
+   "This table shows utilization at both average and peak demand levels. Each stage is classified as 'comfortable' if utilization is below 0.8, 'tight' between 0.8 and 1.0, and 'overloaded' above 1.0.",
+   "For Wire Bonding at peak demand, we calculate 7,000 ÷ 6,960 = 1.01, which indicates an overload condition."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 - Identifying the Bottleneck",
+   "problem": "Determine the bottleneck stage and the maximum practical throughput of the production line.",
+   "steps": [
+    "Identify the stage with minimum capacity",
+    "Wire Bonding has the lowest capacity at 6,960 units/day",
+    "This sets the maximum practical throughput of the entire line"
+   ],
+   "result": "Wire Bonding is the bottleneck with a capacity of 6,960 units/day"
+  },
+  "narr": [
+   "The bottleneck is the stage with the lowest capacity, which limits the entire production line's throughput. In this case, Wire Bonding has the minimum capacity at 6,960 units per day.",
+   "At average demand, all stages operate below 100% utilization. However, at peak demand, Wire Bonding becomes overloaded at 101% utilization, while four other stages are classified as 'tight'."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 - Material Flow Analysis",
+   "problem": "Calculate the good output and losses through the production stages.",
+   "steps": [
+    "Start with 7,200 dies entering the system",
+    "After Die Sort: 7,200 × 0.98 = 7,056 (144 rejected)",
+    "After Attach/Bond: 7,056 × 0.97 = 6,844 (212 lost)",
+    "After Test: 6,844 × 0.96 ≈ 6,571 (273 written off)"
+   ],
+   "result": "Good output ≈ 6,571 units/day (approximately 91% yield)"
+  },
+  "narr": [
+   "Let's trace the material flow through our production line. Starting with 7,200 dies, we apply the yield rate at each stage.",
+   "After Die Sort, 98% of dies pass through, resulting in 7,056 units and 144 rejects. Wire Bonding and Die Attach together have a 97% yield, reducing the count to 6,844 with 212 losses. Finally, Electrical Test has a 96% yield, producing approximately 6,571 good chips with 273 written off.",
+   "In total, about 629 of the 7,200 dies (approximately 9%) are never shipped as good products."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 - Buffer Analysis at Peak Demand",
+   "problem": "Calculate the buffer filling time before Wire Bonding during peak demand.",
+   "steps": [
+    "Change = inflow − outflow = 600 − 560 = 40 units/h",
+    "Free space = 1,100 − 300 = 800 units",
+    "Filling time = 800 ÷ 40 = 20 hours"
+   ],
+   "result": "The buffer will fill in 20 hours at peak demand"
+  },
+  "narr": [
+   "During peak demand, we need to analyze the buffer before the bottleneck stage. The buffer has a current level of 300 units with a maximum capacity of 1,100 units.",
+   "With an inflow of 600 units per hour and an outflow of 560 units per hour, the buffer is filling at a rate of 40 units per hour. This means the buffer will reach capacity in 20 hours.",
+   "A 12-hour shift at this rate would add 480 units, bringing the buffer to 780 units, but it would still fill completely after 20 hours, potentially blocking Die Attach."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Average vs. Peak Demand Analysis",
+   "bullets": [
+    "Average demand (6,000/day): System copes with bottleneck at 86% utilization",
+    "Peak demand (7,000/day): Wire Bonding overloaded at 101% utilization",
+    "Other stages operate at 86-97% utilization during peak",
+    "At peak, disturbances build queues and affect production flow"
+   ]
+  },
+  "narr": [
+   "Comparing average and peak demand reveals important insights about our production system. At average demand, the system performs adequately with the bottleneck at 86% utilization.",
+   "However, at peak demand, Wire Bonding becomes overloaded at 101% utilization. The other stages operate between 86-97% utilization, creating a tight situation where any disturbance can build up queues and disrupt production."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 - Capacity Improvement Calculation",
+   "problem": "Determine the required capacity increase for Wire Bonding to achieve peak utilization ≤ 85%",
+   "steps": [
+    "Target: peak utilization ≤ 0.85",
+    "Required capacity = 7,000 ÷ 0.85 ≈ 8,235 units/day",
+    "Required hourly rate = 8,235 ÷ 12 ≈ 686 units/h",
+    "Current rate: 580 units/h",
+    "Increase needed: (686 − 580) ÷ 580 ≈ 18%"
+   ],
+   "result": "Wire Bonding capacity needs to increase by approximately 18% to 686 units/h"
+  },
+  "narr": [
+   "To improve our system, let's calculate the required capacity increase for Wire Bonding to achieve a peak utilization of 85% or less.",
+   "First, we determine the required daily capacity by dividing peak demand by target utilization: 7,000 ÷ 0.85 ≈ 8,235 units per day.",
+   "This translates to an hourly rate of approximately 686 units per day. Comparing this to the current rate of 580 units per hour, we need an increase of about 18%.",
+   "With this improvement, Wire Bonding would operate at exactly 85% utilization during peak demand. However, we should note that Electrical Test would then become the next tightest stage at 97% utilization and should be monitored."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Order-of-Magnitude Check",
+   "bullets": [
+    "Expected scale: thousands per day",
+    "Input: ~7,000 dies",
+    "Losses: a few percent at each stage",
+    "Expected output: slightly below 7,000 units",
+    "Unit consistency check: [units/day] × [fraction] = [units/day]"
+   ]
+  },
+  "narr": [
+   "Before finalizing our analysis, it's important to perform an order-of-magnitude check to ensure our results are reasonable.",
+   "We expect thousands of units per day: starting with about 7,000 dies and experiencing a few percent losses at each of three stages should yield an output slightly below 7,000.",
+   "A rough estimate gives us 7,000 × 0.9 ≈ 6,300-6,600 units, which aligns with our calculated output of approximately 6,571 units.",
+   "This confirms our result is in the expected range of 6,500-7,000 units per day. A result like 65 or 6,500,000 would indicate an error in units or magnitude.",
+   "Notably, our output of approximately 6,571 units is above the average demand of 6,000 but below the peak of 7,000, meaning demand is met on average but falls short during peak days."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Assignment L6-2",
+   "subtitle": "Quantitative Reasoning Worksheet"
+  },
+  "narr": [
+   "Now let's review the assignment requirements for the Quantitative Reasoning Worksheet. This assignment builds on the case study we've just analyzed."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Assignment Requirements",
+   "bullets": [
+    "Process Flow: Sketch 4-6 stages with arrows showing flow direction",
+    "Demand and Capacity: Table with stage, capacity (units/h), time basis (h/day), capacity (units/day)",
+    "Utilization and Classification: Calculate utilization = Demand ÷ Capacity",
+    "Bottleneck Identification: Identify bottleneck and maximum practical throughput",
+    "Material Flow: Table showing after stage, fraction lost, input, lost, output",
+    "Queue/Buffer Analysis: Calculate change = inflow - outflow and filling time"
+   ]
+  },
+  "narr": [
+   "For this assignment, you'll need to create several components based on the team scenario. Remember to carry units in square brackets and state the time basis for every number.",
+   "Show your formulas and working, not just the final answers. Begin by sketching the process flow with 4-6 stages and arrows showing the direction of material flow."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 - Process Flow Diagram",
+   "problem": "Create a process flow diagram for the production line",
+   "steps": [
+    "Identify all production stages in order",
+    "Draw boxes representing each stage",
+    "Connect boxes with arrows showing material flow direction",
+    "Include stage names and key parameters"
+   ],
+   "result": "A left-to-right diagram showing: Die Sort → Die Attach → Wire Bonding → Electrical Test → Final Packaging"
+  },
+  "narr": [
+   "Your process flow diagram should show the stages in sequence from left to right. Include Die Sort, Die Attach, Wire Bonding, Electrical Test, and Final Packaging, connected by arrows indicating the direction of material flow.",
+   "Each stage box should contain the stage name and key parameters such as production rate and capacity."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 - Demand and Capacity Table",
+   "problem": "Create a table showing stage, capacity (units/h), time basis (h/day), and capacity (units/day)",
+   "steps": [
+    "List all stages in the first column",
+    "Enter production rate in units/h for each stage",
+    "Specify operating time in h/day for each stage",
+    "Calculate daily capacity for each stage"
+   ],
+   "result": "Table with columns: Stage, Rate [units/h], Time [h/day], Capacity [units/day]"
+  },
+  "narr": [
+   "For the demand and capacity table, you'll need to include both average and peak demand separately. Ensure you maintain consistent units throughout - typically units per day for capacity measurements.",
+   "The table should clearly show how daily capacity is calculated from the hourly rate and operating time for each stage."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 - Utilization and Classification",
+   "problem": "Calculate utilization for each stage and classify as comfortable, tight, or overloaded",
+   "steps": [
+    "Calculate utilization = Demand ÷ Capacity for each stage",
+    "Apply classification: comfortable < 0.8, tight 0.8-1.0, overloaded > 1.0",
+    "Perform calculations for both average and peak demand scenarios"
+   ],
+   "result": "Utilization values and classifications for each stage at both demand levels"
+  },
+  "narr": [
+   "For utilization analysis, divide demand by capacity for each stage. Classify each stage as 'comfortable' if utilization is below 0.8, 'tight' between 0.8 and 1.0, or 'overloaded' above 1.0.",
+   "Remember to perform these calculations for both average demand (6,000 units/day) and peak demand (7,000 units/day) to understand how the system performs under different conditions."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 - Bottleneck Identification",
+   "problem": "Identify the bottleneck stage and determine maximum practical throughput",
+   "steps": [
+    "Compare capacities of all stages",
+    "Identify stage with minimum capacity",
+    "Explain why this stage limits the entire production line",
+    "State the maximum practical throughput value"
+   ],
+   "result": "Wire Bonding is the bottleneck with maximum practical throughput of 6,960 units/day"
+  },
+  "narr": [
+   "The bottleneck is the stage with the lowest capacity, which determines the maximum practical throughput of the entire production line. In this case, Wire Bonding has the minimum capacity at 6,960 units per day.",
+   "This means that even if all other stages could produce more, the overall output cannot exceed 6,960 units per day because Wire Bonding cannot keep up with the production rate."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 - Material Flow Analysis",
+   "problem": "Create a material flow table showing losses and good output",
+   "steps": [
+    "List each stage in sequence",
+    "Note the fraction lost or rejected at each stage",
+    "Calculate input, lost amount, and output after each stage",
+    "Calculate total good output and overall fraction lost"
+   ],
+   "result": "Table showing material flow with cumulative losses and final good output of approximately 6,571 units/day"
+  },
+  "narr": [
+   "For material flow analysis, create a table showing the status after each stage. Include the fraction lost or rejected, input quantity, lost amount, and output quantity.",
+   "Start with 7,200 dies and apply the yield rates: 98% after Die Sort, 97% after Attach/Bond, and 96% after Test. Calculate the cumulative effect to determine the total good output and overall fraction lost."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 - Queue/Buffer Analysis",
+   "problem": "Analyze buffer behavior during peak demand",
+   "steps": [
+    "Identify which queue/buffer/stock to analyze",
+    "Calculate change = inflow - outflow",
+    "Determine current level and maximum capacity",
+    "Calculate filling time or size after given time"
+   ],
+   "result": "Buffer before Wire Bonding fills at 40 units/h and reaches capacity in 20 hours"
+  },
+  "narr": [
+   "For queue/buffer analysis, focus on the buffer before the bottleneck stage (Wire Bonding) during peak demand. Calculate the net change in buffer level as inflow minus outflow.",
+   "Determine the current buffer level and maximum capacity, then calculate how long it would take to fill completely. In our case, the buffer fills at 40 units per hour and reaches capacity in 20 hours.",
+   "This analysis helps understand potential blocking points and the impact of peak demand on production flow."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Takeaways",
+   "items": [
+    "Bottleneck identification is crucial for understanding production line limitations",
+    "Utilization analysis helps identify capacity constraints and potential improvements",
+    "Material flow analysis reveals yield losses and overall system efficiency",
+    "Buffer management is critical for handling demand variations",
+    "Order-of-magnitude checks validate calculation results"
+   ]
+  },
+  "narr": [
+   "In summary, this study guide has covered essential concepts in production line analysis including bottleneck identification, utilization calculations, material flow tracking, and buffer management.",
+   "Remember to apply these concepts systematically in your assignment, maintaining consistent units and showing all your calculations. The order-of-magnitude check is particularly important for validating your results and catching potential errors.",
+   "By understanding these principles, you'll be better equipped to analyze and improve production systems in engineering contexts."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

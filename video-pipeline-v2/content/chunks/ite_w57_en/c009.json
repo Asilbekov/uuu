@@ -1,0 +1,212 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Can Ten Buses Charge?",
+   "subtitle": "Fleet Expansion Analysis"
+  },
+  "narr": [
+   "Let's explore what happens when our bus fleet grows to ten buses.",
+   "First, we need to calculate the total energy requirement for all ten buses.",
+   "Next, we determine the average power needed to charge them within an 8-hour window.",
+   "Then, we figure out how many chargers can run simultaneously based on the power constraint.",
+   "After that, we calculate how many batches of charging we'll need.",
+   "Finally, we determine if the total charging time fits within our 8-hour window."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Fleet Expansion Analysis",
+   "problem": "What if the bus fleet grows to ten buses? Calculate the total energy needed, average power, number of simultaneous chargers, batches required, and total charging time.",
+   "steps": [
+    "Calculate total energy: 10 buses × 115 kWh/bus = 1150 kWh",
+    "Calculate average power: 1150 kWh ÷ 8 h = 143.75 kW ≈ 144 kW",
+    "Determine maximum simultaneous chargers: 200 kW ÷ 60 kW/charger ≈ 3.33 → 3 chargers (round down)",
+    "Calculate batches needed: 10 buses ÷ 3 buses/batch ≈ 3.33 → 4 batches (round up)",
+    "Calculate total time: 4 batches × 1.9 h/batch ≈ 7.6 h"
+   ],
+   "result": "The plan fits within 8 hours but has almost no margin. One slow charger or a late bus would break the plan."
+  },
+  "narr": [
+   "For our expanded fleet of ten buses, we first calculate the total energy requirement.",
+   "Each bus needs 115 kWh, so ten buses require 1150 kWh total.",
+   "The average power needed to deliver this energy in 8 hours is approximately 144 kW.",
+   "With a power limit of 200 kW, we can run at most 3 chargers simultaneously.",
+   "This means we need 4 batches to charge all 10 buses, with 3 batches of 3 buses and 1 batch of 1 bus.",
+   "The total charging time would be approximately 7.6 hours, which fits within our 8-hour window but leaves almost no margin for error."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Rules of Flows",
+   "bullets": [
+    "Flow = speed × density",
+    "Number inside = arrival intensity × average time inside"
+   ]
+  },
+  "narr": [
+   "Now, let's discuss two fundamental rules of flows that apply to many engineering systems.",
+   "The first rule states that flow equals speed multiplied by density.",
+   "For example, the number of cars passing a point per hour equals the speed multiplied by the number of cars per kilometer.",
+   "The second rule states that the number of items in a system equals the arrival intensity multiplied by the average time spent in the system.",
+   "For instance, if students arrive at a rate of 10 per minute and each spends 3 minutes in line, there will be 30 students in the queue at any given time.",
+   "Both of these rules hold under steady-state conditions, which we'll explore further in week 9 when we return to the topic of queues."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Order-of-Magnitude Estimation Method",
+   "bullets": [
+    "Identify the quantity and its units",
+    "Break it into factors you can estimate",
+    "Round each factor to one digit and multiply",
+    "Check the units and compare with a known value"
+   ]
+  },
+  "narr": [
+   "Order-of-magnitude estimation is a powerful technique in engineering.",
+   "The method involves four key steps: first, identify the quantity you want to estimate and its units.",
+   "Second, break that quantity into factors that you can reasonably estimate.",
+   "Third, round each factor to a single significant digit and multiply them together.",
+   "Finally, check that the units work out and compare your result with a known value to see if it makes sense.",
+   "This estimation technique helps before calculation to know what order of magnitude to expect, during calculation to catch errors of powers of ten and units, and after calculation to verify if the answer is sensible.",
+   "The accuracy is typically within a factor of about 10 and often much better, as demonstrated by an example where Kosky estimated 23 barbershops in a city of 60,000, and the directory actually listed 23."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Semiconductor Wafer Packaging Line",
+   "problem": "Identify the bottleneck in the semiconductor wafer packaging line, determine what happens to the buffer before the bottleneck, and propose a quantified improvement.",
+   "steps": [
+    "Calculate daily capacities: Die Sort 8,160; Die Attach 7,440; Wire Bonding 6,960; Electrical Test 7,200; Final Packaging 7,680",
+    "Identify bottleneck: Wire Bonding with lowest capacity (6,960 units/day)",
+    "Analyze buffer before Wire Bonding: change = 600 - 560 = 40 units/h; free space = 1,100 - 300 = 800 units",
+    "Calculate buffer filling time: 800 units ÷ 40 units/h = 20 hours",
+    "Propose improvement: raise Wire Bonding capacity to 7,000 ÷ 0.85 ≈ 8,235 units/day ≈ 686 units/h (+18% over current 580)"
+   ],
+   "result": "The bottleneck is Wire Bonding. The buffer before it fills in 20 hours and reaches 780 of 1,100 units after a 12-hour shift. The improvement is to increase Wire Bonding capacity by approximately 18% to 686 units/h."
+  },
+  "narr": [
+   "Let's apply these concepts to a real engineering case: the semiconductor wafer packaging line.",
+   "First, we calculate the daily capacities for each stage by multiplying the hourly rate by 12 hours.",
+   "We find that Wire Bonding has the lowest capacity at 6,960 units/day, making it the bottleneck.",
+   "At an average demand of 6,000 units, all stages operate below capacity, but Wire Bonding is at 86% utilization.",
+   "During peak demand of 7,000 units, Wire Bonding exceeds capacity at 101% utilization, while other stages are tight at 86-97%.",
+   "The buffer before Wire Bonding currently has 300 units with a maximum capacity of 1,100 units.",
+   "With a net inflow of 40 units/hour, the buffer would fill completely in 20 hours.",
+   "After a 12-hour shift, the buffer would contain 780 units.",
+   "The proposed improvement is to increase Wire Bonding capacity to approximately 686 units/hour, which is an 18% increase over the current 580 units/hour.",
+   "This would bring utilization down to 85% at peak demand, though we should also check the next tightest stage, Electrical Test, to ensure it can handle the increased throughput."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6.1,
+   "title": "Lab 6: Quantify the System",
+   "subtitle": "Nine-Step Quantitative Task"
+  },
+  "narr": [
+   "Now let's look at Lab 6, which involves a nine-step quantitative task to analyze a manufacturing system.",
+   "The lab begins with a recap of lecture concepts including demand, capacity, utilization, intensities, flows, peaks, and order-of-magnitude checks.",
+   "Teams then work through the 'Quantify the System' assignment, which involves analyzing a semiconductor wafer packaging line.",
+   "The task requires drawing the system, determining demand and capacity, calculating utilization, identifying bottlenecks, analyzing material flows, examining buffers, comparing average and peak demand, proposing improvements, and performing order-of-magnitude checks."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Lab 6-1: Quantify the System - Assignment Steps",
+   "code": "• Draw the system as a process of 4–6 stages.\n• Determine demand and capacity, with units and a time basis.\n• Compute the utilisation of the important stages: Utilisation = Demand ÷ Capacity.\n• Classify each key stage: comfortable (< 0,8), tight (~0,8–1,0), overload (> 1,0).\n• Find the bottleneck and state the maximum practical throughput of the system.\n• Compute the material inflow and outflow through the process, including rejects, losses, rework and scrap.\n• Compute one queue, buffer or stock change using the formula 'change = inflow − outflow'; find the size from a given time, or the filling time.\n• Compare average demand with peak demand; explain whether the system behaves differently at the peak.\n• Propose one quantified improvement (reduce/shift the demand, raise the capacity, accept/manage the waiting); show the new utilisation or capacity.\n• An order-of-magnitude check of one answer: the expected scale, the units, whether the result is plausible.",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "narr": [
+   "The assignment consists of ten steps that guide teams through a systematic analysis of the manufacturing system.",
+   "First, teams must draw the system as a process with 4-6 stages, which helps visualize the flow of materials.",
+   "Next, they determine both demand and capacity with appropriate units and time basis, establishing the fundamental metrics for analysis.",
+   "Then they calculate utilization for important stages using the formula: utilization equals demand divided by capacity.",
+   "Based on utilization values, they classify each key stage as comfortable, tight, or overloaded.",
+   "The identification of the bottleneck follows, along with determining the maximum practical throughput of the entire system.",
+   "Teams then compute material inflow and outflow, accounting for rejects, losses, rework, and scrap to understand the complete material balance.",
+   "For one queue, buffer, or stock, they apply the formula 'change equals inflow minus outflow' to calculate either size or filling time.",
+   "Comparing average demand with peak demand reveals how the system behaves differently under varying conditions.",
+   "Finally, teams propose one quantified improvement that could be implemented, showing how it affects utilization or capacity.",
+   "As a validation step, they perform an order-of-magnitude check to ensure their results are plausible in terms of scale and units."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ }
+]

@@ -1,0 +1,394 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering — Weeks 5–7",
+   "subtitle": "Study Guide"
+  },
+  "narr": [
+   "In this video, we'll explore the concept of models in engineering, focusing on hidden assumptions, model evaluation, and the modeling process.",
+   "Let's begin by examining the importance of identifying hidden assumptions in our models."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Hidden Assumptions and Their Price",
+   "bullets": [
+    "e = 1, 2 kWh/km — 'the same in every season': cabin heating raises e, and the range drops.",
+    "'The route is flat, the load is similar': hills and full buses spend more energy.",
+    "u×C = 160 kWh — 'the battery never loses capacity': an ageing battery stores less.",
+    "'We start from a full battery': depot charging always works; a missed charge cuts the day short."
+   ]
+  },
+  "narr": [
+   "Every model is built on assumptions, but not all assumptions are explicitly written in the equations.",
+   "For example, our bus model assumes a constant energy consumption rate of 1.2 kWh per kilometer, but this doesn't account for seasonal variations like cabin heating which increases consumption and reduces range.",
+   "The model also assumes a flat route with similar loads, ignoring how hills or full buses increase energy usage.",
+   "It assumes the battery maintains its full capacity of 160 kWh, neglecting how aging reduces actual storage capacity.",
+   "Finally, it assumes we always start with a full battery, ignoring what happens if a charge is missed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Bus Range Under Different Assumptions",
+   "problem": "How does the bus range change under different real-world conditions?",
+   "steps": [
+    {
+     "text": "Base case: e = 1.2 kWh/km, usable energy 128 kWh"
+    },
+    {
+     "text": "Full passenger load: e = 1.4 kWh/km, usable energy 128 kWh"
+    },
+    {
+     "text": "Old battery: e = 1.2 kWh/km, usable energy 107 kWh"
+    },
+    {
+     "text": "Winter heating: e = 1.8 kWh/km, usable energy 128 kWh"
+    },
+    {
+     "text": "Winter + old battery: e = 1.8 kWh/km, usable energy 107 kWh"
+    }
+   ],
+   "result": "Base case: 133 km; Full passenger load: 114 km; Old battery: 107 km; Winter heating: 89 km; Winter + old battery: 71 km"
+  },
+  "narr": [
+   "Let's see how these assumptions affect our predictions using the bus range model.",
+   "In the base case with standard energy consumption, we get a range of 133 kilometers.",
+   "With a full passenger load, energy consumption increases to 1.4 kWh/km, reducing the range to 114 kilometers.",
+   "An old battery with reduced capacity gives us only 107 kilometers of range.",
+   "Winter heating dramatically increases consumption to 1.8 kWh/km, dropping the range to just 89 kilometers.",
+   "The worst case combines winter heating with an old battery, resulting in only 71 kilometers of range."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model Evaluation",
+   "bullets": [
+    "Too simple — misses what matters: R = 160 ÷ 1,2 for every day of the year; winter, hills and ageing are invisible.",
+    "Fit for purpose — answers the question: separate consumption for summer and winter plus a safety margin; enough to decide whether one charge covers the day.",
+    "Too detailed — cannot be built and checked: battery chemistry, every traffic light, every driver's habits; it needs data that do not exist."
+   ]
+  },
+  "narr": [
+   "How do we know if a model is good enough?",
+   "First, a model can be too simple, missing important factors like seasonal variations, terrain, or battery aging.",
+   "Second, a model can be fit for purpose, providing just enough detail to answer our specific question.",
+   "Third, a model can be too detailed, including factors that can't be accurately measured or would make the model impractical to use."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — When Models Mislead",
+   "steps": [
+    {
+     "text": "Range model built for mild autumn used in winter cold snap"
+    },
+    {
+     "text": "Solar generation profile built for clear summer day used in cloudy winter week"
+    },
+    {
+     "text": "Dormitory load of 2 kW for mild weather used in week of hard frost"
+    }
+   ],
+   "result": "Every model has a range within which its assumptions are valid. Know it and state it."
+  },
+  "narr": [
+   "Models can mislead when used outside their intended scope.",
+   "For example, a range model built for mild autumn conditions will overestimate range in winter when heating systems are active.",
+   "Similarly, a solar generation profile based on a clear summer day will be wildly inaccurate during a cloudy winter week.",
+   "The same applies to a dormitory load model developed for mild weather being applied during a week of hard frost.",
+   "Every model has valid operating ranges, and it's crucial to know and state these limitations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Three Sanity Checks",
+   "bullets": [
+    "(1) units — (u × C) [kWh] ÷ e [kWh/km] gives km, so the range has the right unit",
+    "(2) order of magnitude — are 133 km plausible for a city bus: tens–hundreds of km, not 3 km and not 3,000 km",
+    "(3) a known value — does the result agree with a datasheet, a test drive or last month's logs"
+   ]
+  },
+  "narr": [
+   "Before accepting a model's output, we should perform three sanity checks.",
+   "First, check that the units make sense. In our bus range model, dividing kilowatt-hours by kilowatt-hours per kilometer gives us kilometers, which is correct.",
+   "Second, check if the order of magnitude is reasonable. Is 133 kilometers a plausible range for a city bus? Yes, it's in the expected range of tens to hundreds of kilometers, not 3 kilometers or 3,000 kilometers.",
+   "Third, compare the result with known values from datasheets, test drives, or historical data."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The 'Build — Check — Revise' Loop",
+   "bullets": [
+    "Frame (the problem statement and the variables)",
+    "Build (a first simple model with units)",
+    "Check (units, magnitude, known values)",
+    "Revise (fix the assumptions; add detail only if needed)",
+    "Repeat until it is good enough for the decision"
+   ]
+  },
+  "narr": [
+   "Modeling is an iterative process known as the 'Build — Check — Revise' loop.",
+   "First, we frame the problem and identify our variables.",
+   "Then, we build a simple model with proper units.",
+   "Next, we check the model using our three sanity checks.",
+   "If necessary, we revise our assumptions and add detail only as needed.",
+   "We repeat this cycle until the model is good enough to make our decision."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 5 — Lecture and Lab Questions",
+   "subtitle": "Model Answers"
+  },
+  "narr": [
+   "Now, let's address some common questions about modeling from week 5.",
+   "We'll explore what models are, how to match questions to appropriate models, and the components of every model."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — What is a Model?",
+   "problem": "What is a model, and why does the lecture insist that 'no map is the network'?",
+   "steps": [
+    {
+     "text": "Define a model as a simplified representation of a real system"
+    },
+    {
+     "text": "Explain that models are built to answer specific questions"
+    },
+    {
+     "text": "Use the campus electrical network example with two different maps"
+    },
+    {
+     "text": "Connect to George Box's epigraph: 'All models are wrong, but some are useful'"
+    }
+   ],
+   "result": "A model is a simplified representation of a real system, built to answer a specific question. Different maps serve as different models for different questions."
+  },
+  "narr": [
+   "What exactly is a model in engineering?",
+   "A model is a simplified representation of a real system, specifically built to answer a particular question.",
+   "Consider the example of a campus electrical network. We can create two different maps:",
+   "First, a one-line diagram that answers connectivity questions like which buildings lose power when a feeder is switched off.",
+   "Second, a geographic diagram that answers location questions like cable lengths or building proximity to the substation.",
+   "Neither map is the complete network itself. Each is a model, a simplified picture designed for specific questions.",
+   "As George Box famously said, 'All models are wrong, but some are useful.'"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Matching Questions to Models",
+   "problem": "Which type of model fits each question best?",
+   "steps": [
+    {
+     "text": "A (range on a single charge) — mathematical: energy = consumption per km × distance"
+    },
+    {
+     "text": "B (which buildings lose power when a feeder is switched off) — graphical: the one-line diagram"
+    },
+    {
+     "text": "C (dormitory temperature over a day) — computational: we step through the hours"
+    },
+    {
+     "text": "D (a turbine blade in a strong wind) — physical: the blade in a wind tunnel"
+    },
+    {
+     "text": "E (where passengers stand at a busy stop) — graphical: a sketch of the stop"
+    },
+    {
+     "text": "F (a building's energy over a day) — mathematical: kW × h = kWh from the loads"
+    }
+   ],
+   "result": "Different questions require different types of models: mathematical, graphical, computational, or physical."
+  },
+  "narr": [
+   "Let's match different questions to the most appropriate type of model.",
+   "For question A about range on a single charge, a mathematical model works best: energy equals consumption per kilometer multiplied by distance.",
+   "For question B about which buildings lose power when a feeder is switched off, a graphical model like a one-line diagram is most effective.",
+   "For question C about dormitory temperature over a day, a computational model that steps through each hour is appropriate.",
+   "For question D about a turbine blade in strong wind, a physical model like testing the blade in a wind tunnel is needed.",
+   "For question E about where passengers stand at a busy stop, a simple graphical sketch suffices.",
+   "For question F about a building's energy over a day, a mathematical model multiplying kilowatts by hours gives kilowatt-hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Four Parts of Every Model",
+   "bullets": [
+    "Inputs — what we feed in and can change: battery size, speed, route length",
+    "Parameters — what is kept fixed: consumption per km, the usable share of the battery",
+    "Relationships — the rules linking the numbers: Energy = energy per km × distance",
+    "Outputs — the predictions we evaluate: range [km], energy per day [kWh/day]"
+   ]
+  },
+  "narr": [
+   "Every model consists of four essential parts.",
+   "First, inputs are the variables we can change and feed into the model, like battery size, speed, or route length.",
+   "Second, parameters are values kept fixed during a particular analysis, like consumption per kilometer or the usable share of the battery.",
+   "Third, relationships are the rules that connect these numbers, such as energy equals energy per kilometer multiplied by distance.",
+   "Finally, outputs are the predictions we evaluate, like range in kilometers or energy per day in kilowatt-hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Model Variables and Their Roles",
+   "problem": "How do week 4 variables become the roles in a model?",
+   "steps": [
+    {
+     "text": "Performance variables become outputs: range per charge [km], energy per day [kWh/day]"
+    },
+    {
+     "text": "Design variables become inputs: battery capacity [kWh], number of buses"
+    },
+    {
+     "text": "Context variables become parameters: route length [km], outside temperature [°C], hours on depot charging"
+    },
+    {
+     "text": "Last week's variables form the skeleton of this week's model"
+    }
+   ],
+   "result": "A variable's role in a model is determined by how it enters the calculation: as input, parameter, relationship, or output."
+  },
+  "narr": [
+   "How do the variables we identified in week 4 fit into modeling?",
+   "Performance variables from week 4 become the outputs in our models, such as range per charge in kilometers or energy per day in kilowatt-hours.",
+   "Design variables become the inputs we can control, like battery capacity in kilowatt-hours or the number of buses.",
+   "Context variables become the parameters we consider fixed for a particular analysis, like route length in kilometers, outside temperature in Celsius, or hours spent depot charging.",
+   "Essentially, last week's variable list forms the skeleton of this week's model structure."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Applying Need-Know-How-Solve to Bus Range",
+   "problem": "How do we apply the Need-Know-How-Solve framework to the bus range question?",
+   "steps": [
+    {
+     "text": "Need — the variable we want: range per charge [km]"
+    },
+    {
+     "text": "Know — what is known: battery capacity, usable share, consumption per km, route length"
+    },
+    {
+     "text": "How — the model and the assumptions: Range = usable energy ÷ energy per km, i.e. R = (u×C) ÷ e"
+    },
+    {
+     "text": "Solve — compute, check the units, interpret: (u × C) [kWh] ÷ e [kWh/km] = R [km]"
+    }
+   ],
+   "result": "Week 4 gave us the Need; week 5 builds the How — and the assumptions hidden inside it."
+  },
+  "narr": [
+   "Let's apply the Need-Know-How-Solve framework to our bus range question.",
+   "First, the Need is what we want to find: the range per charge in kilometers.",
+   "Second, the Know includes what we already have: battery capacity, usable share, consumption per kilometer, and route length.",
+   "Third, the How involves our model and its assumptions: range equals usable energy divided by energy per kilometer, or R equals u times C divided by e.",
+   "Finally, the Solve step is where we compute the result, check that our units work out, and interpret what the answer means.",
+   "As we can see, week 4 established what we needed to find, while week 5 developed how to find it, including the hidden assumptions in our approach."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ }
+]

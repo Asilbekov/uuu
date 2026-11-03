@@ -1,0 +1,552 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "In this video, we'll explore the engineering modeling process and problem framing techniques covered in weeks five through seven of your Introduction to Engineering course.",
+   "We'll break down the homework requirements and the team assignment with clear examples and explanations."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Homework Sheet Requirements",
+   "bullets": [
+    "Model Question / Purpose - the one question the model must answer",
+    "Model Type & Justification - Physical / Graphical / Mathematical / Computational",
+    "Model Anatomy - Inputs, Parameters, Relationships, Outputs",
+    "Need–Know–How–Solve - the four cells of the table",
+    "At least 6 assumptions with classification",
+    "Changing one assumption and analyzing its effect",
+    "Checking the model - units, order of magnitude, known values",
+    "Verdict: Too Simple / Fit for Purpose / Too Detailed",
+    "One revision and one additional need for data"
+   ]
+  },
+  "narr": [
+   "The homework sheet requires you to follow a ten-step modeling process.",
+   "First, you need to define your model's question or purpose clearly as a specific question.",
+   "Next, determine your model type - whether it's physical, graphical, mathematical, or computational - and justify why this type fits your problem.",
+   "Then, build your model's anatomy by identifying inputs, parameters, relationships, and outputs with their respective units.",
+   "You'll complete a Need–Know–How–Solve table to organize your approach.",
+   "Your model must include at least six assumptions, categorized as simplifying, data, or boundary, with each assumption including an explanation of why it's in that category and the consequences if it's wrong.",
+   "You'll classify each assumption as Safe, Risky, or Need Data.",
+   "Next, you'll change one assumption by specifying its old value, new value, and the effect on the output.",
+   "After that, you'll check your model by verifying units agree, the order of magnitude is plausible, and it matches known values.",
+   "Finally, you'll give a verdict - whether the model is Too Simple, Fit for Purpose, or Too Detailed - with justification, and suggest one revision and one additional need for data."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   8
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Model Solution Example",
+   "problem": "The model answer for assignment L5-1 (Tables 2.1–2.3 and steps 4, 7, 9-10)",
+   "steps": [
+    "Define the model question: \"What is the peak power consumption of the EV charging station?\"",
+    "Model type: Mathematical - because it involves numerical calculations to predict power consumption",
+    "Model anatomy: Inputs (number of occupied charging bays), Parameters (power per charger = 22kW), Relationships (total power = number of chargers × power per charger), Outputs (peak power in kW)",
+    "Assumptions include: constant power per charger, simultaneous maximum usage, no other loads, etc.",
+    "Stress test: What if all 4 chargers run simultaneously? Peak power = 4 × 22kW = 88kW",
+    "Sanity check: 88kW is below the grid limit of 150kW, so the model shows compliance"
+   ],
+   "result": "The model is Fit for Purpose for answering the compliance question, but could be enhanced by considering diversity factors and other loads."
+  },
+  "narr": [
+   "Let's look at a model solution example for assignment L5-1.",
+   "The model question is clearly defined as \"What is the peak power consumption of the EV charging station?\"",
+   "The model type is mathematical because it involves numerical calculations to predict power consumption.",
+   "The model anatomy includes inputs like the number of occupied charging bays, parameters like the power per charger at 22kW, relationships such as total power equals number of chargers times power per charger, and outputs like peak power in kilowatts.",
+   "Assumptions include constant power per charger, simultaneous maximum usage, and no other loads.",
+   "A stress test shows that if all 4 chargers run simultaneously, the peak power is 4 times 22kW, which equals 88kW.",
+   "The sanity check confirms that 88kW is below the grid limit of 150kW, showing compliance."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Assignment L5-3",
+   "subtitle": "Engineering Problem Framing"
+  },
+  "narr": [
+   "Now let's explore assignment L5-3, which focuses on engineering problem framing through a team-based cross-cutting template activity."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Problem Framing Process",
+   "bullets": [
+    "Read the scenario carefully",
+    "Classify statements as fact, inference, speculation, or opinion",
+    "Frame the problem without solutions",
+    "Draw a process-flow diagram",
+    "Define variables with units",
+    "Lay out stakeholders' views",
+    "Propose must-have and nice-to-have goals"
+   ]
+  },
+  "narr": [
+   "The problem framing process involves several key steps.",
+   "First, you must read the scenario carefully to understand the context.",
+   "Next, classify statements as fact, inference, speculation, or opinion with explanations.",
+   "Then frame the problem without including solutions.",
+   "You'll need to draw a process-flow diagram showing the main steps.",
+   "Define all variables with their units clearly.",
+   "Lay out the stakeholders' views on the situation.",
+   "Finally, propose both must-have and nice-to-have goals for the project."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Section A",
+   "subtitle": "Sort the Evidence"
+  },
+  "narr": [
+   "Let's examine section A: sorting the evidence.",
+   "In this section, you classify statements from the scenario into four categories: fact, inference, speculation, and opinion, with explanations for each classification."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Evidence Classification Examples",
+   "problem": "Classify statements from the EV Charging & Battery Test Station scenario",
+   "steps": [
+    "Fact: The grid operator's limit L = 150 kW - because it's a measured, verifiable value",
+    "Fact: Each of the 4 charging bays is rated at 22 kW - because it's a specification from equipment documentation",
+    "Inference: With four chargers running simultaneously, the peak power is 88 kW ≤ 150 kW - because it's a calculation based on facts",
+    "Inference: If fewer than four are occupied at once, consumption is below 88 kW - because it's a logical conclusion from the facts",
+    "Speculation: Switching the chargers to fast mode will raise P₁ to 50 kW - because it's a hypothesis to be tested",
+    "Speculation: The building's lighting/HVAC will add load on the same connection - because it's an assumption requiring data"
+   ]
+  },
+  "narr": [
+   "Here are examples of evidence classification from the EV Charging & Battery Test Station scenario.",
+   "A fact is a statement that can be verified, like the grid operator's limit being 150 kW or each charging bay being rated at 22 kW.",
+   "An inference is a conclusion drawn from facts, such as calculating that four chargers would draw 88 kW total, which is below the limit.",
+   "Another inference is that fewer than four occupied chargers would mean consumption below 88 kW.",
+   "A speculation is a hypothesis that needs testing, like switching to fast mode raising power to 50 kW per charger.",
+   "Another speculation is that lighting and HVAC systems add load to the same connection, which would require data to confirm.",
+   "An opinion is a value judgment, like claiming the model is good enough without simulating the load curve."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Evidence Classification Examples (cont.)",
+   "problem": "",
+   "steps": [
+    "Opinion: \"The model is good enough: it answers the compliance question without simulating the load curve\" - because it's a value judgment",
+    "Opinion: \"Replace the worst case with a measured diversity factor\" - because it's a recommendation for improvement"
+   ],
+   "result": "Teams should identify 2 facts, 2 inferences, 2 speculations, and 2 opinions from their scenario card"
+  },
+  "narr": [
+   "Another opinion is recommending replacing the worst case with a measured diversity factor."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Section B",
+   "subtitle": "Complaint → Need → Problem Statement"
+  },
+  "narr": [
+   "Moving to section B, we transform complaints into needs and then into problem statements without solutions."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem Statement Template",
+   "problem": "Transform a complaint into a need and then a problem statement",
+   "steps": [
+    "Complaint: \"We keep tripping the grid limit during peak hours\"",
+    "Need: The station operator needs to keep the peak power within the grid operator's limit in the busiest hour",
+    "Problem Statement: \"The station needs to keep its peak power draw within the grid operator's limit, judged by total peak power P [kW] against L = 150 kW, within the four-bay charger configuration\""
+   ],
+   "result": "The problem statement is solution-free and focuses on the core issue with measurable variables"
+  },
+  "narr": [
+   "Let's see how to transform a complaint into a need and then a problem statement.",
+   "Starting with a complaint like \"We keep tripping the grid limit during peak hours\",",
+   "we identify the need: the station operator needs to keep peak power within the grid operator's limit during busy times.",
+   "This becomes the problem statement: \"The station needs to keep its peak power draw within the grid operator's limit, judged by total peak power P in kilowatts against L equals 150 kW, within the four-bay charger configuration.\"",
+   "Notice this problem statement is solution-free and focuses on the core issue with measurable variables."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Section C",
+   "subtitle": "Process Flow Diagram"
+  },
+  "narr": [
+   "Section C requires creating a process flow diagram with 6-8 main steps using standard symbols."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Process Flow Diagram Example",
+   "problem": "Create a process flow diagram for the EV charging station",
+   "steps": [
+    "Start → arrival of an electric vehicle",
+    "Connection to a charging bay (n + 1 occupied [units])",
+    "Charging session (P₁ = 22kW, constant)",
+    "Decision: is a diagnostic test needed?",
+    "If Yes: low-current diagnostic test (negligible power)",
+    "Battery condition check via the charger's own diagnostics (no additional load)"
+   ]
+  },
+  "narr": [
+   "Here's a model process flow diagram for the EV charging station.",
+   "It begins with the arrival of an electric vehicle.",
+   "The vehicle connects to a charging bay, increasing the occupied count by one.",
+   "Then a charging session begins with constant power at 22 kilowatts.",
+   "A decision point asks if a diagnostic test is needed.",
+   "If yes, a low-current diagnostic test is performed with negligible power draw.",
+   "Then the battery condition is checked via the charger's own diagnostics without additional load."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Process Flow Diagram Example (cont.)",
+   "problem": "",
+   "steps": [
+    "The bay is freed (n - 1)",
+    "End",
+    "Note: Lighting/HVAC is outside the boundary and metered separately"
+   ],
+   "result": "The diagram shows the main flow of vehicles through the charging process with decision points"
+  },
+  "narr": [
+   "Finally, the bay is freed and the vehicle departs, decreasing the occupied count by one.",
+   "Note that lighting and HVAC systems are outside the boundary and metered separately."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Section D",
+   "subtitle": "Variables on the Process"
+  },
+  "narr": [
+   "In section D, we define variables on the process, including at least one performance, one design, and one context variable."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Variables on the Process",
+   "columns": [
+    "Variable",
+    "Step/Flow",
+    "Unit",
+    "Type (P/D/C)",
+    "Measurement Method"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "P"
+     },
+     "From meter during peak hours",
+     "kW",
+     "Performance",
+     "Direct measurement from power meter"
+    ],
+    [
+     {
+      "tex": "n"
+     },
+     "At charging bay",
+     "units",
+     "Context",
+     "Count of occupied bays"
+    ],
+    [
+     {
+      "tex": "P_1"
+     },
+     "During charging session",
+     "kW",
+     "Design",
+     "Charger specification"
+    ],
+    [
+     {
+      "tex": "L"
+     },
+     "Grid connection",
+     "kW",
+     "Context",
+     "Grid operator specification"
+    ],
+    [
+     {
+      "tex": "P_{aux}"
+     },
+     "Building systems",
+     "kW",
+     "Context",
+     "Separate meter"
+    ]
+   ]
+  },
+  "narr": [
+   "Let's examine the variables on the process.",
+   "Performance variables measure how well the system works, like total peak power P in kilowatts, measured directly from a power meter.",
+   "Design variables are elements we can control, like the number of charging bays n or the charger power P₁ in kilowatts.",
+   "Context variables are external factors we can't control, like the grid limit L in kilowatts or auxiliary power P_{aux} from building systems.",
+   "Each variable is associated with a specific step or flow in the process, has clear units, and specifies how to measure it."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "Section E",
+   "subtitle": "Stakeholder Performance View"
+  },
+  "narr": [
+   "Section E focuses on stakeholder performance views, creating a table linking stakeholders to their ideas of success and relevant variables."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Stakeholder Performance View",
+   "columns": [
+    "Stakeholder",
+    "Idea of Success",
+    "Candidate Variable",
+    "Unit"
+   ],
+   "rows": [
+    [
+     "Grid operator",
+     "Peak power stays within 150 kW",
+     {
+      "tex": "P"
+     },
+     "kW"
+    ],
+    [
+     "Station operator",
+     "Maximize charger utilization without exceeding limits",
+     {
+      "tex": "n"
+     },
+     "units"
+    ],
+    [
+     "EV driver",
+     "Fastest possible charging time",
+     {
+      "tex": "t_{charge}"
+     },
+     "hours"
+    ],
+    [
+     "Building manager",
+     "Minimize overall energy costs",
+     {
+      "tex": "C_{total}"
+     },
+     "$"
+    ]
+   ]
+  },
+  "narr": [
+   "The stakeholder performance view table connects different stakeholders to their ideas of success and relevant variables.",
+   "For example, the grid operator's idea of success is that peak power stays within 150 kilowatts, measured by variable P.",
+   "The station operator wants to maximize charger utilization without exceeding limits, measured by the number of occupied bays n.",
+   "EV drivers care about fastest possible charging time, measured by t_{charge} in hours.",
+   "The building manager aims to minimize overall energy costs, measured by C_{total} in dollars."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 8,
+   "title": "Section F",
+   "subtitle": "Must-have and Nice-to-have Targets"
+  },
+  "narr": [
+   "Finally, section F requires setting must-have and nice-to-have targets for at least three variables."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Target Setting Examples",
+   "problem": "Set must-have and nice-to-have targets for key variables",
+   "steps": [
+    "Peak power P ≤ 150 kW in the busiest hour (must-have - the operator's limit)",
+    "Peak power P ≤ 150 kW even after switching to fast charging at P₁ = 50 kW (nice-to-have - today P = 4 × 50 = 200 kW, so the goal is not currently met)",
+    "Charger utilization ≥ 80% during peak hours (nice-to-have - balances efficiency and availability)",
+    "Average charging time ≤ 2 hours for standard vehicles (must-have - meets customer expectations)"
+   ],
+   "result": "Must-have targets represent non-negotiable requirements, while nice-to-have targets represent desirable improvements"
+  },
+  "narr": [
+   "Let's look at target setting examples.",
+   "A must-have target is peak power P less than or equal to 150 kilowatts in the busiest hour, as this is the operator's limit.",
+   "A nice-to-have target would be maintaining peak power below 150 kilowatts even after switching to fast charging at 50 kilowatts per charger, since currently four fast chargers would draw 200 kilowatts, exceeding the limit.",
+   "Another nice-to-have target is charger utilization of at least 80% during peak hours, which balances efficiency and availability.",
+   "A must-have target is average charging time of no more than 2 hours for standard vehicles, as this meets customer expectations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Takeaways",
+   "items": [
+    "Engineering modeling follows a structured ten-step process",
+    "Problem framing requires careful analysis of evidence and stakeholder needs",
+    "Process flow diagrams visualize the sequence of operations",
+    "Variables should be clearly defined with units and measurement methods",
+    "Stakeholder perspectives help identify success criteria",
+    "Target setting distinguishes between must-have and nice-to-have requirements"
+   ]
+  },
+  "narr": [
+   "To summarize, engineering modeling follows a structured ten-step process that takes you from defining a question to verifying your model.",
+   "Problem framing requires careful analysis of evidence and understanding stakeholder needs.",
+   "Process flow diagrams help visualize the sequence of operations in your system.",
+   "Variables should be clearly defined with units and measurement methods.",
+   "Considering stakeholder perspectives helps identify relevant success criteria.",
+   "Finally, effective target setting distinguishes between must-have requirements that are non-negotiable and nice-to-have requirements that represent desirable improvements."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

@@ -1,0 +1,337 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering — Weeks 5–7",
+   "subtitle": "Study Guide"
+  },
+  "narr": [
+   "In this section, we'll explore the concept of models in engineering, focusing on how they help us understand complex systems.",
+   "We'll look at different types of models, their components, and how to apply them to real-world problems like electric campus buses."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Models in Engineering",
+   "bullets": [
+    "Models are simplified representations of systems that help answer specific questions",
+    "Two maps mentioned: Power diagram (switching/isolation) and Geographic diagram (distances/locations)",
+    "Neither map is the network itself, but each serves a purpose",
+    "Epigraph: 'All models are wrong, but some are useful.' - George Box"
+   ]
+  },
+  "narr": [
+   "What exactly do we mean by models in engineering? Well, think of them as simplified pictures of complex systems that help us answer specific questions.",
+   "For example, consider two different maps of a power network. The power diagram tells us about switching and isolation, while the geographic diagram shows distances and locations.",
+   "Importantly, neither map is the actual network itself, but each serves a purpose for different types of questions.",
+   "As statistician George Box famously said, 'All models are wrong, but some are useful.' This captures the essence of modeling - we simplify to gain understanding."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Four Types of Models",
+   "bullets": [
+    "Physical - scaled-down or simplified objects (e.g., wind turbine blade in a wind tunnel)",
+    "Graphical - diagrams showing parts and connections (e.g., one-line diagram)",
+    "Mathematical - equations relating variables (e.g., Ohm's law)",
+    "Computational - step-by-step calculations (e.g., electricity demand table)"
+   ]
+  },
+  "narr": [
+   "Engineering projects typically use four types of models. First, physical models are real, scaled-down copies of systems, like a wind turbine blade tested in a wind tunnel.",
+   "Second, graphical models are diagrams that show parts and connections, such as one-line electrical diagrams or energy-flow diagrams.",
+   "Third, mathematical models use equations to relate variables, like Ohm's law for electrical circuits.",
+   "Finally, computational models involve step-by-step calculations performed by computers, such as tables of hourly electricity demand.",
+   "Real projects often mix several types - using diagrams to organize, equations to compute, and tables to run the numbers."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "One System - Three Models",
+   "bullets": [
+    "Campus electricity supply can be modeled in three different ways",
+    "One-line diagram (graphical): answers 'which buildings lose power when a feeder is switched off?'",
+    "Energy balance equation (mathematical): answers 'does daily generation cover daily demand?'",
+    "Hourly demand table (computational): answers 'in which hour does the peak occur?'"
+   ]
+  },
+  "narr": [
+   "Consider the campus electricity supply system. We can model this same system in three different ways, depending on what question we want to answer.",
+   "First, a one-line diagram (graphical model) tells us which buildings lose power when a feeder is switched off, but it omits distances and power ratings.",
+   "Second, an energy balance equation (mathematical model) tells us if daily generation covers daily demand, but it doesn't tell us when that demand occurs.",
+   "Third, an hourly demand table (computational model) tells us when peak demand occurs, but it doesn't show the network diagram or voltages.",
+   "The key point is: one system, three models - the question decides which one to use."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Anatomy of a Model: Four Parts",
+   "bullets": [
+    "Inputs - values we choose or can change (battery size, speed, route length)",
+    "Parameters - numbers kept fixed (energy consumption per km, usable battery share)",
+    "Relationships - rules linking numbers (Energy = energy per km × distance)",
+    "Outputs - what the model predicts (range in km, energy in kWh/day)"
+   ]
+  },
+  "narr": [
+   "Every model, regardless of type, consists of four essential parts. First, inputs are the values we choose or can change, like battery size or route length.",
+   "Second, parameters are numbers kept fixed, like energy consumption per kilometer or the usable share of the battery.",
+   "Third, relationships are the rules that link these numbers, such as the equation Energy equals energy per kilometer times distance.",
+   "Fourth, outputs are what the model predicts - the results we evaluate, like range in kilometers or energy in kilowatt-hours per day.",
+   "Think of a model as a machine: numbers go in, a rule is applied, and numbers come out. And every number needs its own units."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model Variables and Their Roles",
+   "bullets": [
+    "Performance variables → outputs (range per charge [km], energy per day [kWh/day])",
+    "Design variables → inputs (battery capacity [kWh], number of buses)",
+    "Context variables → parameters (route length [km], air temperature [°C], charging hours)"
+   ]
+  },
+  "narr": [
+   "Interestingly, the variables we identified in week 4 become the roles in our model this week. Performance variables, like range per charge or energy per day, become outputs of our model.",
+   "Design variables, like battery capacity or number of buses, become inputs we can control.",
+   "And context variables, like route length or air temperature, become parameters we keep fixed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Need-Know-How-Solve Method",
+   "bullets": [
+    "Need - the variable we want (range per charge, km)",
+    "Know - what is already known (battery capacity, usable share, consumption per km)",
+    "How - the model and assumptions (Range = usable energy ÷ energy per km)",
+    "Solve - compute, check units, interpret results"
+   ]
+  },
+  "narr": [
+   "The method we'll use this week is called Need-Know-How-Solve. First, identify what you need to find - the variable you want, like range per charge in kilometers.",
+   "Second, determine what you already know - the battery capacity, usable share, and consumption per kilometer.",
+   "Third, develop the model and state your assumptions - in this case, that range equals usable energy divided by energy per kilometer.",
+   "Finally, solve by computing, checking units, and interpreting the results. Importantly, the 'How' step includes the assumptions you make, which might be hidden."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Electric Bus Model Equations",
+   "tex": "E = e \\times d \\quad \\text{and} \\quad R = \\frac{u \\times C}{e}",
+   "parts": [
+    {
+     "substr": "E = e × d",
+     "color": "#4C5FD5",
+     "note": "Trip energy in kWh"
+    },
+    {
+     "substr": "R = (u × C) ÷ e",
+     "color": "#B45309",
+     "note": "Range in km"
+    },
+    {
+     "substr": "C",
+     "color": "#0E7C7B",
+     "note": "Battery capacity in kWh"
+    },
+    {
+     "substr": "u",
+     "color": "#A03040",
+     "note": "Usable share (unitless)"
+    },
+    {
+     "substr": "e",
+     "color": "#4C5FD5",
+     "note": "Consumption in kWh/km"
+    },
+    {
+     "substr": "d",
+     "color": "#B45309",
+     "note": "Distance in km"
+    }
+   ]
+  },
+  "narr": [
+   "Let's look at the specific equations for our electric bus model. The trip energy E equals the consumption e times the distance d.",
+   "The range R equals the usable energy u times the battery capacity C, divided by the consumption e.",
+   "Where C is the battery capacity in kilowatt-hours, u is the usable share (a unitless number between 0 and 1), e is the consumption in kilowatt-hours per kilometer, and d is the distance in kilometers.",
+   "The range R will be in kilometers, and the trip energy E in kilowatt-hours.",
+   "A unit check confirms this: u times C gives kilowatt-hours, divided by e in kilowatt-hours per kilometer, gives kilometers for the range.",
+   "For example, with a 160 kilowatt-hour usable energy divided by 1.2 kilowatt-hours per kilometer, we get a range of 133 kilometers."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Electric Bus Range Calculation",
+   "problem": "Calculate the range of an electric campus bus with the following specifications: battery capacity C = 200 kWh, usable share u = 0.8, consumption e = 1.2 kWh/km. The daily route is 8 laps of 12 km each.",
+   "steps": [
+    {
+     "text": "Calculate usable energy: u × C = 0.8 × 200 kWh = 160 kWh"
+    },
+    {
+     "text": "Calculate range: R = (u × C) ÷ e = 160 kWh ÷ 1.2 kWh/km = 133.33 km"
+    },
+    {
+     "text": "Calculate daily energy requirement: 8 laps × 12 km/lap × 1.2 kWh/km = 115.2 kWh"
+    },
+    {
+     "text": "Calculate daily distance: 8 laps × 12 km/lap = 96 km"
+    },
+    {
+     "text": "Compare range to daily distance: 133.33 km > 96 km"
+    }
+   ],
+   "result": "The bus has a range of 133.33 km on a full charge, which covers the daily requirement of 96 km with a margin of approximately 37.33 km."
+  },
+  "narr": [
+   "Let's apply our model to a specific problem. We need to calculate the range of an electric campus bus with a 200 kilowatt-hour battery, 80% usable share, and consumption of 1.2 kilowatt-hours per kilometer.",
+   "First, we calculate the usable energy by multiplying the battery capacity by the usable share: 0.8 times 200 kilowatt-hours equals 160 kilowatt-hours.",
+   "Next, we calculate the range by dividing the usable energy by the consumption: 160 kilowatt-hours divided by 1.2 kilowatt-hours per kilometer equals approximately 133.33 kilometers.",
+   "We then calculate the daily energy requirement: 8 laps of 12 kilometers each, multiplied by the consumption rate, gives us 115.2 kilowatt-hours per day.",
+   "The daily distance is simply 8 laps times 12 kilometers per lap, which equals 96 kilometers.",
+   "Comparing the range to the daily distance, we see that 133.33 kilometers is greater than 96 kilometers, meaning one charge covers the day with a margin of about 37.33 kilometers."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Three Kinds of Assumptions",
+   "bullets": [
+    "Simplifying - what we ignore (hills, traffic lights, stops, driver differences)",
+    "Data - what we fix (e = 1.2 kWh/km; C = 200 kWh; u = 0.8)",
+    "Boundary - what we leave outside (passengers, charger, grid; only the bus is in the model)"
+   ]
+  },
+  "narr": [
+   "But how far can we trust this number? That depends on the assumptions we made. There are three kinds of assumptions to consider.",
+   "First, simplifying assumptions are what we choose to ignore - like hills, traffic lights, stops, or differences between drivers.",
+   "Second, data assumptions are what we fix - like using e = 1.2 kWh/km, C = 200 kWh, and u = 0.8.",
+   "Third, boundary assumptions determine what we leave outside our model - in this case, we're only considering the bus itself, not passengers, the charger, or the grid.",
+   "Remember from week 2: the boundary is a choice, and every assumption is a choice too."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Template for Writing Assumptions",
+   "bullets": [
+    "Format: 'We assume [assumption] because [reason]. If it is wrong, [effect on result]'",
+    "Example: 'We assume 1.2 kWh/km in all seasons, because we only have autumn test data. If wrong, winter range may fall below the daily requirement of 96 km'",
+    "Assumptions should be written down so they can be checked",
+    "Hidden assumptions cannot be verified"
+   ]
+  },
+  "narr": [
+   "The course provides a specific template for writing assumptions: 'We assume [assumption] because [reason]. If it is wrong, [effect on result]'",
+   "For example: 'We assume 1.2 kilowatt-hours per kilometer in all seasons, because we only have autumn test data. If this assumption is wrong, the winter range may fall below the daily requirement of 96 kilometers.'",
+   "When writing assumptions, ask yourself: will a teammate be able to understand what you ignored, fixed, and left outside? Can it be checked?",
+   "The key point is that an assumption that is written down can be checked, but a hidden one cannot."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Takeaways",
+   "items": [
+    "Models are simplified representations that help answer specific questions",
+    "Four types: physical, graphical, mathematical, computational",
+    "Every model has four parts: inputs, parameters, relationships, outputs",
+    "Use Need-Know-How-Solve method for systematic modeling",
+    "Document all assumptions using the provided template"
+   ]
+  },
+  "narr": [
+   "Let's summarize what we've learned about models in engineering. First, models are simplified representations that help us answer specific questions about complex systems.",
+   "Second, there are four types of models: physical, graphical, mathematical, and computational, each serving different purposes.",
+   "Third, every model has four essential parts: inputs, parameters, relationships, and outputs.",
+   "Fourth, the Need-Know-How-Solve method provides a systematic approach to modeling problems.",
+   "Finally, it's crucial to document all assumptions using the provided template, making them explicit and checkable."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

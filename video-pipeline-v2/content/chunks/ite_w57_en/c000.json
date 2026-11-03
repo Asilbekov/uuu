@@ -1,0 +1,239 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering — Weeks 5–7",
+   "subtitle": "Study Guide"
+  },
+  "narr": [
+   "Welcome to this study guide for Introduction to Engineering, covering weeks 5 through 7. This guide is designed to help you prepare for your weekly mini projects, the midterm, and the final exam without having to re-watch hundreds of slides.",
+   "The course is taught by Dr. Mohammad Reza Bahrami for lectures and Ibrokhimjon Khamidov for labs. The course follows a Project-Based Learning approach where all semester work revolves around a single team system selected in week 2.",
+   "Week 5 focuses on Problem Framing and Modelling II, week 6 on Quantitative Reasoning I, and week 7 on Quantitative Reasoning II. The guide includes all questions, assignments, terms, formulas, and rules encountered in lectures, labs, and templates.",
+   "The guide is structured in sections 2-4 following the week-by-week chronology. Each week starts with a digest of key concepts, followed by questions with model answers, assignments with solutions, and a glossary of terms. Sections 5-8 provide summary sections for all formulas, rules, assignments, and a cheat sheet.",
+   "The terminology is kept bilingual in Russian and English because the exam is administered in English. Week 8 will be the Midterm Assessment covering the first seven weeks."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Week 5-7 Course Structure",
+   "columns": [
+    "Week",
+    "Topic",
+    "Lecture",
+    "Laboratory",
+    "Templates"
+   ],
+   "rows": [
+    [
+     "5",
+     "Problem framing and modelling II: models as purposeful simplifications; four types and four parts of a model; assumptions; fit for purpose",
+     "Lecture05 ProblemFraming andModelling II.txt (33 slides)",
+     "Lab5Problem FramingII.txt (16 pages)",
+     "Engineering ProblemFraming Blanket Template.txt; Lab5Model Worksheet Template.txt"
+    ],
+    [
+     "6",
+     "Quantitative reasoning I: demand and capacity, utilisation, peaks, intensities and flows, order of magnitude",
+     "Lecture06 Quantitative ReasoningI.txt (32 slides)",
+     "Lab6Quantitative ReasoningI.txt (17 pages)",
+     "Lab6Worksheet Template.txt"
+    ],
+    [
+     "7",
+     "Quantitative reasoning II: incomplete data, ranges, triangulation, interpretations, honest reporting",
+     "Lecture07 Quantitative ReasoningII.txt (32 slides)",
+     "Lab7Quantitative ReasoningII.txt (21 pages)",
+     "Lab7Engineering Decisions IncompleteData Template.txt"
+    ]
+   ]
+  },
+  "narr": [
+   "This table shows the structure of weeks 5 through 7, including the topics covered, lecture files, laboratory materials, and templates used for each week.",
+   "In week 5, we focus on problem framing and modeling as purposeful simplifications. Week 6 introduces quantitative reasoning concepts including demand, capacity, and utilization. Week 7 continues with quantitative reasoning but emphasizes handling incomplete data and making honest interpretations."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 5 — Problem framing and modelling II",
+   "subtitle": "Problem Framing and Modelling II"
+  },
+  "narr": [
+   "Now let's dive into week 5, which focuses on problem framing and modeling. In this week, we'll learn how to turn a framed problem into a simple model and how to clearly state what the model assumes."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Statements of Week 5",
+   "bullets": [
+    "A model is a purposeful simplification of a real system built to answer a specific question",
+    "Models keep relevant information and discard irrelevant details based on their purpose",
+    "Every model has a specific question it aims to answer",
+    "Good problem statements focus on needs rather than solutions",
+    "Variables are measurable quantities with units (performance, design, context)",
+    "Performance metrics are defined by stakeholders and should be quantified"
+   ]
+  },
+  "narr": [
+   "Let's review the key concepts from week 5. First, remember that a model is a purposeful simplification of a real system designed to answer a specific question.",
+   "Models selectively keep relevant information while discarding details that aren't needed for the particular question being addressed.",
+   "Every model has a specific purpose or question it aims to answer, such as 'is one charge enough for a day on the route?' for a bus battery model.",
+   "When framing problems, focus on needs rather than solutions. A good problem statement doesn't name a specific device or approach.",
+   "Variables in engineering problems are measurable quantities that have units, including performance metrics, design parameters, and contextual factors.",
+   "Performance metrics should be clearly defined by stakeholders and quantified whenever possible."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Campus Electrical Network",
+   "problem": "Consider a campus electrical network. How can we model it to answer different types of questions?",
+   "steps": [
+    "For connectivity questions (which buildings lose power during an outage), use a simplified one-line diagram that shows connections but not details",
+    "For capacity questions (how much load can the system handle), create a model that includes transformers, loads, and capacity limits",
+    "For analysis questions (where to add new capacity), develop a model that includes flow directions and current/voltage relationships"
+   ],
+   "result": "Different types of maps/models are needed for different questions: connectivity maps, capacity models, and analytical models"
+  },
+  "narr": [
+   "The lecture opens with an example of a campus electrical network and two different maps that answer different types of questions.",
+   "For connectivity questions like 'which buildings lose power during an outage?', a simplified one-line diagram is sufficient. This model keeps connections but discards details like wire thickness or exact specifications.",
+   "For capacity questions like 'how much load can the system handle?', we need a different model that includes transformers, loads, and capacity limits. This model keeps the electrical capacity information but might discard other details.",
+   "For analysis questions like 'where should we add new capacity?', we need yet another model that includes flow directions and current/voltage relationships.",
+   "The key insight is that different questions require different models, each keeping relevant information while discarding irrelevant details based on the specific purpose."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Types of Models",
+   "bullets": [
+    "Physical models: tangible representations (e.g., scale models, prototypes)",
+    "Mathematical models: equations and relationships describing system behavior",
+    "Conceptual models: verbal descriptions or diagrams explaining system structure",
+    "Simulation models: computational models that mimic system behavior over time"
+   ]
+  },
+  "narr": [
+   "Engineering models can be categorized into four main types. Physical models are tangible representations like scale models or prototypes that you can touch and manipulate.",
+   "Mathematical models use equations and relationships to describe system behavior. These are often used when physical models are impractical or too expensive.",
+   "Conceptual models include verbal descriptions or diagrams that explain the structure or function of a system without detailed mathematical representation.",
+   "Simulation models are computational implementations that mimic system behavior over time, allowing engineers to test scenarios that would be difficult or impossible to reproduce physically."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Parts of a Model",
+   "bullets": [
+    "Inputs: known quantities or conditions that drive the model",
+    "Parameters: constants or properties that define system characteristics",
+    "Relationships: equations or rules connecting inputs and parameters to outputs",
+    "Outputs: results or predictions generated by the model"
+   ]
+  },
+  "narr": [
+   "Every model has four essential parts. First, inputs are the known quantities or conditions that drive the model, such as demand values or material properties.",
+   "Parameters are constants or properties that define system characteristics, like the capacity of a machine or the resistance of a material.",
+   "Relationships are the equations or rules that connect inputs and parameters to produce outputs, such as Ohm's law connecting voltage, current, and resistance.",
+   "Outputs are the results or predictions generated by the model, such as the estimated time to complete a task or the predicted performance of a system."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model Assumptions",
+   "bullets": [
+    "Explicit assumptions: clearly stated conditions or simplifications",
+    "Implicit assumptions: unstated but necessary conditions",
+    "Purpose-driven: assumptions should align with the model's specific question",
+    "Fit for purpose: models should be detailed enough for their intended use"
+   ]
+  },
+  "narr": [
+   "Critical to any model are its assumptions. Explicit assumptions are clearly stated conditions or simplifications that define the boundaries of the model.",
+   "Implicit assumptions are unstated but necessary conditions that must hold for the model to be valid. Engineers should strive to make these explicit when possible.",
+   "Assumptions should be purpose-driven, meaning they directly support the specific question the model aims to answer.",
+   "Models must be fit for purpose - detailed enough to provide useful insights for their intended application, but not unnecessarily complex."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Bus Range Model",
+   "problem": "How would you model the range of an electric bus for a specific route?",
+   "steps": [
+    "Identify key variables: battery energy capacity, route distance, energy consumption per kilometer",
+    "Make simplifying assumptions: constant speed, no passenger load variations, no weather effects",
+    "Develop relationship: Range = Battery Energy / Energy per Kilometer",
+    "Apply to specific question: Is one charge enough for a day on the route?"
+   ],
+   "result": "A simplified model focusing on energy, distance, and consumption can answer whether one charge is sufficient"
+  },
+  "narr": [
+   "Let's consider another example from the lecture: modeling the range of an electric bus. To create a useful model, we first identify the key variables.",
+   "These include the battery energy capacity, the total distance of the route, and the energy consumption per kilometer. These are the essential elements for answering our specific question.",
+   "We then make simplifying assumptions, such as constant speed, no variations in passenger load, and no weather effects. These assumptions help create a manageable model.",
+   "The relationship is straightforward: the range equals the battery energy divided by the energy consumption per kilometer.",
+   "Finally, we apply this model to our specific question: is one charge enough for a day on the route? This model deliberately discards details like the bus color, number of seats, or exact shape of turns because they're irrelevant to this particular question."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]
