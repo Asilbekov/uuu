@@ -1,0 +1,459 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "In this section, we'll explore how to make informed decisions using metrics and understand the importance of honest reporting in engineering.",
+   "We'll look at how different baselines can change the story behind the numbers.",
+   "And we'll examine the four essential elements of an honest engineering report."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Misleading Comparisons",
+   "bullets": [
+    "Different baselines and boundaries give different but true stories",
+    "Always ask: a percentage of what?",
+    "Four questions for any interpretation"
+   ]
+  },
+  "narr": [
+   "Let's talk about misleading comparisons. These don't need false numbers - they just need questions.",
+   "Different baselines and boundaries can give different but true stories.",
+   "Always ask: a percentage of what?",
+   "For example, saying 'Route A has fewer complaints' without mentioning it has far fewer passengers is misleading.",
+   "Here are four critical questions for any interpretation:",
+   "First, for which decision is this number?",
+   "Second, which metric fits the decision - the mean, the peak, a percentile, or the worst case?",
+   "Third, which baseline, boundary and time basis are used?",
+   "Fourth, which assumption, if it turned out wrong, would flip the conclusion?"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   -1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — LED Retrofit Analysis",
+   "problem": "An LED retrofit saves 12 kW. How should this be interpreted?",
+   "steps": [
+    {
+     "text": "Calculate percentage of corridor lighting: 12 kW ÷ 20 kW = 60%"
+    },
+    {
+     "text": "Calculate percentage of building's peak: 12 kW ÷ 180 kW = 7%"
+    },
+    {
+     "text": "Identify different baselines: corridor lighting vs. building peak"
+    },
+    {
+     "text": "Question: Which baseline is relevant for the decision?"
+    }
+   ],
+   "result": "The same fact (12 kW saved) gives different percentages depending on the baseline. Always ask: a percentage of what?"
+  },
+  "narr": [
+   "Let's consider a practical example with LED retrofit analysis.",
+   "The fact is: the LED retrofit saves 12 kW.",
+   "We can calculate that this is 60% of corridor lighting (12 ÷ 20 kW).",
+   "But it's only 7% of the building's peak consumption (12 ÷ 180 kW).",
+   "So the same fact gives different percentages depending on the baseline.",
+   "The key question is: which baseline is relevant for the decision?",
+   "The answer is: always ask, a percentage of what?"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   -1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Honest Reporting",
+   "bullets": [
+    "RESULT — the answer, a simple sentence the reader can use",
+    "RANGE — how far to trust it: low to high, not a single value",
+    "TOP ASSUMPTION — the assumption the result rests on most",
+    "WHAT WOULD CHANGE IT — what to find out next"
+   ]
+  },
+  "narr": [
+   "Now let's discuss honest reporting in engineering.",
+   "An honest engineering report consists of four essential elements.",
+   "First, the RESULT - a simple sentence the reader can use.",
+   "Second, the RANGE - showing how far to trust the result, from low to high, not just a single value.",
+   "Third, the TOP ASSUMPTION - identifying the assumption the result rests on most.",
+   "Fourth, WHAT WOULD CHANGE IT - specifying what to find out next: the data that would move the conclusion."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Bus Winter Range Analysis",
+   "problem": "Can one bus get through a winter day of 96 km on a single charge? Known: usable energy 160 kWh, daily requirement 96 km, summer tests 1.1–1.6 kWh/km (n=3). Missing: winter test data.",
+   "steps": [
+    {
+     "text": "Estimate winter consumption by analogy: summer + heating = 1.5–2.0 kWh/km (typically 1.8 kWh/km)"
+    },
+    {
+     "text": "Calculate winter range: 160 kWh ÷ 1.5/1.8/2.0 kWh/km = 107/89/80 km"
+    },
+    {
+     "text": "Compare with requirement: 89 km vs. 96 km requirement"
+    },
+    {
+     "text": "Report honest assessment with all four elements"
+    }
+   ],
+   "result": "Result — 'probably not: 89 km against 96 km'; Range — 80–107 km; Top assumption — 1.8 kWh/km with low confidence; What would change it — one real winter trip or daytime top-up charging."
+  },
+  "narr": [
+   "Let's look at the lecture's summary example: can one bus get through a winter day of 96 km on a single charge?",
+   "We know the usable energy is 160 kWh and the daily requirement is 96 km.",
+   "We have summer tests showing consumption of 1.1–1.6 kWh/km, but no winter test data.",
+   "The gap is filled with a range: winter consumption estimated by analogy at 1.5–2.0 kWh/km, typically 1.8 kWh/km.",
+   "Now we calculate the winter range: 160 kWh divided by these consumption values gives 107/89/80 km.",
+   "Comparing with the 96 km requirement, only the optimistic case passes.",
+   "So we report: result — 'probably not: 89 km against 96 km'; range — 80–107 km; top assumption — 1.8 kWh/km with low confidence; and what would change it — one real winter trip or daytime top-up charging.",
+   "Importantly, we state the low confidence level: hiding it does not remove it."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 7 Questions",
+   "subtitle": "Lecture and Lab Questions with Model Answers"
+  },
+  "narr": [
+   "Now let's explore some key questions from week 7, along with their model answers.",
+   "These questions cover various aspects of data analysis and engineering reporting."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S1 — Incomplete Data Types",
+   "problem": "Name the five ways data can be incomplete, with bus examples.",
+   "steps": [
+    {
+     "text": "Too little — a few points: three test trips"
+    },
+    {
+     "text": "Missing — no data for the case we need: no winter test"
+    },
+    {
+     "text": "Noisy — values scatter around the truth: 1.1–1.6 kWh/km on the same route"
+    },
+    {
+     "text": "Outdated or unrepresentative — measured under other conditions: tests with an empty bus"
+    },
+    {
+     "text": "Wrong definition or unit — the quantity is not what we think: battery in '%'"
+    }
+   ],
+   "result": "Name the problem first: the fix depends on which of the five types of incompleteness it is."
+  },
+  "narr": [
+   "Question S1 asks us to name the five ways data can be incomplete, with bus examples.",
+   "First, too little data — just a few points, like only three test trips.",
+   "Second, missing data — no information for the case we actually need, like no winter test.",
+   "Third, noisy data — values that scatter around the truth, like consumption readings of 1.1–1.6 kWh/km on the same route.",
+   "Fourth, outdated or unrepresentative data — measured under different conditions, like tests conducted with an empty bus.",
+   "Fifth, wrong definition or unit — when the quantity isn't what we think it is, like reporting battery capacity in '%' without specifying the total capacity.",
+   "The key is to name the problem first, because the fix depends on which of these five types of incompleteness we're dealing with."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S2 — Data Sources and Trust",
+   "problem": "Where do numbers come from, and how far should they be trusted?",
+   "steps": [
+    {
+     "text": "Measure (time a trip, keep a charging log) — high confidence, if the method is stated"
+    },
+    {
+     "text": "Look up (a datasheet, a standard) — average: conditions may differ"
+    },
+    {
+     "text": "Ask (the driver, the operations manager) — average: check it against something"
+    },
+    {
+     "text": "Estimate (break into factors, lecture 6) — low–medium: state the assumptions"
+    },
+    {
+     "text": "Analogy (a similar building or route) — low: say how similar"
+    }
+   ],
+   "result": "Write the source and the confidence level next to every number."
+  },
+  "narr": [
+   "Question S2 asks about where numbers come from and how far they should be trusted.",
+   "First, direct measurement — like timing a trip or keeping a charging log. This has high confidence if the method is stated.",
+   "Second, looking up values — like in a datasheet or standard. This has average confidence because conditions may differ.",
+   "Third, asking people — like the driver or operations manager. Also average confidence, but you should check it against something.",
+   "Fourth, estimation — like breaking factors down. This has low to medium confidence, so state your assumptions.",
+   "Fifth, analogy — using data from a similar building or route. This has low confidence, so explain how similar they are.",
+   "The rule is: always write the source and the confidence level next to every number."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S3 — Reporting Ranges",
+   "problem": "Why a range rather than a single number? What should be reported for the three summer trips?",
+   "steps": [
+    {
+     "text": "A range tells the reader how far to trust the answer"
+    },
+    {
+     "text": "Three trips of 1.1/1.3/1.6 kWh/km give a range of 160÷1.1/1.3/1.6 = 145/123/100 km"
+    },
+    {
+     "text": "All three cases cover the daily requirement of 96 km, but the high-consumption case only with a 4 km margin"
+    }
+   ],
+   "result": "Report: 'about 100 to 145 km'. A single number would hide how thin the margin is in the worst case."
+  },
+  "narr": [
+   "Question S3 asks why we should use a range rather than a single number, and what should be reported for the three summer trips.",
+   "A range tells the reader how far to trust the answer, which a single number cannot convey.",
+   "For the three summer trips with consumption of 1.1/1.3/1.6 kWh/km, we calculate a range of 160÷1.1/1.3/1.6 = 145/123/100 km.",
+   "All three cases cover the daily requirement of 96 km, but the high-consumption case only has a 4 km margin.",
+   "So we should report: 'about 100 to 145 km'. Using a single number, like 123 km, would hide how thin the margin is in the worst case."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S4 — Mean vs. Median",
+   "problem": "Mean or median for a small sample? What should be written next to the number?",
+   "steps": [
+    {
+     "text": "Calculate mean: (1.1 + 1.3 + 1.6) ÷ 3 = 1.33 kWh/km"
+    },
+    {
+     "text": "Identify median: the middle value when ordered = 1.3 kWh/km"
+    },
+    {
+     "text": "Note that one odd trip moves the mean a lot, but the median almost not at all"
+    },
+    {
+     "text": "With n = 3, give a range and n; do not claim more than three trips can show"
+    }
+   ],
+   "result": "Write n next to every reported number."
+  },
+  "narr": [
+   "Question S4 asks whether to use mean or median for a small sample, and what should be written next to the number.",
+   "For three trips with consumption of 1.1, 1.3, and 1.6 kWh/km, the mean is (1.1 + 1.3 + 1.6) ÷ 3 = 1.33 kWh/km.",
+   "The median is the middle value when ordered, which is 1.3 kWh/km.",
+   "Notice that one odd trip moves the mean a lot, but the median almost not at all.",
+   "With a small sample size like n = 3, you should give a range and the sample size n. Don't claim more than what three trips can show.",
+   "The rule is: write n next to every reported number."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S5 — Triangulation",
+   "problem": "What is triangulation? Give the faculty building example.",
+   "steps": [
+    {
+     "text": "Triangulation is estimating one quantity by several independent routes and comparing"
+    },
+    {
+     "text": "Route 1 — floor area × typical consumption: 8,000 m² × 0.35 kWh/m²·day ≈ 2,800 kWh/day"
+    },
+    {
+     "text": "Route 2 — the load profile: 94 kW × 24h ≈ 2,260 kWh/day"
+    },
+    {
+     "text": "Route 3 — the monthly bill: 70,000 ÷ 30 ≈ 2,330 kWh/day"
+    }
+   ],
+   "result": "Three independent routes agree to within about 25%. Agreement builds trust, disagreement points to where to look."
+  },
+  "narr": [
+   "Question S5 asks about triangulation and requests the faculty building example.",
+   "Triangulation is estimating one quantity by several independent routes and comparing the results.",
+   "For the faculty building's daily energy consumption, we have three routes:",
+   "First, floor area times typical consumption: 8,000 square meters times 0.35 kWh per square meter per day equals about 2,800 kWh per day.",
+   "Second, using the load profile: 94 kW times 24 hours equals about 2,260 kWh per day.",
+   "Third, from the monthly bill: 70,000 kWh divided by 30 days equals about 2,330 kWh per day.",
+   "These three independent routes agree to within about 25%. Agreement builds trust in the result, while disagreement points to where we should look next."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S6 — Name the Problem",
+   "problem": "For each scenario, name the problem type A–F and the way to get a better number.",
+   "steps": [
+    {
+     "text": "A 'We tested the bus in one trip' — too little: repeat the trip on different days and loads"
+    },
+    {
+     "text": "B 'No data on winter heating of the dormitory' — missing: estimate by analogy; schedule a winter measurement"
+    },
+    {
+     "text": "C 'Five charger readings: 58, 61, 54, 63, 60 kW' — noisy: the mean and a range, about 59 kW (54–63)"
+    },
+    {
+     "text": "D 'The generation figure is from a desert site' — unrepresentative: find data from a similar climate"
+    },
+    {
+     "text": "E 'The datasheet says '200' without a unit' — wrong definition/unit: 200 kWh is energy, 200 kW is power"
+    },
+    {
+     "text": "F 'The load profile is from before the new wing' — out of date: re-measure or scale the profile"
+    }
+   ],
+   "result": "Identify the type of data problem to determine the appropriate solution."
+  },
+  "narr": [
+   "Question S6 presents six scenarios and asks us to name the problem type and how to get a better number.",
+   "For scenario A: 'We tested the bus in one trip' — the problem is too little data. The solution is to repeat the trip on different days and loads.",
+   "For scenario B: 'No data on winter heating of the dormitory' — the problem is missing data. The solution is to estimate by analogy or schedule a winter measurement.",
+   "For scenario C: 'Five charger readings: 58, 61, 54, 63, 60 kW' — the problem is noisy data. The solution is to report the mean and a range, about 59 kW (54–63).",
+   "For scenario D: 'The generation figure is from a desert site' — the problem is unrepresentative data. The solution is to find data from a similar climate.",
+   "For scenario E: 'The datasheet says '200' without a unit' — the problem is wrong definition or unit. The solution is to clarify: 200 kWh is energy, 200 kW is power.",
+   "For scenario F: 'The load profile is from before the new wing' — the problem is outdated data. The solution is to re-measure or scale the profile.",
+   "The key lesson is to identify the type of data problem to determine the appropriate solution."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S7 — Interpreting Waiting Time Data",
+   "problem": "One dataset — three readings: how do the dispatcher, the passenger and the administrator read the waiting distribution?",
+   "steps": [
+    {
+     "text": "Dispatcher perspective: focuses on system efficiency and peak loads"
+    },
+    {
+     "text": "Passenger perspective: concerned with individual experience and maximum wait times"
+    },
+    {
+     "text": "Administrator perspective: looks at overall performance and resource allocation"
+    }
+   ],
+   "result": "Different stakeholders interpret the same data differently based on their priorities and responsibilities."
+  },
+  "narr": [
+   "Finally, question S7 asks how different stakeholders interpret waiting time distribution data.",
+   "With one dataset showing three readings, we need to consider different perspectives.",
+   "The dispatcher, responsible for system operations, might focus on efficiency and peak loads.",
+   "The passenger, experiencing the service firsthand, would be concerned with individual experience and maximum wait times.",
+   "The administrator, overseeing the entire system, looks at overall performance and resource allocation.",
+   "The key insight is that different stakeholders interpret the same data differently based on their priorities and responsibilities."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   -1,
+   1,
+   -1
+  ]
+ }
+]

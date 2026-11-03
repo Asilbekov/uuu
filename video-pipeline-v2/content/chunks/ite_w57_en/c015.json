@@ -1,0 +1,476 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "In this video, we'll explore key engineering decision-making concepts when dealing with incomplete data.",
+   "We'll cover how to properly analyze metrics, check baselines, triangulate estimates, identify critical assumptions, and communicate results effectively."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Engineering Decision Concepts",
+   "bullets": [
+    "Percentile, maximum, peak or rate per unit/user - choose appropriate metrics",
+    "Check the baseline/denominator - express results against different bases",
+    "Triangulate key quantities - estimate by at least 2 independent methods",
+    "Identify what would flip the decision - find critical assumptions and thresholds",
+    "Create final honest reports - result, range, top assumptions, what would change conclusion"
+   ]
+  },
+  "narr": [
+   "When making engineering decisions with limited data, it's crucial to select the right metrics.",
+   "For instance, instead of just looking at raw numbers, consider expressing them as percentages against different baselines.",
+   "This helps reveal different aspects of the story that might otherwise be hidden.",
+   "Always try to triangulate your key estimates using at least two independent methods.",
+   "Identify the most uncertain assumptions that could change your decision, and determine the threshold values.",
+   "Finally, communicate your findings honestly with clear results, ranges, and critical assumptions."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — LED Lamp Reliability and Energy-Saving Decision",
+   "problem": "Decide how confidently the university can estimate the annual energy saving, and whether replacing all lamps right now is justified.",
+   "steps": [
+    "Diagnose data problems and identify better numbers",
+    "Evaluate sources and confidence levels for key quantities",
+    "Calculate energy saving ranges (low/typical/high)",
+    "Interpret the same dataset from different perspectives",
+    "Choose the appropriate metric for the decision"
+   ],
+   "result": "Decision requires more data on service life, actual hours of use, and current number of lamps"
+  },
+  "narr": [
+   "Let's examine a case study about LED lamp replacement in a university setting.",
+   "The task is to determine how confidently we can estimate annual energy savings and whether immediate replacement is justified.",
+   "First, we need to diagnose the data problems and identify better numbers.",
+   "Then, we'll evaluate the sources and confidence levels for key quantities.",
+   "Next, we'll calculate energy saving ranges under different scenarios.",
+   "We'll also explore how the same dataset can be interpreted from different perspectives.",
+   "Finally, we'll discuss choosing the appropriate metric for the decision."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Diagnosing Data Problems - LED Case",
+   "columns": [
+    "Quantity/statement",
+    "Problem type",
+    "Why it is a problem",
+    "A better number"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Only 5 lamps tested",
+      "tex": "n = 5 from one batch; only 2 lamps have run more than 2000 h"
+     },
+     {
+      "text": "too little; unrepresentative"
+     },
+     {
+      "text": "n = 5 from one batch; only 2 lamps have run more than 2000 h"
+     },
+     {
+      "text": "Test several batches and more lamps"
+     }
+    ],
+    [
+     {
+      "text": "40,000 h service life"
+     },
+     {
+      "text": "missing"
+     },
+     {
+      "text": "The supplier's datasheet; no university evidence yet"
+     },
+     {
+      "text": "An accelerated life test; field failure data"
+     }
+    ],
+    [
+     {
+      "text": "6,000 lamps"
+     },
+     {
+      "text": "out of date"
+     },
+     {
+      "text": "The count predates the opening of the new block; now 6,300-6,700"
+     },
+     {
+      "text": "Recount from the asset register"
+     }
+    ],
+    [
+     {
+      "text": "20 kW against 75 kW"
+     },
+     {
+      "text": "wrong definition/boundary"
+     },
+     {
+      "text": "Different baselines of \"corridor lighting\""
+     },
+     {
+      "text": "Ask what is included in each; check bottom-up (6500 × 18W ≈117kW)"
+     }
+    ],
+    [
+     {
+      "text": "10-14 h/day; 700-1,000 UZS/kWh"
+     },
+     {
+      "text": "noisy (a wide spread)"
+     },
+     {
+      "text": "Estimates, not logs; the tariff depends on the contract period"
+     },
+     {
+      "text": "Log the hours; use the contract tariff"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's start by diagnosing the data problems in this LED lamp case.",
+   "First problem: only 5 lamps were tested, which is too little and unrepresentative.",
+   "A better approach would be to test several batches and more lamps.",
+   "Second problem: the claimed 40,000 hour service life is missing verification.",
+   "Better numbers would come from accelerated life tests or field failure data.",
+   "Third problem: the lamp count of 6,000 is outdated since a new block opened.",
+   "We should recount from the asset register, which now shows 6,300-6,700 lamps.",
+   "Fourth problem: the 20kW against 75kW comparison uses different definitions.",
+   "We need to clarify what's included in each baseline and check bottom-up calculations.",
+   "Fifth problem: the usage hours and tariff estimates have wide spreads.",
+   "Better numbers would come from actual logs and contract tariffs."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Source and Confidence for Key Numbers",
+   "columns": [
+    "Quantity",
+    "Value/range",
+    "Source",
+    "Confidence",
+    "Short reason"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Power of the new lamp"
+     },
+     {
+      "tex": "11.7-12.6 W; mean 12.1W(SD 0.35, n = 5)"
+     },
+     {
+      "text": "measurement"
+     },
+     {
+      "text": "average"
+     },
+     {
+      "text": "The method is stated, but one batch and n = 5"
+     }
+    ],
+    [
+     {
+      "text": "Power of the old lamp"
+     },
+     {
+      "text": "18 W"
+     },
+     {
+      "text": "rating (look up)"
+     },
+     {
+      "text": "average"
+     },
+     {
+      "text": "A rating, not a measurement; check several old lamps"
+     }
+    ],
+    [
+     {
+      "text": "Number of lamps"
+     },
+     {
+      "tex": "6,300-6,700 (was 6,000)"
+     },
+     {
+      "text": "a technician's estimate"
+     },
+     {
+      "text": "medium-low"
+     },
+     {
+      "text": "An old count; a new block has opened"
+     }
+    ],
+    [
+     {
+      "text": "Hours of use"
+     },
+     {
+      "tex": "10-14 h/day"
+     },
+     {
+      "text": "estimate (ask)"
+     },
+     {
+      "text": "low-medium"
+     },
+     {
+      "text": "No logs; ±17% around 12 h"
+     }
+    ],
+    [
+     {
+      "text": "Service life"
+     },
+     {
+      "tex": "40000h(≈9 years at 12 h/day)"
+     },
+     {
+      "text": "the supplier's datasheet"
+     },
+     {
+      "text": "low-medium"
+     },
+     {
+      "text": "Not verified locally; 2 lamps beyond 2,000 h"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Now let's evaluate the sources and confidence levels for our key numbers.",
+   "The power measurements for new lamps have average confidence - the method is stated but only one batch with n=5 was tested.",
+   "The old lamp power rating is also average confidence - it's a rating rather than a direct measurement.",
+   "The number of lamps has medium-low confidence since it's based on an old count with a new block opened.",
+   "Hours of use have low-medium confidence with ±17% uncertainty around 12 hours.",
+   "Service life has low-medium confidence as it's not verified locally, with only 2 lamps exceeding 2,000 hours.",
+   "The power-related numbers are strongest, while hours and service life are weakest."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Annual Energy Saving as a Range",
+   "columns": [
+    "Case",
+    "Saving per lamp [W]",
+    "Lamps [units]",
+    "Hours [h/day]",
+    "Tariff [UZS/kWh]",
+    "Energy saving [MWh/year]",
+    "Cost [million UZS/year]"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Low"
+     },
+     {
+      "tex": "5.4 (18 - 12.6)"
+     },
+     {
+      "tex": "6,300"
+     },
+     {
+      "tex": "10"
+     },
+     {
+      "tex": "700"
+     },
+     {
+      "tex": "124"
+     },
+     {
+      "tex": "87"
+     }
+    ],
+    [
+     {
+      "text": "Typical"
+     },
+     {
+      "tex": "5.88 (18 - 12.12)"
+     },
+     {
+      "tex": "6,500"
+     },
+     {
+      "tex": "12"
+     },
+     {
+      "tex": "850"
+     },
+     {
+      "tex": "167"
+     },
+     {
+      "tex": "142"
+     }
+    ],
+    [
+     {
+      "text": "High"
+     },
+     {
+      "tex": "6.3 (18 - 11.7)"
+     },
+     {
+      "tex": "6,700"
+     },
+     {
+      "tex": "14"
+     },
+     {
+      "tex": "1,000"
+     },
+     {
+      "tex": "216"
+     },
+     {
+      "tex": "216"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's calculate the annual energy saving across different scenarios.",
+   "In the typical case: 5.88 watts saving per lamp times 6,500 lamps times 12 hours per day times 365 days divided by 1,000 gives approximately 167,000 kWh per year.",
+   "Our range statement shows energy savings from about 124 to 216 MWh per year.",
+   "In cost terms, that's about 87 to 216 million UZS per year.",
+   "When analyzing sensitivity, one variable at a time with others at typical values, we find:",
+   "Hours of use have the biggest impact, ranging from 139 to 195 MWh/year when changing from 10 to 14 hours per day.",
+   "The per-lamp power saving ranges from 154 to 179 MWh/year when changing from 5.4 to 6.3 watts.",
+   "The number of lamps has the smallest impact, ranging from 162 to 173 MWh/year when changing from 6,300 to 6,700 lamps."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "One Dataset — Two Interpretations",
+   "bullets": [
+    "Favorable reading (procurement manager): \"Replace everything\" - 30-35% saving per lamp is very likely real",
+    "Critical reading (operations engineer): \"We do not know they will last that long\" - service life unverified, other uncertainties",
+    "Both readings agree on measured power and saving - 12W against 18W (≈6W per lamp)",
+    "Dispute is about service life, hours and price, not about watts",
+    "Data that would settle it: multi-batch field pilot with failure logs, logged hours, current count, purchase price"
+   ]
+  },
+  "narr": [
+   "The same dataset can lead to different interpretations depending on perspective.",
+   "The procurement manager's favorable reading suggests replacing everything immediately, noting the 30-35% saving per lamp is very likely real.",
+   "The operations engineer's critical reading questions whether the lamps will last as long as claimed, pointing to unverified service life and other uncertainties.",
+   "Both interpretations agree on the measured power and saving - about 12W against 18W, or approximately 6W per lamp.",
+   "The dispute isn't about the watts but about service life, hours of use, and price.",
+   "To settle this debate, we'd need a multi-batch field pilot with failure logs, actual logged hours of use, current lamp count, and purchase/installation prices."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Engineering Decision-Making Principles",
+   "items": [
+    "Choose appropriate metrics (percentile, maximum, rate per unit)",
+    "Check baselines - express results against different bases",
+    "Triangulate key estimates with at least 2 independent methods",
+    "Identify critical assumptions and decision thresholds",
+    "Communicate results honestly with ranges and uncertainties",
+    "Consider multiple interpretations of the same data"
+   ]
+  },
+  "narr": [
+   "To summarize these key engineering decision-making principles:",
+   "First, choose appropriate metrics that accurately represent what you're measuring.",
+   "Second, always check your baselines and express results against different bases to reveal different aspects of the story.",
+   "Third, triangulate your key estimates using at least two independent methods to build confidence.",
+   "Fourth, identify the critical assumptions that could change your decision and determine their threshold values.",
+   "Fifth, communicate your results honestly with clear ranges and uncertainties.",
+   "Finally, consider multiple interpretations of the same data to understand different perspectives and potential biases."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

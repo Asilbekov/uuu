@@ -1,0 +1,349 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "In this video, we'll explore the engineering decision-making process when dealing with incomplete data. We'll follow a structured approach to diagnose information, use ranges, and draw reliable conclusions.",
+   "Let's start by understanding the key questions engineers face when making decisions about energy-saving lamp replacements."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Decision Questions",
+   "bullets": [
+    "How much energy will be saved?",
+    "What does the typical new lamp draw?",
+    "Will the lamps last long enough?",
+    "Does the replacement pay off?"
+   ]
+  },
+  "narr": [
+   "First, we need to ask four fundamental questions when evaluating any energy-saving project.",
+   "How much energy will be saved? This requires understanding both the percentage savings and the absolute amount.",
+   "What does the typical new lamp draw? We need to know the actual power consumption, not just an average.",
+   "Will the lamps last long enough? Reliability is crucial - average power doesn't tell us about failure rates.",
+   "Does the replacement pay off? We must consider both energy savings and the initial investment cost."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Best Metrics",
+   "bullets": [
+    "Annual kWh saved (with range)",
+    "Median power consumption (with mean, range, and sample size)",
+    "Failure rate per hours of operation",
+    "Payback or cost per year of service"
+   ]
+  },
+  "narr": [
+   "To answer these questions, we need to choose appropriate metrics that give us the most accurate picture.",
+   "For energy savings, we should use annual kWh saved along with a range to account for uncertainty.",
+   "For power consumption, the median is better than the mean when we have limited data points.",
+   "For reliability, we need failure rates per hours of operation, not just average power figures.",
+   "For financial viability, we should calculate payback period or cost per year of service, which includes purchase price."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Energy Savings Calculation",
+   "problem": "Calculate the energy savings when replacing old lamps with new ones, given the power consumption difference.",
+   "steps": [
+    {
+     "text": "Calculate per-lamp savings: 5.88W ÷ 18W = 33%"
+    },
+    {
+     "text": "Calculate total power savings: 6500 × 5.88W ≈ 38.2 kW"
+    },
+    {
+     "text": "Compare against old total consumption: 6500 × 18W ≈ 117 kW"
+    },
+    {
+     "text": "Verify percentage: 38.2 kW ÷ 117 kW ≈ 33%"
+    }
+   ],
+   "result": "The replacement saves approximately 33% of energy per lamp and across the entire system."
+  },
+  "narr": [
+   "Let's work through an example of calculating energy savings for a campus lighting replacement project.",
+   "First, we calculate the per-lamp savings by dividing the power reduction by the original power: 5.88 watts divided by 18 watts equals 33 percent.",
+   "Next, we calculate the total power savings by multiplying the per-lamp savings by the number of lamps: 6500 lamps times 5.88 watts gives us approximately 38.2 kilowatts.",
+   "Then, we compare this against the old total consumption: 6500 lamps times 18 watts equals approximately 117 kilowatts.",
+   "Finally, we verify the percentage: 38.2 kilowatts divided by 117 kilowatts also gives us approximately 33 percent, confirming our calculation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Baseline Verification",
+   "problem": "Check the baseline energy consumption against different estimates and identify inconsistencies.",
+   "steps": [
+    {
+     "text": "Compare against operations estimate: 38.2 kW ÷ 75 kW = 51%"
+    },
+    {
+     "text": "Compare against old report: 38.2 kW ÷ 20 kW = 191%"
+    },
+    {
+     "text": "Identify impossible result: 191% exceeds 100%, indicating baseline error"
+    },
+    {
+     "text": "Apply rule: Results above 100% suggest wrong baseline boundary"
+    }
+   ],
+   "result": "The 20 kW baseline is incorrect as it gives a savings percentage over 100%. The proper boundary must be clearly defined (corridor lamps only, all lighting, or whole building)."
+  },
+  "narr": [
+   "Now let's verify our baseline energy consumption against different estimates to ensure accuracy.",
+   "First, we compare our savings against the operations estimate of 75 kilowatts: 38.2 kilowatts divided by 75 kilowatts equals 51 percent.",
+   "Next, we compare against the old report's 20 kilowatts: 38.2 kilowatts divided by 20 kilowatts equals 191 percent.",
+   "This result is impossible because savings cannot exceed 100 percent, indicating that the 20 kilowatt baseline is incorrect.",
+   "This follows an important rule: any result above 100 percent is a hint that the baseline boundary is wrong. We must clearly define whether we're considering corridor lamps only, all lighting, or the entire building."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Triangulating Annual Savings",
+   "columns": [
+    "Route",
+    "Method/Source",
+    "Working",
+    "Result with Unit",
+    "Confidence"
+   ],
+   "rows": [
+    [
+     "Route 1",
+     "Bottom-up (lamps)",
+     "$6500 \\times 5.88W \\times 12h \\times 365 \\div 1000$",
+     "$\\approx 167$ MWh/year",
+     "Medium-low"
+    ],
+    [
+     "Route 2",
+     "Top-down (75 kW)",
+     "$75 kW \\times 0.327 \\times 12h \\times 365$",
+     "$\\approx 107$ MWh/year",
+     "Low-medium"
+    ],
+    [
+     "Route 3",
+     "Top-down (20 kW)",
+     "$20 kW \\times 0.327 \\times 12h \\times 365$",
+     "$\\approx 29$ MWh/year",
+     "Low"
+    ]
+   ]
+  },
+  "narr": [
+   "To improve our confidence in the savings estimate, we use triangulation - calculating through different routes and comparing results.",
+   "Route 1 uses a bottom-up approach: multiplying measured power by counted lamps by hours. This gives approximately 167 megawatt-hours per year with medium-low confidence.",
+   "Route 2 uses a top-down approach with the operations estimate of 75 kilowatts and assumes one-third savings. This gives approximately 107 megawatt-hours per year with low-medium confidence.",
+   "Route 3 also uses a top-down approach but with the old energy report's 20 kilowatts. This gives only approximately 29 megawatt-hours per year with low confidence.",
+   "The first two routes agree within a factor of 1.6, confirming that the savings is real and substantial, though the exact size remains uncertain. The third route is six times lower, suggesting it only covers a subset of lamps."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Break-Even Analysis",
+   "problem": "Calculate the break-even premium per lamp based on different service life scenarios.",
+   "steps": [
+    {
+     "text": "Calculate annual saving per lamp: 5.88W × 12h × 365 ÷ 1000 ≈ 25.8 kWh"
+    },
+    {
+     "text": "Convert to annual saving in UZS: 25.8 kWh × 850 UZS ≈ 21,900 UZS"
+    },
+    {
+     "text": "For 40,000 hours service life: 21,900 UZS × (40,000÷8760) ≈ 200,000 UZS"
+    },
+    {
+     "text": "For 20,000 hours service life: 21,900 UZS × (20,000÷8760) ≈ 100,000 UZS"
+    },
+    {
+     "text": "For 10,000 hours service life: 21,900 UZS × (10,000÷8760) ≈ 50,000 UZS"
+    }
+   ],
+   "result": "The break-even premium per lamp ranges from 50,000 to 200,000 UZS depending on the actual service life of the lamps."
+  },
+  "narr": [
+   "Now let's determine what price premium would make the replacement cost-effective under different service life scenarios.",
+   "First, we calculate the annual saving per lamp: 5.88 watts times 12 hours times 365 days divided by 1000 gives approximately 25.8 kilowatt-hours.",
+   "Converting to Uzbekistani soms: 25.8 kilowatt-hours times 850 soms per kilowatt-hour equals approximately 21,900 soms per lamp per year.",
+   "For the claimed 40,000-hour service life (about 9.1 years), the break-even premium would be approximately 200,000 soms per lamp.",
+   "For a more conservative 20,000-hour service life (about 4.6 years), the break-even premium drops to approximately 100,000 soms per lamp.",
+   "And for a pessimistic 10,000-hour service life (about 2.3 years), the break-even premium would be approximately 50,000 soms per lamp."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "The new lamps should save about 170 MWh a year (range about 125 to 215, from 5 lamps of one batch), but because the 40,000 h life and the price are unverified we recommend a one-building pilot before replacing all 6,500 lamps.",
+   "who": "Engineering Team"
+  },
+  "narr": [
+   "Based on our analysis, here's the final honest report: The new lamps should save about 170 megawatt-hours per year, with a range of 125 to 215 megawatt-hours based on testing of 5 lamps from one batch.",
+   "However, because the claimed 40,000-hour service life and the actual price are unverified, we recommend conducting a pilot program in one building before committing to replacing all 6,500 lamps across the campus."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Engineering Decision Template",
+   "subtitle": "Group Work Template for Incomplete Data"
+  },
+  "narr": [
+   "Now let's examine the structured template engineers can use when making decisions with incomplete data. This template helps ensure thorough analysis and clear communication of uncertainties."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Template Components",
+   "bullets": [
+    "Diagnosis: identifying problems with data",
+    "Source and confidence: evaluating data reliability",
+    "Range: establishing low/typical/high scenarios",
+    "Interpretations: comparing favorable and critical views",
+    "Metric selection: choosing appropriate measures",
+    "Baseline verification: establishing correct reference points"
+   ]
+  },
+  "narr": [
+   "The template includes several key components to guide the decision-making process.",
+   "First, diagnosis helps identify problems with the data, including what's missing or unreliable.",
+   "Source and confidence evaluation assesses where each number comes from and how reliable it is.",
+   "Range analysis establishes low, typical, and high scenarios to account for uncertainty.",
+   "Interpretation comparison examines both favorable and critical views of the data.",
+   "Metric selection ensures we're measuring the right things to answer our key questions.",
+   "Baseline verification confirms we're using correct reference points for comparisons."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Advanced Analysis Components",
+   "bullets": [
+    "Triangulation: cross-verifying through different methods",
+    "Break point: identifying critical uncertainties",
+    "Final report: communicating results honestly"
+   ]
+  },
+  "narr": [
+   "The template also includes more advanced analysis components for thorough decision-making.",
+   "Triangulation involves cross-verifying results through different calculation methods to improve confidence.",
+   "Break point analysis identifies the most critical uncertainties that could change the decision.",
+   "Finally, the final report communicates results honestly, including what we know, what we don't know, and what additional information would help."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Takeaways",
+   "items": [
+    "Use appropriate metrics that capture the full picture",
+    "Triangulate results through different calculation methods",
+    "Establish correct baselines for comparison",
+    "Account for uncertainty with ranges and confidence levels",
+    "Identify critical uncertainties that could change decisions",
+    "Communicate results honestly, including limitations"
+   ]
+  },
+  "narr": [
+   "To summarize, effective engineering decision-making with incomplete data requires several key practices.",
+   "First, choose metrics that capture the full picture rather than relying on single numbers.",
+   "Second, triangulate your results through different calculation methods to verify consistency.",
+   "Third, establish correct baselines for comparison to avoid impossible results like savings over 100%.",
+   "Fourth, account for uncertainty by establishing ranges and confidence levels for your estimates.",
+   "Fifth, identify the critical uncertainties that could change your decision.",
+   "Finally, communicate your results honestly, including both what you know and the limitations of your analysis."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

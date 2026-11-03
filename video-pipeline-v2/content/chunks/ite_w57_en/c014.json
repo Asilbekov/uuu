@@ -1,0 +1,414 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "Welcome to this study guide covering Weeks 5 through 7 of Introduction to Engineering. We'll explore how to interpret numbers, make decisions with incomplete data, and create honest engineering reports.",
+   "Let's begin with understanding how metrics are chosen based on the questions we're trying to answer."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S8 — How is the metric chosen by the deciding question?",
+   "problem": "Different metrics can represent different aspects of the same data. How do we choose which metric to use?",
+   "steps": [
+    "Identify the deciding question",
+    "Match the question to the appropriate metric",
+    "Apply the metric to the waiting time data"
+   ],
+   "result": "The decision chooses the metric, not the other way round."
+  },
+  "narr": [
+   "Consider this question: how is the metric chosen by the deciding question?",
+   "Let's think about waiting times. If we ask 'how long does the typical passenger wait?', we should use the median, which is about 5 minutes.",
+   "But if we ask 'how much waiting in total?', we need the mean, which is about 6 minutes multiplied by the number of passengers.",
+   "For 'how bad is it for the unlucky?', we'd use the 90th percentile, about 13 minutes.",
+   "And for 'what is the worst case?', we need the maximum, about 16 minutes.",
+   "As we can see, the decision question determines which metric we use, not the other way around."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Understanding Percentages",
+   "bullets": [
+    "Percentages require context about the baseline",
+    "Different boundaries can give different but true percentages",
+    "Always ask: 'a percentage of what?'"
+   ]
+  },
+  "narr": [
+   "Let's talk about percentages. One fact can be represented in multiple ways depending on the baseline.",
+   "For example, if an LED retrofit saves 12 kW, that's 60% of corridor lighting (12 ÷ 20 kW) but only 7% of the building's peak demand (12 ÷ 180 kW).",
+   "Both percentages are true, but they tell different stories based on their baselines and boundaries.",
+   "This is why we always need to ask: 'a percentage of what?'"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S9 — 'A percentage of what?' — LED retrofit savings",
+   "problem": "Explain how the same saving can be represented as different percentages.",
+   "steps": [
+    "Identify the saving: 38 kW from LED retrofit",
+    "Calculate percentage against different baselines",
+    "Interpret the results"
+   ],
+   "result": "Different baselines and boundaries give different but true stories — always ask, a percentage of what."
+  },
+  "narr": [
+   "Let's look at a specific example with LED retrofit savings.",
+   "In one case, the same saving of 38 kW gives 33% against the 117 kW of old connected lighting.",
+   "It gives 51% against the operations estimate of 75 kW, which seems too high.",
+   "And it gives 191% against the old report of 20 kW, which is impossible because the boundary is wrong.",
+   "This demonstrates how the same fact can be represented as different percentages depending on the baseline."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Techniques That Mislead Without False Numbers",
+   "bullets": [
+    "Different denominators: 'Route A has fewer complaints' while having fewer passengers",
+    "Cherry-picked days: 'the best week of the semester' without mentioning dropped days",
+    "Truncated axis: a bar chart starting at 80 makes a 5% gap look huge"
+   ]
+  },
+  "narr": [
+   "Now let's discuss three techniques that can mislead without using a single false number.",
+   "First, different denominators: saying 'Route A has fewer complaints' while omitting that it has far fewer passengers.",
+   "Second, cherry-picked days: highlighting 'the best week of the semester' without mentioning which days were dropped.",
+   "Third, truncated axis: a bar chart starting at 80 makes a 5% gap look enormous.",
+   "None of these techniques needs a false number, but each needs a critical question to reveal the misleading presentation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S10 — Misleading Techniques and Counter Questions",
+   "problem": "Identify three misleading techniques and the questions that counter them.",
+   "steps": [
+    "Identify the misleading technique",
+    "Determine the counter question",
+    "Explain why the question exposes the issue"
+   ],
+   "result": "Different denominators: ask 'per what?'. Cherry-picked days: ask 'which days were dropped?'. Truncated axis: ask 'where does the axis start?'"
+  },
+  "narr": [
+   "For each of these misleading techniques, there's a specific question that can expose them.",
+   "For different denominators, ask 'per what?' to get the proper rate.",
+   "For cherry-picked days, ask 'which days were dropped?' to understand the full context.",
+   "For truncated axis, ask 'where does the axis start?' to see if the visualization is distorting the scale.",
+   "These questions help us see beyond the surface numbers to understand what's really being shown."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Four Questions for Any Number Interpretation",
+   "bullets": [
+    "For which decision is this number?",
+    "Which metric fits that decision: mean, peak, percentile, worst case?",
+    "Which baseline, boundary and time basis are used?",
+    "Which assumption, if wrong, would flip the conclusion?"
+   ]
+  },
+  "narr": [
+   "The lecture asks four critical questions of any interpretation of a number.",
+   "First: for which decision is this number being used?",
+   "Second: which metric fits that decision - the mean, the peak, a percentile, or the worst case?",
+   "Third: which baseline, boundary and time basis are being used?",
+   "Fourth: which assumption, if it turned out wrong, would flip the conclusion?",
+   "We should ask these questions before accepting any result - and before presenting it to others."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S11 — Questions for Number Interpretation",
+   "problem": "What four questions should we ask of any number interpretation?",
+   "steps": [
+    "Identify the purpose of the number",
+    "Determine the appropriate metric",
+    "Check the baseline and boundary",
+    "Identify critical assumptions"
+   ],
+   "result": "Four elements: (1) For which decision? (2) Which metric? (3) Which baseline/boundary? (4) Which assumption would flip the conclusion?"
+  },
+  "narr": [
+   "These four questions form a framework for critical thinking about numbers.",
+   "First, understanding the decision context helps us evaluate if the number is appropriate.",
+   "Second, selecting the right metric ensures we're measuring what actually matters.",
+   "Third, examining the baseline and boundary reveals the context of the measurement.",
+   "Fourth, identifying critical assumptions shows where our conclusions might be vulnerable.",
+   "This framework helps us make more informed decisions based on data."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Components of an Honest Engineering Report",
+   "bullets": [
+    "RESULT — the answer in a simple, usable sentence",
+    "RANGE — how far to trust it: low to high, not a single value",
+    "TOP ASSUMPTION — the assumption the result rests on most",
+    "WHAT WOULD CHANGE IT — the data that would move the conclusion"
+   ]
+  },
+  "narr": [
+   "An honest engineering report consists of four key elements.",
+   "First, the RESULT: a simple sentence the reader can use directly.",
+   "Second, the RANGE: showing how far to trust the result, from low to high, not just a single value.",
+   "Third, the TOP ASSUMPTION: identifying the assumption the result rests on most heavily.",
+   "Fourth, WHAT WOULD CHANGE IT: specifying what data would move the conclusion.",
+   "A good report gives the answer, the degree of trust, and what would change it. Low confidence should be shown, not hidden."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S12 — Honest Engineering Report Components",
+   "problem": "What four elements make up an honest engineering report?",
+   "steps": [
+    "Define the result clearly",
+    "Specify the range of uncertainty",
+    "Identify top assumptions",
+    "Determine what would change the conclusion"
+   ],
+   "result": "Four elements: RESULT, RANGE, TOP ASSUMPTION, WHAT WOULD CHANGE IT"
+  },
+  "narr": [
+   "Let's explore what makes an engineering report honest and useful.",
+   "The result should be clear and directly usable, not buried in technical details.",
+   "The range of uncertainty must be communicated - hiding low confidence doesn't remove it.",
+   "Top assumptions should be identified so readers understand the foundation of the conclusion.",
+   "Finally, specifying what would change the conclusion helps readers understand its limitations.",
+   "This transparency builds trust and enables better decision-making."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S13 — Bus Range Analysis",
+   "problem": "Can a bus get through a winter day of 96 km on a single charge?",
+   "steps": [
+    "Identify known values: usable energy 160 kWh, requirement 96 km",
+    "Note summer tests: 1.1–1.6 kWh/km",
+    "Estimate winter consumption with heating: 1.5–2.0 kWh/km, typically 1.8",
+    "Calculate possible ranges: 160 ÷ 1.5 = 107 km, 160 ÷ 1.8 = 89 km, 160 ÷ 2.0 = 80 km",
+    "Create an honest report with uncertainty"
+   ],
+   "result": "Probably not: 89 km against 96 km; range 80–107 km; top assumption — 1.8 kWh/km, low confidence; what would change it — a real winter trip or daytime top-up charging"
+  },
+  "narr": [
+   "Let's apply these concepts to a practical problem: can a bus travel 96 km in winter on a single charge?",
+   "We know the usable energy is 160 kWh and the requirement is 96 km.",
+   "Summer tests show consumption of 1.1–1.6 kWh/km, but winter heating raises consumption by an unknown amount.",
+   "We estimate winter consumption at 1.5–2.0 kWh/km, typically 1.8 kWh/km with low confidence.",
+   "Calculating the range: 160 ÷ 1.5 = 107 km, 160 ÷ 1.8 = 89 km, 160 ÷ 2.0 = 80 km.",
+   "Only the optimistic case passes the 96 km requirement.",
+   "Our honest report states 'probably not' with the range, identifies the top assumption with low confidence, and suggests what would change the conclusion."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S14 — LED Case Analysis",
+   "problem": "What is the range of annual savings, and what would flip the 'replace everything now' decision?",
+   "steps": [
+    "Determine range of annual savings: 124–216 MWh/year, typically 167",
+    "Calculate cost savings: 87–216 million UZS/year",
+    "Identify most important uncertainty: hours of use",
+    "Evaluate energy claim robustness: would flip only if new lamp draws close to 18 W",
+    "Calculate break-even premium for different service lives",
+    "Make recommendation based on analysis"
+   ],
+   "result": "Range: 124–216 MWh/year; most important uncertainty is hours of use; break-even premium ≈ annual saving per lamp × years of service; recommendation — a pilot in one building before replacing all 6,500 lamps"
+  },
+  "narr": [
+   "Now let's examine the LED case from Lab 7.",
+   "The range of annual savings is 124–216 MWh/year, typically 167 MWh based on 5 lamps from one batch.",
+   "This translates to cost savings of 87–216 million UZS/year.",
+   "The most important uncertainty is the hours of use for the lamps.",
+   "The energy claim is robust - it would only be wrong if the new lamp actually draws close to 18 W, though tests show 11.7–12.6 W.",
+   "For the 'replace now' decision, we calculate the break-even premium as the annual saving per lamp multiplied by years of service.",
+   "Based on this analysis, the recommendation is to run a pilot in one building before replacing all 6,500 lamps."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Lab 7",
+   "subtitle": "Decide With Incomplete Data"
+  },
+  "narr": [
+   "Now let's turn to Lab 7, which focuses on deciding with incomplete data.",
+   "The lab lasts 80 minutes and includes a recap of lecture 7, instructions for a nine-part template, team work on a decision case, and a walkthrough of LED lamp reliability.",
+   "The key skills we'll develop are diagnosing data problems, building ranges, interpreting data, triangulating information, and creating honest reports."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Lab 7 Assignment Structure",
+   "bullets": [
+    "Recap of lecture 7 (15 min)",
+    "Instructions on nine-part A–I template (10 min)",
+    "Team work 'Decide With Incomplete Data' (35 min, assessed)",
+    "Case #1 walkthrough: LED Lamp Reliability (20 min)"
+   ]
+  },
+  "narr": [
+   "Lab 7 is structured to build our decision-making skills with incomplete data.",
+   "We begin with a 15-minute recap of lecture 7, focusing on incomplete data, ranges, triangulation, metrics, baselines, and honest reporting.",
+   "Then we receive 10 minutes of instructions on the nine-part A–I template for deciding with incomplete data.",
+   "The main activity is 35 minutes of team work on 'Decide With Incomplete Data', which is assessed and involves diagnosing, ranging, interpreting, triangulating, finding break points, and reporting honestly.",
+   "Finally, we spend 20 minutes on a walkthrough of Case #1: LED Lamp Reliability and Energy-Saving Decision."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Assignment L7-1 — Decide With Incomplete Data — Parts A–I",
+   "problem": "Complete a nine-part analysis to make decisions with incomplete data.",
+   "steps": [
+    "A. Diagnose data problems — identify at least 3 problems (too little, missing, noisy, etc.)",
+    "B. Source and confidence — choose 4–5 important numbers with their sources and confidence levels",
+    "C. Build a low/typical/high range for one uncertain variable",
+    "D. Create two interpretations of one dataset — favorable and critical",
+    "E. Choose the right metric for 3 deciding questions",
+    "F–I. Additional analysis components (not fully specified in the excerpt)"
+   ],
+   "result": "A comprehensive nine-part analysis leading to an informed decision with incomplete data"
+  },
+  "narr": [
+   "The main assignment for Lab 7 is 'Decide With Incomplete Data' with nine parts labeled A through I.",
+   "Part A requires diagnosing data problems — we need to identify at least three problems such as too little data, missing information, noisy data, outdated or unrepresentative samples, or wrong definitions or units.",
+   "For each problem, we must explain why it's problematic and how to get a better number.",
+   "Part B involves selecting 4–5 important numbers and documenting their value or range, source (measurement, lookup, inquiry, estimation, or analogy), confidence level, and a brief reason for the confidence assessment.",
+   "Part C requires choosing one significant uncertain variable and recomputing the main result for low, typical, and high values, then stating the output range.",
+   "Part D asks us to create two interpretations of one dataset — one favorable and one critical — identifying which numbers support each interpretation and what additional data would settle any disputes.",
+   "Part E focuses on choosing the right metric for three different deciding questions, such as average, median, 90th percentile, etc.",
+   "Parts F through I complete the nine-part template, though they're not fully specified in this excerpt.",
+   "This structured approach helps us make more robust decisions even when our data is incomplete or uncertain."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ }
+]

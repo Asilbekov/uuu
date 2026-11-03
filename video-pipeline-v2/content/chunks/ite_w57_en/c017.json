@@ -1,0 +1,389 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 5–7: Study Guide"
+  },
+  "narr": [
+   "In this study guide, we'll explore engineering decision-making with incomplete data.",
+   "Let's start with the 60-second team report format."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The 60-Second Team Report",
+   "bullets": [
+    "Our current decision is...",
+    "The result is in the range from... to...",
+    "The weakest number in our analysis is...",
+    "The one piece of data we would collect next..."
+   ]
+  },
+  "narr": [
+   "A good engineering report should be concise yet comprehensive.",
+   "It needs to state your decision clearly.",
+   "You should specify the range of possible outcomes.",
+   "Identify which assumption has the most uncertainty.",
+   "And suggest what additional data would most improve your analysis."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "A good engineering message names the result, the range, the top assumption, and what would change it.",
+   "who": "Lecture 7 Principle"
+  },
+  "narr": [
+   "This principle from Lecture 7 summarizes the essence of effective engineering communication under uncertainty."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem A — Name the Problem",
+   "problem": "We tested the bus in one trip",
+   "steps": [
+    {
+     "text": "Identify the problem type"
+    },
+    {
+     "text": "Determine a way to get a better number"
+    }
+   ],
+   "result": "Problem type: too little data. Better number: repeat the trip on different days and with different loads."
+  },
+  "narr": [
+   "Let's practice identifying problem types in engineering data.",
+   "For statement A: 'We tested the bus in one trip', the problem is clearly that we have too little data.",
+   "To get a better number, we should repeat the trip on different days and with different loads."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem B — Name the Problem",
+   "problem": "No data on winter heating of the dormitory",
+   "steps": [
+    {
+     "text": "Identify the problem type"
+    },
+    {
+     "text": "Determine a way to get a better number"
+    }
+   ],
+   "result": "Problem type: missing data. Better number: estimate by analogy with other buildings; schedule a winter measurement."
+  },
+  "narr": [
+   "For statement B: 'No data on winter heating of the dormitory', we're dealing with missing data.",
+   "To improve this, we could estimate by analogy with other buildings or schedule a winter measurement."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem C — Name the Problem",
+   "problem": "Five readings of one charger: 58, 61, 54, 63, 60 kW",
+   "steps": [
+    {
+     "text": "Identify the problem type"
+    },
+    {
+     "text": "Determine a way to get a better number"
+    }
+   ],
+   "result": "Problem type: noisy data. Better number: report the mean and the range — about 59 kW, from 54 to 63."
+  },
+  "narr": [
+   "For statement C: 'Five readings of one charger: 58, 61, 54, 63, 60 kW', the issue is noisy data.",
+   "The appropriate approach is to report the mean and the range, which gives us about 59 kW, from 54 to 63."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem D — Name the Problem",
+   "problem": "The solar generation figure is from a desert site",
+   "steps": [
+    {
+     "text": "Identify the problem type"
+    },
+    {
+     "text": "Determine a way to get a better number"
+    }
+   ],
+   "result": "Problem type: unrepresentative data. Better number: find generation data for a similar climate."
+  },
+  "narr": [
+   "For statement D: 'The solar generation figure is from a desert site', we have unrepresentative data.",
+   "To fix this, we should find generation data for a climate similar to where the system will actually be installed."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem E — Name the Problem",
+   "problem": "The datasheet says '200' without a unit",
+   "steps": [
+    {
+     "text": "Identify the problem type"
+    },
+    {
+     "text": "Determine a way to get a better number"
+    }
+   ],
+   "result": "Problem type: wrong definition/unit. Better number: check the label — 200 kWh is energy, 200 kW is power."
+  },
+  "narr": [
+   "For statement E: 'The datasheet says '200' without a unit', the problem is wrong definition or unit.",
+   "We need to check the label carefully — 200 kWh is energy, while 200 kW is power, and these are fundamentally different quantities."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem F — Name the Problem",
+   "problem": "The load profile is from before the new wing opened",
+   "steps": [
+    {
+     "text": "Identify the problem type"
+    },
+    {
+     "text": "Determine a way to get a better number"
+    }
+   ],
+   "result": "Problem type: out of date data. Better number: re-measure, or scale the profile to the new wing."
+  },
+  "narr": [
+   "For statement F: 'The load profile is from before the new wing opened', we have out of date data.",
+   "To improve this, we should either re-measure the load profile or scale the existing profile to account for the new wing."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Problem Type Suggests Which Fix to Try",
+   "bullets": [
+    "Too little data → repeat measurements",
+    "Missing data → estimate by analogy or measure",
+    "Noisy data → report mean and range",
+    "Unrepresentative data → find similar conditions",
+    "Wrong definition → clarify units",
+    "Out of date → update or scale data"
+   ]
+  },
+  "narr": [
+   "The problem type directly suggests which fix to try.",
+   "For too little data, we need to repeat measurements.",
+   "For missing data, we can estimate by analogy or measure directly.",
+   "For noisy data, we should report both the mean and the range.",
+   "For unrepresentative data, we need to find data from similar conditions.",
+   "For wrong definitions, we must clarify the units.",
+   "For out of date data, we need to update it or scale it appropriately."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Read It Twice — Exercise",
+   "problem": "Route data: the average wait 6 min; 15% of passengers wait more than 12 min; 82% of trips on time; at the peak 300 passengers per hour want the bus, capacity 240.",
+   "steps": [
+    {
+     "text": "Write one favorable sentence as the dispatcher would say it"
+    },
+    {
+     "text": "Write one critical sentence as the passenger would say it"
+    },
+    {
+     "text": "Identify what additional data would settle each perspective"
+    }
+   ],
+   "result": "(1) Favorable: '82% of trips are on time, and the average wait is only 6 minutes' (settled by waits by hour of day). (2) Critical: 'At the peak 300 of us want the bus, and only 240 can ride. Every seventh person waits more than 12 minutes' (settled by the share of passengers left behind at the peak)."
+  },
+  "narr": [
+   "Now let's practice reading the same data from different perspectives.",
+   "The route data shows: average wait is 6 minutes; 15% wait more than 12 minutes; 82% of trips are on time; at peak, 300 passengers per hour want the bus, but capacity is only 240.",
+   "From a dispatcher's perspective, a favorable sentence might be: '82% of trips are on time, and the average wait is only 6 minutes'.",
+   "What would settle this perspective? Data showing waits by hour of day.",
+   "From a passenger's perspective, a critical sentence might be: 'At the peak 300 of us want the bus, and only 240 can ride. Every seventh person waits more than 12 minutes'.",
+   "What would settle this perspective? Data showing the share of passengers left behind at the peak.",
+   "Both sentences are true, but additional data would help decide which problem matters more."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Winter Range Explorer",
+   "bullets": [
+    "Select 'Summer tests' — which trips cover the 96 km requirement?",
+    "Select 'Winter and aged battery' — by how many km does it fall short in the best case?",
+    "From 'Winter guess', raise the usable share until the verdict changes — what share is needed?"
+   ]
+  },
+  "narr": [
+   "Let's explore the Winter Range interactive tool.",
+   "First, select 'Summer tests' — we need to determine which trips cover the 96 km requirement.",
+   "According to lecture slides, all three summer cases: 1.1, 1.3, and 1.6 kWh/km give 145, 123, and 100 km respectively — all cover the requirement.",
+   "Next, select 'Winter and aged battery' — we need to find by how many km it falls short in the best case.",
+   "Finally, from 'Winter guess', we need to raise the usable share until the verdict changes — what share is needed?",
+   "The answers to questions 2-3 are explored on the interactive page.",
+   "For comparison, in lecture 5, winter with an old battery gave 71 km — 25 km below the requirement."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Your Turn: Rooftop Solar for the Building",
+   "problem": "Can a 30-kilowatt rooftop installation cover the building's daily electricity? Given: the building averages 94 kW (lecture 6); the installation yields 3–5 kWh per kW per day.",
+   "steps": [
+    {
+     "text": "Calculate the installation's energy per day"
+    },
+    {
+     "text": "Calculate the building's energy per day"
+    },
+    {
+     "text": "Calculate the covered share"
+    },
+    {
+     "text": "Write a report sentence"
+    }
+   ],
+   "result": "(1) Installation's energy: 30 kW × 3–5 kWh/kW·day = 90–150 kWh (typically 120). (2) Building's energy: 94 kW × 24 h ≈ 2260 kWh. (3) Covered share: 90÷2260 and 150÷2260 ≈ 4–7% (typically 5%). (4) Report: 'The installation covers about 4–7% of the building's daily electricity, assuming 3–5 kWh per kW per day. Measured generation would change this'."
+  },
+  "narr": [
+   "Now let's try an independent calculation: rooftop solar for a building.",
+   "The question is: can a 30-kilowatt rooftop installation cover the building's daily electricity?",
+   "We're given that the building averages 94 kW, and the installation yields 3–5 kWh per kW per day.",
+   "First, let's calculate the installation's energy per day: 30 kW multiplied by 3–5 kWh per kW per day gives us 90–150 kWh, typically 120.",
+   "Next, calculate the building's energy per day: 94 kW multiplied by 24 hours gives us approximately 2260 kWh.",
+   "Now, calculate the covered share: 90 divided by 2260 and 150 divided by 2260 gives us approximately 4–7%, typically 5%.",
+   "Finally, our report sentence: 'The installation covers about 4–7% of the building's daily electricity, assuming 3–5 kWh per kW per day. Measured generation would change this'.",
+   "Both statements are true: it's a few percent of the building, but that's about one bus per day in energy terms."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Assignment L7-4",
+   "subtitle": "Independent Study: Incomplete Data in Your System"
+  },
+  "narr": [
+   "For your independent study, you'll analyze incomplete data in your own system.",
+   "This is working material for your system, ready for the second half of the course.",
+   "Nothing to hand in, but it's important preparation for future work."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Independent Study Tasks",
+   "bullets": [
+    "Choose one quantity of your system where the data are incomplete, and name the problem type",
+    "Write down a low, a typical and a high value, with the source and your confidence",
+    "Show how the range changes one result",
+    "Write one report sentence: result, range, top assumption, what would change the conclusion"
+   ]
+  },
+  "narr": [
+   "Your independent study has four key components.",
+   "First, choose a quantity in your system with incomplete data and identify the problem type.",
+   "Second, document a low, typical, and high value for this quantity, including your source and confidence level.",
+   "Third, demonstrate how the range of values affects one important result.",
+   "Finally, write a concise report sentence that includes the result, range, top assumption, and what would change your conclusion.",
+   "This exercise will help you practice handling uncertainty in engineering analysis."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ }
+]

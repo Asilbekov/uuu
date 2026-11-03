@@ -1,0 +1,533 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Week 7",
+   "subtitle": "Quantitative Reasoning II"
+  },
+  "narr": [
+   "Welcome to Week 7 of our quantitative reasoning journey. This week, we're learning how to reason when data are scarce, and how to read the same numbers in more than one way.",
+   "First, let's recap what we covered in Week 6 in one breath: demand and capacity, intensities and flows, estimation techniques, and bounding methods."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Statements of Week 7",
+   "bullets": [
+    "Reason when data are scarce",
+    "Read the same numbers in more than one way",
+    "Demand and capacity — what is asked against what can be delivered",
+    "Intensities and flows — amount per unit of time",
+    "Power × time = energy",
+    "Change = inflow − outflow",
+    "Estimation — break into factors, round to one digit, check units",
+    "Bounding — low, typical, high, and stop when decision no longer changes"
+   ]
+  },
+  "narr": [
+   "In Week 7, we'll focus on several key concepts that will help us make better decisions with limited information."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Five Ways Data Can Be Incomplete",
+   "bullets": [
+    "Too little — Only a few points",
+    "Missing — No data for the case we care about",
+    "Noisy — Values scatter around the truth",
+    "Outdated/unrepresentative — Measured under other conditions",
+    "Wrong definition or unit — The quantity is not what we think"
+   ]
+  },
+  "narr": [
+   "The week's hook presents us with three test trips showing energy consumption of 1.1, 1.3, and 1.6 kWh/km. Which number should we use for the range promise?",
+   "Before choosing a number, we need to name the data problem. There are five ways data can be incomplete."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Five Ways Data Can Be Incomplete",
+   "columns": [
+    "Problem",
+    "What it means",
+    "Example with the bus"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Too little"
+     },
+     {
+      "text": "Only a few points"
+     },
+     {
+      "text": "Three test trips"
+     }
+    ],
+    [
+     {
+      "text": "Missing"
+     },
+     {
+      "text": "No data for the case we care about"
+     },
+     {
+      "text": "No winter test"
+     }
+    ],
+    [
+     {
+      "text": "Noisy"
+     },
+     {
+      "text": "Values scatter around the truth"
+     },
+     {
+      "text": "1.1–1.6 kWh/km on the same route"
+     }
+    ],
+    [
+     {
+      "text": "Outdated/unrepresentative"
+     },
+     {
+      "text": "Measured under other conditions"
+     },
+     {
+      "text": "Tests with an empty bus"
+     }
+    ],
+    [
+     {
+      "text": "Wrong definition or unit"
+     },
+     {
+      "text": "The quantity is not what we think"
+     },
+     {
+      "text": "The battery in \"%\" or \"200\" without a unit"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Here's a detailed breakdown of these five problems. The way to fix incomplete data depends on which of these five categories it falls into.",
+   "Name the problem first. Always remember that the way to fix it depends on which of the five it is."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Where Numbers Come From, and How Far to Trust Them",
+   "bullets": [
+    "Measure — High trust if method is stated",
+    "Look up — Average trust (conditions may differ)",
+    "Ask — Average trust (check against something)",
+    "Estimate — Low to medium trust (state assumptions)",
+    "Analogy — Low trust (explain similarity)"
+   ]
+  },
+  "narr": [
+   "Where do numbers come from, and how much should we trust them? Different sources have different levels of reliability."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Sources of Numbers and the Level of Trust",
+   "columns": [
+    "Source",
+    "Example",
+    "How far to trust"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Measure"
+     },
+     {
+      "text": "Time a bus trip, keep a charging log"
+     },
+     {
+      "text": "High, if the method is stated"
+     }
+    ],
+    [
+     {
+      "text": "Look up"
+     },
+     {
+      "text": "A datasheet, a standard"
+     },
+     {
+      "text": "Average: conditions may differ"
+     }
+    ],
+    [
+     {
+      "text": "Ask"
+     },
+     {
+      "text": "The driver, the operations manager"
+     },
+     {
+      "text": "Average: check it against something"
+     }
+    ],
+    [
+     {
+      "text": "Estimate"
+     },
+     {
+      "text": "Break into factors (lecture 6)"
+     },
+     {
+      "text": "Low–medium: state the assumptions"
+     }
+    ],
+    [
+     {
+      "text": "Analogy"
+     },
+     {
+      "text": "A similar building or route"
+     },
+     {
+      "text": "Low: say how similar"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "This table summarizes different sources of numbers and their corresponding levels of trust.",
+   "Write the source and your confidence level next to every number you use in your analysis."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ranges Instead of Single Numbers",
+   "bullets": [
+    "Three summer trips give consumption of 1.1, 1.3, 1.6 kWh/km",
+    "Range of 160 ÷ e = 145, 123/100 km",
+    "All cases cover daily requirement of 96 km",
+    "High-consumption case has only 4 km margin",
+    "Report: \"about 100 to 145 km\""
+   ]
+  },
+  "narr": [
+   "Instead of using a single number, we should often use ranges. Three summer trips give us consumption values of 1.1, 1.3, and 1.6 kWh/km.",
+   "Calculating the range from a 160 kWh battery gives us 145, 123/100 kilometers. All three cases cover the daily requirement of 96 km, but the high-consumption case only has a 4 km margin.",
+   "When reporting, we should say \"about 100 to 145 km\" to communicate the uncertainty in our data. A range tells the reader how far to trust the answer."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Range Calculation",
+   "tex": "R = 160 \\text{ [kWh]} \\div e: 1.1 / 1.3 / 1.6 \\text{ [kWh/km]} \\rightarrow 145, \\frac{123}{100} \\text{ [km]}",
+   "parts": [
+    {
+     "substr": "R = 160 [kWh]",
+     "color": "#4C5FD5",
+     "note": "Total energy available"
+    },
+    {
+     "substr": "e: 1.1 / 1.3 / 1.6 [kWh/km]",
+     "color": "#B45309",
+     "note": "Energy consumption per kilometer"
+    },
+    {
+     "substr": "145, 123/100 [km]",
+     "color": "#0E7C7B",
+     "note": "Calculated range"
+    }
+   ]
+  },
+  "narr": [
+   "Here's the formula for calculating the range. R equals the total energy available divided by the energy consumption per kilometer.",
+   "With consumption values of 1.1, 1.3, and 1.6 kWh/km, we get ranges of approximately 145, 123/100 kilometers respectively."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Small Samples: State n",
+   "bullets": [
+    "Three trips: mean = (1.1 + 1.3 + 1.6) ÷ 3 = 1.33 kWh/km",
+    "One odd trip moves the mean a lot",
+    "Median = 1.3 kWh/km — the middle element in order",
+    "One odd trip barely moves the median",
+    "Sample size n = 3 — write n next to every number you report",
+    "With three points, give a range and n; don't claim more than three trips can show"
+   ]
+  },
+  "narr": [
+   "When working with small samples, we need to be careful about how we report our findings. With only three trips, the mean is (1.1 + 1.3 + 1.6) ÷ 3 = 1.33 kWh/km.",
+   "Notice how one odd trip can move the mean value significantly. The median, however, is 1.3 kWh/km — the middle element when ordered, which one odd trip barely affects.",
+   "Crucially, we must state our sample size n next to every number we report. With only three data points, we should give a range and n, and never claim that three trips can show more than they actually can."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Mean and Median Calculation",
+   "tex": "\\text{mean} = \\frac{1.1 + 1.3 + 1.6}{3} = 1.33 \\text{ [kWh/km]}; \\text{median} = 1.3 \\text{ [kWh/km]}; n = 3",
+   "parts": [
+    {
+     "substr": "mean = (1.1 + 1.3 + 1.6) ÷ 3",
+     "color": "#4C5FD5",
+     "note": "Calculation of the average"
+    },
+    {
+     "substr": "1.33 [kWh/km]",
+     "color": "#B45309",
+     "note": "Mean value"
+    },
+    {
+     "substr": "median = 1.3 [kWh/km]",
+     "color": "#0E7C7B",
+     "note": "Middle value when ordered"
+    },
+    {
+     "substr": "n = 3",
+     "color": "#A03040",
+     "note": "Sample size"
+    }
+   ]
+  },
+  "narr": [
+   "Here's the calculation for both mean and median with our three data points. Notice how the mean is affected more by the outlier value than the median.",
+   "Always remember to report your sample size n, as it tells readers how much confidence they should have in your statistics."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Triangulation: Estimate in Three Ways",
+   "bullets": [
+    "Triangulation is estimating one quantity by several independent routes",
+    "Example: faculty building consumption in kWh/day",
+    "Route 1: floor area × typical consumption = 8,000 m² × 0.35 kWh/m²·day ≈ 2,800",
+    "Route 2: load profile = 94 kW × 24 h ≈ 2,260",
+    "Route 3: monthly bill = 70,000 kWh/month ÷ 30 ≈ 2,330",
+    "Three independent routes agree to within about 25%"
+   ]
+  },
+  "narr": [
+   "Triangulation is a powerful technique where we estimate one quantity by several independent routes and compare the results.",
+   "Let's consider estimating the consumption of a faculty building in kWh/day. We can approach this in three different ways:",
+   "First, we can multiply the floor area by typical consumption: 8,000 square meters times 0.35 kWh per square meter per day gives approximately 2,800 kWh/day.",
+   "Second, we can use the load profile from lecture 6: 94 kW multiplied by 24 hours gives approximately 2,260 kWh/day.",
+   "Third, we can look at the monthly bill: 70,000 kWh per month divided by 30 gives approximately 2,330 kWh/day.",
+   "These three independent routes agree to within about 25%. Agreement builds trust in our estimate, while disagreement points us to where we should look for more information."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Triangulation Calculations",
+   "tex": "\\approx 2800 = 8000 \\times 0.35; \\approx 2260 = 94 \\times 24; \\approx 2330 = \\frac{70000}{30} \\text{ [kWh/day]}",
+   "parts": [
+    {
+     "substr": "2800 = 8000 × 0.35",
+     "color": "#4C5FD5",
+     "note": "Floor area method"
+    },
+    {
+     "substr": "2260 = 94 × 24",
+     "color": "#B45309",
+     "note": "Load profile method"
+    },
+    {
+     "substr": "2330 = 70000 ÷ 30",
+     "color": "#0E7C7B",
+     "note": "Monthly bill method"
+    }
+   ]
+  },
+  "narr": [
+   "Here are the three calculations for triangulating the building's energy consumption. Notice how all three methods give us values that are reasonably close to each other.",
+   "When independent methods give similar results, we can be more confident in our estimate."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "One Dataset — Different Readings",
+   "bullets": [
+    "Distribution of waiting times at a stop: 14, 26, 22, 12, 7, 4, 8, 7%",
+    "Dispatcher: \"The average wait is 6 minutes. Good.\"",
+    "Passenger: \"Every seventh of us waits more than 12 minutes\" (≈15%)",
+    "Administrator: \"Cutting the long waits requires more buses. What does that cost?\"",
+    "One set of numbers, three readings — all three are true"
+   ]
+  },
+  "narr": [
+   "A single dataset can be read in multiple ways, and all readings can be true depending on your perspective.",
+   "Consider the distribution of waiting times at a bus stop: 14%, 26%, 22%, 12%, 7%, 4%, 8%, 7% of passengers wait in different time intervals.",
+   "The dispatcher might say: \"The average wait is 6 minutes. Good.\" This is the mean waiting time.",
+   "A passenger might say: \"Every seventh of us waits more than 12 minutes.\" This refers to the upper tail of the distribution.",
+   "The administrator might ask: \"Cutting the long waits requires more buses. What does that cost?\" This focuses on the worst cases.",
+   "All three perspectives are valid and true, but they emphasize different aspects of the same data."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "The Decision Chooses the Metric",
+   "columns": [
+    "Question",
+    "Metric",
+    "Value here"
+   ],
+   "rows": [
+    [
+     {
+      "text": "How long does the typical passenger wait?"
+     },
+     {
+      "text": "Median"
+     },
+     {
+      "text": "about 5 min"
+     }
+    ],
+    [
+     {
+      "text": "How much waiting in total?"
+     },
+     {
+      "text": "Mean"
+     },
+     {
+      "text": "about 6 min × passengers"
+     }
+    ],
+    [
+     {
+      "text": "How bad is it for the unlucky?"
+     },
+     {
+      "text": "90th percentile"
+     },
+     {
+      "text": "about 13 min"
+     }
+    ],
+    [
+     {
+      "text": "What is the worst case?"
+     },
+     {
+      "text": "Maximum"
+     },
+     {
+      "text": "about 16 min"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "The decision you're trying to make should choose the metric, not the other way around. Different metrics answer different questions.",
+   "If you want to know how long the typical passenger waits, you should look at the median, which is about 5 minutes.",
+   "If you want to know how much waiting time there is in total, you need the mean multiplied by the number of passengers.",
+   "If you're concerned about the unlucky passengers, you should look at the 90th percentile, which is about 13 minutes.",
+   "And if you're planning for the worst case, you need the maximum value, which is about 16 minutes."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Decision Chooses the Metric",
+   "bullets": [
+    "The decision chooses the metric, not the other way round",
+    "Different metrics answer different questions",
+    "kWh answers \"how much?\"",
+    "kW answers \"how fast?\"",
+    "Choose the metric that serves your decision"
+   ]
+  },
+  "narr": [
+   "Remember that the decision you're trying to make should choose the metric, not the other way around.",
+   "As we saw in lecture 6, kWh answers \"how much?\" while kW answers \"how fast?\" The choice of metric depends on what question you're trying to answer.",
+   "Always choose the metric that serves your decision best, rather than forcing your decision to fit the metric you have."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ }
+]
