@@ -1,0 +1,270 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Qoidalar — all the course rules in one checklist",
+   "subtitle": "All the rules of weeks 5–7 in one place, grouped under four themes"
+  },
+  "narr": [
+   "Welcome to this comprehensive guide covering the essential rules for Weeks 5 through 7 of your Introduction to Engineering course. We'll organize all these principles into four key themes to help you master the problem-solving process.",
+   "Let's begin with the first theme: problem framing."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.1 Rules of problem framing",
+   "bullets": [
+    "Sort what you hear: fact, inference, speculation, opinion — only facts and good inferences can anchor the statement.",
+    "A problem statement names the need, not the solution: no device, no app, no vehicle (the solution-free test).",
+    "Variables are measurable quantities with units: performance (what we judge), design (the levers), context (the limits).",
+    "Works well is defined by the stakeholders — write the performance down in numbers.",
+    "The statement template: [Stakeholder] needs [outcome] in [system], judged by [measure], within [constraints].",
+    "The working definition of performance: the performance of [the system] is judged by [variables with units and targets], through the eyes of [the stakeholders]."
+   ]
+  },
+  "narr": [
+   "When framing problems, first sort what you hear into facts, inferences, speculations, and opinions. Only facts and good inferences can anchor your statement.",
+   "Remember that a problem statement should name the need, not the solution. Avoid mentioning specific devices, apps, or vehicles - this is what we call the solution-free test.",
+   "Variables must be measurable quantities with units. We categorize them into performance (what we judge), design (the levers we can adjust), and context (the limits we must work within).",
+   "The definition of works well comes from stakeholders. You must translate this into numerical performance metrics.",
+   "Use this statement template: [Stakeholder] needs [outcome] in [system], judged by [measure], within [constraints].",
+   "Here's our working definition of performance: the performance of [the system] is judged by [variables with units and targets], through the eyes of [the stakeholders]."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.1 Rules of problem framing (continued)",
+   "bullets": [
+    "Goals: must-have = demand, nice-to-have = wish; do not turn a wish into a requirement.",
+    "A model is built for one clear question: first the question, then the model.",
+    "Every model keeps what matters, discards what does not, and serves the purpose-question; no map is the network.",
+    "All models are wrong, but some are useful (George Box): usefulness is decided by the question, not by completeness."
+   ]
+  },
+  "narr": [
+   "Distinguish between must-haves and nice-to-haves. Must-haves are demands, while nice-to-haves are wishes. Never turn a wish into a requirement.",
+   "Models should be built to answer one clear question. Start with the question, then build the model.",
+   "Every effective model keeps what matters, discards what doesn't, and serves its purpose-question. Remember, no map is the network itself.",
+   "As George Box famously said, all models are wrong, but some are useful. The usefulness of a model is determined by how well it answers your question, not by its completeness."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.2 Rules of modelling",
+   "bullets": [
+    "Four types of models — physical, graphical, mathematical, computational; real projects mix several types.",
+    "The anatomy of a model: inputs (we choose), parameters (we fix), relationships (the rules), outputs (we predict) — each with units.",
+    "A model is a machine: numbers go in, a rule is applied, numbers come out; every number needs its units.",
+    "The week 4 variables become roles: performance →output, design →input, context →parameter.",
+    "Need–Know–How–Solve: How includes the assumptions you make in order to solve the problem; Solve — compute, check the units, interpret."
+   ]
+  },
+  "narr": [
+   "There are four types of models: physical, graphical, mathematical, and computational. In real projects, you'll often mix several types.",
+   "Think of a model's anatomy with four components: inputs (what we choose), parameters (what we fix), relationships (the rules), and outputs (what we predict). Each must have units.",
+   "A model works like a machine: numbers go in, a rule is applied, and numbers come out. Every number needs its units to be meaningful.",
+   "The variables from week 4 take on new roles: performance becomes output, design becomes input, and context becomes parameter.",
+   "Follow the Need–Know–How–Solve framework. The How section includes your assumptions, and Solve involves computation, unit checking, and interpretation."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.2 Rules of modelling (continued)",
+   "bullets": [
+    "A unit check after Kosky: units cancel like fractions — (u×C) [kWh] ÷ e [kWh/km] = [km].",
+    "Three kinds of assumptions: simplifying (we ignore), data (we fix), boundary (we leave outside).",
+    "Write every assumption with the template: We assume ... because ... . If it is wrong, ... .",
+    "An assumption that is written down can be checked; a hidden one cannot.",
+    "Classify the assumptions: Safe — holds under normal conditions; Risky — may fail and change the answer; Need Data — cannot be said yet."
+   ]
+  },
+  "narr": [
+   "Always perform unit checks after Kosky's method: units cancel like fractions. For example, (u×C) [kWh] divided by e [kWh/km] equals [km].",
+   "There are three kinds of assumptions: simplifying (what we ignore), data (what we fix), and boundary (what we leave outside the model).",
+   "Write every assumption using this template: We assume ... because ... . If it is wrong, ... . This makes your assumptions explicit and testable.",
+   "Remember: an assumption that is written down can be checked, while a hidden one cannot. Transparency is key.",
+   "Classify your assumptions as Safe (holds under normal conditions), Risky (may fail and change the answer), or Need Data (cannot be determined yet)."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.2 Rules of modelling (continued)",
+   "bullets": [
+    "Stress-test the model: change one assumption and explain the effect on the output.",
+    "Three checks: units, order of magnitude, a known value; ask Is this a reasonable answer? every time.",
+    "The cycle: Frame →Build →Check →Revise — repeat until it is good enough for the decision.",
+    "The model's verdict: Too Simple / Fit for Purpose / Too Detailed; the goal is fit for purpose: the simplest model that answers the question well enough to decide.",
+    "Finish with one revision and one additional need for data.",
+    "Every model has a range in which its assumptions are valid: know it and state it."
+   ]
+  },
+  "narr": [
+   "Stress-test your models by changing one assumption at a time and explaining how it affects the output.",
+   "Perform three checks on every result: units, order of magnitude, and comparison with a known value. Always ask, Is this a reasonable answer?",
+   "Follow the modeling cycle: Frame →Build →Check →Revise, and repeat until your model is good enough for decision-making.",
+   "Evaluate your model as Too Simple, Fit for Purpose, or Too Detailed. The goal is Fit for Purpose - the simplest model that answers the question well enough.",
+   "When finishing, include one revision and identify one additional need for data.",
+   "Every model has a range of validity where its assumptions hold true. Know this range and state it clearly."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.3 Rules of quantitative reasoning",
+   "bullets": [
+    "Demand is what the system must deliver; capacity is the maximum it can deliver; both need units and a time basis.",
+    "A number without a time basis is as incomplete as a number without units.",
+    "Compare like with like: one unit and one time basis on both sides before dividing.",
+    "Utilisation = demand ÷ capacity: below ~0.8 — comfortable; around 1 — tight; above 1 — demand is turned away or a queue grows.",
+    "Size for the peak, not for the average: the average hides the peak (a 94 kW average against a 180 kW peak at 13:00)."
+   ]
+  },
+  "narr": [
+   "In quantitative reasoning, distinguish between demand (what the system must deliver) and capacity (the maximum it can deliver). Both need units and a time basis.",
+   "Remember: a number without a time basis is just as incomplete as a number without units. Always include both.",
+   "When comparing values, ensure you're comparing like with like. Use the same unit and time basis on both sides before dividing.",
+   "Calculate utilization as demand divided by capacity. Below 0.8 is comfortable, around 1 is tight, and above 1 means demand is turned away or queues grow.",
+   "Always size systems for peak demand, not average demand. The average can hide significant peaks, like a 94 kW average compared to a 180 kW peak at 13:00."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.3 Rules of quantitative reasoning (continued)",
+   "bullets": [
+    "kW is an intensity, kWh is an amount; power × time = energy.",
+    "Carry the units in square brackets: 60 [kW] × 2 [h] = 120 [kWh]; the units check both the method and the answer.",
+    "Change in stock = inflow − outflow; when positive, something is accumulating (a queue, a buffer, a battery).",
+    "The flow rules (flow = speed × density; number inside = arrivals × time) hold only under steady-state conditions.",
+    "The bottleneck is the stage with the smallest capacity; it sets the system's maximum practical throughput."
+   ]
+  },
+  "narr": [
+   "Remember that kW is a measure of intensity (power), while kWh is a measure of amount (energy). The relationship is power multiplied by time equals energy.",
+   "Always carry units in square brackets throughout calculations. For example, 60 [kW] multiplied by 2 [h] equals 120 [kWh]. The units verify both your method and your answer.",
+   "The change in stock equals inflow minus outflow. When this value is positive, something is accumulating - whether it's a queue, a buffer, or a battery.",
+   "Flow rules like flow equals speed multiplied by density, or number inside equals arrivals multiplied by time, only apply under steady-state conditions.",
+   "Identify the bottleneck as the stage with the smallest capacity. This bottleneck determines the system's maximum practical throughput."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.3 Rules of quantitative reasoning (continued)",
+   "bullets": [
+    "Estimate before calculating: identify the quantity and its units → break into factors → round each factor to one digit and multiply → check the units and compare with a known value.",
+    "An order-of-magnitude estimate is correct to within a factor of ~10 and often better: 21 barbershops against 23 in the directory.",
+    "Bound the estimate: low / typical / high; if the decision does not change across the range — stop refining (23–38kW → still a rooftop installation).",
+    "Precise is not the same as correct: one–two significant figures; about 30 kW, not 29,17 kW.",
+    "Most estimation errors are errors of units or of counting: confusing kW and kWh, the forgotten peak, double counting, false precision."
+   ]
+  },
+  "narr": [
+   "Before calculating, always estimate: identify the quantity and its units, break it into factors, round each factor to one digit, multiply, then check units against a known value.",
+   "An order-of-magnitude estimate is typically correct within a factor of about 10, and often better. For example, estimating 21 barbershops when the directory shows 23.",
+   "When estimating, provide bounds: low, typical, and high values. If your decision doesn't change across this range, stop refining. For example, 23-38kW still suggests a rooftop installation.",
+   "Precision is not the same as correctness. Use one to two significant figures. Say about 30 kW, not 29.17 kW.",
+   "Most estimation errors come from unit mistakes or counting errors: confusing kW and kWh, forgetting peaks, double counting, or presenting false precision."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.3 Rules of quantitative reasoning (continued)",
+   "bullets": [
+    "When an answer looks strange, check the units and the time basis first (0,2MW = 200 kW; 36 min = 0,6h)."
+   ]
+  },
+  "narr": [
+   "When an answer seems strange or unexpected, first check your units and time basis. For example, remember that 0.2 MW equals 200 kW, and 36 minutes equals 0.6 hours."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6.4 Rules for working with incomplete data and making decisions",
+   "bullets": [
+    "Name the data problem first: too little, missing, noisy, out of date / unrepresentative, wrong definition / unit — the fix depends on the type.",
+    "Five sources of numbers: measure, look up, ask, estimate, analogy — with different levels of trust; write the source and the confidence next to every number."
+   ]
+  },
+  "narr": [
+   "When dealing with incomplete data, first identify the specific problem: is it too little data, missing data, noisy data, out-of-date or unrepresentative data, or wrong definition/unit? The solution depends on the type of problem.",
+   "Numbers come from five sources: measurement, looking up values, asking experts, estimation, and analogy. Each has different levels of trust. Always write the source and your confidence level next to every number."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ }
+]

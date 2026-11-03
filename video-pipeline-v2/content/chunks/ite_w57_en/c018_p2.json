@@ -1,0 +1,812 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering — Weeks 5–7",
+   "subtitle": "Study Guide"
+  },
+  "narr": [
+   "Welcome to Weeks 5-7 of our Introduction to Engineering course. In this study guide, we'll explore various engineering concepts including utilization, energy calculations, stock and flow principles, and metrics reporting.",
+   "Let's begin with the fundamental concept of utilization."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Utilization",
+   "bullets": [
+    "Utilization = Demand ÷ Capacity",
+    "Utilization thresholds (a rule of thumb):",
+    "- < 0.8 — comfortable",
+    "- 0.8–1.0 — tight",
+    "- > 1.0 — overload (a queue or refusals)"
+   ]
+  },
+  "narr": [
+   "Utilization is a key metric in engineering that measures how effectively capacity is being used.",
+   "It's calculated as the ratio of demand to capacity.",
+   "As a rule of thumb, we have different utilization thresholds:",
+   "Below 0.8 is considered comfortable, meaning there's spare capacity.",
+   "Between 0.8 and 1.0 is tight, with little to no spare capacity.",
+   "Above 1.0 indicates overload, which can lead to queues or service refusals."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Energy Calculation",
+   "tex": "Power \\times time = energy",
+   "parts": [
+    {
+     "substr": "Power",
+     "color": "#4C5FD5",
+     "note": "measured in kilowatts (kW)"
+    },
+    {
+     "substr": "time",
+     "color": "#B45309",
+     "note": "measured in hours (h)"
+    },
+    {
+     "substr": "energy",
+     "color": "#0E7C7B",
+     "note": "measured in kilowatt-hours (kWh)"
+    }
+   ]
+  },
+  "narr": [
+   "Let's look at the fundamental relationship between power, time, and energy.",
+   "Power multiplied by time equals energy.",
+   "For example, if we have a 60 kW device running for 2 hours,",
+   "the energy consumed would be 60 kW times 2 hours, which equals 120 kWh."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Stock and Flow",
+   "bullets": [
+    "change in stock = inflow − outflow",
+    "Buffer filling time = free space ÷ (inflow − outflow)"
+   ]
+  },
+  "narr": [
+   "In engineering systems, we often deal with stocks and flows.",
+   "The change in stock is simply the inflow minus the outflow.",
+   "This principle helps us calculate buffer filling time.",
+   "For instance, if we have 800 units of free space and a net inflow of 40 units per hour,",
+   "the filling time would be 800 divided by 40, which equals 20 hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Flow Rule 1",
+   "tex": "Flow = speed \\times density",
+   "parts": [
+    {
+     "substr": "Flow",
+     "color": "#4C5FD5",
+     "note": "measured in cars per hour"
+    },
+    {
+     "substr": "speed",
+     "color": "#B45309",
+     "note": "measured in kilometers per hour"
+    },
+    {
+     "substr": "density",
+     "color": "#0E7C7B",
+     "note": "measured in cars per kilometer"
+    }
+   ]
+  },
+  "narr": [
+   "Another important flow rule relates flow to speed and density.",
+   "Flow equals speed multiplied by density.",
+   "For example, if cars are moving at 15 km/h with a density of 20 cars per kilometer,",
+   "the flow rate would be 15 times 20, which equals 300 cars per hour."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Flow Rule 2",
+   "tex": "number \\ inside = arrivals \\times time \\ inside",
+   "parts": [
+    {
+     "substr": "number inside",
+     "color": "#4C5FD5",
+     "note": "total number in the system"
+    },
+    {
+     "substr": "arrivals",
+     "color": "#B45309",
+     "note": "rate of arrival"
+    },
+    {
+     "substr": "time inside",
+     "color": "#0E7C7B",
+     "note": "time spent in the system"
+    }
+   ]
+  },
+  "narr": [
+   "A second flow rule states that the number of items inside a system equals the arrival rate multiplied by the time spent inside.",
+   "For instance, if 10 students arrive per minute and each spends 3 minutes in the system,",
+   "there will be 10 times 3, which equals 30 students in the system at any given time."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Daily Capacity",
+   "tex": "capacity \\ [units/day] = rate \\ [units/h] \\times time \\ [h/day]",
+   "parts": [
+    {
+     "substr": "capacity",
+     "color": "#4C5FD5",
+     "note": "total daily output"
+    },
+    {
+     "substr": "rate",
+     "color": "#B45309",
+     "note": "output per hour"
+    },
+    {
+     "substr": "time",
+     "color": "#0E7C7B",
+     "note": "operating hours per day"
+    }
+   ]
+  },
+  "narr": [
+   "To calculate the daily capacity of a stage or process,",
+   "we multiply the rate by the operating time per day.",
+   "For example, if a stage has a rate of 680 units per hour and operates for 12 hours a day,",
+   "the daily capacity would be 680 times 12, which equals 8160 units per day."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Charging Time",
+   "tex": "time = energy \\div power",
+   "parts": [
+    {
+     "substr": "time",
+     "color": "#4C5FD5",
+     "note": "charging time in hours"
+    },
+    {
+     "substr": "energy",
+     "color": "#B45309",
+     "note": "energy to be charged in kWh"
+    },
+    {
+     "substr": "power",
+     "color": "#0E7C7B",
+     "note": "charging power in kW"
+    }
+   ]
+  },
+  "narr": [
+   "When calculating charging time, we use the formula time equals energy divided by power.",
+   "For instance, to charge 115 kWh with a 60 kW charger,",
+   "the time required would be 115 divided by 60, which is approximately 1.9 hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Average Power",
+   "tex": "average \\ power = energy \\div window",
+   "parts": [
+    {
+     "substr": "average power",
+     "color": "#4C5FD5",
+     "note": "average power output in kW"
+    },
+    {
+     "substr": "energy",
+     "color": "#B45309",
+     "note": "energy produced in kWh"
+    },
+    {
+     "substr": "window",
+     "color": "#0E7C7B",
+     "note": "time period in hours"
+    }
+   ]
+  },
+  "narr": [
+   "To find the average power over a specific time window,",
+   "we divide the energy by the window duration.",
+   "For example, if 690 kWh is produced over 8 hours,",
+   "the average power would be 690 divided by 8, which is approximately 86 kW."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Installation Size",
+   "problem": "Calculate the required installation size based on daily energy needs and yield per kW per day",
+   "steps": [
+    {
+     "text": "Calculate installation size: installation = daily energy ÷ yield per kW per day"
+    },
+    {
+     "text": "Calculate required area: area = installation size × area per kW"
+    }
+   ],
+   "result": "Installation size ≈ 30 kW; Area ≈ 150 m²"
+  },
+  "narr": [
+   "Let's work through an example of calculating installation size from an estimate.",
+   "First, we need to determine the installation size by dividing daily energy by yield per kW per day.",
+   "For 115 kWh daily energy and 4 kWh per kW per day yield,",
+   "we get approximately 29 kW, which we'd round to 30 kW.",
+   "Then, to find the required area, we multiply by 5 m² per kW,",
+   "resulting in approximately 150 m²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Good Output with Losses",
+   "tex": "output = input \\times (1 - l_1) \\times (1 - l_2) \\times (1 - l_3)",
+   "parts": [
+    {
+     "substr": "output",
+     "color": "#4C5FD5",
+     "note": "final output after losses"
+    },
+    {
+     "substr": "input",
+     "color": "#B45309",
+     "note": "initial input"
+    },
+    {
+     "substr": "l",
+     "color": "#0E7C7B",
+     "note": "loss fraction at each stage"
+    }
+   ]
+  },
+  "narr": [
+   "When calculating output through multiple stages with losses,",
+   "we multiply the input by one minus each loss fraction.",
+   "For example, with an input of 7200 units and losses of 2%, 3%, and 4% at three stages,",
+   "the output would be 7200 times 0.98 times 0.97 times 0.96,",
+   "which equals approximately 6571 units per day."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Required Capacity for Target Utilization",
+   "tex": "required \\ capacity = peak \\ demand \\div target \\ utilisation",
+   "parts": [
+    {
+     "substr": "required capacity",
+     "color": "#4C5FD5",
+     "note": "capacity needed to meet target utilization"
+    },
+    {
+     "substr": "peak demand",
+     "color": "#B45309",
+     "note": "maximum expected demand"
+    },
+    {
+     "substr": "target utilization",
+     "color": "#0E7C7B",
+     "note": "desired utilization level"
+    }
+   ]
+  },
+  "narr": [
+   "To determine the capacity required for a target utilization level,",
+   "we divide the peak demand by the target utilization.",
+   "For instance, with a peak demand of 7000 units and a target utilization of 0.85,",
+   "the required capacity would be 7000 divided by 0.85,",
+   "which equals approximately 8235 units per day or about 686 units per hour."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 7 — Ranges, Metrics, Reporting",
+   "subtitle": "Statistical Analysis"
+  },
+  "narr": [
+   "Now let's move to Week 7, focusing on ranges, metrics, and reporting.",
+   "We'll explore statistical measures like mean, median, and range."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Mean of a Small Sample",
+   "tex": "mean = \\frac{x_1 + x_2 + \\dots + x_n}{n}",
+   "parts": [
+    {
+     "substr": "mean",
+     "color": "#4C5FD5",
+     "note": "average value"
+    },
+    {
+     "substr": "x",
+     "color": "#B45309",
+     "note": "individual values"
+    },
+    {
+     "substr": "n",
+     "color": "#0E7C7B",
+     "note": "number of values"
+    }
+   ]
+  },
+  "narr": [
+   "The mean is a common measure of central tendency.",
+   "It's calculated by summing all values and dividing by the number of values.",
+   "For example, with values 1.1, 1.3, and 1.6 kWh/km,",
+   "the mean would be 1.1 plus 1.3 plus 1.6 divided by 3,",
+   "which equals 1.33 kWh/km."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Median of a Small Sample",
+   "tex": "median = \\text{the middle element in order}",
+   "parts": [
+    {
+     "substr": "median",
+     "color": "#4C5FD5",
+     "note": "middle value when ordered"
+    },
+    {
+     "substr": "middle element",
+     "color": "#B45309",
+     "note": "value at position (n+1)/2"
+    }
+   ]
+  },
+  "narr": [
+   "The median is another measure of central tendency.",
+   "It's the middle value when all values are ordered from smallest to largest.",
+   "In our example with three values (1.1, 1.3, 1.6), the median is 1.3 kWh/km."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Range of a Result",
+   "problem": "Calculate the range of a result for different values of efficiency",
+   "steps": [
+    {
+     "text": "Calculate result for each efficiency value: R = 160 kWh ÷ e"
+    },
+    {
+     "text": "Summer efficiencies: 1.1, 1.3, 1.6 → Results: 145, 123, 100 km"
+    },
+    {
+     "text": "Winter efficiencies: 1.5, 1.8, 2.0 → Results: 107, 89, 80 km"
+    }
+   ],
+   "result": "Summer range: 100-145 km; Winter range: 80-107 km"
+  },
+  "narr": [
+   "When dealing with ranges, we must compute the result for every value in the range, not just one.",
+   "For example, with R = 160 kWh divided by efficiency e,",
+   "we get different results for different efficiency values.",
+   "In summer with efficiencies of 1.1, 1.3, and 1.6,",
+   "the results are approximately 145, 123, and 100 km respectively.",
+   "In winter with efficiencies of 1.5, 1.8, and 2.0,",
+   "the results are approximately 107, 89, and 80 km."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Share (Percentage)",
+   "bullets": [
+    "share = part ÷ base",
+    "Always express as a percentage of a stated base"
+   ]
+  },
+  "narr": [
+   "A share or percentage is always calculated relative to a stated base.",
+   "The formula is part divided by base.",
+   "For example, corridor lighting might be 12 units out of 20 total,",
+   "which is 60% of the lighting system,",
+   "but only about 7% of the building's peak demand."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Annual Energy Saving",
+   "tex": "saving \\ [kWh/year] = saving \\ per \\ lamp \\ [W] \\times lamps \\times hours \\ [h/day] \\times 365 \\div 1000",
+   "parts": [
+    {
+     "substr": "saving per lamp",
+     "color": "#4C5FD5",
+     "note": "power saved per lamp in watts"
+    },
+    {
+     "substr": "lamps",
+     "color": "#B45309",
+     "note": "number of lamps"
+    },
+    {
+     "substr": "hours",
+     "color": "#0E7C7B",
+     "note": "operating hours per day"
+    }
+   ]
+  },
+  "narr": [
+   "To calculate annual energy savings, such as when switching to LED lighting,",
+   "we multiply the saving per lamp by the number of lamps,",
+   "by the operating hours per day, by 365 days,",
+   "and then divide by 1000 to convert to kWh."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Triangulation",
+   "problem": "Estimate daily energy consumption using different methods",
+   "steps": [
+    {
+     "text": "Method 1: Area × energy intensity = 8000 m² × 0.35 ≈ 2800 kWh/day"
+    },
+    {
+     "text": "Method 2: Power × hours = 94 kW × 24 h ≈ 2260 kWh/day"
+    },
+    {
+     "text": "Method 3: Annual energy ÷ days = 70,000 ÷ 30 ≈ 2330 kWh/day"
+    }
+   ],
+   "result": "Triangulation results: 2260-2800 kWh/day"
+  },
+  "narr": [
+   "Triangulation involves using multiple methods to estimate the same value.",
+   "For a faculty building, we might use three different approaches:",
+   "First, area times energy intensity: 8000 m² times 0.35 gives about 2800 kWh/day.",
+   "Second, power times hours: 94 kW times 24 hours gives about 2260 kWh/day.",
+   "Third, annual energy divided by days: 70,000 divided by 30 gives about 2330 kWh/day.",
+   "These methods provide a range of estimates that help validate our calculations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Break-Even Premium per Lamp",
+   "tex": "break-even \\ ≈ annual \\ saving \\ per \\ lamp \\ × years \\ of \\ service",
+   "parts": [
+    {
+     "substr": "break-even",
+     "color": "#4C5FD5",
+     "note": "maximum acceptable additional cost"
+    },
+    {
+     "substr": "annual saving per lamp",
+     "color": "#B45309",
+     "note": "energy saving per year per lamp"
+    },
+    {
+     "substr": "years of service",
+     "color": "#0E7C7B",
+     "note": "expected lifespan of the lamp"
+    }
+   ]
+  },
+  "narr": [
+   "The break-even premium is the maximum additional cost that can be justified by savings.",
+   "It's calculated as the annual saving per lamp multiplied by the years of service.",
+   "For example, with an annual saving of 25.8 kWh per lamp and a value of 850 UZS per kWh,",
+   "the break-even premium would be 25.8 times 850,",
+   "which equals approximately 21,900 UZS per year."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Covered Share",
+   "problem": "Calculate what percentage of building energy is covered by solar installation",
+   "steps": [
+    {
+     "text": "Determine solar installation energy output: 90-150 kWh/day"
+    },
+    {
+     "text": "Determine building total energy consumption: 2260 kWh/day"
+    },
+    {
+     "text": "Calculate share: installation energy ÷ building energy"
+    }
+   ],
+   "result": "Solar covers approximately 4-7% of building energy"
+  },
+  "narr": [
+   "To find the covered share, such as what percentage of building energy is covered by a solar roof,",
+   "we divide the installation's energy by the building's total energy.",
+   "With the solar producing 90-150 kWh/day and the building consuming 2260 kWh/day,",
+   "the solar covers approximately 4-7% of the building's energy needs."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Units and Conversions",
+   "subtitle": "Weeks 6-7"
+  },
+  "narr": [
+   "Finally, let's cover units and conversions, which are essential in engineering calculations.",
+   "Understanding prefixes and conversion factors is crucial for accurate work."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Powers-of-a-thousand Prefixes",
+   "bullets": [
+    "1 kW = 1000 W",
+    "1 MW = 1000 kW",
+    "1 kWh = 1000 Wh"
+   ]
+  },
+  "narr": [
+   "Engineering uses powers-of-a-thousand prefixes to simplify large numbers.",
+   "A kilowatt (kW) equals 1000 watts (W).",
+   "A megawatt (MW) equals 1000 kilowatts.",
+   "Similarly, a kilowatt-hour (kWh) equals 1000 watt-hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Megawatts to Kilowatts",
+   "tex": "0.2 \\ MW = 200 \\ kW",
+   "parts": [
+    {
+     "substr": "MW",
+     "color": "#4C5FD5",
+     "note": "megawatts"
+    },
+    {
+     "substr": "kW",
+     "color": "#B45309",
+     "note": "kilowatts"
+    }
+   ]
+  },
+  "narr": [
+   "When converting between units, remember the conversion factors.",
+   "For example, converting from megawatts to kilowatts requires multiplying by 1000.",
+   "So, 0.2 MW equals 200 kW."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Minutes to Hours",
+   "tex": "36 \\ min \\div 60 = 0.6 \\ h",
+   "parts": [
+    {
+     "substr": "minutes",
+     "color": "#4C5FD5",
+     "note": "time in minutes"
+    },
+    {
+     "substr": "hours",
+     "color": "#B45309",
+     "note": "time in hours"
+    }
+   ]
+  },
+  "narr": [
+   "When converting minutes to hours, remember that minutes are not decimal fractions of an hour.",
+   "To convert minutes to hours, divide by 60.",
+   "For example, 36 minutes divided by 60 equals 0.6 hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Precision Rule",
+   "bullets": [
+    "Precise is not the same as correct",
+    "Use one-two significant figures for rough estimates",
+    "Example: 'about 30 kW', not '29.17 kW'"
+   ]
+  },
+  "narr": [
+   "Finally, remember the precision rule: precise is not the same as correct.",
+   "For rough estimates, use one or two significant figures.",
+   "For example, it's better to say 'about 30 kW' rather than '29.17 kW' when giving an estimate.",
+   "This reflects the appropriate level of precision for the calculation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "Source: Lecture05–Lecture07; Lab5–Lab7; the sheets of weeks 5–7",
+   "who": "Course Materials"
+  },
+  "narr": [
+   "This study guide covers Weeks 5-7 of the Introduction to Engineering course,",
+   "including material from lectures 5-7, labs 5-7,",
+   "and the weekly sheets for those weeks."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

@@ -1,0 +1,321 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Week 7 Glossary",
+   "subtitle": "Key terms and concepts"
+  },
+  "narr": [
+   "Welcome to the glossary section of week 7, where we'll explore key terms related to data handling and engineering analysis.",
+   "Let's start with understanding different types of incomplete data problems that engineers often encounter."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Incomplete Data",
+   "bullets": [
+    "Too little data: Only a few points (three test trips)",
+    "Missing data: No data for the case we care about (no winter test)",
+    "Noisy data: Values scatter around the truth (1.1–1.6 kWh/km on the same route)",
+    "Outdated/unrepresentative data: Measured under other conditions or earlier (empty-bus tests, a profile from before the new wing)",
+    "Wrong definition or unit: The quantity is not what we think ('200' without a unit, the battery in '%')"
+   ]
+  },
+  "narr": [
+   "Incomplete data refers to situations where the needed numbers are absent or cannot be fully trusted.",
+   "First, we have too little data, which means only having a few points to work with, like just three test trips.",
+   "Next is missing data, where we have no information for the specific case we're interested in, such as lacking winter test data.",
+   "Noisy data occurs when values scatter around the truth, like measuring energy consumption between 1.1 and 1.6 kWh/km on the same route.",
+   "Outdated or unrepresentative data comes from measurements taken under different conditions or earlier times, like empty-bus tests or profiles from before a new wing design.",
+   "Finally, wrong definition or unit problems arise when the quantity isn't what we think it is, like seeing '200' without units or measuring battery capacity in percentages."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Data Analysis Techniques",
+   "bullets": [
+    "Triangulation: Estimate one quantity by at least two independent routes and compare",
+    "Range: Low–typical–high values (e.g., 107/89/80 km); indicates how far to trust the answer",
+    "Median: The middle element in ordered data; robust to one odd value (e.g., 1.3 kWh/km)",
+    "90th percentile: The value below which 90% of observations fall (e.g., about 13 minutes of waiting)",
+    "Baseline (denominator): Reference point for percentages ('A percentage of what?')"
+   ]
+  },
+  "narr": [
+   "Now let's look at techniques for handling and analyzing data effectively.",
+   "Triangulation involves estimating one quantity through at least two independent routes and comparing the results.",
+   "Range provides low, typical, and high values, showing how far we can trust our answer—like 107, 89, or 80 kilometers.",
+   "The median is the middle element when data is ordered, making it robust to one odd value, such as 1.3 kWh/km.",
+   "The 90th percentile tells us the value below which 90% of observations fall, like about 13 minutes of waiting time.",
+   "And baseline or denominator answers the question 'A percentage of what?'—for example, 12 kW might be 60% of corridor lighting but only 7% of the building's peak demand."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Decision Making Concepts",
+   "bullets": [
+    "Top assumption: The assumption the result rests on most (e.g., 1.8 kWh/km in winter)",
+    "Flip point: The threshold at which the decision changes (e.g., break-even premium per lamp)",
+    "Honest report: Result + range + top assumption + what would change the conclusion"
+   ]
+  },
+  "narr": [
+   "When making decisions based on data, several concepts become crucial.",
+   "The top assumption is the one that our result depends on most heavily—like assuming 1.8 kWh/km energy consumption in winter.",
+   "The flip point represents the threshold where our decision would change, such as the break-even premium for each lamp.",
+   "And an honest report should include the result, its range, the top assumption, and what factors would change our conclusion."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Course Formulas Reference",
+   "subtitle": "Key equations from weeks 5–7"
+  },
+  "narr": [
+   "Now let's move to the formulas section, which collects all the calculation relations from weeks 5–7.",
+   "We'll start with the electric bus model from week 5, covering fundamental equations for energy and range calculations."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Trip Energy",
+   "tex": "E = e \\times d \\text{ [kWh]} = \\text{[kWh/km]} \\times \\text{[km]}",
+   "parts": [
+    {
+     "substr": "E",
+     "color": "#4C5FD5",
+     "note": "Trip energy in kilowatt-hours"
+    },
+    {
+     "substr": "e",
+     "color": "#B45309",
+     "note": "Energy consumption per kilometer"
+    },
+    {
+     "substr": "d",
+     "color": "#0E7C7B",
+     "note": "Distance traveled in kilometers"
+    }
+   ]
+  },
+  "narr": [
+   "First, trip energy is calculated by multiplying consumption per kilometer by distance.",
+   "E represents the trip energy in kilowatt-hours, e is the energy consumption rate in kilowatt-hours per kilometer, and d is the distance in kilometers.",
+   "This gives us the total energy required for a trip."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Range on a Single Charge",
+   "tex": "R = \\frac{u \\times C}{e} \\rightarrow \\frac{160 \\text{ [kWh]}}{1.2 \\text{ [kWh/km]}} = 133 \\text{ [km]}",
+   "parts": [
+    {
+     "substr": "R",
+     "color": "#4C5FD5",
+     "note": "Range in kilometers"
+    },
+    {
+     "substr": "u",
+     "color": "#B45309",
+     "note": "Usable share of battery (unitless)"
+    },
+    {
+     "substr": "C",
+     "color": "#0E7C7B",
+     "note": "Battery capacity in kilowatt-hours"
+    },
+    {
+     "substr": "e",
+     "color": "#A03040",
+     "note": "Energy consumption rate"
+    }
+   ]
+  },
+  "narr": [
+   "Range on a single charge is calculated by dividing the battery's usable energy by the consumption rate.",
+   "R represents the range in kilometers, u is the usable share of the battery, C is the battery capacity in kilowatt-hours, and e is the energy consumption rate.",
+   "For example, with a 160 kWh battery and 1.2 kWh/km consumption, the range would be 133 kilometers.",
+   "Notice how the units cancel out properly, like fractions, confirming our calculation is dimensionally correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Route Energy Requirement",
+   "problem": "Calculate the daily energy requirement for a bus route that makes 8 laps of 12 km each.",
+   "steps": [
+    {
+     "text": "Identify the number of laps and distance per lap"
+    },
+    {
+     "text": "Multiply laps by distance per lap to get total distance"
+    },
+    {
+     "text": "If needed, multiply by energy consumption rate"
+    }
+   ],
+   "result": "daily requirement = 8 × 12 [km] = 96 [km]"
+  },
+  "narr": [
+   "Let's work through an example calculating the route's daily energy requirement.",
+   "First, we need to identify the number of laps and the distance per lap.",
+   "In this case, we have 8 laps of 12 kilometers each.",
+   "Next, we multiply the number of laps by the distance per lap to get the total distance.",
+   "This gives us 8 times 12 kilometers, which equals 96 kilometers.",
+   "If we needed energy rather than distance, we would then multiply by the energy consumption rate."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Assumption Template",
+   "bullets": [
+    "We assume [assumption] because [reason].",
+    "If it is wrong, [effect on the result]."
+   ]
+  },
+  "narr": [
+   "When making assumptions in engineering analysis, it's helpful to follow a structured template.",
+   "First, state what we assume and provide a clear reason for this assumption.",
+   "Then, explain what would happen to our result if this assumption turns out to be wrong.",
+   "This approach helps maintain transparency and clarity in our analysis."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Energy Balance",
+   "tex": "\\text{supply} = \\text{demand} + \\text{losses}",
+   "parts": [
+    {
+     "substr": "supply",
+     "color": "#4C5FD5",
+     "note": "Total energy available"
+    },
+    {
+     "substr": "demand",
+     "color": "#B45309",
+     "note": "Energy actually used"
+    },
+    {
+     "substr": "losses",
+     "color": "#0E7C7B",
+     "note": "Energy wasted or lost"
+    }
+   ]
+  },
+  "narr": [
+   "The energy balance equation represents the campus electricity supply model.",
+   "It states that the total supply must equal the demand plus any losses in the system.",
+   "Supply represents all energy available, demand is the energy actually used, and losses account for energy wasted or lost in transmission or other processes.",
+   "This fundamental principle applies to many engineering systems beyond just electricity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5.2,
+   "title": "Week 6 — Demand, Capacity, Flows, Estimates",
+   "subtitle": "Key concepts and calculations"
+  },
+  "narr": [
+   "Now we move to week 6, focusing on demand, capacity, flows, and estimates.",
+   "Let's explore the concept of utilization, which requires careful attention to units and time basis."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Utilization",
+   "bullets": [
+    "The same units must be used on both sides of the calculation",
+    "The same time basis must be applied consistently"
+   ]
+  },
+  "narr": [
+   "Utilization is a critical concept in engineering systems analysis.",
+   "When calculating utilization, it's essential to use the same units on both sides of the calculation.",
+   "Similarly, the same time basis must be applied consistently throughout the analysis.",
+   "These precautions ensure accurate and meaningful results when evaluating system performance."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ }
+]

@@ -1,0 +1,591 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 8,
+   "title": "Energy-Saving Decision",
+   "subtitle": "Lab 7"
+  },
+  "narr": [
+   "Welcome to this study guide for Weeks 5-7 of Introduction to Engineering.",
+   "We'll be covering key concepts related to energy-saving decisions and modeling in engineering.",
+   "Let's start by exploring what models are and their importance in engineering."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "What is a Model?",
+   "bullets": [
+    "A model = a simplified representation of a real system, built to answer a specific question; 'no map is the network'",
+    "Four types of models: physical (a blade in a wind tunnel), graphical (a one-line diagram), mathematical (Ohm's law), computational (a table of hourly demand)",
+    "Four parts of a model: inputs, parameters, relationships, outputs — all with units; performance → output, design → input, context → parameter"
+   ]
+  },
+  "narr": [
+   "So what exactly is a model in engineering?",
+   "Essentially, it's a simplified representation of a real system designed to answer specific questions.",
+   "As the saying goes, 'no map is the network' — meaning every model has its limitations.",
+   "There are four main types of models we use: physical models like testing a blade in a wind tunnel, graphical models such as one-line diagrams, mathematical models like Ohm's law, and computational models like tables of hourly demand.",
+   "Every model has four essential parts: inputs, parameters, relationships, and outputs — all with proper units.",
+   "Performance relates to outputs, design to inputs, and context to parameters."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Bus Range Calculation",
+   "problem": "Calculate the range of a bus with given parameters: battery capacity 200 kWh, efficiency 1.2 kWh/km, daily requirement 96 km (8 laps × 12 km).",
+   "steps": [
+    {
+     "text": "Calculate total energy available: $u \\times C = 0, 8 \\times 200 = 160$ kWh"
+    },
+    {
+     "text": "Calculate range: $R = 160 \\div 1, 2 = 133$ km"
+    },
+    {
+     "text": "Compare with daily requirement: 133 km - 96 km = 37 km margin"
+    }
+   ],
+   "result": "The bus has a range of 133 km with a margin of about 37 km."
+  },
+  "narr": [
+   "Let's look at a practical example involving a bus's range calculation.",
+   "The bus has a battery capacity of 200 kWh and an efficiency of 1.2 kWh per kilometer.",
+   "First, we calculate the total available energy: 80% of 200 kWh equals 160 kWh.",
+   "Then, we determine the range by dividing the energy by efficiency: 160 kWh divided by 1.2 kWh/km gives us 133 km.",
+   "The daily requirement is 96 km, so we have a comfortable margin of about 37 km."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Range Under Different Assumptions",
+   "problem": "Calculate the bus range under different conditions: base case, full load, old battery, winter, and winter with old battery.",
+   "steps": [
+    {
+     "text": "Base case: 133 km"
+    },
+    {
+     "text": "Full load: 114 km"
+    },
+    {
+     "text": "Old battery: 107 km"
+    },
+    {
+     "text": "Winter: 89 km"
+    },
+    {
+     "text": "Winter + old battery: 71 km"
+    }
+   ],
+   "result": "The first three cases (133, 114, and 107 km) cover the required 96 km."
+  },
+  "narr": [
+   "Now, let's see how different assumptions affect the bus's range.",
+   "Under normal conditions, the range is 133 km.",
+   "With a full load, it drops to 114 km.",
+   "With an old battery, it's 107 km.",
+   "In winter conditions, it falls to 89 km.",
+   "And with both winter and an old battery, it's only 71 km.",
+   "Fortunately, the first three scenarios still meet our daily requirement of 96 km."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Solar Energy Estimation",
+   "problem": "Estimate daily solar energy production for a system with 5 kW capacity.",
+   "steps": [
+    {
+     "text": "Naive calculation: $5$ kW $\\times 24$ h = $120$ kWh/day"
+    },
+    {
+     "text": "Realistic estimate considering clear weather: approximately $31$ kWh/day"
+    },
+    {
+     "text": "Compare naive vs realistic: 120 ÷ 31 ≈ 4 times too high"
+    },
+    {
+     "text": "Remember: kW is power, kWh is energy"
+    }
+   ],
+   "result": "The realistic solar energy production is about 31 kWh/day, nearly 4 times lower than the naive calculation."
+  },
+  "narr": [
+   "Let's examine a common misconception in energy calculations.",
+   "A naive calculation for solar energy might be 5 kW times 24 hours, which gives 120 kWh per day.",
+   "However, considering realistic conditions with clear weather, the actual production is only about 31 kWh per day.",
+   "This means the naive estimate is nearly 4 times too high.",
+   "It's crucial to remember that kW measures power (rate), while kWh measures energy (amount)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Utilization Analysis",
+   "problem": "Calculate utilization for different facilities: faculty building, canteen, bus, and depot.",
+   "steps": [
+    {
+     "text": "Faculty building: $180 \\div 250 = 0.72$ (comfortable)"
+    },
+    {
+     "text": "Canteen: $360 \\div 400 = 0.90$ (tight)"
+    },
+    {
+     "text": "Bus: $300 \\div 240 = 1.25$ (overload)"
+    },
+    {
+     "text": "Depot: $360 \\div 200 = 1.80$ (overload)"
+    }
+   ],
+   "result": "Faculty building is comfortable at 72% utilization, canteen is tight at 90%, while both bus and depot are overloaded at 125% and 180% respectively."
+  },
+  "narr": [
+   "Utilization is a key metric in engineering, calculated as demand divided by capacity.",
+   "For the faculty building, utilization is 180 divided by 250, which equals 0.72 or 72% — considered comfortable.",
+   "The canteen has higher utilization at 90%, which is tight but still acceptable.",
+   "The bus, however, shows overload at 125% utilization.",
+   "The depot is even worse at 180% utilization, indicating significant overload."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Peak vs Average Demand",
+   "problem": "Analyze power demand with average and peak values.",
+   "steps": [
+    {
+     "text": "Average demand: 94 kW"
+    },
+    {
+     "text": "Peak demand: 180 kW at 13:00"
+    },
+    {
+     "text": "Transformer capacity: 250 kW"
+    },
+    {
+     "text": "Design principle: Size for the peak, not for the average"
+    }
+   ],
+   "result": "The transformer must be sized for the peak demand of 180 kW, not the average of 94 kW."
+  },
+  "narr": [
+   "A critical principle in engineering is that averages can be misleading.",
+   "In this case, the average power demand is 94 kW.",
+   "However, the peak demand reaches 180 kW at 1:00 PM.",
+   "The transformer capacity is 250 kW.",
+   "The key lesson here is to always size for the peak demand, not the average."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Bus Charging Analysis",
+   "problem": "Calculate charging time and power requirements for a fleet of buses.",
+   "steps": [
+    {
+     "text": "Single bus: $115$ kWh $\\div 60$ kW $\\approx 1.9$ hours"
+    },
+    {
+     "text": "Six buses: $690$ kWh over 8 hours $\\rightarrow$ average $52$ kW"
+    },
+    {
+     "text": "Two batches: $3 \\times 60 = 180$ kW (utilization 0.9)"
+    },
+    {
+     "text": "Total time for two batches: $2 \\times 1.9 \\approx 3.8$ hours"
+    }
+   ],
+   "result": "Charging six buses in two batches takes approximately 3.8 hours with 180 kW utilization."
+  },
+  "narr": [
+   "Let's analyze the charging requirements for a bus fleet.",
+   "For a single bus with 115 kWh battery capacity and 60 kW charger, it takes about 1.9 hours to fully charge.",
+   "For six buses, we need 690 kWh of energy over an 8-hour window, resulting in an average load of 52 kW.",
+   "If we charge in two batches of three buses, each batch requires 180 kW with 90% utilization.",
+   "The total charging time for both batches would be approximately 3.8 hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Fleet Scaling Analysis",
+   "problem": "Analyze charging requirements for a larger fleet of ten buses.",
+   "steps": [
+    {
+     "text": "Ten buses: $1,150$ kWh total energy requirement"
+    },
+    {
+     "text": "Average power: approximately $144$ kW"
+    },
+    {
+     "text": "Charging setup: 3 chargers at a time"
+    },
+    {
+     "text": "Charging batches: 4 batches total"
+    },
+    {
+     "text": "Total time: $4 \\times 1.9 \\approx 7.7$ hours"
+    }
+   ],
+   "result": "Ten buses require 7.7 hours to charge with 3 chargers operating in 4 batches, fitting almost without margin."
+  },
+  "narr": [
+   "Now let's scale up to a fleet of ten buses.",
+   "The total energy requirement becomes 1,150 kWh.",
+   "This results in an average power demand of approximately 144 kW.",
+   "With 3 chargers operating simultaneously, we can charge 3 buses at a time.",
+   "This requires 4 charging batches, taking a total of approximately 7.7 hours.",
+   "This schedule fits almost without margin in an 8-hour window."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Solar Estimation for Bus",
+   "problem": "Estimate solar panel requirements for a bus with 115 kWh daily energy need.",
+   "steps": [
+    {
+     "text": "Daily energy per bus: 115 kWh"
+    },
+    {
+     "text": "Solar power needed: $115 \\div 4 \\approx 29$ kW"
+    },
+    {
+     "text": "Panel area: approximately $150$ m²"
+    },
+    {
+     "text": "Estimate bounds: 23-38 kW"
+    }
+   ],
+   "result": "A bus requiring 115 kWh daily needs about 30 kW of solar panels covering approximately 150 m², with bounds between 23-38 kW."
+  },
+  "narr": [
+   "Let's estimate the solar panel requirements for a single bus.",
+   "The bus needs 115 kWh of energy daily.",
+   "Assuming 4 hours of effective sunlight, we need approximately 29 kW of solar panels.",
+   "This would cover about 150 square meters of area.",
+   "The reasonable bounds for this estimate range from 23 to 38 kW."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Semiconductor Line Analysis",
+   "problem": "Analyze production line capacities and identify bottlenecks.",
+   "steps": [
+    {
+     "text": "Daily capacities: 8,160 / 7,440 / 6,960 / 7,200 / 7,680 units"
+    },
+    {
+     "text": "Identify bottleneck: Wire Bonding at 6,960 units/day"
+    },
+    {
+     "text": "Peak utilization at 7,000 units: $7,000 \\div 6,960 \\approx 1.01$"
+    }
+   ],
+   "result": "Wire Bonding is the bottleneck at 6,960 units/day, with utilization reaching 1.01 at peak production."
+  },
+  "narr": [
+   "Now let's examine a semiconductor production line.",
+   "The daily capacities for different stages are 8,160, 7,440, 6,960, 7,200, and 7,680 units.",
+   "The bottleneck is Wire Bonding, which can only handle 6,960 units per day.",
+   "At peak production of 7,000 units, the utilization reaches approximately 1.01, slightly exceeding capacity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Line Losses and Buffer Analysis",
+   "problem": "Calculate good units output and buffer filling time.",
+   "steps": [
+    {
+     "text": "Calculate good units: $7,200 \\times 0.98 \\times 0.97 \\times 0.96 \\approx 6,571$ units"
+    },
+    {
+     "text": "Calculate losses: $7,200 - 6,571 = 629$ units (about 9%)"
+    },
+    {
+     "text": "Buffer rate: $600 - 560 = 40$ units/hour"
+    },
+    {
+     "text": "Buffer filling time: $600 \\div 40 = 15$ hours"
+    }
+   ],
+   "result": "The line produces approximately 6,571 good units out of 7,200, with 9% losses. The buffer fills at 40 units/hour and would be full in 15 hours."
+  },
+  "narr": [
+   "Let's analyze the line's efficiency and buffer requirements.",
+   "Starting with 7,200 units, we apply the efficiency rates: 98%, 97%, and 96%.",
+   "This results in approximately 6,571 good units, meaning 629 units (about 9%) never ship.",
+   "The buffer receives 600 units but processes 560 units per hour, creating a net accumulation of 40 units per hour.",
+   "At this rate, the buffer would be full in 15 hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — LED Lighting Cost Analysis",
+   "problem": "Analyze energy savings and break-even point for LED lighting.",
+   "steps": [
+    {
+     "text": "Energy savings: 124-216 MWh/year (typically 167 MWh)"
+    },
+    {
+     "text": "Cost savings: 87-216 million UZS/year"
+    },
+    {
+     "text": "Median lamp power: 12.1W (n=5 samples)"
+    },
+    {
+     "text": "Break-even premium: approximately 200,000 UZS at 40,000 hours"
+    }
+   ],
+   "result": "LED lighting saves 124-216 MWh/year (typically 167) and 87-216 million UZS/year, with a break-even premium of about 200,000 UZS at 40,000 hours."
+  },
+  "narr": [
+   "Finally, let's analyze the potential savings from LED lighting.",
+   "The energy savings range from 124 to 216 MWh per year, with a typical value of 167 MWh.",
+   "This translates to cost savings of 87 to 216 million UZS per year.",
+   "The median power consumption of the lamps sampled is 12.1 watts.",
+   "The break-even premium for these LEDs is approximately 200,000 UZS at 40,000 hours of operation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Quotes and Definitions",
+   "bullets": [
+    "\"All models are wrong, but some are useful\" — George Box, statistician",
+    "\"A model is a machine: numbers go in, a rule is applied, numbers come out\"",
+    "\"Every number needs its units\"",
+    "\"Neither map is the grid\": each is a model for one type of question",
+    "\"Choose the simplest model that answers the question well enough to decide\"",
+    "\"An assumption that is written down can be checked. A hidden one cannot\""
+   ]
+  },
+  "narr": [
+   "George Box reminds us that \"all models are wrong, but some are useful.\"",
+   "A model can be seen as a machine where numbers go in, a rule is applied, and numbers come out.",
+   "Crucially, every number needs its units to be meaningful.",
+   "As the saying goes, \"neither map is the grid\" — each serves a specific purpose.",
+   "We should choose the simplest model that answers our question well enough to make a decision.",
+   "An assumption that is written down can be checked; a hidden one cannot.",
+   "Engineering is filled with wisdom that helps guide our decision-making."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Quotes and Definitions (cont.)",
+   "bullets": [
+    "\"Is this a reasonable answer?\" — Kosky's question for every engineering result",
+    "\"Size for the peak, not for the average\"",
+    "\"Energy was never the problem. Power was\"",
+    "\"Precise is not the same as accurate\"",
+    "\"The decision picks the metric, not the other way round\"",
+    "\"A good report gives the answer, how far to trust it, and what would change it\""
+   ]
+  },
+  "narr": [
+   "Kosky asks us always to question: \"Is this a reasonable answer?\"",
+   "When designing systems, we must size for the peak, not the average.",
+   "In energy systems, \"energy was never the problem. Power was.\"",
+   "Precision is not the same as accuracy — both are important but distinct.",
+   "The decision should pick the metric, not the other way around.",
+   "Finally, a good report provides the answer, indicates how far to trust it, and explains what would change it."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ten One-Line Answers",
+   "bullets": [
+    "A model = a simplification for the sake of one question: the question decides what to keep and what to throw away",
+    "Types of models: physical, graphical, mathematical, computational; projects mix them",
+    "Anatomy: inputs → parameters → relationships → outputs, all with units",
+    "Assumptions: simplifying (we ignore), data (we fix), boundary (we leave outside) — and each one with the template",
+    "Fit for purpose = the simplest model sufficient for the decision; too simple and too detailed are the two failures"
+   ]
+  },
+  "narr": [
+   "First, a model is a simplification for a specific question — the question determines what to keep or discard.",
+   "There are four types of models: physical, graphical, mathematical, and computational; projects often mix these.",
+   "Every model has an anatomy: inputs flow to parameters, which relate through relationships to produce outputs, all with proper units.",
+   "Assumptions come in three types: simplifying (what we ignore), data (what we fix), and boundary (what we leave outside), each documented with a template.",
+   "Fit for purpose means choosing the simplest model sufficient for the decision — both oversimplification and excessive detail are failures.",
+   "Let's summarize ten key one-line answers that capture essential engineering concepts."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ten One-Line Answers (cont.)",
+   "bullets": [
+    "Checks: units, order of magnitude, a known value — \"Is this a reasonable answer?\"",
+    "Utilization = demand ÷ capacity; < ~0.8 comfortable, > 1 — a queue; size for the peak",
+    "kW is a rate, kWh is an amount; power × time = energy; units in square brackets",
+    "Estimation: break into factors, round to one digit, check the units, bound with a range",
+    "Incomplete data: name the problem type, range +n, triangulate; the report — the result, the range, the top assumption, what would change the conclusion"
+   ]
+  },
+  "narr": [
+   "Always perform checks: verify units, check order of magnitude, compare with known values, and ask \"Is this a reasonable answer?\"",
+   "Utilization equals demand divided by capacity; below 0.8 it's comfortable, above 1.0 creates queues — always size for the peak.",
+   "Remember that kW is a rate (power), while kWh is an amount (energy); power multiplied by time equals energy, with units in square brackets.",
+   "For estimation, break problems into factors, round to one significant digit, check units, and bound the result with a range.",
+   "With incomplete data, name the problem type, provide a range with sample size, triangulate sources, and report the result, range, top assumption, and what would change the conclusion."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 8,
+   "title": "What Comes Next",
+   "subtitle": "Week 8 and Beyond"
+  },
+  "narr": [
+   "Looking ahead to Week 8, you'll face the Midterm Assessment.",
+   "This written, paper-based test covers the first seven weeks and accounts for 30% of your grade.",
+   "After quantitative reasoning, the semester moves to decision-making under trade-offs and system dynamics.",
+   "Specifically, you'll explore efficiency, cost, fairness, accessibility, queues, bottlenecks, and simulations under uncertainty.",
+   "Key milestones include Milestone 4 in Week 10 (trade-off analysis of two alternative designs) and Milestone 5 in Week 12 (scenario simulation draft).",
+   "Before the midterm, focus on reviewing problem statements, variables with units, model types and parts, assumptions, fit for purpose, utilization, and estimation techniques.",
+   "Don't forget to revisit weeks 1-4 content on ethics, systems, PFD, and specifications."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ }
+]
