@@ -1,0 +1,320 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "5-7 haftalarda biz funksiyalarning uzluksizligi va differensiallanuvchanligi bilan tanishamiz.",
+   "Bu haftalarda sizga turli mashqlar bilan tanishib chiqishimiz kerak.",
+   "Keling, birinchi masaladan boshlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — Trek boʻylab harakning sillikliligi",
+   "problem": "Trek f(x) = {(1/10)x² + bx + c, agar x < −10; −(1/4)x + 5/2, agar x ≥−10} funksiyasi bilan tavsiflanadi. Mashina trek boʻylab harakati silliklimi? Uzluksizlik va differensiallanuvchanlik atamalarida muhokama qiling.",
+   "steps": [
+    "Silliklik degani, x = −10 dagi shoxlarning birlashmasida hech qanday uzilish yoki burilish boʻlmasligi: funksiya shu yerda ham uzluksiz, ham differensiallanuvchi boʻlishi kerak.",
+    "Uzluksizlik: lim x →−10⁻f(x) = f(−10) = −(1/4)(−10) + 5/2 = 5 ga teng boʻlishi kerak, yaʼni 10 −10b +c = 5.",
+    "Differensiallanuvchanlik: parabolaning x = −10 dagi nishabi −2+b boʻlib, toʻgʻri chiziqning nishabi −1/4 ga teng boʻlishi kerak, yaʼni b −2 = −1/4.",
+    "Ixtiyoriy b uchun shartlar bajarilmaydi: birinchisining buzilishi birlashmada sakrash, ikkinchisining buzilishi burilishni keltirib chiqaradi; harakat sillikli emas.",
+    "Ikkala shart ham faqat b = 7/4, c = 10b −5 = 25/2 boʻlganda bajariladi — shunda faqat trek boʻylab harakat sillikli boʻladi."
+   ],
+   "result": "Funksiyani sillikli qilish uchun b = 7/4 va c = 25/2 boʻlishi kerak."
+  },
+  "narr": [
+   "Birinchi masalada bizga trek funksiyasi berilgan.",
+   "Mashina bu trek boʻylab silliklicharakatlanishi uchun qanday shartlar bajarilishi kerak?",
+   "Silliklik uchun ikkita shartni qondirishimiz kerak: uzluksizlik va differensiallanuvchanlik.",
+   "Birinchidan, funksiya x = -10 nuqtada uzluksiz boʻlishi kerak.",
+   "Bu shartni qondirish uchun biz 10 - 10b + c = 5 tenglamani olamiz.",
+   "Ikkinchidan, funksiya shu nuqtada differensiallanuvchi boʻlishi kerak.",
+   "Bu esa b - 2 = -1/4 tenglamani beradi.",
+   "Bu ikki tenglamani birgalikda yechsak, b = 7/4 va c = 25/2 ekanligini topamiz.",
+   "Shunday qilib, faqat bu qiymatlarda mashina trek boʻylab silliklicharakatlanadi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — Qismiy funksiya, uzluksiz va differensiallanuvchan",
+   "problem": "Mashincha uchun trek parabola bilan boshlanib toʻgʻri chiziqqa oʻtadi: f(x) = {(1/10)x² + bx + c, agar x < −10; −(1/4)x + 5/2, agar x ≥−10} (dyuymlarda). Sillikli harakat uchun f −10 da uzluksiz va differensiallanuvchi boʻlishi kerak. b va c ni toping.",
+   "steps": [
+    "x = −10 da uzluksizlik: lim x →−10⁻f(x) = (1/10)·100−10b +c = 10−10b +c = f(−10) = 5, bundan c = 10b −5.",
+    "Hosillilik: f′(−10) = lim x →−10(f(x)−f(−10))/(x+10) mavjud boʻlishi kerak; bir tomonli limitlarni hisoblab, tenglashtiramiz.",
+    "Chap tomondan (c = 10b−5ni qoʻyamiz): lim x →−10⁻[(1/10)x²+bx+ 10b −10]/(x+10); surat va maxrajni 10 ga koʻpaytiramiz: lim(x²+ 10bx + 100b −100)/(10(x+10)); x² −100+ 10b(x+10) = (x+10)(x−10+10b) guruhlash lim(x−10+10b)/10 = (−20+10b)/10 = b−2.",
+    "Oʻng tomondan: lim x →−10 + [−(1/4)x + 5/2 −5]/(x + 10) = lim[−(1/4)x −5/2]/(x +10) = lim −(x +10)/(4(x +10)) = −1/4.",
+    "Tenglashtiramiz: b −2 = −1/4, bundan b = 7/4, c = 10·(7/4) −5 = 25/2."
+   ],
+   "result": "b = 7/4, c = 25/2"
+  },
+  "narr": [
+   "Ikkinchi masala birinchisiga oʻxshash, ammo bizga aniq b va c qiymatlarini topish soʻralgan.",
+   "Yana ikkita shartni qondirishimiz kerak: uzluksizlik va differensiallanuvchanlik.",
+   "Uzluksizlik sharti bizga c = 10b - 5 tenglamasini beradi.",
+   "Differensiallanuvchanlik sharti uchun ikkala tomondan hosilalarni hisoblab, ularni tenglashtiramiz.",
+   "Chap tomondan hosilani hisoblab, b - 2 ekanligini koʻramiz.",
+   "Oʻng tomondan hosilani hisoblab, -1/4 ekanligini koʻramiz.",
+   "Bu ikki qiymatni tenglashtirsak, b = 7/4 ekanligini topamiz.",
+   "c ni topish uchun esa uzluksizlik tenglamasiga b qiymatini qoʻyamiz.",
+   "Natijada b = 7/4 va c = 25/2 ekanligini koʻramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — Ters funksiya",
+   "problem": "f(x) = 1/x, x ≠ 0 deb belgilaymiz. (a) Limit taʼrifidan foydalanib f′(x) ni toping. (b)x = 2da teg chiziqni toping. (c) Teg chiziqning qiyaligi musbatmi yoki manfiymi? Geometrik tushuntiring.",
+   "steps": [
+    "(a)x ≠ 0 uchun: f′(x) = lim h →0(1/(x+h)−1/x)/h = lim h →0[(x−(x+h))/(x(x+h))]/h = lim h →0(−1)/(x(x + h)) = −1/x².",
+    "(b) Teg nuqtasi: f(2) = 1/2; qiyalik f′(2) = −1/4.",
+    "Teg chiziq: y −1/2 = −(1/4)(x −2), yaʼni y = 1 −x/4.",
+    "(c) Qiyalik manfiy (−1/4 < 0): 1/x grafigi x = 2 yaqinida tushadi — x ortganda funksiya qiymati kamayadi."
+   ],
+   "result": "f′(x) = −1/x²; teg chiziq: y = 1 − x/4; qiyalik manfiy"
+  },
+  "narr": [
+   "Uchinchi masalada biz f(x) = 1/x funksiyasining hosilasini topishimiz kerak.",
+   "Birinchidan, limit taʼrifidan foydalanib f′(x) ni hisoblaymiz.",
+   "Hisoblash jarayonida soddalashtirib, f′(x) = -1/x² ekanligini koʻramiz.",
+   "Ikkinchi qismda x = 2 nuqtadagi teg chiziqni topishimiz kerak.",
+   "Buning uchun avval funksiyaning shu nuqtadagi qiymati va hosilasini topamiz.",
+   "Teg chiziq tenglamasini yozamiz: y - 1/2 = -1/4(x - 2).",
+   "Uchinchidan, teg chiziqning qiyaligi manfiy ekanligini va bu grafik tushishini anglatishini tushuntiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Modul funksiya",
+   "problem": "f(x) = |x| deb belgilaymiz. (a)f nolda uzluksiz ekanligini koʻrsating. (b) Ayirmaviy munosabatlardan foydalanib f′_−(0) va f′_+(0) ni toping. (c) Nima uchun f′(0) mavjud emasligini tushuntiring. (d) Grafikni chizing va burilish nuqtasini koʻrsating.",
+   "steps": [
+    "(a) lim x →0|x| = 0 = f(0) — f nolda uzluksiz.",
+    "(b) Ayirmaviy munosabat: (f(h) −f(0))/(h −0) = |h|/h = h < 0 boʻlganda −1 va h > 0 boʻlganda 1; demak, f′_−(0) = −1, f′_+(0) = 1.",
+    "(c) Bir tomonli hosilalar har xil (−1 ≠ 1) — ikki tomonli limit mavjud emas, f′(0) mavjud emas.",
+    "(d) Grafik — V shaklidagi qirrali chiziq; burilish (kink) uchida (0, 0): chapda qiyalik −1, oʻngda +1."
+   ],
+   "result": "f nolda uzluksiz, lekin hosilali emas; f′_−(0) = −1, f′_+(0) = 1"
+  },
+  "narr": [
+   "Toʻrtinchi masalada biz modul funksiyasi bilan ishlaymiz.",
+   "Birinchidan, f(x) = |x| funksiyasining nolda uzluksiz ekanligini koʻrsatishimiz kerak.",
+   "Bu juda oddiy: lim x →0|x| = 0 = f(0), shuning uchun funksiya uzluksiz.",
+   "Ikkinchidan, nolda chap va oʻng tomonli hosilalarni topamiz.",
+   "Ayirmaviy munosabatdan foydalanib, chap tomondan hosila -1, oʻng tomondan +1 ekanligini koʻramiz.",
+   "Uchinchidan, ikkala tomonli hosila har xil boʻlgani uchun f′(0) mavjud emasligini tushuntiramiz.",
+   "Toʻrtinchidan, funksiya grafigini chizamiz va u nolda burilish nuqtasiga ega ekanligini koʻrsatamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — Shoxlarning birlashishi",
+   "problem": "f(x) = {x², agar x ≤1; 2x −1, agar x > 1} ni koʻrib chiqamiz. (a)fx = 1 nuqtada uzluksizmi? (b)x = 1 nuqtada chap va oʻng tomonli hosilalarni hisoblang. (c)f shu yerda hosilali boʻladimi? (d) Agar mavjud boʻlsa, birlashish nuqtasida teg chiziqni toping.",
+   "steps": [
+    "(a)f(1) = 1; lim x →1⁻f(x) = 1; lim x →1 + f(x) = 2·1 −1 = 1 — uchala qiymat teng, fx = 1 nuqtada uzluksiz.",
+    "(b)f′_−(1) = (x²)′|x=1 = 2; f′_+(1) = (2x −1)′|x=1 = 2.",
+    "(c) Bir tomonli hosilalar mavjud, chekli va teng: fx = 1 nuqtada hosilali, f′(1) = 2.",
+    "(d)(1, 1) nuqtadan oʻtuvchi va qiyaligi 2 boʻlgan teg chiziq: y = 2x −1. Eʼtibor bering: oʻng shox oʻzi shu teg chiziqdir, shuning uchun birlashish silliq."
+   ],
+   "result": "f x = 1 nuqtada uzluksiz va hosilali; f′(1) = 2; teg chiziq: y = 2x −1"
+  },
+  "narr": [
+   "Beshinchi masalada ikki shoxdan iborat funksiya bilan ishlaymiz.",
+   "Birinchidan, funksiyaning x = 1 nuqtada uzluksiz ekanligini tekshiramiz.",
+   "Funksiya qiymati va ikkala tomondan limitlar teng ekanligini koʻramiz.",
+   "Ikkinchidan, shu nuqtada chap va oʻng tomonli hosilalarni hisoblaymiz.",
+   "Ikkala hosila ham 2 ga teng ekanligini koʻramiz.",
+   "Uchinchidan, ikkala tomonli hosila mavjud va teng boʻlgani uchun funksiya shu nuqtada hosilali ekanligini koʻrsatamiz.",
+   "Toʻrtinchidan, teg chiziqni topamiz va u oʻng shox bilan ustma-ust tushishini kuzatamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — Toʻgʻri yoki notoʻgʻri?",
+   "problem": "Asoslab bering. (a) Agar fa nuqtada hosilali boʻlsa, u holda fa nuqtada uzluksiz. (b) Agar fa nuqtada uzluksiz boʻlsa, u holda fa nuqtada hosilali. (c) Agar f′(a) = 0 boʻlsa, f doimiy funksiya boʻlishi shart. (d) Agar ikkala bir tomonli hosila mavjud va chekli boʻlsa, u holda f′(a) mavjud. (e) Funksiya uzluksiz boʻlgan nuqtada vertikal teg chiziqqa ega boʻlishi mumkin. (f) Ikki silliq qismning tutashish joyida burilish paydo boʻlishi mumkin.",
+   "steps": [
+    "(a) Toʻgʻri: 3.1-teorema «hosilalilik uzluksizlikni keltirib chiqaradi».",
+    "(b) Notoʻgʻri: qarama-qarshi misol — |x| nolda: uzluksiz, lekin f′(0) mavjud emas.",
+    "(c) Notoʻgʻri: qarama-qarshi misol — x²: f′(0) = 0, lekin funksiya doimiy emas.",
+    "(d) Notoʻgʻri: bir tomonli hosilalar teng boʻlishi ham kerak; |x| da nolda ikkalasi ham chekli (−1 va 1), lekin f′(0) mavjud emas.",
+    "(e) Toʻgʻri: x¹/³ nolda uzluksiz va u yerda vertikal teg chiziqqa ega.",
+    "(f) Toʻgʻri: ikki silliq qism turli qiyaliklar bilan tutashishi mumkin — |x| funksiyasidagi y = −x va y = x nurlari kabi."
+   ],
+   "result": "(a) Toʻgʻri; (b) Notoʻgʻri; (c) Notoʻgʻri; (d) Notoʻgʻri; (e) Toʻgʻri; (f) Toʻgʻri"
+  },
+  "narr": [
+   "Oltinchi masalada bizga bir nechta bayonotlar berilgan va ularning toʻgʻri yoki notoʻgʻri ekanligini asoslab berishimiz kerak.",
+   "Birinchi bayonot: agar funksiya biror nuqtada hosilali boʻlsa, u holda shu nuqtada uzluksiz boʻladi. Bu toʻgʻri.",
+   "Ikkinchi bayonot: agar funksiya biror nuqtada uzluksiz boʻlsa, u holda shu nuqtada hosilali boʻladi. Bu notoʻgʻri, chunki |x| funksiyasi nolda uzluksiz, lekin hosilali emas.",
+   "Uchinchi bayonot: agar funksiyaning hosilasi biror nuqtada nolga teng boʻlsa, funksiya doimiy boʻlishi shart. Bu notoʻgʻri, chunki x² funksiyasining nol nuqtadagi hosilasi nolga teng, lekin funksiya doimiy emas.",
+   "Toʻrtinchi bayonot: agar ikkala bir tomonli hosila mavjud va chekli boʻlsa, u holda funksiyaning hosilasi mavjud. Bu notoʻgʻri, chunki |x| funksiyasida ikkala bir tomonli hosila chekli, lekin ikkala tomonli hosila mavjud emas.",
+   "Beshinchi bayonot: funksiya uzluksiz boʻlgan nuqtada vertikal teg chiziqqa ega boʻlishi mumkin. Bu toʻgʻri, chunki x¹/³ funksiyasi nolda uzluksiz va vertikal teg chiziqqa ega.",
+   "Oltinchi bayonot: ikki silliq qismning tutashish joyida burilish paydo boʻlishi mumkin. Bu toʻgʻri, chunki |x| funksiyasida tutashish nuqtasida burilish mavjud."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — Nolda toʻrtta holat",
+   "problem": "Har bir funksiya uchun nolda uzluksiz va hosilali ekanligini aniqlang; burilish, uch yoki vertikal teg chiziqni koʻrsating: (a)f(x) = x²; (b)g(x) = |x|; (c)p(x) = |x|²/³; (d)q(x) = x¹/³.",
+   "steps": [
+    "(a)x² uzluksiz; (h² −0)/h = h →0, shuning uchun f′(0) = 0 — gorizontal tegirmon.",
+    "(b)|x| uzluksiz; f′_−(0) = −1, f′_+(0) = 1 — burilish (kink), hosila yoʻq.",
+    "(c)|x|²/³ uzluksiz; |h|²/³/h →−∞ chapdan va +∞ oʻngdan — oʻtkir uch (cusp): grafik ikkala tomondan cheksiz qiyshaygan, qarama-qarshi ishoralar; chekli hosila yoʻq.",
+    "(d)x¹/³ uzluksiz; (h¹/³ −0)/h = 1/h²/³ →+∞ ikkala tomondan — vertikal tegirmon x = 0; hosila (chekli sonda) yoʻq.",
+    "Natija: barcha toʻrtta funksiya nol nuqtada uzluksiz, faqat x² da hosila mavjud."
+   ],
+   "result": "(a) Uzluksiz va hosilali, gorizontal tegirmon; (b) Uzluksiz, lekin hosilali emas, burilish; (c) Uzluksiz, lekin hosilali emas, oʻtkir uch; (d) Uzluksiz, lekin hosilali emas, vertikal tegirmon"
+  },
+  "narr": [
+   "Yettinchi masalada biz toʻrtta turli funksiyani koʻrib chiqamiz va ularning nolda xususiyatlarini aniqlaymiz.",
+   "Birinchidan, f(x) = x² funksiyasini koʻrib chiqamiz. U nolda uzluksiz va hosilali, gorizontal tegirmon.",
+   "Ikkinchidan, g(x) = |x| funksiyasini koʻrib chiqamiz. U nolda uzluksiz, lekin hosilali emas, chunki chap va oʻng tomonli hosilalar har xil.",
+   "Uchinchidan, p(x) = |x|²/³ funksiyasini koʻrib chiqamiz. U nolda uzluksiz, lekin hosilali emas, chunki ikkala tomondan hosila cheksizga intiladi.",
+   "Toʻrtinchidan, q(x) = x¹/³ funksiyasini koʻrib chiqamiz. U nolda uzluksiz, lekin hosilali emas, chunki ikkala tomondan hosila cheksizga intiladi.",
+   "Natijada, barcha toʻrtta funksiya nol nuqtada uzluksiz, lekin faqat x² da hosila mavjud ekanligini koʻramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — Funksiya x·|x|",
+   "problem": "Faraz qilaylik f(x) = x·|x|. (a)f ni qismlarga yozing. (b) Taʼrif boʻyicha hosilani toping f′(0). (c)f′(x) ni toping x ≠ 0 da. (d)f′ nol nuqtada uzluksizmi? (e)f″(0) mavjudmi? Bir tomonlama limitlar orqali tushuntiring.",
+   "steps": [
+    "(a)f(x) = {−x², agar x < 0; x², agar x ≥0}.",
+    "(b)f′(0) = lim h →0(h · |h| −0)/h = lim h →0|h| = 0.",
+    "(c)x ≠ 0 da: f′(x) = −2x agar x < 0 va 2x agar x > 0; nol nuqtadagi qiymati bilan birga f′(x) = {−2x, x < 0; 0, x = 0; 2x, x > 0} = 2|x|.",
+    "(d)2|x| →0 = f′(0) agar x →0 — f′ nol nuqtada uzluksiz.",
+    "(e)(f′(h) −f′(0))/h = 2|h|/h →−2 chapdan va +2 oʻngdan; bir tomonlama limitlar har xil, shuning uchun f″(0) mavjud emas (f′ = 2|x| grafigida nol nuqtada burilish)."
+   ],
+   "result": "f(x) = {−x², x < 0; x², x ≥0}; f′(0) = 0; f′(x) = 2|x|; f′ uzluksiz; f″(0) mavjud emas"
+  },
+  "narr": [
+   "Sakkizinchi masalada f(x) = x·|x| funksiyasi bilan ishlaymiz.",
+   "Birinchidan, funksiyani modulni hisobga olgan holda ikki qismga ajratamiz.",
+   "Ikkinchidan, nol nuqtadagi hosilani taʼrif boʻyicha topamiz.",
+   "Uchinchidan, noldan boshqa nuqtalarda hosilani topamiz.",
+   "Toʻrtinchidan, hosila funksiyasining nol nuqtada uzluksizligini tekshiramiz.",
+   "Beshinchidan, ikkinchi tartibli hosilaning mavjudligini tekshiramiz.",
+   "Natijada, f′(x) = 2|x| ekanligini va u nol nuqtada uzluksiz, lekin ikkinchi tartibli hosila mavjud emasligini koʻramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — Olib tashlanadigan ”tirqish”",
+   "problem": "f(x) = (x² −4)/(x −2), x ≠ 2 ni koʻrib chiqaylik. (a) Ifodani soddalashtiring, aniqlanish sohasining cheklovini saqlab. (b)f′(x) ni uning sohasida toping. (c) Boshlangʻich funksiyaning 2 nuqtasida hosilasi barmi? (d)2 nuqtada toʻldirishni aniqlang, u differensiallanadigan boʻladi.",
+   "steps": [
+    "(a)x ≠ 2 uchun: f(x) = ((x −2)(x + 2))/(x −2) = x + 2 — x = 2 nuqtasi hali ham istisnolangan.",
+    "(b)f′(x) = 1 agar x ≠ 2.",
+    "(c) Boshlangʻich funksiya 2 nuqtada aniqlanmagan, shuning uchun uning 2 nuqtasida hosilasi yoʻq.",
+    "(d) ˜f(2) = 4 = lim x →2f(x) deb toʻldiramiz; keyin ˜f(x) = x + 2 barcha x uchun va ˜f′(2) = 1 — toʻldirish ”tirqishni” olib tashladi va funksiyani differensiallanadigan qildi."
+   ],
+   "result": "f(x) = x + 2, x ≠ 2; f′(x) = 1, x ≠ 2; f(2) da aniqlanmagan; ˜f(x) = x + 2, ˜f′(x) = 1"
+  },
+  "narr": [
+   "Toʻqqizinchi masalada bizda x = 2 nuqtada aniqlanmagan funksiya berilgan.",
+   "Birinchidan, ifodani soddalashtiramiz, lekin aniqlanish sohasining cheklovini saqlab qolamiz.",
+   "Soddalashtirib, f(x) = x + 2 ekanligini koʻramiz, lekin x = 2 nuqtasi hali ham istisnolangan.",
+   "Ikkinchidan, hosila funksiyasini topamiz.",
+   "Uchinchidan, asl funksiyaning x = 2 nuqtada hosilali boʻlishini tekshiramiz.",
+   "Toʻrtinchidan, funksiyani toʻldirib, uni differensiallanadigan qilamiz.",
+   "Natijada, toʻldirilgan funksiya barcha x uchun aniqlangan va differensiallanadigan boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1
+  ]
+ }
+]

@@ -1,0 +1,745 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4.4,
+   "title": "Atamalar",
+   "subtitle": "Glossary of Week 7"
+  },
+  "narr": [
+   "In this section, we'll explore key engineering concepts related to data handling and analysis.",
+   "Let's start with the different types of incomplete data problems engineers often encounter."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Types of Incomplete Data",
+   "columns": [
+    "Term (RU)",
+    "English",
+    "One-phrase definition"
+   ],
+   "rows": [
+    [
+     "Incomplete data",
+     "Incomplete data",
+     "The needed numbers are absent or cannot be fully trusted — five typical problems"
+    ],
+    [
+     "Too little data",
+     "Too little",
+     "Only a few points: three test trips"
+    ],
+    [
+     "Missing data",
+     "Missing",
+     "No data for the case we care about: no winter test"
+    ],
+    [
+     "Noisy data",
+     "Noisy",
+     "Values scatter around the truth: 1,1–1,6 kWh/km on the same route"
+    ],
+    [
+     "Outdated/unrepresentative data",
+     "Out of date/unrepresentative",
+     "Measured under other conditions or earlier: empty-bus tests, a profile from before the new wing"
+    ],
+    [
+     "Wrong definition or unit",
+     "Wrong definition or unit",
+     "The quantity is not what we think: \"200\" without a unit, the battery in \"%\""
+    ]
+   ]
+  },
+  "narr": [
+   "Incomplete data refers to situations where the numbers we need are either missing or unreliable.",
+   "Too little data means we have very few data points, like only three test trips.",
+   "Missing data occurs when there's no information for the specific case we're interested in, such as winter test data.",
+   "Noisy data shows values that scatter around the truth, like measurements ranging from 1.1 to 1.6 kWh/km on the same route.",
+   "Outdated or unrepresentative data comes from measurements taken under different conditions or in the past.",
+   "Wrong definition or unit happens when the quantity isn't what we think it is, like \"200\" without a unit or battery capacity in \"%\"."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Key Engineering Concepts",
+   "columns": [
+    "Term (RU)",
+    "English",
+    "One-phrase definition"
+   ],
+   "rows": [
+    [
+     "Triangulation",
+     "Triangulation",
+     "Estimate one quantity by at least two independent routes and compare (≈2 800 260 2 330kWh/day)"
+    ],
+    [
+     "Range",
+     "Range",
+     "Low–typical–high (107 89 /80km); says how far to trust the answer"
+    ],
+    [
+     "Median",
+     "Median",
+     "The middle element in order; robust to one odd value (1,3 kWh/km)"
+    ],
+    [
+     "90th percentile",
+     "90th percentile",
+     "The value below which 90% of observations fall: about 13 minutes of waiting"
+    ],
+    [
+     "Baseline (denominator)",
+     "Baseline/denominator",
+     "\"A percentage of what?\": 12 kW = 60% of corridor lighting, but 7% of the building's peak"
+    ],
+    [
+     "Top assumption",
+     "Top assumption",
+     "The assumption the result rests on most: 1,8 kWh/km in winter"
+    ],
+    [
+     "Flip point",
+     "Flip point",
+     "The threshold at which the decision changes: the break-even premium per lamp"
+    ],
+    [
+     "Honest report",
+     "Honest report",
+     "Result + range + top assumption + what would change the conclusion"
+    ]
+   ]
+  },
+  "narr": [
+   "Triangulation involves estimating a quantity using at least two independent methods and comparing the results.",
+   "Range gives us a low–typical–high estimate that tells us how far we can trust an answer.",
+   "The median is the middle value when data is ordered, and it's robust to one odd value.",
+   "The 90th percentile is the value below which 90% of observations fall.",
+   "Baseline or denominator answers the question: \"A percentage of what?\"",
+   "The top assumption is the one our result depends on most heavily.",
+   "The flip point is the threshold at which our decision would change.",
+   "An honest report includes the result, its range, top assumptions, and what would change our conclusion."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Formulalar",
+   "subtitle": "A summary reference of the course formulas"
+  },
+  "narr": [
+   "Now let's look at the key formulas from weeks 5-7 of the course.",
+   "This section collects all the important calculation relations from lectures, labs, and templates."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5.1,
+   "title": "Week 5",
+   "subtitle": "The electric bus model"
+  },
+  "narr": [
+   "In week 5, we focused on modeling electric buses. Let's start with the basic formulas."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Trip energy",
+   "tex": "E = e \\times d  \\text{[kWh]} = \\text{[kWh/km]} \\times \\text{[km]}",
+   "parts": [
+    {
+     "substr": "E",
+     "color": "#4C5FD5",
+     "note": "trip energy in kWh"
+    },
+    {
+     "substr": "e",
+     "color": "#B45309",
+     "note": "energy consumption in kWh/km"
+    },
+    {
+     "substr": "d",
+     "color": "#0E7C7B",
+     "note": "distance in km"
+    }
+   ]
+  },
+  "narr": [
+   "Trip energy is simply the consumption per kilometer multiplied by the distance traveled."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Range on a single charge",
+   "tex": "R = \\frac{u \\times C}{e} \\rightarrow \\frac{160  \\text{[kWh]}}{1,2  \\text{[kWh/km]}} = 133  \\text{[km]}",
+   "parts": [
+    {
+     "substr": "R",
+     "color": "#4C5FD5",
+     "note": "range in km"
+    },
+    {
+     "substr": "u",
+     "color": "#B45309",
+     "note": "usable share of battery (unitless)"
+    },
+    {
+     "substr": "C",
+     "color": "#0E7C7B",
+     "note": "battery capacity in kWh"
+    },
+    {
+     "substr": "e",
+     "color": "#A03040",
+     "note": "energy consumption in kWh/km"
+    }
+   ]
+  },
+  "narr": [
+   "The range on a single charge is calculated by dividing the battery's usable energy by the consumption rate.",
+   "Notice how the units cancel out nicely: kWh divided by kWh/km gives us km."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Unit check after Kosky",
+   "tex": "\\frac{(u \\times C)  \\text{[kWh]}}{e  \\text{[kWh/km]}} = R  \\text{[km]}",
+   "parts": []
+  },
+  "narr": [
+   "Always perform unit checks after calculations. Units cancel just like fractions.",
+   "Here, kWh divided by kWh/km simplifies to km, which matches our range unit."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "The route's daily requirement",
+   "tex": "\\text{daily requirement} = 8 \\times 12  \\text{[km]} = 96  \\text{[km]}",
+   "parts": []
+  },
+  "narr": [
+   "For daily routes, we calculate the requirement by multiplying the number of laps by the lap length."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Template for writing an assumption",
+   "bullets": [
+    "We assume [assumption] because [reason].",
+    "If it is wrong, [effect on the result]."
+   ]
+  },
+  "narr": [
+   "When making assumptions in engineering, it's important to follow a clear template.",
+   "First, state what you're assuming and why.",
+   "Then, explain what would happen if that assumption proved to be wrong."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Energy balance",
+   "tex": "\\text{supply} = \\text{demand} + \\text{losses}",
+   "parts": []
+  },
+  "narr": [
+   "In the campus electricity supply model, supply must equal demand plus losses."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5.2,
+   "title": "Week 6",
+   "subtitle": "Demand, capacity, flows, estimates"
+  },
+  "narr": [
+   "Moving to week 6, we'll explore concepts related to demand, capacity, and flows."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Utilisation",
+   "tex": "\\text{Utilisation} = \\frac{\\text{Demand}}{\\text{Capacity}}",
+   "parts": []
+  },
+  "narr": [
+   "Utilisation is calculated as demand divided by capacity.",
+   "Crucially, both sides must use the same units and time basis."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Utilisation thresholds",
+   "bullets": [
+    "< ~0.8 — comfortable",
+    "~0.8–1.0 — tight",
+    "> 1.0 — overload (queue or refusals)"
+   ]
+  },
+  "narr": [
+   "There are general thresholds for utilisation:",
+   "Below 0.8 is generally comfortable,",
+   "Between 0.8 and 1.0 is tight,",
+   "And above 1.0 indicates overload with potential queues or refusals."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Power × time = energy",
+   "tex": "60  \\text{[kW]} \\times 2  \\text{[h]} = 120  \\text{[kWh]}",
+   "parts": []
+  },
+  "narr": [
+   "A fundamental relationship in engineering is that power multiplied by time equals energy."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Stock and flow",
+   "tex": "\\text{change in stock} = \\text{inflow} - \\text{outflow}",
+   "parts": []
+  },
+  "narr": [
+   "For stock and flow systems, the change in stock equals inflow minus outflow."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Buffer filling time",
+   "tex": "\\text{filling time} = \\frac{\\text{free space}}{\\text{inflow} - \\text{outflow}} = \\frac{800}{40} = 20  \\text{[h]}",
+   "parts": []
+  },
+  "narr": [
+   "Buffer filling time is calculated by dividing the free space by the net inflow rate."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Flow rule 1",
+   "tex": "\\text{Flow} = \\text{speed} \\times \\text{density}: 15  \\text{[km/h]} \\times 20  \\text{[cars/km]} = 300  \\text{[cars/h]}",
+   "parts": []
+  },
+  "narr": [
+   "Flow can be calculated as speed multiplied by density.",
+   "For example, a speed of 15 km/h with a density of 20 cars per km gives a flow of 300 cars per hour."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Flow rule 2",
+   "tex": "\\text{number inside} = \\text{arrivals} \\times \\text{time inside}: 10  \\text{[students/min]} \\times 3  \\text{[min]} = 30",
+   "parts": []
+  },
+  "narr": [
+   "Another flow rule states that the number of items inside a system equals the arrival rate multiplied by the time each item spends inside."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "The daily capacity of a stage",
+   "tex": "\\text{capacity [units/day]} = \\text{rate [units/h]} \\times \\text{time [h/day]} = 680 \\times 12 = 8160",
+   "parts": []
+  },
+  "narr": [
+   "The daily capacity of a stage is calculated by multiplying the hourly rate by the number of operating hours per day."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Charging time",
+   "tex": "\\text{time} = \\frac{\\text{energy}}{\\text{power}}: \\frac{115  \\text{[kWh]}}{60  \\text{[kW]}} \\approx 1.9  \\text{[h]}",
+   "parts": []
+  },
+  "narr": [
+   "Charging time is calculated by dividing the energy needed by the charging power."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Average power over a window",
+   "tex": "\\text{average power} = \\frac{\\text{energy}}{\\text{window}}: \\frac{690  \\text{[kWh]}}{8  \\text{[h]}} \\approx 86  \\text{[kW]}",
+   "parts": []
+  },
+  "narr": [
+   "Average power over a time window is calculated by dividing the energy by the duration of that window."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Installation size from an estimate",
+   "tex": "\\text{installation} = \\frac{\\text{daily energy}}{\\text{yield per kW per day}} = \\frac{115}{4} \\approx 29 \\rightarrow \\sim 30  \\text{[kW]}; \\text{area} = 30 \\times 5  \\text{[m}^2\\text{/kW]} \\approx 150  \\text{[m}^2\\text{]}",
+   "parts": []
+  },
+  "narr": [
+   "Installation size can be estimated by dividing daily energy by the yield per kW per day.",
+   "The required area can then be calculated by multiplying the installation size by the area per kW."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Good output with losses by stage",
+   "tex": "\\text{output} = \\text{input} \\times (1 - l_1) \\times (1 - l_2) \\times (1 - l_3) = 7200 \\times 0.98 \\times 0.97 \\times 0.96 \\approx 6571  \\text{[units/day]}",
+   "parts": []
+  },
+  "narr": [
+   "When there are multiple stages with losses, the final output is calculated by multiplying the input by (1 minus loss) for each stage."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Capacity required for a target utilisation",
+   "tex": "\\text{required capacity} = \\frac{\\text{peak demand}}{\\text{target utilisation}} = \\frac{7000}{0.85} \\approx 8235  \\text{[units/day]} \\approx 686  \\text{[units/h]}",
+   "parts": []
+  },
+  "narr": [
+   "To find the capacity needed for a target utilisation level, divide the peak demand by the target utilisation."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5.3,
+   "title": "Week 7",
+   "subtitle": "Ranges, metrics, reporting"
+  },
+  "narr": [
+   "In week 7, we'll focus on ranges, statistical metrics, and how to report results honestly."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "The mean of a small sample",
+   "tex": "\\text{mean} = \\frac{x_1 + x_2 + ... + x_n}{n} = \\frac{1.1 + 1.3 + 1.6}{3} = 1.33  \\text{[kWh/km]}",
+   "parts": []
+  },
+  "narr": [
+   "The mean is calculated by summing all values and dividing by the number of values."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "The median of a small sample",
+   "tex": "\\text{median} = \\text{the middle element in order} = 1.3  \\text{[kWh/km]} (n = 3)",
+   "parts": []
+  },
+  "narr": [
+   "The median is the middle value when data is ordered, which makes it robust to one odd value."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "The range of a result",
+   "tex": "R = \\frac{160  \\text{[kWh]}}{e}: \\text{summer } \\frac{1.1}{1.3}{1.6} \\rightarrow \\frac{145}{123/100}  \\text{[km]}; \\text{winter } \\frac{1.5}{1.8}{2.0} \\rightarrow \\frac{107}{89/80}  \\text{[km]}",
+   "parts": []
+  },
+  "narr": [
+   "When calculating the range of a result, compute the result for every value in the range, not just one.",
+   "For example, the bus range varies from 100 km in winter to 145 km in summer depending on consumption."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "A share (percentage)",
+   "tex": "\\text{share} = \\frac{\\text{part}}{\\text{base}}: \\frac{12}{20} = 60\\% \\text{ (corridor lighting)}; \\frac{12}{180} \\approx 7\\% \\text{ (the building's peak)}",
+   "parts": []
+  },
+  "narr": [
+   "A share or percentage is always calculated as a part divided by a stated base.",
+   "The same value can represent different percentages depending on the base."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Annual energy saving (the LED case)",
+   "tex": "\\text{saving [kWh/year]} = \\text{saving per lamp [W]} \\times \\text{lamps} \\times \\text{hours [h/day]} \\times 365 \\div 1000",
+   "parts": []
+  },
+  "narr": [
+   "To calculate annual energy savings from LED bulbs, multiply the saving per lamp by the number of lamps, daily hours, and days per year, then divide by 1000 to convert to kWh."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Triangulation (the faculty building)",
+   "tex": "8000  \\text{[m}^2\\text{]} \\times 0.35 \\approx 2800; 94  \\text{[kW]} \\times 24  \\text{[h]} \\approx 2260; 70000 \\div 30 \\approx 2330  \\text{[kWh/day]}",
+   "parts": []
+  },
+  "narr": [
+   "Triangulation involves estimating a quantity through multiple independent methods.",
+   "For the faculty building, we get estimates of 2800, 2260, and 2330 kWh/day through different approaches."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "The break-even premium per lamp (the flip point)",
+   "tex": "\\text{break-even} \\approx \\text{the annual saving per lamp} \\times \\text{years of service}: 25.8  \\text{[kWh]} \\times 850  \\text{[UZS]} \\approx 21900  \\text{[UZS/year]}",
+   "parts": []
+  },
+  "narr": [
+   "The flip point or break-even is calculated by multiplying the annual saving per lamp by the years of service.",
+   "This gives the maximum premium we should pay for each lamp."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "The covered share (the solar roof)",
+   "tex": "\\text{share} = \\frac{\\text{the installation's energy}}{\\text{the building's energy}} = \\frac{90–150}{2260} \\approx 4–7\\%",
+   "parts": []
+  },
+  "narr": [
+   "The covered share is calculated as the installation's energy divided by the building's energy.",
+   "For the solar roof, this gives us a range of 4-7% coverage."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5.4,
+   "title": "Units and conversions",
+   "subtitle": "Weeks 6-7"
+  },
+  "narr": [
+   "Finally, let's review important units and conversions used in weeks 6-7."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Powers-of-a-thousand prefixes",
+   "bullets": [
+    "1 kW = 1000W",
+    "1 MW = 1000 kW",
+    "1 kWh = 1000Wh"
+   ]
+  },
+  "narr": [
+   "Remember the powers-of-a-thousand prefixes:",
+   "1 kilowatt equals 1000 watts,",
+   "1 megawatt equals 1000 kilowatts,",
+   "And 1 kilowatt-hour equals 1000 watt-hours."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Megawatts to kilowatts",
+   "tex": "0.2  \\text{MW} = 200  \\text{kW} \\text{ (MW → kW is a factor of 1000)}",
+   "parts": []
+  },
+  "narr": [
+   "Converting from megawatts to kilowatts involves multiplying by 1000."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Minutes to hours",
+   "tex": "36  \\text{min} \\div 60 = 0.6  \\text{h} \\text{ (minutes are not decimal fractions of an hour)}",
+   "parts": []
+  },
+  "narr": [
+   "When converting minutes to hours, remember that minutes aren't decimal fractions of an hour.",
+   "You must divide by 60 to get the correct value."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The precision rule",
+   "bullets": [
+    "\"about 30 kW\", not \"29,17 kW\"",
+    "One–two significant figures for rough estimates"
+   ]
+  },
+  "narr": [
+   "Precision is not the same as correctness.",
+   "For rough estimates, use one or two significant figures.",
+   "Say \"about 30 kW\" rather than \"29.17 kW\" when appropriate."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ }
+]
