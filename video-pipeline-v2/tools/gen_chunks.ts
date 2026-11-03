@@ -168,7 +168,7 @@ function validate(arr: any): string | null {
       return null;
     };
     const e = cap(d.bullets, 7, 'bullets') || cap(d.steps, 7, 'steps') || cap(d.items, 7, 'items')
-           || cap(d.rows, 9, 'rows') || cap(d.events, 9, 'events') || cap(d.parts, 6, 'parts');
+           || cap(d.rows, 9, 'rows') || cap(d.events, 14, 'events') || cap(d.parts, 6, 'parts');
     if (e) return e;
   }
   return null;

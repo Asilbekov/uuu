@@ -628,13 +628,20 @@ BUILDERS.timeline = (blk, t0)=>{
   const axis = el('div','tl-axis', lane); const fill = el('div','tl-axis-fill', axis);
   const evs = (blk.data.events||[]);
   const N = evs.length;
+  // adaptive fit: many events → narrower boxes so same-side neighbours never overlap
+  const perSide = Math.ceil(N/2);
+  const evW = Math.min(320, Math.floor(1560/perSide) - 24);
+  const evFs = evW < 250 ? 22 : (evW < 290 ? 24 : 27);
+  const yrFs = evW < 250 ? 26 : 34;
   const eNodes = evs.map((ev,i)=>{
     const it = el('div','tl-ev '+(i%2? 'down':'up'), lane);
+    it.style.width = evW+'px';
+    it.style.marginLeft = (-evW/2)+'px';
     const pct = 100*(i+0.5)/N;
     it.style.left = `clamp(170px, ${pct}%, calc(100% - 170px))`;
     const dot = el('div','dot', it);
-    const yr = el('div','yr', it); yr.textContent = ev.year;
-    const tx = el('div','tx', it); tx.textContent = ev.text;
+    const yr = el('div','yr', it); yr.textContent = ev.year; yr.style.fontSize = yrFs+'px';
+    const tx = el('div','tx', it); tx.textContent = ev.text; tx.style.fontSize = evFs+'px';
     return it;
   });
   move(t0, t0+1.0, 110);
