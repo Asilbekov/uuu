@@ -1,0 +1,682 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering — Weeks 1–4",
+   "subtitle": "Study Guide"
+  },
+  "narr": [
+   "Welcome to this study guide on environmental engineering concepts. We'll explore how pollution is measured, the mass balance equation, and how these principles apply to real-world scenarios.",
+   "Let's begin by understanding how we measure pollution in different media."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Pollution Measurement Fundamentals",
+   "bullets": [
+    "Concentration is defined as mass per unit volume of the mixture",
+    "Different units are used for different media: water, soil, and air",
+    "Standard conditions are important for air measurements"
+   ]
+  },
+  "narr": [
+   "So how do we actually measure pollution? The fundamental concept is concentration, which is simply the mass of a pollutant divided by the total volume of the mixture.",
+   "For water, we commonly use parts per million or parts per billion, where one ppm equals one milligram per liter, and one ppb equals one microgram per liter.",
+   "For soil, the measurements are similar but based on mass: one ppm equals one milligram per kilogram.",
+   "Air measurements are more complex because they depend on temperature and pressure, so we standardize them at one atmosphere and 25 degrees Celsius."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Concentration Formula",
+   "tex": "C_A = \\frac{m_A}{V_{mixture}} = \\frac{m_A}{V_A + V_B + V_C}",
+   "parts": [
+    {
+     "substr": "C_A",
+     "color": "#4C5FD5",
+     "note": "concentration of component A"
+    },
+    {
+     "substr": "m_A",
+     "color": "#B45309",
+     "note": "mass of component A"
+    },
+    {
+     "substr": "V_{mixture}",
+     "color": "#0E7C7B",
+     "note": "total volume of the mixture"
+    }
+   ]
+  },
+  "narr": [
+   "The basic formula for concentration is quite straightforward: C_A equals m_A divided by V_mixture.",
+   "This can be expanded to show that the mixture volume is the sum of the volumes of all components.",
+   "Remember that concentration tells us how much of a pollutant is present in a given amount of mixture."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Unit Conversions for Different Media",
+   "tex": "1 \\text{ ppm} = 1 \\text{ mg/L} \\text{ (water)} \\quad 1 \\text{ ppb} = 1 \\mu\\text{g/L} \\text{ (water)}",
+   "parts": [
+    {
+     "substr": "1 ppm",
+     "color": "#4C5FD5",
+     "note": "one part per million"
+    },
+    {
+     "substr": "1 mg/L",
+     "color": "#4C5FD5",
+     "note": "one milligram per liter"
+    },
+    {
+     "substr": "1 ppb",
+     "color": "#B45309",
+     "note": "one part per billion"
+    },
+    {
+     "substr": "1 μg/L",
+     "color": "#B45309",
+     "note": "one microgram per liter"
+    }
+   ]
+  },
+  "narr": [
+   "For water, the conversions are quite intuitive: one ppm equals one milligram per liter, which is like having one cup of pollutant in a swimming pool.",
+   "Similarly, one ppb equals one microgram per liter, comparable to one drop of pollutant in that same swimming pool."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Air Concentration Conversions",
+   "tex": "\\text{concentration (mg/m}^3\\text{)} = \\text{concentration (ppm)} \\times \\frac{M}{24.45 \\text{ L/mol}}",
+   "parts": [
+    {
+     "substr": "concentration (mg/m³)",
+     "color": "#4C5FD5",
+     "note": "concentration in milligrams per cubic meter"
+    },
+    {
+     "substr": "concentration (ppm)",
+     "color": "#B45309",
+     "note": "concentration in parts per million"
+    },
+    {
+     "substr": "M",
+     "color": "#0E7C7B",
+     "note": "molar mass of the gas"
+    },
+    {
+     "substr": "24.45 L/mol",
+     "color": "#A03040",
+     "note": "molar volume at standard conditions"
+    }
+   ]
+  },
+  "narr": [
+   "For air, we need to account for the molar volume of gases at standard conditions, which is 24.45 liters per mole.",
+   "The conversion formula shows that concentration in milligrams per cubic meters equals concentration in ppm times the molar mass divided by 24.45.",
+   "This is because gases expand and contract with temperature and pressure, so we standardize our measurements."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — CO2 Concentration Calculation",
+   "problem": "Calculate the concentration of CO2 in mg/m³ when it's measured at 405 ppm.",
+   "steps": [
+    {
+     "text": "Identify the given values: CO2 concentration = 405 ppm"
+    },
+    {
+     "text": "Find the molar mass of CO2: M = 44 g/mol"
+    },
+    {
+     "text": "Apply the conversion formula: concentration (mg/m³) = 405 × 44/24.45"
+    },
+    {
+     "text": "Calculate the result: 405 × 44 = 17,820"
+    },
+    {
+     "text": "17,820 ÷ 24.45 ≈ 729 mg/m³"
+    }
+   ],
+   "result": "The concentration of CO2 is 729 mg/m³."
+  },
+  "narr": [
+   "Let's apply these concepts to a real example. Suppose we have CO2 measured at 405 ppm, and we want to find its concentration in milligrams per cubic meter.",
+   "First, we identify our given value: the CO2 concentration is 405 ppm.",
+   "Next, we need the molar mass of CO2, which is 44 grams per mole.",
+   "Now we apply our conversion formula: concentration in mg/m³ equals 405 times 44 divided by 24.45.",
+   "Multiplying 405 by 44 gives us 17,820.",
+   "Finally, dividing by 24.45 gives us approximately 729 milligrams per cubic meter."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Mass Balance Equation",
+   "tex": "(\\dot{m})_{CV} = \\Sigma(\\dot{m})_{in} - \\Sigma(\\dot{m})_{out} + \\dot{M}_G",
+   "parts": [
+    {
+     "substr": "(\\dot{m})_{CV}",
+     "color": "#4C5FD5",
+     "note": "mass accumulation in control volume"
+    },
+    {
+     "substr": "\\Sigma(\\dot{m})_{in}",
+     "color": "#B45309",
+     "note": "total mass entering"
+    },
+    {
+     "substr": "\\Sigma(\\dot{m})_{out}",
+     "color": "#0E7C7B",
+     "note": "total mass leaving"
+    },
+    {
+     "substr": "\\dot{M}_G",
+     "color": "#A03040",
+     "note": "generation rate inside control volume"
+    }
+   ]
+  },
+  "narr": [
+   "The mass balance equation is our main tool in environmental engineering. It states that the mass accumulated in a control volume equals the total mass that entered minus the total mass that left, plus any mass created or destroyed inside.",
+   "Here, \\dot{m} represents the mass flow rate, which is the derivative of mass with respect to time.",
+   "The term \\dot{M}_G accounts for any generation or destruction of mass due to chemical reactions inside the control volume."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Waste Management at Transfer Center",
+   "problem": "The Transfer Center receives 600.0 tons/day of solid waste from one community and 400.0 tons/day from another. 25% of the total is recyclables. The incinerator burns 200.0 tons/day. How much waste should be planned for landfill disposal?",
+   "steps": [
+    {
+     "text": "Define the system as the Transfer Center and draw a control volume"
+    },
+    {
+     "text": "Apply the mass balance equation: 0 = Σ(ṁ)in - Σ(ṁ)out (no accumulation or reactions)"
+    },
+    {
+     "text": "Calculate total input: 600 + 400 = 1000 tons/day"
+    },
+    {
+     "text": "Calculate recyclables: 0.25 × 1000 = 250 tons/day"
+    },
+    {
+     "text": "Set up equation: 0 = 1000 - (250 + 200 + ṁLF)"
+    },
+    {
+     "text": "Solve for landfill waste: ṁLF = 1000 - 450 = 550 tons/day"
+    }
+   ],
+   "result": "550.0 tons/day should be planned for landfill disposal."
+  },
+  "narr": [
+   "Let's consider a practical application of the mass balance equation at a waste transfer center.",
+   "The center receives 600 tons per day from one community and 400 tons per day from another, totaling 1000 tons per day input.",
+   "Twenty-five percent of this total is recyclables, which is 250 tons per day.",
+   "The incinerator burns 200 tons per day, and we need to determine how much should go to landfill.",
+   "Applying the mass balance with no accumulation or reactions, we get zero equals input minus output.",
+   "The outputs are recyclables, incinerated waste, and landfill waste.",
+   "Solving this equation shows that 550 tons per day should be planned for landfill disposal."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Linking Concentration and Flow Rate",
+   "tex": "\\dot{m}_p = C_p Q_f",
+   "parts": [
+    {
+     "substr": "\\dot{m}_p",
+     "color": "#4C5FD5",
+     "note": "mass flow rate of pollutant"
+    },
+    {
+     "substr": "C_p",
+     "color": "#B45309",
+     "note": "concentration of pollutant"
+    },
+    {
+     "substr": "Q_f",
+     "color": "#0E7C7B",
+     "note": "volumetric flow rate of carrier medium"
+    }
+   ]
+  },
+  "narr": [
+   "We can link concentration and flow rate through this simple equation: the mass flow rate of a pollutant equals its concentration times the volumetric flow rate of the carrier medium.",
+   "This is particularly useful when dealing with pollutants in water or air streams."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — SO2 Concentration Downwind",
+   "problem": "A factory emits 50.0 kg/day of SO2. A wind of 6.00 m/s drives 7.00×10^6 m^3/s of air with a background concentration of 0.050 μg/m3 over the city. Predict the SO2 concentration downwind, behind the stacks.",
+   "steps": [
+    {
+     "text": "Define a control volume over the city"
+    },
+    {
+     "text": "Apply SO2 balance in rate form: (ṁp)CV = 0 = Σ(CpQf)in - Σ(CpQf)out"
+    },
+    {
+     "text": "Calculate input flow rate: Qf = 6.00 m/s × 7.00×10^6 m^2 = 4.20×10^7 m^3/s"
+    },
+    {
+     "text": "Calculate SO2 input from background: (0.050 μg/m3) × (4.20×10^7 m^3/s) = 2.10×10^6 μg/s"
+    },
+    {
+     "text": "Add factory emission: 50.0 kg/day = 5.79×10^8 μg/s"
+    },
+    {
+     "text": "Calculate total SO2 input: 2.10×10^6 + 5.79×10^8 = 5.81×10^8 μg/s"
+    },
+    {
+     "text": "Calculate output concentration: (5.81×10^8 μg/s) / (4.20×10^7 m^3/s) = 13.8 μg/m3"
+    }
+   ],
+   "result": "The predicted SO2 concentration downwind is 13.8 μg/m3."
+  },
+  "narr": [
+   "Let's examine one more example involving air pollution. A factory emits 50 kilograms per day of sulfur dioxide, and we have wind conditions with a background concentration.",
+   "First, we define a control volume over the city and apply the mass balance for SO2.",
+   "The wind speed is 6 meters per second, driving 7 million cubic meters per second of air.",
+   "We calculate the input flow rate by multiplying wind speed by cross-sectional area.",
+   "The background SO2 concentration is 0.05 micrograms per cubic meter, which gives us 2.1 million micrograms per second from background sources.",
+   "Adding the factory emission of 50 kg per day (converted to micrograms per second), we get a total input of approximately 581 million micrograms per second.",
+   "Finally, dividing by the flow rate gives us the output concentration of 13.8 micrograms per cubic meter."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 3 — Process Flow Diagrams",
+   "subtitle": "Key Terms and Concepts"
+  },
+  "narr": [
+   "Now let's shift our focus to process flow diagrams and the terminology associated with them in Week 3."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Week 3 Process Flow Diagram Terms",
+   "columns": [
+    "Term (EN)",
+    "Atama (UZ)",
+    "One-phrase definition"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Process Flow Diagram (PFD)"
+     },
+     {
+      "text": "Jarayon oqim diagrammasi (PFD)"
+     },
+     {
+      "text": "Shows the steps of the process in order and what flows between them"
+     }
+    ],
+    [
+     {
+      "text": "Sequence"
+     },
+     {
+      "text": "Ketma-ketlik"
+     },
+     {
+      "text": "What happens first, next, and last"
+     }
+    ],
+    [
+     {
+      "text": "Flow"
+     },
+     {
+      "text": "Oqim"
+     },
+     {
+      "text": "What moves between the steps: material, people, information, money, energy"
+     }
+    ],
+    [
+     {
+      "text": "Black box (Level 0)"
+     },
+     {
+      "text": "Qora quti (Level 0)"
+     },
+     {
+      "text": "A diagram with only inputs and outputs; the inside is hidden"
+     }
+    ],
+    [
+     {
+      "text": "Main steps (Level 1)"
+     },
+     {
+      "text": "Asosiy qadamlar (Level 1)"
+     },
+     {
+      "text": "A handful of main steps inside the boundary"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's review some key terms for process flow diagrams.",
+   "A Process Flow Diagram, or PFD, shows the steps of a process in sequence and what flows between them.",
+   "Sequence refers to the order of events: what happens first, next, and last.",
+   "Flow represents what moves between steps, which could be material, people, information, money, or energy.",
+   "A Black Box at Level 0 is a diagram showing only inputs and outputs, with the internal details hidden.",
+   "Main Steps at Level 1 represent the handful of main processes within the system boundary."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Week 3 Process Flow Diagram Terms (continued)",
+   "columns": [
+    "Term (EN)",
+    "Atama (UZ)",
+    "One-phrase definition"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Zoom in (Level 2)"
+     },
+     {
+      "text": "Yaqinlashtirish (Level 2)"
+     },
+     {
+      "text": "One level-1 step expanded into its own diagram"
+     }
+    ],
+    [
+     {
+      "text": "Start / End"
+     },
+     {
+      "text": "Boshlanish / Tugash"
+     },
+     {
+      "text": "The symbols for the start and end of the process; one start, every path reaches an end"
+     }
+    ],
+    [
+     {
+      "text": "Step"
+     },
+     {
+      "text": "Qadam"
+     },
+     {
+      "text": "A single action, named \"verb + noun\""
+     }
+    ],
+    [
+     {
+      "text": "Decision"
+     },
+     {
+      "text": "Qaror"
+     },
+     {
+      "text": "A diamond question with labeled Yes/No exits, both leading somewhere"
+     }
+    ],
+    [
+     {
+      "text": "Wait / queue"
+     },
+     {
+      "text": "Kutish / navbat"
+     },
+     {
+      "text": "A dashed box where things sit and wait; queues slow systems down"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Continuing with our terminology, Zoom in at Level 2 involves expanding one of the Level 1 steps into its own detailed diagram.",
+   "Start and End symbols mark the beginning and conclusion of a process, with the convention that there's one start point and every path leads to an end.",
+   "A Step represents a single action, typically named with a verb followed by a noun.",
+   "A Decision is represented as a diamond shape with a question and Yes/No exits that lead to different paths.",
+   "Wait or Queue is shown as a dashed box where items or people wait, and these queues tend to slow down system performance."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Week 3 Process Flow Diagram Terms (continued)",
+   "columns": [
+    "Term (EN)",
+    "Atama (UZ)",
+    "One-phrase definition"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Swimlanes"
+     },
+     {
+      "text": "Yo‘laklar (swimlanes)"
+     },
+     {
+      "text": "Splitting the diagram by performer; hand-offs between lanes hide delays"
+     }
+    ],
+    [
+     {
+      "text": "Control volume"
+     },
+     {
+      "text": "Nazorat hajmi"
+     },
+     {
+      "text": "The defined region of space for which the mass balance is written"
+     }
+    ],
+    [
+     {
+      "text": "Mass balance"
+     },
+     {
+      "text": "Massa balansi"
+     },
+     {
+      "text": "Accumulation = input − output + generation; with no accumulation and no reactions, input = output"
+     }
+    ],
+    [
+     {
+      "text": "Concentration"
+     },
+     {
+      "text": "Konsentratsiya"
+     },
+     {
+      "text": "Mass of pollutant per unit volume of the mixture (ppm, mg/L, mg/m³)"
+     }
+    ],
+    [
+     {
+      "text": "Molar volume"
+     },
+     {
+      "text": "Molyar hajm"
+     },
+     {
+      "text": "24.45 L/mol for an ideal gas at 1 atm and 25 °C"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Swimlanes involve splitting the diagram by different performers or departments, with hand-offs between lanes potentially hiding delays in the process.",
+   "A Control Volume is the defined region of space for which we write our mass balance equations.",
+   "Mass balance is summarized as Accumulation equals input minus output plus generation, and with no accumulation or reactions, input simply equals output.",
+   "Concentration is defined as the mass of pollutant per unit volume of the mixture, commonly expressed in ppm, mg/L, or mg/m³.",
+   "Molar volume is 24.45 liters per mole for an ideal gas at standard conditions of one atmosphere and 25 degrees Celsius."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Week 4 — Problem Framing and Modelling I",
+   "subtitle": "Key Points and Concepts"
+  },
+  "narr": [
+   "Moving into Week 4, we'll focus on problem framing and modeling, building on the concepts from Week 3."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Week 3 Recap",
+   "bullets": [
+    "Systems are interacting elements and processes that turn inputs into outputs",
+    "PFDs show steps inside boundaries and what flows between them",
+    "Different stakeholders draw different diagrams of the same system",
+    "Each stakeholder defines \"works well\" differently"
+   ]
+  },
+  "narr": [
+   "Let's briefly recap what we covered in Week 3. We learned that systems consist of interacting elements and processes that transform inputs into outputs.",
+   "Process Flow Diagrams help us visualize the steps within a system boundary and the flows between those steps.",
+   "Importantly, different stakeholders may create different diagrams of the same system, depending on their perspective.",
+   "And each stakeholder has their own definition of what \"works well\" for the system."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Week 4 Focus",
+   "bullets": [
+    "Turning different views into clear problems",
+    "Identifying measurable variables",
+    "The \"What Is the Problem?\" dilemma",
+    "Case study: Empire State Building"
+   ]
+  },
+  "narr": [
+   "This week, we'll explore how to turn those different stakeholder views into clear, well-defined problems.",
+   "We'll focus on identifying measurable variables that can help us assess and solve these problems.",
+   "Our discussion begins with an important dilemma: \"What Is the Problem?\"",
+   "This is adapted from the Empire State Building case study, which examines how workers in a tall office building complained about long wait times for elevators."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

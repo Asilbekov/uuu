@@ -1,0 +1,585 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 1-4 Study Guide"
+  },
+  "narr": [
+   "Welcome to this study guide for Introduction to Engineering, covering weeks 1 through 4. Let's start by exploring the Need-Know-How-Solve method and its connection to Week 4.",
+   "This method is a systematic approach to problem-solving that engineers use to tackle complex challenges.",
+   "The method consists of four key steps: Need, Know, How, and Solve. Each step serves a specific purpose in the problem-solving process.",
+   "Let's break down each step and understand how they connect to the engineering design process we studied in Week 4.",
+   "First, the Need step involves identifying the variable we're seeking to find. This is typically written down first to establish our objective.",
+   "Next, the Know step involves gathering all the information we have from the problem statement and our existing knowledge - numbers, sketches, principles, etc.",
+   "Then, the How step involves determining the method or equation we'll use, along with any assumptions we need to make before computing.",
+   "Finally, the Solve step involves performing the actual computation, checking our units, and interpreting the results in context.",
+   "The connection to Week 4 is that this method provides a structured approach to problem-solving that prevents 'blind number plugging' and creates an audit trail of our reasoning process.",
+   "As Kosky's examples illustrate, this method can be applied to various problems, from calculating distances using quadratic equations to making estimates with reasonable accuracy."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Need-Know-How-Solve Method",
+   "problem": "Name the steps of the Need-Know-How-Solve method and explain their connection to Week 4.",
+   "steps": [
+    {
+     "text": "Identify the Need: Determine the variable we seek and write it down first."
+    },
+    {
+     "text": "Identify the Know: Gather information from the problem statement and existing knowledge (numbers, sketches, principles)."
+    },
+    {
+     "text": "Determine the How: Select the method/equation and state assumptions before computing."
+    },
+    {
+     "text": "Execute the Solve: Perform computation, check units, and interpret results."
+    },
+    {
+     "text": "Connection to Week 4: The method provides a structured approach that prevents 'blind number plugging' and creates an audit trail of the reasoning process."
+    }
+   ],
+   "result": "The Need-Know-How-Solve method consists of four steps: identifying what we need to find, gathering known information, determining the approach, and solving the problem. This method connects to Week 4 by providing a systematic framework for engineering problem-solving that ensures thorough analysis and documentation."
+  },
+  "narr": [
+   "Let's apply the Need-Know-How-Solve method to understand it better.",
+   "First, the Need step requires us to clearly identify what variable we're trying to find in our problem.",
+   "Second, the Know step involves collecting all relevant information from the problem statement and our existing knowledge.",
+   "Third, the How step involves selecting the appropriate method or equation and stating any necessary assumptions.",
+   "Finally, the Solve step involves performing the actual calculations, checking that our units are correct, and interpreting what the results mean in context.",
+   "The connection to Week 4 is that this structured approach helps prevent盲目 plugging of numbers and creates a clear record of our thinking process.",
+   "As Kosky demonstrated with examples like calculating the Texan's ranch distance or estimating barbershops in Schenectady, this method can yield accurate results when applied properly."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Lab 4, Part A: Classify and Frame",
+   "problem": "For the EV Charging and Battery Test Station card, classify the information and frame the problem.",
+   "steps": [
+    {
+     "text": "Facts: Cars arrive at an average of 12 per hour; 4 charging bays; charging takes 30-40 minutes plus a 10-minute diagnostic; inspection occurs when battery health is below 80%."
+    },
+    {
+     "text": "Sorting: Fact - arrivals of 12 cars/hour and 4 bays (counted); Inference - queues form when arrivals outrun the combined charging+diagnostic time of the four bays."
+    },
+    {
+     "text": "Speculation - the station may be slower because of conservative safety limits; Opinion - customers want to wait less; the grid operator worries about peak power."
+    },
+    {
+     "text": "Complaint → Need → Problem Statement: Create a model for a short, predictable time from arrival to release, within the peak-power limit."
+    }
+   ],
+   "result": "The EV station problem is framed around reducing customer wait times while managing power constraints. The key elements are arrival rates, charging capacity, diagnostic procedures, and battery health thresholds."
+  },
+  "narr": [
+   "Now let's move to Lab 4, Part A, where we need to classify and frame the problem for the EV Charging and Battery Test Station.",
+   "First, we identify the facts: cars arrive at 12 per hour, there are 4 charging bays, charging takes 30-40 minutes plus a 10-minute diagnostic, and inspections happen when battery health is below 80%.",
+   "Next, we sort this information into categories: facts are the counted numbers like arrival rates and bay count; inferences are what we can deduce, like queues forming when demand exceeds capacity.",
+   "We also have speculations, such as the station being slower due to conservative safety limits, and opinions like customers wanting shorter wait times and grid operators worrying about peak power.",
+   "From this classification, we frame the problem: creating a model that ensures a short, predictable time from arrival to release while staying within peak-power limits."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Lab 4, Part B: Map the Process",
+   "problem": "For the EV station, map the process with 7 steps and identify one variable per step.",
+   "steps": [
+    {
+     "text": "1) Arrive — the arrival rate, cars/hour"
+    },
+    {
+     "text": "2) Queue [wait] — waiting time, minutes"
+    },
+    {
+     "text": "3) Assign charger — bays occupied, count"
+    },
+    {
+     "text": "4) Charge (30-40 min) — charging time, minutes; power per charger, kW"
+    },
+    {
+     "text": "5) Diagnostic test — test time, minutes; share of batteries below threshold, %"
+    },
+    {
+     "text": "6) Check: Health below 80%? — battery health, %"
+    },
+    {
+     "text": "7) Inspect / Release — cars released, count/hour; total time at station, minutes"
+    }
+   ],
+   "result": "The EV station process has 7 steps with variables including arrival rate, waiting time, occupied bays, charging time, power per charger, diagnostic time, battery health percentage, and total station time. The diamond decision point leads to technician inspection when battery health is below 80%."
+  },
+  "narr": [
+   "For Lab 4, Part B, we need to map the process for the EV station with 7 steps and identify one variable per step.",
+   "First, the Arrive step where we track the arrival rate in cars per hour.",
+   "Second, the Queue step where we measure waiting time in minutes.",
+   "Third, the Assign charger step where we count how many bays are occupied.",
+   "Fourth, the Charge step where we note charging time in minutes and power per charger in kilowatts, which is of particular interest to the grid operator.",
+   "Fifth, the Diagnostic test step where we record test time in minutes and the percentage of batteries below the health threshold.",
+   "Sixth, the Check step where we evaluate battery health as a percentage.",
+   "Finally, the Inspect/Release step where we count cars released per hour and track the total time spent at the station in minutes.",
+   "This 7-step process is within the 6-7 step limit, and includes a diamond decision point that leads to technician inspection when battery health falls below 80%."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Lab 4, Part C: Stakeholders and Targets",
+   "columns": [
+    "Stakeholder",
+    "Interest",
+    "Metric",
+    "Unit"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Customer"
+     },
+     {
+      "text": "Short, predictable visit"
+     },
+     {
+      "text": "Total time at station"
+     },
+     {
+      "text": "Minutes"
+     }
+    ],
+    [
+     {
+      "text": "Station operator"
+     },
+     {
+      "text": "High throughput at manageable demand"
+     },
+     {
+      "text": "Cars per hour"
+     },
+     {
+      "text": "Count/hour"
+     }
+    ],
+    [
+     {
+      "text": "Grid operator"
+     },
+     {
+      "text": "Low peak power"
+     },
+     {
+      "text": "Peak consumption"
+     },
+     {
+      "text": "kW"
+     }
+    ],
+    [
+     {
+      "text": "Technician"
+     },
+     {
+      "text": "Dangerous batteries caught early"
+     },
+     {
+      "text": "Batteries flagged for inspection"
+     },
+     {
+      "text": "% of tests"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Now let's examine the stakeholders and their targets for the EV station in Lab 4, Part C.",
+   "Different stakeholders have different interests in the EV station operation.",
+   "Customers want a short, predictable visit, measured by total time spent at the station in minutes.",
+   "The station operator aims for high throughput at manageable demand, measured by cars processed per hour.",
+   "The grid operator needs low peak power consumption, measured in kilowatts.",
+   "Technicians want dangerous batteries caught early, measured by the percentage of tests that flag batteries for inspection."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Lab 4, Part C: Targets",
+   "problem": "Identify the must-have and nice-to-have targets for the EV station.",
+   "steps": [
+    {
+     "text": "Must-have (demand): Average total time at station ≤ 45 minutes at peak; peak power ≤ 150 kW"
+    },
+    {
+     "text": "Nice-to-have (wish): Average time ≤ 30 minutes (faster than competitors); real-time queue-length display"
+    },
+    {
+     "text": "Note: Another well-justified set of variables and targets is graded just as highly."
+    }
+   ],
+   "result": "The EV station has two categories of targets: must-have requirements (demand) and nice-to-have features (wishes). The must-haves include limiting average total time to 45 minutes and peak power to 150kW. The nice-to-haves aim for even faster service (≤30 minutes) and additional features like real-time queue displays."
+  },
+  "narr": [
+   "Building on our understanding of stakeholders, let's identify their specific targets for the EV station.",
+   "Targets are categorized as must-have requirements and nice-to-have wishes.",
+   "The must-have targets, or requirements, include keeping the average total time at the station under 45 minutes during peak hours, and ensuring peak power consumption stays within the contracted limit of 150 kilowatts.",
+   "The nice-to-have targets, or wishes, include reducing the average time to 30 minutes to be faster than competitors, and implementing a real-time queue-length display for customers.",
+   "It's worth noting that another well-justified set of variables and targets would be graded just as highly, showing the importance of thoughtful target setting."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Engineering Design Process",
+   "subtitle": "Kosky Chapter 21"
+  },
+  "narr": [
+   "Now let's explore the engineering design process as outlined in Kosky's Chapter 21.",
+   "Engineering design creates new products using available technology to improve performance, reduce price, or reduce risk.",
+   "A bridge that is 'visually stunning without a strength calculation' is design without engineering - it lacks the analytical rigor that characterizes engineering design.",
+   "In contrast, a concept car evaluated through analysis of aerodynamics, strength, manufacturability alongside style represents true engineering design.",
+   "Until the 1960s, this description of engineering design was sufficient, but today the definition has been extended to include systematic thinking processes and best practices like Design for Six Sigma.",
+   "The systematic approach is crucial because designers search for the best solution under tight constraints of time and resources.",
+   "The engineering approach minimizes the number of design iterations, and fewer iterations mean a cheaper and faster development process.",
+   "It's important to distinguish between design problems and homework problems: homework has a single unique answer found by logical method, while design problems have no unique answer - several designs may satisfy the statement.",
+   "There may be a 'best' answer with respect to critical requirements, but a design that minimizes unit cost may be unreliable if reliability is critical to the client.",
+   "Let's now examine the qualities of a good designer according to Kosky."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Qualities of a Good Designer",
+   "bullets": [
+    "Curiosity about how things work (take devices apart — reverse engineering; stroll through a toy store)",
+    "Selflessness (suppress your ego for the sake of the team)",
+    "Fearlessness (step into the unknown)",
+    "Persistence (failures are inevitable)",
+    "Adaptability ('if the ship is sinking, don't go down with it — redesign it')"
+   ]
+  },
+  "narr": [
+   "Good designers possess several key qualities that help them excel in their field.",
+   "First, curiosity drives them to understand how things work - they might take devices apart for reverse engineering or explore toy stores for inspiration.",
+   "Second, selflessness allows them to suppress their ego for the sake of the team, recognizing that collaboration often yields better results than individual efforts.",
+   "Third, fearlessness enables them to step into the unknown, tackling challenges that others might avoid.",
+   "Fourth, persistence is essential because failures are inevitable in the design process, and the ability to learn from and overcome these setbacks is crucial.",
+   "Finally, adaptability helps them respond to changing circumstances - as the saying goes, 'if the ship is sinking, don't go down with it — redesign it.'"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Design Notebook",
+   "bullets": [
+    "A permanently bound notebook with numbered pages",
+    "Document ideas, sketches, calculations, and data in real time",
+    "Date and number every page",
+    "Do not tear out pages or leave blank pages (cross them out)",
+    "Write in pen, strike through errors (no correction fluid)",
+    "Paste in computer printouts, graphs, photographs",
+    "Write as if someone else will read it",
+    "Document team meetings (date, results, tasks)"
+   ]
+  },
+  "narr": [
+   "An essential tool for designers is the design notebook, which serves as both a thinking tool and legal documentation.",
+   "The notebook should be a permanently bound book with numbered pages to ensure documentation cannot be altered or removed.",
+   "It's crucial to document ideas, sketches, calculations, and data in real time, without creating a fair copy later.",
+   "Every page should be dated and numbered, and blank pages should be crossed out with a diagonal line to prevent additions later.",
+   "Designers should write in pen and strike through errors rather than using correction fluid, which can be tampered with.",
+   "Computer printouts, graphs, and photographs can be pasted into the notebook to supplement handwritten entries.",
+   "The notebook should be written as if someone else will read it, ensuring clarity and completeness.",
+   "Team meetings should be documented with dates, results, and assigned tasks to maintain a clear record of the design process.",
+   "The importance of proper documentation is illustrated by the Gordon Gould case, where his notarized notebook entries about the laser concept helped him win patent disputes decades later."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "On the night of November 9, 1957, Columbia University graduate student Gould wrote down and sketched the idea of amplifying light — 'light amplification by stimulated emission of radiation' (laser) — and on the Wednesday had the notes notarised by a notary in a candy store; for 30 years he litigated patents against rivals whose filings came later, and won millions in royalties thanks to a notarised, clear and contemporaneous record.",
+   "who": "Gordon Gould Case"
+  },
+  "narr": [
+   "The importance of proper documentation is powerfully illustrated by the Gordon Gould case.",
+   "On November 9, 1957, Gould, a Columbia University graduate student, documented his idea for what would become the laser.",
+   "He had his notes notarized just a few days later, creating a clear, contemporaneous record of his invention.",
+   "This documentation proved crucial when, for 30 years, he litigated against rivals who filed patents later.",
+   "Thanks to his notarized notebook, Gould won millions in royalties and is now credited as the inventor of the laser.",
+   "This case underscores why the seemingly tedious rules for design notebooks are actually vital for protecting intellectual property."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Eight Steps of the Engineering Design Process",
+   "bullets": [
+    "1) Define the problem",
+    "2) Generate alternative concepts",
+    "3) Evaluate and select a concept",
+    "4) Detail the design",
+    "5) Defend the design (design defense)",
+    "6) Manufacture and test",
+    "7) Evaluate the performance",
+    "8) Prepare the final report"
+   ]
+  },
+  "narr": [
+   "The engineering design process consists of eight systematic steps that guide designers from problem definition to final report.",
+   "First, designers must clearly define the problem they're trying to solve.",
+   "Second, they generate alternative concepts that might address the problem.",
+   "Third, they evaluate these concepts and select the most promising one.",
+   "Fourth, they detail the design of the selected concept.",
+   "Fifth, they defend their design decisions, justifying their choices.",
+   "Sixth, they manufacture a prototype and test it.",
+   "Seventh, they evaluate the performance of the prototype against requirements.",
+   "Finally, they prepare a final report documenting the entire process and results.",
+   "The two goals of this systematic approach are to eliminate personal biases and maximize the thinking and information gathering done before the final design is fixed.",
+   "This process is sometimes visualized as a process flow diagram (PFD), showing the relationships between different stages."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — The 'Tower' Exercise",
+   "problem": "Describe the 'Tower' engineering design exercise and its learning objectives.",
+   "steps": [
+    {
+     "text": "Task: Build the tallest tower out of 5 sheets of paper in 10 minutes"
+    },
+    {
+     "text": "Materials: Distributed unevenly (tape, reinforced tape, paper clips, scissors — two teams per material)"
+    },
+    {
+     "text": "Scoring: 1 point per inch of height; 10-point bonus for the first team to finish"
+    },
+    {
+     "text": "Twist: After 3 minutes, one person on each team is offered 8 points to switch to another team"
+    },
+    {
+     "text": "Learning objectives: Quality of teaming, ethics of switching, importance of materials (manufacturability)"
+    }
+   ],
+   "result": "The 'Tower' exercise is a timed design challenge that teaches students about team dynamics, ethical decision-making, and material selection. The twist of allowing team members to switch teams for points creates a realistic scenario where participants must balance individual incentives with team objectives."
+  },
+  "narr": [
+   "To understand the engineering design process in practice, let's examine the 'Tower' exercise.",
+   "In this exercise, teams are tasked with building the tallest possible tower using only 5 sheets of paper within a 10-minute time limit.",
+   "Materials are distributed unevenly across teams — some get tape, others reinforced tape, paper clips, or scissors, with two teams sharing each material type.",
+   "Scoring is straightforward: 1 point per inch of height, with a 10-point bonus for the first team to complete their tower.",
+   "After 3 minutes, a twist is introduced: one person from each team is offered 8 points to switch to another team.",
+   "The debrief focuses on several learning objectives: the quality of teaming both within and between teams, the ethics of switching teams for personal gain, and the importance of material selection in design manufacturability.",
+   "This exercise simulates real-world design challenges where time constraints, resource limitations, and team dynamics all impact the final outcome."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Design Teams",
+   "subtitle": "Kosky Chapter 22"
+  },
+  "narr": [
+   "Now let's turn our attention to design teams, as discussed in Kosky's Chapter 22.",
+   "An important distinction to make is that 'all teams are groups of people, but not all groups are teams.'",
+   "The key difference is that team members work toward a common goal, while group members merely share common interests.",
+   "Effective design teams require careful management to ensure they work together productively.",
+   "Managing a design project involves understanding the project's goals clearly enough to state them in one sentence.",
+   "It also involves breaking the work into individual assignments that play to each team member's strengths.",
+   "Finally, effective management means keeping the project moving methodically toward established milestones.",
+   "Two important tools for project management are the Gantt chart and PERT.",
+   "The Gantt chart, developed by Henry L. Gantt in 1917, displays horizontal task bars on a project's time scale.",
+   "PERT, or Program Evaluation and Review Technique, uses a network diagram to identify the critical path in a project.",
+   "Let's also examine the qualities of an effective team leader."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Qualities of a Team Leader",
+   "bullets": [
+    "The ability to delegate (know people's strengths and trust them)",
+    "Communication (state clearly what is to be done)",
+    "A sense of humor (morale affects productivity)"
+   ]
+  },
+  "narr": [
+   "Effective team leaders possess several key qualities that help their teams succeed.",
+   "First, the ability to delegate is crucial - leaders must understand team members' strengths and trust them with appropriate responsibilities.",
+   "Second, clear communication is essential - leaders must state clearly what needs to be done and provide necessary context.",
+   "Third, a sense of humor helps maintain team morale, which directly affects productivity.",
+   "These qualities, combined with the systematic design process we've discussed, form the foundation of successful engineering design projects."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Week 4 Summary",
+   "items": [
+    "The Need-Know-How-Solve method provides a structured approach to engineering problem-solving",
+    "Engineering design involves creating new products to improve performance, reduce cost, or reduce risk",
+    "The design notebook serves as both a thinking tool and legal documentation",
+    "The eight-step engineering design process guides designers from problem definition to final report",
+    "Effective design teams require clear goals, appropriate delegation, and good communication",
+    "Project management tools like Gantt charts and PERT help teams stay on track"
+   ]
+  },
+  "narr": [
+   "As we conclude our study of Weeks 1-4, let's review the key concepts we've covered.",
+   "We've explored the Need-Know-How-Solve method, which provides a structured approach to engineering problem-solving that prevents盲目 plugging of numbers.",
+   "We've examined engineering design as the process of creating new products to improve performance, reduce cost, or reduce risk through systematic thinking.",
+   "We've learned about the importance of the design notebook as both a thinking tool and legal documentation, illustrated by the Gordon Gould case.",
+   "We've studied the eight-step engineering design process that guides designers from problem definition through to final report preparation.",
+   "We've discussed the qualities of effective design teams and team leaders, emphasizing the importance of common goals and clear communication.",
+   "Finally, we've looked at project management tools like Gantt charts and PERT that help teams stay on track toward their goals.",
+   "These concepts form the foundation of systematic engineering design that we'll build upon in the coming weeks."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   -1
+  ]
+ }
+]

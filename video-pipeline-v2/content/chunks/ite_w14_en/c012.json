@@ -1,0 +1,668 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 1-4: Study Guide"
+  },
+  "narr": [
+   "Welcome to the Introduction to Engineering study guide for Weeks 1 through 4. Let's dive into the fundamental concepts and problems that will shape your understanding of engineering principles.",
+   "We'll start with some practical exercises in significant figures and system analysis, then explore various engineering laws, dimensional analysis, and unit conversions across different measurement systems.",
+   "Finally, we'll examine systems thinking terminology and process flow diagrams that form the foundation of engineering problem-solving."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Significant Figures",
+   "problem": "Write the results with the correct number of significant figures: 1.2856 + 10.1; 155 − 0.521; 155 − 0.52; 1558 × 12; 3.585 × 1.2.",
+   "steps": [
+    "For addition and subtraction, the result should have the same number of decimal places as the measurement with the fewest decimal places.",
+    "For multiplication and division, the result should have the same number of significant figures as the measurement with the fewest significant figures."
+   ],
+   "result": "1.29; 154.479; 154.48; 18700; 4.30"
+  },
+  "narr": [
+   "Let's tackle significant figures. These rules ensure precision in engineering calculations.",
+   "First, when adding 1.2856 and 10.1, we round to one decimal place since 10.1 has the fewest decimal places. The result is 1.29.",
+   "For subtraction, 155 minus 0.521 gives 154.479, which we keep as is since 155 has no decimal places.",
+   "155 minus 0.52 similarly gives 154.48.",
+   "For multiplication, 1558 times 12 has four significant figures in 1558 and two in 12, so we round to two significant figures: 18700.",
+   "Finally, 3.585 times 1.2 has four and two significant figures respectively, giving us 4.30 when rounded to two significant figures."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — System Components",
+   "problem": "For the systems (a jacket, trousers, a skirt, shoes, a bicycle, roller skates; a refrigerator, a computer, the human body, a building, a water heater, a toaster, an airplane) identify the main components and the role of each — practice in decomposing systems into elements.",
+   "steps": [
+    "Identify physical components of each system",
+    "Determine the function of each component",
+    "Consider how components interact"
+   ],
+   "result": "For example: A bicycle has components like frame (structural support), wheels (motion), pedals (force transfer), chain (power transmission), brakes (control), and handlebars (steering)."
+  },
+  "narr": [
+   "Now let's practice decomposing systems into their components. This skill helps us understand how complex systems work.",
+   "Take a bicycle for instance. Its main components include the frame providing structural support, wheels enabling motion, pedals for force transfer, the chain for power transmission, brakes for control, and handlebars for steering.",
+   "Similarly, a refrigerator would have components like the compressor (pressurizes refrigerant), condenser (releases heat), evaporator (absorbs heat), and thermostat (controls temperature).",
+   "The human body can be decomposed into systems like skeletal (support), muscular (movement), circulatory (transport), nervous (control), and respiratory (gas exchange).",
+   "This decomposition process helps engineers understand, analyze, and improve complex systems by examining their constituent parts and interactions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Engineering Laws",
+   "problem": "What do these laws describe: Fourier's, Darcy's, Newton's viscosity, Newton's cooling, Coulomb's, Ohm's, the ideal gas, Hooke's, the first law of thermodynamics, Fick's, Faraday's?",
+   "steps": [
+    "Identify each law by name",
+    "Recall the physical principle each law describes",
+    "Match the law to its application area"
+   ],
+   "result": "Fourier's: heat conduction; Darcy's: fluid flow through porous media; Newton's viscosity: fluid friction; Newton's cooling: heat transfer rate; Coulomb's: electrostatic force; Ohm's: electrical resistance; Ideal gas: gas behavior; Hooke's: elasticity; First law of thermodynamics: energy conservation; Fick's: diffusion; Faraday's: electromagnetic induction"
+  },
+  "narr": [
+   "Engineering is built on fundamental laws that describe how the physical world works.",
+   "Fourier's law describes heat conduction through materials.",
+   "Darcy's law models fluid flow through porous media like soil or filters.",
+   "Newton's law of viscosity characterizes fluid friction and resistance to flow.",
+   "Newton's law of cooling describes the rate of heat transfer between objects and their surroundings.",
+   "Coulomb's law quantifies the electrostatic force between charged particles.",
+   "Ohm's law relates voltage, current, and electrical resistance in circuits.",
+   "The ideal gas law approximates the behavior of gases under various conditions.",
+   "Hooke's law defines the relationship between force and deformation in elastic materials.",
+   "The first law of thermodynamics establishes the principle of energy conservation.",
+   "Fick's law describes diffusion processes and how particles spread from areas of high concentration to low concentration.",
+   "Faraday's law explains electromagnetic induction, the process of generating electric current through changing magnetic fields."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Dimensional Homogeneity",
+   "problem": "Check which equations are dimensionally homogeneous: (a) F(t2 − t1) = mV2 − mV1; (b) F(V2 − V1) = ½mx2² − ½mx1²; (c) F = ½mV2² − ½mV1²; (d) F(x2 − x1) = ½mV2² − ½mV1².",
+   "steps": [
+    "Analyze dimensions of left side: Force × time",
+    "Analyze dimensions of right side: mass × velocity",
+    "Compare dimensions for each equation"
+   ],
+   "result": "Only equation (a) is dimensionally homogeneous: Force × time = mass × velocity"
+  },
+  "narr": [
+   "Dimensional homogeneity is crucial in engineering - both sides of an equation must have the same dimensions.",
+   "Let's examine equation (a): F(t2 - t1) = mV2 - mV1. The left side has dimensions of force times time, while the right side is mass times velocity.",
+   "In equation (b): F(V2 - V1) = ½mx2² - ½mx1². The left side is force times velocity, while the right side is mass times velocity squared.",
+   "Equation (c): F = ½mV2² - ½mV1². Here, the left side is force, while the right side is mass times velocity squared.",
+   "Equation (d): F(x2 - x1) = ½mV2² - ½mV1². The left side is force times length, while the right side is mass times velocity squared.",
+   "Only equation (a) is dimensionally homogeneous, as force times time equals mass times velocity, both representing momentum."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Mass and Weight Conversion",
+   "problem": "A car of mass 1500 kg: express the mass and the weight in BG and U.S. Customary, showing the steps.",
+   "steps": [
+    "Convert mass to slugs (BG system): 1 kg = 0.06852 slugs",
+    "Calculate weight in BG: W = mg, where g = 32.2 ft/s²",
+    "Convert mass to lbm (U.S. Customary): 1 kg = 2.2046 lbm",
+    "Calculate weight in U.S. Customary: W = mg/gc, where gc = 32.2 ft·lbm/(lbf·s²)"
+   ],
+   "result": "Mass: 102.78 slugs or 3306.9 lbm; Weight: 3310 lbf or 3310 pdl"
+  },
+  "narr": [
+   "Let's convert the mass and weight of a 1500 kg car to British Gravitational and U.S. Customary systems.",
+   "First, for mass in BG units: 1500 kg × 0.06852 slugs/kg = 102.78 slugs.",
+   "The weight in BG is then 102.78 slugs × 32.2 ft/s² = 3310 poundals.",
+   "For U.S. Customary units: 1500 kg × 2.2046 lbm/kg = 3306.9 lbm.",
+   "The weight in U.S. Customary is 3306.9 lbm × 32.2 ft/s² ÷ 32.2 ft·lbm/(lbf·s²) = 3306.9 lbf.",
+   "So the car has a mass of 102.78 slugs or 3306.9 lbm, and a weight of 3310 lbf or 3310 pdl."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Kinetic Energy Conversion",
+   "problem": "Express the kinetic energy (mass)(speed)² of a 1200 kg car at 100 km/h in SI, BG, and U.S. Customary.",
+   "steps": [
+    "Convert speed to m/s: 100 km/h = 27.78 m/s",
+    "Calculate kinetic energy in SI units: KE = ½mv²",
+    "Convert mass to slugs and speed to ft/s for BG units",
+    "Convert mass to lbm and speed to ft/s for U.S. Customary units"
+   ],
+   "result": "SI: 462,963 J; BG: 341,700 ft·lbf; U.S. Customary: 341,700 ft·lbf"
+  },
+  "narr": [
+   "Now let's calculate the kinetic energy of a 1200 kg car moving at 100 km/h in different unit systems.",
+   "First, convert speed to SI units: 100 km/h = 27.78 m/s.",
+   "The kinetic energy in SI units is ½ × 1200 kg × (27.78 m/s)² = 462,963 J.",
+   "For BG units: convert mass to 82.01 slugs and speed to 91.13 ft/s.",
+   "Kinetic energy in BG units is ½ × 82.01 slugs × (91.13 ft/s)² = 341,700 ft·lbf.",
+   "In U.S. Customary units with 2645.5 lbm and 91.13 ft/s, we get the same result: 341,700 ft·lbf."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Area Conversion",
+   "problem": "A workshop floor of 30 ft × 50 ft: express the area in ft², m², in², cm².",
+   "steps": [
+    "Calculate area in ft²: 30 ft × 50 ft",
+    "Convert to m²: 1 ft² = 0.092903 m²",
+    "Convert to in²: 1 ft² = 144 in²",
+    "Convert to cm²: 1 ft² = 929.03 cm²"
+   ],
+   "result": "1500 ft²; 139.35 m²; 216,000 in²; 1,393,545 cm²"
+  },
+  "narr": [
+   "Let's convert the area of a 30 ft by 50 ft workshop floor to various units.",
+   "First, the area in square feet is straightforward: 30 ft × 50 ft = 1500 ft².",
+   "To convert to square meters: 1500 ft² × 0.092903 m²/ft² = 139.35 m².",
+   "For square inches: 1500 ft² × 144 in²/ft² = 216,000 in².",
+   "And for square centimeters: 1500 ft² × 929.03 cm²/ft² = 1,393,545 cm²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Volume Conversion",
+   "problem": "A trunk of 18 ft³: express it in in³, m³, cm³.",
+   "steps": [
+    "Convert to in³: 1 ft³ = 1728 in³",
+    "Convert to m³: 1 ft³ = 0.028317 m³",
+    "Convert to cm³: 1 ft³ = 28,317 cm³"
+   ],
+   "result": "31,104 in³; 0.5097 m³; 509,706 cm³"
+  },
+  "narr": [
+   "Now let's convert a trunk volume of 18 cubic feet to other volume units.",
+   "First, to cubic inches: 18 ft³ × 1728 in³/ft³ = 31,104 in³.",
+   "To cubic meters: 18 ft³ × 0.028317 m³/ft³ = 0.5097 m³.",
+   "And to cubic centimeters: 18 ft³ × 28,317 cm³/ft³ = 509,706 cm³."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Power and Engine Displacement Conversion",
+   "problem": "An Acura RL: 300 horsepower, a 3.5-liter engine — express in kW and in³.",
+   "steps": [
+    "Convert horsepower to kW: 1 hp = 0.7457 kW",
+    "Convert liters to cubic inches: 1 L = 61.024 in³"
+   ],
+   "result": "223.71 kW; 213.58 in³"
+  },
+  "narr": [
+   "Let's convert the power and engine displacement of an Acura RL.",
+   "First, 300 horsepower to kilowatts: 300 hp × 0.7457 kW/hp = 223.71 kW.",
+   "Then, the 3.5-liter engine displacement to cubic inches: 3.5 L × 61.024 in³/L = 213.58 in³."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Density Conversion",
+   "problem": "The density of air at room conditions is 1.2 kg/m³: express it in BG and U.S. Customary.",
+   "steps": [
+    "Convert to slugs/ft³: 1 kg/m³ = 0.001940 slugs/ft³",
+    "Convert to lbm/ft³: 1 kg/m³ = 0.06243 lbm/ft³"
+   ],
+   "result": "BG: 0.002328 slugs/ft³; U.S. Customary: 0.07492 lbm/ft³"
+  },
+  "narr": [
+   "Now let's convert air density from SI units to BG and U.S. Customary systems.",
+   "For BG units: 1.2 kg/m³ × 0.001940 slugs/ft³ per kg/m³ = 0.002328 slugs/ft³.",
+   "For U.S. Customary units: 1.2 kg/m³ × 0.06243 lbm/ft³ per kg/m³ = 0.07492 lbm/ft³."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — Temperature Difference Conversion",
+   "problem": "In Phoenix it is 68°F inside and 110°F outside: the temperature difference in (a) °F, (b) °R, (c) °C, (d) K? Is one degree of difference in Celsius equal to one degree in Kelvin, and in Fahrenheit to one in Rankine? Why?",
+   "steps": [
+    "Calculate difference in °F: 110°F - 68°F",
+    "Convert to °R: temperature differences are the same in °F and °R",
+    "Convert to °C: Δ°C = (5/9) × Δ°F",
+    "Convert to K: temperature differences are the same in °C and K"
+   ],
+   "result": "(a) 42°F; (b) 42°R; (c) 23.33°C; (d) 23.33K; Yes, because the size of one degree is the same in Celsius and Kelvin, and in Fahrenheit and Rankine."
+  },
+  "narr": [
+   "Let's calculate temperature differences in Phoenix where it's 68°F inside and 110°F outside.",
+   "First, the difference in Fahrenheit is straightforward: 110°F - 68°F = 42°F.",
+   "For Rankine, temperature differences are the same as Fahrenheit, so it's also 42°R.",
+   "To convert to Celsius: (5/9) × 42°F = 23.33°C.",
+   "For Kelvin, temperature differences are the same as Celsius, so it's 23.33K.",
+   "Yes, one degree difference is equal in Celsius and Kelvin, and in Fahrenheit and Rankine, because these pairs use the same size degree interval, just different zero points."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 16 — Unit Consistency in Beam Deflection",
+   "problem": "A cantilever beam: the deflection y = wx²(x² − 4Lx + 6L²)/(24EI); what must the unit of w (the distributed load) be for the equation to be homogeneous? Answer: N/m.",
+   "steps": [
+    "Analyze dimensions of each term in the equation",
+    "Determine the dimensions of w to make both sides consistent"
+   ],
+   "result": "w must have units of N/m to maintain dimensional homogeneity"
+  },
+  "narr": [
+   "Finally, let's examine the deflection equation for a cantilever beam to determine the proper units for the distributed load w.",
+   "The equation is y = wx²(x² - 4Lx + 6L²)/(24EI). For dimensional homogeneity, both sides must have the same dimensions.",
+   "The left side y represents deflection, which has dimensions of length.",
+   "The denominator 24EI has dimensions of force × length², since E (modulus of elasticity) has dimensions of force/length² and I (moment of inertia) has dimensions of length⁴.",
+   "The numerator wx²(x² - 4Lx + 6L²) must therefore have dimensions of force × length³ to match the denominator and give length on the left side.",
+   "Since x and L have dimensions of length, w must have dimensions of force per length, or N/m, to make the equation dimensionally homogeneous."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week-2 Terms",
+   "subtitle": "Glossary"
+  },
+  "narr": [
+   "Now let's explore some fundamental engineering terminology from Week 2. Understanding these concepts is crucial for systems thinking in engineering.",
+   "We'll examine terms related to systems, their components, boundaries, and stakeholders."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Week-2 Terms (English — Uzbek)",
+   "columns": [
+    "Term (EN)",
+    "Atama (UZ)",
+    "One-phrase definition"
+   ],
+   "rows": [
+    [
+     {
+      "text": "System"
+     },
+     {
+      "text": "Tizim"
+     },
+     {
+      "text": "Interacting elements and processes that transform inputs into outputs, within an operating context"
+     }
+    ],
+    [
+     {
+      "text": "Element"
+     },
+     {
+      "text": "Element"
+     },
+     {
+      "text": "A part or a person making up the system"
+     }
+    ],
+    [
+     {
+      "text": "Process"
+     },
+     {
+      "text": "Jarayon"
+     },
+     {
+      "text": "How the elements interact and transform things over time"
+     }
+    ],
+    [
+     {
+      "text": "Input / Output"
+     },
+     {
+      "text": "Kirish / Chiqish"
+     },
+     {
+      "text": "Flows across the boundary: materials, people, money, information, energy"
+     }
+    ],
+    [
+     {
+      "text": "System boundary"
+     },
+     {
+      "text": "Tizim chegarasi"
+     },
+     {
+      "text": "A drawn (often imaginary) inside/outside line; an engineer's choice, not a fact about the world"
+     }
+    ],
+    [
+     {
+      "text": "Operating context"
+     },
+     {
+      "text": "Ish konteksti"
+     },
+     {
+      "text": "Conditions just outside the boundary that constrain behavior: codes, schedule, infrastructure, budget"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's start with the most fundamental concept: a system. A system is defined as interacting elements and processes that transform inputs into outputs within an operating context.",
+   "An element is simply a part or person making up the system.",
+   "A process describes how elements interact and transform things over time.",
+   "Inputs and outputs represent flows across the system boundary, including materials, people, money, information, and energy.",
+   "The system boundary is a drawn, often imaginary line separating inside from outside - it's an engineer's choice, not an inherent property of the world.",
+   "The operating context consists of conditions just outside the boundary that constrain the system's behavior, such as codes, schedules, infrastructure, and budget."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Week-2 Terms (continued)",
+   "columns": [
+    "Term (EN)",
+    "Atama (UZ)",
+    "One-phrase definition"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Stakeholder"
+     },
+     {
+      "text": "Manfaatchi (stakeholder)"
+     },
+     {
+      "text": "Anyone who uses the system, runs it, or is affected by it — even from outside the boundary"
+     }
+    ],
+    [
+     {
+      "text": "Stakeholder map"
+     },
+     {
+      "text": "Manfaatchilar xaritasi"
+     },
+     {
+      "text": "Sorting stakeholders into Uses It / Runs It / Affected By It; the first draft is enough"
+     }
+    ],
+    [
+     {
+      "text": "Tension"
+     },
+     {
+      "text": "Qarama-qarshilik (tension)"
+     },
+     {
+      "text": "A conflict of stakeholder wants (faster/safer/cheaper) that must be surfaced, not hidden"
+     }
+    ],
+    [
+     {
+      "text": "Variable"
+     },
+     {
+      "text": "O'zgaruvchi"
+     },
+     {
+      "text": "A measurable quantity: a number plus units (temperature, weight, voltage)"
+     }
+    ],
+    [
+     {
+      "text": "Dimension"
+     },
+     {
+      "text": "O'lcham (dimension)"
+     },
+     {
+      "text": "A fundamental perceived quantity (mass, length, time) that units quantify"
+     }
+    ],
+    [
+     {
+      "text": "SI"
+     },
+     {
+      "text": "SI tizimi"
+     },
+     {
+      "text": "The international system of units based on MKS: m, s, kg, K, mol, A (+ cd)"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "A stakeholder is anyone who uses the system, runs it, or is affected by it - even from outside the boundary.",
+   "A stakeholder map sorts stakeholders into three categories: Uses It, Runs It, and Affected By It. The first draft is often sufficient to begin the analysis.",
+   "Tension refers to conflicts between stakeholder desires, such as wanting something faster, safer, or cheaper. These tensions must be surfaced and addressed, not hidden.",
+   "A variable is a measurable quantity consisting of a number plus units, like temperature, weight, or voltage.",
+   "A dimension is a fundamental perceived quantity like mass, length, or time that units quantify.",
+   "SI, or the International System of Units, is based on the MKS system and includes meters, seconds, kilograms, Kelvin, moles, amperes, and candelas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Week-2 Terms (continued)",
+   "columns": [
+    "Term (EN)",
+    "Atama (UZ)",
+    "One-phrase definition"
+   ],
+   "rows": [
+    [
+     {
+      "text": "British Gravitational"
+     },
+     {
+      "text": "British Gravitational"
+     },
+     {
+      "text": "The system with the pound-force as the base unit and the derived slug: 1 lb = 1 slug·ft/s²"
+     }
+    ],
+    [
+     {
+      "text": "U.S. Customary"
+     },
+     {
+      "text": "U.S. Customary"
+     },
+     {
+      "text": "The system with lbm and lbf; the lbf is the weight of 1 lbm at g = 32.2 ft/s²"
+     }
+    ],
+    [
+     {
+      "text": "Milestone 1"
+     },
+     {
+      "text": "Milestone 1"
+     },
+     {
+      "text": "The project's first milestone document: chosen system + boundary + stakeholder map"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "The British Gravitational system uses pound-force as the base unit and derives slug from it, with 1 pound equal to 1 slug times feet per second squared.",
+   "The U.S. Customary system uses pound-mass (lbm) and pound-force (lbf), where 1 lbf is defined as the weight of 1 lbm at standard gravity of 32.2 ft/s².",
+   "Milestone 1 represents the project's first milestone document, which includes the chosen system definition, boundary specification, and stakeholder map."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Week 3",
+   "subtitle": "Systems Thinking II: Process Flow Diagrams (PFD)"
+  },
+  "narr": [
+   "Moving into Week 3, we'll build on our understanding of systems by exploring process flow diagrams, or PFDs.",
+   "These tools help us visualize what happens inside the system boundary and how different stakeholders might perceive the process differently."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Points of Week 3",
+   "bullets": [
+    "A recap of week 2: systems, elements, processes, boundaries, context, stakeholders",
+    "What a PFD is: showing process steps and flows between them",
+    "Three benefits of PFDs: sequence, flow visualization, problem identification",
+    "Application to design process (Kosky et al.)",
+    "Elements as nouns, processes as verbs",
+    "Example: cafeteria system components and processes"
+   ]
+  },
+  "narr": [
+   "Let's recap Week 2 in one breath: a system consists of interacting elements and processes that transform inputs into outputs. The boundary is an engineer's choice, the operating context constrains the system from just outside, and stakeholders are those who use, run, or are affected by the system.",
+   "This week focuses on what happens inside the boundary and how different stakeholders perceive the process. The key tool is the Process Flow Diagram, or PFD.",
+   "A PFD shows the steps of a process in order and what flows between them. It provides three crucial insights: the sequence of events, the flows moving between steps (materials, people, information, money, energy), and the identification of problems like gaps, waits, loops, and hand-offs.",
+   "Kosky et al. apply the same PFD concept to the design process itself, treating it as a process with its own steps and flows.",
+   "Remember that elements are nouns (things in the system) while processes are verbs (actions that transform things).",
+   "For example, in a cafeteria system, elements include cooks, ovens, trays, tables, and students. The processes include receiving supplies, storing them, preparing food, serving, taking payment, and clearing tables."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

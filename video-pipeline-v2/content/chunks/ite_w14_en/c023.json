@@ -1,0 +1,399 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 1–4: Study Guide"
+  },
+  "narr": [
+   "Welcome to this study guide for Introduction to Engineering, covering weeks 1 through 4. We'll explore key concepts from Dym chapter 6 on establishing functions and Moaveni chapter 3 on the engineering design process.",
+   "Let's begin with a real-world example from the Danbury project where different teams interpreted constraints differently."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Constraint Interpretation",
+   "problem": "Teams A and B found different values for the same constraint: setup time ≤ 8 minutes versus 2–3 minutes.",
+   "steps": [
+    "Analyze the discrepancy between constraint interpretations",
+    "Consider how different stakeholders might provide 'hard numbers'",
+    "Distinguish between constraints and objectives"
+   ],
+   "result": "The short setup time might have been an objective rather than a constraint, or teachers may have interpreted the request differently."
+  },
+  "narr": [
+   "Let's consider a case study from the Danbury project where two teams arrived at different constraint values.",
+   "Team A interpreted the setup time constraint as being less than or equal to 8 minutes, while Team B saw it as 2 to 3 minutes.",
+   "This discrepancy could have several explanations.",
+   "First, the teachers might have responded differently to requests for 'hard numbers'.",
+   "Second, the shorter timeframe might have actually been an objective rather than a constraint.",
+   "Understanding the difference between constraints and objectives is crucial in engineering design."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Establishing Functions",
+   "subtitle": "Dym Chapter 6"
+  },
+  "narr": [
+   "Now let's explore Dym's chapter 6 on establishing functions. A function is essentially what a device must do, and taking a systems view helps us understand how devices transform inputs into outputs.",
+   "Consider a seemingly simple object like a bookcase. It might appear to just stand there, but actually performs important functions: it resists gravity to hold books and allows organizing them on shelves.",
+   "Misunderstanding functions can have tragic consequences, as seen in the Hyatt Regency disaster."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Functions in Engineering Design",
+   "bullets": [
+    "A function is what the device must do",
+    "Systems view: transform input into output (y = f(x))",
+    "Misunderstanding functions can lead to failures",
+    "Functions are different from objectives"
+   ]
+  },
+  "narr": [
+   "In engineering design, functions represent what a device must accomplish.",
+   "We can think of this as a system that transforms inputs into outputs, represented mathematically as y = f(x).",
+   "When we misunderstand these functions, the consequences can be severe, as tragically demonstrated by the Hyatt Regency collapse.",
+   "It's important to distinguish between functions and objectives - functions describe what something does, while objectives describe how well it should do it."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tools for Establishing Functions",
+   "bullets": [
+    "Black box → glass box",
+    "Dissection / reverse engineering",
+    "Enumeration",
+    "Function-means tree"
+   ]
+  },
+  "narr": [
+   "Dym presents several tools for establishing functions in engineering design.",
+   "The first is transitioning from a black box to a glass box view, where we map inputs and outputs and then expose subfunctions.",
+   "Second is dissection or reverse engineering, where we physically take a device apart to understand what each component does.",
+   "Third is enumeration, where we list all functions and test them with 'what if' scenarios.",
+   "Finally, the function-means tree helps organize functions and their implementation approaches."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Black Box to Glass Box",
+   "problem": "Map the functions of an electric drill using the black box to glass box approach.",
+   "steps": [
+    "Identify inputs: electrical power, supporting force, speed/direction control",
+    "Identify output: rotating chuck",
+    "Expose subfunctions: cord transmits energy, switch directs/transmits information, motor converts electricity to mechanics, transmission steps up torque",
+    "Reflect the physics: 'tune a radio' = select frequency in RF spectrum, not 'turn the knob'"
+   ],
+   "result": "A functional map showing energy flow and information processing in the drill system."
+  },
+  "narr": [
+   "Let's apply the black box to glass box approach to an electric drill.",
+   "First, we identify the inputs: electrical power, a supporting force, and speed/direction control.",
+   "The output is straightforward: a rotating chuck.",
+   "When we 'lift the lid' on this black box, we expose several subfunctions.",
+   "The cord transmits electrical energy to the drill.",
+   "The switch directs and transmits control information.",
+   "The universal motor converts electricity into mechanical motion.",
+   "The transmission steps up the torque, reducing the rotor's 30,000 rpm to the chuck's 2500 rpm.",
+   "Importantly, we must reflect the physics accurately. For example, 'tuning a radio' means selecting a frequency in the RF spectrum, not simply 'turning the knob'."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Function Enumeration",
+   "problem": "Use enumeration to identify all functions of a bridge.",
+   "steps": [
+    "Ask 'what if X disappeared?' for each component",
+    "Without the bridge: cars fall into river → function is to carry the load",
+    "Without the piers: deck would fall → function is to hold up its own weight",
+    "Without road connections: cannot access bridge → function is to connect road network",
+    "Without dividers: traffic streams collide → function is to separate traffic"
+   ],
+   "result": "Multiple functions: carry load, support weight, connect roads, separate traffic"
+  },
+  "narr": [
+   "Enumeration is another powerful tool for establishing functions. One approach is to ask 'what if X disappeared?'",
+   "Consider a bridge. Without the bridge itself, cars would fall into the river. So a primary function is to carry the load.",
+   "Without the piers, the deck itself would fall. So another function is to hold up its own weight.",
+   "Without connections to the roads, you couldn't get onto the bridge. So a function is to connect the road network.",
+   "Without traffic dividers, oncoming streams of traffic would collide. So another function is to separate traffic.",
+   "The George Washington Bridge, for example, spreads directions over different levels to achieve this separation.",
+   "Historically, the Quebec Bridge collapsed twice in 1907 and 1916, killing 75 people, highlighting the importance of proper function identification."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Function-Means Tree",
+   "problem": "Create a function-means tree for a lighter.",
+   "steps": [
+    "Top level function: ignite a material",
+    "First level means: flame vs heated wire",
+    "Secondary functions for flame: fuel supply, burn protection",
+    "Secondary functions for heated wire: electricity to heat conversion",
+    "Caution: don't marry the first design that comes to mind"
+   ],
+   "result": "A tree showing how basic functions can be achieved through different means with different secondary functions."
+  },
+  "narr": [
+   "The function-means tree is another tool for organizing functions and their implementation approaches.",
+   "Let's create one for a lighter. The top level function is 'ignite a material'.",
+   "This can be achieved through different means: a flame or a heated wire.",
+   "For the flame approach, we need secondary functions like fuel supply and burn protection.",
+   "For the heated wire approach, we need to convert electricity into heat.",
+   "It's important to remember that the function-means tree doesn't replace the problem statement and shouldn't be used alone.",
+   "A key caution is not to 'marry your first design' - the tree can anchor you to the first solution that comes to mind."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Objectives vs Functions",
+   "bullets": [
+    "Objectives are adjectives (what it should be like)",
+    "Functions are 'verb–noun' (what it should do)",
+    "Functions describe actions, objectives describe qualities"
+   ]
+  },
+  "narr": [
+   "Finally, it's crucial to distinguish between objectives and functions in engineering design.",
+   "Objectives are typically adjectives that describe what a product should be like - for example, 'lightweight' or 'durable'.",
+   "Functions, on the other hand, are typically 'verb-noun' pairs that describe what a product should do - for example, 'contain liquid' or 'transmit power'.",
+   "Understanding this distinction helps clarify requirements and guide the design process effectively."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Engineering Design Process",
+   "subtitle": "Moaveni Chapter 3"
+  },
+  "narr": [
+   "Now let's turn to Moaveni's chapter 3, which outlines the eight basic steps of the engineering design process applicable to all engineers regardless of their background.",
+   "These steps provide a systematic approach to creating products and services, from recognizing needs to evaluating final designs."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Eight Basic Steps of Engineering Design",
+   "bullets": [
+    "1. Recognize the need for a product or service",
+    "2. Define and fully understand the problem",
+    "3. Preliminary research and preparation",
+    "4. Conceptualization of ideas",
+    "5. Synthesis",
+    "6. Evaluation",
+    "7. Implementation",
+    "8. Communication"
+   ]
+  },
+  "narr": [
+   "Moaveni outlines eight fundamental steps in the engineering design process.",
+   "First, we must recognize the need for a product or service.",
+   "Second, and arguably most important, is defining and fully understanding the problem.",
+   "Third comes preliminary research and preparation.",
+   "Fourth is the conceptualization of ideas.",
+   "Fifth is synthesis, where we consider details and refine our approach.",
+   "Sixth is evaluation, where we analyze and test our concepts.",
+   "Seventh is implementation, bringing the design to reality.",
+   "Finally, eighth is communication, sharing our results with stakeholders."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Problem Definition",
+   "problem": "Define and fully understand a problem for a new product design.",
+   "steps": [
+    "Ask many questions: budget constraints, size and material restrictions, timeline, production volume",
+    "Gather information from all stakeholders",
+    "Clarify the actual need versus stated requirements",
+    "Ensure the problem statement is clear and comprehensive"
+   ],
+   "result": "A well-defined problem statement that addresses all critical aspects of the design challenge."
+  },
+  "narr": [
+   "Let's focus on the second step: defining and fully understanding the problem.",
+   "This is arguably the most important step in the design process.",
+   "To fully understand a problem, we need to ask many questions.",
+   "How much money is available? What are the size and material restrictions?",
+   "When is the product needed? How many units will be produced?",
+   "We should gather information from clients, engineers, and technicians.",
+   "Internet searches can provide valuable background information.",
+   "We must organize this information effectively and clarify the actual need versus stated requirements.",
+   "The goal is a clear and comprehensive problem statement that addresses all critical aspects."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Conceptualization and Synthesis",
+   "problem": "Apply conceptualization and synthesis to a complex system design.",
+   "steps": [
+    "Generate ideas without detailed analysis",
+    "Do not discard reasonable concepts prematurely",
+    "For complex systems, identify components and their interactions",
+    "Consider whether concepts would work if developed",
+    "Create a milestone chart to track progress",
+    "In synthesis, consider calculations, models, materials, and manufacturing",
+    "Check designs against codes and standards"
+   ],
+   "result": "A refined design concept that has been systematically developed and evaluated."
+  },
+  "narr": [
+   "Let's explore steps four and five: conceptualization and synthesis.",
+   "In conceptualization, we generate ideas without detailed analysis.",
+   "It's important not to discard reasonable concepts too early in the process.",
+   "For complex systems, we should identify components and their interactions.",
+   "We need to ask whether our concepts would actually work if fully developed.",
+   "Creating a milestone chart helps track progress toward implementation.",
+   "In synthesis, we consider the details: calculations, computer models, materials, and manufacturing approaches.",
+   "We must check our designs against relevant codes and standards to ensure safety and compliance."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Takeaways",
+   "items": [
+    "Functions describe what a device must do; objectives describe how well it should do it",
+    "Four tools for establishing functions: black box to glass box, dissection, enumeration, function-means tree",
+    "The engineering design process has eight fundamental steps",
+    "Problem definition is the most critical step - ask many questions",
+    "Avoid marrying the first design concept that comes to mind",
+    "Systematic evaluation against requirements and standards is essential"
+   ]
+  },
+  "narr": [
+   "As we conclude this study guide, let's review the key takeaways.",
+   "First, remember that functions describe what a device must do, while objectives describe how well it should perform those functions.",
+   "The four tools for establishing functions - black box to glass box, dissection, enumeration, and function-means tree - each provide valuable perspectives.",
+   "The engineering design process consists of eight fundamental steps that guide us from recognizing needs to communicating results.",
+   "Among these, problem definition stands out as the most critical step - asking many questions ensures we understand the true requirements.",
+   "A crucial caution is to avoid marrying the first design concept that comes to mind.",
+   "Finally, systematic evaluation against requirements and standards is essential for successful engineering design."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   3
+  ]
+ }
+]

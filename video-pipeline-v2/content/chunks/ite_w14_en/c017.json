@@ -1,0 +1,389 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 1-4: Study Guide"
+  },
+  "narr": [
+   "In this video, we'll explore the fundamental concepts of engineering variables and performance measures that form the foundation of problem-solving in engineering.",
+   "Let's start by understanding what engineering variables are and why they're crucial in our work."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Engineering Variables",
+   "bullets": [
+    "A quantity that can be measured and expressed as a number with units",
+    "Examples: time (seconds), length (meters), temperature (°C or kelvins)",
+    "Combined variables: speed (distance/time)",
+    "A number without units is incomplete and ambiguous"
+   ]
+  },
+  "narr": [
+   "So, what exactly is an engineering variable? Simply put, it's any quantity that we can measure and express with both a numerical value and appropriate units.",
+   "Think about time measured with a clock in seconds, length with a ruler in meters, or temperature with a thermometer in Celsius or kelvins.",
+   "Some variables combine measurements, like speed, which combines distance and time measurements.",
+   "Crucially, a number without units is incomplete and ambiguous. Saying 'waiting time: 12' doesn't tell us if it's 12 seconds or 12 minutes.",
+   "Similarly, 'speed limit: 100' could mean 100 km/h or 100 mph - very different speeds.",
+   "In engineering, every result must have both a value and units, and both must be correct."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Identifying Variables in a Process",
+   "problem": "Consider a cafeteria process diagram. What variables can be identified at each step?",
+   "steps": [
+    {
+     "text": "1. Receive deliveries — deliveries per day (count/day)"
+    },
+    {
+     "text": "2. Prepare meals — meals prepared per hour"
+    },
+    {
+     "text": "3. Serve meals — waiting time at the line (min)"
+    },
+    {
+     "text": "4. Take payment — payments per minute (count/min)"
+    },
+    {
+     "text": "5. Clear and dispose — food waste (kg/day)"
+    }
+   ],
+   "result": "Variables identified include delivery rates, meal preparation rates, waiting times, payment rates, and waste quantities, each with appropriate units."
+  },
+  "narr": [
+   "Let's apply this concept to a real example. Imagine we're looking at a cafeteria process diagram.",
+   "At each step, we can identify potential variables that could be measured.",
+   "First, receiving deliveries: we could measure the number of deliveries per day.",
+   "Second, preparing meals: we could measure meals prepared per hour.",
+   "Third, serving meals: we might measure waiting time at the service line in minutes.",
+   "Fourth, taking payments: we could count payments per minute.",
+   "Finally, clearing and disposing: we might measure food waste in kilograms per day.",
+   "As we can see, each step suggests different variables that can be quantified with appropriate units."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Types of Variables",
+   "bullets": [
+    "Performance variables — what we judge (e.g., average waiting time, meals per hour)",
+    "Design variables — what we can change (e.g., number of serving lines, staff per shift)",
+    "Context variables — what we cannot change (e.g., opening hours, building size)"
+   ]
+  },
+  "narr": [
+   "Engineering variables can be categorized into three types based on how they relate to the system.",
+   "Performance variables are what we judge to evaluate how well the system works, like average waiting time or meals per hour.",
+   "Design variables are the levers we can pull to improve performance, such as the number of serving lines or staff per shift.",
+   "Context variables are the limits we can't change, like opening hours or building size.",
+   "Understanding these categories helps us focus our improvement efforts where they'll have the most impact."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "From Vague Words to Variables",
+   "bullets": [
+    "Crowded → people in the queue (count or people/m²)",
+    "Slow → waiting time at the line (minutes)",
+    "Wasteful → discarded food (kg/day)",
+    "Expensive → cost per meal (currency/meal)",
+    "Unreliable → late deliveries per week (count/week)"
+   ]
+  },
+  "narr": [
+   "In engineering, we need to translate vague descriptive words into measurable variables.",
+   "For example, 'crowded' can become 'number of people in the queue' or 'people per square meter'.",
+   "Similarly, 'slow' can be quantified as 'waiting time at the line in minutes'.",
+   "'Wasteful' might be measured as 'discarded food in kilograms per day'.",
+   "'Expensive' could be expressed as 'cost per meal in currency units'.",
+   "And 'unreliable' might be quantified as 'late deliveries per week'.",
+   "A useful variable should answer 'how many?' or 'how much?', and if you can't picture how to measure it, you need to keep looking for a better one."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Stakeholders and Performance Variables",
+   "bullets": [
+    "Rider → waiting time at the stop (minutes)",
+    "Driver/dispatcher → trips completed on time (% of trips)",
+    "Maintenance → breakdowns per month (count/month)",
+    "Administration → cost per passenger (currency/passenger)",
+    "Neighbor → buses per hour on the street (buses/hour)"
+   ]
+  },
+  "narr": [
+   "Different stakeholders care about different aspects of a system, each suggesting their own performance variables.",
+   "For a bus route, riders might care about waiting time at the stop in minutes.",
+   "Drivers and dispatchers might focus on trips completed on time as a percentage.",
+   "Maintenance personnel would track breakdowns per month.",
+   "Administration would monitor cost per passenger.",
+   "And neighbors might be concerned with buses per hour on the street.",
+   "Each perspective points to its own performance variable, illustrating how different stakeholders value different aspects of the same system."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Demands vs. Wishes",
+   "bullets": [
+    "D (demand) — must be met; unacceptable without it",
+    "W (wish) — nice to have; desirable but not critical",
+    "Use numbers wherever possible, even rough ones",
+    "Do not turn a wish into a demand"
+   ]
+  },
+  "narr": [
+   "In engineering specifications, we distinguish between demands and wishes.",
+   "Demands are requirements that must be met; the design is unacceptable without them.",
+   "Wishes are nice-to-have features that would be desirable but aren't critical for success.",
+   "We should use numbers wherever possible, even rough ones, like 'average peak wait under 10 minutes' instead of just 'short waits'.",
+   "Importantly, we should not turn wishes into demands, as that makes the design unnecessarily difficult.",
+   "For example, every bus must pass a safety inspection before entering service - that's a demand.",
+   "But having a real-time display at every stop might be a wish - nice to have but not essential."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Four Signs of a Good Performance Measure",
+   "bullets": [
+    "Measurable — you can count, time or weigh it with a declared method",
+    "Relevant — a real stakeholder cares about it",
+    "Solution-free — it does not presume how the problem will be solved",
+    "Specific — it has units and a target, even a rough one"
+   ]
+  },
+  "narr": [
+   "A good performance measure has four key characteristics.",
+   "First, it must be measurable - you should be able to count, time or weigh it using a clear method.",
+   "Second, it must be relevant - some real stakeholder should actually care about this measure.",
+   "Third, it should be solution-free - it shouldn't presume how the problem will be solved.",
+   "Fourth, it should be specific - having both units and a target value, even if that target is rough.",
+   "Beware of measures that hide problems - for example, the average waiting time might look fine while some passengers are waiting very long times."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Defining System Performance",
+   "problem": "Define performance for a cafeteria system from different stakeholder perspectives.",
+   "steps": [
+    {
+     "text": "Identify key stakeholders: diners, kitchen staff, administration"
+    },
+    {
+     "text": "Select relevant performance variables for each perspective"
+    },
+    {
+     "text": "Assign units and targets to each variable"
+    }
+   ],
+   "result": "Performance is judged by average peak-time wait (min), meals per hour (count/h) and food waste (kg/day), through the eyes of the diners, the kitchen staff and the administration."
+  },
+  "narr": [
+   "Let's work through defining system performance for a cafeteria.",
+   "First, we need to identify the key stakeholders - in this case, diners, kitchen staff, and administration.",
+   "For each perspective, we select relevant performance variables.",
+   "For diners, we might care about average peak-time wait in minutes.",
+   "For kitchen staff, meals per hour might be important.",
+   "And for administration, food waste in kilograms per day could be a key metric.",
+   "Each variable needs units and targets, even rough ones.",
+   "This gives us a working definition that can be refined as we learn more about the system."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The Need-Know-How-Solve Method",
+   "bullets": [
+    "Need — the variable(s) we are looking for",
+    "Know — the known quantities from the problem or background",
+    "How — the solution method, including assumptions",
+    "Solve — computation, unit checking, interpretation"
+   ]
+  },
+  "narr": [
+   "Now let's explore a structured approach to solving engineering problems called the Need-Know-How-Solve method.",
+   "The first step is identifying the Need - what variables are we trying to find?",
+   "Next, we list what we Know - the given information from the problem or our background knowledge.",
+   "Then we determine How we'll solve it - the method or equation to use, including any assumptions we're making.",
+   "Finally, we Solve - performing the actual computation, checking units, and interpreting the result.",
+   "This method leaves an audit trail, formalizes the problem, prevents jumping to answers, and can earn partial credit even if the final answer is wrong."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Applying the Need-Know-How-Solve Method",
+   "problem": "A bus route needs to maintain an average waiting time of under 10 minutes during peak hours. Current average wait is 15 minutes. How many additional buses are needed if each bus reduces average wait by 2 minutes?",
+   "steps": [
+    {
+     "text": "Need: Number of additional buses required"
+    },
+    {
+     "text": "Know: Current wait = 15 min, target wait = 10 min, reduction per bus = 2 min"
+    },
+    {
+     "text": "How: Calculate total reduction needed, then divide by reduction per bus"
+    },
+    {
+     "text": "Solve: Total reduction = 15 - 10 = 5 min, Additional buses = 5 / 2 = 2.5"
+    },
+    {
+     "text": "Interpretation: Need 3 additional buses (rounding up since can't have half a bus)"
+    }
+   ],
+   "result": "3 additional buses are needed to reduce average waiting time from 15 minutes to under 10 minutes."
+  },
+  "narr": [
+   "Let's apply the Need-Know-How-Solve method to a practical problem.",
+   "The problem is about a bus route that needs to maintain an average waiting time of under 10 minutes during peak hours. Currently, it's 15 minutes.",
+   "We need to find how many additional buses are required, with each bus reducing average wait by 2 minutes.",
+   "First, we identify the Need: the number of additional buses required.",
+   "Next, we list what we Know: current wait is 15 minutes, target is 10 minutes, and each bus reduces wait by 2 minutes.",
+   "For How, we'll calculate the total reduction needed, then divide by the reduction per bus.",
+   "Now we Solve: total reduction needed is 15 - 10 = 5 minutes.",
+   "Additional buses = 5 / 2 = 2.5 buses.",
+   "Finally, we interpret: since we can't have half a bus, we'd need 3 additional buses to achieve the target.",
+   "This structured approach ensures we consider all aspects of the problem and arrive at a well-reasoned solution."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Takeaways",
+   "items": [
+    "Engineering variables must have both numerical values and units",
+    "Three types of variables: performance, design, and context",
+    "Translate vague words into measurable variables with units",
+    "Consider different stakeholder perspectives when defining performance",
+    "Distinguish between demands (must-haves) and wishes (nice-to-haves)",
+    "Good performance measures are measurable, relevant, solution-free, and specific",
+    "Use the Need-Know-How-Solve method for structured problem-solving"
+   ]
+  },
+  "narr": [
+   "Let's summarize what we've covered in this video.",
+   "First, engineering variables must have both numerical values and units to be meaningful.",
+   "We identified three types of variables: performance variables that we judge, design variables that we can change, and context variables that we cannot change.",
+   "We learned how to translate vague descriptive words into measurable variables with appropriate units.",
+   "We considered how different stakeholders may prioritize different performance variables.",
+   "We distinguished between demands, which must be met, and wishes, which would be nice but aren't essential.",
+   "We identified four characteristics of good performance measures: measurable, relevant, solution-free, and specific.",
+   "Finally, we explored the Need-Know-How-Solve method for structured problem-solving in engineering.",
+   "These concepts form the foundation for approaching engineering problems systematically and effectively."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6,
+   6
+  ]
+ }
+]

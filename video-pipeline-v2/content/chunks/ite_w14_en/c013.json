@@ -1,0 +1,464 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 1-4: Study Guide"
+  },
+  "narr": [
+   "In this section, we'll explore process flow diagrams and how they help us understand systems at different levels of detail.",
+   "Let's start with the concept of process visualization and the three levels of detail we can use."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Three Levels of Detail",
+   "bullets": [
+    "Level 0 (Black Box): Inputs come in, outputs go out, the inside is hidden",
+    "Level 1 (Main Steps): A handful of main steps inside the boundary",
+    "Level 2 (Zoom In): One Level-1 step expanded into its own diagram"
+   ]
+  },
+  "narr": [
+   "When modeling processes, we can use three different levels of detail.",
+   "At Level 0, we see the system as a black box - we know what inputs come in and what outputs go out, but the internal workings are hidden.",
+   "For example, in a cafeteria, food, staff, and students are inputs, while meals, waste, and payments are outputs.",
+   "At Level 1, we break down the process into main steps within the boundary.",
+   "In our cafeteria example, these would be: Receive deliveries, Store ingredients, Prepare meals, Serve meals, Take payment, and Clear and dispose.",
+   "Level 2 allows us to zoom in on one of these steps and expand it further.",
+   "For instance, we could expand 'Prepare meals' into: wash, chop, cook, and hold hot."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "PFD Language Symbols",
+   "bullets": [
+    "Start/End: Where the process begins and ends",
+    "Step: A single action, named 'verb + noun'",
+    "Decision: A question with labeled Yes/No exits",
+    "Flow: An arrow for the order of steps and what moves",
+    "Wait/Queue: Where things sit and wait (dashed box)"
+   ]
+  },
+  "narr": [
+   "The Process Flow Diagram language uses five key symbols.",
+   "Start/End markers indicate where the process begins and ends.",
+   "Steps represent single actions, and should be named with a verb and noun format.",
+   "Decisions are diamond shapes that represent questions with Yes/No exits.",
+   "Flow arrows show the order of steps and what moves between them.",
+   "Wait or queue symbols, shown as dashed boxes, represent where things sit and wait."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Five Rules for Readable Diagrams",
+   "bullets": [
+    "Start and end explicitly: one start, every path reaches an end",
+    "Name steps 'verb + noun': 'Receive deliveries', not 'Delivery'",
+    "Label arrows: say what moves (food, students, information, money)",
+    "Give every decision both exits: Yes and No must lead somewhere",
+    "Keep one level of detail: arrows crossing boundary are inputs and outputs"
+   ]
+  },
+  "narr": [
+   "To create readable diagrams, follow these five rules.",
+   "First, start and end your process explicitly with one start symbol and ensure every path reaches an end.",
+   "Second, name your steps using the 'verb + noun' format, such as 'Receive deliveries' instead of just 'Delivery'.",
+   "Third, label your arrows to indicate what moves between steps - whether it's food, students, information, or money.",
+   "Fourth, make sure every decision has both Yes and No exits that lead somewhere.",
+   "Finally, maintain one level of detail in your diagram - remember that arrows crossing the boundary represent inputs and outputs."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Arrow Categories",
+   "bullets": [
+    "Material: ingredients, trays, food waste",
+    "People: students in a queue",
+    "Information: menus, orders, meal-plan verification",
+    "Money: payments, supplier bills",
+    "Energy: gas, electricity, hot water"
+   ]
+  },
+  "narr": [
+   "Every arrow in your diagram carries something - something that moves from one step to another.",
+   "These can be categorized into five types: materials like ingredients, trays, or food waste.",
+   "People, such as students waiting in a queue.",
+   "Information, including menus, orders, or meal-plan verification data.",
+   "Money, such as payments or supplier bills.",
+   "And energy, like gas, electricity, or hot water.",
+   "Labeling your arrows with what moves shows what the next step needs and makes your diagram more informative."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Fix the Diagram",
+   "problem": "Identify at least four errors in a PFD diagram for a cafeteria process.",
+   "steps": [
+    "No start/end symbols → add Start and End",
+    "'Kitchen' is a place, not a step → rename it 'Prepare meals'",
+    "The decision has only a 'Yes' exit → add a 'No' exit",
+    "'Chop onions' is level-2 detail → keep one level: 'Prepare meals'",
+    "Unlabeled arrows → label what moves: students, meals, money"
+   ],
+   "result": "The rules matter because the reader should never have to guess what the diagram means."
+  },
+  "narr": [
+   "Let's work through an example of fixing a diagram with several errors.",
+   "First error: missing start and end symbols. We need to add these to clearly mark where the process begins and ends.",
+   "Second error: using a place name like 'Kitchen' as a step. Instead, we should rename it to an action like 'Prepare meals'.",
+   "Third error: a decision with only a 'Yes' exit. We need to add a 'No' exit that leads somewhere, perhaps to 'Prepare more meals'.",
+   "Fourth error: including level-2 detail like 'Chop onions' in what should be a level-1 diagram. We should keep one level of detail.",
+   "Fifth error: unlabeled arrows. We need to specify what moves between steps - whether it's students, meals, or money.",
+   "These rules matter because the reader should never have to guess what the diagram means."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Cafeteria Levels",
+   "problem": "Create Level 0 and Level 1 diagrams for a university cafeteria.",
+   "steps": [
+    "Level 0: inputs — food deliveries, staff, students; outputs — meals, waste, payments; context — sanitary code, hours, budget, layout",
+    "Level 1: Start → 1 Receive deliveries → 2 Store ingredients → 3 Prepare meals → 4 Serve meals → 5 Take payment → 6 Clear and dispose → End"
+   ],
+   "result": "Comparing levels: deliveries enter at step 1, students at step 4; payments leave at step 5, waste at step 6."
+  },
+  "narr": [
+   "Let's work through an example of creating Level 0 and Level 1 diagrams for a university cafeteria.",
+   "For Level 0, we identify the inputs: food deliveries, staff arriving, and students coming in.",
+   "The outputs are meals served, food waste, and payments.",
+   "We also note the context: sanitary code, opening hours, kitchen budget, and building layout.",
+   "For Level 1, we break down the process into six main steps: Receive deliveries, Store ingredients, Prepare meals, Serve meals, Take payment, and Clear and dispose.",
+   "Comparing the levels, we see that deliveries enter at step 1, while students enter at step 4.",
+   "Payments leave at step 5, and waste leaves at step 6."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Decisions and Waits",
+   "bullets": [
+    "A dashed box marks a wait/queue",
+    "A diamond marks a choice/decision",
+    "Queues and decisions are where systems slow down",
+    "Swimlane diagrams show who does each step"
+   ]
+  },
+  "narr": [
+   "In process flow diagrams, we use specific symbols for waits and decisions.",
+   "A dashed box marks a wait or queue, where things sit and wait before proceeding.",
+   "A diamond shape marks a decision point, where the process branches based on a question.",
+   "Queues and decisions are critical points where systems often slow down, and we'll learn to measure them in week 9.",
+   "Swimlane diagrams can be used to show who performs each step, with lanes representing different actors or departments."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Cafeteria with Decision",
+   "problem": "Create a Level-1 PFD for a cafeteria with a decision point.",
+   "steps": [
+    "Wait in queue → Serve meal → Food available?",
+    "Yes → Take payment",
+    "No → Prepare more meals → back to step 3",
+    "Swimlane version: Student (Join queue → Receive meal → Return tray), Kitchen (Serve meal), Cashier (Take payment)"
+   ],
+   "result": "Every hand-off between lanes is a place where delays and errors can hide."
+  },
+  "narr": [
+   "Let's create a more complex Level-1 PFD for a cafeteria that includes a decision point.",
+   "The process begins with a wait in queue, then serving a meal.",
+   "We then have a decision: is food available?",
+   "If Yes, we proceed to take payment.",
+   "If No, we prepare more meals and return to the serving step.",
+   "In a swimlane version, we can see who performs each step: the student joins the queue and receives the meal, the kitchen serves the meal, and the cashier takes payment.",
+   "Every hand-off between these lanes represents a potential point of delay or error."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Diagrams as Models",
+   "bullets": [
+    "Diagrams are models with a purpose",
+    "Harry Beck's London Underground map example",
+    "Keeps: stations, lines, connections",
+    "Drops: real distances, street layout"
+   ]
+  },
+  "narr": [
+   "A diagram is essentially a model created with a specific purpose.",
+   "A classic example is Harry Beck's London Underground map from the 1930s.",
+   "This map gives up real distances and street geography but keeps the stations, lines, and interchanges.",
+   "What it keeps serves the purpose of helping riders navigate the system efficiently.",
+   "What it drops - like precise distances - doesn't serve that purpose.",
+   "Every diagram keeps what serves its purpose and drops the rest - that's what makes the model useful."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "One System — Five Perspectives",
+   "bullets": [
+    "Rider: Walk to stop → Wait → Board → Ride → Get off",
+    "Driver/Dispatcher: Start shift → Check bus → Run route → Refuel → End shift",
+    "Maintenance: Inspect → Diagnose → Repair → Return to service",
+    "University administration: Set budget → Set timetable → Review ridership → Adjust",
+    "Neighbor: Hear bus → Notice traffic → Contact university"
+   ]
+  },
+  "narr": [
+   "The same system can be viewed from multiple perspectives.",
+   "Consider a bus route system through five different pairs of eyes.",
+   "From the rider's perspective: walk to stop, wait, board, ride, get off. Success means short wait, low fare, safety.",
+   "From the driver/dispatcher's perspective: start shift, check bus, run route, refuel, end shift. Success means on time, safe, workable schedule.",
+   "From maintenance crew: inspect, diagnose, repair, return to service. Success means safe buses, planned downtime.",
+   "From university administration: set budget, set timetable, review ridership, adjust. Success means cost per passenger, coverage, few complaints.",
+   "From neighbor's perspective: hear bus, notice traffic, contact university. Success means quiet street, less traffic.",
+   "Each perspective has different boundaries, steps, and definitions of success."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Takeaways on Perspectives",
+   "bullets": [
+    "Different boundaries (rider starts at stop, driver at depot)",
+    "Different steps (each includes what they see)",
+    "Different definitions of success",
+    "No single diagram is wrong",
+    "Good engineers draw several and ask: whose view is missing?"
+   ]
+  },
+  "narr": [
+   "These different perspectives teach us several important lessons.",
+   "First, different stakeholders have different boundaries - the rider's picture starts at the stop, while the driver's starts at the depot.",
+   "Second, they have different steps that include what they experience in their role.",
+   "Third, they have different definitions of what makes the system successful.",
+   "No single diagram is wrong - each is a model built with a purpose.",
+   "Good engineers draw multiple diagrams and ask: whose view is missing?"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Waste Transfer System",
+   "problem": "Calculate the waste going to landfill in a transfer center system.",
+   "steps": [
+    "Community A ships 600 tons/day of waste",
+    "Community B ships 400 tons/day of waste",
+    "25% is recycled (1000 × 0.25 = 250 tons/day)",
+    "Incinerator burns 200 tons/day",
+    "Calculate landfill waste: 1000 - (250 + 200) = 550 tons/day"
+   ],
+   "result": "The landfill receives 550 tons/day of waste after accounting for recycling and incineration."
+  },
+  "narr": [
+   "Looking ahead to weeks 6-7, let's work through an example of a waste transfer system.",
+   "Community A ships 600 tons/day of waste to the Transfer Center.",
+   "Community B ships 400 tons/day to the same center.",
+   "In total, 1000 tons/day of waste arrives.",
+   "25% of this waste is recycled, which equals 250 tons/day.",
+   "Additionally, the incinerator burns 200 tons/day.",
+   "Since nothing accumulates, input equals output, so the waste going to landfill is 1000 - (250 + 200) = 550 tons/day."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Self-Study Activities",
+   "bullets": [
+    "Draw Level 0 of your system, then Level 1 with 5-8 steps",
+    "Label every arrow and note boundary crossings",
+    "Redraw from a second stakeholder's point of view",
+    "Ask each stakeholder what 'works well' for them"
+   ]
+  },
+  "narr": [
+   "For self-study after lecture 3, try these activities.",
+   "First, draw Level 0 of your system, then create a Level 1 diagram with 5-8 steps.",
+   "Second, label every arrow in your diagram and note where arrows cross the boundary.",
+   "Third, redraw one part of your system from a second stakeholder's point of view.",
+   "Fourth, ask each stakeholder what aspects 'work well' for them.",
+   "These activities will help you turn observations into a defined problem."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 1 — Boundary Elements",
+   "problem": "Are the supplier's truck and the billing office inside or outside the cafeteria boundary?",
+   "steps": [
+    "The truck: outside - deliveries cross the boundary as an input at step 1",
+    "The meal-plan office: depends on the boundary definition",
+    "Outside if the diagram ends at 'Take payment'",
+    "Inside if it includes 'Verify meal plan'/'Update balance'"
+   ],
+   "result": "There is no single right answer - there is a justified one based on the boundary definition."
+  },
+  "narr": [
+   "Let's answer some questions about process boundaries.",
+   "First question: is the supplier's truck inside or outside the cafeteria boundary?",
+   "The truck is outside because deliveries cross the boundary as an input at step 1 of our process.",
+   "Second question: is the meal-plan office inside or outside the boundary?",
+   "This depends on how we define the boundary. It would be outside if our diagram ends at 'Take payment',",
+   "but inside if we include steps like 'Verify meal plan' or 'Update balance'.",
+   "The key takeaway is that there's no single right answer - there's a justified one based on the boundary definition."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 2 — Cafeteria Elements and Processes",
+   "problem": "List five nouns and five verbs related to a cafeteria system.",
+   "steps": [
+    "Elements (nouns): cooks, ovens, trays, tables, students",
+    "Processes (verbs): receive, store, prepare, serve, pay, clear"
+   ],
+   "result": "A process should read as 'verb + noun' - for example, 'prepare meals' rather than just 'meals'."
+  },
+  "narr": [
+   "Final question: list five nouns and five verbs related to a cafeteria system.",
+   "For nouns (elements), we might list: cooks, ovens, trays, tables, and students.",
+   "For verbs (processes), we might list: receive, store, prepare, serve, pay, and clear.",
+   "Remember that a process should read as 'verb + noun' - for example, 'prepare meals' rather than just 'meals'."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ }
+]

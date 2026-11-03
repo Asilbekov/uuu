@@ -1,0 +1,461 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 1–4: Study Guide"
+  },
+  "narr": [
+   "Welcome to our study guide for the first four weeks of Introduction to Engineering. We'll explore fundamental concepts through questions and answers that will help you understand the material.",
+   "Let's start with the cafeteria model and its levels of detail."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Cafeteria Levels",
+   "problem": "The three levels of detail of the cafeteria: Level 0, Level 1, Level 2 — state each one.",
+   "steps": [
+    {
+     "text": "Level 0 (black box): food, staff, and students come in — meals, waste, and payments go out; the inside is hidden."
+    },
+    {
+     "text": "Level 1 (main steps): Receive → Store → Prepare → Serve → Pay → Clear."
+    },
+    {
+     "text": "Level 2 (zoom in) on 'Prepare meals': Wash → Chop → Cook → Hold hot."
+    },
+    {
+     "text": "Rule: one level per diagram; the level is chosen to fit the question."
+    }
+   ],
+   "result": "The three levels of the cafeteria model have been defined."
+  },
+  "narr": [
+   "First question: what are the three levels of detail for the cafeteria model?",
+   "The answer begins with Level 0, which is a black box representation where we only see what enters and exits the system.",
+   "Next is Level 1, which breaks down the main process steps into a flow diagram.",
+   "Level 2 provides more detail by zooming in on one of the main steps, specifically 'Prepare meals'.",
+   "An important rule to remember is that we should only use one level per diagram, choosing the level that best fits the question being asked."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Fix the Diagram",
+   "problem": "Find at least four errors in the diagram 'Kitchen → Students enter → Food available? (Yes) → Chop onions → Serve meals → Pay'.",
+   "steps": [
+    {
+     "text": "1) no Start/End — add them;"
+    },
+    {
+     "text": "2) 'Kitchen' is a place, not a step — rename it 'Prepare meals';"
+    },
+    {
+     "text": "3) the decision diamond has only a 'Yes' exit — add 'No: Prepare more meals';"
+    },
+    {
+     "text": "4) 'Chop onions' is level 2 inside level 1 — replace it with 'Prepare meals';"
+    },
+    {
+     "text": "5) unlabeled arrows — label them (students, meals, money)."
+    }
+   ],
+   "result": "Five errors have been identified in the diagram."
+  },
+  "narr": [
+   "Now let's look at a diagram that needs fixing. The task is to find at least four errors in this cafeteria process diagram.",
+   "First error: the diagram lacks Start and End nodes, which should be added.",
+   "Second error: 'Kitchen' is described as a place rather than a process step. It should be renamed to 'Prepare meals'.",
+   "Third error: the decision diamond only has a 'Yes' exit. We need to add a 'No' exit that leads to 'Prepare more meals'.",
+   "Fourth error: 'Chop onions' is too detailed for this level of abstraction. It should be replaced with the more general 'Prepare meals'.",
+   "Fifth error: the arrows are unlabeled. Each arrow should be labeled to indicate what flows through it, such as students, meals, or money."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Flow Categories",
+   "problem": "Which five categories of flow does a PFD arrow carry? Give an example of each for the cafeteria.",
+   "steps": [
+    {
+     "text": "Material: ingredients, trays, waste."
+    },
+    {
+     "text": "People: students in a queue."
+    },
+    {
+     "text": "Information: menus, orders, meal-plan verification."
+    },
+    {
+     "text": "Money: payments, supplier bills."
+    },
+    {
+     "text": "Energy: gas, electricity, hot water."
+    }
+   ],
+   "result": "The five categories of flow in a PFD have been identified with cafeteria examples."
+  },
+  "narr": [
+   "Next question: what are the five categories of flow that a Process Flow Diagram arrow can carry?",
+   "First category is Material flow, which includes ingredients, trays, and waste in our cafeteria example.",
+   "Second is People flow, such as students waiting in a queue.",
+   "Third is Information flow, including menus, orders, and meal-plan verification.",
+   "Fourth is Money flow, represented by payments and supplier bills.",
+   "Fifth is Energy flow, which in the cafeteria includes gas for cooking, electricity for lighting, and hot water for cleaning."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Metro Map Model",
+   "problem": "Why is Harry Beck's metro map a 'model with a purpose'? What does it drop, and what does it keep?",
+   "steps": [
+    {
+     "text": "It drops: real distances, street layout, surface geography."
+    },
+    {
+     "text": "It keeps: stations, lines, interchanges."
+    },
+    {
+     "text": "The purpose is to help a passenger plan a trip along lines and interchanges; distances are not needed for that."
+    }
+   ],
+   "result": "Harry Beck's metro map is a model that drops inessential elements to serve its specific purpose."
+  },
+  "narr": [
+   "Let's consider Harry Beck's metro map. Why is it considered a 'model with a purpose'?",
+   "This model drops several elements from reality: real distances between stations, the street layout, and surface geography.",
+   "At the same time, it keeps the essential elements for its purpose: stations, lines, and interchanges.",
+   "The purpose of this model is to help passengers plan trips along the lines and at interchange points. For this purpose, actual distances aren't necessary, which is why they were dropped from the model."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Five Stakeholders of the Bus Route",
+   "columns": [
+    "Stakeholder",
+    "Process",
+    "Definition of Success"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Rider"
+     },
+     {
+      "text": "Walk to stop → Wait → Board → Ride → Get off"
+     },
+     {
+      "text": "A short, predictable wait, a low fare, safety"
+     }
+    ],
+    [
+     {
+      "text": "Driver/dispatcher"
+     },
+     {
+      "text": "Start shift → Check bus → Run route → Refuel → End shift"
+     },
+     {
+      "text": "A sustainable schedule"
+     }
+    ],
+    [
+     {
+      "text": "Maintenance"
+     },
+     {
+      "text": "Inspect → Diagnose → Repair → Return to service"
+     },
+     {
+      "text": "Safe buses, planned downtime"
+     }
+    ],
+    [
+     {
+      "text": "Administration"
+     },
+     {
+      "text": "Set budget → Set timetable → Review ridership → Adjust"
+     },
+     {
+      "text": "Cost per rider, coverage, few complaints"
+     }
+    ],
+    [
+     {
+      "text": "Neighbor"
+     },
+     {
+      "text": "Hear bus → Notice traffic → Contact university"
+     },
+     {
+      "text": "Quiet, less traffic"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Now let's examine the five stakeholders of a bus route, each with their own process and definition of success.",
+   "First is the Rider, whose process involves walking to the stop, waiting, boarding, riding, and getting off. Their success is defined by short waits, predictability, low fares, and safety.",
+   "Second is the Driver/dispatcher, who starts their shift, checks the bus, runs the route, refuels, and ends their shift. Their success is a sustainable schedule.",
+   "Third is Maintenance, which involves inspecting, diagnosing, repairing, and returning buses to service. Their success is safe buses and planned downtime.",
+   "Fourth is Administration, which sets budgets, timetables, reviews ridership, and makes adjustments. Their success is measured by cost per rider, coverage, and few complaints.",
+   "Fifth is the Neighbor, who hears the bus, notices traffic, and may contact the university. Their success is a quiet environment with less traffic.",
+   "As we can see, each stakeholder has different starts, steps, and ends, yet all are part of the same bus route system."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Three Lenses Exercise",
+   "problem": "Draw a 5-step flow of the bus route as the Rider / Driver / Maintenance and compare.",
+   "steps": [
+    {
+     "text": "Rider: Walk to the stop → Wait → Board → Ride → Get off."
+    },
+    {
+     "text": "Driver: Start the shift → Check the bus → Run the route → Refuel → End the shift."
+    },
+    {
+     "text": "Maintenance: Inspect → Diagnose → Repair → Return to service."
+    },
+    {
+     "text": "Comparison: what is included/excluded, and where the diagrams conflict."
+    },
+    {
+     "text": "The conflicts are competing definitions of success, which week 4 turns into different performance variables."
+    }
+   ],
+   "result": "Three different perspectives on the bus route have been mapped and compared."
+  },
+  "narr": [
+   "Let's explore the 'Three Lenses' exercise, where we view the same system from different stakeholder perspectives.",
+   "From the Rider's perspective, the flow is: Walk to the stop → Wait → Board → Ride → Get off.",
+   "From the Driver's perspective, it's: Start the shift → Check the bus → Run the route → Refuel → End the shift.",
+   "From Maintenance's perspective, it's: Inspect → Diagnose → Repair → Return to service.",
+   "When we compare these diagrams, we notice different elements are included or excluded from each perspective.",
+   "These differences represent competing definitions of success, which in week 4 we'll translate into different performance variables."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Lab 3 Practice",
+   "problem": "What does the task include, and what is the deliverable?",
+   "steps": [
+    {
+     "text": "The task (teams of 3–4, 15 minutes of work + 5 minutes of show-and-tell):"
+    },
+    {
+     "text": "Define the system in one sentence (what it is and what it does)."
+    },
+    {
+     "text": "Draw the boundary and declare what is inside/outside."
+    },
+    {
+     "text": "List the inputs and outputs across the boundary."
+    },
+    {
+     "text": "Identify the stakeholders Uses It / Runs It / Affected By It."
+    },
+    {
+     "text": "Note the operating context; propose one concrete change and why."
+    }
+   ],
+   "result": "The task includes system definition, boundary identification, input/output listing, stakeholder identification, context note, and change proposal."
+  },
+  "narr": [
+   "Moving on to Lab 3 practice. What does this small-group task include, and what is the deliverable?",
+   "The task is done in teams of 3-4, with 15 minutes of work plus 5 minutes for show-and-tell.",
+   "First, teams must define the system in one sentence, explaining what it is and what it does.",
+   "Next, they draw the system boundary and declare what is inside and outside this boundary.",
+   "Then, they list all inputs and outputs that cross this boundary.",
+   "Teams also need to identify stakeholders who use the system, run the system, or are affected by it.",
+   "They must note the operating context and propose one concrete change with justification.",
+   "The deliverable consists of a Level 0 black box diagram and a Level 1 box-language diagram on paper or whiteboard, with every arrow properly labeled."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Solar Panel Assembly Line",
+   "problem": "What is the reference analysis of the 'Solar Panel Assembly Line': system, boundary, stakeholders, inputs/outputs?",
+   "steps": [
+    {
+     "text": "The system — the assembly line from the receiving docks to the shipping docks."
+    },
+    {
+     "text": "Inside the boundary — inspection, stringing, lay-up, lamination, cooling, trimming/framing, testing, packing."
+    },
+    {
+     "text": "Outside — raw-material suppliers, the customer, the waste handler."
+    },
+    {
+     "text": "Stakeholders: Uses It — the customer receiving the panels; Runs It — line operators, quality controllers, the shift supervisor; Affected By It — the maintenance crew, logistics, the environment."
+    },
+    {
+     "text": "Inputs: 600 glass sheets/day, 600 backsheets/day, 36,000 cells/day, EVA, frames, boxes."
+    },
+    {
+     "text": "Outputs: finished panels (shipment), modules sent for rework, scrap modules."
+    }
+   ],
+   "result": "The reference analysis of the Solar Panel Assembly Line has been provided."
+  },
+  "narr": [
+   "Let's examine the reference analysis for the Solar Panel Assembly Line system.",
+   "The system is defined as the assembly line from the receiving docks to the shipping docks.",
+   "Inside the boundary are the processes: inspection, stringing, lay-up, lamination, cooling, trimming/framing, testing, and packing.",
+   "Outside the boundary are the raw-material suppliers, the customer, and the waste handler.",
+   "Stakeholders include those who use the system (the customer), run the system (line operators, quality controllers, shift supervisor), and are affected by it (maintenance crew, logistics, the environment through waste streams).",
+   "Inputs include 600 glass sheets and 600 backsheets daily, 36,000 cells daily, plus EVA film, aluminum frames, and junction boxes.",
+   "Outputs consist of finished panels for shipment, modules sent for rework, and scrap modules."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Solar Line Levels",
+   "problem": "Level 0 and Level 1 of the solar line + the decision rule.",
+   "steps": [
+    {
+     "text": "Level 0: inputs — glass sheets (600/day), backsheets (600/day), cells (36,000/day), EVA/frames/boxes; outputs — finished panels, rework modules, scrap modules; context — delivery schedule, shop-floor capacity, IEC quality standards, 30-minute cooling requirement."
+    },
+    {
+     "text": "Level 1 (box language): Start → 1 Receive materials (cells) → 2 Inspect materials (stack) → 3 Sort and string cells → 4 Lay up and laminate (modules) → 5 Cool, 30 min [wait] → 6 Trim, frame and fit boxes (panels) → 7 Flash test and inspect (approved) → 8 Pack modules → Ship to customer."
+    },
+    {
+     "text": "The decision rule: both exits of every decision get a destination; rework returns upstream (to step 4); scrap leaves the system as waste."
+    },
+    {
+     "text": "Note: 'this is an approximate solution; it may vary depending on how the logic is understood'."
+    }
+   ],
+   "result": "Level 0 and Level 1 diagrams for the solar assembly line have been defined with decision rules."
+  },
+  "narr": [
+   "Now let's look at Level 0 and Level 1 representations of the solar panel assembly line.",
+   "Level 0 shows the inputs: glass sheets, backsheets, cells, and other materials; outputs: finished panels, rework modules, and scrap modules; and the operating context including delivery schedule, capacity, quality standards, and cooling requirements.",
+   "Level 1 breaks down the process into specific steps: starting with receiving materials, inspecting them, sorting and stringing cells, laying up and laminating modules, cooling for 30 minutes, trimming and framing, testing, packing, and finally shipping.",
+   "The decision rule specifies that both exits of every decision must have a destination, with rework returning to step 4 and scrap leaving the system as waste.",
+   "It's important to note that this is an approximate solution that may vary depending on how the logic is understood."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week-3 Questions and Formulas",
+   "subtitle": "Mass Balance (Kosky ch. 18)"
+  },
+  "narr": [
+   "Now we move to week-3 questions and formulas from the textbooks, focusing on mass balance from Kosky chapter 18 on Environmental Engineering."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Environmental Engineering",
+   "bullets": [
+    "Application of engineering principles to protect human health",
+    "Protection of natural ecosystems",
+    "Improvement of environmental quality of life",
+    "Historically called sanitary engineering until mid-1960s",
+    "Field tasks include pollution control, water preparation/distribution, waste collection/disposal"
+   ]
+  },
+  "narr": [
+   "Environmental engineering is the application of engineering principles to achieve three main goals: protecting human health, protecting natural ecosystems, and improving the quality of life connected with the environment.",
+   "Until the mid-1960s, this field was actually called sanitary engineering and was considered a part of civil engineering.",
+   "The field encompasses various tasks including air, water, and noise pollution control; the preparation and distribution of drinking water; and the collection and disposal of waste."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ }
+]
