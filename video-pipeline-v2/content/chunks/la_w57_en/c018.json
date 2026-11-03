@@ -1,0 +1,709 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Let's dive into some fundamental concepts in linear algebra, focusing on matrix operations, subspaces, and properties of special matrices.",
+   "We'll explore solutions to various exercises that illustrate these concepts."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 1 — Matrix Transpose",
+   "problem": "Verify if AT = A for the given matrix A.",
+   "steps": [
+    "Given A = [2 -3; -3 1]",
+    "Compute AT by swapping rows and columns",
+    "Observe that off-diagonal elements coincide (a12 = a21 = -3)"
+   ],
+   "result": "Yes, AT = A — the matrix is symmetric"
+  },
+  "narr": [
+   "Let's start with a simple verification: is the transpose of matrix A equal to A itself?",
+   "We have matrix A with elements 2, -3 in the first row and -3, 1 in the second row.",
+   "To find AT, we swap the rows and columns of A.",
+   "Notice that the off-diagonal elements are both -3, which means the matrix is symmetric.",
+   "Therefore, AT does equal A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 2 — Decompose Matrix",
+   "problem": "Decompose matrix A = [1 4; 2 3] into symmetric and skew-symmetric parts.",
+   "steps": [
+    "Compute symmetric part S = (A + AT)/2",
+    "Compute skew-symmetric part K = (A - AT)/2",
+    "Verify that S + K = A"
+   ],
+   "result": "S = [1 3; 3 3], K = [0 1; -1 0]"
+  },
+  "narr": [
+   "Now let's decompose a matrix into its symmetric and skew-symmetric components.",
+   "For matrix A with elements 1, 4 in the first row and 2, 3 in the second row,",
+   "the symmetric part S is calculated as (A + AT)/2.",
+   "The skew-symmetric part K is (A - AT)/2.",
+   "When we add S and K, we get back our original matrix A, confirming our decomposition is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 3 — Matrix Multiplication",
+   "problem": "Find PA where P = [0 1; 1 0] and A = [1 2; 3 4].",
+   "steps": [
+    "Multiply permutation matrix P with matrix A",
+    "Observe how left multiplication affects the rows of A"
+   ],
+   "result": "PA = [3 4; 1 2] — rows 1 and 2 are swapped"
+  },
+  "narr": [
+   "Let's explore how permutation matrices work in matrix multiplication.",
+   "We have permutation matrix P that swaps rows, and matrix A.",
+   "When we multiply P by A on the left, we're essentially applying the permutation to the rows of A.",
+   "As we can see, the first row of A has become the second row in PA, and vice versa.",
+   "This demonstrates how left multiplication by a permutation matrix swaps rows."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 4 — Right Multiplication",
+   "problem": "Find AP for the same A and P (A = [1 2; 3 4], P = [0 1; 1 0]).",
+   "steps": [
+    "Multiply matrix A with permutation matrix P on the right",
+    "Observe how right multiplication affects the columns of A"
+   ],
+   "result": "AP = [2 1; 4 3] — columns 1 and 2 are swapped"
+  },
+  "narr": [
+   "Now let's see what happens when we multiply on the right by our permutation matrix P.",
+   "This time, we're computing A times P.",
+   "Notice how the columns of A are swapped in the result.",
+   "This is different from left multiplication, which swapped the rows.",
+   "Importantly, we see that PA is not equal to AP, showing that matrix multiplication is not commutative."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 5 — Matrix Inverse",
+   "problem": "Find P^-1 for P = [0 1 0; 0 0 1; 1 0 0].",
+   "steps": [
+    "Observe that P is a permutation matrix",
+    "For permutation matrices, the inverse equals the transpose",
+    "Compute PT to find P^-1",
+    "Verify that PT P = I"
+   ],
+   "result": "P^-1 = PT = [0 0 1; 1 0 0; 0 1 0]"
+  },
+  "narr": [
+   "Let's find the inverse of a 3×3 permutation matrix P.",
+   "P has ones on the superdiagonal and in the bottom-left corner, with zeros elsewhere.",
+   "For permutation matrices, we have a special property: the inverse equals the transpose.",
+   "So we simply need to compute PT, which swaps the rows and columns.",
+   "We can verify that PT P equals the identity matrix, confirming our result."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 6 — Permutation Matrix",
+   "problem": "Find the permutation matrix P that swaps rows 1 and 3 of a 3×3 matrix.",
+   "steps": [
+    "Start with the 3×3 identity matrix I3",
+    "Swap rows 1 and 3 in I3 to get P",
+    "Verify that PA swaps rows 1 and 3 of any matrix A"
+   ],
+   "result": "P = [0 0 1; 0 1 0; 1 0 0]"
+  },
+  "narr": [
+   "How do we construct a permutation matrix that swaps specific rows?",
+   "We start with the identity matrix I3, which has ones on the diagonal.",
+   "To swap rows 1 and 3, we simply swap these rows in the identity matrix.",
+   "The resulting matrix P will have ones in positions (1,3), (2,2), and (3,1).",
+   "When we multiply P by any matrix A, it will swap the first and third rows of A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 7 — LU Factorization with Pivoting",
+   "problem": "Find P, L, U for A = [0 2; 3 4].",
+   "steps": [
+    "Notice that the first pivot is zero, requiring row exchange",
+    "Find permutation matrix P to swap rows",
+    "Compute PA to get the matrix with non-zero pivot",
+    "Perform elimination on PA",
+    "Identify L and U matrices"
+   ],
+   "result": "P = [0 1; 1 0], PA = [3 4; 0 2], L = I2, U = PA"
+  },
+  "narr": [
+   "Let's tackle an LU factorization problem that requires pivoting.",
+   "Our matrix A has a zero in the pivot position (top-left).",
+   "We need to swap rows to get a non-zero pivot, so we use permutation matrix P.",
+   "After swapping rows, we get PA with 3 in the pivot position.",
+   "The elimination is already complete since the element below the pivot is zero.",
+   "Therefore, our L matrix is the identity, and U is simply PA."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 8 — LU Factorization",
+   "problem": "Find L, U for A = [2 1; 6 5] without row exchanges.",
+   "steps": [
+    "Identify the first pivot element",
+    "Compute the multiplier m21 = 6/2 = 3",
+    "Perform row operation R2 ← R2 - 3R1 to get U",
+    "Construct L with the multiplier in the (2,1) position"
+   ],
+   "result": "U = [2 1; 0 2], L = [1 0; 3 1]"
+  },
+  "narr": [
+   "Now let's perform LU factorization without row exchanges.",
+   "Our matrix A has 2 in the pivot position.",
+   "We compute the multiplier m21 as 6 divided by 2, which equals 3.",
+   "We then perform the row operation to eliminate the element below the pivot.",
+   "This gives us our upper triangular matrix U.",
+   "The lower triangular matrix L has ones on the diagonal and the multiplier in the (2,1) position."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 9 — Subspace Verification",
+   "problem": "Is W = {(x, y): y = 3x} a subspace of R²?",
+   "steps": [
+    "Check if the zero vector is in W",
+    "Verify closure under vector addition",
+    "Verify closure under scalar multiplication"
+   ],
+   "result": "Yes, W is a subspace"
+  },
+  "narr": [
+   "Let's explore subspaces in R².",
+   "We're examining set W defined by all vectors where y equals 3x.",
+   "First, we check if the zero vector is in W - when x=0, y=0, so yes.",
+   "Next, we verify closure under addition: if we add two vectors in W, the result still satisfies y=3x.",
+   "Finally, we check scalar multiplication: multiplying a vector in W by a scalar keeps it in W.",
+   "Since all three conditions are met, W is indeed a subspace of R²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 10 — Non-Subspace Verification",
+   "problem": "Is S = {(x, y): y = 3x + 2} a subspace?",
+   "steps": [
+    "Check if the zero vector is in S",
+    "Observe that (0,0) does not satisfy the equation"
+   ],
+   "result": "No, S is not a subspace"
+  },
+  "narr": [
+   "Now let's examine a set that looks similar but isn't a subspace.",
+   "Set S consists of all vectors where y equals 3x plus 2.",
+   "The first test for a subspace is whether the zero vector is included.",
+   "When x=0, y should be 2, not 0, so the zero vector is not in S.",
+   "Since this fundamental condition fails, S cannot be a subspace."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 11 — Subspace in R³",
+   "problem": "Is W = {(x, y, z): x + y - z = 0} a subspace?",
+   "steps": [
+    "Recognize that the equation defines a linear function",
+    "Check if the zero vector satisfies the equation",
+    "Verify linearity of the function"
+   ],
+   "result": "Yes, W is a subspace"
+  },
+  "narr": [
+   "Moving to R³, let's examine set W defined by the equation x + y - z = 0.",
+   "This is a linear function f(x,y,z) = x + y - z.",
+   "First, we check the zero vector: f(0,0,0) = 0, so it satisfies the equation.",
+   "Next, we verify that the function is linear, meaning it preserves vector addition and scalar multiplication.",
+   "Since all conditions are met, W is indeed a subspace of R³."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 12 — Vector Combination",
+   "problem": "Express (4, 1) as a combination of vectors (1, 1) and (1, -1).",
+   "steps": [
+    "Set up equations for the coefficients c1 and c2",
+    "Solve the system of equations",
+    "Verify the solution by computing the linear combination"
+   ],
+   "result": "c1 = 5/2, c2 = 3/2"
+  },
+  "narr": [
+   "Let's express a vector as a linear combination of two other vectors.",
+   "We want to find coefficients c1 and c2 such that c1(1,1) + c2(1,-1) = (4,1).",
+   "This gives us a system of equations: c1 + c2 = 4 and c1 - c2 = 1.",
+   "Solving this system, we find c1 = 5/2 and c2 = 3/2.",
+   "We can verify by computing the linear combination, which indeed gives us (4,1)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 13 — Linear Span",
+   "problem": "Find the linear span of vectors (1, 2, 0) and (2, 4, 0).",
+   "steps": [
+    "Check if the vectors are linearly dependent",
+    "Express one vector as a multiple of the other",
+    "Determine the span based on the dependency"
+   ],
+   "result": "span{(1, 2, 0), (2, 4, 0)} = {t(1, 2, 0): t ∈ R}"
+  },
+  "narr": [
+   "Let's find the linear span of two vectors in R³.",
+   "We have vectors (1,2,0) and (2,4,0).",
+   "Notice that the second vector is simply twice the first vector.",
+   "Since they're linearly dependent, the span is just all scalar multiples of one of them.",
+   "Therefore, the span is the line defined by all vectors of the form t(1,2,0)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 14 — Null Space",
+   "problem": "Find Null(A) for A = [1 2 -1].",
+   "steps": [
+    "Set up the equation Ax = 0",
+    "Solve for the variables in terms of free variables",
+    "Express the solution as a span of vectors"
+   ],
+   "result": "Null(A) = span{(-2, 1, 0), (1, 0, 1)}"
+  },
+  "narr": [
+   "Now let's find the null space of matrix A.",
+   "A is a row vector [1 2 -1], so we're solving the equation x1 + 2x2 - x3 = 0.",
+   "We can express x1 in terms of x2 and x3: x1 = -2x2 + x3.",
+   "The null space consists of all vectors of the form (-2s + t, s, t) for real numbers s and t.",
+   "This can be written as the span of two vectors: (-2,1,0) and (1,0,1)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 15 — Column Space",
+   "problem": "Find Col(A) for A = [1 2; 2 4; 0 0]; does (3, 6, 0) belong to it?",
+   "steps": [
+    "Examine the columns of A",
+    "Determine if the columns are linearly dependent",
+    "Express the column space as a span",
+    "Check if (3,6,0) is a multiple of the basis vector"
+   ],
+   "result": "Col(A) = span{(1, 2, 0)}; (3, 6, 0) = 3(1, 2, 0), so yes it belongs"
+  },
+  "narr": [
+   "Let's find the column space of matrix A and check if a specific vector belongs to it.",
+   "Matrix A has columns (1,2,0) and (2,4,0).",
+   "Notice that the second column is twice the first column, so they're linearly dependent.",
+   "Therefore, the column space is just the span of the first column: all multiples of (1,2,0).",
+   "Now, to check if (3,6,0) is in the column space, we see it's exactly 3 times (1,2,0), so yes it belongs."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 16 — Matrix Transpose and Determinant",
+   "problem": "For A = [1 2 0; 0 1 1; 0 0 2], find AT and det(A).",
+   "steps": [
+    "Compute AT by swapping rows and columns",
+    "Recognize that A is upper triangular",
+    "Compute determinant as product of diagonal elements"
+   ],
+   "result": "AT = [1 0 0; 2 1 0; 0 1 2], det(A) = 2"
+  },
+  "narr": [
+   "Let's work with a 3×3 matrix to find its transpose and determinant.",
+   "Matrix A is upper triangular, with zeros below the main diagonal.",
+   "To find AT, we simply swap the rows and columns of A.",
+   "For the determinant, since A is upper triangular, we can compute it as the product of the diagonal elements.",
+   "We get det(A) = 1 × 1 × 2 = 2, which is the same as det(AT) as expected."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 17 — Matrix Dimensions",
+   "problem": "For A = [1 2 3; 4 5 6], compute AT and specify dimensions.",
+   "steps": [
+    "Identify the dimensions of A (2×3)",
+    "Compute AT by swapping rows and columns",
+    "Confirm that dimensions swap in the transpose"
+   ],
+   "result": "A is 2×3, AT is 3×2: AT = [1 4; 2 5; 3 6]"
+  },
+  "narr": [
+   "Let's examine how matrix dimensions change with transposition.",
+   "Our matrix A has 2 rows and 3 columns, so it's a 2×3 matrix.",
+   "When we compute AT, we swap the rows and columns.",
+   "The result AT has 3 rows and 2 columns, making it a 3×2 matrix.",
+   "This illustrates the general rule that for an m×n matrix, the transpose is n×m."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 18 — Transpose Proof",
+   "problem": "Prove (A + B)T = AT + BT element-wise.",
+   "steps": [
+    "Consider arbitrary elements of the matrices",
+    "Express ((A + B)T)ij in terms of elements of A and B",
+    "Show it equals (AT + BT)ij"
+   ],
+   "result": "The elements match, so the matrices are equal"
+  },
+  "narr": [
+   "Let's prove a fundamental property of matrix transposition.",
+   "We want to show that the transpose of a sum equals the sum of transposes.",
+   "Consider any element ((A + B)T)ij in the transpose of the sum.",
+   "By definition, this equals (A + B)ji, which is aji + bji.",
+   "This is exactly equal to (AT)ij + (BT)ij, which is the ij element of AT + BT.",
+   "Since all elements match, the matrices are equal."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 19 — Product Transpose Proof",
+   "problem": "Prove (AB)T = BT AT for compatible matrices.",
+   "steps": [
+    "Consider compatible matrices A (m×n) and B (n×p)",
+    "Express ((AB)T)ij in terms of elements of A and B",
+    "Show it equals (BT AT)ij"
+   ],
+   "result": "The elements match, so (AB)T = BT AT"
+  },
+  "narr": [
+   "Now let's prove how transposition works with matrix products.",
+   "For compatible matrices A (m×n) and B (n×p), we want to show (AB)T = BT AT.",
+   "Consider any element ((AB)T)ij in the transpose of the product.",
+   "By definition, this equals (AB)ji, which is the sum over k of ajk bki.",
+   "This sum equals the ij element of BT AT, showing the matrices are equal.",
+   "Notice that the order of factors is reversed in the transpose of a product."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 20 — Product AT A",
+   "problem": "Compute AT A for A = [1 0 2; 0 1 0; 0 3].",
+   "steps": [
+    "Compute AT by swapping rows and columns of A",
+    "Multiply AT by A",
+    "Observe that the result is symmetric"
+   ],
+   "result": "AT A = [1 0 0; 0 1 3; 0 3 10]"
+  },
+  "narr": [
+   "Let's compute the product AT A for a specific matrix.",
+   "First, we find AT by swapping the rows and columns of A.",
+   "Then we multiply AT by A to get a 2×2 matrix.",
+   "The result is symmetric, as predicted by theory.",
+   "This symmetry is a general property of matrices of the form AT A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 21 — Symmetric and Skew-Symmetric Parts",
+   "problem": "For A = [1 3; -2 4], find the symmetric and skew-symmetric parts.",
+   "steps": [
+    "Compute AT",
+    "Calculate symmetric part S = (A + AT)/2",
+    "Calculate skew-symmetric part K = (A - AT)/2",
+    "Verify that S + K = A and ST = S, KT = -K"
+   ],
+   "result": "S = [1 0.5; 0.5 4], K = [0 2.5; -2.5 0]"
+  },
+  "narr": [
+   "Any square matrix can be decomposed into symmetric and skew-symmetric parts.",
+   "For our matrix A, first we compute its transpose AT.",
+   "The symmetric part S is (A + AT)/2, which equals the average of the matrix and its transpose.",
+   "The skew-symmetric part K is (A - AT)/2, which captures the anti-symmetric component.",
+   "We can verify that S is indeed symmetric, K is skew-symmetric, and their sum is A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 22 — Symmetry of AT A",
+   "problem": "Show that AT A is symmetric for any real matrix A.",
+   "steps": [
+    "Compute (AT A)T using the product transpose rule",
+    "Simplify using the property that (AT)T = A",
+    "Show that (AT A)T = AT A"
+   ],
+   "result": "(AT A)T = AT A, so AT A is symmetric"
+  },
+  "narr": [
+   "Let's prove that AT A is always symmetric for any real matrix A.",
+   "We start by computing the transpose of AT A.",
+   "Using the product transpose rule, we get (AT A)T = AT (AT)T.",
+   "Since the transpose of a transpose is the original matrix, (AT)T = A.",
+   "Therefore, (AT A)T = AT A, which means AT A equals its own transpose, making it symmetric."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 23 — Scalar and Outer Product",
+   "problem": "Compute uT v and uvT for u = (2, -1)T and v = (3, 4)T.",
+   "steps": [
+    "Compute uT v (dot product)",
+    "Compute uvT (outer product)"
+   ],
+   "result": "uT v = 2 (scalar), uvT = [6 8; -3 -4] (matrix)"
+  },
+  "narr": [
+   "Let's explore the difference between scalar and outer products.",
+   "First, we compute uT v, which is the dot product of vectors u and v.",
+   "This gives us a single number: 2×3 + (-1)×4 = 2.",
+   "Next, we compute the outer product uvT, which gives us a matrix.",
+   "The resulting matrix has elements that are products of components of u and v."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 24 — Permutation Matrix",
+   "problem": "Construct the permutation matrix that exchanges rows 1 and 2 of I3.",
+   "steps": [
+    "Start with the 3×3 identity matrix I3",
+    "Swap rows 1 and 2 to get P",
+    "Verify that PA swaps rows 1 and 2 of any matrix A"
+   ],
+   "result": "P = [0 1 0; 1 0 0; 0 0 1]"
+  },
+  "narr": [
+   "Let's construct a permutation matrix that swaps specific rows.",
+   "We start with the 3×3 identity matrix I3.",
+   "To swap rows 1 and 2, we simply exchange these rows in I3.",
+   "The resulting matrix P has ones in positions (1,2), (2,1), and (3,3).",
+   "When we multiply P by any matrix A, it will swap the first and second rows of A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Exercise 25 — PA vs AP",
+   "problem": "For P = [0 1; 1 0] and A = [2 5; 7 1], compare PA and AP.",
+   "steps": [
+    "Compute PA (left multiplication)",
+    "Observe how PA affects the rows of A",
+    "Compute AP (right multiplication)",
+    "Observe how AP affects the columns of A",
+    "Compare the results"
+   ],
+   "result": "PA = [7 1; 2 5] (rows permuted), AP = [5 2; 1 7] (columns permuted)"
+  },
+  "narr": [
+   "Let's compare left and right multiplication by a permutation matrix.",
+   "We have permutation matrix P and matrix A.",
+   "When we compute PA (left multiplication), the rows of A are permuted.",
+   "Specifically, rows 1 and 2 are swapped in the result.",
+   "When we compute AP (right multiplication), the columns of A are permuted.",
+   "This shows that PA is not equal to AP, demonstrating that matrix multiplication is not commutative."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   3
+  ]
+ }
+]
