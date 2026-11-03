@@ -1,0 +1,543 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Week 4",
+   "subtitle": "C Programming Basics"
+  },
+  "narr": [
+   "In this section, we'll explore fundamental concepts of C programming focusing on arrays, string handling, and basic operations.",
+   "Let's start by examining how arrays work in C without string terminators."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Array Indices in C",
+   "bullets": [
+    "Arrays in C start with index 0",
+    "C-strings require a null terminator '\\0'",
+    "Without terminator, arrays are not C-strings"
+   ]
+  },
+  "narr": [
+   "In C, arrays are zero-indexed, meaning the first element is at position 0.",
+   "Unlike C-strings, regular arrays don't automatically include a null terminator character.",
+   "This distinction is crucial for proper memory handling and printing."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Array Comparison",
+   "problem": "How does alphabetical comparison work between two arrays without terminators?",
+   "steps": [
+    "Compare arrays by the first differing character",
+    "Copy the 'smaller' array first",
+    "Use boundary checks to prevent array overflow"
+   ],
+   "result": "Joined array maintains order based on comparison result"
+  },
+  "narr": [
+   "When comparing two arrays like 'dog' and 'cat', we look for the first position where characters differ.",
+   "In this case, 'dog' and 'cat' differ at index 2: 'r' vs 't'.",
+   "Since 'c' comes before 'd' alphabetically, 'cat' is considered 'smaller' and gets copied first.",
+   "The boundary check 'i < LENGTH && first[i] == second[i]' prevents accessing memory outside the array.",
+   "Without this check, we might read invalid memory when reaching the end of either array."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Array Joining Process",
+   "columns": [
+    "Index",
+    "Value"
+   ],
+   "rows": [
+    {
+     "cells": [
+      "0",
+      "c"
+     ]
+    },
+    {
+     "cells": [
+      "1",
+      "a"
+     ]
+    },
+    {
+     "cells": [
+      "2",
+      "t"
+     ]
+    },
+    {
+     "cells": [
+      "3",
+      "d"
+     ]
+    },
+    {
+     "cells": [
+      "4",
+      "o"
+     ]
+    },
+    {
+     "cells": [
+      "5",
+      "g"
+     ]
+    }
+   ]
+  },
+  "narr": [
+   "When joining two arrays, we copy elements sequentially.",
+   "First, we copy all characters from the 'smaller' array.",
+   "Then, we copy characters from the 'larger' array starting at the appropriate offset.",
+   "In this example, 'cat' fills indices 0-2, and 'dog' fills indices 3-5."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Printing Arrays Without Terminators",
+   "bullets": [
+    "Cannot use %s format specifier without null terminator",
+    "Must specify exact number of characters to print",
+    "Use %c with a loop for precise output"
+   ]
+  },
+  "narr": [
+   "Since our joined array lacks a null terminator, we can't use %s to print it.",
+   "The %s specifier would continue reading memory until it encounters a random zero byte.",
+   "Instead, we must print exactly the number of characters we have using %c in a loop."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 4 Questions",
+   "subtitle": "Lecture and Laboratory Questions"
+  },
+  "narr": [
+   "Let's now explore some common questions about C programming fundamentals.",
+   "These questions cover data types, operators, and best practices."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Data Types",
+   "problem": "What C types store integers, decimal values, and a single character?",
+   "steps": [
+    "Identify appropriate type for integers",
+    "Identify appropriate type for decimal values",
+    "Identify appropriate type for single characters"
+   ],
+   "result": "int for integers; float or double for decimal values; char for single characters"
+  },
+  "narr": [
+   "The first question asks about fundamental data types in C.",
+   "For integers, we use the 'int' type.",
+   "For decimal or real values, we can use 'float' or 'double' types.",
+   "For storing a single character, we use the 'char' type.",
+   "Execution begins with the main function, and we need appropriate header files like stdio.h for printf and cs50.h for getdouble."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Void Keyword",
+   "problem": "What does 'void' mean in 'int main(void)' and 'void example(void)'?",
+   "steps": [
+    "Analyze 'void' in function parameter list",
+    "Analyze 'void' as return type",
+    "Understand limitations of void type"
+   ],
+   "result": "In parameters: 'no parameters'; as return type: 'no return value'; cannot declare regular void variables"
+  },
+  "narr": [
+   "The void keyword has different meanings depending on context.",
+   "In 'int main(void)', the void in parentheses indicates that the function takes no parameters.",
+   "In 'void example(void)', the first void indicates the function returns no value.",
+   "The second void again means no parameters.",
+   "Importantly, we cannot declare a regular variable of type void in C."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Floating Point Precision",
+   "problem": "Why is 'double' preferred over 'float' for sphere dimensions?",
+   "steps": [
+    "Consider fractional parts in dimensions",
+    "Compare precision of float vs double",
+    "Understand limitations of floating-point representation"
+   ],
+   "result": "Double provides 15 significant decimal digits vs float's 6, but both remain approximations"
+  },
+  "narr": [
+   "When calculating sphere volume, we often use radius values that have fractional parts.",
+   "On most platforms, the 'double' type provides greater precision than 'float'.",
+   "Double can represent about 15 significant decimal digits, while float is limited to about 6.",
+   "However, even double doesn't make values like pi exactly represented - they remain approximations.",
+   "The precision difference matters for accurate calculations, especially in scientific applications."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Integer Division",
+   "problem": "What will 'double fraction = 4/3; printf(\"%f\\n\", fraction);' print?",
+   "steps": [
+    "Analyze the division operation before assignment",
+    "Consider integer division rules",
+    "Understand type conversion timing"
+   ],
+   "result": "1.000000 because integer division 4/3 equals 1 before conversion to double"
+  },
+  "narr": [
+   "This question demonstrates a common pitfall in C programming.",
+   "When performing '4/3', both operands are integers, so integer division is performed first.",
+   "Integer division truncates the result, so 4 divided by 3 equals 1.",
+   "Only after this division is the result converted to double for assignment.",
+   "To get the fractional part, we should use 4.0/3.0 or explicitly cast one operand to double."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Output Precision",
+   "problem": "Do extra digits in printf format improve the stored value?",
+   "steps": [
+    "Compare outputs with different precision specifiers",
+    "Understand printf formatting behavior",
+    "Distinguish between stored value and display representation"
+   ],
+   "result": "No, formatting only changes display representation, not the stored value"
+  },
+  "narr": [
+   "When printing sphere volume with radius 3, both %.1f and %.4f give different outputs.",
+   "%.1f displays '113.1' while %.4f shows '113.0940'.",
+   "However, these represent the same stored number in memory.",
+   "The printf precision controls only how the value is displayed, not how it's stored.",
+   "This is an important distinction between data representation and precision."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Octal Literals",
+   "problem": "Is 'int x = 017; int y = 12;' greater than y?",
+   "steps": [
+    "Recognize octal number notation",
+    "Convert octal to decimal",
+    "Compare the values"
+   ],
+   "result": "Yes, because 017₈ = 15 which is greater than 12"
+  },
+  "narr": [
+   "In C, numbers with a leading zero are interpreted as octal literals.",
+   "So 017 is not seventeen but an octal number.",
+   "Converting to decimal: 017₈ = 1×8¹ + 7×8⁰ = 8 + 7 = 15.",
+   "Since 15 is greater than 12, x is indeed greater than y.",
+   "This is a common source of confusion for those unfamiliar with octal notation."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Enumerators",
+   "problem": "What is 'XL' in two different enum definitions?",
+   "steps": [
+    "Understand enum numbering without explicit values",
+    "Apply numbering rules to first case",
+    "Apply numbering rules to second case"
+   ],
+   "result": "First case: XL = 4; Second case: XL = -2"
+  },
+  "narr": [
+   "In enumerations, when an enumerator has no explicit value, it continues numbering from the previous one.",
+   "In the first case 'enum sz {S = 0, L = 3, XL}', XL follows L=3, so XL equals 4.",
+   "In the second case 'enum sz {S = 0, L = -3, XL}', XL follows L=-3, so XL equals -2.",
+   "This automatic numbering allows for concise enum definitions while maintaining logical ordering.",
+   "Similar rules apply to other enumerators without explicit values."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Character Comparison",
+   "problem": "Why does 'A' < 'B' give 1, while 'A' == 'a' gives 0?",
+   "steps": [
+    "Understand character code conversion",
+    "Compare ASCII values of uppercase letters",
+    "Compare ASCII values of uppercase and lowercase"
+   ],
+   "result": "Characters convert to their ASCII codes; 'A'(65) < 'B'(66) but 'A'(65) ≠ 'a'(97)"
+  },
+  "narr": [
+   "In C, characters are automatically converted to their ASCII codes when compared.",
+   "The ASCII code for 'A' is 65 and for 'B' is 66, so 'A' < 'B' evaluates to true (1).",
+   "However, 'A' has code 65 while 'a' has code 97, so 'A' == 'a' evaluates to false (0).",
+   "This same conversion allows character arithmetic like converting case: c = c - 'a' + 'A'.",
+   "Understanding character codes is essential for proper text processing."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Short-Circuit Evaluation",
+   "problem": "What is short-circuit evaluation and what happens to x in '0 && ((x = x + 1) > 0)'?",
+   "steps": [
+    "Explain short-circuit evaluation concept",
+    "Analyze left operand of &&",
+    "Determine if right operand is evaluated"
+   ],
+   "result": "Left operand is 0, so right side with x increment is not evaluated; x remains unchanged"
+  },
+  "narr": [
+   "Short-circuit evaluation means expression evaluation stops when the result is already determined.",
+   "In the expression '0 && ((x = x + 1) > 0)', the left operand is 0 (false).",
+   "Since && requires both sides to be true, the entire expression is false regardless of the right side.",
+   "Therefore, the right side, which contains the side effect 'x = x + 1', is never evaluated.",
+   "This behavior prevents potential errors and is used in boundary checks like 'i < LENGTH && first[i] == second[i]'."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Increment Operators",
+   "problem": "What's the difference between 'y = x++' and 'y = ++x'?",
+   "steps": [
+    "Explain postfix increment behavior",
+    "Explain prefix increment behavior",
+    "Compare timing of evaluation and assignment"
+   ],
+   "result": "Postfix: y gets x's value then x increments; Prefix: x increments then y gets new value"
+  },
+  "narr": [
+   "The increment operator has two forms with different behaviors.",
+   "In 'y = x++', the postfix form, x is evaluated first (assigned to y), then incremented.",
+   "This is equivalent to 'y = x; x = x + 1;'.",
+   "In 'y = ++x', the prefix form, x is incremented first, then evaluated (assigned to y).",
+   "This is equivalent to 'x = x + 1; y = x;'.",
+   "The same difference applies to the decrement operator (--)."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Ternary Operator",
+   "problem": "How does the ternary operator work in 'sign = x > 0 ? 1 : -1;'?",
+   "steps": [
+    "Explain ternary syntax",
+    "Identify condition, true case, and false case",
+    "Compare to equivalent if-else statement"
+   ],
+   "result": "Condition before ?, value when true between ? and :, value when false after :, equivalent to if-else"
+  },
+  "narr": [
+   "The ternary operator provides a compact conditional expression.",
+   "In 'sign = x > 0 ? 1 : -1;', the condition 'x > 0' comes first.",
+   "If true, the value 1 is assigned to sign; if false, -1 is assigned.",
+   "This is syntactic sugar for 'if (x > 0) sign = 1; else sign = -1;'.",
+   "Another example shown is 'isodd = x % 2 == 1 ? 1 : 0;' which checks if x is odd."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Input Validation",
+   "problem": "What input should the sphere volume program reject?",
+   "steps": [
+    "Identify valid range for radius",
+    "Determine boundary conditions",
+    "Consider non-finite input cases"
+   ],
+   "result": "Zero, negative radii, and values greater than 1000"
+  },
+  "narr": [
+   "When calculating sphere volume, we need to validate input.",
+   "The program should reject zero and negative radius values as they don't represent valid spheres.",
+   "It should also reject values greater than 1000 to prevent potential overflow or unrealistic calculations.",
+   "Checking for positive range also helps reject non-finite input like NaN or infinity.",
+   "Proper input validation is crucial for robust program behavior."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Leap Year Calculation",
+   "problem": "Why is 1900 a common year, 2000 a leap year, and 2100 common?",
+   "steps": [
+    "Explain leap year rules",
+    "Apply rules to 1900",
+    "Apply rules to 2000 and 2100"
+   ],
+   "result": "Divisible by 400 = leap; divisible by 100 but not 400 = common"
+  },
+  "narr": [
+   "Leap year determination follows specific rules in the Gregorian calendar.",
+   "A year is a leap year if it's divisible by 400, like 2000.",
+   "If not divisible by 400, it must be divisible by 4 but not by 100 to be a leap year.",
+   "1900 and 2100 are divisible by 100 but not by 400, so they're common years.",
+   "The compact condition is 'year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)'."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — Printing Arrays Without Terminators",
+   "problem": "Why can't 'char first[3] = {'d', 'o', 'g'}' be printed with %s?",
+   "steps": [
+    "Explain C-string requirements",
+    "Identify risks of missing terminator",
+    "Understand proper boundary checking in comparisons"
+   ],
+   "result": "No null terminator means %s would read beyond array; boundary check in && prevents access violations"
+  },
+  "narr": [
+   "The array 'first[3] = {'d', 'o', 'g'}' has exactly three characters and no null terminator.",
+   "Without the terminator, %s would continue reading memory beyond the array until it finds a random zero byte.",
+   "This could lead to unpredictable output or crashes.",
+   "The correct approach is to print exactly three characters using %c in a loop.",
+   "In comparisons, the boundary check 'i < LENGTH && first[i] == second[i]' prevents accessing out-of-bounds elements."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ }
+]

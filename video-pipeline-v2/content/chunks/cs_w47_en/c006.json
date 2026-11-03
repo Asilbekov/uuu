@@ -1,0 +1,603 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Loops",
+   "subtitle": "while, for, do-while"
+  },
+  "narr": [
+   "Let's dive into the world of loops in C programming. We'll explore three fundamental loop types: while, for, and do-while. Each has its own characteristics and use cases.",
+   "First, we have the while loop - the simplest of the three. It evaluates a condition before executing the loop body. This means the body might not execute at all if the condition is false from the start."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The while Loop",
+   "bullets": [
+    "Evaluates condition before executing the body",
+    "Body may not execute at all if condition is false initially"
+   ]
+  },
+  "narr": [
+   "The while loop has a straightforward structure. It checks the condition first, and only if it's true does it execute the body. This is important because if the condition is false to begin with, the body never runs."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "while Loop Syntax",
+   "code": "while (/* condition */)\n    /* loop body */",
+   "highlight": [
+    1
+   ]
+  },
+  "narr": [
+   "Here's the basic syntax of a while loop. The condition is checked first, and if it's true, the loop body executes. After each execution, the condition is checked again."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The for Loop",
+   "bullets": [
+    "A \"counting\" loop with three expressions separated by semicolons",
+    "Initialization: executed once at the beginning",
+    "Condition: checked before each body execution",
+    "Increment: executed after each body execution"
+   ]
+  },
+  "narr": [
+   "Next, we have the for loop, which is often used for counting operations. It packs three important expressions in its parentheses: initialization, condition, and increment.",
+   "The initialization runs just once when the loop starts. Then, before each execution of the body, the condition is checked. After the body executes, the increment happens, and then the condition is checked again."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "for Loop Syntax",
+   "code": "for (/* initialization */; /* condition */; /* increment */)\n    /* loop body */",
+   "highlight": [
+    1,
+    2,
+    3
+   ]
+  },
+  "narr": [
+   "Here's the structure of a for loop. Each part separated by a semicolon serves a specific purpose in controlling the loop's behavior."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Factorial Function with for Loop",
+   "problem": "Write a function to compute factorial of n using a for loop",
+   "steps": [
+    "Initialize result variable to 1",
+    "Loop from 1 to n (inclusive)",
+    "Multiply result by current value in each iteration"
+   ],
+   "result": "return j"
+  },
+  "narr": [
+   "Let's see how to implement a factorial function using a for loop. We initialize a variable j to 1, then loop from 1 to n, multiplying j by the current value of i in each iteration.",
+   "The initialization happens once at the beginning. Then, before each body execution, we check if i is less than or equal to n. After the body executes, we increment i."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Factorial with for Loop",
+   "code": "int factorial(int n) {\n    int i, j = 1;\n    for (i = 1; i <= n; i++) j *= i;\n    return j;\n}",
+   "highlight": [
+    2
+   ]
+  },
+  "narr": [
+   "Here's the complete implementation. Notice how compact the for loop makes the code, with all loop control elements in one place."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Factorial Function with while Loop",
+   "problem": "Write a function to compute factorial of n using a while loop",
+   "steps": [
+    "Initialize result variable to 1",
+    "Initialize counter to 1",
+    "Loop while counter is less than or equal to n",
+    "Multiply result by current counter value",
+    "Increment counter"
+   ],
+   "result": "return j"
+  },
+  "narr": [
+   "The same factorial function can be implemented with a while loop. Here, we need to handle the initialization, condition checking, and incrementing separately.",
+   "First, we initialize j to 1 and i to 1. Then, we check if i is less than or equal to n. If true, we multiply j by i and increment i. This repeats until i exceeds n."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Factorial with while Loop",
+   "code": "int factorial(int n) {\n    int j = 1;\n    int i = 1; /* initialization */\n    while (i <= n /* condition */) {\n        j *= i;\n        i++; /* increment */\n    }\n    return j;\n}",
+   "highlight": [
+    2,
+    3,
+    4
+   ]
+  },
+  "narr": [
+   "Notice how the while loop requires us to explicitly manage all three aspects of loop control that were neatly packaged in the for loop."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Factorial with Comma Operator",
+   "problem": "Write a function to compute factorial using for loop with comma operator",
+   "steps": [
+    "Initialize both counter and result in for loop",
+    "Use comma operator to perform multiple operations",
+    "Multiply result by current counter value",
+    "Increment counter"
+   ],
+   "result": "return j"
+  },
+  "narr": [
+   "The comma operator allows us to perform multiple operations in a single expression, evaluated left to right. We can use it to initialize multiple variables in our for loop.",
+   "In this version, we initialize both i and j to 1 in the for loop header. Then, in the increment part, we multiply j by i and then increment i."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Factorial with Comma Operator",
+   "code": "int factorial(int n) {\n    int i, j;\n    for (i = 1, j = 1; i <= n; j *= i, i++)\n        ;\n    return j;\n}",
+   "highlight": [
+    2
+   ]
+  },
+  "narr": [
+   "This implementation is more compact but perhaps less readable. The comma operator allows us to pack multiple operations into the initialization and increment parts of the for loop."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Laboratory Comparison",
+   "problem": "Compare while and for loop implementations that print numbers 1 to 3",
+   "steps": [
+    "While loop version declares counter before loop",
+    "For loop version declares counter in loop header",
+    "Counter is only visible inside for loop"
+   ],
+   "result": "Both print 1 2 3"
+  },
+  "narr": [
+   "Let's compare while and for loops in a simple example that prints numbers 1 to 3. Notice how the variable declaration differs between the two approaches.",
+   "In the while loop version, we declare i before the loop, making it visible throughout the function. In the for loop version, i is declared in the loop header and is only visible inside the loop."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "While Loop Implementation",
+   "code": "int i = 1;\nwhile (i <= 3)\n{\n    printf(\"%d \", i);\n    i++;\n}",
+   "highlight": [
+    1,
+    2,
+    3
+   ]
+  },
+  "narr": [
+   "Here's the while loop implementation. We declare i before the loop and use it throughout the block."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "For Loop Implementation",
+   "code": "for (int i = 1; i <= 3; i++)\n{\n    printf(\"%d \", i);\n}",
+   "highlight": [
+    1,
+    2
+   ]
+  },
+  "narr": [
+   "And here's the for loop version. Notice how i is declared in the loop header, limiting its scope to just the loop body."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The do-while Loop",
+   "bullets": [
+    "Condition is evaluated after each iteration",
+    "Body is executed at least once",
+    "Requires a semicolon at the end"
+   ]
+  },
+  "narr": [
+   "Finally, we have the do-while loop, which differs from while in that the condition is checked after each iteration. This means the body always executes at least once.",
+   "The do-while loop is useful when you want to guarantee that the loop body runs before checking the condition. Notice the semicolon at the end of the while statement."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "do-while Loop Syntax",
+   "code": "do {\n    /* loop body */\n} while (/* condition */);",
+   "highlight": [
+    1,
+    2
+   ]
+  },
+  "narr": [
+   "Here's the structure of a do-while loop. The body executes first, then the condition is checked. If true, the loop continues."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Interactive Loop with do-while",
+   "problem": "Create a loop that asks user to continue until they enter 'n'",
+   "steps": [
+    "Initialize character variable",
+    "Execute loop body at least once",
+    "Ask user to continue",
+    "Read user input",
+    "Continue if input is 'y'"
+   ],
+   "result": "Loop continues until user enters 'n'"
+  },
+  "narr": [
+   "A common use case for do-while is interactive loops where you want to perform an action at least before asking if the user wants to continue.",
+   "In this example, we'll ask the user if they want to continue, read their input, and only exit if they enter something other than 'y'."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Interactive Loop with do-while",
+   "code": "char c;\ndo {\n    /* loop body */\n    puts(\"Keep going? (y/n) \");\n    c = getchar();\n    /* other processing */\n} while (c == 'y' /* other conditions */);",
+   "highlight": [
+    2,
+    3,
+    4
+   ]
+  },
+  "narr": [
+   "Here's an implementation of an interactive loop using do-while. The loop body executes at least once, asking the user if they want to continue. The condition is checked after the body executes."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "break and continue",
+   "subtitle": "Controlling loop flow"
+  },
+  "narr": [
+   "Sometimes you need more control over your loops than just the normal entry and exit conditions. That's where break and continue come in handy."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "break Statement",
+   "bullets": [
+    "Exits the innermost loop or switch statement",
+    "Terminates loop immediately"
+   ]
+  },
+  "narr": [
+   "The break statement allows you to exit a loop prematurely. When encountered, it immediately terminates the innermost loop or switch statement it's in."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Loop with break",
+   "problem": "Modify the interactive loop to exit when user enters anything other than 'y'",
+   "steps": [
+    "Check if input is not 'y'",
+    "If not, exit the loop with break",
+    "Otherwise, continue processing"
+   ],
+   "result": "Loop exits when user enters anything other than 'y'"
+  },
+  "narr": [
+   "Let's modify our interactive loop to use break. We'll check if the user entered something other than 'y', and if so, we'll exit the loop immediately."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Interactive Loop with break",
+   "code": "char c;\ndo {\n    /* loop body */\n    puts(\"Keep going? (y/n) \");\n    c = getchar();\n    if (c != 'y')\n        break;\n    /* other processing */\n} while (/* other conditions */);",
+   "highlight": [
+    3,
+    4
+   ]
+  },
+  "narr": [
+   "Here's the implementation with break. If the user enters anything other than 'y', the break statement immediately exits the do-while loop."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "continue Statement",
+   "bullets": [
+    "Skips the rest of the innermost loop body",
+    "Jumps to the next iteration"
+   ]
+  },
+  "narr": [
+   "The continue statement is another way to control loop flow. When encountered, it skips the rest of the current iteration and jumps directly to the next iteration of the loop."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — GCD with continue",
+   "problem": "Implement GCD function using continue to skip non-divisors",
+   "steps": [
+    "Define min macro to find smaller of two numbers",
+    "Loop from 2 to minimum of a and b",
+    "If i doesn't divide a, skip to next i",
+    "If i divides both a and b, update result"
+   ],
+   "result": "return ret (greatest common divisor)"
+  },
+  "narr": [
+   "Let's see an example using continue in a GCD (Greatest Common Divisor) function. We'll use a min macro to find the smaller of the two numbers, then loop from 2 to that minimum value.",
+   "For each i in that range, we first check if i divides a. If not, we use continue to skip to the next iteration. If i divides both a and b, we update our result."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "GCD with continue",
+   "code": "#define min(a,b) ((a)<(b)?(a):(b))\n\nint gcd(int a, int b) {\n    int i, ret = 1, minval = min(a, b);\n    for (i = 2; i <= minval; i++) {\n        if (a % i) /* i not divisor of a */\n            continue;\n        if (b % i == 0) /* i is divisor of both a and b */\n            ret = i;\n    }\n    return ret;\n}",
+   "highlight": [
+    3,
+    4,
+    5
+   ]
+  },
+  "narr": [
+   "Here's the complete implementation. The continue statement helps us skip numbers that don't divide a, making the algorithm more efficient."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Functions, scope, and modules",
+   "subtitle": "Divide and conquer in C"
+  },
+  "narr": [
+   "Now let's move beyond loops and explore functions, scope, and modules in C. These concepts help us break down programs into manageable pieces."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Functions and Divide and Conquer",
+   "bullets": [
+    "Breaking programs into simpler subproblems",
+    "Functions return no more than one value",
+    "Global variables for multiple outputs"
+   ]
+  },
+  "narr": [
+   "Functions are a fundamental concept in programming, allowing us to break down complex problems into simpler subproblems. In C, a function can return only one value, but we can use global variables to handle multiple outputs when needed.",
+   "Let's consider the example of solving a linear Diophantine equation ax + by = c. First, we compute g = gcd(a, b). If c is not a multiple of g, there are no solutions. Otherwise, we use the extended Euclidean algorithm to find x and y, then scale them by c/g."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "GCD Function",
+   "code": "int gcd(int a, int b) {\n    while (b) { /* if a < b, performs swap */\n        int temp = b;\n        b = a % b;\n        a = temp;\n    }\n    return a;\n}",
+   "highlight": [
+    2,
+    3,
+    4
+   ]
+  },
+  "narr": [
+   "The Euclidean algorithm relies on the property that gcd(a, b) = gcd(b, a mod b). This implementation handles the case where a < b by effectively swapping them through the modulo operation."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modules in C",
+   "bullets": [
+    "Interface (header file .h)",
+    "Implementation (auxiliary source/object files)",
+    "Header contains function prototypes and extern declarations"
+   ]
+  },
+  "narr": [
+   "In C, we can organize code into modules, each consisting of an interface (header file) and an implementation (source file). The header contains function prototypes and extern declarations of global variables.",
+   "The extern keyword tells the compiler that a variable is defined in another file. When compiling, we need to include both files in the command, like gcc -g -O0 -Wall diophant.c euclid.c -o diophant.o."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Header File Example (euclid.h)",
+   "code": "/* ensure included only once */\n#ifndef EUCLID_H\n#define EUCLID_H\n\n/* global variables (declared in euclid.c) */\nextern int x, y;\n\n/* compute gcd */\nint gcd(int a, int b);\n\n/* compute g = gcd(a, b) and solve ax+by=g */\nint ext_euclid(int a, int b);\n\n#endif",
+   "highlight": [
+    2,
+    4,
+    5,
+    6
+   ]
+  },
+  "narr": [
+   "Here's an example header file. It includes guards to prevent multiple inclusion, declares global variables with extern, and provides function prototypes."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Variable Scope",
+   "bullets": [
+    "Region where a variable is valid",
+    "Usually the block with the variable declaration",
+    "Variables outside functions are global",
+    "Local variables can shadow global ones"
+   ]
+  },
+  "narr": [
+   "Scope refers to the region of code where a variable is valid. Typically, this is the block where the variable is declared. Variables declared outside functions are global and accessible throughout the program.",
+   "A local variable can shadow a global one with the same name. In the lecture example, a global int nmax = 20 is shadowed by a local int nmax = 25 inside main(), causing the loop to print 25 lines instead of 20."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Storage Class Specifiers",
+   "bullets": [
+    "static: file scope or persistent local variable",
+    "register: request to store in CPU register"
+   ]
+  },
+  "narr": [
+   "C provides several storage class specifiers. When used outside a function, static makes a variable or function visible only inside the file. Inside a function, static creates a local variable that persists between function calls.",
+   "The register keyword is a request to store a variable in a CPU register. It can only be used for local variables and function arguments. Excess or invalid declarations are ignored, and you cannot take the address of a register variable."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Global and Local Variable Example",
+   "code": "int nmax = 20;\n\n/* The main() function */\nint main(int argc, char **argv) /* entry point */",
+   "highlight": [
+    1,
+    3
+   ]
+  },
+  "narr": [
+   "Here's an example showing a global variable nmax and the beginning of a main function where a local nmax could be declared to shadow the global one."
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]

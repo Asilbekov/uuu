@@ -1,0 +1,716 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Weeks 4-7",
+   "subtitle": "Computer Science · C"
+  },
+  "narr": [
+   "Welcome to Weeks 4-7 of our Computer Science course in C. We're diving into some fundamental concepts that often trip up new programmers.",
+   "Let's start with division and remainder operations, which have some important nuances in C."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Division and Remainder: The Main Trap",
+   "bullets": [
+    "Types of operands determine how division works, not the receiver type",
+    "Integer division truncates toward zero",
+    "Remainder operator % gives the remainder after division"
+   ]
+  },
+  "narr": [
+   "This week's main trap is understanding how division works in C. The key rule is that the types of the operands determine the operation, not the type of the variable receiving the result.",
+   "When you divide integers, you get integer division, which truncates any fractional part. For example, 3 divided by 2 gives 1, not 1.5.",
+   "The remainder operator, represented by %, gives you what's left after division. For instance, 3 % 2 equals 1, because 3 divided by 2 is 1 with a remainder of 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Division Examples",
+   "problem": "Predict the output of these division operations",
+   "steps": [
+    "float x = 3 / 2; // integer division",
+    "float x = 3.0 / 2; // mixed types",
+    "int x = 3.0 / 2; // conversion to int"
+   ],
+   "result": "First: x = 1.0, Second: x = 1.5, Third: x = 1"
+  },
+  "narr": [
+   "Let's look at some specific examples. First, when we do float x = 3 / 2, both operands are integers, so we get integer division resulting in 1, which is then assigned to the float x.",
+   "Second, with float x = 3.0 / 2, we have a float and an int. The int is promoted to float, so we get real division resulting in 1.5.",
+   "Third, with int x = 3.0 / 2, we still get 1.5 from the division, but then it's converted to int, truncating the decimal part to give 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Remainder Examples",
+   "problem": "What is the result of these remainder operations?",
+   "steps": [
+    "int x = 3 % 2;",
+    "int y = 7; int x = y % 4;",
+    "int x = y % 10;"
+   ],
+   "result": "First: x = 1, Second: x = 3, Third: x = 7"
+  },
+  "narr": [
+   "Now let's examine the remainder operator. First, 3 % 2 gives us 1, because 3 divided by 2 equals 1 with a remainder of 1.",
+   "Second, when y is 7, 7 % 4 equals 3, since 7 divided by 4 is 1 with a remainder of 3.",
+   "Third, 7 % 10 equals 7, because 7 divided by 10 is 0 with a remainder of 7."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Division Before Assignment",
+   "columns": [
+    "Expression",
+    "Stored in double",
+    "Printed with %f"
+   ],
+   "rows": [
+    [
+     {
+      "text": "4 / 3"
+     },
+     {
+      "text": "1.0"
+     },
+     {
+      "text": "1.000000"
+     }
+    ],
+    [
+     {
+      "text": "4.0 / 3.0"
+     },
+     {
+      "text": "≈1.333333..."
+     },
+     {
+      "text": "1.333333"
+     }
+    ],
+    [
+     {
+      "text": "(double)(4 / 3)"
+     },
+     {
+      "text": "1.0"
+     },
+     {
+      "text": "1.000000"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Division is performed before assignment, as shown in this table. When we do 4 / 3, both are integers, so we get integer division resulting in 1.0.",
+   "When we do 4.0 / 3.0, both are doubles, so we get real division resulting in approximately 1.333333.",
+   "Even with (double)(4 / 3), the division still happens first as integer division, giving 1, which is then converted to double."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Types of Operands Determine Division",
+   "bullets": [
+    "The receiver type doesn't change how division works",
+    "Formatting only affects display, not stored value",
+    "Input validation is important for robust programs"
+   ]
+  },
+  "narr": [
+   "Remember that the receiver type doesn't change how division works. For example, double fraction = 4 / 3 still performs integer division first, giving 1, which is then converted to double.",
+   "When we print values with different format specifiers like %.1f or %.4f, only the display changes, not the actual stored value. For instance, a volume of 113.0940 might display as 113.1 with %.1f, but the full precision remains in memory.",
+   "Finally, it's crucial to validate inputs. In our example, radius must be strictly greater than 0 and not greater than 1000. The program should reject zero, negative values, and values over 1000, as well as non-numeric input."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Comparison and Logical Operators",
+   "bullets": [
+    "Comparison operators yield boolean results (1 for true, 0 for false)",
+    "Logical operators include && (AND), || (OR), and ! (NOT)",
+    "Short-circuit evaluation stops when the result is determined"
+   ]
+  },
+  "narr": [
+   "Let's move on to comparison and logical operators. Comparison operators like >, <, >=, <=, ==, and ! compare two operands and yield a boolean result: 1 for true and 0 for false in C.",
+   "Logical operators include && (AND), which is true only if both operands are true; || (OR), which is true if at least one operand is true; and ! (NOT), which inverts the boolean value.",
+   "An important concept is short-circuit evaluation. With &&, if the first operand is false, the second isn't evaluated because the result will be false regardless. Similarly, with ||, if the first operand is true, the second isn't evaluated."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Logical Operator Examples",
+   "problem": "Evaluate these logical expressions",
+   "steps": [
+    "((9/3) == 3) && (2*3 == 6); // evaluates to 1",
+    "('A' == 'a') && (3 == 3) // evaluates to 0",
+    "2 == 3 || 'A' == 'A'; // evaluates to 1",
+    "2.99 >= 3 || 0 // evaluates to 0",
+    "!(3 == 3); // evaluates to 0",
+    "!(2.99 >= 3) // evaluates to 1"
+   ],
+   "result": "First: 1, Second: 0, Third: 1, Fourth: 0, Fifth: 0, Sixth: 1"
+  },
+  "narr": [
+   "Let's evaluate some logical expressions. First, ((9/3) == 3) && (2*3 == 6) is true because both parts are true, so it evaluates to 1.",
+   "Second, ('A' == 'a') && (3 == 3) is false because 'A' does not equal 'a', so it evaluates to 0 even though the second part is true.",
+   "Third, 2 == 3 || 'A' == 'A' is true because the second part is true, so it evaluates to 1.",
+   "Fourth, 2.99 >= 3 || 0 is false because both parts are false, so it evaluates to 0.",
+   "Fifth, !(3 == 3) is false because it's the negation of a true statement, so it evaluates to 0.",
+   "Sixth, !(2.99 >= 3) is true because it's the negation of a false statement, so it evaluates to 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Short-Circuit Evaluation",
+   "bullets": [
+    "Expression evaluation stops when the result is determined",
+    "Watch for side effects in short-circuited expressions",
+    "Array boundary checking benefits from short-circuiting"
+   ]
+  },
+  "narr": [
+   "Short-circuit evaluation means that the expression stops being evaluated as soon as the result is determined. For example, in (3 == 3)||((c = getchar()) == 'y'), the second part isn't evaluated because the first part is already true.",
+   "This behavior is important to watch for when expressions have side effects. In (0) && ((x = x + 1) > 0), the second part isn't evaluated, so x doesn't change.",
+   "Short-circuiting is particularly useful for array boundary checking. With i < LENGTH && first[i] == second[i], if i is not less than LENGTH, the second part isn't evaluated, preventing an out-of-bounds array access."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Array Boundary Checking",
+   "columns": [
+    "i",
+    "i < 3",
+    "Read characters?"
+   ],
+   "rows": [
+    [
+     {
+      "text": "0, 1, 2"
+     },
+     {
+      "text": "true"
+     },
+     {
+      "text": "yes"
+     }
+    ],
+    [
+     {
+      "text": "3"
+     },
+     {
+      "text": "false"
+     },
+     {
+      "text": "no"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "This table illustrates how array boundary checking works with short-circuit evaluation. When i is 0, 1, or 2, i < 3 is true, so we can safely read characters from the array.",
+   "When i is 3, i < 3 is false, so the second part of the && expression isn't evaluated, and we don't attempt to read characters, preventing an out-of-bounds access."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Increment/Decrement and Compact Assignment",
+   "bullets": [
+    "Postfix: x++ uses x before incrementing",
+    "Prefix: ++x increments x before using it",
+    "Compact assignment operators simplify common operations"
+   ]
+  },
+  "narr": [
+   "Now let's look at increment and decrement operators. The postfix version, x++, means use x first, then increment it. So y = x++ is equivalent to y = x; x = x + 1.",
+   "The prefix version, ++x, means increment x first, then use it. So y = ++x is equivalent to x = x + 1; y = x.",
+   "Compact assignment operators like +=, -=, *=, /=, and %= provide shorthand for common operations. For example, x += 1 is the same as x = x + 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Compact Assignment Examples",
+   "problem": "What do these compact assignment operators do?",
+   "steps": [
+    "x += 1 /* is the same as x = x+1 */",
+    "x -= 1 /* is the same as x = x-1 */",
+    "x *= 10 /* is the same as x = x*10 */",
+    "x /= 2 /* is the same as x = x/2 */",
+    "x %= 2 /* is the same as x = x%2 */"
+   ],
+   "result": "Each operator performs the specified operation and assigns the result back to x"
+  },
+  "narr": [
+   "Let's examine compact assignment operators. x += 1 adds 1 to x and stores the result back in x, which is the same as writing x = x + 1.",
+   "x -= 1 subtracts 1 from x and stores the result back in x, equivalent to x = x - 1.",
+   "x *= 10 multiplies x by 10 and stores the result back in x, equivalent to x = x * 10.",
+   "x /= 2 divides x by 2 and stores the result back in x, equivalent to x = x / 2.",
+   "x %= 2 computes the remainder when x is divided by 2 and stores the result back in x, equivalent to x = x % 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ternary Operator",
+   "bullets": [
+    "Syntactic sugar for if-else statements",
+    "Format: condition ? expr1 : expr2",
+    "Useful for concise conditional assignments"
+   ]
+  },
+  "narr": [
+   "The ternary operator ?: is a compact way to write simple if-else statements. Its format is condition ? expr1 : expr2.",
+   "If the condition is true, expr1 is evaluated and used; otherwise, expr2 is evaluated and used.",
+   "This is particularly useful for conditional assignments. For example, sign = x > 0 ? 1 : -1; sets sign to 1 if x is positive, and -1 otherwise."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Ternary Operator Examples",
+   "problem": "What do these ternary expressions do?",
+   "steps": [
+    "sign = x > 0 ? 1 : -1; /* sets sign based on x */",
+    "isodd = x % 2 == 1 ? 1 : 0; /* checks if x is odd */"
+   ],
+   "result": "First: sets sign to 1 if x > 0, otherwise -1. Second: sets isodd to 1 if x is odd, otherwise 0"
+  },
+  "narr": [
+   "Let's look at ternary operator examples. First, sign = x > 0 ? 1 : -1; is equivalent to if (x > 0) sign = 1; else sign = -1; It sets the sign variable based on whether x is positive.",
+   "Second, isodd = x % 2 == 1 ? 1 : 0; checks if x is odd by seeing if the remainder when divided by 2 equals 1. It sets isodd to 1 if x is odd, and 0 otherwise."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Bitwise Operators",
+   "columns": [
+    "Operator",
+    "Meaning",
+    "Examples"
+   ],
+   "rows": [
+    [
+     {
+      "text": "&"
+     },
+     {
+      "text": "AND"
+     },
+     {
+      "text": "0x77 & 0x3 →0x3; 0x77 & 0x0 →0"
+     }
+    ],
+    [
+     {
+      "text": "|"
+     },
+     {
+      "text": "OR"
+     },
+     {
+      "text": "0x700|0x33 →0x733; 0x070|0 →0x070"
+     }
+    ],
+    [
+     {
+      "text": "^"
+     },
+     {
+      "text": "XOR"
+     },
+     {
+      "text": "0x770 ^ 0x773 →0x3; 0x33 ^ 0x33 →0"
+     }
+    ],
+    [
+     {
+      "text": "<<"
+     },
+     {
+      "text": "shift left"
+     },
+     {
+      "text": "0x01 << 4 →0x10; 1 << 2 →4"
+     }
+    ],
+    [
+     {
+      "text": ">>"
+     },
+     {
+      "text": "right shift"
+     },
+     {
+      "text": "0x010 >> 4 →0x01; 4 >> 1 →2"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Bitwise operators work on individual bits of operands. The AND operator & yields 1 only if both bits are 1. For example, 0x77 & 0x3 equals 0x3.",
+   "The OR operator | yields 1 if at least one bit is 1. For example, 0x700|0x33 equals 0x733.",
+   "The XOR operator ^ yields 1 if exactly one bit is 1. For example, 0x770 ^ 0x773 equals 0x3.",
+   "The left shift operator << shifts bits to the left, filling with zeros. For example, 0x01 << 4 equals 0x10.",
+   "The right shift operator >> shifts bits to the right. For example, 0x010 >> 4 equals 0x01."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bitwise Operator Rules",
+   "bullets": [
+    "AND is true only if both operands are true",
+    "OR is true if at least one operand is true",
+    "XOR is true if exactly one operand is true"
+   ]
+  },
+  "narr": [
+   "Remember these basic rules for bitwise operators: AND yields true only when both operands are true; OR yields true when at least one operand is true; and XOR yields true when exactly one operand is true.",
+   "These operators are useful for low-level bit manipulation, flag manipulation, and certain algorithms where individual bits need to be manipulated independently."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Type Conversions and Operator Precedence",
+   "bullets": [
+    "Data is preserved when promoted to higher precision",
+    "Automatic conversion happens in mixed-type expressions",
+    "Operator precedence determines evaluation order"
+   ]
+  },
+  "narr": [
+   "When data is promoted to higher precision, it's preserved. For example, when an int is added to a double, the int is automatically promoted to double.",
+   "This automatic conversion happens in expressions with mixed types. The general rule is that each operand in a binary expression is promoted to the precision of the highest precision operand.",
+   "Operator precedence determines the order of evaluation. For example, ++, --, and casts have the highest precedence, followed by *, /, %, then +, -, and so on."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Type Conversion Examples",
+   "problem": "What happens in these type conversions?",
+   "steps": [
+    "int i; float f; f = i + 3.14159; /* i is promoted to float */",
+    "isupper = (c >= 'A' && c <= 'Z') ? 1 : 0; /* char converted to int */",
+    "if (!isupper) c = c - 'a' + 'A'; /* subtraction possible with int conversion */"
+   ],
+   "result": "First: i is promoted to float before addition. Second: char is converted to int for comparison. Third: chars are converted to int for subtraction."
+  },
+  "narr": [
+   "Let's look at type conversion examples. First, when adding an int to a double, the int is automatically promoted to float before the addition.",
+   "Second, when comparing characters with 'A' and 'Z', the characters are converted to their ASCII values for the comparison.",
+   "Third, when subtracting characters like 'a' and 'A', they're converted to their ASCII values, allowing the subtraction to determine the difference between them."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Operator Precedence Rules",
+   "bullets": [
+    "++/--, (cast), sizeof have highest precedence",
+    "* / % have higher precedence than + -",
+    "== != have higher precedence than && ||",
+    "Assignment operators have very low precedence"
+   ]
+  },
+  "narr": [
+   "Operator precedence determines the order of evaluation. Increment and decrement operators, casts, and sizeof have the highest precedence.",
+   "Multiplication, division, and modulus have higher precedence than addition and subtraction.",
+   "Equality and inequality operators have higher precedence than logical AND and OR.",
+   "Assignment operators have very low precedence, which is why expressions like x = y = z work from right to left."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Precedence Examples",
+   "problem": "How are these expressions evaluated?",
+   "steps": [
+    "y = x*3+2 /* same as y = (x*3)+2 */",
+    "x != 0 && y == 0 /* same as (x != 0) && (y == 0) */",
+    "d = c >= '0' && c <= '9' /* same as d = (c >= '0') && (c <= '9') */"
+   ],
+   "result": "Multiplication happens before addition; comparisons happen before logical AND; comparisons are grouped with && before assignment"
+  },
+  "narr": [
+   "Let's examine how precedence affects evaluation. In y = x*3+2, multiplication happens before addition, so it's equivalent to y = (x*3)+2.",
+   "In x != 0 && y == 0, the comparisons happen before the logical AND, so it's equivalent to (x != 0) && (y == 0).",
+   "In d = c >= '0' && c <= '9', the comparisons are grouped with && before assignment, so it's equivalent to d = (c >= '0') && (c <= '9')."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Leap Year Algorithm",
+   "bullets": [
+    "Common year: 365 days (February has 28)",
+    "Leap year: 366 days (February has 29)",
+    "Rules: divisible by 400 → leap; otherwise divisible by 100 → common; otherwise divisible by 4 → leap"
+   ]
+  },
+  "narr": [
+   "Now let's look at the leap year algorithm. A common year has 365 days with February having 28 days, while a leap year has 366 days with February having 29 days.",
+   "The leap year rules are read top to bottom: if a year is divisible by 400, it's a leap year. Otherwise, if it's divisible by 100, it's a common year. Otherwise, if it's divisible by 4, it's a leap year. Otherwise, it's a common year."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Leap Year Examples",
+   "problem": "Classify these years as leap or common",
+   "steps": [
+    "2000 — divisible by 400 → leap year",
+    "1900 — divisible by 100 but not 400 → common year",
+    "2024 — divisible by 4 and not 100 → leap year",
+    "2025 — not divisible by 4 → common year",
+    "2100 — divisible by 100 but not 400 → common year"
+   ],
+   "result": "2000: leap, 1900: common, 2024: leap, 2025: common, 2100: common"
+  },
+  "narr": [
+   "Let's classify some years. 2000 is a leap year because it's divisible by 400.",
+   "1900 is a common year because it's divisible by 100 but not by 400.",
+   "2024 is a leap year because it's divisible by 4 and not by 100.",
+   "2025 is a common year because it's not divisible by 4.",
+   "2100 is a common year because it's divisible by 100 but not by 400."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Compact Leap Year Expression",
+   "problem": "Write a compact expression to determine if a year is a leap year",
+   "steps": [
+    "year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)"
+   ],
+   "result": "This expression correctly implements the leap year rules: true for years divisible by 400, or divisible by 4 but not by 100"
+  },
+  "narr": [
+   "We can write a compact expression for the leap year algorithm: year % 400 == 0 || (year % 4 == 0 && year % 100 != 0). This checks if the year is divisible by 400, or if it's divisible by 4 but not by 100."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Input Validation and Repetition",
+   "bullets": [
+    "Year 0 or negative terminates without classification",
+    "Year > 9999 shows error and stops",
+    "Must read year again at end of loop to avoid infinite repetition"
+   ]
+  },
+  "narr": [
+   "When implementing the leap year program, we need proper input validation. Year 0 or negative values should terminate the program without classification.",
+   "Years greater than 9999 should show an error message and stop execution.",
+   "For repeatable input, we must read the year again at the end of the while loop. If we forget this, a positive year will never change, causing the loop to repeat forever."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Character Arrays and Memory",
+   "bullets": [
+    "RAM can be conceptualized as a grid of bytes",
+    "sizeof(char) is 1 byte in C",
+    "CHAR_BIT gives the number of bits in a byte"
+   ]
+  },
+  "narr": [
+   "Let's bridge to memory concepts. RAM can be conceptualized as a grid where each square represents one byte.",
+   "In C, sizeof(char) is defined as 1 byte. The number of bits in a byte is given by CHAR_BIT, which is typically 8.",
+   "For example, an int might be 4 bytes in size, meaning it occupies 4 squares in our conceptual grid."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Character Arrays",
+   "problem": "Declare and initialize these character arrays",
+   "steps": [
+    "char first[3] = {'d', 'o', 'g'};",
+    "char second[3] = {'c', 'a', 't'};"
+   ],
+   "result": "Creates two character arrays: first contains 'd', 'o', 'g'; second contains 'c', 'a', 't'"
+  },
+  "narr": [
+   "Finally, let's look at character arrays. We can declare and initialize them like this: char first[3] = {'d', 'o', 'g'} creates an array with three characters: 'd', 'o', and 'g'.",
+   "Similarly, char second[3] = {'c', 'a', 't'} creates another array with 'c', 'a', and 't'. These arrays can be used to store strings in C."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Takeaways",
+   "items": [
+    "Division behavior depends on operand types, not receiver type",
+    "Short-circuit evaluation prevents unnecessary computations",
+    "Operator precedence determines evaluation order",
+    "Leap year algorithm follows specific divisibility rules",
+    "Character arrays are fundamental for string handling in C"
+   ]
+  },
+  "narr": [
+   "Let's recap what we've covered. First, division behavior in C depends on the types of the operands, not the type of the variable receiving the result.",
+   "Second, short-circuit evaluation in logical operators prevents unnecessary computations and helps with boundary checking.",
+   "Third, operator precedence determines the order of evaluation, and parentheses should be used to avoid ambiguities.",
+   "Fourth, the leap year algorithm follows specific divisibility rules that we can implement with a compact logical expression.",
+   "Finally, character arrays are fundamental for handling strings in C, with each character occupying one byte of memory."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

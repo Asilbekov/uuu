@@ -1,0 +1,364 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Control Structures",
+   "subtitle": "Making Decisions and Repeating Tasks"
+  },
+  "narr": [
+   "Welcome to Week 5 of our Computer Science course in C. This week, we'll learn how to make our programs make decisions and repeat tasks using control structures.",
+   "We'll cover blocks and compound statements, conditional statements like if/else if/else and switch, and various types of loops like while, for, and do-while.",
+   "We'll also explore break and continue statements, and touch on functions, modular programming, and variable scope."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Blocks and Compound Statements",
+   "bullets": [
+    "A simple statement ends with a semicolon",
+    "Multiple statements combined into a compound statement (block) with curly braces",
+    "A block can stand where a simple statement is expected",
+    "Blocks are compiled as a single unit",
+    "Variables can be declared inside blocks",
+    "Blocks can be nested inside each other"
+   ]
+  },
+  "narr": [
+   "Let's start with blocks and compound statements. In C, a simple statement ends with a semicolon, like z equals foo of x plus y.",
+   "When you need to combine multiple statements, you use a compound statement, also called a block, which is enclosed in curly braces.",
+   "A block can be used anywhere a simple statement is expected, and the compiler treats it as a single unit.",
+   "You can declare variables inside blocks, which limits their scope to that block.",
+   "Blocks can be nested inside each other, allowing for structured and organized code."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Nested Blocks Example",
+   "code": "{\n    int temp = x + y;\n    z = foo(temp);\n    {\n        float temp2 = x * y;\n        z += bar(temp2);\n    }\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "narr": [
+   "Here's an example of nested blocks. We first declare an integer variable temp and initialize it with x plus y.",
+   "Then we assign the result of foo(temp) to z.",
+   "Inside this block, we have another nested block where we declare a float variable temp2 and initialize it with x times y.",
+   "Finally, we add the result of bar(temp2) to z."
+  ],
+  "narr_item": [
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Conditionals in C: if/else if/else",
+   "bullets": [
+    "C89/C90 has no boolean type; C99 has bool via <stdbool.h>",
+    "Conditions are expressions that evaluate to non-zero (true) or zero (false)",
+    "if: execute statement if condition is true",
+    "else: execute statement if condition is false",
+    "else if: provides additional alternative paths"
+   ]
+  },
+  "narr": [
+   "Now let's explore conditional statements in C. Unlike C++ or Java, C89/C90 doesn't have a built-in boolean type.",
+   "In C99, you can use bool by including the stdbool.h header.",
+   "Conditions are expressions that evaluate to non-zero for true or zero for false.",
+   "The if statement executes its inner statement if the condition is true.",
+   "The else statement executes its inner statement if the condition is false.",
+   "The else if statement provides additional alternative paths, checking conditions in order until the first true one is found."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Conditional Examples",
+   "code": "if (x % 2) y += x / 2;\n\nif (x % 2 == 0)\n    y += x/2;\nelse\n    y += (x+1)/2;\n\nif (x % 2 == 0) y += x / 2;\nelse if (x % 4 == 1) y += 2 * ((x + 3) / 4);\nelse\n    y += (x + 1) / 2;",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  "narr": [
+   "Let's look at some examples of conditional statements. First, we have a simple if statement that checks if x is odd.",
+   "Next, we have an if-else structure that handles both even and odd cases of x.",
+   "Finally, we have a more complex example with else if that handles multiple conditions based on the remainder when x is divided by 4."
+  ],
+  "narr_item": [
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Nested if Pitfall",
+   "bullets": [
+    "Without braces, else associates with the nearest inner if",
+    "Use curly braces to control which if an else belongs to"
+   ]
+  },
+  "narr": [
+   "A common pitfall with nested if statements is the association of else with the wrong if.",
+   "Without braces, else automatically associates with the nearest inner if statement.",
+   "To attach else to an outer if, you need to use curly braces to create a block."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Nested if Example",
+   "code": "/* Incorrect association */\nif (x % 4 == 0)\n    if (x % 2 == 0) y = 2;\n    else\n        y = 1;  /* else belongs to inner if! */\n\n/* Correct association */\nif (x % 4 == 0) {\n    if (x % 2 == 0) y = 2;\n} else\n    y = 1;  /* now else is connected to outer if */",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "narr": [
+   "In this first example, the else belongs to the inner if, which might not be the intended logic.",
+   "In the second example, by adding curly braces, we've made the else associate with the outer if statement.",
+   "This subtle difference can significantly change the behavior of your program, so be careful with nested ifs."
+  ],
+  "narr_item": [
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Switch Statement",
+   "bullets": [
+    "Alternative to if/else if ladders for equality checks",
+    "Takes an integer or character variable",
+    "Cases are different entry points into the block",
+    "Break exits the switch",
+    "Default is the 'otherwise' branch"
+   ]
+  },
+  "narr": [
+   "The switch statement provides an alternative to if/else if ladders, especially useful for equality checks.",
+   "It takes an integer or character variable as input and considers cases for its value.",
+   "Each case label acts as a different entry point into the block.",
+   "When a case matches, the code executes until the nearest break statement.",
+   "Without break, execution falls through to the next case.",
+   "The default case acts as the 'otherwise' branch when no other cases match."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Switch Example: Grade Evaluation",
+   "code": "/* Using if/else if ladder */\nif (grade == 'A') {\n    printf(\"Perfect!\\n\");\n} else if (grade == 'B') {\n    printf(\"You did good!\\n\");\n} else if (grade == 'C') {\n    printf(\"You did okay!\\n\");\n} else if (grade == 'D') {\n    printf(\"At least it's not an F!\\n\");\n} else if (grade == 'F') {\n    printf(\"YOU FAILED!\\n\");\n} else {\n    printf(\"That's not a valid grade!\\n\");\n}\n\n/* Using switch */\nswitch (grade) {\n    case 'A':\n        printf(\"Perfect!\\n\");\n        break;\n    case 'B':\n        printf(\"You did good!\\n\");\n        break;\n    case 'C':\n        printf(\"You did okay!\\n\");\n        break;\n    case 'D':\n        printf(\"At least it's not an F!\\n\");\n        break;\n    case 'F':\n        printf(\"YOU FAILED!\\n\");\n        break;\n    default:\n        printf(\"That's not a valid grade!\\n\");\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+   ]
+  },
+  "narr": [
+   "Here's a comparison between an if/else if ladder and a switch statement for evaluating grades.",
+   "The if/else if version checks each condition sequentially, which can be less efficient and more verbose.",
+   "The switch version is more concise and efficient for this type of equality checking.",
+   "Each equality check becomes a case label, and the else becomes the default case.",
+   "Remember to include break statements to prevent fall-through to the next case."
+  ],
+  "narr_item": [
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Multiple Case Labels",
+   "code": "/* Separate cases */\nswitch (ch) {\n    case 'Y':\n        /* ch == 'Y' */\n        /* do something */\n        break;\n    case 'N':\n        /* ch == 'N' */\n        /* do something else */\n        break;\n    default:\n        /* otherwise */\n        /* do a third thing */\n        break;\n}\n\n/* Multiple case labels */\nswitch (ch) {\n    case 'Y':\n    case 'y':\n        /* do something if ch == 'Y' or ch == 'y' */\n        break;\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+   ]
+  },
+  "narr": [
+   "Switch statements can handle multiple case labels for the same code block.",
+   "In the first example, we have separate cases for 'Y' and 'N'.",
+   "In the second example, we've combined 'Y' and 'y' into a single case, allowing the same code to execute for both uppercase and lowercase 'Y'."
+  ],
+  "narr_item": [
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 6.1: Melody from a Name",
+   "problem": "Create a program that reads a character at a time, calculates the ASCII code modulo 7, and prints the corresponding note name.",
+   "steps": [
+    "Read a character using scanf",
+    "Check for successful input and sentinel character #",
+    "Calculate ASCII code modulo 7",
+    "Select and print the corresponding note",
+    "Repeat until EOF or # is encountered"
+   ],
+   "result": "For input 'A': ASCII 65, 65 % 7 = 2 → note C"
+  },
+  "narr": [
+   "Let's look at a practical example from the lab: creating a melody from a name.",
+   "The program reads one character at a time, calculates the ASCII code modulo 7, and prints the corresponding note name.",
+   "For example, the character 'A' has an ASCII code of 65.",
+   "65 modulo 7 equals 2, which corresponds to the note C.",
+   "In the lab version, there's an intentional bug: the break statement is missing after case 2.",
+   "This causes fall-through, so input A# would print C, then D.",
+   "To fix this, we need to add a break statement after the printf in case 2.",
+   "The program continues reading characters until it encounters EOF or the sentinel character #."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Melody Mapping",
+   "columns": [
+    "Character",
+    "ASCII code",
+    "65 % 7",
+    "Expected note"
+   ],
+   "rows": [
+    [
+     "A",
+     "65",
+     "2",
+     "C"
+    ]
+   ]
+  },
+  "narr": [
+   "This table shows how the melody mapping works for the character 'A'.",
+   "The ASCII code for 'A' is 65.",
+   "65 modulo 7 equals 2, which corresponds to the note C."
+  ],
+  "narr_item": [
+   0,
+   0,
+   0
+  ]
+ }
+]
