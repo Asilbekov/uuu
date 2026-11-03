@@ -1,0 +1,633 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering — Weeks 1–4",
+   "subtitle": "Study Guide"
+  },
+  "narr": [
+   "In this video, we'll explore key engineering concepts from the first four weeks of study, focusing on significant figures, unit conversions, and ethical considerations in engineering practice.",
+   "Let's begin with some problems involving significant figures."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — When do reserves turn negative?",
+   "problem": "Determine when the reserves turn negative.",
+   "steps": [
+    {
+     "text": "This is a conceptual question requiring analysis of reserve data over time."
+    }
+   ],
+   "result": "The reserves turn negative in the year 2025."
+  },
+  "narr": [
+   "Let's start with a fundamental question about resource management.",
+   "The question asks when reserves turn negative, and the answer is quite specific: the year 2025."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Computing with significant figures",
+   "problem": "Compute with the correct significant figures: (a) 100/(2.0×10²); (b) 1.0×10²/(2.0×10²).",
+   "steps": [
+    {
+     "text": "For part (a): 100/(2.0×10²) = 100/200 = 0.5"
+    },
+    {
+     "text": "For part (b): 1.0×10²/(2.0×10²) = 100/200 = 0.50"
+    }
+   ],
+   "result": "0.5 and 0.50"
+  },
+  "narr": [
+   "Now let's practice computing with significant figures.",
+   "For part a, we divide 100 by 2.0 times 10 squared, which gives us 0.5 with one significant figure.",
+   "For part b, we divide 1.0 times 10 squared by 2.0 times 10 squared, resulting in 0.50 with two significant figures."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Division with significant figures",
+   "problem": "Compute with the correct significant figures: 10/6; 10.0/6; 10/6.0; 10./6.0; 10.0/6.00.",
+   "steps": [
+    {
+     "text": "10/6 = 2 (one significant figure)"
+    },
+    {
+     "text": "10.0/6 = 1.7 (two significant figures)"
+    },
+    {
+     "text": "10/6.0 = 1.7 (two significant figures)"
+    },
+    {
+     "text": "10./6.0 = 1.7 (two significant figures)"
+    },
+    {
+     "text": "10.0/6.00 = 1.67 (three significant figures)"
+    }
+   ],
+   "result": "2; 1.7; 1.7; 1.7; 1.67"
+  },
+  "narr": [
+   "Let's examine how significant figures affect division results.",
+   "When dividing 10 by 6, we get 2 with one significant figure.",
+   "When dividing 10.0 by 6, we get 1.7 with two significant figures.",
+   "When dividing 10 by 6.0, we also get 1.7 with two significant figures.",
+   "When dividing 10. by 6.0, we get 1.7 with two significant figures.",
+   "Finally, when dividing 10.0 by 6.00, we get 1.67 with three significant figures."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Subtraction with significant figures",
+   "problem": "What is 2.68×10⁸ minus 2.33×10³ with the correct significant figures?",
+   "steps": [
+    {
+     "text": "2.68×10⁸ - 2.33×10³ = 268,000,000 - 2,330 = 267,997,670"
+    },
+    {
+     "text": "When subtracting numbers with different magnitudes, the result should be rounded to the least precise decimal place."
+    },
+    {
+     "text": "Since 2.68×10⁸ is precise only to the millions place, the result is 2.68×10⁸."
+    }
+   ],
+   "result": "2.68×10⁸"
+  },
+  "narr": [
+   "Now let's consider subtraction with significant figures.",
+   "When we subtract 2.33 times 10 cubed from 2.68 times 10 to the eighth, we get 267,997,670.",
+   "However, when subtracting numbers with vastly different magnitudes, we must consider the precision of each number.",
+   "Since 2.68 times 10 to the eighth is precise only to the millions place, the result should be rounded to 2.68 times 10 to the eighth."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Rounding to significant figures",
+   "problem": "Round to three significant figures: 1.53; 15.345; 16.67; 102.04; −124.7; 0.00123456.",
+   "steps": [
+    {
+     "text": "1.53 remains 1.53 (already has three significant figures)"
+    },
+    {
+     "text": "15.345 rounds to 15.3 (the fourth digit is 4, which is less than 5)"
+    },
+    {
+     "text": "16.67 rounds to 16.7 (the fourth digit is 7, which is greater than or equal to 5)"
+    },
+    {
+     "text": "102.04 rounds to 102 (the fourth digit is 0, which is less than 5)"
+    },
+    {
+     "text": "−124.7 rounds to −125 (the fourth digit is 7, which is greater than or equal to 5)"
+    },
+    {
+     "text": "0.00123456 rounds to 0.00123 (the fourth significant digit is 4, which is less than 5)"
+    }
+   ],
+   "result": "1.53; 15.3; 16.7; 102; −125; 0.00123"
+  },
+  "narr": [
+   "Let's practice rounding numbers to three significant figures.",
+   "1.53 already has three significant figures, so it remains unchanged.",
+   "15.345 rounds to 15.3 because the fourth digit is 4, which is less than 5.",
+   "16.67 rounds to 16.7 because the fourth digit is 7, which is greater than or equal to 5.",
+   "102.04 rounds to 102 because the fourth digit is 0, which is less than 5.",
+   "Negative numbers follow the same rule: -124.7 rounds to -125.",
+   "For very small numbers like 0.00123456, we count from the first non-zero digit: it rounds to 0.00123."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Significant figures in measurements",
+   "problem": "A door and its frame: to how many significant figures should the length and width of a 30.0″ × 81.0″ door be specified, so that it keeps out the draft and still opens easily?",
+   "steps": [
+    {
+     "text": "The door dimensions are given as 30.0 inches by 81.0 inches, which both have three significant figures."
+    },
+    {
+     "text": "For practical purposes, door manufacturing typically requires precision to about 0.1 inch to ensure proper fit."
+    },
+    {
+     "text": "Therefore, specifying dimensions to three significant figures (30.0 and 81.0) provides appropriate precision for both keeping out drafts and ensuring the door opens easily."
+    }
+   ],
+   "result": "Three significant figures (30.0 and 81.0)"
+  },
+  "narr": [
+   "Now let's consider a practical application of significant figures in engineering.",
+   "We have a door with dimensions of 30.0 inches by 81.0 inches.",
+   "For a door to function properly - keeping out drafts while still opening easily - it needs to be manufactured with appropriate precision.",
+   "Typically, door manufacturing requires precision to about 0.1 inch.",
+   "Therefore, specifying the dimensions to three significant figures provides the necessary precision for this application."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Mars Climate Orbiter incident",
+   "problem": "As NASA's chief engineer, how do you respond to the national outcry over the \"silly\" mistake? Options: (a) take all the blame and resign; (b) find the culprit and fire/demote them; (c) audit the software for compliance with the specifications across all data exchanged between working groups; (d) check the consistent use of units across the whole design and operations.",
+   "steps": [
+    {
+     "text": "The Mars Climate Orbiter was lost due to a unit conversion error between metric and English units."
+    },
+    {
+     "text": "Option (a) addresses the symptom but not the root cause of the problem."
+    },
+    {
+     "text": "Option (b) creates a culture of fear rather than focusing on systemic improvements."
+    },
+    {
+     "text": "Option (c) addresses the software compliance aspect of the problem."
+    },
+    {
+     "text": "Option (d) addresses the unit consistency issue that caused the failure."
+    },
+    {
+     "text": "The best approach combines options (c) and (d) to implement systemic fixes to the design and operational processes."
+    }
+   ],
+   "result": "(c) and (d) — a systemic fix of the process; the NSPE ethics matrix is attached."
+  },
+  "narr": [
+   "Let's examine a famous engineering ethics case: the Mars Climate Orbiter incident.",
+   "This spacecraft was lost due to a unit conversion error between metric and English units.",
+   "As NASA's chief engineer facing public outcry, what would be the most appropriate response?",
+   "Option A, taking all the blame and resigning, addresses the symptom but not the root cause.",
+   "Option B, finding and punishing the individual, creates a culture of fear rather than focusing on improvements.",
+   "Option C involves auditing software for compliance with specifications.",
+   "Option D focuses on checking consistent use of units across the design and operations.",
+   "The best approach combines options C and D to implement systemic fixes to prevent such errors in the future."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Academic honesty",
+   "problem": "A classmate sent you their completed spreadsheet homework together with the answer to a question. What do you do? Options: (a) delete it without looking; (b) peek to see \"whether they did it right\"; (c) paste it into your own homework, changing the formatting; (d) send it on to all your friends.",
+   "steps": [
+    {
+     "text": "Academic integrity is fundamental to engineering education and practice."
+    },
+    {
+     "text": "Option A demonstrates proper ethical behavior by immediately deleting the material without looking."
+    },
+    {
+     "text": "Option B rationalizes dishonesty by claiming it's just for verification."
+    },
+    {
+     "text": "Option C is clearly academic dishonesty, even with minor changes."
+    },
+    {
+     "text": "Option D compounds the dishonesty by sharing the material with others."
+    },
+    {
+     "text": "The ethical choice is option A: delete it without looking. Even peeking pulls you toward using it."
+    }
+   ],
+   "result": "(a) — zero tolerance for academic dishonesty; looking already pulls you toward using it."
+  },
+  "narr": [
+   "Now let's consider a scenario involving academic honesty in engineering.",
+   "Your classmate sends you their completed homework with answers.",
+   "How should you respond ethically?",
+   "Option A involves deleting it without looking, demonstrating proper ethical behavior.",
+   "Option B rationalizes dishonesty by claiming it's just for verification.",
+   "Option C is clearly academic dishonesty, even with minor formatting changes.",
+   "Option D compounds the problem by sharing the material with others.",
+   "The ethical choice is option A: delete it without looking. Even peeking pulls you toward using it."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Ethical dilemma in reporting",
+   "problem": "Stephanie knew that Adam, the environmental manager, would be displeased with her report on a chemical spill: the data clearly showed the spill was large enough that state regulations required reporting it. Adam flared up: \"A couple of gallons over the limit is not worth filling out the damn forms; go redo the numbers until they come out right.\" What should Stephanie do? Options: (a) say that she will not knowingly violate state law and threaten to quit; (b) comply — the boss is the one accountable; (c) an anonymous report to the state; (d) go over Adam's head — to his supervisor.",
+   "steps": [
+    {
+     "text": "Stephanie faces a conflict between her professional ethics and her supervisor's directive."
+    },
+    {
+     "text": "Option A involves refusing to violate state law and threatening to quit, which upholds professional ethics."
+    },
+    {
+     "text": "Option B would require Stephanie to violate her ethical obligations to comply with unlawful directives."
+    },
+    {
+     "text": "Option C provides an anonymous reporting mechanism but bypasses organizational channels."
+    },
+    {
+     "text": "Option D involves escalating the issue within the organizational hierarchy."
+    },
+    {
+     "text": "The best approach combines options A and D: refuse to violate the law and escalate if necessary, as falsification is forbidden by professional ethics codes."
+    }
+   ],
+   "result": "(a) plus escalation (d) if refused; falsification is forbidden by canons 3, 5, 10."
+  },
+  "narr": [
+   "Let's examine an ethical dilemma involving environmental reporting.",
+   "Stephanie has data showing a chemical spill that exceeds regulatory reporting thresholds.",
+   "Her supervisor Adam tells her to \"redo the numbers\" to avoid reporting requirements.",
+   "Stephanie faces a conflict between professional ethics and her supervisor's directive.",
+   "Option A involves refusing to violate state law and threatening to quit, which upholds professional ethics.",
+   "Option B would require Stephanie to violate her ethical obligations.",
+   "Option C provides an anonymous reporting mechanism but bypasses organizational channels.",
+   "Option D involves escalating the issue within the organizational hierarchy.",
+   "The best approach combines options A and D: refuse to violate the law and escalate if necessary, as falsification is forbidden by professional ethics codes."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Moaveni Chapter 6",
+   "subtitle": "Fundamental Dimensions and Units"
+  },
+  "narr": [
+   "Now let's move to the end-of-chapter assignments from Moaveni chapter 6 on fundamental dimensions and units.",
+   "These problems cover unit conversions, dimensional analysis, and significant figures."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Unit conversions",
+   "problem": "Convert a table of quantities: SI to U.S. Customary and vice versa.",
+   "steps": [
+    {
+     "text": "120 km/h to mph: 120 × 0.621371 = 74.56 mph"
+    },
+    {
+     "text": "120 km/h to ft/s: 120 × 1000 ÷ 3600 × 3.28084 = 109.36 ft/s"
+    },
+    {
+     "text": "1000 W to Btu/h: 1000 × 3.41214 = 3412.14 Btu/h"
+    },
+    {
+     "text": "1000 W to hp: 1000 ÷ 745.7 = 1.34 hp"
+    },
+    {
+     "text": "100 m³ to ft³: 100 × 35.3147 = 3531.47 ft³"
+    },
+    {
+     "text": "80 kg to lbm: 80 × 2.20462 = 176.37 lbm"
+    }
+   ],
+   "result": "74.56 mph; 109.36 ft/s; 3412.14 Btu/h; 1.34 hp; 3531.47 ft³; 176.37 lbm"
+  },
+  "narr": [
+   "Let's begin with unit conversions between SI and U.S. Customary systems.",
+   "To convert 120 kilometers per hour to miles per hour, we multiply by 0.621371, resulting in approximately 74.56 miles per hour.",
+   "To convert the same value to feet per second, we first convert kilometers to meters, then to feet, and hours to seconds, giving us approximately 109.36 feet per second.",
+   "For power conversion, 1000 watts converts to approximately 3412.14 British thermal units per hour.",
+   "The same 1000 watts converts to approximately 1.34 horsepower.",
+   "For volume, 100 cubic meters converts to approximately 3531.47 cubic feet.",
+   "For mass, 80 kilograms converts to approximately 176.37 pounds mass."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1b — Unit conversions (continued)",
+   "problem": "Convert more quantities: SI to U.S. Customary and vice versa.",
+   "steps": [
+    {
+     "text": "1000 kg/m³ to lbm/ft³: 1000 × 0.062428 = 62.43 lbm/ft³"
+    },
+    {
+     "text": "900 N to lbf: 900 ÷ 4.44822 = 202.34 lbf"
+    },
+    {
+     "text": "100 kPa to lbf/in²: 100 × 0.145038 = 14.50 lbf/in²"
+    },
+    {
+     "text": "9.81 m/s² to ft/s²: 9.81 × 3.28084 = 32.19 ft/s²"
+    },
+    {
+     "text": "65 mph to km/h: 65 × 1.60934 = 104.61 km/h"
+    },
+    {
+     "text": "65 mph to m/s: 65 × 0.44704 = 29.06 m/s"
+    }
+   ],
+   "result": "62.43 lbm/ft³; 202.34 lbf; 14.50 lbf/in²; 32.19 ft/s²; 104.61 km/h; 29.06 m/s"
+  },
+  "narr": [
+   "Continuing with unit conversions, let's look at density, force, pressure, and acceleration.",
+   "Density conversion: 1000 kilograms per cubic meter converts to approximately 62.43 pounds mass per cubic foot.",
+   "Force conversion: 900 newtons converts to approximately 202.34 pounds force.",
+   "Pressure conversion: 100 kilopascals converts to approximately 14.50 pounds force per square inch.",
+   "Acceleration conversion: 9.81 meters per second squared converts to approximately 32.19 feet per second squared.",
+   "Now let's convert from U.S. Customary to SI units.",
+   "Speed conversion: 65 miles per hour converts to approximately 104.61 kilometers per hour.",
+   "The same speed converts to approximately 29.06 meters per second."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1c — Unit conversions (continued)",
+   "problem": "Convert more quantities: U.S. Customary to SI.",
+   "steps": [
+    {
+     "text": "60,000 Btu/h to W: 60,000 × 0.293071 = 17,584.26 W"
+    },
+    {
+     "text": "120 lbm/ft³ to kg/m³: 120 × 16.0185 = 1922.22 kg/m³"
+    },
+    {
+     "text": "30 lbf/in² to kPa: 30 × 6.89476 = 206.84 kPa"
+    },
+    {
+     "text": "200 lbm to kg: 200 × 0.453592 = 90.72 kg"
+    },
+    {
+     "text": "200 lbf to N: 200 × 4.44822 = 889.64 N"
+    }
+   ],
+   "result": "17,584.26 W; 1922.22 kg/m³; 206.84 kPa; 90.72 kg; 889.64 N"
+  },
+  "narr": [
+   "Let's complete our unit conversion exercises with remaining conversions from U.S. Customary to SI units.",
+   "Power conversion: 60,000 British thermal units per hour converts to approximately 17,584.26 watts.",
+   "Density conversion: 120 pounds mass per cubic foot converts to approximately 1922.22 kilograms per cubic meter.",
+   "Pressure conversion: 30 pounds force per square inch converts to approximately 206.84 kilopascals.",
+   "Mass conversion: 200 pounds mass converts to approximately 90.72 kilograms.",
+   "Force conversion: 200 pounds force converts to approximately 889.64 newtons."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Units in the angle of twist formula",
+   "problem": "The angle of twist of a shaft: φ = TL/(JG), where T — torque (N·m), L — length (m), G — shear modulus (N/m²). What must the unit of J be for the equation to be homogeneous in units?",
+   "steps": [
+    {
+     "text": "For the equation to be dimensionally homogeneous, all terms must have the same units."
+    },
+    {
+     "text": "φ (angle) is dimensionless (radians)."
+    },
+    {
+     "text": "T has units N·m."
+    },
+    {
+     "text": "L has units m."
+    },
+    {
+     "text": "G has units N/m²."
+    },
+    {
+     "text": "Therefore, J must have units of m⁴ to make the denominator (J·G) have units of m⁴·(N/m²) = N·m², making the entire fraction (N·m·m)/(N·m²) = dimensionless."
+    }
+   ],
+   "result": "m⁴ (the polar moment of inertia)"
+  },
+  "narr": [
+   "Now let's examine dimensional analysis in engineering formulas.",
+   "The angle of twist formula is φ = TL/(JG), where T is torque in newton-meters, L is length in meters, and G is shear modulus in newtons per square meter.",
+   "For this equation to be dimensionally homogeneous, all terms must have the same units.",
+   "The angle φ is dimensionless, measured in radians.",
+   "T has units of newton-meters, L has units of meters, and G has units of newtons per square meter.",
+   "Therefore, J must have units of meters to the fourth power to make the denominator J·G have units of meter⁴·(newton/meter²) = newton·meter², making the entire fraction (newton·meter·meter)/(newton·meter²) dimensionless.",
+   "This confirms that J is the polar moment of inertia with units of meter⁴."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Dimensional homogeneity",
+   "problem": "Which equations are dimensionally homogeneous? Prove it: (a) F = ma; (b) F = mV²/R; (c) F(t² − t₁) = m(V₂ − V₁); (d) F = mV.",
+   "steps": [
+    {
+     "text": "(a) F = ma: Force has units N = kg·m/s², mass has units kg, acceleration has units m/s². Therefore, kg·m/s² = kg·(m/s²), which is dimensionally homogeneous."
+    },
+    {
+     "text": "(b) F = mV²/R: Force has units N = kg·m/s², mass has units kg, velocity squared has units (m/s)² = m²/s², radius has units m. Therefore, kg·m/s² = kg·(m²/s²)/m = kg·m/s², which is dimensionally homogeneous."
+    },
+    {
+     "text": "(c) F(t² − t₁) = m(V₂ − V₁): Force has units N = kg·m/s², time has units s, mass has units kg, velocity has units m/s. Left side: kg·m/s²·s = kg·m/s. Right side: kg·m/s. Therefore, kg·m/s = kg·m/s, which is dimensionally homogeneous."
+    },
+    {
+     "text": "(d) F = mV: Force has units N = kg·m/s², mass has units kg, velocity has units m/s. Therefore, kg·m/s² ≠ kg·m/s, which is not dimensionally homogeneous."
+    }
+   ],
+   "result": "(a), (b), and (c) are dimensionally homogeneous; (d) is not."
+  },
+  "narr": [
+   "Let's examine dimensional homogeneity in engineering equations.",
+   "For an equation to be dimensionally homogeneous, all terms must have the same units.",
+   "Equation a: F = ma. Force has units of newtons or kg·m/s², mass has kg, and acceleration has m/s². The units match: kg·m/s² = kg·(m/s²), so it's dimensionally homogeneous.",
+   "Equation b: F = mV²/R. Force has kg·m/s², mass has kg, velocity squared has m²/s², and radius has m. The units match: kg·m/s² = kg·(m²/s²)/m = kg·m/s², so it's dimensionally homogeneous.",
+   "Equation c: F(t₂ − t₁) = m(V₂ − V₁). Force has kg·m/s², time has s, mass has kg, and velocity has m/s. Left side: kg·m/s²·s = kg·m/s. Right side: kg·m/s. The units match, so it's dimensionally homogeneous.",
+   "Equation d: F = mV. Force has kg·m/s², mass has kg, and velocity has m/s. The units don't match: kg·m/s² ≠ kg·m/s, so it's not dimensionally homogeneous."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Significant figures determination",
+   "problem": "Determine the number of significant figures: 286.5; 2.2×10²; 2200; 0.0286.",
+   "steps": [
+    {
+     "text": "286.5 has four significant figures (all digits are significant)."
+    },
+    {
+     "text": "2.2×10² has two significant figures (both digits in the coefficient are significant)."
+    },
+    {
+     "text": "2200 has two significant figures (trailing zeros without a decimal point are not significant)."
+    },
+    {
+     "text": "0.0286 has three significant figures (leading zeros are not significant, but trailing zeros after the decimal are)."
+    }
+   ],
+   "result": "286.5: 4 significant figures; 2.2×10²: 2 significant figures; 2200: 2 significant figures; 0.0286: 3 significant figures"
+  },
+  "narr": [
+   "Finally, let's practice determining the number of significant figures in various numbers.",
+   "286.5 has four significant figures because all digits are significant.",
+   "2.2 times 10 squared has two significant figures because both digits in the coefficient are significant.",
+   "2200 has two significant figures because trailing zeros without a decimal point are not considered significant.",
+   "0.0286 has three significant figures because leading zeros are not significant, but the digits 2, 8, and 6 are significant."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]
