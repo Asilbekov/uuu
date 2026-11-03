@@ -1,0 +1,386 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Formulas",
+   "subtitle": "Consolidated reference of all course formulas"
+  },
+  "narr": [
+   "Welcome to the consolidated reference of all course formulas encountered in the first four weeks of Introduction to Engineering.",
+   "This section collects all the formulas and calculation relations from lectures, labs, and textbook chapters, with their variables and units clearly specified."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Measurement and Unit Formulas",
+   "columns": [
+    "Formula / relation",
+    "Explanation",
+    "Source"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "value\\,\\text{[units]} \\times factor\\,\\text{[units/units]} = result"
+     },
+     "Kosky's fail-safe method: every quantity and factor is written with units in brackets; units cancel like fractions: (10 [ft]) × (12 [in/ft]) = 120 in",
+     "Kosky 2.4.2"
+    ],
+    [
+     {
+      "tex": "1\\,\\text{N} = (1\\,\\text{kg})(1\\,\\text{m/s}^2)"
+     },
+     "The newton from the second law: the force that accelerates 1 kg at 1 m/s²",
+     "Moaveni 6.2"
+    ],
+    [
+     {
+      "tex": "1\\,\\text{lb} = (1\\,\\text{slug})(1\\,\\text{ft/s}^2)"
+     },
+     "British Gravitational: a slug under one pound of force accelerates at 1 ft/s²",
+     "Moaveni 6.2"
+    ],
+    [
+     {
+      "tex": "1\\,\\text{slug} = 32.2\\,\\text{lbm}; 1\\,\\text{lbm} = 0.4536\\,\\text{kg}; 1\\,\\text{kg} = 2.2046\\,\\text{lbm}"
+     },
+     "Mass-unit relations across the three systems",
+     "Moaveni Table 6.6"
+    ],
+    [
+     {
+      "tex": "1\\,\\text{ft} = 0.3048\\,\\text{m}; 1\\,\\text{m} = 3.2808\\,\\text{ft}; 1\\,\\text{in} = 2.54\\,\\text{cm}"
+     },
+     "Length",
+     "Kosky p. 2; Moaveni"
+    ],
+    [
+     {
+      "tex": "1\\,\\text{lbf} = 4.448\\,\\text{N}; 1\\,\\text{N} = 0.2248\\,\\text{lbf}"
+     },
+     "Force",
+     "Moaveni Table 6.6"
+    ],
+    [
+     {
+      "tex": "T(°\\text{F}) = \\frac{9}{5} \\cdot T(°\\text{C}) + 32; T(°\\text{C}) = \\frac{5}{9} \\cdot (T(°\\text{F}) - 32)"
+     },
+     "Celsius–Fahrenheit",
+     "Moaveni 6.2"
+    ],
+    [
+     {
+      "tex": "T(\\text{K}) = °\\text{C} + 273.15; °\\text{R} = °\\text{F} + 459.67; T(°\\text{R}) = \\frac{9}{5} \\cdot T(\\text{K})"
+     },
+     "Absolute scales",
+     "Moaveni 6.2"
+    ],
+    [
+     {
+      "tex": "1\\,\\text{J} = 0.7375\\,\\text{ft·lbf}; 1\\,\\text{ft·lbf} = 1.3558\\,\\text{J}; 1\\,\\text{Btu} = 778.17\\,\\text{ft·lbf}"
+     },
+     "Energy",
+     "Moaveni Table 6.6"
+    ],
+    [
+     {
+      "tex": "1\\,\\text{W} = 1\\,\\text{J/s} = 0.7375\\,\\text{ft·lbf/s}; 1\\,\\text{hp} = 550\\,\\text{ft·lbf/s} = 746\\,\\text{W} = 0.7457\\,\\text{kW}"
+     },
+     "Power",
+     "Kosky p. 2; Moaveni"
+    ],
+    [
+     {
+      "tex": "V_{\\text{molar}} = \\frac{RT}{p} = 24.45\\,\\text{L/mol} \\text{ (at 1 atm, 25 °C)}"
+     },
+     "Molar volume of an ideal gas from pV = nRT, R = 8.3143 N·m/(mol·K)",
+     "Kosky 18.3.3"
+    ]
+   ]
+  },
+  "narr": [
+   "Let's start with measurement and unit formulas. These include fundamental relationships like the definition of a newton, conversions between different unit systems, and temperature scales.",
+   "Notice how each formula includes units in brackets, which helps with dimensional analysis and unit cancellation.",
+   "For example, the newton is defined as the force that accelerates one kilogram at one meter per second squared.",
+   "We also have conversions between mass units like slugs and pounds mass, and between length units like feet and meters.",
+   "Temperature conversions between Celsius and Fahrenheit are straightforward with these formulas, and we can also convert to absolute scales like Kelvin and Rankine.",
+   "Energy and power units are related through these conversions, with interesting relationships like one horsepower being equal to 550 foot-pounds per second.",
+   "Finally, the molar volume of an ideal gas is given by this formula, which is particularly useful in chemistry and thermodynamics."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Significant-Figure Formulas and Environmental Calculations",
+   "columns": [
+    "Formula / rule",
+    "Explanation",
+    "Source"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "Rule 1 (addition/subtraction): the sum/difference has no significant digits to the right of the decimal position of the least precise number"
+     },
+     "113.2 + 1.43 = 114.6; 113.212 - 113.0 = 0.2 (one significant figure)",
+     "Kosky 2.5"
+    ],
+    [
+     {
+      "tex": "Rule 2 (multiplication/division): the product/quotient carries no more significant figures than the least precise of the numbers"
+     },
+     "(113.2)×(1.43) = 162; 113.2/1.43 = 79.2",
+     "Kosky 2.5"
+    ],
+    [
+     {
+      "tex": "Rule 3 (rounding): a dropped 0-4 leaves the digit unchanged; 5-9 increases it by 1"
+     },
+     "1.54 → 1.5; 1.55 → 1.6",
+     "Kosky 2.5"
+    ],
+    [
+     {
+      "tex": "Intermediate results are not rounded; the rules apply only to the final answer"
+     },
+     "Area of a circle: R = 8.5[in]/12[in/ft]; A = πR² = 1.8 ft² (2 sig. figs.)",
+     "Kosky 2.5.1"
+    ],
+    [
+     {
+      "tex": "C_A = \\frac{m_A}{V_{\\text{mix}}}"
+     },
+     "Concentration of pollutant A: mass per volume of the mixture (18.1)",
+     "Kosky 18.3"
+    ],
+    [
+     {
+      "tex": "For water: 1 ppm = 1 mg/L; 1 ppb = 1 μg/L; 1 g/m³ = 1 mg/L = 1 ppm"
+     },
+     "Aqueous concentrations",
+     "Kosky 18.3.1"
+    ],
+    [
+     {
+      "tex": "For soil: 1 ppm = 1 mg/kg; 1 ppb = 1 μg/kg"
+     },
+     "Soil concentrations",
+     "Kosky 18.3.2"
+    ],
+    [
+     {
+      "tex": "Conc. (mg/m³) = Conc. (ppm) × M/24.45"
+     },
+     "Gas concentration conversion; M is the molar mass, g/mol (18.2a)",
+     "Kosky 18.3.3"
+    ],
+    [
+     {
+      "tex": "Conc. (ppm) = Conc. (mg/m³) × 24.45/M"
+     },
+     "Inverse conversion (18.2b)",
+     "Kosky 18.3.3"
+    ],
+    [
+     {
+      "tex": "(m)_{CV} = (m)_{in} - (m)_{out} + G"
+     },
+     "Mass balance: accumulation = input - output + generation (18.3a)",
+     "Kosky 18.4"
+    ],
+    [
+     {
+      "tex": "(\\dot{m})_{CV} = \\Sigma(\\dot{m})_{in} - \\Sigma(\\dot{m})_{out} + \\dot{G}"
+     },
+     "Rate form of the mass balance, ṁ = dm/dt (18.3b)",
+     "Kosky 18.4"
+    ],
+    [
+     {
+      "tex": "\\dot{m}_p = C_p \\cdot Q_f"
+     },
+     "Pollutant mass flow rate = concentration × volumetric flow rate (18.4)",
+     "Kosky 18.4"
+    ],
+    [
+     {
+      "tex": "0 = \\Sigma(C_pQ_f)_{in} - \\Sigma(C_pQ_f)_{out} + \\dot{G}_p"
+     },
+     "Pollutant balance with no accumulation (18.5); plus the auxiliary equation Ccarrier = 1.0",
+     "Kosky 18.4"
+    ],
+    [
+     {
+      "tex": "\\dot{m}_{LF} = 1000 - (0.25×1000 + 200) = 550\\,\\text{tons/day}"
+     },
+     "Transfer Center: 600 + 400 per day, 25% recycled, 200 to the incinerator",
+     "Lecture 3; Kosky 18.4"
+    ],
+    [
+     {
+      "tex": "405 ppm CO₂ = 405 × 44/24.45 = 729 mg/m³"
+     },
+     "CO₂ concentration conversion, M = 44 g/mol",
+     "Kosky 18.3"
+    ]
+   ]
+  },
+  "narr": [
+   "Now let's look at significant-figure rules and environmental calculations. Significant figures are crucial for maintaining precision in engineering calculations.",
+   "Rule 1 states that for addition and subtraction, the result should have no significant digits to the right of the decimal position of the least precise number.",
+   "Rule 2 says that for multiplication and division, the result should have no more significant figures than the least precise number.",
+   "Rule 3 is about rounding: a dropped digit from 0 to 4 leaves the preceding digit unchanged, while 5 to 9 increases it by 1.",
+   "Intermediate results should not be rounded; these rules only apply to the final answer.",
+   "We also have formulas for environmental calculations, including concentration definitions and conversions.",
+   "For water, one part per million equals one milligram per liter, and one part per billion equals one microgram per liter.",
+   "For soil, the relationships are similar but based on mass per mass rather than mass per volume.",
+   "Gas concentration conversions depend on the molar mass of the substance.",
+   "Mass balance equations are fundamental in environmental engineering, with both total mass and pollutant-specific forms.",
+   "These equations help track the flow of materials through systems, which is essential for designing pollution control systems.",
+   "Let's look at some examples of how these formulas are applied in practice."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Ranch Cost Calculation",
+   "problem": "A square ranch has a cost of $1000 per mile for fencing and $10,000 per square mile for land. The total cost is $320,000. What is the side length X of the ranch?",
+   "steps": [
+    {
+     "text": "Express the perimeter and area of the square ranch in terms of X"
+    },
+    {
+     "text": "Write the total cost equation based on perimeter and area costs"
+    },
+    {
+     "text": "Solve for X using the total cost of $320,000"
+    }
+   ],
+   "result": "The side length of the ranch is X = 1.6 miles"
+  },
+  "narr": [
+   "Let's work through an example involving ranch cost calculation. We have a square ranch with side length X, and we need to determine this length given the costs and total budget.",
+   "First, we express the perimeter and area of the square ranch in terms of X. The perimeter is 4X miles, and the area is X squared square miles.",
+   "Next, we write the total cost equation. The cost for fencing is $1000 per mile times the perimeter, and the cost for land is $10,000 per square mile times the area.",
+   "The total cost equation becomes 4000X + 10,000X² = 320,000 dollars.",
+   "Solving this quadratic equation, we find that X equals 1.6 miles.",
+   "This example demonstrates how to set up and solve engineering problems with multiple cost components."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Wire Stretch Calculation",
+   "problem": "A wire stretches 15.0 mm when a certain force is applied. If a second wire of the same material but 4.00 times longer is subjected to the same force, how much will it stretch?",
+   "steps": [
+    {
+     "text": "Recognize that wire stretch is proportional to length (Hooke's law)"
+    },
+    {
+     "text": "Set up the proportion between the two wires"
+    },
+    {
+     "text": "Calculate the stretch of the longer wire"
+    }
+   ],
+   "result": "The longer wire will stretch 30.0 mm"
+  },
+  "narr": [
+   "Now let's consider a problem about wire stretch. We have a wire that stretches 15.0 mm under a certain force, and we need to determine how much a longer wire of the same material will stretch under the same force.",
+   "First, we recognize that wire stretch is proportional to length according to Hooke's law.",
+   "We set up the proportion between the two wires: the ratio of stretches equals the ratio of lengths.",
+   "Given that the second wire is 4.00 times longer than the first, its stretch will be 4.00 times greater.",
+   "Calculating this, we find that the longer wire will stretch 30.0 mm.",
+   "This example illustrates the principle of proportionality in engineering mechanics."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Fuel Consumption Calculation",
+   "problem": "A rental car company tracks fuel consumption for different driving segments: city, suburban, and highway. Calculate the total fuel consumption and average miles per gallon for a trip with the following segments: 150 miles city at 20 mpg, 100 miles suburban at 30 mpg, and 200 miles highway at 40 mpg.",
+   "steps": [
+    {
+     "text": "Calculate fuel consumption for each segment using gallons = miles / mpg"
+    },
+    {
+     "text": "Sum the fuel consumption for all segments"
+    },
+    {
+     "text": "Calculate total miles driven"
+    },
+    {
+     "text": "Compute average miles per gallon for the entire trip"
+    }
+   ],
+   "result": "Total fuel consumption is 16.67 gallons; average mpg is 26.67"
+  },
+  "narr": [
+   "Let's look at a problem involving fuel consumption calculations for a rental car company. They track consumption across different driving segments.",
+   "First, we calculate fuel consumption for each segment using the formula gallons = miles divided by miles per gallon.",
+   "For the city segment: 150 miles divided by 20 mpg equals 7.5 gallons.",
+   "For the suburban segment: 100 miles divided by 30 mpg equals approximately 3.33 gallons.",
+   "For the highway segment: 200 miles divided by 40 mpg equals 5 gallons.",
+   "Next, we sum the fuel consumption for all segments: 7.5 + 3.33 + 5 = 15.83 gallons.",
+   "The total miles driven is 150 + 100 + 200 = 450 miles.",
+   "Finally, we compute the average miles per gallon for the entire trip: 450 miles divided by 15.83 gallons equals approximately 28.4 mpg.",
+   "This example demonstrates how to handle multiple segments with different efficiencies and compute overall performance metrics."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3
+  ]
+ }
+]

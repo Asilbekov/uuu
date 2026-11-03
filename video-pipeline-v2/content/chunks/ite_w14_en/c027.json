@@ -1,0 +1,390 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 1–4: Study Guide"
+  },
+  "narr": [
+   "Welcome to our study guide for Introduction to Engineering, covering weeks 1 through 4. Let's start by exploring some key formulas and examples that will be important for your understanding.",
+   "First, let's look at the manufacturer's speed characteristic formula, which models the speed of a vehicle over time."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Speed Characteristic Formula",
+   "tex": "mph = 136.5(1 - e^{-0.158t})",
+   "parts": [
+    {
+     "substr": "mph",
+     "color": "#4C5FD5",
+     "note": "miles per hour, the speed of the vehicle"
+    },
+    {
+     "substr": "t",
+     "color": "#B45309",
+     "note": "time in seconds"
+    },
+    {
+     "substr": "e^{-0.158t}",
+     "color": "#0E7C7B",
+     "note": "exponential decay term"
+    }
+   ]
+  },
+  "narr": [
+   "This formula gives us the speed in miles per hour as a function of time in seconds. The term 136.5 represents the maximum speed the vehicle can reach, while the exponential term shows how quickly the vehicle approaches this maximum speed.",
+   "This manufacturer's speed characteristic is useful for comparing theoretical predictions with actual measurements, as we'll see in the exercises."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Vehicle Weight and Fuel Efficiency",
+   "problem": "Calculate the fuel consumption and driving range of a car based on its weight.",
+   "steps": [
+    {
+     "text": "Calculate the geometric factor G using the formula G = W^(2/3), where W is the weight of the vehicle."
+    },
+    {
+     "text": "Determine the miles per gallon (mpg) using the formula mpg = 84500/W - 3.0"
+    },
+    {
+     "text": "Calculate the driving range by multiplying the available gallons of fuel by the mpg value."
+    }
+   ],
+   "result": "The driving range depends on the vehicle weight and available fuel, calculated as range = gallons × mpg"
+  },
+  "narr": [
+   "Let's work through an example related to vehicle weight and fuel efficiency. The problem asks us to calculate the fuel consumption and driving range of a car based on its weight.",
+   "First, we calculate the geometric factor G using the formula G equals W to the power of two-thirds, where W represents the vehicle weight.",
+   "Next, we determine the miles per gallon using the formula mpg equals 84500 divided by W minus 3.0.",
+   "Finally, we calculate the driving range by multiplying the available gallons of fuel by the mpg value we just calculated.",
+   "So the driving range depends on both the vehicle weight and the available fuel, calculated as range equals gallons times mpg."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Jumper's Elastic Cord Stretch",
+   "problem": "Calculate the stretch of a jumper's elastic cord given weight, stiffness, and length.",
+   "steps": [
+    {
+     "text": "Identify the given parameters: weight W in pounds-force, stiffness K in pounds-force per foot, and length L in feet."
+    },
+    {
+     "text": "Use the formula X = W/K + √(W²/K² + 2WL/K) to calculate the stretch."
+    },
+    {
+     "text": "In a spreadsheet implementation, this becomes X = W/K + sqrt(W^2/K^2 + 2*W*L/K)"
+    }
+   ],
+   "result": "The stretch X is calculated using the formula X = W/K + √(W²/K² + 2WL/K)"
+  },
+  "narr": [
+   "Now let's look at a problem involving the stretch of a jumper's elastic cord. We need to calculate how much the cord stretches given the jumper's weight, the cord's stiffness, and its length.",
+   "First, we identify our given parameters: the weight W in pounds-force, the stiffness K in pounds-force per foot, and the length L in feet.",
+   "Next, we use the formula X equals W divided by K plus the square root of the quantity W squared over K squared plus 2 times W times L over K.",
+   "When implementing this in a spreadsheet, the formula becomes X equals W divided by K plus the square root of W squared divided by K squared plus 2 times W times L divided by K.",
+   "The result gives us the stretch X of the elastic cord."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Car Operation Cost",
+   "problem": "Calculate the cost per mile of operating a car given annual price, miles driven, and gasoline price.",
+   "steps": [
+    {
+     "text": "Calculate the annual depreciation cost: 0.20/year × price/(miles per year)"
+    },
+    {
+     "text": "Calculate the annual fuel cost: (gasoline price) × (gallons/mile) × (miles per year)"
+    },
+    {
+     "text": "Divide the total annual cost by the annual miles driven to get cost per mile."
+    }
+   ],
+   "result": "Cost per mile = 0.20/year × price/(miles per year) + (gasoline price) × (gallons/mile)"
+  },
+  "narr": [
+   "Let's examine how to calculate the cost per mile of operating a car. This involves considering both depreciation and fuel costs.",
+   "First, we calculate the annual depreciation cost using 0.20 per year times the price divided by the miles driven per year.",
+   "Next, we calculate the annual fuel cost by multiplying the gasoline price by the gallons per mile and then by the miles driven per year.",
+   "Finally, we divide the total annual cost by the annual miles driven to get the cost per mile.",
+   "The resulting formula for cost per mile is 0.20 per year times price divided by miles per year plus the gasoline price times gallons per mile."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Calculation Relations from Kosky Chapter 2 Exercises",
+   "columns": [
+    "Formula",
+    "Application",
+    "Exercise Numbers"
+   ],
+   "rows": [
+    {
+     "tex": "mph = 136.5(1 - e^{-0.158t})",
+     "text": "Ex. 2.10"
+    },
+    {
+     "tex": "G = W^{2/3}; mpg = 84500/W - 3.0; range = gallons × mpg",
+     "text": "Ex. 17-19"
+    },
+    {
+     "tex": "X = W/K + \\sqrt{W^2/K^2 + 2WL/K}",
+     "text": "Ex. 20-23"
+    },
+    {
+     "tex": "Cost/mile = 0.20/year × price/(miles per year) + (gasoline price) × (gallons/mile)",
+     "text": "Ex. 24-26"
+    }
+   ]
+  },
+  "narr": [
+   "Here's a summary table of the calculation relations from the Kosky chapter 2 exercises. These models are relevant for weeks 2 through 4 of our course.",
+   "The first row shows the speed characteristic formula we discussed earlier, used in exercise 2.10.",
+   "The second row contains formulas related to vehicle weight, fuel consumption, and driving range, used in exercises 17 through 19.",
+   "The third row presents the formula for calculating the stretch of a jumper's elastic cord, used in exercises 20 through 23.",
+   "Finally, the fourth row shows the formula for calculating car operation cost per mile, used in exercises 24 through 26."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Method Reminder for All Formulas",
+   "bullets": [
+    "First, identify what you Need (what you're looking for and in what units)",
+    "Then, determine what you Know (what's given and what's known from experience)",
+    "Next, figure out How (which equation and which assumptions to use)",
+    "Finally, Solve — with a units check in square brackets and the correct number of significant figures"
+   ]
+  },
+  "narr": [
+   "Before we continue, let's review a method reminder for working with all formulas in this course.",
+   "First, identify what you Need - that is, what you're looking for and in what units.",
+   "Then, determine what you Know - what information is given and what's known from experience.",
+   "Next, figure out How - which equation to use and what assumptions are involved.",
+   "Finally, Solve the problem, making sure to include a units check in square brackets and use the correct number of significant figures in your answer."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Example 2.4 — Barbershop Calculation",
+   "problem": "Estimate the number of barbershops needed in a city based on population and haircut frequency.",
+   "steps": [
+    {
+     "text": "Calculate total annual haircuts: 30,000 men × 10 haircuts/year = 300,000 haircuts/year"
+    },
+    {
+     "text": "Convert to daily haircuts: 300,000 haircuts/year ÷ 300 days = 1,000 haircuts/day"
+    },
+    {
+     "text": "Calculate number of barbers needed: 1,000 haircuts/day ÷ 16 haircuts per day per barber = 62.5 barbers"
+    },
+    {
+     "text": "Calculate number of barbershops: 62.5 barbers ÷ 3 barbers per shop ≈ 21 barbershops"
+    }
+   ],
+   "result": "Approximately 21 barbershops needed (directory check shows 23, about 10% error)"
+  },
+  "narr": [
+   "Let's work through an example that demonstrates this method. Example 2.4 involves estimating the number of barbershops needed in a city.",
+   "First, we calculate the total annual haircuts: 30,000 men times 10 haircuts per year equals 300,000 haircuts per year.",
+   "Next, we convert this to daily haircuts by dividing by 300 working days, giving us 1,000 haircuts per day.",
+   "Then, we calculate the number of barbers needed by dividing daily haircuts by the number each barber can handle per day, assuming 16 haircuts per barber per day, which gives us 62.5 barbers.",
+   "Finally, we calculate the number of barbershops by dividing the number of barbers by 3 barbers per shop, resulting in approximately 21 barbershops.",
+   "A directory check shows 23 barbershops, meaning our estimate has an error of about 10%, which is acceptable for an order-of-magnitude estimate."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Rules for Engineering Practice",
+   "subtitle": "Every course rule in one checklist"
+  },
+  "narr": [
+   "Now let's move on to the rules section, which compiles every course rule into one checklist. We'll start with process and diagram rules, then cover problem statement and variable rules, and finish with rules of units, significant figures, and calculations."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Process and Diagram Rules",
+   "bullets": [
+    "The five rules of a readable PFD: one start; every path reaches an end; steps are 'verb + noun'; labels on all arrows; at every decision both outputs (Yes and No) lead somewhere; one level of detail per diagram",
+    "The five PFD symbols of the course: Start/End, Step, Decision, Flow, Wait/queue (dashed frame)",
+    "Three levels of detail: Level 0 black box (inputs/outputs), Level 1 main steps, Level 2 zoom in; choose the level to fit the question",
+    "Every arrow carries one of the five flow categories: materials, people, information, money, energy",
+    "The system boundary is drawn, not discovered: declare it, justify it, and keep it consistent; arrows crossing the boundary = inputs and outputs",
+    "A system is not a heap of parts: the parts must interact purposefully, transforming inputs into outputs"
+   ]
+  },
+  "narr": [
+   "Let's start with the process and diagram rules for creating readable PFDs, or Process Flow Diagrams.",
+   "First, there are five rules for a readable PFD: there must be one start point; every path must reach an end; steps should follow a 'verb + noun' format; all arrows must have labels; and at every decision point, both outputs (Yes and No) must lead somewhere. Additionally, each diagram should maintain only one level of detail.",
+   "The course uses five specific PFD symbols: Start/End, Step, Decision, Flow, and Wait/queue (shown with a dashed frame). Remember that sequence matters more than the particular set of symbols you use.",
+   "There are three levels of detail you can use: Level 0 is a black box showing only inputs and outputs; Level 1 shows the main steps; and Level 2 provides a zoom-in view of specific components. Choose the level that best fits the question you're trying to answer.",
+   "Every arrow in your diagram must represent one of five flow categories: materials, people, information, money, or energy. This helps clarify what's moving through your system.",
+   "The system boundary is something you draw, not something you discover. You need to declare it, justify it, and keep it consistent throughout your analysis. Arrows crossing this boundary represent inputs and outputs to your system.",
+   "Finally, remember that a system is not just a random collection of parts. The parts must interact purposefully, transforming inputs into outputs through their coordinated action."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Problem Statement and Variable Rules",
+   "bullets": [
+    "The solution-free test: a problem statement must not name a device, an application, a vehicle, or a building; otherwise rewrite it",
+    "Statement template: [Stakeholder] needs [outcome] in [system], judged by [measure], within [constraints]",
+    "The path: complaint (symptom) → need (what is required) → problem statement (what we are solving)",
+    "Sort what you hear: fact / inference / speculation / opinion; only facts and good inferences may anchor the statement; verify what you hear: hear → observe and measure → decide",
+    "A variable = a number + units; if you cannot picture a measurement, keep searching; a useful variable answers 'how much?/how many?'"
+   ]
+  },
+  "narr": [
+   "First, the solution-free test: your problem statement must not name a specific device, application, vehicle, or building. If it does, you need to rewrite it to be more general.",
+   "Use this statement template: [Stakeholder] needs [outcome] in [system], judged by [measure], within [constraints]. This structure helps ensure you're addressing the right problem.",
+   "Follow this path when developing a problem statement: start with a complaint or symptom, identify the underlying need, and then formulate the problem statement that defines what you're actually solving.",
+   "When gathering information, sort what you hear into categories: fact, inference, speculation, or opinion. Only facts and good inferences should anchor your problem statement. Always verify what you hear by observing, measuring, and then deciding.",
+   "Remember that a variable consists of a number plus units. If you can't picture how to measure something, keep searching for a better variable. A useful variable should answer 'how much?' or 'how many?'",
+   "Now let's explore the rules for creating effective problem statements and working with variables."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Problem Statement and Variable Rules (cont.)",
+   "bullets": [
+    "Three kinds of variables: performance (we are judged on it), design (the levers), context (the limits); at each PFD step — one variable with its unit",
+    "Specifications: each one is a D (demand) or a W (wish); do not turn a wish into a demand; numbers wherever possible, even rough ones; specifications are independent of the solution",
+    "A good performance measure: measurable, relevant, solution-free, concrete (units + target); beware of averages that hide long tails",
+    "Working definition of performance: [system] is judged by [variables with units and targets], through the eyes of [stakeholders]; write it down and keep the team consistent on it",
+    "Need-Know-How-Solve: write Need first; Know — what is known; How — the method and the assumptions before computing; Solve — compute, check the units, interpret"
+   ]
+  },
+  "narr": [
+   "There are three kinds of variables: performance variables (what you're judged on), design variables (the levers you can adjust), and context variables (the limits you must work within). At each PFD step, identify one variable with its corresponding unit.",
+   "Specifications are either D (demands) or W (wishes). Don't turn a wish into a demand. Include numbers wherever possible, even if they're rough estimates. Remember that specifications should be independent of your solution.",
+   "A good performance measure must be measurable, relevant, solution-free, and concrete (with units and a target). Be wary of averages that might hide important variations in your data.",
+   "Create a working definition of performance: [system] is judged by [variables with units and targets], through the eyes of [stakeholders]. Write this down and keep your team consistent on it.",
+   "Follow the Need-Know-How-Solve process: write down what you Need first; identify what you Know; determine How (the method and assumptions) before computing; and finally Solve (compute, check units, and interpret results)."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Rules of Units, Significant Figures, and Calculations",
+   "bullets": [
+    "An engineering calculation is right in four ways: variables, number, units, significant figures",
+    "Units in calculations: [in], [ft], [in/ft] — brackets on every quantity and factor; units cancel like fractions",
+    "Unit names are lowercase (newton); abbreviations derived from names are capitalized (N); no plurals (kg, not kgs); no period; two letters only to distinguish units (Wb vs W) and for prefixes (kW)",
+    "Significant-figure rules: sum/difference — by the decimal positions of the least precise number; product/quotient — by the number of significant figures of the least precise; rounding 0–4 down, 5–9 up; do not round intermediates",
+    "Check unit consistency across the whole system (the Mars Climate Orbiter lesson: pounds-force versus newtons cost the spacecraft)",
+    "Order-of-magnitude estimates (Fermi problems): honest rough assumptions → a corridor for the answer; a check within ~10% is already a success (21 vs 23 barbershops)"
+   ]
+  },
+  "narr": [
+   "Finally, let's cover the rules for working with units, significant figures, and calculations in engineering.",
+   "An engineering calculation must be correct in four ways: the variables used, the numerical values, the units, and the significant figures.",
+   "When performing calculations, always include units in brackets for every quantity and factor, such as [in], [ft], or [in/ft]. Remember that units cancel just like fractions in mathematical operations.",
+   "Follow these conventions for units: unit names are lowercase (newton), but abbreviations derived from names are capitalized (N); don't use plurals (kg, not kgs); don't include periods; use two letters only when needed to distinguish between units (like Wb vs W) or for prefixes (kW).",
+   "For significant figures, follow these rules: for sums and differences, use the decimal positions of the least precise number; for products and quotients, use the number of significant figures of the least precise value. Round 0-4 down and 5-9 up, but don't round intermediate values in multi-step calculations.",
+   "Always check unit consistency across your entire system. The Mars Climate Orbiter serves as a cautionary tale: the confusion between pounds-force and newtons cost the spacecraft.",
+   "For order-of-magnitude estimates, also known as Fermi problems, make honest rough assumptions to establish a corridor for your answer. A check within about 10% of the actual value is already a success, as we saw with our barbershop estimate of 21 versus the actual 23."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]
