@@ -1,0 +1,433 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Linear Algebra I — weeks 5–7",
+   "subtitle": "Questions · Formulas · Solutions"
+  },
+  "narr": [
+   "Let's dive into the fascinating world of linear algebra, focusing on elimination methods and matrix operations.",
+   "We'll explore how to solve systems of equations using Gaussian elimination, understand pivot elements, and learn about matrix factorizations.",
+   "Get ready for a journey through the concepts that form the backbone of linear algebra applications."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Solving a System with Elimination",
+   "problem": "Solve the system using Gaussian elimination with the augmented matrix:",
+   "steps": [
+    "Perform elimination operations to transform the matrix to row-echelon form",
+    "Identify the pivot elements: 2, 1, -5 (note that the second and third pivots come from updated equations)",
+    "Apply back substitution to find the solution"
+   ],
+   "result": "The solution is (x, y, z) = (1, 2, 3)",
+   "matrix": "\\begin{pmatrix} 2 & 1 & -1 & 1 \\\\ 4 & 3 & 1 & 13 \\\\ -2 & 1 & 2 & 6 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 2 & 1 & -1 & 1 \\\\ 0 & 1 & 3 & 11 \\\\ 0 & 2 & 1 & 7 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 2 & 1 & -1 & 1 \\\\ 0 & 1 & 3 & 11 \\\\ 0 & 0 & -5 & -15 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's look at our first system of equations, represented by this augmented matrix.",
+   "Our goal is to transform this matrix using row operations until we can easily read off the solution.",
+   "We start by eliminating the first column below the pivot element 2.",
+   "After our first elimination step, we have this matrix.",
+   "Next, we eliminate the second column below the pivot element 1.",
+   "This gives us our final row-echelon form with pivot elements 2, 1, and -5.",
+   "Now we can perform back substitution starting from the last equation: -5z = -15, so z = 3.",
+   "Substituting z into the second equation: y + 3(3) = 11, so y = 2.",
+   "Finally, substituting y and z into the first equation: 2x + 2 - 3 = 1, so x = 1.",
+   "The solution is (x, y, z) = (1, 2, 3), which we can verify by plugging back into the original equations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Elimination as Matrix Multiplication",
+   "problem": "Write the operations of Example 1 in terms of elimination matrices.",
+   "steps": [
+    "Identify the row operations used in Example 1",
+    "Construct elimination matrices for each operation",
+    "Verify that the product of elimination matrices transforms A to U"
+   ],
+   "result": "E32 · E31 · E21 · A = U and E32 · E31 · E21 · b = c",
+   "matrices": [
+    {
+     "name": "E21",
+     "tex": "\\begin{pmatrix} 1 & 0 & 0 \\\\ -2 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}",
+     "operation": "R2 ← R2 - 2R1"
+    },
+    {
+     "name": "E31",
+     "tex": "\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 1 \\end{pmatrix}",
+     "operation": "R3 ← R3 + R1"
+    },
+    {
+     "name": "E32",
+     "tex": "\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & -2 & 1 \\end{pmatrix}",
+     "operation": "R3 ← R3 - 2R2"
+    },
+    {
+     "name": "U",
+     "tex": "\\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 1 & 3 \\\\ 0 & 0 & -5 \\end{pmatrix}"
+    },
+    {
+     "name": "c",
+     "tex": "\\begin{pmatrix} 1 \\\\ 11 \\\\ -15 \\end{pmatrix}"
+    }
+   ]
+  },
+  "narr": [
+   "Now, let's represent our elimination operations as matrix multiplications.",
+   "For the operation R2 ← R2 - 2R1, we create the elimination matrix E21.",
+   "The second row of E21 · A equals -2 times row 1 of A plus row 2 of A.",
+   "For adding row 1 to row 3, we use E31.",
+   "For R3 ← R3 - 2R2, we use E32.",
+   "The complete elimination can be written as E32 · E31 · E21 · A = U and E32 · E31 · E21 · b = c.",
+   "Important to note: the rightmost operation acts first, and matrix multiplication is associative but not commutative.",
+   "This means the order of row operations matters, and we must be careful with the sequence."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Zero Pivot Element",
+   "problem": "Solve the system: y + z = 5, x + y + z = 6, 2x + 3y + 4z = 20",
+   "steps": [
+    "Set up the augmented matrix for the system",
+    "Notice the first pivot element is zero",
+    "Swap rows to get a non-zero pivot",
+    "Perform elimination operations",
+    "Apply back substitution to find the solution"
+   ],
+   "result": "The solution is (x, y, z) = (1, 2, 3)",
+   "matrix": "\\begin{pmatrix} 0 & 1 & 1 & 5 \\\\ 1 & 1 & 1 & 6 \\\\ 2 & 3 & 4 & 20 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 1 & 5 \\\\ 2 & 3 & 4 & 20 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 1 & 5 \\\\ 0 & 1 & 2 & 8 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 1 & 5 \\\\ 0 & 0 & 1 & 3 \\end{pmatrix}",
+   "permutation": "\\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "What happens when we encounter a zero in the pivot position?",
+   "Let's solve this system: y + z = 5, x + y + z = 6, 2x + 3y + 4z = 20.",
+   "First, we set up our augmented matrix.",
+   "We notice the first proposed pivot element is zero, which would prevent us from eliminating below it.",
+   "The solution is to swap rows to get a non-zero pivot. We swap rows 1 and 2 using this permutation matrix.",
+   "Now we can proceed with elimination: R3 ← R3 - 2R1 gives us (0, 1, 2 | 8).",
+   "Next, R3 ← R3 - R2 gives us (0, 0, 1 | 3).",
+   "Back substitution gives us z = 3, y = 2, x = 1.",
+   "A zero in the pivot position doesn't automatically mean no unique solution.",
+   "For numerical calculations, partial pivoting takes the largest available element in absolute value in the current column."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Determining the Number of Solutions",
+   "problem": "Consider the family: x + y + z = 6, 2x + 3y + 4z = 20, 3x + 4y + 5z = k. For which k are there no solutions, for which are there infinitely many?",
+   "steps": [
+    "Apply elimination operations to the system",
+    "Analyze the resulting equations",
+    "Determine conditions on k for different solution types"
+   ],
+   "result": "If k ≠ 26, there are no solutions. If k = 26, there are infinitely many solutions: (x, y, z) = (t-2, 8-2t, t), t ∈ ℝ",
+   "matrix": "\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & 3 & 4 & 20 \\\\ 3 & 4 & 5 & k \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 1 & 2 & k-18 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 0 & 0 & k-26 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's explore how many solutions a system can have depending on a parameter.",
+   "Consider this family of systems with parameter k.",
+   "We apply R2 ← R2 - 2R1 and R3 ← R3 - 3R1 to eliminate x from the second and third equations.",
+   "This gives us y + 2z = 8 and y + 2z = k - 18.",
+   "Subtracting equation 2 from equation 3, we get 0 = k - 26.",
+   "If k ≠ 26, we have a contradiction like 0 = 1 when k = 27, meaning no solutions.",
+   "If k = 26, the last equation becomes 0 = 0, which adds no constraints.",
+   "With free variable z = t, we have y = 8 - 2t and x = 6 - y - z = t - 2.",
+   "This gives infinitely many solutions parameterized by t.",
+   "For 3×3 systems: three pivots mean unique solution; a row [000|d] with d ≠ 0 means no solutions; fewer than three pivots without a contradictory row means infinitely many solutions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — LU-Factorization and Reuse",
+   "problem": "Write A = LU for the system of Example 1 and solve Lc = b, Ux = c.",
+   "steps": [
+    "Identify the multipliers from Example 1",
+    "Construct the L matrix with these multipliers",
+    "Verify that A = LU",
+    "Solve Lc = b using forward substitution",
+    "Solve Ux = c using back substitution"
+   ],
+   "result": "The solution is (x, y, z) = (1, 2, 3)",
+   "matrices": [
+    {
+     "name": "L",
+     "tex": "\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 2 & 1 \\end{pmatrix}"
+    },
+    {
+     "name": "U",
+     "tex": "\\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 1 & 3 \\\\ 0 & 0 & -5 \\end{pmatrix}"
+    },
+    {
+     "name": "c",
+     "tex": "\\begin{pmatrix} 1 \\\\ 11 \\\\ -15 \\end{pmatrix}"
+    }
+   ]
+  },
+  "narr": [
+   "Now let's explore LU-factorization, which is particularly useful when solving multiple systems with the same matrix A.",
+   "From Example 1, we have multipliers m21 = 2, m31 = -1, m32 = 2.",
+   "We place these multipliers under the diagonal to form L.",
+   "The signs in L are the multipliers themselves, while the elimination operations use their negatives.",
+   "We can verify that A = LU with this U matrix.",
+   "To solve Ax = b, we first solve Lc = b using forward substitution: c1 = 1, c2 = 11, c3 = -15.",
+   "Then we solve Ux = c using back substitution, which gives us (1, 2, 3).",
+   "The advantage appears when several systems have the same matrix A but different right-hand sides.",
+   "A is factored once, and L and U are reused for each different b.",
+   "If row exchanges are needed, the standard factorization is PA = LU."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6A — Solving a System with Elimination",
+   "problem": "Solve the system: x + y + z = 6, 2x + 3y + z = 11, x + 2y + 3z = 14",
+   "steps": [
+    "Set up the augmented matrix",
+    "Eliminate x from the second and third equations",
+    "Solve the resulting system",
+    "Verify the solution"
+   ],
+   "result": "The solution is (x, y, z) = (1, 2, 3)",
+   "matrix": "\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & 3 & 1 & 11 \\\\ 1 & 2 & 3 & 14 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & -1 & -1 \\\\ 0 & 1 & 2 & 8 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & -1 & -1 \\\\ 0 & 0 & 3 & 9 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's practice solving systems with elimination.",
+   "For system A: x + y + z = 6, 2x + 3y + z = 11, x + 2y + 3z = 14.",
+   "We eliminate x: R2 - 2R1 gives y - z = -1.",
+   "R3 - R1 gives y + 2z = 8.",
+   "Subtracting these equations: 3z = 9, so z = 3.",
+   "Then y = z - 1 = 2.",
+   "Finally, x = 6 - y - z = 1.",
+   "The solution is (1, 2, 3).",
+   "Let's verify: 1 + 2 + 3 = 6, 2(1) + 3(2) + 3 = 11, 1 + 2(2) + 3(3) = 14. All equations are satisfied."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6B — Solving a System with Zero Pivot",
+   "problem": "Solve the system: y + 2z = 8, x + y + z = 6, 2x + 3y + z = 11",
+   "steps": [
+    "Set up the augmented matrix",
+    "Notice the zero pivot element",
+    "Swap rows to get a non-zero pivot",
+    "Eliminate x from the third equation",
+    "Solve the resulting system",
+    "Verify the solution"
+   ],
+   "result": "The solution is (x, y, z) = (1, 2, 3)",
+   "matrix": "\\begin{pmatrix} 0 & 1 & 2 & 8 \\\\ 1 & 1 & 1 & 6 \\\\ 2 & 3 & 1 & 11 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 2 & 3 & 1 & 11 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 1 & -1 & -1 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 0 & -3 & -9 \\end{pmatrix}"
+  },
+  "narr": [
+   "Now for system B: y + 2z = 8, x + y + z = 6, 2x + 3y + z = 11.",
+   "We notice there's no x in the first equation, giving us a zero pivot element.",
+   "Before eliminating x, we swap the first two rows.",
+   "Now we can eliminate x: R3 - 2R1 gives y - z = -1.",
+   "With y + 2z = 8, subtraction gives 3z = 9, so z = 3.",
+   "Then y = 2, and x = 1.",
+   "The solution is (1, 2, 3).",
+   "Let's verify: y + 2z = 2 + 2(3) = 8, x + y + z = 1 + 2 + 3 = 6, 2x + 3y + z = 2 + 6 + 3 = 11. All equations are satisfied."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7C — Solution Families with Parameter",
+   "problem": "Determine for which k the system x + y + z = 6, 2x + 3y + 4z = 20, 3x + 4y + 5z = k has no solutions, and for which it has infinitely many.",
+   "steps": [
+    "Apply elimination to the system",
+    "Analyze the resulting equations",
+    "Determine conditions on k for different solution types"
+   ],
+   "result": "When k ≠ 26, there are no solutions. When k = 26, there are infinitely many solutions: (x, y, z) = (t-2, 8-2t, t), t ∈ ℝ. There is no value of k that gives a unique solution.",
+   "matrix": "\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & 3 & 4 & 20 \\\\ 3 & 4 & 5 & k \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 1 & 2 & k-18 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 0 & 0 & k-26 \\end{pmatrix}"
+  },
+  "narr": [
+   "This is similar to Problem 4, but now we're solving it as an exercise.",
+   "After elimination, the third equation reduces to 0 = k - 26.",
+   "When k ≠ 26, we have a contradiction, meaning no solutions.",
+   "When k = 26, the last equation becomes 0 = 0, which adds no constraints.",
+   "With free variable z = t, we have y = 8 - 2t and x = t - 2.",
+   "This gives infinitely many solutions parameterized by t.",
+   "Notice there's no value of k that gives a unique solution because the coefficient matrix has only two pivots.",
+   "This demonstrates how the structure of the coefficient matrix determines the possible solution types."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7D — Elimination Matrix Construction",
+   "problem": "Find the matrix of the operation R3 ← R3 - 4R1.",
+   "steps": [
+    "Understand what the operation does to the matrix",
+    "Construct the elimination matrix that performs this operation",
+    "Verify the matrix produces the correct transformation"
+   ],
+   "result": "The elimination matrix is E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{pmatrix}",
+   "explanation": "The third row of E · A equals (row 3 of A) - 4 · (row 1 of A), while the other rows remain unchanged."
+  },
+  "narr": [
+   "Now let's construct an elimination matrix for a specific row operation.",
+   "We want the matrix for R3 ← R3 - 4R1.",
+   "This operation changes only row 3, subtracting 4 times row 1 from it.",
+   "To construct the elimination matrix, we start with the identity matrix.",
+   "Then we modify the third row to represent the operation: -4 in the first column, 1 in the third column.",
+   "The resulting matrix E will transform any matrix A by performing this specific row operation.",
+   "When we multiply E by A, the third row of the product will be (row 3 of A) - 4 · (row 1 of A).",
+   "The other rows remain unchanged because they're the same as in the identity matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Inverse Matrix by Gauss-Jordan Method",
+   "problem": "Find the inverse matrix of A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 1 & 2 & 1 \\\\ 0 & 1 & 2 \\end{pmatrix} by adjoining the identity matrix and reducing the left part to the identity.",
+   "steps": [
+    "Set up the augmented matrix [A | I]",
+    "Apply row operations to reduce A to I",
+    "The right part will become A⁻¹",
+    "Verify that A · A⁻¹ = I"
+   ],
+   "result": "The inverse matrix is A⁻¹ = \\begin{pmatrix} 3 & -2 & 1 \\\\ -2 & 2 & -1 \\\\ 1 & -1 & 1 \\end{pmatrix}",
+   "matrix": "\\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 1 & 2 & 1 & 0 & 1 & 0 \\\\ 0 & 1 & 2 & 0 & 0 & 1 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 0 & 1 & 1 & -1 & 1 & 0 \\\\ 0 & 1 & 2 & 0 & 0 & 1 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 0 & 1 & 1 & -1 & 1 & 0 \\\\ 0 & 0 & 1 & 1 & -1 & 1 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 0 & 0 & 3 & -2 & 1 \\\\ 0 & 1 & 0 & -2 & 2 & -1 \\\\ 0 & 0 & 1 & 1 & -1 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Finally, let's find the inverse of a matrix using the Gauss-Jordan method.",
+   "To find the inverse of A, we adjoin the identity matrix and perform row operations.",
+   "Our goal is to transform the left part into the identity matrix.",
+   "As we do this, the right part will transform into A⁻¹.",
+   "Let's start with our augmented matrix [A | I].",
+   "First, we eliminate below the first pivot: R2 ← R2 - R1.",
+   "Next, we eliminate below the second pivot: R3 ← R3 - R2.",
+   "Now we have zeros below the diagonal.",
+   "Next, we eliminate above the diagonal: R1 ← R1 - R2 and R2 ← R2 - R3.",
+   "The left part is now the identity matrix, and the right part is our inverse.",
+   "We can verify that A · A⁻¹ equals the identity matrix.",
+   "This method is systematic and works for any invertible matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3,
+   3,
+   3
+  ]
+ }
+]

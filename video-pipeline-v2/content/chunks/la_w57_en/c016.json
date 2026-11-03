@@ -1,0 +1,758 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Permutation Matrices",
+   "subtitle": "Properties and Examples"
+  },
+  "narr": [
+   "Let's explore permutation matrices, which are special matrices used for row operations in linear algebra.",
+   "A permutation matrix is obtained by rearranging the rows or columns of an identity matrix.",
+   "The determinant of a permutation matrix is either +1 or -1, depending on whether the permutation is even or odd.",
+   "The inverse of a permutation matrix is equal to its transpose, which is a very convenient property.",
+   "Let's look at some specific examples of permutation matrices and their determinants."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "Identity Matrix",
+   "tex": "\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}",
+   "steps": []
+  },
+  "narr": [
+   "The identity matrix has a determinant of +1.",
+   "It represents the identity permutation where no rows are swapped."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P21 (swap rows 1, 2)",
+   "tex": "\\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}",
+   "steps": []
+  },
+  "narr": [
+   "This matrix swaps rows 1 and 2.",
+   "Its determinant is -1 because it's an odd permutation."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P32 (swap rows 2, 3)",
+   "tex": "\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}",
+   "steps": []
+  },
+  "narr": [
+   "This matrix swaps rows 2 and 3.",
+   "Its determinant is also -1 because it's an odd permutation."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P31 (swap rows 1, 3)",
+   "tex": "\\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}",
+   "steps": []
+  },
+  "narr": [
+   "This matrix swaps rows 1 and 3.",
+   "Its determinant is -1 because it's an odd permutation."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P32P21 (cyclic permutation)",
+   "tex": "\\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 0 & 0 \\end{pmatrix}",
+   "steps": []
+  },
+  "narr": [
+   "This is a cyclic permutation matrix.",
+   "Its determinant is +1 because it's an even permutation."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P21P32 (cyclic permutation)",
+   "tex": "\\begin{pmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}",
+   "steps": []
+  },
+  "narr": [
+   "This is another cyclic permutation matrix.",
+   "Its determinant is +1 because it's an even permutation."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P32P21 (cyclic permutation)",
+   "tex": "\\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 0 & 0 \\end{pmatrix}",
+   "steps": []
+  },
+  "narr": [
+   "This matrix represents the same cyclic permutation as before.",
+   "Its determinant is +1 because it's an even permutation."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Partial Pivoting",
+   "bullets": [
+    "If the pivot element is zero, rows are swapped",
+    "Taking in the current column the candidate with the largest absolute value",
+    "Swaps are recorded in P: PA = LU"
+   ]
+  },
+  "narr": [
+   "Let's discuss partial pivoting, a technique used in numerical linear algebra.",
+   "When solving systems of equations, we sometimes encounter a zero pivot element.",
+   "To avoid numerical instability, we swap rows to place the element with the largest absolute value in the pivot position.",
+   "These row swaps are recorded in a permutation matrix P, such that PA = LU, where L is lower triangular and U is upper triangular."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Partial Pivoting Example",
+   "problem": "Consider matrix A = [10^{-5} 1; 1 1]. Compare the multiplier without and with row swapping.",
+   "steps": [
+    "Without swap: multiplier is 1/(10^{-5}) = 10^5",
+    "After swap: multiplier is 10^{-5}/1 = 10^{-5}"
+   ],
+   "result": "The multiplier is much smaller after swapping, leading to better numerical stability."
+  },
+  "narr": [
+   "Let's look at an example to understand the importance of partial pivoting.",
+   "Consider this matrix where the first pivot is very small.",
+   "Without swapping rows, the multiplier for elimination would be very large, 10 to the power of 5.",
+   "After swapping rows, the multiplier becomes very small, 10 to the power of -5.",
+   "This dramatically improves numerical stability in computations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Vector Spaces",
+   "subtitle": "Definition and Examples"
+  },
+  "narr": [
+   "Now let's shift our focus to vector spaces, a fundamental concept in linear algebra.",
+   "A vector space over the real numbers is a set of vectors with addition and scalar multiplication operations.",
+   "These operations must satisfy certain axioms: existence of zero vector, opposite elements, associativity, distributivity, and more.",
+   "Vector spaces can be quite abstract - any object can be a 'vector' as long as these operations are defined."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Examples of Vector Spaces",
+   "bullets": [
+    "R^n (n-dimensional real coordinate space)",
+    "Real matrices of a given size",
+    "Polynomials",
+    "Continuous functions"
+   ]
+  },
+  "narr": [
+   "Let's look at some common examples of vector spaces.",
+   "The most familiar is R^n, the set of all n-dimensional real vectors.",
+   "The set of all real matrices of a given size forms a vector space.",
+   "Polynomials of any degree form a vector space.",
+   "Even the set of all continuous functions forms a vector space.",
+   "As you can see, the concept of a 'vector' is quite general in linear algebra."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Subspaces",
+   "subtitle": "Definition and Closure Testing"
+  },
+  "narr": [
+   "Now let's discuss subspaces, which are subsets of vector spaces that are themselves vector spaces.",
+   "A subset W of a vector space V is a subspace if and only if it contains the zero vector, is closed under vector addition, and is closed under scalar multiplication.",
+   "Equivalently, a non-empty subset W is a subspace if it's closed under linear combinations of any two vectors.",
+   "To test if a subset is a subspace, we need to check three conditions: the zero vector, vector addition, and scalar multiplication."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Subspace Testing",
+   "bullets": [
+    "Contains the zero vector",
+    "Closed under vector addition: u + v ∈ W for all u, v ∈ W",
+    "Closed under scalar multiplication: cu ∈ W for all u ∈ W, c ∈ R"
+   ]
+  },
+  "narr": [
+   "To determine if a subset is a subspace, we need to verify these three conditions.",
+   "First, the subset must contain the zero vector.",
+   "Second, it must be closed under vector addition - the sum of any two vectors in the subset must also be in the subset.",
+   "Third, it must be closed under scalar multiplication - any scalar multiple of a vector in the subset must also be in the subset.",
+   "If any of these conditions fails, the subset is not a subspace."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Subspace Examples",
+   "problem": "Determine which of the following are subspaces: (1) Line through origin W = {(t, 2t)}, (2) Shifted line S = {(x, y): y = 2x + 1}, (3) Plane through origin W = {(x, y, z): x + y + z = 0}",
+   "steps": [
+    "For W = {(t, 2t)}: contains (0,0), and for u = (s, 2s), v = (t, 2t), au + bv = (as + bt, 2(as + bt)) ∈ W",
+    "For S = {(x, y): y = 2x + 1}: does not contain (0,0), so not a subspace",
+    "For W = {(x, y, z): x + y + z = 0}: contains (0,0,0), and is closed under addition and scalar multiplication"
+   ],
+   "result": "The line through origin and the plane through origin are subspaces; the shifted line is not."
+  },
+  "narr": [
+   "Let's examine some examples to understand subspaces better.",
+   "First, consider a line through the origin defined by W = {(t, 2t)}.",
+   "This is a subspace because it contains the zero vector, and any linear combination of vectors in W remains in W.",
+   "Now consider a shifted line S = {(x, y): y = 2x + 1}.",
+   "This is NOT a subspace because it doesn't contain the zero vector.",
+   "Finally, consider a plane through the origin defined by W = {(x, y, z): x + y + z = 0}.",
+   "This is a subspace because it contains the zero vector and is closed under addition and scalar multiplication."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Geometric Subspaces in R^3",
+   "bullets": [
+    "{0} (the origin)",
+    "Lines through the origin",
+    "Planes through the origin",
+    "All of R^3"
+   ]
+  },
+  "narr": [
+   "In three-dimensional space R^3, the only possible subspaces are the origin itself, lines through the origin, planes through the origin, and the entire space R^3.",
+   "This is because subspaces must contain the origin and be closed under linear combinations.",
+   "A line not passing through the origin cannot be a subspace, as we saw in our previous example.",
+   "Similarly, a plane not passing through the origin cannot be a subspace."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Subspace Properties",
+   "bullets": [
+    "The intersection of two subspaces is a subspace",
+    "The union of two subspaces is not necessarily a subspace",
+    "Example: x and y axes in R^2 are subspaces, but their union is not"
+   ]
+  },
+  "narr": [
+   "Let's discuss some properties of subspaces.",
+   "The intersection of any two subspaces is always a subspace.",
+   "However, the union of two subspaces is not necessarily a subspace.",
+   "For example, consider the x-axis and y-axis in R^2. Both are subspaces, but their union is not because the sum of (1,0) and (0,1) is (1,1), which is not on either axis."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Function Spaces as Subspaces",
+   "bullets": [
+    "Symmetric 2×2 matrices form a subspace of all 2×2 matrices",
+    "Polynomials with p(0) = 0 form a subspace",
+    "Polynomials with p(0) = 1 do NOT form a subspace"
+   ]
+  },
+  "narr": [
+   "Subspaces aren't just limited to geometric examples.",
+   "The set of all symmetric 2×2 matrices forms a subspace of all 2×2 matrices.",
+   "Similarly, the set of all polynomials with p(0) = 0 forms a subspace.",
+   "However, the set of all polynomials with p(0) = 1 does NOT form a subspace because it doesn't contain the zero polynomial."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Linear Combinations and Spans",
+   "subtitle": "Column Space and Null Space"
+  },
+  "narr": [
+   "Now let's discuss linear combinations and spans, which are fundamental concepts in understanding vector spaces.",
+   "The linear span of a set of vectors is the set of all possible linear combinations of those vectors.",
+   "The span is always a subspace, as we'll see.",
+   "We'll also explore two important subspaces associated with a matrix: the column space and the null space."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Linear Span",
+   "bullets": [
+    "span{v₁, ..., vₖ} = c₁v₁ + ... + cₖvₖ : cᵢ ∈ R",
+    "The set of all linear combinations of given vectors",
+    "Always a subspace"
+   ]
+  },
+  "narr": [
+   "The linear span of a set of vectors is defined as all possible linear combinations of those vectors.",
+   "In other words, it's the set of all vectors that can be written as c₁v₁ + ... + cₖvₖ where cᵢ are real numbers.",
+   "The span is always a subspace because it's closed under addition and scalar multiplication.",
+   "If u = Σaᵢvᵢ and v = Σbᵢvᵢ, then su + tv = Σ(saᵢ + tbᵢ)vᵢ, which is again a linear combination."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Membership in a Span",
+   "problem": "Is (3, 5) in span{(1, 1), (1, -1)}?",
+   "steps": [
+    "Set up the system: c₁ + c₂ = 3, c₁ - c₂ = 5",
+    "Solve: c₁ = 4, c₂ = -1",
+    "Therefore, (3, 5) = 4(1, 1) - 1(1, -1)"
+   ],
+   "result": "Yes, (3, 5) is in the span of {(1, 1), (1, -1)} with coefficients 4 and -1."
+  },
+  "narr": [
+   "Let's look at an example to determine if a vector is in the span of other vectors.",
+   "We want to know if (3, 5) is in the span of {(1, 1), (1, -1)}.",
+   "This means we need to find coefficients c₁ and c₂ such that c₁(1, 1) + c₂(1, -1) = (3, 5).",
+   "Setting up the system of equations, we get c₁ + c₂ = 3 and c₁ - c₂ = 5.",
+   "Solving this system, we find c₁ = 4 and c₂ = -1.",
+   "Therefore, (3, 5) is indeed in the span, specifically as 4(1, 1) - 1(1, -1)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Column Space C(A)",
+   "bullets": [
+    "For matrix A = [a₁ a₂ ... aₙ], Ax = x₁a₁ + ... + xₙaₙ",
+    "C(A) = Col(A) = span{a₁, ..., aₙ}",
+    "The product Ax is a linear combination of columns of A",
+    "System Ax = b is solvable ⇔ b ∈ C(A)"
+   ]
+  },
+  "narr": [
+   "Now let's discuss the column space of a matrix.",
+   "For a matrix A with columns a₁, a₂, ..., aₙ, the product Ax is a linear combination of these columns.",
+   "The column space C(A) is defined as the span of the columns of A.",
+   "For an m × n matrix A, the column space is a subspace of R^m.",
+   "The system Ax = b has a solution if and only if b lies in the column space of A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Column Space Example",
+   "problem": "Find the column space of A = [1 2; 2 4; 0 0]",
+   "steps": [
+    "The columns are [1; 2; 0] and [2; 4; 0]",
+    "Notice that the second column is 2 times the first column",
+    "Therefore, the columns are linearly dependent",
+    "Col(A) = span{(1, 2, 0)} — a line in R^3"
+   ],
+   "result": "The column space is a one-dimensional subspace of R^3, specifically the line spanned by (1, 2, 0)."
+  },
+  "narr": [
+   "Let's find the column space of this matrix A.",
+   "The columns are [1; 2; 0] and [2; 4; 0].",
+   "Notice that the second column is exactly 2 times the first column.",
+   "This means the columns are linearly dependent.",
+   "Therefore, the column space is simply the span of the first column, which is the line in R^3 spanned by (1, 2, 0)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Null Space N(A)",
+   "bullets": [
+    "N(A) = Null(A) = {x : Ax = 0}",
+    "The set of solutions to the homogeneous system",
+    "Always a subspace of R^n"
+   ]
+  },
+  "narr": [
+   "Now let's discuss the null space of a matrix.",
+   "The null space N(A) is defined as the set of all vectors x such that Ax = 0.",
+   "This is the set of solutions to the homogeneous system of equations Ax = 0.",
+   "The null space is always a subspace of R^n, where n is the number of columns in A.",
+   "This is because if Au = 0 and Av = 0, then A(su + tv) = sAu + tAv = 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Null Space Example",
+   "problem": "Find the null space of A = [1 2]",
+   "steps": [
+    "Solve Ax = 0: x₁ + 2x₂ = 0",
+    "This gives x₁ = -2x₂",
+    "Therefore, any vector in the null space has the form (-2x₂, x₂) = x₂(-2, 1)",
+    "Null(A) = span{(-2, 1)} — a line"
+   ],
+   "result": "The null space is a one-dimensional subspace of R^2, specifically the line spanned by (-2, 1)."
+  },
+  "narr": [
+   "Let's find the null space of this matrix A = [1 2].",
+   "We need to solve the equation Ax = 0, which is x₁ + 2x₂ = 0.",
+   "This equation implies that x₁ = -2x₂.",
+   "Therefore, any vector in the null space has the form (-2x₂, x₂) = x₂(-2, 1).",
+   "This means the null space is the span of the vector (-2, 1), which is a line through the origin in R^2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Solution Sets of Linear Systems",
+   "bullets": [
+    "Solutions to Ax = 0 form a subspace (the null space)",
+    "Solutions to Ax = b (b ≠ 0) do NOT form a subspace (doesn't contain 0)",
+    "If Ax = b is solvable, its solutions are x = xₚ + xₙ, where xₚ is a particular solution and xₙ ∈ Null(A)"
+   ]
+  },
+  "narr": [
+   "Let's clarify the difference between solution sets of homogeneous and non-homogeneous systems.",
+   "The solution set of Ax = 0 is always a subspace - specifically, it's the null space.",
+   "However, the solution set of Ax = b for b ≠ 0 is NOT a subspace because it doesn't contain the zero vector.",
+   "If the system Ax = b is solvable, its general solution can be written as x = xₚ + xₙ, where xₚ is a particular solution and xₙ is any vector in the null space."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Matrix Transpose",
+   "subtitle": "Properties and Examples"
+  },
+  "narr": [
+   "Finally, let's discuss the transpose of a matrix, which is an important operation in linear algebra.",
+   "The transpose of a matrix A, denoted A^T, is obtained by swapping its rows and columns.",
+   "In other words, the (i,j)-th element of A^T is the (j,i)-th element of A.",
+   "The transpose has several important properties that we'll explore through examples."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Transpose of 2×2 Matrix",
+   "problem": "Compute A^T for A = [1 2; 3 4]",
+   "steps": [
+    "The transpose swaps rows and columns",
+    "(A^T)_{ij} = A_{ji}",
+    "Therefore, A^T = [1 3; 2 4]",
+    "Note that the diagonal elements remain unchanged"
+   ],
+   "result": "A^T = [1 3; 2 4]"
+  },
+  "narr": [
+   "Let's compute the transpose of this 2×2 matrix.",
+   "The transpose operation swaps the rows and columns of the matrix.",
+   "In other words, the element at position (i,j) in the transpose is the element at position (j,i) in the original matrix.",
+   "For our matrix, this means the first row becomes the first column, and the second row becomes the second column.",
+   "As a result, we get A^T = [1 3; 2 4].",
+   "Notice that the diagonal elements (1 and 4) remain in the same position."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Transposition of a Sum",
+   "problem": "Compute (A + B)^T for A = [1 0; 2 3], B = [2 1; 0 -1]",
+   "steps": [
+    "First, add the matrices: A + B = [3 1; 2 2]",
+    "Then transpose: (A + B)^T = [3 2; 1 2]",
+    "Check: A^T + B^T = [1 2; 0 3] + [2 0; 1 -1] = [3 2; 1 2]",
+    "This confirms that (A + B)^T = A^T + B^T"
+   ],
+   "result": "(A + B)^T = [3 2; 1 2]"
+  },
+  "narr": [
+   "Now let's look at the transpose of a sum of matrices.",
+   "First, we need to add the two matrices A and B.",
+   "Adding corresponding elements, we get A + B = [3 1; 2 2].",
+   "Now we take the transpose of this sum, which gives us [3 2; 1 2].",
+   "We can verify this by transposing each matrix first and then adding them.",
+   "Indeed, A^T + B^T = [1 2; 0 3] + [2 0; 1 -1] = [3 2; 1 2], which matches our result.",
+   "This demonstrates that the transpose of a sum is equal to the sum of the transposes."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Product A^T A",
+   "problem": "Find A^T A for A = [1 2; 0 1]",
+   "steps": [
+    "First, find A^T: A^T = [1 0; 2 1]",
+    "Now multiply A^T by A: [1 0; 2 1] · [1 2; 0 1]",
+    "Compute each element of the product",
+    "Result: A^T A = [1 2; 2 5]"
+   ],
+   "result": "A^T A = [1 2; 2 5], which is a symmetric matrix"
+  },
+  "narr": [
+   "Let's compute the product A^T A for this matrix.",
+   "First, we need to find the transpose of A, which is A^T = [1 0; 2 1].",
+   "Now we multiply A^T by A.",
+   "Computing each element of the product, we get [1 2; 2 5].",
+   "Notice that this result is a symmetric matrix, meaning it's equal to its own transpose.",
+   "In fact, the product A^T A is always symmetric for any matrix A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Transposition of a Product",
+   "problem": "Find (AB)^T for A = [1 1; 0 2], B = [2 0; 1 3]",
+   "steps": [
+    "First, compute AB: AB = [3 3; 2 6]",
+    "Then transpose: (AB)^T = [3 2; 3 6]",
+    "Check using the property (AB)^T = B^T A^T",
+    "Compute B^T A^T: [2 1; 0 3] · [1 0; 1 2] = [3 2; 3 6]",
+    "This confirms that (AB)^T = B^T A^T"
+   ],
+   "result": "(AB)^T = [3 2; 3 6]"
+  },
+  "narr": [
+   "Now let's look at the transpose of a product of matrices.",
+   "First, we need to compute the product AB.",
+   "Multiplying A by B, we get AB = [3 3; 2 6].",
+   "Now we take the transpose of this product, which gives us [3 2; 3 6].",
+   "We can verify this using the property that (AB)^T = B^T A^T.",
+   "Computing B^T A^T, we get [2 1; 0 3] · [1 0; 1 2] = [3 2; 3 6], which matches our result.",
+   "This demonstrates that when transposing a product, the order of the matrices is reversed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Checking Symmetry",
+   "problem": "Is the matrix A = [2 -3; -3 1] symmetric?",
+   "steps": [
+    "Compute A^T: A^T = [2 -3; -3 1]",
+    "Compare A and A^T",
+    "Notice that the off-diagonal elements are equal: A_{12} = A_{21} = -3",
+    "The diagonal elements remain unchanged under transposition"
+   ],
+   "result": "Yes, A is symmetric because A = A^T"
+  },
+  "narr": [
+   "Finally, let's check if a matrix is symmetric.",
+   "A matrix is symmetric if it's equal to its transpose.",
+   "For this matrix A = [2 -3; -3 1], we compute A^T = [2 -3; -3 1].",
+   "Comparing A and A^T, we see they are identical.",
+   "Specifically, the off-diagonal elements are equal: A_{12} = A_{21} = -3.",
+   "The diagonal elements (2 and 1) remain unchanged under transposition.",
+   "Therefore, this matrix is indeed symmetric."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ }
+]

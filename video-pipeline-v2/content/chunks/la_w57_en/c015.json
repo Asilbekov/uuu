@@ -1,0 +1,353 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Week 5-7",
+   "subtitle": "Matrix Inversion and Decomposition"
+  },
+  "narr": [
+   "Welcome to weeks 5 through 7 of Linear Algebra. Today we're diving into matrix inversion, transposes, permutations, and vector spaces.",
+   "Let's start with the fundamental concept of matrix inversion."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matrix Inversion Theory",
+   "bullets": [
+    "The inverse of an n×n matrix A is A⁻¹ such that AA⁻¹ = A⁻¹A = I",
+    "Each elementary row operation is equivalent to left multiplication by an elementary matrix",
+    "If Ek···E₂E₁A = I, then A⁻¹ = Ek···E₂E₁",
+    "The same operations applied to I give A⁻¹: [A|I] → [I|A⁻¹]",
+    "Each operation acts on the entire augmented row"
+   ]
+  },
+  "narr": [
+   "The inverse of a matrix A, denoted A⁻¹, is a special matrix that when multiplied by A gives the identity matrix I.",
+   "Here's a key insight: each elementary row operation can be represented as multiplication by an elementary matrix.",
+   "If we can find a sequence of elementary matrices that transforms A into I, then the product of these matrices in reverse order gives us A⁻¹.",
+   "This leads to a practical method: we augment A with the identity matrix I and perform row operations until A becomes I.",
+   "At that point, the right side of our augmented matrix will be A⁻¹.",
+   "Remember that each row operation must be applied to the entire augmented row, maintaining the relationship between A and I."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Finding a Matrix Inverse",
+   "problem": "Find the inverse of matrix A using the Gauss-Jordan elimination method.",
+   "steps": [
+    "Start with the augmented matrix [A|I]",
+    "Eliminate under the first pivot: R₂ ← R₂ - R₁",
+    "Eliminate under the second pivot: R₃ ← R₃ - R₂",
+    "Eliminate above the third pivot: R₂ ← R₂ - R₃",
+    "Eliminate above the second pivot: R₁ ← R₁ - R₂"
+   ],
+   "result": "A⁻¹ = \\begin{pmatrix} 3 & -2 & 1 \\\\ -2 & 2 & -1 \\\\ 1 & -1 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's work through an example of finding a matrix inverse step by step.",
+   "We start with the augmented matrix [A|I], where A is our original matrix and I is the identity matrix.",
+   "First, we eliminate under the first pivot by subtracting row 1 from row 2.",
+   "Next, we eliminate under the second pivot by subtracting row 2 from row 3.",
+   "Then, we eliminate above the third pivot by subtracting row 3 from row 2.",
+   "Finally, we eliminate above the second pivot by subtracting row 2 from row 1.",
+   "Now the left part has become the identity matrix, so the right part is our inverse A⁻¹."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — When a Matrix Has No Inverse",
+   "problem": "Show that the matrix [1 2; 2 4] has no inverse.",
+   "steps": [
+    "Set up the augmented matrix [A|I]",
+    "Apply R₂ ← R₂ - 2R₁",
+    "Observe that a row of zeros appears in the left block"
+   ],
+   "result": "The matrix is singular (degenerate) and has no inverse."
+  },
+  "narr": [
+   "Not all matrices have inverses. Let's see what happens when we try to find the inverse of a singular matrix.",
+   "We set up our augmented matrix [A|I] as usual.",
+   "We perform the row operation R₂ ← R₂ - 2R₁ to eliminate under the first pivot.",
+   "Notice that a row of zeros appears in the left block of our augmented matrix.",
+   "This means we don't have enough pivots to form the identity matrix, so the matrix is singular and has no inverse.",
+   "This is an important distinction: Gaussian elimination stops at an upper triangular matrix, while Gauss-Jordan continues until each pivot is 1 and all elements above and below each pivot are zero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "Week 7",
+   "subtitle": "Transposes, Permutations and Vector Spaces"
+  },
+  "narr": [
+   "Moving on to week 7, we'll explore transposes, permutations, and vector spaces."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Review of Week 6: LU Factorization",
+   "bullets": [
+    "Gaussian elimination gives Ek···E₁A = U",
+    "Without row exchanges, elimination factors combine into L (lower triangular with ones on diagonal)",
+    "A = LU",
+    "Factoring out pivots gives A = LDŪ (D = diagonal of pivots, Ū = upper triangular with ones on diagonal)",
+    "When exchanging rows: PA = LU"
+   ]
+  },
+  "narr": [
+   "Before diving into new material, let's briefly review LU factorization from week 6.",
+   "Gaussian elimination transforms matrix A into upper triangular form U through a series of elementary operations.",
+   "When no row exchanges are needed, these elimination operations can be represented as multiplication by a lower triangular matrix L with ones on the diagonal.",
+   "This gives us the factorization A = LU.",
+   "We can further factor out the pivots to get A = LDŪ, where D contains the pivots and Ū is upper triangular with ones on the diagonal.",
+   "When row exchanges are necessary, we introduce a permutation matrix P such that PA = LU."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — LU Factorization Example",
+   "problem": "Find the LU factorization of A = [2 1; 4 5]",
+   "steps": [
+    "Apply Gaussian elimination: R₂ ← R₂ - 2R₁",
+    "Resulting U = [2 1; 0 3]",
+    "The elimination matrix gives L = [1 0; 2 1]"
+   ],
+   "result": "A = LU where L = [1 0; 2 1] and U = [2 1; 0 3]"
+  },
+  "narr": [
+   "Let's look at a concrete example of LU factorization.",
+   "Starting with matrix A = [2 1; 4 5], we perform Gaussian elimination.",
+   "The operation R₂ ← R₂ - 2R₁ transforms A into upper triangular form U = [2 1; 0 3].",
+   "The elimination matrix that represents this operation is L = [1 0; 2 1].",
+   "We can verify that A = LU with these matrices."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Transposition: Definition and Properties",
+   "bullets": [
+    "If A is an m×n matrix, then Aᵀ has size n×m and elements (Aᵀ)ᵢⱼ = aⱼᵢ",
+    "(Aᵀ)ᵀ = A",
+    "(A + B)ᵀ = Aᵀ + Bᵀ",
+    "(cA)ᵀ = cAᵀ",
+    "(AB)ᵀ = BᵀAᵀ (order of factors is reversed)",
+    "(A⁻¹)ᵀ = (Aᵀ)⁻¹ (for invertible A)"
+   ]
+  },
+  "narr": [
+   "Now let's explore matrix transposition, which flips a matrix over its diagonal.",
+   "If A is an m×n matrix, then its transpose Aᵀ is an n×m matrix where the rows and columns are swapped.",
+   "Some basic properties: the transpose of a transpose returns the original matrix.",
+   "The transpose of a sum is the sum of transposes.",
+   "The transpose of a scalar multiple is the scalar multiple of the transpose.",
+   "For matrix multiplication, the order of factors is reversed in the transpose.",
+   "For invertible matrices, the transpose of the inverse equals the inverse of the transpose."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Matrix Transpose Example",
+   "problem": "Find the transpose of A = [1 2 3; 4 5 6]",
+   "steps": [
+    "Swap rows and columns of A",
+    "The first row of A becomes the first column of Aᵀ",
+    "The second row of A becomes the second column of Aᵀ"
+   ],
+   "result": "Aᵀ = \\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's see how transposition works with an example.",
+   "Take matrix A = [1 2 3; 4 5 6], which is a 2×3 matrix.",
+   "To find its transpose, we swap rows and columns.",
+   "The first row of A becomes the first column of Aᵀ.",
+   "The second row of A becomes the second column of Aᵀ.",
+   "The result is a 3×2 matrix Aᵀ."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Symmetric and Skew-Symmetric Matrices",
+   "bullets": [
+    "A matrix S is symmetric if Sᵀ = S (sᵢⱼ = sⱼᵢ)",
+    "A matrix K is skew-symmetric if Kᵀ = -K",
+    "For skew-symmetric matrices, diagonal elements are zero (kᵢᵢ = 0)",
+    "Any square matrix A can be decomposed as A = S + K where S = (A + Aᵀ)/2 is symmetric and K = (A - Aᵀ)/2 is skew-symmetric"
+   ]
+  },
+  "narr": [
+   "Two special types of matrices are symmetric and skew-symmetric matrices.",
+   "A symmetric matrix equals its own transpose, meaning sᵢⱼ = sⱼᵢ for all elements.",
+   "A skew-symmetric matrix equals the negative of its transpose, which forces all diagonal elements to be zero.",
+   "Any square matrix can be decomposed into a sum of a symmetric and a skew-symmetric matrix.",
+   "The symmetric part is (A + Aᵀ)/2 and the skew-symmetric part is (A - Aᵀ)/2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Symmetric and Skew-Symmetric Decomposition",
+   "problem": "Decompose A = [1 4; 2 3] into symmetric and skew-symmetric parts.",
+   "steps": [
+    "Calculate S = (A + Aᵀ)/2",
+    "Calculate K = (A - Aᵀ)/2",
+    "Verify that S + K = A"
+   ],
+   "result": "S = [1 3; 3 3] (symmetric), K = [0 1; -1 0] (skew-symmetric)"
+  },
+  "narr": [
+   "Let's decompose a specific matrix into its symmetric and skew-symmetric parts.",
+   "For matrix A = [1 4; 2 3], first we calculate Aᵀ = [1 2; 4 3].",
+   "The symmetric part S = (A + Aᵀ)/2 = [1 3; 3 3].",
+   "The skew-symmetric part K = (A - Aᵀ)/2 = [0 1; -1 0].",
+   "We can verify that S + K = A, confirming our decomposition is correct."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Product AᵀA and Permutation Matrices",
+   "bullets": [
+    "(AᵀA)ᵀ = AᵀA (AᵀA is always symmetric)",
+    "xᵀAᵀAx = (Ax)ᵀ(Ax) = ||Ax||² ≥ 0 for any x",
+    "Permutation matrices are obtained by permuting rows of the identity matrix",
+    "PᵀP = I, so P⁻¹ = Pᵀ",
+    "Left multiplication by P permutes rows of A",
+    "Right multiplication by P permutes columns of A",
+    "Consequences: ||Px|| = ||x||, det P = ±1"
+   ]
+  },
+  "narr": [
+   "Let's explore some important products involving transposes.",
+   "The product AᵀA is always symmetric, which follows from the general property (AB)ᵀ = BᵀAᵀ.",
+   "For any vector x, the quadratic form xᵀAᵀAx equals the squared norm of Ax, which is always non-negative.",
+   "Permutation matrices are special matrices obtained by rearranging the rows of the identity matrix.",
+   "A key property of permutation matrices is that PᵀP = I, meaning P⁻¹ = Pᵀ.",
+   "Left multiplication by P permutes the rows of a matrix, while right multiplication permutes the columns.",
+   "Consequences of this property include that permutation matrices preserve vector norms and have determinants of ±1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Permutation Matrix Example",
+   "problem": "Find the product PA where P is a permutation matrix and A = [1 2 3; 4 5 6].",
+   "steps": [
+    "Define permutation matrix P that cycles rows",
+    "Multiply P by A (left multiplication permutes rows)",
+    "Observe how rows of A are rearranged"
+   ],
+   "result": "PA = \\begin{pmatrix} 3 & 4 & 5 & 6 \\\\ 1 & 2 & 3 \\end{pmatrix}"
+  },
+  "narr": [
+   "Let's see permutation matrices in action.",
+   "Take matrix A = [1 2 3; 4 5 6] and permutation matrix P that cycles the rows.",
+   "When we multiply P by A (left multiplication), the rows of A are permuted.",
+   "Specifically, the first row of A becomes the second row of PA, and the second row of A becomes the first row of PA.",
+   "This demonstrates how left multiplication by a permutation matrix rearranges the rows of a matrix."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ }
+]
