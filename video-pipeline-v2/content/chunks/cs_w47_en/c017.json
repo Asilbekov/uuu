@@ -1,0 +1,632 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Pointers and Memory",
+   "subtitle": "Understanding C's memory model and pointer operations"
+  },
+  "narr": [
+   "Let's dive into the fascinating world of pointers in C. These are fundamental to understanding how memory works in your programs.",
+   "We'll start with a common question that puzzles many beginners: why doesn't a simple swap function work as expected?"
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S5 — Why doesn't swap(int a, int b) change x and y in main?",
+   "problem": "Consider the following code: void swap(int a, int b) { int temp = a; a = b; b = temp; } int main() { int x = 5, y = 7; swap(x, y); printf(\"x = %d, y = %d\", x, y); } Why doesn't x and y get swapped after calling swap?",
+   "steps": [
+    "C passes arguments by value, creating copies of the variables",
+    "The swap function modifies its own local copies, not the original variables",
+    "The original variables in main remain unchanged"
+   ],
+   "result": "Variables x and y remain unchanged (x=5, y=7) because swap only modifies its own local copies."
+  },
+  "narr": [
+   "The answer lies in how C passes function arguments.",
+   "When you call swap(x, y), C creates copies of x and y, not references to them.",
+   "The swap function then swaps these copies, leaving the original variables untouched.",
+   "To fix this, we need to use pointers to modify the original variables directly."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S5 (Fixed) — How to implement a proper swap function",
+   "problem": "Implement a swap function that actually swaps the values of two variables in main.",
+   "steps": [
+    "Use pointers to access the memory addresses of the variables",
+    "Declare the function as void swap(int *x, int *y)",
+    "Use dereferencing to access and modify the values at those addresses",
+    "Call the function with addresses: swap(&a, &b)"
+   ],
+   "result": "Fixed code: void swap(int *x, int *y) { int temp = *x; *x = *y; *y = temp; } int main() { int a = 5, b = 7; swap(&a, &b); } After swap, a = 7, b = 5."
+  },
+  "narr": [
+   "The fix involves using pointers to directly access the memory locations of our variables.",
+   "We declare the function to accept pointers to integers, not integers themselves.",
+   "Inside the function, we use the dereference operator * to access and modify the values at those addresses.",
+   "When calling the function, we use the address-of operator & to pass the memory locations.",
+   "Now, the swap function modifies the actual variables in main, successfully swapping their values."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S6 — Understanding pointer arithmetic",
+   "problem": "If pa is a pointer to an array, what does pa + i give and why is it not simple addition of numbers?",
+   "steps": [
+    "Pointer arithmetic is scaled by the size of the data type",
+    "For an int array, each increment moves the pointer by sizeof(int) bytes",
+    "On a 64-bit platform, sizeof(int) is typically 4 bytes",
+    "So pa + i points to arr[i], not pa + i bytes"
+   ],
+   "result": "pa + i points to arr[i] because pointer arithmetic is scaled by the element size (4 bytes for int on 64-bit systems)."
+  },
+  "narr": [
+   "Pointer arithmetic works differently than regular arithmetic, which often confuses newcomers.",
+   "When you add an integer to a pointer, it's not simply adding that number of bytes.",
+   "Instead, the pointer moves forward by i multiplied by the size of the data type it points to.",
+   "For an int pointer on a 64-bit system, each increment moves the pointer by 4 bytes.",
+   "This means pa + i actually points to arr[i], not pa + i bytes from the original address."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S7 — Calculating addresses with different pointer types",
+   "problem": "If arr[0] has address 100 (an int array), what is the address of arr[3]? And with char pc = (char *)pa, what i gives (int *)(pc + i) == pa + 3?",
+   "steps": [
+    "arr[3] is 3 elements after arr[0]",
+    "Each int element takes 4 bytes on a 64-bit platform",
+    "So arr[3] is at address 100 + 3 × 4 = 112",
+    "For char pointer, each increment moves by 1 byte",
+    "To get the same address as pa + 3, we need i = 12 (3 ints × 4 bytes = 12 bytes)"
+   ],
+   "result": "arr[3] has address 112. For char pointer, i = 12 gives (int *)(pc + 12) == pa + 3."
+  },
+  "narr": [
+   "Let's calculate some addresses with different pointer types.",
+   "If our int array starts at address 100, arr[3] would be at 100 plus 3 times the size of an int.",
+   "Since ints are typically 4 bytes on a 64-bit system, that's 100 + 3 × 4 = 112.",
+   "Now, if we cast this pointer to a char pointer, each increment moves by just 1 byte.",
+   "To reach the same address as pa + 3, we'd need to move 12 bytes (3 ints × 4 bytes each).",
+   "So i = 12 gives us (int *)(pc + 12) == pa + 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "String Functions",
+   "subtitle": "Common operations and functions in string.h"
+  },
+  "narr": [
+   "Now let's explore the essential string functions available in C's string.h library.",
+   "These functions help us manipulate strings efficiently without having to implement everything from scratch."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Common String Functions in string.h",
+   "bullets": [
+    "Copying: strcpy(strto, strfrom), strncpy(strto, strfrom, n)",
+    "Comparison: strcmp(str1, str2) — returns 0 for equality, > 0 if str1 > str2, < 0 if str1 < str2; strncmp — first n characters",
+    "Length: strlen(str)",
+    "Concatenation: strcat, strncat",
+    "Character search: strchr — first occurrence, strrchr — last (NULL if not found)"
+   ]
+  },
+  "narr": [
+   "The string.h library provides several useful functions for string manipulation.",
+   "For copying strings, we have strcpy for complete copies and strncpy for copying up to n characters.",
+   "When comparing strings, strcmp returns zero if they're equal, positive if the first is greater, and negative if the first is smaller.",
+   "To get the length of a string, we use strlen.",
+   "For concatenation, we have strcat and strncat which appends one string to another.",
+   "Finally, strchr finds the first occurrence of a character, while strrchr finds the last occurrence."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "Algorithms and Complexity",
+   "subtitle": "Understanding algorithmic efficiency"
+  },
+  "narr": [
+   "Now let's turn our attention to algorithms and their time complexities.",
+   "Understanding how algorithms perform with different input sizes is crucial for writing efficient programs."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S9 — Algorithm complexities",
+   "problem": "Name the complexities of the four algorithms from lecture 7.",
+   "steps": [
+    "Insertion sort — O(n²) in worst and average cases",
+    "Quicksort — O(n log n) on average, O(n²) in worst case",
+    "Linear search — O(n) in worst case, O(n/2) on average",
+    "Binary search — O(log n) on average and in worst case"
+   ],
+   "result": "Insertion sort: O(n²). Quicksort: O(n log n) average, O(n²) worst. Linear search: O(n) worst, O(n/2) average. Binary search: O(log n) average and worst."
+  },
+  "narr": [
+   "Let's review the time complexities of some fundamental algorithms.",
+   "Insertion sort has a quadratic time complexity of O(n²) in both worst and average cases.",
+   "Quicksort is more efficient with O(n log n) on average, but can degrade to O(n²) in the worst case.",
+   "Linear search has linear time complexity, visiting each element once, so O(n) in the worst case.",
+   "Binary search is much more efficient with logarithmic time complexity of O(log n), but requires sorted data."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 8,
+   "title": "Recursion",
+   "subtitle": "Understanding recursive algorithms"
+  },
+  "narr": [
+   "Recursion is a powerful programming technique where a function calls itself.",
+   "It's essential to understand the three key ingredients of recursion to avoid common pitfalls."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Three Ingredients of Recursion",
+   "bullets": [
+    "Base case — the answer without another call (n == 0)",
+    "Smaller problem — the same function on a simpler input (countdown(n - 1))",
+    "Progress — every valid recursive path approaches the base case (3, 2, 1, 0)"
+   ]
+  },
+  "narr": [
+   "Every proper recursive function must have three essential ingredients.",
+   "First, a base case that stops the recursion without making another call.",
+   "Second, a way to reduce the problem to a smaller instance of itself.",
+   "Third, assurance that every recursive path progresses toward the base case."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S11 — Understanding recursion output order",
+   "problem": "What does countdown(3) and countup(3) print and why is the output different?",
+   "steps": [
+    "countdown(3) prints 3 2 1",
+    "countup(3) prints 1 2 3",
+    "In countdown, print comes before the recursive call",
+    "In countup, print comes after the recursive call",
+    "countdown executes on the way down, countup on the way back"
+   ],
+   "result": "countdown(3) prints 3 2 1. countup(3) prints 1 2 3. The order differs because of when the print statement executes relative to the recursive call."
+  },
+  "narr": [
+   "Let's examine how recursion affects the order of operations.",
+   "Consider countdown(3): it prints 3, then calls countdown(2), which prints 2, then calls countdown(1), which prints 1.",
+   "Now consider countup(3): it calls countup(2), which calls countup(1), which calls countup(0), then returns and prints 1, then 2, then 3.",
+   "The key difference is when the print statement executes relative to the recursive call.",
+   "In countdown, print happens before the recursive call, so we see values on the way down.",
+   "In countup, print happens after the recursive call, so we see values on the way back up."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S12 — Avoiding infinite recursion",
+   "problem": "Why does countdown with a recursive call countdown(n) loop infinitely and how to fix it?",
+   "steps": [
+    "Each call gets the same n value, never reaching the base case",
+    "The function prints n, then calls itself with the same n",
+    "This creates an infinite loop: 3, 3, 3, 3, ...",
+    "Having a base case isn't enough; every path must make progress",
+    "Fix: change the recursive call to countdown(n - 1)"
+   ],
+   "result": "The infinite loop occurs because each call passes the same n, never reaching the base case. Fix: use countdown(n - 1) in the recursive call."
+  },
+  "narr": [
+   "Recursion can be tricky, and it's easy to create infinite loops by mistake.",
+   "Consider a countdown function that calls itself with the same n value.",
+   "Each call gets identical input, so the base case is never reached.",
+   "The function keeps printing the same value and calling itself forever.",
+   "Remember: having a base case in your code isn't enough; every recursive path must actually reach it.",
+   "The fix is simple: ensure each recursive call progresses toward the base case by decrementing n."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S13 — Understanding redundant recursive calls",
+   "problem": "What does fibonacci(4) return and why does fibonacci(2) appear twice?",
+   "steps": [
+    "fibonacci(4) returns 3",
+    "The call tree contains nine calls: 4, 3, 2, 1, 0, 1, 2, 1, 0",
+    "Both fibonacci(2) subtrees compute the same answer independently",
+    "The second branch doesn't remember the first's result",
+    "Simple recursion repeats work without memoization"
+   ],
+   "result": "fibonacci(4) returns 3. fibonacci(2) appears twice because the simple recursive implementation repeats the same computation without storing results."
+  },
+  "narr": [
+   "Let's look at the Fibonacci sequence to understand a common issue with recursion.",
+   "Fibonacci(4) returns 3, but the computation involves many redundant calls.",
+   "The call tree shows that fibonacci(2) is computed twice independently.",
+   "This happens because each recursive branch doesn't remember previous computations.",
+   "In the simple recursive implementation, we repeat work that could be memoized.",
+   "This inefficiency becomes much more pronounced with larger inputs."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S14 — Tower of Hanoi",
+   "problem": "Name the three recursive steps and the total number of moves for three disks.",
+   "steps": [
+    "Move 2 disks from A to B using C — 3 moves",
+    "Move disk 3 from A to C — 1 move",
+    "Move 2 disks from B to C using A — 3 moves",
+    "Total moves: 3 + 1 + 3 = 7",
+    "Base case: no disks — no moves (n == 0)",
+    "Rules: one disk at a time, only the top disk, never a larger on a smaller"
+   ],
+   "result": "Three recursive steps: (1) Move 2 disks from A to B using C, (2) Move disk 3 from A to C, (3) Move 2 disks from B to C using A. Total 7 moves for 3 disks."
+  },
+  "narr": [
+   "The Tower of Hanoi is a classic recursive problem that demonstrates how complex problems can be broken down.",
+   "For three disks, we need three recursive steps.",
+   "First, we move the top two disks from the source peg to an auxiliary peg.",
+   "Second, we move the largest disk from the source to the destination peg.",
+   "Third, we move the two disks from the auxiliary peg to the destination peg.",
+   "The total number of moves is 7, which follows the pattern of 2^n - 1.",
+   "The base case is when there are no disks to move, requiring zero moves."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 9,
+   "title": "Week 7 Tests",
+   "subtitle": "Review questions on pointers and memory"
+  },
+  "narr": [
+   "Let's test our understanding with some review questions on pointers and memory management.",
+   "These questions cover key concepts we've discussed in this section."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T1 — Understanding the & operator",
+   "problem": "What does the & operator do when applied to a variable?",
+   "steps": [
+    "The & operator returns the memory address of a variable",
+    "It's called the address-of operator",
+    "Used to get pointers to variables",
+    "Contrast with * which dereferences a pointer"
+   ],
+   "result": "a) returns the address of the variable"
+  },
+  "narr": [
+   "Let's start with a fundamental question about the & operator.",
+   "This operator is essential for working with pointers in C.",
+   "When you apply & to a variable, you get its memory address.",
+   "This is how we create pointers to variables.",
+   "Remember that & is the address-of operator, while * is the dereference operator."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T2 — Pointer types",
+   "problem": "What type does the expression &n have if int n;?",
+   "steps": [
+    "&n returns the address of the integer variable n",
+    "The type of an address to a variable of type t is t *",
+    "Since n is an int, &n has type int *",
+    "This is a pointer to an integer"
+   ],
+   "result": "b) int *"
+  },
+  "narr": [
+   "Now let's consider the type of the address-of operator.",
+   "When you apply & to an integer variable n, you get its address.",
+   "The type of this address is a pointer to an integer, written as int *.",
+   "This pattern holds for any data type: the address of a double is double *, etc.",
+   "Understanding pointer types is crucial for type-safe pointer operations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T3 — Pointer operations",
+   "problem": "What does ppi = ppi + *pn; do?",
+   "steps": [
+    "Left side: ppi is a pointer being assigned a new address",
+    "Right side: *pn dereferences pn to get its value",
+    "This adds the value of pn to the address ppi",
+    "The result is a new memory address"
+   ],
+   "result": "a) changes the value of the variable pi through a pointer"
+  },
+  "narr": [
+   "Let's analyze a more complex pointer operation.",
+   "In the expression ppi = ppi + *pn, we have pointer arithmetic on the left.",
+   "The right side dereferences pn to get its value.",
+   "This value is then added to the address ppi, creating a new address.",
+   "The new address is then assigned to ppi, changing where it points.",
+   "This demonstrates how we can modify pointer addresses using arithmetic operations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T4 — What doesn't have an address?",
+   "problem": "Which of the following does NOT have an address?",
+   "steps": [
+    "Variables in memory have addresses",
+    "Array elements have addresses",
+    "Pointers store addresses",
+    "Register variables don't have addresses",
+    "Constants, literals, and expressions generally don't have addresses"
+   ],
+   "result": "b) register variable"
+  },
+  "narr": [
+   "Not everything in your program has a memory address.",
+   "Variables you declare in memory do have addresses.",
+   "Array elements also have addresses in memory.",
+   "Pointers themselves store addresses, so they certainly have addresses.",
+   "However, register variables don't have addresses because they're stored in CPU registers, not memory.",
+   "Similarly, constants, literals, and expressions generally don't have addresses."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T5 — Array size in bytes",
+   "problem": "What is sizeof(arr) for int arr[8]; on a 64-bit platform?",
+   "steps": [
+    "sizeof gives the size in bytes of the entire array",
+    "Each int element typically takes 4 bytes on a 64-bit platform",
+    "The array has 8 elements",
+    "So sizeof(arr) = 8 × 4 = 32 bytes"
+   ],
+   "result": "b) 32"
+  },
+  "narr": [
+   "Let's calculate the size of an array in bytes.",
+   "The sizeof operator returns the total size in bytes of its operand.",
+   "For an int array with 8 elements on a 64-bit platform, each int is typically 4 bytes.",
+   "So the total size is 8 elements × 4 bytes per element = 32 bytes.",
+   "This is different from sizeof(arr[0]), which would give the size of a single element (4 bytes)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T6 — Memory allocation",
+   "problem": "Where do declared variables go, and where does dynamic memory go?",
+   "steps": [
+    "Declared variables are stored in the stack",
+    "Dynamic memory is allocated from the heap",
+    "The stack is managed automatically with function calls",
+    "The heap must be explicitly managed with malloc/free"
+   ],
+   "result": "c) declared — in the stack, dynamic — in the heap"
+  },
+  "narr": [
+   "C programs use different memory regions for different types of data.",
+   "When you declare variables in your code, they typically go on the stack.",
+   "The stack is automatically managed as functions are called and return.",
+   "Dynamic memory, allocated with malloc, comes from the heap.",
+   "Unlike the stack, you must explicitly free heap memory when you're done with it."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T7 — String comparison",
+   "problem": "strcmp(str1, str2) returns 0 when...",
+   "steps": [
+    "strcmp compares two strings character by character",
+    "It returns 0 if the strings are exactly equal",
+    "It returns positive if str1 is greater than str2",
+    "It returns negative if str1 is less than str2"
+   ],
+   "result": "b) the strings are equal"
+  },
+  "narr": [
+   "Let's look at how string comparison works in C.",
+   "The strcmp function compares two strings lexicographically.",
+   "It returns 0 only when the strings are exactly identical.",
+   "If the first string is greater than the second, it returns a positive value.",
+   "If the first string is less than the second, it returns a negative value.",
+   "The comparison is based on the ASCII values of the characters."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T8 — Character search in strings",
+   "problem": "What does strchr(str, c) do?",
+   "steps": [
+    "strchr searches for a character in a string",
+    "It returns a pointer to the first occurrence of the character",
+    "If the character is not found, it returns NULL",
+    "This is different from strrchr which finds the last occurrence"
+   ],
+   "result": "b) returns a pointer to the first occurrence of character c or NULL"
+  },
+  "narr": [
+   "Finally, let's understand the strchr function.",
+   "strchr searches for a specific character within a string.",
+   "It returns a pointer to the first occurrence of that character.",
+   "If the character isn't found in the string, it returns NULL.",
+   "Note that strrchr is similar but finds the last occurrence instead of the first."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

@@ -1,0 +1,828 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Pointers in C",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "In this section, we're going to dive deep into pointers in C programming.",
+   "Pointers are one of the most powerful features of C, but they can also be tricky to master."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Function Pointers",
+   "bullets": [
+    "Functions can modify caller variables using pointers",
+    "The ext_euclid function demonstrates this pattern",
+    "Pointers allow functions to return multiple values"
+   ]
+  },
+  "narr": [
+   "Let's start by looking at how functions can modify variables of the caller.",
+   "When we want a function to modify variables in the caller's scope, we pass pointers to those variables.",
+   "For example, the extended Euclidean algorithm function ext_euclid takes pointers to x and y, allowing it to modify these values.",
+   "After calling g = ext_euclid(a, b, &x, &y), the function returns g as the greatest common divisor while setting x and y to the Bézout coefficients."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Pointer Function Example",
+   "code": "int ext_euclid(int a, int b, int *x, int *y);\nint x, y, g;\n/* assume a, b declared previously */\ng = ext_euclid(a, b, &x, &y);",
+   "highlight": [
+    1,
+    2,
+    3
+   ]
+  },
+  "narr": [
+   "Here's how we declare and use a function that modifies variables through pointers.",
+   "First, we declare the function ext_euclid which takes two integers and two pointers to integers.",
+   "Then we declare our variables x, y, and g.",
+   "Finally, we call the function, passing the addresses of x and y using the & operator.",
+   "The function will modify x and y and return the greatest common divisor in g."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Classic Swap Function",
+   "bullets": [
+    "Swap function exchanges values using pointers",
+    "Temporary variable stores one value during swap",
+    "Pointer dereferencing modifies original variables"
+   ]
+  },
+  "narr": [
+   "One of the classic examples of pointer usage is the swap function.",
+   "The swap function takes two pointers to integers and exchanges their values.",
+   "It uses a temporary variable to store one value while performing the swap.",
+   "By dereferencing the pointers with the * operator, we modify the original variables in the caller's scope."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Swap Function Implementation",
+   "code": "void swap(int *x, int *y) {\n    int temp = *x;\n    *x = *y;\n    *y = temp;\n}\n\nint a = 5, b = 7;\nswap(&a, &b);\n/* now, a = 7, b = 5 */",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  "narr": [
+   "Here's the implementation of the swap function.",
+   "We declare a function that takes two pointers to integers.",
+   "We create a temporary variable temp and store the value pointed to by x in it.",
+   "Then we assign the value pointed to by y to the location pointed to by x.",
+   "Finally, we assign the value from temp to the location pointed to by y.",
+   "When we call swap(&a, &b), the values of a and b are exchanged."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Pointer Pitfalls",
+   "bullets": [
+    "Returning pointers to local variables is dangerous",
+    "Local variables exist only in the function's stack frame",
+    "The pointer becomes invalid after the function returns"
+   ]
+  },
+  "narr": [
+   "Now, let's look at a common pitfall with pointers.",
+   "Returning a pointer to a local array is invalid because the local variable goes out of scope when the function returns.",
+   "The pointer becomes invalid after the function's stack frame disappears.",
+   "Compilers usually warn about this issue, but it's up to the programmer to avoid this mistake."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Dangerous Pointer Return",
+   "code": "#include <stdio.h>\n\nchar * get_message() {\n    char msg[] = \"Aren't pointers fun?\";\n    return msg;\n}\n\nint main(void) {\n    char *string = get_message();\n    puts(string);\n    return 0;\n}",
+   "highlight": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ]
+  },
+  "narr": [
+   "This example shows the dangerous pattern of returning a pointer to a local array.",
+   "The get_message function creates a local array msg.",
+   "Then it returns a pointer to this local array.",
+   "In main, we store this pointer in string and try to print it.",
+   "This is undefined behavior because msg no longer exists when get_message returns.",
+   "The string might print correctly, or it might contain garbage, or the program might crash."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Arrays, sizeof and Address Arithmetic",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Now let's explore how arrays work in C, focusing on their relationship with pointers.",
+   "We'll look at how primitive arrays are implemented, the sizeof operator, and address arithmetic."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Arrays and Pointers",
+   "bullets": [
+    "Primitive arrays are implemented as pointers to continuous memory",
+    "Array name behaves like a pointer to element 0",
+    "Unlike pointers, arrays cannot be reassigned"
+   ]
+  },
+  "narr": [
+   "In C, primitive arrays are implemented as a pointer to a block of continuous memory.",
+   "The array name behaves like a pointer to the first element - arr is equivalent to &arr[0].",
+   "However, unlike a pointer, an array name cannot be reassigned to point to a different location."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Array and Pointer Relationship",
+   "code": "int arr[8];\nint a = arr[0];\nint *pa = arr;\n/* same as int *pa = &arr[0]; */",
+   "highlight": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "narr": [
+   "Here's how arrays and pointers work together.",
+   "We declare an integer array arr with 8 elements.",
+   "We can access the first element with arr[0].",
+   "We can also create a pointer pa and initialize it with arr, which is equivalent to &arr[0]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "The sizeof Operator",
+   "bullets": [
+    "sizeof() returns size in bytes",
+    "For variables - size of the type",
+    "For arrays - size of the entire array"
+   ]
+  },
+  "narr": [
+   "The sizeof operator is used to determine the size of types or variables in bytes.",
+   "For primitive types and variables, sizeof returns the size of the type.",
+   "For primitive arrays, sizeof returns the size of the entire array, not the size of a pointer."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "sizeof Examples",
+   "code": "int s = sizeof(char); /* == 1 */\ndouble f;\n/* sizeof(f) == 8 (64-bit OS) */\nint arr[8];\n/* sizeof(arr) == 32 (64-bit OS) */\nlong arr[5];\n/* sizeof(arr) == 40 (64-bit OS) */",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "narr": [
+   "Let's look at some examples of sizeof.",
+   "The size of a char is 1 byte by definition.",
+   "The size of a double is typically 8 bytes on a 64-bit operating system.",
+   "An int array of 8 elements will take 32 bytes on a 64-bit system (4 bytes per int).",
+   "A long array of 5 elements will take 40 bytes on a 64-bit system (8 bytes per long)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Array Length Macro",
+   "bullets": [
+    "C doesn't track array length natively",
+    "We can create a macro to calculate array length",
+    "Uses sizeof to divide total size by element size"
+   ]
+  },
+  "narr": [
+   "C doesn't natively track the length of arrays.",
+   "However, we can create a macro to calculate the array length.",
+   "This macro uses sizeof to divide the total size of the array by the size of one element.",
+   "We need to handle the edge case of an empty array to avoid division by zero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Array Length Macro Implementation",
+   "code": "#define array_length(arr) (sizeof(arr) == 0 ? \\\n    0 : sizeof(arr) / sizeof((arr)[0]))",
+   "highlight": [
+    1,
+    2
+   ]
+  },
+  "narr": [
+   "Here's the implementation of the array_length macro.",
+   "It checks if the array is empty first to avoid division by zero.",
+   "If not empty, it divides the total size of the array by the size of the first element.",
+   "This gives us the number of elements in the array."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Address Arithmetic",
+   "bullets": [
+    "Pointers support addition and subtraction",
+    "pa + i points to arr[i]",
+    "Address increases by i × size of data type"
+   ]
+  },
+  "narr": [
+   "Address arithmetic is a powerful feature of pointers in C.",
+   "You can add or subtract integers from pointers.",
+   "When you add i to a pointer pa, it points to the element i positions away.",
+   "The actual address value increases by i multiplied by the size of the data type."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Address Arithmetic Example",
+   "problem": "If arr[0] has address 100 (int), what is the address of arr[3]?",
+   "steps": [
+    {
+     "text": "Each int takes 4 bytes"
+    },
+    {
+     "text": "Moving 3 elements forward means 3 × 4 = 12 bytes"
+    },
+    {
+     "text": "Starting from address 100, adding 12 gives 112"
+    }
+   ],
+   "result": "arr[3] has address 112"
+  },
+  "narr": [
+   "Let's work through an example of address arithmetic.",
+   "Suppose we have an integer array where arr[0] has address 100.",
+   "Each integer takes 4 bytes in memory.",
+   "Moving 3 elements forward means we need to add 3 × 4 = 12 bytes to the address.",
+   "Starting from address 100, adding 12 gives us address 112.",
+   "So arr[3] has address 112."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Pointer Type Conversion Example",
+   "problem": "If char pc = (char*)pa;, when does (int*)(pc + i) == pa + 3?",
+   "steps": [
+    {
+     "text": "pc is a char pointer, so each increment moves by 1 byte"
+    },
+    {
+     "text": "pa is an int pointer, so each increment moves by 4 bytes"
+    },
+    {
+     "text": "To match pa + 3, we need to move 3 × 4 = 12 bytes"
+    },
+    {
+     "text": "Since pc moves by 1 byte per increment, i must be 12"
+    }
+   ],
+   "result": "When i = 12"
+  },
+  "narr": [
+   "Here's an interesting question about pointer type conversion.",
+   "Suppose we have an int pointer pa and we create a char pointer pc from it.",
+   "When we increment pc by i, it moves by i bytes.",
+   "When we increment pa by 3, it moves by 3 × 4 = 12 bytes (assuming 4-byte integers).",
+   "For (int*)(pc + i) to equal pa + 3, we need to move exactly 12 bytes.",
+   "Since pc moves by 1 byte per increment, i must be 12."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Strings and the string.h Library",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Now let's turn our attention to strings in C.",
+   "We'll explore how strings are stored and the standard library functions for working with them."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "String Representation",
+   "bullets": [
+    "Strings are stored as character arrays",
+    "Terminated by a null byte (\\0)",
+    "Work with strings as with arrays"
+   ]
+  },
+  "narr": [
+   "In C, strings are stored as arrays of characters.",
+   "They are terminated by a null byte (\\0), which marks the end of the string.",
+   "We can work with strings just like we work with character arrays."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "String Manipulation",
+   "code": "char str[] = \"This is a string.\";\nchar *pc = str;\n*(pc+10) = 'S';\nputs(str); /* prints \"This is a String.\" */",
+   "highlight": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "narr": [
+   "Here's an example of how we can manipulate strings using pointer arithmetic.",
+   "We declare a string str and a character pointer pc initialized to str.",
+   "We can access individual characters using pointer notation - *(pc+10) accesses the 11th character.",
+   "Changing this character to 'S' modifies the original string.",
+   "When we print the string, it shows the modification: \"This is a String.\""
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "string.h Library Functions",
+   "bullets": [
+    "Copying: strcpy(), strncpy()",
+    "Comparison: strcmp(), strncmp()",
+    "Length: strlen()",
+    "Concatenation: strcat(), strncat()",
+    "Character search: strchr(), strrchr()"
+   ]
+  },
+  "narr": [
+   "The C standard library provides a set of functions in string.h for working with strings.",
+   "These functions include copying, comparison, length calculation, concatenation, and character search.",
+   "Let's look at each of these categories in more detail."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "string.h Function Signatures",
+   "columns": [
+    "Function",
+    "Description"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "char *strcpy(strto, strfrom);"
+     },
+     "Copies strfrom to strto"
+    ],
+    [
+     {
+      "tex": "char *strncpy(strto, strfrom, n);"
+     },
+     "Copies n characters from strfrom to strto"
+    ],
+    [
+     {
+      "tex": "int strcmp(str1, str2);"
+     },
+     "Compares str1 and str2: 0 if equal; positive if str1 > str2; negative if str1 < str2"
+    ],
+    [
+     {
+      "tex": "int strncmp(str1, str2, n);"
+     },
+     "Compares the first n characters of str1 and str2"
+    ],
+    [
+     {
+      "tex": "int strlen(str);"
+     },
+     "Returns the length of str"
+    ],
+    [
+     {
+      "tex": "char *strcat(strto, strfrom);"
+     },
+     "Appends strfrom to the end of strto"
+    ],
+    [
+     {
+      "tex": "char *strncat(strto, strfrom, n);"
+     },
+     "Appends n characters from strfrom to the end of strto"
+    ],
+    [
+     {
+      "tex": "char *strchr(str, c);"
+     },
+     "Searches for character c in str: pointer to the first occurrence or NULL"
+    ],
+    [
+     {
+      "tex": "char *strrchr(str, c);"
+     },
+     "Pointer to the last occurrence of c or NULL"
+    ]
+   ]
+  },
+  "narr": [
+   "Here's a comprehensive list of the string.h functions and their signatures.",
+   "strcpy copies one string to another.",
+   "strncpy copies a specified number of characters from one string to another.",
+   "strcmp compares two strings and returns 0 if they're equal, a positive value if the first is greater, or a negative value if the first is smaller.",
+   "strncmp compares only the first n characters of two strings.",
+   "strlen returns the length of a string.",
+   "strcat appends one string to the end of another.",
+   "strncat appends a specified number of characters from one string to another.",
+   "strchr searches for the first occurrence of a character in a string and returns a pointer to it.",
+   "strrchr searches for the last occurrence of a character in a string."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "Search and Sort Algorithms",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Finally, let's look at some search and sort algorithms that make excellent use of pointers.",
+   "These algorithms demonstrate the power and efficiency that pointer manipulation can bring."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Linear Search",
+   "bullets": [
+    "Returns a pointer to the found element or NULL",
+    "Time complexity: O(n)",
+    "Simple but inefficient for large arrays"
+   ]
+  },
+  "narr": [
+   "Linear search is the simplest search algorithm.",
+   "It iterates through an array element by element, comparing each element to the target value.",
+   "If found, it returns a pointer to the element.",
+   "If not found after checking all elements, it returns NULL.",
+   "The time complexity is O(n), meaning it scales linearly with the size of the array."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Linear Search Implementation",
+   "code": "int arr[100]; /* array to search */\n\nint * linear_search(int val) {\n    int *parr, *parrend = arr + array_length(arr);\n    for (parr = arr; parr < parrend; parr++) {\n        if (*parr == val)\n            return parr;\n    }\n    return NULL;\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  "narr": [
+   "Here's an implementation of linear search using pointers.",
+   "We take an integer value to search for in the array.",
+   "We initialize two pointers: parr to the start of the array and parrend to the end.",
+   "We iterate through the array using pointer arithmetic.",
+   "If we find the value, we immediately return a pointer to that element.",
+   "If we finish the loop without finding the value, we return NULL."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Insertion Sort",
+   "bullets": [
+    "Time complexity: O(n²)",
+    "Builds final sorted array one element at a time",
+    "Works well for small or nearly sorted arrays"
+   ]
+  },
+  "narr": [
+   "Insertion sort is another simple sorting algorithm.",
+   "It has a time complexity of O(n²), making it inefficient for large arrays.",
+   "The algorithm works by building the final sorted array one element at a time.",
+   "For each element, it finds the correct position in the sorted portion and inserts it there.",
+   "It performs well for small arrays or arrays that are already nearly sorted."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Insertion Sort Implementation",
+   "code": "/* move previous elements down until insertion point reached */\nvoid shift_element(unsigned int i) {\n    int ivalue;\n    /* guard against going outside array */\n    for (ivalue = arr[i]; i && arr[i-1] > ivalue; i--)\n        arr[i] = arr[i-1]; /* move element down */\n    arr[i] = ivalue; /* insert element */\n}\n\n/* iterate until out-of-order element found;\n   shift the element, and continue iterating */\nvoid insertion_sort(void) {\n    unsigned int i, len = array_length(arr);\n    for (i = 1; i < len; i++)\n        if (arr[i] < arr[i-1])\n            shift_element(i);\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ]
+  },
+  "narr": [
+   "Here's an implementation of insertion sort split into two functions.",
+   "The shift_element function moves elements down to make space for insertion.",
+   "It starts with the value at position i and shifts previous elements down until it finds the correct position.",
+   "The insertion_sort function iterates through the array, calling shift_element whenever it finds an element out of order.",
+   "Together, these functions implement the insertion sort algorithm using pointer arithmetic."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Quicksort",
+   "bullets": [
+    "Time complexity: O(n log n) on average, O(n²) in worst case",
+    "Divide-and-conquer algorithm",
+    "Implemented in standard library as qsort()"
+   ]
+  },
+  "narr": [
+   "Quicksort is a more efficient sorting algorithm with an average time complexity of O(n log n).",
+   "However, it has a worst-case complexity of O(n²) when the array is already sorted or nearly sorted.",
+   "Quicksort is a divide-and-conquer algorithm that works by selecting a 'pivot' element.",
+   "It partitions the array such that elements smaller than the pivot are on one side and larger elements are on the other.",
+   "Then it recursively sorts the two partitions.",
+   "The standard library provides an implementation of quicksort as the qsort function."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Quicksort Implementation",
+   "code": "void quick_sort(unsigned int left, unsigned int right) {\n    unsigned int i, mid;\n    int pivot;\n    if (left >= right)\n        return; /* nothing to sort */\n    /* pivot is midpoint; move to left side */\n    swap(arr + left, arr + (left + right) / 2);\n    pivot = arr[mid = left];",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  "narr": [
+   "Here's the beginning of a quicksort implementation.",
+   "The function takes left and right indices to define the portion of the array to sort.",
+   "If left >= right, there's nothing to sort, so we return.",
+   "We select the pivot as the middle element and swap it with the leftmost element.",
+   "This places the pivot at the beginning of the array for easier partitioning.",
+   "The pivot value is stored in the variable pivot."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Points",
+   "items": [
+    "Pointers allow functions to modify caller variables",
+    "Arrays and pointers are closely related in C",
+    "Address arithmetic enables efficient array manipulation",
+    "string.h provides many useful string functions",
+    "Search and sort algorithms demonstrate pointer power"
+   ]
+  },
+  "narr": [
+   "Let's recap the key points we've covered in this section.",
+   "Pointers are a fundamental feature of C that allow functions to modify variables in the caller's scope.",
+   "Arrays and pointers are closely related in C, with array names behaving like pointers to the first element.",
+   "Address arithmetic enables efficient manipulation of array elements through pointer operations.",
+   "The string.h library provides many useful functions for working with strings.",
+   "Search and sort algorithms demonstrate the power and efficiency that pointer manipulation can bring."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

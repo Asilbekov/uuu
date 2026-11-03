@@ -1,0 +1,591 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Computer Science · C · Weeks 4–7",
+   "subtitle": "Programming Concepts and Laboratory Exercises"
+  },
+  "narr": [
+   "Let's start by exploring some fundamental C programming concepts and laboratory exercises from weeks 4 through 7.",
+   "We'll begin with a code example that demonstrates the Fibonacci sequence, then move through various control structures and string manipulation techniques."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fibonacci Sequence Generator",
+   "code": "#include <stdio.h>\n\nint main() {\n    int a = 0, b = 1, c, n;\n    printf(\"%3d: %d\\n\", 1, a);\n    printf(\"%3d: %d\\n\", 2, b);\n    for (n = 3; n <= nmax; n++) {\n        c = a + b;\n        a = b;\n        b = c;\n        printf(\"%3d: %d\\n\", n, c);\n    }\n    return 0; /* success */\n}",
+   "highlight": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  "narr": [
+   "Here's a program that generates the Fibonacci sequence. It starts by initializing two variables, a and b, with the first two Fibonacci numbers: 0 and 1.",
+   "The program then prints these initial values, and enters a loop starting from n equals 3 up to some maximum value nmax.",
+   "Inside the loop, it calculates the next Fibonacci number c as the sum of the previous two numbers a and b.",
+   "After calculating c, it updates a to be b and b to be c, effectively shifting the window forward in the sequence.",
+   "Finally, it prints the current position n and the calculated Fibonacci number c.",
+   "The program returns 0 to indicate successful execution."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "String Length Calculation",
+   "bullets": [
+    "Start counting from zero",
+    "Count each character",
+    "Stop at the end marker",
+    "The terminator is not counted",
+    "For string 'HI!', the length is 3",
+    "An empty string gives length 0"
+   ]
+  },
+  "narr": [
+   "Let's look at how to calculate the length of a string without using the built-in strlen function.",
+   "The algorithm starts by initializing a counter to zero.",
+   "It then examines each character in sequence, incrementing the counter for each character found.",
+   "The counting stops when the null terminator character '\\0' is encountered.",
+   "Important to note that the null terminator itself is not counted as part of the string length.",
+   "For example, the string 'HI!' has characters at positions 0, 1, and 2, with the null terminator at position 3, resulting in a length of 3.",
+   "An empty string, which consists only of the null terminator at position 0, has a length of 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "do-while Loop Example",
+   "code": "/* Optional fragment §6.2.2, file 05textdowhile.c */\nint c;\nint Counter = 0;\nint MaxLength = 100;\ndo {\n    c = getchar();\n    if (c == '%') break; /* sentinel */\n    Counter++;\n} while (Counter < MaxLength && c != '\\n');",
+   "highlight": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  "narr": [
+   "Now let's examine the do-while loop construct. This example reads characters until either a newline is encountered or the maximum length is reached.",
+   "The do-while loop is unique because the condition is evaluated after each iteration, ensuring the body executes at least once.",
+   "In this example, we read a character using getchar() and check if it's the sentinel character '%'.",
+   "If it is, we break out of the loop immediately.",
+   "Otherwise, we increment our counter and continue the loop.",
+   "The loop continues as long as our counter is less than the maximum length and we haven't encountered a newline character.",
+   "Note that a semicolon is required after the while condition in a do-while loop."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "continue Statement Example",
+   "code": "/* Optional fragment §6.4, file 06skipletters.c */\nfor (int i = 0; i < 5; i++) {\n    char c = getchar();\n    if (c == 'A' || c == 'a') {\n        continue; /* skip processing for letters */\n    }\n    printf(\"%c\", c);\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  "narr": [
+   "The continue statement provides another way to control loop execution. This example reads five characters but skips processing letters 'A' and 'a'.",
+   "In a for loop, when continue is encountered, the rest of the loop body is skipped, and the program jumps directly to the update expression.",
+   "In this case, if the character is 'A' or 'a', continue bypasses the printf statement.",
+   "For any other character, including digits and symbols, the printf statement executes normally.",
+   "For example, if the input is 'A1b2!', the output would be '12!' because the letters 'A' and 'b' are skipped.",
+   "The continue statement only affects the innermost loop it appears in."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 5 Questions",
+   "subtitle": "Lecture and Laboratory Questions with Model Answers"
+  },
+  "narr": [
+   "Now let's address some common questions from Week 5, covering both lecture concepts and laboratory exercises."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 1",
+   "problem": "Laboratory survey: what is the role of main in our C programs?",
+   "steps": [
+    {
+     "text": "Understand the purpose of the main function"
+    },
+    {
+     "text": "Recognize the connection to standard libraries"
+    }
+   ],
+   "result": "Answer. main — entry point: program execution starts with main. stdio.h declares printf; cs50.h declares getdouble (and other CS50 input helpers)."
+  },
+  "narr": [
+   "First question: What is the role of main in our C programs?",
+   "The main function serves as the entry point of any C program. Program execution begins with main.",
+   "Additionally, standard library headers like stdio.h declare functions such as printf, while cs50.h declares helper functions like getdouble."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 2",
+   "problem": "How does a block differ from a simple statement and what can be done inside a block?",
+   "steps": [
+    {
+     "text": "Define simple statement"
+    },
+    {
+     "text": "Explain compound statement (block)"
+    },
+    {
+     "text": "Describe block properties"
+    }
+   ],
+   "result": "Answer. A simple statement ends with ';'. Curly braces combine multiple statements into a compound statement (block): it can substitute for a simple statement, compiles as a single unit, variables can be declared inside (they are local to the block), a block can be empty {}, and no ';' is placed after the closing brace. Blocks nest inside each other."
+  },
+  "narr": [
+   "Second question: How does a block differ from a simple statement and what can be done inside a block?",
+   "A simple statement in C ends with a semicolon. In contrast, a block or compound statement is formed by enclosing multiple statements within curly braces.",
+   "Blocks can substitute for simple statements, compile as a single unit, and can have variables declared inside them that are local to the block.",
+   "A block can even be empty, containing just {}, and no semicolon is placed after the closing brace. Importantly, blocks can nest inside each other to create more complex control structures."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 3",
+   "problem": "What is considered 'true' in a C condition?",
+   "steps": [
+    {
+     "text": "Explain condition evaluation"
+    },
+    {
+     "text": "Discuss numeric values"
+    },
+    {
+     "text": "Mention boolean types in different C standards"
+    }
+   ],
+   "result": "Answer. A condition is an expression (or series of expressions), such as n < 3 or x < y||z < y. Any non-zero value ⇒condition is true, 0 is false. The expression must be numeric (or a pointer); in C89/C90 there is no boolean type, in C99 bool is available via <stdbool.h>. Example: if (str) — string is not null."
+  },
+  "narr": [
+   "Third question: What is considered 'true' in a C condition?",
+   "In C, a condition is an expression or series of expressions, such as n < 3 or x < y || z < y.",
+   "Any non-zero value evaluates to true, while zero evaluates to false.",
+   "The expression must be numeric or a pointer. Notably, in older C standards like C89/C90, there was no boolean type, but in C99, boolean types became available through the stdbool.h header.",
+   "For example, the condition 'if (str)' checks whether the string pointer is not null."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 4",
+   "problem": "What does else if do and what happens if multiple conditions are true?",
+   "steps": [
+    {
+     "text": "Explain else if purpose"
+    },
+    {
+     "text": "Describe condition evaluation order"
+    },
+    {
+     "text": "Explain behavior with multiple true conditions"
+    }
+   ],
+   "result": "Answer. else if adds alternative control paths. Conditions are checked in order until the first true one; the inner statement is executed only for it. If multiple conditions are true, only the first branch is executed. The construct is equivalent to nested if."
+  },
+  "narr": [
+   "Fourth question: What does else if do and what happens if multiple conditions are true?",
+   "The else if construct adds alternative control paths to an if statement.",
+   "Conditions are checked in order from top to bottom, and the first one that evaluates to true has its corresponding statement executed.",
+   "If multiple conditions are true, only the first branch is executed, and all others are skipped.",
+   "This construct is essentially equivalent to nested if statements, but provides a more readable structure for multiple alternatives."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 5",
+   "problem": "Which if does else belong to in nested ifs and how to change this?",
+   "steps": [
+    {
+     "text": "Explain default association"
+    },
+    {
+     "text": "Show how to change association"
+    }
+   ],
+   "result": "Answer. Without braces, else associates with the nearest inner if. To associate else with the outer if, the inner if must be enclosed in curly braces: if (x % 4 == 0) { if (x % 2 == 0)y = 2; } else y = 1;."
+  },
+  "narr": [
+   "Fifth question: Which if does else belong to in nested ifs and how to change this?",
+   "Without braces, the else statement automatically associates with the nearest inner if statement.",
+   "To make else associate with an outer if, the inner if must be enclosed in curly braces, creating a block that the else then associates with.",
+   "For example, in the code 'if (x % 4 == 0) { if (x % 2 == 0)y = 2; } else y = 1;', the else belongs to the outer if because the inner if is enclosed in braces."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 6",
+   "problem": "When is switch more convenient than an if-else ladder and what are its limitations?",
+   "steps": [
+    {
+     "text": "Explain switch convenience"
+    },
+    {
+     "text": "List switch limitations"
+    }
+   ],
+   "result": "Answer. switch tests one integer (or character) variable for equality with a set of case labels — different integer constant expressions; ranges and compound conditions require if. default is the 'otherwise' branch. According to the book, switch is more efficient than long if-else ladders."
+  },
+  "narr": [
+   "Sixth question: When is switch more convenient than an if-else ladder and what are its limitations?",
+   "The switch statement is most convenient when testing a single integer or character variable against multiple specific values, which are defined as case labels.",
+   "However, switch has limitations: it can only test for equality with integer constants, not ranges or compound conditions, which require if statements.",
+   "The default keyword provides an 'otherwise' branch for cases that don't match any case label.",
+   "According to the textbook, switch statements can be more efficient than long if-else ladders when handling multiple discrete values."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 7",
+   "problem": "What happens if you forget break in a case?",
+   "steps": [
+    {
+     "text": "Explain fall-through behavior"
+    },
+    {
+     "text": "Provide example of fall-through"
+    },
+    {
+     "text": "Mention intentional use of fall-through"
+    }
+   ],
+   "result": "Answer. Execution 'falls through' to the next case without rechecking the value. In the melody (Example 6.1), omitting break after case 2 caused printing C, then D for input A#. Falling through can also be useful: case 'Y': case 'y': execute the same code for both characters."
+  },
+  "narr": [
+   "Seventh question: What happens if you forget break in a case?",
+   "If you omit the break statement at the end of a case, execution will 'fall through' to the next case without rechecking the condition.",
+   "For example, in a melody program, omitting break after case 2 would cause both case 2 and case 3 to execute, printing both C and D for input A#.",
+   "Interestingly, this fall-through behavior can sometimes be intentionally useful, such as when you want multiple case labels to execute the same code, like 'case 'Y': case 'y': execute the same code for both characters.'"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 8",
+   "problem": "Melody: why does the program print note C for character 'A'?",
+   "steps": [
+    {
+     "text": "Explain ASCII code calculation"
+    },
+    {
+     "text": "Show modulo operation"
+    },
+    {
+     "text": "Connect to note output"
+    }
+   ],
+   "result": "Answer. The program calculates the ASCII code of the character modulo 7: code 'A' is 65; 65 % 7 = 2; case 2 prints C. Slide table: A →65 →2 →C."
+  },
+  "narr": [
+   "Eighth question: In the melody program, why does the program print note C for character 'A'?",
+   "The program calculates the ASCII code of the input character and then applies a modulo 7 operation to determine which note to play.",
+   "The ASCII code for 'A' is 65, and 65 modulo 7 equals 2.",
+   "Since case 2 in the switch statement corresponds to printing note C, that's what the program outputs for input 'A'.",
+   "This mapping can be visualized as A →65 →2 →C."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 9",
+   "problem": "How does do-while differ from while?",
+   "steps": [
+    {
+     "text": "Explain condition evaluation timing"
+    },
+    {
+     "text": "Describe execution guarantee"
+    },
+    {
+     "text": "Mention syntax differences"
+    }
+   ],
+   "result": "Answer. In do-while the condition is evaluated after each iteration, so the body executes at least once; a semicolon is mandatory at the end: } while (...);. In while the condition is evaluated first — the body may not execute at all."
+  },
+  "narr": [
+   "Ninth question: How does do-while differ from while?",
+   "The key difference is when the condition is evaluated. In a do-while loop, the condition is checked after each iteration, meaning the loop body always executes at least once.",
+   "In contrast, a while loop evaluates the condition first, so the loop body may never execute if the condition is false initially.",
+   "Syntactically, do-while requires a semicolon after the while condition, while while does not: '} while (...);' versus 'while (...) { ... }'."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 10",
+   "problem": "What do the pair of loops from §6.2.1 print and how do they differ?",
+   "steps": [
+    {
+     "text": "Identify output of both loops"
+    },
+    {
+     "text": "Explain variable scope difference"
+    },
+    {
+     "text": "Compare loop structure"
+    }
+   ],
+   "result": "Answer. Both print 1 2 3. The while version declares int i = 1; directly before the loop; the for version declares the counter in the header — it is only in scope inside the loop. for gathers initialization, condition, and update in one line."
+  },
+  "narr": [
+   "Tenth question: What do the pair of loops from §6.2.1 print and how do they differ?",
+   "Both the while loop and the for loop in question print the numbers 1, 2, and 3.",
+   "The main difference lies in variable scope. In the while version, the counter variable is declared before the loop, making it visible throughout the surrounding code.",
+   "In the for version, the counter is declared in the loop header, making it visible only within the loop itself.",
+   "Structurally, the for loop gathers initialization, condition checking, and updating in one compact line, while the while loop separates these elements."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 11",
+   "problem": "What do break and continue do and exactly where does execution go?",
+   "steps": [
+    {
+     "text": "Explain break behavior"
+    },
+    {
+     "text": "Explain continue behavior"
+    },
+    {
+     "text": "Provide examples"
+    }
+   ],
+   "result": "Answer. break; exits the innermost loop or switch (e.g., early exit from do-while when c != 'y'). continue; skips the rest of the innermost loop body and jumps to its condition; in the lab's for loop, continue with 'A' bypasses printf and lands on i + +, then — on the loop condition."
+  },
+  "narr": [
+   "Eleventh question: What do break and continue do and exactly where does execution go?",
+   "The break statement immediately exits the innermost loop or switch statement it appears in. For example, in a do-while loop checking for 'y', break could provide an early exit when c != 'y'.",
+   "The continue statement, on the other hand, skips the rest of the current iteration of the innermost loop and jumps directly to the condition check.",
+   "In the laboratory's for loop example, when 'A' is encountered, continue bypasses the printf statement and jumps to the i++ update, then to the loop condition."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 12",
+   "problem": "What three expressions are in the for header and what can be omitted?",
+   "steps": [
+    {
+     "text": "Identify the three expressions"
+    },
+    {
+     "text": "Explain what can be omitted"
+    },
+    {
+     "text": "Mention comma operator usage"
+    }
+   ],
+   "result": "Answer. Initialization; condition; increment — separated by semicolons. Any of the expressions can be empty; an empty condition is considered true. Expressions can be compound via the comma operator: for (i = 1, j = 1; i <= n; j *= i, i + +) — comma has the lowest precedence and is evaluated left to right, this is not a comma between function arguments."
+  },
+  "narr": [
+   "Twelfth question: What three expressions are in the for header and what can be omitted?",
+   "A for loop header contains three expressions separated by semicolons: initialization, condition, and increment.",
+   "Any of these expressions can be empty. An empty condition is treated as always true, potentially creating an infinite loop.",
+   "Expressions can be compound using the comma operator, which has the lowest precedence and is evaluated left to right. For example: 'for (i = 1, j = 1; i <= n; j *= i, i++)' initializes and updates multiple variables."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 13",
+   "problem": "How to manually calculate the length of string HI! without strlen?",
+   "steps": [
+    {
+     "text": "Initialize counter"
+    },
+    {
+     "text": "Loop through characters"
+    },
+    {
+     "text": "Stop at null terminator"
+    }
+   ],
+   "result": "Answer. Start counting n from zero; while name[n] != '\\0', increment n; stop at the end marker — the terminator is not counted. n = 0 reads H, n = 1 reads I, n = 2 reads !, n = 3 reaches NUL — condition is false, prints 3."
+  },
+  "narr": [
+   "Thirteenth question: How to manually calculate the length of string HI! without strlen?",
+   "To calculate string length manually, start by initializing a counter n to zero.",
+   "Then loop through the characters while name[n] is not equal to the null terminator '\\0', incrementing n each time.",
+   "Stop when you reach the null terminator, which is not counted as part of the string length.",
+   "For the string 'HI!', n = 0 reads H, n = 1 reads I, n = 2 reads !, and n = 3 reaches NUL, making the condition false, so the length is 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 14",
+   "problem": "What does a static variable inside a function do and how does it differ",
+   "steps": [
+    {
+     "text": "Explain static variable behavior"
+    },
+    {
+     "text": "Compare with auto variables"
+    }
+   ],
+   "result": "Answer. A static variable inside a function retains its value between function calls. Unlike auto variables (the default), which are reinitialized each time the function is called, static variables maintain their value across invocations. They're initialized only once, typically at program startup."
+  },
+  "narr": [
+   "Fourteenth question: What does a static variable inside a function do and how does it differ",
+   "A static variable inside a function retains its value between function calls. This is its key characteristic and how it differs from regular (auto) variables.",
+   "Unlike auto variables, which are reinitialized each time the function is called, static variables maintain their value across multiple invocations of the same function.",
+   "Static variables are initialized only once, typically when the program starts, and their persistence continues throughout the program's execution."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ }
+]

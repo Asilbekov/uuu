@@ -1,0 +1,544 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Computer Science",
+   "subtitle": "C · Weeks 4–7"
+  },
+  "narr": [
+   "In this section, we'll explore formatted input and output in C, string handling, and file operations.",
+   "Let's start with understanding how to format output using printf."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "printf Formatting Examples",
+   "bullets": [
+    "printf(\"%d,%+d,%+d\",10,-10) → \"10, +10,-10\" (flag +)",
+    "printf(\"%04d\",10) → \"0010\" (flag 0)",
+    "printf(\"%-7s\",\"hello\") → \"hellobb\" (flag -: left alignment)",
+    "printf(\"%.2f,%.0f\",1.141,1.141) → \"1.14,1\" (precision)",
+    "printf(\"%.2e,%.0e\",1.141,100.00) → \"1.14e+00,1e+02\"",
+    "printf(\"%.4s\",\"hello\") → \"hell\"",
+    "printf(\"%.1s\",\"hello\") → \"h\""
+   ]
+  },
+  "narr": [
+   "Let's examine these printf formatting examples one by one.",
+   "First, the plus flag forces the sign to be shown for both positive and negative numbers.",
+   "The zero flag pads numbers with leading zeros to the specified width.",
+   "The minus flag left-aligns text within the specified width.",
+   "Precision for floating-point numbers controls the number of digits shown after the decimal point.",
+   "Scientific notation precision works similarly for exponential format.",
+   "For strings, precision limits the number of characters displayed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "scanf Function",
+   "bullets": [
+    "int scanf(char *format, ...) — input analog of printf",
+    "Reads characters from standard input according to format specification",
+    "Accepts a variable number of arguments",
+    "When reading multiple items, each is separated by whitespace characters",
+    "scanf ignores whitespace characters",
+    "Returns the number of items read or EOF",
+    "Important: arguments must be addresses of variables (pointers)"
+   ]
+  },
+  "narr": [
+   "Now let's look at scanf, which is the input counterpart to printf.",
+   "scanf reads characters from standard input according to the format specification.",
+   "It accepts a variable number of arguments similar to printf.",
+   "When reading multiple items, each is considered separated by whitespace characters.",
+   "Importantly, scanf ignores whitespace characters in the input.",
+   "It returns the number of items successfully read or EOF if an error occurs.",
+   "A crucial point is that arguments must be addresses of variables, meaning we need to use pointers."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "printf ↔ scanf Correspondence",
+   "columns": [
+    "printf",
+    "scanf"
+   ],
+   "rows": [
+    [
+     "printf(\"%d\",x)",
+     "scanf(\"%d\",&x)"
+    ],
+    [
+     "printf(\"%f\",f)",
+     "scanf(\"%f\",&f)"
+    ],
+    [
+     "printf(\"%s\",str)",
+     "scanf(\"%s\",str) — & not needed"
+    ],
+    [
+     "printf(\"%s\",str)",
+     "scanf(\"%20s\",str) — & not needed"
+    ],
+    [
+     "printf(\"%s %s\",fname,lname)",
+     "scanf(\"%20s %20s\",fname,lname)"
+    ]
+   ]
+  },
+  "narr": [
+   "Here's a table showing the correspondence between printf and scanf format specifiers.",
+   "Notice how for integers and floats, we need to pass the address of the variable using the ampersand.",
+   "For strings, however, we don't need the ampersand because arrays are already passed as pointers.",
+   "We can also specify width limits for scanf to prevent buffer overflow.",
+   "When reading multiple strings, we can specify separate width limits for each."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Formatted String Functions",
+   "bullets": [
+    "int sprintf(char string[], char format[], arg1, arg2) — like printf, but output is written to string",
+    "int sscanf(char str[], char format[], arg1, arg2) — like scanf, but input is read from str",
+    "Both return the number of items written/read or a negative value on error"
+   ]
+  },
+  "narr": [
+   "C also provides functions for formatted string operations.",
+   "sprintf works like printf, but instead of writing to standard output, it writes to a character array.",
+   "Similarly, sscanf works like scanf, but reads from a string instead of standard input.",
+   "Both functions return the number of items successfully processed or a negative value if an error occurs."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Strings and Files",
+   "subtitle": "Arrays, comparison, and file operations"
+  },
+  "narr": [
+   "Now let's explore how strings work in C, including their representation as arrays and file operations."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Strings in C",
+   "bullets": [
+    "Strings are represented as character arrays",
+    "C does not limit string length — the end is marked by a zero byte",
+    "Example: \"hello\" is the array {'h','e','l','l','\\0'}",
+    "To include \", use \\\" in a string"
+   ]
+  },
+  "narr": [
+   "In C, strings are represented as character arrays.",
+   "Unlike some other languages, C does not have a built-in string type or limit on string length.",
+   "Instead, the end of a string is marked by a special zero byte, also known as the null terminator.",
+   "For example, the string \"hello\" is actually stored as the array {'h','e','l','l','\\0'}.",
+   "If you need to include a double quote within a string, you must escape it using \\\"."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "String Declarations",
+   "bullets": [
+    "char str[] = \"hello\"; /* compiler takes care of size */",
+    "char str[10] = \"hello\"; /* make sure the array is large enough */",
+    "char str[] = {'h','e','l','l',0}; /* explicit null terminator */"
+   ]
+  },
+  "narr": [
+   "There are several ways to declare strings in C.",
+   "First, you can let the compiler determine the size automatically when initializing with a string literal.",
+   "Second, you can specify the array size explicitly, making sure it's large enough to hold the string plus the null terminator.",
+   "Third, you can initialize the array character by character, making sure to include the null terminator explicitly."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "String Comparison",
+   "bullets": [
+    "The header <string.h> provides int strcmp(char s[], char t[])",
+    "strcmp performs dictionary order comparison (case-sensitive)",
+    "Returns: < 0 if s comes before t; 0 if equal; > 0 if s comes after t"
+   ]
+  },
+  "narr": [
+   "For string comparison, C provides the strcmp function from the string.h header.",
+   "strcmp performs a dictionary order comparison between two strings.",
+   "It's important to note that strcmp is case-sensitive, meaning uppercase letters come before lowercase letters.",
+   "The function returns a negative value if the first string comes before the second, zero if they're equal, and a positive value if the first comes after."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "strcmp Examples",
+   "problem": "Evaluate these strcmp comparisons:",
+   "steps": [
+    "strcmp(\"A\",\"a\") → < 0",
+    "strcmp(\"IRONMAN\",\"BATMAN\") → > 0",
+    "strcmp(\"aA\",\"aA\") → == 0",
+    "strcmp(\"aA\",\"a\") → > 0"
+   ],
+   "result": "Uppercase letters are considered before lowercase in dictionary order"
+  },
+  "narr": [
+   "Let's look at some examples of strcmp in action.",
+   "When comparing \"A\" and \"a\", the result is negative because uppercase A comes before lowercase a in ASCII.",
+   "When comparing \"IRONMAN\" and \"BATMAN\", the result is positive because B comes before I alphabetically.",
+   "When comparing identical strings \"aA\" and \"aA\", the result is zero because they're exactly the same.",
+   "Finally, when comparing \"aA\" and \"a\", the result is positive because the second character A comes after the end of the first string."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "File Operations",
+   "bullets": [
+    "FILE *fopen(char name[], char mode[]) opens a stream",
+    "Modes include \"r\" (read), \"w\" (write), \"a\" (append)",
+    "\"b\" is added for binary files",
+    "fopen returns a pointer to the stream or NULL",
+    "int fclose(FILE *fp) closes the stream and releases OS resources"
+   ]
+  },
+  "narr": [
+   "Now let's explore file operations in C.",
+   "The fopen function is used to open a file and create a stream for reading or writing.",
+   "You can specify different modes such as \"r\" for read, \"w\" for write, and \"a\" for append.",
+   "For binary files, you add \"b\" to the mode string.",
+   "If the file is opened successfully, fopen returns a pointer to the FILE structure; otherwise, it returns NULL.",
+   "When you're done with a file, you should close it using fclose to release system resources."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Standard Streams",
+   "bullets": [
+    "Standard input and output are also FILE (stdin, stdout)",
+    "stderr is a separate standard error output stream",
+    "Character by character: int getc(FILE *fp) and int putc(int c, FILE *fp)",
+    "Line by line: char fgets(char line[], int maxlen, FILE *fp) and int fputs(char line[], FILE *fp)",
+    "Formatted reading from files: int fscanf(FILE *fp, char format[], ...)"
+   ]
+  },
+  "narr": [
+   "C provides standard streams for input and output.",
+   "Standard input and output are represented as FILE pointers named stdin and stdout.",
+   "There's also a separate standard error output stream named stderr.",
+   "For character-by-character operations, you can use getc to read a character and putc to write a character.",
+   "For line-by-line operations, you can use fgets to read a line and fputs to write a string.",
+   "You can also use fscanf to read formatted data from a file, similar to how scanf reads from stdin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Command Line Arguments",
+   "bullets": [
+    "main can accept parameters: int main(int argc, char *argv[])",
+    "argc is the argument counter (number of arguments)",
+    "argv is an array of pointers to each argument string",
+    "Arguments include the program name as the first element"
+   ]
+  },
+  "narr": [
+   "C programs can access command line arguments through parameters in the main function.",
+   "The first parameter, argc, is an integer representing the argument count.",
+   "The second parameter, argv, is an array of pointers to character strings, each representing an argument.",
+   "It's important to note that the first element of argv is always the program name itself.",
+   "For example, if you run ./cat a.txt b.txt, argc would be 3, and argv would contain \"cat\", \"a.txt\", and \"b.txt\"."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Week 6 Questions",
+   "subtitle": "Lecture and lab questions with model answers"
+  },
+  "narr": [
+   "Let's now go through some common questions from Week 6 with their model answers."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 1 — Function Return and Parameters",
+   "problem": "What do void before the function name and (void) in parentheses mean?",
+   "steps": [
+    "void before the name — no return result",
+    "(void) — no inputs"
+   ],
+   "result": "In void printhelloworld(void) both voids are in their places; braces enclose the body. Return value needs to be distinguished from printed output."
+  },
+  "narr": [
+   "First question: What do void before the function name and (void) in parentheses mean?",
+   "The void before the function name indicates that the function doesn't return any value.",
+   "The (void) in the parentheses indicates that the function doesn't take any parameters.",
+   "So in the example void printhelloworld(void), both voids are correctly placed to indicate no return value and no parameters.",
+   "It's important to distinguish between a function's return value and any output it might print to the console."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 2 — Function Components",
+   "problem": "How does a prototype differ from a call and a definition?",
+   "steps": [
+    "A prototype declares a function before main: void printhelloworld(void); — ends with ';' and has no body",
+    "A call — printhelloworld(); — executes the function now",
+    "A definition — the body with curly braces — describes its operation"
+   ],
+   "result": "In one program: prototype before main, calls inside main, definition after."
+  },
+  "narr": [
+   "Second question: How does a prototype differ from a call and a definition?",
+   "A function prototype is a declaration that tells the compiler about the function's name, return type, and parameters, but without the actual implementation. It ends with a semicolon and has no function body.",
+   "A function call is when you actually execute the function by using its name followed by parentheses and any required arguments.",
+   "A function definition is where you provide the actual implementation of the function with the code inside curly braces.",
+   "In a typical program structure, you'll have the prototype before main, calls to the function inside main, and the definition after main."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 3 — Loop Output",
+   "problem": "What does for (int i = 1; i <= 3; i++) printf(\"%d \", i); print?",
+   "steps": [
+    "The counter i starts at 1",
+    "Each iteration prints the current value of i",
+    "The loop continues while i <= 3",
+    "When i = 4, the condition i <= 3 is false and the loop terminates"
+   ],
+   "result": "1 2 3"
+  },
+  "narr": [
+   "Third question: What does this for loop print?",
+   "Let's trace through the execution: the counter i starts at 1.",
+   "In each iteration, the current value of i is printed followed by a space.",
+   "The loop continues to execute as long as i is less than or equal to 3.",
+   "When i becomes 4, the condition i <= 3 evaluates to false, and the loop terminates.",
+   "Therefore, the output is 1 2 3, which matches the result we saw in the while/for comparison from week 5."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 4 — Conditional Logic",
+   "problem": "What is streak after int streak = 2; int practised = 0; if (practised == 1) streak++; else streak = 0;?",
+   "steps": [
+    "Initial values: streak = 2, practised = 0",
+    "Condition: practised == 1 is false (practised equals 0)",
+    "The else branch is executed",
+    "streak is reset to 0"
+   ],
+   "result": "streak = 0: Any non-zero value is true, 0 is false."
+  },
+  "narr": [
+   "Fourth question: What is the value of streak after this code?",
+   "Initially, streak is set to 2 and practised is set to 0.",
+   "The condition checks if practised equals 1, which is false since practised is 0.",
+   "Because the condition is false, the else branch is executed instead of the if branch.",
+   "In the else branch, streak is reset to 0.",
+   "Remember: in C, any non-zero value is considered true, and only 0 is considered false."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 5 — Switch Statement",
+   "problem": "Without the first break, what is score? int score = 0; char reaction = 'W'; switch (reaction) { case 'W': score += 2; case 'L': score -= 1; break; }",
+   "steps": [
+    "Initial value: score = 0",
+    "reaction is 'W', which matches case 'W'",
+    "score += 2 gives score = 2",
+    "Without break, execution falls through to case 'L'",
+    "score -= 1 gives score = 1",
+    "break terminates the switch"
+   ],
+   "result": "score = 1"
+  },
+  "narr": [
+   "Fifth question: What is the value of score without the first break?",
+   "Initially, score is 0 and reaction is 'W'.",
+   "The switch statement checks the value of reaction against the cases.",
+   "Since reaction is 'W', it matches case 'W' and executes score += 2, making score 2.",
+   "Without a break statement after case 'W', execution falls through to the next case, 'L', without rechecking the value.",
+   "In case 'L', score -= 1 is executed, making score 1.",
+   "Finally, the break statement terminates the switch statement."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 6 — Parameters vs Arguments",
+   "problem": "How does a parameter differ from an argument?",
+   "steps": [
+    "A parameter is the input name inside a function: count in void printmeows(int count)",
+    "This name is local to the function",
+    "An argument is the value passed by the call: 3 in printmeows(3)",
+    "On each call, the value is copied into the parameter"
+   ],
+   "result": "Parameters are function variables; arguments are the values passed to them."
+  },
+  "narr": [
+   "Final question: How does a parameter differ from an argument?",
+   "A parameter is the name of the input variable inside a function definition.",
+   "For example, in void printmeows(int count), 'count' is the parameter.",
+   "This parameter name is local to the function and only exists within its scope.",
+   "An argument, on the other hand, is the actual value passed when calling the function.",
+   "For example, in printmeows(3), the number 3 is the argument.",
+   "When the function is called, the value of the argument is copied into the parameter."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ }
+]

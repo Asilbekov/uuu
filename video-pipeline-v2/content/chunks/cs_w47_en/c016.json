@@ -1,0 +1,592 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Computer Science",
+   "subtitle": "C · Weeks 4–7"
+  },
+  "narr": [
+   "Let's dive into the fascinating world of recursion in C programming."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Recursive factorial function",
+   "code": "int factorial(int n)\n{\n    if (n == 0)\n        return 1;\n    int smaller = factorial(n - 1);\n    return n * smaller;\n}",
+   "highlight": [
+    1,
+    2,
+    3
+   ]
+  },
+  "narr": [
+   "Here's a classic example of recursion: the factorial function.",
+   "The factorial of a number n is the product of all positive integers less than or equal to n.",
+   "This function calls itself with a smaller value until it reaches the base case of n equals 0."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Stack frames in recursion",
+   "bullets": [
+    "Each call has its own stack frame",
+    "The frame stores what an incomplete call needs: parameters/locals and the continuation point",
+    "The new call gets its own variables",
+    "The caller saves its own incomplete work"
+   ]
+  },
+  "narr": [
+   "When a function calls itself, each call gets its own stack frame.",
+   "This frame contains the parameters, local variables, and information about where to continue execution after the recursive call returns.",
+   "Each new call gets its own copy of variables like n.",
+   "The caller saves its own incomplete work while waiting for the recursive call to complete."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Tracing factorial(3)",
+   "problem": "Trace the execution of factorial(3) step by step.",
+   "steps": [
+    {
+     "text": "main() calls factorial(3)"
+    },
+    {
+     "text": "factorial(3) calls factorial(2)"
+    },
+    {
+     "text": "factorial(2) calls factorial(1)"
+    },
+    {
+     "text": "factorial(1) calls factorial(0)"
+    },
+    {
+     "text": "factorial(0) returns 1 (base case)"
+    },
+    {
+     "text": "factorial(1) returns 1×1 = 1"
+    }
+   ]
+  },
+  "narr": [
+   "Let's trace the execution of factorial(3) to understand how recursion works.",
+   "First, main() calls factorial(3).",
+   "factorial(3) then calls factorial(2) with n=2.",
+   "factorial(2) calls factorial(1) with n=1.",
+   "factorial(1) calls factorial(0) with n=0.",
+   "factorial(0) reaches the base case and returns 1.",
+   "factorial(1) receives this result and returns 1×1 = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Tracing factorial(3) (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "factorial(2) returns 2×1 = 2"
+    },
+    {
+     "text": "factorial(3) returns 3×2 = 6"
+    }
+   ],
+   "result": "factorial(3) = 6"
+  },
+  "narr": [
+   "factorial(2) receives this result and returns 2×1 = 2.",
+   "Finally, factorial(3) receives this result and returns 3×2 = 6."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Recursion vs iteration",
+   "bullets": [
+    "Recursion: function calls itself",
+    "Iteration: loop repeats the body",
+    "Recursion: one incomplete call per level",
+    "Iteration: counter and accumulated product"
+   ]
+  },
+  "narr": [
+   "Let's compare recursion with iteration using the factorial example.",
+   "In recursion, the function calls itself with smaller values until reaching the base case.",
+   "In iteration, a simple loop repeats the body until a condition is met.",
+   "With recursion, each recursive call represents an incomplete computation waiting for the next call to complete.",
+   "With iteration, we maintain a counter and an accumulated product in variables."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Recursion vs iteration for factorial",
+   "columns": [
+    "Feature",
+    "Recursive factorial",
+    "Iterative factorial"
+   ],
+   "rows": [
+    [
+     "Repeated step",
+     "function calls itself",
+     "loop repeats the body"
+    ],
+    [
+     "What awaits",
+     "one incomplete call per level",
+     "no recursive calls"
+    ],
+    [
+     "State in this example",
+     "each call stores its own n",
+     "counter and accumulated product"
+    ],
+    [
+     "Result for 3",
+     "6",
+     "6"
+    ]
+   ]
+  },
+  "narr": [
+   "Here's a summary comparing recursive and iterative approaches to factorial.",
+   "Both approaches use a repeated step: recursion through function calls, iteration through a loop.",
+   "Recursion leaves incomplete calls waiting at each level, while iteration maintains state through variables.",
+   "In the recursive version, each call stores its own value of n.",
+   "In the iterative version, we maintain a counter and an accumulated product.",
+   "Both approaches correctly compute factorial(3) as 6."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "When to use recursion",
+   "bullets": [
+    "Don't claim recursion is always faster or better",
+    "For factorial, loop and recursion give similar results",
+    "For self-similar tasks (nested structures), recursion is often simpler"
+   ]
+  },
+  "narr": [
+   "It's important to note that recursion isn't always better than iteration.",
+   "For simple problems like factorial, both approaches give similar results with similar performance.",
+   "However, for problems with self-similar structure, like traversing nested data structures, recursive solutions are often much simpler and more intuitive to express."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Fibonacci sequence",
+   "problem": "Implement a recursive function to compute the nth Fibonacci number.",
+   "steps": [
+    {
+     "text": "The Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, ..."
+    },
+    {
+     "text": "Each value is the sum of the two preceding ones"
+    },
+    {
+     "text": "Two base cases: F(0) = 0, F(1) = 1"
+    },
+    {
+     "text": "Recursive case: F(n) = F(n-1) + F(n-2)"
+    }
+   ],
+   "result": "int fibonacci(int n)\n{\n    if (n == 0)\n        return 0;\n    if (n == 1)\n        return 1;\n    int left = fibonacci(n - 1);\n    int right = fibonacci(n - 2);\n    return left + right;\n}"
+  },
+  "narr": [
+   "Let's look at another classic recursive example: the Fibonacci sequence.",
+   "The Fibonacci sequence starts with 0 and 1, and each subsequent number is the sum of the two preceding ones.",
+   "For a recursive implementation, we need two base cases: when n is 0, return 0; when n is 1, return 1.",
+   "For other values, we recursively compute F(n-1) and F(n-2), then return their sum."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Tracing fibonacci(4)",
+   "problem": "Trace the execution of fibonacci(4) and count all function calls.",
+   "steps": [
+    {
+     "text": "fibonacci(4) calls fibonacci(3) and fibonacci(2)"
+    },
+    {
+     "text": "fibonacci(3) calls fibonacci(2) and fibonacci(1)"
+    },
+    {
+     "text": "fibonacci(2) calls fibonacci(1) and fibonacci(0)"
+    },
+    {
+     "text": "fibonacci(1) returns 1 (base case)"
+    },
+    {
+     "text": "fibonacci(0) returns 0 (base case)"
+    },
+    {
+     "text": "fibonacci(2) computes 1 + 0 = 1"
+    }
+   ]
+  },
+  "narr": [
+   "Let's trace fibonacci(4) to see how it executes.",
+   "fibonacci(4) calls fibonacci(3) and fibonacci(2).",
+   "fibonacci(3) calls fibonacci(2) and fibonacci(1).",
+   "fibonacci(2) calls fibonacci(1) and fibonacci(0).",
+   "fibonacci(1) returns 1 (base case).",
+   "fibonacci(0) returns 0 (base case).",
+   "fibonacci(2) computes 1 + 0 = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Tracing fibonacci(4) (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "fibonacci(1) returns 1"
+    },
+    {
+     "text": "fibonacci(3) computes 1 + 1 = 2"
+    },
+    {
+     "text": "fibonacci(2) calls fibonacci(1) and fibonacci(0) again"
+    },
+    {
+     "text": "fibonacci(1) returns 1"
+    },
+    {
+     "text": "fibonacci(0) returns 0"
+    },
+    {
+     "text": "fibonacci(2) computes 1 + 0 = 1"
+    },
+    {
+     "text": "fibonacci(4) computes 2 + 1 = 3"
+    }
+   ],
+   "result": "fibonacci(4) = 3, with 9 total function calls"
+  },
+  "narr": [
+   "fibonacci(1) returns 1.",
+   "fibonacci(3) computes 1 + 1 = 2.",
+   "Notice that fibonacci(2) is called again, leading to redundant computation.",
+   "fibonacci(2) calls fibonacci(1) and fibonacci(0) again.",
+   "fibonacci(1) returns 1.",
+   "fibonacci(0) returns 0.",
+   "fibonacci(2) computes 1 + 0 = 1.",
+   "Finally, fibonacci(4) computes 2 + 1 = 3."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Redundant computation in Fibonacci",
+   "bullets": [
+    "fibonacci(2) appears twice",
+    "The same answer is computed again",
+    "Only one call executes at any moment",
+    "This simple version repeats work"
+   ]
+  },
+  "narr": [
+   "As we saw in the trace, fibonacci(2) is computed twice.",
+   "The same answer is calculated multiple times, which is inefficient.",
+   "At any given moment, only one function call is executing.",
+   "This simple recursive implementation repeats work unnecessarily, making it inefficient for larger values of n."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Tower of Hanoi",
+   "problem": "Solve the Tower of Hanoi problem for 3 disks from rod A to rod C using rod B.",
+   "steps": [
+    {
+     "text": "Rules: (1) move one disk at a time; (2) move only the top disk; (3) never place a larger disk on a smaller one"
+    },
+    {
+     "text": "Step 1: move 2 disks from A to B, using C (3 moves)"
+    },
+    {
+     "text": "Step 2: move disk 3 from A to C (1 move)"
+    },
+    {
+     "text": "Step 3: move 2 disks from B to C, using A (3 moves)"
+    },
+    {
+     "text": "Total moves: 3 + 1 + 3 = 7"
+    },
+    {
+     "text": "Base case: no disks (n == 0) requires no moves"
+    }
+   ],
+   "result": "The sequence of moves: disk 1A→C; disk 2A→B; disk 1C→B; disk 3A→C; disk 1B→A; disk 2B→C; disk 1A→C"
+  },
+  "narr": [
+   "Let's look at another classic recursive problem: the Tower of Hanoi.",
+   "The goal is to move all disks from one rod to another, following specific rules.",
+   "We can solve this recursively: first move n-1 disks from source to auxiliary rod.",
+   "Then move the largest disk from source to destination.",
+   "Finally, move the n-1 disks from auxiliary to destination.",
+   "For 3 disks, this requires 7 moves total.",
+   "The base case is when there are no disks to move."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 7 questions",
+   "subtitle": "Lecture and lab questions with model answers"
+  },
+  "narr": [
+   "Now let's move on to some common questions about pointers and memory management in C."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S1 — Pointers",
+   "problem": "What is a pointer and what is a null pointer?",
+   "steps": [
+    {
+     "text": "A pointer stores the memory address of a variable"
+    },
+    {
+     "text": "The address allows accessing and modifying the variable from anywhere"
+    },
+    {
+     "text": "Pointers are especially useful for data structures"
+    },
+    {
+     "text": "A null pointer is 0 (NULL) and doesn't reference anything"
+    }
+   ],
+   "result": "A pointer is the address of a variable in memory; the address allows accessing and modifying the variable from anywhere (especially useful for data structures). A null pointer is 0 (NULL): a pointer that doesn't reference anything."
+  },
+  "narr": [
+   "First question: What is a pointer and what is a null pointer?",
+   "A pointer is simply the memory address of a variable.",
+   "This address allows us to access and modify the variable from anywhere in our code.",
+   "Pointers are especially useful when working with data structures like linked lists and trees.",
+   "A null pointer is a special pointer value (0 or NULL) that doesn't point to any valid memory location."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S2 — Pointer operators",
+   "problem": "What do the & and * operators do?",
+   "steps": [
+    {
+     "text": "& is the address-of operator: gets the memory address of a variable"
+    },
+    {
+     "text": "* is the dereference/indirection operator: accesses the value at an address"
+    },
+    {
+     "text": "Example: int pn = &n; gets the address of n"
+    },
+    {
+     "text": "Example: printf(\"pi = %g\", *pi); prints the value at pi's address"
+    }
+   ],
+   "result": "& — is the address-of operator: the address of a variable of type t has type t (int pn = &n;). * is the dereference/indirection operator: access to the value at an address (printf(\"pi = %g\\n\", *pi);). A dereferenced pointer behaves like a regular variable."
+  },
+  "narr": [
+   "Second question: What do the & and * operators do?",
+   "The ampersand & is the address-of operator - it returns the memory address of a variable.",
+   "The asterisk * is the dereference or indirection operator - it accesses the value stored at a particular memory address.",
+   "For example, int pn = &n; gets the address of n and stores it in pn.",
+   "And printf(\"pi = %g\", *pi); prints the value stored at the address pointed to by pi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S3 — Returning multiple values",
+   "problem": "How to return multiple values from a function?",
+   "steps": [
+    {
+     "text": "Functions can only return one value directly"
+    },
+    {
+     "text": "Pass pointers for additional outputs"
+    },
+    {
+     "text": "Example: int exteuclid(int a, int b, int x, int y);"
+    },
+    {
+     "text": "The call g = exteuclid(a, b, &x, &y); writes x and y to the passed addresses"
+    }
+   ],
+   "result": "Pass pointers for additional outputs: int exteuclid(int a, int b, int x, int y); the call g = exteuclid(a, b, &x, &y); writes x and y to the passed addresses. Functions can return no more than one value — pointers extend this limit."
+  },
+  "narr": [
+   "Third question: How to return multiple values from a function?",
+   "In C, a function can only return one value directly.",
+   "However, we can use pointers to return additional values.",
+   "For example, a function like int exteuclid(int a, int b, int x, int y) can write values to the addresses pointed to by x and y.",
+   "The call g = exteuclid(a, b, &x, &y); would then store results in g, x, and y."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S4 — Returning local arrays",
+   "problem": "What's wrong with a function that returns the address of a local array?",
+   "steps": [
+    {
+     "text": "Local arrays exist on the stack frame of the function"
+    },
+    {
+     "text": "After the function returns, the stack frame disappears"
+    },
+    {
+     "text": "The pointer becomes invalid (dangling)"
+    },
+    {
+     "text": "Using the dangling pointer leads to undefined behavior"
+    },
+    {
+     "text": "Compilers usually warn about this practice"
+    }
+   ],
+   "result": "char msg[] lives on the stack frame of getmessage(); after the function returns, the frame disappears, and the pointer becomes invalid (dangling) — puts(string) reads memory that no longer exists. Compilers usually warn about this. Solutions: a static array, a buffer passed by the caller, or malloc'd memory that the caller will free."
+  },
+  "narr": [
+   "Fourth question: What's wrong with a function that returns the address of a local array?",
+   "Local arrays like char msg[] exist on the stack frame of the function.",
+   "When the function returns, the stack frame is destroyed and the memory is freed.",
+   "The pointer to this memory becomes invalid - it's now a dangling pointer.",
+   "Using this dangling pointer leads to undefined behavior as we're accessing memory that no longer exists.",
+   "Compilers usually warn about this dangerous practice.",
+   "Solutions include using a static array, having the caller pass a buffer, or using malloc'd memory that the caller will free."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ }
+]

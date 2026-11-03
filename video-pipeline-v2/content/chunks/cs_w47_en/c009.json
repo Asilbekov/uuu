@@ -1,0 +1,605 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Week 6 — Functions and Structures",
+   "subtitle": "Connecting Scratch blocks to real C functions"
+  },
+  "narr": [
+   "Welcome to Week 6, where we'll connect Scratch blocks to real C functions.",
+   "We'll explore function definition, prototype, call, parameters, arguments, and return values.",
+   "Plus, we'll add structures to model a coffee machine in C.",
+   "The lecture will also reinforce control structures and cover input-output in depth."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Points of Week 6",
+   "bullets": [
+    "Function definition, prototype, and call",
+    "Parameters, arguments, and return values",
+    "Structures: typedef struct and field access",
+    "Coffee machine model implementation"
+   ]
+  },
+  "narr": [
+   "Let's start with the key concepts we'll cover in Week 6.",
+   "First, we'll look at functions in C - how to define them, create prototypes, and call them.",
+   "Then we'll explore how parameters and arguments work, and how functions return values.",
+   "We'll also learn about structures, how to define them with typedef struct, and access their fields.",
+   "Finally, we'll apply these concepts to build a coffee machine model in C."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Function: Definition, Prototype, Call",
+   "bullets": [
+    "A function is a named set of instructions",
+    "Header format: return_type function_name(parameter_list)",
+    "Prototype declares the function before main calls it",
+    "Definition describes the function's work",
+    "Call executes the function"
+   ]
+  },
+  "narr": [
+   "Let's dive deeper into functions in C.",
+   "A function is essentially a named set of instructions that performs a specific task.",
+   "The function header follows the format: return_type function_name(parameter_list).",
+   "For example, void before the name means no return value, and (void) means no inputs.",
+   "The curly braces contain the function body where the actual instructions are written.",
+   "It's important to distinguish between return value and printed output.",
+   "The prototype declares the function before main calls it - it ends with a semicolon and has no body.",
+   "The definition describes how the function works, and the call executes it."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Basic Function Example",
+   "problem": "Create a function that prints 'Hello, world!' twice",
+   "steps": [
+    {
+     "text": "Define the function with void return type and no parameters"
+    },
+    {
+     "text": "Include the function prototype before main"
+    },
+    {
+     "text": "Call the function twice from main"
+    },
+    {
+     "text": "Modify the function to print a different message"
+    }
+   ],
+   "result": "The program prints the message twice, demonstrating function reuse"
+  },
+  "narr": [
+   "Let's look at a basic function example.",
+   "First, we define a function with void return type and no parameters.",
+   "The function contains a printf statement to print a message.",
+   "We include the function prototype before main to declare it.",
+   "Then we call the function twice from main.",
+   "The output shows the message printed twice.",
+   "If we change the message inside the function, both calls use the modified definition.",
+   "This demonstrates reuse - a common behavior in programming."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   -1,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Function Example Code",
+   "code": "#include <stdio.h>\n\nvoid print_hello_world(void);\n\nint main(void)\n{\n    print_hello_world();\n    print_hello_world();\n    return 0;\n}\n\nvoid print_hello_world(void)\n{\n    printf(\"Hello, world!\\n\");\n}",
+   "highlight": [
+    1,
+    7,
+    8,
+    9
+   ]
+  },
+  "narr": [
+   "Here's the complete code for our function example.",
+   "First, we include the standard input-output library.",
+   "Then we declare the function prototype - it tells the compiler about our function.",
+   "In main, we call the function twice.",
+   "Finally, we define the function with its actual implementation.",
+   "When we run this program, it prints 'Hello, world!' twice."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Parameters, Arguments, and Return Value",
+   "bullets": [
+    "Parameters are the names of inputs inside the function",
+    "Arguments are the values passed by the call",
+    "Parameters are local to the function",
+    "Return values go back to the caller"
+   ]
+  },
+  "narr": [
+   "Now let's explore parameters, arguments, and return values.",
+   "Parameters are the names of inputs inside the function definition.",
+   "Arguments are the actual values passed when making the function call.",
+   "Parameters are local to their function - they exist only within that function.",
+   "When a function is called, the argument values are copied to the parameters.",
+   "Return values are values that functions send back to the caller."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Function with Parameters",
+   "problem": "Create a function that prints 'meow' a specified number of times",
+   "steps": [
+    {
+     "text": "Define a helper function that prints 'meow' once"
+    },
+    {
+     "text": "Create a function that takes an integer count parameter"
+    },
+    {
+     "text": "Use a loop to call the helper function 'count' times"
+    },
+    {
+     "text": "Call the function with different argument values"
+    }
+   ],
+   "result": "The function prints 'meow' the specified number of times"
+  },
+  "narr": [
+   "Let's look at an example with parameters and arguments.",
+   "First, we define a helper function that prints 'meow' once.",
+   "Then we create a function that takes an integer parameter called 'count'.",
+   "Inside this function, we use a loop to call our helper function 'count' times.",
+   "When we call this function with different arguments, it prints 'meow' that many times.",
+   "For example, calling with 1 prints it once, calling with 3 prints it three times.",
+   "The parameter 'count' is local to the function - it only exists within that function."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Function with Parameters Code",
+   "code": "#include <stdio.h>\n\nvoid print_meow(void);\nvoid print_meows(int count);\n\nint main(void)\n{\n    print_meows(1);\n    print_meows(3);\n    return 0;\n}\n\nvoid print_meow(void)\n{\n    printf(\"meow\\n\");\n}\n\nvoid print_meows(int count)\n{\n    for (int i = 0; i < count; i++)\n    {\n        print_meow();\n    }\n}",
+   "highlight": [
+    1,
+    2,
+    4,
+    5,
+    8,
+    10,
+    11,
+    12,
+    13
+   ]
+  },
+  "narr": [
+   "Here's the code for our parameter example.",
+   "We start with two function prototypes.",
+   "In main, we call print_meows with arguments 1 and 3.",
+   "The print_meow function simply prints 'meow' once.",
+   "The print_meows function takes an integer count parameter.",
+   "It uses a for loop to call print_meow 'count' times.",
+   "When we run this, it prints 'meow' once, then three times."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Function with Return Value",
+   "problem": "Create a function that calculates the integer square root of a number",
+   "steps": [
+    {
+     "text": "Define a function that takes an integer parameter"
+    },
+    {
+     "text": "Calculate the largest integer whose square is less than or equal to the input"
+    },
+    {
+     "text": "Return the calculated integer"
+    },
+    {
+     "text": "Call the function from main and print the results"
+    }
+   ],
+   "result": "For input 27, returns 5 (5×5=25≤27); for input 16, returns 4 (4×4=16)"
+  },
+  "narr": [
+   "Now let's look at a function with a return value.",
+   "We'll create a function called IntegerRoot that calculates the integer square root.",
+   "The function takes an integer parameter called 'number'.",
+   "It finds the largest integer whose square is less than or equal to the input.",
+   "For 27, it returns 5 because 5×5=25≤27 and 6×6=36>27.",
+   "For 16, it returns 4 because 4×4=16.",
+   "The function returns this value to the caller.",
+   "In main, we call the function and print the results."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   -1,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Function with Return Value Code",
+   "code": "#include <stdio.h>\n\nint IntegerRoot(int number);\n\nint main(void)\n{\n    int first = IntegerRoot(27);\n    int second = IntegerRoot(16);\n    printf(\"%d %d\\n\", first, second);\n    return 0;\n}\n\nint IntegerRoot(int number)\n{\n    int result = 0;\n    while (result * result <= number)\n    {\n        result++;\n    }\n    return result - 1;\n}",
+   "highlight": [
+    1,
+    3,
+    4,
+    5,
+    9,
+    10,
+    11,
+    12,
+    13
+   ]
+  },
+  "narr": [
+   "Here's the code for our return value example.",
+   "We declare the IntegerRoot function prototype.",
+   "In main, we call IntegerRoot with 27 and 16, storing the results.",
+   "Then we print both results using printf.",
+   "The IntegerRoot function finds the largest integer whose square is less than or equal to the input.",
+   "It does this by incrementing result until its square exceeds the input.",
+   "Then it returns result minus one.",
+   "When we run this, it prints '5 4' as expected."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Structures: typedef struct and Field Access",
+   "bullets": [
+    "Structures group related fields into one type",
+    "typedef gives the structure type a convenient name",
+    "Fields are accessed using dot notation",
+    "Structures can be passed to functions and returned"
+   ]
+  },
+  "narr": [
+   "Now let's explore structures in C.",
+   "Structures allow us to group related fields into one custom type.",
+   "We use the typedef struct keyword to define a new structure type.",
+   "Inside the structure, we declare fields with their types and names.",
+   "After the closing brace, we give the type a convenient name.",
+   "To create a variable of this type, we use the type name.",
+   "We access individual fields using dot notation: variable_name.field_name."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Basic Structure Usage",
+   "problem": "Create a Stock structure for coffee machine resources and demonstrate field access",
+   "steps": [
+    {
+     "text": "Define a Stock structure with fields for water, milk, beans, and cups"
+    },
+    {
+     "text": "Create a variable of type Stock and initialize it"
+    },
+    {
+     "text": "Access and print a field value"
+    },
+    {
+     "text": "Modify a field value and print it again"
+    }
+   ],
+   "result": "The program prints the initial field value (500), then the modified value (450)"
+  },
+  "narr": [
+   "Let's look at a basic structure example for a coffee machine.",
+   "We'll create a Stock structure with fields for different resources.",
+   "The structure has fields for water in milliliters, milk in milliliters, beans in grams, and paper cups.",
+   "We use typedef to give this structure type the name 'Stock'.",
+   "Then we create a variable called 'stock' of type Stock and initialize it.",
+   "We can access individual fields using dot notation: stock.water_ml.",
+   "First we print the water_ml field, which shows 500.",
+   "Then we modify this field to 450 and print it again, showing the change."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Structure Example Code",
+   "code": "#include <stdio.h>\n\ntypedef struct\n{\n    int water_ml;\n    int milk_ml;\n    int beans_g;\n    int paper_cups;\n} Stock;\n\nint main(void)\n{\n    Stock stock = {500, 200, 40, 3};\n    printf(\"%d\\n\", stock.water_ml);\n    stock.water_ml = 450;\n    printf(\"%d\\n\", stock.water_ml);\n    return 0;\n}",
+   "highlight": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ]
+  },
+  "narr": [
+   "Here's the code for our structure example.",
+   "First, we define the Stock structure with four fields.",
+   "Each field has a type and name: water_ml, milk_ml, beans_g, and paper_cups.",
+   "After the closing brace, we use Stock as the type name.",
+   "In main, we create a stock variable and initialize it with values.",
+   "We print the water_ml field, which shows 500.",
+   "Then we modify water_ml to 450 and print it again.",
+   "The output shows 500, then 450, demonstrating field modification."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Structure in Function",
+   "problem": "Create a function that modifies a copy of a Stock structure",
+   "steps": [
+    {
+     "text": "Define a function that takes a Stock and amount as parameters"
+    },
+    {
+     "text": "Check if the amount is valid (non-negative and not exceeding available water)"
+    },
+    {
+     "text": "Modify the water_ml field of the copy"
+    },
+    {
+     "text": "Return the modified copy"
+    },
+    {
+     "text": "Call the function and demonstrate that the original remains unchanged"
+    }
+   ],
+   "result": "The function returns a modified copy while the original Stock remains unchanged"
+  },
+  "narr": [
+   "Now let's see how structures work with functions.",
+   "We'll create a function that takes a Stock structure and an amount as parameters.",
+   "The function will modify a copy of the Stock structure, not the original.",
+   "It checks if the amount is valid (non-negative and not exceeding available water).",
+   "If valid, it subtracts the amount from the water_ml field of the copy.",
+   "Then it returns this modified copy to the caller.",
+   "The original Stock remains unchanged until we assign the returned value to it.",
+   "This demonstrates that functions receive copies of structures, not the originals."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1,
+   4
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Structure in Function Code",
+   "code": "#include <stdio.h>\n\ntypedef struct\n{\n    int water_ml;\n    int milk_ml;\n    int beans_g;\n    int paper_cups;\n} Stock;\n\nStock stock_after_water_use(Stock stock, int amount_ml)\n{\n    if (amount_ml >= 0 && amount_ml <= stock.water_ml)\n    {\n        stock.water_ml -= amount_ml;\n    }\n    return stock;\n}\n\nint main(void)\n{\n    Stock stock = {500, 200, 40, 3};\n    Stock preview = stock_after_water_use(stock, 100);\n    printf(\"%d\\n\", stock.water_ml);\n    printf(\"%d\\n\", preview.water_ml);\n    stock = stock_after_water_use(stock, 50);\n    printf(\"%d\\n\", stock.water_ml);\n    return 0;\n}",
+   "highlight": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    14,
+    15,
+    16,
+    17,
+    18
+   ]
+  },
+  "narr": [
+   "Here's the code for our structure in function example.",
+   "We define the Stock structure as before.",
+   "Then we create the stock_after_water_use function.",
+   "It takes a Stock and an amount_ml parameter.",
+   "It checks if the amount is valid, then modifies the water_ml field.",
+   "It returns the modified copy of the Stock.",
+   "In main, we start with stock initialized to 500 ml of water.",
+   "We call the function with 100 ml and store the result in preview.",
+   "The original stock still has 500 ml, while preview has 400 ml.",
+   "Then we call the function again with 50 ml and assign the result back to stock.",
+   "Now stock has 450 ml, while preview still has 400 ml."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Coffee Machine Model",
+   "bullets": [
+    "Machine has water, milk, beans, and cups resources",
+    "Recipe specifies amounts needed for each drink",
+    "can_make_coffee function checks if resources are sufficient",
+    "stock_after_coffee function updates resources after making coffee"
+   ]
+  },
+  "narr": [
+   "Let's apply these concepts to a coffee machine model.",
+   "Our coffee machine has four resources: water, milk, coffee beans, and paper cups.",
+   "Each drink type has a recipe that specifies how much of each resource it requires.",
+   "We'll create a can_make_coffee function that checks if we have enough resources.",
+   "We'll also create a stock_after_coffee function that updates resources after making coffee.",
+   "This demonstrates how structures and functions work together in a practical example."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Coffee Machine Model",
+   "problem": "Create functions to check if coffee can be made and update resources after making it",
+   "steps": [
+    {
+     "text": "Define a Recipe structure for drink ingredients"
+    },
+    {
+     "text": "Create can_make_coffee function that checks if stock has enough resources"
+    },
+    {
+     "text": "Create stock_after_coffee function that updates resources after making coffee"
+    },
+    {
+     "text": "Demonstrate with a latte recipe that requires 100ml water, 50ml milk, 10g beans, and 1 cup"
+    }
+   ],
+   "result": "Functions return true/false for can_make_coffee and updated Stock for stock_after_coffee"
+  },
+  "narr": [
+   "Now let's build our coffee machine model.",
+   "First, we'll define a Recipe structure that specifies how much of each resource a drink requires.",
+   "Then we'll create a can_make_coffee function that takes a Stock and Recipe as parameters.",
+   "This function checks if the stock has enough of each resource to make the drink.",
+   "It returns true if all resources are sufficient, false otherwise.",
+   "We'll also create a stock_after_coffee function that updates the resources after making coffee.",
+   "For example, a latte might require 100ml water, 50ml milk, 10g beans, and 1 cup.",
+   "Our functions will help manage the coffee machine's inventory efficiently."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   -1,
+   3
+  ]
+ }
+]

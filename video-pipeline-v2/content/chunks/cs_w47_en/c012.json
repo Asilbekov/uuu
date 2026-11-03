@@ -1,0 +1,758 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "Weeks 4–7",
+   "subtitle": "Computer Science · C"
+  },
+  "narr": [
+   "Let's dive into some key concepts and questions from weeks 4 through 7 of our Computer Science C course.",
+   "We'll start with some specific questions and their answers."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S7 — IntegerRoot Function",
+   "problem": "What does the pair of calls IntegerRoot(27) and IntegerRoot(16) print?",
+   "steps": [
+    {
+     "text": "For 27: 5×5 = 25 ≤27, and 6×6 = 36 > 27, so the integer root is 5"
+    },
+    {
+     "text": "For 16: 4×4 = 16, so the integer root is 4"
+    },
+    {
+     "text": "IntegerRoot returns a number, and the caller prints it via printf"
+    }
+   ],
+   "result": "5 4"
+  },
+  "narr": [
+   "Let's look at our first problem about the IntegerRoot function.",
+   "The question asks what the pair of calls IntegerRoot(27) and IntegerRoot(16) would print.",
+   "For 27, we need to find the largest integer whose square is less than or equal to 27.",
+   "5 times 5 equals 25, which is less than 27, while 6 times 6 equals 36, which is greater than 27.",
+   "So the integer root of 27 is 5.",
+   "For 16, 4 times 4 equals 16 exactly, so the integer root is 4.",
+   "The IntegerRoot function returns a number, and the caller prints these results using printf."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S8 — Fields and Types in Structs",
+   "problem": "What is a field and how does Stock differ from stock?",
+   "steps": [
+    {
+     "text": "A field is one named value in a struct (waterml, milkml, beansg, paper-cups)"
+    },
+    {
+     "text": "Stock is the type name introduced by typedef after the closing brace"
+    },
+    {
+     "text": "stock is a variable of that type"
+    },
+    {
+     "text": "Case matters: Stock and stock are different names"
+    }
+   ],
+   "result": "A field is a named value in a struct. Stock is the type name, while stock is a variable of that type."
+  },
+  "narr": [
+   "Now let's clarify the difference between a field and a type name in structs.",
+   "The question asks what a field is and how Stock differs from stock.",
+   "A field is simply one named value within a struct, like waterml, milkml, beansg, or paper-cups.",
+   "Stock, with a capital S, is the type name introduced by typedef after the closing brace of the struct definition.",
+   "stock, with a lowercase s, is a variable of that Stock type.",
+   "It's important to remember that case matters in C, so Stock and stock are indeed different names."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S9 — Function Parameters and Copies",
+   "problem": "Why after Stock preview = stockafterwateruse(stock, 100); is the water in stock still 500, but in preview — 400?",
+   "steps": [
+    {
+     "text": "The stock parameter inside the function is a copy"
+    },
+    {
+     "text": "The helper subtracts 100 from the copy and returns the modified copy"
+    },
+    {
+     "text": "The original in main remains 500"
+    },
+    {
+     "text": "The caller chooses where to save the result: preview gets 400"
+    },
+    {
+     "text": "After stock = stockafterwateruse(stock, 50); — a new call starts from the unchanged 500 and saves 450 in stock"
+    }
+   ],
+   "result": "The function works with a copy, so the original remains unchanged unless reassigned."
+  },
+  "narr": [
+   "This question explores how function parameters work in C, specifically with structs.",
+   "It asks why the water value in the original stock variable remains 500 after calling stockafterwateruse, while the preview variable shows 400.",
+   "The key concept here is that the stock parameter inside the function is a copy, not the original.",
+   "The helper function subtracts 100 from this copy and returns the modified copy.",
+   "Meanwhile, the original stock variable in main remains unchanged at 500.",
+   "The caller then decides where to save the returned result - in this case, it's stored in the preview variable.",
+   "If we later reassign stock with the result of another call, like stock = stockafterwateruse(stock, 50);, we're starting from the unchanged 500 and saving 450 back into stock."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S10 — Assignment and Return Values",
+   "problem": "What does the assignment stock = stockaftercoffee(stock, latte); change, and what happens without it?",
+   "steps": [
+    {
+     "text": "With the assignment, stock saves the returned struct: 400 / 150 / 30 / 2"
+    },
+    {
+     "text": "Without assignment (just stockaftercoffee(stock, latte);) the returned copy is discarded"
+    },
+    {
+     "text": "stock doesn't change: 'stock is still unchanged'"
+    }
+   ],
+   "result": "The assignment updates stock with the returned values; without it, the returned struct is discarded."
+  },
+  "narr": [
+   "This question highlights the importance of assignment when working with functions that return structs.",
+   "It asks what changes when we assign the result of stockaftercoffee back to stock.",
+   "With the assignment, stock is updated with the returned struct values: 400 for waterml, 150 for milkml, 30 for beansg, and 2 for paper-cups.",
+   "Without the assignment, if we just call stockaftercoffee(stock, latte); without assigning the result, the returned copy is simply discarded.",
+   "In this case, stock remains unchanged with its previous values."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S11 — Resource Checking Logic",
+   "problem": "Why when stock.papercups = 0 is the order not fulfilled and nothing changes?",
+   "steps": [
+    {
+     "text": "canmakecoffee requires all four resources to be no less than required"
+    },
+    {
+     "text": "Each condition must be met (&& logical operator)"
+    },
+    {
+     "text": "One missing cup is enough to return false"
+    },
+    {
+     "text": "The if branch performs no assignments"
+    },
+    {
+     "text": "All fields of stock and the previous cup (latte) remain unchanged"
+    }
+   ],
+   "result": "The function checks that all resources are sufficient, and since paper cups are 0, it returns false without making any changes."
+  },
+  "narr": [
+   "This question examines the logic of resource checking in a coffee-making function.",
+   "It asks why an order isn't fulfilled when stock.papercups equals 0, and why nothing changes.",
+   "The canmakecoffee function requires all four resources to be no less than what's needed for the order.",
+   "This is implemented using the logical AND operator (&&), meaning each condition must be met.",
+   "Even if only one resource is insufficient, like having zero paper cups, the function returns false.",
+   "Since the if branch doesn't perform any assignments when the condition isn't met, all fields of stock and the previous cup count remain unchanged."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S12 — goto Statements in C",
+   "problem": "What is dangerous about goto and when is it justified in C?",
+   "steps": [
+    {
+     "text": "Excessive goto creates spaghetti code"
+    },
+    {
+     "text": "Code is harder to read and debug"
+    },
+    {
+     "text": "Any code with goto can be rewritten without it"
+    },
+    {
+     "text": "In C goto is justified for exiting nested blocks during error handling"
+    },
+    {
+     "text": "In C++/Java there are exceptions for this, but not in C"
+    }
+   ],
+   "result": "goto can create hard-to-follow code, but is sometimes useful for error handling in C where exceptions aren't available."
+  },
+  "narr": [
+   "Let's discuss the controversial goto statement in C.",
+   "The question asks what's dangerous about goto and when it might be justified.",
+   "Excessive use of goto creates what's known as 'spaghetti code' - code that's hard to follow and debug.",
+   "As Edsger Dijkstra famously argued in his 1968 paper 'Go To Statement Considered Harmful', any code using goto can be rewritten without it.",
+   "However, in C, goto can be justified as a convenient way to exit nested blocks during error handling.",
+   "This is particularly relevant because languages like C++ and Java have exception handling mechanisms, but C does not."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S13 — scanf Function Usage",
+   "problem": "Why does scanf require & and when is it not needed?",
+   "steps": [
+    {
+     "text": "scanf arguments must be variable addresses (pointers)"
+    },
+    {
+     "text": "scanf(\"%d\", &x) writes the read number to the address of x"
+    },
+    {
+     "text": "For character arrays (strings), the array name is already an address"
+    },
+    {
+     "text": "scanf(\"%s\", str) — without &"
+    },
+    {
+     "text": "Similarly scanf(\"%20s\", str) and scanf(\"%20s %20s\", fname, lname)"
+    },
+    {
+     "text": "scanf ignores whitespace characters and returns the number of items read or EOF"
+    }
+   ],
+   "result": "scanf requires & for variables to pass their addresses, but not for character arrays since their names are already addresses."
+  },
+  "narr": [
+   "This question focuses on the scanf function and its use of the & operator.",
+   "It asks why scanf requires & and when it's not needed.",
+   "scanf arguments must be variable addresses (pointers) because it needs to know where to store the input values.",
+   "When reading an integer with scanf(\"%d\", &x), the & operator gives scanf the address of x, so it can write the read number directly to that memory location.",
+   "However, for character arrays (strings), the array name is already an address, so we don't need the & operator.",
+   "This is why we can write scanf(\"%s\", str) without the &.",
+   "The same applies to width-limited string inputs like scanf(\"%20s\", str) or multiple strings.",
+   "It's also worth noting that scanf ignores whitespace characters and returns the number of items successfully read or EOF in case of end-of-file."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem S14 — Command Line Arguments",
+   "problem": "What do argc and argv store?",
+   "steps": [
+    {
+     "text": "int main(int argc, char *argv[]): argc is the number of arguments"
+    },
+    {
+     "text": "argv[] is an array of pointers to each argument"
+    },
+    {
+     "text": "Arguments include the program name"
+    },
+    {
+     "text": "Example: ./cat a.txt b.txt gives argc = 3, argv[0] = \"cat\", argv[1] = \"a.txt\", argv[2] = \"b.txt\""
+    },
+    {
+     "text": "A single ./cat gives argc = 1"
+    }
+   ],
+   "result": "argc stores the count of command line arguments including the program name, and argv stores the arguments as strings."
+  },
+  "narr": [
+   "Let's explore command line arguments in C programs.",
+   "The question asks what argc and argv store in a C program.",
+   "In the function signature int main(int argc, char *argv[]), argc stands for argument count and represents the number of command line arguments.",
+   "argv, which stands for argument vector, is an array of pointers to each argument string.",
+   "Importantly, the arguments include the program name itself as the first argument.",
+   "For example, if we run ./cat a.txt b.txt, argc would be 3, with argv[0] being \"cat\", argv[1] being \"a.txt\", and argv[2] being \"b.txt\".",
+   "If we just run the program with ./cat, argc would be 1, with only the program name in argv[0]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Week 6 Tests",
+   "subtitle": "Test Questions and Answers"
+  },
+  "narr": [
+   "Now let's move on to the Week 6 test questions and their answers.",
+   "These questions cover various topics we've discussed in the course."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T1 — Function Prototype",
+   "problem": "What is a function prototype?",
+   "steps": [
+    {
+     "text": "a) function body with curly braces"
+    },
+    {
+     "text": "b) function declaration ending with ';' and without a body"
+    },
+    {
+     "text": "c) function call from main"
+    },
+    {
+     "text": "d) variable inside a function"
+    }
+   ],
+   "result": "b) function declaration ending with ';' and without a body"
+  },
+  "narr": [
+   "Our first test question is about function prototypes.",
+   "The question asks what a function prototype is.",
+   "Option a suggests it's a function body with curly braces, but that's actually a function definition.",
+   "Option b describes a function declaration that ends with a semicolon and has no body, which is correct for a prototype.",
+   "Option c refers to a function call, which is different from a prototype.",
+   "Option d mentions a variable inside a function, which is unrelated to prototypes.",
+   "Therefore, the correct answer is b) a function declaration ending with ';' and without a body."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T2 — void Function Parameters",
+   "problem": "How many inputs and return values does void printmeow(void) have?",
+   "steps": [
+    {
+     "text": "a) 1 input, 1 value"
+    },
+    {
+     "text": "b) no inputs, no return value"
+    },
+    {
+     "text": "c) no inputs, 1 value"
+    },
+    {
+     "text": "d) 1 input, no value"
+    }
+   ],
+   "result": "b) no inputs, no return value"
+  },
+  "narr": [
+   "This question examines a void function with no parameters.",
+   "It asks about the number of inputs and return values for void printmeow(void).",
+   "Option a suggests one input and one return value, which isn't correct.",
+   "Option b states no inputs and no return value, which matches our function signature.",
+   "Option c claims no inputs but one return value, which is incorrect.",
+   "Option d suggests one input and no return value, which doesn't match either.",
+   "The correct answer is b) no inputs, no return value, as indicated by the void keyword before the function name and the (void) parameter list."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T3 — IntegerRoot Return Value",
+   "problem": "What does IntegerRoot(27) return?",
+   "steps": [
+    {
+     "text": "a) 4"
+    },
+    {
+     "text": "b) 5"
+    },
+    {
+     "text": "c) 6"
+    },
+    {
+     "text": "d) 27"
+    }
+   ],
+   "result": "b) 5"
+  },
+  "narr": [
+   "This question tests our understanding of the IntegerRoot function.",
+   "It asks what IntegerRoot(27) would return.",
+   "Option a suggests 4, but 4×4=16 which is less than 27, while 5×5=25 which is closer.",
+   "Option b suggests 5, and indeed 5×5=25≤27, while 6×6=36>27, so 5 is the integer root.",
+   "Option c suggests 6, but 6×6=36 which is greater than 27.",
+   "Option d suggests 27, which would be the case only if we were returning the input itself, not its root.",
+   "The correct answer is b) 5, as 5 is the largest integer whose square is less than or equal to 27."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T4 — Struct Field Access",
+   "problem": "How to access the waterml field of the stock variable?",
+   "steps": [
+    {
+     "text": "a) stock.waterml"
+    },
+    {
+     "text": "b) Stock.waterml"
+    },
+    {
+     "text": "c) stock->waterml"
+    },
+    {
+     "text": "d) stock:waterml"
+    }
+   ],
+   "result": "a) stock.waterml"
+  },
+  "narr": [
+   "This question is about accessing struct fields in C.",
+   "It asks how to access the waterml field of the stock variable.",
+   "Option a uses dot notation with the lowercase variable name: stock.waterml, which is correct.",
+   "Option b uses the type name Stock with a capital S, which is incorrect as we access fields through variables, not types.",
+   "Option c uses the arrow operator ->, which is used for accessing fields through pointers, not direct variables.",
+   "Option d uses a colon, which isn't valid syntax for accessing struct fields in C.",
+   "The correct answer is a) stock.waterml, using dot notation with the variable name."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T5 — Typedef and Type Names",
+   "problem": "In typedef struct { . . . } Stock; the name Stock is...",
+   "steps": [
+    {
+     "text": "a) variable"
+    },
+    {
+     "text": "b) type name introduced by typedef"
+    },
+    {
+     "text": "c) structure field"
+    },
+    {
+     "text": "d) function"
+    }
+   ],
+   "result": "b) type name introduced by typedef"
+  },
+  "narr": [
+   "This question explores the typedef keyword in C.",
+   "It asks what the name Stock represents in the typedef struct { . . . } Stock; declaration.",
+   "Option a suggests it's a variable, but variables are declared separately with the type.",
+   "Option b identifies it as a type name introduced by typedef, which is correct.",
+   "Option c claims it's a structure field, but fields are defined inside the braces, not after them.",
+   "Option d suggests it's a function, which is unrelated to typedef declarations.",
+   "The correct answer is b) type name introduced by typedef, as typedef gives a new name to a type."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T6 — Function Parameter Copies",
+   "problem": "After Stock preview = stockafterwateruse(stock, 100); what is stock.waterml?",
+   "steps": [
+    {
+     "text": "a) 400"
+    },
+    {
+     "text": "b) 500"
+    },
+    {
+     "text": "c) 450"
+    },
+    {
+     "text": "d) 0"
+    }
+   ],
+   "result": "b) 500"
+  },
+  "narr": [
+   "This question revisits the concept of function parameters being copies.",
+   "It asks what the value of stock.waterml would be after calling Stock preview = stockafterwateruse(stock, 100);.",
+   "Option a suggests 400, which would be the value in the preview variable, not the original stock.",
+   "Option b suggests 500, which is correct because the function works with a copy, leaving the original unchanged.",
+   "Option c suggests 450, which might be the result of a different call with 50 units.",
+   "Option d suggests 0, which would only happen if the function explicitly set it to zero.",
+   "The correct answer is b) 500, as the stock parameter in the function is a copy, and the original remains unchanged."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T7 — printf Width Specification",
+   "problem": "What will printf(\"%4d\", 10); print?",
+   "steps": [
+    {
+     "text": "a) \"10\""
+    },
+    {
+     "text": "b) \"bb10\" (b — space)"
+    },
+    {
+     "text": "c) \"0010\""
+    },
+    {
+     "text": "d) \"10bb\""
+    }
+   ],
+   "result": "b) \"bb10\" (b — space)"
+  },
+  "narr": [
+   "This question tests our understanding of printf width formatting.",
+   "It asks what printf(\"%4d\", 10); would print.",
+   "Option a shows \"10\" without any spaces, which would be the case without width specification.",
+   "Option b shows \"bb10\" where b represents spaces, which is correct as the width of 4 pads with spaces on the left.",
+   "Option c shows \"0010\" with leading zeros, which would be specified with %04d, not %4d.",
+   "Option d shows \"10bb\" with spaces after the number, which would be specified with %-4d.",
+   "The correct answer is b) \"bb10\" (with spaces), as width specification pads with spaces on the left by default."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T8 — printf Precision for Strings",
+   "problem": "What will printf(\"%.4s\", \"hello\"); print?",
+   "steps": [
+    {
+     "text": "a) hello"
+    },
+    {
+     "text": "b) hell"
+    },
+    {
+     "text": "c) h"
+    },
+    {
+     "text": "d) ello"
+    }
+   ],
+   "result": "b) hell"
+  },
+  "narr": [
+   "This question examines precision specification for strings in printf.",
+   "It asks what printf(\"%.4s\", \"hello\"); would print.",
+   "Option a shows the full \"hello\" string, which would be printed without precision specification.",
+   "Option b shows \"hell\", which is correct as precision for strings truncates to the specified number of characters.",
+   "Option c shows just \"h\", which would be the result of %.1s precision.",
+   "Option d shows \"ello\", which is incorrect as it's not a standard truncation of \"hello\".",
+   "The correct answer is b) \"hell\", as the .4 precision limits the output to the first 4 characters."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T9 — scanf Input Reading",
+   "problem": "How to correctly read an integer into variable x?",
+   "steps": [
+    {
+     "text": "a) scanf(\"%d\", x);"
+    },
+    {
+     "text": "b) scanf(\"%d\", &x);"
+    },
+    {
+     "text": "c) scanf(\"%d\", *x);"
+    },
+    {
+     "text": "d) scanf(%d, &x);"
+    }
+   ],
+   "result": "b) scanf(\"%d\", &x);"
+  },
+  "narr": [
+   "This question tests our knowledge of proper scanf usage for reading integers.",
+   "It asks how to correctly read an integer into variable x.",
+   "Option a shows scanf(\"%d\", x); without the & operator, which is incorrect as it doesn't pass the address.",
+   "Option b shows scanf(\"%d\", &x); with the & operator, which is correct as it passes the address of x.",
+   "Option c shows scanf(\"%d\", *x); with the * operator, which would be incorrect and potentially dangerous.",
+   "Option d shows scanf(%d, &x); without quotes around the format string, which is invalid syntax.",
+   "The correct answer is b) scanf(\"%d\", &x);, as scanf needs the address of the variable to store the input value."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test T10 — File Opening Modes",
+   "problem": "What does the \"r\" mode of the fopen function do?",
+   "steps": [
+    {
+     "text": "a) opens the file only for writing"
+    },
+    {
+     "text": "b) opens the file only for reading"
+    },
+    {
+     "text": "c) opens the file for appending"
+    },
+    {
+     "text": "d) makes the file binary"
+    }
+   ],
+   "result": "b) opens the file only for reading"
+  },
+  "narr": [
+   "Our final test question is about file opening modes in C.",
+   "It asks what the \"r\" mode of the fopen function does.",
+   "Option a suggests it opens the file only for writing, which would be the \"w\" mode.",
+   "Option b states it opens the file only for reading, which is correct for \"r\" mode.",
+   "Option c claims it opens the file for appending, which would be the \"a\" mode.",
+   "Option d suggests it makes the file binary, which would be specified with \"b\" in the mode string.",
+   "The correct answer is b) opens the file only for reading, as \"r\" mode is for reading existing files."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ }
+]

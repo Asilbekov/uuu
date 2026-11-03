@@ -1,0 +1,328 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Computer Science · C · Weeks 4–7",
+   "subtitle": "Introduction to Programming Concepts"
+  },
+  "narr": [
+   "Welcome to this exploration of programming concepts in C, focusing on Weeks 4 through 7 of your computer science journey. We'll dive into various coding challenges, analyze common mistakes, and understand how to fix them.",
+   "Let's start by examining some fundamental programming problems and their solutions."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Even Number Checker",
+   "code": "#include <stdio.h>\n\nint is_even(int n) {\n    int result;\n    if (n % 2 == 0) {\n        result = 1;\n    } else {\n        result = 0;\n    }\n    return result;\n}\n\nint main(void) {\n    printf(\"%d\\n\", is_even(4));\n    return 0;\n}",
+   "highlight": [
+    4,
+    6,
+    8,
+    10
+   ]
+  },
+  "narr": [
+   "Let's look at our first example: a function that checks if a number is even. The function is_even takes an integer n and returns 1 if it's even, 0 otherwise.",
+   "The implementation uses a simple if-else statement to check if n modulo 2 equals zero. If true, it sets result to 1; otherwise, to 0.",
+   "While this code works correctly, we could simplify it by directly returning the result of the comparison n % 2 == 0, which evaluates to 1 when true and 0 when false."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem B3 — Leap Year Checker",
+   "problem": "Implement a function that correctly identifies leap years according to the Gregorian calendar: years divisible by 4 are leap years, except years divisible by 100, unless they are also divisible by 400.",
+   "steps": [
+    {
+     "text": "Initial implementation incorrectly checks divisibility by 4 first, causing years like 1900 to be incorrectly identified as leap years."
+    },
+    {
+     "text": "The % 400 branch can never execute because it comes after the % 4 check."
+    },
+    {
+     "text": "The solution is to check divisibility by 400 first, then by 100, then by 4."
+    },
+    {
+     "text": "Alternatively, use a compact boolean expression: (year % 4 == 0 && year % 100 != 0) || year % 400 == 0"
+    }
+   ],
+   "result": "Correct implementation: Check divisibility by 400 first, then 100, then 4; or use the compact boolean expression."
+  },
+  "narr": [
+   "Now let's tackle a more complex problem: implementing a leap year checker. The expected behavior is that 1900 should return 0 (not a leap year), 2000 should return 1 (leap year), 2024 should return 1, and 2023 should return 0.",
+   "The initial implementation has a logical flaw. Why does is_leap(1900) return 1 when it should return 0?",
+   "The issue is that any year divisible by 4 immediately returns 1, so 1900 is incorrectly considered a leap year. The % 400 branch can never execute because it comes after the % 4 check.",
+   "The solution is to check divisibility by 400 first, then by 100, then by 4. This ensures that century years are properly evaluated.",
+   "Alternatively, we can use a compact boolean expression that captures all the conditions: (year % 4 equals 0 and year % 100 is not 0) or year % 400 equals 0."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Corrected Leap Year Checker",
+   "code": "#include <stdio.h>\n\nint is_leap(int year) {\n    if (year % 400 == 0) {\n        return 1;\n    } else if (year % 100 == 0) {\n        return 0;\n    } else if (year % 4 == 0) {\n        return 1;\n    } else {\n        return 0;\n    }\n}\n\n/* or in one line, according to week 4 lab: */\nint is_leap(int year) {\n    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;\n}",
+   "highlight": [
+    2,
+    4,
+    6,
+    8,
+    11,
+    13
+   ]
+  },
+  "narr": [
+   "Here's the corrected implementation. We first check if the year is divisible by 400. If not, we check if it's divisible by 100. If not, we check if it's divisible by 4.",
+   "This ordering ensures that century years like 1900 are correctly identified as not leap years, while years like 2000 are correctly identified as leap years.",
+   "As an alternative, we can use a more compact boolean expression that captures all the conditions in a single return statement."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem B4 — Biggest of Three Numbers",
+   "problem": "Implement a function that returns the largest of three integers. The function should correctly handle cases where two or more values are equal.",
+   "steps": [
+    {
+     "text": "Initial implementation uses strict greater than (>) comparisons, which fails when the maximum values are equal."
+    },
+    {
+     "text": "For input (5, 5, 3), both initial conditions (a > b && a > c) and (b > a && b > c) are false."
+    },
+    {
+     "text": "Execution falls through to the else branch and returns c = 3, which is incorrect."
+    },
+    {
+     "text": "The fix is to use greater than or equal to (>=) in all comparisons."
+    },
+    {
+     "text": "Additionally, there's a missing semicolon after puts(\"hello\") in main, which is a syntax error."
+    }
+   ],
+   "result": "Correct implementation: Use >= in comparisons and ensure proper syntax with semicolons."
+  },
+  "narr": [
+   "Next, let's look at finding the biggest of three numbers. The expected behavior is that biggest(5, 5, 3) should return 5.",
+   "Why does the initial implementation return 3 instead of 5 for this input?",
+   "The problem is that when the maximum values are equal (5 and 5), no strict greater than comparison is true. Both initial conditions are false, so execution falls through to the else branch and returns c = 3.",
+   "The fix is to use greater than or equal to (>=) in all comparisons. This ensures that when values are equal, the function correctly identifies them as maximum.",
+   "Additionally, there's a syntax error in the main function - a missing semicolon after puts(\"hello\") that needs to be fixed."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Corrected Biggest of Three",
+   "code": "#include <stdio.h>\n\nint biggest(int a, int b, int c) {\n    if (a >= b && a >= c) {\n        return a;\n    } else if (b >= a && b >= c) {\n        return b;\n    } else {\n        return c;\n    }\n}\n\nint main(void) {\n    printf(\"%d\\n\", biggest(5, 5, 3));\n    printf(\"hello\");\n    puts(\"hello\");\n    return 0;\n}",
+   "highlight": [
+    2,
+    4,
+    6,
+    10,
+    12
+   ]
+  },
+  "narr": [
+   "Here's the corrected implementation. We've changed all comparisons to use greater than or equal to (>=), which correctly handles cases where values are equal.",
+   "We've also fixed the syntax error by adding the missing semicolon after puts(\"hello\"). Now the function correctly returns 5 for the input (5, 5, 3)."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem B5 — Double and Add",
+   "problem": "Implement a function that doubles a number and returns the result, then use it in an expression to calculate the sum of doubled values.",
+   "steps": [
+    {
+     "text": "Initial implementation declares doubled as a void function that prints instead of returning a value."
+    },
+    {
+     "text": "The compiler error occurs because void functions cannot be used in expressions - they return nothing."
+    },
+    {
+     "text": "The statement int total = doubled(5) + doubled(3); tries to use the void function in an arithmetic expression."
+    },
+    {
+     "text": "The fix is to change the return type to int and use return x * 2; instead of printing."
+    },
+    {
+     "text": "Move the printing to the main function to display the result."
+    }
+   ],
+   "result": "Correct implementation: Change return type to int and return the doubled value, not print it."
+  },
+  "narr": [
+   "Now let's examine a function that should double a number and return the result, which is then used in an expression to calculate a total.",
+   "The expected behavior is that total = doubled(5) + doubled(3) should result in total = 16, since 5*2 + 3*2 = 10 + 6 = 16.",
+   "Why doesn't the initial implementation compile?",
+   "The issue is that doubled is declared as a void function, meaning it returns nothing and cannot be used in an expression. The compiler reports 'void value not ignored as it ought to be'.",
+   "The fix is to change the return type to int and use return x * 2; instead of printing the result. Then, move the printing to the main function to display the result."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Corrected Double and Add",
+   "code": "#include <stdio.h>\n\nint doubled(int x) {\n    return x * 2;\n}\n\nint main(void) {\n    int total = doubled(5) + doubled(3);\n    printf(\"%d\\n\", total);\n    return 0;\n}",
+   "highlight": [
+    2,
+    6,
+    8
+   ]
+  },
+  "narr": [
+   "Here's the corrected implementation. We've changed the return type to int and made the function return the doubled value instead of printing it.",
+   "Now, in main, we can use the function in an expression to calculate the total, and then print the result. This correctly gives us 16 as expected."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem B6 — Member Discount",
+   "problem": "Implement a function that applies a 20% discount if the customer is a member, returning the discounted price.",
+   "steps": [
+    {
+     "text": "Initial implementation declares a discount variable but doesn't initialize it."
+    },
+    {
+     "text": "When is_member is 0, the if branch is not executed, and discount remains uninitialized."
+    },
+    {
+     "text": "Using an uninitialized variable leads to undefined behavior - the result will be garbage values."
+    },
+    {
+     "text": "This is a C-specific pitfall: C has no default initialization for variables."
+    },
+    {
+     "text": "The fix is to initialize the variable (double discount = 0.0;) or add an else branch."
+    }
+   ],
+   "result": "Correct implementation: Initialize the discount variable or add an else branch to ensure it always has a value."
+  },
+  "narr": [
+   "Let's look at a discount calculation function. The expected behavior is that apply_discount(100, 0) should return 100.0 (no discount) and apply_discount(100, 1) should return 80.0 (20% discount).",
+   "What value does discount have when is_member = 0 and why is this dangerous?",
+   "When is_member is 0, the if branch is not executed, and discount remains uninitialized. Using an uninitialized variable leads to undefined behavior - the result will be garbage values.",
+   "This is a C-specific pitfall: C has no default initialization for variables. Unlike some other languages, variables in C don't automatically get set to zero or any default value.",
+   "The fix is to initialize the variable (double discount = 0.0;) or add an else branch that sets a default value for the discount."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Corrected Member Discount",
+   "code": "#include <stdio.h>\n\ndouble apply_discount(double price, int is_member) {\n    double discount = 0.0;\n    if (is_member) {\n        discount = 0.2;\n    }\n    return price * (1 - discount);\n}\n\nint main(void) {\n    printf(\"%.2f\\n\", apply_discount(100, 0));\n    return 0;\n}",
+   "highlight": [
+    3,
+    5,
+    7
+   ]
+  },
+  "narr": [
+   "Here's the corrected implementation. We've initialized the discount variable to 0.0, ensuring it always has a valid value.",
+   "Now, when is_member is 0, the discount remains 0.0, and the price is returned unchanged. When is_member is 1, the discount is set to 0.2, and 80% of the price is returned."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Bug Hunt Loops",
+   "subtitle": "Identifying and Fixing Loop Errors"
+  },
+  "narr": [
+   "Now let's move on to our next section: Bug Hunt Loops. This section focuses on identifying and fixing errors related to loop constructs in C++ programs.",
+   "Each program contains exactly one error related to loops. Our task is to read the expected behavior, find the error, explain it in one sentence, and write the fix.",
+   "Let's examine our first loop problem."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem L1 — Sum of Grades",
+   "problem": "Implement a program that calculates and prints the sum of grades stored in an array. The expected output is \"Sum: 405\".",
+   "steps": [
+    {
+     "text": "The program contains a loop error that prevents it from correctly calculating the sum of grades."
+    },
+    {
+     "text": "The error is likely in the loop condition or the way the accumulator is updated."
+    },
+    {
+     "text": "To fix the error, we need to ensure the loop iterates through all elements and correctly accumulates the sum."
+    }
+   ],
+   "result": "Correct implementation: Ensure the loop properly iterates through all array elements and accumulates the sum."
+  },
+  "narr": [
+   "Our first loop problem is about calculating the sum of grades. The expected behavior is that the program should print \"Sum: 405\".",
+   "However, the current implementation contains a loop error that prevents it from correctly calculating the sum.",
+   "The error is likely in the loop condition or the way the accumulator is updated. Let's identify the specific issue and fix it."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ }
+]

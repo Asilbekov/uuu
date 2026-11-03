@@ -1,0 +1,638 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Week 4-7",
+   "subtitle": "Storage Classes and Control Flow"
+  },
+  "narr": [
+   "In this section, we'll explore storage classes in C and dive into control flow statements including loops and conditionals.",
+   "Let's start by understanding the different storage classes available in C."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Storage Classes",
+   "bullets": [
+    "static inside a function: the variable remains local, but is initialized only once at program startup and is not reinitialized on each call",
+    "static outside a function limits visibility to the current file (cannot be extern)",
+    "register — a request to store the variable in a register: only local variables and arguments",
+    "excess register declarations are ignored",
+    "the address of a register variable cannot be taken"
+   ]
+  },
+  "narr": [
+   "Let's talk about storage classes in C.",
+   "When we use the static keyword inside a function, the variable remains local to that function, but it's initialized only once when the program starts, not every time the function is called.",
+   "When static is used outside a function, it limits the variable's visibility to just the current file, preventing it from being accessed through extern declarations.",
+   "The register keyword is a hint to the compiler to store the variable in a CPU register rather than memory.",
+   "However, this only applies to local variables and function arguments.",
+   "Note that excess register declarations may be ignored by the compiler.",
+   "And importantly, you cannot take the address of a register variable."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3.3,
+   "title": "Week 5 Tests",
+   "subtitle": "Control Flow and Loop Structures"
+  },
+  "narr": [
+   "Now let's test our understanding of control flow statements with some practice questions."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T1 — Switch Statement Behavior",
+   "problem": "What does break do inside a switch?\na) terminates the entire program\nb) exits the switch; execution continues after the closing brace\nc) goes to default\nd) skips the loop condition",
+   "steps": [
+    {
+     "text": "The break statement in a switch case serves to exit the switch construct immediately."
+    },
+    {
+     "text": "After encountering a break, the program continues execution with the statement following the closing brace of the switch."
+    },
+    {
+     "text": "It does not terminate the entire program, skip the loop condition, or automatically go to the default case."
+    }
+   ],
+   "result": "Answer: b) exits the switch; execution continues after the closing brace"
+  },
+  "narr": [
+   "Our first question is about the break statement in a switch construct.",
+   "What exactly does break do when used inside a switch?",
+   "The correct answer is that it exits the switch construct, and execution continues after the closing brace of the switch.",
+   "This is important because without break, execution would 'fall through' to the next case."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T2 — Do-While Loop Guarantee",
+   "problem": "How many times is the body of a do-while guaranteed to execute?\na) zero times\nb) exactly once\nc) at least once\nd) depends on the compiler",
+   "steps": [
+    {
+     "text": "A do-while loop has a unique characteristic compared to other loop types."
+    },
+    {
+     "text": "The condition in a do-while loop is evaluated after each iteration of the loop body."
+    },
+    {
+     "text": "This means the loop body will always execute at least once before the condition is checked."
+    }
+   ],
+   "result": "Answer: c) at least once"
+  },
+  "narr": [
+   "Next, let's consider the do-while loop structure.",
+   "How many times is the body of a do-while loop guaranteed to execute?",
+   "Unlike while and for loops, the do-while loop guarantees that the body executes at least once.",
+   "This is because the condition is evaluated after the body has already executed."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T3 — For Loop Output",
+   "problem": "What does for (int i = 1; i <= 3; i++) printf(\"%d \", i); print?\na) 1 2 3\nb) 1 2 3 4\nc) 0 1 2 3\nd) 3 2 1",
+   "steps": [
+    {
+     "text": "Let's trace the execution of this for loop step by step."
+    },
+    {
+     "text": "Initialization: i is set to 1."
+    },
+    {
+     "text": "First iteration: condition i <= 3 is true, print 1, then i increments to 2."
+    },
+    {
+     "text": "Second iteration: condition i <= 3 is true, print 2, then i increments to 3."
+    },
+    {
+     "text": "Third iteration: condition i <= 3 is true, print 3, then i increments to 4."
+    },
+    {
+     "text": "Fourth iteration: condition i <= 3 is false (4 > 3), so the loop terminates."
+    }
+   ],
+   "result": "Answer: a) 1 2 3"
+  },
+  "narr": [
+   "Now let's analyze a for loop example.",
+   "What output would be produced by this for loop: for (int i = 1; i <= 3; i++) printf(\"%d \", i);",
+   "Let's trace through the execution.",
+   "First, i is initialized to 1.",
+   "Since 1 <= 3 is true, we print 1 and increment i to 2.",
+   "Next, 2 <= 3 is true, so we print 2 and increment i to 3.",
+   "Then, 3 <= 3 is true, so we print 3 and increment i to 4.",
+   "Finally, 4 <= 3 is false, so the loop terminates.",
+   "Therefore, the output is 1 2 3."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T4 — Empty For Loop Condition",
+   "problem": "What happens if the condition is omitted in the for header?\na) compilation error\nb) the body will not execute at all\nc) the condition will be considered true\nd) the loop will execute exactly once",
+   "steps": [
+    {
+     "text": "In a for loop, all three components (initialization, condition, increment) are optional."
+    },
+    {
+     "text": "When the condition is omitted, the C standard specifies that it should be treated as always true."
+    },
+    {
+     "text": "This creates an infinite loop unless there's a break statement inside the loop body."
+    }
+   ],
+   "result": "Answer: c) the condition will be considered true"
+  },
+  "narr": [
+   "What happens if we omit the condition in a for loop header?",
+   "For example, what would happen with for (int i = 1; ; i++)?",
+   "The answer is that when the condition is omitted, it's considered to be always true.",
+   "This creates an infinite loop unless there's some other mechanism to break out of it.",
+   "Note that this is different from a compilation error or the loop not executing at all."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T5 — Continue Statement",
+   "problem": "What does continue; do?\na) exits the loop\nb) skips the rest of the innermost loop body and jumps to the condition\nc) restarts the loop from initialization\nd) exits the function",
+   "steps": [
+    {
+     "text": "The continue statement is used to skip the remaining part of the current iteration."
+    },
+    {
+     "text": "When continue is executed, the program immediately jumps to the next iteration of the loop."
+    },
+    {
+     "text": "For a for loop, this means jumping to the increment part, then the condition check."
+    },
+    {
+     "text": "For a while or do-while loop, this means jumping directly to the condition check."
+    }
+   ],
+   "result": "Answer: b) skips the rest of the innermost loop body and jumps to the condition"
+  },
+  "narr": [
+   "Let's discuss the continue statement.",
+   "What exactly does continue do when encountered in a loop?",
+   "The continue statement skips the rest of the innermost loop body and jumps to the loop condition.",
+   "For a for loop, this means it goes to the increment expression and then the condition.",
+   "For while and do-while loops, it jumps directly to the condition check.",
+   "This is different from break, which exits the loop entirely."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T6 — Modulo Operation",
+   "problem": "What is 65 % 7?\na) 1\nb) 2\nc) 3\nd) 9",
+   "steps": [
+    {
+     "text": "The modulo operator (%) gives the remainder of a division operation."
+    },
+    {
+     "text": "Let's divide 65 by 7: 7 × 9 = 63."
+    },
+    {
+     "text": "The remainder is 65 - 63 = 2."
+    }
+   ],
+   "result": "Answer: b) 2"
+  },
+  "narr": [
+   "Now let's look at a simple arithmetic operation.",
+   "What is the result of 65 % 7?",
+   "The modulo operator gives us the remainder after division.",
+   "When we divide 65 by 7, we get 9 with a remainder of 2.",
+   "This is because 7 times 9 equals 63, and 65 minus 63 equals 2.",
+   "So the answer is 2."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T7 — Nested If-Else Association",
+   "problem": "Which if does an else without curly braces belong to in nested ifs?\na) to the outermost\nb) to the nearest inner\nc) to the first in the filed) to none — this is a compilation error",
+   "steps": [
+    {
+     "text": "In nested if statements without curly braces, the else clause is associated with the nearest preceding if statement."
+    },
+    {
+     "text": "This is known as the 'dangling else' problem in C."
+    },
+    {
+     "text": "To associate an else with an outer if when there are inner ifs, curly braces must be used to create blocks."
+    }
+   ],
+   "result": "Answer: b) to the nearest inner"
+  },
+  "narr": [
+   "Let's examine how if-else statements work when nested.",
+   "Which if statement does an else without curly braces belong to in nested ifs?",
+   "The answer is that without curly braces, the else belongs to the nearest inner if statement.",
+   "This is an important rule in C programming that determines the flow of control.",
+   "If you want an else to associate with an outer if, you must use curly braces to create blocks."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T8 — While Loop Condition Check",
+   "problem": "When is the while loop condition checked?\na) after the body\nb) before the body\nc) in the middle of the body\nd) only on the first iteration",
+   "steps": [
+    {
+     "text": "A while loop is a pre-condition loop, meaning the condition is checked before executing the loop body."
+    },
+    {
+     "text": "If the condition is false initially, the loop body will never execute."
+    },
+    {
+     "text": "This is different from a do-while loop, which checks the condition after the body."
+    }
+   ],
+   "result": "Answer: b) before the body"
+  },
+  "narr": [
+   "When does a while loop check its condition?",
+   "The answer is that a while loop checks its condition before executing the body.",
+   "This makes it a pre-condition loop.",
+   "If the condition is false from the start, the body will never execute.",
+   "This is different from a do-while loop, which always executes the body at least time before checking the condition."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T9 — Boolean Type in C99",
+   "problem": "In C99, the bool type is available through the header. . .\na) <stdbool.h>\nb) <bool.h>\nc) <stdio.h>\nd) <logic.h>",
+   "steps": [
+    {
+     "text": "In older C standards (C89/C90), there was no built-in boolean type."
+    },
+    {
+     "text": "Conditions were simply numeric expressions where non-zero meant true and zero meant false."
+    },
+    {
+     "text": "C99 introduced the bool type through the <stdbool.h> header file."
+    }
+   ],
+   "result": "Answer: a) <stdbool.h>"
+  },
+  "narr": [
+   "What header file provides the bool type in C99?",
+   "In C89/C90, there was no built-in boolean type.",
+   "Instead, conditions were evaluated as numeric expressions where any non-zero value was considered true.",
+   "With C99, the bool type became available through the <stdbool.h> header file.",
+   "This header also defines true and false constants."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem T10 — For Loop Multiple Expressions",
+   "problem": "Which operator connects multiple expressions in the for header?\na) semicolon\nb) comma\nc) &&\nd) colon",
+   "steps": [
+    {
+     "text": "The for loop header consists of three parts separated by semicolons: initialization, condition, and increment."
+    },
+    {
+     "text": "Within each of these parts, multiple expressions can be separated by commas."
+    },
+    {
+     "text": "The comma operator has the lowest precedence and is evaluated left-to-right."
+    },
+    {
+     "text": "Example: for (i = 1, j = 1; i <= n; j *= i, i++)"
+    }
+   ],
+   "result": "Answer: b) comma"
+  },
+  "narr": [
+   "Which operator connects multiple expressions in a for loop header?",
+   "The for loop header has three parts separated by semicolons.",
+   "But within each part, we can have multiple expressions.",
+   "The operator that connects these multiple expressions is the comma operator.",
+   "The comma operator has the lowest precedence and is evaluated left-to-right.",
+   "For example, we can write: for (i = 1, j = 1; i <= n; j *= i, i++)"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3.4,
+   "title": "Week 5",
+   "subtitle": "Glossary of Key Terms"
+  },
+  "narr": [
+   "Let's review some key terms related to control flow and scope in C programming."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Control Flow and Scope Terminology",
+   "columns": [
+    "Term",
+    "Meaning"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Block / compound statement"
+     },
+     {
+      "text": "{ ... } — combines statements into a single unit; compiled as one whole; creates a local scope; semicolon not needed after }"
+     }
+    ],
+    [
+     {
+      "text": "Branching (selection)"
+     },
+     {
+      "text": "choosing the execution path: if / else if / else and switch"
+     }
+    ],
+    [
+     {
+      "text": "Condition"
+     },
+     {
+      "text": "expression: non-zero value is true, 0 is false; numeric expression or pointer"
+     }
+    ],
+    [
+     {
+      "text": "switch"
+     },
+     {
+      "text": "selection statement by integer (character) variable; content is a block"
+     }
+    ],
+    [
+     {
+      "text": "case label"
+     },
+     {
+      "text": "integer constant label — entry point into a switch block; labels are distinct"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's start with some fundamental concepts about control flow.",
+   "A block or compound statement is denoted by curly braces { ... }.",
+   "It combines multiple statements into a single unit that's compiled as one whole.",
+   "Blocks also create a local scope for variables.",
+   "Branching, or selection, refers to choosing different execution paths using if/else if/else constructs or switch statements.",
+   "A condition is an expression that evaluates to either true (non-zero) or false (zero).",
+   "A switch statement is a selection mechanism that works with integer or character variables.",
+   "Case labels are integer constants that serve as entry points into a switch block."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Control Flow and Scope Terminology (continued)",
+   "columns": [
+    "Term",
+    "Meaning"
+   ],
+   "rows": [
+    [
+     {
+      "text": "default"
+     },
+     {
+      "text": "the \"otherwise\" branch of a switch — when no case matches"
+     }
+    ],
+    [
+     {
+      "text": "Fall-through"
+     },
+     {
+      "text": "continuing execution to the next case in the absence of break; used to combine case 'Y': case 'y':"
+     }
+    ],
+    [
+     {
+      "text": "while"
+     },
+     {
+      "text": "loop with precondition: condition is evaluated before the body; the body may not execute"
+     }
+    ],
+    [
+     {
+      "text": "for"
+     },
+     {
+      "text": "\"counting\" loop: initialization; condition; increment in the header; empty condition is true"
+     }
+    ],
+    [
+     {
+      "text": "do-while"
+     },
+     {
+      "text": "post-condition loop: body executes at least once; semicolon at the end"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "The default keyword provides an \"otherwise\" branch in a switch statement that executes when no case matches.",
+   "Fall-through refers to the behavior where execution continues to the next case when no break statement is encountered.",
+   "This is sometimes intentionally used to combine multiple cases, like case 'Y': case 'y':",
+   "A while loop is a pre-condition loop where the condition is evaluated before the body may execute.",
+   "A for loop is often called a \"counting\" loop with initialization, condition, and increment all in the header.",
+   "An empty condition in a for loop is considered true, creating an infinite loop unless broken.",
+   "A do-while loop is a post-condition loop that always executes the body at least once before checking the condition."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Control Flow and Scope Terminology (continued)",
+   "columns": [
+    "Term",
+    "Meaning"
+   ],
+   "rows": [
+    [
+     {
+      "text": "break"
+     },
+     {
+      "text": "exit from the innermost loop or switch"
+     }
+    ],
+    [
+     {
+      "text": "continue"
+     },
+     {
+      "text": "skip the remainder of the inner loop body and jump to the condition (in for — to the update)"
+     }
+    ],
+    [
+     {
+      "text": "Sentinel value"
+     },
+     {
+      "text": "input delimiter character: '#' in the melody, '%' in the do-while example"
+     }
+    ],
+    [
+     {
+      "text": "Scope and Shadowing"
+     },
+     {
+      "text": "scope — region of variable validity (usually the block of declaration; global — outside functions); shadowing — inner declaration with the same name hides the outer one (local nmax = 25 hides global 20)"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "The break statement exits from the innermost loop or switch construct immediately.",
+   "The continue statement skips the remainder of the inner loop body and jumps to the condition.",
+   "In a for loop, this means jumping to the update part first.",
+   "A sentinel value is a special input delimiter character used to mark the end of input.",
+   "Examples include '#' in the melody example and '%' in the do-while example.",
+   "Scope refers to the region where a variable is valid, typically the block where it's declared.",
+   "Global variables are declared outside functions and have program-wide scope.",
+   "Shadowing occurs when an inner declaration has the same name as an outer one, hiding the outer variable."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3
+  ]
+ }
+]

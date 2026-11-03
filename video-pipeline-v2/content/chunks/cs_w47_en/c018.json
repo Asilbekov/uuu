@@ -1,0 +1,476 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "String Functions",
+   "subtitle": "Understanding Character Search Functions"
+  },
+  "narr": [
+   "Let's start by talking about string functions in C, specifically those that search for characters.",
+   "In this section, we'll explore how to find the first and last occurrence of a character in a string."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Character Search Functions",
+   "bullets": [
+    "strchr: finds the first occurrence of a character",
+    "strrchr: finds the last occurrence of a character",
+    "Both functions return NULL if the character is not found"
+   ]
+  },
+  "narr": [
+   "In C, we have two primary functions for searching characters within strings.",
+   "The first is strchr, which searches for the first occurrence of a specified character.",
+   "The second is strrchr, which searches for the last occurrence of that character.",
+   "Importantly, both functions will return NULL if the character you're looking for isn't present in the string."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Recursion Fundamentals",
+   "subtitle": "Understanding Base Cases in Recursive Functions"
+  },
+  "narr": [
+   "Now, let's shift our focus to recursion, a fundamental concept in computer science.",
+   "We'll explore what makes a recursive function work, focusing on the critical role of base cases."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 9: Base Case Definition",
+   "problem": "What is the base case of recursion?",
+   "steps": [
+    {
+     "text": "A) an answer that is obtained without a new recursive call"
+    },
+    {
+     "text": "B) the first function call"
+    },
+    {
+     "text": "C) a loop inside the function"
+    },
+    {
+     "text": "D) the last return from main"
+    }
+   ],
+   "result": "A) an answer that is obtained without a new recursive call"
+  },
+  "narr": [
+   "Let's consider this multiple-choice question about the base case in recursion.",
+   "The base case is defined as an answer that is obtained without making a new recursive call.",
+   "In a countdown function, for example, the base case is when n equals 0, at which point we simply return without further recursion.",
+   "Besides the base case, recursive functions also need to address smaller problems and ensure progress toward the base case."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Question 10: Countdown Function Output",
+   "problem": "What does countdown(3) print?",
+   "steps": [
+    {
+     "text": "A) 3 2 1"
+    },
+    {
+     "text": "B) 1 2 3"
+    },
+    {
+     "text": "C) 3 3 3"
+    },
+    {
+     "text": "D) 0 1 2 3"
+    }
+   ],
+   "result": "A) 3 2 1"
+  },
+  "narr": [
+   "Now, let's explore what a countdown function actually outputs.",
+   "When we call countdown(3), it prints 3 2 1.",
+   "This happens because the print statement is placed before the recursive call, so values appear on the way down the recursion.",
+   "If we were to implement a countup function with the print statement after the recursive call, it would output 1 2 3 instead."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Week 7 Glossary",
+   "subtitle": "Key Terms in C Programming"
+  },
+  "narr": [
+   "Moving on to Week 7, let's review some essential terminology in C programming.",
+   "We'll cover concepts related to pointers, memory management, and algorithm analysis."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C Programming Terms",
+   "columns": [
+    "Term",
+    "Meaning"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Pointer"
+     },
+     {
+      "text": "address of a variable in memory; access/modify a variable from anywhere; basis of data structures"
+     }
+    ],
+    [
+     {
+      "text": "& operator (address-of)"
+     },
+     {
+      "text": "returns the address of a variable; address of a variable of type t has type t *"
+     }
+    ],
+    [
+     {
+      "text": "Dereferencing (*)"
+     },
+     {
+      "text": "reading/writing a value at an address: ppi = ppi + *pn"
+     }
+    ],
+    [
+     {
+      "text": "Null pointer (NULL)"
+     },
+     {
+      "text": "a pointer 0 that doesn't point to anything"
+     }
+    ],
+    [
+     {
+      "text": "Virtual memory"
+     },
+     {
+      "text": "OS abstraction: address space available to code; mapped to physical memory"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's start with pointers, which are fundamental to C programming.",
+   "A pointer stores the memory address of a variable, allowing you to access or modify that variable from anywhere in your program.",
+   "The & operator, known as the address-of operator, returns the address of a variable.",
+   "The type of an address for a variable of type t is t *.",
+   "Dereferencing, using the * operator, allows you to read or write a value at a specific memory address.",
+   "A null pointer, represented as NULL, is a pointer with value 0 that doesn't point to any valid memory location.",
+   "Virtual memory is an OS abstraction that provides an address space for your code, which is then mapped to physical memory."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Memory Management Concepts",
+   "columns": [
+    "Term",
+    "Meaning"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Stack"
+     },
+     {
+      "text": "part of virtual memory where declared variables go (and call frames)"
+     }
+    ],
+    [
+     {
+      "text": "Heap"
+     },
+     {
+      "text": "where dynamic memory goes"
+     }
+    ],
+    [
+     {
+      "text": "Dangling pointer"
+     },
+     {
+      "text": "a pointer to a variable that has gone out of scope (returning address of a local array)"
+     }
+    ],
+    [
+     {
+      "text": "Address arithmetic"
+     },
+     {
+      "text": "pa + i points to arr[i]; address increases by i× size of type; arr[0] at address 100 → arr[3] at 112"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "The stack is a region of virtual memory where declared variables and call frames are stored.",
+   "The heap is where dynamically allocated memory resides, memory you request at runtime.",
+   "A dangling pointer is dangerous - it points to a variable that has gone out of scope, like returning the address of a local array.",
+   "Address arithmetic allows you to navigate through arrays by adding offsets to pointers, with each step increasing by the size of the data type."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "String and Algorithm Concepts",
+   "columns": [
+    "Term",
+    "Meaning"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Null terminator ('\\0') and strlen"
+     },
+     {
+      "text": "a zero byte that terminates a C-string; strlen(str) returns the length without the terminator — for copying, you need a buffer of +1 byte"
+     }
+    ],
+    [
+     {
+      "text": "Base case"
+     },
+     {
+      "text": "answer without a new recursive call: n == 0 → return 1 in factorial; two base cases for fibonacci"
+     }
+    ],
+    [
+     {
+      "text": "Call stack / frame"
+     },
+     {
+      "text": "record of an incomplete call: own parameters, local variables, continuation point"
+     }
+    ],
+    [
+     {
+      "text": "O-notation (Big-O)"
+     },
+     {
+      "text": "order of growth of an algorithm: insertion O(n²); quicksort O(n log n) on average, O(n²) in the worst case; binary search O(log n)"
+     }
+    ],
+    [
+     {
+      "text": "Tower of Hanoi"
+     },
+     {
+      "text": "classic recursive problem: 3 disks from A to C via B in 3 + 1 + 3 = 7 moves; base case — no disks, no moves"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "C-strings are terminated by a null character '\\0', and strlen returns the length without counting this terminator.",
+   "When copying strings, you need to allocate an extra byte for this null terminator.",
+   "In recursion, the base case provides an answer without making a new recursive call.",
+   "The call stack, or stack frame, keeps track of incomplete function calls, including parameters, local variables, and where to resume execution.",
+   "Big-O notation describes the order of growth of an algorithm, helping us understand its efficiency as input size increases.",
+   "The Tower of Hanoi is a classic recursive problem where moving 3 disks requires 7 moves, with the base case being no disks to move."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Bug Hunts",
+   "subtitle": "Finding and Fixing Programming Errors"
+  },
+  "narr": [
+   "Now, let's dive into practical debugging with bug hunts.",
+   "These exercises help you develop critical thinking by identifying errors in code.",
+   "We'll analyze three worksheets focusing on different aspects of C programming."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bug Hunt Overview",
+   "bullets": [
+    "Three worksheets: conditionals/functions, loops, and pointers/strings",
+    "Work in pairs to find errors, explain them, and fix them",
+    "Compile with gcc -g -Wall -fsanitize=address for better error detection",
+    "Test with suggested inputs to verify fixes"
+   ]
+  },
+  "narr": [
+   "The course includes three bug hunt worksheets covering different aspects of C programming.",
+   "These include conditionals and functions, loops, and pointers with strings.",
+   "The recommended approach is to work in pairs, identifying errors, explaining why they're wrong, and fixing them.",
+   "For better error detection, compile your code with gcc using the -g, -Wall, and -fsanitize=address flags.",
+   "After fixing, test with suggested inputs to ensure your solutions work correctly."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Bug Hunt: Conditionals and Functions",
+   "subtitle": "Analyzing Errors in Conditional Logic"
+  },
+  "narr": [
+   "Let's start with the first bug hunt focused on conditionals and functions.",
+   "We'll examine six tasks, with some being quick challenges and others requiring more discussion.",
+   "This exercise helps reinforce proper conditional logic and function implementation in C."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem B1: Grade Checker",
+   "problem": "Expected: 95 → 'A', 85 → 'B', 75 → 'C', 65 → 'D', 40 → 'F'",
+   "steps": [
+    {
+     "text": "Flawed code has condition order issues and syntax errors"
+    },
+    {
+     "text": "Conditions should be checked in descending order (>= 90, then >= 80, etc.)"
+    },
+    {
+     "text": "Missing closing parenthesis after return 'A'"
+    },
+    {
+     "text": "Duplicated else statement"
+    },
+    {
+     "text": "grade(78) call not properly closed"
+    }
+   ],
+   "result": "Fix: Check boundaries in descending order, return each branch its letter, and restore proper syntax"
+  },
+  "narr": [
+   "Let's examine the first bug hunt problem involving a grade checker function.",
+   "The expected behavior is to convert numerical scores to letter grades: 95 to 'A', 85 to 'B', and so on.",
+   "The flawed code has several issues, most notably that conditions are checked in the wrong order.",
+   "Due to this incorrect ordering, a score of 95 would first enter the (score >= 60) branch and incorrectly return 'D'.",
+   "Additionally, there are syntax errors including a missing closing parenthesis, a duplicated else statement, and an uncalled function.",
+   "The fix involves checking boundaries in descending order, ensuring each branch returns the correct letter grade, and restoring proper syntax."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem B2: Even or Odd Checker",
+   "problem": "Expected: iseven(4) → 1, iseven(7) → 0",
+   "steps": [
+    {
+     "text": "Assignment instead of comparison in condition (n % 2 = 0)"
+    },
+    {
+     "text": "Function doesn't return result - missing return statement"
+    },
+    {
+     "text": "Branches swapped: even numbers get 0, odd get 1"
+    },
+    {
+     "text": "main() accesses result outside function scope"
+    }
+   ],
+   "result": "Fix: Use == for comparison, ensure proper return, swap branches, remove result = 5 from main"
+  },
+  "narr": [
+   "Now, let's look at the second bug hunt problem that checks if numbers are even or odd.",
+   "The expected behavior is that iseven(4) should return 1 (true) and iseven(7) should return 0 (false).",
+   "The flawed code has two critical errors: first, it uses assignment (=) instead of comparison (==) in the condition.",
+   "Second, the function doesn't actually return the result, making its behavior undefined.",
+   "Additionally, the branches are swapped (even numbers get 0, odd get 1), and main() tries to access a result variable that doesn't exist in its scope.",
+   "The fix involves using == for comparison, ensuring the function returns the result, swapping the branches to return 1 for even and 0 for odd, and removing the erroneous result assignment from main()."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ }
+]

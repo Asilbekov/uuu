@@ -1,0 +1,512 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Week 6",
+   "subtitle": "File Operations and Functions"
+  },
+  "narr": [
+   "In this section, we'll explore file operations in C programming.",
+   "We'll start by understanding the different modes for opening files and then dive into the glossary of terms related to functions in C."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "File Opening Modes",
+   "bullets": [
+    "r - read only",
+    "w - write only",
+    "a - append",
+    "b - added for binary files"
+   ]
+  },
+  "narr": [
+   "When working with files in C, we use different opening modes.",
+   "The 'r' mode allows us to read a file, but not modify it.",
+   "The 'w' mode lets us write to a file, but it will erase any existing content.",
+   "The 'a' mode allows us to append data to the end of a file without overwriting.",
+   "For binary files, we add 'b' to these modes, like 'rb' or 'wb'.",
+   "It's important to remember that fopen returns NULL if the stream doesn't exist."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4.4,
+   "title": "Assignments",
+   "subtitle": "Glossary of Week 6"
+  },
+  "narr": [
+   "Now let's explore the glossary of terms for week 6, focusing on functions and related concepts."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Function Terminology",
+   "columns": [
+    "Term",
+    "Meaning",
+    "Example"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Function"
+     },
+     {
+      "text": "a named set of instructions"
+     },
+     {
+      "text": "void print(void) — definition, print(); — call"
+     }
+    ],
+    [
+     {
+      "text": "Prototype"
+     },
+     {
+      "text": "function declaration before main"
+     },
+     {
+      "text": "type name(parameters); — ends with ';' and has no body"
+     }
+    ],
+    [
+     {
+      "text": "Definition and call"
+     },
+     {
+      "text": "definition — the body of the function in braces; call — running the function by name"
+     },
+     {
+      "text": "definition — \"describe its work\"; call — \"run it now\": print();"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's start with basic function terminology.",
+   "A function is a named set of instructions that can be called multiple times.",
+   "Before using a function, we need to declare its prototype, which is like a blueprint.",
+   "The actual definition contains the function's body in braces.",
+   "Calling the function executes its code."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Function Parameters and Arguments",
+   "columns": [
+    "Term",
+    "Meaning",
+    "Example"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Parameter"
+     },
+     {
+      "text": "the name of an input inside the function"
+     },
+     {
+      "text": "count in void print(int count)"
+     }
+    ],
+    [
+     {
+      "text": "Argument"
+     },
+     {
+      "text": "the value passed by a call"
+     },
+     {
+      "text": "3 in print(3)"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Parameters are the variables that receive values when a function is called.",
+   "Arguments are the actual values passed to the function during the call."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Advanced Concepts",
+   "columns": [
+    "Term",
+    "Meaning",
+    "Example"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Return value"
+     },
+     {
+      "text": "the result that the function sends to the caller"
+     },
+     {
+      "text": "int IntegerRoot(int number)"
+     }
+    ],
+    [
+     {
+      "text": "Structure"
+     },
+     {
+      "text": "a type that groups related fields into one record"
+     },
+     {
+      "text": "struct { ... }"
+     }
+    ],
+    [
+     {
+      "text": "Field"
+     },
+     {
+      "text": "one named value in a record"
+     },
+     {
+      "text": "water, milk, beans, paper ml ml g cups"
+     }
+    ],
+    [
+     {
+      "text": "typedef"
+     },
+     {
+      "text": "gives a structural type a convenient name"
+     },
+     {
+      "text": "typedef struct { ... } Stock;"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Functions can return values to the caller.",
+   "Structures allow us to group related data together.",
+   "Fields are the individual components of a structure.",
+   "typedef helps us create custom type names for better code readability."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Control Flow",
+   "columns": [
+    "Term",
+    "Meaning",
+    "Example"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Label"
+     },
+     {
+      "text": "a named point in code for goto"
+     },
+     {
+      "text": "name + ':' (start:, outside:, error:)"
+     }
+    ],
+    [
+     {
+      "text": "Spaghetti code"
+     },
+     {
+      "text": "unreadable, hard-to-debug code from excessive goto"
+     },
+     {
+      "text": "Dijkstra, 1968"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Labels are named points in code that can be used with goto statements.",
+   "However, excessive use of goto leads to spaghetti code, which is hard to debug.",
+   "Edsger Dijkstra famously criticized the use of goto in 1968."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Input/Output",
+   "columns": [
+    "Term",
+    "Meaning",
+    "Example"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Text stream"
+     },
+     {
+      "text": "a series of lines ending with '\\n'"
+     },
+     {
+      "text": "conversion of '\\r\\n' is handled by the library; streams are buffered"
+     }
+    ],
+    [
+     {
+      "text": "Format specifier"
+     },
+     {
+      "text": "%[flags][width][.precision][length]<type>"
+     },
+     {
+      "text": "%d, %4d, %04d, %.4s, %e, %%"
+     }
+    ],
+    [
+     {
+      "text": "Command line arguments"
+     },
+     {
+      "text": "parameters passed to the program when it starts"
+     },
+     {
+      "text": "int main(int argc, char *argv[]): argc — counter, argv — array of pointers to arguments"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Text streams are sequences of lines ending with newline characters.",
+   "Format specifiers control how data is printed with printf and similar functions.",
+   "Command line arguments allow programs to accept input when they're executed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Week 7",
+   "subtitle": "Pointers, Strings, and Recursion"
+  },
+  "narr": [
+   "Welcome to week 7, where we'll explore three fundamental concepts in C programming:",
+   "pointers, strings, and recursion.",
+   "These topics are crucial for understanding how memory works in C and how to solve complex problems."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Week 7 Topics",
+   "bullets": [
+    "Pointers: addresses, dereferencing, memory management",
+    "Strings: character arrays, string.h functions",
+    "Recursion: base cases, smaller problems, call stack"
+   ]
+  },
+  "narr": [
+   "Week 7 covers two main topics: pointers and recursion.",
+   "In the pointers section, we'll learn about memory addresses, dereferencing, and how pointers enable efficient data structures.",
+   "We'll also explore strings as character arrays and common string manipulation functions.",
+   "The recursion section will teach us about base cases, breaking problems into smaller subproblems, and visualizing the call stack.",
+   "We'll trace through examples like factorial, Fibonacci, and the Tower of Hanoi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5.1,
+   "title": "Key Points",
+   "subtitle": "All Rules of Week 7"
+  },
+  "narr": [
+   "Let's explore the key points and rules for understanding pointers in C.",
+   "This section covers everything from basic pointer operations to memory management concepts."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Pointers: Addresses and Dereferencing",
+   "bullets": [
+    "A pointer is the address of a variable in memory",
+    "The address operator & gives the memory location of a variable",
+    "Dereferencing * accesses the value at an address",
+    "Every variable in memory has an address",
+    "Variables without addresses: register variables, constants, expressions",
+    "Null pointer (NULL) points to nothing"
+   ]
+  },
+  "narr": [
+   "A pointer is fundamentally the address of a variable in memory.",
+   "The address operator & retrieves this location for any variable.",
+   "Dereferencing with * lets us access or modify the value at that address.",
+   "Crucially, every variable in memory has an address we can access.",
+   "However, some things don't have addresses: register variables, constants, and expressions that don't result in variables.",
+   "A null pointer, represented by NULL, points to nothing and is used to indicate no valid address."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Pointer Declaration and Usage",
+   "tex": "int n = 4;\\ndouble pi = 3.14159;\\nint *pn = &n;\\n/* address of integer n */\\ndouble *ppi = &pi;\\n/* address of double pi */\\n/* prints \"pi = 3.14159\\\\n\" */\\nprintf(\"pi = %g\\\\n\", *ppi);\\n/* pi now equals 7.14159 */\\n*ppi = *ppi + *pn;",
+   "parts": [
+    {
+     "substr": "int *pn = &n",
+     "color": "#4C5FD5",
+     "note": "pointer declaration with address operator"
+    },
+    {
+     "substr": "*ppi",
+     "color": "#B45309",
+     "note": "dereferencing operator"
+    },
+    {
+     "substr": "*ppi = *ppi + *pn",
+     "color": "#0E7C7B",
+     "note": "modifying value through pointer"
+    }
+   ]
+  },
+  "narr": [
+   "Let's look at some code examples to understand pointers better.",
+   "Here we declare an integer n and a double pi, then create pointers to both.",
+   "The pointer pn points to n, and ppi points to pi.",
+   "When we use the dereferencing operator with ppi, we can access and modify pi's value.",
+   "In this example, we're adding the value of n to pi through pointer dereferencing.",
+   "Pointer casting allows us to convert between different pointer types, though this can be dangerous if not done carefully."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Memory Types",
+   "bullets": [
+    "Physical memory: actual storage resources (cache, RAM, disk)",
+    "Virtual memory: OS abstraction of address space",
+    "Stack: memory for declared variables",
+    "Heap: memory for dynamic allocation"
+   ]
+  },
+  "narr": [
+   "Understanding memory is crucial for working with pointers effectively.",
+   "Physical memory refers to the actual hardware resources where data is stored.",
+   "Virtual memory is an OS abstraction that provides each program with its own address space.",
+   "The stack is where automatic variables are stored when functions are called.",
+   "The heap is used for dynamic memory allocation, which we control manually."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Pointers in Functions",
+   "bullets": [
+    "Functions return no more than one value",
+    "Pointers enable multiple outputs",
+    "Example: extended Euclidean algorithm returns gcd(a, b), x and y",
+    "Instead of global variables, use pointers for multiple outputs"
+   ]
+  },
+  "narr": [
+   "A limitation of functions is that they can return only one value directly.",
+   "However, by using pointers, we can effectively return multiple values.",
+   "The extended Euclidean algorithm is a perfect example, returning the gcd along with coefficients x and y.",
+   "Using pointers avoids the need for global variables, which can make code harder to maintain."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

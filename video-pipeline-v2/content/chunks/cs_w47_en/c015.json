@@ -1,0 +1,530 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Weeks 4–7",
+   "subtitle": "Computer Science · C"
+  },
+  "narr": [
+   "Let's dive into the world of sorting and searching algorithms, starting with quicksort.",
+   "Quicksort is a divide-and-conquer algorithm that works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays.",
+   "One sub-array contains elements less than the pivot, and the other contains elements greater than or equal to the pivot."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Quicksort Implementation",
+   "code": "/* separate into side < pivot (left+1 to mid) and side >= pivot (mid+1 to right) */\nfor (i = left + 1; i <= right; i++)\n    if (arr[i] < pivot)\n        swap(arr + ++mid, arr + i);\n/* restore pivot position */\nswap(arr + left, arr + mid);\n/* sort two sides */\nif (mid > left)\n    quick_sort(left, mid - 1);\nif (mid < right)\n    quick_sort(mid + 1, right);\n}\nquick_sort(0, array_length(arr) - 1);",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ]
+  },
+  "narr": [
+   "Here's the implementation of quicksort in C.",
+   "The algorithm separates the array into two parts: elements less than the pivot and elements greater than or equal to the pivot.",
+   "Then it recursively sorts the two parts.",
+   "The pivot is restored to its correct position after partitioning.",
+   "Notice that quicksort is unstable, meaning equal elements may change places during sorting.",
+   "However, it sorts in place, which is especially valuable with limited memory.",
+   "The choice of pivot affects performance, and it can be randomized to improve average case performance.",
+   "Quicksort is a divide-and-conquer algorithm that's easily parallelizable.",
+   "But it's recursive, so in the worst case, it can overflow the stack on a large array."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Binary Search",
+   "bullets": [
+    "O(log n) time complexity on average and in the worst case",
+    "Requires the list to be sorted beforehand",
+    "Compares with the middle element of the current segment",
+    "The new segment is guaranteed to be half the size (divide and conquer)",
+    "Requires random access to array's memory",
+    "On sequential data, linear search can be better"
+   ]
+  },
+  "narr": [
+   "Now let's talk about binary search, another fundamental algorithm.",
+   "Binary search has O(log n) time complexity on average and in the worst case.",
+   "It requires the list to be sorted beforehand.",
+   "The algorithm compares the target value with the middle element of the current segment.",
+   "Based on the comparison, it eliminates half of the search space.",
+   "This is a classic divide-and-conquer approach.",
+   "Binary search requires random access to the array's memory, which makes it efficient for arrays but not suitable for sequential data like hard disks.",
+   "In such cases, linear search can sometimes be better."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Binary Search Implementation",
+   "code": "int * binary_search(int val) {\n    unsigned int L = 0, R = array_length(arr), M;\n    while (L < R) {\n        M = (L + R - 1) / 2;\n        if (val == arr[M])\n            return arr + M; /* found */\n        else if (val < arr[M])\n            R = M; /* in first half */\n        else\n            L = M + 1; /* in second half */\n    }\n    return NULL; /* not found */\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+   ]
+  },
+  "narr": [
+   "Here's a binary search implementation in C.",
+   "The algorithm maintains two pointers, L and R, representing the current search boundaries.",
+   "It calculates the middle index M and compares the target value with the element at M.",
+   "If they match, it returns the pointer to that element.",
+   "If the target is smaller, it searches the left half by setting R to M.",
+   "If the target is larger, it searches the right half by setting L to M + 1.",
+   "The loop continues until L and R meet, at which point the element is not found."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Recursion",
+   "subtitle": "Understanding Recursive Functions"
+  },
+  "narr": [
+   "Now let's explore recursion, a powerful programming concept where a function calls itself.",
+   "Recursion requires three key ingredients: a base case, a smaller problem, and progress toward the base case.",
+   "A cool analogy to understand recursion is a queue: how many people are there from you to the end of the queue?",
+   "You ask the next person, who asks the next, until the last person says 'only me - 1'.",
+   "Then the answers return, each adding themselves: 1 + 1 = 2, 2 + 1 = 3, and so on."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Recursion Basics",
+   "bullets": [
+    "A function calls itself for a smaller problem",
+    "Function call suspends the caller",
+    "The called function has its own variables",
+    "Returns control and value to the caller"
+   ]
+  },
+  "narr": [
+   "In recursion, a function calls itself to solve a smaller problem.",
+   "When a function is called, the caller is suspended until the called function completes.",
+   "Each function call has its own set of variables and parameters.",
+   "When the called function returns, it passes control and a value back to the caller."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Simple Function Example",
+   "code": "int double_value(int x)\n{\n    return 2 * x;\n}\n\n// Inside main:\nint result = double_value(3);",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7
+   ]
+  },
+  "narr": [
+   "Let's start with a simple example before diving into recursion.",
+   "Here's a function that doubles its input value.",
+   "When main calls double_value(3), it waits for the result.",
+   "The called function has its own x = 3, returns 6, and main continues with result = 6.",
+   "Returning 6 and printing 6 are different things - returning passes a value back to the caller."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Countdown Function",
+   "code": "void count_down(int n)\n{\n    if (n == 0)\n        return;\n    printf(\"%i\\n\", n);\n    count_down(n - 1);\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  "narr": [
+   "Now let's look at our first recursive function - a countdown.",
+   "The base case is when n equals 0 - we stop making recursive calls.",
+   "The recursive call is to the same function with a smaller input - count_down(n - 1).",
+   "Each recursive call moves toward the base case - counting down from 3 to 2 to 1 to 0.",
+   "When we trace countdown(3), it prints 3, 2, 1 (each on its own line), and countdown(0) returns without printing."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Three Ingredients of Recursion",
+   "bullets": [
+    "Base case - answer without new call (n == 0)",
+    "Smaller problem - same function on simpler input (countdown(n - 1))",
+    "Progress - each step moves toward the base case (3, 2, 1, 0)"
+   ]
+  },
+  "narr": [
+   "Every recursive function needs three key ingredients.",
+   "First, the base case - a condition that stops the recursion without making a new call.",
+   "Second, a recursive call to the same function with a smaller or simpler input.",
+   "Third, progress - each recursive call must move closer to the base case.",
+   "Without these ingredients, recursion can lead to infinite loops or stack overflow."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Count Up Function",
+   "code": "void count_up(int n)\n{\n    if (n == 0)\n        return;\n    count_up(n - 1);\n    printf(\"%i\\n\", n);\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  "narr": [
+   "The order of operations relative to the recursive call matters.",
+   "In our countdown function, we print before the recursive call.",
+   "This means printing happens on the way down into the recursion.",
+   "But if we print after the recursive call, like in this count_up function,",
+   "the printing waits for the return of the smaller call.",
+   "So count_up(3) will print 1, 2, 3 - the reverse of countdown(3)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Recursion Order Comparison",
+   "columns": [
+    "Function",
+    "Order of Execution",
+    "Output"
+   ],
+   "rows": [
+    [
+     {
+      "text": "count_down(3)",
+      "tex": "count\\_down(3)"
+     },
+     {
+      "text": "Print before recursive call",
+      "tex": "print \\rightarrow recurse"
+     },
+     {
+      "text": "3, 2, 1",
+      "tex": "3, 2, 1"
+     }
+    ],
+    [
+     {
+      "text": "count_up(3)",
+      "tex": "count\\_up(3)"
+     },
+     {
+      "text": "Print after recursive call",
+      "tex": "recurse \\rightarrow print"
+     },
+     {
+      "text": "1, 2, 3",
+      "tex": "1, 2, 3"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "This table shows the difference between printing before and after the recursive call.",
+   "When we print before the recursive call, values appear on the way down into the recursion.",
+   "When we print after the recursive call, we wait for the return of the smaller call.",
+   "This results in different output orders despite the same recursive structure."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Incorrect Recursive Function",
+   "code": "void count_down(int n)\n{\n    if (n == 0)\n        return;\n    printf(\"%i\\n\", n);\n    count_down(n - 1);\n    /* 3, 3, 3, 3, ... — input doesn't reach 0 */\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  "narr": [
+   "It's crucial that the base case is reachable.",
+   "Having a base case in the code doesn't guarantee termination.",
+   "For example, if we mistakenly call count_down(n) instead of count_down(n - 1),",
+   "the function will print 3, 3, 3, 3, ... infinitely.",
+   "The input never reaches 0, so the base case is never triggered.",
+   "The fix is to ensure each recursive call moves closer to the base case."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Sum to N Function",
+   "code": "int sum_to(int n)\n{\n    if (n == 0)\n        return 0;\n    return n + sum_to(n - 1);\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  "narr": [
+   "Let's look at another recursive example - summing integers from 1 to n.",
+   "The base case is when n equals 0 - we return 0.",
+   "The recursive case returns n plus the sum of integers from 1 to n-1.",
+   "For example, sum_to(3) = 3 + sum_to(2) = 3 + 2 + sum_to(1) = 3 + 2 + 1 + sum_to(0) = 3 + 2 + 1 + 0 = 6.",
+   "In the frame where n = 3, the pending work is to add 3 to the smaller answer."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Advanced Recursion",
+   "subtitle": "Factorial, Call Stack, Fibonacci, and Hanoi"
+  },
+  "narr": [
+   "Now let's explore more advanced recursive concepts including factorial, the call stack, Fibonacci, and the Tower of Hanoi problem.",
+   "These examples demonstrate the power and elegance of recursion in solving complex problems."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Factorial Function",
+   "bullets": [
+    "3! = 3 × 2 × 1 = 6",
+    "The part 2 × 1 is 2!",
+    "So 3! = 3 × 2!",
+    "Base case: 0! = 1",
+    "If base case returned 0, every product would become zero"
+   ]
+  },
+  "narr": [
+   "Let's start with the factorial function, a classic recursive example.",
+   "3! (3 factorial) is 3 × 2 × 1 = 6.",
+   "Notice that the part 2 × 1 is 2! (2 factorial).",
+   "So we can say that 3! = 3 × 2! - the smaller answer is nested inside.",
+   "The base case is 0! = 1. If the base case returned 0, every product would become zero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Call Stack",
+   "bullets": [
+    "Each recursive call creates a stack frame",
+    "Stack frame contains local variables and parameters",
+    "Stack unwinds as functions return",
+    "Deep recursion can cause stack overflow"
+   ]
+  },
+  "narr": [
+   "When functions call themselves recursively, each call creates a new stack frame.",
+   "The stack frame contains the function's local variables and parameters.",
+   "As functions complete and return, the stack unwinds.",
+   "However, deep recursion can cause a stack overflow, where we run out of memory for the stack."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Fibonacci Sequence",
+   "bullets": [
+    "Each number is the sum of the two preceding ones",
+    "Base cases: F(0) = 0, F(1) = 1",
+    "Recursive case: F(n) = F(n-1) + F(n-2)",
+    "Inefficient without memoization - recalculates same values repeatedly"
+   ]
+  },
+  "narr": [
+   "The Fibonacci sequence is another classic recursive example.",
+   "Each number is the sum of the two preceding ones.",
+   "The base cases are F(0) = 0 and F(1) = 1.",
+   "The recursive case is F(n) = F(n-1) + F(n-2).",
+   "Pure recursive Fibonacci is inefficient because it recalculates the same values repeatedly."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tower of Hanoi",
+   "bullets": [
+    "Classic recursive puzzle",
+    "Move n disks from source to destination using auxiliary peg",
+    "Rules: only one disk at a time, larger disk cannot be on smaller disk",
+    "Solution: move n-1 disks to auxiliary, move largest to destination, move n-1 from auxiliary to destination"
+   ]
+  },
+  "narr": [
+   "The Tower of Hanoi is a classic recursive puzzle.",
+   "The goal is to move n disks from a source peg to a destination peg using an auxiliary peg.",
+   "The rules are: you can only move one disk at a time, and a larger disk cannot be placed on top of a smaller disk.",
+   "The recursive solution is elegant: move n-1 disks to the auxiliary peg, move the largest disk to the destination, then move the n-1 disks from the auxiliary peg to the destination."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]
