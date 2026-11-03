@@ -40,6 +40,7 @@ def build(spec_id, lang, chunks_dir, out_path):
     # (string cells render through currency-safe richText)
     def _tex_ok(v):
         s = str(v)
+        if '$' in s: return False                                 # $-delimiters never valid in raw-LaTeX tex fields
         if re.search(r'\$\s*\d', s): return False                  # currency: $5.5 billion
         if s.lstrip().startswith('$'): return False                # $false$, $code$ markers
         if '\\n' in s or '\\t' in s or '\n' in s or '\r' in s: return False  # escaped/real code newlines
@@ -50,13 +51,45 @@ def build(spec_id, lang, chunks_dir, out_path):
     def _clean_tex(s):
         s = str(s).replace('\\n', ' ').replace('\\t', ' ').replace('$', ' ')
         return re.sub(r'\s{2,}', ' ', s).strip()
+    def _tex_to_text(latex):
+        # minimal LaTeX → Unicode for plain-text table cells
+        M = {'\\Omega': 'Ω', '\\cdot': '·', '\\times': '×', '\\pm': '±', '\\leq': '≤',
+             '\\le': '≤', '\\geq': '≥', '\\ge': '≥', '\\approx': '≈', '\\neq': '≠',
+             '\\ne': '≠', '\\alpha': 'α', '\\beta': 'β', '\\gamma': 'γ', '\\delta': 'δ',
+             '\\Delta': 'Δ', '\\pi': 'π', '\\mu': 'μ', '\\lambda': 'λ', '\\theta': 'θ',
+             '\\rho': 'ρ', '\\sigma': 'σ', '\\phi': 'φ', '\\omega': 'ω', '\\infty': '∞',
+             '\\rightarrow': '→', '\\to': '→', '\\leftarrow': '←', '\\degree': '°',
+             '^\\circ': '°', '\\sim': '~', '\\sqrt': '√', '\\sum': 'Σ', '\\div': '÷'}
+        out = str(latex)
+        for k, v in M.items(): out = out.replace(k, v)
+        out = re.sub(r'\\[a-zA-Z]+', '', out)
+        out = out.replace('{', '').replace('}', '')
+        return re.sub(r'\s{2,}', ' ', out).strip()
+    def _fix_tex(v):
+        # '$whole$' → raw LaTeX (keep as tex); mixed text+math → plain text
+        t = str(v).strip()
+        if len(t) > 2 and t.startswith('$') and t.endswith('$') and '$' not in t[1:-1]:
+            inner = t[1:-1].strip()
+            if inner and not re.search(r'\$\s*\d', inner):
+                return {'tex': inner}
+        return _tex_to_text(t.replace('$$', ' ').replace('$', ' '))
+    def _sanitize_row(row):
+        # rows are lists of cells; cells are {'tex': ...} dicts or plain strings
+        if not isinstance(row, list): return
+        for ci_, c in enumerate(row):
+            if isinstance(c, dict) and 'tex' in c and not _tex_ok(c['tex']):
+                row[ci_] = _fix_tex(c['tex'])
     for b in blocks:
         d = b.get('data') or {}
-        for rows in (d.get('rows') if isinstance(d.get('rows'), list) else []):
-            for row in rows:
-                for ci_, c in enumerate(row):
-                    if isinstance(c, dict) and 'tex' in c and not _tex_ok(c['tex']):
-                        row[ci_] = _clean_tex(c['tex'])
+        if isinstance(d.get('rows'), list):
+            for row in d['rows']:
+                _sanitize_row(row)
+        # formula/matrix top-level tex: strip $-wrappers the same way
+        for key in ('tex',):
+            v = d.get(key)
+            if isinstance(v, str) and v.strip().startswith('$') and not _tex_ok(v):
+                fixed = _fix_tex(v)
+                d[key] = fixed['tex'] if isinstance(fixed, dict) else fixed
 
     # chapters: split on MAJOR section blocks only (Week/Chapter/Module-level);
     # minor headings (Course Map, Formula Catalog...) stay inside the chapter
