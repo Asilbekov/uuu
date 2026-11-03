@@ -145,10 +145,14 @@ def build(spec, times, out_dir, words=None):
             data = dict(blk.get('data') or {})
             if blk['type'] == 'plot':
                 data['svg'] = _plot_svg(blk['data'])
+            label = (data.get('heading') or data.get('title') or blk['type'])
+            if blk['type'] == 'section':
+                label = (data.get('title') or blk['type'])
             blocks_out.append({
                 'type': blk['type'], 't0': round(t, 3),
                 't1': round(t + narr, 3), 'dur': round(narr, 3),
                 'data': data, 'cues': cues, 'words': wlist,
+                'srt': str(label)[:120],
             })
             t += narr
     total = t

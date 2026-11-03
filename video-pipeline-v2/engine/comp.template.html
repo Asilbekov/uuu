@@ -49,6 +49,11 @@
   .card{background:var(--card);border:1px solid var(--line);border-radius:22px;
     box-shadow:0 24px 60px -30px rgba(48,40,16,.25), 0 2px 6px rgba(48,40,16,.05)}
   .katex{font-size:1em}
+  /* inline math inside plain text ($...$ fragments) */
+  .mtex{display:inline-block;vertical-align:baseline}
+  .mtex .katex{font-size:.95em}
+  .q .mtex .katex,.ex-result .mtex .katex,.check .mtex .katex,
+  .tt td .mtex .katex,.ex-step .mtex .katex{font-size:.9em}
 
   /* ── title ─────────────────────────────────────────────────────────── */
   .b-title{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
@@ -256,13 +261,62 @@ function itemLit(node, onK){
   node.classList.toggle('lit', onK > 0.5);
 }
 
-/* word spans for voice-synced highlight (word boundaries from edge-tts) */
+/* inline math: split text into $...$ / \begin{env}…\end{env} and plain parts.
+   Currency dollars are kept literal: "math" needs LaTeX markers, operators
+   or no long words inside ("$5 and $10" stays text, "$1+1=2$" renders). */
+function mathish(s){
+  if(!s) return false;
+  if(/[\\^_{}]/.test(s)) return true;
+  if(/[=+<>≤≥≈±×·]/.test(s)) return true;
+  if(/[A-Za-zÀ-ÿА-Яа-яЁё]{3,}/.test(s.trim())) return false;
+  return true;
+}
+function mathSplit(text){
+  const out=[];
+  const re=/\$([^$]{1,400})\$|(\\begin\{([a-zA-Z*]+)\}[\s\S]{0,600}?\\end\{\3\})/g;
+  let last=0,m;
+  while((m=re.exec(text))){
+    const isEnv = m[2]!=null;
+    if(!isEnv && !mathish(m[1])) continue;   // currency / prose dollars → literal
+    if(m.index>last) out.push({math:false,s:text.slice(last,m.index)});
+    out.push({math:true, s:isEnv? m[2] : m[1]});
+    last=re.lastIndex;
+  }
+  if(last<text.length) out.push({math:false,s:text.slice(last)});
+  return out;
+}
+function hasMath(t){
+  const s=String(t);
+  if(/\\begin\{[a-zA-Z*]+\}/.test(s)) return true;
+  const re=/\$([^$]{1,400})\$/g; let m;
+  while((m=re.exec(s))){ if(mathish(m[1])) return true; }
+  return false;
+}
+function richText(node, text){
+  node.textContent='';
+  mathSplit(String(text)).forEach(seg=>{
+    if(!seg.math){ node.appendChild(document.createTextNode(seg.s)); return; }
+    const s=el('span','mtex',node); tex(s, seg.s, false);
+  });
+}
+
+/* word spans for voice-synced highlight (word boundaries from edge-tts);
+   $…$ fragments become a single KaTeX span = one highlightable "word" */
 function wordSpans(node, text){
   node.textContent='';
   const spans=[];
-  String(text).split(/\s+/).forEach((w,i)=>{
-    if(i>0) node.appendChild(document.createTextNode(' '));
-    const s=el('span','wspan',node); s.textContent=w; spans.push(s);
+  mathSplit(String(text)).forEach(seg=>{
+    if(seg.math){
+      if(spans.length) node.appendChild(document.createTextNode(' '));
+      const s=el('span','wspan mtex',node); spans.push(s); tex(s, seg.s, false);
+      return;
+    }
+    const words=seg.s.split(/\s+/).filter(w=>w.length);
+    words.forEach((w,i)=>{
+      if(i>0) node.appendChild(document.createTextNode(' '));
+      else if(spans.length && /^\s/.test(seg.s)) node.appendChild(document.createTextNode(' '));
+      const s=el('span','wspan',node); s.textContent=w; spans.push(s);
+    });
   });
   return spans;
 }
@@ -467,7 +521,7 @@ BUILDERS.example = (blk, t0)=>{
   let pr = null;
   if ((blk.data.problem || '').trim()){
     pr = el('div','ex-problem card', root);
-    const q = el('div','q', pr); q.textContent = blk.data.problem;
+    const q = el('div','q', pr); richText(q, blk.data.problem);
   }
   const steps = el('div','ex-steps', root);
   const sNodes = (blk.data.steps||[]).map(s=>{
@@ -478,7 +532,7 @@ BUILDERS.example = (blk, t0)=>{
     return {it, spans};
   });
   let resNode=null;
-  if(blk.data.result){ resNode = el('div','ex-result', root); resNode.textContent = blk.data.result; }
+  if(blk.data.result){ resNode = el('div','ex-result', root); richText(resNode, blk.data.result); }
   move(t0, t0+0.9, 80);
   const stepAnims = sNodes.map((o,k)=>{
     const cue = blk.cues && blk.cues[k]!=null ? blk.cues[k] : 1.4+k*0.9;
@@ -546,6 +600,7 @@ BUILDERS.table = (blk, t0)=>{
     r.forEach(c=>{
       const td=el('td','',tr);
       if(c && typeof c==='object' && c.tex){ tex(td, c.tex, false); }
+      else if(hasMath(c)) richText(td, String(c));
       else td.textContent = String(c);
     });
     return tr;
@@ -606,7 +661,7 @@ BUILDERS.matrix = (blk, t0)=>{
   const sNodes = (blk.data.steps||[]).map(s=>{
     const it = el('div','ex-step', steps);
     const n = el('div','n', it); n.textContent='→';
-    const tx = el('div','tx', it); tx.textContent = s.text;
+    const tx = el('div','tx', it); richText(tx, s.text);
     return it;
   });
   move(t0, t0+0.9, 85);
@@ -635,7 +690,7 @@ BUILDERS.recap = (blk, t0)=>{
     const it = el('div','check', list);
     const box = el('div','box', it);
     box.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>';
-    const tx = el('div','tx', it); tx.textContent = txt;
+    const tx = el('div','tx', it); richText(tx, txt);
     return {it, box, tx};
   });
   move(t0, t0+0.8, 70);

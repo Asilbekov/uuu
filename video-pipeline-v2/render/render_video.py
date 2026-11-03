@@ -42,6 +42,110 @@ def log(msg):
 
 T0 = time.time()
 
+# ─────────────────── LaTeX → speakable text (for TTS) ────────────────────
+GREEK = {'alpha':'alpha','beta':'beta','gamma':'gamma','delta':'delta','epsilon':'epsilon',
+         'zeta':'zeta','eta':'eta','theta':'theta','iota':'iota','kappa':'kappa','lambda':'lambda',
+         'mu':'mu','nu':'nu','xi':'xi','rho':'rho','sigma':'sigma','tau':'tau','phi':'phi',
+         'chi':'chi','psi':'psi','omega':'omega','Delta':'delta','Sigma':'sigma','Omega':'omega',
+         'Phi':'phi','Pi':'pi','Theta':'theta','Lambda':'lambda','Gamma':'gamma'}
+SYM = {'cdot':'times','times':'times','pm':'plus or minus','mp':'minus or plus',
+       'leq':'less than or equal to','le':'less than or equal to','geq':'greater than or equal to',
+       'ge':'greater than or equal to','neq':'not equal to','ne':'not equal to',
+       'approx':'approximately','cong':'is congruent to','equiv':'is equivalent to',
+       'sim':'is similar to','propto':'is proportional to','infty':'infinity',
+       'to':'to','rightarrow':'to','mapsto':'maps to','in':'in','notin':'not in',
+       'subset':'is a subset of','subseteq':'is a subset of','cup':'union','cap':'intersection',
+       'forall':'for all','exists':'there exists','emptyset':'the empty set',
+       'therefore':'therefore','because':'because','ldots':'dot dot dot','dots':'dot dot dot',
+       'cdots':'dot dot dot','vdots':'dot dot dot','perp':'perpendicular','parallel':'parallel',
+       'angle':'angle','circ':'degrees','degree':'degrees','quad':' ','qquad':' ',
+       'left':'','right':'','big':'','Big':'','bigl':'','bigr':'','langle':'angle bracket',
+       'rangle':'angle bracket','max':'maximum','min':'minimum','log':'log','ln':'natural log',
+       'sin':'sine','cos':'cosine','tan':'tangent','cot':'cotangent','sec':'secant','csc':'cosecant',
+       'lim':'limit','sum':'sum','prod':'product','int':'integral','det':'determinant',
+       'dim':'dimension','deg':'degree','exp':'e to the power of'}
+RU_SYM = {'times':'умножить на','plus or minus':'плюс-минус','less than or equal to':'меньше или равно',
+          'greater than or equal to':'больше или равно','not equal to':'не равно','approximately':'примерно',
+          'infinity':'бесконечность','to':'к','in':'принадлежит','union':'объединение',
+          'intersection':'пересечение','for all':'для всех','there exists':'существует',
+          'dot dot dot':'и так далее','perpendicular':'перпендикулярно','parallel':'параллельно',
+          'angle':'угол','degrees':'градусов','limit':'предел','sum':'сумма','product':'произведение',
+          'integral':'интеграл','maximum':'максимум','minimum':'минимум','sine':'синус','cosine':'косинус',
+          'tangent':'тангенс','pi':'пи','theta':'тета','lambda':'лямбда','alpha':'альфа','beta':'бета',
+          'delta':'дельта','epsilon':'эпсилон','sigma':'сигма','mu':'мю','phi':'фи','omega':'омега',
+          'sqrt':'корень из','frac':'дробь','overline':'с чертой','determinant':'определитель',
+          'vector':'вектор','matrix':'матрица','over':'делённое на','the square root of':'корень из',
+          'to the power of':'в степени','sub':'с индексом','the absolute value of':'модуль',
+          'bar':'с чертой','is a subset of':'является подмножеством','not in':'не принадлежит'}
+UZ_SYM = {'times':'ko\u2018paytirgan','plus or minus':'plus yoki minus','less than or equal to':'kichik yoki teng',
+          'greater than or equal to':'katta yoki teng','not equal to':'teng emas','approximately':'taxminan',
+          'infinity':'cheksizlik','to':'ga','in':'tegishli','dot dot dot':'va hokazo','angle':'burchak',
+          'degrees':'gradus','limit':'limit','sum':'yig\u2018indi','integral':'integral','pi':'pi',
+          'sqrt':'ildiz','frac':'kasr','the square root of':'kvadrat ildiz',
+          'to the power of':'darajada','sub':'indeks','the absolute value of':'modul','over':'bo\u2018lingan'}
+
+def _mathish(inner):
+    """Same rule as the template: currency/prose dollars stay literal."""
+    if re.search(r'[\\^_{}]', inner): return True
+    if re.search(r'[=+<>\u2264\u2265\u2248\u00b1\u00d7\u00b7]', inner): return True
+    if re.search(r'[A-Za-z\u00c0-\u00ff\u0400-\u04ff]{3,}', inner.strip()): return False
+    return True
+
+def latex_to_speech(text, lang='en'):
+    t = str(text)
+    # $...$ math fragments FIRST (skip literal/currency leftovers);
+    # pairs must be tested before single-$ currency amounts eat a "$8.24 …"
+    def dollar_pair(m):
+        inner = m.group(1)
+        return ' ' + inner + ' ' if _mathish(inner) else m.group(0)
+    t = re.sub(r'\$([^$]{1,400})\$', dollar_pair, t)
+    # currency amounts: $1,990,000 / $5 → spoken amount (lookahead ^_{ = math)
+    t = re.sub(r'\$([\d,]+(?:\.\d+)?)(?![\d,\^_])(\s*(?:million|thousand|billion|dollars)\b)?',
+               lambda m: ' ' + m.group(1) + (' ' + (m.group(2) or '').strip() if m.group(2) else ' dollars') + ' ', t)
+    # \begin{env}...\end{env} → components
+    def env_repl(m):
+        inner = m.group(3).replace('\\\\', ' , ').replace('&', ' , ')
+        return ' ' + inner + ' '
+    t = re.sub(r'(\\begin\{(bmatrix|pmatrix|matrix|vmatrix|cases|array|aligned)\})([\s\S]{0,600}?)(\\end\{\2\})', env_repl, t)
+    # structured commands
+    t = re.sub(r'\\sqrt\s*\{([^{}]*)\}', r' the square root of \1 ', t)
+    t = re.sub(r'\\frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}', r' \1 over \2 ', t)
+    t = re.sub(r'\\overline\s*\{([^{}]*)\}', r' \1 bar ', t)
+    t = re.sub(r'\\(?:mathbb|mathrm|mathbf|mathit|operatorname|text)\s*\{([^{}]*)\}', r' \1 ', t)
+    # \lim_{x \to a} → "the limit as x goes to a" (before subscript passes
+    # break the command name); generic \cmd_ protection for log/sin/max…
+    def lim_repl(m):
+        var = m.group(1).replace('\\to', ' goes to ').replace('\\rightarrow', ' goes to ')
+        return f' the limit as {var} '
+    t = re.sub(r'\\lim\s*_\s*\{([^{}]*)\}', lim_repl, t)
+    def cmd_sub_repl(m):
+        name = GREEK.get(m.group(1)) or SYM.get(m.group(1)) or m.group(1)
+        return f' {name} sub '
+    t = re.sub(r'\\([A-Za-z]+)\s*_\s*(?=[{A-Za-z0-9])', cmd_sub_repl, t)
+    # powers / subscripts
+    t = re.sub(r'([A-Za-z0-9)])\^\{([^{}]*)\}', r' \1 to the power of \2 ', t)
+    t = re.sub(r'([A-Za-z0-9)])\^([A-Za-z0-9])', r' \1 to the power of \2 ', t)
+    t = re.sub(r'([A-Za-z0-9)])_\{([^{}]*)\}', r' \1 sub \2 ', t)
+    t = re.sub(r'([A-Za-z0-9)])_([A-Za-z0-9])', r' \1 sub \2 ', t)
+    # greek + symbols
+    def cmd_repl(m):
+        name = m.group(1)
+        if name in GREEK: return ' ' + GREEK[name] + ' '
+        if name in SYM: return ' ' + SYM[name] + ' '
+        return ' ' + name + ' '
+    t = re.sub(r'\\([A-Za-z]+)', cmd_repl, t)
+    t = t.replace('\\\\', ' and ').replace('\\', ' ')
+    t = re.sub(r'\{([^{}]*)\}', r'\1', t)
+    t = t.replace('}', ' ').replace('{', ' ')
+    t = re.sub(r'\|([^|]{1,40})\|', r' the absolute value of \1 ', t)
+    # language polish
+    if lang != 'en':
+        table = RU_SYM if lang == 'ru' else UZ_SYM
+        for k, v in table.items():
+            t = re.sub(r'(?<![\u0400-\u04ffA-Za-z])' + re.escape(k) + r'(?![\u0400-\u04ffA-Za-z])', v, t)
+    t = re.sub(r'\s+', ' ', t).strip()
+    return t
+
 # ────────────────────────────── 1. TTS ──────────────────────────────────
 async def tts_segments(spec, workdir):
     """edge-tts per segment, with WordBoundary capture for word-sync highlights."""
@@ -80,7 +184,7 @@ async def tts_segments(spec, workdir):
     job_params = []   # (bi, si, text, mp3, wpath)
     for bi, blk in enumerate(blocks):
         for si, text in enumerate(blk.get('narr') or ['']):
-            text = (text or '').strip()
+            text = latex_to_speech((text or '').strip(), spec['language'])
             if not text: continue
             mp3 = os.path.join(segs_dir, f'b{bi:04d}_s{si:02d}.mp3')
             wpath = os.path.join(segs_dir, f'b{bi:04d}_s{si:02d}.words.json')
@@ -189,6 +293,33 @@ def validate_comp(comp_dir, timeline):
                 if (r.width < 100 || r.height < 100) return 'tiny_root';
                 const has = nd[0].textContent.trim().length;
                 if (has < 4) return 'empty_text';
+                // raw LaTeX leaked to screen (unrendered math);
+                // .katex-mathml = KaTeX's hidden annotation with the source — ignore it;
+                // check per TEXT NODE (richText makes one node per segment, so $..$
+                // pairs never span fields); currency "$5 and $10" is fine (mathish)
+                const clone = nd[0].cloneNode(true);
+                clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove());
+                const mathish = s => {
+                    if(!s) return false;
+                    if(/[\\\\^_{}]/.test(s)) return true;
+                    if(/[=+<>\\u2264\\u2265\\u2248\\u00b1\\u00d7\\u00b7]/.test(s)) return true;
+                    if(/[A-Za-z\\u00c0-\\u00ff\\u0400-\\u04ff]{3,}/.test(s.trim())) return false;
+                    return true;
+                };
+                let raw = null;
+                clone.querySelectorAll('*').forEach(n=>{
+                    if(raw) return;
+                    [...n.childNodes].forEach(c=>{
+                        if(c.nodeType!==3) return;
+                        const s = c.textContent;
+                        if(/\\\\(?:frac|sqrt|begin|overline|lim|sum|cdot|times|pi|theta|alpha|beta|mathbb)\\b/.test(s)){
+                            raw = 'raw_cmd:'+s.slice(0,50); return;
+                        }
+                        const dre = /\\$([^$]{1,400})\\$/g; let dm;
+                        while((dm = dre.exec(s))){ if(mathish(dm[1])){ raw = 'raw_math:$'+dm[1].slice(0,40); break; } }
+                    });
+                });
+                if(raw) return 'raw_latex_on_screen:'+raw;
                 return 'ok';
             })()''')
             if vis != 'ok':
