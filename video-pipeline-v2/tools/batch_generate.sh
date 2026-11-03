@@ -20,7 +20,7 @@ for S in $SPECS; do
     continue
   fi
   echo "=== $S: $HAVE/$TOTAL чанков, генерирую... ==="
-  LLM_MODEL=glm-4.5-flash timeout 470 bun video-pipeline-v2/tools/gen_chunks.ts \
+  LLM_MODEL=glm-4.5-flash timeout 3500 bun video-pipeline-v2/tools/gen_chunks.ts \
     video-pipeline-v2/content/chunks/$S.chunks.json $LANG $CDIR $ID $CONC 2>&1 | grep -E "FAILED|DONE|split" | tail -6
 done
 echo "=== BATCH PASS COMPLETE ==="
