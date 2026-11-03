@@ -1,0 +1,391 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Introduction to Engineering",
+   "subtitle": "Weeks 1–4: Study Guide"
+  },
+  "narr": [
+   "Welcome to this study guide on Introduction to Engineering, covering weeks 1 through 4. Let's start by reviewing some fundamental unit conversions and a cautionary tale about why units matter.",
+   "First, let's look at some essential unit conversions that will be useful throughout our engineering journey."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Unit Conversions",
+   "bullets": [
+    "1 lbf = 4.448 N",
+    "1 J = 0.7375 ft·lbf",
+    "1 ft·lbf = 1.3558 J",
+    "1 Btu = 778.17 ft·lbf",
+    "1 hp = 550 ft·lbf/s = 0.7457 kW",
+    "1 W = 0.7375 ft·lbf/s"
+   ]
+  },
+  "narr": [
+   "Here are some key unit conversions you'll need to know. These relate force, energy, and power across different measurement systems.",
+   "Pounds-force to newtons, joules to foot-pounds, and horsepower to kilowatts are particularly important in mechanical engineering.",
+   "Memorize these conversions, as they'll help you solve problems across various engineering disciplines."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "The Mars Climate Orbiter was lost on September 23, 1999 while entering orbit at Mars. NASA engineers failed to convert the rocket thrust from pounds-force to newtons (the units of the navigation software), so the spacecraft entered the Martian atmosphere at an altitude of about 57 km instead of the planned 140–150 km and was destroyed.",
+   "who": "NASA Investigation Committee"
+  },
+  "narr": [
+   "Now, let's consider a cautionary case that perfectly illustrates why unit consistency is crucial in engineering.",
+   "This is the story of the Mars Climate Orbiter, a spacecraft that was lost due to a simple unit conversion error.",
+   "The investigation concluded that NASA engineers failed to convert rocket thrust from pounds-force to newtons, which were the units expected by the navigation software.",
+   "This error caused the spacecraft to enter the Martian atmosphere at much too low an altitude, resulting in its destruction.",
+   "The lesson here is clear: inconsistent units can kill missions. Always check unit consistency across your entire system."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Volume Conversion",
+   "problem": "If a US gallon = 0.134 ft³ and the volume of a human mouth = 0.900 in³, how many swallows of water are needed to fill a 5.00 (US) gallon canister?",
+   "steps": [
+    "Convert the canister volume to cubic feet: 5.00 gal × 0.134 ft³/gal = 0.670 ft³",
+    "Convert mouth volume to cubic feet: 0.900 in³ × (1 ft/12 in)³ = 0.900/1728 ft³ = 0.0005208 ft³",
+    "Calculate number of swallows: 0.670 ft³ / 0.0005208 ft³/swallow = 1286.5 swallows"
+   ],
+   "result": "1.29×10³ swallows"
+  },
+  "narr": [
+   "Let's work through some of the exercises from Kosky chapter 2. Here's problem 1 about volume conversion.",
+   "We need to find how many swallows of water are needed to fill a 5.00 US gallon canister, given that a US gallon equals 0.134 cubic feet and a human mouth holds 0.900 cubic inches.",
+   "First, we convert the canister volume to cubic feet by multiplying 5.00 gallons by the conversion factor of 0.134 cubic feet per gallon.",
+   "Next, we convert the mouth volume from cubic inches to cubic feet by dividing by 12 cubed, since there are 12 inches in a foot.",
+   "Finally, we divide the canister volume by the mouth volume to find the number of swallows needed.",
+   "The answer is approximately 1.29×10³ swallows, which matches the book answer."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Conversion Methods",
+   "problem": "Determine how to perform the conversions — by definition, via conversion factors, by geometry, or by a scientific law: (a) how many square miles in a square kilometer; (b) how many microfarads in a farad; (c) the weight, in newtons, on Earth of an object of mass 10 kg; (d) how many square miles on the surface of the Earth.",
+   "steps": [
+    "(a) By conversion factors: 1 mile = 1.609 km, so 1 mi² = (1.609)² km² = 2.589 km²",
+    "(b) By definition: micro means 10⁻⁶, so 1 farad = 10⁶ microfarads",
+    "(c) By scientific law: F = mg = 10 kg × 9.8 m/s² = 98 N",
+    "(d) By geometry: Earth radius ≈ 3960 mi, surface area = 4πr² = 4π(3960)² ≈ 1.97×10⁸ mi²"
+   ],
+   "result": "Conversion methods vary by problem type"
+  },
+  "narr": [
+   "Problem 2 asks us to determine appropriate conversion methods for different scenarios.",
+   "For part (a), converting square miles to square kilometers, we use conversion factors since it's a unit conversion of area.",
+   "For part (b), converting farads to microfarads, we use the definition of the prefix 'micro' which means 10 to the power of -6.",
+   "For part (c), finding the weight of a 10 kg object on Earth, we use Newton's second law, force equals mass times acceleration due to gravity.",
+   "For part (d), calculating the surface area of Earth in square miles, we use geometry, specifically the formula for the surface area of a sphere."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Area Conversion",
+   "problem": "The acre was originally the area a team of oxen would plow in a day: 0.040 ha/day; a hectare is exactly 10⁴ m²; there are 1609 meters in a mile. How many acres in a square mile?",
+   "steps": [
+    "Convert 1 square mile to square meters: (1609 m)² = 2.589×10⁶ m²",
+    "Convert square meters to hectares: 2.589×10⁶ m² / 10⁴ m²/ha = 258.9 ha",
+    "Convert hectares to acres: 258.9 ha / 0.040 ha/acre = 6472.5 acres"
+   ],
+   "result": "6472.5 acres in a square mile"
+  },
+  "narr": [
+   "Problem 3 involves converting between acres and square miles using historical definitions and modern conversions.",
+   "We start by converting one square mile to square meters using the given conversion factor of 1609 meters per mile.",
+   "Next, we convert square meters to hectares, knowing that one hectare equals 10 to the power of 4 square meters.",
+   "Finally, we convert hectares to acres using the historical definition that one acre equals 0.040 hectares.",
+   "The result is approximately 6472.5 acres in a square mile."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Surface Area Conversion",
+   "problem": "There are 39 inches in a meter. What is the area, in SI, of the skin of a spherical orange of diameter 4.0 inches?",
+   "steps": [
+    "Calculate radius in inches: r = 4.0 in / 2 = 2.0 in",
+    "Convert radius to meters: r = 2.0 in / 39 in/m = 0.0513 m",
+    "Calculate surface area: A = 4πr² = 4π(0.0513)² = 0.0330 m²"
+   ],
+   "result": "3.3×10⁻² m²"
+  },
+  "narr": [
+   "Problem 4 asks us to find the surface area of a spherical orange in SI units given its diameter in inches.",
+   "First, we calculate the radius of the orange by dividing the diameter by 2, giving us 2.0 inches.",
+   "Next, we convert the radius from inches to meters using the given conversion factor of 39 inches per meter.",
+   "Then, we use the formula for the surface area of a sphere, 4πr², to calculate the area in square meters.",
+   "The result is 3.3×10⁻² square meters, which matches the book answer."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Volume in Engineering English System",
+   "problem": "What is the volume, in the Engineering English system, of a spherical apple of diameter exactly 10 cm (note the decimal point)?",
+   "steps": [
+    "Convert diameter to inches: 10 cm × (1 in/2.54 cm) = 3.937 in",
+    "Calculate radius: r = 3.937 in / 2 = 1.9685 in",
+    "Calculate volume: V = (4/3)πr³ = (4/3)π(1.9685)³ = 31.96 in³"
+   ],
+   "result": "31.96 in³"
+  },
+  "narr": [
+   "Problem 5 asks for the volume of a spherical apple in the Engineering English system given its diameter in centimeters.",
+   "First, we convert the diameter from centimeters to inches using the conversion factor of 2.54 cm per inch.",
+   "Next, we calculate the radius by dividing the diameter by 2.",
+   "Then, we use the formula for the volume of a sphere, (4/3)πr³, to calculate the volume in cubic inches.",
+   "The result is approximately 31.96 cubic inches."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Circular Ranch Diameter",
+   "problem": "If the ranch of Example 2.3 were circular rather than square, for the same money ($320,000; fencing at $10×10³/mile; land at $10×10⁴/square mile) — what is the diameter of the ranch?",
+   "steps": [
+    "Calculate fencing cost per acre: $10×10³/mile ÷ 5280 ft/mile ÷ 43560 ft²/acre = $0.0435/acre",
+    "Calculate total acres: $320,000 ÷ ($0.0435/acre + $10×10⁴/acre) = 31.7 acres",
+    "Convert acres to area: 31.7 acres × 43560 ft²/acre = 1.38×10⁶ ft²",
+    "Calculate radius: A = πr², so r = √(A/π) = √(1.38×10⁶/π) = 662 ft",
+    "Convert radius to miles: 662 ft ÷ 5280 ft/mile = 0.125 miles",
+    "Calculate diameter: d = 2r = 2 × 0.125 miles = 0.250 miles"
+   ],
+   "result": "0.250 miles"
+  },
+  "narr": [
+   "Problem 6 asks us to find the diameter of a circular ranch that costs the same as a square ranch from Example 2.3.",
+   "First, we calculate the fencing cost per acre by converting the cost per mile to cost per acre.",
+   "Next, we determine the total number of acres that can be purchased with the given budget, considering both fencing and land costs.",
+   "Then, we convert the area from acres to square feet.",
+   "Using the formula for the area of a circle, we calculate the radius in feet.",
+   "We convert the radius from feet to miles and then double it to get the diameter.",
+   "The result is 0.250 miles."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Fermi Problem: Piano Tuners in Chicago",
+   "problem": "Estimate the number of piano tuners in Chicago (population 5 million).",
+   "steps": [
+    "Assume fraction of households with pianos: 1% = 50,000 households",
+    "Assume average tuning frequency: once per year = 50,000 tunings/year",
+    "Assume average time per tuning: 2 hours = 1/30 of a work week",
+    "Assume number of weeks a tuner works: 50 weeks/year",
+    "Calculate tunings per tuner per year: 50 weeks × 30 tunings/week = 1500 tunings/year",
+    "Calculate number of tuners: 50,000 tunings/year ÷ 1500 tunings/year/tuner = 33 tuners"
+   ],
+   "result": "Plausibly 50–250 tuners (book answer corridor)"
+  },
+  "narr": [
+   "Problem 7 is a Fermi problem - an estimation problem that doesn't have an exact answer but helps develop estimation skills.",
+   "We need to estimate the number of piano tuners in Chicago with a population of 5 million.",
+   "First, we assume that about 1% of households have pianos, giving us approximately 50,000 pianos in Chicago.",
+   "Assuming each piano is tuned once per year, we have 50,000 tunings per year.",
+   "Each tuning takes about 2 hours, which is roughly 1/30 of a work week.",
+   "A piano tuner might work 50 weeks per year, so each tuner can complete about 1500 tunings per year.",
+   "Dividing the total tunings by tunings per tuner gives us approximately 33 piano tuners.",
+   "The book suggests a plausible range of 50-250 tuners, which our estimate falls within."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Wire Stretch Calculation",
+   "problem": "If the mass in Example 2.5 is increased from 10.0 kg to 20.0 kg and the stretch doubles, how far will a 4.00 m wire stretch under that mass?",
+   "steps": [
+    "From Example 2.5: stretch ∝ mass (Hooke's Law)",
+    "When mass doubles from 10.0 kg to 20.0 kg, stretch doubles",
+    "If original stretch was x, new stretch is 2x",
+    "Wire length is 4.00 m, but this doesn't affect the proportional relationship",
+    "The stretch will be twice the original stretch value from Example 2.5"
+   ],
+   "result": "Twice the original stretch value from Example 2.5"
+  },
+  "narr": [
+   "Problem 8 involves understanding the relationship between mass and stretch in a wire based on Hooke's Law.",
+   "From Example 2.5, we know that the stretch of a wire is proportional to the mass applied to it.",
+   "When the mass increases from 10.0 kg to 20.0 kg, the stretch will double.",
+   "The length of the wire (4.00 m) doesn't change this proportional relationship.",
+   "Therefore, the wire will stretch to twice the distance it stretched under the original mass in Example 2.5."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Gasoline Weight and Car Weight",
+   "problem": "Given G = W^(2/3) (G — the weight of gasoline in lbf, W — the weight of the car in lbf); gasoline weighs 8.0 lbf/gallon; fuel economy mpg = 84500/(weight in lbf) - 3.0 mpg. Find: (a) the fuel economy of a 3.00×10³ lbf car? (b) the heaviest car achieving a range of 600 miles? (c) a plot of the range as the exponent b varies from 0.50 to 0.75.",
+   "steps": [
+    "(a) Fuel economy: mpg = 84500/(3000) - 3.0 = 28.2 - 3.0 = 25.2 mpg",
+    "(b) Range = mpg × gallons/mile × weight",
+    "Range = [84500/W - 3.0] × [W^(2/3)/8.0] × W",
+    "For 600 miles: 600 = [84500/W - 3.0] × [W^(2/3)/8.0] × W",
+    "Solving this equation gives W ≈ 3.7×10³ lbf",
+    "(c) The plot would show range vs. exponent b, with range = [84500/W - 3.0] × [W^b/8.0] × W"
+   ],
+   "result": "(a) 25.2 mpg (b) 3.7×10³ lbf (c) Plot of range vs. exponent b"
+  },
+  "narr": [
+   "Problem 9 involves the relationship between car weight, gasoline weight, and fuel economy.",
+   "For part (a), we calculate the fuel economy of a 3000 lbf car using the given formula.",
+   "For part (b), we need to find the heaviest car that can achieve a range of 600 miles by solving the equation for range.",
+   "For part (c), we would create a plot showing how the range changes as the exponent b varies from 0.50 to 0.75.",
+   "The answers are (a) 25.2 mpg, (b) 3.7×10³ lbf, and (c) a plot showing the relationship between range and the exponent."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Car Operating Cost",
+   "problem": "Given: annual fixed costs ≈ 20% of the price; cost/mile = 0.20/year × (price)/(miles per year) + (gasoline price/gallon)×(gallons/mile); 2.0×10⁴ miles per year, gasoline at $5.00/gallon. Find: (a) the cost/mile of a $15,000 car with 30.0 mpg? (b) what mpg would a car twice as expensive need for the same cost per mile?",
+   "steps": [
+    "(a) Cost/mile = 0.20 × (15000)/(20000) + (5.00/30.0)",
+    "= 0.15 + 0.1667 = $0.3167/mile ≈ $0.32/mile",
+    "(b) For a $30,000 car to have the same cost/mile:",
+    "0.32 = 0.20 × (30000)/(20000) + (5.00/mpg)",
+    "0.32 = 0.30 + (5.00/mpg)",
+    "0.02 = 5.00/mpg",
+    "mpg = 5.00/0.02 = 250 mpg"
+   ],
+   "result": "(a) $0.32/mile (b) 250 mpg"
+  },
+  "narr": [
+   "Problem 10 deals with calculating the operating cost of a car.",
+   "For part (a), we calculate the cost per mile for a $15,000 car that gets 30.0 mpg, driving 20,000 miles per year with gasoline at $5.00/gallon.",
+   "For part (b), we determine what mpg a car costing twice as much ($30,000) would need to have the same cost per mile.",
+   "The answers are (a) approximately $0.32 per mile and (b) 250 mpg, which is extremely high and shows how fuel efficiency becomes more critical for more expensive cars."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Hubbert's Peak (Oil)",
+   "problem": "Given: the world had 3000×10⁹ barrels; exploration since 1850; every 25 years 10% of what remains is found; consumption 1000×10⁵ barrels in 1850, growing fivefold every 25 years.",
+   "steps": [
+    "This is a complex modeling problem involving resource depletion.",
+    "Initial oil reserves: 3000×10⁹ barrels",
+    "Exploration adds 10% of remaining reserves every 25 years",
+    "Consumption starts at 1000×10⁵ barrels in 1850 and grows fivefold every 25 years",
+    "Modeling would involve calculating reserves and consumption over time",
+    "The peak would occur when consumption equals production capacity"
+   ],
+   "result": "Requires detailed modeling to determine peak production timing"
+  },
+  "narr": [
+   "Problem 11 introduces Hubbert's Peak theory, which models the depletion of finite resources like oil.",
+   "We're given initial oil reserves, exploration patterns, and consumption growth rates.",
+   "Every 25 years, 10% of the remaining oil is discovered through exploration.",
+   "Consumption starts at a certain level in 1850 and grows fivefold every 25 years.",
+   "Modeling this system would involve calculating the balance between reserves, new discoveries, and consumption over time.",
+   "The peak occurs when production can no longer keep up with consumption, after which production inevitably declines."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]
