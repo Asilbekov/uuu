@@ -1,0 +1,509 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Variables and Types",
+   "subtitle": "Basic Data Types in C"
+  },
+  "narr": [
+   "In this section, we'll explore the fundamental data types in C programming and how we declare variables using these types.",
+   "Let's start by looking at the basic types you'll encounter in C."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Basic C Data Types",
+   "columns": [
+    "Type",
+    "C Declaration",
+    "Typical use"
+   ],
+   "rows": [
+    [
+     "int",
+     "int score = 72;",
+     "integers"
+    ],
+    [
+     "char",
+     "char grade = 'B';",
+     "one basic character"
+    ],
+    [
+     "float",
+     "float temperature = 23.5f;",
+     "approximate real values"
+    ],
+    [
+     "double",
+     "double radius = 3.0;",
+     "approximate real values"
+    ],
+    [
+     "bool",
+     "bool passed = true;",
+     "true or false"
+    ],
+    [
+     "string",
+     "string name = \"Ada\";",
+     "text (via CS50)"
+    ]
+   ]
+  },
+  "narr": [
+   "C provides several basic data types for different kinds of data.",
+   "The int type is used for storing integers, like a score of 72.",
+   "The char type stores a single basic character, such as a grade.",
+   "For real numbers, we have float and double types.",
+   "Float provides single-precision floating-point values, while double provides double-precision.",
+   "The bool type represents boolean values, either true or false.",
+   "And finally, the string type, which in CS50 is actually a typedef for char pointer, stores the address of text rather than the text itself."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "In C11, bool is a macro from <stdbool.h>; string is a CS50-typedef for char * (stores the address, not the text itself); one char is one byte, a 'basic character' like B, not any Unicode character; a variable of type void cannot be declared.",
+   "who": "Slide Clarifications"
+  },
+  "narr": [
+   "There are some important clarifications about these types.",
+   "The bool type was introduced in C11 as a macro from the stdbool.h header file.",
+   "The string type in CS50 is actually a typedef for char pointer, which stores the memory address of the text, not the text itself.",
+   "A char variable is one byte and can only store basic characters like B, not any Unicode character.",
+   "And importantly, you cannot declare a variable of type void."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Variable Declaration Format",
+   "bullets": [
+    "General format: type variable-name [= value]",
+    "Variables can be initialized when declared",
+    "Multiple variables can be declared in one statement",
+    "Variables can be assigned the value of another variable"
+   ]
+  },
+  "narr": [
+   "Let's look at how we declare variables in C.",
+   "The general format for declaring a variable is type variable-name, with an optional initial value.",
+   "Variables can be initialized when they're declared, like char x = 'A';",
+   "You can declare multiple variables in a single statement, separated by commas.",
+   "And you can assign the value of one variable to another during initialization."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Variable Declaration Examples",
+   "problem": "Show different ways to declare variables in C",
+   "steps": [
+    "Declare an uninitialized character variable",
+    "Initialize a character variable to 'A'",
+    "Declare and initialize multiple variables",
+    "Initialize multiple variables with the same value"
+   ],
+   "result": "char x; /* uninitialized */\nchar x = 'A'; /* initialized to 'A' */\nchar x = 'A', y = 'B'; /* multiple variables initialized */\nchar x = y = 'Z'; /* multiple initializations */"
+  },
+  "narr": [
+   "Let's examine some examples of variable declarations.",
+   "First, we can declare a character variable without initializing it.",
+   "Second, we can declare and initialize a character variable to a specific value.",
+   "Third, we can declare and initialize multiple variables in the same statement.",
+   "And fourth, we can initialize multiple variables to the same value."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Variable Naming Rules",
+   "bullets": [
+    "Names can contain letters, numbers, and underscore",
+    "Must start with a letter or underscore",
+    "Cannot use keywords (for, while, etc.)",
+    "Names are case-sensitive"
+   ]
+  },
+  "narr": [
+   "When naming variables in C, there are several rules to follow.",
+   "Variable names can contain letters, numbers, and underscores.",
+   "Names must start with either a letter or an underscore.",
+   "You cannot use C keywords like 'for' or 'while' as variable names.",
+   "And importantly, variable names are case-sensitive, so 'x' and 'X' would be different variables."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Valid and Invalid Variable Names",
+   "problem": "Determine which variable names are valid in C",
+   "steps": [
+    "Check if money$owed is valid",
+    "Check if totalcount is valid",
+    "Check if score2 is valid",
+    "Check if 2ndscore is valid",
+    "Check if long is valid"
+   ],
+   "result": "int money$owed; — invalid (character $)\nint totalcount; — valid\nint score2; — valid\nint 2ndscore; — invalid (starts with a digit)\nint long; — invalid (keyword)"
+  },
+  "narr": [
+   "Let's test our understanding with some examples of variable names.",
+   "First, money$owed is invalid because it contains a dollar sign.",
+   "Second, totalcount is valid because it follows all naming rules.",
+   "Third, score2 is valid because it starts with a letter and contains a number.",
+   "Fourth, 2ndscore is invalid because it starts with a digit.",
+   "And finally, long is invalid because it's a C keyword."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Constants and Data Types",
+   "subtitle": "Literal Values and Numeric Types"
+  },
+  "narr": [
+   "Now let's explore constants and the different numeric types available in C.",
+   "We'll look at how to represent fixed values and the various integer and floating-point types."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Constants in C",
+   "bullets": [
+    "Constants are literal/fixed values",
+    "Integer constants: 3, 0xA (hex), 012 (octal)",
+    "Floating-point constants: 3.14159, 3.141F, 3.1415926535897932384L",
+    "Character constants: 'A', '\\x41' (hex), '\\0101' (octal)",
+    "String constants: \"hello world\", \"hello\" \"world\" (concatenated)"
+   ]
+  },
+  "narr": [
+   "Constants in C are fixed values that cannot be changed during program execution.",
+   "For integers, we can use decimal values like 3, hexadecimal values prefixed with 0x, or octal values prefixed with 0.",
+   "For floating-point numbers, we can use decimal values with optional suffixes like F for float or L for long double.",
+   "Character constants are enclosed in single quotes and can include escape sequences for hexadecimal or octal values.",
+   "String constants are enclosed in double quotes, and adjacent string literals are automatically concatenated by the compiler."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Enumerations",
+   "bullets": [
+    "enum BOOL {NO, YES} → NO = 0, YES = 1",
+    "enum COLOR {R = 1, G, B, Y = 10} → G = 2, B = 3",
+    "Enumerators without explicit values continue numbering from the previous one"
+   ]
+  },
+  "narr": [
+   "Enumerations provide a way to define named integer constants.",
+   "For example, we can create a BOOL enumeration with NO and YES values, where NO defaults to 0 and YES to 1.",
+   "We can also specify explicit values, like setting R to 1 in a COLOR enumeration.",
+   "When an enumerator doesn't have an explicit value, it continues numbering from the previous one, so G would be 2 and B would be 3 in our example."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Sizes, Ranges, and Precision",
+   "bullets": [
+    "Individual sizes depend on machine/compiler",
+    "Guaranteed: sizeof(char) < sizeof(short) <= sizeof(int) <= sizeof(long)",
+    "sizeof(char) < sizeof(short) <= sizeof(float) <= sizeof(double)",
+    "Unsigned version has approximately twice the range of signed version",
+    "Byte order matters: big endian vs little endian"
+   ]
+  },
+  "narr": [
+   "The size of data types in C can vary depending on the machine and compiler.",
+   "However, C guarantees that the size of char is less than or equal to short, which is less than or equal to int, which is less than or equal to long.",
+   "Similarly, the size of char is less than or equal to short, which is less than or equal to float, which is less than or equal to double.",
+   "The unsigned version of a type has approximately twice the range of its signed counterpart.",
+   "For multi-byte numbers, the byte order is important - whether the system uses big endian or little endian representation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Signed and Unsigned Types",
+   "columns": [
+    "Type",
+    "Signed Declaration",
+    "Unsigned Declaration"
+   ],
+   "rows": [
+    [
+     "short",
+     "short int x; short y;",
+     "unsigned short x; unsigned short int y;"
+    ],
+    [
+     "int",
+     "int x;",
+     "unsigned int x;"
+    ],
+    [
+     "long",
+     "long x;",
+     "unsigned long x;"
+    ],
+    [
+     "float",
+     "float x;",
+     "N/A"
+    ],
+    [
+     "double",
+     "double x;",
+     "N/A"
+    ],
+    [
+     "char",
+     "char x; signed char x;",
+     "unsigned char x;"
+    ]
+   ]
+  },
+  "narr": [
+   "Many types in C have both signed and unsigned variants.",
+   "For short, int, and long types, we can declare either signed or unsigned versions.",
+   "Float and double types don't have unsigned variants.",
+   "For char, we can explicitly declare it as signed or unsigned, though char defaults to signed in most implementations."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Integer Types: Sizes and Ranges",
+   "columns": [
+    "Type",
+    "Bits",
+    "Range"
+   ],
+   "rows": [
+    [
+     "char",
+     "8",
+     "-128 ... 127"
+    ],
+    [
+     "signed char",
+     "8",
+     "-128 ... 127"
+    ],
+    [
+     "unsigned char",
+     "8",
+     "0 ... 255"
+    ],
+    [
+     "short",
+     "16",
+     "-32,768 ... 32,767"
+    ],
+    [
+     "unsigned short",
+     "16",
+     "0 ... 65,535"
+    ],
+    [
+     "int",
+     "32",
+     "-2,147,483,648 ... 2,147,483,647"
+    ],
+    [
+     "unsigned int",
+     "32",
+     "0 ... 4,294,967,295"
+    ],
+    [
+     "long",
+     "64",
+     "-9,223,372,036,854,775,808 ... 9,223,372,036,854,775,807"
+    ],
+    [
+     "unsigned long",
+     "64",
+     "0 ... 18,446,744,073,709,551,615"
+    ],
+    [
+     "long long",
+     "64",
+     "-9,223,372,036,854,775,808 ... 9,223,372,036,854,775,807"
+    ],
+    [
+     "unsigned long long",
+     "64",
+     "0 ... 18,446,744,073,709,551,615"
+    ]
+   ]
+  },
+  "narr": [
+   "Let's examine the actual sizes and ranges of integer types on a typical system.",
+   "Char and its variants use 8 bits, with signed char ranging from -128 to 127 and unsigned char from 0 to 255.",
+   "Short types use 16 bits, with a range from -32,768 to 32,767 for signed and 0 to 65,535 for unsigned.",
+   "Int types typically use 32 bits, with a range from approximately -2 billion to 2 billion for signed and 0 to approximately 4 billion for unsigned.",
+   "Long and long long types typically use 64 bits, with much larger ranges for both signed and unsigned variants."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Real Types: Precision",
+   "columns": [
+    "Type",
+    "Bits",
+    "Decimal precision"
+   ],
+   "rows": [
+    [
+     "float",
+     "32",
+     "6 significant digits"
+    ],
+    [
+     "double",
+     "64",
+     "15 significant digits"
+    ],
+    [
+     "long double",
+     "64",
+     "15 significant digits (like double on this platform)"
+    ]
+   ]
+  },
+  "narr": [
+   "For real numbers, C provides float and double types with different precisions.",
+   "The float type uses 32 bits and provides about 6 significant decimal digits of precision.",
+   "The double type uses 64 bits and provides about 15 significant decimal digits of precision.",
+   "Long double may use more bits on some systems, but on this platform, it's similar to double with 15 significant digits."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Sphere Volume Calculation",
+   "problem": "Calculate the volume of a sphere given its radius",
+   "steps": [
+    "Recall the formula for sphere volume: V = (4/3) × π × r³",
+    "Declare pi as a constant double",
+    "Get the radius from user input",
+    "Calculate the volume using the formula"
+   ],
+   "result": "const double pi = 3.1415;\ndouble radius = get_double(\"Radius: \");\n// Today's input range: 0 < radius <= 1000\n// Volume calculation would be:\n// double volume = (4.0/3.0) * pi * radius * radius * radius;"
+  },
+  "narr": [
+   "Let's apply our knowledge of types to a practical problem - calculating the volume of a sphere.",
+   "The formula for sphere volume is V equals four-thirds times pi times radius cubed.",
+   "We should declare pi as a constant double for better precision.",
+   "We'll get the radius from user input, ensuring it's within a reasonable range.",
+   "Finally, we calculate the volume using the formula, making sure to use floating-point division for the 4/3 term."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

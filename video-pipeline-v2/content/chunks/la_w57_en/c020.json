@@ -1,0 +1,271 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Linear Algebra I",
+   "subtitle": "weeks 5–7"
+  },
+  "narr": [
+   "We're moving into weeks five through seven of our linear algebra journey, focusing on questions, formulas, and solutions to deepen our understanding.",
+   "Let's dive into the exercises."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 44 — Union of subspaces",
+   "problem": "Give two subspaces whose union is not a subspace.",
+   "steps": [
+    "In R^2, take the axes U = {(x, 0)} and W = {(0, y)} — both are subspaces.",
+    "In the union lie (1, 0) and (0, 1), but their sum (1, 1) lies on neither axis.",
+    "The union is not closed under addition — not a subspace."
+   ],
+   "result": "The union of U and W is not a subspace because it's not closed under addition."
+  },
+  "narr": [
+   "Let's start with exercise 44 about the union of subspaces.",
+   "The question asks us to find two subspaces whose union isn't a subspace.",
+   "The solution considers the x and y axes in R^2.",
+   "Both axes are indeed subspaces of R^2.",
+   "The vectors (1, 0) and (0, 1) are in the union of these subspaces.",
+   "However, their sum (1, 1) is not on either axis.",
+   "This shows the union isn't closed under addition.",
+   "Therefore, the union of these two subspaces is not itself a subspace."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   0,
+   1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 45 — Symmetric 3 × 3 matrices",
+   "problem": "Is the set of symmetric 3 × 3 matrices a subspace of the space of all real 3 × 3 matrices?",
+   "steps": [
+    "The zero matrix is symmetric.",
+    "(S + T)^T = S^T + T^T = S + T for symmetric S, T.",
+    "(cS)^T = c · S^T = cS.",
+    "Closure is satisfied — it is a subspace."
+   ],
+   "result": "Yes, the set of symmetric 3 × 3 matrices is a subspace."
+  },
+  "narr": [
+   "Next, exercise 45 asks about symmetric 3 × 3 matrices.",
+   "We need to determine if they form a subspace of all real 3 × 3 matrices.",
+   "First, the zero matrix is symmetric, satisfying the first requirement.",
+   "For any two symmetric matrices S and T, their sum is also symmetric.",
+   "Similarly, any scalar multiple of a symmetric matrix remains symmetric.",
+   "Since the set contains the zero matrix and is closed under addition and scalar multiplication, it is indeed a subspace."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 46 — Polynomials with p(0) = 1",
+   "problem": "Is the set of polynomials satisfying p(0) = 1 a subspace?",
+   "steps": [
+    "The zero polynomial gives p(0) = 0 ≠ 1 — there is no zero vector.",
+    "For p(x) = 1 and q(x) = 1 + x: (p + q)(0) = 2 ≠ 1 — closure under addition is also violated.",
+    "Polynomials with p(0) = 0, on the other hand, do form a subspace."
+   ],
+   "result": "No, the set of polynomials with p(0) = 1 is not a subspace."
+  },
+  "narr": [
+   "Exercise 46 explores polynomials with the condition p(0) = 1.",
+   "We need to check if this set forms a subspace.",
+   "First, the zero polynomial evaluates to 0 at x = 0, not 1.",
+   "This means the set doesn't contain the zero vector, which is a requirement for any subspace.",
+   "Additionally, consider p(x) = 1 and q(x) = 1 + x.",
+   "Their sum is (p + q)(x) = 2 + x, which evaluates to 2 at x = 0, not 1.",
+   "This shows the set isn't closed under addition.",
+   "Therefore, it's not a subspace.",
+   "Interestingly, polynomials with p(0) = 0 do form a subspace."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   0,
+   1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 47 — Null space of A^T A",
+   "problem": "Prove that Null(A^T A) = Null(A) for any real matrix A.",
+   "steps": [
+    "If Ax = 0, then A^T Ax = A^T (Ax) = 0, that is, Null(A) ⊆ Null(A^T A).",
+    "Let A^T Ax = 0; multiply on the left by x^T: x^T A^T Ax = ||Ax||^2 = 0.",
+    "The sum of squares of the coordinates of Ax is zero, which means Ax = 0.",
+    "Conclusion: Null(A^T A) = Null(A); a consequence is that A and A^T A have the same null space and rank (least squares fact)."
+   ],
+   "result": "Null(A^T A) = Null(A) for any real matrix A."
+  },
+  "narr": [
+   "Exercise 47 is an advanced problem about null spaces.",
+   "We need to prove that the null space of A^T A equals the null space of A for any real matrix A.",
+   "First, if x is in Null(A), then Ax = 0, which implies A^T Ax = A^T (Ax) = A^T 0 = 0.",
+   "This shows that Null(A) is a subset of Null(A^T A).",
+   "For the reverse inclusion, assume A^T Ax = 0.",
+   "Multiply both sides on the left by x^T: x^T A^T Ax = (Ax)^T (Ax) = ||Ax||^2 = 0.",
+   "The norm squared of Ax is zero, which means Ax must be the zero vector.",
+   "Therefore, x is in Null(A), showing that Null(A^T A) is a subset of Null(A).",
+   "Combining both inclusions, we conclude that Null(A^T A) = Null(A).",
+   "This result has important consequences in least squares problems, as it shows A and A^T A have the same null space and rank."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 48 — Column space of permutation matrices",
+   "problem": "If P is a permutation matrix, prove that Col(PA) = P Col(A).",
+   "steps": [
+    "By definition, Col(PA) = {PAx: x ∈ R^n}, P Col(A) = {Pb: b ∈ Col(A)}.",
+    "If y = PAx, then y = P(Ax) with Ax ∈ Col(A) — thus y ∈ P Col(A).",
+    "If y = Pb with b = Ax ∈ Col(A), then y = PAx ∈ Col(PA).",
+    "Conclusion: Col(PA) = P Col(A) — permuting rows permutes each point of the column space by the same permutation (b → Pb is bijective, P is invertible)."
+   ],
+   "result": "Col(PA) = P Col(A) for any permutation matrix P."
+  },
+  "narr": [
+   "Exercise 48 deals with permutation matrices and column spaces.",
+   "We need to prove that for any permutation matrix P, the column space of PA equals P times the column space of A.",
+   "First, let's recall the definitions.",
+   "Col(PA) consists of all vectors of the form PAx for x in R^n.",
+   "P Col(A) consists of all vectors of the form Pb where b is in Col(A).",
+   "For the first inclusion, if y = PAx, then y = P(Ax) where Ax is in Col(A), so y is in P Col(A).",
+   "For the reverse inclusion, if y = Pb where b = Ax is in Col(A), then y = PAx is in Col(PA).",
+   "Therefore, Col(PA) = P Col(A).",
+   "This means that permuting the rows of a matrix permutes each point in its column space by the same permutation.",
+   "Since P is invertible, the mapping b → Pb is bijective."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 49 — Span of a subspace",
+   "problem": "If W is a subspace, prove that span(W) = W.",
+   "steps": [
+    "span(W) is the set of all finite combinations c1w1 + ... + ckwk of elements wi ∈ W.",
+    "Each combination lies in W: ciwi ∈ W (scalars), sum of elements of W is in W (addition).",
+    "Each w ∈ W is the combination 1 · w.",
+    "Conclusion: span(W) = W — a subspace already contains all its linear combinations."
+   ],
+   "result": "For any subspace W, span(W) = W."
+  },
+  "narr": [
+   "Exercise 49 asks us to prove that the span of a subspace equals the subspace itself.",
+   "First, recall that span(W) is the set of all finite linear combinations of elements from W.",
+   "Since W is a subspace, it's closed under scalar multiplication and addition.",
+   "Therefore, any linear combination c1w1 + ... + ckwk of elements from W will also be in W.",
+   "This shows that span(W) is a subset of W.",
+   "Conversely, every element w in W can be written as the trivial linear combination 1 · w.",
+   "This shows that W is a subset of span(W).",
+   "Combining both inclusions, we conclude that span(W) = W.",
+   "This makes sense intuitively: a subspace already contains all its linear combinations."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 50 — Column space and null space",
+   "problem": "For A = [[1, 2, 0], [0, 1, 1], [0, 0, 0]], describe Col(A) and Null(A).",
+   "steps": [
+    "Columns a1 = (1, 0, 0), a2 = (2, 1, 0), a3 = (0, 1, 0) = a2 - 2a1; the third row is zero, so all columns lie in the plane z = 0, and a1, a2 are independent.",
+    "Col(A) = span{(1, 0, 0), (2, 1, 0)} = {(s + 2t, t, 0)} — the entire plane z = 0.",
+    "Null space: from row 2: x2 = -x3, from row 1: x1 = -2x2 = 2x3; x3 = t: x = t(2, -1, 1).",
+    "Null(A) = span{(2, -1, 1)} — a line.",
+    "Verification: A · [2, -1, 1]^T = [0, 0, 0]^T."
+   ],
+   "result": "Col(A) is the plane z = 0, and Null(A) is the line spanned by (2, -1, 1)."
+  },
+  "narr": [
+   "Finally, exercise 50 asks us to describe the column space and null space of a specific matrix.",
+   "The matrix A is given with three columns: a1 = (1, 0, 0), a2 = (2, 1, 0), and a3 = (0, 1, 0).",
+   "Notice that a3 = a2 - 2a1, so the third column is a linear combination of the first two.",
+   "The third row is all zeros, so all columns lie in the plane z = 0.",
+   "The first two columns are linearly independent, so they form a basis for the column space.",
+   "Therefore, Col(A) = span{(1, 0, 0), (2, 1, 0)}, which is the entire plane z = 0.",
+   "For the null space, we solve Ax = 0.",
+   "From the second row, we get x2 = -x3.",
+   "From the first row, we get x1 = -2x2 = 2x3.",
+   "Setting x3 = t, we get the solution x = t(2, -1, 1).",
+   "Therefore, Null(A) is the line spanned by the vector (2, -1, 1).",
+   "We can verify this by multiplying A by [2, -1, 1]^T, which gives the zero vector."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   0,
+   -1,
+   1,
+   -1,
+   2,
+   -1,
+   3,
+   -1,
+   4
+  ]
+ }
+]

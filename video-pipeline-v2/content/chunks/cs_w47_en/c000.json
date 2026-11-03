@@ -1,0 +1,251 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Course map, sources, and how to use this manual",
+   "subtitle": "Introduction to the Computer Science C course"
+  },
+  "narr": [
+   "Welcome to the Computer Science course focusing on programming in C.",
+   "This manual covers weeks 4 through 7 of the Foundations of Computer Science track at Tashkent University of Technology.",
+   "The course is structured in four layers: weekly lectures, laboratory exercises, bug hunt worksheets, and a coffee machine project.",
+   "Let's explore how this manual is organized and how you can make the most of it."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Course Structure",
+   "bullets": [
+    "Weekly lectures (FoCS/TashTech Lectures 4-7)",
+    "Laboratory exercises (Chapters 5-8 of textbook)",
+    "Bug hunt worksheets",
+    "Coffee machine project files"
+   ]
+  },
+  "narr": [
+   "The course consists of four main components.",
+   "First, there are weekly lectures that review previous topics and introduce new ones.",
+   "Second, laboratory exercises based on specific textbook chapters with CS50 input helpers.",
+   "Third, bug hunt worksheets focusing on finding errors in conditional constructs, functions, loops, pointers, and strings.",
+   "Finally, the coffee machine project files, particularly the week 6 model with Stock, Recipe, and Cup components."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Course Content (Weeks 4-7)",
+   "bullets": [
+    "Data types and operators",
+    "Control structures",
+    "Functions and structures",
+    "Pointers, strings, and recursion"
+   ]
+  },
+  "narr": [
+   "The manual covers material from weeks 4 through 7, focusing on several key programming concepts in C.",
+   "These include data types and operators, which form the foundation of variable manipulation.",
+   "Control structures that determine program flow, including conditionals and loops.",
+   "Functions and structures that help organize code into reusable components.",
+   "And finally, pointers, strings, and recursion which are more advanced C concepts."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 1.1,
+   "title": "Weeks 4-7 and course files",
+   "subtitle": "Organization of weekly materials"
+  },
+  "narr": [
+   "Each week corresponds to a specific set of files in the course folder.",
+   "Lectures are held on Tuesdays, while labs follow the textbook chapter structure.",
+   "Let's examine how the materials are organized across these four weeks."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Weekly Course Organization",
+   "columns": [
+    "Week",
+    "Topic",
+    "Lectures/Lab",
+    "Additional files"
+   ],
+   "rows": [
+    [
+     "4",
+     "Data Types and Operators",
+     "lecture4.txt, Week4.txt",
+     "-"
+    ],
+    [
+     "5",
+     "Control Structures",
+     "Lecture5.txt, Week-5-Control-Structures.txt",
+     "bughuntc.txt, bughuntloops.txt"
+    ],
+    [
+     "6",
+     "Functions and Structures",
+     "Lecture6.txt, Week-6-Functions-and-Structures.txt",
+     "bughuntc.txt, coffee machine project"
+    ],
+    [
+     "7",
+     "Pointers, Strings, Recursion",
+     "Lecture71.txt, Recursion-Lecture.txt",
+     "bughuntpointersstrings.txt, bughuntpointersstringsanswerkey.txt"
+    ]
+   ]
+  },
+  "narr": [
+   "Here's the weekly breakdown of topics and corresponding files.",
+   "Week 4 focuses on data types and operators, with lecture4.txt and Week4.txt as primary materials.",
+   "Week 5 covers control structures, including branching and loops, with additional bug hunt files.",
+   "Week 6 deals with functions and structures, including the coffee machine project.",
+   "Finally, week 7 explores pointers, strings, and recursion with lecture and additional materials."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Week 4 — Data Types and Operators",
+   "subtitle": "Foundation of the C programming course"
+  },
+  "narr": [
+   "Week 4 establishes the foundation for the entire C programming course.",
+   "We'll explore C variables, data types, their sizes and precision.",
+   "The week covers various operators including arithmetic, logical, and bitwise operations.",
+   "Additionally, we'll examine increment/decrement, compact assignment, ternary operators, type conversions, and operator precedence.",
+   "The laboratory exercises include sphere precision, leap year rule, memory bridge, and alphabetical join tasks."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2.1,
+   "title": "Key points (\"all rules\" of week 4)",
+   "subtitle": "Essential concepts about C data types and operators"
+  },
+  "narr": [
+   "Let's review the key points that form the \"rules\" of week 4.",
+   "These fundamental concepts about C data types and operators will be crucial throughout the course."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "C Language Characteristics",
+   "bullets": [
+    "Fast, small, universal, platform-independent",
+    "Used for systems programming (compilers, OS, DBMS, microcontrollers)",
+    "Static (compiled), typed, structured, imperative",
+    "Weakly typed (allows implicit conversions and casting)"
+   ]
+  },
+  "narr": [
+   "C is a programming language with several key characteristics.",
+   "It's fast, small, universal, and platform-independent, making it suitable for various applications.",
+   "C is primarily used for systems programming, including compilers, operating systems, database management systems, and microcontrollers.",
+   "It's a statically typed, compiled language that follows structured and imperative programming paradigms.",
+   "Importantly, C is weakly typed, meaning it allows implicit conversions and potentially dangerous type casting."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "C Data Types",
+   "bullets": [
+    "Numeric (int, float, double)",
+    "Character (char)",
+    "User-defined (struct, union)",
+    "Data type determines values and operations"
+   ]
+  },
+  "narr": [
+   "C has a small family of data types that form the building blocks of programs.",
+   "These include numeric types like int, float, and double for different kinds of numbers.",
+   "Character type (char) for storing single characters.",
+   "And user-defined types like struct and union for creating complex data structures.",
+   "The data type of an object in memory determines both the set of values it can take and the operations that can be applied to it."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "C is quirky, flawed, and an enormous success",
+   "who": "Dennis Ritchie"
+  },
+  "narr": [
+   "As Dennis Ritchie, the creator of C, once said:",
+   "\"C is quirky, flawed, and an enormous success.\"",
+   "This quote captures both the imperfections and the remarkable impact of C on computer science."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ }
+]
