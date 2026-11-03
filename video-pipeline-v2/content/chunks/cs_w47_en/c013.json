@@ -420,27 +420,10 @@
   ]
  },
  {
-  "type": "formula",
+  "type": "code",
   "data": {
    "heading": "Pointer Declaration and Usage",
-   "tex": "int n = 4;\\ndouble pi = 3.14159;\\nint *pn = &n;\\n/* address of integer n */\\ndouble *ppi = &pi;\\n/* address of double pi */\\n/* prints \"pi = 3.14159\\\\n\" */\\nprintf(\"pi = %g\\\\n\", *ppi);\\n/* pi now equals 7.14159 */\\n*ppi = *ppi + *pn;",
-   "parts": [
-    {
-     "substr": "int *pn = &n",
-     "color": "#4C5FD5",
-     "note": "pointer declaration with address operator"
-    },
-    {
-     "substr": "*ppi",
-     "color": "#B45309",
-     "note": "dereferencing operator"
-    },
-    {
-     "substr": "*ppi = *ppi + *pn",
-     "color": "#0E7C7B",
-     "note": "modifying value through pointer"
-    }
-   ]
+   "code": "int n = 4;\ndouble pi = 3.14159;\nint *pn = &n;\n/* address of integer n */\ndouble *ppi = &pi;\n/* address of double pi */\n/* prints \"pi = 3.14159\\\n\" */\nprintf(\"pi = %g\\\n\", *ppi);\n/* pi now equals 7.14159 */\n*ppi = *ppi + *pn;"
   },
   "narr": [
    "Let's look at some code examples to understand pointers better.",
@@ -451,12 +434,12 @@
    "Pointer casting allows us to convert between different pointer types, though this can be dangerous if not done carefully."
   ],
   "narr_item": [
-   -1,
    0,
-   1,
-   2,
-   2,
-   2
+   0,
+   0,
+   0,
+   0,
+   0
   ]
  },
  {

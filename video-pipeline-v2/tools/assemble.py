@@ -40,14 +40,23 @@ def build(spec_id, lang, chunks_dir, out_path):
     # (string cells render through currency-safe richText)
     def _tex_ok(v):
         s = str(v)
-        return '\\' in s or not re.search(r'\$\s*\d', s)
+        if re.search(r'\$\s*\d', s): return False                  # currency: $5.5 billion
+        if s.lstrip().startswith('$'): return False                # $false$, $code$ markers
+        if '\\n' in s or '\\t' in s or '\n' in s or '\r' in s: return False  # escaped/real code newlines
+        if ';' in s or '"' in s:                                   # code punctuation
+            noesc = s.replace('\\n', ' ').replace('\\t', ' ')
+            if not re.search(r'\\[a-zA-Z]{2,}', noesc): return False  # no real LaTeX commands
+        return True
+    def _clean_tex(s):
+        s = str(s).replace('\\n', ' ').replace('\\t', ' ').replace('$', ' ')
+        return re.sub(r'\s{2,}', ' ', s).strip()
     for b in blocks:
         d = b.get('data') or {}
         for rows in (d.get('rows') if isinstance(d.get('rows'), list) else []):
             for row in rows:
                 for ci_, c in enumerate(row):
                     if isinstance(c, dict) and 'tex' in c and not _tex_ok(c['tex']):
-                        row[ci_] = str(c['tex'])
+                        row[ci_] = _clean_tex(c['tex'])
 
     # chapters: split on MAJOR section blocks only (Week/Chapter/Module-level);
     # minor headings (Course Map, Formula Catalog...) stay inside the chapter
@@ -217,6 +226,7 @@ def build(spec_id, lang, chunks_dir, out_path):
                 items = len(d.get('steps') or [])
             elif b['type'] == 'table': items = len(d.get('rows') or [])
             elif b['type'] == 'timeline': items = len(d.get('events') or [])
+            elif b['type'] == 'code': items = 1   # engine: single code item
             elif b['type'] == 'plot':
                 if not (d.get('functions') or []): errors.append(f'{tag}: no functions')
             for arr_key, cap in caps.items():
