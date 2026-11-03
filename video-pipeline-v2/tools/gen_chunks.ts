@@ -122,6 +122,42 @@ function autoSplit(arr: any[]): any[] {
   return out;
 }
 
+// split concept/recap blocks whose bullet/item lists exceed 9 into ≤9 parts
+function splitLists(arr: any[]): any[] {
+  const out: any[] = [];
+  for (const b of arr) {
+    const listKey = b?.type === 'concept' ? 'bullets' : (b?.type === 'recap' ? 'items' : null);
+    const list = listKey ? b?.data?.[listKey] : null;
+    if (!listKey || !Array.isArray(list) || list.length <= 9 || !Array.isArray(b.narr)) { out.push(b); continue; }
+    // partition into chunks of ≤9, balancing a small tail into the previous part
+    const lists: any[][] = [];
+    for (let i = 0; i < list.length; i += 9) lists.push(list.slice(i, i + 9));
+    const last = lists[lists.length - 1];
+    if (lists.length > 1 && last.length < 5) {
+      const prev = lists[lists.length - 2];
+      const all = prev.concat(last);
+      lists[lists.length - 2] = all.slice(0, Math.ceil(all.length / 2));
+      lists[lists.length - 1] = all.slice(Math.ceil(all.length / 2));
+    }
+    const narr = b.narr.map((s: string, k: number) => ({ s: String(s), it: b.narr_item?.[k] ?? -1 }));
+    let base = 0;
+    lists.forEach((sub, li) => {
+      const nb: any = { type: b.type, data: { ...b.data, [listKey]: sub }, narr: [], narr_item: [] };
+      if (li > 0) nb.data.heading = (b.data.heading || '...') + ' (cont.)';
+      narr.filter(x => x.it >= base && x.it < base + sub.length)
+          .forEach(x => { nb.narr.push(x.s); nb.narr_item.push(x.it - base); });
+      if (li === 0) narr.filter(x => x.it === -1).forEach(x => { nb.narr.push(x.s); nb.narr_item.push(-1); });
+      if (!nb.narr.length && out.length) {
+        const prevB = out[out.length - 1];
+        if (prevB.narr.length > 1) { nb.narr.push(prevB.narr.pop()); nb.narr_item.push(prevB.narr_item.pop()); }
+      }
+      if (nb.narr.length) out.push(nb);
+      base += sub.length;
+    });
+  }
+  return out;
+}
+
 function autoRepair(arr: any[]): void {
   for (const b of arr) {
     if (!b?.narr || !Array.isArray(b.narr)) continue;
@@ -206,6 +242,7 @@ async function worker(id: number) {
         let arr = await callLLM(c.text, att > 0 ? lastErr : undefined);
         arr = autoSplit(arr);
         autoRepair(arr);
+        arr = splitLists(arr);
         const err = validate(arr);
         if (err) throw new Error(err);
         fs.writeFileSync(outFile, JSON.stringify(arr, null, 1));
