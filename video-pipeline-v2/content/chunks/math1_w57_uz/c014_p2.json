@@ -1,0 +1,201 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Logarifmik differensiallash",
+   "subtitle": "3.9.3"
+  },
+  "narr": [
+   "Bu bo'limda biz logarifmik differensiallash usulini o'rganamiz. Bu usul qanday funksiyalar uchun qo'llaniladi?",
+   "Logarifmik differensiallash - bu murakkab funksiyalarning hosilalarini topishning samarali usuli.",
+   "Ushbu usul asosan g(x)^(f(x)) ko'rinishidagi funksiyalar uchun qo'llaniladi, masalan, x^x kabi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Logarifmik differensiallash usuli",
+   "bullets": [
+    "y = h(x) funksiyasining ikkala tomonini logarifmga oling",
+    "Logarifmning xossalarini oching",
+    "Hosilalarni toping (chapda (1/y) · y' hosil bo'ladi)",
+    "y' ni y ga ko'paytiring",
+    "y ni h(x) bilan almashtiring"
+   ]
+  },
+  "narr": [
+   "Logarifmik differensiallash usuli quyidagi bosqichlardan iborat:",
+   "Birinchi bosqich: y = h(x) funksiyasining ikkala tomonini logarifmga olish kerak.",
+   "Ikkinchi bosqich: Logarifmning xossalarini ochamiz.",
+   "Uchinchi bosqich: Hosilalarni topamiz, chapda (1/y) · y' hosil bo'ladi.",
+   "To'rtinchi bosqich: y' ni y ga ko'paytiramiz.",
+   "Beshinchi bosqich: Oxirida y ni h(x) bilan almashtiramiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Bog'liq tezliklar",
+   "subtitle": "Mashqlar 1-10"
+  },
+  "narr": [
+   "Endi bog'liq tezliklar masalalariga o'tamiz. Bu masalalarda ikki o'zgaruvchilar orasidagi bog'liqlikni va ularning o'zgarish tezligini topamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Sferik shar to'ldirish",
+   "problem": "Sferik shar gaz bilan 800 sm³/min tezlikda to'ldirilmoqda. Shar radiusi 30 sm bo'lganda, uning radiusi qanday tezlikda ortib boradi?",
+   "steps": [
+    {
+     "text": "Shar hajmi V = (4/3)πr³ formulasi bilan berilgan."
+    },
+    {
+     "text": "Voyaga nisbatan differensiallaymiz: dV/dt = 4πr² · (dr/dt)"
+    },
+    {
+     "text": "dV/dt = 800 sm³/min va r = 30 sm ni qiymatlarini qo'yamiz"
+    },
+    {
+     "text": "dr/dt = 800/(4π · 30²) = 800/(3600π) = 2/(9π) ≈ 0.0707 sm/min"
+    }
+   ],
+   "result": "Radius 2/(9π) sm/min tezlikda ortib boradi (taxminan 0.071 sm/min)"
+  },
+  "narr": [
+   "Birinchi masalada biz sferik shar to'ldirish tezligini va radiusning o'zgarish tezligini bog'laymiz.",
+   "Shar hajmi V = (4/3)πr³ formulasi bilan berilgan.",
+   "Voyaga nisbatan differensiallaymiz: dV/dt = 4πr² · (dr/dt)",
+   "dV/dt = 800 sm³/min va r = 30 sm ni qiymatlarini qo'yamiz",
+   "dr/dt = 800/(4π · 30²) = 800/(3600π) = 2/(9π) ≈ 0.0707 sm/min",
+   "Shunday qilib, radius 2/(9π) sm/min tezlikda ortib boradi, bu taxminan 0.071 sm/min ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Devorga qo'yilgan zinapoya",
+   "problem": "10 fut uzunlikdagi zinapoya vertikal devorga suyanadi. Agar zinapoyaning pastki uchi devordan 1 fut/s tezlikda siljisa, yuqori uchi qanday tezlikda devor bo'ylab pastga siljiydi, pastki uchi devordan 6 fut uzoqlikda bo'lganda?",
+   "steps": [
+    {
+     "text": "x — pastki uchidan devorgacha bo'lgan masofa, y — yuqori uchining balandligi bo'lsin."
+    },
+    {
+     "text": "Pifagor teoremasiga ko'ra x² + y² = 10² = 100"
+    },
+    {
+     "text": "dx/dt = 1 fut/s berilgan, x = 6 bo'lganda dy/dt ni topamiz"
+    },
+    {
+     "text": "U holda y = 8 (chunki 36 + y² = 100 → y² = 64)"
+    },
+    {
+     "text": "Differensiallaymiz: 2x·(dx/dt) + 2y·(dy/dt) = 0"
+    },
+    {
+     "text": "dy/dt = -(x/y) · (dx/dt) = -(6/8) · 1 = -3/4 fut/s"
+    }
+   ],
+   "result": "Yuqori uchi 3/4 fut/s tezlikda pastga siljiydi (0.75 fut/s). \"Minus\" belgisi balandlik kamayayotganini bildiradi."
+  },
+  "narr": [
+   "Ikkinchi masalada devorga qo'yilgan zinapoyaning harakatini ko'rib chiqamiz.",
+   "x — pastki uchidan devorgacha bo'lgan masofa, y — yuqori uchining balandligi bo'lsin.",
+   "Pifagor teoremasiga ko'ra x² + y² = 10² = 100",
+   "dx/dt = 1 fut/s berilgan, x = 6 bo'lganda dy/dt ni topamiz",
+   "U holda y = 8 (chunki 36 + y² = 100 → y² = 64)",
+   "Differensiallaymiz: 2x·(dx/dt) + 2y·(dy/dt) = 0",
+   "dy/dt = -(x/y) · (dx/dt) = -(6/8) · 1 = -3/4 fut/s",
+   "Yuqori uchi 3/4 fut/s tezlikda pastga siljiydi (0.75 fut/s). \"Minus\" belgisi balandlik kamayayotganini bildiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Fordan tushgan soy",
+   "problem": "6 fut bo'yli odam ustunli 15 fut balandlikdiga fordan 5 fut/s tezlikda uzoqlashmoqda. U ustundan 40 fut uzoqlikda bo'lganda, soy uchining tezligi qanday bo'ladi?",
+   "steps": [
+    {
+     "text": "x — odamdan ustungacha bo'lgan masofa, s — soy uzunligi, L = x + s — ustundan soy uchigacha bo'lgan masofa"
+    },
+    {
+     "text": "dx/dt = 5 fut/s berilgan"
+    },
+    {
+     "text": "Uchburchaklarning o'xshashligidan: 15/(x+s) = 6/s → 15s = 6(x+s) → 9s = 6x → s = (2/3)x"
+    },
+    {
+     "text": "Shuning uchun L = (5/3)x"
+    }
+   ],
+   "result": "Masala to'liq yechimi keyingi qismda davom etadi"
+  },
+  "narr": [
+   "Uchinchi masalada fordan tushgan soyning harakatini ko'rib chiqamiz.",
+   "x — odamdan ustungacha bo'lgan masofa, s — soy uzunligi, L = x + s — ustundan soy uchigacha bo'lgan masofa",
+   "dx/dt = 5 fut/s berilgan",
+   "Uchburchaklarning o'xshashligidan: 15/(x+s) = 6/s → 15s = 6(x+s) → 9s = 6x → s = (2/3)x",
+   "Shuning uchun L = (5/3)x",
+   "Masala to'liq yechimi keyingi qismda davom etadi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Elementar funksiyalarning hosilalari",
+   "subtitle": "Mashqlar 1-11"
+  },
+  "narr": [
+   "Keyingi bo'limda elementar funksiyalarning hosilalarini topish masalalarini ko'rib chiqamiz. Bu yerda 'differentiate' so'zi 'birinchi hosilani topish' degan ma'noni anglatadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]

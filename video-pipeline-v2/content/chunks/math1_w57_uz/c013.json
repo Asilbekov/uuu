@@ -1,0 +1,477 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Matematika I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "5-7 haftalar oralig'ida biz matematikaning asosiy tushunchalarini, ayniqsa hosilalar va matritsalar bilan ishlashni o'rganamiz.",
+   "Keling, birinchi mashqni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "9-mashq — Vagonchakning harakati",
+   "problem": "Vagonchak s(t) = t^4 - 4t^3 + 6t^2 (metr) qonuni bilan harakatlanadi, 0 ≤ t ≤ 3s. (a) Tezlik v(t) ni toping. (b) Tezlanish a(t). (c) Tezlanish o'zgarishi j(t). (d) Uchchalasini ham t = 1s da birligi bilan hisoblang.",
+   "steps": [
+    {
+     "text": "(a) v(t) = s'(t) = 4t^3 - 12t^2 + 12t"
+    },
+    {
+     "text": "(b) a(t) = v'(t) = 12t^2 - 24t + 12"
+    },
+    {
+     "text": "(c) j(t) = a'(t) = 24t - 24"
+    },
+    {
+     "text": "(d) v(1) = 4(1)^3 - 12(1)^2 + 12(1) = 4m/s"
+    },
+    {
+     "text": "a(1) = 12(1)^2 - 24(1) + 12 = 0m/s^2"
+    },
+    {
+     "text": "j(1) = 24(1) - 24 = 0m/s^3"
+    }
+   ],
+   "result": "v(1) = 4m/s; a(1) = 0m/s^2; j(1) = 0m/s^3"
+  },
+  "narr": [
+   "Birinchi masalada bizga vagonchakning pozitsiya funksiyasi berilgan.",
+   "Pozitsiya funksiyasidan tezlikni topish uchun uni vaqt bo'yicha hosilalamiz.",
+   "Keyin tezlik funksiyasidan tezlanishni, tezlanish funksiyasidan esa tezlanishning o'zgarishini topamiz.",
+   "Nihoyat, barcha uchta funksiyani t = 1 sekundda qiymatlarini hisoblaymiz.",
+   "Natijada, vagonchak t = 1s da 4 m/s tezlikda harakatlanayotgani, tezlanishi 0 m/s^2 va tezlanishning o'zgarishi 0 m/s^3 ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "10-mashq — Kichik transport",
+   "problem": "Kichik transport holati s(t) = t^3 - 6t^2 + 9t, 0 ≤ t ≤ 4 (s — metrda, t — sekundda). (a)[0, 2] oraliqdagi o'rtacha tezlik. (b)t = 2 dagi tezlik. (c) Transport to'xtagan barcha vaqt momentlari.",
+   "steps": [
+    {
+     "text": "(a) s(0) = 0, s(2) = 8 - 24 + 18 = 2; vort = (2 - 0)/(2 - 0) = 1m/s"
+    },
+    {
+     "text": "(b) v(t) = s'(t) = 3t^2 - 12t + 9 = 3(t - 1)(t - 3); v(2) = 3(1)(-1) = -3m/s"
+    },
+    {
+     "text": "(c) Transport to'xtaganda v(t) = 0: t = 1s va t = 3s"
+    }
+   ],
+   "result": "a) 1 m/s; b) -3 m/s; c) t = 1s va t = 3s"
+  },
+  "narr": [
+   "Ikkinchi masalada biz transportning holat funksiyasini ko'rib chiqamiz.",
+   "Birinchidan, [0, 2] oraliqdagi o'rtacha tezlikni topamiz. Buning uchun ikki nuqta orasidagi o'zgarishni vaqt intervaliga bo'lamiz.",
+   "Keyin, t = 2s dagi tezlikni topish uchun holat funksiyasini hosilalaymiz va t = 2 ni qo'yamiz.",
+   "Minus belgisi manfiy yo'nalishdagi harakatni bildiradi.",
+   "Nihoyat, transport to'xtagan vaqt momentlarini topish uchun tezlik funksiyasini nolga tenglab, tenglamani yechamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3.22-misol",
+   "problem": "f(x) = x^2 - 4x + 6 funksiyaning x = 1 dagi urinini toping.",
+   "steps": [
+    {
+     "text": "f(1) = (1)^2 - 4(1) + 6 = 3"
+    },
+    {
+     "text": "f'(x) = 2x - 4"
+    },
+    {
+     "text": "x = 1 dagi hosila: f'(1) = 2(1) - 4 = -2"
+    },
+    {
+     "text": "Urin tenglamasi: y - f(1) = f'(1)(x - 1)"
+    },
+    {
+     "text": "y - 3 = -2(x - 1)"
+    },
+    {
+     "text": "y = -2x + 2 + 3 = -2x + 5"
+    }
+   ],
+   "result": "f(1) = 3, urin y = -2x + 5"
+  },
+  "narr": [
+   "Uchinchi misolda biz funksiyaning berilgan nuqtadagi qiymati va unga urin chizig'ini topamiz.",
+   "Birinchidan, funksiyaning x = 1 dagi qiymatini hisoblaymiz.",
+   "Keyin, funksiyaning hosilasini topib, x = 1 dagi qiymatini hisoblaymiz.",
+   "Urin tenglamasini yozib, soddalashtiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3.23-misol",
+   "problem": "j = f · g uchun f(2) = 3, f'(2) = -4, g(2) = 1, g'(2) = 6 bo'lsa, j'(2) ni toping.",
+   "steps": [
+    {
+     "text": "Ko'paytma qoidasidan foydalanamiz: (f · g)' = f' · g + f · g'"
+    },
+    {
+     "text": "j'(2) = f'(2) · g(2) + f(2) · g'(2)"
+    },
+    {
+     "text": "j'(2) = (-4) · (1) + (3) · (6)"
+    },
+    {
+     "text": "j'(2) = -4 + 18 = 14"
+    }
+   ],
+   "result": "j'(2) = 14"
+  },
+  "narr": [
+   "To'rtinchi misolda ikkita funksiyaning ko'paytmasining hosilasini topishimiz kerak.",
+   "Ko'paytma qoidasini qo'llaymiz.",
+   "Berilgan qiymatlarni qo'yib hisoblaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Chiziqli algebra I — 6-hafta",
+   "subtitle": "Toshkent Texnologiya Universiteti, 2026-yil kuz"
+  },
+  "narr": [
+   "Endi chiziqli algebra kursining 6-haftasiga o'tamiz.",
+   "Bu hafta biz matritsa ko'paytirish, maxsus matritsalar, teskari matritsalar va LU ajratish kabi mavzularni o'rganamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Mavzular",
+   "bullets": [
+    "Matritsa ko'paytirish qoidalari va AB ko'paytmasining to'rt talqini",
+    "Algebraik identifikatorlar va kommutativsizlik",
+    "Maxsus matritsalar",
+    "Chiqaruvchi matritsalar",
+    "Teskari matritsani aniqlash, 2 × 2 formulasi va Gauss-Jordan usuli",
+    "LU va LDU ajratishlar va tarkibchilar orqali sistemalarni yechish",
+    "Transponir, simmetrik matritsalar, LDL^T",
+    "Almashtirishlar va PA = LU",
+    "Qo'llanmalar"
+   ]
+  },
+  "narr": [
+   "6-haftada biz quyidagi mavzularni o'rganamiz:",
+   "Matritsa ko'paytirish qoidalari va AB ko'paytmasining to'rt talqini",
+   "Algebraik identifikatorlar va kommutativsizlik",
+   "Maxsus matritsalar",
+   "Chiqaruvchi matritsalar",
+   "Teskari matritsani aniqlash, 2 × 2 formulasi va Gauss-Jordan usuli",
+   "LU va LDU ajratishlar va tarkibchilar orqali sistemalarni yechish",
+   "Transponir, simmetrik matritsalar, LDL^T",
+   "Almashtirishlar va PA = LU",
+   "Va oxirida, bu tushunchalarning amaliy qo'llanmalari."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matritsat satr bo'yicha yoziladi",
+   "bullets": [
+    "[a b; c d] — birinchi satr ab, ikkinchi cd",
+    "Ustun-vektor [x; y]",
+    "Qator-vektor [x y]"
+   ]
+  },
+  "narr": [
+   "Matritsalarni yozishda quyidagi formatdan foydalanamiz:",
+   "[a b; c d] matritsasi birinchi satrda ab, ikkinchi satrda cd elementlariga ega",
+   "Ustun-vektor [x; y] ko'rinishida yoziladi",
+   "Qator-vektor esa [x y] ko'rinishida bo'ladi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "7-hafta — Bog'liq tezliklar va 3-bobni takrorlash",
+   "subtitle": "Math I"
+  },
+  "narr": [
+   "7-haftada biz bog'liq tezliklar mavzusini o'rganamiz va 3-bobni takrorlaymiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bog'liq tezliklar: g'oya va yechim strategiyasi",
+   "bullets": [
+    "Bog'liq tezliklar masalalarida bir nechta miqdorlar vaqt t ga bog'liq va tenglamalar bilan bog'langan",
+    "Izlanayotgan miqdorning o'zgarish tezligi t bo'yicha differensiallash orqali topiladi",
+    "Tenglama miqdorlarni bog'laydi, differensiallangan tenglama esa ularning tezliklarini bog'laydi"
+   ]
+  },
+  "narr": [
+   "Bog'liq tezliklar masalalarida bir nechta miqdorlar vaqtga bog'liq bo'ladi va ular o'rtasida bog'liqlik mavjud.",
+   "Biz izlayotgan miqdorning o'zgarish tezligini topish uchun bu bog'liqlik tenglamasini vaqt bo'yicha differensiallaymiz.",
+   "Tenglama miqdorlarni bog'laydi, differensiallangan tenglama esa ularning o'zgarish tezliklarini bog'laydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — sharni puflash",
+   "problem": "Sharning hajmi V = (4/3)πr³ bo'lsa, dV/dt ni toping.",
+   "steps": [
+    {
+     "text": "V = (4/3)πr³"
+    },
+    {
+     "text": "Ikkala tomonni t ga nisbatan differensiallaymiz: dV/dt = 4πr² · dr/dt"
+    }
+   ],
+   "result": "dV/dt = 4πr² · dr/dt"
+  },
+  "narr": [
+   "Misol sifatida sharni puflashni ko'rib chiqaylik.",
+   "Sharning hajmi V = (4/3)πr³ formulasi bilan berilgan.",
+   "Ikkala tomonni vaqt bo'yicha differensiallaymiz.",
+   "Natijada, hajmning o'zgarish tezligi radiusning o'zgarish tezligiga bog'liq ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bog'liq tezliklarni yechish bosqichlari",
+   "bullets": [
+    "1-qadam. Masalani o'qing, chizma chizing, barcha o'zgaruvchi (t ga bog'liq) miqdorlarni va doimiylarni belgilang",
+    "2-qadam. Ma'lum tezliklarni va izlanayotgan tezlikni yozing; kerakli lahzani ('r = 30 bo'lganda') belgilang",
+    "3-qadam. Bog'lanish tenglamasini yozing (geometrik formula, Pifagor teoremasi, o'xshashlik); ortiqcha o'zgaruvchilarni chiqarib tashlang",
+    "4-qadam. Ikkala tomonni t ga nisbatan differensiallang (zanjir qoidasi)",
+    "5-qadam. Ma'lum qiymatlarni qo'yib, izlanayotgan tezlikni toping; birliklar va ishorani tekshiring"
+   ]
+  },
+  "narr": [
+   "Bog'liq tezliklar masalalarini yechish uchun quyidagi bosqichlarni amalga oshiring:",
+   "Birinchi navbatda, masalani diqqat bilan o'qing, chizma chizing va barcha o'zgaruvchi miqdorlarni belgilang.",
+   "Keyin, ma'lum bo'lgan tezliklarni va izlayotgan tezlikni yozing, shuningdek, masalani yechish uchun kerak bo'lgan lahzani aniqlang.",
+   "Uchinchi qadamda, miqdorlarni bog'laydigan tenglamani yozing va ortiqcha o'zgaruvchilarni chiqarib tashlang.",
+   "To'rtinchi qadamda, tenglamaning ikkala tomonini vaqt bo'yicha differensiallang.",
+   "Oxirgi qadamda, ma'lum qiymatlarni qo'yib, izlayotgan tezlikni toping. Birliklar va ishorani tekshirib ko'ring."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Odatiy geometrik formulalar",
+   "columns": [
+    {
+     "header": "Miqdor / figura",
+     "type": "text"
+    },
+    {
+     "header": "Formula",
+     "type": "formula"
+    }
+   ],
+   "rows": [
+    [
+     {
+      "text": "Shar: hajmi"
+     },
+     {
+      "tex": "$V = \\frac{4}{3}\\pi r^3$"
+     }
+    ],
+    [
+     {
+      "text": "Shar: sirt yuzasi"
+     },
+     {
+      "tex": "$S = 4\\pi r^2$"
+     }
+    ],
+    [
+     {
+      "text": "Aylana: yuzasi"
+     },
+     {
+      "tex": "$A = \\pi r^2$"
+     }
+    ],
+    [
+     {
+      "text": "Aylana: uzunligi"
+     },
+     {
+      "tex": "$C = 2\\pi r$"
+     }
+    ],
+    [
+     {
+      "text": "Silindr: hajmi"
+     },
+     {
+      "tex": "$V = \\pi r^2 h$"
+     }
+    ],
+    [
+     {
+      "text": "Konus: hajmi"
+     },
+     {
+      "tex": "$V = \\frac{1}{3}\\pi r^2 h$"
+     }
+    ],
+    [
+     {
+      "text": "Uchburchak: yuzasi"
+     },
+     {
+      "tex": "$A = \\frac{1}{2} \\cdot asos \\cdot balandlik$"
+     }
+    ],
+    [
+     {
+      "text": "To'g'ri burchakli uchburchak"
+     },
+     {
+      "tex": "$a^2 + b^2 = c^2$ (Pifagor teoremasi)"
+     }
+    ],
+    [
+     {
+      "text": "O'xshash uchburchaklar"
+     },
+     {
+      "tex": "$mos tomonlar proporsional, masalan $\\frac{15}{x + s} = \\frac{6}{s}$"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Bog'liq tezliklar masalalarida ko'p geometrik formulalardan foydalanamiz.",
+   "Sharning hajmi formulasi $V = \\frac{4}{3}\\pi r^3$",
+   "Sharning sirt yuzasi $S = 4\\pi r^2$",
+   "Aylananing yuzasi $A = \\pi r^2$",
+   "Aylananing uzunligi $C = 2\\pi r$",
+   "Silindrning hajmi $V = \\pi r^2 h$",
+   "Konusning hajmi $V = \\frac{1}{3}\\pi r^2 h$",
+   "Uchburchakning yuzasi $A = \\frac{1}{2} \\cdot asos \\cdot balandlik$",
+   "To'g'ri burchakli uchburchakda Pifagor teoremasi $a^2 + b^2 = c^2$",
+   "O'xshash uchburchaklarda mos tomonlar proporsional, masalan $\\frac{15}{x + s} = \\frac{6}{s}$"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Foydali natijalar",
+   "bullets": [
+    "Agar konus asosining diametri balandligiga teng bo'lsa (2r = h), u holda $V = \\frac{1}{3}\\pi(\\frac{h}{2})^2 \\cdot h = \\frac{\\pi}{12}h^3$",
+    "$\\frac{dV}{dt} = \\frac{\\pi h^2}{4} \\cdot \\frac{dh}{dt}$ — bu formula ikki mashqda uchraydi",
+    "Konus shaklidagi bakdagi suv bakka o'xshash konus hosil qiladi, shuning uchun $\\frac{r}{h} = \\frac{R}{H}$",
+    "Soy masalasi ham uchburchaklarning o'xshashligi bilan yechiladi"
+   ]
+  },
+  "narr": [
+   "Ba'zi foydali natijalarni eslaymiz:",
+   "Agar konus asosining diametri balandligiga teng bo'lsa (2r = h), u holda hajm formulasi $V = \\frac{1}{3}\\pi(\\frac{h}{2})^2 \\cdot h = \\frac{\\pi}{12}h^3$ bo'ladi",
+   "Va unga nisbatan differensiallanganda $\\frac{dV}{dt} = \\frac{\\pi h^2}{4} \\cdot \\frac{dh}{dt}$ hosil bo'ladi, bu formula ikki mashqda uchraydi",
+   "Konus shaklidagi bakdagi suv bakka o'xshash konus hosil qiladi, shuning uchun $\\frac{r}{h} = \\frac{R}{H}$ nisbat o'rinli",
+   "Soy masalasi ham uchburchaklarning o'xshashligi bilan yechiladi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

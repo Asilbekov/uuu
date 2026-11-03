@@ -1,0 +1,380 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bug'ma, biz funksiyalarning uzluksizligi va differensiallanuvchanligi haqida gapiramiz. Ushbu mavzuning asosiy tushunchalarini va misollarini ko'rib chiqamiz.",
+   "Birinchi savolni ko'rib chiqaylik: agar bir tomonlama hosilalar mavjud va chekli bo'lsa, u holda f′(a) mavjudmi?",
+   "Ikkinchi savol: funksiya uzluksiz bo'lgan nuqtada vertikal urinaga ega bo'lishi mumkinmi?"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Uzluksizlik va differensiallanuvchanlik",
+   "problem": "Quyidagi bayonotlarning to'g'ri yoki noto'g'ri ekanligini aniqlang:\n(a) Agar f′(a) mavjud bo'lsa, u holda f(a) nuqtada uzluksizdir.\n(b) Agar f(a) nuqtada uzluksiz bo'lsa, u holda f′(a) mavjud.\n(c) Agar f′(a) = 0 bo'lsa, u holda f(a) nuqtada funksiya doimiy.\n(d) Agar f(a) nuqtada ikkala bir tomonlama hosila mavjud va chekli bo'lsa, u holda f′(a) mavjud.\n(e) Funksiya uzluksiz bo'lgan nuqtada vertikal urinaga ega bo'lishi mumkin.",
+   "steps": [
+    "To'g'ri javoblar asosiy teoremalarga asoslanadi.",
+    "|x| funksiyasini nol nuqtada ko'rib chiqamiz: uzluksiz, lekin f′(0) mavjud emas.",
+    "x² funksiyasini nol nuqtada ko'rib chiqamiz: f′(0) = 0, lekin funksiya doimiy emas.",
+    "Bir tomonlama hosilalar teng bo'lishi kerakligini tekshiramiz: |x| nolda ikkalasi ham chekli (−1 va 1), lekin f′(0) mavjud emas.",
+    "x^(1/3) funksiyasini nol nuqtada ko'rib chiqamiz: uzluksiz va vertikal urinaga ega (1/h^(2/3) → +∞ ikkala tomondan), shuning uchun chekli hosila yo'q."
+   ],
+   "result": "Javoblar: (a) To'g'ri, (b) Noto'g'ri, (c) Noto'g'ri, (d) Noto'g'ri, (e) To'g'ri"
+  },
+  "narr": [
+   "Keling, bu savollarni bittadan bittalik yechamiz.",
+   "A savoliga javob: to'g'ri. Bu 3.1-teorema asosida.",
+   "B savoliga javob: noto'g'ri. Misol sifatida |x| funksiyasini nol nuqtada ko'rib chiqsak, u yerda uzluksiz, lekin f′(0) mavjud emas.",
+   "C savoliga javob: noto'g'ri. x² funksiyasida f′(0) = 0, lekin funksiya doimiy emas.",
+   "D savoliga javob: noto'g'ri. Bir tomonlama hosilalar teng bo'lishi kerak. |x| nolda ikkalasi ham chekli (−1 va 1), lekin f′(0) mavjud emas.",
+   "E savoliga javob: to'g'ri. x^(1/3) funksiyasi nol nuqtada uzluksiz va vertikal urinaga ega, shuning uchun chekli hosila yo'q."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Poyga muxlislar uchun loyiha",
+   "problem": "\"Formula One Grandstands\" loyihasini o'rganing:\nPoyga yo'nalishi f(x) = x³ + 3x² + x funksiyasi bilan modellashtirilgan, tribunaning old burchagi (−1.9, 2.8) nuqtada rejalashtirilgan.\n(1) Poygachilar aylanaga kirayotganda boshqaruvni yo'qotadilar — bu erda urinaning burchak koeffitsiyenti 1 ga teng; bu aylanadagi (x, y) nuqtaning koordinatalarini toping.\n(2) Bu nuqtadagi urinaning tenglamasini toping.\n(3) Urinaning y = 2.8 to'g'ri chiziq bilan kesishishining x-koordinatasini toping: bu nuqta tribunadan o'ngda xavfsizmi yoki tomoshabinlar xavfsizlikda emasmi?\n(4) Faraz qilaylik, poygachi boshqaruvni oldinroq — (−2.5, 0.625) nuqtada yo'qotadi; u yerda urinaning burchak koeffitsiyenti qanday?\n(5) Bu holatda tomoshabinlar xavfsizmi?\n(6) Hozirgi dizaynni saqlab qolish yoki tribunalarini ko'chirish kerakmi?",
+   "steps": [
+    "f′(x) = 3x² + 6x + 1 hosilani topamiz.",
+    "f′(x) = 1 bo'lishi uchun 3x² + 6x = 0, ya'ni x(x + 2) = 0, x = 0 yoki x = −2.",
+    "Aylanaga kirish nuqtasi x = −2: f(−2) = −8 + 12 − 2 = 2, nuqta (−2, 2).",
+    "Urinaning tenglamasi: y = x + 4.",
+    "y = 2.8 bilan kesishish: x = −1.2.",
+    "Nuqta (−1.2, 2.8) tribunaning old burchagidan (x = −1.9) o'ngda joylashgan — mashina yo'li tribunadan o'ngda o'tadi, tomoshabinlar xavfsiz."
+   ]
+  },
+  "narr": [
+   "Endi poyga muxlislar uchun qiziqarli masalaga o'tamiz. Bu masalada poyga yo'nalishi f(x) = x³ + 3x² + x funksiyasi bilan modellashtirilgan.",
+   "Poygachilar aylanaga kirayotganda boshqaruvni yo'qotadigan nuqtani topishimiz kerak, bu erda urinaning burchak koeffitsiyenti 1 ga teng.",
+   "Buning uchun avval hosilani topamiz: f′(x) = 3x² + 6x + 1.",
+   "Ushbu hosilani 1 ga tenglab, tenglamani yechamiz: 3x² + 6x = 0, ya'ni x(x + 2) = 0.",
+   "Yechimlar: x = 0 yoki x = −2. Aylanaga kirish nuqtasi x = −2 bo'lishi kerak.",
+   "Funksiyani x = −2 da hisoblaymiz: f(−2) = −8 + 12 − 2 = 2. Shunday qilib, nuqta (−2, 2).",
+   "Endi bu nuqtadan o'tib, burchak koeffitsiyenti 1 bo'lgan urinaning tenglamasini yozamiz: y = x + 4."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Poyga muxlislar uchun loyiha (cont.)",
+   "problem": "",
+   "steps": [
+    "f′(−2.5) = 18.75 − 15 + 1 = 4.75.",
+    "Urinaning tenglamasi: y = 0.625 + 4.75 · (x + 2.5)",
+    "y = 2.8 bo'lganda: x + 2.5 = 2.175/4.75 ≈ 0.458, x ≈ −2.04",
+    "Nuqta tribuna burchagidan chapda: tik urinaning yo'li tribuna zonasidan o'tadi, tomoshabinlar xavfsizlikda emas.",
+    "Dizayn xavfli: tribunalarni yo'ldan uzoqroq joylashtirish yoki ko'chirish kerak."
+   ],
+   "result": "Javoblar:\n(1) (−2, 2)\n(2) y = x + 4\n(3) x = −1.2, tomoshabinlar xavfsiz\n(4) 4.75\n(5) Tomoshabinlar xavfsizlikda emas\n(6) Tribunalarni ko'chirish kerak"
+  },
+  "narr": [
+   "Uchinch savolga ko'ra, y = 2.8 to'g'ri chiziq bilan kesishish x-koordinatasini topishimiz kerak.",
+   "Tenglamani yechamiz: x = −1.2. Bu nuqta tribunaning old burchagidan (x = −1.9) o'ngda joylashgan, shuning uchun tomoshabinlar xavfsiz.",
+   "To'rtinchi savolda, poygachi boshqaruvni oldinroq, (−2.5, 0.625) nuqtada yo'qotadi deyilgan. U yerda hosilani topamiz.",
+   "f′(−2.5) = 18.75 − 15 + 1 = 4.75.",
+   "Urinaning tenglamasi: y = 0.625 + 4.75 · (x + 2.5).",
+   "y = 2.8 bo'lganda: x + 2.5 = 2.175/4.75 ≈ 0.458, x ≈ −2.04.",
+   "Bu nuqta tribuna burchagidan chapda joylashgan, ya'ni tik urinaning yo'li tribuna zonasidan o'tadi. Tomoshabinlar xavfsizlikda emas.",
+   "Oxirgi savolga javob: dizayn xavfli, shuning uchun tribunalarni yo'ldan uzoqroq joylashtirish yoki ko'chirish kerak."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Uzluksizlik va Differensiallanuvchanlik",
+   "subtitle": "Asosiy tushunchalar"
+  },
+  "narr": [
+   "Endi uzluksizlik va differensiallanuvchanlikning asosiy tushunchalarini ko'rib chiqaylik.",
+   "Uzluksizlik funksiya qiymatlarining uzilmasdan tutashishini anglatadi.",
+   "Differensiallanuvchanlik esa grafikda aniq belgilangan chekli urinaning burchak koeffitsiyentiga ega bo'lishini anglatadi.",
+   "Funksiya bukilma nuqtasida yoki vertikal urinada uzluksiz bo'lishi mumkin, lekin differensiallanmaydi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy munosabatlar",
+   "bullets": [
+    "a nuqtada uzluksizlik: lim x → a f(x) = f(a) — uch shart: f(a) aniqlangan, limit mavjud, ular teng.",
+    "a nuqtada differensiallanuvchanlik: lim h → 0 (f(a + h) − f(a))/h chekli son sifatida mavjud.",
+    "Farq nisbati — urinaning burchak koeffitsiyentiga intilayotgan kesmaning burchak koeffitsiyenti.",
+    "Asosiy munosabat: a nuqtada differensiallanuvchanlik a nuqtada uzluksizlikni keltirib chiqaradi; aksincha emas."
+   ]
+  },
+  "narr": [
+   "Keling, asosiy munosabatlarni tushunishga harakat qilaylik.",
+   "Birinchi navbatda, a nuqtada uzluksizlik shartlarini ko'rib chiqamiz: f(a) aniqlangan bo'lishi, limit mavjud bo'lishi va ular teng bo'lishi kerak.",
+   "Differensiallanuvchanlik esa shunday: f(a + h) − f(a) nisbati h → 0 da chekli songa intilishi kerak.",
+   "Bu nisbat aslida urinaning burchak koeffitsiyentiga intilayotgan kesmaning burchak koeffitsiyentidir.",
+   "Eng muhim munosabat: agar funksiya a nuqtada differensiallanadigan bo'lsa, u holda u shu nuqtada uzluksiz bo'ladi. Lekin aksinchi to'g'ri emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bir tomonlama hosilalar",
+   "bullets": [
+    "Bir tomonlama hosilalar f′_−(a), f′_+(a); ichki nuqtada f′(a) mavjud ⟷ ular teng va chekli.",
+    "Misol: x² nolda (f(h) − f(0))/h = h → 0 ikkala tomondan — f′(0) = 0, urinaning gorizontal.",
+    "Burilish (kink): ikki xil chekli nishablar (|x| : −1 va 1); muhandislik talqini — pozitsiya grafigi, unda tezlik bir chekli qiymatdan ikkinchisiga sakrab o'zgaradi.",
+    "Uch (cusp): qarama-qarshi ishorali cheksiz nishablar (|x|^(2/3) : −∞ va +∞).",
+    "Vertikal tegish: bir xil cheksiz nishablar (x^(1/3) : +∞ ikkala tomondan, tegish x = 0); garchi norasmiy ravishda 'f′(0) = +∞' deb yozilsa, chekli son sifatida hosila mavjud emas."
+   ]
+  },
+  "narr": [
+   "Endi bir tomonlama hosilalarni ko'rib chiqaylik.",
+   "Ichki nuqtada f′(a) mavjud bo'lishi uchun chap va o'ng bir tomonlama hosilalar teng va chekli bo'lishi kerak.",
+   "Misol sifatida x² funksiyasini nol nuqtada ko'rib chiqamiz: (f(h) − f(0))/h = h → 0 ikkala tomondan, shuning uchun f′(0) = 0 va urinaning gorizontal.",
+   "Burilish (kink) holatida ikki xil chekli nishablar mavjud (masalan |x| funksiyasida −1 va 1). Bu muhandislikda tezlikning sakrab o'zgarishiga olib keladi.",
+   "Uch (cusp) holatida qarama-qarshi ishorali cheksiz nishablar mavjud (masalan |x|^(2/3) funksiyasida −∞ va +∞).",
+   "Vertikal tegish holatida bir xil cheksiz nishablar mavjud (masalan x^(1/3) funksiyasida +∞ ikkala tomondan). Garchi norasmiy ravishda 'f′(0) = +∞' deb yozilsa, chekli son sifatida hosila mavjud emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Noldagi to'rtta asosiy holat xulq-atvori",
+   "columns": [
+    "Funksiya",
+    "Chap nishablik",
+    "O'ng nishablik",
+    "0 da uzluksizmi?",
+    "0 da hosilasi bormi?",
+    "Xulq-atvori"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "x^2"
+     },
+     {
+      "tex": "0"
+     },
+     {
+      "tex": "0"
+     },
+     "ha",
+     "ha",
+     "gorizontal teguvchi"
+    ],
+    [
+     {
+      "tex": "|x|"
+     },
+     {
+      "tex": "-1"
+     },
+     {
+      "tex": "1"
+     },
+     "ha",
+     "yo'q",
+     "burilish (kink)"
+    ],
+    [
+     {
+      "tex": "|x|^{2/3}"
+     },
+     {
+      "tex": "-\\infty"
+     },
+     {
+      "tex": "+\\infty"
+     },
+     "ha",
+     "yo'q",
+     "uch (cusp)"
+    ],
+    [
+     {
+      "tex": "x^{1/3}"
+     },
+     {
+      "tex": "+\\infty"
+     },
+     {
+      "tex": "+\\infty"
+     },
+     "ha",
+     "yo'q",
+     "vertikal teguvchi"
+    ]
+   ]
+  },
+  "narr": [
+   "Ushbu jadvalda noldagi to'rtta asosiy holat xulq-atvorini ko'rsatamiz.",
+   "Birinchi holat: x² funksiyasi. Nol nuqtada chap va o'ng nishablik 0, uzluksiz va hosilali, gorizontal teguvchi.",
+   "Ikkinchi holat: |x| funksiyasi. Nol nuqtada chap nishablik −1, o'ng nishablik 1, uzluksiz lekin hosilali emas, burilish (kink).",
+   "Uchinchi holat: |x|^(2/3) funksiyasi. Nol nuqtada chap nishablik −∞, o'ng nishablik +∞, uzluksiz lekin hosilali emas, uch (cusp).",
+   "To'rtinchi holat: x^(1/3) funksiyasi. Nol nuqtada chap va o'ng nishablik +∞, uzluksiz lekin hosilali emas, vertikal teguvchi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Tezlikning o'zgarish tezligi",
+   "problem": "Hennessey Venom GT 0 dan 60 mph gacha 3.05s, 100 mph gacha 5.88s, 200 mph gacha 14.51s va 229.9 mph gacha 19.96s tezlikda tezlashadi. 229.9 mph ga yaqinlashayotganda tezlanish bilan nima bo'ladi: o'sadi, kamayadi yoki doimiy bo'ladi?",
+   "steps": [
+    "Tezliklarni fut/sek ga aylantiramiz: 60mph = 88; 100 ≈146.67; 200 ≈293.33; 229.9 ≈337.19.",
+    "O'rtacha tezlanishlarni (v(t)−337.19)/(t−19.96) [t, 19.96] oraliqlarida hisoblaymiz:",
+    "t = 0 bo'lganda: 16.89 fut/sek²",
+    "t = 3.05 bo'lganda: 14.74 fut/sek²",
+    "t = 5.88 bo'lganda: 13.53 fut/sek²",
+    "t = 14.51 bo'lganda: 8.05 fut/sek²"
+   ],
+   "result": "O'rtacha tezlanishlar kamaymoqda — 229.9 mph ga yaqinlashayotganda tezlanish kamayadi."
+  },
+  "narr": [
+   "Keling, amaliy misolni ko'rib chiqaylik. Bu masalada Hennessey Venom GT avtomobilining tezlanishini baholaymiz.",
+   "Avvalo, barcha tezliklarni birliklarini bir xil qilish uchun fut/sek ga aylantiramiz.",
+   "Keyin, 229.9 mph ga yaqinlashayotganda o'rtacha tezlanishlarni hisoblaymiz.",
+   "Natijalarni ko'rib chiqsak: 16.89, 14.74, 13.53 va 8.05 fut/sek².",
+   "Bu qiymatlar kamayayotgani uchun, 229.9 mph ga yaqinlashayotganda tezlanish kamayadi degan xulosaga kelamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Foydani o'zgarish tezligi",
+   "problem": "Firma x oʻyin tizimlarini p = −0.01x + 400 dollar narxda sotadi; xarajatlar C(x) = 100x + 10000 dollar. 10000 oʻyin ishlab chiqarishda foydani oʻzgarish tezligini toping. Ishlab chiqarishni oshirish kerakmi?",
+   "steps": [
+    "Daromad R(x) = x · p = −0.01x² + 400x",
+    "Foya P(x) = R − C = −0.01x² + 300x − 10000",
+    "P(10000) = −0.01(10000)² + 300(10000) − 10000 = 1990000 dollar",
+    "Taʼrif boʻyicha: P′(10000) = lim x → 10000 (P(x) − P(10000))/(x − 10000)",
+    "Suratni koʻrinishga ajratamiz: −0.01(x − 10000)(x − 20000)",
+    "Limit: −0.01 · (10000 − 20000) = 100"
+   ],
+   "result": "P′(10000) = 100 > 0 va P(10000) > 0 — foya oʻsmoqda, firmaga ishlab chiqarishni oshirish kerak."
+  },
+  "narr": [
+   "Yana bir amaliy misol: firma foydani o'zgarish tezligini hisoblashi kerak.",
+   "Avvalo, daromad funksiyasini topamiz: R(x) = x · p = −0.01x² + 400x.",
+   "Keyin, foya funksiyasini hisoblaymiz: P(x) = R − C = −0.01x² + 300x − 10000.",
+   "10000 dona ishlab chiqarishdagi foyani hisoblaymiz: P(10000) = 1990000 dollar.",
+   "Endi foyaning o'zgarish tezligini topish uchun hosilani hisoblaymiz.",
+   "Ta'rif bo'yicha limitni hisoblab, suratni ko'rinishga ajratamiz.",
+   "Natijada P′(10000) = 100 ekanligini topamiz.",
+   "Bu qiymat musbat va P(10000) ham musbat, shuning uchun foya o'smoqda va firmaga ishlab chiqarishni oshirish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Hosilaning eskizi",
+   "problem": "f(x) funksiya grafigi (3, 6) nuqtada mahalliy maksimum va (−2, 2) nuqtada mahalliy minimumga ega bo'lgan holda f′(x) grafigini chizing.",
+   "steps": [
+    "f(x) funksiyasining kritik nuqtalari: x = 3 (maksimum) va x = −2 (minimum)",
+    "f′(x) funksiyasi x = 3 va x = −2 da nolga teng bo'ladi",
+    "x = 3 dan chapda f′(x) > 0 (funksiya o'sadi), o'ngda f′(x) < 0 (funksiya kamayadi)",
+    "x = −2 dan chapda f′(x) < 0 (funksiya kamayadi), o'ngda f′(x) > 0 (funksiya o'sadi)",
+    "f′(x) grafigi x = 3 va x = −2 da nolga teng bo'lgan egri chiziq bo'ladi",
+    "x = 3 da f′(x) musbatdan manfiyga o'tadi, x = −2 da manfiydan musbatga o'tadi"
+   ],
+   "result": "f′(x) grafigi x = 3 va x = −2 da nolga teng bo'lgan, x = 3 da maksimum, x = −2 da minimum ko'rsatuvchi egri chiziq."
+  },
+  "narr": [
+   "Oxirgi masalada f(x) funksiyasining hosilasi grafigini chizishimiz kerak.",
+   "Funksiya (3, 6) nuqtada mahalliy maksimumga va (−2, 2) nuqtada mahalliy minimumga ega.",
+   "Bu nuqtalar f′(x) = 0 bo'lgan kritik nuqtalardir.",
+   "x = 3 dan chapda funksiya o'sadi (f′(x) > 0), o'ngda kamayadi (f′(x) < 0).",
+   "x = −2 dan chapda funksiya kamayadi (f′(x) < 0), o'ngda o'sadi (f′(x) > 0).",
+   "Shunday qilib, f′(x) grafigi x = 3 va x = −2 da nolga teng bo'lgan egri chiziq bo'ladi.",
+   "x = 3 da f′(x) musbatdan manfiyga o'tadi, x = −2 da manfiydan musbatga o'tadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

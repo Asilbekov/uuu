@@ -1,0 +1,478 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Matematika I — 5-7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu 5-7 haftalik matematika darsining formulalar va misollaridan iborat qismi. Boshlaymiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy hosila qoidalari",
+   "bullets": [
+    "$\\frac{d}{dx}(x^n) = n \\cdot x^{n-1}$",
+    "$(f + g)' = f' + g'$",
+    "$(f - g)' = f' - g'$",
+    "$(k \\cdot f)' = k \\cdot f'$ (3.3-3.4 teoremalari)",
+    "$(f \\cdot g)' = f' \\cdot g + g' \\cdot f$ (ko'paytma qoidasi, 3.5 teoremasi)",
+    "$(\\frac{f}{g})' = \\frac{f' \\cdot g - g' \\cdot f}{g^2}$ (bo'linma qoidasi, 3.6 teoremasi)"
+   ]
+  },
+  "narr": [
+   "Keling, asosiy hosila qoidalarini ko'rib chiqaylik. Birinchi qoidaga ko'ra, x ning n-darajasi hosilasi n ga ko'paytirilgan x ning n minus 1-darajasiga teng.",
+   "Keyin, ikkita funksiya yig'indisining hosilasi ularning alohida hosilalari yig'indisiga teng.",
+   "Xuddi shunday, ayirmasi ham alohida hosilalar ayirmasiga teng.",
+   "Doimiy ko'paytma uchun, doimiyni oldinga chiqarib, funksiyaning hosilasini olamiz.",
+   "Ko'paytma qoidasida ikkita funksiya ko'paytmasining hosilasi ularning hosilalari ko'paytmasi yig'indisiga teng.",
+   "Bo'linma qoidasida esa, suratning hosilasi maxraj ayirilganda, maxraj kvadratga bo'linadi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — sinf ichki faoliyati",
+   "problem": "$j(x) = (x^2+2)(3x^3-5x)$ uchun ko'paytma qoidasi bilan hosilani toping",
+   "steps": [
+    {
+     "text": "Ko'paytma qoidasini qo'llaymiz: $(f \\cdot g)' = f' \\cdot g + g' \\cdot f$"
+    },
+    {
+     "text": "$f(x) = x^2+2$, shuning uchun $f'(x) = 2x$"
+    },
+    {
+     "text": "$g(x) = 3x^3-5x$, shuning uchun $g'(x) = 9x^2-5$"
+    },
+    {
+     "text": "Hosilani hisoblaymiz: $j'(x) = 2x \\cdot (3x^3-5x) + (9x^2-5) \\cdot (x^2+2)$"
+    },
+    {
+     "text": "Ifodani soddalashtiramiz: $j'(x) = 6x^4-10x^2 + 9x^4+18x^2-5x^2-10$"
+    },
+    {
+     "text": "Natija: $j'(x) = 15x^4+3x^2-10$"
+    }
+   ],
+   "result": "$j'(x) = 15x^4+3x^2-10$"
+  },
+  "narr": [
+   "Endi misol ko'rib chiqaylik. j(x) funksiya ikki ko'paytuvchidan iborat.",
+   "Ko'paytma qoidasini qo'llaymiz.",
+   "Birinchi ko'paytuvchini hosilalaymiz.",
+   "Ikkinchi ko'paytuvchini hosilalaymiz.",
+   "Ko'paytma qoidasiga ko'ra hosilani hisoblaymiz.",
+   "Ifodalarni ko'paytiramiz va soddalashtiramiz.",
+   "Natija shu ko'rinishda bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3.25-misol",
+   "problem": "$k(x) = \\frac{5x^2}{4x+3}$ uchun bo'linma qoidasi bilan hosilani toping",
+   "steps": [
+    {
+     "text": "Bo'linma qoidasini qo'llaymiz: $(\\frac{f}{g})' = \\frac{f' \\cdot g - g' \\cdot f}{g^2}$"
+    },
+    {
+     "text": "$f(x) = 5x^2$, shuning uchun $f'(x) = 10x$"
+    },
+    {
+     "text": "$g(x) = 4x+3$, shuning uchun $g'(x) = 4$"
+    },
+    {
+     "text": "Hosilani hisoblaymiz: $k'(x) = \\frac{10x(4x+3) - 4 \\cdot 5x^2}{(4x+3)^2}$"
+    },
+    {
+     "text": "Ifodani soddalashtiramiz: $k'(x) = \\frac{40x^2+30x-20x^2}{(4x+3)^2}$"
+    },
+    {
+     "text": "Natija: $k'(x) = \\frac{20x^2+30x}{(4x+3)^2}$"
+    }
+   ],
+   "result": "$k'(x) = \\frac{20x^2+30x}{(4x+3)^2}$"
+  },
+  "narr": [
+   "Bu yerda bo'linma qoidasini qo'llaymiz.",
+   "Suratni hosilalaymiz.",
+   "Maxrajni hosilalaymiz.",
+   "Bo'linma qoidasiga ko'ra hosilani hisoblaymiz.",
+   "Ifodalarni ko'paytiramiz va soddalashtiramiz.",
+   "Natija shu ko'rinishda bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "4.1.4 Trigonometrik funksiyalarning hosilalari",
+   "subtitle": "§3.5"
+  },
+  "narr": [
+   "Endi trigonometrik funksiyalarning hosilalarini ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy trigonometrik funksiyalar hosilalari",
+   "bullets": [
+    "$\\frac{d}{dx}(\\sin x) = \\cos x$",
+    "$\\frac{d}{dx}(\\cos x) = -\\sin x$ (teorema 3.8)",
+    "$\\frac{d}{dx}(\\tan x) = \\sec^2 x$",
+    "$\\frac{d}{dx}(\\cot x) = -\\csc^2 x$",
+    "$\\frac{d}{dx}(\\sec x) = \\sec x \\cdot \\tan x$",
+    "$\\frac{d}{dx}(\\csc x) = -\\csc x \\cdot \\cot x$ (teorema 3.9)"
+   ]
+  },
+  "narr": [
+   "Sinusning hosilasi kosinusga teng.",
+   "Kosinusning hosilasi minus sinusga teng.",
+   "Tangensning hosilasi sekant kvadratga teng.",
+   "Kotangensning hosilari minus kosekant kvadratga teng.",
+   "Sekantning hosilari sekant tangens ko'paytmasiga teng.",
+   "Kosekantning hosilari minus kosekant kotangens ko'paytmasiga teng."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Grafik tahlil",
+   "bullets": [
+    "Sinus maksimum va minimum nuqtalarida urinma gorizontal bo'ladi va kosinus nolga teng",
+    "Sinus o'sayotgan joylarda kosinus musbat, kamayayotgan joylarda manfiy"
+   ]
+  },
+  "narr": [
+   "Grafikni tahlil qilaylik. Sinus maksimum va minimum nuqtalarida urinma gorizontal bo'ladi, bu yerda kosinus nolga teng.",
+   "Sinus o'sayotgan joylarda kosinus musbat qiymatga ega, kamayayotgan joylarda esa manfiy qiymatga ega."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Sinus hosilasining isboti",
+   "bullets": [
+    "Hosilaning ta'rifiga asosan",
+    "Sinus yig'indisi formulasiga",
+    "Iki ajoyib limitga asoslanadi:",
+    "$\\lim_{h \\to 0} \\frac{\\sin h}{h} = 1$",
+    "$\\lim_{h \\to 0} \\frac{\\cos h - 1}{h} = 0$",
+    "$\\sin(x + h) = \\sin x \\cdot \\cos h + \\cos x \\cdot \\sin h$"
+   ]
+  },
+  "narr": [
+   "Sinusning hosilasi quyidagilarga asoslanadi:",
+   "Birinchidan, hosilaning ta'rifiga.",
+   "Ikkinchidan, sinus yig'indisi formulasiga.",
+   "Uchinchidan, ikkita ajoyib limitga.",
+   "Birinchi limitda h nolga intilganda sinus h ni h ga bo'lganda 1 ga intiladi.",
+   "Ikkinchi limitda kosinus h minus 1 ni h ga bo'lganda 0 ga intiladi.",
+   "Va nihoyat, sinus yig'indisi formulasi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "Ular yodlamang! — tan, cot, sec, csc hosilalarini yodlamaslik kerak: har biri sin va cos dan bo'linma qoidasi bilan chiqariladi (tan x = sin x/ cos x → sec²x).",
+   "who": "Dars beruvchi maslahati"
+  },
+  "narr": [
+   "Dars beruvchining maslahati: tan, cot, sec, csc hosilalarini yodlamang! Har birini sinus va kosinusdan bo'linma qoidasi bilan chiqarib bo'ladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Garmonik tebranish",
+   "bullets": [
+    "$s'$ — tezlik",
+    "$s''$ — tezlanish"
+   ]
+  },
+  "narr": [
+   "Garmonik tebranishlarda birinchi hosila tezlikni, ikkinchi hosila esa tezlanishni ifodalaydi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Sinusning yuqori tartibli hosilalari",
+   "bullets": [
+    "4 davrli siklga ega:",
+    "$\\sin x \\to \\cos x \\to -\\sin x \\to -\\cos x \\to \\sin x \\to ...$"
+   ]
+  },
+  "narr": [
+   "Sinusning yuqori tartibli hosilalari 4 davrli siklga ega.",
+   "Birinchi hosila kosinusga, ikkinchisi minus sinusga, uchinchisi minus kosinusga, to'rtinchisi yana sinusga aylanadi va shu sikl davom etadi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — darslik 3.45-3.46-misol",
+   "problem": "$\\frac{d^{74}}{dx^{74}}(\\sin x)$ ni toping",
+   "steps": [
+    {
+     "text": "74 = 4 · 18 + 2 ekanligini aniqlaymiz"
+    },
+    {
+     "text": "74-hosila siklda 2-o'rin turadi: -sin x"
+    }
+   ],
+   "result": "$\\frac{d^{74}}{dx^{74}}(\\sin x) = -\\sin x$"
+  },
+  "narr": [
+   "Endi yuqori tartibli hosila misolini ko'rib chiqaylik.",
+   "74-hosilani topish uchun, 74 ni 4 ga bo'lamiz.",
+   "74 = 4 · 18 + 2, ya'ni 74-hosila siklda 2-o'rin turadi.",
+   "Siklga ko'ra, 2-o'rin -sin x ga teng.",
+   "Shuning uchun javob -sin x."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "4.1.5 Ko'rsatkichli va logarifmik funksiyalarning hosilalari",
+   "subtitle": "§3.9"
+  },
+  "narr": [
+   "Endi ko'rsatkichli va logarifmik funksiyalarning hosilalarini ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosli ko'rsatkichli va logarifmik funksiyalar hosilalari",
+   "bullets": [
+    "$\\frac{d}{dx}(e^x) = e^x$",
+    "$\\frac{d}{dx}(e^{g(x)}) = e^{g(x)} \\cdot g'(x)$ (teorema 3.14)",
+    "$\\frac{d}{dx}(b^x) = b^x \\cdot \\ln b$",
+    "$\\frac{d}{dx}(\\ln x) = \\frac{1}{x}$",
+    "$\\frac{d}{dx}(\\ln(g(x))) = \\frac{g'(x)}{g(x)}$",
+    "$\\frac{d}{dx}(\\log_b x) = \\frac{1}{x \\cdot \\ln b}$ (teoremalar 3.15-3.16)"
+   ]
+  },
+  "narr": [
+   "Natural logarifm asosli e ning x darajasining hosilasi o'ziga teng.",
+   "Agar funksiya e ning g(x) darajasi bo'lsa, hosilada birinchi navbatda g(x) ning hosilasini olamiz.",
+   "Boshqa asosli b ning x darajasining hosilasi b^x ga ko'paytirilgan ln b ga teng.",
+   "Natural logarifmning hosilasi 1/x ga teng.",
+   "Agar logarifm ichida funksiya bo'lsa, uning hosilasi funksiyaning hosilasining funksiya o'ziga bo'linmasiga teng.",
+   "Boshqa asosli logarifmning hosilasi 1/(x · ln b) ga teng."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "e soni xususiyatlari",
+   "bullets": [
+    "e soni — B(x) = b^x funksiyasi uchun B'(0) = 1 shartni qanoatlantiruvchi yagona asos b > 0",
+    "2.7182 < e < 2.7183 (e ≈ 2.718282)",
+    "nolga nisbatan e^x urinmasi y = x + 1 to'g'ri chiziqdir"
+   ]
+  },
+  "narr": [
+   "e soni maxsus xususiyatga ega. Bu son B(x) = b^x funksiyasi uchun B'(0) = 1 shartni qanoatlantiruvchi yagona musbat asos.",
+   "e taxminan 2.718282 ga teng, ya'ni 2.7182 dan katta va 2.7183 dan kichik.",
+   "nolga nisbatan e^x funksiyasining urinmasi y = x + 1 to'g'ri chiziqdir."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — sinf ichki faoliyati",
+   "problem": "Berilgan funksiyalarning hosilalarini toping:",
+   "steps": [
+    {
+     "text": "$(e^{2x})' = 2 \\cdot e^{2x}$"
+    },
+    {
+     "text": "$(e^{3x^2})' = 6x \\cdot e^{3x^2}$"
+    },
+    {
+     "text": "$(e^{3x^2+5x^3})' = (6x + 15x^2) \\cdot e^{3x^2+5x^3}$"
+    }
+   ],
+   "result": "Natijalar yuqorida ko'rsatilgan"
+  },
+  "narr": [
+   "Endi misollar ko'rib chiqaylik.",
+   "Birinchi funksiya e ning 2x darajasi. Hosilada birinchi navbatda ichki funksiyaning hosilasini olamiz, ya'ni 2, keyin e^2x ga ko'paytiramiz.",
+   "Ikkinchi funksiya e ning 3x^2 darajasi. Ichki funksiyaning hosilasi 6x, shuning uchun javob 6x · e^(3x^2).",
+   "Uchinchi funksiya e ning 3x^2+5x^3 darajasi. Ichki funksiyaning hosilasi 6x + 15x^2, shuning uchun javob (6x + 15x^2) · e^(3x^2+5x^3)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ko'rsatkichlar qonuni (a, b > 0)",
+   "bullets": [
+    "$b^x \\cdot b^y = b^{x+y}$",
+    "$\\frac{b^x}{b^y} = b^{x-y}$",
+    "$(b^x)^y = b^{xy}$",
+    "$(ab)^x = a^x \\cdot b^x$",
+    "$(\\frac{a}{b})^x = \\frac{a^x}{b^x}$"
+   ]
+  },
+  "narr": [
+   "Ko'rsatkichlar qonunlariga ko'ra:",
+   "Bir xil asosli ko'rsatkichlarni ko'paytirganda, darajalarni qo'shamiz.",
+   "Bir xil asosli ko'rsatkichlarni bo'lganda, darajalarni ayiramiz.",
+   "Ko'rsatkichni darajaga ko'targanda, darajalarni ko'paytiramiz.",
+   "Ikkita son ko'paytmasining darajasi har bir sonning darajasiga ko'paytmasiga teng.",
+   "Bo'linmaning darajasi suratning darajasining maxrajning darajasiga bo'linmasiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Logarifmlar xossalari (a, b, c > 0, b ≠ 1)",
+   "bullets": [
+    "$\\log_b(a \\cdot c) = \\log_b a + \\log_b c$",
+    "$\\log_b(\\frac{a}{c}) = \\log_b a - \\log_b c$",
+    "$\\log_b(a^r) = r \\cdot \\log_b a$"
+   ]
+  },
+  "narr": [
+   "Logarifmlarning quyidagi xossalari bor:",
+   "Ikkita son ko'paytmasining logarifmi ularning alohida logarifmlari yig'indisiga teng.",
+   "Ikkita son bo'linmasining logarifmi ularning alohida logarifmlari ayirmasiga teng.",
+   "Sonning darajasi logarifmi sonning logarifmi bilan darajaga ko'paytirilganda teng bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosni o'zgartirish",
+   "bullets": [
+    "$a^x = e^{x \\cdot \\ln a}$",
+    "$\\log_a x = \\frac{\\ln x}{\\ln a}$",
+    "ln a doimiy bo'lgani uchun, $(\\log_a x)' = \\frac{1}{x \\cdot \\ln a}$"
+   ]
+  },
+  "narr": [
+   "Asosni o'zgartirish formulasiga ko'ra:",
+   "a^x ni e ning x · ln a darajasi sifatida ifodalash mumkin.",
+   "Logarifm asosini o'zgartirishda, log_a x ni ln x / ln a ko'rinishida yozish mumkin.",
+   "ln a doimiy bo'lgani uchun, log_a x ning hosilasi 1/(x · ln a) ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

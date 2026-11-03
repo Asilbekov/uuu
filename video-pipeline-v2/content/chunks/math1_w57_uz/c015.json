@@ -1,0 +1,426 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Differensiallash jarayonini koʻrib chiqamiz. Birinchidan, oddiy differensiallash misolini koʻrib chiqaylik.",
+   "L = 5/3 x va dx/dt = 5 boʻlsa, dL/dt ni topamiz. Bu bogʻlangan tezliklar masalasining oddiy holati."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Bogʻlangan tezliklar",
+   "problem": "Teskri konus shaklidagi idishga suv 9m³/min tezlikda quyilmoqda. Idishning balandligi 12m va yuqori chetining radiusi 6m. Agar suv sathi 4m chuqurlikda 0.2m/min tezlikda koʻtarilsa, idishdan chiqayotgan suv tezligini toping.",
+   "steps": [
+    "V — suv hajmi, h — chuqurlik, r — sirt radiusi boʻlsin.",
+    "Oʻxshashlikdan r/h = 6/12 = 1/2, yaʼni r = h/2.",
+    "V = (1/3)π(h/2)² · h = (π/12)h³",
+    "dV/dt = (πh²/4) · (dh/dt) — hajmning toʻliq oʻzgarish tezligi",
+    "h = 4 va dh/dt = 0.2 boʻlganda: dVnet/dt = (π · 16/4) · 0.2 = 0.8π ≈2.513m³/min",
+    "dVnet/dt = Qin − Qout dan: Qout = 9 − 0.8π ≈6.487m³/min"
+   ],
+   "result": "Idishdan chiqayotgan suv tezligi taxminan 6.49m³/min"
+  },
+  "narr": [
+   "Bu erda biz konus shaklidagi idishda suv sathining oʻzgarishini koʻrib chiqamiz.",
+   "Birinchi navbatda, idishning shakliga qarab radius va chuqurlik oʻrtasidagi bogʻliqlikni aniqlaymiz.",
+   "Keyin, suv hajmi va chuqurlik orasidagi bogʻliqlikni topamiz.",
+   "Hajmning vaqt boʻyicha oʻzgarish tezligini differensiallaymiz.",
+   "Berilgan shartlarni qoʻllab, hajmning toʻliq oʻzgarish tezligini hisoblaymiz.",
+   "Nihoyat, kirib keladigan va chiqib ketadigan suv oqimlari orasidagi bogʻliqlikdan chiqib ketadigan suv tezligini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — Bogʻlangan tezliklar",
+   "problem": "Ikkita mashina bir nuqtadan harakatlanadi. Biri janubga 60km/soat tezlikda, ikkinchisi gʻarbga 50km/soat tezlikda harakatlanadi. Mashinalar orasidagi masofa ikki soatdan keyin qanday tezlikda ortib boradi?",
+   "steps": [
+    "x — gʻarbda harakatlanayotgan mashinaning yoʻli (dx/dt = 50km/soat)",
+    "y — janubda harakatlanayotgan mashinaning yoʻli (dy/dt = 60km/soat)",
+    "z — masofa: z² = x² + y²",
+    "2 soatdan keyin: x = 100km, y = 120km, z = √(100² + 120²) = √24400 = 20√61 ≈156.2 km",
+    "2z·(dz/dt) = 2x·(dx/dt) + 2y·(dy/dt)",
+    "dz/dt = (100 · 50 + 120 · 60)/(20 · √61) = 12200/(20 · √61) = 10√61 ≈78.1km/soat"
+   ],
+   "result": "Mashinalar orasidagi masofa 78.1km/soat tezlikda ortib bormoqda"
+  },
+  "narr": [
+   "Bu masalada ikki mashining harakatini koʻrib chiqamiz. Biri janubga, ikkinchisi gʻarbga harakatlanmoqda.",
+   "Gʻarbga harakatlanayotgan mashinaning tezligi 50km/soat, janubga harakatlanayotkiniki esa 60km/soat.",
+   "Mashinalar orasidagi masofani hisoblash uchun Pifagor ayniyatidan foydalanamiz.",
+   "Iki soatdan keyin har bir mashina qancha masofa bosganini hisoblaymiz.",
+   "Masofaning oʻzgarish tezligini topish uchun differensiallaymiz.",
+   "Nihoyat, mashinalar orasidagi masofaning oʻsish tezligini hisoblaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — Bogʻlangan tezliklar",
+   "problem": "Radar ustidagi samolyot. Samolyot 2 km balandlikda gorizontal 800km/soat tezlikda uchib, radiolokatsion stansiya ustidan aniq oʻtadi. Samolyot va stansiya orasidagi masofa 3 km boʻlganida, ular orasidagi masofaning oʻsish tezligini toping.",
+   "steps": [
+    "x — stansiyadan samolyot ostidagi nuqtagacha boʻlgan gorizontal masofa",
+    "s — samolyotgacha toʻgʻri masofa; balandlik h = 2 km doimiy",
+    "s² = x² + 4",
+    "s = 3 boʻlganda: x² = 5, x = √5 km",
+    "2s·(ds/dt) = 2x·(dx/dt)",
+    "ds/dt = (x/s) · (dx/dt) = (√5/3) · 800 = 800√5/3 ≈596.27km/soat"
+   ],
+   "result": "Samolyot va stansiya orasidagi masofa 596km/soat tezlikda ortib bormoqda"
+  },
+  "narr": [
+   "Bu masalada radiolokatsion stansiya va unga yaqinlashayotgan samolyotni koʻrib chiqamiz.",
+   "Samolyot 2 km balandlikda gorizontal 800km/soat tezlikda harakatlanmoqda.",
+   "Stansiya va samolyot orasidagi toʻgʻri masofani hisoblash uchun Pifagor ayniyatidan foydalanamiz.",
+   "Berilgan shartga koʻra, ular orasidagi masofa 3 km boʻlganda, gorizontal masofani topamiz.",
+   "Masofaning oʻzgarish tezligini topish uchun differensiallaymiz.",
+   "Nihoyat, ular orasidagi masofaning oʻsish tezligini hisoblaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — Bogʻlangan tezliklar",
+   "problem": "Chiqandi toʻplami. Chiqandi konveyeridan 30fut³/min tezlikda toshib tushadi, uning donadorligi shundayki, u asosining diametri va balandligi doimo teng boʻlgan konus shaklidagi toʻplam hosil qiladi. Toʻplam balandligi 10 fut boʻlganda, uning balandligi qanday tezlikda ortib boradi?",
+   "steps": [
+    "Diametr balandlikka teng: 2r = h → r = h/2",
+    "V = (π/12)h³",
+    "dV/dt = (πh²/4) · (dh/dt)",
+    "dh/dt = 4 · (dV/dt)/(πh²)",
+    "dV/dt = 30 va h = 10 ni qoʻyamiz",
+    "dh/dt = 4 · 30/(π · 100) = 120/(100π) = 6/(5π) ≈0.382fut/min"
+   ],
+   "result": "Toʻplamning balandligi 0.382fut/min tezlikda ortib bormoqda"
+  },
+  "narr": [
+   "Bu masalada chiqadi konveyeridan toshib chiqayotgan materialning toʻplanishini koʻrib chiqamiz.",
+   "Material konus shaklidagi toʻplam hosil qiladi, unning diametri va balandligi doimo teng.",
+   "Konusning hajmi va balandligi orasidagi bogʻliqlikni aniqlaymiz.",
+   "Hajmning vaqt boʻyicha oʻzgarish tezligini differensiallaymiz.",
+   "Berilgan shartlarni qoʻllab, balandlikning oʻzgarish tezligini hisoblaymiz.",
+   "Nihoyat, toʻplamning balandligining oʻsish tezligini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — Bogʻlangan tezliklar",
+   "problem": "Qayiq va blok. Qayiqni boshiga bogʻlangan va qirgʻoqdagi, qayiq boshidan 1m yuqorida joylashgan blokdan oʻtkazilib tortilayotgan ip orqali qirgʻoqqa tortishmoqda. Agar ipni 1m/s tezlikda tortilsa, qayiq qirgʻoqdan 8m uzoqlikda boʻlganda, u qirgʻoq qanchalik tez yaqinlashmoqda?",
+   "steps": [
+    "x — qayiqdan qirgʻoq gacha boʻlgan gorizontal masofa",
+    "l — blokdan qayiqgacha boʻlgan ip uzunligi; blok boshidan 1m yuqorida",
+    "l² = x² + 1",
+    "Ip qisarilib bormoqda: dl/dt = −1m/s",
+    "x = 8 da: l = √65",
+    "2l·(dl/dt) = 2x·(dx/dt)",
+    "dx/dt = (l/x) · (dl/dt) = (√65/8) · (−1) ≈−1.008m/s"
+   ],
+   "result": "Qayiq qirgʻoqqa √65/8 ≈1.01m/s tezlikda yaqinlashmoqda"
+  },
+  "narr": [
+   "Bu masalada qayiqning qirgʻoqqa tortilishini koʻrib chiqamiz.",
+   "Qayiq blokdan oʻtkazilgan ip orqali tortilmoqda, blok qayiq boshidan 1m yuqorida joylashgan.",
+   "Qayiq va blok orasidagi masofani hisoblash uchun Pifagor ayniyatidan foydalanamiz.",
+   "Ip qisarilib bormoqdan, uning uzunligining oʻzgarish tezligi −1m/s.",
+   "Berilgan shartga koʻra, qayiq qirgʻoqdan 8m uzoqlikda boʻlganda, ip uzunligini topamiz.",
+   "Masofaning oʻzgarish tezligini topish uchun differensiallaymiz.",
+   "Nihoyat, qayiqning qirgʻoqqa yaqinlashish tezligini hisoblaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — Bogʻlangan tezliklar",
+   "problem": "Egri chiziqdagi zarracha. Zarracha y = √x egri chiziq boʻylab harakatlanadi, uning abssissasi x² birlik/s tezlikda ortib bormoqda. Zarracha (4, 2) nuqtada boʻlganida, uning ordinatasi qanday tezlikda oʻzgaradi?",
+   "steps": [
+    "y = √x = x^(1/2)",
+    "t ga nisbatan differensiallaymiz (zanjir qoidasi): dy/dt = (1/2) · x^(-1/2) · (dx/dt)",
+    "dy/dt = (1/(2 · √x)) · (dx/dt)",
+    "x = 4 va dx/dt = 2 ni qoʻyamiz",
+    "dy/dt = (1/4) · 2 = 1/2 birlik/s"
+   ],
+   "result": "Ordinata 0.5 birlik/s tezlikda ortib bormoqda"
+  },
+  "narr": [
+   "Bu masalada egri chiziq boʻylab harakatlanayotgan zarrachani koʻrib chiqamiz.",
+   "Zarracha y = √x egri chiziq boʻylab harakatlanmoqda.",
+   "Zarrachaning x koordinati x² birlik/s tezlikda ortib bormoqda.",
+   "Y koordinatining oʻzgarish tezligini topish uchun zanjir qoidasini qoʻllaymiz.",
+   "Berilgan shartga koʻra, zarracha (4, 2) nuqtada boʻlganda, dy/dt ni hisoblaymiz.",
+   "Nihoyat, zarrachaning y koordinatining oʻzgarish tezligini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — Bogʻlangan tezliklar",
+   "problem": "Neft dogʻi. Aylana shaklidagi neft dogʻining radiusi 2m/min doimiy tezlikda kengayib bormoqda. Radius 30m boʻlganda, dogʻining yuzasi qanday tezlikda ortadi?",
+   "steps": [
+    "Aylana yuzasi A = πr²",
+    "t ga nisbatan differensiallaymiz: dA/dt = 2πr · (dr/dt)",
+    "r = 30 va dr/dt = 2 ni qoʻyamiz",
+    "dA/dt = 2π · 30 · 2 = 120π ≈376.99m²/min"
+   ],
+   "result": "Dogʻining yuzasi 377m²/min tezlikda ortib bormoqda"
+  },
+  "narr": [
+   "Bu masalada aylana shaklidagi neft dogʻining kengayishini koʻrib chiqamiz.",
+   "Neft dogʻining radiusi 2m/min tezlikda kengayib bormoqda.",
+   "Aylana yuzasini radius orqali ifodalaymiz.",
+   "Yuzaning vaqt boʻyicha oʻzgarish tezligini differensiallaymiz.",
+   "Berilgan shartga koʻra, radius 30m boʻlganda, yuzaning oʻzgarish tezligini hisoblaymiz.",
+   "Nihoyat, neft dogʻining yuzasining oʻsish tezligini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Endi hosilalarga oid masalalarni koʻrib chiqamiz. Birinchisi, trigonometrik funksiyalarning hosilalari."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — Hosilalar",
+   "problem": "Trigonometrik funksiyalar. \"Differensiallash\" \"birinchi hosilani topish\" degan maʼnoni anglatadi. Differensiallang: a)3·sin x−2·cos x; b) tan x + cotx; c)secx −cscx.",
+   "steps": [
+    "a)d/dx(3 sin x −2 cos x) = 3 cos x −2 · (−sin x) = 3 cos x + 2 sin x",
+    "b)d/dx(tan x + cotx) = sec²x−csc²x",
+    "c)d/dx(secx−cscx) = secx·tan x−(−cscx·cotx) = secx·tan x+cscx·cotx"
+   ],
+   "result": "a) 3 cos x + 2 sin x; b) sec²x−csc²x; c) secx·tan x+cscx·cotx"
+  },
+  "narr": [
+   "Bu masalada trigonometrik funksiyalarning hosilalarini topishni koʻrib chiqamiz.",
+   "Birinchidan, sin x va cos x funksiyalarining hosilalarini eslaymiz.",
+   "Keyin, tan x va cotx funksiyalarining hosilalarini topamiz.",
+   "Nihoyat, secx va cscx funksiyalarining hosilalarini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — Hosilalar",
+   "problem": "Tangens hosilasini chiqarish. tan x = sin x/ cos x ifodasidan foydalanib, qoidasiga koʻra tan x hosilasini chiqaring.",
+   "steps": [
+    "f(x) = tan x = sin x/ cos x",
+    "Qoidasiga koʻra: f′(x) = (cos x · cos x −(−sin x) · sin x)/ cos² x = (cos² x + sin² x)/ cos² x",
+    "Pifagor ayniyatiga koʻra cos² x + sin² x = 1",
+    "shuning uchun f′(x) = 1/ cos² x = sec²x (cos x ≠ 0; secx = 1/ cos x dan foydalanilgan)"
+   ],
+   "result": "tan x ning birinchi hosilasi sec²x"
+  },
+  "narr": [
+   "Bu masalada tan x funksiyasining hosilasini chiqarish usulini koʻrib chiqamiz.",
+   "Tan x ni sin x/ cos x koʻrinishida yozamiz.",
+   "Boʻlish qoidasini qoʻllab hosilani topamiz.",
+   "Pifagor ayniyatidan foydalanib ifodani soddalashtiramiz.",
+   "Nihoyat, tan x ning birinchi hosilasini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — Hosilalar",
+   "problem": "Kosinusli kasr. f(x) = sin x/(1 + cos x) funksiyasini differensiallang, bunda 1 + cos x ≠ 0.",
+   "steps": [
+    "Qoidasiga koʻra: f′(x) = (cos x · (1 + cos x) −sin x · (−sin x))/(1 + cos x)²",
+    "= (cos x + cos² x + sin² x)/(1 + cos x)²",
+    "cos² x + sin² x = 1 boʻlgani uchun, surat 1 + cos x ga teng",
+    "va f′(x) = (1 + cos x)/(1 + cos x)² = 1/(1 + cos x) — asl aniqlanish sohasida"
+   ],
+   "result": "f′(x) = 1/(1 + cos x)"
+  },
+  "narr": [
+   "Bu masalada kasr koʻrinishidagi funksiyaning hosilasini topishni koʻrib chiqamiz.",
+   "Boʻlish qoidasini qoʻllab hosilani topamiz.",
+   "Pifagor ayniyatidan foydalanib ifodani soddalashtiramiz.",
+   "Nihoyat, funksiyaning birinchi hosilasini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Hosilalar",
+   "problem": "Titrayotgan komponent. Titrayotgan komponentning siljishi s(t) = 0.02 · cos t m burchak chastotasi 1rad/s da. Tezlik va tezlanishni toping, ularni t = π/2s da hisoblang, shuningdek d⁴s/dt⁴ ni toping.",
+   "steps": [
+    "Tezlik v(t) = s′(t) = −0.02 · sin t m/s",
+    "Tezlanish a(t) = v′(t) = −0.02 · cos t m/s²",
+    "t = π/2 da: v = −0.02 · sin(π/2) = −0.02m/s",
+    "a = −0.02 · cos(π/2) = 0",
+    "Yana ikki marta differensiallaymiz: s′′′(t) = 0.02 · sin t",
+    "s⁽⁴⁾(t) = 0.02 · cos t m/s⁴ — toʻrtinchi hosila asl shaklni takrorlaydi (kosinus sikli 4 davrga ega)"
+   ],
+   "result": "t = π/2s da: tezlik = −0.02m/s, tezlanish = 0m/s², toʻrtinchi hosila = 0.02·cos(π/2) = 0m/s⁴"
+  },
+  "narr": [
+   "Bu masalada titrayotgan komponentning siljishidan tezlik va tezlanishni topishni koʻrib chiqamiz.",
+   "Birinchidan, siljish funksiyasidan tezlikni topamiz.",
+   "Keyin, tezlik funksiyasidan tezlanishni topamiz.",
+   "Berilgan vaqt momentida (t = π/2s) tezlik va tezlanish qiymatlarini hisoblaymiz.",
+   "Toʻrtinchi hosilani topish uchun bir necha marta differensiallaymiz.",
+   "Nihoyat, toʻrtinchi hosilani hisoblaymiz va uning xususiyatini kuzatamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — Hosilalar",
+   "problem": "Turli asoslar. f(x) = 3e^x + 2^x −5 funksiyasini differensiallang va f′(0) ni toping.",
+   "steps": [
+    "(e^x)′ = e^x",
+    "2^x uchun: 2^x = (e^(ln2))^x = e^(x·ln2)",
+    "(2^x)′ = e^(x·ln2) · ln 2 = 2^x · ln 2",
+    "Jami f′(x) = 3e^x + 2^x · ln 2",
+    "x = 0 da: f′(0) = 3 · e^0 + 2^0 · ln 2 = 3 + ln 2 ≈3.693"
+   ],
+   "result": "f′(x) = 3e^x + 2^x · ln 2, f′(0) = 3 + ln 2 ≈3.693"
+  },
+  "narr": [
+   "Bu masalada turli asoslarga ega boʻlgan funksiyalarning hosilalarini topishni koʻrib chiqamiz.",
+   "Birinchidan, e^x funksiyasining hosilasini eslaymiz.",
+   "Keyin, 2^x funksiyasining hosilasini topish uchun uni natural logaritm orqali ifodalaymiz.",
+   "Jami funksiyaning hosilasini topamiz.",
+   "Nihoyat, x = 0 nuqtada hosilani hisoblaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — Hosilalar",
+   "problem": "Logarifmlar va urinma. f(x) = 2 · ln x −log10 x, x > 0 funksiyasini differensiallang va x = 1 nuqtadagi urinma tenglamasini toping.",
+   "steps": [
+    "(ln x)′ = 1/x",
+    "(log10 x)′ = 1/(x · ln 10)",
+    "f′(x) = 2 · (1/x) − 1/(x · ln 10) = (2 · ln 10 − 1)/(x · ln 10)",
+    "x = 1 da: f′(1) = (2 · ln 10 − 1)/(1 · ln 10) = 2 − 1/ln 10",
+    "f(1) = 2 · ln 1 − log10 1 = 0",
+    "Urinma tenglamasi: y = f′(1)(x − 1) + f(1) = (2 − 1/ln 10)(x − 1)"
+   ],
+   "result": "f′(x) = (2 · ln 10 − 1)/(x · ln 10), x = 1 nuqtadagi urinma tenglamasi: y = (2 − 1/ln 10)(x − 1)"
+  },
+  "narr": [
+   "Bu masalada logarifmik funksiyalarning hosilalarini topishni koʻrib chiqamiz.",
+   "Birinchidan, natural logaritm va oʻnlik logaritm funksiyalarining hosilalarini eslaymiz.",
+   "Berilgan funksiyaning hosilasini topamiz.",
+   "x = 1 nuqtada funksiyaning qiymati va hosilasini hisoblaymiz.",
+   "Nihoyat, x = 1 nuqtadagi urinma tenglamasini yozamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

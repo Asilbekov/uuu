@@ -1,0 +1,521 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Matematika I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu 5-7 haftalik matematika kursiga oid materiallar bo'lib, hosilalar va ularning qo'llanilishini o'z ichiga oladi.",
+   "Keling, birinchi misolni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Funksiya xossalari",
+   "bullets": [
+    "Funksiya (-2, 3) oraliqda o'suvchi",
+    "Funksiya (-∞, -2) va (3, +∞) oraliqlarda kamayuvchi",
+    "Gorizontal tegish nuqtalari: x = -2 va x = 3"
+   ]
+  },
+  "narr": [
+   "Funksiya (-2, 3) oraliqda o'suvchi va (-∞, -2) va (3, +∞) oraliqlarda kamayuvchi bo'lsa, uning hosilasi qanday bo'ladi?",
+   "Bu holda, f'(x) > 0 (-2, 3) oraliqda, f'(x) < 0 esa bu oraliqdan tashqarida bo'ladi.",
+   "Gorizontal tegish nuqtalarida esa f'(-2) = 0 va f'(3) = 0 bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.24 — Ko'paytma qoidasi",
+   "problem": "j(x) = (x^2+2)(3x^3−5x) funksiya uchun j'(x) ni ko'paytma qoidasi bo'yicha toping va natijani ko'paytmani ochib tekshiring.",
+   "steps": [
+    {
+     "text": "f(x) = x^2 + 2 (f' = 2x)"
+    },
+    {
+     "text": "g(x) = 3x^3−5x (g' = 9x^2 −5)"
+    },
+    {
+     "text": "j'(x) = 2x(3x^3 −5x) + (9x^2 −5)(x^2 + 2)"
+    },
+    {
+     "text": "j'(x) = (6x^4 −10x^2) + (9x^4 + 13x^2 −10)"
+    },
+    {
+     "text": "j'(x) = 15x^4 + 3x^2 −10"
+    },
+    {
+     "text": "Tekshirish: j(x) = 3x^5 + x^3−10x → j'(x) = 15x^4 + 3x^2 −10 — mos keladi."
+    }
+   ],
+   "result": "j'(x) = 15x^4 + 3x^2 −10"
+  },
+  "narr": [
+   "Ko'paytma qoidasidan foydalanib, j(x) funksiyasining hosilasini topamiz.",
+   "Avval, f(x) = x^2 + 2 va g(x) = 3x^3−5x funksiyalarning hosilalarini alohida hisoblaymiz.",
+   "Endi, ko'paytma qoidasini qo'llab, j'(x) ni hisoblaymiz.",
+   "Natijani soddalashtiramiz.",
+   "Nihoyat, ko'paytmani ochib hosilani tekshiramiz.",
+   "Ikkala usul ham bir xil natijani beradi, shuning uchun hisob to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.25 — Bo'linma qoidasi",
+   "problem": "k(x) = 5x^2/(4x + 3) funksiyaning hosilasini toping.",
+   "steps": [
+    {
+     "text": "f(x) = 5x^2 (f' = 10x)"
+    },
+    {
+     "text": "g(x) = 4x + 3 (g' = 4)"
+    },
+    {
+     "text": "k'(x) = (10x(4x+3)−4·5x^2)/(4x+3)^2"
+    },
+    {
+     "text": "k'(x) = (20x^2 + 30x)/(4x + 3)^2"
+    }
+   ],
+   "result": "k'(x) = (20x^2 + 30x)/(4x + 3)^2"
+  },
+  "narr": [
+   "Bo'linma qoidasidan foydalanib, k(x) funksiyasining hosilasini topamiz.",
+   "Avval, f(x) = 5x^2 va g(x) = 4x + 3 funksiyalarning hosilalarini alohida hisoblaymiz.",
+   "Endi, bo'linma qoidasini qo'llab, k'(x) ni hisoblaymiz.",
+   "Natijani soddalashtiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.31 — Gorizontal tegishlar",
+   "problem": "f(x) = x^3−7x^2+ 8x +1 funksiya qaysi x qiymatlarida gorizontal tegishga ega ekanligini aniqlang.",
+   "steps": [
+    {
+     "text": "Gorizontal tegish — f'(x) = 0 bo'lgan joyda."
+    },
+    {
+     "text": "f'(x) = 3x^2−14x +8"
+    },
+    {
+     "text": "f'(x) = (3x−2)(x−4)"
+    },
+    {
+     "text": "yechimlar: x = 2/3 va x = 4"
+    }
+   ],
+   "result": "x = 2/3 va x = 4"
+  },
+  "narr": [
+   "Gorizontal tegish nuqtalari funksiyaning hosilasi nolga teng bo'lgan joylarda bo'ladi.",
+   "Shuning uchun avval f(x) funksiyasining hosilasini topamiz.",
+   "Hosilani kvadrat uchhad sifatida yozamiz.",
+   "Tenglamani yechib, gorizontal tegish nuqtalarini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.36 — Pozitsiya va tezlik",
+   "problem": "Zarrachaning pozitsiyasi: s(t) = t^3−9t^2+ 24t +4, t ≥0. (a)v(t) ni toping. (b) Zarracha qachon tinch turadi? (c)U qaysi tomon chapga va qaysi tomon o'ngga harakat qiladi? (d) Koordinata o'qi bo'yicha yo'lni chizing.",
+   "steps": [
+    {
+     "text": "(a)v(t) = s'(t) = 3t^2−18t +24"
+    },
+    {
+     "text": "(b) Tinchlik holati v(t) = 0 da: 3(t−2)(t−4) = 0, ya'ni t = 2 va t = 4"
+    },
+    {
+     "text": "(c)v(t) > 0 [0, 2) ∪ (4, +∞) da — chapdan o'ngga harakat; v(t) < 0 (2, 4) da — o'ngdan chapga harakat"
+    },
+    {
+     "text": "(d) Muhim nuqtalar: s(0) = 4, s(2) = 24, s(4) = 20"
+    }
+   ],
+   "result": "a) v(t) = 3t^2−18t +24; b) t = 2 va t = 4; c) [0, 2) va (4, +∞) da o'ngga, (2, 4) da chapga; d) s(0)=4, s(2)=24, s(4)=20"
+  },
+  "narr": [
+   "Bu masalada zarrachaning harakatini tahlil qilamiz.",
+   "Avval, tezlik funksiyasini pozitsiya funksiyasining hosilasidan topamiz.",
+   "Tinchlik holati tezlik nolga teng bo'lgan vaqtda bo'ladi.",
+   "Tezlikning ishorasiga qarab, zarrachaning harakat yo'nalatini aniqlaymiz.",
+   "Nihoyat, zarrachaning muhim nuqtalardagi pozitsiyalarini hisoblab, harakat yo'lini tasavvur qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.37 — Aholini baholash",
+   "problem": "Shahar aholisi har 5 yilda uch barobar ortadi; hozirda 10 000. Taxminan 2 yildan keyin aholi qancha bo'ladi?",
+   "steps": [
+    {
+     "text": "P(t) — t yildan keyin aholi (minglab): P(0) = 10, P(5) = 30"
+    },
+    {
+     "text": "O'sish tezligini baholaymiz: P'(0) ≈ (30 −10)/5 = 4 (ming kishi/yil)"
+    },
+    {
+     "text": "O'sish formulasi bo'yicha: P(2) ≈ P(0) + 2 · P'(0) ≈ 10 + 8 = 18"
+    }
+   ],
+   "result": "Taxminan 18 000 kishi"
+  },
+  "narr": [
+   "Bu masalada shahar aholisining o'sishini baholaymiz.",
+   "Avval, berilgan ma'lumotlardan foydalanib, aholi sonini funksiya sifatida ifodalaymiz.",
+   "O'sish tezligini taxminan hisoblaymiz.",
+   "Endi, bu tezlikdan foydalanib, 2 yildan keyin aholi sonini taxminan topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3.38 — Marjinal daromad",
+   "problem": "Barbekuy-ovqatlarining narxi p(x) = 9 − 0.03x, 0 ≤ x ≤ 300; daromad R(x) = x·p(x) = −0.03x^2 + 9x. 101-chi ovqat sotilishidan olingan daromadni marjinal daromad bo'yicha baholab, haqiqiy qiymati bilan solishtiring.",
+   "steps": [
+    {
+     "text": "MR(x) = R'(x) = −0.06x + 9"
+    },
+    {
+     "text": "MR(100) = 3 — 101-chi ovqatdan olingan daromad taxminan 3 dollar"
+    },
+    {
+     "text": "Haqiqiy qiymati: R(101)−R(100) = 602.97−600 = 2.97 dollar"
+    }
+   ],
+   "result": "Marjinal daromad: 3 dollar, haqiqiy qiymat: 2.97 dollar"
+  },
+  "narr": [
+   "Bu masalada marjinal daromad tushunchasini ko'rib chiqamiz.",
+   "Avval, daromad funksiyasining hosilasini topib, marjinal daromad funksiyasini hosil qilamiz.",
+   "Marjinal daromadni x = 100 da hisoblaymiz.",
+   "Nihoyat, haqiqiy daromad farqini hisoblab, marjinal daromadning taxminiy qiymati bilan solishtiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Egilishning tebranishi",
+   "problem": "f(x) = {x · sin(1/x), agar x ≠ 0; 0, agar x = 0} funksiyani nol nuqtada tekshiring: uzluksizmi? differensiallanadimi?",
+   "steps": [
+    {
+     "text": "Uzluksizlik: |f(x)| = |x| · |sin(1/x)| ≤ |x| → 0, shuning uchun 'qisqartirilgan funksiya' teoremasi bo'yicha lim x→0 f(x) = 0 = f(0)"
+    },
+    {
+     "text": "Differensiallanish: f'(0) = lim x→0 (x · sin(1/x))/x = lim x→0 sin(1/x) — limit mavjud emas: kesma chiziqlarning burchagi doimiy o'zgarib turadi"
+    }
+   ],
+   "result": "Funksiya nol nuqtada uzluksiz, lekin differensiallanmaydi."
+  },
+  "narr": [
+   "Bu misolda maxsus funksiyani tekshirib ko'ramiz.",
+   "Avval, funksiyanin nol nuqtada uzluksizligini tekshiramiz.",
+   "Uzluksizlik teoremasidan foydalanib, limit mavjud ekanligini ko'rsatamiz.",
+   "Endi, funksiyanin nol nuqtada differensiallanishini tekshiramiz.",
+   "Limit mavjud emasligini ko'rsatib, differensiallanmasligini isbotlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — Nuqtadagi hosila",
+   "problem": "f(x) = x^2 + 3x funksiya uchun f'(a) = lim h→0 (f(a+h)−f(a))/h ta'rifidan f'(2) ni toping va geometrik ma'nosini tushuntiring.",
+   "steps": [
+    {
+     "text": "f(2) = 10"
+    },
+    {
+     "text": "f(2 + h) = 10 + 7h + h^2"
+    },
+    {
+     "text": "f'(2) = lim h→0 (7h + h^2)/h = lim h→0 (7 + h) = 7"
+    },
+    {
+     "text": "Geometrik ma'no: (2, 10) nuqtadagi urinma chiziqning burchak koeffitsiyenti 7"
+    }
+   ],
+   "result": "f'(2) = 7"
+  },
+  "narr": [
+   "Bu mashqda hosilani ta'rif bo'yicha topamiz.",
+   "Avval, f(2) ni hisoblaymiz.",
+   "Keyin, f(2 + h) ni ifodalaymiz.",
+   "Hosilani ta'rif bo'yicha hisoblab, limitni topamiz.",
+   "Nihoyat, hosilaning geometrik ma'nosini tushuntiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — Hosila sifatida funksiya",
+   "problem": "f(x) = 3x^2−2x +4 funksiya uchun ta'rif bo'yicha: (a)f'(x) ni toping; (b)x = 1 dagi urinma chiziqning burchak koeffitsiyentini; (c) ushbu urinma chiziqning tenglamasini toping.",
+   "steps": [
+    {
+     "text": "(a)f'(x) = lim h→0 [3(x + h)^2 −2(x + h) + 4 −(3x^2 −2x + 4)]/h = lim h→0 (6xh + 3h^2 −2h)/h = 6x −2"
+    },
+    {
+     "text": "(b)f'(1) = 4"
+    },
+    {
+     "text": "(c)f(1) = 5; urinma chiziq: y −5 = 4(x −1), ya'ni y = 4x +1"
+    }
+   ],
+   "result": "a) f'(x) = 6x −2; b) 4; c) y = 4x +1"
+  },
+  "narr": [
+   "Bu mashqda hosilani ta'rif bo'yicha topamiz.",
+   "Avval, f'(x) ni umumiy holda hisoblaymiz.",
+   "Keyin, x = 1 dagi hosilani topib, urinma chiziqning burchak koeffitsiyentini aniqlaymiz.",
+   "Nihoyat, urinma chiziqning tenglamasini yozamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — Ko'phadlarning differensiallanishi",
+   "problem": "Hosilalarni toping: (a)f(x) = 5x^4−3x^3+ 2x −7; (b)g(x) = x^5/5−3x^2/2 + 8; (c)p(x) = 7−4x +x^6.",
+   "steps": [
+    {
+     "text": "(a)f'(x) = 20x^3−9x^2 + 2"
+    },
+    {
+     "text": "(b)g'(x) = x^4−3x"
+    },
+    {
+     "text": "(c)p'(x) = 6x^5 −4"
+    }
+   ],
+   "result": "a) f'(x) = 20x^3−9x^2 + 2; b) g'(x) = x^4−3x; c) p'(x) = 6x^5 −4"
+  },
+  "narr": [
+   "Bu mashqda ko'phad funksiyalarining hosilalarini topamiz.",
+   "Har bir funksiya uchun qoidalar bo'yicha hosilani hisoblaymiz.",
+   "Birinchi funksiyaning hosilasini topamiz.",
+   "Ikkinchi funksiyaning hosilasini topamiz.",
+   "Uchinchi funksiyaning hosilasini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Darajalar",
+   "problem": "Darajalar orqali qayta yozib, differensiallang; hosilaning aniqlanish sohasini ko'rsating: (a)f(x) = 3/x^2; (b)g(x) = 2 · √x −1/x; (c)p(x) = x^(1/3) + x^2.",
+   "steps": [
+    {
+     "text": "(a)f(x) = 3x^−2 → f'(x) = −6x^−3 = −6/x^3, x ≠ 0"
+    },
+    {
+     "text": "(b)g(x) = 2x^(1/2) −x^−1 → g'(x) = x^(−1/2) + x^−2, x > 0"
+    },
+    {
+     "text": "(c)p'(x) = 1/(3x^(2/3)) + 2x, x ≠ 0: o'z-o'zida p nol nuqtada aniqlangan, lekin u yerda chekli hosila yo'q (vertikal urinma)"
+    }
+   ],
+   "result": "a) f'(x) = −6/x^3, x ≠ 0; b) g'(x) = 1/√x + 1/x^2, x > 0; c) p'(x) = 1/(3x^(2/3)) + 2x, x ≠ 0"
+  },
+  "narr": [
+   "Bu mashqda funksiyalarni darajalar orqali ifodalab, hosilalarini topamiz.",
+   "Birinchi funksiyani daraja ko'rinishiga o'tkazib, hosilasini topamiz.",
+   "Ikkinchi funksiyani daraja ko'rinishiga o'tkazib, hosilasini topamiz.",
+   "Uchinchi funksiyani daraja ko'rinishiga o'tkazib, hosilasini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — Bo'linma qoidasi",
+   "problem": "f(x) = (x^2 + 1)/(x + 2), x ≠ −2 bo'lsin. (a)f'(x) ni bo'linma qoidasi bo'yicha toping. (b)f'(0) ni toping. (c)x = 0 dagi urinma chiziqni toping. (d)x = −2 nuqtada hosila nima uchun yo'q?",
+   "steps": [
+    {
+     "text": "(a)f'(x) = [2x(x + 2) −(x^2 + 1)]/(x + 2)^2 = (x^2 + 4x −1)/(x + 2)^2"
+    },
+    {
+     "text": "(b)f'(0) = −1/4"
+    },
+    {
+     "text": "(c)f(0) = 1/2; urinma chiziq y = 1/2 −x/4"
+    },
+    {
+     "text": "(d)x = −2 nuqtada funksiya aniqlanmagan (maxraj nol), shuning uchun u yerda hosila yo'q"
+    }
+   ],
+   "result": "a) f'(x) = (x^2 + 4x −1)/(x + 2)^2; b) f'(0) = −1/4; c) y = 1/2 −x/4; d) Funksiya aniqlanmagan"
+  },
+  "narr": [
+   "Bu mashqda bo'linma qoidasini qo'llaymiz.",
+   "Avval, bo'linma qoidasidan foydalanib, f'(x) ni topamiz.",
+   "Keyin, x = 0 dagi hosilani hisoblaymiz.",
+   "Urinma chiziqning tenglamasini yozamiz.",
+   "Nihoyat, x = −2 nuqtada hosila nima uchun yo'qligini tushuntiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — Yuqori tartibli hosilalar",
+   "problem": "f(x) = 2x^4−3x^3 +x^2−5x +6 funksiya uchun f'(x), f''(x), f'''(x), f^(4)(x), f^(5)(x) ni toping va beshinchi hosilaning ma'nosini tushuntiring.",
+   "steps": [
+    {
+     "text": "f'(x) = 8x^3−9x^2+ 2x −5"
+    },
+    {
+     "text": "f''(x) = 24x^2−18x +2"
+    },
+    {
+     "text": "f'''(x) = 48x −18"
+    },
+    {
+     "text": "f^(4)(x) = 48"
+    },
+    {
+     "text": "f^(5)(x) = 0"
+    },
+    {
+     "text": "Har bir differensiallash darajani 1 ga kamaytiradi; to'rt bosqichdan so'ng doimiy 48 hosil bo'ladi, doimiyning hosili esa nolga teng."
+    }
+   ],
+   "result": "f'(x) = 8x^3−9x^2+ 2x −5; f''(x) = 24x^2−18x +2; f'''(x) = 48x −18; f^(4)(x) = 48; f^(5)(x) = 0"
+  },
+  "narr": [
+   "Bu mashqda yuqori tartibli hosilalarni topamiz.",
+   "Birinchi hosilani topamiz.",
+   "Ikkinchi hosilani topamiz.",
+   "Uchinchi hosilani topamiz.",
+   "To'rtinchi hosilani topamiz.",
+   "Beshinchi hosilani topamiz va uning ma'nosini tushuntiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "7-mashq — Ikkita usul",
+   "problem": "f(x) = √x·(x^2+4), x > 0 funksiyani differensiallang: (a) ko'paytma qoidasi bo'yicha; (b) darajalar yig'indisiga ochib; (c) tengdoshligini ko'rsating.",
+   "steps": [
+    {
+     "text": "(a)f'(x) = (x^2 + 4)/(2 · √x) + 2x·√x; 2x·√x = 4x^2/(2 · √x) ekanligidan, f'(x) = (5x^2 + 4)/(2 · √x) hosil bo'ladi"
+    },
+    {
+     "text": "(b)f(x) = x^(5/2) + 4x^(1/2) → f'(x) = (5/2)x^(3/2) + 2x^(−1/2)"
+    },
+    {
+     "text": "(c) Maxraj 2 · √x ga keltirish: (5/2)x^(3/2) = 5x^2/(2 · √x) va 2x^(−1/2) = 4/(2 · √x); yig'indisi yana (5x^2 + 4)/(2 · √x)"
+    }
+   ],
+   "result": "f'(x) = (5x^2 + 4)/(2 · √x)"
+  },
+  "narr": [
+   "Bu mashqda bir funksiyani ikki xil usulda differensiallaymiz.",
+   "Avval, ko'paytma qoidasidan foydalanib hosilani topamiz.",
+   "Keyin, funksiyani darajalar yig'indisiga ochib hosilani topamiz.",
+   "Nihoyat, ikki usulda olingan natijalarning teng ekanligini ko'rsatamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

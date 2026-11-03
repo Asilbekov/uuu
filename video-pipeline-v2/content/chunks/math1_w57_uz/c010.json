@@ -1,0 +1,452 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu haftalarda hosilalar tushunchasini chuqurroq o'rganamiz.",
+   "Ko'paytma va bo'linma hosilalarini hisoblash qoidalarini o'rganamiz.",
+   "Yuqori hosilalar va ularning qonuniyatlari bilan tanishamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — Odatiy xatolarni tuzatish",
+   "problem": "Talaba yozadi: (a)d/dx(x2 · x3) = (2x)(3x2) = 6x3; (b)d/dx((x2 + 1)/(x + 1)) = 2x/1; (c)d/dx(7x3 + 5) = 21x2 + 5. Har bir daʼvotda xatoni koʻrsating, toʻgʻri hosilani bering va mos keladigan qoidani noming.",
+   "steps": [
+    {
+     "text": "Xato: koʻpaytma hosilasi — hosilalar koʻpaytmasi emas."
+    },
+    {
+     "text": "Toʻgʻri (koʻpaytma qoidasi): d/dx(x2 · x3) = (2x) · x3 + x2 · (3x2) = 5x4 (tekshirish: x2 · x3 = x5, va d/dx(x5) = 5x4)."
+    },
+    {
+     "text": "Xato: boʻlinma hosilasi — hosilalar boʻlinmasi emas."
+    },
+    {
+     "text": "Toʻgʻri (boʻlinma qoidasi): d/dx((x2+1)/(x+1)) = (2x(x+1)−(x2+1))/(x+1)2 = (x2+2x−1)/(x+1)2, x ≠ −1."
+    },
+    {
+     "text": "Xato: doimiy funksiyaning hosilasi nolga teng."
+    },
+    {
+     "text": "Toʻgʻri: d/dx(7x3+5) = 21x2."
+    }
+   ],
+   "result": "Ko'paytma va bo'linma hosilalarini hisoblashda asosiy xatolar: ko'paytma hosilasini hosilalar ko'paytmasi deb olish, bo'linma hosilasini hosilalar bo'linmasi deb olish va doimiy hadning hosilasini hisobga olmaslik."
+  },
+  "narr": [
+   "Keling, odatiy xatolarni ko'rib chiqaylik.",
+   "Birinchi misolda talaba ko'paytma hosilasini noto'g'ri hisoblagan.",
+   "U ko'paytma qoidasini qo'llash o'rniga, alohida hosilalarni ko'paytirib olgan.",
+   "To'g'ri usulda, birinchi funksiyaning hosilasini ikkinchisiga, ikkinchisining hosilasini birinchisiga ko'paytiramiz va qo'shamiz.",
+   "Bu ko'paytma qoidasidir.",
+   "Ikkinchi misolda bo'linma hosilasini noto'g'ri hisoblagan.",
+   "U bo'linma qoidasini qo'llash o'rniga, alohida hosilalarni bo'lib olgan.",
+   "To'g'ri usulda, suratning hosilasini maxrajga ayirib, maxrajning kvadratiga bo'lamiz.",
+   "Uchinchi misolda doimiy hadning hosilasini hisobga olmagan.",
+   "Doimiy hadning hosilasi nolga teng ekanini eslaylik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 11 — Yuqori hosilalar 1/x",
+   "problem": "Faraz qilaylik f(x) = 1/x, x ≠ 0. (a)f′(x), f″(x), f‴(x) ni toping. (b) Ishoralar va koeffitsientlardagi qonuniyatni tasvirlang. (c)f(n)(x) uchun formulani taxmin qiling.",
+   "steps": [
+    {
+     "text": "f′(x) = −1/x2"
+    },
+    {
+     "text": "f″(x) = 2/x3"
+    },
+    {
+     "text": "f‴(x) = −6/x4"
+    },
+    {
+     "text": "Ishoralar almashinadi (−, +, −, . . .), koeffitsientlarning modullari — faktoriallar (1 = 1!, 2 = 2!, 6 = 3!), maxrajning darajasi 1 ga oshadi."
+    },
+    {
+     "text": "f(n)(x) = (−1)n · n!/xn+1, x ≠ 0."
+    },
+    {
+     "text": "n = 3 da tekshirish: (−1)3 · 3!/x4 = −6/x4 — mos keladi."
+    }
+   ],
+   "result": "f(n)(x) = (−1)^n · n!/x^(n+1)"
+  },
+  "narr": [
+   "Endi 1/x funksiyasining yuqori hosilalarini ko'rib chiqaylik.",
+   "Birinchi hosilani hisoblaymiz: −1/x².",
+   "Ikkinchi hosila: 2/x³.",
+   "Uchinchi hosila: −6/x⁴.",
+   "Keling, bu natijalardagi qonuniyatni ko'rib chiqaylik.",
+   "Ishoralar har bir bosqichda almashinib turadi.",
+   "Koeffitsientlarning modullari faktoriallarga to'g'ri keladi: 1!, 2!, 3!.",
+   "Maxrajning darajasi har bir bosqichda 1 ga oshadi.",
+   "Umumiy formulani taxmin qilaylik: f^(n)(x) = (−1)^n · n!/x^(n+1).",
+   "Ushbu formulani n=3 uchun tekshiramiz: (−1)^3 · 3!/x^4 = −6/x⁴, bu uchinchi hosilamizga mos keladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 12 — Isitish tajribasi",
+   "problem": "Tajriba paytida T(t) = 20+ 8t −t², 0 ≤t ≤4(T— Selsiy darajasida, t — daqiqalarda). (a)T′(t) ni toping. (b)T′(1)vaT′(3) ni talqin qiling. (c)[1, 3] oraliqdagi oʻrtacha ishlash tezligini toping. (d)T(2)vaT′(2)danT(2.1) ni baholang. (e) Aniq T(2.1) ni hisoblang va baholash xatosini toping.",
+   "steps": [
+    {
+     "text": "T′(t) = 8−2t."
+    },
+    {
+     "text": "T′(1) = 6 °C/daq, T′(3) = 2 °C/daq: komponent ikkala vaqt ham isiyapti, lekin t = 3 da sekinroq."
+    },
+    {
+     "text": "T(1) = 27, T(3) = 35; oʻrtacha tezlik (35 −27)/(3 −1) = 4 °C/daq."
+    },
+    {
+     "text": "T(2) = 32, T′(2) = 4; oʻsish formulasiga koʻra T(2.1) ≈32+4·0.1 = 32.4 °C."
+    },
+    {
+     "text": "Aniq: T(2.1) = 20+16.8−4.41 = 32.39 °C; tegirmon 0.01 °C yuqori baholaydi."
+    }
+   ],
+   "result": "Oʻrtacha tezlik: 4 °C/daq; baholash xatosi: 0.01 °C"
+  },
+  "narr": [
+   "Isitish tajribasida harorat T(t) = 20 + 8t - t² formula bilan berilgan.",
+   "Avval birinchi hosilani topamiz: T′(t) = 8 - 2t.",
+   "t=1 da: T′(1) = 6 °C/daq, t=3 da: T′(3) = 2 °C/daq.",
+   "Bu degani, tajrabaning boshida harorat tezroq o'sayotgan edi.",
+   "[1, 3] oraliqdagi oʻrtacha tezlikni hisoblaymiz: (T(3) - T(1))/(3 - 1) = (35 - 27)/2 = 4 °C/daq.",
+   "T(2.1) ni baholash uchun oʻsish formulasidan foydalanamiz.",
+   "T(2) = 32, T′(2) = 4, shuning uchun T(2.1) ≈ 32 + 4·0.1 = 32.4 °C.",
+   "Aniq qiymatni hisoblaymiz: T(2.1) = 32.39 °C.",
+   "Baholash xatosi: 32.4 - 32.39 = 0.01 °C."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Darsning asosiy gʻoyalari",
+   "bullets": [
+    "Qismlarga boʻlingan funksiyaning birlashish nuqtasining sillikliligi uzluksizlik va bir tomonlama nishablarning mosligini talab qiladi",
+    "Uzluksizlik differensiallanishni kafolatlamaydi (|x| burilishi, |x|²/³ oʻtkazib boʻlmaydigan uchi, x¹/³ vertikal urinmasi)",
+    "Koʻpaytma va boʻlinma hosilalarini hosilalar koʻpaytmasi/boʻlinmasi bilan almashtirib boʻlmaydi",
+    "Toʻldirish \"tirqishni\" olib tashlashi va differensiallanishni qaytarishi mumkin"
+   ]
+  },
+  "narr": [
+   "Bu haftalarning asosiy gʻoyalari quyidagilardir:",
+   "Birinchi, qismlarga bo'lingan funksiyaning birlashish nuqtasida silliklilik shartlari.",
+   "Funksiya birlashish nuqtasida uzluksiz bo'lishi va bir tomonlama hosilalar teng bo'lishi kerak.",
+   "Ikkinchi, muhim tushuncha: uzluksiz funksiya har doim differensiallanavermaydi.",
+   "Misol uchun, |x| funksiyasi nol nuqtada uzluksiz lekin differensiallanmaydi.",
+   "Uchinchi, ko'paytma va bo'linma qoidalarini noto'g'ri qo'llash xatolari.",
+   "Ko'paytma hosilasi hosilalar ko'paytmasi emas, bo'linma hosilasi hosilalar bo'linmasi emas.",
+   "To'rtinchi, to'ldirish usuli bilan funksiyani aniqlash oralig'ini kengaytirish mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Mustaqil ish topshiriqlari",
+   "subtitle": "Topshirilmaydigan va baholanmaydigan uy vazifalari"
+  },
+  "narr": [
+   "Endi mustaqil ish topshiriqlarini ko'rib chiqamiz.",
+   "Bu topshiriqlar baholanmaydi, lekin ularni yechish materialni chuqur o'rganishga yordam beradi.",
+   "Yechimlarini olish emas, balki tushunchalarni tushunish maqsad qilingan."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 1 — Sunʼiy intellekt yordamchisi bilan ishlash",
+   "problem": "Sunʼiy intellekt yordamchisi (ChatGPT, Claude, DeepSeek, Gemini va boshqalar) bilan tuzilgan suhbatda boʻling: maʼruzada eng muhim tushunchalarni ifodalang va yordamchidan javobingizni (mazmuni va tushunarliligi boʻyicha; chuqurligi va murakkabligi boʻyicha ham) baholashni soʻrang. Agar xato xulosalar, nomutanosibliklar yoki ziddiyatlarn topsangiz, ularni koʻrsating va tushuntirishni soʻrang; agar ziddiyat hal qilinmasa, oʻqituvchiga murojaat qiling.",
+   "steps": [
+    {
+     "text": "6-hafta asosiy gʻoyalari roʻyxatini tuzing (farq nisbati va urinma; hosila chekli sifatida; differensiallash qoidalari; bir tomonlama hosilalar va f′(a) mavjudlik mezonu; \"differensiallanuvchan ⇒ uzluksiz\" teoremasi va uning buzilishlari — burilish, uchburchak, vertikal urinma, osillyatsiya; yuqori hosilalar; oʻsish formulasi; tezlik/tezlanish/tezlik oʻzgarishi; marjinal kattaliklar)."
+    },
+    {
+     "text": "Yordamchidan ifodalarning toʻliqligi va anikligini baho lashni soʻrang va har bir eʼtirozni tahlil qiling."
+    }
+   ],
+   "result": "Topshiriq-instruktsiya; yagona \"yechim\" yoʻq."
+  },
+  "narr": [
+   "Birinchi topshiriqda sun'iy intellekt yordamchisi bilan ishlash kerak.",
+   "O'qituvchidan olingan asosiy tushunchalarni ifodalang.",
+   "Yordamchidan javobingizni baho lashni soʻrang.",
+   "Agar xatolik yoki ziddiyat topsangiz, ularni koʻrsating.",
+   "Ziddiyat hal qilinmasa, oʻqituvchiga murojaat qiling."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 2 — Barcha masalalarni oʻrganish",
+   "problem": "Maʼruza va amaliy mashgʻulotda yoritilgan barcha masalalar, mashqlar va misollarni yaxshi oʻrganing.",
+   "steps": [
+    {
+     "text": "Barcha 12 amaliy mashq — oldingi boʻlimda toʻliq yechimlari bilan."
+    },
+    {
+     "text": "Maʼruza mashqlari (In-Class activity №1 −10) va talab qilinadigan oʻqish misollari — keyingi boʻlimda."
+    },
+    {
+     "text": "3.34–3.35 misollari (topshiriq 3) — pastda."
+    }
+   ],
+   "result": "Topshiriq-instruktsiya; yagona \"yechim\" yoʻq."
+  },
+  "narr": [
+   "Ikkinchi topshiriqda ma'ruzada o'tkazilgan barcha mashqlarni o'rganish kerak.",
+   "12 ta amaliy mashqning to'liq yechimlari oldingi bo'limda berilgan.",
+   "Shuningdek, ma'ruza mashqlari va o'qish misollarini ham o'rganing.",
+   "3.34-3.35 misollari keyingi topshiriqda ko'rib chiqiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 3 — Darslik misollarini oʻrganish",
+   "problem": "Darslikning 3.34 va 3.35 misollarini oʻrganing (OpenStax Calculus 1).",
+   "steps": [
+    {
+     "text": "Misol 3.34 (tezva oʻrtacha tezlik). Toʻp 64 fut balandlikdan tushadi: s(t) = −16t² + 64. (a) Yerga tushish s(t) = 0 da boʻladi: t = 2s. Urinish vaqtidagi tezlik: v(t) = s′(t) = −32t, shuning uchun v(2) = −64fut/s (\"minus\" belgisi pastga harakatni bildiradi; fayl transkripsiyasida \"v(t) = −64\" xatosi, tuzatilgan). (b) Tushish davomidagi oʻrtacha tezlik: vave = (s(2) −s(0))/(2 −0) = −32fut/s."
+    },
+    {
+     "text": "Misol 3.35 (v(t) va a(t) oʻrtasidagi bogʻliqlik). Zarracha: s(t) = t³−4t +2; v(t) = 3t² −4, a(t) = 6t; t = 1 da: v(1) = −1, a(1) = 6. (a)v(1) < 0 boʻlgani uchun, zarracha oʻngdan chapga harakatlanadi. (b)v(1) < 0 va a(1) > 0 — qarama-qarshi yoʻnalishlar: |v(t)| kamayadi, zarracha sekinlashadi."
+    }
+   ],
+   "result": "Misol 3.34: v(2) = −64fut/s, oʻrtacha tezlik: −32fut/s; Misol 3.35: zarracha sekinlashadi"
+  },
+  "narr": [
+   "Uchinchi topshiriqda darslikning ikki misolini o'rganamiz.",
+   "Birinchi misolda to'pning tushish tezligi ko'rib chiqiladi.",
+   "To'p 64 fut balandlikdan tushadi: s(t) = −16t² + 64.",
+   "Yerga tushish vaqtida t = 2s.",
+   "Tushish tezligi: v(t) = s′(t) = −32t, shuning uchun v(2) = −64fut/s.",
+   "O'rtacha tezlik: (s(2) - s(0))/(2 - 0) = −32fut/s.",
+   "Ikkinchi misolda zarrachaning harakati ko'rib chiqiladi.",
+   "s(t) = t³−4t +2; v(t) = 3t² −4, a(t) = 6t.",
+   "t = 1 da: v(1) = −1, a(1) = 6.",
+   "v(1) < 0, ya'ni zarracha o'ngdan chapga harakatlanadi.",
+   "v(1) < 0 va a(1) > 0, ya'ni zarracha sekinlashmoqda."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 4 — Darslik masalalarini yechish",
+   "problem": "Quyidagi masalalarni yeching (ular darslikdan, 196, 210, 211, 212, 232 betlaridan).",
+   "steps": [
+    {
+     "text": "Checkpoint 3.4 (tosh 64 fut balandlikdan tushadi, s(t) = −16t² +64, 0 ≤t ≤ 2; 1 sekunddagi tezlik 3.5 tenglamasi boʻyicha): s(1) = 48; v(1) = lim t →1(−16t² + 16)/(t −1) = lim t →1 −16(t −1)(t + 1)/(t −1) = −32fut/s."
+    },
+    {
+     "text": "Checkpoint 3.8(avabni toping, f(x) = {ax +b, agar x < 3; x², agar x ≥3} x = 3 nuqtada uzluksiz va differensiallanuvchi boʻlishi uchun): uzluksizlik 3a +b = f(3) = 9 ni beradi, differensiallanuvchanlik — qiyaliklarning tengligi a = (x²)′|x=3 = 6; shundan a = 6, b = −9 (tekshirish: 3 · 6 −9 = 9 = 3², qiyaliklar 6 = 6)."
+    },
+    {
+     "text": "Checkpoint 3.9(f(x) = x², f″(x)ni toping): f′(x) = 2x, f″(x) = 2."
+    },
+    {
+     "text": "Checkpoint 3.10(s(t) = t³, a(t)ni toping): v(t) = 3t², a(t) = 6t."
+    }
+   ],
+   "result": "Checkpoint 3.4: v(1) = −32fut/s; Checkpoint 3.8: a = 6, b = −9; Checkpoint 3.9: f″(x) = 2; Checkpoint 3.10: a(t) = 6t"
+  },
+  "narr": [
+   "To'rtinchi topshiriqda darslikning bir nechta masalalarini yechamiz.",
+   "Checkpoint 3.4 da toshning tushishi ko'rib chiqiladi.",
+   "1 sekunddagi tezlikni limit orqali topamiz: v(1) = −32fut/s.",
+   "Checkpoint 3.8 da qismlarga bo'lingan funksiyaning parametrlarini topamiz.",
+   "Funksiya x=3 da uzluksiz va differensiallanuvchi bo'lishi uchun a=6, b=−9 bo'lishi kerak.",
+   "Checkpoint 3.9 da f(x) = x² funksiyaning ikkinchi hosilasini topamiz: f″(x) = 2.",
+   "Checkpoint 3.10 da s(t) = t³ funksiyaning tezlanishini topamiz: a(t) = 6t."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 5 — Qismlarga boʻlingan funksiyaning tahlili",
+   "problem": "f(x) = {2x +1, agar x < 0; x² + 1, agar x ≥0} ni koʻrib chiqaylik. (a) Nolda uzluksizlikni tekshiring. (b)f′_−(0) va f′_+(0) ni toping. (c)f nolda differensiallanadimi yoki yoʻqligini aniqlang. (d) Bogʻlanish nuqtasi yaqinidagi grafikni tasvirling.",
+   "steps": [
+    {
+     "text": "f(0) = 0² + 1 = 1; lim x →0 −f(x) = 2 · 0 + 1 = 1; lim x →0 +f(x) = 0² + 1 = 1 — limit mavjud va qiymatiga teng: f nolda uzluksiz."
+    },
+    {
+     "text": "Chap shoxining 2x +1 noldagi burchak koeffitsiyenti: f′_−(0) = 2; oʻng shoxining x² + 1 burchak koeffitsiyenti: f′_+(0) = (x² + 1)′|x=0 = 0."
+    },
+    {
+     "text": "f′_−(0) = 2 ≠ 0 = f′_+(0): f nolda differensiallanmaydi."
+    },
+    {
+     "text": "Chapda — burchak koeffitsiyenti 2 boʻlgan toʻgʻri chiziq, oʻngda — (0, 1) nuqtada gorizontal urinadigan parabola; shoxlar (0, 1) da uzluqsiz tutashadi, lekin turli burchak koeffitsientlari bilan — tutashish nuqtasida bukilma (kink) bor."
+    }
+   ],
+   "result": "f nolda uzluksiz lekin differensiallanmaydi"
+  },
+  "narr": [
+   "Beshinchi topshiriqda qismlarga bo'lingan funksiyani tahlil qilamiz.",
+   "f(x) = {2x +1, agar x < 0; x² + 1, agar x ≥0}",
+   "Avval nolda uzluksizlikni tekshiramiz.",
+   "f(0) = 1, chap va o'ng chegaralar ham 1 ga teng, shuning uchun funksiya nolda uzluksiz.",
+   "Endi bir tomonlama hosilalarni topamiz.",
+   "Chap tomondan: f′_−(0) = 2.",
+   "O'ng tomondan: f′_+(0) = 0.",
+   "Ikkala bir tomonlama hosila teng emas, shuning uchun funksiya nolda differensiallanmaydi.",
+   "Grafikda chapda qiyaligi 2 bo'lgan to'g'ri chiziq, o'ngda esa (0,1) nuqtada gorizontal urinadigan parabola ko'rinadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq 6 — Toʻgʻri yoki notoʻgʻri",
+   "problem": "Toʻgʻri yoki notoʻgʻri? Asosini keltiring. (a) Agar f a nuqtada differensiallanadigan boʻlsa, u holda f a nuqtada uzluksizdir. (b) Agar f a nuqtada uzluksiz boʻlsa, u holda f a nuqtada differensiallanadi. (c) Agar f′(a) = 0 boʻlsa, f doimiy funksiya boʻlishi shart. (d) Agar ikkala bir tomonlama hosila f′_−(a) va f′_+(a) mavjud boʻlsa, u holda f a nuqtada differensiallanadi.",
+   "steps": [
+    {
+     "text": "(a) Toʻgʻri. \"Differensiallanuvchan funksiya uzluksizdir\" teoremasi."
+    },
+    {
+     "text": "(b) Notoʻgʻri. Misol: f(x) = |x| x = 0 da uzluksiz lekin differensiallanmaydi."
+    },
+    {
+     "text": "(c) Notoʻgʻri. Misol: f(x) = x² a = 0 da f′(0) = 0, lekin f doimiy funksiya emas."
+    },
+    {
+     "text": "(d) Notoʻgʻri. Ikkala bir tomonlama hosila mavjud boʻlishi yetarli emas, ular teng boʻlishi kerak. Misol: f(x) = {x, agar x < 0; 2x, agar x ≥0} x = 0 da f′_−(0) = 1, f′_+(0) = 2, lekin differensiallanmaydi."
+    }
+   ],
+   "result": "(a) Toʻgʻri; (b) Notoʻgʻri; (c) Notoʻgʻri; (d) Notoʻgʻri"
+  },
+  "narr": [
+   "Oxirgi topshiriqda to'g'ri yoki noto'g'ri degan bayonotlarni tekshiramiz.",
+   "Birinchi bayonot: Agar funksiya biror nuqtada differensiallanadigan bo'lsa, u holda shu nuqtada uzluksizdir.",
+   "Bu to'g'ri, chunki differensiallanuvchanlik funksiyaning uzluksizligini ta'minlaydi.",
+   "Ikkinchi bayonot: Agar funksiya biror nuqtada uzluksiz bo'lsa, u holda shu nuqtada differensiallanadi.",
+   "Bu noto'g'ri. |x| funksiyasi x=0 da uzluksiz lekin differensiallanmaydi.",
+   "Uchinchi bayonot: Agar biror nuqtada hosila nolga teng bo'lsa, funksiya doimiy bo'lishi shart.",
+   "Bu noto'g'ri. f(x) = x² funksiya x=0 da f'(0)=0, lekin doimiy emas.",
+   "To'rtinchi bayonot: Agar ikkala bir tomonlama hosila mavjud bo'lsa, funksiya differensiallanadi.",
+   "Bu noto'g'ri. Ikkala bir tomonlama hosila mavjud bo'lishi yetarli emas, ular teng bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3
+  ]
+ }
+]
