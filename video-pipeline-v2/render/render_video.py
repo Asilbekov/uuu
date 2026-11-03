@@ -52,27 +52,32 @@ async def tts_segments(spec, workdir):
     times, words = {}, {}
     n_seg = 0
     blocks = [b for ch in spec['chapters'] for b in ch['blocks']]
-    TTS_SEM = asyncio.Semaphore(4)   # parallel edge-tts calls
+    TTS_SEM = asyncio.Semaphore(3)   # gentle on the MS endpoint from datacenter IPs
     async def synth_one(bi, si, text, mp3, wpath):
         async with TTS_SEM:
-            for attempt in range(5):
+            delays = [2, 5, 10, 20, 40, 60, 60, 90]
+            for attempt in range(8):
                 try:
                     comm = edge_tts.Communicate(text, voice, rate='-4%')
                     wbuf = []
-                    with open(mp3, 'wb') as f:
+                    n_audio = 0
+                    with open(mp3 + '.part', 'wb') as f:
                         async for chunk in comm.stream():
                             if chunk['type'] == 'audio':
-                                f.write(chunk['data'])
+                                f.write(chunk['data']); n_audio += len(chunk['data'])
                             elif chunk['type'] == 'WordBoundary':
                                 wbuf.append({'w': chunk['text'],
                                              't': chunk['offset']/1e7,
                                              'd': chunk['duration']/1e7})
+                    if n_audio < 200:
+                        raise RuntimeError(f'no audio ({n_audio}B)')
+                    os.replace(mp3 + '.part', mp3)
                     json.dump(wbuf, open(wpath, 'w'))
                     return True
                 except Exception:
-                    if attempt == 4: raise
-                    await asyncio.sleep(2.5 * (attempt+1))
-    jobs = []
+                    if attempt == 7: raise
+                    await asyncio.sleep(delays[attempt] + (bi % 5))
+    job_params = []   # (bi, si, text, mp3, wpath)
     for bi, blk in enumerate(blocks):
         for si, text in enumerate(blk.get('narr') or ['']):
             text = (text or '').strip()
@@ -80,9 +85,23 @@ async def tts_segments(spec, workdir):
             mp3 = os.path.join(segs_dir, f'b{bi:04d}_s{si:02d}.mp3')
             wpath = os.path.join(segs_dir, f'b{bi:04d}_s{si:02d}.words.json')
             if not os.path.exists(mp3) or os.path.getsize(mp3) < 400:
-                jobs.append(synth_one(bi, si, text, mp3, wpath))
-    if jobs:
-        await asyncio.gather(*jobs)
+                job_params.append((bi, si, text, mp3, wpath))
+    if job_params:
+        results = await asyncio.gather(
+            *[synth_one(*p) for p in job_params], return_exceptions=True)
+        retry_params = [p for p, r in zip(job_params, results) if isinstance(r, Exception)]
+        if retry_params:
+            print(f'  [tts] {len(retry_params)} segments → serial retry', flush=True)
+            await asyncio.sleep(90)
+            for bi, si, text, mp3, wpath in retry_params:
+                for attempt in range(3):
+                    try:
+                        await synth_one(bi, si, text, mp3, wpath)
+                        break
+                    except Exception as e:
+                        print(f'  [tts] serial b{bi} s{si}: {str(e)[:80]}', flush=True)
+                        if attempt == 2: raise
+                        await asyncio.sleep(120)
     for bi, blk in enumerate(blocks):
         texts = blk.get('narr') or ['']
         durs, bw = [], []
