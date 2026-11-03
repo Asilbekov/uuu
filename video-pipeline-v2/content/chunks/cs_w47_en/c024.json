@@ -1,0 +1,115 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Weeks 4-7",
+   "subtitle": "C Programming Concepts"
+  },
+  "narr": [
+   "Let's dive into some key C programming concepts from weeks 4 through 7.",
+   "We'll explore control flow, functions, pointers, and more."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Control Flow",
+   "bullets": [
+    "What does 'continue' do? — skips the rest of the loop body and jumps to the condition.",
+    "How to swap x and y in main? — void swap(int a, int b) and call swap(&x, &y): passing by value won't work.",
+    "What will strcmp(\"aA\", \"aA\") return? — 0: strings are equal; > 0 — str1 is greater, < 0 — less.",
+    "What will countdown(3) and countup(3) print? — 3 2 1 and 1 2 3: printing before the call — on the way down, after — on the way up.",
+    "fibonacci(4)? — 3; two base cases (F(0) = 0, F(1) = 1), fibonacci(2) is computed twice."
+   ]
+  },
+  "narr": [
+   "Let's start with control flow concepts in C.",
+   "The 'continue' statement is interesting - it doesn't break the loop completely, but rather skips the rest of the current iteration and jumps directly to the condition check.",
+   "When swapping variables in C, we need to be careful about passing by value versus passing by reference. If we want to modify the original variables, we must pass their addresses using pointers.",
+   "The strcmp function compares two strings lexicographically. If they're identical, it returns zero. Otherwise, it returns a positive or negative value depending on which string is greater.",
+   "Recursive functions like countdown and countup demonstrate the call stack behavior. Printing before the recursive call shows the values on the way down, while printing after shows them on the way back up.",
+   "The Fibonacci sequence illustrates how recursion can lead to redundant calculations. fibonacci(4) equals 3, with base cases F(0) = 0 and F(1) = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "What's Next",
+   "subtitle": "Future Topics and Review"
+  },
+  "narr": [
+   "Looking ahead beyond week 7, the course will continue with several important topics.",
+   "Before the midterm, it's crucial to review the material from weeks 4 through 7 in a structured way."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Upcoming Topics",
+   "bullets": [
+    "More searching next week... (lecture 7, slide on binary search — more about searching)",
+    "More about sizeof() next time... (slide on sizeof)",
+    "Implicit cast to/from void * also possible (more next week...) (slide on pointer casting)",
+    "The module concept from lecture 5 extends to external libraries (\"Same concept carries over to external libraries (next week...)\")"
+   ]
+  },
+  "narr": [
+   "Based on lecture materials after week 7, several new topics will be introduced.",
+   "First, we'll explore more searching techniques, building on the binary search concept from lecture 7.",
+   "Next, there will be more detailed coverage of the sizeof operator, which is essential for memory management in C.",
+   "Pointer casting will be revisited, including implicit casting to and from void pointers.",
+   "Finally, the module concept from lecture 5 will be extended to work with external libraries, which is crucial for real-world programming."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Midterm Review Guide",
+   "bullets": [
+    "Review weeks 4–7 in this order: types and division (chapter 2) → conditions, switch, and loops (chapter 3) → functions, structures, and I/O (chapter 4) → pointers, strings, and recursion (chapter 5)",
+    "Run all bug hunts (chapter 6)",
+    "Review this cheat sheet: three exit checks from week 4 (why 4/3 loses the fraction; why 2100 is a common year; why the boundary comes first)",
+    "Three exit checks from week 7 (where does factorial stop; why n - 1 moves toward the base case; what does factorial(3) expect)"
+   ]
+  },
+  "narr": [
+   "To prepare for the midterm, it's recommended to review the material in a specific sequence.",
+   "Start with types and division, then move through control structures, functions, and finally pointers and recursion.",
+   "Don't forget to work through all the bug hunts from chapter 6, as they provide practical experience with common programming errors.",
+   "The cheat sheet contains important exit checks from both week 4 and week 7 that are crucial for understanding fundamental concepts.",
+   "These self-check questions help verify your understanding of key programming concepts like integer division, leap years, and recursive function termination."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

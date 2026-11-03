@@ -1,0 +1,415 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 9,
+   "title": "Bug Hunt Loops",
+   "subtitle": "Infinite Loops and Grid Search"
+  },
+  "narr": [
+   "Let's start with our first bug hunt problem from the loops section.",
+   "We're looking at a nested loop structure that seems to have an issue."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem L9 — Infinite Inner Loop",
+   "problem": "Why does the inner loop never end in the following code?\nfor (int i = 1; i <= 3; i++) {\n    for (int j = 1; j <= 3; j++) {\n        cout << i * j << \"\\t\";\n    }\n    cout << endl;\n}",
+   "steps": [
+    "The inner loop increments i instead of j",
+    "j remains 1 forever",
+    "The condition j <= 3 is always true",
+    "i grows infinitely",
+    "The inner loop loops infinitely and messes up the outer counter"
+   ],
+   "result": "Fix: Change i++ to j++ in the inner loop header"
+  },
+  "narr": [
+   "Here's a classic bug that traps many programmers.",
+   "The problem is that the inner loop is incrementing the wrong variable.",
+   "Instead of incrementing j, it's incrementing i.",
+   "This means j never changes and remains stuck at 1.",
+   "Since j is always 1, the condition j <= 3 is always true.",
+   "Meanwhile, i keeps growing without bound.",
+   "This creates an infinite loop that also messes up the outer counter."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Code for L9",
+   "code": "for (int i = 1; i <= 3; i++) {\n    for (int j = 1; j <= 3; j++) {\n        cout << i * j << \"\\t\";\n    }\n    cout << endl;\n}",
+   "highlight": [
+    1,
+    2
+   ]
+  },
+  "narr": [
+   "The fix is simple but crucial.",
+   "Change the inner loop header to increment j instead of i.",
+   "This ensures both counters progress properly."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem L10 — Finding 7 in a Grid",
+   "problem": "Expected: find the FIRST occurrence of 7 in the grid and print \"First 7 found in row 0\". The code is truncated:\nint grid[3][3] = {\n    {1, 7, 3},",
+   "steps": [
+    "The code listing is truncated in the original file",
+    "7 is in row 0, column 1",
+    "Expected output: \"First 7 found in row 0\"",
+    "Break only exits the innermost loop",
+    "To terminate after the first find, use a found flag or goto-exit"
+   ],
+   "result": "This problem tests understanding of break behavior in nested loops"
+  },
+  "narr": [
+   "Now let's look at a truncated problem that tests our understanding of nested loops.",
+   "The code listing is incomplete, but we can still learn from it.",
+   "The grid contains a 7 in row 0, column 1.",
+   "The expected output should indicate the first occurrence.",
+   "The key lesson here is about how the break statement works.",
+   "Break only exits the innermost loop, not all nested loops.",
+   "To properly terminate after finding the first 7, you need a flag or goto statement."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6.3,
+   "title": "Bug Hunt Pointers & Strings",
+   "subtitle": "Common Errors in Pointer and String Operations"
+  },
+  "narr": [
+   "Moving on to our next section: pointers and strings.",
+   "This section covers twelve common bugs in pointer and string operations.",
+   "All errors have been verified by compilation with gcc and running under Address Sanitizer.",
+   "Many involve undefined behavior that may manifest differently across environments."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem P1 — Missing Null Terminator",
+   "problem": "char s[5] = {'h', 'e', 'l', 'l', 'o'};\nprintf(\"%s\\n\", s);",
+   "steps": [
+    "The array has exactly 5 cells for 5 letters",
+    "No space remains for the null terminator '\\0'",
+    "printf(\"%s\") continues reading memory until it encounters a zero byte",
+    "The output is unpredictable as it reads beyond the array"
+   ],
+   "result": "Fix by adding space for the null terminator: char s[6] = {'h', 'e', 'l', 'l', 'o', '\\0'};"
+  },
+  "narr": [
+   "Our first pointer and string bug involves missing null terminators.",
+   "This array has exactly 5 characters but no space for the null terminator.",
+   "When printf with %s tries to print the string, it keeps reading memory.",
+   "It only stops when it happens to find a zero byte somewhere in memory.",
+   "This leads to unpredictable output and potential security issues."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Code for P1",
+   "code": "char s[6] = {'h', 'e', 'l', 'l', 'o', '\\0'};\nprintf(\"%s\\n\", s);\n/* or: */\nchar s2[] = \"hello\";\nprintf(\"%s\\n\", s2);",
+   "highlight": [
+    1,
+    4
+   ]
+  },
+  "narr": [
+   "The fix is to allocate space for the null terminator.",
+   "Either make the array one larger and add '\\0' explicitly,",
+   "or let the compiler handle it by using a string literal."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem P2 — sizeof on a Pointer",
+   "problem": "char *s = \"hello\";\nprintf(\"%zu\\n\", sizeof(s));",
+   "steps": [
+    "s is a char pointer, not an array",
+    "sizeof(s) returns the size of the pointer itself",
+    "On a 64-bit machine, this is 8 bytes",
+    "The string length is 5, but sizeof doesn't give that"
+   ],
+   "result": "Use strlen(s) to get the string length: printf(\"%zu\\n\", strlen(s));"
+  },
+  "narr": [
+   "Next up is a common confusion between pointers and arrays.",
+   "When you declare a pointer with char *s, sizeof gives the pointer size.",
+   "On a 64-bit system, this is 8 bytes, not the string length.",
+   "To get the string length, you need to use strlen instead."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Code for P2",
+   "code": "char *s = \"hello\";\nprintf(\"%zu\\n\", strlen(s));",
+   "highlight": [
+    2
+   ]
+  },
+  "narr": [
+   "The fix is simple: use strlen to get the actual string length.",
+   "Remember that sizeof on a pointer gives the pointer size,",
+   "not the size of what it points to."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem P3 — String Comparison via ==",
+   "problem": "char a[] = \"cat\";\nchar b[] = \"cat\";\nif (a == b)\n    puts(\"Same\");\nelse\n    puts(\"Different\");",
+   "steps": [
+    "The == operator compares array addresses, not contents",
+    "a and b are two different objects in memory",
+    "The comparison is false even though the strings are identical",
+    "String contents should be compared with strcmp"
+   ],
+   "result": "Use strcmp for string comparison: if (strcmp(a, b) == 0)"
+  },
+  "narr": [
+   "This bug shows a fundamental misunderstanding of how strings work.",
+   "When you use == with arrays, you're comparing their addresses,",
+   "not the actual character contents.",
+   "Even if two strings have identical content, they're stored separately.",
+   "To compare string contents, you need to use strcmp."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Code for P3",
+   "code": "char a[] = \"cat\";\nchar b[] = \"cat\";\nif (strcmp(a, b) == 0)\n    puts(\"Same\");\nelse\n    puts(\"Different\");",
+   "highlight": [
+    3
+   ]
+  },
+  "narr": [
+   "The fix is to use strcmp for proper string comparison.",
+   "strcmp returns 0 when the strings are identical,",
+   "so we check for equality with 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem P4 — Buffer Too Small for strcpy",
+   "problem": "char dest[5];\nstrcpy(dest, \"hello\");\nprintf(\"%s\\n\", dest);",
+   "steps": [
+    "The string \"hello\" requires 6 bytes: 5 letters plus null terminator",
+    "dest only holds 5 bytes",
+    "strcpy writes one byte beyond the array end",
+    "This causes a buffer overflow"
+   ],
+   "result": "Make the destination buffer large enough: char dest[6];"
+  },
+  "narr": [
+   "This is a classic buffer overflow waiting to happen.",
+   "The string \"hello\" needs 6 bytes including the null terminator.",
+   "But the destination buffer only has 5 bytes.",
+   "When strcpy copies the string, it writes beyond the buffer.",
+   "This can corrupt memory and lead to security vulnerabilities."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Code for P4",
+   "code": "char dest[6];\nstrcpy(dest, \"hello\");\nprintf(\"%s\\n\", dest);",
+   "highlight": [
+    1
+   ]
+  },
+  "narr": [
+   "The fix is simple: make sure the destination buffer is large enough.",
+   "Always allocate space for the null terminator when working with strings."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem P5 — Modifying a String Literal",
+   "problem": "char *s = \"hello\";\ns[0] = 'J';\nprintf(\"%s\\n\", s);",
+   "steps": [
+    "String literals like \"hello\" are stored in read-only memory",
+    "s merely points to this read-only location",
+    "Attempting to modify s[0] tries to write to read-only memory",
+    "This typically causes a segmentation fault"
+   ],
+   "result": "Create a modifiable copy: char s[] = \"hello\";"
+  },
+  "narr": [
+   "This bug demonstrates a dangerous misunderstanding of string literals.",
+   "When you write \"hello\" in code, it's stored in read-only memory.",
+   "The pointer s just points to this location.",
+   "Trying to modify it through the pointer attempts to write to read-only memory.",
+   "This usually results in a segmentation fault crash."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Code for P5",
+   "code": "char s[] = \"hello\";\ns[0] = 'J';\nprintf(\"%s\\n\", s);",
+   "highlight": [
+    1,
+    3
+   ]
+  },
+  "narr": [
+   "The fix is to create a modifiable copy using an array declaration.",
+   "This creates a writable copy of the string in memory.",
+   "Now the modification works and prints \"Jello\"."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem P6 — Returning a Pointer to a Local Variable",
+   "problem": "char *greeting(void) {\n    char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%s\\n\", g);\n    return 0;\n}",
+   "steps": [
+    "buf is a local variable on the greeting() stack frame",
+    "The stack frame disappears when greeting() returns",
+    "The returned pointer becomes dangling",
+    "Reading *g is undefined behavior"
+   ],
+   "result": "Fix by using a static array, caller-provided buffer, or malloc'd memory"
+  },
+  "narr": [
+   "This is a subtle but dangerous bug involving memory lifetimes.",
+   "The buffer buf exists on the stack within the greeting function.",
+   "When greeting returns, its stack frame is destroyed.",
+   "The pointer to buf becomes dangling, pointing to invalid memory.",
+   "Using this pointer leads to undefined behavior."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Code for P6 (Static Variant)",
+   "code": "char *greeting(void) {\n    static char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%s\\n\", g);\n    return 0;\n}",
+   "highlight": [
+    2
+   ]
+  },
+  "narr": [
+   "One fix is to make the buffer static.",
+   "Static variables have a lifetime extending beyond the function call.",
+   "This ensures the buffer remains valid when the pointer is returned.",
+   "Other solutions include using a buffer provided by the caller,",
+   "or using malloc'd memory that the caller will free."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ }
+]

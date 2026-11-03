@@ -435,10 +435,16 @@ BUILDERS.concept = (blk, t0)=>{
   const h2 = el('h2','hd', root); h2.textContent = blk.data.heading;
   const sweep = headingSweep(h2, t0, 0.15, 0.9);
   const list = el('div','bullets', root);
+  // adaptive fit: many bullets → smaller font/gap so the list never overflows 1080p
+  const bl = (blk.data.bullets||[]).length;
+  const bFs = bl > 7 ? Math.max(28, 46 - bl*2) : null;   // null → keep CSS 40px
+  const bGap = bl > 7 ? Math.max(14, 34 - bl*2) : null;  // null → keep CSS 26px
+  if (bGap) list.style.gap = bGap+'px';
   const items = (blk.data.bullets||[]).map(b=>{
     const it = el('div','bullet', list);
     el('div','tick', it);
     const tx = el('div','tx', it);
+    if (bFs) tx.style.fontSize = bFs+'px';
     const spans = wordSpans(tx, b);
     return {it, spans};
   });
@@ -699,11 +705,16 @@ BUILDERS.recap = (blk, t0)=>{
   const root = el('div','block b-recap', $('#ground'));
   const h2 = el('h2','hd', root); h2.textContent = blk.data.heading || (DATA.meta.lang==='ru'?'Итоги главы':'Recap');
   const list = el('div','checks', root);
+  // adaptive fit: many items → smaller font/gap so the list never overflows 1080p
+  const rc = (blk.data.items||[]).length;
+  const rFs = rc > 7 ? Math.max(26, 42 - rc*2) : null;   // null → keep CSS 38px
+  const rGap = rc > 7 ? Math.max(12, 32 - rc*2) : null;
+  if (rGap) list.style.gap = rGap+'px';
   const items = (blk.data.items||[]).map(txt=>{
     const it = el('div','check', list);
     const box = el('div','box', it);
     box.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>';
-    const tx = el('div','tx', it); richText(tx, txt);
+    const tx = el('div','tx', it); if (rFs) tx.style.fontSize = rFs+'px'; richText(tx, txt);
     return {it, box, tx};
   });
   move(t0, t0+0.8, 70);

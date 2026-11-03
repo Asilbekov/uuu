@@ -1,0 +1,169 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Computer Science · C · Weeks 4–7",
+   "subtitle": "Loop Debugging Examples"
+  },
+  "narr": [
+   "Welcome to this exploration of common loop errors in C programming. We'll examine several examples where small mistakes lead to unexpected behavior.",
+   "Let's dive into our first bug hunt."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem L1 — Loop Verification",
+   "problem": "Consider this code snippet:\n\nint scores[5] = {90, 85, 70, 100, 60};\nint sum = 0;\nfor (int i = 0; i < 5; i++) {\n    sum += scores[i];\n}\nprintf(\"Sum: %d\", sum);",
+   "steps": [
+    "Calculate the expected sum manually",
+    "Verify the loop runs through all indices",
+    "Check if the output matches expectations"
+   ],
+   "result": "The loop is actually correct. It passes through indices 0–4, each element is added once, and the sum is 90+85+70+100+60 = 405. The program prints \"Sum: 405\" as expected. The only minor issue is the missing newline character in printf, which doesn't affect the result."
+  },
+  "narr": [
+   "Let's look at our first example. We have a simple loop that calculates the sum of scores.",
+   "At first glance, one might think there's a bug here, but let's examine it carefully.",
+   "The loop initializes i to 0 and continues as long as i is less than 5, meaning it will run for i = 0, 1, 2, 3, and 4.",
+   "Each time, it adds the current score to the sum.",
+   "Manually calculating, we get 90 + 85 + 70 + 100 + 60, which equals 405.",
+   "So the program correctly prints \"Sum: 405\". The only minor issue is the missing newline character after %d, which is optional."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem L2 — Semicolon After For",
+   "problem": "Expected output: prints the sum 1..10, i.e., 55.\n\nint sum = 0;\nint i;\nfor (i = 1; i <= 10; i++); {\n    sum += i;\n}\nprintf(\"%d\", sum);",
+   "steps": [
+    "Identify the effect of the semicolon after the for header",
+    "Trace how the loop executes",
+    "Determine why the output is incorrect"
+   ],
+   "result": "The semicolon immediately after the for header makes the loop body an empty statement. The loop runs ten times empty, bringing i to 11, and only then is the block { sum += i; } executed once with i = 11, resulting in sum = 11. Fix: remove the semicolon after for (i = 1; i <= 10; i++)."
+  },
+  "narr": [
+   "Now let's look at a more subtle error: a semicolon after the for header.",
+   "The expected output should be the sum of numbers from 1 to 10, which is 55.",
+   "But instead, the program prints 11. Why is that?",
+   "The problem is that semicolon after the for statement. It makes the loop body an empty statement.",
+   "So the loop runs ten times doing nothing, incrementing i each time until it reaches 11.",
+   "Only after the loop completes does the block { sum += i; } execute once with i = 11.",
+   "The fix is simple: remove the semicolon after the for header."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem L3 — Missing Opening Brace",
+   "problem": "Expected output: prints \"Count: 0\" ... \"Count: 4\" and stops.\n\nfor (int count = 0; count < 5; ++count)\nprintf(\"Count: %d\", count);\n}",
+   "steps": [
+    "Identify the syntax error in the code",
+    "Determine the effect of the missing brace",
+    "Explain why the program won't compile"
+   ],
+   "result": "There is no opening '{' after the for header, so the loop body is only the printf. By itself this would give correct output, but the lone '}' at the end is a syntax error that prevents compilation. Fix: add '{' after the header (or remove the extra '}')."
+  },
+  "narr": [
+   "Our third example involves a missing opening brace in a for loop.",
+   "The expected output should print \"Count: 0\" through \"Count: 4\".",
+   "But this code has a syntax error: there's no opening brace after the for header.",
+   "Without the opening brace, the loop body is just the printf statement.",
+   "Even though this would produce the correct output, the lone '}' at the end creates a syntax error.",
+   "The program won't compile because of this unmatched brace.",
+   "The fix is to add the opening brace after the for header or simply remove the extra closing brace."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem L4 — Printf Without Argument",
+   "problem": "Expected output: prints \"1 2 3 4 Found 5!\" and stops.\n\nfor (int i = 1; i <= 10; i++) {\n    if (i == 5) {\n        printf(\"Found 5!\");\n        break;\n    }\n    printf(\"%i \");\n}",
+   "steps": [
+    "Identify the issue with the printf statement",
+    "Explain the undefined behavior",
+    "Determine the correct fix"
+   ],
+   "result": "In printf(\"%i \"); there is a format specifier %i, but no argument is passed. This causes undefined behavior (usually garbage is printed instead of numbers). Fix: pass i — printf(\"%i \", i);. Then the loop will print 1 2 3 4, when i == 5 — \"Found 5!\" and break will terminate the loop."
+  },
+  "narr": [
+   "Let's examine a printf formatting issue in our next example.",
+   "The expected output should be \"1 2 3 4 Found 5!\" but something's wrong.",
+   "Look at the printf statement: it has a format specifier %i, but no argument is passed.",
+   "This is undefined behavior in C - usually garbage values are printed instead of the intended numbers.",
+   "The fix is simple: pass the variable i as an argument to printf.",
+   "With this change, the loop will correctly print 1 2 3 4, then when i equals 5, it will print \"Found 5!\" and break out of the loop."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem L5 — Unsigned Counter Can't Be Negative",
+   "problem": "Expected output: prints \"5 4 3 2 1 0 Liftoff!\" and terminates.\n\nfor (unsigned int i = 5; i >= 0; i--) {\n    printf(\"%d \", i);\n}\nprintf(\"Liftoff!\");",
+   "steps": [
+    "Explain the behavior of unsigned integers in comparison",
+    "Trace what happens when i reaches 0",
+    "Determine why the loop never terminates"
+   ],
+   "result": "When i reaches 0 and the loop tries to decrement it, it wraps around to the maximum value of an unsigned integer (typically 4294967295). The condition i >= 0 is always true for unsigned integers, so the loop continues indefinitely. Fix: either change the counter to a signed type or change the termination condition to i > 0."
+  },
+  "narr": [
+   "Our final example demonstrates a subtle issue with unsigned counters.",
+   "The expected output should print numbers from 5 down to 0, then print \"Liftoff!\"",
+   "But \"Liftoff!\" is never printed. Why?",
+   "The problem is with the unsigned counter. When i reaches 0 and we try to decrement it, it wraps around to the maximum value of an unsigned integer.",
+   "For a 32-bit unsigned integer, this would be 4294967295.",
+   "The condition i >= 0 is always true for unsigned integers, so the loop continues indefinitely.",
+   "To fix this, you could either change the counter to a signed type or change the termination condition to i > 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ }
+]

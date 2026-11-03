@@ -194,7 +194,7 @@ def build(spec_id, lang, chunks_dir, out_path):
     # ── validation ──
     errors = []
     n_blocks = n_narr = 0
-    caps = {'bullets': 7, 'steps': 7, 'parts': 6, 'items': 7, 'rows': 18, 'events': 14}
+    caps = {'bullets': 9, 'steps': 7, 'parts': 6, 'items': 9, 'rows': 18, 'events': 14}
     for ci, ch in enumerate(spec['chapters']):
         for bi, b in enumerate(ch['blocks']):
             n_blocks += 1

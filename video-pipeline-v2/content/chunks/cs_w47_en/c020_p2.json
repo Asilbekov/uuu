@@ -1,0 +1,184 @@
+[
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Infinite Loop Due to Unsigned Integer Wraparound",
+   "problem": "What happens when the following loop runs?\n\nfor (int i = 5; i >= 0; i--) {\n    printf(\"%d \", i);\n}\nprintf(\"Liftoff!\");",
+   "steps": [
+    {
+     "text": "The variable i is declared as unsigned int, which means it cannot be negative."
+    },
+    {
+     "text": "When i reaches 0 and we apply i--, the counter wraps around to the maximum value of unsigned int due to unsigned arithmetic wraparound principle."
+    },
+    {
+     "text": "The condition i >= 0 is always true for unsigned integers, creating an infinite loop."
+    }
+   ],
+   "result": "The loop becomes infinite because i >= 0 is always true for unsigned integers."
+  },
+  "narr": [
+   "What happens when we run this loop with an unsigned integer counter?",
+   "The issue is that i is declared as unsigned int, which means it can never be negative.",
+   "When i reaches 0 and we apply the decrement operator i--, the counter wraps around to the maximum value of an unsigned integer.",
+   "This is due to the principle of unsigned arithmetic wraparound we discussed earlier.",
+   "As a result, the condition i >= 0 is always true, creating an infinite loop.",
+   "The fix is to use a signed int counter instead."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Iterator Invalidation During Erasure in C++",
+   "problem": "What happens when we try to remove even numbers from a vector using this code?\n\nvector<int> nums = {1, 2, 3, 4, 5, 6};\nfor (auto it = nums.begin(); it != nums.end(); ++it) {\n    if (*it % 2 == 0) {\n        nums.erase(it);\n    }\n}",
+   "steps": [
+    {
+     "text": "When nums.erase(it) is called, the iterator it becomes invalid (iterator invalidation)."
+    },
+    {
+     "text": "The loop then immediately does ++it on this invalid iterator, which causes undefined behavior."
+    },
+    {
+     "text": "The correct approach is to assign the iterator returned by erase (which points to the next element) and only increment when no deletion occurred."
+    }
+   ],
+   "result": "The code causes undefined behavior due to using an invalidated iterator."
+  },
+  "narr": [
+   "Now let's look at a common bug when iterating and erasing elements in C++ vectors.",
+   "The problem occurs when we try to remove even numbers from a vector.",
+   "When nums.erase(it) is called, the iterator it becomes invalid.",
+   "The loop then immediately tries to increment this invalid iterator with ++it, which causes undefined behavior.",
+   "The fix is to assign the iterator returned by erase, which points to the next element, and only increment it when no deletion occurred."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Floating Point Comparison Issues",
+   "problem": "Why doesn't this loop stop at 0.9 as expected?\n\nfor (double x = 0.0; x != 1.0; x += 0.1) {\n    printf(\"%f \", x);\n}",
+   "steps": [
+    {
+     "text": "The value 0.1 cannot be represented exactly in binary floating-point arithmetic."
+    },
+    {
+     "text": "After ten additions, the accumulated error causes x to not equal exactly 1.0."
+    },
+    {
+     "text": "The condition x != 1.0 remains true, and the loop continues beyond 0.9."
+    },
+    {
+     "text": "This is due to the finite precision of floating-point numbers, making equality comparisons unreliable."
+    }
+   ],
+   "result": "The loop doesn't stop because of accumulated floating-point errors making x never exactly equal to 1.0."
+  },
+  "narr": [
+   "Next, let's examine a subtle issue with floating-point arithmetic.",
+   "We have a loop that's supposed to print values from 0.0 to 0.9 in increments of 0.1.",
+   "The problem is that 0.1 cannot be represented exactly in binary floating-point arithmetic.",
+   "After ten additions, the accumulated error causes x to not equal exactly 1.0.",
+   "As a result, the condition x != 1.0 remains true, and the loop continues beyond 0.9.",
+   "The fix is to use a relational condition like x < 1.0 instead of equality comparison."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Variable Shadowing",
+   "problem": "Why does this code print 'Total: 0' instead of 'Total: 15'?\n\nint total = 0;\nfor (int i = 1; i <= 5; i++) {\n    int total = 0;\n    total += i;\n}\nprintf(\"Total: %d\", total);",
+   "steps": [
+    {
+     "text": "Inside the loop, a new variable total is declared, which shadows the outer one."
+    },
+    {
+     "text": "Each iteration creates a fresh inner total, adds i to it, and discards it at the end of the iteration."
+    },
+    {
+     "text": "The outer total is never modified, so it remains 0."
+    },
+    {
+     "text": "The fix is to remove the inner declaration int total = 0; so that total += i updates the outer variable."
+    }
+   ],
+   "result": "The code prints 'Total: 0' because the inner variable shadows the outer one, preventing the outer total from being updated."
+  },
+  "narr": [
+   "Now let's look at a variable scoping issue called variable shadowing.",
+   "The code is supposed to calculate the sum of numbers from 1 to 5, but it prints 'Total: 0' instead of 'Total: 15'.",
+   "The issue is that inside the loop, a new variable total is declared, which shadows the outer one.",
+   "Each iteration creates a fresh inner total, adds i to it, and discards it at the end of the iteration.",
+   "The outer total is never modified, so it remains 0.",
+   "The fix is to remove the inner declaration int total = 0; so that total += i updates the outer variable."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Incrementing the Wrong Variable",
+   "problem": "What's wrong with this nested loop code for a multiplication table?\n\nfor (int i = 1; i <= 3; i++) {\n    for (int j = 1; j <= 3; i++) {\n        cout << i * j << \"\\t\";\n    }\n    cout << endl;\n}",
+   "steps": [
+    {
+     "text": "In the inner loop condition, it uses i++ instead of j++ to increment the counter."
+    },
+    {
+     "text": "This means i is incremented in both loops, while j remains 1 throughout."
+    },
+    {
+     "text": "As a result, the inner loop never terminates because i will always be <= 3."
+    },
+    {
+     "text": "The fix is to change i++ to j++ in the inner loop condition."
+    }
+   ],
+   "result": "The code creates an infinite inner loop because it increments i instead of j in the inner loop condition."
+  },
+  "narr": [
+   "Finally, let's look at a simple but subtle bug in nested loops.",
+   "This code is supposed to generate a 3x3 multiplication table, but it doesn't work correctly.",
+   "The issue is in the inner loop condition, where it uses i++ instead of j++ to increment the counter.",
+   "This means i is incremented in both loops, while j remains 1 throughout.",
+   "As a result, the inner loop never terminates because i will always be <= 3.",
+   "The fix is simple: change i++ to j++ in the inner loop condition."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ }
+]

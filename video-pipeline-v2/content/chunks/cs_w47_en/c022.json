@@ -1,0 +1,479 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Computer Science",
+   "subtitle": "C · Weeks 4–7"
+  },
+  "narr": [
+   "Let's dive into some common C programming bugs and how to fix them.",
+   "We'll start with a function that returns a static buffer."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Static Buffer Example",
+   "code": "char *greeting(void) {\nstatic char buf[20];\nstrcpy(buf, \"Hi there\");\nreturn buf;\n}\nint main(void) {\nchar *g = greeting();\nprintf(\"%s\\n\", g);\nreturn 0;\n}",
+   "highlight": [
+    1,
+    2,
+    3
+   ]
+  },
+  "narr": [
+   "Here we have a function that returns a pointer to a static character buffer.",
+   "The buffer is initialized with the string \"Hi there\"."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Uninitialized (wild) pointer",
+   "problem": "int *p; // -> Memory address\n*p = 10;\nprintf(\"%d\\n\", *p);",
+   "steps": [
+    "The pointer p is declared but not initialized",
+    "*p = 10 attempts to write to the address stored in p",
+    "Since p contains garbage, this writes to an unknown memory location"
+   ],
+   "result": "The program may crash, or it may \"work\" by pure chance (as in the key test where 10 was printed)"
+  },
+  "narr": [
+   "Now let's look at a dangerous bug with uninitialized pointers.",
+   "What happens when we try to dereference an uninitialized pointer?",
+   "The pointer p contains a garbage address, so writing to *p could crash the program.",
+   "In some cases, it might appear to work by pure chance, which is especially dangerous."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fix for Uninitialized Pointer",
+   "code": "int v;\nint *p = &v;\n*p = 10;\nprintf(\"%d\\n\", *p);",
+   "highlight": [
+    1,
+    2
+   ]
+  },
+  "narr": [
+   "The fix is simple: initialize the pointer to point to valid memory.",
+   "We can either point it to a variable or allocate memory dynamically."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Pass by value",
+   "problem": "void swap(int a, int b) {\nint t = a;\na = b;\nb = t;\n}\nint main(void) {\nint x = 1, y = 2;\nswap(x, y);\nprintf(\"%d %d\\n\", x, y);\nreturn 0;\n}",
+   "steps": [
+    "The swap function receives copies of x and y",
+    "The function swaps the values of these copies",
+    "The original variables in main remain unchanged"
+   ],
+   "result": "After calling swap(x, y), the program prints \"1 2\" instead of \"2 1\""
+  },
+  "narr": [
+   "Next, let's explore a common misconception about function parameters in C.",
+   "Why doesn't this swap function actually swap the values?",
+   "C passes copies of values to functions, not references.",
+   "So swap works with its own local copies, leaving the original variables untouched."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fix for Pass by Value",
+   "code": "void swap(int *a, int *b) {\nint t = *a;\n*a = *b;\n*b = t;\n}\nint main(void) {\nint x = 1, y = 2;\nswap(&x, &y);\nprintf(\"%d %d\\n\", x, y);\nreturn 0;\n}",
+   "highlight": [
+    1,
+    2,
+    3
+   ]
+  },
+  "narr": [
+   "The fix is to pass pointers to the variables instead of the values themselves.",
+   "This way, the function can access and modify the original variables through their addresses."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — malloc without +1 for null terminator",
+   "problem": "char *s = \"hello\";\nchar *copy = malloc(strlen(s));\nstrcpy(copy, s);\nprintf(\"%s\\n\", copy);\nfree(copy);",
+   "steps": [
+    "strlen(s) returns 5 for the string \"hello\"",
+    "malloc allocates exactly 5 bytes of memory",
+    "strcpy attempts to write 6 bytes (5 characters + null terminator)",
+    "This causes a one-byte buffer overflow"
+   ],
+   "result": "The heap block overflows by one byte, potentially corrupting memory"
+  },
+  "narr": [
+   "Now let's look at a memory allocation issue with strings.",
+   "What's wrong with this malloc call?",
+   "strlen doesn't count the null terminator character.",
+   "So we're allocating exactly 5 bytes for a string that needs 6 bytes (5 characters + null terminator).",
+   "This causes a one-byte buffer overflow when we use strcpy."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fix for malloc Size",
+   "code": "char *s = \"hello\";\nchar *copy = malloc(strlen(s) + 1);\nstrcpy(copy, s);\nprintf(\"%s\\n\", copy);\nfree(copy);",
+   "highlight": [
+    2
+   ]
+  },
+  "narr": [
+   "The fix is simple: add 1 to the malloc size to account for the null terminator.",
+   "This ensures we have enough space for the entire string."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Unsigned counter in reverse loop",
+   "problem": "char s[] = \"abc\";\nfor (size_t i = strlen(s) - 1; i >= 0; i--) {\nputchar(s[i]);\n}\nputchar('\\n');",
+   "steps": [
+    "size_t is an unsigned integer type",
+    "When i becomes 0 and we decrement it, it wraps around to a large number",
+    "The condition i >= 0 is always true for unsigned integers",
+    "The loop continues reading beyond the array bounds"
+   ],
+   "result": "The loop doesn't stop after 'a' and reads from invalid memory locations"
+  },
+  "narr": [
+   "Next, let's examine a loop issue with unsigned counters.",
+   "Why doesn't this reverse loop work correctly?",
+   "size_t is an unsigned type, so when i becomes 0 and we decrement it, it wraps around to a huge number.",
+   "The condition i >= 0 is always true for unsigned integers, causing an infinite loop.",
+   "The program then reads from memory far beyond the array bounds."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fix for Unsigned Counter",
+   "code": "char s[] = \"abc\";\nfor (int i = (int)strlen(s) - 1; i >= 0; i--) {\nputchar(s[i]);\n}\nputchar('\\n');\n/* or: */\nchar t[] = \"abc\";\nfor (size_t i = strlen(t); i > 0; i--) {\nputchar(t[i - 1]);\n}\nputchar('\\n');",
+   "highlight": [
+    1,
+    8
+   ]
+  },
+  "narr": [
+   "There are two fixes: either use a signed counter or adjust the loop condition.",
+   "The first solution casts the size_t to int to make it signed.",
+   "The second solution checks i > 0 and accesses t[i - 1] to avoid underflow."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Missing & in scanf",
+   "problem": "int x;\nscanf(\"%d\", x);\nprintf(\"%d\\n\", x);",
+   "steps": [
+    "scanf requires the address of the variable to store the input",
+    "Passing x instead of &x passes the uninitialized value as a pointer",
+    "This causes undefined behavior as scanf writes to an unknown address"
+   ],
+   "result": "Most compilers will warn about this with -Wall flag"
+  },
+  "narr": [
+   "Now let's look at a common scanf mistake.",
+   "What happens when we forget the ampersand in scanf?",
+   "scanf needs the address of the variable to store the input value.",
+   "Without the &, we're passing the uninitialized value itself, which scanf treats as a pointer address.",
+   "This leads to undefined behavior as scanf writes to an unknown memory location.",
+   "Most compilers will warn about this if you use the -Wall flag."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fix for scanf",
+   "code": "int x;\nscanf(\"%d\", &x);\nprintf(\"%d\\n\", x);",
+   "highlight": [
+    2
+   ]
+  },
+  "narr": [
+   "The fix is simple: add the ampersand to pass the address of x to scanf.",
+   "This tells scanf where to store the input value."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Use after free",
+   "problem": "int *p = malloc(sizeof(int));\n*p = 42;\nfree(p);\nprintf(\"%d\\n\", *p);",
+   "steps": [
+    "We allocate memory for an integer and store 42 there",
+    "free(p) releases the memory back to the system",
+    "Reading from *p after free accesses invalid memory",
+    "The memory may have been reused by another part of the program"
+   ],
+   "result": "Printing *p after free may print 42, garbage, or crash (undefined behavior)"
+  },
+  "narr": [
+   "Finally, let's look at a dangerous memory error: use after free.",
+   "Why is accessing freed memory a problem?",
+   "After calling free(p), the memory is returned to the system and may be reused.",
+   "Reading from *p afterward accesses invalid memory that could contain anything.",
+   "In some cases, it might still contain the old value by chance, but this is unreliable and dangerous.",
+   "The program might crash or behave unpredictably."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fix for Use after Free",
+   "code": "int *p = malloc(sizeof(int));\n*p = 42;\nprintf(\"%d\\n\", *p);\nfree(p);\np = NULL;",
+   "highlight": [
+    4
+   ]
+  },
+  "narr": [
+   "The fix is to either print before freeing or set p to NULL after freeing.",
+   "Setting p to NULL makes any subsequent access to *p obviously invalid.",
+   "This turns a subtle bug into an obvious crash, which is much easier to detect."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Bug Map of the Sheet",
+   "columns": [
+    "Error type",
+    "Problem numbers"
+   ],
+   "rows": [
+    [
+     "Missing null terminator / + 1 for '\\0'",
+     "1, 4, 9"
+    ],
+    [
+     "Pointer and array confusion",
+     "2, 3"
+    ],
+    [
+     "Read-only memory / dangling memory",
+     "5, 6, 12"
+    ],
+    [
+     "Uninitialized pointers",
+     "7, 11"
+    ],
+    [
+     "Pass by value",
+     "8"
+    ],
+    [
+     "Unsigned wraparound",
+     "10"
+    ]
+   ]
+  },
+  "narr": [
+   "Let's organize these bugs by type to see patterns.",
+   "Here's a summary of all the bugs we've covered.",
+   "The most common issues are missing null terminators and pointer problems.",
+   "Uninitialized pointers and use after free are particularly dangerous bugs.",
+   "Unsigned wraparound can cause subtle infinite loops."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Cheat Sheet",
+   "subtitle": "Key rules and tables"
+  },
+  "narr": [
+   "Now let's look at a quick reference guide for C operators and functions.",
+   "This covers everything you need before the test and exam."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Operator Precedence",
+   "columns": [
+    "Precedence",
+    "Operators",
+    "Comment"
+   ],
+   "rows": [
+    {
+     "tex": "1 (highest)",
+     "cells": [
+      "++ --, (cast), sizeof",
+      "unary operators, type casting, size"
+     ]
+    },
+    {
+     "tex": "2",
+     "cells": [
+      "*, /, %",
+      "multiplicative — higher than + and -"
+     ]
+    },
+    {
+     "tex": "3",
+     "cells": [
+      "+, -",
+      "additive"
+     ]
+    },
+    {
+     "tex": "4",
+     "cells": [
+      "==, !=",
+      "equality comparison — higher than && and ||"
+     ]
+    },
+    {
+     "tex": "5",
+     "cells": [
+      "&&, ||",
+      "logical"
+     ]
+    },
+    {
+     "tex": "6 (lowest)",
+     "cells": [
+      "=, +=, -=, *=, /=, %=",
+      "assignment — very low priority"
+     ]
+    }
+   ]
+  },
+  "narr": [
+   "First, let's review operator precedence in C.",
+   "The highest precedence belongs to unary operators like increment and type casting.",
+   "Multiplicative operators have higher precedence than additive ones.",
+   "Equality comparisons come before logical operations.",
+   "Assignment operators have the lowest precedence, which is why we need parentheses in complex expressions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Precedence Examples",
+   "bullets": [
+    "y = x*3+2 /* same as y = (x*3)+2 */",
+    "x != 0 && y == 0 /* same as (x != 0) && (y == 0) */",
+    "d = c >= '0' && c <= '9' /* same as d = (c >= '0') && (c <= '9') */"
+   ]
+  },
+  "narr": [
+   "Here are some examples of how precedence affects evaluation order.",
+   "In the first example, multiplication happens before addition.",
+   "In the second, comparisons happen before logical AND.",
+   "In the third, character comparisons happen before the logical AND.",
+   "Remember to use parentheses generously to avoid ambiguities."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ }
+]

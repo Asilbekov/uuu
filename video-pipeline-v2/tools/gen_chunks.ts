@@ -167,7 +167,7 @@ function validate(arr: any): string | null {
       if (v && v.length > m) return `block ${i} (${b.type}): ${name} ${v.length} > ${m}`;
       return null;
     };
-    const e = cap(d.bullets, 7, 'bullets') || cap(d.steps, 7, 'steps') || cap(d.items, 7, 'items')
+    const e = cap(d.bullets, 9, 'bullets') || cap(d.steps, 7, 'steps') || cap(d.items, 9, 'items')
            || cap(d.rows, 18, 'rows') || cap(d.events, 14, 'events') || cap(d.parts, 6, 'parts');
     if (e) return e;
   }
