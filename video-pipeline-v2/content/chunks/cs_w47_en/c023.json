@@ -1,0 +1,599 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Printf Specifiers",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Let's start by exploring the various format specifiers available in C's printf function. These specifiers determine how different data types are displayed when printed.",
+   "First, we have integer specifiers. 'd' and 'i' are used for regular integers, 'u' for unsigned integers, 'o' for octal representation, and 'x' or 'X' for hexadecimal.",
+   "For characters, we use 'c' to print a single character, and 's' for strings. When it comes to floating-point numbers, 'f' is used for standard decimal notation, while 'e' and 'E' use exponential notation.",
+   "Finally, 'F', 'g', and 'G' are also for double-precision floating-point numbers, and '%%' allows us to print a literal percent sign."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Printf Format Specifiers",
+   "columns": [
+    "Specifier",
+    "Type",
+    "Example / Output"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "d, i"
+     },
+     {
+      "tex": "int"
+     },
+     {
+      "tex": "printf(\"%d\",10); \\rightarrow 10"
+     }
+    ],
+    [
+     {
+      "tex": "u"
+     },
+     {
+      "tex": "unsigned int"
+     },
+     {
+      "tex": "printf(\"%u\",10); \\rightarrow 10"
+     }
+    ],
+    [
+     {
+      "tex": "o"
+     },
+     {
+      "tex": "unsigned int (octal)"
+     },
+     {
+      "tex": "printf(\"%o\",10); \\rightarrow 12"
+     }
+    ],
+    [
+     {
+      "tex": "x, X"
+     },
+     {
+      "tex": "unsigned int (hexadecimal)"
+     },
+     {
+      "tex": "printf(\"%x\",10); \\rightarrow 0xa"
+     }
+    ],
+    [
+     {
+      "tex": "c"
+     },
+     {
+      "tex": "char"
+     },
+     {
+      "tex": "printf(\"%c\",'A'); \\rightarrow A"
+     }
+    ],
+    [
+     {
+      "tex": "s"
+     },
+     {
+      "tex": "string"
+     },
+     {
+      "tex": "printf(\"%s\",\"hello\"); \\rightarrow hello"
+     }
+    ],
+    [
+     {
+      "tex": "f"
+     },
+     {
+      "tex": "float/double"
+     },
+     {
+      "tex": "printf(\"%f\",2.3); \\rightarrow 2.3"
+     }
+    ],
+    [
+     {
+      "tex": "e, E"
+     },
+     {
+      "tex": "real (exponent)"
+     },
+     {
+      "tex": "1e3, 1.2E3, 1E-3"
+     }
+    ],
+    [
+     {
+      "tex": "F, g, G"
+     },
+     {
+      "tex": "double"
+     },
+     {
+      "tex": "printf(\"%g\",2.3); \\rightarrow 2.3"
+     }
+    ],
+    [
+     {
+      "tex": "\\%\\%"
+     },
+     {
+      "tex": "literal \\%"
+     },
+     {
+      "tex": "printf(\"%%d %%\",10); \\rightarrow 10\\%"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Here's a comprehensive table showing all the printf format specifiers we just discussed. Each specifier corresponds to a specific data type and has its own unique output format.",
+   "For example, when we use 'd' or 'i', we print integers in decimal format. With 'o', we get octal representation, and 'x' or 'X' gives us hexadecimal.",
+   "The 'c' specifier handles single characters, while 's' prints entire strings. For floating-point numbers, 'f' gives standard decimal notation, 'e' and 'E' use scientific notation, and 'g' or 'G' automatically choose between 'f' and 'e' based on the value.",
+   "Finally, the '%%' specifier is special - it lets us print an actual percent character in our output."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Length Modifiers",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Now, let's talk about length modifiers in printf. These modifiers change how the data is interpreted, affecting its size and representation."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Length Modifiers",
+   "columns": [
+    "Modifier",
+    "Meaning"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "h"
+     },
+     {
+      "tex": "interpret as short; with i, d, o, u, x"
+     }
+    ],
+    [
+     {
+      "tex": "l"
+     },
+     {
+      "tex": "interpret as long; with i, d, o, u, x"
+     }
+    ],
+    [
+     {
+      "tex": "L"
+     },
+     {
+      "tex": "interpret as long double; with e, f, g"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Length modifiers change how the data is interpreted. 'h' specifies a short integer, 'l' specifies a long integer, and 'L' specifies a long double for floating-point numbers.",
+   "For example, '%hd' would print a short integer, while '%ld' would print a long integer, and '%Lf' would print a long double."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Width, Flags, and Precision",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Moving on to more advanced formatting options: width, flags, and precision. These allow us to control exactly how our output looks."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Width, Flags, and Precision Examples",
+   "columns": [
+    "printf call",
+    "Output"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "printf(\"%d\",10)"
+     },
+     {
+      "tex": "\"10\""
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%4d\",10)"
+     },
+     {
+      "tex": "\"bb10\" (b — space; width)"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%7s\",\"hello\")"
+     },
+     {
+      "tex": "\"bbhello\""
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%d,%+d,%+d\",10,-10)"
+     },
+     {
+      "tex": "\"10, +10,-10\" (flag +)"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%04d\",10)"
+     },
+     {
+      "tex": "\"0010\" (flag 0)"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%-7s\",\"hello\")"
+     },
+     {
+      "tex": "\"hellobb\" (flag −: left-aligned)"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's look at some examples of how width, flags, and precision work in printf.",
+   "First, '%4d' prints an integer with a minimum width of 4 characters, padding with spaces if needed. Similarly, '%7s' ensures a string takes up at least 7 characters.",
+   "The '+' flag forces the display of a sign for both positive and negative numbers. The '0' flag pads with zeros instead of spaces, and the '-' flag left-aligns the output."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Precision Examples",
+   "columns": [
+    "printf call",
+    "Output"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "printf(\"%.2f,%.0f\",1.141,1.141)"
+     },
+     {
+      "tex": "\"1.14,1\" (precision)"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%.2e,%.0e\",1.141,100.00)"
+     },
+     {
+      "tex": "\"1.14e+00,1e+02\""
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%.4s\",\"hello\")"
+     },
+     {
+      "tex": "\"hell\""
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%.1s\",\"hello\")"
+     },
+     {
+      "tex": "\"h\""
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Precision controls the number of digits displayed after the decimal point for floating-point numbers, or the maximum number of characters for strings.",
+   "For example, '%.2f' shows two decimal places, '%.0f' shows no decimal places, and '%.4s' shows only the first four characters of a string."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Scanf Function",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Now, let's discuss the scanf function, which is the input counterpart to printf. It uses the same format specifiers but with some important differences."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Printf vs Scanf",
+   "columns": [
+    "printf",
+    "scanf"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "printf(\"%d\",x)"
+     },
+     {
+      "tex": "scanf(\"%d\",&x)"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%f\",f)"
+     },
+     {
+      "tex": "scanf(\"%f\",&f)"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%s\",str)"
+     },
+     {
+      "tex": "scanf(\"%s\",str) — & not needed"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%s\",str)"
+     },
+     {
+      "tex": "scanf(\"%20s\",str) — & not needed"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%s %s\",fname,lname)"
+     },
+     {
+      "tex": "scanf(\"%20s %20s\",fname,lname)"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "As you can see, scanf uses the same format specifiers as printf, but there are key differences in how arguments are passed.",
+   "For integers and floating-point numbers, we need to pass the address of the variable using the '&' operator. This is because scanf needs to modify the variable's value.",
+   "For strings, however, we don't use the '&' operator because array names in C are already pointers to their first element.",
+   "We can also specify a maximum width for input, like '%20s' which reads at most 20 characters for a string."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Character Functions",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Let's explore some character functions from stdio.h that are useful for input and output operations."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Character Functions",
+   "bullets": [
+    "putchar(c) — character to standard output (returns character or EOF)",
+    "getchar() — next character of standard input or EOF",
+    "getc(fp)/putc(c, fp) — same for stream",
+    "getchar() is getc(stdin), putchar(c) is putc(c, stdout)",
+    "fgets(line, maxlen, fp) reads a line (including newline)",
+    "fputs(line, fp) writes",
+    "fopen(name, mode) with modes \"r\", \"w\", \"a\" (plus \"b\" for binary)",
+    "fclose(fp)",
+    "stdin/stdout/stderr are also FILE*"
+   ]
+  },
+  "narr": [
+   "Here are the key character functions available in stdio.h.",
+   "putchar(c) sends a character to standard output, while getchar() reads the next character from standard input.",
+   "getc(fp) and putc(c, fp) work with file streams instead of standard input/output. In fact, getchar() is just a shortcut for getc(stdin), and putchar(c) for putc(c, stdout).",
+   "For line operations, fgets() reads a line including the newline character, and fputs() writes a line to a stream.",
+   "For file operations, fopen() opens a file with specified modes like \"r\" for read, \"w\" for write, and \"a\" for append. The \"b\" mode is for binary files.",
+   "Finally, fclose() closes a file stream, and stdin, stdout, stderr are predefined file pointers for standard input, output, and error respectively."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Key Rules of C",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Now, let's cover some key rules and important concepts in C programming that you should be aware of."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Rules of C",
+   "bullets": [
+    "Operand types determine division: 4/3 → 1 (int), 4.0/3.0 → 1.333333; the receiver type doesn't affect it — division happens before assignment.",
+    "Variable names: letters, digits, and _; must start with a letter; no keywords; case-sensitive (x and X are different variables).",
+    "Size guarantees: sizeof(char) == 1; sizeof(char) < sizeof(short) <= sizeof(int) <= sizeof(long); unsigned has roughly twice the range; float precision — 6, double — 15 significant digits.",
+    "Truth and falsehood: any non-zero value is true, 0 is false; condition is a numeric expression or pointer; in C99, bool is from <stdbool.h>.",
+    "== is comparison, = is assignment; comparison == on float/double is unreliable due to finite precision (0.1 cannot be represented exactly).",
+    "Short-circuit: && and || stop evaluation when the result is determined; side effects of the right operand may not execute."
+   ]
+  },
+  "narr": [
+   "Let's start with division rules. In C, the type of operands determines how division is performed. When both operands are integers, the result is truncated to an integer. When at least one operand is a floating-point number, floating-point division is performed.",
+   "For variable names, C allows letters, digits, and underscores, but names must start with a letter or underscore. They're case-sensitive, so 'x' and 'X' are different variables.",
+   "C provides size guarantees for data types. The size of char is always 1 byte. The sizes follow this order: char < short <= int <= long. Unsigned types have roughly twice the range of their signed counterparts. Float has about 6 significant digits, while double has about 15.",
+   "In terms of truth values, any non-zero value is considered true, while zero is false. In C99, we can use the bool type from stdbool.h for more explicit boolean handling.",
+   "Be careful with assignment and comparison. '=' is for assignment, while '==' is for comparison. Also, comparing floating-point numbers with '==' can be unreliable due to precision issues.",
+   "Logical operators && and || use short-circuit evaluation. This means they stop evaluating as soon as the result is determined, which may prevent the right operand from being evaluated."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "More Key Rules of C",
+   "bullets": [
+    "break exits the innermost loop or switch; without break in case, execution falls through to the next case without new checking.",
+    "continue skips the rest of the inner loop body, jumping to the condition (in for — to the update).",
+    "Semicolon after for(...) makes the loop body empty — the block after it will execute once.",
+    "Arguments are passed by value: for a function to change a caller's variable, pass a pointer (swap(&x, &y)); a returned structure is a separate copy that the caller decides where to store.",
+    "String literals are read-only: char *s = \"hello\"; s[0] = 'J'; — segfault; a mutable copy is char s[] = \"hello\";.",
+    "scanf needs addresses: scanf(\"%d\", &x); a char array name is already an address: scanf(\"%s\", str).",
+    "Uninitialized variables are garbage: a local double discount without a value — undefined behavior; C has no default values.",
+    "Recursion = base case + smaller task + progress: without progress (countdown(n) instead of countdown(n-1)) — infinite recursion and stack overflow."
+   ]
+  },
+  "narr": [
+   "In switch statements, break is crucial to exit the switch. Without it, execution falls through to the next case, which can be useful but also a common source of bugs.",
+   "The continue statement skips the rest of the current iteration in a loop and jumps to the next iteration. In for loops, it jumps to the update part.",
+   "Be careful with semicolons in for loops. A semicolon right after the for(...) makes the loop body empty, meaning the following block executes only once after the loop.",
+   "C passes arguments by value, not by reference. To modify a caller's variable, you need to pass a pointer. Similarly, returned structures are copies, not references.",
+   "String literals are read-only in C. Trying to modify a string literal like char *s = \"hello\"; s[0] = 'J'; will cause a segmentation fault. To create a mutable string, use char s[] = \"hello\";.",
+   "With scanf, remember to pass addresses for variables using the '&' operator. For strings, array names are already addresses, so no '&' is needed.",
+   "Uninitialized variables in C contain garbage values. Unlike some languages, C doesn't initialize variables automatically. Using an uninitialized variable leads to undefined behavior.",
+   "For recursion, you need three components: a base case to stop the recursion, a smaller task to solve, and progress toward the base case. Without progress, you get infinite recursion and a stack overflow."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "Ten Answers in One Line",
+   "subtitle": "Weeks 4-7"
+  },
+  "narr": [
+   "Let's quickly go through some common questions and their concise answers about C programming."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Common C Questions and Answers",
+   "bullets": [
+    "1. What will double fraction = 4/3 print with %f? — 1.000000: integer division gives 1 before conversion.",
+    "2. How many significant digits in float and double? — 6 and 15 (FLT_DIG, DBL_DIG).",
+    "3. Leap year? — year % 400 == 0 || (year % 4 == 0 && year % 100 != 0): 2000 — yes, 1900 and 2100 — no.",
+    "4. What without break in switch? — fall-through to the next case without checking (melody 'A#' prints C, then D).",
+    "5. How many times will do-while execute? — at least once: condition is checked after the body."
+   ]
+  },
+  "narr": [
+   "Here are some common questions about C programming with concise answers.",
+   "First, when you do integer division like 4/3 in C, you get 1. If you store this in a double and print it with %f, it will still show 1.000000 because the division happens before assignment.",
+   "Float has about 6 significant digits of precision, while double has about 15. These values are defined as FLT_DIG and DBL_DIG in float.h.",
+   "For leap years, the rule is divisible by 400, or divisible by 4 but not by 100. So 2000 was a leap year, but 1900 and 2100 won't be.",
+   "In switch statements, if you forget to include a break, execution falls through to the next case without checking the condition. This can be useful but also a common source of bugs.",
+   "A do-while loop always executes at least once because the condition is checked after the body has executed."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

@@ -1,0 +1,452 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Computer Science · C · Weeks 4–7",
+   "subtitle": "Loop Debugging Examples"
+  },
+  "narr": [
+   "Welcome to our exploration of common loop pitfalls in C programming. We'll examine several examples of buggy code and understand how to fix them.",
+   "Let's start with our first example."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Initial Example",
+   "code": "int scores[5] = {90, 85, 70, 100, 60};\nint sum = 0;\nfor (int i = 0; i < 5; i++) {\nsum += scores[i];\n}\nprintf(\"Sum: %d\", sum);",
+   "highlight": []
+  },
+  "narr": [
+   "Here's our first code snippet. It's calculating the sum of an array of scores.",
+   "At first glance, it looks correct. The loop runs from 0 to 4, adding each score to the sum.",
+   "The expected result should be 405."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Find the error in this loop",
+   "problem": "Analyze the loop and identify any potential issues.",
+   "steps": [
+    "The loop correctly iterates through indices 0-4",
+    "Each element is added exactly once to the sum",
+    "The calculated sum is 90+85+70+100+60 = 405"
+   ],
+   "result": "The loop is correct as written. The only minor issue is the missing newline character in printf."
+  },
+  "narr": [
+   "Let's analyze this code carefully. Is there actually an error here?",
+   "As we can see, the loop correctly iterates through all elements of the array.",
+   "Each element is added exactly once to the sum.",
+   "The final sum is indeed 405, which matches the expected result.",
+   "So the program works correctly. The only minor improvement would be to add a newline character to the printf statement."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Example 1",
+   "code": "int scores[5] = {90, 85, 70, 100, 60};\nint sum = 0;\nfor (int i = 0; i < 5; i++) {\nsum += scores[i];\n}\nprintf(\"Sum: %d\\n\", sum); /* added \\n — optional */",
+   "highlight": []
+  },
+  "narr": [
+   "Here's the fixed version with the newline character added to the printf statement. This is a minor improvement that doesn't affect the functionality but improves the output formatting."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Semicolon after for",
+   "problem": "Why does this code print 11 instead of the expected sum of 1 to 10 (which is 55)?",
+   "steps": [
+    "The code has a semicolon immediately after the for header",
+    "This makes the loop body an empty statement",
+    "The loop runs ten times without doing anything",
+    "Only after the loop does the block execute once with i = 11"
+   ],
+   "result": "The semicolon after the for header causes the loop to have an empty body. The sum is only updated once after the loop with i = 11."
+  },
+  "narr": [
+   "Now let's look at a more subtle error. This code is supposed to calculate the sum of numbers from 1 to 10, but it prints 11 instead of the expected 55.",
+   "The issue is the semicolon immediately after the for header.",
+   "This semicolon makes the loop body an empty statement.",
+   "So the loop runs ten times without doing anything, just incrementing i.",
+   "Only after the loop completes does the block execute once with i = 11, setting sum to 11."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Example 2",
+   "code": "int sum = 0;\nint i;\nfor (i = 1; i <= 10; i++) {\nsum += i;\n}\nprintf(\"%d\", sum);",
+   "highlight": []
+  },
+  "narr": [
+   "The fix is simple: remove the semicolon after the for header. Now the loop body correctly includes the sum += i statement, and the program will calculate the sum of numbers from 1 to 10, which is 55."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Missing opening brace",
+   "problem": "Why doesn't this program print 'Count: 0' through 'Count: 4' as expected?",
+   "steps": [
+    "The for loop is missing an opening brace after the header",
+    "Without the opening brace, only the printf statement is considered the loop body",
+    " The closing brace at the end creates a syntax error"
+   ],
+   "result": "The missing opening brace causes the printf to be the only statement in the loop body, and the extra closing brace creates a syntax error that prevents compilation."
+  },
+  "narr": [
+   "Let's examine another common syntax error. This code is supposed to print 'Count: 0' through 'Count: 4', but it has a problem.",
+   "The issue is the missing opening brace after the for header.",
+   "Without the opening brace, only the printf statement is considered the loop body.",
+   "Additionally, the extra closing brace at the end creates a syntax error that would prevent the program from compiling."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Example 3",
+   "code": "for (int count = 0; count < 5; ++count) {\nprintf(\"Count: %d\", count);\n}",
+   "highlight": []
+  },
+  "narr": [
+   "The fix is to add the opening brace after the for header. This properly defines the loop body and allows the program to compile and execute as expected, printing 'Count: 0' through 'Count: 4'."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — printf without argument",
+   "problem": "Why don't the expected numbers 1 2 3 4 appear in the output?",
+   "steps": [
+    "The printf statement has a format specifier %i but no argument is passed",
+    "When a format specifier is provided without a corresponding argument, the behavior is undefined",
+    "Typically, this results in garbage values being printed instead of the intended numbers"
+   ],
+   "result": "The printf statement lacks the required argument corresponding to the %i format specifier, causing undefined behavior where garbage values are printed instead of the numbers 1 through 4."
+  },
+  "narr": [
+   "Here's another subtle but important error. This code is supposed to print '1 2 3 4 Found 5!' but the numbers don't appear as expected.",
+   "The problem is in the printf statement inside the loop.",
+   "It has a format specifier %i but no argument is passed to it.",
+   "When a format specifier is provided without a corresponding argument, the behavior is undefined.",
+   "Typically, this results in garbage values being printed instead of the intended numbers."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Example 4",
+   "code": "for (int i = 1; i <= 10; i++) {\nif (i == 5) {\nprintf(\"Found 5!\");\nbreak;\n}\nprintf(\"%i \", i);\n}",
+   "highlight": []
+  },
+  "narr": [
+   "The fix is simple: pass the variable i as an argument to the printf statement. Now the code will correctly print '1 2 3 4 Found 5!' as expected."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Unsigned counter can't be negative",
+   "problem": "Why is 'Liftoff!' never printed in this program?",
+   "steps": [
+    "The counter i is declared as unsigned int, which cannot be negative",
+    "The condition i >= 0 is always true for unsigned integers",
+    "After i reaches 0, the i-- operation causes the counter to wrap around to a large number",
+    "This creates an infinite loop that never reaches the 'Liftoff!' statement"
+   ],
+   "result": "The unsigned counter wraps around to a large number after reaching 0, causing the loop condition to always be true and creating an infinite loop."
+  },
+  "narr": [
+   "Let's look at a tricky issue with unsigned integers. This code is supposed to count down from 5 to 0 and print 'Liftoff!', but it never does.",
+   "The problem is that the counter i is declared as unsigned int.",
+   "Unsigned integers cannot be negative, so the condition i >= 0 is always true.",
+   "After i reaches 0, the i-- operation causes the counter to wrap around to a large number due to unsigned arithmetic.",
+   "This creates an infinite loop that never reaches the 'Liftoff!' statement."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Example 5",
+   "code": "for (int i = 5; i >= 0; i--) {\nprintf(\"%d \", i);\n}\nprintf(\"Liftoff!\");",
+   "highlight": []
+  },
+  "narr": [
+   "The fix is to use a signed int instead of unsigned int. Now when i reaches 0 and is decremented, it becomes -1, the condition i >= 0 becomes false, and the loop terminates, allowing 'Liftoff!' to be printed."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Erase during iteration (C++)",
+   "problem": "Why doesn't this code correctly remove all even numbers from the vector?",
+   "steps": [
+    "The code attempts to erase elements while iterating through the vector",
+    "After calling nums.erase(it), the iterator it becomes invalid",
+    "The loop then increments the invalid iterator with ++it",
+    "This results in undefined behavior"
+   ],
+   "result": "The iterator becomes invalid after erase, and incrementing it causes undefined behavior. The code may crash or produce unpredictable results."
+  },
+  "narr": [
+   "Now let's look at a more advanced issue in C++. This code is supposed to remove all even numbers from a vector, but it doesn't work correctly.",
+   "The problem occurs when trying to erase elements while iterating through the vector.",
+   "After calling nums.erase(it), the iterator it becomes invalid.",
+   "The loop then immediately tries to increment this invalid iterator with ++it.",
+   "This results in undefined behavior, which could cause crashes or unpredictable results."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Example 6",
+   "code": "vector<int> nums = {1, 2, 3, 4, 5, 6};\nfor (auto it = nums.begin(); it != nums.end(); ) {\nif (*it % 2 == 0) {\nit = nums.erase(it);\n} else {\n++it;\n}\n}\nfor (int n : nums) {\ncout << n << \" \";\n}\ncout << endl;",
+   "highlight": []
+  },
+  "narr": [
+   "The fix is to properly handle the iterator after erasure. We assign the iterator returned by erase, which points to the next element, and only increment it when no deletion occurred. This ensures we always have a valid iterator and correctly process all elements."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Comparing double for equality",
+   "problem": "Why doesn't this loop stop at 0.9 as expected?",
+   "steps": [
+    "The loop condition checks if x is exactly equal to 1.0",
+    "Due to floating-point precision limitations, 0.1 cannot be represented exactly in binary",
+    "After ten additions of 0.1, the accumulated error causes x to not equal exactly 1.0",
+    "The condition x != 1.0 remains true, causing the loop to continue beyond 0.9"
+   ],
+   "result": "Floating-point precision errors prevent x from ever exactly equaling 1.0, causing the loop to run indefinitely or beyond the intended range."
+  },
+  "narr": [
+   "Let's examine an issue with floating-point arithmetic. This code is supposed to print values from 0.0 to 0.9 in steps of 0.1, but it doesn't stop as expected.",
+   "The problem is with the loop condition that checks if x is exactly equal to 1.0.",
+   "Due to floating-point precision limitations, the value 0.1 cannot be represented exactly in binary.",
+   "After ten additions of 0.1, the accumulated error causes x to not equal exactly 1.0.",
+   "As a result, the condition x != 1.0 remains true, and the loop continues beyond 0.9."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Example 7",
+   "code": "for (double x = 0.0; x < 1.0; x += 0.1) {\nprintf(\"%f \", x);\n}",
+   "highlight": []
+  },
+  "narr": [
+   "The fix is to use a relational condition x < 1.0 instead of exact equality. This accounts for floating-point precision issues and ensures the loop stops when x reaches or exceeds 1.0."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Variable shadowing of total",
+   "problem": "Why does this code print 'Total: 0' instead of the expected 'Total: 15'?",
+   "steps": [
+    "Inside the loop, a new variable total is declared",
+    "This new total 'shadows' the outer variable with the same name",
+    "Each iteration creates a fresh inner total, adds i to it, and then discards it",
+    "The outer total is never modified, remaining 0 throughout"
+   ],
+   "result": "Variable shadowing causes the inner total to be used instead of the outer one. The inner total is reinitialized in each iteration and discarded, so the outer total remains 0."
+  },
+  "narr": [
+   "Here's an interesting issue with variable scope. This code is supposed to calculate the sum of numbers from 1 to 5 and print 'Total: 15', but it prints 'Total: 0' instead.",
+   "The problem is variable shadowing. Inside the loop, a new variable total is declared.",
+   "This new total 'shadows' the outer variable with the same name.",
+   "Each iteration creates a fresh inner total, adds i to it, and then discards it when the iteration ends.",
+   "The outer total is never modified, remaining 0 throughout the program execution."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Example 8",
+   "code": "int total = 0;\nfor (int i = 1; i <= 5; i++) {\ntotal += i;\n}\nprintf(\"Total: %d\", total);",
+   "highlight": []
+  },
+  "narr": [
+   "The fix is to remove the inner declaration of total. Now total += i; will correctly update the outer variable, resulting in the sum 1 + 2 + 3 + 4 + 5 = 15."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Incrementing the wrong variable",
+   "problem": "Why doesn't this code produce the expected 3×3 multiplication table?",
+   "steps": [
+    "The inner loop uses 'i++' instead of 'j++' in the increment expression",
+    "This means the inner loop never increments j, so it never completes",
+    "The outer loop continues to increment i, but j remains at 1",
+    "As a result, only the first row of the multiplication table is printed multiple times"
+   ],
+   "result": "The inner loop incorrectly increments i instead of j, causing j to never change and the inner loop to never complete properly."
+  },
+  "narr": [
+   "Finally, let's look at a simple but easy-to-miss error in nested loops. This code is supposed to print a 3×3 multiplication table, but it doesn't work correctly.",
+   "The issue is in the inner loop's increment expression.",
+   "It uses 'i++' instead of 'j++'.",
+   "This means the inner loop never increments j, so it never completes its iteration.",
+   "Meanwhile, the outer loop continues to increment i, but j remains at 1.",
+   "As a result, only the first row of the multiplication table is printed multiple times."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fixed Example 9",
+   "code": "for (int i = 1; i <= 3; i++) {\nfor (int j = 1; j <= 3; j++) {\ncout << i * j << \"\\t\";\n}\ncout << endl;\n}",
+   "highlight": []
+  },
+  "narr": [
+   "The fix is simple: change 'i++' to 'j++' in the inner loop's increment expression. Now both loops will work correctly, producing the expected 3×3 multiplication table."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Takeaways",
+   "items": [
+    "Always verify loop conditions and boundaries",
+    "Be careful with semicolons after loop headers",
+    "Properly use braces to define loop bodies",
+    "Match format specifiers with corresponding arguments",
+    "Understand the behavior of unsigned integers",
+    "Handle iterators carefully when modifying containers",
+    "Avoid exact equality comparisons with floating-point numbers",
+    "Beware of variable shadowing",
+    "Check that you're incrementing the correct variables in nested loops"
+   ]
+  },
+  "narr": [
+   "Let's summarize the key lessons from these examples.",
+   "First, always verify your loop conditions and boundaries to ensure they behave as expected.",
+   "Be careful with semicolons after loop headers, as they can create empty loop bodies.",
+   "Properly use braces to define loop bodies, especially when they contain multiple statements.",
+   "Match format specifiers with corresponding arguments in printf and similar functions.",
+   "Understand the behavior of unsigned integers, particularly how they wrap around when decrementing below zero.",
+   "Handle iterators carefully when modifying containers during iteration.",
+   "Avoid exact equality comparisons with floating-point numbers due to precision limitations.",
+   "Beware of variable shadowing, where inner variables hide outer ones with the same name.",
+   "Finally, check that you're incrementing the correct variables in nested loops to avoid infinite loops or incorrect output."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8
+  ]
+ }
+]
