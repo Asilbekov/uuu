@@ -125,7 +125,7 @@ def main():
               open(REPORT, 'w'), indent=1)
 
 # assigned videos (patched per-kernel by make_kernels.py; balance by est. minutes)
-VIDEOS = ["math1_w57_en"]
+VIDEOS = ["cs_w47_ru"]
 
 if __name__ == '__main__':
     main()
