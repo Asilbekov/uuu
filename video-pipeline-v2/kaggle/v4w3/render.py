@@ -4,7 +4,7 @@ dataset, then render this kernel's assigned videos with per-video fault
 tolerance and incremental checkpoints to /kaggle/working/videos.
 
 The video list is appended at the bottom by tools/make_kernels.py as:
-    VIDEOS = ["ite_w14_en"]
+    VIDEOS = ['math1_w14_en', ...]
 """
 import json, os, subprocess, sys, time, traceback
 
@@ -120,18 +120,12 @@ def main():
             log(f'{vid}: FAILED — {str(e)[:300]}')
         json.dump({'log': LOG, 'results': results, 't': time.time()-T0},
                   open(REPORT, 'w'), indent=1)
-    # CLEANUP_OUTPUT: drop work/pipeline caches so the output manifest stays small
-    import shutil
-    for d in ('/kaggle/working/work', '/kaggle/working/pipeline'):
-        if os.path.isdir(d):
-            shutil.rmtree(d, ignore_errors=True)
-            log(f'cleanup: removed {d}')
     log('=== kernel complete ===')
     json.dump({'log': LOG, 'results': results, 't': time.time()-T0},
               open(REPORT, 'w'), indent=1)
 
 # assigned videos (patched per-kernel by make_kernels.py; balance by est. minutes)
-VIDEOS = ["ite_w14_en"]
+VIDEOS = ["ite_w57_ru", "hist_w56_ru"]
 
 if __name__ == '__main__':
     main()
