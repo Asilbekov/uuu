@@ -74,23 +74,37 @@ def build(spec_id, lang, chunks_dir, out_path):
             if inner and not re.search(r'\$\s*\d', inner):
                 return {'tex': inner}
         return _tex_to_text(t.replace('$$', ' ').replace('$', ' '))
+    def _tex_unicode(s):
+        # '·' (U+00B7) maps to undefined \cdotp in bundled KaTeX → split/replace
+        def _in_text(m):
+            return m.group(1) + m.group(2).replace('·', r'} \cdot \text{') + m.group(3)
+        s = re.sub(r'(\\text\{)([^{}]*)(\})',
+                   lambda m: m.group(1) + m.group(2).replace('·', r'} \cdot \text{') + m.group(3)
+                   if '·' in m.group(2) else m.group(0), str(s))
+        return s.replace('·', r' \cdot ')
     def _sanitize_row(row):
         # rows are lists of cells; cells are {'tex': ...} dicts or plain strings
         if not isinstance(row, list): return
         for ci_, c in enumerate(row):
-            if isinstance(c, dict) and 'tex' in c and not _tex_ok(c['tex']):
-                row[ci_] = _fix_tex(c['tex'])
+            if isinstance(c, dict) and 'tex' in c:
+                if not _tex_ok(c['tex']):
+                    row[ci_] = _fix_tex(c['tex'])
+                elif '·' in str(c['tex']):
+                    row[ci_] = {'tex': _tex_unicode(c['tex'])}
     for b in blocks:
         d = b.get('data') or {}
         if isinstance(d.get('rows'), list):
             for row in d['rows']:
                 _sanitize_row(row)
-        # formula/matrix top-level tex: strip $-wrappers the same way
+        # formula/matrix top-level tex: strip $-wrappers + unicode middle dot
         for key in ('tex',):
             v = d.get(key)
-            if isinstance(v, str) and v.strip().startswith('$') and not _tex_ok(v):
-                fixed = _fix_tex(v)
-                d[key] = fixed['tex'] if isinstance(fixed, dict) else fixed
+            if isinstance(v, str):
+                if v.strip().startswith('$') and not _tex_ok(v):
+                    fixed = _fix_tex(v)
+                    d[key] = fixed['tex'] if isinstance(fixed, dict) else fixed
+                elif '·' in v:
+                    d[key] = _tex_unicode(v)
 
     # chapters: split on MAJOR section blocks only (Week/Chapter/Module-level);
     # minor headings (Course Map, Formula Catalog...) stay inside the chapter
