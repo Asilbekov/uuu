@@ -28,11 +28,13 @@ with tempfile.TemporaryDirectory() as td:
         hashes.append(im[::4, ::4].tobytes())
         if i == 0:
             pass
-    nw = [float((np.frombuffer(h, np.uint8) < 235).mean()) for h in hashes]
+    # 'blank' = a REAL defect: near-black frame (render produced nothing).
+    # Sparse section-title slides (cream bg + one heading) are NOT blank.
+    nw = [float((np.frombuffer(h, np.uint8) < 60).mean()) for h in hashes]
     diffs = [float((np.frombuffer(a, np.uint8) != np.frombuffer(b, np.uint8)).mean())
              for a, b in zip(hashes, hashes[1:])]
 uniq = sum(1 for d in diffs if d > 0.01)
-blank = sum(1 for x in nw if x < 0.02)
+blank = sum(1 for x in nw if x > 0.95)
 print(f'frames: {N} sampled | distinct {uniq}/{N-1} | blank {blank}')
 if blank: issues.append(f'{blank} blank frames')
 if uniq < (N - 1) * 0.6: issues.append(f'low variety {uniq}/{N-1}')
