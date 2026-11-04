@@ -62,6 +62,10 @@ for (const [vid, [needle, lang]] of Object.entries(MAP)) {
     }) || rows[0];
   }
   if (!row) { console.log(`⚠️ ${vid}: строка не найдена (needle: ${needle})`); missing++; continue; }
+  if (row.url && String(row.url).startsWith('tg:')) {
+    console.log(`⏭️ ${vid}: уже в Telegram (${String(row.url).slice(0, 40)}...) — пропущен (idempotent)`);
+    continue;
+  }
   await sql`UPDATE "Attachment"
     SET url = ${RELEASE + vid + '.mp4'}, "fallbackUrl" = NULL, "updatedAt" = now()
     WHERE id = ${row.id}`;
