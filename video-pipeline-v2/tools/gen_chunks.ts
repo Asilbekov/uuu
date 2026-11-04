@@ -175,6 +175,38 @@ function autoRepair(arr: any[]): void {
   }
 }
 
+// timeline with >14 events → split into ≤14-event blocks (keeps all content,
+// narr redistributed by narr_item so every event is still covered)
+function autoSplitTimeline(arr: any[]): any[] {
+  const out: any[] = [];
+  for (const b of arr) {
+    const ev = b?.data?.events;
+    if (b?.type === 'timeline' && Array.isArray(ev) && ev.length > 14) {
+      const NI: number[] = Array.isArray(b.narr_item) ? b.narr_item : [];
+      const NA: string[] = Array.isArray(b.narr) ? b.narr : [];
+      const parts: any[] = [];
+      for (let s = 0; s < ev.length; s += 14) {
+        const part = JSON.parse(JSON.stringify(b));
+        part.data.events = ev.slice(s, s + 14);
+        parts.push({ part, base: s });
+      }
+      parts.forEach(({ part, base }, pi) => {
+        const nn: string[] = [], ni: number[] = [];
+        for (let j = 0; j < NA.length; j++) {
+          const it = NI[j];
+          if (typeof it === 'number' && it >= base && it < base + part.data.events.length) {
+            nn.push(NA[j]); ni.push(it - base);
+          }
+        }
+        if (!nn.length) { nn.push(`${pi > 0 ? 'Продолжаем хронологию.' : 'Хронология:'}`); ni.push(-1); }
+        part.narr = nn; part.narr_item = ni;
+        out.push(part);
+      });
+    } else out.push(b);
+  }
+  return out;
+}
+
 function validate(arr: any): string | null {
   if (!Array.isArray(arr) || !arr.length) return 'not an array / empty';
   const types = new Set(['section','concept','formula','example','table','plot','timeline','code','matrix','quote','recap']);
@@ -243,6 +275,7 @@ async function worker(id: number) {
         arr = autoSplit(arr);
         autoRepair(arr);
         arr = splitLists(arr);
+        arr = autoSplitTimeline(arr);
         const err = validate(arr);
         if (err) throw new Error(err);
         fs.writeFileSync(outFile, JSON.stringify(arr, null, 1));
