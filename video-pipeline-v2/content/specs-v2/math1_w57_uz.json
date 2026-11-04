@@ -70,21 +70,9 @@
       "heading": "Uzluksizlik sharti",
       "tex": "\\lim_{x \\to a} f(x) = f(a)",
       "parts": [
-       {
-        "substr": "\\lim_{x \\to a}",
-        "color": "#4C5FD5",
-        "note": "x a ga intilganda"
-       },
-       {
-        "substr": "f(x)",
-        "color": "#B45309",
-        "note": "funksiyaning qiymati"
-       },
-       {
-        "substr": "= f(a)",
-        "color": "#0E7C7B",
-        "note": "funksiyaning a nuqtadagi qiymatiga teng"
-       }
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -106,21 +94,9 @@
       "heading": "Chap va o'ng chegaralar orqali ifodalash",
       "tex": "\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = f(a)",
       "parts": [
-       {
-        "substr": "\\lim_{x \\to a^-}",
-        "color": "#4C5FD5",
-        "note": "chap chegaralar limiti"
-       },
-       {
-        "substr": "\\lim_{x \\to a^+}",
-        "color": "#4C5FD5",
-        "note": "o'ng chegaralar limiti"
-       },
-       {
-        "substr": "= f(a)",
-        "color": "#0E7C7B",
-        "note": "funksiyaning a nuqtadagi qiymatiga teng"
-       }
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -294,21 +270,9 @@
       "heading": "Murakkab funksiya teoremasi",
       "tex": "\\lim_{x \\to a} f(g(x)) = f(\\lim_{x \\to a} g(x)) = f(L), agar f da uzluksiz bo'lsa va \\lim_{x \\to a} g(x) = L bo'lsa",
       "parts": [
-       {
-        "substr": "f(g(x))",
-        "color": "#4C5FD5",
-        "note": "murakkab funksiya"
-       },
-       {
-        "substr": "f(L)",
-        "color": "#B45309",
-        "note": "funktsiya chegarasidagi qiymat"
-       },
-       {
-        "substr": "uzluksiz",
-        "color": "#0E7C7B",
-        "note": "asosiy shart"
-       }
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -452,15 +416,9 @@
       "heading": "Problem 1 — Teskari funksiya topish",
       "problem": "f(x) = 3x + 2 funksiyaning teskarisini toping",
       "steps": [
-       {
-        "text": "y = f(x) = 3x + 2 tenglamani yozamiz"
-       },
-       {
-        "text": "Tenglamani x bo'yicha yechamiz: y - 2 = 3x, x = (y - 2)/3"
-       },
-       {
-        "text": "Teskari funksiyani f^(-1)(y) = (y - 2)/3 deb belgilaymiz"
-       }
+       null,
+       null,
+       null
       ],
       "result": "f^(-1)(x) = (x - 2)/3"
      },
@@ -570,21 +528,11 @@
       "heading": "Misol 1 — Klassik juftlik",
       "problem": "f(x) = e^x funksiyasining teskari funksiyasini toping.",
       "steps": [
-       {
-        "text": "f(x) = e^x funksiyasi R da uzluksiz va qat'iy o'suvchi"
-       },
-       {
-        "text": "Uning qiymatlar sohasi (0, +∞)"
-       },
-       {
-        "text": "Shuning uchun f⁻¹(x) = ln x, x > 0 uzluksiy teskari funksiya mavjud"
-       },
-       {
-        "text": "Grafik nuqtalari o'zaro teskari: e⁰ = 1 (y = e^x dagi (0, 1) nuqta) va ln 1 = 0 (y = ln x dagi (1, 0) nuqta)"
-       },
-       {
-        "text": "y = f⁻¹(x) grafigi f grafigini y = x to'g'ri chiziqqa aks ettirish orqali olinadi"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f⁻¹(x) = ln x, x > 0"
      },
@@ -650,18 +598,10 @@
       "heading": "Mashq 1 — Uzluksizlikni tekshirish",
       "problem": "f(x) = {x² + 1, agar x < 2; 5, agar x = 2; 3x - 1, agar x > 2} funksiyasi x = 2 nuqtada uzluksizmi?",
       "steps": [
-       {
-        "text": "Chap tomonlama limit: lim x→2⁻ f(x) = 2² + 1 = 5"
-       },
-       {
-        "text": "O'ng tomonlama limit: lim x→2⁺ f(x) = 3 · 2 - 1 = 5"
-       },
-       {
-        "text": "Nuqtadagi qiymat: f(2) = 5"
-       },
-       {
-        "text": "Demak, lim x→2 f(x) = f(2) = 5, shuning uchun f funksiyasi x = 2 nuqtada uzluksiz"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Funksiya x = 2 nuqtada uzluksiz"
      },
@@ -686,18 +626,10 @@
       "heading": "Mashq 2 — Uzoqlashuvni bartaraf etish",
       "problem": "f(x) = {(x² - 9)/(x - 3), agar x ≠ 3; k, agar x = 3} funksiyasi x = 3 nuqtada uzluksiz bo'ladigan k ni toping.",
       "steps": [
-       {
-        "text": "x ≠ 3 uchun: f(x) = ((x - 3)(x + 3))/(x - 3) = x + 3"
-       },
-       {
-        "text": "Shuning uchun lim x→3 f(x) = 6"
-       },
-       {
-        "text": "Uzluksizlik k = lim x→3 f(x) ni talab qiladi"
-       },
-       {
-        "text": "Demak, k = 6"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "k = 6"
      },
@@ -720,18 +652,10 @@
       "heading": "Mashq 3 — Uzluksiy o'tish qonuni",
       "problem": "Kuchaygich P(t) = {4t + 1, agar t < 2; a · t² - 1, agar t ≥ 2} funksiyasi bilan tavsiflanadi. P funksiyasi t = 2 nuqtada uzluksiz bo'ladigan a ni toping.",
       "steps": [
-       {
-        "text": "Chap chegarali limit: lim t→2⁻ P(t) = 4 · 2 + 1 = 9"
-       },
-       {
-        "text": "O'ng tomondan: P(2) = 4a - 1"
-       },
-       {
-        "text": "Uzluksizlik uchun: 4a - 1 = 9"
-       },
-       {
-        "text": "Shunday qilib, 4a = 10 va a = 5/2"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "a = 5/2"
      },
@@ -758,18 +682,10 @@
       "heading": "Mashq 4 — Kompozitsiya va uzluksizlik",
       "problem": "f(x) = √x va g(t) = 4 - t² bo'lsin. h(t) = f(g(t)) aniqlanish sohasini aniqlang va h qaysi joyda uzluksiz ekanligini ko'rsating.",
       "steps": [
-       {
-        "text": "Kompozitsiya: h(t) = √(4 - t²)"
-       },
-       {
-        "text": "Ildiz ostidagi ifoda manfiy bo'lmasligi kerak: 4 - t² ≥ 0, bundan -2 ≤ t ≤ 2"
-       },
-       {
-        "text": "Ikkala funksiya — g va kvadrat ildiz — mos ravishda aniqlanish sohalarida uzluksiz"
-       },
-       {
-        "text": "Shuning uchun h(t) = √(4 - t²) funksiyasi [-2, 2] kesmada uzluksiz"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Aniqlanish sohasi: [-2, 2], bu oraliqda uzluksiz"
      },
@@ -796,18 +712,10 @@
       "heading": "Mashq 5 — Ters funksiyani topish",
       "problem": "Dvigatel siljishi x kirish kuchlanishi V bilan x(V) = 0.5 · V + 2, 0 ≤ V ≤ 10 berilgan. (1) x ning qiymatlar sohasini toping. (2) Ters funksiyani V(x) toping. (3) Ters funksiya nima uchun uzluksiz ekanligini tushuntiring.",
       "steps": [
-       {
-        "text": "Uchlarda: x(0) = 2, x(10) = 7"
-       },
-       {
-        "text": "x(V) ortib borayotgani uchun uning qiymatlar sohasi [2, 7]"
-       },
-       {
-        "text": "Ters funksiyani topish uchun x = 0.5·V + 2 tenglamani V uchun yechamiz: x - 2 = 0.5·V, bundan V(x) = 2·(x - 2) = 2x - 4, 2 ≤ x ≤ 7"
-       },
-       {
-        "text": "Asl funksiya [0, 10] da uzluksiz va qat'iy ortib borayotgani uchun uning teskari funksiyasi [2, 7] da uzluksiz"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "V(x) = 2x - 4, 2 ≤ x ≤ 7"
      },
@@ -836,15 +744,9 @@
       "heading": "Mashq 6 — Nima uchun aniqlanish sohasini cheklash kerak",
       "problem": "f(x) = x² ni ko'rib chiqaylik. (1) f ning R da teskari funksiyasi bo'lmaganini tushuntiring. (2) Aniqlanish sohasini [0, +∞) ga cheklab teskari funksiyani toping. (3) Aniqlanish sohasini (-∞, 0] ga cheklab teskari funksiyani toping.",
       "steps": [
-       {
-        "text": "(1) Butun sonli chiziq R da: f(-x) = f(x), ya'ni har xil kirishlar bir xil chiqishlarni berishi mumkin; masalan, f(-3) = f(3) = 9. Demak, f R da bir qiymatli emas va teskari funksiyaga ega emas."
-       },
-       {
-        "text": "(2) [0, +∞) da f funksiyasi qat'iy ortib borayotgani uchun f⁻¹(y) = √y."
-       },
-       {
-        "text": "(3) (-∞, 0] da funksiya qat'iy kamayayotgan: x nolga intilganda -4 < -3 < -2 < -1 < 0, lekin mos kvadratlar 16 > 9 > 4 > 1 > 0 — katta kirishlar kichik chiqishlar beradi ((-∞, 0] da f qat'iy kamayadi, [0, +∞) esa qat'iy ortadi). Ters funksiya manfiy sonni qaytarishi kerak, shuning uchun f⁻¹(y) = -√y. Ikkala teskari funksiya ham y ≥ 0 da uzluksiz."
-       }
+       null,
+       null,
+       null
       ],
       "result": "R da teskari funksiya yo'q; [0, +∞) da f⁻¹(y) = √y; (-∞, 0] da f⁻¹(y) = -√y"
      },
@@ -879,15 +781,9 @@
       "heading": "Mashq 7 — Termistor kalibrlash",
       "problem": "Termistor modeli: R(T) = 100 · e^(-0.02·T), T ≥ 0, bunda R — kiloommdagi qarshilik, T — Selsiy darajasidagi harorat. (1) Funksiyani teskari ega ekanligini ko'rsating. (2) T(R) ni toping. (3) R = 40 kOm bo'lgandagi haroratni hisoblang.",
       "steps": [
-       {
-        "text": "(1) Funksiya T ≥ 0 da uzluksiz va qat'iy kamayayotgani uchun u bir qiymatli va uzluksiz teskari funksiyaga ega."
-       },
-       {
-        "text": "(2) R = 100 · e^(-0.02·T) dan boshlaymiz. 100 ga bo'lamiz: R/100 = e^(-0.02·T). Tabiiy logarifmlarni olamiz: ln(R/100) = -0.02 · T. Demak, T(R) = -50 · ln(R/100)."
-       },
-       {
-        "text": "(3) R = 40 da: T = -50 · ln(0.4) ≈ 45.8 (Selsiy darajasida)."
-       }
+       null,
+       null,
+       null
       ],
       "result": "T(R) = -50 · ln(R/100), R = 40 kOm da T ≈ 45.8°C"
      },
@@ -920,15 +816,9 @@
       "heading": "Mashq 8 — O'rta qiymatlar teoremasini qo'llash",
       "problem": "Komponent harorati T(t) = 20 + 5t - t², 0 ≤ t ≤ 4 funksiyasi bilan modellashtiriladi. Komponent ushbu intervalda 25°C ga yetishini ko'rsating.",
       "steps": [
-       {
-        "text": "Funksiya polinomial bo'lgani uchun uzluksiz."
-       },
-       {
-        "text": "Ikkita qulay vaqt nuqtasida uning qiymatini hisoblaymiz: T(1) = 20 + 5 - 1 = 24 va T(2) = 20 + 10 - 4 = 26."
-       },
-       {
-        "text": "24 < 25 < 26 bo'lgani uchun o'rta qiymatlar teoremasi kamida bitta c ∈ (1, 2) nuqtada T(c) = 25 bo'lishini kafolatlaydi."
-       }
+       null,
+       null,
+       null
       ],
       "result": "Komponent harorati 25°C ga yetadi"
      },
@@ -957,18 +847,10 @@
       "heading": "Problem 1 — Tenglama yechimi",
       "problem": "5t + 5 = 0 tenglamani yechamiz, bundan t = (5 - √5)/2 yoki t = (5 + √5)/2.",
       "steps": [
-       {
-        "text": "Tenglamani yechamiz: 5t + 5 = 0"
-       },
-       {
-        "text": "Ikkala yechim ham [0, 4] oralig'ida joylashgan"
-       },
-       {
-        "text": "t₁ = (5 - √5)/2 ≈ 1.382"
-       },
-       {
-        "text": "t₂ = (5 + √5)/2 ≈ 3.618"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Komponent 25°C ga ikki marta yetadi: t₁ ≈ 1.382 va t₂ ≈ 3.618"
      },
@@ -991,15 +873,9 @@
       "heading": "Problem 2 — Veershtrass teoremasini qo'llash",
       "problem": "Kichik qurilma quvvati P(t) = -2t² + 12t + 5, 0 ≤ t ≤ 5 funksiyasi bilan modellashtiriladi. (1) P ning mutlaq maksimum va minimumi borligini tushuntiring. (2) Ikkala ekstremumni toping.",
       "steps": [
-       {
-        "text": "(1) Funksiya polinomial, demak uzluksiz; uning aniqlanish sohasi [0, 5] yopiq va cheklangan."
-       },
-       {
-        "text": "Veershtrass teoremasi mutlaq maksimum va minimumning mavjudligini kafolatlaydi."
-       },
-       {
-        "text": "(2) Ekstremumlarni topish uchun hosilalar kerak (6-hafta materiali)."
-       }
+       null,
+       null,
+       null
       ],
       "result": "(1) Veershtrass teoremasi shartlari bajarilgan, shuning uchun mutlaq ekstremumlar mavjud. (2) Ekstremumlarni topish keyingi hafta ko'rib chiqiladi."
      },
@@ -1024,18 +900,10 @@
       "heading": "Problem 3 — Intervalning yopiq bo'lishi ahamiyati",
       "problem": "Samaradorlik modelini η(v) = v, 0 < v < 10 deb ko'rib chiqaylik. Veershtrass teoremasi maksimum va minimumni kafolatlaydimi?",
       "steps": [
-       {
-        "text": "Funksiya uzluksiz, lekin (0, 10) intervali ochiq, yopiq emas."
-       },
-       {
-        "text": "v → 0⁺ da η(v) → 0 ga yaqinlashadi, lekin hech qachon 0 ga yetmaydi."
-       },
-       {
-        "text": "v → 10⁻ da η(v) → 10 ga yaqinlashadi, lekin hech qachon 10 ga yetmaydi."
-       },
-       {
-        "text": "Shuning uchun bu hududda funksiyaning hech qanday mutlaq minimumi yoki maksimumi yo'q."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Veýershtrass teoremasi qo'llanilmaydi, chunki aniqlanish sohasi yopiq emas."
      },
@@ -1060,15 +928,9 @@
       "heading": "Problem 4 — Konstruktsiyaning optimizatsiya masalasi",
       "problem": "Metall detal bo'ylab harorat T(x) = 40 + 12x - 3x², 0 ≤ x ≤ 5 funksiya bilan taxminan ifodalanadi, bunda x metrlarda o'lchanadi. (1) Veýershtrass teoremasidan foydalanib eng issiq va eng sovuq nuqtalarning mavjudligini asoslang. (2) Ular joylashgan joylarini va haroratlarini toping.",
       "steps": [
-       {
-        "text": "(1) T(x) — ko'phad, shuning uchun uzluksiz; [0, 5] intervali yopiq va chekli."
-       },
-       {
-        "text": "Demak, mutlaq ekstremumlar mavjud."
-       },
-       {
-        "text": "(2) Ekstremumlarni topish uchun hosilalar kerak (6-hafta materiali)."
-       }
+       null,
+       null,
+       null
       ],
       "result": "(1) Teorema shartlari bajarilgan, shuning uchun mutlaq ekstremumlar mavjud. (2) Ekstremumlarni topish keyingi hafta ko'rib chiqiladi."
      },
@@ -1093,18 +955,10 @@
       "heading": "Problem 5 — Uchta fikrning barchasini bog'lash",
       "problem": "Bosim sensori V(p) = √p + 1, 0 ≤ p ≤ 8 funksiya bilan modellashtirilgan. (1) V ning uzluksiz ekanligini ko'rsating. (2) Nega u uzluksiy teskari funksiyaga ega ekanligini tushuntiring. (3) Teskari funksiyani toping. (4) Veýershtrass teoremasidan foydalanib sensorning minimal va maksimal kuchlanishini ko'rsating.",
       "steps": [
-       {
-        "text": "(1) p + 1 funksiyasi uzluksiz, kvadrat ildiz manfiy bo'lmagan kirishlar uchun uzluksiz, shuning uchun V [0, 8] da uzluksiz."
-       },
-       {
-        "text": "(2) U qat'iy o'suvchi, demak, bir-biriga ko'proq mos; shu sababli uzluksiy teskari funksiya mavjud."
-       },
-       {
-        "text": "(3) V = √p + 1 dan boshlaymiz; ikkala tomonni kvadratga ko'ramiz: V² = p + 1, bundan p(V) = V² - 1."
-       },
-       {
-        "text": "(4) Kuchlanishlar oralig'i uchlarda hosil bo'ladi: V(0) = 1, V(8) = 3."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Vmin = 1 (p = 0 da), Vmax = 3 (p = 8 da). Teskari funksiya 1 ≤ V ≤ 3 da aniqlangan."
      },
@@ -1129,15 +983,9 @@
       "heading": "Problem 6 — Teorema qachon qo'llanilmaydi",
       "problem": "Trubaning konstruksiyasi narxi C(r) = π · r² + 1/r, 0 < r ≤ 5. Talaba: \"Narx uzluksiz, demak Veýershtrass teoremasi maksimumni kafolatlaydi\", deydi. Bu fikrni baholang.",
       "steps": [
-       {
-        "text": "Funksiya r > 0 da uzluksiz, lekin (0, 5] sohasi yopiq emas, chunki r = 0 ni o'z ichiga olmaydi."
-       },
-       {
-        "text": "r → 0⁺ da 1/r → +∞, shuning uchun C(r) → +∞."
-       },
-       {
-        "text": "Demak, funksiya (0, 5] da mutlaq maksimumga ega emas — r nolga yaqinlashganda istalgan katta qiymatga erishadi."
-       }
+       null,
+       null,
+       null
       ],
       "result": "Talabasi fikri noto'g'ri: faqat uzluksizlik yetarli emas, Veýershtrass teoremasi yopiq va chekli sohani talab qiladi."
      },
@@ -1162,18 +1010,10 @@
       "heading": "Problem 7 — Uzluksiz himoya tizimi",
       "problem": "Himoya regulyatori chiqishi u(T) = {T, agar 0 ≤ T < 100; 0, agar T = 100}. (1) Aniqlanish sohasi yopiqmi va cheklimi? (2) u uzluksizmi? (3) u mutlaq maksimumga erishadimi? (4) Nima uchun Veýershtrass teoremasi qo'llanilmaydi?",
       "steps": [
-       {
-        "text": "(1) Aniqlanish sohasi [0, 100] yopiq va chekli."
-       },
-       {
-        "text": "(2) Biroq lim T→100⁻ u(T) = 100, u(100) = 0; shuning uchun funksiya T = 100 nuqtasida uzluksiz emas."
-       },
-       {
-        "text": "(3) Funksiya 100 ga yaqin, lekin hech qachon 100 ga teng bo'lmagan qiymatlarni qabul qiladi."
-       },
-       {
-        "text": "(4) Veýershtrass teoremasi qo'llanilmaydi, chunki funksiya yopiq intervalda uzluksiz emas."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "(1) Yopiq va chekli. (2) Uzluksiz emas. (3) Mutlaq maksimumga ega emas. (4) Funksiya uzluksiz emasligi sababli."
      },
@@ -1231,24 +1071,12 @@
       "heading": "Topshiriq 1 — Sun'iy intellekt bilan ishlash",
       "problem": "Sun'iy intellekt yordamchisi (ChatGPT, Claude, DeepSeek, Gemini va boshqalar) bilan tuzilgan suhbatda bo'ling: ma'ruzada eng muhim tushunchalarni ifodalang va yordamchidan javobingizni bahosini so'ring.",
       "steps": [
-       {
-        "text": "5-haftaning asosiy g'oyalari ro'yxatini tuzing:"
-       },
-       {
-        "text": "- uchta uzluksizlik sharti"
-       },
-       {
-        "text": "- uzilish turlari"
-       },
-       {
-        "text": "- uzluksiz funksiyalar algebrasi"
-       },
-       {
-        "text": "- murakkab funksiya teoremasi"
-       },
-       {
-        "text": "- IV T (oralik qiymatlari teoremasi)"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -1270,12 +1098,8 @@
       "heading": "Topshiriq 1 — Sun'iy intellekt bilan ishlash (cont.)",
       "problem": "",
       "steps": [
-       {
-        "text": "- teskari funksiyalar va monotonlik"
-       },
-       {
-        "text": "- Veyershtrass teoremasi va uning shartlari"
-       }
+       null,
+       null
       ],
       "result": "Yordamchidan ifodalarning to'liqligi va aniqligini bahosini so'ring, keyin har bir e'tirozni tahlil qiling."
      },
@@ -1292,24 +1116,12 @@
       "heading": "Topshiriq 2 — Barcha yechilgan masalalar",
       "problem": "Ma'ruzada va amaliy mashg'ulotda yechilgan barcha masalalarni qayta ko'rib chiqing.",
       "steps": [
-       {
-        "text": "Ushbu haftada yechilgan barcha masalalarni qayta ko'rib chiqing:"
-       },
-       {
-        "text": "- Tenglama yechimi"
-       },
-       {
-        "text": "- Veershtrass teoremasini qo'llash"
-       },
-       {
-        "text": "- Intervalning yopiq bo'lishi ahamiyati"
-       },
-       {
-        "text": "- Konstruktsiyaning optimizatsiya masalasi"
-       },
-       {
-        "text": "- Uchta fikrning barchasini bog'lash"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -1329,12 +1141,8 @@
       "heading": "Topshiriq 2 — Barcha yechilgan masalalar (cont.)",
       "problem": "",
       "steps": [
-       {
-        "text": "- Teorema qachon qo'llanilmaydi"
-       },
-       {
-        "text": "- Uzluksiz himoya tizimi"
-       }
+       null,
+       null
       ],
       "result": "Har bir masalada qo'llanilgan asosiy g'oyalarni aniqlab oling."
      },
@@ -1374,21 +1182,11 @@
       "heading": "Topshiriq 3",
       "problem": "Darslikning 2.4-boʻlimidan (OpenStax Calculus 1) 131-136, 138, 145, 147, 149-mashqlarni yeching.",
       "steps": [
-       {
-        "text": "Koʻrsatilgan barcha mashqlarning toʻliq yechimlari 5-haftaning QOʻSHIMCHA materialida topiladi"
-       },
-       {
-        "text": "131, 132, 133, 134, 135, 136-mashqlar (uzilish nuqtalarini klassifikatsiyalash)"
-       },
-       {
-        "text": "138-mashqa (uzilish nuqtalarini klassifikatsiyalash)"
-       },
-       {
-        "text": "145, 147, 149-mashqlar (qisqartirilgan funksiyaning uzluksizligi parametrini tanlash)"
-       },
-       {
-        "text": "Shu yerda 137-mashqa (H(x) = tan 2x) ham yechilgan, u maʼruzaga koʻra oʻtkazib yuborilishi mumkin edi"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Barcha masalalarning toʻliq yechimlari 5-haftaning QOʻSHIMCHA materialida keltirilgan."
      },
@@ -1415,21 +1213,11 @@
       "heading": "Topshiriq 4",
       "problem": "t ≠ 0 boʻlganda s(t) = sin(1/t) ni koʻrib chiqamiz. s(0) ni shunday aniqlash mumkinmi, shunda t = 0 nuqtada s uzluksiz boʻlsin?",
       "steps": [
-       {
-        "text": "t → 0 boʻlganda 1/t argumenti cheksiz oʻsadi"
-       },
-       {
-        "text": "sin(1/t) -1 va 1 orasida cheksiz tebranadi, hech qanday qiymatga yaqinlashmaydi"
-       },
-       {
-        "text": "lim t → 0 sin(1/t) mavjud emas (tebranuvchi uzilish)"
-       },
-       {
-        "text": "Uzluksizlik nolda lim t → 0 s(t) = s(0) talab qiladi"
-       },
-       {
-        "text": "Lekin hech qanday s(0) tanlashda limit mavjud emas"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Yoʻq, mumkin emas. Hech qanday s(0) tanlashda funksiya t = 0 nuqtada uzluksiz boʻlmaydi."
      },
@@ -1460,21 +1248,11 @@
       "heading": "Topshiriq 5",
       "problem": "y(t) = {t·sin(1/t), agar t ≠ 0; 0, agar t = 0} ni koʻrib chiqamiz. y(t) = 0 nuqtada uzluksizmi?",
       "steps": [
-       {
-        "text": "t ≠ 0 uchun |y(t)| = |t|·|sin(1/t)| ≤ |t| tengsizlik bajariladi"
-       },
-       {
-        "text": "t → 0 boʻlganda ikkala chegaralovchi -|t| va |t| nolga intiladi"
-       },
-       {
-        "text": "\"Qisqartirish\" teoremasi (squeeze theorem) boʻyicha lim t → 0 t · sin(1/t) = 0"
-       },
-       {
-        "text": "y(0) = 0 ekanligidan, lim t → 0 y(t) = y(0)"
-       },
-       {
-        "text": "Uchta uzluksizlik sharti bajarilgan: y(0) aniqlangan, limit mavjud va funksiya qiymatiga teng"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Ha, uzluksiz. Funksiya t = 0 nuqtada uzluksizdir."
      },
@@ -1507,24 +1285,12 @@
       "heading": "6-masala",
       "problem": "Sensorning uzluksiz modelini loyihalash. Sensor S(x) = {a · x + b, agar x < 1; 3, agar x = 1; x² + 2, agar x > 1} modelidan foydalanadi. x = 1 nuqtada S funksiyaning uzluksiz boʻlishi uchun a va b parametrlari uchun shartni toping. Ikkita mumkin boʻlgan (a, b) juftlikni koʻrsating.",
       "steps": [
-       {
-        "text": "x = 1 nuqtada chap tomondan limit a · 1 + b = a + b"
-       },
-       {
-        "text": "Funksiya qiymati S(1) = 3"
-       },
-       {
-        "text": "Oʻng tomondan limit 1² + 2 = 3"
-       },
-       {
-        "text": "Uzluksizlik uchun uchala qiymatning bir xil boʻlishi talab qilinadi: a + b = 3"
-       },
-       {
-        "text": "Bu parametrlar uchun shartdir"
-       },
-       {
-        "text": "Ikkita mumkin boʻlgan variant: (a, b) = (1, 2) va (a, b) = (2, 1) — ikkala holatda ham a + b = 3"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "a + b = 3. Ikkita mumkin boʻlgan parametr juftligi: (1, 2) va (2, 1)."
      },
@@ -1699,18 +1465,10 @@
       "heading": "Misol 1 — Zaryadlanayotgan kondensatorning kuchlanishi",
       "problem": "Zaryadlanayotgan kondensatorning V(t) = Vs · (1 − e^(-t/(R · C))) kuchlanishi t ≥ 0 da nima uchun uzluksiz?",
       "steps": [
-       {
-        "text": "Funksiya uzluksiz funksiyalarning kompozitsiyasi va kombinatsiyasidan hosil bo'lgan."
-       },
-       {
-        "text": "Eksponensial funksiya hamma joyda uzluksiz."
-       },
-       {
-        "text": "Chiziqli funksiya t/(R · C) uzluksiz."
-       },
-       {
-        "text": "Doimiyga ko'paytirish va doimiydan ayirish uzluksizlikni saqlaydi."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Model kuchlanishning tez o'zgarishini, sakchiga emas, bashorat qiladi."
      },
@@ -1737,18 +1495,10 @@
       "heading": "Misol 2 — Harorat modelining uzluksizligi",
       "problem": "Modelning T(t) = 20 + 50 · e^(-0.2·t^2) uzluksizligini tushuntiring.",
       "steps": [
-       {
-        "text": "T(t) uzluksiz, chunki u uzluksiz funksiyalarning kompozitsiyasi va kombinatsiyasidan hosil bo'lgan."
-       },
-       {
-        "text": "t^2 uzluksiz."
-       },
-       {
-        "text": "e^(-0.2·t^2) — uzluksiz eksponensial va uzluksiz funksiyaning kompozitsiyasi."
-       },
-       {
-        "text": "20 doimiyini qo'shish uzluksizlikni saqlaydi."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Shunday qilib, T(t) funksiyasi butun aniqlanish sohasida uzluksizdir."
      },
@@ -1775,21 +1525,11 @@
       "heading": "Misol 3 — Uzluksizlikning birinchi sharti",
       "problem": "Ta'rif bo'yicha, x = 2 nuqtada f(x) = (x^2 −4)/(x −2) funksiya uzluksizmi?",
       "steps": [
-       {
-        "text": "f(2) ni hisoblaymiz: 0/0 — qiymat aniqlanmagan."
-       },
-       {
-        "text": "Shuning uchun f(x) = (x^2 −4)/(x −2) funksiya 2 nuqtada uzluksiz emas."
-       },
-       {
-        "text": "Chunki f(2) aniqlanmagan (uzluksizlikning birinchi sharti buzilgan; grafikda 'tugun' bor)."
-       },
-       {
-        "text": "x ≠ 2 uchun f(x) = x+2 va lim x →2 f(x) = 4."
-       },
-       {
-        "text": "Shuning uchun uzilish bartaraf etilishi mumkin — f(2) = 4 deb aniqlash funksiyani uzluksiz qiladi."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Asl funksiya x = 2 da uzluksiz emas, lekin uzilishni bartaraf etish orqali uzluksiz funksiyaga aylantirish mumkin."
      },
@@ -1816,21 +1556,11 @@
       "heading": "Misol 4 — Uzluksizlikning ikkinchi sharti",
       "problem": "Ta'rif bo'yicha, x = 3 nuqtada f(x) = {−x^2 + 4, agar x ≤ 3; 4x − 8, agar x > 3} funksiya uzluksizmi?",
       "steps": [
-       {
-        "text": "f(3) = −(3^2) + 4 = −5 — qiymat aniqlangan."
-       },
-       {
-        "text": "Bir tomonlama limitlarni hisoblaymiz: lim x →3− f(x) = −(3^2) + 4 = −5"
-       },
-       {
-        "text": "va lim x →3+ f(x) = 4 · 3 − 8 = 4."
-       },
-       {
-        "text": "Bir tomonlama limitlar teng emasligi sababli, lim x →3 f(x) mavjud emas."
-       },
-       {
-        "text": "Demak, f(x) funksiya 3 nuqtada uzluksiz emas (ikkinchi sharti buzilgan; grafikda sakchi bor)."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Funksiya x = 3 da uzluksiz emas, chunki bir tomonlama limitlar teng emas."
      },
@@ -1857,21 +1587,11 @@
       "heading": "Misol 5 — Uzluksizlikning uchinchi sharti",
       "problem": "f(x) = {sin(x)/x, agar x ≠ 0; 1, agar x = 0} funksiya x = 0 nuqtada uzluksizmi?",
       "steps": [
-       {
-        "text": "Birinchidan, f(0) = 1."
-       },
-       {
-        "text": "Ikkinchidan, lim x →0 f(x) = lim x →0 sin(x)/x = 1."
-       },
-       {
-        "text": "Uchinchidan, solishtiramiz: f(0) = 1 = lim x →0 f(x)."
-       },
-       {
-        "text": "Uzluksizlik ta'rifining barcha uch sharti bajarilgan."
-       },
-       {
-        "text": "Shuning uchun f(x) funksiya x = 0 nuqtada uzluksiz."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Funksiya x = 0 nuqtada uzluksizdir, chunki uchta shart ham qanoatlantirilgan."
      },
@@ -1898,18 +1618,10 @@
       "heading": "Misol 6 — Ratsional funksiyaning uzluksizligi",
       "problem": "f(x) = (x + 1)/(x − 5) ratsional funksiya qaysi x larda uzluksiz?",
       "steps": [
-       {
-        "text": "f(x) = (x + 1)/(x − 5) ratsional funksiya barcha x qiymatlarida, x = 5 dan tashqari uzluksiz."
-       },
-       {
-        "text": "Bu nuqtada maxraj nolga teng bo'ladi."
-       },
-       {
-        "text": "Ratsional funksiyalar maxraj nolga teng bo'lmagan barcha nuqtalarda uzluksiz bo'ladi."
-       },
-       {
-        "text": "Shuning uchun f(x) funksiyasi x ≠ 5 bo'lgan barcha nuqtalarda uzluksizdir."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Funksiya x = 5 dan boshqa barcha haqiqiy sonlar uzluksizdir."
      },
@@ -1934,15 +1646,9 @@
       "heading": "Misol 7 — Yana bir ratsional funksiyaning uzluksizligi",
       "problem": "f(x) = (x − 1)/(x^2 + 2x) funksiyaning uzluksizlik intervallarini ko'rsating.",
       "steps": [
-       {
-        "text": "f ratsional funksiya bo'lgani uchun, u aniqlanish sohasining har bir nuqtasida uzluksizdir."
-       },
-       {
-        "text": "Aniqlanish sohasi: maxraj x^2 + 2x = x · (x + 2) ≠ 0, ya'ni x ≠ 0 va x ≠ −2."
-       },
-       {
-        "text": "Shunday qilib, f har bir (−∞, −2), (−2, 0) va (0, +∞) intervallarida uzluksiz."
-       }
+       null,
+       null,
+       null
       ],
       "result": "Funksiya (−∞, −2), (−2, 0) va (0, +∞) intervallarida uzluksizdir."
      },
@@ -1969,15 +1675,9 @@
       "heading": "Misol 8 — Ildiz funksiyasining uzluksizligi",
       "problem": "f(x) = √(4 − x^2) funksiyaning uzluksizlik intervallarini ko'rsating.",
       "steps": [
-       {
-        "text": "Limitlar qonunlariga ko'ra, lim x →a √(4 − x^2) = √(4 − a^2) barcha (−2, 2) dagi a qiymatlarida."
-       },
-       {
-        "text": "Bundan tashqari, lim x →−2+ √(4 − x^2) = 0 mavjud va lim x →2− √(4 − x^2) = 0 mavjud."
-       },
-       {
-        "text": "Shuning uchun f(x) funksiya butun [−2, 2] kesmada uzluksiz."
-       }
+       null,
+       null,
+       null
       ],
       "result": "Funksiya [−2, 2] kesmada uzluksizdir."
      },
@@ -2004,18 +1704,10 @@
       "heading": "Misol 9 — Murakkab funksiyaning limiti",
       "problem": "lim x →π/2 cos(x − π/2) ni hisoblang.",
       "steps": [
-       {
-        "text": "Berilgan funksiya cos x va x − π/2 funksiyalarining kompozitsiyasidir."
-       },
-       {
-        "text": "lim x →π/2 (x − π/2) = 0"
-       },
-       {
-        "text": "cos x funksiya 0 nuqtada uzluksiz bo'lgani uchun, murakkab funksiya teoremasini qo'llash mumkin:"
-       },
-       {
-        "text": "lim x →π/2 cos(x − π/2) = cos(lim x →π/2 (x − π/2)) = cos(0) = 1"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "lim x →π/2 cos(x − π/2) = 1"
      },
@@ -2042,21 +1734,11 @@
       "heading": "Misol 10 — Oraliq qiymatlari teoremasi qo'llanilishi",
       "problem": "f(x) = x − cos x funksiyanida kamida bitta nol borligini ko'rsating.",
       "steps": [
-       {
-        "text": "f(x) = x − cos x funksiyasi (−∞, +∞) da uzluksiz, demak, [a, b] ko'rinishidagi har qanday yopiq intervalda uzluksiz."
-       },
-       {
-        "text": "Agar [a, b] intervalini topish mumkin bo'lsa, uning uchlarida f(a) va f(b) turli ishoraga ega bo'lsa, u holda oraliq qiymatlari teoremasiga ko'ra, f(c) = 0 bo'ladigan haqiqiy son c ∈(a, b) mavjud."
-       },
-       {
-        "text": "E'tibor bering: f(0) = 0 − cos(0) = −1 < 0 va f(π/2) = π/2 − cos(π/2) = π/2 > 0."
-       },
-       {
-        "text": "IV T ga ko'ra, f(c) = 0 bo'lgan haqiqiy son c ∈[0, π/2] mavjud."
-       },
-       {
-        "text": "Shuning uchun f(x) = x − cos x kamida bir nolga ega."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f(x) = x − cos x funksiyasi kamida bitta nolga ega."
      },
@@ -2085,15 +1767,9 @@
       "heading": "Misol 11 — Oraliq qiymatlari teoremasining noto'g'ri qo'llanilishi",
       "problem": "f(x) funksiya [0, 2] da uzluksiz, f(0) > 0 va f(2) > 0 bo'lsin. Oraliq qiymatlari teoremasiga asosan, f(x) funksiyaning [0, 2] da nolga ega emasligini xulosa qilish mumkinmi?",
       "steps": [
-       {
-        "text": "Yo'q. Oraliq qiymatlari teoremasi f funksiyaning f(0) va f(2) orasidagi barcha qiymatlarni qabul qilishini xulosa qilishga imkon beradi;"
-       },
-       {
-        "text": "u funksiyaning boshqa qiymatlarni qabul qilmasligini xulosa qilishga imkon bermaydi."
-       },
-       {
-        "text": "Kontrmisol: f(x) = (x − 1)^2 funksiyasi f(0) = 1 > 0, f(2) = 1 > 0 shartlarni qanoatlantiradi, lekin f(1) = 0 — intervalda nol mavjud."
-       }
+       null,
+       null,
+       null
       ],
       "result": "Xulosa noto'g'ri, chunki funksiya intervalda nolga ega bo'lishi mumkin."
      },
@@ -2118,12 +1794,8 @@
       "heading": "Misol 12 — Uzluksizlikning ahamiyati",
       "problem": "f(x) = 1/x uchun f(−1) = −1 < 0 va f(1) = 1 > 0. f(x) funksiyaning [−1, 1] intervalda nolga ega ekanligini xulosa qilish mumkinmi?",
       "steps": [
-       {
-        "text": "Yo'q. Funksiya [−1, 1] da uzluksiz emas (nol nuqtada cheksiz uzilish),"
-       },
-       {
-        "text": "shuning uchun oraliq qiymatlari teoremasi bu yerda qo'llanilmaydi."
-       }
+       null,
+       null
       ],
       "result": "Xulosa noto'g'ri, chunki funksiya [−1, 1] da uzluksiz emas."
      },
@@ -2150,15 +1822,9 @@
       "heading": "Misol 1 — Eksponent funksiyaning teskarisini topish",
       "problem": "f(x) = e^x funksiyaning uzluksiz teskari funksiyasini mavjudligini tushuntiring va uni toping.",
       "steps": [
-       {
-        "text": "f(x) = e^x funksiyasi R da uzluksiz va qat'iy o'suvchi ekanligini tekshiramiz."
-       },
-       {
-        "text": "Funksiyaning qiymatlar sohasi (0, +∞) ekanligini aniqlaymiz."
-       },
-       {
-        "text": "Shartlarni qanoatlantirgani uchun teskari funksiyaning mavjudligini isbotlaymiz."
-       }
+       null,
+       null,
+       null
       ],
       "result": "f^(-1)(x) = ln x, x > 0"
      },
@@ -2181,15 +1847,9 @@
       "heading": "Misol 2 — Sensor modelining teskarisini topish",
       "problem": "Sensor V(T) = 2 + 0.01 · T^2, T ≥ 0 bogʻliqliqqa boʻysunadi. T(V) ni topib, V = 11V da haroratni hisoblang.",
       "steps": [
-       {
-        "text": "V(T) = 2 + 0.01 · T^2 tenglamani T ga nisbatan yechamiz."
-       },
-       {
-        "text": "T^2 = 100 · (V - 2) tenglamaga kelamiz."
-       },
-       {
-        "text": "T ≥ 0 shartni hisobga olib, ildizni olamiz."
-       }
+       null,
+       null,
+       null
       ],
       "result": "T = 30°C"
      },
@@ -2216,12 +1876,8 @@
       "heading": "Misol 3 — Veiershtress teoremasining ahamiyati (ochiq interval)",
       "problem": "f(x) = x funksiyasini (0, 1) intervalda koʻrib chiqamiz. Nima uchun Veiershtress teoremasi ekstremumlarni kafolatlamaydi?",
       "steps": [
-       {
-        "text": "Funksiyaning (0, 1) intervaldagi xossalarini tekshiramiz."
-       },
-       {
-        "text": "Intervalning yopiq emasligini va funksiya chegaraviy qiymatlarga yetmayotganini ko'ramiz."
-       }
+       null,
+       null
       ],
       "result": "Interval yopiq emasligi sababli funksiyaning mutlaq maksimumi va minimumi yo'q."
      },
@@ -2248,12 +1904,8 @@
       "heading": "Misol 4 — Veiershtress teoremasining ahamiyati (uzilishli funksiya)",
       "problem": "f(x) = {x, agar 0 ≤ x < 1; 0, agar x = 1} funksiyasini [0, 1] da koʻrib chiqamiz. Nima uchun funksiyaning mutlaq maksimumi yo'q?",
       "steps": [
-       {
-        "text": "Funksiyaning [0, 1] oraliqdagi uzilish nuqtalarini aniqlaymiz."
-       },
-       {
-        "text": "Funksiya qiymatlarining chegaraviy holatini tekshiramiz."
-       }
+       null,
+       null
       ],
       "result": "x = 1 nuqtada uzilish tufayli funksiyaning mutlaq maksimumi yo'q."
      },
@@ -2278,12 +1930,8 @@
       "heading": "Mashq 131",
       "problem": "f(x) = 1/√x. Uzluksizlik nuqtalarini aniqlang va tasniflang.",
       "steps": [
-       {
-        "text": "Funksiyaning aniqlanish sohasini topamiz."
-       },
-       {
-        "text": "Chegaraviy holatda funksiya xatti-harakatini tekshiramiz."
-       }
+       null,
+       null
       ],
       "result": "x = 0 cheksiz uzluksizlik."
      },
@@ -2310,12 +1958,8 @@
       "heading": "Mashq 132",
       "problem": "f(x) = 2/(x^2 + 1). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
       "steps": [
-       {
-        "text": "Maxrajning nolga teng bo'lish holatini tekshiramiz."
-       },
-       {
-        "text": "Ratsional funksiyaning uzluksizlik xossalarini qo'llaymiz."
-       }
+       null,
+       null
       ],
       "result": "Uzluksizliklar yo'q."
      },
@@ -2340,15 +1984,9 @@
       "heading": "Mashq 133",
       "problem": "f(x) = x/(x^2 - x). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
       "steps": [
-       {
-        "text": "Maxrajni ko'paytuvchilarga ajratamiz."
-       },
-       {
-        "text": "Nuqtalarda limitlarni hisoblaymiz."
-       },
-       {
-        "text": "Uzluksizlik turlarini aniqlaymiz."
-       }
+       null,
+       null,
+       null
       ],
       "result": "x = 0 olinadigan uzluksizlik; x = 1 cheksiz uzluksizlik."
      },
@@ -2379,12 +2017,8 @@
       "heading": "Mashq 134",
       "problem": "g(t) = t^(-1) + 1. Uzluksizlik nuqtalarini aniqlang va tasniflang.",
       "steps": [
-       {
-        "text": "Funksiyani soddalashtiramiz."
-       },
-       {
-        "text": "Tengsizlik nuqtasida limitlarni hisoblaymiz."
-       }
+       null,
+       null
       ],
       "result": "t = 0 cheksiz uzluksizlik."
      },
@@ -2409,12 +2043,8 @@
       "heading": "Mashq 135",
       "problem": "f(x) = 5/(e^x - 2). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
       "steps": [
-       {
-        "text": "Maxrajning nolga teng bo'lish holatini topamiz."
-       },
-       {
-        "text": "Chegaraviy holatlarda funksiya xatti-harakatini tekshiramiz."
-       }
+       null,
+       null
       ],
       "result": "x = ln 2 cheksiz uzluksizlik."
      },
@@ -2439,12 +2069,8 @@
       "heading": "Mashq 136",
       "problem": "f(x) = |x-2|/(x-2). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
       "steps": [
-       {
-        "text": "Funksiyani modul sifatida ifodalaymiz."
-       },
-       {
-        "text": "Bir tomonlama limitlarni hisoblaymiz."
-       }
+       null,
+       null
       ],
       "result": "x = 2 sakchib uzluksizlik (jump)."
      },
@@ -2473,12 +2099,8 @@
       "heading": "Mashq 137",
       "problem": "H(x) = tan(2x). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
       "steps": [
-       {
-        "text": "Tangens funksiyasining aniqlanish sohasini topamiz."
-       },
-       {
-        "text": "Uzilish nuqtalarini aniqlaymiz."
-       }
+       null,
+       null
       ],
       "result": "x = π/4 + k·π/2, k ∈ Z — cheksiz uzluksizlik nuqtalari."
      },
@@ -2505,12 +2127,8 @@
       "heading": "Mashq 138",
       "problem": "f(t) = (t + 3)/(t^2 + 5t + 6). Uzluksizlik nuqtalarini aniqlang va tasniflang.",
       "steps": [
-       {
-        "text": "Maxrajni ko'paytuvchilarga ajratamiz."
-       },
-       {
-        "text": "Nuqtalarda limitlarni hisoblaymiz."
-       }
+       null,
+       null
       ],
       "result": "t = -2 cheksiz uzluksizlik; t = -3 olinadigan uzluksizlik."
      },
@@ -2541,24 +2159,12 @@
       "heading": "Mashq 1",
       "problem": "f(t) = (t+3)/((t+2)(t+3)) funksiyasining uzilish nuqtalarini aniqlang va ularning turini belgilang.",
       "steps": [
-       {
-        "text": "Maxrajni ajratamiz: t^2 + 5t + 6 = (t+2)(t+3)"
-       },
-       {
-        "text": "f(t) = (t+3)/((t+2)(t+3)) = 1/(t + 2), t ≠ −3, −2 bo'lganda"
-       },
-       {
-        "text": "Boshlang'ich funksiya t = −3 va t = −2 da aniqlanmagan"
-       },
-       {
-        "text": "t = −3 da: (t + 3) ko'paytuvchini qisqartiramiz va lim t →−3 f(t) = 1/(−3 + 2) = −1"
-       },
-       {
-        "text": "Chek mavjud, lekin boshlang'ich funksiya nuqtada aniqlanmagan — demak, t = −3 — bartaraf etiluvchi uzilish"
-       },
-       {
-        "text": "t = −2 da: qolgan maxraj nolga aylanadi — lim t →−2 − f(t) = −∞ va lim t →−2 + f(t) = +∞"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Natija: t = −3 — bartaraf etiluvchi uzilish; t = −2 — cheksiz uzilish"
      },
@@ -2612,24 +2218,12 @@
       "heading": "Mashq 145",
       "problem": "f(x) = {3x + 2, agar x < k; 2x − 3, agar k ≤ x ≤ 8} funksiya uzluksiz bo'ladigan k ni toping.",
       "steps": [
-       {
-        "text": "Mumkin bo'lgan uzilish — faqat x = k nuqtada"
-       },
-       {
-        "text": "Chap chek: lim x →k− f(x) = 3k + 2"
-       },
-       {
-        "text": "Qiymat va o'ng chek ikkinchi shoxdan: f(k) = 2k − 3 va lim x →k+ f(x) = 2k − 3"
-       },
-       {
-        "text": "Uzluksizlik uchun: 3k + 2 = 2k − 3"
-       },
-       {
-        "text": "Yechib, k = −5 ni hosil qilamiz"
-       },
-       {
-        "text": "Tekshirish: 3 · (−5) + 2 = −13 va 2 · (−5) − 3 = −13 — ikkala shox (−5, −13) nuqtada birlashadi"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "k = −5"
      },
@@ -2656,24 +2250,12 @@
       "heading": "Mashq 146",
       "problem": "f(θ) = {sin θ, agar 0 ≤ θ < π/2; cos(θ + k), agar π/2 ≤ θ ≤ π} funksiya uzluksiz bo'ladigan k ni toping.",
       "steps": [
-       {
-        "text": "Yagona mumkin bo'lgan uzilish — θ = π/2 nuqtada"
-       },
-       {
-        "text": "Chap chek: lim θ → (π/2)− sin θ = 1"
-       },
-       {
-        "text": "Ikkinchi shoxdan qiymat: f(π/2) = cos(π/2 + k)"
-       },
-       {
-        "text": "Uzluksizlik cos(π/2 + k) = 1 ni talab qiladi"
-       },
-       {
-        "text": "Kosinus 1 ga uning argumenti 2π ning butun karrali bo'lganda teng: π/2 + k = 2π · n, n ∈ Z"
-       },
-       {
-        "text": "Bundan k = 2π · n − π/2, n ∈ Z (masalan, n = 0 bo'lganda k = −π/2)"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "k = 2π · n − π/2, n ∈ Z"
      },
@@ -2700,21 +2282,11 @@
       "heading": "Mashq 147",
       "problem": "f(x) = {(x^2 + 3x + 2)/(x + 2), agar x ≠ −2; k, agar x = −2} funksiya x = −2 nuqtada uzluksiz bo'ladigan k ni toping.",
       "steps": [
-       {
-        "text": "Numeratorni ajratamiz: x^2 + 3x + 2 = (x + 1)(x + 2)"
-       },
-       {
-        "text": "x ≠ −2 uchun: f(x) = ((x + 1)(x + 2))/(x + 2) = x + 1"
-       },
-       {
-        "text": "Shuning uchun lim x →−2 f(x) = lim x →−2 (x + 1) = −1"
-       },
-       {
-        "text": "Uzluksizlik uchun funksiya qiymati nuqtada bu chekka teng bo'lishi kerak: k = −1"
-       },
-       {
-        "text": "Bunday aniqlash boshlang'ich ratsional ifodadagi bartaraf etiluvchi 'tirqishni' to'ldiradi"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "k = −1"
      },
@@ -2739,24 +2311,12 @@
       "heading": "Mashq 148",
       "problem": "f(x) = {e^(k·x), agar 0 ≤ x ≤ 4; x + 3, agar 4 ≤ x ≤ 8} funksiya uzluksiz bo'ladigan k ni toping.",
       "steps": [
-       {
-        "text": "Shoxlar x = 4 da birlashadi"
-       },
-       {
-        "text": "Birinchi shoxdan: f(4) = e^(4k)"
-       },
-       {
-        "text": "Ikkinchi shoxdan: f(4) = 4 + 3 = 7"
-       },
-       {
-        "text": "To'g'rilik va x = 4 nuqtadagi uzluksizlik uchun bu qiymatlar bir-biriga teng bo'lishi kerak: e^(4k) = 7"
-       },
-       {
-        "text": "Natural logarifmlarni olamiz: 4k = ln 7"
-       },
-       {
-        "text": "Demak, k = ln(7)/4 ≈ 0.4865"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "k = ln(7)/4 ≈ 0.4865"
      },
@@ -2783,24 +2343,12 @@
       "heading": "Mashq 149",
       "problem": "f(x) = {√(k · x), agar 0 ≤ x ≤ 3; x + 1, agar 3 < x ≤ 10} funksiya uzluksiz bo'ladigan k ni toping.",
       "steps": [
-       {
-        "text": "Mumkin bo'lgan uzilish — x = 3 da"
-       },
-       {
-        "text": "Birinchi shoxdan: f(3) = √(3k)"
-       },
-       {
-        "text": "Ikkinchi shoxdan o'ng chek: lim x →3+ (x + 1) = 4"
-       },
-       {
-        "text": "Uzluksizlik √(3k) = 4 ni talab qiladi"
-       },
-       {
-        "text": "Ikkala tomonni kvadratga olib, 3k = 16 ni hosil qilamiz, bundan k = 16/3"
-       },
-       {
-        "text": "Bu qiymat musbat, shuning uchun √(k · x) har xil x ∈ [0, 3] da haqiqiy son"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "k = 16/3"
      },
@@ -2875,21 +2423,9 @@
       "heading": "Farq nisbati formulalari",
       "tex": "m_{sec} = \\frac{f(x) - f(a)}{x - a}",
       "parts": [
-       {
-        "substr": "m_{sec}",
-        "color": "#4C5FD5",
-        "note": "kesuvchining egilishi"
-       },
-       {
-        "substr": "f(x) - f(a)",
-        "color": "#B45309",
-        "note": "funktsiyaning o'zgarishi"
-       },
-       {
-        "substr": "x - a",
-        "color": "#0E7C7B",
-        "note": "argumentning o'zgarishi"
-       }
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -2911,16 +2447,8 @@
       "heading": "h ortishli farq nisbati",
       "tex": "m_{sec} = \\frac{f(a + h) - f(a)}{h}",
       "parts": [
-       {
-        "substr": "f(a + h) - f(a)",
-        "color": "#B45309",
-        "note": "funktsiyaning o'zgarishi"
-       },
-       {
-        "substr": "h",
-        "color": "#0E7C7B",
-        "note": "argumentning o'zgarishi"
-       }
+       null,
+       null
       ]
      },
      "narr": [
@@ -2938,16 +2466,8 @@
       "heading": "Tegish chizig'ining egilishi",
       "tex": "m_{tan} = \\lim_{x \\to a} \\frac{f(x) - f(a)}{x - a}",
       "parts": [
-       {
-        "substr": "\\lim_{x \\to a}",
-        "color": "#4C5FD5",
-        "note": "limit"
-       },
-       {
-        "substr": "\\frac{f(x) - f(a)}{x - a}",
-        "color": "#B45309",
-        "note": "farq nisbati"
-       }
+       null,
+       null
       ]
      },
      "narr": [
@@ -2967,16 +2487,8 @@
       "heading": "h ortishli tegish chizig'ining egilishi",
       "tex": "m_{tan} = \\lim_{h \\to 0} \\frac{f(a + h) - f(a)}{h}",
       "parts": [
-       {
-        "substr": "\\lim_{h \\to 0}",
-        "color": "#4C5FD5",
-        "note": "limit"
-       },
-       {
-        "substr": "\\frac{f(a + h) - f(a)}{h}",
-        "color": "#B45309",
-        "note": "farq nisbati"
-       }
+       null,
+       null
       ]
      },
      "narr": [
@@ -3020,21 +2532,9 @@
       "heading": "Hosila formulasi",
       "tex": "f'(a) = \\lim_{x \\to a} \\frac{f(x) - f(a)}{x - a}",
       "parts": [
-       {
-        "substr": "f'(a)",
-        "color": "#4C5FD5",
-        "note": "hosila"
-       },
-       {
-        "substr": "\\lim_{x \\to a}",
-        "color": "#B45309",
-        "note": "limit"
-       },
-       {
-        "substr": "\\frac{f(x) - f(a)}{x - a}",
-        "color": "#0E7C7B",
-        "note": "farq nisbati"
-       }
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -3055,16 +2555,8 @@
      "data": {
       "heading": "f(x) = √x va uning tegish chizig'i",
       "functions": [
-       {
-        "fn": "np.sqrt(x)",
-        "tex": "f(x) = \\sqrt{x}",
-        "color": "#4C5FD5"
-       },
-       {
-        "fn": "1 + 0.5 * (x - 1)",
-        "tex": "y = 1 + \\frac{1}{2}(x - 1)",
-        "color": "#B45309"
-       }
+       null,
+       null
       ],
       "x_range": [
        0,
@@ -3123,21 +2615,9 @@
       "heading": "Hosilaning ta'riifi",
       "tex": "f'(a) = \\lim_{h \\to 0} \\frac{f(a + h) - f(a)}{h}",
       "parts": [
-       {
-        "substr": "f'(a)",
-        "color": "#4C5FD5",
-        "note": "Funksiyaning a nuqtadagi hosilasi"
-       },
-       {
-        "substr": "lim h →0",
-        "color": "#B45309",
-        "note": "Chekli limit, h nolga intiladi"
-       },
-       {
-        "substr": "(f(a + h) −f(a))/h",
-        "color": "#0E7C7B",
-        "note": "Funksiyaning o'zgarish nisbati"
-       }
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -3180,21 +2660,9 @@
       "heading": "Elementar funksiyalarning hosilalari",
       "tex": "\\frac{d}{dx}(x^2) = 2x, \\quad \\frac{d}{dx}(\\sqrt{x}) = \\frac{1}{2\\sqrt{x}}, \\quad \\frac{d}{dx}(\\frac{1}{x}) = -\\frac{1}{x^2}",
       "parts": [
-       {
-        "substr": "d/dx(x2) = 2x",
-        "color": "#4C5FD5",
-        "note": "Kvadrat funksiyaning hosilasi"
-       },
-       {
-        "substr": "d/dx(√x) = 1/(2 · √x)",
-        "color": "#B45309",
-        "note": "Ildiz funksiyasining hosilasi"
-       },
-       {
-        "substr": "d/dx(1/x) = −1/x2",
-        "color": "#0E7C7B",
-        "note": "Teskari funksiyaning hosilasi"
-       }
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -3212,16 +2680,8 @@
       "heading": "O'rtacha va lahzaviy tezlik",
       "tex": "\\text{O'rtacha tezlik: } v_{ave} = \\frac{s(t) - s(a)}{t - a}, \\quad \\text{Lahzaviy tezlik: } v(a) = s'(a) = \\lim_{t \\to a} \\frac{s(t) - s(a)}{t - a}",
       "parts": [
-       {
-        "substr": "vave = (s(t) −s(a))/(t −a)",
-        "color": "#4C5FD5",
-        "note": "[a, t] oraliqdagi o'rtacha tezlik"
-       },
-       {
-        "substr": "v(a) = s′(a) = lim t →a(s(t) −s(a))/(t −a)",
-        "color": "#B45309",
-        "note": "a nuqtadagi lahzaviy tezlik"
-       }
+       null,
+       null
       ]
      },
      "narr": [
@@ -3290,36 +2750,12 @@
       "heading": "Asosiy differensiallash qoidalari",
       "tex": "\\frac{d}{dx}(c) = 0 \\quad \\text{(doimiy qoida)} \\\\ \\frac{d}{dx}(x^n) = n \\cdot x^{n-1} \\quad \\text{(daraja qoidasi)} \\\\ \\frac{d}{dx}(x^k) = k \\cdot x^{k-1} \\quad \\text{(kengaytirilgan daraja qoidasi, k—butun)} \\\\ (f + g)' = f' + g' \\quad (f - g)' = f' - g' \\quad (k \\cdot f)' = k \\cdot f' \\\\ (f \\cdot g)' = f' \\cdot g + g' \\cdot f \\quad \\text{(ko'paytma qoidasi)} \\\\ \\left(\\frac{f}{g}\\right)' = \\frac{f' \\cdot g - g' \\cdot f}{g^2} \\quad \\text{(bo'linma qoidasi)} \\\\ (f \\cdot g \\cdot h)' = f' \\cdot g \\cdot h + f \\cdot g' \\cdot h + f \\cdot g \\cdot h' \\quad \\text{(kengaytirilgan ko'paytma qoidasi)}",
       "parts": [
-       {
-        "substr": "d/dx(c) = 0",
-        "color": "#4C5FD5",
-        "note": "Doimiy funksiyaning hosilasi nolga teng"
-       },
-       {
-        "substr": "d/dx(xn) = n · xn−1",
-        "color": "#B45309",
-        "note": "Daraja funksiyasining hosilasi"
-       },
-       {
-        "substr": "d/dx(xk) = k · xk−1",
-        "color": "#0E7C7B",
-        "note": "Kengaytirilgan daraja qoidasi"
-       },
-       {
-        "substr": "(f + g)′ = f′ + g′",
-        "color": "#A03040",
-        "note": "Yig'indining hosilasi"
-       },
-       {
-        "substr": "(f · g)′ = f′ · g + g′ · f",
-        "color": "#4C5FD5",
-        "note": "Ko'paytmaning hosilasi"
-       },
-       {
-        "substr": "(f/g)′ = (f′ · g −g′ · f)/g2",
-        "color": "#B45309",
-        "note": "Bo'linmaning hosilasi"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -3360,16 +2796,8 @@
       "heading": "Bir tomonlama hosilalar",
       "tex": "f'_-(a) = \\lim_{h \\to 0^-} \\frac{f(a + h) - f(a)}{h}, \\quad f'_+(a) = \\lim_{h \\to 0^+} \\frac{f(a + h) - f(a)}{h}",
       "parts": [
-       {
-        "substr": "f′−(a) = lim h →0 −(f(a + h) −f(a))/h",
-        "color": "#4C5FD5",
-        "note": "Chap tomondan hosila"
-       },
-       {
-        "substr": "f′+(a) = lim h →0 + (f(a + h) −f(a))/h",
-        "color": "#B45309",
-        "note": "O'ng tomondan hosila"
-       }
+       null,
+       null
       ]
      },
      "narr": [
@@ -3410,16 +2838,8 @@
       "heading": "Yuqori hosilalar",
       "tex": "f''(x), f'''(x), f^{(4)}(x), \\ldots, f^{(n)}(x); \\quad \\frac{d^2y}{dx^2}, \\frac{d^3y}{dx^3}, \\ldots, \\frac{d^ny}{dx^n}",
       "parts": [
-       {
-        "substr": "f″(x), f‴(x), f (4)(x), . . . , f (n)(x)",
-        "color": "#4C5FD5",
-        "note": "Primalar yordamidagi belgilash"
-       },
-       {
-        "substr": "d2y/dx2, d3y/dx3, . . . , dny/dxn",
-        "color": "#B45309",
-        "note": "Leybnits notatsiyasi"
-       }
+       null,
+       null
       ]
      },
      "narr": [
@@ -3437,11 +2857,7 @@
       "heading": "O'shish formulasi",
       "tex": "f(a + h) \\approx f(a) + f'(a) \\cdot h",
       "parts": [
-       {
-        "substr": "f(a + h) ≈f(a) + f′(a) · h",
-        "color": "#4C5FD5",
-        "note": "O'shish formulasi"
-       }
+       null
       ]
      },
      "narr": [
@@ -3499,21 +2915,11 @@
       "heading": "Mashq 1 — Trek boʻylab harakning sillikliligi",
       "problem": "Trek f(x) = {(1/10)x² + bx + c, agar x < −10; −(1/4)x + 5/2, agar x ≥−10} funksiyasi bilan tavsiflanadi. Mashina trek boʻylab harakati silliklimi? Uzluksizlik va differensiallanuvchanlik atamalarida muhokama qiling.",
       "steps": [
-       {
-        "text": "Silliklik degani, x = −10 dagi shoxlarning birlashmasida hech qanday uzilish yoki burilish boʻlmasligi: funksiya shu yerda ham uzluksiz, ham differensiallanuvchi boʻlishi kerak."
-       },
-       {
-        "text": "Uzluksizlik: lim x →−10⁻f(x) = f(−10) = −(1/4)(−10) + 5/2 = 5 ga teng boʻlishi kerak, yaʼni 10 −10b +c = 5."
-       },
-       {
-        "text": "Differensiallanuvchanlik: parabolaning x = −10 dagi nishabi −2+b boʻlib, toʻgʻri chiziqning nishabi −1/4 ga teng boʻlishi kerak, yaʼni b −2 = −1/4."
-       },
-       {
-        "text": "Ixtiyoriy b uchun shartlar bajarilmaydi: birinchisining buzilishi birlashmada sakrash, ikkinchisining buzilishi burilishni keltirib chiqaradi; harakat sillikli emas."
-       },
-       {
-        "text": "Ikkala shart ham faqat b = 7/4, c = 10b −5 = 25/2 boʻlganda bajariladi — shunda faqat trek boʻylab harakat sillikli boʻladi."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Funksiyani sillikli qilish uchun b = 7/4 va c = 25/2 boʻlishi kerak."
      },
@@ -3546,21 +2952,11 @@
       "heading": "Mashq 2 — Qismiy funksiya, uzluksiz va differensiallanuvchan",
       "problem": "Mashincha uchun trek parabola bilan boshlanib toʻgʻri chiziqqa oʻtadi: f(x) = {(1/10)x² + bx + c, agar x < −10; −(1/4)x + 5/2, agar x ≥−10} (dyuymlarda). Sillikli harakat uchun f −10 da uzluksiz va differensiallanuvchi boʻlishi kerak. b va c ni toping.",
       "steps": [
-       {
-        "text": "x = −10 da uzluksizlik: lim x →−10⁻f(x) = (1/10)·100−10b +c = 10−10b +c = f(−10) = 5, bundan c = 10b −5."
-       },
-       {
-        "text": "Hosillilik: f′(−10) = lim x →−10(f(x)−f(−10))/(x+10) mavjud boʻlishi kerak; bir tomonli limitlarni hisoblab, tenglashtiramiz."
-       },
-       {
-        "text": "Chap tomondan (c = 10b−5ni qoʻyamiz): lim x →−10⁻[(1/10)x²+bx+ 10b −10]/(x+10); surat va maxrajni 10 ga koʻpaytiramiz: lim(x²+ 10bx + 100b −100)/(10(x+10)); x² −100+ 10b(x+10) = (x+10)(x−10+10b) guruhlash lim(x−10+10b)/10 = (−20+10b)/10 = b−2."
-       },
-       {
-        "text": "Oʻng tomondan: lim x →−10 + [−(1/4)x + 5/2 −5]/(x + 10) = lim[−(1/4)x −5/2]/(x +10) = lim −(x +10)/(4(x +10)) = −1/4."
-       },
-       {
-        "text": "Tenglashtiramiz: b −2 = −1/4, bundan b = 7/4, c = 10·(7/4) −5 = 25/2."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "b = 7/4, c = 25/2"
      },
@@ -3593,18 +2989,10 @@
       "heading": "Mashq 3 — Ters funksiya",
       "problem": "f(x) = 1/x, x ≠ 0 deb belgilaymiz. (a) Limit taʼrifidan foydalanib f′(x) ni toping. (b)x = 2da teg chiziqni toping. (c) Teg chiziqning qiyaligi musbatmi yoki manfiymi? Geometrik tushuntiring.",
       "steps": [
-       {
-        "text": "(a)x ≠ 0 uchun: f′(x) = lim h →0(1/(x+h)−1/x)/h = lim h →0[(x−(x+h))/(x(x+h))]/h = lim h →0(−1)/(x(x + h)) = −1/x²."
-       },
-       {
-        "text": "(b) Teg nuqtasi: f(2) = 1/2; qiyalik f′(2) = −1/4."
-       },
-       {
-        "text": "Teg chiziq: y −1/2 = −(1/4)(x −2), yaʼni y = 1 −x/4."
-       },
-       {
-        "text": "(c) Qiyalik manfiy (−1/4 < 0): 1/x grafigi x = 2 yaqinida tushadi — x ortganda funksiya qiymati kamayadi."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f′(x) = −1/x²; teg chiziq: y = 1 − x/4; qiyalik manfiy"
      },
@@ -3633,18 +3021,10 @@
       "heading": "Mashq 4 — Modul funksiya",
       "problem": "f(x) = |x| deb belgilaymiz. (a)f nolda uzluksiz ekanligini koʻrsating. (b) Ayirmaviy munosabatlardan foydalanib f′_−(0) va f′_+(0) ni toping. (c) Nima uchun f′(0) mavjud emasligini tushuntiring. (d) Grafikni chizing va burilish nuqtasini koʻrsating.",
       "steps": [
-       {
-        "text": "(a) lim x →0|x| = 0 = f(0) — f nolda uzluksiz."
-       },
-       {
-        "text": "(b) Ayirmaviy munosabat: (f(h) −f(0))/(h −0) = |h|/h = h < 0 boʻlganda −1 va h > 0 boʻlganda 1; demak, f′_−(0) = −1, f′_+(0) = 1."
-       },
-       {
-        "text": "(c) Bir tomonli hosilalar har xil (−1 ≠ 1) — ikki tomonli limit mavjud emas, f′(0) mavjud emas."
-       },
-       {
-        "text": "(d) Grafik — V shaklidagi qirrali chiziq; burilish (kink) uchida (0, 0): chapda qiyalik −1, oʻngda +1."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f nolda uzluksiz, lekin hosilali emas; f′_−(0) = −1, f′_+(0) = 1"
      },
@@ -3673,18 +3053,10 @@
       "heading": "Mashq 5 — Shoxlarning birlashishi",
       "problem": "f(x) = {x², agar x ≤1; 2x −1, agar x > 1} ni koʻrib chiqamiz. (a)fx = 1 nuqtada uzluksizmi? (b)x = 1 nuqtada chap va oʻng tomonli hosilalarni hisoblang. (c)f shu yerda hosilali boʻladimi? (d) Agar mavjud boʻlsa, birlashish nuqtasida teg chiziqni toping.",
       "steps": [
-       {
-        "text": "(a)f(1) = 1; lim x →1⁻f(x) = 1; lim x →1 + f(x) = 2·1 −1 = 1 — uchala qiymat teng, fx = 1 nuqtada uzluksiz."
-       },
-       {
-        "text": "(b)f′_−(1) = (x²)′|x=1 = 2; f′_+(1) = (2x −1)′|x=1 = 2."
-       },
-       {
-        "text": "(c) Bir tomonli hosilalar mavjud, chekli va teng: fx = 1 nuqtada hosilali, f′(1) = 2."
-       },
-       {
-        "text": "(d)(1, 1) nuqtadan oʻtuvchi va qiyaligi 2 boʻlgan teg chiziq: y = 2x −1. Eʼtibor bering: oʻng shox oʻzi shu teg chiziqdir, shuning uchun birlashish silliq."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f x = 1 nuqtada uzluksiz va hosilali; f′(1) = 2; teg chiziq: y = 2x −1"
      },
@@ -3713,24 +3085,12 @@
       "heading": "Mashq 6 — Toʻgʻri yoki notoʻgʻri?",
       "problem": "Asoslab bering. (a) Agar fa nuqtada hosilali boʻlsa, u holda fa nuqtada uzluksiz. (b) Agar fa nuqtada uzluksiz boʻlsa, u holda fa nuqtada hosilali. (c) Agar f′(a) = 0 boʻlsa, f doimiy funksiya boʻlishi shart. (d) Agar ikkala bir tomonli hosila mavjud va chekli boʻlsa, u holda f′(a) mavjud. (e) Funksiya uzluksiz boʻlgan nuqtada vertikal teg chiziqqa ega boʻlishi mumkin. (f) Ikki silliq qismning tutashish joyida burilish paydo boʻlishi mumkin.",
       "steps": [
-       {
-        "text": "(a) Toʻgʻri: 3.1-teorema «hosilalilik uzluksizlikni keltirib chiqaradi»."
-       },
-       {
-        "text": "(b) Notoʻgʻri: qarama-qarshi misol — |x| nolda: uzluksiz, lekin f′(0) mavjud emas."
-       },
-       {
-        "text": "(c) Notoʻgʻri: qarama-qarshi misol — x²: f′(0) = 0, lekin funksiya doimiy emas."
-       },
-       {
-        "text": "(d) Notoʻgʻri: bir tomonli hosilalar teng boʻlishi ham kerak; |x| da nolda ikkalasi ham chekli (−1 va 1), lekin f′(0) mavjud emas."
-       },
-       {
-        "text": "(e) Toʻgʻri: x¹/³ nolda uzluksiz va u yerda vertikal teg chiziqqa ega."
-       },
-       {
-        "text": "(f) Toʻgʻri: ikki silliq qism turli qiyaliklar bilan tutashishi mumkin — |x| funksiyasidagi y = −x va y = x nurlari kabi."
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "(a) Toʻgʻri; (b) Notoʻgʻri; (c) Notoʻgʻri; (d) Notoʻgʻri; (e) Toʻgʻri; (f) Toʻgʻri"
      },
@@ -3759,21 +3119,11 @@
       "heading": "Mashq 7 — Nolda toʻrtta holat",
       "problem": "Har bir funksiya uchun nolda uzluksiz va hosilali ekanligini aniqlang; burilish, uch yoki vertikal teg chiziqni koʻrsating: (a)f(x) = x²; (b)g(x) = |x|; (c)p(x) = |x|²/³; (d)q(x) = x¹/³.",
       "steps": [
-       {
-        "text": "(a)x² uzluksiz; (h² −0)/h = h →0, shuning uchun f′(0) = 0 — gorizontal tegirmon."
-       },
-       {
-        "text": "(b)|x| uzluksiz; f′_−(0) = −1, f′_+(0) = 1 — burilish (kink), hosila yoʻq."
-       },
-       {
-        "text": "(c)|x|²/³ uzluksiz; |h|²/³/h →−∞ chapdan va +∞ oʻngdan — oʻtkir uch (cusp): grafik ikkala tomondan cheksiz qiyshaygan, qarama-qarshi ishoralar; chekli hosila yoʻq."
-       },
-       {
-        "text": "(d)x¹/³ uzluksiz; (h¹/³ −0)/h = 1/h²/³ →+∞ ikkala tomondan — vertikal tegirmon x = 0; hosila (chekli sonda) yoʻq."
-       },
-       {
-        "text": "Natija: barcha toʻrtta funksiya nol nuqtada uzluksiz, faqat x² da hosila mavjud."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "(a) Uzluksiz va hosilali, gorizontal tegirmon; (b) Uzluksiz, lekin hosilali emas, burilish; (c) Uzluksiz, lekin hosilali emas, oʻtkir uch; (d) Uzluksiz, lekin hosilali emas, vertikal tegirmon"
      },
@@ -3800,21 +3150,11 @@
       "heading": "Mashq 8 — Funksiya x·|x|",
       "problem": "Faraz qilaylik f(x) = x·|x|. (a)f ni qismlarga yozing. (b) Taʼrif boʻyicha hosilani toping f′(0). (c)f′(x) ni toping x ≠ 0 da. (d)f′ nol nuqtada uzluksizmi? (e)f″(0) mavjudmi? Bir tomonlama limitlar orqali tushuntiring.",
       "steps": [
-       {
-        "text": "(a)f(x) = {−x², agar x < 0; x², agar x ≥0}."
-       },
-       {
-        "text": "(b)f′(0) = lim h →0(h · |h| −0)/h = lim h →0|h| = 0."
-       },
-       {
-        "text": "(c)x ≠ 0 da: f′(x) = −2x agar x < 0 va 2x agar x > 0; nol nuqtadagi qiymati bilan birga f′(x) = {−2x, x < 0; 0, x = 0; 2x, x > 0} = 2|x|."
-       },
-       {
-        "text": "(d)2|x| →0 = f′(0) agar x →0 — f′ nol nuqtada uzluksiz."
-       },
-       {
-        "text": "(e)(f′(h) −f′(0))/h = 2|h|/h →−2 chapdan va +2 oʻngdan; bir tomonlama limitlar har xil, shuning uchun f″(0) mavjud emas (f′ = 2|x| grafigida nol nuqtada burilish)."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f(x) = {−x², x < 0; x², x ≥0}; f′(0) = 0; f′(x) = 2|x|; f′ uzluksiz; f″(0) mavjud emas"
      },
@@ -3843,18 +3183,10 @@
       "heading": "Mashq 9 — Olib tashlanadigan ”tirqish”",
       "problem": "f(x) = (x² −4)/(x −2), x ≠ 2 ni koʻrib chiqaylik. (a) Ifodani soddalashtiring, aniqlanish sohasining cheklovini saqlab. (b)f′(x) ni uning sohasida toping. (c) Boshlangʻich funksiyaning 2 nuqtasida hosilasi barmi? (d)2 nuqtada toʻldirishni aniqlang, u differensiallanadigan boʻladi.",
       "steps": [
-       {
-        "text": "(a)x ≠ 2 uchun: f(x) = ((x −2)(x + 2))/(x −2) = x + 2 — x = 2 nuqtasi hali ham istisnolangan."
-       },
-       {
-        "text": "(b)f′(x) = 1 agar x ≠ 2."
-       },
-       {
-        "text": "(c) Boshlangʻich funksiya 2 nuqtada aniqlanmagan, shuning uchun uning 2 nuqtasida hosilasi yoʻq."
-       },
-       {
-        "text": "(d) ˜f(2) = 4 = lim x →2f(x) deb toʻldiramiz; keyin ˜f(x) = x + 2 barcha x uchun va ˜f′(2) = 1 — toʻldirish ”tirqishni” olib tashladi va funksiyani differensiallanadigan qildi."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f(x) = x + 2, x ≠ 2; f′(x) = 1, x ≠ 2; f(2) da aniqlanmagan; ˜f(x) = x + 2, ˜f′(x) = 1"
      },
@@ -3883,24 +3215,12 @@
       "heading": "Mashq 10 — Odatiy xatolarni tuzatish",
       "problem": "Talaba yozadi: (a)d/dx(x2 · x3) = (2x)(3x2) = 6x3; (b)d/dx((x2 + 1)/(x + 1)) = 2x/1; (c)d/dx(7x3 + 5) = 21x2 + 5. Har bir daʼvotda xatoni koʻrsating, toʻgʻri hosilani bering va mos keladigan qoidani noming.",
       "steps": [
-       {
-        "text": "Xato: koʻpaytma hosilasi — hosilalar koʻpaytmasi emas."
-       },
-       {
-        "text": "Toʻgʻri (koʻpaytma qoidasi): d/dx(x2 · x3) = (2x) · x3 + x2 · (3x2) = 5x4 (tekshirish: x2 · x3 = x5, va d/dx(x5) = 5x4)."
-       },
-       {
-        "text": "Xato: boʻlinma hosilasi — hosilalar boʻlinmasi emas."
-       },
-       {
-        "text": "Toʻgʻri (boʻlinma qoidasi): d/dx((x2+1)/(x+1)) = (2x(x+1)−(x2+1))/(x+1)2 = (x2+2x−1)/(x+1)2, x ≠ −1."
-       },
-       {
-        "text": "Xato: doimiy funksiyaning hosilasi nolga teng."
-       },
-       {
-        "text": "Toʻgʻri: d/dx(7x3+5) = 21x2."
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Ko'paytma va bo'linma hosilalarini hisoblashda asosiy xatolar: ko'paytma hosilasini hosilalar ko'paytmasi deb olish, bo'linma hosilasini hosilalar bo'linmasi deb olish va doimiy hadning hosilasini hisobga olmaslik."
      },
@@ -3935,24 +3255,12 @@
       "heading": "Mashq 11 — Yuqori hosilalar 1/x",
       "problem": "Faraz qilaylik f(x) = 1/x, x ≠ 0. (a)f′(x), f″(x), f‴(x) ni toping. (b) Ishoralar va koeffitsientlardagi qonuniyatni tasvirlang. (c)f(n)(x) uchun formulani taxmin qiling.",
       "steps": [
-       {
-        "text": "f′(x) = −1/x2"
-       },
-       {
-        "text": "f″(x) = 2/x3"
-       },
-       {
-        "text": "f‴(x) = −6/x4"
-       },
-       {
-        "text": "Ishoralar almashinadi (−, +, −, . . .), koeffitsientlarning modullari — faktoriallar (1 = 1!, 2 = 2!, 6 = 3!), maxrajning darajasi 1 ga oshadi."
-       },
-       {
-        "text": "f(n)(x) = (−1)n · n!/xn+1, x ≠ 0."
-       },
-       {
-        "text": "n = 3 da tekshirish: (−1)3 · 3!/x4 = −6/x4 — mos keladi."
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f(n)(x) = (−1)^n · n!/x^(n+1)"
      },
@@ -3987,21 +3295,11 @@
       "heading": "Mashq 12 — Isitish tajribasi",
       "problem": "Tajriba paytida T(t) = 20+ 8t −t², 0 ≤t ≤4(T— Selsiy darajasida, t — daqiqalarda). (a)T′(t) ni toping. (b)T′(1)vaT′(3) ni talqin qiling. (c)[1, 3] oraliqdagi oʻrtacha ishlash tezligini toping. (d)T(2)vaT′(2)danT(2.1) ni baholang. (e) Aniq T(2.1) ni hisoblang va baholash xatosini toping.",
       "steps": [
-       {
-        "text": "T′(t) = 8−2t."
-       },
-       {
-        "text": "T′(1) = 6 °C/daq, T′(3) = 2 °C/daq: komponent ikkala vaqt ham isiyapti, lekin t = 3 da sekinroq."
-       },
-       {
-        "text": "T(1) = 27, T(3) = 35; oʻrtacha tezlik (35 −27)/(3 −1) = 4 °C/daq."
-       },
-       {
-        "text": "T(2) = 32, T′(2) = 4; oʻsish formulasiga koʻra T(2.1) ≈32+4·0.1 = 32.4 °C."
-       },
-       {
-        "text": "Aniq: T(2.1) = 20+16.8−4.41 = 32.39 °C; tegirmon 0.01 °C yuqori baholaydi."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Oʻrtacha tezlik: 4 °C/daq; baholash xatosi: 0.01 °C"
      },
@@ -4066,12 +3364,8 @@
       "heading": "Topshiriq 1 — Sunʼiy intellekt yordamchisi bilan ishlash",
       "problem": "Sunʼiy intellekt yordamchisi (ChatGPT, Claude, DeepSeek, Gemini va boshqalar) bilan tuzilgan suhbatda boʻling: maʼruzada eng muhim tushunchalarni ifodalang va yordamchidan javobingizni (mazmuni va tushunarliligi boʻyicha; chuqurligi va murakkabligi boʻyicha ham) baholashni soʻrang. Agar xato xulosalar, nomutanosibliklar yoki ziddiyatlarn topsangiz, ularni koʻrsating va tushuntirishni soʻrang; agar ziddiyat hal qilinmasa, oʻqituvchiga murojaat qiling.",
       "steps": [
-       {
-        "text": "6-hafta asosiy gʻoyalari roʻyxatini tuzing (farq nisbati va urinma; hosila chekli sifatida; differensiallash qoidalari; bir tomonlama hosilalar va f′(a) mavjudlik mezonu; \"differensiallanuvchan ⇒ uzluksiz\" teoremasi va uning buzilishlari — burilish, uchburchak, vertikal urinma, osillyatsiya; yuqori hosilalar; oʻsish formulasi; tezlik/tezlanish/tezlik oʻzgarishi; marjinal kattaliklar)."
-       },
-       {
-        "text": "Yordamchidan ifodalarning toʻliqligi va anikligini baho lashni soʻrang va har bir eʼtirozni tahlil qiling."
-       }
+       null,
+       null
       ],
       "result": "Topshiriq-instruktsiya; yagona \"yechim\" yoʻq."
      },
@@ -4096,15 +3390,9 @@
       "heading": "Topshiriq 2 — Barcha masalalarni oʻrganish",
       "problem": "Maʼruza va amaliy mashgʻulotda yoritilgan barcha masalalar, mashqlar va misollarni yaxshi oʻrganing.",
       "steps": [
-       {
-        "text": "Barcha 12 amaliy mashq — oldingi boʻlimda toʻliq yechimlari bilan."
-       },
-       {
-        "text": "Maʼruza mashqlari (In-Class activity №1 −10) va talab qilinadigan oʻqish misollari — keyingi boʻlimda."
-       },
-       {
-        "text": "3.34–3.35 misollari (topshiriq 3) — pastda."
-       }
+       null,
+       null,
+       null
       ],
       "result": "Topshiriq-instruktsiya; yagona \"yechim\" yoʻq."
      },
@@ -4127,12 +3415,8 @@
       "heading": "Topshiriq 3 — Darslik misollarini oʻrganish",
       "problem": "Darslikning 3.34 va 3.35 misollarini oʻrganing (OpenStax Calculus 1).",
       "steps": [
-       {
-        "text": "Misol 3.34 (tezva oʻrtacha tezlik). Toʻp 64 fut balandlikdan tushadi: s(t) = −16t² + 64. (a) Yerga tushish s(t) = 0 da boʻladi: t = 2s. Urinish vaqtidagi tezlik: v(t) = s′(t) = −32t, shuning uchun v(2) = −64fut/s (\"minus\" belgisi pastga harakatni bildiradi; fayl transkripsiyasida \"v(t) = −64\" xatosi, tuzatilgan). (b) Tushish davomidagi oʻrtacha tezlik: vave = (s(2) −s(0))/(2 −0) = −32fut/s."
-       },
-       {
-        "text": "Misol 3.35 (v(t) va a(t) oʻrtasidagi bogʻliqlik). Zarracha: s(t) = t³−4t +2; v(t) = 3t² −4, a(t) = 6t; t = 1 da: v(1) = −1, a(1) = 6. (a)v(1) < 0 boʻlgani uchun, zarracha oʻngdan chapga harakatlanadi. (b)v(1) < 0 va a(1) > 0 — qarama-qarshi yoʻnalishlar: |v(t)| kamayadi, zarracha sekinlashadi."
-       }
+       null,
+       null
       ],
       "result": "Misol 3.34: v(2) = −64fut/s, oʻrtacha tezlik: −32fut/s; Misol 3.35: zarracha sekinlashadi"
      },
@@ -4169,18 +3453,10 @@
       "heading": "Topshiriq 4 — Darslik masalalarini yechish",
       "problem": "Quyidagi masalalarni yeching (ular darslikdan, 196, 210, 211, 212, 232 betlaridan).",
       "steps": [
-       {
-        "text": "Checkpoint 3.4 (tosh 64 fut balandlikdan tushadi, s(t) = −16t² +64, 0 ≤t ≤ 2; 1 sekunddagi tezlik 3.5 tenglamasi boʻyicha): s(1) = 48; v(1) = lim t →1(−16t² + 16)/(t −1) = lim t →1 −16(t −1)(t + 1)/(t −1) = −32fut/s."
-       },
-       {
-        "text": "Checkpoint 3.8(avabni toping, f(x) = {ax +b, agar x < 3; x², agar x ≥3} x = 3 nuqtada uzluksiz va differensiallanuvchi boʻlishi uchun): uzluksizlik 3a +b = f(3) = 9 ni beradi, differensiallanuvchanlik — qiyaliklarning tengligi a = (x²)′|x=3 = 6; shundan a = 6, b = −9 (tekshirish: 3 · 6 −9 = 9 = 3², qiyaliklar 6 = 6)."
-       },
-       {
-        "text": "Checkpoint 3.9(f(x) = x², f″(x)ni toping): f′(x) = 2x, f″(x) = 2."
-       },
-       {
-        "text": "Checkpoint 3.10(s(t) = t³, a(t)ni toping): v(t) = 3t², a(t) = 6t."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Checkpoint 3.4: v(1) = −32fut/s; Checkpoint 3.8: a = 6, b = −9; Checkpoint 3.9: f″(x) = 2; Checkpoint 3.10: a(t) = 6t"
      },
@@ -4209,18 +3485,10 @@
       "heading": "Topshiriq 5 — Qismlarga boʻlingan funksiyaning tahlili",
       "problem": "f(x) = {2x +1, agar x < 0; x² + 1, agar x ≥0} ni koʻrib chiqaylik. (a) Nolda uzluksizlikni tekshiring. (b)f′_−(0) va f′_+(0) ni toping. (c)f nolda differensiallanadimi yoki yoʻqligini aniqlang. (d) Bogʻlanish nuqtasi yaqinidagi grafikni tasvirling.",
       "steps": [
-       {
-        "text": "f(0) = 0² + 1 = 1; lim x →0 −f(x) = 2 · 0 + 1 = 1; lim x →0 +f(x) = 0² + 1 = 1 — limit mavjud va qiymatiga teng: f nolda uzluksiz."
-       },
-       {
-        "text": "Chap shoxining 2x +1 noldagi burchak koeffitsiyenti: f′_−(0) = 2; oʻng shoxining x² + 1 burchak koeffitsiyenti: f′_+(0) = (x² + 1)′|x=0 = 0."
-       },
-       {
-        "text": "f′_−(0) = 2 ≠ 0 = f′_+(0): f nolda differensiallanmaydi."
-       },
-       {
-        "text": "Chapda — burchak koeffitsiyenti 2 boʻlgan toʻgʻri chiziq, oʻngda — (0, 1) nuqtada gorizontal urinadigan parabola; shoxlar (0, 1) da uzluqsiz tutashadi, lekin turli burchak koeffitsientlari bilan — tutashish nuqtasida bukilma (kink) bor."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f nolda uzluksiz lekin differensiallanmaydi"
      },
@@ -4253,18 +3521,10 @@
       "heading": "Topshiriq 6 — Toʻgʻri yoki notoʻgʻri",
       "problem": "Toʻgʻri yoki notoʻgʻri? Asosini keltiring. (a) Agar f a nuqtada differensiallanadigan boʻlsa, u holda f a nuqtada uzluksizdir. (b) Agar f a nuqtada uzluksiz boʻlsa, u holda f a nuqtada differensiallanadi. (c) Agar f′(a) = 0 boʻlsa, f doimiy funksiya boʻlishi shart. (d) Agar ikkala bir tomonlama hosila f′_−(a) va f′_+(a) mavjud boʻlsa, u holda f a nuqtada differensiallanadi.",
       "steps": [
-       {
-        "text": "(a) Toʻgʻri. \"Differensiallanuvchan funksiya uzluksizdir\" teoremasi."
-       },
-       {
-        "text": "(b) Notoʻgʻri. Misol: f(x) = |x| x = 0 da uzluksiz lekin differensiallanmaydi."
-       },
-       {
-        "text": "(c) Notoʻgʻri. Misol: f(x) = x² a = 0 da f′(0) = 0, lekin f doimiy funksiya emas."
-       },
-       {
-        "text": "(d) Notoʻgʻri. Ikkala bir tomonlama hosila mavjud boʻlishi yetarli emas, ular teng boʻlishi kerak. Misol: f(x) = {x, agar x < 0; 2x, agar x ≥0} x = 0 da f′_−(0) = 1, f′_+(0) = 2, lekin differensiallanmaydi."
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "(a) Toʻgʻri; (b) Notoʻgʻri; (c) Notoʻgʻri; (d) Notoʻgʻri"
      },
@@ -4297,21 +3557,11 @@
       "heading": "Problem 1 — Uzluksizlik va differensiallanuvchanlik",
       "problem": "Quyidagi bayonotlarning to'g'ri yoki noto'g'ri ekanligini aniqlang:\n(a) Agar f′(a) mavjud bo'lsa, u holda f(a) nuqtada uzluksizdir.\n(b) Agar f(a) nuqtada uzluksiz bo'lsa, u holda f′(a) mavjud.\n(c) Agar f′(a) = 0 bo'lsa, u holda f(a) nuqtada funksiya doimiy.\n(d) Agar f(a) nuqtada ikkala bir tomonlama hosila mavjud va chekli bo'lsa, u holda f′(a) mavjud.\n(e) Funksiya uzluksiz bo'lgan nuqtada vertikal urinaga ega bo'lishi mumkin.",
       "steps": [
-       {
-        "text": "To'g'ri javoblar asosiy teoremalarga asoslanadi."
-       },
-       {
-        "text": "|x| funksiyasini nol nuqtada ko'rib chiqamiz: uzluksiz, lekin f′(0) mavjud emas."
-       },
-       {
-        "text": "x² funksiyasini nol nuqtada ko'rib chiqamiz: f′(0) = 0, lekin funksiya doimiy emas."
-       },
-       {
-        "text": "Bir tomonlama hosilalar teng bo'lishi kerakligini tekshiramiz: |x| nolda ikkalasi ham chekli (−1 va 1), lekin f′(0) mavjud emas."
-       },
-       {
-        "text": "x^(1/3) funksiyasini nol nuqtada ko'rib chiqamiz: uzluksiz va vertikal urinaga ega (1/h^(2/3) → +∞ ikkala tomondan), shuning uchun chekli hosila yo'q."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Javoblar: (a) To'g'ri, (b) Noto'g'ri, (c) Noto'g'ri, (d) Noto'g'ri, (e) To'g'ri"
      },
@@ -4338,24 +3588,12 @@
       "heading": "Problem 2 — Poyga muxlislar uchun loyiha",
       "problem": "\"Formula One Grandstands\" loyihasini o'rganing:\nPoyga yo'nalishi f(x) = x³ + 3x² + x funksiyasi bilan modellashtirilgan, tribunaning old burchagi (−1.9, 2.8) nuqtada rejalashtirilgan.\n(1) Poygachilar aylanaga kirayotganda boshqaruvni yo'qotadilar — bu erda urinaning burchak koeffitsiyenti 1 ga teng; bu aylanadagi (x, y) nuqtaning koordinatalarini toping.\n(2) Bu nuqtadagi urinaning tenglamasini toping.\n(3) Urinaning y = 2.8 to'g'ri chiziq bilan kesishishining x-koordinatasini toping: bu nuqta tribunadan o'ngda xavfsizmi yoki tomoshabinlar xavfsizlikda emasmi?\n(4) Faraz qilaylik, poygachi boshqaruvni oldinroq — (−2.5, 0.625) nuqtada yo'qotadi; u yerda urinaning burchak koeffitsiyenti qanday?\n(5) Bu holatda tomoshabinlar xavfsizmi?\n(6) Hozirgi dizaynni saqlab qolish yoki tribunalarini ko'chirish kerakmi?",
       "steps": [
-       {
-        "text": "f′(x) = 3x² + 6x + 1 hosilani topamiz."
-       },
-       {
-        "text": "f′(x) = 1 bo'lishi uchun 3x² + 6x = 0, ya'ni x(x + 2) = 0, x = 0 yoki x = −2."
-       },
-       {
-        "text": "Aylanaga kirish nuqtasi x = −2: f(−2) = −8 + 12 − 2 = 2, nuqta (−2, 2)."
-       },
-       {
-        "text": "Urinaning tenglamasi: y = x + 4."
-       },
-       {
-        "text": "y = 2.8 bilan kesishish: x = −1.2."
-       },
-       {
-        "text": "Nuqta (−1.2, 2.8) tribunaning old burchagidan (x = −1.9) o'ngda joylashgan — mashina yo'li tribunadan o'ngda o'tadi, tomoshabinlar xavfsiz."
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -4383,21 +3621,11 @@
       "heading": "Problem 2 — Poyga muxlislar uchun loyiha (cont.)",
       "problem": "",
       "steps": [
-       {
-        "text": "f′(−2.5) = 18.75 − 15 + 1 = 4.75."
-       },
-       {
-        "text": "Urinaning tenglamasi: y = 0.625 + 4.75 · (x + 2.5)"
-       },
-       {
-        "text": "y = 2.8 bo'lganda: x + 2.5 = 2.175/4.75 ≈ 0.458, x ≈ −2.04"
-       },
-       {
-        "text": "Nuqta tribuna burchagidan chapda: tik urinaning yo'li tribuna zonasidan o'tadi, tomoshabinlar xavfsizlikda emas."
-       },
-       {
-        "text": "Dizayn xavfli: tribunalarni yo'ldan uzoqroq joylashtirish yoki ko'chirish kerak."
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Javoblar:\n(1) (−2, 2)\n(2) y = x + 4\n(3) x = −1.2, tomoshabinlar xavfsiz\n(4) 4.75\n(5) Tomoshabinlar xavfsizlikda emas\n(6) Tribunalarni ko'chirish kerak"
      },
@@ -4569,24 +3797,12 @@
       "heading": "Problem 3 — Tezlikning o'zgarish tezligi",
       "problem": "Hennessey Venom GT 0 dan 60 mph gacha 3.05s, 100 mph gacha 5.88s, 200 mph gacha 14.51s va 229.9 mph gacha 19.96s tezlikda tezlashadi. 229.9 mph ga yaqinlashayotganda tezlanish bilan nima bo'ladi: o'sadi, kamayadi yoki doimiy bo'ladi?",
       "steps": [
-       {
-        "text": "Tezliklarni fut/sek ga aylantiramiz: 60mph = 88; 100 ≈146.67; 200 ≈293.33; 229.9 ≈337.19."
-       },
-       {
-        "text": "O'rtacha tezlanishlarni (v(t)−337.19)/(t−19.96) [t, 19.96] oraliqlarida hisoblaymiz:"
-       },
-       {
-        "text": "t = 0 bo'lganda: 16.89 fut/sek²"
-       },
-       {
-        "text": "t = 3.05 bo'lganda: 14.74 fut/sek²"
-       },
-       {
-        "text": "t = 5.88 bo'lganda: 13.53 fut/sek²"
-       },
-       {
-        "text": "t = 14.51 bo'lganda: 8.05 fut/sek²"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "O'rtacha tezlanishlar kamaymoqda — 229.9 mph ga yaqinlashayotganda tezlanish kamayadi."
      },
@@ -4611,24 +3827,12 @@
       "heading": "Problem 4 — Foydani o'zgarish tezligi",
       "problem": "Firma x oʻyin tizimlarini p = −0.01x + 400 dollar narxda sotadi; xarajatlar C(x) = 100x + 10000 dollar. 10000 oʻyin ishlab chiqarishda foydani oʻzgarish tezligini toping. Ishlab chiqarishni oshirish kerakmi?",
       "steps": [
-       {
-        "text": "Daromad R(x) = x · p = −0.01x² + 400x"
-       },
-       {
-        "text": "Foya P(x) = R − C = −0.01x² + 300x − 10000"
-       },
-       {
-        "text": "P(10000) = −0.01(10000)² + 300(10000) − 10000 = 1990000 dollar"
-       },
-       {
-        "text": "Taʼrif boʻyicha: P′(10000) = lim x → 10000 (P(x) − P(10000))/(x − 10000)"
-       },
-       {
-        "text": "Suratni koʻrinishga ajratamiz: −0.01(x − 10000)(x − 20000)"
-       },
-       {
-        "text": "Limit: −0.01 · (10000 − 20000) = 100"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "P′(10000) = 100 > 0 va P(10000) > 0 — foya oʻsmoqda, firmaga ishlab chiqarishni oshirish kerak."
      },
@@ -4659,24 +3863,12 @@
       "heading": "Problem 5 — Hosilaning eskizi",
       "problem": "f(x) funksiya grafigi (3, 6) nuqtada mahalliy maksimum va (−2, 2) nuqtada mahalliy minimumga ega bo'lgan holda f′(x) grafigini chizing.",
       "steps": [
-       {
-        "text": "f(x) funksiyasining kritik nuqtalari: x = 3 (maksimum) va x = −2 (minimum)"
-       },
-       {
-        "text": "f′(x) funksiyasi x = 3 va x = −2 da nolga teng bo'ladi"
-       },
-       {
-        "text": "x = 3 dan chapda f′(x) > 0 (funksiya o'sadi), o'ngda f′(x) < 0 (funksiya kamayadi)"
-       },
-       {
-        "text": "x = −2 dan chapda f′(x) < 0 (funksiya kamayadi), o'ngda f′(x) > 0 (funksiya o'sadi)"
-       },
-       {
-        "text": "f′(x) grafigi x = 3 va x = −2 da nolga teng bo'lgan egri chiziq bo'ladi"
-       },
-       {
-        "text": "x = 3 da f′(x) musbatdan manfiyga o'tadi, x = −2 da manfiydan musbatga o'tadi"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f′(x) grafigi x = 3 va x = −2 da nolga teng bo'lgan, x = 3 da maksimum, x = −2 da minimum ko'rsatuvchi egri chiziq."
      },
@@ -4726,24 +3918,12 @@
       "heading": "Misol 3.24 — Ko'paytma qoidasi",
       "problem": "j(x) = (x^2+2)(3x^3−5x) funksiya uchun j'(x) ni ko'paytma qoidasi bo'yicha toping va natijani ko'paytmani ochib tekshiring.",
       "steps": [
-       {
-        "text": "f(x) = x^2 + 2 (f' = 2x)"
-       },
-       {
-        "text": "g(x) = 3x^3−5x (g' = 9x^2 −5)"
-       },
-       {
-        "text": "j'(x) = 2x(3x^3 −5x) + (9x^2 −5)(x^2 + 2)"
-       },
-       {
-        "text": "j'(x) = (6x^4 −10x^2) + (9x^4 + 13x^2 −10)"
-       },
-       {
-        "text": "j'(x) = 15x^4 + 3x^2 −10"
-       },
-       {
-        "text": "Tekshirish: j(x) = 3x^5 + x^3−10x → j'(x) = 15x^4 + 3x^2 −10 — mos keladi."
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "j'(x) = 15x^4 + 3x^2 −10"
      },
@@ -4770,18 +3950,10 @@
       "heading": "Misol 3.25 — Bo'linma qoidasi",
       "problem": "k(x) = 5x^2/(4x + 3) funksiyaning hosilasini toping.",
       "steps": [
-       {
-        "text": "f(x) = 5x^2 (f' = 10x)"
-       },
-       {
-        "text": "g(x) = 4x + 3 (g' = 4)"
-       },
-       {
-        "text": "k'(x) = (10x(4x+3)−4·5x^2)/(4x+3)^2"
-       },
-       {
-        "text": "k'(x) = (20x^2 + 30x)/(4x + 3)^2"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "k'(x) = (20x^2 + 30x)/(4x + 3)^2"
      },
@@ -4804,18 +3976,10 @@
       "heading": "Misol 3.31 — Gorizontal tegishlar",
       "problem": "f(x) = x^3−7x^2+ 8x +1 funksiya qaysi x qiymatlarida gorizontal tegishga ega ekanligini aniqlang.",
       "steps": [
-       {
-        "text": "Gorizontal tegish — f'(x) = 0 bo'lgan joyda."
-       },
-       {
-        "text": "f'(x) = 3x^2−14x +8"
-       },
-       {
-        "text": "f'(x) = (3x−2)(x−4)"
-       },
-       {
-        "text": "yechimlar: x = 2/3 va x = 4"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "x = 2/3 va x = 4"
      },
@@ -4838,18 +4002,10 @@
       "heading": "Misol 3.36 — Pozitsiya va tezlik",
       "problem": "Zarrachaning pozitsiyasi: s(t) = t^3−9t^2+ 24t +4, t ≥0. (a)v(t) ni toping. (b) Zarracha qachon tinch turadi? (c)U qaysi tomon chapga va qaysi tomon o'ngga harakat qiladi? (d) Koordinata o'qi bo'yicha yo'lni chizing.",
       "steps": [
-       {
-        "text": "(a)v(t) = s'(t) = 3t^2−18t +24"
-       },
-       {
-        "text": "(b) Tinchlik holati v(t) = 0 da: 3(t−2)(t−4) = 0, ya'ni t = 2 va t = 4"
-       },
-       {
-        "text": "(c)v(t) > 0 [0, 2) ∪ (4, +∞) da — chapdan o'ngga harakat; v(t) < 0 (2, 4) da — o'ngdan chapga harakat"
-       },
-       {
-        "text": "(d) Muhim nuqtalar: s(0) = 4, s(2) = 24, s(4) = 20"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "a) v(t) = 3t^2−18t +24; b) t = 2 va t = 4; c) [0, 2) va (4, +∞) da o'ngga, (2, 4) da chapga; d) s(0)=4, s(2)=24, s(4)=20"
      },
@@ -4874,15 +4030,9 @@
       "heading": "Misol 3.37 — Aholini baholash",
       "problem": "Shahar aholisi har 5 yilda uch barobar ortadi; hozirda 10 000. Taxminan 2 yildan keyin aholi qancha bo'ladi?",
       "steps": [
-       {
-        "text": "P(t) — t yildan keyin aholi (minglab): P(0) = 10, P(5) = 30"
-       },
-       {
-        "text": "O'sish tezligini baholaymiz: P'(0) ≈ (30 −10)/5 = 4 (ming kishi/yil)"
-       },
-       {
-        "text": "O'sish formulasi bo'yicha: P(2) ≈ P(0) + 2 · P'(0) ≈ 10 + 8 = 18"
-       }
+       null,
+       null,
+       null
       ],
       "result": "Taxminan 18 000 kishi"
      },
@@ -4905,15 +4055,9 @@
       "heading": "Misol 3.38 — Marjinal daromad",
       "problem": "Barbekuy-ovqatlarining narxi p(x) = 9 − 0.03x, 0 ≤ x ≤ 300; daromad R(x) = x·p(x) = −0.03x^2 + 9x. 101-chi ovqat sotilishidan olingan daromadni marjinal daromad bo'yicha baholab, haqiqiy qiymati bilan solishtiring.",
       "steps": [
-       {
-        "text": "MR(x) = R'(x) = −0.06x + 9"
-       },
-       {
-        "text": "MR(100) = 3 — 101-chi ovqatdan olingan daromad taxminan 3 dollar"
-       },
-       {
-        "text": "Haqiqiy qiymati: R(101)−R(100) = 602.97−600 = 2.97 dollar"
-       }
+       null,
+       null,
+       null
       ],
       "result": "Marjinal daromad: 3 dollar, haqiqiy qiymat: 2.97 dollar"
      },
@@ -4936,12 +4080,8 @@
       "heading": "Misol — Egilishning tebranishi",
       "problem": "f(x) = {x · sin(1/x), agar x ≠ 0; 0, agar x = 0} funksiyani nol nuqtada tekshiring: uzluksizmi? differensiallanadimi?",
       "steps": [
-       {
-        "text": "Uzluksizlik: |f(x)| = |x| · |sin(1/x)| ≤ |x| → 0, shuning uchun 'qisqartirilgan funksiya' teoremasi bo'yicha lim x→0 f(x) = 0 = f(0)"
-       },
-       {
-        "text": "Differensiallanish: f'(0) = lim x→0 (x · sin(1/x))/x = lim x→0 sin(1/x) — limit mavjud emas: kesma chiziqlarning burchagi doimiy o'zgarib turadi"
-       }
+       null,
+       null
       ],
       "result": "Funksiya nol nuqtada uzluksiz, lekin differensiallanmaydi."
      },
@@ -4966,18 +4106,10 @@
       "heading": "Mashq 1 — Nuqtadagi hosila",
       "problem": "f(x) = x^2 + 3x funksiya uchun f'(a) = lim h→0 (f(a+h)−f(a))/h ta'rifidan f'(2) ni toping va geometrik ma'nosini tushuntiring.",
       "steps": [
-       {
-        "text": "f(2) = 10"
-       },
-       {
-        "text": "f(2 + h) = 10 + 7h + h^2"
-       },
-       {
-        "text": "f'(2) = lim h→0 (7h + h^2)/h = lim h→0 (7 + h) = 7"
-       },
-       {
-        "text": "Geometrik ma'no: (2, 10) nuqtadagi urinma chiziqning burchak koeffitsiyenti 7"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f'(2) = 7"
      },
@@ -5002,15 +4134,9 @@
       "heading": "Mashq 2 — Hosila sifatida funksiya",
       "problem": "f(x) = 3x^2−2x +4 funksiya uchun ta'rif bo'yicha: (a)f'(x) ni toping; (b)x = 1 dagi urinma chiziqning burchak koeffitsiyentini; (c) ushbu urinma chiziqning tenglamasini toping.",
       "steps": [
-       {
-        "text": "(a)f'(x) = lim h→0 [3(x + h)^2 −2(x + h) + 4 −(3x^2 −2x + 4)]/h = lim h→0 (6xh + 3h^2 −2h)/h = 6x −2"
-       },
-       {
-        "text": "(b)f'(1) = 4"
-       },
-       {
-        "text": "(c)f(1) = 5; urinma chiziq: y −5 = 4(x −1), ya'ni y = 4x +1"
-       }
+       null,
+       null,
+       null
       ],
       "result": "a) f'(x) = 6x −2; b) 4; c) y = 4x +1"
      },
@@ -5033,15 +4159,9 @@
       "heading": "Mashq 3 — Ko'phadlarning differensiallanishi",
       "problem": "Hosilalarni toping: (a)f(x) = 5x^4−3x^3+ 2x −7; (b)g(x) = x^5/5−3x^2/2 + 8; (c)p(x) = 7−4x +x^6.",
       "steps": [
-       {
-        "text": "(a)f'(x) = 20x^3−9x^2 + 2"
-       },
-       {
-        "text": "(b)g'(x) = x^4−3x"
-       },
-       {
-        "text": "(c)p'(x) = 6x^5 −4"
-       }
+       null,
+       null,
+       null
       ],
       "result": "a) f'(x) = 20x^3−9x^2 + 2; b) g'(x) = x^4−3x; c) p'(x) = 6x^5 −4"
      },
@@ -5066,15 +4186,9 @@
       "heading": "Mashq 4 — Darajalar",
       "problem": "Darajalar orqali qayta yozib, differensiallang; hosilaning aniqlanish sohasini ko'rsating: (a)f(x) = 3/x^2; (b)g(x) = 2 · √x −1/x; (c)p(x) = x^(1/3) + x^2.",
       "steps": [
-       {
-        "text": "(a)f(x) = 3x^−2 → f'(x) = −6x^−3 = −6/x^3, x ≠ 0"
-       },
-       {
-        "text": "(b)g(x) = 2x^(1/2) −x^−1 → g'(x) = x^(−1/2) + x^−2, x > 0"
-       },
-       {
-        "text": "(c)p'(x) = 1/(3x^(2/3)) + 2x, x ≠ 0: o'z-o'zida p nol nuqtada aniqlangan, lekin u yerda chekli hosila yo'q (vertikal urinma)"
-       }
+       null,
+       null,
+       null
       ],
       "result": "a) f'(x) = −6/x^3, x ≠ 0; b) g'(x) = 1/√x + 1/x^2, x > 0; c) p'(x) = 1/(3x^(2/3)) + 2x, x ≠ 0"
      },
@@ -5097,18 +4211,10 @@
       "heading": "Mashq 5 — Bo'linma qoidasi",
       "problem": "f(x) = (x^2 + 1)/(x + 2), x ≠ −2 bo'lsin. (a)f'(x) ni bo'linma qoidasi bo'yicha toping. (b)f'(0) ni toping. (c)x = 0 dagi urinma chiziqni toping. (d)x = −2 nuqtada hosila nima uchun yo'q?",
       "steps": [
-       {
-        "text": "(a)f'(x) = [2x(x + 2) −(x^2 + 1)]/(x + 2)^2 = (x^2 + 4x −1)/(x + 2)^2"
-       },
-       {
-        "text": "(b)f'(0) = −1/4"
-       },
-       {
-        "text": "(c)f(0) = 1/2; urinma chiziq y = 1/2 −x/4"
-       },
-       {
-        "text": "(d)x = −2 nuqtada funksiya aniqlanmagan (maxraj nol), shuning uchun u yerda hosila yo'q"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "a) f'(x) = (x^2 + 4x −1)/(x + 2)^2; b) f'(0) = −1/4; c) y = 1/2 −x/4; d) Funksiya aniqlanmagan"
      },
@@ -5133,24 +4239,12 @@
       "heading": "Mashq 6 — Yuqori tartibli hosilalar",
       "problem": "f(x) = 2x^4−3x^3 +x^2−5x +6 funksiya uchun f'(x), f''(x), f'''(x), f^(4)(x), f^(5)(x) ni toping va beshinchi hosilaning ma'nosini tushuntiring.",
       "steps": [
-       {
-        "text": "f'(x) = 8x^3−9x^2+ 2x −5"
-       },
-       {
-        "text": "f''(x) = 24x^2−18x +2"
-       },
-       {
-        "text": "f'''(x) = 48x −18"
-       },
-       {
-        "text": "f^(4)(x) = 48"
-       },
-       {
-        "text": "f^(5)(x) = 0"
-       },
-       {
-        "text": "Har bir differensiallash darajani 1 ga kamaytiradi; to'rt bosqichdan so'ng doimiy 48 hosil bo'ladi, doimiyning hosili esa nolga teng."
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f'(x) = 8x^3−9x^2+ 2x −5; f''(x) = 24x^2−18x +2; f'''(x) = 48x −18; f^(4)(x) = 48; f^(5)(x) = 0"
      },
@@ -5177,15 +4271,9 @@
       "heading": "7-mashq — Ikkita usul",
       "problem": "f(x) = √x·(x^2+4), x > 0 funksiyani differensiallang: (a) ko'paytma qoidasi bo'yicha; (b) darajalar yig'indisiga ochib; (c) tengdoshligini ko'rsating.",
       "steps": [
-       {
-        "text": "(a)f'(x) = (x^2 + 4)/(2 · √x) + 2x·√x; 2x·√x = 4x^2/(2 · √x) ekanligidan, f'(x) = (5x^2 + 4)/(2 · √x) hosil bo'ladi"
-       },
-       {
-        "text": "(b)f(x) = x^(5/2) + 4x^(1/2) → f'(x) = (5/2)x^(3/2) + 2x^(−1/2)"
-       },
-       {
-        "text": "(c) Maxraj 2 · √x ga keltirish: (5/2)x^(3/2) = 5x^2/(2 · √x) va 2x^(−1/2) = 4/(2 · √x); yig'indisi yana (5x^2 + 4)/(2 · √x)"
-       }
+       null,
+       null,
+       null
       ],
       "result": "f'(x) = (5x^2 + 4)/(2 · √x)"
      },
@@ -5208,24 +4296,12 @@
       "heading": "9-mashq — Vagonchakning harakati",
       "problem": "Vagonchak s(t) = t^4 - 4t^3 + 6t^2 (metr) qonuni bilan harakatlanadi, 0 ≤ t ≤ 3s. (a) Tezlik v(t) ni toping. (b) Tezlanish a(t). (c) Tezlanish o'zgarishi j(t). (d) Uchchalasini ham t = 1s da birligi bilan hisoblang.",
       "steps": [
-       {
-        "text": "(a) v(t) = s'(t) = 4t^3 - 12t^2 + 12t"
-       },
-       {
-        "text": "(b) a(t) = v'(t) = 12t^2 - 24t + 12"
-       },
-       {
-        "text": "(c) j(t) = a'(t) = 24t - 24"
-       },
-       {
-        "text": "(d) v(1) = 4(1)^3 - 12(1)^2 + 12(1) = 4m/s"
-       },
-       {
-        "text": "a(1) = 12(1)^2 - 24(1) + 12 = 0m/s^2"
-       },
-       {
-        "text": "j(1) = 24(1) - 24 = 0m/s^3"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "v(1) = 4m/s; a(1) = 0m/s^2; j(1) = 0m/s^3"
      },
@@ -5250,15 +4326,9 @@
       "heading": "10-mashq — Kichik transport",
       "problem": "Kichik transport holati s(t) = t^3 - 6t^2 + 9t, 0 ≤ t ≤ 4 (s — metrda, t — sekundda). (a)[0, 2] oraliqdagi o'rtacha tezlik. (b)t = 2 dagi tezlik. (c) Transport to'xtagan barcha vaqt momentlari.",
       "steps": [
-       {
-        "text": "(a) s(0) = 0, s(2) = 8 - 24 + 18 = 2; vort = (2 - 0)/(2 - 0) = 1m/s"
-       },
-       {
-        "text": "(b) v(t) = s'(t) = 3t^2 - 12t + 9 = 3(t - 1)(t - 3); v(2) = 3(1)(-1) = -3m/s"
-       },
-       {
-        "text": "(c) Transport to'xtaganda v(t) = 0: t = 1s va t = 3s"
-       }
+       null,
+       null,
+       null
       ],
       "result": "a) 1 m/s; b) -3 m/s; c) t = 1s va t = 3s"
      },
@@ -5283,24 +4353,12 @@
       "heading": "3.22-misol",
       "problem": "f(x) = x^2 - 4x + 6 funksiyaning x = 1 dagi urinini toping.",
       "steps": [
-       {
-        "text": "f(1) = (1)^2 - 4(1) + 6 = 3"
-       },
-       {
-        "text": "f'(x) = 2x - 4"
-       },
-       {
-        "text": "x = 1 dagi hosila: f'(1) = 2(1) - 4 = -2"
-       },
-       {
-        "text": "Urin tenglamasi: y - f(1) = f'(1)(x - 1)"
-       },
-       {
-        "text": "y - 3 = -2(x - 1)"
-       },
-       {
-        "text": "y = -2x + 2 + 3 = -2x + 5"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f(1) = 3, urin y = -2x + 5"
      },
@@ -5323,18 +4381,10 @@
       "heading": "3.23-misol",
       "problem": "j = f · g uchun f(2) = 3, f'(2) = -4, g(2) = 1, g'(2) = 6 bo'lsa, j'(2) ni toping.",
       "steps": [
-       {
-        "text": "Ko'paytma qoidasidan foydalanamiz: (f · g)' = f' · g + f · g'"
-       },
-       {
-        "text": "j'(2) = f'(2) · g(2) + f(2) · g'(2)"
-       },
-       {
-        "text": "j'(2) = (-4) · (1) + (3) · (6)"
-       },
-       {
-        "text": "j'(2) = -4 + 18 = 14"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "j'(2) = 14"
      },
@@ -5480,12 +4530,8 @@
       "heading": "Misol — sharni puflash",
       "problem": "Sharning hajmi V = (4/3)πr³ bo'lsa, dV/dt ni toping.",
       "steps": [
-       {
-        "text": "V = (4/3)πr³"
-       },
-       {
-        "text": "Ikkala tomonni t ga nisbatan differensiallaymiz: dV/dt = 4πr² · dr/dt"
-       }
+       null,
+       null
       ],
       "result": "dV/dt = 4πr² · dr/dt"
      },
@@ -5703,24 +4749,12 @@
       "heading": "Misol — sinf ichki faoliyati",
       "problem": "$j(x) = (x^2+2)(3x^3-5x)$ uchun ko'paytma qoidasi bilan hosilani toping",
       "steps": [
-       {
-        "text": "Ko'paytma qoidasini qo'llaymiz: $(f \\cdot g)' = f' \\cdot g + g' \\cdot f$"
-       },
-       {
-        "text": "$f(x) = x^2+2$, shuning uchun $f'(x) = 2x$"
-       },
-       {
-        "text": "$g(x) = 3x^3-5x$, shuning uchun $g'(x) = 9x^2-5$"
-       },
-       {
-        "text": "Hosilani hisoblaymiz: $j'(x) = 2x \\cdot (3x^3-5x) + (9x^2-5) \\cdot (x^2+2)$"
-       },
-       {
-        "text": "Ifodani soddalashtiramiz: $j'(x) = 6x^4-10x^2 + 9x^4+18x^2-5x^2-10$"
-       },
-       {
-        "text": "Natija: $j'(x) = 15x^4+3x^2-10$"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "$j'(x) = 15x^4+3x^2-10$"
      },
@@ -5749,24 +4783,12 @@
       "heading": "3.25-misol",
       "problem": "$k(x) = \\frac{5x^2}{4x+3}$ uchun bo'linma qoidasi bilan hosilani toping",
       "steps": [
-       {
-        "text": "Bo'linma qoidasini qo'llaymiz: $(\\frac{f}{g})' = \\frac{f' \\cdot g - g' \\cdot f}{g^2}$"
-       },
-       {
-        "text": "$f(x) = 5x^2$, shuning uchun $f'(x) = 10x$"
-       },
-       {
-        "text": "$g(x) = 4x+3$, shuning uchun $g'(x) = 4$"
-       },
-       {
-        "text": "Hosilani hisoblaymiz: $k'(x) = \\frac{10x(4x+3) - 4 \\cdot 5x^2}{(4x+3)^2}$"
-       },
-       {
-        "text": "Ifodani soddalashtiramiz: $k'(x) = \\frac{40x^2+30x-20x^2}{(4x+3)^2}$"
-       },
-       {
-        "text": "Natija: $k'(x) = \\frac{20x^2+30x}{(4x+3)^2}$"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "$k'(x) = \\frac{20x^2+30x}{(4x+3)^2}$"
      },
@@ -5920,12 +4942,8 @@
       "heading": "Misol — darslik 3.45-3.46-misol",
       "problem": "$\\frac{d^{74}}{dx^{74}}(\\sin x)$ ni toping",
       "steps": [
-       {
-        "text": "74 = 4 · 18 + 2 ekanligini aniqlaymiz"
-       },
-       {
-        "text": "74-hosila siklda 2-o'rin turadi: -sin x"
-       }
+       null,
+       null
       ],
       "result": "$\\frac{d^{74}}{dx^{74}}(\\sin x) = -\\sin x$"
      },
@@ -6001,15 +5019,9 @@
       "heading": "Misol — sinf ichki faoliyati",
       "problem": "Berilgan funksiyalarning hosilalarini toping:",
       "steps": [
-       {
-        "text": "$(e^{2x})' = 2 \\cdot e^{2x}$"
-       },
-       {
-        "text": "$(e^{3x^2})' = 6x \\cdot e^{3x^2}$"
-       },
-       {
-        "text": "$(e^{3x^2+5x^3})' = (6x + 15x^2) \\cdot e^{3x^2+5x^3}$"
-       }
+       null,
+       null,
+       null
       ],
       "result": "Natijalar yuqorida ko'rsatilgan"
      },
@@ -6136,18 +5148,10 @@
       "heading": "Problem 1 — Sferik shar to'ldirish",
       "problem": "Sferik shar gaz bilan 800 sm³/min tezlikda to'ldirilmoqda. Shar radiusi 30 sm bo'lganda, uning radiusi qanday tezlikda ortib boradi?",
       "steps": [
-       {
-        "text": "Shar hajmi V = (4/3)πr³ formulasi bilan berilgan."
-       },
-       {
-        "text": "Voyaga nisbatan differensiallaymiz: dV/dt = 4πr² · (dr/dt)"
-       },
-       {
-        "text": "dV/dt = 800 sm³/min va r = 30 sm ni qiymatlarini qo'yamiz"
-       },
-       {
-        "text": "dr/dt = 800/(4π · 30²) = 800/(3600π) = 2/(9π) ≈ 0.0707 sm/min"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Radius 2/(9π) sm/min tezlikda ortib boradi (taxminan 0.071 sm/min)"
      },
@@ -6174,24 +5178,12 @@
       "heading": "Problem 2 — Devorga qo'yilgan zinapoya",
       "problem": "10 fut uzunlikdagi zinapoya vertikal devorga suyanadi. Agar zinapoyaning pastki uchi devordan 1 fut/s tezlikda siljisa, yuqori uchi qanday tezlikda devor bo'ylab pastga siljiydi, pastki uchi devordan 6 fut uzoqlikda bo'lganda?",
       "steps": [
-       {
-        "text": "x — pastki uchidan devorgacha bo'lgan masofa, y — yuqori uchining balandligi bo'lsin."
-       },
-       {
-        "text": "Pifagor teoremasiga ko'ra x² + y² = 10² = 100"
-       },
-       {
-        "text": "dx/dt = 1 fut/s berilgan, x = 6 bo'lganda dy/dt ni topamiz"
-       },
-       {
-        "text": "U holda y = 8 (chunki 36 + y² = 100 → y² = 64)"
-       },
-       {
-        "text": "Differensiallaymiz: 2x·(dx/dt) + 2y·(dy/dt) = 0"
-       },
-       {
-        "text": "dy/dt = -(x/y) · (dx/dt) = -(6/8) · 1 = -3/4 fut/s"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Yuqori uchi 3/4 fut/s tezlikda pastga siljiydi (0.75 fut/s). \"Minus\" belgisi balandlik kamayayotganini bildiradi."
      },
@@ -6222,18 +5214,10 @@
       "heading": "Problem 3 — Fordan tushgan soy",
       "problem": "6 fut bo'yli odam ustunli 15 fut balandlikdiga fordan 5 fut/s tezlikda uzoqlashmoqda. U ustundan 40 fut uzoqlikda bo'lganda, soy uchining tezligi qanday bo'ladi?",
       "steps": [
-       {
-        "text": "x — odamdan ustungacha bo'lgan masofa, s — soy uzunligi, L = x + s — ustundan soy uchigacha bo'lgan masofa"
-       },
-       {
-        "text": "dx/dt = 5 fut/s berilgan"
-       },
-       {
-        "text": "Uchburchaklarning o'xshashligidan: 15/(x+s) = 6/s → 15s = 6(x+s) → 9s = 6x → s = (2/3)x"
-       },
-       {
-        "text": "Shuning uchun L = (5/3)x"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Masala to'liq yechimi keyingi qismda davom etadi"
      },
@@ -6260,24 +5244,12 @@
       "heading": "Mashq 4 — Bogʻlangan tezliklar",
       "problem": "Teskri konus shaklidagi idishga suv 9m³/min tezlikda quyilmoqda. Idishning balandligi 12m va yuqori chetining radiusi 6m. Agar suv sathi 4m chuqurlikda 0.2m/min tezlikda koʻtarilsa, idishdan chiqayotgan suv tezligini toping.",
       "steps": [
-       {
-        "text": "V — suv hajmi, h — chuqurlik, r — sirt radiusi boʻlsin."
-       },
-       {
-        "text": "Oʻxshashlikdan r/h = 6/12 = 1/2, yaʼni r = h/2."
-       },
-       {
-        "text": "V = (1/3)π(h/2)² · h = (π/12)h³"
-       },
-       {
-        "text": "dV/dt = (πh²/4) · (dh/dt) — hajmning toʻliq oʻzgarish tezligi"
-       },
-       {
-        "text": "h = 4 va dh/dt = 0.2 boʻlganda: dVnet/dt = (π · 16/4) · 0.2 = 0.8π ≈2.513m³/min"
-       },
-       {
-        "text": "dVnet/dt = Qin − Qout dan: Qout = 9 − 0.8π ≈6.487m³/min"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Idishdan chiqayotgan suv tezligi taxminan 6.49m³/min"
      },
@@ -6304,24 +5276,12 @@
       "heading": "Mashq 5 — Bogʻlangan tezliklar",
       "problem": "Ikkita mashina bir nuqtadan harakatlanadi. Biri janubga 60km/soat tezlikda, ikkinchisi gʻarbga 50km/soat tezlikda harakatlanadi. Mashinalar orasidagi masofa ikki soatdan keyin qanday tezlikda ortib boradi?",
       "steps": [
-       {
-        "text": "x — gʻarbda harakatlanayotgan mashinaning yoʻli (dx/dt = 50km/soat)"
-       },
-       {
-        "text": "y — janubda harakatlanayotgan mashinaning yoʻli (dy/dt = 60km/soat)"
-       },
-       {
-        "text": "z — masofa: z² = x² + y²"
-       },
-       {
-        "text": "2 soatdan keyin: x = 100km, y = 120km, z = √(100² + 120²) = √24400 = 20√61 ≈156.2 km"
-       },
-       {
-        "text": "2z·(dz/dt) = 2x·(dx/dt) + 2y·(dy/dt)"
-       },
-       {
-        "text": "dz/dt = (100 · 50 + 120 · 60)/(20 · √61) = 12200/(20 · √61) = 10√61 ≈78.1km/soat"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Mashinalar orasidagi masofa 78.1km/soat tezlikda ortib bormoqda"
      },
@@ -6348,24 +5308,12 @@
       "heading": "Mashq 6 — Bogʻlangan tezliklar",
       "problem": "Radar ustidagi samolyot. Samolyot 2 km balandlikda gorizontal 800km/soat tezlikda uchib, radiolokatsion stansiya ustidan aniq oʻtadi. Samolyot va stansiya orasidagi masofa 3 km boʻlganida, ular orasidagi masofaning oʻsish tezligini toping.",
       "steps": [
-       {
-        "text": "x — stansiyadan samolyot ostidagi nuqtagacha boʻlgan gorizontal masofa"
-       },
-       {
-        "text": "s — samolyotgacha toʻgʻri masofa; balandlik h = 2 km doimiy"
-       },
-       {
-        "text": "s² = x² + 4"
-       },
-       {
-        "text": "s = 3 boʻlganda: x² = 5, x = √5 km"
-       },
-       {
-        "text": "2s·(ds/dt) = 2x·(dx/dt)"
-       },
-       {
-        "text": "ds/dt = (x/s) · (dx/dt) = (√5/3) · 800 = 800√5/3 ≈596.27km/soat"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Samolyot va stansiya orasidagi masofa 596km/soat tezlikda ortib bormoqda"
      },
@@ -6392,24 +5340,12 @@
       "heading": "Mashq 7 — Bogʻlangan tezliklar",
       "problem": "Chiqandi toʻplami. Chiqandi konveyeridan 30fut³/min tezlikda toshib tushadi, uning donadorligi shundayki, u asosining diametri va balandligi doimo teng boʻlgan konus shaklidagi toʻplam hosil qiladi. Toʻplam balandligi 10 fut boʻlganda, uning balandligi qanday tezlikda ortib boradi?",
       "steps": [
-       {
-        "text": "Diametr balandlikka teng: 2r = h → r = h/2"
-       },
-       {
-        "text": "V = (π/12)h³"
-       },
-       {
-        "text": "dV/dt = (πh²/4) · (dh/dt)"
-       },
-       {
-        "text": "dh/dt = 4 · (dV/dt)/(πh²)"
-       },
-       {
-        "text": "dV/dt = 30 va h = 10 ni qoʻyamiz"
-       },
-       {
-        "text": "dh/dt = 4 · 30/(π · 100) = 120/(100π) = 6/(5π) ≈0.382fut/min"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Toʻplamning balandligi 0.382fut/min tezlikda ortib bormoqda"
      },
@@ -6436,27 +5372,13 @@
       "heading": "Mashq 8 — Bogʻlangan tezliklar",
       "problem": "Qayiq va blok. Qayiqni boshiga bogʻlangan va qirgʻoqdagi, qayiq boshidan 1m yuqorida joylashgan blokdan oʻtkazilib tortilayotgan ip orqali qirgʻoqqa tortishmoqda. Agar ipni 1m/s tezlikda tortilsa, qayiq qirgʻoqdan 8m uzoqlikda boʻlganda, u qirgʻoq qanchalik tez yaqinlashmoqda?",
       "steps": [
-       {
-        "text": "x — qayiqdan qirgʻoq gacha boʻlgan gorizontal masofa"
-       },
-       {
-        "text": "l — blokdan qayiqgacha boʻlgan ip uzunligi; blok boshidan 1m yuqorida"
-       },
-       {
-        "text": "l² = x² + 1"
-       },
-       {
-        "text": "Ip qisarilib bormoqda: dl/dt = −1m/s"
-       },
-       {
-        "text": "x = 8 da: l = √65"
-       },
-       {
-        "text": "2l·(dl/dt) = 2x·(dx/dt)"
-       },
-       {
-        "text": "dx/dt = (l/x) · (dl/dt) = (√65/8) · (−1) ≈−1.008m/s"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Qayiq qirgʻoqqa √65/8 ≈1.01m/s tezlikda yaqinlashmoqda"
      },
@@ -6485,21 +5407,11 @@
       "heading": "Mashq 9 — Bogʻlangan tezliklar",
       "problem": "Egri chiziqdagi zarracha. Zarracha y = √x egri chiziq boʻylab harakatlanadi, uning abssissasi x² birlik/s tezlikda ortib bormoqda. Zarracha (4, 2) nuqtada boʻlganida, uning ordinatasi qanday tezlikda oʻzgaradi?",
       "steps": [
-       {
-        "text": "y = √x = x^(1/2)"
-       },
-       {
-        "text": "t ga nisbatan differensiallaymiz (zanjir qoidasi): dy/dt = (1/2) · x^(-1/2) · (dx/dt)"
-       },
-       {
-        "text": "dy/dt = (1/(2 · √x)) · (dx/dt)"
-       },
-       {
-        "text": "x = 4 va dx/dt = 2 ni qoʻyamiz"
-       },
-       {
-        "text": "dy/dt = (1/4) · 2 = 1/2 birlik/s"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Ordinata 0.5 birlik/s tezlikda ortib bormoqda"
      },
@@ -6526,18 +5438,10 @@
       "heading": "Mashq 10 — Bogʻlangan tezliklar",
       "problem": "Neft dogʻi. Aylana shaklidagi neft dogʻining radiusi 2m/min doimiy tezlikda kengayib bormoqda. Radius 30m boʻlganda, dogʻining yuzasi qanday tezlikda ortadi?",
       "steps": [
-       {
-        "text": "Aylana yuzasi A = πr²"
-       },
-       {
-        "text": "t ga nisbatan differensiallaymiz: dA/dt = 2πr · (dr/dt)"
-       },
-       {
-        "text": "r = 30 va dr/dt = 2 ni qoʻyamiz"
-       },
-       {
-        "text": "dA/dt = 2π · 30 · 2 = 120π ≈376.99m²/min"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Dogʻining yuzasi 377m²/min tezlikda ortib bormoqda"
      },
@@ -6564,15 +5468,9 @@
       "heading": "Mashq 1 — Hosilalar",
       "problem": "Trigonometrik funksiyalar. \"Differensiallash\" \"birinchi hosilani topish\" degan maʼnoni anglatadi. Differensiallang: a)3·sin x−2·cos x; b) tan x + cotx; c)secx −cscx.",
       "steps": [
-       {
-        "text": "a)d/dx(3 sin x −2 cos x) = 3 cos x −2 · (−sin x) = 3 cos x + 2 sin x"
-       },
-       {
-        "text": "b)d/dx(tan x + cotx) = sec²x−csc²x"
-       },
-       {
-        "text": "c)d/dx(secx−cscx) = secx·tan x−(−cscx·cotx) = secx·tan x+cscx·cotx"
-       }
+       null,
+       null,
+       null
       ],
       "result": "a) 3 cos x + 2 sin x; b) sec²x−csc²x; c) secx·tan x+cscx·cotx"
      },
@@ -6595,18 +5493,10 @@
       "heading": "Mashq 2 — Hosilalar",
       "problem": "Tangens hosilasini chiqarish. tan x = sin x/ cos x ifodasidan foydalanib, qoidasiga koʻra tan x hosilasini chiqaring.",
       "steps": [
-       {
-        "text": "f(x) = tan x = sin x/ cos x"
-       },
-       {
-        "text": "Qoidasiga koʻra: f′(x) = (cos x · cos x −(−sin x) · sin x)/ cos² x = (cos² x + sin² x)/ cos² x"
-       },
-       {
-        "text": "Pifagor ayniyatiga koʻra cos² x + sin² x = 1"
-       },
-       {
-        "text": "shuning uchun f′(x) = 1/ cos² x = sec²x (cos x ≠ 0; secx = 1/ cos x dan foydalanilgan)"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "tan x ning birinchi hosilasi sec²x"
      },
@@ -6631,18 +5521,10 @@
       "heading": "Mashq 3 — Hosilalar",
       "problem": "Kosinusli kasr. f(x) = sin x/(1 + cos x) funksiyasini differensiallang, bunda 1 + cos x ≠ 0.",
       "steps": [
-       {
-        "text": "Qoidasiga koʻra: f′(x) = (cos x · (1 + cos x) −sin x · (−sin x))/(1 + cos x)²"
-       },
-       {
-        "text": "= (cos x + cos² x + sin² x)/(1 + cos x)²"
-       },
-       {
-        "text": "cos² x + sin² x = 1 boʻlgani uchun, surat 1 + cos x ga teng"
-       },
-       {
-        "text": "va f′(x) = (1 + cos x)/(1 + cos x)² = 1/(1 + cos x) — asl aniqlanish sohasida"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f′(x) = 1/(1 + cos x)"
      },
@@ -6665,24 +5547,12 @@
       "heading": "Mashq 4 — Hosilalar",
       "problem": "Titrayotgan komponent. Titrayotgan komponentning siljishi s(t) = 0.02 · cos t m burchak chastotasi 1rad/s da. Tezlik va tezlanishni toping, ularni t = π/2s da hisoblang, shuningdek d⁴s/dt⁴ ni toping.",
       "steps": [
-       {
-        "text": "Tezlik v(t) = s′(t) = −0.02 · sin t m/s"
-       },
-       {
-        "text": "Tezlanish a(t) = v′(t) = −0.02 · cos t m/s²"
-       },
-       {
-        "text": "t = π/2 da: v = −0.02 · sin(π/2) = −0.02m/s"
-       },
-       {
-        "text": "a = −0.02 · cos(π/2) = 0"
-       },
-       {
-        "text": "Yana ikki marta differensiallaymiz: s′′′(t) = 0.02 · sin t"
-       },
-       {
-        "text": "s⁽⁴⁾(t) = 0.02 · cos t m/s⁴ — toʻrtinchi hosila asl shaklni takrorlaydi (kosinus sikli 4 davrga ega)"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "t = π/2s da: tezlik = −0.02m/s, tezlanish = 0m/s², toʻrtinchi hosila = 0.02·cos(π/2) = 0m/s⁴"
      },
@@ -6709,21 +5579,11 @@
       "heading": "Mashq 5 — Hosilalar",
       "problem": "Turli asoslar. f(x) = 3e^x + 2^x −5 funksiyasini differensiallang va f′(0) ni toping.",
       "steps": [
-       {
-        "text": "(e^x)′ = e^x"
-       },
-       {
-        "text": "2^x uchun: 2^x = (e^(ln2))^x = e^(x·ln2)"
-       },
-       {
-        "text": "(2^x)′ = e^(x·ln2) · ln 2 = 2^x · ln 2"
-       },
-       {
-        "text": "Jami f′(x) = 3e^x + 2^x · ln 2"
-       },
-       {
-        "text": "x = 0 da: f′(0) = 3 · e^0 + 2^0 · ln 2 = 3 + ln 2 ≈3.693"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f′(x) = 3e^x + 2^x · ln 2, f′(0) = 3 + ln 2 ≈3.693"
      },
@@ -6748,24 +5608,12 @@
       "heading": "Mashq 6 — Hosilalar",
       "problem": "Logarifmlar va urinma. f(x) = 2 · ln x −log10 x, x > 0 funksiyasini differensiallang va x = 1 nuqtadagi urinma tenglamasini toping.",
       "steps": [
-       {
-        "text": "(ln x)′ = 1/x"
-       },
-       {
-        "text": "(log10 x)′ = 1/(x · ln 10)"
-       },
-       {
-        "text": "f′(x) = 2 · (1/x) − 1/(x · ln 10) = (2 · ln 10 − 1)/(x · ln 10)"
-       },
-       {
-        "text": "x = 1 da: f′(1) = (2 · ln 10 − 1)/(1 · ln 10) = 2 − 1/ln 10"
-       },
-       {
-        "text": "f(1) = 2 · ln 1 − log10 1 = 0"
-       },
-       {
-        "text": "Urinma tenglamasi: y = f′(1)(x − 1) + f(1) = (2 − 1/ln 10)(x − 1)"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f′(x) = (2 · ln 10 − 1)/(x · ln 10), x = 1 nuqtadagi urinma tenglamasi: y = (2 − 1/ln 10)(x − 1)"
      },
@@ -6790,24 +5638,12 @@
       "heading": "Misol 1 — Hosilalarni hisoblash",
       "problem": "$f(x) = 2 \\cdot \\ln x - \\log_{10} x$ funksiyaning $x=1$ nuqtasida togʻri chiziq tenglamasini toping.",
       "steps": [
-       {
-        "text": "$\\ln x$ funksiyasining hosilasi $\\frac{1}{x}$"
-       },
-       {
-        "text": "$\\log_{10} x$ ni $\\ln x / \\ln 10$ orqali ifodalaymiz"
-       },
-       {
-        "text": "$(\\log_{10} x)' = \\frac{1}{x \\cdot \\ln 10}$"
-       },
-       {
-        "text": "$f'(x) = \\frac{2}{x} - \\frac{1}{x \\cdot \\ln 10}$"
-       },
-       {
-        "text": "$x=1$ da $f(1) = 2 \\cdot \\ln 1 - \\log_{10} 1 = 0$"
-       },
-       {
-        "text": "$x=1$ da $f'(1) = 2 - \\frac{1}{\\ln 10}$"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Togʻri chiziq: $y = \\left(2 - \\frac{1}{\\ln 10}\\right) \\cdot (x - 1)$"
      },
@@ -6838,12 +5674,8 @@
       "heading": "Mashq 7 — Hosilalar",
       "problem": "Differensiallang: a) $f(x) = x \\cdot \\ln x$, $x > 0$; b) $g(x) = \\frac{e^x}{x}$, $x \\neq 0$.",
       "steps": [
-       {
-        "text": "a) Koʻpaytma qoidasini qoʻllaymiz: $f'(x) = 1 \\cdot \\ln x + x \\cdot \\frac{1}{x} = \\ln x + 1$"
-       },
-       {
-        "text": "b) Boʻlinma qoidasini qoʻllaymiz: $g'(x) = \\frac{x \\cdot e^x - e^x \\cdot 1}{x^2} = \\frac{e^x \\cdot (x - 1)}{x^2}$"
-       }
+       null,
+       null
       ],
       "result": "a) $f'(x) = \\ln x + 1$; b) $g'(x) = \\frac{e^x \\cdot (x - 1)}{x^2}$"
      },
@@ -6870,21 +5702,11 @@
       "heading": "Mashq 8 — Hosilalar",
       "problem": "$f(x) = x^2 \\cdot e^x$ funksiyasining birinchi hosilasini toping.",
       "steps": [
-       {
-        "text": "Koʻpaytma qoidasini qoʻllaymiz: $u(x) = x^2$, $v(x) = e^x$"
-       },
-       {
-        "text": "$u'(x) = 2x$, $v'(x) = e^x$"
-       },
-       {
-        "text": "$(u \\cdot v)' = u' \\cdot v + u \\cdot v'$"
-       },
-       {
-        "text": "$f'(x) = 2x \\cdot e^x + x^2 \\cdot e^x = e^x \\cdot (x^2 + 2x)$"
-       },
-       {
-        "text": "Soddalashtiramiz: $f'(x) = x \\cdot e^x \\cdot (x + 2)$"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "$f'(x) = x \\cdot e^x \\cdot (x + 2)$, $x \\in \\mathbb{R}$"
      },
@@ -6913,21 +5735,11 @@
       "heading": "Mashq 9 — Hosilalar",
       "problem": "Zaryadlanayotgan kondensatorning kuchlanishi $V(t) = 12 \\cdot e^{-t/2}$ V, $t \\geq 0$ (vaqt sekundlarda). $V'(t)$, kuchlanishning boshlangʻich oʻzgarish tezligi va $V'(2)$ ni toping.",
       "steps": [
-       {
-        "text": "Koʻrsatkichli funksiyaning hosilasini hisoblaymiz"
-       },
-       {
-        "text": "$(-t/2)' = -\\frac{1}{2}$"
-       },
-       {
-        "text": "$V'(t) = 12 \\cdot e^{-t/2} \\cdot (-\\frac{1}{2}) = -6 \\cdot e^{-t/2}$ V/s"
-       },
-       {
-        "text": "Boshlangʻich tezlik: $V'(0) = -6$ V/s"
-       },
-       {
-        "text": "$t = 2$ da: $V'(2) = -6 \\cdot e^{-1} = -\\frac{6}{e} \\approx -2.21$ V/s"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "$V'(t) = -6 \\cdot e^{-t/2}$ V/s, $V'(0) = -6$ V/s, $V'(2) \\approx -2.21$ V/s"
      },
@@ -6956,24 +5768,12 @@
       "heading": "Mashq 10 — REVIEW",
       "problem": "Simning bir nuqtasidan oʻtgan zaryad $q(t) = t^3 + 2t^2 + 3t$ Kl. $t = 2$ da elektr tokini, $[0, 2]$ oraliqdagi oʻrtacha tokni va tokning oʻzgarish tezligini $t = 2$ da toping. (Elektr tok $I(t) = q'(t)$.).",
       "steps": [
-       {
-        "text": "Tok — zaryadning hosilasi: $I(t) = q'(t) = 3t^2 + 4t + 3$"
-       },
-       {
-        "text": "$t = 2$ da: $I(2) = 3 \\cdot 2^2 + 4 \\cdot 2 + 3 = 12 + 8 + 3 = 23$ A"
-       },
-       {
-        "text": "Oʻrtacha tok — zaryadning oʻrtacha oʻzgarish tezligi"
-       },
-       {
-        "text": "$q(2) = 2^3 + 2 \\cdot 2^2 + 3 \\cdot 2 = 8 + 8 + 6 = 22$ Kl"
-       },
-       {
-        "text": "$q(0) = 0$"
-       },
-       {
-        "text": "Oʻrtacha tok: $I_{avg} = \\frac{q(2) - q(0)}{2 - 0} = \\frac{22}{2} = 11$ A"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -7001,12 +5801,8 @@
       "heading": "Mashq 10 — REVIEW (cont.)",
       "problem": "",
       "steps": [
-       {
-        "text": "Tokning oʻzgarish tezligi: $I'(t) = 6t + 4$"
-       },
-       {
-        "text": "$t = 2$ da: $I'(2) = 6 \\cdot 2 + 4 = 16$ A/s"
-       }
+       null,
+       null
       ],
       "result": "$I(2) = 23$ A, $I_{avg} = 11$ A, $I'(2) = 16$ A/s"
      },
@@ -7027,24 +5823,12 @@
       "heading": "Mashq 11 — REVIEW",
       "problem": "$0 \\leq t \\leq 4$ uchun qurilmaning kuchlanishi $V(t) = 12 - t$ V va tok $I(t) = 1 + t$ A. Elektr quvvatini $P(t)$, uning hosilasini $P'(t)$ va ikkala kattalikning $t = 2$ dagi qiymatlarini toping. (Elektr quvvati $P(t) = V(t) \\cdot I(t)$.).",
       "steps": [
-       {
-        "text": "Elektr quvvati: $P(t) = V(t) \\cdot I(t) = (12 - t)(1 + t) = 12 + 11t - t^2$ Vt"
-       },
-       {
-        "text": "Koʻpaytma qoidasiga koʻra $P' = V' \\cdot I + V \\cdot I'$"
-       },
-       {
-        "text": "$V'(t) = -1$, $I'(t) = 1$"
-       },
-       {
-        "text": "$P'(t) = (-1) \\cdot (1 + t) + (12 - t) \\cdot 1 = -1 - t + 12 - t = 11 - 2t$ Vt/s"
-       },
-       {
-        "text": "$t = 2$ da: $P(2) = 12 + 11 \\cdot 2 - 2^2 = 12 + 22 - 4 = 30$ Vt"
-       },
-       {
-        "text": "$t = 2$ da: $P'(2) = 11 - 2 \\cdot 2 = 11 - 4 = 7$ Vt/s"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "$P(t) = 12 + 11t - t^2$ Vt, $P'(t) = 11 - 2t$ Vt/s, $P(2) = 30$ Vt, $P'(2) = 7$ Vt/s"
      },
@@ -7102,15 +5886,9 @@
       "heading": "Topshiriq 3 — 178-mashq",
       "problem": "$y = x - x^3 \\cdot \\sin x$ funksiyasi uchun $\\frac{dy}{dx}$ ni toping.",
       "steps": [
-       {
-        "text": "$y' = 1 - (x^3 \\cdot \\sin x)'$"
-       },
-       {
-        "text": "Koʻpaytma qoidasiga koʻra $(x^3 \\cdot \\sin x)' = 3x^2 \\cdot \\sin x + \\cos x \\cdot x^3$"
-       },
-       {
-        "text": "Jami $y' = 1 - 3x^2 \\cdot \\sin x - x^3 \\cdot \\cos x$"
-       }
+       null,
+       null,
+       null
       ],
       "result": "$\\frac{dy}{dx} = 1 - 3x^2 \\cdot \\sin x - x^3 \\cdot \\cos x$"
      },
@@ -7135,24 +5913,12 @@
       "heading": "Topshiriq 3 — 181-mashq",
       "problem": "$y = (x + \\cos x)(1 - \\sin x)$ funksiyasi uchun $\\frac{dy}{dx}$ ni toping.",
       "steps": [
-       {
-        "text": "Koʻpaytma qoidasini qoʻllaymiz"
-       },
-       {
-        "text": "$u = x + \\cos x$, $u' = 1 - \\sin x$"
-       },
-       {
-        "text": "$v = 1 - \\sin x$, $v' = -\\cos x$"
-       },
-       {
-        "text": "$y' = (1 - \\sin x)^2 + (x + \\cos x) \\cdot (-\\cos x) = (1 - \\sin x)^2 - x \\cdot \\cos x - \\cos^2 x$"
-       },
-       {
-        "text": "Kvadratni ochgach va $\\sin^2 x - \\cos^2 x = -\\cos 2x$ almashtirgandan soʻng:"
-       },
-       {
-        "text": "$y' = 1 - 2 \\cdot \\sin x - \\cos 2x - x \\cdot \\cos x$"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "$\\frac{dy}{dx} = 1 - 2 \\cdot \\sin x - \\cos 2x - x \\cdot \\cos x$"
      },
@@ -7183,12 +5949,8 @@
       "heading": "Topshiriq 3 — 191-mashq",
       "problem": "$y = x \\cdot \\sin x - \\cos x$ funksiyasi uchun $\\frac{d^2y}{dx^2}$ ni toping.",
       "steps": [
-       {
-        "text": "Birinchi hosilani topamiz: $y' = \\sin x + x \\cdot \\cos x + \\sin x = x \\cdot \\cos x + 2 \\cdot \\sin x$"
-       },
-       {
-        "text": "Ikkinchi hosilani topamiz: $y'' = \\cos x - x \\cdot \\sin x + 2 \\cdot \\cos x = 3 \\cdot \\cos x - x \\cdot \\sin x$"
-       }
+       null,
+       null
       ],
       "result": "$\\frac{d^2y}{dx^2} = 3 \\cdot \\cos x - x \\cdot \\sin x$"
      },
@@ -7209,12 +5971,8 @@
       "heading": "Topshiriq 3 — 192-mashq",
       "problem": "$y = \\sin x \\cdot \\cos x$ funksiyasi uchun $\\frac{d^2y}{dx^2}$ ni toping.",
       "steps": [
-       {
-        "text": "Birinchi hosilani topamiz: $y' = \\cos^2 x - \\sin^2 x = \\cos 2x$"
-       },
-       {
-        "text": "Ikkinchi hosilani topamiz: $y'' = -2 \\cdot \\sin 2x$"
-       }
+       null,
+       null
       ],
       "result": "$\\frac{d^2y}{dx^2} = -2 \\cdot \\sin 2x$"
      },
@@ -7235,12 +5993,8 @@
       "heading": "Topshiriq 3 — 193-mashq",
       "problem": "$y = x - \\frac{1}{2} \\cdot \\sin x$ funksiyasi uchun $\\frac{d^2y}{dx^2}$ ni toping.",
       "steps": [
-       {
-        "text": "Birinchi hosilani topamiz: $y' = 1 - \\frac{1}{2} \\cdot \\cos x$"
-       },
-       {
-        "text": "Ikkinchi hosilani topamiz: $y'' = \\frac{1}{2} \\cdot \\sin x$"
-       }
+       null,
+       null
       ],
       "result": "$\\frac{d^2y}{dx^2} = \\frac{1}{2} \\cdot \\sin x$"
      },
@@ -7261,15 +6015,9 @@
       "heading": "Topshiriq 3 — 331-mashq",
       "problem": "$f(x) = e^{x^3}$ funksiyasining hosilasini toping.",
       "steps": [
-       {
-        "text": "Umumiy koʻrinishda $\\frac{d}{dx}e^{g(x)} = e^{g(x)} \\cdot g'(x)$"
-       },
-       {
-        "text": "$g(x) = x^3$, $g'(x) = 3x^2$"
-       },
-       {
-        "text": "Shuning uchun $f'(x) = 3x^2 \\cdot e^{x^3}$"
-       }
+       null,
+       null,
+       null
       ],
       "result": "$f'(x) = 3x^2 \\cdot e^{x^3}$"
      },
@@ -7349,18 +6097,10 @@
       "heading": "3.5-bo'lim, 3.41-misol — Tezlikka qo'llanilishi",
       "problem": "Zarracha koordinata o'qi bo'ylab harakatlanadi, uning t vaqtidagi holati: s(t) = 2·sin t - t, 0 ≤ t ≤ 2π. Zarracha qaysi vaqtlarda tinch turadi?",
       "steps": [
-       {
-        "text": "Tinch holat uchun tezlik nolga teng bo'lishi kerak: v(t) = s'(t) = 0"
-       },
-       {
-        "text": "s'(t) = 2·cos t - 1 = 0"
-       },
-       {
-        "text": "cos t = 1/2"
-       },
-       {
-        "text": "[0, 2π] oraliqda yechimlar: t = π/3 va t = 5π/3"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Zarracha t = π/3 va t = 5π/3 vaqtlarida tinch turadi."
      },
@@ -7387,21 +6127,11 @@
       "heading": "3.5-bo'lim, 3.43-misol — Kotangensga tegishli chiziq",
       "problem": "f(x) = cot x funksiya grafigiga x = π/4 nuqtada teg bo'lgan to'g'ri chiziqning tenglamasini toping.",
       "steps": [
-       {
-        "text": "Tegish nuqtasini topamiz: f(π/4) = cot(π/4) = 1, ya'ni (π/4, 1)"
-       },
-       {
-        "text": "Nishabni topamiz: f'(x) = -csc²x"
-       },
-       {
-        "text": "f'(π/4) = -csc²(π/4) = -(√2)² = -2"
-       },
-       {
-        "text": "Tenglama: y - 1 = -2·(x - π/4)"
-       },
-       {
-        "text": "Tenglama soddalashtirilganda: y = -2x + 1 + π/2"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Tegish chiziqining tenglamasi: y = -2x + 1 + π/2"
      },
@@ -7428,18 +6158,10 @@
       "heading": "3.5-bo'lim, 3.44-misol — Yig'indi va ko'paytma",
       "problem": "f(x) = csc x + x·tan x funksiyaning hosilasini toping.",
       "steps": [
-       {
-        "text": "Yig'indi qoidasiga ko'ra f'(x) = d/dx(csc x) + d/dx(x·tan x)"
-       },
-       {
-        "text": "d/dx(csc x) = -csc x·cot x"
-       },
-       {
-        "text": "d/dx(x·tan x) = 1·tan x + sec²x·x (ko'paytma qoidasi)"
-       },
-       {
-        "text": "Jami f'(x) = -csc x·cot x + tan x + x·sec²x"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "f'(x) = -csc x·cot x + tan x + x·sec²x"
      },
@@ -7464,21 +6186,11 @@
       "heading": "3.5-bo'lim, 3.47-misol — Tezlanishga qo'llanilishi",
       "problem": "Zarracha s(t) = 2 - sin t tenglamasi bo'yicha harakatlanadi. v(π/4) va a(π/4) ni toping; bu qiymatlarni solishtiring va zarracha tezlashayotganmi yoki sekinlashayotganini aniqlang.",
       "steps": [
-       {
-        "text": "v(t) = s'(t) = -cos t"
-       },
-       {
-        "text": "v(π/4) = -cos(π/4) = -1/√2"
-       },
-       {
-        "text": "a(t) = v'(t) = sin t"
-       },
-       {
-        "text": "a(π/4) = sin(π/4) = 1/√2"
-       },
-       {
-        "text": "Tezlik manfiy, tezlanish musbat — ular qarama-qarshi yo'nalishda ta'sir qiladi: zarracha sekinlashadi"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "v(π/4) = -1/√2, a(π/4) = 1/√2. Zarracha sekinlashadi."
      },
@@ -7535,15 +6247,9 @@
       "heading": "3.9-bo'lim, 3.74-misol — Eksponensial bilan kompozitsiya",
       "problem": "f(x) = e^(tan(2x)) funksiyaning hosilasini toping.",
       "steps": [
-       {
-        "text": "f'(x) = e^(tan(2x)) · d/dx(tan(2x))"
-       },
-       {
-        "text": "d/dx(tan(2x)) = sec²(2x) · 2 (zanjir qoidasi)"
-       },
-       {
-        "text": "f'(x) = e^(tan(2x)) · sec²(2x) · 2"
-       }
+       null,
+       null,
+       null
       ],
       "result": "f'(x) = 2·e^(tan(2x))·sec²(2x)"
      },
@@ -7568,18 +6274,10 @@
       "heading": "3.9-bo'lim, 3.75-misol — Qoidalar kombinatsiyasi",
       "problem": "y = e^(x²)/x funksiyaning hosilasini toping.",
       "steps": [
-       {
-        "text": "Bo'linma qoidasidan foydalanamiz: y' = ((e^(x²))' · x - e^(x²) · 1)/x²"
-       },
-       {
-        "text": "(e^(x²))' = e^(x²) · 2x (zanjir qoidasi)"
-       },
-       {
-        "text": "y' = ((e^(x²) · 2x) · x - e^(x²) · 1)/x²"
-       },
-       {
-        "text": "y' = e^(x²) · (2x² - 1)/x²"
-       }
+       null,
+       null,
+       null,
+       null
       ],
       "result": "y' = e^(x²) · (2x² - 1)/x²"
      },
@@ -7606,12 +6304,8 @@
       "heading": "Misol 3.76 — Populyatsiyaning oʻsishi",
       "problem": "Ayyorlar koloniyasining boshlangʻich populyatsiyasi 1000; t kun oʻtgach populyatsiya $A(t) = 1000 \\cdot e^{0.3t}$ ga teng. Populyatsiya oʻzgarish tezligining $A'(t)$ populyatsiyasiga $A(t)$ nisbatining doimiy ekanini koʻrsating.",
       "steps": [
-       {
-        "text": "Zanjir qoidasiga koʻra $A'(t) = 1000 \\cdot e^{0.3t} \\cdot 0.3 = 300 \\cdot e^{0.3t}$"
-       },
-       {
-        "text": "Nisbatni hisoblaymiz: $\\frac{A'(t)}{A(t)} = \\frac{300 \\cdot e^{0.3t}}{1000 \\cdot e^{0.3t}} = 0.3$"
-       }
+       null,
+       null
       ],
       "result": "Nisbat 0.3 — doimiy: eksponensial populyatsiyaning oʻsish tezligi populyatsiyaning oʻziga proportsional."
      },
@@ -7636,15 +6330,9 @@
       "heading": "Misol 3.77 — Tabiiy logarifmning hosilasi",
       "problem": "$f(x) = \\ln(x^3 + 3x - 4)$ funksiyaning hosilasini toping.",
       "steps": [
-       {
-        "text": "$g(x) = x^3 + 3x - 4$ deb belgilaymiz"
-       },
-       {
-        "text": "$\\ln(g(x))$ funksiyasining hosilasi formulasi: $f'(x) = \\frac{g'(x)}{g(x)}$"
-       },
-       {
-        "text": "Shunday qilib, $f'(x) = \\frac{3x^2 + 3}{x^3 + 3x - 4}$"
-       }
+       null,
+       null,
+       null
       ],
       "result": "$f'(x) = \\frac{3x^2 + 3}{x^3 + 3x - 4}$"
      },
@@ -7671,24 +6359,12 @@
       "heading": "Misol 3.78 — Logarifmlarning xossalari hosilada",
       "problem": "$f(x) = \\ln\\left(\\frac{x^2 \\cdot \\sin x}{2x + 1}\\right)$ funksiyaning hosilasini toping.",
       "steps": [
-       {
-        "text": "Avval logarifmning xossalari yordamida ifodani soddalashtiramiz: $f(x) = 2 \\cdot \\ln x + \\ln(\\sin x) - \\ln(2x + 1)$"
-       },
-       {
-        "text": "Har bir hadni alohida differensiallaymiz"
-       },
-       {
-        "text": "$\\frac{d}{dx}(2 \\cdot \\ln x) = \\frac{2}{x}$"
-       },
-       {
-        "text": "$\\frac{d}{dx}(\\ln(\\sin x)) = \\frac{\\cos x}{\\sin x} = \\cot x$"
-       },
-       {
-        "text": "$\\frac{d}{dx}(\\ln(2x + 1)) = \\frac{2}{2x + 1}$"
-       },
-       {
-        "text": "Natijada: $f'(x) = \\frac{2}{x} + \\cot x - \\frac{2}{2x + 1}$"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "$f'(x) = \\frac{2}{x} + \\cot x - \\frac{2}{2x + 1}$"
      },
@@ -7719,24 +6395,12 @@
       "heading": "Misol 3.79 — Umumiy asos",
       "problem": "$h(x) = \\frac{3^x}{3^x + 2}$ funksiyaning hosilasini toping.",
       "steps": [
-       {
-        "text": "Boʻlinma qoidasidan foydalanamiz: $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$"
-       },
-       {
-        "text": "$u = 3^x$, $v = 3^x + 2$ deb belgilaymiz"
-       },
-       {
-        "text": "$u' = 3^x \\cdot \\ln 3$, $v' = 3^x \\cdot \\ln 3$"
-       },
-       {
-        "text": "$h'(x) = \\frac{3^x \\cdot \\ln 3 \\cdot (3^x + 2) - 3^x \\cdot \\ln 3 \\cdot 3^x}{(3^x + 2)^2}$"
-       },
-       {
-        "text": "Numeratorda $3^x \\cdot \\ln 3 \\cdot ((3^x + 2) - 3^x) = 2 \\cdot 3^x \\cdot \\ln 3$ qoladi"
-       },
-       {
-        "text": "Shuning uchun $h'(x) = \\frac{2 \\cdot 3^x \\cdot \\ln 3}{(3^x + 2)^2}$"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "$h'(x) = \\frac{2 \\cdot 3^x \\cdot \\ln 3}{(3^x + 2)^2}$"
      },
@@ -7767,21 +6431,11 @@
       "heading": "Misol 3.80 — Teginishning burchak koeffitsienti",
       "problem": "$y = \\log_2(3x + 1)$ funksiya grafigiga $x = 1$ nuqtada teginish boʻlgan toʻgʻri chiziqning burchak koeffitsientini toping.",
       "steps": [
-       {
-        "text": "$(\\log_b(g(x)))' = \\frac{g'(x)}{g(x) \\cdot \\ln b}$ formulasiga koʻra"
-       },
-       {
-        "text": "$\\frac{dy}{dx} = \\frac{3}{(3x + 1) \\cdot \\ln 2}$"
-       },
-       {
-        "text": "$x = 1$ boʻlganda: $\\frac{dy}{dx} = \\frac{3}{(3 \\cdot 1 + 1) \\cdot \\ln 2} = \\frac{3}{4 \\cdot \\ln 2}$"
-       },
-       {
-        "text": "$4 \\cdot \\ln 2 = \\ln 2^4 = \\ln 16$ ekanligini hisobga olsak"
-       },
-       {
-        "text": "$\\frac{3}{4 \\cdot \\ln 2} = \\frac{3}{\\ln 16}$"
-       }
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Burchak koeffitsienti $\\frac{3}{\\ln 16}$ ga teng"
      },
@@ -7810,24 +6464,12 @@
       "heading": "Misol — Feniks shahrida yogʻingarchilik",
       "problem": "Feniks (Arizona) shahridagi oylik yogʻingarchilik miqdori $y(t) = 0.5 + 0.3 \\cdot \\cos t$ funksiyasi bilan taxminan ifodalanadi, bunda $t$ - yanvardan boshlangan oy soni. $y'$ ni toping va yogʻingarchilik miqdori kamayadigan oraliqlarni aniqlang.",
       "steps": [
-       {
-        "text": "$y'(t) = -0.3 \\cdot \\sin t$ (radianlarda!)"
-       },
-       {
-        "text": "Yogʻingarchilik $y' < 0$ boʻlganda kamayadi"
-       },
-       {
-        "text": "$-0.3 \\cdot \\sin t < 0$ tengsizlikni yechamiz"
-       },
-       {
-        "text": "$\\sin t > 0$ boʻlganda tengsizlik bajariladi"
-       },
-       {
-        "text": "$(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida $\\sin t > 0$"
-       },
-       {
-        "text": "$(\\pi, 2\\pi)$ va $(3\\pi, 12)$ oraliqlarida $\\sin t < 0$ (e'tibor bering: $12 < 4\\pi$)"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ],
       "result": "Yogʻingarchilik $(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida kamayadi"
      },
@@ -7860,24 +6502,12 @@
       "heading": "Misol — Nyu-York grippi",
       "problem": "1960-yil boshidan 1964-yil boshigacha Nyu-Yorkdagi gripp holatlari soni $N(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t}$, $0 \\leq t \\leq 4$ funksiyasi bilan modellashtirilgan, bunda $N(t)$ - holatlar soni (minglarda), $t$ - yillar, $t = 0$ - 1960-yil boshi. a) $N(0)$ va $N(4)$ ni hisoblang va tushuntiring. b) $N'(0)$ va $N'(3)$ ni hisoblang va tushuntiring.",
       "steps": [
-       {
-        "text": "a) $N(0) = 5.3 \\cdot e^0 = 5.3$ - taxminan 1960-yil boshida 5300 holat"
-       },
-       {
-        "text": "$t = 4$ boʻlganda: $0.093 \\cdot 16 - 0.87 \\cdot 4 = -1.992$"
-       },
-       {
-        "text": "$N(4) = 5.3 \\cdot e^{-1.992} \\� 0.723$ - taxminan 1964-yil boshida 723 holat"
-       },
-       {
-        "text": "toʻrt yil ichida holatlar soni sezilarli kamaygan"
-       },
-       {
-        "text": "b) Zanjir qoidasi: $N'(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t} \\cdot (0.186t - 0.87) = N(t) \\cdot (0.186t - 0.87)$"
-       },
-       {
-        "text": "$N'(0) = 5.3 \\cdot (-0.87) = -4.611$ - 1960-yil boshida yiliga taxminan 4611 holat kamayib bormoqda"
-       }
+       null,
+       null,
+       null,
+       null,
+       null,
+       null
       ]
      },
      "narr": [
@@ -7909,12 +6539,8 @@
       "heading": "Misol — Nyu-York grippi (cont.)",
       "problem": "",
       "steps": [
-       {
-        "text": "$t = 3$ boʻlganda: $0.093 \\cdot 9 - 0.87 \\cdot 3 = -1.773$ va $0.186 \\cdot 3 - 0.87 = -0.312$"
-       },
-       {
-        "text": "$N'(3) = 5.3 \\cdot e^{-1.773} \\cdot (-0.312) \\� -0.2808$ - yiliga taxminan 281 holat kamayib bormoqda"
-       }
+       null,
+       null
       ],
       "result": "a) 1960-yil boshida 5300 holat, 1964-yil boshida 723 holat; b) 1960-yil boshida yiliga 4611 holat, 1963-yil boshida yiliga 281 holat kamayib bormoqda"
      },
