@@ -311,7 +311,7 @@
       "tex": "[00 \\dots 0|0] \\rightarrow 0 = 0 \\text{— infinitely many solutions}; [00 \\dots 0|c], c \\neq 0 \\rightarrow 0 = c \\text{— no solutions}",
       "parts": [
        {
-        "substr": "00 0|0",
+        "substr": "00 \\dots 0|0",
         "color": "#4C5FD5",
         "note": "All zeros in the coefficient matrix with zero on the right"
        },
@@ -321,12 +321,12 @@
         "note": "Always true equation"
        },
        {
-        "substr": "00 0|c",
+        "substr": "00 \\dots 0|c",
         "color": "#4C5FD5",
         "note": "All zeros in the coefficient matrix with non-zero on the right"
        },
        {
-        "substr": "c ≠q 0",
+        "substr": "c \\neq 0",
         "color": "#A03040",
         "note": "Non-zero constant"
        },
@@ -351,7 +351,7 @@
      "data": {
       "heading": "Pivot, multiplier, and forward elimination",
       "bullets": [
-       "λ_ij = a_ij/a_jj",
+       "λ_{ij} = $\\frac{a_{ij}}{a_{jj}}$",
        "Operation: R_i ← R_i - λ_{ij} · R_j",
        "To eliminate element a_{ij} below a nonzero pivot a_{jj}, subtract row j multiplied by λ_{ij} from row i."
       ]
@@ -377,19 +377,19 @@
         "text": "Pivot: 2"
        },
        {
-        "text": "Multipliers: λ_21 = 4/2 = 2 and λ_31 = -2/2 = -1"
+        "text": "Multipliers: λ_{21} = $\\frac{4}{2}$ = 2 and λ_{31} = $\\frac{-2}{2}$ = -1"
        },
        {
         "text": "Operations: R_2 ← R_2 - 2R_1, R_3 ← R_3 + R_1"
        },
        {
-        "text": "Result: (2, 1, 1, |, 5; 0, -8, -2, |, -12; 0, 8, 3, |, 14)"
+        "text": "Result: \\begin{bmatrix} 2 & 1 & 1 & | & 5 \\\\ 0 & -8 & -2 & | & -12 \\\\ 0 & 8 & 3 & | & 14 \\end{bmatrix}"
        },
        {
         "text": "Second pivot: -8"
        },
        {
-        "text": "Multiplier: λ_32 = 8/-8 = -1"
+        "text": "Multiplier: λ_{32} = $\\frac{8}{-8}$ = -1"
        }
       ]
      },
@@ -420,10 +420,10 @@
         "text": "Operation: R_3 ← R_3 + R_2"
        },
        {
-        "text": "Triangular system: (2, 1, 1, |, 5; 0, -8, -2, |, -12; 0, 0, 1, |, 2)"
+        "text": "Triangular system: \\begin{bmatrix} 2 & 1 & 1 & | & 5 \\\\ 0 & -8 & -2 & | & -12 \\\\ 0 & 0 & 1 & | & 2 \\end{bmatrix}"
        },
        {
-        "text": "Upper triangular matrix U: (2, 1, 1; 0, -8, -2; 0, 0, 1)"
+        "text": "Upper triangular matrix U: \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & -8 & -2 \\\\ 0 & 0 & 1 \\end{bmatrix}"
        },
        {
         "text": "Pivot elements: 2, -8, 1"
@@ -448,7 +448,7 @@
        "w = 2",
        "-8v - 2w = -12 → v = 1",
        "2u + v + w = 5 → u = 1",
-       "Solution: x = (1; 1; 2)",
+       "Solution: x = \\begin{bmatrix} 1 \\\\ 1 \\\\ 2 \\end{bmatrix}",
        "The triangular system is solved from bottom up",
        "The answer is verified by substitution into the original equation"
       ]
@@ -522,9 +522,9 @@
      "data": {
       "heading": "Elimination matrices E",
       "bullets": [
-       "E_21 = (1, 0, 0; -2, 1, 0; 0, 0, 1)",
-       "E_21 · A = (2, 1, 1; 0, -8, -2; -2, 7, 2)",
-       "E_21 · b = (5; -12; 9)",
+       "E_{21} = \\begin{bmatrix} 1 & 0 & 0 \\\\ -2 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+       "E_{21} · A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & -8 & -2 \\\\ -2 & 7 & 2 \\end{bmatrix}",
+       "E_{21} · b = \\begin{bmatrix} 5 \\\\ -12 \\\\ 9 \\end{bmatrix}",
        "Left multiplication performs a row operation",
        "The right side is transformed by the same matrix",
        "Ax = b becomes (E_{21}A)x = E_{21}b"
@@ -554,10 +554,10 @@
       "tex": "E_{32} · E_{31} · E_{21} · A = U",
       "steps": [
        {
-        "text": "E_31 = (1, 0, 0; 0, 1, 0; 1, 0, 1)"
+        "text": "E_{31} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 1 \\end{bmatrix}"
        },
        {
-        "text": "E_32 = (1, 0, 0; 0, 1, 0; 0, 1, 1)"
+        "text": "E_{32} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 1 & 1 \\end{bmatrix}"
        },
        {
         "text": "The rightmost multiplier acts first—order of multiplication matters"
@@ -566,7 +566,7 @@
         "text": "Undo step: subtraction is replaced by addition"
        },
        {
-        "text": "For E = (1, 0; -3, 1), the inverse is E⁻¹ = (1, 0; 3, 1)"
+        "text": "For E = \\begin{bmatrix} 1 & 0 \\\\ -3 & 1 \\end{bmatrix}, the inverse is E^{-1} = \\begin{bmatrix} 1 & 0 \\\\ 3 & 1 \\end{bmatrix}"
        },
        {
         "text": "E^{-1} · E = I"
@@ -593,7 +593,7 @@
      "data": {
       "heading": "Zero pivot: permutation matrices P",
       "bullets": [
-       "(0, 2, |, 4; 3, 1, |, 7) → (3, 1, |, 7; 0, 2, |, 4) (row exchange)",
+       "\\begin{bmatrix} 0 & 2 & | & 4 \\\\ 3 & 1 & | & 7 \\end{bmatrix} → \\begin{bmatrix} 3 & 1 & | & 7 \\\\ 0 & 2 & | & 4 \\end{bmatrix} (row exchange)",
        "Then y = 2, x = 5/3",
        "A zero pivot does not necessarily mean singularity",
        "If there is a nonzero element below, rows are swapped",
@@ -632,7 +632,7 @@
         "text": "For a single swap P^2 = I"
        },
        {
-        "text": "Swapping rows 1 and 3: P_13 = (0, 0, 1; 0, 1, 0; 1, 0, 0)"
+        "text": "Swapping rows 1 and 3: P_{13} = \\begin{bmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{bmatrix}"
        },
        {
         "text": "Left multiplication changes equations, not unknowns"
@@ -722,7 +722,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 1 — Row picture and column picture",
-      "problem": "Solve the system (2, -1; 1, 1) · (x; y) = (1; 5) and describe both geometric pictures.",
+      "problem": "Solve the system \\begin{bmatrix} 2 & -1 \\\\ 1 & 1 \\end{bmatrix} · \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 1 \\\\ 5 \\end{bmatrix} and describe both geometric pictures.",
       "steps": [
        {
         "text": "Add equations: 3x = 6, x = 2"
@@ -734,7 +734,7 @@
         "text": "Lines 2x - y = 1 and x + y = 5 intersect at (2, 3)"
        },
        {
-        "text": "By columns: 2·(2; 1) + 3·(-1; 1) = (4 - 3; 2 + 3) = (1; 5)"
+        "text": "By columns: 2·\\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix} + 3·\\begin{bmatrix} -1 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 4 - 3 \\\\ 2 + 3 \\end{bmatrix} = \\begin{bmatrix} 1 \\\\ 5 \\end{bmatrix}"
        }
       ],
       "result": "x = 2, y = 3"
@@ -758,7 +758,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 2 — Three outcomes",
-      "problem": "Classify the system (1, 1; 2, 2) · (x; y) = (2; c) for c = 4 and c = 5.",
+      "problem": "Classify the system \\begin{bmatrix} 1 & 1 \\\\ 2 & 2 \\end{bmatrix} · \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 2 \\\\ c \\end{bmatrix} for c = 4 and c = 5.",
       "steps": [
        {
         "text": "R_2 ← R_2 - 2R_1 gives row [0 0|c - 4]"
@@ -767,7 +767,7 @@
         "text": "When c = 4, this is 0 = 0: x + y = 2 remains"
        },
        {
-        "text": "Infinitely many solutions — (2 - t; t)"
+        "text": "Infinitely many solutions — \\begin{bmatrix} 2 - t \\\\ t \\end{bmatrix}"
        },
        {
         "text": "When c = 5, this is 0 = 1 — contradiction"
@@ -797,7 +797,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 3 — Find the multiplier",
-      "problem": "Eliminate below the first pivot in the augmented matrix (2, 3, |, 7; 8, 13, |, 29) and find both pivots.",
+      "problem": "Eliminate below the first pivot in the augmented matrix \\begin{bmatrix} 2 & 3 & | & 7 \\\\ 8 & 13 & | & 29 \\end{bmatrix} and find both pivots.",
       "steps": [
        {
         "text": "Multiplier λ_{21} = 8/2 = 4"
@@ -806,7 +806,7 @@
         "text": "R_2 ← R_2 - 4R_1: [8, 13|29] - 4 · [2, 3|7] = [0, 1|1]"
        },
        {
-        "text": "Result: (2, 3, |, 7; 0, 1, |, 1)"
+        "text": "Result: \\begin{bmatrix} 2 & 3 & | & 7 \\\\ 0 & 1 & | & 1 \\end{bmatrix}"
        },
        {
         "text": "Pivots are 2 and 1"
@@ -831,7 +831,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 4 — Back substitution",
-      "problem": "Solve the system (2, 1, -1; 0, 3, 2; 0, 0, 4) · (x; y; z) = (3; 7; 8).",
+      "problem": "Solve the system \\begin{bmatrix} 2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4 \\end{bmatrix} · \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 3 \\\\ 7 \\\\ 8 \\end{bmatrix}.",
       "steps": [
        {
         "text": "Bottom up: 4z = 8, z = 2"
@@ -843,13 +843,13 @@
         "text": "2x + 1 - 2 = 3, x = 2"
        },
        {
-        "text": "Answer: (2; 1; 2)"
+        "text": "Answer: \\begin{bmatrix} 2 \\\\ 1 \\\\ 2 \\end{bmatrix}"
        },
        {
         "text": "Check: 2 · 2 + 1 - 2 = 3, 3 + 4 = 7, 8 = 8 — correct"
        }
       ],
-      "result": "x = (2; 1; 2)"
+      "result": "x = \\begin{bmatrix} 2 \\\\ 1 \\\\ 2 \\end{bmatrix}"
      },
      "narr": [
       "Now we practice back substitution on this triangular system.",
@@ -870,7 +870,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 5 — Full elimination",
-      "problem": "Solve the system (1, 1, 1, |, 6; 2, 3, 1, |, 10; 1, 2, 3, |, 14) by elimination.",
+      "problem": "Solve the system \\begin{bmatrix} 1 & 1 & 1 & | & 6 \\\\ 2 & 3 & 1 & | & 10 \\\\ 1 & 2 & 3 & | & 14 \\end{bmatrix} by elimination.",
       "steps": [
        {
         "text": "R_2 ← R_2 - 2R_1 → [0 1 -1| -2]"
@@ -923,7 +923,7 @@
         "text": "E is identity matrix with -4 in position (3, 1)"
        },
        {
-        "text": "E = (1, 0, 0; 0, 1, 0; -4, 0, 1)"
+        "text": "E = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{bmatrix}"
        },
        {
         "text": "Row 3 of EA equals (row 3) - 4 · (row 1)"
@@ -935,10 +935,10 @@
         "text": "Inverse operation is addition"
        },
        {
-        "text": "E⁻¹ = (1, 0, 0; 0, 1, 0; 4, 0, 1) with +4 in position (3, 1)"
+        "text": "E^{-1} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 4 & 0 & 1 \\end{bmatrix} with +4 in position (3, 1)"
        }
       ],
-      "result": "E = (1, 0, 0; 0, 1, 0; -4, 0, 1)"
+      "result": "E = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{bmatrix}"
      },
      "narr": [
       "For our final exercise, we need to find the elementary matrix that performs a specific row operation.",
@@ -957,7 +957,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 1 — System of two lines",
-      "problem": "Solve the system (1, 2; 3, 1) · (x; y) = (7; 8).",
+      "problem": "Solve the system $\\begin{bmatrix} 1 & 2 \\\\ 3 & 1 \\end{bmatrix} · \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 7 \\\\ 8 \\end{bmatrix}$.",
       "steps": [
        {
         "text": "R2 ← R2 - 3R1: (1-6)y = 8-21"
@@ -992,7 +992,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 2 — Parallel or coincident?",
-      "problem": "Classify the system (2, 4; 1, 2) · (x; y) = (6; c) for c = 3 and c = 4.",
+      "problem": "Classify the system $\\begin{bmatrix} 2 & 4 \\\\ 1 & 2 \\end{bmatrix} · \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 6 \\\\ c \\end{bmatrix}$ for c = 3 and c = 4.",
       "steps": [
        {
         "text": "Row 1 is twice row 2 on the left"
@@ -1028,7 +1028,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 3 — One elimination step",
-      "problem": "Eliminate below the first pivot in the matrix (3, 2; 9, 8).",
+      "problem": "Eliminate below the first pivot in the matrix $\\begin{bmatrix} 3 & 2 \\\\ 9 & 8 \\end{bmatrix}$.",
       "steps": [
        {
         "text": "The multiplier λ21 = 9/3 = 3"
@@ -1037,7 +1037,7 @@
         "text": "R2 ← R2 - 3R1: [9-9, 8-6] = [0, 2]"
        }
       ],
-      "result": "Result: (3, 2; 0, 2); pivots 3 and 2"
+      "result": "Result: $\\begin{bmatrix} 3 & 2 \\\\ 0 & 2 \\end{bmatrix}$; pivots 3 and 2"
      },
      "narr": [
       "Let's practice Gaussian elimination with a simple matrix.",
@@ -1058,7 +1058,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 4 — Triangular system",
-      "problem": "Solve (1, 2, 1; 0, 2, -2; 0, 0, 3) · (x; y; z) = (8; 0; 6).",
+      "problem": "Solve $\\begin{bmatrix} 1 & 2 & 1 \\\\ 0 & 2 & -2 \\\\ 0 & 0 & 3 \\end{bmatrix} · \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 8 \\\\ 0 \\\\ 6 \\end{bmatrix}$.",
       "steps": [
        {
         "text": "From bottom up: 3z = 6, z = 2"
@@ -1070,7 +1070,7 @@
         "text": "x + 4 + 2 = 8, x = 2"
        }
       ],
-      "result": "Answer: (2; 2; 2)"
+      "result": "Answer: $\\begin{bmatrix} 2 \\\\ 2 \\\\ 2 \\end{bmatrix}$"
      },
      "narr": [
       "Now we solve a triangular system using back substitution.",
@@ -1091,7 +1091,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 5 — Complete system with three unknowns",
-      "problem": "Solve the system (1, 1, 0, |, 3; 2, 3, 1, |, 9; 1, 0, 1, |, 4).",
+      "problem": "Solve the system $\\begin{bmatrix} 1 & 1 & 0 & | & 3 \\\\ 2 & 3 & 1 & | & 9 \\\\ 1 & 0 & 1 & | & 4 \\end{bmatrix}$.",
       "steps": [
        {
         "text": "R2 ← R2 - 2R1 → [0 1 1 | 3]"
@@ -1109,7 +1109,7 @@
         "text": "x + y = 3 → x = 2"
        }
       ],
-      "result": "Answer: (2; 1; 2)"
+      "result": "Answer: $\\begin{bmatrix} 2 \\\\ 1 \\\\ 2 \\end{bmatrix}$"
      },
      "narr": [
       "Let's solve a complete system with three unknowns using Gaussian elimination.",
@@ -1132,7 +1132,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 6 — EA multiplication",
-      "problem": "Let E = (1, 0; -2, 1) and A = (3, 1; 6, 5). Compute EA and explain the operation performed.",
+      "problem": "Let E = $\\begin{bmatrix} 1 & 0 \\\\ -2 & 1 \\end{bmatrix}$ and A = $\\begin{bmatrix} 3 & 1 \\\\ 6 & 5 \\end{bmatrix}$. Compute EA and explain the operation performed.",
       "steps": [
        {
         "text": "Row 1 of product: [3 1]"
@@ -1141,7 +1141,7 @@
         "text": "Row 2: -2·[3 1] + [6 5] = [0 3]"
        }
       ],
-      "result": "EA = (3, 1; 0, 3)"
+      "result": "EA = $\\begin{bmatrix} 3 & 1 \\\\ 0 & 3 \\end{bmatrix}$"
      },
      "narr": [
       "Now let's explore matrix multiplication as a row operation.",
@@ -1162,13 +1162,13 @@
      "type": "example",
      "data": {
       "heading": "Problem 7 — Transformed right side",
-      "problem": "For A = (3, 1; 6, 5) and b = (4; 17), use E = (1, 0; -2, 1) to solve the system.",
+      "problem": "For A = $\\begin{bmatrix} 3 & 1 \\\\ 6 & 5 \\end{bmatrix}$ and b = $\\begin{bmatrix} 4 \\\\ 17 \\end{bmatrix}$, use E = $\\begin{bmatrix} 1 & 0 \\\\ -2 & 1 \\end{bmatrix}$ to solve the system.",
       "steps": [
        {
-        "text": "Eb = (4; -8 + 17) = (4; 9)"
+        "text": "Eb = $\\begin{bmatrix} 4 \\\\ -8 + 17 \\end{bmatrix}$ = $\\begin{bmatrix} 4 \\\\ 9 \\end{bmatrix}$"
        },
        {
-        "text": "With EA = (3, 1; 0, 3) from exercise 6"
+        "text": "With EA = $\\begin{bmatrix} 3 & 1 \\\\ 0 & 3 \\end{bmatrix}$ from exercise 6"
        },
        {
         "text": "We get 3y = 9, y = 3"
@@ -1198,16 +1198,16 @@
      "type": "example",
      "data": {
       "heading": "Problem 8 — Zero pivot",
-      "problem": "Solve the system (0, 2; 3, 1) · (x; y) = (4; 7) by row swap; find P.",
+      "problem": "Solve the system $\\begin{bmatrix} 0 & 2 \\\\ 3 & 1 \\end{bmatrix} · \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 4 \\\\ 7 \\end{bmatrix}$ by row swap; find P.",
       "steps": [
        {
         "text": "Zero in position (1,1) is temporary failure"
        },
        {
-        "text": "P = (0, 1; 1, 0)"
+        "text": "P = $\\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$"
        },
        {
-        "text": "PA = (3, 1; 0, 2), Pb = (7; 4)"
+        "text": "PA = $\\begin{bmatrix} 3 & 1 \\\\ 0 & 2 \\end{bmatrix}$, Pb = $\\begin{bmatrix} 7 \\\\ 4 \\end{bmatrix}$"
        },
        {
         "text": "Then 2y = 4, y = 2"
@@ -1237,22 +1237,22 @@
      "type": "example",
      "data": {
       "heading": "Problem 9 — Three-row permutation",
-      "problem": "Find P that swaps rows 1 and 3 of matrix A = (1, 2, 0; 0, 1, 3; 4, 0, 2); compute PA.",
+      "problem": "Find P that swaps rows 1 and 3 of matrix A = $\\begin{bmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 3 \\\\ 4 & 0 & 2 \\end{bmatrix}$; compute PA.",
       "steps": [
        {
-        "text": "P = (0, 0, 1; 0, 1, 0; 1, 0, 0) — rows of identity matrix in order 3, 2, 1"
+        "text": "P = $\\begin{bmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{bmatrix}$ — rows of identity matrix in order 3, 2, 1"
        },
        {
         "text": "Row 1 of PA equals row 3 of matrix A"
        },
        {
-        "text": "PA = (4, 0, 2; 0, 1, 3; 1, 2, 0)"
+        "text": "PA = $\\begin{bmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{bmatrix}$"
        },
        {
         "text": "Swap 1 ↔ 3 is involution: P⁻¹ = P and P² = I"
        }
       ],
-      "result": "PA = (4, 0, 2; 0, 1, 3; 1, 2, 0)"
+      "result": "PA = $\\begin{bmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{bmatrix}$"
      },
      "narr": [
       "Let's extend permutation matrices to larger systems.",
@@ -1273,7 +1273,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 10 — Singular but consistent",
-      "problem": "Solve the system (1, 2, 1; 2, 4, 2; 0, 1, 1) · (x; y; z) = (3; 6; 2).",
+      "problem": "Solve the system $\\begin{bmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 0 & 1 & 1 \\end{bmatrix} · \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 3 \\\\ 6 \\\\ 2 \\end{bmatrix}$.",
       "steps": [
        {
         "text": "Row 2 with the right-hand side (6 = 2·3) is twice row 1"
@@ -1291,7 +1291,7 @@
         "text": "x + 2(2 - t) + t = 3 → x = t - 1"
        }
       ],
-      "result": "Answer: (t-1; 2-t; t) — infinitely many solutions"
+      "result": "Answer: $\\begin{bmatrix} t-1 \\\\ 2-t \\\\ t \\end{bmatrix}$ — infinitely many solutions"
      },
      "narr": [
       "Now let's examine a system that's singular but still consistent.",
@@ -1312,7 +1312,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 11 — Degenerate and inconsistent",
-      "problem": "Replace the right-hand side in the previous system with b = (3; 7; 2). Is the system consistent?",
+      "problem": "Replace the right-hand side in the previous system with b = $\\begin{bmatrix} 3 \\\\ 7 \\\\ 2 \\end{bmatrix}$. Is the system consistent?",
       "steps": [
        {
         "text": "Now 7 ≠ 2·3"
@@ -1345,7 +1345,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 12 — Column interpretation of consistency",
-      "problem": "For A = (1, 2; 2, 4), which vectors b = (b₁; b₂) admit a solution Ax = b?",
+      "problem": "For A = $\\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix}$, which vectors b = $\\begin{bmatrix} b₁ \\\\ b₂ \\end{bmatrix}$ admit a solution Ax = b?",
       "steps": [
        {
         "text": "The second row is twice the first"
@@ -1357,13 +1357,13 @@
         "text": "Consistency requires b₂ = 2b₁"
        },
        {
-        "text": "The columns (1; 2) and (2; 4) = 2·(1; 2) are multiples of each other"
+        "text": "The columns $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ and $\\begin{bmatrix} 2 \\\\ 4 \\end{bmatrix}$ = 2·$\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ are multiples of each other"
        },
        {
         "text": "Ax always lies on the line b₂ = 2b₁"
        }
       ],
-      "result": "Answer: b = (b₁; 2b₁) — b must lie on the line through the columns of A"
+      "result": "Answer: b = $\\begin{bmatrix} b₁ \\\\ 2b₁ \\end{bmatrix}$ — b must lie on the line through the columns of A"
      },
      "narr": [
       "Let's explore consistency from a column perspective.",
@@ -1384,19 +1384,19 @@
      "type": "example",
      "data": {
       "heading": "Problem 13 — Order of matrix operations",
-      "problem": "Let E = (1, 0; -2, 1) and P = (0, 1; 1, 0). Compare EP and PE.",
+      "problem": "Let E = $\\begin{bmatrix} 1 & 0 \\\\ -2 & 1 \\end{bmatrix}$ and P = $\\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$. Compare EP and PE.",
       "steps": [
        {
         "text": "EP: row 1 = [0 1], row 2 = -2·[0 1] + [1 0] = [1 -2]"
        },
        {
-        "text": "EP = (0, 1; 1, -2)"
+        "text": "EP = $\\begin{bmatrix} 0 & 1 \\\\ 1 & -2 \\end{bmatrix}$"
        },
        {
         "text": "PE: row 1 = 1·[-2 1] = [-2 1], row 2 = [1 0]"
        },
        {
-        "text": "PE = (-2, 1; 1, 0)"
+        "text": "PE = $\\begin{bmatrix} -2 & 1 \\\\ 1 & 0 \\end{bmatrix}$"
        }
       ],
       "result": "The products are different: row operations, in general, do not commute"
@@ -1420,22 +1420,22 @@
      "type": "example",
      "data": {
       "heading": "Problem 14 — Challenge: construct a system",
-      "problem": "Build a 3×3 system requiring row exchange, with three pivots and solution x = (1; 2; 3).",
+      "problem": "Build a 3×3 system requiring row exchange, with three pivots and solution x = $\\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix}$.",
       "steps": [
        {
-        "text": "A zero in position (1,1) with a nonzero element below: A = (0, 1, 0; 1, 0, 0; 0, 0, 1)"
+        "text": "A zero in position (1,1) with a nonzero element below: A = $\\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$"
        },
        {
-        "text": "Set the right-hand side by the column picture: b = A·(1; 2; 3) = (2; 1; 3)"
+        "text": "Set the right-hand side by the column picture: b = A·$\\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix}$ = $\\begin{bmatrix} 2 \\\\ 1 \\\\ 3 \\end{bmatrix}$"
        },
        {
-        "text": "Swapping rows 1 and 2 (P = (0, 1, 0; 1, 0, 0; 0, 0, 1)) turns A into the identity matrix"
+        "text": "Swapping rows 1 and 2 (P = $\\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$) turns A into the identity matrix"
        },
        {
-        "text": "Pivots are 1, 1, 1, solution x = (1; 2; 3)"
+        "text": "Pivots are 1, 1, 1, solution x = $\\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix}$"
        }
       ],
-      "result": "System: (0, 1, 0; 1, 0, 0; 0, 0, 1)·(x; y; z) = (2; 1; 3)"
+      "result": "System: $\\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$·$\\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix}$ = $\\begin{bmatrix} 2 \\\\ 1 \\\\ 3 \\end{bmatrix}$"
      },
      "narr": [
       "For our final challenge, let's construct a system that requires row exchange.",
@@ -1468,7 +1468,7 @@
         "text": "Row 3 of the product equals (row3) + 5 · (row2)"
        }
       ],
-      "result": "E32 = (1, 0, 0; 0, 1, 0; 0, 5, 1)"
+      "result": "E32 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 5 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Our first problem asks us to construct a specific elementary matrix E32 that performs the row operation R3 ← R3 + 5R2.",
@@ -1476,7 +1476,7 @@
       "For E32, we're adding 5 times row 2 to row 3, so we place a 5 in position (3, 2) of the identity matrix.",
       "The first two rows remain unchanged, as they're not involved in this operation.",
       "When we multiply this matrix by another matrix, it will add 5 times the second row to the third row.",
-      "So the resulting matrix is E32 = (1, 0, 0; 0, 1, 0; 0, 5, 1)"
+      "So the resulting matrix is E32 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 5 & 1 \\end{pmatrix}"
      ],
      "narr_item": [
       -1,
@@ -1491,19 +1491,19 @@
      "type": "example",
      "data": {
       "heading": "Problem 7 — Find the inverse matrix",
-      "problem": "Find the inverse matrix for E = (1, 0, 0; 0, 1, 0; 0, -3, 1)",
+      "problem": "Find the inverse matrix for E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & -3 & 1 \\end{pmatrix}",
       "steps": [
        {
         "text": "E implements R3 ← R3 - 3R2 (subtracting three times row2)"
        },
        {
-        "text": "The inverse operation is addition: E⁻¹ = (1, 0, 0; 0, 1, 0; 0, 3, 1)"
+        "text": "The inverse operation is addition: E^{-1} = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 3 & 1 \\end{pmatrix}"
        },
        {
         "text": "Verification: E^{-1} · E = I"
        }
       ],
-      "result": "E⁻¹ = (1, 0, 0; 0, 1, 0; 0, 3, 1)"
+      "result": "E^{-1} = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 3 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Now let's find the inverse of a given elementary matrix E.",
@@ -1511,7 +1511,7 @@
       "The inverse operation would be to reverse this, which means adding 3 times row 2 to row 3.",
       "So we create E^{-1} by changing the sign of the off-diagonal element in position (3, 2).",
       "To verify, we can multiply E^{-1} by E and check if we get the identity matrix.",
-      "Indeed, (1, 0, 0; 0, 1, 0; 0, 3, 1) · (1, 0, 0; 0, 1, 0; 0, -3, 1) = I"
+      "Indeed, \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 3 & 1 \\end{pmatrix} · \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & -3 & 1 \\end{pmatrix} = I"
      ],
      "narr_item": [
       -1,
@@ -1526,7 +1526,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 8 — Transform the right-hand side",
-      "problem": "Apply E = (1, 0, 0; -2, 1, 0; 0, 0, 1) to b = (3; 5; 7)",
+      "problem": "Apply E = \\begin{pmatrix} 1 & 0 & 0 \\\\ -2 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix} to b = \\begin{pmatrix} 3 \\\\ 5 \\\\ 7 \\end{pmatrix}",
       "steps": [
        {
         "text": "Eb = [3; 5 - 2 · 3; 7]"
@@ -1541,7 +1541,7 @@
         "text": "The right-hand side is transformed by the same operation"
        }
       ],
-      "result": "Eb = (3; -1; 7)"
+      "result": "Eb = \\begin{pmatrix} 3 \\\\ -1 \\\\ 7 \\end{pmatrix}"
      },
      "narr": [
       "In this problem, we need to apply an elementary matrix E to a vector b.",
@@ -1549,7 +1549,7 @@
       "The operation E performs is R2 ← R2 - 2R1, which eliminates x from the second equation.",
       "Applying this to b, we get: first component remains 3, second becomes 5 - 2·3 = -1, third remains 7.",
       "This shows how the same elimination operation is applied to both the matrix and the right-hand side.",
-      "So the transformed vector is (3; -1; 7)"
+      "So the transformed vector is \\begin{pmatrix} 3 \\\\ -1 \\\\ 7 \\end{pmatrix}"
      ],
      "narr_item": [
       -1,
@@ -1579,7 +1579,7 @@
         "text": "Left multiplication swaps equations, not unknowns"
        }
       ],
-      "result": "P = (1, 0, 0; 0, 0, 1; 0, 1, 0)"
+      "result": "P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}"
      },
      "narr": [
       "Now we need to find a permutation matrix P that swaps rows 2 and 3.",
@@ -1588,7 +1588,7 @@
       "This means P is its own inverse: P^{-1} = P.",
       "This is consistent with the property that permutation matrices are orthogonal, so P^{-1} = P^T.",
       "When we left-multiply by P, it swaps the equations in a system.",
-      "The resulting matrix is P = (1, 0, 0; 0, 0, 1; 0, 1, 0)"
+      "The resulting matrix is P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}"
      ],
      "narr_item": [
       -1,
@@ -1604,7 +1604,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 10 — System requiring exchange",
-      "problem": "Solve the system (0, 1; 2, 3) · (x; y) = (4; 14)",
+      "problem": "Solve the system \\begin{pmatrix} 0 & 1 \\\\ 2 & 3 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 14 \\end{pmatrix}",
       "steps": [
        {
         "text": "The pivot in position (1, 1) is zero"
@@ -1640,7 +1640,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 11 — Free variable",
-      "problem": "Solve the system (1, 1, 1; 0, 1, 1; 0, 0, 0) · (x; y; z) = (4; 3; 0)",
+      "problem": "Solve the system \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 3 \\\\ 0 \\end{pmatrix}",
       "steps": [
        {
         "text": "The third row is 0 = 0, giving no constraints"
@@ -1655,18 +1655,18 @@
         "text": "x + (3 - t) + t = 4 → x = 1"
        },
        {
-        "text": "Check at t = 0: (1; 3; 0) gives 4, 3, 0 — correct"
+        "text": "Check at t = 0: \\begin{pmatrix} 1 \\\\ 3 \\\\ 0 \\end{pmatrix} gives 4, 3, 0 — correct"
        }
       ],
-      "result": "Answer: (1; 3 - t; t)"
+      "result": "Answer: \\begin{pmatrix} 1 \\\\ 3 - t \\\\ t \\end{pmatrix}"
      },
      "narr": [
       "This system has a free variable because the third row is all zeros.",
       "With two pivots and three unknowns, we have infinitely many solutions.",
       "We let z = t (a free parameter), then solve for y: y + t = 3, so y = 3 - t.",
       "Substituting into the first equation: x + (3 - t) + t = 4, so x = 1.",
-      "The solution is (1; 3 - t; t) for any t.",
-      "Checking with t = 0: (1; 3; 0) gives the right-hand side 4, 3, 0, which is correct."
+      "The solution is \\begin{pmatrix} 1 \\\\ 3 - t \\\\ t \\end{pmatrix} for any t.",
+      "Checking with t = 0: \\begin{pmatrix} 1 \\\\ 3 \\\\ 0 \\end{pmatrix} gives the right-hand side 4, 3, 0, which is correct."
      ],
      "narr_item": [
       -1,
@@ -1681,7 +1681,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 12 — Inconsistent row",
-      "problem": "Explain why the system (1, 1, 0; 1, 1, 3; 0, 0, 0) · (x; y; z) = (2; 0; 1) has no solutions",
+      "problem": "Explain why the system \\begin{pmatrix} 1 & 1 & 0 \\\\ 1 & 1 & 3 \\\\ 0 & 0 & 0 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 0 \\\\ 1 \\end{pmatrix} has no solutions",
       "steps": [
        {
         "text": "The last row reads as 0 · x + 0 · y + 0 · z = 1"
@@ -1717,29 +1717,29 @@
      "type": "example",
      "data": {
       "heading": "Problem 13 — Compare EP and PE",
-      "problem": "For E = (1, 0; 4, 1) and P = (0, 1; 1, 0) compute both products",
+      "problem": "For E = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1 \\end{pmatrix} and P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} compute both products",
       "steps": [
        {
         "text": "EP: row1 = [0, 1], row2 = 4 · [0, 1] + [1, 0] = [1, 4]"
        },
        {
-        "text": "EP = (0, 1; 1, 4)"
+        "text": "EP = \\begin{pmatrix} 0 & 1 \\\\ 1 & 4 \\end{pmatrix}"
        },
        {
         "text": "PE: row1 = 1 · [4, 1] = [4, 1], row2 = [1, 0]"
        },
        {
-        "text": "PE = (4, 1; 1, 0)"
+        "text": "PE = \\begin{pmatrix} 4 & 1 \\\\ 1 & 0 \\end{pmatrix}"
        },
        {
         "text": "The products are different: \"first elimination, then exchange\" and \"first exchange, then elimination\" give different matrices"
        }
       ],
-      "result": "EP = (0, 1; 1, 4), PE = (4, 1; 1, 0)"
+      "result": "EP = \\begin{pmatrix} 0 & 1 \\\\ 1 & 4 \\end{pmatrix}, PE = \\begin{pmatrix} 4 & 1 \\\\ 1 & 0 \\end{pmatrix}"
      },
      "narr": [
       "Matrix multiplication is not commutative, meaning order matters.",
-      "Let's compute EP and PE for E = (1, 0; 4, 1) and P = (0, 1; 1, 0).",
+      "Let's compute EP and PE for E = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1 \\end{pmatrix} and P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}.",
       "For EP, we first apply E then P: row1 becomes [0, 1], row2 becomes 4 · [0, 1] + [1, 0] = [1, 4].",
       "For PE, we first apply P then E: row1 becomes [4, 1], row2 becomes [1, 0].",
       "The products are different, showing that \"first elimination, then exchange\" is not the same as \"first exchange, then elimination\".",
@@ -1758,16 +1758,16 @@
      "type": "example",
      "data": {
       "heading": "Problem 14 — Column space test",
-      "problem": "Can the system (1, 3; 2, 6) · (x; y) = (2; 5) be solved?",
+      "problem": "Can the system \\begin{pmatrix} 1 & 3 \\\\ 2 & 6 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 5 \\end{pmatrix} be solved?",
       "steps": [
        {
-        "text": "Both columns have the second component twice the first: (1; 2) and (3; 6) = 3 · (1; 2)"
+        "text": "Both columns have the second component twice the first: \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} and \\begin{pmatrix} 3 \\\\ 6 \\end{pmatrix} = 3 · \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}"
        },
        {
-        "text": "Any combination x · (1; 2) + y · (3; 6) has the form (s; 2s)"
+        "text": "Any combination x · \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} + y · \\begin{pmatrix} 3 \\\\ 6 \\end{pmatrix} has the form \\begin{pmatrix} s \\\\ 2s \\end{pmatrix}"
        },
        {
-        "text": "For b = (2; 5) we have 5 ≠ 2 · 2 = 4"
+        "text": "For b = \\begin{pmatrix} 2 \\\\ 5 \\end{pmatrix} we have 5 ≠ 2 · 2 = 4"
        },
        {
         "text": "b is not in the column space"
@@ -1780,9 +1780,9 @@
      },
      "narr": [
       "To determine if this system can be solved, we need to check if b is in the column space of A.",
-      "Looking at the columns of A, we see that (3; 6) = 3 · (1; 2), so the columns are linearly dependent.",
-      "Any linear combination of these columns will have the form (s; 2s).",
-      "For b = (2; 5), we see that 5 ≠ 2 · 2 = 4, so b is not in the column space.",
+      "Looking at the columns of A, we see that \\begin{pmatrix} 3 \\\\ 6 \\end{pmatrix} = 3 · \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix}, so the columns are linearly dependent.",
+      "Any linear combination of these columns will have the form \\begin{pmatrix} s \\\\ 2s \\end{pmatrix}.",
+      "For b = \\begin{pmatrix} 2 \\\\ 5 \\end{pmatrix}, we see that 5 ≠ 2 · 2 = 4, so b is not in the column space.",
       "Geometrically, this means the two equations represent parallel lines that never intersect.",
       "Therefore, the system has no solution."
      ],
@@ -1808,20 +1808,20 @@
         "text": "The rows of P are the rows of the identity matrix in order 3, 1, 2"
        },
        {
-        "text": "Check on rows (1, 2, 3; 4, 5, 6; 7, 8, 9): P · A = (7, 8, 9; 1, 2, 3; 4, 5, 6)"
+        "text": "Check on rows \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix}: P · A = \\begin{pmatrix} 7 & 8 & 9 \\\\ 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}"
        },
        {
         "text": "Left multiplication permutes rows; P^3 = I"
        }
       ],
-      "result": "P = (0, 0, 1; 1, 0, 0; 0, 1, 0)"
+      "result": "P = \\begin{pmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}"
      },
      "narr": [
       "This challenge asks us to construct a permutation matrix that cycles the rows: R1→R2→R3→R1.",
       "To create P, we arrange the rows of the identity matrix in the order 3, 1, 2.",
       "This means the first row of P is the third row of I, the second row is the first row of I, and the third row is the second row of I.",
       "When we multiply P by any matrix A, it will permute the rows of A according to this cycle.",
-      "For example, applying P to (1, 2, 3; 4, 5, 6; 7, 8, 9) gives (7, 8, 9; 1, 2, 3; 4, 5, 6).",
+      "For example, applying P to \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix} gives \\begin{pmatrix} 7 & 8 & 9 \\\\ 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}.",
       "Notice that applying this permutation three times returns to the original order, so P^3 = I."
      ],
      "narr_item": [
@@ -1837,7 +1837,7 @@
      "type": "example",
      "data": {
       "heading": "Practice 1 — Row picture and column picture",
-      "problem": "Solve the system (2, -1; 1, 1) · (x; y) = (1; 5). Describe both geometric pictures.",
+      "problem": "Solve the system \\begin{pmatrix} 2 & -1 \\\\ 1 & 1 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}. Describe both geometric pictures.",
       "steps": [
        {
         "text": "Add the equations: 3x = 6, x = 2, y = 3"
@@ -1846,7 +1846,7 @@
         "text": "The lines 2x - y = 1 and x + y = 5 intersect at (2, 3)"
        },
        {
-        "text": "In columns: 2 · (2; 1) + 3 · (-1; 1) = (1; 5)"
+        "text": "In columns: 2 · \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix} + 3 · \\begin{pmatrix} -1 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}"
        },
        {
         "text": "Check: 2·2 - 3 = 1, 2 + 3 = 5"
@@ -1859,7 +1859,7 @@
       "Adding the two equations gives 3x = 6, so x = 2. Substituting back, we find y = 3.",
       "Geometrically, the two lines 2x - y = 1 and x + y = 5 intersect at the point (2, 3).",
       "In the column picture, we're looking for a linear combination of the columns that equals the right-hand side.",
-      "Indeed, 2 times the first column plus 3 times the second column gives us (1; 5).",
+      "Indeed, 2 times the first column plus 3 times the second column gives us \\begin{pmatrix} 1 \\\\ 5 \\end{pmatrix}.",
       "Checking our solution: 2·2 - 3 = 1 and 2 + 3 = 5, which is correct."
      ],
      "narr_item": [
@@ -1875,13 +1875,13 @@
      "type": "example",
      "data": {
       "heading": "Practice 2 — Three outcomes",
-      "problem": "Classify the system (1, 1; 2, 2) · (x; y) = (2; c) for c = 4 and c = 5.",
+      "problem": "Classify the system \\begin{pmatrix} 1 & 1 \\\\ 2 & 2 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ c \\end{pmatrix} for c = 4 and c = 5.",
       "steps": [
        {
-        "text": "R2 ← R2 - 2R1 gives (1, 1; 0, 0) · (x; y) = (2; c - 4)"
+        "text": "R2 ← R2 - 2R1 gives \\begin{pmatrix} 1 & 1 \\\\ 0 & 0 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ c - 4 \\end{pmatrix}"
        },
        {
-        "text": "For c = 4: 0 = 0, solutions (2 - t; t)"
+        "text": "For c = 4: 0 = 0, solutions \\begin{pmatrix} 2 - t \\\\ t \\end{pmatrix}"
        },
        {
         "text": "Check: (2 - t) + t = 2, 2(2 - t) + 2t = 4"
@@ -1894,8 +1894,8 @@
      },
      "narr": [
       "This system demonstrates the three possible outcomes for linear systems.",
-      "First, we perform elimination: R2 ← R2 - 2R1, which gives us (1, 1; 0, 0) · (x; y) = (2; c - 4).",
-      "When c = 4, we get 0 = 0, which is always true. This means we have infinitely many solutions: (2 - t; t) for any t.",
+      "First, we perform elimination: R2 ← R2 - 2R1, which gives us \\begin{pmatrix} 1 & 1 \\\\ 0 & 0 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ c - 4 \\end{pmatrix}.",
+      "When c = 4, we get 0 = 0, which is always true. This means we have infinitely many solutions: \\begin{pmatrix} 2 - t \\\\ t \\end{pmatrix} for any t.",
       "When c = 5, we get 0 = 1, which is impossible. This means there are no solutions.",
       "This illustrates how different right-hand sides can lead to either infinitely many solutions or no solutions when the matrix is singular."
      ],
@@ -1911,7 +1911,7 @@
      "type": "example",
      "data": {
       "heading": "Practice 3 — Find the multiplier",
-      "problem": "Eliminate below the first pivot in (2, 3; 8, 13) · (x; y) = (7; 29); find both pivots.",
+      "problem": "Eliminate below the first pivot in \\begin{pmatrix} 2 & 3 \\\\ 8 & 13 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 29 \\end{pmatrix}; find both pivots.",
       "steps": [
        {
         "text": "λ21 = 8/2 = 4"
@@ -1920,7 +1920,7 @@
         "text": "R2 ← R2 - 4R1: [8, 13|29] - 4 · [2, 3|7] = [0, 1|1]"
        },
        {
-        "text": "Result: (2, 3; 0, 1) · (x; y) = (7; 1)"
+        "text": "Result: \\begin{pmatrix} 2 & 3 \\\\ 0 & 1 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 7 \\\\ 1 \\end{pmatrix}"
        },
        {
         "text": "Pivots are 2 and 1"
@@ -1935,7 +1935,7 @@
       "In this elimination problem, we need to find the multiplier and perform elimination.",
       "The multiplier λ21 is calculated as 8/2 = 4.",
       "Applying R2 ← R2 - 4R1, we get [8, 13|29] - 4 · [2, 3|7] = [0, 1|1].",
-      "The resulting matrix is (2, 3; 0, 1), with pivots 2 and 1.",
+      "The resulting matrix is \\begin{pmatrix} 2 & 3 \\\\ 0 & 1 \\end{pmatrix}, with pivots 2 and 1.",
       "To verify, we can reverse the operation: [0, 1|1] + 4 · [2, 3|7] = [8, 13|29], which matches our original second row."
      ],
      "narr_item": [
@@ -1950,7 +1950,7 @@
      "type": "example",
      "data": {
       "heading": "Practice 4 — Back substitution",
-      "problem": "Solve (2, 1, -1; 0, 3, 2; 0, 0, 4) · (x; y; z) = (3; 7; 8)",
+      "problem": "Solve \\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 7 \\\\ 8 \\end{pmatrix}",
       "steps": [
        {
         "text": "From bottom up: z = 8/4 = 2"
@@ -1962,17 +1962,17 @@
         "text": "2x + 1 - 2 = 3, x = 2"
        },
        {
-        "text": "Verification: (2, 1, -1; 0, 3, 2; 0, 0, 4) · (2; 1; 2) = (3; 7; 8)"
+        "text": "Verification: \\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4 \\end{pmatrix} · \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 7 \\\\ 8 \\end{pmatrix}"
        }
       ],
-      "result": "Answer: (2; 1; 2)"
+      "result": "Answer: \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix}"
      },
      "narr": [
       "This system is already in upper triangular form, so we can use back substitution.",
       "Starting from the bottom equation: 4z = 8, so z = 2.",
       "Moving up: 3y + 2·2 = 7, so 3y = 3, and y = 1.",
       "Finally: 2x + 1 - 2 = 3, so 2x = 4, and x = 2.",
-      "Verifying our solution: (2, 1, -1; 0, 3, 2; 0, 0, 4) · (2; 1; 2) = (3; 7; 8), which is correct."
+      "Verifying our solution: \\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4 \\end{pmatrix} · \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 7 \\\\ 8 \\end{pmatrix}, which is correct."
      ],
      "narr_item": [
       -1,
@@ -1986,13 +1986,13 @@
      "type": "example",
      "data": {
       "heading": "Practice 5 — Complete elimination",
-      "problem": "Solve the system (1, 1, 1; 2, 3, 1; 1, 2, 3) · (x; y; z) = (6; 10; 14) by elimination",
+      "problem": "Solve the system \\begin{pmatrix} 1 & 1 & 1 \\\\ 2 & 3 & 1 \\\\ 1 & 2 & 3 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ 10 \\\\ 14 \\end{pmatrix} by elimination",
       "steps": [
        {
-        "text": "R2 ← R2 - 2R1 and R3 ← R3 - R1 give (1, 1, 1; 0, 1, -1; 0, 1, 2) · (x; y; z) = (6; -2; 8)"
+        "text": "R2 ← R2 - 2R1 and R3 ← R3 - R1 give \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 1 & 2 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ -2 \\\\ 8 \\end{pmatrix}"
        },
        {
-        "text": "Then R3 ← R3 - R2 gives (1, 1, 1; 0, 1, -1; 0, 0, 3) · (x; y; z) = (6; -2; 10)"
+        "text": "Then R3 ← R3 - R2 gives \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 3 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ -2 \\\\ 10 \\end{pmatrix}"
        },
        {
         "text": "Backwards: z = 10/3, y = z - 2 = 4/3, x = 6 - y - z = 4/3"
@@ -2001,12 +2001,12 @@
         "text": "Verification: the rows give 6, 10, 14 — correct"
        }
       ],
-      "result": "Answer: (4/3; 4/3; 10/3)"
+      "result": "Answer: \\begin{pmatrix} 4/3 \\\\ 4/3 \\\\ 10/3 \\end{pmatrix}"
      },
      "narr": [
       "This problem requires complete elimination to solve the system.",
-      "First, we eliminate below the first pivot: R2 ← R2 - 2R1 and R3 ← R3 - R1, giving us (1, 1, 1; 0, 1, -1; 0, 1, 2) · (x; y; z) = (6; -2; 8).",
-      "Next, we eliminate below the second pivot: R3 ← R3 - R2, resulting in (1, 1, 1; 0, 1, -1; 0, 0, 3) · (x; y; z) = (6; -2; 10).",
+      "First, we eliminate below the first pivot: R2 ← R2 - 2R1 and R3 ← R3 - R1, giving us \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 1 & 2 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ -2 \\\\ 8 \\end{pmatrix}.",
+      "Next, we eliminate below the second pivot: R3 ← R3 - R2, resulting in \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & -1 \\\\ 0 & 0 & 3 \\end{pmatrix} · \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ -2 \\\\ 10 \\end{pmatrix}.",
       "Now we use back substitution: z = 10/3, y = z - 2 = 4/3, and x = 6 - y - z = 4/3.",
       "Verifying: plugging these values back gives the original right-hand side 6, 10, 14, which is correct."
      ],
@@ -2046,7 +2046,7 @@
         "text": "The inverse of E is E⁻¹ = [[1, 0, 0], [0, 1, 0], [4, 0, 1]]"
        }
       ],
-      "result": "E = (1, 0, 0; 0, 1, 0; -4, 0, 1), E⁻¹ = (1, 0, 0; 0, 1, 0; 4, 0, 1)"
+      "result": "E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{pmatrix}, E⁻¹ = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 4 & 0 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Let's tackle our first problem on elementary matrices.",
@@ -2098,7 +2098,7 @@
         "text": "Verification: E⁻¹·EA = A"
        }
       ],
-      "result": "EA = (3, 1; 0, 3)"
+      "result": "EA = \\begin{pmatrix} 3 & 1 \\\\ 0 & 3 \\end{pmatrix}"
      },
      "narr": [
       "Now let's look at matrix multiplication with an elementary matrix.",
@@ -2150,7 +2150,7 @@
         "text": "Verification in the original system: 3·(1/3) + 3 = 4, 6·(1/3) + 5·3 = 17"
        }
       ],
-      "result": "Solution: x = (1/3; 3)"
+      "result": "Solution: x = \\begin{pmatrix} \\frac{1}{3} \\\\ 3 \\end{pmatrix}"
      },
      "narr": [
       "Let's see how we can use elementary matrices to solve a system of equations.",
@@ -2205,7 +2205,7 @@
         "text": "Verification: 0·(5/3) + 2·2 = 4, 3·(5/3) + 2 = 7"
        }
       ],
-      "result": "P = (0, 1; 1, 0), Solution: x = (5/3; 2)"
+      "result": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, Solution: x = \\begin{pmatrix} \\frac{5}{3} \\\\ 2 \\end{pmatrix}"
      },
      "narr": [
       "What happens when we encounter a zero pivot element?",
@@ -2258,7 +2258,7 @@
         "text": "Also, P⁻¹ = P = Pᵀ"
        }
       ],
-      "result": "P = (0, 0, 1; 0, 1, 0; 1, 0, 0), PA = (4, 0, 2; 0, 1, 3; 1, 2, 0)"
+      "result": "P = \\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}, PA = \\begin{pmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{pmatrix}"
      },
      "narr": [
       "Let's extend our understanding to permutations of three rows.",
@@ -2341,7 +2341,7 @@
         "text": "Verification at t = 2: [[1],[0],[2]] gives 3, 6, 2 — correct"
        }
       ],
-      "result": "Solution: x = (t-1; 2-t; t) for any t"
+      "result": "Solution: x = \\begin{pmatrix} t-1 \\\\ 2-t \\\\ t \\end{pmatrix} for any t"
      },
      "narr": [
       "Substituting: x + 2(2 - t) + t = 3 → x + 4 - 2t + t = 3 → x = t - 1.",
@@ -2425,7 +2425,7 @@
         "text": "Verification: [[4],[8]] is solved (x = 4, y = 0), [[4],[9]] is not"
        }
       ],
-      "result": "Solution exists for b = (b_1; 2b_1) for any b₁"
+      "result": "Solution exists for b = \\begin{pmatrix} b_1 \\\\ 2b_1 \\end{pmatrix} for any b₁"
      },
      "narr": [
       "Let's explore the column interpretation of consistency.",
@@ -2473,7 +2473,7 @@
         "text": "In PE, elimination acts on the original rows"
        }
       ],
-      "result": "EP = (0, 1; 1, -2), PE = (-2, 1; 1, 0)"
+      "result": "EP = \\begin{pmatrix} 0 & 1 \\\\ 1 & -2 \\end{pmatrix}, PE = \\begin{pmatrix} -2 & 1 \\\\ 1 & 0 \\end{pmatrix}"
      },
      "narr": [
       "Let's explore the order of matrix operations and how it affects the result.",
@@ -2554,7 +2554,7 @@
         "text": "Verification: A·x = [[0,1,0],[1,0,0],[0,0,1]]·[[1],[2],[3]] = [[2],[1],[3]] = b"
        }
       ],
-      "result": "A = (0, 1, 0; 1, 0, 0; 0, 0, 1), b = (2; 1; 3)"
+      "result": "A = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}"
      },
      "narr": [
       "The system has pivots 1, 1, 1 and solution x = [[1],[2],[3]].",
@@ -2726,19 +2726,19 @@
      "type": "example",
      "data": {
       "heading": "Example 1 — Non-commutativity of matrices",
-      "problem": "Given matrices A = (1, 1; 0, 1) and B = (1, 0; 1, 1), find AB and BA.",
+      "problem": "Given matrices A = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix} and B = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}, find AB and BA.",
       "steps": [
        {
-        "text": "Multiply AB: (1, 1; 0, 1) (1, 0; 1, 1) = (1·1 + 1·1, 1·0 + 1·1; 0·1 + 1·1, 0·0 + 1·1)"
+        "text": "Multiply AB: \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix} \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix} = \\begin{pmatrix} 1·1 + 1·1 & 1·0 + 1·1 \\\\ 0·1 + 1·1 & 0·0 + 1·1 \\end{pmatrix}"
        },
        {
-        "text": "Multiply BA: (1, 0; 1, 1) (1, 1; 0, 1) = (1·1 + 0·0, 1·1 + 0·1; 1·1 + 1·0, 1·1 + 1·1)"
+        "text": "Multiply BA: \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix} \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix} = \\begin{pmatrix} 1·1 + 0·0 & 1·1 + 0·1 \\\\ 1·1 + 1·0 & 1·1 + 1·1 \\end{pmatrix}"
        },
        {
-        "text": "Compare results: AB = (2, 1; 1, 1), BA = (1, 1; 1, 2)"
+        "text": "Compare results: AB = \\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix}, BA = \\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}"
        }
       ],
-      "result": "AB = (2, 1; 1, 1), BA = (1, 1; 1, 2)"
+      "result": "AB = \\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix}, BA = \\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}"
      },
      "narr": [
       "Let's consider two simple matrices A and B.",
@@ -2787,13 +2787,13 @@
       "problem": "Show how the elimination operation R₂ ← R₂ - 3R₁ corresponds to matrix multiplication.",
       "steps": [
        {
-        "text": "The elimination operation is represented by matrix E = (1, 0; -3, 1)"
+        "text": "The elimination operation is represented by matrix E = \\begin{pmatrix} 1 & 0 \\\\ -3 & 1 \\end{pmatrix}"
        },
        {
-        "text": "Multiply E by the original matrix: E · (2, 1; 6, 5) = (2, 1; 0, 2)"
+        "text": "Multiply E by the original matrix: E · \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}"
        },
        {
-        "text": "The inverse of E is E⁻¹ = (1, 0; 3, 1), which restores the original rows"
+        "text": "The inverse of E is E⁻¹ = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}, which restores the original rows"
        }
       ],
       "result": "The transformed system is EAx = Eb, and E⁻¹ restores the original rows."
@@ -2872,16 +2872,16 @@
      "type": "example",
      "data": {
       "heading": "Example 3 — 2×2 inverse",
-      "problem": "Find the inverse of (2, 1; 5, 3)",
+      "problem": "Find the inverse of \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}",
       "steps": [
        {
         "text": "Compute determinant: ad-bc = 2·3 - 1·5 = 6-5 = 1"
        },
        {
-        "text": "Apply formula: (2, 1; 5, 3)⁻¹ = 1/1 (3, -1; -5, 2) = (3, -1; -5, 2)"
+        "text": "Apply formula: \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}^{-1} = $\\frac{1}{1}$ \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}"
        }
       ],
-      "result": "(2, 1; 5, 3)⁻¹ = (3, -1; -5, 2)"
+      "result": "\\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}^{-1} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}"
      },
      "narr": [
       "Let's find the inverse of this specific 2×2 matrix.",
@@ -2898,22 +2898,22 @@
      "type": "example",
      "data": {
       "heading": "Example 4 — Gauss-Jordan method",
-      "problem": "Find the inverse of (1, 2; 3, 7) using Gauss-Jordan elimination",
+      "problem": "Find the inverse of \\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix} using Gauss-Jordan elimination",
       "steps": [
        {
-        "text": "Set up augmented matrix [A|I]: (1, 2, |, 1, 0; 3, 7, |, 0, 1)"
+        "text": "Set up augmented matrix [A|I]: \\begin{pmatrix} 1 & 2 & | & 1 & 0 \\\\ 3 & 7 & | & 0 & 1 \\end{pmatrix}"
        },
        {
-        "text": "Apply row operations: R₂ ← R₂ - 3R₁ → (1, 2, |, 1, 0; 0, 1, |, -3, 1)"
+        "text": "Apply row operations: R₂ ← R₂ - 3R₁ → \\begin{pmatrix} 1 & 2 & | & 1 & 0 \\\\ 0 & 1 & | & -3 & 1 \\end{pmatrix}"
        },
        {
-        "text": "Apply row operations: R₁ ← R₁ - 2R₂ → (1, 0, |, 7, -2; 0, 1, |, -3, 1)"
+        "text": "Apply row operations: R₁ ← R₁ - 2R₂ → \\begin{pmatrix} 1 & 0 & | & 7 & -2 \\\\ 0 & 1 & | & -3 & 1 \\end{pmatrix}"
        },
        {
-        "text": "Read the inverse: (1, 2; 3, 7)⁻¹ = (7, -2; -3, 1)"
+        "text": "Read the inverse: \\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix}^{-1} = \\begin{pmatrix} 7 & -2 \\\\ -3 & 1 \\end{pmatrix}"
        }
       ],
-      "result": "(1, 2; 3, 7)⁻¹ = (7, -2; -3, 1)"
+      "result": "\\begin{pmatrix} 1 & 2 \\\\ 3 & 7 \\end{pmatrix}^{-1} = \\begin{pmatrix} 7 & -2 \\\\ -3 & 1 \\end{pmatrix}"
      },
      "narr": [
       "For larger matrices, we can use the Gauss-Jordan method.",
@@ -2984,25 +2984,25 @@
      "type": "example",
      "data": {
       "heading": "Example 5 — LU decomposition",
-      "problem": "Find LU decomposition of A = (2, 1; 6, 5)",
+      "problem": "Find LU decomposition of A = \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}",
       "steps": [
        {
-        "text": "Apply elimination: R₂ ← R₂ - 3R₁ → (2, 1; 0, 2)"
+        "text": "Apply elimination: R₂ ← R₂ - 3R₁ → \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}"
        },
        {
-        "text": "The elimination matrix is E = (1, 0; -3, 1)"
+        "text": "The elimination matrix is E = \\begin{pmatrix} 1 & 0 \\\\ -3 & 1 \\end{pmatrix}"
        },
        {
-        "text": "The inverse of E is L = (1, 0; 3, 1)"
+        "text": "The inverse of E is L = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}"
        },
        {
-        "text": "The upper triangular matrix is U = (2, 1; 0, 2)"
+        "text": "The upper triangular matrix is U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}"
        },
        {
-        "text": "Verify: LU = (1, 0; 3, 1) (2, 1; 0, 2) = (2, 1; 6, 5) = A"
+        "text": "Verify: LU = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = A"
        }
       ],
-      "result": "A = LU where L = (1, 0; 3, 1) and U = (2, 1; 0, 2)"
+      "result": "A = LU where L = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} and U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}"
      },
      "narr": [
       "Let's find the LU decomposition of this matrix.",
@@ -3023,25 +3023,25 @@
      "type": "example",
      "data": {
       "heading": "Example 6 — Solving with LU decomposition",
-      "problem": "Solve Ax = b where A = (2, 1; 6, 5), b = (5; 19)",
+      "problem": "Solve Ax = b where A = \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix}, b = \\begin{pmatrix} 5 \\\\ 19 \\end{pmatrix}",
       "steps": [
        {
-        "text": "Use LU decomposition: A = LU where L = (1, 0; 3, 1), U = (2, 1; 0, 2)"
+        "text": "Use LU decomposition: A = LU where L = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}"
        },
        {
-        "text": "First solve Ly = b: (1, 0; 3, 1) (y₁; y₂) = (5; 19)"
+        "text": "First solve Ly = b: \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} y₁ \\\\ y₂ \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 19 \\end{pmatrix}"
        },
        {
         "text": "Forward substitution: y₁ = 5, 3y₁ + y₂ = 19 → y₂ = 4"
        },
        {
-        "text": "Then solve Ux = y: (2, 1; 0, 2) (x₁; x₂) = (5; 4)"
+        "text": "Then solve Ux = y: \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix} \\begin{pmatrix} x₁ \\\\ x₂ \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 4 \\end{pmatrix}"
        },
        {
         "text": "Backward substitution: 2x₂ = 4 → x₂ = 2, 2x₁ + x₂ = 5 → x₁ = 3/2"
        }
       ],
-      "result": "x = (3/2; 2)"
+      "result": "x = \\begin{pmatrix} 3/2 \\\\ 2 \\end{pmatrix}"
      },
      "narr": [
       "Once we have the LU decomposition, solving systems becomes efficient.",
@@ -3063,7 +3063,7 @@
       "bullets": [
        "U = D · (D⁻¹U), where D contains reference elements of U",
        "A = L · D · (D⁻¹U) with unit diagonals for L and D⁻¹U",
-       "Example: (2, 1; 6, 5) = (1, 0; 3, 1) · (2, 0; 0, 2) · (1, 1/2; 0, 1)"
+       "Example: \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} · \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix} · \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{pmatrix}"
       ]
      },
      "narr": [
@@ -3138,7 +3138,7 @@
       "bullets": [
        "Permutation matrices permute rows of I",
        "There is exactly one 1 in each row and each column",
-       "Example: P = (0, 1; 1, 0) exchanges rows",
+       "Example: P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} exchanges rows",
        "P⁻¹ = Pᵀ (since Pᵀ · P = I)"
       ]
      },
@@ -3159,22 +3159,22 @@
      "type": "example",
      "data": {
       "heading": "Example 7 — PA = LU decomposition",
-      "problem": "Find PA = LU for A = (0, 2; 3, 4)",
+      "problem": "Find PA = LU for A = \\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\end{pmatrix}",
       "steps": [
        {
         "text": "Since the first pivot is zero, we need to exchange rows"
        },
        {
-        "text": "Use permutation matrix P = (0, 1; 1, 0)"
+        "text": "Use permutation matrix P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}"
        },
        {
-        "text": "Compute PA = (0, 1; 1, 0) (0, 2; 3, 4) = (3, 4; 0, 2)"
+        "text": "Compute PA = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} \\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\end{pmatrix} = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}"
        },
        {
-        "text": "Now we have PA = LU where L = I and U = (3, 4; 0, 2)"
+        "text": "Now we have PA = LU where L = I and U = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}"
        }
       ],
-      "result": "PA = LU where P = (0, 1; 1, 0), L = (1, 0; 0, 1), U = (3, 4; 0, 2)"
+      "result": "PA = LU where P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, L = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}"
      },
      "narr": [
       "When we encounter a zero pivot, we can exchange rows to proceed.",
@@ -3196,7 +3196,7 @@
       "bullets": [
        "Rule: take the largest in magnitude element of the active column",
        "Avoids multipliers that are too large",
-       "Example: for (10^(-8), 1; 1, 1), exchanging rows avoids a multiplier of 10^8"
+       "Example: for \\begin{pmatrix} 10^{-8} & 1 \\\\ 1 & 1 \\end{pmatrix}, exchanging rows avoids a multiplier of 10^8"
       ]
      },
      "narr": [
@@ -3237,16 +3237,16 @@
      "type": "example",
      "data": {
       "heading": "Example 8 — Matrix transposition",
-      "problem": "Find the transpose of A = (1, 2, 3; 4, 5, 6)",
+      "problem": "Find the transpose of A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}",
       "steps": [
        {
         "text": "Flip rows and columns: (Aᵀ)ᵢⱼ = aⱼᵢ"
        },
        {
-        "text": "Aᵀ = (1, 4; 2, 5; 3, 6)"
+        "text": "Aᵀ = \\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix}"
        }
       ],
-      "result": "Aᵀ = (1, 4; 2, 5; 3, 6)"
+      "result": "Aᵀ = \\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix}"
      },
      "narr": [
       "Let's see how to compute the transpose of a matrix.",
@@ -3266,7 +3266,7 @@
       "bullets": [
        "A symmetric matrix satisfies Aᵀ = A",
        "If a symmetric A has an LDU decomposition without exchanges, its normalized upper factor equals Lᵀ: A = LDLᵀ",
-       "Example: (2, 2; 2, 5) = (1, 0; 1, 1) · (2, 0; 0, 3) · (1, 1; 0, 1)"
+       "Example: \\begin{pmatrix} 2 & 2 \\\\ 2 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix} · \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix} · \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}"
       ]
      },
      "narr": [
@@ -3285,9 +3285,9 @@
      "data": {
       "heading": "Difference matrix",
       "bullets": [
-       "A = (1, 0, 0; -1, 1, 0; 0, -1, 1)",
+       "A = \\begin{pmatrix} 1 & 0 & 0 \\\\ -1 & 1 & 0 \\\\ 0 & -1 & 1 \\end{pmatrix}",
        "Ax = (x₁, x₂ - x₁, x₃ - x₂)ᵀ",
-       "Its inverse A⁻¹ = (1, 0, 0; 1, 1, 0; 1, 1, 1) gives cumulative sums",
+       "Its inverse A⁻¹ = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 1 & 1 & 1 \\end{pmatrix} gives cumulative sums",
        "This is the discrete analog of differentiation and integration"
       ]
      },
@@ -3309,7 +3309,7 @@
      "data": {
       "heading": "Tridiagonal systems",
       "bullets": [
-       "A = (2, -1, 0; -1, 2, -1; 0, -1, 2)",
+       "A = \\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix}",
        "Describes nearest neighbor connections (finite difference equations)",
        "Its factors preserve the narrow band",
        "Solving via LU uses the structure, avoiding the dense inverse matrix"
@@ -3408,25 +3408,25 @@
      "type": "example",
      "data": {
       "heading": "Problem 1 — 2 × 2 inverse",
-      "problem": "Find A⁻¹ for A = (2, 1; 2, 3). Verify by multiplication.",
+      "problem": "Find A⁻¹ for A = \\begin{pmatrix} 2 & 1 \\\\ 2 & 3 \\end{pmatrix}. Verify by multiplication.",
       "steps": [
        {
         "text": "Calculate det(A) = 2 · 3 - 1 · 2 = 4 ≠ 0"
        },
        {
-        "text": "Apply the 2 × 2 inverse formula: A⁻¹ = (1/det(A)) · (d, -b; -c, a)"
+        "text": "Apply the 2 × 2 inverse formula: A⁻¹ = (1/det(A)) · \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}"
        },
        {
-        "text": "Substitute values: A⁻¹ = (1/4) · (3, -1; -2, 2)"
+        "text": "Substitute values: A⁻¹ = (1/4) · \\begin{pmatrix} 3 & -1 \\\\ -2 & 2 \\end{pmatrix}"
        },
        {
-        "text": "Simplify: A⁻¹ = (3/4, -1/4; -1/2, 1/2)"
+        "text": "Simplify: A⁻¹ = \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{pmatrix}"
        },
        {
         "text": "Verify by multiplying A · A⁻¹"
        }
       ],
-      "result": "A⁻¹ = (3/4, -1/4; -1/2, 1/2)"
+      "result": "A⁻¹ = \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{pmatrix}"
      },
      "narr": [
       "Let's find the inverse of a simple 2 × 2 matrix.",
@@ -3449,7 +3449,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 2 — 2 × 2 system solution",
-      "problem": "Solve Ax = b, where A = (3, 2; 1, 4), b = (8; 6).",
+      "problem": "Solve Ax = b, where A = \\begin{pmatrix} 3 & 2 \\\\ 1 & 4 \\end{pmatrix}, b = \\begin{pmatrix} 8 \\\\ 6 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Write the system of equations: 3x + 2y = 8, x + 4y = 6"
@@ -3467,7 +3467,7 @@
         "text": "Substitute y back into the second equation: x + 4(1) = 6, so x = 2"
        }
       ],
-      "result": "x = (2; 1)"
+      "result": "x = \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}"
      },
      "narr": [
       "Now let's solve a 2 × 2 system using elimination.",
@@ -3475,7 +3475,7 @@
       "To eliminate x from the second equation, we multiply the second equation by 3.",
       "Subtracting the first equation from this new equation eliminates x and lets us solve for y.",
       "Once we have y, we substitute it back into one of the original equations to find x.",
-      "The solution vector x is (2; 1), which we can verify by multiplying A by x to get back b."
+      "The solution vector x is \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
      ],
      "narr_item": [
       -1,
@@ -3490,25 +3490,25 @@
      "type": "example",
      "data": {
       "heading": "Problem 3 — 2 × 2 inverse",
-      "problem": "Find A⁻¹ for A = (4, 1; 2, 5). Verify by multiplication.",
+      "problem": "Find A⁻¹ for A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 5 \\end{pmatrix}. Verify by multiplication.",
       "steps": [
        {
         "text": "Calculate det(A) = 4 · 5 - 1 · 2 = 18 ≠ 0"
        },
        {
-        "text": "Apply the 2 × 2 inverse formula: A⁻¹ = (1/det(A)) · (d, -b; -c, a)"
+        "text": "Apply the 2 × 2 inverse formula: A⁻¹ = (1/det(A)) · \\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix}"
        },
        {
-        "text": "Substitute values: A⁻¹ = (1/18) · (5, -1; -2, 4)"
+        "text": "Substitute values: A⁻¹ = (1/18) · \\begin{pmatrix} 5 & -1 \\\\ -2 & 4 \\end{pmatrix}"
        },
        {
-        "text": "Simplify: A⁻¹ = (5/18, -1/18; -1/9, 2/9)"
+        "text": "Simplify: A⁻¹ = \\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{pmatrix}"
        },
        {
         "text": "Verify by checking specific elements of A · A⁻¹"
        }
       ],
-      "result": "A⁻¹ = (5/18, -1/18; -1/9, 2/9)"
+      "result": "A⁻¹ = \\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{pmatrix}"
      },
      "narr": [
       "Let's find another 2 × 2 matrix inverse.",
@@ -3531,7 +3531,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 4 — Solving a 2 × 2 system",
-      "problem": "Solve Ax = b, where A = (2, 2; 1, 6), b = (4; 7).",
+      "problem": "Solve Ax = b, where A = \\begin{pmatrix} 2 & 2 \\\\ 1 & 6 \\end{pmatrix}, b = \\begin{pmatrix} 4 \\\\ 7 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Write the system of equations: 2x + 2y = 4, x + 6y = 7"
@@ -3549,7 +3549,7 @@
         "text": "Substitute y back into the simplified first equation: x + 1 = 2, so x = 1"
        }
       ],
-      "result": "x = (1; 1)"
+      "result": "x = \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}"
      },
      "narr": [
       "Now let's solve another 2 × 2 system using elimination.",
@@ -3557,7 +3557,7 @@
       "We can simplify the first equation by dividing by 2, making it easier to work with.",
       "Subtracting this simplified equation from the second eliminates x and lets us solve for y.",
       "Once we have y, we substitute it back into the simplified equation to find x.",
-      "The solution vector x is (1; 1), which we can verify by multiplying A by x to get back b."
+      "The solution vector x is \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
      ],
      "narr_item": [
       -1,
@@ -3572,7 +3572,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 5 — 2 × 2 decomposition",
-      "problem": "Find A = LU = LDU for A = (2, 1; 2, 4).",
+      "problem": "Find A = LU = LDU for A = \\begin{pmatrix} 2 & 1 \\\\ 2 & 4 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Identify the pivot element a₁₁ = 2"
@@ -3581,19 +3581,19 @@
         "text": "Calculate the multiplier m₂₁ = a₂₁/a₁₁ = 2/2 = 1"
        },
        {
-        "text": "Apply elimination: R₂ ← R₂ - R₁ to get U = (2, 1; 0, 3)"
+        "text": "Apply elimination: R₂ ← R₂ - R₁ to get U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}"
        },
        {
-        "text": "Construct L with the multiplier: L = (1, 0; 1, 1)"
+        "text": "Construct L with the multiplier: L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}"
        },
        {
         "text": "Verify A = LU by matrix multiplication"
        },
        {
-        "text": "Extract pivot elements to D = (2, 0; 0, 3)"
+        "text": "Extract pivot elements to D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}"
        },
        {
-        "text": "Normalize rows of U to get D⁻¹U = (1, 1/2; 0, 1)"
+        "text": "Normalize rows of U to get D⁻¹U = \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{pmatrix}"
        }
       ],
       "result": "A = LU = L · D · D⁻¹U"
@@ -3623,7 +3623,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 6 — 2 × 2 decomposition",
-      "problem": "Find A = LU = LDU for A = (3, 1; 3, 5).",
+      "problem": "Find A = LU = LDU for A = \\begin{pmatrix} 3 & 1 \\\\ 3 & 5 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Identify the pivot element a₁₁ = 3"
@@ -3632,19 +3632,19 @@
         "text": "Calculate the multiplier m₂₁ = a₂₁/a₁₁ = 3/3 = 1"
        },
        {
-        "text": "Apply elimination: R₂ ← R₂ - R₁ to get U = (3, 1; 0, 4)"
+        "text": "Apply elimination: R₂ ← R₂ - R₁ to get U = \\begin{pmatrix} 3 & 1 \\\\ 0 & 4 \\end{pmatrix}"
        },
        {
-        "text": "Construct L with the multiplier: L = (1, 0; 1, 1)"
+        "text": "Construct L with the multiplier: L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}"
        },
        {
         "text": "Verify A = LU by matrix multiplication"
        },
        {
-        "text": "Extract pivot elements to D = (3, 0; 0, 4)"
+        "text": "Extract pivot elements to D = \\begin{pmatrix} 3 & 0 \\\\ 0 & 4 \\end{pmatrix}"
        },
        {
-        "text": "Normalize rows of U to get D⁻¹U = (1, 1/3; 0, 1)"
+        "text": "Normalize rows of U to get D⁻¹U = \\begin{pmatrix} 1 & 1/3 \\\\ 0 & 1 \\end{pmatrix}"
        }
       ],
       "result": "A = LU = L · D · D⁻¹U"
@@ -3674,7 +3674,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 7 — 2 × 2 decomposition",
-      "problem": "Find A = LU = LDU for A = (1, 1; 4, 3).",
+      "problem": "Find A = LU = LDU for A = \\begin{pmatrix} 1 & 1 \\\\ 4 & 3 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Identify the pivot element a₁₁ = 1"
@@ -3683,19 +3683,19 @@
         "text": "Calculate the multiplier m₂₁ = a₂₁/a₁₁ = 4/1 = 4"
        },
        {
-        "text": "Apply elimination: R₂ ← R₂ - 4R₁ to get U = (1, 1; 0, -1)"
+        "text": "Apply elimination: R₂ ← R₂ - 4R₁ to get U = \\begin{pmatrix} 1 & 1 \\\\ 0 & -1 \\end{pmatrix}"
        },
        {
-        "text": "Construct L with the multiplier: L = (1, 0; 4, 1)"
+        "text": "Construct L with the multiplier: L = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1 \\end{pmatrix}"
        },
        {
         "text": "Verify A = LU by matrix multiplication"
        },
        {
-        "text": "Extract pivot elements to D = (1, 0; 0, -1)"
+        "text": "Extract pivot elements to D = \\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}"
        },
        {
-        "text": "Normalize rows of U to get D⁻¹U = (1, 1; 0, 1)"
+        "text": "Normalize rows of U to get D⁻¹U = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}"
        }
       ],
       "result": "A = LU = L · D · D⁻¹U"
@@ -3725,7 +3725,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 8 — 2 × 2 decomposition",
-      "problem": "Find A = LU = LDU for A = (2, 1; 5, 4).",
+      "problem": "Find A = LU = LDU for A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 4 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Identify the pivot element a₁₁ = 2"
@@ -3734,19 +3734,19 @@
         "text": "Calculate the multiplier m₂₁ = a₂₁/a₁₁ = 5/2"
        },
        {
-        "text": "Apply elimination: R₂ ← R₂ - (5/2)R₁ to get U = (2, 1; 0, 3/2)"
+        "text": "Apply elimination: R₂ ← R₂ - (5/2)R₁ to get U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3/2 \\end{pmatrix}"
        },
        {
-        "text": "Construct L with the multiplier: L = (1, 0; 5/2, 1)"
+        "text": "Construct L with the multiplier: L = \\begin{pmatrix} 1 & 0 \\\\ 5/2 & 1 \\end{pmatrix}"
        },
        {
         "text": "Verify A = LU by matrix multiplication"
        },
        {
-        "text": "Extract pivot elements to D = (2, 0; 0, 3/2)"
+        "text": "Extract pivot elements to D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3/2 \\end{pmatrix}"
        },
        {
-        "text": "Normalize rows of U to get D⁻¹U = (1, 1/2; 0, 1)"
+        "text": "Normalize rows of U to get D⁻¹U = \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{pmatrix}"
        }
       ],
       "result": "A = LU = L · D · D⁻¹U"
@@ -3776,10 +3776,10 @@
      "type": "example",
      "data": {
       "heading": "Problem 9 — 3 × 3 elimination",
-      "problem": "Solve Ax = b by Gaussian elimination for A = (1, 3, 1; 2, 5, 2; 1, 4, 3), b = (6; 10; 6).",
+      "problem": "Solve Ax = b by Gaussian elimination for A = \\begin{pmatrix} 1 & 3 & 1 \\\\ 2 & 5 & 2 \\\\ 1 & 4 & 3 \\end{pmatrix}, b = \\begin{pmatrix} 6 \\\\ 10 \\\\ 6 \\end{pmatrix}.",
       "steps": [
        {
-        "text": "Write the augmented matrix: (1, 3, 1, |, 6; 2, 5, 2, |, 10; 1, 4, 3, |, 6)"
+        "text": "Write the augmented matrix: \\begin{pmatrix} 1 & 3 & 1 & | & 6 \\\\ 2 & 5 & 2 & | & 10 \\\\ 1 & 4 & 3 & | & 6 \\end{pmatrix}"
        },
        {
         "text": "Step 1: m₂₁ = 2, m₃₁ = 1. Apply R₂ - 2R₁ = (0, -1, 0 | -2)"
@@ -3797,7 +3797,7 @@
         "text": "Back substitution: z = -1, y = 2, x = 6 - 6 + 1 = 1"
        }
       ],
-      "result": "x = (1; 2; -1)"
+      "result": "x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}"
      },
      "narr": [
       "Now let's move on to solving 3 × 3 systems using Gaussian elimination.",
@@ -3806,7 +3806,7 @@
       "In the second elimination step, we eliminate the second element in row 3 using the updated row 2.",
       "Now we have a triangular system that we can solve through back substitution.",
       "Starting from the bottom, we solve for z, then y, and finally x.",
-      "The solution vector x is (1; 2; -1), which we can verify by multiplying A by x to get back b."
+      "The solution vector x is \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
      ],
      "narr_item": [
       -1,
@@ -3822,10 +3822,10 @@
      "type": "example",
      "data": {
       "heading": "Problem 10 — 3 × 3 elimination",
-      "problem": "Solve Ax = b by Gaussian elimination for A = (1, 1, 1; 2, 3, 2; 1, 2, 4), b = (2; 6; 1).",
+      "problem": "Solve Ax = b by Gaussian elimination for A = \\begin{pmatrix} 1 & 1 & 1 \\\\ 2 & 3 & 2 \\\\ 1 & 2 & 4 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 6 \\\\ 1 \\end{pmatrix}.",
       "steps": [
        {
-        "text": "Write the augmented matrix: (1, 1, 1, |, 2; 2, 3, 2, |, 6; 1, 2, 4, |, 1)"
+        "text": "Write the augmented matrix: \\begin{pmatrix} 1 & 1 & 1 & | & 2 \\\\ 2 & 3 & 2 & | & 6 \\\\ 1 & 2 & 4 & | & 1 \\end{pmatrix}"
        },
        {
         "text": "Step 1: m₂₁ = 2, m₃₁ = 1. Apply R₂ - 2R₁ = (0, 1, 0 | 2)"
@@ -3843,7 +3843,7 @@
         "text": "Back substitution: z = -1, y = 2, x = 2 - 2 + 1 = 1"
        }
       ],
-      "result": "x = (1; 2; -1)"
+      "result": "x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}"
      },
      "narr": [
       "Let's solve another 3 × 3 system using Gaussian elimination.",
@@ -3852,7 +3852,7 @@
       "In the second elimination step, we eliminate the second element in row 3 using the updated row 2.",
       "Now we have a triangular system that we can solve through back substitution.",
       "Starting from the bottom, we solve for z, then y, and finally x.",
-      "The solution vector x is (1; 2; -1), which we can verify by multiplying A by x to get back b."
+      "The solution vector x is \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
      ],
      "narr_item": [
       -1,
@@ -3868,10 +3868,10 @@
      "type": "example",
      "data": {
       "heading": "Problem 11 — 3 × 3 Elimination (degenerate case)",
-      "problem": "Solve Ax = b by Gaussian elimination for A = (1, 2, 1; 2, 4, 2; 1, 3, 5), b = (4; 8; 2).",
+      "problem": "Solve Ax = b by Gaussian elimination for A = \\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 1 & 3 & 5 \\end{pmatrix}, b = \\begin{pmatrix} 4 \\\\ 8 \\\\ 2 \\end{pmatrix}.",
       "steps": [
        {
-        "text": "Write the augmented matrix: (1, 2, 1, |, 4; 2, 4, 2, |, 8; 1, 3, 5, |, 2)"
+        "text": "Write the augmented matrix: \\begin{pmatrix} 1 & 2 & 1 & | & 4 \\\\ 2 & 4 & 2 & | & 8 \\\\ 1 & 3 & 5 & | & 2 \\end{pmatrix}"
        },
        {
         "text": "Step 1: m₂₁ = 2, m₃₁ = 1. Apply R₂ - 2R₁ = (0, 0, 0 | 0)"
@@ -3880,7 +3880,7 @@
         "text": "Apply R₃ - R₁ = (0, 1, 4 | -2)"
        },
        {
-        "text": "Swap rows 2 and 3: (1, 2, 1, |, 4; 0, 1, 4, |, -2; 0, 0, 0, |, 0)"
+        "text": "Swap rows 2 and 3: \\begin{pmatrix} 1 & 2 & 1 & | & 4 \\\\ 0 & 1 & 4 & | & -2 \\\\ 0 & 0 & 0 & | & 0 \\end{pmatrix}"
        },
        {
         "text": "Recognize we have two pivots for three unknowns, so one free variable"
@@ -3892,7 +3892,7 @@
         "text": "x = 4 - 2y - z = 8 + 7t"
        }
       ],
-      "result": "General solution x = (8 + 7t; -2 - 4t; t) = (8; -2; 0) + t · (7; -4; 1), t ∈ ℝ"
+      "result": "General solution x = \\begin{pmatrix} 8 + 7t \\\\ -2 - 4t \\\\ t \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ -2 \\\\ 0 \\end{pmatrix} + t · \\begin{pmatrix} 7 \\\\ -4 \\\\ 1 \\end{pmatrix}, t ∈ ℝ"
      },
      "narr": [
       "Now let's examine a degenerate case where we have infinitely many solutions.",
@@ -3919,10 +3919,10 @@
      "type": "example",
      "data": {
       "heading": "Problem 12 — 3 × 3 Elimination",
-      "problem": "Solve Ax = b by Gaussian elimination for A = (1, 3, 1; 2, 5, 2; 1, 4, 4), b = (6; 10; 5).",
+      "problem": "Solve Ax = b by Gaussian elimination for A = \\begin{pmatrix} 1 & 3 & 1 \\\\ 2 & 5 & 2 \\\\ 1 & 4 & 4 \\end{pmatrix}, b = \\begin{pmatrix} 6 \\\\ 10 \\\\ 5 \\end{pmatrix}.",
       "steps": [
        {
-        "text": "Write the augmented matrix: (1, 3, 1, |, 6; 2, 5, 2, |, 10; 1, 4, 4, |, 5)"
+        "text": "Write the augmented matrix: \\begin{pmatrix} 1 & 3 & 1 & | & 6 \\\\ 2 & 5 & 2 & | & 10 \\\\ 1 & 4 & 4 & | & 5 \\end{pmatrix}"
        },
        {
         "text": "Step 1: m₂₁ = 2, m₃₁ = 1. Apply R₂ - 2R₁ = (0, -1, 0 | -2)"
@@ -3940,7 +3940,7 @@
         "text": "Back substitution: z = -1, y = 2, x = 6 - 6 + 1 = 1"
        }
       ],
-      "result": "x = (1; 2; -1)"
+      "result": "x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}"
      },
      "narr": [
       "Finally, let's solve one more 3 × 3 system using Gaussian elimination.",
@@ -3949,7 +3949,7 @@
       "In the second elimination step, we eliminate the second element in row 3 using the updated row 2.",
       "Now we have a triangular system that we can solve through back substitution.",
       "Starting from the bottom, we solve for z, then y, and finally x.",
-      "The solution vector x is (1; 2; -1), which we can verify by multiplying A by x to get back b."
+      "The solution vector x is \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}, which we can verify by multiplying A by x to get back b."
      ],
      "narr_item": [
       -1,
@@ -3965,7 +3965,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 13 — LU and LDU Decomposition",
-      "problem": "Find LU and LDU for A = (2, 1, 1; 1, 2, 3; -2, 1, 1).",
+      "problem": "Find LU and LDU for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 1 & 2 & 3 \\\\ -2 & 1 & 1 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Multipliers: m21 = 1, m31 = -1"
@@ -3983,7 +3983,7 @@
         "text": "R3 - R2 = (0, 0, 1)"
        }
       ],
-      "result": "L = (1, 0, 0; 1, 1, 0; -1, 1, 1), U = (2, 1, 1; 0, 2, 1; 0, 0, 1), D = (2, 0, 0; 0, 2, 0; 0, 0, 1), D⁻¹U = (1, 1/2, 1/2; 0, 1, 1/2; 0, 0, 1)"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/2 \\\\ 0 & 0 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Let's tackle our first problem: finding the LU and LDU decomposition of matrix A.",
@@ -4010,7 +4010,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 14 — LU and LDU Decomposition",
-      "problem": "Find LU and LDU for A = (2, 1, 1; 4, 5, 3; -2, 5, 3).",
+      "problem": "Find LU and LDU for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & 5 & 3 \\\\ -2 & 5 & 3 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Multipliers: m21 = 2, m31 = -1"
@@ -4028,7 +4028,7 @@
         "text": "R3 - 2R2 = (0, 0, 2)"
        }
       ],
-      "result": "L = (1, 0, 0; 2, 1, 0; -1, 2, 1), U = (2, 1, 1; 0, 3, 1; 0, 0, 2), D = (2, 0, 0; 0, 3, 0; 0, 0, 2), D⁻¹U = (1, 1/2, 1/2; 0, 1, 1/3; 0, 0, 1)"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 2 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}, D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/3 \\\\ 0 & 0 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Now let's work through another LU and LDU decomposition problem.",
@@ -4053,7 +4053,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 15 — LU and LDU Decomposition",
-      "problem": "Find LU and LDU for A = (2, 1, 1; 2, 5, 2; -2, 11, 5).",
+      "problem": "Find LU and LDU for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 2 & 5 & 2 \\\\ -2 & 11 & 5 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Multipliers: m21 = 1, m31 = -1"
@@ -4071,7 +4071,7 @@
         "text": "R3 - 3R2 = (0, 0, 3)"
        }
       ],
-      "result": "L = (1, 0, 0; 1, 1, 0; -1, 3, 1), U = (2, 1, 1; 0, 4, 1; 0, 0, 3), D = (2, 0, 0; 0, 4, 0; 0, 0, 3), D⁻¹U = (1, 1/2, 1/2; 0, 1, 1/4; 0, 0, 1)"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 3 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 4 & 1 \\\\ 0 & 0 & 3 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 4 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix}, D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/4 \\\\ 0 & 0 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Moving on to our third decomposition problem.",
@@ -4096,7 +4096,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 16 — LU and LDU Decomposition",
-      "problem": "Find LU and LDU for A = (2, 1, 1; 4, 4, 3; -2, 1, 1).",
+      "problem": "Find LU and LDU for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & 4 & 3 \\\\ -2 & 1 & 1 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Multipliers: m21 = 2, m31 = -1"
@@ -4114,7 +4114,7 @@
         "text": "R3 - R2 = (0, 0, 1)"
        }
       ],
-      "result": "L = (1, 0, 0; 2, 1, 0; -1, 1, 1), U = (2, 1, 1; 0, 2, 1; 0, 0, 1), D = (2, 0, 0; 0, 2, 0; 0, 0, 1), D⁻¹U = (1, 1/2, 1/2; 0, 1, 1/2; 0, 0, 1)"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/2 \\\\ 0 & 0 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Let's solve one more LU and LDU decomposition problem.",
@@ -4139,13 +4139,13 @@
      "type": "example",
      "data": {
       "heading": "Problem 17 — Row Permutation and PLU",
-      "problem": "Find the row permutation P and factors satisfying PA = LU, for A = (0, 2, 1; 1, 1, 0; 2, 3, 2).",
+      "problem": "Find the row permutation P and factors satisfying PA = LU, for A = \\begin{pmatrix} 0 & 2 & 1 \\\\ 1 & 1 & 0 \\\\ 2 & 3 & 2 \\end{pmatrix}.",
       "steps": [
        {
         "text": "First diagonal element is zero — swap rows 1 and 2"
        },
        {
-        "text": "P = (0, 1, 0; 1, 0, 0; 0, 0, 1), PA = (1, 1, 0; 0, 2, 1; 2, 3, 2)"
+        "text": "P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, PA = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 2 & 3 & 2 \\end{pmatrix}"
        },
        {
         "text": "Elimination: m21 = 0 (already zero), m31 = 2"
@@ -4160,7 +4160,7 @@
         "text": "R3 - (1/2)R2 = (0, 0, 3/2)"
        }
       ],
-      "result": "L = (1, 0, 0; 0, 1, 0; 2, 1/2, 1), U = (1, 1, 0; 0, 2, 1; 0, 0, 3/2), PA = LU"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & 1/2 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 3/2 \\end{pmatrix}, PA = LU"
      },
      "narr": [
       "Now let's explore row permutation with PLU decomposition.",
@@ -4187,25 +4187,25 @@
      "type": "example",
      "data": {
       "heading": "Problem 18 — Transpose and Inverse",
-      "problem": "For A = (1, 2, 0; 0, 1, 1; 2, 0, 1), compute A^T and verify (A^T)⁻¹ = (A⁻¹)^T.",
+      "problem": "For A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 2 & 0 & 1 \\end{pmatrix}, compute A^T and verify (A^T)^{-1} = (A^{-1})^T.",
       "steps": [
        {
-        "text": "Transpose: A^T = (1, 0, 2; 2, 1, 0; 0, 1, 1)"
+        "text": "Transpose: A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}"
        },
        {
         "text": "det A = 1 · (1 · 1 - 1 · 0) - 2 · (0 · 1 - 1 · 2) + 0 = 1 + 4 = 5"
        },
        {
-        "text": "(A^T)⁻¹ = (1/5) · (1, 2, -2; -2, 1, 4; 2, -1, 1)"
+        "text": "(A^T)^{-1} = (1/5) · \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}"
        },
        {
-        "text": "A⁻¹ = (1/5) · (1, -2, 2; 2, 1, -1; -2, 4, 1)"
+        "text": "A^{-1} = (1/5) · \\begin{pmatrix} 1 & -2 & 2 \\\\ 2 & 1 & -1 \\\\ -2 & 4 & 1 \\end{pmatrix}"
        },
        {
-        "text": "(A⁻¹)^T = (1/5) · (1, 2, -2; -2, 1, 4; 2, -1, 1) = (A^T)⁻¹"
+        "text": "(A^{-1})^T = (1/5) · \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix} = (A^T)^{-1}"
        }
       ],
-      "result": "A^T = (1, 0, 2; 2, 1, 0; 0, 1, 1), (A^T)⁻¹ = (1/5) · (1, 2, -2; -2, 1, 4; 2, -1, 1)"
+      "result": "A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}, (A^T)^{-1} = (1/5) · \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Let's now examine the relationship between transpose and inverse operations.",
@@ -4230,7 +4230,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 19 — Symmetric LDL^T Factorization",
-      "problem": "Factor the symmetric A = (2, 2, 0; 2, 5, 1; 0, 1, 3) as LDL^T.",
+      "problem": "Factor the symmetric A = \\begin{pmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{pmatrix} as LDL^T.",
       "steps": [
        {
         "text": "Pivot element 2; m21 = 2/2 = 1, m31 = 0"
@@ -4245,7 +4245,7 @@
         "text": "R3 - (1/3)R2 = (0, 0, 8/3)"
        }
       ],
-      "result": "L = (1, 0, 0; 1, 1, 0; 0, 1/3, 1), D = (2, 0, 0; 0, 3, 0; 0, 0, 8/3), A = LDL^T"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{pmatrix}, A = LDL^T"
      },
      "narr": [
       "Now let's explore symmetric LDL^T factorization for a symmetric matrix.",
@@ -4270,7 +4270,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 20 — Challenge Problem: Tridiagonal Model",
-      "problem": "Solve Ax = b using LU for A = (2, -1, 0; -1, 2, -1; 0, -1, 2), b = (2; 0; 2). Interpret the nearest neighbor structure.",
+      "problem": "Solve Ax = b using LU for A = \\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 0 \\\\ 2 \\end{pmatrix}. Interpret the nearest neighbor structure.",
       "steps": [
        {
         "text": "Factorization: m21 = -1/2, R2 ← R2 + (1/2)R1: (0, 3/2, -1)"
@@ -4285,7 +4285,7 @@
         "text": "Back substitution Ux = y: x3 = 2, x2 = 2, x1 = 2"
        }
       ],
-      "result": "x = (2; 2; 2). The matrix is tridiagonal — nonzero elements only on the main diagonal and adjacent positions: each unknown is connected only to its nearest neighbors."
+      "result": "x = \\begin{pmatrix} 2 \\\\ 2 \\\\ 2 \\end{pmatrix}. The matrix is tridiagonal — nonzero elements only on the main diagonal and adjacent positions: each unknown is connected only to its nearest neighbors."
      },
      "narr": [
       "Let's tackle our challenge problem involving a tridiagonal matrix.",
@@ -4310,19 +4310,19 @@
      "type": "example",
      "data": {
       "heading": "Problem 1 — 2 × 2 Inverse",
-      "problem": "Find A⁻¹ for A = (3, 2; 1, 6). Verify by multiplication.",
+      "problem": "Find A^{-1} for A = \\begin{pmatrix} 3 & 2 \\\\ 1 & 6 \\end{pmatrix}. Verify by multiplication.",
       "steps": [
        {
         "text": "det A = 3 · 6 - 2 · 1 = 16 ≠ 0"
        },
        {
-        "text": "A⁻¹ = (1/16) · (6, -2; -1, 3) = (3/8, -1/8; -1/16, 3/16)"
+        "text": "A^{-1} = (1/16) · \\begin{pmatrix} 6 & -2 \\\\ -1 & 3 \\end{pmatrix} = \\begin{pmatrix} 3/8 & -1/8 \\\\ -1/16 & 3/16 \\end{pmatrix}"
        },
        {
         "text": "Check: A · A^{-1} = I"
        }
       ],
-      "result": "A⁻¹ = (3/8, -1/8; -1/16, 3/16)"
+      "result": "A^{-1} = \\begin{pmatrix} 3/8 & -1/8 \\\\ -1/16 & 3/16 \\end{pmatrix}"
      },
      "narr": [
       "Let's start with a simpler 2×2 inverse problem.",
@@ -4343,7 +4343,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 2 — 2 × 2 System Solution",
-      "problem": "Solve Ax = b, where A = (4, 1; 2, 3), b = (14; 12).",
+      "problem": "Solve Ax = b, where A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 3 \\end{pmatrix}, b = \\begin{pmatrix} 14 \\\\ 12 \\end{pmatrix}.",
       "steps": [
        {
         "text": "System: 4x + y = 14, 2x + 3y = 12"
@@ -4358,7 +4358,7 @@
         "text": "y = 14 - 12 = 2"
        }
       ],
-      "result": "x = (3; 2)"
+      "result": "x = \\begin{pmatrix} 3 \\\\ 2 \\end{pmatrix}"
      },
      "narr": [
       "Now let's solve a 2×2 system of linear equations.",
@@ -4381,19 +4381,19 @@
      "type": "example",
      "data": {
       "heading": "Problem 3 — 2 × 2 Inverse",
-      "problem": "Find A⁻¹ for A = (2, 2; 1, 4). Verify by multiplication.",
+      "problem": "Find A^{-1} for A = \\begin{pmatrix} 2 & 2 \\\\ 1 & 4 \\end{pmatrix}. Verify by multiplication.",
       "steps": [
        {
         "text": "det A = 2 · 4 - 2 · 1 = 6 ≠ 0"
        },
        {
-        "text": "A⁻¹ = (1/6) · (4, -2; -1, 2) = (2/3, -1/3; -1/6, 1/3)"
+        "text": "A^{-1} = (1/6) · \\begin{pmatrix} 4 & -2 \\\\ -1 & 2 \\end{pmatrix} = \\begin{pmatrix} 2/3 & -1/3 \\\\ -1/6 & 1/3 \\end{pmatrix}"
        },
        {
         "text": "Check: A · A^{-1} = I"
        }
       ],
-      "result": "A⁻¹ = (2/3, -1/3; -1/6, 1/3)"
+      "result": "A^{-1} = \\begin{pmatrix} 2/3 & -1/3 \\\\ -1/6 & 1/3 \\end{pmatrix}"
      },
      "narr": [
       "Let's solve another 2×2 inverse problem.",
@@ -5173,7 +5173,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 15 — LU and LDU Factorization for 3×3 Matrix",
-      "problem": "Find LU and LDU factorization for A = (2, 1, 1; 4, 4, 3; -2, 1, 1).",
+      "problem": "Find LU and LDU factorization for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & 4 & 3 \\\\ -2 & 1 & 1 \\end{pmatrix}.",
       "steps": [
        {
         "text": "First elimination: m21 = 2, m31 = -1"
@@ -5194,7 +5194,7 @@
         "text": "Construct L and U matrices"
        }
       ],
-      "result": "L = (1, 0, 0; 2, 1, 0; -1, 1, 1), U = (2, 1, 1; 0, 2, 1; 0, 0, 1), D = (2, 0, 0; 0, 2, 0; 0, 0, 1)"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Let's tackle our first exercise: finding LU and LDU factorizations for a 3×3 matrix.",
@@ -5223,7 +5223,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 16 — LU and LDU Factorization for 3×3 Matrix",
-      "problem": "Find LU and LDU factorization for A = (2, 1, 1; 2, 4, 2; -2, 5, 3).",
+      "problem": "Find LU and LDU factorization for A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 2 & 4 & 2 \\\\ -2 & 5 & 3 \\end{pmatrix}.",
       "steps": [
        {
         "text": "First elimination: m21 = 1, m31 = -1"
@@ -5244,7 +5244,7 @@
         "text": "Construct L and U matrices"
        }
       ],
-      "result": "L = (1, 0, 0; 1, 1, 0; -1, 2, 1), U = (2, 1, 1; 0, 3, 1; 0, 0, 2), D = (2, 0, 0; 0, 3, 0; 0, 0, 2)"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 2 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}"
      },
      "narr": [
       "Now let's work through another LU and LDU factorization exercise.",
@@ -5273,7 +5273,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 17 — Row Permutations and PLU Factorization",
-      "problem": "Find the row permutation P and factors satisfying PA = LU for A = (0, 2, 1; 1, 1, 0; 2, 3, 2).",
+      "problem": "Find the row permutation P and factors satisfying PA = LU for A = \\begin{pmatrix} 0 & 2 & 1 \\\\ 1 & 1 & 0 \\\\ 2 & 3 & 2 \\end{pmatrix}.",
       "steps": [
        {
         "text": "First diagonal element is 0 — cannot use as pivot; swap rows 1 and 2"
@@ -5330,7 +5330,7 @@
         "text": "Check: LU = PA"
        }
       ],
-      "result": "P = (0, 1, 0; 1, 0, 0; 0, 0, 1), L = (1, 0, 0; 0, 1, 0; 2, 1/2, 1), U = (1, 1, 0; 0, 2, 1; 0, 0, 3/2)"
+      "result": "P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & 1/2 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 3/2 \\end{pmatrix}"
      },
      "narr": [
       "Moving to the second pivot element 2, we find m32 = 1/2.",
@@ -5349,7 +5349,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 18 — Transpose and Inverse",
-      "problem": "For A = (1, 2, 0; 0, 1, 1; 2, 0, 1), compute A^T and verify (A^T)⁻¹ = (A⁻¹)^T.",
+      "problem": "For A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 2 & 0 & 1 \\end{pmatrix}, compute A^T and verify (A^T)^{-1} = (A^{-1})^T.",
       "steps": [
        {
         "text": "Compute the transpose A^T"
@@ -5370,7 +5370,7 @@
         "text": "Verify that (A^T)^{-1} = (A^{-1})^T"
        }
       ],
-      "result": "A^T = (1, 0, 2; 2, 1, 0; 0, 1, 1), (A^T)⁻¹ = (A⁻¹)^T = 1/5 (1, 2, -2; -2, 1, 4; 2, -1, 1)"
+      "result": "A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}, (A^T)^{-1} = (A^{-1})^T = $\\frac{1}{5}$ \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Let's now explore the relationship between transpose and inverse matrices.",
@@ -5395,7 +5395,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 19 — Symmetric LDL^T Factorization",
-      "problem": "Factor the symmetric A = (2, 2, 0; 2, 5, 1; 0, 1, 3) as LDL^T.",
+      "problem": "Factor the symmetric A = \\begin{pmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{pmatrix} as LDL^T.",
       "steps": [
        {
         "text": "First pivot element is 2; m21 = 1 (m31 = 0)"
@@ -5413,7 +5413,7 @@
         "text": "Construct L and D matrices for symmetric factorization"
        }
       ],
-      "result": "L = (1, 0, 0; 1, 1, 0; 0, 1/3, 1), D = (2, 0, 0; 0, 3, 0; 0, 0, 8/3)"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{pmatrix}"
      },
      "narr": [
       "Now let's look at a special case: factorization of symmetric matrices using LDL^T decomposition.",
@@ -5440,7 +5440,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 20 — Challenge Problem: Tridiagonal Model",
-      "problem": "Solve Ax = b using LU for A = (2, -1, 0; -1, 2, -1; 0, -1, 2), b = (3; 0; 2). Interpret the nearest neighbor structure.",
+      "problem": "Solve Ax = b using LU for A = \\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix}, b = \\begin{pmatrix} 3 \\\\ 0 \\\\ 2 \\end{pmatrix}. Interpret the nearest neighbor structure.",
       "steps": [
        {
         "text": "Decomposition: find LU factors"
@@ -5458,7 +5458,7 @@
         "text": "Find LDU factorization"
        }
       ],
-      "result": "x = (11/4; 5/2; 9/4)"
+      "result": "x = \\begin{pmatrix} 11/4 \\\\ 5/2 \\\\ 9/4 \\end{pmatrix}"
      },
      "narr": [
       "Finally, let's tackle a challenge problem involving a tridiagonal matrix.",
@@ -6065,7 +6065,7 @@
         "note": "diagonal elements"
        },
        {
-        "substr": "1/2",
+        "substr": "\\frac{1}{2}",
         "color": "#B45309",
         "note": "upper triangular elements"
        },
@@ -6091,7 +6091,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 14 — LU and LDU Factorization for 3×3 Matrix",
-      "problem": "Compute LU and LDU factorization for A = (2, 1, 1; 2, 4, 2; -2, 5, 3)",
+      "problem": "Compute LU and LDU factorization for A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 2 & 4 & 2 \\\\ -2 & 5 & 3 \\end{bmatrix}",
       "steps": [
        {
         "text": "m21 = 1, m31 = -1: R2-R1 = (0, 3, 1); R3+R1 = (0, 6, 4)"
@@ -6100,16 +6100,16 @@
         "text": "Second pivot 3, m32 = 2: R3 - 2R2 = (0, 0, 2)"
        },
        {
-        "text": "L = (1, 0, 0; 1, 1, 0; -1, 2, 1)"
+        "text": "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 2 & 1 \\end{bmatrix}"
        },
        {
-        "text": "U = (2, 1, 1; 0, 3, 1; 0, 0, 2)"
+        "text": "U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 1 \\\\ 0 & 0 & 2 \\end{bmatrix}"
        },
        {
-        "text": "D = (2, 0, 0; 0, 3, 0; 0, 0, 2)"
+        "text": "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 2 \\end{bmatrix}"
        },
        {
-        "text": "D⁻¹U = (1, 1/2, 1/2; 0, 1, 1/3; 0, 0, 1)"
+        "text": "D^{-1}U = \\begin{bmatrix} 1 & \\frac{1}{2} & \\frac{1}{2} \\\\ 0 & 1 & \\frac{1}{3} \\\\ 0 & 0 & 1 \\end{bmatrix}"
        }
       ],
       "result": "A = LU = L · D · D^{-1}U"
@@ -6137,7 +6137,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 15 — LU and LDU Factorization for 3×3 Matrix",
-      "problem": "Compute LU and LDU factorization for A = (2, 1, 1; 4, 6, 3; -2, 11, 5)",
+      "problem": "Compute LU and LDU factorization for A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 4 & 6 & 3 \\\\ -2 & 11 & 5 \\end{bmatrix}",
       "steps": [
        {
         "text": "m21 = 2, m31 = -1: R2 - 2R1 = (0, 4, 1); R3 + R1 = (0, 12, 6)"
@@ -6146,16 +6146,16 @@
         "text": "Second pivot 4, m32 = 3: R3 - 3R2 = (0, 0, 3)"
        },
        {
-        "text": "L = (1, 0, 0; 2, 1, 0; -1, 3, 1)"
+        "text": "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 3 & 1 \\end{bmatrix}"
        },
        {
-        "text": "U = (2, 1, 1; 0, 4, 1; 0, 0, 3)"
+        "text": "U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 4 & 1 \\\\ 0 & 0 & 3 \\end{bmatrix}"
        },
        {
-        "text": "D = (2, 0, 0; 0, 4, 0; 0, 0, 3)"
+        "text": "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 4 & 0 \\\\ 0 & 0 & 3 \\end{bmatrix}"
        },
        {
-        "text": "D⁻¹U = (1, 1/2, 1/2; 0, 1, 1/4; 0, 0, 1)"
+        "text": "D^{-1}U = \\begin{bmatrix} 1 & \\frac{1}{2} & \\frac{1}{2} \\\\ 0 & 1 & \\frac{1}{4} \\\\ 0 & 0 & 1 \\end{bmatrix}"
        }
       ],
       "result": "A = LU = L · D · D^{-1}U"
@@ -6183,7 +6183,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 16 — LU and LDU Factorization for 3×3 Matrix",
-      "problem": "Compute LU and LDU factorization for A = (2, 1, 1; 2, 3, 2; -2, 1, 1)",
+      "problem": "Compute LU and LDU factorization for A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 2 & 3 & 2 \\\\ -2 & 1 & 1 \\end{bmatrix}",
       "steps": [
        {
         "text": "m21 = 1, m31 = -1: R2-R1 = (0, 2, 1); R3+R1 = (0, 2, 2)"
@@ -6192,16 +6192,16 @@
         "text": "Second pivot 2, m32 = 1: R3 - R2 = (0, 0, 1)"
        },
        {
-        "text": "L = (1, 0, 0; 1, 1, 0; -1, 1, 1)"
+        "text": "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 1 & 1 \\end{bmatrix}"
        },
        {
-        "text": "U = (2, 1, 1; 0, 2, 1; 0, 0, 1)"
+        "text": "U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{bmatrix}"
        },
        {
-        "text": "D = (2, 0, 0; 0, 2, 0; 0, 0, 1)"
+        "text": "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}"
        },
        {
-        "text": "D⁻¹U = (1, 1/2, 1/2; 0, 1, 1/2; 0, 0, 1)"
+        "text": "D^{-1}U = \\begin{bmatrix} 1 & \\frac{1}{2} & \\frac{1}{2} \\\\ 0 & 1 & \\frac{1}{2} \\\\ 0 & 0 & 1 \\end{bmatrix}"
        }
       ],
       "result": "A = LU = L · D · D^{-1}U"
@@ -6229,13 +6229,13 @@
      "type": "example",
      "data": {
       "heading": "Exercise 17 — Row Permutation and PLU Factorization",
-      "problem": "Find a row permutation P and factors satisfying PA = LU, for A = (0, 2, 1; 1, 1, 0; 2, 3, 2)",
+      "problem": "Find a row permutation P and factors satisfying PA = LU, for A = \\begin{bmatrix} 0 & 2 & 1 \\\\ 1 & 1 & 0 \\\\ 2 & 3 & 2 \\end{bmatrix}",
       "steps": [
        {
-        "text": "Zero first pivot — swap rows 1 and 2: P = (0, 1, 0; 1, 0, 0; 0, 0, 1)"
+        "text": "Zero first pivot — swap rows 1 and 2: P = \\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}"
        },
        {
-        "text": "PA = (1, 1, 0; 0, 2, 1; 2, 3, 2)"
+        "text": "PA = \\begin{bmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 2 & 3 & 2 \\end{bmatrix}"
        },
        {
         "text": "Elimination: m31 = 2 (R3 - 2R1 = (0, 1, 2))"
@@ -6244,10 +6244,10 @@
         "text": "m32 = 1/2 (R3 - (1/2)R2 = (0, 0, 3/2))"
        },
        {
-        "text": "L = (1, 0, 0; 0, 1, 0; 2, 1/2, 1)"
+        "text": "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & 1/2 & 1 \\end{bmatrix}"
        },
        {
-        "text": "U = (1, 1, 0; 0, 2, 1; 0, 0, 3/2)"
+        "text": "U = \\begin{bmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 3/2 \\end{bmatrix}"
        }
       ],
       "result": "PA = LU"
@@ -6273,22 +6273,22 @@
      "type": "example",
      "data": {
       "heading": "Exercise 18 — Transpose and Inverse",
-      "problem": "For A = (1, 2, 0; 0, 1, 1; 2, 0, 1) compute A^T and verify (A^T)⁻¹ = (A⁻¹)^T",
+      "problem": "For A = \\begin{bmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 2 & 0 & 1 \\end{bmatrix} compute A^T and verify (A^T)^{-1} = (A^{-1})^T",
       "steps": [
        {
-        "text": "A^T = (1, 0, 2; 2, 1, 0; 0, 1, 1)"
+        "text": "A^T = \\begin{bmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{bmatrix}"
        },
        {
         "text": "det A = 1·(1-0) - 2·(0-2) + 0 = 5"
        },
        {
-        "text": "(A^T)⁻¹ = (1/5)·(1, 2, -2; -2, 1, 4; 2, -1, 1)"
+        "text": "(A^T)^{-1} = (1/5)·\\begin{bmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{bmatrix}"
        },
        {
-        "text": "A⁻¹ = (1/5)·(1, -2, 2; 2, 1, -1; -2, 4, 1)"
+        "text": "A^{-1} = (1/5)·\\begin{bmatrix} 1 & -2 & 2 \\\\ 2 & 1 & -1 \\\\ -2 & 4 & 1 \\end{bmatrix}"
        },
        {
-        "text": "(A⁻¹)^T = (1/5)·(1, 2, -2; -2, 1, 4; 2, -1, 1)"
+        "text": "(A^{-1})^T = (1/5)·\\begin{bmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{bmatrix}"
        }
       ],
       "result": "(A^T)^{-1} = (A^{-1})^T"
@@ -6314,16 +6314,16 @@
      "type": "example",
      "data": {
       "heading": "Exercise 19 — Symmetric LDL^T Factorization",
-      "problem": "Factor the symmetric A = (2, 2, 0; 2, 5, 1; 0, 1, 3) as LDL^T",
+      "problem": "Factor the symmetric A = \\begin{bmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{bmatrix} as LDL^T",
       "steps": [
        {
         "text": "The multipliers are m21 = 1, m31 = 0, m32 = 1/3"
        },
        {
-        "text": "L = (1, 0, 0; 1, 1, 0; 0, 1/3, 1)"
+        "text": "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{bmatrix}"
        },
        {
-        "text": "D = (2, 0, 0; 0, 3, 0; 0, 0, 8/3)"
+        "text": "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{bmatrix}"
        },
        {
         "text": "For a symmetric matrix without pivoting, A = LDL^T"
@@ -6352,13 +6352,13 @@
      "type": "example",
      "data": {
       "heading": "Exercise 20 — Challenge Problem: Tridiagonal Model",
-      "problem": "Solve Ax = b using LU for A = (2, -1, 0; -1, 2, -1; 0, -1, 2), b = (2; 0; 2)",
+      "problem": "Solve Ax = b using LU for A = \\begin{bmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{bmatrix}, b = \\begin{bmatrix} 2 \\\\ 0 \\\\ 2 \\end{bmatrix}",
       "steps": [
        {
-        "text": "LU: m21 = -1/2 and m32 = -2/3, so L = (1, 0, 0; -1/2, 1, 0; 0, -2/3, 1)"
+        "text": "LU: m21 = -1/2 and m32 = -2/3, so L = \\begin{bmatrix} 1 & 0 & 0 \\\\ -1/2 & 1 & 0 \\\\ 0 & -2/3 & 1 \\end{bmatrix}"
        },
        {
-        "text": "U = (2, -1, 0; 0, 3/2, -1; 0, 0, 4/3)"
+        "text": "U = \\begin{bmatrix} 2 & -1 & 0 \\\\ 0 & 3/2 & -1 \\\\ 0 & 0 & 4/3 \\end{bmatrix}"
        },
        {
         "text": "Forward substitution Ly = b: y1 = 2, y2 = 1, y3 = 8/3"
@@ -6367,7 +6367,7 @@
         "text": "Back substitution Ux = y: x3 = 2, x2 = 2, x1 = 2"
        }
       ],
-      "result": "x = (2; 2; 2)"
+      "result": "x = \\begin{bmatrix} 2 \\\\ 2 \\\\ 2 \\end{bmatrix}"
      },
      "narr": [
       "Let's tackle a challenge problem involving a tridiagonal matrix.",
@@ -6394,19 +6394,19 @@
      "type": "example",
      "data": {
       "heading": "Exercise 21 — 2×2 Inverse",
-      "problem": "Find A⁻¹ for A = (2, 1; 2, 3). Verify by multiplication.",
+      "problem": "Find A^{-1} for A = \\begin{bmatrix} 2 & 1 \\\\ 2 & 3 \\end{bmatrix}. Verify by multiplication.",
       "steps": [
        {
         "text": "det A = 2·3 - 1·2 = 4 ≠ 0"
        },
        {
-        "text": "A⁻¹ = (1/4)·(3, -1; -2, 2) = (3/4, -1/4; -1/2, 1/2)"
+        "text": "A^{-1} = (1/4)·\\begin{bmatrix} 3 & -1 \\\\ -2 & 2 \\end{bmatrix} = \\begin{bmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{bmatrix}"
        },
        {
-        "text": "Verification: A · A⁻¹ = (2, 1; 2, 3) · (3/4, -1/4; -1/2, 1/2) = (1, 0; 0, 1) = I"
+        "text": "Verification: A · A^{-1} = \\begin{bmatrix} 2 & 1 \\\\ 2 & 3 \\end{bmatrix} · \\begin{bmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{bmatrix} = \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} = I"
        }
       ],
-      "result": "A⁻¹ = (3/4, -1/4; -1/2, 1/2)"
+      "result": "A^{-1} = \\begin{bmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{bmatrix}"
      },
      "narr": [
       "Now let's move on to 2×2 matrices, starting with finding the inverse of a matrix.",
@@ -6427,7 +6427,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 22 — Solving a 2×2 System",
-      "problem": "Solve Ax = b, where A = (3, 2; 1, 4), b = (8; 6)",
+      "problem": "Solve Ax = b, where A = \\begin{bmatrix} 3 & 2 \\\\ 1 & 4 \\end{bmatrix}, b = \\begin{bmatrix} 8 \\\\ 6 \\end{bmatrix}",
       "steps": [
        {
         "text": "System: 3x + 2y = 8, x + 4y = 6"
@@ -6442,7 +6442,7 @@
         "text": "x = 6 - 4(1) = 2"
        }
       ],
-      "result": "x = (2; 1)"
+      "result": "x = \\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix}"
      },
      "narr": [
       "Let's solve a 2×2 system of linear equations.",
@@ -6465,19 +6465,19 @@
      "type": "example",
      "data": {
       "heading": "Exercise 23 — 2×2 Inverse",
-      "problem": "Find A⁻¹ for A = (4, 1; 2, 5). Verify by multiplication.",
+      "problem": "Find A^{-1} for A = \\begin{bmatrix} 4 & 1 \\\\ 2 & 5 \\end{bmatrix}. Verify by multiplication.",
       "steps": [
        {
         "text": "det A = 4 · 5 - 1 · 2 = 18 ≠ 0"
        },
        {
-        "text": "A⁻¹ = (1/18)·(5, -1; -2, 4) = (5/18, -1/18; -1/9, 2/9)"
+        "text": "A^{-1} = (1/18)·\\begin{bmatrix} 5 & -1 \\\\ -2 & 4 \\end{bmatrix} = \\begin{bmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{bmatrix}"
        },
        {
         "text": "Verification: A · A^{-1} = I — element (1,1) equals 20/18 - 2/18 = 1, element (2,2) equals -2/18 + 20/18 = 1, off-diagonal elements are zeros"
        }
       ],
-      "result": "A⁻¹ = (5/18, -1/18; -1/9, 2/9)"
+      "result": "A^{-1} = \\begin{bmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{bmatrix}"
      },
      "narr": [
       "Let's find another 2×2 inverse matrix.",
@@ -6498,7 +6498,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 24 — Solving a 2×2 System",
-      "problem": "Solve Ax = b, where A = (2, 2; 1, 6), b = (4; 7)",
+      "problem": "Solve Ax = b, where A = \\begin{bmatrix} 2 & 2 \\\\ 1 & 6 \\end{bmatrix}, b = \\begin{bmatrix} 4 \\\\ 7 \\end{bmatrix}",
       "steps": [
        {
         "text": "System: 2x + 2y = 4 (that is, x + y = 2), x + 6y = 7"
@@ -6510,7 +6510,7 @@
         "text": "x = 2 - y = 2 - 1 = 1"
        }
       ],
-      "result": "x = (1; 1)"
+      "result": "x = \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix}"
      },
      "narr": [
       "Let's solve another 2×2 system of linear equations.",
@@ -6533,22 +6533,22 @@
      "type": "example",
      "data": {
       "heading": "Exercise 25 — 2×2 Factorization",
-      "problem": "Find A = LU = LDU for A = (2, 1; 2, 4)",
+      "problem": "Find A = LU = LDU for A = \\begin{bmatrix} 2 & 1 \\\\ 2 & 4 \\end{bmatrix}",
       "steps": [
        {
-        "text": "m21 = 1: R2 ← R2 - R1 gives U = (2, 1; 0, 3)"
+        "text": "m21 = 1: R2 ← R2 - R1 gives U = \\begin{bmatrix} 2 & 1 \\\\ 0 & 3 \\end{bmatrix}"
        },
        {
-        "text": "L = (1, 0; 1, 1)"
+        "text": "L = \\begin{bmatrix} 1 & 0 \\\\ 1 & 1 \\end{bmatrix}"
        },
        {
-        "text": "Verification: (2, 1) + (0, 3) = (2, 4)"
+        "text": "Verification: \\begin{bmatrix} 2 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 3 \\end{bmatrix} = \\begin{bmatrix} 2 & 4 \\end{bmatrix}"
        },
        {
-        "text": "D = (2, 0; 0, 3)"
+        "text": "D = \\begin{bmatrix} 2 & 0 \\\\ 0 & 3 \\end{bmatrix}"
        },
        {
-        "text": "D⁻¹U = (1, 1/2; 0, 1)"
+        "text": "D^{-1}U = \\begin{bmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{bmatrix}"
        },
        {
         "text": "A = L · D · D^{-1}U"
@@ -6579,22 +6579,22 @@
      "type": "example",
      "data": {
       "heading": "Exercise 26 — 2×2 Factorization",
-      "problem": "Find A = LU = LDU for A = (3, 1; 3, 5)",
+      "problem": "Find A = LU = LDU for A = \\begin{bmatrix} 3 & 1 \\\\ 3 & 5 \\end{bmatrix}",
       "steps": [
        {
-        "text": "m21 = 1: R2 ← R2 - R1 gives U = (3, 1; 0, 4)"
+        "text": "m21 = 1: R2 ← R2 - R1 gives U = \\begin{bmatrix} 3 & 1 \\\\ 0 & 4 \\end{bmatrix}"
        },
        {
-        "text": "L = (1, 0; 1, 1)"
+        "text": "L = \\begin{bmatrix} 1 & 0 \\\\ 1 & 1 \\end{bmatrix}"
        },
        {
-        "text": "Verification: (3, 1) + (0, 4) = (3, 5)"
+        "text": "Verification: \\begin{bmatrix} 3 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 4 \\end{bmatrix} = \\begin{bmatrix} 3 & 5 \\end{bmatrix}"
        },
        {
-        "text": "D = (3, 0; 0, 4)"
+        "text": "D = \\begin{bmatrix} 3 & 0 \\\\ 0 & 4 \\end{bmatrix}"
        },
        {
-        "text": "D⁻¹U = (1, 1/3; 0, 1)"
+        "text": "D^{-1}U = \\begin{bmatrix} 1 & 1/3 \\\\ 0 & 1 \\end{bmatrix}"
        },
        {
         "text": "A = L · D · D^{-1}U"
@@ -6625,22 +6625,22 @@
      "type": "example",
      "data": {
       "heading": "Exercise 27 — 2×2 Factorization",
-      "problem": "Find A = LU = LDU for A = (1, 1; 4, 3)",
+      "problem": "Find A = LU = LDU for A = \\begin{bmatrix} 1 & 1 \\\\ 4 & 3 \\end{bmatrix}",
       "steps": [
        {
-        "text": "m21 = 4: R2 ← R2 - 4R1 gives U = (1, 1; 0, -1)"
+        "text": "m21 = 4: R2 ← R2 - 4R1 gives U = \\begin{bmatrix} 1 & 1 \\\\ 0 & -1 \\end{bmatrix}"
        },
        {
-        "text": "L = (1, 0; 4, 1)"
+        "text": "L = \\begin{bmatrix} 1 & 0 \\\\ 4 & 1 \\end{bmatrix}"
        },
        {
-        "text": "Verification: (1, 1) + 4·(0, -1) = (1, -3)"
+        "text": "Verification: \\begin{bmatrix} 1 & 1 \\end{bmatrix} + 4·\\begin{bmatrix} 0 & -1 \\end{bmatrix} = \\begin{bmatrix} 1 & -3 \\end{bmatrix}"
        },
        {
-        "text": "D = (1, 0; 0, -1)"
+        "text": "D = \\begin{bmatrix} 1 & 0 \\\\ 0 & -1 \\end{bmatrix}"
        },
        {
-        "text": "D⁻¹U = (1, 1; 0, 1)"
+        "text": "D^{-1}U = \\begin{bmatrix} 1 & 1 \\\\ 0 & 1 \\end{bmatrix}"
        },
        {
         "text": "A = L · D · D^{-1}U"
@@ -7306,7 +7306,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 39 — Symmetric LDLT Factorization",
-      "problem": "Factor the symmetric matrix A = (2, 2, 0; 2, 5, 1; 0, 1, 3) as LDLT.",
+      "problem": "Factor the symmetric matrix A = \\begin{pmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{pmatrix} as LDLT.",
       "steps": [
        {
         "text": "Find the multipliers: m21 = 1, m31 = 0, m32 = 1/3"
@@ -7321,7 +7321,7 @@
         "text": "Verify that A = L · D · LT"
        }
       ],
-      "result": "L = (1, 0, 0; 1, 1, 0; 0, 1/3, 1), D = (2, 0, 0; 0, 3, 0; 0, 0, 8/3)"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{pmatrix}"
      },
      "narr": [
       "Let's tackle our first exercise: symmetric LDLT factorization.",
@@ -7350,7 +7350,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 40 — Tridiagonal Model",
-      "problem": "Solve Ax = b using LU decomposition for A = (2, -1, 0; -1, 2, -1; 0, -1, 2), b = (2; 0; 2). Interpret the nearest neighbor structure.",
+      "problem": "Solve Ax = b using LU decomposition for A = \\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 0 \\\\ 2 \\end{pmatrix}. Interpret the nearest neighbor structure.",
       "steps": [
        {
         "text": "Find LU decomposition with multipliers m21 = -1/2, m32 = -2/3"
@@ -7368,7 +7368,7 @@
         "text": "Interpret the tridiagonal structure"
        }
       ],
-      "result": "Solution: x = (2; 2; 2)"
+      "result": "Solution: x = \\begin{pmatrix} 2 \\\\ 2 \\\\ 2 \\end{pmatrix}"
      },
      "narr": [
       "Now let's look at a challenge problem involving a tridiagonal matrix.",
@@ -7428,7 +7428,7 @@
      "type": "example",
      "data": {
       "heading": "Example 1 — LU, Normalization, and LDU",
-      "problem": "Find the LU and LDU decompositions of the matrix A = (2, 4, 2; 4, 11, 7; 2, 7, 8).",
+      "problem": "Find the LU and LDU decompositions of the matrix A = \\begin{pmatrix} 2 & 4 & 2 \\\\ 4 & 11 & 7 \\\\ 2 & 7 & 8 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Eliminate under first pivot element 2: R2 ← R2 - 2R1 and R3 ← R3 - R1"
@@ -7446,7 +7446,7 @@
         "text": "Express A as LDU decomposition"
        }
       ],
-      "result": "L = (1, 0, 0; 2, 1, 0; 1, 1, 1), U = (2, 4, 2; 0, 3, 3; 0, 0, 3), D = (2, 0, 0; 0, 3, 0; 0, 0, 3)"
+      "result": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 1 & 1 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 4 & 2 \\\\ 0 & 3 & 3 \\\\ 0 & 0 & 3 \\end{pmatrix}, D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix}"
      },
      "narr": [
       "Let's work through an example of finding LU and LDU decompositions.",
@@ -7473,7 +7473,7 @@
      "type": "example",
      "data": {
       "heading": "Example 2 — Solving a System Using Factors",
-      "problem": "Using the decomposition from example 1, solve Ax = (8; 22; 17).",
+      "problem": "Using the decomposition from example 1, solve Ax = \\begin{pmatrix} 8 \\\\ 22 \\\\ 17 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Perform forward substitution Ly = b"
@@ -7527,7 +7527,7 @@
         "text": "Solve for x1 using 2x1 + 4x2 + 2x3 = 8"
        }
       ],
-      "result": "Solution: x = (1; 1; 1)"
+      "result": "Solution: x = \\begin{pmatrix} 1 \\\\ 1 \\\\ 1 \\end{pmatrix}"
      },
      "narr": [
       "Then we solve for x2 using 3x2 + 3x3 = 6, which gives x2 = 1.",
@@ -7630,7 +7630,7 @@
        }
       ],
       "result": "The solution is (x, y, z) = (1, 2, 3)",
-      "matrix": "(2, 1, -1, 1; 4, 3, 1, 13; -2, 1, 2, 6) arrow (2, 1, -1, 1; 0, 1, 3, 11; 0, 2, 1, 7) arrow (2, 1, -1, 1; 0, 1, 3, 11; 0, 0, -5, -15)"
+      "matrix": "\\begin{pmatrix} 2 & 1 & -1 & 1 \\\\ 4 & 3 & 1 & 13 \\\\ -2 & 1 & 2 & 6 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 2 & 1 & -1 & 1 \\\\ 0 & 1 & 3 & 11 \\\\ 0 & 2 & 1 & 7 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 2 & 1 & -1 & 1 \\\\ 0 & 1 & 3 & 11 \\\\ 0 & 0 & -5 & -15 \\end{pmatrix}"
      },
      "narr": [
       "Let's look at our first system of equations, represented by this augmented matrix.",
@@ -7744,8 +7744,8 @@
        }
       ],
       "result": "The solution is (x, y, z) = (1, 2, 3)",
-      "matrix": "(0, 1, 1, 5; 1, 1, 1, 6; 2, 3, 4, 20) arrow (1, 1, 1, 6; 0, 1, 1, 5; 2, 3, 4, 20) arrow (1, 1, 1, 6; 0, 1, 1, 5; 0, 1, 2, 8) arrow (1, 1, 1, 6; 0, 1, 1, 5; 0, 0, 1, 3)",
-      "permutation": "(0, 1, 0; 1, 0, 0; 0, 0, 1)"
+      "matrix": "\\begin{pmatrix} 0 & 1 & 1 & 5 \\\\ 1 & 1 & 1 & 6 \\\\ 2 & 3 & 4 & 20 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 1 & 5 \\\\ 2 & 3 & 4 & 20 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 1 & 5 \\\\ 0 & 1 & 2 & 8 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 1 & 5 \\\\ 0 & 0 & 1 & 3 \\end{pmatrix}",
+      "permutation": "\\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}"
      },
      "narr": [
       "What happens when we encounter a zero in the pivot position?",
@@ -7789,7 +7789,7 @@
        }
       ],
       "result": "If k ≠ 26, there are no solutions. If k = 26, there are infinitely many solutions: (x, y, z) = (t-2, 8-2t, t), t ∈ ℝ",
-      "matrix": "(1, 1, 1, 6; 2, 3, 4, 20; 3, 4, 5, k) arrow (1, 1, 1, 6; 0, 1, 2, 8; 0, 1, 2, k-18) arrow (1, 1, 1, 6; 0, 1, 2, 8; 0, 0, 0, k-26)"
+      "matrix": "\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & 3 & 4 & 20 \\\\ 3 & 4 & 5 & k \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 1 & 2 & k-18 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 0 & 0 & k-26 \\end{pmatrix}"
      },
      "narr": [
       "Let's explore how many solutions a system can have depending on a parameter.",
@@ -7899,7 +7899,7 @@
        }
       ],
       "result": "The solution is (x, y, z) = (1, 2, 3)",
-      "matrix": "(1, 1, 1, 6; 2, 3, 1, 11; 1, 2, 3, 14) arrow (1, 1, 1, 6; 0, 1, -1, -1; 0, 1, 2, 8) arrow (1, 1, 1, 6; 0, 1, -1, -1; 0, 0, 3, 9)"
+      "matrix": "\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & 3 & 1 & 11 \\\\ 1 & 2 & 3 & 14 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & -1 & -1 \\\\ 0 & 1 & 2 & 8 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & -1 & -1 \\\\ 0 & 0 & 3 & 9 \\end{pmatrix}"
      },
      "narr": [
       "Let's practice solving systems with elimination.",
@@ -7950,7 +7950,7 @@
        }
       ],
       "result": "The solution is (x, y, z) = (1, 2, 3)",
-      "matrix": "(0, 1, 2, 8; 1, 1, 1, 6; 2, 3, 1, 11) arrow (1, 1, 1, 6; 0, 1, 2, 8; 2, 3, 1, 11) arrow (1, 1, 1, 6; 0, 1, 2, 8; 0, 1, -1, -1) arrow (1, 1, 1, 6; 0, 1, 2, 8; 0, 0, -3, -9)"
+      "matrix": "\\begin{pmatrix} 0 & 1 & 2 & 8 \\\\ 1 & 1 & 1 & 6 \\\\ 2 & 3 & 1 & 11 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 2 & 3 & 1 & 11 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 1 & -1 & -1 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 0 & -3 & -9 \\end{pmatrix}"
      },
      "narr": [
       "Now for system B: y + 2z = 8, x + y + z = 6, 2x + 3y + z = 11.",
@@ -7990,7 +7990,7 @@
        }
       ],
       "result": "When k ≠ 26, there are no solutions. When k = 26, there are infinitely many solutions: (x, y, z) = (t-2, 8-2t, t), t ∈ ℝ. There is no value of k that gives a unique solution.",
-      "matrix": "(1, 1, 1, 6; 2, 3, 4, 20; 3, 4, 5, k) arrow (1, 1, 1, 6; 0, 1, 2, 8; 0, 1, 2, k-18) arrow (1, 1, 1, 6; 0, 1, 2, 8; 0, 0, 0, k-26)"
+      "matrix": "\\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 2 & 3 & 4 & 20 \\\\ 3 & 4 & 5 & k \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 1 & 2 & k-18 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 2 & 8 \\\\ 0 & 0 & 0 & k-26 \\end{pmatrix}"
      },
      "narr": [
       "This is similar to Problem 4, but now we're solving it as an exercise.",
@@ -8029,7 +8029,7 @@
         "text": "Verify the matrix produces the correct transformation"
        }
       ],
-      "result": "The elimination matrix is E = (1, 0, 0; 0, 1, 0; -4, 0, 1)",
+      "result": "The elimination matrix is E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{pmatrix}",
       "explanation": "The third row of E · A equals (row 3 of A) - 4 · (row 1 of A), while the other rows remain unchanged."
      },
      "narr": [
@@ -8057,7 +8057,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 8 — Inverse Matrix by Gauss-Jordan Method",
-      "problem": "Find the inverse matrix of A = (1, 1, 0; 1, 2, 1; 0, 1, 2) by adjoining the identity matrix and reducing the left part to the identity.",
+      "problem": "Find the inverse matrix of A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 1 & 2 & 1 \\\\ 0 & 1 & 2 \\end{pmatrix} by adjoining the identity matrix and reducing the left part to the identity.",
       "steps": [
        {
         "text": "Set up the augmented matrix [A | I]"
@@ -8072,8 +8072,8 @@
         "text": "Verify that A · A⁻¹ = I"
        }
       ],
-      "result": "The inverse matrix is A⁻¹ = (3, -2, 1; -2, 2, -1; 1, -1, 1)",
-      "matrix": "(1, 1, 0, 1, 0, 0; 1, 2, 1, 0, 1, 0; 0, 1, 2, 0, 0, 1) arrow (1, 1, 0, 1, 0, 0; 0, 1, 1, -1, 1, 0; 0, 1, 2, 0, 0, 1) arrow (1, 1, 0, 1, 0, 0; 0, 1, 1, -1, 1, 0; 0, 0, 1, 1, -1, 1) arrow (1, 0, 0, 3, -2, 1; 0, 1, 0, -2, 2, -1; 0, 0, 1, 1, -1, 1)"
+      "result": "The inverse matrix is A⁻¹ = \\begin{pmatrix} 3 & -2 & 1 \\\\ -2 & 2 & -1 \\\\ 1 & -1 & 1 \\end{pmatrix}",
+      "matrix": "\\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 1 & 2 & 1 & 0 & 1 & 0 \\\\ 0 & 1 & 2 & 0 & 0 & 1 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 0 & 1 & 1 & -1 & 1 & 0 \\\\ 0 & 1 & 2 & 0 & 0 & 1 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 0 & 1 & 1 & -1 & 1 & 0 \\\\ 0 & 0 & 1 & 1 & -1 & 1 \\end{pmatrix} \\rightarrow \\begin{pmatrix} 1 & 0 & 0 & 3 & -2 & 1 \\\\ 0 & 1 & 0 & -2 & 2 & -1 \\\\ 0 & 0 & 1 & 1 & -1 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Finally, let's find the inverse of a matrix using the Gauss-Jordan method.",
@@ -8155,7 +8155,7 @@
         "text": "Eliminate above the second pivot: R₁ ← R₁ - R₂"
        }
       ],
-      "result": "A⁻¹ = (3, -2, 1; -2, 2, -1; 1, -1, 1)"
+      "result": "A⁻¹ = \\begin{pmatrix} 3 & -2 & 1 \\\\ -2 & 2 & -1 \\\\ 1 & -1 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Let's work through an example of finding a matrix inverse step by step.",
@@ -8340,7 +8340,7 @@
         "text": "The second row of A becomes the second column of Aᵀ"
        }
       ],
-      "result": "Aᵀ = (1, 4; 2, 5; 3, 6)"
+      "result": "Aᵀ = \\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix}"
      },
      "narr": [
       "Let's see how transposition works with an example.",
@@ -8467,7 +8467,7 @@
         "text": "Observe how rows of A are rearranged"
        }
       ],
-      "result": "PA = (3, 4, 5, 6; 1, 2, 3)"
+      "result": "PA = \\begin{pmatrix} 3 & 4 & 5 & 6 \\\\ 1 & 2 & 3 \\end{pmatrix}"
      },
      "narr": [
       "Let's see permutation matrices in action.",
@@ -9216,16 +9216,16 @@
      "type": "example",
      "data": {
       "heading": "Problem 6 — Symmetric and Skew-Symmetric Parts",
-      "problem": "Decompose A = (1, 4; 2, 3) into symmetric and skew-symmetric parts.",
+      "problem": "Decompose A = \\begin{pmatrix} 1 & 4 \\\\ 2 & 3 \\end{pmatrix} into symmetric and skew-symmetric parts.",
       "steps": [
        {
-        "text": "Find the transpose of A: A^T = (1, 2; 4, 3)"
+        "text": "Find the transpose of A: A^T = \\begin{pmatrix} 1 & 2 \\\\ 4 & 3 \\end{pmatrix}"
        },
        {
-        "text": "Compute the symmetric part: S = (A + A^T)/2 = (1, 3; 3, 3)"
+        "text": "Compute the symmetric part: S = (A + A^T)/2 = \\begin{pmatrix} 1 & 3 \\\\ 3 & 3 \\end{pmatrix}"
        },
        {
-        "text": "Compute the skew-symmetric part: K = (A - A^T)/2 = (0, 1; -1, 0)"
+        "text": "Compute the skew-symmetric part: K = (A - A^T)/2 = \\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\end{pmatrix}"
        }
       ],
       "result": "Check: S + K = A, S^T = S, K^T = -K"
@@ -9249,10 +9249,10 @@
      "type": "example",
      "data": {
       "heading": "Problem 7 — Row Permutation: PA",
-      "problem": "Find PA, where P = (0, 1; 1, 0), A = (1, 2; 3, 4).",
+      "problem": "Find PA, where P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}.",
       "steps": [
        {
-        "text": "Multiply P and A: PA = (0, 1; 1, 0) · (1, 2; 3, 4)"
+        "text": "Multiply P and A: PA = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} · \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}"
        },
        {
         "text": "The first row of the product is the second row of A"
@@ -9261,7 +9261,7 @@
         "text": "The second row of the product is the first row of A"
        }
       ],
-      "result": "PA = (3, 4; 1, 2)"
+      "result": "PA = \\begin{pmatrix} 3 & 4 \\\\ 1 & 2 \\end{pmatrix}"
      },
      "narr": [
       "Now let's explore permutation matrices, starting with row permutations.",
@@ -9280,10 +9280,10 @@
      "type": "example",
      "data": {
       "heading": "Problem 8 — Column Permutation: AP",
-      "problem": "Find AP for the same A and P (A = (1, 2; 3, 4), P = (0, 1; 1, 0)).",
+      "problem": "Find AP for the same A and P (A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}, P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}).",
       "steps": [
        {
-        "text": "Multiply A and P: AP = (1, 2; 3, 4) · (0, 1; 1, 0)"
+        "text": "Multiply A and P: AP = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix} · \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}"
        },
        {
         "text": "The first column of the product is the second column of A"
@@ -9292,7 +9292,7 @@
         "text": "The second column of the product is the first column of A"
        }
       ],
-      "result": "AP = (2, 1; 4, 3), and note that AP ≠ PA"
+      "result": "AP = \\begin{pmatrix} 2 & 1 \\\\ 4 & 3 \\end{pmatrix}, and note that AP ≠ PA"
      },
      "narr": [
       "Now let's see what happens when we right-multiply by a permutation matrix.",
@@ -9311,19 +9311,19 @@
      "type": "example",
      "data": {
       "heading": "Problem 9 — Inverse of a Permutation Matrix",
-      "problem": "Find P⁻¹ for P = (0, 1, 0; 0, 0, 1; 1, 0, 0).",
+      "problem": "Find P^{-1} for P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 0 & 0 \\end{pmatrix}.",
       "steps": [
        {
         "text": "For permutation matrices, the inverse equals the transpose"
        },
        {
-        "text": "Compute P^T = (0, 0, 1; 1, 0, 0; 0, 1, 0)"
+        "text": "Compute P^T = \\begin{pmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}"
        },
        {
         "text": "Verify that P^T P = I"
        }
       ],
-      "result": "P⁻¹ = P^T = (0, 0, 1; 1, 0, 0; 0, 1, 0)"
+      "result": "P^{-1} = P^T = \\begin{pmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}"
      },
      "narr": [
       "Let's find the inverse of a permutation matrix.",
@@ -9354,7 +9354,7 @@
         "text": "Verify that PA exchanges the first and third rows of any matrix A"
        }
       ],
-      "result": "P = (0, 0, 1; 0, 1, 0; 1, 0, 0)"
+      "result": "P = \\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}"
      },
      "narr": [
       "How would we construct a permutation matrix that specifically swaps rows 1 and 3?",
@@ -9373,13 +9373,13 @@
      "type": "example",
      "data": {
       "heading": "Problem 11 — PA = LU with Zero Pivot",
-      "problem": "Find P, L, U for A = (0, 2; 3, 4).",
+      "problem": "Find P, L, U for A = \\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Notice the pivot element a_11 = 0, so a row exchange is necessary"
        },
        {
-        "text": "Exchange the rows to get P = (0, 1; 1, 0) and PA = (3, 4; 0, 2)"
+        "text": "Exchange the rows to get P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} and PA = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}"
        },
        {
         "text": "Since there's a zero below the pivot, elimination is complete"
@@ -9388,7 +9388,7 @@
         "text": "No multipliers are needed, so L = I_2 and U = PA"
        }
       ],
-      "result": "PA = LU where P = (0, 1; 1, 0), L = (1, 0; 0, 1), U = (3, 4; 0, 2)"
+      "result": "PA = LU where P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, L = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}"
      },
      "narr": [
       "Let's look at LU decomposition when we encounter a zero pivot.",
@@ -9407,7 +9407,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 12 — LU Without Row Exchanges",
-      "problem": "Find L, U for A = (2, 1; 6, 5) without row exchanges.",
+      "problem": "Find L, U for A = \\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} without row exchanges.",
       "steps": [
        {
         "text": "The pivot element is 2, which is non-zero, so no exchanges are needed"
@@ -9425,7 +9425,7 @@
         "text": "Construct L with the multiplier in the (2,1) position"
        }
       ],
-      "result": "U = (2, 1; 0, 2), L = (1, 0; 3, 1)"
+      "result": "U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}, L = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Now let's perform LU decomposition without needing row exchanges.",
@@ -9611,7 +9611,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 18 — Null Space of a 1×3 Matrix",
-      "problem": "Find Null(A) for A = (1, 2, -1).",
+      "problem": "Find Null(A) for A = \\begin{pmatrix} 1 & 2 & -1 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Set up the equation Ax = 0: x₁ + 2x₂ - x₃ = 0"
@@ -9647,7 +9647,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 19 — Column Space",
-      "problem": "Find Col(A) for A = (1, 2; 2, 4; 0, 0); does the vector (3, 6, 0) belong to it?",
+      "problem": "Find Col(A) for A = \\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\\\ 0 & 0 \\end{pmatrix}; does the vector (3, 6, 0) belong to it?",
       "steps": [
        {
         "text": "Identify the columns of A: a₁ = (1, 2, 0), a₂ = (2, 4, 0)"
@@ -9683,7 +9683,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 20 — Transpose and Determinant of 3×3",
-      "problem": "For A = (1, 2, 0; 0, 1, 1; 0, 0, 2) find A^T and det(A).",
+      "problem": "For A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix} find A^T and det(A).",
       "steps": [
        {
         "text": "Find the transpose A^T by swapping rows and columns"
@@ -9695,7 +9695,7 @@
         "text": "For triangular matrices, the determinant is the product of diagonal elements"
        }
       ],
-      "result": "A^T = (1, 0, 0; 2, 1, 0; 0, 1, 2), det(A) = 2, det(A^T) = 2"
+      "result": "A^T = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 2 \\end{pmatrix}, det(A) = 2, det(A^T) = 2"
      },
      "narr": [
       "Let's finish with a problem involving the transpose and determinant of a 3×3 matrix.",
@@ -9716,13 +9716,13 @@
      "type": "example",
      "data": {
       "heading": "Exercise 1 — Compute Transpose",
-      "problem": "Compute A^T for A = (1, 2; 3, 4).",
+      "problem": "Compute A^T for A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Swap rows and columns to find the transpose"
        }
       ],
-      "result": "A^T = (1, 3; 2, 4)"
+      "result": "A^T = \\begin{pmatrix} 1 & 3 \\\\ 2 & 4 \\end{pmatrix}"
      },
      "narr": [
       "Our first exercise is a straightforward computation of a matrix transpose.",
@@ -9739,7 +9739,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 2 — Transpose of Sum",
-      "problem": "Compute (A + B)^T for A = (1, 0; 2, 3), B = (2, 1; 0, -1).",
+      "problem": "Compute (A + B)^T for A = \\begin{pmatrix} 1 & 0 \\\\ 2 & 3 \\end{pmatrix}, B = \\begin{pmatrix} 2 & 1 \\\\ 0 & -1 \\end{pmatrix}.",
       "steps": [
        {
         "text": "First compute A + B"
@@ -9751,7 +9751,7 @@
         "text": "Verify that (A + B)^T = A^T + B^T"
        }
       ],
-      "result": "(A + B)^T = (3, 2; 1, 2) = A^T + B^T"
+      "result": "(A + B)^T = \\begin{pmatrix} 3 & 2 \\\\ 1 & 2 \\end{pmatrix} = A^T + B^T"
      },
      "narr": [
       "This exercise demonstrates an important property of transposes - how they interact with matrix addition.",
@@ -9768,7 +9768,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 3 — Product of Transpose and Original",
-      "problem": "Find A^T A for A = (1, 2; 0, 1).",
+      "problem": "Find A^T A for A = \\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\end{pmatrix}.",
       "steps": [
        {
         "text": "First find A^T"
@@ -9780,7 +9780,7 @@
         "text": "Observe that the result is symmetric"
        }
       ],
-      "result": "A^T A = (1, 2; 2, 5)"
+      "result": "A^T A = \\begin{pmatrix} 1 & 2 \\\\ 2 & 5 \\end{pmatrix}"
      },
      "narr": [
       "Now let's compute the product of a matrix transpose and the original matrix.",
@@ -9797,7 +9797,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 4 — Transpose of Product",
-      "problem": "Find (AB)^T for A = (1, 1; 0, 2), B = (2, 0; 1, 3).",
+      "problem": "Find (AB)^T for A = \\begin{pmatrix} 1 & 1 \\\\ 0 & 2 \\end{pmatrix}, B = \\begin{pmatrix} 2 & 0 \\\\ 1 & 3 \\end{pmatrix}.",
       "steps": [
        {
         "text": "First compute AB"
@@ -9809,7 +9809,7 @@
         "text": "Verify that (AB)^T = B^T A^T"
        }
       ],
-      "result": "(AB)^T = (3, 2; 3, 6) = B^T A^T"
+      "result": "(AB)^T = \\begin{pmatrix} 3 & 2 \\\\ 3 & 6 \\end{pmatrix} = B^T A^T"
      },
      "narr": [
       "This exercise explores how transposes interact with matrix multiplication.",
@@ -9828,7 +9828,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 5 — Symmetric Matrix",
-      "problem": "Is the matrix A = (2, -3; -3, 1) symmetric?",
+      "problem": "Is the matrix A = \\begin{pmatrix} 2 & -3 \\\\ -3 & 1 \\end{pmatrix} symmetric?",
       "steps": [
        {
         "text": "Recall that a matrix is symmetric if A = A^T"
@@ -10706,7 +10706,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 30 — Verification of P^T P = I",
-      "problem": "For P = (0, 1, 0; 0, 0, 1; 1, 0, 0), verify P^T P = I.",
+      "problem": "For P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 0 & 0 \\end{pmatrix}, verify P^T P = I.",
       "steps": [
        {
         "text": "Find the transpose of P"
@@ -10776,7 +10776,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 32 — PA = LU for 2 × 2",
-      "problem": "Find P, L, U for A = (0, 1; 4, 2).",
+      "problem": "Find P, L, U for A = \\begin{pmatrix} 0 & 1 \\\\ 4 & 2 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Check the pivot element a11"
@@ -10794,7 +10794,7 @@
         "text": "Identify L and U"
        }
       ],
-      "result": "P = (0, 1; 1, 0), L = I_2, U = (4, 2; 0, 1)"
+      "result": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, L = I_2, U = \\begin{pmatrix} 4 & 2 \\\\ 0 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Exercise 32 asks us to find the permutation matrix P, lower triangular matrix L, and upper triangular matrix U for this 2x2 matrix A.",
@@ -10819,7 +10819,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 33 — Partial pivoting",
-      "problem": "Apply partial pivoting to A = (0.001, 1; 2, 1); compare the multipliers before and after the exchange.",
+      "problem": "Apply partial pivoting to A = \\begin{pmatrix} 0.001 & 1 \\\\ 2 & 1 \\end{pmatrix}; compare the multipliers before and after the exchange.",
       "steps": [
        {
         "text": "Perform elimination without pivoting"
@@ -11066,7 +11066,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 40 — Null space of 2 × 3 matrix",
-      "problem": "Find Null(A) for A = (1, 1, 1; 0, 1, 1) (2 × 3 matrix, written row-wise).",
+      "problem": "Find Null(A) for A = \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 1 \\end{pmatrix} (2 × 3 matrix, written row-wise).",
       "steps": [
        {
         "text": "Solve the system Ax = 0"
@@ -11104,7 +11104,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 41 — Column space of 3 × 2 matrix",
-      "problem": "Find Col(A) for A = (1, 2; 2, 4; 3, 6).",
+      "problem": "Find Col(A) for A = \\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\\\ 3 & 6 \\end{pmatrix}.",
       "steps": [
        {
         "text": "Examine the columns of A"
@@ -11140,7 +11140,7 @@
      "type": "example",
      "data": {
       "heading": "Exercise 42 — Membership in column space",
-      "problem": "Does (1, 1, 1) belong to the column space Col(A) for A = (1, 0; 0, 1; 1, 1) (3 × 2 matrix)?",
+      "problem": "Does (1, 1, 1) belong to the column space Col(A) for A = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\\\ 1 & 1 \\end{pmatrix} (3 × 2 matrix)?",
       "steps": [
        {
         "text": "Set up the equation for membership"

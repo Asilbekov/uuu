@@ -1,58 +1,63 @@
 #!/usr/bin/env python3
-"""fix_rawtex.py — make raw LaTeX in TEXT fields engine-safe.
+"""fix_rawtex.py — make raw LaTeX in TEXT fields engine-safe (v3, env-aware).
 
-Engine renders text fields (bullets, steps, problem, ...) via mathSplit():
-only $...$ and \\begin{env}...\\end{env} fragments are TeXified; bare
-\\frac{..}{..} or \\cdot would show as raw source and fail the render-time
-raw_latex_on_screen check. This pass:
-  1. replaces symbol commands with Unicode in text fields (\\cdot → ·, ...)
-  2. wraps structural commands (\\frac, \\sqrt, \\sum, \\int) in $...$
-Fields that are rendered directly as TeX (formula/matrix 'tex', table cell
-tex dicts) are left untouched.
+Engine renders text fields via mathSplit(): $...$ and \\begin{env}...\\end{env}
+fragments are TeXified; bare \\frac/\\cdot in text would show raw and fail the
+render-time raw_latex_on_screen check.
+
+v3 rules:
+  1. \\begin{env}...\\end{env} fragments are PROTECTED verbatim (\\frac inside
+     an env is valid LaTeX — mathSplit ships the whole env to KaTeX).
+  2. outside envs: symbol commands → Unicode (\\cdot → ·, ...); structural
+     commands (\\frac, \\sqrt) wrapped in $...$.
+  3. inside envs: strip stray $-pairs around \\frac/\\sqrt (repairs the v2
+     bug that broke envs by injecting $).
 """
 import json, re, sys
 
 SYM = {'\\cdot': '·', '\\times': '×', '\\pm': '±', '\\leq': '≤', '\\le': '≤',
        '\\geq': '≥', '\\ge': '≥', '\\approx': '≈', '\\neq': '≠', '\\ne': '≠',
-       '\\to': '→', '\\rightarrow': '→', '\\leftarrow': '←', '\\degree': '°',
-       '\\cdot ': '· '}
+       '\\to': '→', '\\rightarrow': '→', '\\leftarrow': '←', '\\degree': '°'}
 
-STRUCT = re.compile(r'\\(frac|sqrt|sum|int|prod)\b')
+ENV_RE = re.compile(r'\\begin\{([a-zA-Z*]+)\}[\s\S]{0,900}?\\end\{\1\}')
 
-def already_math(s: str) -> bool:
-    # rough: does this string live inside $..$ or \begin{env}..\end{env}?
-    return False
+def fix_outside(s: str) -> str:
+    s = s.replace(chr(0xFFFD), '≈')
+    for k in sorted(SYM, key=len, reverse=True):
+        s = s.replace(k, SYM[k])
+    s = re.sub(r'(?<!\$)\\frac((?:\{(?:[^{}]|\{[^{}]*\})*\})+)(?!\$)',
+               lambda m: '$\\frac' + m.group(1) + '$', s)
+    s = re.sub(r'(?<!\$)\\sqrt\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}(?!\$)',
+               lambda m: '$\\sqrt{' + m.group(1) + '}$', s)
+    return s
+
+def fix_inside_env(s: str) -> str:
+    # repair v2 damage: $...$ pairs injected around \frac/\sqrt inside envs
+    s = re.sub(r'\$(\\(?:frac|sqrt)(?:\{[^{}]*\})+)\$', r'\1', s)
+    # stray $ right after \begin{env} or right before \end{env}
+    s = re.sub(r'(\\begin\{[a-zA-Z*]+\})\s*\$', r'\1', s)
+    s = re.sub(r'\$\s*(\\end\{[a-zA-Z]*\})', r'\1', s)
+    s = re.sub(r'(?:\\\\|\$)?\s*\\(\\)\s*(\\end\{[a-zA-Z]*\})', r'\2', s)
+    s = re.sub(r'\\\\\s*(\\end\{[a-zA-Z]*\})', r'\1', s)
+    return s
 
 def fix_text(s: str) -> str:
-    if not isinstance(s, str) or '\\' not in s:
+    if not isinstance(s, str):
         return s
-    # protect existing $...$ spans
-    parts = re.split(r'(\$[^$]*\$)', s)
-    out = []
-    for p in parts:
-        if p.startswith('$') and p.endswith('$') and len(p) > 1:
-            out.append(p)
-            continue
-        # wrap \begin{env}...\end{env} blocks in $...$ if bare
-        p = re.sub(r'(?<!\$)(\\begin\{(bmatrix|pmatrix|vmatrix|matrix|cases|array)\}.*?\\end\{\2\})(?!\$)',
-                   lambda m: m.group(1) if '$' in m.group(1) else '$' + m.group(1) + '$',
-                   p, flags=re.S)
-        # symbol commands → Unicode
-        for k in sorted(SYM, key=len, reverse=True):
-            p = p.replace(k, SYM[k])
-        # structural commands → wrap in $...$
-        if STRUCT.search(p):
-            def wrap(m):
-                return '$' + m.group(0) + '$'
-            p = re.sub(r'\\frac\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}',
-                       lambda m: '$' + m.group(0) + '$', p)
-            p = re.sub(r'\\sqrt\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}',
-                       lambda m: '$' + m.group(0) + '$', p)
-        out.append(p)
-    res = ''.join(out)
-    # collapse accidental doubles
-    res = res.replace('$$', '').replace('$ $', ' ')
-    return res
+    if chr(0xFFFD) in s:
+        s = s.replace(chr(0xFFFD), '≈')
+    if '\\' not in s:
+        return s
+    parts = []
+    last = 0
+    for m in ENV_RE.finditer(s):
+        if m.start() > last:
+            parts.append(fix_outside(s[last:m.start()]))
+        parts.append(fix_inside_env(m.group(0)))
+        last = m.end()
+    if last < len(s):
+        parts.append(fix_outside(s[last:]))
+    return ''.join(parts)
 
 TEXT_KEYS = {'heading', 'text', 'problem', 'result', 'note', 'who', 'subtitle',
              'title', 'year', 'label'}
@@ -62,12 +67,8 @@ def walk(o):
         for k, v in list(o.items()):
             if k in TEXT_KEYS and isinstance(v, str):
                 o[k] = fix_text(v)
-            elif k == 'bullets' and isinstance(v, list):
-                o[k] = [fix_text(x) if isinstance(x, str) else (walk(x) if isinstance(x, (dict, list)) else x) for x in v]
-            elif k == 'items' and isinstance(v, list):
-                o[k] = [fix_text(x) if isinstance(x, str) else (walk(x) if isinstance(x, (dict, list)) else x) for x in v]
-            elif k in ('steps', 'events', 'parts', 'functions') and isinstance(v, list):
-                o[k] = [walk(x) if isinstance(x, (dict, list)) else x for x in v]
+            elif k in ('bullets', 'items') and isinstance(v, list):
+                o[k] = [fix_text(x) if isinstance(x, str) else x for x in v]
             elif isinstance(v, (dict, list)):
                 walk(v)
         return o
@@ -80,7 +81,6 @@ def walk(o):
 def main(spec_path):
     d = json.load(open(spec_path))
     before = json.dumps(d, ensure_ascii=False)
-    # skip title/outro synthetic blocks? they're text too — walk everything
     walk(d.get('chapters', []))
     after = json.dumps(d, ensure_ascii=False)
     if before != after:
