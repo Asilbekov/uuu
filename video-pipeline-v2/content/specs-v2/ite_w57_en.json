@@ -9064,7 +9064,7 @@
       "problem": "Calculate the range of a bus with given parameters: battery capacity 200 kWh, efficiency 1.2 kWh/km, daily requirement 96 km (8 laps × 12 km).",
       "steps": [
        {
-        "text": "Calculate total energy available: $u \\times C = 0, 8 \\times 200 = 160$ kWh"
+        "text": "Calculate total energy available: $u × C = 0, 8 × 200 = 160$ kWh"
        },
        {
         "text": "Calculate range: $R = 160 \\div 1, 2 = 133$ km"
@@ -9140,7 +9140,7 @@
       "problem": "Estimate daily solar energy production for a system with 5 kW capacity.",
       "steps": [
        {
-        "text": "Naive calculation: $5$ kW $\\times 24$ h = $120$ kWh/day"
+        "text": "Naive calculation: $5$ kW $× 24$ h = $120$ kWh/day"
        },
        {
         "text": "Realistic estimate considering clear weather: approximately $31$ kWh/day"
@@ -9248,16 +9248,16 @@
       "problem": "Calculate charging time and power requirements for a fleet of buses.",
       "steps": [
        {
-        "text": "Single bus: $115$ kWh $\\div 60$ kW $\\approx 1.9$ hours"
+        "text": "Single bus: $115$ kWh $\\div 60$ kW $≈ 1.9$ hours"
        },
        {
-        "text": "Six buses: $690$ kWh over 8 hours $\\rightarrow$ average $52$ kW"
+        "text": "Six buses: $690$ kWh over 8 hours $→$ average $52$ kW"
        },
        {
-        "text": "Two batches: $3 \\times 60 = 180$ kW (utilization 0.9)"
+        "text": "Two batches: $3 × 60 = 180$ kW (utilization 0.9)"
        },
        {
-        "text": "Total time for two batches: $2 \\times 1.9 \\approx 3.8$ hours"
+        "text": "Total time for two batches: $2 × 1.9 ≈ 3.8$ hours"
        }
       ],
       "result": "Charging six buses in two batches takes approximately 3.8 hours with 180 kW utilization."
@@ -9296,7 +9296,7 @@
         "text": "Charging batches: 4 batches total"
        },
        {
-        "text": "Total time: $4 \\times 1.9 \\approx 7.7$ hours"
+        "text": "Total time: $4 × 1.9 ≈ 7.7$ hours"
        }
       ],
       "result": "Ten buses require 7.7 hours to charge with 3 chargers operating in 4 batches, fitting almost without margin."
@@ -9328,7 +9328,7 @@
         "text": "Daily energy per bus: 115 kWh"
        },
        {
-        "text": "Solar power needed: $115 \\div 4 \\approx 29$ kW"
+        "text": "Solar power needed: $115 \\div 4 ≈ 29$ kW"
        },
        {
         "text": "Panel area: approximately $150$ m²"
@@ -9367,7 +9367,7 @@
         "text": "Identify bottleneck: Wire Bonding at 6,960 units/day"
        },
        {
-        "text": "Peak utilization at 7,000 units: $7,000 \\div 6,960 \\approx 1.01$"
+        "text": "Peak utilization at 7,000 units: $7,000 \\div 6,960 ≈ 1.01$"
        }
       ],
       "result": "Wire Bonding is the bottleneck at 6,960 units/day, with utilization reaching 1.01 at peak production."
@@ -9392,7 +9392,7 @@
       "problem": "Calculate good units output and buffer filling time.",
       "steps": [
        {
-        "text": "Calculate good units: $7,200 \\times 0.98 \\times 0.97 \\times 0.96 \\approx 6,571$ units"
+        "text": "Calculate good units: $7,200 × 0.98 × 0.97 × 0.96 ≈ 6,571$ units"
        },
        {
         "text": "Calculate losses: $7,200 - 6,571 = 629$ units (about 9%)"

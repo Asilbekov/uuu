@@ -411,7 +411,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 11 — Vector Combination",
-      "problem": "Determine if b = $\\begin{bmatrix} 5 \\\\ 1 \\\\ 4 \\end{bmatrix}$ can be written as b = c1 · v1 + c2 · v2 + c3 · v3, where v1 = $\\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}$, v3 = $\\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\end{bmatrix}$.",
+      "problem": "Determine if b = \\begin{bmatrix} 5 \\\\ 1 \\\\ 4 \\end{bmatrix} can be written as b = c1 · v1 + c2 · v2 + c3 · v3, where v1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}, v2 = \\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}, v3 = \\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\end{bmatrix}.",
       "steps": [
        {
         "text": "Set up the system of equations: c1 + c3 = 5, c2 + c3 = 1, c1 + c2 = 4"
@@ -450,7 +450,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 12 — Geometric Description of Span",
-      "problem": "Describe geometrically all vectors c· $\\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}$, c ∈ R; do the vectors $\\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix}$, $\\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}$, $\\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix}$ belong to this span?",
+      "problem": "Describe geometrically all vectors c· \\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}, c ∈ R; do the vectors \\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix}, \\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}, \\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix} belong to this span?",
       "steps": [
        {
         "text": "The span of a single vector is all scalar multiples of that vector"
@@ -459,16 +459,16 @@
         "text": "This forms a line through the origin in the direction of the vector"
        },
        {
-        "text": "Check if $\\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix}$ is in the span: solve c·(-2) = 4 and c·3 = -6"
+        "text": "Check if \\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix} is in the span: solve c·(-2) = 4 and c·3 = -6"
        },
        {
-        "text": "Check if $\\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}$ is in the span: solve c·(-2) = -2 and c·3 = 3"
+        "text": "Check if \\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix} is in the span: solve c·(-2) = -2 and c·3 = 3"
        },
        {
-        "text": "Check if $\\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix}$ is in the span: solve c·(-2) = 6 and c·3 = -8"
+        "text": "Check if \\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix} is in the span: solve c·(-2) = 6 and c·3 = -8"
        }
       ],
-      "result": "The span is the entire line through the origin in the direction (-2, 3). $\\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix}$ belongs to the span (c = -2), $\\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}$ belongs to the span (c = 1), but $\\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix}$ does not belong to the span (contradiction in values of c)."
+      "result": "The span is the entire line through the origin in the direction (-2, 3). \\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix} belongs to the span (c = -2), \\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix} belongs to the span (c = 1), but \\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix} does not belong to the span (contradiction in values of c)."
      },
      "narr": [
       "We need to describe the geometric representation of all scalar multiples of a given vector.",
@@ -491,7 +491,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 13 — Linear Independence",
-      "problem": "Are v1 = $\\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 3 \\\\ 0 \\\\ 3 \\end{bmatrix}$ linearly independent? Find non-zero c1, c2 with c1v1 + c2v2 = 0 and explain geometrically.",
+      "problem": "Are v1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}, v2 = \\begin{bmatrix} 3 \\\\ 0 \\\\ 3 \\end{bmatrix} linearly independent? Find non-zero c1, c2 with c1v1 + c2v2 = 0 and explain geometrically.",
       "steps": [
        {
         "text": "Check if one vector is a scalar multiple of the other"
@@ -533,7 +533,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 14 — Linear Independence of Three Vectors",
-      "problem": "Are v1 = $\\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}$, v3 = $\\begin{bmatrix} 1 \\\\ 1 \\\\ 2 \\end{bmatrix}$ linearly independent? If dependent, express one through a combination of the others.",
+      "problem": "Are v1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}, v2 = \\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}, v3 = \\begin{bmatrix} 1 \\\\ 1 \\\\ 2 \\end{bmatrix} linearly independent? If dependent, express one through a combination of the others.",
       "steps": [
        {
         "text": "Assume v3 can be expressed as a linear combination of v1 and v2: v3 = αv1 + βv2"
@@ -572,7 +572,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 15 — Spanning R²",
-      "problem": "Let v1 = $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 3 \\\\ 1 \\end{bmatrix}$. (1) Do they span R²? (2) For b = $\\begin{bmatrix} b1 \\\\ b2 \\end{bmatrix}$ find c1, c2 with c1v1 + c2v2 = b. (3) Express b = $\\begin{bmatrix} 7 \\\\ 4 \\end{bmatrix}$ using the formula.",
+      "problem": "Let v1 = \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}, v2 = \\begin{bmatrix} 3 \\\\ 1 \\end{bmatrix}. (1) Do they span R²? (2) For b = \\begin{bmatrix} b1 \\\\ b2 \\end{bmatrix} find c1, c2 with c1v1 + c2v2 = b. (3) Express b = \\begin{bmatrix} 7 \\\\ 4 \\end{bmatrix} using the formula.",
       "steps": [
        {
         "text": "Set up the system: c1 + 3c2 = b1, 2c1 + c2 = b2"
@@ -614,7 +614,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 16 — Dependent Vectors",
-      "problem": "Let u1 = $\\begin{bmatrix} -1 \\\\ 2 \\end{bmatrix}$, u2 = $\\begin{bmatrix} -6 \\\\ 3 \\end{bmatrix}$. (1) Do they span R²? (2) Describe span{u1, u2} geometrically; (3) do the vectors $\\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix}$ and $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ belong to it?",
+      "problem": "Let u1 = \\begin{bmatrix} -1 \\\\ 2 \\end{bmatrix}, u2 = \\begin{bmatrix} -6 \\\\ 3 \\end{bmatrix}. (1) Do they span R²? (2) Describe span{u1, u2} geometrically; (3) do the vectors \\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix} and \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix} belong to it?",
       "steps": [
        {
         "text": "Note that u2 = 6u1 (in the standard version u2 = 3u1)"
@@ -626,13 +626,13 @@
         "text": "Geometrically, this is a single line through the origin in the direction (-1, 2)"
        },
        {
-        "text": "Check if $\\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix}$ belongs to the span: solve -c = 8 and 2c = -4"
+        "text": "Check if \\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix} belongs to the span: solve -c = 8 and 2c = -4"
        },
        {
-        "text": "Check if $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ belongs to the span: solve -c = 1 and 2c = 2"
+        "text": "Check if \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix} belongs to the span: solve -c = 1 and 2c = 2"
        }
       ],
-      "result": "u2 = 3u1, so the span is only span{u1}. Geometrically it is the single line through the origin in the direction (-1, 2). Neither $\\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix}$ nor $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ belong to the span (both give contradictory values for c)."
+      "result": "u2 = 3u1, so the span is only span{u1}. Geometrically it is the single line through the origin in the direction (-1, 2). Neither \\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix} nor \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix} belong to the span (both give contradictory values for c)."
      },
      "narr": [
       "We have two vectors where one is a scalar multiple of the other.",
@@ -653,7 +653,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 17 — Spanning R³",
-      "problem": "Let v1 = $\\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}$, v3 = $\\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\end{bmatrix}$. (1) Solve c1v1 + c2v2 + c3v3 = b for an arbitrary b = $\\begin{bmatrix} b1 \\\\ b2 \\\\ b3 \\end{bmatrix}$; (2) explain why the three vectors span R³; (3) express b = $\\begin{bmatrix} 4 \\\\ 2 \\\\ 6 \\end{bmatrix}$.",
+      "problem": "Let v1 = \\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}, v2 = \\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}, v3 = \\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\end{bmatrix}. (1) Solve c1v1 + c2v2 + c3v3 = b for an arbitrary b = \\begin{bmatrix} b1 \\\\ b2 \\\\ b3 \\end{bmatrix}; (2) explain why the three vectors span R³; (3) express b = \\begin{bmatrix} 4 \\\\ 2 \\\\ 6 \\end{bmatrix}.",
       "steps": [
        {
         "text": "Set up the system: c1 + c3 = b1, c2 + c3 = b2, c1 + c2 = b3"
@@ -695,13 +695,13 @@
      "type": "example",
      "data": {
       "heading": "Problem 18 — Resultant Force and Equilibrium",
-      "problem": "Three forces act on a part: F1 = $\\begin{bmatrix} 40 \\\\ -15 \\\\ -20 \\end{bmatrix}$ N, F2 = $\\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\end{bmatrix}$ N, F3 = $\\begin{bmatrix} 10 \\\\ 25 \\\\ -5 \\end{bmatrix}$ N. (1) Find the resultant force; (2) find F4 that brings the part into equilibrium: F1 + F2 + F3 + F4 = 0.",
+      "problem": "Three forces act on a part: F1 = \\begin{bmatrix} 40 \\\\ -15 \\\\ -20 \\end{bmatrix} N, F2 = \\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\end{bmatrix} N, F3 = \\begin{bmatrix} 10 \\\\ 25 \\\\ -5 \\end{bmatrix} N. (1) Find the resultant force; (2) find F4 that brings the part into equilibrium: F1 + F2 + F3 + F4 = 0.",
       "steps": [
        {
         "text": "Add the given forces component-wise to find the resultant"
        },
        {
-        "text": "Calculate F1 + F2 + F3 = $\\begin{bmatrix} 40 + 0 + 10 \\\\ -15 + 0 + 25 \\\\ -20 + 0 - 5 \\end{bmatrix}$ = $\\begin{bmatrix} 50 \\\\ 10 \\\\ -25 \\end{bmatrix}$"
+        "text": "Calculate F1 + F2 + F3 = \\begin{bmatrix} 40 + 0 + 10 \\\\ -15 + 0 + 25 \\\\ -20 + 0 - 5 \\end{bmatrix} = \\begin{bmatrix} 50 \\\\ 10 \\\\ -25 \\end{bmatrix}"
        },
        {
         "text": "For equilibrium, the sum of all forces must be zero"
@@ -710,10 +710,10 @@
         "text": "Solve for F4: F4 = -(F1 + F2 + F3)"
        },
        {
-        "text": "Calculate F4 = $\\begin{bmatrix} -50 \\\\ -10 \\\\ 25 \\end{bmatrix}$"
+        "text": "Calculate F4 = \\begin{bmatrix} -50 \\\\ -10 \\\\ 25 \\end{bmatrix}"
        }
       ],
-      "result": "(1) The resultant force is $\\begin{bmatrix} 50 \\\\ 10 \\\\ -25 \\end{bmatrix}$ N. (2) The force that brings the system into equilibrium is $\\begin{bmatrix} -50 \\\\ -10 \\\\ 25 \\end{bmatrix}$ N."
+      "result": "(1) The resultant force is \\begin{bmatrix} 50 \\\\ 10 \\\\ -25 \\end{bmatrix} N. (2) The force that brings the system into equilibrium is \\begin{bmatrix} -50 \\\\ -10 \\\\ 25 \\end{bmatrix} N."
      },
      "narr": [
       "We have three forces acting on a part, and we need to find their resultant.",
@@ -4427,7 +4427,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 1 — Compute rank",
-      "problem": "Compute rank(A) for A = \n$\\begin{bmatrix}\n1 & 2 & 3 \\\\\n2 & 4 & 6 \\\\\n3 & 6 & 9\n\\end{bmatrix}$\nby elimination.",
+      "problem": "Compute rank(A) for A = \n\\begin{bmatrix}\n1 & 2 & 3 \\\\\n2 & 4 & 6 \\\\\n3 & 6 & 9\n\\end{bmatrix}\nby elimination.",
       "steps": [
        {
         "text": "Eliminate under the first pivot (1): R2 - 2R1 → (0, 0, 0)"
@@ -4471,7 +4471,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 2 — Determine invertibility",
-      "problem": "Determine if B = \n$\\begin{bmatrix}\n2 & 1 \\\\\n4 & 2\n\\end{bmatrix}$\nis invertible by three methods: pivots, determinant, and nonzero null-vector.",
+      "problem": "Determine if B = \n\\begin{bmatrix}\n2 & 1 \\\\\n4 & 2\n\\end{bmatrix}\nis invertible by three methods: pivots, determinant, and nonzero null-vector.",
       "steps": [
        {
         "text": "(Pivots) R2 - 2R1 → (0, 0): only one pivot — singular"
@@ -4507,7 +4507,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 3 — Find inverse",
-      "problem": "Find the inverse of A = \n$\\begin{bmatrix}\n2 & 1 \\\\\n5 & 3\n\\end{bmatrix}$.",
+      "problem": "Find the inverse of A = \n\\begin{bmatrix}\n2 & 1 \\\\\n5 & 3\n\\end{bmatrix}.",
       "steps": [
        {
         "text": "det(A) = 2·3 - 1·5 = 6 - 5 = 1"
@@ -4522,7 +4522,7 @@
         "text": "Check: A·A⁻¹ = [2·3 + 1·(-5), 2·(-1) + 1·2; 5·3 + 3·(-5), 5·(-1) + 3·2] = [1, 0; 0, 1] = I"
        }
       ],
-      "result": "A⁻¹ = \n$\\begin{bmatrix}\n3 & -1 \\\\\n-5 & 2\n\\end{bmatrix}$"
+      "result": "A⁻¹ = \n\\begin{bmatrix}\n3 & -1 \\\\\n-5 & 2\n\\end{bmatrix}"
      },
      "narr": [
       "Now let's find the inverse of matrix A.",
@@ -4545,22 +4545,22 @@
      "type": "example",
      "data": {
       "heading": "Problem 4 — Gauss-Jordan elimination",
-      "problem": "Apply Gauss-Jordan to [A | I], to invert A = \n$\\begin{bmatrix}\n1 & 2 \\\\\n3 & 7\n\\end{bmatrix}$.",
+      "problem": "Apply Gauss-Jordan to [A | I], to invert A = \n\\begin{bmatrix}\n1 & 2 \\\\\n3 & 7\n\\end{bmatrix}.",
       "steps": [
        {
-        "text": "Start with [A | I] = \n$\\begin{bmatrix}\n1 & 2 & | & 1 & 0 \\\\\n3 & 7 & | & 0 & 1\n\\end{bmatrix}$"
+        "text": "Start with [A | I] = \n\\begin{bmatrix}\n1 & 2 & | & 1 & 0 \\\\\n3 & 7 & | & 0 & 1\n\\end{bmatrix}"
        },
        {
-        "text": "R2 - 3R1 → \n$\\begin{bmatrix}\n1 & 2 & | & 1 & 0 \\\\\n0 & 1 & | & -3 & 1\n\\end{bmatrix}$"
+        "text": "R2 - 3R1 → \n\\begin{bmatrix}\n1 & 2 & | & 1 & 0 \\\\\n0 & 1 & | & -3 & 1\n\\end{bmatrix}"
        },
        {
-        "text": "R1 - 2R2 → \n$\\begin{bmatrix}\n1 & 0 & | & 7 & -2 \\\\\n0 & 1 & | & -3 & 1\n\\end{bmatrix}$"
+        "text": "R1 - 2R2 → \n\\begin{bmatrix}\n1 & 0 & | & 7 & -2 \\\\\n0 & 1 & | & -3 & 1\n\\end{bmatrix}"
        },
        {
         "text": "The right block is now A⁻¹ = [7, -2; -3, 1]"
        }
       ],
-      "result": "A⁻¹ = \n$\\begin{bmatrix}\n7 & -2 \\\\\n-3 & 1\n\\end{bmatrix}$"
+      "result": "A⁻¹ = \n\\begin{bmatrix}\n7 & -2 \\\\\n-3 & 1\n\\end{bmatrix}"
      },
      "narr": [
       "For our fourth problem, we'll use Gauss-Jordan elimination to find the inverse of matrix A.",
@@ -4583,7 +4583,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 5 — Invert with Gauss-Jordan",
-      "problem": "Invert by Gauss-Jordan and check that the product of pivots equals det(K), where K = \n$\\begin{bmatrix}\n2 & -1 & 0 \\\\\n-1 & 2 & -1 \\\\\n0 & -1 & 2\n\\end{bmatrix}$.",
+      "problem": "Invert by Gauss-Jordan and check that the product of pivots equals det(K), where K = \n\\begin{bmatrix}\n2 & -1 & 0 \\\\\n-1 & 2 & -1 \\\\\n0 & -1 & 2\n\\end{bmatrix}.",
       "steps": [
        {
         "text": "Work on [K | I]: eliminate with first pivot 2 (R2 + 1/2 R1)"
@@ -4601,7 +4601,7 @@
         "text": "The right block becomes K⁻¹ = (1/4)·[3/2, 1, 1/4; 1, 2, 1/2; 1/4, 1/2, 3/4]"
        }
       ],
-      "result": "K⁻¹ = (1/4)·\n$\\begin{bmatrix}\n3/2 & 1 & 1/4 \\\\\n1 & 2 & 1/2 \\\\\n1/4 & 1/2 & 3/4\n\\end{bmatrix}$"
+      "result": "K⁻¹ = (1/4)·\n\\begin{bmatrix}\n3/2 & 1 & 1/4 \\\\\n1 & 2 & 1/2 \\\\\n1/4 & 1/2 & 3/4\n\\end{bmatrix}"
      },
      "narr": [
       "This problem, one of Strang's favorite examples, asks us to invert a 3×3 matrix using Gauss-Jordan elimination.",
@@ -4626,7 +4626,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 6 — Solve using inverse",
-      "problem": "Solve Ax = b for A = \n$\\begin{bmatrix}\n1 & 2 \\\\\n3 & 7\n\\end{bmatrix}$, b = \n$\\begin{bmatrix}\n1 \\\\\n1\n\\end{bmatrix}$, using the A⁻¹ from problem 4.",
+      "problem": "Solve Ax = b for A = \n\\begin{bmatrix}\n1 & 2 \\\\\n3 & 7\n\\end{bmatrix}, b = \n\\begin{bmatrix}\n1 \\\\\n1\n\\end{bmatrix}, using the A⁻¹ from problem 4.",
       "steps": [
        {
         "text": "From problem 4, we have A⁻¹ = [7, -2; -3, 1]"
@@ -4641,7 +4641,7 @@
         "text": "So x = (5, -2)ᵀ"
        }
       ],
-      "result": "x = \n$\\begin{bmatrix}\n5 \\\\\n-2\n\\end{bmatrix}$"
+      "result": "x = \n\\begin{bmatrix}\n5 \\\\\n-2\n\\end{bmatrix}"
      },
      "narr": [
       "For our sixth problem, we'll solve the system Ax = b using the inverse we found earlier.",
@@ -4662,7 +4662,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 7 — Inverse of product",
-      "problem": "Given A = \n$\\begin{bmatrix}\n1 & 2 \\\\\n-3 & 1\n\\end{bmatrix}$ and B = \n$\\begin{bmatrix}\n0 & 2 \\\\\n1 & 1\n\\end{bmatrix}$; compute (AB)⁻¹ without multiplying first, then check.",
+      "problem": "Given A = \n\\begin{bmatrix}\n1 & 2 \\\\\n-3 & 1\n\\end{bmatrix} and B = \n\\begin{bmatrix}\n0 & 2 \\\\\n1 & 1\n\\end{bmatrix}; compute (AB)⁻¹ without multiplying first, then check.",
       "steps": [
        {
         "text": "By the inverse of product property, (AB)⁻¹ = B⁻¹A⁻¹"
@@ -4683,7 +4683,7 @@
         "text": "det(AB) = 2·(-5) - 4·1 = -14 = 7·(-2) = det(A)·det(B)"
        }
       ],
-      "result": "(AB)⁻¹ = (1/14)·\n$\\begin{bmatrix}\n5 & 4 \\\\\n1 & -2\n\\end{bmatrix}$"
+      "result": "(AB)⁻¹ = (1/14)·\n\\begin{bmatrix}\n5 & 4 \\\\\n1 & -2\n\\end{bmatrix}"
      },
      "narr": [
       "This problem asks us to compute the inverse of a product without first multiplying the matrices.",
@@ -4744,7 +4744,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 9 — Singularity condition",
-      "problem": "For what value(s) of c is the matrix A = \n$\\begin{bmatrix}\n1 & c \\\\\n4 & 2\n\\end{bmatrix}$\nsingular? For the remaining values solve Ax = \n$\\begin{bmatrix}\n6 \\\\\n4\n\\end{bmatrix}$.",
+      "problem": "For what value(s) of c is the matrix A = \n\\begin{bmatrix}\n1 & c \\\\\n4 & 2\n\\end{bmatrix}\nsingular? For the remaining values solve Ax = \n\\begin{bmatrix}\n6 \\\\\n4\n\\end{bmatrix}.",
       "steps": [
        {
         "text": "det(A) = 1·2 - c·4 = 2 - 4c"

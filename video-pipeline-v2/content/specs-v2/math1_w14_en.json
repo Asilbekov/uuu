@@ -1328,25 +1328,25 @@
      "type": "example",
      "data": {
       "heading": "Problem 1 — Complex Number Power",
-      "problem": "Compute $(\\sqrt{3} + i)^4$ using De Moivre's theorem and verify algebraically.",
+      "problem": "Compute $($\\sqrt{3}$ + i)^4$ using De Moivre's theorem and verify algebraically.",
       "steps": [
        {
-        "text": "Convert to polar form: $r = |\\sqrt{3} + i| = \\sqrt{3 + 1} = 2$, $\\theta = \\arctan(1/\\sqrt{3}) = \\pi/6$"
+        "text": "Convert to polar form: $r = |$\\sqrt{3}$ + i| = $\\sqrt{3 + 1}$ = 2$, $\\theta = \\arctan(1/$\\sqrt{3}$) = \\pi/6$"
        },
        {
-        "text": "Apply De Moivre's theorem: $(\\sqrt{3} + i)^4 = 2^4(\\cos(4 \\cdot \\pi/6) + i \\sin(4 \\cdot \\pi/6))$"
+        "text": "Apply De Moivre's theorem: $($\\sqrt{3}$ + i)^4 = 2^4(\\cos(4 · \\pi/6) + i \\sin(4 · \\pi/6))$"
        },
        {
-        "text": "Simplify: $16(\\cos(2\\pi/3) + i \\sin(2\\pi/3)) = 16(-\\frac{1}{2} + \\frac{\\sqrt{3}}{2}i) = -8 + 8\\sqrt{3}i$"
+        "text": "Simplify: $16(\\cos(2\\pi/3) + i \\sin(2\\pi/3)) = 16(-$\\frac{1}{2}$ + \\frac{$\\sqrt{3}$}{2}i) = -8 + 8$\\sqrt{3}$i$"
        },
        {
-        "text": "Algebraic verification: $(\\sqrt{3} + i)^2 = 3 + 2\\sqrt{3}i + i^2 = 2 + 2\\sqrt{3}i$"
+        "text": "Algebraic verification: $($\\sqrt{3}$ + i)^2 = 3 + 2$\\sqrt{3}$i + i^2 = 2 + 2$\\sqrt{3}$i$"
        },
        {
-        "text": "Square again: $(2 + 2\\sqrt{3}i)^2 = 4 + 8\\sqrt{3}i + 12i^2 = -8 + 8\\sqrt{3}i$"
+        "text": "Square again: $(2 + 2$\\sqrt{3}$i)^2 = 4 + 8$\\sqrt{3}$i + 12i^2 = -8 + 8$\\sqrt{3}$i$"
        }
       ],
-      "result": "Both methods yield $-8 + 8\\sqrt{3}i$"
+      "result": "Both methods yield $-8 + 8$\\sqrt{3}$i$"
      },
      "narr": [
       "Our first challenge involves raising a complex number to the fourth power. We can approach this in two ways: using De Moivre's theorem with polar form, or through direct algebraic expansion.",
@@ -1381,13 +1381,13 @@
         "text": "Find the arguments: $(\\pi + 2k\\pi)/3$ for $k = 0, 1, 2$"
        },
        {
-        "text": "Calculate the three roots: $z_0 = 2e^{i\\pi/3} = 1 + \\sqrt{3}i$, $z_1 = 2e^{i\\pi} = -2$, $z_2 = 2e^{i5\\pi/3} = 1 - \\sqrt{3}i$"
+        "text": "Calculate the three roots: $z_0 = 2e^{i\\pi/3} = 1 + $\\sqrt{3}$i$, $z_1 = 2e^{i\\pi} = -2$, $z_2 = 2e^{i5\\pi/3} = 1 - $\\sqrt{3}$i$"
        },
        {
         "text": "Note that these are equally spaced points on a circle of radius 2"
        }
       ],
-      "result": "The solutions are $1 + \\sqrt{3}i$, $-2$, and $1 - \\sqrt{3}i$"
+      "result": "The solutions are $1 + $\\sqrt{3}$i$, $-2$, and $1 - $\\sqrt{3}$i$"
      },
      "narr": [
       "Next, we find all solutions to the equation $z^3 = -8$. This means we're looking for the cube roots of $-8$ in the complex plane.",
@@ -1410,7 +1410,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 3 — Number Sets",
-      "problem": "For each number, specify the smallest set from N, Z, Q, R, C to which it belongs: $0, -7, \\frac{5}{8}, 3.25, \\sqrt{16}, \\sqrt{7}, \\sqrt{-9}, \\pi, \\pi^2, i, 4-3i$.",
+      "problem": "For each number, specify the smallest set from N, Z, Q, R, C to which it belongs: $0, -7, $\\frac{5}{8}$, 3.25, $\\sqrt{16}$, $\\sqrt{7}$, $\\sqrt{-9}$, \\pi, \\pi^2, i, 4-3i$.",
       "steps": [
        {
         "text": "$0 \\in \\mathbb{N}$ (by course convention)"
@@ -1419,7 +1419,7 @@
         "text": "$-7 \\in \\mathbb{Z}$"
        },
        {
-        "text": "$\\frac{5}{8}$ and $3.25 = \\frac{13}{4}$ are in $\\mathbb{Q}$ (finite decimal fractions)"
+        "text": "$\\frac{5}{8}$ and $3.25 = $\\frac{13}${4}$ are in $\\mathbb{Q}$ (finite decimal fractions)"
        },
        {
         "text": "$\\sqrt{16} = 4 \\in \\mathbb{N}$"
@@ -1558,7 +1558,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 5 — Set Visualization",
-      "problem": "Draw a diagram of nested sets $\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R} \\subset \\mathbb{C}$ and place $\\sqrt{5}, -2, \\frac{2}{3}, 2, \\pi, -4i, 3+2i$ in the correct regions.",
+      "problem": "Draw a diagram of nested sets $\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R} \\subset \\mathbb{C}$ and place $\\sqrt{5}, -2, $\\frac{2}{3}$, 2, \\pi, -4i, 3+2i$ in the correct regions.",
       "steps": [
        {
         "text": "Draw five nested ovals labeled $\\mathbb{N}$ (innermost) to $\\mathbb{C}$ (outermost)"
@@ -1609,22 +1609,22 @@
      "type": "example",
      "data": {
       "heading": "Problem 6 — Ordering Numbers",
-      "problem": "Arrange in increasing order: $-\\sqrt{5}, -2, -\\frac{3}{2}, 0, 2, \\frac{3}{2}, \\frac{\\pi}{2}$; justify non-obvious comparisons.",
+      "problem": "Arrange in increasing order: $-$\\sqrt{5}$, -2, -$\\frac{3}{2}$, 0, 2, $\\frac{3}{2}$, $\\frac{\\pi}${2}$; justify non-obvious comparisons.",
       "steps": [
        {
-        "text": "For negative numbers, the order is reversed: $-\\sqrt{5} \\approx -2.236 < -2 < -\\frac{3}{2}$"
+        "text": "For negative numbers, the order is reversed: $-$\\sqrt{5}$ ≈ -2.236 < -2 < -$\\frac{3}${2}$"
        },
        {
-        "text": "For positive numbers, compare by squaring: $\\left(\\frac{\\sqrt{3}}{2}\\right)^2 = \\frac{3}{4} = 0.75$"
+        "text": "For positive numbers, compare by squaring: $≤ft(\\frac{$\\sqrt{3}$}{2}\\right)^2 = $\\frac{3}{4}$ = 0.75$"
        },
        {
-        "text": "Since $\\frac{\\pi}{2} \\approx 1.5708$ and $\\frac{3}{2} = 1.5$, we have $\\frac{3}{2} < \\frac{\\pi}{2}$"
+        "text": "Since $\\frac{\\pi}{2} ≈ 1.5708$ and $\\frac{3}{2} = 1.5$, we have $\\frac{3}{2} < $\\frac{\\pi}${2}$"
        },
        {
-        "text": "Combine all parts: $-\\sqrt{5} < -2 < -\\frac{3}{2} < 0 < \\frac{\\sqrt{3}}{2} < \\frac{3}{2} < \\frac{\\pi}{2}$"
+        "text": "Combine all parts: $-$\\sqrt{5}$ < -2 < -$\\frac{3}{2}$ < 0 < \\frac{$\\sqrt{3}$}{2} < $\\frac{3}{2}$ < $\\frac{\\pi}${2}$"
        }
       ],
-      "result": "$-\\sqrt{5} < -2 < -\\frac{3}{2} < 0 < 2 < \\frac{3}{2} < \\frac{\\pi}{2}$"
+      "result": "$-$\\sqrt{5}$ < -2 < -$\\frac{3}{2}$ < 0 < 2 < $\\frac{3}{2}$ < $\\frac{\\pi}${2}$"
      },
      "narr": [
       "Let's arrange these numbers in increasing order. For negative numbers, remember that the larger magnitude means the smaller value.",
@@ -1645,7 +1645,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 7 — Interval Notation",
-      "problem": "Write each set in interval notation: (1) $-3 \\leq x < 4$; (2) $x > 2$; (3) $x \\leq -1$; (4) $-2 < x \\leq 5$; (5) $x \\neq 3$; then graph each on the number line.",
+      "problem": "Write each set in interval notation: (1) $-3 ≤ x < 4$; (2) $x > 2$; (3) $x ≤ -1$; (4) $-2 < x ≤ 5$; (5) $x ≠ 3$; then graph each on the number line.",
       "steps": [
        {
         "text": "(1) $[-3, 4)$ - closed bracket at -3 (included), open parenthesis at 4 (not included)"
@@ -1689,16 +1689,16 @@
       "problem": "Write each interval as an inequality: a. $[-2, 5)$; b. $(-\\infty, 4]$; c. $(1, \\infty)$; d. $(-3, 0] \\cup [2, 6)$; e. $\\mathbb{R} \\setminus [-1, 1]$.",
       "steps": [
        {
-        "text": "a. $-2 \\leq x < 5$ - includes -2, excludes 5"
+        "text": "a. $-2 ≤ x < 5$ - includes -2, excludes 5"
        },
        {
-        "text": "b. $x \\leq 4$ - all numbers up to and including 4"
+        "text": "b. $x ≤ 4$ - all numbers up to and including 4"
        },
        {
         "text": "c. $x > 1$ - all numbers greater than 1"
        },
        {
-        "text": "d. $-3 < x \\leq 0$ or $2 \\leq x < 6$ - union of two intervals"
+        "text": "d. $-3 < x ≤ 0$ or $2 ≤ x < 6$ - union of two intervals"
        },
        {
         "text": "e. $x < -1$ or $x > 1$ - all numbers except those between -1 and 1 inclusive; equivalently $|x| > 1$"
@@ -1727,7 +1727,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 9 — Distance on the Number Line",
-      "problem": "With $d(a, b) = |a - b|$: compute $d(3, 8)$, $d(-2, 5)$, $d(-4, -9)$, $d(2, 8)$; check $d(a, c) \\leq d(a, b) + d(b, c)$ for $a = -3$, $b = 2$, $c = 7$.",
+      "problem": "With $d(a, b) = |a - b|$: compute $d(3, 8)$, $d(-2, 5)$, $d(-4, -9)$, $d(2, 8)$; check $d(a, c) ≤ d(a, b) + d(b, c)$ for $a = -3$, $b = 2$, $c = 7$.",
       "steps": [
        {
         "text": "$d(3, 8) = |3 - 8| = 5$"
@@ -1748,7 +1748,7 @@
         "text": "$d(-3, 2) + d(2, 7) = |-3 - 2| + |2 - 7| = 5 + 5 = 10$"
        },
        {
-        "text": "Indeed $10 \\leq 10$ (equality, since the points lie in order on a straight line)"
+        "text": "Indeed $10 ≤ 10$ (equality, since the points lie in order on a straight line)"
        }
       ],
       "result": "All distances computed, and the triangle inequality holds with equality for colinear points."
@@ -1780,7 +1780,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 10 — Rational and Irrational Numbers",
-      "problem": "Determine whether each number is rational or irrational; justify: a. $\\sqrt{49}$; b. $\\sqrt{18}$; c. $\\sqrt{3} + \\sqrt{2}$; d. $\\sqrt{2} \\cdot \\sqrt{5}$; e. $\\sqrt{2} + \\sqrt{8}$; f. $(\\sqrt{3})^2$; g. $(1 + \\sqrt{2})(1 - \\sqrt{2})$; h. $\\sqrt{12}$.",
+      "problem": "Determine whether each number is rational or irrational; justify: a. $\\sqrt{49}$; b. $\\sqrt{18}$; c. $\\sqrt{3} + \\sqrt{2}$; d. $\\sqrt{2} · \\sqrt{5}$; e. $\\sqrt{2} + \\sqrt{8}$; f. $($\\sqrt{3}$)^2$; g. $(1 + $\\sqrt{2}$)(1 - $\\sqrt{2}$)$; h. $\\sqrt{12}$.",
       "steps": [
        {
         "text": "a. $\\sqrt{49} = 7$ - rational (perfect square)"
@@ -1792,13 +1792,13 @@
         "text": "c. $\\sqrt{3} + \\sqrt{2}$ - irrational (sum of distinct irrationals)"
        },
        {
-        "text": "d. $\\sqrt{2} \\cdot \\sqrt{5} = \\sqrt{10}$ - irrational (product of distinct primes under square root)"
+        "text": "d. $\\sqrt{2} · $\\sqrt{5}$ = \\sqrt{10}$ - irrational (product of distinct primes under square root)"
        },
        {
-        "text": "e. $\\sqrt{2} + \\sqrt{8} = \\sqrt{2} + 2\\sqrt{2} = 3\\sqrt{2}$ - irrational (simplifies to integer times irrational)"
+        "text": "e. $\\sqrt{2} + $\\sqrt{8}$ = $\\sqrt{2}$ + 2$\\sqrt{2}$ = 3\\sqrt{2}$ - irrational (simplifies to integer times irrational)"
        },
        {
-        "text": "f. $(\\sqrt{3})^2 = 3$ - rational (square of irrational can be rational)"
+        "text": "f. $($\\sqrt{3}$)^2 = 3$ - rational (square of irrational can be rational)"
        }
       ]
      },
@@ -1828,7 +1828,7 @@
       "problem": "",
       "steps": [
        {
-        "text": "g. $(1 + \\sqrt{2})(1 - \\sqrt{2}) = 1 - 2 = -1$ - rational (difference of squares)"
+        "text": "g. $(1 + $\\sqrt{2}$)(1 - $\\sqrt{2}$) = 1 - 2 = -1$ - rational (difference of squares)"
        },
        {
         "text": "h. $\\sqrt{12} = 2\\sqrt{3}$ - irrational (simplifies to integer times irrational)"
@@ -2279,19 +2279,19 @@
         "text": "Count digits to place first non-zero digit before decimal point"
        },
        {
-        "text": "For scientific notation: $e = 1.602176634 \\times 10^{-19}$C"
+        "text": "For scientific notation: $e = 1.602176634 × 10^{-19}$C"
        },
        {
         "text": "For engineering notation, exponent must be multiple of 3"
        },
        {
-        "text": "Shift by one digit: $e = 160.2176634 \\times 10^{-21}$C"
+        "text": "Shift by one digit: $e = 160.2176634 × 10^{-21}$C"
        },
        {
         "text": "Express with SI prefix: $e = 160.2176634$ zC (zeptocoulombs)"
        }
       ],
-      "result": "$e = 1.602176634 \\times 10^{-19}$C (scientific); $e = 160.2176634 \\times 10^{-21}$C or 160.2176634 zC (engineering)"
+      "result": "$e = 1.602176634 × 10^{-19}$C (scientific); $e = 160.2176634 × 10^{-21}$C or 160.2176634 zC (engineering)"
      },
      "narr": [
       "Let's tackle our first problem on scientific notation.",
@@ -2362,19 +2362,19 @@
      "type": "example",
      "data": {
       "heading": "Problem 32 — Scientific and Engineering Notation Practice",
-      "problem": "Week 1 summary, part 2, in-class problems: (1) write 0.00000824 in scientific and engineering notation; (2) write $7.35 \\times 10^8$Hz in engineering notation; (3) write 0.0047F with an SI prefix.",
+      "problem": "Week 1 summary, part 2, in-class problems: (1) write 0.00000824 in scientific and engineering notation; (2) write $7.35 × 10^8$Hz in engineering notation; (3) write 0.0047F with an SI prefix.",
       "steps": [
        {
         "text": "(1) 0.00000824 = 8.24 × 10^{-6} (scientific); since -6 is a multiple of 3, this is already in engineering notation, for example 8.24 µA if the unit is ampere."
        },
        {
-        "text": "(2) $10^8$ is not a multiple of 3; we rewrite $7.35 \\times 10^8 = 735 \\times 10^6 = 735$ MHz."
+        "text": "(2) $10^8$ is not a multiple of 3; we rewrite $7.35 × 10^8 = 735 × 10^6 = 735$ MHz."
        },
        {
-        "text": "(3) 0.0047 = $4.7 \\times 10^{-3} = 4.7$ mF."
+        "text": "(3) 0.0047 = $4.7 × 10^{-3} = 4.7$ mF."
        }
       ],
-      "result": "(1) $8.24 \\times 10^{-6}$ (scientific), $8.24 \\times 10^{-6}$ (engineering); (2) 735 MHz; (3) 4.7 mF"
+      "result": "(1) $8.24 × 10^{-6}$ (scientific), $8.24 × 10^{-6}$ (engineering); (2) 735 MHz; (3) 4.7 mF"
      },
      "narr": [
       "Let's practice scientific and engineering notation with some problems from the week 1 summary.",
@@ -2401,13 +2401,13 @@
      "type": "example",
      "data": {
       "heading": "Problem 33 — Number Sets and Rationality",
-      "problem": "Week 1 summary, part 3, in-class problems: (1) draw a diagram of nested sets $\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R} \\subset \\mathbb{C}$ and place 2026, -9, $\\frac{2}{3}$, 10, $\\pi$, -5i, -2+2i; (2) rational or irrational: a. $\\sqrt{49}$, b. $\\sqrt{18}$, c. $\\sqrt{3} + \\sqrt{2}$, d. $\\sqrt{2} \\cdot \\sqrt{5}$, e. $\\sqrt{2} + \\sqrt{8}$, f. $\\left(\\sqrt{5}\\right)^2$.",
+      "problem": "Week 1 summary, part 3, in-class problems: (1) draw a diagram of nested sets $\\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\subset \\mathbb{R} \\subset \\mathbb{C}$ and place 2026, -9, $\\frac{2}{3}$, 10, $\\pi$, -5i, -2+2i; (2) rational or irrational: a. $\\sqrt{49}$, b. $\\sqrt{18}$, c. $\\sqrt{3} + \\sqrt{2}$, d. $\\sqrt{2} · \\sqrt{5}$, e. $\\sqrt{2} + \\sqrt{8}$, f. $≤ft($\\sqrt{5}$\\right)^2$.",
       "steps": [
        {
-        "text": "(1) 2026 $\\in \\mathbb{N}$; -9 $\\in \\mathbb{Z} \\setminus \\mathbb{N}$; $\\frac{2}{3} \\in \\mathbb{Q} \\setminus \\mathbb{Z}$; 10 and $\\pi \\in \\mathbb{R} \\setminus \\mathbb{Q}$; -5i and -2+2i $\\in \\mathbb{C} \\setminus \\mathbb{R}$."
+        "text": "(1) 2026 $\\in$ $\\mathbb{N}$; -9 $\\in$ $\\mathbb{Z}$ $\\setminus$ $\\mathbb{N}$; $\\frac{2}{3}$ $\\in$ $\\mathbb{Q}$ $\\setminus$ $\\mathbb{Z}$; 10 and $\\pi$ $\\in$ $\\mathbb{R}$ $\\setminus$ $\\mathbb{Q}$; -5i and -2+2i $\\in$ $\\mathbb{C}$ $\\setminus$ $\\mathbb{R}$."
        },
        {
-        "text": "(2) a. $\\sqrt{49} = 7$ — rational. b. $\\sqrt{18} = 3\\sqrt{2}$ — irrational. c. $\\sqrt{3} + \\sqrt{2}$ — irrational. d. $\\sqrt{2} \\cdot \\sqrt{5} = \\sqrt{10}$ — irrational. e. $\\sqrt{2} + \\sqrt{8} = 3\\sqrt{2}$ — irrational. f. $\\left(\\sqrt{5}\\right)^2 = 5$ — rational."
+        "text": "(2) a. $\\sqrt{49} = 7$ — rational. b. $\\sqrt{18} = 3\\sqrt{2}$ — irrational. c. $\\sqrt{3} + \\sqrt{2}$ — irrational. d. $\\sqrt{2} · $\\sqrt{5}$ = \\sqrt{10}$ — irrational. e. $\\sqrt{2} + $\\sqrt{8}$ = 3\\sqrt{2}$ — irrational. f. $≤ft($\\sqrt{5}$\\right)^2 = 5$ — rational."
        }
       ],
       "result": "(1) Numbers placed in appropriate sets; (2) a. rational, b. irrational, c. irrational, d. irrational, e. irrational, f. rational"
@@ -2458,13 +2458,13 @@
         "text": "$z_1 - z_2 = (2+3i) - (1-5i) = 1+8i$"
        },
        {
-        "text": "Product: $(2+3i)(1-5i) = 2 \\cdot 1 - 3 \\cdot (-5) + (2 \\cdot (-5) + 3 \\cdot 1)i = (2+15) + (-10+3)i = 17-7i$"
+        "text": "Product: $(2+3i)(1-5i) = 2 · 1 - 3 · (-5) + (2 · (-5) + 3 · 1)i = (2+15) + (-10+3)i = 17-7i$"
        },
        {
-        "text": "Quotient: $\\frac{z_1}{z_2} = \\frac{(2+3i)(1+5i)}{(1-5i)(1+5i)} = \\frac{2+10i+3i+15i^2}{1-(5i)^2} = \\frac{2+13i-15}{1+25} = \\frac{-13+13i}{26} = -\\frac{1}{2} + \\frac{1}{2}i$"
+        "text": "Quotient: $\\frac{z_1}{z_2} = $\\frac{(2+3i)(1+5i)}{(1-5i)(1+5i)}$ = $\\frac{2+10i+3i+15i^2}{1-(5i)^2}$ = $\\frac{2+13i-15}{1+25}$ = $\\frac{-13+13i}{26}$ = -$\\frac{1}{2}$ + $\\frac{1}{2}$i$"
        }
       ],
-      "result": "$z_1 + z_2 = 3-2i$; $z_1 - z_2 = 1+8i$; $z_1 z_2 = 17-7i$; $\\frac{z_1}{z_2} = -\\frac{1}{2} + \\frac{1}{2}i$"
+      "result": "$z_1 + z_2 = 3-2i$; $z_1 - z_2 = 1+8i$; $z_1 z_2 = 17-7i$; $\\frac{z_1}{z_2} = -$\\frac{1}{2}$ + $\\frac{1}{2}$i$"
      },
      "narr": [
       "Now let's perform operations with complex numbers.",
@@ -2487,25 +2487,25 @@
      "type": "example",
      "data": {
       "heading": "Problem 35 — Polar Form of Complex Numbers",
-      "problem": "Explain why $1 + i\\sqrt{3} = 2\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3} = 2e^{i\\pi/3}$.",
+      "problem": "Explain why $1 + i$\\sqrt{3}$ = 2\\cos$\\frac{\\pi}{3}$ + i\\sin$\\frac{\\pi}{3}$ = 2e^{i\\pi/3}$.",
       "steps": [
        {
-        "text": "First, find the modulus: $|1 + i\\sqrt{3}| = \\sqrt{1^2 + (\\sqrt{3})^2} = \\sqrt{1+3} = 2$"
+        "text": "First, find the modulus: $|1 + i$\\sqrt{3}$| = $\\sqrt{1^2 + (\\sqrt{3})^2}$ = $\\sqrt{1+3}$ = 2$"
        },
        {
-        "text": "The point $(1, \\sqrt{3})$ lies in the first quadrant"
+        "text": "The point $(1, $\\sqrt{3}$)$ lies in the first quadrant"
        },
        {
-        "text": "Find the argument: $\\tan\\theta = \\frac{\\sqrt{3}}{1} = \\sqrt{3}$, so $\\theta = \\frac{\\pi}{3}$"
+        "text": "Find the argument: $\\tan\\theta = \\frac{$\\sqrt{3}$}{1} = \\sqrt{3}$, so $\\theta = $\\frac{\\pi}${3}$"
        },
        {
-        "text": "Substitute into polar form: $2(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3})$"
+        "text": "Substitute into polar form: $2(\\cos$\\frac{\\pi}{3}$ + i\\sin$\\frac{\\pi}{3}$)$"
        },
        {
         "text": "Using Euler's formula: $2e^{i\\pi/3}$"
        }
       ],
-      "result": "$1 + i\\sqrt{3} = 2\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3} = 2e^{i\\pi/3}$"
+      "result": "$1 + i$\\sqrt{3}$ = 2\\cos$\\frac{\\pi}{3}$ + i\\sin$\\frac{\\pi}{3}$ = 2e^{i\\pi/3}$"
      },
      "narr": [
       "Let's explore the polar form of complex numbers with this example.",
@@ -7168,7 +7168,7 @@
         "text": "Determine limit behavior"
        }
       ],
-      "result": "The denominator is positive to the right of 1: the ratio $\\to +\\infty$. The two-sided limits at $-2$ and at $1$ both do not exist; $x = -2$ and $x = 1$ are vertical asymptotes."
+      "result": "The denominator is positive to the right of 1: the ratio $→ +\\infty$. The two-sided limits at $-2$ and at $1$ both do not exist; $x = -2$ and $x = 1$ are vertical asymptotes."
      },
      "narr": [
       "Let's consider this rational function. The denominator changes sign at $x = 2$, creating a vertical asymptote.",
@@ -7185,7 +7185,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 2 — Limit of Product with Constant",
-      "problem": "Find $\\lim_{x\\to 6} 2f(x)g(x)$",
+      "problem": "Find $\\lim_{x→ 6} 2f(x)g(x)$",
       "steps": [
        {
         "text": "Apply the product law"
@@ -7197,7 +7197,7 @@
         "text": "Substitute the given limits"
        }
       ],
-      "result": "$2 \\cdot 4 \\cdot 9 = 72$"
+      "result": "$2 · 4 · 9 = 72$"
      },
      "narr": [
       "For this limit, we first apply the product law, which allows us to separate the limits of $f(x)$ and $g(x)$.",
@@ -7214,7 +7214,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 3 — Limit of Quotient",
-      "problem": "Find $\\lim_{x\\to 6} \\frac{g(x) - 1}{f(x)}$",
+      "problem": "Find $\\lim_{x→ 6} $\\frac{g(x) - 1}${f(x)}$",
       "steps": [
        {
         "text": "Apply the quotient law"
@@ -7243,7 +7243,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 4 — Limit with Sum and Constant Multiple",
-      "problem": "Find $\\lim_{x\\to 6} \\frac{f(x) + 1}{3g(x)}$",
+      "problem": "Find $\\lim_{x→ 6} $\\frac{f(x) + 1}${3g(x)}$",
       "steps": [
        {
         "text": "Apply the sum law"
@@ -7255,7 +7255,7 @@
         "text": "Substitute the given limits"
        }
       ],
-      "result": "$\\frac{4 + 1}{3 \\cdot 9} = \\frac{5}{27}$"
+      "result": "$\\frac{4 + 1}{3 · 9} = $\\frac{5}${27}$"
      },
      "narr": [
       "This limit involves both a sum and a constant multiple.",
@@ -7272,7 +7272,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 5 — Limit of Power Function",
-      "problem": "Find $\\lim_{x\\to 6} h(x)^3$",
+      "problem": "Find $\\lim_{x→ 6} h(x)^3$",
       "steps": [
        {
         "text": "Apply the power law"
@@ -7296,7 +7296,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 6 — Limit of Difference with Root",
-      "problem": "Find $\\lim_{x\\to 6} \\sqrt{g(x) - f(x)}$",
+      "problem": "Find $\\lim_{x→ 6} \\sqrt{g(x) - f(x)}$",
       "steps": [
        {
         "text": "Apply the difference law"
@@ -7325,19 +7325,19 @@
      "type": "example",
      "data": {
       "heading": "Problem 7 — Limit with Product",
-      "problem": "Find $\\lim_{x\\to 6} x \\cdot h(x)$",
+      "problem": "Find $\\lim_{x→ 6} x · h(x)$",
       "steps": [
        {
         "text": "Apply the product law"
        },
        {
-        "text": "Note that $\\lim_{x\\to 6} x = 6$"
+        "text": "Note that $\\lim_{x→ 6} x = 6$"
        },
        {
         "text": "Substitute the given limits"
        }
       ],
-      "result": "$6 \\cdot 6 = 36$"
+      "result": "$6 · 6 = 36$"
      },
      "narr": [
       "Here we have a product of $x$ and $h(x)$.",
@@ -7354,19 +7354,19 @@
      "type": "example",
      "data": {
       "heading": "Problem 8 — Limit of Product with Shift",
-      "problem": "Find $\\lim_{x\\to 6} [(x + 1)f(x)]$",
+      "problem": "Find $\\lim_{x→ 6} [(x + 1)f(x)]$",
       "steps": [
        {
         "text": "Apply the product law"
        },
        {
-        "text": "Evaluate $\\lim_{x\\to 6} (x + 1)$"
+        "text": "Evaluate $\\lim_{x→ 6} (x + 1)$"
        },
        {
         "text": "Substitute the given limit"
        }
       ],
-      "result": "$(6 + 1) \\cdot 4 = 28$"
+      "result": "$(6 + 1) · 4 = 28$"
      },
      "narr": [
       "This limit involves a shifted function multiplied by $f(x)$.",
@@ -7383,7 +7383,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 9 — Limit of Product Minus Function",
-      "problem": "Find $\\lim_{x\\to 6} [f(x)g(x) - h(x)]$",
+      "problem": "Find $\\lim_{x→ 6} [f(x)g(x) - h(x)]$",
       "steps": [
        {
         "text": "Apply the product law"
@@ -7395,7 +7395,7 @@
         "text": "Substitute the given limits"
        }
       ],
-      "result": "$4 \\cdot 9 - 6 = 30$"
+      "result": "$4 · 9 - 6 = 30$"
      },
      "narr": [
       "This limit combines a product and a difference.",
@@ -7412,7 +7412,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 10 — Piecewise Function at Boundary",
-      "problem": "For $f(x) = \\begin{cases} x^2 & x \\leq 3 \\\\ x + 4 & x > 3 \\end{cases}$, find a. $\\lim_{x\\to 3^-} f(x)$, b. $\\lim_{x\\to 3^+} f(x)$",
+      "problem": "For $f(x) = \\begin{cases} x^2 & x \\leq 3 \\\\ x + 4 & x > 3 \\end{cases}$, find a. $\\lim_{x→ 3^-} f(x)$, b. $\\lim_{x→ 3^+} f(x)$",
       "steps": [
        {
         "text": "Evaluate left limit using parabolic branch"
@@ -7443,7 +7443,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 11 — Piecewise Function with Discontinuity",
-      "problem": "For $g(x) = \\begin{cases} \\frac{x^3 - 1}{x} & x \\leq 0 \\\\ 1 & x > 0 \\end{cases}$, find a. $\\lim_{x\\to 0^-} g(x)$, b. $\\lim_{x\\to 0^+} g(x)$",
+      "problem": "For $g(x) = \\begin{cases} \\frac{x^3 - 1}{x} & x \\leq 0 \\\\ 1 & x > 0 \\end{cases}$, find a. $\\lim_{x→ 0^-} g(x)$, b. $\\lim_{x→ 0^+} g(x)$",
       "steps": [
        {
         "text": "Evaluate left limit using cubic branch"
@@ -7474,7 +7474,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 12 — Continuous Piecewise Function",
-      "problem": "For $h(x) = \\begin{cases} x^2 - 2x + 1 & x < 2 \\\\ 3 - x & x \\geq 2 \\end{cases}$, find a. $\\lim_{x\\to 2^-} h(x)$, b. $\\lim_{x\\to 2^+} h(x)$",
+      "problem": "For $h(x) = \\begin{cases} x^2 - 2x + 1 & x < 2 \\\\ 3 - x & x \\geq 2 \\end{cases}$, find a. $\\lim_{x→ 2^-} h(x)$, b. $\\lim_{x→ 2^+} h(x)$",
       "steps": [
        {
         "text": "Evaluate left limit using quadratic branch"
@@ -7505,7 +7505,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 13 — Sum of Functions from Graph",
-      "problem": "Given $f(x) = |x + 2|$ and piecewise $g(x)$ with linear left branch $g(x) = -x - 6$ and curvilinear right branch, calculate $\\lim_{x\\to -3^+} [f(x) + g(x)]$",
+      "problem": "Given $f(x) = |x + 2|$ and piecewise $g(x)$ with linear left branch $g(x) = -x - 6$ and curvilinear right branch, calculate $\\lim_{x→ -3^+} [f(x) + g(x)]$",
       "steps": [
        {
         "text": "Evaluate $f(-3)$"
@@ -7567,7 +7567,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 15 — Quotient of Functions from Graph",
-      "problem": "Calculate $\\lim_{x\\to 0} \\frac{3f(x)}{g(x)}$ using the given functions",
+      "problem": "Calculate $\\lim_{x→ 0} $\\frac{3f(x)}${g(x)}$ using the given functions",
       "steps": [
        {
         "text": "Evaluate $f(0)$"
@@ -7579,7 +7579,7 @@
         "text": "Apply quotient and product laws"
        }
       ],
-      "result": "$\\frac{3 \\cdot 2}{-2} = -3$"
+      "result": "$\\frac{3 · 2}{-2} = -3$"
      },
      "narr": [
       "For this limit at $x = 0$, we need to evaluate a quotient of functions.",
@@ -7598,7 +7598,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 16 — One-Sided Limit from Graph",
-      "problem": "Calculate $\\lim_{x\\to -3} \\frac{f(x)}{x + 2}$ using the given functions",
+      "problem": "Calculate $\\lim_{x→ -3} $\\frac{f(x)}${x + 2}$ using the given functions",
       "steps": [
        {
         "text": "Evaluate left limit"
@@ -7629,7 +7629,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 17 — Power of Function from Graph",
-      "problem": "Calculate $\\lim_{x\\to 1} [f(x)]^2$ using the given functions",
+      "problem": "Calculate $\\lim_{x→ 1} [f(x)]^2$ using the given functions",
       "steps": [
        {
         "text": "Evaluate $f(1)$"
@@ -7655,7 +7655,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 18 — Difference with Root from Graph",
-      "problem": "Calculate $\\lim_{x\\to 1} \\sqrt[3]{f(x) - g(x)}$ using the given functions",
+      "problem": "Calculate $\\lim_{x→ 1} \\sqrt[3]{f(x) - g(x)}$ using the given functions",
       "steps": [
        {
         "text": "Evaluate $f(1)$ and $g(1)$ from the graph"
@@ -7686,7 +7686,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 19 — Product with Variable from Graph",
-      "problem": "Calculate $\\lim_{x\\to -7} x \\cdot g(x)$ using the given functions",
+      "problem": "Calculate $\\lim_{x→ -7} x · g(x)$ using the given functions",
       "steps": [
        {
         "text": "Evaluate $g(-7)$ from the linear branch"
@@ -7695,7 +7695,7 @@
         "text": "Apply the product law"
        }
       ],
-      "result": "$(-7) \\cdot 1 = -7$"
+      "result": "$(-7) · 1 = -7$"
      },
      "narr": [
       "For this limit, we need to evaluate the product of $x$ and $g(x)$ as $x$ approaches $-7$.",
@@ -7712,7 +7712,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 20 — Linear Combination from Graph",
-      "problem": "Calculate $\\lim_{x\\to -9} [x \\cdot f(x) + 2g(x)]$ using the given functions",
+      "problem": "Calculate $\\lim_{x→ -9} [x · f(x) + 2g(x)]$ using the given functions",
       "steps": [
        {
         "text": "Evaluate $f(-9)$ and $g(-9)$"
@@ -7724,7 +7724,7 @@
         "text": "Apply the sum law"
        }
       ],
-      "result": "$(-9) \\cdot 7 + 2 \\cdot 3 = -63 + 6 = -57$"
+      "result": "$(-9) · 7 + 2 · 3 = -63 + 6 = -57$"
      },
      "narr": [
       "For this limit, we need to evaluate a linear combination of $f(x)$ and $g(x)$.",
@@ -7743,7 +7743,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 21 — Squeeze Theorem Application",
-      "problem": "True or false: if $2x - 1 \\leq g(x) \\leq x^2 - 2x + 3$ near $x = 2$, then $\\lim_{x\\to 2} g(x) = 0$",
+      "problem": "True or false: if $2x - 1 ≤ g(x) ≤ x^2 - 2x + 3$ near $x = 2$, then $\\lim_{x→ 2} g(x) = 0$",
       "steps": [
        {
         "text": "Evaluate the bounds at $x = 2$"
@@ -7755,7 +7755,7 @@
         "text": "Determine if the statement is true"
        }
       ],
-      "result": "Incorrect. Both bounds equal 3, so $\\lim_{x\\to 2} g(x) = 3$, not 0."
+      "result": "Incorrect. Both bounds equal 3, so $\\lim_{x→ 2} g(x) = 3$, not 0."
      },
      "narr": [
       "For this problem, we need to determine if the squeeze theorem implies that the limit is 0.",
@@ -7774,7 +7774,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 22 — Trigonometric Limit with Squeeze Theorem",
-      "problem": "Find $\\lim_{\\theta\\to 0} \\theta^2 \\cos \\frac{1}{\\theta}$",
+      "problem": "Find $\\lim_{\\theta→ 0} \\theta^2 \\cos $\\frac{1}${\\theta}$",
       "steps": [
        {
         "text": "Establish bounds for cosine"
@@ -7805,7 +7805,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 23 — Discontinuous Function with Squeeze Theorem",
-      "problem": "Find $\\lim_{x\\to 0} f(x)$, where $f(x) = \\begin{cases} 0 & x \\text{ rational} \\\\ x^2 & x \\text{ irrational} \\end{cases}$",
+      "problem": "Find $\\lim_{x→ 0} f(x)$, where $f(x) = \\begin{cases} 0 & x \\text{ rational} \\\\ x^2 & x \\text{ irrational} \\end{cases}$",
       "steps": [
        {
         "text": "Establish bounds for $f(x)$"
@@ -7836,10 +7836,10 @@
      "type": "example",
      "data": {
       "heading": "Problem 24 — Coulomb's Law Application",
-      "problem": "Given Coulomb's law $E(r) = \\frac{q}{4\\pi\\epsilon_0 r^2}$ with $q = 10^{-19}$, compute $\\lim_{r\\to 0^+} E(r)$ and interpret",
+      "problem": "Given Coulomb's law $E(r) = $\\frac{q}${4\\pi\\epsilon_0 r^2}$ with $q = 10^{-19}$, compute $\\lim_{r→ 0^+} E(r)$ and interpret",
       "steps": [
        {
-        "text": "Analyze the function as $r \\to 0^+$"
+        "text": "Analyze the function as $r → 0^+$"
        },
        {
         "text": "Evaluate the limit"
@@ -7848,7 +7848,7 @@
         "text": "Interpret the physical meaning"
        }
       ],
-      "result": "$\\lim_{r\\to 0^+} E(r) = +\\infty$ (Electric field becomes infinite as distance approaches zero)"
+      "result": "$\\lim_{r→ 0^+} E(r) = +\\infty$ (Electric field becomes infinite as distance approaches zero)"
      },
      "narr": [
       "This problem involves Coulomb's law, which describes the electric field $E$ at distance $r$ from a point charge.",

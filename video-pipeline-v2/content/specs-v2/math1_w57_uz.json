@@ -50,7 +50,7 @@
       "heading": "Nuqtadagi uzluksizlik ta'rifi",
       "bullets": [
        "Funksiya uzluksiz deb ataladi, agar uning grafigi qalamni qog'ozdan uzmasdan chizish mumkin bo'lsa.",
-       "Rasmiy ravishda: f funksiyasi x = a nuqtasida uzluksiz, agar $\\lim_{x \\to a} f(x) = f(a)$"
+       "Rasmiy ravishda: f funksiyasi x = a nuqtasida uzluksiz, agar _x → a f(x) = f(a)"
       ]
      },
      "narr": [
@@ -71,7 +71,7 @@
       "tex": "\\lim_{x \\to a} f(x) = f(a)",
       "parts": [
        {
-        "substr": "\\lim_{x \\to a}",
+        "substr": "_x a",
         "color": "#4C5FD5",
         "note": "x a ga intilganda"
        },
@@ -107,12 +107,12 @@
       "tex": "\\lim_{x \\to a^-} f(x) = \\lim_{x \\to a^+} f(x) = f(a)",
       "parts": [
        {
-        "substr": "\\lim_{x \\to a^-}",
+        "substr": "_x a^-",
         "color": "#4C5FD5",
         "note": "chap chegaralar limiti"
        },
        {
-        "substr": "\\lim_{x \\to a^+}",
+        "substr": "_x a^+",
         "color": "#4C5FD5",
         "note": "o'ng chegaralar limiti"
        },
@@ -2939,12 +2939,12 @@
       "tex": "m_{tan} = \\lim_{x \\to a} \\frac{f(x) - f(a)}{x - a}",
       "parts": [
        {
-        "substr": "\\lim_{x \\to a}",
+        "substr": "_x a",
         "color": "#4C5FD5",
         "note": "limit"
        },
        {
-        "substr": "\\frac{f(x) - f(a)}{x - a}",
+        "substr": "(f(x) - f(a))/(x - a)",
         "color": "#B45309",
         "note": "farq nisbati"
        }
@@ -2968,12 +2968,12 @@
       "tex": "m_{tan} = \\lim_{h \\to 0} \\frac{f(a + h) - f(a)}{h}",
       "parts": [
        {
-        "substr": "\\lim_{h \\to 0}",
+        "substr": "_h 0",
         "color": "#4C5FD5",
         "note": "limit"
        },
        {
-        "substr": "\\frac{f(a + h) - f(a)}{h}",
+        "substr": "(f(a + h) - f(a))/h",
         "color": "#B45309",
         "note": "farq nisbati"
        }
@@ -3026,12 +3026,12 @@
         "note": "hosila"
        },
        {
-        "substr": "\\lim_{x \\to a}",
+        "substr": "_x a",
         "color": "#B45309",
         "note": "limit"
        },
        {
-        "substr": "\\frac{f(x) - f(a)}{x - a}",
+        "substr": "(f(x) - f(a))/(x - a)",
         "color": "#0E7C7B",
         "note": "farq nisbati"
        }
@@ -5618,15 +5618,15 @@
      },
      "narr": [
       "Bog'liq tezliklar masalalarida ko'p geometrik formulalardan foydalanamiz.",
-      "Sharning hajmi formulasi $V = \\frac{4}{3}\\pi r^3$",
-      "Sharning sirt yuzasi $S = 4\\pi r^2$",
-      "Aylananing yuzasi $A = \\pi r^2$",
-      "Aylananing uzunligi $C = 2\\pi r$",
-      "Silindrning hajmi $V = \\pi r^2 h$",
-      "Konusning hajmi $V = \\frac{1}{3}\\pi r^2 h$",
-      "Uchburchakning yuzasi $A = \\frac{1}{2} \\cdot asos \\cdot balandlik$",
+      "Sharning hajmi formulasi V = 4/3π r³",
+      "Sharning sirt yuzasi S = 4π r²",
+      "Aylananing yuzasi A = π r²",
+      "Aylananing uzunligi C = 2π r",
+      "Silindrning hajmi V = π r² h",
+      "Konusning hajmi V = 1/3π r² h",
+      "Uchburchakning yuzasi A = 1/2 · asos · balandlik",
       "To'g'ri burchakli uchburchakda Pifagor teoremasi $a^2 + b^2 = c^2$",
-      "O'xshash uchburchaklarda mos tomonlar proporsional, masalan $\\frac{15}{x + s} = \\frac{6}{s}$"
+      "O'xshash uchburchaklarda mos tomonlar proporsional, masalan 15/(x + s) = 6/s"
      ],
      "narr_item": [
       -1,
@@ -5646,17 +5646,17 @@
      "data": {
       "heading": "Foydali natijalar",
       "bullets": [
-       "Agar konus asosining diametri balandligiga teng bo'lsa (2r = h), u holda $V = \\frac{1}{3}\\pi(\\frac{h}{2})^2 \\cdot h = \\frac{\\pi}{12}h^3$",
-       "$\\frac{dV}{dt} = \\frac{\\pi h^2}{4} \\cdot \\frac{dh}{dt}$ — bu formula ikki mashqda uchraydi",
-       "Konus shaklidagi bakdagi suv bakka o'xshash konus hosil qiladi, shuning uchun $\\frac{r}{h} = \\frac{R}{H}$",
+       "Agar konus asosining diametri balandligiga teng bo'lsa (2r = h), u holda V = 1/3π(h/2)² · h = π/12h³",
+       "dV/dt = (π h²)/4 · dh/dt — bu formula ikki mashqda uchraydi",
+       "Konus shaklidagi bakdagi suv bakka o'xshash konus hosil qiladi, shuning uchun r/h = R/H",
        "Soy masalasi ham uchburchaklarning o'xshashligi bilan yechiladi"
       ]
      },
      "narr": [
       "Ba'zi foydali natijalarni eslaymiz:",
-      "Agar konus asosining diametri balandligiga teng bo'lsa (2r = h), u holda hajm formulasi $V = \\frac{1}{3}\\pi(\\frac{h}{2})^2 \\cdot h = \\frac{\\pi}{12}h^3$ bo'ladi",
-      "Va unga nisbatan differensiallanganda $\\frac{dV}{dt} = \\frac{\\pi h^2}{4} \\cdot \\frac{dh}{dt}$ hosil bo'ladi, bu formula ikki mashqda uchraydi",
-      "Konus shaklidagi bakdagi suv bakka o'xshash konus hosil qiladi, shuning uchun $\\frac{r}{h} = \\frac{R}{H}$ nisbat o'rinli",
+      "Agar konus asosining diametri balandligiga teng bo'lsa (2r = h), u holda hajm formulasi V = 1/3π(h/2)² · h = π/12h³ bo'ladi",
+      "Va unga nisbatan differensiallanganda dV/dt = (π h²)/4 · dh/dt hosil bo'ladi, bu formula ikki mashqda uchraydi",
+      "Konus shaklidagi bakdagi suv bakka o'xshash konus hosil qiladi, shuning uchun r/h = R/H nisbat o'rinli",
       "Soy masalasi ham uchburchaklarning o'xshashligi bilan yechiladi"
      ],
      "narr_item": [
@@ -5672,12 +5672,12 @@
      "data": {
       "heading": "Asosiy hosila qoidalari",
       "bullets": [
-       "$\\frac{d}{dx}(x^n) = n \\cdot x^{n-1}$",
+       "d/dx(x^n) = n · x^(n-1)",
        "$(f + g)' = f' + g'$",
        "$(f - g)' = f' - g'$",
-       "$(k \\cdot f)' = k \\cdot f'$ (3.3-3.4 teoremalari)",
-       "$(f \\cdot g)' = f' \\cdot g + g' \\cdot f$ (ko'paytma qoidasi, 3.5 teoremasi)",
-       "$(\\frac{f}{g})' = \\frac{f' \\cdot g - g' \\cdot f}{g^2}$ (bo'linma qoidasi, 3.6 teoremasi)"
+       "$(k · f)' = k · f'$ (3.3-3.4 teoremalari)",
+       "$(f · g)' = f' · g + g' · f$ (ko'paytma qoidasi, 3.5 teoremasi)",
+       "(f/g)' = (f' · g - g' · f)/g² (bo'linma qoidasi, 3.6 teoremasi)"
       ]
      },
      "narr": [
@@ -5704,7 +5704,7 @@
       "problem": "$j(x) = (x^2+2)(3x^3-5x)$ uchun ko'paytma qoidasi bilan hosilani toping",
       "steps": [
        {
-        "text": "Ko'paytma qoidasini qo'llaymiz: $(f \\cdot g)' = f' \\cdot g + g' \\cdot f$"
+        "text": "Ko'paytma qoidasini qo'llaymiz: $(f · g)' = f' · g + g' · f$"
        },
        {
         "text": "$f(x) = x^2+2$, shuning uchun $f'(x) = 2x$"
@@ -5713,7 +5713,7 @@
         "text": "$g(x) = 3x^3-5x$, shuning uchun $g'(x) = 9x^2-5$"
        },
        {
-        "text": "Hosilani hisoblaymiz: $j'(x) = 2x \\cdot (3x^3-5x) + (9x^2-5) \\cdot (x^2+2)$"
+        "text": "Hosilani hisoblaymiz: $j'(x) = 2x · (3x^3-5x) + (9x^2-5) · (x^2+2)$"
        },
        {
         "text": "Ifodani soddalashtiramiz: $j'(x) = 6x^4-10x^2 + 9x^4+18x^2-5x^2-10$"
@@ -5747,10 +5747,10 @@
      "type": "example",
      "data": {
       "heading": "3.25-misol",
-      "problem": "$k(x) = \\frac{5x^2}{4x+3}$ uchun bo'linma qoidasi bilan hosilani toping",
+      "problem": "$k(x) = $5x^2${4x+3}$ uchun bo'linma qoidasi bilan hosilani toping",
       "steps": [
        {
-        "text": "Bo'linma qoidasini qo'llaymiz: $(\\frac{f}{g})' = \\frac{f' \\cdot g - g' \\cdot f}{g^2}$"
+        "text": "Bo'linma qoidasini qo'llaymiz: (f/g)' = f' · g - g' · fg²"
        },
        {
         "text": "$f(x) = 5x^2$, shuning uchun $f'(x) = 10x$"
@@ -5759,16 +5759,16 @@
         "text": "$g(x) = 4x+3$, shuning uchun $g'(x) = 4$"
        },
        {
-        "text": "Hosilani hisoblaymiz: $k'(x) = \\frac{10x(4x+3) - 4 \\cdot 5x^2}{(4x+3)^2}$"
+        "text": "Hosilani hisoblaymiz: $k'(x) = $10x(4x+3) - 4 · 5x^2${(4x+3)^2}$"
        },
        {
-        "text": "Ifodani soddalashtiramiz: $k'(x) = \\frac{40x^2+30x-20x^2}{(4x+3)^2}$"
+        "text": "Ifodani soddalashtiramiz: $k'(x) = $40x^2+30x-20x^2${(4x+3)^2}$"
        },
        {
-        "text": "Natija: $k'(x) = \\frac{20x^2+30x}{(4x+3)^2}$"
+        "text": "Natija: $k'(x) = $20x^2+30x${(4x+3)^2}$"
        }
       ],
-      "result": "$k'(x) = \\frac{20x^2+30x}{(4x+3)^2}$"
+      "result": "$k'(x) = $20x^2+30x${(4x+3)^2}$"
      },
      "narr": [
       "Bu yerda bo'linma qoidasini qo'llaymiz.",
@@ -5792,12 +5792,12 @@
      "data": {
       "heading": "Asosiy trigonometrik funksiyalar hosilalari",
       "bullets": [
-       "$\\frac{d}{dx}(\\sin x) = \\cos x$",
-       "$\\frac{d}{dx}(\\cos x) = -\\sin x$ (teorema 3.8)",
-       "$\\frac{d}{dx}(\\tan x) = \\sec^2 x$",
-       "$\\frac{d}{dx}(\\cot x) = -\\csc^2 x$",
-       "$\\frac{d}{dx}(\\sec x) = \\sec x \\cdot \\tan x$",
-       "$\\frac{d}{dx}(\\csc x) = -\\csc x \\cdot \\cot x$ (teorema 3.9)"
+       "d/dx(sin x) = cos x",
+       "d/dx(cos x) = -sin x (teorema 3.8)",
+       "d/dx(tan x) = ² x",
+       "d/dx( x) = -² x",
+       "d/dx( x) = x · tan x",
+       "d/dx( x) = - x · x (teorema 3.9)"
       ]
      },
      "narr": [
@@ -5843,9 +5843,9 @@
        "Hosilaning ta'rifiga asosan",
        "Sinus yig'indisi formulasiga",
        "Iki ajoyib limitga asoslanadi:",
-       "$\\lim_{h \\to 0} \\frac{\\sin h}{h} = 1$",
-       "$\\lim_{h \\to 0} \\frac{\\cos h - 1}{h} = 0$",
-       "$\\sin(x + h) = \\sin x \\cdot \\cos h + \\cos x \\cdot \\sin h$"
+       "_h → 0 (sin h)/h = 1",
+       "_h → 0 (cos h - 1)/h = 0",
+       "sin(x + h) = sin x · cos h + cos x · sin h"
       ]
      },
      "narr": [
@@ -5902,7 +5902,7 @@
       "heading": "Sinusning yuqori tartibli hosilalari",
       "bullets": [
        "4 davrli siklga ega:",
-       "$\\sin x \\to \\cos x \\to -\\sin x \\to -\\cos x \\to \\sin x \\to ...$"
+       "sin x → cos x → -sin x → -cos x → sin x → ..."
       ]
      },
      "narr": [
@@ -5918,7 +5918,7 @@
      "type": "example",
      "data": {
       "heading": "Misol — darslik 3.45-3.46-misol",
-      "problem": "$\\frac{d^{74}}{dx^{74}}(\\sin x)$ ni toping",
+      "problem": "d^(74)/dx^(74)(sin x) ni toping",
       "steps": [
        {
         "text": "74 = 4 · 18 + 2 ekanligini aniqlaymiz"
@@ -5927,7 +5927,7 @@
         "text": "74-hosila siklda 2-o'rin turadi: -sin x"
        }
       ],
-      "result": "$\\frac{d^{74}}{dx^{74}}(\\sin x) = -\\sin x$"
+      "result": "d^(74)/dx^(74)(sin x) = -sin x"
      },
      "narr": [
       "Endi yuqori tartibli hosila misolini ko'rib chiqaylik.",
@@ -5949,12 +5949,12 @@
      "data": {
       "heading": "Asosli ko'rsatkichli va logarifmik funksiyalar hosilalari",
       "bullets": [
-       "$\\frac{d}{dx}(e^x) = e^x$",
-       "$\\frac{d}{dx}(e^{g(x)}) = e^{g(x)} \\cdot g'(x)$ (teorema 3.14)",
-       "$\\frac{d}{dx}(b^x) = b^x \\cdot \\ln b$",
-       "$\\frac{d}{dx}(\\ln x) = \\frac{1}{x}$",
-       "$\\frac{d}{dx}(\\ln(g(x))) = \\frac{g'(x)}{g(x)}$",
-       "$\\frac{d}{dx}(\\log_b x) = \\frac{1}{x \\cdot \\ln b}$ (teoremalar 3.15-3.16)"
+       "d/dx(e^x) = e^x",
+       "d/dx(e^(g(x))) = e^(g(x)) · g'(x) (teorema 3.14)",
+       "d/dx(b^x) = b^x · ln b",
+       "d/dx(ln x) = 1/x",
+       "d/dx(ln(g(x))) = g'(x)/g(x)",
+       "d/dx(log_b x) = 1/(x · ln b) (teoremalar 3.15-3.16)"
       ]
      },
      "narr": [
@@ -6002,13 +6002,13 @@
       "problem": "Berilgan funksiyalarning hosilalarini toping:",
       "steps": [
        {
-        "text": "$(e^{2x})' = 2 \\cdot e^{2x}$"
+        "text": "$(e^{2x})' = 2 · e^{2x}$"
        },
        {
-        "text": "$(e^{3x^2})' = 6x \\cdot e^{3x^2}$"
+        "text": "$(e^{3x^2})' = 6x · e^{3x^2}$"
        },
        {
-        "text": "$(e^{3x^2+5x^3})' = (6x + 15x^2) \\cdot e^{3x^2+5x^3}$"
+        "text": "$(e^{3x^2+5x^3})' = (6x + 15x^2) · e^{3x^2+5x^3}$"
        }
       ],
       "result": "Natijalar yuqorida ko'rsatilgan"
@@ -6031,11 +6031,11 @@
      "data": {
       "heading": "Ko'rsatkichlar qonuni (a, b > 0)",
       "bullets": [
-       "$b^x \\cdot b^y = b^{x+y}$",
-       "$\\frac{b^x}{b^y} = b^{x-y}$",
+       "$b^x · b^y = b^{x+y}$",
+       "b^x/b^y = b^(x-y)",
        "$(b^x)^y = b^{xy}$",
-       "$(ab)^x = a^x \\cdot b^x$",
-       "$(\\frac{a}{b})^x = \\frac{a^x}{b^x}$"
+       "$(ab)^x = a^x · b^x$",
+       "(a/b)^x = a^x/b^x"
       ]
      },
      "narr": [
@@ -6060,9 +6060,9 @@
      "data": {
       "heading": "Logarifmlar xossalari (a, b, c > 0, b ≠ 1)",
       "bullets": [
-       "$\\log_b(a \\cdot c) = \\log_b a + \\log_b c$",
-       "$\\log_b(\\frac{a}{c}) = \\log_b a - \\log_b c$",
-       "$\\log_b(a^r) = r \\cdot \\log_b a$"
+       "log_b(a · c) = log_b a + log_b c",
+       "log_b(a/c) = log_b a - log_b c",
+       "log_b(a^r) = r · log_b a"
       ]
      },
      "narr": [
@@ -6083,9 +6083,9 @@
      "data": {
       "heading": "Asosni o'zgartirish",
       "bullets": [
-       "$a^x = e^{x \\cdot \\ln a}$",
-       "$\\log_a x = \\frac{\\ln x}{\\ln a}$",
-       "ln a doimiy bo'lgani uchun, $(\\log_a x)' = \\frac{1}{x \\cdot \\ln a}$"
+       "a^x = e^(x · ln a)",
+       "log_a x = (ln x)/(ln a)",
+       "ln a doimiy bo'lgani uchun, (log_a x)' = 1/(x · ln a)"
       ]
      },
      "narr": [
@@ -6788,37 +6788,37 @@
      "type": "example",
      "data": {
       "heading": "Misol 1 — Hosilalarni hisoblash",
-      "problem": "$f(x) = 2 \\cdot \\ln x - \\log_{10} x$ funksiyaning $x=1$ nuqtasida togʻri chiziq tenglamasini toping.",
+      "problem": "f(x) = 2 · ln x - log_10 x funksiyaning x=1 nuqtasida togʻri chiziq tenglamasini toping.",
       "steps": [
        {
-        "text": "$\\ln x$ funksiyasining hosilasi $\\frac{1}{x}$"
+        "text": "ln x funksiyasining hosilasi 1/x"
        },
        {
-        "text": "$\\log_{10} x$ ni $\\ln x / \\ln 10$ orqali ifodalaymiz"
+        "text": "log_10 x ni ln x / ln 10 orqali ifodalaymiz"
        },
        {
-        "text": "$(\\log_{10} x)' = \\frac{1}{x \\cdot \\ln 10}$"
+        "text": "(log_10 x)' = 1x · ln 10"
        },
        {
-        "text": "$f'(x) = \\frac{2}{x} - \\frac{1}{x \\cdot \\ln 10}$"
+        "text": "f'(x) = 2/x - 1x · ln 10"
        },
        {
-        "text": "$x=1$ da $f(1) = 2 \\cdot \\ln 1 - \\log_{10} 1 = 0$"
+        "text": "x=1 da f(1) = 2 · ln 1 - log_10 1 = 0"
        },
        {
-        "text": "$x=1$ da $f'(1) = 2 - \\frac{1}{\\ln 10}$"
+        "text": "x=1 da f'(1) = 2 - 1ln 10"
        }
       ],
-      "result": "Togʻri chiziq: $y = \\left(2 - \\frac{1}{\\ln 10}\\right) \\cdot (x - 1)$"
+      "result": "Togʻri chiziq: y = ≤ft(2 - 1/(ln 10)) · (x - 1)"
      },
      "narr": [
-      "Keling, birinchi misolni koʻrib chiqaylik. Bizda $f(x) = 2 \\cdot \\ln x - \\log_{10} x$ funksiyasi berilgan.",
-      "Avvalo, $\\ln x$ funksiyasining hosilasini bilamiz, u $\\frac{1}{x}$ ga teng.",
-      "$\\log_{10} x$ ni ifodalash uchun esa $\\ln x / \\ln 10$ formulasidan foydalanamiz.",
-      "Shunday qilib, $\\log_{10} x$ ning hosilasi $\\frac{1}{x \\cdot \\ln 10}$ boʻladi.",
-      "Endi $f(x)$ funksiyasining hosilasini hisoblaymiz: $f'(x) = \\frac{2}{x} - \\frac{1}{x \\cdot \\ln 10}$",
+      "Keling, birinchi misolni koʻrib chiqaylik. Bizda f(x) = 2 · ln x - log_10 x funksiyasi berilgan.",
+      "Avvalo, ln x funksiyasining hosilasini bilamiz, u 1/x ga teng.",
+      "log_10 x ni ifodalash uchun esa ln x / ln 10 formulasidan foydalanamiz.",
+      "Shunday qilib, log_10 x ning hosilasi 1/(x · ln 10) boʻladi.",
+      "Endi f(x) funksiyasining hosilasini hisoblaymiz: f'(x) = 2/x - 1/(x · ln 10)",
       "$x=1$ nuqtada funksiya qiymati $f(1) = 0$ ekanligini koʻramiz.",
-      "Va $x=1$ da hosilaning qiymati $f'(1) = 2 - \\frac{1}{\\ln 10}$",
+      "Va x=1 da hosilaning qiymati f'(1) = 2 - 1/(ln 10)",
       "Demak, $x=1$ nuqtadagi togʻri chiziq tenglamasi shu koʻrinishda boʻladi."
      ],
      "narr_item": [
@@ -6836,24 +6836,24 @@
      "type": "example",
      "data": {
       "heading": "Mashq 7 — Hosilalar",
-      "problem": "Differensiallang: a) $f(x) = x \\cdot \\ln x$, $x > 0$; b) $g(x) = \\frac{e^x}{x}$, $x \\neq 0$.",
+      "problem": "Differensiallang: a) f(x) = x · ln x, x > 0; b) g(x) = e^xx, x ≠ 0.",
       "steps": [
        {
-        "text": "a) Koʻpaytma qoidasini qoʻllaymiz: $f'(x) = 1 \\cdot \\ln x + x \\cdot \\frac{1}{x} = \\ln x + 1$"
+        "text": "a) Koʻpaytma qoidasini qoʻllaymiz: f'(x) = 1 · ln x + x · 1/x = ln x + 1"
        },
        {
-        "text": "b) Boʻlinma qoidasini qoʻllaymiz: $g'(x) = \\frac{x \\cdot e^x - e^x \\cdot 1}{x^2} = \\frac{e^x \\cdot (x - 1)}{x^2}$"
+        "text": "b) Boʻlinma qoidasini qoʻllaymiz: g'(x) = (x · e^x - e^x · 1)/x² = e^x · (x - 1)x²"
        }
       ],
-      "result": "a) $f'(x) = \\ln x + 1$; b) $g'(x) = \\frac{e^x \\cdot (x - 1)}{x^2}$"
+      "result": "a) f'(x) = ln x + 1; b) g'(x) = e^x · (x - 1)x²"
      },
      "narr": [
       "Endi birinchi mashqni koʻrib chiqaylik. Ushbu ikkita funksiyani differensiallash kerak.",
-      "a) Koʻrinishda $f(x) = x \\cdot \\ln x$ koʻpaytma funksiya. Koʻpaytma qoidasini qoʻllaymiz: birinchi hadning hosilasi ikkinchisiga, ikkinchi hadning hosilasi birinchisiga koʻpaytiramiz.",
-      "Shunday qilib, $f'(x) = 1 \\cdot \\ln x + x \\cdot \\frac{1}{x} = \\ln x + 1$",
-      "b) Ikkinchi funksiya $g(x) = \\frac{e^x}{x}$ boʻlib, bu boʻlinma funksiya. Boʻlinma qoidasini qoʻllaymiz.",
+      "a) Koʻrinishda f(x) = x · ln x koʻpaytma funksiya. Koʻpaytma qoidasini qoʻllaymiz: birinchi hadning hosilasi ikkinchisiga, ikkinchi hadning hosilasi birinchisiga koʻpaytiramiz.",
+      "Shunday qilib, f'(x) = 1 · ln x + x · 1/x = ln x + 1",
+      "b) Ikkinchi funksiya g(x) = e^x/x boʻlib, bu boʻlinma funksiya. Boʻlinma qoidasini qoʻllaymiz.",
       "Numeratorning hosilasi denominator, minus denominatorning hosilasi numerator, hammasi denominator kvadratga boʻlinadi.",
-      "Natija: $g'(x) = \\frac{x \\cdot e^x - e^x \\cdot 1}{x^2} = \\frac{e^x \\cdot (x - 1)}{x^2}$"
+      "Natija: g'(x) = (x · e^x - e^x · 1)/x² = (e^x · (x - 1))/x²"
      ],
      "narr_item": [
       -1,
@@ -6868,7 +6868,7 @@
      "type": "example",
      "data": {
       "heading": "Mashq 8 — Hosilalar",
-      "problem": "$f(x) = x^2 \\cdot e^x$ funksiyasining birinchi hosilasini toping.",
+      "problem": "$f(x) = x^2 · e^x$ funksiyasining birinchi hosilasini toping.",
       "steps": [
        {
         "text": "Koʻpaytma qoidasini qoʻllaymiz: $u(x) = x^2$, $v(x) = e^x$"
@@ -6877,25 +6877,25 @@
         "text": "$u'(x) = 2x$, $v'(x) = e^x$"
        },
        {
-        "text": "$(u \\cdot v)' = u' \\cdot v + u \\cdot v'$"
+        "text": "$(u · v)' = u' · v + u · v'$"
        },
        {
-        "text": "$f'(x) = 2x \\cdot e^x + x^2 \\cdot e^x = e^x \\cdot (x^2 + 2x)$"
+        "text": "$f'(x) = 2x · e^x + x^2 · e^x = e^x · (x^2 + 2x)$"
        },
        {
-        "text": "Soddalashtiramiz: $f'(x) = x \\cdot e^x \\cdot (x + 2)$"
+        "text": "Soddalashtiramiz: $f'(x) = x · e^x · (x + 2)$"
        }
       ],
-      "result": "$f'(x) = x \\cdot e^x \\cdot (x + 2)$, $x \\in \\mathbb{R}$"
+      "result": "f'(x) = x · e^x · (x + 2), x R"
      },
      "narr": [
-      "Keyingi mashqda $f(x) = x^2 \\cdot e^x$ funksiyasining hosilasini topishimiz kerak.",
+      "Keyingi mashqda f(x) = x² · e^x funksiyasining hosilasini topishimiz kerak.",
       "Bu koʻpaytma funksiya, shuning uchun koʻpaytma qoidasini qoʻllaymiz.",
       "Birinchi had $u(x) = x^2$ uning hosilasi $u'(x) = 2x$",
       "Ikkinchi had $v(x) = e^x$ uning hosilasi $v'(x) = e^x$",
-      "Koʻpaytma qoidasiga koʻra, $(u \\cdot v)' = u' \\cdot v + u \\cdot v'$",
-      "Shunday qilib, $f'(x) = 2x \\cdot e^x + x^2 \\cdot e^x = e^x \\cdot (x^2 + 2x)$",
-      "Ifodani soddalashtirsak: $f'(x) = x \\cdot e^x \\cdot (x + 2)$"
+      "Koʻpaytma qoidasiga koʻra, (u · v)' = u' · v + u · v'",
+      "Shunday qilib, f'(x) = 2x · e^x + x² · e^x = e^x · (x² + 2x)",
+      "Ifodani soddalashtirsak: f'(x) = x · e^x · (x + 2)"
      ],
      "narr_item": [
       -1,
@@ -6911,33 +6911,33 @@
      "type": "example",
      "data": {
       "heading": "Mashq 9 — Hosilalar",
-      "problem": "Zaryadlanayotgan kondensatorning kuchlanishi $V(t) = 12 \\cdot e^{-t/2}$ V, $t \\geq 0$ (vaqt sekundlarda). $V'(t)$, kuchlanishning boshlangʻich oʻzgarish tezligi va $V'(2)$ ni toping.",
+      "problem": "Zaryadlanayotgan kondensatorning kuchlanishi $V(t) = 12 · e^{-t/2}$ V, $t ≥ 0$ (vaqt sekundlarda). $V'(t)$, kuchlanishning boshlangʻich oʻzgarish tezligi va $V'(2)$ ni toping.",
       "steps": [
        {
         "text": "Koʻrsatkichli funksiyaning hosilasini hisoblaymiz"
        },
        {
-        "text": "$(-t/2)' = -\\frac{1}{2}$"
+        "text": "$(-t/2)' = -$1${2}$"
        },
        {
-        "text": "$V'(t) = 12 \\cdot e^{-t/2} \\cdot (-\\frac{1}{2}) = -6 \\cdot e^{-t/2}$ V/s"
+        "text": "V'(t) = 12 · e^(-t/2) · (-1/2) = -6 · e^(-t/2) V/s"
        },
        {
         "text": "Boshlangʻich tezlik: $V'(0) = -6$ V/s"
        },
        {
-        "text": "$t = 2$ da: $V'(2) = -6 \\cdot e^{-1} = -\\frac{6}{e} \\approx -2.21$ V/s"
+        "text": "t = 2 da: V'(2) = -6 · e⁻¹ = -6/e ≈ -2.21 V/s"
        }
       ],
-      "result": "$V'(t) = -6 \\cdot e^{-t/2}$ V/s, $V'(0) = -6$ V/s, $V'(2) \\approx -2.21$ V/s"
+      "result": "$V'(t) = -6 · e^{-t/2}$ V/s, $V'(0) = -6$ V/s, $V'(2) ≈ -2.21$ V/s"
      },
      "narr": [
-      "Bu mashqda fizikadan misol keltirilgan. Zaryadlanayotgan kondensatorning kuchlanishi $V(t) = 12 \\cdot e^{-t/2}$ V berilgan.",
+      "Bu mashqda fizikadan misol keltirilgan. Zaryadlanayotgan kondensatorning kuchlanishi V(t) = 12 · e^(-t/2) V berilgan.",
       "Biz kuchlanishning vaqt boʻyicha oʻzgarish tezligini, yaʼni $V'(t)$ ni topishimiz kerak.",
-      "Koʻrsatkichli funksiyaning hosilasini hisoblaymiz. Ichki funksiyaning hosilasi $(-t/2)' = -\\frac{1}{2}$",
-      "Shuning uchun $V'(t) = 12 \\cdot e^{-t/2} \\cdot (-\\frac{1}{2}) = -6 \\cdot e^{-t/2}$ V/s",
+      "Koʻrsatkichli funksiyaning hosilasini hisoblaymiz. Ichki funksiyaning hosilasi (-t/2)' = -1/2",
+      "Shuning uchun V'(t) = 12 · e^(-t/2) · (-1/2) = -6 · e^(-t/2) V/s",
       "Boshlangʻich oʻzgarish tezligi $t=0$ da: $V'(0) = -6$ V/s",
-      "$t = 2$ sekundda esa: $V'(2) = -6 \\cdot e^{-1} = -\\frac{6}{e} \\approx -2.21$ V/s",
+      "t = 2 sekundda esa: V'(2) = -6 · e⁻¹ = -6/e ≈ -2.21 V/s",
       "Manfiy belgi kuchlanish kamayayotganligini koʻrsatadi, va bu kamayish tezligi vaqt oʻtishi bilan asta-sekin kamayib boradi."
      ],
      "narr_item": [
@@ -6960,19 +6960,19 @@
         "text": "Tok — zaryadning hosilasi: $I(t) = q'(t) = 3t^2 + 4t + 3$"
        },
        {
-        "text": "$t = 2$ da: $I(2) = 3 \\cdot 2^2 + 4 \\cdot 2 + 3 = 12 + 8 + 3 = 23$ A"
+        "text": "$t = 2$ da: $I(2) = 3 · 2^2 + 4 · 2 + 3 = 12 + 8 + 3 = 23$ A"
        },
        {
         "text": "Oʻrtacha tok — zaryadning oʻrtacha oʻzgarish tezligi"
        },
        {
-        "text": "$q(2) = 2^3 + 2 \\cdot 2^2 + 3 \\cdot 2 = 8 + 8 + 6 = 22$ Kl"
+        "text": "$q(2) = 2^3 + 2 · 2^2 + 3 · 2 = 8 + 8 + 6 = 22$ Kl"
        },
        {
         "text": "$q(0) = 0$"
        },
        {
-        "text": "Oʻrtacha tok: $I_{avg} = \\frac{q(2) - q(0)}{2 - 0} = \\frac{22}{2} = 11$ A"
+        "text": "Oʻrtacha tok: I_avg = (q(2) - q(0))/(2 - 0) = 22/2 = 11 A"
        }
       ]
      },
@@ -6980,7 +6980,7 @@
       "Bu mashqda elektr toki va zaryad oʻrtasidagi bogʻliqlikni koʻrib chiqamiz.",
       "Simning bir nuqtasidan oʻtgan zaryad $q(t) = t^3 + 2t^2 + 3t$ Kl berilgan.",
       "Elektr tok — bu zaryadning vaqt boʻyicha hosilasi: $I(t) = q'(t) = 3t^2 + 4t + 3$",
-      "$t = 2$ da tok qiymati: $I(2) = 3 \\cdot 4 + 4 \\cdot 2 + 3 = 12 + 8 + 3 = 23$ A",
+      "t = 2 da tok qiymati: I(2) = 3 · 4 + 4 · 2 + 3 = 12 + 8 + 3 = 23 A",
       "Endi $[0, 2]$ oraliqdagi oʻrtacha tokni topamiz.",
       "Buning uchun avval $q(2)$ va $q(0)$ ni hisoblaymiz.",
       "$q(2) = 8 + 8 + 6 = 22$ Kl, $q(0) = 0$"
@@ -7005,13 +7005,13 @@
         "text": "Tokning oʻzgarish tezligi: $I'(t) = 6t + 4$"
        },
        {
-        "text": "$t = 2$ da: $I'(2) = 6 \\cdot 2 + 4 = 16$ A/s"
+        "text": "$t = 2$ da: $I'(2) = 6 · 2 + 4 = 16$ A/s"
        }
       ],
       "result": "$I(2) = 23$ A, $I_{avg} = 11$ A, $I'(2) = 16$ A/s"
      },
      "narr": [
-      "Oʻrtacha tok: $I_{avg} = \\frac{q(2) - q(0)}{2 - 0} = \\frac{22}{2} = 11$ A",
+      "Oʻrtacha tok: I_avg = (q(2) - q(0))/(2 - 0) = 22/2 = 11 A",
       "Nihoyat, tokning oʻzgarish tezligini topamiz: $I'(t) = 6t + 4$",
       "$t = 2$ da: $I'(2) = 12 + 4 = 16$ A/s"
      ],
@@ -7025,37 +7025,37 @@
      "type": "example",
      "data": {
       "heading": "Mashq 11 — REVIEW",
-      "problem": "$0 \\leq t \\leq 4$ uchun qurilmaning kuchlanishi $V(t) = 12 - t$ V va tok $I(t) = 1 + t$ A. Elektr quvvatini $P(t)$, uning hosilasini $P'(t)$ va ikkala kattalikning $t = 2$ dagi qiymatlarini toping. (Elektr quvvati $P(t) = V(t) \\cdot I(t)$.).",
+      "problem": "$0 ≤ t ≤ 4$ uchun qurilmaning kuchlanishi $V(t) = 12 - t$ V va tok $I(t) = 1 + t$ A. Elektr quvvatini $P(t)$, uning hosilasini $P'(t)$ va ikkala kattalikning $t = 2$ dagi qiymatlarini toping. (Elektr quvvati $P(t) = V(t) · I(t)$.).",
       "steps": [
        {
-        "text": "Elektr quvvati: $P(t) = V(t) \\cdot I(t) = (12 - t)(1 + t) = 12 + 11t - t^2$ Vt"
+        "text": "Elektr quvvati: $P(t) = V(t) · I(t) = (12 - t)(1 + t) = 12 + 11t - t^2$ Vt"
        },
        {
-        "text": "Koʻpaytma qoidasiga koʻra $P' = V' \\cdot I + V \\cdot I'$"
+        "text": "Koʻpaytma qoidasiga koʻra $P' = V' · I + V · I'$"
        },
        {
         "text": "$V'(t) = -1$, $I'(t) = 1$"
        },
        {
-        "text": "$P'(t) = (-1) \\cdot (1 + t) + (12 - t) \\cdot 1 = -1 - t + 12 - t = 11 - 2t$ Vt/s"
+        "text": "$P'(t) = (-1) · (1 + t) + (12 - t) · 1 = -1 - t + 12 - t = 11 - 2t$ Vt/s"
        },
        {
-        "text": "$t = 2$ da: $P(2) = 12 + 11 \\cdot 2 - 2^2 = 12 + 22 - 4 = 30$ Vt"
+        "text": "$t = 2$ da: $P(2) = 12 + 11 · 2 - 2^2 = 12 + 22 - 4 = 30$ Vt"
        },
        {
-        "text": "$t = 2$ da: $P'(2) = 11 - 2 \\cdot 2 = 11 - 4 = 7$ Vt/s"
+        "text": "$t = 2$ da: $P'(2) = 11 - 2 · 2 = 11 - 4 = 7$ Vt/s"
        }
       ],
       "result": "$P(t) = 12 + 11t - t^2$ Vt, $P'(t) = 11 - 2t$ Vt/s, $P(2) = 30$ Vt, $P'(2) = 7$ Vt/s"
      },
      "narr": [
       "Yana bir mashqda elektr quvvatini hisoblashni koʻrib chiqamiz.",
-      "$0 \\leq t \\leq 4$ oraliqda qurilmaning kuchlanishi $V(t) = 12 - t$ V va tok $I(t) = 1 + t$ A.",
-      "Elektr quvvati kuchlanish va koʻpaytmasiga teng: $P(t) = V(t) \\cdot I(t) = (12 - t)(1 + t) = 12 + 11t - t^2$ Vt",
+      "0 ≤q t ≤q 4 oraliqda qurilmaning kuchlanishi V(t) = 12 - t V va tok I(t) = 1 + t A.",
+      "Elektr quvvati kuchlanish va koʻpaytmasiga teng: P(t) = V(t) · I(t) = (12 - t)(1 + t) = 12 + 11t - t² Vt",
       "Endi quvvatning vaqt boʻyicha oʻzgarish tezligini topamiz.",
-      "Koʻpaytma qoidasiga koʻra $P' = V' \\cdot I + V \\cdot I'$",
+      "Koʻpaytma qoidasiga koʻra P' = V' · I + V · I'",
       "Kuchlanishning hosilasi $V'(t) = -1$, tokning hosilasi $I'(t) = 1$",
-      "Shunday qilib, $P'(t) = (-1) \\cdot (1 + t) + (12 - t) \\cdot 1 = 11 - 2t$ Vt/s",
+      "Shunday qilib, P'(t) = (-1) · (1 + t) + (12 - t) · 1 = 11 - 2t Vt/s",
       "$t = 2$ da quvvat: $P(2) = 12 + 22 - 4 = 30$ Vt",
       "$t = 2$ da quvvatning oʻzgarish tezligi: $P'(2) = 11 - 4 = 7$ Vt/s",
       "Bu shuni koʻrsatadiki, $t = 2$ da isteʼmol qilinayotgan quvvat oʻsib bormoqda."
@@ -7100,26 +7100,26 @@
      "type": "example",
      "data": {
       "heading": "Topshiriq 3 — 178-mashq",
-      "problem": "$y = x - x^3 \\cdot \\sin x$ funksiyasi uchun $\\frac{dy}{dx}$ ni toping.",
+      "problem": "y = x - x³ · sin x funksiyasi uchun dy/dx ni toping.",
       "steps": [
        {
-        "text": "$y' = 1 - (x^3 \\cdot \\sin x)'$"
+        "text": "y' = 1 - (x³ · sin x)'"
        },
        {
-        "text": "Koʻpaytma qoidasiga koʻra $(x^3 \\cdot \\sin x)' = 3x^2 \\cdot \\sin x + \\cos x \\cdot x^3$"
+        "text": "Koʻpaytma qoidasiga koʻra (x³ · sin x)' = 3x² · sin x + cos x · x³"
        },
        {
-        "text": "Jami $y' = 1 - 3x^2 \\cdot \\sin x - x^3 \\cdot \\cos x$"
+        "text": "Jami y' = 1 - 3x² · sin x - x³ · cos x"
        }
       ],
-      "result": "$\\frac{dy}{dx} = 1 - 3x^2 \\cdot \\sin x - x^3 \\cdot \\cos x$"
+      "result": "dy/dx = 1 - 3x² · sin x - x³ · cos x"
      },
      "narr": [
       "Endi mustaqil ish topshiriqlaridan birini koʻrib chiqaylik.",
-      "178-mashqda $y = x - x^3 \\cdot \\sin x$ funksiyasining hosilasini topishimiz kerak.",
-      "Bu ifodani ikki qismga ajratamiz: $y' = 1 - (x^3 \\cdot \\sin x)'$",
-      "Ikkinchi qismda koʻpaytma qoidasini qoʻllaymiz: $(x^3 \\cdot \\sin x)' = 3x^2 \\cdot \\sin x + \\cos x \\cdot x^3$",
-      "Shunday qilib, $y' = 1 - 3x^2 \\cdot \\sin x - x^3 \\cdot \\cos x$"
+      "178-mashqda y = x - x³ · sin x funksiyasining hosilasini topishimiz kerak.",
+      "Bu ifodani ikki qismga ajratamiz: y' = 1 - (x³ · sin x)'",
+      "Ikkinchi qismda koʻpaytma qoidasini qoʻllaymiz: (x³ · sin x)' = 3x² · sin x + cos x · x³",
+      "Shunday qilib, y' = 1 - 3x² · sin x - x³ · cos x"
      ],
      "narr_item": [
       -1,
@@ -7133,38 +7133,38 @@
      "type": "example",
      "data": {
       "heading": "Topshiriq 3 — 181-mashq",
-      "problem": "$y = (x + \\cos x)(1 - \\sin x)$ funksiyasi uchun $\\frac{dy}{dx}$ ni toping.",
+      "problem": "y = (x + cos x)(1 - sin x) funksiyasi uchun dy/dx ni toping.",
       "steps": [
        {
         "text": "Koʻpaytma qoidasini qoʻllaymiz"
        },
        {
-        "text": "$u = x + \\cos x$, $u' = 1 - \\sin x$"
+        "text": "u = x + cos x, u' = 1 - sin x"
        },
        {
-        "text": "$v = 1 - \\sin x$, $v' = -\\cos x$"
+        "text": "v = 1 - sin x, v' = -cos x"
        },
        {
-        "text": "$y' = (1 - \\sin x)^2 + (x + \\cos x) \\cdot (-\\cos x) = (1 - \\sin x)^2 - x \\cdot \\cos x - \\cos^2 x$"
+        "text": "y' = (1 - sin x)² + (x + cos x) · (-cos x) = (1 - sin x)² - x · cos x - cos² x"
        },
        {
-        "text": "Kvadratni ochgach va $\\sin^2 x - \\cos^2 x = -\\cos 2x$ almashtirgandan soʻng:"
+        "text": "Kvadratni ochgach va sin² x - cos² x = -cos 2x almashtirgandan soʻng:"
        },
        {
-        "text": "$y' = 1 - 2 \\cdot \\sin x - \\cos 2x - x \\cdot \\cos x$"
+        "text": "y' = 1 - 2 · sin x - cos 2x - x · cos x"
        }
       ],
-      "result": "$\\frac{dy}{dx} = 1 - 2 \\cdot \\sin x - \\cos 2x - x \\cdot \\cos x$"
+      "result": "dy/dx = 1 - 2 · sin x - cos 2x - x · cos x"
      },
      "narr": [
-      "Keyingi mashqda $y = (x + \\cos x)(1 - \\sin x)$ funksiyasining hosilasini topishimiz kerak.",
+      "Keyingi mashqda y = (x + cos x)(1 - sin x) funksiyasining hosilasini topishimiz kerak.",
       "Bu koʻpaytma funksiya, shuning uchun koʻpaytma qoidasini qoʻllaymiz.",
-      "Birinchi had $u = x + \\cos x$, uning hosilasi $u' = 1 - \\sin x$",
-      "Ikkinchi had $v = 1 - \\sin x$, uning hosilasi $v' = -\\cos x$",
-      "Koʻpaytma qoidasiga koʻra: $y' = u' \\cdot v + u \\cdot v' = (1 - \\sin x)^2 + (x + \\cos x) \\cdot (-\\cos x)$",
-      "Ifodani soddalashtiramiz: $y' = (1 - \\sin x)^2 - x \\cdot \\cos x - \\cos^2 x$",
-      "Kvadratni ochgach va $\\sin^2 x - \\cos^2 x = -\\cos 2x$ almashtirgandan soʻng:",
-      "$y' = 1 - 2 \\cdot \\sin x - \\cos 2x - x \\cdot \\cos x$"
+      "Birinchi had u = x + cos x, uning hosilasi u' = 1 - sin x",
+      "Ikkinchi had v = 1 - sin x, uning hosilasi v' = -cos x",
+      "Koʻpaytma qoidasiga koʻra: y' = u' · v + u · v' = (1 - sin x)² + (x + cos x) · (-cos x)",
+      "Ifodani soddalashtiramiz: y' = (1 - sin x)² - x · cos x - cos² x",
+      "Kvadratni ochgach va sin² x - cos² x = -cos 2x almashtirgandan soʻng:",
+      "y' = 1 - 2 · sin x - cos 2x - x · cos x"
      ],
      "narr_item": [
       -1,
@@ -7181,21 +7181,21 @@
      "type": "example",
      "data": {
       "heading": "Topshiriq 3 — 191-mashq",
-      "problem": "$y = x \\cdot \\sin x - \\cos x$ funksiyasi uchun $\\frac{d^2y}{dx^2}$ ni toping.",
+      "problem": "y = x · sin x - cos x funksiyasi uchun d²y/dx² ni toping.",
       "steps": [
        {
-        "text": "Birinchi hosilani topamiz: $y' = \\sin x + x \\cdot \\cos x + \\sin x = x \\cdot \\cos x + 2 \\cdot \\sin x$"
+        "text": "Birinchi hosilani topamiz: y' = sin x + x · cos x + sin x = x · cos x + 2 · sin x"
        },
        {
-        "text": "Ikkinchi hosilani topamiz: $y'' = \\cos x - x \\cdot \\sin x + 2 \\cdot \\cos x = 3 \\cdot \\cos x - x \\cdot \\sin x$"
+        "text": "Ikkinchi hosilani topamiz: y'' = cos x - x · sin x + 2 · cos x = 3 · cos x - x · sin x"
        }
       ],
-      "result": "$\\frac{d^2y}{dx^2} = 3 \\cdot \\cos x - x \\cdot \\sin x$"
+      "result": "d²y/dx² = 3 · cos x - x · sin x"
      },
      "narr": [
-      "191-mashqda $y = x \\cdot \\sin x - \\cos x$ funksiyasining ikkinchi hosilasini topishimiz kerak.",
-      "Avval birinchi hosilani topamiz: $y' = \\sin x + x \\cdot \\cos x + \\sin x = x \\cdot \\cos x + 2 \\cdot \\sin x$",
-      "Endi ikkinchi hosilani topamiz: $y'' = \\cos x - x \\cdot \\sin x + 2 \\cdot \\cos x = 3 \\cdot \\cos x - x \\cdot \\sin x$"
+      "191-mashqda y = x · sin x - cos x funksiyasining ikkinchi hosilasini topishimiz kerak.",
+      "Avval birinchi hosilani topamiz: y' = sin x + x · cos x + sin x = x · cos x + 2 · sin x",
+      "Endi ikkinchi hosilani topamiz: y'' = cos x - x · sin x + 2 · cos x = 3 · cos x - x · sin x"
      ],
      "narr_item": [
       -1,
@@ -7207,21 +7207,21 @@
      "type": "example",
      "data": {
       "heading": "Topshiriq 3 — 192-mashq",
-      "problem": "$y = \\sin x \\cdot \\cos x$ funksiyasi uchun $\\frac{d^2y}{dx^2}$ ni toping.",
+      "problem": "y = sin x · cos x funksiyasi uchun d²y/dx² ni toping.",
       "steps": [
        {
-        "text": "Birinchi hosilani topamiz: $y' = \\cos^2 x - \\sin^2 x = \\cos 2x$"
+        "text": "Birinchi hosilani topamiz: y' = cos² x - sin² x = cos 2x"
        },
        {
-        "text": "Ikkinchi hosilani topamiz: $y'' = -2 \\cdot \\sin 2x$"
+        "text": "Ikkinchi hosilani topamiz: y'' = -2 · sin 2x"
        }
       ],
-      "result": "$\\frac{d^2y}{dx^2} = -2 \\cdot \\sin 2x$"
+      "result": "d²y/dx² = -2 · sin 2x"
      },
      "narr": [
-      "192-mashqda $y = \\sin x \\cdot \\cos x$ funksiyasining ikkinchi hosilasini topishimiz kerak.",
-      "Avval birinchi hosilani topamiz: $y' = \\cos^2 x - \\sin^2 x = \\cos 2x$",
-      "Endi ikkinchi hosilani topamiz: $y'' = -2 \\cdot \\sin 2x$"
+      "192-mashqda y = sin x · cos x funksiyasining ikkinchi hosilasini topishimiz kerak.",
+      "Avval birinchi hosilani topamiz: y' = cos² x - sin² x = cos 2x",
+      "Endi ikkinchi hosilani topamiz: y'' = -2 · sin 2x"
      ],
      "narr_item": [
       -1,
@@ -7233,21 +7233,21 @@
      "type": "example",
      "data": {
       "heading": "Topshiriq 3 — 193-mashq",
-      "problem": "$y = x - \\frac{1}{2} \\cdot \\sin x$ funksiyasi uchun $\\frac{d^2y}{dx^2}$ ni toping.",
+      "problem": "y = x - 1/2 · sin x funksiyasi uchun d²y/dx² ni toping.",
       "steps": [
        {
-        "text": "Birinchi hosilani topamiz: $y' = 1 - \\frac{1}{2} \\cdot \\cos x$"
+        "text": "Birinchi hosilani topamiz: y' = 1 - 1/2 · cos x"
        },
        {
-        "text": "Ikkinchi hosilani topamiz: $y'' = \\frac{1}{2} \\cdot \\sin x$"
+        "text": "Ikkinchi hosilani topamiz: y'' = 1/2 · sin x"
        }
       ],
-      "result": "$\\frac{d^2y}{dx^2} = \\frac{1}{2} \\cdot \\sin x$"
+      "result": "d²y/dx² = 1/2 · sin x"
      },
      "narr": [
-      "193-mashqda $y = x - \\frac{1}{2} \\cdot \\sin x$ funksiyasining ikkinchi hosilasini topishimiz kerak.",
-      "Avval birinchi hosilani topamiz: $y' = 1 - \\frac{1}{2} \\cdot \\cos x$",
-      "Endi ikkinchi hosilani topamiz: $y'' = \\frac{1}{2} \\cdot \\sin x$"
+      "193-mashqda y = x - 1/2 · sin x funksiyasining ikkinchi hosilasini topishimiz kerak.",
+      "Avval birinchi hosilani topamiz: y' = 1 - 1/2 · cos x",
+      "Endi ikkinchi hosilani topamiz: y'' = 1/2 · sin x"
      ],
      "narr_item": [
       -1,
@@ -7262,23 +7262,23 @@
       "problem": "$f(x) = e^{x^3}$ funksiyasining hosilasini toping.",
       "steps": [
        {
-        "text": "Umumiy koʻrinishda $\\frac{d}{dx}e^{g(x)} = e^{g(x)} \\cdot g'(x)$"
+        "text": "Umumiy koʻrinishda d/dxe^(g(x)) = e^(g(x)) · g'(x)"
        },
        {
         "text": "$g(x) = x^3$, $g'(x) = 3x^2$"
        },
        {
-        "text": "Shuning uchun $f'(x) = 3x^2 \\cdot e^{x^3}$"
+        "text": "Shuning uchun $f'(x) = 3x^2 · e^{x^3}$"
        }
       ],
-      "result": "$f'(x) = 3x^2 \\cdot e^{x^3}$"
+      "result": "$f'(x) = 3x^2 · e^{x^3}$"
      },
      "narr": [
       "331-mashqda $f(x) = e^{x^3}$ funksiyasining hosilasini topishimiz kerak.",
       "Bu koʻrsatkichli funksiya, shuning uchun umumiy qoidadan foydalanamiz.",
-      "$\\frac{d}{dx}e^{g(x)} = e^{g(x)} \\cdot g'(x)$",
+      "d/dxe^(g(x)) = e^(g(x)) · g'(x)",
       "Bizda $g(x) = x^3$, uning hosilasi $g'(x) = 3x^2$",
-      "Shuning uchun $f'(x) = 3x^2 \\cdot e^{x^3}$",
+      "Shuning uchun f'(x) = 3x² · e^(x³)",
       "Ekstant \"oʻzini oʻzi saqlaydi\", zanjir qoidasi esa koʻrsatkichning hosilasini qoʻshadi."
      ],
      "narr_item": [
@@ -7604,22 +7604,22 @@
      "type": "example",
      "data": {
       "heading": "Misol 3.76 — Populyatsiyaning oʻsishi",
-      "problem": "Ayyorlar koloniyasining boshlangʻich populyatsiyasi 1000; t kun oʻtgach populyatsiya $A(t) = 1000 \\cdot e^{0.3t}$ ga teng. Populyatsiya oʻzgarish tezligining $A'(t)$ populyatsiyasiga $A(t)$ nisbatining doimiy ekanini koʻrsating.",
+      "problem": "Ayyorlar koloniyasining boshlangʻich populyatsiyasi 1000; t kun oʻtgach populyatsiya $A(t) = 1000 · e^{0.3t}$ ga teng. Populyatsiya oʻzgarish tezligining $A'(t)$ populyatsiyasiga $A(t)$ nisbatining doimiy ekanini koʻrsating.",
       "steps": [
        {
-        "text": "Zanjir qoidasiga koʻra $A'(t) = 1000 \\cdot e^{0.3t} \\cdot 0.3 = 300 \\cdot e^{0.3t}$"
+        "text": "Zanjir qoidasiga koʻra $A'(t) = 1000 · e^{0.3t} · 0.3 = 300 · e^{0.3t}$"
        },
        {
-        "text": "Nisbatni hisoblaymiz: $\\frac{A'(t)}{A(t)} = \\frac{300 \\cdot e^{0.3t}}{1000 \\cdot e^{0.3t}} = 0.3$"
+        "text": "Nisbatni hisoblaymiz: A'(t)/A(t) = (300 · e^(0.3t))/(1000 · e^(0.3t)) = 0.3"
        }
       ],
       "result": "Nisbat 0.3 — doimiy: eksponensial populyatsiyaning oʻsish tezligi populyatsiyaning oʻziga proportsional."
      },
      "narr": [
-      "Bu masalada biz eksponensial oʻsishni koʻrib chiqamiz. Boshlangʻich populyatsiya 1000 ta va vaqt oʻtishi bilan $A(t) = 1000 \\cdot e^{0.3t}$ formula bilan ifodalanadi.",
+      "Bu masalada biz eksponensial oʻsishni koʻrib chiqamiz. Boshlangʻich populyatsiya 1000 ta va vaqt oʻtishi bilan A(t) = 1000 · e^(0.3t) formula bilan ifodalanadi.",
       "Bizga populyatsiyani oʻzgarish tezligining populyatsiyaga nisbati doimiy ekanligini isbotlash kerak.",
-      "Buning uchun avval hosilani topamiz. Zanjir qoidasiga koʻra, $A(t)$ ning hosilasi $A'(t) = 1000 \\cdot e^{0.3t} \\cdot 0.3 = 300 \\cdot e^{0.3t}$ boʻladi.",
-      "Endi hosilani asl funksiyaga boʻlamiz: $\\frac{A'(t)}{A(t)} = \\frac{300 \\cdot e^{0.3t}}{1000 \\cdot e^{0.3t}} = 0.3$.",
+      "Buning uchun avval hosilani topamiz. Zanjir qoidasiga koʻra, A(t) ning hosilasi A'(t) = 1000 · e^(0.3t) · 0.3 = 300 · e^(0.3t) boʻladi.",
+      "Endi hosilani asl funksiyaga boʻlamiz: A'(t)/A(t) = (300 · e^(0.3t))/(1000 · e^(0.3t)) = 0.3.",
       "Koʻrib turganingizdek, nisbat 0.3 — bu doimiy son. Bu degani, eksponensial oʻsishda oʻsish tezligi har doim populyatsiyaning oʻziga proportsional boʻladi."
      ],
      "narr_item": [
@@ -7634,27 +7634,27 @@
      "type": "example",
      "data": {
       "heading": "Misol 3.77 — Tabiiy logarifmning hosilasi",
-      "problem": "$f(x) = \\ln(x^3 + 3x - 4)$ funksiyaning hosilasini toping.",
+      "problem": "f(x) = ln(x³ + 3x - 4) funksiyaning hosilasini toping.",
       "steps": [
        {
         "text": "$g(x) = x^3 + 3x - 4$ deb belgilaymiz"
        },
        {
-        "text": "$\\ln(g(x))$ funksiyasining hosilasi formulasi: $f'(x) = \\frac{g'(x)}{g(x)}$"
+        "text": "ln(g(x)) funksiyasining hosilasi formulasi: f'(x) = g'(x)g(x)"
        },
        {
-        "text": "Shunday qilib, $f'(x) = \\frac{3x^2 + 3}{x^3 + 3x - 4}$"
+        "text": "Shunday qilib, $f'(x) = $3x^2 + 3${x^3 + 3x - 4}$"
        }
       ],
-      "result": "$f'(x) = \\frac{3x^2 + 3}{x^3 + 3x - 4}$"
+      "result": "$f'(x) = $3x^2 + 3${x^3 + 3x - 4}$"
      },
      "narr": [
       "Bu masalada tabiiy logarifmning hosilasini topamiz.",
-      "$f(x) = \\ln(x^3 + 3x - 4)$ funksiyasini koʻrib chiqamiz.",
+      "f(x) = ln(x³ + 3x - 4) funksiyasini koʻrib chiqamiz.",
       "Buning uchun avval ichki funksiyani aniqlaymiz: $g(x) = x^3 + 3x - 4$",
-      "$\\ln(g(x))$ funksiyasining hosilasi formulasini eslaymiz: $f'(x) = \\frac{g'(x)}{g(x)}$",
+      "ln(g(x)) funksiyasining hosilasi formulasini eslaymiz: f'(x) = g'(x)/g(x)",
       "Endi $g(x)$ ning hosilasini topamiz: $g'(x) = 3x^2 + 3$",
-      "Shunday qilib, $f'(x) = \\frac{3x^2 + 3}{x^3 + 3x - 4}$"
+      "Shunday qilib, f'(x) = (3x² + 3)/(x³ + 3x - 4)"
      ],
      "narr_item": [
       -1,
@@ -7669,38 +7669,38 @@
      "type": "example",
      "data": {
       "heading": "Misol 3.78 — Logarifmlarning xossalari hosilada",
-      "problem": "$f(x) = \\ln\\left(\\frac{x^2 \\cdot \\sin x}{2x + 1}\\right)$ funksiyaning hosilasini toping.",
+      "problem": "f(x) = ln≤ft((x² · sin x)/(2x + 1)) funksiyaning hosilasini toping.",
       "steps": [
        {
-        "text": "Avval logarifmning xossalari yordamida ifodani soddalashtiramiz: $f(x) = 2 \\cdot \\ln x + \\ln(\\sin x) - \\ln(2x + 1)$"
+        "text": "Avval logarifmning xossalari yordamida ifodani soddalashtiramiz: f(x) = 2 · ln x + ln(sin x) - ln(2x + 1)"
        },
        {
         "text": "Har bir hadni alohida differensiallaymiz"
        },
        {
-        "text": "$\\frac{d}{dx}(2 \\cdot \\ln x) = \\frac{2}{x}$"
+        "text": "d/dx(2 · ln x) = 2x"
        },
        {
-        "text": "$\\frac{d}{dx}(\\ln(\\sin x)) = \\frac{\\cos x}{\\sin x} = \\cot x$"
+        "text": "d/dx(ln(sin x)) = (cos x)/(sin x) = x"
        },
        {
-        "text": "$\\frac{d}{dx}(\\ln(2x + 1)) = \\frac{2}{2x + 1}$"
+        "text": "d/dx(ln(2x + 1)) = 22x + 1"
        },
        {
-        "text": "Natijada: $f'(x) = \\frac{2}{x} + \\cot x - \\frac{2}{2x + 1}$"
+        "text": "Natijada: f'(x) = 2/x + x - 22x + 1"
        }
       ],
-      "result": "$f'(x) = \\frac{2}{x} + \\cot x - \\frac{2}{2x + 1}$"
+      "result": "f'(x) = 2/x + x - 22x + 1"
      },
      "narr": [
       "Bu masalada logarifmning xossalari yordamida ifodani soddalashtirib hosilani topamiz.",
-      "$f(x) = \\ln\\left(\\frac{x^2 \\cdot \\sin x}{2x + 1}\\right)$ funksiyasini koʻrib chiqamiz.",
-      "Avval logarifmning xossalari yordamida ifodani yozib olamiz: $f(x) = 2 \\cdot \\ln x + \\ln(\\sin x) - \\ln(2x + 1)$",
+      "f(x) = ln≤ft((x² · sin x)/(2x + 1)) funksiyasini koʻrib chiqamiz.",
+      "Avval logarifmning xossalari yordamida ifodani yozib olamiz: f(x) = 2 · ln x + ln(sin x) - ln(2x + 1)",
       "Endi har bir hadni alohida differensiallaymiz.",
-      "Birinchi had: $\\frac{d}{dx}(2 \\cdot \\ln x) = \\frac{2}{x}$",
-      "Ikkinchi had: $\\frac{d}{dx}(\\ln(\\sin x)) = \\frac{\\cos x}{\\sin x} = \\cot x$",
-      "Uchinchi had: $\\frac{d}{dx}(\\ln(2x + 1)) = \\frac{2}{2x + 1}$",
-      "Barcha hadlarni birlashtiramiz: $f'(x) = \\frac{2}{x} + \\cot x - \\frac{2}{2x + 1}$"
+      "Birinchi had: d/dx(2 · ln x) = 2/x",
+      "Ikkinchi had: d/dx(ln(sin x)) = (cos x)/(sin x) = x",
+      "Uchinchi had: d/dx(ln(2x + 1)) = 2/(2x + 1)",
+      "Barcha hadlarni birlashtiramiz: f'(x) = 2/x + x - 2/(2x + 1)"
      ],
      "narr_item": [
       -1,
@@ -7717,38 +7717,38 @@
      "type": "example",
      "data": {
       "heading": "Misol 3.79 — Umumiy asos",
-      "problem": "$h(x) = \\frac{3^x}{3^x + 2}$ funksiyaning hosilasini toping.",
+      "problem": "$h(x) = $3^x${3^x + 2}$ funksiyaning hosilasini toping.",
       "steps": [
        {
-        "text": "Boʻlinma qoidasidan foydalanamiz: $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$"
+        "text": "Boʻlinma qoidasidan foydalanamiz: ≤ft(u/v)' = u'v - uv'v²"
        },
        {
         "text": "$u = 3^x$, $v = 3^x + 2$ deb belgilaymiz"
        },
        {
-        "text": "$u' = 3^x \\cdot \\ln 3$, $v' = 3^x \\cdot \\ln 3$"
+        "text": "u' = 3^x · ln 3, v' = 3^x · ln 3"
        },
        {
-        "text": "$h'(x) = \\frac{3^x \\cdot \\ln 3 \\cdot (3^x + 2) - 3^x \\cdot \\ln 3 \\cdot 3^x}{(3^x + 2)^2}$"
+        "text": "h'(x) = 3^x · ln 3 · (3^x + 2) - 3^x · ln 3 · 3^x(3^x + 2)²"
        },
        {
-        "text": "Numeratorda $3^x \\cdot \\ln 3 \\cdot ((3^x + 2) - 3^x) = 2 \\cdot 3^x \\cdot \\ln 3$ qoladi"
+        "text": "Numeratorda 3^x · ln 3 · ((3^x + 2) - 3^x) = 2 · 3^x · ln 3 qoladi"
        },
        {
-        "text": "Shuning uchun $h'(x) = \\frac{2 \\cdot 3^x \\cdot \\ln 3}{(3^x + 2)^2}$"
+        "text": "Shuning uchun h'(x) = 2 · 3^x · ln 3(3^x + 2)²"
        }
       ],
-      "result": "$h'(x) = \\frac{2 \\cdot 3^x \\cdot \\ln 3}{(3^x + 2)^2}$"
+      "result": "h'(x) = 2 · 3^x · ln 3(3^x + 2)²"
      },
      "narr": [
       "Bu masalada umumiy asosga ega boʻlgan funksiyaning hosilasini topamiz.",
-      "$h(x) = \\frac{3^x}{3^x + 2}$ funksiyasini koʻrib chiqamiz.",
-      "Boʻlinma qoidasidan foydalanamiz: $\\left(\\frac{u}{v}\\right)' = \\frac{u'v - uv'}{v^2}$",
+      "h(x) = 3^x/(3^x + 2) funksiyasini koʻrib chiqamiz.",
+      "Boʻlinma qoidasidan foydalanamiz: ≤ft(u/v)' = (u'v - uv')/v²",
       "$u = 3^x$, $v = 3^x + 2$ deb belgilaymiz",
-      "$u' = 3^x \\cdot \\ln 3$, $v' = 3^x \\cdot \\ln 3$",
-      "Endi hosilani hisoblaymiz: $h'(x) = \\frac{3^x \\cdot \\ln 3 \\cdot (3^x + 2) - 3^x \\cdot \\ln 3 \\cdot 3^x}{(3^x + 2)^2}$",
-      "Numeratorda $3^x \\cdot \\ln 3 \\cdot ((3^x + 2) - 3^x) = 2 \\cdot 3^x \\cdot \\ln 3$ qoladi",
-      "Shuning uchun $h'(x) = \\frac{2 \\cdot 3^x \\cdot \\ln 3}{(3^x + 2)^2}$"
+      "u' = 3^x · ln 3, v' = 3^x · ln 3",
+      "Endi hosilani hisoblaymiz: h'(x) = (3^x · ln 3 · (3^x + 2) - 3^x · ln 3 · 3^x)/((3^x + 2)²)",
+      "Numeratorda 3^x · ln 3 · ((3^x + 2) - 3^x) = 2 · 3^x · ln 3 qoladi",
+      "Shuning uchun h'(x) = (2 · 3^x · ln 3)/((3^x + 2)²)"
      ],
      "narr_item": [
       -1,
@@ -7765,34 +7765,34 @@
      "type": "example",
      "data": {
       "heading": "Misol 3.80 — Teginishning burchak koeffitsienti",
-      "problem": "$y = \\log_2(3x + 1)$ funksiya grafigiga $x = 1$ nuqtada teginish boʻlgan toʻgʻri chiziqning burchak koeffitsientini toping.",
+      "problem": "y = log_2(3x + 1) funksiya grafigiga x = 1 nuqtada teginish boʻlgan toʻgʻri chiziqning burchak koeffitsientini toping.",
       "steps": [
        {
-        "text": "$(\\log_b(g(x)))' = \\frac{g'(x)}{g(x) \\cdot \\ln b}$ formulasiga koʻra"
+        "text": "(log_b(g(x)))' = g'(x)g(x) · ln b formulasiga koʻra"
        },
        {
-        "text": "$\\frac{dy}{dx} = \\frac{3}{(3x + 1) \\cdot \\ln 2}$"
+        "text": "dy/dx = 3(3x + 1) · ln 2"
        },
        {
-        "text": "$x = 1$ boʻlganda: $\\frac{dy}{dx} = \\frac{3}{(3 \\cdot 1 + 1) \\cdot \\ln 2} = \\frac{3}{4 \\cdot \\ln 2}$"
+        "text": "x = 1 boʻlganda: dy/dx = 3/((3 · 1 + 1) · ln 2) = 34 · ln 2"
        },
        {
-        "text": "$4 \\cdot \\ln 2 = \\ln 2^4 = \\ln 16$ ekanligini hisobga olsak"
+        "text": "4 · ln 2 = ln 2^4 = ln 16 ekanligini hisobga olsak"
        },
        {
-        "text": "$\\frac{3}{4 \\cdot \\ln 2} = \\frac{3}{\\ln 16}$"
+        "text": "3/(4 · ln 2) = 3ln 16"
        }
       ],
-      "result": "Burchak koeffitsienti $\\frac{3}{\\ln 16}$ ga teng"
+      "result": "Burchak koeffitsienti 3/(ln 16) ga teng"
      },
      "narr": [
       "Bu masalada funksiya grafigiga teginish chiziqining burchak koeffitsientini topamiz.",
-      "$y = \\log_2(3x + 1)$ funksiyasini koʻrib chiqamiz.",
-      "Avval hosilani topamiz. $(\\log_b(g(x)))' = \\frac{g'(x)}{g(x) \\cdot \\ln b)}$ formulasidan foydalanamiz.",
-      "Shunday qilib, $\\frac{dy}{dx} = \\frac{3}{(3x + 1) \\cdot \\ln 2}$",
-      "Endi $x = 1$ nuqtada hosilani hisoblaymiz: $\\frac{dy}{dx} = \\frac{3}{(3 \\cdot 1 + 1) \\cdot \\ln 2} = \\frac{3}{4 \\cdot \\ln 2}$",
-      "$4 \\cdot \\ln 2 = \\ln 2^4 = \\ln 16$ ekanligini hisobga olsak",
-      "$\\frac{3}{4 \\cdot \\ln 2} = \\frac{3}{\\ln 16}$"
+      "y = log_2(3x + 1) funksiyasini koʻrib chiqamiz.",
+      "Avval hosilani topamiz. (log_b(g(x)))' = g'(x)/(g(x) · ln b)) formulasidan foydalanamiz.",
+      "Shunday qilib, dy/dx = 3/((3x + 1) · ln 2)",
+      "Endi x = 1 nuqtada hosilani hisoblaymiz: dy/dx = 3/((3 · 1 + 1) · ln 2) = 3/(4 · ln 2)",
+      "4 · ln 2 = ln 2^4 = ln 16 ekanligini hisobga olsak",
+      "3/(4 · ln 2) = 3/(ln 16)"
      ],
      "narr_item": [
       -1,
@@ -7808,39 +7808,39 @@
      "type": "example",
      "data": {
       "heading": "Misol — Feniks shahrida yogʻingarchilik",
-      "problem": "Feniks (Arizona) shahridagi oylik yogʻingarchilik miqdori $y(t) = 0.5 + 0.3 \\cdot \\cos t$ funksiyasi bilan taxminan ifodalanadi, bunda $t$ - yanvardan boshlangan oy soni. $y'$ ni toping va yogʻingarchilik miqdori kamayadigan oraliqlarni aniqlang.",
+      "problem": "Feniks (Arizona) shahridagi oylik yogʻingarchilik miqdori y(t) = 0.5 + 0.3 · cos t funksiyasi bilan taxminan ifodalanadi, bunda t - yanvardan boshlangan oy soni. y' ni toping va yogʻingarchilik miqdori kamayadigan oraliqlarni aniqlang.",
       "steps": [
        {
-        "text": "$y'(t) = -0.3 \\cdot \\sin t$ (radianlarda!)"
+        "text": "y'(t) = -0.3 · sin t (radianlarda!)"
        },
        {
         "text": "Yogʻingarchilik $y' < 0$ boʻlganda kamayadi"
        },
        {
-        "text": "$-0.3 \\cdot \\sin t < 0$ tengsizlikni yechamiz"
+        "text": "-0.3 · sin t < 0 tengsizlikni yechamiz"
        },
        {
-        "text": "$\\sin t > 0$ boʻlganda tengsizlik bajariladi"
+        "text": "sin t > 0 boʻlganda tengsizlik bajariladi"
        },
        {
-        "text": "$(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida $\\sin t > 0$"
+        "text": "(0, π) va (2π, 3π) oraliqlarida sin t > 0"
        },
        {
-        "text": "$(\\pi, 2\\pi)$ va $(3\\pi, 12)$ oraliqlarida $\\sin t < 0$ (e'tibor bering: $12 < 4\\pi$)"
+        "text": "(π, 2π) va (3π, 12) oraliqlarida sin t < 0 (e'tibor bering: 12 < 4π)"
        }
       ],
-      "result": "Yogʻingarchilik $(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida kamayadi"
+      "result": "Yogʻingarchilik (0, π) va (2π, 3π) oraliqlarida kamayadi"
      },
      "narr": [
       "Bu masalada Feniks shahridagi oylik yogʻingarchilikni koʻrib chiqamiz.",
-      "Yogʻingarchilik miqdori $y(t) = 0.5 + 0.3 \\cdot \\cos t$ funksiyasi bilan ifodalanadi, bunda $t$ - yanvardan boshlangan oy soni.",
-      "Avval hosilani topamiz: $y'(t) = -0.3 \\cdot \\sin t$ (buni radianlarda hisoblash kerak)",
+      "Yogʻingarchilik miqdori y(t) = 0.5 + 0.3 · cos t funksiyasi bilan ifodalanadi, bunda t - yanvardan boshlangan oy soni.",
+      "Avval hosilani topamiz: y'(t) = -0.3 · sin t (buni radianlarda hisoblash kerak)",
       "Yogʻingarchilik $y' < 0$ boʻlganda kamayadi",
-      "Shunday qilib, $-0.3 \\cdot \\sin t < 0$ tengsizlikni yechamiz",
-      "Bu tengsizlik $\\sin t > 0$ boʻlganda bajariladi",
-      "$(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida $\\sin t > 0$",
-      "$(\\pi, 2\\pi)$ va $(3\\pi, 12)$ oraliqlarida $\\sin t < 0$ (e'tibor bering: $12 < 4\\pi$)",
-      "Demak, yogʻingarchilik $(0, \\pi)$ va $(2\\pi, 3\\pi)$ oraliqlarida kamayadi"
+      "Shunday qilib, -0.3 · sin t < 0 tengsizlikni yechamiz",
+      "Bu tengsizlik sin t > 0 boʻlganda bajariladi",
+      "(0, π) va (2π, 3π) oraliqlarida sin t > 0",
+      "(π, 2π) va (3π, 12) oraliqlarida sin t < 0 (e'tibor bering: 12 < 4π)",
+      "Demak, yogʻingarchilik (0, π) va (2π, 3π) oraliqlarida kamayadi"
      ],
      "narr_item": [
       -1,
@@ -7858,38 +7858,38 @@
      "type": "example",
      "data": {
       "heading": "Misol — Nyu-York grippi",
-      "problem": "1960-yil boshidan 1964-yil boshigacha Nyu-Yorkdagi gripp holatlari soni $N(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t}$, $0 \\leq t \\leq 4$ funksiyasi bilan modellashtirilgan, bunda $N(t)$ - holatlar soni (minglarda), $t$ - yillar, $t = 0$ - 1960-yil boshi. a) $N(0)$ va $N(4)$ ni hisoblang va tushuntiring. b) $N'(0)$ va $N'(3)$ ni hisoblang va tushuntiring.",
+      "problem": "1960-yil boshidan 1964-yil boshigacha Nyu-Yorkdagi gripp holatlari soni $N(t) = 5.3 · e^{0.093t^2 - 0.87t}$, $0 ≤ t ≤ 4$ funksiyasi bilan modellashtirilgan, bunda $N(t)$ - holatlar soni (minglarda), $t$ - yillar, $t = 0$ - 1960-yil boshi. a) $N(0)$ va $N(4)$ ni hisoblang va tushuntiring. b) $N'(0)$ va $N'(3)$ ni hisoblang va tushuntiring.",
       "steps": [
        {
-        "text": "a) $N(0) = 5.3 \\cdot e^0 = 5.3$ - taxminan 1960-yil boshida 5300 holat"
+        "text": "a) $N(0) = 5.3 · e^0 = 5.3$ - taxminan 1960-yil boshida 5300 holat"
        },
        {
-        "text": "$t = 4$ boʻlganda: $0.093 \\cdot 16 - 0.87 \\cdot 4 = -1.992$"
+        "text": "$t = 4$ boʻlganda: $0.093 · 16 - 0.87 · 4 = -1.992$"
        },
        {
-        "text": "$N(4) = 5.3 \\cdot e^{-1.992} \\� 0.723$ - taxminan 1964-yil boshida 723 holat"
+        "text": "$N(4) = 5.3 · e^{-1.992} ≈ 0.723$ - taxminan 1964-yil boshida 723 holat"
        },
        {
         "text": "toʻrt yil ichida holatlar soni sezilarli kamaygan"
        },
        {
-        "text": "b) Zanjir qoidasi: $N'(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t} \\cdot (0.186t - 0.87) = N(t) \\cdot (0.186t - 0.87)$"
+        "text": "b) Zanjir qoidasi: $N'(t) = 5.3 · e^{0.093t^2 - 0.87t} · (0.186t - 0.87) = N(t) · (0.186t - 0.87)$"
        },
        {
-        "text": "$N'(0) = 5.3 \\cdot (-0.87) = -4.611$ - 1960-yil boshida yiliga taxminan 4611 holat kamayib bormoqda"
+        "text": "$N'(0) = 5.3 · (-0.87) = -4.611$ - 1960-yil boshida yiliga taxminan 4611 holat kamayib bormoqda"
        }
       ]
      },
      "narr": [
       "Bu masalada Nyu-Yorkdagi gripp holatlari sonining oʻzgarishini koʻrib chiqamiz.",
       "a) Avval $N(0)$ va $N(4)$ ni hisoblaymiz.",
-      "$N(0) = 5.3 \\cdot e^0 = 5.3$ - bu taxminan 1960-yil boshida 5300 holat degan maʼnoni anglatadi.",
-      "$t = 4$ boʻlganda: $0.093 \\cdot 16 - 0.87 \\cdot 4 = -1.992$",
-      "$N(4) = 5.3 \\cdot e^{-1.992} \\approx 0.723$ - bu taxminan 1964-yil boshida 723 holat degan maʼnoni anglatadi.",
+      "N(0) = 5.3 · e^0 = 5.3 - bu taxminan 1960-yil boshida 5300 holat degan maʼnoni anglatadi.",
+      "t = 4 boʻlganda: 0.093 · 16 - 0.87 · 4 = -1.992",
+      "N(4) = 5.3 · e^(-1.992) ≈ 0.723 - bu taxminan 1964-yil boshida 723 holat degan maʼnoni anglatadi.",
       "Koʻrib turganimizdek, toʻrt yil ichida holatlar soni sezilarli kamaygan.",
       "b) Endi hosilalarni hisoblaymiz. Zanjir qoidasiga koʻra:",
-      "$N'(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t} \\cdot (0.186t - 0.87) = N(t) \\cdot (0.186t - 0.87)$",
-      "$N'(0) = 5.3 \\cdot (-0.87) = -4.611$ - bu 1960-yil boshida yiliga taxminan 4611 holat kamayib bormoqdan degan maʼnoni anglatadi."
+      "N'(t) = 5.3 · e^(0.093t² - 0.87t) · (0.186t - 0.87) = N(t) · (0.186t - 0.87)",
+      "N'(0) = 5.3 · (-0.87) = -4.611 - bu 1960-yil boshida yiliga taxminan 4611 holat kamayib bormoqdan degan maʼnoni anglatadi."
      ],
      "narr_item": [
       -1,
@@ -7910,18 +7910,18 @@
       "problem": "",
       "steps": [
        {
-        "text": "$t = 3$ boʻlganda: $0.093 \\cdot 9 - 0.87 \\cdot 3 = -1.773$ va $0.186 \\cdot 3 - 0.87 = -0.312$"
+        "text": "$t = 3$ boʻlganda: $0.093 · 9 - 0.87 · 3 = -1.773$ va $0.186 · 3 - 0.87 = -0.312$"
        },
        {
-        "text": "$N'(3) = 5.3 \\cdot e^{-1.773} \\cdot (-0.312) \\� -0.2808$ - yiliga taxminan 281 holat kamayib bormoqda"
+        "text": "$N'(3) = 5.3 · e^{-1.773} · (-0.312) ≈ -0.2808$ - yiliga taxminan 281 holat kamayib bormoqda"
        }
       ],
       "result": "a) 1960-yil boshida 5300 holat, 1964-yil boshida 723 holat; b) 1960-yil boshida yiliga 4611 holat, 1963-yil boshida yiliga 281 holat kamayib bormoqda"
      },
      "narr": [
-      "1960-yil boshidan 1964-yil boshigacha holatlar soni $N(t) = 5.3 \\cdot e^{0.093t^2 - 0.87t}$ funksiyasi bilan modellashtirilgan.",
-      "$t = 3$ boʻlganda: $0.093 \\cdot 9 - 0.87 \\cdot 3 = -1.773$ va $0.186 \\cdot 3 - 0.87 = -0.312$",
-      "$N'(3) = 5.3 \\cdot e^{-1.773} \\cdot (-0.312) \\approx -0.2808$ - bu 1963-yil boshida yiliga taxminan 281 holat kamayib bormoqdan degan maʼnoni anglatadi.",
+      "1960-yil boshidan 1964-yil boshigacha holatlar soni N(t) = 5.3 · e^(0.093t² - 0.87t) funksiyasi bilan modellashtirilgan.",
+      "t = 3 boʻlganda: 0.093 · 9 - 0.87 · 3 = -1.773 va 0.186 · 3 - 0.87 = -0.312",
+      "N'(3) = 5.3 · e^(-1.773) · (-0.312) ≈ -0.2808 - bu 1963-yil boshida yiliga taxminan 281 holat kamayib bormoqdan degan maʼnoni anglatadi.",
       "Ikkala holatda ham hosila manfiy, ya'ni kasallik darajasi kamaymoqda. Lekin ularning moduli kamayib bormoqda, ya'ni pasayish sekinlashmoqda."
      ],
      "narr_item": [
