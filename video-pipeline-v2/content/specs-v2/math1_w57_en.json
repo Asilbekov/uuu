@@ -177,11 +177,31 @@
       "heading": "Limit of Composite Functions",
       "tex": "\\lim_{x \\to a} f(g(x)) = f(\\lim_{x \\to a} g(x)) = f(L), \\text{ if } f \\text{ is continuous at } L \\text{ and } \\lim_{x \\to a} g(x) = L",
       "parts": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "substr": "\\lim_{x \\to a} f(g(x))",
+        "color": "#4C5FD5",
+        "note": "limit of composite function"
+       },
+       {
+        "substr": "f(\\lim_{x \\to a} g(x))",
+        "color": "#B45309",
+        "note": "function applied to the limit"
+       },
+       {
+        "substr": "= f(L)",
+        "color": "#0E7C7B",
+        "note": "simplified result"
+       },
+       {
+        "substr": "f \\text{ is continuous at } L",
+        "color": "#A03040",
+        "note": "required condition"
+       },
+       {
+        "substr": "\\lim_{x \\to a} g(x) = L",
+        "color": "#A03040",
+        "note": "required condition"
+       }
       ]
      },
      "narr": [
@@ -337,9 +357,21 @@
       "heading": "Computing the Inverse Function",
       "tex": "f\\text{ is continuous and strictly monotonic on interval } I \\rightarrow f\\text{ is one-to-one, and } f^{-1}: f(I) \\rightarrow I\\text{ exists and is continuous}",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "continuous",
+        "color": "#4C5FD5",
+        "note": "no value gaps"
+       },
+       {
+        "substr": "strictly monotonic",
+        "color": "#B45309",
+        "note": "no value repetitions"
+       },
+       {
+        "substr": "continuous inverse",
+        "color": "#0E7C7B",
+        "note": "stable inversion"
+       }
       ]
      },
      "narr": [
@@ -365,12 +397,24 @@
       "heading": "Problem 1 — Classic Inverse Pair",
       "problem": "Find the inverse of f(x) = eˣ and explain its properties.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "f(x) = eˣ is continuous and strictly increasing on R"
+       },
+       {
+        "text": "Range of f is (0, +∞)"
+       },
+       {
+        "text": "Solve y = eˣ for x: x = ln y"
+       },
+       {
+        "text": "Therefore, f⁻¹(x) = ln x for x > 0"
+       },
+       {
+        "text": "The graphs of y = eˣ and y = ln x are reflections over y = x"
+       },
+       {
+        "text": "Example points: e⁰ = 1 (point (0,1) on y = eˣ) and ln 1 = 0 (point (1,0) on y = ln x)"
+       }
       ],
       "result": "f⁻¹(x) = ln x, x > 0"
      },
@@ -431,10 +475,18 @@
       "heading": "Exercise 1 — Checking Continuity",
       "problem": "Determine if the function f(x) = {x² + 1, if x < 2; 5, if x = 2; 3x - 1, if x > 2} is continuous at x = 2.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Left-hand limit: lim x→2⁻ f(x) = 2² + 1 = 5"
+       },
+       {
+        "text": "Right-hand limit: lim x→2⁺ f(x) = 3 · 2 - 1 = 5"
+       },
+       {
+        "text": "Value at the point: f(2) = 5"
+       },
+       {
+        "text": "Since lim x→2 f(x) = f(2) = 5, the function is continuous at x = 2"
+       }
       ],
       "result": "The function is continuous at x = 2"
      },
@@ -459,10 +511,18 @@
       "heading": "Exercise 2 — Removing a Discontinuity",
       "problem": "Find the value of k for which the function f(x) = {(x² - 9)/(x - 3), if x ≠ 3; k, if x = 3} is continuous at x = 3.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "For x ≠ 3: f(x) = ((x - 3)(x + 3))/(x - 3) = x + 3"
+       },
+       {
+        "text": "Therefore lim x→3 f(x) = 6"
+       },
+       {
+        "text": "Continuity requires k = lim x→3 f(x)"
+       },
+       {
+        "text": "Therefore, k = 6"
+       }
       ],
       "result": "k = 6"
      },
@@ -487,10 +547,18 @@
       "heading": "Exercise 3 — Continuous Switching Law",
       "problem": "A power converter is described by P(t) = {4t + 1, if t < 2; a·t² - 1, if t ≥ 2}. Find a for which P is continuous at t = 2.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Left-hand limit: lim t→2⁻ P(t) = 4 · 2 + 1 = 9"
+       },
+       {
+        "text": "From the right: P(2) = 4a - 1"
+       },
+       {
+        "text": "For continuity: 4a - 1 = 9"
+       },
+       {
+        "text": "Thus, 4a = 10 and a = 5/2"
+       }
       ],
       "result": "a = 5/2"
      },
@@ -515,11 +583,21 @@
       "heading": "Exercise 4 — Composition and Continuity",
       "problem": "Let f(x) = √x and g(t) = 4 - t². Determine the domain of h(t) = f(g(t)) and specify where h is continuous.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Composition: h(t) = √(4 - t²)"
+       },
+       {
+        "text": "The expression under the root must be non-negative: 4 - t² ≥ 0"
+       },
+       {
+        "text": "Solving: -2 ≤ t ≤ 2"
+       },
+       {
+        "text": "Both functions are continuous on their respective domains"
+       },
+       {
+        "text": "Therefore, h(t) = √(4 - t²) is continuous on [-2, 2]"
+       }
       ],
       "result": "Domain: [-2, 2], continuous on [-2, 2]"
      },
@@ -546,11 +624,21 @@
       "heading": "Exercise 5 — Finding the Inverse",
       "problem": "The drive displacement x is related to the input voltage V by x(V) = 0.5 · V + 2, 0 ≤ V ≤ 10. (1) Find the range of x. (2) Find the inverse function V(x). (3) Explain why the inverse is continuous.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "At the endpoints: x(0) = 2, x(10) = 7"
+       },
+       {
+        "text": "Since x(V) is increasing, its range is [2, 7]"
+       },
+       {
+        "text": "To find the inverse, solve x = 0.5 · V + 2 for V"
+       },
+       {
+        "text": "x - 2 = 0.5 · V, from which V(x) = 2 · (x - 2) = 2x - 4, 2 ≤ x ≤ 7"
+       },
+       {
+        "text": "The original function is continuous and strictly increasing on [0, 10], so its inverse is continuous on [2, 7]"
+       }
       ],
       "result": "Range: [2, 7], Inverse: V(x) = 2x - 4, 2 ≤ x ≤ 7"
      },
@@ -577,13 +665,27 @@
       "heading": "Exercise 6 — Why Domain Restriction is Needed",
       "problem": "Consider f(x) = x². (1) Explain why f has no inverse on R. (2) Find the inverse when the domain is restricted to [0, +∞). (3) Find the inverse when restricted to (-∞, 0].",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "On R: f(-x) = f(x), meaning different inputs can give the same output"
+       },
+       {
+        "text": "For example, f(-3) = f(3) = 9"
+       },
+       {
+        "text": "Thus, f is not one-to-one on R and has no inverse"
+       },
+       {
+        "text": "On [0, +∞) the function is strictly increasing, so f⁻¹(y) = √y"
+       },
+       {
+        "text": "On (-∞, 0] the function is strictly decreasing: larger inputs give smaller outputs"
+       },
+       {
+        "text": "The inverse must return a non-positive number, so f⁻¹(y) = -√y"
+       },
+       {
+        "text": "Both inverse functions are continuous for y ≥ 0"
+       }
       ],
       "result": "No inverse on R; f⁻¹(y) = √y on [0, +∞); f⁻¹(y) = -√y on (-∞, 0]"
      },
@@ -612,13 +714,27 @@
       "heading": "Exercise 7 — Thermistor Calibration",
       "problem": "Thermistor model: R(T) = 100·e^(-0.02·T), T ≥ 0, where R is resistance in kΩ, T is temperature in degrees Celsius. (1) Show that the function has an inverse. (2) Find T(R). (3) Calculate the temperature when R = 40kΩ.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The function is continuous and strictly decreasing for T ≥ 0"
+       },
+       {
+        "text": "Therefore, it is one-to-one and has a continuous inverse"
+       },
+       {
+        "text": "Start with R = 100 · e^(-0.02·T)"
+       },
+       {
+        "text": "Divide by 100: R/100 = e^(-0.02·T)"
+       },
+       {
+        "text": "Take natural logarithms: ln(R/100) = -0.02 · T"
+       },
+       {
+        "text": "Therefore, T(R) = -50 · ln(R/100)"
+       },
+       {
+        "text": "When R = 40: T = -50 · ln(0.4) ≈ 45.8°C"
+       }
       ],
       "result": "T(R) = -50 · ln(R/100), T ≈ 45.8°C when R = 40kΩ"
      },
@@ -647,12 +763,24 @@
       "heading": "Exercise 8 — Application of the Intermediate Value Theorem",
       "problem": "The temperature of a component is modeled by T(t) = 20 + 5t - t², 0 ≤ t ≤ 4. Show that the component reaches 25°C during this interval.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The function is a polynomial and therefore continuous"
+       },
+       {
+        "text": "Evaluate at two convenient times: T(1) = 20 + 5 - 1 = 24"
+       },
+       {
+        "text": "T(2) = 20 + 10 - 4 = 26"
+       },
+       {
+        "text": "Since 24 < 25 < 26, the Intermediate Value Theorem guarantees a c ∈ (1, 2) where T(c) = 25"
+       },
+       {
+        "text": "To find exact times: solve 20 + 5t - t² = 25"
+       },
+       {
+        "text": "This gives t² - 5t + 5 = 0"
+       }
       ]
      },
      "narr": [
@@ -680,10 +808,18 @@
       "heading": "Exercise 9 — Application of the Weierstrass Theorem",
       "problem": "The power of a small device is modeled by P(t) = -2t² + 12t + 5, 0 ≤ t ≤ 5. (1) Explain why P has absolute maximum and minimum. (2) Find both extrema.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The function is a polynomial, so it is continuous"
+       },
+       {
+        "text": "Its domain [0, 5] is closed and bounded"
+       },
+       {
+        "text": "Therefore, the Weierstrass Theorem guarantees the existence of both an absolute maximum and an absolute minimum"
+       },
+       {
+        "text": "Part 2 is postponed to next week as it requires additional techniques"
+       }
       ],
       "result": "Absolute maximum and minimum exist by the Weierstrass Theorem"
      },
@@ -708,9 +844,15 @@
       "heading": "Exercise 10 — Importance of Closed Intervals",
       "problem": "Consider the efficiency model η(v) = v, 0 < v < 10. Does the Weierstrass theorem guarantee a maximum and minimum?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The function is continuous, but the interval (0, 10) is open, not closed."
+       },
+       {
+        "text": "The function approaches 0 as v → 0+, but never reaches 0."
+       },
+       {
+        "text": "It approaches 10 as v → 10−, but never reaches 10."
+       }
       ],
       "result": "Therefore, the function has neither an absolute minimum nor an absolute maximum on this domain. The Weierstrass theorem does not apply because the domain is not closed."
      },
@@ -737,8 +879,12 @@
       "heading": "Exercise 11 — Structural Optimization Problem",
       "problem": "The temperature along a metal component is approximately described by the function T(x) = 40 + 12x - 3x², 0 ≤ x ≤ 5, where x is measured in meters. (1) Using the Weierstrass theorem, justify the existence of the hottest and coldest points. (2) Find their locations and temperatures.",
       "steps": [
-       null,
-       null
+       {
+        "text": "(1) Since T(x) is a polynomial, it is continuous; the interval [0, 5] is closed and bounded. Therefore, absolute extrema exist."
+       },
+       {
+        "text": "(2) In the course materials, this part is postponed: 'For part 2 (Find both extrema) wait till next week — we need derivatives!' — derivatives are needed (week 6); use the procedure for finding absolute extrema from the formula catalog of week 5."
+       }
       ],
       "result": "Absolute extrema exist due to the Weierstrass theorem, but finding their exact locations requires derivatives from week 6 material."
      },
@@ -765,10 +911,18 @@
       "heading": "Exercise 12 — Connecting All Three Ideas",
       "problem": "A pressure sensor is modeled by the function V(p) = √p + 1, 0 ≤ p ≤ 8. (1) Show that V is continuous. (2) Explain why it has a continuous inverse. (3) Find the inverse. (4) Using the Weierstrass theorem, specify the minimum and maximum voltage of the sensor.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(1) The function p + 1 is continuous, and the square root is continuous for non-negative inputs, so V is continuous on [0, 8]."
+       },
+       {
+        "text": "(2) It is also strictly increasing, hence one-to-one; therefore, a continuous inverse exists."
+       },
+       {
+        "text": "(3) Start with V = √p + 1; square both sides: V² = p + 1, from which p(V) = V² - 1."
+       },
+       {
+        "text": "(4) The voltage range is obtained at the endpoints: V(0) = 1, V(8) = 3. By the Weierstrass theorem, these extrema are achieved: Vmin = 1 at p = 0 and Vmax = 3 at p = 8. The inverse is defined for 1 ≤ V ≤ 3."
+       }
       ],
       "result": "Vmin = 1 at p = 0 and Vmax = 3 at p = 8"
      },
@@ -795,9 +949,15 @@
       "heading": "Exercise 13 — When the Theorem Cannot Be Applied",
       "problem": "The cost of constructing a pipe: C(r) = π·r² + 1/r, 0 < r ≤ 5. A student claims: 'The cost is continuous, so the Weierstrass theorem guarantees a maximum.' Evaluate this statement.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The function is continuous for r > 0, but the domain (0, 5] is not closed, as it does not contain r = 0."
+       },
+       {
+        "text": "As r → 0+, we have 1/r → +∞, so C(r) → +∞."
+       },
+       {
+        "text": "Therefore, the function has no absolute maximum on (0, 5] — it becomes arbitrarily large as r approaches zero."
+       }
       ],
       "result": "The student's reasoning is incorrect: continuity alone is insufficient; the Weierstrass theorem requires a closed and bounded domain."
      },
@@ -824,10 +984,18 @@
       "heading": "Exercise 14 — Discontinuous Protection System",
       "problem": "A protection controller has an output u(T) = {T, if 0 ≤ T < 100; 0, if T = 100}. (1) Is the domain closed and bounded? (2) Is u continuous? (3) Does u achieve an absolute maximum? (4) Why is the Weierstrass theorem not applicable?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(1) The domain [0, 100] is closed and bounded."
+       },
+       {
+        "text": "(2) However, lim T→100− u(T) = 100, while u(100) = 0; therefore, the function is discontinuous at T = 100."
+       },
+       {
+        "text": "(3) The function takes values arbitrarily close to 100 but never equal to 100: for each T < 100, there exists a value closer to 100 that gives a larger output. Thus, u has no absolute maximum."
+       },
+       {
+        "text": "(4) The Weierstrass theorem is not applicable because the function is not continuous on the closed interval."
+       }
       ],
       "result": "A useful warning: even a finite operating range does not guarantee the achievement of the worst-case value if the model contains discontinuous switches."
      },
@@ -891,12 +1059,24 @@
       "heading": "Assignment 1 — AI Interaction",
       "problem": "Interact with an AI assistant in a structured conversation: formulate the most important points of the lecture content and ask the assistant to evaluate your answer.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Make a list of the key ideas of week 5:"
+       },
+       {
+        "text": "- Three conditions of continuity"
+       },
+       {
+        "text": "- Types of discontinuities"
+       },
+       {
+        "text": "- Algebra of continuous functions"
+       },
+       {
+        "text": "- Theorem on composite functions"
+       },
+       {
+        "text": "- Intermediate Value Theorem"
+       }
       ]
      },
      "narr": [
@@ -924,8 +1104,12 @@
       "heading": "Assignment 1 — AI Interaction (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null
+       {
+        "text": "- Inverse functions and monotonicity"
+       },
+       {
+        "text": "- Weierstrass Theorem and its conditions"
+       }
       ],
       "result": "This assignment has no single solution—it's about engaging with AI to evaluate and deepen your understanding of the concepts."
      },
@@ -948,9 +1132,15 @@
       "heading": "Assignment 2 — Study All Problems",
       "problem": "Study thoroughly all problems, exercises, and examples discussed in the lecture and practical session.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Review all exercises of the practical session (exercises 1-14)"
+       },
+       {
+        "text": "Study examples from the lecture and notes"
+       },
+       {
+        "text": "Examine solutions to in-class exercises"
+       }
       ],
       "result": "Complete understanding of all provided solutions and examples."
      },
@@ -975,9 +1165,15 @@
       "heading": "Assignment 3 — Textbook Exercises",
       "problem": "From section 2.4 of the textbook (OpenStax Calculus 1), solve exercises 131-136, 138, 145, 147, 149.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Complete solutions to all listed exercises are contained in the EXTRA material"
+       },
+       {
+        "text": "Exercises 131-136 and 138 focus on classification of discontinuity points"
+       },
+       {
+        "text": "Exercises 145, 147, 149 involve finding continuity parameters for piecewise functions"
+       }
       ],
       "result": "Complete all textbook exercises using the provided solutions as reference."
      },
@@ -1004,9 +1200,15 @@
       "heading": "Assignment 4 — Continuity at a Point",
       "problem": "Consider s(t) = sin(1/t) for t ≠ 0. Can we define s(0) so that s becomes continuous at t = 0?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "As t → 0, the argument 1/t grows without bound"
+       },
+       {
+        "text": "sin(1/t) oscillates infinitely between -1 and 1"
+       },
+       {
+        "text": "The function does not approach any specific value as t approaches 0"
+       }
       ],
       "result": "No, we cannot define s(0) to make s continuous at t = 0 because lim t→0 sin(1/t) does not exist."
      },
@@ -1051,10 +1253,18 @@
       "heading": "Problem 1 — Continuity at Zero",
       "problem": "Consider y(t) = {t · sin(1/t), if t ≠ 0; 0, if t = 0}. Is y continuous at t = 0?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "For t ≠ 0, we have |y(t)| = |t| · |sin(1/t)| ≤ |t| (since |sin| ≤ 1)"
+       },
+       {
+        "text": "As t → 0, both bounding functions -|t| and |t| approach zero"
+       },
+       {
+        "text": "By the squeeze theorem, lim t→0 t · sin(1/t) = 0"
+       },
+       {
+        "text": "Since y(0) = 0, we have lim t→0 y(t) = y(0)"
+       }
       ],
       "result": "Yes, the function is continuous at t = 0. All three conditions of continuity are satisfied: y(0) is defined, the limit exists, and the limit equals the function value."
      },
@@ -1081,10 +1291,18 @@
       "heading": "Problem 2 — Continuous Sensor Model",
       "problem": "A sensor uses the model S(x) = {a · x + b, if x < 1; 3, if x = 1; x² + 2, if x > 1}. Find the condition on a and b for which S is continuous at x = 1. Specify two possible pairs (a, b).",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "At x = 1, the left-hand limit equals a·1 + b = a + b"
+       },
+       {
+        "text": "The function value at x = 1 is S(1) = 3"
+       },
+       {
+        "text": "The right-hand limit equals 1² + 2 = 3"
+       },
+       {
+        "text": "For continuity, all three values must be equal: a + b = 3"
+       }
       ],
       "result": "The condition for continuity is a + b = 3. Two possible pairs are (a, b) = (1, 2) and (a, b) = (2, 1), since in both cases a + b = 3."
      },
@@ -1386,10 +1604,18 @@
       "heading": "Example — Continuity of Charging Capacitor",
       "problem": "Why is the voltage of a charging capacitor V(t) = Vs · (1 - e^(-t/(R·C))) continuous for t ≥ 0?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The function is a composition of continuous functions"
+       },
+       {
+        "text": "Exponential function e^x is continuous everywhere"
+       },
+       {
+        "text": "Linear functions are continuous everywhere"
+       },
+       {
+        "text": "The composition of continuous functions is continuous"
+       }
       ],
       "result": "The voltage function is continuous for t ≥ 0 because it's a composition of continuous functions: the exponential function and linear functions, and the composition of continuous functions is continuous."
      },
@@ -1450,9 +1676,15 @@
       "heading": "Problem 1 — Continuity of an Exponential Model",
       "problem": "Explain the continuity of the model T(t) = 20 + 50 · e^(-0.2·t²).",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify the components of the function"
+       },
+       {
+        "text": "Verify each component is continuous"
+       },
+       {
+        "text": "Apply continuity preservation rules"
+       }
       ],
       "result": "T(t) is continuous since it is formed by composition and combination of continuous functions: t² is continuous, e^(-0.2·t²) is a composition of the continuous exponential with a continuous function, adding the constant 20 preserves continuity."
      },
@@ -1487,9 +1719,15 @@
       "heading": "Problem 2 — Discontinuity by Definition",
       "problem": "Determine by definition whether the function f(x) = (x² - 4)/(x - 2) is continuous at the point x = 2.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Check if f(2) is defined"
+       },
+       {
+        "text": "Calculate the limit as x approaches 2"
+       },
+       {
+        "text": "Compare the function value and limit"
+       }
       ],
       "result": "f(x) = (x² - 4)/(x - 2) is discontinuous at the point 2, since f(2) is undefined (the first condition of continuity is violated; on the graph — a line with a 'hole'). The discontinuity is removable — defining f(2) = 4 makes the function continuous."
      },
@@ -1522,10 +1760,18 @@
       "heading": "Problem 3 — Jump Discontinuity",
       "problem": "Determine by definition whether the function f(x) = {-x² + 4, if x ≤ 3; 4x - 8, if x > 3} is continuous at the point x = 3.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check if f(3) is defined"
+       },
+       {
+        "text": "Calculate the left-hand limit as x approaches 3"
+       },
+       {
+        "text": "Calculate the right-hand limit as x approaches 3"
+       },
+       {
+        "text": "Compare the limits and function value"
+       }
       ],
       "result": "f(x) is not continuous at the point 3 (the second condition is violated; on the graph — a jump)."
      },
@@ -1556,9 +1802,15 @@
       "heading": "Problem 4 — Continuity at a Point",
       "problem": "Determine whether the function f(x) = {sin(x)/x, if x ≠ 0; 1, if x = 0} is continuous at the point x = 0.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Check if f(0) is defined"
+       },
+       {
+        "text": "Calculate the limit as x approaches 0"
+       },
+       {
+        "text": "Compare the function value and limit"
+       }
       ],
       "result": "All three conditions of the definition of continuity are satisfied, therefore f(x) is continuous at the point x = 0."
      },
@@ -1589,9 +1841,15 @@
       "heading": "Problem 5 — Continuity of Rational Functions",
       "problem": "For which x is the rational function f(x) = (x + 1)/(x - 5) continuous?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify the type of function"
+       },
+       {
+        "text": "Find where the function is undefined"
+       },
+       {
+        "text": "Determine continuity based on the domain"
+       }
       ],
       "result": "The rational function f(x) = (x + 1)/(x - 5) is continuous for all values of x, except x = 5 (where the denominator becomes zero)."
      },
@@ -1622,11 +1880,21 @@
       "heading": "Problem 6 — Intervals of Continuity for Rational Functions",
       "problem": "Specify the intervals of continuity of the function f(x) = (x - 1)/(x² + 2x).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the type of function"
+       },
+       {
+        "text": "Find the domain by setting the denominator ≠ 0"
+       },
+       {
+        "text": "Factor the denominator"
+       },
+       {
+        "text": "Solve for x where denominator = 0"
+       },
+       {
+        "text": "Determine intervals of continuity"
+       }
       ],
       "result": "Since f is a rational function, it is continuous at every point of its domain. The domain: the denominator x² + 2x = x · (x + 2) ≠ 0, that is, x ≠ 0 and x ≠ -2. Thus, f is continuous on each of the intervals (-∞, -2), (-2, 0) and (0, +∞)."
      },
@@ -1657,10 +1925,18 @@
       "heading": "Problem 7 — Continuity of Square Root Functions",
       "problem": "Specify the intervals of continuity of the function f(x) = √(4 - x²).",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the type of function"
+       },
+       {
+        "text": "Find the domain by setting the expression under the root ≥ 0"
+       },
+       {
+        "text": "Evaluate limits at endpoints"
+       },
+       {
+        "text": "Determine continuity on the interval"
+       }
       ],
       "result": "f(x) is continuous on the entire interval [-2, 2]."
      },
@@ -1689,9 +1965,15 @@
       "heading": "Problem 8 — Limit of a Composite Function",
       "problem": "Calculate lim(x→π/2) cos(x - π/2).",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify the composition of functions"
+       },
+       {
+        "text": "Evaluate the inner limit"
+       },
+       {
+        "text": "Apply the continuity of the outer function"
+       }
       ],
       "result": "lim(x→π/2) cos(x - π/2) = cos(lim(x→π/2)(x - π/2)) = cos(0) = 1."
      },
@@ -1722,9 +2004,15 @@
       "heading": "Problem 9 — Intermediate Value Theorem Application",
       "problem": "Show that f(x) = x - cos(x) has at least one zero.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Verify the function is continuous"
+       },
+       {
+        "text": "Find an interval [a, b] where f(a) and f(b) have opposite signs"
+       },
+       {
+        "text": "Apply the Intermediate Value Theorem"
+       }
       ],
       "result": "By IVT there exists a real number c ∈ [0, π/2] for which f(c) = 0. Therefore, f(x) = x - cos(x) has at least one zero."
      },
@@ -1755,9 +2043,15 @@
       "heading": "Problem 10 — Misapplication of the Intermediate Value Theorem",
       "problem": "Let f(x) be continuous on [0, 2], with f(0) > 0 and f(2) > 0. Can we conclude by the Intermediate Value Theorem that f(x) has no zeros on [0, 2]?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Recall the statement of the Intermediate Value Theorem"
+       },
+       {
+        "text": "Identify what the theorem does and does not guarantee"
+       },
+       {
+        "text": "Provide a counterexample"
+       }
       ],
       "result": "No. The Intermediate Value Theorem only allows us to conclude that f takes all values between f(0) and f(2); it does not allow us to conclude that f does not take other values. Counterexample: f(x) = (x - 1)² satisfies f(0) = 1 > 0, f(2) = 1 > 0, but f(1) = 0 — there is a zero on the interval."
      },
@@ -1790,9 +2084,15 @@
       "heading": "Problem 11 — When the Intermediate Value Theorem Doesn't Apply",
       "problem": "For f(x) = 1/x we have f(-1) = -1 < 0 and f(1) = 1 > 0. Can we conclude that f(x) has a zero on the interval [-1, 1]?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Check the continuity of f on the interval"
+       },
+       {
+        "text": "Identify where the function is discontinuous"
+       },
+       {
+        "text": "Explain why the IVT doesn't apply"
+       }
       ],
       "result": "No. The function is not continuous on [-1, 1] (it has an infinite discontinuity at zero), so the Intermediate Value Theorem is not applicable here."
      },
@@ -1823,10 +2123,18 @@
       "heading": "Problem 12 — Continuous Inverse Functions",
       "problem": "Explain why the function f(x) = e^x has a continuous inverse, and find it.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check if f is continuous"
+       },
+       {
+        "text": "Verify f is strictly monotonic"
+       },
+       {
+        "text": "Determine the range of f"
+       },
+       {
+        "text": "Find the inverse function"
+       }
       ],
       "result": "The function f(x) = e^x is continuous and strictly increasing on R; its range is (0, +∞). Therefore it is bijective and has a continuous inverse: f^(-1)(x) = ln x, x > 0."
      },
@@ -1859,9 +2167,15 @@
       "heading": "Problem 13 — Inverting a Sensor Model",
       "problem": "The sensor follows the relationship V(T) = 2 + 0.01 · T², T ≥ 0. The function is continuous and strictly increasing for T ≥ 0 — hence it has a continuous inverse. Find T(V) and calculate the temperature at V = 11V.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Solve for T in terms of V"
+       },
+       {
+        "text": "Consider the domain restriction T ≥ 0"
+       },
+       {
+        "text": "Calculate T when V = 11"
+       }
       ],
       "result": "T(V) = 10 · √(V - 2), V ≥ 2. At V = 11V: T = 10 · √(11 - 2) = 10 · 3 = 30. The measured temperature is 30°C."
      },
@@ -1896,9 +2210,15 @@
       "heading": "Problem 14 — Weierstrass Theorem Conditions: Open Interval",
       "problem": "Consider f(x) = x on the interval (0, 1). Why doesn't the Weierstrass Theorem guarantee extrema?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Recall the Weierstrass Extreme Value Theorem"
+       },
+       {
+        "text": "Check the conditions of the theorem"
+       },
+       {
+        "text": "Explain why the theorem doesn't apply"
+       }
       ],
       "result": "The function is continuous, but the interval is not closed. The function approaches 0 and 1 but does not achieve either value. Therefore on (0, 1) it has no absolute maximum or absolute minimum."
      },
@@ -1929,10 +2249,18 @@
       "heading": "Problem 15 — Weierstrass Theorem Conditions: Discontinuous Function",
       "problem": "Consider f(x) = {x, if 0 ≤ x < 1; 0, if x = 1} on [0, 1]. Why does the function have no absolute maximum?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Recall the Weierstrass Extreme Value Theorem"
+       },
+       {
+        "text": "Check the continuity of the function"
+       },
+       {
+        "text": "Identify the behavior near the discontinuity"
+       },
+       {
+        "text": "Explain why the theorem doesn't apply"
+       }
       ],
       "result": "The function has a discontinuity at x = 1, where it jumps from approaching 1 to being 0. Therefore, it never attains a maximum value on [0, 1]."
      },
@@ -1984,10 +2312,18 @@
       "heading": "Problem 1 — Weierstrass Theorem Applicability",
       "problem": "Consider the function f(x) with domain [0, 1] where f(x) approaches 1 as x approaches 1, but f(x) = 1 is never achieved. Why is the Weierstrass Theorem not applicable?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the domain: [0, 1] is closed and bounded"
+       },
+       {
+        "text": "Check continuity: f is discontinuous at x = 1"
+       },
+       {
+        "text": "Evaluate function behavior: f(x) approaches 1 but never reaches it"
+       },
+       {
+        "text": "Determine consequence: No absolute maximum exists"
+       }
       ],
       "result": "The Weierstrass Theorem is not applicable due to the discontinuity at x = 1, which prevents the function from achieving its maximum value."
      },
@@ -2038,11 +2374,21 @@
       "heading": "Problem 131 — Discontinuity in f(x) = 1/√x",
       "problem": "Determine and classify points of discontinuity for f(x) = 1/√x.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Determine domain: Square root requires x ≥ 0, denominator cannot be zero"
+       },
+       {
+        "text": "Find domain: Dom(f) = (0, +∞)"
+       },
+       {
+        "text": "Check behavior as x approaches 0+: 1/√x → +∞"
+       },
+       {
+        "text": "Identify vertical asymptote at x = 0"
+       },
+       {
+        "text": "Conclusion: x = 0 is an infinite discontinuity"
+       }
       ],
       "result": "x = 0 is an infinite discontinuity. The function is continuous everywhere on its domain (0, +∞)."
      },
@@ -2069,10 +2415,18 @@
       "heading": "Problem 132 — Discontinuity in f(x) = 2/(x² + 1)",
       "problem": "Determine and classify points of discontinuity for f(x) = 2/(x² + 1).",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Examine denominator: x² + 1 ≥ 1 > 0 for all real x"
+       },
+       {
+        "text": "Determine denominator never equals zero"
+       },
+       {
+        "text": "Apply continuity rule for rational functions"
+       },
+       {
+        "text": "Conclusion: No discontinuities exist"
+       }
       ],
       "result": "Since x² + 1 ≥ 1 > 0 for each real x, the denominator is never zero. A rational function is continuous wherever its denominator is non-zero. Therefore, f is continuous at each x ∈ ℝ with no discontinuities."
      },
@@ -2095,11 +2449,21 @@
       "heading": "Problem 133 — Discontinuity in f(x) = x/(x² - x)",
       "problem": "Determine and classify points of discontinuity for f(x) = x/(x² - x).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Factor denominator: x² - x = x(x - 1)"
+       },
+       {
+        "text": "Simplify function: f(x) = 1/(x - 1) for x ≠ 0, 1"
+       },
+       {
+        "text": "Check behavior at x = 0: Limit exists and equals -1"
+       },
+       {
+        "text": "Check behavior at x = 1: Left and right limits approach ±∞"
+       },
+       {
+        "text": "Classify discontinuities: removable at x = 0, infinite at x = 1"
+       }
       ],
       "result": "x = 0 is a removable discontinuity (limit exists but function undefined). x = 1 is an infinite discontinuity (function approaches ±∞)."
      },
@@ -2126,11 +2490,21 @@
       "heading": "Problem 134 — Discontinuity in g(t) = t^(-1) + 1",
       "problem": "Determine and classify points of discontinuity for g(t) = t^(-1) + 1.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Rewrite function: g(t) = 1/t + 1"
+       },
+       {
+        "text": "Identify undefined point: t = 0"
+       },
+       {
+        "text": "Evaluate left limit: lim t→0⁻(1/t + 1) = -∞"
+       },
+       {
+        "text": "Evaluate right limit: lim t→0⁺(1/t + 1) = +∞"
+       },
+       {
+        "text": "Classify discontinuity: infinite at t = 0"
+       }
       ],
       "result": "t = 0 is an infinite discontinuity with a vertical asymptote."
      },
@@ -2155,11 +2529,21 @@
       "heading": "Problem 135 — Discontinuity in f(x) = 5/(e^x - 2)",
       "problem": "Determine and classify points of discontinuity for f(x) = 5/(e^x - 2).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Find where denominator equals zero: e^x - 2 = 0"
+       },
+       {
+        "text": "Solve for x: x = ln 2"
+       },
+       {
+        "text": "Evaluate left limit: lim x→(ln 2)⁻ 5/(e^x - 2) = -∞"
+       },
+       {
+        "text": "Evaluate right limit: lim x→(ln 2)⁺ 5/(e^x - 2) = +∞"
+       },
+       {
+        "text": "Classify discontinuity: infinite at x = ln 2"
+       }
       ],
       "result": "x = ln 2 is an infinite discontinuity with a vertical asymptote."
      },
@@ -2184,11 +2568,21 @@
       "heading": "Problem 136 — Discontinuity in f(x) = |x - 2|/(x - 2)",
       "problem": "Determine and classify points of discontinuity for f(x) = |x - 2|/(x - 2).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify undefined point: x = 2"
+       },
+       {
+        "text": "Recall absolute value definition: |x - 2| = -(x - 2) if x < 2; x - 2 if x > 2"
+       },
+       {
+        "text": "Evaluate left limit: lim x→2⁻ f(x) = -1"
+       },
+       {
+        "text": "Evaluate right limit: lim x→2⁺ f(x) = 1"
+       },
+       {
+        "text": "Classify discontinuity: jump at x = 2 (one-sided limits differ)"
+       }
       ],
       "result": "x = 2 is a jump discontinuity because the left and right limits exist but are not equal."
      },
@@ -2213,11 +2607,21 @@
       "heading": "Problem 137 — Discontinuity in H(x) = tan(2x)",
       "problem": "Determine and classify points of discontinuity for H(x) = tan(2x).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Express tangent in terms of sine and cosine: tan(2x) = sin(2x)/cos(2x)"
+       },
+       {
+        "text": "Find where cosine equals zero: cos(2x) = 0"
+       },
+       {
+        "text": "Solve for x: 2x = π/2 + kπ, k ∈ ℤ"
+       },
+       {
+        "text": "Find general solution: x = π/4 + kπ/2, k ∈ ℤ"
+       },
+       {
+        "text": "Classify discontinuities: infinite at x = π/4 + kπ/2"
+       }
       ],
       "result": "x = π/4 + kπ/2, k ∈ ℤ are points of infinite discontinuities with vertical asymptotes."
      },
@@ -2244,11 +2648,21 @@
       "heading": "Problem 138 — Discontinuity in f(t) = (t + 3)/(t² + 5t + 6)",
       "problem": "Determine and classify points of discontinuity for f(t) = (t + 3)/(t² + 5t + 6).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Factor denominator: t² + 5t + 6 = (t + 2)(t + 3)"
+       },
+       {
+        "text": "Simplify function: f(t) = 1/(t + 2) for t ≠ -3, -2"
+       },
+       {
+        "text": "Check behavior at t = -3: Limit exists and equals -1"
+       },
+       {
+        "text": "Check behavior at t = -2: Left and right limits approach ±∞"
+       },
+       {
+        "text": "Classify discontinuities: removable at t = -3, infinite at t = -2"
+       }
       ],
       "result": "t = -3 is a removable discontinuity; t = -2 is an infinite discontinuity."
      },
@@ -2275,12 +2689,24 @@
       "heading": "Problem 145 — Continuity in Piecewise Function",
       "problem": "Find k for which f(x) = {3x + 2, if x < k; 2x - 3, if k ≤ x ≤ 8} is continuous.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify potential discontinuity point: x = k"
+       },
+       {
+        "text": "Evaluate left-hand limit: lim x→k⁻ f(x) = 3k + 2"
+       },
+       {
+        "text": "Evaluate right-hand limit and function value: f(k) = 2k - 3"
+       },
+       {
+        "text": "Set left and right limits equal for continuity: 3k + 2 = 2k - 3"
+       },
+       {
+        "text": "Solve for k: k = -5"
+       },
+       {
+        "text": "Verify: Both branches meet at (-5, -13)"
+       }
       ],
       "result": "k = -5 makes the function continuous at x = k."
      },
@@ -2309,12 +2735,24 @@
       "heading": "Problem 146 — Continuity in Trigonometric Piecewise Function",
       "problem": "Find k for which f(θ) = {sin θ, if 0 ≤ θ < π/2; cos(θ + k), if π/2 ≤ θ ≤ π} is continuous.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify potential discontinuity point: θ = π/2"
+       },
+       {
+        "text": "Evaluate left-hand limit: lim θ→(π/2)⁻ sin θ = 1"
+       },
+       {
+        "text": "Evaluate function value at π/2: f(π/2) = cos(π/2 + k)"
+       },
+       {
+        "text": "Set equal for continuity: cos(π/2 + k) = 1"
+       },
+       {
+        "text": "Solve for k: π/2 + k = 2πn, n ∈ ℤ"
+       },
+       {
+        "text": "Find general solution: k = 2πn - π/2, n ∈ ℤ"
+       }
       ],
       "result": "k = 2πn - π/2, n ∈ ℤ makes the function continuous at θ = π/2. For example, k = -π/2 when n = 0."
      },
@@ -2343,11 +2781,21 @@
       "heading": "Problem 147 — Continuity in Piecewise Function with Point Definition",
       "problem": "Find k for which f(x) = {(x² + 3x + 2)/(x + 2), if x ≠ -2; k, if x = -2} is continuous at x = -2.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the point of interest: x = -2"
+       },
+       {
+        "text": "Simplify the function for x ≠ -2: (x² + 3x + 2)/(x + 2) = (x + 1)(x + 2)/(x + 2) = x + 1"
+       },
+       {
+        "text": "Evaluate limit as x approaches -2: lim x→-2 f(x) = -1"
+       },
+       {
+        "text": "For continuity, f(-2) must equal the limit"
+       },
+       {
+        "text": "Set k equal to the limit: k = -1"
+       }
       ],
       "result": "k = -1 makes the function continuous at x = -2."
      },
@@ -2406,10 +2854,18 @@
       "heading": "Problem 1 — Continuity of Rational Function",
       "problem": "Find k such that f(x) is continuous at x = -2, where f(x) = (x² + 3x + 2)/(x + 2) for x ≠ -2 and f(x) = k for x = -2.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Factor the numerator: x² + 3x + 2 = (x + 1)(x + 2)"
+       },
+       {
+        "text": "Simplify for x ≠ -2: f(x) = ((x + 1)(x + 2))/(x + 2) = x + 1"
+       },
+       {
+        "text": "Calculate the limit as x approaches -2: lim x→-2 f(x) = lim x→-2 (x + 1) = -1"
+       },
+       {
+        "text": "For continuity, f(-2) must equal this limit: k = -1"
+       }
       ],
       "result": "k = -1"
      },
@@ -2436,12 +2892,24 @@
       "heading": "Problem 2 — Continuity of Piecewise Function with Exponential",
       "problem": "Find k for which f is continuous, where f(x) = {e^(k·x), if 0 ≤ x ≤ 4; x + 3, if 4 ≤ x ≤ 8}.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify where the branches meet: at x = 4"
+       },
+       {
+        "text": "Calculate f(4) from the first branch: f(4) = e^(4k)"
+       },
+       {
+        "text": "Calculate f(4) from the second branch: f(4) = 4 + 3 = 7"
+       },
+       {
+        "text": "Set the values equal for continuity: e^(4k) = 7"
+       },
+       {
+        "text": "Take natural logarithms of both sides: 4k = ln 7"
+       },
+       {
+        "text": "Solve for k: k = ln(7)/4 ≈ 0.4865"
+       }
       ],
       "result": "k = ln(7)/4 ≈ 0.4865"
      },
@@ -2470,13 +2938,27 @@
       "heading": "Problem 3 — Continuity of Piecewise Function with Square Root",
       "problem": "Find k for which f is continuous, where f(x) = {√(k · x), if 0 ≤ x ≤ 3; x + 1, if 3 < x ≤ 10}.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the potential discontinuity point: at x = 3"
+       },
+       {
+        "text": "Calculate f(3) from the first branch: f(3) = √(3k)"
+       },
+       {
+        "text": "Find the right-hand limit from the second branch: lim x→3⁺ (x + 1) = 4"
+       },
+       {
+        "text": "Set the values equal for continuity: √(3k) = 4"
+       },
+       {
+        "text": "Square both sides: 3k = 16"
+       },
+       {
+        "text": "Solve for k: k = 16/3"
+       },
+       {
+        "text": "Verify the solution: f(3) = √(3 · 16/3) = √16 = 4, which matches the right-hand limit"
+       }
       ],
       "result": "k = 16/3"
      },
@@ -2587,9 +3069,21 @@
       "heading": "Derivative Definitions",
       "tex": "f'(a) = \\lim_{x \\to a} \\frac{f(x) - f(a)}{x - a}",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "f'(a)",
+        "color": "#4C5FD5",
+        "note": "The derivative of f at point a"
+       },
+       {
+        "substr": "\\lim_{x \\to a}",
+        "color": "#B45309",
+        "note": "Limit as x approaches a"
+       },
+       {
+        "substr": "\\frac{f(x) - f(a)}{x - a}",
+        "color": "#0E7C7B",
+        "note": "Difference quotient"
+       }
       ]
      },
      "narr": [
@@ -2762,8 +3256,16 @@
       "heading": "Basic differentiation rules",
       "tex": "\\frac{d}{dx}(c) = 0 \\text{ (constant rule, theorem 3.2)} \\quad \\frac{d}{dx}(x^n) = n \\cdot x^{n-1} \\text{ (power rule, theorem 3.3)}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "\\frac{d}{dx}(c) = 0",
+        "color": "#4C5FD5",
+        "note": "The derivative of any constant is zero"
+       },
+       {
+        "substr": "\\frac{d}{dx}(x^n) = n \\cdot x^{n-1}",
+        "color": "#B45309",
+        "note": "The exponent becomes the coefficient, the power is reduced by 1"
+       }
       ]
      },
      "narr": [
@@ -2805,9 +3307,15 @@
       "heading": "Problem 1 — Basic differentiation",
       "problem": "Find the derivative of f(x) = 2x^5 + 7",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Apply the sum rule: (f + g)' = f' + g'"
+       },
+       {
+        "text": "Differentiate 2x^5 using the constant multiple rule and power rule"
+       },
+       {
+        "text": "Differentiate the constant term 7"
+       }
       ],
       "result": "f'(x) = 10x^4"
      },
@@ -2832,10 +3340,18 @@
       "heading": "Problem 2 — Differentiating a complex function",
       "problem": "Find the derivative of k(x) = 3h(x) + x^2 · g(x)",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply the sum rule: (f + g)' = f' + g'"
+       },
+       {
+        "text": "Differentiate 3h(x) using the constant multiple rule"
+       },
+       {
+        "text": "Differentiate x^2 · g(x) using the product rule"
+       },
+       {
+        "text": "Apply the product rule: (f·g)' = f'·g + f·g'"
+       }
       ],
       "result": "k'(x) = 3h'(x) + 2x·g(x) + x^2·g'(x)"
      },
@@ -2862,9 +3378,15 @@
       "heading": "Problem 3 — Simplifying before differentiation",
       "problem": "Find the derivative of f(x) = 6/x^2",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Rewrite the fraction as a power: 6/x^2 = 6x^(-2)"
+       },
+       {
+        "text": "Apply the constant multiple rule and power rule"
+       },
+       {
+        "text": "Simplify the result"
+       }
       ],
       "result": "f'(x) = -12/x^3"
      },
@@ -2889,8 +3411,16 @@
       "heading": "One-sided derivatives",
       "tex": "f'_{-}(a) = \\lim_{h \\to 0^{-}} \\frac{f(a + h) - f(a)}{h} \\quad f'_{+}(a) = \\lim_{h \\to 0^{+}} \\frac{f(a + h) - f(a)}{h}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "f'_{-}(a)",
+        "color": "#4C5FD5",
+        "note": "Left-hand derivative"
+       },
+       {
+        "substr": "f'_{+}(a)",
+        "color": "#B45309",
+        "note": "Right-hand derivative"
+       }
       ]
      },
      "narr": [
@@ -2963,8 +3493,16 @@
       "heading": "Higher derivatives notation",
       "tex": "f''(x), f'''(x), f^{(4)}(x), ..., f^{(n)}(x); \\frac{d^2y}{dx^2}, \\frac{d^3y}{dx^3}, ..., \\frac{d^ny}{dx^n}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "f''(x), f'''(x), f^{(4)}(x), ..., f^{(n)}(x)",
+        "color": "#4C5FD5",
+        "note": "Prime notation for higher derivatives"
+       },
+       {
+        "substr": "\\frac{d^2y}{dx^2}, \\frac{d^3y}{dx^3}, ..., \\frac{d^ny}{dx^n}",
+        "color": "#B45309",
+        "note": "Leibniz notation for higher derivatives"
+       }
       ]
      },
      "narr": [
@@ -2986,9 +3524,21 @@
       "heading": "Increment formula",
       "tex": "f(a + h) \\approx f(a) + f'(a) \\cdot h",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "f(a + h)",
+        "color": "#4C5FD5",
+        "note": "Value at a point near a"
+       },
+       {
+        "substr": "f(a)",
+        "color": "#B45309",
+        "note": "Known value at point a"
+       },
+       {
+        "substr": "f'(a) \\cdot h",
+        "color": "#0E7C7B",
+        "note": "Change based on rate of change"
+       }
       ]
      },
      "narr": [
@@ -3008,9 +3558,15 @@
       "heading": "Problem 4 — Using the increment formula",
       "problem": "Given f(3) = 2 and f'(3) = 5, estimate f(3.2)",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Apply the increment formula with a = 3 and h = 0.2"
+       },
+       {
+        "text": "f(3.2) ≈ f(3) + f'(3) · 0.2"
+       },
+       {
+        "text": "Substitute the known values"
+       }
       ],
       "result": "f(3.2) ≈ 2 + 5 · 0.2 = 3"
      },
@@ -3061,10 +3617,18 @@
       "heading": "Exercise 1 — Smooth motion on a track",
       "problem": "The track is described by f(x) = {(1/10)x^2 + bx + c, if x < -10; -(1/4)x + 5/2, if x ≥ -10}. Is the car's motion on the track smooth?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Smoothness requires continuity and differentiability at x = -10"
+       },
+       {
+        "text": "Check continuity: lim x→-10^- f(x) must equal f(-10)"
+       },
+       {
+        "text": "Check differentiability: the slopes from both sides must match"
+       },
+       {
+        "text": "Solve for b and c that satisfy both conditions"
+       }
       ],
       "result": "The motion is smooth only when b = 7/4 and c = 25/2"
      },
@@ -3093,9 +3657,15 @@
       "heading": "Exercise 2 — Finding parameters for smoothness",
       "problem": "For the piecewise function f(x) = {(1/10)x^2 + bx + c, if x < -10; -(1/4)x + 5/2, if x ≥ -10}, find b and c for smooth motion.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Continuity at x = -10: lim x→-10^- f(x) = f(-10)"
+       },
+       {
+        "text": "Differentiability: equate the one-sided derivatives at x = -10"
+       },
+       {
+        "text": "Solve the resulting system of equations for b and c"
+       }
       ],
       "result": "b = 7/4, c = 25/2"
      },
@@ -3124,9 +3694,15 @@
       "heading": "Exercise 3 — Reciprocal function",
       "problem": "Let f(x) = 1/x, x ≠ 0. (a) Find f'(x) by definition. (b) Find the tangent line at x = 2. (c) Is the slope positive or negative?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "(a) Apply the limit definition of derivative"
+       },
+       {
+        "text": "(b) Use the point-slope form with the derivative at x = 2"
+       },
+       {
+        "text": "(c) Analyze the sign of the derivative"
+       }
       ],
       "result": "(a) f'(x) = -1/x^2 (b) y = -1/4(x - 2) + 1/2 (c) Negative"
      },
@@ -3153,10 +3729,18 @@
       "heading": "Problem 1 — Derivative of 1/x",
       "problem": "Find the derivative of f(x) = 1/x.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "For x ≠ 0: f'(x) = lim h→0 (1/(x + h) - 1/x)/h"
+       },
+       {
+        "text": "Simplify the expression: lim h→0 [(x - (x + h))/(x(x + h))]/h"
+       },
+       {
+        "text": "Further simplification: lim h→0 (-1)/(x(x + h))"
+       },
+       {
+        "text": "Final result: f'(x) = -1/x²"
+       }
       ],
       "result": "f'(x) = -1/x²"
      },
@@ -3181,10 +3765,18 @@
       "heading": "Problem 1b — Tangent Line",
       "problem": "Find the tangent line to f(x) = 1/x at x = 2.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Point of tangency: f(2) = 1/2"
+       },
+       {
+        "text": "Slope: f'(2) = -1/4"
+       },
+       {
+        "text": "Equation: y - 1/2 = -(1/4)(x - 2)"
+       },
+       {
+        "text": "Simplified: y = 1 - x/4"
+       }
       ],
       "result": "y = 1 - x/4"
      },
@@ -3209,9 +3801,15 @@
       "heading": "Problem 1c — Interpretation",
       "problem": "Interpret the slope of f(x) = 1/x at x = 2.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The slope is negative: -1/4 < 0"
+       },
+       {
+        "text": "This means the function is decreasing at x = 2"
+       },
+       {
+        "text": "As x increases, the function values decrease"
+       }
       ],
       "result": "The graph of 1/x near x = 2 is decreasing"
      },
@@ -3232,11 +3830,21 @@
       "heading": "Problem 2 — Absolute Value Function",
       "problem": "Let f(x) = |x|. (a) Show that f is continuous at zero. (b) Using difference quotients, find f'_-(0) and f'_+(0). (c) Explain why f'(0) does not exist. (d) Sketch the graph and indicate the corner point.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) lim x→0 |x| = 0 = f(0) — f is continuous at zero."
+       },
+       {
+        "text": "(b) Difference quotient: (f(h) - f(0))/(h - 0) = |h|/h = -1 for h < 0 and 1 for h > 0"
+       },
+       {
+        "text": "Therefore, f'_-(0) = -1, f'_+(0) = 1"
+       },
+       {
+        "text": "(c) The one-sided derivatives are different (-1 ≠ 1) — the two-sided limit does not exist"
+       },
+       {
+        "text": "(d) The graph is a V-shaped broken line; a corner (kink) at the vertex (0, 0)"
+       }
       ],
       "result": "f is continuous but not differentiable at x = 0"
      },
@@ -3265,10 +3873,18 @@
       "heading": "Problem 3 — Branch Junction",
       "problem": "Consider f(x) = {x², if x ≤ 1; 2x - 1, if x > 1}. (a) Is f continuous at x = 1? (b) Calculate the left-hand and right-hand derivatives at x = 1. (c) Is f differentiable there? (d) Find the tangent at the junction point, if it exists.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) f(1) = 1; lim x→1⁻ f(x) = 1; lim x→1⁺ f(x) = 2·1 - 1 = 1 — all three quantities are equal, f is continuous at 1."
+       },
+       {
+        "text": "(b) f'_-(1) = (x²)'|x=1 = 2; f'_+(1) = (2x - 1)'|x=1 = 2."
+       },
+       {
+        "text": "(c) The one-sided derivatives exist, are finite, and are equal: f is differentiable at 1, f'(1) = 2."
+       },
+       {
+        "text": "(d) Tangent through (1, 1) with slope 2: y = 2x - 1. Note: the right branch itself is this tangent, so the junction is smooth."
+       }
       ],
       "result": "f is continuous and differentiable at x = 1 with tangent y = 2x - 1"
      },
@@ -3293,12 +3909,24 @@
       "heading": "Problem 4 — True or False",
       "problem": "Determine whether each statement is true or false with justification. (a) If f is differentiable at a, then f is continuous at a. (b) If f is continuous at a, then f is differentiable at a. (c) If f'(a) = 0, then f must be a constant. (d) If both one-sided derivatives exist and are finite, then f'(a) exists. (e) A function can have a vertical tangent at a point where it is continuous. (f) A corner can occur where two smooth pieces of the graph meet.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) True: Theorem 3.1 'differentiability implies continuity'."
+       },
+       {
+        "text": "(b) False: counterexample — |x| at zero: continuous, but f'(0) does not exist."
+       },
+       {
+        "text": "(c) False: counterexample — x²: f'(0) = 0, but the function is not constant."
+       },
+       {
+        "text": "(d) False: the one-sided derivatives must also coincide; for |x| at zero, both are finite (-1 and 1), but f'(0) does not exist."
+       },
+       {
+        "text": "(e) True: x^(1/3) is continuous at zero and has a vertical tangent there."
+       },
+       {
+        "text": "(f) True: two smooth pieces can meet with different slopes — like the rays y = -x and y = x for the function |x|."
+       }
       ],
       "result": "(a) True, (b) False, (c) False, (d) False, (e) True, (f) True"
      },
@@ -3327,10 +3955,18 @@
       "heading": "Problem 5 — Four Cases at Zero",
       "problem": "For each function, determine whether it is continuous and differentiable at zero; indicate a corner, cusp, or vertical tangent: (a) f(x) = x²; (b) g(x) = |x|; (c) p(x) = |x|^(2/3); (d) q(x) = x^(1/3).",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) x² is continuous; (h² - 0)/h = h → 0, therefore f'(0) = 0 — horizontal tangent."
+       },
+       {
+        "text": "(b) |x| is continuous; f'_-(0) = -1, f'_+(0) = 1 — kink, derivative does not exist."
+       },
+       {
+        "text": "(c) |x|^(2/3) is continuous; |h|^(2/3)/h → -∞ from the left and +∞ from the right — cusp: no finite derivative."
+       },
+       {
+        "text": "(d) x^(1/3) is continuous; (h^(1/3) - 0)/h = 1/h^(2/3) → +∞ from both sides — vertical tangent; no (finite) derivative."
+       }
       ],
       "result": "All four functions are continuous at zero, derivative exists only for x²"
      },
@@ -3357,11 +3993,21 @@
       "heading": "Problem 6 — The Function x · |x|",
       "problem": "Let f(x) = x · |x|. (a) Write f piecewise. (b) Find f'(0) by definition. (c) Find f'(x) for x ≠ 0. (d) Is f' continuous at zero? (e) Does f''(0) exist? Explain using one-sided limits.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) f(x) = {-x², if x < 0; x², if x ≥ 0}."
+       },
+       {
+        "text": "(b) f'(0) = lim h→0 (h · |h| - 0)/h = lim h→0 |h| = 0."
+       },
+       {
+        "text": "(c) For x ≠ 0: f'(x) = -2x for x < 0 and 2x for x > 0; together f'(x) = 2|x|."
+       },
+       {
+        "text": "(d) 2|x| → 0 = f'(0) as x → 0 — f' is continuous at zero."
+       },
+       {
+        "text": "(e) (f'(h) - f'(0))/h = 2|h|/h → -2 from the left and +2 from the right; the one-sided limits are different, therefore f''(0) does not exist."
+       }
       ],
       "result": "f is differentiable everywhere, but f''(0) does not exist"
      },
@@ -3388,10 +4034,18 @@
       "heading": "Problem 7 — Removable 'Hole'",
       "problem": "Consider f(x) = (x² - 4)/(x - 2), x ≠ 2. (a) Simplify the expression while preserving the domain restriction. (b) Find f'(x) on its domain. (c) Does the original function have a derivative at point 2? (d) Define an extension at point 2 that will be differentiable.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) For x ≠ 2: f(x) = ((x - 2)(x + 2))/(x - 2) = x + 2 — point x = 2 is still excluded."
+       },
+       {
+        "text": "(b) f'(x) = 1 for x ≠ 2."
+       },
+       {
+        "text": "(c) The original function is not defined at point 2, therefore it has no derivative at point 2."
+       },
+       {
+        "text": "(d) Extend f̃(2) = 4 = lim x→2 f(x); then f̃(x) = x + 2 for all x and f̃'(2) = 1 — the extension removed the 'hole' and made the function differentiable."
+       }
       ],
       "result": "The extension f̃(x) = x + 2 is differentiable everywhere"
      },
@@ -3416,9 +4070,15 @@
       "heading": "Problem 8 — Correcting Common Mistakes",
       "problem": "A student writes: (a) d/dx(x² · x³) = (2x)(3x²) = 6x³; (b) d/dx((x² + 1)/(x + 1)) = 2x/1; (c) d/dx(7x³ + 5) = 21x² + 5. For each statement, indicate the error, give the correct derivative, and name the corresponding rule.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "(a) Error: the derivative of a product is not the product of derivatives. Correctly (product rule): d/dx(x² · x³) = (2x) · x³ + x² · (3x²) = 5x⁴."
+       },
+       {
+        "text": "(b) Error: the derivative of a quotient is not the quotient of derivatives. Correctly (quotient rule): d/dx((x²+1)/(x+1)) = (2x(x+1) - (x²+1))/(x+1)² = (x² + 2x - 1)/(x + 1)², x ≠ -1."
+       },
+       {
+        "text": "(c) Error: the derivative of a constant is zero. Correctly: d/dx(7x³ + 5) = 21x²."
+       }
       ],
       "result": "(a) 5x⁴ (product rule), (b) (x² + 2x - 1)/(x + 1)² (quotient rule), (c) 21x² (constant rule)"
      },
@@ -3441,9 +4101,15 @@
       "heading": "Problem 9 — Higher Derivatives of 1/x",
       "problem": "Let f(x) = 1/x, x ≠ 0. (a) Find f'(x), f''(x), f'''(x). (b) Describe the pattern in signs and coefficients. (c) Propose a formula for f⁽ⁿ⁾(x).",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "(a) f'(x) = -1/x²; f''(x) = 2/x³; f'''(x) = -6/x⁴."
+       },
+       {
+        "text": "(b) Signs alternate (-, +, -, ...), absolute values of coefficients are factorials (1 = 1!, 2 = 2!, 6 = 3!), the exponent of the denominator increases by 1."
+       },
+       {
+        "text": "(c) f⁽ⁿ⁾(x) = (-1)ⁿ · n!/xⁿ⁺¹, x ≠ 0. Check for n = 3: (-1)³ · 3!/x⁴ = -6/x⁴ — matches."
+       }
       ],
       "result": "f⁽ⁿ⁾(x) = (-1)ⁿ · n!/xⁿ⁺¹"
      },
@@ -3466,11 +4132,21 @@
       "heading": "Problem 10 — Heating Experiment",
       "problem": "During an experiment T(t) = 20 + 8t - t², 0 ≤ t ≤ 4 (T in degrees Celsius, t in minutes). (a) Find T'(t). (b) Interpret T'(1) and T'(3). (c) Find the average heating rate on [1, 3]. (d) Using T(2) and T'(2), estimate T(2.1). (e) Calculate the exact T(2.1) and the estimation error.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) T'(t) = 8 - 2t."
+       },
+       {
+        "text": "(b) T'(1) = 6 °C/min, T'(3) = 2 °C/min: the component is heating at both moments, but slower at t = 3."
+       },
+       {
+        "text": "(c) T(1) = 27, T(3) = 35; average rate (35 - 27)/(3 - 1) = 4 °C/min."
+       },
+       {
+        "text": "(d) T(2) = 32, T'(2) = 4; using the increment formula T(2.1) ≈ 32 + 4 · 0.1 = 32.4 °C."
+       },
+       {
+        "text": "(e) Exactly: T(2.1) = 20 + 16.8 - 4.41 = 32.39 °C; the tangent overestimates by 0.01 °C."
+       }
       ],
       "result": "The tangent line approximation overestimates by 0.01 °C"
      },
@@ -3525,9 +4201,15 @@
       "heading": "Assignment 1 — AI Interaction",
       "problem": "Formulate the most important points from the lecture content and ask an AI assistant to evaluate your answer.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Create a list of key ideas from week 6"
+       },
+       {
+        "text": "Ask the assistant to evaluate completeness and accuracy"
+       },
+       {
+        "text": "Discuss each remark"
+       }
       ],
       "result": "Key topics include difference quotient, tangent lines, derivative as a limit, differentiation rules, one-sided derivatives, differentiability and continuity theorems, higher derivatives, increment formula, and applications to velocity/acceleration/marginal quantities."
      },
@@ -3550,10 +4232,18 @@
       "heading": "Assignment 2 — Study Problems",
       "problem": "Thoroughly study all problems, exercises, and examples discussed in the lecture and practical session.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Complete all 12 exercises from the practical session"
+       },
+       {
+        "text": "Review lecture exercises (In-Class activity №1−10)"
+       },
+       {
+        "text": "Study examples from Required reading"
+       },
+       {
+        "text": "Review examples 3.34–3.35 (Assignment 3)"
+       }
       ],
       "result": "Complete solutions for practical session exercises are provided in the previous section; lecture examples are in the next section."
      },
@@ -3576,12 +4266,24 @@
       "heading": "Assignment 3 — Textbook Examples",
       "problem": "Study examples 3.34 and 3.35 from the textbook (OpenStax Calculus 1).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Example 3.34: A ball falls from a height of 64 feet with position function s(t) = -16t² + 64"
+       },
+       {
+        "text": "Find when the ball hits the ground and its instantaneous velocity at impact"
+       },
+       {
+        "text": "Calculate the average velocity during the fall"
+       },
+       {
+        "text": "Example 3.35: A particle with position function s(t) = t³ - 4t + 2"
+       },
+       {
+        "text": "Find velocity and acceleration functions"
+       },
+       {
+        "text": "Analyze the motion at t = 1"
+       }
       ],
       "result": "For 3.34: t = 2s, v(2) = -64 ft/s, v_avg = -32 ft/s. For 3.35: v(t) = 3t² - 4, a(t) = 6t, at t=1: v(1) = -1, a(1) = 6, particle is slowing down."
      },
@@ -3612,10 +4314,18 @@
       "heading": "Assignment 4 — Textbook Problems",
       "problem": "Solve problems from the textbook (pages 196, 210, 211, 212, 232).",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Checkpoint 3.4: Stone falls from 64 feet, s(t) = -16t² + 64, find instantaneous velocity after 1s"
+       },
+       {
+        "text": "Checkpoint 3.8: Find a and b such that f(x) = {ax + b, if x < 3; x², if x ≥ 3} is continuous and differentiable at x = 3"
+       },
+       {
+        "text": "Checkpoint 3.9: For f(x) = x², find f''(x)"
+       },
+       {
+        "text": "Checkpoint 3.10: For s(t) = t³, find a(t)"
+       }
       ],
       "result": "3.4: v(1) = -32 ft/s. 3.8: a = 6, b = -9. 3.9: f''(x) = 2. 3.10: a(t) = 6t."
      },
@@ -3640,10 +4350,18 @@
       "heading": "Assignment 5 — Piecewise Function Analysis",
       "problem": "Consider f(x) = {2x + 1, if x < 0; x² + 1, if x ≥ 0}.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) Check continuity at zero"
+       },
+       {
+        "text": "(b) Find f'₋(0) and f'₊(0)"
+       },
+       {
+        "text": "(c) Determine if f is differentiable at zero"
+       },
+       {
+        "text": "(d) Describe the graph near the junction point"
+       }
       ],
       "result": "(a) Continuous at zero (limit exists and equals f(0) = 1). (b) f'₋(0) = 2, f'₊(0) = 0. (c) Not differentiable (one-sided derivatives not equal). (d) Kink at (0,1) with different slopes."
      },
@@ -3668,11 +4386,21 @@
       "heading": "Problem 6 — True or False",
       "problem": "Determine if each statement is true or false and justify your answer.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) If f is differentiable at a, then f is continuous at a"
+       },
+       {
+        "text": "(b) If f is continuous at a, then f is differentiable at a"
+       },
+       {
+        "text": "(c) If f'(a) = 0, then f must be a constant function"
+       },
+       {
+        "text": "(d) If both one-sided derivatives exist and are finite, then f'(a) exists"
+       },
+       {
+        "text": "(e) A function can have a vertical tangent at a point where it is continuous"
+       }
       ],
       "result": "(a) True (Theorem 3.1). (b) False (counterexample: |x| at 0). (c) False (counterexample: x² at 0). (d) False (one-sided derivatives must also be equal). (e) True (example: x^(1/3) at 0)."
      },
@@ -3699,12 +4427,24 @@
       "heading": "Optional Assignment — Formula One Grandstands",
       "problem": "Study the track section modeled by f(x) = x³ + 3x² + x with grandstand at (-1.9, 2.8).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(1) Find where slope of tangent is 1 (turn entrance)"
+       },
+       {
+        "text": "(2) Find equation of tangent at this point"
+       },
+       {
+        "text": "(3) Find x where tangent intersects y = 2.8; is it safe for spectators?"
+       },
+       {
+        "text": "(4) If driver loses control at (-2.5, 0.625), what is the slope?"
+       },
+       {
+        "text": "(5) Are spectators safe in this scenario?"
+       },
+       {
+        "text": "(6) Should the grandstand design be changed?"
+       }
       ],
       "result": "(1) Point (-2, 2). (2) y = x + 4. (3) x = -1.2 (safe, right of grandstand). (4) Slope = 4.75. (5) Unsafe, tangent passes through grandstand area. (6) Move grandstands further away."
      },
@@ -3881,9 +4621,15 @@
       "heading": "Example 3.8RR — Rate of Change of Speed",
       "problem": "Hennessey Venom GT accelerates from 0 to 60 mph in 3.05s, to 100 mph in 5.88s, to 200 mph in 14.51s, and to 229.9 mph in 19.96s. What happens to the acceleration as it approaches 229.9 mph: does it increase, decrease, or remain constant?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Convert speeds to ft/s: 60 mph = 88; 100 ≈ 146.67; 200 ≈ 293.33; 229.9 ≈ 337.19"
+       },
+       {
+        "text": "Calculate average accelerations (v(t) - 337.19)/(t - 19.96) on intervals [t, 19.96]"
+       },
+       {
+        "text": "Values: 16.89; 14.74; 13.53; 8.05 ft/s per second at t = 0; 3.05; 5.88; 14.51 respectively"
+       }
       ],
       "result": "The accelerations are decreasing — the acceleration decreases as it approaches 229.9 mph."
      },
@@ -3906,12 +4652,24 @@
       "heading": "Example 3.10RR — Rate of Change of Profit",
       "problem": "A firm sells x game consoles at price p = -0.01x + 400 dollars; costs C(x) = 100x + 10000 dollars. Find the rate of change of profit when producing 10000 games. Should production be increased?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Revenue R(x) = x · p = -0.01x² + 400x"
+       },
+       {
+        "text": "Profit P(x) = R - C = -0.01x² + 300x - 10000"
+       },
+       {
+        "text": "Calculate P(10000) = 1,990,000 dollars"
+       },
+       {
+        "text": "Find P'(10000) = lim x→10000 (P(x) - P(10000))/(x - 10000)"
+       },
+       {
+        "text": "Factor the numerator: -0.01(x - 10000)(x - 20000)"
+       },
+       {
+        "text": "Evaluate the limit: -0.01 · (10000 - 20000) = 100"
+       }
       ],
       "result": "P'(10000) = 100 > 0 and P(10000) > 0 — profit is increasing, the firm should increase production."
      },
@@ -3940,10 +4698,18 @@
       "heading": "Example 3.13RR — Sketch of Derivative",
       "problem": "From the graph of f(x) with a local maximum at (3, 6) and a local minimum at (-2, 2), sketch the graph of f'(x).",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The function increases on (-2, 3) and decreases on (-∞, -2) and (3, +∞)"
+       },
+       {
+        "text": "Therefore, f'(x) > 0 on (-2, 3), f'(x) < 0 outside this interval"
+       },
+       {
+        "text": "At points of horizontal tangents f'(-2) = 0 and f'(3) = 0"
+       },
+       {
+        "text": "The derivative graph lies above the x-axis on (-2, 3), crosses it at points -2 and 3, and lies below outside"
+       }
       ],
       "result": "The derivative graph is positive between -2 and 3, negative elsewhere, and zero at -2 and 3."
      },
@@ -3968,13 +4734,27 @@
       "heading": "Example 3.24RR — Product of Binomials",
       "problem": "For j(x) = (x² + 2)(3x³ - 5x), find j'(x) using the product rule and verify the result by expanding the product.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify f(x) = x² + 2 (f' = 2x) and g(x) = 3x³ - 5x (g' = 9x² - 5)"
+       },
+       {
+        "text": "Apply product rule: j'(x) = f'(x)g(x) + f(x)g'(x)"
+       },
+       {
+        "text": "Calculate: j'(x) = 2x(3x³ - 5x) + (9x² - 5)(x² + 2)"
+       },
+       {
+        "text": "Expand: (6x⁴ - 10x²) + (9x⁴ + 13x² - 10)"
+       },
+       {
+        "text": "Combine like terms: 15x⁴ + 3x² - 10"
+       },
+       {
+        "text": "Verify by expanding j(x): j(x) = 3x⁵ + x³ - 10x"
+       },
+       {
+        "text": "Differentiate: j'(x) = 15x⁴ + 3x² - 10"
+       }
       ],
       "result": "Both methods give the same result: j'(x) = 15x⁴ + 3x² - 10"
      },
@@ -4001,11 +4781,21 @@
       "heading": "Example 3.25RR — Quotient Rule",
       "problem": "Find the derivative of k(x) = 5x²/(4x + 3).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify f(x) = 5x² (f' = 10x) and g(x) = 4x + 3 (g' = 4)"
+       },
+       {
+        "text": "Apply quotient rule: k'(x) = (f'(x)g(x) - f(x)g'(x))/g(x)²"
+       },
+       {
+        "text": "Calculate: k'(x) = (10x(4x + 3) - 4·5x²)/(4x + 3)²"
+       },
+       {
+        "text": "Expand numerator: 20x² + 30x - 20x² = 30x"
+       },
+       {
+        "text": "Simplify: k'(x) = 30x/(4x + 3)²"
+       }
       ],
       "result": "k'(x) = 30x/(4x + 3)²"
      },
@@ -4030,11 +4820,21 @@
       "heading": "Example 3.31RR — Horizontal Tangents",
       "problem": "Determine the values of x at which f(x) = x³ - 7x² + 8x + 1 has a horizontal tangent.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Horizontal tangent occurs where f'(x) = 0"
+       },
+       {
+        "text": "Find f'(x) = 3x² - 14x + 8"
+       },
+       {
+        "text": "Factor the derivative: (3x - 2)(x - 4)"
+       },
+       {
+        "text": "Set each factor equal to zero: 3x - 2 = 0 and x - 4 = 0"
+       },
+       {
+        "text": "Solve for x: x = 2/3 and x = 4"
+       }
       ],
       "result": "The function has horizontal tangents at x = 2/3 and x = 4."
      },
@@ -4059,10 +4859,18 @@
       "heading": "Example 3.36RR — Position and Velocity",
       "problem": "Position of a particle: s(t) = t³ - 9t² + 24t + 4, t ≥ 0. (a) Find v(t). (b) When is the particle at rest? (c) Where is it moving left and where right? (d) Sketch the path on the coordinate axis.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) Velocity is the derivative of position: v(t) = s'(t) = 3t² - 18t + 24"
+       },
+       {
+        "text": "(b) At rest when v(t) = 0: 3(t - 2)(t - 4) = 0, so t = 2 and t = 4"
+       },
+       {
+        "text": "(c) v(t) > 0 on [0, 2) ∪ (4, +∞) — moving left to right; v(t) < 0 on (2, 4) — moving right to left"
+       },
+       {
+        "text": "(d) Key positions: s(0) = 4, s(2) = 24, s(4) = 20: particle starts at 4, moves right to 24 (t = 2), then left to 20 (t = 4), then right again"
+       }
       ],
       "result": "The particle has velocity v(t) = 3t² - 18t + 24, is at rest at t = 2 and t = 4, moves left to right when t < 2 or t > 4, and moves right to left when 2 < t < 4."
      },
@@ -4087,9 +4895,15 @@
       "heading": "Example 3.37RR — Population Estimation",
       "problem": "A city's population triples every 5 years; currently 10,000. What is the approximate population in 2 years?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Let P(t) be the population (in thousands) after t years: P(0) = 10, P(5) = 30"
+       },
+       {
+        "text": "Growth rate estimate: P'(0) ≈ (30 - 10)/5 = 4 (thousands per year)"
+       },
+       {
+        "text": "Using the increment formula: P(2) ≈ P(0) + 2·P'(0) ≈ 10 + 8 = 18"
+       }
       ],
       "result": "The approximate population in 2 years is 18,000 people."
      },
@@ -4114,10 +4928,18 @@
       "heading": "Example 3.38RR — Marginal Revenue",
       "problem": "Price for BBQ lunches p(x) = 9 - 0.03x, 0 ≤ x ≤ 300; revenue R(x) = x · p(x) = -0.03x² + 9x. Estimate using marginal revenue the revenue from selling the 101st lunch and compare with the actual value.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Marginal revenue is the derivative of the revenue function: MR(x) = R'(x) = -0.06x + 9"
+       },
+       {
+        "text": "Evaluate at x = 100: MR(100) = -0.06(100) + 9 = 3"
+       },
+       {
+        "text": "Estimated revenue from the 101st lunch: $3"
+       },
+       {
+        "text": "Actual revenue: R(101) - R(100) = 602.97 - 600 = 2.97 dollars"
+       }
       ],
       "result": "The marginal revenue estimate of $3 is close to the actual value of $2.97, showing that marginal revenue is a sufficiently accurate and simple to calculate estimate."
      },
@@ -4142,10 +4964,18 @@
       "heading": "Example — Oscillation of Slopes",
       "problem": "Investigate f(x) = {x · sin(1/x), if x ≠ 0; 0, if x = 0} at zero: is it continuous? is it differentiable?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check continuity: |f(x)| = |x|·|sin(1/x)| ≤ |x| → 0"
+       },
+       {
+        "text": "By the squeeze theorem, lim x→0 f(x) = 0 = f(0), so f is continuous at 0"
+       },
+       {
+        "text": "Check differentiability: f'(0) = lim x→0 (x · sin(1/x))/x = lim x→0 sin(1/x)"
+       },
+       {
+        "text": "As x approaches 0, 1/x approaches infinity, and sin(1/x) oscillates between -1 and 1 without approaching a limit"
+       }
       ],
       "result": "The function is continuous at 0 but not differentiable at 0 because the limit of the difference quotient does not exist (it oscillates)."
      },
@@ -4189,10 +5019,18 @@
       "heading": "Problem 1 — Derivative at a Point",
       "problem": "For f(x) = x² + 3x, using the definition f'(a) = lim_{h→0} [(f(a+h) - f(a))/h], find f'(2) and explain the geometric meaning.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Find f(2) = 2² + 3(2) = 10"
+       },
+       {
+        "text": "Find f(2+h) = (2+h)² + 3(2+h) = 10 + 7h + h²"
+       },
+       {
+        "text": "Compute the difference quotient: [(10 + 7h + h²) - 10]/h = (7h + h²)/h = 7 + h"
+       },
+       {
+        "text": "Take the limit as h approaches 0: lim_{h→0} (7 + h) = 7"
+       }
       ],
       "result": "f'(2) = 7. Geometric meaning: the tangent at (2, 10) has slope 7."
      },
@@ -4219,12 +5057,24 @@
       "heading": "Problem 2 — Derivative as a Function",
       "problem": "For f(x) = 3x² - 2x + 4, using the definition: (a) find f'(x); (b) the slope of the tangent at x=1; (c) the equation of this tangent.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply the definition: f'(x) = lim_{h→0} [(3(x+h)² - 2(x+h) + 4 - (3x² - 2x + 4))/h]"
+       },
+       {
+        "text": "Expand and simplify: lim_{h→0} [(6xh + 3h² - 2h)/h] = lim_{h→0} (6x + 3h - 2)"
+       },
+       {
+        "text": "Evaluate the limit: f'(x) = 6x - 2"
+       },
+       {
+        "text": "Find f'(1) = 6(1) - 2 = 4"
+       },
+       {
+        "text": "Find f(1) = 3(1)² - 2(1) + 4 = 5"
+       },
+       {
+        "text": "Write the tangent equation: y - 5 = 4(x - 1), which simplifies to y = 4x + 1"
+       }
       ],
       "result": "(a) f'(x) = 6x - 2; (b) slope at x=1 is 4; (c) tangent equation is y = 4x + 1"
      },
@@ -4251,9 +5101,15 @@
       "heading": "Problem 3 — Differentiating Polynomials",
       "problem": "Find the derivatives: (a) f(x) = 5x⁴ - 3x³ + 2x - 7; (b) g(x) = x⁵/5 - 3x²/2 + 8; (c) p(x) = 7 - 4x + x⁶.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "(a) Apply power rule to each term: f'(x) = 20x³ - 9x² + 2"
+       },
+       {
+        "text": "(b) Apply power rule to each term: g'(x) = x⁴ - 3x"
+       },
+       {
+        "text": "(c) Apply power rule to each term: p'(x) = 6x⁵ - 4"
+       }
       ],
       "result": "(a) f'(x) = 20x³ - 9x² + 2; (b) g'(x) = x⁴ - 3x; (c) p'(x) = 6x⁵ - 4"
      },
@@ -4276,10 +5132,18 @@
       "heading": "Problem 4 — Powers",
       "problem": "Rewrite using powers and differentiate; specify the domain of the derivative: (a) f(x) = 3/x²; (b) g(x) = 2·√x - 1/x; (c) p(x) = x^(1/3) + x².",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) Rewrite: f(x) = 3x⁻², then f'(x) = -6x⁻³ = -6/x³, x ≠ 0"
+       },
+       {
+        "text": "(b) Rewrite: g(x) = 2x^(1/2) - x⁻¹, then g'(x) = x^(-1/2) + x⁻² = 1/√x + 1/x², x > 0"
+       },
+       {
+        "text": "(c) Differentiate: p'(x) = (1/3)x^(-2/3) + 2x = 1/(3x^(2/3)) + 2x, x ≠ 0"
+       },
+       {
+        "text": "Note: p is defined at x=0, but there's no finite derivative there (vertical tangent)"
+       }
       ],
       "result": "(a) f'(x) = -6/x³, x ≠ 0; (b) g'(x) = 1/√x + 1/x², x > 0; (c) p'(x) = 1/(3x^(2/3)) + 2x, x ≠ 0"
      },
@@ -4304,11 +5168,21 @@
       "heading": "Problem 5 — The Quotient Rule",
       "problem": "Let f(x) = (x²+1)/(x+2), x ≠ -2. (a) Find f'(x) using the quotient rule. (b) Find f'(0). (c) Find the tangent at x=0. (d) Why is there no derivative at x=-2?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) Apply quotient rule: f'(x) = [(2x)(x+2) - (x²+1)(1)]/(x+2)²"
+       },
+       {
+        "text": "Simplify: f'(x) = (x² + 4x - 1)/(x+2)²"
+       },
+       {
+        "text": "(b) Evaluate at x=0: f'(0) = -1/4"
+       },
+       {
+        "text": "(c) Find f(0) = 1/2, tangent: y - 1/2 = (-1/4)(x - 0), so y = 1/2 - x/4"
+       },
+       {
+        "text": "(d) At x=-2, the function is undefined (denominator is zero), so no derivative exists"
+       }
       ],
       "result": "(a) f'(x) = (x² + 4x - 1)/(x+2)²; (b) f'(0) = -1/4; (c) tangent: y = 1/2 - x/4; (d) Function undefined at x=-2"
      },
@@ -4333,12 +5207,24 @@
       "heading": "Problem 6 — Higher Derivatives",
       "problem": "For f(x) = 2x⁴ - 3x³ + x² - 5x + 6 find f'(x), f''(x), f'''(x), f⁽⁴⁾(x), f⁽⁵⁾(x) and explain the meaning of the fifth derivative.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "f'(x) = 8x³ - 9x² + 2x - 5"
+       },
+       {
+        "text": "f''(x) = 24x² - 18x + 2"
+       },
+       {
+        "text": "f'''(x) = 48x - 18"
+       },
+       {
+        "text": "f⁽⁴⁾(x) = 48"
+       },
+       {
+        "text": "f⁽⁵⁾(x) = 0"
+       },
+       {
+        "text": "Explanation: Each differentiation reduces the degree by 1; after four steps we get the constant 48, and the derivative of a constant is zero."
+       }
       ],
       "result": "f'(x) = 8x³ - 9x² + 2x - 5; f''(x) = 24x² - 18x + 2; f'''(x) = 48x - 18; f⁽⁴⁾(x) = 48; f⁽⁵⁾(x) = 0"
      },
@@ -4367,12 +5253,24 @@
       "heading": "Problem 7 — Two Methods",
       "problem": "Differentiate f(x) = √x·(x²+4), x > 0: (a) using the product rule; (b) by expanding into powers; (c) show equivalence.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) Apply product rule: f'(x) = (1/(2√x))(x²+4) + √x(2x)"
+       },
+       {
+        "text": "Simplify: f'(x) = (x²+4)/(2√x) + 2x√x"
+       },
+       {
+        "text": "Combine terms: f'(x) = (x²+4)/(2√x) + 4x²/(2√x) = (5x²+4)/(2√x)"
+       },
+       {
+        "text": "(b) Expand: f(x) = x^(5/2) + 4x^(1/2)"
+       },
+       {
+        "text": "Differentiate: f'(x) = (5/2)x^(3/2) + 2x^(-1/2)"
+       },
+       {
+        "text": "(c) Show equivalence: (5/2)x^(3/2) = 5x²/(2√x) and 2x^(-1/2) = 4/(2√x), so sum is (5x²+4)/(2√x)"
+       }
       ],
       "result": "Both methods yield f'(x) = (5x²+4)/(2√x)"
      },
@@ -4399,10 +5297,18 @@
       "heading": "Problem 9 — Cart Motion",
       "problem": "A cart moves according to the law s(t) = t⁴ - 4t³ + 6t² (meters), 0 ≤ t ≤ 3s. (a) Find the velocity v(t). (b) The acceleration a(t). (c) The jerk j(t). (d) Calculate all three at t=1s with units.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) Velocity is derivative of position: v(t) = 4t³ - 12t² + 12t"
+       },
+       {
+        "text": "(b) Acceleration is derivative of velocity: a(t) = 12t² - 24t + 12"
+       },
+       {
+        "text": "(c) Jerk is derivative of acceleration: j(t) = 24t - 24"
+       },
+       {
+        "text": "(d) At t=1s: v(1) = 4m/s, a(1) = 0m/s², j(1) = 0m/s³"
+       }
       ],
       "result": "(a) v(t) = 4t³ - 12t² + 12t; (b) a(t) = 12t² - 24t + 12; (c) j(t) = 24t - 24; (d) At t=1: v=4m/s, a=0m/s², j=0m/s³"
      },
@@ -4427,9 +5333,15 @@
       "heading": "Problem 10 — Small Vehicle",
       "problem": "Position s(t) = t³ - 6t² + 9t, 0 ≤ t ≤ 4 (in meters, t in seconds). (a) Average velocity on [0,2]. (b) Instantaneous velocity at t=2. (c) All moments when the vehicle is at rest.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "(a) s(0) = 0, s(2) = 8 - 24 + 18 = 2; v_avg = (2-0)/(2-0) = 1m/s"
+       },
+       {
+        "text": "(b) v(t) = 3t² - 12t + 9 = 3(t-1)(t-3); v(2) = -3m/s"
+       },
+       {
+        "text": "(c) Rest occurs when v(t) = 0: t = 1s and t = 3s"
+       }
       ],
       "result": "(a) Average velocity = 1m/s; (b) Instantaneous velocity at t=2 = -3m/s; (c) Vehicle at rest at t=1s and t=3s"
      },
@@ -4497,9 +5409,15 @@
       "heading": "Related Rates Example — Inflating Balloon",
       "problem": "A spherical balloon is being inflated. Find the relationship between the rate of change of volume and the rate of change of radius.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Volume formula: V = (4/3)πr³"
+       },
+       {
+        "text": "Differentiate both sides with respect to t: dV/dt = 4πr² · dr/dt"
+       },
+       {
+        "text": "This relates the rate of change of volume to the rate of change of radius"
+       }
       ],
       "result": "dV/dt = 4πr² · dr/dt"
      },
@@ -4683,10 +5601,18 @@
       "heading": "Example 1 — Product Rule",
       "problem": "Find the derivative of $j(x) = (x^2 + 2)(3x^3 - 5x)$ using the product rule.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply the product rule: $j'(x) = \\frac{d}{dx}(x^2 + 2) \\cdot (3x^3 - 5x) + (x^2 + 2) \\cdot \\frac{d}{dx}(3x^3 - 5x)$"
+       },
+       {
+        "text": "Compute the derivatives: $\\frac{d}{dx}(x^2 + 2) = 2x$ and $\\frac{d}{dx}(3x^3 - 5x) = 9x^2 - 5$"
+       },
+       {
+        "text": "Substitute back: $j'(x) = 2x \\cdot (3x^3 - 5x) + (x^2 + 2) \\cdot (9x^2 - 5)$"
+       },
+       {
+        "text": "Expand and simplify: $j'(x) = 6x^4 - 10x^2 + 9x^4 - 5x^2 + 18x^2 - 10 = 15x^4 + 3x^2 - 10$"
+       }
       ],
       "result": "$j'(x) = 15x^4 + 3x^2 - 10$"
      },
@@ -4713,10 +5639,18 @@
       "heading": "Example 2 — Quotient Rule",
       "problem": "Find the derivative of $k(x) = \\frac{5x^2}{4x+3}$ using the quotient rule.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply the quotient rule: $k'(x) = \\frac{\\frac{d}{dx}(5x^2) \\cdot (4x+3) - 5x^2 \\cdot \\frac{d}{dx}(4x+3)}{(4x+3)^2}$"
+       },
+       {
+        "text": "Compute the derivatives: $\\frac{d}{dx}(5x^2) = 10x$ and $\\frac{d}{dx}(4x+3) = 4$"
+       },
+       {
+        "text": "Substitute back: $k'(x) = \\frac{10x(4x+3) - 5x^2 \\cdot 4}{(4x+3)^2}$"
+       },
+       {
+        "text": "Expand and simplify: $k'(x) = \\frac{40x^2 + 30x - 20x^2}{(4x+3)^2} = \\frac{20x^2 + 30x}{(4x+3)^2}$"
+       }
       ],
       "result": "$k'(x) = \\frac{20x^2 + 30x}{(4x+3)^2}$"
      },
@@ -4743,8 +5677,16 @@
       "heading": "Basic Trigonometric Derivatives",
       "tex": "\\frac{d}{dx}(\\sin x) = \\cos x, \\frac{d}{dx}(\\cos x) = -\\sin x \\text{ (theorem 3.8)}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "\\frac{d}{dx}(\\sin x) = \\cos x",
+        "color": "#4C5FD5",
+        "note": "The derivative of sine is cosine"
+       },
+       {
+        "substr": "\\frac{d}{dx}(\\cos x) = -\\sin x",
+        "color": "#4C5FD5",
+        "note": "The derivative of cosine is negative sine"
+       }
       ]
      },
      "narr": [
@@ -4785,10 +5727,26 @@
       "heading": "Other Trigonometric Derivatives",
       "tex": "\\frac{d}{dx}(\\tan x) = \\sec^2 x, \\frac{d}{dx}(\\cot x) = -\\csc^2 x, \\frac{d}{dx}(\\sec x) = \\sec x \\cdot \\tan x, \\frac{d}{dx}(\\csc x) = -\\csc x \\cdot \\cot x \\text{ (theorem 3.9)}",
       "parts": [
-       null,
-       null,
-       null,
-       null
+       {
+        "substr": "\\frac{d}{dx}(\\tan x) = \\sec^2 x",
+        "color": "#4C5FD5",
+        "note": "The derivative of tangent is secant squared"
+       },
+       {
+        "substr": "\\frac{d}{dx}(\\cot x) = -\\csc^2 x",
+        "color": "#4C5FD5",
+        "note": "The derivative of cotangent is negative cosecant squared"
+       },
+       {
+        "substr": "\\frac{d}{dx}(\\sec x) = \\sec x \\cdot \\tan x",
+        "color": "#4C5FD5",
+        "note": "The derivative of secant is secant times tangent"
+       },
+       {
+        "substr": "\\frac{d}{dx}(\\csc x) = -\\csc x \\cdot \\cot x",
+        "color": "#4C5FD5",
+        "note": "The derivative of cosecant is negative cosecant times cotangent"
+       }
       ]
      },
      "narr": [
@@ -4835,9 +5793,15 @@
       "heading": "Example 3 — Higher-Order Derivatives",
       "problem": "Find the 74th derivative of $\\sin x$.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Recognize that the derivatives of sine follow a cycle: $\\sin x \\rightarrow \\cos x \\rightarrow -\\sin x \\rightarrow -\\cos x \\rightarrow \\sin x \\rightarrow \\ldots$"
+       },
+       {
+        "text": "Determine the position in the cycle: $74 \\mod 4 = 2$ (since $74 = 4 \\cdot 18 + 2$)"
+       },
+       {
+        "text": "The 74th derivative corresponds to the 2nd position in the cycle"
+       }
       ],
       "result": "The 74th derivative of $\\sin x$ is $-\\sin x$"
      },
@@ -4862,8 +5826,16 @@
       "heading": "Exponential Derivatives",
       "tex": "\\frac{d}{dx}(e^x) = e^x, \\frac{d}{dx}(e^{g(x)}) = e^{g(x)} \\cdot g'(x) \\text{ (theorem 3.14)}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "\\frac{d}{dx}(e^x) = e^x",
+        "color": "#4C5FD5",
+        "note": "The derivative of e^x is itself"
+       },
+       {
+        "substr": "\\frac{d}{dx}(e^{g(x)}) = e^{g(x)} \\cdot g'(x)",
+        "color": "#4C5FD5",
+        "note": "Chain rule for exponential functions"
+       }
       ]
      },
      "narr": [
@@ -4881,10 +5853,26 @@
       "heading": "General Exponential and Logarithmic Derivatives",
       "tex": "\\frac{d}{dx}(b^x) = b^x \\cdot \\ln b, \\frac{d}{dx}(\\ln x) = \\frac{1}{x}, \\frac{d}{dx}(\\ln(g(x))) = \\frac{g'(x)}{g(x)}, \\frac{d}{dx}(\\log_b x) = \\frac{1}{x \\cdot \\ln b} \\text{ (theorems 3.15-3.16)}",
       "parts": [
-       null,
-       null,
-       null,
-       null
+       {
+        "substr": "\\frac{d}{dx}(b^x) = b^x \\cdot \\ln b",
+        "color": "#4C5FD5",
+        "note": "Derivative of general exponential function"
+       },
+       {
+        "substr": "\\frac{d}{dx}(\\ln x) = \\frac{1}{x}",
+        "color": "#4C5FD5",
+        "note": "Derivative of natural logarithm"
+       },
+       {
+        "substr": "\\frac{d}{dx}(\\ln(g(x))) = \\frac{g'(x)}{g(x)}",
+        "color": "#4C5FD5",
+        "note": "Chain rule for logarithmic functions"
+       },
+       {
+        "substr": "\\frac{d}{dx}(\\log_b x) = \\frac{1}{x \\cdot \\ln b}",
+        "color": "#4C5FD5",
+        "note": "Derivative of general logarithm"
+       }
       ]
      },
      "narr": [
@@ -4927,9 +5915,15 @@
       "heading": "Example 4 — Exponential Derivatives",
       "problem": "Find the derivatives of the following functions:",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "$\\frac{d}{dx}(e^{2x}) = 2 \\cdot e^{2x}$ (chain rule)"
+       },
+       {
+        "text": "$\\frac{d}{dx}(e^{3x^2}) = 6x \\cdot e^{3x^2}$ (chain rule)"
+       },
+       {
+        "text": "$\\frac{d}{dx}(e^{3x^2+5x^3}) = (6x + 15x^2) \\cdot e^{3x^2+5x^3}$ (chain rule)"
+       }
       ],
       "result": "The derivatives are $2e^{2x}$, $6xe^{3x^2}$, and $(6x + 15x^2)e^{3x^2+5x^3}$ respectively"
      },
@@ -5056,10 +6050,18 @@
       "heading": "Problem 1 — Related Rates: Inflating a Balloon",
       "problem": "A spherical balloon is being inflated with gas at a rate of 800 cm³/min. How fast is the radius of the balloon increasing at the moment when the radius is 30 cm?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Volume of a sphere: V = (4/3)πr³"
+       },
+       {
+        "text": "Differentiate with respect to t: dV/dt = 4πr²·(dr/dt)"
+       },
+       {
+        "text": "Substitute dV/dt = 800 and r = 30"
+       },
+       {
+        "text": "Solve for dr/dt"
+       }
       ],
       "result": "dr/dt = 2/(9π) ≈ 0.0707 cm/min"
      },
@@ -5086,12 +6088,24 @@
       "heading": "Problem 2 — Related Rates: Ladder Against a Wall",
       "problem": "A 10-foot ladder leans against a vertical wall. If the bottom end of the ladder slides away from the wall at a rate of 1 ft/s, how fast is the top end sliding down the wall when the bottom end is 6 feet from the wall?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Let x = distance from bottom to wall, y = height of top end"
+       },
+       {
+        "text": "By Pythagoras: x² + y² = 10² = 100"
+       },
+       {
+        "text": "Given dx/dt = 1 ft/s, find dy/dt when x = 6"
+       },
+       {
+        "text": "When x = 6, y = 8 (from 36 + y² = 100)"
+       },
+       {
+        "text": "Differentiate: 2x·(dx/dt) + 2y·(dy/dt) = 0"
+       },
+       {
+        "text": "Solve for dy/dt"
+       }
       ],
       "result": "dy/dt = -3/4 ft/s (0.75 ft/s)"
      },
@@ -5122,12 +6136,24 @@
       "heading": "Problem 3 — Related Rates: Shadow from a Lamp",
       "problem": "A 6-foot tall person walks away from a lamp post that is 15 feet tall at a rate of 5 ft/s. How fast is the tip of their shadow moving when they are 40 feet from the post?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Let x = distance from person to post"
+       },
+       {
+        "text": "Let s = length of shadow"
+       },
+       {
+        "text": "Let L = x + s = distance from post to shadow tip"
+       },
+       {
+        "text": "From similar triangles: 15/(x + s) = 6/s"
+       },
+       {
+        "text": "Simplify to: s = (2/3)x, so L = (5/3)x"
+       },
+       {
+        "text": "Differentiate: dL/dt = (5/3)·(dx/dt)"
+       }
       ],
       "result": "dL/dt = 25/3 ≈ 8.33 ft/s"
      },
@@ -5156,12 +6182,24 @@
       "heading": "Problem 4 — Related Rates: Conical Tank with Leak",
       "problem": "Water is supplied to an inverted conical tank at a constant rate of 9 m³/min. The tank has a height of 12 m and a radius of 6 m at the top edge. If the water level is rising at a rate of 0.2 m/min at the moment when the water depth is 4 m, find the rate at which water is leaking from the tank.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Let V = volume of water, h = depth, r = radius of surface"
+       },
+       {
+        "text": "From similarity: r/h = 6/12 = 1/2, so r = h/2"
+       },
+       {
+        "text": "Volume: V = (1/3)π(h/2)²·h = (π/12)h³"
+       },
+       {
+        "text": "Differentiate: dV/dt = (πh²/4)·(dh/dt)"
+       },
+       {
+        "text": "When h = 4 and dh/dt = 0.2: dV_net/dt = 0.8π ≈ 2.513 m³/min"
+       },
+       {
+        "text": "From dV_net/dt = Q_in - Q_out: Q_out = 9 - 0.8π ≈ 6.49 m³/min"
+       }
       ],
       "result": "Q_out ≈ 6.49 m³/min"
      },
@@ -5194,12 +6232,24 @@
       "heading": "Problem 5 — Related Rates: Two Cars",
       "problem": "Two cars start from the same point. One travels south at 60 km/h, the other west at 50 km/h. At what rate is the distance between the cars increasing two hours later?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Let x = distance traveled by westbound car (dx/dt = 50 km/h)"
+       },
+       {
+        "text": "Let y = distance traveled by southbound car (dy/dt = 60 km/h)"
+       },
+       {
+        "text": "Let z = distance between cars: z² = x² + y²"
+       },
+       {
+        "text": "After 2 hours: x = 100 km, y = 120 km, z = √(100² + 120²) = 20√61 ≈ 156.2 km"
+       },
+       {
+        "text": "Differentiate: 2z·(dz/dt) = 2x·(dx/dt) + 2y·(dy/dt)"
+       },
+       {
+        "text": "Solve for dz/dt"
+       }
       ],
       "result": "dz/dt = 10√61 ≈ 78.1 km/h"
      },
@@ -5228,12 +6278,24 @@
       "heading": "Problem 6 — Related Rates: Plane Over Radar",
       "problem": "A plane flies horizontally at an altitude of 2 km with a speed of 800 km/h and passes directly over a radar station. Find the rate at which the distance from the plane to the station is increasing when it is equal to 3 km.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Let x = horizontal distance from station to point under plane"
+       },
+       {
+        "text": "Let s = direct distance to plane"
+       },
+       {
+        "text": "Height h = 2 km is constant, so s² = x² + 4"
+       },
+       {
+        "text": "When s = 3: x² = 5, x = √5 km"
+       },
+       {
+        "text": "Differentiate: 2s·(ds/dt) = 2x·(dx/dt)"
+       },
+       {
+        "text": "Solve for ds/dt"
+       }
       ],
       "result": "ds/dt = 800√5/3 ≈ 596.27 km/h"
      },
@@ -5262,11 +6324,21 @@
       "heading": "Problem 7 — Related Rates: Gravel Pile",
       "problem": "Gravel falls from a conveyor belt at a rate of 30 ft³/min, and its granularity is such that it forms a pile in the shape of a cone whose base diameter and height are always equal. How fast is the height of the pile growing when it is 10 feet high?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Diameter equals height: 2r = h, so r = h/2"
+       },
+       {
+        "text": "Volume: V = (π/12)h³"
+       },
+       {
+        "text": "Differentiate: dV/dt = (πh²/4)·(dh/dt)"
+       },
+       {
+        "text": "Solve for dh/dt: dh/dt = 4·(dV/dt)/(πh²)"
+       },
+       {
+        "text": "Substitute dV/dt = 30 and h = 10"
+       }
       ],
       "result": "dh/dt = 6/(5π) ≈ 0.382 ft/min"
      },
@@ -5295,13 +6367,27 @@
       "heading": "Problem 8 — Related Rates: Boat and Pulley",
       "problem": "A boat is pulled toward a dock by a rope attached to the bow of the boat and passing through a pulley on the dock located 1 m above the bow of the boat. If the rope is pulled at a rate of 1 m/s, how fast is the boat approaching the dock when it is 8 m from it?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Let x = horizontal distance from boat to dock"
+       },
+       {
+        "text": "Let l = length of rope from pulley to boat"
+       },
+       {
+        "text": "Pulley is 1 m above bow, so l² = x² + 1"
+       },
+       {
+        "text": "Rope is shortening: dl/dt = -1 m/s"
+       },
+       {
+        "text": "When x = 8: l = √65"
+       },
+       {
+        "text": "Differentiate: 2l·(dl/dt) = 2x·(dx/dt)"
+       },
+       {
+        "text": "Solve for dx/dt"
+       }
       ],
       "result": "dx/dt = -√65/8 ≈ -1.008 m/s (approaching at ≈1.01 m/s)"
      },
@@ -5334,10 +6420,18 @@
       "heading": "Problem 9 — Related Rates: Particle on a Curve",
       "problem": "A particle moves along the curve y = √x such that its x-coordinate increases at a rate of 2 units/s. How fast is the y-coordinate of the particle changing when the particle is at the point (4, 2)?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Given y = √x and dx/dt = 2 units/s"
+       },
+       {
+        "text": "Find dy/dt when x = 4, y = 2"
+       },
+       {
+        "text": "Differentiate y = √x with respect to t: dy/dt = (1/(2√x))·(dx/dt)"
+       },
+       {
+        "text": "Substitute x = 4 and dx/dt = 2"
+       }
       ],
       "result": "dy/dt = 1/(2√4)·2 = 0.5 units/s"
      },
@@ -5362,11 +6456,21 @@
       "heading": "Problem 1 — Related Rates",
       "problem": "Given y = √x = x^(1/2), find dy/dt when x = 4 and dx/dt = 2.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Differentiate with respect to t using the chain rule"
+       },
+       {
+        "text": "dy/dt = (1/2)·x^(-1/2)·(dx/dt)"
+       },
+       {
+        "text": "Simplify to dy/dt = (1/(2·√x))·(dx/dt)"
+       },
+       {
+        "text": "Substitute x = 4 and dx/dt = 2"
+       },
+       {
+        "text": "Calculate dy/dt = (1/4)·2 = 1/2"
+       }
       ],
       "result": "dy/dt = 1/2 units/s — the y-coordinate is increasing at 0.5 units/s."
      },
@@ -5399,10 +6503,18 @@
       "heading": "Problem 2 — Oil Slick",
       "problem": "The radius of a circular oil slick is expanding at a constant rate of 2m/min. At what rate is the area of the slick growing when the radius is 30m?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Recall the area of a circle: A = πr²"
+       },
+       {
+        "text": "Differentiate with respect to t: dA/dt = 2πr·(dr/dt)"
+       },
+       {
+        "text": "Substitute r = 30 and dr/dt = 2"
+       },
+       {
+        "text": "Calculate dA/dt = 2π·30·2 = 120π"
+       }
       ],
       "result": "dA/dt = 120π ≈ 376.99 m²/min (approximately 377 m²/min)"
      },
@@ -5433,12 +6545,24 @@
       "heading": "Problem 3 — Trigonometric Functions",
       "problem": "Differentiate the following trigonometric functions: a) 3·sin x − 2·cos x; b) tan x + cot x; c) sec x − csc x",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "For a): Apply derivative rules to each term separately"
+       },
+       {
+        "text": "d/dx(3 sin x) = 3 cos x"
+       },
+       {
+        "text": "d/dx(−2 cos x) = −2·(−sin x) = 2 sin x"
+       },
+       {
+        "text": "Combine: 3 cos x + 2 sin x"
+       },
+       {
+        "text": "For b): Use known derivatives of tan x and cot x"
+       },
+       {
+        "text": "d/dx(tan x) = sec²x"
+       }
       ]
      },
      "narr": [
@@ -5466,12 +6590,24 @@
       "heading": "Problem 3 — Trigonometric Functions (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "d/dx(cot x) = −csc²x"
+       },
+       {
+        "text": "Combine: sec²x − csc²x"
+       },
+       {
+        "text": "For c): Use known derivatives of sec x and csc x"
+       },
+       {
+        "text": "d/dx(sec x) = sec x·tan x"
+       },
+       {
+        "text": "d/dx(−csc x) = −(−csc x·cot x) = csc x·cot x"
+       },
+       {
+        "text": "Combine: sec x·tan x + csc x·cot x"
+       }
       ],
       "result": "a) 3 cos x + 2 sin x; b) sec²x − csc²x; c) sec x·tan x + csc x·cot x"
      },
@@ -5496,12 +6632,24 @@
       "heading": "Problem 4 — Derivative of Tangent",
       "problem": "Starting from tan x = sin x/cos x, derive the derivative of tan x using the quotient rule.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Express tan x as a quotient: f(x) = sin x/cos x"
+       },
+       {
+        "text": "Apply the quotient rule: f'(x) = (cos x·cos x − sin x·(−sin x))/cos²x"
+       },
+       {
+        "text": "Simplify numerator: cos²x + sin²x"
+       },
+       {
+        "text": "Apply Pythagorean identity: cos²x + sin²x = 1"
+       },
+       {
+        "text": "Simplify to f'(x) = 1/cos²x"
+       },
+       {
+        "text": "Express in terms of secant: f'(x) = sec²x (for cos x ≠ 0)"
+       }
       ],
       "result": "The derivative of tan x is sec²x (for cos x ≠ 0)"
      },
@@ -5536,12 +6684,24 @@
       "heading": "Problem 5 — Quotient with Cosine",
       "problem": "Differentiate f(x) = sin x/(1 + cos x), where 1 + cos x ≠ 0.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply the quotient rule: f'(x) = [cos x·(1 + cos x) − sin x·(−sin x)]/(1 + cos x)²"
+       },
+       {
+        "text": "Expand the numerator: cos x + cos²x + sin²x"
+       },
+       {
+        "text": "Apply Pythagorean identity: cos²x + sin²x = 1"
+       },
+       {
+        "text": "Simplify numerator to 1 + cos x"
+       },
+       {
+        "text": "Simplify the expression: f'(x) = (1 + cos x)/(1 + cos x)²"
+       },
+       {
+        "text": "Cancel common terms: f'(x) = 1/(1 + cos x)"
+       }
       ],
       "result": "f'(x) = 1/(1 + cos x) (for 1 + cos x ≠ 0)"
      },
@@ -5572,12 +6732,24 @@
       "heading": "Problem 6 — Vibrating Component",
       "problem": "A vibrating component has displacement s(t) = 0.02·cos t m at angular frequency 1 rad/s. Find the velocity and acceleration, calculate them at t = π/2 s, and also find d⁴s/dt⁴.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Find velocity: v(t) = s'(t) = −0.02·sin t m/s"
+       },
+       {
+        "text": "Find acceleration: a(t) = v'(t) = −0.02·cos t m/s²"
+       },
+       {
+        "text": "Calculate at t = π/2: v = −0.02·sin(π/2) = −0.02 m/s"
+       },
+       {
+        "text": "Calculate at t = π/2: a = −0.02·cos(π/2) = 0"
+       },
+       {
+        "text": "Find third derivative: s'''(t) = 0.02·sin t"
+       },
+       {
+        "text": "Find fourth derivative: s⁴(t) = 0.02·cos t m/s⁴"
+       }
       ],
       "result": "v = −0.02 m/s, a = 0 at t = π/2; s⁴(t) = 0.02·cos t m/s⁴"
      },
@@ -5614,13 +6786,27 @@
       "heading": "Problem 7 — Different Bases",
       "problem": "Differentiate f(x) = 3e^x + 2^x − 5 and find f'(0).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Differentiate each term separately"
+       },
+       {
+        "text": "d/dx(3e^x) = 3e^x"
+       },
+       {
+        "text": "For 2^x: rewrite as e^(x·ln 2)"
+       },
+       {
+        "text": "Apply chain rule: d/dx(2^x) = e^(x·ln 2)·ln 2 = 2^x·ln 2"
+       },
+       {
+        "text": "Derivative of constant is 0"
+       },
+       {
+        "text": "Combine: f'(x) = 3e^x + 2^x·ln 2"
+       },
+       {
+        "text": "Evaluate at x = 0: f'(0) = 3·e^0 + 2^0·ln 2 = 3 + ln 2"
+       }
       ],
       "result": "f'(x) = 3e^x + 2^x·ln 2; f'(0) = 3 + ln 2 ≈ 3.693"
      },
@@ -5655,12 +6841,24 @@
       "heading": "Problem 8 — Logarithms and Tangent",
       "problem": "Differentiate f(x) = 2·ln x − log₁₀ x, x > 0, and find the equation of the tangent at x = 1.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Differentiate each logarithmic term separately"
+       },
+       {
+        "text": "d/dx(2·ln x) = 2/x"
+       },
+       {
+        "text": "For log₁₀ x: use change of base formula log₁₀ x = ln x/ln 10"
+       },
+       {
+        "text": "Differentiate: d/dx(log₁₀ x) = 1/(x·ln 10)"
+       },
+       {
+        "text": "Combine: f'(x) = 2/x − 1/(x·ln 10)"
+       },
+       {
+        "text": "Find point of tangency: f(1) = 2·ln 1 − log₁₀ 1 = 0"
+       }
       ]
      },
      "narr": [
@@ -5688,8 +6886,12 @@
       "heading": "Problem 8 — Logarithms and Tangent (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null
+       {
+        "text": "Find slope: f'(1) = 2 − 1/ln 10"
+       },
+       {
+        "text": "Write tangent equation: y = (2 − 1/ln 10)·(x − 1)"
+       }
       ],
       "result": "f'(x) = 2/x − 1/(x·ln 10); tangent: y = (2 − 1/ln 10)·(x − 1)"
      },
@@ -5710,12 +6912,24 @@
       "heading": "Problem 9 — Product and Quotient",
       "problem": "Differentiate: a) f(x) = x·ln x, x > 0; b) g(x) = e^x/x, x ≠ 0",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "For a): Apply product rule to f(x) = x·ln x"
+       },
+       {
+        "text": "Let u = x, v = ln x, so u' = 1, v' = 1/x"
+       },
+       {
+        "text": "f'(x) = u'v + uv' = 1·ln x + x·(1/x) = ln x + 1"
+       },
+       {
+        "text": "For b): Apply quotient rule to g(x) = e^x/x"
+       },
+       {
+        "text": "Let u = e^x, v = x, so u' = e^x, v' = 1"
+       },
+       {
+        "text": "g'(x) = (u'v - uv')/v² = (e^x·x - e^x·1)/x² = e^x(x - 1)/x²"
+       }
       ],
       "result": "a) f'(x) = ln x + 1; b) g'(x) = e^x(x - 1)/x²"
      },
@@ -5748,11 +6962,21 @@
       "heading": "Problem 10 — Product with Exponential",
       "problem": "Find the first derivative of the function f(x) = x²·e^x.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply product rule to f(x) = x²·e^x"
+       },
+       {
+        "text": "Let u = x², v = e^x, so u' = 2x, v' = e^x"
+       },
+       {
+        "text": "f'(x) = u'v + uv' = 2x·e^x + x²·e^x"
+       },
+       {
+        "text": "Factor out common terms: f'(x) = e^x(x² + 2x)"
+       },
+       {
+        "text": "Alternative factoring: f'(x) = x·e^x(x + 2)"
+       }
       ],
       "result": "f'(x) = e^x(x² + 2x) = x·e^x(x + 2), x ∈ R"
      },
@@ -5783,11 +7007,21 @@
       "heading": "Problem 11 — Discharging Capacitor",
       "problem": "A discharging capacitor has voltage V(t) = 12·e^(-t/2) V, t ≥ 0 (time in seconds). Find V'(t), initial rate of voltage change, and V'(2).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Differentiate V(t) = 12·e^(-t/2)"
+       },
+       {
+        "text": "Apply chain rule: derivative of exponent (-t/2)' = -1/2"
+       },
+       {
+        "text": "V'(t) = 12·e^(-t/2)·(-1/2) = -6·e^(-t/2) V/s"
+       },
+       {
+        "text": "Find initial rate: V'(0) = -6·e^0 = -6 V/s"
+       },
+       {
+        "text": "Find at t = 2: V'(2) = -6·e^(-1) = -6/e ≈ -2.21 V/s"
+       }
       ],
       "result": "V'(t) = -6·e^(-t/2) V/s; V'(0) = -6 V/s; V'(2) ≈ -2.21 V/s"
      },
@@ -5818,13 +7052,27 @@
       "heading": "Problem 12 — Charge and Electric Current",
       "problem": "Charge passing through a point in a wire is q(t) = t³ + 2t² + 3t C. Find the electric current at t = 2, average current on [0, 2], and rate of change of current at t = 2.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Find current: I(t) = q'(t) = 3t² + 4t + 3"
+       },
+       {
+        "text": "Calculate at t = 2: I(2) = 3(2)² + 4(2) + 3 = 12 + 8 + 3 = 23 A"
+       },
+       {
+        "text": "Find q(2) = (2)³ + 2(2)² + 3(2) = 8 + 8 + 6 = 22 C"
+       },
+       {
+        "text": "Find q(0) = 0 + 0 + 0 = 0 C"
+       },
+       {
+        "text": "Calculate average current: Iavg = (q(2) - q(0))/(2 - 0) = 22/2 = 11 A"
+       },
+       {
+        "text": "Find rate of change of current: I'(t) = 6t + 4"
+       },
+       {
+        "text": "Calculate at t = 2: I'(2) = 6(2) + 4 = 16 A/s"
+       }
       ],
       "result": "I(2) = 23 A; Iavg = 11 A; I'(2) = 16 A/s"
      },
@@ -5857,13 +7105,27 @@
       "heading": "Problem 13 — Electric Power",
       "problem": "For 0 ≤ t ≤ 4, a device has voltage V(t) = 12 - t V and current I(t) = 1 + t A. Find the electric power P(t), its derivative P'(t), and values of both quantities at t = 2.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Recall power formula: P(t) = V(t)·I(t)"
+       },
+       {
+        "text": "Calculate P(t) = (12 - t)(1 + t) = 12 + 11t - t² W"
+       },
+       {
+        "text": "Differentiate using product rule: P'(t) = V'(t)·I(t) + V(t)·I'(t)"
+       },
+       {
+        "text": "Find derivatives: V'(t) = -1, I'(t) = 1"
+       },
+       {
+        "text": "Calculate P'(t) = (-1)(1 + t) + (12 - t)(1) = 11 - 2t W/s"
+       },
+       {
+        "text": "Evaluate at t = 2: P(2) = 12 + 11(2) - (2)² = 30 W"
+       },
+       {
+        "text": "Evaluate at t = 2: P'(2) = 11 - 2(2) = 7 W/s"
+       }
       ],
       "result": "P(t) = 12 + 11t - t² W; P'(t) = 11 - 2t W/s; P(2) = 30 W; P'(2) = 7 W/s"
      },
@@ -5956,9 +7218,15 @@
       "heading": "Problem 178 — Find dy/dx for the function y = x - x³ · sin x",
       "problem": "Find dy/dx for the function y = x - x³ · sin x",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "y′ = 1 - (x³ · sin x)′"
+       },
+       {
+        "text": "By the product rule (x³ · sin x)′ = 3x² · sin x + cos x · x³"
+       },
+       {
+        "text": "Thus y′ = 1 - 3x² · sin x - x³ · cos x"
+       }
       ],
       "result": "y′ = 1 - 3x² · sin x - x³ · cos x"
      },
@@ -5981,11 +7249,21 @@
       "heading": "Problem 181 — Find dy/dx for the function y = (x + cos x)(1 - sin x)",
       "problem": "Find dy/dx for the function y = (x + cos x)(1 - sin x)",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Product rule with u = x + cos x (u′ = 1 - sin x) and v = 1 - sin x (v′ = -cos x)"
+       },
+       {
+        "text": "y′ = (1 - sin x)² + (x + cos x) · (-cos x)"
+       },
+       {
+        "text": "Simplify: y′ = (1 - sin x)² - x · cos x - cos² x"
+       },
+       {
+        "text": "After expanding the square and replacing sin² x - cos² x = -cos 2x"
+       },
+       {
+        "text": "y′ = 1 - 2 · sin x - cos 2x - x · cos x"
+       }
       ],
       "result": "y′ = 1 - 2 · sin x - cos 2x - x · cos x"
      },
@@ -6012,8 +7290,12 @@
       "heading": "Problem 191 — Find d²y/dx² for the function y = x · sin x - cos x",
       "problem": "Find d²y/dx² for the function y = x · sin x - cos x",
       "steps": [
-       null,
-       null
+       {
+        "text": "First derivative: y′ = sin x + x · cos x + sin x = x · cos x + 2 · sin x"
+       },
+       {
+        "text": "Second derivative: y″ = cos x - x · sin x + 2 · cos x = 3 · cos x - x · sin x"
+       }
       ],
       "result": "y″ = 3 · cos x - x · sin x"
      },
@@ -6034,8 +7316,12 @@
       "heading": "Problem 192 — Find d²y/dx² for the function y = sin x · cos x",
       "problem": "Find d²y/dx² for the function y = sin x · cos x",
       "steps": [
-       null,
-       null
+       {
+        "text": "First derivative: y′ = cos² x - sin² x = cos 2x"
+       },
+       {
+        "text": "Second derivative: y″ = -2 · sin 2x"
+       }
       ],
       "result": "y″ = -2 · sin 2x"
      },
@@ -6056,8 +7342,12 @@
       "heading": "Problem 193 — Find d²y/dx² for the function y = x - (1/2) · sin x",
       "problem": "Find d²y/dx² for the function y = x - (1/2) · sin x",
       "steps": [
-       null,
-       null
+       {
+        "text": "First derivative: y′ = 1 - (1/2) · cos x"
+       },
+       {
+        "text": "Second derivative: y″ = (1/2) · sin x"
+       }
       ],
       "result": "y″ = (1/2) · sin x"
      },
@@ -6078,9 +7368,15 @@
       "heading": "Problem 331 — Find the derivative of the function f(x) = e^(x³)",
       "problem": "Find the derivative of the function f(x) = e^(x³)",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "By Theorem 3.14: d/dx e^(g(x)) = e^(g(x)) · g′(x)"
+       },
+       {
+        "text": "With g(x) = x³, g′(x) = 3x²"
+       },
+       {
+        "text": "Thus f′(x) = 3x² · e^(x³)"
+       }
       ],
       "result": "f′(x) = 3x² · e^(x³)"
      },
@@ -6208,9 +7504,15 @@
       "heading": "Example 3.42 — Derivative of sec²x",
       "problem": "Find the derivative of sec²x",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Recall that sec x = 1/cos x"
+       },
+       {
+        "text": "Using the chain rule and quotient rule"
+       },
+       {
+        "text": "d/dx(sec²x) = 2 · sec x · sec x · tan x = 2 · sec²x · tan x"
+       }
       ],
       "result": "d/dx(sec²x) = 2 · sec²x · tan x"
      },
@@ -6274,11 +7576,21 @@
       "heading": "Example 3.41 — Particle at Rest",
       "problem": "A particle moves along the coordinate axis with position s(t) = 2 · sin t - t for 0 ≤ t ≤ 2π. At what moments is the particle at rest?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The particle is at rest when v(t) = s′(t) = 0"
+       },
+       {
+        "text": "s′(t) = 2 · cos t - 1"
+       },
+       {
+        "text": "Set equal to zero: 2 · cos t - 1 = 0"
+       },
+       {
+        "text": "Thus cos t = 1/2"
+       },
+       {
+        "text": "On [0, 2π], the solutions are t = π/3 and t = 5π/3"
+       }
       ],
       "result": "The particle is at rest at t = π/3 and t = 5π/3"
      },
@@ -6305,11 +7617,21 @@
       "heading": "Example 3.43 — Tangent to Cotangent",
       "problem": "Find the equation of the line tangent to the graph of f(x) = cot x at the point x = π/4",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Point of tangency: f(π/4) = cot(π/4) = 1, so the point is (π/4, 1)"
+       },
+       {
+        "text": "Slope: f′(x) = -csc²x"
+       },
+       {
+        "text": "f′(π/4) = -csc²(π/4) = -(√2)² = -2"
+       },
+       {
+        "text": "Equation: y - 1 = -2 · (x - π/4)"
+       },
+       {
+        "text": "Simplify: y = -2x + 1 + π/2"
+       }
       ],
       "result": "y = -2x + 1 + π/2"
      },
@@ -6336,10 +7658,18 @@
       "heading": "Example 3.44 — Sum and Product",
       "problem": "Find the derivative f(x) = csc x + x · tan x",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "By the sum rule: f′(x) = d/dx(csc x) + d/dx(x · tan x)"
+       },
+       {
+        "text": "d/dx(csc x) = -csc x · cot x"
+       },
+       {
+        "text": "For d/dx(x · tan x), use the product rule: 1 · tan x + sec²x · x"
+       },
+       {
+        "text": "Thus f′(x) = -csc x · cot x + tan x + x · sec²x"
+       }
       ],
       "result": "f′(x) = -csc x · cot x + tan x + x · sec²x"
      },
@@ -6364,10 +7694,18 @@
       "heading": "Problem 1 — Application to acceleration",
       "problem": "A particle moves such that s(t) = 2 − sin t. Find v(π/4) and a(π/4); compare these values and determine whether the particle is speeding up or slowing down.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Find velocity: v(t) = s'(t) = -cos t"
+       },
+       {
+        "text": "Find acceleration: a(t) = v'(t) = sin t"
+       },
+       {
+        "text": "Evaluate at t = π/4: v(π/4) = -cos(π/4) = -1/√2"
+       },
+       {
+        "text": "Evaluate at t = π/4: a(π/4) = sin(π/4) = 1/√2"
+       }
       ],
       "result": "Velocity is negative, acceleration is positive — they act in opposite directions: the object is accelerating against the direction of motion, meaning the particle is slowing down."
      },
@@ -6427,9 +7765,15 @@
       "heading": "Problem 2 — Composition with an exponential",
       "problem": "Find the derivative f(x) = e^(tan(2x)).",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Apply the chain rule: f'(x) = e^(tan(2x)) · d/dx(tan(2x))"
+       },
+       {
+        "text": "Differentiate the inner function: d/dx(tan(2x)) = sec^2(2x) · 2"
+       },
+       {
+        "text": "Combine results: f'(x) = e^(tan(2x)) · sec^2(2x) · 2"
+       }
       ],
       "result": "f'(x) = 2e^(tan(2x))sec^2(2x)"
      },
@@ -6456,10 +7800,18 @@
       "heading": "Problem 3 — Combination of rules",
       "problem": "Find the derivative y = e^(x^2)/x.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply the quotient rule: y' = [(e^(x^2))' · x - e^(x^2) · x'] / x^2"
+       },
+       {
+        "text": "Differentiate e^(x^2) using chain rule: (e^(x^2))' = e^(x^2) · 2x"
+       },
+       {
+        "text": "Substitute back: y' = [e^(x^2) · 2x · x - e^(x^2) · 1] / x^2"
+       },
+       {
+        "text": "Factor numerator: y' = e^(x^2)(2x^2 - 1)/x^2"
+       }
       ],
       "result": "y' = e^(x^2)(2x^2 - 1)/x^2"
      },
@@ -6488,10 +7840,18 @@
       "heading": "Problem 4 — Population growth",
       "problem": "A mosquito colony has an initial population of 1000; after t days the population is A(t) = 1000·e^(0.3t). Show that the ratio of the rate of change of the population A'(t) to the population A(t) is constant.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Find A'(t) using chain rule: A'(t) = 1000 · e^(0.3t) · 0.3"
+       },
+       {
+        "text": "Simplify: A'(t) = 300 · e^(0.3t)"
+       },
+       {
+        "text": "Compute ratio A'(t)/A(t) = 300·e^(0.3t)/(1000·e^(0.3t))"
+       },
+       {
+        "text": "Simplify ratio: A'(t)/A(t) = 300/1000 = 0.3"
+       }
       ],
       "result": "The ratio A'(t)/A(t) = 0.3 is constant, showing that the growth rate of an exponential population is proportional to the population itself."
      },
@@ -6518,10 +7878,18 @@
       "heading": "Problem 5 — Derivative of the natural logarithm",
       "problem": "Find the derivative f(x) = ln(x^3 + 3x - 4).",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply the chain rule for ln(g(x)): f'(x) = g'(x)/g(x)"
+       },
+       {
+        "text": "Identify g(x) = x^3 + 3x - 4"
+       },
+       {
+        "text": "Find g'(x) = 3x^2 + 3"
+       },
+       {
+        "text": "Combine: f'(x) = (3x^2 + 3)/(x^3 + 3x - 4)"
+       }
       ],
       "result": "f'(x) = (3x^2 + 3)/(x^3 + 3x - 4)"
      },
@@ -6546,12 +7914,24 @@
       "heading": "Problem 6 — Logarithmic properties in the derivative",
       "problem": "Find the derivative f(x) = ln(x^2 · sin x/(2x + 1)).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Expand logarithm using properties: f(x) = 2·ln x + ln(sin x) - ln(2x + 1)"
+       },
+       {
+        "text": "Differentiate each term separately"
+       },
+       {
+        "text": "Derivative of 2·ln x is 2/x"
+       },
+       {
+        "text": "Derivative of ln(sin x) is cos x/sin x = cot x"
+       },
+       {
+        "text": "Derivative of ln(2x + 1) is 2/(2x + 1)"
+       },
+       {
+        "text": "Combine results: f'(x) = 2/x + cot x - 2/(2x + 1)"
+       }
       ],
       "result": "f'(x) = 2/x + cot x - 2/(2x + 1)"
      },
@@ -6580,12 +7960,24 @@
       "heading": "Problem 7 — Common base",
       "problem": "Find the derivative h(x) = 3^x/(3^x + 2).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply the quotient rule: h'(x) = [(3^x)' · (3^x + 2) - 3^x · (3^x + 2)']/(3^x + 2)^2"
+       },
+       {
+        "text": "Find (3^x)' = 3^x · ln 3"
+       },
+       {
+        "text": "Find (3^x + 2)' = 3^x · ln 3"
+       },
+       {
+        "text": "Substitute: h'(x) = [3^x · ln 3 · (3^x + 2) - 3^x · 3^x · ln 3]/(3^x + 2)^2"
+       },
+       {
+        "text": "Factor numerator: h'(x) = [3^x · ln 3 · ((3^x + 2) - 3^x)]/(3^x + 2)^2"
+       },
+       {
+        "text": "Simplify: h'(x) = [3^x · ln 3 · 2]/(3^x + 2)^2"
+       }
       ],
       "result": "h'(x) = 2·3^x·ln 3/(3^x + 2)^2"
      },
@@ -6614,12 +8006,24 @@
       "heading": "Problem 8 — Slope of the tangent",
       "problem": "Find the slope of the line tangent to the graph y = log_2(3x + 1) at the point x = 1.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Apply the derivative formula for log_b(g(x)): dy/dx = g'(x)/(g(x)·ln b)"
+       },
+       {
+        "text": "Here, g(x) = 3x + 1, so g'(x) = 3"
+       },
+       {
+        "text": "Substitute: dy/dx = 3/((3x + 1)·ln 2)"
+       },
+       {
+        "text": "Evaluate at x = 1: dy/dx = 3/(4·ln 2)"
+       },
+       {
+        "text": "Simplify using logarithm property: 4·ln 2 = ln(2^4) = ln 16"
+       },
+       {
+        "text": "Final result: dy/dx = 3/ln 16"
+       }
       ],
       "result": "The slope of the tangent at x = 1 is 3/ln 16"
      },
@@ -6648,11 +8052,21 @@
       "heading": "Problem 9 — Rainfall in Phoenix",
       "problem": "The amount of rainfall in a month in Phoenix (Arizona) is approximately described by the function y(t) = 0.5 + 0.3·cos t, where t is the number of months since January. Find y' and determine the intervals on which the amount of rainfall is decreasing.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Find derivative: y'(t) = -0.3·sin t"
+       },
+       {
+        "text": "Rainfall decreases where y' < 0"
+       },
+       {
+        "text": "Solve -0.3·sin t < 0, which simplifies to sin t > 0"
+       },
+       {
+        "text": "Identify intervals where sin t > 0: (0, π) and (2π, 3π)"
+       },
+       {
+        "text": "Note that on (π, 2π) and (3π, 12), sin t < 0 and rainfall increases"
+       }
       ],
       "result": "Rainfall decreases on the intervals (0, π) and (2π, 3π)"
      },
@@ -6679,12 +8093,24 @@
       "heading": "Problem 10 — Flu in New York",
       "problem": "The number of flu cases in New York from the beginning of 1960 to the beginning of 1964 is modeled by the function N(t) = 5.3·e^(0.093t^2−0.87t), 0 ≤ t ≤ 4, where N(t) is the number of cases (in thousands), t is time in years, t = 0 is the beginning of 1960. a) Calculate N(0) and N(4) and describe their meaning. b) Calculate N'(0) and N'(3) and describe their meaning.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Part a: Calculate N(0) = 5.3·e^0 = 5.3 (approximately 5300 cases)"
+       },
+       {
+        "text": "Calculate N(4): First compute exponent 0.093·16 - 0.87·4 = -1.992"
+       },
+       {
+        "text": "Then N(4) = 5.3·e^(-1.992) ≈ 0.723 (approximately 723 cases)"
+       },
+       {
+        "text": "Part b: Find N'(t) using chain rule: N'(t) = 5.3·e^(0.093t^2−0.87t)·(0.186t - 0.87) = N(t)·(0.186t - 0.87)"
+       },
+       {
+        "text": "Calculate N'(0) = 5.3·(-0.87) = -4.611 (decrease of about 4611 cases per year)"
+       },
+       {
+        "text": "Calculate N'(3): First compute exponent 0.093·9 - 0.87·3 = -1.773"
+       }
       ]
      },
      "narr": [
@@ -6712,8 +8138,12 @@
       "heading": "Problem 10 — Flu in New York (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null
+       {
+        "text": "Then 0.186·3 - 0.87 = -0.312"
+       },
+       {
+        "text": "So N'(3) = 5.3·e^(-1.773)·(-0.312) ≈ -0.2808 (about 281 cases per year)"
+       }
       ],
       "result": "a) N(0) = 5.3 (5300 cases) and N(4) ≈ 0.723 (723 cases), showing a significant decrease over four years. b) N'(0) ≈ -4.611 and N'(3) ≈ -0.2808, both negative but with decreasing absolute values, indicating the decline is slowing down."
      },

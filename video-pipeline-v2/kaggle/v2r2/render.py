@@ -120,6 +120,12 @@ def main():
             log(f'{vid}: FAILED — {str(e)[:300]}')
         json.dump({'log': LOG, 'results': results, 't': time.time()-T0},
                   open(REPORT, 'w'), indent=1)
+    # CLEANUP_OUTPUT: drop work/pipeline caches so the output manifest stays small
+    import shutil
+    for d in ('/kaggle/working/work', '/kaggle/working/pipeline'):
+        if os.path.isdir(d):
+            shutil.rmtree(d, ignore_errors=True)
+            log(f'cleanup: removed {d}')
     log('=== kernel complete ===')
     json.dump({'log': LOG, 'results': results, 't': time.time()-T0},
               open(REPORT, 'w'), indent=1)

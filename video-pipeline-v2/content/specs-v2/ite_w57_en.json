@@ -19,8 +19,8 @@
        "Week 5 — Problem framing and modelling II",
        "Week 6 — Quantitative Reasoning I",
        "Week 7",
-       "Week 6 — Demand, Capacity, Flows, Estima…",
-       "Week 7 — Ranges, Metrics, Reporting"
+       "Week 5",
+       "Week 6"
       ]
      },
      "narr": [
@@ -129,9 +129,15 @@
       "heading": "Problem 1 — Campus Electrical Network",
       "problem": "Consider a campus electrical network. How can we model it to answer different types of questions?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "For connectivity questions (which buildings lose power during an outage), use a simplified one-line diagram that shows connections but not details"
+       },
+       {
+        "text": "For capacity questions (how much load can the system handle), create a model that includes transformers, loads, and capacity limits"
+       },
+       {
+        "text": "For analysis questions (where to add new capacity), develop a model that includes flow directions and current/voltage relationships"
+       }
       ],
       "result": "Different types of maps/models are needed for different questions: connectivity maps, capacity models, and analytical models"
      },
@@ -228,10 +234,18 @@
       "heading": "Problem 2 — Bus Range Model",
       "problem": "How would you model the range of an electric bus for a specific route?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify key variables: battery energy capacity, route distance, energy consumption per kilometer"
+       },
+       {
+        "text": "Make simplifying assumptions: constant speed, no passenger load variations, no weather effects"
+       },
+       {
+        "text": "Develop relationship: Range = Battery Energy / Energy per Kilometer"
+       },
+       {
+        "text": "Apply to specific question: Is one charge enough for a day on the route?"
+       }
       ],
       "result": "A simplified model focusing on energy, distance, and consumption can answer whether one charge is sufficient"
      },
@@ -403,12 +417,36 @@
       "heading": "Electric Bus Model Equations",
       "tex": "E = e \\times d \\quad \\text{and} \\quad R = \\frac{u \\times C}{e}",
       "parts": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "substr": "E = e × d",
+        "color": "#4C5FD5",
+        "note": "Trip energy in kWh"
+       },
+       {
+        "substr": "R = (u × C) ÷ e",
+        "color": "#B45309",
+        "note": "Range in km"
+       },
+       {
+        "substr": "C",
+        "color": "#0E7C7B",
+        "note": "Battery capacity in kWh"
+       },
+       {
+        "substr": "u",
+        "color": "#A03040",
+        "note": "Usable share (unitless)"
+       },
+       {
+        "substr": "e",
+        "color": "#4C5FD5",
+        "note": "Consumption in kWh/km"
+       },
+       {
+        "substr": "d",
+        "color": "#B45309",
+        "note": "Distance in km"
+       }
       ]
      },
      "narr": [
@@ -434,11 +472,21 @@
       "heading": "Problem 1 — Electric Bus Range Calculation",
       "problem": "Calculate the range of an electric campus bus with the following specifications: battery capacity C = 200 kWh, usable share u = 0.8, consumption e = 1.2 kWh/km. The daily route is 8 laps of 12 km each.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate usable energy: u × C = 0.8 × 200 kWh = 160 kWh"
+       },
+       {
+        "text": "Calculate range: R = (u × C) ÷ e = 160 kWh ÷ 1.2 kWh/km = 133.33 km"
+       },
+       {
+        "text": "Calculate daily energy requirement: 8 laps × 12 km/lap × 1.2 kWh/km = 115.2 kWh"
+       },
+       {
+        "text": "Calculate daily distance: 8 laps × 12 km/lap = 96 km"
+       },
+       {
+        "text": "Compare range to daily distance: 133.33 km > 96 km"
+       }
       ],
       "result": "The bus has a range of 133.33 km on a full charge, which covers the daily requirement of 96 km with a margin of approximately 37.33 km."
      },
@@ -567,11 +615,21 @@
       "heading": "Problem 1 — Bus Range Under Different Assumptions",
       "problem": "How does the bus range change under different real-world conditions?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Base case: e = 1.2 kWh/km, usable energy 128 kWh"
+       },
+       {
+        "text": "Full passenger load: e = 1.4 kWh/km, usable energy 128 kWh"
+       },
+       {
+        "text": "Old battery: e = 1.2 kWh/km, usable energy 107 kWh"
+       },
+       {
+        "text": "Winter heating: e = 1.8 kWh/km, usable energy 128 kWh"
+       },
+       {
+        "text": "Winter + old battery: e = 1.8 kWh/km, usable energy 107 kWh"
+       }
       ],
       "result": "Base case: 133 km; Full passenger load: 114 km; Old battery: 107 km; Winter heating: 89 km; Winter + old battery: 71 km"
      },
@@ -620,9 +678,15 @@
      "data": {
       "heading": "Problem 2 — When Models Mislead",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Range model built for mild autumn used in winter cold snap"
+       },
+       {
+        "text": "Solar generation profile built for clear summer day used in cloudy winter week"
+       },
+       {
+        "text": "Dormitory load of 2 kW for mild weather used in week of hard frost"
+       }
       ],
       "result": "Every model has a range within which its assumptions are valid. Know it and state it."
      },
@@ -699,10 +763,18 @@
       "heading": "Problem 3 — What is a Model?",
       "problem": "What is a model, and why does the lecture insist that 'no map is the network'?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define a model as a simplified representation of a real system"
+       },
+       {
+        "text": "Explain that models are built to answer specific questions"
+       },
+       {
+        "text": "Use the campus electrical network example with two different maps"
+       },
+       {
+        "text": "Connect to George Box's epigraph: 'All models are wrong, but some are useful'"
+       }
       ],
       "result": "A model is a simplified representation of a real system, built to answer a specific question. Different maps serve as different models for different questions."
      },
@@ -731,12 +803,24 @@
       "heading": "Problem 4 — Matching Questions to Models",
       "problem": "Which type of model fits each question best?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A (range on a single charge) — mathematical: energy = consumption per km × distance"
+       },
+       {
+        "text": "B (which buildings lose power when a feeder is switched off) — graphical: the one-line diagram"
+       },
+       {
+        "text": "C (dormitory temperature over a day) — computational: we step through the hours"
+       },
+       {
+        "text": "D (a turbine blade in a strong wind) — physical: the blade in a wind tunnel"
+       },
+       {
+        "text": "E (where passengers stand at a busy stop) — graphical: a sketch of the stop"
+       },
+       {
+        "text": "F (a building's energy over a day) — mathematical: kW × h = kWh from the loads"
+       }
       ],
       "result": "Different questions require different types of models: mathematical, graphical, computational, or physical."
      },
@@ -791,10 +875,18 @@
       "heading": "Problem 5 — Model Variables and Their Roles",
       "problem": "How do week 4 variables become the roles in a model?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Performance variables become outputs: range per charge [km], energy per day [kWh/day]"
+       },
+       {
+        "text": "Design variables become inputs: battery capacity [kWh], number of buses"
+       },
+       {
+        "text": "Context variables become parameters: route length [km], outside temperature [°C], hours on depot charging"
+       },
+       {
+        "text": "Last week's variables form the skeleton of this week's model"
+       }
       ],
       "result": "A variable's role in a model is determined by how it enters the calculation: as input, parameter, relationship, or output."
      },
@@ -819,10 +911,18 @@
       "heading": "Problem 6 — Applying Need-Know-How-Solve to Bus Range",
       "problem": "How do we apply the Need-Know-How-Solve framework to the bus range question?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Need — the variable we want: range per charge [km]"
+       },
+       {
+        "text": "Know — what is known: battery capacity, usable share, consumption per km, route length"
+       },
+       {
+        "text": "How — the model and the assumptions: Range = usable energy ÷ energy per km, i.e. R = (u×C) ÷ e"
+       },
+       {
+        "text": "Solve — compute, check the units, interpret: (u × C) [kWh] ÷ e [kWh/km] = R [km]"
+       }
       ],
       "result": "Week 4 gave us the Need; week 5 builds the How — and the assumptions hidden inside it."
      },
@@ -849,9 +949,15 @@
       "heading": "Problem S6 — Bus Model Calculations",
       "problem": "Substitute the numbers into the bus model: what are the usable energy, the range and the daily requirement?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Calculate usable energy: u × C = 0.8 × 200 kWh = 160 kWh"
+       },
+       {
+        "text": "Calculate range: R = 160 kWh ÷ 1.2 kWh/km = 133 km"
+       },
+       {
+        "text": "Calculate daily requirement: 8 laps × 12 km = 96 km"
+       }
       ],
       "result": "The model's conclusion: one charge covers the day with a margin of about 37 km."
      },
@@ -909,9 +1015,15 @@
       "heading": "Problem S7 — Identifying Assumptions",
       "problem": "Which three kinds of assumptions does the course distinguish? Give an example of each for the bus model.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Simplifying: ignoring hills, traffic lights, stops, driver differences"
+       },
+       {
+        "text": "Data: fixing e = 1.2 kWh/km, C = 200 kWh, u = 0.8"
+       },
+       {
+        "text": "Boundary: excluding passengers, charger, grid; including only the bus"
+       }
       ],
       "result": "Each assumption is documented with: 'We assume... because... If it is wrong...'"
      },
@@ -936,8 +1048,12 @@
       "heading": "Problem S8 — Spot the Hidden Assumptions",
       "problem": "Find the hidden assumption in the statement 'The dormitory needs a 2 kW heater, so a day costs 48 kWh' and rewrite it with the template.",
       "steps": [
-       null,
-       null
+       {
+        "text": "Identify hidden assumption: the heater runs at full power for all 24 hours"
+       },
+       {
+        "text": "Rewrite using template: 'We assume the heater is always on, because we have no thermostat data. If it switches off in cycles, the energy is below 48 kWh'"
+       }
       ],
       "result": "Other examples: '3000 kWh/day → 90000 kWh over 30 days' assumes every day is average; '1.2 kWh/km → ten buses over 12 km each = 144 kWh' assumes equal consumption and one lap each."
      },
@@ -962,11 +1078,21 @@
       "heading": "Problem S9 — Range Under Different Conditions",
       "problem": "How does the range change under full passenger load, an old battery and winter heating?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Base case: 133 km"
+       },
+       {
+        "text": "Full passenger load: 114 km"
+       },
+       {
+        "text": "Old battery: 107 km"
+       },
+       {
+        "text": "Winter heating: 89 km"
+       },
+       {
+        "text": "Winter + old battery: 71 km"
+       }
       ],
       "result": "The daily requirement is 96 km. The first three cases cover the day; winter heating and 'winter + old battery' do not. The conclusion: 'one charge covers the day' only holds as long as the assumptions hold."
      },
@@ -997,9 +1123,15 @@
       "heading": "Problem S10 — Solar Array Estimate",
       "problem": "Why is the naive estimate of a solar array, 5 kW × 24h = 120 kWh/day, nearly four times too high?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify hidden assumption: the sun shines at full power all day"
+       },
+       {
+        "text": "Naive model calculation: 5 kW × 24h = 120 kWh per day"
+       },
+       {
+        "text": "Realistic clear-day profile: about 31 kWh per day"
+       }
       ],
       "result": "The naive estimate is nearly four times higher than the realistic value."
      },
@@ -1059,9 +1191,15 @@
       "heading": "Problem S11 — Fit for Purpose",
       "problem": "What does 'fit for purpose' mean, and what are the two opposite ways a model can fail?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Fit for purpose: the model is good enough to answer the question and make a decision"
+       },
+       {
+        "text": "Too simple failure: ignores important variables like winter, hills, aging"
+       },
+       {
+        "text": "Too detailed failure: includes unnecessary complexity and inaccessible data"
+       }
       ],
       "result": "A fit-for-purpose model uses separate consumption for summer/winter plus safety margin. Rule: choose the simplest model that answers the question well enough."
      },
@@ -1123,9 +1261,15 @@
       "heading": "Problem S12 — Sanity Checks",
       "problem": "Which three sanity checks does a model pass, and when does a model 'mislead'?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Units check: (u × C) [kWh] ÷ e [kWh/km] gives km"
+       },
+       {
+        "text": "Order of magnitude: 133 km is plausible for a city bus"
+       },
+       {
+        "text": "Known value: compare with datasheets, test drives, logs"
+       }
       ],
       "result": "Models mislead outside their assumption range: autumn range model in winter, summer profile in cloudy winter, 2 kW load in frosty weather. Know and state the valid range."
      },
@@ -1154,12 +1298,24 @@
       "heading": "Problem S13 — Lab 5 Team Work",
       "problem": "What does the assessed team work consist of (ten steps), and how is it graded?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The model's question"
+       },
+       {
+        "text": "The type, with justification"
+       },
+       {
+        "text": "The anatomy — inputs, parameters, relationships, outputs, with units"
+       },
+       {
+        "text": "Need–Know–How–Solve"
+       },
+       {
+        "text": "At least six assumptions using the template"
+       },
+       {
+        "text": "Labelling Safe/Risky/Need Data"
+       }
       ]
      },
      "narr": [
@@ -1187,10 +1343,18 @@
       "heading": "Problem S13 — Lab 5 Team Work (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Changing one assumption and the effect on output"
+       },
+       {
+        "text": "The checks — units, order of magnitude, known value"
+       },
+       {
+        "text": "The verdict Too Simple/Fit for Purpose/Too Detailed"
+       },
+       {
+        "text": "A revision and the need for data"
+       }
       ],
       "result": "Grading per step: 3/2/1/0 (fully/partially/almost nothing/missing); steps are sequential with dependencies."
      },
@@ -1215,11 +1379,21 @@
       "heading": "Problem S14 — EV Charging Station Model",
       "problem": "What are the model's question, type, anatomy and result? What happens on switching to 50 kW fast charging?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Question: Will the station's peak power stay within the 150 kW limit?"
+       },
+       {
+        "text": "Type: Mathematical model"
+       },
+       {
+        "text": "Anatomy: inputs (n, P₁), parameters (L=150kW, 4 chargers), relationship (P=n×P₁), outputs (P, yes/no)"
+       },
+       {
+        "text": "Solution: P=4×22=88kW ≤150kW"
+       },
+       {
+        "text": "Stress test: At P₁=50kW, P=4×50=200kW (exceeds limit)"
+       }
       ],
       "result": "Verdict: Fit for Purpose. Revision: Use measured diversity factor instead of worst case. Data needed: Week of measurements per charger."
      },
@@ -1248,10 +1422,18 @@
       "heading": "Lab 5 Structure",
       "problem": "Describe the structure and timing of Lab 5.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Recap of lecture 5 (15 min): model definition, types, anatomy, assumptions"
+       },
+       {
+        "text": "Returning scenario cards (5 min): same ten cards from Lab 4/Homework"
+       },
+       {
+        "text": "Team work 'Build & Check a Model' (45 min, assessed)"
+       },
+       {
+        "text": "Model answer walkthrough (15 min): worked example for EV scenario"
+       }
       ],
       "result": "Teams use their scenario cards to build and check a model following the ten-step process."
      },
@@ -1278,12 +1460,24 @@
       "heading": "Assignment L5-1 — Build & Check a Model",
       "problem": "Describe the ten steps for the assessed team work in Lab 5.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define one clear question/purpose of the model (write as a question)"
+       },
+       {
+        "text": "Choose the type of model and justify it"
+       },
+       {
+        "text": "Detail the anatomy: inputs, parameters, relationships, outputs with units"
+       },
+       {
+        "text": "Apply Need–Know–How–Solve framework"
+       },
+       {
+        "text": "Include at least six assumptions using the template"
+       },
+       {
+        "text": "Label assumptions as Safe/Risky/Need Data"
+       }
       ],
       "result": "The assignment continues with four more steps: changing assumptions, performing checks, giving verdict, and suggesting revisions."
      },
@@ -1374,13 +1568,27 @@
       "heading": "Problem 1 — EV Charging & Battery Test Station",
       "problem": "Will the station's peak power draw stay within the grid operator's 150 kW limit during the busiest hour?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the model's question and type"
+       },
+       {
+        "text": "Define the model's anatomy: inputs, parameters, relationships, outputs"
+       },
+       {
+        "text": "Fill in Need–Know–How–Solve"
+       },
+       {
+        "text": "Document and classify six assumptions"
+       },
+       {
+        "text": "Change one assumption and explain its effect"
+       },
+       {
+        "text": "Perform three model checks: units, order of magnitude, known value"
+       },
+       {
+        "text": "Rate the model and suggest revision and additional data need"
+       }
       ],
       "result": "The model shows that with 4 chargers each drawing 22 kW, the total power is 88 kW, which is within the 150 kW limit. However, if chargers are upgraded to 50 kW each, the total would exceed the limit."
      },
@@ -1474,10 +1682,18 @@
       "heading": "Problem 1 — Need–Know–How–Solve",
       "problem": "Will the station's peak power draw stay within the grid operator's 150 kW limit during the busiest hour?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Need — the peak power [kW]"
+       },
+       {
+        "text": "Know — P₁ = 22 kW per charger; 4 chargers; the 150 kW limit"
+       },
+       {
+        "text": "How — P = n × P₁, with n = 4 at the peak"
+       },
+       {
+        "text": "Solve — P = 4 × 22 = 88 kW ≤ 150 kW; compliance is confirmed"
+       }
       ],
       "result": "The peak power draw is 88 kW, which is within the 150 kW limit, so compliance is confirmed."
      },
@@ -1637,10 +1853,18 @@
       "heading": "Problem 1 — Changing an Assumption",
       "problem": "What happens if we change one of our assumptions?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Change: The chargers are switched to fast charging, with P₁ rising from 22 to 50 kW per charger"
+       },
+       {
+        "text": "Recalculate: P = 4 × 50 = 200 kW"
+       },
+       {
+        "text": "Compare: 200 kW > 150 kW limit"
+       },
+       {
+        "text": "Conclusion: The model exposes a compliance violation that was hidden by the original assumption"
+       }
       ],
       "result": "With fast chargers at 50 kW each, the total power draw becomes 200 kW, exceeding the 150 kW limit and revealing a compliance issue."
      },
@@ -1713,9 +1937,15 @@
       "heading": "Problem 1 — Model Evaluation and Improvement",
       "problem": "How should we rate this model and what improvements could be made?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Verdict: Fit for Purpose — answers the compliance question with available data"
+       },
+       {
+        "text": "Revision: Replace worst-case 'all 4 occupied at once' with measured diversity factor"
+       },
+       {
+        "text": "Additional need for data: Week of measured power per charger"
+       }
       ],
       "result": "The model is rated as Fit for Purpose for answering the compliance question, but could be improved by incorporating measured diversity factors and actual power consumption data."
      },
@@ -1779,12 +2009,24 @@
       "heading": "Model Solution Example",
       "problem": "The model answer for assignment L5-1 (Tables 2.1–2.3 and steps 4, 7, 9-10)",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define the model question: \"What is the peak power consumption of the EV charging station?\""
+       },
+       {
+        "text": "Model type: Mathematical - because it involves numerical calculations to predict power consumption"
+       },
+       {
+        "text": "Model anatomy: Inputs (number of occupied charging bays), Parameters (power per charger = 22kW), Relationships (total power = number of chargers × power per charger), Outputs (peak power in kW)"
+       },
+       {
+        "text": "Assumptions include: constant power per charger, simultaneous maximum usage, no other loads, etc."
+       },
+       {
+        "text": "Stress test: What if all 4 chargers run simultaneously? Peak power = 4 × 22kW = 88kW"
+       },
+       {
+        "text": "Sanity check: 88kW is below the grid limit of 150kW, so the model shows compliance"
+       }
       ],
       "result": "The model is Fit for Purpose for answering the compliance question, but could be enhanced by considering diversity factors and other loads."
      },
@@ -1848,12 +2090,24 @@
       "heading": "Evidence Classification Examples",
       "problem": "Classify statements from the EV Charging & Battery Test Station scenario",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Fact: The grid operator's limit L = 150 kW - because it's a measured, verifiable value"
+       },
+       {
+        "text": "Fact: Each of the 4 charging bays is rated at 22 kW - because it's a specification from equipment documentation"
+       },
+       {
+        "text": "Inference: With four chargers running simultaneously, the peak power is 88 kW ≤ 150 kW - because it's a calculation based on facts"
+       },
+       {
+        "text": "Inference: If fewer than four are occupied at once, consumption is below 88 kW - because it's a logical conclusion from the facts"
+       },
+       {
+        "text": "Speculation: Switching the chargers to fast mode will raise P₁ to 50 kW - because it's a hypothesis to be tested"
+       },
+       {
+        "text": "Speculation: The building's lighting/HVAC will add load on the same connection - because it's an assumption requiring data"
+       }
       ]
      },
      "narr": [
@@ -1881,8 +2135,12 @@
       "heading": "Evidence Classification Examples (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null
+       {
+        "text": "Opinion: \"The model is good enough: it answers the compliance question without simulating the load curve\" - because it's a value judgment"
+       },
+       {
+        "text": "Opinion: \"Replace the worst case with a measured diversity factor\" - because it's a recommendation for improvement"
+       }
       ],
       "result": "Teams should identify 2 facts, 2 inferences, 2 speculations, and 2 opinions from their scenario card"
      },
@@ -1899,9 +2157,15 @@
       "heading": "Problem Statement Template",
       "problem": "Transform a complaint into a need and then a problem statement",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Complaint: \"We keep tripping the grid limit during peak hours\""
+       },
+       {
+        "text": "Need: The station operator needs to keep the peak power within the grid operator's limit in the busiest hour"
+       },
+       {
+        "text": "Problem Statement: \"The station needs to keep its peak power draw within the grid operator's limit, judged by total peak power P [kW] against L = 150 kW, within the four-bay charger configuration\""
+       }
       ],
       "result": "The problem statement is solution-free and focuses on the core issue with measurable variables"
      },
@@ -1926,12 +2190,24 @@
       "heading": "Process Flow Diagram Example",
       "problem": "Create a process flow diagram for the EV charging station",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Start → arrival of an electric vehicle"
+       },
+       {
+        "text": "Connection to a charging bay (n + 1 occupied [units])"
+       },
+       {
+        "text": "Charging session (P₁ = 22kW, constant)"
+       },
+       {
+        "text": "Decision: is a diagnostic test needed?"
+       },
+       {
+        "text": "If Yes: low-current diagnostic test (negligible power)"
+       },
+       {
+        "text": "Battery condition check via the charger's own diagnostics (no additional load)"
+       }
       ]
      },
      "narr": [
@@ -1959,9 +2235,15 @@
       "heading": "Process Flow Diagram Example (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The bay is freed (n - 1)"
+       },
+       {
+        "text": "End"
+       },
+       {
+        "text": "Note: Lighting/HVAC is outside the boundary and metered separately"
+       }
       ],
       "result": "The diagram shows the main flow of vehicles through the charging process with decision points"
      },
@@ -2114,10 +2396,18 @@
       "heading": "Target Setting Examples",
       "problem": "Set must-have and nice-to-have targets for key variables",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Peak power P ≤ 150 kW in the busiest hour (must-have - the operator's limit)"
+       },
+       {
+        "text": "Peak power P ≤ 150 kW even after switching to fast charging at P₁ = 50 kW (nice-to-have - today P = 4 × 50 = 200 kW, so the goal is not currently met)"
+       },
+       {
+        "text": "Charger utilization ≥ 80% during peak hours (nice-to-have - balances efficiency and availability)"
+       },
+       {
+        "text": "Average charging time ≤ 2 hours for standard vehicles (must-have - meets customer expectations)"
+       }
       ],
       "result": "Must-have targets represent non-negotiable requirements, while nice-to-have targets represent desirable improvements"
      },
@@ -2219,10 +2509,18 @@
       "heading": "Assignment L5-4: Milestone 2 — Independent Study",
       "problem": "Create a problem-framing document and modeling assumptions for your engineering system.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Write a problem-framing document including: the problem statement, performance variables, demands and wishes"
+       },
+       {
+        "text": "Draw the model as a block diagram showing: inputs, parameters, relationships, outputs — each with units"
+       },
+       {
+        "text": "Write out at least eight assumptions: what we assume, why, and what changes if it is wrong"
+       },
+       {
+        "text": "Label each assumption as safe, risky or needs data"
+       }
       ],
       "result": "The team deliverable is a problem-framing document and a list of modeling assumptions. Next week, the course will focus on putting numbers into the model."
      },
@@ -2462,9 +2760,21 @@
       "heading": "Utilization Calculation",
       "tex": "Utilisation = \\frac{Demand}{Capacity}",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "Utilisation",
+        "color": "#4C5FD5",
+        "note": "The ratio of demand to capacity"
+       },
+       {
+        "substr": "Demand",
+        "color": "#B45309",
+        "note": "What the system must deliver"
+       },
+       {
+        "substr": "Capacity",
+        "color": "#0E7C7B",
+        "note": "Maximum the system can deliver"
+       }
       ]
      },
      "narr": [
@@ -2703,10 +3013,18 @@
       "heading": "Problem 1 — Battery Discharge Time",
       "problem": "Calculate how long a 160 kWh battery will last when driving at 20 km/h with a consumption of 1,2 kWh/km.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the given values: battery capacity = 160 kWh, speed = 20 km/h, consumption = 1,2 kWh/km"
+       },
+       {
+        "text": "Calculate power consumption: consumption × speed = 1,2 [kWh/km] × 20 [km/h] = 24 [kW]"
+       },
+       {
+        "text": "Calculate discharge time: battery capacity ÷ power consumption = 160 [kWh] ÷ 24 [kW] ≈ 6,7 [h]"
+       },
+       {
+        "text": "Check units: [kWh] ÷ [kW] = [h], which confirms our calculation is dimensionally correct"
+       }
       ],
       "result": "The battery will last approximately 6,7 hours."
      },
@@ -2733,12 +3051,24 @@
       "heading": "Problem 2 — Single Bus Charging Time",
       "problem": "Calculate the time needed to restore 115 kWh of energy to a bus using a 60 kW charger.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Need: time to restore daily energy [h]"
+       },
+       {
+        "text": "Know: energy required = 115 kWh, charger power = 60 kW"
+       },
+       {
+        "text": "How: time = energy ÷ power, under assumptions of constant power and no losses"
+       },
+       {
+        "text": "Solve: 115 [kWh] ÷ 60 [kW] ≈ 1,9 [h]"
+       },
+       {
+        "text": "Check units: [kWh] ÷ [kW] = [h], confirming the calculation"
+       },
+       {
+        "text": "Note: real charging slows near full and loses some energy, so actual time is longer"
+       }
       ],
       "result": "Approximately 1,9 hours of charging time needed per bus."
      },
@@ -2767,12 +3097,24 @@
       "heading": "Problem 3 — Six Buses Charging Challenge",
       "problem": "Six buses each need 115 kWh by 06:00 using one 200 kW connection available from 22:00–06:00 (8h window). Can all buses be charged simultaneously?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate total energy needed: 6 buses × 115 kWh/bus = 690 kWh"
+       },
+       {
+        "text": "Calculate available charging time: 22:00–06:00 = 8 hours"
+       },
+       {
+        "text": "Calculate average power required: 690 kWh ÷ 8 h ≈ 86 kW"
+       },
+       {
+        "text": "Calculate peak power if all charge simultaneously: 6 buses × 60 kW/bus = 360 kW"
+       },
+       {
+        "text": "Compare with available capacity: 360 kW > 200 kW (utilization = 360/200 = 1,8)"
+       },
+       {
+        "text": "Solution: shift demand to two batches of three buses"
+       }
       ],
       "result": "All buses cannot be charged simultaneously due to power constraints. Solution: charge in two batches of three buses (3 × 60 kW = 180 kW, utilization = 0,9), requiring approximately 3,8 hours total charging time within the 8-hour window."
      },
@@ -3002,8 +3344,12 @@
       "heading": "Problem 1 — Solar installation for a bus",
       "problem": "Calculate the required solar panel installation size for a city electric bus that needs 115 kWh per day. Assume 4 kWh per kW of panels per day (annual average).",
       "steps": [
-       null,
-       null
+       {
+        "text": "Calculate installation size: 115 kWh/day ÷ 4 kWh/kW-day ≈ 29 kW"
+       },
+       {
+        "text": "Calculate required roof area: 29 kW × 5 m²/kW ≈ 145 m²"
+       }
       ],
       "result": "About 30 kW solar panels covering approximately 150 m² of roof area"
      },
@@ -3026,9 +3372,15 @@
       "heading": "Problem 2 — Bounding the estimate",
       "problem": "Consider different scenarios for solar panel production: optimistic (5 kWh/kW-day), best guess (4 kWh/kW-day), and cautious (3 kWh/kW-day). How does this affect the installation size?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Optimistic scenario: 115 ÷ 5 ≈ 23 kW"
+       },
+       {
+        "text": "Best guess scenario: 115 ÷ 4 ≈ 29 kW"
+       },
+       {
+        "text": "Cautious scenario: 115 ÷ 3 ≈ 38 kW"
+       }
       ],
       "result": "Installation size ranges from 23 kW to 38 kW depending on solar panel efficiency"
      },
@@ -3079,9 +3431,15 @@
       "heading": "Problem S1 — Demand and capacity",
       "problem": "What are demand and capacity? Why does every number need a time basis?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Define demand: what the system must deliver"
+       },
+       {
+        "text": "Define capacity: the maximum the system can deliver"
+       },
+       {
+        "text": "Explain time basis: what the number is per (per hour, per day, etc.)"
+       }
       ],
       "result": "Demand is what must be delivered, capacity is the maximum that can be delivered, and time basis specifies the period (per hour, per day, etc.)"
      },
@@ -3106,10 +3464,18 @@
       "heading": "Problem S2 — Demand and capacity in four systems",
       "problem": "Name the demand and the capacity in the lecture's four systems.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Campus bus at peak: demand — 300 passengers per hour; capacity — 240 passengers per hour (40 seats × 6 buses)"
+       },
+       {
+        "text": "Canteen at lunch: demand — 360 diners per hour; capacity — 400 meals per hour"
+       },
+       {
+        "text": "Depot connection: demand — 360 kW if six chargers run; capacity — 200 kW"
+       },
+       {
+        "text": "Faculty building at peak: demand — 180 kW at 13:00; capacity — 250 kW (transformer rating)"
+       }
       ],
       "result": "Each system has specific demand and capacity values with consistent units and time bases"
      },
@@ -3136,12 +3502,24 @@
       "heading": "Problem S3 — Utilization and thresholds",
       "problem": "What is utilization, what are the thresholds, and what are the values in the four systems?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define utilization: demand ÷ capacity"
+       },
+       {
+        "text": "Calculate for faculty building: 180 ÷ 250 kW = 0.72 (comfortable)"
+       },
+       {
+        "text": "Calculate for canteen: 360 ÷ 400 per hour = 0.90 (tight)"
+       },
+       {
+        "text": "Calculate for bus: 300 ÷ 240 per hour = 1.25 (overload)"
+       },
+       {
+        "text": "Calculate for depot: 360 ÷ 200 kW = 1.80 (overload)"
+       },
+       {
+        "text": "Define thresholds: below ~0.8 (comfortable), ~0.8–1.0 (tight), above 1.0 (overload)"
+       }
       ],
       "result": "Utilization values range from 0.72 (comfortable) to 1.80 (overload) depending on the system"
      },
@@ -3170,10 +3548,18 @@
       "heading": "Problem S4 — Sizing for peak vs. average",
       "problem": "Why should we size systems for peak demand rather than average demand?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Faculty building profile: average 94 kW, peak 180 kW at 13:00"
+       },
+       {
+        "text": "A system sized for average would fail at midday"
+       },
+       {
+        "text": "Average hides the peak demand"
+       },
+       {
+        "text": "Same principle applies to charging: average 86 kW doesn't guarantee six 60-kW chargers can run simultaneously (peak is 360 kW)"
+       }
       ],
       "result": "Systems should be sized for peak demand because that's when the maximum load occurs"
      },
@@ -3198,9 +3584,15 @@
       "heading": "Problem S5 — Closing the gap between demand and capacity",
       "problem": "In what three ways can the gap between demand and capacity be closed?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Reduce or shift the demand (e.g., charge buses in two batches of three)"
+       },
+       {
+        "text": "Raise the capacity (e.g., install a larger connection or transformer)"
+       },
+       {
+        "text": "Accept the waiting (allow queues to grow and determine tolerable wait times)"
+       }
       ],
       "result": "Three approaches: reduce/shift demand, increase capacity, or accept waiting"
      },
@@ -3225,12 +3617,24 @@
       "heading": "Problem S6 — Labeling demand and capacity",
       "problem": "Label A-F as demand or capacity and compute utilization of the pairs.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A 'the depot connection can give 200 kW' — capacity"
+       },
+       {
+        "text": "B 'six buses at 22:00 would draw 360 kW' — demand"
+       },
+       {
+        "text": "Pair utilization: 360 ÷ 200 = 1.8 — overload"
+       },
+       {
+        "text": "C 'the stop carries at most 240 per hour' — capacity"
+       },
+       {
+        "text": "D '300 per hour want the 8:30 bus' — demand"
+       },
+       {
+        "text": "Pair utilization: 300 ÷ 240 = 1.25 — overload"
+       }
       ]
      },
      "narr": [
@@ -3258,9 +3662,15 @@
       "heading": "Problem S6 — Labeling demand and capacity (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "E 'the faculty transformer is rated 250 kW' — capacity"
+       },
+       {
+        "text": "F 'the building's peak of 180 kW at 13:00' — demand"
+       },
+       {
+        "text": "Pair utilization: 180 ÷ 250 = 0.72 — comfortable"
+       }
       ],
       "result": "Three pairs: depot (1.8 overload), bus stop (1.25 overload), faculty building (0.72 comfortable)"
      },
@@ -3279,10 +3689,18 @@
       "heading": "Problem S7 — kW vs. kWh and proper unit handling",
       "problem": "What is the difference between kW and kWh, and how should units be written in calculations?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "kW is power (intensity), kWh is energy (amount)"
+       },
+       {
+        "text": "Power × time = energy"
+       },
+       {
+        "text": "Carry units in square brackets: 60 [kW] × 2 [h] = 120 [kWh]"
+       },
+       {
+        "text": "Common traps: confusing charger rating (60 kW) with consumption (60 kWh); missing units and time basis; unit conversion errors"
+       }
       ],
       "result": "kW measures power (rate), kWh measures energy (total amount); always track units in calculations"
      },
@@ -3309,10 +3727,18 @@
       "heading": "Problem S8 — Stock and flow",
       "problem": "What are stock and flow? How many hours does a bus run on 160 kWh at 20 km/h?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Stock: amount in a system (queue, buffer, battery)"
+       },
+       {
+        "text": "Flow: rate of change in stock (inflow - outflow)"
+       },
+       {
+        "text": "Calculate power consumption: 1.2 [kWh/km] × 20 [km/h] = 24 [kW]"
+       },
+       {
+        "text": "Calculate operating time: 160 [kWh] ÷ 24 [kW] ≈ 6.7 [h]"
+       }
       ],
       "result": "Bus operates for approximately 6.7 hours on 160 kWh at 20 km/h"
      },
@@ -3339,12 +3765,24 @@
       "heading": "Problem S9 — Bus charging time",
       "problem": "How long does it take to charge one bus?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify what we need: time to restore daily energy [hours]"
+       },
+       {
+        "text": "Identify what we know: energy needed is 115 kWh, charger power is 60 kW"
+       },
+       {
+        "text": "Determine method: time = energy ÷ power"
+       },
+       {
+        "text": "State assumptions: constant power, no losses"
+       },
+       {
+        "text": "Calculate: 115 [kWh] ÷ 60 [kW] ≈ 1.9 [h]"
+       },
+       {
+        "text": "Check units: [kWh] ÷ [kW] = [h] - correct unit for the answer"
+       }
       ],
       "result": "Approximately 1.9 hours to charge one bus (assuming constant power and no losses)"
      },
@@ -3375,12 +3813,24 @@
       "heading": "Problem S10 — Charging multiple buses",
       "problem": "Can six buses charge overnight on a 200 kW connection?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate total energy needed: 6 × 115 kWh = 690 kWh"
+       },
+       {
+        "text": "Determine charging window: 22:00–06:00 = 8 hours"
+       },
+       {
+        "text": "Calculate average power: 690 kWh ÷ 8 h = 86.25 kW"
+       },
+       {
+        "text": "Check peak power requirement: 6 × 60 kW = 360 kW"
+       },
+       {
+        "text": "Compare to connection capacity: 360 kW > 200 kW (utilization = 1.8)"
+       },
+       {
+        "text": "Solution: shift demand - charge in two batches of three buses"
+       }
       ],
       "result": "No, all six buses cannot charge simultaneously on a 200 kW connection, but they can charge in two batches of three"
      },
@@ -3409,11 +3859,21 @@
       "heading": "Problem 1 — Fleet Expansion Analysis",
       "problem": "What if the bus fleet grows to ten buses? Calculate the total energy needed, average power, number of simultaneous chargers, batches required, and total charging time.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate total energy: 10 buses × 115 kWh/bus = 1150 kWh"
+       },
+       {
+        "text": "Calculate average power: 1150 kWh ÷ 8 h = 143.75 kW ≈ 144 kW"
+       },
+       {
+        "text": "Determine maximum simultaneous chargers: 200 kW ÷ 60 kW/charger ≈ 3.33 → 3 chargers (round down)"
+       },
+       {
+        "text": "Calculate batches needed: 10 buses ÷ 3 buses/batch ≈ 3.33 → 4 batches (round up)"
+       },
+       {
+        "text": "Calculate total time: 4 batches × 1.9 h/batch ≈ 7.6 h"
+       }
       ],
       "result": "The plan fits within 8 hours but has almost no margin. One slow charger or a late bus would break the plan."
      },
@@ -3496,11 +3956,21 @@
       "heading": "Problem 2 — Semiconductor Wafer Packaging Line",
       "problem": "Identify the bottleneck in the semiconductor wafer packaging line, determine what happens to the buffer before the bottleneck, and propose a quantified improvement.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate daily capacities: Die Sort 8,160; Die Attach 7,440; Wire Bonding 6,960; Electrical Test 7,200; Final Packaging 7,680"
+       },
+       {
+        "text": "Identify bottleneck: Wire Bonding with lowest capacity (6,960 units/day)"
+       },
+       {
+        "text": "Analyze buffer before Wire Bonding: change = 600 - 560 = 40 units/h; free space = 1,100 - 300 = 800 units"
+       },
+       {
+        "text": "Calculate buffer filling time: 800 units ÷ 40 units/h = 20 hours"
+       },
+       {
+        "text": "Propose improvement: raise Wire Bonding capacity to 7,000 ÷ 0.85 ≈ 8,235 units/day ≈ 686 units/h (+18% over current 580)"
+       }
       ],
       "result": "The bottleneck is Wire Bonding. The buffer before it fills in 20 hours and reaches 780 of 1,100 units after a 12-hour shift. The improvement is to increase Wire Bonding capacity by approximately 18% to 686 units/h."
      },
@@ -3697,9 +4167,15 @@
       "heading": "Problem 1 - Identifying the Bottleneck",
       "problem": "Determine the bottleneck stage and the maximum practical throughput of the production line.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify the stage with minimum capacity"
+       },
+       {
+        "text": "Wire Bonding has the lowest capacity at 6,960 units/day"
+       },
+       {
+        "text": "This sets the maximum practical throughput of the entire line"
+       }
       ],
       "result": "Wire Bonding is the bottleneck with a capacity of 6,960 units/day"
      },
@@ -3718,10 +4194,18 @@
       "heading": "Problem 2 - Material Flow Analysis",
       "problem": "Calculate the good output and losses through the production stages.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Start with 7,200 dies entering the system"
+       },
+       {
+        "text": "After Die Sort: 7,200 × 0.98 = 7,056 (144 rejected)"
+       },
+       {
+        "text": "After Attach/Bond: 7,056 × 0.97 = 6,844 (212 lost)"
+       },
+       {
+        "text": "After Test: 6,844 × 0.96 ≈ 6,571 (273 written off)"
+       }
       ],
       "result": "Good output ≈ 6,571 units/day (approximately 91% yield)"
      },
@@ -3742,9 +4226,15 @@
       "heading": "Problem 3 - Buffer Analysis at Peak Demand",
       "problem": "Calculate the buffer filling time before Wire Bonding during peak demand.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Change = inflow − outflow = 600 − 560 = 40 units/h"
+       },
+       {
+        "text": "Free space = 1,100 − 300 = 800 units"
+       },
+       {
+        "text": "Filling time = 800 ÷ 40 = 20 hours"
+       }
       ],
       "result": "The buffer will fill in 20 hours at peak demand"
      },
@@ -3785,11 +4275,21 @@
       "heading": "Problem 4 - Capacity Improvement Calculation",
       "problem": "Determine the required capacity increase for Wire Bonding to achieve peak utilization ≤ 85%",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Target: peak utilization ≤ 0.85"
+       },
+       {
+        "text": "Required capacity = 7,000 ÷ 0.85 ≈ 8,235 units/day"
+       },
+       {
+        "text": "Required hourly rate = 8,235 ÷ 12 ≈ 686 units/h"
+       },
+       {
+        "text": "Current rate: 580 units/h"
+       },
+       {
+        "text": "Increase needed: (686 − 580) ÷ 580 ≈ 18%"
+       }
       ],
       "result": "Wire Bonding capacity needs to increase by approximately 18% to 686 units/h"
      },
@@ -3861,10 +4361,18 @@
       "heading": "Problem 5 - Process Flow Diagram",
       "problem": "Create a process flow diagram for the production line",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify all production stages in order"
+       },
+       {
+        "text": "Draw boxes representing each stage"
+       },
+       {
+        "text": "Connect boxes with arrows showing material flow direction"
+       },
+       {
+        "text": "Include stage names and key parameters"
+       }
       ],
       "result": "A left-to-right diagram showing: Die Sort → Die Attach → Wire Bonding → Electrical Test → Final Packaging"
      },
@@ -3883,10 +4391,18 @@
       "heading": "Problem 6 - Demand and Capacity Table",
       "problem": "Create a table showing stage, capacity (units/h), time basis (h/day), and capacity (units/day)",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "List all stages in the first column"
+       },
+       {
+        "text": "Enter production rate in units/h for each stage"
+       },
+       {
+        "text": "Specify operating time in h/day for each stage"
+       },
+       {
+        "text": "Calculate daily capacity for each stage"
+       }
       ],
       "result": "Table with columns: Stage, Rate [units/h], Time [h/day], Capacity [units/day]"
      },
@@ -3905,9 +4421,15 @@
       "heading": "Problem 7 - Utilization and Classification",
       "problem": "Calculate utilization for each stage and classify as comfortable, tight, or overloaded",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Calculate utilization = Demand ÷ Capacity for each stage"
+       },
+       {
+        "text": "Apply classification: comfortable < 0.8, tight 0.8-1.0, overloaded > 1.0"
+       },
+       {
+        "text": "Perform calculations for both average and peak demand scenarios"
+       }
       ],
       "result": "Utilization values and classifications for each stage at both demand levels"
      },
@@ -3926,10 +4448,18 @@
       "heading": "Problem 8 - Bottleneck Identification",
       "problem": "Identify the bottleneck stage and determine maximum practical throughput",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compare capacities of all stages"
+       },
+       {
+        "text": "Identify stage with minimum capacity"
+       },
+       {
+        "text": "Explain why this stage limits the entire production line"
+       },
+       {
+        "text": "State the maximum practical throughput value"
+       }
       ],
       "result": "Wire Bonding is the bottleneck with maximum practical throughput of 6,960 units/day"
      },
@@ -3948,10 +4478,18 @@
       "heading": "Problem 9 - Material Flow Analysis",
       "problem": "Create a material flow table showing losses and good output",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "List each stage in sequence"
+       },
+       {
+        "text": "Note the fraction lost or rejected at each stage"
+       },
+       {
+        "text": "Calculate input, lost amount, and output after each stage"
+       },
+       {
+        "text": "Calculate total good output and overall fraction lost"
+       }
       ],
       "result": "Table showing material flow with cumulative losses and final good output of approximately 6,571 units/day"
      },
@@ -3970,10 +4508,18 @@
       "heading": "Problem 10 - Queue/Buffer Analysis",
       "problem": "Analyze buffer behavior during peak demand",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify which queue/buffer/stock to analyze"
+       },
+       {
+        "text": "Calculate change = inflow - outflow"
+       },
+       {
+        "text": "Determine current level and maximum capacity"
+       },
+       {
+        "text": "Calculate filling time or size after given time"
+       }
       ],
       "result": "Buffer before Wire Bonding fills at 40 units/h and reaches capacity in 20 hours"
      },
@@ -4096,11 +4642,21 @@
       "heading": "Problem 1 — Semiconductor Wafer Packaging Line",
       "problem": "Analyze the semiconductor wafer packaging line system using the provided tables and steps.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the bottleneck stage in the production line"
+       },
+       {
+        "text": "Calculate the utilization at average demand"
+       },
+       {
+        "text": "Calculate the utilization at peak demand"
+       },
+       {
+        "text": "Determine if the system can cope with peak demand"
+       },
+       {
+        "text": "Identify potential improvements to the system"
+       }
       ],
       "result": "The system may or may not cope with peak demand depending on the specific bottleneck analysis; improvements could include increasing capacity at the bottleneck stage or implementing demand management strategies."
      },
@@ -4127,12 +4683,24 @@
       "heading": "Problem 2 — Demand or Capacity?",
       "problem": "Label each statement as D (demand) or C (capacity), then form pairs and calculate utilization.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Label A: the depot connection can give 200 kW"
+       },
+       {
+        "text": "Label B: six buses plugged in at 22:00 would draw 360 kW"
+       },
+       {
+        "text": "Calculate utilization for pair A-B"
+       },
+       {
+        "text": "Label C: the stop can carry at most 240 passengers per hour"
+       },
+       {
+        "text": "Label D: 300 passengers per hour want the 8:30 bus"
+       },
+       {
+        "text": "Calculate utilization for pair C-D"
+       }
       ]
      },
      "narr": [
@@ -4160,9 +4728,15 @@
       "heading": "Problem 2 — Demand or Capacity? (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Label E: the faculty transformer is rated 250 kW"
+       },
+       {
+        "text": "Label F: the faculty building's peak of 180 kW at 13:00"
+       },
+       {
+        "text": "Calculate utilization for pair E-F"
+       }
       ],
       "result": "A: Capacity (200 kW), B: Demand (360 kW), Utilization = 360÷200 = 1.8 (overload); C: Capacity (240 passengers/hour), D: Demand (300 passengers/hour), Utilization = 300÷240 = 1.25 (overload); E: Capacity (250 kW), F: Demand (180 kW), Utilization = 180÷250 = 0.72 (comfortable)"
      },
@@ -4179,12 +4753,24 @@
       "heading": "Problem 3 — Can Ten Buses Charge?",
       "problem": "Determine if 10 buses can be charged with given parameters: 115 kWh per bus, 60 kW chargers, 200 kW connection, 8-hour window.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate total energy required (10 buses × 115 kWh)"
+       },
+       {
+        "text": "Calculate average power needed (total energy ÷ 8 hours)"
+       },
+       {
+        "text": "Determine number of chargers that can operate simultaneously (200 kW ÷ 60 kW)"
+       },
+       {
+        "text": "Calculate number of batches needed (10 buses ÷ chargers per batch)"
+       },
+       {
+        "text": "Calculate total time required (batches × time per batch)"
+       },
+       {
+        "text": "Compare with available time window"
+       }
       ],
       "result": "Total energy: 1,150 kWh; Average power: ~144 kW; Simultaneous chargers: 3 (200÷60 = 3.3, round down); Batches: 4 (10÷3 = 3.3, round up); Time: ~7.7 hours (4 × 1.9); Result: It fits within 8 hours but with minimal margin for error."
      },
@@ -4213,13 +4799,27 @@
       "heading": "Problem 4 — Estimate It in Your Team",
       "problem": "Choose one question and follow the four-step estimation method: identify → break into factors → estimate and round → check units.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Option A: How many passengers can the campus bus carry per hour?"
+       },
+       {
+        "text": "Option B: How much electricity does the faculty building consume per day?"
+       },
+       {
+        "text": "Step 1: Identify the key factors affecting the estimate"
+       },
+       {
+        "text": "Step 2: Break the problem into manageable components"
+       },
+       {
+        "text": "Step 3: Make reasonable estimates and round appropriately"
+       },
+       {
+        "text": "Step 4: Check units and verify plausibility"
+       },
+       {
+        "text": "Share results with uncertainty: 'About X, give or take a factor of 3, assuming...'"
+       }
       ],
       "result": "For option A: Consider number of seats, trips per hour, standing capacity. For option B: Consider number of rooms, lighting power, computer equipment, hours of use. Final estimate should include uncertainty range and key assumptions."
      },
@@ -4248,12 +4848,24 @@
       "heading": "Problem 5 — Independent Study: Numbers for Your System",
       "problem": "Analyze your own system by identifying demand and capacity, performing calculations, and checking results.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Write down demand with units and time basis"
+       },
+       {
+        "text": "Write down capacity with units and time basis"
+       },
+       {
+        "text": "Calculate utilization (demand ÷ capacity)"
+       },
+       {
+        "text": "Perform one intensity or flow calculation with units"
+       },
+       {
+        "text": "Make one order-of-magnitude estimate with assumptions"
+       },
+       {
+        "text": "Check results: units, size, and known values"
+       }
       ],
       "result": "Documentation of your system's parameters, calculations, and verification steps. This working material prepares for next week's analysis with limited but focused data."
      },
@@ -4807,9 +5419,21 @@
       "heading": "Range Calculation",
       "tex": "R = 160 \\text{ [kWh]} \\div e: 1.1 / 1.3 / 1.6 \\text{ [kWh/km]} \\rightarrow 145, \\frac{123}{100} \\text{ [km]}",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "R = 160 [kWh]",
+        "color": "#4C5FD5",
+        "note": "Total energy available"
+       },
+       {
+        "substr": "e: 1.1 / 1.3 / 1.6 [kWh/km]",
+        "color": "#B45309",
+        "note": "Energy consumption per kilometer"
+       },
+       {
+        "substr": "145, 123/100 [km]",
+        "color": "#0E7C7B",
+        "note": "Calculated range"
+       }
       ]
      },
      "narr": [
@@ -4851,10 +5475,26 @@
       "heading": "Mean and Median Calculation",
       "tex": "\\text{mean} = \\frac{1.1 + 1.3 + 1.6}{3} = 1.33 \\text{ [kWh/km]}; \\text{median} = 1.3 \\text{ [kWh/km]}; n = 3",
       "parts": [
-       null,
-       null,
-       null,
-       null
+       {
+        "substr": "mean = (1.1 + 1.3 + 1.6) ÷ 3",
+        "color": "#4C5FD5",
+        "note": "Calculation of the average"
+       },
+       {
+        "substr": "1.33 [kWh/km]",
+        "color": "#B45309",
+        "note": "Mean value"
+       },
+       {
+        "substr": "median = 1.3 [kWh/km]",
+        "color": "#0E7C7B",
+        "note": "Middle value when ordered"
+       },
+       {
+        "substr": "n = 3",
+        "color": "#A03040",
+        "note": "Sample size"
+       }
       ]
      },
      "narr": [
@@ -4902,9 +5542,21 @@
       "heading": "Triangulation Calculations",
       "tex": "\\approx 2800 = 8000 \\times 0.35; \\approx 2260 = 94 \\times 24; \\approx 2330 = \\frac{70000}{30} \\text{ [kWh/day]}",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "2800 = 8000 × 0.35",
+        "color": "#4C5FD5",
+        "note": "Floor area method"
+       },
+       {
+        "substr": "2260 = 94 × 24",
+        "color": "#B45309",
+        "note": "Load profile method"
+       },
+       {
+        "substr": "2330 = 70000 ÷ 30",
+        "color": "#0E7C7B",
+        "note": "Monthly bill method"
+       }
       ]
      },
      "narr": [
@@ -5078,10 +5730,18 @@
       "heading": "Problem 1 — LED Retrofit Analysis",
       "problem": "An LED retrofit saves 12 kW. How should this be interpreted?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate percentage of corridor lighting: 12 kW ÷ 20 kW = 60%"
+       },
+       {
+        "text": "Calculate percentage of building's peak: 12 kW ÷ 180 kW = 7%"
+       },
+       {
+        "text": "Identify different baselines: corridor lighting vs. building peak"
+       },
+       {
+        "text": "Question: Which baseline is relevant for the decision?"
+       }
       ],
       "result": "The same fact (12 kW saved) gives different percentages depending on the baseline. Always ask: a percentage of what?"
      },
@@ -5138,10 +5798,18 @@
       "heading": "Problem 2 — Bus Winter Range Analysis",
       "problem": "Can one bus get through a winter day of 96 km on a single charge? Known: usable energy 160 kWh, daily requirement 96 km, summer tests 1.1–1.6 kWh/km (n=3). Missing: winter test data.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Estimate winter consumption by analogy: summer + heating = 1.5–2.0 kWh/km (typically 1.8 kWh/km)"
+       },
+       {
+        "text": "Calculate winter range: 160 kWh ÷ 1.5/1.8/2.0 kWh/km = 107/89/80 km"
+       },
+       {
+        "text": "Compare with requirement: 89 km vs. 96 km requirement"
+       },
+       {
+        "text": "Report honest assessment with all four elements"
+       }
       ],
       "result": "Result — 'probably not: 89 km against 96 km'; Range — 80–107 km; Top assumption — 1.8 kWh/km with low confidence; What would change it — one real winter trip or daytime top-up charging."
      },
@@ -5172,11 +5840,21 @@
       "heading": "Problem S1 — Incomplete Data Types",
       "problem": "Name the five ways data can be incomplete, with bus examples.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Too little — a few points: three test trips"
+       },
+       {
+        "text": "Missing — no data for the case we need: no winter test"
+       },
+       {
+        "text": "Noisy — values scatter around the truth: 1.1–1.6 kWh/km on the same route"
+       },
+       {
+        "text": "Outdated or unrepresentative — measured under other conditions: tests with an empty bus"
+       },
+       {
+        "text": "Wrong definition or unit — the quantity is not what we think: battery in '%'"
+       }
       ],
       "result": "Name the problem first: the fix depends on which of the five types of incompleteness it is."
      },
@@ -5205,11 +5883,21 @@
       "heading": "Problem S2 — Data Sources and Trust",
       "problem": "Where do numbers come from, and how far should they be trusted?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Measure (time a trip, keep a charging log) — high confidence, if the method is stated"
+       },
+       {
+        "text": "Look up (a datasheet, a standard) — average: conditions may differ"
+       },
+       {
+        "text": "Ask (the driver, the operations manager) — average: check it against something"
+       },
+       {
+        "text": "Estimate (break into factors, lecture 6) — low–medium: state the assumptions"
+       },
+       {
+        "text": "Analogy (a similar building or route) — low: say how similar"
+       }
       ],
       "result": "Write the source and the confidence level next to every number."
      },
@@ -5238,9 +5926,15 @@
       "heading": "Problem S3 — Reporting Ranges",
       "problem": "Why a range rather than a single number? What should be reported for the three summer trips?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "A range tells the reader how far to trust the answer"
+       },
+       {
+        "text": "Three trips of 1.1/1.3/1.6 kWh/km give a range of 160÷1.1/1.3/1.6 = 145/123/100 km"
+       },
+       {
+        "text": "All three cases cover the daily requirement of 96 km, but the high-consumption case only with a 4 km margin"
+       }
       ],
       "result": "Report: 'about 100 to 145 km'. A single number would hide how thin the margin is in the worst case."
      },
@@ -5265,10 +5959,18 @@
       "heading": "Problem S4 — Mean vs. Median",
       "problem": "Mean or median for a small sample? What should be written next to the number?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate mean: (1.1 + 1.3 + 1.6) ÷ 3 = 1.33 kWh/km"
+       },
+       {
+        "text": "Identify median: the middle value when ordered = 1.3 kWh/km"
+       },
+       {
+        "text": "Note that one odd trip moves the mean a lot, but the median almost not at all"
+       },
+       {
+        "text": "With n = 3, give a range and n; do not claim more than three trips can show"
+       }
       ],
       "result": "Write n next to every reported number."
      },
@@ -5295,10 +5997,18 @@
       "heading": "Problem S5 — Triangulation",
       "problem": "What is triangulation? Give the faculty building example.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Triangulation is estimating one quantity by several independent routes and comparing"
+       },
+       {
+        "text": "Route 1 — floor area × typical consumption: 8,000 m² × 0.35 kWh/m²·day ≈ 2,800 kWh/day"
+       },
+       {
+        "text": "Route 2 — the load profile: 94 kW × 24h ≈ 2,260 kWh/day"
+       },
+       {
+        "text": "Route 3 — the monthly bill: 70,000 ÷ 30 ≈ 2,330 kWh/day"
+       }
       ],
       "result": "Three independent routes agree to within about 25%. Agreement builds trust, disagreement points to where to look."
      },
@@ -5327,12 +6037,24 @@
       "heading": "Problem S6 — Name the Problem",
       "problem": "For each scenario, name the problem type A–F and the way to get a better number.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A 'We tested the bus in one trip' — too little: repeat the trip on different days and loads"
+       },
+       {
+        "text": "B 'No data on winter heating of the dormitory' — missing: estimate by analogy; schedule a winter measurement"
+       },
+       {
+        "text": "C 'Five charger readings: 58, 61, 54, 63, 60 kW' — noisy: the mean and a range, about 59 kW (54–63)"
+       },
+       {
+        "text": "D 'The generation figure is from a desert site' — unrepresentative: find data from a similar climate"
+       },
+       {
+        "text": "E 'The datasheet says '200' without a unit' — wrong definition/unit: 200 kWh is energy, 200 kW is power"
+       },
+       {
+        "text": "F 'The load profile is from before the new wing' — out of date: re-measure or scale the profile"
+       }
       ],
       "result": "Identify the type of data problem to determine the appropriate solution."
      },
@@ -5363,9 +6085,15 @@
       "heading": "Problem S7 — Interpreting Waiting Time Data",
       "problem": "One dataset — three readings: how do the dispatcher, the passenger and the administrator read the waiting distribution?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Dispatcher perspective: focuses on system efficiency and peak loads"
+       },
+       {
+        "text": "Passenger perspective: concerned with individual experience and maximum wait times"
+       },
+       {
+        "text": "Administrator perspective: looks at overall performance and resource allocation"
+       }
       ],
       "result": "Different stakeholders interpret the same data differently based on their priorities and responsibilities."
      },
@@ -5392,9 +6120,15 @@
       "heading": "Problem S8 — How is the metric chosen by the deciding question?",
       "problem": "Different metrics can represent different aspects of the same data. How do we choose which metric to use?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify the deciding question"
+       },
+       {
+        "text": "Match the question to the appropriate metric"
+       },
+       {
+        "text": "Apply the metric to the waiting time data"
+       }
       ],
       "result": "The decision chooses the metric, not the other way round."
      },
@@ -5444,9 +6178,15 @@
       "heading": "Problem S9 — 'A percentage of what?' — LED retrofit savings",
       "problem": "Explain how the same saving can be represented as different percentages.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify the saving: 38 kW from LED retrofit"
+       },
+       {
+        "text": "Calculate percentage against different baselines"
+       },
+       {
+        "text": "Interpret the results"
+       }
       ],
       "result": "Different baselines and boundaries give different but true stories — always ask, a percentage of what."
      },
@@ -5496,9 +6236,15 @@
       "heading": "Problem S10 — Misleading Techniques and Counter Questions",
       "problem": "Identify three misleading techniques and the questions that counter them.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify the misleading technique"
+       },
+       {
+        "text": "Determine the counter question"
+       },
+       {
+        "text": "Explain why the question exposes the issue"
+       }
       ],
       "result": "Different denominators: ask 'per what?'. Cherry-picked days: ask 'which days were dropped?'. Truncated axis: ask 'where does the axis start?'"
      },
@@ -5551,10 +6297,18 @@
       "heading": "Problem S11 — Questions for Number Interpretation",
       "problem": "What four questions should we ask of any number interpretation?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the purpose of the number"
+       },
+       {
+        "text": "Determine the appropriate metric"
+       },
+       {
+        "text": "Check the baseline and boundary"
+       },
+       {
+        "text": "Identify critical assumptions"
+       }
       ],
       "result": "Four elements: (1) For which decision? (2) Which metric? (3) Which baseline/boundary? (4) Which assumption would flip the conclusion?"
      },
@@ -5609,10 +6363,18 @@
       "heading": "Problem S12 — Honest Engineering Report Components",
       "problem": "What four elements make up an honest engineering report?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define the result clearly"
+       },
+       {
+        "text": "Specify the range of uncertainty"
+       },
+       {
+        "text": "Identify top assumptions"
+       },
+       {
+        "text": "Determine what would change the conclusion"
+       }
       ],
       "result": "Four elements: RESULT, RANGE, TOP ASSUMPTION, WHAT WOULD CHANGE IT"
      },
@@ -5639,11 +6401,21 @@
       "heading": "Problem S13 — Bus Range Analysis",
       "problem": "Can a bus get through a winter day of 96 km on a single charge?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify known values: usable energy 160 kWh, requirement 96 km"
+       },
+       {
+        "text": "Note summer tests: 1.1–1.6 kWh/km"
+       },
+       {
+        "text": "Estimate winter consumption with heating: 1.5–2.0 kWh/km, typically 1.8"
+       },
+       {
+        "text": "Calculate possible ranges: 160 ÷ 1.5 = 107 km, 160 ÷ 1.8 = 89 km, 160 ÷ 2.0 = 80 km"
+       },
+       {
+        "text": "Create an honest report with uncertainty"
+       }
       ],
       "result": "Probably not: 89 km against 96 km; range 80–107 km; top assumption — 1.8 kWh/km, low confidence; what would change it — a real winter trip or daytime top-up charging"
      },
@@ -5672,12 +6444,24 @@
       "heading": "Problem S14 — LED Case Analysis",
       "problem": "What is the range of annual savings, and what would flip the 'replace everything now' decision?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Determine range of annual savings: 124–216 MWh/year, typically 167"
+       },
+       {
+        "text": "Calculate cost savings: 87–216 million UZS/year"
+       },
+       {
+        "text": "Identify most important uncertainty: hours of use"
+       },
+       {
+        "text": "Evaluate energy claim robustness: would flip only if new lamp draws close to 18 W"
+       },
+       {
+        "text": "Calculate break-even premium for different service lives"
+       },
+       {
+        "text": "Make recommendation based on analysis"
+       }
       ],
       "result": "Range: 124–216 MWh/year; most important uncertainty is hours of use; break-even premium ≈ annual saving per lamp × years of service; recommendation — a pilot in one building before replacing all 6,500 lamps"
      },
@@ -5732,12 +6516,24 @@
       "heading": "Assignment L7-1 — Decide With Incomplete Data — Parts A–I",
       "problem": "Complete a nine-part analysis to make decisions with incomplete data.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A. Diagnose data problems — identify at least 3 problems (too little, missing, noisy, etc.)"
+       },
+       {
+        "text": "B. Source and confidence — choose 4–5 important numbers with their sources and confidence levels"
+       },
+       {
+        "text": "C. Build a low/typical/high range for one uncertain variable"
+       },
+       {
+        "text": "D. Create two interpretations of one dataset — favorable and critical"
+       },
+       {
+        "text": "E. Choose the right metric for 3 deciding questions"
+       },
+       {
+        "text": "F–I. Additional analysis components (not fully specified in the excerpt)"
+       }
       ],
       "result": "A comprehensive nine-part analysis leading to an informed decision with incomplete data"
      },
@@ -5799,11 +6595,21 @@
       "heading": "Problem 1 — LED Lamp Reliability and Energy-Saving Decision",
       "problem": "Decide how confidently the university can estimate the annual energy saving, and whether replacing all lamps right now is justified.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Diagnose data problems and identify better numbers"
+       },
+       {
+        "text": "Evaluate sources and confidence levels for key quantities"
+       },
+       {
+        "text": "Calculate energy saving ranges (low/typical/high)"
+       },
+       {
+        "text": "Interpret the same dataset from different perspectives"
+       },
+       {
+        "text": "Choose the appropriate metric for the decision"
+       }
       ],
       "result": "Decision requires more data on service life, actual hours of use, and current number of lamps"
      },
@@ -6275,10 +7081,18 @@
       "heading": "Problem 1 — Energy Savings Calculation",
       "problem": "Calculate the energy savings when replacing old lamps with new ones, given the power consumption difference.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate per-lamp savings: 5.88W ÷ 18W = 33%"
+       },
+       {
+        "text": "Calculate total power savings: 6500 × 5.88W ≈ 38.2 kW"
+       },
+       {
+        "text": "Compare against old total consumption: 6500 × 18W ≈ 117 kW"
+       },
+       {
+        "text": "Verify percentage: 38.2 kW ÷ 117 kW ≈ 33%"
+       }
       ],
       "result": "The replacement saves approximately 33% of energy per lamp and across the entire system."
      },
@@ -6303,10 +7117,18 @@
       "heading": "Problem 2 — Baseline Verification",
       "problem": "Check the baseline energy consumption against different estimates and identify inconsistencies.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compare against operations estimate: 38.2 kW ÷ 75 kW = 51%"
+       },
+       {
+        "text": "Compare against old report: 38.2 kW ÷ 20 kW = 191%"
+       },
+       {
+        "text": "Identify impossible result: 191% exceeds 100%, indicating baseline error"
+       },
+       {
+        "text": "Apply rule: Results above 100% suggest wrong baseline boundary"
+       }
       ],
       "result": "The 20 kW baseline is incorrect as it gives a savings percentage over 100%. The proper boundary must be clearly defined (corridor lamps only, all lighting, or whole building)."
      },
@@ -6381,11 +7203,21 @@
       "heading": "Problem 3 — Break-Even Analysis",
       "problem": "Calculate the break-even premium per lamp based on different service life scenarios.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate annual saving per lamp: 5.88W × 12h × 365 ÷ 1000 ≈ 25.8 kWh"
+       },
+       {
+        "text": "Convert to annual saving in UZS: 25.8 kWh × 850 UZS ≈ 21,900 UZS"
+       },
+       {
+        "text": "For 40,000 hours service life: 21,900 UZS × (40,000÷8760) ≈ 200,000 UZS"
+       },
+       {
+        "text": "For 20,000 hours service life: 21,900 UZS × (20,000÷8760) ≈ 100,000 UZS"
+       },
+       {
+        "text": "For 10,000 hours service life: 21,900 UZS × (10,000÷8760) ≈ 50,000 UZS"
+       }
       ],
       "result": "The break-even premium per lamp ranges from 50,000 to 200,000 UZS depending on the actual service life of the lamps."
      },
@@ -6553,8 +7385,12 @@
       "heading": "Problem A — Name the Problem",
       "problem": "We tested the bus in one trip",
       "steps": [
-       null,
-       null
+       {
+        "text": "Identify the problem type"
+       },
+       {
+        "text": "Determine a way to get a better number"
+       }
       ],
       "result": "Problem type: too little data. Better number: repeat the trip on different days and with different loads."
      },
@@ -6575,8 +7411,12 @@
       "heading": "Problem B — Name the Problem",
       "problem": "No data on winter heating of the dormitory",
       "steps": [
-       null,
-       null
+       {
+        "text": "Identify the problem type"
+       },
+       {
+        "text": "Determine a way to get a better number"
+       }
       ],
       "result": "Problem type: missing data. Better number: estimate by analogy with other buildings; schedule a winter measurement."
      },
@@ -6595,8 +7435,12 @@
       "heading": "Problem C — Name the Problem",
       "problem": "Five readings of one charger: 58, 61, 54, 63, 60 kW",
       "steps": [
-       null,
-       null
+       {
+        "text": "Identify the problem type"
+       },
+       {
+        "text": "Determine a way to get a better number"
+       }
       ],
       "result": "Problem type: noisy data. Better number: report the mean and the range — about 59 kW, from 54 to 63."
      },
@@ -6615,8 +7459,12 @@
       "heading": "Problem D — Name the Problem",
       "problem": "The solar generation figure is from a desert site",
       "steps": [
-       null,
-       null
+       {
+        "text": "Identify the problem type"
+       },
+       {
+        "text": "Determine a way to get a better number"
+       }
       ],
       "result": "Problem type: unrepresentative data. Better number: find generation data for a similar climate."
      },
@@ -6635,8 +7483,12 @@
       "heading": "Problem E — Name the Problem",
       "problem": "The datasheet says '200' without a unit",
       "steps": [
-       null,
-       null
+       {
+        "text": "Identify the problem type"
+       },
+       {
+        "text": "Determine a way to get a better number"
+       }
       ],
       "result": "Problem type: wrong definition/unit. Better number: check the label — 200 kWh is energy, 200 kW is power."
      },
@@ -6655,8 +7507,12 @@
       "heading": "Problem F — Name the Problem",
       "problem": "The load profile is from before the new wing opened",
       "steps": [
-       null,
-       null
+       {
+        "text": "Identify the problem type"
+       },
+       {
+        "text": "Determine a way to get a better number"
+       }
       ],
       "result": "Problem type: out of date data. Better number: re-measure, or scale the profile to the new wing."
      },
@@ -6707,9 +7563,15 @@
       "heading": "Read It Twice — Exercise",
       "problem": "Route data: the average wait 6 min; 15% of passengers wait more than 12 min; 82% of trips on time; at the peak 300 passengers per hour want the bus, capacity 240.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Write one favorable sentence as the dispatcher would say it"
+       },
+       {
+        "text": "Write one critical sentence as the passenger would say it"
+       },
+       {
+        "text": "Identify what additional data would settle each perspective"
+       }
       ],
       "result": "(1) Favorable: '82% of trips are on time, and the average wait is only 6 minutes' (settled by waits by hour of day). (2) Critical: 'At the peak 300 of us want the bus, and only 240 can ride. Every seventh person waits more than 12 minutes' (settled by the share of passengers left behind at the peak)."
      },
@@ -6767,10 +7629,18 @@
       "heading": "Your Turn: Rooftop Solar for the Building",
       "problem": "Can a 30-kilowatt rooftop installation cover the building's daily electricity? Given: the building averages 94 kW (lecture 6); the installation yields 3–5 kWh per kW per day.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate the installation's energy per day"
+       },
+       {
+        "text": "Calculate the building's energy per day"
+       },
+       {
+        "text": "Calculate the covered share"
+       },
+       {
+        "text": "Write a report sentence"
+       }
       ],
       "result": "(1) Installation's energy: 30 kW × 3–5 kWh/kW·day = 90–150 kWh (typically 120). (2) Building's energy: 94 kW × 24 h ≈ 2260 kWh. (3) Covered share: 90÷2260 and 150÷2260 ≈ 4–7% (typically 5%). (4) Report: 'The installation covers about 4–7% of the building's daily electricity, assuming 3–5 kWh per kW per day. Measured generation would change this'."
      },
@@ -6824,539 +7694,397 @@
      ]
     },
     {
-     "type": "concept",
+     "type": "table",
      "data": {
-      "heading": "Incomplete Data",
-      "bullets": [
-       "Too little data: Only a few points (three test trips)",
-       "Missing data: No data for the case we care about (no winter test)",
-       "Noisy data: Values scatter around the truth (1.1–1.6 kWh/km on the same route)",
-       "Outdated/unrepresentative data: Measured under other conditions or earlier (empty-bus tests, a profile from before the new wing)",
-       "Wrong definition or unit: The quantity is not what we think ('200' without a unit, the battery in '%')"
-      ]
-     },
-     "narr": [
-      "Incomplete data refers to situations where the needed numbers are absent or cannot be fully trusted.",
-      "First, we have too little data, which means only having a few points to work with, like just three test trips.",
-      "Next is missing data, where we have no information for the specific case we're interested in, such as lacking winter test data.",
-      "Noisy data occurs when values scatter around the truth, like measuring energy consumption between 1.1 and 1.6 kWh/km on the same route.",
-      "Outdated or unrepresentative data comes from measurements taken under different conditions or earlier times, like empty-bus tests or profiles from before a new wing design.",
-      "Finally, wrong definition or unit problems arise when the quantity isn't what we think it is, like seeing '200' without units or measuring battery capacity in percentages."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      2,
-      3,
-      4
-     ]
-    },
-    {
-     "type": "concept",
-     "data": {
-      "heading": "Data Analysis Techniques",
-      "bullets": [
-       "Triangulation: Estimate one quantity by at least two independent routes and compare",
-       "Range: Low–typical–high values (e.g., 107/89/80 km); indicates how far to trust the answer",
-       "Median: The middle element in ordered data; robust to one odd value (e.g., 1.3 kWh/km)",
-       "90th percentile: The value below which 90% of observations fall (e.g., about 13 minutes of waiting)",
-       "Baseline (denominator): Reference point for percentages ('A percentage of what?')"
-      ]
-     },
-     "narr": [
-      "Now let's look at techniques for handling and analyzing data effectively.",
-      "Triangulation involves estimating one quantity through at least two independent routes and comparing the results.",
-      "Range provides low, typical, and high values, showing how far we can trust our answer—like 107, 89, or 80 kilometers.",
-      "The median is the middle element when data is ordered, making it robust to one odd value, such as 1.3 kWh/km.",
-      "The 90th percentile tells us the value below which 90% of observations fall, like about 13 minutes of waiting time.",
-      "And baseline or denominator answers the question 'A percentage of what?'—for example, 12 kW might be 60% of corridor lighting but only 7% of the building's peak demand."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      2,
-      3,
-      4
-     ]
-    },
-    {
-     "type": "concept",
-     "data": {
-      "heading": "Decision Making Concepts",
-      "bullets": [
-       "Top assumption: The assumption the result rests on most (e.g., 1.8 kWh/km in winter)",
-       "Flip point: The threshold at which the decision changes (e.g., break-even premium per lamp)",
-       "Honest report: Result + range + top assumption + what would change the conclusion"
-      ]
-     },
-     "narr": [
-      "When making decisions based on data, several concepts become crucial.",
-      "The top assumption is the one that our result depends on most heavily—like assuming 1.8 kWh/km energy consumption in winter.",
-      "The flip point represents the threshold where our decision would change, such as the break-even premium for each lamp.",
-      "And an honest report should include the result, its range, the top assumption, and what factors would change our conclusion."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      2
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Trip Energy",
-      "tex": "E = e \\times d \\text{ [kWh]} = \\text{[kWh/km]} \\times \\text{[km]}",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "First, trip energy is calculated by multiplying consumption per kilometer by distance.",
-      "E represents the trip energy in kilowatt-hours, e is the energy consumption rate in kilowatt-hours per kilometer, and d is the distance in kilometers.",
-      "This gives us the total energy required for a trip."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Range on a Single Charge",
-      "tex": "R = \\frac{u \\times C}{e} \\rightarrow \\frac{160 \\text{ [kWh]}}{1.2 \\text{ [kWh/km]}} = 133 \\text{ [km]}",
-      "parts": [
-       null,
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "Range on a single charge is calculated by dividing the battery's usable energy by the consumption rate.",
-      "R represents the range in kilometers, u is the usable share of the battery, C is the battery capacity in kilowatt-hours, and e is the energy consumption rate.",
-      "For example, with a 160 kWh battery and 1.2 kWh/km consumption, the range would be 133 kilometers.",
-      "Notice how the units cancel out properly, like fractions, confirming our calculation is dimensionally correct."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      2
-     ]
-    },
-    {
-     "type": "example",
-     "data": {
-      "heading": "Problem 1 — Route Energy Requirement",
-      "problem": "Calculate the daily energy requirement for a bus route that makes 8 laps of 12 km each.",
-      "steps": [
-       null,
-       null,
-       null
+      "heading": "Types of Incomplete Data",
+      "columns": [
+       "Term (RU)",
+       "English",
+       "One-phrase definition"
       ],
-      "result": "daily requirement = 8 × 12 [km] = 96 [km]"
+      "rows": [
+       [
+        "Incomplete data",
+        "Incomplete data",
+        "The needed numbers are absent or cannot be fully trusted — five typical problems"
+       ],
+       [
+        "Too little data",
+        "Too little",
+        "Only a few points: three test trips"
+       ],
+       [
+        "Missing data",
+        "Missing",
+        "No data for the case we care about: no winter test"
+       ],
+       [
+        "Noisy data",
+        "Noisy",
+        "Values scatter around the truth: 1,1–1,6 kWh/km on the same route"
+       ],
+       [
+        "Outdated/unrepresentative data",
+        "Out of date/unrepresentative",
+        "Measured under other conditions or earlier: empty-bus tests, a profile from before the new wing"
+       ],
+       [
+        "Wrong definition or unit",
+        "Wrong definition or unit",
+        "The quantity is not what we think: \"200\" without a unit, the battery in \"%\""
+       ]
+      ]
      },
      "narr": [
-      "Let's work through an example calculating the route's daily energy requirement.",
-      "First, we need to identify the number of laps and the distance per lap.",
-      "In this case, we have 8 laps of 12 kilometers each.",
-      "Next, we multiply the number of laps by the distance per lap to get the total distance.",
-      "This gives us 8 times 12 kilometers, which equals 96 kilometers.",
-      "If we needed energy rather than distance, we would then multiply by the energy consumption rate."
+      "Incomplete data refers to situations where the numbers we need are either missing or unreliable.",
+      "Too little data means we have very few data points, like only three test trips.",
+      "Missing data occurs when there's no information for the specific case we're interested in, such as winter test data.",
+      "Noisy data shows values that scatter around the truth, like measurements ranging from 1.1 to 1.6 kWh/km on the same route.",
+      "Outdated or unrepresentative data comes from measurements taken under different conditions or in the past.",
+      "Wrong definition or unit happens when the quantity isn't what we think it is, like \"200\" without a unit or battery capacity in \"%\"."
      ],
      "narr_item": [
       -1,
       0,
       1,
       2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "table",
+     "data": {
+      "heading": "Key Engineering Concepts",
+      "columns": [
+       "Term (RU)",
+       "English",
+       "One-phrase definition"
+      ],
+      "rows": [
+       [
+        "Triangulation",
+        "Triangulation",
+        "Estimate one quantity by at least two independent routes and compare (≈2 800 260 2 330kWh/day)"
+       ],
+       [
+        "Range",
+        "Range",
+        "Low–typical–high (107 89 /80km); says how far to trust the answer"
+       ],
+       [
+        "Median",
+        "Median",
+        "The middle element in order; robust to one odd value (1,3 kWh/km)"
+       ],
+       [
+        "90th percentile",
+        "90th percentile",
+        "The value below which 90% of observations fall: about 13 minutes of waiting"
+       ],
+       [
+        "Baseline (denominator)",
+        "Baseline/denominator",
+        "\"A percentage of what?\": 12 kW = 60% of corridor lighting, but 7% of the building's peak"
+       ],
+       [
+        "Top assumption",
+        "Top assumption",
+        "The assumption the result rests on most: 1,8 kWh/km in winter"
+       ],
+       [
+        "Flip point",
+        "Flip point",
+        "The threshold at which the decision changes: the break-even premium per lamp"
+       ],
+       [
+        "Honest report",
+        "Honest report",
+        "Result + range + top assumption + what would change the conclusion"
+       ]
+      ]
+     },
+     "narr": [
+      "Triangulation involves estimating a quantity using at least two independent methods and comparing the results.",
+      "Range gives us a low–typical–high estimate that tells us how far we can trust an answer.",
+      "The median is the middle value when data is ordered, and it's robust to one odd value.",
+      "The 90th percentile is the value below which 90% of observations fall.",
+      "Baseline or denominator answers the question: \"A percentage of what?\"",
+      "The top assumption is the one our result depends on most heavily.",
+      "The flip point is the threshold at which our decision would change.",
+      "An honest report includes the result, its range, top assumptions, and what would change our conclusion."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
       2,
-      2
+      3,
+      4,
+      5,
+      6
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Week 5",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 4,
+      "title": "Week 5",
+      "subtitle": "The electric bus model"
+     },
+     "narr": [
+      "In week 5, we focused on modeling electric buses. Let's start with the basic formulas."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Trip energy",
+      "tex": "E = e \\times d  \\text{[kWh]} = \\text{[kWh/km]} \\times \\text{[km]}",
+      "parts": [
+       {
+        "substr": "E",
+        "color": "#4C5FD5",
+        "note": "trip energy in kWh"
+       },
+       {
+        "substr": "e",
+        "color": "#B45309",
+        "note": "energy consumption in kWh/km"
+       },
+       {
+        "substr": "d",
+        "color": "#0E7C7B",
+        "note": "distance in km"
+       }
+      ]
+     },
+     "narr": [
+      "Trip energy is simply the consumption per kilometer multiplied by the distance traveled."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Range on a single charge",
+      "tex": "R = \\frac{u \\times C}{e} \\rightarrow \\frac{160  \\text{[kWh]}}{1,2  \\text{[kWh/km]}} = 133  \\text{[km]}",
+      "parts": [
+       {
+        "substr": "R",
+        "color": "#4C5FD5",
+        "note": "range in km"
+       },
+       {
+        "substr": "u",
+        "color": "#B45309",
+        "note": "usable share of battery (unitless)"
+       },
+       {
+        "substr": "C",
+        "color": "#0E7C7B",
+        "note": "battery capacity in kWh"
+       },
+       {
+        "substr": "e",
+        "color": "#A03040",
+        "note": "energy consumption in kWh/km"
+       }
+      ]
+     },
+     "narr": [
+      "The range on a single charge is calculated by dividing the battery's usable energy by the consumption rate.",
+      "Notice how the units cancel out nicely: kWh divided by kWh/km gives us km."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Unit check after Kosky",
+      "tex": "\\frac{(u \\times C)  \\text{[kWh]}}{e  \\text{[kWh/km]}} = R  \\text{[km]}",
+      "parts": []
+     },
+     "narr": [
+      "Always perform unit checks after calculations. Units cancel just like fractions.",
+      "Here, kWh divided by kWh/km simplifies to km, which matches our range unit."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "The route's daily requirement",
+      "tex": "\\text{daily requirement} = 8 \\times 12  \\text{[km]} = 96  \\text{[km]}",
+      "parts": []
+     },
+     "narr": [
+      "For daily routes, we calculate the requirement by multiplying the number of laps by the lap length."
+     ],
+     "narr_item": [
+      -1
      ]
     },
     {
      "type": "concept",
      "data": {
-      "heading": "Assumption Template",
+      "heading": "Template for writing an assumption",
       "bullets": [
        "We assume [assumption] because [reason].",
        "If it is wrong, [effect on the result]."
       ]
      },
      "narr": [
-      "When making assumptions in engineering analysis, it's helpful to follow a structured template.",
-      "First, state what we assume and provide a clear reason for this assumption.",
-      "Then, explain what would happen to our result if this assumption turns out to be wrong.",
-      "This approach helps maintain transparency and clarity in our analysis."
+      "When making assumptions in engineering, it's important to follow a clear template.",
+      "First, state what you're assuming and why.",
+      "Then, explain what would happen if that assumption proved to be wrong."
      ],
      "narr_item": [
       -1,
       0,
-      1,
       1
      ]
     },
     {
      "type": "formula",
      "data": {
-      "heading": "Energy Balance",
+      "heading": "Energy balance",
       "tex": "\\text{supply} = \\text{demand} + \\text{losses}",
-      "parts": [
-       null,
-       null,
-       null
-      ]
+      "parts": []
      },
      "narr": [
-      "The energy balance equation represents the campus electricity supply model.",
-      "It states that the total supply must equal the demand plus any losses in the system.",
-      "Supply represents all energy available, demand is the energy actually used, and losses account for energy wasted or lost in transmission or other processes.",
-      "This fundamental principle applies to many engineering systems beyond just electricity."
+      "In the campus electricity supply model, supply must equal demand plus losses."
      ],
      "narr_item": [
-      -1,
-      0,
-      1,
-      2
-     ]
-    }
-   ]
-  },
-  {
-   "title": "Week 6 — Demand, Capacity, Flows, Estimates",
-   "blocks": [
-    {
-     "type": "section",
-     "data": {
-      "num": 4,
-      "title": "Week 6 — Demand, Capacity, Flows, Estimates",
-      "subtitle": "Key concepts and calculations"
-     },
-     "narr": [
-      "Now we move to week 6, focusing on demand, capacity, flows, and estimates.",
-      "Let's explore the concept of utilization, which requires careful attention to units and time basis."
-     ],
-     "narr_item": [
-      -1,
       -1
      ]
-    },
-    {
-     "type": "concept",
-     "data": {
-      "heading": "Utilization",
-      "bullets": [
-       "The same units must be used on both sides of the calculation",
-       "The same time basis must be applied consistently"
-      ]
-     },
-     "narr": [
-      "Utilization is a critical concept in engineering systems analysis.",
-      "When calculating utilization, it's essential to use the same units on both sides of the calculation.",
-      "Similarly, the same time basis must be applied consistently throughout the analysis.",
-      "These precautions ensure accurate and meaningful results when evaluating system performance."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      1
-     ]
-    },
-    {
-     "type": "concept",
-     "data": {
-      "heading": "Utilization",
-      "bullets": [
-       "Utilization = Demand ÷ Capacity",
-       "Utilization thresholds (a rule of thumb):",
-       "- < 0.8 — comfortable",
-       "- 0.8–1.0 — tight",
-       "- > 1.0 — overload (a queue or refusals)"
-      ]
-     },
-     "narr": [
-      "Utilization is a key metric in engineering that measures how effectively capacity is being used.",
-      "It's calculated as the ratio of demand to capacity.",
-      "As a rule of thumb, we have different utilization thresholds:",
-      "Below 0.8 is considered comfortable, meaning there's spare capacity.",
-      "Between 0.8 and 1.0 is tight, with little to no spare capacity.",
-      "Above 1.0 indicates overload, which can lead to queues or service refusals."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      2,
-      3,
-      4
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Energy Calculation",
-      "tex": "Power \\times time = energy",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "Let's look at the fundamental relationship between power, time, and energy.",
-      "Power multiplied by time equals energy.",
-      "For example, if we have a 60 kW device running for 2 hours,",
-      "the energy consumed would be 60 kW times 2 hours, which equals 120 kWh."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      2
-     ]
-    },
-    {
-     "type": "concept",
-     "data": {
-      "heading": "Stock and Flow",
-      "bullets": [
-       "change in stock = inflow − outflow",
-       "Buffer filling time = free space ÷ (inflow − outflow)"
-      ]
-     },
-     "narr": [
-      "In engineering systems, we often deal with stocks and flows.",
-      "The change in stock is simply the inflow minus the outflow.",
-      "This principle helps us calculate buffer filling time.",
-      "For instance, if we have 800 units of free space and a net inflow of 40 units per hour,",
-      "the filling time would be 800 divided by 40, which equals 20 hours."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      1,
-      1
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Flow Rule 1",
-      "tex": "Flow = speed \\times density",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "Another important flow rule relates flow to speed and density.",
-      "Flow equals speed multiplied by density.",
-      "For example, if cars are moving at 15 km/h with a density of 20 cars per kilometer,",
-      "the flow rate would be 15 times 20, which equals 300 cars per hour."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      2
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Flow Rule 2",
-      "tex": "number \\ inside = arrivals \\times time \\ inside",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "A second flow rule states that the number of items inside a system equals the arrival rate multiplied by the time spent inside.",
-      "For instance, if 10 students arrive per minute and each spends 3 minutes in the system,",
-      "there will be 10 times 3, which equals 30 students in the system at any given time."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Daily Capacity",
-      "tex": "capacity \\ [units/day] = rate \\ [units/h] \\times time \\ [h/day]",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "To calculate the daily capacity of a stage or process,",
-      "we multiply the rate by the operating time per day.",
-      "For example, if a stage has a rate of 680 units per hour and operates for 12 hours a day,",
-      "the daily capacity would be 680 times 12, which equals 8160 units per day."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      2
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Charging Time",
-      "tex": "time = energy \\div power",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "When calculating charging time, we use the formula time equals energy divided by power.",
-      "For instance, to charge 115 kWh with a 60 kW charger,",
-      "the time required would be 115 divided by 60, which is approximately 1.9 hours."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Average Power",
-      "tex": "average \\ power = energy \\div window",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "To find the average power over a specific time window,",
-      "we divide the energy by the window duration.",
-      "For example, if 690 kWh is produced over 8 hours,",
-      "the average power would be 690 divided by 8, which is approximately 86 kW."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      1
-     ]
-    },
-    {
-     "type": "example",
-     "data": {
-      "heading": "Problem 1 — Installation Size",
-      "problem": "Calculate the required installation size based on daily energy needs and yield per kW per day",
-      "steps": [
-       null,
-       null
-      ],
-      "result": "Installation size ≈ 30 kW; Area ≈ 150 m²"
-     },
-     "narr": [
-      "Let's work through an example of calculating installation size from an estimate.",
-      "First, we need to determine the installation size by dividing daily energy by yield per kW per day.",
-      "For 115 kWh daily energy and 4 kWh per kW per day yield,",
-      "we get approximately 29 kW, which we'd round to 30 kW.",
-      "Then, to find the required area, we multiply by 5 m² per kW,",
-      "resulting in approximately 150 m²."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      1,
-      1,
-      1
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Good Output with Losses",
-      "tex": "output = input \\times (1 - l_1) \\times (1 - l_2) \\times (1 - l_3)",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "When calculating output through multiple stages with losses,",
-      "we multiply the input by one minus each loss fraction.",
-      "For example, with an input of 7200 units and losses of 2%, 3%, and 4% at three stages,",
-      "the output would be 7200 times 0.98 times 0.97 times 0.96,",
-      "which equals approximately 6571 units per day."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      1,
-      1
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Required Capacity for Target Utilization",
-      "tex": "required \\ capacity = peak \\ demand \\div target \\ utilisation",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "To determine the capacity required for a target utilization level,",
-      "we divide the peak demand by the target utilization.",
-      "For instance, with a peak demand of 7000 units and a target utilization of 0.85,",
-      "the required capacity would be 7000 divided by 0.85,",
-      "which equals approximately 8235 units per day or about 686 units per hour."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      1,
-      1
-     ]
     }
    ]
   },
   {
-   "title": "Week 7 — Ranges, Metrics, Reporting",
+   "title": "Week 6",
    "blocks": [
     {
      "type": "section",
      "data": {
       "num": 5,
-      "title": "Week 7 — Ranges, Metrics, Reporting",
-      "subtitle": "Statistical Analysis"
+      "title": "Week 6",
+      "subtitle": "Demand, capacity, flows, estimates"
      },
      "narr": [
-      "Now let's move to Week 7, focusing on ranges, metrics, and reporting.",
-      "We'll explore statistical measures like mean, median, and range."
+      "Moving to week 6, we'll explore concepts related to demand, capacity, and flows."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Utilisation",
+      "tex": "\\text{Utilisation} = \\frac{\\text{Demand}}{\\text{Capacity}}",
+      "parts": []
+     },
+     "narr": [
+      "Utilisation is calculated as demand divided by capacity.",
+      "Crucially, both sides must use the same units and time basis."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Utilisation thresholds",
+      "bullets": [
+       "< ~0.8 — comfortable",
+       "~0.8–1.0 — tight",
+       "> 1.0 — overload (queue or refusals)"
+      ]
+     },
+     "narr": [
+      "There are general thresholds for utilisation:",
+      "Below 0.8 is generally comfortable,",
+      "Between 0.8 and 1.0 is tight,",
+      "And above 1.0 indicates overload with potential queues or refusals."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Power × time = energy",
+      "tex": "60  \\text{[kW]} \\times 2  \\text{[h]} = 120  \\text{[kWh]}",
+      "parts": []
+     },
+     "narr": [
+      "A fundamental relationship in engineering is that power multiplied by time equals energy."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Stock and flow",
+      "tex": "\\text{change in stock} = \\text{inflow} - \\text{outflow}",
+      "parts": []
+     },
+     "narr": [
+      "For stock and flow systems, the change in stock equals inflow minus outflow."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Buffer filling time",
+      "tex": "\\text{filling time} = \\frac{\\text{free space}}{\\text{inflow} - \\text{outflow}} = \\frac{800}{40} = 20  \\text{[h]}",
+      "parts": []
+     },
+     "narr": [
+      "Buffer filling time is calculated by dividing the free space by the net inflow rate."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Flow rule 1",
+      "tex": "\\text{Flow} = \\text{speed} \\times \\text{density}: 15  \\text{[km/h]} \\times 20  \\text{[cars/km]} = 300  \\text{[cars/h]}",
+      "parts": []
+     },
+     "narr": [
+      "Flow can be calculated as speed multiplied by density.",
+      "For example, a speed of 15 km/h with a density of 20 cars per km gives a flow of 300 cars per hour."
      ],
      "narr_item": [
       -1,
@@ -7366,224 +8094,259 @@
     {
      "type": "formula",
      "data": {
-      "heading": "Mean of a Small Sample",
-      "tex": "mean = \\frac{x_1 + x_2 + \\dots + x_n}{n}",
-      "parts": [
-       null,
-       null,
-       null
-      ]
+      "heading": "Flow rule 2",
+      "tex": "\\text{number inside} = \\text{arrivals} \\times \\text{time inside}: 10  \\text{[students/min]} \\times 3  \\text{[min]} = 30",
+      "parts": []
      },
      "narr": [
-      "The mean is a common measure of central tendency.",
-      "It's calculated by summing all values and dividing by the number of values.",
-      "For example, with values 1.1, 1.3, and 1.6 kWh/km,",
-      "the mean would be 1.1 plus 1.3 plus 1.6 divided by 3,",
-      "which equals 1.33 kWh/km."
+      "Another flow rule states that the number of items inside a system equals the arrival rate multiplied by the time each item spends inside."
      ],
      "narr_item": [
-      -1,
-      0,
-      1,
-      1,
-      1
+      -1
      ]
     },
     {
      "type": "formula",
      "data": {
-      "heading": "Median of a Small Sample",
-      "tex": "median = \\text{the middle element in order}",
-      "parts": [
-       null,
-       null
-      ]
+      "heading": "The daily capacity of a stage",
+      "tex": "\\text{capacity [units/day]} = \\text{rate [units/h]} \\times \\text{time [h/day]} = 680 \\times 12 = 8160",
+      "parts": []
      },
      "narr": [
-      "The median is another measure of central tendency.",
-      "It's the middle value when all values are ordered from smallest to largest.",
-      "In our example with three values (1.1, 1.3, 1.6), the median is 1.3 kWh/km."
+      "The daily capacity of a stage is calculated by multiplying the hourly rate by the number of operating hours per day."
      ],
      "narr_item": [
-      -1,
-      0,
-      1
+      -1
      ]
     },
     {
-     "type": "example",
+     "type": "formula",
      "data": {
-      "heading": "Problem 2 — Range of a Result",
-      "problem": "Calculate the range of a result for different values of efficiency",
-      "steps": [
-       null,
-       null,
-       null
-      ],
-      "result": "Summer range: 100-145 km; Winter range: 80-107 km"
+      "heading": "Charging time",
+      "tex": "\\text{time} = \\frac{\\text{energy}}{\\text{power}}: \\frac{115  \\text{[kWh]}}{60  \\text{[kW]}} \\approx 1.9  \\text{[h]}",
+      "parts": []
      },
      "narr": [
-      "When dealing with ranges, we must compute the result for every value in the range, not just one.",
-      "For example, with R = 160 kWh divided by efficiency e,",
-      "we get different results for different efficiency values.",
-      "In summer with efficiencies of 1.1, 1.3, and 1.6,",
-      "the results are approximately 145, 123, and 100 km respectively.",
-      "In winter with efficiencies of 1.5, 1.8, and 2.0,",
-      "the results are approximately 107, 89, and 80 km."
+      "Charging time is calculated by dividing the energy needed by the charging power."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Average power over a window",
+      "tex": "\\text{average power} = \\frac{\\text{energy}}{\\text{window}}: \\frac{690  \\text{[kWh]}}{8  \\text{[h]}} \\approx 86  \\text{[kW]}",
+      "parts": []
+     },
+     "narr": [
+      "Average power over a time window is calculated by dividing the energy by the duration of that window."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Installation size from an estimate",
+      "tex": "\\text{installation} = \\frac{\\text{daily energy}}{\\text{yield per kW per day}} = \\frac{115}{4} \\approx 29 \\rightarrow \\sim 30  \\text{[kW]}; \\text{area} = 30 \\times 5  \\text{[m}^2\\text{/kW]} \\approx 150  \\text{[m}^2\\text{]}",
+      "parts": []
+     },
+     "narr": [
+      "Installation size can be estimated by dividing daily energy by the yield per kW per day.",
+      "The required area can then be calculated by multiplying the installation size by the area per kW."
      ],
      "narr_item": [
       -1,
-      0,
-      1,
-      2,
-      2,
-      2,
-      2
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Good output with losses by stage",
+      "tex": "\\text{output} = \\text{input} \\times (1 - l_1) \\times (1 - l_2) \\times (1 - l_3) = 7200 \\times 0.98 \\times 0.97 \\times 0.96 \\approx 6571  \\text{[units/day]}",
+      "parts": []
+     },
+     "narr": [
+      "When there are multiple stages with losses, the final output is calculated by multiplying the input by (1 minus loss) for each stage."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Capacity required for a target utilisation",
+      "tex": "\\text{required capacity} = \\frac{\\text{peak demand}}{\\text{target utilisation}} = \\frac{7000}{0.85} \\approx 8235  \\text{[units/day]} \\approx 686  \\text{[units/h]}",
+      "parts": []
+     },
+     "narr": [
+      "To find the capacity needed for a target utilisation level, divide the peak demand by the target utilisation."
+     ],
+     "narr_item": [
+      -1
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Week 7",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 6,
+      "title": "Week 7",
+      "subtitle": "Ranges, metrics, reporting"
+     },
+     "narr": [
+      "In week 7, we'll focus on ranges, statistical metrics, and how to report results honestly."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "The mean of a small sample",
+      "tex": "\\text{mean} = \\frac{x_1 + x_2 + ... + x_n}{n} = \\frac{1.1 + 1.3 + 1.6}{3} = 1.33  \\text{[kWh/km]}",
+      "parts": []
+     },
+     "narr": [
+      "The mean is calculated by summing all values and dividing by the number of values."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "The median of a small sample",
+      "tex": "\\text{median} = \\text{the middle element in order} = 1.3  \\text{[kWh/km]} (n = 3)",
+      "parts": []
+     },
+     "narr": [
+      "The median is the middle value when data is ordered, which makes it robust to one odd value."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "The range of a result",
+      "tex": "R = \\frac{160  \\text{[kWh]}}{e}: \\text{summer } \\frac{1.1}{1.3}{1.6} \\rightarrow \\frac{145}{123/100}  \\text{[km]}; \\text{winter } \\frac{1.5}{1.8}{2.0} \\rightarrow \\frac{107}{89/80}  \\text{[km]}",
+      "parts": []
+     },
+     "narr": [
+      "When calculating the range of a result, compute the result for every value in the range, not just one.",
+      "For example, the bus range varies from 100 km in winter to 145 km in summer depending on consumption."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "A share (percentage)",
+      "tex": "\\text{share} = \\frac{\\text{part}}{\\text{base}}: \\frac{12}{20} = 60\\% \\text{ (corridor lighting)}; \\frac{12}{180} \\approx 7\\% \\text{ (the building's peak)}",
+      "parts": []
+     },
+     "narr": [
+      "A share or percentage is always calculated as a part divided by a stated base.",
+      "The same value can represent different percentages depending on the base."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Annual energy saving (the LED case)",
+      "tex": "\\text{saving [kWh/year]} = \\text{saving per lamp [W]} \\times \\text{lamps} \\times \\text{hours [h/day]} \\times 365 \\div 1000",
+      "parts": []
+     },
+     "narr": [
+      "To calculate annual energy savings from LED bulbs, multiply the saving per lamp by the number of lamps, daily hours, and days per year, then divide by 1000 to convert to kWh."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Triangulation (the faculty building)",
+      "tex": "8000  \\text{[m}^2\\text{]} \\times 0.35 \\approx 2800; 94  \\text{[kW]} \\times 24  \\text{[h]} \\approx 2260; 70000 \\div 30 \\approx 2330  \\text{[kWh/day]}",
+      "parts": []
+     },
+     "narr": [
+      "Triangulation involves estimating a quantity through multiple independent methods.",
+      "For the faculty building, we get estimates of 2800, 2260, and 2330 kWh/day through different approaches."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "The break-even premium per lamp (the flip point)",
+      "tex": "\\text{break-even} \\approx \\text{the annual saving per lamp} \\times \\text{years of service}: 25.8  \\text{[kWh]} \\times 850  \\text{[UZS]} \\approx 21900  \\text{[UZS/year]}",
+      "parts": []
+     },
+     "narr": [
+      "The flip point or break-even is calculated by multiplying the annual saving per lamp by the years of service.",
+      "This gives the maximum premium we should pay for each lamp."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "The covered share (the solar roof)",
+      "tex": "\\text{share} = \\frac{\\text{the installation's energy}}{\\text{the building's energy}} = \\frac{90–150}{2260} \\approx 4–7\\%",
+      "parts": []
+     },
+     "narr": [
+      "The covered share is calculated as the installation's energy divided by the building's energy.",
+      "For the solar roof, this gives us a range of 4-7% coverage."
+     ],
+     "narr_item": [
+      -1,
+      -1
      ]
     },
     {
      "type": "concept",
      "data": {
-      "heading": "Share (Percentage)",
+      "heading": "Powers-of-a-thousand prefixes",
       "bullets": [
-       "share = part ÷ base",
-       "Always express as a percentage of a stated base"
-      ]
-     },
-     "narr": [
-      "A share or percentage is always calculated relative to a stated base.",
-      "The formula is part divided by base.",
-      "For example, corridor lighting might be 12 units out of 20 total,",
-      "which is 60% of the lighting system,",
-      "but only about 7% of the building's peak demand."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      1,
-      1
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Annual Energy Saving",
-      "tex": "saving \\ [kWh/year] = saving \\ per \\ lamp \\ [W] \\times lamps \\times hours \\ [h/day] \\times 365 \\div 1000",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "To calculate annual energy savings, such as when switching to LED lighting,",
-      "we multiply the saving per lamp by the number of lamps,",
-      "by the operating hours per day, by 365 days,",
-      "and then divide by 1000 to convert to kWh."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      0,
-      0
-     ]
-    },
-    {
-     "type": "example",
-     "data": {
-      "heading": "Problem 3 — Triangulation",
-      "problem": "Estimate daily energy consumption using different methods",
-      "steps": [
-       null,
-       null,
-       null
-      ],
-      "result": "Triangulation results: 2260-2800 kWh/day"
-     },
-     "narr": [
-      "Triangulation involves using multiple methods to estimate the same value.",
-      "For a faculty building, we might use three different approaches:",
-      "First, area times energy intensity: 8000 m² times 0.35 gives about 2800 kWh/day.",
-      "Second, power times hours: 94 kW times 24 hours gives about 2260 kWh/day.",
-      "Third, annual energy divided by days: 70,000 divided by 30 gives about 2330 kWh/day.",
-      "These methods provide a range of estimates that help validate our calculations."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      2,
-      2,
-      2
-     ]
-    },
-    {
-     "type": "formula",
-     "data": {
-      "heading": "Break-Even Premium per Lamp",
-      "tex": "break-even \\ ≈ annual \\ saving \\ per \\ lamp \\ × years \\ of \\ service",
-      "parts": [
-       null,
-       null,
-       null
-      ]
-     },
-     "narr": [
-      "The break-even premium is the maximum additional cost that can be justified by savings.",
-      "It's calculated as the annual saving per lamp multiplied by the years of service.",
-      "For example, with an annual saving of 25.8 kWh per lamp and a value of 850 UZS per kWh,",
-      "the break-even premium would be 25.8 times 850,",
-      "which equals approximately 21,900 UZS per year."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      1,
-      1
-     ]
-    },
-    {
-     "type": "example",
-     "data": {
-      "heading": "Problem 4 — Covered Share",
-      "problem": "Calculate what percentage of building energy is covered by solar installation",
-      "steps": [
-       null,
-       null,
-       null
-      ],
-      "result": "Solar covers approximately 4-7% of building energy"
-     },
-     "narr": [
-      "To find the covered share, such as what percentage of building energy is covered by a solar roof,",
-      "we divide the installation's energy by the building's total energy.",
-      "With the solar producing 90-150 kWh/day and the building consuming 2260 kWh/day,",
-      "the solar covers approximately 4-7% of the building's energy needs."
-     ],
-     "narr_item": [
-      -1,
-      0,
-      1,
-      1
-     ]
-    },
-    {
-     "type": "concept",
-     "data": {
-      "heading": "Powers-of-a-thousand Prefixes",
-      "bullets": [
-       "1 kW = 1000 W",
+       "1 kW = 1000W",
        "1 MW = 1000 kW",
-       "1 kWh = 1000 Wh"
+       "1 kWh = 1000Wh"
       ]
      },
      "narr": [
-      "Engineering uses powers-of-a-thousand prefixes to simplify large numbers.",
-      "A kilowatt (kW) equals 1000 watts (W).",
-      "A megawatt (MW) equals 1000 kilowatts.",
-      "Similarly, a kilowatt-hour (kWh) equals 1000 watt-hours."
+      "Remember the powers-of-a-thousand prefixes:",
+      "1 kilowatt equals 1000 watts,",
+      "1 megawatt equals 1000 kilowatts,",
+      "And 1 kilowatt-hour equals 1000 watt-hours."
      ],
      "narr_item": [
       -1,
@@ -7595,83 +8358,51 @@
     {
      "type": "formula",
      "data": {
-      "heading": "Megawatts to Kilowatts",
-      "tex": "0.2 \\ MW = 200 \\ kW",
-      "parts": [
-       null,
-       null
-      ]
+      "heading": "Megawatts to kilowatts",
+      "tex": "0.2  \\text{MW} = 200  \\text{kW} \\text{ (MW → kW is a factor of 1000)}",
+      "parts": []
      },
      "narr": [
-      "When converting between units, remember the conversion factors.",
-      "For example, converting from megawatts to kilowatts requires multiplying by 1000.",
-      "So, 0.2 MW equals 200 kW."
+      "Converting from megawatts to kilowatts involves multiplying by 1000."
      ],
      "narr_item": [
-      -1,
-      0,
-      0
+      -1
      ]
     },
     {
      "type": "formula",
      "data": {
-      "heading": "Minutes to Hours",
-      "tex": "36 \\ min \\div 60 = 0.6 \\ h",
-      "parts": [
-       null,
-       null
-      ]
+      "heading": "Minutes to hours",
+      "tex": "36  \\text{min} \\div 60 = 0.6  \\text{h} \\text{ (minutes are not decimal fractions of an hour)}",
+      "parts": []
      },
      "narr": [
-      "When converting minutes to hours, remember that minutes are not decimal fractions of an hour.",
-      "To convert minutes to hours, divide by 60.",
-      "For example, 36 minutes divided by 60 equals 0.6 hours."
+      "When converting minutes to hours, remember that minutes aren't decimal fractions of an hour.",
+      "You must divide by 60 to get the correct value."
      ],
      "narr_item": [
       -1,
-      0,
-      0
+      -1
      ]
     },
     {
      "type": "concept",
      "data": {
-      "heading": "The Precision Rule",
+      "heading": "The precision rule",
       "bullets": [
-       "Precise is not the same as correct",
-       "Use one-two significant figures for rough estimates",
-       "Example: 'about 30 kW', not '29.17 kW'"
+       "\"about 30 kW\", not \"29,17 kW\"",
+       "One–two significant figures for rough estimates"
       ]
      },
      "narr": [
-      "Finally, remember the precision rule: precise is not the same as correct.",
+      "Precision is not the same as correctness.",
       "For rough estimates, use one or two significant figures.",
-      "For example, it's better to say 'about 30 kW' rather than '29.17 kW' when giving an estimate.",
-      "This reflects the appropriate level of precision for the calculation."
+      "Say \"about 30 kW\" rather than \"29.17 kW\" when appropriate."
      ],
      "narr_item": [
       -1,
       0,
-      1,
       1
-     ]
-    },
-    {
-     "type": "quote",
-     "data": {
-      "text": "Source: Lecture05–Lecture07; Lab5–Lab7; the sheets of weeks 5–7",
-      "who": "Course Materials"
-     },
-     "narr": [
-      "This study guide covers Weeks 5-7 of the Introduction to Engineering course,",
-      "including material from lectures 5-7, labs 5-7,",
-      "and the weekly sheets for those weeks."
-     ],
-     "narr_item": [
-      -1,
-      -1,
-      -1
      ]
     },
     {
@@ -8332,9 +9063,15 @@
       "heading": "Problem 1 — Bus Range Calculation",
       "problem": "Calculate the range of a bus with given parameters: battery capacity 200 kWh, efficiency 1.2 kWh/km, daily requirement 96 km (8 laps × 12 km).",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Calculate total energy available: $u \\times C = 0, 8 \\times 200 = 160$ kWh"
+       },
+       {
+        "text": "Calculate range: $R = 160 \\div 1, 2 = 133$ km"
+       },
+       {
+        "text": "Compare with daily requirement: 133 km - 96 km = 37 km margin"
+       }
       ],
       "result": "The bus has a range of 133 km with a margin of about 37 km."
      },
@@ -8359,11 +9096,21 @@
       "heading": "Problem 2 — Range Under Different Assumptions",
       "problem": "Calculate the bus range under different conditions: base case, full load, old battery, winter, and winter with old battery.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Base case: 133 km"
+       },
+       {
+        "text": "Full load: 114 km"
+       },
+       {
+        "text": "Old battery: 107 km"
+       },
+       {
+        "text": "Winter: 89 km"
+       },
+       {
+        "text": "Winter + old battery: 71 km"
+       }
       ],
       "result": "The first three cases (133, 114, and 107 km) cover the required 96 km."
      },
@@ -8392,10 +9139,18 @@
       "heading": "Problem 3 — Solar Energy Estimation",
       "problem": "Estimate daily solar energy production for a system with 5 kW capacity.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Naive calculation: $5$ kW $\\times 24$ h = $120$ kWh/day"
+       },
+       {
+        "text": "Realistic estimate considering clear weather: approximately $31$ kWh/day"
+       },
+       {
+        "text": "Compare naive vs realistic: 120 ÷ 31 ≈ 4 times too high"
+       },
+       {
+        "text": "Remember: kW is power, kWh is energy"
+       }
       ],
       "result": "The realistic solar energy production is about 31 kWh/day, nearly 4 times lower than the naive calculation."
      },
@@ -8420,10 +9175,18 @@
       "heading": "Problem 4 — Utilization Analysis",
       "problem": "Calculate utilization for different facilities: faculty building, canteen, bus, and depot.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Faculty building: $180 \\div 250 = 0.72$ (comfortable)"
+       },
+       {
+        "text": "Canteen: $360 \\div 400 = 0.90$ (tight)"
+       },
+       {
+        "text": "Bus: $300 \\div 240 = 1.25$ (overload)"
+       },
+       {
+        "text": "Depot: $360 \\div 200 = 1.80$ (overload)"
+       }
       ],
       "result": "Faculty building is comfortable at 72% utilization, canteen is tight at 90%, while both bus and depot are overloaded at 125% and 180% respectively."
      },
@@ -8448,10 +9211,18 @@
       "heading": "Problem 5 — Peak vs Average Demand",
       "problem": "Analyze power demand with average and peak values.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Average demand: 94 kW"
+       },
+       {
+        "text": "Peak demand: 180 kW at 13:00"
+       },
+       {
+        "text": "Transformer capacity: 250 kW"
+       },
+       {
+        "text": "Design principle: Size for the peak, not for the average"
+       }
       ],
       "result": "The transformer must be sized for the peak demand of 180 kW, not the average of 94 kW."
      },
@@ -8476,10 +9247,18 @@
       "heading": "Problem 6 — Bus Charging Analysis",
       "problem": "Calculate charging time and power requirements for a fleet of buses.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Single bus: $115$ kWh $\\div 60$ kW $\\approx 1.9$ hours"
+       },
+       {
+        "text": "Six buses: $690$ kWh over 8 hours $\\rightarrow$ average $52$ kW"
+       },
+       {
+        "text": "Two batches: $3 \\times 60 = 180$ kW (utilization 0.9)"
+       },
+       {
+        "text": "Total time for two batches: $2 \\times 1.9 \\approx 3.8$ hours"
+       }
       ],
       "result": "Charging six buses in two batches takes approximately 3.8 hours with 180 kW utilization."
      },
@@ -8504,11 +9283,21 @@
       "heading": "Problem 7 — Fleet Scaling Analysis",
       "problem": "Analyze charging requirements for a larger fleet of ten buses.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Ten buses: $1,150$ kWh total energy requirement"
+       },
+       {
+        "text": "Average power: approximately $144$ kW"
+       },
+       {
+        "text": "Charging setup: 3 chargers at a time"
+       },
+       {
+        "text": "Charging batches: 4 batches total"
+       },
+       {
+        "text": "Total time: $4 \\times 1.9 \\approx 7.7$ hours"
+       }
       ],
       "result": "Ten buses require 7.7 hours to charge with 3 chargers operating in 4 batches, fitting almost without margin."
      },
@@ -8535,10 +9324,18 @@
       "heading": "Problem 8 — Solar Estimation for Bus",
       "problem": "Estimate solar panel requirements for a bus with 115 kWh daily energy need.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Daily energy per bus: 115 kWh"
+       },
+       {
+        "text": "Solar power needed: $115 \\div 4 \\approx 29$ kW"
+       },
+       {
+        "text": "Panel area: approximately $150$ m²"
+       },
+       {
+        "text": "Estimate bounds: 23-38 kW"
+       }
       ],
       "result": "A bus requiring 115 kWh daily needs about 30 kW of solar panels covering approximately 150 m², with bounds between 23-38 kW."
      },
@@ -8563,9 +9360,15 @@
       "heading": "Problem 9 — Semiconductor Line Analysis",
       "problem": "Analyze production line capacities and identify bottlenecks.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Daily capacities: 8,160 / 7,440 / 6,960 / 7,200 / 7,680 units"
+       },
+       {
+        "text": "Identify bottleneck: Wire Bonding at 6,960 units/day"
+       },
+       {
+        "text": "Peak utilization at 7,000 units: $7,000 \\div 6,960 \\approx 1.01$"
+       }
       ],
       "result": "Wire Bonding is the bottleneck at 6,960 units/day, with utilization reaching 1.01 at peak production."
      },
@@ -8588,10 +9391,18 @@
       "heading": "Problem 10 — Line Losses and Buffer Analysis",
       "problem": "Calculate good units output and buffer filling time.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Calculate good units: $7,200 \\times 0.98 \\times 0.97 \\times 0.96 \\approx 6,571$ units"
+       },
+       {
+        "text": "Calculate losses: $7,200 - 6,571 = 629$ units (about 9%)"
+       },
+       {
+        "text": "Buffer rate: $600 - 560 = 40$ units/hour"
+       },
+       {
+        "text": "Buffer filling time: $600 \\div 40 = 15$ hours"
+       }
       ],
       "result": "The line produces approximately 6,571 good units out of 7,200, with 9% losses. The buffer fills at 40 units/hour and would be full in 15 hours."
      },
@@ -8616,10 +9427,18 @@
       "heading": "Problem 11 — LED Lighting Cost Analysis",
       "problem": "Analyze energy savings and break-even point for LED lighting.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Energy savings: 124-216 MWh/year (typically 167 MWh)"
+       },
+       {
+        "text": "Cost savings: 87-216 million UZS/year"
+       },
+       {
+        "text": "Median lamp power: 12.1W (n=5 samples)"
+       },
+       {
+        "text": "Break-even premium: approximately 200,000 UZS at 40,000 hours"
+       }
       ],
       "result": "LED lighting saves 124-216 MWh/year (typically 167) and 87-216 million UZS/year, with a break-even premium of about 200,000 UZS at 40,000 hours."
      },

@@ -74,11 +74,21 @@
       "heading": "Problem 1 — Vector Operations",
       "problem": "Given u = [-2, 3] and v = [-1, 5], compute u + v, u - v, 2u, -3v, 2u - 3v.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Component-wise addition: u + v = [-2 + (-1), 3 + 5] = [-3, 8]"
+       },
+       {
+        "text": "Component-wise subtraction: u - v = [-2 - (-1), 3 - 5] = [-1, -2]"
+       },
+       {
+        "text": "Scalar multiplication: 2u = [2 × (-2), 2 × 3] = [-4, 6]"
+       },
+       {
+        "text": "Scalar multiplication: -3v = [-3 × (-1), -3 × 5] = [3, -15]"
+       },
+       {
+        "text": "Combination: 2u - 3v = [-4 + 3, 6 + (-15)] = [-1, -9]"
+       }
       ],
       "result": "u + v = [-3, 8], u - v = [-1, -2], 2u = [-4, 6], -3v = [3, -15], 2u - 3v = [-1, -9]"
      },
@@ -105,9 +115,15 @@
       "heading": "Problem 2 — Vector Combinations",
       "problem": "Given a = [-1, 4] and b = [2, -2], find a + b, a - b, 3a + 2b.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Component-wise addition: a + b = [-1 + 2, 4 + (-2)] = [1, 2]"
+       },
+       {
+        "text": "Component-wise subtraction: a - b = [-1 - 2, 4 - (-2)] = [-3, 6]"
+       },
+       {
+        "text": "Linear combination: 3a + 2b = [3 × (-1) + 2 × 2, 3 × 4 + 2 × (-2)] = [1, 8]"
+       }
       ],
       "result": "a + b = [1, 2], a - b = [-3, 6], 3a + 2b = [1, 8]"
      },
@@ -130,9 +146,15 @@
       "heading": "Problem 3 — Solving for a Vector",
       "problem": "Find x, if x + [2, -4, 1] = [7, 3, -2].",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Subtract the known vector from both sides: x = [7, 3, -2] - [2, -4, 1]"
+       },
+       {
+        "text": "Perform component-wise subtraction: x = [7 - 2, 3 - (-4), -2 - 1]"
+       },
+       {
+        "text": "Calculate the result: x = [5, 7, -3]"
+       }
       ],
       "result": "x = [5, 7, -3]"
      },
@@ -157,10 +179,18 @@
       "heading": "Problem 4 — Solving Vector Equation",
       "problem": "Find x, if 3x - 2u = v, where u = [-2, 1] and v = [8, 2].",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Isolate the term with x: 3x = v + 2u"
+       },
+       {
+        "text": "Substitute the given vectors: 3x = [8, 2] + 2[-2, 1] = [8, 2] + [-4, 2]"
+       },
+       {
+        "text": "Perform vector addition: 3x = [8 - 4, 2 + 2] = [4, 4]"
+       },
+       {
+        "text": "Solve for x by scalar division: x = [4/3, 4/3]"
+       }
       ],
       "result": "x = [4/3, 4/3]"
      },
@@ -185,9 +215,15 @@
       "heading": "Problem 5 — Vector Length",
       "problem": "Compute the Euclidean length of the vectors u = [3, 4], v = [2, -3, 6], w = [0, 0, 0].",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "For u: ∥u∥ = √(3² + 4²) = √(9 + 16) = √25 = 5"
+       },
+       {
+        "text": "For v: ∥v∥ = √(2² + (-3)² + 6²) = √(4 + 9 + 36) = √49 = 7"
+       },
+       {
+        "text": "For w: ∥w∥ = √(0² + 0² + 0²) = √0 = 0"
+       }
       ],
       "result": "∥u∥ = 5, ∥v∥ = 7, ∥w∥ = 0"
      },
@@ -210,9 +246,15 @@
       "heading": "Problem 6 — Unit Vector",
       "problem": "Find the unit vector in the same direction as v = [-4, 3], and verify that its length is 1.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Calculate the length of v: ∥v∥ = √((-4)² + 3²) = √(16 + 9) = √25 = 5"
+       },
+       {
+        "text": "Compute the unit vector: ˆv = v/∥v∥ = [-4/5, 3/5]"
+       },
+       {
+        "text": "Verify the length: ∥ˆv∥ = √((-4/5)² + (3/5)²) = √(16/25 + 9/25) = √(25/25) = √1 = 1"
+       }
       ],
       "result": "Unit vector: [-4/5, 3/5]"
      },
@@ -235,9 +277,15 @@
       "heading": "Problem 7 — Vector of Specific Length",
       "problem": "Find the vector of length 10 in the same direction as v = [3, -8].",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Calculate the length of v: ∥v∥ = √(3² + (-8)²) = √(9 + 64) = √73"
+       },
+       {
+        "text": "Scale v by the factor 10/∥v∥: (10/√73) × [3, -8] = [30/√73, -80/√73]"
+       },
+       {
+        "text": "Verify the length: ∥(10/√73) × v∥ = (10/√73) × ∥v∥ = (10/√73) × √73 = 10"
+       }
       ],
       "result": "Vector: [30/√73, -80/√73]"
      },
@@ -260,8 +308,12 @@
       "heading": "Problem 8 — Distance Between Points",
       "problem": "Using vector subtraction and length, find the distance between P = (1, -2, 3) and Q = (5, 1, -3).",
       "steps": [
-       null,
-       null
+       {
+        "text": "Form the vector PQ = Q - P = [5 - 1, 1 - (-2), -3 - 3] = [4, 3, -6]"
+       },
+       {
+        "text": "Calculate the length of PQ: ∥PQ∥ = √(4² + 3² + (-6)²) = √(16 + 9 + 36) = √61"
+       }
       ],
       "result": "Distance = √61"
      },
@@ -284,10 +336,18 @@
       "heading": "Problem 9 — Vector Combinations",
       "problem": "Let v1 = [1, 2, 3] and v2 = [2, 3, 4]. Compute 2v1 + v2, -v1 + 3v2, 4v1 - 2v2, 0v1 + 5v2.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "2v1 + v2 = 2[1, 2, 3] + [2, 3, 4] = [2, 4, 6] + [2, 3, 4] = [4, 7, 10]"
+       },
+       {
+        "text": "-v1 + 3v2 = -[1, 2, 3] + 3[2, 3, 4] = [-1, -2, -3] + [6, 9, 12] = [5, 7, 9]"
+       },
+       {
+        "text": "4v1 - 2v2 = 4[1, 2, 3] - 2[2, 3, 4] = [4, 8, 12] - [4, 6, 8] = [0, 2, 4]"
+       },
+       {
+        "text": "0v1 + 5v2 = 0[1, 2, 3] + 5[2, 3, 4] = [0, 0, 0] + [10, 15, 20] = [10, 15, 20]"
+       }
       ],
       "result": "2v1 + v2 = [4, 7, 10], -v1 + 3v2 = [5, 7, 9], 4v1 - 2v2 = [0, 2, 4], 0v1 + 5v2 = [10, 15, 20]"
      },
@@ -312,11 +372,21 @@
       "heading": "Problem 10 — Solving for Coefficients",
       "problem": "Find c1, c2 such that c1v1 + c2v2 = [1, 2], where v1 = [1, 1] and v2 = [-1, 2]. Check by substitution.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Set up the system of equations: c1 - c2 = 1 and c1 + 2c2 = 2"
+       },
+       {
+        "text": "Subtract the first equation from the second: (c1 + 2c2) - (c1 - c2) = 2 - 1"
+       },
+       {
+        "text": "Simplify: 3c2 = 1, so c2 = 1/3"
+       },
+       {
+        "text": "Substitute back: c1 - (1/3) = 1, so c1 = 4/3"
+       },
+       {
+        "text": "Verify: (4/3)[1, 1] + (1/3)[-1, 2] = [4/3, 4/3] + [-1/3, 2/3] = [1, 2]"
+       }
       ],
       "result": "c1 = 4/3, c2 = 1/3"
      },
@@ -343,11 +413,21 @@
       "heading": "Problem 11 — Vector Combination",
       "problem": "Determine if b = $\\begin{bmatrix} 5 \\\\ 1 \\\\ 4 \\end{bmatrix}$ can be written as b = c1 · v1 + c2 · v2 + c3 · v3, where v1 = $\\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}$, v3 = $\\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\end{bmatrix}$.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Set up the system of equations: c1 + c3 = 5, c2 + c3 = 1, c1 + c2 = 4"
+       },
+       {
+        "text": "Add the first two equations: c1 + c2 + 2c3 = 6"
+       },
+       {
+        "text": "Subtract the third equation: 2c3 = 2"
+       },
+       {
+        "text": "Solve for c3: c3 = 1"
+       },
+       {
+        "text": "Substitute back to find c1 and c2: c1 = 4, c2 = 0"
+       }
       ],
       "result": "The combination exists: b = 4v1 + 0 · v2 + 1 · v3. The uniqueness of the solution also shows that the three vectors are independent."
      },
@@ -372,11 +452,21 @@
       "heading": "Problem 12 — Geometric Description of Span",
       "problem": "Describe geometrically all vectors c· $\\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}$, c ∈ R; do the vectors $\\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix}$, $\\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}$, $\\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix}$ belong to this span?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The span of a single vector is all scalar multiples of that vector"
+       },
+       {
+        "text": "This forms a line through the origin in the direction of the vector"
+       },
+       {
+        "text": "Check if $\\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix}$ is in the span: solve c·(-2) = 4 and c·3 = -6"
+       },
+       {
+        "text": "Check if $\\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}$ is in the span: solve c·(-2) = -2 and c·3 = 3"
+       },
+       {
+        "text": "Check if $\\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix}$ is in the span: solve c·(-2) = 6 and c·3 = -8"
+       }
       ],
       "result": "The span is the entire line through the origin in the direction (-2, 3). $\\begin{bmatrix} 4 \\\\ -6 \\end{bmatrix}$ belongs to the span (c = -2), $\\begin{bmatrix} -2 \\\\ 3 \\end{bmatrix}$ belongs to the span (c = 1), but $\\begin{bmatrix} 6 \\\\ -8 \\end{bmatrix}$ does not belong to the span (contradiction in values of c)."
      },
@@ -403,12 +493,24 @@
       "heading": "Problem 13 — Linear Independence",
       "problem": "Are v1 = $\\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 3 \\\\ 0 \\\\ 3 \\end{bmatrix}$ linearly independent? Find non-zero c1, c2 with c1v1 + c2v2 = 0 and explain geometrically.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check if one vector is a scalar multiple of the other"
+       },
+       {
+        "text": "Observe that v2 = 3v1"
+       },
+       {
+        "text": "Set up the equation c1v1 + c2v2 = 0"
+       },
+       {
+        "text": "Substitute v2 = 3v1: c1v1 + c2(3v1) = 0"
+       },
+       {
+        "text": "Factor out v1: (c1 + 3c2)v1 = 0"
+       },
+       {
+        "text": "Choose c1 = 3 and c2 = -1 to satisfy the equation"
+       }
       ],
       "result": "v2 = 3v1, so 3v1 - v2 = 0 — a non-trivial dependence (c1 = 3, c2 = -1). The vectors are dependent. Geometrically, both lie on the same line through the origin, so together they still only span this line — dependence means that one vector does not give a new direction."
      },
@@ -433,11 +535,21 @@
       "heading": "Problem 14 — Linear Independence of Three Vectors",
       "problem": "Are v1 = $\\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}$, v3 = $\\begin{bmatrix} 1 \\\\ 1 \\\\ 2 \\end{bmatrix}$ linearly independent? If dependent, express one through a combination of the others.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Assume v3 can be expressed as a linear combination of v1 and v2: v3 = αv1 + βv2"
+       },
+       {
+        "text": "Set up equations based on components: α = 1 (first component), β = 1 (second component)"
+       },
+       {
+        "text": "Check consistency with third component: α + β = 1 + 1 = 2"
+       },
+       {
+        "text": "Verify that this matches the third component of v3"
+       },
+       {
+        "text": "Conclude that v3 = v1 + v2"
+       }
       ],
       "result": "v3 = v1 + v2, a non-trivial dependence exists, and the set is dependent. Only two independent directions are present; the span is a plane."
      },
@@ -462,12 +574,24 @@
       "heading": "Problem 15 — Spanning R²",
       "problem": "Let v1 = $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 3 \\\\ 1 \\end{bmatrix}$. (1) Do they span R²? (2) For b = $\\begin{bmatrix} b1 \\\\ b2 \\end{bmatrix}$ find c1, c2 with c1v1 + c2v2 = b. (3) Express b = $\\begin{bmatrix} 7 \\\\ 4 \\end{bmatrix}$ using the formula.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Set up the system: c1 + 3c2 = b1, 2c1 + c2 = b2"
+       },
+       {
+        "text": "Solve for c1 in terms of c2: c1 = b1 - 3c2"
+       },
+       {
+        "text": "Substitute into second equation: 2(b1 - 3c2) + c2 = b2"
+       },
+       {
+        "text": "Solve for c2: c2 = (2b1 - b2)/5"
+       },
+       {
+        "text": "Find c1: c1 = (-b1 + 3b2)/5"
+       },
+       {
+        "text": "Apply to specific case: c1 = (-7 + 12)/5 = 1, c2 = (14 - 4)/5 = 2"
+       }
       ],
       "result": "(1) The formulas are defined for any (b1, b2), so yes, the two vectors span R². (2) c1 = (-b1 + 3b2)/5, c2 = (2b1 - b2)/5. (3) b = v1 + 2v2."
      },
@@ -492,11 +616,21 @@
       "heading": "Problem 16 — Dependent Vectors",
       "problem": "Let u1 = $\\begin{bmatrix} -1 \\\\ 2 \\end{bmatrix}$, u2 = $\\begin{bmatrix} -6 \\\\ 3 \\end{bmatrix}$. (1) Do they span R²? (2) Describe span{u1, u2} geometrically; (3) do the vectors $\\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix}$ and $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ belong to it?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Note that u2 = 6u1 (in the standard version u2 = 3u1)"
+       },
+       {
+        "text": "Since u2 is a scalar multiple of u1, the span is only span{u1}"
+       },
+       {
+        "text": "Geometrically, this is a single line through the origin in the direction (-1, 2)"
+       },
+       {
+        "text": "Check if $\\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix}$ belongs to the span: solve -c = 8 and 2c = -4"
+       },
+       {
+        "text": "Check if $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ belongs to the span: solve -c = 1 and 2c = 2"
+       }
       ],
       "result": "u2 = 3u1, so the span is only span{u1}. Geometrically it is the single line through the origin in the direction (-1, 2). Neither $\\begin{bmatrix} 8 \\\\ -4 \\end{bmatrix}$ nor $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ belong to the span (both give contradictory values for c)."
      },
@@ -521,12 +655,24 @@
       "heading": "Problem 17 — Spanning R³",
       "problem": "Let v1 = $\\begin{bmatrix} 1 \\\\ 0 \\\\ 1 \\end{bmatrix}$, v2 = $\\begin{bmatrix} 0 \\\\ 1 \\\\ 1 \\end{bmatrix}$, v3 = $\\begin{bmatrix} 1 \\\\ 1 \\\\ 0 \\end{bmatrix}$. (1) Solve c1v1 + c2v2 + c3v3 = b for an arbitrary b = $\\begin{bmatrix} b1 \\\\ b2 \\\\ b3 \\end{bmatrix}$; (2) explain why the three vectors span R³; (3) express b = $\\begin{bmatrix} 4 \\\\ 2 \\\\ 6 \\end{bmatrix}$.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Set up the system: c1 + c3 = b1, c2 + c3 = b2, c1 + c2 = b3"
+       },
+       {
+        "text": "Add all three equations: 2(c1 + c2 + c3) = b1 + b2 + b3"
+       },
+       {
+        "text": "Solve for c1: c1 = (b1 - b2 + b3)/2"
+       },
+       {
+        "text": "Solve for c2: c2 = (-b1 + b2 + b3)/2"
+       },
+       {
+        "text": "Solve for c3: c3 = (b1 + b2 - b3)/2"
+       },
+       {
+        "text": "Apply to specific case: c1 = 4, c2 = 2, c3 = 0"
+       }
       ],
       "result": "(1) c1 = (b1 - b2 + b3)/2, c2 = (-b1 + b2 + b3)/2, c3 = (b1 + b2 - b3)/2. (2) A solution exists and is unique for every right-hand side, so the span is all of R³ (and the vectors are independent). (3) b = 4v1 + 2v2."
      },
@@ -551,11 +697,21 @@
       "heading": "Problem 18 — Resultant Force and Equilibrium",
       "problem": "Three forces act on a part: F1 = $\\begin{bmatrix} 40 \\\\ -15 \\\\ -20 \\end{bmatrix}$ N, F2 = $\\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\end{bmatrix}$ N, F3 = $\\begin{bmatrix} 10 \\\\ 25 \\\\ -5 \\end{bmatrix}$ N. (1) Find the resultant force; (2) find F4 that brings the part into equilibrium: F1 + F2 + F3 + F4 = 0.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Add the given forces component-wise to find the resultant"
+       },
+       {
+        "text": "Calculate F1 + F2 + F3 = $\\begin{bmatrix} 40 + 0 + 10 \\\\ -15 + 0 + 25 \\\\ -20 + 0 - 5 \\end{bmatrix}$ = $\\begin{bmatrix} 50 \\\\ 10 \\\\ -25 \\end{bmatrix}$"
+       },
+       {
+        "text": "For equilibrium, the sum of all forces must be zero"
+       },
+       {
+        "text": "Solve for F4: F4 = -(F1 + F2 + F3)"
+       },
+       {
+        "text": "Calculate F4 = $\\begin{bmatrix} -50 \\\\ -10 \\\\ 25 \\end{bmatrix}$"
+       }
       ],
       "result": "(1) The resultant force is $\\begin{bmatrix} 50 \\\\ 10 \\\\ -25 \\end{bmatrix}$ N. (2) The force that brings the system into equilibrium is $\\begin{bmatrix} -50 \\\\ -10 \\\\ 25 \\end{bmatrix}$ N."
      },
@@ -580,9 +736,15 @@
       "heading": "Problem 1 — Vector Addition and Midpoint",
       "problem": "Let a = (−1, 3, 2), b = (4, 0, −2). Compute a + b and 3a − b; find the midpoint between a and b.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compute a + b by adding corresponding components"
+       },
+       {
+        "text": "Compute 3a − b by scalar multiplication and subtraction"
+       },
+       {
+        "text": "Find the midpoint using the average of components"
+       }
       ],
       "result": "a + b = (3, 3, 0); 3a − b = (−7, 9, 8); midpoint = (3/2, 3/2, 0)"
      },
@@ -603,9 +765,15 @@
       "heading": "Problem 2 — Solving for Vectors",
       "problem": "Given p + q = (5, 7) and p − q = (−1, 3); find p and q.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Add the two equations to solve for p"
+       },
+       {
+        "text": "Subtract the equations to solve for q"
+       },
+       {
+        "text": "Verify the solution by checking both original equations"
+       }
       ],
       "result": "p = (2, 5); q = (3, 2)"
      },
@@ -628,10 +796,18 @@
       "heading": "Problem 3 — Linear Combinations",
       "problem": "Let u = (1, 2, −1), v = (2, −1, 0). Compute −u + 3v; write cu + dv component-wise; can cu + dv equal (5, 0, −1)?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute −u + 3v by scalar multiplication and addition"
+       },
+       {
+        "text": "Express cu + dv in component form"
+       },
+       {
+        "text": "Set up equations to check if cu + dv can equal (5, 0, −1)"
+       },
+       {
+        "text": "Solve the system of equations for c and d"
+       }
       ],
       "result": "−u + 3v = (5, −5, 1); cu + dv = (c + 2d, 2c − d, −c); Yes, when c = 1, d = 2"
      },
@@ -656,10 +832,18 @@
       "heading": "Problem 4 — Vector Span and Dependence",
       "problem": "Let r = (2, −1), s = (−6, 3). Describe all combinations cr + ds; do the vectors span R²? Find the dependence relation.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Notice the relationship between r and s"
+       },
+       {
+        "text": "Express all combinations cr + ds in simplified form"
+       },
+       {
+        "text": "Determine if the vectors span R²"
+       },
+       {
+        "text": "Find a non-trivial dependence relation"
+       }
       ],
       "result": "All combinations are multiples of r; The vectors span only a line (not R²); 3r + s = 0"
      },
@@ -684,9 +868,15 @@
       "heading": "Problem 5 — Plane Equation from Vectors",
       "problem": "Let v = (1, 0, 1), w = (1, 2, 0). Write cv + dw = (x, y, z); find one equation relating x, y, z; check b = (4, 6, 1).",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Express cv + dw in component form"
+       },
+       {
+        "text": "Relate the components to find an equation between x, y, z"
+       },
+       {
+        "text": "Check if the vector b satisfies this equation"
+       }
       ],
       "result": "cv + dw = (c + d, 2d, c); Equation: x = z + y/2; b lies in the plane"
      },
@@ -709,9 +899,15 @@
       "heading": "Problem 6 — Solving for Coefficients",
       "problem": "Find c, d such that c(1, 2) + d(3, −1) = (7, 3); write and solve the component-wise equations.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Set up component-wise equations"
+       },
+       {
+        "text": "Solve the system of equations for c and d"
+       },
+       {
+        "text": "Verify the solution by plugging back into the original equation"
+       }
       ],
       "result": "c = 16/7, d = 11/7"
      },
@@ -734,10 +930,18 @@
       "heading": "Problem 7 — Span and Dependence of Three Vectors",
       "problem": "Let u = (1, 1, 0), v = (0, 1, 1), w = (1, 2, 1). Does w add a new direction? Describe span{u, v, w}; give a relation equal to zero.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check if w can be expressed as a combination of u and v"
+       },
+       {
+        "text": "Determine if the vectors are linearly dependent"
+       },
+       {
+        "text": "Find a non-trivial linear relation equal to zero"
+       },
+       {
+        "text": "Describe the span of the three vectors"
+       }
       ],
       "result": "w = u + v; The vectors are dependent; u + v − w = 0; The span is a plane"
      },
@@ -760,9 +964,15 @@
       "heading": "Problem 8 — Spanning Space with Vectors",
       "problem": "Can two vectors span all of R³? Can three vectors span R³ and at the same time be dependent? Explain through 'new directions.'",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Analyze the maximum span of two vectors"
+       },
+       {
+        "text": "Explain why three dependent vectors cannot span R³"
+       },
+       {
+        "text": "Connect the concept to the idea of 'new directions'"
+       }
       ],
       "result": "Two vectors can span at most a plane; Three dependent vectors cannot span R³; Each vector can add at most one new direction"
      },
@@ -806,8 +1016,16 @@
       "heading": "Scalar Product (Dot Product)",
       "tex": "u \\cdot v = u_1v_1 + \\cdots + u_nv v_n = u^T v",
       "parts": [
-       null,
-       null
+       {
+        "substr": "u \\cdot v",
+        "color": "#4C5FD5",
+        "note": "Dot product of vectors u and v"
+       },
+       {
+        "substr": "u^T v",
+        "color": "#B45309",
+        "note": "Matrix notation for dot product"
+       }
       ]
      },
      "narr": [
@@ -825,9 +1043,21 @@
       "heading": "Cosine of Angle Between Vectors",
       "tex": "\\cos \\theta = \\frac{u \\cdot v}{\\|u\\|\\|v\\|}",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "\\cos \\theta",
+        "color": "#4C5FD5",
+        "note": "Cosine of the angle between vectors"
+       },
+       {
+        "substr": "u \\cdot v",
+        "color": "#B45309",
+        "note": "Dot product in the numerator"
+       },
+       {
+        "substr": "\\|u\\|\\|v\\|",
+        "color": "#0E7C7B",
+        "note": "Product of vector magnitudes in denominator"
+       }
       ]
      },
      "narr": [
@@ -845,8 +1075,16 @@
       "heading": "Orthogonality Condition",
       "tex": "u \\perp v \\Leftrightarrow u \\cdot v = 0",
       "parts": [
-       null,
-       null
+       {
+        "substr": "u \\perp v",
+        "color": "#4C5FD5",
+        "note": "Vectors u and v are perpendicular"
+       },
+       {
+        "substr": "u \\cdot v = 0",
+        "color": "#B45309",
+        "note": "Condition for orthogonality"
+       }
       ]
      },
      "narr": [
@@ -864,9 +1102,21 @@
       "heading": "Vector Projection",
       "tex": "\\text{proj}_v u = \\frac{u \\cdot v}{v \\cdot v} v",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "\\text{proj}_v u",
+        "color": "#4C5FD5",
+        "note": "Projection of u onto v"
+       },
+       {
+        "substr": "u \\cdot v",
+        "color": "#B45309",
+        "note": "Dot product in the numerator"
+       },
+       {
+        "substr": "v \\cdot v",
+        "color": "#0E7C7B",
+        "note": "Dot product of v with itself (magnitude squared)"
+       }
       ]
      },
      "narr": [
@@ -884,10 +1134,26 @@
       "heading": "Cross Product",
       "tex": "u \\times v = \\begin{pmatrix} u_2v_3 - u_3v_2 \\\\ u_3v_1 - u_1v_3 \\\\ u_1v_2 - u_2v_1 \\end{pmatrix}",
       "parts": [
-       null,
-       null,
-       null,
-       null
+       {
+        "substr": "u \\times v",
+        "color": "#4C5FD5",
+        "note": "Cross product of vectors u and v"
+       },
+       {
+        "substr": "u_2v_3 - u_3v_2",
+        "color": "#B45309",
+        "note": "First component of cross product"
+       },
+       {
+        "substr": "u_3v_1 - u_1v_3",
+        "color": "#B45309",
+        "note": "Second component of cross product"
+       },
+       {
+        "substr": "u_1v_2 - u_2v_1",
+        "color": "#B45309",
+        "note": "Third component of cross product"
+       }
       ]
      },
      "narr": [
@@ -905,9 +1171,21 @@
       "heading": "Magnitude of Cross Product",
       "tex": "\\|u \\times v\\| = \\|u\\|\\|v\\||\\sin \\theta|",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "\\|u \\times v\\|",
+        "color": "#4C5FD5",
+        "note": "Magnitude of cross product"
+       },
+       {
+        "substr": "\\|u\\|\\|v\\|",
+        "color": "#B45309",
+        "note": "Product of vector magnitudes"
+       },
+       {
+        "substr": "|\\sin \\theta|",
+        "color": "#0E7C7B",
+        "note": "Absolute value of sine of angle between vectors"
+       }
       ]
      },
      "narr": [
@@ -925,8 +1203,16 @@
       "heading": "Cross Product Properties",
       "tex": "u \\times v = -(v \\times u), \\quad (u \\times v) \\perp u, v",
       "parts": [
-       null,
-       null
+       {
+        "substr": "u \\times v = -(v \\times u)",
+        "color": "#4C5FD5",
+        "note": "Anti-commutativity of cross product"
+       },
+       {
+        "substr": "(u \\times v) \\perp u, v",
+        "color": "#B45309",
+        "note": "Result is perpendicular to both vectors"
+       }
       ]
      },
      "narr": [
@@ -944,8 +1230,16 @@
       "heading": "Matrix Definition",
       "tex": "A = [a_{ij}] \\in \\mathbb{R}^{m \\times n}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "A = [a_{ij}]",
+        "color": "#4C5FD5",
+        "note": "Matrix with elements a_{ij}"
+       },
+       {
+        "substr": "\\mathbb{R}^{m \\times n}",
+        "color": "#B45309",
+        "note": "Set of m×n real matrices"
+       }
       ]
      },
      "narr": [
@@ -963,8 +1257,16 @@
       "heading": "Matrix Addition and Scalar Multiplication",
       "tex": "(A + B)_{ij} = a_{ij} + b_{ij}, \\quad (cA)_{ij} = c a_{ij}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "(A + B)_{ij}",
+        "color": "#4C5FD5",
+        "note": "Element-wise matrix addition"
+       },
+       {
+        "substr": "(cA)_{ij}",
+        "color": "#B45309",
+        "note": "Scalar multiplication of matrix"
+       }
       ]
      },
      "narr": [
@@ -982,8 +1284,16 @@
       "heading": "Matrix-Vector Product (Column Picture)",
       "tex": "Ax = x_1a_1 + \\cdots + x_na_n",
       "parts": [
-       null,
-       null
+       {
+        "substr": "Ax",
+        "color": "#4C5FD5",
+        "note": "Matrix-vector product"
+       },
+       {
+        "substr": "x_1a_1 + \\cdots + x_na_n",
+        "color": "#B45309",
+        "note": "Linear combination of columns"
+       }
       ]
      },
      "narr": [
@@ -1001,8 +1311,16 @@
       "heading": "Diagonal Matrix",
       "tex": "D = \\text{diag}(d_1, \\ldots, d_n), \\quad Dx = (d_1x_1, \\ldots, d_nx_n)^T",
       "parts": [
-       null,
-       null
+       {
+        "substr": "D = \\text{diag}(d_1, \\ldots, d_n)",
+        "color": "#4C5FD5",
+        "note": "Diagonal matrix with diagonal entries d_i"
+       },
+       {
+        "substr": "Dx",
+        "color": "#B45309",
+        "note": "Matrix-vector product with diagonal matrix"
+       }
       ]
      },
      "narr": [
@@ -1020,9 +1338,15 @@
       "heading": "Problem 1 — Dot Product and Angle Classification",
       "problem": "Let u = [3, -2], v = [4, 5]. Compute u · v; classify the angle.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Calculate u · v = 3·4 + (-2)·5 = 12 - 10 = 2"
+       },
+       {
+        "text": "Since u · v > 0, cos θ > 0"
+       },
+       {
+        "text": "Therefore, the angle is acute"
+       }
       ],
       "result": "u · v = 2, angle is acute"
      },
@@ -1043,9 +1367,15 @@
       "heading": "Problem 2 — Vector Norm and Distance",
       "problem": "With u = [2, -1, 2], v = [-1, 3, 0]: find ∥u∥ and dist(u, v).",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compute ∥u∥ = √(2² + (-1)² + 2²) = √(4 + 1 + 4) = √9 = 3"
+       },
+       {
+        "text": "Find u - v = [2 - (-1), -1 - 3, 2 - 0] = [3, -4, 2]"
+       },
+       {
+        "text": "Calculate dist(u, v) = ∥u - v∥ = √(3² + (-4)² + 2²) = √(9 + 16 + 4) = √29"
+       }
       ],
       "result": "∥u∥ = 3, dist(u, v) = √29"
      },
@@ -1068,10 +1398,18 @@
       "heading": "Problem 3 — Finding Orthogonal Vector",
       "problem": "Find k so that u = [2, k, -1] is orthogonal to v = [3, 1, 4].",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Orthogonality means u · v = 0"
+       },
+       {
+        "text": "Compute u · v = 2·3 + k·1 + (-1)·4 = 6 + k - 4"
+       },
+       {
+        "text": "Set equal to zero: 6 + k - 4 = 0"
+       },
+       {
+        "text": "Solve for k: k = -2"
+       }
       ],
       "result": "k = -2"
      },
@@ -1094,9 +1432,15 @@
       "heading": "Problem 4 — Angle Between Vectors",
       "problem": "Find the angle between u = [1, 1] and v = [1, -1].",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compute u · v = 1·1 + 1·(-1) = 1 - 1 = 0"
+       },
+       {
+        "text": "Since u · v = 0, the vectors are perpendicular"
+       },
+       {
+        "text": "Therefore, θ = 90°"
+       }
       ],
       "result": "θ = 90°"
      },
@@ -1117,10 +1461,18 @@
       "heading": "Problem 5 — Vector Projection",
       "problem": "Project u = [4, 2] onto v = [1, 1].",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute u · v = 4·1 + 2·1 = 6"
+       },
+       {
+        "text": "Compute v · v = 1·1 + 1·1 = 2"
+       },
+       {
+        "text": "Calculate proj_v u = (u · v)/(v · v) · v = (6/2) · [1, 1] = 3 · [1, 1] = [3, 3]"
+       },
+       {
+        "text": "Verify the remainder u - proj_v u = [4, 2] - [3, 3] = [1, -1] is orthogonal to v"
+       }
       ],
       "result": "proj_v u = [3, 3]"
      },
@@ -1145,10 +1497,18 @@
       "heading": "Problem 6 — Cross Product and Orthogonality",
       "problem": "Compute u × v for u = [2, 0, 2], v = [-1, 2, 0] and check orthogonality.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute u × v using the determinant formula"
+       },
+       {
+        "text": "u × v = [0·0 - 2·2, 2·(-1) - 2·0, 2·2 - 0·(-1)] = [-4, -2, 4]"
+       },
+       {
+        "text": "Check orthogonality with u: (-4)·2 + (-2)·0 + 4·2 = -8 + 0 + 8 = 0"
+       },
+       {
+        "text": "Check orthogonality with v: (-4)·(-1) + (-2)·2 + 4·0 = 4 - 4 + 0 = 0"
+       }
       ],
       "result": "u × v = [-4, -2, 4], orthogonal to both u and v"
      },
@@ -1171,10 +1531,18 @@
       "heading": "Problem 7 — Area of Parallelogram",
       "problem": "Find the area of the parallelogram with sides a = [2, 0, 1], b = [1, 3, -1].",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute a × b using the determinant formula"
+       },
+       {
+        "text": "a × b = [0·(-1) - 1·3, 1·1 - 2·(-1), 2·3 - 0·1] = [-3, 3, 6]"
+       },
+       {
+        "text": "Calculate the magnitude: ∥a × b∥ = √((-3)² + 3² + 6²) = √(9 + 9 + 36) = √54"
+       },
+       {
+        "text": "Simplify: √54 = 3√6"
+       }
       ],
       "result": "Area = 3√6"
      },
@@ -1197,11 +1565,21 @@
       "heading": "Problem 8 — Matrix Operations",
       "problem": "For A = [[2, 0, 3], [4, 5, 0]]: specify the size, find a₁₃, a₂₂ and write the columns a₁, a₃.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A has size 2 × 3 (2 rows, 3 columns)"
+       },
+       {
+        "text": "a₁₃ = 4 (element in row 1, column 3)"
+       },
+       {
+        "text": "a₂₂ = 5 (element in row 2, column 2)"
+       },
+       {
+        "text": "a₁ = [2, 4]ᵀ (first column)"
+       },
+       {
+        "text": "a₃ = [3, 0]ᵀ (third column)"
+       }
       ],
       "result": "Size: 2 × 3, a₁₃ = 4, a₂₂ = 5, a₁ = [2, 4]ᵀ, a₃ = [3, 0]ᵀ"
      },
@@ -1224,9 +1602,15 @@
       "heading": "Problem 9 — Matrix Arithmetic",
       "problem": "Let A = [[1, -2], [3, 0]], B = [[4, 1], [-1, 5]]. Find 2A - B.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compute 2A = 2 · [[1, -2], [3, 0]] = [[2, -4], [6, 0]]"
+       },
+       {
+        "text": "Subtract B element-wise: 2A - B = [[2-4, -4-1], [6-(-1), 0-5]]"
+       },
+       {
+        "text": "Calculate the result: [[-2, -5], [7, -5]]"
+       }
       ],
       "result": "2A - B = [[-2, -5], [7, -5]]"
      },
@@ -1249,11 +1633,21 @@
       "heading": "Problem 10 — Matrix Multiplication Dimensions",
       "problem": "A has size 3 × 2, B is 2 × 3, x ∈ ℝ², y ∈ ℝ³. Which of Ax, Ay, Bx, By are defined?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check dimensions for each multiplication"
+       },
+       {
+        "text": "Ax: (3 × 2)(2 × 1) = 3 × 1 - defined"
+       },
+       {
+        "text": "Ay: (3 × 2)(3 × 1) - inner dimensions don't match (2 ≠ 3) - undefined"
+       },
+       {
+        "text": "Bx: (2 × 3)(2 × 1) - inner dimensions don't match (3 ≠ 2) - undefined"
+       },
+       {
+        "text": "By: (2 × 3)(3 × 1) = 2 × 1 - defined"
+       }
       ],
       "result": "Ax and By are defined; Ay and Bx are undefined"
      },
@@ -1280,8 +1674,12 @@
       "heading": "Problem 11 — Diagonal and Identity Matrices",
       "problem": "Let D = diag(2, -1, 3), x = [4, 5, -2]ᵀ. Find Dx and I₃x.",
       "steps": [
-       null,
-       null
+       {
+        "text": "Compute Dx = [2·4, -1·5, 3·(-2)]ᵀ = [8, -5, -6]ᵀ"
+       },
+       {
+        "text": "Compute I₃x = x = [4, 5, -2]ᵀ (identity matrix leaves vector unchanged)"
+       }
       ],
       "result": "Dx = [8, -5, -6]ᵀ, I₃x = [4, 5, -2]ᵀ"
      },
@@ -1304,9 +1702,15 @@
       "heading": "Problem 12 — Matrix-Vector Multiplication",
       "problem": "Let A = [[1, 2, 0], [-1, 3, 4], [4, 0, 8]], x = [2, -1, 0]ᵀ. Compute Ax by the column picture and through row dot products.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Column picture: Ax = 2·[1, -1, 4]ᵀ + (-1)·[2, 3, 0]ᵀ + 0·[0, 4, 8]ᵀ = [0, -5, 8]ᵀ"
+       },
+       {
+        "text": "Row dot products: [1, 2]·[2, -1] = 0, [-1, 3]·[2, -1] = -5, [4, 0]·[2, -1] = 8"
+       },
+       {
+        "text": "Result: [0, -5, 8]ᵀ (same as column picture)"
+       }
       ],
       "result": "Ax = [0, -5, 8]ᵀ"
      },
@@ -1329,13 +1733,27 @@
       "heading": "Problem 13 — Solving Linear System",
       "problem": "Given A = [[1, 2], [3, -1]] and Ax = [7, 5]ᵀ; find x.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Write the system of equations: x₁ + 2x₂ = 7, 3x₁ - x₂ = 5"
+       },
+       {
+        "text": "From the second equation: x₂ = 3x₁ - 5"
+       },
+       {
+        "text": "Substitute into first equation: x₁ + 2(3x₁ - 5) = 7"
+       },
+       {
+        "text": "Simplify: 7x₁ - 10 = 7"
+       },
+       {
+        "text": "Solve: 7x₁ = 17, x₁ = 17/7"
+       },
+       {
+        "text": "Find x₂: x₂ = 3(17/7) - 5 = 16/7"
+       },
+       {
+        "text": "Solution: x = [17/7, 16/7]ᵀ"
+       }
       ],
       "result": "x = [17/7, 16/7]ᵀ"
      },
@@ -1366,11 +1784,21 @@
       "heading": "Problem 14 — Orthogonal Vector Properties",
       "problem": "Non-zero vectors u + v and u - v are orthogonal. What follows about ∥u∥ and ∥v∥?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Orthogonality means (u + v) · (u - v) = 0"
+       },
+       {
+        "text": "Expand the dot product: u·u - u·v + v·u - v·v = 0"
+       },
+       {
+        "text": "Simplify: ∥u∥² - ∥v∥² = 0 (since u·v = v·u)"
+       },
+       {
+        "text": "Therefore: ∥u∥² = ∥v∥²"
+       },
+       {
+        "text": "Conclusion: ∥u∥ = ∥v∥"
+       }
       ],
       "result": "∥u∥ = ∥v∥"
      },
@@ -1397,9 +1825,15 @@
       "heading": "ISA Problem 1 — Dot Product and Angle",
       "problem": "Let u = (-3, 2)ᵀ, v = (4, 5)ᵀ. Compute u·v; is the angle acute, right, or obtuse?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compute u · v = (-3)·4 + 2·5 = -12 + 10 = -2"
+       },
+       {
+        "text": "Since u · v < 0, cos θ < 0"
+       },
+       {
+        "text": "Therefore, the angle is obtuse"
+       }
       ],
       "result": "u · v = -2, angle is obtuse"
      },
@@ -1420,11 +1854,21 @@
       "heading": "ISA Problem 2 — Vector Operations",
       "problem": "Let a = (1, -2, 4)ᵀ, b = (3, 0, -1)ᵀ. Find a · b, ∥a∥, ∥b∥, ∥a - b∥.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute a · b = 1·3 + (-2)·0 + 4·(-1) = 3 + 0 - 4 = -1"
+       },
+       {
+        "text": "Compute ∥a∥ = √(1² + (-2)² + 4²) = √(1 + 4 + 16) = √21"
+       },
+       {
+        "text": "Compute ∥b∥ = √(3² + 0² + (-1)²) = √(9 + 0 + 1) = √10"
+       },
+       {
+        "text": "Compute a - b = (1-3, -2-0, 4-(-1))ᵀ = (-2, -2, 5)ᵀ"
+       },
+       {
+        "text": "Compute ∥a - b∥ = √((-2)² + (-2)² + 5²) = √(4 + 4 + 25) = √33"
+       }
       ],
       "result": "a · b = -1, ∥a∥ = √21, ∥b∥ = √10, ∥a - b∥ = √33"
      },
@@ -1449,11 +1893,21 @@
       "heading": "ISA Problem 3 — Orthogonal Vector",
       "problem": "Find k such that u = (2, k, 3)ᵀ is orthogonal to v = (-1, 4, 2)ᵀ.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Orthogonality means u · v = 0"
+       },
+       {
+        "text": "Compute u · v = 2·(-1) + k·4 + 3·2 = -2 + 4k + 6"
+       },
+       {
+        "text": "Set equal to zero: -2 + 4k + 6 = 0"
+       },
+       {
+        "text": "Simplify: 4k + 4 = 0"
+       },
+       {
+        "text": "Solve for k: k = -1"
+       }
       ],
       "result": "k = -1"
      },
@@ -1476,11 +1930,21 @@
       "heading": "ISA Problem 4 — Angle Between Vectors",
       "problem": "Find the exact cos θ, then θ to the nearest degree, for u = (3, 1)ᵀ, v = (-2, 4)ᵀ.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute u · v = 3·(-2) + 1·4 = -6 + 4 = -2"
+       },
+       {
+        "text": "Compute ∥u∥ = √(3² + 1²) = √10"
+       },
+       {
+        "text": "Compute ∥v∥ = √((-2)² + 4²) = √20 = 2√5"
+       },
+       {
+        "text": "Compute cos θ = (u · v)/(∥u∥∥v∥) = -2/(√10 · 2√5) = -1/√50 = -√2/10 ≈ -0.1414"
+       },
+       {
+        "text": "Find θ ≈ 98° (since cos⁻¹(-0.1414) ≈ 98°)"
+       }
       ],
       "result": "cos θ = -√2/10, θ ≈ 98°"
      },
@@ -1505,11 +1969,21 @@
       "heading": "ISA Problem 5 — Vector Projection",
       "problem": "Find the projection of u = (6, 1)ᵀ onto v = (2, -1)ᵀ; verify that u - proj is orthogonal to v.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute u · v = 6·2 + 1·(-1) = 12 - 1 = 11"
+       },
+       {
+        "text": "Compute v · v = 2·2 + (-1)·(-1) = 4 + 1 = 5"
+       },
+       {
+        "text": "Compute proj_v u = (u · v)/(v · v) · v = (11/5) · (2, -1)ᵀ = (22/5, -11/5)ᵀ"
+       },
+       {
+        "text": "Compute u - proj_v u = (6 - 22/5, 1 - (-11/5))ᵀ = (8/5, 16/5)ᵀ"
+       },
+       {
+        "text": "Verify orthogonality: (8/5)·2 + (16/5)·(-1) = 16/5 - 16/5 = 0"
+       }
       ],
       "result": "proj_v u = (22/5, -11/5)ᵀ, verified orthogonal"
      },
@@ -1534,9 +2008,15 @@
       "heading": "Problem 6 — Vector Directions",
       "problem": "Nonzero p, q satisfy p · q = ∥p∥∥q∥. What can you conclude about their directions?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Recall the angle formula: cos θ = (p · q) / (∥p∥∥q∥)"
+       },
+       {
+        "text": "Given p · q = ∥p∥∥q∥, we have cos θ = 1"
+       },
+       {
+        "text": "This implies θ = 0 degrees"
+       }
       ],
       "result": "The vectors are directed exactly the same (one is a positive multiple of the other)."
      },
@@ -1563,12 +2043,24 @@
       "heading": "Problem 7 — Cross Product Calculation",
       "problem": "For a = (2, 1, −1)^T, b = (0, 3, 2)^T compute a×b and b×a; verify the sign relationship.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute a×b using the determinant formula"
+       },
+       {
+        "text": "a×b = ((1)(2) - (-1)(3), -((2)(2) - (-1)(0)), (2)(3) - (1)(0))"
+       },
+       {
+        "text": "a×b = (2 + 3, -(4 - 0), 6 - 0) = (5, -4, 6)"
+       },
+       {
+        "text": "Compute b×a similarly"
+       },
+       {
+        "text": "b×a = ((3)(-1) - (2)(1), -((0)(-1) - (2)(2)), (0)(1) - (3)(2))"
+       },
+       {
+        "text": "b×a = (-3 - 2, -(0 - 4), 0 - 6) = (-5, 4, -6)"
+       }
       ],
       "result": "b×a = -(a×b), confirming the anti-commutative property of the cross product."
      },
@@ -1609,9 +2101,15 @@
       "heading": "Problem 8 — Orthogonality Check",
       "problem": "Verify that a × b from exercise 7 is orthogonal to both a and b.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compute a · (a×b)"
+       },
+       {
+        "text": "Compute b · (a×b)"
+       },
+       {
+        "text": "Check if both dot products equal zero"
+       }
       ],
       "result": "Both dot products are zero, confirming that a×b is orthogonal to both a and b."
      },
@@ -1640,11 +2138,21 @@
       "heading": "Problem 9 — Parallelogram Area",
       "problem": "Find the area of the parallelogram with sides u = (1, 2, 2)^T, v = (3, −1, 0)^T.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute the cross product u × v"
+       },
+       {
+        "text": "u × v = ((2)(0) - (2)(-1), -((1)(0) - (2)(3)), (1)(-1) - (2)(3))"
+       },
+       {
+        "text": "u × v = (0 + 2, -(0 - 6), -1 - 6) = (2, 6, -7)"
+       },
+       {
+        "text": "Compute the norm of u × v"
+       },
+       {
+        "text": "||u × v|| = √(2² + 6² + (-7)²) = √(4 + 36 + 49) = √89"
+       }
       ],
       "result": "The area of the parallelogram is √89 square units."
      },
@@ -1679,12 +2187,24 @@
       "heading": "Problem 10 — Triangle Area",
       "problem": "P = (1, 0, 1), Q = (3, 1, 0), R = (0, 2, 4): find the area of triangle PQR.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Find vectors PQ and PR"
+       },
+       {
+        "text": "PQ = Q - P = (2, 1, -1)^T"
+       },
+       {
+        "text": "PR = R - P = (-1, 2, 3)^T"
+       },
+       {
+        "text": "Compute the cross product PQ × PR"
+       },
+       {
+        "text": "PQ × PR = ((1)(3) - (-1)(2), -((-1)(3) - (2)(-1)), (2)(2) - (1)(-1))"
+       },
+       {
+        "text": "PQ × PR = (3 + 2, -(-3 + 2), 4 + 1) = (5, 1, 5)"
+       }
       ]
      },
      "narr": [
@@ -1712,9 +2232,15 @@
       "heading": "Problem 10 — Triangle Area (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compute the norm of PQ × PR"
+       },
+       {
+        "text": "||PQ × PR|| = √(5² + 1² + 5²) = √(25 + 1 + 25) = √51"
+       },
+       {
+        "text": "Find half the norm for triangle area"
+       }
       ],
       "result": "Triangle area = (1/2) × √51 = √51/2 square units."
      },
@@ -1741,12 +2267,24 @@
       "heading": "Problem 11 — Parallel Vectors",
       "problem": "Find all real t for which a = (1, t, 2)^T and b = (3, 6, 6)^T satisfy a × b = 0; if none, explain.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Recall that parallel vectors have a zero cross product"
+       },
+       {
+        "text": "Set a = cb for some scalar c"
+       },
+       {
+        "text": "From the first component: 1 = 3c ⇒ c = 1/3"
+       },
+       {
+        "text": "From the second component: t = 6c = 6(1/3) = 2"
+       },
+       {
+        "text": "From the third component: 2 = 6c = 6(1/3) = 2 (consistent)"
+       },
+       {
+        "text": "Verify that a × b = 0 when t = 2"
+       }
       ],
       "result": "t = 2 is the only value (then a = (1/3)b)."
      },
@@ -1777,11 +2315,21 @@
       "heading": "Problem 12 — Scalar Triple Product",
       "problem": "Let a = (1, 0, 2)^T, b = (2, 1, −1)^T, c = (0, 3, 1)^T. Compute a · (b × c); interpret the value.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "First compute b × c"
+       },
+       {
+        "text": "b × c = ((1)(1) - (-1)(3), -((2)(1) - (-1)(0)), (2)(3) - (1)(0))"
+       },
+       {
+        "text": "b × c = (1 + 3, -(2 - 0), 6 - 0) = (4, -2, 6)"
+       },
+       {
+        "text": "Now compute a · (b × c)"
+       },
+       {
+        "text": "a · (b × c) = (1)(4) + (0)(-2) + (2)(6) = 4 + 0 + 12 = 16"
+       }
       ],
       "result": "The scalar triple product is 16, which represents the signed volume of the parallelepiped spanned by the three vectors."
      },
@@ -1816,12 +2364,24 @@
       "heading": "Problem 13 — Matrix Components",
       "problem": "Let A = [2 -1 0; 4 3 5]. Specify the size; find a12, a23; write each row and column as a vector.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Identify the matrix size (rows × columns)"
+       },
+       {
+        "text": "Find the element at row 1, column 2 (a12)"
+       },
+       {
+        "text": "Find the element at row 2, column 3 (a23)"
+       },
+       {
+        "text": "Write the first row as a vector"
+       },
+       {
+        "text": "Write the second row as a vector"
+       },
+       {
+        "text": "Write each column as a vector"
+       }
       ],
       "result": "Size: 2×3; a12 = -1; a23 = 5; Rows: [2 -1 0], [4 3 5]; Columns: [2 4], [-1 3], [0 5]."
      },
@@ -1854,10 +2414,18 @@
       "heading": "Problem 14 — Matrix Operations",
       "problem": "Let A = [1 3; -2 4], B = [5 -1; 0 2]. Compute A + B, A − B, −2A, 3A − 2B.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute A + B by adding corresponding elements"
+       },
+       {
+        "text": "Compute A − B by subtracting corresponding elements"
+       },
+       {
+        "text": "Compute −2A by multiplying each element by -2"
+       },
+       {
+        "text": "Compute 3A − 2B by first scaling then subtracting"
+       }
       ],
       "result": "A + B = [6 2; -2 6]; A − B = [-4 4; -2 2]; −2A = [-2 -6; 4 -8]; 3A − 2B = [-7 11; -6 8]."
      },
@@ -1884,12 +2452,24 @@
       "heading": "Problem 15 — Matrix-Vector Multiplication",
       "problem": "A has size 4 × 3, B — 3 × 2, x ∈ R², y ∈ R³, z ∈ R⁴. Which of Ax, Ay, Az, Bx, By, Bz are defined and with what output dimensions?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check Ax: (4×3)(4×1) - inner dimensions don't match"
+       },
+       {
+        "text": "Check Ay: (4×3)(3×1) - inner dimensions match, result is R⁴"
+       },
+       {
+        "text": "Check Az: (4×3)(4×1) - inner dimensions don't match"
+       },
+       {
+        "text": "Check Bx: (3×2)(2×1) - inner dimensions match, result is R³"
+       },
+       {
+        "text": "Check By: (3×2)(3×1) - inner dimensions don't match"
+       },
+       {
+        "text": "Check Bz: (3×2)(4×1) - inner dimensions don't match"
+       }
       ],
       "result": "Only Ay and Bx are defined: Ay outputs in R⁴, Bx outputs in R³."
      },
@@ -1922,9 +2502,15 @@
       "heading": "Problem 16 — Diagonal Matrix Action",
       "problem": "Let D = diag(−2, 3, 1), x = (4, −1, 5)^T. Compute Dx; describe what D does to each coordinate.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Write D as a matrix"
+       },
+       {
+        "text": "Compute the matrix-vector product Dx"
+       },
+       {
+        "text": "Analyze how each coordinate is transformed"
+       }
       ],
       "result": "Dx = (-8, -3, 5)^T. D scales the first coordinate by -2, the second by 3, and leaves the third unchanged."
      },
@@ -1955,12 +2541,24 @@
       "heading": "Problem 17 — Matrix-Vector Multiplication Perspectives",
       "problem": "Let A = [1 -2 3; 4 0 -1; 2 2 2], x = (2, -1, 3)^T. Compute Ax (a) as a combination of columns, (b) through scalar products of rows.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) Express Ax as a linear combination of columns of A"
+       },
+       {
+        "text": "Ax = 2×[1; 4; 2] + (-1)×[-2; 0; 2] + 3×[3; -1; 2]"
+       },
+       {
+        "text": "Calculate each term: [2; 8; 4] + [2; 0; -2] + [9; -3; 6]"
+       },
+       {
+        "text": "Add the vectors: [2+2+9; 8+0-3; 4-2+6] = [13; 5; 10]"
+       },
+       {
+        "text": "(b) Compute Ax as dot products of rows with x"
+       },
+       {
+        "text": "Row 1 · x = 1×2 + (-2)×(-1) + 3×3 = 2 + 2 + 9 = 13"
+       }
       ]
      },
      "narr": [
@@ -1988,8 +2586,12 @@
       "heading": "Problem 17 — Matrix-Vector Multiplication Perspectives (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null
+       {
+        "text": "Row 2 · x = 4×2 + 0×(-1) + (-1)×3 = 8 + 0 - 3 = 5"
+       },
+       {
+        "text": "Row 3 · x = 2×2 + 2×(-1) + 2×3 = 4 - 2 + 6 = 8"
+       }
       ],
       "result": "Ax = [13; 5; 10]. Both methods give the same result, as expected."
      },
@@ -2010,13 +2612,27 @@
       "heading": "Problem 18 — Solving Vector Equation",
       "problem": "Let a1 = (1, 2)^T, a2 = (3, −1)^T. Find x = (x1, x2)^T with x1a1 + x2a2 = (11, 1)^T.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Set up the system of equations from the vector equation"
+       },
+       {
+        "text": "x1 + 3x2 = 11 (from first component)"
+       },
+       {
+        "text": "2x1 - x2 = 1 (from second component)"
+       },
+       {
+        "text": "Solve the second equation for x2: x2 = 2x1 - 1"
+       },
+       {
+        "text": "Substitute into the first equation: x1 + 3(2x1 - 1) = 11"
+       },
+       {
+        "text": "Solve for x1: x1 + 6x1 - 3 = 11 ⇒ 7x1 = 14 ⇒ x1 = 2"
+       },
+       {
+        "text": "Find x2: x2 = 2(2) - 1 = 3"
+       }
       ],
       "result": "x = (2, 3)^T"
      },
@@ -2051,12 +2667,24 @@
       "heading": "Problem 19 — Null Space and Column Dependence",
       "problem": "Let A = [2 4; -1 -2]. Describe all x with Ax = 0; why are the columns dependent?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Set up the system Ax = 0"
+       },
+       {
+        "text": "2x1 + 4x2 = 0"
+       },
+       {
+        "text": "-x1 - 2x2 = 0"
+       },
+       {
+        "text": "Notice both equations are equivalent: x1 = -2x2"
+       },
+       {
+        "text": "Express the solution in parametric form"
+       },
+       {
+        "text": "Find a nontrivial combination of columns that equals zero"
+       }
       ],
       "result": "All solutions are x = t·[-2; 1], t ∈ R. The columns are dependent because -2·a1 + 1·a2 = 0."
      },
@@ -2093,12 +2721,24 @@
       "heading": "Problem 20 — Matrix Construction",
       "problem": "A has size 3×2, with A[1, 0] = [2, -1, 4] and A[0, 1] = [3, 2, 0]. Write down A and compute A[-2, 5] without row dot products.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The two images are the columns of A"
+       },
+       {
+        "text": "A = [[2, 3], [-1, 2], [4, 0]]"
+       },
+       {
+        "text": "Using linearity: A[-2, 5] = -2·A[1, 0] + 5·A[0, 1]"
+       },
+       {
+        "text": "A[-2, 5] = -2·[2, -1, 4] + 5·[3, 2, 0]"
+       },
+       {
+        "text": "A[-2, 5] = [-4 + 15, 2 + 10, -8 + 0]"
+       },
+       {
+        "text": "A[-2, 5] = [11, 12, -8]"
+       }
       ],
       "result": "A = [[2, 3], [-1, 2], [4, 0]] and A[-2, 5] = [11, 12, -8]"
      },
@@ -2125,12 +2765,24 @@
       "heading": "Problem 21 — Vector Orthogonality",
       "problem": "Expand (u + v)·(u - v) for vectors of the same dimension; prove that u + v ⊥ u - v if and only if ||u|| = ||v||.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Distribute the dot product: (u + v)·(u - v) = u·u - u·v + v·u - v·v"
+       },
+       {
+        "text": "Simplify using dot product properties: u·u - u·v + u·v - v·v = ||u||² - ||v||²"
+       },
+       {
+        "text": "The middle terms cancel out"
+       },
+       {
+        "text": "Orthogonality means this equals zero: ||u||² - ||v||² = 0"
+       },
+       {
+        "text": "Therefore ||u||² = ||v||²"
+       },
+       {
+        "text": "Since norms are non-negative, this implies ||u|| = ||v||"
+       }
       ],
       "result": "(u + v)·(u - v) = ||u||² - ||v||², and u + v ⊥ u - v if and only if ||u|| = ||v||"
      },
@@ -2186,8 +2838,12 @@
       "heading": "Problem 1 — Dot Product and Angle Classification",
       "problem": "Given a = [-2, 4] and b = [5, 1], compute a·b and classify the angle.",
       "steps": [
-       null,
-       null
+       {
+        "text": "Compute the dot product: a·b = (-2)·5 + 4·1 = -10 + 4 = -6"
+       },
+       {
+        "text": "Since the dot product is negative, the angle between the vectors is obtuse"
+       }
       ],
       "result": "a·b = -6, angle is obtuse"
      },
@@ -2210,8 +2866,12 @@
       "heading": "Problem 2 — Norm and Unit Vector",
       "problem": "Find the norm and the unit vector in the direction of v = [-2, 1, 2].",
       "steps": [
-       null,
-       null
+       {
+        "text": "Compute the norm: ||v|| = √((-2)² + 1² + 2²) = √(4 + 1 + 4) = √9 = 3"
+       },
+       {
+        "text": "Find the unit vector: v̂ = v/||v|| = [-2/3, 1/3, 2/3]"
+       }
       ],
       "result": "||v|| = 3, unit vector = [-2/3, 1/3, 2/3]"
      },
@@ -2234,8 +2894,12 @@
       "heading": "Problem 3 — Distance Between Points",
       "problem": "Find the distance between p = [-2, 4, 3] and q = [2, 1, 0].",
       "steps": [
-       null,
-       null
+       {
+        "text": "Compute the difference vector: p - q = [-2 - 2, 4 - 1, 3 - 0] = [-4, 3, 3]"
+       },
+       {
+        "text": "Find the norm of the difference: ||p - q|| = √((-4)² + 3² + 3²) = √(16 + 9 + 9) = √34"
+       }
       ],
       "result": "Distance = √34"
      },
@@ -2258,10 +2922,18 @@
       "heading": "Problem 4 — Orthogonal Vector",
       "problem": "Find t if [2, t, 4] is orthogonal to [1, -3, 2].",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Set up the dot product equation: [2, t, 4]·[1, -3, 2] = 0"
+       },
+       {
+        "text": "Compute: 2·1 + t·(-3) + 4·2 = 0"
+       },
+       {
+        "text": "Simplify: 2 - 3t + 8 = 0"
+       },
+       {
+        "text": "Solve for t: -3t = -10, so t = 10/3"
+       }
       ],
       "result": "t = 10/3"
      },
@@ -2284,10 +2956,18 @@
       "heading": "Problem 5 — Angle Between Vectors",
       "problem": "Find cos θ for u = [2, 1], v = [-1, 3].",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute the dot product: u·v = 2·(-1) + 1·3 = -2 + 3 = 1"
+       },
+       {
+        "text": "Find the norms: ||u|| = √(2² + 1²) = √5, ||v|| = √((-1)² + 3²) = √10"
+       },
+       {
+        "text": "Compute cos θ = (u·v)/(||u||·||v||) = 1/√50 = √2/10 ≈ 0.141"
+       },
+       {
+        "text": "Therefore θ ≈ 82°"
+       }
       ],
       "result": "cos θ = √2/10 ≈ 0.141, θ ≈ 82°"
      },
@@ -2312,11 +2992,21 @@
       "heading": "Problem 7 — Vector Projection",
       "problem": "Project u = (5, -1) onto v = (2, 1); write u as parallel + orthogonal components.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute the dot product: u·v = 5·2 + (-1)·1 = 10 - 1 = 9"
+       },
+       {
+        "text": "Compute v·v = 2·2 + 1·1 = 4 + 1 = 5"
+       },
+       {
+        "text": "Find the projection: proj_v u = (u·v)/(v·v) · v = (9/5) · [2, 1] = [18/5, 9/5]"
+       },
+       {
+        "text": "Find the orthogonal component: u - proj_v u = [5, -1] - [18/5, 9/5] = [7/5, -18/5]"
+       },
+       {
+        "text": "Write the decomposition: u = [18/5, 9/5] + [7/5, -18/5]"
+       }
       ],
       "result": "u = [18/5, 9/5] + [7/5, -18/5]"
      },
@@ -2341,9 +3031,15 @@
       "heading": "Problem 8 — Cross Product",
       "problem": "Compute a × b for a = [2, -1, 3], b = [0, 4, 1].",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Use the cross product formula: a × b = [(-1)·1 - 3·4, 3·0 - 2·1, 2·4 - (-1)·0]"
+       },
+       {
+        "text": "Calculate each component: [-1 - 12, 0 - 2, 8 - 0]"
+       },
+       {
+        "text": "Simplify: [-13, -2, 8]"
+       }
       ],
       "result": "a × b = [-13, -2, 8]"
      },
@@ -2366,10 +3062,18 @@
       "heading": "Problem 9 — Area of Triangle",
       "problem": "Given points A = (0, 0, 0), B = (2, 1, 0), C = (1, 0, 3), find the area of the triangle.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Find vectors AB and AC: AB = [2, 1, 0], AC = [1, 0, 3]"
+       },
+       {
+        "text": "Compute the cross product AB × AC = [1·3 - 0·0, 0·1 - 2·3, 2·0 - 1·1] = [3, -6, -1]"
+       },
+       {
+        "text": "Find the norm of the cross product: ||AB × AC|| = √(3² + (-6)² + (-1)²) = √(9 + 36 + 1) = √46"
+       },
+       {
+        "text": "The area of the triangle is half of this norm: Area = √46/2"
+       }
       ],
       "result": "Area = √46/2"
      },
@@ -2392,9 +3096,15 @@
       "heading": "Problem 10 — Matrix Properties",
       "problem": "For M = [[1, 0, -2], [4, 3, 5]], find size, m₂₁, and all columns.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The size is 2×3 (2 rows, 3 columns)"
+       },
+       {
+        "text": "m₂₁ is the element in row 2, column 1, which is 4"
+       },
+       {
+        "text": "The columns are: [1, 4], [0, 3], and [-2, 5]"
+       }
       ],
       "result": "Size: 2×3, m₂₁: 4, Columns: [1, 4], [0, 3], [-2, 5]"
      },
@@ -2417,9 +3127,15 @@
       "heading": "Problem 11 — Matrix Addition",
       "problem": "Given A = [[2, 1], [-1, 3]], B = [[0, 4], [2, -2]], find 3A + 2B.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compute 3A = 3·[[2, 1], [-1, 3]] = [[6, 3], [-3, 9]]"
+       },
+       {
+        "text": "Compute 2B = 2·[[0, 4], [2, -2]] = [[0, 8], [4, -4]]"
+       },
+       {
+        "text": "Add the matrices: 3A + 2B = [[6+0, 3+8], [-3+4, 9+(-4)]] = [[6, 11], [1, 5]]"
+       }
       ],
       "result": "3A + 2B = [[6, 11], [1, 5]]"
      },
@@ -2442,9 +3158,15 @@
       "heading": "Problem 12 — Matrix-Vector Multiplication",
       "problem": "Given A = [[2, -1, 3], [0, 4, 1]], x = [1, -2, 3], compute Ax as a combination of columns.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Express Ax as a linear combination of columns: Ax = 1·[2, 0] + (-2)·[-1, 4] + 3·[3, 1]"
+       },
+       {
+        "text": "Compute each term: 1·[2, 0] = [2, 0], (-2)·[-1, 4] = [2, -8], 3·[3, 1] = [9, 3]"
+       },
+       {
+        "text": "Add the vectors: [2, 0] + [2, -8] + [9, 3] = [13, -5]"
+       }
       ],
       "result": "Ax = [13, -5]"
      },
@@ -2467,12 +3189,24 @@
       "heading": "Problem 13 — Solving Linear Systems",
       "problem": "Given a₁ = [2, 4], a₂ = [1, 3], b = [6, 2], find all x with [a₁ a₂]x = b.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Set up the system: [2, 1; 4, 3]·[x₁; x₂] = [6; 2]"
+       },
+       {
+        "text": "Write as equations: 2x₁ + x₂ = 6 and 4x₁ + 3x₂ = 2"
+       },
+       {
+        "text": "Solve the first equation for x₂: x₂ = 6 - 2x₁"
+       },
+       {
+        "text": "Substitute into the second equation: 4x₁ + 3(6 - 2x₁) = 2"
+       },
+       {
+        "text": "Simplify: 4x₁ + 18 - 6x₁ = 2"
+       },
+       {
+        "text": "Solve: -2x₁ = -16, so x₁ = 8"
+       }
       ]
      },
      "narr": [
@@ -2494,9 +3228,15 @@
       "heading": "Problem 13 — System of Equations",
       "problem": "Both equations reduce to x₁ + 2x₂ = 3 (system is consistent but redundant). General solution: x = [3, 2t, -7, 2, -9, 4]ᵀ, t ∈ ℝ — t infinitely many weights for the same combination.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The system reduces to x₁ + 2x₂ = 3"
+       },
+       {
+        "text": "The system is consistent but redundant since a₂ = 2a₁ and b = 3a₁"
+       },
+       {
+        "text": "General solution has infinitely many weights for the same combination"
+       }
       ],
       "result": "x = [3, 2t, -7, 2, -9, 4]ᵀ, t ∈ ℝ"
      },
@@ -2517,9 +3257,15 @@
       "heading": "Problem 13 — Cross Product Property",
       "problem": "Without revealing coordinates, explain why (u×v) · (u + v) = 0.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The cross product u×v is orthogonal to both u and v"
+       },
+       {
+        "text": "Therefore, (u×v) · u = 0 and (u×v) · v = 0"
+       },
+       {
+        "text": "Adding these gives (u×v) · (u + v) = 0 + 0 = 0"
+       }
       ],
       "result": "(u×v) · (u + v) = 0"
      },
@@ -2542,9 +3288,15 @@
       "heading": "Problem 14 — Matrix Transformation",
       "problem": "A has size 2 × 2, with A · [1, 0]ᵀ = [2, -1]ᵀ and A · [0, 1]ᵀ = [3, 4]ᵀ. Find A and A · [5, -2]ᵀ.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The images of the standard basis vectors are the columns of A"
+       },
+       {
+        "text": "Therefore, A = [2, 3; -1, 4]"
+       },
+       {
+        "text": "To find A · [5, -2]ᵀ, we use linearity: 5 · [2, -1]ᵀ - 2 · [3, 4]ᵀ"
+       }
       ],
       "result": "A = [2, 3; -1, 4], A · [5, -2]ᵀ = [4, -13]ᵀ"
      },
@@ -2675,7 +3427,11 @@
       "heading": "Determinant of a 2×2 Matrix",
       "tex": "\\det\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = ad - bc",
       "parts": [
-       null
+       {
+        "substr": "ad - bc",
+        "color": "#4C5FD5",
+        "note": "signed area of the column parallelogram"
+       }
       ]
      },
      "narr": [
@@ -2695,8 +3451,16 @@
       "heading": "Cofactor Expansion",
       "tex": "C_{ij} = (-1)^{i+j} \\det M_{ij}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "C_{ij}",
+        "color": "#4C5FD5",
+        "note": "cofactor"
+       },
+       {
+        "substr": "M_{ij}",
+        "color": "#B45309",
+        "note": "minor (delete row i, column j)"
+       }
       ]
      },
      "narr": [
@@ -2770,9 +3534,21 @@
       "heading": "Scalar Triple Product",
       "tex": "(\\mathbf{u} \\times \\mathbf{v}) \\cdot \\mathbf{w} = \\mathbf{u} \\cdot (\\mathbf{v} \\times \\mathbf{w}) = \\det[\\mathbf{u} \\mathbf{v} \\mathbf{w}]",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "\\mathbf{u} \\times \\mathbf{v}",
+        "color": "#4C5FD5",
+        "note": "cross product"
+       },
+       {
+        "substr": "\\cdot \\mathbf{w}",
+        "color": "#B45309",
+        "note": "dot product"
+       },
+       {
+        "substr": "\\det[\\mathbf{u} \\mathbf{v} \\mathbf{w}]",
+        "color": "#0E7C7B",
+        "note": "determinant of matrix with columns u, v, w"
+       }
       ]
      },
      "narr": [
@@ -2792,8 +3568,16 @@
       "heading": "Volume Calculations",
       "tex": "V_{parallelepiped} = |(\\mathbf{u} \\times \\mathbf{v}) \\cdot \\mathbf{w}|, \\quad h = \\frac{|(\\mathbf{u} \\times \\mathbf{v}) \\cdot \\mathbf{w}|}{\\|\\mathbf{u} \\times \\mathbf{v}\\|}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "V_{parallelepiped}",
+        "color": "#4C5FD5",
+        "note": "volume of parallelepiped"
+       },
+       {
+        "substr": "h",
+        "color": "#B45309",
+        "note": "height of parallelepiped"
+       }
       ]
      },
      "narr": [
@@ -2811,8 +3595,16 @@
       "heading": "Tetrahedron Volume",
       "tex": "V_{tetrahedron} = \\frac{1}{6} |\\det[\\mathbf{u} \\mathbf{v} \\mathbf{w}]|, \\quad T = 0 \\Leftrightarrow \\mathbf{u}, \\mathbf{v}, \\mathbf{w} \\text{ coplanar}",
       "parts": [
-       null,
-       null
+       {
+        "substr": "V_{tetrahedron}",
+        "color": "#4C5FD5",
+        "note": "volume of tetrahedron"
+       },
+       {
+        "substr": "T = 0",
+        "color": "#B45309",
+        "note": "vectors are coplanar"
+       }
       ]
      },
      "narr": [
@@ -2830,10 +3622,18 @@
       "heading": "Problem 1 — Matrix Operations",
       "problem": "Let A = [1, -2; 3, 0], B = [2, 1; -1, 4]. Compute 2A - B and specify the (2, 1) element; can you add A to a 2×3 matrix?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute 2A = [2, -4; 6, 0]"
+       },
+       {
+        "text": "Compute 2A - B = [0, -5; 7, -4]"
+       },
+       {
+        "text": "The (2, 1) element is 7"
+       },
+       {
+        "text": "Addition with a 2×3 matrix is undefined - dimensions must match"
+       }
       ],
       "result": "2A - B = [0, -5; 7, -4], (2, 1) element is 7"
      },
@@ -2860,9 +3660,15 @@
       "heading": "Problem 2 — Matrix Transpose",
       "problem": "Let C = [1, 2, -1; 0, 3, 2]. Write Cᵀ with its size; compute CᵀC; is it symmetric?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Cᵀ = [1, 0; 2, 3; -1, 2] (3×2)"
+       },
+       {
+        "text": "Compute CᵀC = [6, 4; 4, 13]"
+       },
+       {
+        "text": "The matrix is symmetric because off-diagonal elements are equal"
+       }
       ],
       "result": "Cᵀ = [1, 0; 2, 3; -1, 2] (3×2), CᵀC = [6, 4; 4, 13], symmetric"
      },
@@ -2885,9 +3691,15 @@
       "heading": "Problem 3 — Matrix-Vector Multiplication",
       "problem": "For C above and x = [2; -1; 1], compute Cx both ways.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Using rows: 1·2 + 2·(-1) + (-1)·1 = -1; 0·2 + 3·(-1) + 2·1 = -1"
+       },
+       {
+        "text": "Using columns: 2·[1; 0] + (-1)·[2; 3] + 1·[-1; 2] = [-1; -1]"
+       },
+       {
+        "text": "Both methods give the same result: Cx = [-1; -1]"
+       }
       ],
       "result": "Cx = [-1; -1]"
      },
@@ -2910,9 +3722,15 @@
       "heading": "Problem 4 — Matrix Multiplication Order",
       "problem": "With A, B from problem 1 compute AB and BA. Are they equal?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compute AB = [6, 3; 8, 7]"
+       },
+       {
+        "text": "Compute BA = [8, 10; 0, 0]"
+       },
+       {
+        "text": "AB ≠ BA, showing that matrix multiplication is not commutative"
+       }
       ],
       "result": "AB = [6, 3; 8, 7], BA = [8, 10; 0, 0], not equal"
      },
@@ -2935,10 +3753,18 @@
       "heading": "Problem 5 — Matrix Multiplication Dimensions",
       "problem": "Let C = [1, 2, -1; 0, 3, 2], D = [2, 0; -1, 3; 2, 1]. Predict the sizes of CD and DC, then compute both.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "CD: (2×3)(3×2) = 2×2"
+       },
+       {
+        "text": "DC: (3×2)(2×3) = 3×3"
+       },
+       {
+        "text": "Compute CD = [1, -4; 9, 1]"
+       },
+       {
+        "text": "Compute DC = [2, 4, -2; 1, -1, -3; 3, 12, 1]"
+       }
       ],
       "result": "CD = [1, -4; 9, 1] (2×2), DC = [2, 4, -2; 1, -1, -3; 3, 12, 1] (3×3)"
      },
@@ -2963,11 +3789,21 @@
       "heading": "Problem 6 — Transformation Order",
       "problem": "Let S = (shift), H = (stretch), x = [1; 1]. Compute HSx and SHx; describe each transformation.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute Sx = [1; 1; 0; 1]"
+       },
+       {
+        "text": "Compute HSx = [2; 4; 2; 3]"
+       },
+       {
+        "text": "Compute Hx = [2; 4; 2; 3]"
+       },
+       {
+        "text": "Compute SHx = [0; 1; 0; 1; 1]"
+       },
+       {
+        "text": "In HS, the shift comes after the stretch; in SH, the stretch happens first, then the shift"
+       }
       ],
       "result": "HSx = [2; 4; 2; 3], SHx = [0; 1; 0; 1; 1]"
      },
@@ -2992,10 +3828,18 @@
       "heading": "Problem 7 — Inner and Outer Products",
       "problem": "For u = [2; 0; -1], v = [2; 1; 0]: compute uᵀv and uvᵀ; check (uvᵀ)ᵀ = vuᵀ.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute inner product uᵀv = 2 + 0 + 0 = 2 (scalar)"
+       },
+       {
+        "text": "Compute outer product uvᵀ = [4, 2, 0; 0, 0, 0; -2, -1, 0] (3×3)"
+       },
+       {
+        "text": "Check (uvᵀ)ᵀ = [4, 0, -2; 2, 0, -1; 0, 0, 0]"
+       },
+       {
+        "text": "Notice that (uvᵀ)ᵀ = vuᵀ"
+       }
       ],
       "result": "uᵀv = 2 (scalar), uvᵀ = [4, 2, 0; 0, 0, 0; -2, -1, 0] (3×3)"
      },
@@ -3020,12 +3864,24 @@
       "heading": "Problem 8 — Transpose of Product",
       "problem": "Using A, B from problem 1, compute (AB)ᵀ and AᵀBᵀ independently; does AᵀBᵀ match?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "From problem 1, AB = [6, 3; 8, 7]"
+       },
+       {
+        "text": "Compute (AB)ᵀ = [6, 8; 3, 7]"
+       },
+       {
+        "text": "Compute Aᵀ = [1, 3; -2, 0]"
+       },
+       {
+        "text": "Compute Bᵀ = [2, -1; 1, 4]"
+       },
+       {
+        "text": "Compute AᵀBᵀ = [4, -1; -4, 4]"
+       },
+       {
+        "text": "Compare (AB)ᵀ and AᵀBᵀ - they are not equal"
+       }
       ],
       "result": "(AB)ᵀ = [6, 8; 3, 7], AᵀBᵀ = [4, -1; -4, 4], not equal"
      },
@@ -3084,10 +3940,18 @@
       "heading": "Problem 9 — Determinant and Area",
       "problem": "Let E = [3 1; 1 2]. Compute det E; find the areas of the parallelogram and triangle spanned by its columns; is orientation preserved?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute determinant: det E = 3·2 - 1·1 = 5"
+       },
+       {
+        "text": "Parallelogram area = |det E| = 5"
+       },
+       {
+        "text": "Triangle area = |det E|/2 = 5/2"
+       },
+       {
+        "text": "Orientation is preserved since det E > 0"
+       }
       ],
       "result": "det E = 5, parallelogram area = 5, triangle area = 5/2, orientation preserved"
      },
@@ -3114,12 +3978,24 @@
       "heading": "Problem 10 — 3x3 Determinant by Cofactors",
       "problem": "Compute det F for F = [2 1 0; 0 3 1; 1 0 2] by cofactors of the first row; check by the first column.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "First row expansion: det F = 2·det([3 1; 0 2]) - 1·det([0 1; 1 2]) + 0·det([0 3; 1 0])"
+       },
+       {
+        "text": "Calculate minors: det([3 1; 0 2]) = 6, det([0 1; 1 2]) = -1"
+       },
+       {
+        "text": "Combine: det F = 2·6 - 1·(-1) = 13"
+       },
+       {
+        "text": "First column expansion: det F = 2·det([3 1; 0 2]) + 1·det([1 0; 0 2])"
+       },
+       {
+        "text": "Calculate minors: det([3 1; 0 2]) = 6, det([1 0; 0 2]) = 2"
+       },
+       {
+        "text": "Combine: det F = 2·6 + 1·2 = 13"
+       }
       ],
       "result": "det F = 13 (verified by both row and column expansion)"
      },
@@ -3146,12 +4022,24 @@
       "heading": "Problem 11 — Determinant Properties",
       "problem": "For a 3×3 matrix M, det M = 5 is known. Form N: swap rows 1,2; multiply row 3 by 2; add 3 × (new row 1) to row 2. Find det N, det(2M), det(M^T M).",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Swapping rows changes the sign: -5"
+       },
+       {
+        "text": "Multiplying row 3 by 2 scales determinant by 2: -5 × 2 = -10"
+       },
+       {
+        "text": "Adding a multiple of one row to another doesn't change determinant"
+       },
+       {
+        "text": "det N = -10"
+       },
+       {
+        "text": "Scaling all rows by 2 scales determinant by 2^3: 5 × 8 = 40"
+       },
+       {
+        "text": "det(M^T M) = det(M^T) × det(M) = 5 × 5 = 25"
+       }
       ],
       "result": "det N = -10, det(2M) = 40, det(M^T M) = 25"
      },
@@ -3178,12 +4066,24 @@
       "heading": "Problem 12 — Triple Product and Volume",
       "problem": "Let u = [2; 0; 1], v = [1; 2; 0], w = [0; 1; 3]. Compute (u × v) · w, the parallelepiped and tetrahedron volumes for vertices 0, u, v, w; what changes if u and v are exchanged?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute cross product u × v = [0·1-2·1; 1·0-1·3; 1·2-0·0] = [-2; -3; 2]"
+       },
+       {
+        "text": "Compute dot product (u × v) · w = -2·0 + (-3)·1 + 2·3 = 3"
+       },
+       {
+        "text": "Parallelepiped volume = |(u × v) · w| = 3"
+       },
+       {
+        "text": "Tetrahedron volume = |(u × v) · w|/6 = 0.5"
+       },
+       {
+        "text": "If u and v are exchanged, (v × u) · w = -(u × v) · w = -3"
+       },
+       {
+        "text": "Volume magnitudes remain the same: 3 and 0.5"
+       }
       ],
       "result": "(u × v) · w = 3, parallelepiped volume = 3, tetrahedron volume = 0.5; exchanging u and v changes sign but not magnitude"
      },
@@ -3210,13 +4110,27 @@
       "heading": "Problem 13 — Coplanar Vectors",
       "problem": "For u = [1; 0; 1], v = [0; 2; 1], w = [1; 1; k] find all k for which the vectors are coplanar; at that k express w in terms of u, v.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Vectors are coplanar iff the scalar triple product is 0"
+       },
+       {
+        "text": "Compute u × v = [0·1-1·2; 1·0-1·1; 1·2-0·0] = [-2; -1; 2]"
+       },
+       {
+        "text": "Compute triple product w · (u × v) = 1·(-2) + 1·(-1) + k·2 = 2k - 3"
+       },
+       {
+        "text": "Set to zero: 2k - 3 = 0 ⇒ k = 3/2"
+       },
+       {
+        "text": "Express w = αu + βv: first coordinate gives α = 1"
+       },
+       {
+        "text": "Second coordinate gives 2β = 1 ⇒ β = 1/2"
+       },
+       {
+        "text": "Third coordinate: 1 + (1/2)·1 = 3/2, consistent"
+       }
       ],
       "result": "k = 3/2, w = u + (1/2)v"
      },
@@ -3243,12 +4157,24 @@
       "heading": "Problem 14 — Commuting Matrices",
       "problem": "Let D = [2 0; 0 3], X = [a b; c d]. Find all X with DX = XD; what if both diagonal elements of D are equal?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Compute DX = [2a 2b; 3c 3d]"
+       },
+       {
+        "text": "Compute XD = [2a 3b; 2c 3d]"
+       },
+       {
+        "text": "Set equal: [2a 2b; 3c 3d] = [2a 3b; 2c 3d]"
+       },
+       {
+        "text": "This requires b = c = 0, with a and d free"
+       },
+       {
+        "text": "Solution: X must be diagonal: X = [a 0; 0 d]"
+       },
+       {
+        "text": "If D = λI, then DX = λX = XD for any X"
+       }
       ],
       "result": "X must be diagonal: [a 0; 0 d]; if D = λI, any X commutes with D"
      },
@@ -3275,12 +4201,24 @@
       "heading": "Problem 15 — Linear Transformation of Volume",
       "problem": "Let u = [2; 0; 1], v = [1; 2; 0], w = [0; 1; 3] and L = [2 1 0; 0 1 0; 0 0 -1]. Without recalculating the edges, find the signed triple product and the volume after applying L to every edge; why is the volume factor universal?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "From problem 12, det U = 13 where U = [u v w]"
+       },
+       {
+        "text": "Transformed edges form LU"
+       },
+       {
+        "text": "det(LU) = det L × det U = (-2) × 13 = -26"
+       },
+       {
+        "text": "New volume = |det(LU)| = 26"
+       },
+       {
+        "text": "Volume scaling factor = |det L| = 2"
+       },
+       {
+        "text": "This factor is universal because det(LU) = det L × det U for any U"
+       }
       ],
       "result": "New triple product = -26, new volume = 26; volume scaling factor |det L| = 2 is universal"
      },
@@ -3362,9 +4300,21 @@
       "heading": "Invertibility Condition",
       "tex": "Ax = 0 \\text{ for some } x \\neq 0 \\Rightarrow A \\text{ is not invertible}",
       "parts": [
-       null,
-       null,
-       null
+       {
+        "substr": "Ax = 0",
+        "color": "#4C5FD5",
+        "note": "Matrix equation with zero vector"
+       },
+       {
+        "substr": "x \\neq 0",
+        "color": "#B45309",
+        "note": "Non-zero solution exists"
+       },
+       {
+        "substr": "A \\text{ is not invertible}",
+        "color": "#A03040",
+        "note": "Matrix is singular"
+       }
       ]
      },
      "narr": [
@@ -3384,11 +4334,31 @@
       "heading": "Uniqueness of Inverse",
       "tex": "BA = I, AC = I \\Rightarrow B = B(AC) = (BA)C = C",
       "parts": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "substr": "BA = I",
+        "color": "#4C5FD5",
+        "note": "B is left-inverse of A"
+       },
+       {
+        "substr": "AC = I",
+        "color": "#4C5FD5",
+        "note": "C is right-inverse of A"
+       },
+       {
+        "substr": "B = B(AC)",
+        "color": "#B45309",
+        "note": "Substitution using AC = I"
+       },
+       {
+        "substr": "(BA)C",
+        "color": "#B45309",
+        "note": "Associative property"
+       },
+       {
+        "substr": "B = C",
+        "color": "#A03040",
+        "note": "Uniqueness of inverse"
+       }
       ]
      },
      "narr": [
@@ -3459,12 +4429,24 @@
       "heading": "Problem 1 — Compute rank",
       "problem": "Compute rank(A) for A = \n$\\begin{bmatrix}\n1 & 2 & 3 \\\\\n2 & 4 & 6 \\\\\n3 & 6 & 9\n\\end{bmatrix}$\nby elimination.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Eliminate under the first pivot (1): R2 - 2R1 → (0, 0, 0)"
+       },
+       {
+        "text": "R3 - 3R1 → (0, 0, 0)"
+       },
+       {
+        "text": "The second column entries vanished, so the second pivot must come from column 3"
+       },
+       {
+        "text": "Pivot = 0 (from the second row)"
+       },
+       {
+        "text": "Eliminate under it: R3 - 0·R2 → (0, 0, 0)"
+       },
+       {
+        "text": "One non-zero pivot: rank(A) = 1"
+       }
       ],
       "result": "rank(A) = 1"
      },
@@ -3491,10 +4473,18 @@
       "heading": "Problem 2 — Determine invertibility",
       "problem": "Determine if B = \n$\\begin{bmatrix}\n2 & 1 \\\\\n4 & 2\n\\end{bmatrix}$\nis invertible by three methods: pivots, determinant, and nonzero null-vector.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(Pivots) R2 - 2R1 → (0, 0): only one pivot — singular"
+       },
+       {
+        "text": "(Determinant) ad - bc = 2·2 - 1·4 = 0 — singular"
+       },
+       {
+        "text": "(Null-vector) The equation Bx = 0 has solution x = (1, -2)ᵀ ≠ 0"
+       },
+       {
+        "text": "All three methods confirm the matrix is singular"
+       }
       ],
       "result": "Matrix B is not invertible (singular)"
      },
@@ -3519,10 +4509,18 @@
       "heading": "Problem 3 — Find inverse",
       "problem": "Find the inverse of A = \n$\\begin{bmatrix}\n2 & 1 \\\\\n5 & 3\n\\end{bmatrix}$.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "det(A) = 2·3 - 1·5 = 6 - 5 = 1"
+       },
+       {
+        "text": "Using the formula for 2×2 inverse: A⁻¹ = (1/det(A))·[d, -b; -c, a]"
+       },
+       {
+        "text": "A⁻¹ = (1/1)·[3, -1; -5, 2] = [3, -1; -5, 2]"
+       },
+       {
+        "text": "Check: A·A⁻¹ = [2·3 + 1·(-5), 2·(-1) + 1·2; 5·3 + 3·(-5), 5·(-1) + 3·2] = [1, 0; 0, 1] = I"
+       }
       ],
       "result": "A⁻¹ = \n$\\begin{bmatrix}\n3 & -1 \\\\\n-5 & 2\n\\end{bmatrix}$"
      },
@@ -3549,10 +4547,18 @@
       "heading": "Problem 4 — Gauss-Jordan elimination",
       "problem": "Apply Gauss-Jordan to [A | I], to invert A = \n$\\begin{bmatrix}\n1 & 2 \\\\\n3 & 7\n\\end{bmatrix}$.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Start with [A | I] = \n$\\begin{bmatrix}\n1 & 2 & | & 1 & 0 \\\\\n3 & 7 & | & 0 & 1\n\\end{bmatrix}$"
+       },
+       {
+        "text": "R2 - 3R1 → \n$\\begin{bmatrix}\n1 & 2 & | & 1 & 0 \\\\\n0 & 1 & | & -3 & 1\n\\end{bmatrix}$"
+       },
+       {
+        "text": "R1 - 2R2 → \n$\\begin{bmatrix}\n1 & 0 & | & 7 & -2 \\\\\n0 & 1 & | & -3 & 1\n\\end{bmatrix}$"
+       },
+       {
+        "text": "The right block is now A⁻¹ = [7, -2; -3, 1]"
+       }
       ],
       "result": "A⁻¹ = \n$\\begin{bmatrix}\n7 & -2 \\\\\n-3 & 1\n\\end{bmatrix}$"
      },
@@ -3579,11 +4585,21 @@
       "heading": "Problem 5 — Invert with Gauss-Jordan",
       "problem": "Invert by Gauss-Jordan and check that the product of pivots equals det(K), where K = \n$\\begin{bmatrix}\n2 & -1 & 0 \\\\\n-1 & 2 & -1 \\\\\n0 & -1 & 2\n\\end{bmatrix}$.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Work on [K | I]: eliminate with first pivot 2 (R2 + 1/2 R1)"
+       },
+       {
+        "text": "Then with second pivot 3/2 (R3 + 2/3 R2)"
+       },
+       {
+        "text": "Arrive at upper triangular form with pivots 2, 3/2, 4/3"
+       },
+       {
+        "text": "Clean upward and divide each row by its pivot"
+       },
+       {
+        "text": "The right block becomes K⁻¹ = (1/4)·[3/2, 1, 1/4; 1, 2, 1/2; 1/4, 1/2, 3/4]"
+       }
       ],
       "result": "K⁻¹ = (1/4)·\n$\\begin{bmatrix}\n3/2 & 1 & 1/4 \\\\\n1 & 2 & 1/2 \\\\\n1/4 & 1/2 & 3/4\n\\end{bmatrix}$"
      },
@@ -3612,10 +4628,18 @@
       "heading": "Problem 6 — Solve using inverse",
       "problem": "Solve Ax = b for A = \n$\\begin{bmatrix}\n1 & 2 \\\\\n3 & 7\n\\end{bmatrix}$, b = \n$\\begin{bmatrix}\n1 \\\\\n1\n\\end{bmatrix}$, using the A⁻¹ from problem 4.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "From problem 4, we have A⁻¹ = [7, -2; -3, 1]"
+       },
+       {
+        "text": "The solution is x = A⁻¹b"
+       },
+       {
+        "text": "x = [7·1 + (-2)·1; -3·1 + 1·1] = [5; -2]"
+       },
+       {
+        "text": "So x = (5, -2)ᵀ"
+       }
       ],
       "result": "x = \n$\\begin{bmatrix}\n5 \\\\\n-2\n\\end{bmatrix}$"
      },
@@ -3640,12 +4664,24 @@
       "heading": "Problem 7 — Inverse of product",
       "problem": "Given A = \n$\\begin{bmatrix}\n1 & 2 \\\\\n-3 & 1\n\\end{bmatrix}$ and B = \n$\\begin{bmatrix}\n0 & 2 \\\\\n1 & 1\n\\end{bmatrix}$; compute (AB)⁻¹ without multiplying first, then check.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "By the inverse of product property, (AB)⁻¹ = B⁻¹A⁻¹"
+       },
+       {
+        "text": "det(A) = 1·1 - 2·(-3) = 7, so A⁻¹ = (1/7)·[1, -2; 3, 1]"
+       },
+       {
+        "text": "det(B) = 0·1 - 2·1 = -2, so B⁻¹ = (1/-2)·[1, -2; -1, 0] = [-1/2, 1; 1/2, 0]"
+       },
+       {
+        "text": "(AB)⁻¹ = B⁻¹A⁻¹ = [-1/2, 1; 1/2, 0]·(1/7)·[1, -2; 3, 1] = (1/14)·[5, 4; 1, -2]"
+       },
+       {
+        "text": "Check: AB = [1·0+2·1, 1·2+2·1; -3·0+1·1, -3·2+1·1] = [2, 4; 1, -5]"
+       },
+       {
+        "text": "det(AB) = 2·(-5) - 4·1 = -14 = 7·(-2) = det(A)·det(B)"
+       }
       ],
       "result": "(AB)⁻¹ = (1/14)·\n$\\begin{bmatrix}\n5 & 4 \\\\\n1 & -2\n\\end{bmatrix}$"
      },
@@ -3674,10 +4710,18 @@
       "heading": "Problem 8 — True or false",
       "problem": "True or false, with justification: (a) If A is invertible, then Aᵀ is invertible. (b) If Ax = λx with x ≠ 0 and λ = 0, then A is not invertible. (c) The product of invertible 3×3 matrices can be singular. (d) rank(A) ≤ 2 for any 2×3 matrix.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "(a) True: A has n pivots ⇐⇒ Aᵀ has n pivots (row rank = column rank); formally (Aᵀ)⁻¹ = (A⁻¹)ᵀ"
+       },
+       {
+        "text": "(b) True: non-zero x with Ax = 0·x = 0 violates the condition that Ax = 0 implies x = 0 for invertible A"
+       },
+       {
+        "text": "(c) False: by the inverse of product property, the product of invertibles is invertible"
+       },
+       {
+        "text": "(d) True: rank does not exceed the number of rows (each pivot uses one row), so rank ≤ 2 < 3"
+       }
       ],
       "result": "(a) True (b) True (c) False (d) True"
      },
@@ -3702,12 +4746,24 @@
       "heading": "Problem 9 — Singularity condition",
       "problem": "For what value(s) of c is the matrix A = \n$\\begin{bmatrix}\n1 & c \\\\\n4 & 2\n\\end{bmatrix}$\nsingular? For the remaining values solve Ax = \n$\\begin{bmatrix}\n6 \\\\\n4\n\\end{bmatrix}$.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "det(A) = 1·2 - c·4 = 2 - 4c"
+       },
+       {
+        "text": "A is singular exactly when det(A) = 0, i.e., when 2 - 4c = 0 ⇒ c = 1/2"
+       },
+       {
+        "text": "For c ≠ 1/2, A is invertible with A⁻¹ = (1/(2-4c))·[2, -c; -4, 1]"
+       },
+       {
+        "text": "Then x = A⁻¹b = (1/(2-4c))·[2·6 - c·4; -4·6 + 1·4] = (1/(2-4c))·[12-4c; -20]"
+       },
+       {
+        "text": "For example, when c = 0: x = (1/2)·[12; -20] = [6; -10]"
+       },
+       {
+        "text": "When c = 1: x = (1/(-2))·[8; -20] = [-4; 10]"
+       }
       ],
       "result": "A is singular when c = 1/2. For other values, x = (1/(2-4c))·[12-4c; -20]"
      },
@@ -3734,11 +4790,21 @@
       "heading": "Problem 10 — Rank preservation",
       "problem": "Show that if A is invertible, then rank(AB) = rank(B) for any compatible B.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Multiplication by an invertible matrix does not change the number of pivots"
+       },
+       {
+        "text": "Standard reasoning: rank(AB) ≤ rank(B) because rows of AB are combinations of rows of B"
+       },
+       {
+        "text": "Applying the same to B = A⁻¹(AB), we get rank(B) ≤ rank(AB)"
+       },
+       {
+        "text": "Both inequalities force equality: rank(AB) = rank(B)"
+       },
+       {
+        "text": "Intuition: an invertible factor only stretches/rotates/shifts spaces, but does not flatten them"
+       }
       ],
       "result": "If A is invertible, then rank(AB) = rank(B) for any compatible matrix B"
      },
@@ -3765,8 +4831,12 @@
       "heading": "Problem 1 — Vector Combinations",
       "problem": "Describe all cu for u = (2, 1) and all combinations cu + dv for u = (2, 1), v = (1, 2); when do the combinations cu + dv fill the plane?",
       "steps": [
-       null,
-       null
+       {
+        "text": "cu fills the line through (2, 1): every vector on it is a multiple"
+       },
+       {
+        "text": "cu + dv fill the plane if u, v are not collinear"
+       }
       ],
       "result": "The set of all cu forms a line through the origin in the direction of (2, 1). The set of all combinations cu + dv fills the entire plane when u and v are not collinear (i.e., when they point in different directions)."
      },
@@ -3789,10 +4859,18 @@
       "heading": "Problem 2 — Dot Product and Cross Product",
       "problem": "Compute the dot products: u·v for u = (1, 2, 1), v = (3, 0, 2); find a vector w perpendicular to both.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "u · v = 1·3 + 2·0 + 1·2 = 3 + 0 + 2 = 5"
+       },
+       {
+        "text": "A perpendicular vector is the cross product w = u × v"
+       },
+       {
+        "text": "w = [(2·2 - 1·0), (1·3 - 1·2), (1·0 - 2·3)] = [4, 1, -6]"
+       },
+       {
+        "text": "Check: w · u = 4 + 2 - 6 = 0 and w · v = 12 + 0 - 12 = 0"
+       }
       ],
       "result": "u · v = 5. A vector perpendicular to both u and v is w = (4, 1, -6)."
      },
@@ -3819,9 +4897,15 @@
       "heading": "Problem 3 — Dot Product Properties",
       "problem": "When is u · v = v · u negative and what does that say about the angle? When is it zero?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "u · v = v · u is negative when cos θ < 0"
+       },
+       {
+        "text": "This occurs when the angle between vectors is greater than 90° (obtuse)"
+       },
+       {
+        "text": "The dot product is zero when θ = 90° (perpendicular vectors)"
+       }
       ],
       "result": "The dot product u · v is negative when the angle between vectors is obtuse (>90°), and zero when the vectors are perpendicular (90°)."
      },
@@ -3846,11 +4930,21 @@
       "heading": "Problem 4 — Solving Linear Systems",
       "problem": "Solve Ax = b with A = [[2, 1, 2], [3, -4, 2], [2, 3, 0]] and b = (3, 4)ᵀ.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "det A = 2(0 - 6) - 1(0 - 2) + 2(9 - (-8)) = -12 + 2 + 34 = 24"
+       },
+       {
+        "text": "A⁻¹ = (1/24)[[0, -6, -10], [0, -4, -2], [17, -1, -11]]"
+       },
+       {
+        "text": "x = A⁻¹b = (1/24)[[0, -6, -10], [0, -4, -2], [17, -1, -11]] × [3, 4, 0]ᵀ"
+       },
+       {
+        "text": "x = (1/24)[[-24], [-16], [51]] = [-1, -2/3, 17/8]ᵀ"
+       },
+       {
+        "text": "Check: 2(-1) + 1(-2/3) + 2(17/8) = 3, 3(-1) + (-4)(-2/3) + 2(17/8) = 4"
+       }
       ],
       "result": "The solution is x = [-1, -2/3, 17/8]ᵀ."
      },
@@ -3877,10 +4971,18 @@
       "heading": "Problem 5 — Invertibility and Solutions",
       "problem": "Why does a nonzero solution to Ax = 0 rule out invertibility?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "If Ax = 0 with x ≠ 0 and A had an inverse, then x = A⁻¹Ax = A⁻¹0 = 0"
+       },
+       {
+        "text": "This leads to a contradiction since we assumed x ≠ 0"
+       },
+       {
+        "text": "The zero vector has no 'preimage' only when the mapping is one-to-one"
+       },
+       {
+        "text": "A nonzero solution to Ax = 0 proves that the mapping is not one-to-one"
+       }
       ],
       "result": "A nonzero solution to Ax = 0 means A cannot be invertible because it would lead to the contradiction that x = 0."
      },
@@ -3903,10 +5005,18 @@
       "heading": "Problem 6 — Matrix Inverses",
       "problem": "If A and C are invertible 3 × 3 matrices, is A + C invertible? What about AC? What about A⁻¹C?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A + C: Not necessarily invertible (for example, C = -A gives 0)"
+       },
+       {
+        "text": "Sums of invertible matrices can be singular"
+       },
+       {
+        "text": "AC: Yes, invertible with (AC)⁻¹ = C⁻¹A⁻¹"
+       },
+       {
+        "text": "A⁻¹C: Yes, product of two invertible matrices"
+       }
       ],
       "result": "A + C is not necessarily invertible, but AC and A⁻¹C are always invertible when A and C are invertible."
      },
@@ -3929,11 +5039,21 @@
       "heading": "Problem 1 — Gauss-Jordan Elimination",
       "problem": "Perform Gauss-Jordan elimination on A = [[2, 1, 1], [4, -6, 0], [-2, 7, 2]] and find A⁻¹.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Set up augmented matrix [A|I]"
+       },
+       {
+        "text": "Apply row operations: R2 - 2R1, R3 + R1"
+       },
+       {
+        "text": "Continue with R3 + (3/4)R2 over the reduced rows"
+       },
+       {
+        "text": "Clear above pivots and divide rows by 2, -8, 1"
+       },
+       {
+        "text": "Result: A⁻¹ = (1/8)[[12, -5, -6], [8, -3, -2], [-1, 1, 1]]"
+       }
       ],
       "result": "A⁻¹ = (1/8)[[12, -5, -6], [8, -3, -2], [-1, 1, 1]]"
      },
@@ -3960,9 +5080,15 @@
       "heading": "Problem 2 — Determinant-Transposition Identities",
       "problem": "State the determinant-transposition identities used in §1.6.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "det(Aᵀ) = det A"
+       },
+       {
+        "text": "det(AB) = det A det B"
+       },
+       {
+        "text": "det(A⁻¹) = 1/det A (from det(A) det(A⁻¹) = det I = 1)"
+       }
       ],
       "result": "The key identities are: det(Aᵀ) = det A, det(AB) = det A det B, and det(A⁻¹) = 1/det A."
      },
@@ -3987,11 +5113,21 @@
       "heading": "Problem 3 — Symmetric Matrices",
       "problem": "Prove (A⁻¹)ᵀ = (Aᵀ)⁻¹ and explain why AᵀA is symmetric with nonnegative diagonal.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Start with AA⁻¹ = I"
+       },
+       {
+        "text": "Transpose both sides: (A⁻¹)ᵀAᵀ = I"
+       },
+       {
+        "text": "This shows (A⁻¹)ᵀ = (Aᵀ)⁻¹"
+       },
+       {
+        "text": "For AᵀA: (AᵀA)ᵀ = Aᵀ(Aᵀ)ᵀ = AᵀA, so it's symmetric"
+       },
+       {
+        "text": "Diagonal elements: aᵢᵢ = Σₖ₌₁ⁿ a²ₖᵢ ≥ 0 (sum of squares)"
+       }
       ],
       "result": "(A⁻¹)ᵀ = (Aᵀ)⁻¹, and AᵀA is symmetric with nonnegative diagonal elements because they are sums of squares."
      },

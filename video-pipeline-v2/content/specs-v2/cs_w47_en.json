@@ -343,10 +343,18 @@
       "heading": "Problem 1 — Variable Declaration Examples",
       "problem": "Show different ways to declare variables in C",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Declare an uninitialized character variable"
+       },
+       {
+        "text": "Initialize a character variable to 'A'"
+       },
+       {
+        "text": "Declare and initialize multiple variables"
+       },
+       {
+        "text": "Initialize multiple variables with the same value"
+       }
       ],
       "result": "char x; /* uninitialized */\nchar x = 'A'; /* initialized to 'A' */\nchar x = 'A', y = 'B'; /* multiple variables initialized */\nchar x = y = 'Z'; /* multiple initializations */"
      },
@@ -397,11 +405,21 @@
       "heading": "Problem 2 — Valid and Invalid Variable Names",
       "problem": "Determine which variable names are valid in C",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check if money$owed is valid"
+       },
+       {
+        "text": "Check if totalcount is valid"
+       },
+       {
+        "text": "Check if score2 is valid"
+       },
+       {
+        "text": "Check if 2ndscore is valid"
+       },
+       {
+        "text": "Check if long is valid"
+       }
       ],
       "result": "int money$owed; — invalid (character $)\nint totalcount; — valid\nint score2; — valid\nint 2ndscore; — invalid (starts with a digit)\nint long; — invalid (keyword)"
      },
@@ -682,10 +700,18 @@
       "heading": "Problem 3 — Sphere Volume Calculation",
       "problem": "Calculate the volume of a sphere given its radius",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Recall the formula for sphere volume: V = (4/3) × π × r³"
+       },
+       {
+        "text": "Declare pi as a constant double"
+       },
+       {
+        "text": "Get the radius from user input"
+       },
+       {
+        "text": "Calculate the volume using the formula"
+       }
       ],
       "result": "const double pi = 3.1415;\ndouble radius = get_double(\"Radius: \");\n// Today's input range: 0 < radius <= 1000\n// Volume calculation would be:\n// double volume = (4.0/3.0) * pi * radius * radius * radius;"
      },
@@ -731,9 +757,15 @@
       "heading": "Problem 1 — Division Examples",
       "problem": "Predict the output of these division operations",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "float x = 3 / 2; // integer division"
+       },
+       {
+        "text": "float x = 3.0 / 2; // mixed types"
+       },
+       {
+        "text": "int x = 3.0 / 2; // conversion to int"
+       }
       ],
       "result": "First: x = 1.0, Second: x = 1.5, Third: x = 1"
      },
@@ -754,9 +786,15 @@
       "heading": "Problem 2 — Remainder Examples",
       "problem": "What is the result of these remainder operations?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "int x = 3 % 2;"
+       },
+       {
+        "text": "int y = 7; int x = y % 4;"
+       },
+       {
+        "text": "int x = y % 10;"
+       }
       ],
       "result": "First: x = 1, Second: x = 3, Third: x = 7"
      },
@@ -875,12 +913,24 @@
       "heading": "Problem 3 — Logical Operator Examples",
       "problem": "Evaluate these logical expressions",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "((9/3) == 3) && (2*3 == 6); // evaluates to 1"
+       },
+       {
+        "text": "('A' == 'a') && (3 == 3) // evaluates to 0"
+       },
+       {
+        "text": "2 == 3 || 'A' == 'A'; // evaluates to 1"
+       },
+       {
+        "text": "2.99 >= 3 || 0 // evaluates to 0"
+       },
+       {
+        "text": "!(3 == 3); // evaluates to 0"
+       },
+       {
+        "text": "!(2.99 >= 3) // evaluates to 1"
+       }
       ],
       "result": "First: 1, Second: 0, Third: 1, Fourth: 0, Fifth: 0, Sixth: 1"
      },
@@ -992,11 +1042,21 @@
       "heading": "Problem 4 — Compact Assignment Examples",
       "problem": "What do these compact assignment operators do?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "x += 1 /* is the same as x = x+1 */"
+       },
+       {
+        "text": "x -= 1 /* is the same as x = x-1 */"
+       },
+       {
+        "text": "x *= 10 /* is the same as x = x*10 */"
+       },
+       {
+        "text": "x /= 2 /* is the same as x = x/2 */"
+       },
+       {
+        "text": "x %= 2 /* is the same as x = x%2 */"
+       }
       ],
       "result": "Each operator performs the specified operation and assigns the result back to x"
      },
@@ -1042,8 +1102,12 @@
       "heading": "Problem 5 — Ternary Operator Examples",
       "problem": "What do these ternary expressions do?",
       "steps": [
-       null,
-       null
+       {
+        "text": "sign = x > 0 ? 1 : -1; /* sets sign based on x */"
+       },
+       {
+        "text": "isodd = x % 2 == 1 ? 1 : 0; /* checks if x is odd */"
+       }
       ],
       "result": "First: sets sign to 1 if x > 0, otherwise -1. Second: sets isodd to 1 if x is odd, otherwise 0"
      },
@@ -1184,9 +1248,15 @@
       "heading": "Problem 6 — Type Conversion Examples",
       "problem": "What happens in these type conversions?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "int i; float f; f = i + 3.14159; /* i is promoted to float */"
+       },
+       {
+        "text": "isupper = (c >= 'A' && c <= 'Z') ? 1 : 0; /* char converted to int */"
+       },
+       {
+        "text": "if (!isupper) c = c - 'a' + 'A'; /* subtraction possible with int conversion */"
+       }
       ],
       "result": "First: i is promoted to float before addition. Second: char is converted to int for comparison. Third: chars are converted to int for subtraction."
      },
@@ -1231,9 +1301,15 @@
       "heading": "Problem 7 — Precedence Examples",
       "problem": "How are these expressions evaluated?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "y = x*3+2 /* same as y = (x*3)+2 */"
+       },
+       {
+        "text": "x != 0 && y == 0 /* same as (x != 0) && (y == 0) */"
+       },
+       {
+        "text": "d = c >= '0' && c <= '9' /* same as d = (c >= '0') && (c <= '9') */"
+       }
       ],
       "result": "Multiplication happens before addition; comparisons happen before logical AND; comparisons are grouped with && before assignment"
      },
@@ -1273,11 +1349,21 @@
       "heading": "Problem 8 — Leap Year Examples",
       "problem": "Classify these years as leap or common",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "2000 — divisible by 400 → leap year"
+       },
+       {
+        "text": "1900 — divisible by 100 but not 400 → common year"
+       },
+       {
+        "text": "2024 — divisible by 4 and not 100 → leap year"
+       },
+       {
+        "text": "2025 — not divisible by 4 → common year"
+       },
+       {
+        "text": "2100 — divisible by 100 but not 400 → common year"
+       }
       ],
       "result": "2000: leap, 1900: common, 2024: leap, 2025: common, 2100: common"
      },
@@ -1302,7 +1388,9 @@
       "heading": "Problem 9 — Compact Leap Year Expression",
       "problem": "Write a compact expression to determine if a year is a leap year",
       "steps": [
-       null
+       {
+        "text": "year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)"
+       }
       ],
       "result": "This expression correctly implements the leap year rules: true for years divisible by 400, or divisible by 4 but not by 100"
      },
@@ -1361,8 +1449,12 @@
       "heading": "Problem 10 — Character Arrays",
       "problem": "Declare and initialize these character arrays",
       "steps": [
-       null,
-       null
+       {
+        "text": "char first[3] = {'d', 'o', 'g'};"
+       },
+       {
+        "text": "char second[3] = {'c', 'a', 't'};"
+       }
       ],
       "result": "Creates two character arrays: first contains 'd', 'o', 'g'; second contains 'c', 'a', 't'"
      },
@@ -1429,9 +1521,15 @@
       "heading": "Problem 1 — Array Comparison",
       "problem": "How does alphabetical comparison work between two arrays without terminators?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compare arrays by the first differing character"
+       },
+       {
+        "text": "Copy the 'smaller' array first"
+       },
+       {
+        "text": "Use boundary checks to prevent array overflow"
+       }
       ],
       "result": "Joined array maintains order based on comparison result"
      },
@@ -1500,9 +1598,15 @@
       "heading": "Problem 2 — Data Types",
       "problem": "What C types store integers, decimal values, and a single character?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify appropriate type for integers"
+       },
+       {
+        "text": "Identify appropriate type for decimal values"
+       },
+       {
+        "text": "Identify appropriate type for single characters"
+       }
       ],
       "result": "int for integers; float or double for decimal values; char for single characters"
      },
@@ -1527,9 +1631,15 @@
       "heading": "Problem 3 — Void Keyword",
       "problem": "What does 'void' mean in 'int main(void)' and 'void example(void)'?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Analyze 'void' in function parameter list"
+       },
+       {
+        "text": "Analyze 'void' as return type"
+       },
+       {
+        "text": "Understand limitations of void type"
+       }
       ],
       "result": "In parameters: 'no parameters'; as return type: 'no return value'; cannot declare regular void variables"
      },
@@ -1554,9 +1664,15 @@
       "heading": "Problem 4 — Floating Point Precision",
       "problem": "Why is 'double' preferred over 'float' for sphere dimensions?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Consider fractional parts in dimensions"
+       },
+       {
+        "text": "Compare precision of float vs double"
+       },
+       {
+        "text": "Understand limitations of floating-point representation"
+       }
       ],
       "result": "Double provides 15 significant decimal digits vs float's 6, but both remain approximations"
      },
@@ -1581,9 +1697,15 @@
       "heading": "Problem 5 — Integer Division",
       "problem": "What will 'double fraction = 4/3; printf(\"%f\\n\", fraction);' print?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Analyze the division operation before assignment"
+       },
+       {
+        "text": "Consider integer division rules"
+       },
+       {
+        "text": "Understand type conversion timing"
+       }
       ],
       "result": "1.000000 because integer division 4/3 equals 1 before conversion to double"
      },
@@ -1608,9 +1730,15 @@
       "heading": "Problem 6 — Output Precision",
       "problem": "Do extra digits in printf format improve the stored value?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Compare outputs with different precision specifiers"
+       },
+       {
+        "text": "Understand printf formatting behavior"
+       },
+       {
+        "text": "Distinguish between stored value and display representation"
+       }
       ],
       "result": "No, formatting only changes display representation, not the stored value"
      },
@@ -1635,9 +1763,15 @@
       "heading": "Problem 7 — Octal Literals",
       "problem": "Is 'int x = 017; int y = 12;' greater than y?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Recognize octal number notation"
+       },
+       {
+        "text": "Convert octal to decimal"
+       },
+       {
+        "text": "Compare the values"
+       }
       ],
       "result": "Yes, because 017₈ = 15 which is greater than 12"
      },
@@ -1662,9 +1796,15 @@
       "heading": "Problem 8 — Enumerators",
       "problem": "What is 'XL' in two different enum definitions?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Understand enum numbering without explicit values"
+       },
+       {
+        "text": "Apply numbering rules to first case"
+       },
+       {
+        "text": "Apply numbering rules to second case"
+       }
       ],
       "result": "First case: XL = 4; Second case: XL = -2"
      },
@@ -1689,9 +1829,15 @@
       "heading": "Problem 9 — Character Comparison",
       "problem": "Why does 'A' < 'B' give 1, while 'A' == 'a' gives 0?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Understand character code conversion"
+       },
+       {
+        "text": "Compare ASCII values of uppercase letters"
+       },
+       {
+        "text": "Compare ASCII values of uppercase and lowercase"
+       }
       ],
       "result": "Characters convert to their ASCII codes; 'A'(65) < 'B'(66) but 'A'(65) ≠ 'a'(97)"
      },
@@ -1716,9 +1862,15 @@
       "heading": "Problem 10 — Short-Circuit Evaluation",
       "problem": "What is short-circuit evaluation and what happens to x in '0 && ((x = x + 1) > 0)'?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain short-circuit evaluation concept"
+       },
+       {
+        "text": "Analyze left operand of &&"
+       },
+       {
+        "text": "Determine if right operand is evaluated"
+       }
       ],
       "result": "Left operand is 0, so right side with x increment is not evaluated; x remains unchanged"
      },
@@ -1743,9 +1895,15 @@
       "heading": "Problem 11 — Increment Operators",
       "problem": "What's the difference between 'y = x++' and 'y = ++x'?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain postfix increment behavior"
+       },
+       {
+        "text": "Explain prefix increment behavior"
+       },
+       {
+        "text": "Compare timing of evaluation and assignment"
+       }
       ],
       "result": "Postfix: y gets x's value then x increments; Prefix: x increments then y gets new value"
      },
@@ -1772,9 +1930,15 @@
       "heading": "Problem 12 — Ternary Operator",
       "problem": "How does the ternary operator work in 'sign = x > 0 ? 1 : -1;'?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain ternary syntax"
+       },
+       {
+        "text": "Identify condition, true case, and false case"
+       },
+       {
+        "text": "Compare to equivalent if-else statement"
+       }
       ],
       "result": "Condition before ?, value when true between ? and :, value when false after :, equivalent to if-else"
      },
@@ -1799,9 +1963,15 @@
       "heading": "Problem 13 — Input Validation",
       "problem": "What input should the sphere volume program reject?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify valid range for radius"
+       },
+       {
+        "text": "Determine boundary conditions"
+       },
+       {
+        "text": "Consider non-finite input cases"
+       }
       ],
       "result": "Zero, negative radii, and values greater than 1000"
      },
@@ -1826,9 +1996,15 @@
       "heading": "Problem 14 — Leap Year Calculation",
       "problem": "Why is 1900 a common year, 2000 a leap year, and 2100 common?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain leap year rules"
+       },
+       {
+        "text": "Apply rules to 1900"
+       },
+       {
+        "text": "Apply rules to 2000 and 2100"
+       }
       ],
       "result": "Divisible by 400 = leap; divisible by 100 but not 400 = common"
      },
@@ -1853,9 +2029,15 @@
       "heading": "Problem 15 — Printing Arrays Without Terminators",
       "problem": "Why can't 'char first[3] = {'d', 'o', 'g'}' be printed with %s?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain C-string requirements"
+       },
+       {
+        "text": "Identify risks of missing terminator"
+       },
+       {
+        "text": "Understand proper boundary checking in comparisons"
+       }
       ],
       "result": "No null terminator means %s would read beyond array; boundary check in && prevents access violations"
      },
@@ -1880,10 +2062,18 @@
       "heading": "Problem 1",
       "problem": "What C type stores one basic character?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) int"
+       },
+       {
+        "text": "b) char"
+       },
+       {
+        "text": "c) double"
+       },
+       {
+        "text": "d) bool"
+       }
       ],
       "result": "b) char"
      },
@@ -1904,10 +2094,18 @@
       "heading": "Problem 2",
       "problem": "How many significant decimal digits does double have on the course platform?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) 6"
+       },
+       {
+        "text": "b) 8"
+       },
+       {
+        "text": "c) 15"
+       },
+       {
+        "text": "d) 32"
+       }
       ],
       "result": "c) 15"
      },
@@ -1930,10 +2128,18 @@
       "heading": "Problem 3",
       "problem": "What will double fraction = 4/3; printf(\"%f\\n\", fraction); print?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) 1.000000"
+       },
+       {
+        "text": "b) 1.333333"
+       },
+       {
+        "text": "c) compilation error"
+       },
+       {
+        "text": "d) 0.000000"
+       }
       ],
       "result": "a) 1.000000"
      },
@@ -1956,10 +2162,18 @@
       "heading": "Problem 4",
       "problem": "Which notation represents the integer 15?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) int x = 0xA;"
+       },
+       {
+        "text": "b) int x = 017;"
+       },
+       {
+        "text": "c) int x = 15.0;"
+       },
+       {
+        "text": "d) int x = '15';"
+       }
       ],
       "result": "b) int x = 017;"
      },
@@ -1982,10 +2196,18 @@
       "heading": "Problem 5",
       "problem": "Which variable declaration is correct?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) int money$owed;"
+       },
+       {
+        "text": "b) int 2ndscore;"
+       },
+       {
+        "text": "c) int totalcount;"
+       },
+       {
+        "text": "d) int long;"
+       }
       ],
       "result": "c) int totalcount;"
      },
@@ -2010,10 +2232,18 @@
       "heading": "Problem 6",
       "problem": "What is y % 10 when int y = 7;?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) 0"
+       },
+       {
+        "text": "b) 3"
+       },
+       {
+        "text": "c) 7"
+       },
+       {
+        "text": "d) 1"
+       }
       ],
       "result": "c) 7"
      },
@@ -2034,10 +2264,18 @@
       "heading": "Problem 7",
       "problem": "What is 0x01 << 4?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) 0x10"
+       },
+       {
+        "text": "b) 0x01"
+       },
+       {
+        "text": "c) 4"
+       },
+       {
+        "text": "d) 0x14"
+       }
       ],
       "result": "a) 0x10"
      },
@@ -2060,10 +2298,18 @@
       "heading": "Problem 8",
       "problem": "Which group of operators has the highest precedence?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) = and +="
+       },
+       {
+        "text": "b) && and ||"
+       },
+       {
+        "text": "c) * and /"
+       },
+       {
+        "text": "d) ++, --, (cast), sizeof"
+       }
       ],
       "result": "d) ++, --, (cast), sizeof"
      },
@@ -2090,10 +2336,18 @@
       "heading": "Problem 9",
       "problem": "The expression y = x*3 + 2 is equivalent to...",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) y = x*(3 + 2)"
+       },
+       {
+        "text": "b) y = (x*3) + 2"
+       },
+       {
+        "text": "c) y = x + (3*2)"
+       },
+       {
+        "text": "d) y = 3*(x + 2)"
+       }
       ],
       "result": "b) y = (x*3) + 2"
      },
@@ -2116,10 +2370,18 @@
       "heading": "Problem 10",
       "problem": "What happens to x in the expression (0) && ((x = x + 1) > 0)?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) x will increase by 1"
+       },
+       {
+        "text": "b) x will not change"
+       },
+       {
+        "text": "c) compilation error"
+       },
+       {
+        "text": "d) x will become 0"
+       }
       ],
       "result": "b) x will not change"
      },
@@ -2546,11 +2808,21 @@
       "heading": "Example 6.1: Melody from a Name",
       "problem": "Create a program that reads a character at a time, calculates the ASCII code modulo 7, and prints the corresponding note name.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Read a character using scanf"
+       },
+       {
+        "text": "Check for successful input and sentinel character #"
+       },
+       {
+        "text": "Calculate ASCII code modulo 7"
+       },
+       {
+        "text": "Select and print the corresponding note"
+       },
+       {
+        "text": "Repeat until EOF or # is encountered"
+       }
       ],
       "result": "For input 'A': ASCII 65, 65 % 7 = 2 → note C"
      },
@@ -2681,9 +2953,15 @@
       "heading": "Problem 1 — Factorial Function with for Loop",
       "problem": "Write a function to compute factorial of n using a for loop",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Initialize result variable to 1"
+       },
+       {
+        "text": "Loop from 1 to n (inclusive)"
+       },
+       {
+        "text": "Multiply result by current value in each iteration"
+       }
       ],
       "result": "return j"
      },
@@ -2718,11 +2996,21 @@
       "heading": "Problem 2 — Factorial Function with while Loop",
       "problem": "Write a function to compute factorial of n using a while loop",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Initialize result variable to 1"
+       },
+       {
+        "text": "Initialize counter to 1"
+       },
+       {
+        "text": "Loop while counter is less than or equal to n"
+       },
+       {
+        "text": "Multiply result by current counter value"
+       },
+       {
+        "text": "Increment counter"
+       }
       ],
       "result": "return j"
      },
@@ -2759,10 +3047,18 @@
       "heading": "Problem 3 — Factorial with Comma Operator",
       "problem": "Write a function to compute factorial using for loop with comma operator",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Initialize both counter and result in for loop"
+       },
+       {
+        "text": "Use comma operator to perform multiple operations"
+       },
+       {
+        "text": "Multiply result by current counter value"
+       },
+       {
+        "text": "Increment counter"
+       }
       ],
       "result": "return j"
      },
@@ -2797,9 +3093,15 @@
       "heading": "Problem 4 — Laboratory Comparison",
       "problem": "Compare while and for loop implementations that print numbers 1 to 3",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "While loop version declares counter before loop"
+       },
+       {
+        "text": "For loop version declares counter in loop header"
+       },
+       {
+        "text": "Counter is only visible inside for loop"
+       }
       ],
       "result": "Both print 1 2 3"
      },
@@ -2889,11 +3191,21 @@
       "heading": "Problem 5 — Interactive Loop with do-while",
       "problem": "Create a loop that asks user to continue until they enter 'n'",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Initialize character variable"
+       },
+       {
+        "text": "Execute loop body at least once"
+       },
+       {
+        "text": "Ask user to continue"
+       },
+       {
+        "text": "Read user input"
+       },
+       {
+        "text": "Continue if input is 'y'"
+       }
       ],
       "result": "Loop continues until user enters 'n'"
      },
@@ -2946,9 +3258,15 @@
       "heading": "Problem 6 — Loop with break",
       "problem": "Modify the interactive loop to exit when user enters anything other than 'y'",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Check if input is not 'y'"
+       },
+       {
+        "text": "If not, exit the loop with break"
+       },
+       {
+        "text": "Otherwise, continue processing"
+       }
       ],
       "result": "Loop exits when user enters anything other than 'y'"
      },
@@ -2998,10 +3316,18 @@
       "heading": "Problem 7 — GCD with continue",
       "problem": "Implement GCD function using continue to skip non-divisors",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define min macro to find smaller of two numbers"
+       },
+       {
+        "text": "Loop from 2 to minimum of a and b"
+       },
+       {
+        "text": "If i doesn't divide a, skip to next i"
+       },
+       {
+        "text": "If i divides both a and b, update result"
+       }
       ],
       "result": "return ret (greatest common divisor)"
      },
@@ -3295,8 +3621,12 @@
       "heading": "Question 1",
       "problem": "Laboratory survey: what is the role of main in our C programs?",
       "steps": [
-       null,
-       null
+       {
+        "text": "Understand the purpose of the main function"
+       },
+       {
+        "text": "Recognize the connection to standard libraries"
+       }
       ],
       "result": "Answer. main — entry point: program execution starts with main. stdio.h declares printf; cs50.h declares getdouble (and other CS50 input helpers)."
      },
@@ -3317,9 +3647,15 @@
       "heading": "Question 2",
       "problem": "How does a block differ from a simple statement and what can be done inside a block?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Define simple statement"
+       },
+       {
+        "text": "Explain compound statement (block)"
+       },
+       {
+        "text": "Describe block properties"
+       }
       ],
       "result": "Answer. A simple statement ends with ';'. Curly braces combine multiple statements into a compound statement (block): it can substitute for a simple statement, compiles as a single unit, variables can be declared inside (they are local to the block), a block can be empty {}, and no ';' is placed after the closing brace. Blocks nest inside each other."
      },
@@ -3342,9 +3678,15 @@
       "heading": "Question 3",
       "problem": "What is considered 'true' in a C condition?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain condition evaluation"
+       },
+       {
+        "text": "Discuss numeric values"
+       },
+       {
+        "text": "Mention boolean types in different C standards"
+       }
       ],
       "result": "Answer. A condition is an expression (or series of expressions), such as n < 3 or x < y||z < y. Any non-zero value ⇒condition is true, 0 is false. The expression must be numeric (or a pointer); in C89/C90 there is no boolean type, in C99 bool is available via <stdbool.h>. Example: if (str) — string is not null."
      },
@@ -3369,9 +3711,15 @@
       "heading": "Question 4",
       "problem": "What does else if do and what happens if multiple conditions are true?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain else if purpose"
+       },
+       {
+        "text": "Describe condition evaluation order"
+       },
+       {
+        "text": "Explain behavior with multiple true conditions"
+       }
       ],
       "result": "Answer. else if adds alternative control paths. Conditions are checked in order until the first true one; the inner statement is executed only for it. If multiple conditions are true, only the first branch is executed. The construct is equivalent to nested if."
      },
@@ -3396,8 +3744,12 @@
       "heading": "Question 5",
       "problem": "Which if does else belong to in nested ifs and how to change this?",
       "steps": [
-       null,
-       null
+       {
+        "text": "Explain default association"
+       },
+       {
+        "text": "Show how to change association"
+       }
       ],
       "result": "Answer. Without braces, else associates with the nearest inner if. To associate else with the outer if, the inner if must be enclosed in curly braces: if (x % 4 == 0) { if (x % 2 == 0)y = 2; } else y = 1;."
      },
@@ -3420,8 +3772,12 @@
       "heading": "Question 6",
       "problem": "When is switch more convenient than an if-else ladder and what are its limitations?",
       "steps": [
-       null,
-       null
+       {
+        "text": "Explain switch convenience"
+       },
+       {
+        "text": "List switch limitations"
+       }
       ],
       "result": "Answer. switch tests one integer (or character) variable for equality with a set of case labels — different integer constant expressions; ranges and compound conditions require if. default is the 'otherwise' branch. According to the book, switch is more efficient than long if-else ladders."
      },
@@ -3446,9 +3802,15 @@
       "heading": "Question 7",
       "problem": "What happens if you forget break in a case?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain fall-through behavior"
+       },
+       {
+        "text": "Provide example of fall-through"
+       },
+       {
+        "text": "Mention intentional use of fall-through"
+       }
       ],
       "result": "Answer. Execution 'falls through' to the next case without rechecking the value. In the melody (Example 6.1), omitting break after case 2 caused printing C, then D for input A#. Falling through can also be useful: case 'Y': case 'y': execute the same code for both characters."
      },
@@ -3471,9 +3833,15 @@
       "heading": "Question 8",
       "problem": "Melody: why does the program print note C for character 'A'?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain ASCII code calculation"
+       },
+       {
+        "text": "Show modulo operation"
+       },
+       {
+        "text": "Connect to note output"
+       }
       ],
       "result": "Answer. The program calculates the ASCII code of the character modulo 7: code 'A' is 65; 65 % 7 = 2; case 2 prints C. Slide table: A →65 →2 →C."
      },
@@ -3498,9 +3866,15 @@
       "heading": "Question 9",
       "problem": "How does do-while differ from while?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain condition evaluation timing"
+       },
+       {
+        "text": "Describe execution guarantee"
+       },
+       {
+        "text": "Mention syntax differences"
+       }
       ],
       "result": "Answer. In do-while the condition is evaluated after each iteration, so the body executes at least once; a semicolon is mandatory at the end: } while (...);. In while the condition is evaluated first — the body may not execute at all."
      },
@@ -3523,9 +3897,15 @@
       "heading": "Question 10",
       "problem": "What do the pair of loops from §6.2.1 print and how do they differ?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify output of both loops"
+       },
+       {
+        "text": "Explain variable scope difference"
+       },
+       {
+        "text": "Compare loop structure"
+       }
       ],
       "result": "Answer. Both print 1 2 3. The while version declares int i = 1; directly before the loop; the for version declares the counter in the header — it is only in scope inside the loop. for gathers initialization, condition, and update in one line."
      },
@@ -3550,9 +3930,15 @@
       "heading": "Question 11",
       "problem": "What do break and continue do and exactly where does execution go?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Explain break behavior"
+       },
+       {
+        "text": "Explain continue behavior"
+       },
+       {
+        "text": "Provide examples"
+       }
       ],
       "result": "Answer. break; exits the innermost loop or switch (e.g., early exit from do-while when c != 'y'). continue; skips the rest of the innermost loop body and jumps to its condition; in the lab's for loop, continue with 'A' bypasses printf and lands on i + +, then — on the loop condition."
      },
@@ -3575,9 +3961,15 @@
       "heading": "Question 12",
       "problem": "What three expressions are in the for header and what can be omitted?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Identify the three expressions"
+       },
+       {
+        "text": "Explain what can be omitted"
+       },
+       {
+        "text": "Mention comma operator usage"
+       }
       ],
       "result": "Answer. Initialization; condition; increment — separated by semicolons. Any of the expressions can be empty; an empty condition is considered true. Expressions can be compound via the comma operator: for (i = 1, j = 1; i <= n; j *= i, i + +) — comma has the lowest precedence and is evaluated left to right, this is not a comma between function arguments."
      },
@@ -3600,9 +3992,15 @@
       "heading": "Question 13",
       "problem": "How to manually calculate the length of string HI! without strlen?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Initialize counter"
+       },
+       {
+        "text": "Loop through characters"
+       },
+       {
+        "text": "Stop at null terminator"
+       }
       ],
       "result": "Answer. Start counting n from zero; while name[n] != '\\0', increment n; stop at the end marker — the terminator is not counted. n = 0 reads H, n = 1 reads I, n = 2 reads !, n = 3 reaches NUL — condition is false, prints 3."
      },
@@ -3627,8 +4025,12 @@
       "heading": "Question 14",
       "problem": "What does a static variable inside a function do and how does it differ",
       "steps": [
-       null,
-       null
+       {
+        "text": "Explain static variable behavior"
+       },
+       {
+        "text": "Compare with auto variables"
+       }
       ],
       "result": "Answer. A static variable inside a function retains its value between function calls. Unlike auto variables (the default), which are reinitialized each time the function is called, static variables maintain their value across invocations. They're initialized only once, typically at program startup."
      },
@@ -3682,9 +4084,15 @@
       "heading": "Problem T1 — Switch Statement Behavior",
       "problem": "What does break do inside a switch?\na) terminates the entire program\nb) exits the switch; execution continues after the closing brace\nc) goes to default\nd) skips the loop condition",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The break statement in a switch case serves to exit the switch construct immediately."
+       },
+       {
+        "text": "After encountering a break, the program continues execution with the statement following the closing brace of the switch."
+       },
+       {
+        "text": "It does not terminate the entire program, skip the loop condition, or automatically go to the default case."
+       }
       ],
       "result": "Answer: b) exits the switch; execution continues after the closing brace"
      },
@@ -3707,9 +4115,15 @@
       "heading": "Problem T2 — Do-While Loop Guarantee",
       "problem": "How many times is the body of a do-while guaranteed to execute?\na) zero times\nb) exactly once\nc) at least once\nd) depends on the compiler",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "A do-while loop has a unique characteristic compared to other loop types."
+       },
+       {
+        "text": "The condition in a do-while loop is evaluated after each iteration of the loop body."
+       },
+       {
+        "text": "This means the loop body will always execute at least once before the condition is checked."
+       }
       ],
       "result": "Answer: c) at least once"
      },
@@ -3732,12 +4146,24 @@
       "heading": "Problem T3 — For Loop Output",
       "problem": "What does for (int i = 1; i <= 3; i++) printf(\"%d \", i); print?\na) 1 2 3\nb) 1 2 3 4\nc) 0 1 2 3\nd) 3 2 1",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Let's trace the execution of this for loop step by step."
+       },
+       {
+        "text": "Initialization: i is set to 1."
+       },
+       {
+        "text": "First iteration: condition i <= 3 is true, print 1, then i increments to 2."
+       },
+       {
+        "text": "Second iteration: condition i <= 3 is true, print 2, then i increments to 3."
+       },
+       {
+        "text": "Third iteration: condition i <= 3 is true, print 3, then i increments to 4."
+       },
+       {
+        "text": "Fourth iteration: condition i <= 3 is false (4 > 3), so the loop terminates."
+       }
       ],
       "result": "Answer: a) 1 2 3"
      },
@@ -3770,9 +4196,15 @@
       "heading": "Problem T4 — Empty For Loop Condition",
       "problem": "What happens if the condition is omitted in the for header?\na) compilation error\nb) the body will not execute at all\nc) the condition will be considered true\nd) the loop will execute exactly once",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "In a for loop, all three components (initialization, condition, increment) are optional."
+       },
+       {
+        "text": "When the condition is omitted, the C standard specifies that it should be treated as always true."
+       },
+       {
+        "text": "This creates an infinite loop unless there's a break statement inside the loop body."
+       }
       ],
       "result": "Answer: c) the condition will be considered true"
      },
@@ -3797,10 +4229,18 @@
       "heading": "Problem T5 — Continue Statement",
       "problem": "What does continue; do?\na) exits the loop\nb) skips the rest of the innermost loop body and jumps to the condition\nc) restarts the loop from initialization\nd) exits the function",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The continue statement is used to skip the remaining part of the current iteration."
+       },
+       {
+        "text": "When continue is executed, the program immediately jumps to the next iteration of the loop."
+       },
+       {
+        "text": "For a for loop, this means jumping to the increment part, then the condition check."
+       },
+       {
+        "text": "For a while or do-while loop, this means jumping directly to the condition check."
+       }
       ],
       "result": "Answer: b) skips the rest of the innermost loop body and jumps to the condition"
      },
@@ -3827,9 +4267,15 @@
       "heading": "Problem T6 — Modulo Operation",
       "problem": "What is 65 % 7?\na) 1\nb) 2\nc) 3\nd) 9",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The modulo operator (%) gives the remainder of a division operation."
+       },
+       {
+        "text": "Let's divide 65 by 7: 7 × 9 = 63."
+       },
+       {
+        "text": "The remainder is 65 - 63 = 2."
+       }
       ],
       "result": "Answer: b) 2"
      },
@@ -3856,9 +4302,15 @@
       "heading": "Problem T7 — Nested If-Else Association",
       "problem": "Which if does an else without curly braces belong to in nested ifs?\na) to the outermost\nb) to the nearest inner\nc) to the first in the filed) to none — this is a compilation error",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "In nested if statements without curly braces, the else clause is associated with the nearest preceding if statement."
+       },
+       {
+        "text": "This is known as the 'dangling else' problem in C."
+       },
+       {
+        "text": "To associate an else with an outer if when there are inner ifs, curly braces must be used to create blocks."
+       }
       ],
       "result": "Answer: b) to the nearest inner"
      },
@@ -3883,9 +4335,15 @@
       "heading": "Problem T8 — While Loop Condition Check",
       "problem": "When is the while loop condition checked?\na) after the body\nb) before the body\nc) in the middle of the body\nd) only on the first iteration",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "A while loop is a pre-condition loop, meaning the condition is checked before executing the loop body."
+       },
+       {
+        "text": "If the condition is false initially, the loop body will never execute."
+       },
+       {
+        "text": "This is different from a do-while loop, which checks the condition after the body."
+       }
       ],
       "result": "Answer: b) before the body"
      },
@@ -3910,9 +4368,15 @@
       "heading": "Problem T9 — Boolean Type in C99",
       "problem": "In C99, the bool type is available through the header. . .\na) <stdbool.h>\nb) <bool.h>\nc) <stdio.h>\nd) <logic.h>",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "In older C standards (C89/C90), there was no built-in boolean type."
+       },
+       {
+        "text": "Conditions were simply numeric expressions where non-zero meant true and zero meant false."
+       },
+       {
+        "text": "C99 introduced the bool type through the <stdbool.h> header file."
+       }
       ],
       "result": "Answer: a) <stdbool.h>"
      },
@@ -3937,10 +4401,18 @@
       "heading": "Problem T10 — For Loop Multiple Expressions",
       "problem": "Which operator connects multiple expressions in the for header?\na) semicolon\nb) comma\nc) &&\nd) colon",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The for loop header consists of three parts separated by semicolons: initialization, condition, and increment."
+       },
+       {
+        "text": "Within each of these parts, multiple expressions can be separated by commas."
+       },
+       {
+        "text": "The comma operator has the lowest precedence and is evaluated left-to-right."
+       },
+       {
+        "text": "Example: for (i = 1, j = 1; i <= n; j *= i, i++)"
+       }
       ],
       "result": "Answer: b) comma"
      },
@@ -4257,10 +4729,18 @@
       "heading": "Problem 1 — Basic Function Example",
       "problem": "Create a function that prints 'Hello, world!' twice",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define the function with void return type and no parameters"
+       },
+       {
+        "text": "Include the function prototype before main"
+       },
+       {
+        "text": "Call the function twice from main"
+       },
+       {
+        "text": "Modify the function to print a different message"
+       }
       ],
       "result": "The program prints the message twice, demonstrating function reuse"
      },
@@ -4348,10 +4828,18 @@
       "heading": "Problem 2 — Function with Parameters",
       "problem": "Create a function that prints 'meow' a specified number of times",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define a helper function that prints 'meow' once"
+       },
+       {
+        "text": "Create a function that takes an integer count parameter"
+       },
+       {
+        "text": "Use a loop to call the helper function 'count' times"
+       },
+       {
+        "text": "Call the function with different argument values"
+       }
       ],
       "result": "The function prints 'meow' the specified number of times"
      },
@@ -4416,10 +4904,18 @@
       "heading": "Problem 3 — Function with Return Value",
       "problem": "Create a function that calculates the integer square root of a number",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define a function that takes an integer parameter"
+       },
+       {
+        "text": "Calculate the largest integer whose square is less than or equal to the input"
+       },
+       {
+        "text": "Return the calculated integer"
+       },
+       {
+        "text": "Call the function from main and print the results"
+       }
       ],
       "result": "For input 27, returns 5 (5×5=25≤27); for input 16, returns 4 (4×4=16)"
      },
@@ -4518,10 +5014,18 @@
       "heading": "Problem 4 — Basic Structure Usage",
       "problem": "Create a Stock structure for coffee machine resources and demonstrate field access",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define a Stock structure with fields for water, milk, beans, and cups"
+       },
+       {
+        "text": "Create a variable of type Stock and initialize it"
+       },
+       {
+        "text": "Access and print a field value"
+       },
+       {
+        "text": "Modify a field value and print it again"
+       }
       ],
       "result": "The program prints the initial field value (500), then the modified value (450)"
      },
@@ -4589,11 +5093,21 @@
       "heading": "Problem 5 — Structure in Function",
       "problem": "Create a function that modifies a copy of a Stock structure",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define a function that takes a Stock and amount as parameters"
+       },
+       {
+        "text": "Check if the amount is valid (non-negative and not exceeding available water)"
+       },
+       {
+        "text": "Modify the water_ml field of the copy"
+       },
+       {
+        "text": "Return the modified copy"
+       },
+       {
+        "text": "Call the function and demonstrate that the original remains unchanged"
+       }
       ],
       "result": "The function returns a modified copy while the original Stock remains unchanged"
      },
@@ -4697,10 +5211,18 @@
       "heading": "Problem 6 — Coffee Machine Model",
       "problem": "Create functions to check if coffee can be made and update resources after making it",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Define a Recipe structure for drink ingredients"
+       },
+       {
+        "text": "Create can_make_coffee function that checks if stock has enough resources"
+       },
+       {
+        "text": "Create stock_after_coffee function that updates resources after making coffee"
+       },
+       {
+        "text": "Demonstrate with a latte recipe that requires 100ml water, 50ml milk, 10g beans, and 1 cup"
+       }
       ],
       "result": "Functions return true/false for can_make_coffee and updated Stock for stock_after_coffee"
      },
@@ -4749,10 +5271,18 @@
       "heading": "Testing Stock Availability",
       "problem": "Can we make the given latte with these stock levels?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check water: 500ml >= recipe requirement"
+       },
+       {
+        "text": "Check milk: 200ml >= recipe requirement"
+       },
+       {
+        "text": "Check beans: 40g >= recipe requirement"
+       },
+       {
+        "text": "Check cups: 3 >= recipe requirement"
+       }
       ],
       "result": "true"
      },
@@ -4773,10 +5303,18 @@
       "heading": "Testing Stock Availability",
       "problem": "Can we make the given latte with these stock levels?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check water: 100ml >= recipe requirement"
+       },
+       {
+        "text": "Check milk: 50ml >= recipe requirement"
+       },
+       {
+        "text": "Check beans: 10g >= recipe requirement"
+       },
+       {
+        "text": "Check cups: 1 >= recipe requirement"
+       }
       ],
       "result": "true"
      },
@@ -4795,10 +5333,18 @@
       "heading": "Testing Stock Availability",
       "problem": "Can we make the given latte with these stock levels?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Check water: 500ml >= recipe requirement"
+       },
+       {
+        "text": "Check milk: 200ml >= recipe requirement"
+       },
+       {
+        "text": "Check beans: 40g >= recipe requirement"
+       },
+       {
+        "text": "Check cups: 0 >= recipe requirement"
+       }
       ],
       "result": "false"
      },
@@ -4886,10 +5432,18 @@
       "heading": "Stock Update Comparison",
       "problem": "Compare two different calls to stock_after_coffee",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "First call: stock_after_coffee(stock, latte);"
+       },
+       {
+        "text": "Result: returned copy is discarded, original stock unchanged"
+       },
+       {
+        "text": "Second call: stock = stock_after_coffee(stock, latte);"
+       },
+       {
+        "text": "Result: returned copy is saved to stock variable"
+       }
       ],
       "result": "Only the second call actually updates the stock"
      },
@@ -5236,8 +5790,12 @@
       "heading": "printf Width Formatting",
       "problem": "Demonstrate width formatting in printf",
       "steps": [
-       null,
-       null
+       {
+        "text": "Print integer with width of 4"
+       },
+       {
+        "text": "Print string with width of 7"
+       }
       ],
       "result": "%4d prints '  10' (2 spaces before 10)\n%7s prints '   hello' (2 spaces before hello)"
      },
@@ -5465,10 +6023,18 @@
       "heading": "strcmp Examples",
       "problem": "Evaluate these strcmp comparisons:",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "strcmp(\"A\",\"a\") → < 0"
+       },
+       {
+        "text": "strcmp(\"IRONMAN\",\"BATMAN\") → > 0"
+       },
+       {
+        "text": "strcmp(\"aA\",\"aA\") → == 0"
+       },
+       {
+        "text": "strcmp(\"aA\",\"a\") → > 0"
+       }
       ],
       "result": "Uppercase letters are considered before lowercase in dictionary order"
      },
@@ -5577,8 +6143,12 @@
       "heading": "Question 1 — Function Return and Parameters",
       "problem": "What do void before the function name and (void) in parentheses mean?",
       "steps": [
-       null,
-       null
+       {
+        "text": "void before the name — no return result"
+       },
+       {
+        "text": "(void) — no inputs"
+       }
       ],
       "result": "In void printhelloworld(void) both voids are in their places; braces enclose the body. Return value needs to be distinguished from printed output."
      },
@@ -5603,9 +6173,15 @@
       "heading": "Question 2 — Function Components",
       "problem": "How does a prototype differ from a call and a definition?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "A prototype declares a function before main: void printhelloworld(void); — ends with ';' and has no body"
+       },
+       {
+        "text": "A call — printhelloworld(); — executes the function now"
+       },
+       {
+        "text": "A definition — the body with curly braces — describes its operation"
+       }
       ],
       "result": "In one program: prototype before main, calls inside main, definition after."
      },
@@ -5630,10 +6206,18 @@
       "heading": "Question 3 — Loop Output",
       "problem": "What does for (int i = 1; i <= 3; i++) printf(\"%d \", i); print?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The counter i starts at 1"
+       },
+       {
+        "text": "Each iteration prints the current value of i"
+       },
+       {
+        "text": "The loop continues while i <= 3"
+       },
+       {
+        "text": "When i = 4, the condition i <= 3 is false and the loop terminates"
+       }
       ],
       "result": "1 2 3"
      },
@@ -5660,10 +6244,18 @@
       "heading": "Question 4 — Conditional Logic",
       "problem": "What is streak after int streak = 2; int practised = 0; if (practised == 1) streak++; else streak = 0;?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Initial values: streak = 2, practised = 0"
+       },
+       {
+        "text": "Condition: practised == 1 is false (practised equals 0)"
+       },
+       {
+        "text": "The else branch is executed"
+       },
+       {
+        "text": "streak is reset to 0"
+       }
       ],
       "result": "streak = 0: Any non-zero value is true, 0 is false."
      },
@@ -5690,12 +6282,24 @@
       "heading": "Question 5 — Switch Statement",
       "problem": "Without the first break, what is score? int score = 0; char reaction = 'W'; switch (reaction) { case 'W': score += 2; case 'L': score -= 1; break; }",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Initial value: score = 0"
+       },
+       {
+        "text": "reaction is 'W', which matches case 'W'"
+       },
+       {
+        "text": "score += 2 gives score = 2"
+       },
+       {
+        "text": "Without break, execution falls through to case 'L'"
+       },
+       {
+        "text": "score -= 1 gives score = 1"
+       },
+       {
+        "text": "break terminates the switch"
+       }
       ],
       "result": "score = 1"
      },
@@ -5724,10 +6328,18 @@
       "heading": "Question 6 — Parameters vs Arguments",
       "problem": "How does a parameter differ from an argument?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A parameter is the input name inside a function: count in void printmeows(int count)"
+       },
+       {
+        "text": "This name is local to the function"
+       },
+       {
+        "text": "An argument is the value passed by the call: 3 in printmeows(3)"
+       },
+       {
+        "text": "On each call, the value is copied into the parameter"
+       }
       ],
       "result": "Parameters are function variables; arguments are the values passed to them."
      },
@@ -5756,9 +6368,15 @@
       "heading": "Problem S7 — IntegerRoot Function",
       "problem": "What does the pair of calls IntegerRoot(27) and IntegerRoot(16) print?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "For 27: 5×5 = 25 ≤27, and 6×6 = 36 > 27, so the integer root is 5"
+       },
+       {
+        "text": "For 16: 4×4 = 16, so the integer root is 4"
+       },
+       {
+        "text": "IntegerRoot returns a number, and the caller prints it via printf"
+       }
       ],
       "result": "5 4"
      },
@@ -5787,10 +6405,18 @@
       "heading": "Problem S8 — Fields and Types in Structs",
       "problem": "What is a field and how does Stock differ from stock?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A field is one named value in a struct (waterml, milkml, beansg, paper-cups)"
+       },
+       {
+        "text": "Stock is the type name introduced by typedef after the closing brace"
+       },
+       {
+        "text": "stock is a variable of that type"
+       },
+       {
+        "text": "Case matters: Stock and stock are different names"
+       }
       ],
       "result": "A field is a named value in a struct. Stock is the type name, while stock is a variable of that type."
      },
@@ -5817,11 +6443,21 @@
       "heading": "Problem S9 — Function Parameters and Copies",
       "problem": "Why after Stock preview = stockafterwateruse(stock, 100); is the water in stock still 500, but in preview — 400?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The stock parameter inside the function is a copy"
+       },
+       {
+        "text": "The helper subtracts 100 from the copy and returns the modified copy"
+       },
+       {
+        "text": "The original in main remains 500"
+       },
+       {
+        "text": "The caller chooses where to save the result: preview gets 400"
+       },
+       {
+        "text": "After stock = stockafterwateruse(stock, 50); — a new call starts from the unchanged 500 and saves 450 in stock"
+       }
       ],
       "result": "The function works with a copy, so the original remains unchanged unless reassigned."
      },
@@ -5850,9 +6486,15 @@
       "heading": "Problem S10 — Assignment and Return Values",
       "problem": "What does the assignment stock = stockaftercoffee(stock, latte); change, and what happens without it?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "With the assignment, stock saves the returned struct: 400 / 150 / 30 / 2"
+       },
+       {
+        "text": "Without assignment (just stockaftercoffee(stock, latte);) the returned copy is discarded"
+       },
+       {
+        "text": "stock doesn't change: 'stock is still unchanged'"
+       }
       ],
       "result": "The assignment updates stock with the returned values; without it, the returned struct is discarded."
      },
@@ -5877,11 +6519,21 @@
       "heading": "Problem S11 — Resource Checking Logic",
       "problem": "Why when stock.papercups = 0 is the order not fulfilled and nothing changes?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "canmakecoffee requires all four resources to be no less than required"
+       },
+       {
+        "text": "Each condition must be met (&& logical operator)"
+       },
+       {
+        "text": "One missing cup is enough to return false"
+       },
+       {
+        "text": "The if branch performs no assignments"
+       },
+       {
+        "text": "All fields of stock and the previous cup (latte) remain unchanged"
+       }
       ],
       "result": "The function checks that all resources are sufficient, and since paper cups are 0, it returns false without making any changes."
      },
@@ -5908,11 +6560,21 @@
       "heading": "Problem S12 — goto Statements in C",
       "problem": "What is dangerous about goto and when is it justified in C?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Excessive goto creates spaghetti code"
+       },
+       {
+        "text": "Code is harder to read and debug"
+       },
+       {
+        "text": "Any code with goto can be rewritten without it"
+       },
+       {
+        "text": "In C goto is justified for exiting nested blocks during error handling"
+       },
+       {
+        "text": "In C++/Java there are exceptions for this, but not in C"
+       }
       ],
       "result": "goto can create hard-to-follow code, but is sometimes useful for error handling in C where exceptions aren't available."
      },
@@ -5939,12 +6601,24 @@
       "heading": "Problem S13 — scanf Function Usage",
       "problem": "Why does scanf require & and when is it not needed?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "scanf arguments must be variable addresses (pointers)"
+       },
+       {
+        "text": "scanf(\"%d\", &x) writes the read number to the address of x"
+       },
+       {
+        "text": "For character arrays (strings), the array name is already an address"
+       },
+       {
+        "text": "scanf(\"%s\", str) — without &"
+       },
+       {
+        "text": "Similarly scanf(\"%20s\", str) and scanf(\"%20s %20s\", fname, lname)"
+       },
+       {
+        "text": "scanf ignores whitespace characters and returns the number of items read or EOF"
+       }
       ],
       "result": "scanf requires & for variables to pass their addresses, but not for character arrays since their names are already addresses."
      },
@@ -5975,11 +6649,21 @@
       "heading": "Problem S14 — Command Line Arguments",
       "problem": "What do argc and argv store?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "int main(int argc, char *argv[]): argc is the number of arguments"
+       },
+       {
+        "text": "argv[] is an array of pointers to each argument"
+       },
+       {
+        "text": "Arguments include the program name"
+       },
+       {
+        "text": "Example: ./cat a.txt b.txt gives argc = 3, argv[0] = \"cat\", argv[1] = \"a.txt\", argv[2] = \"b.txt\""
+       },
+       {
+        "text": "A single ./cat gives argc = 1"
+       }
       ],
       "result": "argc stores the count of command line arguments including the program name, and argv stores the arguments as strings."
      },
@@ -6008,10 +6692,18 @@
       "heading": "Test T1 — Function Prototype",
       "problem": "What is a function prototype?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) function body with curly braces"
+       },
+       {
+        "text": "b) function declaration ending with ';' and without a body"
+       },
+       {
+        "text": "c) function call from main"
+       },
+       {
+        "text": "d) variable inside a function"
+       }
       ],
       "result": "b) function declaration ending with ';' and without a body"
      },
@@ -6040,10 +6732,18 @@
       "heading": "Test T2 — void Function Parameters",
       "problem": "How many inputs and return values does void printmeow(void) have?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) 1 input, 1 value"
+       },
+       {
+        "text": "b) no inputs, no return value"
+       },
+       {
+        "text": "c) no inputs, 1 value"
+       },
+       {
+        "text": "d) 1 input, no value"
+       }
       ],
       "result": "b) no inputs, no return value"
      },
@@ -6072,10 +6772,18 @@
       "heading": "Test T3 — IntegerRoot Return Value",
       "problem": "What does IntegerRoot(27) return?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) 4"
+       },
+       {
+        "text": "b) 5"
+       },
+       {
+        "text": "c) 6"
+       },
+       {
+        "text": "d) 27"
+       }
       ],
       "result": "b) 5"
      },
@@ -6104,10 +6812,18 @@
       "heading": "Test T4 — Struct Field Access",
       "problem": "How to access the waterml field of the stock variable?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) stock.waterml"
+       },
+       {
+        "text": "b) Stock.waterml"
+       },
+       {
+        "text": "c) stock->waterml"
+       },
+       {
+        "text": "d) stock:waterml"
+       }
       ],
       "result": "a) stock.waterml"
      },
@@ -6136,10 +6852,18 @@
       "heading": "Test T5 — Typedef and Type Names",
       "problem": "In typedef struct { . . . } Stock; the name Stock is...",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) variable"
+       },
+       {
+        "text": "b) type name introduced by typedef"
+       },
+       {
+        "text": "c) structure field"
+       },
+       {
+        "text": "d) function"
+       }
       ],
       "result": "b) type name introduced by typedef"
      },
@@ -6168,10 +6892,18 @@
       "heading": "Test T6 — Function Parameter Copies",
       "problem": "After Stock preview = stockafterwateruse(stock, 100); what is stock.waterml?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) 400"
+       },
+       {
+        "text": "b) 500"
+       },
+       {
+        "text": "c) 450"
+       },
+       {
+        "text": "d) 0"
+       }
       ],
       "result": "b) 500"
      },
@@ -6200,10 +6932,18 @@
       "heading": "Test T7 — printf Width Specification",
       "problem": "What will printf(\"%4d\", 10); print?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) \"10\""
+       },
+       {
+        "text": "b) \"bb10\" (b — space)"
+       },
+       {
+        "text": "c) \"0010\""
+       },
+       {
+        "text": "d) \"10bb\""
+       }
       ],
       "result": "b) \"bb10\" (b — space)"
      },
@@ -6232,10 +6972,18 @@
       "heading": "Test T8 — printf Precision for Strings",
       "problem": "What will printf(\"%.4s\", \"hello\"); print?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) hello"
+       },
+       {
+        "text": "b) hell"
+       },
+       {
+        "text": "c) h"
+       },
+       {
+        "text": "d) ello"
+       }
       ],
       "result": "b) hell"
      },
@@ -6264,10 +7012,18 @@
       "heading": "Test T9 — scanf Input Reading",
       "problem": "How to correctly read an integer into variable x?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) scanf(\"%d\", x);"
+       },
+       {
+        "text": "b) scanf(\"%d\", &x);"
+       },
+       {
+        "text": "c) scanf(\"%d\", *x);"
+       },
+       {
+        "text": "d) scanf(%d, &x);"
+       }
       ],
       "result": "b) scanf(\"%d\", &x);"
      },
@@ -6296,10 +7052,18 @@
       "heading": "Test T10 — File Opening Modes",
       "problem": "What does the \"r\" mode of the fopen function do?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "a) opens the file only for writing"
+       },
+       {
+        "text": "b) opens the file only for reading"
+       },
+       {
+        "text": "c) opens the file for appending"
+       },
+       {
+        "text": "d) makes the file binary"
+       }
       ],
       "result": "b) opens the file only for reading"
      },
@@ -7103,9 +7867,15 @@
       "heading": "Address Arithmetic Example",
       "problem": "If arr[0] has address 100 (int), what is the address of arr[3]?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "Each int takes 4 bytes"
+       },
+       {
+        "text": "Moving 3 elements forward means 3 × 4 = 12 bytes"
+       },
+       {
+        "text": "Starting from address 100, adding 12 gives 112"
+       }
       ],
       "result": "arr[3] has address 112"
      },
@@ -7132,10 +7902,18 @@
       "heading": "Pointer Type Conversion Example",
       "problem": "If char pc = (char*)pa;, when does (int*)(pc + i) == pa + 3?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "pc is a char pointer, so each increment moves by 1 byte"
+       },
+       {
+        "text": "pa is an int pointer, so each increment moves by 4 bytes"
+       },
+       {
+        "text": "To match pa + 3, we need to move 3 × 4 = 12 bytes"
+       },
+       {
+        "text": "Since pc moves by 1 byte per increment, i must be 12"
+       }
       ],
       "result": "When i = 12"
      },
@@ -8028,12 +8806,24 @@
       "heading": "Problem 1 — Tracing factorial(3)",
       "problem": "Trace the execution of factorial(3) step by step.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "main() calls factorial(3)"
+       },
+       {
+        "text": "factorial(3) calls factorial(2)"
+       },
+       {
+        "text": "factorial(2) calls factorial(1)"
+       },
+       {
+        "text": "factorial(1) calls factorial(0)"
+       },
+       {
+        "text": "factorial(0) returns 1 (base case)"
+       },
+       {
+        "text": "factorial(1) returns 1×1 = 1"
+       }
       ]
      },
      "narr": [
@@ -8061,8 +8851,12 @@
       "heading": "Problem 1 — Tracing factorial(3) (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null
+       {
+        "text": "factorial(2) returns 2×1 = 2"
+       },
+       {
+        "text": "factorial(3) returns 3×2 = 6"
+       }
       ],
       "result": "factorial(3) = 6"
      },
@@ -8177,10 +8971,18 @@
       "heading": "Problem 2 — Fibonacci sequence",
       "problem": "Implement a recursive function to compute the nth Fibonacci number.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, ..."
+       },
+       {
+        "text": "Each value is the sum of the two preceding ones"
+       },
+       {
+        "text": "Two base cases: F(0) = 0, F(1) = 1"
+       },
+       {
+        "text": "Recursive case: F(n) = F(n-1) + F(n-2)"
+       }
       ],
       "result": "int fibonacci(int n)\n{\n    if (n == 0)\n        return 0;\n    if (n == 1)\n        return 1;\n    int left = fibonacci(n - 1);\n    int right = fibonacci(n - 2);\n    return left + right;\n}"
      },
@@ -8203,12 +9005,24 @@
       "heading": "Problem 3 — Tracing fibonacci(4)",
       "problem": "Trace the execution of fibonacci(4) and count all function calls.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "fibonacci(4) calls fibonacci(3) and fibonacci(2)"
+       },
+       {
+        "text": "fibonacci(3) calls fibonacci(2) and fibonacci(1)"
+       },
+       {
+        "text": "fibonacci(2) calls fibonacci(1) and fibonacci(0)"
+       },
+       {
+        "text": "fibonacci(1) returns 1 (base case)"
+       },
+       {
+        "text": "fibonacci(0) returns 0 (base case)"
+       },
+       {
+        "text": "fibonacci(2) computes 1 + 0 = 1"
+       }
       ]
      },
      "narr": [
@@ -8236,13 +9050,27 @@
       "heading": "Problem 3 — Tracing fibonacci(4) (cont.)",
       "problem": "",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "fibonacci(1) returns 1"
+       },
+       {
+        "text": "fibonacci(3) computes 1 + 1 = 2"
+       },
+       {
+        "text": "fibonacci(2) calls fibonacci(1) and fibonacci(0) again"
+       },
+       {
+        "text": "fibonacci(1) returns 1"
+       },
+       {
+        "text": "fibonacci(0) returns 0"
+       },
+       {
+        "text": "fibonacci(2) computes 1 + 0 = 1"
+       },
+       {
+        "text": "fibonacci(4) computes 2 + 1 = 3"
+       }
       ],
       "result": "fibonacci(4) = 3, with 9 total function calls"
      },
@@ -8297,12 +9125,24 @@
       "heading": "Problem 4 — Tower of Hanoi",
       "problem": "Solve the Tower of Hanoi problem for 3 disks from rod A to rod C using rod B.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Rules: (1) move one disk at a time; (2) move only the top disk; (3) never place a larger disk on a smaller one"
+       },
+       {
+        "text": "Step 1: move 2 disks from A to B, using C (3 moves)"
+       },
+       {
+        "text": "Step 2: move disk 3 from A to C (1 move)"
+       },
+       {
+        "text": "Step 3: move 2 disks from B to C, using A (3 moves)"
+       },
+       {
+        "text": "Total moves: 3 + 1 + 3 = 7"
+       },
+       {
+        "text": "Base case: no disks (n == 0) requires no moves"
+       }
       ],
       "result": "The sequence of moves: disk 1A→C; disk 2A→B; disk 1C→B; disk 3A→C; disk 1B→A; disk 2B→C; disk 1A→C"
      },
@@ -8331,10 +9171,18 @@
       "heading": "Problem S1 — Pointers",
       "problem": "What is a pointer and what is a null pointer?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A pointer stores the memory address of a variable"
+       },
+       {
+        "text": "The address allows accessing and modifying the variable from anywhere"
+       },
+       {
+        "text": "Pointers are especially useful for data structures"
+       },
+       {
+        "text": "A null pointer is 0 (NULL) and doesn't reference anything"
+       }
       ],
       "result": "A pointer is the address of a variable in memory; the address allows accessing and modifying the variable from anywhere (especially useful for data structures). A null pointer is 0 (NULL): a pointer that doesn't reference anything."
      },
@@ -8359,10 +9207,18 @@
       "heading": "Problem S2 — Pointer operators",
       "problem": "What do the & and * operators do?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "& is the address-of operator: gets the memory address of a variable"
+       },
+       {
+        "text": "* is the dereference/indirection operator: accesses the value at an address"
+       },
+       {
+        "text": "Example: int pn = &n; gets the address of n"
+       },
+       {
+        "text": "Example: printf(\"pi = %g\", *pi); prints the value at pi's address"
+       }
       ],
       "result": "& — is the address-of operator: the address of a variable of type t has type t (int pn = &n;). * is the dereference/indirection operator: access to the value at an address (printf(\"pi = %g\\n\", *pi);). A dereferenced pointer behaves like a regular variable."
      },
@@ -8387,10 +9243,18 @@
       "heading": "Problem S3 — Returning multiple values",
       "problem": "How to return multiple values from a function?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Functions can only return one value directly"
+       },
+       {
+        "text": "Pass pointers for additional outputs"
+       },
+       {
+        "text": "Example: int exteuclid(int a, int b, int x, int y);"
+       },
+       {
+        "text": "The call g = exteuclid(a, b, &x, &y); writes x and y to the passed addresses"
+       }
       ],
       "result": "Pass pointers for additional outputs: int exteuclid(int a, int b, int x, int y); the call g = exteuclid(a, b, &x, &y); writes x and y to the passed addresses. Functions can return no more than one value — pointers extend this limit."
      },
@@ -8415,11 +9279,21 @@
       "heading": "Problem S4 — Returning local arrays",
       "problem": "What's wrong with a function that returns the address of a local array?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Local arrays exist on the stack frame of the function"
+       },
+       {
+        "text": "After the function returns, the stack frame disappears"
+       },
+       {
+        "text": "The pointer becomes invalid (dangling)"
+       },
+       {
+        "text": "Using the dangling pointer leads to undefined behavior"
+       },
+       {
+        "text": "Compilers usually warn about this practice"
+       }
       ],
       "result": "char msg[] lives on the stack frame of getmessage(); after the function returns, the frame disappears, and the pointer becomes invalid (dangling) — puts(string) reads memory that no longer exists. Compilers usually warn about this. Solutions: a static array, a buffer passed by the caller, or malloc'd memory that the caller will free."
      },
@@ -8448,9 +9322,15 @@
       "heading": "Problem S5 — Why doesn't swap(int a, int b) change x and y in main?",
       "problem": "Consider the following code: void swap(int a, int b) { int temp = a; a = b; b = temp; } int main() { int x = 5, y = 7; swap(x, y); printf(\"x = %d, y = %d\", x, y); } Why doesn't x and y get swapped after calling swap?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "C passes arguments by value, creating copies of the variables"
+       },
+       {
+        "text": "The swap function modifies its own local copies, not the original variables"
+       },
+       {
+        "text": "The original variables in main remain unchanged"
+       }
       ],
       "result": "Variables x and y remain unchanged (x=5, y=7) because swap only modifies its own local copies."
      },
@@ -8473,10 +9353,18 @@
       "heading": "Problem S5 (Fixed) — How to implement a proper swap function",
       "problem": "Implement a swap function that actually swaps the values of two variables in main.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Use pointers to access the memory addresses of the variables"
+       },
+       {
+        "text": "Declare the function as void swap(int *x, int *y)"
+       },
+       {
+        "text": "Use dereferencing to access and modify the values at those addresses"
+       },
+       {
+        "text": "Call the function with addresses: swap(&a, &b)"
+       }
       ],
       "result": "Fixed code: void swap(int *x, int *y) { int temp = *x; *x = *y; *y = temp; } int main() { int a = 5, b = 7; swap(&a, &b); } After swap, a = 7, b = 5."
      },
@@ -8501,10 +9389,18 @@
       "heading": "Problem S6 — Understanding pointer arithmetic",
       "problem": "If pa is a pointer to an array, what does pa + i give and why is it not simple addition of numbers?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Pointer arithmetic is scaled by the size of the data type"
+       },
+       {
+        "text": "For an int array, each increment moves the pointer by sizeof(int) bytes"
+       },
+       {
+        "text": "On a 64-bit platform, sizeof(int) is typically 4 bytes"
+       },
+       {
+        "text": "So pa + i points to arr[i], not pa + i bytes"
+       }
       ],
       "result": "pa + i points to arr[i] because pointer arithmetic is scaled by the element size (4 bytes for int on 64-bit systems)."
      },
@@ -8529,11 +9425,21 @@
       "heading": "Problem S7 — Calculating addresses with different pointer types",
       "problem": "If arr[0] has address 100 (an int array), what is the address of arr[3]? And with char pc = (char *)pa, what i gives (int *)(pc + i) == pa + 3?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "arr[3] is 3 elements after arr[0]"
+       },
+       {
+        "text": "Each int element takes 4 bytes on a 64-bit platform"
+       },
+       {
+        "text": "So arr[3] is at address 100 + 3 × 4 = 112"
+       },
+       {
+        "text": "For char pointer, each increment moves by 1 byte"
+       },
+       {
+        "text": "To get the same address as pa + 3, we need i = 12 (3 ints × 4 bytes = 12 bytes)"
+       }
       ],
       "result": "arr[3] has address 112. For char pointer, i = 12 gives (int *)(pc + 12) == pa + 3."
      },
@@ -8589,10 +9495,18 @@
       "heading": "Problem S9 — Algorithm complexities",
       "problem": "Name the complexities of the four algorithms from lecture 7.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Insertion sort — O(n²) in worst and average cases"
+       },
+       {
+        "text": "Quicksort — O(n log n) on average, O(n²) in worst case"
+       },
+       {
+        "text": "Linear search — O(n) in worst case, O(n/2) on average"
+       },
+       {
+        "text": "Binary search — O(log n) on average and in worst case"
+       }
       ],
       "result": "Insertion sort: O(n²). Quicksort: O(n log n) average, O(n²) worst. Linear search: O(n) worst, O(n/2) average. Binary search: O(log n) average and worst."
      },
@@ -8640,11 +9554,21 @@
       "heading": "Problem S11 — Understanding recursion output order",
       "problem": "What does countdown(3) and countup(3) print and why is the output different?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "countdown(3) prints 3 2 1"
+       },
+       {
+        "text": "countup(3) prints 1 2 3"
+       },
+       {
+        "text": "In countdown, print comes before the recursive call"
+       },
+       {
+        "text": "In countup, print comes after the recursive call"
+       },
+       {
+        "text": "countdown executes on the way down, countup on the way back"
+       }
       ],
       "result": "countdown(3) prints 3 2 1. countup(3) prints 1 2 3. The order differs because of when the print statement executes relative to the recursive call."
      },
@@ -8671,11 +9595,21 @@
       "heading": "Problem S12 — Avoiding infinite recursion",
       "problem": "Why does countdown with a recursive call countdown(n) loop infinitely and how to fix it?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Each call gets the same n value, never reaching the base case"
+       },
+       {
+        "text": "The function prints n, then calls itself with the same n"
+       },
+       {
+        "text": "This creates an infinite loop: 3, 3, 3, 3, ..."
+       },
+       {
+        "text": "Having a base case isn't enough; every path must make progress"
+       },
+       {
+        "text": "Fix: change the recursive call to countdown(n - 1)"
+       }
       ],
       "result": "The infinite loop occurs because each call passes the same n, never reaching the base case. Fix: use countdown(n - 1) in the recursive call."
      },
@@ -8702,11 +9636,21 @@
       "heading": "Problem S13 — Understanding redundant recursive calls",
       "problem": "What does fibonacci(4) return and why does fibonacci(2) appear twice?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "fibonacci(4) returns 3"
+       },
+       {
+        "text": "The call tree contains nine calls: 4, 3, 2, 1, 0, 1, 2, 1, 0"
+       },
+       {
+        "text": "Both fibonacci(2) subtrees compute the same answer independently"
+       },
+       {
+        "text": "The second branch doesn't remember the first's result"
+       },
+       {
+        "text": "Simple recursion repeats work without memoization"
+       }
       ],
       "result": "fibonacci(4) returns 3. fibonacci(2) appears twice because the simple recursive implementation repeats the same computation without storing results."
      },
@@ -8733,12 +9677,24 @@
       "heading": "Problem S14 — Tower of Hanoi",
       "problem": "Name the three recursive steps and the total number of moves for three disks.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Move 2 disks from A to B using C — 3 moves"
+       },
+       {
+        "text": "Move disk 3 from A to C — 1 move"
+       },
+       {
+        "text": "Move 2 disks from B to C using A — 3 moves"
+       },
+       {
+        "text": "Total moves: 3 + 1 + 3 = 7"
+       },
+       {
+        "text": "Base case: no disks — no moves (n == 0)"
+       },
+       {
+        "text": "Rules: one disk at a time, only the top disk, never a larger on a smaller"
+       }
       ],
       "result": "Three recursive steps: (1) Move 2 disks from A to B using C, (2) Move disk 3 from A to C, (3) Move 2 disks from B to C using A. Total 7 moves for 3 disks."
      },
@@ -8767,10 +9723,18 @@
       "heading": "Problem T1 — Understanding the & operator",
       "problem": "What does the & operator do when applied to a variable?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The & operator returns the memory address of a variable"
+       },
+       {
+        "text": "It's called the address-of operator"
+       },
+       {
+        "text": "Used to get pointers to variables"
+       },
+       {
+        "text": "Contrast with * which dereferences a pointer"
+       }
       ],
       "result": "a) returns the address of the variable"
      },
@@ -8795,10 +9759,18 @@
       "heading": "Problem T2 — Pointer types",
       "problem": "What type does the expression &n have if int n;?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "&n returns the address of the integer variable n"
+       },
+       {
+        "text": "The type of an address to a variable of type t is t *"
+       },
+       {
+        "text": "Since n is an int, &n has type int *"
+       },
+       {
+        "text": "This is a pointer to an integer"
+       }
       ],
       "result": "b) int *"
      },
@@ -8823,10 +9795,18 @@
       "heading": "Problem T3 — Pointer operations",
       "problem": "What does ppi = ppi + *pn; do?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Left side: ppi is a pointer being assigned a new address"
+       },
+       {
+        "text": "Right side: *pn dereferences pn to get its value"
+       },
+       {
+        "text": "This adds the value of pn to the address ppi"
+       },
+       {
+        "text": "The result is a new memory address"
+       }
       ],
       "result": "a) changes the value of the variable pi through a pointer"
      },
@@ -8853,11 +9833,21 @@
       "heading": "Problem T4 — What doesn't have an address?",
       "problem": "Which of the following does NOT have an address?",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Variables in memory have addresses"
+       },
+       {
+        "text": "Array elements have addresses"
+       },
+       {
+        "text": "Pointers store addresses"
+       },
+       {
+        "text": "Register variables don't have addresses"
+       },
+       {
+        "text": "Constants, literals, and expressions generally don't have addresses"
+       }
       ],
       "result": "b) register variable"
      },
@@ -8884,10 +9874,18 @@
       "heading": "Problem T5 — Array size in bytes",
       "problem": "What is sizeof(arr) for int arr[8]; on a 64-bit platform?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "sizeof gives the size in bytes of the entire array"
+       },
+       {
+        "text": "Each int element typically takes 4 bytes on a 64-bit platform"
+       },
+       {
+        "text": "The array has 8 elements"
+       },
+       {
+        "text": "So sizeof(arr) = 8 × 4 = 32 bytes"
+       }
       ],
       "result": "b) 32"
      },
@@ -8912,10 +9910,18 @@
       "heading": "Problem T6 — Memory allocation",
       "problem": "Where do declared variables go, and where does dynamic memory go?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Declared variables are stored in the stack"
+       },
+       {
+        "text": "Dynamic memory is allocated from the heap"
+       },
+       {
+        "text": "The stack is managed automatically with function calls"
+       },
+       {
+        "text": "The heap must be explicitly managed with malloc/free"
+       }
       ],
       "result": "c) declared — in the stack, dynamic — in the heap"
      },
@@ -8940,10 +9946,18 @@
       "heading": "Problem T7 — String comparison",
       "problem": "strcmp(str1, str2) returns 0 when...",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "strcmp compares two strings character by character"
+       },
+       {
+        "text": "It returns 0 if the strings are exactly equal"
+       },
+       {
+        "text": "It returns positive if str1 is greater than str2"
+       },
+       {
+        "text": "It returns negative if str1 is less than str2"
+       }
       ],
       "result": "b) the strings are equal"
      },
@@ -8970,10 +9984,18 @@
       "heading": "Problem T8 — Character search in strings",
       "problem": "What does strchr(str, c) do?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "strchr searches for a character in a string"
+       },
+       {
+        "text": "It returns a pointer to the first occurrence of the character"
+       },
+       {
+        "text": "If the character is not found, it returns NULL"
+       },
+       {
+        "text": "This is different from strrchr which finds the last occurrence"
+       }
       ],
       "result": "b) returns a pointer to the first occurrence of character c or NULL"
      },
@@ -9021,10 +10043,18 @@
       "heading": "Question 9: Base Case Definition",
       "problem": "What is the base case of recursion?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A) an answer that is obtained without a new recursive call"
+       },
+       {
+        "text": "B) the first function call"
+       },
+       {
+        "text": "C) a loop inside the function"
+       },
+       {
+        "text": "D) the last return from main"
+       }
       ],
       "result": "A) an answer that is obtained without a new recursive call"
      },
@@ -9047,10 +10077,18 @@
       "heading": "Question 10: Countdown Function Output",
       "problem": "What does countdown(3) print?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "A) 3 2 1"
+       },
+       {
+        "text": "B) 1 2 3"
+       },
+       {
+        "text": "C) 3 3 3"
+       },
+       {
+        "text": "D) 0 1 2 3"
+       }
       ],
       "result": "A) 3 2 1"
      },
@@ -9293,11 +10331,21 @@
       "heading": "Problem B1: Grade Checker",
       "problem": "Expected: 95 → 'A', 85 → 'B', 75 → 'C', 65 → 'D', 40 → 'F'",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Flawed code has condition order issues and syntax errors"
+       },
+       {
+        "text": "Conditions should be checked in descending order (>= 90, then >= 80, etc.)"
+       },
+       {
+        "text": "Missing closing parenthesis after return 'A'"
+       },
+       {
+        "text": "Duplicated else statement"
+       },
+       {
+        "text": "grade(78) call not properly closed"
+       }
       ],
       "result": "Fix: Check boundaries in descending order, return each branch its letter, and restore proper syntax"
      },
@@ -9324,10 +10372,18 @@
       "heading": "Problem B2: Even or Odd Checker",
       "problem": "Expected: iseven(4) → 1, iseven(7) → 0",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Assignment instead of comparison in condition (n % 2 = 0)"
+       },
+       {
+        "text": "Function doesn't return result - missing return statement"
+       },
+       {
+        "text": "Branches swapped: even numbers get 0, odd get 1"
+       },
+       {
+        "text": "main() accesses result outside function scope"
+       }
       ],
       "result": "Fix: Use == for comparison, ensure proper return, swap branches, remove result = 5 from main"
      },
@@ -9377,10 +10433,18 @@
       "heading": "Problem B3 — Leap Year Checker",
       "problem": "Implement a function that correctly identifies leap years according to the Gregorian calendar: years divisible by 4 are leap years, except years divisible by 100, unless they are also divisible by 400.",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Initial implementation incorrectly checks divisibility by 4 first, causing years like 1900 to be incorrectly identified as leap years."
+       },
+       {
+        "text": "The % 400 branch can never execute because it comes after the % 4 check."
+       },
+       {
+        "text": "The solution is to check divisibility by 400 first, then by 100, then by 4."
+       },
+       {
+        "text": "Alternatively, use a compact boolean expression: (year % 4 == 0 && year % 100 != 0) || year % 400 == 0"
+       }
       ],
       "result": "Correct implementation: Check divisibility by 400 first, then 100, then 4; or use the compact boolean expression."
      },
@@ -9430,11 +10494,21 @@
       "heading": "Problem B4 — Biggest of Three Numbers",
       "problem": "Implement a function that returns the largest of three integers. The function should correctly handle cases where two or more values are equal.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Initial implementation uses strict greater than (>) comparisons, which fails when the maximum values are equal."
+       },
+       {
+        "text": "For input (5, 5, 3), both initial conditions (a > b && a > c) and (b > a && b > c) are false."
+       },
+       {
+        "text": "Execution falls through to the else branch and returns c = 3, which is incorrect."
+       },
+       {
+        "text": "The fix is to use greater than or equal to (>=) in all comparisons."
+       },
+       {
+        "text": "Additionally, there's a missing semicolon after puts(\"hello\") in main, which is a syntax error."
+       }
       ],
       "result": "Correct implementation: Use >= in comparisons and ensure proper syntax with semicolons."
      },
@@ -9481,11 +10555,21 @@
       "heading": "Problem B5 — Double and Add",
       "problem": "Implement a function that doubles a number and returns the result, then use it in an expression to calculate the sum of doubled values.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Initial implementation declares doubled as a void function that prints instead of returning a value."
+       },
+       {
+        "text": "The compiler error occurs because void functions cannot be used in expressions - they return nothing."
+       },
+       {
+        "text": "The statement int total = doubled(5) + doubled(3); tries to use the void function in an arithmetic expression."
+       },
+       {
+        "text": "The fix is to change the return type to int and use return x * 2; instead of printing."
+       },
+       {
+        "text": "Move the printing to the main function to display the result."
+       }
       ],
       "result": "Correct implementation: Change return type to int and return the doubled value, not print it."
      },
@@ -9530,11 +10614,21 @@
       "heading": "Problem B6 — Member Discount",
       "problem": "Implement a function that applies a 20% discount if the customer is a member, returning the discounted price.",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Initial implementation declares a discount variable but doesn't initialize it."
+       },
+       {
+        "text": "When is_member is 0, the if branch is not executed, and discount remains uninitialized."
+       },
+       {
+        "text": "Using an uninitialized variable leads to undefined behavior - the result will be garbage values."
+       },
+       {
+        "text": "This is a C-specific pitfall: C has no default initialization for variables."
+       },
+       {
+        "text": "The fix is to initialize the variable (double discount = 0.0;) or add an else branch."
+       }
       ],
       "result": "Correct implementation: Initialize the discount variable or add an else branch to ensure it always has a value."
      },
@@ -9579,9 +10673,15 @@
       "heading": "Problem L1 — Sum of Grades",
       "problem": "Implement a program that calculates and prints the sum of grades stored in an array. The expected output is \"Sum: 405\".",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The program contains a loop error that prevents it from correctly calculating the sum of grades."
+       },
+       {
+        "text": "The error is likely in the loop condition or the way the accumulator is updated."
+       },
+       {
+        "text": "To fix the error, we need to ensure the loop iterates through all elements and correctly accumulates the sum."
+       }
       ],
       "result": "Correct implementation: Ensure the loop properly iterates through all array elements and accumulates the sum."
      },
@@ -9620,9 +10720,15 @@
       "heading": "Problem 1 — Find the error in this loop",
       "problem": "Analyze the loop and identify any potential issues.",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The loop correctly iterates through indices 0-4"
+       },
+       {
+        "text": "Each element is added exactly once to the sum"
+       },
+       {
+        "text": "The calculated sum is 90+85+70+100+60 = 405"
+       }
       ],
       "result": "The loop is correct as written. The only minor issue is the missing newline character in printf."
      },
@@ -9661,10 +10767,18 @@
       "heading": "Problem 2 — Semicolon after for",
       "problem": "Why does this code print 11 instead of the expected sum of 1 to 10 (which is 55)?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The code has a semicolon immediately after the for header"
+       },
+       {
+        "text": "This makes the loop body an empty statement"
+       },
+       {
+        "text": "The loop runs ten times without doing anything"
+       },
+       {
+        "text": "Only after the loop does the block execute once with i = 11"
+       }
       ],
       "result": "The semicolon after the for header causes the loop to have an empty body. The sum is only updated once after the loop with i = 11."
      },
@@ -9703,9 +10817,15 @@
       "heading": "Problem 3 — Missing opening brace",
       "problem": "Why doesn't this program print 'Count: 0' through 'Count: 4' as expected?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The for loop is missing an opening brace after the header"
+       },
+       {
+        "text": "Without the opening brace, only the printf statement is considered the loop body"
+       },
+       {
+        "text": " The closing brace at the end creates a syntax error"
+       }
       ],
       "result": "The missing opening brace causes the printf to be the only statement in the loop body, and the extra closing brace creates a syntax error that prevents compilation."
      },
@@ -9742,9 +10862,15 @@
       "heading": "Problem 4 — printf without argument",
       "problem": "Why don't the expected numbers 1 2 3 4 appear in the output?",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The printf statement has a format specifier %i but no argument is passed"
+       },
+       {
+        "text": "When a format specifier is provided without a corresponding argument, the behavior is undefined"
+       },
+       {
+        "text": "Typically, this results in garbage values being printed instead of the intended numbers"
+       }
       ],
       "result": "The printf statement lacks the required argument corresponding to the %i format specifier, causing undefined behavior where garbage values are printed instead of the numbers 1 through 4."
      },
@@ -9783,10 +10909,18 @@
       "heading": "Problem 5 — Unsigned counter can't be negative",
       "problem": "Why is 'Liftoff!' never printed in this program?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The counter i is declared as unsigned int, which cannot be negative"
+       },
+       {
+        "text": "The condition i >= 0 is always true for unsigned integers"
+       },
+       {
+        "text": "After i reaches 0, the i-- operation causes the counter to wrap around to a large number"
+       },
+       {
+        "text": "This creates an infinite loop that never reaches the 'Liftoff!' statement"
+       }
       ],
       "result": "The unsigned counter wraps around to a large number after reaching 0, causing the loop condition to always be true and creating an infinite loop."
      },
@@ -9825,10 +10959,18 @@
       "heading": "Problem 6 — Erase during iteration (C++)",
       "problem": "Why doesn't this code correctly remove all even numbers from the vector?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The code attempts to erase elements while iterating through the vector"
+       },
+       {
+        "text": "After calling nums.erase(it), the iterator it becomes invalid"
+       },
+       {
+        "text": "The loop then increments the invalid iterator with ++it"
+       },
+       {
+        "text": "This results in undefined behavior"
+       }
       ],
       "result": "The iterator becomes invalid after erase, and incrementing it causes undefined behavior. The code may crash or produce unpredictable results."
      },
@@ -9867,10 +11009,18 @@
       "heading": "Problem 7 — Comparing double for equality",
       "problem": "Why doesn't this loop stop at 0.9 as expected?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The loop condition checks if x is exactly equal to 1.0"
+       },
+       {
+        "text": "Due to floating-point precision limitations, 0.1 cannot be represented exactly in binary"
+       },
+       {
+        "text": "After ten additions of 0.1, the accumulated error causes x to not equal exactly 1.0"
+       },
+       {
+        "text": "The condition x != 1.0 remains true, causing the loop to continue beyond 0.9"
+       }
       ],
       "result": "Floating-point precision errors prevent x from ever exactly equaling 1.0, causing the loop to run indefinitely or beyond the intended range."
      },
@@ -9909,10 +11059,18 @@
       "heading": "Problem 8 — Variable shadowing of total",
       "problem": "Why does this code print 'Total: 0' instead of the expected 'Total: 15'?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "Inside the loop, a new variable total is declared"
+       },
+       {
+        "text": "This new total 'shadows' the outer variable with the same name"
+       },
+       {
+        "text": "Each iteration creates a fresh inner total, adds i to it, and then discards it"
+       },
+       {
+        "text": "The outer total is never modified, remaining 0 throughout"
+       }
       ],
       "result": "Variable shadowing causes the inner total to be used instead of the outer one. The inner total is reinitialized in each iteration and discarded, so the outer total remains 0."
      },
@@ -9951,10 +11109,18 @@
       "heading": "Problem 9 — Incrementing the wrong variable",
       "problem": "Why doesn't this code produce the expected 3×3 multiplication table?",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The inner loop uses 'i++' instead of 'j++' in the increment expression"
+       },
+       {
+        "text": "This means the inner loop never increments j, so it never completes"
+       },
+       {
+        "text": "The outer loop continues to increment i, but j remains at 1"
+       },
+       {
+        "text": "As a result, only the first row of the multiplication table is printed multiple times"
+       }
       ],
       "result": "The inner loop incorrectly increments i instead of j, causing j to never change and the inner loop to never complete properly."
      },
@@ -10036,11 +11202,21 @@
       "heading": "Problem L9 — Infinite Inner Loop",
       "problem": "Why does the inner loop never end in the following code?\nfor (int i = 1; i <= 3; i++) {\n    for (int j = 1; j <= 3; j++) {\n        cout << i * j << \"\\t\";\n    }\n    cout << endl;\n}",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The inner loop increments i instead of j"
+       },
+       {
+        "text": "j remains 1 forever"
+       },
+       {
+        "text": "The condition j <= 3 is always true"
+       },
+       {
+        "text": "i grows infinitely"
+       },
+       {
+        "text": "The inner loop loops infinitely and messes up the outer counter"
+       }
       ],
       "result": "Fix: Change i++ to j++ in the inner loop header"
      },
@@ -10090,11 +11266,21 @@
       "heading": "Problem L10 — Finding 7 in a Grid",
       "problem": "Expected: find the FIRST occurrence of 7 in the grid and print \"First 7 found in row 0\". The code is truncated:\nint grid[3][3] = {\n    {1, 7, 3},",
       "steps": [
-       null,
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The code listing is truncated in the original file"
+       },
+       {
+        "text": "7 is in row 0, column 1"
+       },
+       {
+        "text": "Expected output: \"First 7 found in row 0\""
+       },
+       {
+        "text": "Break only exits the innermost loop"
+       },
+       {
+        "text": "To terminate after the first find, use a found flag or goto-exit"
+       }
       ],
       "result": "This problem tests understanding of break behavior in nested loops"
      },
@@ -10123,10 +11309,18 @@
       "heading": "Problem P1 — Missing Null Terminator",
       "problem": "char s[5] = {'h', 'e', 'l', 'l', 'o'};\nprintf(\"%s\\n\", s);",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The array has exactly 5 cells for 5 letters"
+       },
+       {
+        "text": "No space remains for the null terminator '\\0'"
+       },
+       {
+        "text": "printf(\"%s\") continues reading memory until it encounters a zero byte"
+       },
+       {
+        "text": "The output is unpredictable as it reads beyond the array"
+       }
       ],
       "result": "Fix by adding space for the null terminator: char s[6] = {'h', 'e', 'l', 'l', 'o', '\\0'};"
      },
@@ -10172,10 +11366,18 @@
       "heading": "Problem P2 — sizeof on a Pointer",
       "problem": "char *s = \"hello\";\nprintf(\"%zu\\n\", sizeof(s));",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "s is a char pointer, not an array"
+       },
+       {
+        "text": "sizeof(s) returns the size of the pointer itself"
+       },
+       {
+        "text": "On a 64-bit machine, this is 8 bytes"
+       },
+       {
+        "text": "The string length is 5, but sizeof doesn't give that"
+       }
       ],
       "result": "Use strlen(s) to get the string length: printf(\"%zu\\n\", strlen(s));"
      },
@@ -10218,10 +11420,18 @@
       "heading": "Problem P3 — String Comparison via ==",
       "problem": "char a[] = \"cat\";\nchar b[] = \"cat\";\nif (a == b)\n    puts(\"Same\");\nelse\n    puts(\"Different\");",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The == operator compares array addresses, not contents"
+       },
+       {
+        "text": "a and b are two different objects in memory"
+       },
+       {
+        "text": "The comparison is false even though the strings are identical"
+       },
+       {
+        "text": "String contents should be compared with strcmp"
+       }
       ],
       "result": "Use strcmp for string comparison: if (strcmp(a, b) == 0)"
      },
@@ -10266,10 +11476,18 @@
       "heading": "Problem P4 — Buffer Too Small for strcpy",
       "problem": "char dest[5];\nstrcpy(dest, \"hello\");\nprintf(\"%s\\n\", dest);",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "The string \"hello\" requires 6 bytes: 5 letters plus null terminator"
+       },
+       {
+        "text": "dest only holds 5 bytes"
+       },
+       {
+        "text": "strcpy writes one byte beyond the array end"
+       },
+       {
+        "text": "This causes a buffer overflow"
+       }
       ],
       "result": "Make the destination buffer large enough: char dest[6];"
      },
@@ -10312,10 +11530,18 @@
       "heading": "Problem P5 — Modifying a String Literal",
       "problem": "char *s = \"hello\";\ns[0] = 'J';\nprintf(\"%s\\n\", s);",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "String literals like \"hello\" are stored in read-only memory"
+       },
+       {
+        "text": "s merely points to this read-only location"
+       },
+       {
+        "text": "Attempting to modify s[0] tries to write to read-only memory"
+       },
+       {
+        "text": "This typically causes a segmentation fault"
+       }
       ],
       "result": "Create a modifiable copy: char s[] = \"hello\";"
      },
@@ -10361,10 +11587,18 @@
       "heading": "Problem P6 — Returning a Pointer to a Local Variable",
       "problem": "char *greeting(void) {\n    char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%s\\n\", g);\n    return 0;\n}",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "buf is a local variable on the greeting() stack frame"
+       },
+       {
+        "text": "The stack frame disappears when greeting() returns"
+       },
+       {
+        "text": "The returned pointer becomes dangling"
+       },
+       {
+        "text": "Reading *g is undefined behavior"
+       }
       ],
       "result": "Fix by using a static array, caller-provided buffer, or malloc'd memory"
      },
@@ -10433,9 +11667,15 @@
       "heading": "Problem 7 — Uninitialized (wild) pointer",
       "problem": "int *p; // -> Memory address\n*p = 10;\nprintf(\"%d\\n\", *p);",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The pointer p is declared but not initialized"
+       },
+       {
+        "text": "*p = 10 attempts to write to the address stored in p"
+       },
+       {
+        "text": "Since p contains garbage, this writes to an unknown memory location"
+       }
       ],
       "result": "The program may crash, or it may \"work\" by pure chance (as in the key test where 10 was printed)"
      },
@@ -10477,9 +11717,15 @@
       "heading": "Problem 8 — Pass by value",
       "problem": "void swap(int a, int b) {\nint t = a;\na = b;\nb = t;\n}\nint main(void) {\nint x = 1, y = 2;\nswap(x, y);\nprintf(\"%d %d\\n\", x, y);\nreturn 0;\n}",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "The swap function receives copies of x and y"
+       },
+       {
+        "text": "The function swaps the values of these copies"
+       },
+       {
+        "text": "The original variables in main remain unchanged"
+       }
       ],
       "result": "After calling swap(x, y), the program prints \"1 2\" instead of \"2 1\""
      },
@@ -10522,10 +11768,18 @@
       "heading": "Problem 9 — malloc without +1 for null terminator",
       "problem": "char *s = \"hello\";\nchar *copy = malloc(strlen(s));\nstrcpy(copy, s);\nprintf(\"%s\\n\", copy);\nfree(copy);",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "strlen(s) returns 5 for the string \"hello\""
+       },
+       {
+        "text": "malloc allocates exactly 5 bytes of memory"
+       },
+       {
+        "text": "strcpy attempts to write 6 bytes (5 characters + null terminator)"
+       },
+       {
+        "text": "This causes a one-byte buffer overflow"
+       }
       ],
       "result": "The heap block overflows by one byte, potentially corrupting memory"
      },
@@ -10568,10 +11822,18 @@
       "heading": "Problem 10 — Unsigned counter in reverse loop",
       "problem": "char s[] = \"abc\";\nfor (size_t i = strlen(s) - 1; i >= 0; i--) {\nputchar(s[i]);\n}\nputchar('\\n');",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "size_t is an unsigned integer type"
+       },
+       {
+        "text": "When i becomes 0 and we decrement it, it wraps around to a large number"
+       },
+       {
+        "text": "The condition i >= 0 is always true for unsigned integers"
+       },
+       {
+        "text": "The loop continues reading beyond the array bounds"
+       }
       ],
       "result": "The loop doesn't stop after 'a' and reads from invalid memory locations"
      },
@@ -10617,9 +11879,15 @@
       "heading": "Problem 11 — Missing & in scanf",
       "problem": "int x;\nscanf(\"%d\", x);\nprintf(\"%d\\n\", x);",
       "steps": [
-       null,
-       null,
-       null
+       {
+        "text": "scanf requires the address of the variable to store the input"
+       },
+       {
+        "text": "Passing x instead of &x passes the uninitialized value as a pointer"
+       },
+       {
+        "text": "This causes undefined behavior as scanf writes to an unknown address"
+       }
       ],
       "result": "Most compilers will warn about this with -Wall flag"
      },
@@ -10664,10 +11932,18 @@
       "heading": "Problem 12 — Use after free",
       "problem": "int *p = malloc(sizeof(int));\n*p = 42;\nfree(p);\nprintf(\"%d\\n\", *p);",
       "steps": [
-       null,
-       null,
-       null,
-       null
+       {
+        "text": "We allocate memory for an integer and store 42 there"
+       },
+       {
+        "text": "free(p) releases the memory back to the system"
+       },
+       {
+        "text": "Reading from *p after free accesses invalid memory"
+       },
+       {
+        "text": "The memory may have been reused by another part of the program"
+       }
       ],
       "result": "Printing *p after free may print 42, garbage, or crash (undefined behavior)"
      },

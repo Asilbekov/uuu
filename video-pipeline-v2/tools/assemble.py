@@ -41,6 +41,7 @@ def build(spec_id, lang, chunks_dir, out_path):
     def _tex_ok(v):
         s = str(v)
         if '$' in s: return False                                 # $-delimiters never valid in raw-LaTeX tex fields
+        if '&' in s and '\\begin' not in s: return False          # bare & breaks KaTeX (alignment char)
         if re.search(r'\$\s*\d', s): return False                  # currency: $5.5 billion
         if s.lstrip().startswith('$'): return False                # $false$, $code$ markers
         if '\\n' in s or '\\t' in s or '\n' in s or '\r' in s: return False  # escaped/real code newlines
@@ -275,6 +276,13 @@ def build(spec_id, lang, chunks_dir, out_path):
     if not spec['chapters']: errors.append('no chapters')
 
     json.dump(spec, open(out_path, 'w'), ensure_ascii=False, indent=1)
+    # raw-LaTeX guard for text fields: engine TeXifies only $...$/env fragments;
+    # bare \frac/\cdot in bullets/steps/problem would show raw on screen
+    import subprocess as _sp
+    _sp.run(['python3', os.path.join(os.path.dirname(__file__), '..', '..', 'fix_rawtex.py'),
+             out_path], check=False, capture_output=True)
+    spec = json.load(open(out_path))
+
     words = sum(len(s.split()) for ch in spec['chapters'] for b in ch['blocks'] for s in (b.get('narr') or []))
     est_min = words / (150 if lang=='en' else 130)
     print(f'{spec_id}_{lang}: {n_blocks} блоков, {len(spec["chapters"])} глав, '
