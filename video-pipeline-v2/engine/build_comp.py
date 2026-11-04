@@ -79,6 +79,8 @@ def _plot_svg(pdata, W=1280, H=560):
         try:
             ys = eval(f['fn'], {'np': _np, 'x': xs, 'math': math})
             ys = _np.asarray(ys, dtype=float)
+            if ys.ndim == 0:
+                ys = _np.full_like(xs, float(ys))
         except Exception as e:
             raise ValueError(f"plot fn eval failed: {f['fn']}: {e}")
         pts = ' '.join(f'{sx(a):.1f},{sy(min(max(b,y0),y1)):.1f}'
