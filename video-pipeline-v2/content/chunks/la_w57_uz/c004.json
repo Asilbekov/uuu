@@ -1,0 +1,403 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Bu 5-7 haftalarda o'rganiladigan chiziqli algebra mavzulariga oid mashqlar to'plami.",
+   "Keling, birinchi mashqni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Orqaga qaytish almashtirish",
+   "problem": "Tenglamani yeching:\n\\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 7 \\\\ 8 \\end{pmatrix}",
+   "steps": [
+    "Pastdan yuqoriga: z = 8/4 = 2",
+    "3y + 2·2 = 7, y = 1",
+    "2x + 1 - 2 = 3, x = 2"
+   ],
+   "result": "\\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Bu yerda orqaga qaytish almashtirish usulini ko'rib chiqamiz.",
+   "Matritsa yuqori uchburchak shaklida bo'lgani uchun, pastdan yuqoriga qarab yechamiz.",
+   "Avval z ni topamiz: z = 8/4 = 2",
+   "Keyin y ni topamiz: 3y + 2·2 = 7, shundan y = 1",
+   "Nihoyat, x ni topamiz: 2x + 1 - 2 = 3, shundan x = 2",
+   "Tekshirish: asl matritsaga yechimni ko'paytirsak, o'ng tomonni hosil qiladi",
+   "Javob: x = 2, y = 1, z = 2"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — To'liq chiqarib tashlash",
+   "problem": "Tenglamani chiqarib tashlash usuli bilan yeching:\n\\begin{pmatrix} 1 & 1 & 1 & | & 6 \\\\ 2 & 3 & 1 & | & 10 \\\\ 1 & 2 & 3 & | & 14 \\end{pmatrix}",
+   "steps": [
+    "R2 ← R2 - 2R1 va R3 ← R3 - R1",
+    "\\begin{pmatrix} 1 & 1 & 1 & | & 6 \\\\ 0 & 1 & -1 & | & -2 \\\\ 0 & 1 & 2 & | & 8 \\end{pmatrix}",
+    "R3 ← R3 - R2",
+    "\\begin{pmatrix} 1 & 1 & 1 & | & 6 \\\\ 0 & 1 & -1 & | & -2 \\\\ 0 & 0 & 3 & | & 10 \\end{pmatrix}",
+    "Orqaga: z = 10/3, y = z - 2 = 4/3, x = 6 - y - z = 4/3"
+   ],
+   "result": "x = 4/3, y = 4/3, z = 10/3"
+  },
+  "narr": [
+   "Endi to'liq chiqarib tashlash usulini ko'rib chiqamiz.",
+   "Birinchi qatorni ishlatib, ikkinchi va uchinchi qatlardan birinchi ustundagi elementlarni yo'q qilamiz.",
+   "R2 ← R2 - 2R1 va R3 ← R3 - R1 amallarini bajaramiz",
+   "Keyin, ikkinchi qatorni ishlatib, uchinchi qatordagi ikkinchi ustun elementini yo'q qilamiz",
+   "R3 ← R3 - R2 amalini bajaramiz",
+   "Endi orqaga qaytib yechamiz: z = 10/3, y = z - 2 = 4/3, x = 6 - y - z = 4/3",
+   "Tekshirish: satrlar 6, 10, 14 qiymatlarini beradi — to'g'ri",
+   "Javob: [4/3; 4/3; 10/3]"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — Elementar matritsani aniqlang",
+   "problem": "3×3 matritsida R3 ← R3 - 4R1 amalga oshiradigan E ni toping.",
+   "steps": [
+    "E — birlik matritsada -4 (3, 1) o'rnida",
+    "EA ning uchinchi qatori -4 · (birinchi qator)"
+   ],
+   "result": "E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Elementar matritsani aniqlashni ko'rib chiqamiz.",
+   "Elementar matritsa - bu birlik matritsaga bir qator operatsiyasini qo'llash orqali hosil qilingan matritsa.",
+   "Bu holda, R3 ← R3 - 4R1 amalini bajarganimiz uchun, birlik matritsaning (3, 1) elementiga -4 ni joylashtiramiz.",
+   "Tekshirish: A matritsasi uchun, uchinchi qator -4 birinchi qator ayirilmasidan hosil bo'ladi",
+   "Bekor qilish uchun, E^(-1) = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 4 & 0 & 1 \\end{pmatrix}"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Amaliyot 7 — EA ko'paytmasi",
+   "problem": "E = \\begin{pmatrix} 1 & 0 \\\\ -2 & 1 \\end{pmatrix}, A = \\begin{pmatrix} 3 & 1 \\\\ 6 & 5 \\end{pmatrix} bo'lsin. EA ni hisoblang.",
+   "steps": [
+    "Qator 1: [3 1]",
+    "Qator 2: [6 5] - 2·[3 1] = [0 3]",
+    "EA = \\begin{pmatrix} 3 & 1 \\\\ 0 & 3 \\end{pmatrix}"
+   ],
+   "result": "EA = \\begin{pmatrix} 3 & 1 \\\\ 0 & 3 \\end{pmatrix}"
+  },
+  "narr": [
+   "Endi EA ko'paytmasini hisoblashni ko'rib chiqamiz.",
+   "E matritsasi A matritsasiga qo'llaniladi.",
+   "Birinchi qator o'zgarmaydi: [3 1]",
+   "Ikkinchi qator: [6 5] - 2·[3 1] = [0 3]",
+   "Shunday qilib, EA = \\begin{pmatrix} 3 & 1 \\\\ 0 & 3 \\end{pmatrix}",
+   "Bu amal ikkinchi qatordan birinchi qatorning ikkilanganini ayirishni anglatadi (ko'paytuvchi 2)",
+   "Tekshirish: E^(-1) = \\begin{pmatrix} 1 & 0 \\\\ 2 & 1 \\end{pmatrix} A ni qaytaradi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   -1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Amaliyot 8 — O'zgartirilgan o'ng tomon",
+   "problem": "A = \\begin{pmatrix} 3 & 1 \\\\ 6 & 5 \\end{pmatrix} va b = \\begin{pmatrix} 4 \\\\ 17 \\end{pmatrix} uchun E = \\begin{pmatrix} 1 & 0 \\\\ -2 & 1 \\end{pmatrix} dan foydalanib sistemani yeching.",
+   "steps": [
+    "Eb = [4; -2·4 + 17] = [4; 9]",
+    "EA = \\begin{pmatrix} 3 & 1 \\\\ 0 & 3 \\end{pmatrix}",
+    "3y = 9 → y = 3",
+    "3x + 3 = 4 → x = 1/3"
+   ],
+   "result": "x = 1/3, y = 3"
+  },
+  "narr": [
+   "Endi o'zgartirilgan o'ng tomonni ko'rib chiqamiz.",
+   "E matritsasini o'ng tomon b ga qo'llaymiz: Eb = [4; -2·4 + 17] = [4; 9]",
+   "Keyin EA ni hisoblaymiz, bu avvalgi misoldagidek \\begin{pmatrix} 3 & 1 \\\\ 0 & 3 \\end{pmatrix}",
+   "Endi y ni topamiz: 3y = 9 → y = 3",
+   "Keyin x ni topamiz: 3x + 3 = 4 → x = 1/3",
+   "Asl sistemada tekshirish: 3·(1/3) + 3 = 4, 6·(1/3) + 5·3 = 17 — to'g'ri"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Amaliyot 9 — Nol asosiy element",
+   "problem": "\\begin{pmatrix} 0 & 2 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 7 \\end{pmatrix} ni qatorlarni almashtirib yeching; P ni toping.",
+   "steps": [
+    "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}",
+    "PA = \\begin{pmatrix} 3 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+    "Pb = \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}",
+    "2y = 4 → y = 2",
+    "3x + 2 = 7 → x = 5/3"
+   ],
+   "result": "x = 5/3, y = 2"
+  },
+  "narr": [
+   "Nol asosiy element bilan bog'liq muammoni ko'rib chiqamiz.",
+   "Birinchi qatorda asosiy element nol bo'lgani uchun, qatorlarni almashtirish kerak.",
+   "Almashtirish matritsasi P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}",
+   "PA ni hisoblaymiz: \\begin{pmatrix} 3 & 1 \\\\ 0 & 2 \\end{pmatrix}",
+   "Pb ni hisoblaymiz: \\begin{pmatrix} 7 \\\\ 4 \\end{pmatrix}",
+   "Endi y ni topamiz: 2y = 4 → y = 2",
+   "Keyin x ni topamiz: 3x + 2 = 7 → x = 5/3",
+   "Tekshirish: 0·(5/3) + 2·2 = 4, 3·(5/3) + 2 = 7 — to'g'ri"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Amaliyot 10 — Uchta qatorning almashtirilishi",
+   "problem": "A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 3 \\\\ 4 & 0 & 2 \\end{pmatrix} matritsasi 1 va 3-qatorlarini almashtiruvchi P ni toping; PA ni hisoblang.",
+   "steps": [
+    "P = \\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}",
+    "PA ning 1-qatori A ning 3-qatori",
+    "PA ning 3-qatori A ning 1-qatori",
+    "PA = \\begin{pmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{pmatrix}"
+   ],
+   "result": "P = \\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}, PA = \\begin{pmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{pmatrix}"
+  },
+  "narr": [
+   "Endi uchta qatorning almashtirilishini ko'rib chiqamiz.",
+   "1 va 3-qatorlarni almashtirish uchun P matritsasini tuzamiz.",
+   "P = \\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}",
+   "PA ni hisoblaymiz: PA ning 1-qatori A ning 3-qatori, PA ning 3-qatori A ning 1-qatori",
+   "Shunday qilib, PA = \\begin{pmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{pmatrix}",
+   "Tekshirish: P^2 = I, ya'ni P · PA = A; P^(-1) = P = P^T"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Amaliyot 11 — Ayniy, lekin mos keladigan",
+   "problem": "\\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 0 & 1 & 1 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 3 \\\\ 6 \\\\ 2 \\end{pmatrix} ni yeching.",
+   "steps": [
+    "R2 ← R2 - 2R1 [000|6 - 2·3] = [000|0]",
+    "Qator yo'qoldi, sistema mos, lekin ayniy",
+    "Qoladi x + 2y + z = 3 va y + z = 2",
+    "z = t: y = 2 - t, x = t - 1"
+   ],
+   "result": "\\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} t - 1 \\\\ 2 - t \\\\ t \\end{pmatrix}"
+  },
+  "narr": [
+   "Endi ayniy, lekin mos keladigan sistemani ko'rib chiqamiz.",
+   "Birinchi qatorni ishlatib, ikkinchi qatordagi elementlarni yo'q qilamiz.",
+   "R2 ← R2 - 2R1 [000|6 - 2·3] = [000|0]",
+   "Qator yo'qoldi, sistema mos, lekin ayniy cheksiz ko'p yechimga ega",
+   "Qoladi x + 2y + z = 3 va y + z = 2",
+   "z = t deb olsak, y = 2 - t, x = t - 1",
+   "t = 2 da tekshirish: \\begin{pmatrix} 1 & 0 & 2 \\end{pmatrix} [3, 6, 2]^T beradi — to'g'ri"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Amaliyot 12 — Ayniy va mos kelmaydigan",
+   "problem": "Oldingi sistemada o'ng tomonni b = \\begin{pmatrix} 3 \\\\ 7 \\\\ 2 \\end{pmatrix} ga o'zgartiring. Sistema mos keladimi?",
+   "steps": [
+    "R2 ← R2 - 2R1 [000|7 - 2·3] = [000|1]",
+    "0 = 1 — ziddiyat",
+    "Sistema mos kelmaydi: zarur shart b2 = 2b1 (7 ≠ 6) buzilgan"
+   ],
+   "result": "Sistema mos kelmaydi"
+  },
+  "narr": [
+   "Endi ayniy va mos kelmaydigan sistemani ko'rib chiqamiz.",
+   "Oldingi sistemada faqat o'ng tomonni o'zgartiramiz.",
+   "R2 ← R2 - 2R1 [000|7 - 2·3] = [000|1]",
+   "Bu 0 = 1 degani — ziddiyat",
+   "Sistema mos kelmaydi, chunki zarur shart b2 = 2b1 (7 ≠ 6) buzilgan"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Amaliyot 13 — Ustunlarning mos kelish talqini",
+   "problem": "A = \\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\end{pmatrix} uchun qaysi b = [b1; b2] vektorlari Ax = b tenglamani yechimga ega?",
+   "steps": [
+    "R2 ← R2 - 2R1 [12|b1; 00|b2 - 2b1]",
+    "Mos kelish uchun b2 = 2b1 talab qilinadi",
+    "Ustunlar \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} va \\begin{pmatrix} 2 \\\\ 4 \\end{pmatrix} = 2·\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} ga karrali",
+    "Ax har doim b2 = 2b1 to'g'risida yotadi"
+   ],
+   "result": "b = [b1; 2b1]"
+  },
+  "narr": [
+   "Endi ustunlarning mos kelish talqinini ko'rib chiqamiz.",
+   "A matritsasini ko'rib chiqamiz: \\begin{pmatrix} 1 & 2 \\\\ 2 & 4 \\end{pmatrix}",
+   "R2 ← R2 - 2R1 [12|b1; 00|b2 - 2b1]",
+   "Mos kelish uchun b2 = 2b1 talab qilinadi",
+   "Ustunlar \\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} va \\begin{pmatrix} 2 \\\\ 4 \\end{pmatrix} = 2·\\begin{pmatrix} 1 \\\\ 2 \\end{pmatrix} ga karrali",
+   "Shunday qilib, Ax har doim b2 = 2b1 to'g'risida yotadi",
+   "Tekshirish: \\begin{pmatrix} 4 \\\\ 8 \\end{pmatrix} (x = 4, y = 0) yechimga ega, \\begin{pmatrix} 4 \\\\ 9 \\end{pmatrix} esa yo'q"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Amaliyot 14 — Matritsa amallar tartibi",
+   "problem": "E = \\begin{pmatrix} 1 & 0 \\\\ -2 & 1 \\end{pmatrix} va P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} bo'lsin. EP va PE ni solishtiring.",
+   "steps": [
+    "EP: qatorlar [0 1] va [1, -2], ya'ni EP = \\begin{pmatrix} 0 & 1 \\\\ 1 & -2 \\end{pmatrix}",
+    "PE: qatorlar [-2 1] va [1 0], ya'ni PE = \\begin{pmatrix} -2 & 1 \\\\ 1 & 0 \\end{pmatrix}"
+   ],
+   "result": "EP = \\begin{pmatrix} 0 & 1 \\\\ 1 & -2 \\end{pmatrix}, PE = \\begin{pmatrix} -2 & 1 \\\\ 1 & 0 \\end{pmatrix}"
+  },
+  "narr": [
+   "Endi matritsa amallar tartibini ko'rib chiqamiz.",
+   "E va P matritsalarini olamiz.",
+   "EP ni hisoblaymiz: qatorlar [0 1] va [1, -2], ya'ni EP = \\begin{pmatrix} 0 & 1 \\\\ 1 & -2 \\end{pmatrix}",
+   "PE ni hisoblaymiz: qatorlar [-2 1] va [1 0], ya'ni PE = \\begin{pmatrix} -2 & 1 \\\\ 1 & 0 \\end{pmatrix}",
+   "Ko'paytmalar farq qiladi — qator amallari kommutativ emas",
+   "EP da chiqarish almashtirilgan qatorlarga ta'sir qiladi, PE da esa asl qatorlarga"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Amaliyot 15 — Sistemani qurish",
+   "problem": "Qatorlarni almashtirishni talab qiladigan, uchta asosiy elementga ega va x = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} yechimga ega bo'lgan 3 × 3 sistemani qurib ko'ring.",
+   "steps": [
+    "A = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix} — (1, 1) o'rnida nol, pastda birlik",
+    "b = A · \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}",
+    "1 va 2-qatorlarni almashtirish (P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}) birlik matritsani beradi",
+    "asosiy elementlar 1, 1, 1, yechim x = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix}"
+   ],
+   "result": "A = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}"
+  },
+  "narr": [
+   "Oxirgi mashqda sistemani qurishni ko'rib chiqamiz.",
+   "Qatorlarni almashtirishni talab qiladigan, uchta asosiy elementga ega sistemani qurishimiz kerak.",
+   "A = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix} — (1, 1) o'rnida nol, pastda birlik",
+   "b = A · \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}",
+   "1 va 2-qatorlarni almashtirish (P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}) birlik matritsani beradi",
+   "asosiy elementlar 1, 1, 1, yechim x = \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix}",
+   "Tekshirish: A · \\begin{pmatrix} 1 \\\\ 2 \\\\ 3 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 3 \\end{pmatrix}; almashtirmasdan birinchi ustun chiqarilmaydi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "3.5.1 5-haftani takrorlash",
+   "subtitle": "Sistemaning ikki tasviri va chiqarish"
+  },
+  "narr": [
+   "Bu yerda 5-haftani takrorlaymiz: sistemaning ikki tasviri va chiqarish usullari.",
+   "6-haftada matritsa amallari, teskari matritsalar va ajratishlarni o'rganamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ }
+]
