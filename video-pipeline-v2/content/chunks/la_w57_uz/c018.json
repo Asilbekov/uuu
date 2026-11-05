@@ -1,0 +1,587 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Keling, chiziqli algebraning murakkab tushunchalarini oddiy va tushunarli ko'rinishda o'rganaylik.",
+   "Bu bo'limda matritsa transponirlash, simmetriklik, permutatsiya va chiziqli bo'shliqlar kabi mavzularni ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — Matritsa ko'paytmasining transponirlanishi",
+   "problem": "AB matritsasi berilgan bo'lib, uning transponirlanishini hisoblang.",
+   "steps": [
+    {
+     "text": "AB = \\begin{bmatrix} 3 & 3 \\\\ 2 & 6 \\end{bmatrix}"
+    },
+    {
+     "text": "(AB)^T = \\begin{bmatrix} 3 & 2 \\\\ 3 & 6 \\end{bmatrix}"
+    },
+    {
+     "text": "B^T A^T = \\begin{bmatrix} 2 & 1 \\\\ 0 & 3 \\end{bmatrix} · \\begin{bmatrix} 1 & 1 \\\\ 0 & 2 \\end{bmatrix} = \\begin{bmatrix} 3 & 2 \\\\ 3 & 6 \\end{bmatrix}"
+    }
+   ],
+   "result": "(AB)^T = B^T A^T"
+  },
+  "narr": [
+   "Ko'rib turganingizdek, matritsa ko'paytmasining transponirlanishi ko'paytuvchilarning teskari tartibda transponirlanishiga teng.",
+   "Bu asosiy xususiyat chiziqli algebrada juda muhimdir."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — Simmetrik matritsani tekshirish",
+   "problem": "A = \\begin{bmatrix} 2 & -3 \\\\ -3 & 1 \\end{bmatrix} matritsasi simmetrikmi?",
+   "steps": [
+    {
+     "text": "A^T = \\begin{bmatrix} 2 & -3 \\\\ -3 & 1 \\end{bmatrix} = A"
+    },
+    {
+     "text": "Diagonal tashqari elementlar bir xil: a12 = a21 = -3"
+    },
+    {
+     "text": "Transponirlashganda matritsa o'zgarmaydi"
+    }
+   ],
+   "result": "Ha, matritsa simmetrik"
+  },
+  "narr": [
+   "Simmetrik matritsa degani, matritsani transponirlaganda o'zgarmaydigan matritsadir.",
+   "Bunday matritsada diagonal tashqari elementlar simmetrik joylashgan bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — Simmetrik va antimetrik qismlarga ajratish",
+   "problem": "A = \\begin{bmatrix} 1 & 4 \\\\ 2 & 3 \\end{bmatrix} matritsasini simmetrik va antimetrik qismlarga ajrating.",
+   "steps": [
+    {
+     "text": "A^T = \\begin{bmatrix} 1 & 2 \\\\ 4 & 3 \\end{bmatrix}"
+    },
+    {
+     "text": "S = (A + A^T)/2 = \\begin{bmatrix} 1 & 3 \\\\ 3 & 3 \\end{bmatrix}"
+    },
+    {
+     "text": "K = (A - A^T)/2 = \\begin{bmatrix} 0 & 1 \\\\ -1 & 0 \\end{bmatrix}"
+    },
+    {
+     "text": "Tekshirish: S + K = A, S^T = S, K^T = -K"
+    }
+   ],
+   "result": "S = \\begin{bmatrix} 1 & 3 \\\\ 3 & 3 \\end{bmatrix}, K = \\begin{bmatrix} 0 & 1 \\\\ -1 & 0 \\end{bmatrix}"
+  },
+  "narr": [
+   "Har qanday matritsani simmetrik va antimetrik qismlarga ajratish mumkin.",
+   "Simmetrik qism matritsani uning transponiriga o'rtacha qiymati, antimetrik qism esa farqi yarimiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Qatorlarni almashtirish",
+   "problem": "P = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}, A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix} uchun PA ni toping.",
+   "steps": [
+    {
+     "text": "PA = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix} · \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix}"
+    },
+    {
+     "text": "Ko'paytmaning birinchi qatori A ning ikkinchi qatori"
+    },
+    {
+     "text": "Ko'paytmaning ikkinchi qatori A ning birinchi qatori"
+    }
+   ],
+   "result": "PA = \\begin{bmatrix} 3 & 4 \\\\ 1 & 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Chapdan ko'paytirish qatorlarni almashtirishga olib keladi.",
+   "Bu erda P matritsasi A matritsasining qatorlarini almashtiradi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — Ustunlarni almashtirish",
+   "problem": "A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix}, P = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix} uchun AP ni toping.",
+   "steps": [
+    {
+     "text": "AP = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{matrix} · \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}"
+    },
+    {
+     "text": "Ko'paytmaning birinchi ustuni A ning ikkinchi ustuni"
+    },
+    {
+     "text": "Ko'paytmaning ikkinchi ustuni A ning birinchi ustuni"
+    }
+   ],
+   "result": "AP = \\begin{bmatrix} 2 & 1 \\\\ 4 & 3 \\end{bmatrix}"
+  },
+  "narr": [
+   "O'ngdan ko'paytirish esa ustunlarni almashtirishga olib keladi.",
+   "E'tibor bering, PA ≠ AP, ya'ni matritsa ko'paytirish o'zgaruvchan emas."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — Permutatsiya matritsasining teskari matritsasi",
+   "problem": "P = \\begin{bmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 0 & 0 \\end{bmatrix} uchun P^{-1} ni toping.",
+   "steps": [
+    {
+     "text": "Permutatsiya matritsasi uchun P^{-1} = P^T"
+    },
+    {
+     "text": "P^T = \\begin{bmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{bmatrix}"
+    },
+    {
+     "text": "Tekshirish: P^T P = I"
+    }
+   ],
+   "result": "P^{-1} = \\begin{bmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{bmatrix}"
+  },
+  "narr": [
+   "Permutatsiya matritsalarining teskari matritsasi uning transponiriga teng.",
+   "Bu shuni anglatadiki, permutatsiya matritsalarining ustunlari orthonormal bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — 1 va 3-qatorlarni almashtiruvchi permutatsiya matritsasi",
+   "problem": "3 × 3 matritsaning 1 va 3-qatorlarini almashtiruvchi permutatsiya matritsasi P ni toping.",
+   "steps": [
+    {
+     "text": "1 va 3-qatorlarni almashtirish uchun P matritsasi quyidagi ko'rinishda bo'ladi:"
+    },
+    {
+     "text": "P = \\begin{bmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{bmatrix}"
+    },
+    {
+     "text": "Har qanday A matritsasi uchun PA uning 1 va 3-qatorlarini almashtiradi"
+    }
+   ],
+   "result": "P = \\begin{bmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{bmatrix}"
+  },
+  "narr": [
+   "Permutatsiya matritsasi - bu matritsani qatorlar yoki ustunlarini almashtirishga imkon beradigan maxsus matritsa.",
+   "Bu matritsa identifikatsiya matritsasining qatorlarini almashtirish orqali hosil qilinadi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — PA = LU nol bosh elementi bilan",
+   "problem": "A = \\begin{bmatrix} 0 & 2 \\\\ 3 & 4 \\end{bmatrix} uchun P, L, U ni toping.",
+   "steps": [
+    {
+     "text": "Bosh element a11 = 0 - almashtirmasdan bo'lmaydi"
+    },
+    {
+     "text": "Qatorlarni almashtiramiz: P = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}"
+    },
+    {
+     "text": "PA = \\begin{bmatrix} 3 & 4 \\\\ 0 & 2 \\end{bmatrix}"
+    },
+    {
+     "text": "Bosh element 3 ostida 0 - chiqarish tugadi, ko'paytchilar yo'q"
+    },
+    {
+     "text": "L = I2, U = PA"
+    }
+   ],
+   "result": "P = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}, L = \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix}, U = \\begin{bmatrix} 3 & 4 \\\\ 0 & 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Gauss eliminatsiyasida bosh element nol bo'lganda, qatorlarni almashtirish kerak bo'ladi.",
+   "Bu jarayonda permutatsiya matritsasi P dan foydalanamiz."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — LU qatorlarni almashtirmasdan",
+   "problem": "A = \\begin{bmatrix} 2 & 1 \\\\ 6 & 5 \\end{bmatrix} uchun L, U ni qatorlarni almashtirmasdan toping.",
+   "steps": [
+    {
+     "text": "Bosh element 2 ≠ 0, almashtirish kerak emas"
+    },
+    {
+     "text": "Ko'paytchi m21 = 6/2 = 3"
+    },
+    {
+     "text": "R2 ← R2 - 3R1: \\begin{bmatrix} 6 & 5 \\end{bmatrix} - 3 · \\begin{bmatrix} 2 & 1 \\end{bmatrix} = \\begin{bmatrix} 0 & 2 \\end{bmatrix}"
+    },
+    {
+     "text": "U = \\begin{bmatrix} 2 & 1 \\\\ 0 & 2 \\end{bmatrix}, L = \\begin{bmatrix} 1 & 0 \\\\ 3 & 1 \\end{bmatrix}"
+    },
+    {
+     "text": "Tekshirish: LU = A"
+    }
+   ],
+   "result": "L = \\begin{bmatrix} 1 & 0 \\\\ 3 & 1 \\end{bmatrix}, U = \\begin{bmatrix} 2 & 1 \\\\ 0 & 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "LU ajratmasi matritsani pastki va yuqori uchburchak matritsalarga ajratishga imkon beradi.",
+   "Bu usul chiziqli tenglamalar sistemalarini yechishda juda samarali."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — Altbo'shlik: boshdan o'tuvchi to'g'ri chiziq",
+   "problem": "W = {(x, y): y = 3x} R^2 ning altbo'shligimi?",
+   "steps": [
+    {
+     "text": "W = {t(1, 3): t ∈ R}: nol vektorga t = 0 mos keladi"
+    },
+    {
+     "text": "u = (s, 3s), v = (t, 3t) va har qanday a, b uchun:"
+    },
+    {
+     "text": "au + bv = (as + bt, 3(as + bt)) ∈ W"
+    },
+    {
+     "text": "Yopiqlik mavjud"
+    }
+   ],
+   "result": "Ha, W altbo'shlik (boshdan o'tuvchi to'g'ri chiziq)"
+  },
+  "narr": [
+   "Altbo'shlik - bu vektorlar to'plami bo'lib, u ikkita asosiy shartni qanoatlantiradi:",
+   "1) Nol vektor to'plamda bo'lishi kerak",
+   "2) Ikkita vektorning chiziqli birikmasi ham to'plamda bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 11 — Misol: siljigan to'g'ri chiziq",
+   "problem": "S = {(x, y): y = 3x + 2} altbo'shlikmi?",
+   "steps": [
+    {
+     "text": "Nol vektor tenglamani qanoatlantirmaydi:"
+    },
+    {
+     "text": "3 · 0 + 2 = 2 ≠ 0"
+    },
+    {
+     "text": "Nol vektor testi inkor uchun yetarli"
+    },
+    {
+     "text": "Altbo'shlik koordinata boshini o'z ichiga olishi shart"
+    }
+   ],
+   "result": "Yo'q, S altbo'shlik emas"
+  },
+  "narr": [
+   "Siljigan to'g'ri chiziq - bu boshdan o'tmaydigan to'g'ri chiziq.",
+   "Shuning uchun u altbo'shlik bo'la olmaydi, chunki nol vektor unga kirmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 12 — Altbo'shlik: tekislik",
+   "problem": "W = {(x, y, z): x + y - z = 0} altbo'shlikmi?",
+   "steps": [
+    {
+     "text": "f(x, y, z) = x + y - z"
+    },
+    {
+     "text": "u, v ∈ W uchun: f(au + bv) = a · f(u) + b · f(v) = 0"
+    },
+    {
+     "text": "Demak, au + bv ∈ W"
+    },
+    {
+     "text": "f(0, 0, 0) = 0"
+    }
+   ],
+   "result": "Ha, W altbo'shlik (boshdan o'tuvchi tekislik)"
+  },
+  "narr": [
+   "Tekislik ham altbo'shlik bo'lishi mumkin, agar u koordinata boshidan o'tadigan bo'lsa.",
+   "Bu holatda tekislikning tenglamasi nolga teng bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 13 — Vektorlarning chiziqli birikmasi",
+   "problem": "(4, 1) vektorni (1, 1) va (1, -1) vektorlarining birikmasi sifatida ifodalang.",
+   "steps": [
+    {
+     "text": "c1(1, 1) + c2(1, -1) = (4, 1) ni qidiramiz:"
+    },
+    {
+     "text": "c1 + c2 = 4"
+    },
+    {
+     "text": "c1 - c2 = 1"
+    },
+    {
+     "text": "Qo'shamiz: 2c1 = 5, c1 = 5/2, c2 = 3/2"
+    },
+    {
+     "text": "Tekshirish: (5/2 + 3/2, 5/2 - 3/2) = (4, 1)"
+    }
+   ],
+   "result": "(4, 1) = (5/2)(1, 1) + (3/2)(1, -1)"
+  },
+  "narr": [
+   "Vektorlarning chiziqli birikmasi - bu ularning skalyar ko'paytmalarining yig'indisi.",
+   "Bu tushuncha vektorlarning bir-biriga bog'liqligini aniqlashda muhimdir."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 14 — Proporsional vektorlarning qobig'i",
+   "problem": "(1, 2, 0) va (2, 4, 0) vektorlarining chiziqli qobig'ini toping.",
+   "steps": [
+    {
+     "text": "Ikkinchi vektor birinchisining ikki barobar katta:"
+    },
+    {
+     "text": "(2, 4, 0) = 2(1, 2, 0)"
+    },
+    {
+     "text": "Shuning uchun har qanday birlik (1, 2, 0) ga karrali"
+    },
+    {
+     "text": "Natija: span{(1, 2, 0), (2, 4, 0)} = {t(1, 2, 0): t ∈ R}"
+    }
+   ],
+   "result": "Chiziqli qobiq R^3 dagi to'g'ri chiziq"
+  },
+  "narr": [
+   "Agar ikkita vektor proporsional bo'lsa, ularning chiziqli qobigi faqatgina bir to'g'ri chiziqni tashkil qiladi.",
+   "Bu holatda ikkinchi vektor birinchisining skalyar ko'paytmasi bo'lgani uchun."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 15 — 1 × 3 matritsaning nol bo'shlig'i",
+   "problem": "A = \\begin{bmatrix} 1 & 2 & -1 \\end{bmatrix} uchun Null(A) ni toping.",
+   "steps": [
+    {
+     "text": "Ax = 0 tenglama: x1 + 2x2 - x3 = 0"
+    },
+    {
+     "text": "Erkin o'zgaruvchilar x2 = s, x3 = t"
+    },
+    {
+     "text": "unda x1 = -2s + t"
+    },
+    {
+     "text": "x = s(-2, 1, 0) + t(1, 0, 1)"
+    },
+    {
+     "text": "Tekshirish: 1 · (-2) + 2 · 1 - 0 = 0 va 1 · 1 + 2 · 0 - 1 = 0"
+    }
+   ],
+   "result": "Null(A) = span{(-2, 1, 0), (1, 0, 1)} — R^3 dagi tekislik"
+  },
+  "narr": [
+   "Nol bo'shligi - bu matritsaning Ax = 0 tenglamaning barcha yechimlari to'plami.",
+   "Bu to'plam har doim altbo'shlik bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 16 — Ustunlar bo'shlig'i",
+   "problem": "A = \\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\\\ 0 & 0 \\end{bmatrix} uchun Col(A) ni toping; unga (3, 6, 0) vektori tegishlimi?",
+   "steps": [
+    {
+     "text": "Ustunlar a1 = (1, 2, 0) va a2 = (2, 4, 0) = 2a1 proporsional"
+    },
+    {
+     "text": "Shuning uchun Col(A) = span{(1, 2, 0)}"
+    },
+    {
+     "text": "(3, 6, 0) = 3(1, 2, 0) ekanligidan"
+    },
+    {
+     "text": "vektor shu to'g'ri chiziqda joylashgan"
+    },
+    {
+     "text": "A · \\begin{bmatrix} 3 \\\\ 0 \\end{bmatrix} = (3, 6, 0)"
+    }
+   ],
+   "result": "Col(A) = span{(1, 2, 0)} — R^3 dagi to'g'ri chiziq; ha, (3, 6, 0) tegishli"
+  },
+  "narr": [
+   "Ustunlar bo'shligi - bu matritsaning ustunlarining chiziqli qobig'i.",
+   "Bu bo'shlik matritsa orqali chiqariladigan barcha vektorlardan iborat."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 17 — Transponir va 3×3 determinant",
+   "problem": "A = \\begin{bmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 2 \\end{bmatrix} uchun A^T va det(A) ni toping.",
+   "steps": [
+    {
+     "text": "A^T = \\begin{bmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 2 \\end{bmatrix}"
+    },
+    {
+     "text": "A yuqori uchburchakli"
+    },
+    {
+     "text": "det A = 1·1·2 = 2 (diagonal elementlar ko'paytmasi)"
+    },
+    {
+     "text": "Transponir determinantni o'zgartirmaydi"
+    },
+    {
+     "text": "det(A^T) = 2"
+    }
+   ],
+   "result": "A^T = \\begin{bmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 2 \\end{bmatrix}, det(A) = 2"
+  },
+  "narr": [
+   "Yuqori yoki pastki uchburchak matritsalar determinantini hisoblash juda oson - bu diagonal elementlarning ko'paytmasi.",
+   "Shuningdek, matritsani transponirlash uning determinantini o'zgartirmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 18 — Matritsa transponirlash",
+   "problem": "A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix} uchun A^T ni hisoblang.",
+   "steps": [
+    {
+     "text": "A^T = \\begin{bmatrix} 1 & 3 \\\\ 2 & 4 \\end{bmatrix}"
+    },
+    {
+     "text": "Matritsani transponirlash - bu uning qatorlarini ustunlarga aylantirish"
+    }
+   ],
+   "result": "A^T = \\begin{bmatrix} 1 & 3 \\\\ 2 & 4 \\end{bmatrix}"
+  },
+  "narr": [
+   "Transponir matritsani olish juda oddiy amaldir.",
+   "U matritsani aylantirishga o'xshaydi - birinchi qator birinchi ustun bo'ladi, ikkinchi qator ikkinchi ustun bo'ladi va hokazo."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 19 — Matritsa yig'indisining transponirlanishi",
+   "problem": "A = \\begin{bmatrix} 1 & 0 \\\\ 2 & 3 \\end{bmatrix}, B = \\begin{bmatrix} 2 & 1 \\\\ 0 & -1 \\end{bmatrix} uchun (A + B)^T ni hisoblang.",
+   "steps": [
+    {
+     "text": "A + B = \\begin{bmatrix} 3 & 1 \\\\ 2 & 2 \\end{bmatrix}"
+    },
+    {
+     "text": "(A + B)^T = \\begin{bmatrix} 3 & 2 \\\\ 1 & 2 \\end{bmatrix}"
+    },
+    {
+     "text": "A^T = \\begin{bmatrix} 1 & 2 \\\\ 0 & 3 \\end{bmatrix}"
+    },
+    {
+     "text": "B^T = \\begin{bmatrix} 2 & 0 \\\\ 1 & -1 \\end{bmatrix}"
+    },
+    {
+     "text": "A^T + B^T = \\begin{bmatrix} 3 & 2 \\\\ 1 & 2 \\end{bmatrix} = (A + B)^T"
+    }
+   ],
+   "result": "(A + B)^T = \\begin{bmatrix} 3 & 2 \\\\ 1 & 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Yig'indining transponiri transponirlarning yig'indisiga teng.",
+   "Bu xususiyat matritsa operatsiyalarida foydalanish mumkin bo'lgan asosiy qonunlardan biridir."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ }
+]
