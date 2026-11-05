@@ -1,0 +1,545 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Avtobus marshrutining besh manfaatchisi",
+   "subtitle": "Sistema tahlili"
+  },
+  "narr": [
+   "Keling, avtobus marshrutini turli manfaatchilar nuqtai nazaridan ko'rib chiqaylik. Har bir manfaatchining o'z jarayoni va muvaffaqiyat mezonlari mavjud.",
+   "Birinchidan, yo'lovchi uchun jarayon: bekatgacha piyoda borish → kutish → avtobusga chiqish → sayohat → tushib qolish. Muvaffaqiyat qisqa kutish vaqti, arzon narx va xavfsizlikdir.",
+   "Ikkinchidan, haydovchi/dispatcher uchun: ish boshlash → avtobusni tekshirish → marshrutni bosib o'tish → yoqilg'i quyish → smenani tugatish. Muvaffaqiyat amalga oshiriladigan jadvaldir.",
+   "Uchinchidan, texnik xizmat ko'rsatuvchi: tekshirish → diagnostika → ta'mirlash → xizmatga qaytarish. Muvaffaqiyat xavfsiz avtobuslar va rejalashtirilgan to'xtashlardir.",
+   "To'rtinchidan, ma'muriyat: byudjet belgilash → jadval tuzish → yo'lovchilar sonini ko'rib chiqish → tuzatish. Muvaffaqiyat bitta yo'lovchiga tushadigan xarajat, qamrov va kam shikoyatlardir.",
+   "Beshinchidan, qo'shni: avtobusni eshitish → transport harakatini kuzatish → universitetga bog'lanish. Muvaffaqiyat tinchlik va kamroq tirbandlikdir.",
+   "Ko'rib turibmizki, har xil boshlanishlar, har xil qadamlar va har xil tugashlar — va bularning barchasi bitta marshrutga tegishli."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq — 'Three Lenses'",
+   "problem": "Avtobus marshrutining 5 qadamli oqimini Rider / Driver / Maintenance qiyofasida chizing va solishtiring.",
+   "steps": [
+    {
+     "text": "Yo'lovchi (Rider): Bekatga piyoda borish → Kutish → Avtobusga chiqish → Sayohat → Tushib qolish"
+    },
+    {
+     "text": "Haydovchi (Driver): Ish boshlash → Avtobusni tekshirish → Marshrutni bosib o'tish → Yoqilg'i quyish → Ishni tugatish"
+    },
+    {
+     "text": "Texnik xizmat (Maintenance): Tekshirish → Diagnostika → Ta'mirlash → Xizmatga qaytarish"
+    },
+    {
+     "text": "Solishtirish: Nima kiritilgan/chiqarilgan va diagrammalarda qanday ziddiyatlar mavjud"
+    },
+    {
+     "text": "Ziddiyatlar - bu muvaffaqiyatning raqobatlashuvchi ta'riflari, 4-haftada ular turli ishlash o'zgaruvchilariga aylanadi"
+    }
+   ],
+   "result": "Har bir manfaatchining o'z jarayoni va muvaffaqiyat mezonlari mavjud, ularning ziddiyatlari tizimning turli ko'rsatkichlariga aylanishi mumkin"
+  },
+  "narr": [
+   "Endi 'Three Lenses' mashqini ko'rib chiqaylik. Bu mashqda avtobus marshrutining 5 qadamli oqimini turli manfaatchilar nuqtai nazaridan chizishimiz kerak.",
+   "Birinchi, yo'lovchi uchun oqim: bekatga piyoda borish → kutish → avtobusga chiqish → sayohat → tushib qolish.",
+   "Ikkinchi, haydovchi uchun: ish boshlash → avtobusni tekshirish → marshrutni bosib o'tish → yoqilg'i quyish → ishni tugatish.",
+   "Uchinchi, texnik xizmat uchun: tekshirish → diagnostika → ta'mirlash → xizmatga qaytarish.",
+   "Keyin, solishtirish qilamiz: nima kiritilgan/chiqarilgan va diagrammalarda qanday ziddiyatlar mavjud.",
+   "Ziddiyatlar - bu muvaffaqiyatning raqobatlashuvchi ta'riflari. 4-haftada bu ziddiyatlar turli ishlash o'zgaruvchilariga aylanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Lab 3 — Kichik guruh mashq",
+   "problem": "Vazifaga nima kiradi va deliverable qanday?",
+   "steps": [
+    {
+     "text": "Vazifa (3-4 kishilik jamoalar, 15 daqiqa ishlash + 5 daqiqa namoyish):"
+    },
+    {
+     "text": "Tizimni bitta gap bilan aniqlash (bu nima va nima qiladi)"
+    },
+    {
+     "text": "Chegarani chizish va nima ichida/tashqarida ekanini e'lon qilish"
+    },
+    {
+     "text": "Chegaradan o'tuvchi kirish va chiqishlarni sanab o'tish"
+    },
+    {
+     "text": "Uses It / Runs It / Affected By It manfaatchilarini aniqlash"
+    },
+    {
+     "text": "Ish kontekstini belgilash"
+    }
+   ]
+  },
+  "narr": [
+   "Lab 3 uchun kichik guruh mashqini ko'rib chiqaylik. Bu mashqda jamoaviy vazifa va yakuniy natijalar nimalardan iborat?",
+   "Vazifa 3-4 kishilik jamoalar uchun mo'ljallangan, 15 daqiqa ishlash va 5 daqiqa namoyish vaqt beriladi.",
+   "Birinchidan, tizimni bitta gap bilan aniqlash kerak - bu nima va qanday ishlaydi.",
+   "Ikkinchidan, chegarani chizish va nima ichida/tashqarida ekanini e'lon qilish.",
+   "Uchinchidan, chegaradan o'tuvchi kirish va chiqishlarni sanab o'tish.",
+   "To'rtinchidan, Uses It / Runs It / Affected By It manfaatchilarini aniqlash.",
+   "Beshinchidan, ish kontekstini belgilash."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Lab 3 — Kichik guruh mashq (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "Bitta aniq o'zgartirishni va nega ekanini taklif qilish"
+    },
+    {
+     "text": "Deliverable: qog'ozda yoki doskada Level 0 black box va Level 1 box-language diagramma — har bir o'qda yozuv bilan"
+    }
+   ],
+   "result": "Jamoa tizimni tushunishi, chegaralarini belgilashi, manfaatchilarni aniqlashi va o'zgarish taklif qilishi kerak. Natija sifatida Level 0 va Level 1 diagrammalarini taqdim etish kerak."
+  },
+  "narr": [
+   "Oltinchidan, bitta aniq o'zgartirishni va unga sababini taklif qilish.",
+   "Yakuniy natija (deliverable) sifatida qog'ozda yoki doskada Level 0 black box va Level 1 box-language diagrammani taqdim etish kerak, har bir o'qda yozuv bilan."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Lab 3 — Quyosh panellari yig'ish liniyasi",
+   "problem": "Quyosh panellari yig'ish liniyasining tahlili: tizim, chegara, manfaatchilar, kirishlar/chiqishlar.",
+   "steps": [
+    {
+     "text": "Shartlar: har kuni 600 shisha varaq va 600 podlojka, 36 000 quyosh elementi, EVA plyonka, alyuminiy ramkalar va junction qutilari keladi"
+    },
+    {
+     "text": "Materiallar tekshiriladi, elementlar saralanadi va stringlarga teriladi, modullar EVA va podlojklar bilan yotiziladi"
+    },
+    {
+     "text": "Laminatsiya qilinadi va 30 daqiqalik sovutish navbatiga boradi"
+    },
+    {
+     "text": "Panellar qirqib olinadi, ramkalanadi, qutilar o'rnatiladi"
+    },
+    {
+     "text": "Har bir modul flash-testdan o'tkaziladi va elektroluminessensiya bilan tekshiriladi"
+    },
+    {
+     "text": "Qaror: pass / rework / scrap"
+    }
+   ]
+  },
+  "narr": [
+   "Keyingi, Quyosh panellari yig'ish liniyasi tahlilini ko'rib chiqaylik. Bu tizim qanday ishlaydi?",
+   "Har kuni 600 shisha varaq va 600 podlojka, 36 000 quyosh elementi, EVA plyonka, alyuminiy ramkalar va junction qutilari keladi.",
+   "Materiallar tekshiriladi, elementlar saralanadi va stringlarga teriladi, modullar EVA va podlojklar bilan yotiziladi.",
+   "Keyin laminatsiya qilinadi va 30 daqiqalik sovutish navbatiga boradi.",
+   "Panellar qirqib olinadi, ramkalanadi, qutilar o'rnatiladi.",
+   "Har bir modul flash-testdan o'tkaziladi va elektroluminessensiya bilan tekshiriladi.",
+   "Natijada qaror qabul qilinadi: pass / rework / scrap."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Lab 3 — Quyosh panellari yig'ish liniyasi (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "Tasdiqlangan modullar qadoqlanadi va yuboriladi"
+    },
+    {
+     "text": "Etalon: tizim — qabul doklaridan yuborish doklarigacha bo'lgan yig'ish liniyasi"
+    },
+    {
+     "text": "Chegara ichida — inspeksiya, stringlash, yotizish, laminatsiya, sovutish, qirqish/ramkalash, testlash, qadoqlash"
+    },
+    {
+     "text": "Tashqarida — xomashyo yetkazuvchilari, mijoz, chiqindilarni qayta ishlavchi"
+    },
+    {
+     "text": "Manfaatchilar: Uses It — panellarni oluvchi mijoz; Runs It — liniya operatorlari, sifat nazoratchilari, smena supervayzeri; Affected By It — ta'mir jamoasi, logistika, atrof-muhit"
+    },
+    {
+     "text": "Kirishlar: 600 shisha varaq/kun, 600 podlojka/kun, 36 000 element/kun, EVA, ramkalar, qutilar"
+    },
+    {
+     "text": "Chiqishlar: tayyor panellar (yuborish), rework uchun modullar, scrap-modullar"
+    }
+   ],
+   "result": "Quyosh panellari yig'ish liniyasini tahlil qilishda tizim chegaralari, manfaatchilar va kirish/chiqishlarni aniqlash muhimdir."
+  },
+  "narr": [
+   "Tasdiqlangan modullar qadoqlanadi va yuboriladi.",
+   "Tizim - bu qabul doklaridan yuborish doklarigacha bo'lgan yig'ish liniyasi.",
+   "Chegara ichida — inspeksiya, stringlash, yotizish, laminatsiya, sovutish, qirqish/ramkalash, testlash, qadoqlash.",
+   "Tashqarida — xomashyo yetkazuvchilari, mijoz, chiqindilarni qayta ishlavchi.",
+   "Manfaatchilar: Uses It — panellarni oluvchi mijoz; Runs It — liniya operatorlari, sifat nazoratchilari, smena supervayzeri; Affected By It — ta'mir jamoasi, logistika, atrof-muhit.",
+   "Kirishlar: 600 shisha varaq/kun, 600 podlojka/kun, 36 000 element/kun, EVA, ramkalar, qutilar.",
+   "Chiqishlar: tayyor panellar (yuborish), rework uchun modullar, scrap-modullar."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Lab 3 — Quyosh liniyasining Level 0 va Level 1 si",
+   "problem": "Quyosh liniyasining Level 0 va Level 1 diagrammasi va qarorlar qoidasi.",
+   "steps": [
+    {
+     "text": "Level 0: kirishlar — shisha varaq (600/kun), podlojkalar (600/kun), elementlar (36 000/kun), EVA/ramkalar/qutilar; chiqishlar — tayyor panellar, rework-modullar, scrap-modullar; kontekst — yetkazib berish jadvali, sexning sig'imi, IEC sifat standartlari, 30 daqiqalik sovutish talabi"
+    },
+    {
+     "text": "Level 1 (box language): Start → 1 Receive materials (cells) → 2 Inspect materials (stack) → 3 Sort and string cells → 4 Lay up and laminate (modules) → 5 Cool, 30 min [wait] → 6 Trim, frame and fit boxes (panels) → 7 Flash test and inspect (approved) → 8 Pack modules → Ship to customer"
+    },
+    {
+     "text": "Qarorlar qoidasi: har bir qarorning ikkala chiqishiga ham manzil beriladi; rework oqim bo'ylab yuqoriga qaytadi (4-qadamga); scrap tizimdan chiqindi sifatida chiqib ketadi"
+    },
+    {
+     "text": "Etalon javob ta'kidlaydi: «bu taxminiy yechim, mantiqni tushunishga qarab o'zgarishi mumkin»"
+    }
+   ],
+   "result": "Quyosh liniyasini Level 0 va Level 1 darajalarida tasvirlash jarayoni va qarorlar qoidalari."
+  },
+  "narr": [
+   "Endi quyosh liniyasining Level 0 va Level 1 diagrammalarini ko'rib chiqaylik.",
+   "Level 0 da kirishlar: shisha varaq (600/kun), podlojkalar (600/kun), elementlar (36 000/kun), EVA/ramkalar/qutilar.",
+   "Chiqishlar: tayyor panellar, rework-modullar, scrap-modullar.",
+   "Kontekst: yetkazib berish jadvali, sexning sig'imi, IEC sifat standartlari, 30 daqiqalik sovutish talabi.",
+   "Level 1 (box language): Start → 1 Receive materials (cells) → 2 Inspect materials (stack) → 3 Sort and string cells → 4 Lay up and laminate (modules) → 5 Cool, 30 min [wait] → 6 Trim, frame and fit boxes (panels) → 7 Flash test and inspect (approved) → 8 Pack modules → Ship to customer.",
+   "Qarorlar qoidasi: har bir qarorning ikkala chiqishiga ham manzil beriladi; rework oqim bo'ylab yuqoriga qaytadi (4-qadamga); scrap tizimdan chiqindi sifatida chiqib ketadi.",
+   "Etalon javob ta'kidlaydi: «bu taxminiy yechim, mantiqni tushunishga qarab o'zgarishi mumkin»."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Massa balansi (Kosky 18-bob)",
+   "subtitle": "Atrof-muhit injeneriyasi"
+  },
+  "narr": [
+   "Endi massa balansiga o'tamiz, bu Kosky kitobining 18-bobida muhokama qilingan.",
+   "Atrof-muhit injeneriyasi uchta asosiy maqsadga ega: (1) insonlar salomatligini himoya qilish, (2) tabiat ekotizimlarini himoya qilish, (3) muhit bilan bog'liq hayot sifatini yaxshilash.",
+   "1960-yillarning o'rtasigacha bu soha civil engineering ichida sanitariya injeneriyasi deb atalgan.",
+   "Sohaning asosiy vazifalari: havoning, suvning va shovqinning ifloslanishi nazorati; ichimlik suvini tayyorlash va taqsimlash; oqava suvlarni yig'ish va utilizatsiya qilish; qattiq va xavfli chiqindilarni boshqarish; ifloslangan maydonlarni tozalash; ekologik baholashlar va auditlar."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ifloslanishni o'lchash",
+   "bullets": [
+    "Ifloslantiruvchining miqdori uning konsentratsiyasi — aralashma hajm birligiga to'g'ri keladigan massasi bilan aniqlanadi",
+    "Suv uchun: 1 ppm = 1 mg/L va 1 ppb = 1 μg/L",
+    "Tuproq uchun: 1 ppm = 1 mg/kg, 1 ppb = 1 μg/kg",
+    "Havo uchun: mg/m3 dagi konsentratsiyalar harorat va bosimga bog'liq, shuning uchun ular 1 atm (101 325 N/m2) va 25 °C (298 K) da me'yorlanadi"
+   ]
+  },
+  "narr": [
+   "Ifloslanishni qanday o'lchaymiz?",
+   "Ifloslantiruvchining miqdori uning konsentratsiyasi bilan aniqlanadi — bu aralashma hajm birligiga to'g'ri keladigan massasi.",
+   "Suv uchun: 1 ppm = 1 mg/L va 1 ppb = 1 μg/L. Buni eslab qolish uchun: hovuzdagi bitta chashka ifloslantiruvchi — ppm, hovuzdagi bitta tomchi — ppb.",
+   "Tuproq uchun: 1 ppm = 1 mg/kg, 1 ppb = 1 μg/kg.",
+   "Havo uchun: mg/m3 dagi konsentratsiyalar harorat va bosimga bog'liq, shuning uchun ular 1 atm (101 325 N/m2) va 25 °C (298 K) da me'yorlanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Konsentratsiya formulalari",
+   "tex": "C_A = \\frac{m_A}{V_{aralashma}} = \\frac{m_A}{V_A + V_B + V_C}",
+   "parts": [
+    {
+     "substr": "C_A",
+     "color": "#4C5FD5",
+     "note": "A moddasining konsentratsiyasi"
+    },
+    {
+     "substr": "m_A",
+     "color": "#B45309",
+     "note": "A moddasining massasi"
+    },
+    {
+     "substr": "V_{aralashma}",
+     "color": "#0E7C7B",
+     "note": "Aralashmaning hajmi"
+    }
+   ]
+  },
+  "narr": [
+   "Formula: C_A = m_A / V_{aralashma} = m_A / (V_A + V_B + V_C)",
+   "Bu erda C_A - A moddasining konsentratsiyasi, m_A - A moddasining massasi, V_{aralashma} - aralashmaning hajmi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Birliklar o'zgarishi",
+   "tex": "\\text{konsentratsiya (mg/m}^3\\text{) = konsentratsiya (ppm) } \\times \\frac{M}{24.45 \\text{ L/mol}}",
+   "parts": [
+    {
+     "substr": "M",
+     "color": "#4C5FD5",
+     "note": "Gazning molyar massasi"
+    },
+    {
+     "substr": "24.45",
+     "color": "#B45309",
+     "note": "Molyar hajm (L/mol) standart sharoitda"
+    }
+   ]
+  },
+  "narr": [
+   "Konsentratsiya birliklarini o'zgartirish uchun quyidagi formuladan foydalanamiz:",
+   "Konsentratsiya (mg/m3) = konsentratsiya (ppm) × M / 24.45 L/mol",
+   "Bu erda M - gazning molyar massasi, 24.45 L/mol - standart sharoitdagi molyar hajm."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — CO2 konsentratsiyasi",
+   "problem": "CO2 2017-yilda 405 ppm bo'lgan. Buni mg/m3 da ifodalang.",
+   "steps": [
+    {
+     "text": "CO2 ning molyar massasi M = 44 g/mol"
+    },
+    {
+     "text": "Formuladan foydalanamiz: konsentratsiya (mg/m3) = konsentratsiya (ppm) × M / 24.45"
+    },
+    {
+     "text": "Qiymatlarni qo'yamiz: 405 × 44 / 24.45"
+    },
+    {
+     "text": "Hisoblaymiz: 405 × 44 = 17820; 17820 / 24.45 ≈ 729"
+    }
+   ],
+   "result": "729 mg/m3"
+  },
+  "narr": [
+   "Keling, CO2 konsentratsiyasini misolida ko'rib chiqaylik.",
+   "CO2 2017-yilda 405 ppm bo'lgan. Buni mg/m3 da ifodalaymiz.",
+   "Avvalo, CO2 ning molyar massasi M = 44 g/mol ekanligini bilamiz.",
+   "Formuladan foydalanamiz: konsentratsiya (mg/m3) = konsentratsiya (ppm) × M / 24.45",
+   "Qiymatlarni qo'yamiz: 405 × 44 / 24.45",
+   "Hisoblaymiz: 405 × 44 = 17820; 17820 / 24.45 ≈ 729",
+   "Demak, CO2 konsentratsiyasi 729 mg/m3 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Massa balansi tenglamasi",
+   "tex": "[\\text{nazorat hajmida to'plangan massa}] = [\\text{kirgan umumiy massa}] - [\\text{chiqqan umumiy massa}] + [\\text{ichida hosil qilingan yoki yo'q qilingan massa}]",
+   "parts": [
+    {
+     "substr": "nazorat hajmida to'plangan massa",
+     "color": "#4C5FD5",
+     "note": "Tizimda to'plangan umumiy massa"
+    },
+    {
+     "substr": "kirgan umumiy massa",
+     "color": "#B45309",
+     "note": "Tizimga kirgan barcha moddalarning massasi"
+    },
+    {
+     "substr": "chiqqan umumiy massa",
+     "color": "#0E7C7B",
+     "note": "Tizimdan chiqqan barcha moddalarning massasi"
+    },
+    {
+     "substr": "hosil qilingan yoki yo'q qilingan massa",
+     "color": "#A03040",
+     "note": "Reaksiyalar natijasida hosil yoki yo'q qilingan massa"
+    }
+   ]
+  },
+  "narr": [
+   "Massa balansi tenglamasi - bu asosiy vosita:",
+   "Nazorat hajmida to'plangan massa = kirgan umumiy massa - chiqqan umumiy massa + ichida hosil qilingan yoki yo'q qilingan massa.",
+   "Bu erda nazorat hajmida to'plangan massa - tizimda to'plangan umumiy massa.",
+   "Kirgan umumiy massa - tizimga kirgan barcha moddalarning massasi.",
+   "Chiqqan umumiy massa - tizimdan chiqqan barcha moddalarning massasi.",
+   "Hosil qilingan yoki yo'q qilingan massa - reaksiyalar natijasida hosil yoki yo'q qilingan massa."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Massa balansi tezlik shakli",
+   "tex": "(\\dot{m})_{CV} = \\Sigma(\\dot{m})_{in} - \\Sigma(\\dot{m})_{out} + \\dot{M}_G",
+   "parts": [
+    {
+     "substr": "(\\dot{m})_{CV}",
+     "color": "#4C5FD5",
+     "note": "Nazorat hajmidagi massa o'zgarish tezligi"
+    },
+    {
+     "substr": "\\Sigma(\\dot{m})_{in}",
+     "color": "#B45309",
+     "note": "Barcha kirish oqimlari yig'indisi"
+    },
+    {
+     "substr": "\\Sigma(\\dot{m})_{out}",
+     "color": "#0E7C7B",
+     "note": "Barcha chiqish oqimlari yig'indisi"
+    },
+    {
+     "substr": "\\dot{M}_G",
+     "color": "#A03040",
+     "note": "Reaksiyalar tufayli hosil bo'lish tezligi"
+    }
+   ]
+  },
+  "narr": [
+   "Massa balansining tezlik shakli:",
+   "(\\dot{m})_{CV} = \\Sigma(\\dot{m})_{in} - \\Sigma(\\dot{m})_{out} + \\dot{M}_G",
+   "Bu erda (\\dot{m})_{CV} - nazorat hajmidagi massa o'zgarish tezligi, \\Sigma(\\dot{m})_{in} - barcha kirish oqimlari yig'indisi, \\Sigma(\\dot{m})_{out} - barcha chiqish oqimlari yig'indisi, \\dot{M}_G - reaksiyalar tufayli hosil bo'lish tezligi.",
+   "Massa o'z-o'zidan ham hosil qilinmaydi, ham yo'q qilinmaydi (yadro reaksiyalaridan tashqari), ammo aniq kimyoviy moddalar massasi reaksiyalar orqali hosil bo'lishi/yo'q bo'lishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Transfer Center chiqindilari",
+   "problem": "Transfer Center bitta jamiyatdan kuniga 600,0 tonna qattiq chiqindi va boshqasidan kuniga 400,0 tonna oladi; umumiy hajmning 25%i — qayta ishlanadigan; maksimal quvvatdagi insinerator kuniga 200,0 tonna yoqadi. Poligonga chiqarish uchun qancha chiqindini qoldirish kerak?",
+   "steps": [
+    {
+     "text": "Umumiy kiruvchi chiqindi: 600 + 400 = 1000 tonna/kun"
+    },
+    {
+     "text": "Qayta ishlanadigan chiqindi: 1000 × 0.25 = 250 tonna/kun"
+    },
+    {
+     "text": "Yoqiladigan chiqindi: 200 tonna/kun (insineratorning maksimal quvvati)"
+    },
+    {
+     "text": "Poligonga chiqariladigan chiqindi: Umumiy - qayta ishlanadigan - yoqiladigan = 1000 - 250 - 200 = 550 tonna/kun"
+    }
+   ],
+   "result": "550 tonna/kun"
+  },
+  "narr": [
+   "Keling, Transfer Center chiqindilari misolini ko'rib chiqaylik.",
+   "Transfer Center bitta jamiyatdan kuniga 600,0 tonna qattiq chiqindi va boshqasidan kuniga 400,0 tonna oladi.",
+   "Umumiy kiruvchi chiqindi: 600 + 400 = 1000 tonna/kun.",
+   "Umumiy hajmning 25%i — qayta ishlanadigan: 1000 × 0.25 = 250 tonna/kun.",
+   "Maksimal quvvatdagi insinerator kuniga 200,0 tonna yoqadi.",
+   "Poligonga chiqariladigan chiqindi: Umumiy - qayta ishlanadigan - yoqiladigan = 1000 - 250 - 200 = 550 tonna/kun.",
+   "Demak, poligonga 550 tonna chiqindi chiqarilishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ }
+]

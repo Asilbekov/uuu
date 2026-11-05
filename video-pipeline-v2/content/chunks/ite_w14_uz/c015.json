@@ -1,0 +1,414 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injenerlikka kirish — 1–4-haftalar: o'quv qo'llanmasi",
+   "subtitle": "30"
+  },
+  "narr": [
+   "Injenerlikka kirish dasturining 1–4-haftalari bo'yicha o'quv qo'llanmasi bilan tanishamiz.",
+   "Bu qismda biz tizimli tahlil usullarini, modellashtirishni va turli manfaatdor tomonlarning nuqtai nazarlarini o'rganamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ovqatxona jarayoni",
+   "bullets": [
+    "1. Navbatga qo'shilish (talaba)",
+    "2. Ovqat tayyorlash (oshxona)",
+    "3. Ovqatni olish (talaba)",
+    "4. To'lovni olish (kassir)",
+    "5. Idishlarni qaytarish (talaba)"
+   ]
+  },
+  "narr": [
+   "Ovqatxona jarayoni besh asosiy qadamdan iborat. Har bir qadamda kimdir ishtirok etadi: talaba, oshxona xodimi yoki kassir.",
+   "Bu yo'llar orasidagi har bir uzatish kechikishlar va xatolar yashirin joy bo'lishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Diagramma — maqsadli model",
+   "bullets": [
+    "Harry Beck misoli: 1930-yillar boshidagi London metrosi xaritasi",
+    "Haqiqiy masofalar va ko'chalar geografiyasidan voz kechadi",
+    "Stansiyalar, liniyalar, almashinuv joylarini saqlaydi",
+    "Tashlab yuboradi: haqiqiy masofalar, ko'chalar joylashuvi, yer usti geografiyasi",
+    "Saqlaydi: stansiyalar, liniyalar, bog'lanish va almashinuvlar"
+   ]
+  },
+  "narr": [
+   "Diagramma - bu maqsadli model. Harry Beckning London metrosi xaritasi buning ajoyib misoli.",
+   "U haqiqiy masofalar va ko'chalar geografiyasidan voz kechadi, lekin stansiyalarni, liniyalarni va almashinuv joylarini saqlaydi.",
+   "Har bir diagramma maqsadga xizmat qiladigan narsani saqlaydi va qolganini tashlab yuboradi - aynan shu modelni foydali qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bitta tizim — besh perspektiva",
+   "bullets": [
+    "Yo'lovchi (Rider): Bekatga piyoda borish → Kutish → Chiqib olish → Yurish → Tushib qolish",
+    "Haydovchi/dispatcher: Smenani boshlash → Avtobusni tekshirish → Marshrutdan o'tish → Yoqilg'i quyish → Smenani tugatish",
+    "Ta'mirlovchi guruh: Ko'rikdan o'tkazish → Diagnostika → Ta'mirlash → Ishga qaytarish",
+    "Universitet ma'muriyati: Byudjetni belgilash → Jadvalni belgilash → Yo'lovchilar oqimini qayta ko'rib chiqish → Tuzatish",
+    "Qo'shni aholi: Avtobusni eshitish → Tirbandlikni payqash → Universitetga murojaat qilish"
+   ]
+  },
+  "narr": [
+   "Bitta tizimni turli perspektivalardan ko'rish kerak. Har bir manfaatdor tomonning o'z nuqtai nazar mavjud.",
+   "Yo'lovchi uchun muvaffaqiyat - qisqa kutish, arzon narx, xavfsizlik.",
+   "Haydovchi/dispatcher uchun muvaffaqiyat - o'z vaqtida, xavfsiz, bajarish mumkin bo'lgan jadval.",
+   "Ta'mirlovchi guruh uchun muvaffaqiyat - xavfsiz avtobuslar, rejalashtirilgan to'xtashlar.",
+   "Universitet ma'muriyati uchun muvaffaqiyat - bir yo'lovchiga tushadigan xarajat, qamrov, kam shikoyat.",
+   "Qo'shni aholi uchun muvaffaqiyat - tinch ko'cha, kamroq tirbandlik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Xulosalar",
+   "bullets": [
+    "Har xil chegaralar (yo'lovchi uchun rasm bekatdan boshlanadi, haydovchi uchun — depoda)",
+    "Har xil qadamlar (har biri ko'rganini o'z ichiga oladi)",
+    "Muvaffaqiyatning har xil ta'riflari (tezroq/xavfsizroq/arzonroq yaxshi ishlashning raqobatlashuvchi ta'riflariga aylanadi)",
+    "Hech bir diagramma xato emas. Har biri — maqsad bilan qurilgan model.",
+    "Yaxshi injenerlar bir nechtasini chizadi va so'raydi: kimning qarashi yetishmayapti?"
+   ]
+  },
+  "narr": [
+   "Xulosa qilib, har xil manfaatdor tomonlarda har xil chegaralar, qadamlar va muvaffaqiyat ta'riflari mavjud.",
+   "Hech bir diagramma xato emas. Har biri maqsad bilan qurilgan model.",
+   "Yaxshi injenerlar bir nechta diagramma chizib, kimning qarashi yetishmayotganini so'rashadi."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Transfer Center chiqindilari",
+   "problem": "A jamiyati Transfer Center ga kuniga 600 tonna chiqindi yuboradi, B jamiyati — kuniga 400 tonna; 25%i qayta ishlanadi, insinerator kuniga 200 tonna yoqadi. Hech narsa to'planmaydi, shuning uchun kirish = chiqish.",
+   "steps": [
+    {
+     "text": "Jami kirish: A + B = 600 + 400 = 1000 tonna/kun"
+    },
+    {
+     "text": "Qayta ishlanadigan miqdor: 25% × 1000 = 250 tonna/kun"
+    },
+    {
+     "text": "Yoqiladigan miqdor: 200 tonna/kun"
+    },
+    {
+     "text": "Poligonga boradigan miqdor: Kirish - (qayta ishlanadigan + yoqiladigan) = 1000 - (250 + 200) = 550 tonna/kun"
+    }
+   ],
+   "result": "550 tonna/kun poligonga boradi."
+  },
+  "narr": [
+   "Oldinga qarash — o'qlardagi sonlar. A jamiyati Transfer Center ga kuniga 600 tonna chiqindi yuboradi, B jamiyati — kuniga 400 tonna.",
+   "25%i qayta ishlanadi, insinerator kuniga 200 tonna yoqadi. Hech narsa to'lanmaydi, shuning uchun kirish = chiqish.",
+   "Birinchidan, jami kirishni hisoblaymiz: A + B = 600 + 400 = 1000 tonna/kun.",
+   "Keyin, qayta ishlanadigan miqdorni topamiz: 25% × 1000 = 250 tonna/kun.",
+   "Insinerator tomonidan yoqiladigan miqdor: 200 tonna/kun.",
+   "Endi, poligonga boradigan miqdorni hisoblaymiz: Kirish - (qayta ishlanadigan + yoqiladigan) = 1000 - (250 + 200) = 550 tonna/kun.",
+   "Shunday qilib, poligonga 550 tonna/kun boradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Mustaqil ish",
+   "bullets": [
+    "1) O'z tizimingizning Level 0 ini chizish, so'ng 5–8 qadamli Level 1 ni chizish",
+    "2) Har bir o'qga yozuv qo'yish va o'qlar chegarani qayerda kesib o'tishini belgilash",
+    "3) Bitta qismini ikkinchi manfaatchi nuqtai nazaridan qayta chizish",
+    "4) Har bir manfaatchidan u uchun nima «yaxshi ishlashini» so'rash"
+   ]
+  },
+  "narr": [
+   "3-ma'ruzadan keyingi mustaqil ish (o'zingiz uchun, topshirilmaydi):",
+   "Birinchidan, o'z tizimingizning Level 0 ini chizing, so'ng 5–8 qadamli Level 1 ni chizing.",
+   "Ikkinchidan, har bir o'qga yozuv qo'yib, o'qlar chegarani qayerda kesib o'tishini belgilang.",
+   "Uchinchidan, bitta qismini ikkinchi manfaatchi nuqtai nazaridan qayta chizing.",
+   "To'rtinchidan, har bir manfaatchidan u uchun nima «yaxshi ishlashini» so'rang.",
+   "Bu keyingi qadam — kuzatishlarni aniq muammoga aylantirish uchun ish materiali."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "3-hafta savollari — namunaviy javoblar bilan",
+   "subtitle": "31"
+  },
+  "narr": [
+   "Endi, 3-hafta savollarining namunaviy javoblarini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 1: Ovqatxona chegarasi",
+   "problem": "Warm-up: yetkazib beruvchining yuk mashinasi va hisob-kitob idorasi — ovqatxona chegarasi ichidami yoki tashqarisidami? (savol 2-ma'ruzadan ko'chirilgan, javobni bitta gap bilan himoya qilish kutiladi)",
+   "steps": [
+    {
+     "text": "Yuk mashinasi: tashqarida — yetkazib berishlar 1-qadam kirishi sifatida chegaradan o'tadi, yuk mashinaning o'zi — tizimni ta'minlovchi manfaatchi."
+    },
+    {
+     "text": "Abonementlar idorasi: chegaraga bog'liq — tashqarida, agar diagramma «Take payment» bilan tugasa; ichida, agar u «Verify meal plan»/«Update balance»ni o'z ichiga olsa."
+    }
+   ],
+   "result": "Yagona to'g'ri javob yo'q — asoslangan javob bor."
+  },
+  "narr": [
+   "Birinchi savol: yetkazib beruvchining yuk mashinasi va hisob-kitob idorasi — ovqatxona chegarasi ichidami yoki tashqarisidami?",
+   "Yuk mashinasi tashqarida joylashgan, chunki yetkazib berishlar 1-qadam kirishi sifatida chegaradan o'tadi. Yuk mashinaning o'zi tizimni ta'minlovchi manfaatchidir.",
+   "Abonementlar idorasi chegaraga bog'liq. Agar diagramma «Take payment» bilan tugasa, u tashqarida bo'ladi. Agar u «Verify meal plan»/«Update balance»ni o'z ichiga olsa, u ichida bo'ladi.",
+   "Xulosa: yagona to'g'ri javob yo'q — asoslangan javob bor."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 2: Ovqatxona elementlari va jarayonlari",
+   "problem": "Ovqatxonaning elementlari va jarayonlari: besh tadan ot va fe'l sanab bering.",
+   "steps": [
+    {
+     "text": "Elementlar (otlar): oshpazlar (cooks), pechlar (ovens), podnoslar (trays), stollar (tables), talabalar (students)."
+    },
+    {
+     "text": "Jarayonlar (fe'llar): qabul qilish (receive), saqlash (store), tayyorlash (prepare), berish (serve), to'lovni qabul qilish (pay), yig'ishtirish (clear)."
+    },
+    {
+     "text": "Tekshiruv: jarayon «fe'l + ot» shaklida o'qiladi — prepare meals, meals emas."
+    }
+   ],
+   "result": "Elementlar: oshpazlar, pechlar, podnoslar, stollar, talabalar. Jarayonlar: qabul qilish, saqlash, tayyorlash, berish, to'lovni qabul qilish, yig'ishtirish."
+  },
+  "narr": [
+   "Ikkinchi savol: ovqatxonaning elementlari va jarayonlari - besh tadan ot va fe'l sanab bering.",
+   "Elementlar (otlar): oshpazlar, pechlar, podnoslar, stollar, talabalar.",
+   "Jarayonlar (fe'llar): qabul qilish, saqlash, tayyorlash, berish, to'lovni qabul qilish, yig'ishtirish.",
+   "Eslatma: jarayon «fe'l + ot» shaklida o'qiladi — masalan, prepare meals, meals emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 3: Ovqatxona uch darajali batafsilligi",
+   "problem": "Ovqatxonaning uch darajali batafsilligi: Level 0, Level 1, Level 2 — har birini bayon qiling.",
+   "steps": [
+    {
+     "text": "Level 0 (black box): oziq-ovqat, xodimlar, talabalar kiradi — tushliklar, chiqindilar, to'lovlar chiqadi; ichki qism yashirin."
+    },
+    {
+     "text": "Level 1 (main steps): Receive → Store → Prepare → Serve → Pay → Clear."
+    },
+    {
+     "text": "Level 2 (zoom in) «Prepare meals» ustida: Wash → Chop → Cook → Hold hot."
+    },
+    {
+     "text": "Qoida: diagrammada bitta daraja; daraja savolga qarab tanlanadi."
+    }
+   ],
+   "result": "Level 0: kirish va chiqishlar; Level 1: asosiy qadamlar; Level 2: detallar."
+  },
+  "narr": [
+   "Uchinchi savol: ovqatxonaning uch darajali batafsilligi - Level 0, Level 1, Level 2 ni bayon qiling.",
+   "Level 0 (black box): oziq-ovqat, xodimlar, talabalar kiradi — tushliklar, chiqindilar, to'lovlar chiqadi; ichki qism yashirin.",
+   "Level 1 (main steps): Receive → Store → Prepare → Serve → Pay → Clear.",
+   "Level 2 (zoom in) «Prepare meals» ustida: Wash → Chop → Cook → Hold hot.",
+   "Qoida: diagrammada bitta daraja; daraja savolga qarab tanlanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 4: Diagrammani tuzatish",
+   "problem": "«Kitchen → Students enter → Food available? (Ha) → Chop onions → Serve meals → Pay» diagrammasida kamida to'rtta xatoni toping.",
+   "steps": [
+    {
+     "text": "1) Start/End yo'q — qo'shish"
+    },
+    {
+     "text": "2) «Kitchen» — joy, qadam emas — «Prepare meals» deb o'zgartirish"
+    },
+    {
+     "text": "3) qaror rombida faqat «Ha» chiqishi bor — «Yo'q: Prepare more meals» qo'shish"
+    },
+    {
+     "text": "4) «Chop onions» — 1-daraja ichidagi 2-daraja — «Prepare meals» bilan almashtirish"
+    },
+    {
+     "text": "5) yozuvsiz o'qlar — yozuv qo'yish (students, meals, money)"
+    }
+   ],
+   "result": "To'liq kalit (besh): 1) Start/End yo'q — qo'shish; 2) «Kitchen» — joy, qadam emas — «Prepare meals» deb o'zgartirish; 3) qaror rombida faqat «Ha» chiqishi bor — «Yo'q: Prepare more meals» qo'shish; 4) «Chop onions» — 1-daraja ichidagi 2-daraja — «Prepare meals» bilan almashtirish; 5) yozuvsiz o'qlar — yozuv qo'yish."
+  },
+  "narr": [
+   "To'rtinchi savol: «Kitchen → Students enter → Food available? (Ha) → Chop onions → Serve meals → Pay» diagrammasida kamida to'rtta xatoni toping.",
+   "Birinchidan, Start/End nuqtalari yo'q — ularni qo'shish kerak.",
+   "Ikkinchidan, «Kitchen» bu joy, qadam emas — «Prepare meals» deb o'zgartirish kerak.",
+   "Uchinchidan, qaror rombida faqat «Ha» chiqishi bor — «Yo'q: Prepare more meals» qo'shish kerak.",
+   "To'rtinchidan, «Chop onions» bu 1-daraja ichidagi 2-daraja — «Prepare meals» bilan almashtirish kerak.",
+   "Beshinchidan, yozuvsiz o'qlar bor — ularga yozuv qo'yish (students, meals, money).",
+   "Boshqa topilmalar ham bo'lishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 5: PFD o'qi qanday besh toifali oqimni olib yuradi?",
+   "problem": "PFD o'qi qanday besh toifali oqimni olib yuradi? Ovqatxona uchun har biriga misol keltiring.",
+   "steps": [
+    {
+     "text": "Material: ingredientlar, podnoslar, chiqindilar."
+    },
+    {
+     "text": "Odamlar: navbatdagi talabalar."
+    },
+    {
+     "text": "Axborot: menyu, buyurtmalar, abonementni tekshirish."
+    },
+    {
+     "text": "Pul: to'lovlar, yetkazib beruvchilarning hisob-fakturalari."
+    },
+    {
+     "text": "Energiya: gaz, elektr, issiq suv."
+    },
+    {
+     "text": "O'q yozuvi keyingi qadamga nima kerakligini ko'rsatadi."
+    }
+   ],
+   "result": "Material, odamlar, axborot, pul, energiya — besh toifali oqim."
+  },
+  "narr": [
+   "Beshinchi savol: PFD o'qi qanday besh toifali oqimni olib yuradi? Ovqatxona uchun har biriga misol keltiring.",
+   "Material: ingredientlar, podnoslar, chiqindilar.",
+   "Odamlar: navbatdagi talabalar.",
+   "Axborot: menyu, buyurtmalar, abonementni tekshirish.",
+   "Pul: to'lovlar, yetkazib beruvchilarning hisob-fakturalari.",
+   "Energiya: gaz, elektr, issiq suv.",
+   "O'q yozuvi keyingi qadamga nima kerakligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 6: Harry Beck metrosi xaritasi",
+   "problem": "Harry Beck metrosi xaritasi nima uchun «maqsadli model»? U nimani tashlab yuboradi va nimani saqlaydi?",
+   "steps": [
+    {
+     "text": "Tashlab yuboradi: haqiqiy masofalar, ko'chalar joylashuvi, yer usti geografiyasi."
+    },
+    {
+     "text": "Saqlaydi: stansiyalar, liniyalar, almashinuvlar."
+    },
+    {
+     "text": "Maqsad — yo'lovchiga liniyalar va almashinuvlar bo'yicha sayohatni rejalashtirishga yordam berish; unga masofa kerak emas."
+    },
+    {
+     "text": "Saboq: model aynan muhim bo'lmaganini tashlab yuborgani uchun foydali; 4–5-haftalarda xuddi shu g'oya injenerlik modellarida qaytadi."
+    }
+   ],
+   "result": "Harry Beck metrosi xaritasi «maqsadli model», chunki u yo'lovchiga liniyalar va almashinuvlar bo'yicha sayohatni rejalashtirishga yordam berish uchun kerakli elementlarni saqlaydi, masofa va geografiyani esa tashlab yuboradi."
+  },
+  "narr": [
+   "Oltinchi savol: Harry Beck metrosi xaritasi nima uchun «maqsadli model»? U nimani tashlab yuboradi va nimani saqlaydi?",
+   "Harry Beck metrosi xaritasi «maqsadli model», chunki u yo'lovchiga liniyalar va almashinuvlar bo'yicha sayohatni rejalashtirishga yordam berish uchun kerakli elementlarni saqlaydi.",
+   "U haqiqiy masofalar, ko'chalar joylashuvi va yer usti geografiyasini tashlab yuboradi.",
+   "Model aynan muhim bo'lmaganini tashlab yuborgani uchun foydali. Bu g'oya 4–5-haftalarda injenerlik modellarida qaytadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

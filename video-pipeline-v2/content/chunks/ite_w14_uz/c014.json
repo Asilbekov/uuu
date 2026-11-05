@@ -1,0 +1,334 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kiritish",
+   "subtitle": "Injenerlikka kiritish — 1-4 haftalar: o'quv qo'llanmasi"
+  },
+  "narr": [
+   "Keling, jarayon oqimi diagrammasi, yoki PFD nima ekanligini ko'rib chiqaylik. Bu jarayon qadamlarini tartib bilan va ular orasida nima oqishini ko'rsatadigan diagrammadir.",
+   "PFD uchta asosiy narsani beradi: ketma-ketlik, oqim va muammolar."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "PFDning uch asosiy komponenti",
+   "bullets": [
+    "Ketma-ketlik (sequence) — avval, keyin va oxirda nima sodir bo'ladi",
+    "Oqim (flow) — qadamlar orasida nima harakatlanadi: material, odamlar, axborot, pul, energiya",
+    "Muammolar (gaps) — kutishlar, halqalar va qo'ldan-qo'lga uzatishlar ko'rinib qoladi"
+   ]
+  },
+  "narr": [
+   "Birinchidan, ketma-ketlik — bu jarayonning qadamlari qanday tartibda bajarilishini ko'rsatadi.",
+   "Ikkinchidan, oqim — bu jarayon bo'ylab material, odamlar, axborot, pul yoki energiya qanday harakatlanishini ko'rsatadi.",
+   "Uchinchidan, diagramma muammolarni, kutishlarni va takrorlanadigan jarayonlarni ko'rsatishi mumkin."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Elementlar va jarayonlar",
+   "bullets": [
+    "Elementlar — ot sifatida ifodalanadi: oshpazlar, pechlar, podnoslar, stollar, talabalar",
+    "Jarayonlar — fe'l sifatida ifodalanadi: qabul qilish, saqlash, tayyorlash, berish, to'lovni qabul qilish, yig'ishtirish"
+   ]
+  },
+  "narr": [
+   "Dizayn jarayonida elementlar otlar, jarayonlar esa fe'llar sifatida ifodalanadi.",
+   "Masalan, ovqatxonada elementlar: oshpazlar, pechlar, podnoslar, stollar, talabalar.",
+   "Jarayonlar esa: qabul qilish, saqlash, tayyorlash, berish, to'lovni qabul qilish, yig'ishtirish."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "PFDning uch darajali batafsillik",
+   "bullets": [
+    "0-daraja (black box) — kirishlar va chiqishlar, ichki qism yashirin",
+    "1-daraja (main steps) — chegara atrofidagi asosiy qadamlar",
+    "2-daraja (zoom in) — 1-darajadagi bitta qadamning detallari"
+   ]
+  },
+  "narr": [
+   "PFD uch darajali batafsillikda bo'lishi kerak. Savolga mos darajani tanlang va diagrammada bitta darajani saqlang.",
+   "0-daraja, yoki black box, kirishlar va chiqishlarni ko'rsatadi, ichki jarayonlar yashirin qoladi.",
+   "1-daraja jarayonning asosiy qadamlarini ko'rsatadi.",
+   "2-daraja esa 1-darajadagi bitta qadamning detallarini ochib beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Ovqatxonaning 0-darajali PFDsi",
+   "problem": "Ovqatxonaning 0-darajali PFDsini tushuntiring.",
+   "steps": [
+    {
+     "text": "Kirishlar: oziq-ovqat yetkazib berishlari, xodimlarning kelishi, kelayotgan talabalar"
+    },
+    {
+     "text": "Chiqishlar: berilgan tushliklar, oziq-ovqat chiqindilari, to'lovlar"
+    },
+    {
+     "text": "Kontekst: sanitariya kodeksi, ochilish soatlari, oshxona byudjeti, binoning rejalashtirilishi"
+    },
+    {
+     "text": "Ichki qism yashirin bo'ladi"
+    }
+   ],
+   "result": "0-darajali PFD jarayonning kirish va chiqishlarini, kontekstini ko'rsatadi, lekin ichki jarayonlar yashirin qoladi."
+  },
+  "narr": [
+   "Keling, ovqatxonaning 0-darajali PFDsini ko'rib chiqaylik.",
+   "Bu darajada kirishlar: oziq-ovqat yetkazib berishlari, xodimlarning kelishi, kelayotgan talabalar.",
+   "Chiqishlar: berilgan tushliklar, oziq-ovqat chiqindilari, to'lovlar.",
+   "Shuningdek, kontekst: sanitariya kodeksi, ochilish soatlari, oshxona byudjeti, binoning rejalashtirilishi.",
+   "Ichki jarayonlar yashirin qoladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Ovqatxonaning 1-darajali PFDsi",
+   "problem": "Ovqatxonaning 1-darajali PFDsini tushuntiring.",
+   "steps": [
+    {
+     "text": "Start → 1 Receive deliveries (kirish: food deliveries) → 2 Store ingredients (ingredientlar) → 3 Prepare meals (cooked meals) → 4 Serve meals (meals to students) → 5 Take payment → 6 Clear and dispose (used trays) → End"
+    },
+    {
+     "text": "0-daraja bilan solishtirish: yetkazib berishlar 1-qadamda kiradi, talabalar — 4-qadamda; to'lovlar 5-qadamda chiqadi, chiqindilar — 6-qadamda"
+    }
+   ],
+   "result": "1-darajali PFD jarayonning asosiy qadamlarini ko'rsatadi: yetkazib berishlarni qabul qilish, ingredientlarni saqlash, ovqat tayyorlash, berish, to'lovni qabul qilish va tozalash."
+  },
+  "narr": [
+   "Endi ovqatxonaning 1-darajali PFDsini ko'rib chiqaylik.",
+   "Jarayon quyidagi qadamlardan iborat: Start → 1 Yetkazib berishlarni qabul qilish → 2 Ingredientlarni saqlash → 3 Ovqat tayyorlash → 4 Ovqat berish → 5 To'lovni qabul qilish → 6 Tozalash va chiqindilarni tashlash → End.",
+   "0-darajaga nisbatan yetkazib berishlar 1-qadamda kiradi, talabalar esa 4-qadamda kiradi.",
+   "To'lovlar 5-qadamda chiqadi, chiqindilar esa 6-qadamda chiqadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "PFD tilining besh belgisi",
+   "bullets": [
+    "Start/End — jarayon qayerdan boshlanib, qayerda tugashini bildiradi",
+    "Step — bitta harakat, «fe'l + ot» deb nomlanadi",
+    "Decision — Ha/Yo'q chiqishlari yozib qo'yilgan savol",
+    "Flow — qadamlar tartibini va nima harakatlanayotganini ko'rsatuvchi o'q",
+    "Wait/queue — narsalar o'tirib kutadigan joy (punktir ramka)"
+   ]
+  },
+  "narr": [
+   "PFD tili beshta asosiy belgidan iborat.",
+   "Birinchisi, Start/End belgilari jarayon qayerdan boshlanib, qayerda tugashini bildiradi.",
+   "Ikkinchisi, Step belgisi bitta harakatni ko'rsatadi, uni «fe'l + ot» deb nomlash kerak, masalan «Receive deliveries».",
+   "Uchinchisi, Decision belgisi Ha/Yo'q chiqishlari yozilgan savolni bildiradi.",
+   "To'rtinchisi, Flow belgisi qadamlar tartibini va nima harakatlanayotganini ko'rsatuvchi o'qdir.",
+   "Beshinchisi, Wait/queue belgisi narsalar o'tirib kutadigan joyni bildiradi, odatda punktir ramka bilan ifodalanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'qiladigan diagrammaning besh qoidasi",
+   "bullets": [
+    "Aniq boshlang va tugating: bitta start va har bir yo'l oxirigacha yetib boring",
+    "Qadamlarni «fe'l + ot» deb nomlang: «Receive deliveries», «Delivery» emas",
+    "O'qlarga yozuv qo'ying: nima harakatlanayotganini ayting — ovqat, talabalar, axborot, pul",
+    "Har bir qarorga ikkala chiqishni bering: har bir Ha va har bir Yo'q biror joyga olib borishi kerak",
+    "Bitta batafsillik darajasini saqlang: chegarani kesib o'tuvchi o'qlar — sizning kirish va chiqishlaringiz"
+   ]
+  },
+  "narr": [
+   "O'qiladigan diagrammani yaratishda besh asosiy qoida mavjud.",
+   "Birinchidan, diagrammani aniq boshlang va tugating: bitta start belgisi bo'lishi va har bir yo'l oxirigacha yetib borishi kerak.",
+   "Ikkinchidan, qadamlarni «fe'l + ot» deb nomlang, masalan «Receive deliveries», «Delivery» emas.",
+   "Uchinchidan, o'qlarga yozuv qo'ying: nima harakatlanayotganini ayting — ovqat, talabalar, axborot, pul.",
+   "To'rtinchidan, har bir qarorga ikkala chiqishni bering: har bir Ha va har bir Yo'q biror joyga olib borishi kerak.",
+   "Beshinchidan, bitta batafsillik darajasini saqlang: chegarani kesib o'tuvchi o'qlar sizning kirish va chiqishlaringiz bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'q turlari va ularning mazmuni",
+   "bullets": [
+    "Material (ingredientlar, podnoslar, oziq-ovqat chiqindilari)",
+    "Odamlar (navbatdagi talabalar)",
+    "Axborot (menyu, buyurtmalar, abonementni tekshirish)",
+    "Pul (to'lovlar, yetkazib beruvchilarning hisob-fakturalari)",
+    "Energiya (gaz, elektr, issiq suv)"
+   ]
+  },
+  "narr": [
+   "Har bir o'q biror narsani olib yuradi va beshta asosiy turga bo'linadi.",
+   "Birinchisi, material: ingredientlar, podnoslar, oziq-ovqat chiqindilari.",
+   "Ikkinchisi, odamlar: navbatdagi talabalar.",
+   "Uchinchisi, axborot: menyu, buyurtmalar, abonementni tekshirish.",
+   "To'rtinchisi, pul: to'lovlar, yetkazib beruvchilarning hisob-fakturalari.",
+   "Beshinchisi, energiya: gaz, elektr, issiq suv."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Diagrammani tuzatish (Fix the Diagram)",
+   "problem": "Berilgan diagrammadagi kamida to'rtta xatoni toping.",
+   "steps": [
+    {
+     "text": "Xato 1 — start/tugash belgilari yo'q → Start va End qo'shish"
+    },
+    {
+     "text": "Xato 2 — «Kitchen (Oshxona)» — joy, qadam emas → «Prepare meals» deb o'zgartirish"
+    },
+    {
+     "text": "Xato 3 — qarorda faqat «Ha» chiqishi bor → «Yo'q» chiqishini qo'shish, masalan «Prepare more meals»"
+    },
+    {
+     "text": "Xato 4 — «Chop onions» — 2-darajali batafsillik → bitta darajani saqlash: «Prepare meals»"
+    },
+    {
+     "text": "Xato 5 — yozuvsiz o'qlar → nima harakatlanayotganini yozish: talabalar, tushliklar, pul"
+    }
+   ],
+   "result": "Diagrammani to'g'ri tuzatish uchun yuqoridagi xatolarni tuzatish kerak."
+  },
+  "narr": [
+   "Keling, diagrammadagi xatlarni tuzatishga harakat qilaylik.",
+   "Birinchidan, diagrammada start va End belgilari yo'q. Ushbu belgilarni qo'shish kerak.",
+   "Ikkinchidan, «Kitchen (Oshxona)» joy emas, qadamdir. Uni «Prepare meals» deb o'zgartirish kerak.",
+   "Uchinchidan, qarorda faqat «Ha» chiqishi bor. «Yo'q» chiqishini, masalan «Prepare more meals» deb qo'shish kerak.",
+   "To'rtinchidan, «Chop onions» 2-darajali batafsillikdir. Bitta darajani saqlash uchuni uni «Prepare meals» bilan almashtirish kerak.",
+   "Beshinchidan, ba'zi o'qlarda yozuv yo'q. Ular nima harakatlanayotganini ko'rsatishi kerak: talabalar, tushliklar, pul."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Qarorlar va kutishlar",
+   "bullets": [
+    "Punktir ramka kutishni belgilaydi",
+    "Romb — tanlovni",
+    "Misol: Wait in queue → Serve meal → Food available? — Ha → Take payment; Yo'q → Prepare more meals → 3-qadamga orqaga",
+    "Navbatlar va qarorlar — tizimlar sekinlashadigan joy",
+    "Biz ularni 9-haftada o'lchaymiz: kechikishlar, navbatlar, o'tkazish qobiliyati, tor joylar (bottleneck)"
+   ]
+  },
+  "narr": [
+   "Qarorlar va kutishlar diagrammada muhim rol o'ynaydi.",
+   "Punktir ramka kutishni, romb esa tanlovni bildiradi.",
+   "Misol: navbatda kutish → ovqat berish → Ovqat mavjudmi? — Ha → To'lovni qabul qilish; Yo'q → Ko'proq ovqat tayyorlash → 3-qadamga orqaga.",
+   "Navbatlar va qarorlar — bu tizimlar sekinlashadigan joylar.",
+   "Biz ularni 9-haftada o'lchaymiz: kechikishlar, navbatlar, o'tkazish qobiliyati, tor joylar (bottleneck)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Xulosa",
+   "items": [
+    "PFD — jarayon qadamlarini tartib bilan va ular orasida nima oqishini ko'rsatadigan diagramma",
+    "U ketma-ketlik, oqim va muammolarni ko'rsatadi",
+    "PFD uch darajali batafsillikda bo'lishi mumkin: 0-daraja (black box), 1-daraja (main steps), 2-daraja (zoom in)",
+    "PFD tili beshta asosiy belgidan iborat: Start/End, Step, Decision, Flow, Wait/queue",
+    "O'qiladigan diagrammani yaratishda besh asosiy qoida mavjud",
+    "Har bir o'q beshta asosiy turga bo'linadi: material, odamlar, axborot, pul, energiya",
+    "Qarorlar va kutishlar tizimlar sekinlashadigan joylardir"
+   ]
+  },
+  "narr": [
+   "Xulosa qilib, jarayon oqimi diagrammasi (PFD) jarayon qadamlarini tartib bilan va ular orasida nima oqishini ko'rsatadigan diagrammadir.",
+   "U ketma-ketlik, oqim va muammolarni ko'rsatadi.",
+   "PFD uch darajali batafsillikda bo'lishi mumkin: 0-daraja (black box), 1-daraja (main steps), 2-daraja (zoom in).",
+   "PFD tili beshta asosiy belgidan iborat: Start/End, Step, Decision, Flow, Wait/queue.",
+   "O'qiladigan diagrammani yaratishda besh asosiy qoida mavjud.",
+   "Har bir o'q beshta asosiy turga bo'linadi: material, odamlar, axborot, pul, energiya.",
+   "Qarorlar va kutishlar tizimlar sekinlashadigan joylardir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

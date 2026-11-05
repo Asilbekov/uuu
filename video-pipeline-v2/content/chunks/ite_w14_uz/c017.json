@@ -1,0 +1,596 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injenerlikka kirish — 1–4-haftalar: o'quv qo'llanmasi",
+   "subtitle": "34"
+  },
+  "narr": [
+   "Salom! Bugun biz muhandislikning asosiy tamoyillarini va massani muvozanatlashni o'rganamiz.",
+   "Qanday qilib biz tizimlarni tushunishimiz va ularning samaradorligini baholashimiz mumkin?"
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Rejalashtirish asoslari",
+   "bullets": [
+    "Need — poligonga chiqarish tezligi",
+    "Know — kirish va chiqishdagi massa sarflari",
+    "How — tizimni Transfer Center sifatida aniqlash",
+    "Oqib kiruvchi va chiquvchi oqimlar bilan nazorat hajmini chizish",
+    "Balansni (18.3b) qo'llash"
+   ]
+  },
+  "narr": [
+   "Birinchidan, bizga nima kerak? Poligonga chiqarish tezligi.",
+   "Bizda nima bor? Kirish va chiqishdagi massa sarflari.",
+   "Qanday qilib yondashamiz? Tizimni Transfer Center sifatida aniqlaymiz.",
+   "Oqimlarni nazorat qilish uchun nazorat hajmini chizamiz.",
+   "Va nihoyat, massaviy balans tenglamasini qo'llaymiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Massaviy balans",
+   "problem": "Reaksiyalar yo'q, shuning uchun Ṁ G = 0, to'planish yo'q, shuning uchun (ṁ)CV = 0 = Σ(ṁ)in − Σ(ṁ)out",
+   "steps": [
+    {
+     "text": "0 = (600 + 400) − [0,250 × (600 + 400) + 200 + ṁLF]"
+    }
+   ],
+   "result": "ṁLF = 550,0 tonna/kun"
+  },
+  "narr": [
+   "Keling, misol ko'rib chiqaylik. Reaksiyalar yo'q va to'planish ham yo'q, shuning uchun massaviy balans tenglamasi shunday ko'rinadi: kirish oqimi minus chiqish oqimi nolga teng.",
+   "Endi, qiymatlarni qo'yamiz: kirishda 600 va 400, chiqishda esa 0,25 ko'paytmasi, 200 va ṁLF.",
+   "Yechamiz va ṁLF = 550,0 tonna/kun ekanligini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Konsentratsiya va sarf o'rtasidagi bog'lanish",
+   "tex": "\\dot{m}_p = C_pQ_f",
+   "parts": [
+    {
+     "substr": "\\dot{m}_p",
+     "color": "#4C5FD5",
+     "note": "ifloslantiruvchi massaviy oqimi"
+    },
+    {
+     "substr": "C_p",
+     "color": "#B45309",
+     "note": "ifloslantiruvchining konsentratsiyasi"
+    },
+    {
+     "substr": "Q_f",
+     "color": "#0E7C7B",
+     "note": "tashuvchi muhitning hajmiy sarfi (m³/s)"
+    }
+   ]
+  },
+  "narr": [
+   "Konsentratsiya va sarf o'rtasidagi bog'lanishni ko'rib chiqaylik.",
+   "Bu yerda \\dot{m}_p ifloslantiruvchining massaviy oqimi bo'lib, u C_p ga, ya'ni ifloslantiruvchining konsentratsiyasiga, Q_f esa tashuvchi muhitning hajmiy sarfiga ko'paytiriladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Balansning muqobil shakli",
+   "tex": "(\\dot{m}_p)_{CV} = 0 = \\Sigma(C_pQ_f)_{in} - \\Sigma(C_pQ_f)_{out} + \\dot{M}_{Gp}",
+   "parts": [
+    {
+     "substr": "\\dot{M}_{Gp}",
+     "color": "#A03040",
+     "note": "hosil bo'lgan ifloslantiruvchi oqimi"
+    }
+   ]
+  },
+  "narr": [
+   "Balansning muqobil shakli ham mavjud. Bu erda \\dot{M}_{Gp} hosil bo'lgan ifloslantiruvchi oqimini ifodalaydi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 18.3 — SO2 chiqarilishi",
+   "problem": "Fabrika kuniga 50,0 kg SO2 chiqaradi; shahar ustidan 6,00 m/s tezlikdagi shamol bilan fon konsentratsiyasi 0,050 μg/m3 bo'lgan 7,00×10^6 m3/s havo o'tkaziladi — shamol yo'nalishida, trubalardan naridagi SO2 konsentratsiyasini bashorat qilish kerak.",
+   "steps": [
+    {
+     "text": "Shahar ustidagi nazorat hajmi aniqlang"
+    },
+    {
+     "text": "SO2 balansini (18.5 shakli) qo'llang"
+    },
+    {
+     "text": "Kirish va chiqishlarni hisoblang"
+    }
+   ],
+   "result": "Trubalardan chiqadigan SO2 konsentratsiyasini toping"
+  },
+  "narr": [
+   "Keling, yana bir misolni ko'rib chiqaylik. Fabrika kuniga 50,0 kg SO2 chiqaradi.",
+   "Shahar ustidan shamol 6,00 m/s tezlikda harakatlanadi va fon konsentratsiyasi 0,050 μg/m³.",
+   "7,00×10^6 m³/s hajmdagi havo o'tkaziladi.",
+   "Biz shamol yo'nalishida trubalardan chiqadigan SO2 konsentratsiyasini bashorat qilishimiz kerak.",
+   "Buning uchun shahar ustidagi nazorat hajmini aniqlashimiz kerak.",
+   "Keyin SO2 balansini (18.5 shakli) qo'llaymiz.",
+   "Kirish va chiqishlarni hisoblab, natijaga erishamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "4.4. Atamalar — 3-hafta lug'ati",
+   "subtitle": "35"
+  },
+  "narr": [
+   "Endi, biz 3-hafta lug'atini ko'rib chiqamiz. Bu atamalar muhandislik jarayonlarini tushunish uchun juda muhim."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "4.1-jadval. 3-hafta atamalari (o'zbekcha — inglizcha)",
+   "columns": [
+    "Atama (o'zbekcha)",
+    "English",
+    "Ta'rif (bir gapda)"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Jarayon oqimi diagrammasi"
+     },
+     {
+      "text": "Process Flow Diagram (PFD)"
+     },
+     {
+      "text": "Jarayon qadamlarini tartib bilan va ular orasida nima oqishini ko'rsatadi"
+     }
+    ],
+    [
+     {
+      "text": "Ketma-ketlik"
+     },
+     {
+      "text": "Sequence"
+     },
+     {
+      "text": "Avval, keyin va oxirda nima sodir bo'ladi"
+     }
+    ],
+    [
+     {
+      "text": "Oqim"
+     },
+     {
+      "text": "Flow"
+     },
+     {
+      "text": "Qadamlar orasida nima harakatlanadi: material, odamlar, axborot, pul, energiya"
+     }
+    ],
+    [
+     {
+      "text": "Qora quti"
+     },
+     {
+      "text": "Black box (Level 0)"
+     },
+     {
+      "text": "Faqat kirish va chiqishlardan iborat diagramma; ichki qism yashirin"
+     }
+    ],
+    [
+     {
+      "text": "Asosiy qadamlar"
+     },
+     {
+      "text": "Main steps (Level 1)"
+     },
+     {
+      "text": "Chegara ichidagi bir nechta asosiy qadamlar"
+     }
+    ],
+    [
+     {
+      "text": "Yaqinlashtirish"
+     },
+     {
+      "text": "Zoom in (Level 2)"
+     },
+     {
+      "text": "1-darajadagi bitta qadam o'z alohida diagrammasiga ochiladi"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Jarayon oqimi diagrammasi yoki PFD jarayon qadamlarini va ular orasidagi oqimlarni ko'rsatadi.",
+   "Ketma-ketlik esa avval, keyin va oxirda nima sodir bo'lishini ko'rsatadi.",
+   "Oqim material, odamlar, axborot, pul yoki energiya harakatini bildiradi.",
+   "Qora quti faqat kirish va chiqishlardan iborat bo'lib, ichki tafsiloti yashirin bo'ladi.",
+   "Asosiy qadamlar chegara ichidagi asosiy bosqichlardir.",
+   "Yaqinlashtirish esa 1-darajadagi qadamni kattalashtirib, uning tafsilotlarini ko'rsatishdir."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "4.1-jadval. 3-hafta atamalari (o'zbekcha — inglizcha)",
+   "columns": [
+    "Atama (o'zbekcha)",
+    "English",
+    "Ta'rif (bir gapda)"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Boshlanish/tugash"
+     },
+     {
+      "text": "Start / End"
+     },
+     {
+      "text": "Jarayon boshlanishi va tugashining belgisi; bitta start, har bir yo'l oxirigacha yetadi"
+     }
+    ],
+    [
+     {
+      "text": "Qadam"
+     },
+     {
+      "text": "Step"
+     },
+     {
+      "text": "«Fe'v + ot» deb nomlangan bitta harakat"
+     }
+    ],
+    [
+     {
+      "text": "Qaror"
+     },
+     {
+      "text": "Decision"
+     },
+     {
+      "text": "Ha/Yo'q chiqishlari yozilgan romb-savol, ikkalasi ham biror joyga olib boradi"
+     }
+    ],
+    [
+     {
+      "text": "Kutish/navbat"
+     },
+     {
+      "text": "Wait / queue"
+     },
+     {
+      "text": "Narsalar o'tirib kutadigan joydagi punktir ramka; navbatlar tizimlarni sekinlashtiradi"
+     }
+    ],
+    [
+     {
+      "text": "Yo'laklar"
+     },
+     {
+      "text": "Swimlanes"
+     },
+     {
+      "text": "Diagrammani bajaruvchilar bo'yicha ajratish; yo'laklar orasidagi uzatishlar kechikishlarni yashiradi"
+     }
+    ],
+    [
+     {
+      "text": "Nazorat hajmi"
+     },
+     {
+      "text": "Control volume"
+     },
+     {
+      "text": "Massa balansi yoziladigan aniq belgilangan fazo"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Boshlanish/tugash jarayon boshlanishi va tugashini bildiradi.",
+   "Qadam «fe'v + ot» deb nomlangan bitta harakatdir.",
+   "Qaror esa Ha/Yo'q chiqishlari bo'lgan romb-savol shaklida bo'ladi.",
+   "Kutish/navbat narsalar kutayotgan joyni bildirib, tizimni sekinlashtiradi.",
+   "Yo'laklar diagrammani bajaruvchilar bo'yicha ajratadi.",
+   "Nazorat hajmi esa massa balansi yoziladigan aniq belgilangan fazodir."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "4.1-jadval. 3-hafta atamalari (o'zbekcha — inglizcha)",
+   "columns": [
+    "Atama (o'zbekcha)",
+    "English",
+    "Ta'rif (bir gapda)"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Massa balansi"
+     },
+     {
+      "text": "Mass balance"
+     },
+     {
+      "text": "To'planish = kirish − chiqish + hosil bo'lish; to'planish va reaksiyalar bo'lmasa, kirish = chiqish"
+     }
+    ],
+    [
+     {
+      "text": "Konsentratsiya"
+     },
+     {
+      "text": "Concentration"
+     },
+     {
+      "text": "Aralashma hajm birligidagi ifloslantiruvchi massasi (ppm, mg/L, mg/m³)"
+     }
+    ],
+    [
+     {
+      "text": "Molyar hajm"
+     },
+     {
+      "text": "Molar volume"
+     },
+     {
+      "text": "1 atm va 25 °C dagi ideal gaz uchun 24,45 L/mol"
+     }
+    ],
+    [
+     {
+      "text": "Perspektiva"
+     },
+     {
+      "text": "Perspective"
+     },
+     {
+      "text": "Manfaatchi qarashi: o'z chegarasi, o'z qadamlari, o'z muvaffaqiyat ta'rifini"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Massa balansi tenglamasi: to'planish kirish minus chiqish plus hosil bo'lishga teng. Agar to'planish va reaksiyalar bo'lmasa, kirish chiqishga teng bo'ladi.",
+   "Konsentratsiya aralashma hajm birligidagi ifloslantiruvchi massasidir, ppm, mg/L yoki mg/m³ da ifodalanadi.",
+   "Molyar hajm 1 atm va 25 °C dagi ideal gaz uchun 24,45 L/mol ga teng.",
+   "Perspektiva esa har bir manfaatdor tomonning o'z chegarasi, qadamlari va muvaffaqiyat ta'rifiga qarashidir."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "5. 4-hafta — Muammoni aniqlash va modellashtirish I",
+   "subtitle": "Problem Framing and Modelling I"
+  },
+  "narr": [
+   "Endi biz 4-haftaga kirib, muammoni aniqlash va modellashtirishni o'rganamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy qoidalar (4-haftaning barcha qoidalari)",
+   "bullets": [
+    "3-haftaning qisqacha takrori: tizimlar — kirishlarni chiqishlarga aylantiruvchi o'zaro ta'sir etuvchi elementlar va jarayonlar",
+    "PFD chegaraning ichidagi qadamlarni va ular orasida oqib o'tayotgan narsani ko'rsatadi",
+    "Perspektivalar — turli manfaatdor tomonlar bir tizimning turli-xil diagrammalarini chizadi",
+    "Muvaffaqiyat — «yaxshi ishlayapti» deganni har bir manfaatdor tomon ham o'zicha ta'riflaydi"
+   ]
+  },
+  "narr": [
+   "4-haftaga kirishdan oldin, 3-hafta materialini eslaylik.",
+   "Tizimlar kirishlarni chiqishlarga aylantiruvchi o'zaro ta'sir etuvchi elementlar va jarayonlardir.",
+   "PFD chegaraning ichidagi qadamlarni va ular orasidagi oqimlarni ko'rsatadi.",
+   "Turli manfaatdor tomonlar bir tizimning turli diagrammalarini chizishi mumkin.",
+   "Va har bir manfaatdor tomon «yaxshi ishlayapti» degan atamani o'z ta'rifiga ko'ra tushuntiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bugun mavzusi",
+   "bullets": [
+    "Qarashlarni aniq muammoga va o'lchanadigan o'zgaruvchilarga qanday aylantirish"
+   ]
+  },
+  "narr": [
+   "Bugun biz shu qarashlarni aniq muammoga va o'lchanadigan o'zgaruvchilarga qanday aylantirishni o'rganamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ma'ruza ochilishidagi dilema",
+   "bullets": [
+    "Xayoliy mijoz baland ofis binosida xodimlar liftlarni uzoq kutayotganidan shikoyat qilayotganini ma'lum qiladi",
+    "A variant: «Bino uchun yangi lift loyihalash»",
+    "B variant: «Binodagi liftlarga bo'lgan xodimlar qoniqishini oshirish»",
+    "To'g'ri tanlov — B: A ta'rifi yechimni muammoning o'ziga tikib qo'yadi, B esa liftlar oldidagi oynalar, band qavatlar uchun bepul qahva, jadvalni qayta sozlash va faqat shundan keyingina yangi liftni ham ruxsat beradi"
+   ]
+  },
+  "narr": [
+   "Ma'ruzamiz boshida dilema bor. Xayoliy mijoz baland ofis binosida xodimlar liftlarni uzoq kutayotganidan shikoyat qiladi.",
+   "Ikkita variant ko'rib chiqiladi: A — bino uchun yangi lift loyihalash, B — binodagi liftlarga bo'lgan xodimlar qoniqishini oshirish.",
+   "To'g'ri tanlov B variantidir.",
+   "A ta'rifi yechimni muammoning o'ziga tikib qo'yadi, B esa ko'prob imkoniyatlarni ochiq qoldiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ma'ruzadagi «muammoning muammosi» haqidagi ogohlantirish",
+   "bullets": [
+    "Muammolar bizning xulq-atvorimizni o'zgartirishga va instinktiv ravishda noto'g'ri bilgan ishlarimizga majburlashga moyil",
+    "Muammoning turli turlari turli taktikalarni talab qiladi"
+   ]
+  },
+  "narr": [
+   "Muammolar bizning xulq-atvorimizni o'zgartirishga va instinktiv ravishda noto'g'ri bilgan ishlarimizga majburlashga moyil.",
+   "Shuning uchun muammoning turli turlari turli taktikalarni talab qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ma'lumotning to'rt turi",
+   "bullets": [
+    "Fakt (fact) — kuzatilgan yoki o'lchangan narsa («dushanba kuni tushlik navbati 12:40 da eshikkacha yetadi — sanab chiqilgan»)",
+    "Xulosa (inference) — faktlardan chiqarilgan xulosa («navbatlar ikki juftlik bir vaqtda tugaganda eng uzun bo'ladi»)",
+    "Taxmin, spekulyatsiya (speculation) — hozircha dalilsiz fohis («balki kassir eng sekin bo'g'indir»)",
+    "Fikr (opinion) — shaxsiy qarash yoki afzal ko'rish («oshxonada ikkinchi tarqatish liniyasi ochilishi kerak»)"
+   ]
+  },
+  "narr": [
+   "Ma'lumotning to'rt turi mavjud: fakt, xulosa, taxmin va fikr.",
+   "Fakt kuzatilgan yoki o'lchangan narsadir.",
+   "Xulosa esa faktlardan chiqarilgan xulosadir.",
+   "Taxmin yoki spekulyatsiya hozircha dalilsiz fohisdir.",
+   "Fikr esa shaxsiy qarash yoki afzal ko'rishdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "To'rttasi ham foydali",
+   "bullets": [
+    "Fikrlar va taxminlar odamlar nimadan xavotirda ekanini ko'rsatadi",
+    "Faktlar esa nima bo'layotganini aytadi",
+    "Lekin muammo bayonini faqat faktlar va yaxshi xulosalar mustahkamlashi mumkin"
+   ]
+  },
+  "narr": [
+   "Bu to'rt tur ham foydali.",
+   "Fikrlar va taxminlar odamlar nimadan xavotirda ekanini ko'rsatadi.",
+   "Faktlar esa nima bo'layotganini aytadi.",
+   "Shuning uchun muammo bayonini faqat faktlar va yaxshi xulosalar mustahkamlashi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Eshitilganini tekshirishning uch bosqichi",
+   "bullets": [
+    "1) Eshitish — odamlar aytayotgan hamma narsani, fikr va taxminlarni ham to'plash",
+    "2) Kuzatish va o'lchash — jarayonga qarash; sanash, vaqtni"
+   ]
+  },
+  "narr": [
+   "Eshitilganini tekshirishning uch bosqichi bor.",
+   "Birinchi bosqich — eshitish: odamlar aytayotgan hamma narsani, fikr va taxminlarni ham to'plash.",
+   "Ikkinchi bosqich — kuzatish va o'lchash: jarayonga qarash, sanash, vaqtni."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ }
+]

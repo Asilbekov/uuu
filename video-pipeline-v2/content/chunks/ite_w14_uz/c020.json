@@ -1,0 +1,522 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Muhandislik o'zgaruvchilari",
+   "subtitle": "Asosli tushunchalar va misollar"
+  },
+  "narr": [
+   "Keling, muhandislikda o'zgaruvchilar nima ekanligini va ularning ahamiyatini ko'rib chiqaylik. Savol shunday: Muhandislik o'zgaruvchisi nima va nega \"Kutish vaqti: 12\" to'liq bo'lmagan javob?",
+   "Javobda aytilishicha, o'zgaruvchi — bu birliklar bilan son sifatida ifodalanadigan o'lchanadigan kattalik. \"12\" birliksiz to'liq emas, chunki 12 sekund bilan 12 minut ikki xil tizimni anglatadi. Javobning ikki majburiy qismi bor: qiymat va birliklar.",
+   "Muhandislikda natija to'rt jihatdan to'g'ri bo'lishi kerak: to'g'ri o'zgaruvchilar, to'g'ri sonlar, to'g'ri birliklar va to'g'ri ma'noli raqamlar soni."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Oshxonaning uch turi o'zgaruvchilari",
+   "bullets": [
+    "Performance (baholaymiz): o'rtacha kutish vaqti (min)",
+    "Design (o'zgartira olamiz): tarqatish liniyalari soni",
+    "Context (o'zgartira olmaymiz): sanitariya kodeksi / ish vaqti"
+   ]
+  },
+  "narr": [
+   "Endi, oshxonaning uch turdagi o'zgaruvchisini ko'rib chiqaylik. Performance — bu \"nimaga hukm qilamiz\", ya'ni biz baholaydigan narsa. Design — \"dastaklar\", ya'ni biz o'zgartira oladigan narsa. Context — \"chegaralar\", ya'ni biz o'zgartira olmaydigan narsa."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Avtobus marshrutida o'zgaruvchilarni topish",
+   "problem": "Avtobus marshruti uchun birliklar bilan 5 ta o'zgaruvchi toping: kamida 2 ta performance, 1 ta design, 1 ta context va har birining o'lchash usuli.",
+   "steps": [
+    "Performance 1 — bekatdagi kutish vaqti (min; band bekatlarda telefon bilan o'lchanadi)",
+    "Performance 2 — bitta yo'lovchiga tushadigan xarajat (valyuta/yo'lovchi; byudjet va validatordagi yo'lovchilar soni bo'yicha)",
+    "Design 1 — avtobuslar harakat oralig'i (min; park jadvali)",
+    "Design 2 — liniyadagi avtobuslar soni (count)",
+    "Context 1 — marshrut ko'chalaridagi tezlik chegarasi (km/soat; yo'l qoidalari)",
+    "O'lchash usuli: nima asbob bilan, kim va qachon — masalan, \"kutish vaqti: kuzatuvchi-talaba bekatga kelishdan o'tirishgacha o'lchaydi, 5 ish kuni, 7:30–9:00\""
+   ],
+   "result": "Namunaviy to'plam: performance 1 (bekatdagi kutish vaqti), performance 2 (bitta yo'lovchiga xarajat), design 1 (harakat oralig'i), design 2 (avtobuslar soni), context 1 (tezlik chegarasi)"
+  },
+  "narr": [
+   "Avtobus marshruti misolida, biz quyidagi o'zgaruvchilarni aniqlaymiz: birinchi performance o'zgaruvchisi — bu bekatdagi kutish vaqti, daqiqa bilan o'lchanadi. Ikkinchi performance — bitta yo'lovchiga tushadigan xarajat, valyuta birligida. Design o'zgaruvchilari: avtobuslar harakat oralig'i va liniyadagi avtobuslar soni. Context o'zgaruvchisi — marshrut ko'chalaridagi tezlik chegarasi. Har birini o'lchash usuli ham ko'rsatilgan."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Stakeholders Suggest the Measures",
+   "columns": [
+    {
+     "text": "Manfaatdor tomon",
+     "tex": ""
+    },
+    {
+     "text": "Muvaffaqiyat",
+     "tex": ""
+    },
+    {
+     "text": "O'zgaruvchi",
+     "tex": ""
+    },
+    {
+     "text": "Birlik",
+     "tex": ""
+    }
+   ],
+   "rows": [
+    [
+     {
+      "text": "Rider",
+      "tex": ""
+     },
+     {
+      "text": "Qisqa, bashorat qilinadigan kutish",
+      "tex": ""
+     },
+     {
+      "text": "Bekatdagi kutish vaqti",
+      "tex": ""
+     },
+     {
+      "text": "minut",
+      "tex": ""
+     }
+    ],
+    [
+     {
+      "text": "Driver/dispatcher",
+      "tex": ""
+     },
+     {
+      "text": "Bajariladigan jadval",
+      "tex": ""
+     },
+     {
+      "text": "O'z vaqtida reyslar",
+      "tex": ""
+     },
+     {
+      "text": "%",
+      "tex": ""
+     }
+    ],
+    [
+     {
+      "text": "Maintenance",
+      "tex": ""
+     },
+     {
+      "text": "Xavfsiz, ishonchli avtobuslar",
+      "tex": ""
+     },
+     {
+      "text": "Oyiga buzilishlar",
+      "tex": ""
+     },
+     {
+      "text": "count/month",
+      "tex": ""
+     }
+    ],
+    [
+     {
+      "text": "Administration",
+      "tex": ""
+     },
+     {
+      "text": "Byudjetning yaxshi sarflanishi",
+      "tex": ""
+     },
+     {
+      "text": "Bitta yo'lovchiga xarajat",
+      "tex": ""
+     },
+     {
+      "text": "valyuta/rider",
+      "tex": ""
+     }
+    ],
+    [
+     {
+      "text": "Neighbor",
+      "tex": ""
+     },
+     {
+      "text": "Kamroq shovqin va trafik",
+      "tex": ""
+     },
+     {
+      "text": "Ko'chada soatiga avtobuslar",
+      "tex": ""
+     },
+     {
+      "text": "buses/hour",
+      "tex": ""
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Endi, avtobus marshruti uchun besh manfaatdor tomonning perspektivasini ko'rib chiqaylik. Yo'lovchi uchun muvaffaqiyat — qisqa va bashorat qilinadigan kutish vaqti, o'zgaruvchi — bekatdagi kutish vaqti, birlik — minut. Haydovchi/dispatcher uchun muvaffaqiyat — bajariladigan jadval, o'zgaruvchi — o'z vaqtida reyslar foizi. Texnik xizmat uchun muvaffaqiyat — xavfsiz va ishonchli avtobuslar, o'zgaruvchi — oyiga buzilishlar soni. Administratsiya uchun muvaffaqiyat — byudjetning yaxshi sarflanishi, o'zgaruvchi — bitta yo'lovchiga tushadigan xarajat. Qo'shni aholi uchun muvaffaqiyat — kamroq shovqin va trafik, o'zgaruvchi — soatiga avtobuslar soni."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Demand yoki wish?",
+   "bullets": [
+    "Har bir avtobus xavfsizlik tekshiruvidan o'tadi — demand",
+    "Har bir bekatda real vaqt ekran — wish",
+    "Pikda o'rtacha kutish 10 minutdan past — demand yoki wish"
+   ]
+  },
+  "narr": [
+   "Muhandislikda demand va wishni farqlash muhim. Birinchisi — bu xavfsizlik tekshiruvi. Agar avtobus ushun shart bo'lsa, bu demand, chunki dizayn ushun shartsiz zarur. Ikkinchisi — bekatdagi real vaqt ekran. Bu yaxshi bo'lishi mumkin, lekin hal qiluvchi emas, shuning uchun bu wish. Uchinchi — pikda o'rtacha kutish 10 minutdan past. Agar bu qabul qilinish sharti bo'lsa, bu demand, aks holda wish. Umumiy qoida: sonli maqsadlar — imkon qadar hamma joyda, qo'pol bo'lsa ham."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Yaxshi samaradorlik o'lchovlari",
+   "subtitle": "Belgilar va tuzoqlar"
+  },
+  "narr": [
+   "Keling, yaxshi samaradorlik o'lchovining to'rt belgisini va o'rtacha ko'rsatkichning tuzog'ini ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Yaxshi samaradorlik o'lchovining to'rt belgisi",
+   "bullets": [
+    "O’lchanadigan (usul e’lon qilingan)",
+    "muhim (manfaatdor tomon qiziqladi)",
+    "yechimsiz (yechimni oldindan olmaydi)",
+    "aniq (birliklar + maqsad)"
+   ]
+  },
+  "narr": [
+   "Yaxshi samaradorlik o'lchovining to'rt belgisi bor: birinchidan, u o'lchanadigan bo'lishi kerak, ya'ni o'lchash usuli e'lon qilingan bo'lishi. Ikkinchidan, u muhim bo'lishi kerak, ya'ni manfaatdor tomon qiziqlanishi. Uchinchidan, u yechimsiz bo'lishi kerak, ya'ni yechimni oldindan olmaydi. To'rtinchidan, u aniq bo'lishi kerak, ya'ni birliklar va maqsodni o'z ichiga oladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'rtacha ko'rsatkichning tuzog'i",
+   "bullets": [
+    "Faqat o'rtachaga qarash noto'g'ri bo'lishi mumkin",
+    "Ayrim yo'lovchilar juda uzoq kutayotgan bo'lsa ham, o'rtacha yaxshi ko'rinishi mumkin",
+    "Shuning uchun taqsimotga ham qarang"
+   ]
+  },
+  "narr": [
+   "O'rtacha ko'rsatkichning tuzog'i shundaki, faqat o'rtachaga qarash noto'g'ri bo'lishi mumkin. Masalan, ayrim yo'lovchilar juda uzoq kutayotgan bo'lsa ham, o'rtacha yaxshi ko'rinishi mumkin. Shuning uchun butun taqsimotga ham qarish kerak."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Need-Know-How-Solve usuli",
+   "subtitle": "Qadamlari va 4-hafta bilan bog'lanishi"
+  },
+  "narr": [
+   "Endi, Need-Know-How-Solve usulini ko'rib chiqaylik. Bu usul muammoni hal qilishning bosqichma-bosqich yondashuvidir."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Need-Know-How-Solve usuli",
+   "bullets": [
+    "Need — qidirilayotgan o'zgaruvchi (birinchi yoziladi)",
+    "Know — ma'lum narsa (shart va bilimlardan; sonlar, eskizlar, prinsiplar)",
+    "How — usul/tenglama + taxminlar (hisobdan oldin yoziladi)",
+    "Solve — hisoblaymiz, birliklarni tekshiramiz, natijani talqin qilamiz"
+   ]
+  },
+  "narr": [
+   "Need-Know-How-Solve usulining to'rt qismi bor. Birinchisi, Need — bu qidirilayotgan o'zgaruvchi, birinchi yoziladi. Ikkinchisi, Know — bu ma'lum narsa, ya'ni shart va bilimlar, sonlar, eskizlar, prinsiplar. Uchinchisi, How — bu usul yoki tenglama va taxminlar, hisobdan oldin yoziladi. To'rtinchisi, Solve — bu hisoblash, birliklarni tekshirish va natijani talqin qilish."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Need-Know-How-Solve usuli bilan 4-hafta bog'lanishi",
+   "bullets": [
+    "Aniq muammo bayoni va tanlangan o'zgaruvchilar Need beradi",
+    "Usul \"ko'r-sonli son qo'yish\"dan himoya qiladi va auditor izini qoldiradi",
+    "Kosky misollari: texaskanch ranchosi (kvadrat tenglama), Schenectady sartaroshxonalari (taxmin)"
+   ]
+  },
+  "narr": [
+   "Need-Know-How-Solve usuli 4-hafta bilan bog'langan. Aniq muammo bayoni va tanlangan o'zgaruvchilar Need qismini beradi. Usul \"ko'r-sonli son qo'yish\"dan himoya qiladi va auditor izini qoldiradi. Kosky misollarida, texaskanch ranchosi masalasida kvadrat tenglama va X = 1,6 mil javobi bor. Schenectady sartaroshxonalari masalasida esa ma'lumotnomadagi 23 ga qarshi 21 taxmin, aniqlik ~10%."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "EV Charging and Battery Test Station",
+   "subtitle": "Lab 4, Part A — Classify and Frame"
+  },
+  "narr": [
+   "Keling, EV Charging and Battery Test Station kartochkasi uchun Lab 4, Part A \"Classify and Frame\"ni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "EV Charging and Battery Test Station kartochkasi faktlari",
+   "bullets": [
+    "Mashinalar o'rtacha soatiga 12 tadan keladi",
+    "4 zaryadlash boks",
+    "Zaryadlash 30–40 minut + 10 minutlik diagnostika",
+    "Batareya holati 80% dan past bo'lsa inspektsiya"
+   ]
+  },
+  "narr": [
+   "Kartochka quyidagi faktlarni o'z ichiga oladi: mashinalar o'rtacha soatiga 12 tadan keladi, 4 ta zaryadlash boks bor, zaryadlash 30–40 minut va 10 minutlik diagnostikadan iborat, agar batareya holati 80% dan past bo'lsa inspektsiya o'tkaziladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — EV Charging and Battery Test Station kartochkasini saralash",
+   "problem": "Yuqoridagi faktlarni saralang, xulosangiz, taxmingiz va fikringizni bildiring.",
+   "steps": [
+    "Saralash: fakt — kelish soatiga 12 mashina va 4 boks (sanalgan)",
+    "Xulosa — kelishlar to'rt boksdagi zaryadlash+diagnostika umumiy vaqtidan oshib ketganda navbatlar hosil bo'ladi",
+    "Taxmin — stansiya, ehtimol, juda ehtiyotkor xavfsizlik chegaralari tufayli sekin",
+    "Fikr — mijozlar tezroq kutashni xohlaydi",
+    "Tarmoq operatori pik quvvatidan xavotirda"
+   ],
+   "result": "Complaint → Need → Problem Statement: yuqoridagi namunaga qarang (pik quvvat chegarasi doirasida kelishdan chiqarilguncha qisqa, bashorat qilinadigan vaqt)"
+  },
+  "narr": [
+   "Kartochkani saralaymiz. Fakt — kelish soatiga 12 mashina va 4 boks (sanalgan). Xulosa — kelishlar to'rt boksdagi zaryadlash+diagnostika umumiy vaqtidan oshib ketganda navbatlar hosil bo'ladi. Taxmin — stansiya, ehtimol, juda ehtiyotkor xavfsizlik chegaralari tufayli sekin. Fikr — mijozlar tezroq kutashni xohlaydi, tarmoq operatori pik quvvatidan xavotirda. Natijada, Complaint → Need → Problem Statement hosil bo'ladi: pik quvvat chegarasi doirasida kelishdan chiqarilguncha qisqa, bashorat qilinadigan vaqt."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "EV Charging and Battery Test Station",
+   "subtitle": "Lab 4, Part B — Map the Process"
+  },
+  "narr": [
+   "Endi, EV Charging and Battery Test Station uchun Lab 4, Part B \"Map the Process\"ni ko'rib chiqaylik. Bu yerda 7 qadam va har qadamga bitta o'zgaruvchi kerak."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — EV-stansiyasi jarayonini xaritalash",
+   "problem": "EV-stansiyasi uchun 7 qadam va har qadamga bitta o'zgaruvchini aniqlang.",
+   "steps": [
+    "1) Arrive — kelish intensivligi, mashina/soat",
+    "2) Queue [wait] — kutish vaqti, min",
+    "3) Assign charger — band boks, count",
+    "4) Charge (30–40 minut) — zaryadlash vaqti, min; o'zgaruvchi: bitta zaryadlash qurilmasiga tushadigan quvvat, kW",
+    "5) Diagnostic test — test vaqti, min; o'zgaruvchi: chegara ostidagi batareyalar ulushi, %",
+    "6) Check: Health 80% dan pastmi? — batareya holati, %",
+    "7) Inspect / Release — chiqarilgan mashinalar, count/h"
+   ],
+   "result": "Jarayonning asosiy o'zgaruvchisi: stansiyada umumiy vaqt, minut. 7 qadam — 6–7 chegara doirasida; romb batareya holati 80% dan past bo'lsa texnik inspektsiyaga olib boradi."
+  },
+  "narr": [
+   "EV-stansiyasi jarayonini xaritalaymiz. Birinchi qadam — kelish, o'zgaruvchi — kelish intensivligi, mashina/soat. Ikkinchi qadam — navbatda kutish, o'zgaruvchi — kutish vaqti, min. Uchinchi qadam — zaryadlovchi tayinlash, o'zgaruvchi — band boks, count. To'rtinchi qadam — zaryadlash, o'zgaruvchi — bitta zaryadlash qurilmasiga tushadigan quvvat, kW. Beshinchi qadam — diagnostik test, o'zgaruvchi — chegara ostidagi batareyalar ulushi, %. Oltinchi qadam — tekshirish, o'zgaruvchi — batareya holati, %. Yettinchi qadam — tekshirish/chiqarish, o'zgaruvchi — chiqarilgan mashinalar, count/h. Jarayonning asosiy o'zgaruvchisi — stansiyada umumiy vaqt, minut. 7 qadam — 6–7 chegara doirasida; romb batareya holati 80% dan past bo'lsa texnik inspektsiyaga olib boradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "EV Charging and Battery Test Station",
+   "subtitle": "Lab 4, Part C — Stakeholders and Targets"
+  },
+  "narr": [
+   "Nihoyat, EV Charging and Battery Test Station uchun Lab 4, Part C \"Stakeholders and Targets\"ni ko'rib chiqaylik. Bu yerda jadval va maqsadlar berilgan."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "EV-stansiyasi uchun manfaatdor tomonlar va maqsadlar",
+   "columns": [
+    {
+     "text": "Manfaatdor tomon",
+     "tex": ""
+    },
+    {
+     "text": "Muvaffaqiyat",
+     "tex": ""
+    },
+    {
+     "text": "O'zgaruvchi",
+     "tex": ""
+    },
+    {
+     "text": "Maqsad",
+     "tex": ""
+    }
+   ],
+   "rows": [
+    [
+     {
+      "text": "Customer",
+      "tex": ""
+     },
+     {
+      "text": "Qisqa, bashorat qilinadigan tashrif",
+      "tex": ""
+     },
+     {
+      "text": "Stansiyada umumiy vaqt",
+      "tex": ""
+     },
+     {
+      "text": "minut",
+      "tex": ""
+     }
+    ],
+    [
+     {
+      "text": "Station operator",
+      "tex": ""
+     },
+     {
+      "text": "Boshqariladigan talab sharoitida yuqori o’tish qobiliyati",
+      "tex": ""
+     },
+     {
+      "text": "Soatiga mashinalar",
+      "tex": ""
+     },
+     {
+      "text": "count/hour",
+      "tex": ""
+     }
+    ],
+    [
+     {
+      "text": "Grid operator",
+      "tex": ""
+     },
+     {
+      "text": "Past pik quvvat",
+      "tex": ""
+     },
+     {
+      "text": "Eng yuqori iste’mol",
+      "tex": ""
+     },
+     {
+      "text": "kW",
+      "tex": ""
+     }
+    ],
+    [
+     {
+      "text": "Technician",
+      "tex": ""
+     },
+     {
+      "text": "Xavfli batareyalar erta ushlash",
+      "tex": ""
+     },
+     {
+      "text": "Inspektsiyaga belgilangan batareyalar",
+      "tex": ""
+     },
+     {
+      "text": "% testlar",
+      "tex": ""
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "EV-stansiyasi uchun manfaatdor tomonlar va maqsadlar jadvali. Mijoz uchun muvaffaqiyat — qisqa va bashorat qilinadigan tashrif, o'zgaruvchi — stansiyada umumiy vaqt, birlik — minut. Stansiya operatori uchun muvaffaqiyat — boshqariladigan talab sharoitida yuqori o'tish qobiliyati, o'zgaruvchi — soatiga mashinalar, birlik — count/hour. Tarmoq operatori uchun muvaffaqiyat — past pik quvvat, o'zgaruvchi — eng yuqori iste'mol, birlik — kW. Texnik uchun muvaffaqiyat — xavfli batareyalar erta ushlash, o'zgaruvchi — inspektsiyaga belgilangan batareyalar, birlik — % testlar."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "EV-stansiyasi uchun maqsadlar",
+   "bullets": [
+    "Must-have (demand): pikda stansiyada o'rtacha umumiy vaqt ≤ 45 min",
+    "Must-have (demand): pik quvvat shartnomaviy chegarada (≤ 150 kW)",
+    "Nice-to-have (wish): o'rtacha vaqt ≤ 30 min — raqobatchilardan tezroq",
+    "Nice-to-have (wish): navbat uzunligining real vaqt ekrani"
+   ]
+  },
+  "narr": [
+   "EV-stansiyasi uchun maqsadlar ikki turga bo'linadi: must-have (demand) va nice-to-have (wish). Must-have: pikda stansiyada o'rtacha umumiy vaqt ≤ 45 min va pik quvvat shartnomaviy chegarada (≤ 150 kW). Nice-to-have: o'rtacha vaqt ≤ 30 min — raqobatchilardan tezroq va navbat uzunligining real vaqt ekrani. Muallamiz: \"Boshqa asoslangan o'zgaruvchilar va maqsadlar to'plami ham xuddi shunchalik yuqori baholanadi\"."
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]
