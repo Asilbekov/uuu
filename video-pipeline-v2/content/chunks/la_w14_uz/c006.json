@@ -1,0 +1,478 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Keling, chiziqli algebra darsining birinchi haftalaridagi masalalarni ko'rib chiqaylik.",
+   "Birinchi masalada bizga ikki vektor va ularning yig'indisi berilgan."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Vektorlar yig'indisi",
+   "problem": "$\\begin{bmatrix} 2 \\\\ -1 \\\\ 3 \\\\ 2 \\end{bmatrix} + \\begin{bmatrix} 2 \\\\ 2 \\end{bmatrix} + \\begin{bmatrix} 9 \\\\ 13 \\end{bmatrix}$",
+   "steps": [
+    "a1 = $\\begin{bmatrix} 2 \\\\ -1 \\end{bmatrix}$, a2 = $\\begin{bmatrix} 3 \\\\ 2 \\end{bmatrix}$, b = $\\begin{bmatrix} 9 \\\\ 13 \\end{bmatrix}$",
+    "[a1 a2]x = b bo'ladigan barcha x larni toping"
+   ],
+   "result": "Ikkala tenglama ham x1 + 2x2 = 3 ga kelib chiqadi (tizma mos, lekin ortiqcha, chunki a2 = 2a1 va b = 3a1). Umumiy yechim: x = $\\begin{bmatrix} 3t \\\\ -t \\end{bmatrix}$, t ∈ R — t bir xil kombinatsiya uchun cheksiz ko'p og'irliklar."
+  },
+  "narr": [
+   "Bu masalada bizga ikki vektor va ularning yig'indisi berilgan.",
+   "Birinchi qadamda a1, a2 va vektorlarni aniqlaymiz.",
+   "Keyin [a1 a2]x = b tenglamani yechamiz.",
+   "E'tibor bering, ikkala tenglama ham x1 + 2x2 = 3 ga kelib chiqadi.",
+   "Bu ortiqcha ma'lumot degani, chunki a2 = 2a1 va b = 3a1.",
+   "Shunday qilib, umumiy yechim x = $\\begin{bmatrix} 3t \\\\ -t \\end{bmatrix}$, t ∈ R bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Vektor ko'paytmasi",
+   "problem": "Koordinatalarni ochmasdan, nima uchun (u×v) · (u + v) = 0 ekanini tushuntiring.",
+   "steps": [
+    "Vektor ko'paytmasi ikkala kirish vektoriga ham perpendikulyar",
+    "(u × v) · u = 0 va (u × v) · v = 0",
+    "Qo'shib, u + v bilan skalyar ko'paytma 0 + 0 = 0 ga teng"
+   ],
+   "result": "$[u_1 u_2 u_3] × [v_1 v_2 v_3] · ([u_1 u_2 u_3] + [v_1 v_2 v_3]) = 0$"
+  },
+  "narr": [
+   "Bu masalada bizga vektor ko'paytmasi va skalyar ko'paytmani tushuntirish so'ralgan.",
+   "Vektor ko'paytmasi ikkala kirish vektoriga ham perpendikulyar bo'ladi.",
+   "Shuning uchun (u × v) · u = 0 va (u × v) · v = 0.",
+   "Agar bu ikki tenglamani qo'shsak, u + v bilan skalyar ko'paytma 0 + 0 = 0 bo'ladi.",
+   "Bu natijani ko'phad ko'rinishida yozsak, $[u_1 u_2 u_3] × [v_1 v_2 v_3] · ([u_1 u_2 u_3] + [v_1 v_2 v_3]) = 0$ bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Matritsa ko'paytmasi",
+   "problem": "A o'lchami 2 × 2, bunda A · $\\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}$ = $\\begin{bmatrix} 2 \\\\ -1 \\end{bmatrix}$ va A · $\\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}$ = $\\begin{bmatrix} 3 \\\\ 4 \\end{bmatrix}$. A · $\\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}$ ni toping.",
+   "steps": [
+    "Standart bazis vektorlarining tasvirlari — ustunlar",
+    "A = $\\begin{bmatrix} 2 & 3 \\\\ -1 & 4 \\end{bmatrix}$",
+    "A · $\\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}$ = 5 · $\\begin{bmatrix} 2 \\\\ -1 \\end{bmatrix}$ - 2 · $\\begin{bmatrix} 3 \\\\ 4 \\end{bmatrix}$"
+   ],
+   "result": "$\\begin{bmatrix} 10 - 6 \\\\ -5 - 8 \\end{bmatrix}$ = $\\begin{bmatrix} 4 \\\\ -13 \\endmatrix$"
+  },
+  "narr": [
+   "Bu masalada bizga 2x2 o'lchamli matritsa A berilgan.",
+   "A matritsasi standart bazis vektorlarini qanday o'zgartirishini bilamiz.",
+   "Birinchi ustun A · $\\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}$ = $\\begin{bmatrix} 2 \\\\ -1 \\end{bmatrix}$",
+   "Ikkinchi ustun A · $\\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}$ = $\\begin{bmatrix} 3 \\\\ 4 \\end{bmatrix}$",
+   "Shunday qilib, A matritsasi $\\begin{bmatrix} 2 & 3 \\\\ -1 & 4 \\end{bmatrix}$ bo'ladi.",
+   "Endi A · $\\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}$ ni hisoblaymiz.",
+   "Buning uchun chiziqlilik xossasidan foydalanamiz: 5 birinchi ustunning 5 karra, minus ikkinchi ustunning 2 karra.",
+   "Natija $\\begin{bmatrix} 4 \\\\ -13 \\end{bmatrix}$ bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   2,
+   2,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "3-hafta — Matritsa algebrasi, determinantlar, aralash ko'paytma",
+   "subtitle": "Chiziqli algebra I"
+  },
+  "narr": [
+   "Endi chiziqli algebra darsining uchinchi haftasiga o'tamiz.",
+   "Bu hafta matritsa algebrasi, determinantlar va aralash ko'paytmalarni o'rganamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matritsa operatsiyalari",
+   "bullets": [
+    "(A + B)ij = aij + bij",
+    "(cA)ij = c aij",
+    "(AT)ij = aji",
+    "(AT)T = A",
+    "(A + B)T = AT + BT",
+    "(cA)T = cAT"
+   ]
+  },
+  "narr": [
+   "Matritsa operatsiyalarini ko'rib chiqaylik.",
+   "Birinchi qoidaga ko'ra, ikkita matritsani qo'shishda mos elementlar qo'shiladi.",
+   "Ikkinchi qoidaga ko'ra, matritsani skalyar songa ko'paytirishda barcha elementlar shu songa ko'paytiriladi.",
+   "Uchinchi qoidaga ko'ra, matritsani transponirlashda qatorlar ustunlarga, ustunlar qatorlarga aylanadi.",
+   "To'rtinchi qoidaga ko'ra, matritsani ikki marta transponirlash asl matritsani beradi.",
+   "Beshinchi qoidaga ko'ra, ikkita matritsani yig'indisini transponirlash ularning transponirlarining yig'indisiga teng.",
+   "Oltinchi qoidaga ko'ra, matritsani skalyar songa ko'paytirib, keyin transponirlash matritsani transponirlab, keyin skalyar songa ko'paytirishga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matritsa ko'paytmasi",
+   "bullets": [
+    "A ∈ Rm×n, B ∈ Rn×p ⇒ AB ∈ Rm×p",
+    "(AB)ij = ∑k=1 to n aik bkj",
+    "A(BC) = (AB)C",
+    "A(B + C) = AB + AC",
+    "(A + B)C = AC + BC",
+    "(AB)T = BT AT"
+   ]
+  },
+  "narr": [
+   "Endi matritsa ko'paytmasi qoidalarini ko'rib chiqaylik.",
+   "Birinchi qoidaga ko'ra, A m×n o'lchamli, B n×p o'lchamli bo'lsa, ularning ko'paytmasi m×p o'lchamli bo'ladi.",
+   "Ikkinchi qoidaga ko'ra, ko'paytmaning (i,j) elementi A matritsasining i-qatori va B matritsasining j-ustunining skalyar ko'paytmasiga teng.",
+   "Uchinchi qoidaga ko'ra, matritsa ko'paytma assotsiativdir - qavslarni o'rnini almashtirish mumkin.",
+   "To'rtinchi qoidaga ko'ra, matritsa ko'paytma qo'shishga taqsimlanadi chap tomondan.",
+   "Beshinchi qoidaga ko'ra, matritsa ko'paytma qo'shishga taqsimlanadi o'ng tomondan.",
+   "Oltinchi qoidaga ko'ra, ikkita matritsani ko'paytmasini transponirlash ularning transponirlarining teskari tartibda ko'paytmasiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Determinant xossalari",
+   "bullets": [
+    "det $\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}$ = ad - bc",
+    "Cij = (-1)i+j det Mij (kofaktor)",
+    "det A = a11C11 + a12C12 + a13C13",
+    "det(cA) = cⁿ det A",
+    "det(AB) = det A det B",
+    "det(AT) = det A"
+   ]
+  },
+  "narr": [
+   "Determinant xossalari haqida gapiramiz.",
+   "2x2 o'lchamli matritsa determinantini hisoblash formulasi ad - bc.",
+   "Kofaktor Cij = (-1)i+j det Mij bo'lib, bu yerda Mij - i-qator va j-ustun o'chirilgan minor.",
+   "Matritsa determinantini qator yoki ustun bo'yicha kofaktorlar yig'indisi orqali hisoblash mumkin.",
+   "Butun n × n matritsani masshtablash n ta qatorning hammasini masshtablaydi: det(cA) = cⁿ det A.",
+   "Ikkita matritsani ko'paytmasining determinantlari ko'paytmasi determinantlarning ko'paytmasiga teng.",
+   "Matritsani transponirlash determinantga ta'sir qilmaydi: det(AT) = det A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Kvadrat matritsalar uchun determinant qoidalari",
+   "columns": [
+    "A ustidagi amal",
+    "det A ga ta'siri"
+   ],
+   "rows": [
+    [
+     "Ikkala qatorni almashtirish",
+     "ishorasini almashtiradi"
+    ],
+    [
+     "Bitta qatorni c ga ko'paytirish",
+     "determinantni c ga ko'paytiradi"
+    ],
+    [
+     "Bitta qatorning ko'paytmasini boshqasiga qo'shish",
+     "o'zgarish yo'q"
+    ],
+    [
+     "Nol qator yoki ikki proporsional qator",
+     "determinant 0"
+    ],
+    [
+     "Transponirlash",
+     "det(AT) = det A"
+    ],
+    [
+     "Bir o'lchamli kvadrat matritsalar ko'paytmasi",
+     "det(AB) = det A det B"
+    ]
+   ]
+  },
+  "narr": [
+   "Kvadrat matritsalar uchun determinant qoidalari jadvalda keltirilgan.",
+   "Ikkala qatorni almashtirish determinant ishorasini almashtiradi.",
+   "Bitta qatorni c ga ko'paytirish determinantni c ga ko'paytiradi.",
+   "Bitta qatorning ko'paytmasini boshqasiga qo'shish determinantga ta'sir qilmaydi.",
+   "Nol qator yoki ikki proporsional qator bo'lganda determinant 0 ga teng.",
+   "Matritsani transponirlash determinantga ta'sir qilmaydi.",
+   "Bir o'lchamli kvadrat matritsalar ko'paytmasining determinanti determinantlarning ko'paytmasiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Aralash ko'paytma va determinant",
+   "bullets": [
+    "(u × v) · w = u · (v × w) = det[u v w]",
+    "Vparallelepiped = |(u × v) · w|",
+    "h = |(u × v) · w| / ||u × v||",
+    "Vtetraedr = 1/6 | det[u v w] |",
+    "T = 0 ⇔ u, v, w komplanar"
+   ]
+  },
+  "narr": [
+   "Aralash ko'paytma va determinant o'rtasidagi bog'liqlikni ko'rib chiqaylik.",
+   "Uchta vektorning aralash ko'paytmasi ularning determinantiga teng.",
+   "Uchta vektor hosil qilgan parallelepiped hajmi aralash ko'paytmaning moduliga teng.",
+   "Parallelepipedning balandligi aralash ko'paytmani ikki vektorning vektor ko'paytmasiga bo'lish orqali topiladi.",
+   "Uchta vektor hosil qilgan tetraedr hajmi determinantning modulining oltidan biriga teng.",
+   "Agar determinant nolga teng bo'lsa, uchta vektor komplanar (bir tekislikda yotadi)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Matritsa amallari",
+   "problem": "A = $\\begin{bmatrix} 1 & -2 \\\\ 3 & 0 \\end{bmatrix}$, B = $\\begin{bmatrix} 2 & 1 \\\\ -1 & 4 \\end{bmatrix}$ bo'lsin. 2A - B ni hisoblang va (2, 1) elementini ko'rsating; A ni 2 × 3 matritsasiga qo'shish mumkinmi?",
+   "steps": [
+    "2A = $\\begin{bmatrix} 2 & -4 \\\\ 6 & 0 \\end{bmatrix}$",
+    "2A - B = $\\begin{bmatrix} 2-2 & -4-1 \\\\ 6-(-1) & 0-4 \\end{bmatrix}$ = $\\begin{bmatrix} 0 & -5 \\\\ 7 & -4 \\end{bmatrix}$",
+    "(2, 1) elementi 7 ga teng",
+    "2 × 3 matritsasi bilan qo'shish aniqlanmagan — ikkala o'lcham ham mos kelishi kerak, umumiy elementlar soni emas"
+   ],
+   "result": "2A - B = $\\begin{bmatrix} 0 & -5 \\\\ 7 & -4 \\end{bmatrix}$, (2, 1) elementi 7"
+  },
+  "narr": [
+   "Bu masalada bizga ikkita matritsa berilgan.",
+   "Birinchi qadamda A matritsasini 2 ga ko'paytiramiz.",
+   "Keyin 2A dan B ni ayiramiz.",
+   "(2, 1) elementi ikkinchi qatorning birinchi elementi bo'lib, 7 ga teng.",
+   "Oxirgi savolga javob: 2 × 3 matritsasi bilan qo'shish mumkin emas, chunki matritsalarni qo'shish uchun ularning o'lchamlari bir xil bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Matritsa transponirlash",
+   "problem": "C = $\\begin{bmatrix} 1 & 2 & -1 \\\\ 0 & 3 & 2 \\end{bmatrix}$ bo'lsin. CT ni uning o'lchami bilan yozing; CCT ni hisoblang; u simmetrikmi?",
+   "steps": [
+    "CT = $\\begin{bmatrix} 1 & 0 \\\\ 2 & 3 \\\\ -1 & 2 \\end{bmatrix}$ (3 × 2)",
+    "CCT = $\\begin{bmatrix} 1+4+1 & 0+6-2 \\\\ 0+6-2 & 0+9+4 \\end{bmatrix}$ = $\\begin{bmatrix} 6 & 4 \\\\ 4 & 13 \\end{bmatrix}$",
+    "Diagonall elementlar — o'zlari bilan skalyar ko'paytirilgan qatorlar; tashqi diagonallari teng — matritsa simmetrik"
+   ],
+   "result": "CCT = $\\begin{bmatrix} 6 & 4 \\\\ 4 & 13 \\end{bmatrix}$, matritsa simmetrik"
+  },
+  "narr": [
+   "Bu masalada C matritsasi berilgan.",
+   "Birinchi qadamda C matritsasini transponirlaymiz.",
+   "Transponirlashdan keyin matritsa 3 × 2 o'lchamli bo'ladi.",
+   "Keyin C va CT ni ko'paytiramiz.",
+   "Natijada 2 × 2 o'lchamli matritsa hosil bo'ladi.",
+   "E'tibor bering, bu matritsa simmetrik - diagonaldan tashqari elementlar teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Matritsa-vektor ko'paytmasi",
+   "problem": "Yuqoridagi C uchun Cx ni ikki usul bilan hisoblang, bunda x = $\\begin{bmatrix} 2 \\\\ -1 \\\\ 1 \\end{bmatrix}$",
+   "steps": [
+    "Qatorlar usuli: 1 · 2 + 2 · (-1) + (-1) · 1 = -1",
+    "0 + 3 · (-1) + 2 · 1 = -1",
+    "Demak Cx = $\\begin{bmatrix} -1 \\\\ -1 \\end{bmatrix}$",
+    "Ustunlar usuli: 2 · $\\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}$ + (-1) · $\\begin{bmatrix} 2 \\\\ 3 \\end{bmatrix}$ + 1 · $\\begin{bmatrix} -1 \\\\ 2 \\end{bmatrix}$ = $\\begin{bmatrix} -1 \\\\ -1 \\end{bmatrix}$"
+   ],
+   "result": "Cx = $\\begin{bmatrix} -1 \\\\ -1 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu masalada C matritsasi va x vektorini ko'paytirishni ikki usulda hisoblaymiz.",
+   "Birinchi usul - qatorlar usuli: birinchi qatorning elementlarini x vektorining elementlari ko'paytmasi yig'indisi.",
+   "Ikkinchi qator uchun ham shu amalni bajaramiz.",
+   "Ikkinchi usul - ustunlar usuli: x vektorining elementlarini mos keladigan ustunlarga ko'paytiramiz va qo'shamiz.",
+   "Ikkala usul ham bir xil natija beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Matritsa ko'paytmasi",
+   "problem": "1-masaladagi A, B uchun AB va BA ni hisoblang. Tenglar?",
+   "steps": [
+    "AB = $\\begin{bmatrix} 1·2 + (-2)·(-1) & 1·1 + (-2)·4 \\\\ 3·2 + 0·(-1) & 3·1 + 0·4 \\end{bmatrix}$ = $\\begin{bmatrix} 4 & -7 \\\\ 6 & 3 \\end{bmatrix}$",
+    "BA = $\\begin{bmatrix} 2·1 + 1·3 & 2·(-2) + 1·0 \\\\ -1·1 + 4·3 & -1·(-2) + 4·0 \\end{bmatrix}$ = $\\begin{bmatrix} 5 & -4 \\\\ 11 & 2 \\end{bmatrix}$",
+    "Turlicha; hatto ikkala tartibda ham mavjud bo'lganda, tenglik kafolatlanmaydi"
+   ],
+   "result": "AB = $\\begin{bmatrix} 4 & -7 \\\\ 6 & 3 \\end{bmatrix}$, BA = $\\begin{bmatrix} 5 & -4 \\\\ 11 & 2 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu masalada A va B matritsalarini ikki tartibda ko'paytiramiz.",
+   "AB ko'paytmasini hisoblaymiz: A ning qatorlari B ning ustunlari ko'paytmasi.",
+   "BA ko'paytmasini hisoblaymiz: B ning qatorlari A ning ustunlari ko'paytmasi.",
+   "E'tibor bering, AB va BA har xil natija beradi.",
+   "Bu matritsa ko'paytmasining kommutativ emasligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Matritsa ko'paytmasi o'lchami",
+   "problem": "C = $\\begin{bmatrix} 1 & 2 & -1 \\\\ 0 & 3 & 2 \\end{bmatrix}$, D = $\\begin{bmatrix} 2 & 0 \\\\ -1 & 3 \\\\ 0 & 2 \\end{bmatrix}$ bo'lsin. CD va DC o'lchamlarini oldindan aytib, ikkalasini hisoblang.",
+   "steps": [
+    "CD: (2 × 3)(3 × 2) = 2 × 2",
+    "DC: (3 × 2)(2 × 3) = 3 × 3",
+    "CD = $\\begin{bmatrix} 1·2 + 2·(-1) + (-1)·0 & 1·0 + 2·3 + (-1)·2 \\\\ 0·2 + 3·(-1) + 2·0 & 0·0 + 3·3 + 2·2 \\end{bmatrix}$ = $\\begin{bmatrix} 0 & 4 \\\\ -3 & 13 \\end{bmatrix}$",
+    "DC = $\\begin{bmatrix} 2·1 + 0·0 & 2·2 + 0·3 & 2·(-1) + 0·2 \\\\ -1·1 + 3·0 & -1·2 + 3·3 & -1·(-1) + 3·2 \\\\ 0·1 + 2·0 & 0·2 + 2·3 & 0·(-1) + 2·2 \\end{bmatrix}$ = $\\begin{bmatrix} 2 & 4 & -2 \\\\ -1 & 7 & 7 \\\\ 0 & 6 & 4 \\end{bmatrix}$"
+   ],
+   "result": "CD = $\\begin{bmatrix} 0 & 4 \\\\ -3 & 13 \\end{bmatrix}$, DC = $\\begin{bmatrix} 2 & 4 & -2 \\\\ -1 & 7 & 7 \\\\ 0 & 6 & 4 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu masalada C va D matritsalarining CD va DC ko'paytmalarini hisoblaymiz.",
+   "Avval ularning o'lchamini aniqlaymiz.",
+   "CD ko'paytmasi 2 × 2 o'lchamli bo'ladi.",
+   "DC ko'paytmasi 3 × 3 o'lchamli bo'ladi.",
+   "Endi CD ko'paytmasini hisoblaymiz.",
+   "Keyin DC ko'paytmasini hisoblaymiz.",
+   "E'tibor bering, ikkala ko'paytma ham har xil o'lchamli va har xil elementlarga ega."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Transformatsiyalar",
+   "problem": "S = (siljish), H = (cho'zish), x = $\\begin{bmatrix} 2 \\\\ 4 \\\\ 2 \\\\ 3 \\end{bmatrix}$ bo'lsin. HSx va SHx ni hisoblang; har bir aylantirishni tavsiflang.",
+   "steps": [
+    "Sx = $\\begin{bmatrix} 2+1 \\\\ 4+1 \\\\ 2 \\\\ 3 \\end{bmatrix}$ = $\\begin{bmatrix} 3 \\\\ 5 \\\\ 2 \\\\ 3 \\end{bmatrix}$",
+    "HSx = $\\begin{bmatrix} 2·3 \\\\ 2·5 \\\\ 2 \\\\ 3 \\end{bmatrix}$ = $\\begin{bmatrix} 6 \\\\ 10 \\\\ 2 \\\\ 3 \\end{bmatrix}$",
+    "SHx = S(Hx) = S$\\begin{bmatrix} 2·2 \\\\ 2·4 \\\\ 2·2 \\\\ 2·3 \\end{bmatrix}$ = S$\\begin{bmatrix} 4 \\\\ 8 \\\\ 4 \\\\ 6 \\end{bmatrix}$ = $\\begin{bmatrix} 4+1 \\\\ 8+1 \\\\ 4 \\\\ 6 \\end{bmatrix}$ = $\\begin{bmatrix} 5 \\\\ 9 \\\\ 4 \\\\ 6 \\end{bmatrix}$"
+   ],
+   "result": "HSx = $\\begin{bmatrix} 6 \\\\ 10 \\\\ 2 \\\\ 3 \\end{bmatrix}$, SHx = $\\begin{bmatrix} 5 \\\\ 9 \\\\ 4 \\\\ 6 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu masalada bizga S siljish va H cho'zish transformatsiyalari berilgan.",
+   "Avval S transformatsiyasini qo'llaymiz: x vektoriga (1,1,0,0) vektorini qo'shamiz.",
+   "Keyin H transformatsiyasini qo'llaymiz: har bir elementni 2 ga ko'paytiramiz.",
+   "Natija HSx = $\\begin{bmatrix} 6 \\\\ 10 \\\\ 2 \\\\ 3 \\end{bmatrix}$ bo'ladi.",
+   "Endi teskari tartibda, ya'ni SHx ni hisoblaymiz.",
+   "Avval H transformatsiyasini qo'llaymiz, keyin S transformatsiyasini.",
+   "Natija SHx = $\\begin{bmatrix} 5 \\\\ 9 \\\\ 4 \\\\ 6 \\end{bmatrix}$ bo'ladi.",
+   "E'tibor bering, HSx va SHx bir xil emas - bu transformatsiyalar almashinchi emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ }
+]

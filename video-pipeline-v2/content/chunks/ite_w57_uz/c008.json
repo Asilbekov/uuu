@@ -1,0 +1,310 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Tuzoq",
+   "subtitle": "Birliklarni to'g'ri tushunish"
+  },
+  "narr": [
+   "Keling, muhandislikda uchraydigan tuzoqlarni ko'rib chiqaylik. Bu tuzoqlar asosan birliklarning noto'g'ri talqinidan kelib chiqadi.",
+   "Birinchi misol: 'Zaryadlagich 60 kVt·soat sarflaydi'. Bu noto'g'ri, chunki kVt·soat energiya birligi, quvvat emas. Zaryadlagichning reytingi uning quvvatini, ya'ni intensivligini bildiradi.",
+   "Shunday qilib, to'g'rirog'i: 'U 60 kVt beradi' yoki 'Har soatda 60 kVt·soat sarflaydi'.",
+   "Ikkinchi misol: 'Avtobusga 115 kerak'. Bu juda noaniq, chunki birlik va vaqt asosi ko'rsatilmagan. To'g'rirog'i: 'Kuniga avtobusga 115 kVt·soat kerak'.",
+   "Uchinchi misol: '0,2 MVt ulanish — bu 20 kVt'. Bu noto'g'ri, chunki MVt dan kVt ga o'tishda 1000 ko'paytuvchini hisobga olish kerak. 0,2 MVt aslida 200 kVt ga teng.",
+   "To'rtinchi misol: '36 daqiqa — bu 0,36 soat'. Bu ham noto'g'ri, chunki daqiqalar soatning o'nli kasri emas. 36 daqiqani soatga aylantirish uchun 60 ga bo'lish kerak: 36 ÷ 60 = 0,6 soat."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "3.2-jadval. 6-leksiyaning birlik tuzoqlari",
+   "columns": [
+    {
+     "title": "Noto'g'ri ifoda",
+     "type": "text"
+    },
+    {
+     "title": "To'g'ri talqin",
+     "type": "text"
+    }
+   ],
+   "rows": [
+    [
+     {
+      "text": "\"Zaryadlagich 60 kVt·soat sarflaydi\""
+     },
+     {
+      "text": "kVt·soat — energiya; zaryadlagich reytingi — intensivlik"
+     }
+    ],
+    [
+     {
+      "text": "\"Avtobusga 115 kerak\""
+     },
+     {
+      "text": "Birlik yo'q va vaqt asosi yo'q; kuniga avtobusga 115 kVt·soat"
+     }
+    ],
+    [
+     {
+      "text": "\"0,2 MVt ulanish — bu 20 kVt\""
+     },
+     {
+      "text": "MVt → kVt — ko'paytuvchi 1 000; 0,2 MVt = 200 kVt"
+     }
+    ],
+    [
+     {
+      "text": "\"36 daqiqa — bu 0,36 soat\""
+     },
+     {
+      "text": "Daqiqalar — soatning o'nli kasri emas; 36 daq ÷ 60 = 0,6 soat"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Bu jadvalda 6-leksiyada ko'rib chiqilgan birlik tuzoqlari va ularning to'g'ri talqinlari keltirilgan.",
+   "Agar javob g'alati ko'rinsa, birinchi navbatda birliklar va vaqt asosini tekshirish kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Zaxira va oqim",
+   "bullets": [
+    "Zahiraning o'zgarishi = kirish oqimi − chiqish oqimi",
+    "Zaxira — navbat, bufer, batareya",
+    "Kirish oqimi chiqish oqimidan katta bo'lganda o'sadi",
+    "Aksincha bo'lganda tugaydi"
+   ]
+  },
+  "narr": [
+   "Endi zaxira va oqim tushunchalarini ko'rib chiqaylik.",
+   "Asosiy formula shunday: zahiraning o'zgarishi kirish oqimi minus chiqish oqimiga teng.",
+   "Zaxira bu - bu navbat, bufer yoki batareyaga o'xshaydi, u kirish oqimi chiqish oqimidan katta bo'lganda o'sadi va aksincha bo'lganda kamayadi.",
+   "Misol sifatida, 20 km/soat tezlikda yurishda sarf 1,2 [kVt·soat/km] × 20 [km/soat] = 24 [kVt] bo'ladi.",
+   "Demak, 160 kVt·soat energiya taxminan 6,7 soatga yetadi.",
+   "Bufer to'lish vaqti esa: bo'sh joy ÷ (kirish oqimi − chiqish oqimi) formula bilan hisoblanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Avtobus zaryadlash masalasi",
+   "problem": "Oltita avtobus, har biriga 06:00 ga 115 kVt·soat kerak, va bitta 200 kVt li ulanish. Bu energiya (kVt·soat) masalasimi yoki quvvat (kVt) masalasimi?",
+   "steps": [
+    {
+     "text": "Need — kunlik energiyani tiklash vaqti [soat]"
+    },
+    {
+     "text": "Know — energiya 115 kVt·soat, zaryadlagich quvvati 60 kVt"
+    },
+    {
+     "text": "How — vaqt = energiya ÷ quvvat, \"quvvat doimiy, yo'qotishsiz\" taxminlari bilan"
+    },
+    {
+     "text": "Solve — 115 [kVt·soat] ÷ 60 [kVt] ≈ 1,9 [soat]"
+    },
+    {
+     "text": "Birliklar tekshiruvi: [kVt·soat] ÷ [kVt] = [soat]"
+    },
+    {
+     "text": "Taxminni e'lon qiling: real zaryadlash to'liq zaryad yaqinida sekinlashadi va bir qism energiyani yo'qotadi, shuning uchun haqiqiy vaqt ko'proq"
+    }
+   ],
+   "result": "Bir avtobus uchun zaryadlash vaqti taxminan 1,9 soat"
+  },
+  "narr": [
+   "Keling, haftaning ilgak masalasini ko'rib chiqaylik. Oltita avtobus bor, har biriga 06:00 ga 115 kVt·soat energiya kerak, va bitta 200 kVt li ulanish mavjud.",
+   "Bu energiya masalasimi yoki quvvat masalasimi? Buni aniqlash uchun bitta avtobusning namunaviy misolini ko'rib chiqaylik.",
+   "Birinchi qadamda bizga kerakli narsa - kunlik energiyani tiklash vaqti, soatda.",
+   "Ikkinchi qadamda bilgan ma'lumotlarimiz - energiya 115 kVt·soat, zaryadlagich quvvati 60 kVt.",
+   "Uchinchi qadamda usul - vaqt = energiya ÷ quvvat, quvvat doimiy va yo'qotishsiz deb taxmin qilamiz.",
+   "To'rtinchi qadamda yechim - 115 kVt·soat ÷ 60 kVt ≈ 1,9 soat.",
+   "Birliklarni tekshiramiz: kVt·soat ÷ kVt = soat, to'g'ri.",
+   "Ammo taxmin qilamizki, real zaryadlash to'liq zaryad yaqinida sekinlashadi va bir qism energiyani yo'qotadi, shuning uchun haqiqiy vaqt ko'proq bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Ilgak masalasining yechimi",
+   "problem": "Oltita avtobus, har biriga 06:00 ga 115 kVt·soat kerak, va bitta 200 kVt li ulanish. Qanday yechim topish mumkin?",
+   "steps": [
+    {
+     "text": "Energiyani hisoblang: 6 × 115 = 690 kVt·soat"
+    },
+    {
+     "text": "Zaryadlash oynasini hisoblang: 22:00–06:00 = 8 soat"
+    },
+    {
+     "text": "O'rtacha quvvatni hisoblang: 690 ÷ 8 ≈ 86 kVt"
+    },
+    {
+     "text": "Oltita avtobus uchun zarur quvvat: 6 × 86 = 516 kVt"
+    },
+    {
+     "text": "Mavjud ulanish: 200 kVt"
+    },
+    {
+     "text": "Yechim - talabni surish: uch avtobusdan iborat ikki partiya, 3 × 60 = 180 kVt, utilizatsiya 0,9; vaqt 2 × 1,9 ≈ 3,8 soat - oyna ichida"
+    }
+   ],
+   "result": "Yechim - uch avtobusdan iborat ikki partiya zaryadlash, 3,8 soat ichida, utilizatsiya 0,9"
+  },
+  "narr": [
+   "Endi ilgak masalasining to'liq yechimini ko'rib chiqaylik.",
+   "Birinchi qadamda umumiy energiyani hisoblaymiz: 6 ta avtobus × 115 kVt·soat = 690 kVt·soat.",
+   "Ikkinchi qadamda zaryadlash oynasini aniqlaymiz: 22:00 dan 06:00 gacha = 8 soat.",
+   "Uchinchi qadamda o'rtacha kerakli quvvatni hisoblaymiz: 690 kVt·soat ÷ 8 soat ≈ 86 kVt.",
+   "To'rtinchi qadamda oltita avtobus uchun zarur quvvatni hisoblaymiz: 6 × 86 = 516 kVt.",
+   "Beshinchi qadamda mavjud ulanish quvvati 200 kVt ekanligini bilamiz.",
+   "Shunday qilib, yechim - talabni surish: uch avtobusdan iborat ikki partiya zaryadlash, har biri 60 kVt quvvatda, 3 × 60 = 180 kVt, bu mavjud 200 kVt ulanishning 90% ni tashkil qiladi. Zaryadlash vaqti 2 × 1,9 ≈ 3,8 soat, bu oyna ichiga sig'adi.",
+   "Leksiya xulosasi: 'Energy was never the problem. Power was, and staggering the charging solves it' - energiya hech qachon muammo bo'lmagan; muammo quvvat edi, va zaryadlashni surish buni hal qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "plot",
+  "data": {
+   "heading": "4-rasm. Oltita avtobus, bitta 200 kVt ulanish",
+   "functions": [
+    {
+     "fn": "86",
+     "tex": "O'rtacha quvvat talabi",
+     "color": "#4C5FD5"
+    },
+    {
+     "fn": "200",
+     "tex": "Mavjud ulanish",
+     "color": "#0E7C7B"
+    }
+   ],
+   "x_range": [
+    0,
+    8
+   ],
+   "y_range": [
+    0,
+    600
+   ],
+   "x_label": "Vaqt (soat)",
+   "y_label": "Quvvat (kVt)"
+  },
+  "narr": [
+   "Bu grafikda oltita avtobusning o'rtacha quvvat talabi (86 kVt) va mavjud ulanish (200 kVt) ni ko'rishimiz mumkin.",
+   "690 kVt·soat energiya hech qachon muammo bo'lmagan - muammo quvvat edi.",
+   "Yechim - uchtadan iborat ikki partiya zaryadlash orqali muammoni hal qilish."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Oqimlarning ikki qoidasi",
+   "bullets": [
+    "1-qoida: Flow = speed × density",
+    "2-qoida: Ichkaridagi son = kelish intensivligi × ichkarida bo'lish vaqti",
+    "Ikkala qoida ham statsionar sharoitlar uchun to'g'ri"
+   ]
+  },
+  "narr": [
+   "Endi oqimlarning ikki asosiy qoidasini ko'rib chiqaylik.",
+   "Birinchi qoida: Flow = speed × density. Bu bir soatda nuqtadan o'tgan mashinalar soni uning tezligi va km ga mashinalar sonining ko'paytmasiga teng.",
+   "Misol: 15 [km/soat] × 20 [mashina/km] = 300 [mashina/soat].",
+   "Ikkinchi qoida: ichkaridagi son = kelish intensivligi × ichkarida bo'lish vaqti.",
+   "Misol: navbatdagi odamlar soni daqiqada kelish × o'rtacha ichkarida bo'lish vaqtiga teng: 10 [talaba/daq] × 3 [daq] = 30 talaba navbatda.",
+   "Ikkala qoida ham statsionar sharoitlar uchun to'g'ri bo'ladi. Navbatlarga kurs 9-haftada qaytamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Kattalik tartibi: hisoblashdan oldin baholash",
+   "bullets": [
+    "Baho hisobdan oldin, davomida va keyin yordam beradi",
+    "Hisobdan oldin: kutilayotgan o'lchamni baholash (o'nliklar, yuzliklar, minglarmi?)",
+    "Hisobda: o'n darajasi yoki birlikdagi xatolar darrov ko'rinib qoladi",
+    "Hisobdan keyin: natija ma'lum narsa bilan solishtirganda oqilomiy bo'ladimi?",
+    "To'rt qadamli usul: (1) kattalik va uning birliklarini belgilash; (2) baholab bo'ladigan ko'paytuvchilarga yoyish; (3) har bir ko'paytuvchini bitta raqamga yaxlitlab ko'paytirish; (4) birliklarni tekshirish va ma'lum qiymat bilan solishtirish"
+   ]
+  },
+  "narr": [
+   "Kattalik tartibini baholash hisoblashdan oldin, davomida va keyin yordam beradi.",
+   "Hisobdan oldin, biz kutilayotgan o'lchamni baholashimiz kerak: o'nliklar, yuzliklar yoki minglarmi?",
+   "Hisob jarayonida, agar o'n darajasida yoki birlikda xato qilsak, bu darrov ko'rinib qoladi.",
+   "Hisobdan keyin, natijani ma'lum bir qiymat bilan solishtirganda, u oqilomiy ko'rinadimi?",
+   "To'rt qadamli usul mavjud: birinchidan, kattalik va uning birliklarini belgilaymiz.",
+   "Ikkinchidan, uni baholab bo'ladigan ko'paytuvchilarga yoyamiz.",
+   "Uchinchidan, har bir ko'paytuvchini bitta raqamga yaxlitlab ko'paytiramiz.",
+   "To'rtinchidan, birliklarni tekshiramiz va ma'lum qiymat bilan solishtiramiz.",
+   "Birliklarni kvadrat qavs ichida olib yurish kerak, chunki ular ham usulni, ham javobni tekshiradi.",
+   "Kosky 60 000 kishilik shahardagi sartaroshxonalar sonini 21 deb baholagan, telefon ma'lumotnomasi esa 23 bergan. Bu kattalik tartibi bahosi ~10 ko'paytuvchi aniqlikda to'g'ri va ko'pincha ancha yaqin bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4
+  ]
+ }
+]

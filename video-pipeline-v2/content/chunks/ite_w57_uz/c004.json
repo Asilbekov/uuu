@@ -1,0 +1,306 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injenerlikga Kirish — 5–7-haftalar: o’quv qo’llanmasi",
+   "subtitle": "Model qurish va tekshirish jarayoni"
+  },
+  "narr": [
+   "Bu qo’llanma 5, 6 va 7-haftalarga oid materiallarni o’z ichiga oladi. Biz model qurish jarayonining asosiy qadamlarini, ularning baholanish mezonlarini va amaliy misollarini ko’rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model qurish jarayonining asosiy qadamlari",
+   "bullets": [
+    "Bitta taxminni almashtirish va uning chiqishga ta’sirini tushuntirish",
+    "Modelni tekshirish: birliklar, kattalik tartibi, ma’lum qiymat",
+    "Modelni baholash: Too Simple / Fit for Purpose / Too Detailed",
+    "Qayta ko’rib chiqish va qo’shimcha ma’lumotga ehtiyoj"
+   ]
+  },
+  "narr": [
+   "Model qurish jarayoni bir necha muhim qadamlardan iborat. Birinchidan, biz modelimizda qilgan taxminlardan birini o’zgartirib, bu o’zgarishning natijaga qanday ta’sirini ko’rib chiqamiz. Keyin modelni uchta asosiy usulda tekshiramiz: birliklar to’g’riligini, kattalik tartibini va ma’lum qiymatlarni tekshiramiz. Natijada modelni uch toifaga baholaymiz: juda oddiy, maqsadga muvofiq yoki juda detalliroq. Oxirgi qadamda esa modelni qayta ko’rib chiqish kerak bo’lgan joylarni va qo’shimcha ma’lumotga qancha ehtiyoj borligini aniqlaymiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — EV Charging & Battery Test Station",
+   "problem": "Zaryadlash stansiyasi modelini qurish: eng gavjum soatda stansiyaning cho’qqi quvvati tarmoq operatorining 150 kVt limitiga sig’adimi?",
+   "steps": [
+    {
+     "text": "Model savolini aniq belgilash: \"Eng gavjum soatda stansiyaning cho’qqi quvvati tarmoq operatorining 150 kVt limiti ichida qoladimi?\""
+    },
+    {
+     "text": "Model turi - matematik, chunki savol to’g’ridan-to’g’ri hisobni talab qiladi: bitta zaryadlagich quvvati × ishlatiladigan zaryadlagichlar soni, limit bilan solishtirish."
+    },
+    {
+     "text": "Model anatomiyasini qurish: kirishlar, parametrlar, bog’liqliklar va chiqishlarni aniqlash."
+    },
+    {
+     "text": "Need–Know–How–Solve ni to’ldirish: cho’qqi quvvati, bitta zaryadlagichga 22 kVt, 4 zaryadlagich, limit 150 kVt, P = n × P₁, n = 4."
+    },
+    {
+     "text": "Taxminlarni kiritish va ularni tasniflash."
+    },
+    {
+     "text": "Modelni tekshirish: birliklar, kattalik tartibi, ma’lum qiymat."
+    }
+   ]
+  },
+  "narr": [
+   "Keling, EV Charging & Battery Test Station senariysi uchun model qurish jarayonini batafsil ko’rib chiqaylik. Birinchi qadamda model savolini aniq belgilaymiz: \"Eng gavjum soatda stansiyaning cho’qqi quvvati tarmoq operatorining 150 kVt limiti ichida qoladimi?\"",
+   "Ikkinchi qadamda model turi - matematik tanlanadi, chunki savol to’g’ridan-to’g’ri hisobni talab qiladi: bitta zaryadlagich quvvati × ishlatiladigan zaryadlagichlar soni, limit bilan solishtirish.",
+   "Uchinchi qadamda model anatomiyasini quramiz: kirishlar, parametrlar, bog’liqliklar va chiqishlarni aniqlaymiz.",
+   "To’rtinchi qadamda Need–Know–How–Solve ni to’ldiramiz: cho’qqi quvvati, bitta zaryadlagichga 22 kVt, 4 zaryadlagich, limit 150 kVt, P = n × P₁, n = 4.",
+   "Beshinchi va oltinchi qadamlarda taxminlarni kiritamiz va ularni tasniflaymiz, keyin modelni tekshiramiz: birliklar, kattalik tartibi, ma’lum qiymat.",
+   "Yettinchi qadamda modelni baholaymiz: Fit for Purpose.",
+   "Sakkizinchi qadamda modelni qayta ko’rib chiqamiz: eng yomon holat o’rniga o’lchangan xilma-xillik koeffitsienti."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — EV Charging & Battery Test Station (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "Modelni baholash: Fit for Purpose."
+    },
+    {
+     "text": "Qayta ko’rib chiqish: eng yomon holat o’rniga o’lchangan xilma-xillik koeffitsienti."
+    }
+   ],
+   "result": "P = 4 × 22 = 88 kVt ≤ 150 kVt — moslik tasdiqlandi. Stress-testda P₁ = 50 kVt bo’lsa, P = 4 × 50 = 200 kVt — limitdan yuqori, model yashirin qoidabuzarlikni fosh qiladi. Verdict: Fit for Purpose. Qayta ko’rib chiqish — eng yomon holat o’rniga o’lchangan xilma-xillik koeffitsienti. Kerakli ma’lumot — zaryadlagichlar bo’yicha o’lchov haftasi."
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "5-hafta laboratoriyasining topshiriqlari",
+   "subtitle": "Yechimlar bilan"
+  },
+  "narr": [
+   "5-hafta laboratoriyasi 80 daqiqa davom etadi va quyidagi qismlardan iborat: 5-leksiya takrori (15 daqiqa), senariy kartochkalarini qaytarish (5 daqiqa), \"Build & Check a Model\" jamoa ishi (45 daqiqa) va namunaviy javob tahlili (15 daqiqa)."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L5-1 topshirig’i — Build & Check a Model",
+   "problem": "Lab 4 / Homework dagi senariy kartochkasidan foydalanib, unga e’lon qilingan taxminlar bilan ishlaydigan model qurish. O’n qadamni bajaring.",
+   "steps": [
+    {
+     "text": "Modelning aniq bitta savolini/maqsadini belgilash (savol shaklida yozish)."
+    },
+    {
+     "text": "Model turini tanlash va asoslash."
+    },
+    {
+     "text": "Anatomiyani qurish: kirishlar, parametrlar, bog’liqliklar, chiqishlar — hammasi birliklar bilan."
+    },
+    {
+     "text": "Need–Know–How–Solve ni to’ldirish."
+    },
+    {
+     "text": "Kamida 6 taxmin yozish: soddalashtiruvchi, ma’lumot, chegaraviy — andoza bo’yicha."
+    },
+    {
+     "text": "Har bir taxminni Safe / Risky / Need Data deb belgilash."
+    }
+   ]
+  },
+  "narr": [
+   "L5-1 topshirig’ida \"Build & Check a Model\" jarayonini bajaring. Lab 4 / Homework dagi senariy kartochkasidan foydalanib, unga e’lon qilingan taxminlar bilan ishlaydigan model quring.",
+   "Birinchi qadamda modelning aniq bitta savolini/maqsadini belgilang (savol shaklida yozing).",
+   "Ikkinchi qadamda model turini tanlang va asoslashingiz.",
+   "Uchinchi qadamda anatomiyani quring: kirishlar, parametrlar, bog’liqliklar, chiqishlar — hammasi birliklar bilan.",
+   "To’rtinchi qadamda Need–Know–How–Solve ni to’ldiring.",
+   "Beshinchi qadamda kamida 6 ta taxmin yozing: soddalashtiruvchi, ma’lumot, chegaraviy — andoza bo’yicha.",
+   "Oltinchi qadamda har bir taxminni Safe / Risky / Need Data deb belgilang."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L5-1 topshirig’i — Build & Check a Model (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "Bitta taxminni o’zgartirish; chiqishga ta’sirini tushuntirish."
+    },
+    {
+     "text": "Modelni tekshirish: birliklar, kattalik tartibi, ma’lum qiymat."
+    },
+    {
+     "text": "Modelni baholash: Too Simple / Fit for Purpose / Too Detailed."
+    },
+    {
+     "text": "Bitta qayta ko’rib chiqish va bitta qo’shimcha ma’lumot ehtiyojini nomlash."
+    }
+   ],
+   "result": "Qadam bo’yicha baholash: 3 — yaxshi/to’liq; 2 — qisman; 1 — mavjud, deyarli hech narsa qilinmagan; 0 — yo’q. Ish jonli ravishda o’n qadamning barchasi bo’yicha baholanadi; ularni tartibda bajaring — har bir keyingi qadam oldingilarida yozilganlarga bog’liq."
+  },
+  "narr": [
+   "Yettinchi qadamda bitta taxminni o’zgartiring va chiqishga ta’sirini tushuntiring.",
+   "Sakkizinchi qadamda modelni tekshiring: birliklar, kattalik tartibi, ma’lum qiymat.",
+   "To’qqizinchi qadamda modelni baholang: Too Simple / Fit for Purpose / Too Detailed.",
+   "O’ninchi qadamda bitta qayta ko’rib chiqish va bitta qo’shimcha ma’lumot ehtiyojini nomlang."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L5-1 namunaviy javobi — EV Charging & Battery Test Station",
+   "problem": "Model savolini belgilash",
+   "steps": [
+    {
+     "text": "1-qadam: Model savoli. \"Eng gavjum soatda stansiyaning cho’qqi quvvati tarmoq operatorining 150 kVt limiti ichida qoladimi?\" (Will the station's peak power draw stay within the grid operator's 150 kW limit during the busiest hour?)"
+    },
+    {
+     "text": "2-qadam: Model turi — matematik. Tanlangan, chunki savol — to’g’ridan-to’g’ri hisob: bitta zaryadlagich quvvati × ishlatiladigan zaryadlagichlar soni, limit bilan solishtirish."
+    },
+    {
+     "text": "3-qadam: Model anatomiyasi."
+    },
+    {
+     "text": "4-qadam: Need–Know–How–Solve."
+    },
+    {
+     "text": "5–6-qadamlar: Andoza bo’yicha oltita taxmin va ularning tasnifi."
+    }
+   ],
+   "result": "Modelning anatomiyasi: kirishlar — band zaryadlagichlar n [dona], bitta zaryadlagich quvvati P₁ [kVt]; parametrlar — tarmoq limiti L = 150 [kVt], zaryadlagichlar soni = 4; bog’liqliklar — umumiy quvvat: P = n × P₁; agar P ≤L bo’lsa — moslik; chiqishlar — umumiy quvvat P [kVt], moslik (ha/yo’q). Need–Know–How–Solve: Need — cho’qqi quvvati [kVt]; Know — bitta zaryadlagichga P₁ = 22 kVt; 4 zaryadlagich; limit 150 kVt; How — P = n × P₁, cho’qqida n = 4; Solve — P = 4 × 22 = 88 kVt ≤150 kVt — moslik tasdiqlandi."
+  },
+  "narr": [
+   "Endi EV Charging & Battery Test Station senariysi uchun namunaviy javobni ko’rib chiqaylik.",
+   "Birinchi qadamda model savolini aniq belgilaymiz: \"Eng gavjum soatda stansiyaning cho’qqi quvvati tarmoq operatorining 150 kVt limiti ichida qoladimi?\"",
+   "Ikkinchi qadamda model turi - matematik tanlanadi, chunki savol to’g’ridan-to’g’ri hisobni talab qiladi: bitta zaryadlagich quvvati × ishlatiladigan zaryadlagichlar soni, limit bilan solishtirish.",
+   "Uchinchi qadamda model anatomiyasini quramiz: kirishlar, parametrlar, bog’liqliklar va chiqishlarni aniqlaymiz.",
+   "To’rtinchi qadamda Need–Know–How–Solve ni to’ldiramiz: cho’qqi quvvati, bitta zaryadlagichga 22 kVt, 4 zaryadlagich, limit 150 kVt, P = n × P₁, n = 4.",
+   "Beshinchi va oltinchi qadamlarda andoza bo’yicha oltita taxminni kiritamiz va ularni tasniflaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Zaryadlash stansiyasi modelining anatomiyasi (Lab 5, 3-qadam)",
+   "columns": [
+    "Qism",
+    "Nomi (birlik bilan)",
+    "Rol"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Kirishlar"
+     },
+     {
+      "text": "band zaryadlagichlar n [dona]; bitta zaryadlagich quvvati P₁ [kVt]"
+     },
+     {
+      "text": "nimani beramiz / tanlay olamiz"
+     }
+    ],
+    [
+     {
+      "text": "Parametrlar"
+     },
+     {
+      "text": "tarmoq limiti L = 150 [kVt]; zaryadlagichlar soni = 4"
+     },
+     {
+      "text": "qat’iy saqlaydiganimiz"
+     }
+    ],
+    [
+     {
+      "text": "Bog’liqliklar"
+     },
+     {
+      "text": "umumiy quvvat: P = n × P₁; agar P ≤L bo’lsa — moslik"
+     },
+     {
+      "text": "tenglama / qoida"
+     }
+    ],
+    [
+     {
+      "text": "Chiqishlar"
+     },
+     {
+      "text": "umumiy quvvat P [kVt]; moslik (ha/yo’q)"
+     },
+     {
+      "text": "model nimani bashorat qiladi"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Model anatomiyasini quyidagi jadvalda ko’rsatamiz: kirishlar, parametrlar, bog’liqliklar va chiqishlarni har birining roli bilan birga.",
+   "Kirishlar qismida biz beradigan yoki tanlay oladigan qiymatlar: band zaryadlagichlar soni va bitta zaryadlagich quvvati.",
+   "Parametrlar qismida qat’iy saqlanadigan qiymatlar: tarmoq limiti va zaryadlagichlar soni.",
+   "Bog’liqliklar qismida model tenglamasi va shartlari: umumiy quvvat hisoblanadi va limit bilan solishtiriladi.",
+   "Chiqishlar qismida model natijalari: umumiy quvvat va moslik holati."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

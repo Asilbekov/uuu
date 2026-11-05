@@ -1,0 +1,480 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Inflyatsiyani tushuntirish",
+   "subtitle": "Talab va quvvatning o'zaro ta'siri"
+  },
+  "narr": [
+   "In engineering, we often deal with systems where demand and capacity play crucial roles.",
+   "Imagine a queue, buffer, or stock that changes over time.",
+   "The change in the queue is simply the inflow minus the outflow.",
+   "We measure inflow and outflow in units per hour, and the change also in units per hour.",
+   "We need to consider both the current level and the maximum capacity of the system.",
+   "Depending on the given time frame, we can measure either the size of the change or the time to fill."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Talab va quvvatning asosiy tushunchalari",
+   "bullets": [
+    "Queue, Buffer or Stock Change: $\\Delta Q = I - O$",
+    "Inflow rate: $I$ [units/hour]",
+    "Outflow rate: $O$ [units/hour]",
+    "Change rate: $\\Delta Q$ [units/hour]",
+    "Current level: $Q$ [units]",
+    "Maximum capacity: $Q_{max}$ [units]"
+   ]
+  },
+  "narr": [
+   "Let's break down the fundamental concepts of demand and capacity.",
+   "First, the change in a queue, buffer, or stock is calculated as inflow minus outflow.",
+   "Inflow rate represents how much enters the system per unit time.",
+   "Outflow rate represents how much exits the system per unit time.",
+   "The change rate shows how the system's content is changing over time.",
+   "We must track both the current level and the maximum capacity to understand system behavior."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'rtacha va cho'qqi talabi",
+   "bullets": [
+    "Average utilization: how the system performs on average",
+    "Peak utilization: how the system performs at maximum demand",
+    "The bottleneck determines the system's maximum throughput",
+    "At peak times, the system may behave differently",
+    "Understanding both helps in proper system design"
+   ]
+  },
+  "narr": [
+   "Now let's distinguish between average and peak demand.",
+   "Average utilization tells us how the system performs under normal conditions.",
+   "Peak utilization shows how the system handles maximum demand.",
+   "The bottleneck is the point with the smallest capacity, limiting the entire system.",
+   "During peak times, the system may operate differently than during average periods.",
+   "Understanding both average and peak behavior is crucial for system design."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol #1 — \"Semiconductor Wafer Packaging Line\"",
+   "problem": "Hisob-kitob talab qilinadigan holat",
+   "steps": [
+    {
+     "text": "Savolni tahlil qilish"
+    },
+    {
+     "text": "Talab va quvvatni aniqlash"
+    },
+    {
+     "text": "Utilizatsiyani hisoblash"
+    },
+    {
+     "text": "Natijani baholash"
+    }
+   ],
+   "result": "Hisob-kitob natijalari 3.4-3.5-jadvallarda va L6-1 topshirig'ining 5-10-qadamlarida keltirilgan"
+  },
+  "narr": [
+   "Let's apply these concepts to a practical example.",
+   "Consider the Semiconductor Wafer Packaging Line case.",
+   "First, we analyze the problem carefully.",
+   "Next, we identify the demand and capacity parameters.",
+   "Then we calculate the utilization ratio.",
+   "Finally, we evaluate the results.",
+   "The detailed calculations are provided in tables 3.4-3.5 and steps 5-10 of assignment L6-1."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol #2 — \"Demand or Capacity?\"",
+   "problem": "Har bir holatda talab (D) yoki quvvat (C) aniqlang, utilizatsiyani hisoblang:",
+   "steps": [
+    {
+     "text": "A — Depo ulanishi 200 kVt bera oladi (quvvat)",
+     "result": "C (quvvat)"
+    },
+    {
+     "text": "B — 22:00 da ulangan oltita avtobus 360 kVt sarflardi (talab)",
+     "result": "D (talab)"
+    },
+    {
+     "text": "Utilizatsiya: $360 \\div 200 = 1.8$ (ortiqcha yuklanish)"
+    },
+    {
+     "text": "C — Bekat soatiga maksimum 240 yo'lovchi tashiy oladi (quvvat)",
+     "result": "C (quvvat)"
+    },
+    {
+     "text": "D — Soatiga 300 yo'lovchi soat 8:30 da avtobus xohlaydi (talab)",
+     "result": "D (talab)"
+    },
+    {
+     "text": "Utilizatsiya: $300 \\div 240 = 1.25$ (ortiqcha yuklanish)"
+    }
+   ]
+  },
+  "narr": [
+   "Now let's practice identifying demand versus capacity in different scenarios.",
+   "In scenario A, the depot connection can provide 200 kW, which is capacity.",
+   "In scenario B, six buses at 22:00 consumed 360 kW, which is demand.",
+   "The utilization is $360 \\div 200 = 1.8$, indicating overload.",
+   "In scenario C, the bus station can handle 240 passengers per hour, which is capacity.",
+   "In scenario D, at 8:30, buses want to carry 300 passengers per hour, which is demand.",
+   "The utilization is $300 \\div 240 = 1.25$, again indicating overload."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol #2 — \"Demand or Capacity?\" (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "E — Fakultet transformatori rated 250 kVt (quvvat)",
+     "result": "C (quvvat)"
+    },
+    {
+     "text": "F — Fakultet binosi cho'qqisi 13:00 da 180 kVt (talab)",
+     "result": "D (talab)"
+    },
+    {
+     "text": "Utilizatsiya: $180 \\div 250 = 0.72$ (qulay)"
+    }
+   ],
+   "result": "Holatlarning aksariyatida ortiqcha yuklanish mavjud"
+  },
+  "narr": [
+   "In scenario E, the faculty transformer is rated at 250 kW, which is capacity.",
+   "In scenario F, the faculty building peak at 13:00 was 180 kW, which is demand.",
+   "The utilization is $180 \\div 250 = 0.72$, which is comfortable."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol #3 — \"Can Ten Buses Charge?\"",
+   "problem": "Park 10 avtobusga o'sadi; avtobusga o'sha 115 kVt·soat, 60 kVt li zaryadlagichlar, 200 kVt li ulanish, 8 soatlik oyna",
+   "steps": [
+    {
+     "text": "(1) Umumiy energiya hisoblash: $10 \\times 115 = 1150$ kVt·soat"
+    },
+    {
+     "text": "(2) O'rtacha quvvat: $1150 \\div 8 = 143.75$ kVt"
+    },
+    {
+     "text": "(3) Bir vaqtda zaryadlagichlar soni: $200 \\div 60 = 3.3$ (pastga yaxlitlab 3)"
+    },
+    {
+     "text": "(4) Partiyalar soni: $10 \\div 3 = 3.3$ (yuqoriga yaxlitlab 4)"
+    },
+    {
+     "text": "(5) Vaqt hisoblash: $4 \\times 1.9 \\approx 7.7$ soat"
+    },
+    {
+     "text": "Natija: 8 soatdan past, sig'adi, lekin deyarli zaxirasiz"
+    }
+   ],
+   "result": "Bitta sekin zaryadlagich yoki kechikkan avtobus reja buzardi"
+  },
+  "narr": [
+   "Let's solve a more complex problem about charging ten buses.",
+   "First, calculate the total energy needed: $10 \\times 115 = 1150$ kWh.",
+   "Next, find the average power required: $1150 \\div 8 = 143.75$ kW.",
+   "Then determine how many chargers can run simultaneously: $200 \\div 60 = 3.3$, rounded down to 3.",
+   "Calculate the number of batches needed: $10 \\div 3 = 3.3$, rounded up to 4.",
+   "Finally, compute the total time required: $4 \\times 1.9 \\approx 7.7$ hours.",
+   "The result fits within 8 hours but with little margin for error."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol #4 — \"Estimate It in Your Team\"",
+   "problem": "Bitta savolni tanlang va usulning to'rt qadamini bajaring:",
+   "steps": [
+    {
+     "text": "A: Kampus avtobusi bir soatda necha yo'lovchi tashiydi?"
+    },
+    {
+     "text": "B: Fakultet binosi bir kunda qancha elektr sarflaydi?"
+    },
+    {
+     "text": "Qadam 1: Muammoni belgilash"
+    },
+    {
+     "text": "Qadam 2: Ko'paytuvchilarga yoyish"
+    },
+    {
+     "text": "Qadam 3: Baholash va yaxlitlash"
+    },
+    {
+     "text": "Qadam 4: Birliklarni tekshirish"
+    },
+    {
+     "text": "Natifa: \"About X, give or take a factor of 3, assuming ...\""
+    }
+   ],
+   "result": "Taxminlarni yozib qo'yish"
+  },
+  "narr": [
+   "Now let's practice estimation techniques.",
+   "Choose one question: either campus bus capacity or faculty building energy consumption.",
+   "Follow these four steps: define the problem, break into factors, estimate and round, check units.",
+   "For question A, consider seats, trips per hour, standing room.",
+   "For question B, consider rooms, lights, computers, usage hours.",
+   "Present your estimate with a margin: \"About X, give or take a factor of 3, assuming ...\""
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Mustaqil o'rganish",
+   "subtitle": "Sizning tizimingiz uchun raqamlar"
+  },
+  "narr": [
+   "For independent study, focus on your own system.",
+   "Write down the demand and capacity for your system, with units and time basis.",
+   "Calculate utilization for your system.",
+   "Perform one intensity or flow calculation for your system, keeping track of units.",
+   "Conduct one order-of-magnitude assessment for your system and document your assumptions.",
+   "Verify each result: check units, scale, and compare with known values."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "6-hafta atamalari",
+   "columns": [
+    {
+     "title": "Atama (UZ)",
+     "type": "text"
+    },
+    {
+     "title": "English",
+     "type": "text"
+    },
+    {
+     "title": "Bir iborada ta'rif",
+     "type": "text"
+    }
+   ],
+   "rows": [
+    [
+     {
+      "text": "Talab"
+     },
+     {
+      "text": "Demand"
+     },
+     {
+      "text": "Tizim chiqarishi kerak bo'lgan narsa: soatiga 300 yo'lovchi, 360 kVt"
+     }
+    ],
+    [
+     {
+      "text": "Quvvat (o'tkazish qobiliyati)"
+     },
+     {
+      "text": "Capacity"
+     },
+     {
+      "text": "Tizim chiqara oladigan maksimum: soatiga 240 yo'lovchi, 200 kVt"
+     }
+    ],
+    [
+     {
+      "text": "Utilizatsiya"
+     },
+     {
+      "text": "Utilisation"
+     },
+     {
+      "text": "Talab ÷ quvvat; < ~0.8 qulay, ~0.8–1.0 tarang, > 1.0 ortiqcha yuklanish"
+     }
+    ],
+    [
+     {
+      "text": "Vaqt asosi"
+     },
+     {
+      "text": "Time basis"
+     },
+     {
+      "text": "Son \"nimaga\" keltirilgani: soatiga, 13:00 da, kuniga — usiz son no-to'liq"
+     }
+    ],
+    [
+     {
+      "text": "Cho'qqi"
+     },
+     {
+      "text": "Peak"
+     },
+     {
+      "text": "Maksimal talab (13:00 da 180 kVt, o'rtacha 94 kVt ga qarshi); tizim o'lchami — cho'qqiga qarab"
+     }
+    ],
+    [
+     {
+      "text": "Intensivlik"
+     },
+     {
+      "text": "Rate"
+     },
+     {
+      "text": "Birlik vaqtdagi miqdor: km/soat, kVt = kVt·soat/soat, kishi/daq"
+     }
+    ],
+    [
+     {
+      "text": "Zaxira va oqim"
+     },
+     {
+      "text": "Stock and flow"
+     },
+     {
+      "text": "Zaxira o'zgaradi: o'zgarish = kirish oqimi − chiqish oqimi (navbat, bufer, batareya)"
+     }
+    ],
+    [
+     {
+      "text": "Bufer"
+     },
+     {
+      "text": "Buffer"
+     },
+     {
+      "text": "Bosqichlar orasidagi zaxira; kirish oqimi > chiqish oqimi bo'lsa to'ladi (40 dona/soat →20 soatda to'ladi)"
+     }
+    ],
+    [
+     {
+      "text": "Tor bo'g'oz"
+     },
+     {
+      "text": "Bottleneck"
+     },
+     {
+      "text": "Eng kichik quvvatli bosqich (Wire Bonding kuniga 6960 dona); tizimning maksimumini belgilaydi"
+     }
+    ],
+    [
+     {
+      "text": "Kattalik tartibi"
+     },
+     {
+      "text": "Order of magnitude"
+     },
+     {
+      "text": "~10 ko'paytuvchi aniqlikdagi baho: ma'lumotnomadagi 23 ga qarshi 21 sartaroshxona"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Let's review the key terminology for this week.",
+   "First, demand refers to what the system needs to provide.",
+   "Capacity is the maximum the system can provide.",
+   "Utilization is demand divided by capacity.",
+   "Time basis specifies the reference for measurements.",
+   "Peak represents the maximum demand.",
+   "Rate is the amount per unit time.",
+   "Stock and flow describe how inventory changes.",
+   "Buffer is inventory between stages.",
+   "Bottleneck is the limiting stage with smallest capacity.",
+   "Order of magnitude gives rough estimates within a factor of 10."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ]
+ }
+]

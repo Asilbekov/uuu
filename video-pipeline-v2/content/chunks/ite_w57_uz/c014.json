@@ -1,0 +1,285 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injiniring asosiy qoidalari",
+   "subtitle": "Asosiy chiziqning o'zgarishi va chalg'ituvchi taqqoslar"
+  },
+  "narr": [
+   "Injenerlikda asosiy chiziqning o'zgarishi muhim tushunchadir. Masalan, LED modernizatsiyasi 12 kVt tejab qoldi. Bu ikki foizni tashkil etadi: koridor yoritgichining 60% foizi va binoning cho'qqisiga nisbatan 7% foizi.",
+   "Har xil asosiy chiziqlar va chegaralar turli natijalar berishi mumkin. Shuning uchun doimo savol berishingiz kerak: bu nimaning foizi?",
+   "Chalg'ituvchi taqqoslar soxta sonlarni talab qilmaydi. Har bir taqqos uchun alohida savol bo'lishi kerak.",
+   "Turli maxrajlar ham chalg'ituvchi bo'lishi mumkin. Masalan, 'A marshrutida shikoyatlar kam' degan gapda, aslida marshrutda kam yo'lovchilar bor. Shuning uchun 'per what?' deb so'rashingiz kerak.",
+   "Tanlangan kunlar ham chalg'ituvchi bo'lishi mumkin. 'Semestrning eng yaxshi haftasi' degan gapda, aslida eng yomon haftalar tashlab yuborilgan. Shuning uchun qaysi kunlar tashlab yuborilganligini so'rashingiz kerak.",
+   "Kesilgan o'q ham chalg'ituvchi bo'lishi mumkin. 80 dan boshlanadigan ustunli diagramma 5% lik farqni juda katta ko'rsatadi. Shuning uchun o'q qayerdan boshlanganini so'rashingiz kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Har qanday talqinni to'rtta savol bilan tekshirish",
+   "bullets": [
+    "Bu son qaysi qaror uchun?",
+    "Qarorga qaysi metrika mos keladi - o'rtacha, cho'qqi, percentil, eng yomon holat?",
+    "Qaysi asosiy chiziq, chegara va vaqt asosi ishlatilgan?",
+    "Qaysi taxmin noto'g'ri chiqsa xulosani ag'darib tashlashi mumkin edi?"
+   ]
+  },
+  "narr": [
+   "Har qanday talqinni to'rtta asosiy savol orqali tekshirish kerak. Birinchidan, bu son qaysi qaror uchun kerak?",
+   "Ikkinchidan, qarorga qaysi metrika mos keladi - o'rtacha, cho'qqi, percentil yoki eng yomon holat?",
+   "Uchinchidan, qaysi asosiy chiziq, chegara va vaqt asosti ishlatilgan?",
+   "To'rtinchidan, qaysi taxmin noto'g'ri chiqsa xulosani butunlay ag'darib tashlashi mumkin edi?"
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Halol hisobot va 'qish kuni' misoli",
+   "subtitle": "Injenerlik hisobotining to'rt elementi"
+  },
+  "narr": [
+   "Endi halol injenerlik hisobotining to'rt elementini ko'rib chiqamiz. Bu hisobot to'rt elementdan iborat bo'ladi: RESULT, RANGE, TOP ASSUMPTION va WHAT WOULD CHANGE IT."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Halol hisobotning to'rt elementi",
+   "bullets": [
+    "RESULT - javob, o'quvchi foydalanishi mumkin bo'lgan oddiy gap",
+    "RANGE - qanchalik ishonish: pastdan yuqorigacha, bitta qiymat emas",
+    "TOP ASSUMPTION - natija eng ko'p turgan taxmin",
+    "WHAT WOULD CHANGE IT - keyin nimani bilish kerak: xulosani siljitadigan ma'lumotlar"
+   ]
+  },
+  "narr": [
+   "RESULT - bu javob bo'lib, o'quvchi foydalanishi mumkin bo'lgan oddiy gapdir.",
+   "RANGE - bu qanchalik ishonishni ko'rsatadi, ya'ni pastdan yuqorigacha bo'lgan diapazon, bitta aniq qiymat emas.",
+   "TOP ASSUMPTION - bu natija eng ko'p turgan taxmin bo'ladi.",
+   "WHAT WOULD CHANGE IT - bu keyin nimani bilish kerakligini bildiradi, ya'ni xulosani siljitadigan ma'lumotlar."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Qishki avtobus masalasi",
+   "problem": "Bitta avtobus bir zaryad bilan qish kunining 96 km ni bosib o'ta oladimi? Ma'lumotlar: ishlatiladigan energiya 160 kVt·soat, kunlik ehtiyoj 96 km, yozgi testlar 1,1–1,6 kVt·soat/km (n = 3).",
+   "steps": [
+    {
+     "text": "Qishki test uchun ma'lumot yo'q: salonni isitish sarfini noma'lum miqdorda oshiradi."
+    },
+    {
+     "text": "Bo'shliq diapazon bilan to'ldiriladi: qishki sarf 1,5–2,0, odatda 1,8 kVt·soat/km."
+    },
+    {
+     "text": "Hisob: 160 ÷ 1,5 = 107 km; 160 ÷ 1,8 = 89 km; 160 ÷ 2,0 = 80 km."
+    },
+    {
+     "text": "Faqat optimistik holat (107 km) 96 km dan oshadi."
+    },
+    {
+     "text": "Hisobot: natija - 'ehtimol, yo'q: 89 km, 96 km ga qarshi'; diapazon 80–107 km."
+    },
+    {
+     "text": "Eng yuqori taxmin - past ishonchli 1,8 kVt·soat/km; o'zgartirardi - bitta real qishki reys yoki kundalik qo'shimcha zaryad."
+    }
+   ],
+   "result": "Ehtimol, yo'q: 89 km, 96 km ga qarshi; diapazon 80–107 km"
+  },
+  "narr": [
+   "Keling, 'qish kuni' misolini ko'rib chiqaylik. Bitta avtobus bir zaryad bilan qish kunining 96 km ni bosib o'ta oladimi?",
+   "Ma'lumotlar shunday: ishlatiladigan energiya 160 kVt·soat, kunlik ehtiyoj 96 km, yozgi testlar 1,1–1,6 kVt·soat/km.",
+   "Lekin qishki test uchun ma'lumot yo'q: salonni isitish sarfini noma'lum miqdorda oshiradi.",
+   "Shu sababli, bo'shliq diapazon bilan to'ldiriladi: qishki sarf 1,5–2,0, odatda 1,8 kVt·soat/km.",
+   "Endi hisoblaymiz: 160 kVt·soat ÷ 1,5 kVt·soat/km = 107 km; 160 ÷ 1,8 = 89 km; 160 ÷ 2,0 = 80 km.",
+   "Faqat optimistik holat (107 km) 96 km dan oshadi.",
+   "Shunday qilib, hisobot natijasi: 'ehtimol, yo'q: 89 km, 96 km ga qarshi'; diapazon 80–107 km.",
+   "Eng yuqori taxmin - past ishonchli 1,8 kVt·soat/km; o'zgartiradi - bitta real qishki reys yoki kundalik qo'shimcha zaryad.",
+   "Qaror: kundalik qo'shimcha zaryadni rejalashtirish va majburiyat oldidan qishki ma'lumotlarni to'plash."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Qishki yurish zaxirasi hisobi",
+   "tex": "qishki yurish zaxirasi = \\frac{160 \\text{ [kVt·soat]}}{1,5 / 1,8 / 2,0 \\text{ [kVt·soat/km]}} = \\frac{107}{89 / 80} \\text{ [km]}, 96 \\text{ [km] ga qarshi}",
+   "parts": [
+    {
+     "substr": "160 [kVt·soat]",
+     "color": "#4C5FD5",
+     "note": "Batareya quvvati"
+    },
+    {
+     "substr": "1,5 / 1,8 / 2,0 [kVt·soat/km]",
+     "color": "#B45309",
+     "note": "Qishki energiya sarfi diapazoni"
+    },
+    {
+     "substr": "107 / 89 / 80 [km]",
+     "color": "#0E7C7B",
+     "note": "Mumkin bo'lgan masofalar"
+    },
+    {
+     "substr": "96 [km]",
+     "color": "#A03040",
+     "note": "Kerakli masofa"
+    }
+   ]
+  },
+  "narr": [
+   "Qishki yurish zaxirasini hisoblash formulasi shunday: batareya quvvati bo'linadi qishki energiya sarfi diapazoniga.",
+   "160 kVt·soat quvvatli batareya 1,5 kVt·soat/km sarf bilan 107 km masofani bosib o'ta oladi.",
+   "1,8 kVt·soat/km sarf bilan 89 km, 2,0 kVt·soat/km sarf bilan 80 km masofani bosib o'ta oladi.",
+   "Lekin kerakli masofa 96 km, shuning uchun faqat eng yuqori samaradorlikda (1,5 kVt·soat/km) bu masofaga yetish mumkin."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "7-hafta savollari",
+   "subtitle": "Namunaviy javoblar bilan leksiya va laboratoriya savollari"
+  },
+  "narr": [
+   "Endi 7-hafta savollarining namunaviy javoblarini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Ma'lumotlar to'liq bo'lmaganligining usullari",
+   "problem": "Ma'lumotlar to'liq bo'lmaganligining beshta usulini avtobus misollari bilan nomlang.",
+   "steps": [
+    {
+     "text": "Juda kam - bir necha nuqta: uchta test safari."
+    },
+    {
+     "text": "Yo'q - kerakli holat uchun ma'lumot yo'q: qishki test yo'q."
+    },
+    {
+     "text": "Shovqinli - qiymatlar haqiqat atrofida sochilgan: bitta marshrutda 1,1–1,6 kVt·soat/km."
+    },
+    {
+     "text": "Eskirgan yoki vakillik qilmagan - boshqa sharoitda o'lchangan: bo'sh avtobus bilan testlar."
+    },
+    {
+     "text": "Noto'g'ri ta'rif yoki birlik - kattalik o'ylaganimiz emas: batareya '%' da yoki birliksiz '200'."
+    },
+    {
+     "text": "Avval muammoni nomlang: tuzatish usuli beshdan qaysi biri ekaniga bog'liq."
+    }
+   ],
+   "result": "Juda kam, Yo'q, Shovqinli, Eskirgan yoki vakillik qilmagan, Noto'g'ri ta'rif yoki birlik"
+  },
+  "narr": [
+   "Birinchi savol: ma'lumotlar to'liq bo'lmaganligining beshta usulini avtobus misollari bilan nomlang.",
+   "Birinchi usul - juda kam ma'lumot: masalan, faqat uchta test safari o'tkazilgan.",
+   "Ikkinchi usul - kerakli holat uchun ma'lumot yo'q: masalan, qishki test o'tkazilmagan.",
+   "Uchinchi usul - shovqinli ma'lumotlar: qiymatlar haqiqat atrofida sochilgan, masalan, bitta marshrutda 1,1–1,6 kVt·soat/km.",
+   "To'rtinchi usul - eskirgan yoki vakillik qilmagan ma'lumotlar: masalan, bo'sh avtobus bilan testlar o'tkazilgan.",
+   "Beshinchi usul - noto'g'ri ta'rif yoki birlik: masalan, batareya '%' da yoki birliksiz '200' deb ko'rsatilgan.",
+   "Muammoni tuzatish usuli beshdan qaysi biri ekaniga bog'liq. Shuning uchun avval muammoni to'g'ri nomlang."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Sonlarning manbalari va ishonchliligi",
+   "problem": "Sonlar qayerdan keladi va ularga qanchalik ishonish mumkin?",
+   "steps": [
+    {
+     "text": "O'lchash (safarni belgilash, zaryadlash jurnalini yuritish) - usul e'lon qilingan bo'lsa yuqori ishonch."
+    },
+    {
+     "text": "Qidirib ko'rish (datasheet, standart) - o'rtacha: sharoitlar farq qilishi mumkin."
+    },
+    {
+     "text": "So'rash (haydovchi, ekspluatatsiya menejeri) - o'rtacha: biror narsaga qarshi tekshiring."
+    },
+    {
+     "text": "Baholash (ko'paytuvchilarga yoyish, 6-leksiya) - past-o'rtacha: taxminlarni e'lon qiling."
+    },
+    {
+     "text": "Analogiya (o'xshash bino yoki marshrut) - past: qanchalik o'xshashligini ayting."
+    },
+    {
+     "text": "Har bir son yoniga manba va ishonchni yozing."
+    }
+   ],
+   "result": "O'lchash (yuqori ishonch), Qidirib ko'rish (o'rtacha), So'rash (o'rtacha), Baholash (past-o'rtacha), Analogiya (past)"
+  },
+  "narr": [
+   "Ikkinchi savol: sonlar qayerdan keladi va ularga qanchalik ishonish mumkin?",
+   "Birinchi manba - o'lchash: masalan, safarni belgilash yoki zaryadlash jurnalini yuritish. Agar usul e'lon qilingan bo'lsa, yuqori ishonch.",
+   "Ikkinchi manba - qidirib ko'rish: masalan, datasheet yoki standart. O'rtacha ishonch, chunki sharoitlar farq qilishi mumkin.",
+   "Uchinchi manba - so'rash: masalan, haydovchi yoki ekspluatatsiya menejeriga so'rash. O'rtacha ishonch, chunki javobni biror narsaga qarabi tekshirish kerak.",
+   "To'rtinchi manba - baholash: masalan, ko'paytuvchilarga yoyish yoki 6-leksiya. Past-o'rtacha ishonch, chunki bu taxminlardir.",
+   "Beshinchi manba - analogiya: masalan, o'xshash bino yoki marshrut. Past ishonch, chunki o'xshashlik darajasini aniq aytish kerak.",
+   "Har bir son yoniga uning manba va ishonch darajasini yozing."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

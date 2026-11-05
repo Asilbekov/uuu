@@ -1,0 +1,531 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injenerlikka kirish — 5–7-haftalar: o’quv qo’llanmasi",
+   "subtitle": "Elektr avtobusining modeli va taxminlari"
+  },
+  "narr": [
+   "Keling, elektr avtobusining modelini ko'rib chiqaylik. Bu modelda energiya va masofa o'rtasidagi bog'liqlikni tushunish muhim.",
+   "Energiya va masofa o'rtasidagi asosiy formulani ko'rib chiqaylik.",
+   "Bu formuladan foydalanib, biz avtobusning yurish zaxirasini hisoblashimiz mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Energiya va masofa formulasi",
+   "tex": "E = e \\times d \\text{ [kVt·soat]} = \\text{[kVt·soat/km]} \\times \\text{[km]}",
+   "parts": [
+    {
+     "substr": "E",
+     "color": "#4C5FD5",
+     "note": "Energiya"
+    },
+    {
+     "substr": "e",
+     "color": "#B45309",
+     "note": "Bir birlik masofaga sarflangan energiya"
+    },
+    {
+     "substr": "d",
+     "color": "#0E7C7B",
+     "note": "Masofa"
+    }
+   ]
+  },
+  "narr": [
+   "Bu yerda E - bu energiya, e - bir birlik masofaga sarflangan energiya, d - esa bosib o'tilgan masofani bildiradi.",
+   "Keling, bu formuladan avtobusning yurish zaxirasini hisoblaylik."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Yurish zaxirasini hisoblash",
+   "problem": "Avtobusning yurish zaxirasini hisoblang. Batareya sig'imi 160 kVt·soat, bir km masofaga sarflangan energiya 1,2 kVt·soat/km.",
+   "steps": [
+    {
+     "text": "Yurish zaxirasi formulasi: $R = \\frac{u \\times C}{e}$"
+    },
+    {
+     "text": "Berilgan qiymatlarni formulaga qo'yamiz: $R = \\frac{160 \\text{ kVt·soat}}{1,2 \\text{ kVt·soat/km}}$"
+    },
+    {
+     "text": "Hisobni bajaramiz: $R = 133 \\text{ km}$"
+    }
+   ],
+   "result": "Yurish zaxirasi 133 km"
+  },
+  "narr": [
+   "Yurish zaxirasini hisoblash uchun batareya sig'imi va energiya sarfini bilishimiz kerak.",
+   "Formula bo'yicha hisoblab ko'ramiz.",
+   "Natijaga ko'ra, avtobus bir zaryad bilan 133 km masofani bosib o'tishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model raqamlari va ularning tahlili",
+   "bullets": [
+    "Batareya sig'imi: 160 kVt·soat",
+    "Yurish zaxirasi: 133 km",
+    "Kunlik ehtiyoj: 96 km"
+   ]
+  },
+  "narr": [
+   "Modelda uchta asosiy raqam mavjud: batareya sig'imi, yurish zaxirasi va kunlik ehtiyoj.",
+   "Batareya sig'imi 160 kVt·soat, bu avtobusning bir to'liq zaryad bilan saqlay oladigan energiyasini bildiradi.",
+   "Yurish zaxirasi 133 km, bu batareya sig'imi va energiya sarfiga asoslanib hisoblangan.",
+   "Kunlik ehtiyoj esa 96 km, bu avtobusning bir kunda bosib o'tishi kerak bo'lgan masofadir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Kunlik ehtiyojning hisoblanishi",
+   "problem": "Avtobusning kunlik ehtiyojini hisoblang. Avtobus bir kunda 8 marta aylanadi, har bir aylanishda 12 km masofani bosib o'tadi.",
+   "steps": [
+    {
+     "text": "Kunlik ehtiyoj formulasi: $\\text{Ehtiyoj} = \\text{aylanishlar soni} \\times \\text{har bir aylanishdagi masofa}$"
+    },
+    {
+     "text": "Berilgan qiymatlarni formulaga qo'yamiz: $\\text{Ehtiyoj} = 8 \\times 12 \\text{ km}$"
+    },
+    {
+     "text": "Hisobni bajaramiz: $\\text{Ehtiyoj} = 96 \\text{ km}$"
+    }
+   ],
+   "result": "Kunlik ehtiyoj 96 km"
+  },
+  "narr": [
+   "Kunlik ehtiyoj avtobusning bir kunda bosib o'tishi kerak bo'lgan masofani bildiradi.",
+   "Bu hisoblash uchun avtobusning bir kundagi aylanishlar soni va har bir aylanishdagi masofani bilishimiz kerak.",
+   "Natijaga ko'ra, avtobus bir kunda 96 km masofani bosib o'tishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Uch xil taxmin va ularni yozish andozasi",
+   "bullets": [
+    "Soddalashtiruvchi taxminlar — nimalarni e'tiborsiz qoldiramiz",
+    "Ma'lumot — nimani qat'iy belgilaymiz",
+    "Chegaraviy taxminlar — nimani tashqarida qoldiramiz"
+   ]
+  },
+  "narr": [
+   "Har bir modelda uch xil turdagi taxminlar mavjud.",
+   "Soddalashtiruvchi taxminlar — bu modelimizda e'tiborsiz qoldirayotgan narsalar, masalan, tepalar, svetoforlar, to'xtovlar.",
+   "Ma'lumot — bu biz qat'iy belgilayotgan qiymatlar, masalan, $e = 1,2$ kVt·soat/km, $C = 200$ kVt·soat, $u = 0,8$.",
+   "Chegaraviy taxminlar — bu modelimizdan tashqarida qoldirayotgan narsalar, masalan, yo'lovchilar, zaryadlash qurilmasi va tarmoq."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Taxminlarni yozish andozasi",
+   "bullets": [
+    "«[Taxmin] deb qabul qilamiz, chunki [sabab]. Agar bu noto'g'ri bo'lsa, [natijaga ta'siri]»"
+   ]
+  },
+  "narr": [
+   "Taxminlarni yozish uchun maxsus andozadan foydalanamiz.",
+   "Misol uchun: «1,2 kVt·soat/km barcha mavsumlarda deb qabul qilamiz, chunki bizda faqat kuzgi test ma'lumotlari bor. Agar bu noto'g'ri bo'lsa, qishki yurish zaxirasi 96 km lik kunlik ehtiyojdan pastga tushishi mumkin»."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Elektr avtobusining modeli",
+   "subtitle": "Yashirin taxminlar va ularning ta'siri"
+  },
+  "narr": [
+   "Endi, elektr avtobus modelining yashirin taxminlarini ko'rib chiqaylik.",
+   "Bu taxminlar formulaga to'g'ridan-to'g'ri kiritilmagan, lekin ular natijaga katta ta'sir qiladi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modelning yashirin taxminlari",
+   "bullets": [
+    "$e = 1,2$ kVt·soat/km — «har mavsumda bir xil»",
+    "«Marshrut tekis, yuklanish o'xshash»",
+    "$u \\times C = 160$ kVt·soat — «batareya hech qachon sig'imini yo'qotmaydi»",
+    "«To'la batareya bilan boshlaymiz»"
+   ]
+  },
+  "narr": [
+   "Modelning yashirin taxminlarini ko'rib chiqaylik.",
+   "Birinchidan, $e = 1,2$ kVt·soat/km qiymati «har mavsumda bir xil» degan taxminni o'z ichiga oladi. Aslida, salonni isitish energiya sarfini oshiradi va yurish zaxirasini kamaytiradi.",
+   "Ikkinchidan, model «marshrut tekis, yuklanish o'xshash» degan taxmin asosida ishlaydi. Aslida, tepalar va to'la avtobuslar ko'proq energiya sarflaydi.",
+   "Uchinchidan, $u \\times C = 160$ kVt·soat «batareya hech qachon sig'imini yo'qotmaydi» degan taxminni anglatadi. Eskirayotgan batareya kamroq saqlaydi.",
+   "To'rtinchidan, model «to'la batareya bilan boshlaymiz» degan taxmin asosida ishlaydi. Agar depodagi zaryadlash doim ishlamasa, o'tkazib yuborilgan zaryad kunni qisqartiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3 — Turli holatlardagi yurish zaxirasi",
+   "problem": "Turli holatlarda avtobusning yurish zaxirasini hisoblang.",
+   "steps": [
+    {
+     "text": "Bazaviy holat: $e = 1,2$ kVt·soat/km, $u \\times C = 160$ kVt·soat"
+    },
+    {
+     "text": "Yo'lovchilar bilan to'la yuklanish: $e = 1,4$ kVt·soat/km, $u \\times C = 160$ kVt·soat"
+    },
+    {
+     "text": "Eski batareya: $e = 1,2$ kVt·soat/km, $u \\times C = 128$ kVt·soat"
+    },
+    {
+     "text": "Qishki isitish: $e = 1,8$ kVt·soat/km, $u \\times C = 160$ kVt·soat"
+    },
+    {
+     "text": "Qish + eski batareya: $e = 1,8$ kVt·soat/km, $u \\times C = 128$ kVt·soat"
+    }
+   ],
+   "result": "Bazaviy holat: 133 km; To'liq yuklanish: 114 km; Eski batareya: 107 km; Qishki isitish: 89 km; Qish + eski batareya: 71 km"
+  },
+  "narr": [
+   "Turli holatlarda avtobusning yurish zaxirasi qanday o'zgarishini ko'rib chiqaylik.",
+   "Bazaviy holatda yurish zaxirasi 133 km.",
+   "Yo'lovchilar bilan to'la yuklanganda energiya sarfi oshadi va yurish zaxirasi 114 km ga kamayadi.",
+   "Eski batareya sig'imi kamaygani uchun yurish zaxirasi 107 km ga tushadi.",
+   "Qishki isitish energiya sarfini oshiradi va yurish zaxirasi 89 km ga kamayadi.",
+   "Agar qishki isitish va eski batareya bir vaqtda bo'lsa, yurish zaxirasi 71 km ga kamayadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modelning amaliy ahamiyati",
+   "bullets": [
+    "Kunlik ehtiyoj 96 km: bazaviy holat, to'la yuklanish va eski batareya qoplaydi",
+    "Qishki isitish va «qish + eski batareya» holatlari allaqachon yo'q",
+    "«Bir zaryad kunga yetadi» degan gap faqat taxminlar to'g'ri turganda to'g'ri"
+   ]
+  },
+  "narr": [
+   "Model natijalarini amaliy jihatdan tahlil qilaylik.",
+   "Kunlik ehtiyoj 96 km bo'lib, bu bazaviy holat, to'la yuklanish va eski batareya holatlari bilan qoplanadi.",
+   "Qishki isitish va «qish + eski batareya» holatlarida esa yurish zaxirasi kunlik ehtiyojdan pastga tushadi.",
+   "Shunday qilib, «bir zaryad kunga yetadi» degan gap faqat taxminlar to'g'ri turganda to'g'ri bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Quyosh misoli",
+   "bullets": [
+    "Yashirin taxmin — «quyosh butun kun to'liq quvvat bilan porlaydi»",
+    "Sodda model: $5 \\text{ kVt} \\times 24 \\text{ soat} = 120 \\text{ kVt·soat}$ kuniga",
+    "Ochiq kun profili — kuniga taxminan 31 kVt·soat",
+    "Sodda model deyarli to'rt barobar oshirib yuborilgan"
+   ]
+  },
+  "narr": [
+   "Xuddi shu g'oyani quyosh misolida ko'rib chiqaylik.",
+   "Bu yerda yashirin taxim — «quyosh butun kun to'liq quvvat bilan porlaydi».",
+   "Sodda modelga ko'ra, quyosh 5 kVt quvvatda 24 soat ishlaydi, bu kuniga 120 kVt·soat energiya beradi.",
+   "Aslida, ochiq kun profili kuniga taxminan 31 kVt·soat energiya beradi, ya'ni sodda model deyarli to'rt barobar oshirib yuborilgan.",
+   "Bu misoldan ko'rinib turibdiki, songa ishonishdan oldin, u qanday shartlarni sukut bilan qabul qilayotganini so'rang."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Modelning sifati",
+   "subtitle": "Model yetarlicha yaxshimi?"
+  },
+  "narr": [
+   "Modelning sifatini baholash uchun uchta asosiy mezon mavjud.",
+   "Ushbu mezonlar modelning maqsadga mosligini aniqlaydi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Uchta verdikt",
+   "bullets": [
+    "Judayam oddiy (too simple) — muhim narsani o'tkazib yuboradi",
+    "Maqsadga mos (fit for purpose) — savolga javob beradi",
+    "Judayam batafsil (too detailed) — qurish va tekshirish mumkin emas"
+   ]
+  },
+  "narr": [
+   "Modelning sifatini uchta holatda baholash mumkin.",
+   "Birinchisi, judayam oddiy model — bu model muhim narsani o'tkazib yuboradi. Masalan, $R = 160 \\div 1,2$ yilning har kuni; qish, tepalar va eskirish ko'rinmaydi.",
+   "Ikkinchisi, maqsadga mos model — bu model savolga to'g'ri javob beradi. Masalan, yoz va qish uchun alohida sarf plus xavfsizlik zaxirasi; bir zaryad kuni qoplaydimi degan masalani hal qilish uchun yetarli.",
+   "Uchinchisi, judayam batafsil model — bu modelni qurish va tekshirish mumkin emas. Masalan, batareya kimyosi, har bir svetofor, har bir haydovchining odatlari; kerak ma'lumotlar yo'q."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy qoida",
+   "bullets": [
+    "Qaror qabul qilish uchun yetarlicha darajada yaxshi javob beradigan eng oddiy modelni tanlang"
+   ]
+  },
+  "narr": [
+   "Model tanlashda asosiy qoida shundan iboratki, qaror qabul qilish uchun yetarlicha darajada yaxshi javob beradigan eng oddiy modelni tanlang."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model chalg'itadigan holatlar",
+   "bullets": [
+    "Yurish zaxirasi modeli yumshoq kuzgi test kunlari uchun qurilgan, ammo qishki sovuq davrida ishlatiladi",
+    "Quyosh ishlab chiqarish profili ochiq yoz kuni uchun qurilgan, ammo bulutli qish haftasida ishlatiladi",
+    "Yotoqxona yuki 2 kVt — yumshoq ob-havo uchun, ammo qattiq sovuq haftasida ishlatiladi"
+   ]
+  },
+  "narr": [
+   "Model chalg'itadigan holatlarni ko'rib chiqaylik.",
+   "Yurish zaxirasi modeli yumshoq kuzgi test kunlari uchun qurilgan, ammo qishki sovuq davrida ishlatilganda isitish energiya sarfini oshiradi va yurish zaxirasi ortiqcha baholangan bo'ladi.",
+   "Quyosh ishlab chiqarish profili ochiq yoz kuni uchun qurilgan, ammo bulutli qish haftasida ishlatilganda ishlab chiqarish profildan ancha past bo'ladi.",
+   "Yotoqxona yuki 2 kVt — bu qiymat yumshoq ob-havo uchun mo'ljallangan, ammo qattiq sovuq haftasida ishlatilganda yuk 2 kVt dan ancha yuqori bo'ladi.",
+   "Har bir modelning o'z taxminlari to'g'ri bo'lgan diapazoni bor. Uni biling va e'lon qiling."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Modelni tekshirish",
+   "subtitle": "Uchta tekshiruv va «qurish — tekshirish — qayta ko'rib chiqish» sikli"
+  },
+  "narr": [
+   "Modelni tekshirish uchun uchta asosiy usul mavjud.",
+   "Bu usullar modelning to'g'riligini va ishonchliligini tekshirishga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Uchta sog'lom fikr tekshiruvi",
+   "bullets": [
+    "Birliklar — $(u \\times C)$ [kVt·soat] ÷ $e$ [kVt·soat/km] km beradi",
+    "Kattalik tartibi — 133 km shahar avtobusi uchun ishonchlimi",
+    "Ma'lum qiymat — natija datasheet, test-drayv yoki o'tgan oyning loglari bilan mos keladimi"
+   ]
+  },
+  "narr": [
+   "Modelni tekshirish uchun uchta sog'lom fikr tekshiruvi mavjud.",
+   "Birinchisi, birliklar tekshiruvi — $(u \\times C)$ [kVt·soat] ÷ $e$ [kVt·soat/km] km beradi, yurish zaxirasining birligi to'g'ri.",
+   "Ikkinchisi, kattalik tartibini tekshirish — 133 km shahar avtobusi uchun ishonchlimi: o'nlab–yuzlab km, 3 km ham emas, 3 000 km ham emas.",
+   "Uchinchisi, ma'lum qiymatni tekshirish — natija datasheet, test-drayv yoki o'tgan oyning loglari bilan mos keladimi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Hafta sikli",
+   "bullets": [
+    "Frame (muammoni qo'yish va o'zgaruvchilar)",
+    "Build (birliklar bilan birinchi oddiy model)",
+    "Check (birliklar, o'lcham, ma'lum qiymatlar)",
+    "Revise (taxminlarni tuzatish; kerak bo'lgandagina tafsilot qo'shish)"
+   ]
+  },
+  "narr": [
+   "Modelni rivojlantirish uchun hafta sikli mavjud.",
+   "Birinchisi, Frame — bu muammoni qo'yish va o'zgaruvchilarni aniqlash bosqichi.",
+   "Ikkinchisi, Build — bu birliklar bilan birinchi oddiy modelni qurish bosqichi.",
+   "Uchinchisi, Check — bu birliklar, o'lcham va ma'lum qiymatlarni tekshirish bosqichi.",
+   "To'rtinchisi, Revise — bu taxminlarni tuzatish va kerak bo'lgandagina tafsilot qo'shish bosqichi.",
+   "Bu siklni qaror uchun yetarlicha darajada yaxshi bo'lguncha takrorlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "5-hafta savollari",
+   "subtitle": "Namunaviy javoblar bilan leksiya va laboratoriya savollari"
+  },
+  "narr": [
+   "Endi, 5-hafta darslarida beriligan savollarning namunaviy javoblarini ko'rib chiqaylik.",
+   "Bu savollar model tushunchasini va uning amaliy ahamiyatini tushunishga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 1 — Model tushuntirishi",
+   "problem": "Model nima? Nega leksiya «hech bir xarita tarmoqning o'zi emas» degan da'voda turadi?",
+   "steps": [
+    {
+     "text": "Model — real tizimning aniq bir savolga javob berish uchun qurilgan soddalashtirilgan ifodasi"
+    },
+    {
+     "text": "Leksiya misoli: bitta kampus elektr tarmog'i va ikkita xarita — bir chiziqli sxema va geografik sxema"
+    },
+    {
+     "text": "Xaritalarning hech biri tarmoq emas: har biri — bitta turdagi savollar uchun qilingan soddalashtirilgan manzara"
+    }
+   ],
+   "result": "Model — real tizimning soddalashtirilgan ifodasi, xaritalar esa turli savollarga javob beruvchi soddalashtirilgan manzaralardir"
+  },
+  "narr": [
+   "Birinchi savol model tushunchasiga oid.",
+   "Model — bu real tizimning aniq bir savolga javob berish uchun qurilgan soddalashtirilgan ifodasi.",
+   "Leksiyada misol sifatida kampus elektr tarmog'i va unga tegishli ikki xil xarita keltirilgan: bir chiziqli sxema va geografik sxema.",
+   "Bu xaritalarning hech biri tarmoqning to'liq aksi emas, har biri turli savollarga javob beruvchi soddalashtirilgan manzara.",
+   "Jorj Boksning mashhur epigrafi shunday deydi: «Barcha modellar noto'g'ri, ammo ba'zilari foydalidir»."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 2 — Model va savol mosligi",
+   "problem": "Leksiya, «Match the Question to the Model» interaktivida A–F savollarining har biriga qaysi model turi ko'proq mos tushadi va nega?",
+   "steps": [
+    {
+     "text": "A (bir zaryad bilan yurish zaxirasi) — matematik model: energiya = km ga sarf × masofa, batareya energiyasiga qarshi"
+    },
+    {
+     "text": "B (fider o'chganda qaysi binolar quvvatni yo'qotadi) — grafik model: bir chiziqli sxema qaysi fider binoni oziqlantirishini ko'rsatadi"
+    },
+    {
+     "text": "C (yotoqxona harorati bir kunda) — hisoblash modeli: soatlar bo'yicha yuramiz"
+    }
+   ],
+   "result": "Har bir savolga mos model turi: A — matematik, B — grafik, C — hisoblash"
+  },
+  "narr": [
+   "Ikkinchi savol model va savol mosligiga oid.",
+   "A savoli (bir zaryad bilan yurish zaxirasi) uchun matematik model mos keladi, chunki u energiya va masofa o'rtasidagi bog'liqlikni hisoblashni talab qiladi.",
+   "B savoli (fider o'chganda qaysi binolar quvvatni yo'qotadi) uchun grafik model mos keladi, chunki u binolar va fiderlar o'rtasidagi bog'liqlikni vizual ko'rsatishni talab qiladi.",
+   "C savoli (yotoqxona harorati bir kunda) uchun hisoblash modeli mos keladi, chunki u vaqt o'tishi bilan harorat o'zgarishini hisoblashni talab qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

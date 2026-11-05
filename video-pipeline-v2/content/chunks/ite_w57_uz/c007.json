@@ -1,0 +1,306 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Atamalar — 5-hafta glosariysi",
+   "subtitle": "Model va uning tarkibiy qismlari"
+  },
+  "narr": [
+   "Keling, muhandislikda modellar nima ekanligini va ularning tarkibiy qismlarini tushunib olishimiz kerak.",
+   "Model - bu aniq bir savolga javob berish uchun qurilgan real tizimning soddalashtirilgan ifodasi.",
+   "Fizik model - bu real kichiktirilgan yoki soddalashtirilgan nusxa, masalan, aerodinamik trubadagi turbina parragi.",
+   "Grafik model - bu qismlar va bog'lanishlarning diagrammasi, masalan, bir chiziqli sxema yoki energiya oqimlari diagrammasi.",
+   "Matematik model - bu o'zgaruvchilar orasidagi tenglamalar, masalan, Om qonuni yoki energetik balans.",
+   "Hisoblash modeli - bu kompyuterda qadam-baqadam bajariladigan qoidalar, masalan, soatlik talab jadvali.",
+   "Modelga kirishlar - bu modelga beradigan va tanlay oladigan narsalarimiz, masalan, batareya hajmi, tezlik, marshrut uzunligi.",
+   "Parametrlar - bu qat'iy saqlaydigan narsalarimiz, masalan, km ga sarf yoki batareyaning ishlatiladigan ulushi.",
+   "Bog'liqliklar - bu model sonlarini bog'laydigan qoidalar, masalan, Energy = energy per km × distance.",
+   "Chiqishlar - baholaydigan bashoratlarimiz, masalan, yurish zaxirasi [km] yoki kunlik energiya [kVt·soat/kun].",
+   "Soddalashtiruvchi taxmin - bu e'tiborsiz qoldiradigan narsalarimiz, masalan, tepalar, svetoforlar, haydovchilar orasidagi farqlar.",
+   "Ma'lumotga oid taxmin - bu qat'iy belgilaydigan narsalarimiz, masalan, e = 1, 2 kVt·soat/km; C = 200 kVt·soat, u = 0, 8.",
+   "Chegaraviy taxmin - bu model chegarasidan tashqarida qoldiradigan narsalarimiz, masalan, yo'lovchilar, zaryadlash, tarmoq.",
+   "Maqsadga moslik - bu savolga qaror uchun yetarli darajada yaxshi javob beradigan eng oddiy model.",
+   "Sog'lom fikr tekshiruvi - bu birliklar, kattalik tartibi, ma'lum qiymat bilan solishtirish."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "6-hafta — Miqdoriy mulohazalar I",
+   "subtitle": "Talab, quvvat va intensivliklar"
+  },
+  "narr": [
+   "6-haftada biz talab, quvvat, intensivliklar va oqimlarga sonlarni qo'yishni va ularni baholashni o'rganamiz.",
+   "5-haftadan eslaymizki, modellar maqsad bilan qurilgan soddalashtirilgan ifodalar, to'rt qismdan iborat: kirishlar, parametrlar, bog'liqliklar va chiqishlar, hammasi birliklar bilan.",
+   "Shuningdek, biz taxminlarni - nimalarni e'tiborsiz qoldiramiz, qat'iy belgilaymiz yoki tashqarida qoldiramizni yozamizni va fit for purpose - savolga qaror qabul qilish uchun yetarli darajada yaxshi javob beradigan eng oddiy modelni tushunib olamiz.",
+   "Endi, talab va quvvat nimani anglatishini ko'rib chiqaylik.",
+   "Talab - bu tizim chiqarishi kerak bo'lgan narsa.",
+   "Quvvat - bu u chiqara oladigan maksimum miqdor.",
+   "Ikkalasiga ham birlik va vaqt asosi kerak: masalan, soatiga yo'lovchi, 13:00 dagi kVt, kuniga kVt·soat.",
+   "Vaqt asosisiz son birliksiz son kabi no-to'liq bo'ladi.",
+   "Kosky, 8-bob g'oyasiga ko'ra, shosse sig'imi - bu intensivlik.",
+   "Keling, bir nechta tizimda talab va quvvatni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Talab va quvvat: to'rt tizimda",
+   "columns": [
+    "Tizim",
+    "Talab",
+    "Quvvat",
+    "Birlik"
+   ],
+   "rows": [
+    [
+     "Cho'qqi paytidagi kampus avtobusi",
+     {
+      "tex": "300 \\text{ yo'lovchi yurmoqchi}"
+     },
+     {
+      "tex": "240 \\text{ tashiladi (40 o'rin} \\times 6 \\text{ avtobus})"
+     },
+     "soatiga"
+    ],
+    [
+     "Tushlik paytidagi oshxona",
+     {
+      "tex": "360 \\text{ ovqatlanuvchi keladi}"
+     },
+     {
+      "tex": "400 \\text{ ovqat berilishi mumkin}"
+     },
+     "soatiga"
+    ],
+    [
+     "Depo ulanishi",
+     {
+      "tex": "olti zaryadlagich ishlasa 360 \\text{ kVt}"
+     },
+     {
+      "tex": "ulanish 200 \\text{ kVt beradi}"
+     },
+     "kVt"
+    ],
+    [
+     "Cho'qqi paytidagi fakultet binosi",
+     {
+      "tex": "13:00 da 180 \\text{ kVt sarflanadi}"
+     },
+     {
+      "tex": "transformator reytingi 250 \\text{ kVt}"
+     },
+     "kVt"
+    ]
+   ]
+  },
+  "narr": [
+   "Bu jadvalda to'rtta turli tizimning talabi va quvvati ko'rsatilgan.",
+   "Birinchisi, cho'qqi paytidagi kampus avtobusi: soatiga 300 yo'lovchi yurmoqchi, lekin faqat 240 tashilishi mumkin (40 o'rinli 6 avtobus).",
+   "Ikkinchisi, tushlik paytidagi oshxona: soatiga 360 ovqatlanuvchi keladi, lekin 400 ovqat berilishi mumkin.",
+   "Uchinchisi, depo ulanishi: olti zaryadlagich ishlasa 360 kVt talab qilinadi, lekin ulanish faqat 200 kVt beradi.",
+   "To'rtinchisi, cho'qqi paytidagi fakultet binosi: 13:00 da 180 kVt sarflanadi, transformator reytingi esa 250 kVt.",
+   "E'tibor bering, barcha holatlarda talab va quvvat bir xil birliklarda va vaqt asosida berilgan.",
+   "Bu muhim, chunki turli birliklarni solishtirish mumkin emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Utilizatsiya: talab ÷ quvvat",
+   "bullets": [
+    "Utilizatsiya = talab ÷ quvvat",
+    "Fakultet binosi: 180 ÷ 250 kVt = 0,72 — qulay",
+    "Oshxona: 360 ÷ 400 soatiga = 0,90 — tarang",
+    "Kampus avtobusi: 300 ÷ 240 soatiga = 1,25 — ortiqcha yuklanish",
+    "Depo, oltita zaryadlagichning barchasi: 360 ÷ 200 kVt = 1,80 — ortiqcha yuklanish",
+    "Empirik chegaralar: ~0,8 dan past — qulay; ~0,8–1,0 — tarang; 1,0 dan yuqori — ortiqcha yuklanish"
+   ]
+  },
+  "narr": [
+   "Utilizatsiya - bu talabning quvvatga nisbati.",
+   "Hisoblash formulasi: utilizatsiya = talab ÷ quvvat.",
+   "Fakultet binosida utilizatsiya 180 ÷ 250 kVt = 0,72 - bu qulay holat.",
+   "Oshxonada utilizatsiya 360 ÷ 400 soatiga = 0,90 - bu tarang holat.",
+   "Kampus avtobusida utilizatsiya 300 ÷ 240 soatiga = 1,25 - bu ortiqcha yuklanish holati.",
+   "Depoda, oltita zaryadlagichning barchasi uchun utilizatsiya 360 ÷ 200 kVt = 1,80 - bu juda ortiqcha yuklanish.",
+   "Empirik chegaralar: ~0,8 dan past - qulay (variantlarni yutish uchun zaxira bor); ~0,8–1,0 - tarang (zaxira kam, kechikishlar paydo bo'ladi); 1,0 dan yuqori - ortiqcha yuklanish (talab rad etiladi yoki navbat o'sadi)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'rtacha cho'qqini yashiradi: o'lchamni cho'qqi bo'yicha oling",
+   "bullets": [
+    "Fakultet binosining yuk profili: o'rtacha 94 kVt, 13:00 dagi cho'qqi 180 kVt, transformator quvvati 250 kVt",
+    "O'rtachaga mo'ljallangan tizim tush paytida ishdan chiqardi",
+    "Hafta qoidasi: o'lchamni cho'qqiga qarab oling, o'rtachaga emas",
+    "O'rtacha cho'qqini yashiradi — shuning uchun 86 kVt lik o'rtacha zaryadlash quvvati oltita 60 kVt lik zaryadlagich bir vaqtda ishlay oladi degani emas"
+   ]
+  },
+  "narr": [
+   "O'rtacha cho'qqini yashiradi - bu muhim tushuncha.",
+   "Fakultet binosining yuk profiliga qaraymiz: o'rtacha 94 kVt, 13:00 dagi cho'qqi 180 kVt, transformator quvvati 250 kVt.",
+   "Agar tizimni o'rtachaga mo'ljallab qursak, u tush paytida ishdan chiqadi.",
+   "Hafta qoidasi: o'lchamni cho'qqiga qarab oling, o'rtachaga emas.",
+   "Bu shuni anglatadiki, 86 kVt lik o'rtacha zaryadlash quvvati oltita 60 kVt lik zaryadlagich bir vaqtda ishlay oladi degani emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "plot",
+  "data": {
+   "heading": "Talab va quvvat",
+   "functions": [
+    {
+     "fn": "180",
+     "tex": "Talab",
+     "color": "#4C5FD5"
+    },
+    {
+     "fn": "250",
+     "tex": "Quvvat",
+     "color": "#B45309"
+    }
+   ],
+   "x_range": [
+    0,
+    24
+   ],
+   "y_range": [
+    0,
+    300
+   ],
+   "point": [
+    13,
+    180
+   ],
+   "vline": 13,
+   "x_label": "Soat",
+   "y_label": "kVt"
+  },
+  "narr": [
+   "Bu grafikda talab va quvvatni ko'rishimiz mumkin.",
+   "Ko'k chiziq talabni, oq chiziq quvvatni ifodalaydi.",
+   "13:00 da talab cho'qqiga chiqadi - 180 kVt.",
+   "Transformator quvvati esa doimiy 250 kVt.",
+   "Bu grafikdan ko'rinib turibdiki, tizimni cho'qqi bo'yicha, o'rtachaga emas loyihalash kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tafovutni yopishning uch usuli",
+   "bullets": [
+    "1-variant — talabni kamaytirish yoki surish: masalan, uch avtobusdan iborat ikki partiya bo'yicha zaryadlash",
+    "2-variant — quvvatni oshirish: kattaroq ulanish yoki transformator; bu pul va vaqt turadi",
+    "3-variant — kutishni qabul qilish: navbatning o'sishiga ruxsat berish va qanday kutish chidasa bo'ladiganini hal qilish",
+    "Qaysi variant yaxshiroq — kompromis; kurs 10-haftada bunga qaytadi"
+   ]
+  },
+  "narr": [
+   "Talab quvvatdan oshganda, tizimning uch yo'li bor.",
+   "Birinchi variant - talabni kamaytirish yoki surish: masalan, uch avtobusdan iborat ikki partiya bo'yicha zaryadlash.",
+   "Ikkinchi variant - quvvatni oshirish: kattaroq ulanish yoki transformator; bu pul va vaqt turadi.",
+   "Uchinchi variant - kutishni qabul qilish: navbatning o'sishiga ruxsat berish va qanday kutish chidasa bo'ladiganini hal qilish.",
+   "Qaysi variant yaxshiroq - bu kompromis masalasi. Kurs 10-haftada bunga qaytamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Intensivliklar: birlik vaqtdagi miqdor va birlik tuzoqlari",
+   "bullets": [
+    "Intensivlik - birlik vaqtdagi miqdor",
+    "tezlik 20 km/soat; quvvat 60 kVt (kVt = kVt·soat/soat; zaryadlagich 60 kVt beradi)",
+    "kelish — daqiqada 10 talaba; kunlik energiya — avtobusga kuniga 115 kVt·soat",
+    "kVt — intensivlik, kVt·soat — miqdor; quvvat × vaqt = energiya",
+    "Birliklarni Kosky kabi kvadrat qavs ichida olib yuring: 60 [kVt] × 2 [soat] = 120 [kVt·soat]"
+   ]
+  },
+  "narr": [
+   "Intensivlik - bu birlik vaqtdagi miqdor.",
+   "Masalan, tezlik 20 km/soat, quvvat 60 kVt (kVt = kVt·soat/soat; zaryadlagich 60 kVt beradi).",
+   "Boshqa misollar: kelish — daqiqada 10 talaba; kunlik energiya — avtobusga kuniga 115 kVt·soat.",
+   "kVt — intensivlik, kVt·soat — miqdor; quvvat × vaqt = energiya.",
+   "Birliklarni Kosky kabi kvadrat qavs ichida olib yuring: 60 [kVt] × 2 [soat] = 120 [kVt·soat]."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

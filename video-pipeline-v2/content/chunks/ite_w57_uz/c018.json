@@ -1,0 +1,155 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Muhandislikka kirish — 5–7-haftalar: o'quv qo'llanmasi",
+   "subtitle": "7-lecture: Ma'lumotlar yetishmasligi va muhandislik qarorlari"
+  },
+  "narr": [
+   "Bu qo'llanma muhandislikda to'liq bo'lmagan ma'lumotlar bilan qanday ishlashni o'rganishga bag'ishlangan. Biz yaxshi muhandislik xabarining to'rtta asosiy elementini ko'rib chiqamiz: natija, diapazon, eng yuqori taxmin va uni nima o'zgartirishi mumkinligi.",
+   "Yakuniy hisobot shu to'rt elementdan iborat bo'lishi kerak. Jamoaning 60 soniyalik hisoboti esa hozirgi qarorimizni, natijani diapazonda, tahlilning eng zaif sonini va keyin yig'adigan bitta ma'lumotni o'z ichiga olishi kerak.",
+   "7-leksiya prinsipi shunday deydi: yaxshi muhandislik xabari natijani, diapazonni, eng yuqori taxminni va uni nima o'zgartirishi mumkinligini nomlaydi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq L7-3: \"Name the Problem\"",
+   "problem": "Har bir da'vo uchun muammo turini va yaxshiroq son olishning bitta usulini nomlang.",
+   "steps": [
+    "A: \"Avtobusni bitta safarda test qildik\"",
+    "B: \"Yotoqxona qishki isitishi haqida ma'lumot yo'q\"",
+    "C: \"Bitta zaryadlagichning beshta ko'rsatkichi: 58, 61, 54, 63, 60 kVt\"",
+    "D: \"Quyosh ishlab chiqarish raqami — cho'l maydonidan\"",
+    "E: \"Datasheet birliksiz \"200\" deydi\"",
+    "F: \"Yuk profili — yangi qanot ochilishidan oldingi\""
+   ],
+   "result": "A: too little — safarni turli kunlarda va turli yuklanishda takrorlash; B: missing — boshqa binolar bilan analogiya bo'yicha baholash; C: noisy — o'rtacha va diapazon bilan hisobot; D: unrepresentative — o'xshash iqlim uchun ma'lumotlar; E: wrong definition/yunit — yorliqni tekshirish; F: out of date — profilni qayta o'lchash"
+  },
+  "narr": [
+   "Keling, \"Name the Problem\" topshirig'ini ko'rib chiqaylik. Bu erda bizda bir nechta da'volar mavjud va biz ularning har biri uchun muammo turini va yaxshiroq son olish usulini aniqlashimiz kerak.",
+   "A da'vosida: \"Avtobusni bitta safarda test qildik\". Bu juda kam ma'lumot, chunki faqat bitta sinov o'tkazilgan. Yaxshiroq usul - bu safarni turli kunlarda va turli yuklanish sharoitida takrorlash.",
+   "B da'vosida: \"Yotoqxona qishki isitishi haqida ma'lumot yo'q\". Bu ma'lumot yetishmovchiligi holati. Yaxshiroq usul - boshqa o'xshash binolar bilan solishtirish yoki qishki o'lchovlarni rejalashtirish.",
+   "C da'vosida: \"Bitta zaryadlagichning beshta ko'rsatkichi: 58, 61, 54, 63, 60 kVt\". Bu shovqinli ma'lumot, chunki qiymatlar o'rtasida farq bor. Yaxshiroq usul - o'rtacha qiymat (taxminan 59 kVt) va diapazon (54 dan 63 gacha) hisoblash.",
+   "D da'vosida: \"Quyosh ishlab chiqarish raqami — cho'l maydonidan\". Bu vakillikdan qolgan ma'lumot, chunki bu sharoitlar boshqa joylarda odatdagidan farq qilishi mumkin. Yaxshiroq usul - o'xshash iqlim sharoitlarida quyosh ishlab chiqarish ma'lumotlarini topish.",
+   "E da'vosida: \"Datasheet birliksiz \"200\" deydi\". Bu noto'g'ri ta'rif/birlik muammosi. Yaxshiroq usul - yorliqni tekshirish, bu 200 kVt·soat energiya ekanligini yoki 200 kVt quvvat ekanligini aniqlash.",
+   "F da'vosida: \"Yuk profili — yangi qanot ochilishidan oldingi\". Bu eski ma'lumot, chunki hozirgi sharoitlar o'zgarishi mumkin. Yaxshiroq usul - profilni qayta o'lchash yoki yangi qanotga moslab masshtablash."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq L7-3: \"Read It Twice\"",
+   "problem": "Marshrut ma'lumotlari: o'rtacha kutish 6 daqiqa; 15% yo'lovchi 12 daqiqadan ko'p kutadi; 82% reys vaqtida; cho'qqida soatiga 300 yo'lovchi avtobus xohlaydi, sig'imi 240. Dispetcher va yo'lovchi har biri bitta gap aytadi. Ikkala gap ham rost - qo'shimcha ma'lumotlar qaysi muammo muhimroq ekanini hal qiladi.",
+   "steps": [
+    "Dispetcher aytadigan qulay gap: \"82% reys vaqtida, o'rtacha kutish esa — atigi 6 daqiqa\" (hal qilardi: kun soatlari bo'yicha kutishlar).",
+    "Yo'lovchi aytadigan tanqidiy gap: \"Cho'qqida bizning 300 miz avtobus xohlaydi, lekin faqat 240 tasi yura oladi. Har yettinchimiz 12 daqiqadan ko'p kutadi\" (hal qilardi: cho'qqida qoldirilgan yo'lovchilar ulushi)."
+   ],
+   "result": "Ikkala gap ham rost - dispetcher o'rtacha holat haqida, yo'lovchi esa cho'qqa keladigan muammolar haqida gapiryapti. Qo'shimcha ma'lumotlar kerak bo'ladi."
+  },
+  "narr": [
+   "Keyingi topshiriq \"Read It Twice\" deb nomlanadi. Bu erda bizda marshrut ma'lumotlari mavjud: o'rtacha kutish 6 daqiqa, 15% yo'lovchi 12 daqiqadan ko'p kutadi, 82% reys vaqtida, cho'qqida soatiga 300 yo'lovchi avtobus xohlaydi, lekin sig'imi 240.",
+   "Dispetcher aytadigan qulay gap: \"82% reys vaqtida, o'rtacha kutish esa — atigi 6 daqiqa\". Bu holatni hal qilish uchun kun soatlari bo'yicha kutishlarni o'lchash kerak bo'ladi.",
+   "Yo'lovchi aytadigan tanqidiy gap: \"Cho'qqida bizning 300 miz avtobus xohlaydi, lekin faqat 240 tasi yura oladi. Har yettinchimiz 12 daqiqadan ko'p kutadi\". Bu holatni hal qilish uchun cho'qqida qoldirilgan yo'lovchilar ulushini o'lchash kerak.",
+   "Ikkala gap ham rost - dispetcher o'rtacha holat haqida, yo'lovchi esa cho'qqa keladigan muammolar haqida gapiryapti. Qaysi muammo muhimroq ekanini aniqlash uchun qo'shimcha ma'lumotlar kerak bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq L7-3: \"The Winter Range Explorer\"",
+   "problem": "(1) \"Summer tests\" ni tanlang — qaysi safarlar 96 km ehtiyojni qoplaydi? (2) \"Winter and aged battery\" ni tanlang — eng yaxshi holatda necha km yetishmaydi? (3) \"Winter guess\" dan ishlatiladigan ulushni verdikt o'zgunguncha ko'taring — qanday ulush kerak?",
+   "steps": [
+    "Yozgi holatlar (1): 1,1 / 1,3 / 1,6 kVt·soat/km — barchasi 96 km ehtiyojni qoplaydi.",
+    "Qishki holat va eskirgan batareya (2): 5-leksiyada qishki holatda eskirgan batareya bilan 71 km bergan edi — ehtiyojdan 25 km past.",
+    "Qishki taxmin (3): Interactive sahifada qiymatlar o'rganiladi (qiymatlar ilustrativ)."
+   ],
+   "result": "Yozgi testlar barchasi 96 km ehtiyojni qoplaydi. Qishki holatda esa ehtiyojdan 25 km yetishmaydi. Qaysi ulush kerakligi interactive sahifada o'rganiladi."
+  },
+  "narr": [
+   "\"The Winter Range Explorer\" interaktiv topshiriq. Uchta savol bor.",
+   "Birinchi savol: \"Summer tests\" ni tanlang — qaysi safarlar 96 km ehtiyojni qoplaydi? Leksiya slaydlariga ko'ra uchta yozgi holat mavjud: 1,1 / 1,3 / 1,6 kVt·soat/km, 145/123/100 km. Barchasi 96 km ehtiyojni qoplaydi.",
+   "Ikkinchi savol: \"Winter and aged battery\" ni tanlang — eng yaxshi holatda necha km yetishmaydi? 5-leksiyada qishki holatda eskirgan batareya bilan 71 km bergan edi — ehtiyojdan 25 km past.",
+   "Uchinchi savol: \"Winter guess\" dan ishlatiladigan ulushni verdikt o'zgunguncha ko'taring — qanday ulush kerak? Bu javoblar interactive sahifada o'rganiladi (qiymatlar ilustrativ)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Topshiriq L7-3: \"Your Turn: Rooftop Solar for the Building\"",
+   "problem": "30 kilovattlik tom o'rnatmasi fakultet binosining kunlik elektrini qoplay oladimi? Berilgan: bino o'rtacha 94 kVt (6-leksiya); o'rnatma kuniga 1 kVt ga 3–5 kVt·soat beradi.",
+   "steps": [
+    "(1) O'rnatmaning kunlik energiyasi: 30 [kVt] ×3–5 [kVt·soat/kVt-kun] = 90–150 kVt·soat (odatiy 120)",
+    "(2) Binoning kunlik energiyasi: 94 [kVt] ×24 [soat] ≈2260 kVt·soat",
+    "(3) Qoplanadigan ulush: 90 ÷ 2260 va 150 ÷ 2260 ≈4–7% (odatiy 5%)",
+    "(4) Hisobot: \"O'rnatma binoning kunlik elektrining taxminan 4–7% ini qoplaydi, kuniga 1 kVt ga 3–5 kVt·soat deb taxmin qilib. O'lchangan ishlab chiqarish buni o'zgartirardi\""
+   ],
+   "result": "O'rnatma binoning kunlik elektrining taxminan 4–7% ini qoplaydi, kuniga 1 kVt ga 3–5 kVt·soat deb taxmin qilib. Ikkala da'vo ham rost: binoning bir necha foizi — lekin kuniga taxminan bitta avtobus."
+  },
+  "narr": [
+   "\"Your Turn: Rooftop Solar for the Building\" mustaqil topshiriq. Savol: 30 kilovattlik tom o'rnatmasi fakultet binosining kunlik elektrini qoplay oladimi?",
+   "Birinchi qadam: o'rnatmaning kunlik energiyasini hisoblaymiz. 30 kVt × 3–5 kVt·soat/kVt-kun = 90–150 kVt·soat (odatiy 120).",
+   "Ikkinchi qadam: binoning kunlik energiyasini hisoblaymiz. 94 kVt × 24 soat = 2260 kVt·soat.",
+   "Uchinchi qadam: qoplanadigan ulushni hisoblaymiz. 90 ÷ 2260 ≈4% va 150 ÷ 2260 ≈7% (odatiy 5%).",
+   "To'rtinchi qadam: hisobot tayyorlaymiz. \"O'rnatma binoning kunlik elektrining taxminan 4–7% ini qoplaydi, kuniga 1 kVt ga 3–5 kVt·soat deb taxmin qilib. O'lchangan ishlab chiqarish buni o'zgartirardi\".",
+   "Ikkala da'vo ham rost: binoning bir necha foizi — lekin kuniga taxminan bitta avtobus."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Mustaqil o'rganish: Tizimingizda to'liq bo'lmagan ma'lumotlar",
+   "subtitle": "L7-4 topshirig'i"
+  },
+  "narr": [
+   "Endi mustaqil o'rganish topshirig'imizga o'tamiz. Bu sizning tizimingizda to'liq bo'lmagan ma'lumotlarni o'rganish imkoniyati.",
+   "Topshiriq shunday: o'zingizning tizimingizda ma'lumotlari to'liq bo'lmagan bitta kattalikni tanlang va muammo turini nomlang.",
+   "Keyin, past, tipik va yuqori qiymatlarni yozing, manba va o'zingizning ishonchingizni bildiring.",
+   "Diapazon bitta natijani qanday o'zgartirishini ko'rsating.",
+   "Nihoyat, yakuniy hisobot gapini yozing: natija, diapazon, eng yuqori taxmin, xulosani nima o'zgartirardi — shular haqida."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

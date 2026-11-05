@@ -1,0 +1,250 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injenerlikga kirish — 5–7-haftalar: o'quv qo'llanmasi",
+   "subtitle": "10-masala: Avtobuslarni zaryadlash"
+  },
+  "narr": [
+   "Keling, bir kechada oltita avtobusni 200 kVt li ulanishda zaryadlash mumkinligini tekshiraylik. Avval, energiya hisobini ko'rib chiqaylik.",
+   "Har bir avtobusning quvvati 115 kVt·soat, shuning uchun umumiy energiya talabi 6 avtobus uchun 690 kVt·soatni tashkil qiladi.",
+   "Zaryadlash oynasi 22:00 dan 06:00 gacha, ya'ni 8 soat davom etadi. O'rtacha quvvat 690 ni 8 ga bo'lganda taxminan 86 kVt chiqadi. Bu esa energiya muammosiz ekanligini ko'rsatadi.",
+   "Lekin, asl muammo quvvatdir. Oltita avtobus bir vaqtda zaryadlanganda, ularning umumiy quvvati 360 kVt bo'ladi, bu esa 200 kVt li ulanishdan ancha yuqori.",
+   "Yechim - zaryadlashni guruhlarga bo'lish. Ikkita guruhda, har birida uch avtobus bilan ishlash mumkin. Bu har bir guruh uchun 180 kVt talab qiladi, bu esa imkon beradi.",
+   "Zaryadlash vaqti taxminan 3,8 soatni tashkil qiladi, bu esa 8 soatlik oyna ichida joylashgan. Leksiya xulosasi: 'Energiya hech qachon muammo emas edi. Muammo quvvat edi, va zaryadlashni kechiktirish uni hal qiladi.'"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 11 — O'n avtobusni zaryadlash",
+   "problem": "Agar park o'n avtobusga o'sib qolsa, ularni bir kechada zaryadlash mumkinmi?",
+   "steps": [
+    "Umumiy energiya talabini hisoblang: 10 avtobus × 115 kVt·soat = 1150 kVt·soat",
+    "O'rtacha quvvatni hisoblang: 1150 kVt·soat ÷ 8 soat = 143,75 ≈ 144 kVt",
+    "Bir vaqtda zaryadlanadigan avtobuslar sonini aniqlang: 200 kVt ÷ 60 kVt = 3,3 → 3 ta (pastga yaxlitlaymiz)",
+    "Kerakli zaryadlash partiyalarini hisoblang: 10 avtobus ÷ 3 = 3,3 → 4 ta (yuqoriga yaxlitlaymiz)",
+    "Zaryadlash vaqtini hisoblang: 4 partiya × 1,9 soat ≈ 7,7 soat"
+   ],
+   "result": "7,7 soat 8 soatdan kam, shuning uchun reja sig'adi. Lekin zaxira juda kam - bitta sekin zaryadlagich yoki kechikkan avtobus reja buzishi mumkin."
+  },
+  "narr": [
+   "Endi, agar parkimiz o'n avtobusga o'sib qolsa, nima bo'ladi? Buni tekshiraylik.",
+   "Avval, umumiy energiya talabini hisoblaymiz: 10 ta avtobus har biri 115 kVt·soat, shuning uchun jami 1150 kVt·soat kerak.",
+   "O'rtacha quvvatni hisoblaymiz: 1150 ni 8 soatga bo'lganda, bu taxminan 144 kVt ni tashkil qiladi.",
+   "Endi, bir vaqtda nechta avtobusni zaryadlash mumkinligini ko'raylik. 200 kVt li ulanishdan har avtobus 60 kVt talab qilsa, maksimal 3 ta avtobusni bir vaqtda zaryadlash mumkin.",
+   "Shunday qilib, 10 ta avtobusni zaryadlash uchun 4 ta partiya kerak bo'ladi (chunki 10 ni 3 ga bo'lganda 3,3 chiqadi, yuqoriga yaxlitlaymiz).",
+   "Har bir partiya taxminan 1,9 soat davom etadi, shuning uchun jami vaqt 7,7 soatni tashkil qiladi, bu 8 soatlik oyna ichida joylashadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 12 — Ikkita \"oqim qoidasi\"",
+   "problem": "Oqim qoidalarini misollar bilan bayon qiling.",
+   "steps": [
+    "1-qoida: Flow = tezlik × zichlik - bir soatda nuqtadan o'tgan mashinalar = tezlik × km ga mashinalar soni",
+    "Misol: 15 km/soat tezlikda har km da 20 mashina bo'lsa, bir soatda 300 mashina o'tadi",
+    "2-qoida: ichkaridagi son = kelish intensivligi × o'rtacha ichkarida bo'lish vaqti",
+    "Misol: 10 talaba/daq kelish intensivligi va 3 daq o'rtacha vaqt bo'lsa, navbatda 30 talaba bo'ladi"
+   ],
+   "result": "Ikkala qoida ham statsionar sharoitlar uchun to'g'ri; navbatlarga kurs 9-haftada qaytadi."
+  },
+  "narr": [
+   "Keling, ikkita asosiy oqim qoidasini misollar bilan ko'rib chiqaylik.",
+   "Birinchi qoida: oqim = tezlik × zichlik. Bu bir soatda nuqtadan o'tgan mashinalar soni tezlik va zichlik ko'paytmasiga teng ekanligini anglatadi.",
+   "Misol sifatida, agar mashinalar 15 km/soat tezlikda har km da 20 ta bo'lsa, bir soatda 300 ta mashina o'tadi.",
+   "Ikkinchi qoida: tizim ichidagi elementlar soni = kirish intensivligi × o'rtacha tizimda bo'lish vaqti.",
+   "Misol: agar talabalar 10 kishi/daq tezlikda kelib, o'rtacha 3 daq navbatda bo'lsa, navbatda 30 ta talaba bo'ladi.",
+   "Ikkala qoida ham statsionar sharoitlar uchun to'g'ri; navbatlarga kurs 9-haftada qaytadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Kattalik tartibi baholash usuli",
+   "bullets": [
+    "Kattalik va uning birliklarini belgilash",
+    "Baho beriladigan ko'paytuvchilarga yoyish",
+    "Har bir ko'paytuvchini bitta raqamga yaxlitlab ko'paytirish",
+    "Birliklarni tekshirish va ma'lum qiymat bilan solishtirish"
+   ]
+  },
+  "narr": [
+   "Kattalik tartibi baholash usuli to'rt qadamdan iborat. Bu usul hisoblashdan oldin, davomida va keyin yordam beradi.",
+   "Birinchi qadam: baholayotgan kattalik va uning birliklarini aniq belgilash kerak.",
+   "Ikkinchi qadam: kattalikni baholab bo'ladigan ko'paytuvchilarga yoyish.",
+   "Uchinchi qadam: har bir ko'paytuvchini bitta raqamga yaxlitlab ko'paytirish.",
+   "To'rtinchi qadam: birliklarni tekshirish va natijani ma'lum qiymat bilan solishtirish.",
+   "Bu usul hisobdan oldin qanday tartibni kutishni, davomida o'n darajasi va birlik xatolarini ushlab turishni, keyin esa javob oqilomiy bo'ladimi yoki yo'qligini tekshirishga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 13 — Kattalik tartibi baholasi",
+   "problem": "Shaharda nechta sartaroshxona borligini taxminiy baholang.",
+   "steps": [
+    "Aholi soni: 60 000 kishi",
+    "O'rtacha aholi sartaroshxoniga nisbati: 1 sartaroshxona 3000 kishiga",
+    "Taxminiy sartaroshxonalar soni: 60 000 ÷ 3000 = 20",
+    "Aniqroq hisob: 1 sartaroshxona 2857 kishiga (60 000 ÷ 21)",
+    "Natija: taxminan 20-21 sartaroshxona"
+   ],
+   "result": "Kosky 60 000 lik shaharda 21 sartaroshxona deb baholagan, ma'lumotnomada 23 ta ekanligi ko'rsatilgan."
+  },
+  "narr": [
+   "Keling, kattalik tartibi baholash usulini amaliy misolda ko'rib chiqaylik. Shaharda nechta sartaroshxona borligini taxminiy baholaylik.",
+   "Birinchi qadam: shahar aholisini belgilaymiz. Bu 60 000 kishi.",
+   "Ikkinchi qadam: o'rtacha aholi sartaroshxonaga nisbatini hisoblaymiz. Odatda 1 sartaroshxona 3000 kishiga to'g'ri keladi.",
+   "Uchinchi qadam: hisobni amalga oshiramiz. 60 000 ni 3000 ga bo'lganda, 20 ta sartaroshxona chiqadi.",
+   "To'rtinchi qadam: birliklarni tekshiramiz va javobni ma'lumot bilan solishtiramiz. Ma'lumotnomaga ko'ra, shaharda 23 ta sartaroshxona bor, bizning taxminimiz esa 20-21 atrofida, bu esa juda yaqin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 14 — Poluprovodnik plenkali qadoqlash liniyasi",
+   "problem": "Liniyadagi tor bo'g'oz qayerda, bufer bilan nima bo'ladi va yaxshilash takliflari nima?",
+   "steps": [
+    "Bosqichlarning sutkalik quvvatlari (dona/soat × 12 soat): Die Sort 8160; Die Attach 7440; Wire Bonding 6960; Electrical Test 7200; Final Packaging 7680",
+    "Tor bo'g'oz - Wire Bonding (6960): o'rtacha talab 6000 da WB = 0,86, cho'qqida 7000da WB = 1,01",
+    "WB oldidagi bufer: o'zgarish = 600 - 560 = 40 dona/soat; bo'sh joy 1100 - 300 = 800",
+    "Bufer to'lish vaqti: 800 ÷ 40 = 20 soat; 12 soatlik smena 480 dona qo'shadi (1100 dan 780 gacha)",
+    "Yaxshilash: WB quvvatini 7000 ÷ 0,85 ≈ 8235 dona/kun ≈ 686 dona/soatga ko'tarish"
+   ],
+   "result": "Wire Bonding quvvatini 580 dona/soatdan 686 dona/soatga (+18%) oshirish taklif qilinadi. Keyingi eng tor bosqich Electrical Test (7200), uni tekshirish kerak."
+  },
+  "narr": [
+   "Endi, poluprovodnik plenkali qadoqlash liniyasidagi tor bo'g'ozni ko'rib chiqaylik.",
+   "Birinchi navbatda, har bir bosqichning sutkalik quvvatini hisoblaymiz. Die Sort 8160 dona/soat, Die Attach 7440, Wire Bonding 6960, Electrical Test 7200, Final Packaging 7680.",
+   "Tor bo'g'oz Wire Bonding bosqichida ekanligi aniqlandi. O'rtacha talab 6000 dona/soatda utilizatsiya 0,86, cho'qqi 7000 dona/soatda esa 1,01 - ortiqcha yuklanish.",
+   "Wire Bonding oldidagi buferda 1100 dona zaxira bor, kirish oqimi 600 dona/soat, chiqish 560 dona/soat. Bufer to'lish uchun 20 soat kerak, lekin 12 soatlik smena atigi 480 dona qo'shadi.",
+   "Yaxshilash sifatida Wire Bonding quvvatini 7000 ÷ 0,85 ≈ 8235 dona/kun ≈ 686 dona/soatga ko'tarish taklif qilinadi. Bu esa 560 dona/soatdan +18% o'sishdir.",
+   "Keyingi eng tor bosqich Electrical Test (7200) bo'lishi mumkin, shuning uchun uni ham tekshirish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "6-hafta laboratoriyasi",
+   "subtitle": "Topshiriqlar va yechimlar"
+  },
+  "narr": [
+   "6-hafta laboratoriyasi 80 daqiqa davom etadi va quyidagi qismlardan iborat: 6-leksiya takrori (15 daqiqa), yo'riqnoma (10 daqiqa), \"Quantify the System\" jamoa ishi (35 daqiqa), va Case #1 tahlili (20 daqiqa).",
+   "Laboratoriya davomida talabalarga \"nine-step quantitative task\" deb e'lon qilinadigan kundalik vazifa beriladi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L6-1 topshirig'i — Quantify the System",
+   "problem": "Tizimni o'n qadamda baholash",
+   "steps": [
+    "Tizimni 4-6 bosqichli jarayon sifatida chizish",
+    "Talab va quvvatni birliklar va vaqt asosi bilan belgilash",
+    "Muhim bosqichlarning utilizatsiyasini hisoblash: Utilisation = Demand ÷ Capacity",
+    "Har bir kalit bosqichni tasniflash: qulay (< 0,8), tarang (~0,8–1,0), ortiqcha yuklanish (> 1,0)",
+    "Tor bo'g'ozni topish va tizimning maksimal amaliy o'tkazish qobiliyatini ko'rsatish",
+    "Jarayon orqali moddiy kirish va chiqish oqimlarini hisoblash"
+   ]
+  },
+  "narr": [
+   "6-hafta laboratoriyasining asiy topshirig'i \"Quantify the System\" bo'lib, u o'n qadamdan iborat.",
+   "Birinchi qadam: tizimni 4-6 bosqichli jarayon sifatida chizish.",
+   "Ikkinchi qadam: talab va quvvatni birliklar va vaqt asosi bilan belgilash.",
+   "Uchinchi qadam: muhim bosqichlarning utilizatsiyasini hisoblash - Utilisation = Demand ÷ Capacity.",
+   "To'rtinchi qadam: har bir kalit bosqichni qulay, tarang yoki ortiqcha yuklangan deb tasniflash.",
+   "Beshinchi qadam: tor bo'g'ozni topish va tizimning maksimal amaliy o'tkazish qobiliyatini ko'rsatish.",
+   "Oltinchi qadam: jarayon orqali moddiy kirish va chiqish oqimlarini hisoblash."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L6-1 topshirig'i — Quantify the System (cont.)",
+   "problem": "",
+   "steps": [
+    "Bitta navbat, bufer yoki zaxira o'zgarishini hisoblash",
+    "O'rtacha talabni cho'qqi bilan solishtirish",
+    "Bitta miqdoriy yaxshilash taklifi",
+    "Javobning kattalik tartibi tekshiruvi"
+   ],
+   "result": "Case #1: Semiconductor Wafer Packaging Line - Zavod sanoat elektronikasi uchun quvvat boshqaruvi chiplarini qadoqlaydi. Oddiy smenada plastina ishlab chiqarishdan kuniga 7200 kristall keladi; liniya kuniga 12 soat ishlaydi. Bosqich quvvatlari: 680, 620, 580, 600, 640 dona/soat. Die Sort dan keyin 2% brak."
+  },
+  "narr": [
+   "Yettinchi qadam: navbat, bufer yoki zaxira o'zgarishini hisoblash.",
+   "Sakkizinchi qadam: o'rtacha talabni cho'qqi bilan solishtirish.",
+   "To'qqizinchi qadam: bitta miqdoriy yaxshilash taklifi berish.",
+   "O'ninchi qadam: javobning kattalik tartibi tekshiruvi - kutilgan miqyos, birliklar, natija ishonchlimi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   -1
+  ]
+ }
+]

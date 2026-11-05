@@ -1,0 +1,199 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injenerlikka kirish — 5–7-haftalar: oʻquv qoʻllanmasi",
+   "subtitle": "Modellashtirish asoslari"
+  },
+  "narr": [
+   "Keling, bu haftalarda biz nima bilan shugʻullanishimizni koʻrib chiqaylik. Biz binolar quvvatni qanday yoʻqotadi va uzgichni qayerga oʻrash kerakligini oʻrganamiz. Geografik sxemalar, masalan, Map B, bizga kabel uzunligi, liniyalar daryoni kesib oʻtishi va binolar podstansiyaga yaqinligi haqida javob beradi. Bu xaritalar tarmoqning toʻliq tasvirini bermaydi, balki har bir turdagi savol uchun soddalashtirilgan manzaradir."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "Barcha modellar notoʻgʻri, lekin baʻzilari foydali",
+   "who": "Statistik Jorj Boks"
+  },
+  "narr": [
+   "Va haftamiz epigrafida shunday deyiladi: \"Barcha modellar notoʻgʻri, lekin baʻzilari foydali\". Bu bizning modellashtirish usullarimizning asosiy tamoyilidir."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Modelning toʻrt turi",
+   "subtitle": "Turli modellar va ularning qoʻllanilishi"
+  },
+  "narr": [
+   "Kurs bizga toʻrt turdagi modellarni ajratib koʻrsatadi. Fizik model - bu haqiqiy nusxaning kichik yoki soddalashtirilgan shakli, masalan, shamol turbinasining parragini aerodinamik trubada sinovdan oʻtkazish. Grafik model - bu qismlar va bogʻlanishlarning diagrammasi, masalan, bir chiziqli sxema yoki avtomobilning energiya oqimlari diagrammasi. Matematik model - bu oʻzgaruvchilar orasidagi bogʻliqliklarni ifodalaydigan tenglamalar, masalan, elektr zanjiri uchun Om qonuni. Hisoblash modeli - bu kompyuterda qadam-baqadam bajariladigan qoidalar, masalan, elektrga soatlik talab jadvali."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model turlari va ularning qoʻllanilishi",
+   "bullets": [
+    "Fizik model - real nusxaning kichik yoki soddalashtirilgan shakli",
+    "Grafik model - qismlar va bogʻlanishlarning diagrammasi",
+    "Matematik model - oʻzgaruvchilar orasidagi bogʻliqliklar tenglamalari",
+    "Hisoblash modeli - kompyuterda qadam-baqadam bajariladigan qoidalar"
+   ]
+  },
+  "narr": [
+   "Real loyihalar odatda bir necha turdagi modellar aralashmasidan iborat boʻladi. Diagramma tartibni saqlash uchun, tenglamalar hisoblash uchun, jadval esa sonlarni hisoblash uchun foydalaniladi. Misol uchun, kampus elektr taʼminoti tizimi uchun uchta modeldan foydalanamiz: bir chiziqli sxema (grafik model), energetik balans tenglamasi (matematik model) va soatlik talab jadvali (hisoblash modeli). Har bir model turli savollarga javob beradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Kampus elektr taʼminoti tizimi",
+   "problem": "Kampus elektr taʼminoti tizimi uchun uch turdagi modellardan foydalaning va har birining qaysi savolga javob berishini tushuntiring.",
+   "steps": [
+    "Bir chiziqli sxema (grafik model): \"Fider oʻchganda qaysi binolar quvvatni yoʻqotadi?\" savoliga javob beradi",
+    "Energetik balans tenglamasi (matematik model): \"Sutkalik generatsiya sutkalik talabni qoplaydimi?\" savoliga javob beradi",
+    "Soatlik talab jadvali (hisoblash modeli): \"Choʻqqi qaysi soatda keladi?\" savoliga javob beradi"
+   ],
+   "result": "Har bir model tizimning turli jihatlarini koʻrsatadi va turli savollarga javob beradi. Bitta tizim uchun uchta modeldan foydalanish, qaysi modelni qoʻllash kerakligi masalani hal qiladi."
+  },
+  "narr": [
+   "Keling, misol orqali buni koʻrib chiqaylik. Kampus elektr taʼminoti tizimi uchun uch turdagi modeldan foydalanamiz. Birinchisi, bir chiziqli sxema (grafik model), u \"Fider oʻchganda qaysi binolar quvvatni yoʻqotadi?\" savoliga javob beradi. Ikkinchisi, energetik balans tenglamasi (matematik model), u \"Sutkalik generatsiya sutkalik talabni qoplaydimi?\" savoliga javob beradi. Uchinchisi, soatlik talab jadvali (hisoblash modeli), u \"Choʻqqi qaysi soatda keladi?\" savoliga javob beradi. Shunday qilib, bitta tizim uchun uchta modeldan foydalanamiz va qaysi modelni ishlatish kerakligi savolni hal qiladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Model anatomiyasi: toʻrt qism",
+   "subtitle": "Modellarning asosiy tarkibiy qismlari"
+  },
+  "narr": [
+   "Endi, modellarning anatomiyasini koʻrib chiqaylik. Butun model toʻrt qismdan iborat. Kirishlar (inputs) - bu biz beradigan narsalar, yaʻni biz tanlaydigan yoki oʻzgartira oladigan qiymatlar. Parametrlar (parameters) - bu biz qatʼiy saqlaydigan narsalar, yaʻni tizim va uning sharoitlarini tasvirlaydigan sonlar. Bogʻliqliklar (relationships) - bu qoidalar, yaʻni sonlarni bogʻlaydigan tenglamalar yoki qadamlar. Chiqishlar (outputs) - bu model bashorat qiladigan narsalar, yaʻni baholaydigan natijalar. Model bu mashinaga oʻxshaydi: sonlar kiradi, qoida qoʻllaniladi, sonlar chiqadi. Har bir son oʻz birliklariga ega boʻlishi kerak."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modelning toʻrt qismi",
+   "bullets": [
+    "Kirishlar (inputs) - beriladigan qiymatlar",
+    "Parametrlar (parameters) - tizimni tasvirlaydigan doimiy qiymatlar",
+    "Bogʻliqliklar (relationships) - sonlarni bogʻlaydigan qoidalar",
+    "Chiqishlar (outputs) - model bashorat qiladigan natijalar"
+   ]
+  },
+  "narr": [
+   "4-haftada oʻrganilgan oʻzgaruvchilar model rollariga aylanadi. Performance-oʻzgaruvchilar chiqishlarga aylanadi, masalan, bir zaryad bilan yurish zaxirasi [km] va kunlik energiya [kVt·soat/kun]. Design-oʻzgaruvchilar kirishlarga aylanadi, masalan, batareya sigʻimi [kVt·soat] va avtobuslar soni. Context-oʻzgaruvchilar parametrlarga aylanadi, masalan, marshrut uzunligi [km], havo harorati [°C] va depodagi zaryadlash soatlari. Oʻtgan haftaning oʻzgaruvchilar roʻyxati bu hafta modelining skeleti boʻlib qoladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "plot",
+  "data": {
+   "heading": "Model anatomiyasi diagrammasi",
+   "functions": [
+    {
+     "fn": "0",
+     "tex": "Model to'rt qismi",
+     "color": "#4C5FD5"
+    }
+   ],
+   "x_range": [
+    0,
+    1
+   ],
+   "y_range": [
+    0,
+    1
+   ],
+   "point": [
+    0.5,
+    0.5
+   ],
+   "vline": 0.5,
+   "x_label": "Model komponentlari",
+   "y_label": "Tavsif"
+  },
+  "narr": [
+   "Bu diagramma modelning toʻrt qismini koʻrsatadi: kirishlar, parametrlar, bogʻliqliklar va chiqishlar. Markaziy nuqta bu modelning asosiy mantiqiy bogʻlanishini ifodalaydi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Need–Know–How–Solve usuli",
+   "subtitle": "Mashqni hal qilishning bosqichlari"
+  },
+  "narr": [
+   "Haftamiz usuli Need–Know–How–Solve (Koskiy, 2-bob) deb ataladi. Need - bu biz xohlayotgan oʻzgaruvchi, masalan, bir zaryad bilan yurish zaxirasi [km]. Know - bu allaqachon maʼlum boʻlgan narsalar, masalan, batareya sigʻimi, ishlatiladigan ulush, km ga sarf va marshrut uzunligi. How - bu model va taxminlar, masalan, Range = usable energy ÷ energy per km. Solve - bu hisoblash, birliklarni tekshirish va talqin qilish. Koskiy taʼkidlaganidek, How masalani yechish uchun qilinadigan taxminlarni ham oʻz ichiga oladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Elektr kampus avtobusi modeli",
+   "problem": "Elektr kampus avtobusining yurish zaxirasini hisoblang.",
+   "steps": [
+    "Qatnov energiyasi: E = e × d",
+    "Yurish zaxirasi: R = (u × C) ÷ e",
+    "Bu yerda C - batareya sigʻimi [kVt·soat]",
+    "u - ishlatiladigan ulush (birliksiz)",
+    "e - sarf [kVt·soat/km]",
+    "d - masofa [km]"
+   ]
+  },
+  "narr": [
+   "4-haftada Need ni aniqlab berdik. 5-haftada How ni quramiz va uning ichidagi yashirin taxminlarni ochib beramiz. Birinchi modelimiz elektr kampus avtobusining yurish zaxirasidir. Qatnov energiyasi E = e × d, yurish zaxirasi R = (u × C) ÷ e. Bu yerda C - batareya sigʻimi [kVt·soat], u - ishlatiladigan ulush (birliksiz), e - sarf [kVt·soat/km], d - masofa [km], R [km], E [kVt·soat]. Koskiy usuliga koʻra, birliklarni tekshirish: (u × C) [kVt·soat] ÷ e [kVt·soat/km] = R [km]."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Elektr kampus avtobusi modeli (cont.)",
+   "problem": "",
+   "steps": [
+    "R - yurish zaxirasi [km]",
+    "E - qatnov energiyasi [kVt·soat]"
+   ],
+   "result": "Birliklarni tekshirish: (u × C) [kVt·soat] ÷ e [kVt·soat/km] = R [km]"
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]

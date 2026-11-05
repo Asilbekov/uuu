@@ -1,0 +1,408 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Muhandislik asoslari — 5-7 haftalar",
+   "subtitle": "O'quv qo'llanmasi"
+  },
+  "narr": [
+   "Keling, muhandislikda hisobot berish va ma'lumotlarni tushunishning muhim jihatlarini ko'rib chiqaylik.",
+   "Bu qo'llanma muhandislikda samarali hisobotlar tuzish va ma'lumotlarni to'g'ri talqin qilish usullarini o'rgatadi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M3 — Nega bitta son emas, diapazon?",
+   "problem": "Uchta yozgi safari bo'yicha nima xabar berish kerak?",
+   "steps": [
+    {
+     "text": "Uchta safari: 1,1 / 1,3 / 1,6 kVt·soat/km yurish zaxirasi"
+    },
+    {
+     "text": "160 ÷ e = 145, 123/100 km"
+    },
+    {
+     "text": "Uchala holat ham 96 km lik kunlik ehtiyojni qoplaydi"
+    },
+    {
+     "text": "Yuqori sarfli holat — atigi 4 km zaxira bilan"
+    }
+   ],
+   "result": "Hisobot: 'about 100 to 145 km'. Bitta son (masalan, 123 km) eng yomon holatda zaxira qanchalik ingichka ekanini yashirardi."
+  },
+  "narr": [
+   "Muhandislikda ma'lumotlarni taqdim etishda, faqat bitta qiymat berish o'rniga diapzon berish juda muhim.",
+   "Bu o'quvchiga javobga qanchalik ishonish kerakligini tushunishga yordam beradi.",
+   "Keling, misol orqali buni tushuntiraylik."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M4 — Kichik tanlanma uchun o'rtacha yoki mediana?",
+   "problem": "Son yoniga nima yozish kerak?",
+   "steps": [
+    {
+     "text": "Uchta safari: o'rtacha (1, 1+1, 3+1, 6) ÷ 3 = 1,33 kVt·soat/km"
+    },
+    {
+     "text": "Mediana — tartib bo'yicha o'rtadagi element — 1,3 kVt·soat/km"
+    },
+    {
+     "text": "Bitta g'alati safari o'rtachani qattiq siljitadi, medianani esa deyarli yo'q"
+    },
+    {
+     "text": "n = 3 da diapazon va n bering; uchta safari ko'rsata oladiganidan ko'prog'ini da'vo qilmang"
+    }
+   ],
+   "result": "Qoida: hisobot bergan har bir son yoniga n yozing."
+  },
+  "narr": [
+   "Kichik ma'lumotlar to'plamida o'rtacha qiymat va medianani farqlash kerak.",
+   "Bitta g'alati qiymat o'rtachani katta siljishi mumkin, mediana esa barqarorroq bo'ladi.",
+   "Shuning uchun har doilab hisobot bergan son yonida namuna hajmini (n) ko'rsatish kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Triangulyatsiya",
+   "bullets": [
+    "Bir kattalikni bir necha mustaqil yo'l bilan baholash",
+    "Solishtirish",
+    "Ishonch olish"
+   ]
+  },
+  "narr": [
+   "Triangulyatsiya — bu biror kattalikni turli yo'llar bilan baholash va keyin ularni solishtirish usuli.",
+   "Bu usul bizga natijalarga ishonch hosil qilishga va ziddiyatlar qayerda ekanligini aniqlashga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M5 — Fakultet binosi uchun triangulyatsiya misoli",
+   "problem": "Fakultet binosi uchun elektr iste'molini uchta mustaqil yo'l bilan baholang.",
+   "steps": [
+    {
+     "text": "1-yo'l — maydon × tipik sarf: 8 000 m² × 0,35 kVt·soat/m²·kun ≈ 2800 kVt·soat/kun"
+    },
+    {
+     "text": "2-yo'l — 6-leksiya yuk profili: 94 kVt × 24 soat ≈ 2260 kVt·soat/kun"
+    },
+    {
+     "text": "3-yo'l — oylik hisob: 70 000 ÷ 30 ≈ 2330 kVt·soat/kun"
+    }
+   ],
+   "result": "Uchta mustaqil yo'l taxminan 25% ichida mos keladi: moslik ishonch quradi, ziddiyat qayerda qidirish kerakligini ko'rsatadi."
+  },
+  "narr": [
+   "Keling, triangulyatsiya usulini amaliy misol orqali ko'rib chiqaylik.",
+   "Fakultet binosining elektr iste'molini uchta xil usul bilan baholaymiz.",
+   "Natijalar bir-biriga yaqib keladi, bu esa hisob-kitoblarimizning to'g'riligiga ishonch hosil qiladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M6 — 'Name the Problem' mashqi",
+   "problem": "A–F muammo turini nomlang va yaxshiroq son olish usulini ayting.",
+   "steps": [
+    {
+     "text": "A 'Avtobusni bitta safarda test qildik' — too little: safarni turli kun va yuklanishlarda takrorlash"
+    },
+    {
+     "text": "B 'Yotoqxona qishki isitishi haqida ma\\'lumot yo\\'q' — missing: analogiya bo\\'yicha baholash; qishki o\\'lchovni rejalashtirish"
+    },
+    {
+     "text": "C 'Zaryadlagichning beshta ko\\'rsatkichi: 58, 61, 54, 63, 60 kVt' — noisy: o\\'rtacha va diapazon, taxminan 59 kVt (54–63)"
+    },
+    {
+     "text": "D 'Ishlab chiqarish raqami — cho\\'l maydonidan' — unrepresentative: o\\'xshash iqlim ma\\'lumotlarini topish"
+    },
+    {
+     "text": "E 'Datasheet birliksiz \"200\" deydi' — wrong definition/unit: 200 kVt·soat — energiya, 200 kVt — quvvat"
+    },
+    {
+     "text": "F 'Yuk profili — yangi qanot ochilishidan oldingi' — out of date: profilni qayta o\\'lchash yoki masshtablash"
+    }
+   ],
+   "result": "Har bir muammoni tushunish va yaxshiroq ma'lumot olish usullarini topish kerak."
+  },
+  "narr": [
+   "'Name the Problem' mashqida biz turli xil muammoni tanlab, ularni tushunish va yaxshiroq yechim topishni o\\'rganamiz.",
+   "A dan F gacha bo\\'lgan holatlarda har biri o\\'ziga xil muammoni ifodalaydi.",
+   "Bu muammolarni tushunish muhandislikda muvaffaqiyatli qaror qabul qilish uchun juda muhim."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M7 — Bir ma\\'lumot — uch talqin",
+   "problem": "Dispetcher, yo\\'lovchi va administrator kutishlar taqsimotini qanday o\\'qiydi?",
+   "steps": [
+    {
+     "text": "Dispetcher: 'O\\'rtacha kutish 6 daqiqa. Yaxshi'"
+    },
+    {
+     "text": "Yo\\'lovchi: 'Bizning har yettinchimiz 12 daqiqadan ko\\'p kutadi' — 1/7 ≈15%, bular 12–14daq(7%) va 14–16daq(8%) ustunlari"
+    },
+    {
+     "text": "Administrator: 'Uzoq kutishlarni qisqartirish ko\\'proq avtobus talab qiladi. Bu qancha turadi?'"
+    }
+   ],
+   "result": "Bir sonlar, uch talqin — va uchalasi ham rost. Bundan qoida: sonni qabul qilishdan oldin, u qaysi qaror uchun ishlatilayotganini so\\'rang."
+  },
+  "narr": [
+   "Bir xil son turli odamlar turlicha talqin qilishi mumkin.",
+   "Bu misolda o\\'rtacha kutish vaqti 6 daqiqa bo\\'lishiga qaramay, yo\\'lovchilar uchun bu holat boshqacha ko\\'rinadi.",
+   "Shuning uchun har qanday sonni qabul qilishdan oldin, u qaysi qaror uchun ishlatilayotganini tushunish kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M8 — Metrika qaror beruvchi savol tomonidan qanday tanlanadi?",
+   "problem": "Kutishlar jadvalini keltiring.",
+   "steps": [
+    {
+     "text": "'Tipik yo\\'lovchi qancha kutadi?' — mediana, taxminan 5 daq"
+    },
+    {
+     "text": "'Jami kutish qancha?' — o\\'rtacha, taxminan 6daq × yo\\'lovchilar"
+    },
+    {
+     "text": "'Omadsizlarga qanchalik yomon?' — 90-percentil, taxminan 13 daq"
+    },
+    {
+     "text": "'Eng yomon holat qanday?' — maksimum, taxminan 16 daq"
+    }
+   ],
+   "result": "Qaror metrikani tanlaydi, aksincha emas. 6-leksiyada xuddi shu juftlik bor edi: kVt·soat 'qancha?' degan savolga, kVt — 'qanchalik tez?' degan savolga javob beradi."
+  },
+  "narr": [
+   "Qaror qabul qilishda qaysi metrikani tanlash juda muhim.",
+   "Savolning tabiati javob sifatida qaysi statistik ko\\'rsatkichni talab qilishini belgilaydi.",
+   "Masalan, 'tipik' holat uchun medianani, 'eng yomon' holat uchun maksimal qiymatni tanlash kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M9 — 'Nimaning foizi?'",
+   "problem": "Svetodiod modernizatsiyasi tejashi misolida tushuntiring.",
+   "steps": [
+    {
+     "text": "Bitta fakt: LED modernizatsiyasi 12 kVt tejaydi"
+    },
+    {
+     "text": "Ikki rost foiz: koridor yoritgichining 60% (12 ÷ 20 kVt) va binoning cho\\'qqisiga nisbatan 7% (12 ÷ 180 kVt)"
+    },
+    {
+     "text": "Har xil bazaviy chiziqlar va chegaralar har xil, lekin rost hikoyalar beradi"
+    },
+    {
+     "text": "Laboratoriya LED keysida xuddi shu 38 kVt tejash 33% (eski ulangan yoritgichning 117 kVt ga qarshi), 51% (ekspluatatsiya bahosi 75 kVt ga qarshi) va 191% (eski hisobotning 20 kVt ga qarshi) beradi"
+    }
+   ],
+   "result": "Doim nimaning foizi ekanini so\\'rang. Har xil asoslar turli foizlarga olib keladi."
+  },
+  "narr": [
+   "Foizlarni hisoblashda asosiy chiziqni tanlash juda muhim.",
+   "Bir xil ma\\'lumotlarni turli asoslarga nisbatan ifodalash turli foizlarga olib keladi.",
+   "Shuning uchun har doim foizni hisoblashdan oldin, 'nimaning foizi?' degan savolga aniq javob berish kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M10 — Qaysi uch usul bitta soxta sonsiz chalg\\'itadi?",
+   "problem": "Ushbu usullarga qaysi savollar qarshi turadi?",
+   "steps": [
+    {
+     "text": "Har xil maxrajlar: 'A marshrutida shikoyatlar kam' — shu bilan birga unda ancha kam yo\\'lovchi bor; 'per what?' deb so\\'rang"
+    },
+    {
+     "text": "Tanlangan kunlar: 'Semestrning eng yaxshi haftasi' — 'qaysi kunlar tashlab yuborilgan?'"
+    },
+    {
+     "text": "Kesilgan o\\'q: 80 dan boshlanadigan ustunli diagramma 5% lik farqni ulkan qiladi — 'o\\'q qayerdan boshlanadimi?'"
+    }
+   ],
+   "result": "Hech bir usulga soxta son kerak emas; har biriga savol kerak."
+  },
+  "narr": [
+   "Ba\\'zi usullar ma\\'lumotlarni chalg\\'itishi mumkin, lekin ularni soxta sonlarsiz ham foydalanish mumkin.",
+   "Aslida, ushbu usullarning har biriga qarshi turuvchi savollar bor.",
+   "Bu savollar ma\\'lumotlarni to\\'g\\'ri talqin qilishga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M11 — Leksiya har qanday son talqiniga qaysi to\\'rt savolni beradi?",
+   "problem": "Natijani qabul qilishdan oldin — va taqdim etishdan oldin shu savollarni bering.",
+   "steps": [
+    {
+     "text": "(1) Bu son qaysi qaror uchun?"
+    },
+    {
+     "text": "(2) Bu qarorga qaysi metrika mos: o\\'rtacha, cho\\'qqi, percentil, eng yomon holat?"
+    },
+    {
+     "text": "(3) Qaysi bazaviy chiziq, chegara va vaqt asosi ishlatilgan?"
+    },
+    {
+     "text": "(4) Qaysi taxmin noto\\'g\\'ri chiqsa xulosani ag\\'dib tashlar edi?"
+    }
+   ],
+   "result": "Natijani qabul qilishdan oldin — va taqdim etishdan oldin shu savollarni bering."
+  },
+  "narr": [
+   "Har qanday sonli hisob-kitobni qabul qilishdan oldin to\\'rtta asosiy savolni berish kerak.",
+   "Bu savollar sonning kontekstini, metrikasini asoslarini va zaif tomonlarini aniqlashga yordam beradi.",
+   "Bu usul muhandislikda aniq va ishonchli qarorlar qabul qilishga imkon beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Halol muhandislik hisoboti",
+   "bullets": [
+    "RESULT — javob, o\\'quvchi foydalanishi mumkin bo\\'lgan oddiy gap",
+    "RANGE — qanchalik ishonish: pastdan yuqorigacha, bitta qiymat emas",
+    "TOP ASSUMPTION — natija eng ko\\'p turgan taxmin",
+    "WHAT WOULD CHANGE IT — xulosani siljitadigan ma\\'lumotlar"
+   ]
+  },
+  "narr": [
+   "Halol muhandislik hisobi to\\'rt elementdan iborat bo\\'ladi.",
+   "Bu elementlar javobni, ishonch darajasini, asosiy taxminni va xulosani o\\'zgartirishi mumkin bo\\'lgan omillarni o\\'z ichiga oladi.",
+   "Past ishonch hisobotga yoziladi — uni yashirish yo\\'qolib ketirmaydi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M13 — Leksiyaning umumiy misoli",
+   "problem": "Avtobus bir zaryad bilan qish kunining 96 km ini bosib o\\'ta oladimi?",
+   "steps": [
+    {
+     "text": "Ma\\'lum: ishlatiladigan energiya 160 kVt·soat, ehtiyoj 96 km, yozgi testlar 1,1–1,6 kVt·soat/km"
+    },
+    {
+     "text": "Yo\\'q: qishki test — salonni isitish sarfni noma\\'lum miqdorda oshiradi"
+    },
+    {
+     "text": "Bo\\'shliq diapazon bilan to\\'ldiriladi: qishki sarf 1,5–2,0, odatda 1,8 kVt·soat/km (analogiya 'yoz + isitish', past ishonch)"
+    },
+    {
+     "text": "Hisob: 160 ÷ 1,5 = 107; 160 ÷ 1,8 = 89; 160 ÷ 2,0 = 80 km — faqat optimistik holat o\\'tadi"
+    }
+   ],
+   "result": "Hisobot: 'ehtimol, yo\\'q: 89 km, 96 km ga qarshi; diapazon 80–107 km; eng yuqori taxmin — 1,8 kVt·soat/km, past ishonch; real qishki reys yoki kundalik qo\\'shimcha zaryad o\\'zgartirardi'. Qaror: qo\\'shimcha zaryadni rejalashtirish va majburiyat oldidan qishki ma\\'lumotlarni to\\'plash."
+  },
+  "narr": [
+   "Keling, barcha usullarni birlashtirgan umumiy misolni ko\\'rib chiqaylik.",
+   "Avtobusning qishda bir zaryad bilan qancha masofa bosib o\\'tishini baholaymiz.",
+   "Bu misolda biz diapazon, asosiy taxminlarni va ularning xulosaga ta\\'sirini ko\\'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "M14 — Lab 7, LED keysi",
+   "problem": "Yillik tejash diapazoni qanday va 'hammasini hozir almashtirish' qarorini nima ag\\'dib tashlar edi?",
+   "steps": [
+    {
+     "text": "Diapazon: 124–216 MVt·soat/yil, odatda 167 (bir partiyadan n = 5 lampa); qiymati 87–216 mln UZS/yil"
+    },
+    {
+     "text": "Eng muhim noaniqlik — ish soatlari"
+    },
+    {
+     "text": "Energiya haqidagi da\\'vo mustahkam: faqat yangi lampa haqiqatdan 18 Vt ga yaqin sarflasa ag\\'dirilardi (testlar: 11,7–12,6 Vt)"
+    },
+    {
+     "text": "'Hozir almashtirish' xizmat muddati va narxga bog\\'liq: zararsiz qo\\'shimcha to\\'lov ≈ lampaga yillik tejash × xizmat yillari (25,8kV t·soat ×850UZS ≈21900UZS/yil)"
+    }
+   ],
+   "result": "40 000 soat ≈200000UZS; 20 000 soat ≈100000; 10 000 soat ≈50000. Tavsiya — barcha 6 500 lampani almashtirishdan oldin bitta binoda pilot o\\'tkazish."
+  },
+  "narr": [
+   "Laboratoriya mashg\\'ulotida LED lampalarni almashtirishning iqtisodiy samaradorligini baholaymiz.",
+   "Biz yillik tejash diapazonini va xizmat muddatining bu qarorga ta\\'sirini ko\\'rib chiqamiz.",
+   "Natijada, barcha lampalni birdan almashtirish o\\'rniga, bir binoda sinov o\\'tkazish tavsiya etiladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

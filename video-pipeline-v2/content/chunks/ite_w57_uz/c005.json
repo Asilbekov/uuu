@@ -1,0 +1,422 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injenerlikka kirish — 5-7-haftalar: o'quv qo'llanmasi",
+   "subtitle": "Model qurish va taxminlarni tekshirish"
+  },
+  "narr": [
+   "Bu qo'llanma bizga model qurish va taxminlarni tekshirish jarayonini tushuntiradi.",
+   "Model qurishda biz bir nechta qadamlarni bosib o'tamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model taxminlari",
+   "bullets": [
+    "Soddalashtiruvchi taxminlar",
+    "Ma'lumotga asoslangan taxminlar",
+    "Chegaraviy taxminlar"
+   ]
+  },
+  "narr": [
+   "Model qurishda biz bir nechta turdagi taxminlarga murojaat qilamiz.",
+   "Birinchisi, soddalashtiruvchi taxminlar, ular modelni soddalashtirish uchun qo'llaniladi.",
+   "Ikkinchisi, ma'lumotga asoslangan taxminlar, ular haqiqiy ma'lumotlarga asoslanadi.",
+   "Uchinchisi, chegaraviy taxminlar, ular modelning chegaralarini belgilaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Taxminlarning turlari va xavflilik darajasi",
+   "columns": [
+    "Turi",
+    "Xavf",
+    "Sabab",
+    "Oqibati"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Soddalashtiruvchi",
+      "tex": "Safe"
+     },
+     {
+      "text": "Haqiqiy cho'qqi quvvati pastroq bo'ladi, yuqori emas"
+     },
+     {
+      "text": "Zaryadlash quvvati seans davomida doimiy"
+     },
+     {
+      "text": "Haqiqiy cho'qqi modellashtirilganidan biroz past bo'ladi"
+     }
+    ],
+    [
+     {
+      "text": "Soddalashtiruvchi",
+      "tex": "Safe"
+     },
+     {
+      "text": "Model sarfni biroz kam ko'rsatadi"
+     },
+     {
+      "text": "Model chegarasida faqat 4 zaryad bo'limi bor"
+     },
+     {
+      "text": "Binoning yoritgichi/HVAC alohida hisoblagichda hisobga olinadi"
+     }
+    ],
+    [
+     {
+      "text": "Soddalashtiruvchi",
+      "tex": "Safe"
+     },
+     {
+      "text": "Diagnostik test ahamiyatsiz darajada kam sarflaydi"
+     },
+     {
+      "text": "Batareyalar holatini tekshirish elektr yukini qo'shmaydi"
+     },
+     {
+      "text": "Natijada o'zgarish kutilmaydi"
+     }
+    ],
+    [
+     {
+      "text": "Chegaraviy",
+      "tex": "Need Data"
+     },
+     {
+      "text": "Binoning yuki ulanishga qo'shilishi mumkin"
+     },
+     {
+      "text": "Hozircha ma'lumot yetarli emas"
+     },
+     {
+      "text": "Qo'shimcha ma'lumot kerak"
+     }
+    ],
+    [
+     {
+      "text": "Ma'lumotga asoslangan",
+      "tex": "Risky"
+     },
+     {
+      "text": "Haqiqiy cho'qqi modellashtirilganidan biroz past bo'ladi"
+     },
+     {
+      "text": "Cho'qqida 4 zaryadlagichning barchasi bir vaqtda 22 kVt sarflaydi"
+     },
+     {
+      "text": "Agar bir vaqtda 4 dan kam band bo'lsa, sarf past bo'ladi"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Taxminlarning turli turlari va ularning xavflilik darajalari jadvalda ko'rsatilgan.",
+   "Soddalashtiruvchi taxminlar odatda xavfsiz hisoblanadi, chunki ular modelni soddalashtiradi.",
+   "Chegaraviy taxminlar ba'zan ma'lumot yetishmasligi sababli xavfli bo'lishi mumkin.",
+   "Ma'lumotga asoslangan taxminlar haqiqiy holatga yaqinroq bo'lishi mumkin, lekin ular ham noto'g'ri bo'lishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Taxminni o'zgartirish",
+   "problem": "Zaryadlagichlar tez zaryadlash rejimiga o'tkazildi: P₁ bitta zaryadlagichga 22 dan 50 kVt gacha ko'tariladi.",
+   "steps": [
+    {
+     "text": "Dastlabki taxmin: har bir zaryadlagich 22 kVt quvvatga ega"
+    },
+    {
+     "text": "Yangi taxmin: har bir zaryadlagich 50 kVt quvvatga ega"
+    },
+    {
+     "text": "Hisoblash: 4 ta zaryadlagich × 50 kVt = 200 kVt"
+    },
+    {
+     "text": "Limit: 150 kVt"
+    },
+    {
+     "text": "Natija: 200 kVt > 150 kVt, moslik buzilishi"
+    }
+   ],
+   "result": "Model dastlabki taxmin yashirgan moslik buzilishini fosh qiladi."
+  },
+  "narr": [
+   "Keling, bitta taxminni o'zgartirish misolini ko'rib chiqaylik.",
+   "Biz zaryadlagichlarning quvvatini oshirdik.",
+   "Har bir zaryadlagich endi 50 kVt quvvatga ega.",
+   "To'rtta zaryadlagich uchun umumiy quvvat 200 kVt ga yetadi.",
+   "Bu esa modelda belgilangan 150 kVt limitidan oshib ketadi.",
+   "Shunday qilib, model dastlabki taxmin yashirgan moslik buzilishini fosh qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Modelni tekshiruv (Sog'lom fikr tekshiruvlari)",
+   "columns": [
+    "Tekshiruv",
+    "Natija",
+    "Birliklar",
+    "Kattalik tartibi",
+    "Ma'lum qiymat"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Birliklar tekshiruvi"
+     },
+     {
+      "text": "To'g'ri"
+     },
+     {
+      "text": "n [dona] × P₁ [kVt] = P [kVt]"
+     },
+     {
+      "text": "-"
+     },
+     {
+      "text": "-"
+     }
+    ],
+    [
+     {
+      "text": "Kattalik tartibi tekshiruvi"
+     },
+     {
+      "text": "Ishonchli"
+     },
+     {
+      "text": "-"
+     },
+     {
+      "text": "4 tez zaryadlagich uchun 88 kVt ishonchli; 8 kVt emas (juda kam) va 8 000 kVt ham emas (juda ko'p)"
+     },
+     {
+      "text": "-"
+     }
+    ],
+    [
+     {
+      "text": "Ma'lum qiymat tekshiruvi"
+     },
+     {
+      "text": "Mos keladi"
+     },
+     {
+      "text": "-"
+     },
+     {
+      "text": "-"
+     },
+     {
+      "text": "Ommaviy DC-zaryadlagichlarning datasheeti bilan mos keladi (standart qurilmaga ~20–25 kVt)"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Modelni tekshirish uchun biz uchta asosiy tekshiruvdan foydalanamiz.",
+   "Birinchisi, birliklar tekshiruvi, barcha birliklar mos kelishini tekshiradi.",
+   "Ikkinchisi, kattalik tartibi tekshiruvi, sonlar mantiqiy ko'rinadimi yoki yo'qligini tekshiradi.",
+   "Uchinchisi, ma'lum qiymat tekshiruvi, model natijalari haqiqiy ma'lumotlar bilan mos keladimi tekshiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Verdikt va qayta ko'rib chiqish",
+   "bullets": [
+    "Fit for Purpose — model mavjud ma'lumotlar bilan moslik savoliga javob beradi",
+    "Qayta ko'rib chiqish: «4 tasi birdan band» degan eng yomon holatni real ishlatish jurnalidan olingan o'lchangan xilma-xillik koeffitsienti bilan almashtirish",
+    "Qo'shimcha ma'lumot ehtiyoji: har bir zaryadlagich bo'yicha o'lchangan quvvat haftasi, 22 kVt reytingni amaliyotda tasdiqlash uchun"
+   ]
+  },
+  "narr": [
+   "Modelni tekshirgandan so'ng, biz verdictga kelamiz.",
+   "Bu holda, model mavjud ma'lumotlar bilan moslik savoliga javob beradi, shuning uchun u 'Fit for Purpose' deb baholanadi.",
+   "Shuningdek, biz modelni qayta ko'rib chiqishimiz kerak, chunki '4 tasi birdan band' degan eng yomon holatni real ma'lumotlar bilan almashtirish kerak.",
+   "Nihoyat, biz qo'shimcha ma'lumotga ehtiyojimiz bor: har bir zaryadlagich bo'yicha o'lchangan quvvat haftasi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "L5-2 topshirig'i",
+   "subtitle": "Model qurish va taxminlarni tekshirish varaqasi"
+  },
+  "narr": [
+   "Endi biz L5-2 topshirig'ini ko'rib chiqamiz, bu model qurish va taxminlarni tekshirish varaqasidir.",
+   "Varaq laboratoriyaning o'n qadamini takrorlaydi va model qurish jarayonini tizimlashtiradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Varaqning asosiy qismlari",
+   "bullets": [
+    "Model savoli / maqsadi",
+    "Model turi va asoslari",
+    "Model anatomiyasi",
+    "Need–Know–How–Solve jadvali",
+    "Taxminlar ro'yxati va tasnifi",
+    "Taxminni o'zgartirish",
+    "Modelni tekshiruv",
+    "Verdikt",
+    "Qayta ko'rib chiqish va ma'lumot ehtiyoji"
+   ]
+  },
+  "narr": [
+   "Vaqqasining bir nechta asosiy qismlari mavjud.",
+   "Birinchisi, model savoli yoki maqsadi, model javob berishi kerak bo'lgan savolni belgilaydi.",
+   "Ikkinchisi, model turi va asoslari, bu model qaysi turda ekanligini va nega shu tur mos kelishini ko'rsatadi.",
+   "Uchinchisi, model anatomiyasi, modelning har bir qismini birlik bilan nomlaydi.",
+   "To'rtinchisi, Need–Know–How–Solve jadvali, model qurish uchun zarur bo'lgan ma'lumotlarni tizimlashtiradi.",
+   "Beshinchisi, taxminlar ro'yxati va tasnifi, barcha taxminlarni ularning turlari va xavflilik darajalari bilan sanab o'tadi.",
+   "Oltinchisi, taxminni o'zgartirish, bitta taxminni o'zgartirishning ta'sirini ko'rsatadi.",
+   "Yettinchisi, modelni tekshiruv, modelning to'g'riligini tekshiradi.",
+   "Sakkizinchisi, verdikt, model soddaligini baholaydi.",
+   "To'qqizinchisi, qayta ko'rib chiqish va ma'lumot ehtiyoji, modelni takomillashtirish imkoniyatlarini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Varaqning namunaviy yechimi",
+   "problem": "L5-1 topshirig'ining namunaviy javobi",
+   "steps": [
+    {
+     "text": "2.1–2.3-jadvallar va 4, 7, 9–10-qadamlar asosida yechilgan"
+    },
+    {
+     "text": "Model savoli: 4 zaryadlagich bir vaqtda ishlaganda, ularning umumiy quvvati 150 kVt limitidan oshadimi?"
+    },
+    {
+     "text": "Model turi: Matematik model, chunki u oddiy matematik munosabatlar asosida ishlaydi"
+    },
+    {
+     "text": "Model anatomiyasi: Inputs - zaryadlagichlar soni va quvvati; Parameters - quvvat limiti; Relationships - umumiy quvvat = son × quvvat; Outputs - ha/yo'q javobi"
+    },
+    {
+     "text": "Taxminlar: Zaryadlagichlar quvvati doimiy, barchasi bir vaqtda ishlashi mumkin, boshqa yuklar hisobga olinmaydi"
+    },
+    {
+     "text": "Verdikt: Fit for Purpose - model savolga javob beradi, lekin aniqroq ma'lumotlar bilan takomillashtirish mumkin"
+    }
+   ],
+   "result": "Model mavjud ma'lumotlar asosida ishlaydi, lekin real ma'lumotlar bilan takomillashtirish kerak."
+  },
+  "narr": [
+   "Vaqqaning namunaviy yechimi L5-1 topshirig'ining javobiga asoslangan.",
+   "Model savoli shunday: 4 zaryadlagich bir vaqtda ishlaganda, ularning umumiy quvvati 150 kVt limitidan oshadimi?",
+   "Model matematik model bo'lib, u oddiy matematik munosabatlar asosida ishlaydi.",
+   "Model anatomiyasi kirish parametrlari, parametrlar, munosabatlar va chiqishlardan iborat.",
+   "Taxminlar orasida zaryadlagichlar quvvatining doimiy bo'lishi va barchasining bir vaqtda ishlashi bor.",
+   "Verdikt shunday: model maqsadga muvofiq, lekin aniqroq ma'lumotlar bilan takomillashtirish mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "L5-3 topshirig'i",
+   "subtitle": "Injenerlik muammosini shakllantirish"
+  },
+  "narr": [
+   "Nihoyat, biz L5-3 topshirig'ini ko'rib chiqamiz.",
+   "Bu topshiriq universal andozaga asoslangan bo'lib, jamoa ishi uchun mo'ljallangan."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Topshiriq maqsadi",
+   "bullets": [
+    "Injenerlik muammosini to'g'ri shakllantirish",
+    "Muammoni tahlil qilish uchun universal usulni o'rganish",
+    "Jamoa bilan birgalikda ishlash qobiliyatini rivojlantirish"
+   ]
+  },
+  "narr": [
+   "L5-3 topshirig'ining asosiy maqsadi - injenerlik muammosini to'g'ri shakllantirishni o'rganishdir.",
+   "Bu universal usul har qanday muammoni tahlil qilishda foydalanish mumkin.",
+   "Shuningdek, bu topshiriq jamoa bilan birgalikda ishlash qobiliyatini rivojlantirishga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ }
+]

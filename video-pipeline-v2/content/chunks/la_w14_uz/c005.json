@@ -1,0 +1,361 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Chiziqli algebra darsining ikkinchi haftasiga xush kelibsiz. Bugun biz vektorlar va matritsalar bilan ishlashni o'rganamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 18 — Vektorlar kombinatsiyasi",
+   "problem": "a1 = (1, 2)T , a2 = (3, −1)T vektorlar berilgan. x1a1 + x2a2 = (11, 1)T tenglamani qanoatlantiruvchi x = (x1, x2)T ni toping.",
+   "steps": [
+    "Komponentlar bo'yicha tenglamalar tuzamiz: x1 + 3x2 = 11, 2x1 −x2 = 1",
+    "Ikkinchi tenglamadan x2 ni topamiz: x2 = 2x1 − 1",
+    "Birinchi tenglamaga qo'yamiz: x1 + 3(2x1 − 1) = 11",
+    "Tenglamani yechamiz: x1 + 6x1 − 3 = 11 ⇒ 7x1 = 14 ⇒ x1 = 2",
+    "x2 ni topamiz: x2 = 2·2 − 1 = 3"
+   ],
+   "result": "x = (2, 3)T"
+  },
+  "narr": [
+   "Bu masalada biz ikkita vektorning chiziqli kombinatsiyasini topishimiz kerak. Birinchi qadamda komponentlar bo'yicha tenglamalar tuzamiz. Ikkinchi tenglamadan x2 ni ifodalab, birinchi tenglamaga qo'yamiz. Keyin tenglamani yechib, x1 ni topamiz. Oxirida x2 ni hisoblaymiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 19 — Matritsa tenglamasi",
+   "problem": "A = [2 4; -1 -2] matritsasi berilgan. Ax = 0 tenglamani qanoatlantiruvchi barcha x ni tavsiflang; nima uchun ustunlar chiziqli bogliq?",
+   "steps": [
+    "Tenglamani yozamiz: 2x1 + 4x2 = 0 va -x1 - 2x2 = 0",
+    "E'tibor bering, bu ikkala tenglama bir xil: 2x1 = -4x2",
+    "Yechimni umumiy ko'rinishda yozamiz: x = t · [-2; 1], t ∈ R",
+    "Bu barcha yechimlar to'g'ri chiziqni tashkil qiladi",
+    "Trivial bo'lmagan kombinatsiya mavjud: -2·a1 + 1·a2 = 0",
+    "Bu ustunlarning chiziqli bog'liqligini ko'rsatadi (2-ustun 1-ustunning -2 barobariga teng)"
+   ],
+   "result": "x = t · [-2; 1], t ∈ R — butun yechimlar to'g'ri chiziq"
+  },
+  "narr": [
+   "Bu masalada biz matritsa tenglamasini yechishimiz kerak. E'tibor bering, ikkala tenglama aslida bir xil, shuning uchun ular chiziqli bog'liq. Yechimlar to'g'ri chiziqni tashkil qiladi. Bundan tashqari, biz ustunlarning chiziqli bog'liqligini ham ko'rsatdik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 20 — Matritsani tuzish va ko'paytirish",
+   "problem": "A matritsasi 3 × 2 o'lchamda, A [1; 0] = [2; -1; 4] va A [0; 1] = [3; 2; 0]. A ni yozing va A [-2; 5] ni qator skalyar ko'paytmalarisiz hisoblang.",
+   "steps": [
+    "A matritsasini uning ustunlari orqali yozamiz: A = [2 3; -1 2; 4 0]",
+    "Chiziqlilik xossasidan foydalanamiz: A [-2; 5] = -2·A [1; 0] + 5·A [0; 1]",
+    "Berilgan vektorlarni qo'yamiz: -2·[2; -1; 4] + 5·[3; 2; 0]",
+    "Ko'paytmalarni hisoblaymiz: [-4; 2; -8] + [15; 10; 0]",
+    "Natijani qo'shamiz: [11; 12; -8]"
+   ],
+   "result": "A = [2 3; -1 2; 4 0] va A [-2; 5] = [11; 12; -8]"
+  },
+  "narr": [
+   "Bu masalada biz matritsani uning ustun vektorlari orqali tuzishimiz kerak. Keyin chiziqlilik xossasidan foydalanib, matritsani berilgan vektor bilan ko'paytiramiz. Buning uchun avval matritsani ustunlari orqali ifodalaymiz, keyin chiziqlilik xossasini qo'llaymiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 21 — Vektorlar perpendikulyarliligi",
+   "problem": "Bir o'lchamli vektorlar uchun (u + v) · (u −v) ni oching; u + v ⊥u −v bo'lishi uchun zarur va yetarli shart ∥u∥= ∥v∥ekanligini isbotlang.",
+   "steps": [
+    "(u + v) · (u −v) ni taqsimlab ochamiz",
+    "u · u − u · v + v · u − v · v",
+    "O'rtadagi hadlar bekor qilinadi: u · u − v · v",
+    "Bu ∥u∥² − ∥v∥² ga teng",
+    "Perpendikulyarlik nolga teng bo'lishini anglatadi: ∥u∥² − ∥v∥² = 0",
+    "Demak, ∥u∥² = ∥v∥², normalar manfiy bo'lmagani uchun ∥u∥ = ∥v∥"
+   ],
+   "result": "∥u∥ = ∥v∥"
+  },
+  "narr": [
+   "Bu masalada biz ikki vektor yig'indisi va ayirmasining skalyar ko'paytmasini ochishimiz kerak. Keyin ularning perpendikulyar bo'lish shartini aniqlaymiz. Natijada, bu shart vektorlarning normalarining tengligiga ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "O'z-o'zini tekshirish",
+   "problem": "(1) skalyar ko'paytma va vektor ko'paytma qaysi ob'ektni beradi? (2)u · v belgisi burchakni qanday tasniflaydi? (3) Nima uchun 2 × 3 matritsasi R3 dan vektorni ko'paytiradi, lekin R2 dan emas? (4)Axdax komponentlari qanday ishlaydi? (5) 2-haftadagi qaysi amallar teng o'lchamli vektlarni talab qiladi, qaysilari aynan R3 dan vektlarni?",
+   "steps": [
+    "(1) Skalyar ko'paytma skalyar beradi, vektor ko'paytma (R3da) vektor beradi",
+    "(2) Musbat ⇒ o'tkir burchak, nol ⇒ to'g'ri burchak, manfiy ⇒ o'tmas burchak",
+    "(3) Ax ko'paytmasi ichki o'lchamlarning mosligini talab qiladi: 2 × 3 va 3 × 1 ishlaydi; 2 × 1 esa yo'q",
+    "(4) Chiziqiy kombinatsiyadagi og'irliklar kabi x1a1 + ··· + xnan",
+    "(5) Skalyar ko'paytma, qo'shish va ayirish teng o'lchamli vektorlarni talab qiladi; vektor ko'paytmasi va uning geometriyasi faqat R3 da mavjud"
+   ],
+   "result": "Yuqoridagi savollarga javoblar"
+  },
+  "narr": [
+   "Bu masalada biz o'z-o'zini tekshirish savollariga javob beramiz. Bu savollar chiziqli algebraning asosiy tushunchalarini anglashga yordam beradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Chiziqli algebra I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Endi esa amaliy mashqlarga o'tamiz. Bu mashqlar chiziqli algebraning asosiy tushunchalarini qo'llashni o'rgatadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — Skalyar ko'paytma",
+   "problem": "a = [-2; 4], b = [5; 1]: hisoblang a · b; burchakni tasniflang.",
+   "steps": [
+    "Skalyar ko'paytmani hisoblaymiz: a · b = (-2) · 5 + 4 · 1",
+    "Natijani hisoblaymiz: -10 + 4 = -6",
+    "Natija manfiy ekanligi uchun burchak o'tmas (botiq) ekanligini aniqlaymiz"
+   ],
+   "result": "a · b = -6 < 0: o'tmas (botiq) burchak"
+  },
+  "narr": [
+   "Bu masalada ikki vektorning skalyar ko'paytmasini hisoblaymiz. Skalyar ko'paytma ikki vektor orasidagi burchakni aniqlashga yordam beradi. Agar natija manfiy bo'lsa, burchak o'tmas bo'ladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — Vektor normasi",
+   "problem": "v = [-2; 1; 2] vektorining normasini va birlik vektorni toping.",
+   "steps": [
+    "Vektor normasi formulasi: ∥v∥ = √(v₁² + v₂² + v₃²)",
+    "Qiymatlarni qo'yamiz: ∥v∥ = √((-2)² + 1² + 2²)",
+    "Hisoblaymiz: ∥v∥ = √(4 + 1 + 4) = √9 = 3",
+    "Birlik vektor: v̂ = v / ∥v∥ = [-2/3; 1/3; 2/3]"
+   ],
+   "result": "∥v∥ = 3; birlik vektor v̂ = [-2/3; 1/3; 2/3]"
+  },
+  "narr": [
+   "Bu masalada vektorning normasini va birlik vektorni topamiz. Vektor normasi uning uzunligini bildiradi. Birlik vektor esa birlik uzunlikka ega bo'lgan vektordir."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — Vektorlar orasidagi masofa",
+   "problem": "p = [-2; 4; 3] va q = [2; 1; 0] orasidagi masofani toping.",
+   "steps": [
+    "Vektorlar orasidagi masofa formulasi: d = ∥p - q∥",
+    "Ayirmani hisoblaymiz: p - q = [-2 - 2; 4 - 1; 3 - 0] = [-4; 3; 3]",
+    "Normasini hisoblaymiz: d = √((-4)² + 3² + 3²)",
+    "Natijani hisoblaymiz: d = √(16 + 9 + 9) = √34"
+   ],
+   "result": "Masofa = √34"
+  },
+  "narr": [
+   "Bu masalada ikki vektor orasidagi masofani topamiz. Bu masofa ular orasidagi farq vektorining normasiga teng."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Perpendikulyar vektor",
+   "problem": "Agar [2; t] vektori [1; -3] ga perpendikulyar bo'lsa, t ni toping.",
+   "steps": [
+    "Ikkala vektor perpendikulyar bo'lishi uchun ularning skalyar ko'paytmasi nolga teng bo'lishi kerak",
+    "Skalyar ko'paytmani yozamiz: [2; t] · [1; -3] = 0",
+    "Ko'paytmalarni hisoblaymiz: 2·1 + t·(-3) = 0",
+    "Tenglamani yechamiz: 2 - 3t = 0 ⇒ t = 2/3"
+   ],
+   "result": "t = 2/3"
+  },
+  "narr": [
+   "Bu masalada biz ikki vektor perpendikulyar bo'lishi uchun qaysi shartni qanoatlantirishini topamiz. Perpendikulyar vektorlarning skalyar ko'paytmasi nolga teng bo'ladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — Kosinus burchagi",
+   "problem": "u = [2; 1], v = [-1; 3] uchun cos θ ni toping.",
+   "steps": [
+    "Kosinus formulasi: cos θ = (u · v) / (∥u∥ · ∥v∥)",
+    "Skalyar ko'paytmani hisoblaymiz: u · v = 2·(-1) + 1·3 = -2 + 3 = 1",
+    "Vektorlarning normalarini hisoblaymiz: ∥u∥ = √(2² + 1²) = √5, ∥v∥ = √((-1)² + 3²) = √10",
+    "Formulaga qo'yamiz: cos θ = 1 / (√5 · √10) = 1 / √50 = √2 / 10"
+   ],
+   "result": "cos θ = √2 / 10 ≈ 0.141, θ ≈ 82°"
+  },
+  "narr": [
+   "Bu masalada ikki vektor orasidagi burchak kosinusini topamiz. Buning uchun skalyar ko'paytma va vektorlarning normalaridan foydalanamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — Vektor proyeksiyasi",
+   "problem": "u = [5; -1]T ni v = [2; 1]T ga proyeksiya qiling; u ni parallel + perpendikulyar qismlarga yozing.",
+   "steps": [
+    "Proyeksiya formulasi: proj_v u = (u · v / v · v) · v",
+    "Skalyar ko'paytmalarni hisoblaymiz: u · v = 5·2 + (-1)·1 = 10 - 1 = 9, v · v = 2² + 1² = 5",
+    "Proyeksiyani hisoblaymiz: proj_v u = (9/5) · [2; 1] = [18/5; 9/5]",
+    "Perpendikulyar qismni topamiz: u - proj_v u = [5; -1] - [18/5; 9/5] = [7/5; -18/5]",
+    "Yoyilmani yozamiz: u = [18/5; 9/5] + [7/5; -18/5]"
+   ],
+   "result": "Proyeksiya: [18/5; 9/5], Perpendikulyar qism: [7/5; -18/5]"
+  },
+  "narr": [
+   "Bu masalada biz vektorni boshqa vektorga proyeksiya qilamiz. Proyeksiya - bu vektorning berilgan vektorga parallel komponenti. Qolgan qismi esa perpendikulyar komponent bo'ladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — Vektor ko'paytmasi",
+   "problem": "a = [2; -1; 3], b = [0; 4; 1] uchun a × b ni hisoblang.",
+   "steps": [
+    "Vektor ko'paytmasi formulasi: a × b = [a₂b₃ - a₃b₂; a₃b₁ - a₁b₃; a₁b₂ - a₂b₁]",
+    "Komponentlarni hisoblaymiz: a₂b₃ - a₃b₂ = (-1)·1 - 3·4 = -1 - 12 = -13",
+    "Ikkinchi komponent: a₃b₁ - a₁b₃ = 3·0 - 2·1 = 0 - 2 = -2",
+    "Uchinchi komponent: a₁b₂ - a₂b₁ = 2·4 - (-1)·0 = 8 - 0 = 8",
+    "Natijani yozamiz: a × b = [-13; -2; 8]"
+   ],
+   "result": "a × b = [-13; -2; 8]"
+  },
+  "narr": [
+   "Bu masalada ikki vektorning vektor ko'paytmasini hisoblaymiz. Vektor ko'paytmasi faqat uch o'lchamli fazoda mavjud bo'lib, ikki vektorga perpendikulyar bo'lgan yangi vektorni beradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — Uchburchak yuzasi",
+   "problem": "A = (0, 0, 0), B = (2, 1, 0), C = (1, 0, 3): uchburchak yuzasini toping.",
+   "steps": [
+    "Uchburchak yuzasi formulasi: S = (1/2) · ||AB × AC||",
+    "AB vektorni topamiz: AB = B - A = [2; 1; 0]",
+    "AC vektorni topamiz: AC = C - A = [1; 0; 3]",
+    "Vektor ko'paytmani hisoblaymiz: AB × AC = [1·3 - 0·0; 0·1 - 2·3; 2·0 - 1·1] = [3; -6; -1]",
+    "Normasini hisoblaymiz: ||AB × AC|| = √(3² + (-6)² + (-1)²) = √(9 + 36 + 1) = √46",
+    "Yuzani hisoblaymiz: S = (1/2) · √46"
+   ],
+   "result": "Yuzasi = (1/2) · √46"
+  },
+  "narr": [
+   "Bu masalada uchburchak yuzasini topamiz. Buning uchun avval ikki tomon vektorlarini topib, ularning vektor ko'paytmasini hisoblaymiz. Keyin ko'paytma vektorining normasini olamiz va yuzani hisoblaymiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — Matritsa o'lchami va elementi",
+   "problem": "M = [1 0 -2; 4 3 5] uchun o'lcham, m21, barcha ustunlarni toping.",
+   "steps": [
+    "Matritsa o'lchami: 2 qator, 3 ustun ⇒ 2 × 3",
+    "m21 elementi: 2-qator, 1-ustun elementi ⇒ 4",
+    "Birinchi ustun: [1; 4]",
+    "Ikkinchi ustun: [0; 3]",
+    "Uchinchi ustun: [-2; 5]"
+   ],
+   "result": "O'lcham: 2 × 3, m21 = 4, ustunlar: [1; 4], [0; 3], [-2; 5]"
+  },
+  "narr": [
+   "Bu masalada matritsaning o'lchamini, ma'lum elementini va barcha ustunlarini topamiz. Matritsa o'lchami qatorlar va ustunlar sonini bildiradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 11 — Matritsa qo'shish",
+   "problem": "A = [2 1; -1 3], B = [0 4; 2 -2]. 3A + 2B ni toping.",
+   "steps": [
+    "3A ni hisoblaymiz: 3 · [2 1; -1 3] = [6 3; -3 9]",
+    "2B ni hisoblaymiz: 2 · [0 4; 2 -2] = [0 8; 4 -4]",
+    "Yig'indini hisoblaymiz: [6 3; -3 9] + [0 8; 4 -4] = [6+0 3+8; -3+4 9-4] = [6 11; 1 5]"
+   ],
+   "result": "3A + 2B = [6 11; 1 5]"
+  },
+  "narr": [
+   "Bu masalada ikkita matritsani bir xil songa ko'paytirib, keyin ularni qo'shamiz. Matritsa qo'shishda mos keladigan elementlar qo'shiladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 12 — Matritsa-vektor ko'paytmasi",
+   "problem": "A = [2 -1 3; 0 4 1], x = [1; -2; 3]. Ax ni ustunlar kombinatsiyasi sifatida hisoblang.",
+   "steps": [
+    "Ax ni ustunlar kombinatsiyasi sifatida yozamiz: Ax = x₁·a₁ + x₂·a₂ + x₃·a₃",
+    "Ustunlarni yozamiz: a₁ = [2; 0], a₂ = [-1; 4], a₃ = [3; 1]",
+    "Kombinatsiyani hisoblaymiz: 1·[2; 0] + (-2)·[-1; 4] + 3·[3; 1]",
+    "Ko'paytmalarni hisoblaymiz: [2; 0] + [2; -8] + [9; 3]",
+    "Yig'indini hisoblaymiz: [2+2+9; 0-8+3] = [13; -5]"
+   ],
+   "result": "Ax = [13; -5]"
+  },
+  "narr": [
+   "Bu masalada matritsa-vektor ko'paytmasini ustunlar kombinatsiyasi sifatida hisoblaymiz. Bu matritsa-vektor ko'paytmasining asosiy talqinlaridan biridir."
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]

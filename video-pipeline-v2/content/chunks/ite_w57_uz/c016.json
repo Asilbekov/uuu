@@ -1,0 +1,487 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4.3,
+   "title": "7-hafta laboratoriyasining topshiriqlari — yechimlar bilan",
+   "subtitle": "Laboratoriya 7"
+  },
+  "narr": [
+   "7-hafta laboratoriyasi 80 daqiqa davom etadi va quyidagi qismlardan iborat: 7-leksiya takrori, yo'riqnomalar va 'Decide With Incomplete Data' jamoaviy ishi.",
+   "Shuningdek, biz Case #1: LED Lamp Reliability and Energy-Saving Decision ni ham ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L7-1 topshirig'i — Decide With Incomplete Data",
+   "problem": "A–I qismlarini bajaring baholash uchun",
+   "steps": [
+    "A. Ma'lumot muammolarini tashxislash — kamida 3 muammo; har birini nomlang: too little, missing, noisy, out of date / unrepresentative, wrong definition / unit; nega bu muammo va yaxshiroq sonni qanday olish mumkin.",
+    "B. Manba va ishonch — 4–5 ta muhim sonni tanlang; har biri uchun: qiymat yoki diapazon, manba (measure, look up, ask, estimate, analogy), ishonch va qisqa sabab.",
+    "C. Past / tipik / yuqori diapazonini qurish — bitta muhim noaniq o'zgaruvchini tanlang; asosiy natijani har bir qiymat uchun qayta hisoblang; yozish: 'chiqish taxminan __ dan __ gacha, odatda __'.",
+    "D. Bir ma'lumot — ikki talqin — qulay va tanqidiy o'qish; qaysi sonlar ikkalasini qo'llab-quvvatlaydi; qaysi qo'shimcha ma'lumotlar bahsni hal qilardi.",
+    "E. To'g'ri metrikani tanlash — 3 ta qaror beruvchi savol uchun average, median, 90th percentile, maximum, peak yoki rate per unit / user tanlang; nega ekanini ayting — va boshqa metrika qanday chalg'itishi mumkin edi.",
+    "F. Bazaviy chiziq / maxrajni tekshirish — bitta natijani ikki xil bazaga nisbatan ifodalash; ikkala hisobni ko'rsatish; ikkala foiz qanday qilib rost bo'lib, lekin har xil hikoya aytishi mumkinligini tushuntirish."
+   ]
+  },
+  "narr": [
+   "Endi biz L7-1 topshirig'ini ko'rib chiqamiz, bu 'Decide With Incomplete Data' deb nomlanadi va A dan I gacha bo'lgan to'qqiz qismdan iborat.",
+   "A qismida biz ma'lumot muammolarini tashxislashimiz kerak, kamida uchta turdagi muammoni aniqlab, ularning sabablarini va yaxshiroq ma'lumot olish usullarini ko'rsatamiz.",
+   "B qismida esa manba va ishonchni baholaymiz, 4-5 ta muhim sonni tanlab, ularning qiymatlarini, manbalarini, ishonch darajasini va qisqa sabablarini keltiramiz.",
+   "C qismida biz past, tipik va yuqori diapazonlarni tuzamiz, bitta muhim noaniq o'zgaruvchini tanlab, natijani har bir qiymat uchun qayta hisoblaymiz.",
+   "D qismida bir ma'lumotning ikki xil talqinini ko'rib chiqamiz, qulay va tanqidiy o'qishlarni solishtiramiz.",
+   "E qismida to'g'ri metrikani tanlash muammosi hal qilinadi, uchta qaror beruvchi savol uchun eng mos metrikani tanlab, sababini tushuntiramiz.",
+   "F qismida bazaviy chiziq yoki maxrajni tekshirish kerak, bitta natijani ikki xil bazaga nisbatan ifodalaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L7-1 topshirig'i — Decide With Incomplete Data (cont.)",
+   "problem": "",
+   "steps": [
+    "G. Bitta kalit kattalikni triangulyatsiya qilish — kamida 2 mustaqil usulda baholash; baholar qarorni qo'llash uchun yetarlicha mos keladimi?",
+    "H. Qarorni nima ag'darardi? — eng muhim noaniq taxminni va qaror o'zgaradigan chegini toping; hisob yoki mulohazani ko'rsating.",
+    "I. Yakuniy halol hisobot — natija, diapazon, eng yuqori taxmin, xulosani nima o'zgartirardi — bitta gapda; so'ngra jamoaning 60 soniyalik hisoboti."
+   ],
+   "result": "Barcha qismlar bajarilishi kerak"
+  },
+  "narr": [
+   "Har bir qismda ma'lumotlarni tahlil qilish va qaror qabul qilishning turli jihatlarini o'rganamiz.",
+   "G qismida bitta kalit kattalikni ikki mustaqil usulda baholaymiz.",
+   "H qismida qarorni ag'daradigan omillarni aniqlaymiz.",
+   "Va nihoyat, I qismida yakuniy halol hisobotni tayyorlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L7-1 namunaviy javobi — Case #1: LED Lamp Reliability and Energy-Saving Decision",
+   "problem": "Universitet yillik energiya tejashini qanchalik ishonch bilan baholashi mumkinligi va barcha lampalarni hozirning o'zida almashtirish oqlanadimi — shuni hal qilish.",
+   "steps": [
+    "A. Ma'lumot muammolari tashxisi — beshta muammo; har birining turi tuzatish usulini belgilaydi.",
+    "B. Manba va ishonch. Sonlar kuch bo'yicha: quvvatdagi eng kuchlilar, soatlar va xizmat muddati — eng kuchsizlar; bu keyin nimani tekshirishni belgilaydi.",
+    "C. Past / tipik / yuqori diapazoni. Energiya tejash = lampaga tejash × lampalar × soatlar ×365 ÷ 1 000.",
+    "D. Bir ma'lumot — ikki talqin.",
+    "E. Qaror uchun metrika tanlash."
+   ],
+   "result": "LED lampalarni almashtirish qarorini ma'lumotlar asosida tahlil qilish"
+  },
+  "narr": [
+   "Endi biz ushbu topshiriqning namunaviy javobini ko'rib chiqamiz, LED lampalari ishonchliligi va energiya tejash bo'yicha qaror masalasi asosida.",
+   "Masala shundan iboratki, universitet yillik energiya tejashini qanchalik ishonch bilan baholashi mumkin va barcha lampalarni hozir almashtirish oqlanadimi.",
+   "A qismida biz beshta asosiy ma'lumot muammosini aniqladik: vakillik qilmagan namuna, etishmayotgan ma'lumotlar, eskirgan ma'lumotlar, noto'g'ri ta'rif chegarasi va shovqinli ma'lumotlar.",
+   "B qismida esa beshta kalit son manbasi va ishonch darajasi aniqlandi: yangi lampa quvvati, eski lampa quvvati, lampalar soni, ish vaqti va xizmat muddati.",
+   "C qismida energiya tejash uchun past, tipik va yuqori diapazonlar hisoblab chiqildi.",
+   "D qismida bir ma'lumotning ikki talqini ko'rib chiqildi: qulay o'qish (xaridlar menejeri nuqtai nazaridan) va tanqidiy o'qish (ekspluatatsiya muhandisi nuqtai nazaridan).",
+   "E qismida esa qaror qabul qilish uchun mos metrikalar tanlash muhokama qilindi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "A qism: LED keysi ma'lumotlari tashxisi",
+   "columns": [
+    "Kattalik / da'vo",
+    "Muammo turi",
+    "Nega bu muammo",
+    "Yaxshiroq son"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Faqat 5 lampa tekshirilgan"
+     },
+     {
+      "text": "too little; vakillik qilmagan"
+     },
+     {
+      "text": "bir partiyadan n = 5; faqat 2 lampa 2 000 soatdan ko'p ishlagan"
+     },
+     {
+      "text": "Bir nechta partiya va ko'proq lampa tekshirish"
+     }
+    ],
+    [
+     {
+      "text": "40 000 soat xizmat muddati"
+     },
+     {
+      "text": "missing"
+     },
+     {
+      "text": "Ta'minotchining datasheeti; universitet dalillari hozircha yo'q"
+     },
+     {
+      "text": "Tezlashtirilgan resurs testi; maydoniy ishdan chiqish ma'lumotlari"
+     }
+    ],
+    [
+     {
+      "text": "6 000 lampa"
+     },
+     {
+      "text": "out of date"
+     },
+     {
+      "text": "Yangi korpus ochilishidan oldingi sanash; endi 6 300–6 700"
+     },
+     {
+      "text": "Aktivalar registri bo'yicha qayta sanash"
+     }
+    ],
+    [
+     {
+      "text": "20 kVt, 75 kVt ga qarshi"
+     },
+     {
+      "text": "wrong definition / boundary"
+     },
+     {
+      "text": "«Koridor yoritgichi»ning har xil bazaviy chiziqlari"
+     },
+     {
+      "text": "Nima kirayotganini so'rash; pastdan yuqoriga tekshirish (6500 × 18V t ≈117kV t)"
+     }
+    ],
+    [
+     {
+      "text": "10–14 soat/kun; 700–1 000 UZS/kVt·soat"
+     },
+     {
+      "text": "noisy (keng sochilish)"
+     },
+     {
+      "text": "Baholar, jurnallar emas; tarif shartnoma davriga bog'liq"
+     },
+     {
+      "text": "Soatlarni jurnalga yozish; shartnoma tarifidan foydalanish"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "A qismida biz LED lampalari ma'lumotlaridagi beshta asosiy muammoni aniqladik.",
+   "Birinchidan, faqat 5 lampa tekshirilgan, bu vakillik qilmagan namuna degan ma'noni anglatadi. Yaxshiroq yondashuv - bir nechta partiyadan ko'proq lampa tekshirish.",
+   "Ikkinchidan, 40 000 soat xizmat muddati etishmayotgan ma'lumotdir. Buni tezlashtirilgan resurs testi yoki maydoniy ishdan chiqish ma'lumotlari bilan yaxshilash mumkin.",
+   "Uchinchidan, 6 000 lampa soni eskirgan ma'lumotdir, chunki yangi korpus ochilgandan keyin bu son 6 300-6 700 ga o'zgargan.",
+   "To'rtinchidan, 20 kVt va 75 kVt nisbati noto'g'ri ta'rif chegarasiga ega. Buni aniqroq chegaralarni aniqlash orqali yaxshilash mumkin.",
+   "Va oxirgi, ish vaqti va tarif ma'lumotlari shovqinli bo'lib, keng tarqalgan qiymatlarga ega. Buni aniqroq jurnal yozuvlari bilan yaxshilash mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "B qism: beshta kalit son uchun manba va ishonch",
+   "columns": [
+    "Kattalik",
+    "Qiymat / diapazon",
+    "Manba",
+    "Ishonch",
+    "Qisqa sabab"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Yangi lampa quvvati"
+     },
+     {
+      "text": "11,7–12,6 Vt; o'rtacha 12,1V t(SD0,35, n=5)"
+     },
+     {
+      "text": "o'lchov"
+     },
+     {
+      "text": "o'rtacha"
+     },
+     {
+      "text": "Usul e'lon qilingan, lekin bitta partiya va n=5"
+     }
+    ],
+    [
+     {
+      "text": "Eski lampa quvvati"
+     },
+     {
+      "text": "18 Vt"
+     },
+     {
+      "text": "reyting (look up)"
+     },
+     {
+      "text": "o'rtacha"
+     },
+     {
+      "text": "Reyting, o'lchov emas; bir nechta eski lampa tekshirish"
+     }
+    ],
+    [
+     {
+      "text": "Lampalar soni"
+     },
+     {
+      "text": "6 300–6 700 (avval 6 000 edi)"
+     },
+     {
+      "text": "texnik bahosi"
+     },
+     {
+      "text": "o'rtacha-past"
+     },
+     {
+      "text": "Eski sanash; yangi korpus ochildi"
+     }
+    ],
+    [
+     {
+      "text": "Ish vaqti"
+     },
+     {
+      "text": "10–14 soat/kun"
+     },
+     {
+      "text": "baho (so'rash)"
+     },
+     {
+      "text": "past-o'rtacha"
+     },
+     {
+      "text": "Jurnallar yo'q; 12 soat atrofida ±17%"
+     }
+    ],
+    [
+     {
+      "text": "Xizmat muddati"
+     },
+     {
+      "text": "40 000 soat (12 soat/kunda ≈9yil)"
+     },
+     {
+      "text": "ta'minotchining datasheeti"
+     },
+     {
+      "text": "past-o'rtacha"
+     },
+     {
+      "text": "Lokal tekshirilmagan; 2 lampa 2 000 soatdan yuqori"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "B qismida beshta kalit son uchun manba va ishonch darajasini aniqladik.",
+   "Yangi lampa quvvati 11,7-12,6 Vt oralig'ida, o'rtacha 12,1 Vt. Bu o'lchov asosida aniqlangan, ammo faqat bitta partiyadan 5 ta namunada o'lchanganligi uchun o'rtacha ishonchga ega.",
+   "Eski lampa quvvati 18 Vt deb ko'rsatilgan, bu reyting asosida aniqlangan, lekin o'lchov emas. Bir nechta eski lampalarni tekshirish orqali ishonchni oshirish mumkin.",
+   "Lampalar soni 6 300-6 700 oralig'ida, avval 6 000 deb hisoblangan. Yangi korpus ochilgach, son oshgan, ammo aniq sanash ishlamaganligi uchun o'rtacha-past ishonchga ega.",
+   "Ish vaqti 10-14 soat/kun oralig'ida, ammo aniq jurnal yo'q. Taxminiy ma'lumotlar ±17% xatolik bilan, shuning uchun past-o'rtacha ishonch.",
+   "Xizmat muddati 40 000 soat deb ta'minotchining datasheetida ko'rsatilgan, ammo lokal tekshirilmagan. Faqat 2 ta lampa 2000 soatdan ko'p ishlaganligi uchun past-o'rtacha ishonch."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C qism: yillik tejash diapazon sifatida",
+   "columns": [
+    "Holat",
+    "Lampaga tejash [Vt]",
+    "Lampalar [dona]",
+    "Soatlar [soat/kun]",
+    "Tarif [UZS/kVt·soat]",
+    "Energiya tejash [MVt·soat/yil]",
+    "Qiymat [mln UZS/yil]"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Past"
+     },
+     {
+      "text": "5,4 (18 − 12,6)"
+     },
+     {
+      "text": "6 300"
+     },
+     {
+      "text": "10"
+     },
+     {
+      "text": "700"
+     },
+     {
+      "text": "124"
+     },
+     {
+      "text": "87"
+     }
+    ],
+    [
+     {
+      "text": "Tipik"
+     },
+     {
+      "text": "5,88 (18 − 12,12)"
+     },
+     {
+      "text": "6 500"
+     },
+     {
+      "text": "12"
+     },
+     {
+      "text": "850"
+     },
+     {
+      "text": "167"
+     },
+     {
+      "text": "142"
+     }
+    ],
+    [
+     {
+      "text": "Yuqori"
+     },
+     {
+      "text": "6,3 (18 − 11,7)"
+     },
+     {
+      "text": "6 700"
+     },
+     {
+      "text": "14"
+     },
+     {
+      "text": "1 000"
+     },
+     {
+      "text": "216"
+     },
+     {
+      "text": "216"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "C qismda yillik energiya tejash diapazonini hisoblab chiqdik.",
+   "Past holatda lampaga tejash 5,4 Vt, lampalar soni 6 300, soatlar 10 kuniga, tarif 700 UZS/kVt·soat bo'lganda yillik tejash 124 MVt·soat yoki 87 mln UZS.",
+   "Tipik holatda lampaga tejash 5,88 Vt, lampalar soni 6 500, soatlar 12 kuniga, tarif 850 UZS/kVt·soat bo'lganda yillik tejash 167 MVt·soat yoki 142 mln UZS.",
+   "Yuqori holatda lampaga tejash 6,3 Vt, lampalar soni 6 700, soatlar 14 kuniga, tarif 1 000 UZS/kVt·soat bo'lganda yillik tejash 216 MVt·soat yoki 216 mln UZS.",
+   "Tipik holatdagi hisoblash: 5,88 Vt × 6500 × 12 soat/kun × 365 ÷ 1000 ≈ 167000 kVt·soat/yil.",
+   "Diapazon formulasi: yiliga taxminan 124 dan 216 MVt·soat gacha, odatda 167 MVt·soat.",
+   "Qiymat bo'yicha diapazon: yiliga taxminan 87 dan 216 mln UZS gacha."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "D qism: Bir ma'lumot — ikki talqin",
+   "problem": "LED lampalari almashtirish bo'yicha ikki xil talqinni tahlil qilish",
+   "steps": [
+    {
+     "text": "Qulay o'qish (xaridlar menejeri): «Hammasini almashtirish» — barcha beshta yangi lampa 18 Vt ga qarshi taxminan 12 Vt deb o'lchangan: lampaga tejash taxminan uchdan bir qism (30–35%), juda ehtimol real."
+    },
+    {
+     "text": "Tanqidiy o'qish (ekspluatatsiya muhandisi): «Ular buncha xizmat qilishini bilmaymiz» — xizmat muddati tekshirilmagan, lampalar soni va soatlar noaniq, va energiya tejashi o'zi hayotiy sikl narxi kam ekanini isbotlamaydi."
+    },
+    {
+     "text": "Ikkalasini qo'llab-quvvatlaydigan sonlar: o'lchangan quvvat va tejash — 18 Vt ga qarshi 12 Vt (lampaga ≈6V t) ikkala o'qishda ham rost."
+    },
+    {
+     "text": "Bahsni hal qiladigan ma'lumotlar: ko'p partiyali, ishdan chiqish jurnallari bilan maydoniy pilot, jurnalga yozilgan ish soatlari, dolzarb lampalar soni, xarid va o'rnatish narxi."
+    }
+   ],
+   "result": "Ikkala talqin ham ma'lumotlar asosida, lekin turli nuqtai nazarlardan kelib chiqadi"
+  },
+  "narr": [
+   "D qismida bitta ma'lumotning ikki xil talqinini ko'rib chiqdik.",
+   "Qulay o'qishda xaridlar menejeri nuqtai nazaridan, yangi lampalarni almashtirish maqsadga muvofiq, chunki ular eski lampalarga qarabi 30-35% energiya tejaydi.",
+   "Tanqidiy o'qishda esa ekspluatatsiya muhandisi shubhalanadi, chunki yangi lampalarning ishlash muddati aniq emas, ma'lumotlar noaniq va energiya tejashining hayotiy sikl narxiga ta'siri noma'lum.",
+   "Ikkala talqin ham 18 Vt eski lampalarga qarshi 12 Vt yangi lampalar o'lchovini qo'llab-quvvatlaydi, bu asosiy fakt.",
+   "Bahsni hal qilish uchun ko'p partiyali sinovlar, ishdan chiqish jurnallari, aniq ish soatlari, dolzarb lampalar soni va xarid narxlari kabi qo'shimcha ma'lumotlar kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "E qism: Qaror uchun metrika tanlash",
+   "bullets": [
+    "3 ta qaror beruvchi savol uchun average, median, 90th percentile, maximum, peak yoki rate per unit / user tanlash",
+    "Nega ekanini ayting — va boshqa metrika qanday chalg'itishi mumkin edi"
+   ]
+  },
+  "narr": [
+   "E qismida qaror qabul qilish uchun to'g'ri metrikani tanlash muhim.",
+   "Har bir qaror uchun biz o'rtacha, median, 90-foiz chegarasi, maksimum, cho'qqi yoki birlikka nisbatan tezlik kabi metrikalardan foydalanishimiz kerak.",
+   "Masalan, energiya tejashini baholashda o'rtacha qiymat eng mos keladi, chunki u umumiy tendensiyani aks ettiradi.",
+   "Ammo agar biz maksimal tejamkorlikni qidirsak, bu chalg'iruvchi bo'lishi mumkin, chunki bu optimal holatni ko'rsatadi, o'rtacha emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ }
+]

@@ -1,0 +1,318 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Innovatsion muhandislikga kirish — 5–7-haftalar: o’quv q’’llanmasi",
+   "subtitle": "Muammoni qo’yish bo’yicha jamoa ishi blanki"
+  },
+  "narr": [
+   "Salom! Bugungi kunda biz muammoni qo’yish jarayonini tushunish va amaliyot o’tkazishni ko’rib chiqamiz. Bu jarayon muhandislik loyihalarining asosiy qismi hisoblanadi.",
+   "Yo’riqnoma shunday deydi: «Senariyni ehtiyotkorlik bilan o’qing. Da’volarni tasniflash uchun matndagi dalillardan foydalaning, muammoni qo’ying, jarayon oqim diagrammasini chizing, o’zgaruvchilarni birliklar bilan belgilang, steykxolderlar qarashlarini yoyib bering va majburiy hamda istak maqsadlarini taklif qiling. Muammo qo’yilishi yechimlardan xoli bo’lishi kerak»."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "A. Dalillarni tasniflash",
+   "bullets": [
+    "Fakt — tarmoq operatorining limiti L = 150 kVt",
+    "Fakt — 4 zaryad bo’limining har biri 22 kVt ga mo’ljallangan",
+    "Xulosa — to’rt zaryadlagich bir vaqtda ishlaganda cho’qqi quvvati 88 kVt ≤150 kVt (model hisobi)",
+    "Xulosa — agar bir vaqtda to’rttadan kam band bo’lsa, sarf 88 kVt dan past bo’ladi",
+    "Spekulatsiya — zaryadlagichlarni tez rejimga o’tkazish P₁ ni 50 kVt gacha ko’taradi (7-qadam stress-test gipotezasi)",
+    "Spekulatsiya — binoning yoritgichi/HVAC xuddi shu ulanishga yuk qo’shadi (chegaraviy taxmin, Need Data)",
+    "Fikr — «model yetarli darajada yaxshi: u yuk egri chizig’ini simulyatsiya qilmasdan moslik savoliga javob beradi» (9-qadam verdikti)",
+    "Fikr — «eng yomon holatni o’lchangan xilma-xillik koeffitsienti bilan almashtirish» (10-qadam tavsiya-qayta ko’rib chiqish)"
+   ]
+  },
+  "narr": [
+   "Birinchi qadam, dalillarni to’rt toifaga bo’lish: fakt, xulosa, spekulatsiya va fikr. Har bir dalil uchun «nega aynan shu toifa» degan izoh berish kerak.",
+   "Faktlar — bu to’g’ri tasdiqlangan ma’lumotlar. Masalan, tarmoq operatorining limiti L = 150 kVt va har bir zaryad bo’limining quvvati 22 kVt.",
+   "Xulosalar — bu ma’lumotlardan kelib chiqqan fikrlar. To’rt zaryadlagich bir vaqtda ishlaganda, ularning umumiy quvvati 88 kVt, bu tarmoq limitidan past.",
+   "Agar bir vaqtda kamroq zaryadlagich ishlasa, sarf kamayadi, bu ham xulosadir.",
+   "Spekulatsiyalar — bu hali tasdiqlanmagan taxminlar. Zaryadlagichlarni tez rejimga o’tkazish quvvatni 50 kVt gacha oshirishi mumkin, lekin bu hali tekshirilmagan.",
+   "Shuningdek, binoning yoritgichi va HVAC tizimi ham xuddi shu ulanishga yuk qo’shishi mumkin, bu ham taxmin.",
+   "Fikrlar — bu sub’ektiv qarashlar. «Model yetarli darajada yaxshi» degan fikr shunday misol.",
+   "«Eng yomon holatni o’lchangan xilma-xillik koeffitsienti bilan almashtirish» bu ham fikr, chunki u baholashga bog’liq."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "B. Shikoyat → Ehtiyoj → Muammo bayonoti",
+   "bullets": [
+    "Yo’l: shikoyat (odamlar nima deydi) → ehtiyoj (ularga aslida nima kerak) → yechimsiz muammoni qo’yish",
+    "Qo’yilish andoza: [Stakeholder] needs [outcome] in [system], judged by [measure], within [constraints]",
+    "Namunaviy javob: stansiya operatoriga eng gavjum soatda cho’qqi quvvatni tarmoq operatorining limiti ichida ushlab turish kerak",
+    "Qo’yilish: «The station needs to keep its peak power draw within the grid operator’s limit, judged by total peak power P [kW] against L = 150 kW, within the four-bay charger configuration»"
+   ]
+  },
+  "narr": [
+   "Ikkinchi qadamda, shikoyatni ehtiyojga, keyin esa yechimsiz muammoni qo’yishga aylantiramiz.",
+   "Bu qadam uchun aniq andozadan foydalanamiz: [Stakeholder] needs [outcome] in [system], judged by [measure], within [constraints].",
+   "Masalan, stansiya operatoriga eng gavjum soatda cho’qqi quvvatni tarmoq operatorining limiti ichida ushlab turish kerak.",
+   "Shunday qilib, qo’yilish: «The station needs to keep its peak power draw within the grid operator’s limit, judged by total peak power P [kW] against L = 150 kW, within the four-bay charger configuration». Bu erda aniq yechim qurilmalari nomlanmagan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "C. Jarayon oqim diagrammasi",
+   "bullets": [
+    "6–8 asosiy qadamni o’z ichiga oladi",
+    "Start/End, Step, Decision (Ha/Yo’q), Wait/Queue belgilaridan va Flow strelkalaridan foydalaning",
+    "Qadamlar orasida nima harakatlanayotganini yozing va o’zgaruvchilarni/birliklarni belgilang",
+    "Stansiya uchun model: Start → elektromobil kelishi → zaryad bo’limiga ulanish (n + 1 band [dona]) → zaryadlash seansi (P₁ = 22 kVt, doimiy) → «diagnostik test kerakmi?» qarori → kichik tok bilan diagnostik test (ahamiyatsiz quvvat) → batareya holatini zaryadlagichning o’z diagnostikasi orqali tekshirish (qo’shimcha yuksiz) → bo’lim bo’shaydi (n −1) → End",
+    "Chegaradan tashqarida — alohida hisoblagichda hisobga olinadigan yoritgich/HVAC"
+   ]
+  },
+  "narr": [
+   "Uchinchi qadam, jarayon oqim diagrammasini chizish. Bu diagramma 6-8 asosiy qadamni o’z ichiga oladi.",
+   "Biz Start/End, Step, Decision (Ha/Yo’q), Wait/Queue belgilaridan va Flow strelkalaridan foydalanamiz.",
+   "Qadamlar orasida nima harakatlanayotganini yozish va o’zgaruvchilarni/birliklarni belgilash muhim.",
+   "Stansiya uchun model quyidagicha: Start → elektromobil kelishi → zaryad bo’limiga ulanish (n + 1 band [dona]) → zaryadlash seansi (P₁ = 22 kVt, doimiy) → «diagnostik test kerakmi?» qarori → kichik tok bilan diagnostik test (ahamiyatsiz quvvat) → batareya holatini zaryadlagichning o’z diagnostikasi orqali tekshirish (qo’shimcha yuksiz) → bo’lim bo’shaydi (n −1) → End.",
+   "E’tibor bering, yoritgich/HVAC tizimi chegaradan tashqarida, alohida hisoblagichda hisobga olinadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "D. Jarayondagi o’zgaruvchilar",
+   "bullets": [
+    "Kamida 5 o’zgaruvchi, jumladan kamida bitta performance, bitta design va bitta context",
+    "Har biri uchun — qadam/oqim, birlik, tur (P / D / C) va qanday o’lchanadi",
+    "Model:",
+    "• performance — umumiy cho’qqi quvvati P [kVt] (hisoblagich bo’yicha) va limitga moslik [ha/yo’q]",
+    "• design — zaryad bo’limlari soni [dona], zaryadlagich quvvati P₁ [kVt]",
+    "• context — tarmoq limiti L = 150 kVt, yoritgich/HVAC yuki [kVt] (chegaradan tashqarida), cho’qqi yuklanish soati [kun soati]"
+   ]
+  },
+  "narr": [
+   "To’rtinchi qadam, jarayondagi o’zgaruvchilarni aniqlash. Kamida 5 o’zgaruvchi kerak, jumladan kamida bitta performance (samaradorlik), bitta design (dizayn) va bitta context (kontekst) o’zgaruvchisi.",
+   "Har bir o’zgaruvchi uchun uning qadami/oqimi, birligi, turi (P/D/C) va qanday o’lchanishi ko’rsatiladi.",
+   "Bizning modelimizda:",
+   "• performance o’zgaruvchisi — umumiy cho’qqi quvvati P [kVt] (hisoblagich bo’yicha) va limitga moslik [ha/yo’q]",
+   "• design o’zgaruvchilari — zaryad bo’limlari soni [dona] va zaryadlagich quvvati P₁ [kVt]",
+   "• context o’zgaruvchilari — tarmoq limiti L = 150 kVt, yoritgich/HVAC yuki [kVt] (chegaradan tashqarida) va cho’qqi yuklanish soati [kun soati]"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "E. Steyxolderlar samaradorlik qarashlari",
+   "columns": [
+    "Steykxolder",
+    "Muvaffaqiyat g’oyasi",
+    "Nomzod o’zgaruvchi",
+    "Birlik"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Tarmoq operatori"
+     },
+     {
+      "text": "Cho’qqi quvvati 150 kVt ichida qoladi"
+     },
+     {
+      "text": "P"
+     },
+     {
+      "text": "kVt"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Beshinchi qadam, steykxolderlar samaradorlik qarashlarini jadval shaklida taqdim etish. Jadvalda «Steykxolder → uning muvaffaqiyat g’oyasi → nomzod o’zgaruvchi → birlik» formati bo’lishi kerak.",
+   "Namunaviy qator: tarmoq operatori — muvaffaqiyat: cho’qqi quvvati 150 kVt ichida qoladi — o’zgaruvchi P [kVt].",
+   "Qolgan qatorlar jamoa kartochkasidagi boshqa steykxolderlar uchun to’ldirilishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "F. Must-have va Nice-to-have maqsadlari",
+   "bullets": [
+    "Kamida 3 o’zgaruvchi uchun qo’pol maqsadlar: must-have = talab (majburiyat), nice-to-have = tilak (istak)",
+    "Model:",
+    "• eng gavjum soatda cho’qqi quvvati P ≤150 kVt (must-have — operator limiti)",
+    "• tez zaryadlash P₁ = 50 kVt ga o’tgandan keyin ham P ≤150 kVt (nice-to-have: bugun P = 4 × 50 = 200 kVt — maqsad yukni boshqarishsiz bajarilmaydi)",
+    "• o’lchovlar bilan tasdiqlangan 22 kVt lik zaryadlagich reytingi (nice-to-have — 10-qadamning ma’lumot ehtiyoji)"
+   ]
+  },
+  "narr": [
+   "Oltinchi qadam, must-have va nice-to-have maqsadlarini belgilash. Kamida 3 o’zgaruvchi uchun qo’pol maqsadlar taklif qilinadi.",
+   "Must-have — bu majburiy talablar, nice-to-have — bu istaklar.",
+   "Modelimizda:",
+   "• eng gavjum soatda cho’qqi quvvati P ≤150 kVt (must-have — operator limiti)",
+   "• tez zaryadlash P₁ = 50 kVt ga o’tgandan keyin ham P ≤150 kVt (nice-to-have: hozirgi holatda P = 4 × 50 = 200 kVt — bu maqsad yukni boshqarishsiz bajarilmaydi)",
+   "• o’lchovlar bilan tasdiqlangan 22 kVt lik zaryadlagich reytingi (nice-to-have — 10-qadamning ma’lumot ehtiyoji)"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "G. Tizim samaradorligining yakuniy ishchi ta’rifi",
+   "bullets": [
+    "Gapni to’ldiring: «___ ning samaradorligi ___, ___ va ___ bilan baholanadi, har biri o’z birligi va maqsadi bilan, ___ ko’zi bilan»",
+    "Model: EV Charging & Battery Test Station samaradorligi umumiy cho’qqi quvvati P [kVt] va 150 kVt limitiga moslik (ha/yo’q) bilan baholanadi, birliklar va maqsadlar bilan, tarmoq operatori ko’zi bilan"
+   ]
+  },
+  "narr": [
+   "Yettinchi qadam, tizim samaradorligining yakuniy ishchi ta’rifini tuzish. Quyidagi gapni to’ldiring: «___ ning samaradorligi ___, ___ va ___ bilan baholanadi, har biri o’z birligi va maqsadi bilan, ___ ko’zi bilan».",
+   "Modelimiz: EV Charging & Battery Test Station samaradorligi umumiy cho’qqi quvvati P [kVt] va 150 kVt limitiga moslik (ha/yo’q) bilan baholanadi, birliklar va maqsadlar bilan, tarmoq operatori ko’zi bilan."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "H. 60 soniyalik jamoa hisoboti (ixtiyoriy)",
+   "problem": "To’rtta savolga javob berish:",
+   "steps": [
+    {
+     "text": "yechimsiz muammoni qo’yish qanday?"
+    },
+    {
+     "text": "eng muhim 2-3 o’zgaruvchi va birliklar qaysilar?"
+    },
+    {
+     "text": "qo’yilishingizda qaysi steykxolder hammadan muhimroq va nega?"
+    },
+    {
+     "text": "qanday bitta must-have maqsad va bitta nice-to-have maqsad?"
+    }
+   ],
+   "result": "Har bir savolga qisqa va aniq javob berish"
+  },
+  "narr": [
+   "Sakkizinchi qadam, ixtiyoriy, ammo foydali bo’lgan 60 soniyalik jamoa hisobotini tayyorlash.",
+   "To’rtta savolga javob berish kerak:",
+   "1. yechimsiz muammoni qo’yish qanday?",
+   "2. eng muhim 2-3 o’zgaruvchi va birliklar qaysilar?",
+   "3. qo’yilishingizda qaysi steykxolder hammadan muhimroq va nega?",
+   "4. qanday bitta must-have maqsad va bitta nice-to-have maqsad?",
+   "Har bir savolga qisqa va aniq javob berish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "L5-4 topshirig’i",
+   "subtitle": "Milestone 2 — Mustaqiy o’rganish (5-leksiya keyin)"
+  },
+  "narr": [
+   "Endi, L5-4 topshirig’iga o’tamiz. Bu Milestone 2 — Mustaqiy o’rganish, 5-leksiya keyin amalga oshiriladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Topshiriq talablari",
+   "bullets": [
+    "Muammo qo’yilishi hujjatini yozish:",
+    "• muammo formulasi",
+    "• performance-o’zgaruvchilar",
+    "• talablar va tilaklar (demands and wishes)",
+    "Modelni blok ko’rinishida chizish:"
+   ]
+  },
+  "narr": [
+   "Birinchidan, muammo qo’yilishi hujjatini yozish kerak, unda muammo formulasi, performance-o’zgaruvchilar va talablar/tilaklar bo’lishi shart.",
+   "Ikkinchidan, modelni blok ko’rinishida chizish, kirishlar, parametrlar, bog’liqliklar va chiqishlarni ko’rsatib, har biriga birliklar qo’shib.",
+   "Uchinchidan, kamida sakkizta taxmin yozish, har birida nimani taxmin qilayotganimiz, nega va nima o’zgarishi agar noto’g’ri bo’lsa, va ularni safe, risky yoki needs data deb belgilash.",
+   "Jamoa dasturi (deliverable) sifatida Milestone 2 — muammo qo’yilishi hujjati va modellashtirish taxminlari ro’yxati topshiriladi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Topshiriq talablari (cont.)",
+   "bullets": [
+    "• kirishlar, parametrlar, bog’liqliklar, chiqishlar — har biri birliklar bilan",
+    "Kamida sakkizta taxmin yozish:",
+    "• nimani taxmin qilamiz, nega va nima o’zgaradi, agar bu noto’g’ri bo’lsa",
+    "• Har bir taxminni safe, risky yoki needs data deb belgilash",
+    "Jamoa dasturi (deliverable): Milestone 2 — muammo qo’yilishi hujjati va modellashtirish taxminlari ro’yxati"
+   ]
+  },
+  "narr": [
+   "Topshiriq quyidagi talablardan iborat:"
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]

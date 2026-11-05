@@ -1,0 +1,424 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Muhandislik qarorlari to'liq bo'lmagan ma'lumotlar bilan",
+   "subtitle": "5-7-haftalar o'quv qo'llanmasi"
+  },
+  "narr": [
+   "Salom va xush kelibsiz! Bugun biz muhandislik qarorlarini qabul qilish jarayonini ko'rib chiqamiz, ayniqsa, to'liq bo'lmagan ma'lumotlar bilan ishlashga oid.",
+   "Biz Lab 7 da keltiriligan holatni o'rganamiz, bu erda yangi lampalarni o'rnatish bo'yicha qaror qabul qilinmoqda."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Muammoni tushunish",
+   "bullets": [
+    "Yangi lampalarni o'rnatish bo'yicha qaror qabul qilish",
+    "Energiya tejash potentsiali",
+    "Lampalar xizmat muddati va narxi",
+    "Ma'lumotlarning ishonchliligi",
+    "Qarorni asoslash"
+   ]
+  },
+  "narr": [
+   "Bizda yangi lampalarni o'rnatish bo'yicha qaror qabul qilish kerak. Asosiy savol shundaki, bu yangi lampalar haqiqatan ham energiya tejaydimi va ularning narxi xizmat muddatiga nisbatan o'zini oqlaydimi?"
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Qaror metrikasini tanlash",
+   "columns": [
+    "Qaror beruvchi savol",
+    "Eng yaxshi metrika",
+    "Nega; boshqa metrika qanday chalg'itardi"
+   ],
+   "rows": [
+    [
+     "Necha energiya tejaladi?",
+     "Yillik tejalgan kVt·soat (va diapazon)",
+     "Haqiqiy lampalar va soatlar sonidan foydalanadi; lampaga foiz esa nechta lampa ekanini yashiradi"
+    ],
+    [
+     "Tipik yangi lampa nima sarflaydi?",
+     "Mediana (o'rtacha, diapazon va n bilan)",
+     "n = 5, o'rtacha va mediana to'g'ri keladi (12,1 Vt); n ni ko'rsating va diapazonni bering"
+    ],
+    [
+     "Lampalar yetarlicha uzoq xizmat qiladimi?",
+     "Ishdan chiqish intensivligi / ish resursi soatlari",
+     "O'rtacha quvvat ishonchlilik haqida hech narsa aytmaydi; datasheetdagi bitta raqam — dalil emas"
+    ],
+    [
+     "Almashtirish o'zini oqlaydimi?",
+     "O'zini oqlash yoki xizmat yiliga tushadigan qiymat",
+     "Energiya tejash xarid narxini va erta ishdan chiqishlarni e'tiborsiz qoldiradi"
+    ]
+   ]
+  },
+  "narr": [
+   "Avvalo, qaror qabul qilish uchun to'g'ri metrikani tanlashimiz kerak. Yillik energiya tejishi asosiy metrika bo'lishi kerak, chunki u to'g'ridan-to'g'ri iqtisodiy foyda ko'rsatadi.",
+   "Lampalarning o'rtacha quvvat sarfi va xizmat muddati ham muhim, lekin ularni e'tiborsiz qoldirish xatoga olib kelishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Bazaviy chiziqni tekshirish",
+   "problem": "Lampaga tejash 5,88 Vt, eski lampa 18 Vt ga qarshi. Bazaviy chiziqni tekshiring.",
+   "steps": [
+    {
+     "text": "Yangi lampalarning eski lampalarga nisbatan quvvat tejalishi hisoblanadi: 5,88 ÷ 18 = 33%"
+    },
+    {
+     "text": "To'liq iqtisodiyot hisoblanadi: 6500 × 5,88Vt × 12 soat × 365 ÷ 1000 ≈ 167 MVt·soat/yil"
+    },
+    {
+     "text": "Eski ulangan yoritgichga solishtirganda: 6500 × 18Vt × 12 soat × 365 ÷ 1000 ≈ 117 MVt·soat/yil"
+    },
+    {
+     "text": "Tejash foizi: 38,2 ÷ 117 = 33% — bir xil chegara, bir xil foiz"
+    },
+    {
+     "text": "Ekspluatatsiya bahosi 75 kVt bo'lganda: 38,2 ÷ 75 = 51% — yuqori foiz"
+    },
+    {
+     "text": "Eski hisobot 20 kVt bo'lganda: 38,2 ÷ 20 = 191% — imkonsiz, chunki 100% dan yuqori"
+    }
+   ],
+   "result": "Bazaviy chiziq chegarasi noto'g'ri ekanligi aniqlandi. 100% dan yuqori natija bazaviy chiziq chegarasining noto'g'riligini bildiradi. Modernizatsiyadan oldin va keyin bir xil chegarani ishlatish kerak."
+  },
+  "narr": [
+   "Endi biz bazaviy chiziqni tekshiramiz. Yangi lampalar eskilarga nisbatan uchdan bir energiya tejaydi deb taxmin qilamiz.",
+   "6500 ta yangi lampani hisobga olganda, yillik tejash taxminan 167 MVt·soat ga teng.",
+   "Eski lampalar uchun bu qiymat 117 MVt·soat ni tashkil qiladi. Tejash foizi 33% ni tashkil qiladi, bu taxminimizni tasdiqlaydi.",
+   "Ammo ekspluatatsiya bahosi 75 kVt bo'lganda, tejash foizi 51% ga ko'tariladi, bu esa juda yuqori.",
+   "Eng muhimi, eski hisobot 20 kVt ni ko'rsatganda, tejash foizi 191% ga chiqadi, bu esa imkonsiz. Bu esa bazaviy chiziq chegarasining noto'g'riligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Bazaviy chiziqni tekshirish qoidalari",
+   "columns": [
+    "Natija",
+    "Bazaviy chiziq",
+    "Hisob",
+    "Foiz",
+    "Talqin"
+   ],
+   "rows": [
+    [
+     ">100%",
+     "Noto'g'ri",
+     "38,2 ÷ 20 = 191%",
+     "191%",
+     "Bazaviy chiziq chegarasi noto'g'ri"
+    ],
+    [
+     "33%",
+     "To'g'ri",
+     "38,2 ÷ 117 = 33%",
+     "33%",
+     "Bir xil chegara, bir xil foiz"
+    ],
+    [
+     "51%",
+     "To'g'ri",
+     "38,2 ÷ 75 = 51%",
+     "51%",
+     "Yuqori foiz, ammo mumkin"
+    ]
+   ]
+  },
+  "narr": [
+   "Bizda uchta holat bor. Birinchisida, 100% dan yuqori natija bazaviy chiziq chegarasining noto'g'riligini bildiradi.",
+   "Ikkinchi holatda, 33% foiz to'g'ri hisoblangan chegara bilan mos keladi.",
+   "Uchinchi holatda, 51% foiz yuqori, ammo bu holatda ham bazaviy chiziq to'g'ri, chunki barcha lampalar bir vaqtda yoniq bo'lishi mumkin emas."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Yillik tejashni triangulyatsiya qilish",
+   "problem": "Yillik energiya tejashini uchta xil usul bilan hisoblang va solishtiring.",
+   "steps": [
+    {
+     "text": "1-usul (pastdan yuqoriga): o'lchangan quvvat × sanalgan lampalar × soatlar — 6500 × 5,88Vt × 12 soat × 365 ÷ 1000 ≈ 167 MVt·soat/yil"
+    },
+    {
+     "text": "2-usul (yuqordan pastga, 75 kVt): ekspluatatsiya bahosi × uchdan bir tejash — 75 kVt × 0,327 × 12 soat × 365 ≈ 107 MVt·soat/yil"
+    },
+    {
+     "text": "3-usul (yuqordan pastga, 20 kVt): eski energiya hisoboti × uchdan bir — 20 kVt × 0,327 × 12 soat × 365 ≈ 29 MVt·soat/yil"
+    },
+    {
+     "text": "Moslik tekshiruvi: 1- va 2-usullar 1,6 ko'paytuvchi ichida mos keladi — tejash real va katta"
+    },
+    {
+     "text": "3-usul olti barobar past — bu faqat taxminan 1100 lampa yoniq bo'lganda bo'lardi"
+    },
+    {
+     "text": "Xulosa: 20 kVt raqami, ehtimol, faqat bir kichik to'plamni qamrab oladi"
+    }
+   ],
+   "result": "Yillik energiya tejashi 167 MVt·soat (124–216 MVt·soat diapazonda) deb hisoblanadi. 20 kVt asosli hisob noto'g'ri, chunki u faqat kichik lampalar to'plamini qamrab oladi."
+  },
+  "narr": [
+   "Yillik energiya tejashini uchta xil usul bilan hisoblab, moslikni tekshiramiz.",
+   "Birinchi usulda, lampalar soni va o'lchangan quvvatdan foydalanib, yillik tejash 167 MVt·soat ni tashkil qiladi.",
+   "Ikkinchi usulda, ekspluatatsiya bahasidan foydalanib, yillik tejash 107 MVt·soat ni tashkil qiladi.",
+   "Uchinchi usulda, eski energiya hisobotidan foydalanib, yillik tejash atigi 29 MVt·soat ni tashkil qiladi.",
+   "Birinchi va ikkinchi usullar natijalari bir kattalik tartibida mos keladi, bu esa tejashning real va katta ekanligini ko'rsatadi.",
+   "Uchinchi usul natijasi esa olti barobar past, bu esa 20 kVt raqamining faqat kichik lampalar to'plamini qamrab olganini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Triangulyatsiya usullari",
+   "columns": [
+    "Yo'l",
+    "Usul / Manba",
+    "Hisob-kitob",
+    "Birlik bilan natija",
+    "Ishonch"
+   ],
+   "rows": [
+    [
+     "1-yo'l",
+     "O'lchangan quvvat × sanalgan lampalar",
+     "6500 × 5,88Vt × 12 soat × 365 ÷ 1000",
+     "167 MVt·soat/yil",
+     "O'rtacha-past"
+    ],
+    [
+     "2-yo'l",
+     "Ekspluatatsiya bahasi × uchdan bir",
+     "75 kVt × 0,327 × 12 soat × 365",
+     "107 MVt·soat/yil",
+     "Past-o'rtacha"
+    ],
+    [
+     "3-yo'l",
+     "Eski energiya hisoboti × uchdan bir",
+     "20 kVt × 0,327 × 12 soat × 365",
+     "29 MVt·soat/yil",
+     "Past"
+    ]
+   ]
+  },
+  "narr": [
+   "Uchta usul bilan hisoblangan yillik energiya tejashi turli darajadagi ishonchga ega.",
+   "Birinchi usul eng yuqori ishonchga ega, chunki u to'g'ridan-to'g'ri o'lchovlarga asoslanadi.",
+   "Ikkinchi usul o'rtacha ishonchga ega, chunki u ekspluatatsiya bahasiga tayanadi.",
+   "Uchinchi usul past ishonchga ega, chunki u eski hisobotga asoslanadi, bu esa faqat kichik lampalar to'plamini qamrab oladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3 — Qarorni nima ag'darardi",
+   "problem": "Energiya haqidagi da'vo va lampalarning xizmat muddati asosida qaror qabul qiling.",
+   "steps": [
+    {
+     "text": "Energiya haqidagi da'vo mustahkam: testlar 11,7–12,6 Vt ko'rsatadi — energiya tejashdan shubha yo'q"
+    },
+    {
+     "text": "\"Hozir almashtirish\" qarori xizmat muddati va narxga bog'liq:"
+    },
+    {
+     "text": "Lampaga zararsiz qo'shimcha to'lov ≈ lampaga yillik tejash × real xizmat yillari"
+    },
+    {
+     "text": "Agar lampa 40 000 soat xizmat qilsa ≈ 9,1 yil → zararsiz to'lov ≈ 200 000 UZS"
+    },
+    {
+     "text": "Agar lampa 20 000 soat xizmat qilsa ≈ 4,6 yil → zararsiz to'lov ≈ 100 000 UZS"
+    },
+    {
+     "text": "Agar lampa 10 000 soat xizmat qilsa ≈ 2,3 yil → zararsiz to'lov ≈ 50 000 UZS"
+    }
+   ],
+   "result": "Lampa va o'rnatish narxi berilmaganligi sababli, chegara formula shaklida, bitta son emas. Eng yaxshi keyingi o'lchov: ko'p partiyali maydoniy pilot."
+  },
+  "narr": [
+   "Energiya tejash haqidagi da'vo mustahkam, chunki testlar 11,7–12,6 Vt ni ko'rsatadi, bu esa taxminimizni tasdiqlaydi.",
+   "Ammo \"hozir almashtirish\" qarori lampalarning xizmat muddati va narxiga bog'liq.",
+   "Lampaga zararsiz qo'shimcha to'lov lampaga yillik tejash va real xizmat yillari ko'paytmasiga teng.",
+   "Agar lampa 40 000 soat xizmat qilsa, zararsiz to'lov 200 000 UZS ni tashkil qiladi.",
+   "Agar xizmat muddati yarmiga kamaysa, zararsiz to'lov 100 000 UZS ga tushadi.",
+   "Agar xizmat muddati chorakiga kamaysa, zararsiz to'lov 50 000 UZS ga tushadi.",
+   "Lampa va o'rnatish narxi berilmaganligi sababli, chegara formula shaklida bo'ladi. Shuning uchun eng yaxshi keyingi o'lchov ko'p partiyali maydoniy pilot bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Yakuniy halol hisobot",
+   "bullets": [
+    "Tejash real: ≈167 MVt·soat/yil",
+    "Diapazon: 124–216 MVt·soat/yil",
+    "Yuqordan pastga tekshiruv ≈107 MVt·soat/yil",
+    "Tejalgan qiymat: 87–216 mln UZS/yil",
+    "Eng yuqori taxmin: soatlar va real xizmat muddati — 12 soat/kun va 40 000 soat ikkalasi ham tekshirilmagan"
+   ]
+  },
+  "narr": [
+   "Natijada, yangi lampalar yiliga taxminan 170 MVt·soat tejashi kerak (diapazon taxminan 125–215 MVt·soat).",
+   "Biroq, lampalarning 40 000 soatlik xizmat muddati va narxi tekshirilmaganligi sababli, barcha 6 500 lampani almashtirishdan oldin bitta binoda pilot o'tkazishni tavsiya qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "quote",
+  "data": {
+   "text": "Yangi lampalar yiliga taxminan 170 MVt·soat tejashi kerak (diapazon taxminan 125–215, bir partiyadan 5 lampa bo'yicha), lekin 40 000 soatlik muddat va narx tekshirilmaganligi sababli barcha 6 500 lampani almashtirishdan oldin bitta binoda pilot o'tkazishni tavsiya qilamiz.",
+   "who": "Engineering Decision Report"
+  },
+  "narr": [
+   "Bu yakuniy hisobotimizning asiy qismi. Biz energiya tejash haqidagi da'voni tasdiqladik, lekin xizmat muddati va narx haqida aniq ma'lumot yo'qligi sababli, to'liq almashtirishdan oldin pilot sinov o'tkazishni tavsiya qilamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Guruh ishi shabloni",
+   "subtitle": "Muhandislik qarorlari to'liq bo'lmagan ma'lumotlar bilan (7-hafta)"
+  },
+  "narr": [
+   "Endi biz guruh ishi uchun shablonni ko'rib chiqamiz. Bu shablon Lab 7 da keltiriligan holatni tahlil qilish uchun mo'ljallangan."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Andoza maqsadi",
+   "bullets": [
+    "Senariy ma'lumotlaridan ehtiyotkorlik bilan foydalaning",
+    "Har bir son bir xil ishonchli deb faraz qilmang",
+    "Ma'lumotlarni tashxis qiling",
+    "Diapazonlardan foydalaning",
+    "Talqinlarni solishtiring",
+    "Nima xulosa qila olashingiz — va nima qila olmasligingiz haqida hisobot bering"
+   ]
+  },
+  "narr": [
+   "Bu andoza maqsadi shundayki, sizlar senariy ma'lumotlarini ehtiyotkorlik bilan foydalaning, har bir sonni bir xil ishonchli deb hisoblamang, ma'lumotlarni tashxis qiling, diapazonlardan foydalaning va talqinlarni solishtiring."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Tuzilma",
+   "columns": [
+    "Qism",
+    "Tavsif"
+   ],
+   "rows": [
+    [
+     "Tashxis",
+     "\"kattalik / da'vo — muammo turi — nega muammo — qanday yaxshilash\" jadvali"
+    ],
+    [
+     "Manba va ishonch",
+     "\"kattalik — qiymat yoki diapazon — manba — ishonch — qisqa sabab\" jadvali"
+    ],
+    [
+     "Diapazon",
+     "\"holat (past / tipik / yuqori) — kiritilgan qiymat — birlik — hisoblangan chiqish — qaror / talqin\" jadvali"
+    ],
+    [
+     "Talqinlar",
+     "qulay, tanqidiy; qaysi sonlar ikkalasini qo'llaydi; qaysi qo'shimcha ma'lumotlar bahsni hal qilardi"
+    ],
+    [
+     "Metrika",
+     "\"qaror beruvchi savol — tanlangan metrika — nega — boshqa metrika nega chalg'itishi mumkin\" jadvali"
+    ],
+    [
+     "Bazaviy chiziq",
+     "\"natija — bazaviy chiziq — hisob — foiz — talqin\" jadvali"
+    ],
+    [
+     "Triangulyatsiya",
+     "\"yo'l — usul / manba — hisob-kitob — birlik bilan natija — ishonch\" jadvali + moslik tekshiruvi"
+    ],
+    [
+     "Sinish nuqtasi",
+     "\"eng muhim noaniq o'zgaruvchi / taxmin — hozirgi qiymat yoki diapazon — qarorni o'zgartiradigan chegara\""
+    ]
+   ]
+  },
+  "narr": [
+   "Tuzilma Lab 7 ning A-I qismlarini takrorlaydi va varaqni to'ldirish uchun formatlarni beradi.",
+   "Ushbu formatlar sizlarga ma'lumotlarni tuzatish, diapazonlarni hisoblash va qarorlarni asoslashga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ }
+]

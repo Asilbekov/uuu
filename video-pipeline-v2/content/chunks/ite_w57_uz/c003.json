@@ -1,0 +1,368 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injenerlikga kirish — 5–7 haftalar: o’quv qo’llanmasi",
+   "subtitle": "Model qurish va taxminlarni tushunish"
+  },
+  "narr": [
+   "Salom va dastur darsimizga xush kelibsiz! Bugun biz model qurishning asosiy tamoyillarini, taxminlarning ahamiyatini va ularning qanday qilib bizning bashoratlarimizga ta'sir qilishini o'rganamiz. Buning uchun elektr avtobusi misolidan foydalanamiz.",
+   "Model — bu oddiygina sonlarni kiriting, qoidani qo'llang, natijada sonlar chiqadigan mashina. Lekin har bir sonning o'z birliklari bo'lishi kerak. Bu bizning boshlang'ich nuqtamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modelning to'rt qismi",
+   "bullets": [
+    "Kirishlar — nimani beramiz va o’zgartira olamiz: batareya hajmi, tezlik, marshrut uzunligi.",
+    "Parametrlar — qat’iy saqlaydigan narsalarimiz: km ga sarf, batareyaning ishlatiladigan ulushi.",
+    "Bog’liqliklar — sonlarni bog’laydigan qoidalar: Energy = energy per km × distance.",
+    "Chiqishlar — baholaydigan bashoratlar: yurish zaxirasi [km], kunlik energiya [kVt· soat/kun]."
+   ]
+  },
+  "narr": [
+   "Har qanday model to'rt asosiy qismdan iborat. Birinchisi, kirishlar — bu biz beradigan va o'zgartira oladigan parametrlar, masalan, batareya hajmi yoki marshrut uzunligi.",
+   "Ikkinchisi, parametrlar — bu biz qat'iy saqlaydigan qiymatlar, masalan, har bir kilometrga sarflanadigan energiya yoki batareyadan foydalanish foizi.",
+   "Uchinchisi, bog'liqliklar — bu sonlarni bog'laydigan qoidalar, masalan, energiya = har bir kilometrga sarflanadigan energiya × masofa.",
+   "Va nihoyat, chiqishlar — bu biz baholaydigan va bashorat qiladigan natijalar, masalan, avtobusning yurish zaxirasi yoki kunlik energiya ehtiyoji."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Modelning to'rt qismiga elektr avtobusi misoli",
+   "problem": "Elektr avtobusi uchun modelning to'rt qismiga misol keltiring.",
+   "steps": [
+    {
+     "text": "Kirishlar: batareya sig'imi [kVt·soat], marshrut uzunligi [km], tezlik [km/soat]"
+    },
+    {
+     "text": "Parametrlar: km ga sarf [kVt·soat/km], batareyadan foydalanish ulushi [%]"
+    },
+    {
+     "text": "Bog'liqliklar: Energy = usable energy × distance; Range = usable energy ÷ energy per km"
+    },
+    {
+     "text": "Chiqishlar: yurish zaxirasi [km], kunlik energiya ehtiyoji [kVt·soat/kun]"
+    }
+   ],
+   "result": "Elektr avtobusi modeli: kirishlar — batareya sig'imi va marshrut uzunligi; parametrlar — km ga sarf va foydalanish ulushi; bog'liqliklar — energiya hisoblash formulalari; chiqishlar — yurish zaxirasi va kunlik energiya ehtiyoji."
+  },
+  "narr": [
+   "Keling, elektr avtobusi misolida bu to'rt qismni ko'rib chiqaylik. Avval, kirishlar — bu biz o'zgartira oladigan narsalar, masalan, batareya sig'imi yoki marshrut uzunligi.",
+   "Keyin, parametrlar — bu biz qat'iy saqlaydigan qiymatlar, masalan, har bir kilometrga sarflanadigan energiya yoki batareyadan foydalanish foizi.",
+   "Uchinchi, bog'liqliklar — bu sonlarni bog'laydigan qoidalar, masalan, foydalanadigan energiya = foydalanadigan energiya × masofa yoki yurish zaxirasi = foydalanadigan energiya ÷ har bir kilometrga sarflanadigan energiya.",
+   "Va nihoyat, chiqishlar — bu biz baholaydigan natijalar, masalan, avtobusning yurish zaxirasi yoki kunlik energiya ehtiyoji."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "4-hafta o'zgaruvchilarining model rollarga aylanishi",
+   "bullets": [
+    "Performance-o’zgaruvchilar chiqishlarga aylanadi: bir zaryad bilan yurish zaxirasi [km], kunlik energiya [kVt· soat/kun].",
+    "Design-o’zgaruvchilar — kirishlarga: batareya sig’imi [kVt·soat], avtobuslar soni.",
+    "Context-o’zgaruvchilar — parametrlarga: marshrut uzunligi [km], tashqi harorat [°C], depodagi zaryadlash soatlari."
+   ]
+  },
+  "narr": [
+   "4-haftada o'rganilgan performance, design va context o'zgaruvchilari endi modelning turli rollariga aylanadi. Performance o'zgaruvchilari, masalan, bir zaryad bilan yurish zaxirasi, bizning chiqishlarimizga aylanadi.",
+   "Design o'zgaruvchilari, masalan, batareya sig'imi, modelimizning kirishlariga aylanadi, chunki biz ularni o'zgartira olamiz.",
+   "Context o'zgaruvchilari, masalan, marshrut uzunligi yoki tashqi harorat, parametrlarga aylanadi, chunki ular qat'iy saqlanadi va modelga ta'sir qiladi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Need–Know–How–Solve metodini avtobus yurish zaxirasi savoliga qo'llash",
+   "problem": "Avtobusning bir zaryad bilan yurish zaxirasini hisoblash uchun Need–Know–How–Solve metodini qo'llang.",
+   "steps": [
+    {
+     "text": "Need — xohlayotgan o’zgaruvchimiz: bir zaryadning yurish zaxirasi [km]."
+    },
+    {
+     "text": "Know — ma’lum bo’lganlar: batareya sig’imi, ishlatiladigan ulushi, km ga sarf, marshrut uzunligi."
+    },
+    {
+     "text": "How — model va taxminlar: Range = usable energy ÷ energy per km, ya'ni R = (u × C) ÷ e."
+    },
+    {
+     "text": "Solve — hisoblash, birliklarni tekshirish, talqin qilish: (u × C) [kVt·soat] ÷ e [kVt·soat/km] = R [km]."
+    }
+   ],
+   "result": "Avtobus yurish zaxirasini hisoblash: 4-hafta Need berdi; 5-hafta How ni quradi — va unga yashiringan taxminlarni."
+  },
+  "narr": [
+   "Keling, Need–Know–How–Solve metodini avtobus yurish zaxirasi savoliga qo'llab ko'raylik. Birinchisi, Need — bu biz xohlayotgan narsa, ya'ni bir zaryad bilan yurish zaxirasi.",
+   "Keyin, Know — bu bizda allaqachon ma'lum bo'lgan narsalar: batareya sig'imi, ishlatiladigan ulushi, har bir kilometrga sarflanadigan energiya va marshrut uzunligi.",
+   "Uchinchi, How — bu biz qo'llaydigan model va taxminlar: yurish zaxirasi = foydalanadigan energiya ÷ har bir kilometrga sarflanadigan energiya, ya'ni R = (u × C) ÷ e.",
+   "Va nihoyat, Solve — bu hisoblash, birliklarni tekshirish va natijani talqin qilish: (u × C) [kVt·soat] ÷ e [kVt·soat/km] = R [km]."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Avtobus modeliga sonlarni qo'yish",
+   "problem": "Avtobus modeliga quyidagi sonlarni qo'ying: ishlatiladigan energiya u = 0.8, batareya sig'imi C = 200 kVt·soat, km ga sarf e = 1.2 kVt·soat/km. 8 aylanish × 12 km = 96 km kunlik ehtiyoj.",
+   "steps": [
+    {
+     "text": "Ishlatiladigan energiya u×C = 0.8×200 kVt·soat = 160 kVt·soat."
+    },
+    {
+     "text": "Yurish zaxirasi R = 160 kVt·soat ÷ 1.2 kVt·soat/km = 133 km."
+    },
+    {
+     "text": "Kunlik ehtiyoj: 8 aylanish × 12 km = 96 km."
+    },
+    {
+     "text": "Model xulosasi: bir zaryad kunga yetadi, 37 km ga yaqin zaxira bilan."
+    }
+   ],
+   "result": "Bir zaryad bilan avtobus 133 km yura oladi, kunlik ehtiyoj 96 km, shuning uchun bir zaryad kunga yetadi va 37 km zaxira qoladi."
+  },
+  "narr": [
+   "Endi avtobus modeliga haqiqiy sonlarni kiritaylik. Birinchi navbatda, ishlatiladigan energiyani hisoblaymiz: foydalanish ulushi 0.8, batareya sig'imi 200 kVt·soat, shuning uchun 0.8 × 200 = 160 kVt·soat.",
+   "Keyin, yurish zaxirasini hisoblaymiz: 160 kVt·soat ÷ 1.2 kVt·soat/km = 133 km.",
+   "Kunlik ehtijojni hisoblaymiz: 8 marta aylanish × 12 km = 96 km.",
+   "Shunday qilib, model xulosasi: bir zaryad kunga yetadi, 133 - 96 = 37 km ga yaqin zaxira bilan. Lekin esda tutish kerakki, bu qiymatlar taxminlarga asoslangan, o'lchangan ma'lumotlar emas."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Uch xil turdagi taxminlar",
+   "bullets": [
+    "Soddalashtiruvchi — e’tiborsiz qoldiradiganlarimiz: tepalar, svetoforlar, to’xtovlar, haydovchilar orasidagi farqlar.",
+    "Ma’lumotga oid taxminlar — qat’iy belgilaydiganlarimiz: e = 1, 2 kVt·soat/km; C = 200 kVt·soat, u = 0, 8.",
+    "Chegaraviy — model chegarasidan tashqarida qoldiradiganlarimiz: yo’lovchilar, zaryadlash qurilmasi, tarmoq; modelda faqat avtobus."
+   ]
+  },
+  "narr": [
+   "Kursda biz uch xil turdagi taxminlarni ajratamiz. Birinchisi, soddalashtiruvchi taxminlar — bu biz e'tiborsiz qoldiradigan narsalar, masalan, tepalar, svetoforlar, to'xtovlar yoki haydovchilar orasidagi farqlar.",
+   "Ikkinchisi, ma'lumotga oid taxminlar — bu biz qat'iy belgilaydigan qiymatlar, masalan, har bir kilometrga sarflanadigan energiya 1.2 kVt·soat/km, batareya sig'imi 200 kVt·soat yoki foydalanish ulushi 0.8.",
+   "Uchinchisi, chegaraviy taxminlar — bu model chegarasidan tashqarida qoldiradigan narsalar, masalan, yo'lovchilar, zaryadlash qurilmasi yoki tarmoq; modelimizda faqat avtobusni ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Yashirin taxminlarni topish",
+   "problem": "«Yotoqxonga 2 kVt lik isitgich kerak, demak kun 48 kVt·soat turadi» degan da’voda yashirin taxminni toping va uni andoza bo’yicha qayta yozing.",
+   "steps": [
+    {
+     "text": "Yashirin taxmin: isitgich ob-havodan qat’iy nazar, to’liq quvvat bilan 24 soat ishlaydi."
+    },
+    {
+     "text": "Qayta yozilishi: «Isitgich doim yoniq deb taxmin qilamiz, chunki bizda termostat haqida ma’lumot yo’q. Agar u tsiklik o’chib-tursa, energiya 48 kVt·soat dan past bo’ladi»."
+    },
+    {
+     "text": "Yana bir misol: «3 000 kVt·soat kuniga →90000 kVt·soat 30 kunda» — «har kun o’rtacha» taxmini."
+    },
+    {
+     "text": "Yana bir misol: «1,2 kVt·soat/km →12km lik aylanishda o’n avtobus = 144 kVt·soat» — «hammasida sarf bir xil» va «bittadan aylanish» taxminlari."
+    }
+   ],
+   "result": "Yashirin taxminlar: isitgichning doim ishlashi, har kun o'rtacha energiya sarfi, barcha avtobuslarda bir xil sarf va bittadan aylanish taxminlari."
+  },
+  "narr": [
+   "Lektsiyamizda «Spot the Hidden Assumptions» mashqini o'tkazamiz. Masalan, «Yotoqxonga 2 kVt lik isitgich kerak, demak kun 48 kVt·soat turadi» degan da'voda yashirin taxmin shuki, isitgich ob-havodan qat'iy nazar, to'liq quvvat bilan 24 soat ishlaydi.",
+   "Buni andoza bo'yicha qayta yozishimiz mumkin: «Isitgich doim yoniq deb taxmin qilamiz, chunki bizda termostat haqida ma'lumot yo'q. Agar u tsiklik o'chib-tursa, energiya 48 kVt·soat dan past bo'ladi».",
+   "Yana bir misol: «3 000 kVt·soat kuniga →90000 kVt·soat 30 kunda» — bu yerda «har kun o'rtacha» degan yashirin taxmin bor. Agar qish kunlari ko'proq sarflasa, oy 90 000 dan oshadi.",
+   "Yana bir misol: «1,2 kVt·soat/km →12km lik aylanishda o’n avtobus = 144 kVt·soat» — bu erda «hammasida sarf bir xil» va «bittadan aylanish» degan taxminlar bor. Agar ayrim aylanishlar to'la bo'lsa, yig'indi 144 kVt·soat dan oshadi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Turli sharoitlarda yurish zaxirasining o'zgarishi",
+   "problem": "To’la yuklanishda, eski batareyada va qishki isitishda avtobusning yurish zaxirasi qanday o'zgaradi?",
+   "steps": [
+    {
+     "text": "Bazaviy holat — 133 km; yo’lovchilar bilan to’la yuklanish — 114 km; eski batareya — 107 km; qishki isitish — 89 km; qish + eski batareya — 71 km."
+    },
+    {
+     "text": "Holatlar: e = 1,4 va 1,8 kVt·soat/km, ishlatiladigan energiya 128 kVt·soat."
+    },
+    {
+     "text": "Kunlik ehtiyoj 96 km: dastlabki uch holat kuni qoplaydi, qishki isitish va «qish + eski batareya» — yo’q."
+    },
+    {
+     "text": "Leksiya mohiyati: «bir zaryad kuni qoplaydi» faqat taxminlar to’g’ri turganda to’g’ri."
+    }
+   ],
+   "result": "Bazaviy holatda yurish zaxirasi 133 km. To'la yuklanishda 114 km, eski batareyada 107 km, qishki isitishda 89 km, qish + eski batareya holatida 71 km. Kunlik ehtiyoj 96 km, shuning uchun qishki sharoitlarda zaxira yetmaydi."
+  },
+  "narr": [
+   "Keling, turli sharoitlarda avtobusning yurish zaxirasi qanday o'zgarishini ko'rib chiqaylik. Bazaviy holatda, ya'ni normal sharoitlarda yurish zaxirasi 133 km.",
+   "Ammo avtobus to'la yuklanganda, yurish zaxirasi 114 km ga tushadi. Eski batareya bilan 107 km. Qishki isitish yoqilganda, zaxira 89 km ga tushadi. Agar eski batareya va qishki isitish bir vaqtda bo'lsa, zaxira 71 km gacha kamayadi.",
+   "Kunlik ehtiyojimiz 96 km. Dastlabki uch holatda (bazaviy, to'la yuk, eski batareya) zaxira yetarli, lekin qishki sharoitlarda yetmaydi.",
+   "Bu ko'rsatadigan asosiy fikr shuki, «bir zaryad kuni qoplaydi» degan xulosa faqat bizning taxminlarimiz to'g'ri bo'lgagina to'g'ri keladi. Agar biz qishki sharoitlarni hisobga olmasak, noto'g'ri xulosa chiqaramiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Quyosh batareyasining sodda bahosi",
+   "problem": "Quyosh batareyasining sodda bahosi 5 kVt × 24 soat = 120 kVt·soat/kun, nega deyarli to’rt barobar oshirib yuborilgan?",
+   "steps": [
+    {
+     "text": "Yashirin taxmin — «quyosh butun kun to’liq quvvat bilan porlaydi»."
+    },
+    {
+     "text": "Sodda model 5 kVt × 24 soat = 120 kVt·soat kuniga beradi."
+    },
+    {
+     "text": "Ochiq kun profili — kuniga taxminan 31 kVt·soat, ya’ni deyarli to’rt barobar kam."
+    },
+    {
+     "text": "Saboq: songa ishonishdan oldin, u qanday shartlarni sukut bilan qabul qilayotganini so’rang. Va birliklarni ajratib turing: kVt — bu quvvat, kVt·soat — energiya."
+    }
+   ],
+   "result": "Sodda model quyoshning butun kun to'liq quvvatda ishlashini taxmin qiladi, ammo haqiqatda quyoshning quvvati kun davomida o'zgarib turadi, shuning uchun haqiqiy energiya ancha kam."
+  },
+  "narr": [
+   "Quyosh batareyasining sodda bahosi 5 kVt × 24 soat = 120 kVt·soat/kun deb hisoblanadi. Ammo bu qiymat deyarli to'rt barobar oshirib yuborilgan. Nega?",
+   "Buning sababi shuki, bu sodda model quyoshning butun kun to'liq quvvatda ishlashini taxmin qiladi. Bu yashirin taxmin.",
+   "Haqiqatda, quyoshning quvvati kun davomida o'zgarib turadi. Ochiq kun profili bo'yicha kuniga taxminan 31 kVt·soat energiya hosil bo'ladi, ya'ni sodda modeldan deyarli to'rt barobar kam.",
+   "Bu bizga beradigan saboq shuki: songa ishonishdan oldin, u qanday shartlarni sukut bilan qabul qilayotganini so'rang. Shuningdek, birliklarni ajratib turing: kVt — bu quvvat (tezlik), kVt·soat — esa energiya (miqdor)."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "«Fit for purpose» tushunchasi",
+   "bullets": [
+    "Fit for purpose — model savolga javob berish va qaror qabul qilish uchun yetarli darajada yaxshi.",
+    "«Juda oddiy» yiqilishi: R = 160 ÷ 1,2 yilning har kuni — qish, tepalar va eskirish ko’rinmaydi.",
+    "«Juda batafsil» yiqilishi: batareya kimyosi, har bir svetofor, har bir haydovchining odatlari — modelni qurish va tekshirish mumkin emas.",
+    "Maqsadga mos model — yoz va qish uchun alohida sarf plus xavfsizlik zaxirasi — masalani hal qilish uchun yetarli."
+   ]
+  },
+  "narr": [
+   "«Fit for purpose» tushunchasi modelning savolga javob berish va qaror qabul qilish uchun yetarli darajada yaxshi bo'lishini anglatadi.",
+   "Ammo model juda oddiy bo'lishi xavfli bo'lishi mumkin. Masalan, R = 160 ÷ 1,2 formulasi yilning har kuni bir xil natija beradi, qish, tepalar va eskirish effektlari ko'rinmaydi.",
+   "Boshqa tomondan, model juda batafsil bo'lishi ham xavfli. Masalan, batareya kimyosi, har bir svetofor, har bir haydovchining odatlari kabi detallarni hisobga olish modelni juda murakkab qiladi va qurib bo'lmaydi.",
+   "Shunday qilib, maqsadga mos model — bu masalani hal qilish uchun yetarli darajada soddalashtirilgan, lekin muhim omillarni hisobga olgan model. Masalan, yoz va qish uchun alohida sarfni hisobga olgan plus xavfsizlik zaxirasi modeli."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modelni tekshirish usullari",
+   "bullets": [
+    "Tekshiruvlar: (1) birliklar — (u×C) [kVt·soat] ÷ e [kVt·soat/km] km beradi; (2) kattalik tartibi — 133 km shahar avtobusi uchun ishonchli; (3) ma’lum qiymat — datasheet, test-drayv, o’tgan oyning loglari.",
+    "Model o’z taxminlarining diapazoni tashqarisida chalg’itadi: kuzgi yurish zaxirasi modeli — qishki sovuqda; ochiq yoz kuni profili — bulutli qish haftasida; yumshoq ob-havo uchun 2 kVt lik yuk — sovuq haftasida."
+   ]
+  },
+  "narr": [
+   "Modelni tekshirish uchun uchta asosiy usul mavjud. Birinchisi, birliklarni tekshirish — masalan, (u×C) [kVt·soat] ÷ e [kVt·soat/km] km beradi, bu to'g'ri.",
+   "Ikkinchisi, kattalik tartibini tekshirish — 133 km shahar avtobusi uchun ishonchli (o'nlab–yuzlab km, 3 emas, 3 000 ham emas).",
+   "Uchinchisi, ma'lum qiymatlar bilan solishtirish — datasheet, test-drayv, o'tgan oyning loglardan foydalanib tekshirish.",
+   "Model o'z taxminlarining diapazoni tashqarisida chalg'ishi mumkin. Masalan, kuzgi yurish zaxirasi modeli qishki sovuqda noto'g'ri bo'lishi mumkin; ochiq yoz kuni profili bulutli qish haftasida ishlamasligi mumkin; yumshoq ob-havo uchun 2 kVt lik yuk taxini sovuq haftasida qo'llab bo'lmaydi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Jamoa ishi baholash",
+   "problem": "Lab 5: baholanadigan jamoa ishi (o’n qadam) nimadan iborat va qanday baholanadi?",
+   "steps": [
+    {
+     "text": "Jamoa Lab 4 dagi bilan bir xil senariy kartochkasini oladi va 45 daqiqada o’n qadamni bosib o’tadi."
+    },
+    {
+     "text": "(1) model savoli; (2) asoslash bilan tur; (3) anatomiya — kirishlar, parametrlar, bog’liqliklar, birliklar bilan chiqishlar;"
+    },
+    {
+     "text": "(4) Need–Know–How–Solve; (5) andoza bo’yicha kamida oltita taxmin;"
+    },
+    {
+     "text": "(6) Safe / Risky / Need Data belgilash; (7) modelni tekshirish; (8) modelni soddalashtirish; (9) modelni murakkablashtirish; (10) yakuniy xulosa."
+    }
+   ],
+   "result": "Jamoa ishi 10 qadamdan iborat bo'lib, modelni qurish, taxminlarni aniqlash, tekshirish va soddalashtirishni o'z ichiga oladi. Baholash har bir qadamning to'liqligi va aniqligiga qarab amalga oshiriladi."
+  },
+  "narr": [
+   "Lab 5 da sizlar baholanadigan jamoa ishini bajaring. Jamoa Lab 4 dagi bilan bir xil senariy kartochkasini oladi va 45 daqiqada o'n qadamni bosib o'tadi.",
+   "Birinchi qadamda model savolini aniqlang. Ikkinchisida asoslash bilan turing. Uchinchisida modelning anatomiyasini tushuntingiz — kirishlar, parametrlar, bog'liqliklar va birliklar bilan chiqishlar.",
+   "To'rtinchisida Need–Know–How–Solve metodini qo'llang. Beshinchisida andoza bo'yicha kamida oltita taxmini aniqlang.",
+   "Oltinchisida Safe / Risky / Need Data belgilang. E'tibor bering, bu yerda 10 qadam bor, men faqat bir nechtasini keltirdim, qolganlari ham shu tartibda davom etadi. Yakuniy qadamda modelning xulosasini chiqaring."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

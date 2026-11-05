@@ -1,0 +1,512 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "5-hafta — elektr avtobusi modeli",
+   "subtitle": "Qatnov energiyasi. Kilometrga sarf, masofaga ko’paytirilgan."
+  },
+  "narr": [
+   "5-haftada elektr avtobusi modelini o'rganamiz. Boshlanishiga qatnov energiyasini ko'rib chiqamiz.",
+   "Bu yerda barcha qiymatlar ilustrativ ekanligini eslatib o'tamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Qatnov energiyasi",
+   "tex": "E = e \\times d \\text{ [kVt·soat]} = \\text{[kVt·soat/km]} \\times \\text{[km]}",
+   "parts": [
+    {
+     "substr": "E = e × d",
+     "color": "#4C5FD5",
+     "note": "Energiya tenglamasi"
+    },
+    {
+     "substr": "e",
+     "color": "#B45309",
+     "note": "Kilometrga sarflangan energiya"
+    },
+    {
+     "substr": "d",
+     "color": "#0E7C7B",
+     "note": "Masofa"
+    }
+   ]
+  },
+  "narr": [
+   "Qatnov energiyasi formulasi shunday ko'rinadi: E teng e ko'paytmasi d ga.",
+   "Bu yerda E bu energiya kilovatt-soatda, e bu kilometrga sarflangan energiya, d esa bosib o'tilgan masofa kilometrlarda."
+  ],
+  "narr_item": [
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bir zaryaddagi yurish zaxirasi",
+   "bullets": [
+    "Batareyaning ishlatiladigan energiyasi",
+    "Sarfga bo'lingan"
+   ]
+  },
+  "narr": [
+   "Endi bir zaryaddagi yurish zaxirasini ko'rib chiqamiz.",
+   "Bu batareyaning ishlatiladigan energiyasini sarfga bo'lish orqali topiladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Bir zaryaddagi yurish zaxirasi",
+   "tex": "R = \\frac{u \\times C}{e} \\to \\frac{160 \\text{ [kVt·soat]}}{1,2 \\text{ [kVt·soat/km]}} = 133 \\text{ [km]}",
+   "parts": [
+    {
+     "substr": "R = (u × C) ÷ e",
+     "color": "#4C5FD5",
+     "note": "Zaxira formulasi"
+    },
+    {
+     "substr": "160 [kVt·soat] ÷ 1,2 [kVt·soat/km]",
+     "color": "#B45309",
+     "note": "Hisoblash"
+    },
+    {
+     "substr": "= 133 [km]",
+     "color": "#0E7C7B",
+     "note": "Natija"
+    }
+   ]
+  },
+  "narr": [
+   "Bir zaryaddagi yurish zaxirasi R formulasi shunday: R u ko'paytmasi C ga bo'linadi e ga.",
+   "Misol uchun, 160 kilovatt-soat energiya va 1,2 kilovatt-soat/km sarf bo'lsa, zaxira 133 km bo'ladi.",
+   "Bu yerda birliklar kasrlar kabi qisqaradi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Birliklarni tekshirish",
+   "problem": "Kosky bo'yicha birliklar tekshiruvi. Birliklar kasrlar kabi qisqaradi.",
+   "steps": [
+    {
+     "text": "(u × C) [kVt·soat] ÷ e [kVt·soat/km] = R [km]"
+    }
+   ],
+   "result": "Birliklar to'g'ri qisqaradi: kVt·soat / (kVt·soat/km) = km"
+  },
+  "narr": [
+   "Endi birliklarni tekshirish misolini ko'rib chiqamiz.",
+   "Bu yerda ko'ramizki, birliklar kasrlar kabi qisqaradi.",
+   "Natijada bizda km birligi qoladi, bu to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Marshrutning kunlik ehtiyoji",
+   "problem": "Marshrutning kunlik ehtiyoji. Aylanishlar soni, aylanish uzunligiga ko'paytirilgan.",
+   "steps": [
+    {
+     "text": "kunlik ehtiyoj = 8 × 12 [km] = 96 [km]"
+    }
+   ],
+   "result": "96 km"
+  },
+  "narr": [
+   "Keyingi misol marshrutning kunlik ehtiyojini hisoblash.",
+   "Bu aylanishlar soni aylanish uzunligiga ko'paytiriladi.",
+   "8 marta aylanish har biri 12 km bo'lsa, kunlik ehtiyoj 96 km bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Taxminni yozish andozasi",
+   "bullets": [
+    "We assume [assumption] because [reason].",
+    "If it is wrong, [effect on the result]."
+   ]
+  },
+  "narr": [
+   "Taxminlarni yozish uchun andozani ko'rib chiqamiz.",
+   "Biz taxmin qilamiz, chunki ... sababi.",
+   "Agar bu noto'g'ri bo'lsa, natijaga ... ta'sir qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Energetik balans",
+   "tex": "supply = demand + losses",
+   "parts": [
+    {
+     "substr": "supply",
+     "color": "#4C5FD5",
+     "note": "Yetkazib berish"
+    },
+    {
+     "substr": "demand",
+     "color": "#B45309",
+     "note": "Talab"
+    },
+    {
+     "substr": "losses",
+     "color": "#0E7C7B",
+     "note": "Yo'qotishlar"
+    }
+   ]
+  },
+  "narr": [
+   "Energetik balans tenglamasi shunday: yetkazib berish talabga va yo'qotishlarga teng.",
+   "Bu kampus elektr ta'minoti modelida qo'llaniladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "6-hafta — talab, quvvat, oqimlar, baholar",
+   "subtitle": ""
+  },
+  "narr": [
+   "6-haftaga o'tamiz. Bu hafta talab, quvvat, oqimlar va baholarni o'rganamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Utilizatsiya",
+   "bullets": [
+    "Ikkala tomonda bir xil birliklar va bir xil vaqt asosi.",
+    "Utilisation = Demand ÷ Capacity"
+   ]
+  },
+  "narr": [
+   "Utilizatsiya tushunchasini ko'rib chiqamiz.",
+   "Utilizatsiya talabni quvvatga bo'lish orqali topiladi.",
+   "Bu hisoblashda ikkala tomonda bir xil birliklar va bir xil vaqt asosi bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Utilizatsiya chegaralari",
+   "bullets": [
+    "< 0,8 — qulay",
+    "~0,8–1,0 — tarang",
+    "> 1,0 — ortiqcha yuklanish (navbat yoki rad etish)"
+   ]
+  },
+  "narr": [
+   "Utilizatsiya chegaralari empirik qoida bilan belgilanadi.",
+   "Agar qiymat 0,8 dan past bo'lsa, bu qulay holat.",
+   "0,8 dan 1,0 gacha bo'lsa, bu tarang holat.",
+   "Agar 1,0 dan oshsa, bu ortiqcha yuklanish bo'lib, navbat yoki rad etishga olib keladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Energiya va quvvat munosabati",
+   "tex": "Power \\times time = energy: 60 \\text{ [kVt]} \\times 2 \\text{ [soat]} = 120 \\text{ [kVt·soat]}",
+   "parts": [
+    {
+     "substr": "Power × time = energy",
+     "color": "#4C5FD5",
+     "note": "Asosiy formula"
+    },
+    {
+     "substr": "60 [kVt] × 2 [soat] = 120 [kVt·soat]",
+     "color": "#B45309",
+     "note": "Misol"
+    }
+   ]
+  },
+  "narr": [
+   "Quvvat va vaqt ko'paytmasi energiyaga teng bo'ladi.",
+   "Misol uchun, 60 kilovatt quvvat 2 soat ishlasa, 120 kilovatt-soat energiya ishlab chiqaradi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Zaxira-oqim",
+   "tex": "zahiraning o'zgarishi = kirish oqimi − chiqish oqimi",
+   "parts": [
+    {
+     "substr": "zahiraning o'zgarishi",
+     "color": "#4C5FD5",
+     "note": "Zaxiradagi o'zgarish"
+    },
+    {
+     "substr": "kirish oqimi − chiqish oqimi",
+     "color": "#B45309",
+     "note": "Oqimlar farqi"
+    }
+   ]
+  },
+  "narr": [
+   "Zaxira-oqimni ko'rib chiqamiz.",
+   "Zaxiradagi o'zgarish kirish oqimi minus chiqish oqimiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Bufer to'lish vaqti",
+   "problem": "Bufer to'lish vaqti hisoblash.",
+   "steps": [
+    {
+     "text": "to'lish vaqti = bo'sh joy ÷ (kirish oqimi − chiqish oqimi) = 800 ÷ 40 = 20 [soat]"
+    }
+   ],
+   "result": "20 soat"
+  },
+  "narr": [
+   "Bufer to'lish vaqtini hisoblash misolini ko'rib chiqamiz.",
+   "To'lish vaqt bo'sh joy kirish oqimi minus chiqish oqimiga bo'linadi.",
+   "Misol uchun, 800 birlik bo'sh joy va 40 birlik/soat oqim farqi bo'lsa, to'lish vaqt 20 soat bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "1-oqim qoidasi",
+   "tex": "Flow = speed \\times density: 15 \\text{ [km/soat]} \\times 20 \\text{ [mashina/km]} = 300 \\text{ [mashina/soat]}",
+   "parts": [
+    {
+     "substr": "Flow = speed × density",
+     "color": "#4C5FD5",
+     "note": "Asosiy formula"
+    },
+    {
+     "substr": "15 [km/soat] × 20 [mashina/km] = 300 [mashina/soat]",
+     "color": "#B45309",
+     "note": "Misol"
+    }
+   ]
+  },
+  "narr": [
+   "1-oqim qoidasini ko'rib chiqamiz.",
+   "Oqim tezlik ko'paytmasiga zichlikka teng.",
+   "Misol uchun, 15 km/soat tezlik va 20 mashina/km zichlik bo'lsa, oqim 300 mashina/soat bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "2-oqim qoidasi",
+   "tex": "ichkaridagi son = kelish × ichkarida bo'lish vaqti: 10 \\text{ [talaba/daq]} \\times 3 \\text{ [daq]} = 30",
+   "parts": [
+    {
+     "substr": "ichkaridagi son = kelish × ichkarida bo'lish vaqti",
+     "color": "#4C5FD5",
+     "note": "Asosiy formula"
+    },
+    {
+     "substr": "10 [talaba/daq] × 3 [daq] = 30",
+     "color": "#B45309",
+     "note": "Misol"
+    }
+   ]
+  },
+  "narr": [
+   "2-oqim qoidasini ko'rib chiqamiz.",
+   "Ichkaridagi son kelish soni ichkarida bo'lish vaqtiga ko'paytmasiga teng.",
+   "Misol uchun, 10 talaba/daq kelish va 3 daq ichkarida bo'lish vaqti bo'lsa, ichkarida 30 ta talaba bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Bosqichning sutkalik quvvati",
+   "problem": "Bosqichning sutkalik quvvatini hisoblash.",
+   "steps": [
+    {
+     "text": "quvvat [dona/kun] = stavka [dona/soat] × vaqt [soat/kun] = 680 × 12 = 8160"
+    }
+   ],
+   "result": "8160 dona/kun"
+  },
+  "narr": [
+   "Bosqichning sutkalik quvvatini hisoblash misolini ko'rib chiqamiz.",
+   "Quvvat stavka ko'paytmasiga vaqtga teng.",
+   "Misol uchun, 680 dona/soat stavka va 12 soat/kun vaqt bo'lsa, sutkalik quvvat 8160 dona bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Zaryadlash vaqti",
+   "problem": "Zaryadlash vaqtini hisoblash.",
+   "steps": [
+    {
+     "text": "vaqt = energiya ÷ quvvat: 115 [kVt·soat] ÷ 60 [kVt] ≈ 1,9 [soat]"
+    }
+   ],
+   "result": "1,9 soat"
+  },
+  "narr": [
+   "Zaryadlash vaqtini hisoblash miselini ko'rib chiqamiz.",
+   "Vaqt energiya quvvatga bo'linadi.",
+   "Misol uchun, 115 kilovatt-soat energiya va 60 kilovatt quvvat bo'lsa, zaryadlash vaqti taxminan 1,9 soat bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Oynadagi o'rtacha quvvat",
+   "problem": "Oynadagi o'rtacha quvvatni hisoblash.",
+   "steps": [
+    {
+     "text": "o'rtacha quvvat = energiya ÷ oyna: 690 [kVt·soat] ÷ 8 [soat] ≈ 86 [kVt]"
+    }
+   ],
+   "result": "86 kVt"
+  },
+  "narr": [
+   "Oynadagi o'rtacha quvvatni hisoblash miselini ko'rib chiqamiz.",
+   "O'rtacha quvvat energiya oynaga bo'linadi.",
+   "Misol uchun, 690 kilovatt-soat energiya va 8 soat oyna bo'lsa, o'rtacha quvvat taxminan 86 kilovatt bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Bahodan o'rnatma o'lchami",
+   "problem": "Bahodan o'rnatma o'lchamini hisoblash.",
+   "steps": [
+    {
+     "text": "o'rnatma = kunlik energiya ÷ kuniga 1 kVt ga ishlab chiqarish = 115 ÷ 4 ≈ 29 → ~30 [kVt]"
+    },
+    {
+     "text": "maydon = 30 × 5 [m²/kVt] ≈ 150 [m²]"
+    }
+   ],
+   "result": "~30 kVt, maydon ~150 m²"
+  },
+  "narr": [
+   "Bahodan o'rnatma o'lchamini hisoblash miselini ko'rib chiqamiz.",
+   "Birinchidan, o'rnatma kunlik energiyani kuniga 1 kilovttga ishlab chiqarishga bo'lish orqali topiladi.",
+   "115 kilovttsoat energiya va 4 kilovtt/kun ishlab chiqarish bo'lsa, o'rnatma taxminan 30 kilovtt bo'ladi.",
+   "Keyin maydon o'rnatma ko'paytmasiga 5 m²/kVt ga teng bo'ladi, ya'ni taxminan 150 m²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Bosqichlar bo'yicha yo'qotishlar bilan yaroqli mahsulot",
+   "problem": "Bosqichlar bo'yicha yo'qotishlar bilan yaroqli mahsulotni hisoblash.",
+   "steps": [
+    {
+     "text": "chiqish = kirish × (1 − l1) × (1 − l2) × (1 − l3) = 7200 × 0,98 × 0,97 × 0,96 ≈ 6571 [dona/kun]"
+    }
+   ],
+   "result": "~6571 dona/kun"
+  },
+  "narr": [
+   "Oxirgi misol bosqichlar bo'yicha yo'qotishlar bilan yaroqli mahsulotni hisoblash.",
+   "Chiqish kirish ko'paytmasiga har bir bosqichdagi yo'qotishlarning 1 minusiga ko'paytmasiga teng.",
+   "7200 dona kirish, 0,98, 0,97 va 0,96 yo'qotish koeffitsientlari bo'lsa, chiqish taxminan 6571 dona bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ }
+]

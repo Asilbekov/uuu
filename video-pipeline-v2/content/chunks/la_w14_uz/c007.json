@@ -1,0 +1,319 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Keling, chiziqli algebraning asosli tushunchalarini ko'rib chiqaylik. Bu yerda matritsa ko'paytirish, transponirlash, determinantlar vektorlar bilan ishlashni o'rganamiz.",
+   "Avvalo, matritsa ko'paytirishda tartib muhim ekanligini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 7 — Vektor ko'paytmalari",
+   "problem": "u = [2, 0, -1], v = [1, 0, 3] uchun u^T v va uv^T ni hisoblang; (uv^T)^T = vu^T tenglikni tekshiring.",
+   "steps": [
+    "Ichki ko'paytma u^T v ni hisoblaymiz",
+    "Tashqi ko'paytma uv^T ni hisoblaymiz",
+    "Transponirlangan matritsani topamiz",
+    "(uv^T)^T va vu^T ni solishtiramiz"
+   ],
+   "result": "u^T v = -1 (skalyar), uv^T = 3×3 matritsa, (uv^T)^T = vu^T"
+  },
+  "narr": [
+   "Keling, ikkita vektor berilganligini ko'rib chiqaylik: u = [2, 0, -1] va v = [1, 0, 3].",
+   "Birinchidan, ichki ko'paytmani hisoblaymiz. Bu skalyar qiymat beradi.",
+   "Keyin, tashqi ko'paytmani hisoblaymiz. Bu 3×3 matritsa hosil qiladi.",
+   "Endi, transponirlangan matritsani ko'rib chiqaylik.",
+   "Ko'rib turganingizdek, (uv^T)^T = vu^T tenglik o'rinli. Bu matritsalarning transponirlash xossasini tasdiqlaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Transponirlash xossasi",
+   "tex": "(AB)^T = B^T A^T",
+   "parts": [
+    {
+     "substr": "(AB)^T",
+     "color": "#4C5FD5",
+     "note": "ko'paytmaning transponirlashi"
+    },
+    {
+     "substr": "B^T A^T",
+     "color": "#B45309",
+     "note": "matritsalarning teskari tartibda transponirlanishi"
+    }
+   ]
+  },
+  "narr": [
+   "Bu matritsa ko'paytmalari uchun muhim xossa: ko'paytmaning transponirlashi, matritsalarning teskari tartibda transponirlanishiga teng.",
+   "Bu xossani keyingi masalada ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 8 — Transponirlash xossasini tekshirish",
+   "problem": "A = [2, -1; 0, 3], B = [1, 2; -1, 0] matritsalar berilgan. (AB)^T ni hisoblang va A^T B^T bilan solishtiring.",
+   "steps": [
+    "AB ni hisoblaymiz",
+    "(AB)^T ni topamiz",
+    "A^T va B^T ni hisoblaymiz",
+    "A^T B^T ni hisoblaymiz",
+    "Natijalarni solishtiramiz"
+   ],
+   "result": "(AB)^T = [3, -10; 12, -14], A^T B^T = [-8, -14; 28, -5]. Xossani tasdiqlaymiz: (AB)^T = B^T A^T"
+  },
+  "narr": [
+   "Keling, transponirlash xossasini amaliyotda ko'rib chiqaylik.",
+   "A va B matritsalar berilgan. Avval AB ko'paytmani hisoblaymiz.",
+   "Keyin, uning transponirlanganini topamiz.",
+   "Endi, A^T va B^T ni alohida hisoblaymiz.",
+   "A^T B^T ko'paytmani hisoblaymiz.",
+   "Ko'rib turganingizdek, (AB)^T va A^T B^T bir-biriga teng emas. Bu ko'rsatadiki, matritsalarni ko'paytirishda tartib muhim.",
+   "Afsuski, bu yerda xato bor. To'g'ri identifikator (AB)^T = B^T A^T ekanligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 9 — Determinant hisoblash",
+   "problem": "E = [3, 1; 1, 2] matritsa berilgan. det E ni hisoblang; uning ustunlariga tortilgan parallelogramm va uchburchkning maydonlarini toping; orientatsiya saqlanadimi?",
+   "steps": [
+    "det E ni hisoblaymiz",
+    "Parallelogramm maydonini topamiz",
+    "Uchburchk maydonini topamiz",
+    "Orientatsiyani aniqlaymiz"
+   ],
+   "result": "det E = 5, parallelogramm maydoni = 5, uchburchk maydoni = 5/2, orientatsiya saqlanadi (det E > 0)"
+  },
+  "narr": [
+   "Keling, determinantni hisoblashga o'taylik.",
+   "E matritsasi berilgan. 2×2 matritsa determinantini hisoblash juda oddiy.",
+   "Determinant qiymati parallelogramm maydonini beradi.",
+   "Uchburchk maydoni esa determinantning yarmiga teng.",
+   "Determinant musbat bo'lgani uchun orientatsiya saqlanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 10 — 3×3 matritsa determinantini hisoblash",
+   "problem": "F = [2, 1, 0; 0, 3, 1; 1, 0, 2] matritsa uchun det F ni birinchi qator bo'yicha hisoblang; birinchi ustun bo'yicha tekshiring.",
+   "steps": [
+    "Birinchi qator bo'yicha determinantni hisoblaymiz",
+    "Birinchi ustun bo'yicha determinantni hisoblaymiz",
+    "Natijalarni solishtiramiz"
+   ],
+   "result": "det F = 13 (har ikki usulda ham bir xil natija)"
+  },
+  "narr": [
+   "Keling, kattaroq matritsa determinantini hisoblashga o'taylik.",
+   "F matritsasi berilgan. Avval birinchi qator bo'yicha determinantni hisoblaymiz.",
+   "Keyin, birinchi ustun bo'yicha hisoblaymiz.",
+   "Ko'rib turganingizdek, har ikki usulda ham bir xil natija keladi. Bu determinant hisoblashda qator yoki ustun tanlash ixtiyoriy ekanligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 11 — Determinant xossalari",
+   "problem": "3×3 matritsa M uchun det M = 5 ma'lum. N ni hosil qiling: 1,2-qatorlarni almashtiring; 3-qatorni 2 ga ko'paytiring; 3×(yangi 1-qator)ni 2-qatorga qo'shing. det N, det(2M), det(M^T M) ni toping.",
+   "steps": [
+    "Matritsani o'zgartirishlarni amalga oshiramiz",
+    "det N ni hisoblaymiz",
+    "det(2M) ni hisoblaymiz",
+    "det(M^T M) ni hisoblaymiz"
+   ],
+   "result": "det N = -10, det(2M) = 40, det(M^T M) = 25"
+  },
+  "narr": [
+   "Keling, determinantning asosiy xossalarini ko'rib chiqaylik.",
+   "M matritsasi berilgan det M = 5.",
+   "Birinchi o'zgartirish: 1 va 2-qatorlarni almashtiramiz. Bu determinant ishorasini o'zgartiradi.",
+   "Ikkinchi o'zgartirish: 3-qatorni 2 ga ko'paytiramiz. Bu determinantni 2 ga ko'paytiradi.",
+   "Uchinchi o'zgartirish: 3×(1-qator)ni 2-qatorga qo'shamiz. Bu determinantni o'zgartirmaydi.",
+   "Shunday qilib, det N = -2 × 5 = -10.",
+   "Endi, barcha qatorlarni 2 ga ko'paytirsak, det(2M) = 2^3 × det M = 40.",
+   "Nihoyat, det(M^T M) = det(M^T) × det M = (det M)^2 = 25."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 12 — Vektor ko'paytmalari va hajmlar",
+   "problem": "u = [1, 0, 2], v = [2, 0, 1], w = [0, 3, 4] vektorlar berilgan. (u×v)·w ni hisoblang; paralleliped va tetraedr hajmlarini toping; agar u, v ni almashtirsak nima o'zgaradi?",
+   "steps": [
+    "u×v ni hisoblaymiz",
+    "(u×v)·w ni hisoblaymiz",
+    "Paralleliped hajmini topamiz",
+    "Tetraedr hajmini topamiz",
+    "Vektorlarni almashtirishning ta'sirini ko'rib chiqamiz"
+   ],
+   "result": "(u×v)·w = 11, paralleliped hajmi = 11, tetraedr hajmi = 11/6. Vektorlarni almashtirish belgini o'zgartiradi, lekin hajmning absolyut qiymati o'zgarmaydi."
+  },
+  "narr": [
+   "Keling, vektor ko'paytmalari va hajmlarni ko'rib chiqaylik.",
+   "Uchta vektor berilgan: u, v va w.",
+   "Avval, u×v vektor ko'paytmasini hisoblaymiz.",
+   "Keyin, bu natijani w vektoriga skalyar ko'paytiramiz.",
+   "Bu skalyar ko'paytma parallelipedning hajmini beradi.",
+   "Tetraedr hajmi esa paralleliped hajmining 1/6 qismiga teng.",
+   "Agar u va v vektorlarini almashtirsak, aralash ko'paytmaning ishorasi o'zgardi, lekin hajmning absolyut qiymati o'zgarmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 13 — Komplanar vektorlar",
+   "problem": "u = [1, 0, 1], v = [0, 2, 1], w = [1, 1, k] vektorlar berilgan. Vektorlar komplanar bo'lgan barcha k ni toping; shu k uchun w ni u, v orqali ifodalang.",
+   "steps": [
+    "Komplanarlik shartini yozamiz",
+    "Aralash ko'paytmani hisoblaymiz",
+    "Tenglamani yechamiz",
+    "w ni u va v orqali ifodalaymiz"
+   ],
+   "result": "k = 3/2, w = u + (1/2)v"
+  },
+  "narr": [
+   "Keling, komplanar vektorlarga qaraylik.",
+   "Uchta vektor berilgan, ularning komplanar bo'lishi uchun ularning aralash ko'paytmasi nolga teng bo'lishi kerak.",
+   "Aralash ko'paytmani hisoblaymiz.",
+   "Tenglamani yechamiz va k = 3/2 ekanligini topamiz.",
+   "Endi, w ni u va v orqali ifodalaymiz. Birinchi ikki koordinatadan α = 1, β = 1/2 ekanligini topamiz.",
+   "Uchinchi koordinatani tekshiramiz: 1 + (1/2)×1 = 3/2, bu k ga teng. Shunday qilib, w = u + (1/2)v."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 14 — Diagonal matritsalar",
+   "problem": "D = [2, 0; 0, 3], X = [a, b; c, d] bo'lsin. DX = XD bo'ladigan barcha X ni toping; agar D ning ikkala diagonal elementi teng bo'lsa nima bo'ladi?",
+   "steps": [
+    "DX ni hisoblaymiz",
+    "XD ni hisoblaymiz",
+    "Tenglik shartini yozamiz",
+    "Yechimni topamiz",
+    "Maxsus holatni ko'rib chiqamiz"
+   ],
+   "result": "X diagonal matritsa bo'lishi kerak (b = c = 0), a va d ixtiyoriy. Agar D = λI bo'lsa, u holda DX = XD har qanday X uchun."
+  },
+  "narr": [
+   "Keling, diagonal matritsalar bilan ishlashni ko'rib chiqaylik.",
+   "D diagonal matritsa berilgan, X esa ixtiyoriy matritsa.",
+   "DX va XD ko'paytmalarni hisoblaymiz.",
+   "Tenglik shartini yozamiz: DX = XD.",
+   "Bu tenglik faqatgina X diagonal matritsa bo'lganda o'rinli bo'ladi.",
+   "Agar D = λI bo'lsa (barcha diagonal elementlari teng), u holda DX = XD har qanday X uchun o'rinli bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 15 — Transformatsiyalar va hajm",
+   "problem": "u = [2, 0, 1], v = [1, 2, 0], w = [0, 1, 3] vektorlar va L = [2, 1, 0; 0, 1, 0; 0, 0, -1] matritsa berilgan. L har bir vektorga qo'llanilgandan keyingi ishorali aralash ko'paytma va hajmni toping; hajm koeffitsienti nima uchun universal?",
+   "steps": [
+    "L u ni hisoblaymiz",
+    "L v ni hisoblaymiz",
+    "L w ni hisoblaymiz",
+    "Yangi vektorlar uchun aralash ko'paytmani hisoblaymiz",
+    "Hajm koeffitsientini hisoblaymiz",
+    "Universal ekanligini tushuntiramiz"
+   ],
+   "result": "Hajm koeffitsienti = det L = -2. Bu determinantning transformatsiya hajmini o'zgartirish xossasidan kelib chiqadi."
+  },
+  "narr": [
+   "Keling, chakana misol bilan yakunlaymiz.",
+   "Uchta vektor va transformatsiya matritsasi berilgan.",
+   "L transformatsiyasini har bir vektorga qo'llaymiz.",
+   "Yangi vektorlarning aralash ko'paytmasini hisoblaymiz.",
+   "Asl hajm bilan solishtiramiz.",
+   "Hajm koeffitsienti det L ga teng, bu esa transformatsiya hajmini qanday o'zgartirishini ko'rsatadi. Bu qiymat universal, chunki determinant chiziqli transformatsiyalar hajmni qanday o'zgartirishini aks ettiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

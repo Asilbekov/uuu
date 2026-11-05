@@ -1,0 +1,469 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "5–7-haftalar",
+   "subtitle": "diapazonlar, metrikalar, hisobot"
+  },
+  "narr": [
+   "Keling, 5–7-haftalardagi muhim tushunchalarni ko'rib chiqaylik. Birinchidan, maqsadli utilizatsiya uchun kerakli quvvatni hisoblashni ko'raylik.",
+   "Bu hisoblashda biz cho'qqi talabni maqsadli utilizatsiyaga bo'lamiz. Misol uchun, agar cho'qqi talab 7000 dona/kun bo'lsa va maqsadli utilizatsiya 0,85 bo'lsa, kerakli quvvat taxminan 8235 dona/kun bo'ladi.",
+   "Bu esa soatiga taxminan 686 donaga teng."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Kichik tanlanmaning o'rtachasi",
+   "bullets": [
+    "mean = (x₁ + x₂ + ... + xₙ) ÷ n",
+    "Misol: (1,1 + 1,3 + 1,6) ÷ 3 = 1,33 [kVt·soat/km]"
+   ]
+  },
+  "narr": [
+   "Endi kichik tanlanmaning o'rtachasini ko'rib chiqaylik. Bu oddiy arifmetik o'rta qiymat bo'lib, barcha qiymatlarning yig'indisini soni bo'linmasidan hosil bo'ladi.",
+   "Misol uchun, uchta qiymat: 1,1; 1,3 va 1,6 kVt·soat/km. Ularning yig'indisini 3 ga bo'lganda, o'rtacha qiymat 1,33 kVt·soat/km kelib chiqadi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Kichik tanlanmaning medianasi",
+   "bullets": [
+    "median = tartib bo'yicha o'rtadagi element",
+    "Misol: 1,3 [kVt·soat/km] (n = 3)"
+   ]
+  },
+  "narr": [
+   "Median esa - bu tartiblangan ketma-ketlikdagi o'rtadagi qiymat. Yuqoridagi misolda, qiymatlar tartiblangan holda 1,1; 1,3; 1,6 bo'lsa, o'rtadagi qiymat 1,3 kVt·soat/km bo'ladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Natija diapazoni",
+   "problem": "Natijani bitta emas, diapazonning har bir qiymati uchun hisoblang. R = 160 [kVt·soat] ÷ e:",
+   "steps": [
+    {
+     "text": "Yoz: e = 1,1; 1,3; 1,6 → natija = 145; 123; 100 [km]"
+    },
+    {
+     "text": "Qish: e = 1,5; 1,8; 2,0 → natija = 107; 89; 80 [km]"
+    }
+   ],
+   "result": "Yozda: 145, 123, 100 km; Qishda: 107, 89, 80 km"
+  },
+  "narr": [
+   "Endi natija diapazoni misolini ko'rib chiqaylik. Bu yerda biz diapazonning har bir qiymati uchun hisoblashimiz kerak.",
+   "Yoz uchun e qiymatlari 1,1; 1,3; 1,6 bo'lganda, natijalar 145; 123; 100 km bo'ladi.",
+   "Qish uchun e qiymatlari 1,5; 1,8; 2,0 bo'lganda, natijalar esa 107; 89; 80 km kelib chiqadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ulush (foiz)",
+   "bullets": [
+    "ulush = qism ÷ baza",
+    "Misol: 12 ÷ 20 = 60% (koridor yoritgichi)",
+    "Misol: 12 ÷ 180 ≈7% (binoning cho'qqisi)"
+   ]
+  },
+  "narr": [
+   "Ulush yoki foizni hisoblash oddiy formulaga asoslanadi: qismni bazaga bo'lish kerak.",
+   "Misol uchun, koridor yoritgichlarida 12 ta yoritgich bo'lsa va jami 20 ta yoritgich bo'lsa, ulush 60% bo'ladi.",
+   "Bino cho'qqisida esa 12 ta yoritgich bo'lsa va jami 180 ta yoritgich bo'lsa, ulush taxminan 7% ni tashkil qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Yillik energiya tejash (LED keys)",
+   "tex": "tejash [kVt·soat/yil] = lampaga tejash [Vt] × lampalar × soatlar [soat/kun] ×365 ÷ 1000",
+   "parts": [
+    {
+     "substr": "lampaga tejash [Vt]",
+     "color": "#4C5FD5",
+     "note": "Bir lampaga tejlanadigan quvvat"
+    },
+    {
+     "substr": "lampalar",
+     "color": "#B45309",
+     "note": "Foydalaniladigan lampalar soni"
+    },
+    {
+     "substr": "soatlar [soat/kun]",
+     "color": "#0E7C7B",
+     "note": "Har kusan foydalaniladigan soatlar"
+    },
+    {
+     "substr": "365",
+     "color": "#A03040",
+     "note": "Yil kunlari soni"
+    }
+   ]
+  },
+  "narr": [
+   "Yillik energiya tejashini hisoblash uchun quyidagi formuladan foydalanamiz.",
+   "Bu yerda lampaga tejlash Vt da, lampalar soni, soatlar kuniga necha soat foydalanilishini ko'rsatadi, 365 esa yil kunlari soni.",
+   "Natija kVt·soat/yil da bo'ladi, shuning uchun 1000 ga bo'lish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Triangulyatsiya (fakultet binosi)",
+   "problem": "Fakultet binosining energiya tejalishini hisoblang.",
+   "steps": [
+    {
+     "text": "8 000 [m²] × 0,35 ≈ 2800 [kVt·soat/kun]"
+    },
+    {
+     "text": "94 [kVt] × 24 [soat] ≈ 2260 [kVt·soat/kun]"
+    },
+    {
+     "text": "70 000 ÷ 30 ≈ 2330 [kVt·soat/kun]"
+    }
+   ],
+   "result": "Taxminan 2800; 2260; 2330 [kVt·soat/kun]"
+  },
+  "narr": [
+   "Fakultet binosining energiya tejalishini hisoblaymiz. Uchta xil usul bilan hisoblash mumkin.",
+   "Birinchisi, maydonni 0,35 ga ko'paytirsak, taxminan 2800 kVt·soat/kun keladi.",
+   "Ikkinchisi, 94 kVt ni 24 soatga ko'paytirsak, 2260 kVt·soat/kun hosil bo'ladi.",
+   "Uchinchisi, 70 000 ni 30 ga bo'lsak, taxminan 2330 kVt·soat/kun keladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Lampaga zararsiz qo'shimcha to'lov (sinish nuqtasi)",
+   "problem": "Lampaga zararsiz qo'shimcha to'lovni (sinish nuqtasini) hisoblang.",
+   "steps": [
+    {
+     "text": "break-even ≈ lampaga yillik tejash × xizmat yillari"
+    },
+    {
+     "text": "25,8 [kVt·soat] × 850 [UZS] ≈ 21900 [UZS/yil]"
+    }
+   ],
+   "result": "21900 [UZS/yil]"
+  },
+  "narr": [
+   "Lampaga zararsiz qo'shimcha to'lovni hisoblash uchun, yillik tejashni xizmat yillariga ko'paytiramiz.",
+   "Misol uchun, 25,8 kVt·soat yillik tejash bo'lsa va 850 UZS bir kVt·soat narxi bo'lsa, yillik to'lov taxminan 21900 UZS bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Qoplanadigan ulush (quyosh tomi)",
+   "problem": "Quysh tomi orqali qoplanadigan ulushni hisoblang.",
+   "steps": [
+    {
+     "text": "ulush = o'rnatma energiyasi ÷ bino energiyasi"
+    },
+    {
+     "text": "90–150 ÷ 2260 ≈ 4–7%"
+    }
+   ],
+   "result": "4–7%"
+  },
+  "narr": [
+   "Quysh tomi orqali qoplanadigan ulushni hisoblash uchun, o'rnatma energiyasini bino umumiy energiyasiga bo'lamiz.",
+   "Agar o'rnatma energiyasi 90–150 kVt·soat bo'lsa va bino energiyasi 2260 kVt·soat bo'lsa, ulush taxminan 4–7% ni tashkil qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "5–7-haftalar",
+   "subtitle": "Birliklar va qayta hisoblar"
+  },
+  "narr": [
+   "Endi birliklar va qayta hisoblar qoidalarini ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ming darajali old qo'shimchalar",
+   "bullets": [
+    "1 kVt = 1000 Vt",
+    "1 MVt = 1000 kVt",
+    "1 kVt·soat = 1000 Vt·soat"
+   ]
+  },
+  "narr": [
+   "Ming darajali old qo'shimchalar bilan tanishamiz.",
+   "1 kilovatt 1000 vattga teng.",
+   "1 megavatt 1000 kilovattga teng.",
+   "1 kilovatt-soat esa 1000 vatt-soatga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Megavattlardan kilovattlarga",
+   "problem": "0,2 MVt ni kilovattlarga aylantiring.",
+   "steps": [
+    {
+     "text": "0,2 MVt = 200 kVt (MVt → kVt — ko'paytuvchi 1000)"
+    }
+   ],
+   "result": "200 kVt"
+  },
+  "narr": [
+   "Megavattlardan kilovattlarga aylantirish uchun, 1000 ga ko'paytiramiz.",
+   "Shunday qilib, 0,2 MVt = 200 kVt bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Daqiqalardan soatlarga",
+   "problem": "36 daqiqani soatlarga aylantiring.",
+   "steps": [
+    {
+     "text": "36 daq ÷ 60 = 0,6 soat (daqiqalar — soatning o'nli kasrlari emas)"
+    }
+   ],
+   "result": "0,6 soat"
+  },
+  "narr": [
+   "Daqiqalarni soatlarga aylantirish uchun, 60 ga bo'lamiz.",
+   "Shuning uchun, 36 daqiqani 60 ga bo'lganda, 0,6 soat hosil bo'ladi.",
+   "Eslatib o'tamiz, daqiqalar soatning o'nli kasrlari emas, balki 60 daqiqadan iborat soatning bir qismidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Aniqlik qoidasi",
+   "bullets": [
+    "Aniq — to'g'ri bilan bir xil emas",
+    "«30 kVt atrofida», «29,17 kVt» emas — qo'pol baholar uchun bir–ikki muhim raqam"
+   ]
+  },
+  "narr": [
+   "Aniqlik qoidasini eslaylik. Aniq bo'lish bilan to'g'ri bo'lish bir xil emas.",
+   "Qo'pol baholar uchun bir yoki ikkita muhim raqam yetarli. Masalan, «30 kVt atrofida» deyish «29,17 kVt» dan afzalroqdir."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Qoidalar",
+   "subtitle": "kursning barcha qoidalari bitta tekshiruv ro'yxatida"
+  },
+  "narr": [
+   "Endi 5–7-haftalarning barcha qoidalari bitta joyda, to'rt mavzu bo'yicha guruhlangan holda ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Muammoni qo'yish qoidalari",
+   "bullets": [
+    "Eshitilganlarni saralang: fakt, xulosa (inference), spekulatsiya, fikr — formularga faqat fakt va yaxshi xulosalar qodir",
+    "Muammo qo'yilishi ehtiyojni nomlaydi, yechimni emas: na qurilma, na ilova, na transport vositasi (yechimsizlik testi)",
+    "O'zgaruvchilar — birliklari bor o'lchanadigan kattaliklar: performance (baholaymiz), design (boshqaramiz), context (chegaralar)",
+    "«Yaxshi ishlaydi» ni steykxolderlar belgilaydi — samaradorlikni raqamlarda yozing",
+    "Qo'yilish andozasi: [Stakeholder] needs [outcome] in [system], judged by [measure], within [constraints]",
+    "Samaradorlikning ish ta'rifi: [tizim]ning samaradorligi [birlik va maqsadlari bor o'zgaruvchilar] bilan baholanadi, [steykxolderlar] ko'zi bilan"
+   ]
+  },
+  "narr": [
+   "Birinchi qism — muammoni qo'yish qoidalari.",
+   "Eshitilganlarni to'g'ri saralash kerak: fakt, xulosa, spekulatsiya va fikr. Formulaga faqat fakt va yaxshi xulosalar ta'sir qilishi mumkin.",
+   "Muammo qo'yilishi ehtiyojni ko'rsatishi kerak, yechimni emas. Qurilma, ilova yoki transport vositasini taklif qilmasligimiz kerak.",
+   "O'zgaruvchilar birliklari bilan o'lchanadigan kattaliklar bo'lishi kerak: performance (baholaymiz), design (boshqaramiz), context (chegaralar).",
+   "«Yaxshi ishlaydi» tushunchasini steykxolderlar belgilaydi, shuning uchun samaradorlikni raqamlarda ifodalash kerak.",
+   "Qo'yilish andozasi: [Stakeholder] needs [outcome] in [system], judged by [measure], within [constraints].",
+   "Samaradorlikning ish ta'rifi: [tizim]ning samaradorligi [birlik va maqsadlari bor o'zgaruvchilar] bilan baholanadi, [steykxolderlar] ko'zi bilan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Muammoni qo'yish qoidalari (davomi)",
+   "bullets": [
+    "Maqsadlar: must-have = talab (majburiyat), nice-to-have = tilak (istak); tilakni majburiyatga aylantirmang",
+    "Model aniq bitta savolga quriladi: avval savol, keyin model",
+    "Har bir model muhimni saqlaydi, muhim bo'lmaganni tashlaydi va maqsad-savolga xizmat qiladi; «hech bir xarita tarmoqning o'zi emas»",
+    "«All models are wrong, but some are useful» (Jorj Boks): foydalilikni savol belgilaydi, to'liqlik emas"
+   ]
+  },
+  "narr": [
+   "Muammoni qo'yish qoidalari davomi.",
+   "Maqsadlar ikki turga bo'linadi: must-have (talab/majburiyat) va nice-to-have (tilak/istak). Tilakni majburiyatga aylantirmaslik kerak.",
+   "Model aniq bitta savolga qurilishi kerak: avval savol, keyin model.",
+   "Har bir model muhim narsalarni saqlaydi, muhim bo'lmaganni tashlaydi va maqsad-savolga xizmat qiladi. «Hech bir xarita tarmoqning o'zi emas».",
+   "Jorj Boksning mashhur so'zi: «Barcha modellar noto'g'ri, lekin ba'zilari foydalidir». Foydalilikni savol belgilaydi, to'liqlik emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modellashtirish qoidalari",
+   "bullets": [
+    "Modelning to'rt turi — fiziki, grafik, matematik, hisoblash; real loyihalar bir necha turni aralashtiradi",
+    "Model anatomiyasi: kirishlar (tanlaymiz), parametrlar (qat'iy belgilaymiz), bog'liqliklar (qoidalar), chiqishlar (bashorat qilamiz) — har biri birliklar bilan",
+    "Model — mashina: sonlar kiradi, qoida qo'llaniladi, sonlar chiqadi; har bir son o'z birliklariga muhtoj",
+    "4-hafta o'zgaruvchilari rollarga aylanadi: performance → chiqish, design → kirish, context → parametr",
+    "Need–Know–How–Solve: How masalani yechish uchun qilinadigan taxminlarni o'z ichiga oladi; Solve — hisoblash, birliklarni tekshirish, talqin qilish"
+   ]
+  },
+  "narr": [
+   "Modellashtirish qoidalari.",
+   "Modelning to'rt turi mavjud: fiziki, grafik, matematik va hisoblash. Real loyihalar odatda bir necha turini aralashtiradi.",
+   "Model anatomiyasi: kirishlar (tanlaymiz), parametrlar (qat'iy belgilaymiz), bog'liqliklar (qoidalar), chiqishlar (bashorat qilamiz) — har biri birliklar bilan.",
+   "Model mashina kabi ishlaydi: sonlar kiradi, qoida qo'llaniladi, sonlar chiqadi. Har bir son o'z birliklariga muhtoj.",
+   "4-hafta o'zgaruvchilari rollarga aylanadi: performance → chiqish, design → kirish, context → parametr.",
+   "Need–Know–How–Solve: How masalani yechish uchun qilinadigan taxminlarni o'z ichiga oladi; Solve — hisoblash, birliklarni tekshirish, talqin qilish."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modellashtirish qoidalari (davomi)",
+   "bullets": [
+    "Kosky bo'yicha birliklar tekshiruvi: birliklar kasrlar kabi qisqaradi — (u × C) [kVt·soat] ÷ e [kVt·soat/km] = [km]",
+    "Uch xil taxmin: soddalashtiruvchi (e'tiborsiz qoldiramiz), ma'lumot (qat'iy belgilaymiz), chegaraviy (tashqarida qoldiramiz)",
+    "Har bir taxminni andoza bo'yicha yozing: «We assume . . . because . . .. If it is wrong, . . .»",
+    "Yozilgan taxminni tekshirish mumkin; yashiringanini — mumkin emas",
+    "Taxminlarni tasniflang: Safe — oddiy sharoitda bajariladi; Risky — buzilishi va javobni o'zgartirishi mumkin; Need Data — hozircha ayta bo'lmaydi"
+   ]
+  },
+  "narr": [
+   "Modellashtirish qoidalari davomi.",
+   "Kosky bo'yicha birliklar tekshiruvi: birliklar kasrlar kabi qisqaradi. Masalan, (u × C) [kVt·soat] ÷ e [kVt·soat/km] = [km].",
+   "Uch xil taxmin mavjud: soddalashtiruvchi (e'tiborsiz qoldiramiz), ma'lumot (qat'iy belgilaymiz), chegaraviy (tashqarida qoldiramiz).",
+   "Har bir taxminni andoza bo'yicha yozish kerak: «We assume . . . because . . .. If it is wrong, . . .».",
+   "Yozilgan taxminni tekshirish mumkin; yashiringanini — mumkin emas.",
+   "Taxminlarni tasniflang: Safe — oddiy sharoitda bajariladi; Risky — buzilishi va javobni o'zgartirishi mumkin; Need Data — hozircha ayta bo'lmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modellashtirish qoidalari (yakuniy qism)",
+   "bullets": [
+    "Modelni stress-testdan o'tkazish: bitta taxminni o'zgartiring va chiqishga ta'sirini tushuntiring",
+    "Uchta tekshiruv: birliklar, kattalik tartibi, ma'lum qiymat; «Is this a reasonable answer?» deb har safar so'rang",
+    "Sikl: Frame → Build → Check → Revise — qaror qabul qilish uchun yetarli darajada yaxshi bo'lguncha"
+   ]
+  },
+  "narr": [
+   "Modelni stress-testdan o'tkazish kerak: bitta taxminni o'zgartiring va chiqishga ta'sirini tushuntiring.",
+   "Uchta tekshiruv o'tkazish kerak: birliklar, kattalik tartibi, ma'lum qiymat. Har safar «Is this a reasonable answer?» deb so'rang.",
+   "Modellashtirish sikli: Frame → Build → Check → Revise. Bu siklni qaror qabul qilish uchun yetarli darajada yaxshi bo'lguncha takrorlang."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ }
+]

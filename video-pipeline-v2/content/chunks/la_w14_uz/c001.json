@@ -1,0 +1,436 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Chiziqli algebra darslarining birinchi haftasidagi mashqlar bilan tanishamiz. Bu mashqlar vektorlar, ularning chiziqli bog'liqligi va span tushunchalarini o'rganishga qaratilgan.",
+   "Keling, birinchi masalani ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Vektor kombinatsiyasi",
+   "problem": "b = [5, 1, 4] vektorini b = c1 · v1 + c2 · v2 + c3 · v3 ko'rinishida yozish mumkinmi, bunda v1 = [1, 0, 1], v2 = [0, 1, 1], v3 = [1, 1, 0]?",
+   "steps": [
+    "c1 + c3 = 5 tenglamani hosil qilamiz",
+    "c2 + c3 = 1 tenglamani hosil qilamiz",
+    "c1 + c2 = 4 tenglamani hosil qilamiz",
+    "Birinchi ikkita tenglamani qo'shib, uchinchisini ayiramiz: 2c3 = 2",
+    "c3 = 1, c1 = 4, c2 = 0 ekanligini topamiz"
+   ],
+   "result": "Kombinatsiya mavjud: b = 4v1 + 0 · v2 + 1 · v3"
+  },
+  "narr": [
+   "Bu masalada bizga b vektorini berilgan uchta vektorning chiziqli kombinatsiyasi sifatida ifodalash so'ralgan.",
+   "Birinchi navbatda, komponentlar bo'yicha tenglamalar sistemani yozamiz.",
+   "Birinchi tenglamada c1 va c3 ning yig'indisi 5 ga teng.",
+   "Ikkinchi tenglamada c2 va c3 ning yig'indisi 1 ga teng.",
+   "Uchinchi tenglamada esa c1 va c2 ning yig'indisi 4 ga teng.",
+   "Endi birinchi ikkita tenglamani qo'shib, uchinchisini ayiramiz.",
+   "Bu bizga 2c3 = 2 tenglamasini beradi, bundan c3 = 1 ekanligini topamiz.",
+   "c3 ning qiymatini bilib, qolgan koeffitsientlarni topamiz: c1 = 4 va c2 = 0.",
+   "Shunday qilib, b vektorini 4v1 + 0 · v2 + 1 · v3 ko'rinishida ifodalash mumkin.",
+   "Yechimning noyobligi shuni ham ko'rsatadiki, uchta vektor chiziqli bog'liq emas."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Geometrik tasvir",
+   "problem": "c·[-2, 3], c ∈ R bo'lgan barcha vektorlarni geometrik tasvirlang; [4, -6], [-2, 3], [6, -8] vektorlari bu span ga tegishlimi?",
+   "steps": [
+    "Span — boshlang'ich nuqtadan o'tuvchi (-2, 3) yo'nalishidagi butun to'g'ri chiziq",
+    "[4, -6] vektorni tekshiramiz: -2 · (-2) = 4 va -2 · 3 = -6",
+    "c = -2 bo'lganda, [4, -6] vektor span ga tegishli",
+    "[-2, 3] vektorni tekshiramiz: c = 1 bo'lganda, -2 · 1 = -2 va 3 · 1 = 3",
+    "c = 1 bo'lganda, [-2, 3] vektor span ga tegishli",
+    "[6, -8] vektorni tekshiramiz: -2c = 6 va 3c = -8"
+   ]
+  },
+  "narr": [
+   "Ikkinchi masalada bizga c·[-2, 3], c ∈ R bo'lgan barcha vektorlarning geometrik tasviri so'ralgan.",
+   "Endi berilgan uchta vektorni bu span ga tegishliligini tekshirishimiz kerak.",
+   "Birinchi [4, -6] vektorni ko'rib chiqamiz: c = -2 bo'lganda, -2 · (-2) = 4 va -2 · 3 = -6 bo'ladi.",
+   "Demak, [4, -6] vektor span ga tegishli.",
+   "Ikkinchi [-2, 3] vektorni ko'rib chiqamiz: c = 1 bo'lganda, -2 · 1 = -2 va 3 · 1 = 3 bo'ladi.",
+   "Demak, [-2, 3] vektor ham span ga tegishli.",
+   "Uchinchi [6, -8] vektorni ko'rib chiqamiz: -2c = 6 va 3c = -8 tenglamalarni yechishimiz kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Geometrik tasvir (cont.)",
+   "problem": "",
+   "steps": [
+    "c = -3 va c = -8/3 bo'lishi kerak, bu ziddiyat",
+    "Shuning uchun [6, -8] vektor to'g'ri chiziqda yotmaydi"
+   ],
+   "result": "[4, -6] va [-2, 3] vektorlari span ga tegishli, [6, -8] esa tegishli emas"
+  },
+  "narr": [
+   "Bu span - boshlang'ich nuqtadan o'tuvchi (-2, 3) yo'nalishidagi butun to'g'ri chiziqdir.",
+   "Birinchi tenglamadan c = -3, ikkinchisidan c = -8/3 kelib chiqadi, bu ziddiyatdir.",
+   "Shuning uchun [6, -8] vektor bu to'g'ri chiziqda yotmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Chiziqli bog'liqlik",
+   "problem": "v1 = [1, 0, 1], v2 = [3, 0, 3] vektorlari chiziqli mustaqilmi? c1v1 + c2v2 = 0 bo'lgan nol bo'lmagan c1, c2 ni toping va geometrik tushuntiring.",
+   "steps": [
+    "v2 = 3v1 ekanligini ko'ramiz",
+    "3v1 - v2 = 0 no trivial bog'liqlikni hosil qiladi",
+    "c1 = 3, c2 = -1 bo'lganda tenglik o'rinli",
+    "Vektorlar bog'liq ekanligini aniqlaymiz",
+    "Geometrik jihatdan ikkalasi ham boshlang'ich nuqtadan o'tuvchi bir to'g'ri chiziqda yotadi",
+    "Ikkalasi birga faqat shu to'g'ri chiziqni hosil qiladi"
+   ],
+   "result": "Vektorlar chiziqli bog'liq, chunki v2 = 3v1. Geometrik jihatdan ikkalasi ham bir to'g'ri chiziqda yotadi."
+  },
+  "narr": [
+   "Uchinchi masalada bizga ikki vektorning chiziqli mustaqilligini tekshirish so'ralgan.",
+   "Avval vektorlarni ko'rib chiqamiz: v1 = [1, 0, 1], v2 = [3, 0, 3].",
+   "E'tibor bering, v2 ning har bir komponenti v1 ning mos komponentidan 3 marta katta.",
+   "Demak, v2 = 3v1 ekanligini ko'ramiz.",
+   "Bu 3v1 - v2 = 0 no trivial bog'liqlikni beradi, bunda c1 = 3, c2 = -1.",
+   "Shuning uchun bu vektorlar chiziqli bog'liq.",
+   "Geometrik jihatdan, ikkala vektor ham boshlang'ich nuqtadan o'tuvchi bir xil to'g'ri chiziqda yotadi.",
+   "Ikkalasi birga ham faqat shu to'g'ri chiziqni hosil qiladi, ya'ni ular yangi yo'nalish bermaydi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Vektorlar bog'ligi",
+   "problem": "v1 = [1, 0, 1], v2 = [0, 1, 1], v3 = [1, 1, 2] vektorlari chiziqli mustaqilmi? Agar bog'liq bo'lsa, birini boshqalari orqali ifodalang.",
+   "steps": [
+    "v3 = αv1 + βv2 deb faraz qilamiz",
+    "Birinchi komponent: α = 1",
+    "Ikkinchi komponent: β = 1",
+    "Uchinchi komponent: α + β = 2",
+    "1 + 1 = 2, shuning uchun mos keladi",
+    "Demak v3 = v1 + v2"
+   ]
+  },
+  "narr": [
+   "To'rtinchi masalada uchta vektorning chiziqli mustaqilligini tekshirishimiz kerak.",
+   "Birinchi komponent bo'yicha: α = 1",
+   "Ikkinchi komponent bo'yicha: β = 1",
+   "Uchinchi komponent bo'yicha: α + β = 2",
+   "1 + 1 = 2 ekanligini ko'ramiz, shuning uchun bu mos keladi.",
+   "Demak, v3 = v1 + v2 ekanligini aniqladik.",
+   "Bu no trivial bog'liqlik mavjudligini ko'rsatadi, shuning uchun vektorlar to'plami bog'liq."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Vektorlar bog'ligi (cont.)",
+   "problem": "",
+   "steps": [
+    "No trivial bog'liqlik mavjud va to'plam bog'liq",
+    "Faqat ikkita mustaqil yo'nal mavjud; span — tekislik"
+   ],
+   "result": "Vektorlar chiziqli bog'liq, chunki v3 = v1 + v2"
+  },
+  "narr": [
+   "v3 = αv1 + βv2 deb faraz qilib, koeffitsientlarni topamiz.",
+   "Geometrik jihatdan, bu vektorlar orasida faqat ikkita mustaqil yo'nal mavjud va ularning spani tekislikni hosil qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — R2 ni hosil qilish",
+   "problem": "v1 = [1, 2], v2 = [3, 1] bo'lsin. (1) Ular R2 ni hosil qiladimi? (2) b = [7, 4] uchun c1, c2 ni toping shundayki c1v1 + c2v2 = b. (3) formuladan ifodalang.",
+   "steps": [
+    "c1 + 3c2 = b1, 2c1 + c2 = b2 tenglamalarini yechamiz",
+    "c1 = b1 - 3c2 deb ifodalaymiz",
+    "2b1 - 6c2 + c2 = b2 tenglamaga o'tamiz",
+    "c2 = (2b1 - b2)/5 ekanligini topamiz",
+    "c1 = (-b1 + 3b2)/5 ekanligini topamiz",
+    "b = [7, 4] uchun c1 = (-7 + 12)/5 = 1"
+   ]
+  },
+  "narr": [
+   "Beshinchi masalada ikki vektorning R2 ni hosil qilishini tekshirishimiz kerak.",
+   "Birinchi savolga javob berish uchun c1v1 + c2v2 = b tenglamani yechamiz.",
+   "Bu c1 + 3c2 = b1 va 2c1 + c2 = b2 sistemani beradi.",
+   "Birinchi tenglamadan c1 = b1 - 3c2 deb ifodalaymiz.",
+   "Ikkinchi tenglamaga qo'yib, 2b1 - 6c2 + c2 = b2 tenglamasini olamiz.",
+   "Bu erdan c2 = (2b1 - b2)/5 ekanligini topamiz.",
+   "c1 uchun esa c1 = (-b1 + 3b2)/5 formulani olamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — R2 ni hosil qilish (cont.)",
+   "problem": "",
+   "steps": [
+    "c2 = (14 - 4)/5 = 2 ekanligini topamiz",
+    "Demak b = v1 + 2v2"
+   ],
+   "result": "Vektorlar R2 ni hosil qiladi, chunki formulalar har qanday (b1, b2) uchun aniqlangan. b = [7, 4] uchun b = v1 + 2v2"
+  },
+  "narr": [
+   "v1 = [1, 2], v2 = [3, 1] vektorlari berilgan.",
+   "Bu formulalar har qanday (b1, b2) uchun aniqlangan, shuning uchun vektorlar R2 ni hosil qiladi.",
+   "Endi ikkinchi savolga javob beramiz: b = [7, 4] uchun c1 va c2 ni topamiz.",
+   "c1 = (-7 + 12)/5 = 1",
+   "c2 = (14 - 4)/5 = 2",
+   "Demak b = v1 + 2v2"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 16 — Chiziqli bog'liq vektorlar",
+   "problem": "u1 = [-1, 2], u2 = [-3, 6] bo'lsin. (1) Ular R2 ni hosil qiladimi? (2) span{u1, u2} ni geometrik ravishda tasvirlang; (3) [8, -4], [1, 2] unga tegishlimi?",
+   "steps": [
+    "u2 = 3u1 ekanligini ko'ramiz",
+    "Shuning uchun span — faqat span{u1}",
+    "Geometrik jihatdan bu (-1, 2) yo'nalishidagi boshidan o'tgan yagona to'g'ri chiziq",
+    "Ikkita kollinear vektor hech qachon tekislikni qamrab olmaydi",
+    "[8, -4] uchun: -c = 8 va 2c = -4, ya'ni c = -8 va c = -2",
+    "Bu ziddiyat, shuning uchun [8, -4] span ga tegishli emas"
+   ]
+  },
+  "narr": [
+   "Oltinchi masalada yana ikki vektor bilan ishlashimiz kerak.",
+   "Avval ularning nisbatini ko'rib chiqamiz: -3/-1 = 3 va 6/2 = 3.",
+   "Demak, u2 = 3u1 ekanligini ko'ramiz.",
+   "Bu ikkita vektor chiziqli bog'liq ekanligini ko'rsatadi.",
+   "Shuning uchun ularning spani faqat span{u1} bo'ladi.",
+   "Geometrik jihatdan bu (-1, 2) yo'nalishidagi boshidan o'tgan yagona to'g'ri chiziqdir.",
+   "Ikkita kollinear vektor hech qachon tekislikni qamrab olmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 16 — Chiziqli bog'liq vektorlar (cont.)",
+   "problem": "",
+   "steps": [
+    "[1, 2] uchun: -c = 1 va 2c = 2, ya'ni c = -1 va c = 1",
+    "Bu ham ziddiyat, shuning uchun [1, 2] ham span ga tegishli emas"
+   ],
+   "result": "Vektorlar R2 ni hosil qilmaydi, chunki ular chiziqli bog'liq. Span (-1, 2) yo'nalishidagi to'g'ri chiziq. [8, -4] va [1, 2] vektorlari span ga tegishli emas."
+  },
+  "narr": [
+   "u1 = [-1, 2], u2 = [-3, 6] vektorlari berilgan.",
+   "Endi berilgan ikkita vektor bu span ga tegishliligini tekshiramiz.",
+   "[8, -4] uchun: -c = 8 va 2c = -4 tenglamalarni yechamiz.",
+   "Birinchidan c = -8, ikkinchisidan c = -2 kelib chiqadi, bu ziddiyatdir.",
+   "Shuning uchun [8, -4] vektor span ga tegishli emas.",
+   "[1, 2] uchun: -c = 1 va 2c = 2 tenglamalarni yechamiz.",
+   "Birinchidan c = -1, ikkinchisidan c = 1 kelib chiqadi, bu ham ziddiyatdir.",
+   "Shuning uchun [1, 2] vekor ham span ga tegishli emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 17 — R3 ni qamrab olish",
+   "problem": "Faraz qilaylik v1 = [1, 0, 1], v2 = [0, 1, 1], v3 = [1, 1, 0]. (1) c1v1 + c2v2 + c3v3 = b ni ixtiyoriy b = [b1, b2, b3] uchun yeching; (2) nima uchun bu uch vektor R³ ni qamrab olishini tushuntiring; (3) b = [4, 2, 6] ni ifodalang.",
+   "steps": [
+    "Komponentlar: c1 + c3 = b1, c2 + c3 = b2, c1 + c2 = b3",
+    "Uchtasini qo'shamiz: 2(c1 + c2 + c3) = b1 + b2 + b3",
+    "c1 + c2 + c3 = (b1 + b2 + b3)/2",
+    "c1 = (b1 + b2 - b3)/2",
+    "c2 = (-b1 + b2 + b3)/2",
+    "c3 = (b1 - b2 + b3)/2"
+   ]
+  },
+  "narr": [
+   "Yettinchi masalada uchta vektorni R³ ni qamrab olishini tekshirishimiz kerak.",
+   "Birinchi savolga javob berish uchun c1v1 + c2v2 + c3v3 = b tenglamani yechamiz.",
+   "Komponentlar bo'yicha: c1 + c3 = b1, c2 + c3 = b2, c1 + c2 = b3.",
+   "Uchta tenglamani qo'shamiz: 2(c1 + c2 + c3) = b1 + b2 + b3.",
+   "Demak, c1 + c2 + c3 = (b1 + b2 + b3)/2.",
+   "Endi har bir koeffitsientni topamiz:",
+   "c1 = (b1 + b2 - b3)/2"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 17 — R3 ni qamrab olish (cont.)",
+   "problem": "",
+   "steps": [
+    "Yechim istalgan o'ng tomon uchun mavjud va yagona",
+    "Shuning uchun span — butun R³ (vektorlar mustaqil)",
+    "b = [4, 2, 6] uchun: c1 = (4 + 2 - 6)/2 = 0",
+    "c2 = (-4 + 2 + 6)/2 = 2",
+    "c3 = (4 - 2 + 6)/2 = 4",
+    "Demak b = 0v1 + 2v2 + 4v3"
+   ],
+   "result": "Vektorlar R³ ni qamrab oladi, chunki ular chiziqli mustaqil. b = [4, 2, 6] uchun b = 0v1 + 2v2 + 4v3"
+  },
+  "narr": [
+   "v1 = [1, 0, 1], v2 = [0, 1, 1], v3 = [1, 1, 0] vektorlari berilgan.",
+   "c2 = (-b1 + b2 + b3)/2",
+   "c3 = (b1 - b2 + b3)/2",
+   "Yechim istalgan o'ng tomon uchun mavjud va yagona, shuning uchun bu vektorlar R³ ni qamrab oladi.",
+   "Endi uchinchi savolga javob beramiz: b = [4, 2, 6] ni ifodalaymiz.",
+   "c1 = (4 + 2 - 6)/2 = 0",
+   "c2 = (-4 + 2 + 6)/2 = 2",
+   "c3 = (4 - 2 + 6)/2 = 4",
+   "Demak b = 0v1 + 2v2 + 4v3"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 18 — Muvozanatdagi kuchlar",
+   "problem": "Detalga uchta kuch ta'sir qiladi: F1 = [40, -15, -20] N, F2 = [10, 25, -5] N, F3 = [10, 25, -5] N. (1) Rivojlantiruvchini toping; (2) detali muvozanatga keltiruvchi F4 ni toping: F1 + F2 + F3 + F4 = 0.",
+   "steps": [
+    "Komponent bo'yicha qo'shamiz: F1 + F2 + F3 = [40+10+10, -15+25+25, -20-5-5] = [60, 35, -30]",
+    "Muvozanat uchun F4 = -(F1 + F2 + F3) = [-60, -35, 30] kerak",
+    "Bu rivojlantiruvchi vektorga aynan qarama-qarshi",
+    "Shunda umumiy kuch nolga aylanadi"
+   ],
+   "result": "Rivojlantiruvchi F1 + F2 + F3 = [60, 35, -30] N. Muvozanat uchun F4 = [-60, -35, 30] N kerak."
+  },
+  "narr": [
+   "Sakkizinchi va so'nggi masalada bizga fizikadan misol keltirilgan.",
+   "Detalga uchta kuch ta'sir qiladi: F1 = [40, -15, -20] N, F2 = [10, 25, -5] N, F3 = [10, 25, -5] N.",
+   "Birinchi savolga javob berish uchun barcha kuchlarni komponent bo'yicha qo'shamiz.",
+   "F1 + F2 + F3 = [40+10+10, -15+25+25, -20-5-5] = [60, 35, -30] N.",
+   "Bu rivojlantiruvchi kuchdir.",
+   "Ikkinchi savolga javob berish uchun detali muvozanatga keltiruvchi F4 ni topishimiz kerak.",
+   "Muvozanat sharti: F1 + F2 + F3 + F4 = 0.",
+   "Demak, F4 = -(F1 + F2 + F3) = [-60, -35, 30] N.",
+   "Bu kuch rivojlantiruvchi vektorga aynan qarama-qarshi yo'nalgan.",
+   "Shunda barcha kuchlarning yig'indisi nolga teng bo'lib, detal muvozanat holatida bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3
+  ]
+ }
+]

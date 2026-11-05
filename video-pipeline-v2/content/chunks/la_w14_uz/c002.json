@@ -1,0 +1,595 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "1–4 haftalar"
+  },
+  "narr": [
+   "Bu chiziqli algebra boʻlimida biz vektorlar va ularning xossalarini oʻrganamiz. Birinchi hafta asosiy vektor operatsiyalari va ularning kombinatsiyalari bilan tanishamiz.",
+   "Keling, birinchi masalani koʻrib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Vektor qoʻshish va ayirish",
+   "problem": "a = (−1, 3, 2), b = (4, 0, −2). Hisoblanga +b va 3a −b; a va b oʻrtasidagi oʻrtacheni toping.",
+   "steps": [
+    "a + b = (−1 + 4, 3 + 0, 2 + (−2)) = (3, 3, 0)",
+    "3a = 3 × (−1, 3, 2) = (−3, 9, 6)",
+    "3a − b = (−3 − 4, 9 − 0, 6 − (−2)) = (−7, 9, 8)",
+    "a va b oʻrtasidagi oʻrta nuqta: (a + b)/2 = (3/2, 3/2, 0)"
+   ],
+   "result": "a + b = (3, 3, 0); 3a − b = (−7, 9, 8); Oʻrta nuqta: (3/2, 3/2, 0)"
+  },
+  "narr": [
+   "Birinchi masalada biz ikkita vektorni qoʻshish va ayirishni koʻrib chiqamiz. Shuningdek, ularning oʻrtasidagi oʻrta nuqtani topamiz.",
+   "Birinchi qadamda a va b vektorlarini qoʻshamiz. Har bir komponentni alohida qoʻshamiz.",
+   "Ikkinchi qadamda a vektorni 3 ga koʻpaytiramiz.",
+   "Uchinchi qadamda 3a vektordan b vektorni ayiramiz.",
+   "Toʻrtinchi qadamda a va b vektorlari oʻrtasidagi oʻrta nuqtani topamiz. Bu skalyar formuladagi oʻrtacha olish gʻoyasiga oʻxshaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Vektorlarni topish",
+   "problem": "Berilgan p + q = (5, 7) va p − q = (−1, 3); p va q ni toping.",
+   "steps": [
+    "Ikkita tenglamani qoʻshamiz: (p + q) + (p − q) = (5, 7) + (−1, 3)",
+    "2p = (4, 10), demak p = (2, 5)",
+    "Ayirib koʻramiz: (p + q) − (p − q) = (5, 7) − (−1, 3)",
+    "2q = (6, 4), demak q = (3, 2)",
+    "Tekshirish: (2, 5) + (3, 2) = (5, 7) va (2, 5) − (3, 2) = (−1, 3)"
+   ],
+   "result": "p = (2, 5), q = (3, 2)"
+  },
+  "narr": [
+   "Ikkinchi masalada biz ikkita vektorni ularning yigʻindisi va ayirmasi orqali topishimiz kerak.",
+   "Birinchi qadamda ikkita tenglamani qoʻshamiz. Bu qoʻshib ayirish usulidir.",
+   "Ikkinchi qadamda p ni topamiz.",
+   "Uchinchi qadamda ayirib q ni topamiz.",
+   "Toʻrtinchi qadamda javobni tekshiramiz. Bu usul ikkita skalyar tenglamani bir vaqtda yechishning vektor analogidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Vektor kombinatsiyalari",
+   "problem": "u = (1, 2, −1), v = (2, −1, 0). Hisoblang −u + 3v; yozing cu + dv komponent boʻyicha; cu + dv = (5, 0, −1) ga teng boʻlishi mumkinmi?",
+   "steps": [
+    "−u = −(1, 2, −1) = (−1, −2, 1)",
+    "3v = 3 × (2, −1, 0) = (6, −3, 0)",
+    "−u + 3v = (−1, −2, 1) + (6, −3, 0) = (5, −5, 1)",
+    "cu + dv = (c + 2d, 2c − d, −c)",
+    "(5, 0, −1) ga teng boʻlishi uchun: uchinchi komponent c = 1",
+    "c + 2d = 5 dan d = 2",
+    "2c − d = 0 tekshiriladi"
+   ],
+   "result": "−u + 3v = (5, −5, 1); cu + dv = (c + 2d, 2c − d, −c); Ha, u + 2v = (5, 0, −1)"
+  },
+  "narr": [
+   "Uchinchi masalada biz vektorlarning chiziqli kombinatsiyalarini koʻrib chiqamiz.",
+   "Birinchi qadamda −u ni hisoblaymiz.",
+   "Ikkinchi qadamda 3v ni hisoblaymiz.",
+   "Uchinchi qadamda −u + 3v ni hisoblaymiz.",
+   "Toʻrtinchi qadamda umumiy cu + dv ifodasini komponentlar boʻyicha yozamiz.",
+   "Beshinchi qadamda (5, 0, −1) vektoriga teng boʻlish shartlarini koʻrib chiqamiz.",
+   "Oltinchi qadamda javobni tekshiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Vektor bogʻliqligi",
+   "problem": "r = (2, −1), s = (−6, 3). Barcha kombinatsiyalarni cr + ds ni tasviring; vektorlar R² ni toʻldiradimi? Bogʻliqlik munosabatini toping.",
+   "steps": [
+    "s = −3r ekanligini koʻramiz: (−6, 3) = −3 × (2, −1)",
+    "Har qanday kombinatsiya (c − 3d)r koʻrinishida boʻladi",
+    "Bu har doim r ning karrali boʻladi",
+    "Span — bu orqali oʻtgan toʻgʻri chiziq",
+    "3r + s = 0 munosabati bogʻliqlikni isbotlaydi"
+   ],
+   "result": "s = −3r; Har qanday kombinatsiya (c − 3d)r koʻrinishida; Vektorlar tekislikni choʻzmaydi; Bogʻliqlik: 3r + s = 0"
+  },
+  "narr": [
+   "Toʻrtinchi masalada biz vektorlarning bogʻliqligi va ularning fazoni qanday toʻldirishini koʻrib chiqamiz.",
+   "Birinchi qadamda s vektorni r vektorning karrali sifatida ifodalaymiz.",
+   "Ikkinchi qadamda har qanday kombinatsiyani (c − 3d)r koʻrinishida yozamiz.",
+   "Uchinchi qadamda bunday kombinatsiyalar faqatgina r vektorign parallel boʻlgan toʻgʻri chiziqni hosil qilishini koʻramiz.",
+   "Toʻrtinchi qadamda bu vektorlarning bogʻliqligini koʻrsatuvchi munosabatni topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Tekislik tenglamasi",
+   "problem": "v = (1, 0, 1), w = (1, 2, 0) deb oling. cv + dw = (x, y, z) yozing; x, y, z ni bogʻlaydigan bitta tenglamani toping; b = (4, 6, 1) ni tekshiring.",
+   "steps": [
+    "cv + dw = (c + d, 2d, c)",
+    "Uchinchi komponentdan c = z",
+    "Ikkinchi komponentdan y = 2d, demak d = y/2",
+    "Birinchi komponentdan x = c + d = z + y/2",
+    "b = (4, 6, 1) uchun: x = 1 + 6/2 = 4, toʻgʻri",
+    "c = 1, d = 3"
+   ],
+   "result": "cv + dw = (c + d, 2d, c); x = z + y/2; b tekislikda joylashgan; c = 1, d = 3"
+  },
+  "narr": [
+   "Beshinchi masalada biz ikki vektorning hosil qilgan tekislikni tekshiramiz.",
+   "Birinchi qadamda cv + dw ni komponentlar boʻyicha yozamiz.",
+   "Ikkinchi qadamdan c ni z orqali ifodalaymiz.",
+   "Uchinchi qadamdan d ni y orqali ifodalaymiz.",
+   "Toʻrtinchi qadamda x, y, z orasidagi bogʻliqlikni topamiz.",
+   "Beshinchi qadamda berilgan b vektorining tekislikda joylashganligini tekshiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Tenglamalar sistemasini yechish",
+   "problem": "c, d ni shunday topingki, c(1, 2) + d(3, −1) = (7, 3); komponent boʻyicha tenglamalarni yozing va yeching.",
+   "steps": [
+    "c + 3d = 7",
+    "2c − d = 3",
+    "Ikkinchi tenglamadan d = 2c − 3",
+    "Birinchi tenglamaga almashtiramiz: c + 6c − 9 = 7",
+    "7c = 16, c = 16/7",
+    "d = 2 × 16/7 − 3 = 32/7 − 21/7 = 11/7"
+   ],
+   "result": "c = 16/7, d = 11/7"
+  },
+  "narr": [
+   "Oltinchi masalada biz chiziqli tenglamalar sistemasini yechamiz.",
+   "Birinchi qadamda birinchi komponent boʻyicha tenglamani yozamiz.",
+   "Ikkinchi qadamda ikkinchi komponent boʻyicha tenglamani yozamiz.",
+   "Uchinchi qadamdan d ni c orqali ifodalaymiz.",
+   "Toʻrtinchi qadamda birinchi tenglamaga almashtirib yechamiz.",
+   "Beshinchi qadamda c va d qiymatlarini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Vektorlar bogʻliqligi",
+   "problem": "u = (1, 1, 0), v = (0, 1, 1), w = (1, 2, 1). w yangi yoʻnalish qoʻshadimi? span{u, v, w} ni tasvirlang; nolga teng boʻlgan munosabatni keltiring.",
+   "steps": [
+    "w = u + v ekanligini tekshiramiz: (1, 2, 1) = (1, 1, 0) + (0, 1, 1)",
+    "w u va v vektorlarining chiziqli kombinatsiyasi ekanligini koʻramiz",
+    "Shuning uchun w yangi yoʻnalish qoʻshmaydi",
+    "u + v − w = 0 munosabati bogʻliqlikni isbotlaydi",
+    "Uchta vektor bogʻliq va ularning spani faqatgina u va v choʻzgan tekislikdir"
+   ],
+   "result": "w yangi yoʻnalish qoʻshmaydi; span{u, v, w} = span{u, v}; Bogʻliqlik: u + v − w = 0"
+  },
+  "narr": [
+   "Yettinchi masalada biz uchta vektorni bogʻliqligini tekshiramiz.",
+   "Birinchi qadamda w vektorni u va v vektorlarining yigʻindisi sifatida ifodalaymiz.",
+   "Ikkinchi qadamda w ning u va v vektorlarining chiziqli kombinatsiyasi ekanligini koʻramiz.",
+   "Uchinchi qadamdan w ning yangi yoʻnalish qoʻshmasligini xulosa qilamiz.",
+   "Toʻrtinchi qadamda bogʻliqlikni koʻrsatuvchi munosabatni topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Fazolarni choʻzish",
+   "problem": "Ikkita vektor butun R³ ni choʻzishi mumkinmi? Uchta vektor R³ ni choʻzishi mumkin va bogʻliq boʻlishi mumkinmi? \"Yangi yoʻnalishlar\" orqali tushuntiring.",
+   "steps": [
+    "Ikkita vektor maksimal tekislikni choʻzadi",
+    "Har bir vektor maksimal bitta yangi yoʻnalish beradi",
+    "Ikki yoʻnalish bilan uch oʻlchamli fazoni toʻldirib boʻlmaydi",
+    "Uchta bogʻliq vektor ham maksimal tekislikni choʻzadi",
+    "Bogʻliqlik bittasining qolganlarining kombinatsiyasi ekanligini anglatadi",
+    "R³ ga erishish uchun uchta mustaqil yoʻnalish kerak",
+    "Shuning uchun uchta bogʻliq vektor hech qachon R³ ni choʻzmaydi"
+   ],
+   "result": "Ikkita vektor R³ ni choʻzmaydi; Uchta bogʻliq vektor ham R³ ni choʻzmaydi"
+  },
+  "narr": [
+   "Sakkizinchi masalada biz fazolarni qanday choʻzish mumkinligini koʻrib chiqamiz.",
+   "Birinchi qadamda ikki vektorning maksimal tekislikni choʻzishini tushuntiramiz.",
+   "Ikkinchi qadamda har bir vektor yangi yoʻnalish qoʻshishini tushuntiramiz.",
+   "Uchinchi qadamda ikki vektorning uch oʻlchamli fazoni toʻldira olmasligini tushuntiramiz.",
+   "Toʻrtinchi qadamda uchta bogʻliq vektor ham maksimal tekislikni choʻzishini tushuntiramiz.",
+   "Beshinchi qadamda bogʻliqlik tushunchasini tushuntiramiz.",
+   "Oltinchi qadamda uchta mustaqil yoʻnalishning ahamiyatini tushuntiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Chiziqli algebra I",
+   "subtitle": "2-Hafta — Skalyar va vektor koʻpaytmalari, matritsalarga kirish"
+  },
+  "narr": [
+   "Ikkinchi haftada biz vektor geometriyasining ikki koʻpaytmasini va birinchi matritsa tushunchalarini oʻrganamiz.",
+   "Keling, asosiy formulalarni koʻrib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Skalyar koʻpaytma",
+   "tex": "u \\cdot v = u_1v_1 + \\cdots + u_nv_n = u^T v",
+   "parts": [
+    {
+     "substr": "u \\cdot v",
+     "color": "#4C5FD5",
+     "note": "ikkita vektorning skalyar koʻpaytmasi"
+    },
+    {
+     "substr": "u^T v",
+     "color": "#B45309",
+     "note": "vektorning transponiriyalangan koʻrinishi bilan vektorni koʻpaytirish"
+    }
+   ]
+  },
+  "narr": [
+   "Birinchi formula skalyar koʻpaytmani tavsiflaydi. Bu ikkita vektorning mos keladigan komponentlarini koʻpaytirib, keyin yigʻindisini olish orqali hisoblanadi.",
+   "Bu shuningdek, birinchi vektorning transponiriyalangan koʻrinishi bilan ikkinchi vektorni matritsa koʻpaytmasi sifatida ham ifodalanishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Burchak kosinusi",
+   "tex": "\\cos \\theta = \\frac{u \\cdot v}{\\|u\\|\\|v\\|}",
+   "parts": [
+    {
+     "substr": "\\cos \\theta",
+     "color": "#4C5FD5",
+     "note": "vektorlar orasidagi burchakning kosinusi"
+    },
+    {
+     "substr": "u \\cdot v",
+     "color": "#B45309",
+     "note": "vektorlarning skalyar koʻpaytmasi"
+    },
+    {
+     "substr": "\\|u\\|\\|v\\|",
+     "color": "#0E7C7B",
+     "note": "vektorlarning normalarining koʻpaytmasi"
+    }
+   ]
+  },
+  "narr": [
+   "Bu formula ikki vektor orasidagi burchakni hisoblashga imkon beradi. Bu ikkita vektorning skalyar koʻpaytmasining ularning normalarining koʻpaytmasiga nisbati sifatida ifodalanadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Perpendikulyarlik",
+   "tex": "u \\perp v \\Leftrightarrow u \\cdot v = 0",
+   "parts": [
+    {
+     "substr": "u \\perp v",
+     "color": "#4C5FD5",
+     "note": "vektorlar perpendikulyar"
+    },
+    {
+     "substr": "u \\cdot v = 0",
+     "color": "#B45309",
+     "note": "skalyar koʻpaytma nolga teng"
+    }
+   ]
+  },
+  "narr": [
+   "Ikki vektor perpendikulyar boʻlishi ularning skalyar koʻpaytmasining nolga teng boʻlishi bilan belgilanadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Proyeksiya",
+   "tex": "\\text{proj}_v u = \\frac{u \\cdot v}{v \\cdot v} v",
+   "parts": [
+    {
+     "substr": "\\text{proj}_v u",
+     "color": "#4C5FD5",
+     "note": "u vektorni v vektoriga proyeksiyasi"
+    },
+    {
+     "substr": "u \\cdot v",
+     "color": "#B45309",
+     "note": "vektorlarning skalyar koʻpaytmasi"
+    },
+    {
+     "substr": "v \\cdot v",
+     "color": "#0E7C7B",
+     "note": "v vektorning oʻziga koʻpaytmasi"
+    }
+   ]
+  },
+  "narr": [
+   "Bu formula u vektorni v vektoriga proyeksiyasi hisoblash usulini beradi. Bu u vektorning v yoʻnalishidagi komponentini hisoblashga imkon beradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Vektor koʻpaytma",
+   "tex": "u \\times v = \\begin{pmatrix} u_2v_3 - u_3v_2 \\\\ u_3v_1 - u_1v_3 \\\\ u_1v_2 - u_2v_1 \\end{pmatrix}",
+   "parts": [
+    {
+     "substr": "u \\times v",
+     "color": "#4C5FD5",
+     "note": "ikkita vektorning vektor koʻpaytmasi"
+    },
+    {
+     "substr": "u_2v_3 - u_3v_2",
+     "color": "#B45309",
+     "note": "birinchi komponent"
+    },
+    {
+     "substr": "u_3v_1 - u_1v_3",
+     "color": "#0E7C7B",
+     "note": "ikkinchi komponent"
+    },
+    {
+     "substr": "u_1v_2 - u_2v_1",
+     "color": "#A03040",
+     "note": "uchinchi komponent"
+    }
+   ]
+  },
+  "narr": [
+   "Vektor koʻpaytma uch oʻlchamli fazada ikki vektorga perpendikulyar boʻlgan yangi vektorni beradi. Uning komponentlari berilgan formulalar boʻyicha hisoblanadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Vektor koʻpaytmasi xossalari",
+   "tex": "\\|u \\times v\\| = \\|u\\|\\|v\\||\\sin \\theta| \\text{ (yuza)}",
+   "parts": [
+    {
+     "substr": "\\|u \\times v\\|",
+     "color": "#4C5FD5",
+     "note": "vektor koʻpaytmasining normas"
+    },
+    {
+     "substr": "\\|u\\|\\|v\\|",
+     "color": "#B45309",
+     "note": "vektorlarning normalarining koʻpaytmasi"
+    },
+    {
+     "substr": "|\\sin \\theta|",
+     "color": "#0E7C7B",
+     "note": "vektorlar orasidagi burchkning sinusining moduli"
+    }
+   ]
+  },
+  "narr": [
+   "Vektor koʻpaytmasining normas ikki vektorning hosil qilgan parallelogramm yuzasiga teng boʻladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Vektor koʻpaytma antisimmetriklik",
+   "tex": "u \\times v = -(v \\times u)",
+   "parts": [
+    {
+     "substr": "u \\times v",
+     "color": "#4C5FD5",
+     "note": "birinchi vektorni ikkinchisiga koʻpaytirish"
+    },
+    {
+     "substr": "-(v \\times u)",
+     "color": "#B45309",
+     "note": "teskari tartibda koʻpaytirish va manfiy belgi"
+    }
+   ]
+  },
+  "narr": [
+   "Vektor koʻpaytma antisimmetrikdir - vektorlarning tartibini oʻzgartirsak natija manfiy boʻladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Vektor koʻpaytma perpendikulyarlik",
+   "tex": "(u \\times v) \\perp u, v",
+   "parts": [
+    {
+     "substr": "(u \\times v)",
+     "color": "#4C5FD5",
+     "note": "vektor koʻpaytmasi"
+    },
+    {
+     "substr": "\\perp u, v",
+     "color": "#B45309",
+     "note": "asosiy vektorlarga perpendikulyarlik"
+    }
+   ]
+  },
+  "narr": [
+   "Vektor koʻpaytmasi har ikki asosiy vektorga ham perpendikulyar boʻladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matritsa qoʻshish va koʻpaytirish",
+   "tex": "A = [a_{ij}] \\in \\mathbb{R}^{m \\times n}, \\quad (A + B)_{ij} = a_{ij} + b_{ij}, \\quad (cA)_{ij} = c a_{ij}",
+   "parts": [
+    {
+     "substr": "A = [a_{ij}] \\in \\mathbb{R}^{m \\times n}",
+     "color": "#4C5FD5",
+     "note": "matritsa oʻlchami va elementlari"
+    },
+    {
+     "substr": "(A + B)_{ij} = a_{ij} + b_{ij}",
+     "color": "#B45309",
+     "note": "matritsa qoʻshish"
+    },
+    {
+     "substr": "(cA)_{ij} = c a_{ij}",
+     "color": "#0E7C7B",
+     "note": "matritsani skalyar koʻpaytirish"
+    }
+   ]
+  },
+  "narr": [
+   "Matritsalar qoʻshilganda va skalyarga koʻpaytirilganda ularning mos keladigan elementlari qoʻshiladi yoki koʻpaytiriladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matritsa-vektor koʻpaytmasi",
+   "tex": "Ax = x_1a_1 + \\cdots + x_na_n \\text{ (ustunlar rasmi)}",
+   "parts": [
+    {
+     "substr": "Ax",
+     "color": "#4C5FD5",
+     "note": "matritsa va vektorni koʻpaytirish"
+    },
+    {
+     "substr": "x_1a_1 + \\cdots + x_na_n",
+     "color": "#B45309",
+     "note": "matritsaning ustunlarining chiziqli kombinatsiyasi"
+    },
+    {
+     "substr": "a_j",
+     "color": "#0E7C7B",
+     "note": "matritsaning j-ustuni"
+    }
+   ]
+  },
+  "narr": [
+   "Matritsa va vektorni koʻpaytirish natijasida matritsaning ustunlarining chiziqli kombinatsiyasi hosil boʻladi, bunda koeffitsientlar vektordan olinadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Diagonal matritsa",
+   "tex": "D = \\text{diag}(d_1, \\ldots, d_n) \\text{ har bir koordinatani masshtablaydi: } Dx = (d_1x_1, \\ldots, d_nx_n)^T",
+   "parts": [
+    {
+     "substr": "D = \\text{diag}(d_1, \\ldots, d_n)",
+     "color": "#4C5FD5",
+     "note": "diagonal matritsa"
+    },
+    {
+     "substr": "Dx = (d_1x_1, \\ldots, d_nx_n)^T",
+     "color": "#B45309",
+     "note": "diagonal matritsa bilan vektorni koʻpaytirish"
+    }
+   ]
+  },
+  "narr": [
+   "Diagonal matritsa faqatgina diagonal boʻylab elementlarga ega boʻlgan matritsadir. U vektorni koʻpaytirganda har bir komponentni mos keladigan diagonal elementga koʻpaytiradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]
