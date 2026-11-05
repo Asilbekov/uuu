@@ -1,0 +1,357 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Bu qismda chiziqli algebraning asosli tushunchalarini, matritsa koʻpaytmalarini va vektorlar boʻshliqlarini oʻrganamiz. Permutatsiya matritsalari, LU ajratish va altboʻshlik tushunchalarini chuqurroq koʻrib chiqamiz.",
+   "Keling, boshlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Permutatsiya matritsalari",
+   "bullets": [
+    "Matritsa qatorlarini yoki ustunlarini almashtirish uchun ishlatiladi",
+    "Identifikatsiya matritsasidan qatorlarni almashtirish orqali hosil qilinadi",
+    "Permutatsiya matritsasi P bilan chapdan koʻpaytirish (PA) matritsaning qatorlarini almashtiradi",
+    "Oʻngdan koʻpaytirish (AP) esa ustunlarni almashtiradi"
+   ]
+  },
+  "narr": [
+   "Permutatsiya matritsalari - bu matritsaning qatorlarini yoki ustunlarini almashtirish uchun moʻljallangan maxsus matritsalar. Ushbu matritsalar identifikatsiya matritsasidan qatorlarni almashtirish orqali hosil qilinadi. Permutatsiya matritsasi P bilan chapdan koʻpaytirish (PA) matritsaning qatorlarini almashtiradi, oʻngdan koʻpaytirish (AP) esa ustunlarni almashtiradi. Bu juda muhim farq, chunki koʻpaytish tartibi natijaga katta ta'sir qiladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 28 — Qatorlarni almashtiruvchi permutatsiya matritsasi",
+   "problem": "I3 matritsasining 1-va 2-qatorlarini almashtiruvchi permutatsiya matritsasini tuzing.",
+   "steps": [
+    "Identifikatsiya matritsasini yozamiz",
+    "1-va 2-qatorlarini almashtiramiz",
+    "Permutatsiya matritsasini P deb belgilaymiz"
+   ],
+   "result": "P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Keling, birinchi misolni ko'rib chiqaylik. I3 identifikatsiya matritsasining 1-va 2-qatorlarini almashtiruvchi permutatsiya matritsasini tuzishimiz kerak. Buning uchun avval identifikatsiya matritsamizni yozamiz. Keyin 1-va 2-qatorlarini almashtiramiz. Natijada permutatsiya matritsamiz P quyidagicha bo'ladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 29 — PA va AP solishtirish",
+   "problem": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} va A = \\begin{pmatrix} 2 & 5 \\\\ 7 & 1 \\end{pmatrix} uchun PA va AP ni solishtiring.",
+   "steps": [
+    "PA ni hisoblaymiz: P · A",
+    "AP ni hisoblaymiz: A · P",
+    "Natijalarni solishtiramiz"
+   ],
+   "result": "PA = \\begin{pmatrix} 7 & 1 \\\\ 2 & 5 \\end{pmatrix} — qatorlar almashtirilgan; AP = \\begin{pmatrix} 5 & 2 \\\\ 1 & 7 \\end{pmatrix} — ustunlar almashtirilgan. PA ≠ AP"
+  },
+  "narr": [
+   "Endi ikkinchi misolga o'tamiz. Berilgan P va A matritsalari uchun PA va AP ni hisoblab solishtirishimiz kerak. Avval P ni A ga chapdan ko'paytiramiz. Bu matritsaning qatorlarini almashtiradi. Keyin A ni P ga o'ngdan ko'paytiramiz. Bu esa matritsaning ustunlarini almashtiradi. Ko'rib turganimizdek, PA va AP ning natijalari har xil. Bu shuni ko'rsatadiki, chapdan va o'ngdan ko'paytirish o'zaro almashtirib bo'lmaydi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 30 — P<sup>T</sup>P = I tekshiruvi",
+   "problem": "P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 0 & 0 \\end{pmatrix} uchun P<sup>T</sup>P = I ekanligini tekshiring.",
+   "steps": [
+    "P<sup>T</sup> ni topamiz",
+    "P<sup>T</sup>P ni hisoblaymiz",
+    "Natijani identifikatsiya matritsasi bilan solishtiramiz"
+   ],
+   "result": "P<sup>T</sup>P = I, shuning uchun P<sup>-1</sup> = P<sup>T</sup>"
+  },
+  "narr": [
+   "Uchinchi misolda berilgan permutatsiya matritsasi uchun uning transponiriyalangan matritsasi bilan ko'paytmasining identifikatsiya matritsasiga teng ekanligini tekshirishimiz kerak. Avval P<sup>T</sup> ni topamiz. Keyin P<sup>T</sup>P ni hisoblaymiz. Ko'rib turganimizdek, natija identifikatsiya matritsasiga teng. Bu permutatsiya matritsalari uchun o'rinli bo'lgan xususiyat - ularning o'ziga teskarisi ularning transponiriyasiga teng."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 31 — Permutatsiya matritsasining determinantini topish",
+   "problem": "1-va 3-qatorlarni almashtiruvchi permutatsiya matritsasining determinantini toping.",
+   "steps": [
+    "Permutatsiya matritsasini yozamiz",
+    "Determinantni hisoblaymiz",
+    "Birinchi qator bo'yicha yoyish orqali tekshiramiz"
+   ],
+   "result": "P = \\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}, det P = -1"
+  },
+  "narr": [
+   "To'rtinchi misolda biz permutatsiya matrisasining determinantini topishimiz kerak. 1-va 3-qatorlarni almashtiruvchi permutatsiya matritsasini yozamiz. Determinantni hisoblaganda, biz bitta qatorni almashtirish belgini o'zgartirishini bilamiz. Shuning uchun determinant -1 ga teng. Buni birinchi qator bo'yicha yoyish orqali ham tekshirish mumkin."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 32 — 2 × 2 uchun PA = LU",
+   "problem": "A = \\begin{pmatrix} 0 & 1 \\\\ 4 & 2 \\end{pmatrix} uchun P, L, U ni toping.",
+   "steps": [
+    "Bosh element a11 = 0 — almashtirish kerak",
+    "P ni aniqlaymiz",
+    "PA ni hisoblaymiz",
+    "L va U ni topamiz"
+   ],
+   "result": "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, L = I2, U = \\begin{pmatrix} 4 & 2 \\\\ 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Beshinchi misolda LU ajratishni permutatsiya matritsasi bilan birgalikda qo'llaymiz. Berilgan A matritsasi uchun P, L, U ni topishimiz kerak. Bosh element a11 = 0 bo'lgani uchun almashtirish kerak. P matritsasini aniqlaymiz. Keyin PA ni hisoblaymiz. L va U ni topamiz. Natijada PA = LU tenglikni hosil qilamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 33 — Qisman bosh elementni tanlash",
+   "problem": "Qisman bosh elementni tanlash (partial pivoting) usulini A = \\begin{pmatrix} 0.001 & 1 \\\\ 2 & 1 \\end{pmatrix} ga qo'llang; almashtirish oldingi va keyingi ko'paytuvchilarni solishtiring.",
+   "steps": [
+    "Almashtirmasdan ko'paytuvchini hisoblaymiz",
+    "Qisman tanlov usulini qo'llaymiz",
+    "Almashtirgandan keyin ko'paytuvchini hisoblaymiz",
+    "Ikkala holatdagi ko'paytuvchilarni solishtiramiz"
+   ],
+   "result": "Almashtirmasdan: m21 = 2000; almashtirgandan keyin: m21 = 0.0005"
+  },
+  "narr": [
+   "Oltinchi misolda biz qisman bosh elementni tanlash usulini ko'rib chiqamiz. Berilgan A matritsasi uchun avval almashtirmasdan ko'paytuvchini hisoblaymiz. Bu holda m21 juda katta (2000) bo'lib, bu hisoblashda xatolarni kuchaytirishi mumkin. Qisman tanlov usulida birinchi ustundagi modul bo'yicha eng katta elementni tanlaymiz. Almashtirgandan keyin ko'paytuvchi ancha kichrayadi (0.0005). Bu esa hisoblash aniqiligini oshiradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Altbo'shlik (Null space)",
+   "bullets": [
+    "Altbo'shlik - bu berilgan matritsa A uchun Ax=0 tenglamani qanoatlantiruvchi barcha vektorlar to'plami",
+    "Altbo'shlik har doim chiziqli bo'shliq bo'ladi",
+    "Altbo'shlikda nol vektor har doim bo'ladi",
+    "Altbo'shlik qo'shish va skalyar ko'paytirish operatsiyalariga nisbatan yopiq"
+   ]
+  },
+  "narr": [
+   "Endi chiziqli algebrada muhim tushunchalardan biri bo'lgan altbo'shlikni ko'rib chiqamiz. Altbo'shlik - bu berilgan matritsa A uchun Ax=0 tenglamani qanoatlantiruvchi barcha vektorlar to'plami. Altbo'shlik har doim chiziqli bo'shliq bo'ladi, chunki u nol vektorini o'z ichiga oladi va qo'shish hamda skalyar ko'paytirish operatsiyalariga nisbatan yopiqdir."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 34 — Altbo'shmi? x + 2y = 0",
+   "problem": "W = {(x, y): x + 2y = 0} to'plamining altbo'shlik ekanligini tekshiring.",
+   "steps": [
+    "Nol vektor W da joylashganligini tekshiramiz",
+    "Qo'shish operatsiyasiga nisbatan yopiq ekanligini tekshiramiz",
+    "Skalyar ko'paytirish operatsiyasiga nisbatan yopiq ekanligini tekshiramiz"
+   ],
+   "result": "W = span{(-2, 1)} — koordinata boshidan o'tgan to'g'ri chiziq, altbo'shlik"
+  },
+  "narr": [
+   "Yettiinchi misolda berilgan to'plamning altbo'shlik ekanligini tekshirishimiz kerak. W = {(x, y): x + 2y = 0} to'plami uchun uchta shartni tekshirishimiz kerak: nol vektor W da joylashganligi, qo'shish operatsiyasiga nisbatan yopiq bo'lishi va skalyar ko'paytirish operatsiyasiga nisbatan yopiq bo'lishi. Barcha shartlar qanoatlantirilgani uchun W altbo'shlik ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 35 — Altbo'shmi? x + 2y = 3",
+   "problem": "W = {(x, y): x + 2y = 3} to'plamining altbo'shlik ekanligini tekshiring.",
+   "steps": [
+    "Nol vektor W da joylashganligini tekshiramiz",
+    "Natijani chiqaramiz"
+   ],
+   "result": "Yo'q: nol vektor W da yo'q, altbo'shlik 0 ni o'z ichiga olishi kerak"
+  },
+  "narr": [
+   "Sakkizinchi misolda yana bir to'plamni tekshirishimiz kerak. W = {(x, y): x + 2y = 3} to'plami uchun avval nol vektor W da joylashganligini tekshiramiz. 0 + 2·0 = 0 ≠ 3, shuning uchun nol vektor W da yo'q. Altbo'shlik har doim nol vektorini o'z ichiga olishi kerak, shuning uchun bu to'plam altbo'shlik emas."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 36 — Altbo'shmi? x ≥ 0",
+   "problem": "W = {(x, y): x ≥ 0} to'plamining altbo'shlik ekanligini tekshiring.",
+   "steps": [
+    "Nol vektor W da joylashganligini tekshiramiz",
+    "Qo'shish operatsiyasiga nisbatan yopiq ekanligini tekshiramiz",
+    "Skalyar ko'paytirish operatsiyasiga nisbatan yopiq ekanligini tekshiramiz"
+   ],
+   "result": "Yo'q: skalyar ko'paytirish operatsiyasiga nisbatan yopiq emas"
+  },
+  "narr": [
+   "To'qqizinchi misolda W = {(x, y): x ≥ 0} yarim tekisligining altbo'shlik ekanligini tekshirishimiz kerak. Nol vektor W da joylashgan va W qo'shish nisbatan yopiq. Lekin skalyar ko'paytirish operatsiyasiga nisbatan yopiq emas, chunki (1, 0) ∈ W, lekin (-1)·(1, 0) = (-1, 0) ∉ W. Shuning uchun yarim tekislik altbo'shlik emas."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Untor (Kernel)",
+   "bullets": [
+    "Untor - bu chiziqli transformatsiya tasirida nol vektoriga aylanadigan barcha vektorlar to'plami",
+    "Untor har doim chiziqli bo'shliq bo'ladi",
+    "Untor altbo'shlikning umumlashtirilishi hisoblanadi"
+   ]
+  },
+  "narr": [
+   "Keyingi tushuncha - untor. Untor - bu chiziqli transformatsiya tasirida nol vektoriga aylanadigan barcha vektorlar to'plami. Untor ham har doim chiziqli bo'shliq bo'ladi va aslida altbo'shlikning umumlashtirilishi hisoblanadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 37 — Untor? x - y + z = 0",
+   "problem": "W = {(x, y, z): x - y + z = 0} untor bo'lishini tekshiring.",
+   "steps": [
+    "f(x, y, z) = x - y + z funksiyaning chiziqliligini tekshiramiz",
+    "f(0, 0, 0) = 0 ekanligini tekshiramiz",
+    "f(au + bv) = a·f(u) + b·f(v) ekanligini tekshiramiz",
+    "W ni vektorlar yig'indisi sifatida ifodalaymiz"
+   ],
+   "result": "W = span{(1, 1, 0), (-1, 0, 1)} — koordinata boshidan o'tgan tekislik, untor"
+  },
+  "narr": [
+   "O'ninchi misolda W = {(x, y, z): x - y + z = 0} to'plamining untor bo'lishini tekshirishimiz kerak. f(x, y, z) = x - y + z funksiyaning chiziqliligini tekshiramiz. f(0, 0, 0) = 0 ekanligini va f(au + bv) = a·f(u) + b·f(v) ekanligini ko'ramiz. Shuningdek, W ni vektorlar yig'indisi sifatida ifodalab, u koordinata boshidan o'tgan tekislik ekanligini ko'ramiz. Natijada W untor ekanligini tasdiqlaymiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Chiziqli birikma (Linear combination)",
+   "bullets": [
+    "Chiziqli birikma - bu vektorlarning skalyar ko'paytmalari yig'indisi",
+    "Vektor boshqa vektorlarning chiziqli birikmasi sifatida ifodalansa, u ularning spaniga tegishli",
+    "Chiziqli birikma tushunchasi vektor bo'shliqlarini tushunishda asosiy rol o'ynaydi"
+   ]
+  },
+  "narr": [
+   "Chiziqli birikma - bu chiziqli algebrada asosiy tushunchalardan biri. Chiziqli birikma - bu vektorlarning skalyar ko'paytmalari yig'indisi. Agar biror vektor boshqa vektorlarning chiziqli birikmasi sifatida ifodalansa, u ularning spaniga tegishli bo'ladi. Bu tushuncha vektor bo'shliqlarini tushunishda juda muhim rol o'ynaydi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 38 — Chiziqli birikma",
+   "problem": "(6, 2) ni (1, 1) va (1, -1) vektorlarining birikmasi sifatida ifodalash.",
+   "steps": [
+    "Chiziqli birikma tenglamasini tuzamiz",
+    "Tenglamalarni yechamiz",
+    "Natijani tekshiramiz"
+   ],
+   "result": "c1 = 4, c2 = 2; 4(1, 1) + 2(1, -1) = (6, 2)"
+  },
+  "narr": [
+   "O'n birinchi misolda (6, 2) vektorni (1, 1) va (1, -1) vektorlarining chiziqli birikmasi sifatida ifodalashimiz kerak. Buning uchun c1(1, 1) + c2(1, -1) = (6, 2) tenglamani tuzamiz. Tenglamalarni yechib, c1 = 4 va c2 = 2 ekanligini topamiz. Natijani tekshirib, to'g'ri ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Qobiq geometriyasi (Span geometry)",
+   "bullets": [
+    "Span - berilgan vektorlarning chiziqli birikmalari hosil qiladigan barcha vektorlar to'plami",
+    "Ikki chiziqli bog'liq bo'lmagan vektorning tekislikni hosil qiladi",
+    "Uch chiziqli bog'liq bo'lmagan vektorning fazoviyni hosil qiladi",
+    "Qobiqning geometrik tasviri uning o'lchoviga bog'liq"
+   ]
+  },
+  "narr": [
+   "Qobiq (span) geometriyasi - bu chiziqli algebrada vektor bo'shliqlarining geometrik tasviri bilan shug'ullanadigan soha. Span - berilgan vektorlarning chiziqli birikmalari hosil qiladigan barcha vektorlar to'plami. Ikki chiziqli bog'liq bo'lmagan vektorning tekislikni hosil qiladi, uch chiziqli bog'liq bo'lmagan vektorning fazoviyni hosil qiladi. Qobiqning geometrik tasviri uning o'lchoviga bog'liq bo'ladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 39 — Qobiq geometriyasi",
+   "problem": "span{(1, 2, 0), (0, 1, 2)} ni geometrik tasvirlang.",
+   "steps": [
+    "Vektorlarning chiziqli bog'liqligini tekshiramiz",
+    "Parametrik tenglamalarni yozamiz",
+    "Parametrlarni chiqarib tashlab, tekislik tenglamasini hosil qilamiz",
+    "Natijani tekshiramiz"
+   ],
+   "result": "Vektorlar proporsional emas — qobiq ikki o'lchovli: koordinata boshidan o'tgan tekislik 4x - 2y + z = 0"
+  },
+  "narr": [
+   "O'n ikkinchi misolda span{(1, 2, 0), (0, 1, 2)} ni geometrik ravishda tasvirlashimiz kerak. Avval vektorlarning chiziqli bog'liqligini tekshiramiz. Ular proporsional emas, shuning uchun qobiq ikki o'lchovli bo'ladi. Parametrik tenglamalarni yozib, parametrlarni chiqarib tashlab, tekislik tenglamasini hosil qilamiz. Natijada 4x - 2y + z = 0 tekislik tenglamasini hosil qilamiz, bu koordinata boshidan o'tgan tekislikdir."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 40 — Nol-untor 2×3",
+   "problem": "A = \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 1 \\end{pmatrix} (2×3 matritsa, qator bo'yicha yozilgan) uchun Null(A) ni toping.",
+   "steps": [
+    "Ax = 0 tenglamani yozamiz",
+    "Tenglamalar sistemasini yechamiz",
+    "Yechimni parametrik ko'rinishda yozamiz",
+    "Null(A) ni aniqlaymiz"
+   ],
+   "result": "Null(A) = span{(-1, 1, -1), (-1, 0, 1)}"
+  },
+  "narr": [
+   "O'n uchinchi va oxirgi misolda A = \\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 1 \\end{pmatrix} matritsasi uchun Null(A) ni topishimiz kerak. Buning uchun Ax = 0 tenglamani yozamiz. Tenglamalar sistemasini yechib, yechimni parametrik ko'rinishda yozamiz. Natijada Null(A) = span{(-1, 1, -1), (-1, 0, 1)} ekanligini ko'ramiz. Bu matritsaning nol-untori ikki o'lchovli bo'shliqdir."
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]

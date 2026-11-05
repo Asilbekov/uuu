@@ -1,0 +1,373 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Xo'sh, chiziqli algebra darsining 5-7 haftalariga qarab ko'raylik. Bu yerda biz matritsalar, bo'shliqlar va vektorlar haqida chuqurroq bilimlarni egallaymiz.",
+   "Keling, birinchi misolni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — Nol bo'shliqni topish",
+   "problem": "A matritsasi uchun Null(A) ni toping.",
+   "steps": [
+    {
+     "text": "2-qatoridan: x2 = −x3"
+    },
+    {
+     "text": "1-qatoridan: x1 = −x2 −x3 = 0"
+    },
+    {
+     "text": "Erkin oʻzgaruvchi x3 = t: x = t(0, −1, 1)"
+    }
+   ],
+   "result": "Natija: Null(A) = span{(0, −1, 1)} — R3 dagi toʻgʻri chiziq."
+  },
+  "narr": [
+   "Bu yerda biz nol bo'shliqni topishimiz kerak. Buning uchun avval ikkinchi qatordagi tenglamani yechamiz: x2 minus x3 nolga teng.",
+   "Keyin birinchi qatordan x1 ni topamiz, u x2 minus x3 ga teng, lekin bu nolga teng bo'ladi.",
+   "X3 erkin o'zgaruvchi bo'lgani uchun uni t deb belgilaymiz va yechimni vektor ko'rinishida yozamiz.",
+   "Shunday qilib, nol bo'shligimiz bitta vektordan iborat bo'lgan to'g'ri chiziqdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 41 — Ustunlar bo'shlig'ini topish",
+   "problem": "3 × 2 o'lchamli A matritsasi uchun Col(A) ni toping.",
+   "steps": [
+    {
+     "text": "Ustunlar a1 = (1, 2, 3) va a2 = (2, 4, 6) = 2a1 proporsional"
+    },
+    {
+     "text": "Shuning uchun har qanday birikma a1 ning karrali"
+    }
+   ],
+   "result": "Col(A) = span{(1, 2, 3)} — R3 dagi to'g'ri chiziq ((t, 2t, 3t) vektorlari)."
+  },
+  "narr": [
+   "Endi ustunlar bo'shlig'ini topishimiz kerak. Bu matritsaning ustunlari chiziqli bog'liq ekanligini ko'ramiz.",
+   "Ikkinchi ustun birinchisining ikki barobari, shuning uchun ular bir xil yo'nalishda.",
+   "Demak, ustunlar bo'shlig'i faqat bitta vektordan iborat bo'lgan to'g'ri chiziqdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 42 — Ustunlar bo'shlig'iga tegishlilik",
+   "problem": "(1, 1, 1) vektori A matritsasi uchun Col(A) ustunlar bo'shlig'iga tegishlimi?",
+   "steps": [
+    {
+     "text": "c1(1, 0, 1) + c2(0, 1, 1) = (1, 1, 1) ni qidiraylik"
+    },
+    {
+     "text": "Birinchi ikki koordinata c1 = c2 = 1 beradi"
+    },
+    {
+     "text": "Lekin uchinchisi 2 ≠ 1 — ziddiyat"
+    }
+   ],
+   "result": "Natija: (1, 1, 1) ∉ Col(A) (Col(A) — z = x + y tekisligi, 1 ≠ 1 + 1)."
+  },
+  "narr": [
+   "Bu masalada biz (1, 1, 1) vektorining matritsaning ustunlar bo'shlig'iga tegishli yoki yo'qligini aniqlaymiz.",
+   "Buning uchun ushbu vektorni ustunlarning chiziqli birikmasi sifatida ifodalashga harakat qilamiz.",
+   "Birinchi ikki komponent uchun c1 va c2 ni 1 deb topamiz, lekin uchinchi komponentda ziddiyat paydo bo'ladi.",
+   "Shunday qilib, bu vektor ustunlar bo'shlig'iga kirmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 43 — Untorlarning kesishishi",
+   "problem": "Ikkita untorning kesishmasi untor ekanligini isbotlang.",
+   "steps": [
+    {
+     "text": "U, W ⊆ V untorlari uchun: (1) 0 ∈ U ∩ W"
+    },
+    {
+     "text": "(2) Agar u, v ∈ U ∩ W, u+v ∈ U va u+v ∈ W (har birining yopiq bo'lishi), demak u+v ∈ U ∩ W"
+    },
+    {
+     "text": "(3) Agar u ∈ U ∩ W, cu ∈ U va cu ∈ W, demak cu ∈ U ∩ W"
+    }
+   ],
+   "result": "Test bajarildi."
+  },
+  "narr": [
+   "Bu yerda biz ikkita untor (chiziqli bo'shliq) kesishmasining ham untor ekanligini isbotlamoqchimiz.",
+   "Birinchidan, ikkala untor ham nol vektorni o'z ichiga oladi, shuning uchun ularning kesishmasi ham nolni o'z ichiga oladi.",
+   "Ikkinchidan, ikkala untor ham qo'shishga nisbatan yopiq bo'lgani uchun, kesishmada bo'lgan ikkita vektorning yig'indisi ham kesishmada bo'ladi.",
+   "Uchinchidan, ikkala untor ham skalyar ko'paytirishga nisbatan yopiq bo'lgani uchun, kesishmada bo'lgan vektorga skalyar ko'paytirish natijasi ham kesishmada bo'ladi.",
+   "Shunday qilib, barcha shartlar qanoatlantiriladi va kesishma untor ekanligi isbotlandi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 44 — Untorlarning birlashmasi",
+   "problem": "Birlashmasi untor bo'lmagan ikki untor keltiring.",
+   "steps": [
+    {
+     "text": "R² da o'qlarni U = {(x, 0)} va W = {(0, y)} deb olaylik — ikkalasi ham untor"
+    },
+    {
+     "text": "Birlashmada (1, 0) va (0, 1) bor, lekin ularning yig'indisi (1, 1) hech qaysi o'qda joylashmagan"
+    },
+    {
+     "text": "Birlashma qo'shishga nisbatan yopiq emas — untor emas"
+    }
+   ],
+   "result": "Birlashma untor bo'lmaydi."
+  },
+  "narr": [
+   "Bu masalada biz birlashmasi untor bo'lmagan ikkita untor topishimiz kerak.",
+   "Oddiy misol sifatida R² tekisligidagi koordinata o'klarini olaylik: X o'qi (x, 0) vektorlari va Y o'qi (0, y) vektorlari.",
+   "Ikkala o'q ham alohida-alohida untorlardir, lekin ularning birlashmasi untor bo'lmaydi.",
+   "Chunki (1, 0) va (0, 1) vektorlari birlashmada mavjud, lekin ularning yig'indisi (1, 1) hech qaysi o'qda joylashmagan.",
+   "Shunday qilib, birlashma qo'shishga nisbatan yopiq emas va untor bo'lmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 45 — Simmetrik matritsalar",
+   "problem": "3 × 3 barcha haqiqiy matritsalar fazasining simmetrik 3 × 3 matritsalar to'plami untormi?",
+   "steps": [
+    {
+     "text": "(1) Nol matritsa simmetrik"
+    },
+    {
+     "text": "(2) Simmetrik S, T uchun (S+T)ᵀ = Sᵀ + Tᵀ = S + T"
+    },
+    {
+     "text": "(3)(cS)ᵀ = c · Sᵀ = cS"
+    }
+   ],
+   "result": "Yopiq bo'lish bajarildi — untor."
+  },
+  "narr": [
+   "Bu masalada biz simmetrik matritsalar to'plamining untor ekanligini tekshiramiz.",
+   "Birinchidan, nol matritsa simmetrik ekanligini bilamiz, chunki uning transponiruvi o'zi bilan teng.",
+   "Ikkinchidan, ikkita simmetrik matritsani qo'shsak, natija ham simmetrik bo'ladi, chunki transponiruv qo'shish operatsiyasiga ta'sir qilmaydi.",
+   "Uchinchidan, simmetrik matritsani skalyar ko'paytirsak, natija ham simmetrik bo'ladi, chunki skalyar ko'paytirish transponiruvga ta'sir qilmaydi.",
+   "Shunday qilib, barcha shartlar qanoatlantiriladi va simmetrik matritsalar to'plami untor ekanligi isbotlandi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 46 — Ko'phadlar",
+   "problem": "p(0) = 1 bo'lgan ko'phadlar to'plami untormi?",
+   "steps": [
+    {
+     "text": "Nol ko'phad p(0) = 0 ≠ 1 beradi — nol vektori yo'q"
+    },
+    {
+     "text": "p(x) = 1 va q(x) = 1 + x uchun: (p + q)(0) = 2 ≠ 1 — qo'shishning yopiq bo'lishi buzilgan"
+    }
+   ],
+   "result": "Yo'q. (p(0) = 0 bo'lgan ko'phadlar, aksincha, — untor.)"
+  },
+  "narr": [
+   "Bu masalada biz p(0) = 1 shartini qanoatlantiruvchi ko'phadlar to'plamining untor ekanligini tekshiramiz.",
+   "Birinchidan, nol ko'phad bu shartni qanoatlantirmaydi, chunki u nolga tenglanadi. Shuning uchun nol vektor yo'q.",
+   "Ikkinchidan, p(x) = 1 va q(x) = 1 + x bo'lsa, ularning yig'indisi (p + q)(0) = 2 ≠ 1 bo'ladi.",
+   "Shunday qilib, bu to'plam qo'shishga nisbatan yopiq emas va untor bo'lmaydi.",
+   "Aksincha, p(0) = 0 bo'lgan ko'phadlar to'plami untor bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 47 — Murakkab masala",
+   "problem": "Ixtiyoriy haqiqiy A matritsasi uchun Null(AᵀA) = Null(A) ni isbotlang.",
+   "steps": [
+    {
+     "text": "(1) Agar Ax = 0, u holda AᵀAx = Aᵀ(Ax) = 0, ya'ni Null(A) ⊆ Null(AᵀA)"
+    },
+    {
+     "text": "(2) AᵀAx = 0 deb faraz qilaylik; chapdan xᵀ ko'paytiramiz: xᵀAᵀAx = ||Ax||² = 0"
+    },
+    {
+     "text": "Ax koordinatalari kvadratlari yig'indisi nolga teng, demak, Ax = 0"
+    }
+   ],
+   "result": "Natija: Null(AᵀA) = Null(A); xulosa — AᵀA bir xil nol-untor va rangga ega (eng kichik kvadratlar fakti)."
+  },
+  "narr": [
+   "Bu murakkab masalada biz AᵀA matritsasi va A matritsasining nol bo'shliklarini solishtiramiz.",
+   "Birinchidan, agar Ax = 0 bo'lsa, u holda AᵀAx = Aᵀ(Ax) = 0 bo'ladi, ya'ni Null(A) Null(AᵀA) ning kichik to'plami.",
+   "Ikkinchidan, AᵀAx = 0 degan farazdan boshlaymiz va chapdan xᵀ ni ko'paytiramiz.",
+   "Bu ||Ax||² = 0 degan ma'noni anglatadi, ya'ni Ax vektorining uzunligi nolga teng, bu esa Ax = 0 degani.",
+   "Shunday qilib, ikkala nol bo'shlik ham bir xil ekanligi isbotlandi. Bu eng kichik kvadratlar usulining asosiy faktidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 48 — Murakkab masala",
+   "problem": "P — almashtiruvchi matritsa bo'lsa, Col(PA) = P Col(A) ni isbotlang.",
+   "steps": [
+    {
+     "text": "Ta'rifiga ko'ra Col(PA) = {PAx: x ∈ Rⁿ }, P Col(A) = {Pb: b ∈ Col(A)}"
+    },
+    {
+     "text": "(1) Agar y = PAx, u holda y = P(Ax) Ax ∈ Col(A) bilan — demak y ∈ P Col(A)"
+    },
+    {
+     "text": "(2) Agar y = Pb b = Ax ∈ Col(A) bilan, u holda y = PAx ∈ Col(PA)"
+    }
+   ],
+   "result": "Natija: Col(PA) = P Col(A) — qatorlarni almashtirish ustunlar bo'shlig'ining har bir nuqtasini bir xil almashtirish bilan o'zgartiradi (b → Pb birma-bir, P teskari)."
+  },
+  "narr": [
+   "Bu masalada biz almashtiruvchi matritsa P bo'lganda, PA matritsasining ustunlar bo'shlig'i P Col(A) ga teng ekanligini isbotlamoqchimiz.",
+   "Birinchidan, Col(PA) to'plami PAx ko'rinishididan barcha vektorlardan iborat, bu erda x Rⁿ dan olingan.",
+   "Agar y = PAx bo'lsa, u holda y = P(Ax) bo'ladi, bu erda Ax Col(A) dan olingan, shuning uchun y P Col(A) da joylashgan.",
+   "Aksincha, agar y = Pb bo'lsa, bu erda b Col(A) dan olingan, u holda b = Ax bo'lishi mumkin, shuning uchun y = PAx Col(PA) da joylashgan.",
+   "Shunday qilib, ikkala to'plam ham bir xil ekanligi isbotlandi. Bu almashtiruvchi matritsaning ustunlar bo'shlig'ini qanday o'zgartirishini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 49 — Murakkab masala",
+   "problem": "Agar W — untor bo'lsa, span(W) = W ni isbotlang.",
+   "steps": [
+    {
+     "text": "span(W) — barcha chekli kombinatsiyalar c₁w₁+...+cₖwₖ to'plami, bunda wᵢ ∈ W"
+    },
+    {
+     "text": "(1) Har bir kombinatsiya W da joylashgan: cᵢwᵢ ∈ W (skalyarlar), W elementlari yig'indisi Wda (qo'shish)"
+    },
+    {
+     "text": "(2) Har bir w ∈ W 1 · w kombinatsiyasidir"
+    }
+   ],
+   "result": "Natija: span(W) = W — bu kichik fazo o'zining barcha kombinatsiyalarini o'z ichiga oladi."
+  },
+  "narr": [
+   "Bu masalada biz agar W untor bo'lsa, uning spani (chegara) o'ziga teng ekanligini isbotlamoqchimiz.",
+   "Span(W) to'plami W dagi barcha vektorlarning chiziqli birikmalaridan iborat.",
+   "Agar W untor bo'lsa, u chiziqli bo'shliq bo'ladi, shuning uchun unga skalyar ko'paytirish va qo'shish amallari nisbatan yopiq.",
+   "Shunday qilib, W dagi har qanday vektorlar kombinatsiyasi ham W da joylashgan.",
+   "Bundan tashqari, W dagi har qanday vektor oddiygina 1 · w kombinatsiyasidir, ya'ni u span(W) da joylashgan.",
+   "Shunday qilib, span(W) = W, ya'ni untor o'zining barcha chiziqli birikmalarini o'z ichiga oladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 50 — Murakkab masala",
+   "problem": "A matritsasi uchun Col(A) va Null(A) ni tasvirlang.",
+   "steps": [
+    {
+     "text": "Ustunlar a₁ = (1, 0, 0), a₂ = (2, 1, 0), a₃ = (0, 1, 0) = a₂ − 2a₁"
+    },
+    {
+     "text": "Uchinchi qator nolli, shuning uchun barcha ustunlar z = 0 tekisligida joylashgan, a₁, a₂ esa mustaqil"
+    },
+    {
+     "text": "Nol-fazo: 2-qatordan x₂ = −x₃, 1-qatordan x₁ = −2x₂ = 2x₃; x₃ = t: x = t(2, −1, 1)"
+    }
+   ],
+   "result": "Col(A) = span{(1, 0, 0), (2, 1, 0)} = {(s + 2t, t, 0)} — bu z = 0 tekisligi. Null(A) = span{(2, −1, 1)} — to'g'ri chiziq."
+  },
+  "narr": [
+   "Bu masalada berilgan A matritsasi uchun ustunlar bo'shlig'ini va nol bo'shlig'ini tasvirlashimiz kerak.",
+   "Ustunlarni ko'rib chiqamiz: birinchi ustun (1, 0, 0), ikkinchi (2, 1, 0), uchinchi (0, 1, 0).",
+   "Uchinchi ustun ikkinchi ustunning ikki barobaridan birinchi ustunni ayirish orqali olinadi, shuning uchun u mustaqil emas.",
+   "Matritsaning uchinchi qatori nol, shuning uchun barcha ustunlar z = 0 tekisligida joylashgan.",
+   "Nol bo'shlig'ini topish uchun Ax = 0 tenglamani yechamiz. Ikkinchi qatordan x₂ = −x₃, birinchi qatordan x₁ = −2x₂ = 2x₃.",
+   "Erkin o'zgaruvchi x₃ = t deb olsak, yechim x = t(2, −1, 1) bo'ladi.",
+   "Shunday qilib, ustunlar bo'shlig'i z = 0 tekisligi, nol bo'shlig'i esa bitta vektordan iborat to'g'ri chiziqdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ }
+]
