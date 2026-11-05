@@ -49,6 +49,9 @@ targets = [i for i, b in enumerate(blocks)
            if b['type'] in ('formula', 'example', 'table')][:14]
 raw_re = re.compile(r'\\(?:frac|sqrt|begin|overline|lim|sum|cdot|times|mathbb|text)\b')
 dollar_re = re.compile(r'\$[^$\s][^$]{0,60}\$')
+# легитимный контент: программный код (C-примеры с $ в учебном контексте) —
+# $..$ считается raw-LaTeX только если внутри есть LaTeX-разметка (\, ^, _, {)
+latex_inside_re = re.compile(r'[\\^_{}]')
 checked = 0
 with tempfile.TemporaryDirectory() as td:
     for i in targets:
@@ -65,7 +68,8 @@ with tempfile.TemporaryDirectory() as td:
             if raw_re.search(line):
                 issues.append(f'block {i} ({blocks[i]["type"]}): raw LaTeX: {line.strip()[:70]}')
                 break
-            if dollar_re.search(line):
+            md = dollar_re.search(line)
+            if md and latex_inside_re.search(md.group(0)):
                 issues.append(f'block {i} ({blocks[i]["type"]}): raw $...$: {line.strip()[:70]}')
                 break
 print(f'ocr: {checked} blocks checked (formula/example/table)')

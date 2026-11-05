@@ -44,10 +44,10 @@ const MAP: Record<string, [string, string]> = {
 const only = process.argv.slice(2);   // можно передать подмножество video-id
 const sql = new SQL(DB);
 
-let ok = 0, missing = 0;
+let ok = 0, missing = 0, replaced = 0;
 for (const [vid, [needle, lang]] of Object.entries(MAP)) {
   if (only.length && !only.includes(vid)) continue;
-  const rows = await sql`SELECT id, title, url, size FROM "Attachment"
+  const rows = await sql`SELECT id, title, url, size, "tgMessageId" FROM "Attachment"
     WHERE type = 'video' AND title LIKE ${'%' + needle + '%'}`;
   let row = rows[0];
   // язык: EN-строки содержат "(EN)" и т.п.; Q&A — отдельная
@@ -63,7 +63,19 @@ for (const [vid, [needle, lang]] of Object.entries(MAP)) {
   }
   if (!row) { console.log(`⚠️ ${vid}: строка не найдена (needle: ${needle})`); missing++; continue; }
   if (row.url && String(row.url).startsWith('tg:')) {
-    console.log(`⏭️ ${vid}: уже в Telegram (${String(row.url).slice(0, 40)}...) — пропущен (idempotent)`);
+    // idempotent-guard: пропускаем только УЖЕ V2-отправленные (волна v2 началась
+    // с msg1185). tg: от v1-эры (< 1185) — заменяем на v2 принудительно.
+    const mid = row.tgMessageId ?? 0;
+    if (mid >= 1185) {
+      console.log(`⏭️ ${vid}: уже v2 в Telegram (msg${mid}) — пропущен (idempotent)`);
+      continue;
+    }
+    console.log(`🔁 ${vid}: v1-видео (msg${mid}) → заменяем на v2`);
+    await sql`UPDATE "Attachment"
+      SET url = ${RELEASE + vid + '.mp4'}, "fallbackUrl" = NULL, "tgMessageId" = NULL, "updatedAt" = now()
+      WHERE id = ${row.id}`;
+    console.log(`✓ ${vid} → attachment ${row.id} (${String(row.title).slice(0, 50)}) [v1→v2]`);
+    replaced++;
     continue;
   }
   await sql`UPDATE "Attachment"
@@ -72,4 +84,4 @@ for (const [vid, [needle, lang]] of Object.entries(MAP)) {
   console.log(`✓ ${vid} → attachment ${row.id} (${String(row.title).slice(0, 50)})`);
   ok++;
 }
-console.log(`\nобновлено: ${ok}, не найдено: ${missing}`);
+console.log(`\nобновлено: ${ok}, замен v1→v2: ${replaced}, не найдено: ${missing}`);
