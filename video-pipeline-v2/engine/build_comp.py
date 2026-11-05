@@ -94,7 +94,16 @@ def _plot_svg(pdata, W=1280, H=560):
     for f in pdata['functions']:
         xs = _np.linspace(x0, x1, 640)
         try:
-            ys = eval(f['fn'], {'np': _np, 'x': xs, 'math': math})
+            _ns = {'np': _np, 'x': xs, 'math': math}
+            for _n in ('exp', 'log', 'log10', 'sin', 'cos', 'tan', 'sqrt', 'abs',
+                       'floor', 'ceil', 'arctan', 'arcsin', 'arccos', 'sinh', 'cosh'):
+                _ns[_n] = getattr(_np, _n, None) or getattr(math, _n, None)
+            _ns['pi'] = _np.pi
+            _ns['e'] = _np.e
+            _ns['maximum'] = _np.maximum
+            _ns['minimum'] = _np.minimum
+            _ns['where'] = _np.where
+            ys = eval(f['fn'], _ns)
             ys = _np.asarray(ys, dtype=float)
             if ys.ndim == 0:
                 ys = _np.full_like(xs, float(ys))
