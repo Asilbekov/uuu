@@ -150,7 +150,7 @@ def walk(o):
         for k, v in list(o.items()):
             if k in TEXT_KEYS and isinstance(v, str):
                 o[k] = fix_text(v)
-            elif k in ('bullets', 'items') and isinstance(v, list):
+            elif k in ('bullets', 'items', 'narr', 'caption') and isinstance(v, list):
                 o[k] = [fix_text(x) if isinstance(x, str) else x for x in v]
             elif isinstance(v, (dict, list)):
                 walk(v)
