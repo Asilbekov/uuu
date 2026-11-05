@@ -1,0 +1,551 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Formula",
+   "subtitle": "Izoh"
+  },
+  "narr": [
+   "Keling, biz rancho qiymati formulasini ko'rib chiqaylik.",
+   "Bu formula rancho maydoni va narxini hisoblash uchun ishlatiladi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq — Rancho qiymati",
+   "problem": "Tomoni X bo'lgan kvadrat rancho: perimetri 4X, maydoni X²; qiymati 320 000 $",
+   "steps": [
+    {
+     "text": "Rancho qiymati formulasi: 4X × 10⁴ $/milya? yo'q: 4X [m] × 10³ [$/m] + X² [milya²] × 10⁴ [$ / milya²] = 320 000 $"
+    },
+    {
+     "text": "Birliklarni soddalashtiramiz: 4000X + 10000X² = 320000"
+    },
+    {
+     "text": "Tenglamani yechamiz: 10000X² + 4000X - 320000 = 0"
+    },
+    {
+     "text": "Kvadrat tenglamani yechamiz: X = (-b ± √(b² - 4ac)) / 2a"
+    },
+    {
+     "text": "Ildizlarni hisoblaymiz: X = 1,6 milya yoki X = -2 milya"
+    },
+    {
+     "text": "Fizik ma'noga ega yechim: X = 1,6 milya"
+    }
+   ],
+   "result": "X = 1,6 milya"
+  },
+  "narr": [
+   "Mashq: kvadrat rancho maydoni va perimetrini hisoblash.",
+   "Birinchi qadam: rancho qiymati formulasini yozamiz.",
+   "Ikkinchi qadam: birliklarni soddalashtiramiz.",
+   "Uchinchi qadam: kvadrat tenglamani hosil qilamiz.",
+   "To'rtinchi qadam: kvadrat tenglama formulasini qo'llaymiz.",
+   "Beshinchi qadam: ikkita ildizni hisoblaymiz.",
+   "Oltinchi qadam: fizik ma'noga ega yechimni tanlaymiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "2-misol — Sim cho'zilishi",
+   "problem": "Simning cho'zilishi uzunlikka proporsional (Guk qonuni)",
+   "steps": [
+    {
+     "text": "Guk qonuni: X₂/X₁ = L₂/L₁"
+    },
+    {
+     "text": "Berilgan ma'lumotlar: X₁ = 2,00 mm, L₁ = 4,00 mm, L₂ = 15,0 mm"
+    },
+    {
+     "text": "Formulaga qiymatlarni qo'yamiz: X₂/2,00 = 15,0/4,00"
+    },
+    {
+     "text": "Tenglamani yechamiz: X₂ = 2,00 × 15,0/4,00"
+    },
+    {
+     "text": "Natijani hisoblaymiz: X₂ = 7,50 mm"
+    }
+   ],
+   "result": "X₂ = 7,50 mm"
+  },
+  "narr": [
+   "2-misol: sim cho'zilishi masalasi.",
+   "Guk qonuni formulasi: nisbatlar teng.",
+   "Berilgan ma'lumotlarni ko'rib chiqaylik.",
+   "Formulaga qiymatlarni qo'yamiz.",
+   "Tenglamani yechamiz.",
+   "Natijani hisoblaymiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "2.5-misol — Benzin sarfi",
+   "problem": "Arenda kompaniyasining elektron jadvali: segmentlar bo'yicha yig'indi va o'rtachalar (city/suburban/highway)",
+   "steps": [
+    {
+     "text": "Gallonlar = milyalar / mpg"
+    },
+    {
+     "text": "Jami gallonlar = Σ segmentlar (milyalar / mpg)"
+    },
+    {
+     "text": "Har bir segment uchun: city, suburban, highway"
+    },
+    {
+     "text": "Jami = city + suburban + highway"
+    }
+   ],
+   "result": "Jami gallonlar = Σ segmentlar (milyalar / mpg)"
+  },
+  "narr": [
+   "2.5-misol: benzin sarfi masalasi.",
+   "Gallonlar va milyalar o'rtasidagi bog'liqlik.",
+   "Segmentlar bo'yicha hisoblash usuli.",
+   "Jami gallonlarni hisoblash."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "2.6–2.9-mashqlar — Tezlik xarakteristikasi",
+   "problem": "Ishlab chiqaruvchi zavodning tezlik xarakteristikasi — o'lchovlar bilan solishtirish uchun",
+   "steps": [
+    {
+     "text": "Tezlik formulasi: mph = 136,5(1 − e^(-0,158t))"
+    },
+    {
+     "text": "t — vaqt sekundlarda"
+    },
+    {
+     "text": "Tezlikni hisoblash: turli vaqt qiymatlari uchun"
+    },
+    {
+     "text": "Natijalarni o'lchovlar bilan solishtirish"
+    }
+   ],
+   "result": "Tezlik = 136,5(1 − e^(-0,158t)) mph"
+  },
+  "narr": [
+   "2.6–2.9-mashqlar: tezlik xarakteristikasi masalalari.",
+   "Tezlik formulasini ko'rib chiqaylik.",
+   "Vaqt parametri t sekundlarda.",
+   "Turli vaqt qiymatlari uchun tezlikni hisoblaymiz.",
+   "Natijalarni amaliy o'lchovlar bilan solishtiramiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "2.10-misol — Avtomobil benzinining og'irligi, sarfi va yurish masofasi",
+   "problem": "Avtomobil benzinining og'irligi, sarfi va yurish masofasi",
+   "steps": [
+    {
+     "text": "G = W^(2/3) — benzin og'irligi"
+    },
+    {
+     "text": "mpg = 84500/W − 3,0 — milya/gallon nisbati"
+    },
+    {
+     "text": "Masofa = gallonlar × mpg — yurish masofasi"
+    },
+    {
+     "text": "Barcha parametrlarni bog'laymiz"
+    }
+   ],
+   "result": "Masofa = gallonlar × mpg = (W/mpg) × mpg = W"
+  },
+  "narr": [
+   "2.10-misol: avtomobil benzinining og'irligi, sarfi va yurish masofasi.",
+   "Benzin og'irligi formulasi.",
+   "Milya/gallon nisbati formulasi.",
+   "Yurish masofasi formulasi.",
+   "Barcha parametrlarni bog'lash."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "17–19-mashqlar — Sakrovchining elastik arqonining cho'zilishi",
+   "problem": "Sakrovchining elastik arqonining cho'zilishi: og'irlik W (lbf), qattiqlik K (lbf/ft), uzunlik L (ft)",
+   "steps": [
+    {
+     "text": "Formula: X = W/K + √(W²/K² + 2WL/K)"
+    },
+    {
+     "text": "Birliklarni tekshirish: W (lbf), K (lbf/ft), L (ft)"
+    },
+    {
+     "text": "Qavslarni ochamiz: X = W/K + √(W²/K² + 2WL/K)"
+    },
+    {
+     "text": "Ildiz ostidagi ifodani soddalashtiramiz"
+    },
+    {
+     "text": "Natijani hisoblaymiz"
+    }
+   ],
+   "result": "X = W/K + √(W²/K² + 2WL/K)"
+  },
+  "narr": [
+   "17–19-mashqlar: sakrovchining elastik arqonining cho'zilishi.",
+   "Formula: cho'zilish og'irlik va qattiqlik bilan bog'liq.",
+   "Birliklarni tekshirish: lbf va ft.",
+   "Qavslarni ochamiz va ifodani soddalashtiramiz.",
+   "Natijani hisoblaymiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "20–23-mashqlar — Avtomobildan foydalanish",
+   "problem": "Avtomobildan foydalanish; $5,00/gallon, yiliga 2,0×10⁴ milya",
+   "steps": [
+    {
+     "text": "Milya uchun qiymat = 0,20/yil × narx/(yiliga milya) + (benzin narxi) × (gallon/milya)"
+    },
+    {
+     "text": "Berilgan: benzin narxi = $5,00/gallon, yillik masofa = 2,0×10⁴ milya"
+    },
+    {
+     "text": "mpg nisbatini hisoblaymiz"
+    },
+    {
+     "text": "Yillik xarajatlarni hisoblaymiz"
+    }
+   ],
+   "result": "Yillik xarajat = 0,20 × narx/milya + 5,00 × gallon/milya × 2,0×10⁴"
+  },
+  "narr": [
+   "20–23-mashqlar: avtomobildan foydalanish masalasi.",
+   "Milya uchun qiymat formulasi.",
+   "Berilgan ma'lumotlar: benzin narxi va yillik masofa.",
+   "mpg nisbatini hisoblash.",
+   "Yillik xarajatlarni hisoblash."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "6.3-jadval. Kosky 2-bob mashqlaridan olingan hisob munosabatlari (2–4-hafta modellari)",
+   "columns": [
+    "Model",
+    "Formula",
+    "Birliklar",
+    "Qo'llaniladigan joy"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "Rancho qiymati"
+     },
+     {
+      "tex": "4X \\times 10^3 + X^2 \\times 10^4"
+     },
+     {
+      "tex": "$"
+     },
+     {
+      "tex": "Moliyaviy hisoblar"
+     }
+    ],
+    [
+     {
+      "tex": "Sim cho'zilishi"
+     },
+     {
+      "tex": "\\frac{X_2}{X_1} = \\frac{L_2}{L_1}"
+     },
+     {
+      "tex": "mm"
+     },
+     {
+      "tex": "Materiallar mexanikasi"
+     }
+    ],
+    [
+     {
+      "tex": "Benzin sarfi"
+     },
+     {
+      "tex": "\\text{Gallonlar} = \\frac{\\text{Milyalar}}{\\text{mpg}}"
+     },
+     {
+      "tex": "gallon"
+     },
+     {
+      "tex": "Transport"
+     }
+    ],
+    [
+     {
+      "tex": "Tezlik"
+     },
+     {
+      "tex": "\\text{mph} = 136,5(1 - e^{-0,158t})"
+     },
+     {
+      "tex": "mph"
+     },
+     {
+      "tex": "Mexanika"
+     }
+    ],
+    [
+     {
+      "tex": "Benzin og'irligi"
+     },
+     {
+      "tex": "G = W^{2/3}"
+     },
+     {
+      "tex": "lbf"
+     },
+     {
+      "tex": "Kimyo"
+     }
+    ],
+    [
+     {
+      "tex": "Arqon cho'zilishi"
+     },
+     {
+      "tex": "X = \\frac{W}{K} + \\sqrt{\\frac{W^2}{K^2} + \\frac{2WL}{K}}"
+     },
+     {
+      "tex": "ft"
+     },
+     {
+      "tex": "Mexanika"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "6.3-jadval: 2–4-hafta modellari uchun hisob munosabatlari.",
+   "Rancho qiymati modeli.",
+   "Sim cho'zilishi modeli.",
+   "Benzin sarfi modeli.",
+   "Tezlik modeli.",
+   "Benzin og'irligi modeli.",
+   "Arqon cho'zilishi modeli."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Formula yechish usuli",
+   "bullets": [
+    "Need — nimani izlaymiz va qanday birliklarda",
+    "Know — nima berilgan va tajribadan nima ma'lum",
+    "How — qaysi tenglama va qanday farazlar",
+    "Solve — kvadrat qavslarda birliklar tekshiruvi va ma'noli raqamlarning to'g'ri soni bilan"
+   ]
+  },
+  "narr": [
+   "Formula yechish usuli to'rt bosqichdan iborat.",
+   "Birinchi bosqich: nimani izlaymiz va qanday birliklarda.",
+   "Ikkinchi bosqich: nima berilgan va tajribadan nima ma'lum.",
+   "Uchinchi bosqich: qaysi tenglama va qanday farazlar.",
+   "To'rtinchi bosqich: birliklar tekshiruvi va ma'noli raqamlar."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "2.4-misol — Sartaroshxonalar",
+   "problem": "Sartaroshxonalar sonini hisoblash",
+   "steps": [
+    {
+     "text": "30 000 erkak × 10 soch olish/yil = 300 000 soch olish/yil"
+    },
+    {
+     "text": "300 000 soch olish/yil / 300 kun = 1000 soch olish/kun"
+    },
+    {
+     "text": "1000 soch olish/kun / 16 soch olish/barber = 62,5 barber"
+    },
+    {
+     "text": "62,5 barber / 3 ≈ 21 barbershop"
+    },
+    {
+     "text": "Ma'lumotnoma bo'yicha tekshirish — 23, xatolik taxminan 10%"
+    },
+    {
+     "text": "Kattalik tartibi to'g'ri keladi"
+    }
+   ],
+   "result": "Taxminan 21 barbershop"
+  },
+  "narr": [
+   "2.4-misol: sartaroshxonalar sonini hisoblash.",
+   "Birinchi qadam: umumiy soch olishlar sonini hisoblaymiz.",
+   "Ikkinchi qadam: kunlik soch olishlar sonini hisoblaymiz.",
+   "Uchinchi qadam: sartaroshlar sonini hisoblaymiz.",
+   "To'rtinchi qadam: sartaroshxonalar sonini hisoblaymiz.",
+   "Beshinchi qadam: ma'lumotnoma bilan solishtiramiz.",
+   "Oltinchi qadam: kattalik tartibini tekshiramiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "Qoidalar",
+   "subtitle": "Kursning barcha qoidalari bitta tekshiruv ro'yxatida"
+  },
+  "narr": [
+   "Kursning barcha qoidalari bitta tekshiruv ro'yxatida jamlangan.",
+   "Jarayon va diagramma qoidalari haqida ko'proq bilib olamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'qiladigan PFDning beshta qoidasi",
+   "bullets": [
+    "Bitta start",
+    "Har bir yo'l oxirigacha yetib boradi",
+    "Qadamlar «fe'l + ot»",
+    "Barcha o'qlarda yozuv",
+    "Har bir qarorning ikkala chiqishi (Ha va Yo'q) biror joyga olib boradi",
+    "Har bir diagrammada bitta batafsillik darajasi"
+   ]
+  },
+  "narr": [
+   "O'qiladigan PFD (Process Flow Diagram) uchun beshta asosiy qoida mavjud.",
+   "Birinchi qoida: bitta start nuqtasi bo'lishi kerak.",
+   "Ikkinchi qoida: har bir yo'l oxirigacha yetib borishi kerak.",
+   "Uchinchi qoida: qadamlar «fe'l + ot» formatida bo'lishi kerak.",
+   "To'rtinchi qoida: barcha o'qlarda yozuv bo'lishi kerak.",
+   "Beshinchi qoida: har bir qarorning ikkala chiqishi biror joyga olib borishi kerak.",
+   "Oltinchi qoida: har bir diagrammada bitta batafsillik darajasi bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Kursdagi PFDning beshta belgisi",
+   "bullets": [
+    "Start/End",
+    "Step",
+    "Decision",
+    "Flow",
+    "Wait/queue (punktir ramka)"
+   ]
+  },
+  "narr": [
+   "Kursdagi PFD uchun beshta asosiy belgi mavjud.",
+   "Birinchi belgi: Start/End - jarayon boshi va oxiri.",
+   "Ikkinchi belgi: Step - qadam amalga oshiriladigan harakat.",
+   "Uchinchi belgi: Decision - qaror qabul qilish nuqtasi.",
+   "To'rtinchi belgi: Flow - jarayon oqimi.",
+   "Beshinchi belgi: Wait/queue - kutish navbati (punktir ramka bilan ko'rsatiladi)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]
