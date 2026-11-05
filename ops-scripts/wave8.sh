@@ -65,6 +65,21 @@ ship_kernel() {  # $1=kernel-name (v8w1...)
 while [ "$(ls video-pipeline-v2/content/specs-v2/*.json 2>/dev/null | wc -l)" -lt 31 ]; do sleep 300; done
 log "=== 31 specs ready ==="
 
+# ── 1b. GATE: локальная валидация 5 UZ (build_comp+validate_comp, без TTS) ──
+# Пушить ядра с невалидными спеками = пустые рендеры (урок v7w1/v7w2).
+while true; do
+  FAILS=""
+  for S in $SPECS_W8; do
+    if ! python3 /home/z/my-project/scripts/local_validate.py "video-pipeline-v2/content/specs-v2/$S.json" > /tmp/lval_$S.txt 2>&1; then
+      FAILS="$FAILS $S"
+    fi
+  done
+  [ -z "$FAILS" ] && break
+  log "local validation FAIL:$FAILS — жду починки (30 мин)"
+  sleep 1800
+done
+log "=== local validation PASS all 5 UZ ==="
+
 # ── 2. датасет v5 ──
 python3 video-pipeline-v2/tools/package_dataset.py >> $LOG 2>&1
 kaggle datasets version -p video-pipeline-v2/kaggle/ds -m "v5: 31 specs" --dir-mode zip >> $LOG 2>&1 \
