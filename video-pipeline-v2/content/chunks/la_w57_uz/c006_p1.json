@@ -1,0 +1,391 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "5-7 haftalarda chiziqli algebrani o'rganamiz. Bu qismda matritsa ko'paytirish, teskari matritsalar va almashtirishlarni ko'rib chiqamiz.",
+   "Boshlaymiz permutatsiyalar bilan. Satr uchun jami n! permutatsiyalar mavjud."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1",
+   "problem": "P = \\begin{pmatrix} 0 & 1 & 0 & 0 \\\\ 0 & 1 & 1 & 0 \\\\ 0 & 0 & 0 & 1 \\end{pmatrix} (x1, x2, x3)T vektorni (x2, x3, x1)T ga o'tkazadi.",
+   "steps": [
+    "Bu matritsa vektorlarning uzunliklari va skalyar ko'paytmalarni saqlaydi.",
+    "P^-1 = P^T chunki P^T · P = I"
+   ],
+   "result": "Almashtirish matritsasi PA = LU ajralishida qo'llaniladi."
+  },
+  "narr": [
+   "Keling, bir misolni ko'rib chiqaylik. Bu P matritsasi (x1, x2, x3) vektorni (x2, x3, x1) ga o'tkazadi.",
+   "Bu matritsa vektorlarning uzunliklari va skalyar ko'paytmalarni saqlaydi.",
+   "P matritsasi uchun P^-1 = P^T bo'ladi, chunki P^T · P = I.",
+   "Almashtirish matritsasi PA = LU ajralishida qo'llaniladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2",
+   "problem": "A = \\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\end{pmatrix}, P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, L = I, U = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}",
+   "steps": [
+    "Almashtirishlarda L dagi ko'paytuvchilarni to'g'ri kuzatib borish muhim.",
+    "Asosiy elementning qisman tanlovi (partial pivoting): faqat ustundagi asosiy element va uning ostidagilar modul bo'yicha eng katta elementni olish."
+   ],
+   "result": "Qoida — faqat ustundagi (asosiy element va uning ostidagilar) modul bo'yicha eng katta elementni olish."
+  },
+  "narr": [
+   "Yana bir misol: A = \\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\end{pmatrix}, P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, L = I, U = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}",
+   "Almashtirishlarda L dagi ko'paytuvchilarni to'g'ri kuzatib borish muhim.",
+   "Asosiy elementning qisman tanlovi (partial pivoting) muhim tushunchadir. Masalan, \\begin{pmatrix} 10^{-8} & 1 \\\\ 1 & 1 \\end{pmatrix} matritsasi singan emas, lekin juda kichik birinchi asosiy element 10^8 ko'paytuvchini beradi.",
+   "Bundan qochish uchun qoida — faqat ustundagi (asosiy element va uning ostidagilar) modul bo'yicha eng katta elementni olish."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Transponiraniya, simmetrik matritsalar, LDLT",
+   "subtitle": "3.5.9"
+  },
+  "narr": [
+   "Endi transponiraniya, simmetrik matritsalar va LDLT ajralishini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Transponiraniya xossalari",
+   "tex": "(A^T)_{ij} = a_{ji}, (A + B)^T = A^T + B^T, (AB)^T = B^T · A^T",
+   "parts": [
+    {
+     "substr": "(A^T)_{ij} = a_{ji}",
+     "color": "#4C5FD5",
+     "note": "Transponir matritsaning (i,j) elementi asl matritsaning (j,i) elementiga teng"
+    },
+    {
+     "substr": "(A + B)^T = A^T + B^T",
+     "color": "#B45309",
+     "note": "Ikkita matritsa yig'indisining transponiri transponirlarning yig'indisiga teng"
+    },
+    {
+     "substr": "(AB)^T = B^T · A^T",
+     "color": "#0E7C7B",
+     "note": "Ikkita matritsa ko'paytmasining transponiri teskari tartibda ko'paytirilgan transponirlarga teng"
+    }
+   ]
+  },
+  "narr": [
+   "Transponiraniyaning uchta asosiy xossasi mavjud.",
+   "Birinchisi, transponir matritsaning (i,j) elementi asl matritsaning (j,i) elementiga teng.",
+   "Ikkinchisi, ikkita matritsa yig'indisining transponiri transponirlarning yig'indisiga teng.",
+   "Uchinchisi, ikkita matritsa ko'paytmasining transponiri teskari tartibda ko'paytirilgan transponirlarga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol",
+   "problem": "\\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{pmatrix}^T",
+   "steps": [
+    "Matritsani transponirlash - satrlarni ustunlarga va aksincha almashtirish."
+   ],
+   "result": "\\begin{pmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{pmatrix}"
+  },
+  "narr": [
+   "Keling, misol ko'rib chiqaylik. Bu matritsani transponirlaymiz.",
+   "Matritsani transponirlash - satrlarni ustunlarga va aksincha almashtirish.",
+   "Natija shunday ko'rinadi: birinchi satr birinchi ustun bo'ladi, ikkinchi satr ikkinchi ustun bo'ladi va hokazo."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Simmetrik matritsa",
+   "bullets": [
+    "Simmetrik matritsa A^T = A shartni qanoatlantiradi.",
+    "Agar simmetrik A matritsa almashtirmasiz LDU ajralishga ega bo'lsa, uning normalizlangan yuqori ko'paytchisi L^T ga teng: A = LDL^T"
+   ]
+  },
+  "narr": [
+   "Simmetrik matritsa - bu A^T = A shartni qanoatlantiradigan matritsa.",
+   "Agar simmetrik A matritsa almashtirmasiz LDU ajralishga ega bo'lsa, uning normalizlangan yuqori ko'paytchisi L^T ga teng bo'ladi: A = LDL^T."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol",
+   "problem": "\\begin{pmatrix} 2 & 2 \\\\ 2 & 5 \\end{pmatrix} = LDL^T",
+   "steps": [
+    "Simmetrik matritsani LDL^T ko'rinishida ifodalash."
+   ],
+   "result": "\\begin{pmatrix} 2 & 2 \\\\ 2 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix} · \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix} · \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Simmetrik matritsa misolini ko'rib chiqaylik.",
+   "Bu matritsani LDL^T ko'rinishida ifodalaymiz.",
+   "Natija shunday: birinchi matritsa past triangular, ikkinchisi diagonal, uchinchisi esa yuqori triangular matritsa."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Qo'llanilishi: farqlar, yig'indilar, uchdiagonal tizimlar",
+   "subtitle": "3.5.10"
+  },
+  "narr": [
+   "Endi bu tushunchalarning amaliy qo'llanilishini ko'rib chiqamiz: farqlar, yig'indilar va uchdiagonal tizimlar."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Farq matritsasi",
+   "problem": "A = \\begin{pmatrix} 1 & 0 & 0 \\\\ -1 & 1 & 0 \\\\ 0 & -1 & 1 \\end{pmatrix}",
+   "steps": [
+    "Bu matritsa Ax = (x1, x2 - x1, x3 - x2)^T beradi.",
+    "Uning teskari A^-1 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 1 & 1 & 1 \\end{pmatrix} yig'indilarni to'plashni beradi."
+   ],
+   "result": "Bu differensial va integrallashning diskret analogidir."
+  },
+  "narr": [
+   "Farq matritsasini ko'rib chiqaylik.",
+   "Bu matritsa Ax = (x1, x2 - x1, x3 - x2)^T beradi.",
+   "Uning teskari matritsa A^-1 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 1 & 1 & 1 \\end{pmatrix} yig'indilarni to'plashni beradi.",
+   "Bu differensial va integrallashning diskret analogidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Uchdiagonal matritsa",
+   "problem": "A = \\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix}",
+   "steps": [
+    "Bu matritsa eng yaqin qo'shnilar aloqalarini (chekli farq tenglamalari) tasvirlaydi.",
+    "Uning omillari tor lentani saqlaydi va LU orqali yechish tuzilmadan foydalanib, zich teskari matritsadan qochadi."
+   ],
+   "result": "Uchdiagonal matritsalar amaliyotda keng qo'llaniladi."
+  },
+  "narr": [
+   "Uchdiagonal matritsani ko'rib chiqaylik.",
+   "Bu matritsa eng yaqin qo'shnilar aloqalarini (chekli farq tenglamalari) tasvirlaydi.",
+   "Uning omillari tor lentani saqlaydi va LU orqali yechish tuzilmadan foydalanib, zich teskari matritsadan qochadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Hafta xulosasi",
+   "subtitle": "3.5.11"
+  },
+  "narr": [
+   "5-7 haftalar materiallarini xulosa qilamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Asosiy tushunchalar",
+   "items": [
+    "Matritsa ko'paytirish bir nechta teng ma'noli talqinlarga ega, ammo kommutativ emas.",
+    "Teskari matritsa faqatgina noaniq kvadrat matritsalar uchun mavjud.",
+    "LDU ajralishida kodlangan.",
+    "Qatorlarni almashtirish P matritsasi bilan kodlanadi: PA = LU.",
+    "Transponirlash va almashtirish 7-hafta vektor fazolariga tayyorlik."
+   ]
+  },
+  "narr": [
+   "5-7 haftalarida o'rganilgan asosiy tushunchalar:",
+   "Birinchidan, matritsa ko'paytirish bir nechta teng ma'noli talqinlarga ega, ammo kommutativ emas.",
+   "Ikkinchidan, teskari matritsa faqatgina noaniq kvadrat matritsalar uchun mavjud.",
+   "Uchinchidan, LDU ajralishida kodlangan.",
+   "To'rtinchidan, qatorlarni almashtirish P matritsasi bilan kodlanadi: PA = LU.",
+   "Va oxirgi, transponirlash va almashtirish 7-hafta vektor fazolariga tayyorlik beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Chiziqli algebra I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Endi mashqlar bilan shug'ullanamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1. 2 × 2 teskari matritsa",
+   "problem": "A = \\begin{pmatrix} 2 & 1 \\\\ 2 & 3 \\end{pmatrix} uchun A^{-1} ni toping. Ko'paytirish orqali tekshiring.",
+   "steps": [
+    "det A = 2·3 - 1·2 = 4 ≠ 0.",
+    "2×2 formulasi bo'yicha: A^{-1} = (1/4)·\\begin{pmatrix} 3 & -1 \\\\ -2 & 2 \\end{pmatrix} = \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{pmatrix}.",
+    "Tekshirish: A · A^{-1} = \\begin{pmatrix} 2 & 1 \\\\ 2 & 3 \\end{pmatrix} · \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{pmatrix} = \\begin{pmatrix} 3/2 - 1/2 & -1/2 + 1/2 \\\\ 3/2 - 3/2 & -1/2 + 3/2 \\end{pmatrix} = I."
+   ],
+   "result": "A^{-1} = \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Birinchi mashq: 2×2 teskari matritsani topish.",
+   "A = \\begin{pmatrix} 2 & 1 \\\\ 2 & 3 \\end{pmatrix} matritsasi berilgan.",
+   "Avval determinantni hisoblaymiz: det A = 2·3 - 1·2 = 4 ≠ 0.",
+   "2×2 formulasi bo'yicha: A^{-1} = (1/4)·\\begin{pmatrix} 3 & -1 \\\\ -2 & 2 \\end{pmatrix} = \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{pmatrix}.",
+   "Endi ko'paytirish orqali tekshiramiz: A · A^{-1} = \\begin{pmatrix} 2 & 1 \\\\ 2 & 3 \\end{pmatrix} · \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2 \\end{pmatrix}.",
+   "Natija: birinchi qator birinchi ustun: 2·(3/4) + 1·(-1/2) = 3/2 - 1/2 = 1.",
+   "Birinchi qator ikkinchi ustun: 2·(-1/4) + 1·(1/2) = -1/2 + 1/2 = 0.",
+   "Ikkinchi qator birinchi ustun: 2·(3/4) + 3·(-1/2) = 3/2 - 3/2 = 0.",
+   "Ikkinchi qator ikkinchi ustun: 2·(-1/4) + 3·(1/2) = -1/2 + 3/2 = 1.",
+   "Shunday qilib, A · A^{-1} = I, ya'ni to'g'ri hisoblangan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2,
+   0,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2. 2 × 2 tizimni yechish",
+   "problem": "Ax = b ni yeching, bunda A = \\begin{pmatrix} 3 & 2 \\\\ 1 & 4 \\end{pmatrix}, b = \\begin{pmatrix} 8 \\\\ 6 \\end{pmatrix}.",
+   "steps": [
+    "Tizma: 3x + 2y = 8, x + 4y = 6.",
+    "Ikkinchi tenglamani 3 ga ko'paytirib birinchisini ayirsak, 10y = 10, ya'ni y = 1.",
+    "x = 6 - 4 = 2.",
+    "Shunday qilib, x = \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}.",
+    "Tekshirish: A · x = \\begin{pmatrix} 3·2 + 2 \\\\ 2 + 4 \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ 6 \\end{pmatrix} = b."
+   ],
+   "result": "x = \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Ikkinchi mashq: 2×2 tizimni yechish.",
+   "A = \\begin{pmatrix} 3 & 2 \\\\ 1 & 4 \\end{pmatrix} va b = \\begin{pmatrix} 8 \\\\ 6 \\end{pmatrix} berilgan.",
+   "Tizmani yozamiz: 3x + 2y = 8, x + 4y = 6.",
+   "Ikkinchi tenglamani 3 ga ko'paytirib birinchisini ayiramiz: (3x + 2y) - 3(x + 4y) = 8 - 3·6.",
+   "Hisoblaymiz: 3x + 2y - 3x - 12y = 8 - 18, ya'ni -10y = -10, y = 1.",
+   "Endi x ni topamiz: x = 6 - 4y = 6 - 4·1 = 2.",
+   "Shunday qilib, x = \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}.",
+   "Tekshirish: A · x = \\begin{pmatrix} 3·2 + 2 \\\\ 2 + 4 \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ 6 \\end{pmatrix} = b, to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3. Teskari 2 × 2",
+   "problem": "A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 5 \\end{pmatrix} uchun A^{-1} ni toping. Ko'paytirish orqali tekshiring.",
+   "steps": [
+    "det A = 4·5 - 1·2 = 18 ≠ 0.",
+    "A^{-1} = (1/18)·\\begin{pmatrix} 5 & -1 \\\\ -2 & 4 \\end{pmatrix} = \\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{pmatrix}."
+   ],
+   "result": "A^{-1} = \\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{pmatrix}"
+  },
+  "narr": [
+   "Uchinchi mashq: yana 2×2 teskari matritsani topish.",
+   "A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 5 \\end{pmatrix} matritsasi berilgan.",
+   "Avval determinantni hisoblaymiz: det A = 4·5 - 1·2 = 18 ≠ 0.",
+   "2×2 formulasi bo'yicha: A^{-1} = (1/18)·\\begin{pmatrix} 5 & -1 \\\\ -2 & 4 \\end{pmatrix} = \\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9 \\end{pmatrix}.",
+   "Ko'paytirish orqali tekshirishni o'zingiz amalga oshiring."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ }
+]

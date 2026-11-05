@@ -1,0 +1,301 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Keling, chiziqli algebraning 5-7 haftalaridagi mashqlarni ko'rib chiqaylik. Bu haftalarda asosan chiqarib tashlash usuli va matritsa dekompozitsiyalari o'rgatiladi.",
+   "Birinchi mashqda 3x3 matritsa tizimini Gauss usulida yechamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 11 — 3 × 3 chiqarib tashlash (noaniy holat)",
+   "problem": "$A = \\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 1 & 3 & 5 \\end{pmatrix}, b = \\begin{pmatrix} 4 \\\\ 8 \\\\ 2 \\end{pmatrix}$ uchun $Ax = b$ tenglamani Gauss usulida chiqarib tashlash orqali yeching.",
+   "steps": [
+    "Kengaytirilgan matritsa: $\\begin{pmatrix} 1 & 2 & 1 & | & 4 \\\\ 2 & 4 & 2 & | & 8 \\\\ 1 & 3 & 5 & | & 2 \\end{pmatrix}$",
+    "1-qadam ($m_{21} = 2, m_{31} = 1$): $R_2 - 2R_1 = (0, 0, 0|0)$ — ikkinchi tenglama birinchisining aniq ikki barobariga teng",
+    "$R_3 - R_1 = (0, 1, 4|-2)$",
+    "2-va3-qatorlarni almashtirgandan keyin: $\\begin{pmatrix} 1 & 2 & 1 & | & 4 \\\\ 0 & 1 & 4 & | & -2 \\\\ 0 & 0 & 0 & | & 0 \\end{pmatrix}$",
+    "uchta noma'luf uchta ustunli element, bir o'zgaruvchi erkin",
+    "$z = t$ deb olamiz: $y = -2 - 4t$ (y + 4z = -2 dan), $x = 4 - 2y - z = 8 + 7t$"
+   ],
+   "result": "Umumiy yechim $x = \\begin{pmatrix} 8 + 7t \\\\ -2 - 4t \\\\ t \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ -2 \\\\ 0 \\end{pmatrix} + t\\cdot\\begin{pmatrix} 7 \\\\ -4 \\\\ 1 \\end{pmatrix}, t \\in \\mathbb{R}$ — cheksiz ko'p yechimlar; faylda ko'rsatilgan $x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$ — $t = -1$ bo'lganda maxsus yechim."
+  },
+  "narr": [
+   "Mashqda berilgan matritsa tizimida ikkinchi qator birinchisining ikki barobariga ekanligi ko'rinadi. Bu degani, tizim noaniq bo'ladi.",
+   "Gauss usulini qo'llaganda, ikkinchi qator nolga aylanadi, bu esa ikki tenglama bir-biriga bog'liq ekanligini ko'rsatadi.",
+   "Yechimda erkin o'zgaruvchi sifatida z ni olamiz va y ni z orqali ifodalaymiz.",
+   "Keyin x ni y va z orqali ifodalaymiz.",
+   "Natijada cheksiz ko'p yechimlar olinadi, ular bitta vektor va erkin o'zgaruvchiga ko'paytirilgan boshqa vektorning yig'indisidan iborat.",
+   "Faylda berilgan yechim esa maxsus holat bo'lib, erkin o'zgaruvchiga -1 qiymati berilganda hosil bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 12 — 3 × 3 chiqarib tashlash",
+   "problem": "$A = \\begin{pmatrix} 1 & 3 & 1 \\\\ 2 & 5 & 2 \\\\ 1 & 4 & 4 \\end{pmatrix}, b = \\begin{pmatrix} 6 \\\\ 10 \\\\ 5 \\end{pmatrix}$ uchun $Ax = b$ tenglamani Gauss usulida chiqarib tashlash orqali yeching.",
+   "steps": [
+    "Kengaytirilgan matritsa: $\\begin{pmatrix} 1 & 3 & 1 & | & 6 \\\\ 2 & 5 & 2 & | & 10 \\\\ 1 & 4 & 4 & | & 5 \\end{pmatrix}$",
+    "1-qadam ($m_{21} = 2, m_{31} = 1$): $R_2 - 2R_1 = (0, -1, 0|-2)$",
+    "$R_3 - R_1 = (0, 1, 3|-1)$",
+    "2-qadam ($m_{32} = -1$): $R_3 + R_2 = (0, 0, 3|-3)$",
+    "Uchburchak tizim: $x + 3y + z = 6, -y = -2, 3z = -3$",
+    "Orqali almashtirish: $z = -1, y = 2, x = 6 - 6 + 1 = 1$"
+   ],
+   "result": "$x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Bu mashqda Gauss usuli yordamida aniq yechim topiladi.",
+   "Birinchi qadamda ikkinchi va uchinchi qatlardan birinchi qatorning mos ko'paytmalarini ayiramiz.",
+   "Ikkinchi qadamda uchinchi qatordan ikkinchi qatorning mos ko'paytmasini ayiramiz.",
+   "Natijada uchburchak shaklidagi tizim hosil bo'ladi.",
+   "Ushbu tizimni orqali almashtirish usuli bilan yechamiz.",
+   "Natijada aniq bitta yechim topiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 13 — LUvaLDU 3 × 3",
+   "problem": "$A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 2 & 3 & 2 \\\\ -2 & 1 & 1 \\end{pmatrix}$ uchun LUvaLDU ni toping.",
+   "steps": [
+    "Ko'paytirgichlar $m_{21} = 1, m_{31} = -1$: $R_2 - R_1 = (0, 2, 1)$; $R_3 + R_1 = (0, 2, 2)$",
+    "Ikkinchi ustun elementi 2, $m_{32} = 1$: $R_3 - R_2 = (0, 0, 1)$",
+    "$L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}$",
+    "$U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+    "$D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+    "$D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/2 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
+   ],
+   "result": "$A = LU = L \\cdot D \\cdot D^{-1}U$"
+  },
+  "narr": [
+   "Bu mashqda matritsani LU dekompozitsiyasiga ajratamiz, bunda L pasttriangular, U yuqori triangular matritsa.",
+   "Birinchi bosqichda birinchi ustun bo'yicha elementlarni nolga keltirish uchun ko'paytirgichlarni topamiz.",
+   "Ikkinchi bosqichda ikkinchi ustun qolgan elementlarni nolga keltirish uchun ko'paytirgichni topamiz.",
+   "L matritsasiga ko'paytirgichlar qo'yiladi, diagonal elementlar 1 ga teng.",
+   "U matritsasida esa qolgan elementlar qoldiriladi.",
+   "Keyin D matritsasini diagonal elementlardan hosil qilamiz va normalizatori yuqori ko'paytmani $D^{-1}U$ ko'rinishida yozamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 14 — LUvaLDU 3 × 3",
+   "problem": "$A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & 5 & 3 \\\\ -2 & 5 & 3 \\end{pmatrix}$ uchun LUvaLDU ni toping.",
+   "steps": [
+    "$m_{21} = 2, m_{31} = -1$: $R_2 - 2R_1 = (0, 3, 1)$; $R_3 + R_1 = (0, 6, 4)$",
+    "Ikkinchi ustun elementi 3, $m_{32} = 2$: $R_3 - 2R_2 = (0, 0, 2)$",
+    "$L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 2 & 1 \\end{pmatrix}$",
+    "$U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}$",
+    "$D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 2 \\end{pmatrix}$",
+    "$D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/3 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
+   ],
+   "result": "$A = LU = L \\cdot D \\cdot D^{-1}U$"
+  },
+  "narr": [
+   "Bu masalada ham avval LU dekompozitsiyasini topamiz.",
+   "Birinchi ustun bo'yicha ko'paytirgichlar $m_{21} = 2$ va $m_{31} = -1$ bo'ladi.",
+   "Ikkinchi ustun qolgan elementni nolga keltirish uchun $m_{32} = 2$ ko'paytmasi kerak.",
+   "L matritsasiga ko'paytirgichlar joylashtiriladi.",
+   "U matritsasida esa o'zgarishsiz qolgan elementlar qoldiriladi.",
+   "D matritsasi diagonal elementlardan, $D^{-1}U$ esa normalizatori yuqori ko'paytma hosil qilinadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 15 — LUvaLDU 3 × 3",
+   "problem": "$A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 2 & 5 & 2 \\\\ -2 & 11 & 5 \\end{pmatrix}$ uchun LUvaLDU ni toping.",
+   "steps": [
+    "$m_{21} = 1, m_{31} = -1$: $R_2 - R_1 = (0, 4, 1)$; $R_3 + R_1 = (0, 12, 6)$",
+    "Ikkinchi ustun elementi 4, $m_{32} = 3$: $R_3 - 3R_2 = (0, 0, 3)$",
+    "$L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 3 & 1 \\end{pmatrix}$",
+    "$U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 4 & 1 \\\\ 0 & 0 & 3 \\end{pmatrix}$",
+    "$D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 4 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix}$",
+    "$D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/4 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
+   ],
+   "result": "$A = LU = L \\cdot D \\cdot D^{-1}U$"
+  },
+  "narr": [
+   "Yana bir LU dekompozitsiyasi misoli.",
+   "Birinchi ustun bo'yicha ko'paytirgichlar $m_{21} = 1$ va $m_{31} = -1$.",
+   "Ikkinchi ustun qolgan elementni nolga keltirish uchun $m_{32} = 3$ ko'paytmasi kerak.",
+   "L matritsasiga ko'paytirgichlar joylashtiriladi.",
+   "U matritsasida esa o'zgarishsiz qolgan elementlar qoldiriladi.",
+   "D matritsasi diagonal elementlardan, $D^{-1}U$ esa normalizatori yuqori ko'paytma hosil qilinadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 16 — LUvaLDU 3 × 3",
+   "problem": "$A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & 4 & 3 \\\\ -2 & 1 & 1 \\end{pmatrix}$ uchun LUvaLDU ni toping.",
+   "steps": [
+    "$m_{21} = 2, m_{31} = -1$: $R_2 - 2R_1 = (0, 2, 1)$; $R_3 + R_1 = (0, 2, 2)$",
+    "Ikkinchi ustun elementi 2, $m_{32} = 1$: $R_3 - R_2 = (0, 0, 1)$",
+    "$L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}$",
+    "$U = \\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+    "$D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$",
+    "$D^{-1}U = \\begin{pmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/2 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
+   ],
+   "result": "$A = LU = L \\cdot D \\cdot D^{-1}U$"
+  },
+  "narr": [
+   "Bu masalada ham avval LU dekompozitsiyasini topamiz.",
+   "Birinchi ustun bo'yicha ko'paytirgichlar $m_{21} = 2$ va $m_{31} = -1$ bo'ladi.",
+   "Ikkinchi ustun qolgan elementni nolga keltirish uchun $m_{32} = 1$ ko'paytmasi kerak.",
+   "L matritsasiga ko'paytirgichlar joylashtiriladi.",
+   "U matritsasida esa o'zgarishsiz qolgan elementlar qoldiriladi.",
+   "D matritsasi diagonal elementlardan, $D^{-1}U$ esa normalizatori yuqori ko'paytma hosil qilinadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 17 — Qatorlarni almashtirish va PLU",
+   "problem": "$A = \\begin{pmatrix} 0 & 2 & 1 \\\\ 1 & 1 & 0 \\\\ 2 & 3 & 2 \\end{pmatrix}$ uchun $PA = LU$ tenglamani qanoatlantiruvchi qatorlarni almashtirish P va ko'paytuvchilarni toping.",
+   "steps": [
+    "Birinchi diagonal element nol — 1-va2-qatorlarni almashtiramiz: $P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}, PA = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 2 & 3 & 2 \\end{pmatrix}$",
+    "$Chiqarish: (2, 1) element allaqachon nol ($m_{21} = 0$)",
+    "$m_{31} = 2$: $R_3 - 2R_1 = (2, 3, 2) - 2 \\cdot (1, 1, 0) = (0, 1, 2)$",
+    "Keyin $m_{32} = 1/2$: $R_3 - (1/2)R_2 = (0, 1, 2) - (0, 1, 1/2) = (0, 0, 3/2)$",
+    "$L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & 1/2 & 1 \\end{pmatrix}$",
+    "$U = \\begin{pmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 3/2 \\end{pmatrix}$"
+   ],
+   "result": "$PA = LU$"
+  },
+  "narr": [
+   "Bu masalada matritsani almashtirish kerak, chunki birinchi diagonal element nolga teng.",
+   "Shuning uchun 1-va2-qatorlarni almashtiramiz va P matritsasini hosil qilamiz.",
+   "Keyin almashtirilgan matritsani LU dekompozitsiyasiga ajratamiz.",
+   "Birinchi ustun bo'yicha ko'paytirgichlarni topamiz.",
+   "Ikkinchi ustun qolgan elementni nolga keltirish uchun ko'paytirgichni topamiz.",
+   "L va U matritsalari hosil bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 18 — Transponiraniya va teskari",
+   "problem": "$A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 2 & 0 & 1 \\end{pmatrix}$ uchun $A^T$ hisoblang va $(A^T)^{-1} = (A^{-1})^T$ tekshiring.",
+   "steps": [
+    "Transponiraniya: $A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}$",
+    "$det A = 1 \\cdot (1 \\cdot 1 - 1 \\cdot 0) - 2 \\cdot (0 \\cdot 1 - 1 \\cdot 2) + 0 = 1 + 4 = 5$",
+    "Qo'shimcha matritsa orqali $(A^T)^{-1} = (1/5) \\cdot \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}$",
+    "$A^{-1} = (1/5) \\cdot \\begin{pmatrix} 1 & -2 & 2 \\\\ 2 & 1 & -1 \\\\ -2 & 4 & 1 \\end{pmatrix}$ hisoblaymiz",
+    "Keyin $(A^{-1})^T = (1/5) \\cdot \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix} = (A^T)^{-1}$"
+   ],
+   "result": "Tenglik bajarilgan; tekshirish: $A^T \\cdot (A^T)^{-1} = I$"
+  },
+  "narr": [
+   "Bu masalada matritsaning transponiraniyasini va teskarisini topishni ko'rib chiqamiz.",
+   "Avval matritsaning transponiraniyasini topamiz, ya'ni qatorlar va ustunlarni almashtiramiz.",
+   "Keyin matritsaning determinantini hisoblaymiz.",
+   "Qo'shimcha matritsa orqali $A^T$ ning teskarisini topamiz.",
+   "Mustaqil ravishda $A$ ning teskarisini topib, uning transponiraniyasini olamiz va ikki natijani solishtiramiz.",
+   "Ikkala usul bir xil natija beradi, bu esa transponiraniya va teskari matritsa o'rtasidagi bog'liqlikni tasdiqlaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 19 — Simmetrik $LDL^T$",
+   "problem": "Simmetrik $A = \\begin{pmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{pmatrix}$ ni $LDL^T$ ko'rinishida ajrating.",
+   "steps": [
+    "Asosiy element 2; $m_{21} = 2/2 = 1$ ($m_{31} = 0$): $R_2 - R_1 = (0, 3, 1)$",
+    "Ikkinchi asosiy element 3; $m_{32} = 1/3$: $R_3 - (1/3)R_2 = (0, 1, 3) - (0, 1, 1/3) = (0, 0, 8/3)$"
+   ],
+   "result": "Almashtirishsiz simmetrik $A$ uchun normalizlangan yuqori ko'paytma $L^T$ ga teng, ya'ni $A = LDL^T$"
+  },
+  "narr": [
+   "Bu masalada simmetrik matritsani $LDL^T$ ko'rinishida ajratamiz.",
+   "Bu yerda L pasttriangular matritsa, D diagonal matritsa, $L^T$ esa L ning transponiraniyasi.",
+   "Birinchi bosqichda birinchi ustun bo'yicha ko'paytirgichni topamiz.",
+   "Ikkinchi bosqichda ikkinchi ustun qolgan elementni nolga keltirish uchun ko'paytirgichni topamiz.",
+   "Simmetrik matritsa uchun bu dekompozitsiya juda foyali bo'ladi, chunki u matritsani kamroq elementlar bilan ifodalaydi.",
+   "Natijada $A = LDL^T$ ko'rinishida ifodalash mumkin bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ }
+]

@@ -1,0 +1,309 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 18,
+   "title": "Matritsalar",
+   "subtitle": "2x2 matritsalar bilan ishlash"
+  },
+  "narr": [
+   "Keling, matritsa ko'paytmasini tekshiraylik. Bu erda A matritsasi berilgan va uning teskarisi ham topilgan.",
+   "A matritsasining teskarisini topish uchun biz A matritsasining determinantini hisoblaymiz va matritsadagi elementlarni almashtiramiz.",
+   "Keyin, diagonal elementlarning ishorasini o'zgartiramiz va natijani determinantga bo'lamiz.",
+   "Endi, A matritsasining teskarisini ko'paytirish orqali tekshirish amalga oshiramiz.",
+   "A·A⁻¹ = I bo'lishi kerak, bu erda I - bu birlik matritsa.",
+   "Ko'rib turganingizdek, (1,1) elementi 4·(5/18) - 1/9 = 20/18 - 2/18 = 1 ga teng.",
+   "Xuddi shunday, (2,2) elementi -2/18 + 20/18 = 1 ga teng.",
+   "Diagonal bo'lmagan elementlar esa nolga teng."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — 2 × 2 tizmani yechish",
+   "problem": "$Ax = b$ ni yeching, bunda $A = \\begin{pmatrix} 2 & 2 \\\\ 1 & 6 \\end{pmatrix}$, $b = \\begin{pmatrix} 4 \\\\ 7 \\end{pmatrix}$.",
+   "steps": [
+    "Tizma: $2x + 2y = 4$ (ya'ni $x + y = 2$), $x + 6y = 7$.",
+    "Ayirish: $5y = 5$, $y = 1$, $x = 1$."
+   ],
+   "result": "$x = \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}$."
+  },
+  "narr": [
+   "Endi, oddiy 2x2 tizmani yechishga o'tamiz.",
+   "Bu erda A matritsasi va b vektori berilgan.",
+   "Biz $Ax = b$ tenglamani yechishimiz kerak.",
+   "Buning uchun avval tizmani yozamiz: $2x + 2y = 4$ va $x + 6y = 7$.",
+   "Birinchi tenglamani soddalashtirsak, $x + y = 2$ hosil bo'ladi.",
+   "Ikkinchi tenglamadan birinchisini ayirsak, $5y = 5$ hosil bo'ladi, bundan $y = 1$.",
+   "Keyin, $x + 1 = 2$ tenglamadan $x = 1$ ekanligini topamiz.",
+   "Shunday qilib, yechim $x = \\begin{pmatrix} 1 \\\\ 1 \\end{pmatrix}$.",
+   "Tekshirish: $A \\cdot x = \\begin{pmatrix} 2 \\cdot 1 + 2 \\cdot 1 \\\\ 1 \\cdot 1 + 6 \\cdot 1 \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 7 \\end{pmatrix} = b$."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — 2 × 2 ajratma",
+   "problem": "$A = LU = LDU$ ni toping $A = \\begin{pmatrix} 2 & 1 \\\\ 2 & 4 \\end{pmatrix}$ uchun.",
+   "steps": [
+    "Asosiy element 2, ko'paytchi $m_{21} = \\frac{2}{2} = 1$: $R_2 \\leftarrow R_2 - R_1$ $U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}$ beradi.",
+    "Ko'paytchni L ga yozamiz: $L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}$, $A = LU$ (tekshirish: $\\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix} + \\begin{pmatrix} 0 & 0 \\\\ 2 & 1 \\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 2 & 4 \\end{pmatrix}$).",
+    "Asosiy elementlar 2 va 3 ni $D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$ ga chiqaramiz; U ni satrlarni asosiy elementlarga bo'lish orqali normallasak, $D^{-1}U = \\begin{pmatrix} 1 & \\frac{1}{2} \\\\ 0 & 1 \\end{pmatrix}$ hosil bo'ladi.",
+    "Shunday qilib, $A = LU = L \\cdot D \\cdot D^{-1}U$."
+   ],
+   "result": "$L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}$, $U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}$, $D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Endi, LU ajratmasini topishga o'tamiz.",
+   "Bu erda A matritsasi berilgan va uni L va U matritsalariga ajratishimiz kerak.",
+   "Asosiy element 2, ko'paytchi $m_{21} = \\frac{2}{2} = 1$.",
+   "Ikkinchi satr birinchisini ayiramiz: $R_2 \\leftarrow R_2 - R_1$.",
+   "Natijada $U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3 \\end{pmatrix}$ hosil bo'ladi.",
+   "Ko'paytchni L matritsasiga yozamiz: $L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}$.",
+   "Tekshirish: $L \\cdot U = A$ ekanligini ko'ramiz.",
+   "Endi, diagonal matritsani ajratamiz. Asosiy elementlar 2 va 3, shuning uchun $D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$.",
+   "U ni normallasak, $D^{-1}U = \\begin{pmatrix} 1 & \\frac{1}{2} \\\\ 0 & 1 \\end{pmatrix}$ hosil bo'ladi.",
+   "Shunday qilib, $A = LU = L \\cdot D \\cdot D^{-1}U$."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — 2 × 2 ajratma",
+   "problem": "$A = LU = LDU$ ni toping $A = \\begin{pmatrix} 3 & 1 \\\\ 3 & 5 \\end{pmatrix}$ uchun.",
+   "steps": [
+    "$m_{21} = \\frac{3}{3} = 1$: $R_2 \\leftarrow R_2 - R_1$ $U = \\begin{pmatrix} 3 & 1 \\\\ 0 & 4 \\end{pmatrix}$ beradi.",
+    "$L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}$, $A = LU$ (tekshirish: $\\begin{pmatrix} 3 & 1 \\\\ 0 & 4 \\end{pmatrix} + \\begin{pmatrix} 0 & 0 \\\\ 3 & 1 \\end{pmatrix} = \\begin{pmatrix} 3 & 1 \\\\ 3 & 5 \\end{pmatrix}$).",
+    "$D = \\begin{pmatrix} 3 & 0 \\\\ 0 & 4 \\end{pmatrix}$, $D^{-1}U = \\begin{pmatrix} 1 & \\frac{1}{3} \\\\ 0 & 1 \\end{pmatrix}$, va $A = L \\cdot D \\cdot D^{-1}U$."
+   ],
+   "result": "$L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}$, $U = \\begin{pmatrix} 3 & 1 \\\\ 0 & 4 \\end{pmatrix}$, $D = \\begin{pmatrix} 3 & 0 \\\\ 0 & 4 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Yana bir LU ajratmasi misoli.",
+   "Bu erda A matritsasi $\\begin{pmatrix} 3 & 1 \\\\ 3 & 5 \\end{pmatrix}$.",
+   "Ko'paytchi $m_{21} = \\frac{3}{3} = 1$.",
+   "Ikkinchi satr birinchisini ayiramiz: $R_2 \\leftarrow R_2 - R_1$.",
+   "Natijada $U = \\begin{pmatrix} 3 & 1 \\\\ 0 & 4 \\end{pmatrix}$ hosil bo'ladi.",
+   "$L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}$.",
+   "Tekshirish: $L \\cdot U = A$ ekanligini ko'ramiz.",
+   "$D = \\begin{pmatrix} 3 & 0 \\\\ 0 & 4 \\end{pmatrix}$.",
+   "$D^{-1}U = \\begin{pmatrix} 1 & \\frac{1}{3} \\\\ 0 & 1 \\end{pmatrix}$.",
+   "Shunday qilib, $A = L \\cdot D \\cdot D^{-1}U$."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — 2 × 2 ajratma",
+   "problem": "$A = LU = LDU$ ni toping $A = \\begin{pmatrix} 1 & 1 \\\\ 4 & 3 \\end{pmatrix}$ uchun.",
+   "steps": [
+    "$m_{21} = 4$: $R_2 \\leftarrow R_2 - 4R_1$ $U = \\begin{pmatrix} 1 & 1 \\\\ 0 & -1 \\end{pmatrix}$ beradi.",
+    "$L = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1 \\end{pmatrix}$, $A = LU$ (tekshirish: $4 \\cdot \\begin{pmatrix} 1 & 1 \\end{pmatrix} + \\begin{pmatrix} 0 & -1 \\end{pmatrix} = \\begin{pmatrix} 4 & 3 \\end{pmatrix}$).",
+    "Ikkinchi asosiy element manfiy — bu ruxsat etilgan: $D = \\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$, $D^{-1}U = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}$, va $A = L \\cdot D \\cdot D^{-1}U$."
+   ],
+   "result": "$L = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1 \\end{pmatrix}$, $U = \\begin{pmatrix} 1 & 1 \\\\ 0 & -1 \\end{pmatrix}$, $D = \\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Yana bir LU ajratmasi misoli.",
+   "Bu erda A matritsasi $\\begin{pmatrix} 1 & 1 \\\\ 4 & 3 \\end{pmatrix}$.",
+   "Ko'paytchi $m_{21} = 4$.",
+   "Ikkinchi satr birinchisining 4 karmini ayiramiz: $R_2 \\leftarrow R_2 - 4R_1$.",
+   "Natijada $U = \\begin{pmatrix} 1 & 1 \\\\ 0 & -1 \\end{pmatrix}$ hosil bo'ladi.",
+   "$L = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1 \\end{pmatrix}$.",
+   "Tekshirish: $L \\cdot U = A$ ekanligini ko'ramiz.",
+   "Bu erda ikkinchi asosiy element manfiy - bu ruxsat etilgan.",
+   "$D = \\begin{pmatrix} 1 & 0 \\\\ 0 & -1 \\end{pmatrix}$.",
+   "$D^{-1}U = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}$.",
+   "Shunday qilib, $A = L \\cdot D \\cdot D^{-1}U$."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — 2 × 2 ajratma",
+   "problem": "$A = LU = LDU$ ni toping $A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 4 \\end{pmatrix}$ uchun.",
+   "steps": [
+    "$m_{21} = \\frac{5}{2}$: $R_2 \\leftarrow R_2 - (\\frac{5}{2})R_1$ $U = \\begin{pmatrix} 2 & 1 \\\\ 0 & \\frac{3}{2} \\end{pmatrix}$ beradi ($4 - \\frac{5}{2} = \\frac{3}{2}$).",
+    "$L = \\begin{pmatrix} 1 & 0 \\\\ \\frac{5}{2} & 1 \\end{pmatrix}$, $A = LU$ (tekshirish: $(\\frac{5}{2}) \\cdot \\begin{pmatrix} 2 & 1 \\end{pmatrix} + \\begin{pmatrix} 0 & \\frac{3}{2} \\end{pmatrix} = \\begin{pmatrix} 5 & 4 \\end{pmatrix}$).",
+    "$D = \\begin{pmatrix} 2 & 0 \\\\ 0 & \\frac{3}{2} \\end{pmatrix}$, $D^{-1}U = \\begin{pmatrix} 1 & \\frac{1}{2} \\\\ 0 & 1 \\end{pmatrix}$, va $A = L \\cdot D \\cdot D^{-1}U$."
+   ],
+   "result": "$L = \\begin{pmatrix} 1 & 0 \\\\ \\frac{5}{2} & 1 \\end{pmatrix}$, $U = \\begin{pmatrix} 2 & 1 \\\\ 0 & \\frac{3}{2} \\end{pmatrix}$, $D = \\begin{pmatrix} 2 & 0 \\\\ 0 & \\frac{3}{2} \\end{pmatrix}$"
+  },
+  "narr": [
+   "Yana bir LU ajratmasi misoli.",
+   "Bu erda A matritsasi $\\begin{pmatrix} 2 & 1 \\\\ 5 & 4 \\end{pmatrix}$.",
+   "Ko'paytchi $m_{21} = \\frac{5}{2}$.",
+   "Ikkinchi satr birinchisining $\\frac{5}{2}$ karmini ayiramiz: $R_2 \\leftarrow R_2 - (\\frac{5}{2})R_1$.",
+   "Natijada $U = \\begin{pmatrix} 2 & 1 \\\\ 0 & \\frac{3}{2} \\end{pmatrix}$ hosil bo'ladi.",
+   "$L = \\begin{pmatrix} 1 & 0 \\\\ \\frac{5}{2} & 1 \\end{pmatrix}$.",
+   "Tekshirish: $L \\cdot U = A$ ekanligini ko'ramiz.",
+   "$D = \\begin{pmatrix} 2 & 0 \\\\ 0 & \\frac{3}{2} \\end{pmatrix}$.",
+   "$D^{-1}U = \\begin{pmatrix} 1 & \\frac{1}{2} \\\\ 0 & 1 \\end{pmatrix}$.",
+   "Shunday qilib, $A = L \\cdot D \\cdot D^{-1}U$."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — Chiqarish 3 × 3",
+   "problem": "$Ax = b$ ni Gauss chiqarish usuli bilan yeching $A = \\begin{pmatrix} 1 & 3 & 1 \\\\ 2 & 5 & 2 \\\\ 1 & 4 & 3 \\end{pmatrix}$, $b = \\begin{pmatrix} 6 \\\\ 10 \\\\ 6 \\end{pmatrix}$ uchun.",
+   "steps": [
+    "Kengaytirilgan matritsa $\\begin{pmatrix} 1 & 3 & 1 & | & 6 \\\\ 2 & 5 & 2 & | & 10 \\\\ 1 & 4 & 3 & | & 6 \\end{pmatrix}$.",
+    "1-qadam ($m_{21} = 2$, $m_{31} = 1$): $R_2 - 2R_1 = (0, -1, 0| -2)$; $R_3 - R_1 = (0, 1, 2| 0)$.",
+    "2-qadam ($m_{32} = -1$): $R_3 + R_2 = (0, 0, 2| -2)$.",
+    "Uchburchak tizma: $x + 3y + z = 6$, $-y = -2$, $2z = -2$.",
+    "Orqali almashtirish: $z = -1$, $y = 2$, $x = 6 - 6 + 1 = 1$."
+   ],
+   "result": "$x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$."
+  },
+  "narr": [
+   "Endi, 3x3 tizmani Gauss chiqarish usuli bilan yechishga o'tamiz.",
+   "Bu erda A matritsasi va b vektori berilgan.",
+   "Avval kengaytirilgan matritsani yozamiz.",
+   "Birinchi qadamda, birinchi satrdan foydalanib ikkinchi va uchinchi satrlarni o'zgartiramiz.",
+   "$m_{21} = 2$ va $m_{31} = 1$.",
+   "Ikkinchi satr birinchisining 2 karmini ayiramiz: $R_2 - 2R_1 = (0, -1, 0| -2)$.",
+   "Uchinchi satr birinchisini ayiramiz: $R_3 - R_1 = (0, 1, 2| 0)$.",
+   "Ikkinchi qadamda, ikkinchi satrdan foydalanib uchinchi satrni o'zgartiramiz.",
+   "$m_{32} = -1$.",
+   "Uchinchi satrga ikkinchi satrni qo'shamiz: $R_3 + R_2 = (0, 0, 2| -2)$.",
+   "Endi, uchburchak tizmaga egamiz: $x + 3y + z = 6$, $-y = -2$, $2z = -2$.",
+   "Orqali almashtirish usulida yechamiz: $z = -1$, $y = 2$, $x = 6 - 6 + 1 = 1$.",
+   "Shunday qilib, yechim $x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$.",
+   "Tekshirish: $A \\cdot x = \\begin{pmatrix} 1 + 6 - 1 \\\\ 2 + 10 - 2 \\\\ 1 + 8 - 3 \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ 10 \\\\ 6 \\end{pmatrix} = b$."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — 3 × 3 chiqarib tashlash",
+   "problem": "$A = \\begin{pmatrix} 1 & 1 & 1 \\\\ 2 & 3 & 2 \\\\ 1 & 2 & 4 \\end{pmatrix}$, $b = \\begin{pmatrix} 2 \\\\ 6 \\\\ 1 \\end{pmatrix}$ uchun $Ax = b$ tenglamani Gauss usulida chiqarib tashlash orqali yeching.",
+   "steps": [
+    "Kengaytirilgan matritsa $\\begin{pmatrix} 1 & 1 & 1 & | & 2 \\\\ 2 & 3 & 2 & | & 6 \\\\ 1 & 2 & 4 & | & 1 \\end{pmatrix}$.",
+    "1-qadam ($m_{21} = 2$, $m_{31} = 1$): $R_2 - 2R_1 = (0, 1, 0| 2)$; $R_3 - R_1 = (0, 1, 3| -1)$.",
+    "2-qadam ($m_{32} = 1$): $R_3 - R_2 = (0, 0, 3| -3)$.",
+    "Uchburchak tizim: $x + y + z = 2$, $y = 2$, $3z = -3$.",
+    "Orqali almashtirish: $z = -1$, $y = 2$, $x = 2 - 2 + 1 = 1$."
+   ],
+   "result": "$x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$."
+  },
+  "narr": [
+   "Yana bir 3x3 tizmani yechish misoli.",
+   "Bu erda A matritsasi va b vektori berilgan.",
+   "Avval kengaytirilgan matritsani yozamiz.",
+   "Birinchi qadamda, birinchi satrdan foydalanib ikkinchi va uchinchi satrlarni o'zgartiramiz.",
+   "$m_{21} = 2$ va $m_{31} = 1$.",
+   "Ikkinchi satr birinchisining 2 karmini ayiramiz: $R_2 - 2R_1 = (0, 1, 0| 2)$.",
+   "Uchinchi satr birinchisini ayiramiz: $R_3 - R_1 = (0, 1, 3| -1)$.",
+   "Ikkinchi qadamda, ikkinchi satrdan foydalanib uchinchi satrni o'zgartiramiz.",
+   "$m_{32} = 1$.",
+   "Uchinchi satrdan ikkinchi satrni ayiramiz: $R_3 - R_2 = (0, 0, 3| -3)$.",
+   "Endi, uchburchak tizmaga egamiz: $x + y + z = 2$, $y = 2$, $3z = -3$.",
+   "Orqali almashtirish usulida yechamiz: $z = -1$, $y = 2$, $x = 2 - 2 + 1 = 1$.",
+   "Shunday qilib, yechim $x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}$.",
+   "Tekshirish: $A \\cdot x = \\begin{pmatrix} 1 + 2 - 1 \\\\ 2 + 6 - 2 \\\\ 1 + 4 - 4 \\end{pmatrix} = \\begin{pmatrix} 2 \\\\ 6 \\\\ 1 \\end{pmatrix} = b$."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ }
+]
