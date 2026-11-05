@@ -1,0 +1,283 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Bu darsimizda chiziqli algebra asoslarini oʻrganamiz. Biz matritsali tenglamalar sistemasini yechish usullarini, elementar matritsalarni va ularning xossalarini koʻrib chiqamiz.",
+   "Keling, birinchi mashqni koʻrib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Uchburchakli tizimni yechish",
+   "problem": "$\\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & -2 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ 0 \\\\ 6 \\end{pmatrix}$ sistemasini yeching.",
+   "steps": [
+    "Pastdan yuqoriga yechamiz: $3z = 6$, shuning uchun $z = 2$",
+    "$2y - 2 \\cdot 2 = 0$, shuning uchun $y = 2$",
+    "$x + 4 + 2 = 8$, shuning uchun $x = 2$"
+   ],
+   "result": "$\\begin{pmatrix} 2 \\\\ 2 \\\\ 2 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Bu chiziqli tenglamalar sistemasida uchta nomaʼlum bor: x, y va z.",
+   "Matritsa koʻrinishida berilgan sistemani yechish uchun, avval oxirgi tenglamadan boshlaymiz.",
+   "Uchinchi tenglama: $3z = 6$, shuning uchun z ni topamiz: z = 2.",
+   "Endi ikkinchi tenglamaga qaytamiz: $2y - 2 \\cdot 2 = 0$, bu tenglamani yechib y ni topamiz: y = 2.",
+   "Birinchi tenglamaga oʻtamiz: $x + 4 + 2 = 8$, bundan x ni topamiz: x = 2.",
+   "Shunday qilib, sistemani yechimi: x = 2, y = 2, z = 2.",
+   "Javobni tekshirib koʻramiz: birinchi tenglama: $2 + 4 + 2 = 8$, ikkinchi: $4 - 4 = 0$, uchinchi: $3 \\cdot 2 = 6$. Barchasi toʻgʻri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — Uch nomaʼlumli toʻliq tizimni yechish",
+   "problem": "$\\begin{pmatrix} 1 & 1 & 0 &|& 3 \\\\ 2 & 3 & 1 &|& 9 \\\\ 1 & 0 & 1 &|& 4 \\end{pmatrix}$ sistemasini yeching.",
+   "steps": [
+    "Ikkinchi qatorni birinchi qatorning ikki barobaridan ayiramiz: R2 ← R2 - 2R1 → [0 1 1|3]",
+    "Uchinchi qatorni birinchi qatordan ayiramiz: R3 ← R3 - R1 → [0 -1 1|1]",
+    "Uchinchi qatorga ikkinchi qatorni qoʻshamiz: R3 ← R3 + R2 → [0 0 2|4]",
+    "Endi orqaga qaytamiz: $2z = 4$, shuning uchun z = 2",
+    "y + z = 3 → y = 1",
+    "x + y = 3 → x = 2"
+   ],
+   "result": "$\\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Bu mashqda yana uch nomaʼlumli chiziqli sistema berilgan.",
+   "Gauss usulidan foydalanib, matritsani shaklga keltiramiz.",
+   "Avval ikkinchi qatorni birinchi qatorning ikki barobaridan ayiramiz.",
+   "Keyin uchinchi qatorni birinchi qatordan ayiramiz.",
+   "Uchinchi qatorga ikkinchi qatorni qoʻshamiz.",
+   "Endi orqaga qaytamiz: $2z = 4$, shuning uchun z = 2.",
+   "Keyin y + z = 3 tenglamadan y ni topamiz: y = 1.",
+   "Nihoyat, x + y = 3 tenglamadan x ni topamiz: x = 2.",
+   "Javobni tekshirib koʻramiz: birinchi tenglama: $2 + 1 = 3$, ikkinchi: $4 + 3 + 2 = 9$, uchinchi: $2 + 2 = 4$. Barchasi toʻgʻri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   -1,
+   3,
+   4,
+   5,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — E32 elementar matritsani tuzish",
+   "problem": "R3 ← R3 + 5R2 amali uchun 3 × 3 matritsani yozing.",
+   "steps": [
+    "E32 — bu (3, 2) oʻrinda 5 boʻlgan birlik matritsa",
+    "1–2-qatorlar oʻzgarmaydi",
+    "3-qator: (3-qator) + 5 · (2-qator) ga teng"
+   ],
+   "result": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 5 & 1 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Bu erda elementar matritsani tuzishni koʻrib chiqamiz.",
+   "E32 matritsasi R3 ← R3 + 5R2 amalini ifodalaydi.",
+   "Bu matritsa birlik matritsadan farq qiladigan yagona joyi (3, 2) elementidir, bu yerda 5 yozilgan.",
+   "1 va 2-qatorlar oʻzgarmaydi.",
+   "3-qator esa (3-qator) + 5 · (2-qator) ga teng boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — Matritsani teskarisiga oʻtkazish",
+   "problem": "$E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & -3 & 1 \\end{pmatrix}$ matritsasi uchun teskarisini toping.",
+   "steps": [
+    "ER3 ← R3 - 3R2 amalini amalga oshiradi",
+    "Teskari amal — qoʻshish: E−1 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 3 & 1 \\end{pmatrix}",
+    "Tekshirish: E−1 · E = I"
+   ],
+   "result": "$E^{-1} = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 3 & 1 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Endi berilgan matritsani teskarisini topamiz.",
+   "E matritsasi ER3 ← R3 - 3R2 amalini amalga oshiradi, ya'ni uchinchi qatordan ikkinchi qatorning uch barobarini ayiradi.",
+   "Shuning uchun teskari amal — qoʻshish boʻladi: E−1 matritsada belgisi oʻzgargan boʻladi.",
+   "Tekshirib koʻramiz: E−1 · E = I, bu birlik matritsaga teng boʻlishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — Oʻng tomonni oʻzgartirish",
+   "problem": "$E = \\begin{pmatrix} 1 & 0 & 0 \\\\ -2 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$ matritsani $b = \\begin{pmatrix} 3 \\\\ 5 \\\\ 7 \\end{pmatrix}$ vektorga qoʻllang.",
+   "steps": [
+    "Eb = [3; 5 - 2 · 3; 7] = \\begin{pmatrix} 3 \\\\ -1 \\\\ 7 \\end{pmatrix}",
+    "Ikkinchi komponent 5 - 2 · 3 = -1 boʻladi",
+    "Ex ni ikkinchi tenglamadan 2 koeffitsient bilan chiqarib tashlaydi — oʻng tomon bir xil amal bilan oʻzgaradi"
+   ],
+   "result": "$Eb = \\begin{pmatrix} 3 \\\\ -1 \\\\ 7 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Bu masalada elementar matritsani vektorga qoʻllashni koʻrib chiqamiz.",
+   "E matritsasi birinchi qatorni oʻzgartirmaydi, ikkinchi qatordan birinchi qatorning ikki barobarini ayiradi, uchinchi qatorni esa oʻzgartirmaydi.",
+   "Shuning uchun Eb vektorini hisoblaymiz: birinchi komponent 3 boʻlib qoladi, ikkinchi komponent 5 - 2 · 3 = -1 boʻladi, uchinchi komponent 7 boʻlib qoladi.",
+   "Bu E matritsasi Ex vektoriga qoʻllanilganda, ikkinchi tenglamadan x ning birinchi komponenti ikki koeffitsient bilan chiqarib tashlanadiligini koʻrsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — Qatorlarni almashtiruvchi matritsa",
+   "problem": "3 × 3 matritsaning 2 va 3-qatorlarini oʻrnini almashtiruvchi P ni toping.",
+   "steps": [
+    "P — bu 2 va 3-qatorlari almashtirilgan birlik matritsa",
+    "Ikkita almashtirish boshlangʻich tartibni qaytaradi: P² = I",
+    "Shuning uchun P−1 = P",
+    "Chapdan koʻpaytirish tenglamalarni, nomaʼlumlarni emas almashtiradi"
+   ],
+   "result": "$P = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}$"
+  },
+  "narr": [
+   "Bu masalada qatorlarni almashtiruvchi matritsani topamiz.",
+   "P matritsasi 2 va 3-qatorlarni almashtiradi, bu birlik matritsadan farq qiladigan joyi shu ikki qatorning oʻrnidir.",
+   "Agar biz P ni ikki marta qoʻllasak, barcha qatorlar asl joyiga qaytadi, shuning uchun P² = I.",
+   "Bu esa P−1 = P degani, chunki matritsaga oʻzini qoʻllash asl holatni tiklaydi.",
+   "E'tibor bering, chapdan koʻpaytirish tenglamalarni, nomaʼlumlarni emas almashtiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — Almashtirishni talab qiladigan tizim",
+   "problem": "$\\begin{pmatrix} 0 & 1 \\\\ 2 & 3 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 14 \\end{pmatrix}$ sistemasini yeching.",
+   "steps": [
+    "(1, 1) oʻrnidagi asosiy element nol — satrlarni almashtiramiz",
+    "Tizim: $2x + 3y = 14$ va $y = 4$",
+    "Birinchi tenglamaga y ni qoʻyamiz: $2x + 12 = 14$",
+    "x ni topamiz: $x = 1$"
+   ],
+   "result": "$(1, 4)$"
+  },
+  "narr": [
+   "Bu masalada Gauss usulida asosiy element nol boʻlganda qanday qilishni koʻrib chiqamiz.",
+   "Birinchi qatorda (1, 1) oʻrinda asosiy element nol, shuning uchun ikkinchi va birinchi qatorlarni almashtiramiz.",
+   "Tizim endi $2x + 3y = 14$ va $y = 4$ koʻrinishida boʻladi.",
+   "Ikkinchi tenglamadan y = 4 ekanligini bilamiz, birinchisiga qoʻyamiz: $2x + 12 = 14$.",
+   "Bundan x = 1 ekanligini topamiz.",
+   "Javobni tekshirib koʻramiz: $0 · 1 + 4 = 4$, $2 + 12 = 14$. Barchasi toʻgʻri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 11 — Erkin oʻzgaruvchiga ega boʻlgan tizim",
+   "problem": "$\\begin{pmatrix} 1 & 1 & 1 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \\end{pmatrix} \\begin{pmatrix} x \\\\ y \\\\ z \\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 3 \\\\ 0 \\end{pmatrix}$ sistemasini yeching.",
+   "steps": [
+    "Uchinchi satr — $0 = 0$, cheklov bermaydi",
+    "Asosiy elementlar ikkita, nomaʼlumlar uchta",
+    "z = t deb olaylik",
+    "y + t = 3 → y = 3 - t",
+    "x + (3 - t) + t = 4 → x = 1"
+   ],
+   "result": "$\\begin{pmatrix} 1 \\\\ 3 - t \\\\ t \\end{pmatrix}$"
+  },
+  "narr": [
+   "Bu masalada erkin oʻzgaruvchiga ega boʻlgan chiziqli sistemani yechamiz.",
+   "Uchinchi satr $0 = 0$ tenglamani beradi, bu cheklov bermaydi.",
+   "Asosiy elementlar ikkita, nomaʼlumlar uchta, shuning uchun bitta erkin oʻzgaruvchimiz boʻladi.",
+   "z ni erkin oʻzgaruvchi deb olaylik: z = t.",
+   "Keyin y + t = 3 tenglamadan y = 3 - t ni topamiz.",
+   "Nihoyat, x + (3 - t) + t = 4 tenglamadan x = 1 ni topamiz.",
+   "t = 0 boʻlganda tekshirib koʻramiz: $\\begin{pmatrix} 1 \\\\ 3 \\\\ 0 \\end{pmatrix}$ vektori 4, 3, 0 beradi. Toʻgʻri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 12 — Ziddiyatli satr",
+   "problem": "$\\begin{pmatrix} 1 & 1 & 0 &|& 2 \\\\ 1 & 1 & 3 &|& 0 \\\\ 0 & 0 & 0 &|& 1 \\end{pmatrix}$ sistemasining yechimi yoʻqligini tushuntiring.",
+   "steps": [
+    "Oxirgi satr $0·x + 0·y + 0·z = 1$ deb oʻqiladi",
+    "Bu $0 = 1$ degani — imkonsiz tenglik",
+    "Chap tomon nolga teng boʻlishi kerak, oʻng tomon esa 1 ga",
+    "Shuning uchun sistema yechimga ega emas"
+   ],
+   "result": "Sistema yechimga ega emas"
+  },
+  "narr": [
+   "Bu masalada ziddiyatli satrga ega boʻlgan chiziqli sistemani koʻrib chiqamiz.",
+   "Oxirgi satr $0·x + 0·y + 0·z = 1$ tenglamani beradi.",
+   "Bu esa $0 = 1$ degani, bu imkonsiz tenglik.",
+   "Chap tomon nolga teng boʻlishi kerak, chunki hech qanday nomaʼlum qatnashmaydi, lekin oʻng tomon 1 ga teng.",
+   "Shuning uchun bu sistema yechimga ega emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]
