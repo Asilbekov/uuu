@@ -351,7 +351,7 @@
      "data": {
       "heading": "Pivot, multiplier, and forward elimination",
       "bullets": [
-       "λ_{ij} = $\\frac{a_{ij}}{a_{jj}}$",
+       "λ_{ij} = $frac{a_{ij}}{a_{jj}}$",
        "Operation: R_i ← R_i - λ_{ij} · R_j",
        "To eliminate element a_{ij} below a nonzero pivot a_{jj}, subtract row j multiplied by λ_{ij} from row i."
       ]
@@ -377,7 +377,7 @@
         "text": "Pivot: 2"
        },
        {
-        "text": "Multipliers: λ_{21} = $\\frac{4}{2}$ = 2 and λ_{31} = $\\frac{-2}{2}$ = -1"
+        "text": "Multipliers: λ_{21} = $4{2}$ = 2 and λ_{31} = $-2{2}$ = -1"
        },
        {
         "text": "Operations: R_2 ← R_2 - 2R_1, R_3 ← R_3 + R_1"
@@ -389,7 +389,7 @@
         "text": "Second pivot: -8"
        },
        {
-        "text": "Multiplier: λ_{32} = $\\frac{8}{-8}$ = -1"
+        "text": "Multiplier: λ_{32} = $8{-8}$ = -1"
        }
       ]
      },
@@ -551,7 +551,7 @@
      "type": "matrix",
      "data": {
       "heading": "Full elimination process",
-      "tex": "E_{32} · E_{31} · E_{21} · A = U",
+      "tex": "E_{32}  \\cdot  E_{31}  \\cdot  E_{21}  \\cdot  A = U",
       "steps": [
        {
         "text": "E_{31} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 1 \\end{bmatrix}"
@@ -2878,7 +2878,7 @@
         "text": "Compute determinant: ad-bc = 2·3 - 1·5 = 6-5 = 1"
        },
        {
-        "text": "Apply formula: \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}^{-1} = $\\frac{1}{1}$ \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}"
+        "text": "Apply formula: \\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}^{-1} = $1{1}$ \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}"
        }
       ],
       "result": "\\begin{pmatrix} 2 & 1 \\\\ 5 & 3 \\end{pmatrix}^{-1} = \\begin{pmatrix} 3 & -1 \\\\ -5 & 2 \\end{pmatrix}"
@@ -5370,7 +5370,7 @@
         "text": "Verify that (A^T)^{-1} = (A^{-1})^T"
        }
       ],
-      "result": "A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}, (A^T)^{-1} = (A^{-1})^T = $\\frac{1}{5}$ \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}"
+      "result": "A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}, (A^T)^{-1} = (A^{-1})^T = $1{5}$ \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Let's now explore the relationship between transpose and inverse matrices.",

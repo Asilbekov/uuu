@@ -367,7 +367,7 @@
       "bullets": [
        "Целые: int i = 3; long l = 3; unsigned long ul = 3UL; шестнадцатеричное int i = 0xA; восьмеричное int i = 012;",
        "Вещественные: float pi = 3.14159; float pi = 3.141F; double pi = 3.1415926535897932384 L;",
-       "Символьные: 'A', '\\x41' (hex), '\\0101' (octal)",
+       "Символьные: 'A', 'x41' (hex), '\\0101' (octal)",
        "Строковые: \"hello world\"; \"hello\" \"world\" — то же самое, что \"hello world\"",
        "Перечисления: enum BOOL {NO, YES} → NO = 0, YES = 1; enum COLOR {R = 1, G, B, Y = 10} → G = 2, B = 3"
       ]
@@ -736,7 +736,7 @@
         "text": "double fraction = 4 / 3;"
        },
        {
-        "text": "printf(\"%f\\n\", fraction);"
+        "text": "printf(\"%fn\", fraction);"
        }
       ],
       "result": "Программа напечатает 1.000000, так как сначала выполняется целочисленное деление 4/3=1, а затем результат преобразуется в double"
@@ -1653,7 +1653,7 @@
      "type": "example",
      "data": {
       "heading": "Вопрос S4 - Деление в C",
-      "problem": "Что напечатает следующий код: double fraction = 4/3; printf(\"%f\\n\", fraction);?",
+      "problem": "Что напечатает следующий код: double fraction = 4/3; printf(\"%fn\", fraction);?",
       "steps": [
        {
         "text": "Деление происходит до присваивания"
@@ -2116,7 +2116,7 @@
      "type": "example",
      "data": {
       "heading": "Вопрос T3 — Целочисленное деление",
-      "problem": "Что напечатает double fraction = 4/3; printf(\"%f\\n\", fraction);?\na) 1.000000 b) 1.333333 c) ошибку компиляции d) 0.000000",
+      "problem": "Что напечатает double fraction = 4/3; printf(\"%fn\", fraction);?\na) 1.000000 b) 1.333333 c) ошибку компиляции d) 0.000000",
       "steps": [
        {
         "text": "4/3 — это целочисленное деление"
@@ -2607,7 +2607,7 @@
       "bullets": [
        "Литеральное/фиксированное значение в программе",
        "Примеры: 3 (десятичное), 3UL (беззнаковое long), 0xA (шестнадцатеричное), 012 (восьмеричное)",
-       "Символьные константы: 'A', '\\x41' (шестнадцатеричное представление)",
+       "Символьные константы: 'A', 'x41' (шестнадцатеричное представление)",
        "Строковые константы: \"hello world\""
       ]
      },
@@ -5274,7 +5274,7 @@
       "heading": "Ввод-вывод в C",
       "bullets": [
        "Средства ввода-вывода предоставляет стандартная библиотека <stdio.h>",
-       "Текстовый поток — серия строк, заканчивающихся '\\n'",
+       "Текстовый поток — серия строк, заканчивающихся 'n'",
        "Двоичный поток — серия сырых байтов",
        "Потоки библиотеки буферизуются"
       ]
@@ -9570,7 +9570,7 @@
         "text": "После цикла выводим сумму с помощью printf."
        }
       ],
-      "result": "Код корректен: цикл проходит по индексам 0-4, каждый элемент прибавляется один раз, сумма 90+85+70+100+60 = 405. Программа печатает \"Sum: 405\", как и ожидается. Единственный формальный недочет — отсутствие перевода строки \\n в printf, но на результат это не влияет."
+      "result": "Код корректен: цикл проходит по индексам 0-4, каждый элемент прибавляется один раз, сумма 90+85+70+100+60 = 405. Программа печатает \"Sum: 405\", как и ожидается. Единственный формальный недочет — отсутствие перевода строки n в printf, но на результат это не влияет."
      },
      "narr": [
       "Начнем с первой задачи — суммы оценок.",
@@ -10426,7 +10426,7 @@
      "type": "example",
      "data": {
       "heading": "Проблема 2 — Переполнение буфера",
-      "problem": "Буфер слишком мал для strcpy\n\nchar dest[5];\nstrcpy(dest, \"hello\");\nprintf(\"%s\\n\", dest);",
+      "problem": "Буфер слишком мал для strcpy\n\nchar dest[5];\nstrcpy(dest, \"hello\");\nprintf(\"%sn\", dest);",
       "steps": [
        {
         "text": "Строка \"hello\" требует 6 байт памяти"
@@ -10444,7 +10444,7 @@
         "text": "Происходит переполнение буфера"
        }
       ],
-      "result": "Правильный код:\n\nchar dest[6];\nstrcpy(dest, \"hello\");\nprintf(\"%s\\n\", dest);"
+      "result": "Правильный код:\n\nchar dest[6];\nstrcpy(dest, \"hello\");\nprintf(\"%sn\", dest);"
      },
      "narr": [
       "Теперь рассмотрим проблему переполнения буфера.",
@@ -10467,7 +10467,7 @@
      "type": "example",
      "data": {
       "heading": "Проблема 3 — Изменение строкового литерала",
-      "problem": "Изменение строкового литерала\n\nchar *s = \"hello\";\ns[0] = 'J';\nprintf(\"%s\\n\", s);",
+      "problem": "Изменение строкового литерала\n\nchar *s = \"hello\";\ns[0] = 'J';\nprintf(\"%sn\", s);",
       "steps": [
        {
         "text": "Строковый литерал \"hello\" хранится в памяти только для чтения"
@@ -10485,7 +10485,7 @@
         "text": "Строковые литералы нельзя изменять"
        }
       ],
-      "result": "Правильный код:\n\nchar s[] = \"hello\";\ns[0] = 'J';\nprintf(\"%s\\n\", s);"
+      "result": "Правильный код:\n\nchar s[] = \"hello\";\ns[0] = 'J';\nprintf(\"%sn\", s);"
      },
      "narr": [
       "Следующая проблема связана с попыткой изменить строковый литерал.",
@@ -10508,7 +10508,7 @@
      "type": "example",
      "data": {
       "heading": "Проблема 4 — Возврат указателя на локальную переменную",
-      "problem": "Возврат указателя на локальную переменную\n\nchar *greeting(void) {\n    char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%s\\n\", g);\n    return 0;\n}",
+      "problem": "Возврат указателя на локальную переменную\n\nchar *greeting(void) {\n    char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%sn\", g);\n    return 0;\n}",
       "steps": [
        {
         "text": "Массив buf создаётся в стеке внутри функции greeting"
@@ -10526,7 +10526,7 @@
         "text": "Программа может работать некорректно или упасть"
        }
       ],
-      "result": "Правильный код с использованием static:\n\nchar *greeting(void) {\n    static char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%s\\n\", g);\n    return 0;\n}"
+      "result": "Правильный код с использованием static:\n\nchar *greeting(void) {\n    static char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%sn\", g);\n    return 0;\n}"
      },
      "narr": [
       "Теперь рассмотрим проблему возврата указателя на локальную переменную.",
@@ -10549,7 +10549,7 @@
      "type": "example",
      "data": {
       "heading": "Проблема 5 — Неинициализированный указатель",
-      "problem": "Неинициализированный (дикий) указатель\n\nint *p; // -> Memory address\n*p = 10;\nprintf(\"%d\\n\", *p);",
+      "problem": "Неинициализированный (дикий) указатель\n\nint *p; // -> Memory address\n*p = 10;\nprintf(\"%dn\", *p);",
       "steps": [
        {
         "text": "Указатель p не инициализирован"
@@ -10567,7 +10567,7 @@
         "text": "Компиляторы обычно предупреждают об использовании неинициализированных указателей"
        }
       ],
-      "result": "Правильный код:\n\nint v;\nint *p = &v;\n*p = 10;\nprintf(\"%d\\n\", *p);"
+      "result": "Правильный код:\n\nint v;\nint *p = &v;\n*p = 10;\nprintf(\"%dn\", *p);"
      },
      "narr": [
       "Рассмотрим проблему неинициализированных указателей, также известных как дикие указатели.",
@@ -10590,7 +10590,7 @@
      "type": "example",
      "data": {
       "heading": "Проблема 6 — Передача по значению",
-      "problem": "Передача по значению\n\nvoid swap(int a, int b) {\n    int t = a;\n    a = b;\n    b = t;\n}\n\nint main(void) {\n    int x = 1, y = 2;\n    swap(x, y);\n    printf(\"%d %d\\n\", x, y);\n    return 0;\n}",
+      "problem": "Передача по значению\n\nvoid swap(int a, int b) {\n    int t = a;\n    a = b;\n    b = t;\n}\n\nint main(void) {\n    int x = 1, y = 2;\n    swap(x, y);\n    printf(\"%d %dn\", x, y);\n    return 0;\n}",
       "steps": [
        {
         "text": "Функция swap принимает копии значений x и y"
@@ -10608,7 +10608,7 @@
         "text": "В C передача параметров в функции всегда происходит по значению"
        }
       ],
-      "result": "Правильный код с указателями:\n\nvoid swap(int *a, int *b) {\n    int t = *a;\n    *a = *b;\n    *b = t;\n}\n\nint main(void) {\n    int x = 1, y = 2;\n    swap(&x, &y);\n    printf(\"%d %d\\n\", x, y);\n    return 0;\n}"
+      "result": "Правильный код с указателями:\n\nvoid swap(int *a, int *b) {\n    int t = *a;\n    *a = *b;\n    *b = t;\n}\n\nint main(void) {\n    int x = 1, y = 2;\n    swap(&x, &y);\n    printf(\"%d %dn\", x, y);\n    return 0;\n}"
      },
      "narr": [
       "Теперь поговорим о проблеме передачи параметров по значению.",
@@ -10631,7 +10631,7 @@
      "type": "example",
      "data": {
       "heading": "Проблема 7 — malloc без +1 для '\\0'",
-      "problem": "malloc без +1 для '\\0'\n\nchar *s = \"hello\";\nchar *copy = malloc(strlen(s));\nstrcpy(copy, s);\nprintf(\"%s\\n\", copy);\nfree(copy);",
+      "problem": "malloc без +1 для '\\0'\n\nchar *s = \"hello\";\nchar *copy = malloc(strlen(s));\nstrcpy(copy, s);\nprintf(\"%sn\", copy);\nfree(copy);",
       "steps": [
        {
         "text": "Функция strlen возвращает длину строки без учёта нулевого символа"
@@ -10649,7 +10649,7 @@
         "text": "Это приводит к переполнению выделенного блока памяти"
        }
       ],
-      "result": "Правильный код:\n\nchar *s = \"hello\";\nchar *copy = malloc(strlen(s) + 1);\nstrcpy(copy, s);\nprintf(\"%s\\n\", copy);\nfree(copy);"
+      "result": "Правильный код:\n\nchar *s = \"hello\";\nchar *copy = malloc(strlen(s) + 1);\nstrcpy(copy, s);\nprintf(\"%sn\", copy);\nfree(copy);"
      },
      "narr": [
       "Рассмотрим ещё одну распространённую ошибку при работе с динамически выделяемой памятью.",
@@ -10672,7 +10672,7 @@
      "type": "example",
      "data": {
       "heading": "Проблема 8 — Беззнаковый счётчик в обратном цикле",
-      "problem": "Беззнаковый счётчик в обратном цикле\n\nchar s[] = \"abc\";\nfor (size_t i = strlen(s) - 1; i >= 0; i--) {\n    putchar(s[i]);\n}\nputchar('\\n');",
+      "problem": "Беззнаковый счётчик в обратном цикле\n\nchar s[] = \"abc\";\nfor (size_t i = strlen(s) - 1; i >= 0; i--) {\n    putchar(s[i]);\n}\nputchar('n');",
       "steps": [
        {
         "text": "Тип size_t — беззнаковый целый тип"
@@ -10690,7 +10690,7 @@
         "text": "Доступ к s[i] приводит к чтению за пределами массива"
        }
       ],
-      "result": "Правильный код с использованием знакового типа:\n\nchar s[] = \"abc\";\nfor (int i = (int)strlen(s) - 1; i >= 0; i--) {\n    putchar(s[i]);\n}\nputchar('\\n');\n\n/* или: */\nchar t[] = \"abc\";\nfor (size_t i = strlen(t); i > 0; i--) {\n    putchar(t[i - 1]);\n}\nputchar('\\n');"
+      "result": "Правильный код с использованием знакового типа:\n\nchar s[] = \"abc\";\nfor (int i = (int)strlen(s) - 1; i >= 0; i--) {\n    putchar(s[i]);\n}\nputchar('n');\n\n/* или: */\nchar t[] = \"abc\";\nfor (size_t i = strlen(t); i > 0; i--) {\n    putchar(t[i - 1]);\n}\nputchar('n');"
      },
      "narr": [
       "Теперь рассмотрим проблему с использованием беззнакового счётчика в обратном цикле.",
@@ -10713,7 +10713,7 @@
      "type": "example",
      "data": {
       "heading": "Проблема 9 — Пропущен & в scanf",
-      "problem": "Пропущен & в scanf\n\nint x;\nscanf(\"%d\", x);\nprintf(\"%d\\n\", x);",
+      "problem": "Пропущен & в scanf\n\nint x;\nscanf(\"%d\", x);\nprintf(\"%dn\", x);",
       "steps": [
        {
         "text": "Функция scanf требует передавать адрес переменной для записи значения"
@@ -10731,7 +10731,7 @@
         "text": "Это приводит к неопределённому поведению и может вызвать сбой программы"
        }
       ],
-      "result": "Правильный код:\n\nint x;\nscanf(\"%d\", &x);\nprintf(\"%d\\n\", x);"
+      "result": "Правильный код:\n\nint x;\nscanf(\"%d\", &x);\nprintf(\"%dn\", x);"
      },
      "narr": [
       "Последняя проблема связана с использованием функции scanf.",

@@ -4246,7 +4246,7 @@
          "tex": "torque"
         },
         {
-         "tex": "newton meter (N·m)"
+         "tex": "newton meter (N \\cdot m)"
         },
         {
          "tex": ""
@@ -4257,7 +4257,7 @@
          "tex": "momentum"
         },
         {
-         "tex": "newton second (N·s)"
+         "tex": "newton second (N \\cdot s)"
         },
         {
          "tex": ""
@@ -4486,8 +4486,8 @@
      "data": {
       "heading": "Temperature Conversions",
       "bullets": [
-       "Rankine to Kelvin: T(°R) = 9/5 · T(K)",
-       "Fahrenheit to Celsius: T(°F) = 9/5 · T(°C) + 32",
+       "Rankine to Kelvin: $T(°R) = \\frac{9}{5} \\cdot T(K)$",
+       "Fahrenheit to Celsius: $T(°F) = \\frac{9}{5} \\cdot T(°C) + 32$",
        "Celsius to Kelvin: $K = °C + 273.15$",
        "Fahrenheit to Rankine: $°R = °F + 459.67$"
       ]
@@ -7415,22 +7415,22 @@
       "tex": "(\\dot{m})_{CV} = \\Sigma(\\dot{m})_{in} - \\Sigma(\\dot{m})_{out} + \\dot{M}_G",
       "parts": [
        {
-        "substr": "(m)_CV",
+        "substr": "(\\dot{m})_{CV}",
         "color": "#4C5FD5",
         "note": "mass accumulation in control volume"
        },
        {
-        "substr": "(m)_in",
+        "substr": "\\Sigma(\\dot{m})_{in}",
         "color": "#B45309",
         "note": "total mass entering"
        },
        {
-        "substr": "(m)_out",
+        "substr": "\\Sigma(\\dot{m})_{out}",
         "color": "#0E7C7B",
         "note": "total mass leaving"
        },
        {
-        "substr": "M_G",
+        "substr": "\\dot{M}_G",
         "color": "#A03040",
         "note": "generation rate inside control volume"
        }
@@ -7438,8 +7438,8 @@
      },
      "narr": [
       "The mass balance equation is our main tool in environmental engineering. It states that the mass accumulated in a control volume equals the total mass that entered minus the total mass that left, plus any mass created or destroyed inside.",
-      "Here, m represents the mass flow rate, which is the derivative of mass with respect to time.",
-      "The term M_G accounts for any generation or destruction of mass due to chemical reactions inside the control volume."
+      "Here, \\dot{m} represents the mass flow rate, which is the derivative of mass with respect to time.",
+      "The term \\dot{M}_G accounts for any generation or destruction of mass due to chemical reactions inside the control volume."
      ],
      "narr_item": [
       -1,
@@ -7500,7 +7500,7 @@
       "tex": "\\dot{m}_p = C_p Q_f",
       "parts": [
        {
-        "substr": "m_p",
+        "substr": "\\dot{m}_p",
         "color": "#4C5FD5",
         "note": "mass flow rate of pollutant"
        },
@@ -12219,12 +12219,12 @@
         "Kosky 2.4.2"
        ],
        [
-        "1\\,N = (1\\,kg)(1\\,m/s²)",
+        "1\\,N = (1\\,kg)(1\\,m/s^2)",
         "The newton from the second law: the force that accelerates 1 kg at 1 m/s²",
         "Moaveni 6.2"
        ],
        [
-        "1\\,lb = (1\\,slug)(1\\,ft/s²)",
+        "1\\,lb = (1\\,slug)(1\\,ft/s^2)",
         "British Gravitational: a slug under one pound of force accelerates at 1 ft/s²",
         "Moaveni 6.2"
        ],

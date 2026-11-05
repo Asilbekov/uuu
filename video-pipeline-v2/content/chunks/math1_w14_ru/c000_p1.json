@@ -257,12 +257,7 @@
   "type": "formula",
   "data": {
    "heading": "Операции с числами в научной нотации",
-   "tex": [
-    "(a \\times 10^m)(b \\times 10^n) = ab \\times 10^{m+n}",
-    "\\frac{a \\times 10^m}{b \\times 10^n} = \\frac{a}{b} \\times 10^{m-n}",
-    "(a \\times 10^n)^m = a^m \\times 10^{nm}",
-    "Сложение и вычитание: сначала приводим к общей степени"
-   ]
+   "tex": "\\begin{aligned} (a \\times 10^m)(b \\times 10^n) = ab \\times 10^{m+n} \\\\ \\frac{a \\times 10^m}{b \\times 10^n} = \\frac{a}{b} \\times 10^{m-n} \\\\ (a \\times 10^n)^m = a^m \\times 10^{nm} \\\\ \\text{Сложение и вычитание: сначала приводим к общей степени} \\end{aligned}"
   },
   "narr": [
    "При работе с числами в научной нотации существуют определенные правила.",
@@ -446,12 +441,7 @@
   "type": "formula",
   "data": {
    "heading": "Основные определения",
-   "tex": [
-    "i = \\sqrt{-1}, \\quad i^2 = -1",
-    "z = a + bi, \\quad \\text{Re}(z) = a, \\quad \\text{Im}(z) = b",
-    "a + bi = c + di \\Leftrightarrow a = c \\text{ и } b = d",
-    "i^{n+4} = i^n \\quad (i^0 = 1, i^1 = i, i^2 = -1, i^3 = -i)"
-   ]
+   "tex": "\\begin{aligned} i = \\sqrt{-1}, \\quad i^2 = -1 \\\\ z = a + bi, \\quad \\text{Re}(z) = a, \\quad \\text{Im}(z) = b \\\\ a + bi = c + di \\Leftrightarrow a = c \\text{ и } b = d \\\\ i^{n+4} = i^n \\quad (i^0 = 1, i^1 = i, i^2 = -1, i^3 = -i) \\end{aligned}"
   },
   "narr": [
    "Комплексные числа вводятся с помощью мнимой единицы i, которая равна квадратному корню из минус единицы.",
@@ -470,12 +460,7 @@
   "type": "formula",
   "data": {
    "heading": "Арифметические операции",
-   "tex": [
-    "z_1 + z_2 = (a + c) + (b + d)i",
-    "z_1 - z_2 = (a - c) + (b - d)i",
-    "(a + bi)(c + di) = (ac - bd) + (ad + bc)i",
-    "\\frac{z_1}{z_2} = \\frac{z_1 \\overline{z_2}}{|z_2|^2} \\quad (z_2 \\neq 0)"
-   ]
+   "tex": "\\begin{aligned} z_1 + z_2 = (a + c) + (b + d)i \\\\ z_1 - z_2 = (a - c) + (b - d)i \\\\ \\text{(a + bi)(c + di) = (ac - bd) + (ad + bc)i} \\\\ \\frac{z_1}{z_2} = \\frac{z_1 \\overline{z_2}}{|z_2|^2} \\quad (z_2 \\neq 0) \\end{aligned}"
   },
   "narr": [
    "Над комплексными числами можно выполнять стандартные арифметические операции.",
@@ -494,12 +479,7 @@
   "type": "formula",
   "data": {
    "heading": "Комплексно-сопряженное число",
-   "tex": [
-    "\\overline{z} = a - bi",
-    "z + \\overline{z} = 2\\text{Re}(z)",
-    "z - \\overline{z} = 2i\\text{Im}(z)",
-    "z\\overline{z} = a^2 + b^2 = |z|^2"
-   ]
+   "tex": "\\begin{aligned} \\overline{z} = a - bi \\\\ z + \\overline{z} = 2\\text{Re}(z) \\\\ z - \\overline{z} = 2i\\text{Im}(z) \\\\ z\\overline{z} = a^2 + b^2 = |z|^2 \\end{aligned}"
   },
   "narr": [
    "Для комплексного числа z = a + bi его комплексно-сопряженное число \\overline{z} = a - bi.",
@@ -518,12 +498,7 @@
   "type": "formula",
   "data": {
    "heading": "Модуль комплексного числа",
-   "tex": [
-    "|z| = \\sqrt{a^2 + b^2}",
-    "|z_1 z_2| = |z_1| |z_2|",
-    "\\left| \\frac{z_1}{z_2} \\right| = \\frac{|z_1|}{|z_2|}",
-    "|z_1 + z_2| \\leq |z_1| + |z_2| \\quad \\text{(неравенство треугольника)}"
-   ]
+   "tex": "\\begin{aligned} |z| = \\sqrt{a^2 + b^2} \\\\ |z_1 z_2| = |z_1| |z_2| \\\\ \\left| \\frac{z_1}{z_2} \\right| = \\frac{|z_1|}{|z_2|} \\\\ |z_1 + z_2| \\leq |z_1| + |z_2| \\quad \\text{(неравенство треугольника)} \\end{aligned}"
   },
   "narr": [
    "Модуль комплексного числа z = a + bi определяется как квадратный корень из суммы квадратов его действительной и мнимой частей.",
@@ -542,11 +517,7 @@
   "type": "formula",
   "data": {
    "heading": "Аргумент комплексного числа",
-   "tex": [
-    "\\arg z = \\theta + 2k\\pi, \\quad k \\in \\mathbb{Z}",
-    "\\text{Arg}(z) \\in (-\\pi, \\pi] \\quad \\text{(главное значение)}",
-    "\\tan \\theta = \\frac{b}{a} \\quad \\text{(с учетом квадранта!)}"
-   ]
+   "tex": "\\begin{aligned} \\arg z = \\theta + 2k\\pi, \\quad k \\in \\mathbb{Z} \\\\ \\text{Arg}(z) \\in (-\\pi, \\pi] \\quad \\text{(главное значение)} \\\\ \\tan \\theta = \\frac{b}{a} \\quad \\text{(с учетом квадранта!)} \\end{aligned}"
   },
   "narr": [
    "Аргумент комплексного числа — это угол, который образует вектор с положительным направлением действительной оси.",
@@ -565,12 +536,7 @@
   "type": "formula",
   "data": {
    "heading": "Тригонометрическая форма",
-   "tex": [
-    "z = r(\\cos \\theta + i \\sin \\theta) = re^{i\\theta}",
-    "r = |z|, \\quad a = r \\cos \\theta, \\quad b = r \\sin \\theta",
-    "e^{i\\theta} = \\cos \\theta + i \\sin \\theta \\quad \\text{(формула Эйлера)}",
-    "e^{i\\pi} + 1 = 0"
-   ]
+   "tex": "\\begin{aligned} z = r(\\cos \\theta + i \\sin \\theta) = re^{i\\theta} \\\\ r = |z|, \\quad a = r \\cos \\theta, \\quad b = r \\sin \\theta \\\\ e^{i\\theta} = \\cos \\theta + i \\sin \\theta \\quad \\text{(формула Эйлера)} \\\\ e^{i\\pi} + 1 = 0 \\end{aligned}"
   },
   "narr": [
    "Комплексное число можно записать в тригонометрической форме или в показательной форме с помощью формулы Эйлера.",
@@ -589,12 +555,7 @@
   "type": "formula",
   "data": {
    "heading": "Операции в показательной форме",
-   "tex": [
-    "z_1 z_2 = r_1 r_2 e^{i(\\theta_1 + \\theta_2)}",
-    "\\frac{z_1}{z_2} = \\frac{r_1}{r_2} e^{i(\\theta_1 - \\theta_2)}",
-    "z^n = r^n [\\cos(n\\theta) + i \\sin(n\\theta)] \\quad \\text{(формула Муавра)}",
-    "z_k = r^{1/n} \\left[ \\cos\\left(\\frac{\\theta + 2k\\pi}{n}\\right) + i \\sin\\left(\\frac{\\theta + 2k\\pi}{n}\\right) \\right], \\quad k = 0, \\ldots, n-1"
-   ]
+   "tex": "\\begin{aligned} z_1 z_2 = r_1 r_2 e^{i(\\theta_1 + \\theta_2)} \\\\ \\frac{z_1}{z_2} = \\frac{r_1}{r_2} e^{i(\\theta_1 - \\theta_2)} \\\\ z^n = r^n [\\cos(n\\theta) + i \\sin(n\\theta)] \\quad \\text{(формула Муавра)} \\\\ z_k = r^{1/n} \\left[ \\cos\\left(\\frac{\\theta + 2k\\pi}{n}\\right) + i \\sin\\left(\\frac{\\theta + 2k\\pi}{n}\\right) \\right], \\quad k = 0, \\ldots, n-1 \\end{aligned}"
   },
   "narr": [
    "В показательной форме операции с комплексными числами становятся особенно простыми.",
@@ -615,10 +576,7 @@
   "type": "formula",
   "data": {
    "heading": "Корни из единицы",
-   "tex": [
-    "z^n = 1 \\Rightarrow z_k = e^{2\\pi i k / n}, \\quad k = 0, \\ldots, n-1 \\quad \\text{(n-е корни из 1)}",
-    "z = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} \\quad \\text{(квадратная формула, верна и над } \\mathbb{C})"
-   ]
+   "tex": "\\begin{aligned} z^n = 1 \\Rightarrow z_k = e^{2\\pi i k / n}, \\quad k = 0, \\ldots, n-1 \\quad \\text{(n-е корни из 1)} \\\\ z = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a} \\quad \\text{(квадратная формула, верна и над } \\mathbb{C}) \\end{aligned}"
   },
   "narr": [
    "Особый случай — это корни из единицы.",

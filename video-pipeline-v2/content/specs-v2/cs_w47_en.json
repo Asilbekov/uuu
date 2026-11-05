@@ -448,7 +448,7 @@
        "Constants are literal/fixed values",
        "Integer constants: 3, 0xA (hex), 012 (octal)",
        "Floating-point constants: 3.14159, 3.141F, 3.1415926535897932384L",
-       "Character constants: 'A', '\\x41' (hex), '\\0101' (octal)",
+       "Character constants: 'A', 'x41' (hex), '\\0101' (octal)",
        "String constants: \"hello world\", \"hello\" \"world\" (concatenated)"
       ]
      },
@@ -1695,7 +1695,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 5 — Integer Division",
-      "problem": "What will 'double fraction = 4/3; printf(\"%f\\n\", fraction);' print?",
+      "problem": "What will 'double fraction = 4/3; printf(\"%fn\", fraction);' print?",
       "steps": [
        {
         "text": "Analyze the division operation before assignment"
@@ -2126,7 +2126,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 3",
-      "problem": "What will double fraction = 4/3; printf(\"%f\\n\", fraction); print?",
+      "problem": "What will double fraction = 4/3; printf(\"%fn\", fraction); print?",
       "steps": [
        {
         "text": "a) 1.000000"
@@ -2436,7 +2436,7 @@
        "Integer division: division of two integers where the fractional part is discarded (4/3 → 1, 3/2 → 1)",
        "Remainder (modulus, %): remainder of integer division (3 % 2 → 1, 7 % 4 → 3, 7 % 10 → 7)",
        "Significant digits: precision of floating-point types (float — 6, double — 15 significant decimal digits)",
-       "Constant: literal/fixed value (3, 3UL, 0xA (hex), 012 (octal), 'A', '\\x41', \"hello world\")"
+       "Constant: literal/fixed value (3, 3UL, 0xA (hex), 012 (octal), 'A', 'x41', \"hello world\")"
       ]
      },
      "narr": [
@@ -5591,8 +5591,8 @@
      "data": {
       "heading": "Stream Types",
       "bullets": [
-       "Text stream: series of strings ending with '\\n'",
-       "Library converts '\\r\\n' to '\\n' automatically",
+       "Text stream: series of strings ending with 'n'",
+       "Library converts 'rn' to 'n' automatically",
        "Binary stream: series of raw bytes",
        "Library streams are buffered for efficiency"
       ]
@@ -7346,10 +7346,10 @@
          "text": "Text stream"
         },
         {
-         "text": "a series of lines ending with '\\n'"
+         "text": "a series of lines ending with 'n'"
         },
         {
-         "text": "conversion of '\\r\\n' is handled by the library; streams are buffered"
+         "text": "conversion of 'rn' is handled by the library; streams are buffered"
         }
        ],
        [
@@ -9220,7 +9220,7 @@
         "text": "Example: printf(\"pi = %g\", *pi); prints the value at pi's address"
        }
       ],
-      "result": "& — is the address-of operator: the address of a variable of type t has type t (int pn = &n;). * is the dereference/indirection operator: access to the value at an address (printf(\"pi = %g\\n\", *pi);). A dereferenced pointer behaves like a regular variable."
+      "result": "& — is the address-of operator: the address of a variable of type t has type t (int pn = &n;). * is the dereference/indirection operator: access to the value at an address (printf(\"pi = %gn\", *pi);). A dereferenced pointer behaves like a regular variable."
      },
      "narr": [
       "Second question: What do the & and * operators do?",
@@ -11200,7 +11200,7 @@
      "type": "example",
      "data": {
       "heading": "Problem L9 — Infinite Inner Loop",
-      "problem": "Why does the inner loop never end in the following code?\nfor (int i = 1; i <= 3; i++) {\n    for (int j = 1; j <= 3; j++) {\n        cout << i * j << \"\\t\";\n    }\n    cout << endl;\n}",
+      "problem": "Why does the inner loop never end in the following code?\nfor (int i = 1; i <= 3; i++) {\n    for (int j = 1; j <= 3; j++) {\n        cout << i * j << \"t\";\n    }\n    cout << endl;\n}",
       "steps": [
        {
         "text": "The inner loop increments i instead of j"
@@ -11307,7 +11307,7 @@
      "type": "example",
      "data": {
       "heading": "Problem P1 — Missing Null Terminator",
-      "problem": "char s[5] = {'h', 'e', 'l', 'l', 'o'};\nprintf(\"%s\\n\", s);",
+      "problem": "char s[5] = {'h', 'e', 'l', 'l', 'o'};\nprintf(\"%sn\", s);",
       "steps": [
        {
         "text": "The array has exactly 5 cells for 5 letters"
@@ -11364,7 +11364,7 @@
      "type": "example",
      "data": {
       "heading": "Problem P2 — sizeof on a Pointer",
-      "problem": "char *s = \"hello\";\nprintf(\"%zu\\n\", sizeof(s));",
+      "problem": "char *s = \"hello\";\nprintf(\"%zun\", sizeof(s));",
       "steps": [
        {
         "text": "s is a char pointer, not an array"
@@ -11379,7 +11379,7 @@
         "text": "The string length is 5, but sizeof doesn't give that"
        }
       ],
-      "result": "Use strlen(s) to get the string length: printf(\"%zu\\n\", strlen(s));"
+      "result": "Use strlen(s) to get the string length: printf(\"%zun\", strlen(s));"
      },
      "narr": [
       "Next up is a common confusion between pointers and arrays.",
@@ -11474,7 +11474,7 @@
      "type": "example",
      "data": {
       "heading": "Problem P4 — Buffer Too Small for strcpy",
-      "problem": "char dest[5];\nstrcpy(dest, \"hello\");\nprintf(\"%s\\n\", dest);",
+      "problem": "char dest[5];\nstrcpy(dest, \"hello\");\nprintf(\"%sn\", dest);",
       "steps": [
        {
         "text": "The string \"hello\" requires 6 bytes: 5 letters plus null terminator"
@@ -11528,7 +11528,7 @@
      "type": "example",
      "data": {
       "heading": "Problem P5 — Modifying a String Literal",
-      "problem": "char *s = \"hello\";\ns[0] = 'J';\nprintf(\"%s\\n\", s);",
+      "problem": "char *s = \"hello\";\ns[0] = 'J';\nprintf(\"%sn\", s);",
       "steps": [
        {
         "text": "String literals like \"hello\" are stored in read-only memory"
@@ -11585,7 +11585,7 @@
      "type": "example",
      "data": {
       "heading": "Problem P6 — Returning a Pointer to a Local Variable",
-      "problem": "char *greeting(void) {\n    char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%s\\n\", g);\n    return 0;\n}",
+      "problem": "char *greeting(void) {\n    char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%sn\", g);\n    return 0;\n}",
       "steps": [
        {
         "text": "buf is a local variable on the greeting() stack frame"
@@ -11665,7 +11665,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 7 — Uninitialized (wild) pointer",
-      "problem": "int *p; // -> Memory address\n*p = 10;\nprintf(\"%d\\n\", *p);",
+      "problem": "int *p; // -> Memory address\n*p = 10;\nprintf(\"%dn\", *p);",
       "steps": [
        {
         "text": "The pointer p is declared but not initialized"
@@ -11715,7 +11715,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 8 — Pass by value",
-      "problem": "void swap(int a, int b) {\nint t = a;\na = b;\nb = t;\n}\nint main(void) {\nint x = 1, y = 2;\nswap(x, y);\nprintf(\"%d %d\\n\", x, y);\nreturn 0;\n}",
+      "problem": "void swap(int a, int b) {\nint t = a;\na = b;\nb = t;\n}\nint main(void) {\nint x = 1, y = 2;\nswap(x, y);\nprintf(\"%d %dn\", x, y);\nreturn 0;\n}",
       "steps": [
        {
         "text": "The swap function receives copies of x and y"
@@ -11766,7 +11766,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 9 — malloc without +1 for null terminator",
-      "problem": "char *s = \"hello\";\nchar *copy = malloc(strlen(s));\nstrcpy(copy, s);\nprintf(\"%s\\n\", copy);\nfree(copy);",
+      "problem": "char *s = \"hello\";\nchar *copy = malloc(strlen(s));\nstrcpy(copy, s);\nprintf(\"%sn\", copy);\nfree(copy);",
       "steps": [
        {
         "text": "strlen(s) returns 5 for the string \"hello\""
@@ -11820,7 +11820,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 10 — Unsigned counter in reverse loop",
-      "problem": "char s[] = \"abc\";\nfor (size_t i = strlen(s) - 1; i >= 0; i--) {\nputchar(s[i]);\n}\nputchar('\\n');",
+      "problem": "char s[] = \"abc\";\nfor (size_t i = strlen(s) - 1; i >= 0; i--) {\nputchar(s[i]);\n}\nputchar('n');",
       "steps": [
        {
         "text": "size_t is an unsigned integer type"
@@ -11877,7 +11877,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 11 — Missing & in scanf",
-      "problem": "int x;\nscanf(\"%d\", x);\nprintf(\"%d\\n\", x);",
+      "problem": "int x;\nscanf(\"%d\", x);\nprintf(\"%dn\", x);",
       "steps": [
        {
         "text": "scanf requires the address of the variable to store the input"
@@ -11930,7 +11930,7 @@
      "type": "example",
      "data": {
       "heading": "Problem 12 — Use after free",
-      "problem": "int *p = malloc(sizeof(int));\n*p = 42;\nfree(p);\nprintf(\"%d\\n\", *p);",
+      "problem": "int *p = malloc(sizeof(int));\n*p = 42;\nfree(p);\nprintf(\"%dn\", *p);",
       "steps": [
        {
         "text": "We allocate memory for an integer and store 42 there"
