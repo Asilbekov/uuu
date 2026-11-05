@@ -1,0 +1,369 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "5–7 haftalar oralig'ida chiziqli algebraning asosiy tushunchalari bilan tanishamiz. Bu haftalarda matritsa operatsiyalari, chiziqli sistemalar yechimi va teskari matritsalar o'rganiladi.",
+   "Keling, birinchi mashq bilan boshlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — 2 × 2 teskari matritsa",
+   "problem": "A = $\\begin{bmatrix} 3 & 2 \\\\ 1 & 6 \\end{bmatrix}$ matritsa uchun $A^{-1}$ ni toping. Ko'paytirish orqali tekshiring.",
+   "steps": [
+    "Determinantni hisoblaymiz: det A = 3 · 6 − 2 · 1 = 16 ≠ 0",
+    "Teskari matritsani topamiz: $A^{-1} = \\frac{1}{16} \\cdot \\begin{bmatrix} 6 & -2 \\\\ -1 & 3 \\end{bmatrix} = \\begin{bmatrix} \\frac{3}{8} & -\\frac{1}{8} \\\\ -\\frac{1}{16} & \\frac{3}{16} \\end{bmatrix}$",
+    "Ko'paytirish orqali tekshirish: A · A^{-1} = I — (1,1) elementi $\\frac{9}{8} - \\frac{2}{16} = 1$, (2,2) elementi $-\\frac{1}{8} + \\frac{18}{16} = 1$, diagonal bo'lmagan elementlar — nollar."
+   ],
+   "result": "$A^{-1} = \\begin{bmatrix} \\frac{3}{8} & -\\frac{1}{8} \\\\ -\\frac{1}{16} & \\frac{3}{16} \\end{bmatrix}$"
+  },
+  "narr": [
+   "Birinchi mashqda 2x2 o'lchamli matritsani teskarisini topishni ko'rib chiqamiz.",
+   "Avval determinantni hisoblaymiz. Agar determinant nolga teng bo'lsa, matritsa teskarisiga ega bo'lmaydi.",
+   "Bu holda det A = 16, shuning uchun teskari matritsa mavjud.",
+   "Teskari matritsani formuladan foydalanib topamiz.",
+   "Ko'paytirish orqali tekshirishdan ko'rinib turibdiki, biz to'g'ri hisoblaganmiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — 2 × 2 tizimni yechish",
+   "problem": "$Ax = b$ ni yeching, bunda $A = \\begin{bmatrix} 4 & 1 \\\\ 2 & 3 \\end{bmatrix}$, $b = \\begin{bmatrix} 14 \\\\ 12 \\end{bmatrix}$.",
+   "steps": [
+    "Tizim: $4x + y = 14$, $2x + 3y = 12$",
+    "Birinchi tenglamani 3 ga ko'paytirib, ikkinchisini ayirsak, $10x = 30$, ya'ni $x = 3$",
+    "$y = 14 - 4·3 = 2$"
+   ],
+   "result": "$x = \\begin{bmatrix} 3 \\\\ 2 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Ikkinchi mashqda oddiy chiziqli sistemani yechishni ko'rib chiqamiz.",
+   "Bu yerda ikkita tenglama va ikkita noma'lum bor.",
+   "Yechim uchun algebraik usuldan foydalanamiz.",
+   "Birinchi tenglamani ikkinchisidan ayirib, noma'lumlardan birini yo'qotamiz.",
+   "Topilgan qiymatni asl tenglamalarga qo'yib ikkinchi noma'lumni topamiz.",
+   "Tekshirish ko'rsatadiki, yechim to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — 2 × 2 teskari matritsa",
+   "problem": "A = $\\begin{bmatrix} 2 & 2 \\\\ 1 & 4 \\end{bmatrix}$ matritsa uchun $A^{-1}$ ni toping. Ko'paytirish orqali tekshiring.",
+   "steps": [
+    "Determinantni hisoblaymiz: det A = 2 · 4 − 2 · 1 = 6 ≠ 0",
+    "Teskari matritsani topamiz: $A^{-1} = \\frac{1}{6} \\cdot \\begin{bmatrix} 4 & -2 \\\\ -1 & 2 \\end{bmatrix} = \\begin{bmatrix} \\frac{2}{3} & -\\frac{1}{3} \\\\ -\\frac{1}{6} & \\frac{1}{3} \\end{bmatrix}$",
+    "Ko'paytirish orqali tekshirish: A · A^{-1} = I — (1,1) elementi $\\frac{4}{3} - \\frac{1}{3} = 1$, (2,2) elementi $-\\frac{1}{3} + \\frac{4}{3} = 1$, diagonal bo'lmagan elementlar — nollar."
+   ],
+   "result": "$A^{-1} = \\begin{bmatrix} \\frac{2}{3} & -\\frac{1}{3} \\\\ -\\frac{1}{6} & \\frac{1}{3} \\end{bmatrix}$"
+  },
+  "narr": [
+   "Uchinchi mashqda yana bir 2x2 matritsani teskarisini topamiz.",
+   "Determinantni hisoblab, matritsani teskarisiga o'tkazamiz.",
+   "Ko'paytirish orqali tekshirishdan ko'rinadiki, hisob to'g'ri.",
+   "E'tibor bering, teskari matritsani topish uchun formuladan foydalanamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — 2 × 2 tizimni yechish",
+   "problem": "$Ax = b$ ni yeching, bunda $A = \\begin{bmatrix} 3 & 1 \\\\ 2 & 5 \\end{bmatrix}$, $b = \\begin{bmatrix} 8 \\\\ 14 \\end{bmatrix}$.",
+   "steps": [
+    "Tizim: $3x + y = 8$, $2x + 5y = 14$",
+    "Birinchi tenglamani 5 ga ko'paytirib, ikkinchisini ayirsak, $13x = 26$, ya'ni $x = 2$",
+    "$y = 8 - 3·2 = 2$"
+   ],
+   "result": "$x = \\begin{bmatrix} 2 \\\\ 2 \\end{bmatrix}$"
+  },
+  "narr": [
+   "To'rtinchi mashqda yana bir chiziqli sistemani yechamiz.",
+   "Bu yerda ham ikkita tenglama va ikkita noma'lum bor.",
+   "Yechim uchun avvalgi mashqdagidek algebraik usuldan foydalanamiz.",
+   "Birinchi tenglamani ikkinchisidan ayirib, noma'lumlardan birini yo'qotamiz.",
+   "Topilgan qiymatni asl tenglamalarga qo'yib ikkinchi noma'lumni topamiz.",
+   "Tekshirish ko'rsatadiki, yechim to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — 2 × 2 ajratish",
+   "problem": "A = LU = LDU ni toping A = $\\begin{bmatrix} 3 & 1 \\\\ 5 & 5 \\end{bmatrix}$ uchun.",
+   "steps": [
+    "$m_{21} = \\frac{5}{3}$: $R_2 \\leftarrow R_2 - \\frac{5}{3}R_1$",
+    "$U = \\begin{bmatrix} 3 & 1 \\\\ 0 & \\frac{10}{3} \\end{bmatrix}$ beradi ($5 - \\frac{5}{3} = \\frac{10}{3}$)",
+    "$L = \\begin{bmatrix} 1 & 0 \\\\ \\frac{5}{3} & 1 \\end{bmatrix}$",
+    "$A = LU$ (tekshirish: $\\frac{5}{3} \\cdot \\begin{bmatrix} 3 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & \\frac{10}{3} \\end{bmatrix} = \\begin{bmatrix} 5 & 5 \\end{bmatrix}$)",
+    "$D = \\begin{bmatrix} 3 & 0 \\\\ 0 & \\frac{10}{3} \\end{bmatrix}$",
+    "$D^{-1}U = \\begin{bmatrix} 1 & \\frac{1}{3} \\\\ 0 & 1 \\end{bmatrix}$",
+    "$A = L \\cdot D \\cdot D^{-1}U$"
+   ],
+   "result": "$L = \\begin{bmatrix} 1 & 0 \\\\ \\frac{5}{3} & 1 \\end{bmatrix}$, $U = \\begin{bmatrix} 3 & 1 \\\\ 0 & \\frac{10}{3} \\end{bmatrix}$, $D = \\begin{bmatrix} 3 & 0 \\\\ 0 & \\frac{10}{3} \\end{bmatrix}$"
+  },
+  "narr": [
+   "Beshinchi mashqda matritsani LU ajratishni ko'rib chiqamiz.",
+   "Bu ajratishda matritsa pastki uchburchak (L) va yuqori uchburchak (U) matritsalar ko'paytmasiga yoziladi.",
+   "Birinchi qatorni o'zgartirmasdan, ikkinchi qatordan birinchi qatorning ma'lum bir ko'paytmasini ayiramiz.",
+   "Shunday qilib, U matritsasining birinchi qatori A matritsasining birinchi qatoriga teng bo'ladi.",
+   "L matritsasining diagonal elementlari 1 ga teng bo'ladi.",
+   "LDU ajratishda D diagonal matritsani bildiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — 2 × 2 ajratish",
+   "problem": "A = LU = LDU ni toping A = $\\begin{bmatrix} 1 & 1 \\\\ 2 & 3 \\end{bmatrix}$ uchun.",
+   "steps": [
+    "$m_{21} = 2$: $R_2 \\leftarrow R_2 - 2R_1$ dan $U = \\begin{bmatrix} 1 & 1 \\\\ 0 & 1 \\end{bmatrix}$ hosil bo'ladi.",
+    "$L = \\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix}$",
+    "$A = LU$ (tekshirish: $2 \\cdot \\begin{bmatrix} 1 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 1 \\end{bmatrix} = \\begin{bmatrix} 2 & 3 \\end{bmatrix}$)",
+    "Ikkala asosiy element ham 1 ga teng, shuning uchun $D = I$ va $D^{-1}U = U$",
+    "$A = \\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} 1 & 1 \\\\ 0 & 1 \\end{bmatrix}$"
+   ],
+   "result": "$L = \\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix}$, $U = \\begin{bmatrix} 1 & 1 \\\\ 0 & 1 \\end{bmatrix}$, $D = \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Oltinchi mashqda yana bir matritsani LU ajratishni ko'rib chiqamiz.",
+   "Bu holda, birinchi qatordan ikkinchi qatorning 2 barobarini ayiramiz.",
+   "Natijada U matritsasining ikkinchi qatorida faqat bitta element qoladi.",
+   "L matritsasining elementlari ayirishda ishlatilgan koeffitsientlardan hosil bo'ladi.",
+   "E'tibor bering, bu holda D matritsasi birlik matritsadir, chunki U matritsasining diagonal elementlari 1 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — 2 × 2 ajratish",
+   "problem": "A = LU = LDU ni toping A = $\\begin{bmatrix} 2 & 1 \\\\ 3 & 4 \\end{bmatrix}$ uchun.",
+   "steps": [
+    "$m_{21} = \\frac{3}{2}$: $R_2 \\leftarrow R_2 - \\frac{3}{2}R_1$ dan $U = \\begin{bmatrix} 2 & 1 \\\\ 0 & \\frac{5}{2} \\end{bmatrix}$ ($4 - \\frac{3}{2} = \\frac{5}{2}$) hosil bo'ladi.",
+    "$L = \\begin{bmatrix} 1 & 0 \\\\ \\frac{3}{2} & 1 \\end{bmatrix}$",
+    "$A = LU$ (tekshirish: $\\frac{3}{2} \\cdot \\begin{bmatrix} 2 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & \\frac{5}{2} \\end{bmatrix} = \\begin{bmatrix} 3 & 4 \\end{bmatrix}$)",
+    "$D = \\begin{bmatrix} 2 & 0 \\\\ 0 & \\frac{5}{2} \\end{bmatrix}$",
+    "$D^{-1}U = \\begin{bmatrix} 1 & \\frac{1}{2} \\\\ 0 & 1 \\end{bmatrix}$",
+    "$A = L \\cdot D \\cdot D^{-1}U$"
+   ],
+   "result": "$L = \\begin{bmatrix} 1 & 0 \\\\ \\frac{3}{2} & 1 \\end{bmatrix}$, $U = \\begin{bmatrix} 2 & 1 \\\\ 0 & \\frac{5}{2} \\end{bmatrix}$, $D = \\begin{bmatrix} 2 & 0 \\\\ 0 & \\frac{5}{2} \\end{bmatrix}$"
+  },
+  "narr": [
+   "Yettinchi mashqda yana bir matritsani LU ajratishni ko'rib chiqamiz.",
+   "Bu holda, birinchi qatordan ikkinchi qatorning $\\frac{3}{2}$ barobarini ayiramiz.",
+   "Natijada U matritsasining ikkinchi qatorida faqat bitta element qoladi.",
+   "L matritsasining elementlari ayirishda ishlatilgan koeffitsientlardan hosil bo'ladi.",
+   "D matritsasi U matritsasining diagonal elementlaridan tuziladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — 2 × 2 ajratish",
+   "problem": "A = LU = LDU ni toping A = $\\begin{bmatrix} 3 & 1 \\\\ 4 & 5 \\end{bmatrix}$ uchun.",
+   "steps": [
+    "$m_{21} = \\frac{4}{3}$: $R_2 \\leftarrow R_2 - \\frac{4}{3}R_1$ dan $U = \\begin{bmatrix} 3 & 1 \\\\ 0 & \\frac{11}{3} \\end{bmatrix}$ ($5 - \\frac{4}{3} = \\frac{11}{3}$) hosil bo'ladi.",
+    "$L = \\begin{bmatrix} 1 & 0 \\\\ \\frac{4}{3} & 1 \\end{bmatrix}$",
+    "$A = LU$ (tekshirish: $\\frac{4}{3} \\cdot \\begin{bmatrix} 3 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & \\frac{11}{3} \\end{bmatrix} = \\begin{bmatrix} 4 & 5 \\end{bmatrix}$)",
+    "$D = \\begin{bmatrix} 3 & 0 \\\\ 0 & \\frac{11}{3} \\end{bmatrix}$",
+    "$D^{-1}U = \\begin{bmatrix} 1 & \\frac{1}{3} \\\\ 0 & 1 \\end{bmatrix}$",
+    "$A = L \\cdot D \\cdot D^{-1}U$"
+   ],
+   "result": "$L = \\begin{bmatrix} 1 & 0 \\\\ \\frac{4}{3} & 1 \\end{bmatrix}$, $U = \\begin{bmatrix} 3 & 1 \\\\ 0 & \\frac{11}{3} \\end{bmatrix}$, $D = \\begin{bmatrix} 3 & 0 \\\\ 0 & \\frac{11}{3} \\end{bmatrix}$"
+  },
+  "narr": [
+   "Sakkizinchi mashqda yana bir matritsani LU ajratishni ko'rib chiqamiz.",
+   "Bu holda, birinchi qatordan ikkinchi qatorning $\\frac{4}{3}$ barobarini ayiramiz.",
+   "Natijada U matritsasining ikkinchi qatorida faqat bitta element qoladi.",
+   "L matritsasining elementlari ayirishda ishlatilgan koeffitsientlardan hosil bo'ladi.",
+   "D matritsasi U matritsasining diagonal elementlaridan tuziladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — 3 × 3 chiqarib tashlash",
+   "problem": "$Ax = b$ tenglamani Gauss chiqarib tashlash usuli bilan yeching A = $\\begin{bmatrix} 1 & 1 & 1 \\\\ 2 & 3 & 2 \\\\ 1 & 2 & 4 \\end{bmatrix}$, $b = \\begin{bmatrix} 2 \\\\ 6 \\\\ 1 \\end{bmatrix}$ uchun.",
+   "steps": [
+    "Tizma: $x + y + z = 2$, $2x + 3y + 2z = 6$, $x + 2y + 4z = 1$",
+    "Kengaytirilgan matritsa: $\\begin{bmatrix} 1 & 1 & 1 & | & 2 \\\\ 2 & 3 & 2 & | & 6 \\\\ 1 & 2 & 4 & | & 1 \\end{bmatrix}$",
+    "$x$ ni chiqarib tashlaymiz ($m_{21} = 2$, $m_{31} = 1$):",
+    "Yangi ikkinchi qator: $(2, 3, 2|6) - 2 \\cdot (1, 1, 1|2) = (0, 1, 0|2)$",
+    "Yangi uchinchi qator: $(1, 2, 4|1) - (1, 1, 1|2) = (0, 1, 3|-1)$",
+    "$y$ ni chiqarib tashlaymiz ($m_{32} = 1$): $(0, 1, 3|-1) - (0, 1, 0|2) = (0, 0, 3|-3)$"
+   ],
+   "result": "Uchburchak shaklga keltirilgan matritsa: $\\begin{bmatrix} 1 & 1 & 1 & | & 2 \\\\ 0 & 1 & 0 & | & 2 \\\\ 0 & 0 & 3 & | & -3 \\end{bmatrix}$"
+  },
+  "narr": [
+   "To'qqizinchi mashqda 3x3 chiziqli sistemani Gauss usuli bilan yechishni ko'rib chiqamiz.",
+   "Bu usulda sistemani uchburchak shakliga keltiramiz.",
+   "Birinchi qatonga ko'ra ikkinchi va uchinchi qatlardan birinchi noma'lumni yo'qotamiz.",
+   "Keyin ikkinchi qatonga ko'ra uchinchi qatordan ikkinchi noma'lumni yo'qotamiz.",
+   "Natijada yuqori uchburchak matritsa hosil bo'ladi.",
+   "Bu matritsadan orqaga almashtirish usuli bilan yechimni topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 20 — Uch diagonal model",
+   "problem": "$Ax = b$ ni LU orqali yeching A = $\\begin{bmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{bmatrix}$, $b = \\begin{bmatrix} 2 \\\\ 0 \\\\ 2 \\end{bmatrix}$. Eng yaqin qo'shnilar tuzilishini talqin qiling.",
+   "steps": [
+    "Ajratish: $m_{21} = -\\frac{1}{2}$, shuning uchun $R_2 \\leftarrow R_2 + \\frac{1}{2}R_1$: $(-1, 2, -1) + (1, -\\frac{1}{2}, 0) = (0, \\frac{3}{2}, -1)$",
+    "$m_{32} = -\\frac{2}{3}$, shuning uchun $R_3 \\leftarrow R_3 + \\frac{2}{3}R_2$: $(0, -1, 2) + (0, 1, -\\frac{2}{3}) = (0, 0, \\frac{4}{3})$",
+    "Shunday qilib, $L = \\begin{bmatrix} 1 & 0 & 0 \\\\ -\\frac{1}{2} & 1 & 0 \\\\ 0 & -\\frac{2}{3} & 1 \\end{bmatrix}$, $U = \\begin{bmatrix} 2 & -1 & 0 \\\\ 0 & \\frac{3}{2} & -1 \\\\ 0 & 0 & \\frac{4}{3} \\end{bmatrix}$",
+    "To'g'ri almashtirish $Ly = b$: $y_1 = 2$; $-\\frac{1}{2} \\cdot 2 + y_2 = 0$, bundan $y_2 = 1$; $-\\frac{2}{3} \\cdot 1 + y_3 = 2$, bundan $y_3 = \\frac{8}{3}$",
+    "Orqaga almashtirish $Ux = y$: $\\frac{4}{3}x_3 = \\frac{8}{3}$, $x_3 = 2$; $\\frac{3}{2}x_2 - 2 = 1$, $x_2 = 2$; $2x_1 - 2 = 2$, $x_1 = 2$",
+    "Shunday qilib, $x = \\begin{bmatrix} 2 \\\\ 2 \\\\ 2 \\end{bmatrix}$"
+   ]
+  },
+  "narr": [
+   "Yakuniy mashqda uch diagonal matritsani yechishni ko'rib chiqamiz.",
+   "Uch diagonal matritsada nol bo'lmagan elementlar faqat asosiy diagonal va unga qo'shn chiziqlarda joylashgan.",
+   "Bu matritsani LU ajratish usuli bilan yechamiz.",
+   "Birinchi qatonga nisbatan ikkinchi va uchinchi qatlarni o'zgartiramiz.",
+   "Keyin ikkinchi qatonga nisbatan uchinchi qatorni o'zgartiramiz.",
+   "Natijada L va U matritsalari hosil bo'ladi.",
+   "To'g'ri almashtirish orqali y vektorini topamiz.",
+   "Keyin orqaga almashtirish orqali x vektorini topamiz.",
+   "Tekshirish ko'rsatadiki, yechim to'g'ri.",
+   "Uch diagonal matritsalar ko'pincha fizik masalalarda, masalan issiqlik uzatish masalalarida uchraydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   3,
+   3,
+   4,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 20 — Uch diagonal model (cont.)",
+   "problem": "",
+   "steps": [
+    "Tekshirish: $A \\cdot x = \\begin{bmatrix} 4 - 2 + 0 \\\\ -2 + 4 - 2 \\\\ 0 - 2 + 4 \\end{bmatrix} = \\begin{bmatrix} 2 \\\\ 0 \\\\ 2 \\end{bmatrix} = b$",
+    "Matritsa uch diagonal — nol bo'lmagan elementlar faqat asosiy diagonal va unga qo'shn pozitsiyalarda: har bir noma'lum faqat eng yaqin qo'shnilar bilan bog'langan."
+   ],
+   "result": "$x = \\begin{bmatrix} 2 \\\\ 2 \\\\ 2 \\end{bmatrix}$"
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Xulosa",
+   "items": [
+    "5–7 haftalarda chiziqli algebraning asosiy tushunchalari o'rganildi",
+    "Matritsa operatsiyalari va teskari matritsalar",
+    "Chiziqli sistemalarni yechish usullari",
+    "Matritsalarni LU va LDU ajratish",
+    "Gauss chiqarib tashlash usuli",
+    "Uch diagonal matritsalar va ularning xossalari"
+   ]
+  },
+  "narr": [
+   "Bu haftalarda chiziqli algebraning asosiy tushunchalari bilan tanashdik.",
+   "Matritsa operatsiyalari va teskari matritsalarni topish usullarini o'rgandik.",
+   "Chiziqli sistemalarni yechishning turli usullarini ko'rib chiqdik.",
+   "Matritsalarni LU va LDU ajratish usullarini o'rgandik.",
+   "Gauss chiqarib tashlash usuli bilan chiziqli sistemalarni yechishni o'rgandik.",
+   "Uch diagonal matritsalar va ularning xossalari bilan tanishdik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

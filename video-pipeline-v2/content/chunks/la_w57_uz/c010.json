@@ -1,0 +1,285 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu 5-7 haftalik chiziqli algebra darsining materiallari bo'lib, savollar, formulalar va yechimlarni o'z ichiga oladi.",
+   "Keling, birinchi misolni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 18 — Transponir va teskari matritsa",
+   "problem": "A = \\begin{bmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 2 & 0 & 1 \\end{bmatrix} matritsa berilgan. AT ni hisoblang va (AT )−1 = (A−1)T tenglikni tekshiring.",
+   "steps": [
+    "AT ni hisoblaymiz",
+    "det A ni hisoblaymiz",
+    "(AT )−1 ni topamiz",
+    "A−1 ni topamiz",
+    "(A−1)T ni hisoblaymiz",
+    "Tenglikni tekshiramiz"
+   ],
+   "result": "AT = \\begin{bmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{bmatrix}, (AT )−1 = (A−1)T = \\frac{1}{5} \\begin{bmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Bu misolda bizga A matritsa berilgan. Avval uning transponir matritsasini hisoblashimiz kerak.",
+   "Transponir matritsani olish uchun matritsaning qatorlarini ustunlarga aylantiramiz.",
+   "Keyin determinantni hisoblaymiz. det A = 1·(1·1−1·0)−2·(0·1−1·2)+0·(0·0−1·2) = 5.",
+   "Endi (AT )−1 ni topamiz. Qo'shni matritsa bo'yicha formula orqali hisoblaymiz.",
+   "Alohida, A−1 ni ham topamiz.",
+   "Ikki natijani solishtiramiz va ular teng ekanligini ko'ramiz.",
+   "Nihoyat, tekshirish sifatida AT · (AT )−1 = I ekanligini tekshiramiz."
+  ],
+  "narr_item": [
+   0,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 19 — Simmetrik LDLT ajratish",
+   "problem": "Simmetrik A = \\begin{bmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{bmatrix} matritsani LDLT ko'rinishida ajrating.",
+   "steps": [
+    "Asosiy elementni aniqlaymiz",
+    "m21 va m31 ni hisoblaymiz",
+    "Ikkinchi qatorni o'zgartiramiz",
+    "Ikkinchi asosiy elementni aniqlaymiz",
+    "m32 ni hisoblaymiz",
+    "Uchinchi qatorni o'zgartiramiz"
+   ]
+  },
+  "narr": [
+   "Bu masalada simmetrik matritsani LDLT ko'rinishida ajratishimiz kerak.",
+   "Avval asosiy elementni aniqlaymiz, bu birinchi element bo'lgan 2.",
+   "Keyin m21 = 1 va m31 = 0 ekanligini ko'ramiz.",
+   "Ikkinchi qatorni R2 − R1 = (0, 3, 1) deb o'zgartiramiz.",
+   "Ikkinchi asosiy element 3 ekanligini aniqlaymiz.",
+   "m32 = 1/3 ni hisoblaymiz.",
+   "Uchinchi qatorni R3 − (1/3)R2 = (0, 0, 8/3) deb o'zgartiramiz.",
+   "Shunday qilib, L va D matritsalarini hosil qilamiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   3,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 19 — Simmetrik LDLT ajratish (cont.)",
+   "problem": "",
+   "steps": [
+    "L va D matritsalarini yozamiz",
+    "Tekshirish"
+   ],
+   "result": "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & \\frac{1}{3} & 1 \\end{bmatrix}, D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & \\frac{8}{3} \\end{bmatrix}"
+  },
+  "narr": [
+   "Nihoyat, tekshirish sifatida L · D · LT = A ekanligini tekshiramiz."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 20 — Uch diagonal model",
+   "problem": "A = \\begin{bmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{bmatrix}, b = \\begin{bmatrix} 3 \\\\ 0 \\\\ 2 \\end{bmatrix} uchun Ax = b ni LU orqali yeching. Eng yaqin qo'shnilar tuzilishini tushuntiring.",
+   "steps": [
+    "Ajratishni boshlaymiz",
+    "m21 ni hisoblaymiz va ikkinchi qatorni o'zgartiramiz",
+    "m32 ni hisoblaymiz va uchinchi qatorni o'zgartiramiz",
+    "L va U matritsalarini yozamiz",
+    "To'g'ri almashtirish Ly = b ni yechamiz",
+    "Tegishli almashtirish Ux = y ni yechamiz"
+   ]
+  },
+  "narr": [
+   "Bu masalada biz chiziqli sistemani LU ajratish orqali yechamiz.",
+   "Avval ajratishni boshlaymiz. m21 = (-1)/2 = -1/2.",
+   "R2 ← R2 + (1/2)R1 deb ikkinchi qatorni o'zgartiramiz.",
+   "Keyin m32 = (-1)/(3/2) = -2/3 ni hisoblaymiz.",
+   "R3 ← R3 + (2/3)R2 deb uchinchi qatorni o'zgartiramiz.",
+   "Shunday qilib, L va U matritsalarini hosil qilamiz.",
+   "Endi to'g'ri almashtirish Ly = b ni yechamiz.",
+   "Y1 = 3 bo'ladi. Keyin -1/2 · 3 + y2 = 0 tenglamadan y2 = 3/2.",
+   "Uchinchi tenglamadan -2/3 · (3/2) + y3 = 2 tenglamadan y3 = 3.",
+   "Keyin tegishli almashtirish Ux = y ni yechamiz.",
+   "Birinchi x3 ni topamiz: (4/3)x3 = 3, x3 = 9/4.",
+   "Keyin x2 ni topamiz: (3/2)x2 - 9/4 = 3/2, x2 = (15/4) · (2/3) = 5/2."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   4,
+   4,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 20 — Uch diagonal model (cont.)",
+   "problem": "",
+   "steps": [
+    "Javobni tekshiramiz",
+    "Eng yaqin qo'shnilar tuzilishini tushuntiramiz",
+    "LDU ajratishni ko'rsatamiz"
+   ],
+   "result": "x = \\begin{bmatrix} \\frac{11}{4} \\\\ \\frac{5}{2} \\\\ \\frac{9}{4} \\end{bmatrix}"
+  },
+  "narr": [
+   "Nihoyat x1 ni topamiz: 2x1 - 5/2 = 3, x1 = 11/4.",
+   "Shunday qilib, x = [11/4; 5/2; 9/4] ekanligini topamiz.",
+   "Javobni tekshiramiz: 2·(11/4) - 5/2 = 3; -(11/4) + 2·(5/2) - 9/4 = 0; -(5/2) + 2·(9/4) = 2.",
+   "Eng yaqin qo'shnilar tuzilishi: matritsa uchdiagonaldir, ya'ni nol bo'lmagan elementlar faqat asosiy diagonalda va uning ustida va ostida joylashgan.",
+   "Bu tuzilma sterjen bo'ylab issiqlik o'tkazuvchanlik modellarida, prujinalar zanjirida va bir o'lchamli chekli farqli tenglamalarda paydo bo'ladi.",
+   "LDU ajratish: D = [2 0 0; 0 3/2 0; 0 0 4/3] va D−1U = [1 -1/2 0; 0 1 -2/3; 0 0 1], shuning uchun A = L · D · D−1U."
+  ],
+  "narr_item": [
+   0,
+   0,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — 2 × 2 teskari matritsa",
+   "problem": "A = \\begin{bmatrix} 2 & 2 \\\\ 1 & 6 \\end{bmatrix} matritsa uchun A−1 ni toping. Ko'paytirish orqali tekshiring.",
+   "steps": [
+    "det A ni hisoblaymiz",
+    "A−1 ni topamiz",
+    "Ko'paytirish orqali tekshiramiz"
+   ],
+   "result": "A−1 = \\begin{bmatrix} \\frac{3}{5} & -\\frac{1}{5} \\\\ -\\frac{1}{10} & \\frac{1}{5} \\end{bmatrix}"
+  },
+  "narr": [
+   "Bu oddiyroq misolda 2x2 matritsaning teskarisini topamiz.",
+   "Avval determinantni hisoblaymiz: det A = 2·6−2·1 = 10.",
+   "Keyin teskari matritsani hisoblaymiz: A−1 = (1/10)·\\begin{bmatrix} 6 & -2 \\\\ -1 & 2 \\end{bmatrix}.",
+   "Nihoyat, ko'paytirish orqali tekshiramiz: A · A−1 = I.",
+   "(1,1) elementi 6/5 - 1/5 = 1, (2,2) elementi -1/5 + 6/5 = 1, diagonal bo'lmagan elementlar nol ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — 2 × 2 sistemani yechish",
+   "problem": "A = \\begin{bmatrix} 3 & 1 \\\\ 2 & 3 \\end{bmatrix}, b = \\begin{bmatrix} 8 \\\\ 10 \\end{bmatrix} bo'lgan Ax = b sistemani yeching.",
+   "steps": [
+    "Sistemani yozamiz",
+    "Birinchi tenglamani 3 ga ko'paytiramiz",
+    "Ikkinchi tenglamani ayiramiz",
+    "X ni topamiz",
+    "Y ni topamiz",
+    "Javobni tekshiramiz"
+   ],
+   "result": "x = \\begin{bmatrix} 2 \\\\ 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Bu masalada chiziqli sistemani yechamiz.",
+   "Sistema: 3x + y = 8, 2x + 3y = 10.",
+   "Birinchi tenglamani 3 ga ko'paytirib, ikkinchisini ayiramiz.",
+   "7x = 14, ya'ni x = 2.",
+   "Keyin y ni topamiz: y = (8 - 6)/1 = 2.",
+   "Shunday qilib, x = [2; 2] ekanligini topamiz.",
+   "Tekshirish: A · x = [6 + 2; 4 + 6] = [8; 10] = b."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — 2 × 2 teskari matritsa",
+   "problem": "A = \\begin{bmatrix} 4 & 2 \\\\ 1 & 4 \\end{bmatrix} matritsa uchun A−1 ni toping. Ko'paytirish orqali tekshiring.",
+   "steps": [
+    "det A ni hisoblaymiz",
+    "A−1 ni topamiz",
+    "Ko'paytirish orqali tekshiramiz"
+   ],
+   "result": "A−1 = \\begin{bmatrix} \\frac{2}{7} & -\\frac{1}{7} \\\\ -\\frac{1}{14} & \\frac{2}{7} \\end{bmatrix}"
+  },
+  "narr": [
+   "Yana bir 2x2 matritsaning teskarisini topamiz.",
+   "Avval determinantni hisoblaymiz: det A = 4·4−2·1 = 14.",
+   "Keyin teskari matritsani hisoblaymiz: A−1 = (1/14)·\\begin{bmatrix} 4 & -2 \\\\ -1 & 4 \\endmatrix}.",
+   "Nihoyat, ko'paytirish orqali tekshiramiz: A · A−1 = I.",
+   "(1,1) elementi 8/7 - 1/7 = 1, (2,2) elementi -1/7 + 8/7 = 1, diagonal bo'lmagan elementlar nol ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — 2 × 2 sistemani yechish",
+   "problem": "A = \\begin{bmatrix} 2 & 1 \\\\ 2 & 5 \\end{bmatrix}, b = \\begin{bmatrix} ? \\\\ ? \\end{bmatrix} bo'lgan Ax = b sistemani yeching.",
+   "steps": [
+    "Sistemani yozamiz",
+    "Yechimni topamiz"
+   ],
+   "result": "Matritsa to'liq berilmagan, shuning uchun yechim keltirilmagan."
+  },
+  "narr": [
+   "Bu masalada sistemani yechish kerak, lekin b vektori to'liq berilmagan.",
+   "Shuning uchun to'liq yechimni keltirib chiqarib bo'lmaydi."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ }
+]
