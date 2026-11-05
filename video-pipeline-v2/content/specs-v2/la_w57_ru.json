@@ -529,7 +529,7 @@
         "text": "Треугольная система и результат прямого хода:"
        }
       ],
-      "result": "\\begin{bmatrix} 2 & 1 & 1 & | & 5 \\\\ 0 & -8 & -2 & | & -12 \\\\ 0 & 0 & 1 & | & 2 \\end{bmatrix}, \\quad U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & -8 & -2 \\\\ 0 & 0 & 1 \\end{bmatrix}"
+      "result": "\\begin{bmatrix} 2 & 1 & 1 & | & 5 \\\\ 0 & -8 & -2 & | & -12 \\\\ 0 & 0 & 1 & | & 2 \\end{bmatrix},   U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & -8 & -2 \\\\ 0 & 0 & 1 \\end{bmatrix}"
      },
      "narr": [
       "Рассмотрим конкретный пример метода исключения Гаусса.",
@@ -641,7 +641,7 @@
         "text": "Отмена шага: обратная матрица"
        }
       ],
-      "result": "E^{-1} = \\begin{bmatrix} 1 & 0 & 3 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}, \\quad E^{-1} · E = I"
+      "result": "E^{-1} = \\begin{bmatrix} 1 & 0 & 3 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix},   E^{-1} · E = I"
      },
      "narr": [
       "Рассмотрим конкретный пример матрицы исключения.",
@@ -709,7 +709,7 @@
         "text": "Решение преобразованной системы:"
        }
       ],
-      "result": "y = 2, \\quad x = $\\frac{5}{3}$"
+      "result": "y = 2,   x = $5{3}$"
      },
      "narr": [
       "Рассмотрим конкретный пример использования матрицы перестановки.",
@@ -3380,19 +3380,19 @@
      "type": "example",
      "data": {
       "heading": "Упражнение 1 — Обратная 2 × 2",
-      "problem": "Найти A−1 для A = \\\\begin{pmatrix} 2 & 1 \\\\ 2 & 3\\end{pmatrix}. Проверить умножением.",
+      "problem": "Найти A−1 для A = \\begin{pmatrix} 2 & 1 \\\\ 2 & 3\\end{pmatrix}. Проверить умножением.",
       "steps": [
        {
         "text": "det A = 2 · 3 −1 · 2 = 4 ≠ 0"
        },
        {
-        "text": "По формуле 2 × 2: A−1 = (1/4) · \\\\begin{pmatrix} 3 & -1 \\\\ -2 & 2\\end{pmatrix} = \\\\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2\\end{pmatrix}"
+        "text": "По формуле 2 × 2: A−1 = (1/4) · \\begin{pmatrix} 3 & -1 \\\\ -2 & 2\\end{pmatrix} = \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2\\end{pmatrix}"
        },
        {
-        "text": "Проверка: A · A−1 = \\\\begin{pmatrix} 2 & 1 \\\\ 2 & 3\\end{pmatrix} · \\\\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2\\end{pmatrix} = \\\\begin{pmatrix} 3/2 - 1/2 & -1/2 + 1/2 \\\\ 3/2 - 3/2 & -1/2 + 3/2\\end{pmatrix} = I"
+        "text": "Проверка: A · A−1 = \\begin{pmatrix} 2 & 1 \\\\ 2 & 3\\end{pmatrix} · \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2\\end{pmatrix} = \\begin{pmatrix} 3/2 - 1/2 & -1/2 + 1/2 \\\\ 3/2 - 3/2 & -1/2 + 3/2\\end{pmatrix} = I"
        }
       ],
-      "result": "A−1 = \\\\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2\\end{pmatrix}"
+      "result": "A−1 = \\begin{pmatrix} 3/4 & -1/4 \\\\ -1/2 & 1/2\\end{pmatrix}"
      },
      "narr": [
       "Начнем с первого упражнения. Нам нужно найти обратную матрицу для данной матрицы 2 на 2.",
@@ -3415,7 +3415,7 @@
      "type": "example",
      "data": {
       "heading": "Упражнение 2 — Решение системы 2 × 2",
-      "problem": "Решить Ax = b, где A = \\\\begin{pmatrix} 3 & 2 \\\\ 1 & 4\\end{pmatrix}, b = \\\\begin{pmatrix} 8 \\\\ 6\\end{pmatrix}.",
+      "problem": "Решить Ax = b, где A = \\begin{pmatrix} 3 & 2 \\\\ 1 & 4\\end{pmatrix}, b = \\begin{pmatrix} 8 \\\\ 6\\end{pmatrix}.",
       "steps": [
        {
         "text": "Система: 3x + 2y = 8, x + 4y = 6"
@@ -3427,13 +3427,13 @@
         "text": "Подставляем y = 1 в первое уравнение: x = 6 - 4 = 2"
        },
        {
-        "text": "Итак, x = \\\\begin{pmatrix} 2 \\\\ 1\\end{pmatrix}"
+        "text": "Итак, x = \\begin{pmatrix} 2 \\\\ 1\\end{pmatrix}"
        },
        {
-        "text": "Проверка: A · x = \\\\begin{pmatrix} 3 · 2 + 2 \\\\ 2 + 4\\end{pmatrix} = \\\\begin{pmatrix} 8 \\\\ 6\\end{pmatrix} = b"
+        "text": "Проверка: A · x = \\begin{pmatrix} 3 · 2 + 2 \\\\ 2 + 4\\end{pmatrix} = \\begin{pmatrix} 8 \\\\ 6\\end{pmatrix} = b"
        }
       ],
-      "result": "x = \\\\begin{pmatrix} 2 \\\\ 1\\end{pmatrix}"
+      "result": "x = \\begin{pmatrix} 2 \\\\ 1\\end{pmatrix}"
      },
      "narr": [
       "Теперь перейдем к решению системы линейных уравнений 2 на 2.",
@@ -3460,13 +3460,13 @@
      "type": "example",
      "data": {
       "heading": "Упражнение 3 — Обратная 2 × 2",
-      "problem": "Найти A−1 для A = \\\\begin{pmatrix} 4 & 1 \\\\ 2 & 5\\end{pmatrix}. Проверить умножением.",
+      "problem": "Найти A−1 для A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 5\\end{pmatrix}. Проверить умножением.",
       "steps": [
        {
         "text": "det A = 4 · 5 −1 · 2 = 18 ≠ 0"
        },
        {
-        "text": "A−1 = (1/18) · \\\\begin{pmatrix} 5 & -1 \\\\ -2 & 4\\end{pmatrix} = \\\\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9\\end{pmatrix}"
+        "text": "A−1 = (1/18) · \\begin{pmatrix} 5 & -1 \\\\ -2 & 4\\end{pmatrix} = \\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9\\end{pmatrix}"
        },
        {
         "text": "Проверка: A · A−1 = I — например, элемент (1,1) равен 4 · (5/18) −1/9 = 20/18 − 2/18 = 1"
@@ -3475,7 +3475,7 @@
         "text": "элемент (2,2) равен −2/18 + 20/18 = 1, внедиагональные — нули"
        }
       ],
-      "result": "A−1 = \\\\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9\\end{pmatrix}"
+      "result": "A−1 = \\begin{pmatrix} 5/18 & -1/18 \\\\ -1/9 & 2/9\\end{pmatrix}"
      },
      "narr": [
       "Продолжаем с третьим упражнением. Снова находим обратную матрицу 2 на 2.",
@@ -3502,7 +3502,7 @@
      "type": "example",
      "data": {
       "heading": "Упражнение 4 — Решение системы 2 × 2",
-      "problem": "Решить Ax = b, где A = \\\\begin{pmatrix} 2 & 2 \\\\ 1 & 6\\end{pmatrix}, b = \\\\begin{pmatrix} 4 \\\\ 7\\end{pmatrix}.",
+      "problem": "Решить Ax = b, где A = \\begin{pmatrix} 2 & 2 \\\\ 1 & 6\\end{pmatrix}, b = \\begin{pmatrix} 4 \\\\ 7\\end{pmatrix}.",
       "steps": [
        {
         "text": "Система: 2x + 2y = 4 (то есть x + y = 2), x + 6y = 7"
@@ -3514,13 +3514,13 @@
         "text": "Подставляем y = 1 в первое уравнение: x = 2 - 1 = 1"
        },
        {
-        "text": "Итак, x = \\\\begin{pmatrix} 1 \\\\ 1\\end{pmatrix}"
+        "text": "Итак, x = \\begin{pmatrix} 1 \\\\ 1\\end{pmatrix}"
        },
        {
-        "text": "Проверка: A · x = \\\\begin{pmatrix} 2 + 2 \\\\ 1 + 6\\end{pmatrix} = \\\\begin{pmatrix} 4 \\\\ 7\\end{pmatrix} = b"
+        "text": "Проверка: A · x = \\begin{pmatrix} 2 + 2 \\\\ 1 + 6\\end{pmatrix} = \\begin{pmatrix} 4 \\\\ 7\\end{pmatrix} = b"
        }
       ],
-      "result": "x = \\\\begin{pmatrix} 1 \\\\ 1\\end{pmatrix}"
+      "result": "x = \\begin{pmatrix} 1 \\\\ 1\\end{pmatrix}"
      },
      "narr": [
       "Теперь четвертое упражнение — снова решение системы линейных уравнений.",
@@ -3547,25 +3547,25 @@
      "type": "example",
      "data": {
       "heading": "Упражнение 5 — Разложение 2 × 2",
-      "problem": "Найти A = LU = LDU для A = \\\\begin{pmatrix} 2 & 1 \\\\ 2 & 4\\end{pmatrix}.",
+      "problem": "Найти A = LU = LDU для A = \\begin{pmatrix} 2 & 1 \\\\ 2 & 4\\end{pmatrix}.",
       "steps": [
        {
-        "text": "Опорный элемент 2, множитель m21 = 2/2 = 1: R2 ← R2 − R1 даёт U = \\\\begin{pmatrix} 2 & 1 \\\\ 0 & 3\\end{pmatrix}"
+        "text": "Опорный элемент 2, множитель m21 = 2/2 = 1: R2 ← R2 − R1 даёт U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3\\end{pmatrix}"
        },
        {
-        "text": "Множитель записываем в L: L = \\\\begin{pmatrix} 1 & 0 \\\\ 1 & 1\\end{pmatrix}, A = LU (проверка: \\\\begin{pmatrix} 2 & 1 \\\\ 0 & 3\\end{pmatrix} + \\\\begin{pmatrix} 0 & 0 \\\\ 2 & 1\\end{pmatrix} = \\\\begin{pmatrix} 2 & 1 \\\\ 2 & 4\\end{pmatrix})"
+        "text": "Множитель записываем в L: L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1\\end{pmatrix}, A = LU (проверка: \\begin{pmatrix} 2 & 1 \\\\ 0 & 3\\end{pmatrix} + \\begin{pmatrix} 0 & 0 \\\\ 2 & 1\\end{pmatrix} = \\begin{pmatrix} 2 & 1 \\\\ 2 & 4\\end{pmatrix})"
        },
        {
-        "text": "Опорные элементы 2 и 3 выносим в D = \\\\begin{pmatrix} 2 & 0 \\\\ 0 & 3\\end{pmatrix}"
+        "text": "Опорные элементы 2 и 3 выносим в D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3\\end{pmatrix}"
        },
        {
-        "text": "Нормируя строки U делением на опорные элементы, получаем D−1U = \\\\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1\\end{pmatrix}"
+        "text": "Нормируя строки U делением на опорные элементы, получаем D−1U = \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1\\end{pmatrix}"
        },
        {
         "text": "Итак, A = LU = L · D · D−1U"
        }
       ],
-      "result": "A = \\\\begin{pmatrix} 1 & 0 \\\\ 1 & 1\\end{pmatrix} · \\\\begin{pmatrix} 2 & 0 \\\\ 0 & 3\\end{pmatrix} · \\\\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1\\end{pmatrix}"
+      "result": "A = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1\\end{pmatrix} · \\begin{pmatrix} 2 & 0 \\\\ 0 & 3\\end{pmatrix} · \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1\\end{pmatrix}"
      },
      "narr": [
       "Переходим к разложению матриц. В пятом упражнении нам нужно найти LU и LDU разложения для данной матрицы.",
@@ -3592,25 +3592,25 @@
      "type": "example",
      "data": {
       "heading": "Упражнение 6 — Разложение 2 × 2",
-      "problem": "Найти A = LU = LDU для A = \\\\begin{pmatrix} 3 & 1 \\\\ 3 & 5\\end{pmatrix}.",
+      "problem": "Найти A = LU = LDU для A = \\begin{pmatrix} 3 & 1 \\\\ 3 & 5\\end{pmatrix}.",
       "steps": [
        {
-        "text": "m21 = 3/3 = 1: R2 ← R2 − R1 даёт U = \\\\begin{pmatrix} 3 & 1 \\\\ 0 & 4\\end{pmatrix}"
+        "text": "m21 = 3/3 = 1: R2 ← R2 − R1 даёт U = \\begin{pmatrix} 3 & 1 \\\\ 0 & 4\\end{pmatrix}"
        },
        {
-        "text": "L = \\\\begin{pmatrix} 1 & 0 \\\\ 1 & 1\\end{pmatrix}, A = LU (проверка: \\\\begin{pmatrix} 3 & 1 \\\\ 0 & 4\\end{pmatrix} + \\\\begin{pmatrix} 0 & 0 \\\\ 3 & 1\\end{pmatrix} = \\\\begin{pmatrix} 3 & 1 \\\\ 3 & 5\\end{pmatrix})"
+        "text": "L = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1\\end{pmatrix}, A = LU (проверка: \\begin{pmatrix} 3 & 1 \\\\ 0 & 4\\end{pmatrix} + \\begin{pmatrix} 0 & 0 \\\\ 3 & 1\\end{pmatrix} = \\begin{pmatrix} 3 & 1 \\\\ 3 & 5\\end{pmatrix})"
        },
        {
-        "text": "D = \\\\begin{pmatrix} 3 & 0 \\\\ 0 & 4\\end{pmatrix}"
+        "text": "D = \\begin{pmatrix} 3 & 0 \\\\ 0 & 4\\end{pmatrix}"
        },
        {
-        "text": "D−1U = \\\\begin{pmatrix} 1 & 1/3 \\\\ 0 & 1\\end{pmatrix}"
+        "text": "D−1U = \\begin{pmatrix} 1 & 1/3 \\\\ 0 & 1\\end{pmatrix}"
        },
        {
         "text": "Итак, A = L · D · D−1U"
        }
       ],
-      "result": "A = \\\\begin{pmatrix} 1 & 0 \\\\ 1 & 1\\end{pmatrix} · \\\\begin{pmatrix} 3 & 0 \\\\ 0 & 4\\end{pmatrix} · \\\\begin{pmatrix} 1 & 1/3 \\\\ 0 & 1\\end{pmatrix}"
+      "result": "A = \\begin{pmatrix} 1 & 0 \\\\ 1 & 1\\end{pmatrix} · \\begin{pmatrix} 3 & 0 \\\\ 0 & 4\\end{pmatrix} · \\begin{pmatrix} 1 & 1/3 \\\\ 0 & 1\\end{pmatrix}"
      },
      "narr": [
       "Шестое упражнение также посвящено разложению матриц.",
@@ -3637,25 +3637,25 @@
      "type": "example",
      "data": {
       "heading": "Упражнение 7 — Разложение 2 × 2",
-      "problem": "Найти A = LU = LDU для A = \\\\begin{pmatrix} 1 & 1 \\\\ 4 & 3\\end{pmatrix}.",
+      "problem": "Найти A = LU = LDU для A = \\begin{pmatrix} 1 & 1 \\\\ 4 & 3\\end{pmatrix}.",
       "steps": [
        {
-        "text": "m21 = 4: R2 ← R2 − 4R1 даёт U = \\\\begin{pmatrix} 1 & 1 \\\\ 0 & -1\\end{pmatrix}"
+        "text": "m21 = 4: R2 ← R2 − 4R1 даёт U = \\begin{pmatrix} 1 & 1 \\\\ 0 & -1\\end{pmatrix}"
        },
        {
-        "text": "L = \\\\begin{pmatrix} 1 & 0 \\\\ 4 & 1\\end{pmatrix}, A = LU (проверка: 4 · \\\\begin{pmatrix} 1 & 1 \\\\ 0 & 0\\end{pmatrix} + \\\\begin{pmatrix} 0 & 0 \\\\ 0 & -1\\end{pmatrix} = \\\\begin{pmatrix} 4 & 4 \\\\ 0 & -1\\end{pmatrix} + \\\\begin{pmatrix} 0 & 0 \\\\ 0 & -1\\end{pmatrix} = \\\\begin{pmatrix} 4 & 4 \\\\ 0 & -1\\end{pmatrix} ≠ A)"
+        "text": "L = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1\\end{pmatrix}, A = LU (проверка: 4 · \\begin{pmatrix} 1 & 1 \\\\ 0 & 0\\end{pmatrix} + \\begin{pmatrix} 0 & 0 \\\\ 0 & -1\\end{pmatrix} = \\begin{pmatrix} 4 & 4 \\\\ 0 & -1\\end{pmatrix} + \\begin{pmatrix} 0 & 0 \\\\ 0 & -1\\end{pmatrix} = \\begin{pmatrix} 4 & 4 \\\\ 0 & -1\\end{pmatrix} ≠ A)"
        },
        {
-        "text": "Второй опорный элемент отрицателен — это допустимо: D = \\\\begin{pmatrix} 1 & 0 \\\\ 0 & -1\\end{pmatrix}"
+        "text": "Второй опорный элемент отрицателен — это допустимо: D = \\begin{pmatrix} 1 & 0 \\\\ 0 & -1\\end{pmatrix}"
        },
        {
-        "text": "D−1U = \\\\begin{pmatrix} 1 & 1 \\\\ 0 & 1\\end{pmatrix}"
+        "text": "D−1U = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1\\end{pmatrix}"
        },
        {
         "text": "Итак, A = L · D · D−1U"
        }
       ],
-      "result": "A = \\\\begin{pmatrix} 1 & 0 \\\\ 4 & 1\\end{pmatrix} · \\\\begin{pmatrix} 1 & 0 \\\\ 0 & -1\\end{pmatrix} · \\\\begin{pmatrix} 1 & 1 \\\\ 0 & 1\\end{pmatrix}"
+      "result": "A = \\begin{pmatrix} 1 & 0 \\\\ 4 & 1\\end{pmatrix} · \\begin{pmatrix} 1 & 0 \\\\ 0 & -1\\end{pmatrix} · \\begin{pmatrix} 1 & 1 \\\\ 0 & 1\\end{pmatrix}"
      },
      "narr": [
       "Седьмое упражнение — снова разложение матриц, но здесь нас ждет интересный момент.",
@@ -3680,25 +3680,25 @@
      "type": "example",
      "data": {
       "heading": "Упражнение 8 — Разложение 2 × 2",
-      "problem": "Найти A = LU = LDU для A = \\\\begin{pmatrix} 2 & 1 \\\\ 5 & 4\\end{pmatrix}.",
+      "problem": "Найти A = LU = LDU для A = \\begin{pmatrix} 2 & 1 \\\\ 5 & 4\\end{pmatrix}.",
       "steps": [
        {
-        "text": "m21 = 5/2: R2 ← R2 − (5/2)R1 даёт U = \\\\begin{pmatrix} 2 & 1 \\\\ 0 & 3/2\\end{pmatrix} (4 − 5/2 = 3/2)"
+        "text": "m21 = 5/2: R2 ← R2 − (5/2)R1 даёт U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 3/2\\end{pmatrix} (4 − 5/2 = 3/2)"
        },
        {
-        "text": "L = \\\\begin{pmatrix} 1 & 0 \\\\ 5/2 & 1\\end{pmatrix}, A = LU (проверка: (5/2) · \\\\begin{pmatrix} 2 & 1 \\\\ 0 & 0\\end{pmatrix} + \\\\begin{pmatrix} 0 & 0 \\\\ 0 & 3/2\\end{pmatrix} = \\\\begin{pmatrix} 5 & 5/2 \\\\ 0 & 0\\end{pmatrix} + \\\\begin{pmatrix} 0 & 0 \\\\ 0 & 3/2\\end{pmatrix} = \\\\begin{pmatrix} 5 & 5/2 \\\\ 0 & 3/2\\end{pmatrix} ≠ A)"
+        "text": "L = \\begin{pmatrix} 1 & 0 \\\\ 5/2 & 1\\end{pmatrix}, A = LU (проверка: (5/2) · \\begin{pmatrix} 2 & 1 \\\\ 0 & 0\\end{pmatrix} + \\begin{pmatrix} 0 & 0 \\\\ 0 & 3/2\\end{pmatrix} = \\begin{pmatrix} 5 & 5/2 \\\\ 0 & 0\\end{pmatrix} + \\begin{pmatrix} 0 & 0 \\\\ 0 & 3/2\\end{pmatrix} = \\begin{pmatrix} 5 & 5/2 \\\\ 0 & 3/2\\end{pmatrix} ≠ A)"
        },
        {
-        "text": "D = \\\\begin{pmatrix} 2 & 0 \\\\ 0 & 3/2\\end{pmatrix}"
+        "text": "D = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3/2\\end{pmatrix}"
        },
        {
-        "text": "D−1U = \\\\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1\\end{pmatrix}"
+        "text": "D−1U = \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1\\end{pmatrix}"
        },
        {
         "text": "Итак, A = L · D · D−1U"
        }
       ],
-      "result": "A = \\\\begin{pmatrix} 1 & 0 \\\\ 5/2 & 1\\end{pmatrix} · \\\\begin{pmatrix} 2 & 0 \\\\ 0 & 3/2\\end{pmatrix} · \\\\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1\\end{pmatrix}"
+      "result": "A = \\begin{pmatrix} 1 & 0 \\\\ 5/2 & 1\\end{pmatrix} · \\begin{pmatrix} 2 & 0 \\\\ 0 & 3/2\\end{pmatrix} · \\begin{pmatrix} 1 & 1/2 \\\\ 0 & 1\\end{pmatrix}"
      },
      "narr": [
       "И последнее, восьмое упражнение — завершающий пример разложения матриц.",
@@ -3843,7 +3843,7 @@
         "text": "Выражаем остальные переменные: y = -2 - 4t (из y + 4z = -2), x = 4 - 2y - z = 8 + 7t"
        },
        {
-        "text": "Общее решение: x = \\begin{pmatrix} 8 + 7t \\\\ -2 - 4t \\\\ t \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ -2 \\\\ 0 \\end{pmatrix} + t · \\begin{pmatrix} 7 \\\\ -4 \\\\ 1 \\end{pmatrix}, t \\in \\mathbb{R}"
+        "text": "Общее решение: x = \\begin{pmatrix} 8 + 7t \\\\ -2 - 4t \\\\ t \\end{pmatrix} = \\begin{pmatrix} 8 \\\\ -2 \\\\ 0 \\end{pmatrix} + t · \\begin{pmatrix} 7 \\\\ -4 \\\\ 1 \\end{pmatrix}, t ∈ ℝ"
        }
       ],
       "result": "Бесконечно много решений; указанное в файле x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix} — частное решение при t = -1."
@@ -4980,7 +4980,7 @@
         "text": "Сравним (A^T)^{-1} и (A^{-1})^T."
        }
       ],
-      "result": "A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}, (A^T)^{-1} = (A^{-1})^T = $\\frac{1}{5}$ \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}"
+      "result": "A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}, (A^T)^{-1} = (A^{-1})^T = $1{5}$ \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}"
      },
      "narr": [
       "Давайте рассмотрим свойства транспонирования и обратных матриц.",
@@ -5034,7 +5034,7 @@
         "text": "Опорный элемент 2; m21 = 1 (m31 = 0): R2 - R1 = (0, 3, 1)"
        },
        {
-        "text": "Второй опорный элемент 3; m32 = $\\frac{1}{3}$: R3 - $\\frac{1}{3}$R2 = (0, 0, $\\frac{8}{3}$)"
+        "text": "Второй опорный элемент 3; m32 = $1{3}$: R3 - $1{3}$R2 = (0, 0, $8{3}$)"
        }
       ],
       "result": "L = \\begin{pmatrix}1 & 0 & 0\\\\1 & 1 & 0\\\\0 & \\frac{1}{3} & 1\\end{pmatrix}, D = \\begin{pmatrix}2 & 0 & 0\\\\0 & 3 & 0\\\\0 & 0 & \\frac{8}{3}\\end{pmatrix}"
@@ -5063,13 +5063,13 @@
       "problem": "Решить Ax = b с помощью LU для A = \\begin{pmatrix}2 & -1 & 0\\\\-1 & 2 & -1\\\\0 & -1 & 2\\end{pmatrix}, b = \\begin{pmatrix}3\\\\0\\\\2\\end{pmatrix}. Интерпретировать структуру ближайших соседей.",
       "steps": [
        {
-        "text": "(1) Разложение: m21 = $\\frac{-1}{2}$ = -$\\frac{1}{2}$, R2 ← R2 + $\\frac{1}{2}$R1: (0, $\\frac{3}{2}$, -1); m32 = $\\frac{-1}{\\frac{3}{2}}$ = -$\\frac{2}{3}$, R3 ← R3 + $\\frac{2}{3}$R2: (0, 0, $4${3)"
+        "text": "(1) Разложение: m21 = $-1{2}$ = -$1{2}$, R2 ← R2 + $1{2}$R1: (0, $3{2}$, -1); m32 = $-1{3{2}}$ = -$2{3}$, R3 ← R3 + $2{3}$R2: (0, 0, $4{3}$"
        },
        {
-        "text": "(2) Прямая подстановка Ly = b: y1 = 3; -$\\frac{1}{2}$·3 + y2 = 0, y2 = $\\frac{3}{2}$; -$\\frac{2}{3}$·$\\frac{3}{2}$ + y3 = 2, y3 = 3"
+        "text": "(2) Прямая подстановка Ly = b: y1 = 3; -$1{2}$·3 + y2 = 0, y2 = $3{2}$; -$2{3}$·$3{2}$ + y3 = 2, y3 = 3"
        },
        {
-        "text": "(3) Обратная подстановка Ux = y: $\\frac{4}{3}$x3 = 3, x3 = $\\frac{9}{4}$; $\\frac{3}{2}$x2 - $\\frac{9}{4}$ = $\\frac{3}{2}$, x2 = $\\frac{5}{2}$; 2x1 - $\\frac{5}{2}$ = 3, x1 = $\\frac{11}{4}$"
+        "text": "(3) Обратная подстановка Ux = y: $4{3}$x3 = 3, x3 = $9{4}$; $3{2}$x2 - $9{4}$ = $3{2}$, x2 = $5{2}$; 2x1 - $5{2}$ = 3, x1 = $11{4}$"
        },
        {
         "text": "(4) Структура ближайших соседей: матрица трёхдиагональна, x2 взаимодействует с x1 и x3"
@@ -5109,10 +5109,10 @@
         "text": "det A = 2·6 - 2·1 = 10 ≠ 0"
        },
        {
-        "text": "A^{-1} = $\\frac{1}{10}$·\\begin{pmatrix}6 & -2\\\\-1 & 2\\end{pmatrix} = \\begin{pmatrix}\\frac{3}{5} & -\\frac{1}{5}\\\\-\\frac{1}{10} & \\frac{1}{5}\\end{pmatrix}"
+        "text": "A^{-1} = $1{10}$·\\begin{pmatrix}6 & -2\\\\-1 & 2\\end{pmatrix} = \\begin{pmatrix}\\frac{3}{5} & -\\frac{1}{5}\\\\-\\frac{1}{10} & \\frac{1}{5}\\end{pmatrix}"
        },
        {
-        "text": "Проверка: A·A^{-1} = I — элемент (1,1) равен $\\frac{6}{5}$ - $\\frac{1}{5}$ = 1, элемент (2,2) равен -$\\frac{1}{5}$ + $\\frac{6}{5}$ = 1, внедиагональные — нули"
+        "text": "Проверка: A·A^{-1} = I — элемент (1,1) равен $6{5}$ - $1{5}$ = 1, элемент (2,2) равен -$1{5}$ + $6{5}$ = 1, внедиагональные — нули"
        }
       ],
       "result": "A^{-1} = \\begin{pmatrix}\\frac{3}{5} & -\\frac{1}{5}\\\\-\\frac{1}{10} & \\frac{1}{5}\\end{pmatrix}"
@@ -5173,10 +5173,10 @@
         "text": "det A = 4·4 - 2·1 = 14 ≠ 0"
        },
        {
-        "text": "A^{-1} = $\\frac{1}{14}$·\\begin{pmatrix}4 & -2\\\\-1 & 4\\end{pmatrix} = \\begin{pmatrix}\\frac{2}{7} & -\\frac{1}{7}\\\\-\\frac{1}{14} & \\frac{2}{7}\\end{pmatrix}"
+        "text": "A^{-1} = $1{14}$·\\begin{pmatrix}4 & -2\\\\-1 & 4\\end{pmatrix} = \\begin{pmatrix}\\frac{2}{7} & -\\frac{1}{7}\\\\-\\frac{1}{14} & \\frac{2}{7}\\end{pmatrix}"
        },
        {
-        "text": "Проверка: A·A^{-1} = I — элемент (1,1) равен $\\frac{8}{7}$ - $\\frac{1}{7}$ = 1, элемент (2,2) равен -$\\frac{1}{7}$ + $\\frac{8}{7}$ = 1, внедиагональные — нули"
+        "text": "Проверка: A·A^{-1} = I — элемент (1,1) равен $8{7}$ - $1{7}$ = 1, элемент (2,2) равен -$1{7}$ + $8{7}$ = 1, внедиагональные — нули"
        }
       ],
       "result": "A^{-1} = \\begin{pmatrix}\\frac{2}{7} & -\\frac{1}{7}\\\\-\\frac{1}{14} & \\frac{2}{7}\\end{pmatrix}"
@@ -5234,7 +5234,7 @@
       "problem": "Найти A = LU = LDU для A = \\begin{pmatrix}2 & 1\\\\5 & 4\\end{pmatrix}.",
       "steps": [
        {
-        "text": "m21 = $\\frac{5}{2}$: R2 ← R2 - $\\frac{5}{2}$R1 даёт U = \\begin{pmatrix}2 & 1\\\\0 & \\frac{3}{2}\\end{pmatrix}"
+        "text": "m21 = $5{2}$: R2 ← R2 - $5{2}$R1 даёт U = \\begin{pmatrix}2 & 1\\\\0 & \\frac{3}{2}\\end{pmatrix}"
        },
        {
         "text": "L = \\begin{pmatrix}1 & 0\\\\\\frac{5}{2} & 1\\end{pmatrix}, A = LU"
@@ -5267,7 +5267,7 @@
       "problem": "Найти A = LU = LDU для A = \\begin{pmatrix}3 & 1\\\\2 & 5\\end{pmatrix}.",
       "steps": [
        {
-        "text": "m21 = $\\frac{2}{3}$: R2 ← R2 - $\\frac{2}{3}$R1 даёт U = \\begin{pmatrix}3 & 1\\\\0 & \\frac{13}{3}\\end{pmatrix}"
+        "text": "m21 = $2{3}$: R2 ← R2 - $2{3}$R1 даёт U = \\begin{pmatrix}3 & 1\\\\0 & \\frac{13}{3}\\end{pmatrix}"
        },
        {
         "text": "L = \\begin{pmatrix}1 & 0\\\\\\frac{2}{3} & 1\\end{pmatrix}, A = LU"
@@ -5463,7 +5463,7 @@
         "text": "Записываем общее решение в векторной форме."
        }
       ],
-      "result": "x = \\begin{pmatrix} 10 + 9t \\\\ -3 - 5t \\\\ t \\end{pmatrix}, t \\in \\mathbb{R}; частное решение при t = -1: x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}."
+      "result": "x = \\begin{pmatrix} 10 + 9t \\\\ -3 - 5t \\\\ t \\end{pmatrix}, t ∈ ℝ; частное решение при t = -1: x = \\begin{pmatrix} 1 \\\\ 2 \\\\ -1 \\end{pmatrix}."
      },
      "narr": [
       "Давайте решим систему уравнений Ax = b с помощью метода Гауссова исключения.",
@@ -5929,7 +5929,7 @@
         "text": "Проверяем, что A^T · (A^T)^{-1} = I."
        }
       ],
-      "result": "A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}, (A^T)^{-1} = (A^{-1})^T = $\\frac{1}{5}$ \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}."
+      "result": "A^T = \\begin{pmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{pmatrix}, (A^T)^{-1} = (A^{-1})^T = $1{5}$ \\begin{pmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{pmatrix}."
      },
      "narr": [
       "Теперь разберёмся с транспонированием и обратными матрицами.",
@@ -11028,7 +11028,7 @@
      "type": "example",
      "data": {
       "heading": "Упражнение 50 — Столбцовое и нуль-пространство матрицы",
-      "problem": "Для матрицы A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0 \\end{pmatrix} описать Col(A) и Null(A).",
+      "problem": "Для матрицы A = \\begin{pmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 0\\end{pmatrix} описать Col(A) и Null(A).",
       "steps": [
        {
         "text": "Выделяем столбцы матрицы: a1 = (1, 0, 0), a2 = (2, 1, 0), a3 = (0, 1, 0)"

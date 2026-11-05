@@ -39,6 +39,23 @@ def accent_for(spec_id):
 # ── plot precompute: numpy-expression → sampled polyline (safe namespace) ──
 import numpy as _np
 
+def _tex2uni(s):
+    """LaTeX → Unicode для SVG-подписей кривых (без KaTeX в SVG)."""
+    s = re.sub(r'\\sqrt\{([^{}]*)\}', r'√\1', s)
+    for _ in range(3):
+        s = re.sub(r'\\frac\{([^{}]*)\}\{([^{}]*)\}', r'(\1)/(\2)', s)
+    s = re.sub(r'\\mathbb\{([A-Za-z])\}', r'\1', s)
+    for k, v in [('\\cdot', '·'), ('\\times', '×'), ('\\pi', 'π'), ('\\alpha', 'α'),
+                 ('\\beta', 'β'), ('\\gamma', 'γ'), ('\\theta', 'θ'), ('\\lambda', 'λ'),
+                 ('\\mu', 'μ'), ('\\omega', 'ω'), ('\\infty', '∞'), ('\\approx', '≈'),
+                 ('\\leq', '≤'), ('\\ge', '≤'), ('\\geq', '≥'), ('\\pm', '±'),
+                 ('\\left', ''), ('\\right', '')]:
+        s = s.replace(k, v)
+    s = re.sub(r'\\vec\{([^{}]{1,12})\}', lambda m: m.group(1) + '\u20D7', s)
+    s = re.sub(r'\\([a-zA-Z]+)\{([^{}]*)\}', r'\2', s)
+    s = re.sub(r'\\([a-zA-Z]+)', r'\1', s)
+    return s.replace('{', '').replace('}', '')
+
 def _plot_svg(pdata, W=1280, H=560):
     """pdata: functions[{fn, tex, color}], x_range, y_range, point, vline.
     Labels: curve tags stacked top-left INSIDE the plot; axis captions placed
@@ -64,7 +81,7 @@ def _plot_svg(pdata, W=1280, H=560):
         ty = mt - 44 + ti*36
         lx = ml + pw - 26 - ti*0  # right-aligned column
         parts.append(f'<circle cx="{lx}" cy="{ty-9}" r="9" fill="{f.get("color","#4C5FD5")}"/>')
-        parts.append(f'<text class="curve-t" x="{lx-20}" y="{ty}" text-anchor="end" fill="{f.get("color","#4C5FD5")}">{_xml(f["tex"])}</text>')
+        parts.append(f'<text class="curve-t" x="{lx-20}" y="{ty}" text-anchor="end" fill="{f.get("color","#4C5FD5")}">{_xml(_tex2uni(f["tex"]))}</text>')
         tag_i += 1
     # axis captions bottom-right / left, below plot
     if pdata.get('x_label'):
