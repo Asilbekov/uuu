@@ -1,0 +1,749 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "Strukturalar va funksiyalar"
+  },
+  "narr": [
+   "Keling, C tilidagi strukturalar bilan ishlashni ko'rib chiqaylik. Struktura turli xil o'zgaruvchilarni bitta birlikka birlashtirishga imkon beradi.",
+   "Bu yerda biz Stock nomli strukturani aniqlaymiz, unda suv, sut, qahva donalari va stakanning miqdori saqlanadi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Strukturani yaratish va maydonlar bilan ishlash",
+   "bullets": [
+    "Strukturani yaratish: Stock stock = {500, 200, 40, 3};",
+    "Maydonlarga kirish: stock.water_ml;",
+    "Maydon qiymatini o'zgartirish: stock.water_ml = 450;",
+    "Maydonlar tartibi: suv, sut, donlar, stakanlar"
+   ]
+  },
+  "narr": [
+   "Strukturani yaratishda qiymatlar maydonlar tartibida beriladi. Birinchi qiymat suv, ikkinchisi sut va hokazo.",
+   "Maydonlarga nuqta orqali kirish mumkin. Masalan, stock.water_ml suv miqdorini beradi.",
+   "Maydon qiymatini o'zgartirish uchun oddiy tayinlash amalini qo'llaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Strukturani yaratish va maydonlarga kirish",
+   "code": "int water_ml;\nint milk_ml;\nint beans_g;\nint paper_cups;\n} Stock;\n\nStock stock = {500, 200, 40, 3};\nprintf(\"%d\\n\", stock.water_ml);\nstock.water_ml = 450;\nprintf(\"%d\\n\", stock.water_ml);",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ]
+  },
+  "narr": [
+   "Bu kodda biz Stock strukturani aniqlaymiz, unda to'rtta maydon mavjud.",
+   "Keyin stock nomli o'zgaruvchi yaratamiz va unga dastlabki qiymatlarni beramiz.",
+   "Birinchi print funktsiyasi suv miqdorini 500 deb chiqaradi.",
+   "Keyin suv miqdorini 450 ga o'zgartiramiz va ikkinchi print funktsiyasi bu qiymatni chiqaradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Strukturadagi maydonlar",
+   "columns": [
+    {
+     "name": "Maydon",
+     "type": "text"
+    },
+    {
+     "name": "Dastlabki qiymat",
+     "type": "number"
+    }
+   ],
+   "rows": [
+    [
+     {
+      "text": "water_ml"
+     },
+     {
+      "text": "500"
+     }
+    ],
+    [
+     {
+      "text": "milk_ml"
+     },
+     {
+      "text": "200"
+     }
+    ],
+    [
+     {
+      "text": "beans_g"
+     },
+     {
+      "text": "40"
+     }
+    ],
+    [
+     {
+      "text": "paper_cups"
+     },
+     {
+      "text": "3"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Bu jadvalda strukturadagi barcha maydonlar va ularning dastlabki qiymatlari ko'rsatilgan."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Strukturani nusxalash",
+   "bullets": [
+    "Funksiya alohida Stock qaytaradi",
+    "Yordamchi parametr nusxasini oladi",
+    "Nusxani o'zgartiradi va qaytaradi",
+    "Chaqiruvchi natijani saqlashni hal qiladi"
+   ]
+  },
+  "narr": [
+   "Agar biz strukturaning nusxasini olishni istasak, maxsus funksiyadan foydalanamiz.",
+   "Bu funksiya strukturaning nusxasini qabul qilib, uni o'zgartiradi va yangi nusxani qaytaradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Strukturani nusxalash funksiyasi",
+   "code": "Stock stock_after_water_use(\nStock stock, int amount_ml)\n{\nif (amount_ml >= 0 &&\namount_ml <= stock.water_ml)\n{\nstock.water_ml -= amount_ml;\n}\nreturn stock;\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  "narr": [
+   "Bu funksiya ikki parametr qabul qiladi: strukturaning nusxasi va suv miqdori.",
+   "Agar berilgan suv miqdori manfiy yoki strukturadagidan ko'p bo'lmasa, suv miqdorini ayirib tashlaymiz.",
+   "Keyin o'zgargan nusxani qaytaramiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Strukturani nusxalash",
+   "problem": "500 ml suv bo'lgan stock strukturasi berilgan. 100 ml suv ishlatib, keyin yana 50 ml suv ishlatish uchun stock_after_water_use funksiyasini qo'llang.",
+   "steps": [
+    {
+     "text": "Dastlabki stock: 500 ml suv"
+    },
+    {
+     "text": "Birinchi chaqiruv: stock_after_water_use(stock, 100)"
+    },
+    {
+     "text": "Natija: preview.water_ml = 400 ml, stock.water_ml = 500 ml (o'zgarmagan)"
+    },
+    {
+     "text": "Ikkinchi chaqiruv: stock = stock_after_water_use(stock, 50)"
+    },
+    {
+     "text": "Natija: stock.water_ml = 450 ml"
+    }
+   ],
+   "result": "Natijada stock.water_ml = 450 ml bo'ladi"
+  },
+  "narr": [
+   "Keling, bu funksiyani amalda ko'rib chiqaylik.",
+   "Bizda dastlab 500 ml suv bo'lgan stock strukturasi mavjud.",
+   "Birinchi chaqiruvda 100 ml suv ishlatamiz. Funksiya yangi nusxani qaytaradi, lekin asl stock o'zgarmaydi.",
+   "Ikkinchi chaqiruvda esa natijani asl stock saqlaymiz.",
+   "Natijada suv miqdori 450 ml ga kamayadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Strukturani nusxalash natijalari",
+   "columns": [
+    {
+     "name": "Vaqt",
+     "type": "text"
+    },
+    {
+     "name": "stock.water_ml",
+     "type": "number"
+    },
+    {
+     "name": "preview.water_ml",
+     "type": "number"
+    }
+   ],
+   "rows": [
+    [
+     {
+      "text": "Dastlabki holat"
+     },
+     {
+      "text": "500"
+     },
+     {
+      "text": "-"
+     }
+    ],
+    [
+     {
+      "text": "Birinchi chaqiruvdan keyin"
+     },
+     {
+      "text": "500"
+     },
+     {
+      "text": "400"
+     }
+    ],
+    [
+     {
+      "text": "Natijani saqlagandan keyin"
+     },
+     {
+      "text": "450"
+     },
+     {
+      "text": "400"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Bu jadvalda strukturaning nusxalash jarayonidagi o'zgarishlar ko'rsatilgan.",
+   "Ko'rishimiz mumkinki, birinchi chaqiruvda asl stock o'zgarmaydi, faqat nusxa o'zgaradi.",
+   "Ikkinchi chaqiruvda esa natijani asl stock saqlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Qahva mashinasi modeli",
+   "subtitle": "can_make_coffee, stock_after_coffee va Cup"
+  },
+  "narr": [
+   "Endi keling, qahva mashinasi modelini yaratishni ko'rib chiqaylik.",
+   "Bu modelda suv, sut, qahva donalari va stakalar zaxirasi bor.",
+   "Har bir ichimlik uchun retsept ham struktura sifatida saqlanadi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Qahva tayyorlash mumkinligini tekshirish",
+   "bullets": [
+    "Ajoyib model: suv 500 / sut 200 / qahva donalari 40 / stakanlar 3",
+    "Latte retsepti: 100 / 50 / 10 / 1",
+    "Yechim funksiyasi: bool — true/false natija",
+    ">= — «kamida shu miqdorda»",
+    "&& — har bir shart bajarilishi kerak",
+    "return — natijani chaqiruvchiga uzatadi"
+   ]
+  },
+  "narr": [
+   "Qahva tayyorlash mumkinligini tekshirish uchun can_make_coffee funksiyasidan foydalanamiz.",
+   "Bu funksiya ikki parametr qabul qiladi: zaxira va retsept.",
+   "Agar zaxirada retseptda talab qilinadigan barcha ingredientlar yetarli bo'lsa, true qaytaradi, aks holda false."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Qahva tayyorlash mumkinligini tekshirish",
+   "code": "bool can_make_coffee(\nStock stock, Recipe recipe)\n{\nreturn\nstock.water_ml >= recipe.water_ml &&\nstock.milk_ml >= recipe.milk_ml &&\nstock.beans_g >= recipe.beans_g &&\nstock.paper_cups >= recipe.paper_cups;\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+   ]
+  },
+  "narr": [
+   "Bu funksiya zaxiradagi har bir ingredient miqdorini retseptdagi miqdor bilan solishtiradi.",
+   "Agar barcha ingredientlar yetarli bo'lsa, true qaytaradi, aks holda false."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Qahva tayyorlash mumkinligini tekshirish",
+   "problem": "Berilgan stock va latte retsepti uchun qahva tayyorlash mumkinligini tekshiring.",
+   "steps": [
+    {
+     "text": "Stock: suv 500 / sut 200 / qahva donalari 40 / stakanlar 3"
+    },
+    {
+     "text": "Latte retsepti: suv 100 / sut 50 / qahva donalari 10 / stakanlar 1"
+    },
+    {
+     "text": "Tekshirish: har bir ingredient miqdori yetarlimi?"
+    },
+    {
+     "text": "Natija: true (barcha ingredientlar yetarli)"
+    }
+   ],
+   "result": "true"
+  },
+  "narr": [
+   "Keling, misol ko'rib chiqaylik.",
+   "Bizda suv 500 ml, sut 200 ml, qahva donalari 40 g va stakanlar 3 ta bo'lgan zaxira bor.",
+   "Latte uchun esa 100 ml suv, 50 ml sut, 10 g qahva donalari va 1 ta stakan kerak.",
+   "Zaxiradagi barcha ingredientlar yetarli, shuning uchun true qaytariladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Qahva tayyorlash mumkinligi tekshiruvi",
+   "columns": [
+    {
+     "name": "Zaxira",
+     "type": "text"
+    },
+    {
+     "name": "Latte uchun yetarlimi?",
+     "type": "boolean"
+    }
+   ],
+   "rows": [
+    [
+     {
+      "text": "500 / 200 / 40 / 3"
+     },
+     {
+      "text": "true"
+     }
+    ],
+    [
+     {
+      "text": "100 / 50 / 10 / 1"
+     },
+     {
+      "text": "true"
+     }
+    ],
+    [
+     {
+      "text": "500 / 200 / 40 / 0"
+     },
+     {
+      "text": "false"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Bu jadvalda turli xil zaxiralar uchun qahva tayyorlash mumkinligi ko'rsatilgan.",
+   "Birinchi ikki holatda barcha ingredientlar yetarli, shuning uchun true.",
+   "Uchinchi holatda esa stakalar yetarli emas, shuning uchun false qaytariladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Zaxirani yangilash",
+   "bullets": [
+    "Agar qahva tayyorlash mumkin bo'lsa — barcha to'rtta resursni ayirib va nusxasini qaytaramiz",
+    "-= ayirib va natijani saqlaydi",
+    "return stock; yangilanlangan nusxani qaytaradi",
+    "Ikkita chaqiruvni solishtiring: birinchisi qaytarilgan nusxani tashlaydi, ikkinchisi saqlaydi"
+   ]
+  },
+  "narr": [
+   "Agar qahva tayyorlash mumkin bo'lsa, zaxirani yangilash uchun stock_after_coffee funksiyasidan foydalanamiz.",
+   "Bu funksiya zaxiradan retseptda kerak bo'lgan ingredientlarni ayirib tashlaydi va yangilangan nusxani qaytaradi.",
+   "E'tibor bering, funksiya zaxiraning nusxasini o'zgartiradi, asl zaxirani emas."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Zaxirani yangilash funksiyasi",
+   "code": "Stock stock_after_coffee(\nStock stock, Recipe recipe)\n{\nif (can_make_coffee(stock, recipe))\n{\nstock.water_ml -= recipe.water_ml;\nstock.milk_ml -= recipe.milk_ml;\nstock.beans_g -= recipe.beans_g;\nstock.paper_cups -= recipe.paper_cups;\n}\nreturn stock;\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+   ]
+  },
+  "narr": [
+   "Bu funksiya avval qahva tayyorlash mumkinligini tekshiradi.",
+   "Agar mumkin bo'lsa, zaxiradan retseptda kerak bo'lgan ingredientlarni ayirib tashlaydi.",
+   "Keyin yangilangan nusxani qaytaradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Zaxirani yangilash",
+   "problem": "500 / 200 / 40 / 3 zaxirasi va latte retsepti berilgan. stock_after_coffee funksiyasini qo'llang.",
+   "steps": [
+    {
+     "text": "Dastlabki zaxira: suv 500 / sut 200 / qahva donalari 40 / stakanlar 3"
+    },
+    {
+     "text": "Chaqiruv: stock_after_coffee(stock, latte)"
+    },
+    {
+     "text": "Natija: yangilangan zaxira suv 400 / sut 150 / qahva donalari 30 / stakanlar 2"
+    },
+    {
+     "text": "E'tibor: agar natijani saqlamasak, asl zaxira o'zgarmaydi"
+    }
+   ],
+   "result": "Zaxira yangilanadi: suv 400 / sut 150 / qahva donalari 30 / stakanlar 2"
+  },
+  "narr": [
+   "Keling, zaxirani yangilash jarayonini ko'rib chiqaylik.",
+   "Bizda dastlab suv 500 ml, sut 200 ml, qahva donalari 40 g va stakanlar 3 ta bo'lgan zaxira bor.",
+   "stock_after_coffee funksiyasini chaqirganimizdan keyin, zaxiradan latte retsepti uchun kerak bo'lgan ingredientlarni ayiramiz.",
+   "Natijada yangilangan zaxira: suv 400 ml, sut 150 ml, qahva donalari 30 g va stakanlar 2 ta.",
+   "E'tibor bering, agar natijani asl zaxiraga saqlamasak, zaxira o'zgarmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Zaxirani yangilash natijalari",
+   "columns": [
+    {
+     "name": "Holat",
+     "type": "text"
+    },
+    {
+     "name": "Suv (ml)",
+     "type": "number"
+    },
+    {
+     "name": "Sut (ml)",
+     "type": "number"
+    },
+    {
+     "name": "Qahva donalari (g)",
+     "type": "number"
+    },
+    {
+     "name": "Stakanlar",
+     "type": "number"
+    }
+   ],
+   "rows": [
+    [
+     {
+      "text": "Buyurtmadan oldin"
+     },
+     {
+      "text": "500"
+     },
+     {
+      "text": "200"
+     },
+     {
+      "text": "40"
+     },
+     {
+      "text": "3"
+     }
+    ],
+    [
+     {
+      "text": "Natijani saqlaganidan keyin"
+     },
+     {
+      "text": "400"
+     },
+     {
+      "text": "150"
+     },
+     {
+      "text": "30"
+     },
+     {
+      "text": "2"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Bu jadvalda zaxirani yangilashdan oldin va keyingi holat ko'rsatilgan.",
+   "Ko'rishimiz mumkinki, barcha ingredientlar latte retsepti uchun kerak bo'lgan miqdorda ayirib tashlangan.",
+   "Natijada zaxira yangilanadi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Buyurtma bloki",
+   "subtitle": "print_stock va print_cup funksiyalari"
+  },
+  "narr": [
+   "Endi keling, buyurtma blokini ko'rib chiqaylik.",
+   "Bu yerda print_stock va print_cup funksiyalari ma'lumotlarni ko'rsatadi.",
+   "Shuningdek, create_cup funksiyasi ichimlik yozuvini (Cup) quradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Buyurtma bloki",
+   "code": "print_stock(stock);\nif (can_make_coffee(stock, latte))\n{\nstock = stock_after_coffee(stock, latte);\ncup = create_cup(latte, false);\n}\nprint_stock(stock);\nprint_cup(cup);",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  "narr": [
+   "Bu kodda avval zaxirani chiqaramiz.",
+   "Keyin qahva tayyorlash mumkinligini tekshiramiz.",
+   "Agar mumkin bo'lsa, zaxirani yangilaymiz va yangi Cup yaratabmiz.",
+   "Nihoyat, yangilangan zaxirani va Cupni chiqaramiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Shartli tayinlash",
+   "bullets": [
+    "Agar zaxiralar bo'lsa (stock.paper_cups > 0), if sharti tayinlashni amalga oshiradi",
+    "Barcha joriy maydonlar stock va avvalgi Cup o'zgarmaydi",
+    "false «koʻmirsiz» degan maʼnoni anglatadi"
+   ]
+  },
+  "narr": [
+   "Agar zaxirada stakalar bo'lmasa (stock.paper_cups = 0), if sharti hech qanday tayinlashni amalga oshirmaydi.",
+   "Bu holatda barcha joriy maydonlar stock va avvalgi Cup o'zgarmaydi.",
+   "create_cup funksiyasida false parametri «koʻmirsiz» degan maʼnoni anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "goto, spagetti-kod va xatolarni ishlash",
+   "subtitle": "Kodni boshqarish"
+  },
+  "narr": [
+   "Nihoyat, keling, C tilidagi kalit so'z va kodni boshqarish usullarini ko'rib chiqaylik.",
+   "goto kalit so'zi kodning istalgan joyiga shartli o'tishga imkon beradi.",
+   "Bu usuldan foydalanish noto'g'ri tuzilgan kodga (spagetti-kod) olib kelishi mumkin.",
+   "Shuning uchun goto dan ehtiyotlik bilan foydalanish kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "goto kalit so'zi",
+   "code": "start:\nprintf(\"Dastur boshlandi\\n\");\n// ... boshqa kodlar ...\ngoto end;\n// ... bu qism chiqarilmaydi ...\nend:\nprintf(\"Dastur tugadi\\n\");",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  "narr": [
+   "Bu oddiy misoda goto kalit so'zi ishlatilgan.",
+   "start: belgisi kodning boshlang'ich nuqtasini belgilaydi.",
+   "goto end; komandasi dasturni end: belgisi joylashgan joyga olib boradi.",
+   "Shuning uchun end: dan keyingi printf komandasi chiqariladi, lekin ungacha bo'lgan printf komandasi chiqarilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Xulosa",
+   "items": [
+    "Strukturalar turli xil o'zgaruvchilarni bitta birlikka birlashtirishga imkon beradi",
+    "Strukturani yaratishda qiymatlar maydonlar tartibida beriladi",
+    "Maydonlarga nuqta orqali kirish mumkin",
+    "Strukturani nusxalash uchun maxsus funksiyalaridan foydalanish kerak",
+    "Qahva tayyorlash mumkinligini tekshirish uchun can_make_coffee funksiyasidan foydalanamiz",
+    "Zaxirani yangilash uchun stock_after_coffee funksiyasidan foydalanamiz",
+    "goto kalit so'zidan ehtiyotlik bilan foydalanish kerak, chunki u noto'g'ri tuzilgan kodga olib kelishi mumkin"
+   ]
+  },
+  "narr": [
+   "Bu darsda biz C tilidagi strukturalar bilan ishlashni, ularni nusxalashni va zaxirani boshqarishni o'rgandik.",
+   "Shuningdek, qahva tayyorlash modelini va kodni boshqarish usullarini ko'rib chiqdik.",
+   "Bu bilimlar sizga murakkab dasturlar yaratishda yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

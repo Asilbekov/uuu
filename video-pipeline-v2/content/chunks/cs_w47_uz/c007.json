@@ -1,0 +1,554 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "O'zgaruvchilar va ko'lam (scope)"
+  },
+  "narr": [
+   "Darsimizda biz o'zgaruvchilarning ko'lamini, ya'ni ularning qaysi hududda amal qilishini o'rganamiz.",
+   "Ko'lam degani odatda o'zgaruvchi e'lon qilingan blokdir.",
+   "Funksiyadan tashqarida e'lon qilingan o'zgaruvchilar global o'zgaruvchilar deb ataladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'zgaruvchi turlari va ularning xususiyatlari",
+   "bullets": [
+    "Global o'zgaruvchilar — funksiya tashqarisida e'langan",
+    "static: funksiya tashqarisida — faqat fayl ichida ko'rinadi",
+    "static: funksiya ichida — lokal, lekin dastur ishga tushirilganda bir marta initilashtiriladi",
+    "register: o'zgaruvchini registrda saqlashga aniq so'rov",
+    "register faqat lokal o'zgaruvchilar uchun ishlatilishi mumkin"
+   ]
+  },
+  "narr": [
+   "Ko'lamdan tashqari, C tilida turli xil o'zgaruvchi turlari mavjud.",
+   "Global o'zgaruvchilar butun dastur bo'ylicha foydalanish mumkin.",
+   "static kaliti funksiyadan tashqarida ishlatilsa, o'zgaruvchi yoki funksiya faqat shu fayl ichida ko'rinadi.",
+   "Agar static kaliti funksiya ichida ishlatilsa, u lokal bo'ladi, lekin dastur ishga tushirilganda bir marta initilashtiriladi va keyingi chaqiruvlarda qayta initilashtirilmaydi.",
+   "register kaliti o'zgaruvchini registrda saqlashga aniq so'rov bildiradi, ammo faqat lokal o'zgaruvchilar uchun ishlatilishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Fibonachchi sonlari misoli",
+   "code": "int nmax = 20;\n\n/* The main() function */\nint main(int argc, char **argv) /* entry point */\n{\n    int a = 0, b = 1, c, n;\n    printf(\"%3d: %d\\n\", 1, a);\n    printf(\"%3d: %d\\n\", 2, b);\n    for (n = 3; n <= nmax; n++) {\n        c = a + b;\n        a = b;\n        b = c;\n        printf(\"%3d: %d\\n\", n, c);\n    }\n    return 0; /* success */\n}",
+   "highlight": [
+    1,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ]
+  },
+  "narr": [
+   "Keling, Fibonachchi sonlarini chiqaradigan dasturni ko'rib chiqaylik.",
+   "Bu yerda nmax global o'zgaruvchi sifatida e'langan.",
+   "Agar main funksiyasi ichida lokal nmax o'zgaruvchisi e'langan bo'lsa, u global nmax ni yashirib qo'yadi.",
+   "Shu sababli tsikl 25 gacha bo'lishi va 25 qator chiqariladi.",
+   "Main funksiyasida a, b va c lokal o'zgaruvchilar e'langan.",
+   "Fibonachchi tsikli boshlanadi, birinchi ikki son chiqariladi.",
+   "Keyin n = 3 dan nmax gacha bo'lgan oraliqda tsikl ishga tushiriladi.",
+   "Har bir iteratsiyada c = a + b formulasi bilan keyingi Fibonachchi soni hisoblanadi.",
+   "a va b qiymatlari yangilanadi.",
+   "Har bir bosqichda natija ekranga chiqariladi.",
+   "Nihoyat, dastur 0 qiymati bilan tugaydi, bu muvaffaqiyatli tugaganini bildiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Laboratoriya mashqlari",
+   "subtitle": "Satr uzunligi, do-while va continue"
+  },
+  "narr": [
+   "Endi laboratoriya mashqlariga o'tamiz, bunda satr uzunligini hisoblash, do-while sikli va kalit so'zlarni o'tkazib yuborishni ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Satr uzunligini hisoblash",
+   "bullets": [
+    "string name = getstring(\"Name: \");",
+    "Satr H, I, ! va terminatori '\\0' ni saqlaydi",
+    "Algoritm: nol dan boshlab sanash",
+    "Har bir belgini sanash",
+    "Oxirgi belgida to'xtash",
+    "Terminator hisoblanmaydi"
+   ]
+  },
+  "narr": [
+   "Satr uzunligini hisoblash oddiy algoritm, lekin bir nechta nuanslarga ega.",
+   "Masalan, getstring funksiyasi orqali olingan satrda H, I, ! belgilari va oxirida nol terminatori '\\0' bo'ladi.",
+   "Uzunlikni hisoblash uchun biz nol dan boshlab sanaymiz.",
+   "Har bir belgini alohida sanaymiz.",
+   "Terminator belgisi ('\\0') ga yetganimizda to'xtaymiz.",
+   "Terminator o'zi uzunlikka kiritilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Satr uzunligi misoli",
+   "problem": "HI! satrining uzunligini hisoblang",
+   "steps": [
+    {
+     "text": "n = 0: H belgisini o'qiydi"
+    },
+    {
+     "text": "n = 1: I belgisini o'qiydi"
+    },
+    {
+     "text": "n = 2: ! belgisini o'qiydi"
+    },
+    {
+     "text": "n = 3: NUL ('\\0') ga yetadi — keyingi oshirishgacha shart noto'g'ri bo'ladi"
+    },
+    {
+     "text": "Natija: 3"
+    }
+   ],
+   "result": "HI! satrining uzunligi 3"
+  },
+  "narr": [
+   "Keling, HI! satrining uzunligini qanday hisoblanishini ko'rib chiqaylik.",
+   "Dastur n = 0 dan boshlab sanaydi.",
+   "Birinchi belgi H bo'lgani uchun n = 0 da H ni o'qiydi.",
+   "Keyin n = 1 da I belgisini ko'radi.",
+   "n = 2 da ! belgisini ko'radi.",
+   "n = 3 da terminator '\\0' ga yetadi va shart noto'g'ri bo'lgani uchun to'xtaydi.",
+   "Shunday qilib, natija 3 bo'ladi, chunki terminator uzunlikka kiritilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "do-while sikli",
+   "bullets": [
+    "Satir belgilarini, chiziq o'tishdan tashqari saqlaydi",
+    "% belgini ham saqlaydi",
+    "% kirganda shart noto'g'ri bo'lishidan oldin bitta belgi saqlanadi",
+    "Shart kirganni va sig'imi (Counter < MaxLength) tekshiradi",
+    "Matn — C-satri emas"
+   ]
+  },
+  "narr": [
+   "do-while sikli oddiy while siklidagi farqi shundaki, shart tekshirilgandan keyin bajariladi.",
+   "Bu sikl satir belgilarini, chiziq o'tishdan tashqari barcha belgilarni saqlaydi.",
+   "Shuningdek, % belgini ham saqlaydi.",
+   "% belgisi kiritilganda shart noto'g'ri bo'lishidan oldin bitta belgi saqlanadi.",
+   "Shartda kirganning o'zi va sig'imi (Counter < MaxLength) tekshiriladi.",
+   "E'tibor bering, bu siklda matn C-satri emas, balki oddiy matn sifatida qaraladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "continue kalit so'zi",
+   "bullets": [
+    "Chiziq o'tishdan boshqa besh belgini o'qiydi",
+    "Harflarini o'tkazib yuboradi",
+    "'A' uchun printf ni o'tkazib, i++ yangilanishiga o'tadi",
+    "'1' uchun printf belgini ishlaydi, keyin xuddi shu yangilanish",
+    "A1b2! kirgisi 1, 2 va ! ni qoldiradi"
+   ]
+  },
+  "narr": [
+   "continue kalit so'zi siklda keygi iteratsiyaga o'tishga imkon beradi.",
+   "Bu holda, dastur chiziq o'tishdan boshqa besh belgini o'qiydi.",
+   "Agar belgi 'A' bo'lsa, printf ni o'tkazib yuboradi va i++ yangilanishiga o'tadi.",
+   "Agar belgi '1' bo'lsa, printf belgini ishlaydi va keyin i++ yangilanishiga o'tadi.",
+   "Shunday qilib, A1b2! kirgisi uchun dastur faqat 1, 2 va ! belgilarini qoldiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "5-hafta savollari",
+   "subtitle": "Dars va laboratoriya savollari model javoblar bilan"
+  },
+  "narr": [
+   "Endi 5-haftaga oid dars va laboratoriya savollarini javoblar bilan birga ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 1 — main funksiyasi roli",
+   "problem": "C dasturlarimizda main roli nima?",
+   "steps": [
+    {
+     "text": "main — kirish nuqtasi"
+    },
+    {
+     "text": "Dastur bajarilishi main dan boshlanadi"
+    },
+    {
+     "text": "stdio.h printf ni e'lon qiladi"
+    },
+    {
+     "text": "cs50.h getdouble (va boshqa CS50 kirgizuvchi yordamchilarini) e'lon qiladi"
+    }
+   ],
+   "result": "main — dasturning kirish nuqtasi, undan boshlab bajariladi"
+  },
+  "narr": [
+   "Birinchi savolimiz C dasturlarimizda main funksiyasining roli haqida.",
+   "Javob oddiy: main — bu dasturning kirish nuqtasi.",
+   "Dastur bajarilishi main funksiyasidan boshlanadi.",
+   "stdio.h fayli printf funksiyasini e'lon qiladi.",
+   "cs50.h fayli esa getdouble va boshqa CS50 kirgizuvchi yordamchilarini e'lon qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 2 — Blok va oddiy operator farqi",
+   "problem": "Blok oddiy operator bilan qanday farq qiladi va blok ichida nima qilish mumkin?",
+   "steps": [
+    {
+     "text": "Oddiy operator ';' bilan tugaydi"
+    },
+    {
+     "text": "Qavsli qavslar bir nechta operatorlarni murakkab operator (blok) birlashtiradi"
+    },
+    {
+     "text": "Blok oddiy operator o'rniga qo'llanilishi mumkin"
+    },
+    {
+     "text": "Blok bitta butun sifatida kompilyatsiyadan o'tadi"
+    },
+    {
+     "text": "Blok ichida o'zgaruvchilar e'lon qilinishi mumkin (ular blok uchun mahalliy)"
+    },
+    {
+     "text": "Blok bo'sh {} bo'lishi mumkin va yopuvchi qavsdan keyin ';' qo'yilmaydi"
+    }
+   ],
+   "result": "Blok bir nechta operatorlarni birlashtiradi, ichida o'zgaruvchilar e'lon qilish mumkin"
+  },
+  "narr": [
+   "Ikkinchi savolimiz blok va oddiy operator orasidagi farq haqida.",
+   "Oddiy operator ';' bilan tugaydi va bitta amalni ifodalaydi.",
+   "Qavsli qavslar {} bir nechta operatorlarni murakkab operator (blok) birlashtiradi.",
+   "Blok oddiy operator o'rniga qo'llanilishi mumkin.",
+   "Blok bitta butun sifatida kompilyatsiyadan o'tadi.",
+   "Blok ichida o'zgaruvchilar e'lon qilinishi mumkin, ular faqat shu blok uchun mahalliy bo'ladi.",
+   "Blok bo'sh {} bo'lishi mumkin va yopuvchi qavsdan keyin ';' qo'yilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 3 — C shartida \"haqiqat\" hisoblanadigan nima?",
+   "problem": "C shartida \"haqiqat\" hisoblanadigan nima?",
+   "steps": [
+    {
+     "text": "Shart — ifoda (yoki ifodalar seriyasi), masalan n < 3 yoki x < y || z < y"
+    },
+    {
+     "text": "Har qanday nol bo'lmagan qiymat ⇒ shart to'g'ri, 0 — noto'g'ri"
+    },
+    {
+     "text": "Ifoda sonli (yoki ko'rsatkichli) bo'lishi kerak"
+    },
+    {
+     "text": "C89/C90 da mantiqiy turi yo'q, C99 da bool <stdbool.h> orqali mavjud"
+    },
+    {
+     "text": "Misol: if (str) — satr null emas"
+    }
+   ],
+   "result": "C da nol bo'lmagan har qanday qiymat \"haqiqat\" hisoblanadi"
+  },
+  "narr": [
+   "Uchinchi savolimiz C shartida \"haqiqat\" hisoblanadigan nima haqida.",
+   "Shart — bu ifoda yoki ifodalar seriyasi, masalan n < 3 yoki x < y || z < y.",
+   "C tilida har qanday nol bo'lmagan qiymat \"haqiqat\" hisoblanadi, 0 esa \"noto'g'ri\".",
+   "Ifoda sonli yoki ko'rsatkichli (pointer) bo'lishi kerak.",
+   "E'tibor bering, C89/C90 standartlarda mantiqiy (boolean) turi yo'q, lekin C99 da bool turi <stdbool.h> fayli orqali mavjud.",
+   "Misol sifatida if (str) ifodasi ko'rsatilgan, bu satr null emasligini tekshiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 4 — else if qismi",
+   "problem": "else if nima qiladi va bir nechta shartlar to'g'ri bo'lsa nima bo'ladi?",
+   "steps": [
+    {
+     "text": "else boshqa boshqaruv yo'llarini qo'shadi"
+    },
+    {
+     "text": "Shartlar birinchi to'g'ri bo'lgunicha ketma-ket tekshiriladi"
+    },
+    {
+     "text": "Ichkki operator faqat uchun bajariladi"
+    },
+    {
+     "text": "Agar bir nechta shartlar to'g'ri bo'lsa, faqat birinchisi bajariladi"
+    },
+    {
+     "text": "Konstruktsiya ichki-ichki if ga teng"
+    }
+   ],
+   "result": "else if birinchi to'g'ri shartgacha bo'lgan shartlarni tekshiradi"
+  },
+  "narr": [
+   "To'rtinchi savolimiz else if ifodasiga oid.",
+   "else kaliti boshqa boshqaruv yo'llarini qo'shadi.",
+   "Shartlar birinchi to'g'ri bo'lgunicha ketma-ket tekshiriladi.",
+   "Ichkki operator faqat to'g'ri shart uchun bajariladi.",
+   "Agar bir nechta shartlar to'g'ri bo'lsa, faqat birinchisi bajariladi.",
+   "Bu konstruktsiya ichki-ichki if ifodasiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 5 — Ichki-if lardagi else bog'lanishi",
+   "problem": "Ichki-if lardagi else qaysi if ga tegishli va uni qanday o'zgartirish mumkin?",
+   "steps": [
+    {
+     "text": "Qavslar bo'lmaganda else eng yaqin ichki if ga bog'lanadi"
+    },
+    {
+     "text": "Else ni tashqi if ga bog'lash uchun ichki if ni qavsli qavslarga olish kerak"
+    },
+    {
+     "text": "Misol: if (x % 4 == 0) { if (x % 2 == 0) y = 2; } else y = 1;"
+    }
+   ],
+   "result": "Qavslarsiz else eng yaqin ichki if ga bog'lanadi; tashqi if ga bog'lash uchun qavs kerak"
+  },
+  "narr": [
+   "Beshinchi savolimiz ichki-if lardagi else bog'lanishiga oid.",
+   "Qavslar bo'lmaganda else kaliti eng yaqin ichki if ga bog'lanadi.",
+   "Else ni tashqi if ga bog'lash uchun ichki if ifodasini qavsli qavslarga olish kerak.",
+   "Misol sifatida if (x % 4 == 0) { if (x % 2 == 0) y = 2; } else y = 1; ko'rsatilgan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 6 — switch if-else zinasiga qachon qulayroq",
+   "problem": "switch if-else zinasiga qachon qulayroq va uning cheklanishlari nima?",
+   "steps": [
+    {
+     "text": "switch bir butun sonli (yoki belgili) o'zgaruvchini turli butun konstant ifodalardan iborat case-yorliqlari bilan solishtiradi"
+    },
+    {
+     "text": "Diapazonlar va murakkab shartlar uchun if kerak"
+    },
+    {
+     "text": "default — \"aks holda\" shakli"
+    },
+    {
+     "text": "Kitobga ko'ra, switch uzun if-else zinalaridan samaraliroq"
+    }
+   ],
+   "result": "switch bir nechta aniq qiymatlarni tekshirishda qulay"
+  },
+  "narr": [
+   "Oltinchi savolimiz switch if-else zinasiga qachon qulayroq ekanligiga oid.",
+   "switch ifodasi bir butun sonli yoki belgili o'zgaruvchini turli butun konstant ifodalardan iborat case-yorliqlari bilan solishtiradi.",
+   "Diapazonlar va murakkab shartlar uchun if ifodasi kerak bo'ladi.",
+   "default kaliti \"aks holda\" shaklini ifodalaydi.",
+   "Kitobga ko'ra, switch uzun if-else zinalaridan samaraliroq bo'lishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 7 — case da break unutilsa nima bo'ladi?",
+   "problem": "case da break unutilsa nima bo'ladi?",
+   "steps": [
+    {
+     "text": "Ijro \"pastga tushadi\" (falls through) keyingi case ga qiymatni qayta tekshirmaydi"
+    },
+    {
+     "text": "Melodiyada (6-misol) case 2 dan keyin break ni o'tkazib yuborish kirish uchun A# bo'lganda C, keyin D ni chiqarishiga olib keldi"
+    },
+    {
+     "text": "Pastga tushish foydali ham bo'lishi mumkin: case 'Y': case 'y': ikkala belgi uchun bir xil kodni bajaradi"
+    }
+   ],
+   "result": "breaksiz case dan keyingi case ga o'tib ketadi"
+  },
+  "narr": [
+   "Yettinchi savolimizda case da break kaliti unutilsa nima bo'lishini ko'rib chiqamiz.",
+   "Agar break unutilgan bo'lsa, ijro \"pastga tushadi\" ya'ni keyingi case ga o'tib ketadi, qiymatni qayta tekshirmaydi.",
+   "Melodiya misolida case 2 dan keyin break ni o'tkazib yuborish kirish uchun A# bo'lganda C, keyin D ni chiqarishiga olib kelgan.",
+   "Pastga tushish foydali ham bo'lishi mumkin, masalan case 'Y': case 'y': ikkala belgi uchun bir xil kodni bajarishda."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 8 — Melodiya: 'A' belgisi uchun dastur nima chiqaradi?",
+   "problem": "'A' belgisi uchun dastur C notani nima chiqaradi?",
+   "steps": [
+    {
+     "text": "Dastur belgi ASCII kodini 7 ga bo'lgandagi qoldiqni hisoblaydi"
+    },
+    {
+     "text": "'A' kodi 65"
+    },
+    {
+     "text": "65 % 7 = 2"
+    },
+    {
+     "text": "case 2 C ni chiqaradi"
+    },
+    {
+     "text": "Jadval: A →65 →2 →C"
+    }
+   ],
+   "result": "'A' belgisi uchun dastur C notani chiqaradi"
+  },
+  "narr": [
+   "Sakkizinchi va oxirgi savolimizda 'A' belgisi uchun dastur qanday notani chiqarishini ko'rib chiqamiz.",
+   "Dastur belgi ASCII kodini 7 ga bo'lgandagi qoldiqni hisoblaydi.",
+   "'A' belgisi ASCII kodiga 65 ga teng.",
+   "65 ni 7 ga bo'lganda qoldiq 2 ga teng.",
+   "Shuning uchun case 2 C notani chiqaradi.",
+   "Jadvalda bu quyidagicha ko'rsatilgan: A →65 →2 →C."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

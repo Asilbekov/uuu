@@ -1,0 +1,562 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Ko'rsatkichlar",
+   "subtitle": "& va * operatorlari"
+  },
+  "narr": [
+   "Keling, C tilida ko'rsatkichlarni o'rganaylik. Ko'rsatkichlar nima degani?",
+   "& operatori o'zgaruvchining manzilini qaytaradi. Masalan, agar bizda int n = 4; bo'lsa, &n bu n ning xotiradagi manzilini beradi.",
+   "Xuddi shunday, double pi = 3.14159; uchun &pi pi ning manzilini beradi.",
+   "Endi, * operatori manzil bo'yicha o'zgaruvchiga kirish imkonini beradi. Bu manzilga ko'rsatgich sifatida ishlaydi.",
+   "Nol ko'rsatkich, ya'ni NULL, hech narsaga ishlamaydigan ko'rsatkichdir. Bu xavfsizlik uchun muhim.",
+   "Misol uchun, printf(\"pi = %g\\n\", *ppi); pi ning qiymatini ekranga chiqaradi, chunki *ppi ppi ko'rsatgichiga ko'rsatilgan manzildagi qiymatni olib beradi.",
+   "Shuningdek, biz qiymatlarni ham o'zgartira olamiz: *ppi = *ppi + *pn; bu yerda ppi va pn mos ravishda double va int ko'rsatkichlardir."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ko'rsatkichlarni aylantirish",
+   "bullets": [
+    "Ko'rsatkichlarni istalgan turiga aylantirish mumkin",
+    "Void * turiga aylantirish mumkin",
+    "Ammo bu segmentatsiya xatolariga olib kelishi mumkin"
+   ]
+  },
+  "narr": [
+   "Ko'rsatkichlarni turli turlarga aylantirish mumkin. Masalan, ppi = (double *)pn; bu yerda int ko'rsatkichni double ko'rsatgichga aylantiramiz.",
+   "Void * turiga aylantirish ham mumkin, bu noaniq tur bo'lib, har qanday turdagi ko'rsatgichni saqlay oladi.",
+   "Lekin bu amaliyotda ehtiyot bo'lish kerak, chunki noto'g'ri foydalanish segmentatsiya xatolariga va boshqa qiyinchiliklarga olib kelishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Xotira turlari",
+   "subtitle": "Jismoniy va virtual xotira"
+  },
+  "narr": [
+   "Endi xotira turlarini ko'rib chiqaylik. Xotira ikki turga bo'linadi: jismoniy va virtual.",
+   "Jismoniy xotira - bu ma'lumotlar haqiqatda saqlanadigan resurslar: cache, RAM, qattiq disk va boshqa uskunalar.",
+   "Ularda turli hajmlar va kirish tezliklari mavjud. Xotirani boshqarish operatsion tizimning asosiy funktsiyalaridan biri.",
+   "Virtual xotira esa operatsion tizimning abstraksiyasi bo'lib, kodga kirish mumkin bo'lgan manzil maydonidir.",
+   "32-bitli operatsion tizimda bu maydon 4GB dan kam bo'ladi. Windows uchun odatda 2GB, Linux uchun esa 3-4GB ajratiladi.",
+   "Virtual xotira jismoniy xotiraning turli qismlariga xaritalanadi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Virtual xotira turlari",
+   "bullets": [
+    "Stek (stack) - e'lon qilingan o'zgaruvchilar joylashadi",
+    "Xira (heap) - dinamik xotira joylashadi"
+   ]
+  },
+  "narr": [
+   "Virtual xotirada ikkita asosiy qism mavjud: stek va xira.",
+   "Stekda funksiyalar ichida e'lon qilingan o'zgaruvchilar joylashadi. Bu avtomatik ravishda boshqariladi.",
+   "Xira esa dinamik xotiradir, biz kerak bo'lganda xotiradan joy ajratib, kerak bo'lganda bo'shatishimiz mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Funksiyalardagi ko'rsatkichlar",
+   "subtitle": "Bir nechta chiqadigan qiymatlar va almashtirish"
+  },
+  "narr": [
+   "Funksiyalar odatda bittadan ortiq qiymat qaytarmaydi. Lekin ko'rsatkichlar yordamida bir nechta qiymat qaytarishimiz mumkin.",
+   "Kengaytirilgan Evklid algoritmi gcd(a, b) ni hisoblab, x va y (ax + by = gcd) ni ham qaytaradi.",
+   "Buning uchun global o'zgaruvchilar o'rniga ko'rsatkichlardan foydalanamiz.",
+   "Misol uchun, int ext_euclid(int a, int b, int *x, int *y); funksiyasini chaqirganda, biz x va y ning manzillarini beramiz.",
+   "Funksiya chaqiruvchi o'zgaruvchilarni o'zgartira olishi uchun unga ularning ko'rsatkichlari beriladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Klassik almashtirish",
+   "problem": "Ikkita o'zgaruvchining qiymatlarini almashtirish",
+   "steps": [
+    {
+     "text": "Funksiyani aniqlash: ikkita int ko'rsatkich parametr sifatida qabul qilinadi"
+    },
+    {
+     "text": "Temp o'zgaruvchida birinchi qiymatni saqlab qolish"
+    },
+    {
+     "text": "Ikkinchi qiymatni birinchiga ko'chirish"
+    },
+    {
+     "text": "Saqlangan qiymatni ikkinchiga ko'chirish"
+    }
+   ],
+   "result": "O'zgaruvchilar qiymati almashib turadi"
+  },
+  "narr": [
+   "Keling, klassik almashtirish misolini ko'rib chiqaylik. Bu erda biz ikkita o'zgaruvchining qiymatini almashtiramiz.",
+   "Almashtirish funksiyasi ikkita int ko'rsatkichni parametr sifatida qabul qiladi.",
+   "Birinchi qadamda, temp o'zgaruvchida birinchi qiymatni saqlab qolamiz.",
+   "Keyin, ikkinchi qiymatni birinchiga ko'chiramiz.",
+   "Nihoyat, saqlangan birinchi qiymatni ikkinchi o'zgaruvchiga joylaymiz.",
+   "Natijada, a va b o'zgaruvchilarining qiymati almashib ketadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Almashtirish funksiyasi",
+   "code": "#include <stdio.h>\n\nvoid swap(int *x, int *y) {\n    int temp = *x;\n    *x = *y;\n    *y = temp;\n}\n\nint main(void) {\n    int a = 5, b = 7;\n    swap(&a, &b);\n    printf(\"a = %d, b = %d\\n\", a, b); // a = 7, b = 5\n    return 0;\n}",
+   "highlight": [
+    2,
+    3,
+    4
+   ]
+  },
+  "narr": [
+   "Mana almashtirish funksiyasining to'liq kodi. Funksiya ikkita int ko'rsatkichni qabul qiladi.",
+   "Temp o'zgaruvchida birinchi qiymatni saqlab qolamiz.",
+   "Keyin, ikkinchi qiymatni birinchiga ko'chiramiz.",
+   "Nihoyat, saqlangan qiymatni ikkinchi o'zgaruvchiga joylaymiz.",
+   "Asosiy dasturda a = 5, b = 7 deb e'lon qilamiz va swap(&a, &b) funksiyasini chaqiramiz.",
+   "Natijada a = 7, b = 5 bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tegishli tuzoq",
+   "bullets": [
+    "Ko'rish doirasidan chiqayotgan o'zgaruvchi",
+    "Lokal massivga ko'rsatgich qaytarib bo'lmaydi",
+    "Funksiyaning stek kadri yo'qolgach ko'rsatkich yaroqsiz bo'lib qoladi"
+   ]
+  },
+  "narr": [
+   "Ko'rsatkichlarni ishlatishda diqqat bo'lishi kerak bo'lgan muhim tuzoqlar mavjud.",
+   "Misol uchun, lokal massivga ko'rsatgich qaytarib bo'lmaydi. Chunki funksiya tugagach, uning stek kadri yo'qoladi va ko'rsatkich yaroqsiz bo'lib qoladi.",
+   "Kompilyatorlar bu holatda ogohlantirish beradi, lekin ba'zilarida bu xato aniqlanmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Xato misoli",
+   "code": "#include <stdio.h>\n\nchar *get_message() {\n    char msg[] = \"Aren't pointers fun?\";\n    return msg;\n}\n\nint main(void) {\n    char *string = get_message();\n    puts(string);\n    return 0;\n}",
+   "highlight": [
+    2,
+    6
+   ]
+  },
+  "narr": [
+   "Bu xato misoli. get_message() funksiyasi lokal massiv msg ga ko'rsatgich qaytaradi.",
+   "Lekin msg faqat get_message() funksiyasi ishlayotganda mavjud. Funksiya tugagach, bu massiv xotiradan o'chiriladi.",
+   "Shuning uchun main() da ushbu ko'rsatgichdan foydalanish noto'g'ri bo'ladi va natixatda xatolik yuz berishi mumkin.",
+   "To'g'ri yechim - bu statik o'zgaruvchi yoki xotiradan dinamik joy ajratish."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Massivlar, sizeof va manzir arifmetikasi",
+   "subtitle": "Ko'rsatkichlar va massivlar o'rtasidagi bog'liqlik"
+  },
+  "narr": [
+   "Keling, endi massivlar, sizeof operatori va manzir arifmetikasini ko'rib chiqaylik.",
+   "Primitiv massivlar C da uzluksiz xotira blokiga ko'rsatkich sifatida amalga oshiriladi.",
+   "arr[0] elementiga ko'rsatkich sifatida murojaat qilish mumkin - bu arr ga teng.",
+   "Lekin massiv bilan ko'rsatkich o'rtasida farq bor: massivni qayta tayinlab bo'lmaydi, ko'rsatkichni esa o'zgartirish mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "sizeof() operatori",
+   "bullets": [
+    "Primitiv turlar uchun - turining baytlardagi hajmi",
+    "Primitiv massivlar uchun - butun massivning baytlardagi hajmi",
+    "Massiv uzunligini hisoblash uchun makro"
+   ]
+  },
+  "narr": [
+   "sizeof() operatori o'zgaruvchining yoki turining hajmini baytlarda qaytaradi.",
+   "Primitiv turlar uchun, masalan sizeof(char) = 1, sizeof(double) = 64-bitli tizimda 8 bo'ladi.",
+   "Massivlar uchun sizeof() butun massivning hajmini qaytaradi, masalan int arr[8] uchun sizeof(arr) = 32 (64-bit tizimda).",
+   "Massiv uzunligini hisoblash uchun maxsus makrodan foydalanamiz: array_length(arr) = sizeof(arr) / sizeof((arr)[0])"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "sizeof va array_length misollari",
+   "code": "#include <stdio.h>\n\n#define array_length(arr) (sizeof(arr) == 0 ? \\\n                          0 : sizeof(arr) / sizeof((arr)[0]))\n\nint main(void) {\n    int s = sizeof(char); // == 1\n    double f;\n    // sizeof(f) == 8 (64-bit OS)\n    \n    int arr[8];\n    // sizeof(arr) == 32 (64-bit OS)\n    \n    long arr_long[5];\n    // sizeof(arr_long) == 40 (64-bit OS)\n    \n    int len = array_length(arr); // == 8\n    printf(\"Massiv uzunligi: %d\\n\", len);\n    \n    return 0;\n}",
+   "highlight": [
+    2,
+    4,
+    8,
+    12,
+    16
+   ]
+  },
+  "narr": [
+   "sizeof() operatori va array_length makrosining amaliy misollari.",
+   "sizeof(char) har doim 1 bo'ladi, chunki char odatda 1 bayt hajmida bo'ladi.",
+   "double o'zgaruvchisi 64-bitli tizimda 8 baytni egallaydi.",
+   "int massiv [8] 32 baytni egallaydi (har bir int 4 bayt).",
+   "array_length makrosi massiv uzunligini hisoblaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Manzir arifmetikasi",
+   "bullets": [
+    "Ko'rsatkichga butun son qo'shish/ayirish mumkin",
+    "pa + i arr[i] ga ishora qiladi",
+    "Manzil qiymati i, tur hajmiga ko'paytirilganda ortadi"
+   ]
+  },
+  "narr": [
+   "Manzir arifmetikasi - bu ko'rsatkichlarga butun sonlarni qo'shish va ayirish imkoniyati.",
+   "Agar pa massiv boshiga ko'rsatgich bo'lsa, pa + i ifodasi arr[i] elementiga ishora qiladi.",
+   "Manzil qiymati i ning tur hajmiga ko'paytirilganda ortadi. Masalan, agar arr[0] manzili 100 bo'lsa (int), arr[3] manzili 112 bo'ladi (3×4 bayt)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Manzir arifmetikasi",
+   "problem": "Agar char pc = (char *)pa; bo'lsa, (int *)(pc + i) == pa + 3i = 12 bo'lganda (3 int = 12 bayt har bir char uchun).",
+   "steps": [
+    {
+     "text": "pc char ko'rsatkichga aylantirilgan pa (int ko'rsatkich)"
+    },
+    {
+     "text": "pc + i ifodasi i bayt oldinga siljitadi"
+    },
+    {
+     "text": "(int *)(pc + i) char ko'rsatkichni yana int ko'rsatgichga aylantiradi"
+    },
+    {
+     "text": "Har bir int 4 bayt bo'lgani uchun, 3 int = 12 bayt"
+    }
+   ],
+   "result": "Natijada pa + 3i = 12 bo'ladi"
+  },
+  "narr": [
+   "Keling, manzir arifmetikasining murakkabroq misolini ko'rib chiqaylik.",
+   "Bizda pa int ko'rsatkich bor. pc = (char *)pa ifodasi uni char ko'rsatgichga aylantiradi.",
+   "pc + i ifodasi i bayt oldinga siljitadi, chunki char har birini 1 bayt egallaydi.",
+   "(int *)(pc + i) char ko'rsatgichni yana int ko'rsatgichga aylantiradi.",
+   "Har bir int 4 bayt bo'lgani uchun, 3 int = 12 bayt bo'ladi.",
+   "Shunday qilib, pa + 3i = 12 bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Satrlar va string.h kutubxonasi",
+   "subtitle": "Nol bayti bilan tugaydigan belgilar massivi"
+  },
+  "narr": [
+   "Endi satrlar va string.h kutubxonasini ko'rib chiqaylik.",
+   "Satrlar C da nol bayti bilan tugaydigan belgilar massivi sifatida saqlanadi (oxirgi belgi == '\\0').",
+   "Satr bilan massiv sifatida ishlash mumkin. Masalan, char str[] = \"This is a string.\";",
+   "Ko'rsatkich orqali belgilarni o'zgartirish mumkin: *(pc+10) = 'S'; bu erda pc str ga ko'rsatgichdir."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "string.h funksiyalari",
+   "columns": [
+    "Funksiya",
+    "Imzo",
+    "Tavsif"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "strcpy()"
+     },
+     {
+      "tex": "char *strcpy(strto, strfrom);"
+     },
+     {
+      "tex": "strfrom ni strto ga nusxalaydi"
+     }
+    ],
+    [
+     {
+      "tex": "strncpy()"
+     },
+     {
+      "tex": "char *strncpy(strto, strfrom, n);"
+     },
+     {
+      "tex": "strfrom dan n ta belgini strto ga nusxalaydi"
+     }
+    ],
+    [
+     {
+      "tex": "strcmp()"
+     },
+     {
+      "tex": "int strcmp(str1, str2);"
+     },
+     {
+      "tex": "str1 va str2 ni solishtiradi: 0 (teng), musbat (str1 > str2), manfiy (str1 < str2)"
+     }
+    ],
+    [
+     {
+      "tex": "strncmp()"
+     },
+     {
+      "tex": "int strncmp(str1, str2, n);"
+     },
+     {
+      "tex": "str1 va str2 ning birinchi n ta belgisini solishtiradi"
+     }
+    ],
+    [
+     {
+      "tex": "strlen()"
+     },
+     {
+      "tex": "int strlen(str);"
+     },
+     {
+      "tex": "str ning uzunligini qaytaradi"
+     }
+    ],
+    [
+     {
+      "tex": "strcat()"
+     },
+     {
+      "tex": "char *strcat(strto, strfrom);"
+     },
+     {
+      "tex": "strfrom ni strto oxiriga qo'shadi"
+     }
+    ],
+    [
+     {
+      "tex": "strncat()"
+     },
+     {
+      "tex": "char *strncat(strto, strfrom, n);"
+     },
+     {
+      "tex": "strfrom dan n ta belgini strto oxiriga qo'shadi"
+     }
+    ],
+    [
+     {
+      "tex": "strchr()"
+     },
+     {
+      "tex": "char *strchr(str, c);"
+     },
+     {
+      "tex": "str da c belgisini qidiradi: birinchi uchrashishiga ko'rsatgich yoki NULL"
+     }
+    ],
+    [
+     {
+      "tex": "strrchr()"
+     },
+     {
+      "tex": "char *strrchr(str, c);"
+     },
+     {
+      "tex": "c belgisining oxirgi uchrashishiga ko'rsatgich yoki NULL"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "string.h kutubxonasida satrlar bilan ishlash uchun ko'plab funksiyalar mavjud.",
+   "Nusxalash funksiyalari: strcpy() butun satrni, strncpy() esa belgilangan miqdordagi belgilarni nusxalaydi.",
+   "Solishtirish funksiyalari: strcmp() butun satrlarni, strncmp() esa faqat birinchi n ta belgini solishtiradi.",
+   "Uzunlik funksiyasi strlen() satrdagi belgilar sonini (nol baytsiz) qaytaradi.",
+   "Birlashtirish funksiyalari: strcat() butun satrni, strncat() esa belgilangan miqdordagi belgilarni qo'shadi.",
+   "Qidirish funksiyalari: strchr() birinchi uchrashgan belgiga, strrchr() esa oxirgi uchrashgan belgiga ko'rsatgich qaytaradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Qidirish va tartiblash algoritmlari",
+   "subtitle": "Ko'rsatkichlardan foydalanish"
+  },
+  "narr": [
+   "Asosiy qidirish va tartiblash algoritmlari ko'rsatkichlardan ajoyib foydalanadi.",
+   "Bu erda faqat bir necha misollar keltirilgan, chunki bu algoritmlar kursi emas.",
+   "Murakkablik Big-O yozuvi bilan tavsiflanadi.",
+   "Chiziqli qidirish topilgan elementga ko'rsatgichni yoki NULL ni qaytaradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Xulosa",
+   "items": [
+    "Ko'rsatkichlar o'zgaruvchining manzilini saqlaydi",
+    "& operatori manzilni, * operatori esa manzilga ko'rsatilgan qiymatni beradi",
+    "Xotira ikki turga bo'linadi: jismoniy va virtual",
+    "Stekda lokal o'zgaruvchilar, xirada esa dinamik xotiradan foydalaniladi",
+    "Ko'rsatkichlar orqali funksiyadan bir nechta qiymat qaytarish mumkin",
+    "Massivlar ko'rsatkich sifatida ishlaydi, lekin ularni qayta tayinlab bo'lmaydi",
+    "Manzir arifmetikasi ko'rsatkichlarni siljitish imkonini beradi",
+    "Satrlar nol bayti bilan tugaydigan belgilar massividir",
+    "string.h kutubxonasida satrlar bilan ishlash uchun ko'plab funksiyalar mavjud"
+   ]
+  },
+  "narr": [
+   "Keling, ushbu bo'limda o'rganilgan asosiy tushunchalarni xulosa qilaylik.",
+   "Ko'rsatkichlar o'zgaruvchining manzilini saqlaydi. & operatori manzilni, * operatori esa manzilga ko'rsatilgan qiymatni beradi.",
+   "Xotira ikki turga bo'linadi: jismoniy (haqiqiy resurslar) va virtual (operatsion tizimning abstraksiyasi).",
+   "Stekda lokal o'zgaruvchilar, xirada esa dinamik xotiradan foydalaniladi.",
+   "Ko'rsatkichlar orqali funksiyadan bir nechta qiymat qaytarish mumkin, bu global o'zgaruvchilardan yaxshiroq yondashuvdir.",
+   "Massivlar ko'rsatkich sifatida ishlaydi, lekin ularni qayta tayinlab bo'lmaydi - bu asosiy farqdir.",
+   "Manzir arifmetikasi ko'rsatkichlarni tur hajmiga ko'ra siljitish imkonini beradi.",
+   "Satrlar C da nol bayti bilan tugaydigan belgilar massividir va ularni ko'rsatkichlar bilan boshqarish mumkin.",
+   "string.h kutubxonasida satrlarni nusxalash, solishtirish, uzunligini olish, birlashtirish va qidirish uchun ko'plab funksiyalar mavjud."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ }
+]

@@ -1,0 +1,460 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "4-hafta",
+   "subtitle": "Ko'rsatgichlar va massivlar"
+  },
+  "narr": [
+   "Ko'rsatgichlar bu chekni kengaytiradi. Ular bizga manzillar bilan ishlash imkonini beradi.",
+   "Keling, bir nechta muhim savollarni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S4 — getmessage() funksiyasidagi muammo",
+   "problem": "Lokal massiv manzilini qaytaruvchi getmessage() funksiyasida nimadir noto'g'ri?",
+   "steps": [
+    "char msg[] getmessage() funksiyasining stek kadrida yashaydi",
+    "Funksiya qaytgandan so'ng kadr yo'qoladi",
+    "Ko'rsatgich yaroqsiz (dangling) bo'lib qoladi",
+    "puts(string) yo'qolgan xotirani o'qiydi"
+   ],
+   "result": "Yechimlar: statik-massiv, chaqiruvchi tomonidan uzatilgan bufer yoki malloc-xotir, uni chaqiruvchi bo'shatadi"
+  },
+  "narr": [
+   "getmessage() funksiyasi char msg[] massivini qaytaradi. Bu massiv stekda joylashgan bo'ladi.",
+   "Funksiya qaytgandan so'ng, stek kadr yo'qoladi va ko'rsatgich yaroqsiz holatga keladi.",
+   "Bu esa yo'qolgan xotirani o'qishga olib kelishi mumkin.",
+   "Yechim sifatida statik massiv, chaqiruvchi tomonidan uzatilgan bufer yoki malloc bilan ajratilgan xotiradan foydalanish mumkin."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S5 — swap funksiyasidagi muammo",
+   "problem": "Nima uchun swap(int a, int b) main dagi x va y ni o'zgartirmaydi va qanday tuzatish mumkin?",
+   "steps": [
+    "C qiymat nusxalarini uzatadi: swap o'zining lokal nusxalarini o'zgartiradi",
+    "main o'zgaruvchilariga ta'sir qilmaydi",
+    "Tuzatish — ko'rsatgichlar bilan ishlash:",
+    "void swap(int *x, int *y) { int temp = *x; *x = *y; *y = temp; }",
+    "Chaqirish swap(&a, &b);"
+   ],
+   "result": "Undan keyin a = 7, b = 5"
+  },
+  "narr": [
+   "swap funksiyasi o'zgaruvchilarni almashtirmaydi, chunki C qiymat nusxalarini uzatadi.",
+   "Faqat lokal nusxalarini o'zgartiradi, asl o'zgaruvchilarga ta'sir qilmaydi.",
+   "Buni tuzatish uchun ko'rsatgichlardan foydalanish kerak.",
+   "Funksiyani void swap(int *x, int *y) deb e'lon qilamiz va ichida qiymatlarni almashtiramiz.",
+   "Chaqirishda esa swap(&a, &b) deb yozamiz."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S6 — Ko'rsatgich arifmetikasi",
+   "problem": "pa +i nima beradi va bu oddiy sonlarni qo'shish emasligi nega?",
+   "steps": [
+    "pa +i arr[i] ni ko'rsatadi",
+    "Manzil ma'lumotlar turining o'lchami bo'yicha i ga ko'paytirilgacha oshadi",
+    "Ko'rsatgich — int emas",
+    "Arifmetika element o'lchami bilan masshtablanadi (int uchun 64-bitli platformada 4 bayt qadam)"
+   ],
+   "result": "Bu oddiy sonlarni qo'shish emas, balki manzillarni hisoblashdir"
+  },
+  "narr": [
+   "Ko'rsatgich arifmetikasida pa +i ifodasi oddiy qo'shish emas.",
+   "Bu ifoda arr[i] elementining manzilini ko'rsatadi.",
+   "Bu yerda i qiymati ma'lumotlar turining o'lchamiga ko'paytiriladi.",
+   "Masalan, 64-bitli platformada int turining o'lchami 4 bayt bo'lgani uchun, har bir qadam 4 baytga teng."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S7 — Massiv elementlarining manzillari",
+   "problem": "Agar arr[0] manzili 100 bo'lsa (int massiv), arr[3] ning manzili qancha? Va char pc = (char)pa bo'lsa — qaysi i (int *)(pc + i) == pa + 3 ni beradi?",
+   "steps": [
+    "arr[3] manzili 112: 100 + 3 × 4 bayt (int o'lchami)",
+    "Char-ko'rsatgich uchun qadam 1 bayt",
+    "3 int = 12 bayt",
+    "Shuning uchun i = 12"
+   ],
+   "result": "arr[3] manzili 112, char ko'rsatgich uchun i = 12"
+  },
+  "narr": [
+   "Agar arr[0] manzili 100 bo'lsa, arr[3] manzili 100 + 3 × 4 = 112 bo'ladi, chunki int o'lchami 4 bayt.",
+   "Endi char pc = (char)pa deb olaylik.",
+   "Char ko'rsatgich uchun qadam 1 bayt bo'ladi.",
+   "3 ta int 12 baytga teng, shuning uchun i = 12 bo'lishi kerak."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S8 — string.h funksiyalari",
+   "problem": "string.h da qanday sat ishlash funksiyalari mavjud?",
+   "steps": [
+    "Nusxalash: strcpy(strto, strfrom), strncpy(strto, strfrom, n)",
+    "Solishtirish: strcmp(str1, str2) — 0 teng bo'lganda, > 0 agar str1 > str2, < 0 agar str1 < str2",
+    "strncmp — birinchi n belgisi",
+    "Uzunlik: strlen(str)",
+    "Konkatenatsiya: strcat, strncat",
+    "Belgini qidirish: strchr — birinchi uchrash, strrchr — oxirgi (NULL, agar topilmasa)"
+   ],
+   "result": "Ko'p foydali funksiyalar mavjud"
+  },
+  "narr": [
+   "string.h kutubxonasi ko'p foydali funksiyalarni o'z ichiga oladi.",
+   "Nusxalash uchun strcpy va strncpy funksiyalari mavjud.",
+   "Solishtirish uchun strcmp funksiyasi bor, u 0 ni teng bo'lganda, > 0 agar birinchi katta, < 0 agar ikkinchi katta bo'lganda qaytaradi.",
+   "Uzunlikni olish uchun strlen, konkatenatsiya uchun strcat va strncat funksiyalari bor.",
+   "Belgini qidirish uchun strchr birinchi uchrashganini, strrchr esa oxirgisini topadi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S9 — Algoritm murakkabligi",
+   "problem": "7-maqoladagi to'rtta algoritmning murakkabligini noming.",
+   "steps": [
+    "Insertion sort — O(n²)",
+    "Quicksort — O(n log n) o'rtacha, O(n²) yomon holatda",
+    "Chiziqli qidirish — o'rtacha yarim elementni tashrif buyuradi",
+    "Ikkilik qidirish — O(log n) o'rtacha va yomon holatda"
+   ],
+   "result": "Turli algoritmlar turli murakkablikka ega"
+  },
+  "narr": [
+   "Turli algoritmlar turli murakkablikka ega.",
+   "Insertion sort O(n²) murakkablikka ega.",
+   "Quicksort o'rtacha holatda O(n log n), yomon holatda O(n²) murakkablikka ega.",
+   "Chiziqli qidirish o'rtacha holatda yarim elementni tashrif buyuradi.",
+   "Ikkilik qidirish esa O(log n) murakkablikka ega."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S10 — Rekursiyaning ingredientlari",
+   "problem": "Rekursiyaning uchta ingredienti nima?",
+   "steps": [
+    "(1) Asosiy holat — boshqa chaqiruvsiz javob (n == 0)",
+    "(2) Kichikroq masala — bir xil funksiya soddaroq kirishda",
+    "(3) Progress — har qanday qabul qilinadigan rekursiv yo'l asosiy holatga yaqinlashadi"
+   ],
+   "result": "Uchta asosiy ingredient mavjud"
+  },
+  "narr": [
+   "Rekursiya uchta asosiy ingredientdan iborat.",
+   "Birinchisi, asosiy holat — bu rekursiya to'xtashi shart.",
+   "Ikkinchisi, kichikroq masalaga yechim topish.",
+   "Uchinchisi, progress — har bir rekursiv qadam asosiy holatga yaqinlashishi kerak."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S11 — countdown va countup",
+   "problem": "countdown(3) va countup(3) nima chiqaradi va nega chiqarish farq qiladi?",
+   "steps": [
+    "countdown(3) 3 2 1 chiqaradi",
+    "countup(3) — 1 2 3",
+    "countdown da chiqarish rekursiv chaqiruvdan oldin turadi",
+    "countup da chiqarish chaqiruvdan keyin turadi"
+   ],
+   "result": "Ikkala funksiya ham n = 0 ga tashrif buyuradi va to'xtaydi"
+  },
+  "narr": [
+   "countdown(3) funksiyasi 3, 2, 1 qiymatlarini chiqaradi.",
+   "countup(3) funksiyasi esa 1, 2, 3 qiymatlarini chiqaradi.",
+   "Bu farq chiqarish vaqtida yuzaga keladi.",
+   "countdown da chiqarish rekursiv chaqiruvdan oldin, countup da esa keyin bo'ladi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S12 — Cheksiz rekursiya",
+   "problem": "Nima uchun countdown rekursiv chaqiruv countdown(n) bilan aylanib chiqadi va qanday tuzatish mumkin?",
+   "steps": [
+    "Kirish hech qachon 0 ga yetmaydi",
+    "Har bir chaqiruv bir xil n ni oladi",
+    "Asosiy holat mavjudligi yetarli emas",
+    "Har bir yo'l progress qilishi kerak"
+   ],
+   "result": "Tuzatish: countdown(n - 1)"
+  },
+  "narr": [
+   "Agar countdown(n) funksiyasi o'ziga chaqirilsa, bu cheksiz rekursiyaga olib keladi.",
+   "Chunki kirish qiymati hech qachon 0 ga yetmaydi.",
+   "Asosiy holat mavjud bo'lishiga qaramay, har bir yo'l progress qilishi kerak.",
+   "Buni tuzatish uchun countdown(n - 1) deb chaqirish kerak."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S13 — Fibonacci sonlari",
+   "problem": "fibonacci(4) qaytaradi va fibonacci(2) ikki marta uchraydi?",
+   "steps": [
+    "fibonacci(4) 3 ni qaytaradi",
+    "Chaqiruvlar daraxti to'qqizta chaqiruvni o'z ichiga oladi",
+    "Ikkala fibonacci(2) pastki daraxtlari bir xil javobni mustaqil hisoblaydi",
+    "Oddiy versiya ishni takrorlaydi"
+   ],
+   "result": "Faqatgina bitta chaqiruv har bir vaqtda bajariladi"
+  },
+  "narr": [
+   "fibonacci(4) funksiyasi 3 ni qaytaradi.",
+   "Lekin chaqiruvlar daraxtida to'qqizta chaqiruv bo'ladi.",
+   "Bu shuni angatadiki, fibonacci(2) ikki marta hisoblanadi.",
+   "Bu esa samarasizlikka olib keladi, chunki bir xil ish takrorlanadi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S14 — Xanoy minorasi",
+   "problem": "Xanoy minorasi: uchta rekursiv bosqichni va uchta disk uchun umumiy harakatlar sonini noming.",
+   "steps": [
+    "(1) 2 diskni A dan C yordamida B ga ko'chirish — 3 harakat",
+    "(2) 3-diskni A dan C ga ko'chirish — 1 harakat",
+    "(3) 2 diskni B dan A yordamida C ga ko'chirish — 3 harakat",
+    "Asosiy holat: disklar yo'q — harakatlar yo'q",
+    "Qoidalar: bir disk bir vaqtda, faqat yuqori disk, hech qachon katta disk kichik ustida"
+   ],
+   "result": "Jami 3 + 1 + 3 = 7 harakat"
+  },
+  "narr": [
+   "Xanoy minorasi masalasida uchta diskni ko'chirish uchun uchta asosiy bosqich mavjud.",
+   "Birinchisi, ikkita diskni A dan C yordamida B ga ko'chirish — 3 harakat.",
+   "Ikkinchisi, uchinchi diskni A dan C ga ko'chirish — 1 harakat.",
+   "Uchinchisi, ikkita diskni B dan A yordamida C ga ko'chirish — 3 harakat.",
+   "Jami 7 harakat kerak bo'ladi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "5-hafta",
+   "subtitle": "Ko'rsatgichlar va testlar"
+  },
+  "narr": [
+   "Keling, 5-haftadagi testlarni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T1 — & operatori",
+   "problem": "& operatori o'zgaruvchiga qo'llanilgida nima qiladi?\na) o'zgaruvchi manzilini qaytaradi b) ko'rsatkichni bekor qiladi c) o'zgaruvchini o'ziga ko'paytiradi d) ko'rsatkichni e'lon qiladi",
+   "steps": [
+    "& operatori o'zgaruvchi manzilini qaytaradi"
+   ],
+   "result": "Javob: a) o'zgaruvchi manzilini qaytaradi"
+  },
+  "narr": [
+   "& operatori o'zgaruvchining manzilini qaytaradi.",
+   "Masalan, int *pn = &n; ifodasi butun son n ning manzilini pn ko'rsatgichiga beradi."
+  ],
+  "narr_item": [
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T2 — & operatori turini aniqlash",
+   "problem": "Agar int n; bo'lsa, &n ifodasi qaysi turda bo'ladi?\na) int b) int * c) double * d) void",
+   "steps": [
+    "&n ifodasi int turidan bo'lgan o'zgaruvchining manzilini qaytaradi",
+    "Shuning uchun u int turiga ega"
+   ],
+   "result": "Javob: b) int *"
+  },
+  "narr": [
+   "&n ifodasi int turidan bo'lgan o'zgaruvchining manzilini qaytaradi.",
+   "Demak, u int turiga ega bo'lgan ko'rsatgichdir."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T3 — Ko'rsatgich arifmetikasi",
+   "problem": "ppi = ppi + *pn; nima qiladi?\na) ko'rsatuvchi orqali o'zgaruvchi qiymatini o'zgartiradi b) ppi manzilini o'zgartiradi c) kompilyatorda xatoga olib keladi d) hech narsa qilmaydi",
+   "steps": [
+    "Chapda — manzilga yozish (pi endi 7.14159)",
+    "O'ngda — bekor qilish orqali qiymatlarni o'qish",
+    "Bekor qilingan ko'rsatuvchi oddiy o'zgaruvchi kabi harakat qiladi"
+   ],
+   "result": "Javob: a) ko'rsatuvchi orqali o'zgaruvchi qiymatini o'zgartiradi"
+  },
+  "narr": [
+   "ppi = ppi + *pn; ifodasi ikki qismdan iborat.",
+   "Chap tomonda manzilga yozish amalga oshiriladi.",
+   "O'ng tomonda bekor qilish orqali qiymat o'qiladi.",
+   "Natijada ko'rsatgich orqali o'zgaruvchi qiymati o'zgaradi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T4 — Manzilga ega bo'lmagan o'zgaruvchilar",
+   "problem": "Quyidagilardan qaysi biri manzilga ega emas?\na) xotiradagi o'zgaruvchi b) register-o'zgaruvchi c) massiv elementi d) ko'rsatuvchi",
+   "steps": [
+    "Register o'zgaruvchilarida manzil bo'lmaydi",
+    "Doimiy/so'zlar/preprotsessor aniqlanishida ham manzil bo'lmaydi",
+    "Ifodalarda (agar natija o'zgaruvchi bo'lmasa) ham manzil bo'lmaydi"
+   ],
+   "result": "Javob: b) register-o'zgaruvchi"
+  },
+  "narr": [
+   "Barcha o'zgaruvchilar manzilga ega emas.",
+   "Register o'zgaruvchilarida manzil bo'lmaydi.",
+   "Shuningdek, doimiy/so'zlar/preprotsessor aniqlanishida ham manzil bo'lmaydi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T5 — Massiv hajmi",
+   "problem": "64-bitli platformada int arr[8]; uchun sizeof(arr) qanchaga teng?\na) 8 b) 32 c) 4 d) 64",
+   "steps": [
+    "Primitiv massivlar uchun sizeof massiv hajmini baytlarda beradi",
+    "8 element × 4 bayt = 32"
+   ],
+   "result": "Javob: b) 32"
+  },
+  "narr": [
+   "sizeof(arr) ifodasi massivning hajmini baytlarda beradi.",
+   "64-bitli platformada int o'lchami 4 bayt bo'ladi.",
+   "Shuning uchun 8 elementli massivning hajmi 8 × 4 = 32 bayt bo'ladi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T6 — O'zgaruvchilar joylashuvi",
+   "problem": "E'lon qilingan o'zgaruvchilar qayerga, dinamik xotira esa qayerga tushadi?",
+   "steps": [
+    "E'lon qilingan o'zgaruvchilar stekda joylashadi",
+    "Dinamik xotira heapda joylashadi"
+   ],
+   "result": "Ikkala tur xotiraning turli joylarida joylashadi"
+  },
+  "narr": [
+   "E'lon qilingan o'zgaruvchilar stekda joylashadi.",
+   "Dinamik xotira esa heapda joylashadi.",
+   "Bu ikkala tur xotiraning turli qismlaridir."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ }
+]

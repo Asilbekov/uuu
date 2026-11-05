@@ -1,0 +1,757 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "Boʻlish va qoldiq: haftaning asosiy tuzuklari"
+  },
+  "narr": [
+   "Keling, boʻlish va qoldiq operatsiyalarini C tilida qanday ishlashini koʻrib chiqaylik.",
+   "Dars qoidasi shundayki, boʻlish amali operand turlari emas, balki qabullovchi turiga qarab qanday ishlashini belgilaydi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Radiusni hisoblash",
+   "code": "const double pi = 3.1415;\ndouble radius = get_double(\"Radius: \");\n// Today's input range: 0 < radius <= 1000",
+   "highlight": [
+    1
+   ]
+  },
+  "narr": [
+   "Misol uchun, aylananing radiusi berilgan boʻlsa, uning maydonini hisoblash uchun formuladan foydalanamiz.",
+   "Bu yerda radiusni o'qib olamiz va u 0 dan katta, 1000 dan kichik bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Boʻlish turlari",
+   "bullets": [
+    "float x = 3 / 2; x = 1 (butun sonli boʻlish)",
+    "float x = 3.0 / 2; x = 1.5 (haqiqiy sonli boʻlish)",
+    "int x = 3.0 / 2; yana 1 (int ga aylantirish)",
+    "Qoldiq: int x = 3 % 2; →1",
+    "int y = 7; int x = y % 4; →3",
+    "int x = y % 10; →7"
+   ]
+  },
+  "narr": [
+   "Boʻlish amali turli xil natija berishi mumkin.",
+   "Agar ikkala operand ham butun son boʻlsa, natija butun son boʻladi.",
+   "Agar kamida bitta operand haqiqiy son boʻlsa, natija haqiqiy son boʻladi.",
+   "Qoldiq operatsiyasi esa faqat butun sonlar uchun ishlaydi.",
+   "Y ni 4 ga boʻlganda qoldiq 3 ga teng.",
+   "Y ni 10 ga boʻlganda qoldiq esa y oʻziga teng boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Boʻlishning laboratoriya taxminlari",
+   "columns": [
+    "Ifoda",
+    "Double saqlangan",
+    "%f bilan chop etilgan"
+   ],
+   "rows": [
+    [
+     "4 / 3",
+     "1.0",
+     "1.000000"
+    ],
+    [
+     "4.0 / 3.0",
+     "≈1.333333 . . .",
+     "1.333333"
+    ],
+    [
+     "(double)(4 / 3)",
+     "1.0",
+     "1.000000"
+    ]
+   ]
+  },
+  "narr": [
+   "Bu jadvalda boʻlishning turli holatlari ko'rsatilgan.",
+   "4 ni 3 ga bo'lganda natija 1 bo'ladi, chunki bu butun sonli boʻlish.",
+   "Agar ikkala operandni ham haqiqiy songa aylantirsak, to'g'ri natijaga erishamiz.",
+   "(double) konvertatsiyasi bo'lishdan keyin amalga oshirilsa, u hech qanday ta'sir ko'rsatmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Boʻlish natijasi",
+   "problem": "double fraction = 4 / 3; printf(\"%f\\n\", fraction);",
+   "steps": [
+    "4 / 3 ifodasi butun sonli bo'lish sifatida hisoblanadi",
+    "Natija 1 bo'ladi (chunki 4 ni 3 ga bo'lganda butun qism 1)",
+    "Keyin bu natija double turiga aylantiriladi",
+    "printf funktsiyasi %f formatida chop etadi"
+   ],
+   "result": "1.000000"
+  },
+  "narr": [
+   "Keling, bu kod qanday ishlashini ko'rib chiqaylik.",
+   "Birinchidan, 4 ni 3 ga bo'lish amali bajariladi.",
+   "Ikkala operand ham butun son bo'lgani uchun, natija ham butun son bo'ladi.",
+   "Shuning uchun 4 / 3 ifodasi 1 ni beradi.",
+   "Keyin bu natija double turiga aylantiriladi, lekin qiymat o'zgarmaydi.",
+   "Natija sifatida 1.000000 chop etiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Formatlashning ta'siri",
+   "bullets": [
+    "Formatlash saqlangan qiymatni o'zgarmaydi",
+    "radius = 3 bo'lganda bir xil to'g'ri hajm",
+    "%.1f formatda: 113.1",
+    "%.4f formatda: 113.0940",
+    "printf faqat ko'rsatilgan formatga moslab chop etadi",
+    "Saqlangan sonning o'zini o'zgartirmaydi"
+   ]
+  },
+  "narr": [
+   "Formatlash qanday ishlashini tushunish juda muhim.",
+   "Agar radius 3 bo'lsa, aylananing maydoni taxminan 28.2735 bo'ladi.",
+   "%.1f formatda bu qiymat 113.1 sifatida chop etiladi.",
+   "%.4f formatda esa 113.0940 sifatida ko'rsatiladi.",
+   "Lekin bu faqat chop etish usulidir, saqlangan qiymat o'zgarmaydi.",
+   "printf funktsiyasi faqat ko'rsatilgan formatga moslab chiqaradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Solishtirish va mantiqiy operatorlar",
+   "subtitle": "Qisqa zanjir"
+  },
+  "narr": [
+   "Endi solishtirish va mantiqiy operatorlarni ko'rib chiqaylik.",
+   "Bu operatorlar dasturlar shartli logikasini yaratishda juda muhim."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Solishtirish operatorlari",
+   "bullets": [
+    "Ikkki operandni solishtirib \"buliy\" natija beradi",
+    "C da har qanday noldan farqli qiymat (konvensiyaga ko'ra 1) — to'g'ri",
+    "0 — noto'g'ri",
+    "3 > 2 →1",
+    "2.99 > 3 →0",
+    "3 >= 3 →1"
+   ]
+  },
+  "narr": [
+   "C tilida, 1 to'g'ri, 0 esa noto'g'ri degan ma'noni anglatadi.",
+   "3 2 dan katta, shuning uchun natija 1 (to'g'ri).",
+   "2.99 3 dan kichik, shuning uchun natija 0 (noto'g'ri).",
+   "3 3 ga teng yoki undan katta, shuning uchun natija 1.",
+   "3 3 dan kichik emas, shuning uchun natija 0.",
+   "'A' belgisi 'B' dan kichik, shuning uchun natija 1.",
+   "Solishtirish operatorlari ikki qiymatni solishtirib, natija sifatida 1 yoki 0 qaytaradi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Solishtirish operatorlari (cont.)",
+   "bullets": [
+    "3 < 3 →0",
+    "'A' < 'B' →1",
+    "3 == 3 →1",
+    "'A' == 'a' →0",
+    "3 != 3 →0",
+    "2.99 != 3 →1"
+   ]
+  },
+  "narr": [
+   "3 3 ga teng, shuning uchun natija 1.",
+   "'A' va 'a' harflari bir xil emas, shuning uchun natija 0.",
+   "3 o'ziga teng, shuning uchun 3 != 3 noto'g'ri (0).",
+   "2.99 3 ga teng emas, shuning uchun 2.99 != 3 to'g'ri (1)."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Mantiqiy operatorlar",
+   "bullets": [
+    "&& (VA) — ikkala shart ham to'g'ri bo'lishi kerak",
+    "|| (YOKI) — kamida bitta shart to'g'ri bo'lishi kerak",
+    "! (EMAS) — shartni teskarisiga aylantiradi",
+    "((9/3) == 3) && (2*3 == 6) →1",
+    "('A' == 'a') && (3 == 3) →0",
+    "2 == 3 || 'A' == 'A' →1",
+    "2.99 >= 3 || 0 →0",
+    "!(3 == 3) →0",
+    "!(2.99 >= 3) →1"
+   ]
+  },
+  "narr": [
+   "Mantiqiy operatorlar bir yoki bir nechta shartlarni birlashtirishga imkon beradi.",
+   "&& operatori faqat ikkala shart ham to'g'ri bo'lganda 1 qaytaradi.",
+   "|| operatori kamida bitta shart to'g'ri bo'lganda 1 qaytaradi.",
+   "! operatori shartni teskarisiga aylantiradi.",
+   "9/3 3 ga teng va 2*3 6 ga teng, shuning uchun natija 1.",
+   "'A' 'a' ga teng emas, shuning uchun ikkinchi shart noto'g'ri (0).",
+   "2 3 ga teng emas, lekin 'A' 'A' ga teng, shuning uchun natija 1.",
+   "2.99 3 dan katta emas va ikkinchi shart 0, shuning uchun natija 0.",
+   "3 3 ga teng, shuning uchun ! noto'g'ri (0).",
+   "2.99 3 dan katta emas, shuning uchun ! to'g'ri (1)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Qisqa zanjir (short circuit)",
+   "bullets": [
+    "Shart qiymati allaqachon belgilanganda ifoda hisoblanishini to'xtatadi",
+    "Yon effektlarga e'tibor bering",
+    "(3 == 3)||((c = getchar()) == 'y') — ikkinchi qism hisoblanmaydi",
+    "(0) && ((x = x + 1) > 0) — ikkinchi qism hisoblanmaydi, x o'zgarmaydi"
+   ]
+  },
+  "narr": [
+   "Qisqa zanjir - bu mantiqiy operatorlarning muhim xususiyati.",
+   "Agar birinchi shart && operatori uchun false yoki || operatori uchun true bo'lsa, ikkinchi shart hisoblanmaydi.",
+   "Misol uchun, birinchi shart to'g'ri bo'lgani uchun, ikkinchi qism hisoblanmaydi.",
+   "Birinchi shart noto'g'ri bo'lgani uchun, ikkinchi qism hisoblanmaydi va x o'zgarmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Qisqa zanjir misoli",
+   "columns": [
+    "i",
+    "i < 3",
+    "Belgilarni o'qish?"
+   ],
+   "rows": [
+    [
+     "0, 1, 2",
+     "true",
+     "ha"
+    ],
+    [
+     "3",
+     "false",
+     "yo'q"
+    ]
+   ]
+  },
+  "narr": [
+   "Bu jadvalda qisqa zanjirning amaliy misoli ko'rsatilgan.",
+   "Agar i 3 dan kichik bo'lsa, ikkinchi shart tekshiriladi.",
+   "Agar i 3 ga teng yoki undan katta bo'lsa, ikkinchi shart tekshirilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "O'shish/kamayish va ixcham tayinlash",
+   "subtitle": "Ternar operator"
+  },
+  "narr": [
+   "Keling, o'shish, kamayish va ixcham tayinlash operatorlarini ko'rib chiqaylik.",
+   "Bu operatorlar kodni qisqaroq va o'qilishi osonroq qiladi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Postfix va Prefix o'shish",
+   "bullets": [
+    "Postfix: x++ — x = x + 1 qisqa yozuvi",
+    "y = x++ — x inkrementdan oldin hisoblanadi",
+    "Prefix: ++x — x = x + 1 qisqa yozuvi",
+    "y = ++x — x inkrementdan keyin hisoblanadi"
+   ]
+  },
+  "narr": [
+   "O'shish operatorlari ikki turda bo'ladi: postfix va prefix.",
+   "Postfix operatorida (++ dan keyin), o'zgaruvchi avval qiymatini oladi, keyin oshiriladi.",
+   "Prefix operatorida (++ dan oldin), o'zgaruvchi avval oshiriladi, keyin qiymati olinadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ixcham tayinlash operatorlari",
+   "bullets": [
+    "var = var (op) expr naqsh uchun",
+    "x += 1 — x = x + 1",
+    "x -= 1 — x = x - 1",
+    "x *= 10 — x = x * 10",
+    "x /= 2 — x = x / 2",
+    "x %= 2 — x = x % 2"
+   ]
+  },
+  "narr": [
+   "Ixcham tayinlash operatorlari o'zgaruvchiga qiymat berishni soddalashtiradi.",
+   "Misol uchun, x += 1 ifodasi x = x + 1 bilan bir xil ishni bajaradi.",
+   "Xuddi shunday, x -= 1 ifodasi x = x - 1 bilan bir xil.",
+   "X *= 10 ifodasi x = x * 10 bilan bir xil ishni bajaradi.",
+   "X /= 2 ifodasi x = x / 2 bilan bir xil.",
+   "X %= 2 ifodasi x = x % 2 bilan bir xil."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ternar operator",
+   "bullets": [
+    "?: — if (cond) x = <expra>; else x = <exprb>; naqsh uchun sintaktik shakar",
+    "sign = x > 0 ? 1 : -1;",
+    "isodd = x % 2 == 1 ? 1 : 0;"
+   ]
+  },
+  "narr": [
+   "Ternar operatori shartli tayinlashni qisqartirishga imkon beradi.",
+   "Agar x musbat bo'lsa, sign 1 bo'ladi, aks holda -1.",
+   "Agar x toq son bo'lsa, isodd 1 bo'ladi, aks holda 0."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Bitli operatorlar",
+   "subtitle": "Tur o'zgartirish va operator ustunligi"
+  },
+  "narr": [
+   "Endi bitli operatorlar va tur o'zgartirishni ko'rib chiqaylik.",
+   "Bu operatorlar ma'lumotlarni bitlar darajasida manipulyatsiya qilishga imkon beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Bitli operatorlar",
+   "columns": [
+    "Operator",
+    "Ma'no",
+    "Misollar"
+   ],
+   "rows": [
+    [
+     "&",
+     "AND",
+     "0x77 & 0x3 →0x3; 0x77 & 0x0 →0"
+    ],
+    [
+     "|",
+     "OR",
+     "0x700|0x33 →0x733; 0x070|0 →0x070"
+    ],
+    [
+     "^",
+     "XOR",
+     "0x770 ^ 0x773 →0x3; 0x33 ^ 0x33 →0"
+    ],
+    [
+     "<<",
+     "chapga siljish",
+     "0x01 << 4 →0x10; 1 << 2 →4"
+    ],
+    [
+     ">>",
+     "o'ngga siljish",
+     "0x010 >> 4 →0x01; 4 >> 1 →2"
+    ]
+   ]
+  },
+  "narr": [
+   "Bitli operatorlar ma'lumotlarni bitlar darajasida ishlaydi.",
+   "& operatori faqat ikkala bit ham 1 bo'lganda 1 qaytaradi.",
+   "| operatori kamida bitta bit 1 bo'lganda 1 qaytaradi.",
+   "^ operatori aynan bitta bit 1 bo'lganda 1 qaytaradi.",
+   "<< operatori bitlarni chapga siljitadi.",
+   ">> operatori bitlarni o'ngga siljitadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tur o'zgartirish",
+   "bullets": [
+    "Yuqori aniqlikka ko'tarilganda ma'lumotlar saqlanadi",
+    "Kompilyator aralash turdagi ifodalarda buni avtomat ravishda amalga oshiradi",
+    "Qoida: ikkilik ifodaning har bir a'zosi eng yuqori aniqlikdagi operand aniqligiga ko'tariladi",
+    "char →int avtomatik o'zgarishi belgilarni solishtirishga imkon beradi"
+   ]
+  },
+  "narr": [
+   "Tur o'zgartirish turli turdagi ma'lumotlar bilan ishlashga im beradi.",
+   "Yuqori aniqlikdagi turlarga ko'tarilganda ma'lumotlar saqlanadi.",
+   "Kompilyator aralash turdagi ifodalada avtomat ravishda tur o'zgartirishni amalga oshiradi.",
+   "Char turdagi o'zgaruvchilar int turiga avtomatik o'tadi, bu belgilarni solishtirishga im beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Tur o'zgartirish misoli",
+   "code": "int i;\nfloat f;\nf = i + 3.14159; /* i is promoted to float */\nisupper = (c >= 'A' && c <= 'Z') ? 1 : 0;\n/* c and literal constants are converted to int */\nif (!isupper)\n    c = c - 'a' + 'A'; /* subtraction is possible because of integer conversion */",
+   "highlight": [
+    1,
+    3,
+    7
+   ]
+  },
+  "narr": [
+   "Tur o'zgartirish amaliy misollar.",
+   "Butun sonni haqiqiy songa qo'shganda, butun son avval haqiqiy songa aylanadi.",
+   "Belgilarni solishtirishda ular avval int turiga aylanadi.",
+   "Ayirish amali belgilarni solishtirishga im beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Operator ustunligi",
+   "bullets": [
+    "Yuqori: ++, −−, (cast), sizeof",
+    "* / % + −",
+    "==, !=",
+    "&&, ||",
+    "Tayinlash operatorlari — juda past",
+    "Ikki ma'nolilik va ustunlik yon effektlaridan qochish uchun qavs ( ) ni ko'p ishlating"
+   ]
+  },
+  "narr": [
+   "Operatorlar turli ustunlik darajasiga ega.",
+   "Yuqori ustunlikdagi operatorlar birinchi hisoblanadi.",
+   "Keyin ko'paytirish, bo'lish va qoldiq operatorlari.",
+   "Keyin qo'shish va ayirish operatorlari.",
+   "Keyin solishtirish operatorlari.",
+   "Va oxirida mantiqiy operatorlar.",
+   "Tayinlash operatorlari eng past ustunlikka ega.",
+   "Ikki ma'nolilik va yon effektlardan qochish uchun qavslardan foydalanish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Laboratoriya: Kabisa yili va belgilar massivi"
+  },
+  "narr": [
+   "Endi laboratoriya mashqlarini ko'rib chiqamiz.",
+   "Birinchi mashq - kabisa yilini aniqlash.",
+   "Ikkinchi mashq - belgilar massivini ishlatish."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Kabisa yili",
+   "bullets": [
+    "Oddiy yil — 365 kun (fevralda 28)",
+    "Kabisa yili — 366 (29 fevral)",
+    "Qo'shimcha kun taqvimni mavsumlar bilan mos kelishiga xizmat qiladi",
+    "Qoida yuqoridan pastga o'qiladi:",
+    "400 ga karrali? →kabisa",
+    "aks holda 100 ga karrali? →oddiy",
+    "aks holda 4 ga karrali? →kabisa",
+    "aks holda oddiy"
+   ]
+  },
+  "narr": [
+   "Kabisa yili - bu 366 kunli yil, fevral oyida 29 kun bo'ladi.",
+   "Oddiy yilda esa 365 kun, fevralda 28 kun.",
+   "Qo'shimcha kun taqvimni mavsumlar bilan mos kelishiga yordam beradi.",
+   "Kabisa yilini aniqlash qoidasi:",
+   "Agil yil 400 ga karrali bo'lsa, bu kabisa yili.",
+   "Agar 400 ga karrali bo'lmasa, lekin 100 ga karrali bo'lsa, bu oddiy yil.",
+   "Agar 100 ga ham karrali bo'lmasa, lekin 4 ga karrali bo'lsa, bu kabisa yili.",
+   "Agar hech bir shartga mos kelmasa, bu oddiy yil."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Kabisa yilini tekshirish",
+   "problem": "Berilgan yil kabisa yili ekanligini tekshiring",
+   "steps": [
+    "Yilni 400 ga bo'ling, agar qoldiq 0 bo'lsa, bu kabisa yili",
+    "Agar 400 ga bo'linmasa, yilni 100 ga bo'ling, agar qoldiq 0 bo'lsa, bu oddiy yil",
+    "Agar 100 ga bo'linmasa, yilni 4 ga bo'ling, agar qoldiq 0 bo'lsa, bu kabisa yili",
+    "Agar hech qanday shart bajarilmasa, bu oddiy yil"
+   ],
+   "result": "year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)"
+  },
+  "narr": [
+   "Keling, kabisa yilini tekshirish uchun ifodani ko'rib chiqaylik.",
+   "Agil yil 400 ga karrali bo'lsa, bu kabisa yili.",
+   "Agar 400 ga karrali bo'lmasa, lekin 100 ga karrali bo'lsa, bu oddiy yil.",
+   "Agar 100 ga ham karrali bo'lmasa, lekin 4 ga karrali bo'lsa, bu kabisa yili.",
+   "Shu qoidani ifodalovchi ixcham ifoda shunday: yil 400 ga karrali yoki (yil 4 ga karrali va 100 ga karrali emas)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Kabisa yil misollari",
+   "problem": "Quyidagi yillarning qaysi biri kabisa yili?",
+   "steps": [
+    "2000 - 400 ga karrali, shuning uchun kabisa yili",
+    "1900 - 100 ga karrali, lekin 400 ga emas, shuning uchun oddiy yil",
+    "2024 - 4 ga karrali, lekin 100 ga emas, shuning uchun kabisa yili",
+    "2025 - 4 ga ham, 100 ga ham karrali emas, shuning uchun oddiy yil",
+    "2100 - 100 ga karrali, lekin 400 ga emas, shuning uchun oddiy yil"
+   ],
+   "result": "2000 va 2024 kabisa yillari, qolganlari oddiy yillar"
+  },
+  "narr": [
+   "Keling, ba'zi yillarni tekshiraylik.",
+   "2000 yili 400 ga karrali, shuning uchun bu kabisa yili.",
+   "1900 yili 100 ga karrali, lekin 400 ga emas, shuning uchun bu oddiy yil.",
+   "2024 yili 4 ga karrali, lekin 100 ga emas, shuning uchun bu kabisa yili.",
+   "2025 yili 4 ga ham, 100 ga ham karrali emas, shuning uchun bu oddiy yil.",
+   "2100 yili 100 ga karrali, lekin 400 ga emas, shuning uchun bu oddiy yil."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Takroriy kirish",
+   "bullets": [
+    "Kabisa yilini tekshirish dasturini takroriy kirish bilan yozish mumkin",
+    "Sikldan oldin yilni o'qing va sikl oxirida yana",
+    "Yil 0 yoki manfiy bo'lsa, dasturni tugating",
+    "CS50 uslubidagi psevdokod: \"Go back to line 1\""
+   ]
+  },
+  "narr": [
+   "Kabisa yilini tekshirish dasturini takroriy kirish bilan yozish mumkin.",
+   "Dastur boshida yilni o'qib olamiz.",
+   "Yilni tekshirib, natijani chiqaramiz.",
+   "Keyin yana yilni so'raymiz va siklni takorlaymiz.",
+   "Agar foydalanchi 0 yoki manfiy son kiritsa, dasturni tugatamiz.",
+   "Bu \"Go back to line 1\" - CS50 uslubidagi psevdokodga o'xshaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Xulosa",
+   "items": [
+    "Boʻlish va qoldiq operatorlari operand turlariga qarab ishlaydi",
+    "Solishtirish va mantiqiy operatorlar shartli logikani yaratadi",
+    "Qisqa zanjir hisoblashni optimallashtiradi",
+    "O'shish/kamayish va ixcham tayinlash kodni qisqartiradi",
+    "Bitli operatorlar ma'lumotlarni bitlar darajasida manipulyatsiya qiladi",
+    "Tur o'zgartirish aralash turdagi ifodalarda kerak bo'ladi",
+    "Operator ustunligi hisoblash tartibini belgilaydi",
+    "Kabisa yili qoidasi yuqoridan pastga qarab tekshiriladi"
+   ]
+  },
+  "narr": [
+   "Keling, ushbu bo'limda o'rganilgan asosiy tushunchalarni xulosa qilaylik.",
+   "Bo'lish va qoldiq operatorlari operand turlariga qarab har xil natija berishi mumkin.",
+   "Solishtirish va mantiqiy operatorlar dasturlarda shartli logikani yaratishga im beradi.",
+   "Qisqa zanjir hisoblashni optimallashtiradi, kerak bo'lmagan qismlarni hisoblamaydi.",
+   "O'shish/kamayish va ixcham tayinlash operatorlari kodni qisqaroq va o'qilishi osonroq qiladi.",
+   "Bitli operatorlar ma'lumotlarni bitlar darajasida manipulyatsiya qilishga im beradi.",
+   "Tur o'zgartirish aralash turdagi ifodalarda avtomat ravishda amalga oshiriladi.",
+   "Operator ustunligi hisoblash tartibini belgilaydi, bu tushunish muhim.",
+   "Kabisa yili qoidasi yuqoridan pastga qarab tekshiriladi, 400, 100 va 4 ga bo'linish asosida."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ]
+ }
+]

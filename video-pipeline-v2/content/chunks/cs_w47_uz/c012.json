@@ -1,0 +1,513 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari",
+   "subtitle": "C — 4-7-haftalar"
+  },
+  "narr": [
+   "Keling, C dasturlash tili boʻyicha savol va javoblarni koʻrib chiqaylik. Bu qismda funksiyalar, operatorlar, parametrlar va boshqa muhim tushunchalar mavjud.",
+   "Boshlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 1",
+   "problem": "void printhelloworld(void) funksiyasida qaytaruvchi natija va kirish parametrlari qanday?",
+   "steps": [
+    "void nom oldidan — qaytaruvchi natija yoʻq",
+    "(void) qavsli qavslar — kirish parametrlari yoʻq"
+   ],
+   "result": "Ikkala ham oʻz oʻrnida; qavsli qavslar tanani oʻrab oladi. Qaytaruvchi qiymat chop etilgan chiqindidan farqlanishi kerak."
+  },
+  "narr": [
+   "Birinchi savol void printhelloworld(void) funksiyasiga oid.",
+   "Bu funksiyada ikkita muhim jihat mavjud.",
+   "Birinchidan, void soʻzidan oldin kelgani uchun bu funksiya hech qanday qiymat qaytarmaydi.",
+   "Ikkinchidan, (void) qavsli qavslar funksiyaga hech qanday kirish parametri berilmaganligini bildiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 2",
+   "problem": "Prototip chaqiruv va taʼrifdan qanday farq qiladi?",
+   "steps": [
+    "Prototip maindan oldin funksiyani eʼlon qiladi",
+    "Chaqiruv — funksiyani hozirroq bajaradi",
+    "Taʼrif — funksiyaning ishini tasvirlaydi"
+   ],
+   "result": "Prototip: void printhelloworld(void); — nuqta-vergul bilan tugaydi va tanaga ega emas. Chaqiruv: printhelloworld(); — funksiyani hozirroq bajaradi. Taʼrif — qavsli qavsli tanasini oʻz ichiga oladi. Bir dasturda: prototip maindan oldin, chaqiruvlar main ichida, taʼrif keyin."
+  },
+  "narr": [
+   "Ikkinchi savol prototip, chaqiruv va taʼrif oʻrtasidagi farqni soʻraydi.",
+   "Prototip bu funksiyaning eʼlonidir, u main funksiyasidan oldin keladi va nuqta-vergul bilan tugaydi. Unda funksiya tanasi boʻlmaydi.",
+   "Chaqiruv esa funksiyani ishga tushirish uchun ishlatiladi, u main ichida yoki boshqa joyda boʻlishi mumkin.",
+   "Taʼrif esa funksiyaning toʻliq tanasini, yaʼni uning qanday ishlashini koʻrsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 3",
+   "problem": "for (int i = 1; i <= 3; i++) printf(\"%d \", i); nima chiqaradi?",
+   "steps": [
+    "Hisoblovchi 1, 2, 3 dan oʻtadi",
+    "i = 4 da i <= 3 sharti notoʻgʻri boʻladi"
+   ],
+   "result": "1 2 3"
+  },
+  "narr": [
+   "Uchinchi savolda for tsikli koʻrsatilgan.",
+   "Bu tsikl i oʻzgaruvchisini 1 dan 3 gacha boʻlgan qiymatlarda aylantiradi.",
+   "Har bir aylanishda i ning qiymati ekranga chiqariladi.",
+   "i 4 ga teng boʻlganda, shart notoʻgʻri boʻladi va tsikl toʻxtaydi.",
+   "Shuning uchun natija 1 2 3 boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 4",
+   "problem": "int streak = 2; int practised = 0; if (practised == 1) streak++; else streak = 0; dan keyin streak qanday qiymatga ega?",
+   "steps": [
+    "practised == 1 sharti notoʻgʻri (practised 0 ga teng)",
+    "else sharti bajariladi va streak nolga qoʻyiladi"
+   ],
+   "result": "streak = 0"
+  },
+  "narr": [
+   "Toʻrtinchi savolda shartli ifoda koʻrsatilgan.",
+   "Bu yerda streak va practised oʻzgaruvchilari berilgan.",
+   "Agar practised 1 ga teng boʻlsa, streak 1 ga oshiriladi.",
+   "Ammo practised 0 ga teng, shuning uchun else sharti bajariladi.",
+   "Natijada streak 0 ga teng boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 5",
+   "problem": "birinchi break boʻlmaganda score qanday qiymatga ega? int score = 0; char reaction = 'W'; switch (reaction) { case 'W': score += 2; case 'L': score -= 1; break; }",
+   "steps": [
+    "'W' belgisi 'W' case bilan mos keladi: score += 2 beradi",
+    "break yoʻq — bajarilish 'L' case ga oʻtadi yangi tekshiruvsiz: score -= 1 beradi",
+    "switch tugatadi"
+   ],
+   "result": "score = 1"
+  },
+  "narr": [
+   "Beshinchi savolda switch-operatori koʻrsatilgan.",
+   "Bu yerda reaction oʻzgaruvchisiga 'W' qiymati berilgan.",
+   "'W' case bilan mos keladi, shuning uchun score 2 ga oshiriladi.",
+   "Lekin bu case-da break yoʻq, shuning uchun bajarilish keyingi 'L' case ga oʻtadi.",
+   "Bu yerda score 1 ga kamayadi va break orqali switch tugatiladi.",
+   "Natijada score 1 ga teng boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 6",
+   "problem": "Parametr argumentdan qanday farq qiladi?",
+   "steps": [
+    "Parametr — funksiya ichidagi kirish nomi",
+    "Argument — chaqiruv beradigan qiymat"
+   ],
+   "result": "Parametr — funksiya ichidagi kirish nomi: count void printmeows(int count); da bu nom funksiya uchun mahalliy. Argument — chaqiruv beradigan qiymat: printmeows(3) dagi 3. Har bir chaqiruvda qiymat parametrga nusxalanadi."
+  },
+  "narr": [
+   "Oltinchi savolda parametr va argument oʻrtasidagi farq soʻralgan.",
+   "Parametr bu funksiya ichidagi oʻzgaruvchi nomi, u funksiya tanasida ishlatiladi.",
+   "Argument esa funksiyani chaqirganda beriladigan qiymatdir.",
+   "Har bir chaqiruvda argument qiymati parametrga nusxalanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 7",
+   "problem": "IntegerRoot(27) va IntegerRoot(16) chaqiruv juftligi nima chiqaradi?",
+   "steps": [
+    "27 uchun: 5×5 = 25 ≤27, 6×6 = 36 > 27, shuning uchun butun sonli ildiz 5",
+    "16 uchun — 4"
+   ],
+   "result": "5 4"
+  },
+  "narr": [
+   "Yettinchi savolda IntegerRoot funksiyasi chaqiruvlari koʻrsatilgan.",
+   "Bu funksiya sonning butun sonli ildizini qaytaradi.",
+   "27 uchun 5×5 = 25 ≤27, 6×6 = 36 > 27, shuning uchun natija 5.",
+   "16 uchun esa 4×4 = 16, shuning uchun natija 4.",
+   "Ikkita chaqiruv birgalikda 5 4 ni chiqaradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 8",
+   "problem": "Maydon (field) nima va Stock stockdan qanday farq qiladi?",
+   "steps": [
+    "Maydon — yozuvdagi bitta nomlangan qiymat",
+    "Stock — qavs yopilgandan keyin typedef bilan kiritilgan tur nomi",
+    "stock — bu turdagi oʻzgaruvchi"
+   ],
+   "result": "Maydon — yozuvdagi (waterml, milkml, beansg, papercups) bitta nomlangan qiymat. Stock — qavs yopilgandan keyin typedef bilan kiritilgan tur nomi; stock — bu turdagi oʻzgaruvchi. Registrani ahamiyati bor: Stock va stock — turli nomlar."
+  },
+  "narr": [
+   "Sakkizinchi savolda maydon va turlar oʻrtasidagi farq soʻralgan.",
+   "Maydon bu struct ichidagi bitta element, masalan waterml, milkml, beansg, papercups.",
+   "Stock esa bu struct ning nomi, typedef bilan aniqlangan.",
+   "stock esa bu turdagi oʻzgaruvchi.",
+   "Eʼtibor bering, katta-kichik harflarning ahamiyati bor: Stock va stock turli nomlar."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 9",
+   "problem": "Stock preview = stockafterwateruse(stock, 100); dan keyin stockdagi suv hali ham 500, previewda esa 400 boʻlishining sababi nima?",
+   "steps": [
+    "Funksiyadagi stock parametri — nusxa: yordamchi nusxadan 100 ayiradi va oʻzgartirilgan nusxani qaytaradi",
+    "main dagi asl 500 da qoladi",
+    "Chaqiruvchi natijani qayerda saqlashni tanlaydi: preview 400 ni oladi"
+   ],
+   "result": "Funksiyadagi stock parametri — nusxa: yordamchi nusxadan 100 ayiradi va oʻzgartirilgan nusxani qaytaradi; main dagi asl 500 da qoladi. Chaqiruvchi natijani qayerda saqlashni tanlaydi: preview 400 ni oladi."
+  },
+  "narr": [
+   "Toʻqqizinchi savolda funksiya chaqiruvi va nusxalash jarayoni tushuntiriladi.",
+   "Bu yerda stockafterwateruse funksiyasi chaqiriladi, u stock nusxasini oladi va undan 100 ayiradi.",
+   "Asl stock oʻzgarmaydi, chunki funksiya uning nusxasini ishlatadi.",
+   "Natija preview oʻzgaruvchisiga saqlanadi, shuning uchun previewda 400, asl stockda esa 500 boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 10",
+   "problem": "stock = stockaftercoffee(stock, latte); tayinlash nima oʻzgartiradi va uni boʻlmagida nima boʻladi?",
+   "steps": [
+    "Tayinlash bilan stock qaytarilgan yozuvni saqlaydi: 400 / 150 / 30 / 2",
+    "Tayinlanmasdan (faqat stockaftercoffee(stock, latte);) qaytarilgan nusxa tashlanadi — stock oʻzgarmaydi"
+   ],
+   "result": "Tayinlash bilan stock qaytarilgan yozuvni saqlaydi: 400 / 150 / 30 / 2. Tayinlanmasdan (faqat stockaftercoffee(stock, latte);) qaytarilgan nusxa tashlanadi — stock oʻzgarmaydi: \"stock is still unchanged\"."
+  },
+  "narr": [
+   "Oʻninchi savolda tayinlash (assignment) operatsiyasining ahamiyati tushuntiriladi.",
+   "Agar stock = stockaftercoffee(stock, latte); yozilsa, qaytarilgan qiymat stock oʻzgaruvchisiga saqlanadi.",
+   "Ammo agar faqat stockaftercoffee(stock, latte); yozilsa, qaytarilgan qiymat hech qayerga saqlanmaydi va tashlanadi.",
+   "Shuning uchun stock oʻzgarmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 11",
+   "problem": "stock.papercups = 0 boʻlganda buyurtma bajarilmaydi va hech narsa oʻzgarmaydigan sababi nima?",
+   "steps": [
+    "canmakecoffee barcha toʻrtta resurs talab qilinadiganidan kam boʻlmasligini talab qiladi",
+    "&& — har bir shart bajarilishi kerak",
+    "bitta yetishmayotdan stakanchik yetarli boʻladi false qaytarish uchun",
+    "if shakli hech qanday tayinlamani bajarmaydi — barcha stock maydonlari va oldingi cup (latte) oʻzgarmaydi"
+   ],
+   "result": "canmakecoffee barcha toʻrtta resurs talab qilinadiganidan kam boʻlmasligini talab qiladi (&& — har bir shart bajarilishi kerak): bitta yetishmayotdan stakanchik yetarli boʻladi false qaytarish uchun. if shakli hech qanday tayinlamani bajarmaydi — barcha stock maydonlari va oldingi cup (latte) oʻzgarmaydi."
+  },
+  "narr": [
+   "Oʻn birinchi savolda shartli ifoda va resurslar tekshiruvi tushuntiriladi.",
+   "Bu yerda canmakecoffee funksiyasi toʻrtta resursning ham yetarli boʻlishini tekshiradi.",
+   "Agar bittasi ham yetarli boʻlmasa, funksiya false qaytaradi.",
+   "if shakli hech qanday amalni bajarmaydi, shuning uchun stock maydonlari oʻzgarmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 12",
+   "problem": "goto xavfli va C da u qachon oqlanadi?",
+   "steps": [
+    "ortiqcha goto spagetti-kod yaratadi",
+    "kodni oʻqish va xatolarni tuzatish qiyin",
+    "har qanday goto kodli uni bilan yozmasdan qayta yozish mumkin",
+    "C da goto xatolarni qayta ishlashda chuqur bloklardan chiqishning qulay usuli sifatida oqlanadi",
+    "C++/Java da bunday uchun istisnolar mavjud, C da yoʻq"
+   ],
+   "result": "ortiqcha goto spagetti-kod yaratadi (Dijkstra, \"Go To Statement Considered Harmful\", CACM 11(3), 1968): kodni oʻqish va xatolarni tuzatish qiyin; har qanday goto kodli uni bilan yozmasdan qayta yozish mumkin. C da goto xatolarni qayta ishlashda chuqur bloklardan chiqishning qulay usuli sifatida oqlanadi — C++/Java da bunday uchun istisnolar mavjud, C da yoʻq."
+  },
+  "narr": [
+   "Oʻn ikkinchi savolda goto ifodasining xavfliligi va qoʻllanilishi tushuntiriladi.",
+   "goto ifodasi spagetti-kod yaratishi bilan mashhur, bu esa kodni tushunish va xatolarni tuzatishni qiyinlashtiradi.",
+   "Dijkstra 1968-yilda \"Go To Statement Considered Harmful\" maqolasida buni tanqid qilgan.",
+   "Ammo C tilida goto baʼzi hollarda, masalan, xatolarni qayta ishlashda chuqur bloklardan chiqish uchun foydalidir.",
+   "C++ va Java kabi tillarda bunday vazifa uchun istisnalar (exceptions) mavjud, C da esa yoʻq."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 13",
+   "problem": "scanf & ni talab qiladi va qachon kerak emas?",
+   "steps": [
+    "scanf argumentlari oʻzgaruvchilar manzillari (koʻrsatkichlar) boʻlishi kerak",
+    "scanf(\"%d\", &x) oʻqilgan sonni x manziliga yozadi",
+    "Belgilar massivlari (satrlar) uchun massiv nomi allaqachon manzildir",
+    "scanf(\"%s\", str) — &siz",
+    "scanf boʻsh belgilarni eʼtiborsiz qoldiradi va oʻqilgan elementlar sonini yoki EOF ni qaytaradi"
+   ],
+   "result": "scanf argumentlari oʻzgaruvchilar manzillari (koʻrsatkichlar) boʻlishi kerak: scanf(\"%d\", &x) oʻqilgan sonni x manziliga yozadi. Belgilar massivlari (satrlar) uchun massiv nomi allaqachon manzildir: scanf(\"%s\", str) — &siz; shunday qilib scanf(\"%20s\", str) va scanf(\"%20s %20s\", fname, lname). scanf boʻsh belgilarni eʼtiborsiz qoldiradi va oʻqilgan elementlar sonini yoki EOF ni qaytaradi."
+  },
+  "narr": [
+   "Oʻn uchinchi savolda scanf funksiyasi va & operatori tushuntiriladi.",
+   "scanf funksiyasi oʻqish uchun & operatorini talab qiladi, bu oʻzgaruvchining manzilini bildiradi.",
+   "Masalan, scanf(\"%d\", &x) da &x x oʻzgaruvchisining manzilini bildiradi.",
+   "Ammo satrlar uchun massiv nomi allaqachon manzilni bildiradi, shuning uchun & kerak emas.",
+   "scanf boʻsh belgilarni eʼtiborsiz qoldiradi va oʻqilgan elementlar sonini yoki EOF ni qaytaradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 14",
+   "problem": "argc va argv nima saqlaydi?",
+   "steps": [
+    "int main(int argc, char *argv[]): argc — argumentlar soni",
+    "argv[] — har bir argumentga koʻrsatkichlar massivi",
+    "argumentlar dastur nomini oʻz ichiga oladi"
+   ],
+   "result": "int main(int argc, char *argv[]): argc — argumentlar soni; argv[] — har bir argumentga koʻrsatkichlar massivi; argumentlar dastur nomini oʻz ichiga oladi. Misol: ./cat a.txt b.txt argc = 3, argv[0] = \"cat\", argv[1] = \"a.txt\", argv[2] = \"b.txt\" beradi; yakka ./cat argc = 1 beradi."
+  },
+  "narr": [
+   "Oʻn toʻrtinchi savolda argc va argv parametrlari tushuntiriladi.",
+   "main funksiyasida argc argumentlar sonini, argv esa argumentlarning massivini bildiradi.",
+   "argv[0] har doim dastur nomini saqlaydi.",
+   "Masalan, ./cat a.txt b.txt dasturini chaqirganda argc = 3 boʻladi, argv[0] = \"cat\", argv[1] = \"a.txt\", argv[2] = \"b.txt\".",
+   "Agar dastur hech qanday argument bilan chaqirilmasa, argc = 1 boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "6-hafta testlari",
+   "subtitle": "4.3 4.3. 6-hafta testlari"
+  },
+  "narr": [
+   "Endi 6-hafta testlariga oid savollarni koʻrib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test 1",
+   "problem": "Funksiya prototipi nima?",
+   "options": [
+    "figurali qavslar bilan funksiya tanasi",
+    "funksiya eʼloni, ';' bilan tugaydi va tanasiz",
+    "main dan funksiya chaqiruvi",
+    "funksiya ichidagi oʻzgaruvchi"
+   ],
+   "steps": [
+    "A prototype declares a function before main calls it",
+    "It ends with ; and has no body"
+   ],
+   "result": "b) funksiya eʼloni, ';' bilan tugaydi va tanasiz"
+  },
+  "narr": [
+   "Birinchi test savolida funksiya prototipi tushunchasi soʻralgan.",
+   "Prototip bu main funksiyasidan oldin funksiyani eʼlon qilishdir.",
+   "U nuqta-vergul bilan tugaydi va funksiya tanasiga ega emas.",
+   "Shuning uchun toʻgʻri javob b) variantidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test 2",
+   "problem": "void printmeow(void) funksiyasida nechta kirish va qaytariladigan qiymatlar bor?",
+   "options": [
+    "1 kirish, 1 qiymat",
+    "kirish yoʻq, qaytariladigan qiymat yoʻq",
+    "kirish yoʻq, 1 qiymat",
+    "1 kirish, qiymat yoʻq"
+   ],
+   "steps": [
+    "void nomdan oldin — qaytariladigan natija yoʻq",
+    "(void) — kirishlar yoʻq"
+   ],
+   "result": "b) kirish yoʻq, qaytariladigan qiymat yoʻq"
+  },
+  "narr": [
+   "Ikkinchi test savolida printmeow funksiyasining kirish va chiqaruv parametrlari soʻralgan.",
+   "void soʻzidan oldin kelgani uchun bu funksiya hech qanday qiymat qaytarmaydi.",
+   "(void) qavsli qavslar esa kirish parametrlari yoʻqligini bildiradi.",
+   "Shuning uchun toʻgʻri javob b) variantidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test 3",
+   "problem": "IntegerRoot(27) qaytaradi?",
+   "options": [
+    "4",
+    "5",
+    "6",
+    "27"
+   ],
+   "steps": [
+    "5 × 5 = 25 ≤27",
+    "6 × 6 = 36 > 27",
+    "27 ning butun sonli kvadrat ildizi 5"
+   ],
+   "result": "b) 5"
+  },
+  "narr": [
+   "Uchinchi test savolida IntegerRoot funksiyasi chaqiruvi soʻralgan.",
+   "27 ning butun sonli kvadrat ildizini topamiz.",
+   "5 × 5 = 25 ≤27, 6 × 6 = 36 > 27.",
+   "Shuning uchun 27 ning butun sonli kvadrat ildizi 5.",
+   "Toʻgʻri javob b) variantidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Test 4",
+   "problem": "stock oʻzgaruvchisining waterml maydoniga qanday murojaat qilish kerak?",
+   "steps": [
+    "stock.waterml yozuvi orqali"
+   ],
+   "result": "stock.waterml"
+  },
+  "narr": [
+   "Toʻrtinchi test savolida stock oʻzgaruvchisining waterml maydoniga murojaat qilish usuli soʻralgan.",
+   "Struct ichidagi maydonga murojaat qilish uchun nuqta operatoridan foydalanamiz.",
+   "Shuning uchun stock.waterml yozuvi orqali murojaat qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ }
+]

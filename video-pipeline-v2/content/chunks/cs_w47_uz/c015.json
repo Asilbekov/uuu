@@ -1,0 +1,461 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "4-7-haftalar",
+   "subtitle": "Tartiblash va qidiruv algoritmlari"
+  },
+  "narr": [
+   "Bu bo'limda biz turli tartiblash va qidiruv algoritmlarini o'rganamiz.",
+   "Boshlaymiz oddiy chiziqli qidiruv bilan.",
+   "Keyin joylashtirish tartiblash usulini ko'rib chiqamiz.",
+   "Va nihoyat, tezkor tartiblash algoritmlari, jumladan quicksort.",
+   "Shuningdek, ikkilik qidiruv va rekursiya tushunchalarini ham o'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Chiziqli qidiruv",
+   "code": "int arr[100]; /* array to search */\nint * linear_search(int val) {\nint *parr, *parrend = arr + array_length(arr);\nfor (parr = arr; parr < parrend; parr++) {\nif (*parr == val)\nreturn parr;\n}\nreturn NULL;\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+   ]
+  },
+  "narr": [
+   "Chiziqli qidiruv eng oddiy qidiruv usuli.",
+   "U massivning boshidan boshlab har bir elementni qidirilayotgan qiymat bilan solishtiradi.",
+   "Agar element topilsa, unga ishora qiluvchi pointer qaytariladi.",
+   "Agar element topilmasa, NULL qaytariladi.",
+   "Bu algoritmning murakkabligi O(n) bo'ladi, ya'ni massiv uzunligiga proportsional."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Oddiy joylashtirish tartiblashi",
+   "bullets": [
+    "Murakkabligi O(n²)",
+    "Massiv bo'ylab yurish",
+    "To'g'ri joyda bo'lmagan elementni topish",
+    "Uni to'g'ri pozitsiyaga joylashtirish",
+    "Massiv oxirigacha takrorlash"
+   ]
+  },
+  "narr": [
+   "Joylashtirish tartiblashi (Insertion Sort) oddiy tartiblash algoritmlaridan biri.",
+   "Ushbu algoritm massivdagi har bir elementni oldingi elementlar bilan solishtiradi.",
+   "Agar element o'zidan oldingi elementdan kichik bo'lsa, u o'rnini o'zgartiradi.",
+   "Bu jarayon massivning oxirigacha takrorlanadi.",
+   "Natijada massiv o'sish tartibida joylashadi.",
+   "Bu algoritmning murakkabligi O(n²) bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Joylashtirish tartiblashi amalga oshirish",
+   "code": "/* move previous elements down until insertion point reached */\nvoid shift_element(unsigned int i) {\nint ivalue;\n/* guard against going outside array */\nfor (ivalue = arr[i]; i && arr[i-1] > ivalue; i--)\narr[i] = arr[i-1]; /* move element down */\narr[i] = ivalue;\n/* insert element */\n}\n/* iterate until out-of-order element found;\nshift the element, and continue iterating */\nvoid insertion_sort(void) {\nunsigned int i, len = array_length(arr);\nfor (i = 1; i < len; i++)\nif (arr[i] < arr[i-1])\nshift_element(i);\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+   ]
+  },
+  "narr": [
+   "Joylashtirish tartiblashi ikki funksiyadan iborat.",
+   "Birinchisi shift_element, bu funksiya elementni o'ziga to'g'ri joyiga siljitadi.",
+   "Ikkinchisi insertion_sort, bu funksiya massiv bo'ylab yurib, noto'g'ri joylashgan elementlarni topadi va shift_element funksiyasiga yuboradi.",
+   "shift_element funksiyasi elementni o'ngga siljitib, to'g'ri joyiga qo'yadi.",
+   "Bu jarayon massivning oxirigacha davom etadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tezkor tartiblash usullari",
+   "bullets": [
+    "Shellsort",
+    "Mergesort",
+    "Quicksort",
+    "O'rtacha holatda O(n log n)",
+    "Yomon holatda O(n²)"
+   ]
+  },
+  "narr": [
+   "Tezkor tartiblash usullari oddiy tartiblash algoritmlariga nisbatan ancha tez ishlaydi.",
+   "Ulardan biri quicksort algoritmdir.",
+   "Quicksort o'rtacha holatda murakkabligi O(n log n) bo'ladi.",
+   "Lekin yomon holatda bu murakkablik O(n²) ga yetishi mumkin.",
+   "Quicksort asosiy elementni (pivot) tanlashga asoslangan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Quicksort algoritmi",
+   "code": "void quick_sort(unsigned int left, unsigned int right) {\nunsigned int i, mid;\nint pivot;\nif (left >= right)\nreturn; /* nothing to sort */\n/* pivot is midpoint; move to left side */\nswap(arr + left, arr + (left + right) / 2);\npivot = arr[mid = left];\n/* separate into side < pivot (left+1 to mid)\nand side >= pivot (mid+1 to right) */\nfor (i = left + 1; i <= right; i++)\nif (arr[i] < pivot)\nswap(arr + ++mid, arr + i);\n/* restore pivot position */\nswap(arr + left, arr + mid);\n/* sort two sides */\nif (mid > left)\nquick_sort(left, mid - 1);\nif (mid < right)\nquick_sort(mid + 1, right);\n}\nquick_sort(0, array_length(arr) - 1);",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+   ]
+  },
+  "narr": [
+   "Quicksort algoritmi quyidagi bosqichlardan iborat:",
+   "Birinchidan, asosiy element (pivot) tanlanadi.",
+   "Odatda bu massivning o'rtasidagi element bo'ladi.",
+   "Keyin elementlar pivot qiymatiga qarab ikki guruhga bo'linadi.",
+   "Pivotdan kichik elementlar chap tomonda, kattalari o'ng tomonda joylashadi.",
+   "Keyin har ikki tomon alohida tartiblanadi (rekursiv usulda).",
+   "Bu jarayon butun massiv tartiblanguncha davom etadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Quicksort xususiyatlari",
+   "bullets": [
+    "Beqaror (teng elementlar o'rin almashishi mumkin)",
+    "Joyida tartiblaydi (xotira tejaydi)",
+    "Pivot tanlash unumdorlikka ta'sir qiladi",
+    "Divide and conquer usuliga asoslangan",
+    "Oson parallelizatsiya qilinadi",
+    "Rekursiv - yomon holatda stekni to'ldirib yuborishi mumkin"
+   ]
+  },
+  "narr": [
+   "Quicksortning bir nechta xususiyatlari bor.",
+   "Birinchidan, u beqaror bo'lishi mumkin, ya'ni teng qiymatdagi elementlarning o'rni o'zgarishi mumkin.",
+   "Ikkinchidan, u joyida tartiblaydi, bu esa xotira kam bo'lganda foyali.",
+   "Pivot elementni tanlash algoritmning unumdorligiga katta ta'sir qiladi.",
+   "U divide and conquer (bo'l va hukm qil) usuliga asoslangan.",
+   "Shuningdek, u oson parallelizatsiya qilinishi mumkin.",
+   "Lekin rekursiv tabiatiga ko'ra, katta massivlarda stekni to'ldirib yuborishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ikkilik qidiruv",
+   "bullets": [
+    "O'rtacha va yomon holatda O(log n)",
+    "Massiv tartiblangan bo'lishi kerak",
+    "Hozirgi qismning o'rtacha elementi bilan solishtirish",
+    "Yangi qism ikki barobar kichik bo'lishi kafolatlangan",
+    "Divide and conquer usuliga asoslangan",
+    "Massiv xotirasiga tasodifiy kirish talab qilinadi"
+   ]
+  },
+  "narr": [
+   "Ikkilik qidiruv (binary search) chiziqli qidiruvga nisbatan ancha tezroq ishlaydi.",
+   "Uning murakkabligi O(log n) bo'ladi.",
+   "Buning uchun massiv avval tartiblangan bo'lishi shart.",
+   "Qidiruv jarayonida massivning o'rtasidagi element bilan solishtirish amalga oshiriladi.",
+   "Agar qidirilayotgan qiymat o'rtadagidan kichik bo'lsa, qidiruv chap qismda davom etadi.",
+   "Agar katta bo'lsa, o'ng qismda.",
+   "Har bir bosqichda qidiruv maydoni ikki barobar kamayadi.",
+   "Bu esa algoritm tezligini oshiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Ikkilik qidiruv amalga oshirish",
+   "code": "int * binary_search(int val) {\nunsigned int L = 0, R = array_length(arr), M;\nwhile (L < R) {\nM = (L + R - 1) / 2;\nif (val == arr[M])\nreturn arr + M; /* found */\nelse if (val < arr[M])\nR = M; /* in first half */\nelse\nL = M + 1; /* in second half */\n}\nreturn NULL; /* not found */\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ]
+  },
+  "narr": [
+   "Ikkilik qidiruv quyidagi bosqichlardan iborat:",
+   "Birinchidan, chap (L) va o'ng (R) chegaralar belgilanadi.",
+   "Keyin ularning o'rtasidagi indeks (M) hisoblanadi.",
+   "Qidirilayotgan qiymat massivning M-indeksidagi elementi bilan solishtiriladi.",
+   "Agar qiymat topilsa, unga ishora qiluvchi pointer qaytariladi.",
+   "Agar qiymat o'rtadagidan kichik bo'lsa, R chegarasi M ga tenglashtiriladi.",
+   "Agar katta bo'lsa, L chegarasi M+1 ga tenglashtiriladi.",
+   "Jarayon L chegarasi R chegarasidan katta bo'lguncha davom etadi.",
+   "Agar qiymat topilmasa, NULL qaytariladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Rekursiya",
+   "subtitle": "Asosiy holat, kichikroq masala, progress"
+  },
+  "narr": [
+   "Rekursiya - bu funksiya o'zini o'zi chaqirish mexanizmi.",
+   "Bu tushuncha dasturlashda juda muhim rol o'ynaydi.",
+   "Rekursiyada uchta asosiy tarkibiy qism mavjud:",
+   "Asosiy holat (base case) - bu rekursiyaning to'xtash sharti.",
+   "Kichikroq masala (subproblem) - bu asosiy masajadan kichikroq, lekin bir xil tuzilishdagi masala.",
+   "Progress - bu har bir rekursiv chaqiruv asosiy holatga yaqinlashadi.",
+   "Keling, buni misollar orqali tushunib olaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Oddiy funksiya misoli",
+   "code": "int double_value(int x)\n{\nreturn 2 * x;\n}\n// Inside main:\nint result = double_value(3);",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  "narr": [
+   "Oddiy funksiya misolini ko'rib chiqaylik.",
+   "Bu double_value funksiyasi kirish qiymatini ikki barobar oshirib qaytaradi.",
+   "Agar main funksiyasida double_value(3) chaqirsak, u 6 ni qaytaradi.",
+   "Bu oddiy funksiya chaqiruvi, rekursiv emas."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Teskay sanash (rekursiv funksiya)",
+   "code": "void count_down(int n)\n{\nif (n == 0)\nreturn;\nprintf(\"%i\\n\", n);\ncount_down(n - 1);\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  "narr": [
+   "Endi teskay sanash funksiyasini ko'rib chiqaylik.",
+   "Bu funksiya rekursivdir, chunki u o'zini chaqiradi.",
+   "Asosiy holat n == 0 bo'lganda, funksiya to'xtaydi.",
+   "Rekursiv qismda funksiya o'zini n-1 qiymati bilan chaqiradi.",
+   "Agar count_down(3) chaqirsak, u 3, 2, 1 ni chop etadi va 0 ga yetganda to'xtaydi.",
+   "0 ni chop etmaydi, chunki asosiy holatga yetganda funksiya to'xtaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Rekursiyaning uchta tarkibiy qismi",
+   "bullets": [
+    "Asosiy holat - yangi chaqiruvsiz javob",
+    "Kichikroq masala - soddaroq kirishdagi bir xil funksiya",
+    "Progress - har bir bosqim asosiy holatga yaqinlashadi"
+   ]
+  },
+  "narr": [
+   "Rekursiyani tushunish uchun uning uchta asosiy qismi bor:",
+   "Birinchidan, asosiy holat (base case) - bu rekursiyaning to'xtash sharti.",
+   "Ikkinchidan, kichikroq masala (subproblem) - bu asosiy masajadan kichikroq, lekin bir xil tuzilishdagi masala.",
+   "Uchinchidan, progress - bu har bir rekursiv chaqiruv asosiy holatga yaqinlashadi.",
+   "Agar bu uchta qismdan biri bo'lmasa, rekursiya cheksiz davom etishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Ko'tarilish sanash (rekursiv funksiya)",
+   "code": "void count_up(int n)\n{\nif (n == 0)\nreturn;\ncount_up(n - 1);\nprintf(\"%i\\n\", n);\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  "narr": [
+   "Rekursiv funksiyada chop etish joyi muhim rol o'ynaydi.",
+   "Masalan, count_up funksiyasida chop etish rekursiv chaqiruvdan keyin joylashtirilgan.",
+   "Agar count_up(3) chaqirsak, u avval count_up(2), keyin count_up(1), keyin count_up(0) ni chaqiradi.",
+   "count_up(0) chaqiruvida asosiy holatga yetgani uchun funksiya to'xtaydi.",
+   "Keyin chaqiruvlar teskari tartibda qaytadi va 1, 2, 3 qiymatlari chop etiladi.",
+   "Natijada 1, 2, 3 ketma-ketligi chiqadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ }
+]

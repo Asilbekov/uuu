@@ -1,0 +1,362 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "Tarmoqlanish (selection) va shartlar (conditions)"
+  },
+  "narr": [
+   "Dasturlashda, shartli tarmoqlanish - bu asosiy tushunchalardan biri. Biz ko'rib chiqaymiz if/else if/else va switch operatorlari.",
+   "Shart (condition) - bu ifoda, nol bo'lmagan qiymat to'g'ri, 0 esa noto'g'ri deb hisoblanadi. Bu sonli ifoda yoki ko'rsatkich bo'lishi mumkin.",
+   "Switch operatori butun sonli o'zgaruvchi bo'yicha tanlov qilish uchun ishlatiladi. Unga mos keladigan kod bloklarini o'z ichiga oladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Switch operatori komponentlari",
+   "bullets": [
+    "Case-yorliq: butun sonli doimiy kirish yorlig'i switch blokiga; yorliqlar har xil bo'lishi kerak",
+    "Default: switch operatorining 'aks holda' shoxchasi - hech qanday case mos kelmaganda ishlaydi",
+    "Tushib ketish (fall-through): break bo'lmaganda keyingi casega bajarishni davolash; 'Y': case 'y': ni birlashtirish uchun ishlatiladi"
+   ]
+  },
+  "narr": [
+   "Switch operatori uchun uchta asosiy komponent mavjud.",
+   "Case-yorliqlar - bu butun sonli doimiy qiymatlar bo'lib, ular switch blokiga kirish uchun ishlatiladi.",
+   "Default shoxchasi - bu hech qanday case mos kelmaganda ishlaydi.",
+   "Tushib ketish (fall-through) hodisasi - bu break bo'lmaganda keyingi casega bajarish davom etishini anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Sikl operatorlari",
+   "bullets": [
+    "While: oldin shartli sikl - shart jismdan oldin hisoblanadi; jism hech qachon bajarilmasligi mumkin",
+    "For: 'hisoblovchi' sikl - initsializatsiya; shart; sarlavhadagi inkrement; bo'sh shart - to'g'ri",
+    "Do-while: post-shartli sikl - jism kamida bir marta bajariladi; oxirida - nuqta-vergul",
+    "Break: eng ichki sikl yoki switch dan chiqish",
+    "Continue: ichki sikl jismining qolgan qismini o'tkazib yuborib, shartga o'tish (for da - yangilashga)",
+    "Qo'riqchi qiymat (sentinel): kirish chegaralovchi belgi - masalan, '#', do-while misolida '%'"
+   ]
+  },
+  "narr": [
+   "C tilida turli xil sikl operatorlari mavjud.",
+   "While sikli - bu oldin shartli sikl, ya'ni shart jismdan oldin tekshiriladi. Shart noto'g'ri bo'lsa, jism hech qachon bajarilmaydi.",
+   "For sikli - bu hisoblovchi sikl bo'lib, u initsializatsiya, shart va inkrement qismlarini o'z ichiga oladi.",
+   "Do-while sikli - bu post-shartli sikl, ya'ni jism kamida bir marta bajariladi, shart keyin tekshiriladi.",
+   "Break operatori - bu eng ichki sikl yoki switch dan chiqish uchun ishlatiladi.",
+   "Continue operatori - bu ichki sikl jismining qolgan qismini o'tkazib yuborib, shartga o'tishga imkon beradi.",
+   "Qo'riqchi qiymat (sentinel) - bu kirish chegaralovchi belgi bo'lib, masalan, '#' yoki '%'."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ko'lam va soyalanish (scope, shadowing)",
+   "bullets": [
+    "Scope - o'zgaruvchan amal qilish hududi (odatda e'lon bloki; global - funktsiyalar tashqarisida)",
+    "Shadowing - ichki e'lon bir xil nom bilan tashqi ni yashiradi (masalan, mahalliy nmax = 25 global 20 ni yashiradi)"
+   ]
+  },
+  "narr": [
+   "Ko'lam (scope) - bu o'zgaruvchan amal qilish hududini anglatadi.",
+   "Global o'zgaruvchilar funktsiyalar tashqarisida e'lon qilinadi.",
+   "Soyalanish (shadowing) - bu ichki e'lon bir xil nom bilan tashqi o'zgaruvchini yashirib qo'yishi mumkinligini anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4.1,
+   "title": "4.1 Asosiy tushunchalar («haftaning barcha qoidalari» 6)",
+   "subtitle": "Funksiyalar: ta'rif, prototip, chaqiruv"
+  },
+  "narr": [
+   "6-hafta biz Scratch bloklarini haqiqiy C funktsiyalari bilan bog'laymiz.",
+   "Funksiya - bu nomlangan buyruqlar to'plami. Uning tarkibiga qaytariladigan qiymat va kirish parametrlari kirishi mumkin.",
+   "Funksiyani to'g'ri ishlatish uchun uning ta'rifini, prototipini va chaqiruvini tushunish kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Oddiy funktsiya",
+   "problem": "print_hello_world funktsiyasini yozing, u ekranda 'Hello, world!' matnini ikki marta chiqarsin.",
+   "steps": [
+    {
+     "text": "Funksiyani ta'riflash: void print_hello_world(void) — qaytariladigan qiymat yo'q, kirish parametrlari ham yo'q."
+    },
+    {
+     "text": "Funksiya jismida printf funksiyasidan foydalanib kerakli matnni chiqaramiz."
+    },
+    {
+     "text": "Funktsiya prototipini main dan oldin e'lon qilamiz: void print_hello_world(void);"
+    },
+    {
+     "text": "main funksiyasida print_hello_world() ni ikki marta chaqiramiz."
+    }
+   ],
+   "result": "Dastur chiqishi: Hello, world!\nHello, world!"
+  },
+  "narr": [
+   "Keling, oddiy funktsiya misolini ko'rib chiqaylik.",
+   "print_hello_world funktsiyasi hech qanday parametr qabul qilmaydi va hech qanday qiymat qaytarmaydi (void).",
+   "Funksiya jismida printf funksiyasidan foydalanib kerakli matnni chiqaramiz.",
+   "Funktsiya prototipini main dan oldin e'lon qilamiz, bu esa dasturga funktsiyani avval tanishish imkonini beradi.",
+   "main funksiyasida print_hello_world() ni ikki marta chaqiramiz.",
+   "Agar funktsiya ichidagi xabarni o'zgartirsangiz, ikkala chaqiruv ham o'zgartirilgan ta'rifdan foydalanadi - bu qayta foydalanishning ahamiyati."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "print_hello_world funktsiyasi",
+   "code": "#include <stdio.h>\n\nvoid print_hello_world(void);\n\nint main(void)\n{\n    print_hello_world();\n    print_hello_world();\n    return 0;\n}\n\nvoid print_hello_world(void)\n{\n    printf(\"Hello, world!\\n\");\n}",
+   "highlight": [
+    4,
+    5,
+    9,
+    10
+   ]
+  },
+  "narr": [
+   "Bu erda print_hello_world funktsiyasining to'liq kodi ko'rsatilgan.",
+   "Main funksiyasida print_hello_world() ni ikki marta chaqiramiz.",
+   "Funktsiya prototipini e'lon qilamiz.",
+   "Funktsiya ta'rifida esa printf orqali matnni chiqaramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Parametrlar va argumentlar",
+   "problem": "print_meows funktsiyasini yozing, u berilgan sonlar miqdorida 'meow' so'zini chiqarsin.",
+   "steps": [
+    {
+     "text": "print_meow funktsiyasini yozamiz, u har safar 'meow' so'zini chiqaradi."
+    },
+    {
+     "text": "print_meows funktsiyasini yozamiz, u int count parametrini qabul qiladi."
+    },
+    {
+     "text": "print_meows ichida for siklidan foydalanib, print_meow() ni count marta chaqiramiz."
+    },
+    {
+     "text": "main funksiyasida print_meows(1) va print_meows(3) ni chaqiramiz."
+    }
+   ],
+   "result": "Dastur chiqishi: meow\nmeow\nmeow\nmeow"
+  },
+  "narr": [
+   "Endi parametrlar va argumentlar bilan ishlaydigan funktsiyani ko'rib chiqaylik.",
+   "print_meow funktsiyasi hech qanday parametr qabul qilmaydi, har safar 'meow' so'zini chiqaradi.",
+   "print_meows funktsiyasi esa int count parametrini qabul qiladi, bu esa necha marta 'meow' chiqarishni belgilaydi.",
+   "print_meows ichida for siklidan foydalanib, print_meow() ni count marta chaqiramiz.",
+   "main funksiyasida print_meows(1) va print_meows(3) ni chaqirsak, birinchi holda bitta, ikkinchi holda uchta 'meow' chiqadi.",
+   "Parametr - bu funktsiya ichidagi kirish nomi (count), argument esa chaqiruv orqali uzatilgan qiymat (1 yoki 3)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "print_meows funktsiyasi",
+   "code": "#include <stdio.h>\n\nvoid print_meow(void)\n{\n    printf(\"meow\\n\");\n}\n\nvoid print_meows(int count)\n{\n    for (int i = 0; i < count; i++)\n    {\n        print_meow();\n    }\n}\n\nint main(void)\n{\n    print_meows(1);\n    print_meows(3);\n    return 0;\n}",
+   "highlight": [
+    5,
+    9,
+    10,
+    11,
+    15,
+    16
+   ]
+  },
+  "narr": [
+   "Bu erda print_meows funktsiyasining to'liq kodi ko'rsatilgan.",
+   "print_meow funktsiyasi oddigan 'meow' so'zini chiqaradi.",
+   "print_meows funktsiyasi esa count parametrini qabul qiladi.",
+   "For siklida i 0 dan count gacha bo'lgan oraliqda o'zgaradi.",
+   "Har bir aylanishda print_meow() funksiyasini chaqiramiz.",
+   "Main funksiyasida print_meows(1) va print_meows(3) ni chaqirsak, birinchi holda bitta, ikkinchi holda uchta 'meow' chiqadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3 — Qaytariladigan qiymat",
+   "problem": "IntegerRoot funktsiyasini yozing, u berilgan sonning butun sonli ildizini qaytarsin.",
+   "steps": [
+    {
+     "text": "Funksiyani int IntegerRoot(int number) deb ta'riflaymiz - u butun son qaytaradi va butun son qabul qiladi."
+    },
+    {
+     "text": "Funksiya ichida for siklidan foydalanib, eng katta k topiladi, bunda k*k ≤ number."
+    },
+    {
+     "text": "Topilgan k qiymatini qaytaramiz."
+    },
+    {
+     "text": "Main funksiyasida IntegerRoot(27) va IntegerRoot(16) ni chaqiramiz va natijalarni chiqaramiz."
+    }
+   ],
+   "result": "Dastur chiqishi: 5 4"
+  },
+  "narr": [
+   "Endi qaytariladigan qiymatga ega funktsiyani ko'rib chiqaylik.",
+   "IntegerRoot funktsiyasi int turida qiymat qaytaradi va butun son parametrini qabul qiladi.",
+   "Funksiya ichida for siklidan foydalanib, eng katta k topiladi, bunda k*k ≤ number.",
+   "27 uchun: 5 × 5 = 25 ≤ 27; 6 × 6 = 36 > 27 - javob 5.",
+   "16 uchun: 4 × 4 = 16 ≤ 16 - javob 4.",
+   "Main funksiyada IntegerRoot(27) va IntegerRoot(16) ni chaqirsak, 5 va 4 chiqadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "IntegerRoot funktsiyasi",
+   "code": "#include <stdio.h>\n\nint IntegerRoot(int number);\n\nint main(void)\n{\n    int first = IntegerRoot(27);\n    int second = IntegerRoot(16);\n    printf(\"%d %d\\n\", first, second);\n    return 0;\n}\n\nint IntegerRoot(int number)\n{\n    for (int k = 0; k * k <= number; k++)\n    {\n        // k qiymati qaytariladi\n    }\n    return k - 1;  // sikl to'lganda k bir ortgan bo'ladi\n}",
+   "highlight": [
+    4,
+    5,
+    6,
+    12,
+    13,
+    14
+   ]
+  },
+  "narr": [
+   "Bu erda IntegerRoot funktsiyasining to'liq kodi ko'rsatilgan.",
+   "Funktsiya prototipini e'lon qilamiz.",
+   "Main funksiyasida IntegerRoot(27) va IntegerRoot(16) ni chaqiramiz.",
+   "Funktsiya ichida for siklidan foydalanib, eng katta k topiladi.",
+   "Sikl sharti k*k ≤ number, ya'ni k ning kvadrati number dan katta yoki teng bo'lguncha davom etadi.",
+   "Sikl to'lganda k bir ortgan bo'ladi, shuning uchun k-1 qaytariladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4.2,
+   "title": "4.2 Tuzilmalar (Structures)",
+   "subtitle": "typedef struct va maydonlarga kirish"
+  },
+  "narr": [
+   "Tuzilmalar (structures) - bu turli turdagi ma'lumotlarni birlikka birlashtirish uchun ishlatiladi.",
+   "typedef struct orqali yangi tur yaratish mumkin.",
+   "Maydon (field) - bu yozuvdagi bitta nomlangan qiymat."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tuzilma turini ta'riflash",
+   "bullets": [
+    "Tuzilma turini ta'riflash main dan yuqorida bo'lishi kerak",
+    "struct { ... } bog'liq maydonlarni bir turga birlashtiradi",
+    "int waterml; bitta butun maydonni e'lon qiladi",
+    "typedef turga qulay nom beradi",
+    "Stock — qavs yopilgandan keyingin tur nomi",
+    "Barcha e'lon ';' bilan tugaydi"
+   ]
+  },
+  "narr": [
+   "Tuzilma turini ta'riflash main dan yuqorida bo'lishi kerak.",
+   "struct kalit so'zidan foydalanib bog'liq maydonlarni bir turga birlashtiramiz.",
+   "Har bir maydonni alohida e'lon qilamiz, masalan, int waterml; bitta butun maydonni e'lon qiladi.",
+   "typedef kalit so'zidan foydalanib turga qulay nom beramiz.",
+   "Stock — bu qavs yopilgandan keyingi tur nomi bo'ladi.",
+   "Barcha e'lonlar ';' bilan tugaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

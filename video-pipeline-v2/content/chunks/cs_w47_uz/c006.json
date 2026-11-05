@@ -1,0 +1,410 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "Tsikllar va boshqaruv strukturalari"
+  },
+  "narr": [
+   "Buguni darsimizda tsikllar va ularni boshqarish usullarini oʻrganamiz. While, for va do-while tsikllarining ishlash tamoyillarini, shuningdek break va continue operatorlarini tushunish juda muhim.",
+   "Keling, avval bir misol orqali boshlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "6.1-misol: ismdan melodiyalar",
+   "problem": "Dastur belgilarni birma-bir oʻqiydi, ASCII-kodni 7 ga boʻlgandagi qoldiqni hisoblaydi va notaning nomini chiqaradi. 'A' uchun: kod 65; 65 % 7 = 2; kutilgan nota — C.",
+   "steps": [
+    {
+     "text": "Belgini oʻqish va ASCII-kodini olish"
+    },
+    {
+     "text": "ASCII-kodni 7 ga boʻlib qoldiqni hisoblash"
+    },
+    {
+     "text": "Qoldiqga mos notani aniqlash"
+    },
+    {
+     "text": "Xatoni tuzatish: case 2 da break qoʻshish"
+    },
+    {
+     "text": "B# va # belgilarini tekshirish"
+    }
+   ],
+   "result": "Tuzatilgan versiya belgini oʻqiydi, muvaffaqiyatli kirishni va qoʻriqchi belgini # tekshiradi, notani tanlaydi va yana oʻqiydi; EOF va # tsiklni tugatadi."
+  },
+  "narr": [
+   "Birinchi misolimiz belgilardan melodiyani chiqarish dasturidir. Dastur har bir belgi uchun uning ASCII kodini hisoblab, 7 ga boʻlib qoldiqni topadi va bu qoldiqa mos keladigan notani chiqaradi.",
+   "Masalan, 'A' belgisi uchun ASCII kod 65, 65 ni 7 ga boʻlganda qoldiq 2 boʻladi va bu C notasiga toʻgʻri keladi.",
+   "Dasturning aslida xato bor edi: case 2 dan break etilmagani sababli, A# kirganda C notasi chiqib, keyin D notasi ham chiqib ketardi.",
+   "Bu xatoni tuzatish uchun case 2 da printf dan keyin break qoʻshish kerak edi. Shuningdek, B# va darhol # ni tekshirish ham muhim.",
+   "Tuzatilgan versiya belgini toʻgʻri oʻqiy, kirishni tekshiradi, notani tanlaydi va yana yangi belgini oʻqaydi. EOF yoki # belgisi tsiklni tugatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Belgilar va ular notalari",
+   "columns": [
+    "Belgilar",
+    "ASCII-kod",
+    "65 % 7",
+    "Kutilgan nota"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "A"
+     },
+     65,
+     2,
+     {
+      "tex": "C"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Bu jadvalda 'A' belgisi uchun hisoblash koʻrsatilgan. 'A' belgisi 65 ASCII kodiga ega, 65 ni 7 ga boʻlganda qoldiq 2 boʻladi va bu C notasiga toʻgʻri keladi.",
+   "Shunday qilib, 'A' belgisi C notasiga aylanadi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tsikllar: while, for, do-while",
+   "bullets": [
+    "while — eng oddiy tsikl: shart toʻgʻri boʻlguncha jismni hisoblang",
+    "for — «sanauvchi» tsikl: boshlash, shart va oshirish ifodalari",
+    "do-while — jism kamida bir marta bajariladi, shart har iteratsiyadan keyin hisoblanadi"
+   ]
+  },
+  "narr": [
+   "Endi tsikllarning uchta asosiy turini koʻrib chiqamiz: while, for va do-while.",
+   "while tsikli eng oddiy turidir. U shart toʻgʻri boʻlguncha tsikl jismini takrorlaydi. Eʼtibor bering, shart tekshirilgandan keyin jism bajariladi, shuning uchun agar shart boshlangʻichda notoʻgʻri boʻlsa, jism hech qachon bajarilmaydi.",
+   "for tsikli «sanauvchi» tsikl deb ataladi. U qavsda uchta ifodani oʻz ichiga oladi: boshlash, shart va oshirish. Bajarish tartibi: boshlash bir marta; keyin shart tekshiriladi; agar toʻgʻri boʻlsa, jism bajariladi; keyin oshirish amalga oshiriladi; va yana shart tekshiriladi.",
+   "do-while tsikli while dan shu jihatdan farq qiladiki, shart har bir iteratsiyadan keyin hisoblanadi. Bu shuni anglatadiki, tsikl jisti kamida bir marta har doim bajariladi. Oxiridagi nuqta-vergulga eʼtibor bering."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "for tsikli misoli",
+   "code": "int factorial(int n) {\n    int i, j = 1;\n    for (i = 1; i <= n; i++) j *= i;\n    return j;\n}",
+   "highlight": [
+    2
+   ]
+  },
+  "narr": [
+   "Bu factorial funksiyasi for tsiklidan foydalanib berilgan sonning faktorialini hisoblaydi.",
+   "For tsikli boshlanishida i = 1; shart i <= n; va har iteratsiyadan keyin i++ amalga oshiriladi.",
+   "Tsikl ichida j *= i ifodasi j ni i ga koʻpaytirib, natijani yana j ga saqlaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "while tsikli bilan bir xil funksiya",
+   "code": "int factorial(int n) {\n    int j = 1;\n    int i = 1; /* initialization */\n    while (i <= n /* condition */) {\n        j *= i;\n        i++; /* increment */\n    }\n    return j;\n}",
+   "highlight": [
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "narr": [
+   "Xuddi shu funksiyani while tsikli bilan yozish mumkin. Bu yerda i oʻzgaruvchisini tsikldan oldin eʼlon qilamiz.",
+   "Shartni tekshirishdan oldin, jism ichida j *= i ifodasi bajariladi va i++ orqali i ni birga oshiramiz.",
+   "While tsikli for tsikliga teng, lekin barcha komponentlar alohida joylashgan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Laboratoriya taqqoslashi",
+   "code": "int i = 1;\nwhile (i <= 3)\n{\n    printf(\"%d \", i);\n    i++;\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "narr": [
+   "Laboratoriyada while va for tsikllarini taqqoslab koʻramiz. Bu while tsikli bilan 1, 2, 3 sonlarini chiqarish misoli.",
+   "Bu yerda i oʻzgaruvchisi tsikldan oldin eʼlon qilingan va tsikldan tashqariga ham kirish mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "For tsikli bilan bir xil dastur",
+   "code": "for (int i = 1; i <= 3; i++)\n{\n    printf(\"%d \", i);\n}",
+   "highlight": [
+    1,
+    2,
+    3
+   ]
+  },
+  "narr": [
+   "Xuddi shu dasturni for tsikli bilan yozsak, bu koʻproq ixcham boʻladi. Eʼtibor bering, for tsiklida i oʻzgaruvchisi tsikl ichida eʼlon qilingan va tsikldan keyin unga murojaat qilib boʻlmaydi.",
+   "Bu esa oʻzgaruvchining faoliyat doirasini cheklaydi va dasturning xavfsizligini oshiradi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "do-while tsikli misoli",
+   "code": "char c;\ndo {\n    /* loop body */\n    puts(\"Keep going? (y/n) \");\n    c = getchar();\n    /* other processing */\n} while (c == 'y' /* other conditions */);",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "narr": [
+   "Do-while tsikli boshqalardan farq qiladi, chunki u shartni har bir iteratsiyadan keyin tekshiradi. Bu shuni anglatadiki, tsikl jisti kamida bir marta har doim bajariladi.",
+   "Bu misolda foydalanuvchidan 'y' yoki 'n' belgisini kiritish soʻraladi. Agar 'y' kiritsa, tsikl takrorlanadi; aks holda tugaydi.",
+   "Oxiridagi nuqta-vergulga eʼtibor bering - bu do-while tsiklining sintaktik xususiyati."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "break va continue",
+   "bullets": [
+    "break — eng ichki tsikldan yoki switch operatoridan chiqadi",
+    "continue — eng ichki tsikl jismining qolgan qismini oʻtkazib yuborib, shartiga oʻtadi"
+   ]
+  },
+  "narr": [
+   "Baʼzan tsiklni oldindam tugatish yoki uning biror qismini oʻtkazib yuborish kerak boʻladi. Buning uchun break va continue operatorlari mavjud.",
+   "break operatori eng ichki tsikldan yoki switch operatoridan chiqadi. Tsiklni toʻliq toʻxtatib, undan keyingi kodga oʻtadi.",
+   "continue operatori esa eng ichki tsikl jismining qolgan qismini oʻtkazib yuborib, tsikl shartiga qaytadi. Bu operator faqat tsikl ichida ishlaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "break operatori bilan misol",
+   "code": "char c;\ndo {\n    /* loop body */\n    puts(\"Keep going? (y/n) \");\n    c = getchar();\n    if (c != 'y')\n        break;\n    /* other processing */\n} while (/* other conditions */);",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  "narr": [
+   "Bu misolda break operatori foydalanilgan. Foydalanuvchidan 'y' yoki 'n' belgisini kiritish soʻraladi. Agar 'y' dan boshqa belgi kiritsa, break operatori tsiklni toʻxtatib, undan keyingi kodga oʻtadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "continue operatori bilan EKUB hisoblash",
+   "code": "#define min(a,b) ((a)<(b)?(a):(b))\n\nint gcd(int a, int b) {\n    int i, ret = 1, minval = min(a, b);\n    for (i = 2; i <= minval; i++) {\n        if (a % i) /* i not divisor of a */\n            continue;\n        if (b % i == 0) /* i is divisor of both a and b */\n            ret = i;\n    }\n    return ret;\n}",
+   "highlight": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ]
+  },
+  "narr": [
+   "Bu misolda continue operatori EKUB eng katta umumiy boʻluvchi hisoblashda qoʻllanilgan. Agar i soni a soniga boʻlinmasa, continue operatori keyingi iteratsiyaga oʻtadi.",
+   "Agar i soni a va b sonlariga ham boʻlinadigan boʻlsa, ret oʻzgaruvchisini yangilaymiz.",
+   "Shunday qilib, continue operatori kerakli shartlar bajarilmasa tsikl jismining qolgan qismini oʻtkazib yuboradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Funksiyalar, koʻlamilar va modullar",
+   "subtitle": "5-dars materiallari asosida"
+  },
+  "narr": [
+   "Endi funksiyalar, koʻlamilar va modullar haqida gapiramiz. Bu mavzular dasturning modulliy va tuzilmasini yaxshilashga yordam beradi.",
+   "Divide and conquer — dasturni oddiyroq kichik masjalarga boʻlish strategiyasi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — chiziqli Diofant tenglamasi",
+   "problem": "ax + by = c: a, b, c ni oling; g = gcd(a, b) ni hisoblang; agar c gcd ga karrali boʻlmasa — yechim yoʻq; kengaytirilgan Evklid algoritmini ishga tushiring; x va y ni (c/g) ga masshtablang; yechimni chiqaring.",
+   "steps": [
+    {
+     "text": "a, b, c koeffitsientlarini olish"
+    },
+    {
+     "text": "gcd(a, b) ni hisoblash"
+    },
+    {
+     "text": "c ning gcd ga boʻlinishini tekshirish"
+    },
+    {
+     "text": "Kengaytirilgan Evklid algoritmini qoʻllash"
+    },
+    {
+     "text": "x va y ni (c/g) ga masshtablash"
+    }
+   ],
+   "result": "Evklid algoritmi gcd(a, b) = gcd(b, a mod b) ga asoslanadi."
+  },
+  "narr": [
+   "Chiziqli Diofant tenglamasi ax + by = c koʻrinishida boʻladi. Bunday tenglamani yechish uchun quyidagi qadamlar bajariladi:",
+   "Avval a, b, c koeffitsientlarini olamiz.",
+   "Keyin ularning eng katta umumiy boʻluvchisini gcd(a, b) ni hisoblaymiz.",
+   "Agar c soni gcd(a, b) ga boʻlinmasa, tenglamaning butun yechimi yoʻq.",
+   "Agar boʻlinadigan boʻlsa, kengaytirilgan Evklid algoritmini qoʻllab x va y larni topamiz.",
+   "Nihoyat, topilgan x va y ni (c/g) ga masshtablab, yakuniy yechimni hosil qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Evklid algoritmi gcd hisoblash",
+   "code": "int gcd(int a, int b) {\n    while (b) { /* if a < b, performs swap */\n        int temp = b;\n        b = a % b;\n        a = temp;\n    }\n    return a;\n}",
+   "highlight": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "narr": [
+   "Bu Evklid algoritmi gcd eng katta umumiy boʻluvchini hisoblash uchun. Agar a < b boʻlsa, algoritm avtomatik ravishda ularni almashtiradi.",
+   "Dastlabki while sikli b nolga teng boʻlmaguncha davom etadi. Har iteratsiyada b ga a % b qiymati tayinlanadi, a esa eski b qiymatiga oʻzgaradi.",
+   "Tsikl tugagach, a da gcd(a, b) qiymati qoladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Funksiyalar va ular cheklanishlari",
+   "bullets": [
+    "Funksiyalar bittadan ortiq qiymat qaytarmaydi",
+    "Bir nechta chiqishlar uchun global oʻzgaruvchilar ishlatiladi",
+    "Global oʻzgaruvchilar funksiyadan tashqari eʼlon qilinadi",
+    "Modul C da: interfeys (.h) + amalga oshirish (.c)"
+   ]
+  },
+  "narr": [
+   "Funksiyalar asosiy cheklanishi shundaki, ular bittadan ortiq qiymat qaytara olmaydi. Agar bir nechta chiqish kerak boʻlsa, global oʻzgaruvchilar ishlatiladi.",
+   "Global oʻzgaruvchilar funksiyadan tashqari eʼlan qilinadi va ular dastur butun hayoti davomida mavjud, har qanday funksiyadan foydalanish mumkin.",
+   "C tilida modullash interfeys (sarlavha fayli .h) va amalga oshirish (yordamchi manba/obyekt fayllari) qismlaridan iborat.",
+   "Sarlavha fayli funksiya prototiplari va global oʻzgaruvchilar extern eʼlonlarini oʻz ichiga oladi. extern kompilyatorga oʻzgaruvchi boshqa faylda aniqlanganligini bildiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Modullarni kompilyatsiya qilish",
+   "code": "gcc -g -O0 -Wall diophant.c euclid.c -o diophant.o",
+   "highlight": [
+    1
+   ]
+  },
+  "narr": [
+   "Ikkala faylni kompilyatsiya va linklash kerak. Bu buyruq diophant.c va euclid.c fayllarini kompilyatsiya qilib, natijani diophant.o fayliga yozadi.",
+   "-g parametri debug maʼlumotlarini qoʻshadi, -O0 optimizatsiyani oʻchiradi, -Wall esa barcha ogohlantirishlarni chiqaradi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ }
+]

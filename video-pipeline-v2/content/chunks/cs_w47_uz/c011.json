@@ -1,0 +1,651 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "Kirish-chiqarish va fayllar bilan ishlash"
+  },
+  "narr": [
+   "Dasturlashda, ayniqsa C tilida, ba'zi hollarda `goto` operatoridan foydalanish kerak bo'ladi. Bu operator dastur ijrosini ma'lum bir belgilangan joyga o'tkazadi. Masalan, agar shart bajarilsa, dastur kodning boshiga qaytadi.",
+   "Lekin, 1968-yilda Edsger Dijkstra o'zining mashhur maqolasida `goto` operatorini zararli deb atagan. Uning fikricha, bu operator 'spagetti-kod' yaratib, kodni tushunish va xatolarni topishni qiyinlashtiradi. Har qanday `goto` dan foydalanadigan kodni qayta yozib, undan foydalanmasdan yozish mumkin.",
+   "C++ va Java kabi tillarda xatolardan keyin tiklanish uchun istisnolar (exceptions) mexanizmi mavjud. C tilida esa `goto` - bu ichki bloklardan chiqishning qulay usuli bo'lib, xatolik holatida xatolik belgisiga o'tish imkonini beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Kirish-chiqarish vositalari",
+   "bullets": [
+    "stdio.h standart kutubxonasi kirish-chiqarish funktsiyalarini taqdim etadi",
+    "Matn oqimi - '\\n' bilan tugaydigan qatorlar seriyasi",
+    "Ikkilik oqim - xom baytlar seriyasi",
+    "Kutubxona oqimlari buferlangan"
+   ]
+  },
+  "narr": [
+   "C tilida kirish-chiqarish operatsiyalari uchun stdio.h standart kutubxonasi taqdim etilgan. Bu tilning bir qismi emas, balki kutubxonadir.",
+   "Matn oqimi - bu '\\n' belgisi bilan tugaydigan qatorlar ketma-ketligi. Kutubxona bu oqimni o'z ichiga oladi va '\\r\\n' ni '\\n' ga aylantiradi.",
+   "Ikkilik oqim esa xom baytlar ketma-ketligidan iborat.",
+   "Kutubxona oqimlari buferlangan, ya'ni ma'lum miqdordagi ma'lumotlar to'plangach ularni ishga tushiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "putchar va getchar funktsiyalari",
+   "code": "int main()\n{\n    char c;\n    while ((c = getchar()) != EOF)\n    {\n        if (c >= 'A' && c <= 'Z')\n            c = c - 'A' + 'a';\n        putchar(c);\n    }\n    return 0;\n}",
+   "highlight": [
+    2,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  "narr": [
+   "Keling, kirish-chiqarish funktsiyalarining misolini ko'rib chiqaylik. Bu dastur katta harflarni kichik harflarga aylantiradi.",
+   "Bu yerda getchar() funktsiyasi standart kirishdan keyingi belgini olib beradi. Agar kirish tugasa, EOF (End Of File) qiymati qaytariladi.",
+   "Har bir belgini o'qib, katta harflar ekanligini tekshiramiz. Agar shunday bo'lsa, uni kichik harfga aylantiramiz.",
+   "Keyin putchar() funktsiyasi bilan aylantirilgan belgini chiqaramiz.",
+   "Bu sikl kirish tugaguncha davom etadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Fayllardan o'qish",
+   "bullets": [
+    "Unix sistemalarda fayldan o'qish uchun '<' operatori ishlatiladi",
+    "Bu til imkoniyati emas, balki operatsion sistemaga xos xususiyat",
+    "Misol: ./a.out < file.txt"
+   ]
+  },
+  "narr": [
+   "Standart kirish o'rniga fayldan o'qish mumkin. Unix sistemalarida bu uchun '<' operatori ishlatiladi.",
+   "Bu tilning imkoniyati emas, balki operatsion sistemaga xos xususiyatdir.",
+   "Misol sifatida, './a.out < file.txt' buyrug'i berilganda, a.out dasturining standart kirishi file.txt fayliga yo'naltiriladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "printf funktsiyasi",
+   "code": "int printf(char format[], arg1, arg2, ...)",
+   "highlight": []
+  },
+  "narr": [
+   "printf funktsiyasi formatlangan chiqarish uchun ishlatiladi. U o'zgaruvchan miqdordagi argumentlarni qabul qilib, ularni belgilangan formatda chiqaradi.",
+   "Bu funktsiya bosib chiqarilgan belgilar sonini qaytaradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "printf format turlari",
+   "columns": [
+    "Tur",
+    "Ma'no",
+    "Misol"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "d, i"
+     },
+     "butun son",
+     {
+      "tex": "printf(\"%d\",10); / 10 ni chiqaradi /"
+     }
+    ],
+    [
+     {
+      "tex": "u"
+     },
+     "belgili bo'lmagan butun son",
+     {
+      "tex": "printf(\"%u\",10); / 10 ni chiqaradi /"
+     }
+    ],
+    [
+     {
+      "tex": "x, X"
+     },
+     "butun son (hex)",
+     {
+      "tex": "printf(\"%x\",10); / 0xa ni chiqaradi /"
+     }
+    ],
+    [
+     {
+      "tex": "c"
+     },
+     "belgi",
+     {
+      "tex": "printf(\"%c\",'A'); / A ni chiqaradi /"
+     }
+    ],
+    [
+     {
+      "tex": "s"
+     },
+     "satr",
+     {
+      "tex": "printf(\"%s\",\"hello\"); / hello ni chiqaradi /"
+     }
+    ],
+    [
+     {
+      "tex": "f"
+     },
+     "haqiqiy son",
+     {
+      "tex": "printf(\"%f\",2.3); / 2.3 ni chiqaradi /"
+     }
+    ],
+    [
+     {
+      "tex": "e, E"
+     },
+     "haqiqiy son (eksponensial)",
+     {
+      "tex": "1e3, 1.2E3, 1E-3"
+     }
+    ],
+    [
+     {
+      "tex": "%"
+     },
+     "so'zma-so'z %",
+     {
+      "tex": "printf(\"%d %%\",10); / 10% ni chiqaradi /"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "printf funktsiyasi formatda maxsus belgilardan foydalanadi. Ular % belgisi bilan boshlanadi.",
+   "Masalan, %d butun sonni chiqarish uchun, %c belgini, %s satrni chiqarish uchun ishlatiladi.",
+   "%f haqiqiy sonni, %e esa eksponensial formatda haqiqiy sonni chiqarish uchun ishlatiladi.",
+   "Agar % belgisi o'zi chiqarilsini istasangiz, %% deb yozasiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "printf uzunlik modifikatorlari",
+   "columns": [
+    "Modifikator",
+    "Ma'no"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "h"
+     },
+     "short sifatida talqin qilish; i, d, o, u, x bilan ishlash"
+    ],
+    [
+     {
+      "tex": "l"
+     },
+     "long sifatida talqin qilish; i, d, o, u, x bilan ishlash"
+    ],
+    [
+     {
+      "tex": "L"
+     },
+     "double sifatida talqin qilish; e, f, g bilan ishlash"
+    ]
+   ]
+  },
+  "narr": [
+   "printf funktsiyasida uzunlik modifikatorlari ham mavjud.",
+   "h modifikatori sonni short sifatida talqin qilish uchun ishlatiladi.",
+   "l modifikatori sonni long sifatida, L esa double sifatida talqin qilish uchun ishlatiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "printf misollar",
+   "columns": [
+    "Chaqiruv",
+    "Chiqarish"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "printf(\"%d\",10)"
+     },
+     "«10»"
+    ],
+    [
+     {
+      "tex": "printf(\"%4d\",10)"
+     },
+     "«bb10» (b — bo'shliq: width)"
+    ],
+    [
+     {
+      "tex": "printf(\"%7s\",\"hello\")"
+     },
+     "«bbhello»"
+    ],
+    [
+     {
+      "tex": "printf(\"%d,%+d,%+d\",10,-10)"
+     },
+     "«10, +10,-10» (flag +)"
+    ],
+    [
+     {
+      "tex": "printf(\"%04d\",10)"
+     },
+     "«0010» (0 bayrog'i)"
+    ],
+    [
+     {
+      "tex": "printf(\"%-7s\",\"hello\")"
+     },
+     "«hellobb» (−bayrog'i: chap chegaraga)"
+    ],
+    [
+     {
+      "tex": "printf(\"%.2f,%.0f\",1.141,1.141)"
+     },
+     "«1.14,1» (aniqlik)"
+    ],
+    [
+     {
+      "tex": "printf(\"%.2e,%.0e\",1.141,100.00)"
+     },
+     "«1.14e + 00, 1e + 02»"
+    ],
+    [
+     {
+      "tex": "printf(\"%.4s\",\"hello\")"
+     },
+     "«hell»"
+    ],
+    [
+     {
+      "tex": "printf(\"%.1s\",\"hello\")"
+     },
+     "«h»"
+    ]
+   ]
+  },
+  "narr": [
+   "Keling, printf funktsiyasining turli misollarini ko'rib chiqaylik.",
+   "Bu yerda biz kenglik, bayroqlar va aniqlik parametrlarini qo'llashni ko'ramiz.",
+   "%4d formatida 4 xona ajratilgan, 10 soni esa ikki bo'shliq bilan birga chiqariladi.",
+   "%+d formatda musbat sonlar oldida + belgisi chiqadi.",
+   "%04d formatda 10 soni 4 xonaga to'ldirish uchun oldiga 0 qo'shiladi.",
+   "%-7s formatda satr chap chegaraga joylashtiriladi.",
+   "%.2f formatda o'nli kasr 2 xonagacha yaxlitlanadi.",
+   "%.4s formatda faqat birinchi 4 ta belgi chiqariladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "scanf funktsiyasi",
+   "code": "int scanf(char *format, ...)",
+   "highlight": []
+  },
+  "narr": [
+   "scanf funktsiyasi printf ning aksi bo'lib, standart kirish belgilarini o'qiydi va ularni format spetsifikatsiyasiga bo'yicha talqin qiladi.",
+   "U o'zgaruvchan miqdordagi argumentlarni qabul qilib, o'qilgan elementlar sonini yoki EOF ni qaytaradi.",
+   "Bir nechta elementlarni o'qiyotganda har biri bo'shliq belgilariga ajratilgan deb hisoblanadi.",
+   "Muhim jihat: argumentlar o'zgaruvchilar manzillariga (ko'rsatkichlarga) bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "printf va scanf solishtirish",
+   "columns": [
+    "printf",
+    "scanf"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "printf(\"%d\",x)"
+     },
+     {
+      "tex": "scanf(\"%d\",&x)"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%f\",f)"
+     },
+     {
+      "tex": "scanf(\"%f\",&f)"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%s\",str)"
+     },
+     {
+      "tex": "scanf(\"%s\",str) — & kerak emas"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%s\",str)"
+     },
+     {
+      "tex": "scanf(\"%20s\",str) — & kerak emas"
+     }
+    ],
+    [
+     {
+      "tex": "printf(\"%s %s\",fname,lname)"
+     },
+     {
+      "tex": "scanf(\"%20s %20s\",fname,lname)"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "scanf funktsiyasi printf ga o'xshash, lekin kirish uchun ishlatiladi.",
+   "printf da o'zgaruvchi nomi berilsa, scanf da unga manzil (& belgisi bilan) beriladi.",
+   "Satrlar uchun scanf da & belgisi kerak emas, chunki satr allaqachon manzilni o'z ichiga oladi.",
+   "Shuningdek, scanf da maksimal uzunlikni cheklash mumkin, masalan %20s formati."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "sprintf va sscanf funktsiyalari",
+   "code": "int sprintf(char string[], char format[], arg1, arg2)\nint sscanf(char str[], char format[], arg1, arg2)",
+   "highlight": []
+  },
+  "narr": [
+   "sprintf va sscanf funktsiyalari printf va scanf ga o'xshash, lekin ular standart kirish-chiqarish oqimlari emas, balki satrlar bilan ishlaydi.",
+   "sprintf chiqishni stringga yozadi, o'lchami tekshirilmaydi.",
+   "sscanf esa kirishni stringdan o'qiydi.",
+   "Ikkalasi ham yozilgan/o'qilgan elementlar sonini yoki xatoda manfiy qiymatni qaytaradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Satrlar massiv sifatida",
+   "bullets": [
+    "C satrlari belgilar massivlari sifatida ifodalanadi",
+    "Satr oxiri nol bayt bilan belgilanadi",
+    "E'lonlar: char str[] = \"hello\"; char str[10] = \"hello\"; char str[] = {'h','e','l','l',0};",
+    "Satrda \" belgisini bo'lishi uchun \\\" dan foydalaning"
+   ]
+  },
+  "narr": [
+   "C tilida satrlar belgilar massivlari sifatida ifodalanadi.",
+   "Satr oxiri nol bayt (\\0) bilan belgilanadi, shuning uchun \"hello\" - bu {'h','e','l','l','\\0'} massivi.",
+   "Satrni turli usullarda e'lon qilish mumkin: kompilyator o'lchamini avtomatik belgilaydi yoki o'zingiz o'lchamini belgilashingiz mumkin.",
+   "Agar satrda \" belgisi bo'lishi kerak bo'lsa, undan \\\" orqali foydalaning."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "strcmp funktsiyasi",
+   "code": "int strcmp(char s[], char t[])",
+   "highlight": []
+  },
+  "narr": [
+   "Satrlarni solishtirish uchun <string.h> kutubxonasidagi strcmp funktsiyasidan foydalanamiz.",
+   "Bu funktsiya lug'at tartibida satrlarni solishtiradi (kichik harflar katta harflardan keyin keladi).",
+   "Agar birinchi satr ikkinchisidan oldin keladigan bo'lsa, manfiy qiymat qaytaradi.",
+   "Satrlar bir xil bo'lsa, 0 qaytaradi.",
+   "Agar birinchi satr ikkinchisidan keyin keladigan bo'lsa, musbat qiymat qaytaradi.",
+   "strcmp registrga sezgir, ya'ni katta va kichik harflarni farqlaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "strcmp misollari",
+   "problem": "strcmp funktsiyasining turli holatlardagi qiymatlarini ko'rib chiqing",
+   "steps": [
+    {
+     "text": "strcmp(\"A\",\"a\") → < 0 (kichik 'a' katta 'A'dan keyin keladi)"
+    },
+    {
+     "text": "strcmp(\"IRONMAN\",\"BATMAN\") → > 0 (I B dan keyin keladi)"
+    },
+    {
+     "text": "strcmp(\"aA\",\"aA\") → == 0 (satrlar bir xil)"
+    },
+    {
+     "text": "strcmp(\"aA\",\"a\") → > 0 (birinchi satr ikkinchisidan uzun)"
+    }
+   ],
+   "result": "strcmp funktsiyasi satrlarni lug'at tartibida solishtiradi"
+  },
+  "narr": [
+   "Keling, strcmp funktsiyasining turli misollarini ko'rib chiqaylik.",
+   "Birinchidan, strcmp(\"A\",\"a\") manfiy qiymat qaytaradi, chunki kichik 'a' katta 'A'dan keyin keladi ASCII jadvalda.",
+   "Ikkinchi misolda, \"IRONMAN\" va \"BATMAN\" solishtirilganda, I B dan keyin kelgani uchun musbat qiymat qaytariladi.",
+   "Uchinchi misolda, \"aA\" va \"aA\" bir xil satrlar, shuning uchun 0 qaytariladi.",
+   "To'rtinchi misolda, \"aA\" va \"a\" solishtirilganda, birinchi satr ikkinchisidan uzun bo'lgani uchun musbat qiymat qaytariladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Fayllar bilan ishlash",
+   "bullets": [
+    "FILE *fopen(char name[], char mode[]) oqimni ochadi",
+    "Rejimlar: \"r\" (o'qish), \"w\" (yozish), \"a\" (qo'shimcha)",
+    "\"b\" ikkilik fayllar uchun qo'shiladi",
+    "fopen oqimga ko'rsatkich yoki NULL ni qaytaradi",
+    "int fclose(FILE *fp) oqimni yopadi"
+   ]
+  },
+  "narr": [
+   "Fayllar bilan ishlash uchun FILE *fopen(char name[], char mode[]) funktsiyasidan foydalanamiz.",
+   "Bu funktsiya faylni berilgan rejimda ochadi: \"r\" - o'qish uchun, \"w\" - yozish uchun, \"a\" - fayl oxiriga qo'shish uchun.",
+   "Ikkilik fayllar bilan ishlash uchun rejimga \"b\" harfi qo'shiladi, masalan \"rb\" yoki \"wb\".",
+   "Agar fayl ochilsa, fopen oqimga ko'rsatkichni, aks holda NULL ni qaytaradi.",
+   "Dastur tugaganda barcha ochilgan fayllar uchun fclose avtomatik chaqiriladi, lekin yaxshi dasturlash amaliyatida fayllarni o'zingiz yopishingiz kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Fayl funktsiyalari",
+   "bullets": [
+    "int getc(FILE *fp) - belgini o'qiydi (getchar() getc(stdin) ga teng)",
+    "int putc(int c, FILE *fp) - belgini yozadi (putchar(c) putc(c, stdout) ga teng)",
+    "char *fgets(char line[], int maxlen, FILE *fp) - bir satrni o'qiydi",
+    "int fputs(char line[], FILE *fp) - satrni yozadi",
+    "int fscanf(FILE *fp, char format[], ...) - oqimdan formatlangan ma'lumotlarni o'qiydi"
+   ]
+  },
+  "narr": [
+   "Fayllar bilan ishlash uchun bir nechta funktsiyalar mavjud.",
+   "getc funktsiyasi fayldan bir belgini o'qiydi. getchar() esa getc(stdin) ga teng, ya'ni standart kirishdan o'qiydi.",
+   "putc funktsiyasi belgini faylga yozadi. putchar(c) esa putc(c, stdout) ga teng, ya'ni standart chiqishga yozadi.",
+   "fgets funktsiyasi fayldan bir satrni o'qiydi, maxlen belgigacha bo'lgan qismni olib beradi.",
+   "fputs funktsiyasi satrni faylga yozadi.",
+   "fscanf funktsiyasi scanf ga o'xshash, lekin u fayl oqimidan ma'lumotlarni o'qiydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Buyruq qatori argumentlari",
+   "bullets": [
+    "main() funktsiyasi parametrlarni qabul qilishi mumkin: int main(int argc, char *argv[])",
+    "argc - argumentlar hisoblagichi",
+    "argv[] - har bir argumentga ko'rsatkichlar massivi",
+    "argv[0] - dastur nomi",
+    "Misol: ./cat a.txt b.txt argc = 3, argv[0] = \"cat\", argv[1] = \"a.txt\", argv[2] = \"b.txt\""
+   ]
+  },
+  "narr": [
+   "C dasturlari buyruq qatori argumentlarini qabul qilishi mumkin.",
+   "main() funktsiyasi ikkita parametrni qabul qilishi mumkin: argc (argumentlar soni) va argv (argumentlarga ko'rsatkichlar massivi).",
+   "argv[0] har doim dastur nomini o'z ichiga oladi.",
+   "Misol sifatida, './cat a.txt b.txt' buyrug'ida argc = 3 bo'ladi, chunki uchta argument mavjud: 'cat', 'a.txt', 'b.txt'.",
+   "argv[0] = \"cat\", argv[1] = \"a.txt\", argv[2] = \"b.txt\" bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "6-hafta savollari",
+   "subtitle": "Ma'ruza va laboratoriya savollari model javoblar bilan"
+  },
+  "narr": [
+   "Endi 6-hafta savollariga qaraymiz. Ushbu savollar ma'ruza va laboratoriya mashqlarini o'z ichiga oladi.",
+   "Birinchi savol funktsiya nomi oldidagi va qavs ichidagi void nima degani haqida."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S1. Funktsiya nomi oldidagi va qavs ichidagi void nima degani?",
+   "problem": "Funktsiya nomi oldidagi va qavs ichidagi void kalit so'zlarining ma'nosini tushuntiring",
+   "steps": [
+    {
+     "text": "Funktsiya nomi oldidagi void - bu funktsiya hech qanday qiymat qaytarmasligini bildiradi"
+    },
+    {
+     "text": "Qavs ichidagi void - bu funktsiyaga hech qanday parametr berilmayotganini bildiradi"
+    }
+   ],
+   "result": "void kalit so'zi funktsiya hech narsa qaytarmasligini yoki parametr qabul qilmasligini bildiradi"
+  },
+  "narr": [
+   "Birinchi savol funktsiya nomi oldidagi va qavs ichidagi void kalit so'zlarining ma'nosini so'raydi.",
+   "Funktsiya nomi oldidagi void - bu funktsiya hech qanday qiymat qaytarmasligini bildiradi. Ya'ni u faqat ma'lum bir operatsiyani bajaradi, lekin natijani qaytarmaydi.",
+   "Qavs ichidagi void esa shu funktsiyaga hech qanday parametr berilmayotganini bildiradi. Bu holatda funktsiya tashqi o'zgaruvchilarga ta'sir qilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ }
+]

@@ -1,0 +1,198 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari",
+   "subtitle": "C · 4-7-haftalar"
+  },
+  "narr": [
+   "Dasturlashda tsikllar juda muhim, ammo ularni noto'g'ri ishlatishda ko'plab xatolar paydo bo'lishi mumkin. Bugun biz ushbu xatolarni va ularni tuzatish usullarini ko'rib chiqamiz.",
+   "Keling, har bir holatni alohida ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq L4",
+   "problem": "Nima uchun kutilgan sonlar 1 2 3 4 chiqmaydi?",
+   "steps": [
+    {
+     "text": "printf(\"%i \"); da format %i specificatori bor, lekin argument berilmagan — xulq-atvori aniqlanmagan (odatda sonlar o'rniga chindan ham chiqindilar chop etiladi)."
+    },
+    {
+     "text": "Tuzatish: i ni o'tkazing — printf(\"%i \", i);."
+    },
+    {
+     "text": "Keyin loop 1 2 3 4 ni chop etadi, i == 5 bo'lganda \"Found 5!\" va break loopni tugatadi."
+    }
+   ],
+   "result": "To'g'ri kod:\nfor (int i = 1; i <= 10; i++) {\n    if (i == 5) {\n        printf(\"Found 5!\");\n        break;\n    }\n    printf(\"%i \", i);\n}"
+  },
+  "narr": [
+   "Birinchi xatoda printf funktsiyasida format specificatori %i berilgan, lekin unga argument sifatida hech qanday qiymat yuborilmagan. Bu dasturning noto'g'ri ishlashiga olib keladi.",
+   "Tuzatish juda oddiy: printf ga i o'zgaruvchisini argument sifatida berish kerak.",
+   "Shunda tsikl 1 dan 4 gacha bo'lgan sonlarni chiqaradi va i 5 ga teng bo'lganda \"Found 5!\" matnini chiqarib, loopni to'xtatadi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq L5",
+   "problem": "Nima uchun \"Liftoff!\" hech qachon chop etilmaydi?",
+   "steps": [
+    {
+     "text": "i unsigned int sifatida e'lon qilingan — u noldan kichik bo'lishi mumkin emas, shuning uchun i >= 0 sharti har doim to'g'ri: 0 dan keyin i-- operatori hisoblagichni katta songa \"o'rab\" qo'yadi (unsigned wraparound), va tsikl cheksiz bo'lib qoladi."
+    },
+    {
+     "text": "Tuzatish: belgili hisoblagich int, uchun i >= 0 sharti 0 dan keyin noto'g'ri bo'lishi uchun:"
+    }
+   ],
+   "result": "To'g'ri kod:\nfor (int i = 5; i >= 0; i--) {\n    printf(\"%d \", i);\n}\nprintf(\"Liftoff!\");"
+  },
+  "narr": [
+   "Bu xatoda unsigned int turidan foydalanilgan. Bu turdagi o'zgaruvchilar manfiy bo'lishi mumkin emas, shuning uchun i >= 0 sharti har doim to'g'ri bo'ladi.",
+   "0 ga yetganda, i-- operatori hisoblagichni eng katta songa \"o'rab\" qo'yadi va tsikl cheksiz davom etadi. \"Liftoff!\" matni hech qachon chiqarilmaydi.",
+   "Tuzatish sifatida biz oddiy int turidan foydalanamiz,unda i >= 0 sharti 0 dan keyin noto'g'ri bo'ladi va tsikl to'xtaydi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq L6",
+   "problem": "nums.erase(it) dan keyin iterator nima bo'ladi?",
+   "steps": [
+    {
+     "text": "nums.erase(it) iteratorit ni yaroqsiz qiladi (iterator invalidation), va tsikl darhol yaroqsiz iterator ustunda ++it qiladi — belgilanmagan xulq-atvor."
+    },
+    {
+     "text": "Tuzatish: erase qaytargan iterator (u keyingi elementga ishora qiladi) ni tayinlash va faqat o'chirish bo'lmaganda uni oshirish:"
+    }
+   ],
+   "result": "To'g'ri kod:\nvector nums = {1, 2, 3, 4, 5, 6};\nfor (auto it = nums.begin(); it != nums.end(); ) {\n    if (*it % 2 == 0) {\n        it = nums.erase(it);\n    } else {\n        ++it;\n    }\n}\nfor (int n : nums) {\n    cout << n << \" \";\n}\ncout << endl;"
+  },
+  "narr": [
+   "Bu xatoda vektordagi elementlarni o'chirish jarayonida iterator noto'g'ri ishlatilgan. erase funktsiyasi iteratorni yaroqsiz holga keltiradi.",
+   "Agar biz ++it ni faqat o'chirishdan keyin qilsak, bu yaroqsiz iterator ustida amal bajarganimiz sababli belgilanmagan xulq-atvorga olib keladi.",
+   "To'g'ri yechim - erase funktsiyasidan qaytgan iteratorni yangi iterator sifatida olish va faqat o'chirish bo'lmaganda iteratorni oshirish."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq L7",
+   "problem": "Tsikl nima uchun 0.9 da to'xtamaydi?",
+   "steps": [
+    {
+     "text": "0.1 ikkilik haqiqiy arifmetikada aniq ifodalanmaydi; o'n qo'shishdan keyin to'plangan xato aniq 1.0 dan o'tib ketadi, x != 1.0 sharti to'g'ri bo'lib qoladi va tsikl 0.9 dan oshib ketadi (float/double da == solishtirishi chekli aniqlik tufayli ishonchsiz)."
+    },
+    {
+     "text": "Tuzatish: tartib munosabati sharti x < 1.0:"
+    }
+   ],
+   "result": "To'g'ri kod:\nfor (double x = 0.0; x < 1.0; x += 0.1) {\n    printf(\"%f \", x);\n}"
+  },
+  "narr": [
+   "Bu xatoda double turidagi o'zgaruvchilar bilan ishlashda muhim bir tushuncha namoyon bo'ladi: 0.1 sonini ikkilik sanoq sistemasida aniq ifodalab bo'lmaydi.",
+   "Shuning uchun har bir qo'shishda kichik xatolar to'planib boradi va 0.9 dan keyin x 1.0 dan katta qiymatga ega bo'ladi, lekin x != 1.0 sharti hali ham to'g'ri bo'ladi.",
+   "To'g'ri yechim - tenglik sharti o'rniga kichiklik shartini qo'llash: x < 1.0. Bu esa tsiklni to'g'ri vaqtda to'xtatadi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq L8",
+   "problem": "Nima uchun \"Total: 0\" emas, balki 15 chop etiladi?",
+   "steps": [
+    {
+     "text": "Tsikl ichida tashqi totalni yashiruvchi yangi total o'zgaruvchi e'lon qilingan (shadowing): har bir iteratsiya yangich ichki totalni yaratadi, unga i qo'shadi va uni tashlaydi. Tashqi total hech qachon o'zgarmaydi."
+    },
+    {
+     "text": "Tuzatish: ichki int total = 0; e'lonini olib tashlash — keyin total += i; tashqi o'zgaruvchini yangilaydi: 1 + 2 + 3 + 4 + 5 = 15:"
+    }
+   ],
+   "result": "To'g'ri kod:\nint total = 0;\nfor (int i = 1; i <= 5; i++) {\n    total += i;\n}\nprintf(\"Total: %d\", total);"
+  },
+  "narr": [
+   "Bu xatoda o'zgaruvchini yashirish (variable shadowing) hodisasi yuz bergan. Tsikl ichida tashqi total o'zgaruvchini yashiruvchi yangi total e'lon qilingan.",
+   "Shu sababli har bir iteratsiyada yangi total o'zgaruvchisi yaratiladi, unga qiymat qo'shiladi va keyin o'chiriladi. Tashqi total esa o'zgarmaydi.",
+   "To'g'ri yechim - ichki total e'lonini olib tashlash. Shunda barcha qo'shishlar tashqi total o'zgaruvchisida amalga oshiriladi va natija 15 bo'ladi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq L9",
+   "problem": "Nima uchun ichki tsikl hech qachon tugamaydi?",
+   "steps": [
+    {
+     "text": "Ichki tsikl j o'rniga i ni oshiradi: j har doim 1 qoladi, j <= 3 sharti har doim to'g'ri, i cheksiz o'sadi — ichki tsikl aylanib chiqadi (va tashqi hisoblagichni buzadi)."
+    },
+    {
+     "text": "Tuzatish: ichki sarlavhadagi j++:"
+    }
+   ],
+   "result": "To'g'ri kod:\nfor (int i = 1; i <= 3; i++) {\n    for (int j = 1; j <= 3; j++) {\n        cout << i * j << \"\\t\";\n    }\n    cout << endl;\n}"
+  },
+  "narr": [
+   "Bu xatoda ichki tsiklda hisoblagich noto'g'ri o'zgartirilgan. Ichki tsiklda j o'rniga i ni oshirish qilingan.",
+   "Shu sababli j har doim 1 qoladi, j <= 3 sharti esa har doim to'g'ri bo'ladi. Bu esa ichki tsiklning cheksiz davom etishiga va tashqi hisoblagichning buzilishiga olib keladi.",
+   "To'g'ri yechim - ichki tsiklda j++ o'rniga j++ yozish. Bu esa ichki tsiklning to'g'ri ishlashini ta'minlaydi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq L10",
+   "problem": "To'rtburchakda 7 ni topish — listingning uzilishi [Hard]",
+   "steps": [
+    {
+     "text": "Mashqa faylidagi listing uzilgan (so'zma-so'z, barcha mavjud fragment):"
+    }
+   ],
+   "result": "int grid[3][3] = {\n{1, 7, 3},"
+  },
+  "narr": [
+   "Bu mashqda to'rtburchakdagi BIRINCHI 7 ni topib \"First 7 found in row 0\" matnini chiqarishi kerak. Ammo listing uzilgan holatda berilgan.",
+   "Bu xato dasturning to'liq emasligi sababli yuzaga keladi. To'liq yechimni ko'rib chiqish uchun butun kod kerak."
+  ],
+  "narr_item": [
+   0,
+   0
+  ]
+ }
+]

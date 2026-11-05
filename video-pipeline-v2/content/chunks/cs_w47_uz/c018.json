@@ -1,0 +1,454 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": ""
+  },
+  "narr": [
+   "Bu kompyuter fanlari dasturining C tilida 4-7 haftalari boʻlimi boʻlib, bir nechta muhim tushunchalarni oʻz ichiga oladi.",
+   "Keling, birinchi savolni koʻrib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T1 — Virtual xotira tarkibi",
+   "problem": "Virtual xotiraning foydali qismlari qaysilar?",
+   "steps": [
+    "Virtual xotira ikki asosiy qismdan iborat: stak va xotira",
+    "Stak: eʼlon qilingan oʻzgaruvchilar keladigan joy",
+    "Xotira: dinamik xotira keladigan joy"
+   ],
+   "result": "c) eʼlon qilinganlar — stakka, dinamik — xotiraga"
+  },
+  "narr": [
+   "Virtual xotiraning foydali qismlari nima?",
+   "Javob shuki, virtual xotira ikki asosiy qismdan iborat: stak va xotira.",
+   "Stak degani, bu eʼlon qilingan oʻzgaruvchilar keladigan joy.",
+   "Xotira esa, bu dinamik xotira keladigan joy.",
+   "Shuning uchun toʻgʻri javob: eʼlon qilinganlar — stakka, dinamik — xotiraga."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T2 — strcmp funksiyasi",
+   "problem": "strcmp(str1, str2) qachon 0 qaytaradi?",
+   "steps": [
+    "strcmp funksiyas ikki satrni solishtiradi",
+    "Agar satrlar bir xil boʻlsa, funksiya 0 qaytaradi",
+    "Agar str1 > str2 boʻlsa, musbat qiymat qaytaradi",
+    "Agar str1 < str2 boʻlsa, manfiy qiymat qaytaradi"
+   ],
+   "result": "b) satrlar teng"
+  },
+  "narr": [
+   "Endi strcmp funksiyasini koʻrib chiqaylik.",
+   "Bu funksiya ikki satrni solishtiradi va 0 qachon qaytaradi?",
+   "Javob shuki, agar satrlar bir xil boʻlsa, funksiya 0 qaytaradi.",
+   "Agar birinchi satr ikkinchisidan katta boʻlsa, musbat qiymat qaytaradi.",
+   "Agar birinchi satr ikkinchisidan kichik boʻlsa, manfiy qiymat qaytaradi.",
+   "Shuning uchun toʻgʻri javob: satrlar teng boʻlganda."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T3 — strchr funksiyasi",
+   "problem": "strchr(str, c) nima qiladi?",
+   "steps": [
+    "strchr funksiyasi satrda belgi qidiradi",
+    "U berilgan belgining birinchi uchrashishiga koʻrsatgichni qaytaradi",
+    "Agar belgi topilmasa, NULL qaytaradi",
+    "Eslatma: strrchr funksiyasi oxirgi uchrashishni qaytaradi"
+   ],
+   "result": "b) belgi c ning birinchi uchrashiga koʻrsatuvchini yoki NULL qaytaradi"
+  },
+  "narr": [
+   "Keyingi savol strchr funksiyasiga tegishli.",
+   "Bu funksiya nima qiladi?",
+   "Javob shuki, strchr funksiyasi satrda berilgan belgining birinchi uchrashishiga koʻrsatgichni qaytaradi.",
+   "Agar belgi topilmasa, NULL qaytaradi.",
+   "Eslatma: strchr funksiyasi birinchi uchrashishni, strrchr esa oxirgi uchrashishni qaytaradi.",
+   "Shuning uchun toʻgʻri javob: belgi c ning birinchi uchrashiga koʻrsatuvchini yoki NULL qaytaradi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T4 — Rekursiyaning asosiy holati",
+   "problem": "Rekursiyaning asosiy holati bu nima?",
+   "steps": [
+    "Rekursiya - bu funksiyaning oʻzini chaqirishi",
+    "Asosiy holat - bu rekursiv chaqiruvlarni toʻxtatuvchi shart",
+    "U yangi rekursiv chaqiruvsiz olingan javobni taqdim etadi",
+    "Misol: countdown funksiyasida asosiy holat n == 0 boʻlganda"
+   ],
+   "result": "a) yangi rekursiv chaqiruvsiz olingan javob"
+  },
+  "narr": [
+   "Rekursiyaning asosiy holati nima?",
+   "Rekursiya - bu funksiyaning oʻzini chaqirishi.",
+   "Asosiy holat - bu rekursiv chaqiruvlarni toʻxtatuvchi shart.",
+   "U yangi rekursiv chaqiruvsiz olingan javobni taqdim etadi.",
+   "Misol sifatida countdown funksiyasini koʻrib chiqaylik, bu yerda asosiy holat n == 0 boʻlganda.",
+   "Shuning uchun toʻgʻri javob: yangi rekursiv chaqiruvsiz olingan javob."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T5 — countdown funksiyasi",
+   "problem": "countdown(3) nima chiqaradi?",
+   "steps": [
+    "countdown funksiyasi berilgan sondan 0 gacha boʻlgan sonlarni chiqaradi",
+    "Chiqarish rekursiv chaqiruvdan oldin amalga oshiriladi",
+    "countdown(3) chaqiruvi 3 ni chiqaradi, keyin countdown(2) ni chaqiradi",
+    "Natijada 3, 2, 1 chiqadi"
+   ],
+   "result": "a) 3 2 1"
+  },
+  "narr": [
+   "countdown(3) funksiyasi nima chiqaradi?",
+   "countdown funksiyasi berilgan sondan 0 gacha boʻlgan sonlarni chiqaradi.",
+   "Bu yerda muhim jihat - chiqarish operatsiyasi rekursiv chaqiruvdan oldin amalga oshiriladi.",
+   "countdown(3) chaqiruvi 3 ni chiqaradi, keyin countdown(2) ni chaqiradi.",
+   "countdown(2) esa 2 ni chiqaradi va keyin countdown(1) ni chaqiradi.",
+   "countdown(1) esa 1 ni chiqaradi va keyin countdown(0) ni chaqiradi.",
+   "countdown(0) esa hech narsa chiqarmaydi va rekursiya toʻxtaydi.",
+   "Natijada 3, 2, 1 chiqadi.",
+   "Shuning uchun toʻgʻri javob: 3 2 1."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "5.4 — 7-hafta glossariysi",
+   "subtitle": "Atamalar va ularning maʼnosini oʻrganamiz"
+  },
+  "narr": [
+   "Endi 7-hafta glossariysini koʻrib chiqaylik.",
+   "Bu yerda C tilida muhim boʻlgan bir nechta atamalar va ularning maʼnosini keltirib oʻtamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C tili asosiy atamalari",
+   "columns": [
+    "Atama",
+    "Maʼnosi"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "Koʻrsatuvchi (pointer)"
+     },
+     {
+      "tex": "xotiradagi oʻzgaruvchi manzili; oʻzgaruvchiga istalgan joydan kirish/oʻzgartirish; maʼlumot tuzilmalari asosi"
+     }
+    ],
+    [
+     {
+      "tex": "& operatori (address-of)"
+     },
+     {
+      "tex": "oʻzgaruvchi manzilini qaytaradi; t turidagi oʻzgaruvchi manzili t * turiga ega"
+     }
+    ],
+    [
+     {
+      "tex": "Bekor qilish (*)"
+     },
+     {
+      "tex": "manzil boʻyicha qiymatni oʻqish/yozish: ppi = ppi + *pn;"
+     }
+    ],
+    [
+     {
+      "tex": "Nol koʻrsatuvchi (NULL)"
+     },
+     {
+      "tex": "hech narsaga ishlamaydigan 0 koʻrsatuvchi"
+     }
+    ],
+    [
+     {
+      "tex": "Virtual xotira"
+     },
+     {
+      "tex": "OS abstraksiyasi: kodga kirish mumkin boʻlgan manzil maydoni; fizik xotiraga xaritalanadi"
+     }
+    ],
+    [
+     {
+      "tex": "Stak (stack)"
+     },
+     {
+      "tex": "virtual xotira qismi, bu yerga eʼlon qilingan oʻzgaruvchilar (va chaqiruv kadrlari) tushadi"
+     }
+    ],
+    [
+     {
+      "tex": "Xotira (heap)"
+     },
+     {
+      "tex": "bu yerga dinamik xotira tushadi"
+     }
+    ],
+    [
+     {
+      "tex": "Osilib qolgan koʻrsatuvchi (dangling)"
+     },
+     {
+      "tex": "koʻlamdan chiqib ketgan oʻzgaruvchiga koʻrsatuvchi (mahalliy massiv manzilini qaytarish)"
+     }
+    ],
+    [
+     {
+      "tex": "Manzil arifmetikasi"
+     },
+     {
+      "tex": "pa +i arr[i] ni koʻrsatadi; manzil i× tur oʻlchami oshadi; arr[0] 100 manzilda →arr[3] 112 da"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Birinchi navbatda, koʻrsatuvchi (pointer) nima?",
+   "Koʻrsatuvchi bu xotiradagi oʻzgaruvchi manziliga koʻrsatuvchi maxsus oʻzgaruvchi boʻlib, u orqali oʻzgaruvchiga istalgan joydan kirish va oʻzgartirish mumkin.",
+   "Shuningdek, u maʼlumot tuzilmalari asosi hisoblanadi.",
+   "& operatori (address-of) esa oʻzgaruvchi manzilini qaytaradi.",
+   "Bekor qilish (*) operatori esa manzil boʻyicha qiymatni oʻqish yozish uchun ishlatiladi.",
+   "Nol koʻrsatuvchi (NULL) hech narsaga ishlamaydigan 0 koʻrsatuvchidir.",
+   "Virtual xotira bu OS abstraksiyasi boʻlib, kodga kirish mumkin boʻlgan manzil maydoni va fizik xotiraga xaritalanadi.",
+   "Stak (stack) virtual xotira qismi boʻlib, bu yerga eʼlon qilingan oʻzgaruvchilar va chaqiruv kadrlari tushadi.",
+   "Xotira (heap) esa bu yerga dinamik xotira tushadi.",
+   "Osilib qolgan koʻrsatuvchi (dangling) koʻlamdan chiqib ketgan oʻzgaruvchiga koʻrsatuvchi boʻladi.",
+   "Manzil arifmetikasi esa pa + iformulasi orqali arr[i] ni koʻrsatadi, bunda manzil i× tur oʻlchami oshadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2,
+   3,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C tili qoʻshimcha atamalari",
+   "columns": [
+    "Atama",
+    "Maʼnosi"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "Nol-terminal (’\\0’) va strlen"
+     },
+     {
+      "tex": "C-satrini tugatadigan nol bayti; strlen(str) terminalsiz uzunlikni qaytaradi — nusxalash uchun +1 bayt zaxira kerak"
+     }
+    ],
+    [
+     {
+      "tex": "Asosiy holat (base case)"
+     },
+     {
+      "tex": "yangi rekursiv chaqiruvsiz javob: n == 0 →return 1 faktorialda; Fibonachchining ikkita asosiy holati"
+     }
+    ],
+    [
+     {
+      "tex": "Chaqiruvlar stacki / kadrlar (stack frame, activation record)"
+     },
+     {
+      "tex": "tugallanmagan chaqiruv yozuvi: oʻz parametrlari, lokal oʻzgaruvchilar, davom etish nuqtasi"
+     }
+    ],
+    [
+     {
+      "tex": "O-notatsiyasi (Big-O)"
+     },
+     {
+      "tex": "algoritmning oʻsish tartibi: insertion O(n²); quicksort O(n log n) oʻrtacha holatda, O(n²) yomon holatda; binary search O(log n)"
+     }
+    ],
+    [
+     {
+      "tex": "Xanoy minorasi (Tower of Hanoi)"
+     },
+     {
+      "tex": "klassik rekursiv masala: 3 diskni A dan C ga B orqali 3 + 1 + 3 = 7 harakatda; asosiy holat — disklar yoʻq, harakatlar yoʻq"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Nol-terminal (’\\0’) C-satrini tugatadigan maxsus belgi boʻlib, strlen funksiyasi unisiz satr uzunligini qaytaradi.",
+   "Satrni nusxalashda +1 bayt zaxira kerak boʻladi.",
+   "Asosiy holat (base case) bu yangi rekursiv chaqiruvsiz javob boʻlib, masalan faktorialda n == 0 →return 1.",
+   "Fibonachchi ketma-ketligida ikkita asosiy holat mavjud.",
+   "Chaqiruvlar stacki / kadrlar (stack frame, activation record) bu tugallanmagan chaqiruv yozuvi boʻlib, u oʻz parametrlari, lokal oʻzgaruvchilar va davom etish nuqtasini oʻz ichiga oladi.",
+   "O-notatsiyasi (Big-O) algoritmning oʻsish tartibini ifodalaydi.",
+   "Misol insertion sort O(n²), quicksort esa oʻrtacha holatda O(n log n), yomon holatda O(n²) boʻladi.",
+   "Binary search esa O(log n) tezlikda ishlaydi.",
+   "Xanoy minorasi (Tower of Hanoi) klassik rekursiv masaladir.",
+   "3 diskni A dan C ga B orqali koʻchirish uchun 7 harakat kerak boʻladi (3 + 1 + 3).",
+   "Asosiy holatda disklar yoʻq va harakatlar ham yoʻq boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   3,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "6. Bug Hunts — barcha xatolar va ularning tuzatilishi",
+   "subtitle": "Xatolarni topish va tuzatish"
+  },
+  "narr": [
+   "Bug Hunts boʻlimida biz kursdagi uchta ish jadvalini koʻrib chiqamiz.",
+   "Bu jadvallar 'xato ovini' deb nomlanadi va ularda dasturlardagi xatolar berilgan.",
+   "Jadvallar: bughuntc.txt (shartli konstruktsiyalar va funksiyalar), bughuntloops.txt (tsikllar) va bughuntpointersstrings.txt (koʻrsatkichlar va satrlar).",
+   "Oʻqituvchi kaliti bughuntpointersstringsanswerkey.txt faylida berilgan.",
+   "Oʻyin qoidalari: juftlikda ishlash, har bir dasturda xatoni topib, nima uchun notoʻgʻri ekani tushuntirish va tuzatish.",
+   "Taklif qilingan kirishlar bilan kompilyatsiya qilish va sinash.",
+   "Kalit maslahat: gcc -g -Wall -fsanitize=address bilan kompilyatsiya qiling va tuzatmalarni tekshiring."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "6.1 Bug Hunt C",
+   "subtitle": "Shartli konstruktsiyalar va funksiyalar"
+  },
+  "narr": [
+   "Bug Hunt C jadvali oltita masaladan iborat.",
+   "Tez raund uchun masalalar 1, 2, 5 ni koʻrib chiqamiz.",
+   "Muhokama qilinadigan masalalar: 3 va 4 (ular faqat maʼlum kirishlarda xatolarni koʻrsatadi).",
+   "C-ga xos darslar: 2, 5 va 6 (kompilyator xatolari va inicializatsiyalanmagan oʻzgaruvchilar)."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "B1 — Baholovchi — shartlar tartibi",
+   "problem": "Baholovchi dasturida quyidagi xatolar mavjud:",
+   "steps": [
+    "Kutilayotgan: 95 →’A’, 85 →’B’, 75 →’C’, 65 →’D’, 40 →’F’",
+    "Xatolar roʻyxati:",
+    "1. if (score >= 90) { return 'A'; else if (score >= 80) { return 'D'; } else if (score >= 70) { return 'C'; } else if (score >= 60) { return 'B'; }"
+   ],
+   "result": "Xato: if-else bloklarida qavslar notoʻgʻri joylashtirilgan"
+  },
+  "narr": [
+   "Birinchi masala baholovchi dasturiga tegishli.",
+   "Kutilayotgan natijalar: 95 ball →’A’, 85 ball →’B’, 75 ball →’C’, 65 ball →’D’, 40 ball →’F’.",
+   "Lekin berilgan dasturda quyidagi xatolar mavjud:",
+   "if (score >= 90) { return 'A'; else if (score >= 80) { return 'D'; } else if (score >= 70) { return 'C'; } else if (score >= 60) { return 'B'; }",
+   "Bu yerda asosiy xato - if-else bloklarida qavslar notoʻgʻri joylashtirilgan.",
+   "Birinchi if dan keyin qavs yopilmaydi, shuning uchun kompilyator xato beradi.",
+   "Toʻgʻri yozilishi kerak boʻlgan kod:",
+   "if (score >= 90) { return 'A'; } else if (score >= 80) { return 'B'; } else if (score >= 70) { return 'C'; } else if (score >= 60) { return 'D'; } else { return 'F'; }"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ }
+]

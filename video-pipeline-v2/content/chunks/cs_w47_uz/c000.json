@@ -1,0 +1,111 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "Kurs xaritasi, manbalar va qoʻllanma qanday foydalanish"
+  },
+  "narr": [
+   "Bu oʻquv qoʻllanmasi Computer Science — C dasturlash kursi asosida tuzilgan. Kurs toʻrt qatlamdan iborat: haftalik maʼruzalar, laboratoriya ishlari, bug hunt ish varaqchalari va kofe mashinasi loyiha fayllari.",
+   "Qoʻllanma 4–7-haftalarning materialini qamrab oladi: maʼlumot turlari va operatorlar, boshqaruv tuzilmalari, funksiyalar va strukturalar, koʻrsatkichlar, satrlar va rekursiyani.",
+   "Barcha kod misollari kurs fayllaridan soʻzma-soʻz olingan. Oʻqituvchining asl formulalari saqlangan: «Pop quiz», «Prediction», «Exit check», «Expected».",
+   "Qoʻllanmani foydalanish usullari: har haftaning «Asosiy nuqtalar» boʻlimidan boshlang, ochiq savollarni javoblarni yopib, ogʻizdan aytib koʻring, barcha testlarni oʻting, kodni qatorma-qator tahlil qiling, atamalar lugʻatini oʻrganing va imtihondan oldin barcha bug hunt-larni takrorlang."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "4–7-haftalar va kurs fayllari",
+   "columns": [
+    "Hafta",
+    "Mavzu",
+    "Maʼruzalar/laboratoriya",
+    "Qoʻshimcha fayllar"
+   ],
+   "rows": [
+    [
+     "4",
+     "Maʼlumot turlari va operatorlar",
+     "lecture4.txt — FoCS Maʼruzasi 4 (2026-yil 6 oktyabr): takrorlash, oʻzgaruvchilar va maʼlumot turlari, operatorlar epilog · Week4.txt — «Programming in C — Data Types and Operators» laboratoriyasi (darslikning 5-bobi)",
+     ""
+    ],
+    [
+     "5",
+     "Boshqaruv tuzilmalari",
+     "Lecture5.txt — Maʼruzasi 5 (2026-yil 13 oktyabr): bloklar, shartlar, sikllar, funksiyalar, koʻrish sohalari · Week-5-Control-Structures.txt — «Chapter 6 · Control structures» laboratoriyasi",
+     "bughuntc.txt (1–4-masalalar: shartli tuzilmalar)· bughuntloops.txt"
+    ],
+    [
+     "6",
+     "Funksiyalar va strukturalar",
+     "Lecture6.txt — TashTech Maʼruzasi 6 (2026-yil 20 oktyabr): boshqarish oqimi, I/O, satrlar, fayllar, buyruq qatori · Week-6-Functions-and-Structures.txt — «WEEK 6 · CHAPTER 7» laboratoriyasi: Scratch bloklaridan kofe mashinasigacha",
+     "bughuntc.txt (5–6-masalalar: funksiyalar)· «kofe avtomati» loyihasi (Stock, Recipe, Cup)"
+    ],
+    [
+     "7",
+     "Koʻrsatkichlar, satrlar va rekursiya",
+     "Lecture71.txt — TashTech Maʼruzasi 7 (2026-yil 27 oktyabr): koʻrsatkichlar va manzillar, massivlar va manzil arifmetikasi, satrlar, qidiruv va tartiblash · Recursion-Lecture.txt — «WEEK 7 · CHAPTER 8: Recursion»",
+     "bughuntpointersstrings.txt · bughuntpointersstringsanswerkey.txt (oʻqituvchi kaliti)"
+    ]
+   ]
+  },
+  "narr": [
+   "Kursning har bir haftasi oʻziga xos mavzuga ega. 4-haftada maʼlumot turlari va operatorlar, 5-haftada boshqaruv tuzilmalari, 6-haftada funksiyalar va strukturalar, 7-haftada esa koʻrsatkichlar, satrlar va rekursiya oʻrganiladi.",
+   "Har haftaga maʼruzalar, laboratoriya ishlari va qoʻshimcha fayllar mos keladi. Laboratoriyalar darslik boʻyicha oʻtiladi: 5-bob — 4-hafta, 6-bob — 5-hafta, 7-bob — 6-hafta, 8-bob — 7-hafta."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "4-hafta — Maʼlumot turlari va operatorlar",
+   "subtitle": "Data Types and Operators"
+  },
+  "narr": [
+   "4-hafta — kursning asosi: C tilidagi oʻzgaruvchilar va maʼlumot turlari, ularning oʻlchamlari va aniqligi, butun va haqiqiy boʻlinish, arifmetik, mantiqiy, bitli operatorlar, inkrement/dekrement, ixcham tayinlash, ternar operator, tur oʻzgartirish va operatorlar ustunligi.",
+   "Haftalaboratoriyasida: shar aniqligi (sphereprecision), kabisa yili qoidasini tuzatish (leapyear), xotiraga koʻprik (baytlar va belgilar massivlari) va alifbo boʻyicha birlashtirish (alphabeticaljoin) vazifalari bajariladi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy gʻoyalar (4-haftaning \"barcha qoidalari\")",
+   "bullets": [
+    "C maʼlumot turlari: eʼlon qilish, oʻzgaruvchi nomlari, doimiy qiymatlar",
+    "C — tez, kichik, universal, platformadan mustaqil til",
+    "C — statik, turli, tuzilgan va buyruq beruvchi til",
+    "C — zaif turli tilga ega: noaniq oʻzgartirishlarga va majburiy tur oʻtkazishga ruxsat beradi",
+    "C tur oilasi: sonli (int, float, double), belgili (char), foydalanuvchi tomonidan belgilanadigan (struct, union)"
+   ]
+  },
+  "narr": [
+   "C tez, kichik, universal va platformadan mustaqil til boʻlib, tizimli dasturlash uchun ishlatiladi. Kompilyatorlar, interpretatorlar, operatsion tizimlar, maʼlumotlar bazalari va mikrokontrollerlar shular jumlasidan.",
+   "C statik, turli, tuzilgan va buyruq beruvchi til hisoblanadi. Ritchie aytganidek: \"C is quirky, flawed, and an enormous success\".",
+   "C zaif turli tilga ega: bu noaniq oʻzgartirishlarga va majburiy, potensial xavfli tur oʻtkazishga (casting) ruxsat beradi.",
+   "Obʼektning maʼlumot turi xotirada qabul qilishi mumkin boʻlgan qiymatlar toʻplamini va unga qoʻllanilishi mumkin boʻlgan amallarni belgilaydi.",
+   "C tur oilasi kichik: sonli (int, float, double), belgili (char) va foydalanuvchi tomonidan belgilanadigan (struct, union) turlardan iborat."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

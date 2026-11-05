@@ -1,0 +1,556 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 13,
+   "title": "Kabisa yillari va C tili",
+   "subtitle": "S13-S14 savollar"
+  },
+  "narr": [
+   "Keling, birinchi savolni ko'rib chiqaylik: nima uchun 1900 oddiy yil, 2000 esa kabisa yili?",
+   "Bu yerda biz kabisa yillarining qoidalarini tushunishimiz kerak.",
+   "Ikkinchi savol esa C tilidagi massivlar va qisqa tutishuv haqida."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S13 — Kabisa yillari",
+   "problem": "Nima uchun 1900 oddiy yil, 2000 esa kabisa yili? Nima uchun 2100 oddiy?",
+   "steps": [
+    "Kabisa yili qoidasi: yil 400 ga karrali bo'lsa, yoki 4 ga karrali lekin 100 ga karrali bo'lmasa, kabisa yili hisoblanadi",
+    "2000 yili 400 ga karrali — shuning uchun kabisa yili",
+    "1900 yili 100 ga karrali, lekin 400 ga emas — shuning uchun oddiy yil",
+    "2100 yili ham 100 ga karrali, lekin 400 ga emas — shuning uchun oddiy yil",
+    "Qisqa shart: year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)",
+    "2024 yili kabisa yil, 2025 yili oddiy yil"
+   ],
+   "result": "Kabisa yili qoidasi: yil 400 ga karrali bo'lsa yoki 4 ga karrali lekin 100 ga karrali bo'lmasa, kabisa yili hisoblanadi"
+  },
+  "narr": [
+   "Kabisa yillarini aniqlash uchun bizda aniq qoidalar mavjud",
+   "Birinchidan, agar yil 400 ga bo'linadigan bo'lsa, u albatta kabisa yili",
+   "Agar yil 400 ga bo'linmasa, lekin 4 ga bo'linadigan bo'lsa, biz tekshirishni davom ettiramiz",
+   "Agar yil 100 ga bo'linadigan bo'lsa, u oddiy yil hisoblanadi",
+   "Aks holda, agar u 4 ga bo'linadigan bo'lsa, u kabisa yili",
+   "Bu shartni biz dasturlashda ifodalay olamiz"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S14 — C tili massivlari",
+   "problem": "Nima uchun char first[3] = {'d', 'o', 'g'} massivini %s bilan chop etib bo'lmaydi va bu && tartibiga qanday bog'liq?",
+   "steps": [
+    "Massivda aynan uchta belgi va null terminator ('\\0') yo'q",
+    "%s formati massivni null gacha bo'lgan belgilarni chop etadi",
+    "Bu massivda null terminator yo'qligi sababli, %s tasodifiy xotiradan o'qib chiqadi",
+    "To'g'ri usul - %c formatidan foydalanib har bir belgini alohida chop etish",
+    "&& operatorida chap operand birinchi bo'lishi kerak: i < LENGTH && first[i] == second[i]",
+    "Agar chap operand noto'g'ri bo'lsa, o'ng operand hisoblanmaydi"
+   ],
+   "result": "Massivda null terminator yo'qligi sababli %s bilan chop etib bo'lmaydi; && operatorida chap operand birinchi tekshiriladi"
+  },
+  "narr": [
+   "C tilida matnlarni saqlash uchun biz massivlardan foydalanamiz",
+   "Lekin bu massiv C-stroka emas, chunki u null terminator bilan tugamaydi",
+   "%s formati matnni null gacha chop etadi, bu esa xavfli bo'lishi mumkin",
+   "Shuning uchun bunday holatlarda %c formatidan foydalanish kerak",
+   "Shuningdek, && operatorining ishlash tartibi muhim",
+   "Agar chap operand noto'g'ri bo'lsa, o'ng operand hech qachon tekshirilmaydi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2.3,
+   "title": "4-haftaviy testlar",
+   "subtitle": "T1-T10 savollar"
+  },
+  "narr": [
+   "Endi biz 4-hafta testlarining savollarini ko'rib chiqamiz",
+   "Bu savollar C tilining asosiy tushunchalarini o'z ichiga oladi"
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T1 — C turlari",
+   "problem": "C ning qaysi turi bitta asosiy belgini saqlaydi?",
+   "steps": [
+    "a) int - butun sonlar uchun",
+    "b) char - bitta asosiy belgi uchun",
+    "c) double - haqiqiy sonlar uchun",
+    "d) bool - true/false qiymatlari uchun"
+   ],
+   "result": "b) char"
+  },
+  "narr": [
+   "C tilida turli ma'lumot turlari mavjud",
+   "Char turi bitta belgini saqlash uchun mo'ljallangan",
+   "Int butun sonlar, double haqiqiy sonlar, bool esa mantiqiy qiymatlar uchun",
+   "Shuning uchun to'g'ri javob char turi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T2 — double aniqligi",
+   "problem": "Kurs platformasida double da nechta ahamiyatli o'nlik raqam bor?",
+   "steps": [
+    "a) 6 - float turi uchun",
+    "b) 8 - float turi uchun",
+    "c) 15 - double turi uchun",
+    "d) 32 - long double turi uchun"
+   ],
+   "result": "c) 15"
+  },
+  "narr": [
+   "Haqiqiy sonlar turlarining turli darajalari mavjud",
+   "Float turi taxminan 6 ahamiyatli raqamga ega",
+   "Double turi esa taxminan 15 ahamiyatli raqamga ega",
+   "Bu platformada long double ham 15 ahamiyatli raqamga ega",
+   "E'tibor bering, bu verguldan keyingi raqamlar soni emas, balki ahamiyatli raqamlar sonidir"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T3 — Butun sonli bo'lish",
+   "problem": "double fraction = 4/3; printf(\"%f\\n\", fraction); nimani chiqaradi?",
+   "steps": [
+    "a) 1.000000 - 4/3 butun sonli bo'lish natijasi",
+    "b) 1.333333 - kasrli bo'lish natijasi",
+    "c) kompilyatsiya xatosi - yo'q, bu to'g'ri ifoda",
+    "d) 0.000000 - bu noto'g'ri"
+   ],
+   "result": "a) 1.000000"
+  },
+  "narr": [
+   "Bu savolda butun sonli bo'lishning xususiyati ko'rsatilgan",
+   "4/3 ifodasida ikkala operand ham butun son, shuning uchun bo'lish butun sonli bo'ladi",
+   "Natija 1 bo'ladi, kasr qismi tashlanadi",
+   "Keyin bu natija double ga o'tkaziladi, lekin bu o'zgarish bo'lmaydi",
+   "Shuning uchun chiqariladigan qiymat 1.000000 bo'ladi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T4 — Sonli konstantalar",
+   "problem": "Qaysi yozuv butun son 15 ni bildiradi?",
+   "steps": [
+    "a) int x = 0xA; - bu o'n oltilik konstanta, 10 ga teng",
+    "b) int x = 017; - bu sakkizlik konstanta, 15 ga teng",
+    "c) int x = 15.0; - bu haqiqiy son, butun songa aylantiriladi",
+    "d) int x = '15'; - bu belgilar, faqat bitta belgi bo'lishi mumkin"
+   ],
+   "result": "b) int x = 017;"
+  },
+  "narr": [
+   "C tilida turli usullarda sonlarni ifodalash mumkin",
+   "017 - bu sakkizlik konstanta, 1*8 + 7 = 15",
+   "0xA - bu o'n oltilik konstanta, 10 ga teng",
+   "'15' - bu belgilar, faqat bitta belgi bo'lishi mumkin",
+   "Shuning uchun to'g'ri javob 017"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T5 - O'zgaruvchi e'lon qilish",
+   "problem": "Qaysi o'zgaruvchi e'loni to'g'ri?",
+   "steps": [
+    "a) int money$owed; - $ belgisi nomda ruxsat etilmaydi",
+    "b) int 2ndscore; - nom raqam bilan boshlanishi mumkin emas",
+    "c) int totalcount; - to'g'ri e'lon",
+    "d) int long; - long kalit so'z, o'zgaruvchi nomi bo'la olmaydi"
+   ],
+   "result": "c) int totalcount;"
+  },
+  "narr": [
+   "C tilida o'zgaruvchilarni nomlash qoidalari mavjud",
+   "O'zgaruvchi nomi harf, raqam yoki _ bilan boshlanishi kerak",
+   "Birinchi belgi harf yoki _ bo'lishi kerak",
+   "Kalit so'zlar (int, long va boshqalar) o'zgaruvchi nomi bo'la olmaydi",
+   "Shuning uchun to'g'ri javob totalcount"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T6 - Qoldiq operatori",
+   "problem": "int y = 7; bo'lganda y % 10 qiymati qancha?",
+   "steps": [
+    "a) 0 - bu 10 ga bo'linadigan sonlar uchun",
+    "b) 3 - bu 7 % 4 bo'lganda",
+    "c) 7 - 7 10 dan kichik, qoldiq o'ziga teng",
+    "d) 1 - bu noto'g'ri"
+   ],
+   "result": "c) 7"
+  },
+  "narr": [
+   "Qoldiq operatori % sonlarning bo'linishidan qoldiqni hisoblaydi",
+   "Agil son bo'luvchidan kichik bo'lsa, qoldiq o'ziga teng bo'ladi",
+   "7 10 dan kichik, shuning uchun 7 % 10 = 7",
+   "Agar 7 % 4 desak, natija 3 bo'ladi",
+   "Shuning uchun to'g'ri javob 7"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T7 - Bit siljish",
+   "problem": "0x01 << 4 nimaga teng?",
+   "steps": [
+    "a) 0x10 - chapga 4 bitga siljish natijasi",
+    "b) 0x01 - o'zgarmagan",
+    "c) 4 - bu 1 << 2 bo'lganda",
+    "d) 0x14 - bu noto'g'ri"
+   ],
+   "result": "a) 0x10"
+  },
+  "narr": [
+   "Bit siljish operatorlari bitlarni chapga yoki o'ngga siljitadi",
+   "0x01 - bu 1 ni o'n oltilik ifodasi",
+   "Chapga 4 bitga siljish 0x10 ni beradi, bu 16 o'nlikda",
+   "Xuddi shunday, 1 << 2 = 4",
+   "Shuning uchun to'g'ri javob 0x10"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T8 - Operator ustunligi",
+   "problem": "Qaysi operatorlar guruhi eng yuqori ustunlikka ega?",
+   "steps": [
+    "a) = va += - bu tayinlash operatorlari, past ustunlikka ega",
+    "b) && va || - bu mantiqiy operatorlar, o'rtacha ustunlikka ega",
+    "c) * va / - bu arifmetik operatorlar, yuqori ustunlikka ega",
+    "d) ++, --, (cast), sizeof - bu eng yuqori ustunlikka ega"
+   ],
+   "result": "d) ++, --, (cast), sizeof"
+  },
+  "narr": [
+   "C tilida operatorlarning turli ustunlik darajalari mavjud",
+   "Eng yuqori ustunlikka ega operatorlar: ++, --, (cast), sizeof",
+   "Keyin * va / operatorlari keladi",
+   "Keyin + va - operatorlari",
+   "Keyin ==, !=, &&, || operatorlari",
+   "Eng pastda esa tayinlash operatorlari (=, +=) keladi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T9 - Operator ustunligi",
+   "problem": "y = x*3 + 2 ifodasi ... ga teng",
+   "steps": [
+    "a) y = x*(3 + 2) - bu noto'g'ri, avval qavs ichidami hisoblanadi",
+    "b) y = (x*3) + 2 - to'g'ri, avval ko'paytirish keyin qo'shish",
+    "c) y = x + (3*2) - bu noto'g'ri, avval ko'paytirish keyin qo'shish",
+    "d) y = 3*(x + 2) - bu noto'g'ri, avval qavs ichidami hisoblanadi"
+   ],
+   "result": "b) y = (x*3) + 2"
+  },
+  "narr": [
+   "Operatorlarning ustunligi ifodani qanday baholashga ta'sir qiladi",
+   "Ko'paytirish * va bo'lish / operatorlari qo'shish + va ayirish - dan ustunroq",
+   "Shuning uchun y = x*3 + 2 ifodasida avval x*3 hisoblanadi, keyin natijaga 2 qo'shiladi",
+   "Bu y = (x*3) + 2 bilan bir xil",
+   "Boshqa variantlar esa noto'g'ri baholashni beradi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T10 - Qisqa tutashuv",
+   "problem": "Ifodada (0) && ((x = x + 1) > 0) bo'lganda x bilan nima bo'ladi?",
+   "steps": [
+    "a) x 1 ga ortadi - bu noto'g'ri, chunki qisqa tutashuv",
+    "b) o'zgarmaydi - to'g'ri, chunki chap operand noto'g'ri",
+    "c) kompilyatsiya xatosi - yo'q, bu to'g'ri ifoda",
+    "d) x 0 bo'ladi - bu noto'g'ri"
+   ],
+   "result": "b) o'zgarmaydi"
+  },
+  "narr": [
+   "Qisqa tutashuv && va || operatorlarining muhim xususiyati",
+   "Agar chap operand && operatori uchun noto'g'ri bo'lsa, o'ng operand hech qachon tekshirilmaydi",
+   "Bu yerda chap operand (0) noto'g'ri, shuning uchun ((x = x + 1) > 0) hisoblanmaydi",
+   "X ning qiymati o'zgarmaydi",
+   "Bu xavfli holat bo'lishi mumkin, chunki yon effektlar hisoblanmaydi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2.4,
+   "title": "4-hafta glossariysi",
+   "subtitle": "Asosiy atamalar"
+  },
+  "narr": [
+   "Endi biz 4-hafta uchun asosiy atamalarni ko'rib chiqamiz",
+   "Bu atamalar C tilining asosiy tushunchalarini tushunishga yordam beradi"
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C tili asosiy atamalari",
+   "columns": [
+    "Atama",
+    "Ma'nosi"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "Ma\\'lumot turi (datatype)"
+     },
+     {
+      "tex": "ob\\'yektning xotiradagi qiymatlari to\\'plamini va unga ruxsat etilgan amallarni belgilaydi; C — avtomatik konvertatsiya va cast (o\\'tkazish) bilan zaif tipizatsiyalangan til"
+     }
+    ],
+    [
+     {
+      "tex": "O\\'zgaruvchi (variable)"
+     },
+     {
+      "tex": "xotirada saqlanadigan qiymatga yoki hisoblanadigan ifodaga nomlangan bog\\'lanish/siljish (int x = 0, y = 0; y = x + 2;)"
+     }
+    ],
+    [
+     {
+      "tex": "Ifoda (expression)"
+     },
+     {
+      "tex": "qiymatlar, o\\'zgaruvchilar, operatorlar va funksiyalarning kombinatsiyasi (y = x + 2)"
+     }
+    ],
+    [
+     {
+      "tex": "Operator (operator)"
+     },
+     {
+      "tex": "ob\\'yekt ustida manipulyatsiyani belgilaydi; birlikli (−, ++), ikkilik (+, −, *, /), uchlik (?:)"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "C tilida bir nechta asosiy atamalar mavjud",
+   "Birinchidan, ma'lumot turlari - bu ob'ektning xotiradagi qiymatlari to'plami va unga ruxsat etilgan amallar",
+   "O'zgaruvchi - bu xotirada saqlanadigan qiymatga nomlangan bog'lanish",
+   "Ifoda - bu qiymatlar, o'zgaruvchilar, operatorlar va funksiyalarning kombinatsiyasi",
+   "Operator - bu ob'ekt ustida manipulyatsiyani belgilaydigan belgilar"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C tili atamalari (davomi)",
+   "columns": [
+    "Atama",
+    "Ma'nosi"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "Butun sonli bo\\'lish"
+     },
+     {
+      "tex": "ikki butun sonning bo\\'linishi: kasr qismi tashlanadi ( 4/3 →1, 3/2 →1); qabullovchi turi ta\\'sir qilmaydi — operand turlari muhim"
+     }
+    ],
+    [
+     {
+      "tex": "Qoldiq (modulus, %)"
+     },
+     {
+      "tex": "butun sonlarning bo\\'linishidan qoldiq: 3 % 2 →1, 7 % 4 →3, 7 % 10 →7"
+     }
+    ],
+    [
+     {
+      "tex": "Ahamiyatli raqamlar"
+     },
+     {
+      "tex": "haqiqiy turdagi aniqlik: float — 6, double — 15 ahamiyatli o\\'nli raqamlar (<float.h > dan FLT , DBL ) DIG DIG"
+     }
+    ],
+    [
+     {
+      "tex": "Bayt tartibi (endianness)"
+     },
+     {
+      "tex": "big endian — yuqori baytlar pastki manzilda (powerpc, network order); little endian — pastki baytlar pastki manzilda (x86); ”NUXI muammosi”"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Butun sonli bo'lish - bu ikkala operand butun son bo'lganda kasr qismi tashlanadi",
+   "Qoldiq operatori % sonlarning bo'linishidan qoldiqni hisoblaydi",
+   "Ahamiyatli raqamlar - bu haqiqiy sonlardagi aniqlik darajasi",
+   "Bayt tartibi - bu baytlar xotirada qanday joylashganligi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C tili atamalari (yakuniy qism)",
+   "columns": [
+    "Atama",
+    "Ma'nosi"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "Konstanta (constant)"
+     },
+     {
+      "tex": "literal/fixlangan qiymat: 3, 3UL, 0xA (hex), 012 (octal), 'A', '\\\\x41', ”hello world”"
+     }
+    ],
+    [
+     {
+      "tex": "Enumeratsiya (enum)"
+     },
+     {
+      "tex": "nomlangan butun sonli konstantalar; aniq qiymat bo\\'lmasa, raqamlash davom etadi: enum COLOR {R = 1, G, B, Y = 10} →G = 2, B = 3"
+     }
+    ],
+    [
+     {
+      "tex": "Qisqa tutashuv (short circuit)"
+     },
+     {
+      "tex": "&& va || hisoblashni to\\'xtatish, natija allaqachon aniqlanganda; o\\'ng qismning yon effektlari bajarilmasligi mumkin"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Konstanta - bu o'zgarmas qiymat",
+   "Enumeratsiya - bu nomlangan butun sonli konstantalar to'plami",
+   "Qisqa tutashuv - bu && va || operatorlarining xususiyati, ularni tezroq ishlatishga imkon beradi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ }
+]

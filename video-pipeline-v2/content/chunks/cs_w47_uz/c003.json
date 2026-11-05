@@ -1,0 +1,312 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "4-hafta savollari — maʼruza va laboratoriya savollari model javoblar bilan"
+  },
+  "narr": [
+   "Keling, 4-hafta savollariga qaraymiz. Bu savollar maʼruza va laboratoriya ishlari uchun tayyorlangan.",
+   "Birinchi savolga qaraylik: butun sonlarni, oʻnli kasr qiymatlarini va bitta belgini saqlaydigan turilar qaysilar?"
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 1",
+   "problem": "Laboratoriya isingiz: butun sonlarni, oʻnli kasr qiymatlarini va bitta belgini saqlaydigan turilar qaysilar?",
+   "steps": [
+    {
+     "text": "int — butun sonlar uchun"
+    },
+    {
+     "text": "float yoki double — oʻnli (haqiqiy) qiymatlar uchun"
+    },
+    {
+     "text": "char — bitta belgi uchun"
+    }
+   ],
+   "result": "int — butun sonlar uchun; float yoki double — oʻnli (haqiqiy) qiymatlar uchun; char — bitta belgi uchun."
+  },
+  "narr": [
+   "Ijro main dan boshlanadi; stdio.h printf ni, cs50.h esa getdouble ni eʼlon qiladi.",
+   "Javob: int — butun sonlar uchun; float yoki double — oʻnli (haqiqiy) qiymatlar uchun; char — bitta belgi uchun."
+  ],
+  "narr_item": [
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 2",
+   "problem": "int main(void) va void example(void) dagi void nima degani?",
+   "steps": [
+    {
+     "text": "int main(void) da int — qaytariladigan qiymat turi, qavs dagi esa 'parametrlar yoʻq' degani."
+    },
+    {
+     "text": "void example(void) da birinchi void 'qaytariladigan qiymat yoʻq', ikkinchisi esa 'parametrlar yoʻq' degani."
+    },
+    {
+     "text": "Odatdagi void turidagi oʻzgaruvchini eʼlon qilib boʻlmaydi."
+    }
+   ],
+   "result": "int — qaytariladigan qiymat turi, qavs dagi esa 'parametrlar yoʻq' degani. void example(void) da birinchi void 'qaytariladigan qiymat yoʻq', ikkinchisi esa 'parametrlar yoʻq' degani."
+  },
+  "narr": [
+   "Ikkinchi savolga qaraylik: int main(void) va void example(void) dagi void nima degani?",
+   "Javob: int main(void) da int — qaytariladigan qiymat turi, qavs dagi esa 'parametrlar yoʻq' degani. void example(void) da birinchi void 'qaytariladigan qiymat yoʻq', ikkinchisi esa 'parametrlar yoʻq' degani. Odatdagi void turidagi oʻzgaruvchini eʼlon qilib boʻlmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 3",
+   "problem": "Shar va radiusi uchun double emas float tanlangan?",
+   "steps": [
+    {
+     "text": "Radius kasr qismga ega boʻlishi mumkin, va platformamizda double floatdan aniqroq: 15 ta ahamiyatli oʻnli raqamlar 6 taga nisbatan (DBLDIG va FLTDIG)."
+    },
+    {
+     "text": "Biroq double pi = 3.1415 ni aniq qilmaydi — haqiqiy qiymatlar taxminan boʻlib qoladi."
+    }
+   ],
+   "result": "Radius kasr qismga ega boʻlishi mumkin, va platformamizda double floatdan aniqroq: 15 ta ahamiyatli oʻnli raqamlar 6 taga nisbatan (DBLDIG va FLTDIG). Biroq double pi = 3.1415 ni aniq qilmaydi — haqiqiy qiymatlar taxminan boʻlib qoladi."
+  },
+  "narr": [
+   "Uchinchi savol: Shar va radiusi uchun double emas float tanlangan?",
+   "Javob: Radius kasr qismga ega boʻlishi mumkin, va platformamizda double floatdan aniqroq: 15 ta ahamiyatli oʻnli raqamlar 6 taga nisbatan (DBLDIG va FLTDIG). Biroq double pi = 3.1415 ni aniq qilmaydi — haqiqiy qiymatlar taxminan boʻlib qoladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 4",
+   "problem": "double fraction = 4/3; printf(\"%f\\n\", fraction); nima chiqaradi?",
+   "steps": [
+    {
+     "text": "1.000000. Boʻlish tayinlanishgacha amalga oshiriladi: ikkala operand ham butun son, 4/3 1 beradi va faqatgina keyin 1 double ga aylanadi."
+    },
+    {
+     "text": "Qabul qiluvchi tur boʻlishni qanday amalga oshirishiga taʼsir qilmaydi — operandlar turlari hal qiluvchi rol oʻynaydi."
+    },
+    {
+     "text": "Xuddi shunday (double)(4/3) 1.0 beradi, 4.0/3.0 esa 1.333333."
+    }
+   ],
+   "result": "1.000000. Boʻlish tayinlanishgacha amalga oshiriladi: ikkala operand ham butun son, 4/3 1 beradi va faqatgina keyin 1 double ga aylanadi."
+  },
+  "narr": [
+   "Toʻrtinchi savol: double fraction = 4/3; printf(\"%f\\n\", fraction); nima chiqaradi?",
+   "Javob: 1.000000. Boʻlish tayinlanishgacha amalga oshiriladi: ikkala operand ham butun son, 4/3 1 beradi va faqatgina keyin 1 double ga aylanadi. Qabul qiluvchi tur boʻlishni qanday amalga oshirishiga taʼsir qilmaydi — operandlar turlari hal qiluvchi rol oʻynaydi. Xuddi shunday (double)(4/3) 1.0 beradi, 4.0/3.0 esa 1.333333."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 5",
+   "problem": "Shfera dasturi radius = 3 boʻlganda %.1f va %.4f orqali bir xil hajmi chiqaradi. ortiqcha belgilar saqlangan qiymatni yaxshilaydimi?",
+   "steps": [
+    {
+     "text": "Yoʻq. Chiqarishlar — 113.1 va 113.0940: bu bir xil saqlangan son; formatlash faqat koʻrsatishni oʻzgartiradi (printf aniqlikni koʻrsatishni boshqaradi, saqlangan qiymatni emas)."
+    }
+   ],
+   "result": "Yoʻq. Chiqarishlar — 113.1 va 113.0940: bu bir xil saqlangan son; formatlash faqat koʻrsatishni oʻzgartiradi."
+  },
+  "narr": [
+   "Beshinchi savol: Shfera dasturi radius = 3 boʻlganda %.1f va %.4f orqali bir xil hajmi chiqaradi. ortiqcha belgilar saqlangan qiymatni yaxshilaydimi?",
+   "Javob: Yoʻq. Chiqarishlar — 113.1 va 113.0940: bu bir xil saqlangan son; formatlash faqat koʻrsatishni oʻzgartiradi (printf aniqlikni koʻrsatishni boshqaradi, saqlangan qiymatni emas)."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 6",
+   "problem": "Darsning Pop quiz II: int x = 017; int y = 12; — x y dan katta?",
+   "steps": [
+    {
+     "text": "Ha. 017 — sakkizlik konstanta (jadvaldagi int i = 012; kabi — sakkizlik son): 017₈ = 1 · 8 + 7 = 15, va 15 > 12."
+    }
+   ],
+   "result": "Ha. 017 — sakkizlik konstanta: 017₈ = 1 · 8 + 7 = 15, va 15 > 12."
+  },
+  "narr": [
+   "Oltinchi savol: Darsning Pop quiz II: int x = 017; int y = 12; — x y dan katta?",
+   "Javob: Ha. 017 — sakkizlik konstanta (jadvaldagi int i = 012; kabi — sakkizlik son): 017₈ = 1 · 8 + 7 = 15, va 15 > 12."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 7",
+   "problem": "enum sz {S = 0, L = 3, XL}; va enum sz {S = 0, L = −3, XL}; da XL qanday qiymatga ega?",
+   "steps": [
+    {
+     "text": "Aniq qiymati boʻlmagan enumerator avvalgisidan keyin raqamlashni davom ettiradi — enum COLOR {R = 1, G, B, Y = 10} kabi, bu yerda G = 2, B = 3."
+    },
+    {
+     "text": "Shuning uchun birinchi holatda XL = 4, ikkinchisida XL = −2."
+    }
+   ],
+   "result": "Birinchi holatda XL = 4, ikkinchisida XL = −2."
+  },
+  "narr": [
+   "Yettinchi savol: enum sz {S = 0, L = 3, XL}; va enum sz {S = 0, L = −3, XL}; da XL qanday qiymatga ega?",
+   "Javob: Aniq qiymati boʻlmagan enumerator avvalgisidan keyin raqamlashni davom ettiradi — enum COLOR {R = 1, G, B, Y = 10} kabi, bu yerda G = 2, B = 3. Shuning uchun birinchi holatda XL = 4, ikkinchisida XL = −2."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 8",
+   "problem": "Nima uchun 'A' < 'B' 1 beradi, 'A' == 'a' esa 0 beradi?",
+   "steps": [
+    {
+     "text": "char avtomatik ravishda int ga (belgining kodi) aylanadi. 'A' va 'B' kodi oʻsish tartibida keladi, shuning uchun kodlarni solishtirish 1 beradi; 'A' va 'a' kodlari har xil, shuning uchun tenglik notoʻgʻri."
+    },
+    {
+     "text": "Xuddi shu oʻzgarish tufayli c = c - 'a' + 'A'; (kichik harfni katta harfga aylantirish) arifmetikasi mumkin."
+    }
+   ],
+   "result": "'A' va 'B' kodi oʻsish tartibida keladi, shuning uchun kodlarni solishtirish 1 beradi; 'A' va 'a' kodlari har xil, shuning uchun tenglik notoʻgʻri."
+  },
+  "narr": [
+   "Sakkizinchi savol: Nima uchun 'A' < 'B' 1 beradi, 'A' == 'a' esa 0 beradi?",
+   "Javob: char avtomatik ravishda int ga (belgining kodi) aylanadi. 'A' va 'B' kodi oʻsish tartibida keladi, shuning uchun kodlarni solishtirish 1 beradi; 'A' va 'a' kodlari har xil, shuning uchun tenglik notoʻgʻri. Xuddi shu oʻzgarish tufayli c = c - 'a' + 'A'; (kichik harfni katta harfga aylantirish) arifmetikasi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 9",
+   "problem": "Qisqa zanjir nima va (0) && ((x = x + 1) > 0) da x bilan nima boʻladi?",
+   "steps": [
+    {
+     "text": "Ifoda hisoblanishi toʻxtatiladi, agar natija allaqachon aniqlangan boʻlsa. Chap operand && 0 ga teng, demak butun ifoda notoʻgʻri va oʻng qismi — yon taʼsirli x = x + 1 — hech qachon hisoblanmaydi: x oʻzgarmaydi."
+    },
+    {
+     "text": "Xuddi shu (3 == 3)||((c = getchar()) == 'y') da getchar chaqirilmaydi. i < LENGTH && first[i] == second[i] tsiklida i = 3 boʻlganda first[3] ga murojaat qilinmaydi."
+    }
+   ],
+   "result": "Ifoda hisoblanishi toʻxtatiladi, agar natija allaqachon aniqlangan boʻlsa. Chap operand && 0 ga teng, demak butun ifoda notoʻgʻri va oʻng qismi — yon taʼsirli x = x + 1 — hech qachon hisoblanmaydi: x oʻzgarmaydi."
+  },
+  "narr": [
+   "Toʻqqizinchi savol: Qisqa zanjir nima va (0) && ((x = x + 1) > 0) da x bilan nima boʻladi?",
+   "Javob: Ifoda hisoblanishi toʻxtatiladi, agar natija allaqachon aniqlangan boʻlsa. Chap operand && 0 ga teng, demak butun ifoda notoʻgʻri va oʻng qismi — yon taʼsirli x = x + 1 — hech qachon hisoblanmaydi: x oʻzgarmaydi. Xuddi shu (3 == 3)||((c = getchar()) == 'y') da getchar chaqirilmaydi. i < LENGTH && first[i] == second[i] tsiklida i = 3 boʻlganda first[3] ga murojaat qilinmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 10",
+   "problem": "y = x++ va y = ++x oʻrtasidagi farq nima?",
+   "steps": [
+    {
+     "text": "Postfiks: y = x++; bu y = x; x = x + 1; ga teng — x inkrementdan oldin hisoblanadi."
+    },
+    {
+     "text": "Prefiks: y = ++x; bu x = x + 1; y = x; ga teng — x inkrementdan keyin hisoblanadi."
+    },
+    {
+     "text": "Dekrement uchun ham shunday: y = x-- va y = --x."
+    }
+   ],
+   "result": "Postfiks: y = x++; bu y = x; x = x + 1; ga teng — x inkrementdan oldin hisoblanadi. Prefiks: y = ++x; bu x = x + 1; y = x; ga teng — x inkrementdan keyin hisoblanadi."
+  },
+  "narr": [
+   "Oʻninchi savol: y = x++ va y = ++x oʻrtasidagi farq nima?",
+   "Javob: Postfiks: y = x++; bu y = x; x = x + 1; ga teng — x inkrementdan oldin hisoblanadi. Prefiks: y = ++x; bu x = x + 1; y = x; ga teng — x inkrementdan keyin hisoblanadi. Dekrement uchun ham shunday: y = x-- va y = --x."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 11",
+   "problem": "sign = x > 0 ? 1 : -1; ifodasida uchlik operatori qanday ishlaydi?",
+   "steps": [
+    {
+     "text": "Bu if (x > 0) sign = 1; else sign = -1; uchun sintaktik shakar: shart ? dan oldin, toʻgʻri boʻlgandagi qiymat ? va : orasida, notoʻgʻri boʻlgandagi qiymat : dan keyin."
+    },
+    {
+     "text": "Kod qisqaroq va tushunarliroq boʻladi; slaydning ikkinchi misoli — isodd = x % 2 == 1 ? 1 : 0;."
+    }
+   ],
+   "result": "Bu if (x > 0) sign = 1; else sign = -1; uchun sintaktik shakar: shart ? dan oldin, toʻgʻri boʻlgandagi qiymat ? va : orasida, notoʻgʻri boʻlgandagi qiymat : dan keyin."
+  },
+  "narr": [
+   "Oʻn birinchi savol: sign = x > 0 ? 1 : -1; ifodasida uchlik operatori qanday ishlaydi?",
+   "Javob: Bu if (x > 0) sign = 1; else sign = -1; uchun sintaktik shakar: shart ? dan oldin, toʻgʻri boʻlgandagi qiymat ? va : orasida, notoʻgʻri boʻlgandagi qiymat : dan keyin. Kod qisqaroq va tushunarliroq boʻladi; slaydning ikkinchi misoli — isodd = x % 2 == 1 ? 1 : 0;."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 12",
+   "problem": "Sharh hajmini hisoblovchi dastur qays kirish maʼlumotlarini rad etishi kerak?",
+   "steps": [
+    {
+     "text": "Nol, manfiy radiuslar va 1000 dan katta qiymatlar: ruxsat berilgan diapazon 0 < radius <= 1000."
+    },
+    {
+     "text": "Musbat diapazonni tekshirish shuningdek, son boʻlmagan (nonfinite) kirishni rad etadi."
+    }
+   ],
+   "result": "Nol, manfiy radiuslar va 1000 dan katta qiymatlar: ruxsat berilgan diapazon 0 < radius <= 1000. Musbat diapazonni tekshirish shuningdek, son boʻlmagan (nonfinite) kirishni rad etadi."
+  },
+  "narr": [
+   "Oʻn ikkinchi savol: Sharh hajmini hisoblovchi dastur qays kirish maʼlumotlarini rad etishi kerak?",
+   "Javob: Nol, manfiy radiuslar va 1000 dan katta qiymatlar: ruxsat berilgan diapazon 0 < radius <= 1000. Musbat diapazonni tekshirish shuningdek, son boʻlmagan (nonfinite) kirishni rad etadi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ }
+]

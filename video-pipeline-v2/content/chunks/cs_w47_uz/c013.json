@@ -1,0 +1,419 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "Savollar va javoblar"
+  },
+  "narr": [
+   "Keling, C dasturlash tilidagi bir nechta savollarni ko'rib chiqaylik.",
+   "Birinchi savol: 'stock.waterml' ifodasida qaysi variant to'g'ri?"
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 1",
+   "problem": "a) stock.waterml b) Stock.waterml c) stock->waterml d) stock:waterml",
+   "steps": [
+    {
+     "text": "Tushuntirish: bitta maydonga kirish nuqta orqali: stock.waterml = 450; (Stock — bu tur nomi, o'zgaruvchi emas)."
+    }
+   ],
+   "result": "Javob: a)"
+  },
+  "narr": [
+   "Birinchi variant to'g'ri, chunki bu bitta maydonga kirish nuqtasini bildiradi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 2",
+   "problem": "typedef struct { . . . } Stock; da Stock nomi — bu. . . a) o'zgaruvchi b) typedef tomonidan kiritilgan tur nomi c) struktura maydoni d) funksiya",
+   "steps": [
+    {
+     "text": "Tushuntirish: typedef turga qulay nom beradi; Stock qavs yopilgandan keyin keladi — bu tur nomi, o'zgaruvchi yoki struct-teg emas."
+    }
+   ],
+   "result": "Javob: b) typedef tomonidan kiritilgan tur nomi"
+  },
+  "narr": [
+   "Typedef orqali yangi tur nomi yaratiladi, shu sababli Stock bu tur nomidir."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 3",
+   "problem": "Stock preview = stockafterwateruse(stock, 100); dan keyin stock.waterml qanchaga teng? a) 400 b) 500 c) 450 d) 0",
+   "steps": [
+    {
+     "text": "Tushuntirish: funksiyadagi stock parametri — nusxa; birinchi chaqiruv o'zgartirilgan nusxani qaytaradi (preview.waterml = 400), asl nusxa 500 da qoladi."
+    }
+   ],
+   "result": "Javob: b) 500"
+  },
+  "narr": [
+   "Funksiyaga parametr sifatida yuborilgan o'zgaruvchining nusxasi o'zgartiriladi, asl o'zgaruvchi o'zgarmaydi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 4",
+   "problem": "printf(\"%4d\", 10); nima chiqaradi? a) \"10\" b) \"bb10\" (b — bo'sh joy) c) \"0010\" d) \"10bb\"",
+   "steps": [
+    {
+     "text": "Tushuntirish: width 4 sonni chap tomondan bo'sh joylar bilan to'ldiradi; \"0010\" 0 bayrog'ini beradi (%04d), \"hellobb\" minus bayrog'ini beradi (%-7s)."
+    }
+   ],
+   "result": "Javob: b) \"bb10\" (b — bo'sh joy)"
+  },
+  "narr": [
+   "%4d format belgisi 4 xonali joy ajratadi, agar son 4 xonadan kam bo'lsa chap tomondan bo'sh joylar bilan to'ldiriladi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 5",
+   "problem": "printf(\"%.4s\", \"hello\"); nima chiqaradi? a) hello b) hell c) h d) ello",
+   "steps": [
+    {
+     "text": "Tushuntirish: satrlar uchun aniqlik chiqarishni 4 belgigacha qisqartiradi; %.1s \"h\" beradi, %.2f verguldan keyin ikkita belgi beradi."
+    }
+   ],
+   "result": "Javob: b) hell"
+  },
+  "narr": [
+   "%.4s format belgisi matnning faqat 4 ta belgisini chiqaradi, qolgan qismini kesib tashlaydi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 6",
+   "problem": "x o'zgaruvchisiga butun son to'g'ri qanday o'qish kerak? a) scanf(\"%d\", x); b) scanf(\"%d\", &x); c) scanf(\"%d\", *x); d) scanf(%d, &x);",
+   "steps": [
+    {
+     "text": "Tushuntirish: scanf argumentlari o'zgaruvchilar manzillari (pointerlar) bo'lishi kerak; massiv uchun char nomi allaqachon manzil: scanf(\"%s\", str)."
+    }
+   ],
+   "result": "Javob: b) scanf(\"%d\", &x);"
+  },
+  "narr": [
+   "scanf funksiyasi o'zgaruvchining manzilini (& operatori) talab qiladi, shu orqali kiritilgan qiymatni o'zgaruvchiga yozadi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Savol 7",
+   "problem": "fopen funksiyasining \"r\" rejimi nima qiladi? a) faqat yozish uchun faylni ochadi b) faqat o'qish uchun faylni ochadi c) faylni qo'shish uchun ochadi d) faylni ikkilik qiladi",
+   "steps": [
+    {
+     "text": "Tushuntirish: \"r\" — faqat o'qish, \"w\" — faqat yozish, \"a\" — qo'shish; \"b\" ikkilik fayllar uchun qo'shiladi; fopen agar mavjud bo'lmasa NULL qaytaradi."
+    }
+   ],
+   "result": "Javob: b) faqat o'qish uchun faylni ochadi"
+  },
+  "narr": [
+   "\"r\" rejimi faylni faqat o'qish uchun ochadi, agar fayl mavjud bo'lmasa ochilmaydi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4.4,
+   "title": "Atamalar — 6-hafta glossariysi",
+   "subtitle": "C dasturlash tili atamalari va ularning ma'nolari"
+  },
+  "narr": [
+   "Endi C dasturlash tilidagi asosiy atamalarni va ularning ma'nolarini ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C dasturlash atamalari",
+   "columns": [
+    "Atama",
+    "Ma'nosi"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Funksiya (function)",
+      "tex": "nomlangan ko'rsatmalar to'plami; void print (void) — ta'rif, print (); — chaqiruv"
+     },
+     "nomlangan ko'rsatmalar to'plami; void print (void) — ta'rif, print (); — chaqiruv"
+    ],
+    [
+     {
+      "text": "Prototip (prototype)",
+      "tex": "main dan oldin funksiyani e'lon qilish: tur nomi(parametrlar); — ';' bilan tugaydi va jismga ega emas"
+     },
+     "main dan oldin funksiyani e'lon qilish: tur nomi(parametrlar); — ';' bilan tugaydi va jismga ega emas"
+    ],
+    [
+     {
+      "text": "Ta'rif va chaqiruv",
+      "tex": "ta'rif — funksiya jymi qavs ichida (\"ishni tasvirlang\"); chaqiruv — funksiyani nomi bilan ishga tushirish (\"hozir ishlatish\"): print ();"
+     },
+     "ta'rif — funksiya jymi qavs ichida (\"ishni tasvirlang\"); chaqiruv — funksiyani nomi bilan ishga tushirish (\"hozir ishlatish\"): print ();"
+    ],
+    [
+     {
+      "text": "Parametr (parameter)",
+      "tex": "funksiya ichidagi kirish nomi: count void print (int count) da"
+     },
+     "funksiya ichidagi kirish nomi: count void print (int count) da"
+    ],
+    [
+     {
+      "text": "Argument (argument)",
+      "tex": "chaqiruv orqali uzatiladigan qiymat: 3 print (3) da"
+     },
+     "chaqiruv orqali uzatiladigan qiymat: 3 print (3) da"
+    ],
+    [
+     {
+      "text": "Qaytariladigan qiymat",
+      "tex": "funksiya chaqiruvchiga yuboradigan natija: int IntegerRoot(int number)"
+     },
+     "funksiya chaqiruvchiga yuboradigan natija: int IntegerRoot(int number)"
+    ]
+   ]
+  },
+  "narr": [
+   "Funksiya - bu nomlangan ko'rsatmalar to'plami.",
+   "Prototip - bu main dan oldin funksiyani e'lon qilish.",
+   "Ta'rif - funksiya jymi, chaqiruv - funksiyani ishga tushirish.",
+   "Parametr - funksiya ichidagi kirish nomi.",
+   "Argument - chaqiruv orqali uzatiladigan qiymat.",
+   "Qaytariladigan qiymat - funksiya chaqiruvchiga yuboradigan natija."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C dasturlash atamalari (davomi)",
+   "columns": [
+    "Atama",
+    "Ma'nosi"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Struktura (structure)",
+      "tex": "maydonlarni bitta yozuvda birlashtiruvchi tur: struct { . . . }"
+     },
+     "maydonlarni bitta yozuvda birlashtiruvchi tur: struct { . . . }"
+    ],
+    [
+     {
+      "text": "Maydon (field)",
+      "tex": "yozuvdagi bitta nomlangan qiymat: water , milk , beans , paper"
+     },
+     "yozuvdagi bitta nomlangan qiymat: water , milk , beans , paper"
+    ],
+    [
+     {
+      "text": "typedef",
+      "tex": "struktura turiga qulay nom beradi: typedef struct { . . . } Stock; shu turdagi o'zgaruvchi — yozuv (record): Stock stock = {500, 200, 40, 3}; maydonlarga nuqta orqali kirish"
+     },
+     "struktura turiga qulay nom beradi: typedef struct { . . . } Stock; shu turdagi o'zgaruvchi — yozuv (record): Stock stock = {500, 200, 40, 3}; maydonlarga nuqta orqali kirish"
+    ],
+    [
+     {
+      "text": "Etiketka (label)",
+      "tex": "kodning nomlangan nuqtasi goto uchun: nom + ':' (start:, outside:, error:)"
+     },
+     "kodning nomlangan nuqtasi goto uchun: nom + ':' (start:, outside:, error:)"
+    ],
+    [
+     {
+      "text": "Spagetti-kod",
+      "tex": "juda ko'p goto tufayli o'qilmaydigan, xatolarni topish qiyin kod (Dijkstra, 1968)"
+     },
+     "juda ko'p goto tufayli o'qilmaydigan, xatolarni topish qiyin kod (Dijkstra, 1968)"
+    ],
+    [
+     {
+      "text": "Matn oqimi (text stream)",
+      "tex": "'\\n' bilan tugaydigan satrlar seriyasi; '\\r\\n' o'zgaruvchini kutubxona o'zi qiladi; oqimlar buferlanadi"
+     },
+     "'\\n' bilan tugaydigan satrlar seriyasi; '\\r\\n' o'zgaruvchini kutubxona o'zi qiladi; oqimlar buferlanadi"
+    ]
+   ]
+  },
+  "narr": [
+   "Struktura - maydonlarni bitta yozuvda birlashtiruvchi tur.",
+   "Maydon - yozuvdagi bitta nomlangan qiymat.",
+   "Typedef - struktura turiga qulay nom beradi.",
+   "Etiketka - kodning nomlangan nuqtasi goto uchun.",
+   "Spagetti-kod - juda ko'p goto tufayli o'qilmaydigan kod.",
+   "Matn oqimi - '\\n' bilan tugaydigan satrlar seriyasi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "C dasturlash atamalari (yakuniy qism)",
+   "columns": [
+    "Atama",
+    "Ma'nosi"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Format belgisi",
+      "tex": "%[flags][width][.precision][length]<type>: %d, %4d, %04d, %.4s, %e, %%"
+     },
+     "%[flags][width][.precision][length]<type>: %d, %4d, %04d, %.4s, %e, %%"
+    ],
+    [
+     {
+      "text": "Komanda satridagi argumentlar",
+      "tex": "int main(int argc, char *argv[]): argc — hisoblagich, argv — argumentlarga ko'rsatgichlar massivi, dastur nomini ham o'z ichiga oladi"
+     },
+     "int main(int argc, char *argv[]): argc — hisoblagich, argv — argumentlarga ko'rsatgichlar massivi, dastur nomini ham o'z ichiga oladi"
+    ]
+   ]
+  },
+  "narr": [
+   "Format belgisi - printf funksiyasida formatni belgilash uchun ishlatiladi.",
+   "Komanda satridagi argumentlar - dasturga kirish argumentlarini o'z ichiga oladi."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "7-hafta — Ko'rsatkichlar, satrlar va rekursiya",
+   "subtitle": "Pointers, Strings, Recursion"
+  },
+  "narr": [
+   "7-haftada ikki asosiy mavzu o'rgatiladi: ko'rsatkichlar va rekursiya."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "7-haftaning asosiy mavzulari",
+   "bullets": [
+    "Ko'rsatkichlar: o'zgaruvchilar manzillari, jismoniy va virtual xotira",
+    "Ko'rsatkich arifmetikasi va massivlar",
+    "Satrlar va string.h funksiyalari",
+    "Asosiy qidirish va tartiblash algoritmlari",
+    "Rekursiya: asosiy holat, kichikroq masala, progress"
+   ]
+  },
+  "narr": [
+   "7-hafta ikki asosiy mavzuni qamrab oladi: ko'rsatkichlar va rekursiya.",
+   "Ko'rsatkichlar o'zgaruvchilar manzillarini, jismoniy va virtual xotirani o'rganishni o'z ichiga oladi.",
+   "Shuningdek, ko'rsatkich arifmetikasi, massivlar, satrlar va qidirish algoritmlari o'rgatiladi.",
+   "Rekursiya bo'limida asosiy holat, kichikroq masala va progress tushunchalari o'rganiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5.1,
+   "title": "Asosiy tushunchalar",
+   "subtitle": "7-haftaning \"barcha qoidalari\""
+  },
+  "narr": [
+   "7-haftaning asosiy tushunchalarini ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ko'rsatkich: manzil (&) va ishlatish (*)",
+   "bullets": [
+    "Ko'rsatkich - bu xotiradagi o'zgaruvchining manzili",
+    "Manzilni o'zgaruvchiga istalgan joydan kirish va uni o'zgartirish uchun foydalansa bo'ladi",
+    "Bu ma'lumotlar tuzilishlari uchun juda foyali (va kodni chalkashtirib yuborish bilan mashhur)",
+    "Xotiradagi har bir o'zgaruvchining manzili bor",
+    "Manzili bo'lmaydi: register-o'zgaruvchilar; konstantalar/literalar/preprotsessor defineslari; ifodalar"
+   ]
+  },
+  "narr": [
+   "Ko'rsatkich - bu xotiradagi o'zgaruvchining manzili.",
+   "Manzil operatori (&) o'zgaruvchining manzilini beradi.",
+   "* operatori esa manzildagi qiymatga kirish imkonini beradi.",
+   "Ko'rsatkichlar ma'lumotlar tuzilishlari uchun juda foyali, ammo ularni noto'g'ri ishlatish kodni chalkashtirib yuborishi mumkin.",
+   "Barcha o'zgaruvchilar manzilga ega emas, masalan register-o'zgaruvchilar, konstantalar va ifodalar."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

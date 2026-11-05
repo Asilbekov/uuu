@@ -1,0 +1,154 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "C dasturlash - 4-7 haftalar",
+   "subtitle": "Dasturlash xatolari va ularni tuzatish"
+  },
+  "narr": [
+   "Salom! Bugun biz C dasturlashda uchraydigan ba'zi keng tarqalgan xatolarni va ularni qanday tuzatishni ko'rib chiqamiz. Har bir misolda, dasturning noto'g'ri ishlash sabablarini va to'g'ri yechimini ko'rib chiqamiz.",
+   "Keling, birinchi masaladan boshlaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "MASALA 1 — Grade funktsiyasi",
+   "problem": "Foydalanuvchi bahoni kiritsa, unga mos harfni qaytaradigan grade funktsiyasida xatolik bor. Dasturda qaysi xatolar mavjud va ularni qanday tuzatish kerak?",
+   "steps": [
+    "Shartlar noto'g'ri tartibda tekshiriladi: birinchi eng yuqori chegarasi (>= 90, keyin >= 80, keyin >= 70, keyin >= 60)",
+    "Bosma ro'yxatda tartib harflar bilan chalkashib ketgan: (>= 80 shoxchasi 'D' qaytaradi, >= 60 esa 'B')",
+    "Sintaksis buzilgan: return 'A'; dan keyin yopuvchi qavs yo'q, else takrorlangan",
+    "grade(78 chaqiruvi yopilmagan — dastur hatto kompilyatsiya qilinmaydi"
+   ],
+   "result": "#include\n\nchar grade(int score) {\n    if (score >= 90) {\n        return 'A';\n    } else if (score >= 80) {\n        return 'B';\n    } else if (score >= 70) {\n        return 'C';\n    } else if (score >= 60) {\n        return 'D';\n    } else {\n        return 'F';\n    }\n}\n\nint main(void) {\n    char student1 = grade(95);\n    char student2 = grade(78);\n    printf(\"%c\\n\", grade(95));\n    puts(\"hello\");\n    return 0;\n}"
+  },
+  "narr": [
+   "Bu yerda grade funktsiyasi foydalanuvchi bahosiga mos harfni qaytarishi kerak. Lekin dasturda bir nechta muammolar bor.",
+   "Birinchidan, shartlar noto'g'ri tartibda tekshirilayapti. Eng yuqori chegarani birinchi tekshirish kerak, ammo bu yerda teskari tartibda qilingan.",
+   "Ikkinchidan, bosma ro'yxatda harflar chalkashib ketgan: >= 80 shoxchasi 'D' qaytaradi, >= 60 esa 'B' — bu noto'g'ri.",
+   "Uchinchidan, sintaksis xatlari mavjud: return 'A;' dan keyin yopuvchi qavs yo'q, else takrorlangan.",
+   "Nihoyat, grade(78) chaqiruvi yopilmagan — bu dastur kompilyatsiyalanmasligiga olib keladi.",
+   "To'g'ri yechim — chegaralarni kamayish tartibida tekshirish, har bir shoxchaga to'g'ri harfni qaytarish va qavslarni to'g'ri yopish."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "MASALA 2 — Juft yoki toq tekshiruvchi",
+   "problem": "Son juft yoki toq ekanligini tekshiruvchi is_even funktsiyasida xatolik bor. Dastur qanday ishlashi kerak va qanday xatolar mavjud?",
+   "steps": [
+    "Dasturda 'n % 2 = 0' — taqqoslash o'rniga tayinlash, == kerak",
+    "Funkksiya result ni qaytarmaydi — return result yo'q",
+    "main da result o'zgaruvchisi mavjud emas, lekin chaqirilayotgan"
+   ],
+   "result": "#include\n\nint is_even(int n) {\n    int result;\n    if (n % 2 == 0) {\n        result = 1;\n    } else {\n        result = 0;\n    }\n    return result;\n}\n\nint main(void) {\n    printf(\"%d\\n\", is_even(4));\n    return 0;\n}"
+  },
+  "narr": [
+   "Bu misalda son juft yoki toq ekanligini tekshiruvchi is_even funktsiyasini ko'rib chiqamiz.",
+   "Dasturda birinchi xato — 'n % 2 = 0' da tayinlash operatori ishlatilgan, taqqoslash uchun == operatori kerak.",
+   "Ikkinchi xato — funktsiya result ni qaytarmaydi, return result qatori yo'q.",
+   "Uchinchi xato — main funksiyasida result o'zgaruvchisi mavjud emas, lekin u chaqirilayotgan.",
+   "To'g'ri yechim — taqqoslash operatorini to'g'ri ishlatish, result ni qaytarish va main da keraksiz qatorni olib tashlash."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "MASALA 3 — Kabisa yili tekshiruvchi",
+   "problem": "Yil kabisa yili ekanligini tekshiruvchi is_leap funktsiyasida xatolik bor. 1900 yil noto'g'ri ravishda kabisa yili deb hisoblanayotgan. Sababi nima?",
+   "steps": [
+    "Har qanday 4 ga karrali yil darhol 1 qaytaradi, shuning uchun 1900 noto'g'ri ravishda kabisa yili deb hisoblanadi",
+    "% 400 shoxchasi hech qachon bajarilmaydi — u % 4 dan keyin keladi",
+    "To'g'ri tartib: % 400 birinchi tekshirish, keyin % 100, keyin % 4"
+   ],
+   "result": "#include\n\nint is_leap(int year) {\n    if (year % 400 == 0) {\n        return 1;\n    } else if (year % 100 == 0) {\n        return 0;\n    } else if (year % 4 == 0) {\n        return 1;\n    } else {\n        return 0;\n    }\n}\n\n/* yoki bir qatorda, 4- hafta kaliti va laboratoriyasi bo'yicha: */\nint is_leap(int year) {\n    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;\n}"
+  },
+  "narr": [
+   "Kabisa yili tekshiruvchi funksiyada ham muhim xatolar mavjud.",
+   "1900 yil noto'g'ri ravishda kabisa yili deb hisoblanayotgan. Sababi — har qanday 4 ga karrali yil darhol 1 qaytaradi, % 400 shoxchasi esa hech qachon bajarilmaydi, chunki u % 4 dan keyin keladi.",
+   "To'g'ri yechim — tekshirish tartibini o'zgartirish: birinchi % 400 ni tekshirish, keyin % 100, keyin % 4.",
+   "Yoki ixcham ifodadan foydalanish: return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "MASALA 4 — Uchta sondan eng kattasini topish",
+   "problem": "Uchta sondan eng kattasini topuvchi biggest funktsiyasida xatolik bor. biggest(5, 5, 3) funksiyasi 3 ni qaytarayotgan. Sababi nima?",
+   "steps": [
+    "Eng katta qiymatlar tengligi holatida (5 va 5) hech qanday qat'iy taqqoslanish '>' to'g'ri emas",
+    "Birinchi ikkita shart noto'g'ri, bajarish else qismiga o'tadi va c = 3 ni qaytaradi",
+    "main da puts(\"hello\") dan keyin nuqta-vergul qo'yib yuborilgan — bu sintaktik xato"
+   ],
+   "result": "#include\n\nint biggest(int a, int b, int c) {\n    if (a >= b && a >= c) {\n        return a;\n    } else if (b >= a && b >= c) {\n        return b;\n    } else {\n        return c;\n    }\n}\n\nint main(void) {\n    printf(\"%d\\n\", biggest(5, 5, 3));\n    printf(\"hello\");\n    puts(\"hello\");\n    return 0;\n}"
+  },
+  "narr": [
+   "Uchta sondan eng kattasini topuvchi biggest funktsiyasida ham muhim xatolar bor.",
+   "biggest(5, 5, 3) funksiyasi 3 ni qaytarayotgan. Sababi — eng katta qiymatlar tengligi holatida (5 va 5) hech qanday qat'iy taqqoslanish '>' to'g'ri emas.",
+   "Shuning uchun birinchi ikkita shart noto'g'ri, bajarish else qismiga o'tadi va c = 3 ni qaytaradi.",
+   "To'g'ri yechim — taqqoslashda >= dan foydalanish.",
+   "Shuningdek, main funksiyasida puts(\"hello\") dan keyin nuqta-vergul qo'yib yuborilgan — bu sintaktik xato, uni ham tuzatish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "MASALA 5 — Double and add — ifodadagi void-funksiya",
+   "problem": "Soni ikki barobar oshirib, ekranga chiqaruvchi doubled funktsiyasi yozilgan. Bu funktsiyani qanday qilib ifodada foydalanish mumkin?",
+   "steps": [
+    "doubled funktsiyasi void turiga ega, ya'ni hech narsa qaytarmaydi",
+    "Funksiyani ifodada foydalanish uchun uni qiymat qaytaradigan turiga o'tkazish kerak",
+    "Foydalanuvchi 16 sonini (10 + 6) ifodasiga qo'shishni xohlaydi, lekin doubled faqat chiqarib beradi"
+   ],
+   "result": "#include\n\nint doubled(int x) {\n    return x * 2;\n}\n\nint main(void) {\n    int total = 16 + doubled(10 + 6);\n    printf(\"%d\\n\", total);\n    return 0;\n}"
+  },
+  "narr": [
+   "Oxirgi misalda biz sonni ikki barobar oshirib, ekranga chiqaruvchi doubled funktsiyasini ko'rib chiqamiz.",
+   "doubled funktsiyasi hozirda void turiga ega, ya'ni hech narsa qaytarmaydi, faqat ekranga chiqarib beradi.",
+   "Foydalanuvchi 16 sonini (10 + 6) ifodasiga qo'shishni xohlaydi, lekin doubled faqat chiqarib beradi, natijani qaytarmaydi.",
+   "Buni hal qilish uchun funktsiyani qiymat qaytaradigan turiga o'tkazish kerak: int doubled(int x) { return x * 2; }",
+   "Keyin uni ifodada foydalana olamiz: int total = 16 + doubled(10 + 6);"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ }
+]

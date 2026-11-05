@@ -1,0 +1,436 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "C da O'zgaruvchilar va Turlar",
+   "subtitle": "Asosiy turlarning e'loni va foydalanishi"
+  },
+  "narr": [
+   "Keling, C dasturlash tilidagi asosiy o'zgaruvchi turlarini ko'rib chiqaylik.",
+   "Har bir tur ma'lum bir turdagi ma'lumotlarni saqlash uchun mo'ljallangan."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy Ma'lumot Turlari",
+   "bullets": [
+    "int - butun sonlar uchun: int score = 72;",
+    "char - bitta asosiy belgi uchun: char grade = 'B';",
+    "float - taxminiy haqiqiy qiymatlar uchun: float temperature = 23.5f;",
+    "double - aniqroq taxminiy haqiqiy qiymatlar uchun: double radius = 3.0;",
+    "bool - true yoki false qiymatlari uchun: bool passed = true;",
+    "string - matn uchun (CS50 kutubxonasi orqali): string name = \"Ada\";"
+   ]
+  },
+  "narr": [
+   "Int turi butun sonlarni, masalan ballar yoki sanash uchun ishlatiladi.",
+   "Char turi bitta belgini, harf yoki belgini saqlaydi.",
+   "Float va double turlari haqiqiy sonlarni, masalan harorat yoki radiusni saqlaydi.",
+   "Double floatga qaraganda aniqroqdir.",
+   "Bool turi ikkita qiymatni qabul qiladi: true yoki false.",
+   "String turi matnlarni saqlash uchun ishlatiladi, lekin C da bu aslida char ko'pliklari bilan amalga oshiriladi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'zgaruvchi E'lon Formati",
+   "bullets": [
+    "Umumiy format: type variable-name [= value]",
+    "Misollar:",
+    "char x; // e'lon qilingan, qiymati berilmagan",
+    "char x = 'A'; // 'A' ga tenglashtirilgan",
+    "char x = 'A', y = 'B'; // bir nechta o'zgaruvchilar",
+    "char x = y = 'Z'; // bir nechta tenglashtirishlar"
+   ]
+  },
+  "narr": [
+   "C da o'zgaruvchilar e'lon qilish uchun avval tur, keyin nom, va istalgan holda boshlang'ich qiymat beriladi.",
+   "E'lon qilingan o'zgaruvchilarga qiymat berilmasa, ularning qiymati tasodifiy bo'ladi.",
+   "Bir nechta o'zgaruvchini bir satrda e'lon qilish va ularni boshlang'ich qiymatlar bilan ta'minlash mumkin."
+  ],
+  "narr_item": [
+   -1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'zgaruvchi Nomi Qoidalari",
+   "bullets": [
+    "Nomlar harflar, raqamlar va _ ni o'z ichiga olishi mumkin",
+    "Harf bilan boshlanishi kerak",
+    "Kalit so'zlar (for, while va boshqalar) ishlatib bo'lmaydi",
+    "Nomlar katta-kichik harflarga sezgir - int x; va int X; ikki xil o'zgaruvchidir",
+    "Noto'g'ri misollar: int money$owed; ($ belgisi), int 2ndscore; (raqam bilan boshlanadi), int long; (kalit so'z)",
+    "To'g'ri misollar: int totalcount; int score2;"
+   ]
+  },
+  "narr": [
+   "O'zgaruvchi nomlari ma'lum qoidalarga bo'ysunadi.",
+   "Ular harf bilan boshlanishi kerak va faqatgina harflar, raqamlar va pastki chiziq belgisini o'z ichiga olishi mumkin.",
+   "Kalit so'zlar dasturning tarkibiy qismi sifatida ishlatilgani uchun ularni o'zgaruvchi nomi sifatida ishlatib bo'lmaydi.",
+   "Katta va kichik harflar farqli hisoblanadi, shuning uchun x va X har xil o'zgaruvchilardir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Doimiy Qiymatlar (Literal)",
+   "bullets": [
+    "Butun sonlar: int i = 3; long l = 3; unsigned long ul = 3UL;",
+    "O'nlik sanoq sistemasi: int i = 0xA;",
+    "Sakkizlik sanoq sistemasi: int i = 012;",
+    "Haqiqiy sonlar: float pi = 3.14159; double pi = 3.1415926535897932384L;",
+    "Belgilar: 'A', '\\x41' (onlik), '\\0101' (sakkizlik)",
+    "Satrlar: \"hello world\"; \"hello\" \"world\" - \"hello world\" bilan bir xil"
+   ]
+  },
+  "narr": [
+   "Doimiy qiymatlar - bu dasturga yozilgan aniq qiymatlar.",
+   "Butun sonlar turli usullarda, masalan o'nlik, sakkizlik va o'n oltilik sanoq sistemasida ifodalashi mumkin.",
+   "Haqiqiy sonlar float va double turlari uchun turli xil aniqliklarda berilishi mumkin.",
+   "Belgilar harf sifatida yoki ASCII kodlari orqali ifodalanishi mumkin.",
+   "Satrlar bir nechta qismdan tashkil topishi mumkin, ular avtomatik birlashtiriladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Enum (Sanoq) Turlari",
+   "bullets": [
+    "enum BOOL {NO, YES} → NO = 0, YES = 1;",
+    "enum COLOR {R = 1, G, B, Y = 10} → G = 2, B = 3",
+    "Aniq qiymatsiz enumerator oldingisidan raqamlashni davom ettiradi"
+   ]
+  },
+  "narr": [
+   "Enum turi bog'langan konstantalar to'plamini yaratish uchun ishlatiladi.",
+   "Agar biror elementga qiymat berilmagan bo'lsa, u oldingi elementdan bir birlik ortiq qiymatga ega bo'ladi.",
+   "Bu tur holatlarni, masalan rang yoki holat kabi chekli qiymatlar bilan ishlashda foydalidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "O'lchamlar, Diapazonlar va Aniqlik",
+   "subtitle": "Turli ma'lumot turlarining xususiyatlari"
+  },
+  "narr": [
+   "Endi turli ma'lumot turlarining o'lchamlari, diapazonlari va aniqliklarini ko'rib chiqaylik.",
+   "Bu ma'lumotlar dasturning to'g'ri ishlashi uchun juda muhim."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'lchamlar va Bayt Tartibi",
+   "bullets": [
+    "O'lchamlar mashina/kompilyatorga bog'liq, lekin kafolatlangan:",
+    "sizeof(char) < sizeof(short) <= sizeof(int) <= sizeof(long)",
+    "sizeof(char) < sizeof(short) <= sizeof(float) <= sizeof(double)",
+    "Bayt tartibi muhim:",
+    "Big endian - yuqori bitlar (MSBs) pastki manzilda",
+    "Little endian - pastki bitlar (LSBs) pastki manzilda",
+    "Bu \"NUXI muammosi\" deb ataladi"
+   ]
+  },
+  "narr": [
+   "Har bir ma'lumot turining o'lchami kompyuriga bog'liq bo'lishi mumkin, ammo ma'lum cheklovlar mavjud.",
+   "Kattaroq turlar kattaroqi ma'lumotlarni saqlaydi, lekin ko'proq xotira joyini egallaydi.",
+   "Bayt tartibi - bu ko'p baytli sonlar kompyuter xotirasida qanday joylashganligi.",
+   "Big endian va little endian usullari turli protsessorlarda qo'llaniladi.",
+   "Bu farq tarmoq protokollarida muhim muammoni keltirib chiqarishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Sonli Turlar: signed va unsigned",
+   "columns": [
+    "Tur",
+    "signed",
+    "unsigned"
+   ],
+   "rows": [
+    [
+     "short",
+     "short int x; short y;",
+     "unsigned short x; unsigned short int y;"
+    ],
+    [
+     "int",
+     "int x;",
+     "unsigned int x;"
+    ],
+    [
+     "long",
+     "long x;",
+     "unsigned long x;"
+    ],
+    [
+     "float",
+     "float x;",
+     "N/A"
+    ],
+    [
+     "double",
+     "double x;",
+     "N/A"
+    ],
+    [
+     "char",
+     "char x; signed char x;",
+     "unsigned char x;"
+    ]
+   ]
+  },
+  "narr": [
+   "Ko'p sonli turlar signed va unsigned versiyalarga ega.",
+   "Signed versiya manfiy va musbat sonlarni, unsigned esa faqat musbat sonlarni saqlaydi.",
+   "Float va double turlarida signed/unsigned farqi yo'q, chunki ular butun son emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Butun Sonli Turlar: O'lchamlar va Diapazonlar",
+   "columns": [
+    "Tur",
+    "Bit",
+    "Diapazon"
+   ],
+   "rows": [
+    [
+     "char",
+     "8",
+     "-128 . . . 127"
+    ],
+    [
+     "signed char",
+     "8",
+     "-128 . . . 127"
+    ],
+    [
+     "unsigned char",
+     "8",
+     "0 . . . 255"
+    ],
+    [
+     "short",
+     "16",
+     "-32 768 . . . 32 767"
+    ],
+    [
+     "unsigned short",
+     "16",
+     "0 . . . 65 535"
+    ],
+    [
+     "int",
+     "32",
+     "-2 147 483 648 . . . 2 147 483 647"
+    ],
+    [
+     "unsigned int",
+     "32",
+     "0 . . . 4 294 967 295"
+    ],
+    [
+     "long",
+     "64",
+     "-9 223 372 036 854 775 808 . . . 9 223 372 036 854 775 807"
+    ],
+    [
+     "unsigned long",
+     "64",
+     "0 . . . 18 446 744 073 709 551 615"
+    ],
+    [
+     "long long",
+     "64",
+     "-9 223 372 036 854 775 808 . . . 9 223 372 036 854 775 807"
+    ],
+    [
+     "unsigned long long",
+     "64",
+     "0 . . . 18 446 744 073 709 551 615"
+    ]
+   ]
+  },
+  "narr": [
+   "Jadvalda turli butun sonli turlarning o'lchamlari va diapazonlari ko'rsatilgan.",
+   "O'lcham bitlarda berilgan, diapazon esa ushbu o'lchamda ifodalana oladigan qiymatlar oralig'idir.",
+   "Unsigned turlar faqat musbat sonlarni, esa signed turlar manfiy va musbat sonlarni o'z ichiga oladi.",
+   "Kattaroq o'lchamli turlar kattaroq diapazonni qamrab oladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Haqiqiy Turlar: Aniqlik",
+   "columns": [
+    "Tur",
+    "Bit",
+    "O'nlik aniqlik"
+   ],
+   "rows": [
+    [
+     "float",
+     "32",
+     "6 ta muhim raqam"
+    ],
+    [
+     "double",
+     "64",
+     "15 ta muhim raqam"
+    ],
+    [
+     "long double",
+     "64",
+     "15 muhim raqam (bu platformadagi double kabi)"
+    ]
+   ]
+  },
+  "narr": [
+   "Haqiqiy son turlari o'lchamdan tashqari, aniqlik ham farqlanadi.",
+   "Aniqlik - bu ifodalashda qat'iy saqlanadigan muhim raqamlar soni.",
+   "Float turi 6 ta muhim raqamga, double esa 15 ta muhim raqamga ega.",
+   "Long double double bilan bir xil aniqlikka ega bo'lishi mumkin, lekin bu kompyuriga bog'liq."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Shar Masalasi",
+   "problem": "Shar radiusi va hajmini hisoblang. V = (4/3) × π × r³",
+   "steps": [
+    {
+     "text": "Radius uchun double turini tanlang, chunki u aniqroq hisoblashni ta'minlaydi"
+    },
+    {
+     "text": "Formulani dasturga tarjima qiling: V = (4.0/3.0) * M_PI * pow(radius, 3)"
+    },
+    {
+     "text": "M_PI - bu π ning taxminiy qiymati, math.h kutubxonasida taqdim etilgan"
+    },
+    {
+     "text": "pow(radius, 3) - bu radius ning kubini hisoblash funksiyasi"
+    }
+   ],
+   "result": "V = (4.0/3.0) × π × r³"
+  },
+  "narr": [
+   "Keling, oddiy masalani ko'rib chiqaylik: shar hajmini hisoblash.",
+   "Shar hajmi formulasi V = (4/3) × π × r³.",
+   "Avvalo, radius uchun double turini tanlash kerak, chunki u aniqroq hisoblashni ta'minlaydi.",
+   "Formulani dasturga tarjima qilishda, 4/3 emas, 4.0/3.0 yozish kerak, aks holda butun sonli bo'lish amali bajariladi.",
+   "π ning qiymati odatda M_PI sifatida math.h kutubxonasida taqdim etiladi.",
+   "Radiusning kubini hisoblash uchun pow(radius, 3) funksiyasidan foydalanamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Xulosa",
+   "items": [
+    "C da turli xil ma'lumot turlari mavjud: int, char, float, double, bool, string",
+    "O'zgaruvchi e'lon formati: type variable-name [= value]",
+    "O'zgaruvchi nomlari harflar, raqamlar va _ ni o'z ichiga olishi mumkin, harf bilan boshlanishi kerak",
+    "Doimiy qiymatlar (literal) turli sanoq sistemalarida ifodalanishi mumkin",
+    "Enum turi bog'langan konstantalar to'plamini yaratish uchun ishlatiladi",
+    "Turli turlarning o'lchamlari va diapazonlari har xil, bu dasturning to'g'ri ishlashiga ta'sir qiladi",
+    "Haqiqiy son turlari (float, double) turli darajadagi aniqlikka ega"
+   ]
+  },
+  "narr": [
+   "C dasturlash tilida ma'lumotlarni saqlash uchun turli xil turlar mavjud.",
+   "O'zgaruvchilar e'lon qilishda ularning turini va nomini belgilash kerak.",
+   "O'zgaruvchi nomlari ma'lum qoidalarga bo'ysunishi kerak.",
+   "Doimiy qiymatlar turli usullarda ifodalanishi mumkin.",
+   "Enum turi chekli qiymatlar bilan ishlashda foydalidir.",
+   "Turli turlarning o'lchamlari va diapazonlari dasturning to'g'ri ishlashiga ta'sir qiladi.",
+   "Haqiqiy son turlari turli darajadagi aniqlikka ega, bu hisoblash aniqiligiga ta'sir qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

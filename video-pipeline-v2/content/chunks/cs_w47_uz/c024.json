@@ -1,0 +1,770 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "printf chaqiruvi",
+   "subtitle": "Chiqarish"
+  },
+  "narr": [
+   "Keling, C tilida printf funksiyasining turli formatlarini ko'rib chiqaylik.",
+   "Birinchidan, oddiy butun sonni chiqarish.",
+   "Endi, formatda kenglik belgisini qo'llaymiz, bu 4 ta bo'shliqdan iborat.",
+   "Matn uchun ham shunday format qo'llaymiz, bu safar 7 ta bo'shliq bilan.",
+   "Bayroq + ni qo'llab, musbat sonlarga belgi qo'shamiz.",
+   "Nol bayrog'i bilan, oldindan nollar qo'shamiz.",
+   "Minus bayrog'i bilan, matnni chap tomonga egizlashtiramiz.",
+   "Aniqlikni o'zgartirib, kasrli sonlar uchun ko'rsatkichni belgilaymiz.",
+   "Ilmiy ko'rsatkich formatida ham aniqlikni o'zgartiramiz.",
+   "Matn uzunligini cheklab, faqat birinchi harflarni chiqaramiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "printf formatlari",
+   "bullets": [
+    "width - chiqarish uchun joy",
+    "flags - format bayroqlari (+, 0, -)",
+    "precision - aniqlik belgisi"
+   ]
+  },
+  "narr": [
+   "printf funksiyasida uchta asosiy format komponenti mavjud:",
+   "Birinchisi, width - bu chiqarish uchun ajratilgan joy soni.",
+   "Ikkinchisi, flags - bu format bayroqlari, masalan, musbat belgi uchun +.",
+   "Uchinchisi, precision - bu kasrli sonlar yoki matn uzunligi uchun aniqlik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "scanf - printf ning kirish analogi",
+   "bullets": [
+    "Bir xil format bilan ishlaydi",
+    "Bo'sh belgilarni e'tiborsiz qoldiradi",
+    "O'qilgan elementlar sonini yoki EOF qaytaradi",
+    "Argumentlar - o'zgaruvchi manzillari (massiv nomlari bundan mustasno)"
+   ]
+  },
+  "narr": [
+   "scanf funksiyasi printf ning kirish analogi bo'lib, bir xil formatlar bilan ishlaydi.",
+   "U foydalanuvchi kiritgan bo'sh belgilarni e'tiborsiz qoldiradi.",
+   "Funktsiya o'qilgan elementlar sonini yoki EOF (End Of File) belgisini qaytaradi.",
+   "E'tibor bering, argumentlar sifatida o'zgaruvchi manzillari beriladi, faqat massiv nomlari bundan mustasno."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "printf va scanf solishtirish",
+   "columns": [
+    "printf",
+    "scanf"
+   ],
+   "rows": [
+    [
+     "printf(\"%d\",x)",
+     "scanf(\"%d\",&x)"
+    ],
+    [
+     "printf(\"%f\",f)",
+     "scanf(\"%f\",&f)"
+    ],
+    [
+     "printf(\"%s\",str)",
+     "scanf(\"%s\",str) - & kerak emas"
+    ],
+    [
+     "printf(\"%s\",str)",
+     "scanf(\"%20s\",str) - & kerak emas"
+    ],
+    [
+     "printf(\"%s %s\",fname,lname)",
+     "scanf(\"%20s %20s\",fname,lname)"
+    ]
+   ]
+  },
+  "narr": [
+   "printf va scanf funksiyalari orasidagi asosiy farqlarni ko'rib chiqaylik.",
+   "Butun sonlar uchun printf o'zgaruvchi qiymatini, scanf esa manzilini qabul qiladi.",
+   "Haftali sonlar uchun ham shunday prinsip amal qiladi.",
+   "Matnlar uchun scanf da manzil belgisi & kerak emas, chunki massiv nomi allaqachon manzilni bildiradi.",
+   "Ikkita matn uchun ham format bir xil, lekin har biri uchun maksimal uzunlik belgilanishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "stdio.h belgili funktsiyalar",
+   "bullets": [
+    "putchar(c) - belgini standart chiqarishga",
+    "getchar() - standart kirishdagi keyingi belgi",
+    "getc(fp)/putc(c, fp) - oqim uchun xuddi shu",
+    "getchar() - bu getc(stdin), putchar(c) - putc(c, stdout)",
+    "Satr bo'yicha: fgets(line, maxlen, fp) va fputs(line, fp)",
+    "Fayllar: fopen(name, mode), fclose(fp)",
+    "stdin/stdout/stderr - hammasi FILE*"
+   ]
+  },
+  "narr": [
+   "stdio.h kutubxonasida bir qancha foydali funktsiyalar mavjud.",
+   "putchar funksiyasi belgini standart chiqarishga yuboradi.",
+   "getchar esa standart kirishdan keyingi belgini o'qiydi.",
+   "getc vaputc funktsiyalari fayl oqimlariga ishlaydi.",
+   "Satr bo'yicha ishlash uchun fgets va fputs funktsiyalari mavjud.",
+   "Fayllar bilan ishlash uchun fopen va fclose funktsiyalari kerak.",
+   "stdin, stdout va stderr standart kirish, chiqarish va xato oqimlari bo'lib, ularning hammasi FILE* turiga tegishli."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "C asosiy qoidalari",
+   "subtitle": "7.3"
+  },
+  "narr": [
+   "Endi C tilining asosiy qoidalarini ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Operand turlari bo'linishni hal qiladi",
+   "bullets": [
+    "4/3 → 1 (int)",
+    "4.0/3.0 → 1.333333 (double)",
+    "Qabul qiluvchi turi ta'sir qilmaydi - bo'linish tayinlanishgacha amalga oshiriladi"
+   ]
+  },
+  "narr": [
+   "C tilida operand turlari bo'linish natijasini hal qiladi.",
+   "Masalan, 4/3 ifodasi butun sonli bo'linish natijasida 1 ni beradi.",
+   "Agar operandlarni haqiqiy songa aylantirsak, 4.0/3.0 natijasi 1.333333 bo'ladi.",
+   "E'tibor bering, qabul qiluvchi turi (masalan, double fraction = 4/3) bo'linish amalga oshirilgacha ta'sir qilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'zgaruvchi nomlari",
+   "bullets": [
+    "Harflar, raqamlar va _ dan foydalanish mumkin",
+    "Harf bilan boshlanishi shart",
+    "Kalit so'zlardan foydalab bo'lmaydi",
+    "Katta-kichik harflar muhim (x va X - turli o'zgaruvchilar)"
+   ]
+  },
+  "narr": [
+   "C tilida o'zgaruvchi nomlariga qo'yiladigan talablar:",
+   "O'zgaruvchi nomlari harflar, raqamlar va pastki chiziq belgisidan iborat bo'lishi mumkin.",
+   "Nom harf bilan yoki pastki chiziq bilan boshlanishi shart.",
+   "Kalit so'zlardan (masalan, int, float) o'zgaruvchi nomi sifatida foydalab bo'lmaydi.",
+   "C da katta va kichik harflar farqli hisoblanadi, shuning uchun x va X turli o'zgaruvchilardir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'lchamlar kafolatlari",
+   "bullets": [
+    "sizeof(char) == 1",
+    "sizeof(char) < sizeof(short) <= sizeof(int) <= sizeof(long)",
+    "unsigned taxminan ikki barobar katta diapazonga ega",
+    "float aniqligi — 6, double — 15 muhim raqam",
+    "C99 da bool — <stdbool.h> dan"
+   ]
+  },
+  "narr": [
+   "C turli o'lchamdagi ma'lumotlar turlariga ega.",
+   "Char turining o'lchami 1 bayt bo'ladi.",
+   "O'lchamlar quyidagi tartibda o'sadi: char < short <= int <= long.",
+   "Unsigned turlari taxminan ikki barobar katta diapazonga ega.",
+   "Float turi 6 ta, double turi esa 15 ta muhim raqamni saqlay oladi.",
+   "C99 standartida bool turi <stdbool.h> kutubxonasidan olinadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Tayinlash va solishtirish",
+   "bullets": [
+    "== - solishtirish",
+    "= - tayinlash",
+    "float/double uchun solishtirish == chekli aniqlik tufayli ishonchli emas",
+    "0.1 aniq ifodalab bo'lmaydi"
+   ]
+  },
+  "narr": [
+   "C tilida ikki xil tayinlash operatori mavjud.",
+   "Ikki teng belgisi (==) solishtirish uchun ishlatiladi.",
+   "Bitta teng belgisi (=) esa qiymat tayinlash uchun.",
+   "Haqiqiy sonlar (float/double) uchun solishtirish chekli aniqlik tufayli ishonchli emas.",
+   "Masalan, 0.1 soni aniq ifodalab bo'lmaydi, bu solishtirishda xatolarga olib kelishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Qisqa tutashuv (Short-circuit)",
+   "bullets": [
+    "&& va || natija aniq bo'lganda hisoblashni to'xtatadi",
+    "O'ng tomonning yon effektlari bajarilmay qolishi mumkin"
+   ]
+  },
+  "narr": [
+   "C tilida mantiqiy operatorlarning qisqa tutashuv xususiyati mavjud.",
+   "Mantiqiy VA (&&) operatorida birinchi shart noto'g'ri bo'lsa, ikkinchi shart hisoblanmaydi.",
+   "Mantiqiy YOKI (||) operatorida birinchi shart to'g'ri bo'lsa, ikkinchi shart hisoblanmaydi.",
+   "Bu xususiyat tufayli o'ng tomondagi ifodaning yon effektlari bajarilmay qolishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "break va continue",
+   "bullets": [
+    "break eng ichki sikl yoki switch dan chiqadi",
+    "case da break bo'lmaganda bajarish keyingi case ga o'tadi yangi tekshirishsiz",
+    "continue ichki sikl tanasining qolgan qismini o'tkazib yuborib, shartga o'tadi (for da - yangilanishga)"
+   ]
+  },
+  "narr": [
+   "C tilida sikllarni boshqarish uchun break va continue operatorlari mavjud.",
+   "break operatori eng ichki sikl yoki switch blokidan chiqishga imkon beradi.",
+   "Agar case da break bo'lmasa, bajarish keyingi case ga o'tadi yangi tekshirishsiz.",
+   "continue operatori esa sikl tanasining qolgan qismini o'tkazib yuborib, shartga o'tadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "for sikli xususiyatlari",
+   "bullets": [
+    "for(...) dan keyingi nuqta-vergul sikl tanasini bo'sh qiladi - uning keyingi blok bir marta bajariladi",
+    "Argumentlar qiymati bo'yicha uzatiladi: funksiya chaqiruvchi o'zgaruvchini o'zgartirishi uchun ko'rsatgichni uzating"
+   ]
+  },
+  "narr": [
+   "for siklining ba'zi nozik jihatlari mavjud.",
+   "For siklining for(...) dan keyingi nuqta-vergul sikl tanasini bo'sh qiladi, bu uning keyingi blok bir marta bajarilishiga olib keladi.",
+   "Funksiyalarga argumentlar qiymati bo'yicha uzatiladi, shuning uchun o'zgaruvchini o'zgartirish uchun unga ko'rsatgich (pointer) uzatish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Satrlar (Strings)",
+   "bullets": [
+    "C satiri — char massiv '\\0' bilan: terminatorni hisoblamaydi",
+    "Nusxalash uchun +1 bayt kerak (malloc(strlen(s) + 1))",
+    "%s nol baytgacha o'qiydi",
+    "Satrlar konstantalari faqat o'qish uchun: char *s = \"hello\"; s[0] = 'J'; — segfault",
+    "O'zgartiriladigan nusxa: char s[] = \"hello\";",
+    "scanf manzillari kerak: scanf(\"%d\", &x); char massivi nomi allaqachon manzil: scanf(\"%s\", str)"
+   ]
+  },
+  "narr": [
+   "C tilida satrlar maxsus ma'lumot turi emas, balki char massivlari sifatida ifodalanadi.",
+   "Satr oxirida nol belgisi ('\\0') bo'ladi, bu terminator hisoblanadi va strlen funksiyasi uni hisoblamaydi.",
+   "Satrni nusxalash uchun unga bir bayt qo'shib ajratish kerak (malloc(strlen(s) + 1)).",
+   "%s formati satrni nol belgigacha o'qiydi.",
+   "Satr konstantalari faqat o'qish uchun bo'ladi, ularni o'zgartirishga urinish xatolikka (segfault) olib kelishi mumkin.",
+   "O'zgartiriladigan satr uchun char s[] = \"hello\"; formatidan foydalanish kerak.",
+   "scanf funksiyasi uchun manzillar kerak, lekin char massivi nomi allaqachon manzilni bildiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'zgaruvchilar va rekursiya",
+   "bullets": [
+    "Tayinlanmagan o'zgaruvchilar — chiqindilar: lokal double discount qiymatisiz — undefined behavior",
+    "C da standart qiymatlar yo'q",
+    "Rekursiya = asosiy holat + kichik vazifa + progress: progresssiz (countdown(n) o'rniga countdown(n - 1)) — cheksiz rekursiya va stek ortib ketishi"
+   ]
+  },
+  "narr": [
+   "C tilida tayinlanmagan o'zgaruvchilar undefined behaviorga olib keladi.",
+   "Lokal o'zgaruvchilarga standart qiymat berilmaydi, ular chindan ham tasodifiy qiymatga ega bo'lishi mumkin.",
+   "Rekursiya uchun uchta asosiy komponent kerak: asosiy holat, kichik vazifa va progress.",
+   "Agar progress bo'lmasa (masalan, countdown(n) o'rniga countdown(n - 1)), bu cheksiz rekursiyaga va stekning ortib ketishiga olib keladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Bir qatorda o'n javob",
+   "subtitle": "7.4"
+  },
+  "narr": [
+   "Endi C tiliga oid ba'zi asosiy savollarga javob beramiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "1-misol",
+   "problem": "double fraction = 4/3 ni %f bilan nima chiqaradi?",
+   "steps": [
+    {
+     "text": "4/3 butun sonli bo'linish bo'lgani uchun natija 1 bo'ladi"
+    },
+    {
+     "text": "double ga konvertatsiya qilinganda, 1.000000 bo'ladi"
+    }
+   ],
+   "result": "1.000000"
+  },
+  "narr": [
+   "Birinchi savol: double fraction = 4/3 ni %f bilan nima chiqaradi?",
+   "Javob: 4/3 butun sonli bo'linish bo'lgani uchun natija 1 bo'ladi.",
+   "Keyin double ga konvertatsiya qilinganda, 1.000000 bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "2-misol",
+   "problem": "float va double da nechta muhim raqam bor?",
+   "steps": [
+    {
+     "text": "float turi taxminan 6 ta muhim raqamni saqlaydi"
+    },
+    {
+     "text": "double turi taxminan 15 ta muhim raqamni saqlaydi"
+    }
+   ],
+   "result": "6 va 15"
+  },
+  "narr": [
+   "Ikkinchi savol: float va double da nechta muhim raqam bor?",
+   "Javob: float turi taxminan 6 ta muhim raqamni saqlaydi.",
+   "Double turi esa taxminan 15 ta muhim raqamni saqlaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3-misol",
+   "problem": "Kabisa yili qanday aniqlanadi?",
+   "steps": [
+    {
+     "text": "Yil 400 ga bo'linadi yoki 4 ga bo'linadi lekin 100 ga bo'linmaydi"
+    },
+    {
+     "text": "Shart: year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)"
+    },
+    {
+     "text": "2000 - kabisa yili, 1900 va 2100 - kabisa yili emas"
+    }
+   ],
+   "result": "year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)"
+  },
+  "narr": [
+   "Uchinchi savol: Kabisa yili qanday aniqlanadi?",
+   "Javob: Yil 400 ga bo'linadi yoki 4 ga bo'linadi lekin 100 ga bo'linmaydi.",
+   "Shart ifodasi: year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)",
+   "Misol: 2000 - kabisa yili, 1900 va 2100 - kabisa yili emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "4-misol",
+   "problem": "switch da break bo'lmaydi nima bo'ladi?",
+   "steps": [
+    {
+     "text": "break bo'lmaganda bajarish keyingi case ga o'tadi yangi tekshirishsiz"
+    },
+    {
+     "text": "'A#' melodiyasi C ni, keyin D ni chiqaradi"
+    }
+   ],
+   "result": "Keyingi case ga o'tadi yangi tekshirishsiz"
+  },
+  "narr": [
+   "To'rtinchi savol: switch da break bo'lmaydi nima bo'ladi?",
+   "Javob: break bo'lmaganda bajarish keyingi case ga o'tadi yangi tekshirishsiz.",
+   "Misol: 'A#' melodiyasi C ni, keyin D ni chiqaradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "5-misol",
+   "problem": "do-while necha marta bajariladi?",
+   "steps": [
+    {
+     "text": "do-while kamida bir marta bajariladi"
+    },
+    {
+     "text": "Shart tanadan keyin tekshiriladi"
+    }
+   ],
+   "result": "Kamida bir marta"
+  },
+  "narr": [
+   "Beshinchi savol: do-while necha marta bajariladi?",
+   "Javob: do-while kamida bir marta bajariladi.",
+   "Chunki shart tanadan keyin tekshiriladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "6-misol",
+   "problem": "continue nima qiladi?",
+   "steps": [
+    {
+     "text": "continue sikl tanasining qolgan qismini o'tkazib yuborib, shartga o'tadi"
+    },
+    {
+     "text": "for siklida - yangilanish qismiga o'tadi"
+    }
+   ],
+   "result": "Sikl tanasining qolgan qismini o'tkazib yuboradi"
+  },
+  "narr": [
+   "Oltinchi savol: continue nima qiladi?",
+   "Javob: continue sikl tanasining qolgan qismini o'tkazib yuborib, shartga o'tadi.",
+   "For siklida bu - yangilanish qismiga o'tadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "7-misol",
+   "problem": "main da x va y ni qanday almashtirish mumkin?",
+   "steps": [
+    {
+     "text": "Oddiy funktsiyalar qiymati bo'yicha argumentlarni uzatadi"
+    },
+    {
+     "text": "O'zgaruvchilarni almashtirish uchun ularning manzillarini (ko'rsatgichlarini) uzatish kerak"
+    },
+    {
+     "text": "Funksiya: void swap(int *a, int *b)"
+    },
+    {
+     "text": "Chaqirish: swap(&x, &y)"
+    }
+   ],
+   "result": "void swap(int *a, int *b) va chaqirish swap(&x, &y)"
+  },
+  "narr": [
+   "Yettinchi savol: main da x va y ni qanday almashtirish mumkin?",
+   "Javob: Oddiy funktsiyalar qiymati bo'yicha argumentlarni uzatadi, shuning uchun o'zgaruvchilarni almashtira olmaydi.",
+   "O'zgaruvchilarni almashtirish uchun ularning manzillarini (ko'rsatgichlarini) uzatish kerak.",
+   "Funksiya: void swap(int *a, int *b)",
+   "Chaqirish: swap(&x, &y)"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "8-misol",
+   "problem": "strcmp(\"aA\", \"aA\") qaytaradi?",
+   "steps": [
+    {
+     "text": "Satrlar bir-biriga teng bo'lsa, strcmp 0 qaytaradi"
+    },
+    {
+     "text": "Agar birinchi satr ikkinchisidan katta bo'lsa, musbat qiymat"
+    },
+    {
+     "text": "Agar birinchi satr ikkinchisidan kichik bo'lsa, manfiy qiymat"
+    }
+   ],
+   "result": "0"
+  },
+  "narr": [
+   "Sakkizinchi savol: strcmp(\"aA\", \"aA\") qaytaradi?",
+   "Javob: Satrlar bir-biriga teng bo'lsa, strcmp 0 qaytaradi.",
+   "Agar birinchi satr ikkinchisidan katta bo'lsa, musbat qiymat.",
+   "Agar birinchi satr ikkinchisidan kichik bo'lsa, manfiy qiymat."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "9-misol",
+   "problem": "countdown(3) va countup(3) nima chiqaradi?",
+   "steps": [
+    {
+     "text": "countdown(3): 3 2 1 - chiqarish chaqirishgacha"
+    },
+    {
+     "text": "countup(3): 1 2 3 - chiqarish qaytishda"
+    }
+   ],
+   "result": "countdown(3): 3 2 1, countup(3): 1 2 3"
+  },
+  "narr": [
+   "To'qqizinchi savol: countdown(3) va countup(3) nima chiqaradi?",
+   "Javob: countdown(3) da chiqarish chaqirishgacha bo'ladi: 3 2 1.",
+   "countup(3) da esa chiqarish qaytishda bo'ladi: 1 2 3."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "10-misol",
+   "problem": "fibonacci(4)?",
+   "steps": [
+    {
+     "text": "F(0) = 0, F(1) = 1 - ikkita asosiy holat"
+    },
+    {
+     "text": "F(2) = F(1) + F(0) = 1 + 0 = 1"
+    },
+    {
+     "text": "F(3) = F(2) + F(1) = 1 + 1 = 2"
+    },
+    {
+     "text": "F(4) = F(3) + F(2) = 2 + 1 = 3"
+    },
+    {
+     "text": "fibonacci(2) ikki marta hisoblanadi - rekursiyada takrorlanish"
+    }
+   ],
+   "result": "3"
+  },
+  "narr": [
+   "O'ninchi savol: fibonacci(4)?",
+   "Javob: Fibonachchi ketma-ketligi uchun ikkita asosiy holat mavjud: F(0) = 0, F(1) = 1.",
+   "F(2) = F(1) + F(0) = 1 + 0 = 1",
+   "F(3) = F(2) + F(1) = 1 + 1 = 2",
+   "F(4) = F(3) + F(2) = 2 + 1 = 3",
+   "Shuni ham e'tibor berish kerakki, fibonacci(2) ikki marta hisoblanadi - rekursiyada takrorlanish."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Keyin nima",
+   "subtitle": "7.5"
+  },
+  "narr": [
+   "7-haftadan keyingi ma'ruzalar materiallari bo'yicha kurs to'g'ridan-to'g'ri slaydlarda e'lon qilingan mavzular bilan davom etadi.",
+   "Ular orasida ikkilik qidirish haqida ko'proq ma'lumot, sizeof() funktsiyasi, ko'rsatkichlarni aylantirish va tashqi kutxonalarga oid ma'lumotlar mavjud."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Midterm oldidan takrorlash",
+   "bullets": [
+    "4-hafta: turlar va bo'linish",
+    "3-bob: shartlar, switch va sikllar",
+    "4-bob: funksiyalar, tuzilmalar va kirish-chiqarish",
+    "5-bob: ko'rsatkichlar, satrlar va rekursiya",
+    "6-bob: bug hunt-lar",
+    "4-haftaning uchta chiqish tekshiruvi",
+    "7-haftaning uchta chiqish tekshiruvi"
+   ]
+  },
+  "narr": [
+   "Midterm imtihonidan oldin quyidagi mavzularni takrorlash tavsiya etiladi:",
+   "Birinchidan, 4-hafta materiallari: turlar va bo'linish.",
+   "Keyin 3-bob: shartlar, switch va sikllar.",
+   "4-bob: funksiyalar, tuzilmalar va kirish-chiqarish.",
+   "5-bob: ko'rsatkichlar, satrlar va rekursiya.",
+   "6-bobda bug hunt-lar mavzusini o'rganing.",
+   "Shuningdek, 4-haftaning uchta chiqish tekshiruvidagi savollarga javob tayyorlang:",
+   "1) Nima uchun 4/3 kasr yo'qoladi?",
+   "2) Nima uchun 2100 - oddiy yil?",
+   "3) Nima uchun chegaraviy birinchi keladi?",
+   "Va 7-haftaning uchta chiqish tekshiruvi:",
+   "1) Faktorial qayerda to'xtaydi?",
+   "2) Nima uchun n - 1 asosiy holatga intiladi?",
+   "3) factorial(3) nima kutadi?"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6
+  ]
+ }
+]

@@ -1,0 +1,380 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "Rekursiya"
+  },
+  "narr": [
+   "Keling, rekursiyani tushunishga harakat qilaylik. Rekursiya - bu funksiya o'zini chaqirish jarayoni.",
+   "Bu juda qiziqarli konsept, chunki u bizga murakkab masalalarni oddiyroq qismlarga bo'lishga imkon beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Rekursiv funktsiyalar",
+   "bullets": [
+    "Funksiya o'zini chaqiradi",
+    "Asosiy holat (base case) bo'lishi kerak",
+    "Rekursiv holat (recursive case) funksiyani kichroq masalaga qisqartiradi"
+   ]
+  },
+  "narr": [
+   "Rekursiv funktsiyada ikki asosiy komponent bo'ladi: asosiy holat va rekursiv holat.",
+   "Asosiy holat - bu rekursiyani to'xtatuvchi shart. Agar bu shart bo'lmasa, funktsiya cheksiz chaqiriladi.",
+   "Rekursiv holat esa masalani kichikroq, lekin bir xil tarkibli masalaga qisqartiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Tegishli sanash",
+   "problem": "N dan 0 gacha bo'lgan sonlarni teskari tartibda chiqaruvchi rekursiv funksiyani yozing.",
+   "steps": [
+    {
+     "text": "Asosiy holat: agar n 0 ga teng bo'lsa, funksiya to'xtaydi"
+    },
+    {
+     "text": "Rekursiv holat: n ni chiqarib, n-1 bilan funksiyani qayta chaqiring"
+    },
+    {
+     "text": "Xato versiya: count_down(n) funksiyasi n ni chiqarib, keyin o'zini n bilan chaqiradi (buzilgan)"
+    },
+    {
+     "text": "To'g'ri versiya: count_down(n-1) chaqiriladi, bu rekursiyani to'g'ri yo'naltiradi"
+    }
+   ],
+   "result": "To'g'ri funksiya:\nvoid count_down(int n)\n{\n    if (n == 0)\n        return;\n    printf(\"%i\\n\", n);\n    count_down(n - 1);\n}"
+  },
+  "narr": [
+   "Keling, oddiy misol ko'rib chiqaylik: n dan 0 gacha bo'lgan sonlarni teskari tartibda chiqaruvchi funksiya.",
+   "Birinchidan, asosiy holatni aniqlaymiz: agar n 0 ga teng bo'lsa, funksiya to'xtaydi.",
+   "Rekursiv holatda esa n ni chiqarib, keyin n-1 bilan funksiyani qayta chaqiramiz.",
+   "Lekin bu yerda xato yuz berishi mumkin: agar funksiya o'zini n bilan chaqirsak, u chekslikka boradi.",
+   "Shuning uchun to'g'ri yechim - n-1 bilan chaqirish, bu rekursiyani to'g'ri yo'naltiradi va asosiy holatga yetib boradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Sonlarning yig'indisi",
+   "problem": "1 dan n gacha bo'lgan butun sonlarning yig'indisini hisoblovchi rekursiv funksiyani yozing (sumto(0) = 0).",
+   "steps": [
+    {
+     "text": "Asosiy holat: agar n 0 ga teng bo'lsa, 0 qaytariladi"
+    },
+    {
+     "text": "Rekursiv holat: n ni n-1 gacha bo'lgan sonlar yig'indisiga qo'shamiz"
+    },
+    {
+     "text": "sumto(3) = 3 + sumto(2) = 3 + (2 + sumto(1)) = 3 + 2 + (1 + sumto(0)) = 3 + 2 + 1 + 0 = 6"
+    }
+   ],
+   "result": "Funksiya:\nint sum_to(int n)\n{\n    if (n == 0)\n        return 0;\n    return n + sum_to(n - 1);\n}"
+  },
+  "narr": [
+   "Yana bir misol: 1 dan n gacha bo'lgan sonlarning yig'indisini hisoblovchi funksiya.",
+   "Asosiy holatda n 0 ga teng bo'lganda, 0 qaytaramiz.",
+   "Rekursiv holatda esa n ni n-1 gacha bo'lgan sonlar yig'indisiga qo'shamiz.",
+   "Masalan, sumto(3) ni hisoblaymiz: 3 ni sumto(2) ga qo'shamiz, bu esa 2 ni sumto(1) ga qo'shadi va h.k.",
+   "Natijada 3 + 2 + 1 + 0 = 6 hosil bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Faktorial, chaqiruvlar stacki, fibonachchi va Xanoy minorasi",
+   "subtitle": "Rekursiyaning murakkabroq misollari"
+  },
+  "narr": [
+   "Endi rekursiyaning biroz murakkabroq misollarini ko'rib chiqaylik: faktorial, Fibonachchi ketma-ketligi va Xanoy minorasi masalasi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Faktorial hisoblash",
+   "problem": "n faktorialni (n!) hisoblovchi rekursiv funksiyani yozing.",
+   "steps": [
+    {
+     "text": "Faktorial ta'rifi: n! = n × (n-1) × (n-2) × ... × 1"
+    },
+    {
+     "text": "Asosiy holat: 0! = 1 (aniq belgilangan)"
+    },
+    {
+     "text": "Rekursiv holat: n! = n × (n-1)!"
+    },
+    {
+     "text": "3! = 3 × 2! = 3 × (2 × 1!) = 3 × 2 × (1 × 0!) = 3 × 2 × 1 × 1 = 6"
+    }
+   ],
+   "result": "Funksiya:\nint factorial(int n)\n{\n    if (n == 0)\n        return 1;\n    int smaller = factorial(n - 1);\n    return n * smaller;\n}"
+  },
+  "narr": [
+   "Faktorial - bu rekursiyaning klassik misoli.",
+   "n faktorial n dan 1 gacha bo'lgan barcha butun sonlarning ko'paytmasidir.",
+   "Asosiy holat sifatida 0! = 1 ni qabul qilamiz, bu matematik jihatdan to'g'ri.",
+   "Rekursiv holatda esa n ni (n-1)! ga ko'paytiramiz.",
+   "Masalan, 3! ni hisoblaymiz: 3 ni 2! ga ko'paytiramiz, bu esa 2 ni 1! ga ko'paytiradi va h.k.",
+   "Natijada 3 × 2 × 1 × 1 = 6 hosil bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Chaqiruvlar stacki (Call Stack)",
+   "bullets": [
+    "Har bir chaqiruv o'z stack kadriga (stack frame) ega",
+    "Stack frame: parametrlar, lokal o'zgaruvchilar va davom etish nuqtasi",
+    "Chaqiruvlar ketma-ketligi: kirishda stack o'sadi, qaytishda kamayadi"
+   ]
+  },
+  "narr": [
+   "Rekursiya jarayonida har bir funksiya chaqiruvining o'z 'stack kadri' bo'ladi.",
+   "Bu kadr funksiyaning parametrlarini, lokal o'zgaruvchilarini va qaysi nuqtadan davom etishini saqlaydi.",
+   "Keling, factorial(3) chaqiruvini ko'rib chiqaylik.",
+   "Birinchi chaqiruvda n=3, u factorial(2) ni chaqiradi.",
+   "Ikkinchi chaqiruvda n=2, u factorial(1) ni chaqiradi.",
+   "Uchinchi chaqiruvda n=1, u factorial(0) ni chaqiradi.",
+   "Asosiy holatga yetgach, qaytish boshlanadi: natijalar hisoblanadi va stack bosqichma-bosqich bo'shatiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Fibonachchi ketma-ketligi",
+   "problem": "n-chi Fibonachchi sonini hisoblovchi rekursiv funksiyani yozing (F(0)=0, F(1)=1).",
+   "steps": [
+    {
+     "text": "Fibonachchi ta'rifi: F(n) = F(n-1) + F(n-2)"
+    },
+    {
+     "text": "Ikkita asosiy holat: F(0)=0, F(1)=1"
+    },
+    {
+     "text": "Rekursiv holat: F(n) = F(n-1) + F(n-2)"
+    },
+    {
+     "text": "F(4) = F(3) + F(2) = (F(2)+F(1)) + (F(1)+F(0)) = ((F(1)+F(0))+F(1)) + (F(1)+F(0)) = ((1+0)+1) + (1+0) = 3"
+    }
+   ],
+   "result": "Funksiya:\nint fibonacci(int n)\n{\n    if (n == 0)\n        return 0;\n    if (n == 1)\n        return 1;\n    int left = fibonacci(n - 1);\n    int right = fibonacci(n - 2);\n    return left + right;\n}"
+  },
+  "narr": [
+   "Fibonachchi ketma-ketligi - bu yana bir klassik rekursiv misol.",
+   "Har bir son o'zidan oldingi ikki sonning yig'indisiga teng.",
+   "Ikkita asosiy holatimiz bor: F(0)=0 va F(1)=1.",
+   "Rekursiv holatda F(n) ni F(n-1) va F(n-2) yig'indisi sifatida hisoblaymiz.",
+   "Lekin bu oddiy yozilgan versiya bir xil hisoblarni bir necha marta takrorlaydi.",
+   "Masalan, F(4) ni hisoblashda F(2) ikki marta, F(1) uch marta hisoblanadi.",
+   "Bu esa samaradorlikni pashaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Xanoy minorasi",
+   "problem": "Uchta disklarni A ustunidan C ustuniga B ustunidan foydalanib ko'chirish algoritmini rekursiv yozing.",
+   "steps": [
+    {
+     "text": "Qoidalar: (1) bir vaqtda faqat bitta disk ko'chiriladi; (2) faqat ustundagi eng yuqori disk ko'chiriladi; (3) hech qachon katta disk kichik ustiga qo'yilmaydi"
+    },
+    {
+     "text": "Asosiy holat: agar disk bo'lmasa (n=0), hech qanday harakat kerak emas"
+    },
+    {
+     "text": "Rekursiv yechim uchun uch qadam: (1) n-1 disklarni A dan B ga ko'chirish; (2) eng katta disklarni A dan C ga ko'chirish; (3) n-1 disklarni B dan C ga ko'chirish"
+    },
+    {
+     "text": "Uch disk uchun aniq harakatlar: 1A→C, 2A→B, 1C→B, 3A→C, 1B→A, 2B→C, 1A→C (jami 7 harakat)"
+    }
+   ],
+   "result": "Rekursiv algoritm:\nvoid hanoi(int n, char from, char to, char aux)\n{\n    if (n == 1)\n    {\n        printf(\"Move disk 1 from %c to %c\\n\", from, to);\n        return;\n    }\n    hanoi(n-1, from, aux, to);\n    printf(\"Move disk %d from %c to %c\\n\", n, from, to);\n    hanoi(n-1, aux, to, from);\n}"
+  },
+  "narr": [
+   "Xanoy minorasi masalasi - bu rekursiyaning murakkabroq, lekin juda直观 misoli.",
+   "Uchta qoida mavjud: bir vaqtda faqat bitta disk ko'chiriladi, faqat ustundagi eng yuqori disk ko'chiriladi, va katta disk hech qachon kichik ustiga qo'yilmaydi.",
+   "Asosiy holatda agar disk bo'lmasa, hech qanday harakat kerak emas.",
+   "Rekursiv yechim uchun uch asosiy qadam bor: birinchi navbatda n-1 disklarni manba ustunidan yordamchi ustuniga ko'chirish.",
+   "Keyin eng katta disklarning o'zini manbadan maqsadli ustuniga ko'chirish.",
+   "Nihoyat, n-1 disklarni yordamchi ustunidan maqsadli ustuniga ko'chirish.",
+   "Uch disk uchun bu jarayon 7 harakatni talab qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "7-hafta savollari — maʼruza va laboratoriya savollari model javoblar bilan",
+   "subtitle": "Ko'rsatkichlar (Pointers)"
+  },
+  "narr": [
+   "Endi ko'rsatkichlar (pointers) bilan bog'li savollarni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Ko'rsatkich tushunchasi",
+   "problem": "Nima bu ko'rsatkich va nolli ko'rsatkich?",
+   "steps": [
+    {
+     "text": "Ko'rsatkich - bu o'zgaruvchining xotiradagi manzili"
+    },
+    {
+     "text": "Manzil orqali o'zgaruvchiga istalgan joydan murojaat qilish va uni o'zgartirish mumkin"
+    },
+    {
+     "text": "Nolli ko'rsatkich (NULL) - hech narsaga ishlamaydigan ko'rsatkich"
+    }
+   ],
+   "result": "Ko'rsatkich - bu ma'lumotlar turlariga qarab o'zgaruvchining xotiradagi manzilini saqlovchi maxsus o'zgaruvchi. Nolli ko'rsatkich esa hech qanday manzilga ishlamaydi."
+  },
+  "narr": [
+   "Ko'rsatkich - bu o'zgaruvchining xotiradagi manzili.",
+   "Manzil orqali o'zgaruvchiga istalgan joydan murojaat qilish va uni o'zgartirish mumkin, bu esa ma'lumotlar tuzilmalari uchun juda foydalidir.",
+   "Nolli ko'rsatkich (NULL) esa hech narsaga ishlamaydigan maxsus ko'rsatkich bo'lib, odatda ro'yxat oxirini belgilash uchun ishlatiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — & va * operatorlari",
+   "problem": "& va * operatorlari nima qiladi?",
+   "steps": [
+    {
+     "text": "& (manzil olish) operatori: o'zgaruvchining xotiradagi manzilini qaytaradi"
+    },
+    {
+     "text": "* (ishga tushirish/ko'ndalanglik) operatori: manzil bo'yicha qiymatga kirish imkonini beradi"
+    },
+    {
+     "text": "Misol: int n = 5; int *p = &n; // p endi n ning manziliga ishora qiladi"
+    },
+    {
+     "text": "Misol: printf(\"%d\", *p); // n ning qiymatini (5) chiqaradi"
+    }
+   ],
+   "result": "& operatori o'zgaruvchining manzilini, * operatori esa manzil bo'yicha qiymatni olish imkonini beradi."
+  },
+  "narr": [
+   "& operatori manzil olish operatori bo'lib, o'zgaruvchining xotiradagi manzilini qaytaradi.",
+   "* operatori esa ishga tushirish operatori bo'lib, manzil bo'yicha qiymatga kirish imkonini beradi.",
+   "Misol uchun, agar int n = 5; deb e'lon qilsak, &n n ning manzilini qaytaradi.",
+   "Keyin int *p = &n; deb p o'zgaruvchisini n ning manziliga yo'naltirsak, *p ifodasi n ning qiymatini, ya'ni 5 ni beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Bir nechta qiymat qaytarish",
+   "problem": "Funksiyadan bir nechta qiymatni qanday qaytarish mumkin?",
+   "steps": [
+    {
+     "text": "C tilida funksiya faqat bitta qiymat qaytarishi mumkin"
+    },
+    {
+     "text": "Bir nechta qiymat qaytarish uchun ko'rsatkichlardan foydalanish mumkin"
+    },
+    {
+     "text": "Misol: int exteuclid(int a, int b, int *x, int *y); funksiyasi x va y qiymatlarini uzatilgan manzillarga yozadi"
+    },
+    {
+     "text": "Chaqirish: g = exteuclid(a, b, &x, &y); // x va y endi funksiya tomonidan o'zgartirilgan bo'ladi"
+    }
+   ],
+   "result": "Funksiyadan bir nechta qiymat qaytarish uchun ko'rsatkichlardan foydalanish mumkin. Funksiya bitta qiymat qaytarsa, qolgan qiymatlar manzillar orqali o'zgartiriladi."
+  },
+  "narr": [
+   "C tilida funksiya faqat bitta qiymat qaytarishi mumkin.",
+   "Lekin bir nechta qiymat qaytarish kerak bo'lganda, ko'rsatkichlardan foydalanish mumkin.",
+   "Misol uchun, exteuclid funksiyasi uchta qiymatni hisoblaydi, lekin faqat bittasini qaytaradi, qolgan ikkitasini esa uzatilgan manzillar orqali o'zgartiradi.",
+   "Shunday qilib, chaqiruvda &x va &y manzillari beriladi, funksiya esa bu manzillarga qiymatlarni yozadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

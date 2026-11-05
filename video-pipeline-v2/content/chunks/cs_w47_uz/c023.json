@@ -1,0 +1,507 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "Kompyuter fanlari · C · 4-7-haftalar",
+   "subtitle": "Xatolar va tuzatishlar"
+  },
+  "narr": [
+   "Keling, dasturlashdagi keng tarqalgan xatolarni koʻrib chiqaylik. Birinchi xatoni koʻrib chiqaylik.",
+   "Bu yerda p koʻrsatgichiga 10 qiymati berilgan. Bu xatolik qayerda yuz beradi va nima uchun xavfli?",
+   "Javob shuki, p hech qachon berilmagan. U chiqindu manzilni oʻz ichiga oladi va p = 10 nomaʼlum manzilga yozadi. Bu dasturning yiqilishiga olib kelishi yoki notoʻgʻri ishlashi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 7 — Nomaʼlum manzilga yozish",
+   "problem": "int v; int *p = &v; *p = 10; printf(\"%d\\n\", *p);",
+   "steps": [
+    "p koʻrsatgichi berilmagan holda ishlatiladi"
+   ],
+   "result": "Dastur yiqilishi yoki notoʻgʻri ishlashi mumkin"
+  },
+  "narr": [
+   "Agar p koʻrsatgichiga haqiqiy xotiradan manzil berilmasa, u chiqindu manzilga ishora qilishi mumkin. Bunda p = 10 buyurugi nomaʼlum manzilga qiymat yozadi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 7 — Toʻgʻri yozilishi",
+   "problem": "int v; int *p = &v; *p = 10; printf(\"%d\\n\", *p);",
+   "steps": [
+    "p koʻrsatgichiga haqiqiy xotira manzili beriladi"
+   ],
+   "result": "Dastur toʻgʻri ishlaydi"
+  },
+  "narr": [
+   "Toʻgʻri yechim - p ni haqiqiy xotiraga ishora qilish. Buning ikki usuli bor: int v; int *p = &v; yoki p = malloc(sizeof(int));"
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 8 — Qiymat boʻyicha uzatish",
+   "problem": "void swap(int a, int b) { int t = a; a = b; b = t; } int main(void) { int x = 1, y = 2; swap(x, y); printf(\"%d %d\\n\", x, y); return 0; }",
+   "steps": [
+    "swap funksiyiga x va y qiymatlari uzatiladi",
+    "Funksiya oʻz nusxalarini almashtiradi",
+    "Asosiy funksiyadagi oʻzgaruvchilar oʻzgarmaydi"
+   ],
+   "result": "Chiqaruvda \"1 2\" koʻrsatiladi, \"2 1\" emas"
+  },
+  "narr": [
+   "Bu misolda swap(x, y) funksiyasidan keyin chiqaruvda \"1 2\" chiqadi, \"2 1\" emas. Nega?",
+   "C tilida parametrlar qiymat boʻyicha uzatiladi. Swap funksiyasiga x va y ning nusxalari uzatiladi va ular faqat funksiya ichida almashtiriladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 8 — Toʻgʻri yozilishi",
+   "problem": "void swap(int *a, int *b) { int t = *a; *a = *b; *b = t; } int main(void) { int x = 1, y = 2; swap(&x, &y); printf(\"%d %d\\n\", x, y); return 0; }",
+   "steps": [
+    "Koʻrsatgichlar uzatiladi",
+    "Funksiya manzillardagi qiymatlarni almashtiradi"
+   ],
+   "result": "Chiqaruvda \"2 1\" koʻrsatiladi"
+  },
+  "narr": [
+   "Toʻgʻri yechim - koʻrsatgichlarni uzatish. Buning uchun swap funksiyasi int *a va int *b parametrlarini qabul qilishi va chaqirishda &x va &y dan foydalanish kerak."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 9 — malloc +1 etishmaydi",
+   "problem": "char *s = \"hello\"; char *copy = malloc(strlen(s)); strcpy(copy, s); printf(\"%s\\n\", copy); free(copy);",
+   "steps": [
+    "strlen(s) uzunligi hisoblanadi",
+    "malloc faqat shu uzunlikdagi xotirani ajratadi",
+    "strcpy esa terminatori bilan birga yozadi"
+   ],
+   "result": "Heap-blok bitta bayt ortiqcha yuklanadi"
+  },
+  "narr": [
+   "Bu misolda malloc(strlen(s)) funksiyasi qanday ishlaydi?",
+   "strlen(\"hello\") 5 ni qaytaradi, chunki u faqat belgilar sonini hisoblaydi. Terminal belgini hisoblamaydi. Ammo strcpy 5 ta harf va 1 ta terminal belgini yozadi, jami 6 bayt."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 9 — Toʻgʻri yozilishi",
+   "problem": "char *s = \"hello\"; char *copy = malloc(strlen(s) + 1); strcpy(copy, s); printf(\"%s\\n\", copy); free(copy);",
+   "steps": [
+    "malloc ga +1 qoʻshiladi",
+    "Xotira etarlicha ajratiladi"
+   ],
+   "result": "Toʻgʻri ishlaydi"
+  },
+  "narr": [
+   "Toʻgʻri yechim - malloc(strlen(s) + 1). Bu terminal belgini joylashtirish uchun yetarlicha xotirani ajratadi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 10 — Tengsiz hisoblagich teskari siklda",
+   "problem": "char s[] = \"abc\"; for (size_t i = strlen(s) - 1; i >= 0; i--) { putchar(s[i]); } putchar('\\n');",
+   "steps": [
+    "size_t turi belgili emas",
+    "i >= 0 sharti har doim toʻgʻri",
+    "i = 0 dan keyin i manfiy songa aylanadi"
+   ],
+   "result": "Sikl toʻxtamaydi"
+  },
+  "narr": [
+   "Bu siklda nima xato?",
+   "size_t turi belgili emas, shuning uchun i >= 0 sharti har doim toʻgʻri boʻladi. i = 0 dan keyin i kamayganda, u manfiy songa aylanadi va bu katta musbat songa aylanadi (wraparound)."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 10 — Toʻgʻri yozilishi (variant 1)",
+   "problem": "char s[] = \"abc\"; for (int i = (int)strlen(s) - 1; i >= 0; i--) { putchar(s[i]); } putchar('\\n');",
+   "steps": [
+    "size_t int ga aylantiriladi",
+    "Sikl toʻgʻri ishlaydi"
+   ],
+   "result": "Chiqaruvda \"cba\" koʻrsatiladi"
+  },
+  "narr": [
+   "Birinchi tuzatish - hisoblagichni int ga aylantirish."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 10 — Toʻgʻri yozilishi (variant 2)",
+   "problem": "char t[] = \"abc\"; for (size_t i = strlen(t); i > 0; i--) { putchar(t[i - 1]); } putchar('\\n');",
+   "steps": [
+    "Shart i > 0 ga oʻzgartiriladi",
+    "Kirish t[i - 1] ga oʻzgartiriladi"
+   ],
+   "result": "Chiqaruvda \"cba\" koʻrsatiladi"
+  },
+  "narr": [
+   "Ikkinchi tuzatish - shartni i > 0 ga oʻzgartirish va kirishni t[i - 1] ga oʻzgartirish."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 11 — scanf da & etishmayapti",
+   "problem": "int x; scanf(\"%d\", x); printf(\"%d\\n\", x);",
+   "steps": [
+    "scanf oʻzgaruvchi manzilini talab qiladi",
+    "x manzili emas, qiymati uzatiladi"
+   ],
+   "result": "Belgilanmagan xulq"
+  },
+  "narr": [
+   "scanf(\"%d\", x) da nima xato?",
+   "scanf funksiyiga oʻzgaruvchi manzili uzatilishi kerak. x qiymati emas, &x manzili uzatilishi kerak. Aks holda, x ni chiqindu qiymat sifatida koʻrsatgich sifatida talqin qilinadi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 11 — Toʻgʻri yozilishi",
+   "problem": "int x; scanf(\"%d\", &x); printf(\"%d\\n\", x);",
+   "steps": [
+    "&x manzili uzatiladi"
+   ],
+   "result": "Toʻgʻri ishlaydi"
+  },
+  "narr": [
+   "Toʻgʻri yechim - scanf(\"%d\", &x). Bu oʻzgaruvchiga kirish uchun uning manzilini uzatadi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 12 — free dan keyin foydalanish",
+   "problem": "int *p = malloc(sizeof(int)); *p = 42; free(p); printf(\"%d\\n\", *p);",
+   "steps": [
+    "Xotira boshqaruvga qaytariladi",
+    "Xotira qayta ishlatilishi mumkin"
+   ],
+   "result": "Belgilanmagan xulq"
+  },
+  "narr": [
+   "free(p) dan keyin *p ni choplash xato. Nima uchun?",
+   "free(p) dan keyin p koʻrsatgichiga ishlatilgan xotira qayta ishlatilishi mumkin. Bu xotirani oʻqish belgilanmagan xulq hisoblanadi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 12 — Toʻgʻri yozilishi",
+   "problem": "int *p = malloc(sizeof(int)); *p = 42; printf(\"%d\\n\", *p); free(p); p = NULL;",
+   "steps": [
+    "free dan oldin choplanadi",
+    "free dan keyin p = NULL"
+   ],
+   "result": "Toʻgʻri ishlaydi"
+  },
+  "narr": [
+   "Toʻgʻri yechim - free dan oldin qiymatni choplash va free dan keyin p = NULL. Bu xatolarni oldini oladi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Xatolar xaritasi",
+   "columns": [
+    "Xato turi",
+    "Masala raqamlari"
+   ],
+   "rows": [
+    [
+     "Nol-terminalator etishmaydi / + 1 uchun '\\0'",
+     "1, 4, 9"
+    ],
+    [
+     "Koʻrsatgich va massiv chalkashligi",
+     "2, 3"
+    ],
+    [
+     "Faqat oʻqish uchun xotira / osilib qolgan xotira",
+     "5, 6, 12"
+    ],
+    [
+     "Dastlabki belgilanmagan koʻrsatgichlar",
+     "7, 11"
+    ],
+    [
+     "Qiymat boʻyicha uzatish",
+     "8"
+    ],
+    [
+     "Belgisay aylanish (wraparound)",
+     "10"
+    ]
+   ]
+  },
+  "narr": [
+   "Xatolar turiga qarab ularni guruhlaymiz:",
+   "Birinchi guruh - nol-terminalator etishmaydi yoki +1 uchun '\\0' etishmaydi",
+   "Ikkinchi guruh - koʻrsatgich va massiv chalkashligi",
+   "Uchinchi guruh - faqat oʻqish uchun xotira yoki osilib qolgan xotira",
+   "Toʻrtinchi guruh - dastlabki belgilanmagan koʻrsatgichlar",
+   "Beshinchi guruh - qiymat boʻyicha uzatish xatosi",
+   "Oltinchi guruh - belgisay aylanish (wraparound)"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 7,
+   "title": "Yordamchi: asosiy qoidalar va jadvallar",
+   "subtitle": "Operator ustunligi va format belgilar"
+  },
+  "narr": [
+   "Endi test va imtihondan oldin barcha kerakli narsalarni koʻrib chiqaylik. Operator ustunligi, printf/scanf formatlari va C tilining asosiy qoidalari."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Operator ustunligi",
+   "columns": [
+    "Ustunlik",
+    "Operatorlar",
+    "Izoh"
+   ],
+   "rows": [
+    [
+     "1 (eng yuqori)",
+     "++ -- (cast) sizeof",
+     "birlik operatorlari, tur oʻtkazish, hajm"
+    ],
+    [
+     "2",
+     "* / %",
+     "koʻpaytiruvchilar - + va - dan yuqori"
+    ],
+    [
+     "3",
+     "+ -",
+     "qoʻshimcha"
+    ],
+    [
+     "4",
+     "== !=",
+     "tenglikni solishtirish - && va || dan yuqori"
+    ],
+    [
+     "5",
+     "&& ||",
+     "mantiqiy"
+    ],
+    [
+     "6 (eng past)",
+     "= += -= *= /= %=",
+     "tayinlash - juda past ustunlik"
+    ]
+   ]
+  },
+  "narr": [
+   "Operator ustunligi - bu bir nechta operatorlar bir ifodada ishlatilganda, qaysi birining avval bajarilishini bildiradi.",
+   "Yuqori ustunlikdagi operatorlar birinchi bajariladi. Masalan, koʻpaytirish qoʻshishdan yuqori ustunlikka ega."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Operator ustunligi misollari",
+   "problem": "Tenglik misollari:",
+   "steps": [
+    "y = x*3+2 // x*3 birinchi, keyin +2",
+    "x != 0 && y == 0 // solishtirishlar birinchi, keyin mantiqiy &&",
+    "d = c >= '0' && c <= '9' // har bir solishtirish alohida"
+   ],
+   "result": "Qavslardan foydalanib noaniqlikdan qoching"
+  },
+  "narr": [
+   "Noaniqlik va operator ustunligining yon taʼsiridan qochish uchun qavslardan juda koʻp foydalaning.",
+   "Bu misollarda qavslarsiz yozilgan ifodalar bir xil natijani beradi, lekin ularni oʻqish va tushunish qiyinroq."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "printf/scanf format belgilarining toʻliq jadvali",
+   "columns": [
+    "Belgi",
+    "Tur",
+    "Misol / chiqarish"
+   ],
+   "rows": [
+    [
+     "d, i",
+     "int",
+     "printf(\"%d\",10); →10"
+    ],
+    [
+     "u",
+     "unsigned int",
+     "printf(\"%u\",10); →10"
+    ],
+    [
+     "o",
+     "unsigned int (sakkizlik)",
+     "printf(\"%o\",10); →12"
+    ],
+    [
+     "x, X",
+     "unsigned int (oʻnlik)",
+     "printf(\"%x\",10); →0xa"
+    ],
+    [
+     "c",
+     "char",
+     "printf(\"%c\",'A'); →A"
+    ],
+    [
+     "s",
+     "string",
+     "printf(\"%s\",\"hello\"); →hello"
+    ],
+    [
+     "f",
+     "float/double",
+     "printf(\"%f\",2.3); →2.3"
+    ],
+    [
+     "e, E",
+     "haqiqiy (eksponenta)",
+     "printf(\"%e\",2.3); →2.300000e+00"
+    ],
+    [
+     "F, g, G",
+     "double",
+     "printf(\"%g\",2.3); →2.3"
+    ],
+    [
+     "%",
+     "% belgisi",
+     "printf(\"%d %%\",10); →10%"
+    ]
+   ]
+  },
+  "narr": [
+   "printf va scanf funksiyalarida turli format belgilaridan foydalaniladi. Bu jadvalda asqiy format belgilar koʻrsatilgan.",
+   "Masalan, %d butun sonlar uchun, %f haqiqiy sonlar uchun, %c belgilar uchun, %s satrlar uchun ishlatiladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Uzunlik modifikatorlari",
+   "columns": [
+    "Modifikator",
+    "Maʼno"
+   ],
+   "rows": [
+    [
+     "h",
+     "short sifatida talqin qilish; i, d, o, u, x bilan"
+    ],
+    [
+     "l",
+     "long sifatida talqin qilish; i, d, o, u, x bilan"
+    ],
+    [
+     "L",
+     "double sifatida talqin qilish; e, f, g bilan"
+    ]
+   ]
+  },
+  "narr": [
+   "Uzunlik modifikatorlari printf va scanf funksiyalarida oʻzgaruvchining turini aniqroq belgilash uchun ishlatiladi.",
+   "h modifikatori short turdagi oʻzgaruvchilar uchun, l modifikatori long turdagi oʻzgaruvchilar uchun, L modifikatori long double turdagi oʻzgaruvchilar uchun ishlatiladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ }
+]

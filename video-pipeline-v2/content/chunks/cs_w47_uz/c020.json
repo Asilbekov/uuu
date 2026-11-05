@@ -1,0 +1,210 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Kompyuter fanlari",
+   "subtitle": "C · 4-7-haftalar"
+  },
+  "narr": [
+   "Keling, C dasturlash tilidagi ba'zi muhim tushunchalarni ko'rib chiqaylik. Birinchi misolimizda, funktsiyalar qaytarish qiymati bilan ishlashga oid muammoni ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Asl kod",
+   "code": "int main(void) {\nint total = doubled(5) + doubled(3);\nprintf(\"%d\\n\", total);\nreturn 0;\n}",
+   "highlight": [
+    1
+   ]
+  },
+  "narr": [
+   "Bu yerda biz 'doubled' funktsiyasini chaqirib, unga 5 va 3 qiymatlarini uzatayotganmiz. Lekin bu kod kompilyatsiyalanmaydi. Nega?"
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "B5. Nima uchun int total = doubled(5)+ doubled(3); kompilyatsiyalanmaydi?",
+   "problem": "int main(void) {\nint total = doubled(5) + doubled(3);\nprintf(\"%d\\n\", total);\nreturn 0;\n}",
+   "steps": [
+    "'doubled' funktsiyasi void sifatida e'lon qilingan — u hech narsa qaytarmaydi",
+    "Funktsiya ifodada foydalanib bo'lmaydi, chunki u qaytarish o'rniga chop etadi",
+    "Kompilyator xabar beradi: 'void value not ignored as it ought to be'"
+   ],
+   "result": "Funktsiyani int turiga o'zgartiring va return x * 2; dan foydalaning"
+  },
+  "narr": [
+   "Muammo shundaki, 'doubled' funktsiyasi hech narsa qaytarmaydi (void), lekin biz uni ifodada foydalanyapmiz. Kompilyator bu holatni xato sifatida qabul qiladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Tuzatilgan kod",
+   "code": "#include <stdio.h>\nint doubled(int x) {\nreturn x * 2;\n}\nint main(void) {\nint total = doubled(5) + doubled(3);\nprintf(\"%d\\n\", total);\nreturn 0;\n}",
+   "highlight": [
+    1,
+    5
+   ]
+  },
+  "narr": [
+   "Tuzatish uchun funktsiyani int turiga o'zgartirish kerak. Endi doubled funktsiyasi qiymat qaytaradi: total = 10 + 6 = 16, kutilgandek."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "B6. Member discount — inicializatsiyalanmagan o'zgaruvchi",
+   "problem": "#include <stdio.h>\ndouble apply_discount(double price, int is_member) {\ndouble discount;\nif (is_member) {\ndiscount = 0.2;\n}\nreturn price * (1 - discount);\n}\nint main(void) {\nprintf(\"%.2f\\n\", apply_discount(100, 0));\nreturn 0;\n}",
+   "steps": [
+    "Kutilgan: applydiscount(100, 0) →100.0, applydiscount(100, 1) →80.0",
+    "ismember = 0 bo'lganda if sharti bajarilmaydi",
+    "discount inicializatsiyalanmagan qoladi — undefined behavior",
+    "C da avtomatik standart qiymat yo'q"
+   ],
+   "result": "O'zgaruvchini inicializatsiya qiling (double discount = 0.0;) yoki else qo'shing"
+  },
+  "narr": [
+   "Bu misolda biz a'zolar uchun chegirmani qo'llaydigan funktsiyani ko'rib chiqyapmiz. Lekin bu yerda nozik muammo bor."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Tuzatilgan kod",
+   "code": "#include <stdio.h>\ndouble apply_discount(double price, int is_member) {\ndouble discount = 0.0;\nif (is_member) {\ndiscount = 0.2;\n}\nreturn price * (1 - discount);\n}\nint main(void) {\nprintf(\"%.2f\\n\", apply_discount(100, 0));\nreturn 0;\n}",
+   "highlight": [
+    2
+   ]
+  },
+  "narr": [
+   "Muammo shundaki, discount o'zgaruvchisini hech qachon inicializatsiyalamaymiz. Agar is_member 0 bo'lsa, if sharti bajarilmaydi va discount aniqlanmagan qiymatga ega bo'ladi. Buni tuzatish uchun o'zgaruvchini boshlang'ich qiymat bilan ta'minlash kerak."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "Bug Hunt Loops",
+   "subtitle": "Loop bilan bog'liq xatolarni topish"
+  },
+  "narr": [
+   "Endi biz dasturlashda loop bilan bog'liq bo'lgan xatolarni topish mashqlarini ko'rib chiqamiz. Har bir misolda bitta loop bilan bog'liq xato bo'ladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L1. Baholar yig'indisi — tekshiruv masalasi",
+   "problem": "int scores[5] = {90, 85, 70, 100, 60};\nint sum = 0;\nfor (int i = 0; i < 5; i++) {\nsum += scores[i];\n}\nprintf(\"Sum: %d\", sum);",
+   "steps": [
+    "Kutilgan: \"Sum: 405\" chop etadi",
+    "Loop to'g'ri ishlaydi: i 0-4 indekslarni o'tadi",
+    "Har bir element bir marta qo'shiladi",
+    "Yig'indi 90 + 85 + 70 + 100 + 60 = 405"
+   ],
+   "result": "Bu holatda xato yo'q — dastur to'g'ri ishlaydi"
+  },
+  "narr": [
+   "Bu tekshiruv masalasidir. Loop to'g'ri ishlaydi va to'g'ri natija beradi. Bu misol shuni ko'rsatadiki, har bir loopli fragmentda xato bo'lishi shart emas."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L2. Dan keyin nuqta-vergul",
+   "problem": "int sum = 0;\nint i;\nfor (i = 1; i <= 10; i++); {\nsum += i;\n}\nprintf(\"%d\", sum);",
+   "steps": [
+    "Kutilgan: 1..10 yig'indisini, ya'ni 55 ni chop etadi",
+    "for sarlavhasidan keyin nuqta-vergul loopning jismini bo'sh operator qiladi",
+    "Loop o'n marta \"bo'sh aylanadi\", i ni 11 gacha yetkazadi",
+    "Faqatgina keyin { sum += i; } bloki bir marta i = 11 bilan bajariladi"
+   ],
+   "result": "Natija: sum = 11, kutilgan 55 emas"
+  },
+  "narr": [
+   "Bu yerda muammo for sikli dan keyin nuqta-vergul joylashganligidadir. Bu nuqta-vergil loopning jismini bo'sh operatorga aylantiradi, shuning uchun yig'indi noto'g'ri hisoblanadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Tuzatilgan kod",
+   "code": "int sum = 0;\nint i;\nfor (i = 1; i <= 10; i++) {\nsum += i;\n}\nprintf(\"%d\", sum);",
+   "highlight": [
+    3
+   ]
+  },
+  "narr": [
+   "Tuzatish uchun for dan keyin nuqta-vergulni olib tashlash kerak. Shunda loop to'g'ri ishlaydi va 1 dan 10 gacha bo'lgan sonlar yig'indisi 55 bo'ladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "L3. Yo'qotilgan ochilish qavs",
+   "problem": "for (int count = 0; count < 5; ++count)\nprintf(\"Count: %d\", count);\n}",
+   "steps": [
+    "Kutilgan: \"Count: 0\" ... \"Count: 4\" ni chop etadi va to'xtaydi",
+    "for sarlavhasidan keyin ochilish '{' qavsi yo'q",
+    "Loopning jismi faqat printf — bu o'z-o'zidan to'g'ri chiqish beradi",
+    "Yakunidagi yolg'iz '}' sintaktik xato: dastur kompilyatsiyalanmaydi"
+   ],
+   "result": "Dastur kompilyatsiyalanmaydi"
+  },
+  "narr": [
+   "Bu misolda for sikli ochilish qavsi yo'q. Bu sintaktik xatoga olib keladi va dastur kompilyatsiyalanmaydi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "code",
+  "data": {
+   "heading": "Tuzatilgan kod",
+   "code": "for (int count = 0; count < 5; ++count) {\nprintf(\"Count: %d\", count);\n}",
+   "highlight": [
+    1
+   ]
+  },
+  "narr": [
+   "Tuzatish uchun for sarlavhasidan keyin '{' qo'shish kerak. Shunda dastur to'g'ri ishlaydi va 0 dan 4 gacha bo'lgan sonlarni chop etadi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]

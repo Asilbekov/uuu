@@ -1,0 +1,473 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 9,
+   "title": "do-while va while",
+   "subtitle": "Sikllar oʻrtasidagi farq"
+  },
+  "narr": [
+   "Kompyuter fanlarida sikllar muhim ahamiyatga ega. Do-while va while sikllari oʻrtasida asosiy farq qanday?",
+   "Do-while siklida shart har bir iteratsiyadan keyin tekshiriladi. Bu shunchaki, sikl jism kamida bir marta bajarilishini kafolatlaydi.",
+   "Shuni esda tuting, do-while sikli oxirida albatta nuqta-vergul qoʻyiladi: } while (...);",
+   "Boshqa tomondan, while siklida shart birinchi tekshiriladi. Bu sikl jismi hech qachon bajarilmasligi mumkinligini anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S10 — while va for sikllari",
+   "problem": "§6.2.1 dagi while va for sikllari qanday natija beradi va ular qanday farq qiladi?",
+   "steps": [
+    "Ikkala sikl ham 1 2 3 chiqaradi",
+    "while versiyasida int i = 1; ni sikldan toʻgʻri oldin eʼlon qiladi",
+    "for versiyasida sanagichni sarlavhada eʼlon qiladi — u faqat sikl ichida koʻrinadi",
+    "for sikli boshlash, shart va yangilashni bir qatorga birlashtiradi"
+   ],
+   "result": "Ikkalasi ham 1 2 3 chiqaradi; while da sanagich sikldan oldin, for da esa sarlavhada eʼlan qilinadi"
+  },
+  "narr": [
+   "Keling, while va for sikllarini solishtiraylik. Ikkalasi ham 1 2 3 chiqaradi, lekin ular oʻrtasida muhim farq mavjud",
+   "While versiyasida sanagichni int i = 1; deb sikldan toʻgʻri oldin eʼlon qilamiz",
+   "For versiyasida esa sanagichni for sarlavhasida eʼlon qilamiz — u faqat sikl ichida koʻrinadi",
+   "For sikli boshlash, shart va yangilash ifodalarini bir qatorga birlashtirish imkonini beradi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "break va continue operatorlari",
+   "bullets": [
+    "break — eng ichki sikl yoki switch dan chiqadi",
+    "continue — eng ichki sikl jismining qolgan qismini oʻtkazib yuborib, shartga oʻtadi",
+    "continue; operatoridan keyin printf ni chetlab oʻtib i++ yangilashga, keyin sikl shartiga oʻtiladi"
+   ]
+  },
+  "narr": [
+   "Sikllarda ikkita maxsus operator - break va continue mavjud",
+   "break operatori eng ichki sikl yoki switch strukturasi dan chiqishga imkon beradi",
+   "continue operatori esa sikl jismining qolgan qismini oʻtkazib yuborib, sikl shartiga toʻgʻridan-toʻgʻri oʻtadi",
+   "Masalan, for siklida agar continue; operatoridan keyin printf chiqarilsa, u oʻtkazib yuboriladi, i++ yangilash amalga oshadi va keyin sikl shartiga oʻtiladi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "for sarlavhasi",
+   "bullets": [
+    "Boshlash; shart; inkrement — nuqta vergullar bilan ajratilgan",
+    "Har qanday ifoda boʻsh qoldirilishi mumkin",
+    "Boʻsh shart toʻgʻri deb hisoblanadi",
+    "Ifodalar \"vergul\" operatori orqali murakkab boʻlishi mumkin",
+    "Vergul pastroq ustuvorlikka ega va chapdan oʻngga hisoblanadi",
+    "Bu funksiya argumentlari orasidagi vergul emas"
+   ]
+  },
+  "narr": [
+   "For sikli sarlavhasi uchta ifodadan iborat: boshlash, shart va inkrement",
+   "Bu ifodalar nuqta-vergullar bilan ajratiladi",
+   "Eʼtibor bering, har qanday ifodani boʻsh qoldirish mumkin",
+   "Shart ifodasi boʻsh qoldirilsa, u toʻgʻri deb hisoblanadi",
+   "Ifodalar \"vergul\" operatori orqali murakkab boʻlishi mumkin",
+   "Vergul operatori pastroq ustuvorlikka ega va chapdan oʻngga hisoblanadi",
+   "Bu funksiya argumentlari orasidagi vergul emasligini unutmang"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "S13 — Satr uzunligini hisoblash",
+   "problem": "strlensiz HI! satrining uzunligini qanday qoʻlda hisoblash mumkin?",
+   "steps": [
+    "Hisobni n = 0 dan boshlang",
+    "name[n] != '\\0' boʻlguncha n ni oshiring",
+    "Oxirgi belgida toʻxtang — terminal hisoblanmaydi",
+    "n = 0H ni oʻqiydi, n = 1I ni oʻqiydi, n = 2! ni oʻqiydi, n = 3NUL ga yetadi — shart notoʻgʻri, 3 chiqariladi"
+   ],
+   "result": "3"
+  },
+  "narr": [
+   "Keling, strlensiz satr uzunligini qanday qoʻlda hisoblashni koʻrib chiqaylik",
+   "Hisobni n = 0 dan boshlaymiz",
+   "name[n] != '\\0' boʻlguncha n ni oshiramiz",
+   "Oxirgi belgida toʻxtaymiz, chunki terminal belgisi hisoblanmaydi",
+   "Masalan, HI! uchun: n = 0da H ni oʻqiydi, n = 1da I ni oʻqiydi, n = 2da! ni oʻqiydi, n = 3da NUL belgisiga yetadi",
+   "Shart notoʻgʻri boʻlgani uchun sikl toʻxtaydi va natija 3 boʻladi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "static va register oʻzgaruvchilar",
+   "bullets": [
+    "Funksiya ichidagi static: oʻzgaruvchi lokal boʻladi, lekin dastur ishga tushganda bir marta inicializatsiyalanadi",
+    "Har bir chaqiruvda qayta inicializatsiyalanmaydi",
+    "Funksiya tashqarisidagi static koʻrish sohasini joriy fayl bilan cheklaydi",
+    "register — oʻzgaruvchini registrda saqlash soʻrovi",
+    "Faqat lokal oʻzgaruvchilar va argumentlar uchun",
+    "Ortiqcha eʼlonlar eʼtiborga olinmaydi",
+    "register-oʻzgaruvchining manzilini olish mumkin emas"
+   ]
+  },
+  "narr": [
+   "Funksiyalar ichida ikkita maxsus oʻzgaruvchi tur mavjud: static va register",
+   "Funksiya ichidagi static oʻzgaruvchi lokal boʻlishiga qaramay, dastur ishga tushganda bir marta inicializatsiyalanadi",
+   "Har bir funksiya chaqiruvida qayta inicializatsiyalanmaydi",
+   "Funksiya tashqarisida eʼlon qilingan static oʻzgaruvchining koʻrish sohasi joriy fayl bilan cheklanadi",
+   "Register oʻzgaruvchisi esa oʻzgaruvchini CPU registrida saqlash soʻrovini bildiradi",
+   "U faqat lokal oʻzgaruvchilar va funksiya argumentlari uchun ishlatilishi mumkin",
+   "Agar register soʻrovi ortiqcha boʻlsa, kompilyator uni eʼtiborsiz qoldirishi mumkin",
+   "Register oʻzgaruvchining manzilini olish imkoni yoʻq"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3.3,
+   "title": "5-hafta testlari",
+   "subtitle": "Savol va javoblar"
+  },
+  "narr": [
+   "Endi 5-hafta testlarining savol va javoblarini koʻrib chiqaylik"
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T1 — switch ichidagi break",
+   "problem": "switch ichidagi break nima qiladi?",
+   "steps": [
+    "break switch dan chiqadi",
+    "Bajarish qavs yopilgandan keyin davom etadi",
+    "break dasturni tugatmaydi"
+   ],
+   "result": "b) switchdan chiqadi; bajarish qavs yopilgandan keyin davom etadi"
+  },
+  "narr": [
+   "Birinchi savolimiz switch ichidagi break operatoriga oid",
+   "break operatori switch dan chiqishga imkon beradi",
+   "Bajarish qavs yopilgandan keyin dastur davom etadi",
+   "Eʼtibor bering, break dasturni tugatmaydi, faqat switch strukturasi dan chiqadi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T2 — do-while jismi",
+   "problem": "do-while jismi necha marta bajarilishiga kafolat beriladi?",
+   "steps": [
+    "do-while har bir iteratsiyadan keyin shartni tekshiradi",
+    "Shart tekshirilgandan keyin jism kamida bir marta bajariladi"
+   ],
+   "result": "c) kamida bir marta"
+  },
+  "narr": [
+   "Ikkinchi savolimiz do-while siklida jism necha marta bajarilishiga oid",
+   "Do-while siklida shart har bir iteratsiyadan keyin tekshiriladi",
+   "Bu shunchaki, sikl jismi kamida bir marta bajarilishini kafolatlaydi",
+   "Shuning uchun javob 'kamida bir marta'"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T3 — for sikli",
+   "problem": "for (int i = 1; i <= 3; i++) printf(\"%d \", i); nima chiqaradi?",
+   "steps": [
+    "i = 1 boʻlganda 1 chiqariladi",
+    "i = 2 boʻlganda 2 chiqariladi",
+    "i = 3 boʻlganda 3 chiqariladi",
+    "Keyingi oshirish 4 beradi va shart notoʻgʻri boʻladi"
+   ],
+   "result": "a) 1 2 3"
+  },
+  "narr": [
+   "Uchinchi savolimiz oddiy for sikliga oid",
+   "Sikl i = 1 da boshlanadi va 1 ni chiqaradi",
+   "Keyin i = 2 boʻlib, 2 chiqariladi",
+   "Keyin i = 3 boʻlib, 3 chiqariladi",
+   "Keyin i++ 4 ga aylanadi, shart notoʻgʻri boʻladi va sikl tugaydi",
+   "Shuning uchun natija 1 2 3"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T4 — for sarlavhasidagi shart",
+   "problem": "for sarlavhasidagi shartni chetlab oʻtsangiz nima boʻladi?",
+   "steps": [
+    "Boʻsh shart toʻgʻri deb hisoblanadi",
+    "Bu sikl cheksiz davom etishi mumkinligini anglatadi"
+   ],
+   "result": "c) shart toʻgʻri deb hisoblanadi"
+  },
+  "narr": [
+   "Toʻrtinchi savolimiz for sarlavhasidagi shartni chetlab oʻtishga oid",
+   "For sarlavhasidagi shart ifodasini chetlab oʻtsangiz, u toʻgʻri deb hisoblanadi",
+   "Bu sikl cheksiz davom etishi mumkinligini anglatadi",
+   "Shuning uchun javob 'shart toʻgʻri deb hisoblanadi'"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T5 — continue operatori",
+   "problem": "continue; nima qiladi?",
+   "steps": [
+    "continue; ichki sikl jismining qolgan qismini oʻtkazib yuboradi",
+    "Keyin sikl shartiga oʻtadi"
+   ],
+   "result": "b) ichki sikl jismining qolgan qismini oʻtkazib yuborib, shartga oʻtadi"
+  },
+  "narr": [
+   "Beshinchi savolimiz continue operatoriga oid",
+   "continue; operatori ichki sikl jismining qolgan qismini oʻtkazib yuboradi",
+   "Keyin sikl shartiga toʻgʻridan-toʻgʻri oʻtadi",
+   "Masalan, gcd hisoblovchi dasturda, boʻlmaydigan boʻluvchilar oʻtkazib yuboriladi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T6 — Modulus operatori",
+   "problem": "65 % 7 nimaga teng?",
+   "steps": [
+    "'A' belgisi ASCII kodida 65 ga teng",
+    "65 ni 7 ga boʻlganda qoldiq 2 ga teng"
+   ],
+   "result": "b) 2"
+  },
+  "narr": [
+   "Oltinchi savolimiz modulus operatoriga oid",
+   "'A' belgisi ASCII kodida 65 ga teng",
+   "65 ni 7 ga boʻlganda, butun qismi 9, qoldiq esa 2 ga teng",
+   "Shuning uchun 65 % 2 = 2",
+   "Bu case 2 C notasini chiqaradi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T7 — qavsli boʻlmagan else",
+   "problem": "ichma-ich iflarda qavsli boʻlmagan else qaysifga tegishli?",
+   "steps": [
+    "else eng yaqin ichkari if bilan bogʻlanadi",
+    "Tashqari bilan bogʻlash uchun qavslar kerak"
+   ],
+   "result": "b) eng yaqin ichkari"
+  },
+  "narr": [
+   "Yettinchi savolimiz ichma-ich iflarda qavsli boʻlmagan elsega oid",
+   "Qavsli boʻlmagan else eng yaqin ichkari if bilan bogʻlanadi",
+   "Tashqari if bilan bogʻlash uchun qavslar kerak",
+   "Bu C tilida ifodalarni tushunish uchun juda muhim"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T8 — while sikli sharti",
+   "problem": "while sikli sharti qachon tekshiriladi?",
+   "steps": [
+    "while siklida shart jismdan oldin tekshiriladi",
+    "Bu sikl jismi hech qachon bajarilmasligi mumkinligini anglatadi"
+   ],
+   "result": "b) jismdan oldin"
+  },
+  "narr": [
+   "Sakkizinchi savolimiz while siklida shart tekshirilish vaqtiga oid",
+   "While siklida shart birinchi tekshiriladi",
+   "Shart notoʻgʻri boʻlsa, sikl jismi hech qachon bajarilmaydi",
+   "Bu do-while siklidan asosiy farqdir"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T9 — C99 bool turi",
+   "problem": "C99 da mantiqiy tur bool ... sarlavhasi orqali mavjud.",
+   "steps": [
+    "C99 da bool tur mavjud",
+    "<stdbool.h> sarlavhasi kerak",
+    "C89/C90 da mantiqiy turi yoʻq"
+   ],
+   "result": "a) <stdbool.h>"
+  },
+  "narr": [
+   "Toʻqqizinchi savolimiz C99 da mantiqiy tur mavjudligiga oid",
+   "C99 standartida bool tur mavjud",
+   "Buni ishlatish uchun <stdbool.h> sarlavhasi kerak",
+   "Eslatib oʻtamiz, C89/C90 da mantiqiy turi yoʻq, shart oddiy sonli ifoda sifatida qabul qilinadi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "T10 — for sarlavhasidagi ifodalar",
+   "problem": "for sarlavhasida bir nechta ifodalarni bogʻlovchi operator qaysi?",
+   "steps": [
+    "Bir nechta ifodalarni vergul operatori bilan bogʻlash mumkin",
+    "Vergul pastroq ustuvorlikka ega va chapdan oʻngga hisoblanadi",
+    "Bu funksiya argumentlari orasidagi vergul emas"
+   ],
+   "result": "b) vergul"
+  },
+  "narr": [
+   "Oʻninch va oxirgi savolimiz for sarlavhasidagi ifodalarga oid",
+   "For sarlavhasida bir nechta ifodalarni vergul operatori bilan bogʻlash mumkin",
+   "Vergul operatori pastroq ustuvorlikka ega va chapdan oʻngga hisoblanadi",
+   "Bu funksiya argumentlari orasidagi vergul bilan adashtirmaslik kerak",
+   "Masalan: for (i = 1, j = 1; i <= n; j *= i, i++)"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3.4,
+   "title": "Atamalar — 5-hafta glossariysi",
+   "subtitle": "Asosiy tushunchalar"
+  },
+  "narr": [
+   "Endi 5-hafta uchun asosiy atamalarni va ularning maʼnosini koʻrib chiqaylik"
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Blok / murakkab operator",
+   "bullets": [
+    "{ ... } — operatorlarni bitta birlikka birlashtiradi",
+    "Bitta butun sifatida kompilyatsiyalanadi",
+    "Lokal koʻrish sohasini yaratadi",
+    "} dan keyin nuqta-vergul kerak emas"
+   ]
+  },
+  "narr": [
+   "Blok yoki murakkab operator { ... } operatorlarni bitta birlikka birlashtiradi",
+   "Bu operatorlar bitta butun sifatida kompilyatsiyalanadi",
+   "Blok lokal koʻrish sohasini yaratadi",
+   "Eʼtibor bering, } dan keyin nuqta-vergul kerak emas"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

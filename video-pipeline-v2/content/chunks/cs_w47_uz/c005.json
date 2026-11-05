@@ -1,0 +1,458 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Operator ustunligi",
+   "subtitle": "Tartibni tushunish"
+  },
+  "narr": [
+   "Keling, dasturlashdagi operatorlarning ustunlik tartibini ko'rib chiqaylik.",
+   "Bu tartib ifodalarni qanday baholashni belgilaydi.",
+   "Operatorlar quyidagi tartibda ishlaydi: ikkilamchi operatorlar, ko'paytirish, bo'lish va qoldiq olish, qo'shish ayirish, tenglik va teng emaslik, mantiqiy AND va OR, va oxirida tayinlash operatorlari.",
+   "Qavsli qavslar har doim ustunlikka ega, shuning uchun ularni kerak bo'lganda ko'proq foydalaning."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Increment/Decrement operatorlari",
+   "bullets": [
+    "x++ (postfiks: orttirishdan oldingi qiymat)",
+    "++x (prefiks: orttirishdan keyingi qiymat)",
+    "Xuddi shu decrement operatorlari uchun ham amal qiladi"
+   ]
+  },
+  "narr": [
+   "Keling, increment va decrement operatorlarini ko'rib chiqaylik.",
+   "Postfiks shaklda, x++ ifodasi x ning asl qiymatini qaytaradi, so'ngra x ni birga oshiradi.",
+   "Prefiks shaklda, ++x ifodasi x ni birga oshiradi va yangi qiymatni qaytaradi.",
+   "Bu farq dasturlashda juda muhim bo'lishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Kabisa yilini aniqlash",
+   "bullets": [
+    "400 ga bo'linadigan yil",
+    "Yoki 4 ga bo'linib 100 ga bo'linmaydigan yil"
+   ]
+  },
+  "narr": [
+   "Kabisa yilini aniqlash uchun quyidagi shartlardan foydalanamiz:",
+   "Yil 400 ga bo'linadi, yoki",
+   "Yil 4 ga bo'linadi lekin 100 ga bo'linmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Kabisa yili sharti",
+   "tex": "year \\% 400 == 0 || (year \\% 4 == 0 \\&\\& year \\% 100 != 0)",
+   "parts": [
+    {
+     "substr": "year \\% 400 == 0",
+     "color": "#4C5FD5",
+     "note": "Yil 400 ga bo'linadi"
+    },
+    {
+     "substr": "year \\% 4 == 0",
+     "color": "#B45309",
+     "note": "Yil 4 ga bo'linadi"
+    },
+    {
+     "substr": "year \\% 100 != 0",
+     "color": "#0E7C7B",
+     "note": "Yil 100 ga bo'linmaydi"
+    },
+    {
+     "substr": "||",
+     "color": "#A03040",
+     "note": "YOKI"
+    },
+    {
+     "substr": "&&",
+     "color": "#A03040",
+     "note": "VA"
+    }
+   ]
+  },
+  "narr": [
+   "Kabisa yilini tekshirish uchun bizda ikkita asosiy shart bor.",
+   "Birinchisi, yil 400 ga bo'linishi kerak.",
+   "Yoki ikkinchi shart, yil 4 ga bo'linadi lekin 100 ga bo'linmaydi.",
+   "Bu ikkala shartdan birining to'g'ri bo'lishi kabisa yilini bildiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "5-hafta — Boshqaruv konstruksiyalari",
+   "subtitle": "Qaror qabul qilish va vazifalarni takrorlash"
+  },
+  "narr": [
+   "Endi 5-haftaga o'tamiz, bu dasturlashda asosiy boshqaruv konstruksiyalarini o'rganishga bag'langan.",
+   "Bu haftada shartli operatorlar va tsikllarni chuqurroq ko'rib chiqamiz.",
+   "Shartli operatorlar if/else if/else va switch bo'ladi.",
+   "Tsikllar esa while, for va do-while kabi turlarga ega.",
+   "Shuningdek, break va continue operatorlari, funksiyalar va modulli dasturlashni ham o'rganamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Asosiy tushunchalar",
+   "subtitle": "5-hafta barcha qoidalar"
+  },
+  "narr": [
+   "Keling, 5-haftaning asosiy tushunchalarini batafsil ko'rib chiqaylik.",
+   "Bu yerda bloklar va murakkab operatorlar, shartli ifodalar va switch konstruksiyalari o'rin olgan."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bloklar va murakkab operatorlar",
+   "bullets": [
+    "Oddiy operator nuqta-vergul bilan tugaydi",
+    "Bir nechta operatorlar qavsli qavslar {} bilan birlashtiriladi",
+    "Blok oddiy operatorkuti layotgan joyda turishi mumkin",
+    "Blok butun sifatida kompilyatsiya qilinadi",
+    "Blok ichida o'zgaruvchilar e'lon qilinishi mumkin",
+    "Blox bo'sh {} bo'lishi mumkin"
+   ]
+  },
+  "narr": [
+   "Dasturlashda bloklar juda muhim rol o'ynaydi.",
+   "Oddiy operatorlar nuqta-vergul bilan tugaydi, lekin bir nechta operatorlarni birlashtirish uchun qavsli qavslardan foydalanamiz.",
+   "Blok oddiy operatorkuti layotgan joyda turishi mumkin.",
+   "Blok butun sifatida kompilyatsiya qilinadi.",
+   "Blok ichida yangi o'zgaruvchilar e'lon qilish mumkin.",
+   "Blox bo'sh {} bo'lishi ham mumkin, bu holatda hech narsa bajarilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "C dagi shartli operatorlar",
+   "bullets": [
+    "C89/C90 da mantiqiy tur yo'q",
+    "C99 da bool <stdbool.h> orqali mavjud",
+    "Shart - bu ifoda (yoki ifodalar seriyasi)",
+    "Nol bo'lmagan ifoda shart to'g'ri degan ma'noni anglatadi",
+    "Ifoda sonli (yoki ko'rsatkichli) bo'lishi kerak"
+   ]
+  },
+  "narr": [
+   "C dasturlash tilida shartli operatorlar boshqa tillardagidan farq qiladi.",
+   "C89/C90 da mantiqiy tur mavjud emas, lekin C99 da bool turini <stdbool.h> kutubxonasi orqali foydalanish mumkin.",
+   "Shart ifodasi yoki ifodalar seriyasi bo'lishi mumkin, masalan n < 3 yoki x < y || z < y.",
+   "Nol bo'lmagan ifoda shart to'g'ri degan ma'noni anglatadi.",
+   "Ifoda sonli yoki ko'rsatkichli bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "if/else if/else operatorlari",
+   "bullets": [
+    "if: shartni hisoblang; agar to'g'ri bo'lsa - ichki operatorni bajar",
+    "else: agar shart noto'g'ri bo'lsa, operatorni bajar",
+    "else if: qo'shimcha alternativ yo'llar",
+    "Shartlar birinchi to'g'ri bo'lguncha ketma-ket tekshiriladi",
+    "Agar bir nechtasi to'g'ri bo'lsa, faqat birinchasi bajariladi"
+   ]
+  },
+  "narr": [
+   "C tilida if/else if/else operatorlari shartli bajarish uchun ishlatiladi.",
+   "if operatori shartni tekshiradi; agar to'g'ri bo'lsa, ichki operatorni bajaradi.",
+   "else operatori ixtiyoriy bo'lib, agar shart noto'g'ri bo'lsa, operatorni bajaradi.",
+   "else if operatori qo'shimcha alternativ yo'llarni taqdim etadi.",
+   "Shartlar birinchi to'g'ri bo'lguncha ketma-ket tekshiriladi.",
+   "Agar bir nechta shartlar to'g'ri bo'lsa, faqat birinchasi bajariladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Juft sonni tekshirish",
+   "problem": "x o'zgaruvchisi juft son ekanligini tekshiring",
+   "steps": [
+    {
+     "text": "if (x % 2) y += x / 2; // agar x toq bo'lsa"
+    },
+    {
+     "text": "if (x % 2 == 0) y += x/2; // agar x juft bo'lsa"
+    },
+    {
+     "text": "else y += (x+1)/2; // aks holda"
+    },
+    {
+     "text": "if (x % 2 == 0) y += x / 2;"
+    },
+    {
+     "text": "else if (x % 4 == 1) y += 2 * ((x + 3) / 4); // qo'shimcha shart"
+    },
+    {
+     "text": "else y += (x + 1) / 2; // oxirgi holat"
+    }
+   ],
+   "result": "x ning qiymatiga qarab y o'zgaruvchisi yangilanadi"
+  },
+  "narr": [
+   "Keling, juft sonlarni tekshirish misolini ko'rib chiqaylik.",
+   "Birinchi usulda, agar x toq bo'lsa, y ga x/2 ni qo'shamiz.",
+   "Ikkinchi usulda, aniqroq shartlar bilan ishlaymiz.",
+   "Agar x juft bo'lsa, y ga x/2 ni qo'shamiz.",
+   "Aks holda, y ga (x+1)/2 ni qo'shamiz.",
+   "Uchinchi misolda qo'shimcha shart qo'shamiz: agar x 4 ga bo'linganda 1 qoldiq qolsa, y ga 2 * ((x + 3) / 4) ni qo'shamiz.",
+   "Oxirgi holatda esa, y ga (x + 1) / 2 ni qo'shamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ichma-ich if - klassik tuzoq",
+   "bullets": [
+    "Qavsli bo'lmagan else yaqin ichki if bilan bog'lanadi",
+    "Else ni tashqi if bilan bog'lash uchun - qavsli qavslardan foydalaning"
+   ]
+  },
+  "narr": [
+   "Ichma-ich if operatorlari bilan ishlashda ehtiyot bo'lish kerak, chunki ular klassik tuzoqqa olib kelishi mumkin.",
+   "Qavsli bo'lmagan else if yaqin ichki if bilan bog'lanadi.",
+   "Else ni tashqi if bilan bog'lash uchun qavsli qavslardan foydalanish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Else bilan bog'lanishni tushunish",
+   "problem": "X o'zgaruvchisiga qarab y ni aniqlang",
+   "steps": [
+    {
+     "text": "if (x % 4 == 0) if (x % 2 == 0) y = 2; else y = 1; // else ichki ifga tegishli!"
+    },
+    {
+     "text": "if (x % 4 == 0) { if (x % 2 == 0) y = 2; } else y = 1; // endi else tashqi if bilan bog'langan"
+    }
+   ],
+   "result": "Birinchi misolda else ichki ifga tegishli, ikkinchisida esa tashqi ifga"
+  },
+  "narr": [
+   "Keling, else bilan bog'lanishni tushunish uchun ikki misol ko'rib chiqaylik.",
+   "Birinchi misolda, else if yaqin ichki if bilan bog'langan, shuning uchun x 4 ga bo'linganda 2 qoldiq bo'lsa y=1 bo'ladi.",
+   "Ikkinchi misolda esa, qavsli qavslar orqali else tashqi if bilan bog'langan, shuning uchun x 4 ga bo'linmasa y=1 bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "switch operatori",
+   "bullets": [
+    "Case, break, default va fall-through",
+    "Kirishda butun sonli (yoki belgili) o'zgaruvchi",
+    "Uning qiymatlari uchun holatlar (case) ko'rib chiqiladi",
+    "Kompilyator o'zgaruvchini har bir metka bilan ketma-ket solishtiradi",
+    "Mos kelganda, u eng yaqin break gacha bo'lgan ichki kodni bajaradi",
+    "Break bo'lmaydigan holda bajarish \"pastga tushadi\" (falls through) keyingi case ga"
+   ]
+  },
+  "narr": [
+   "Switch operatori alternativ shartli operator bo'lib, bir nechta holatlarni boshqarishga imkon beradi.",
+   "Switch operatori kirish sifatida butun sonli yoki belgili o'zgaruvchini qabul qiladi.",
+   "Ushbu o'zgaruvchining qiymati uchun holatlar (case) ko'rib chiqiladi.",
+   "Kompilyator o'zgaruvchini har bir metka bilan ketma-ket solishtiradi.",
+   "Mos kelganda, u eng yaqin break gacha bo'lgan ichki kodni bajaradi.",
+   "Agar break bo'lmasa, bajarish \"pastga tushadi\" (falls through) keyingi case ga o'tadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "switch operatorining laboratoriya tamoyillari",
+   "bullets": [
+    "Switch butun sonli ifodani (shu jumladan char ni) qabul qiladi",
+    "Case-metkalari - turli butun sonli doimiy ifodalar",
+    "Diapazonlar va murakkab shartlar uchun if dan foydalaning"
+   ]
+  },
+  "narr": [
+   "Laboratoriya mashqlarida switch operatori bilan ishlashda bir nechta tamoyillar mavjud.",
+   "Switch butun sonli ifodani, shu jumladan char turini ham qabul qiladi.",
+   "Case-metkalari turli butun sonli doimiy ifodalardan iborat bo'lishi kerak.",
+   "Agar siz diapazonlar yoki murakkab shartlarni tekshirishni xohlasangiz, if operatoridan foydalaning."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Bahoni tekshirish (if/else-if vs switch)",
+   "problem": "Baho berilgan bo'lsa, unga mos xabar chiqaring",
+   "steps": [
+    {
+     "text": "if (grade == 'A') { printf(\"Perfect!\\n\"); } else if (grade == 'B') { printf(\"You did good!\\n\"); } else if (grade == 'C') { printf(\"You did okay!\\n\"); } else if (grade == 'D') { printf(\"At least it's not an F!\\n\"); } else if (grade == 'F') { printf(\"YOU FAILED!\\n\"); } else { printf(\"That's not a valid grade!\\n\"); }"
+    },
+    {
+     "text": "switch (grade) { case 'A': printf(\"Perfect!\\n\"); break; case 'B': printf(\"You did good!\\n\"); break; case 'C': printf(\"You did okay!\\n\"); break; case 'D': printf(\"At least it's not an F!\\n\"); break; case 'F': printf(\"YOU FAILED!\\n\"); break; default: printf(\"That's not a valid grade!\\n\"); }"
+    }
+   ],
+   "result": "Ikkala usul ham bir xil natijani beradi, lekin switch ko'proq o'qilishi oson"
+  },
+  "narr": [
+   "Keling, bahoni tekshirish uchun ikki usulni solishtiraylik: if/else-if zinas va switch.",
+   "Birinchi usulda, har bir baho uchun alohida if/else-if sharti berilgan.",
+   "Ikkinchi usulda esa, switch operatori va case-metkalari orqali bir xil natijaga erishamiz.",
+   "Ikkala usul ham A/B/C/D/F va W baholari uchun bir xil xabarlarni beradi.",
+   "Switch operatori ko'proq o'qilishi oson va boshqaruv konstruksiyasini aniqroq ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bir nechta case-metkalari",
+   "bullets": [
+    "Bir nechta case-metkalari ketma-ket joylashtirilishi mumkin",
+    "Bu bir xil kodni bir nechta qiymatlar uchun ishlatishga im beradi"
+   ]
+  },
+  "narr": [
+   "Switch operatorida bir nechta case-metkalari ketma-ket joylashtirilishi mumkin.",
+   "Bu bir xil kodni bir nechta qiymatlar uchun ishlatishga im beradi.",
+   "Masalan, 'Y' va 'y' harflari uchun bir xil amalni bajarish kerak bo'lsa, ularni birga yozish mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Case-metkalari birlashtirish",
+   "problem": "ch o'zgaruvchisiga qarab harakat qiling",
+   "steps": [
+    {
+     "text": "switch (ch) { case 'Y': /* ch == 'Y' */ /* do something */ break; case 'N': /* ch == 'N' */ /* do something else */ break; default: /* otherwise */ /* do a third thing */ break; }"
+    },
+    {
+     "text": "switch (ch) { case 'Y': case 'y': /* do something if ch == 'Y' or ch == 'y' */ break; default: /* otherwise */ /* do a third thing */ break; }"
+    }
+   ],
+   "result": "Ikkinchi usulda 'Y' va 'y' uchun bir xil kod ishlatiladi"
+  },
+  "narr": [
+   "Keling, case-metkalari birlashtirish misolini ko'rib chiqaylik.",
+   "Birinchi misolda, 'Y' va 'N' uchun alohida case-metkalari berilgan.",
+   "Ikkinchi misolda esa, 'Y' va 'y' uchun bir xil amal bajarish kerakligi uchun ular birlashtirilgan.",
+   "Bu usul kodni qisqartirish va o'qilishini osonlashtirishga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ }
+]

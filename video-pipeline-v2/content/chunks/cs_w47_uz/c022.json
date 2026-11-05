@@ -1,0 +1,257 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 10,
+   "title": "Listing uzilgan — bu masalada qanday saboq bor?",
+   "subtitle": "break va goto qoidalarini tushunish"
+  },
+  "narr": [
+   "Keling, bu noyob masalaga qaraylik. Darslikda toʻliq kod taqdim etilmagan, lekin bizda yetarli ma'lumot bor.",
+   "Asosiy muammo: break kaliti faqat eng ichki tsiklni to'xtatadi. Bu yerda biz ikki o'lchovli tsiklda qidirib chiqayotganmiz.",
+   "Agar siz break dan foydalansangiz, faqat ichki tsikldan, ya'ni ustunlar bo'yicha qidirishdan chiqasiz.",
+   "Tashqi tsikl - qatorlar bo'yicha qidirish - ishlab chiqarishda davom etadi.",
+   "To'liq chiqarib tashlash uchun siz 'topildi' bayrog'idan yoki kalit so'zidan foydalanasiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Muammo - break qoidasini noto'g'ri tushunish",
+   "problem": "Darslikda to'liq kod taqdim etilmagan, lekin 7-qator, 1-ustunda joylashgan elementni qidirishda \"First 7 found in row 0\" deb chiqarilishi kerak edi.",
+   "steps": [
+    "break kaliti faqat eng ichki tsiklni to'xtatadi",
+    "Bu holatda ichki tsikl - ustunlar bo'yicha qidirish",
+    "Tashqi tsikl - qatorlar bo'yicha qidirish - ishlab chiqarishda davom etadi",
+    "To'liq chiqarib tashlash uchun 'topildi' bayrog'idan foydalanish kerak",
+    "Yoki ichki bloklardan chiqish uchun kalit so'zidan foydalanish mumkin"
+   ],
+   "result": "break dan foydalanganda, faqat ichki tsikldan chiqiladi, tashqi tsikl ishlab chiqarishda davom etadi."
+  },
+  "narr": [
+   "Masala shunday: sizda to'rtburchak bor va siz unda ma'lum bir elementni qidirayotgan bo'lingiz.",
+   "Siz break dan foydalansangiz, faqat ichki tsikldan, ya'ni ustunlar bo'yicha qidirishdan chiqasiz.",
+   "Lekin tashqi tsikl - qatorlar bo'yicha qidirish - ishlab chiqarishda davom etadi.",
+   "Shuning uchun birinchi topilgandan keyin to'liq qidirishni to'xtatish uchun 'topildi' bayrog'idan yoki kalit so'zidan foydalanish kerak.",
+   "Bu C tilida tsikllar bilan ishlashda muhim qoidadir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6.3,
+   "title": "Bug Hunt Pointers & Strings",
+   "subtitle": "Ko'rsatkichlar va satdlar bilan bog'liq xatolar"
+  },
+  "narr": [
+   "Endi biz C tilidagi ko'rsatkichlar va satdlar bilan bog'liq xatolarni o'rganamiz.",
+   "Bu xatolar kompilyatsiya qilinadi, ammo ularning aksariyati belgilanmagan xulq-atvor natijasida kelib chiqadi.",
+   "Xatolar turli kompilyatorlar, bayroqlar va mashinalarda turli alomatlar ko'rsatishi mumkin.",
+   "Har bir masalada asl kod, tushuntirish va to'g'rilangan kodni ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "P1. Nol-terminalator yo'q",
+   "problem": "char s[5] = {'h', 'e', 'l', 'l', 'o'};\nprintf(\"%s\\n\", s);",
+   "steps": [
+    "Massivda 5 ta xona bor, 5 ta harf uchun",
+    "Nol-terminalator ('\\0') uchun joy qolmagan",
+    "printf(\"%s\") massivdan keyingi xotirani nolli baytga duch kelguncha o'qishda davom etadi",
+    "Bu chiqarish noaniq bo'lishi mumkin"
+   ],
+   "result": "To'g'ri javob: char s[6] = {'h', 'e', 'l', 'l', 'o', '\\0'}; yoki char s[] = \"hello\";"
+  },
+  "narr": [
+   "Keling, birinchi masalaga qaraylik. Bizda 5 ta elementdan iborat massiv bor.",
+   "Massivda 'h', 'e', 'l', 'l', 'o' harflari saqlangan, lekin nol-terminalator ('\\0') yo'q.",
+   "printf(\"%s\") funktsiyasi satdni chiqarish uchun nol-terminalatorgacha bo'lgan barcha belgilarni o'qiydi.",
+   "Bu yerda esa nol-terminalatordan keyingi xotiradan tasodifiy ma'lumotlar o'qib chiqarilishi mumkin.",
+   "Yechim - massivda 6-xonani ajratib, nol-terminalator qo'shish yoki kompilyatorga uni avtomatik qo'shishni topshirish."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "P2. sizeof ko'rsatkichda",
+   "problem": "char *s = \"hello\";\nprintf(\"%zu\\n\", sizeof(s));",
+   "steps": [
+    "s - bu char turidagi ko'rsatgich",
+    "sizeof(s) - bu ko'rsatgichning o'zining o'lchami, unga ko'rsatilgan satdning uzunligi emas",
+    "64-bitli mashinada ko'rsatgichning o'lchami 8 bayt",
+    "Satdning uzunligini olish uchun strlen(s) funktsiyasidan foydalanish kerak"
+   ],
+   "result": "To'g'ri javob: char *s = \"hello\";\nprintf(\"%zu\\n\", strlen(s));"
+  },
+  "narr": [
+   "Ikkinchi masalada bizda ko'rsatgich o'zgaruvchisi bor.",
+   "s o'zgaruvchisi 'hello' satdiga ishora qiladi, lekin sizeof(s) satdning uzunligini emas, balki ko'rsatgichning o'zining o'lchamini qaytaradi.",
+   "64-bitli mashinada bu 8 bo'ladi, chunki ko'rsatgich 8 baytli.",
+   "Satdning uzunligini olish uchun strlen(s) funktsiyasidan foydalanish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "P3. Satdlarni == orqali solishtirish",
+   "problem": "char a[] = \"cat\";\nchar b[] = \"cat\";\nif (a == b)\n    puts(\"Same\");\nelse\n    puts(\"Different\");",
+   "steps": [
+    "a == b solishtirish ikki massivning manzillarini solishtiradi",
+    "Bu ikki xil xotiradagi ikki xil ob'ekt",
+    "Satdlarning mazmunini solishtirish uchun strcmp funktsiyasidan foydalanish kerak",
+    "Agar ikki satd bir xil bo'lsa, strcmp(a, b) 0 qiymatini qaytaradi"
+   ],
+   "result": "To'g'ri javob: char a[] = \"cat\";\nchar b[] = \"cat\";\nif (strcmp(a, b) == 0)\n    puts(\"Same\");\nelse\n    puts(\"Different\");"
+  },
+  "narr": [
+   "Uchinchi masalada ikki bir xil satdni solishtirishga harakat qilamiz.",
+   "Lekin == operatori ikki massivning manzillarini solishtiradi, ularning mazmunini emas.",
+   "Bu ikki xil xotirada joylashgan ikki xil ob'ekt bo'lishi mumkin.",
+   "Satdlarning mazmunini solishtirish uchun strcmp funktsiyasidan foydalanish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "P4. Bufer strcpy uchun juda kichik",
+   "problem": "char dest[5];\nstrcpy(dest, \"hello\");\nprintf(\"%s\\n\", dest);",
+   "steps": [
+    "\"hello\" satdi 6 bayt talab qiladi: 5 ta harf + nol-terminalator",
+    "dest massivi faqat 5 sig'imli",
+    "strcpy funktsiyasi buferdan tashqariga yozishga harakat qiladi (bufer ortiqcha yuklanishi)",
+    "Bu xavfli holat bo'lib, dasturning noto'g'ri ishlashiga olib kelishi mumkin"
+   ],
+   "result": "To'g'ri javob: char dest[6];\nstrcpy(dest, \"hello\");\nprintf(\"%s\\n\", dest);"
+  },
+  "narr": [
+   "To'rtinchi masalada bizda strcpy funktsiyasidan foydalanilgan.",
+   "\"hello\" satdi 6 bayt talab qiladi: 5 ta harf va nol-terminalator.",
+   "Lekin dest massivi faqat 5 sig'imli.",
+   "strcpy funktsiyasi buferdan tashqariga yozishga harakat qiladi, bu esa xavfli holatdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "P5. Satdli literalni o'zgartirish",
+   "problem": "char *s = \"hello\";\ns[0] = 'J';\nprintf(\"%s\\n\", s);",
+   "steps": [
+    "\"hello\" - bu faqat o'qish uchun xotiradagi literal",
+    "s faqat unga ishora qiladi",
+    "s[0] = 'J' yozish read-only xotirani o'zgartirishga harakat qiladi",
+    "Bu odatda segmentatsiya xatosiga (segfault) olib keladi"
+   ],
+   "result": "To'g'ri javob: char s[] = \"hello\";\ns[0] = 'J';\nprintf(\"%s\\n\", s);"
+  },
+  "narr": [
+   "Beshinchi masalada bizda satdni o'zgartirishga harakat qilinayotgan.",
+   "\"hello\" - bu faqat o'qish uchun xotiradagi satd literalidir.",
+   "s o'zgaruvchisi faqat unga ishora qiladi, lekin uni o'zgartirish mumkin emas.",
+   "s[0] = 'J' yozish read-only xotirani o'zgartirishga harakat qiladi, bu esa xatoga olib keladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "P6. Lokal o'zgaruvchiga ko'rsatgichni qaytarish",
+   "problem": "char *greeting(void) {\n    char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}\n\nint main(void) {\n    char *g = greeting();\n    printf(\"%s\\n\", g);\n    return 0;\n}",
+   "steps": [
+    "buf o'zgaruvchisi greeting() funksiyasining stek kadrida joylashgan",
+    "Funksiya qaytgandan so'ng buf o'zgaruvchisi darhol yo'qoladi",
+    "g osib qolgan ko'rsatgichga (dangling) aylanadi",
+    "*g ni o'qish - bu belgilanmagan xulq-atvor"
+   ],
+   "result": "To'g'ri javob: char *greeting(void) {\n    static char buf[20];\n    strcpy(buf, \"Hi there\");\n    return buf;\n}"
+  },
+  "narr": [
+   "Oltinchi masalada bizda funksiya ichidagi lokal massivdan ko'rsatgich qaytarilayotgan.",
+   "buf o'zgaruvchisi greeting() funksiyasining stek kadrida joylashgan.",
+   "Funksiya qaytgandan so'ng buf o'zgaruvchisi darhol yo'qoladi.",
+   "Shuning uchun g osib qolgan ko'rsatgichga aylanadi va unga murojaat qilish xavfli."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "P7. Initsizlangan (yovvoyi) ko'rsatgich",
+   "problem": "int *p; // -> Memory address\n*p = 10;\nprintf(\"%d\\n\", *p);",
+   "steps": [
+    "p o'zgaruvchisi initsizlangan, ya'ni u hech qanday manzilga ishora qilmaydi",
+    "*p = 10 yozish noto'g'ri manzilga yozishga harakat qiladi",
+    "Bu belgilanmagan xulq-atvor bo'lib, dasturni buzishi mumkin",
+    "Ko'rsatgichdan foydalanishdan oldin uni to'g'ri manzilga yo'naltirish kerak"
+   ],
+   "result": "To'g'ri javob: int *p;\n// p ni to'g'ri manzilga yo'naltiring\n*p = 10;\nprintf(\"%d\\n\", *p);"
+  },
+  "narr": [
+   "Yettinchi masalada bizda initsizlangan ko'rsatgichdan foydalanilayotgan.",
+   "p o'zgaruvchisi hech qanday manzilga ishora qilmaydi, chunki uni initsizlangan.",
+   "*p = 10 yozish noto'g'ri manzilga yozishga harakat qiladi.",
+   "Bu belgilanmagan xulq-atvor bo'lib, dasturni buzishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]
