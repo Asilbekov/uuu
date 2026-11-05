@@ -1,0 +1,375 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Keling, chiziqli algebraning 5-7 haftalaridagi asosiy tushunchalarni ko'rib chiqaylik. Bu haftalarda chiziqli tenglamalar sistemasini yechish usullari, matritsa operatsiyalari va ularning geometrik talqinlari o'rganiladi.",
+   "Biz quyidagi asosiy mavzularga e'tibor qaramiz: chiziqli tenglamalar sistemasi, yechimlar turlari, eliminatsiya usuli, matritsa ajratishlari va ularning xossalari."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Vektorlarning chiziqli birikmasi",
+   "problem": "u · \n\\begin{bmatrix}\n2 \\\\\n4 \\\\\n-2\n\\end{bmatrix}+ v · \n\\begin{bmatrix}\n1 \\\\\n-6 \\\\\n7\n\\end{bmatrix}+ w · \n\\begin{bmatrix}\n1 \\\\\n0 \\\\\n2\n\\end{bmatrix}=\n\\begin{bmatrix}\n5 \\\\\n-2 \\\\\n9\n\\end{bmatrix}",
+   "steps": [
+    "Bu sistema ikki xil usulda talqin qilinishi mumkin: qatorlar — tenglamalar, ustunlar — chiziqli birikmalar (vektorlar)."
+   ],
+   "result": "Bu sistema Ax = b ko'rinishidagi chiziqli tenglamalar sistemasidir, bunda A matritsa, x vektor (u, v, w), b esa o'ng tomon vektoridir."
+  },
+  "narr": [
+   "Ko'rib turganingizdek, uchta vektorni chiziqli birikmasi orqali boshqa vektorni ifodalaymiz.",
+   "Bu ifodani ikki hil talqin qilish mumkin: birinchisi, bu chiziqli tenglamalar sistemasidir, ikkinchisi esa vektorlarning chiziqli birikmasidir."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Uchta mumkin bo'lgan yechim natijasi",
+   "bullets": [
+    "Bitta yechim — mustaqil cheklovlar",
+    "Cheksiz ko'p yechimlar: x + y = 2 va 2x + 2y = 4 — ikkinchi tenglama birinchisining ikki barobar katta, to'g'ri chiziqlar ustma-ust tushadi",
+    "Yechim yo'q: x + y = 2 va 2x + 2y = 5 — chap tomonlar proporsional, o'ng tomonlar emas, to'g'ri chiziqlar parallel"
+   ]
+  },
+  "narr": [
+   "Chiziqli tenglamalar sistemasida uchta holat bo'lishi mumkin:",
+   "Birinchisi, sistema bitta yechimga ega bo'ladi, bu erda cheklovlar bir-biriga bog'liq emas.",
+   "Ikkinchi holatda sistema cheksiz ko'p yechimga ega bo'ladi. Masalan, x + y = 2 va 2x + 2y = 4 tenglamalar sistemasida ikkinchi tenglama birinchisining ikki barobariga teng, ya'ni ikkala to'g'ri chiziq ustma-ust tushadi.",
+   "Uchinchi holatda esa sistema yechimga ega emas. Masalan, x + y = 2 va 2x + 2y = 5 tenglamalar sistemasida chap tomonlar proporsional, lekin o'ng tomonlar proporsional emas, shuning uchun to'g'ri chiziqlar parallel va kesishmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Yechimlarning matritsa ko'rinishi",
+   "tex": "[00 \\ldots 0|0] \\rightarrow 0 = 0 — cheksiz ko'p yechimlar; [00 \\ldots 0|c], c \\neq 0, \\rightarrow 0 = c — yechim yo'q",
+   "parts": [
+    {
+     "substr": "00 \\ldots 0|0",
+     "color": "#4C5FD5",
+     "note": "barcha nolli qator"
+    },
+    {
+     "substr": "0 = 0",
+     "color": "#0E7C7B",
+     "note": "to'g'ri identik tenglama"
+    },
+    {
+     "substr": "00 \\ldots 0|c",
+     "color": "#4C5FD5",
+     "note": "barcha nolli qator, lekin o'ng tomon nol emas"
+    },
+    {
+     "substr": "0 = c",
+     "color": "#A03040",
+     "note": "ziddiyatli tenglama"
+    }
+   ]
+  },
+  "narr": [
+   "Matritsani qatorlar ko'rinishida ko'rib chiqsak, yechimlarning mavjudligini aniqlash osonlashadi.",
+   "Agar matritsada barcha nolli qator bo'lib, o'ng tomon ham nol bo'lsa (0 = 0), bu sistema cheksiz ko'p yechimga ega degani.",
+   "Ammo agar barcha nolli qatorning o'ng tomoni noldan farqli bo'lsa (0 = c, c ≠ 0), bu esa ziddiyatli tenglama bo'lib, sistema yechimga ega emas degani."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asoschi element, ko'paytuvchi va to'g'ridan-to'g'ri yurish",
+   "bullets": [
+    "λij = aij/ajj — ko'paytuvchi",
+    "Ri ← Ri − λij · Rj — operatsiya",
+    "aij elementini nol bo'lmagan asoschi element ajj ostidan chiqarish uchun i-satrga j-satrni λij ga ko'paytirib ayiriladi"
+   ]
+  },
+  "narr": [
+   "Eliminatsiya usulida asoschi elementlar muhim rol o'ynaydi.",
+   "Asoschi element — bu matritsada diagonal ustidagi noldan farqli element.",
+   "Ko'paytuvchi λij = aij/ajj formula orqali hisoblanadi, bu asoschi element ustidagi elementni nolga aylantirish uchun kerak bo'lgan koeffitsientdir.",
+   "Keyin i-satrga j-satrni λij ga ko'paytirib ayirish orqali aij elementini nolga aylantiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "To'liq misol — Eliminatsiya qilish",
+   "problem": "\\begin{bmatrix}\n2 & 1 & 1 & | & 5 \\\\\n4 & -6 & 0 & | & -2 \\\\\n-2 & 7 & 2 & | & 9\n\\end{bmatrix}",
+   "steps": [
+    "Asoschi element 2, ko'paytuvchilar λ21 = 4/2 = 2 va λ31 = -2/2 = -1",
+    "R2 ← R2 − 2R1, R3 ← R3 + R1:",
+    "\\begin{bmatrix}\n2 & 1 & 1 & | & 5 \\\\\n0 & -8 & -2 & | & -12 \\\\\n0 & 8 & 3 & | & 14\n\\end{bmatrix}",
+    "Ikkinchi asoschi element −8, ko'paytuvchi λ32 = 8/(-8) = -1, operatsiya R3 ← R3 + R2:",
+    "Natija: \\begin{bmatrix}\n2 & 1 & 1 & | & 5 \\\\\n0 & -8 & -2 & | & -12 \\\\\n0 & 0 & 1 & | & 2\n\\end{bmatrix}",
+    "U = \\begin{bmatrix}\n2 & 1 & 1 \\\\\n0 & -8 & -2 \\\\\n0 & 0 & 1\n\\end{bmatrix}, asosiy elementlar 2, −8, 1"
+   ],
+   "result": "Uchburchak tizma matritsasiga o'tdik"
+  },
+  "narr": [
+   "Keling, to'liq misol orqali eliminatsiya qilish jarayonini ko'rib chiqaylik.",
+   "Birinchi asoschi element 2, unga ko'ra ikkinchi va uchinchi qatorlarni o'zgartiramiz.",
+   "Ikkinchi qator uchun λ21 = 4/2 = 2, shuning uchun R2 ← R2 − 2R1.",
+   "Uchinchi qator uchun λ31 = -2/2 = -1, shuning uchun R3 ← R3 + R1.",
+   "Endi ikkinchi asoschi element -8, unga ko'ra uchinchi qatorni o'zgartiramiz.",
+   "λ32 = 8/(-8) = -1, shuning uchun R3 ← R3 + R2.",
+   "Natijada biz uchburchak tizma matritsasiga erishdik, bunda asosiy elementlar 2, -8 va 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Teskari almashtirish",
+   "problem": "\\begin{bmatrix}\n2 & 1 & -1 \\\\\n0 & 3 & 2 \\\\\n0 & 0 & 4\n\\end{bmatrix}·\\begin{bmatrix}x \\\\ y \\\\ z\\end{bmatrix}=\\begin{bmatrix}3 \\\\ 7 \\\\ 8\\end{bmatrix}",
+   "steps": [
+    "Pastdan yuqoriga echamiz:",
+    "4z = 8, z = 2",
+    "3y + 2 · 2 = 7, y = 1",
+    "2x + 1 − 2 = 3, x = 2"
+   ],
+   "result": "x = \\begin{bmatrix}2 \\\\ 1 \\\\ 2\\end{bmatrix}"
+  },
+  "narr": [
+   "Endi uchburchak tizma sistemasini teskari almashtirish usuli bilan yechamiz.",
+   "Buning uchun pastdan boshlab, oxirgi tenglamadan boshlaymiz.",
+   "Oxirgi tenglamada faqat z o'zgaruvchisi bor: 4z = 8, shuning uchun z = 2.",
+   "Keyingi tenglamada y va z bor: 3y + 2 · 2 = 7, shuning uchun y = 1.",
+   "Birinchi tenglamada x, y va z bor: 2x + 1 − 2 = 3, shuning uchun x = 2.",
+   "Javobni tekshirib ko'ramiz: 2 · 2 + 1 − 2 = 3, 3 + 4 = 7, 8 = 8 — hammasi to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Eliminatsiya E matritsalari",
+   "bullets": [
+    "E21 = \\begin{bmatrix}1 & 0 & 0 \\\\ -2 & 1 & 0 \\\\ 0 & 0 & 1\\end{bmatrix}",
+    "E21 · A = \\begin{bmatrix}2 & 1 & 1 \\\\ 0 & -8 & -2 \\\\ -2 & 7 & 2\\end{bmatrix}",
+    "E21 · b = \\begin{bmatrix}5 \\\\ -12 \\\\ 9\\end{bmatrix}",
+    "Chapdan ko'paytirish qator operatsiyasini amalga oshiradi",
+    "E32 · E31 · E21 · A = U"
+   ]
+  },
+  "narr": [
+   "Eliminatsiya jarayonini matritsa ko'rinishida ifodalash mumkin.",
+   "Har bir eliminatsiya qatori E matritsasi orqali ifodalanadi.",
+   "Masalan, E21 matritsasi birinchi qatorni ikkinchi qatrga -2 marta qo'shish operatsiyasini amalga oshiradi.",
+   "E21 matritsasini A matritsasiga chapdan ko'paytirsak, birinchi qatorni ikkinchi qatrga -2 marta ayirish operatsiyasini amalga oshirishimiz mumkin.",
+   "Xuddi shu matritsani b vektoriga ham ko'paytirsak, o'ng tomon ham o'zgaradi.",
+   "To'liq eliminatsiya uchun bir nechta E matritsalarini ko'paytirish kerak bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Nol asoschi element: almashtirish P matritsalari",
+   "bullets": [
+    "\\begin{bmatrix}0 & 2 & | & 4 \\\\ 3 & 1 & | & 7\\end{bmatrix} → \\begin{bmatrix}3 & 1 & | & 7 \\\\ 0 & 2 & | & 4\\end{bmatrix} (qatorlarni almashtirish)",
+    "P = \\begin{bmatrix}0 & 1 \\\\ 1 & 0\\end{bmatrix}",
+    "P · \\begin{bmatrix}0 & 2 \\\\ 3 & 1\\end{bmatrix} = \\begin{bmatrix}3 & 1 \\\\ 0 & 2\\end{bmatrix}",
+    "P · \\begin{bmatrix}4 \\\\ 7\\end{bmatrix} = \\begin{bmatrix}7 \\\\ 4\\end{bmatrix}",
+    "P xossalari: har bir qator va ustunda bitta 1, qolganlari nol; P^-1 = P^T; P^2 = I"
+   ]
+  },
+  "narr": [
+   "Agar asoschi element nol bo'lsa, eliminatsiya jarayonini davom ettirib bo'lmaydi.",
+   "Bunday holatda qatorlarni almashtirish kerak bo'ladi.",
+   "Almashtirish P matritsasi orqali amalga oshiriladi.",
+   "P matritsasi permutatsiya matritsasi bo'lib, har bir qator va ustunda bitta 1, qolganlari nol bo'ladi.",
+   "P matritsasi o'ziga teskari matritsaga ega: P^-1 = P^T.",
+   "Bitta almashtirish uchun P^2 = I, ya'ni ikki marta almashtirish asl holatga qaytaradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Oldinga qarash: A = LU va PA = LU",
+   "bullets": [
+    "almashtirishsiz A = LU (U — yuqori uchburchak, L — chiqaruvchilarni saqlaydi)",
+    "almashtirishlar bilan PA = LU"
+   ]
+  },
+  "narr": [
+   "Eliminatsiya jarayonini matritsa ajratish sifatida ko'rish mumkin.",
+   "Agir qatorlarni almashtirish kerak bo'lmasa, A matritsasi L va U matritsalarining ko'paytmasiga teng bo'ladi, bunda U yuqori uchburchak matritsa, L esa pastki uchburchak matritsa bo'lib, chiqaruvchilarni saqlaydi.",
+   "Agar qatorlarni almashtirish kerak bo'lsa, PA = LU ajratish olinadi, bunda P almashtirish matritsasi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — Qatorlar va ustunlar tasviri",
+   "problem": "\\begin{bmatrix}2 & -1 \\\\ 1 & 1\\end{bmatrix}·\\begin{bmatrix}x \\\\ y\\end{bmatrix}=\\begin{bmatrix}1 \\\\ 5\\end{bmatrix}",
+   "steps": [
+    "Tenglamalarni qo'shamiz: 3x = 6, x = 2",
+    "undan y = 5−2 = 3",
+    "2x − y = 1 va x + y = 5 to'g'ri chiziqlari (2, 3) nuqtada kesishadi",
+    "ustunlar: 2 · \\begin{bmatrix}2 \\\\ 1\\end{bmatrix} + 3 · \\begin{bmatrix}-1 \\\\ 1\\end{bmatrix} = \\begin{bmatrix}4-3 \\\\ 2+3\\end{bmatrix} = \\begin{bmatrix}1 \\\\ 5\\end{bmatrix}"
+   ],
+   "result": "x = 2, y = 3"
+  },
+  "narr": [
+   "Keling, birinchi mashqni yechamiz.",
+   "Bu sistema ikki xil usulda talqin qilinishi mumkin: qatorlar — to'g'ri chiziqlar, ustunlar — vektorlar.",
+   "Tenglamalarni qo'shsak: 2x - y + x + y = 1 + 5, ya'ni 3x = 6, shuning uchun x = 2.",
+   "Keyin y ni topamiz: y = 5 - 2 = 3.",
+   "Geometrik talqin: 2x - y = 1 va x + y = 5 to'g'ri chiziqlari (2, 3) nuqtada kesishadi.",
+   "Ikkinchi talqin: ikki ustun vektorni 2 va 3 koeffitsientlari bilan chiziqli birikmasi qilinsa, o'ng tomon vektor hosil bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — Uch holat",
+   "problem": "\\begin{bmatrix}1 & 1 \\\\ 2 & 2\\end{bmatrix}·\\begin{bmatrix}x \\\\ y\\end{bmatrix}=\\begin{bmatrix}2 \\\\ c\\end{bmatrix}",
+   "steps": [
+    "R2 ← R2 − 2R1[0 0|c − 4] qatorni beradi",
+    "c = 4 da bu 0 = 0: x + y = 2 qoladi, cheksiz ko'p yechimlar — \\begin{bmatrix}2-t \\\\ t\\end{bmatrix}",
+    "c = 5 da bu 0 = 1 — ziddiyat, yechim yo'q"
+   ],
+   "result": "c = 4: cheksiz ko'p yechimlar; c = 5: yechim yo'q"
+  },
+  "narr": [
+   "Ikkinchi mashqda c parametri bilan chiziqli sistema ko'rib chiqilmoqda.",
+   "Eliminatsiya qilganimizda, ikkinchi qator [0 0|c-4] ko'rinishiga keladi.",
+   "Agar c = 4 bo'lsa, bu 0 = 0 degani, ya'ni sistema cheksiz ko'p yechimga ega. Bu holda x + y = 2 tenglamani qanoatlantiruvchi barcha nuqtalar yechim bo'ladi.",
+   "Agar c = 5 bo'lsa, bu 0 = 1 degani, ya'ni ziddiyatli tenglama, sistemada yechim yo'q."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — Ko'paytchini topish",
+   "problem": "\\begin{bmatrix}2 & 3 & | & 7 \\\\ 8 & 13 & | & 29\\end{bmatrix}",
+   "steps": [
+    "Ko'paytchi λ21 = 8/2 = 4",
+    "R2 ← R2 − 4R1: [8, 13|29] − 4 · [2, 3|7] = [0, 1|1]",
+    "Natija: \\begin{bmatrix}2 & 3 & | & 7 \\\\ 0 & 1 & | & 1\\end{bmatrix}",
+    "asosiy elementlar 2 va 1"
+   ],
+   "result": "λ21 = 4, asosiy elementlar 2 va 1"
+  },
+  "narr": [
+   "Uchinchi mashqda eliminatsiya jarayonidagi ko'paytchini topish kerak.",
+   "Birinchi asoschi element 2, unga ko'ra ikkinchi qatorni o'zgartirish uchun λ21 = 8/2 = 4 ko'paytuvchisi kerak.",
+   "R2 ← R2 − 4R1 operatsiyasini bajaramiz: [8, 13|29] − 4 · [2, 3|7] = [0, 1|1].",
+   "Natijada bizda asosiy elementlar 2 va 1 bo'lgan uchburchak tizma hosil bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Orqaga almashtirish",
+   "problem": "\\begin{bmatrix}2 & 1 & -1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 4\\end{bmatrix}·\\begin{bmatrix}x \\\\ y \\\\ z\\end{bmatrix}=\\begin{bmatrix}3 \\\\ 7 \\\\ 8\\end{bmatrix}",
+   "steps": [
+    "Pastdan yuqoriga echamiz:",
+    "4z = 8, z = 2",
+    "3y + 2 · 2 = 7, y = 1",
+    "2x + 1 − 2 = 3, x = 2"
+   ],
+   "result": "x = \\begin{bmatrix}2 \\\\ 1 \\\\ 2\\end{bmatrix}"
+  },
+  "narr": [
+   "To'rtinchi mashqda uchburchak tizma sistemasini teskari almashtirish usuli bilan yechamiz.",
+   "Buning uchun pastdan boshlab, oxirgi tenglamadan boshlaymiz.",
+   "Oxirgi tenglamada faqat z o'zgaruvchisi bor: 4z = 8, shuning uchun z = 2.",
+   "Keyingi tenglamada y va z bor: 3y + 2 · 2 = 7, shuning uchun y = 1.",
+   "Birinchi tenglamada x, y va z bor: 2x + 1 − 2 = 3, shuning uchun x = 2.",
+   "Javobni tekshirib ko'ramiz: 2 · 2 + 1 − 2 = 3, 3 + 4 = 7, 8 = 8 — hammasi to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ }
+]

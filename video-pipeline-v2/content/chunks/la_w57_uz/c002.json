@@ -1,0 +1,418 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Bu darsimizda chiziqli algebrani chuqurroq oʻrganamiz. Ehtiyot bo'ling, chunki bu juda ajoyib mavzu.",
+   "Keling, birinchi mashq bilan boshlaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — Ikkita toʻgʻri chiziq sistemasini yeching",
+   "problem": "$\\begin{bmatrix} 1 & 2 \\\\ 3 & 1 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 7 \\\\ 8 \\end{bmatrix}$",
+   "steps": [
+    "R2 ← R2 - 3R1: (1-6)y = 8-21, ya'ni -5y = -13",
+    "y = 13/5",
+    "x = 7-2·(13/5) = 9/5"
+   ],
+   "result": "$\\begin{bmatrix} 9/5 \\\\ 13/5 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu oddiy chiziqli sistemani echishimiz kerak. Birinchisidan, ikkinchi qatordan birinchi qatarning uch barobarini ayiramiz.",
+   "Bu bizga -5y = -13 tenglamani beradi. Yechim y = 13/5.",
+   "Endi birinchi tenglamaga qaytamiz va x ni topamiz: x = 9/5.",
+   "Tekshirib ko'ramiz: 9/5 + 26/5 = 7, 27/5 + 13/5 = 8. To'g'ri!"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — Parallel yoki ustma-ust tushadimi?",
+   "problem": "$\\begin{bmatrix} 2 & 4 \\\\ 1 & 2 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 6 \\\\ c \\end{bmatrix}$",
+   "steps": [
+    "1-satr 2-satrdan ikki marta katta chap tomonda",
+    "moslik o'ng tomonda ham xuddi shuni talab qiladi: 6 = 2c, ya'ni c = 3",
+    "c = 3 bo'lganda, x + 2y = 3 — cheksiz ko'p yechimlar",
+    "c = 4 bo'lganda, ikkinchi tenglamaning ikkilanganidan 2x + 4y = 8 ≠ 6 — yechim yo'q"
+   ],
+   "result": "c = 3: cheksiz ko'p yechimlar; c = 4: yechim yo'q"
+  },
+  "narr": [
+   "Bu sistemada parallel yoki ustma-ust tushadigan chiziqlarni aniqlaymiz.",
+   "Birinchi satr ikkinchisidan ikki marta katta, shuning uchun o'ng tomonda ham 6 = 2c bo'lishi kerak.",
+   "c = 3 bo'lganda, chiziqlar ustma-ust tushadi va cheksiz ko'p yechim mavjud.",
+   "c = 4 bo'lganda, chiziqlar parallel va yechim yo'q."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — Bitta eliminatsiya bosqichi",
+   "problem": "$\\begin{bmatrix} 3 & 2 \\\\ 9 & 8 \\end{bmatrix}$",
+   "steps": [
+    "λ21 = 9/3 = 3 ko'paytuvchisi",
+    "R2 ← R2 - 3R1: [9-9, 8-6] = [0, 2]",
+    "Natija: $\\begin{bmatrix} 3 & 2 \\\\ 0 & 2 \\end{bmatrix}$"
+   ],
+   "result": "Asosiy elementlar 3 va 2"
+  },
+  "narr": [
+   "Bu yerda biz birinchi eliminatsiya bosqichini amalga oshiramiz.",
+   "Birinchi element ostidagi elementni yo'qotish uchun λ21 = 9/3 = 3 ko'paytuvchisini topamiz.",
+   "Keyin ikkinchi qatordan birinchi qatarning uch barobarini ayiramiz.",
+   "Natijada asosiy elementlar 3 va 2 bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — Toʻliq chiqarib tashlash",
+   "problem": "$\\begin{bmatrix} 1 & 1 & 1 & | & 6 \\\\ 2 & 3 & 1 & | & 10 \\\\ 1 & 2 & 3 & | & 14 \\end{bmatrix}$",
+   "steps": [
+    "R2 ← R2 - 2R1 → [0 1 -1 | -2]",
+    "R3 ← R3 - R1 → [0 1 2 | 8]",
+    "R3 ← R3 - R2 → [0 0 3 | 10]",
+    "Orqaga almashtirish: z = 10/3",
+    "y - z = -2 → y = 4/3",
+    "x + y + z = 6 → x = 4/3"
+   ],
+   "result": "$\\begin{bmatrix} 4/3 \\\\ 4/3 \\\\ 10/3 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu 3x3 li chiziqli sistemani to'liq chiqarib tashlash usuli bilan yechamiz.",
+   "Birinchidan, ikkinchi qatordan birinchi qatarning ikkilanganini ayiramiz.",
+   "Keyin uchinchi qatordan birinchi qatorni ayiramiz.",
+   "Endi uchinchi qatordan ikkinchi qatorni ayiramiz.",
+   "Endi orqaga almashtirishni boshlaymiz: z = 10/3.",
+   "Keyin y ni topamiz: y = 4/3.",
+   "Va nihoyat, x ni topamiz: x = 4/3.",
+   "Tekshirib ko'ramiz: qatorlar 6, 10, 14 beradi — to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — Elementar matritsani aniqlang",
+   "problem": "3×3 matritsida R3 ← R3 - 4R1 amalini amalga oshiruvchi E ni toping.",
+   "steps": [
+    "E — birlik matritsida (3, 1) o'rinda -4 bo'lgan matritsa",
+    "$E = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{bmatrix}$",
+    "EA ning uchinchi qatori -4·(1-qator), 1–2-qatorlar o'zgarmaydi",
+    "Aks operatsiya — qo'shish: $E^{-1} = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 4 & 0 & 1 \\end{bmatrix}$"
+   ],
+   "result": "$E = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Endi elementar matritsani aniqlaymiz. Bu matritsa R3 ← R3 - 4R1 amalini bajaradi.",
+   "Elementar matritsa — bu birlik matritsida ma'lum bir o'zgarish kiritilgan matritsadir.",
+   "Bizning holatda, birlik matritsining (3, 1) o'rnida -4 bo'lgan matritsa bizga kerak.",
+   "Bu matritsa A ni ko'paytirganda, uchinchi qator birinchisining to'rt barobarini ayiradi.",
+   "Aks operatsiya esa qo'shishdir, shuning uchun teskari matritsada (3, 1) o'rinda +4 bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — EA koʻpaytmasi",
+   "problem": "$E = \\begin{bmatrix} 1 & 0 \\\\ -2 & 1 \\end{bmatrix}$ va $A = \\begin{bmatrix} 3 & 1 \\\\ 6 & 5 \\end{bmatrix}$ bo'lsin. EA ni hisoblang.",
+   "steps": [
+    "Ko'paytmaning 1-qatori: [3 1]",
+    "2-qatori: -2·[3 1] + [6 5] = [0 3]",
+    "$EA = \\begin{bmatrix} 3 & 1 \\\\ 0 & 3 \\end{bmatrix}$",
+    "E 2-qatordan 1-qatarning ikkilanganini ayiradi — 6/3 = 2 ko'paytchili chiqarib tashlash"
+   ],
+   "result": "$EA = \\begin{bmatrix} 3 & 1 \\\\ 0 & 3 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu yerda ikkita matritsani ko'paytirishni ko'rib chiqamiz.",
+   "E matritsasi A ni ko'paytirganda, natijaning birinchi qatori A ning birinchi qatori bo'ladi.",
+   "Ikkinchi qator esa -2 marta A birinchi qatori va A ikkinchi qatorining yig'indisidir.",
+   "Natijada bizda yuqori uchburchak matritsa hosil bo'ladi.",
+   "Bu esa 6/3 = 2 ko'paytchili chiqarib tashlashga to'g'ri keladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — Oʻzgartirilgan oʻng tomon",
+   "problem": "$A = \\begin{bmatrix} 3 & 1 \\\\ 6 & 5 \\end{bmatrix}$ va $b = \\begin{bmatrix} 4 \\\\ 17 \\end{bmatrix}$ uchun $E = \\begin{bmatrix} 1 & 0 \\\\ -2 & 1 \\end{bmatrix}$ dan foydalanib, tizimni yeching.",
+   "steps": [
+    "$Eb = \\begin{bmatrix} 4 \\\\ -8 + 17 \\end{bmatrix} = \\begin{bmatrix} 4 \\\\ 9 \\end{bmatrix}$",
+    "Mashq 7 dagi $EA = \\begin{bmatrix} 3 & 1 \\\\ 0 & 3 \\end{bmatrix}$ bilan birga",
+    "$3y = 9, y = 3$",
+    "$3x + 3 = 4, x = 1/3$",
+    "Asl tizimda tekshirish: $3 · (1/3) + 3 = 4, 6 · (1/3) + 5 · 3 = 17$ — to'g'ri"
+   ],
+   "result": "$\\begin{bmatrix} 1/3 \\\\ 3 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu yerda o'ng tomonni o'zgartirish usulini ko'rib chiqamiz.",
+   "Avvalburch E matritsasini b vektoriga ko'paytiramiz.",
+   "Keyin oldingi mashqda topilgan EA matritsasiga Eb ni ko'paytiramiz.",
+   "Bu bizga oddiyroq sistemani beradi, uni esa orqaga almashtirish bilan yechamiz.",
+   "Asl sistemaga qaytib tekshirib ko'ramiz — to'g'ri!"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — Nol asosiy element",
+   "problem": "$\\begin{bmatrix} 0 & 2 \\\\ 3 & 1 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 4 \\\\ 7 \\end{bmatrix}$ qatorlarni almashtirib yeching.",
+   "steps": [
+    "(1, 1) o'rinda nol — vaqtacha muvaffaqiyatsizlik",
+    "$P = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$",
+    "$PA = \\begin{bmatrix} 3 & 1 \\\\ 0 & 2 \\end{bmatrix}$",
+    "$Pb = \\begin{bmatrix} 7 \\\\ 4 \\end{bmatrix}$",
+    "$2y = 4, y = 2$",
+    "$3x + y = 7, x = 5/3$",
+    "Tekshirish: $2 · 2 = 4, 3 · (5/3) + 2 = 7$ — to'g'ri"
+   ],
+   "result": "$\\begin{bmatrix} 5/3 \\\\ 2 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu yerda asosiy elementda nol bilan duch kelamiz.",
+   "Bunday holatda qatorlarni almashtirish kerak.",
+   "Buning uchun almashtirish matritsasi P ni topamiz.",
+   "PA va Pb ni hisoblab, oddiy sistemaga o'tamiz.",
+   "Yechimni topamiz va asl sistemaga qaytib tekshiramiz — to'g'ri!",
+   "Nol asosiy element aynanlikni anglatmadi, faqat qatorlarni almashtirish kerakligini ko'rsatdi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — Uch qatorni almashtirish",
+   "problem": "$A = \\begin{bmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 3 \\\\ 4 & 0 & 2 \\end{bmatrix}$ matritsasining 1 va 3-qatorlarini almashtiruvchi P ni toping; PA ni hisoblang.",
+   "steps": [
+    "$P = \\begin{bmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{bmatrix}$ — birlik matritsining qatorlari 3, 2, 1 tartibida",
+    "$PA$ ning 1-qatori $A$ matritsasining 3-qatori va h.k.:",
+    "$PA = \\begin{bmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{bmatrix}$",
+    "1 ↔ 3 almashtirishi — involutsiya: $P^{-1} = P$ va $P^2 = I$"
+   ],
+   "result": "$P = \\begin{bmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{bmatrix}$, $PA = \\begin{bmatrix} 4 & 0 & 2 \\\\ 0 & 1 & 3 \\\\ 1 & 2 & 0 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu yerda uch qatorli matritsada qatorlarni almashtirishni ko'rib chiqamiz.",
+   "Birlik matritsining qatorlarini 3, 2, 1 tartibida joylashtirib, almashtirish matritsasini P ni hosil qilamiz.",
+   "P ni A ga ko'paytirganda, PA ning 1-qatori A ning 3-qatori, 3-qatori esa A ning 1-qatori bo'ladi.",
+   "Bu almashtirish involutsiyadir, ya'ni ikki marta amalga oshirganda asl holatga qaytamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 11 — Aynan, lekin mos keladigan",
+   "problem": "$\\begin{bmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 0 & 1 & 1 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 3 \\\\ 6 \\\\ 2 \\end{bmatrix}$",
+   "steps": [
+    "2-qatori o'ng tomoni (6 = 2 · 3) 1-qatordan ikki barobar katta",
+    "R2 ← R2 - 2R1: 0 = 0 beradi",
+    "x + 2y + z = 3 va y + z = 2 qoladi",
+    "erkin o'zgaruvchi z = t: y = 2 - t",
+    "x + 2(2 - t) + t = 3 → x = t - 1",
+    "Javob: $\\begin{bmatrix} t-1 \\\\ 2-t \\\\ t \\end{bmatrix}$ — cheksiz ko'p yechimlar"
+   ],
+   "result": "$\\begin{bmatrix} t-1 \\\\ 2-t \\\\ t \\end{bmatrix}$, t ∈ ℝ"
+  },
+  "narr": [
+   "Bu sistemada ikkinchi qator birinchisining ikki barobariga teng.",
+   "Shuning uchun R2 ← R2 - 2R1 amalini bajarganda, 0 = 0 tenglamasini olamiz.",
+   "Bu sistemada cheksiz ko'p yechim mavjud.",
+   "Erkin o'zgaruvchi sifatida z = t ni olamiz.",
+   "Keyin y = 2 - t, x = t - 1 ekanligini topamiz.",
+   "t = 1 da tekshirib ko'ramiz — to'g'ri!"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 12 — Aynan va mos kelmaydigan",
+   "problem": "Oldingi tizimda o'ng tomonni $b = \\begin{bmatrix} 3 \\\\ 7 \\\\ 2 \\end{bmatrix}$ ga o'zgartiring.",
+   "steps": [
+    "Endi 7 ≠ 2 · 3",
+    "R2 ← R2 - 2R1: [000|7-6] = [000|1]",
+    "0 = 1 — ziddiyat",
+    "Tizim mos kelmaydi: o'ng tomon zarur shart b2 = 2b1 ni buzadi"
+   ],
+   "result": "Tizim mos kelmaydi"
+  },
+  "narr": [
+   "Oldingi sistemada o'ng tomonni o'zgartiramiz.",
+   "Endi ikkinchi qatorning o'ng tomoni birinchisining ikki barobariga teng emas.",
+   "R2 ← R2 - 2R1 amalini bajarganda, 0 = 1 ziddiyatini olamiz.",
+   "Bu sistemada yechim yo'q, chunki o'ng tomon zarur shartni bajarmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 13 — Ustunli mos kelish talqini",
+   "problem": "$A = \\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix}$ uchun qaysi $b = \\begin{bmatrix} b1 \\\\ b2 \\end{bmatrix}$ vektorlari $Ax = b$ tenglamani qondiradi?",
+   "steps": [
+    "Ikkinchi qator birinchisining ikki barobar katta",
+    "R2 ← R2 - 2R1 amalidan keyin [00|b2 - 2b1] qoladi",
+    "moslik b2 = 2b1 ni talab qiladi",
+    "$\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ va $\\begin{bmatrix} 2 \\\\ 4 \\end{bmatrix} = 2 · \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ ustunlari $\\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}$ ga karrali",
+    "$Ax$ har doim b2 = 2b1 to'g'ri chiziqda yotadi"
+   ],
+   "result": "$b = \\begin{bmatrix} b1 \\\\ 2b1 \\end{bmatrix}$ — b ustunlar A orqali o'tadigan to'g'ri chiziqda yotishi kerak"
+  },
+  "narr": [
+   "Bu yerda A matritsasi ustunlari orasidagi bog'liqlikni ko'rib chiqamiz.",
+   "Ikkinchi ustun birinchisining ikki barobariga teng.",
+   "Shuning uchun Ax tenglamaning yechimi uchun b vektorining ikkinchi komponenti birinchisining ikki barobariga teng bo'lishi kerak.",
+   "Bu b vektorini A matritsasi orqali o'tadigan to'g'ri chiziqda joylashishini anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 14 — Matritsa amallari tartibi",
+   "problem": "$E = \\begin{bmatrix} 1 & 0 \\\\ -2 & 1 \\end{bmatrix}$ va $P = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$ deb belgilaymiz. EP va PE ni solishtiring.",
+   "steps": [
+    "EP: 1-qatori = [0 1], 2-qatori = -2·[0 1] + [1 0] = [1, -2]",
+    "$EP = \\begin{bmatrix} 0 & 1 \\\\ 1 & -2 \\end{bmatrix}$",
+    "PE: 1-qatori = 1·[-2 1] = [-2 1], 2-qatori = [1 0]",
+    "$PE = \\begin{bmatrix} -2 & 1 \\\\ 1 & 0 \\end{bmatrix}$",
+    "Ko'paytmalar har xil: qator amallari, umuman olganda, kommutativ emas"
+   ],
+   "result": "$EP = \\begin{bmatrix} 0 & 1 \\\\ 1 & -2 \\end{bmatrix}$, $PE = \\begin{bmatrix} -2 & 1 \\\\ 1 & 0 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu yerda matritsa ko'paytmasining kommutativ emasligini ko'rib chiqamiz.",
+   "Avval E ni P ga ko'paytiramiz.",
+   "Keyin P ni E ga ko'paytiramiz.",
+   "Ko'paytmalar har xil ekanligini ko'ramiz.",
+   "Bu matritsa ko'paytmalarining umuman kommutativ emasligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 15 — Murojaat: tizim qurish",
+   "problem": "Qatorlarni almashtirishni talab qiladigan, uchta asosiy elementga va $x = \\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix}$ yechimga ega bo'lgan 3 × 3 tizimini qurib ko'ring.",
+   "steps": [
+    "(1, 1) o'ringidagi nol va undan pastdagi nol bo'lmagan element:",
+    "$A = \\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$",
+    "o'ng tomonni ustun tasviri bilan belgilaymiz: $b = A · \\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix} = \\begin{bmatrix} 2 \\\\ 1 \\\\ 3 \\end{bmatrix}$",
+    "1 va 2-qatorlarni almashtirish ($P = \\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$) A ni birlik matritsiga aylantiradi",
+    "asosiy elementlar 1, 1, 1, yechim $x = \\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix}$",
+    "Tekshirish: $A · \\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix} = \\begin{bmatrix} 2 \\\\ 1 \\\\ 3 \\end{bmatrix}$ — to'g'ri"
+   ],
+   "result": "$A = \\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}$, $b = \\begin{bmatrix} 2 \\\\ 1 \\\\ 3 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Bu mashqda biz qatorlarni almashtirishni talab qiladigan sistemani quramiz.",
+   "Birinchi elementda nol bo'lishi kerak, lekin ikkinchi qatorda birlik element bo'lishi kerak.",
+   "Shunday matritsa qurib, unga berilgan yechimni qo'llaymiz.",
+   "O'ng tomonni hisoblab, keyin almashtirish matritsasi bilan tekshiramiz.",
+   "Almashtirishdan keyin sistemada barcha asosiy elementlar bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]
