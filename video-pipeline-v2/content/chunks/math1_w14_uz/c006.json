@@ -1,0 +1,404 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 10,
+   "title": "Funksiyalarni tahlil qilish",
+   "subtitle": "Aniqlanish sohasi, kesishish nuqtalari, simmetriya, chekka xatti-harakatlar"
+  },
+  "narr": [
+   "Keling, birinchi funksiyani ko'rib chiqaylik: p(x) = x³ - 4x.",
+   "Bu funksiyaning aniqlanish sohasi butun haqiqiy sonlar o'qidir, ya'ni R.",
+   "Kesishish nuqtalari -2, 0 va 2 da joylashgan.",
+   "Funksiya toq funksiyadir, chunki u f(-x) = -f(x) shartni qanoatlantiradi.",
+   "Chekkalarda x cheksizlikka intilganda, funksiya qiymati ham cheksizlikka intiladi: ±∞.",
+   "Bu funksiyada aniqlanmagan nuqtalar yo'q."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — r(x) funksiyasini tahlil qilish",
+   "problem": "r(x) = (x+1)/(x-1) uchun aniqlanish sohasini, kesishish nuqtalarini, simmetriyani, chekka xatti-harakatlarini va aniqlanmagan nuqtalarni aniqlang.",
+   "steps": [
+    "Aniqlanish sohasi: x ≠ 1, ya'ni (-∞, 1) ∪ (1, ∞)",
+    "Kesishish nuqtalari: r(0) = -1; surat x = -1 da nolga aylanadi",
+    "Simmetriya: r(-x) = (-x+1)/(-x-1) = (x-1)/(x+1) ≠ ±r(x) — umumiy ko'rinishda",
+    "Chekka xatti-harakatlar: r(x) → 1x → ±∞da (gorizontal asimptota y = 1)",
+    "r(x) → ±∞x → 1da (vertikal asimptota x = 1)",
+    "Faqat x = 1 da aniqlanmagan"
+   ],
+   "result": "Aniqlanish sohasi: (-∞, 1) ∪ (1, ∞); Kesishish nuqtalari: (0, -1) va (-1, 0); Gorizontal asimptota: y = 1; Vertikal asimptota: x = 1"
+  },
+  "narr": [
+   "Endi ikkinchi funksiyani ko'rib chiqaylik: r(x) = (x+1)/(x-1).",
+   "Bu funksiyaning aniqlanish sohasi barcha haqiqiy sonlar, lekin x = 1 dan tashqari, ya'ni (-∞, 1) ∪ (1, ∞).",
+   "Kesishish nuqtalarni topamiz: r(0) = -1 va surat x = -1 da nolga aylanadi.",
+   "Simmetriyani tekshiramiz: r(-x) = (-x+1)/(-x-1) = (x-1)/(x+1), bu ±r(x) ga teng emas.",
+   "Chekka xatti-harakatlar: x cheksizlikka intilganda, r(x) 1 ga yaqinlashadi (gorizontal asimptota y = 1).",
+   "x = 1 ga yaqinlashganda, r(x) cheksizlikka intiladi (vertikal asimptota x = 1).",
+   "Shunday qilib, bu funksiya faqat x = 1 nuqtada aniqlanmagan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — Elektr energiyasining tariflari",
+   "problem": "Mashq 9 amaliyot darsidagi elektr energiyasining qismlarga bo'lingan tariflarini barcha beshta qismi bilan yeching.",
+   "steps": [
+    "C(150) = 15",
+    "C(200) = 20",
+    "C(350) = 42.5",
+    "Grafik uzluksiz qirrali bo'ladi",
+    "Qiyaliklar — chekka narxlar",
+    "Chetlov — 200 kVt·ch chegarasida stimul uzilishi"
+   ],
+   "result": "C(150) = 15, C(200) = 20, C(350) = 42.5; Grafik uzluksiz qirrali; Qiyaliklar — chekka narxlar; Chetlov — 200 kVt·ch chegarasida"
+  },
+  "narr": [
+   "Elektr energiyasining tariflari masalasini ko'rib chiqaylik.",
+   "Birinchi qismda 150 kVt·ch energiya uchun to'lanmi C(150) = 15.",
+   "Ikkinchi qismda 200 kVt·ch energiya uchun to'lanmi C(200) = 20.",
+   "Uchinchi qismda 350 kVt·ch energiya uchun to'lanmi C(350) = 42.5.",
+   "Tarifning grafigi uzluksiz qirrali bo'ladi.",
+   "Qiyaliklar chekka narxlarni ifodalaydi.",
+   "Cheklov 200 kVt·ch chegarasida stimul uzilishi bilan bog'liq."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Burchaklarni aylantirish",
+   "problem": "30°, 135°, 300° ni radianga va π/6, 5π/4, 7π/3 ni gradusga aylantiring.",
+   "steps": [
+    "30° = π/6 (π/180 ko'paytiramiz)",
+    "135° = 3π/4 (π/180 ko'paytiramiz)",
+    "300° = 5π/3 (π/180 ko'paytiramiz)",
+    "π/6 = 30° (180/π ko'paytiramiz)",
+    "5π/4 = 225° (180/π ko'paytiramiz)",
+    "7π/3 = 420° (180/π ko'paytiramiz)"
+   ],
+   "result": "30° = π/6; 135° = 3π/4; 300° = 5π/3; π/6 = 30°; 5π/4 = 225°; 7π/3 = 420°"
+  },
+  "narr": [
+   "Endi burchaklarni aylantirish masalasini ko'rib chiqaylik.",
+   "30° ni radianga aylantiramiz: π/180 ko'paytiramiz va 30° = π/6 ni hosil qilamiz.",
+   "135° ni radianga aylantiramiz: π/180 ko'paytiramiz va 135° = 3π/4 ni hosil qilamiz.",
+   "300° ni radianga aylantiramiz: π/180 ko'paytiramiz va 300° = 5π/3 ni hosil qilamiz.",
+   "Endi radianni gradusga aylantiramiz: π/6 ni 180/π ga ko'paytiramiz va 30° ni hosil qilamiz.",
+   "5π/4 ni 180/π ga ko'paytiramiz va 225° ni hosil qilamiz.",
+   "7π/3 ni 180/π ga ko'paytiramiz va 420° ni hosil qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 13 — Funksiyalarning o'zaro bir qiymatligi",
+   "problem": "Quyidagi funksiyalarning o'zaro bir qiymatli bo'lishini tekshiring: a. f(x) = 3x - 5, x ∈ R; b. g(x) = x², x ∈ R; c. h(x) = x², x ≥ 0; d. p(x) = 1/x, x ≠ 0.",
+   "steps": [
+    "a. Ha: qiyalik chiziq gorizontal chiziq testidan o'tadi",
+    "b. Yo'q: g(-2) = g(2) = 4",
+    "c. Ha: [0, ∞) da kvadratga olish injektivdir",
+    "d. Ha: 1/x₁ = 1/x₂ ⇒ x₁ = x₂"
+   ],
+   "result": "a. Ha; b. Yo'q; c. Ha; d. Ha"
+  },
+  "narr": [
+   "Endi funksiyalarning o'zaro bir qiymatli ekanligini tekshirish masalasini ko'rib chiqaylik.",
+   "Birinchi funksiya: f(x) = 3x - 5, x ∈ R. Bu funksiya o'zaro bir qiymatlidir, chunki qiyalik chiziq gorizontal chiziq testidan o'tadi.",
+   "Ikkinchi funksiya: g(x) = x², x ∈ R. Bu funksiya o'zaro bir qiymatli emas, chunki g(-2) = g(2) = 4.",
+   "Uchinchi funksiya: h(x) = x², x ≥ 0. Bu funksiya o'zaro bir qiymatlidir, chunki [0, ∞) oraliqda kvadratga olish injektivdir.",
+   "To'rtinchi funksiya: p(x) = 1/x, x ≠ 0. Bu funksiya o'zaro bir qiymatlidir, chunki 1/x₁ = 1/x₂ ⇒ x₁ = x₂."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 14 — Ters funksiyalar",
+   "problem": "Quyidagi funksiyalarning teskari funksiyalarini va ularning aniqlanish sohalarini toping: a. f(x) = 4x - 7; b. g(x) = (x+3)/2; c. h(x) = x² + 1, x ≥ 0; d. p(x) = (2x+3)/(x-1), x ≠ 1.",
+   "steps": [
+    "a. f⁻¹(x) = (x + 7)/4, aniqlanish sohasi R",
+    "b. y = (x + 3)/2 ⇒ y = (x + 1)² ⇒ x = √(y - 1), x = 2y - 3, g⁻¹(x) = 2x - 3",
+    "c. (musbat ildiz, chunki x ≥ 0): h⁻¹(x) = √(x - 1), aniqlanish sohasi [1, ∞)",
+    "d. y = (2x + 3)/(x - 1) ⇒ x = (y + 3)/(y - 2), p⁻¹(x) = (x + 3)/(x - 2), aniqlanish sohasi x ≠ 2"
+   ],
+   "result": "a. f⁻¹(x) = (x + 7)/4, aniqlanish sohasi R; b. g⁻¹(x) = 2x - 3, aniqlanish sohasi R; c. h⁻¹(x) = √(x - 1), aniqlanish sohasi [1, ∞); d. p⁻¹(x) = (x + 3)/(x - 2), aniqlanish sohasi x ≠ 2"
+  },
+  "narr": [
+   "Endi funksiyalarning teskari funksiyalarini topish masalasini ko'rib chiqaylik.",
+   "Birinchi funksiya: f(x) = 4x - 7. Teskari funksiyasi f⁻¹(x) = (x + 7)/4, aniqlanish sohasi butun haqiqiy sonlar.",
+   "Ikkinchi funksiya: g(x) = (x+3)/2. Teskari funksiyasini topamiz: y = (x + 3)/2 ⇒ x = 2y - 3, shuning uchun g⁻¹(x) = 2x - 3.",
+   "Uchinchi funksiya: h(x) = x² + 1, x ≥ 0. Musbat ildizni olamiz (chunki x ≥ 0): h⁻¹(x) = √(x - 1), aniqlanish sohasi [1, ∞).",
+   "To'rtinchi funksiya: p(x) = (2x+3)/(x-1), x ≠ 1. Teskari funksiyasini topamiz: y = (2x + 3)/(x - 1) ⇒ x = (y + 3)/(y - 2), shuning uchun p⁻¹(x) = (x + 3)/(x - 2), aniqlanish sohasi x ≠ 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 15 — O'sish/yemirilish klassifikatsiyasi",
+   "problem": "A, B, C, D uchun o'sish/yemirilish klassifikatsiyasini aniqlang (amaliyot 11).",
+   "steps": [
+    "A o'sish (a = 1.08)",
+    "B yemirilish (a = 0.85)",
+    "C o'sish (k = 0.03)",
+    "D yemirilish (k = -0.4)"
+   ],
+   "result": "A: o'sish; B: yemirilish; C: o'sish; D: yemirilish"
+  },
+  "narr": [
+   "O'sish va yemirilish klassifikatsiyasini ko'rib chiqaylik.",
+   "A holati: o'sish (a = 1.08)",
+   "B holati: yemirilish (a = 0.85)",
+   "C holati: o'sish (k = 0.03)",
+   "D holati: yemirilish (k = -0.4)"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 16 — Tenglamalarni yechish",
+   "problem": "Quyidagi tenglamalarni yeching: a. 2^(x+1) = 16; b. 5^(2x) = 125; c. e^(3x) = 7; d. 100e^(-0.2t) = 20.",
+   "steps": [
+    "a. 2^(x+1) = 16 ⇒ x + 1 = 4 ⇒ x = 3",
+    "b. 5^(2x) = 125 ⇒ 2x = 3 ⇒ x = 3/2",
+    "c. e^(3x) = 7 ⇒ 3x = ln 7 ⇒ x = ln7/3 ≈ 0.6486",
+    "d. 100e^(-0.2t) = 20 ⇒ e^(-0.2t) = 0.2 ⇒ t = -ln0.2/0.2 = 5 ln 5 ≈ 8.047"
+   ],
+   "result": "a. x = 3; b. x = 3/2; c. x ≈ 0.6486; d. t ≈ 8.047"
+  },
+  "narr": [
+   "Endi tenglamalarni yechish masalalarini ko'rib chiqaylik.",
+   "Birinchi tenglama: 2^(x+1) = 16. x + 1 = 4, shuning uchun x = 3.",
+   "Ikkinchi tenglama: 5^(2x) = 125. 2x = 3, shuning uchun x = 3/2.",
+   "Uchinchi tenglama: e^(3x) = 7. 3x = ln 7, shuning uchun x = ln7/3 ≈ 0.6486.",
+   "To'rtinchi tenglama: 100e^(-0.2t) = 20. e^(-0.2t) = 0.2, shuning uchun t = -ln0.2/0.2 = 5 ln 5 ≈ 8.047."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 17 — Batareyaning zaryadi",
+   "problem": "Batareyaning zaryadi (amaliy mashq 13) — barcha to'rt qismi.",
+   "steps": [
+    "10 soatdan keyin e^(-0.25) ≈ 77.9%",
+    "50% bo'lish vaqti ln2/0.025 ≈ 27.7 soat",
+    "10% bo'lish vaqti ln10/0.025 ≈ 92.1 soat",
+    "Eksponensiya chekli vaqtda nolga yetmaydi"
+   ],
+   "result": "10 soatdan keyin ≈ 77.9%; 50% bo'lish ≈ 27.7 soat; 10% bo'lish ≈ 92.1 soat; Eksponensiya chekli vaqtda nolga yetmaydi"
+  },
+  "narr": [
+   "Batareyaning zaryadi masalasini ko'rib chiqaylik.",
+   "10 soatdan keyin batareyaning zaryadi e^(-0.25) ≈ 77.9% qoladi.",
+   "50% qolish vaqti ln2/0.025 ≈ 27.7 soatni tashkil qiladi.",
+   "10% qolish vaqti ln10/0.025 ≈ 92.1 soatni tashkil qiladi.",
+   "E'tibor bering, eksponensial funktsiya chekli vaqtda nolga yetmaydi, faqatgina cheksizlikka intiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 18 — Bakteriya populyatsiyasi",
+   "problem": "Bakteriya populyatsiyasi (amaliy mashq 14) — barcha to'rt qismi.",
+   "steps": [
+    "P₀ = 800",
+    "P(5) ≈ 4603",
+    "Ikkilanish vaqti ln2/0.35 ≈ 1.98 soat",
+    "Sof eksponensial modellar uzoq muddatli istiqbolda muvaffaqiyatsizlikka uchraydi"
+   ],
+   "result": "Boshlang'ich populyatsiya: 800; 5 soatdan keyin: ≈ 4603; Ikkilanish vaqti: ≈ 1.98 soat; Uzoq muddatli istiqbolda modellar muvaffaqiyatsizlikka uchraydi"
+  },
+  "narr": [
+   "Bakteriya populyatsiyasi masalasini ko'rib chiqaylik.",
+   "Boshlang'ich populyatsiya P₀ = 800 ta bakteriya.",
+   "5 soatdan keyin populyatsiya P(5) ≈ 4603 taga yetadi.",
+   "Ikkilanish vaqti ln2/0.35 ≈ 1.98 soatni tashkil qiladi.",
+   "E'tibor bering, sof eksponensial modellar uzoq muddatli istiqbolda resurslar, joy va chiqindilar tufayli muvaffaqiyatsizlikka uchraydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "3-hafta — Chegaralar",
+   "subtitle": "Math I"
+  },
+  "narr": [
+   "Endi 3-haftaga o'tamiz, bu yerda chegaralar tushunchasini o'rganamiz.",
+   "Chegaralar kursiga ikki asosiy savol orqali kirib keladi: kattalik qanchalik tez o'zgarayotgani (urinma/tezlik) va funksiya qiymatlari nuqta yaqinida qanday xulq atayotgani."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "O'zgarish tezliklari va ikki asoschi muammo",
+   "bullets": [
+    "Qisqarayotgan oraliqdagi o'rtacha tezlik oniy tezlikni aniqlaydi",
+    "m_sec = (f(x) - f(a))/(x - a) ((a, f(a)) dan o'tuvchi sekantning qiyaligi)",
+    "v_ave = (s(t) - s(a))/(t - a) ([a, t] oraliqdagi o'rtacha tezlik)",
+    "lim_(h→0) (f(a + h) - f(a))/h = f'(a) (oniy tezlik; limit sifatida aniqlanadi)"
+   ]
+  },
+  "narr": [
+   "Chegaralar kursiga ikki savol orqali kirib keladi: kattalik qanchalik tez o'zgarayotgani va funksiya qiymatlari nuqta yaqinida qanday xulq atayotgani.",
+   "Qisqarayotgan oraliqdagi o'rtacha tezlik oniy tezlikni aniqlaydi.",
+   "Birinchi formula, m sekant, (a, f(a)) dan o'tuvchi sekantning qiyaligidir.",
+   "Ikkinchi formula, v o'rtacha, [a, t] oraliqdagi o'rtacha tezlikni ifodalaydi.",
+   "Uchinchi formula esa oniy tezlikni limit sifatida aniqlaydi: f(a + h) - f(a) ni h ga bo'lib, h nolga intilgandagi limit."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Limit tushunchasi",
+   "bullets": [
+    "Intuitiv ta'rif (OpenStax §2.2) va uning bir tomonlama variantlari haftaning amaliy yuragi",
+    "Ikk tomonlama limit aynan ikkala bir tomonlama limit mos kelganda mavjud",
+    "lim_(x→a) f(x) = L ⇔ barcha f(x) (x ≠ a) x → a da L ga intiladi",
+    "lim_(x→a-) f(x) = L, lim_(x→a+) f(x) = L (chap/o'ng chegaralar)",
+    "lim_(x→a) f(x) = L ⇔ lim_(x→a-) f(x) = lim_(x→a+) f(x) = L (mavjudlik mezoni)",
+    "lim_(x→a-) f(x) = ±∞, lim_(x→a+) f(x) = ±∞, lim_(x→a) f(x) = ±∞ (cheksiz chegaralar)"
+   ]
+  },
+  "narr": [
+   "Endi limit tushunchasini ko'rib chiqaylik.",
+   "Intuitiv ta'rif va uning bir tomonlama variantlari haftaning amaliy yuragi hisoblanadi.",
+   "Ikk tomonlama limit faqatgina ikkala bir tomonlama limit mos kelganda mavjud bo'ladi.",
+   "Birinchi formula: lim_(x→a) f(x) = L degani, barcha f(x) (x ≠ a) x → a da L ga intiladi degan ma'noni anglatadi.",
+   "Ikkinchi formula: chap va o'ng chegaralarni ifodalaydi.",
+   "Uchinchi formula: limitning mavjudlik mezoni.",
+   "To'rtinchi formula: cheksiz chegaralarni ifodalaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Cheksiz chegaralar",
+   "tex": "\\lim_{x \\to a^-} \\frac{1}{(x-a)^n} = +\\infty, \\lim_{x \\to a^+} \\frac{1}{(x-a)^n} = +\\infty \\text{ (n juft)}",
+   "parts": [
+    {
+     "substr": "x \\to a^-",
+     "color": "#4C5FD5",
+     "note": "chap tomondan cheksizlikka intilish"
+    },
+    {
+     "substr": "x \\to a^+",
+     "color": "#4C5FD5",
+     "note": "o'ng tomondan cheksizlikka intilish"
+    },
+    {
+     "substr": "n juft",
+     "color": "#B45309",
+     "note": "daraja juft son bo'lishi shart"
+    }
+   ]
+  },
+  "narr": [
+   "Oxirgi formula cheksiz chegaralarni ko'rsatadi.",
+   "Bu formula shuni angatadiki, agar n juft son bo'lsa, (x-a)^n ning teskarisi x a ga chap tomondan yaqinlashganda cheksizlikka intiladi.",
+   "Xuddi shunday, agar n juft son bo'lsa, (x-a)^n ning teskarisi x a ga o'ng tomondan yaqinlashganda ham cheksizlikka intiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ }
+]

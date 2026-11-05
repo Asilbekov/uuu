@@ -1,0 +1,478 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu darsimizda chiziqli algebraning asosiy tushunchalarini, matritsa almashtirishlarini va vektorli makonlarni o'rganamiz.",
+   "Boshlaymiz matritsa almashtirishlari bilan."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Almashtirish Matritsasi",
+   "bullets": [
+    "det P = ±1",
+    "P^{-1} = P^T"
+   ]
+  },
+  "narr": [
+   "Almashtirish matritsasi, qatorlarni almashtirish uchun ishlatiladi.",
+   "Uning determinanti ±1 ga teng, chunki almashtirishlar hajmni o'zgartirmaydi.",
+   "Almashtirish matritsasi o'ziga teskari matritsiga teng, bu esa uning transponiruvi bilan bir xil ekanligini anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "Identifikatsiya matritsasi",
+   "tex": "\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}",
+   "steps": [
+    "Identifikatsiya matritsasi, hech qanday almashtirishsiz holatni ifodalaydi"
+   ]
+  },
+  "narr": [
+   "Bu identifikatsiya matritsasi, unda hech qanday almashtirish bajarilmagan."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P21 (1, 2-qatorlarni almashtirish)",
+   "tex": "\\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}",
+   "steps": [
+    "1 va 2-qatorlarni almashtirish"
+   ]
+  },
+  "narr": [
+   "P21 matritsasi birinchi va ikkinchi qatorlarni almashtiradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P32 (2, 3-qatorlarni almashtirish)",
+   "tex": "\\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 0 & 1 \\\\ 0 & 1 & 0 \\end{pmatrix}",
+   "steps": [
+    "2 va 3-qatorlarni almashtirish"
+   ]
+  },
+  "narr": [
+   "P32 matritsasi ikkinchi va uchinchi qatorlarni almashtiradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P31 (1, 3-qatorlarni almashtirish)",
+   "tex": "\\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}",
+   "steps": [
+    "1 va 3-qatorlarni almashtirish"
+   ]
+  },
+  "narr": [
+   "P31 matritsasi birinchi va uchinchi qatorlarni almashtiradi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P32P21 (tsiklik)",
+   "tex": "\\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 0 & 0 \\end{pmatrix}",
+   "steps": [
+    "P32 va P21 almashtirishlarining kombinatsiyasi"
+   ]
+  },
+  "narr": [
+   "P32P21 kombinatsiyasi tsiklik almashtirishni ifodalaydi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "P21P32 (tsiklik)",
+   "tex": "\\begin{pmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}",
+   "steps": [
+    "P21 va P32 almashtirishlarining teskari kombinatsiyasi"
+   ]
+  },
+  "narr": [
+   "P21P32 kombinatsiyasi teskari tsiklik almashtirishni ifodalaydi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Almashtirish Matritsasi (qator boʻyicha)",
+   "bullets": [
+    "det P = ±1",
+    "P^{-1} = P^T",
+    "Almashtirishlar PA = LU dekompozitsiyasida qo'llaniladi"
+   ]
+  },
+  "narr": [
+   "Almashtirish matritsalarining asosiy xossalari.",
+   "Asosiy element nol bo'lganda, almashtirish qo'llaniladi.",
+   "Almashtirishlar PA = LU dekompozitsiyasida muhim rol o'ynaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Asosiy elementning qisman tanlovi",
+   "problem": "A = [10−51; 1 1]: almashtirishsiz koʻpaytuvchi 1/10−5 = 10^5, almashtirishdan keyin — 10−5/1 = 10^−5",
+   "steps": [
+    "Agar asosiy element nol bo'lsa, qatorlar almashtiriladi",
+    "Joriy ustundagi moduli eng katta bo'lgan nomzod tanlanadi",
+    "Almashtirishlar P da yoziladi: PA = LU"
+   ],
+   "result": "PA = LU dekompozitsiyasida almashtirish matritsasi P ishlatiladi"
+  },
+  "narr": [
+   "Ko'rib turganingiz misolda, A matritsasi berilgan.",
+   "Agar asosiy element nolga yaqin bo'lsa, bu hisoblashda xatolarga olib kelishi mumkin.",
+   "Shuning uchun, asosiy elementning mutlaq qiymati eng katta bo'lgan qatorni yuqorigi olib chiqamiz.",
+   "Bu jarayonda almashtirish matritsasi P hosil bo'ladi.",
+   "Natijada PA = LU dekompozitsiyasini hosil qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Vektorli makonlar",
+   "subtitle": "Ta'rif va misollar"
+  },
+  "narr": [
+   "Endi vektorli makonlarga o'tamiz.",
+   "Vektorli makon - bu vektorlar to'plami bo'lib, ular qo'shish va skalyar ko'paytirish amaliyotlariga bo'ysunadi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Vektorli makon ta'rifi",
+   "bullets": [
+    "Vektorli makon - bu vektorlar to'plami qo'shish va skalyar ko'paytirish amaliyotlari bilan",
+    "Vektorli makon aksiomalarga javob beradi: nol vektor, qarama-qarshi elementlar, assotsiativlik, distributivlik",
+    "\"Vektor\" har qanday ob'ekt bo'lishi mumkin: sonlar, matritsalar, ko'phadlar, funksiyalar"
+   ]
+  },
+  "narr": [
+   "Vektorli makon - bu qo'shish va skalyar ko'paytirish amaliyotlariga nisbatan yopiq bo'lgan vektorlar to'plami.",
+   "U quyidagi aksiomalarga javob berishi kerak: nol vektor mavjud, har bir vektorga qarama-qarshi element mavjud, qo'shish va ko'paytirish assotsiativ va distributiv xossalarga ega.",
+   "Vektorli makondagi \"vektor\" tushunchasi juda keng bo'lishi mumkin - bu oddiy sonlar, matritsalar, ko'phadlar yoki hatto funksiyalar bo'lishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Alt makonlar va yopilishni tekshirish",
+   "subtitle": "Kichik fazolar va ularning xossalari"
+  },
+  "narr": [
+   "Vektorli makonlardan tashqari, ularning kichik qismlari - alt makonlarni ham ko'rib chiqamiz.",
+   "Alt makon - bu asosiy makonning yopiq kichik qismi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Alt makon ta'rifi",
+   "bullets": [
+    "W ⊆ V — alt makon bo'lishi uchun quyidagi shartlar bajarilishi kerak:",
+    "1. Nol vektor W da bo'lishi kerak",
+    "2. Har qanday u, v ∈ W uchun u + v ∈ W",
+    "3. Har qanday u ∈ W va c ∈ R uchun c·u ∈ W"
+   ]
+  },
+  "narr": [
+   "Alt makon - bu asosiy makonning kichik qismi bo'lib, u quyidagi xossalarga ega:",
+   "Birinchidan, unda nol vektor bo'lishi kerak.",
+   "Ikkinchidan, ikkita vektorni yig'indisi ham ushbu to'plamda bo'lishi kerak.",
+   "Uchinchidan, vektorga skalyar ko'paytirish amalga oshirilganda natija ham shu to'plamda qolishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Alt makonni tekshirish usullari",
+   "bullets": [
+    "1. Nol vektor borligini tekshirish",
+    "2. Ikkita elementning yig'indisi to'plamda qolishini tekshirish",
+    "3. Elementni skalyar ko'paytirish natijasini tekshirish",
+    "Har qanday bandning buzilishi alt makon emasligini ko'rsatadi"
+   ]
+  },
+  "narr": [
+   "Alt makon bo'lishini tekshirish uchun uchta asosiy shartni tekshirish kerak:",
+   "Birinchidan, nol vektor to'plamda borligini tekshirish.",
+   "Ikkinchidan, ikkita elementning yig'indisi ham shu to'plamda qolishini tekshirish.",
+   "Uchinchidan, elementni skalyar ko'paytirish natijasini tekshirish.",
+   "Agar bu shartlardan biri bajarilmasa, bu to'plam alt makon emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Boshdan o'tuvchi to'g'ri chiziq",
+   "problem": "W = {(t, 2t)} = span{(1, 2)}",
+   "steps": [
+    "u = (s, 2s), v = (t, 2t) uchun",
+    "a·u + b·v = (a·s + b·t, 2(a·s + b·t))",
+    "Bu ifoda yana W da joylashgan"
+   ],
+   "result": "W = {(t, 2t)} alt makon ekanligi isbotlandi"
+  },
+  "narr": [
+   "Ko'rib turganimiz to'g'ri chiziq W = {(t, 2t)} ni tekshiramiz.",
+   "Bu to'g'ri chiziq (1, 2) vektoriga parallel.",
+   "Ixtiyoriy ikkita vektor u = (s, 2s) va v = (t, 2t) olsak.",
+   "Ularning chiziqli birikmasi a·u + b·v = (a·s + b·t, 2(a·s + b·t)) bo'ladi.",
+   "Bu ifoda yana W da joylashgan, chunki uning ikkinchi komponenti birinchisining ikki barobariga teng.",
+   "Shuning uchun W alt makon ekanligi isbotlandi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Siljigan to'g'ri chiziq (kontremisol)",
+   "problem": "S = {(x, y): y = 2x + 1}",
+   "steps": [
+    "Nol vektor (0, 0) tenglamaga javob bermaydi",
+    "Shuning uchun S alt makon emas"
+   ],
+   "result": "S alt makon emas, chunki u koordinata boshidan o'tmaydi"
+  },
+  "narr": [
+   "Endi siljigan to'g'ri chiziqni ko'rib chiqamiz.",
+   "S = {(x, y): y = 2x + 1} to'g'ri chiziqni tekshiramiz.",
+   "Bu to'g'ri chiziqning nol vektori (0, 0) yo'q, chunki 0 = 2·0 + 1 tenglama noto'g'ri.",
+   "Shuning uchun S alt makon emas.",
+   "Bu ko'rsatadiki, alt makon har doim koordinata boshidan o'tishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol — Boshlang'ich nuqtadan o'tuvchi tekislik",
+   "problem": "W = {(x, y, z): x + y + z = 0} = span{(1, 0, -1), (0, 1, -1)}",
+   "steps": [
+    "z = -x-y dan: (x, y, z) = x(1, 0, -1) + y(0, 1, -1)",
+    "x + y + z = 1 tekisligi - kichik fazo emas (nol yo'q)"
+   ],
+   "result": "W alt makon ekanligi isbotlandi"
+  },
+  "narr": [
+   "Uch o'lchovli fazodagi tekislikni ko'rib chiqamiz.",
+   "W = {(x, y, z): x + y + z = 0} tekisligini tekshiramiz.",
+   "Bu tekislikni (1, 0, -1) va (0, 1, -1) vektorlarining chiziqli birikmasi sifatida ifodalash mumkin.",
+   "x + y + z = 1 tekisligi esa alt makon emas, chunki unda nol vektor yo'q.",
+   "Shuning uchun W alt makon ekanligi isbotlandi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "R³ geometriyasidagi alt makonlar",
+   "bullets": [
+    "{0} - faqat nol vektordan iborat alt makon",
+    "0 dan o'tuvchi to'g'ri chiziqlar - bitta chiziqli mustaqil vektorning chiziqli birikmasi",
+    "0 dan o'tuvchi tekisliklar - ikki chiziqli mustaqil vektorning chiziqli birikmasi",
+    "Butun R³ - uch chiziqli mustaqil vektorning chiziqli birikmasi"
+   ]
+  },
+  "narr": [
+   "R³ fazosida turli xil alt makonlar mavjud.",
+   "Eng soddasi - faqat nol vektordan iborat {0} to'plami.",
+   "Keyingi darajada - 0 dan o'tuvchi to'g'ri chiziqlar, ular bitta chiziqli mustaqil vektorning chiziqli birikmasidir.",
+   "Uchinchi darajada - 0 dan o'tuvchi tekisliklar, ular ikki chiziqli mustaqil vektorning chiziqli birikmasidir.",
+   "Va eng yuqori darajada - butun R³ fazosi, u uch chiziqli mustaqil vektorning chiziqli birikmasidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Alt makonlarning kesishishi va birlashmasi",
+   "bullets": [
+    "U ∩ W - kesishish har doim alt makon bo'ladi",
+    "Birlashma U ∪ W - albatta alt makon bo'lmaydi",
+    "Misol: x va y o'qlari R² ning alt makonlari, lekin (1, 0) + (0, 1) = (1, 1) hech qanday oqda joylashmagan"
+   ]
+  },
+  "narr": [
+   "Ikki alt makonning kesishishi U ∩ W har doim yana bir alt makon bo'ladi.",
+   "Lekin birlashmasi U ∪ W albati alt makon bo'lmaydi.",
+   "Misol sifatida x va y o'qlarini olsak, ular alohida-alohida R² ning alt makonlari hisoblanadi.",
+   "Lekin ularning birlashmasi (1, 0) + (0, 1) = (1, 1) vektorni o'z ichiga olmaydi, bu esa birlashmani alt makon qilmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matritsalar va ko'phadlar misollari",
+   "bullets": [
+    "Simmetrik 2×2 matritsalar - barcha 2×2 matritsalar alt makoni",
+    "Simmetrik matritsalar yig'indisi va ko'paytmasi ham simmetrik bo'ladi",
+    "p(0) = 0 bo'lgan ko'phadlar - alt makon",
+    "p(0) = 1 bo'lgan ko'phadlar - alt makon emas"
+   ]
+  },
+  "narr": [
+   "Matritsa va ko'phadlar ham vektorli makonlar bo'lishi mumkin.",
+   "Simmetrik 2×2 matritsalar barcha 2×2 matritsalar alt makonini tashkil qiladi, chunki ularning yig'indisi va ko'paytmasi ham simmetrik bo'ladi.",
+   "Ko'phadlar holatida p(0) = 0 bo'lgan ko'phadlar alt makonni tashkil qiladi.",
+   "Lekin p(0) = 1 bo'lgan ko'phadlar alt makon emas, chunki ularning yig'indisi p(0) = 2 bo'lib, shartni bajarmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Chiziqli birikmalar va chiziqli qoplamalar (span)",
+   "subtitle": "Vektorlarning chiziqli birikmalari"
+  },
+  "narr": [
+   "Oxirgi qismda chiziqli birikmalar va chiziqli qoplamalarga (span) qaraymiz.",
+   "Bu tushunchalar vektorli makonlarning asosiy qurilish bloklari hisoblanadi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Chiziqli qoplamalar (span) ta'rifi",
+   "bullets": [
+    "span{v₁, ..., vₖ} = c₁v₁ + ... + cₖvₖ : cᵢ ∈ R",
+    "Bu vektorlarning chiziqli birikmalari to'plami",
+    "Span - bu berilgan vektorlarning chiziqli birikmalari orqali hosil qilinishi mumkin bo'lgan eng kichik alt makon"
+   ]
+  },
+  "narr": [
+   "Chiziqli qoplamalar (span) - bu berilgan vektorlarning chiziqli birikmalari to'plami.",
+   "Aniqrog'i, span{v₁, ..., vₖ} = c₁v₁ + ... + cₖvₖ, bunda cᵢ ∈ R.",
+   "Bu tushuncha berilgan vektorlarning chiziqli birikmalari orqali hosil qilinishi mumkin bo'lgan eng kichik alt makonni ifodalaydi.",
+   "Ya'ni, bu vektorlarning chiziqli birikmalari orqali hosil qilinishi mumkin bo'lgan barcha vektorlarning to'plami."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

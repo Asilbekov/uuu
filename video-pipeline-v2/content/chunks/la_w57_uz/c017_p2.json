@@ -1,0 +1,293 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli qoplama",
+   "subtitle": "Vektorlarning chiziqli birikmalari"
+  },
+  "narr": [
+   "Keling, chiziqli qoplamaning asosiy tushunchasini ko'rib chiqaylik.",
+   "Chiziqli qoplama - bu berilgan vektorlarning barcha chiziqli birikmalarining to'plami.",
+   "U har doim kichik fazodir, chunki agar ikkita birikma bo'lsa, ularning yig'indisi ham yana bir birikma bo'ladi.",
+   "Misol sifatida (3, 5) vektorini span{(1, 1), (1, -1)} da joylashganligini tekshiraylik."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Chiziqli qoplamada joylashganlik",
+   "problem": "(3, 5) vektori span{(1, 1), (1, -1)} da joylashganmi?",
+   "steps": [
+    "c1 + c2 = 3 va c1 - c2 = 5 tenglamalarini yechamiz",
+    "c1 = 4 va c2 = -1 ekanligini topamiz"
+   ],
+   "result": "Ha, (3, 5) vektori span{(1, 1), (1, -1)} da joylashgan"
+  },
+  "narr": [
+   "Bu masalani yechish uchun, (3, 5) vektorini (1, 1) va (1, -1) vektorlarining chiziqli birikmasi sifatida ifodalash kerak.",
+   "Bu c1 + c2 = 3 va c1 - c2 = 5 tenglamalarni beradi.",
+   "Bu tenglamalarni yechsak, c1 = 4 va c2 = -1 ekanligini ko'ramiz.",
+   "Shunday qilib, (3, 5) vektori haqiqatan ham berilgan chiziqli qoplamada joylashgan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Ustunlar fazosi C(A)",
+   "subtitle": "Matritsa ustunlarining chiziqli qoplami"
+  },
+  "narr": [
+   "Endi ustunlar fazosini ko'rib chiqaylik.",
+   "A = [a1 a2 ... an] matritsa bo'lsa, Ax = x1a1 + ... + xnan ko'paytmasi A ustunlarining chiziqli birikmasidir.",
+   "Ustunlar fazosi C(A) = Col(A) - bu ustunlarning chiziqli qoplami.",
+   "m×n matritsa A uchun C(A) Rm ning kichik fazosidir."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Ustunlar fazosi",
+   "problem": "A matritsasi berilgan, uning ustunlar fazosini toping",
+   "steps": [
+    "A matritsasini ko'rib chiqamiz",
+    "Ustunlarning chiziqli bog'liqligini tekshiramiz",
+    "Ustunlar fazosini topamiz"
+   ],
+   "result": "Col(A) = span{(1, 2, 0)} - R3 dagi to'g'ri chiziq"
+  },
+  "narr": [
+   "Misol sifatida quyidagi A matritsasini ko'rib chiqaylik:",
+   "Bu matritsada ikkita ustun bor va ular bir-biriga proporsional.",
+   "Shuning uchun ustunlar fazosi faqat bitta vektordan iborat bo'ladi: span{(1, 2, 0)}.",
+   "Bu R3 fazosidagi to'g'ri chizakdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ax = b tizimining yechimi",
+   "bullets": [
+    "Ax = b tizimida yechim bo'lishi shart va shartli ravishda b ustunlar fazosida joylashgan bo'lishi bilan bog'liq",
+    "Agar yechim mavjud bo'lsa, u b ni beradigan ustunlar birikmasining koeffitsientlarini tanlaydi"
+   ]
+  },
+  "narr": [
+   "Ax = b tizimining yechimining mavjudiyasi juda muhim tushunchadir.",
+   "Yechim faqat va faqat b vektori A matritsasining ustunlar fazosida joylashgan bo'lgina mavjud bo'ladi.",
+   "Agar yechim mavjud bo'lsa, u b ni beradigan ustunlar birikmasining koeffitsientlarini tanlaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Nol fazosi N(A)",
+   "subtitle": "Ax = 0 tizimining yechimlari"
+  },
+  "narr": [
+   "Keyingi muhim tushuncha - nol fazosi yoki null fazosi.",
+   "N(A) = Null(A) = x : Ax = 0 - bu Ax = 0 tizimining barcha yechimlari to'plami.",
+   "Bu Rn ning kichik fazosidir, chunki agar Au = Av = 0 bo'lsa, A(su + tv) = 0 bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3 — Nol fazosi",
+   "problem": "A = [1 2] matritsasi uchun nol fazosini toping",
+   "steps": [
+    "x1 + 2x2 = 0 tenglamani yechamiz",
+    "x1 = -2x2 ekanligini topamiz",
+    "Nol fazosini span{(-2, 1)} deb belgilaymiz"
+   ],
+   "result": "Null(A) = span{(-2, 1)} - to'g'ri chiziq"
+  },
+  "narr": [
+   "Misol sifatida A = [1 2] matritsasini ko'rib chiqaylik.",
+   "x1 + 2x2 = 0 tenglamani yechsak, x1 = -2x2 ekanligini ko'ramiz.",
+   "Shuning uchun nol fazosi span{(-2, 1)} bo'ladi, bu R2 dagi to'g'ri chizakdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Chiziqli tizimlar yechimlari",
+   "bullets": [
+    "x : Ax = 0 - har doim kichik fazor",
+    "x : Ax = b, b ≠ 0 - kichik fazo emas (nol vektorni o'z ichiga olmaydi)",
+    "Agar Ax = b tizimi yechimga ega bo'lsa, uning yechimlari x = xp + xn ko'rinishida bo'ladi, bunda xp - maxsus yechim, xn ∈ Null(A)"
+   ]
+  },
+  "narr": [
+   "Chiziqli tizimlarning yechimlari haqida bir necha muhim faktlar mavjud.",
+   "Avvalo, x : Ax = 0 tenglama har doim kichik fazor hosil qiladi.",
+   "Aksincha, x : Ax = b, b ≠ 0 tenglama kichik fazo emas, chunki nol vektorni o'z ichiga olmaydi.",
+   "Agar Ax = b tizimi yechimga ega bo'lsa, uning barcha yechimlari x = xp + xn ko'rinishida bo'ladi, bunda xp - maxsus yechim, xn esa nol fazosiga tegishli."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Matritsa transponirovkasi",
+   "subtitle": "Matritsa transponirovkasi xossalari"
+  },
+  "narr": [
+   "Endi matritsa transponirovkasini ko'rib chiqaylik.",
+   "Matritsa transponirovkasi - bu matritsaning qatorlarini ustunlariga, ustunlarini esa qatorlariga almashtirishdir.",
+   "Bu muhim amaliy ahamiyatga ega bo'lgan operatsiyadir."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — 2×2 matritsani transponirovka qilish",
+   "problem": "A = [[1, 2], [3, 4]] matritsasi uchun AT ni hisoblang",
+   "steps": [
+    "Transponirovka qatorlar va ustunlarni almashtiradi: (AT)ij = aji",
+    "Shuning uchun AT = [[1, 3], [2, 4]]",
+    "Diagonal elementlar o'zgarmaydi"
+   ],
+   "result": "AT = [[1, 3], [2, 4]]"
+  },
+  "narr": [
+   "Mashq sifatida, A = [[1, 2], [3, 4]] matritsasi berilgan.",
+   "Transponirovka qatorlar va ustunlarni almashtiradi, ya'ni (AT)ij = aji bo'ladi.",
+   "Shuning uchun AT matritsasi [[1, 3], [2, 4]] bo'ladi.",
+   "E'tibor bering, diagonal elementlar o'zgarmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — Yig'indining transponirovkasi",
+   "problem": "A = [[1, 0], [2, 3]] va B = [[2, 1], [0, -1]] matritsalari uchun (A+B)T ni hisoblang",
+   "steps": [
+    "Avval A + B yig'indisini hisoblaymiz: A + B = [[3, 1], [2, 2]]",
+    "Keyin transponirovka qilamiz: (A + B)T = [[3, 2], [1, 2]]",
+    "Tekshirish: AT + BT = [[1, 2], [0, 3]] + [[2, 0], [1, -1]] = [[3, 2], [1, 2]]"
+   ],
+   "result": "(A + B)T = [[3, 2], [1, 2]]"
+  },
+  "narr": [
+   "Ikkinchi mashqda, A va B matritsalari berilgan.",
+   "Avval ularning yig'indisini hisoblaymiz: A + B = [[3, 1], [2, 2]].",
+   "Keyin transponirovka qilamiz: (A + B)T = [[3, 2], [1, 2]].",
+   "Tekshirish uchun AT + BT ni hisoblasak, bir xil natijaga erishamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — AT A ko'paytmasi",
+   "problem": "A = [[1, 2], [0, 1]] matritsasi uchun AT A ni toping",
+   "steps": [
+    "AT ni hisoblaymiz: AT = [[1, 0], [2, 1]]",
+    "AT A ko'paytmasini hisoblaymiz: [[1, 0], [2, 1]] · [[1, 2], [0, 1]] = [[1, 2], [2, 5]]",
+    "Natija simmetrik matritsa, bu har doim shunday bo'ladi"
+   ],
+   "result": "AT A = [[1, 2], [2, 5]]"
+  },
+  "narr": [
+   "Uchinchi mashqda, A matritsasi berilgan.",
+   "Avval uning transponirovkasini hisoblaymiz: AT = [[1, 0], [2, 1]].",
+   "Keyin AT A ko'paytmasini hisoblaymiz: [[1, 0], [2, 1]] · [[1, 2], [0, 1]] = [[1, 2], [2, 5]].",
+   "E'tibor bering, natija simmetrik matritsa, bu har doim shunday bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Ko'paytmaning transponirovkasi",
+   "problem": "A = [[1, 1], [0, 2]] va B = [[2, 0], [1, 3]] matritsalari uchun (AB)T ni toping",
+   "steps": [
+    "AB ko'paytmasini hisoblaymiz: AB = [[1·2 + 1·1, 1·0 + 1·3], [0·2 + 2·1, 0·0 + 2·3]] = [[3, 3], [2, 6]]",
+    "Keyin transponirovka qilamiz: (AB)T = [[3, 2], [3, 6]]",
+    "Tekshirish: (AB)T = BT AT = [[2, 1], [0, 3]] · [[1, 0], [1, 2]] = [[3, 2], [3, 6]]"
+   ],
+   "result": "(AB)T = [[3, 2], [3, 6]]"
+  },
+  "narr": [
+   "To'rtinchi mashqda, A va B matritsalari berilgan.",
+   "Avval AB ko'paytmasini hisoblaymiz: [[1·2 + 1·1, 1·0 + 1·3], [0·2 + 2·1, 0·0 + 2·3]] = [[3, 3], [2, 6]].",
+   "Keyin transponirovka qilamiz: (AB)T = [[3, 2], [3, 6]].",
+   "Tekshirish uchun (AB)T = BT AT ekanligidan foydalanib, bir xil natijaga erishamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

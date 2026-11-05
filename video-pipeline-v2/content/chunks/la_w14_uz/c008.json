@@ -1,0 +1,528 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Keling, chiziqli algebra kursining birinchi to'rt haftasini ko'rib chiqaylik. Bu yerda determinantlar, matritsa rangi va teskari matritsalar haqida so'z boradi.",
+   "Avvalgi masalaga qaytamiz: U vektorini [u, v, w] deb belgilasak, 12-masaladan det U = 13 ekanligini bilamiz. LU dekompozitsiyasi hosil bo'lganda, det(LU) = det L det U = (-2)(13) = -26 bo'ladi. Bu yangi hajm 26 ga teng ekanligini anglatadi.",
+   "|det L| = 2 koeffitsienti U dan mustaqil, chunki det(LU) = det L det U har qanday U uchun to'g'ri. Bu determinantlar ko'paytmasi qoidasining geometrik ma'nosini anglatadi: |det L| — hajmni o'zgartirish koeffitsienti."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "4-hafta — Matritsa rangi va teskari matritsa",
+   "subtitle": "Lineal algebra I"
+  },
+  "narr": [
+   "Chiziqli algebra kursining 4-haftasi matritsa rangi va Gauss-Jordan usuli bilan matritsani teskarisini olishni o'z ichiga oladi. Bu hafta 1-3 haftalar bo'yicha Test 1 bilan tugaydi.",
+   "Repozitoriyda 4-hafta uchun alohida mashqlar varaqasi yo'q, shuning uchun bu ikki qismdan iborat: (i) Strangning berilgan materialidan to'plangan ikki mavzuga to'liq formulalar katalogi va (ii) TA kursi varaqalari uslubida gradatsiyalashgan mashq to'plamini to'liq yechimlari bilan."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "4-hafta formulalar katalogi",
+   "subtitle": "Rang va yo'q qilish"
+  },
+  "narr": [
+   "4-hafta formulalar katalogini boshlaymiz. Birinchi bo'lim - matritsa rangi va yo'q qilish."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matritsa rangi",
+   "tex": "rank A \\leq \\min(m, n)",
+   "parts": [
+    {
+     "substr": "rank A",
+     "color": "#4C5FD5",
+     "note": "Matritsa rangi"
+    },
+    {
+     "substr": "m",
+     "color": "#B45309",
+     "note": "Matritsa satrlari soni"
+    },
+    {
+     "substr": "n",
+     "color": "#0E7C7B",
+     "note": "Matritsa ustunlari soni"
+    }
+   ]
+  },
+  "narr": [
+   "Matritsa rangi matritsa satrlari va ustunlari sonining minimumidan katta yoki teng bo'lishi kerak."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matritsa rangi va determinant",
+   "tex": "A \\in \\mathbb{R}^{n \\times n} : rank A = n \\Leftrightarrow Ax = 0 \\text{ faqat } x = 0 \\text{ yechimga ega}",
+   "parts": [
+    {
+     "substr": "rank A = n",
+     "color": "#4C5FD5",
+     "note": "Matritsa to'liq rangga ega"
+    },
+    {
+     "substr": "Ax = 0",
+     "color": "#B45309",
+     "note": "Nol vektorga teng matritsa tenglamasi"
+    },
+    {
+     "substr": "x = 0",
+     "color": "#0E7C7B",
+     "note": "Trivial yechim"
+    }
+   ]
+  },
+  "narr": [
+   "Kvadrat matritsa to'liq rangga ega bo'lishining sharti, unga nol vektorga teng bo'lgan tenglamaning faqat nol yechimi bo'lishidir."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matritsa teskarililigi",
+   "tex": "A \\text{ teskarililigi } \\Leftrightarrow rank A = n \\Leftrightarrow n \\text{ ta pivot } \\Leftrightarrow \\det A \\neq 0",
+   "parts": [
+    {
+     "substr": "rank A = n",
+     "color": "#4C5FD5",
+     "note": "Matritsa to'liq rangga ega"
+    },
+    {
+     "substr": "n ta pivot",
+     "color": "#B45309",
+     "note": "n ta asosiy element"
+    },
+    {
+     "substr": "det A ≠ 0",
+     "color": "#0E7C7B",
+     "note": "Determinant nolga teng emas"
+    }
+   ]
+  },
+  "narr": [
+   "Matritsa teskariligining uchta ekvivalent sharti bor: to'liq rangga ega bo'lishi, n ta asosiy elementga ega bo'lishi va determinantining nolga teng bo'lishi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Matritsa teskarililigi",
+   "tex": "A \\text{ teskarililigi } \\Leftrightarrow Ax = b \\text{ har bir } b \\text{ uchun aynan bitta yechimga ega}",
+   "parts": [
+    {
+     "substr": "Ax = b",
+     "color": "#4C5FD5",
+     "note": "Matritsa tenglamasi"
+    },
+    {
+     "substr": "har bir b",
+     "color": "#B45309",
+     "note": "Har bir o'ng tomon vektori uchun"
+    },
+    {
+     "substr": "aynan bitta yechim",
+     "color": "#0E7C7B",
+     "note": "Yagona yechim mavjud"
+    }
+   ]
+  },
+  "narr": [
+   "Matritsa teskariligining yana bir sharti - har bir o'ng tomon vektori uchun tenglamaning aynan bitta yechimiga ega bo'lishidir."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Teskari matritsa",
+   "bullets": [
+    "$AA^{-1} = I = A^{-1}A$",
+    "$x = A^{-1}b$ bo'lsa, $Ax = b$ yechim",
+    "$A^{-1}$ mavjud $\\Leftrightarrow$ yo'q qilish $n$ ta pivot beradi (qator almashtirishlar mumkin)",
+    "$\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}^{-1} = \\frac{1}{ad - bc}\\begin{bmatrix} d & -b \\\\ -c & a \\end{bmatrix}$ ($ad - bc \\neq 0$)",
+    "$(AB)^{-1} = B^{-1}A^{-1}$",
+    "$(ABC)^{-1} = C^{-1}B^{-1}A^{-1}$ (teskari tartib)",
+    "$\\text{diag}(d_1, \\ldots, d_n)^{-1} = \\text{diag}\\left(\\frac{1}{d_1}, \\ldots, \\frac{1}{d_n}\\right)$ ($d_i \\neq 0$)"
+   ]
+  },
+  "narr": [
+   "Teskari matritsa haqida bir necha muhim faktlar bor.",
+   "Birinchidan, matritsa va uning teskarisining ko'paytmasi birlik matritsaga teng bo'ladi.",
+   "Ikkinchidan, agar $x = A^{-1}b$ bo'lsa, $Ax = b$ tenglamaning yechimi bo'ladi.",
+   "Uchinchidan, matritsada teskari matritsa bo'lishi uchun yo'q qilish jarayonida $n$ ta asosiy element bo'lishi kerak.",
+   "To'rtinchidan, $2 \\times 2$ matritsasi uchun teskari matritsani hisoblash formulasi mavjud.",
+   "Beshinchidan, ikki matritsaning ko'paytmasining teskari matritsi ularning teskari matritsalarining teskari tartibda ko'paytmasiga teng.",
+   "Oltinchidan, uchta matritsaning ko'paytmasining teskari matritsi ularning teskari matritsalarining teskari tartibda ko'paytmasiga teng.",
+   "Yettinchidan, diagonal matritsaning teskari matritsasi uning diagonal elementlarining teskari qiymatlaridan tashkil topgan diagonal matritsadir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Teskari matritsasizlik",
+   "tex": "x \\neq 0, Ax = 0 \\Rightarrow A \\text{ teskarili emas}",
+   "parts": [
+    {
+     "substr": "x ≠ 0",
+     "color": "#4C5FD5",
+     "note": "Nol bo'lm vektor"
+    },
+    {
+     "substr": "Ax = 0",
+     "color": "#B45309",
+     "note": "Nol vektorga teng tenglama"
+    },
+    {
+     "substr": "A teskarili emas",
+     "color": "#0E7C7B",
+     "note": "Matritsa teskarisiz"
+    }
+   ]
+  },
+  "narr": [
+   "Agar nol bo'lmagan vektor $x$ uchun $Ax = 0$ tenglik o'rinli bo'lsa, matritsa teskarisiz bo'ladi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Teskari matritsa xossasi",
+   "tex": "BA = I, AC = I \\Rightarrow B = B(AC) = (BA)C = C \\text{ (yagonalik)}",
+   "parts": [
+    {
+     "substr": "BA = I",
+     "color": "#4C5FD5",
+     "note": "B matritsasi A ning chap teskarisi"
+    },
+    {
+     "substr": "AC = I",
+     "color": "#B45309",
+     "note": "C matritsasi A ning o'ng teskarisi"
+    },
+    {
+     "substr": "B = C",
+     "color": "#0E7C7B",
+     "note": "Chap va o'ng teskari matritsalar teng"
+    }
+   ]
+  },
+  "narr": [
+   "Agar B matritsasi A ning chap teskarisi va C matritsasi A ning o'ng teskarisi bo'lsa, B va C matritsalari teng bo'ladi. Bu teskari matritsaning yagonaligini ko'rsatadi."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Gauss-Jordan yo'q qilish",
+   "bullets": [
+    "$\\begin{bmatrix} A & | & I \\end{bmatrix}$ boshlang'ich qator amallari",
+    "$\\begin{bmatrix} A & | & I \\end{bmatrix} \\rightarrow \\begin{bmatrix} I & | & A^{-1} \\end{bmatrix}$",
+    "Qator amallari: ikkala qatorni almashtirish; qatorni noldan farqli konstantaga ko'paytirish; bitta qatorning ko'paytmasini boshqasiga qo'shish."
+   ]
+  },
+  "narr": [
+   "Gauss-Jordan usuli orqali matritsani teskarisini topish mumkin.",
+   "Buning uchun avval [A | I] kabi kengaytirilgan matritsa tuzamiz.",
+   "Keyin qator amallari yordamida A ni I ga aylantiramiz.",
+   "Qator amallari uchta turli usuldan iborat: ikkala qatorni almashtirish, qatorni noldan farqli konstantaga ko'paytirish va bitta qatorning ko'paytmasini boshqasiga qo'shish.",
+   "Har bir qator amali boshlang'ich E matritsiga mos keladi, uning teskari oson hisoblanadi.",
+   "Shuning uchun (E₂E₁A)⁻¹ = A⁻¹E₁⁻¹E₂⁻¹ bo'ladi, bu erda teskari tartibda chiqadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "4-hafta mashqlari",
+   "subtitle": "rang, teskari, Gauss-Jordan — savollar va to'liq yechimlar"
+  },
+  "narr": [
+   "Endi 4-hafta mashqlarini ko'rib chiqamiz. Ushbu mashqlar matritsa rangi, teskari matritsa va Gauss-Jordan usuliga oid masalalarni o'z ichiga oladi."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "1-masala — Matritsa rangini hisoblash",
+   "problem": "A = \\begin{bmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 5 \\\\ 3 & 6 & 4 \\end{bmatrix} matritsasi uchun chiqarib tashlash orqali rank A ni hisoblang.",
+   "steps": [
+    {
+     "text": "Birinchi ustun elementi (1) ostida chiqaramiz: R₂ − 2R₁ → (0, 0, 3); R₃ − 3R₁ → (0, 0, 1)"
+    },
+    {
+     "text": "Ikkinchi ustun elementlari yo'qoldi, demak ikkinchi ustun elementi 3-ustundan keladi: ustun elementi = 3"
+    },
+    {
+     "text": "Uning ostida chiqaramiz: R₃ − (1/3)R₂ → (0, 0, 0)"
+    },
+    {
+     "text": "Ikkita nol bo'lmagan ustun element: rank A = 2"
+    },
+    {
+     "text": "E'tibor bering col₂ = 2col₁, bu boshidan ko'rinib turardi — rang kamchiligi belgisi"
+    }
+   ],
+   "result": "rank A = 2"
+  },
+  "narr": [
+   "Birinchi masalada bizga berilgan matritsa rangini chiqarib tashlash usuli bilan hisoblash so'ralgan.",
+   "Birinchi ustun elementi 1 bo'lgani uchun, uning ostidagi elementlarni nolga aylantiramiz.",
+   "Ikkinchi qatorni birinchisining ikki barobaridan ayiramiz, uchinchi qatorni uch barobaridan ayiramiz.",
+   "Natijada ikkinchi ustundagi elementlar nolga aylanadi, shuning uchun ikkinchi ustun elementi uchinchi ustundan keladi.",
+   "Uchinchi qatorda ikkinchi qatorning uchdan bir qismini ayiramiz, bu bizga nol qator beradi.",
+   "Shunday qilib, bizda ikkita nol bo'lmagan ustun element qoladi, demak matritsa rangi 2 ga teng.",
+   "E'tibor bering, ikkinchi ustun birinchisining ikki barobari, bu matritsa rangi kam ekanligining belgisi edi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "2-masala — Matritsani teskariligini tekshirish",
+   "problem": "B = \\begin{bmatrix} 1 & 2 \\\\ 4 & 2 \\end{bmatrix} matritsasi uchun uchta usul bilan teskari ekanligini aniqlang: ustun elementlar, determinant va nol bo'lmanni nol vektor.",
+   "steps": [
+    {
+     "text": "(Asosiy) R₂ − 2R₁ → (0, 0): faqat bitta asosiy — noyob"
+    },
+    {
+     "text": "(Determinant) ad − bc = 2·2 − 1·4 = 0 — (112) bo'yicha noyob"
+    },
+    {
+     "text": "(Nol-vektor) B(1, −2)ᵀ = (2−2, 4−4)ᵀ = 0 — Bx = 0 tenglamaning nol bo'lmagan yechimi, demak (115) bo'yicha B teskarisiz"
+    },
+    {
+     "text": "Uchala test ham mos keladi"
+    }
+   ],
+   "result": "B matritsasi teskarisiz"
+  },
+  "narr": [
+   "Ikkinchi masalada bizga B matritsasi teskariligini uchta usul bilan tekshirish so'ralgan.",
+   "Birinchi usul - asosiy elementlar orqali. Bizda faqat bitta asosiy element bor, bu matritsa to'liq rangga ega emasligini ko'rsatadi.",
+   "Ikkinchi usul - determinant orqali. Matritsa determinantini hisoblaymiz: 2·2 - 1·4 = 0. Determinant nolga teng bo'lgani uchun matritsa teskarisiz.",
+   "Uchinchi usul - nol bo'lmann nol vektorga teng tenglamani tekshirish. B(1, -2)ᵀ = (0, 0)ᵀ tenglik o'rinli, ya'ni nol bo'lmagan yechim mavjud.",
+   "Uchala usul ham matritsani teskarisiz ekanligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3-masala — Matritsaning teskarisini topish",
+   "problem": "A = \\begin{bmatrix} 2 & 1 \\\\ 5 & 3 \\end{bmatrix} matritsasining teskarisini toping.",
+   "steps": [
+    {
+     "text": "det A = 6 − 5 = 1, shuning uchun (112) bo'yicha A⁻¹ = \\begin{bmatrix} 3 & -1 \\\\ -5 & 2 \\end{bmatrix}"
+    },
+    {
+     "text": "Tekshirish: A · A⁻¹ = [2 · 3 + 1 · (−5), 2 · (−1) + 1 · 2; 5 · 3 + 3 · (−5), 5 · (−1) + 3 · 2] = [1 0; 0 1] = I"
+    }
+   ],
+   "result": "A⁻¹ = \\begin{bmatrix} 3 & -1 \\\\ -5 & 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Uchinchi masalada bizga berilgan 2×2 matritsani teskarisini topish so'ralgan.",
+   "Avval matritsa determinantini hisoblaymiz: 2·3 - 1·5 = 6 - 5 = 1.",
+   "Determinant nolga teng emas, shuning uchun matritsada teskari matritsa mavjud.",
+   "2×2 matritsa teskari matritsasi formulasi yordamida: A⁻¹ = (1/1)·[3 -1; -5 2] = [3 -1; -5 2]",
+   "Natijani tekshirish uchun A va A⁻¹ ni ko'paytiramiz: [2·3 + 1·(-5), 2·(-1) + 1·2; 5·3 + 3·(-5), 5·(-1) + 3·2] = [1 0; 0 1] = I",
+   "Ko'paytma birlik matritsaga teng, shuning uchun hisob to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "4-masala — Gauss-Jordan usuli bilan teskari matritsani topish",
+   "problem": "\\begin{bmatrix} A & | & I \\end{bmatrix} matritsiga Gauss-Jordan usulini qo'llab A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 7 \\end{bmatrix} matritsasini teskarisini toping.",
+   "steps": [
+    {
+     "text": "\\begin{bmatrix} 1 & 2 & | & 1 & 0 \\\\ 3 & 7 & | & 0 & 1 \\end{bmatrix} → R₂ − 3R₁ → \\begin{bmatrix} 1 & 2 & | & 1 & 0 \\\\ 0 & 1 & | & -3 & 1 \\end{bmatrix}"
+    },
+    {
+     "text": "→ R₁ − 2R₂ → \\begin{bmatrix} 1 & 0 & | & 7 & -2 \\\\ 0 & 1 & | & -3 & 1 \\end{bmatrix}"
+    },
+    {
+     "text": "Shunday qilib A⁻¹ = \\begin{bmatrix} 7 & -2 \\\\ -3 & 1 \\end{bmatrix}"
+    },
+    {
+     "text": "Tekshirish: AA⁻¹ = \\begin{bmatrix} 1·7 + 2·(-3) & 1·(-2) + 2·1 \\\\ 3·7 + 7·(-3) & 3·(-2) + 7·1 \\end{bmatrix} = \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} = I"
+    }
+   ],
+   "result": "A⁻¹ = \\begin{bmatrix} 7 & -2 \\\\ -3 & 1 \\end{bmatrix}"
+  },
+  "narr": [
+   "To'rtinchi masalada Gauss-Jordan usuli yordamida matritsani teskarisini topish so'ralgan.",
+   "Avval kengaytirilgan matritsani tuzamiz: [A | I] = [1 2 | 1 0; 3 7 | 0 1]",
+   "Birinchi qatorni ikkinchi qatordan uch barobar ayiramiz: R₂ − 3R₁ → [1 2 | 1 0; 0 1 | -3 1]",
+   "Endi birinchi qatorda ikkinchi ustun elementini nolga aylantiramiz: R₁ − 2R₂ → [1 0 | 7 -2; 0 1 | -3 1]",
+   "Natijada chap tomonda birlik matritsa, o'ng tomonda esa A⁻¹ hosil bo'ladi: [7 -2; -3 1]",
+   "Natijani tekshirish uchun A va A⁻¹ ni ko'paytiramiz: [1·7 + 2·(-3) 1·(-2) + 2·1; 3·7 + 7·(-3) 3·(-2) + 7·1] = [1 0; 0 1] = I",
+   "Ko'paytma birlik matritsaga teng, shuning uchun hisob to'g'ri."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "5-masala — Gauss-Jordan usuli bilan teskari matritsani topish",
+   "problem": "K = \\begin{bmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{bmatrix} matritsasi uchun Gauss-Jordan usuli bilan teskarisini toping va tekshiring, asosiy ko'paytmalari det K ga teng ekanligini.",
+   "steps": [
+    {
+     "text": "[K|I] da ishlaymiz: birinchi asosiy 2 bilan chiqaramiz (R₂ + (1/2)R₁), so'ngra ikkinchi asosiy 3/2 (R₃ + (2/3)R₂), so'ngra uchinchi 4/3"
+    },
+    {
+     "text": "Yuqoriga davom etib, asosiy elementlar ustidini tozalaganda o'ngda K⁻¹ hosil bo'ladi"
+    },
+    {
+     "text": "K⁻¹ = (1/4)·\\begin{bmatrix} 3/2 & 1/2 & 1/4 \\\\ 1 & 1 & 1/2 \\\\ 1/2 & 1/2 & 3/4 \\end{bmatrix} bo'ladi"
+    },
+    {
+     "text": "Asosiy ko'paytmalar 2 · (3/2) · (4/3) = 4 = det K ga teng"
+    },
+    {
+     "text": "Haqiqatan ham K⁻¹ butun sonli matritsani det K ga bo'lib olinadi — (112) dan keyin belgilangan namuna"
+    }
+   ],
+   "result": "K⁻¹ = (1/4)·\\begin{bmatrix} 3/2 & 1/2 & 1/4 \\\\ 1 & 1 & 1/2 \\\\ 1/2 & 1/2 & 3/4 \\end{bmatrix}"
+  },
+  "narr": [
+   "Beshinchi masalada Strangning sevimli misolini ko'rib chiqamiz.",
+   "K matritsasi uchun Gauss-Jordan usulini qo'llaymiz.",
+   "Birinchi asosiy element 2, ikkinchi asosiy element 3/2, uchinchi asosiy element 4/3.",
+   "Asosiy ko'paytmalar 2 · (3/2) · (4/3) = 4 ga teng, bu det K ga teng.",
+   "K⁻¹ ni hisoblab, uni det K ga bo'lib olamiz.",
+   "Matritsa simmetrik va uch diagonal, lekin K⁻¹ zich matritsadir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "6-masala — Tenglama sistemasini yechish",
+   "problem": "Ax = b tenglamani A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 7 \\end{bmatrix}, b = \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix} uchun yeching.",
+   "steps": [
+    {
+     "text": "4-masaladan A⁻¹ = \\begin{bmatrix} 7 & -2 \\\\ -3 & 1 \\end{bmatrix} ekanligini bilamiz"
+    },
+    {
+     "text": "x = A⁻¹b = \\begin{bmatrix} 7 & -2 \\\\ -3 & 1 \\end{bmatrix}·\\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 7·1 −2·1 \\\\ −3·1 + 1·1 \\end{bmatrix} = \\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}"
+    }
+   ],
+   "result": "x = \\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Oltinchi masalada Ax = b tenglama sistemasini yechish so'ralgan.",
+   "A matritsasi 4-masalada berilgan edi, uning teskari matritsini allaqachon topganmiz: A⁻¹ = [7 -2; -3 1]",
+   "Tenglama sistemasini yechish uchun x = A⁻¹b formulasidan foydalanamiz.",
+   "b vektorini A⁻¹ ga ko'paytiramiz: [7·1 -2·1; -3·1 + 1·1] = [5; -2]",
+   "Shunday qilib, tenglamaning yechimi x = [5; -2] vektoridir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ }
+]

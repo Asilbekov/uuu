@@ -1,0 +1,451 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Chiziqli algebra darslarining 5-7 haftalariga qarab koʻramiz. Bu haftalarda biz chiziqli sistemalar, matritsalar va ularning xossalarini oʻrganamiz.",
+   "Keling, birinchi mavzuni koʻrib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ikki xil tasvir",
+   "bullets": [
+    "Satr tasviri (row picture): tenglamalar — kesishgan toʻgʻri chiziqlar yoki tekisliklar",
+    "Ustun tasviri (column picture): Ax = x1 · a1 + ... + xn · an = b"
+   ]
+  },
+  "narr": [
+   "Chiziqli sistemalarni ikki xil usulda tasvirlash mumkin: satr tasviri va ustun tasviri.",
+   "Satr tasvirida, biz tenglamalarni toʻgʻri chiziqlar yoki tekisliklar sifatida koʻramiz.",
+   "Ustun tasvirida esa, biz matritsaning ustunlarining chiziqli birikmasi sifatida koʻramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Ustun tasviri misoli",
+   "problem": "Ustun tasvirini koʻrsating:",
+   "steps": [
+    {
+     "text": "$\\begin{bmatrix} 2 & 1 \\\\ 1 & 1 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 5 \\\\ 3 \\end{bmatrix}$"
+    },
+    {
+     "text": "Bu $x \\cdot \\begin{bmatrix} 2 \\\\ 1 \\end{bmatrix} + y \\cdot \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 5 \\\\ 3 \\end{bmatrix}$ degani"
+    },
+    {
+     "text": "Yechim: $(x, y) = (2, 1)$"
+    }
+   ],
+   "result": "$(x, y) = (2, 1)$"
+  },
+  "narr": [
+   "Keling, oddiy misol koʻrib chiqaylik.",
+   "Bu sistemada ikkita matritsa koʻrsatilgan.",
+   "Ustun tasvirida, biz ikki vektorning chiziqli birikmasi orqali b vektorni hosil qilishni koʻramiz.",
+   "Bu yerda, ikki ustun vektorni x va y koeffitsiyentlari bilan chiziqli birikmasi orqali b vektorni hosil qilamiz.",
+   "Yechim $(x, y) = (2, 1)$ boʻlib, ikkala tasvir ham bir xil sistemani tasvirlaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Chiqarish usuli (Elimination)",
+   "bullets": [
+    "Asosiy element (pivot) $a_{kk} \\neq 0$ boʻlganda, $m_{ik} = a_{ik}/a_{kk}$ koʻpaytuvchi olinadi",
+    "$R_i \\leftarrow R_i - m_{ik} \\cdot R_k$ amalga oshiriladi"
+   ]
+  },
+  "narr": [
+   "Chiziqli sistemalarni yechish uchun chiqarish usulidan foydalanamiz.",
+   "Bu usulda, asosiy element (pivot) deb ataladigan elementni tanlab, un yordamida matritsani uchburchak shakliga keltiramiz.",
+   "Buning uchun, pivot ustunidagi elementlarni nolga aylantiruvchi koʻpaytuvchini hisoblaymiz va qatorlarni almashtiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "Chiqarish misoli",
+   "tex": "\\begin{bmatrix} 1 & 2 & 1 \\\\ 2 & 5 & 3 \\\\ 1 & 3 & 3 \\end{bmatrix}",
+   "steps": [
+    {
+     "text": "Birinchi qadam: \\begin{bmatrix} 1 & 2 & 1 \\\\ 0 & 1 & 1 \\\\ 0 & 1 & 2 \\end{bmatrix}"
+    },
+    {
+     "text": "Ikkinchi qadam: \\begin{bmatrix} 1 & 2 & 1 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 1 \\end{bmatrix}"
+    },
+    {
+     "text": "Teskari almashtirib uchburchak sistemani yechamiz"
+    }
+   ]
+  },
+  "narr": [
+   "Keling, chiqarish usulini amaliy misolda koʻrib chiqaylik.",
+   "Bizda boshlangʻich matritsa berilgan.",
+   "Birinchi qadamda, birinchi qator asosida ikkinchi va uchinchi qatlardagi birinchi ustun elementlarini nolga aylantiramiz.",
+   "Ikkinchi qadamda, ikkinchi qator asosida uchinchi qatrdagi ikkinchi ustun elementini nolga aylantiramiz.",
+   "Natijada, biz uchburchak matritsaga erishamiz va teskari almashtirish usuli bilan sistemani yechamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Aynanlik",
+   "bullets": [
+    "$\\begin{bmatrix} 1 & 2 \\\\ 2 & 4 \\end{bmatrix} \\cdot \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 3 \\\\ 6 \\end{bmatrix}$ cheksiz koʻp yechimga ega",
+    "6 ni 7 ga almashtirish $0 = 1$ ziddiyatini beradi"
+   ]
+  },
+  "narr": [
+   "Chiziqli sistemalarning yechimlari har doim bitta yechimga ega boʻlmasligi mumkin.",
+   "Agar matritsani ustunlari chiziqli bogʻliq boʻlsa, sistema cheksiz koʻp yechimga ega boʻlishi mumkin.",
+   "Agar sistema ziddiyatli boʻlsa (masalan, $0 = 1$ kabi tenglik), u holda yechim boʻlmaydi.",
+   "Kvadrat matritsalar uchun toʻliq asosiy elementlar toʻplami har qanday oʻng tomondagi uchun yagona yechimni anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Koʻpaytirish qoidalari",
+   "subtitle": "AB ning toʻrt talqini"
+  },
+  "narr": [
+   "Endi matritsalar koʻpaytirishiga qaraylik.",
+   "Matritsalar koʻpaytini toʻrt xil talqini bor, bu esa koʻpaytish jarayonini tushunishga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Koʻpaytirish formulasi",
+   "bullets": [
+    "$A(m \\times n)$, $B(n \\times p) \\rightarrow AB(m \\times p)$",
+    "$(AB)_{ij} = \\sum_{k} a_{ik} \\cdot b_{kj}$"
+   ]
+  },
+  "narr": [
+   "Ikki matritsani koʻpaytirish uchun ularning oʻlchamlari mos kelishi kerak.",
+   "Birinchi matritsaning ustunlari soni ikkinchisining qatorlari soniga teng boʻlishi kerak.",
+   "Natijada hosil boʻlgan matritsaning elementi $i$-qator va $j$-ustun kesishmasida joylashgan boʻlib, u birinchi matritsaning $i$-qatorining ikkinchi matritsaning $j$-ustuniga koʻpaytmasining yigʻindisiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Matritsalar koʻpaytmasi",
+   "problem": "$A \\cdot B$ ni hisoblang:",
+   "steps": [
+    {
+     "text": "$A = \\begin{bmatrix} 1 & 2 \\\\ 0 & -1 \\\\ 3 & 4 \\end{bmatrix}$, $B = \\begin{bmatrix} 2 & 1 & 0 \\\\ -1 & 3 & 2 \\end{bmatrix}$"
+    },
+    {
+     "text": "$AB = \\begin{bmatrix} 1 \\cdot 2 + 2 \\cdot (-1) & 1 \\cdot 1 + 2 \\cdot 3 & 1 \\cdot 0 + 2 \\cdot 2 \\\\ 0 \\cdot 2 + (-1) \\cdot (-1) & 0 \\cdot 1 + (-1) \\cdot 3 & 0 \\cdot 0 + (-1) \\cdot 2 \\\\ 3 \\cdot 2 + 4 \\cdot (-1) & 3 \\cdot 1 + 4 \\cdot 3 & 3 \\cdot 0 + 4 \\cdot 2 \\end{bmatrix}$"
+    },
+    {
+     "text": "$AB = \\begin{bmatrix} 0 & 7 & 4 \\\\ 1 & -3 & -2 \\\\ 2 & 15 & 8 \\end{bmatrix}$"
+    }
+   ],
+   "result": "$AB = \\begin{bmatrix} 0 & 7 & 4 \\\\ 1 & -3 & -2 \\\\ 2 & 15 & 8 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Keling, matritsalar koʻpaytmasini hisoblash misolini koʻrib chiqaylik.",
+   "Bizda ikkita matritsa berilgan: A 3x2 oʻlchamda, B 2x3 oʻlchamda.",
+   "Ular koʻpaytirilganda, natijada 3x3 oʻlchamli matritsa hosil boʻladi.",
+   "Natijatining har bir elementi A matritsasining mos qatori va B matritsasining mos ustunining koʻpaytmasining yigʻindisiga teng.",
+   "Hisoblash natijasida $AB = \\begin{bmatrix} 0 & 7 & 4 \\\\ 1 & -3 & -2 \\\\ 2 & 15 & 8 \\end{bmatrix}$ hosil boʻladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "AB ning toʻrt talqini",
+   "bullets": [
+    "(1) Element boʻyicha — A matritsasining i-qatorini B matritsasining j-ustuni koʻpaytirish",
+    "(2) Ustunlar boʻyicha — $AB = [Ab_1 ... Ab_p]$",
+    "(3) Qatorlar boʻyicha — AB har bir qatori B qatorlarining kombinatsiyasi",
+    "(4) Tashki koʻpaytmalar boʻyicha — $AB = \\sum_{k} a_k \\cdot r_k$ (A matritsasining k-ustuni B matritsasining k-qatoriga koʻpaytirish)"
+   ]
+  },
+  "narr": [
+   "AB koʻpaytmasini toʻrt xil talqini bilan tushunish mumkin.",
+   "Birinchisi, element boʻyicha talqin: natijatning har bir elementi A matritsasining bir qatori va B matritsasining bir ustunining koʻpaytmasidir.",
+   "Ikkinchisi, ustunlar boʻyicha: AB matritsasi A matritsasining B matritsasining har bir ustuniga koʻpaytmasidan iborat.",
+   "Uchinchisi, qatorlar boʻyicha: AB matritsasi A matritsasining har bir qatori B matritsasi qatorlarining chiziqli birikmasidir.",
+   "Toʻrtinchisi, tashki koʻpaytmalar boʻyicha: AB matritsasi A matritsasining ustunlari va B matritsasining qatorlarining koʻpaytmalarining yigʻindisidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Koʻpaytirish xossalari",
+   "bullets": [
+    "$(AB)C = A(BC)$",
+    "$A(B + C) = AB + AC$",
+    "$(A + B)C = AC + BC$",
+    "$AI = IA = A$",
+    "$AB \\neq BA$ (umuman olganda)",
+    "$(A + B)^2 = A^2 + AB + BA + B^2 \\neq A^2 + 2AB + B^2$"
+   ]
+  },
+  "narr": [
+   "Matritsalar koʻpaytishining baʼzi xossalari bor.",
+   "Koʻpaytirish assotsiativdir: $(AB)C = A(BC)$",
+   "Koʻpaytirish taqsimlanish xossasiga ega: $A(B + C) = AB + AC$ va $(A + B)C = AC + BC$",
+   "Birlik matritsa koʻpaytirishda neytral element boʻlib xizmat qiladi: $AI = IA = A$",
+   "Matritsalar koʻpaytishi kommutativ emas: $AB \\neq BA$ (umuman olganda)",
+   "Shuning uchun $(A + B)^2 = A^2 + AB + BA + B^2$ boʻlib, bu $A^2 + 2AB + B^2$ ga teng emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Nocommutativlik misoli",
+   "problem": "$A$ va $B$ matritsalar berilganda, $AB$ va $BA$ ni hisoblang:",
+   "steps": [
+    {
+     "text": "$A = \\begin{bmatrix} 1 & 1 \\\\ 0 & 1 \\end{bmatrix}$, $B = \\begin{bmatrix} 1 & 0 \\\\ 1 & 1 \\end{bmatrix}$"
+    },
+    {
+     "text": "$AB = \\begin{bmatrix} 1 \\cdot 1 + 1 \\cdot 1 & 1 \\cdot 0 + 1 \\cdot 1 \\\\ 0 \\cdot 1 + 1 \\cdot 1 & 0 \\cdot 0 + 1 \\cdot 1 \\end{bmatrix} = \\begin{bmatrix} 2 & 1 \\\\ 1 & 1 \\end{bmatrix}$"
+    },
+    {
+     "text": "$BA = \\begin{bmatrix} 1 \\cdot 1 + 0 \\cdot 0 & 1 \\cdot 1 + 0 \\cdot 1 \\\\ 1 \\cdot 1 + 1 \\cdot 0 & 1 \\cdot 1 + 1 \\cdot 1 \\end{bmatrix} = \\begin{bmatrix} 1 & 1 \\\\ 1 & 2 \\end{bmatrix}$"
+    },
+    {
+     "text": "$AB \\neq BA$ ekanligini koʻramiz"
+    }
+   ],
+   "result": "$AB = \\begin{bmatrix} 2 & 1 \\\\ 1 & 1 \\end{bmatrix}$, $BA = \\begin{bmatrix} 1 & 1 \\\\ 1 & 2 \\end{bmatrix}$"
+  },
+  "narr": [
+   "Matritsalar koʻpaytishining nocommutativligini koʻrsatuvchi misol keltiraman.",
+   "Ikkita oddiy matritsa olaylik: A va B.",
+   "AB koʻpaytmasini hisoblaymiz: birinchi matritsaning qatorlarini ikkinchi matritsaning ustunlari bilan koʻpaytiramiz.",
+   "BA koʻpaytmasini hisoblaymiz: endi teskari tartibda koʻpaytiramiz.",
+   "Natijalarni solishtirsak, $AB \\neq BA$ ekanligini koʻramiz.",
+   "Bu matritsalar koʻpaytirishning tartibga bogʻliqligini koʻrsatadi, bu gorizontal va vertikal siljishlar (shears) qoʻllanish tartibiga bogʻliq."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "Maxsus matritsalar",
+   "subtitle": "Chiqarib tashlash matritsalari"
+  },
+  "narr": [
+   "Endi maxsus matritsalar va chiqarib tashlash matritsalari haqida koʻrib chiqamiz.",
+   "Ular chiziqli algebrada muhim ahamiyatga ega."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Maxsus matritsalar",
+   "bullets": [
+    "Birlik matritsa I — vektorlarni oʻzgarishsiz qoldiradi",
+    "Diagonal $D = diag(d_1, ..., d_n)$ — koordinatalarni masshtablaydi",
+    "Yuqori uchburchak matritsalarda diagonal ostida nollar",
+    "Pastki uchburchak matritsalarda — diagonal ustida nollar",
+    "Uchburchak tizimlar toʻgʻri/teskari almashtirish bilan yechiladi"
+   ]
+  },
+  "narr": [
+   "Chiziqli algebrada bir nechta maxsus matritsa turlari mavjud.",
+   "Birlik matritsa I — bu diagonalida 1 lar qolgan barcha elementlari nol boʻlgan matritsa. U vektorlarni oʻzgarishsiz qoldiradi.",
+   "Diagonal matritsa — faqat diagonalida elementlari boʻlgan matritsa. U vektorlarning koordinatalarini masshtablaydi.",
+   "Yuqori uchburchak matritsada diagonal ostidagi barcha elementlar nolga teng.",
+   "Pastki uchburchak matritsada esa diagonal ustidagi barcha elementlar nolga teng.",
+   "Uchburchak matritsalar tizimlari toʻgʻri yoki teskari almashtirish usuli bilan oddiy yechiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Chiqarib tashlash amaliyoti",
+   "bullets": [
+    "Chiqarib tashlash amaliyoti — oʻzi matritsa",
+    "$R_2 \\leftarrow R_2 - 3R_1$ amaliyoti $E = \\begin{bmatrix} 1 & 0 \\\\ -3 & 1 \\end{bmatrix}$ matritsasiga toʻgʻri keladi",
+    "$E \\cdot \\begin{bmatrix} 2 & 1 \\\\ 6 & 5 \\end{bmatrix} = \\begin{bmatrix} 2 & 1 \\\\ 0 & 2 \\end{bmatrix}$",
+    "Oʻzgargan tizim $EAx = Eb$",
+    "$E^{-1} = \\begin{bmatrix} 1 & 0 \\\\ 3 & 1 \\end{bmatrix}$ asl qatorlarni tiklaydi"
+   ]
+  },
+  "narr": [
+   "Chiqarib tashlash amaliyotini matritsa koʻrinishida ifodalash mumkin.",
+   "Masalan, $R_2 \\leftarrow R_2 - 3R_1$ amaliyoti $E = \\begin{bmatrix} 1 & 0 \\\\ -3 & 1 \\end{bmatrix}$ matritsasiga toʻgʻri keladi.",
+   "Bu matritsani asl matritsaga koʻpaytirsak, chiqarib tashlash amaliyotini bajargandek natija hosil boʻladi.",
+   "Shunday qilib, chiqarib tashlash amaliyoti matritsani $EA$ koʻrinishida ifodalash mumkin.",
+   "Agar biz asl sistemaga qaytmochi boʻlsak, $E^{-1}$ matritsasini koʻpaytiramiz, bu asl qatorlarni tiklaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Ters matritsa",
+   "subtitle": "Taʼrif, mezonlar, qoidalar"
+  },
+  "narr": [
+   "Oxirgi mavzumuz — matritsalarining teskari matritsasi.",
+   "Bu chiziqli algebrada juda muhim tushunchadir."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ters matritsa taʼrifi",
+   "bullets": [
+    "$AA^{-1} = A^{-1}A = I$",
+    "$Ax = b$ barcha $b$ uchun yechimga ega $x = A^{-1}b$"
+   ]
+  },
+  "narr": [
+   "Ters matritsa $A^{-1}$ — bu $A$ matritsasi bilan koʻpaytirilganda birlik matrisani beradigan matritsa.",
+   "Yaʼni $AA^{-1} = A^{-1}A = I$",
+   "Agar matritsada teskari matritsa boʻlsa, $Ax = b$ sistema $x = A^{-1}b$ yechimga ega."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ters matritsa xossalari",
+   "bullets": [
+    "Ters matritsa chiziq oʻtkazuvchi aynalishni teskarisiga oʻzgartiradi",
+    "Agar $Ax = 0$ nol boʻlmagan $x$ uchun, u holda teskari matritsa mavjud emas",
+    "Kvadrat $A$ uchun quyidagi bayonotlar teng:",
+    "- teskari matritsa mavjud ⇔ barcha asosiy elementlar noldan farqli (mumkin boʻlgan almashtirishdan keyin)",
+    "- ustunlar chiziqli mustaqil",
+    "- $Ax = 0$ faqat $x = 0$ da",
+    "- $Ax = b$ har qanday $b$ uchun yagona yechimga ega"
+   ]
+  },
+  "narr": [
+   "Ters matritsaning baʼzi xossalari mavjud.",
+   "Ters matritsa chiziq oʻtkazuvchi aynalishni teskarisiga oʻzgartiradi.",
+   "Agar $Ax = 0$ sistema nol boʻlmani yechimga ega boʻlsa, u holda $A$ matritsasida teskari matritsa mavjud emas.",
+   "Kvadrat matritsa uchun bir nechta ekvivalent bayonotlar mavjud:",
+   "Teskari matritsa mavjud boʻlishi ⇔ matritsaning barcha asosiy elementlari noldan farqli boʻlishi (mumkin boʻlgan almashtirishdan keyin)",
+   "Teskari matritsa mavjud boʻlishi ⇔ matritsaning ustunlari chiziqli mustaqil boʻlishi",
+   "Teskari matritsa mavjud boʻlishi ⇔ $Ax = 0$ sistema faqat nol yechimga ega boʻlishi",
+   "Teskari matritsa mavjud boʻlishi ⇔ $Ax = b$ sistema har qanday $b$ uchun yagona yechimga ega boʻlishi"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ }
+]

@@ -1,0 +1,429 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Chiziqli algebra I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu qismda chiziqli algebraning asosiy usullarini o'rganamiz. Avval oddiy sistemalardan boshlaymiz, keyin kattaroq matritsalarga o'tamiz.",
+   "Keling, birinchi misolni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1",
+   "problem": "Sistema: 2x + y = 4, 2x + 5y = 12. b = \\begin{bmatrix} 4 \\\\ 12 \\end{bmatrix} ni yeching.",
+   "steps": [
+    "Ikkinchi tenglamadan birinchisini ayirsak: 4y = 8",
+    "y = 2",
+    "keyin 2x = 4 - 2",
+    "x = 1"
+   ],
+   "result": "x = \\begin{bmatrix} 1 \\\\ 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Bu ikki tenglamali sistemani yechish uchun oddiy usuldan foydalanamiz.",
+   "Ikkinchi tenglamadan birinchisini ayiramiz.",
+   "Bu orqali y ni topamiz.",
+   "Endi x ni topish uchun birinchi tenglamadan foydalanamiz.",
+   "Xulosa: x 1 va y 2 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — 2 × 2 ajratish",
+   "problem": "A = LU = LDU ni toping A = \\begin{bmatrix} 2 & 1 \\\\ 5 & 4 \\end{bmatrix} uchun.",
+   "steps": [
+    "m21 = 5/2: R2 ← R2 - (5/2)R1",
+    "U = \\begin{bmatrix} 2 & 1 \\\\ 0 & 3/2 \\end{bmatrix} beradi",
+    "L = \\begin{bmatrix} 1 & 0 \\\\ 5/2 & 1 \\end{bmatrix}",
+    "A = LU (tekshirish: (5/2) · \\begin{bmatrix} 2 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 3/2 \\end{bmatrix} = \\begin{bmatrix} 5 & 4 \\end{bmatrix})",
+    "D = \\begin{bmatrix} 2 & 0 \\\\ 0 & 3/2 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{bmatrix}",
+    "va A = L · D · D^{-1}U"
+   ],
+   "result": "A = LU = LDU ajratish topildi"
+  },
+  "narr": [
+   "Endi 2x2 matritsani LU ajratish usulini ko'rib chiqaylik.",
+   "Birinchi qadam: m21 koeffitsiyentini aniqlaymiz.",
+   "Ikkinchi qatorni birinchisidan ayirib, U matritsasini hosil qilamiz.",
+   "L matritsasini yaratamiz.",
+   "Tekshirib ko'ramiz: LU = A ekanligini tekshiramiz.",
+   "D matritsasini diagonal elementlar bilan yaratamiz.",
+   "D^{-1}U ni hisoblaymiz.",
+   "Xulosa: A = L · D · D^{-1}U"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — 2 × 2 ajratish",
+   "problem": "A = LU = LDU ni toping A = \\begin{bmatrix} 3 & 1 \\\\ 2 & 5 \\end{bmatrix} uchun.",
+   "steps": [
+    "m21 = 2/3: R2 ← R2 - (2/3)R1",
+    "U = \\begin{bmatrix} 3 & 1 \\\\ 0 & 13/3 \\end{bmatrix} beradi (5 - 2/3 = 13/3)",
+    "L = \\begin{bmatrix} 1 & 0 \\\\ 2/3 & 1 \\end{bmatrix}",
+    "A = LU (tekshirish: (2/3)·\\begin{bmatrix} 3 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 13/3 \\end{bmatrix} = \\begin{bmatrix} 2 & 5 \\end{bmatrix})",
+    "D = \\begin{bmatrix} 3 & 0 \\\\ 0 & 13/3 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1/3 \\\\ 0 & 1 \\end{bmatrix}",
+    "va A = L·D·D^{-1}U"
+   ],
+   "result": "A = LU = LDU ajratish topildi"
+  },
+  "narr": [
+   "Yana bir 2x2 matritsani LU ajratish usuli bilan yechamiz.",
+   "Birinchi qadam: m21 koeffitsiyentini aniqlaymiz.",
+   "Ikkinchi qatorni birinchisidan ayirib, U matritsasini hosil qilamiz.",
+   "L matritsasini yaratamiz.",
+   "Tekshirib ko'ramiz: LU = A ekanligini tekshiramiz.",
+   "D matritsasini diagonal elementlar bilan yaratamiz.",
+   "D^{-1}U ni hisoblaymiz.",
+   "Xulosa: A = L · D · D^{-1}U"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — 2 × 2 ajratish",
+   "problem": "A = LU = LDU ni toping A = \\begin{bmatrix} 1 & 1 \\\\ 3 & 5 \\end{bmatrix} uchun.",
+   "steps": [
+    "m21 = 3: R2 ← R2 - 3R1",
+    "U = \\begin{bmatrix} 1 & 1 \\\\ 0 & 2 \\end{bmatrix} beradi",
+    "L = \\begin{bmatrix} 1 & 0 \\\\ 3 & 1 \\end{bmatrix}",
+    "A = LU (tekshirish: 3·\\begin{bmatrix} 1 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 2 \\end{bmatrix} = \\begin{bmatrix} 3 & 5 \\end{bmatrix})",
+    "D = \\begin{bmatrix} 1 & 0 \\\\ 0 & 2 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1 \\\\ 0 & 1 \\end{bmatrix}",
+    "va A = L·D·D^{-1}U"
+   ],
+   "result": "A = LU = LDU ajratish topildi"
+  },
+  "narr": [
+   "Yana bir 2x2 matritsani LU ajratish usuli bilan yechamiz.",
+   "Birinchi qadam: m21 koeffitsiyentini aniqlaymiz.",
+   "Ikkinchi qatorni birinchisidan ayirib, U matritsasini hosil qilamiz.",
+   "L matritsasini yaratamiz.",
+   "Tekshirib ko'ramiz: LU = A ekanligini tekshiramiz.",
+   "D matritsasini diagonal elementlar bilan yaratamiz.",
+   "D^{-1}U ni hisoblaymiz.",
+   "Xulosa: A = L · D · D^{-1}U"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — 2 × 2 ajratish",
+   "problem": "A = LU = LDU ni toping A = \\begin{bmatrix} 2 & 1 \\\\ 4 & 4 \\end{bmatrix} uchun.",
+   "steps": [
+    "m21 = 2: R2 ← R2 - 2R1",
+    "U = \\begin{bmatrix} 2 & 1 \\\\ 0 & 2 \\end{bmatrix} beradi",
+    "L = \\begin{bmatrix} 1 & 0 \\\\ 2 & 1 \\end{bmatrix}",
+    "A = LU (tekshirish: 2·\\begin{bmatrix} 2 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 2 \\end{bmatrix} = \\begin{bmatrix} 4 & 4 \\end{bmatrix})",
+    "D = \\begin{bmatrix} 2 & 0 \\\\ 0 & 2 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1/2 \\\\ 0 & 1 \\end{bmatrix}",
+    "va A = L·D·D^{-1}U"
+   ],
+   "result": "A = LU = LDU ajratish topildi"
+  },
+  "narr": [
+   "Yana bir 2x2 matritsani LU ajratish usuli bilan yechamiz.",
+   "Birinchi qadam: m21 koeffitsiyentini aniqlaymiz.",
+   "Ikkinchi qatorni birinchisidan ayirib, U matritsasini hosil qilamiz.",
+   "L matritsasini yaratamiz.",
+   "Tekshirib ko'ramiz: LU = A ekanligini tekshiramiz.",
+   "D matritsasini diagonal elementlar bilan yaratamiz.",
+   "D^{-1}U ni hisoblaymiz.",
+   "Xulosa: A = L · D · D^{-1}U"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — 3 × 3 chiqarish",
+   "problem": "Ax = b ni Gauss chiqarish usuli bilan yeching A = \\begin{bmatrix} 1 & 3 & 1 \\\\ 2 & 5 & 2 \\\\ 1 & 4 & 4 \\end{bmatrix}, b = \\begin{bmatrix} 6 \\\\ 10 \\\\ 5 \\end{bmatrix} uchun.",
+   "steps": [
+    "Kengaytirilgan matritsa: \\begin{bmatrix} 1 & 3 & 1 & | & 6 \\\\ 2 & 5 & 2 & | & 10 \\\\ 1 & 4 & 4 & | & 5 \\end{bmatrix}",
+    "1-qadam (m21 = 2, m31 = 1): R2 - 2R1 = (0, -1, 0|-2); R3 - R1 = (0, 1, 3|-1)",
+    "2-qadam (m32 = -1): R3 + R2 = (0, 0, 3|-3)",
+    "Uchburchak tizim: x + 3y + z = 6, -y = -2, 3z = -3",
+    "z = -1, y = 2, x = 1"
+   ],
+   "result": "x = \\begin{bmatrix} 1 \\\\ 2 \\\\ -1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Endi kattaroq, 3x3 matritsani Gauss chiqarish usuli bilan yechamiz.",
+   "Kengaytirilgan matritsani yaratamiz.",
+   "Birinchi qadam: birinchi ustun asosiy elementidan foydalanib ikkinchi va uchinchi qatorlarni o'zgartiramiz.",
+   "Ikkinchi qadam: ikkinchi ustun asosiy elementidan foydalanib uchinchi qatorni o'zgartiramiz.",
+   "Uchburchak sistemaga kelamiz.",
+   "Xulosa: x 1, y 2, z -1 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 — 3 × 3 chiqarish",
+   "problem": "Ax = b ni Gauss chiqarish usuli bilan yeching A = \\begin{bmatrix} 1 & 1 & 1 \\\\ 2 & 3 & 2 \\\\ 1 & 2 & 3 \\end{bmatrix}, b = \\begin{bmatrix} 2 \\\\ 6 \\\\ 2 \\end{bmatrix} uchun.",
+   "steps": [
+    "Kengaytirilgan matritsa: \\begin{bmatrix} 1 & 1 & 1 & | & 2 \\\\ 2 & 3 & 2 & | & 6 \\\\ 1 & 2 & 3 & | & 2 \\end{bmatrix}",
+    "1-qadam (m21 = 2, m31 = 1): R2 - 2R1 = (0, 1, 0|2); R3 - R1 = (0, 1, 2|0)",
+    "2-qadam (m32 = 1): R3 - R2 = (0, 0, 2|-2)",
+    "Uchburchak tizim: x + y + z = 2, y = 2, 2z = -2",
+    "z = -1, y = 2, x = 1"
+   ],
+   "result": "x = \\begin{bmatrix} 1 \\\\ 2 \\\\ -1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Yana bir 3x3 matritsani Gauss chiqarish usuli bilan yechamiz.",
+   "Kengaytirilgan matritsani yaratamiz.",
+   "Birinchi qadam: birinchi ustun asosiy elementidan foydalanib ikkinchi va uchinchi qatorlarni o'zgartiramiz.",
+   "Ikkinchi qadam: ikkinchi ustun asosiy elementidan foydalanib uchinchi qatorni o'zgartiramiz.",
+   "Uchburchak sistemaga kelamiz.",
+   "Xulosa: x 1, y 2, z -1 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 — 3×3 chiqarib tashlash (cheksiz koʻp yechimlar)",
+   "problem": "Ax = b tenglamani Gaus usulida chiqarib tashlash orqali yeching A = \\begin{bmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 1 & 3 & 6 \\end{bmatrix}, b = \\begin{bmatrix} 4 \\\\ 8 \\\\ 1 \\end{bmatrix} uchun.",
+   "steps": [
+    "Kengaytirilgan matritsa: \\begin{bmatrix} 1 & 2 & 1 & | & 4 \\\\ 2 & 4 & 2 & | & 8 \\\\ 1 & 3 & 6 & | & 1 \\end{bmatrix}",
+    "1-qadam (m21 = 2, m31 = 1): R2 - 2R1 = (0, 0, 0|0) — ikkinchi tenglama birinchisining ikki barobar katta va cheklovlar qo'shmaydi",
+    "R3 - R1 = (0, 1, 5|-3)",
+    "2va3-qatorlarni almashtirgandan keyin: \\begin{bmatrix} 1 & 2 & 1 & | & 4 \\\\ 0 & 1 & 5 & | & -3 \\\\ 0 & 0 & 0 & | & 0 \\end{bmatrix}",
+    "uchta nomaʼlum uchun ikkita asosiy element. Ozod oʻzgaruvchi z = t: y = -3 - 5t, x = 4 - 2y - z = 10 + 9t",
+    "Cheksiz koʻp yechimlar: x = \\begin{bmatrix} 10 + 9t \\\\ -3 - 5t \\\\ t \\end{bmatrix}, t ∈ R"
+   ],
+   "result": "x = \\begin{bmatrix} 10 + 9t \\\\ -3 - 5t \\\\ t \\end{bmatrix}, t ∈ R"
+  },
+  "narr": [
+   "Bu misolda cheksiz ko'p yechimlar bo'lishi mumkin.",
+   "Kengaytirilgan matritsani yaratamiz.",
+   "Birinchi qadamda ikkinchi tenglama birinchisining ikki barobar ekanligini ko'ramiz.",
+   "Uchinchi qatorni birinchisidan ayiramiz.",
+   "Ikkinchi va uchinchi qatorlarni almashtiramiz.",
+   "Uchta noma'lum uchun faqat ikkita asosiy element bor, demak cheksiz ko'p yechimlar mavjud.",
+   "Ozod o'zgaruvchi sifatida z ni olamiz va y, x ni ifodalaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 — 3 × 3 chiqarib tashlash",
+   "problem": "Ax = b tenglamani Gaus usulida chiqarib tashlash orqali yeching A = \\begin{bmatrix} 1 & 3 & 1 \\\\ 2 & 5 & 2 \\\\ 1 & 4 & 3 \\end{bmatrix}, b = \\begin{bmatrix} 6 \\\\ 10 \\\\ 6 \\end{bmatrix} uchun.",
+   "steps": [
+    "Kengaytirilgan matritsa: \\begin{bmatrix} 1 & 3 & 1 & | & 6 \\\\ 2 & 5 & 2 & | & 10 \\\\ 1 & 4 & 3 & | & 6 \\end{bmatrix}",
+    "1-qadam (m21 = 2, m31 = 1): R2 - 2R1 = (0, -1, 0|-2); R3 - R1 = (0, 1, 2|0)",
+    "2-qadam (m32 = -1): R3 + R2 = (0, 0, 2|-2)",
+    "Orqali almashtirish: z = -1, y = 2, x = 6 - 6 + 1 = 1"
+   ],
+   "result": "x = \\begin{bmatrix} 1 \\\\ 2 \\\\ -1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Yana bir 3x3 matritsani Gauss chiqarish usuli bilan yechamiz.",
+   "Kengaytirilgan matritsani yaratamiz.",
+   "Birinchi qadam: birinchi ustun asosiy elementidan foydalanib ikkinchi va uchinchi qatorlarni o'zgartiramiz.",
+   "Ikkinchi qadam: ikkinchi ustun asosiy elementidan foydalanib uchinchi qatorni o'zgartiramiz.",
+   "Xulosa: x 1, y 2, z -1 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 — LU va LDU 3 × 3",
+   "problem": "A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 4 & 4 & 3 \\\\ -2 & 1 & 1 \\end{bmatrix} uchun LU va LDU hisoblang.",
+   "steps": [
+    "m21 = 2, m31 = -1: R2 - 2R1 = (0, 2, 1); R3 + R1 = (0, 2, 2)",
+    "Ikkinchi asosiy element 2, m32 = 1: R3 - R2 = (0, 0, 1)",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 1 & 1 \\end{bmatrix}, U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "tekshirish: LU = A (uchinchi qator: -\\begin{bmatrix} 2 & 1 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 2 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 0 & 1 \\end{bmatrix} = \\begin{bmatrix} -2 & 1 & 1 \\end{bmatrix})",
+    "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/2 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "A = LU = L · D · D^{-1}U"
+   ],
+   "result": "A = LU = LDU ajratish topildi"
+  },
+  "narr": [
+   "Endi 3x3 matritsani LU va LDU ajratish usulini ko'rib chiqaylik.",
+   "Birinchi qadam: birinchi ustun asosiy elementidan foydalanib ikkinchi va uchinchi qatorlarni o'zgartiramiz.",
+   "Ikkinchi qadam: ikkinchi ustun asosiy elementidan foydalanib uchinchi qatorni o'zgartiramiz.",
+   "L va U matritsalarini yaratamiz.",
+   "Tekshirib ko'ramiz: LU = A ekanligini tekshiramiz.",
+   "D matritsasini diagonal elementlar bilan yaratamiz.",
+   "D^{-1}U ni hisoblaymiz.",
+   "Xulosa: A = L · D · D^{-1}U"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 11 — LU va LDU 3 × 3",
+   "problem": "A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 2 & 4 & 2 \\\\ -2 & 5 & 3 \\end{bmatrix} uchun LU va LDU hisoblang.",
+   "steps": [
+    "m21 = 1, m31 = -1: R2 - R1 = (0, 3, 1); R3 + R1 = (0, 6, 4)",
+    "Ikkinchi asosiy element 3, m32 = 2: R3 - 2R2 = (0, 0, 2)",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 2 & 1 \\end{bmatrix}, U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 1 \\\\ 0 & 0 & 2 \\end{bmatrix}",
+    "tekshirish: LU uchinchi qatori -\\begin{bmatrix} 2 & 1 & 1 \\end{bmatrix} + 2 · \\begin{bmatrix} 0 & 3 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 0 & 2 \\end{bmatrix} = \\begin{bmatrix} -2 & 5 & 3 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 2 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/3 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "A = LU = L · D · D^{-1}U"
+   ],
+   "result": "A = LU = LDU ajratish topildi"
+  },
+  "narr": [
+   "Yana bir 3x3 matritsani LU va LDU ajratish usulini ko'rib chiqaylik.",
+   "Birinchi qadam: birinchi ustun asosiy elementidan foydalanib ikkinchi va uchinchi qatorlarni o'zgartiramiz.",
+   "Ikkinchi qadam: ikkinchi ustun asosiy elementidan foydalanib uchinchi qatorni o'zgartiramiz.",
+   "L va U matritsalarini yaratamiz.",
+   "Tekshirib ko'ramiz: LU = A ekanligini tekshiramiz.",
+   "D matritsasini diagonal elementlar bilan yaratamiz.",
+   "D^{-1}U ni hisoblaymiz.",
+   "Xulosa: A = L · D · D^{-1}U"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 12 — LU va LDU 3 × 3",
+   "problem": "A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 4 & 6 & 3 \\\\ -2 & 11 & 5 \\end{bmatrix} uchun LU va LDU hisoblang.",
+   "steps": [
+    "m21 = 2, m31 = -1: R2 - 2R1 = (0, 4, 1); R3 + R1 = (0, 12, 6)",
+    "Ikkinchi asosiy element 4, m32 = 3: R3 - 3R2 = (0, 0, 3)",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 3 & 1 \\end{bmatrix}, U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 4 & 1 \\\\ 0 & 0 & 3 \\end{bmatrix}",
+    "tekshirish: LU uchinchi qatori -\\begin{bmatrix} 2 & 1 & 1 \\end{bmatrix} + 3 · \\begin{bmatrix} 0 & 4 & 1 \\end{bmatrix} + \\begin{bmatrix} 0 & 0 & 3 \\end{bmatrix} = \\begin{bmatrix} -2 & 11 & 5 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 4 & 0 \\\\ 0 & 0 & 3 \\end{bmatrix}",
+    "D^{-1}U = \\begin{bmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/4 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "A = LU = L · D · D^{-1}U"
+   ],
+   "result": "A = LU = LDU ajratish topildi"
+  },
+  "narr": [
+   "Yana bir 3x3 matritsani LU va LDU ajratish usulini ko'rib chiqaylik.",
+   "Birinchi qadam: birinchi ustun asosiy elementidan foydalanib ikkinchi va uchinchi qatorlarni o'zgartiramiz.",
+   "Ikkinchi qadam: ikkinchi ustun asosiy elementidan foydalanib uchinchi qatorni o'zgartiramiz.",
+   "L va U matritsalarini yaratamiz.",
+   "Tekshirib ko'ramiz: LU = A ekanligini tekshiramiz.",
+   "D matritsasini diagonal elementlar bilan yaratamiz.",
+   "D^{-1}U ni hisoblaymiz.",
+   "Xulosa: A = L · D · D^{-1}U"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ }
+]

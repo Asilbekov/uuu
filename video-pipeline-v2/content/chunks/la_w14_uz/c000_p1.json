@@ -1,0 +1,213 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "1–4 haftalar"
+  },
+  "narr": [
+   "Bu darslik Toshkent texnologiya universitetining 2026-yil kuz semestriga mo'ljallangan chiziqli algebra kursining birinchi to'rt haftasiga oid to'liq qo'llanmadir.",
+   "Ushbu qo'llanma kurs repositoriyasidagi barcha manbalardan tayyorlangan: haftalik konpektlar, ma'ruzalar, amaliy mashg'ular, mustaqil ishlar, TA sessiyalari va G. Strang darsliklarining belgilangan bo'limlari.",
+   "Barcha masalalar to'liq bosqichma-bosqich yechimlari bilan berilgan."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Kurs xaritasi",
+   "columns": [
+    "Hafta",
+    "Mavzular"
+   ],
+   "rows": [
+    [
+     "1",
+     "Vektorlar; chiziqli kombinatsiyalar; span; chiziqli mustaqillik"
+    ],
+    [
+     "2",
+     "Skalyar ko'paytma, burchaklar, proyeksiyalar; vektor ko'paytma, yuzalar; matritsalar: amallar"
+    ],
+    [
+     "3",
+     "Matritsa algebrasi; transponir; matritsalarni ko'paytirish; determinantlar; aralash ko'paytma"
+    ],
+    [
+     "4",
+     "Matritsa rangi; Gauss-Jordan usulida teskari matritsa"
+    ]
+   ]
+  },
+  "narr": [
+   "Kursning birinchi to'rt haftasida quyidagi mavzular o'rganiladi.",
+   "Birinchi haftada vektorlar, chiziqli birikmalar, span va chiziqli mustaqillikni ko'rib chiqamiz.",
+   "Ikkinchi hafta skalyar ko'paytma, burchaklar, proyeksiyalar, vektor ko'paytmasi va matritsalar amallari bilan tanishamiz.",
+   "Uchinchi haftada matritsa algebrasi, transponir, matritsalarni ko'paytirish, determinantlar va aralash ko'paytmani o'rganamiz.",
+   "To'rtinchi haftada matritsa rangi va Gauss-Jordan usulida teskari matritsani topish usullarini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Yozuv konventsiyalari",
+   "bullets": [
+    "Matritsa satr bo'yicha yoziladi: [a b; c d] — birinchi satr ab, ikkinchi cd",
+    "Ustun-vektor [x; y], satr-vektor [x y] ko'rinishida yoziladi",
+    "Darajalar va indekslar ^{} va_ orqali yoziladi: A^{-1}, A^T, a_{11}"
+   ]
+  },
+  "narr": [
+   "Matritsalarni yozishda ba'zi konventsiyalardan foydalanamiz.",
+   "Matritsa satr bo'yicha yoziladi, masalan [a b; c d] matritsasi birinchi satrda ab, ikkinchi satrda cd elementlariga ega.",
+   "Vektorlar ustun ko'rinishida [x; y] yoki satr ko'rinishida [x y] deb yoziladi.",
+   "Darajalar va indekslar belgilari ^{} va_ orqali ifodalanadi, masalan A^{-1}, A^T, a_{11}."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Hafta 1 — Vektorlar",
+   "subtitle": "Chiziqli algebra I"
+  },
+  "narr": [
+   "Birinchi haftada vektorlar, chiziqli birikmalar, span va chiziqli mustaqillikni o'rganamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "1-hafta formulalari katalogi",
+   "tex": "\\begin{array}{ll} (u + v)_i = u_i + v_i, & (24) \\\\ (c u)_i = c u_i & \\text{(komponentalar bo'yicha amallar)} \\\\ c_1v_1 + \\cdots + c_nv_n = \\text{chiziqli birikma} & (25) \\\\ \\text{span}\\{v_1, \\ldots, v_n\\} = \\text{bunday barcha birikmalar to'plami} & (26) \\\\ v_1, \\ldots, v_n \\text{ mustaqil} \\Leftrightarrow c_1v_1 + \\cdots + c_nv_n = 0 \\Rightarrow c_1 = \\cdots = c_n = 0 & (27) \\\\ \\|x\\| = \\sqrt{x_1^2 + \\cdots + x_n^2}, \\hat{x} = \\frac{x}{\\|x\\|} & \\text{(birlik vektor)} \\quad (28) \\\\ u \\text{ yo'nalishda } L \\text{ uzunlikdagi } v : v = L \\frac{u}{\\|u\\|} & (29) \\\\ d(P, Q) = \\|Q - P\\| & (30) \\end{array}",
+   "parts": [
+    {
+     "substr": "(u + v)_i = u_i + v_i",
+     "color": "#4C5FD5",
+     "note": "Vektorlarni qo'shish komponent bo'yicha"
+    },
+    {
+     "substr": "(c u)_i = c u_i",
+     "color": "#4C5FD5",
+     "note": "Vektorni skalyarga ko'paytirish komponent bo'yicha"
+    },
+    {
+     "substr": "c_1v_1 + \\cdots + c_nv_n = \\text{chiziqli birikma}",
+     "color": "#4C5FD5",
+     "note": "Chiziqli birikma ta'rifi"
+    },
+    {
+     "substr": "\\text{span}\\{v_1, \\ldots, v_n\\} = \\text{bunday barcha birikmalar to'plami}",
+     "color": "#4C5FD5",
+     "note": "Span ta'rifi"
+    },
+    {
+     "substr": "v_1, \\ldots, v_n \\text{ mustaqil}",
+     "color": "#4C5FD5",
+     "note": "Chiziqli mustaqillik ta'rifi"
+    },
+    {
+     "substr": "\\|x\\| = \\sqrt{x_1^2 + \\cdots + x_n^2}",
+     "color": "#4C5FD5",
+     "note": "Vektorning evklid normasi"
+    }
+   ]
+  },
+  "narr": [
+   "Birinchi haftada quyidagi asosiy formulalar o'rganiladi.",
+   "Vektorlarni qo'shish va skalyarga ko'paytirish komponent bo'yicha amalga oshiriladi.",
+   "Chiziqli birikma - bu vektorlarning skalyar ko'paytmalarining yig'indisi.",
+   "Span - berilgan vektorlarning chiziqli birikmalari hosil qiladigan barcha vektorlar to'plami.",
+   "Vektorlar chiziqli mustaqil bo'lishi uchun ularning chiziqli birikmasi faqat nol vektorga teng bo'lishi uchun barcha koeffitsientlar nolga teng bo'lishi kerak.",
+   "Vektorning normasi uning komponentlarining kvadratlari yig'indisining kvadrat ildiziga teng.",
+   "Birlik vektor - bu normasi 1 ga teng bo'lgan vektor, asl vektorni uning normasiga bo'lish orqali olinadi.",
+   "Vektorni boshqa vektor yo'nalishida ma'lum uzunlikda olish uchun uni mos skalyarga ko'paytiramiz.",
+   "Ikki nuqta orasidagi masofa ularni tutashtiruvchi vektorning normasiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Vektor amallari",
+   "problem": "u = [-2; 3], v = [-1; 5] bo'lsin. u + v, u - v, 2u, -3v, 2u - 3v ni hisoblang.",
+   "steps": [
+    {
+     "text": "u + v = [-2 + (-1); 3 + 5] = [-3; 8]"
+    },
+    {
+     "text": "u - v = [-2 - (-1); 3 - 5] = [-1; -2]"
+    },
+    {
+     "text": "2u = 2 × [-2; 3] = [-4; 6]"
+    },
+    {
+     "text": "-3v = -3 × [-1; 5] = [3; -15]"
+    },
+    {
+     "text": "2u - 3v = [-4; 6] - [3; -15] = [-7; 21]"
+    }
+   ],
+   "result": "u + v = [-3; 8], u - v = [-1; -2], 2u = [-4; 6], -3v = [3; -15], 2u - 3v = [-7; 21]"
+  },
+  "narr": [
+   "Endi birinchi haftadan misol ko'rib chiqamiz.",
+   "Bizda ikki vektor berilgan: u = [-2; 3] va v = [-1; 5].",
+   "Birinchi navbatda u + v vektorini hisoblaymiz. Vektorlarni qo'shish uchun ularning mos komponentlarini qo'shamiz.",
+   "Shunday qilib, u + v = [-2 + (-1); 3 + 5] = [-3; 8].",
+   "Keyin u - v vektorini hisoblaymiz. Vektorlarni ayirish uchun ularning mos komponentlarini ayiramiz.",
+   "u - v = [-2 - (-1); 3 - 5] = [-1; -2].",
+   "Endi 2u ni hisoblaymiz. Bu u vektorini 2 skalyariga ko'paytirish degani.",
+   "2u = 2 × [-2; 3] = [-4; 6].",
+   "-3v ni hisoblaymiz. Bu v vektorini -3 skalyariga ko'paytirish degani.",
+   "-3v = -3 × [-1; 5] = [3; -15].",
+   "Nihoyat, 2u - 3v ni hisoblaymiz. Bu avval 2u ni keyin -3v ni hisoblab, ularni ayirishdan iborat.",
+   "2u - 3v = [-4; 6] - [3; -15] = [-7; 21]."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4
+  ]
+ }
+]

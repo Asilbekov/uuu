@@ -1,0 +1,509 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Bugun biz chiziqli algebraning LU, LDU va PLU ajratishlarini o'rganamiz. Shuningdek, matritsalarni transponirovka qilish va teskarisini topish usullarini ko'rib chiqamiz.",
+   "Boshlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Element 4, m32 = 3",
+   "bullets": [
+    "R3 - 3R2 = (0, 0, 3)",
+    "L matritsasi:",
+    "U matritsasi:",
+    "Tekshirish: -[2,1,1] + 3·[0,4,1] + [0,0,3] = [-2,11,5]",
+    "D matritsasi:",
+    "D⁻¹U = [1 1/2, 1/2; 0 1 1/4; 0 0 1]",
+    "A = LU = L·D·D⁻¹U"
+   ]
+  },
+  "narr": [
+   "Keling, boshlang'ich misolni ko'rib chiqaylik. Bu erda bizda L va U matritsalar berilgan.",
+   "L matritsasi past-triangular matritsadir, asosiy elementlar barchasi 1 ga teng.",
+   "U matritsasi esa yuqori-triangular matritsadir.",
+   "Tekshirish ko'rsatadiki, bu matritsalarning ko'paytmasi asl matritsani beradi.",
+   "D matritsasi diagonal matritsadir, unda faqat asosiy elementlar mavjud.",
+   "D⁻¹U matritsasi D matritsasining teskarisini U ga ko'paytirish orqali olinadi.",
+   "Nihoyat, A matritsasi L, D va D⁻¹U matritsalarining ko'paytmasi sifatida ifodalanishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 16 — LU va LDU ajratishi",
+   "problem": "A = [[2,1,1],[2,3,2],[-2,1,1]] matritsasi uchun LU va LDU ajratishlarini hisoblang.",
+   "steps": [
+    "m21 = 1, m31 = -1: R2 - R1 = (0, 2, 1); R3 + R1 = (0, 2, 2)",
+    "Ikkinchi asosiy element 2, m32 = 1: R3 - R2 = (0, 0, 1)",
+    "L = [[1,0,0],[1,1,0],[-1,1,1]]",
+    "U = [[2,1,1],[0,2,1],[0,0,1]]",
+    "Tekshirish: LU = A",
+    "D = [[2,0,0],[0,2,0],[0,0,1]]"
+   ]
+  },
+  "narr": [
+   "Endi Mashq 16 ni yechamiz. Bu erda bizga A matritsasi berilgan va uning LU va LDU ajratishlarini topishimiz kerak.",
+   "Birinchidan, birinchi ustun uchun elementlarni hisoblaymiz. m21 = 1 va m31 = -1.",
+   "Ikkinchi bosqichda, ikkinchi ustun uchun elementlarni hisoblaymiz. m32 = 1.",
+   "L matritsasini topdik.",
+   "U matritsasini ham topdik.",
+   "Tekshirish ko'rsatadiki, LU = A.",
+   "D matritsasini diagonal elementlardan hosil qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 16 — LU va LDU ajratishi (cont.)",
+   "problem": "",
+   "steps": [
+    "D⁻¹U = [1 1/2, 1/2; 0 1 1/2; 0 0 1]",
+    "A = LU = L·D·D⁻¹U"
+   ],
+   "result": "A = [[2,1,1],[2,3,2],[-2,1,1]] = LU = L·D·D⁻¹U"
+  },
+  "narr": [
+   "D⁻¹U matritsasini hisoblaymiz.",
+   "Nihoyat, A matritsasi L, D va D⁻¹U matritsalarining ko'paytmasi sifatida ifodalanishi mumkin."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 17 — Qatorlarni almashtirish va PLU",
+   "problem": "A = [[0,2,1],[1,1,0],[2,3,2]] matritsasi uchun qatorlarni almashtirish P va PA = LU tenglikni qanoatlantiruvchi omillarni toping.",
+   "steps": [
+    "Nol birinchi asosiy element — 1 va 2-qatorlarni almashtiring: P = [[0,1,0],[1,0,0],[0,0,1]]",
+    "PA = [[1,1,0],[0,2,1],[2,3,2]]",
+    "Chiqarib tashlash: m31 = 2 (R3 - 2R1 = (0, 1, 2))",
+    "m32 = 1/2 (R3 - (1/2)R2 = (0, 0, 3/2))",
+    "L = [[1,0,0],[0,1,0],[2,1/2,1]]",
+    "U = [[1,1,0],[0,2,1],[0,0,3/2]]"
+   ]
+  },
+  "narr": [
+   "Mashq 17 da bizga A matritsasi berilgan va uning qatorlarini almashtirish orqali PLU ajratishini topishimiz kerak.",
+   "Birinchi qatorda asosiy element nolga teng, shuning uchun 1 va 2-qatorlarni almashtiramiz. P matritsasini hosil qilamiz.",
+   "PA matritsasini hisoblaymiz.",
+   "Chiqarib tashlash jarayonini boshlaymiz. m31 = 2.",
+   "Keyin m32 = 1/2 ni hisoblaymiz.",
+   "L matritsasini topdik.",
+   "U matritsasini ham topdik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 17 — Qatorlarni almashtirish va PLU (cont.)",
+   "problem": "",
+   "steps": [
+    "Tekshirish: LU = [[1,1,0],[0,2,1],[2,3,2]] = PA",
+    "Shunday qilib, PA = LU"
+   ],
+   "result": "P = [[0,1,0],[1,0,0],[0,0,1]], L = [[1,0,0],[0,1,0],[2,1/2,1]], U = [[1,1,0],[0,2,1],[0,0,3/2]]"
+  },
+  "narr": [
+   "Tekshirish ko'rsatadiki, LU = PA.",
+   "Shunday qilib, PA = LU tenglik bajarilgan."
+  ],
+  "narr_item": [
+   0,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 18 — Transponirovka va teskari",
+   "problem": "A = [[1,2,0],[0,1,1],[2,0,1]] matritsasi uchun A^T ni hisoblang va (A^T)⁻¹ = (A⁻¹)^T tenglikni tekshiring.",
+   "steps": [
+    "A^T = [[1,0,2],[2,1,0],[0,1,1]]",
+    "det A = 1·(1-0) - 2·(0-2) + 0 = 5",
+    "(A^T)⁻¹ = (1/5)·[[1,2,-2],[-2,1,4],[2,-1,1]]",
+    "A⁻¹ = (1/5)·[[1,-2,2],[2,1,-1],[-2,4,1]]",
+    "(A⁻¹)^T = (1/5)·[[1,2,-2],[-2,1,4],[2,-1,1]] = (A^T)⁻¹",
+    "Tenglik bajarilgan; tekshirish: A^T · (A^T)⁻¹ = I"
+   ],
+   "result": "A^T = [[1,0,2],[2,1,0],[0,1,1]], (A^T)⁻¹ = (1/5)·[[1,2,-2],[-2,1,4],[2,-1,1]]"
+  },
+  "narr": [
+   "Mashq 18 da bizga A matritsasi berilgan va uning transponirovkasini hisoblashimiz kerak.",
+   "A^T matritsasini topdik.",
+   "A matritsasining determinantini hisoblaymiz.",
+   "(A^T)⁻¹ matritsasini topdik.",
+   "A⁻¹ matritsasini va uning transponirovkasini hisoblaymiz.",
+   "Tekshirish ko'rsatadiki, (A^T)⁻¹ = (A⁻¹)^T tenglik bajarilgan.",
+   "Shuningdek, A^T · (A^T)⁻¹ = I ekanligini tekshiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 19 — Simmetrik LDL^T",
+   "problem": "Simmetrik A = [[2,2,0],[2,5,1],[0,1,3]] matritsasini LDL^T ko'rinishida ajrating.",
+   "steps": [
+    "Ko'paytuvchilar m21 = 1, m31 = 0, m32 = 1/3",
+    "L = [[1,0,0],[1,1,0],[0,1/3,1]]",
+    "D = [[2,0,0],[0,3,0],[0,0,8/3]]",
+    "Simmetrik matritsa uchun almashtirishsiz A = LDL^T",
+    "Tekshirish: L · D · L^T = [[2,2,0],[2,5,1],[0,1,3]] = A"
+   ],
+   "result": "A = [[2,2,0],[2,5,1],[0,1,3]] = LDL^T, bunda L = [[1,0,0],[1,1,0],[0,1/3,1]], D = [[2,0,0],[0,3,0],[0,0,8/3]]"
+  },
+  "narr": [
+   "Mashq 19 da bizga simmetrik A matritsasi berilgan va uning LDL^T ajratishini topishimiz kerak.",
+   "Ko'paytuvchilarni hisoblaymiz: m21 = 1, m31 = 0, m32 = 1/3.",
+   "L matritsasini topdik.",
+   "D matritsasini diagonal elementlardan hosil qilamiz.",
+   "Simmetrik matritsa uchun almashtirishsiz A = LDL^T tenglik bajariladi.",
+   "Tekshirish ko'rsatadiki, L · D · L^T = A."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 20 — Uch diagonal modeli",
+   "problem": "A = [[2,-1,0],[-1,2,-1],[0,-1,2]], b = [[2],[0],[2]] uchun Ax = b ni LU bilan yeching. Eng yaqin qo'shnilar tuzilishini tushuntiring.",
+   "steps": [
+    "LU: m21 = -1/2 va m32 = -2/3, shuning uchun L = [[1,0,0],[-1/2,1,0],[0,-2/3,1]], U = [[2,-1,0],[0,3/2,-1],[0,0,4/3]]",
+    "To'g'ri almashtirish Ly = b: y1 = 2, y2 = 1, y3 = 8/3",
+    "Orq almashtirish Ux = y: x3 = 2, x2 = 2, x1 = 2",
+    "Shunday qilib, x = [[2],[2],[2]]",
+    "Tekshirish: A · x = [[4],[2],[2]] = b",
+    "Matritsa uch diagonal: bog'lanishlar faqat eng yaqin qo'shnilar bilan (x2 — x1 va x3 bilan; x1 — x3 o'rtasida to'g'ri bog'lanish yo'q, a13 = a31 = 0); L va U ikki diagonal — tor tuzilish saqlanib qolgan"
+   ],
+   "result": "x = [[2],[2],[2]]"
+  },
+  "narr": [
+   "Mashq 20 da bizga A va b vektori berilgan va Ax = b tenglamani LU bilan yechishimiz kerak.",
+   "Avval LU ajratishni topamiz. m21 = -1/2 va m32 = -2/3.",
+   "L va U matritsalarini topdik.",
+   "To'g'ri almashtirish jarayonida y vektorini topamiz.",
+   "Orq almashtirish jarayonida x vektorini topamiz.",
+   "Tekshirish ko'rsatadiki, A · x = b.",
+   "Shuningdek, matritsaning uch diagonal ekanligini va faqat eng yaqin qo'shnilar bilan bog'langanligini tushuntiramiz. L va U matritsalari ham ikki diagonal bo'lib, tor tuzilish saqlanib qolgan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 21 — Teskari 2 × 2",
+   "problem": "A = [[2,1],[2,3]] matritsasi uchun A⁻¹ ni toping. Ko'paytirish orqali tekshiring.",
+   "steps": [
+    "det A = 2 · 3 - 1 · 2 = 4 ≠ 0",
+    "A⁻¹ = (1/4) · [[3,-1],[-2,2]] = [[3/4,-1/4],[-1/2,1/2]]",
+    "Tekshirish: A · A⁻¹ = [[2,1],[2,3]] · [[3/4,-1/4],[-1/2,1/2]] = [[1,0],[0,1]] = I"
+   ],
+   "result": "A⁻¹ = [[3/4,-1/4],[-1/2,1/2]]"
+  },
+  "narr": [
+   "Mashq 21 da bizga 2x2 o'lchamli A matritsasi berilgan va uning teskarisini topishimiz kerak.",
+   "Avval matritsaning determinantini hisoblaymiz.",
+   "A⁻¹ matritsasini formuladan foydalanib topamiz.",
+   "Tekshirish uchun A · A⁻¹ ko'paytmasini hisoblaymiz.",
+   "Natija identifikator matritsaga teng ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 22 — 2 × 2 tizimini yechish",
+   "problem": "A = [[3,2],[1,4]], b = [[8],[6]] bo'lgan Ax = b tizimini yeching.",
+   "steps": [
+    "Tizim: 3x + 2y = 8, x + 4y = 6",
+    "Ikkinchi tenglamadan x = 6 - 4y",
+    "Almashtirish: 3(6 - 4y) + 2y = 8, ya'ni 18 - 10y = 8, y = 1",
+    "x = 2",
+    "Shunday qilib, x = [[2],[1]]",
+    "Tekshirish: A · x = [[6+2],[2+4]] = [[8],[6]] = b"
+   ],
+   "result": "x = [[2],[1]]"
+  },
+  "narr": [
+   "Mashq 22 da bizga 2x2 tizim berilgan va uni yechishimiz kerak.",
+   "Tizimni yozib chiqamiz.",
+   "Ikkinchi tenglamadan x ni y orqali ifodalaymiz.",
+   "Birinchi tenglamaga almashtirib, y ni topamiz.",
+   "Keyin x ni topamiz.",
+   "Yechimni tekshiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 23 — Teskari 2 × 2",
+   "problem": "A = [[4,1],[2,5]] matritsasi uchun A⁻¹ ni toping. Ko'paytirish orqali tekshiring.",
+   "steps": [
+    "det A = 4·5 - 1·2 = 18 ≠ 0",
+    "A⁻¹ = (1/18)·[[5,-1],[-2,4]] = [[5/18,-1/18],[-1/9,2/9]]",
+    "Tekshirish: A·A⁻¹ = I — (1,1) elementi 20/18 - 2/18 = 1, (2, 2) elementi -2/18 + 20/18 = 1, diagonal bo'lmagan elementlar — nol"
+   ],
+   "result": "A⁻¹ = [[5/18,-1/18],[-1/9,2/9]]"
+  },
+  "narr": [
+   "Mashq 23 da bizga yana 2x2 matritsa berilgan va uning teskarisini topishimiz kerak.",
+   "Avval matritsaning determinantini hisoblaymiz.",
+   "A⁻¹ matritsasini formuladan foydalanib topamiz.",
+   "Tekshirish uchun A · A⁻¹ ko'paytmasini hisoblaymiz.",
+   "Ko'paytma identifikator matritsaga teng ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 24 — 2 × 2 tizimini yechish",
+   "problem": "A = [[2,2],[1,6]], b = [[4],[7]] bo'lgan Ax = b tizimini yeching.",
+   "steps": [
+    "Tizim: 2x + 2y = 4 (ya'ni x + y = 2), x + 6y = 7",
+    "Ayirish: 5y = 5, y = 1",
+    "x = 1",
+    "Shunday qilib, x = [[1],[1]]",
+    "Tekshirish: A · x = [[2+2],[1+6]] = [[4],[7]] = b"
+   ],
+   "result": "x = [[1],[1]]"
+  },
+  "narr": [
+   "Mashq 24 da bizga yana 2x2 tizim berilgan va uni yechishimiz kerak.",
+   "Tizimni yozib chiqamiz.",
+   "Birinchi tenglamani soddalashtiramiz.",
+   "Ayirish orqali y ni topamiz.",
+   "Keyin x ni topamiz.",
+   "Yechimni tekshiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 25 — 2 × 2 ajratish",
+   "problem": "A = [[2,1],[2,4]] matritsasi uchun A = LU = LDU ajratishlarini toping.",
+   "steps": [
+    "m21 = 1: R2 ← R2 - R1 U = [[2,1],[0,3]] beradi",
+    "L = [[1,0],[1,1]]",
+    "A = LU (tekshirish: [[2,1]] + [[0,3]] = [[2,4]])",
+    "D = [[2,0],[0,3]]",
+    "D⁻¹U = [1 1/2; 0 1]",
+    "va A = L · D · D⁻¹U"
+   ],
+   "result": "A = [[2,1],[2,4]] = LU = L·D·D⁻¹U, bunda L = [[1,0],[1,1]], D = [[2,0],[0,3]], D⁻¹U = [1 1/2; 0 1]"
+  },
+  "narr": [
+   "Mashq 25 da bizga 2x2 matritsa berilgan va uning LU va LDU ajratishlarini topishimiz kerak.",
+   "Avval m21 ni hisoblaymiz va R2 ni R2 - R1 almashtirishini bajaramiz.",
+   "L matritsasini topdik.",
+   "Tekshirish ko'rsatadiki, A = LU.",
+   "D matritsasini diagonal elementlardan hosil qilamiz.",
+   "D⁻¹U matritsasini hisoblaymiz.",
+   "Nihoyat, A matritsasi L, D va D⁻¹U matritsalarining ko'paytmasi sifatida ifodalanishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 26 — 2 × 2 ajratish",
+   "problem": "A = [[3,1],[3,5]] matritsasi uchun A = LU = LDU ajratishlarini toping.",
+   "steps": [
+    "m21 = 1: R2 ← R2 - R1 U = [[3,1],[0,4]] beradi",
+    "L = [[1,0],[1,1]]",
+    "A = LU (tekshirish: [[3,1]] + [[0,4]] = [[3,5]])",
+    "D = [[3,0],[0,4]]",
+    "D⁻¹U = [1 1/3; 0 1]",
+    "va A = L · D · D⁻¹U"
+   ],
+   "result": "A = [[3,1],[3,5]] = LU = L·D·D⁻¹U, bunda L = [[1,0],[1,1]], D = [[3,0],[0,4]], D⁻¹U = [1 1/3; 0 1]"
+  },
+  "narr": [
+   "Mashq 26 da bizga yana 2x2 matritsa berilgan va uning LU va LDU ajratishlarini topishimiz kerak.",
+   "Avval m21 ni hisoblaymiz va R2 ni R2 - R1 almashtirishini bajaramiz.",
+   "L matritsasini topdik.",
+   "Tekshirish ko'rsatadiki, A = LU.",
+   "D matritsasini diagonal elementlardan hosil qilamiz.",
+   "D⁻¹U matritsasini hisoblaymiz.",
+   "Nihoyat, A matritsasi L, D va D⁻¹U matritsalarining ko'paytmasi sifatida ifodalanishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 27 — 2 × 2 ajratish",
+   "problem": "A = [[1,1],[4,3]] matritsasi uchun A = LU = LDU ajratishlarini toping.",
+   "steps": [
+    "m21 = 4: R2 ← R2 - 4R1 U = [[1,1],[0,-1]] beradi",
+    "L = [[1,0],[4,1]]",
+    "A = LU (tekshirish: 4·[[1,1]] + [[0,-1]] = [[4,3]])",
+    "D = [[1,0],[0,-1]] (manfiy asos elementi ruxsat etilgan)",
+    "D⁻¹U = [[1,1],[0,1]]",
+    "va A = L · D · D⁻¹U"
+   ],
+   "result": "A = [[1,1],[4,3]] = LU = L·D·D⁻¹U, bunda L = [[1,0],[4,1]], D = [[1,0],[0,-1]], D⁻¹U = [[1,1],[0,1]]"
+  },
+  "narr": [
+   "Mashq 27 da bizga yana 2x2 matritsa berilgan va uning LU va LDU ajratishlarini topishimiz kerak.",
+   "Avval m21 ni hisoblaymiz va R2 ni R2 - 4R1 almashtirishini bajaramiz.",
+   "L matritsasini topdik.",
+   "Tekshirish ko'rsatadiki, A = LU.",
+   "D matritsasini diagonal elementlardan hosil qilamiz. Bu erda manfiy asos elementi ruxsat etilgan.",
+   "D⁻¹U matritsasini hisoblaymiz.",
+   "Nihoyat, A matritsasi L, D va D⁻¹U matritsalarining ko'paytmasi sifatida ifodalanishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 28 — 2 × 2 ajratish",
+   "problem": "A = [[2,1],[5,4]] matritsasi uchun A = LU = LDU ajratishlarini toping.",
+   "steps": [
+    "m21 = 5/2: R2 ← R2 - (5/2)R1 U = [[2,1],[0,3/2]] beradi",
+    "L = [[1,0],[5/2,1]]",
+    "A = LU (tekshirish: [[2,1]] + [[0,3/2]] = [[2,4]])",
+    "D = [[2,0],[0,3/2]]",
+    "D⁻¹U = [1 1/2; 0 1]",
+    "va A = L · D · D⁻¹U"
+   ],
+   "result": "A = [[2,1],[5,4]] = LU = L·D·D⁻¹U, bunda L = [[1,0],[5/2,1]], D = [[2,0],[0,3/2]], D⁻¹U = [1 1/2; 0 1]"
+  },
+  "narr": [
+   "Mashq 28 da bizga yana 2x2 matritsa berilgan va uning LU va LDU ajratishlarini topishimiz kerak.",
+   "Avval m21 ni hisoblaymiz va R2 ni R2 - (5/2)R1 almashtirishini bajaramiz.",
+   "L matritsasini topdik.",
+   "Tekshirish ko'rsatadiki, A = LU.",
+   "D matritsasini diagonal elementlardan hosil qilamiz.",
+   "D⁻¹U matritsasini hisoblaymiz.",
+   "Nihoyat, A matritsasi L, D va D⁻¹U matritsalarining ko'paytmasi sifatida ifodalanishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ }
+]

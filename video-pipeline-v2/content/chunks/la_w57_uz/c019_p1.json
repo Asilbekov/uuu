@@ -1,0 +1,449 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Savollar, formulalar va yechimlar bilan tanishamiz. Biz matritsalar bilan ishlashni, ularning xususiyatlarini va chiziqli fazolarni o'rganamiz.",
+   "Keling, birinchi mashqdan boshlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1",
+   "problem": "A = \\\\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\\\end{pmatrix} uchun A^T A ni toping.",
+   "steps": [
+    "A^T ni topamiz",
+    "A^T A ni hisoblaymiz",
+    "Natijani tekshiramiz"
+   ],
+   "result": "A^T A = \\\\begin{pmatrix} 1 & 0 \\\\ 2 & 1 \\\\end{pmatrix} \\\\begin{pmatrix} 1 & 2 \\\\ 0 & 1 \\\\end{pmatrix} = \\\\begin{pmatrix} 1 & 2 \\\\ 2 & 5 \\\\end{pmatrix}"
+  },
+  "narr": [
+   "Birinchi matritsani ko'rib chiqaylik. A matritsasi berilgan, biz uning transponiriyasini A^T A ko'paytmasini topishimiz kerak.",
+   "Avval A^T ni topamiz. Bu matritsaning transponiriyasidir, ya'ni qatorlar va ustunlar o'rnini almashtiramiz.",
+   "Endi A^T A ni hisoblaymiz. Bu ikki matritsani ko'paytirish amali.",
+   "Ko'paytirish natijasida \\\\begin{pmatrix} 1 & 2 \\\\ 2 & 5 \\\\end{pmatrix} matritsasini hosil qilamiz.",
+   "E'tibor bering, bu matritsa simmetrik, chunki a12 = a21 = 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2",
+   "problem": "A = \\\\begin{pmatrix} 1 & 1 \\\\ 0 & 2 \\\\end{pmatrix}, B = \\\\begin{pmatrix} 2 & 0 \\\\ 1 & 3 \\\\end{pmatrix} uchun (AB)^T ni toping.",
+   "steps": [
+    "AB ni hisoblaymiz",
+    "(AB)^T ni topamiz",
+    "B^T A^T ni hisoblab solishtiramiz"
+   ],
+   "result": "AB = \\\\begin{pmatrix} 3 & 3 \\\\ 2 & 6 \\\\end{pmatrix}, (AB)^T = \\\\begin{pmatrix} 3 & 2 \\\\ 3 & 6 \\\\end{pmatrix} = B^T A^T"
+  },
+  "narr": [
+   "Ikkinchi mashqda ikkita matritsa berilgan. A va B matritsalarining ko'paytmasining transponiriyasini topishimiz kerak.",
+   "Avval AB ni hisoblaymiz. Bu ikki matritsani ko'paytirish.",
+   "Ko'paytirish natijasida \\\\begin{pmatrix} 3 & 3 \\\\ 2 & 6 \\\\end{pmatrix} matritsasini hosil qilamiz.",
+   "Endi (AB)^T ni topamiz, ya'ni hosil bo'lgan matritsani transponiriyasini olamiz.",
+   "Natija \\\\begin{pmatrix} 3 & 2 \\\\ 3 & 6 \\\\end{pmatrix} bo'ladi.",
+   "E'tibor bering, bu B^T A^T ga teng, bu matritsalar ko'paytmasining transponiriyasi haqidagi qonun."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3",
+   "problem": "A = \\\\begin{pmatrix} 2 & -3 \\\\ -3 & 1 \\\\end{pmatrix} matritsasi simmetrikmi?",
+   "steps": [
+    "A^T ni topamiz",
+    "A bilan A^T ni solishtiramiz",
+    "Xulosa chiqaramiz"
+   ],
+   "result": "Ha: A^T = \\\\begin{pmatrix} 2 & -3 \\\\ -3 & 1 \\\\end{pmatrix} = A — diagonal tashqari elementlar bir xil (a12 = a21 = -3)"
+  },
+  "narr": [
+   "Uchinchi mashqda matritsa berilgan va biz uning simmetrikligini tekshirishimiz kerak.",
+   "Simmetrik matritsa degani, matritsa uning transponiriyasiga teng bo'ladigan matritsadir.",
+   "Shuning uchun avval A^T ni topamiz.",
+   "A^T ni A bilan solishtiramiz.",
+   "Ko'rib turganingizdek, A^T = A, ya'ni diagonal tashqari elementlar bir xil (a12 = a21 = -3).",
+   "Demak, bu matritsa simmetrik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4",
+   "problem": "A = \\\\begin{pmatrix} 1 & 4 \\\\ 2 & 3 \\\\end{pmatrix} ni simmetrik va antisimmetrik qismlarga ajrating.",
+   "steps": [
+    "Simmetrik qismni topamiz: S = (A + A^T)/2",
+    "Antisimmetrik qismni topamiz: K = (A - A^T)/2",
+    "Tekshirib ko'ramiz: S + K = A"
+   ],
+   "result": "S = \\\\begin{pmatrix} 1 & 3 \\\\ 3 & 3 \\\\end{pmatrix}, K = \\\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\\\end{pmatrix}; S + K = A"
+  },
+  "narr": [
+   "To'rtinchi mashqda berilgan matritsani simmetrik va antisimmetrik qismlarga ajratishimiz kerak.",
+   "Har qanday matritsa simmetrik va antisimmetrik qismlarining yig'indisiga teng bo'ladi.",
+   "Simmetrik qism S = (A + A^T)/2 formula orqali topiladi.",
+   "Antisimmetrik qism K = (A - A^T)/2 formula orqali topiladi.",
+   "S ni hisoblaymiz: \\\\begin{pmatrix} 1 & 3 \\\\ 3 & 3 \\\\end{pmatrix}",
+   "K ni hisoblaymiz: \\\\begin{pmatrix} 0 & 1 \\\\ -1 & 0 \\\\end{pmatrix}",
+   "Tekshirib ko'ramiz: S + K = A, bu to'g'ri ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5",
+   "problem": "P = \\\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\\\end{pmatrix}, A = \\\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\\\end{pmatrix} uchun PA ni toping.",
+   "steps": [
+    "PA ni hisoblaymiz",
+    "Natijani tushuntiramiz"
+   ],
+   "result": "PA = \\\\begin{pmatrix} 3 & 4 \\\\ 1 & 2 \\\\end{pmatrix} — chapdan ko'paytirish 1 va 2-qatorlarni almashtirdi"
+  },
+  "narr": [
+   "Beshinchi mashqda ikkita matritsa berilgan. P matritsasi A matritsasiga chapdan ko'paytiriladi.",
+   "PA ni hisoblaymiz.",
+   "Natija \\\\begin{pmatrix} 3 & 4 \\\\ 1 & 2 \\\\end{pmatrix} bo'ladi.",
+   "E'tibor bering, bu ko'paytirish A matritsasining birinchi va ikkinchi qatorlarini almashtirdi.",
+   "Bu P matritsasining o'ziga xos xususiyati bo'lib, u qatorlarni almashtiruvchi matritsadir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6",
+   "problem": "A = \\\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\\\end{pmatrix}, P = \\\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\\\end{pmatrix} uchun AP ni toping.",
+   "steps": [
+    "AP ni hisoblaymiz",
+    "Natijani tushuntiramiz",
+    "PA bilan solishtiramiz"
+   ],
+   "result": "AP = \\\\begin{pmatrix} 2 & 1 \\\\ 4 & 3 \\\\end{pmatrix} — o'ngdan ko'paytirish 1 va 2-ustunlarni almashtirdi; shu bilan birga AP ≠ PA"
+  },
+  "narr": [
+   "Oltinchi mashqda oldingi mashqdagi matritsalar, lekin endi A P ga o'ngdan ko'paytiriladi.",
+   "AP ni hisoblaymiz.",
+   "Natija \\\\begin{pmatrix} 2 & 1 \\\\ 4 & 3 \\\\end{pmatrix} bo'ladi.",
+   "E'tibor bering, bu ko'paytirish A matritsasining birinchi va ikkinchi ustunlarini almashtirdi.",
+   "Shuningdek, AP ≠ PA ekanligini ko'ramiz, bu matritsalar ko'paytmaning kommutativ emasligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7",
+   "problem": "P = \\\\begin{pmatrix} 0 & 1 & 0 \\\\ 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\end{pmatrix} uchun P^{-1} ni toping.",
+   "steps": [
+    "P^{-1} ni topamiz",
+    "Tekshirib ko'ramiz: P^T P = I"
+   ],
+   "result": "P^{-1} = P^T = \\\\begin{pmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\end{pmatrix}; tekshirish: P^T P = I"
+  },
+  "narr": [
+   "Yettinchi mashqda kattaroq matritsa berilgan. Biz P matritsasining teskarisini topishimiz kerak.",
+   "Bu matritsa o'ziga teskarisiga teng bo'lgani uchun, P^{-1} = P^T bo'ladi.",
+   "P^T ni topamiz.",
+   "Natija \\\\begin{pmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\end{pmatrix} bo'ladi.",
+   "Tekshirib ko'ramiz: P^T P = I, bu to'g'ri ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8",
+   "problem": "3 × 3 matritsasi 1 va 3-qatorlarni almashtiruvchi P almashtirish matritsasini toping.",
+   "steps": [
+    "P matritsasini tuzamiz",
+    "PA har qanday matritsaning birinchi va uchinchi qatorlarini almashtirishini ko'rsatamiz"
+   ],
+   "result": "P = \\\\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\end{pmatrix} — I_3 da 1 va 3-qatorlarni almashtirish; PA har qanday matritsaning birinchi va uchinchi qatorlarini almashtiradi"
+  },
+  "narr": [
+   "Sakkizinchi mashqda biz birinchi va uchinchi qatorlarni almashtiruvchi P matritsasini topishimiz kerak.",
+   "P matritsasini tuzamiz. Buning uchun I_3 identifikatsiya matritsasidan boshlaymiz.",
+   "Birinchi va uchinchi qatorlarni almashtiramiz.",
+   "Natija \\\\begin{pmatrix} 0 & 0 & 1 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\end{pmatrix} bo'ladi.",
+   "Bu matritsa har qanday A matritsasi uchun PA ko'paytmasida A ning birinchi va uchinchi qatorlarini almashtiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9",
+   "problem": "A = \\\\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\\\end{pmatrix} uchun P, L, U ni toping.",
+   "steps": [
+    "Nol bosh element almashtirishni talab qiladi",
+    "P ni aniqlaymiz",
+    "PA ni hisoblaymiz",
+    "L va U ni aniqlaymiz",
+    "Natijani tekshiramiz: PA = LU"
+   ],
+   "result": "P = \\\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\\\end{pmatrix}, PA = \\\\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\\\end{pmatrix}; allaqachon yakunlangan, shuning uchun L = I_2, U = PA; natija: PA = LU"
+  },
+  "narr": [
+   "To'qqizinchi mashqda LU ajratishni amalga oshirishimiz kerak.",
+   "A matritsasida birinchi qatorning birinchi elementi nol, shuning uchun almashtirish kerak.",
+   "P ni aniqlaymiz, bu qatorlarni almashtiruvchi matritsadir.",
+   "PA ni hisoblaymiz.",
+   "PA matritsasi allaqachon yuqori uchburchak shaklida, shuning uchun L = I_2, U = PA.",
+   "Natijani tekshiramiz: PA = LU, bu to'g'ri ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10",
+   "problem": "A = \\\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\\\end{pmatrix} uchun qatorlarni almashtirmasdan L, U ni toping.",
+   "steps": [
+    "m21 ni hisoblaymiz",
+    "R2 ← R2 - 3R1 bosqichini amalga oshiramiz",
+    "U ni aniqlaymiz",
+    "L ni aniqlaymiz",
+    "Tekshirib ko'ramiz: LU = A"
+   ],
+   "result": "m21 = 6/2 = 3; R2 ← R2 - 3R1 bosqichi U = \\\\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\\\end{pmatrix} ni beradi; L = \\\\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\\\end\\end{pmatrix}; tekshirish: LU = A"
+  },
+  "narr": [
+   "O'ninchi mashqda yana LU ajratashni amalga oshirishimiz kerak, lekin bu safar qatorlarni almashtirmasdan.",
+   "Avval m21 ni hisoblaymiz, bu 6/2 = 3.",
+   "Keyin R2 ← R2 - 3R1 operatsiyasini amalga oshiramiz.",
+   "Bu operatsiya U = \\\\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\\\end{pmatrix} matritsasini beradi.",
+   "L ni aniqlaymiz: \\\\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\\\end{pmatrix}",
+   "Tekshirib ko'ramiz: LU = A, bu to'g'ri ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 11",
+   "problem": "W = {(x, y): y = 3x} R^2 ning kichik fazomiy?",
+   "steps": [
+    "W ni chiziqli kombinatsiyalar ko'rinishida yozamiz",
+    "Nol vektorni tekshiramiz",
+    "Yopiqlikni tekshiramiz"
+   ],
+   "result": "Ha: W = {t(1, 3): t ∈ R}, nol vektor t = 0 da, va a(s, 3s) + b(t, 3t) = (as + bt, 3(as + bt)) ∈ W"
+  },
+  "narr": [
+   "O'n birinchi mashqda biz chiziqli fazo kichik fazolarini tekshirishni boshlaymiz.",
+   "Birinchidan, W to'plamini chiziqli kombinatsiyalar ko'rinishida yozamiz.",
+   "W = {t(1, 3): t ∈ R} deb yozishimiz mumkin.",
+   "Nol vektorni tekshiramiz. t = 0 bo'lganda, nol vektor W da joylashgan.",
+   "Yopiqlikni tekshiramiz. Ikkita elementni olamiz: a(s, 3s) va b(t, 3t).",
+   "Ularning chiziqli kombinatsiyasi a(s, 3s) + b(t, 3t) = (as + bt, 3(as + bt)) bo'ladi, bu ham W da joylashgan.",
+   "Demak, W chiziqli fazo kichik fazosidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 12",
+   "problem": "S = {(x, y): y = 3x + 2} kichik fazomiy?",
+   "steps": [
+    "Nol vektorni tekshiramiz",
+    "Xulosa chiqaramiz"
+   ],
+   "result": "Yo'q: (0, 0) tenglamani qanoatlantirmaydi (0 ≠ 3 · 0 + 2) — nol vektor yo'q"
+  },
+  "narr": [
+   "O'n ikkinchi mashqda yana bir to'plamni tekshiramiz.",
+   "S to'plami berilgan: {(x, y): y = 3x + 2}.",
+   "Birinchidan, nol vektorni tekshiramiz.",
+   "(0, 0) nuqta uchun y = 3x + 2 tenglama 0 = 3 · 0 + 2, ya'ni 0 = 2 bo'ladi, bu noto'g'ri.",
+   "Demak, nol vektor S to'plamida joylashgan emas.",
+   "Shuning uchun S chiziqli fazo kichik fazosidir emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 13",
+   "problem": "W = {(x, y, z): x + y - z = 0} kichik fazomiy?",
+   "steps": [
+    "f(x, y, z) = x + y - z funksiyasini ko'rib chiqamiz",
+    "Nol vektorni tekshiramiz",
+    "Chiziqlilikni tekshiramiz"
+   ],
+   "result": "Ha: f(x, y, z) = x + y - z chiziqli, f(0, 0, 0) = 0 va f(au + bv) = a · f(u) + b · f(v) = 0, u, v ∈ W uchun"
+  },
+  "narr": [
+   "O'n uchinchi mashqda uch o'lchovli fazodagi to'plamni tekshiramiz.",
+   "W to'plami {(x, y, z): x + y - z = 0} shaklida berilgan.",
+   "f(x, y, z) = x + y - z funksiyasini ko'rib chiqamiz.",
+   "Bu funksiya chiziqli, chunki u chiziqli kombinatsiyalarni saqlaydi.",
+   "Nol vektor uchun f(0, 0, 0) = 0 + 0 - 0 = 0, ya'ni nol vektor W da joylashgan.",
+   "Chiziqlilikni tekshiramiz: f(au + bv) = a · f(u) + b · f(v) = 0, u, v ∈ W uchun.",
+   "Demak, W chiziqli fazo kichik fazosidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 14",
+   "problem": "(4, 1) ni (1, 1) va (1, -1) vektorlari kombinatsiyasi sifatida ifodalang.",
+   "steps": [
+    "c1 + c2 = 4 tenglamani yozamiz",
+    "c1 - c2 = 1 tenglamani yozamiz",
+    "c1 va c2 ni topamiz",
+    "Tekshirib ko'ramiz"
+   ],
+   "result": "c1 + c2 = 4, c1 - c2 = 1 → c1 = 5/2, c2 = 3/2; tekshirish: (5/2)(1, 1) + (3/2)(1, -1) = (4, 1)"
+  },
+  "narr": [
+   "To'rtinchi mashqda biz bir vektorni ikki boshqa vektorlarning chiziqli kombinatsiyasi sifatida ifodalashimiz kerak.",
+   "(4, 1) vektorni (1, 1) va (1, -1) vektorlari kombinatsiyasi sifatida ifodalashimiz kerak.",
+   "Buning uchun c1(1, 1) + c2(1, -1) = (4, 1) tenglamani yozamiz.",
+   "Bu ikki tenglamani hosil qiladi: c1 + c2 = 4 va c1 - c2 = 1.",
+   "Bu sistemani yechamiz: c1 = 5/2, c2 = 3/2.",
+   "Tekshirib ko'ramiz: (5/2)(1, 1) + (3/2)(1, -1) = (4, 1), bu to'g'ri ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 15",
+   "problem": "(1, 2, 0) va (2, 4, 0) vektorlarining chiziqli qobiqini toping.",
+   "steps": [
+    "Vektorlarni ko'rib chiqamiz",
+    "Chiziqli qobiqni aniqlaymiz"
+   ],
+   "result": "Chiziqli qobik: {c1(1, 2, 0) + c2(2, 4, 0): c1, c2 ∈ R} = {(c1 + 2c2, 2c1 + 4c2, 0): c1, c2 ∈ R}"
+  },
+  "narr": [
+   "O'n beshinchi mashqda ikkita vektor berilgan va ularning chiziqli qobiqini topishimiz kerak.",
+   "(1, 2, 0) va (2, 4, 0) vektorlari berilgan.",
+   "Chiziqli qobik bu ikkala vektorning chiziqli kombinatsiyalaridan iborat to'plamdir.",
+   "Shunday qilib, chiziqli qobik {c1(1, 2, 0) + c2(2, 4, 0): c1, c2 ∈ R} ko'rinishida yoziladi.",
+   "Bu ifodani soddalashtirsak: {(c1 + 2c2, 2c1 + 4c2, 0): c1, c2 ∈ R} bo'ladi.",
+   "E'tibor bering, bu ikkinchi komponent birinchisining ikki barobariga teng, uchinchi komponent esa har doim nolga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1,
+   1
+  ]
+ }
+]

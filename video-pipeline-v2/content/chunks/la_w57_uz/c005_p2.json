@@ -1,0 +1,249 @@
+[
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "LU ajratma",
+   "tex": "\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 1 & 1 \\end{pmatrix}",
+   "steps": [
+    "U matritsani beradi",
+    "A matritsani aniqlash: LU = A"
+   ]
+  },
+  "narr": [
+   "Keling, boshlang'ich matritsani ko'rib chiqaylik. Bu matritsa LU ajratmasida L qismi bo'lib, uni A matritsasiga ko'paytirsak U matritsini hosil qilamiz.",
+   "Bu matritsa birlik diagonalli pastki uchburchak matritsadir. Uning asosiy xususiyati shundaki, diagonal bo'ylab barcha elementlar 1 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "U matritsasi",
+   "tex": "\\begin{pmatrix} 2 & 1 & 1 \\\\ 0 & 3 & 2 \\\\ 0 & 0 & 2 \\end{pmatrix}",
+   "steps": [
+    "Yuqori uchburchak matritsa",
+    "Asosiy elementlar diagonal bo'ylab joylashgan"
+   ]
+  },
+  "narr": [
+   "Ushbu matritsa esa yuqori uchburchak matritsadir. Uning asosiy elementlari diagonal bo'ylab joylashgan bo'lib, bu LU ajratmasining muhim xususiyatidir."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Sistemani yechish",
+   "problem": "Ly = b va Ux = y sistemalarini yeching, bunda L va U berilgan, b vektor berilgan.",
+   "steps": [
+    {
+     "text": "L va U matritsalarini aniqlang:",
+     "tex": "L = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix}, \\quad U = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}, \\quad b = \\begin{pmatrix} 5 \\\\ 19 \\end{pmatrix}"
+    },
+    {
+     "text": "Birinchi navbatda Ly = b sistemani yeching:",
+     "tex": "\\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\begin{pmatrix} y_1 \\\\ y_2 \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 19 \\end{pmatrix}"
+    },
+    {
+     "text": "Teskari almashtirish usuli bilan yeching:",
+     "tex": "y_1 = 5, \\quad 3y_1 + y_2 = 19 \\Rightarrow y_2 = 4"
+    },
+    {
+     "text": "Endi Ux = y sistemani yeching:",
+     "tex": "\\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix} \\begin{pmatrix} x_1 \\\\ x_2 \\end{pmatrix} = \\begin{pmatrix} 5 \\\\ 4 \\end{pmatrix}"
+    },
+    {
+     "text": "Teskari almashtirish usuli bilan yeching:",
+     "tex": "2x_2 = 4 \\Rightarrow x_2 = 2, \\quad 2x_1 + x_2 = 5 \\Rightarrow x_1 = \\frac{3}{2}"
+    }
+   ],
+   "result": "x = \\begin{pmatrix} \\frac{3}{2} \\\\ 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Keling, bir misol orqali LU ajratmasini qanday qo'llashni ko'rib chiqaylik.",
+   "Bizda L va U matritsalari hamda b vektori berilgan.",
+   "Avval Ly = b sistemani yechishimiz kerak. Bu sistemani to'g'ri almashtirish usuli bilan yechamiz.",
+   "Birinchi tenglamadan y₁ ni topamiz: y₁ = 5.",
+   "Ikkinchi tenglamaga y₁ ni qo'yib y₂ ni topamiz: 3·5 + y₂ = 19, shundan y₂ = 4.",
+   "Endi Ux = y sistemani yechamiz. Buni teskari almashtirish usuli bilan yechamiz.",
+   "Ikkinchi tenglamadan boshlaymiz: 2x₂ = 4, shundan x₂ = 2.",
+   "Birinchi tenglamaga x₂ ni qo'yib x₁ ni topamiz: 2x₁ + 2 = 5, shundan x₁ = 3/2.",
+   "Shunday qilib, sistemani yechdik: x₁ = 3/2 va x₂ = 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "LDU ajratma",
+   "bullets": [
+    "A = L · D · (D⁻¹U)",
+    "L va D⁻¹U birlik diagonalli matritsalar",
+    "D diagonal matritsa"
+   ]
+  },
+  "narr": [
+   "LU ajratmasidan tashqari, LDU ajratmasi ham mavjud. Bu ajratmada A matritsasi L, D va D⁻¹U matritsalarining ko'paytmasi sifatida ifodalanadi.",
+   "Bu yerda L va D⁻¹U matritsalarining diagonali bo'ylab barcha elementlar 1 ga teng, D esa diagonal matritsadir."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "LDU ajratma misoli",
+   "tex": "\\begin{pmatrix} 2 & 1 \\\\ 6 & 5 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 3 & 1 \\end{pmatrix} \\cdot \\begin{pmatrix} 2 & 0 \\\\ 0 & 2 \\end{pmatrix} \\cdot \\begin{pmatrix} 1 & \\frac{1}{2} \\\\ 0 & 1 \\end{pmatrix}",
+   "steps": [
+    "A = LDU",
+    "L birlik diagonalli pastki uchburchak",
+    "D diagonal matritsa",
+    "D⁻¹U birlik diagonalli yuqori uchburchak"
+   ]
+  },
+  "narr": [
+   "Misol sifatida, bu matritsani LDU ajratmasiga ajratamiz.",
+   "Bu yerda L birlik diagonalli pastki uchburchak matritsadir.",
+   "D diagonal matritsadir, uning diagonali bo'ylab elementlar asosiy elementlardir.",
+   "D⁻¹U esa birlik diagonalli yuqori uchburchak matritsadir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Asosiy elementlar va determinant",
+   "bullets": [
+    "A = \\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} uchun asosiy elementlar a va d - c/b/a",
+    "Asosiy elementlarning ko'paytmasi ad - bc = det(A) ga teng",
+    "Satrlarni almashtirmasdan determinant asosiy elementlarning ko'paytmasiga teng",
+    "Normalangan LDU barcha asosiy elementlar noldan farqli bo'lganda yagona bo'ladi"
+   ]
+  },
+  "narr": [
+   "Asosiy elementlar - bu matritsa ajratmasidagi diagonal elementlardir.",
+   "2×2 matritsa uchun birinchi asosiy element a ga, ikkinchisi esa d - c/b/a ga teng.",
+   "Qiziq jihati shundaki, asosiy elementlarning ko'paytmasi matritsaning determinantiga teng bo'ladi.",
+   "Agar biz satrlarni almashtirmasdan ajratma qilsak, determinant asosiy elementlarning ko'paytmasiga teng bo'ladi.",
+   "Normalangan LDU ajratmasi, agar matritsada noldan farqli barcha asosiy elementlar bo'lsa, yagona bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Permutatsiyalar, PA = LU",
+   "bullets": [
+    "Satrlarni almashtirish kerak bo'lgan holatlar",
+    "Permutatsiya matritsatlari I satrlarini almashtiradi",
+    "P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix} satrni almashtiradi",
+    "PA - A matritsasining satrlari, AP - A matritsasining ustunlari almashtiriladi"
+   ]
+  },
+  "narr": [
+   "Ba'zida LU ajratmasini to'g'ridan-to'g'ri qo'llab bo'lmaydi, chunki birinchi asosiy element nolga teng bo'lishi mumkin.",
+   "Bu holatda satrlarni almashtirish kerak bo'ladi. Buning uchun permutatsiya matritsalaridan foydalanamiz.",
+   "Permutatsiya matritsatlari identifikatsiya matritsasining satrlarini almashtiradi.",
+   "Misol uchun, bu matritsa satrlarni almashtiradi.",
+   "PA yozuvi A matritsasining satrlarini, AP yozuvi esa A matritsasining ustunlarini almashtirishni anglatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Satr almashtirish kerak bo'lgan holat",
+   "problem": "A = \\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\end{pmatrix} matritsasi uchun LU ajratmasini toping",
+   "steps": [
+    {
+     "text": "Birinchi asosiy element 0 ga teng, LU ajratmasini to'g'ridan-to'g'ri qo'llab bo'lmaydi",
+     "tex": "A = \\begin{pmatrix} 0 & 2 \\\\ 3 & 4 \\end{pmatrix}"
+    },
+    {
+     "text": "Satrlarni almashtiring:",
+     "tex": "PA = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}, \\quad P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}"
+    },
+    {
+     "text": "Almashtirilgan matritsa uchun LU ajratmasini toping:",
+     "tex": "PA = LU = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix} \\cdot \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}"
+    }
+   ],
+   "result": "PA = LU, bunda P = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}, L = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 3 & 4 \\\\ 0 & 2 \\end{pmatrix}"
+  },
+  "narr": [
+   "Keling, satr almashtirish kerak bo'lgan holatni ko'rib chiqaylik.",
+   "A matritsasida birinchi asosiy element 0 ga teng. Bu LU ajratmasini to'g'ridan-to'g'ri qo'llashga imkon bermaydi.",
+   "Bu holatda satrlarni almashtirishimiz kerak. Buning uchun permutatsiya matritsasidan foydalanamiz.",
+   "Satrlarni almashtirganimizdan keyin, yangi matritsada birinchi asosiy element noldan farqli bo'ladi.",
+   "Almashtirilgan matritsa uchun oddiy LU ajratmasini qo'llay olamiz. Bu yerda L identifikatsiya matritsasi, U esa almashtirilgan matritsadir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Xulosa",
+   "items": [
+    "LU ajratmasi - matritsani pastki va yuqori uchburchak matritsalarga ajratish",
+    "LDU ajratmasi - L, D va D⁻¹U matritsalariga ajratish",
+    "Asosiy elementlar - matritsa ajratmasidagi diagonal elementlar",
+    "Determinant asosiy elementlarning ko'paytmasiga teng",
+    "Agar asosiy element nolga teng bo'lsa, satrlarni almashtirish kerak (PA = LU)"
+   ]
+  },
+  "narr": [
+   "Xulosa qilib aytganda, biz matritsalarni LU va LDU ajratmalariga ajratish usullarini o'rgandik.",
+   "LU ajratmasida matritsa pastki (L) va yuqori (U) uchburchak matritsalarga ajratiladi.",
+   "LDU ajratmasida esa qo'shimcha ravishda diagonal matritsa (D) ham qo'shiladi.",
+   "Asosiy elementlar matritsa ajratmasining muhim qismi bo'lib, ularning ko'paytmasi determinantga teng.",
+   "Agar biror asosiy element nolga teng bo'lsa, bu LU ajratmasini amalga oshirishga to'sqinlik qiladi. Bunday holatda satrlarni almashtirish (PA = LU) kerak bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

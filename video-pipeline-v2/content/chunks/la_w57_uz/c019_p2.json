@@ -1,0 +1,477 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Bu yechimda biz matritsa transponirlash va determinantlar bilan ishlaymiz.",
+   "Shuningdek, simmetrik va antimetrik matritsalar haqida bilamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Matritsa transponirlash",
+   "bullets": [
+    "Matritsa transponirlash — bu matritsa qatorlarini ustunlarga, ustunlarini qatorlarga almashtirish jarayoni.",
+    "A matritsa uchun uning transponirlashi AT bilan belgilanadi.",
+    "Agar A matritsa m×n o'lchamli bo'lsa, uning transponirlashi AT n×m o'lchamli bo'ladi."
+   ]
+  },
+  "narr": [
+   "Matritsa transponirlash — bu asosiy operatsiyalardan biri.",
+   "Bu jarayonda matritsa qatorlari ustunlarga aylanadi.",
+   "O'lchamlar ham o'zgaradi: agar matritsa m qator va n ustundan iborat bo'lsa, uning transponirlashi n qator va m ustundan iborat bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 18",
+   "problem": "A = [1 2 -1] matritsa uchun Null(A) ni toping.",
+   "steps": [
+    {
+     "text": "Avval Ax = 0 tenglamani yozamiz: x₁ + 2x₂ - x₃ = 0"
+    },
+    {
+     "text": "Erkin o'zgaruvchilarni aniqlaymiz: x₂ = s, x₃ = t"
+    },
+    {
+     "text": "x₁ ni ifodalaymiz: x₁ = -2s + t"
+    },
+    {
+     "text": "Yechimni vektor ko'rinishida yozamiz: x = s(-2, 1, 0) + t(1, 0, 1)"
+    },
+    {
+     "text": "Null(A) = span{(-2, 1, 0), (1, 0, 1)}"
+    }
+   ],
+   "result": "Null(A) = span{(-2, 1, 0), (1, 0, 1)}"
+  },
+  "narr": [
+   "Keling, birinchi misolni ko'rib chiqaylik.",
+   "Bizda berilgan A matritsasi bor va uning yadro Null(A) ni topishimiz kerak.",
+   "Buning uchun avval Ax = 0 tenglamani yozamiz.",
+   "Bu tenglamani erkin o'zgaruvchilar orqali yechamiz.",
+   "Yechimni vektorlar yig'indisi ko'rinishida ifodalaymiz.",
+   "Natijada yadro ikki vektordan iborat bo'lgan fazolarni hosil qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 19",
+   "problem": "A = [[1, 2, 2], [2, 4, 0], [0, 0, 0]] matritsa uchun Col(A) ni toping; (3, 6, 0) vektori unga tegishlimi?",
+   "steps": [
+    {
+     "text": "Matritsa ustunlarini ko'rib chiqamiz: [1, 2, 0]ᵀ, [2, 4, 0]ᵀ, [2, 0, 0]ᵀ"
+    },
+    {
+     "text": "Ustunlar o'rtasida bog'liqlik borligini ko'ramiz: [2, 4, 0]ᵀ = 2·[1, 2, 0]ᵀ"
+    },
+    {
+     "text": "Col(A) = span{[1, 2, 0]ᵀ}"
+    },
+    {
+     "text": "(3, 6, 0) vektorni tekshiramiz: [3, 6, 0] = 3·[1, 2, 0]"
+    },
+    {
+     "text": "Vektor Col(A) ga tegishli"
+    }
+   ],
+   "result": "Col(A) = span{[1, 2, 0]ᵀ}; (3, 6, 0) vektor Col(A) ga tegishli"
+  },
+  "narr": [
+   "Endi ikkinchi masalaga o'tamiz.",
+   "Bu yerda matritsani ustun fazosini Col(A) ni topishimiz kerak.",
+   "Matritsa ustunlarini ko'rib chiqamiz.",
+   "Ustunlar o'rtasida proporsionallik borligini ko'ramiz.",
+   "Shuning uchun ustun fazosi bitta vektordan iborat.",
+   "Berilgan vektor ushbu fazoga tegishli ekanligini tekshiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 20",
+   "problem": "A = [[1, 2, 0], [0, 1, 1], [0, 0, 2]] matritsa uchun Aᵀ va det(A) ni toping.",
+   "steps": [
+    {
+     "text": "A matritsasini transponirlaymiz: Aᵀ = [[1, 0, 0], [2, 1, 0], [0, 1, 2]]"
+    },
+    {
+     "text": "A matritsasi yuqori uchburchakli matritsa ekanligini aniqlaymiz"
+    },
+    {
+     "text": "Yuqori uchburchakli matritsa determinantining formulasi: det(A) = a₁₁·a₂₂·a₃₃"
+    },
+    {
+     "text": "det(A) = 1·1·2 = 2"
+    },
+    {
+     "text": "det(Aᵀ) = det(A) = 2"
+    }
+   ],
+   "result": "Aᵀ = [[1, 0, 0], [2, 1, 0], [0, 1, 2]]; det(A) = 2"
+  },
+  "narr": [
+   "Uchinchi masalada matritsani transponirlash va determinantni hisoblash kerak.",
+   "Avval matritsani transponirlaymiz.",
+   "Matritsa yuqori uchburchakli ekanligini ko'ramiz.",
+   "Yuqori uchburchakli matritsa determinantini oson hisoblash mumkin.",
+   "Determinantni asosiy xossasiga ko'ra, matritsa va uning transponirlasining determinantlari teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 21",
+   "problem": "A = [[1, 2, 3], [4, 5, 6]] matritsa uchun Aᵀ ni hisoblang va o'lchamlarni ko'rsating.",
+   "steps": [
+    {
+     "text": "A matritsasi 2×3 o'lchamli ekanligini aniqlaymiz"
+    },
+    {
+     "text": "A matritsasini transponirlaymiz: Aᵀ = [[1, 4], [2, 5], [3, 6]]"
+    },
+    {
+     "text": "Aᵀ matritsasi 3×2 o'lchamli ekanligini ko'ramiz"
+    },
+    {
+     "text": "Xulosa: matritsa transponirlanganda uning o'lchamlari almashtiriladi (m×n)ᵀ = n×m"
+    }
+   ],
+   "result": "Aᵀ = [[1, 4], [2, 5], [3, 6]] — 3×2 o'lchamli"
+  },
+  "narr": [
+   "To'rtinchi masalada matritsa o'lchamlari va transponirlashning ta'sirini ko'rib chiqamiz.",
+   "Berilgan A matritsasi 2 qator va 3 ustundan iborat.",
+   "Matritsani transponirlaganda, qatorlar ustunlarga, ustunlar qatorlarga aylanadi.",
+   "Natijada o'lchamlar almashtiriladi: 2×3 matritsa 3×2 matritsaga aylanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Transponirlashning xossalari",
+   "bullets": [
+    "Yig'indi uchun: (A + B)ᵀ = Aᵀ + Bᵀ",
+    "Ko'paytma uchun: (AB)ᵀ = BᵀAᵀ",
+    "Ikkita matritsa ko'paytmasining transponiri ko'paytuvchilarning transponirlarining teskari tartibda ko'paytmasiga teng."
+   ]
+  },
+  "narr": [
+   "Transponirlashning ikkita asosiy xossasini ko'rib chiqamiz.",
+   "Birinchisi, yig'indi uchun transponirlash ta'sir qiladi.",
+   "Ikkinchisi, ko'paytma uchun transponirlash ko'paytuvchilarning tartibini o'zgartiradi.",
+   "Bu xossalarni isbotlash uchun matritsa elementlariga qaraymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 22",
+   "problem": "(A + B)ᵀ = Aᵀ + Bᵀ tenglamani element bo'yicha isbotlang.",
+   "steps": [
+    {
+     "text": "A = (aᵢⱼ), B = (bᵢⱼ) m×n o'lchamli matritsalar deb olaymiz."
+    },
+    {
+     "text": "Har bir i, j uchun: ((A+B)ᵀ)ᵢⱼ = (A+B)ⱼᵢ = aⱼᵢ + bⱼᵢ"
+    },
+    {
+     "text": "Bu ifodani Aᵀ + Bᵀ ko'rinishida yozamiz: (Aᵀ)ᵢⱼ + (Bᵀ)ᵢⱼ = aⱼᵢ + bⱼᵢ"
+    },
+    {
+     "text": "Elementlar bir xil ekanligini ko'ramiz: ((A+B)ᵀ)ᵢⱼ = (Aᵀ + Bᵀ)ᵢⱼ"
+    },
+    {
+     "text": "Xulosa: matritsa elementlari teng bo'lgani uchun matritsalar teng: (A + B)ᵀ = Aᵀ + Bᵀ"
+    }
+   ],
+   "result": "(A + B)ᵀ = Aᵀ + Bᵀ"
+  },
+  "narr": [
+   "Endi transponirlashning birinchi xossasini isbotlaymiz.",
+   "Buning uchun ikkita matritsa yig'indisini ko'rib chiqamiz.",
+   "Matritsa elementlariga qarab, transponirlash ta'sirini ko'ramiz.",
+   "Elementlar darajasida tenglikni ko'rsatamiz.",
+   "Elementlar teng bo'lgani uchun matritsalar teng ekanligiga kelamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 23",
+   "problem": "(AB)ᵀ = BᵀAᵀ tenglamani mos matritsalar uchun isbotlang.",
+   "steps": [
+    {
+     "text": "A — m×n, B — n×p o'lchamli matritsalar deb olaymiz."
+    },
+    {
+     "text": "Har bir i, j uchun: ((AB)ᵀ)ᵢⱼ = (AB)ⱼᵢ = Σₖ aⱼₖbₖᵢ"
+    },
+    {
+     "text": "BᵀAᵀ ko'paytmasini ko'rib chiqamiz: (BᵀAᵀ)ᵢⱼ = Σₖ (Bᵀ)ᵢₖ(Aᵀ)ₖⱼ = Σₖ bₖᵢaⱼₖ"
+    },
+    {
+     "text": "Ikkala ifoda bir xil ekanligini ko'ramiz: ((AB)ᵀ)ᵢⱼ = (BᵀAᵀ)ᵢⱼ"
+    },
+    {
+     "text": "Xulosa: matritsa elementlari teng bo'lgani uchun matritsalar teng: (AB)ᵀ = BᵀAᵀ"
+    }
+   ],
+   "result": "(AB)ᵀ = BᵀAᵀ"
+  },
+  "narr": [
+   "Keyingi misolda transponirlashning ikkinchi xossasini isbotlaymiz.",
+   "Bu xossa ko'paytma uchun amal qiladi va muhim shartni o'z ichiga oladi.",
+   "Ko'paytma uchun matritsa o'lchamlari mos kelishi kerak.",
+   "Elementlar darajasida tenglikni ko'rsatamiz.",
+   "Ko'paytuvchilar tartibining o'zgarishiga e'tibor beramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 24",
+   "problem": "A = [[1, 0, 2], [0, 1, 0], [3, 0, 2]] matritsa uchun AᵀA ko'paytmasini hisoblang.",
+   "steps": [
+    {
+     "text": "A matritsasini transponirlaymiz: Aᵀ = [[1, 0, 3], [0, 1, 0], [2, 0, 2]]"
+    },
+    {
+     "text": "AᵀA ko'paytmasini hisoblaymiz:"
+    },
+    {
+     "text": "AᵀA = [[1, 0, 3], [0, 1, 0], [2, 0, 2]] · [[1, 0, 2], [0, 1, 0], [3, 0, 2]]"
+    },
+    {
+     "text": "Ko'paytmani hisoblab topamiz: AᵀA = [[10, 0, 8], [0, 1, 0], [8, 0, 8]]"
+    },
+    {
+     "text": "Natija simmetrik matritsa ekanligini ko'ramiz"
+    }
+   ],
+   "result": "AᵀA = [[10, 0, 8], [0, 1, 0], [8, 0, 8]] — simmetrik matritsa"
+  },
+  "narr": [
+   "Keyingi misolda AᵀA ko'paytmasini hisoblaymiz.",
+   "Bu ko'paytma chiziqli algebrada muhim o'rin egallaydi.",
+   "Avval matritsani transponirlaymiz.",
+   "Keyin ko'paytmani hisoblaymiz.",
+   "Natijada hosil bo'lgan matritsa simmetrik ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Simmetrik va antimetrik matritsalar",
+   "bullets": [
+    "Simmetrik matritsa: Aᵀ = A",
+    "Antimetrik matritsa: Aᵀ = -A",
+    "Ixtiyoriy matritsa A ni simmetrik S va antimetrik K qismlariga ajratish mumkin: A = S + K",
+    "Bu yerda S = (A + Aᵀ)/2, K = (A - Aᵀ)/2"
+   ]
+  },
+  "narr": [
+   "Simmetrik va antimetrik matritsalar chiziqli algebrada muhim tushunchalardir.",
+   "Simmetrik matritsa o'ziga transponir bo'ladi.",
+   "Antimetrik matritsa esa manfiy o'ziga transponir bo'ladi.",
+   "Ixtiyoriy matritsani ikki qismga ajratish mumkin: simmetrik va antimetrix.",
+   "Bu ajratish ko'p hollarda matritsa tuzilishini tushunishga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 25",
+   "problem": "A = [[1, 3], [-2, 4]] matritsa uchun simmetrik va antimetrik qismlarini toping.",
+   "steps": [
+    {
+     "text": "A matritsasini transponirlaymiz: Aᵀ = [[1, -2], [3, 4]]"
+    },
+    {
+     "text": "Simmetrik qismini hisoblaymiz: S = (A + Aᵀ)/2"
+    },
+    {
+     "text": "S = ([[1, 3], [-2, 4]] + [[1, -2], [3, 4]])/2 = [[1, 0.5], [0.5, 4]]"
+    },
+    {
+     "text": "Antimetrik qismini hisoblaymiz: K = (A - Aᵀ)/2"
+    },
+    {
+     "text": "K = ([[1, 3], [-2, 4]] - [[1, -2], [3, 4]])/2 = [[0, 2.5], [-2.5, 0]]"
+    },
+    {
+     "text": "Tekshirish: S + K = A, Sᵀ = S, Kᵀ = -K"
+    }
+   ],
+   "result": "S = [[1, 0.5], [0.5, 4]], K = [[0, 2.5], [-2.5, 0]]"
+  },
+  "narr": [
+   "Simmetrik va antimetrik matritsalar bilan ishlash usulini ko'rib chiqaylik.",
+   "Berilgan A matritsasi uchun uning transponirlashini topamiz.",
+   "Simmetrik qismini hisoblash uchun matritsani uning transponirlasiga qo'shamiz va 2 ga bo'lamiz.",
+   "Antimetrik qismini hisoblash uchun matritsani uning transponirlasidan ayirib va 2 ga bo'lamiz.",
+   "Natijani tekshirib ko'ramiz: ikki qismini qo'shganda asl matritsa hosil bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 26",
+   "problem": "Ixtiyoriy haqiqiy matritsa A uchun AᵀA simmetrik ekanligini isbotlang.",
+   "steps": [
+    {
+     "text": "(AᵀA)ᵀ = Aᵀ(Aᵀ)ᵀ = AᵀA"
+    },
+    {
+     "text": "(AB)ᵀ = BᵀAᵀ qoidasidan foydalanamiz"
+    },
+    {
+     "text": "(Aᵀ)ᵀ = A ekanligini hisobga olamiz"
+    },
+    {
+     "text": "Natija: (AᵀA)ᵀ = AᵀA, ya'ni matritsa o'ziga transponir bo'ladi"
+    },
+    {
+     "text": "Xulosa: AᵀA simmetrik matritsadir"
+    }
+   ],
+   "result": "AᵀA simmetrik matritsadir"
+  },
+  "narr": [
+   "AᵀA ko'paytmasining simmetrik ekanligini isbotlaymiz.",
+   "Bu isbotda transponirlashning ko'paytma xossasidan foydalanamiz.",
+   "Shuningdek, matritsani ikki marta transponirlash asl matritsani berishini bilamiz.",
+   "Natijada AᵀA matritsasi o'ziga transponir bo'lishini ko'ramiz.",
+   "Bu xossa chiziqli algebrada ko'p hollarda qo'llaniladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 27",
+   "problem": "u = (2, -1)ᵀ, v = (3, 4)ᵀ vektorlar uchun uᵀv, uvᵀ ni hisoblang.",
+   "steps": [
+    {
+     "text": "Skalyar ko'paytmani hisoblaymiz: uᵀv = 2·3 + (-1)·4 = 6 - 4 = 2"
+    },
+    {
+     "text": "Tashqi ko'paytmani hisoblaymiz: uvᵀ = [[2], [-1]] · [[3, 4]]"
+    },
+    {
+     "text": "Ko'paytmani hisoblab topamiz: uvᵀ = [[6, 8], [-3, -4]]"
+    },
+    {
+     "text": "Xulosa: skalyar ko'paytma son, tashqi ko'paytma esa matritsadir"
+    }
+   ],
+   "result": "uᵀv = 2, uvᵀ = [[6, 8], [-3, -4]]"
+  },
+  "narr": [
+   "Oxirgi misolda ikki xil ko'paytma turlarini ko'rib chiqamiz.",
+   "Birinchisi skalyar ko'paytma, ikkinchisi esa tashqi ko'paytma.",
+   "Skalyar ko'paytma ikki vektorni ko'paytirib son hosil qiladi.",
+   "Tashqi ko'paytma esa bir vektorni ikkinchisining transponirlasiga ko'paytirib matritsa hosil qiladi.",
+   "Bu ikki ko'paytma turli xil matematik ob'ektlar beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

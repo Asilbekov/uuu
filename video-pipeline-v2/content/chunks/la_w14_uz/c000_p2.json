@@ -1,0 +1,298 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Vektorlarni qo'shish va ayirish",
+   "subtitle": "Asosiy amallar va misollar"
+  },
+  "narr": [
+   "Keling, vektorlarni qo'shish va ayirish asosiy amallarini ko'rib chiqaylik.",
+   "Birinchi misolda bizda ikkita vektor berilgan: u va v.",
+   "Ushbu vektorlarni qo'shish, ayirish va skalyar ko'paytirish amallarini bajaramiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 1 — Vektorlarni qo'shish va ayirish",
+   "problem": "Berilgan: u = [-3, 8], v = [1, 2]; toping: u - v, 2u, -3v, 2u - 3v",
+   "steps": [
+    "u - v = [-3 - 1, 8 - 2] = [-4, 6]",
+    "2u = [2·(-3), 2·8] = [-6, 16]",
+    "-3v = [-3·1, -3·2] = [-3, -6]",
+    "2u - 3v = [-6 - (-3), 16 - (-6)] = [-3, 22]"
+   ],
+   "result": "Natijalar: u - v = [-4, 6], 2u = [-6, 16], -3v = [-3, -6], 2u - 3v = [-3, 22]"
+  },
+  "narr": [
+   "Birinchi misolda u vektorni v vektordan ayiramiz.",
+   "Keyin u vektorni 2 ga ko'paytiramiz.",
+   "V vektorni -3 ga ko'paytiramiz.",
+   "Va oxirgi amal - 2u ni 3v dan ayirish."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 2 — Vektorlarni qo'shish va ayirish",
+   "problem": "Berilgan: a = [-1, 4], b = [2, -2]; toping: a + b, a - b, 3a + 2b",
+   "steps": [
+    "a + b = [-1 + 2, 4 + (-2)] = [1, 2]",
+    "a - b = [-1 - 2, 4 - (-2)] = [-3, 6]",
+    "3a + 2b = [3·(-1) + 2·2, 3·4 + 2·(-2)] = [-3 + 4, 12 - 4] = [1, 8]"
+   ],
+   "result": "Natijalar: a + b = [1, 2], a - b = [-3, 6], 3a + 2b = [1, 8]"
+  },
+  "narr": [
+   "Ikkinchi misolda a va b vektorlarini qo'shamiz.",
+   "Keyin a vektorni b vektordan ayiramiz.",
+   "Va oxirgi amal - 3a ni 2b qo'shish."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 3 — Vektor tenglamalarni yechish",
+   "problem": "Toping x, agar x + [2, -4, 1] = [7, 3, -2]",
+   "steps": [
+    "Vektorni ikkala tomondan ayiramiz: x = [7 - 2, 3 - (-4), -2 - 1]",
+    "Har bir komponentni hisoblaymiz: x = [5, 7, -3]"
+   ],
+   "result": "x = [5, 7, -3]"
+  },
+  "narr": [
+   "Uchinchi misolda bizda vektor tenglamasi berilgan.",
+   "Yechish uchun vektorni ikkala tomondan ayirish kerak.",
+   "Natijada x vektorni topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 4 — Vektor tenglamalarni yechish",
+   "problem": "Toping x, agar 3x - 2u = v, bunda u = [-2, 1], v = [8, 2]",
+   "steps": [
+    "Avval x ni ajratamiz: 3x = v + 2u",
+    "v + 2u ni hisoblaymiz: [8 + 2·(-2), 2 + 2·1] = [4, 4]",
+    "Keyin x ni topamiz: x = [4/3, 4/3]",
+    "Tushuntirish: Skalyarga ko'paytirish qo'shishga nisbatan taqsimlanuvchi, shuning uchun vektorni 3 ga bo'lish degani, uning har bir komponentini 3 ga bo'lishdir"
+   ],
+   "result": "x = [4/3, 4/3]"
+  },
+  "narr": [
+   "To'rtinchi misolda bizda biroz murakkabroq tenglama bor.",
+   "Avval x ni ajratib olamiz.",
+   "Keyin v + 2u ni hisoblaymiz.",
+   "Va oxirgi x ni topamiz.",
+   "Eslatma: Skalyarga ko'paytirish qo'shishga nisbatan taqsimlanuvchi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Vektorlarning Evklid uzunligi",
+   "subtitle": "Uzunlikni hisoblash usullari"
+  },
+  "narr": [
+   "Endi vektorlarning Evklid uzunligini hisoblashni ko'rib chiqaylik.",
+   "Vektorning uzunligi uning komponentlari kvadratlari yig'indisining ildiziga teng."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 5 — Vektorlarning Evklid uzunligi",
+   "problem": "Vektorlarning Evklid uzunligini hisoblang: u = [3, 4], v = [2, -3, 6], w = [0, 0, 0]",
+   "steps": [
+    "∥u∥ = √(3² + 4²) = √(9 + 16) = 5",
+    "∥v∥ = √(2² + (-3)² + 6²) = √(4 + 9 + 36) = 7",
+    "∥w∥ = 0 (faqat nol vektor nol uzunlikka ega)"
+   ],
+   "result": "∥u∥ = 5, ∥v∥ = 7, ∥w∥ = 0"
+  },
+  "narr": [
+   "Beshinchi misolda uchta vektorning uzunligini hisoblaymiz.",
+   "Birinchi vektorning uzunligi 5 ga teng.",
+   "Ikkinchi vektorning uzunligi 7 ga teng.",
+   "Uchinchi vektor - bu nol vektor, uning uzunligi 0 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 6 — Birlik vektorni topish",
+   "problem": "v = [-4, 3] vektoriga bir xil yo'nalishda birlik vektorni toping va uning uzunligi 1 ga teng ekanini tekshiring",
+   "steps": [
+    "Avval v vektorning uzunligini topamiz: ∥v∥ = √((-4)² + 3²) = 5",
+    "Birlik vektorni topamiz: v̂ = v/5 = [-4/5, 3/5]",
+    "Tekshirish: ∥v̂∥ = √((-4/5)² + (3/5)²) = √(16/25 + 9/25) = 1"
+   ],
+   "result": "Birlik vektor: v̂ = [-4/5, 3/5]"
+  },
+  "narr": [
+   "Oltinchi misolda bizga birlik vektorni topish kerak.",
+   "Birinchi qadam - berilgan vektorning uzunligini hisoblash.",
+   "Keyin vektorni uning uzunligiga bo'lamiz.",
+   "Va oxirgi qadam - birlik vektorning uzunligini tekshirish."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 7 - Berilgan uzunlikdagi vektorni topish",
+   "problem": "v = [3, -8] vektoriga bir xil yo'nalishda uzunligi 10 bo'lgan vektorni toping",
+   "steps": [
+    "Avval v vektorning uzunligini topamiz: ∥v∥ = √(3² + (-8)²) = 5",
+    "Kerakli uzunlik (10) berilgan uzunlikka (5) nisbatini topamiz: 10/5 = 2",
+    "Vektorni shu miqdorda masshtablaymiz: 2v = [6, -16]",
+    "Tekshirish: ∥2v∥ = 2·5 = 10"
+   ],
+   "result": "Topilgan vektor: [6, -16]"
+  },
+  "narr": [
+   "Yettinchi misolda bizga berilgan uzunlikdagi vektorni topish kerak.",
+   "Birinchi qadam - berilgan vektorning uzunligini hisoblash.",
+   "Keyin kerakli uzunlik berilgan uzunlikka nisbatini topamiz.",
+   "Vektorni shu miqdorda masshtablaymiz.",
+   "Va oxirgi qadam - topilgan vektorning uzunligini tekshirish."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 8 - Nuqtalar orasidagi masofa",
+   "problem": "Vektorlarni ayirish va uzunlikdan foydalanib, P = (1, -2, 3) va Q = (5, 1, -3) nuqtalar orasidagi masofani toping",
+   "steps": [
+    "PQ vektorni topamiz: PQ = Q - P = [5 - 1, 1 - (-2), -3 - 3] = [4, 3, -6]",
+    "Masofani hisoblaymiz: d(P, Q) = ∥PQ∥ = √(4² + 3² + (-6)²) = √(16 + 9 + 36) = √61"
+   ],
+   "result": "d(P, Q) = √61"
+  },
+  "narr": [
+   "Sakkizinchi misolda ikki nuqta orasidagi masofani topish kerak.",
+   "Birinchi qadam - PQ vektorni topish.",
+   "Keyin masofani hisoblaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 9 - Vektorlarning chiziqli birikmasi",
+   "problem": "v1 = [2, 4], v2 = [1, 3] bo'lsin. 2v1 + v2, -v1 + 3v2, 4v1 - 2v2, 0v1 + 5v2 ni hisoblang",
+   "steps": [
+    "2v1 + v2 = [2·2 + 1, 2·4 + 3] = [5, 11]",
+    "-v1 + 3v2 = [-1·2 + 3·1, -1·4 + 3·3] = [1, 5]",
+    "4v1 - 2v2 = [4·2 - 2·1, 4·4 - 2·3] = [6, 10]",
+    "0v1 + 5v2 = [0·2 + 5·1, 0·4 + 5·3] = [5, 15]"
+   ],
+   "result": "2v1 + v2 = [5, 11], -v1 + 3v2 = [1, 5], 4v1 - 2v2 = [6, 10], 0v1 + 5v2 = [5, 15]"
+  },
+  "narr": [
+   "To'qqizinchi misolda bizda ikkita vektor berilgan.",
+   "Ushbu vektorlarning turli chiziqli birikmalarini hisoblaymiz.",
+   "Birinchi birikma - 2v1 + v2",
+   "Ikkinchi birikma - -v1 + 3v2",
+   "Uchinchi birikma - 4v1 - 2v2",
+   "Va to'rtinchi birikma - 0v1 + 5v2"
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 10 - Vektor tenglamalar sistemasini yechish",
+   "problem": "c1, c2 ni toping shundayki c1·[1, 2] + c2·[-1, 1] = [7, 1]",
+   "steps": [
+    "Komponentli tenglamalar sistemasi hosil qilamiz:",
+    "c1 - c2 = 7 (birinchi komponent)",
+    "2c1 + c2 = 1 (ikkinchi komponent)",
+    "Birinchisini ikkinchisidan ayiramiz: (c1 - c2) - (2c1 + c2) = 7 - 1",
+    "-c1 - 2c2 = 6",
+    "Bu sistemani yechamiz: c1 = 5, c2 = -2",
+    "Tekshirish: 5·[1, 2] + (-2)·[-1, 1] = [5 + 2, 10 - 2] = [7, 8]"
+   ],
+   "result": "c1 = 5, c2 = -2"
+  },
+  "narr": [
+   "O'ninchi misolda bizda vektorlar tenglamasi bor.",
+   "Buning uchun komponentli tenglamalar sistemasi hosil qilamiz.",
+   "Birinchi komponent uchun tenglamani yozamiz.",
+   "Ikkinchi komponent uchun tenglamani yozamiz.",
+   "Sistemani yechamiz.",
+   "Va oxirgi qadam - tekshirish."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]
