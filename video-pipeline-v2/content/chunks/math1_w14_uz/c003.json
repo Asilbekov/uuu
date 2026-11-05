@@ -1,0 +1,381 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "1-4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Keling, birinchi haftadagi ba'zi murakkab masalalarni ko'rib chiqaylik. Birinchidan, kompleks sonlarni darajaga ko'tarishni ko'rib chiqaylik.",
+   "Bu erda bizda 32 e^{i(10π/3−2π)} ifodasi berilgan. Buni soddalashtirish uchun avval argumentni hisoblaymiz.",
+   "10π/3 minus 2π bu 4π/3 ga teng. Shunday qilib, bizda 32 e^{i4π/3} qoladi.",
+   "Endi, Eyler formulasidan foydalanib, bu ifodani trigonometrik shaklga o'tkazamiz.",
+   "e^{i4π/3} bu cos(4π/3) + i sin(4π/3) ga teng, bu esa -1/2 - i√3/2 ni beradi.",
+   "Ko'paytiramiz: 32 bu -16 - 16√3 i ni beradi. Tekshirish uchun algebraik usuldan foydalansak ham, natija bir xil bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "29-masala — Kompleks sonlarning ildizlari",
+   "problem": "Barcha yechimlarni toping va ularni kompleks tekislikda tasviring: a. z³ = 1; b. z⁴ = 1; c. z³ = -8. Tushuntiring, n-darajali ildizlari nima uchun aylana boʻyiga teng masofada joylashgan.",
+   "steps": [
+    "a. z³ = 1 uchun yechimlar: zₖ = e^(2πik/3), k = 0, 1, 2",
+    "b. z⁴ = 1 uchun yechimlar: zₖ = e^(2πik/4), k = 0, 1, 2, 3",
+    "c. z³ = -8 uchun yechimlar: 2∛(1 + 3i), -2, 2∛(1 - 3i)",
+    "Barcha holatlarda ildizlarning bir xil modulga ega r^(1/n) (demak, bir aylanada joylashgan)",
+    "Ularining argumentlari aniq 2π/n farq qiladi (to'liq aylanish 2πn teng qismga bo'lingan)",
+    "Shu sababli ular muntazam n-burchakli uchburchakning uchlari hosil qiladi"
+   ],
+   "result": "a. 1, -1/2 + 3/2i, -1/2 - 3/2i\nb. 1, i, -1, -i\nc. 2∛(1 + 3i), -2, 2∛(1 - 3i)"
+  },
+  "narr": [
+   "Keling, kompleks sonlarning ildizlari bilan ishlashni ko'rib chiqaylik. Birinchi masalada z³ = 1 tenglamani yechishimiz kerak.",
+   "Bu tenglamaning yechimlari zₖ = e^(2πik/3 formulasi orqali topiladi, bu erda k = 0, 1, 2.",
+   "Shunday qilib, bizda uchta yechim mavjud: 1, -1/2 + 3/2i, va -1/2 - 3/2i.",
+   "Ikkinchi masalada z⁴ = 1 tenglamani yechamiz. Bu erda zₖ = e^(2πik/4 formulasi qo'llaniladi, k = 0, 1, 2, 3.",
+   "Natijada to'rtta yechim hosil bo'ladi: 1, i, -1, va -i.",
+   "Uchinchi masalada z³ = -8 tenglamani yechamiz. Yechimlar: 2∛(1 + 3i), -2, va 2∛(1 - 3i).",
+   "E'tibor bering, barcha holatlarda ildizlarning bir xil modulga ega, ya'ni ular kompleks tekislikda bir aylanada joylashgan.",
+   "Ularining argumentlari 2π/n farq qiladi, chunki to'liq aylanik 2π n teng qismga bo'lingan.",
+   "Shuning uchun bu ildizlar muntazam n-burchakli uchburchakning uchlari hosil qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "30-masala — Ilmiy va muhandislik yozuvi",
+   "problem": "Elektr zaryadi miqdori e = 0.0000000000000000001602176634 Kl ni ilmiy va muhandislik yozuvida yozing.",
+   "steps": [
+    "18 xonali hisoblaymiz, birinchi nol bo'lmagan raqam vergul oldiga chiqsin",
+    "Ilmiy yozuv: e = 1.602176634 × 10^(-19) Kl",
+    "Muhandislik yozuvida daraja 3 ga karrali bo'lishi kerak",
+    "Shuning uchun bitta xonaga siljitamiz: e = 160.2176634 × 10^(-21) Kl",
+    "Bu 160.2176634 zKl (zeptokulon) ga teng"
+   ],
+   "result": "Ilmiy yozuv: 1.602176634 × 10^(-19) Kl\nMuhandislik yozuvi: 160.2176634 × 10^(-21) Kl yoki 160.2176634 zKl"
+  },
+  "narr": [
+   "Keling, katta va kichik sonlarni yozish usullarini ko'rib chiqaylik. Bu erda elektr zaryadi miqdori berilgan.",
+   "Bu son juda kichik, shuning uchun uni ilmiy yozuvda ifodalash qulayroq.",
+   "Ilmiy yozuvda, birinchi nol bo'lmagan raqam vergul oldiga chiqadi va 10 darajasi qo'llaniladi.",
+   "Shunday qilib, bizda 1.602176634 × 10^(-19) Kl hosil bo'ladi.",
+   "Muhandislik yozuvida esa daraja 3 ga karrali bo'lishi kerak. Shuning uchun biz sonni bitta xonaga siljitamiz.",
+   "Natijada 160.2176634 × 10^(-21) Kl hosil bo'ladi, bu esa 160.2176634 zKl (zeptokulon) ga teng.",
+   "E'tibor bering, amaliyotda 10^(-24) dan pastdagi SI old qo'shimchalari faqat zepto (10^(-21)) mavjud."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "31-masala — SI old qo'shimchalari",
+   "problem": "SI old qo'shimchalari jadvalini to'ldiring: 10^12, 10^6, 10^3, 10^(-6), 10^(-9), 10^(-12) darajalariga mos old qo'shimcha/belgilar.",
+   "steps": [
+    "10^12 darajasi tera (T) ga mos keladi",
+    "10^6 darajasi mega (M) ga mos keladi",
+    "10^3 darajasi kilo (k) ga mos keladi",
+    "10^(-6) darajasi mikro (µ) ga mos keladi",
+    "10^(-9) darajasi nano (n) ga mos keladi",
+    "10^(-12) darajasi piko (p) ga mos keladi"
+   ],
+   "result": "10^12: tera (T)\n10^6: mega (M)\n10^3: kilo (k)\n10^(-6): mikro (µ)\n10^(-9: nano (n)\n10^(-12): piko (p)"
+  },
+  "narr": [
+   "Keling, SI old qo'shimchalari jadvalini to'ldirishni ko'rib chiqaylik.",
+   "10^12 darajasi tera (T) belgisi bilan ifodalanadi.",
+   "10^6 darajasi esa mega (M) belgisiga ega.",
+   "10^3 darajasi kilo (k) deb ataladi.",
+   "10^(-6) darajasi mikro (µ) belgisiga ega.",
+   "10^(-9) darajasi nano (n) deb ataladi.",
+   "Va nihoyat, 10^(-12) darajasi piko (p) belgisi bilan ifodalanadi.",
+   "Giga (G), milli (m), femto (f), va atto (a) ma'lumotlari bilan birga bu jadval to'liq SI zanjirini tashkil qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "32-masala — Ilmiy va muhandislik yozuvi",
+   "problem": "0.00000824 ni ilmiy va muhandislik yozuvida yozing; 7.35 × 10^8 Hz ni muhandislik yozuvida yozing; 0.0047 F ni old qo'shimcha bilan yozing.",
+   "steps": [
+    "0.00000824 ni ilmiy yozuvda: 8.24 × 10^(-6)",
+    "-6 3 ga karrali, shuning uchun bu allaqachon muhandislik yozuvi",
+    "7.35 × 10^8 Hz ni muhandislik yozuvida: 108 3 ga karrali emas",
+    "Shuning uchun 7.35 × 10^8 = 735 × 10^6 = 735 MHz deb yozamiz",
+    "0.0047 F ni old qo'shimcha bilan: 0.0047 = 4.7 × 10^(-3) = 4.7 mF"
+   ],
+   "result": "0.00000824 = 8.24 × 10^(-6) (ilmiy) yoki 8.24 µA\n7.35 × 10^8 Hz = 735 MHz\n0.0047 F = 4.7 mF"
+  },
+  "narr": [
+   "Keling, bir nechta sonlarni ilmiy va muhandislik yozuvida ifodalashni ko'rib chiqaylik.",
+   "Birinchidan, 0.00000824 ni ilmiy yozuvda ifodalaymiz: 8.24 × 10^(-6).",
+   "E'tibor biling, -6 darajasi 3 ga karrali, shuning uchun bu allaqachon muhandislik yozuvida, masalan 8.24 µA agar birlik amper bo'lsa.",
+   "Ikkinchi masalada, 7.35 × 10^8 Hz ni muhandislik yozuvida ifodalaymiz.",
+   "108 darajasi 3 ga karrali emas, shuning uchun biz 7.35 × 10^8 = 735 × 10^6 = 735 MHz deb yozamiz.",
+   "Uchinchidan, 0.0047 F ni old qo'shimcha bilan yozamiz: 0.0047 = 4.7 × 10^(-3) = 4.7 mF."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "33-masala — Sonlar to'plamlari va ratsional/irratsional sonlar",
+   "problem": "a. N ⊂ Z ⊂ Q ⊂ R ⊂ C kiritilgan to'plamlar diagrammasini chizing va 2026, -9, 2/3, 10, π, -5i, -2+2i ni joylashtiring; b. ratsional yoki irratsional: √49, √18, √3 + √2, √2 · √5, √2 + √8, (√5)^2.",
+   "steps": [
+    "a. 2026 ∈ N; -9 ∈ Z; 2/3 ∈ Q; 10 va π ∈ R; -5i va -2+2i ∈ C",
+    "b. √49 = 7 — ratsional",
+    "√18 = 3√2 — irratsional",
+    "√3 + √2 — irratsional",
+    "√2 · √5 = √10 — irratsional",
+    "√2 + √8 = 3√2 — irratsional",
+    "(√5)^2 = 5 — ratsional"
+   ],
+   "result": "a. 2026 natural son; -9 butun son; 2/3 ratsional son; 10 va π haqiqiy son; -5i va -2+2i kompleks son.\nb. √49: ratsional; √18: irratsional; √3 + √2: irratsional; √2 · √5: irratsional; √2 + √8: irratsional; (√5)^2: ratsional"
+  },
+  "narr": [
+   "Keling, sonlar to'plamlari va ratsional/irratsional sonlarni ko'rib chiqaylik.",
+   "Birinchidan, N ⊂ Z ⊂ Q ⊂ R ⊂ C to'plamlarini chizamiz va berilgan sonlarni joylashtiramiz.",
+   "2026 natural songa tegishli; -9 butun songa; 2/3 ratsional songa;",
+   "10 va π haqiqiy songa; -5i va -2+2i kompleks songa tegishli.",
+   "Endi, ratsional yoki irratsional sonlarni aniqlaymiz.",
+   "√49 = 7, bu butun son, shuning uchun ratsional.",
+   "√18 = 3√2, irratsional chunki √2 irratsional.",
+   "√3 + √2 irratsional, chunki irratsional sonlarning yig'indisi irratsional.",
+   "√2 · √5 = √10, irratsional.",
+   "√2 + √8 = √2 + 2√2 = 3√2, irratsional.",
+   "(√5)^2 = 5, ratsional son."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "34-masala — Kompleks sonlari amallari",
+   "problem": "z₁ = 2+3i, z₂ = 1-5i berilgan; z₁ + z₂, z₁ - z₂, z₁z₂, z₁/z₂ ni hisoblang.",
+   "steps": [
+    "z₁ + z₂ = (2+3i) + (1-5i) = 3-2i",
+    "z₁ - z₂ = (2+3i) - (1-5i) = 1+8i",
+    "Ko'paytma: (2+3i)(1-5i) = 2·1 - 2·5i + 3i·1 - 3i·5i = 2 - 10i + 3i - 15i²",
+    "i² = -1 bo'lgani uchun: 2 - 10i + 3i + 15 = 17 - 7i",
+    "Bo'linma: z₁/z₂ = (2+3i)/(1-5i)",
+    "Maxrajni haqiqiy songa aylantirish uchun surat va maxrajni (1+5i) ga ko'paytiramiz"
+   ]
+  },
+  "narr": [
+   "Keling, ikkita kompleks son ustida amallarni bajaraylik.",
+   "z₁ = 2+3i va z₂ = 1-5i berilgan.",
+   "Birinchidan, ularni qo'shamiz: z₁ + z₂ = (2+3i) + (1-5i) = 3-2i.",
+   "Ayirmani hisoblaymiz: z₁ - z₂ = (2+3i) - (1-5i) = 1+8i.",
+   "Ko'paytmani hisoblaymiz: (2+3i)(1-5i) = 2·1 - 2·5i + 3i·1 - 3i·5i.",
+   "i² = -1 bo'lgani uchun: 2 - 10i + 3i + 15 = 17 - 7i.",
+   "Bo'linmani hisoblaymiz: z₁/z₂ = (2+3i)/(1-5i)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "34-masala — Kompleks sonlari amallari (cont.)",
+   "problem": "",
+   "steps": [
+    "(2+3i)(1+5i)/((1-5i)(1+5i)) = (2+10i+3i+15i²)/(1-25i²)",
+    "Yana i² = -1: (2+13i-15)/(1+25) = (-13+13i)/26 = -1/2 + 1/2i"
+   ],
+   "result": "z₁ + z₂ = 3-2i\nz₁ - z₂ = 1+8i\nz₁z₂ = 17-7i\nz₁/z₂ = -1/2 + 1/2i"
+  },
+  "narr": [
+   "Maxrajni haqiqiy songa aylantirish uchun surat va maxrajni (1+5i) ga ko'paytiramiz.",
+   "(2+3i)(1+5i)/((1-5i)(1+5i)) = (2+10i+3i+15i²)/(1-25i²).",
+   "Yana i² = -1: (2+13i-15)/(1+25) = (-13+13i)/26 = -1/2 + 1/2i."
+  ],
+  "narr_item": [
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "35-masala — Trigonometrik shakl",
+   "problem": "Tushuntiring, nima uchun 1 + i√3 = 2 cos(π/3) + i sin(π) = 2e^(iπ/3).",
+   "steps": [
+    "Modulni hisoblaymiz: |1 + i√3| = √(1² + (√3)²) = √(1 + 3) = 2",
+    "Nuqta (1, √3) birinchi chorakda joylashgan",
+    "Argumentni topamiz: tan θ = √3/1 = √3, shundan θ = π/3",
+    "Polar koordinatalarda: r = 2, θ = π/3",
+    "Trigonometrik shakl: 2 cos(π/3) + i sin(π/3)",
+    "Eyler formulasiga ko'ra: 2e^(iπ/3) = 2(cos(π/3) + i sin(π/3))"
+   ],
+   "result": "1 + i√3 = 2 cos(π/3) + i sin(π/3) = 2e^(iπ/3)"
+  },
+  "narr": [
+   "Keling, kompleks sonlarning trigonometrik shakliga oid masalani ko'rib chiqaylik.",
+   "Bu erda 1 + i√3 ifodasini trigonometrik shaklda ifodalashimiz kerak.",
+   "Avval modulni hisoblaymiz: |1 + i√3| = √(1² + (√3)²) = √(1 + 3) = 2.",
+   "Nuqta (1, √3) birinchi chorakda joylashgan, shuning uchun argument musbat.",
+   "Argumentni topamiz: tan θ = √3/1 = √3, shundan θ = π/3.",
+   "Shunday qilib, polar koordinatalarda r = 2, θ = π/3.",
+   "Trigonometrik shaklda: 2 cos(π/3) + i sin(π/3).",
+   "Eyler formulasiga ko'ra: 2e^(iπ/3) = 2(cos(π/3) + i sin(π/3))."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "2-hafta — Funksiyalar",
+   "subtitle": "Math I"
+  },
+  "narr": [
+   "Endi ikkinchi haftaga o'tamiz, bu erda funksiyalar haqida ko'p narsalarni o'rganamiz.",
+   "Funksiyalar asoslari, sinflari, simmetriyasi, kompozitsiyasi va teskari funksiyalarni ko'rib chiqamiz.",
+   "Funksiya sohasidagi har bir x ga aynan bitta natija f(x) ni bog'laydi.",
+   "Vertikal to'g'ri testi bunga mos kelmaydigan bog'lanishlarni aniqlaydi.",
+   "Tabiiy soha — formula mazmunli bo'ladigan haqiqiy kirishlarning eng katta to'plami.",
+   "Uchta standart to'siq mavjud: nolga bo'lish, manfiy sonlarning juft darajali ildizlari va nomanfiy bo'lmagan sonlarning logarifmi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Funksiyalar asoslari",
+   "bullets": [
+    "f : D → R, x ↦ f(x); D = soha, range f = {f(x) : x ∈ D}",
+    "g(x) ≠ 0",
+    "√g(x) : g(x) ≥ 0",
+    "log_b g(x) : g(x) > 0"
+   ]
+  },
+  "narr": [
+   "Funksiyalar asosida bir nechta muhim tushunchalar yotadi.",
+   "Funksiya f soha D dan R gacha bo'lgan funksiya bo'lib, x elementiga f(x) ni mos qo'yadi.",
+   "Funksiyaning sohasi D, qiymatlar to'plami esa {f(x) : x ∈ D}.",
+   "Funksiyalarning tabiiy sohasi uchta asiy cheklov mavjud:",
+   "Birinchisi, maxraj nolga teng bo'lishi mumkin emas.",
+   "Ikkinchisi, ildiz ostidagi ifoda manfiy bo'lishi mumkin emas.",
+   "Uchinchisi, logarifm ostidagi ifoda musbat bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Funksiyalarning xossalari",
+   "bullets": [
+    "Juft funksiyalar: f(-x) = f(x)",
+    "Toq funksiyalar: f(-x) = -f(x)",
+    "Kompozitsiya: (f ◦ g)(x) = f(g(x))",
+    "Kompozitsiya odatda kommutativ emas: (f ◦ g) ≠ (g ◦ f)",
+    "Inyektiv funksiya: f(x₁) = f(x₂) ⇒ x₁ = x₂"
+   ]
+  },
+  "narr": [
+   "Funksiyalarning muhim xossalari haqida gapiramiz.",
+   "Juft funksiyalar y-o'qiga nisbatan simmetrik: f(-x) = f(x).",
+   "Toq funksiyalar bosh nuqtaga nisbatan simmetrik: f(-x) = -f(x).",
+   "Kompozitsiya funksiyalarni zanjirlaydi: (f ◦ g)(x) = f(g(x)).",
+   "E'tibor bering, kompozitsiya odatda kommutativ emas: (f ◦ g) ≠ (g ◦ f).",
+   "Inyektiv funksiya bir xil qiymat faqat bir xil kirish uchun hosil bo'lishini anglatadi: f(x₁) = f(x₂) ⇒ x₁ = x₂."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

@@ -1,0 +1,275 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Matematika I",
+   "subtitle": "3-hafta amaliy mashg'uloti (muhandislik limitlari)"
+  },
+  "narr": [
+   "Bu mashg'ulotda biz matematik jarayonlarni ko'rsatish, birliklarni kiritish, muhandislik atamalarida talqin qilish va limit mavjud bo'lmaganda ko'rsatishni o'rganamiz.",
+   "Keling, berilgan masalalarni birma-bir yechib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Mashqlar yechimi",
+   "problem": "Darslikning §2.2 mashqlar ro'yxatidagi 50-54-masalalarni yeching.",
+   "steps": [
+    "Yozib qo'yilgan va to'liq yechilgan §4.4-da (50-54-bandlar)."
+   ],
+   "result": "Yechim §4.4-bandlarda keltirilgan."
+  },
+  "narr": [
+   "Birinchi masala oddiygina darslikdagi mashqlarni yechishni talab qiladi.",
+   "Yechimlar allaqachon tayyor va §4.4-bandlarda keltirilgan."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Bir tomonlama limitlar",
+   "problem": "f(x) = 2x+1, x < 2da, f(x) = 7 - x, x ≥ 2 da. limx→2−f, limx→2+f, limx→2 f, f(2) ni toping; ikki tomonlama limit mavjudligini tushuntiring.",
+   "steps": [
+    "Chap shox: limx→2−(2x + 1) = 5",
+    "O'ng shox: limx→2+(7 - x) = 5",
+    "Ular teng, demak (56) bo'yicha limx→2 f(x) = 5",
+    "E'tibor bering, f(2) = 7 - 2 = 5 ham — funksiya qiymati limitga teng",
+    "Shuning uchun x = 2 da grafikda uzilish yo'q"
+   ],
+   "result": "limx→2−f = 5, limx→2+f = 5, limx→2 f = 5, f(2) = 5. Ikkala bir tomonlama limit teng, shuning uchun ikki tomonlama limit mavjud."
+  },
+  "narr": [
+   "Bu masalada bizda ikki qismli funksiya berilgan.",
+   "Chap tomondan limitni hisoblaymiz: x 2 ga chap tomondan yaqinlashganda, funksiya 2x + 1 bo'ladi, bu esa 5 ga teng.",
+   "O'ng tomondan limitni hisoblaymiz: x 2 ga o'ng tomondan yaqinlashganda, funksiya 7 - x bo'ladi, bu ham 5 ga teng.",
+   "Ikkala bir tomonlama limit teng bo'lgani uchun, ikki tomonlama limit mavjud va 5 ga teng.",
+   "Qiziqarlisi shundaki, funksiya qiymati ham 5 ga teng, ya'ni grafikda uzilish yo'q."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Kalibrovka yaqinidagi o'lchovsizlik",
+   "problem": "V(T) = (2500/T)MB, T ≥ 50 va V(T) = mV, T ≠ 50 (T°C da). (1) Nima uchun V(50) aniqlanmagan? (2) limT→50V(T) ni baholang; (3) limit qanday yo'qolgan kalibrovka qiymatini almashtira oladi?",
+   "steps": [
+    "(1) Formula T - 50 ga bo'ladi, bu T = 50 da 0 ga teng; sensor modelining shu nuqtada qiymati yo'q.",
+    "(2) Kvadratlar ayirmasini ajratamiz: T² - 2500 = (T - 50)(T + 50), demak T ≠ 50 da, V(T) = T + 50, va limT→50V(T) = 100 mV.",
+    "(3) limit sensor 50°C da ko'rsatadigan narsani tasvirlaydi; kalibrovka jadvalining bu nuqtada 100 mV qiymati bilan to'ldirish to'g'ri, chunki chiqish qiymati ikki tomondan ham bu qiymatga yaqinlashadi — bu 'olib tashlanadigan' xulq-atvor, emasli sakchiq."
+   ],
+   "result": "V(50) aniqlanmagan, chunki maxraj nolga teng bo'ladi. limT→50V(T) = 100 mV. Sensorni 50°C da 100 mV bilan kalibrlash kerak."
+  },
+  "narr": [
+   "Uchinchi masalada bizda sensorning kalibrovka yaqinidagi xatti-harakati ko'rib chiqilmoqda.",
+   "Birinchidan, V(50) nima uchun aniqlanmaganligini tushunamiz. Chunki formulada maxraj T - 50, bu T = 50 da 0 ga teng bo'ladi, bu esa bo'lishni anglatadi.",
+   "Ikkinchidan, limitni topish uchun kvadratlar ayirmasidan foydalanamiz: T² - 2500 = (T - 50)(T + 50).",
+   "Shunday qilib, T ≠ 50 da V(T) = T + 50 bo'ladi va bu funksiyaning T = 50 dagi limiti 100 mV ga teng.",
+   "Uchinchidan, bu limit sensorning haqiqiy xatti-harakatini aks ettiradi, shuning uchun kalibrovka jadvalini 100 mV bilan to'ldirish to'g'ri bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — O'zgaruvchi tizim",
+   "problem": "V(t) = 2t + 1, t < 4 va V(t) = 12 - t, t ≥ 4 (V). Bir tomonlama limitlarni, ikki tomonlama limitni va V(4) ni aniqlang; t = 4 da kuchlanishda keskin o'zgarish bormi?",
+   "steps": [
+    "Chapdan: limt→4−(2t + 1) = 9V",
+    "O'ngdan: limt→4+(12 - t) = 8V",
+    "V(4) = 12 - 4 = 8V",
+    "Bir tomonlama limitlar har xil, demak limt→4 V(t) mavjud emas",
+    "t = 4 da quvvat 9V dan 8V ga keskin pasayadi"
+   ],
+   "result": "Chap tomondan limit: 9V, o'ng tomondan limit: 8V, ikki tomonlama limit mavjud emas, V(4) = 8V. t = 4 da kuchlanishda keskin pasayish bor."
+  },
+  "narr": [
+   "To'rtinchi masalada bizda kuchlanishning vaqtga bog'liqlik funksiyasi berilgan.",
+   "Chap tomondan limitni hisoblaymiz: t 4 ga chap tomondan yaqinlashganda, V(t) = 2t + 1 bo'ladi, bu esa 9V ga teng.",
+   "O'ng tomondan limitni hisoblaymiz: t 4 ga o'ng tomondan yaqinlashganda, V(t) = 12 - t bo'ladi, bu esa 8V ga teng.",
+   "Ikkala bir tomonlama limit har xil, shuning uchun ikki tomonlama limit mavjud emas.",
+   "Funksiya qiymati t = 4 da 8V ga teng, ya'ni kuchlanish 9V dan 8V ga keskin pasayadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Kuchlanish-deformatsiya",
+   "problem": "σ(ε) = 200000ε, ε < 0.002 va σ(ε) = 400 + 10000(ε - 0.002), ε ≥ 0.002 (σ MPa da; Gyuk sohasi, keyin mustahkamlanish). ε = 0.002 da bir tomonlama limitlarni toping; ikki tomonlama limit mavjudmi? Model sakchiq bashorat qiladimi? O'tish yaqinidagi grafikni chizing.",
+   "steps": [
+    "Elastik tomon: limε→0.002−200000ε = 200000(0.002) = 400 MPa",
+    "Plastik tomon: limε→0.002+σ(ε) = 400 + 10000(0.002 - 0.002) = 400 MPa",
+    "Ikkalasi ham 400 MPa ga teng, demak ikki tomonlama limit mavjud va 400 MPa ga teng",
+    "Sakchiq yo'q — bo'lakli model oqim nuqtasida uzluksiz, faqat qiyalik o'zgaradi (200 000 dan 10 000 MPa gacha birlik deformatsiyasiga)",
+    "Grafik — (0.002, 400) nuqtada uchrashadigan ikki to'g'ri chiziq bo'lagi, aniq burilish bilan: elastik yuklanish, keyin ancha tekisroq plastik shox"
+   ],
+   "result": "Chap tomondan limit: 400 MPa, o'ng tomondan limit: 400 MPa, ikki tomonlama limit mavjud va 400 MPa ga teng. Model sakchiq bashorat qilmaydi, chunki funksiya uzluksiz."
+  },
+  "narr": [
+   "Beshinchi masalada materialning kuchlanish-deformatsiya xatti-harakati ko'rib chiqilmoqda.",
+   "Elastik tomondan limitni hisoblaymiz: ε 0.002 ga chap tomondan yaqinlashganda, σ(ε) = 200000ε bo'ladi, bu esa 400 MPa ga teng.",
+   "Plastik tomondan limitni hisoblaymiz: ε 0.002 ga o'ng tomondan yaqinlashganda, σ(ε) = 400 + 10000(ε - 0.002) bo'ladi, bu ham 400 MPa ga teng.",
+   "Ikkala bir tomonlama limit teng, shuning uchun ikki tomonlama limit mavjud va 400 MPa ga teng.",
+   "Bu degani materialning oqish nuqtasida sakchiq yo'q, faqat qiyalik o'zgaradi. Grafikda (0.002, 400) nuqtada aniq burilish bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — RC-zanjirining uzoq muddatli javobi",
+   "problem": "V(t) = Vs(1 - e−t/(RC)), Vs = 12V, R = 10000Ω, C = 100 µF. (1) limt→0+V(t) ni hisoblang; (2) limt→∞V(t); (3) ikkalasini ham fizik talqin qiling.",
+   "steps": [
+    "(1) t = 0+ da eksponensial e0 = 1 ga teng, demak V(0+) = 12(1 - 1) = 0",
+    "(2) t → ∞ da, e−t/(RC) → 0, V — boshlang'ichda zaryadsiz kondensator. Demak V → Vs = 12V",
+    "(3) Kondensator 0V dan 12V quvvatlanish kuchlanishiga zaryadlanadi, unga asimptotik yaqinlashadi; vaqt doimiysi τ = RC = 104 · 10−4 = 1s tezlikni belgilaydi (taxminan 1s da 63% zaryad, 5τ da 99%)"
+   ],
+   "result": "limt→0+V(t) = 0V, limt→∞V(t) = 12V. Kondensator boshlang'ichda zaryadsiz bo'lib, vaqt o'tishi bilan quvvatlanish kuchlanishiga zaryadlanadi."
+  },
+  "narr": [
+   "Oltinchi masalada RC-zanjirining xatti-harakati ko'rib chiqilmoqda.",
+   "Birinchidan, vaqt nolga yaqinlashganda kondensatorning holatini ko'ramiz: t = 0+ da V(t) = 0V bo'ladi, chunki kondensator hali zaryadsiz.",
+   "Ikkinchidan, vaqt cheksizlikka intilganda kondensatorning holatini ko'ramiz: V(t) → 12V bo'ladi, chunki kondensator to'liq zaryadlangan.",
+   "Uchinchidan, bu jarayonni fizik talqin qilamiz: kondensator 0V dan 12V gacha zaryadlanadi, vaqt doimiysi (τ = RC) bu jarayon tezligini belgilaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Doimiy tezlik",
+   "problem": "v(t) = vT(1 - e−kt), vT > 0, k > 0. (1)v(0)? (2) limt→∞v(t)? (3) Nima uchun bu cheksiz tezlanishdan realroq model?",
+   "steps": [
+    "(1) v(0) = vT(1 - 1) = 0: jism tinch holatdan boshlanadi",
+    "(2) e−kt → 0, demak v → vT: tezlik doimiy holatga yaqinlashadi",
+    "(3) Havo qarshiligi tezlik bilan oshadi, tortishish kuchiga teng bo'lguncha; shundan keyin umumiy kuch nolga teng va tezlik oshaverishi mumkin emas — tushuvchi jism haqiqatan ham chekli limitga yaqinlashadi, cheksiz tezlanmaydi"
+   ],
+   "result": "v(0) = 0, limt→∞v(t) = vT. Bu model havo qarshiligini hisobga oladi, shuning uchun cheksiz tezlanishni bashorat qilmaydi."
+  },
+  "narr": [
+   "Yettinchi masalada tushuvchi jismning tezligi modellangan.",
+   "Birinchidan, boshlang'ich tezlikni topamiz: t = 0 da v(0) = 0, ya'ni jism tinch holatdan boshlanadi.",
+   "Ikkinchidan, vaqt cheksizlikka intilganda tezlik qandat o'zgarishini ko'ramiz: v(t) → vT, ya'ni tezlik maksimal qiymatiga yetadi.",
+   "Uchinchidan, bu modelning afzalligini tushunamiz: u havo qarshiligini hisobga oladi, shuning uchun cheksiz tezlanishni bashorat qilmaydi, bu esa realroqdir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Ma'lumot uzatish tezligi",
+   "problem": "R(n) = 100n/(1 + 20/n) Mbit/s. (1) n = 10, 100, 1000 bo'lganda R(10), R(100), R(1000) ni hisoblang; (2) limn→∞R(n); (3) n ni oshirish nima uchun oxir-oqibat kamroq yaxshilanishlarni beradi? (4) maksimal nazariy tezlik?",
+   "steps": [
+    "(1) R(10) ≈ 33.3, R(100) ≈ 83.3, R(1000) ≈ 98.0 Mbit/s",
+    "(2) n → ∞ bo'lganda: R(n) = 100/(1 + 20/n) → 100 Mbit/s",
+    "(3) Har bir qo'shimcha resurs birligi tobora katta asosga bo'linadi, shuning uchun chekli foyda kamayadi — kamayadigan samaradorlik",
+    "(4) Gorizontal asimptota 100 Mbit/s — modelning limiti: unga yaqinlashadi, lekin undan oshmaydi"
+   ],
+   "result": "R(10) ≈ 33.3, R(100) ≈ 83.3, R(1000) ≈ 98.0 Mbit/s. limn→∞R(n) = 100 Mbit/s. Kamayadigan samaradorlik tufayli yaxshilanishlar kamayadi. Maksimal nazariy tezlik 100 Mbit/s."
+  },
+  "narr": [
+   "Sakkizinchi masalada ma'lumot uzatish tezligi resurslar soniga bog'liqligi ko'rib chiqilmoqda.",
+   "Birinchidan, turli resurslar soni uchun tezliklarni hisoblaymiz: n = 10, 100, 1000 bo'lganda mos ravishda 33.3, 83.3, 98.0 Mbit/s tezlik olinadi.",
+   "Ikkinchidan, resurslar soni cheksizlikka intilganda tezlik qandat o'zgarishini ko'ramiz: 100 Mbit/s ga yaqinlashadi.",
+   "Uchinchidan, bu jarayonda kamayadigan samaradorlikni tushunamiz: har qo'shimcha resurs kamroq foyda beradi.",
+   "To'rtinchidan, modelning maksimal nazariy tezligi 100 Mbit/s ekanligini aniqlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4,
+   "title": "Matematika I",
+   "subtitle": "Darslik tayinlangan mashqlari (OpenStax §2.2, bandlar 46–54 va 60–64)"
+  },
+  "narr": [
+   "Bu bo'limda biz OpenStax darsligining §2.2-bandidagi mashqlarni yechamiz.",
+   "Mashqlar grafiklarni o'qishga oid bo'lib, ular to'rtta rasmni o'z ichiga oladi.",
+   "Keling, birinchi grafik uchun masalalarni yechib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Grafikni o'qish",
+   "problem": "Birinchi grafik y = f(x) uchun yeching: (46) limx→10−f(x) = 0; (47) limx→−2+f(x) = 3; (48) limx→−8f(x) = f(−8); (49) limx→6f(x) = 5 — to'g'ri yoki noto'g'ri?",
+   "steps": [
+    "(46) limx→10−f(x) = 0",
+    "(47) limx→−2+f(x) = 3",
+    "(48) limx−8f(x) = f(−8) — funksiya x = -8 da uzluksiz",
+    "(49) limx→6f(x) = 5 — bu bayonot to'g'ri yoki noto'g'ligi grafikdan aniqlanishi kerak"
+   ],
+   "result": "Grafikdan foydalanib berilgan limitlarni tekshirish kerak."
+  },
+  "narr": [
+   "Bu masalada biz grafik yordamida turli limitlarni tekshirishimiz kerak.",
+   "Birinchidan, x 10 ga chap tomondan yaqinlashganda funksiya qiymati 0 ga intilishini ko'ramiz.",
+   "Ikkinchidan, x -2 ga o'ng tomondan yaqinlashganda funksiya qiymati 3 ga intilishini ko'ramiz.",
+   "Uchinchidan, x -8 da funksiya qiymati limitga teng, ya'ni funksiya bu nuqtada uzluksiz.",
+   "To'rtinchidan, x 6 da funksiya limiti 5 ga teng bo'lishi to'g'ri yoki noto'g'ligini grafikdan aniqlashimiz kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

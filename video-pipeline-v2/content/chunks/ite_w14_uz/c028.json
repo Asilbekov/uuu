@@ -1,0 +1,485 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Injenerlikga kirish",
+   "subtitle": "1-4 haftalar: o'quv qo'llanmasi"
+  },
+  "narr": [
+   "Keling, bu qo'llanmada mavjud bo'lgan asosiy tushunchalarni va misollarni ko'rib chiqaylik.",
+   "Bu yerda biz bir nechta muhim formulalar va ularning amaliy qo'llanilishini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Rancho qiymati formulasi",
+   "tex": "4X \\times 10^4 \\text{ \\$/milya} + X^2 \\times 10^4 \\text{ \\$/milya}^2 = 320000 \\text{ \\$}",
+   "parts": [
+    {
+     "substr": "4X × 104 \\$/milya",
+     "color": "#4C5FD5",
+     "note": "Tomoni X bo'lgan kvadrat rancho perimetri"
+    },
+    {
+     "substr": "X2 × 104 \\$/milya2",
+     "color": "#B45309",
+     "note": "Tomoni X bo'lgan kvadrat rancho maydoni"
+    },
+    {
+     "substr": "320 000 $",
+     "color": "#0E7C7B",
+     "note": "Jami rancho qiymati"
+    }
+   ]
+  },
+  "narr": [
+   "Birinchidan, bizda rancho qiymati formulasi bor.",
+   "Bu formula tomoni X bo'lgan kvadrat rancho uchun hisoblangan bo'lib, perimetri 4X, maydoni esa X² ga teng.",
+   "Formula rancho qiymatini 320 000 dollar deb belgilaydi.",
+   "Bu tenglamani yechib, X qiymatini topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2.3",
+   "problem": "Sim cho'zilishi formulasi",
+   "steps": [
+    {
+     "text": "Simning cho'zilishi uzunlikka proporsional (Guk qonuni)"
+    },
+    {
+     "text": "$X_2/X_1 = L_2/L_1$"
+    },
+    {
+     "text": "Berilgan qiymatlar: $X_1 = 15,0$ mm, $L_1 = 2,00$ mm, $L_2 = 4,00$ mm"
+    },
+    {
+     "text": "Hisob: $X_2 = X_1 \\times L_2/L_1 = 15,0 \\times 4,00/2,00 = 30,0$ mm"
+    }
+   ],
+   "result": "Simning yangi cho'zilishi $X_2 = 30,0$ mm"
+  },
+  "narr": [
+   "Endi, misol 2.3 ni ko'rib chiqaylik.",
+   "Bu simning cho'zilishi bilan bog'liq bo'lib, Guk qonuniga asoslangan.",
+   "Simning cho'zilishi uning uzunligiga proporsional.",
+   "Bizga $X_1 = 15,0$ mm, $L_1 = 2,00$ mm va $L_2 = 4,00$ mm berilgan.",
+   "Hisoblab topamizki, $X_2 = 30,0$ mm."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2.5",
+   "problem": "Arenda kompaniyasining elektron jadvali",
+   "steps": [
+    {
+     "text": "Gallondar soni = Milyalar / MPG"
+    },
+    {
+     "text": "Jami gallonlar = Σ segmentlar gallondari"
+    },
+    {
+     "text": "Segmentlar: shahar, shahar atrofi, avtomagistral"
+    }
+   ],
+   "result": "Jami gallonlar = Shahar gallondari + Shahar atrofi gallondari + Avtomagistral gallondari"
+  },
+  "narr": [
+   "Misol 2.5 da arenda kompaniyasining elektron jadvali ko'rsatilgan.",
+   "Bu jadvalda segmentlar bo'yicha gallondar yig'indisi va o'rtacha qiymatlar mavjud.",
+   "Gallondar sonini hisoblash uchun milyalar sonini MPG ga bo'lish kerak.",
+   "Jami gallonlar barcha segmentlar uchun gallondar yig'indisiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2.6-2.9",
+   "problem": "Ishlab chiqaruvchi zavodning tezlik xarakteristikasi",
+   "steps": [
+    {
+     "text": "Tezlik formulasi: $mph = 136,5(1 - e^{-0,158t})$, $t$ sekundlarda"
+    },
+    {
+     "text": "Bu formula tezlikni vaqt o'tishi bilan o'zgarishini ko'rsatadi"
+    },
+    {
+     "text": "O'lchovlar bilan solishtirish uchun ishlatiladi"
+    }
+   ],
+   "result": "Tezlik $t$ vaqtda $mph = 136,5(1 - e^{-0,158t})$ ga teng"
+  },
+  "narr": [
+   "Misol 2.6 dan 2.9 gacha bo'lgan misollar ishlab chiqaruvchi zavodning tezlik xarakteristikasini ko'rsatadi.",
+   "Bu tezlik formulasi $mph = 136,5(1 - e^{-0,158t})$ bo'lib, $t$ sekundlarda berilgan.",
+   "Bu formula nazariyaga qarshi o'lchovlar bilan solishtirish uchun ishlatiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2.10",
+   "problem": "Avtomobil benzinining og'irligi, sarfi va yurish masofasi",
+   "steps": [
+    {
+     "text": "Benzin og'irligi formulasi: $G = W^{2/3}$"
+    },
+    {
+     "text": "MPG formulasi: $mpg = 84500/W - 3,0$"
+    },
+    {
+     "text": "Yurish masofasi formulasi: masofa = gallonlar × mpg"
+    }
+   ],
+   "result": "Uchta asosiy formula: $G = W^{2/3}$, $mpg = 84500/W - 3,0$, masofa = gallonlar × mpg"
+  },
+  "narr": [
+   "Misol 2.10 avtomobil benzinining og'irligi, sarfi va yurish masofasini ko'rsatadi.",
+   "Benzin og'irligi $G = W^{2/3}$ formula bilan hisoblanadi.",
+   "MPG (milya/gallon) $mpg = 84500/W - 3,0$ formula bilan hisoblanadi.",
+   "Yurish masofasi esa gallonlar soni va MPG ko'paytmasiga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "17-23-mashqlar",
+   "problem": "Sakrovchining elastik arqonining cho'zilishi",
+   "steps": [
+    {
+     "text": "Formula: $X = W/K + \\sqrt{(W^2/K^2) + (2WL/K)}$"
+    },
+    {
+     "text": "Bu yerda: $W$ - og'irlik (lbf), $K$ - qattiqlik (lbf/ft), $L$ - uzunlik (ft)"
+    },
+    {
+     "text": "Jadvalda: $X = W/K + \\sqrt{(W^2/K^2) + (2*W*L/K)}$"
+    }
+   ],
+   "result": "Arqonning cho'zilishi $X = W/K + \\sqrt{(W^2/K^2) + (2WL/K)}$ formula bilan hisoblanadi"
+  },
+  "narr": [
+   "17-23-mashqlarda sakrovchining elastik arqonining cho'zilishi ko'rsatilgan.",
+   "Bu formula og'irlik $W$ (lbf), qattiqlik $K$ (lbf/ft) va uzunlik $L$ (ft) parametrlariga bog'liq.",
+   "Formula: $X = W/K + \\sqrt{(W^2/K^2) + (2WL/K)}$."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "24-26-mashqlar",
+   "problem": "Avtomobildan foydalanish narxi",
+   "steps": [
+    {
+     "text": "Formula: Milya uchun qiymat = $0,20/yil \\times narx/(yiliga milya) + (benzin narxi) \\times (gallon/milya)$"
+    },
+    {
+     "text": "Berilgan: $5,00/gallon$, $yiliga 2,0 \\times 10^4$ milya"
+    },
+    {
+     "text": "Hisoblash: Milya uchun qiymat = $0,20 \\times 5,00 \\times 1/(2,0 \\times 10^4) + 5,00 \\times (gallon/milya)$"
+    }
+   ],
+   "result": "Milya uchun qiymat $0,20/yil \\times narx/(yiliga milya) + (benzin narxi) \\times (gallon/milya)$ formula bilan hisoblanadi"
+  },
+  "narr": [
+   "24-26-mashqlarda avtomobildan foydalanish narxi ko'rsatilgan.",
+   "Formula: Milya uchun qiymat = $0,20/yil \\times narx/(yiliga milya) + (benzin narxi) \\times (gallon/milya)$.",
+   "Berilgan: benzin narxi $5,00/gallon$, yiliga $2,0 \\times 10^4$ milya yuriladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "6.3-jadval. Kosky 2-bob mashqlaridan olingan hisob munosabatlari",
+   "columns": [
+    "Model",
+    "Formula",
+    "Tavsif"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "Rancho qiymati"
+     },
+     {
+      "tex": "$4X \\times 10^4 \\text{ \\$/milya} + X^2 \\times 10^4 \\text{ \\$/milya}^2$"
+     },
+     {
+      "tex": "Tomoni X bo'lgan kvadrat rancho"
+     }
+    ],
+    [
+     {
+      "tex": "Sim cho'zilishi"
+     },
+     {
+      "tex": "$X_2/X_1 = L_2/L_1$"
+     },
+     {
+      "tex": "Guk qonuni"
+     }
+    ],
+    [
+     {
+      "tex": "Tezlik"
+     },
+     {
+      "tex": "$mph = 136,5(1 - e^{-0,158t})$"
+     },
+     {
+      "tex": "Zavod tezlik xarakteristikasi"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "6.3-jadvalda Kosky 2-bob mashqlaridan olingan hisob munosabatlari keltirilgan.",
+   "Bu jadval 2-4 hafta modellarini o'z ichiga oladi.",
+   "Jadvalda rancho qiymati, sim cho'zilishi va tezlik formulalari mavjud."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Hisoblash metodologiyasi",
+   "bullets": [
+    "Need (nimani izlaymiz va qanday birliklarda)",
+    "Know (nima berilgan va tajribadan nima ma'lum)",
+    "How (qaysi tenglama va qanday farazlar)",
+    "Solve (kvadrat qavslarda birliklar tekshiruvi va ma'noli raqamlarning to'g'ri soni)"
+   ]
+  },
+  "narr": [
+   "Barcha formulalarga quyidagi metod eslatiladi:",
+   "Birinchidan, Need - nimani izlaymiz va qanday birliklarda.",
+   "Keyin, Know - nima berilgan va tajribadan nima ma'lum.",
+   "Uchinchi, How - qaysi tenglama va qanday farazlar.",
+   "Va nihoyat, Solve - kvadrat qavslarda birliklar tekshiruvi va ma'noli raqamlarning to'g'ri soni."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2.4 (sartaroshxonalar)",
+   "problem": "Sartaroshxonalar sonini hisoblash",
+   "steps": [
+    {
+     "text": "30 000 erkak × 10 soch olish/yil = 300 000 soch olish/yil"
+    },
+    {
+     "text": "300 000 soch olish/yil = 1000 soch olish/kun (300 kun)"
+    },
+    {
+     "text": "1000 soch olish/kun ÷ 16 soch olish/barber kuniga = 62,5 barber"
+    },
+    {
+     "text": "62,5 barber ÷ 3 ≈ 21 barbershop"
+    }
+   ],
+   "result": "Taxminan 21 barbersop kerak, ma'lumotnoma bo'yicha 23, xatolik taxminan 10%"
+  },
+  "narr": [
+   "Misol 2.4 sartaroshxonalar sonini hisoblashni ko'rsatadi.",
+   "30 000 erkak bor, ularning har biri yiliga 10 marta soch oldiradi.",
+   "Demak, yiliga 300 000 soch olish bo'ladi.",
+   "300 ish kuni bo'lsa, kuniga 1000 soch olish kerak.",
+   "Agar bir sartarosh kunga 16 soch olsa, 62,5 sartarosh kerak.",
+   "Har bir barbershopda 3 sartarosh bo'lsa, 21 barbersop kerak.",
+   "Ma'lumotnoma bo'yicha 23 ta, xatolik taxminan 10% - bu kattalik tartibi to'g'ri keladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Qoidalar",
+   "subtitle": "Kursning barcha qoidalari bitta tekshiruv ro'yxatida"
+  },
+  "narr": [
+   "Endi, kursning barcha qoidalari bitta tekshiruv ro'yxatida.",
+   "Bu qoidalar jarayon va diagramma qoidalari, muammoni qo'yish va o'zgaruvchilar qoidalari hamda birliklar, ma'noli raqamlar va hisob-kitob qoidalari uchun bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Jarayon va diagramma qoidalari",
+   "bullets": [
+    "O'qiladigan PFDning beshta qoidasi",
+    "Kursdagi PFDning beshta belgisi",
+    "Batafsillikning uch darajasi",
+    "Har bir oqim besh oqim toifasidan birini ko'taradi",
+    "Tizim chegarasi chiziladi, topib olinmaydi",
+    "Tizim — detallar uyumi emas"
+   ]
+  },
+  "narr": [
+   "Jarayon va diagramma qoidalari:",
+   "Birinchidan, o'qiladigan PFDning beshta qoidasi: bitta start; har bir yo'l oxirigacha yetib boradi; qadamlar «fe'l + ot»; barcha o'qlarda yozuv; har bir qarorning ikkala chiqishi biror joyga olib boradi.",
+   "Ikkinchidan, kursdagi PFDning beshta belgisi: Start/End, Step, Decision, Flow, Wait/queue (punktir ramka).",
+   "Uchinchidan, batafsillikning uch darajasi: Level 0 black box, Level 1 main steps, Level 2 zoom in.",
+   "To'rtinchidan, har bir oqim besh oqim toifasidan birini ko'taradi: material, odamlar, axborot, pul, energiya.",
+   "Beshinchidan, tizim chegarasi chiziladi, topib olinmaydi: uni e'lon qiling, asoslang va izchil saqlang.",
+   "Oltinchidan, tizim — detallar uyumi emas: qismlar maqsad bilan o'zaro ta'sir qilib, kirishlarni chiqishlarga aylantirishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Muammoni qo'yish va o'zgaruvchilar qoidalari",
+   "bullets": [
+    "Yechimsiz test",
+    "Qo'yish shabloni",
+    "Yo'l: shikoyat → ehtiyoj → muammoni qo'yish",
+    "Eshitganlaringizni saralang",
+    "O'zgaruvchi = son + birlik"
+   ]
+  },
+  "narr": [
+   "Birinchidan, yechimsiz test: muammo qo'yish qurilma, ilova, transport vositasi yoki binoni nomlamasligi kerak.",
+   "Ikkinchidan, qo'yish shabloni: [Steykxolder] needs [outcome] in [system], judged by [measure], within [constraints].",
+   "Uchinchidan, yo'l: shikoyat → ehtiyoj → muammoni qo'yish.",
+   "To'rtinchidan, eshitganlaringizni saralang: fakt / xulosa / taxmin / fikr.",
+   "Beshinchidan, o'zgaruvchi = son + birlik.",
+   "Muammoni qo'yish va o'zgaruvchilar qoidalari:"
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Muammoni qo'yish va o'zgaruvchilar qoidalari (cont.)",
+   "bullets": [
+    "O'zgaruvchining uch turi",
+    "Spetsifikatsiyalar",
+    "Yaxshi unumdorlik o'lchovi",
+    "Unumdorlikning ishchi ta'rifi",
+    "Need-Know-How-Solve"
+   ]
+  },
+  "narr": [
+   "Oltinchidan, o'zgaruvchining uch turi: performance, design, context.",
+   "Yettinchidan, spetsifikatsiyalar: har biri — D (demand) yoki W (wish).",
+   "Sakkizinchidan, yaxshi unumdorlik o'lchovi: o'lanadigan, dolzarb, yechimsiz, aniq.",
+   "To'qqizinchidan, unumdorlikning ishchi ta'rifi.",
+   "O'ninchidan, Need-Know-How-Solve metodologiyasi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Birliklar, ma'noli raqamlar va hisob-kitob qoidalari",
+   "bullets": [
+    "Muhandislik hisobining javobi to'rt jihatdan to'g'ri bo'ladi",
+    "Hisob-kitoblarda birliklarni qo'llash qoidalari"
+   ]
+  },
+  "narr": [
+   "Birliklar, ma'noli raqamlar va hisob-kitob qoidalari:",
+   "Birinchidan, muhandislik hisobining javobi to'rt jihatdan to'g'ri bo'ladi: o'zgaruvchilar, son, birliklar, ma'noli raqamlar.",
+   "Ikkinchidan, hisob-kitoblarda birliklarni qo'llash: [in], [ft], [in/ft] — har bir kattalik va koeffitsientga qavslar; birliklar kasr kabi qisqaradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ }
+]

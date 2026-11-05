@@ -1,0 +1,326 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Keling, birinchi navbatda vertikal asimptotalar haqida gapiramiz.",
+   "Agar n toq son bo'lsa, x a ga chapdan yaqinlashganda, 1/(x-a)^n cheksiz manfiy songa intiladi.",
+   "Xuddi shunday, x a dan o'ngdan yaqinlashganda, 1/(x-a)^n cheksiz musbat songa intiladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Vertikal asimptota ta'rifi",
+   "tex": "\\lim_{x \\to a^-} \\frac{1}{(x-a)^n} = -\\infty, \\quad \\lim_{x \\to a^+} \\frac{1}{(x-a)^n} = +\\infty",
+   "parts": [
+    {
+     "substr": "n toq",
+     "color": "#4C5FD5",
+     "note": "n toq son bo'lganda"
+    },
+    {
+     "substr": "x = a",
+     "color": "#B45309",
+     "note": "vertikal asimptota"
+    }
+   ]
+  },
+  "narr": [
+   "x = a to'g'ri chizig'i f ning vertikal asimptotasi, agar bir tomonlama cheksiz chegaralarning kamida bittasi shu yerda bajarilsa."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4.1,
+   "title": "4.1.3 Aniq ta'rif",
+   "subtitle": "§2.5, ma'ruzada ta'kidlangan"
+  },
+  "narr": [
+   "Endi ε-δ ta'rifini ko'rib chiqaylik. Bu 'ixtiyoriy darajada yaqin' ni miqdorlashtirilgan masofalarga aylantiradi.",
+   "Ekvivalent modul tengsizliklar — bu ish vositasi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Chegara ε-δ ta'rifi",
+   "tex": "\\lim_{x \\to a} f(x) = L \\Leftrightarrow \\forall \\varepsilon > 0 \\, \\exists \\delta > 0 : 0 < |x - a| < \\delta \\Rightarrow |f(x) - L| < \\varepsilon",
+   "parts": [
+    {
+     "substr": "|f(x) - L| < \\varepsilon",
+     "color": "#4C5FD5",
+     "note": "funktsiya qiymati L dan \\varepsilon masofada"
+    },
+    {
+     "substr": "0 < |x - a| < \\delta",
+     "color": "#B45309",
+     "note": "x a dan \\delta masofada, lekin a emas"
+    }
+   ]
+  },
+  "narr": [
+   "|f(x) - L| < \\varepsilon tengsizlik L - \\varepsilon < f(x) < L + \\varepsilon degani.",
+   "Xuddi shunday, 0 < |x - a| < \\delta tengsizlik a - \\delta < x < a + \\delta va x ≠ a degani."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 4.2,
+   "title": "4.2 Math I: 3-hafta ISA — savollar va to'liq yechimlar"
+  },
+  "narr": [
+   "Endi 3-hafta ISA savollarini va ularning to'liq yechimlarini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — O'rganish ko'rsatmasi",
+   "problem": "Dars va amaliy mashqda taqdim etilgan barcha masalalarni, mashqlarni va misollarni o'rganing; tez va xato qilmasdan javob bera olishingiz kerak.",
+   "steps": [
+    {
+     "text": "Bu o'rganish ko'rsatmasi, hisoblash emas."
+    },
+    {
+     "text": "Tegishli material to'liq dars misollarida, pastdagi amaliy mashq blokida (mashqlar 2–8) va tayinlangan kitob masalalarida (keyingi bandlarida) yechilgan."
+    }
+   ],
+   "result": "O'rganish talab qilinadigan barcha materiallarni qayta ko'rib chiqish kerak."
+  },
+  "narr": [
+   "Birinchi savol oddiy o'rganish ko'rsatmasi hisoblanadi.",
+   "Bu erda hisoblash kerak emas, balki dars va amaliy mashqda taqdim etilgan barcha materiallarni o'rganish kerak."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Tegishish burchak koeffitsienti",
+   "problem": "f(x) = x³ uchun x = 1 da tegishish burchak koeffitsientini msec = [f(1+h)−f(1)]/h yordamida baholang, chap va o'ngdan bir xil songa intiladimi?",
+   "steps": [
+    {
+     "text": "f(1) = ¹"
+    },
+    {
+     "text": "f(1 + h) = (1 + h)³ = 1 + 3h + 3h² + h³"
+    },
+    {
+     "text": "msec = [f(1+h)−f(1)]/h = [1 + 3h + 3h² + h³ - 1]/h = 3 + 3h + h²"
+    },
+    {
+     "text": "Qiymatlar: h = -0.1 ⇒ 2.71; -0.01 ⇒ 2.9701; -0.001 ⇒ 2.997; 0.001 ⇒ 3.003; 0.01 ⇒ 3.0301; 0.1 ⇒ 3.31"
+    },
+    {
+     "text": "Ikkala tomon ham 3 ga yaqinlashadi"
+    },
+    {
+     "text": "lim(h→0)(3+3h+h²) = 3 — bu egri chiziqqa urinma aniq burchak koeffitsiyenti (hosila 3x² da x=1 da)"
+    }
+   ],
+   "result": "Tegishish burchak koeffitsienti 3 ga intiladi."
+  },
+  "narr": [
+   "Ikkinchi masalada f(x) = x³ funksiyaning x=1 nuqtasidagi tegishish burchak koeffitsientini hisoblaymiz.",
+   "f(1) = ¹ va f(1+h) = (1+h)³ = 1 + 3h + 3h² + h³ ekanligini hisobga olsak, msec = 3 + 3h + h² bo'ladi.",
+   "H ning turli qiymatlar uchun hisoblaymiz: h = -0.1 da 2.71, h = -0.01 da 2.9701, h = 0.01 da 3.003, h = 0.1 da 3.31.",
+   "Ko'rib turganingizdek, h nolga intilganda, chap va o'ng tomondan ham msec 3 ga intiladi.",
+   "Bu egri chiziqqa urinma aniq burchak koeffitsiyenti, ya'ni hosila 3x² da x=1 da 3 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Grafiklarni o'qish",
+   "problem": "Open-Stax Calculus 1 dagi \"1-bob\" (mashqlar ro'yxati §2.2) dagi 46-49 va 60-64-masalalarni yeching.",
+   "steps": [
+    {
+     "text": "Bu grafiklarni o'qish bo'yicha mashqlar §4.4 da yozib qo'yilgan va to'liq yechilgan."
+    },
+    {
+     "text": "Kurs varag'idagi raqamlash aynan shu mashqlar ro'yxatiga tegishli."
+    }
+   ],
+   "result": "Grafiklarni o'qish bo'yicha mashqlar §4.4 da yechilgan."
+  },
+  "narr": [
+   "Uchinchi masala grafiklarni o'qish bo'yicha mashqlardan iborat.",
+   "Bu masalalar §4.4 da yozib qo'yilgan va to'liq yechilgan.",
+   "Kurs varag'idagi raqamlash aynan shu mashqlar ro'yxatiga mos keladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Temperatura regulyatori",
+   "problem": "Temperatura regulyatori T < 50°C da C(T) = 0 va T ≥ 50°C da C(T) = 10 (volt) beradi. lim(T→50⁻)C(T), lim(T→50⁺)C(T), lim(T→50)C(T) ni aniqlang; operatsiyani o'tkazish sifatida talqin qiling.",
+   "steps": [
+    {
+     "text": "Chapda regulyator \"o'chirilgan\" shoxni ko'rsatadi: lim(T→50⁻)C(T) = 0"
+    },
+    {
+     "text": "O'ngda \"yoqilgan\": lim(T→50⁺)C(T) = 10"
+    },
+    {
+     "text": "Bir tomonlama limitlar har xil bo'lgani uchun, ikki tomonlama limit mavjud emas"
+    },
+    {
+     "text": "Talqin: T = 50 da keskin o'tkazish — chiqish 0V dan 10V ga sakrab o'tadi, aynan shunday termostat isitgichni boshqaradi."
+    }
+   ],
+   "result": "Chap tomonlama limit: 0, o'ng tomonlama limit: 10, ikki tomonlama limit mavjud emas."
+  },
+  "narr": [
+   "To'rtinchi masalada temperatura regulyatorining xatti-harakatini ko'rib chiqamiz.",
+   "T < 50°C da C(T) = 0 volt, T ≥ 50°C da C(T) = 10 volt.",
+   "Chap tomonlama limit T 50°C ga yaqinlashganda C(T) 0 ga intiladi.",
+   "O'ng tomonlama limit T 50°C dan o'tganda C(T) 10 ga intiladi.",
+   "Ikkala tomonlama limit har xil bo'lgani uchun, ikki tomonlama limit mavjud emas.",
+   "Bu termostatning ishlash printsipi: 50°C da chiqish 0V dan 10V ga sakrab o'tadi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Robot-aravacha holati",
+   "problem": "Robot-aravachaning holati: s(t) = 2t² + 3t (m, s). (1) O'rtacha tezlikni [s(2 + h) − s(2)]/h hisoblang; (2) s(2 + h) − s(2) ifodasini soddalashtiring; (3) lim(h→0) ni hisoblang; (4) talqin qiling.",
+   "steps": [
+    {
+     "text": "(1) s(2) = 14"
+    },
+    {
+     "text": "s(2 + h) = 2(2 + h)² + 3(2 + h) = 8 + 8h + 2h² + 6 + 3h = 14 + 11h + 2h²"
+    },
+    {
+     "text": "s(2 + h) − s(2) = 11h + 2h²"
+    },
+    {
+     "text": "[s(2 + h) − s(2)]/h = 11 + 2h"
+    },
+    {
+     "text": "(3) lim(h→0)(11 + 2h) = 11 m/s"
+    },
+    {
+     "text": "(4) Aravachaning t = 2s dagi lazer tezligi 11 m/s; o'rtacha qiymatlar ikkala tomondan ham unga yaqinlashadi."
+    }
+   ],
+   "result": "Lazer tezligi 11 m/s."
+  },
+  "narr": [
+   "Beshinchi masalada robot-aravachaning holati s(t) = 2t² + 3t formula bilan berilgan.",
+   "Avval t = 2s da joylashuvni hisoblaymiz: s(2) = 14 metr.",
+   "Endi o'rtacha tezlikni [s(2 + h) − s(2)]/h formula bilan hisoblaymiz.",
+   "s(2 + h) = 2(2 + h)² + 3(2 + h) = 14 + 11h + 2h² ekanligini topamiz.",
+   "Shunday qilib, [s(2 + h) − s(2)]/h = 11 + 2h bo'ladi.",
+   "h nolga intilganda, bu ifoda 11 m/s ga intiladi.",
+   "Bu aravachaning t = 2s dagi aniq tezligi, lazer tezligi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Ikkala sistema chiqishi",
+   "problem": "Ikkala sistema chiqishi A(t) = (1.08)^t va B(t) = e^(0.03t). (1) lim(t→∞)A(t) va lim(t→∞)B(t) ni hisoblang; (2) A(t) ni e^kt ko'rinishida yozing; (3) qaysi tezroq o'sadi? (4) lim(t→∞)B(t)/A(t) ni hisoblang; (5) talqin qiling.",
+   "steps": [
+    {
+     "text": "(1) Ikkala asos ham 1 dan katta, shuning uchun ikkala limit ham +∞"
+    },
+    {
+     "text": "(2) A(t) = e^(t ln 1.08), bunda ln 1.08 ≈ 0.0770, demak A(t) = e^(0.0770t)"
+    },
+    {
+     "text": "(3) A tezroq o'sadi, chunki uning tezlik doimiysi 0.0770 > 0.03"
+    },
+    {
+     "text": "(4) B(t)/A(t) = e^((0.03−0.0770)t) = e^(-0.047t) → 0, t → ∞ da"
+    },
+    {
+     "text": "(5) Ikkalasi ham cheksizlikka intilsa ham, ularning nisbati nolga intiladi: B ga nisbatan A ahamiyatsiz bo'lib qoladi — 4-hafta \"kichik o\" taqqoslashining boshlanishi."
+    }
+   ],
+   "result": "A(t) tezroq o'sadi, B(t)/A(t) nolga intiladi."
+  },
+  "narr": [
+   "Oltinchi masalada ikkala sistema chiqishini ko'rib chiqamiz: A(t) = (1.08)^t va B(t) = e^(0.03t).",
+   "Birinchi navbatda, ikkala funksiyaning cheksizlikka intilishini hisoblaymiz.",
+   "Ikkala asos ham 1 dan katta, shuning uchun ikkala limit ham +∞ ga intiladi.",
+   "A(t) ni e^kt ko'rinishida yozish uchun, A(t) = e^(t ln 1.08) = e^(0.0770t) deb yozamiz.",
+   "Tezlik doimiylarini solishtiramiz: A(t) uchun 0.0770, B(t) uchun 0.03.",
+   "Shunday qilib, A(t) tezroq o'sadi.",
+   "Endi ularning nisbatini hisoblaymiz: B(t)/A(t) = e^((0.03−0.0770)t) = e^(-0.047t).",
+   "t cheksizlikka intilganda, bu ifoda nolga intiladi.",
+   "Bu degani, ikkalasi ham cheksizlikka intilsa ham, B ga nisbatan A ahamiyatsiz bo'lib qoladi.",
+   "Bu 4-haftada o'rganiladigan \"kichik o\" taqqoslashining boshlanishi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ }
+]

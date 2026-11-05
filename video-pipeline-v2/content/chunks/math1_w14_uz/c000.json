@@ -1,0 +1,577 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Son sistemalari",
+   "subtitle": "Sonlarni ifodalash va kompleks sonlar"
+  },
+  "narr": [
+   "Salom! Bu videoda son sistemalari, ularning ifodalanishi va kompleks sonlarni o'rganamiz. Boshlaymizmi?",
+   "Sonlarni turli sistemalarda ifodalash mumkin. Eng keng tarqalganlari o'nlik, ikkilik va o'n oltilik sistemalar.",
+   "O'nlik sistemada har bir raqamning qiymati uning pozitsiyasiga bog'liq. Masalan, 1310 = 1×10² + 3×10¹ + 0×10⁰.",
+   "Ikkilik sistemada faqat 0 va 1 raqamlari ishlatiladi. Masalan, 1310 = 11012.",
+   "O'n oltilik sistemada A=10, B=11, ..., F=15 raqamlari qo'llaniladi. Masalan, 1310 = D16.",
+   "Rim raqamlari esa pozitsion emas. I=1, V=5, X=10, L=50, C=100. Masalan, 13=XIII.",
+   "Kompyuterlar asosan ikkilik sistemadan foydalanadi, chunki elektronika ikki holatni (past/baland, 0/1) ishonchli ajratishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Ilmiy va muhandislik yozuvlari",
+   "bullets": [
+    "Ilmiy yozuv: z = a × 10ⁿ, bunda 1 ≤ |a| < 10 va n butun son",
+    "Muhandislik yozuvi: z = a × 10³ᵏ, bunda 1 ≤ |a| < 1000 va k butun son",
+    "Ko'paytirish: (a × 10ᵐ)(b × 10ⁿ) = ab × 10ᵐ⁺ⁿ",
+    "Bo'lish: (a × 10ᵐ)/(b × 10ⁿ) = (a/b) × 10ᵐ⁻ⁿ",
+    "Darajaga ko'tarish: (a × 10ⁿ)ᵐ = aᵐ × 10ⁿᵐ",
+    "Qo'shish/ayirish: avval umumiy darajaga keltirish kerak"
+   ]
+  },
+  "narr": [
+   "Katta va kichik sonlarni yozish uchun ilmiy va muhandislik yozuvlari qo'llaniladi.",
+   "Ilmiy yozuvda son koeffitsient va 10 ning darajasi ko'rinishida yoziladi, bunda koeffitsientning absolyut qiymati 1 dan 10 gacha bo'ladi.",
+   "Muhandislik yozuvida esa daraja 3 ning karrali bo'lishi kerak, bu SI prefikslari bilan bog'liq.",
+   "Ko'paytirish va bo'lish amallari darajalarni qo'shish va ayirish orqali amalga oshiriladi.",
+   "Darajaga ko'tarishda esa ko'paytma va darajani alohida ko'tarish kerak.",
+   "Qo'shish va ayirish uchun avval sonlarni bir xil darajaga keltirish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "SI prefikslari",
+   "columns": [
+    "Qo'shimcha",
+    "Belgi",
+    "Daraja"
+   ],
+   "rows": [
+    [
+     "tera",
+     "T",
+     {
+      "tex": "10^{12}"
+     }
+    ],
+    [
+     "giga",
+     "G",
+     {
+      "tex": "10^{9}"
+     }
+    ],
+    [
+     "mega",
+     "M",
+     {
+      "tex": "10^{6}"
+     }
+    ],
+    [
+     "kilo",
+     "k",
+     {
+      "tex": "10^{3}"
+     }
+    ],
+    [
+     "milli",
+     "m",
+     {
+      "tex": "10^{-3}"
+     }
+    ],
+    [
+     "mikro",
+     "µ",
+     {
+      "tex": "10^{-6}"
+     }
+    ],
+    [
+     "nano",
+     "n",
+     {
+      "tex": "10^{-9}"
+     }
+    ],
+    [
+     "piko",
+     "p",
+     {
+      "tex": "10^{-12}"
+     }
+    ],
+    [
+     "femto",
+     "f",
+     {
+      "tex": "10^{-15}"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Matematika va fizikada turli kattalikdagi sonlar bilan ishlash uchun SI prefikslari qo'llaniladi.",
+   "Masalan, tera (T) 10¹², giga (G) 10⁹, mega (M) 10⁶, kilo (k) 10³ ni anglatadi.",
+   "Kichik sonlar uchun milli (m) 10⁻³, mikro (µ) 10⁻⁶, nano (n) 10⁻⁹, piko (p) 10⁻¹², femto (f) 10⁻¹⁵ ishlatiladi.",
+   "E'tibor bering, katta harf kichik, kichik harf katta qiymatni anglatadi. Masalan, 5 mW = 5×10⁻³W, lekin 5MW = 5×10⁶W."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Kompleks sonlar",
+   "bullets": [
+    "Kompleks sonlar x² + 1 = 0 tenglamaning yechimi sifatida paydo bo'ladi",
+    "Muhayyar birlik: i = √-1, i² = -1",
+    "Kompleks son: z = a + bi, bunda a haqiqiy qism (Re(z)), b mavhum qism (Im(z))",
+    "Tenglik qoidasi: a + bi = c + di ⇔ a = c va b = d",
+    "i ning darajalari: i⁰ = 1, i¹ = i, i² = -1, i³ = -i, iⁿ⁺⁴ = iⁿ"
+   ]
+  },
+  "narr": [
+   "Kompleks sonlar - bu haqiqiy sonlar sistemasini kengaytirma. Ular x² + 1 = 0 tenglamaning yechimi sifatida paydo bo'ladi.",
+   "Muhayyar birlik i = √-1 bo'lib, i² = -1 ga teng.",
+   "Kompleks son z = a + bi ko'rinishida yoziladi, bunda a haqiqiy qism, b esa mavhum qism.",
+   "Ikkita kompleks son teng bo'lishi uchun ularning haqiqiy va mavhum qismlari teng bo'lishi kerak.",
+   "i ning darajalari har 4 marta takrorlanadi: i⁰ = 1, i¹ = i, i² = -1, i³ = -i, keyin yana takrorlanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Kompleks sonlar arifmetikasi",
+   "tex": "z_1 = a + bi, z_2 = c + di",
+   "parts": [
+    {
+     "substr": "z_1 + z_2",
+     "color": "#4C5FD5",
+     "note": "Qo'shish"
+    },
+    {
+     "substr": "z_1 - z_2",
+     "color": "#B45309",
+     "note": "Ayirish"
+    },
+    {
+     "substr": "z_1 z_2",
+     "color": "#0E7C7B",
+     "note": "Ko'paytirish"
+    },
+    {
+     "substr": "\\frac{z_1}{z_2}",
+     "color": "#A03040",
+     "note": "Bo'lish"
+    }
+   ]
+  },
+  "narr": [
+   "Endi kompleks sonlar ustida amallarni ko'rib chiqaylik.",
+   "Qo'shishda haqiqiy va mavhum qismlar alohida qo'shiladi: z₁ + z₂ = (a + c) + (b + d)i.",
+   "Ayirishda ham haqiqiy va mavhum qismlar alohida ayiriladi: z₁ - z₂ = (a - c) + (b - d)i.",
+   "Ko'paytirishda esa (a + bi)(c + di) = (ac - bd) + (ad + bc)i formulasi qo'llaniladi.",
+   "Bo'lishda surat va maxrajni maxrajning kompleks konjugatiga ko'paytiramiz: z₁/z₂ = z₁z₂*/|z₂|²."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Kompleks sonlarning konjugati va moduli",
+   "tex": "\\overline{z} = a - bi",
+   "parts": [
+    {
+     "substr": "z + \\overline{z}",
+     "color": "#4C5FD5",
+     "note": "2 haqiqiy qism"
+    },
+    {
+     "substr": "z - \\overline{z}",
+     "color": "#B45309",
+     "note": "2i mavhum qism"
+    },
+    {
+     "substr": "z\\overline{z}",
+     "color": "#0E7C7B",
+     "note": "modul kvadrati"
+    },
+    {
+     "substr": "|z|",
+     "color": "#A03040",
+     "note": "modul"
+    }
+   ]
+  },
+  "narr": [
+   "Kompleks sonning konjugati - bu uning mavhum qismining ishorasini o'zgartirish orqali olinadigan son.",
+   "Kompleks son va uning konjugatining yig'indisi ikki marta haqiqiy qismini beradi: z + z̄ = 2Re(z).",
+   "Ayirmasi esa ikki marta mavhum qismni i ga ko'paytirib beradi: z - z̄ = 2iIm(z).",
+   "Ko'paytmasi esa modul kvadratiga teng: zz̄ = a² + b² = |z|².",
+   "Modul esa haqiqiy va mavhum qismlarning kvadratlari yig'indisining ildiziga teng: |z| = √(a² + b²)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Kompleks sonlarning moduli va argumenti",
+   "tex": "|z_1 z_2| = |z_1| |z_2|, \\left|\\frac{z_1}{z_2}\\right| = \\frac{|z_1|}{|z_2|}",
+   "parts": [
+    {
+     "substr": "|z_1 z_2|",
+     "color": "#4C5FD5",
+     "note": "ko'paytma moduli"
+    },
+    {
+     "substr": "\\left|\\frac{z_1}{z_2}\\right|",
+     "color": "#B45309",
+     "note": "bo'linma moduli"
+    },
+    {
+     "substr": "|z_1 + z_2| \\leq |z_1| + |z_2|",
+     "color": "#0E7C7B",
+     "note": "uchburchak tengsizligi"
+    }
+   ]
+  },
+  "narr": [
+   "Kompleks sonlarning modullari uchun quyidagi qoidalar mavjud.",
+   "Ko'paytma moduli ko'paytuvchilarning modullari ko'paytmasiga teng: |z₁z₂| = |z₁||z₂|.",
+   "Bo'linma moduli bo'luvchi va maxraj modullari nisbatiga teng: |z₁/z₂| = |z₁|/|z₂|.",
+   "Uchburchak tengsizligi ham to'g'ri: |z₁ + z₂| ≤ |z₁| + |z₂|."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Argument va trigonometrik ko'rinish",
+   "tex": "z = r(\\cos\\theta + i\\sin\\theta) = re^{i\\theta}",
+   "parts": [
+    {
+     "substr": "r",
+     "color": "#4C5FD5",
+     "note": "modul"
+    },
+    {
+     "substr": "\\theta",
+     "color": "#B45309",
+     "note": "argument"
+    },
+    {
+     "substr": "e^{i\\theta}",
+     "color": "#0E7C7B",
+     "note": "Euler formulasi"
+    }
+   ]
+  },
+  "narr": [
+   "Kompleks sonlar trigonometrik ko'rinishda ham yozilishi mumkin.",
+   "Bu ko'rinishda r - sonning moduli, θ - argumenti.",
+   "Argument sonning haqiqiy o'qdan burchak o'lchovidir.",
+   "Euler formulasi kompleks sonni eksponensial ko'rinishda ifodalaydi: e^{iθ} = cosθ + isinθ.",
+   "Bu formuladan foydalanib, kompleks sonni z = re^{iθ} ko'rinishida yozish mumkin."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Ko'paytirish, bo'lish va darajaga ko'tarish",
+   "tex": "z_1 z_2 = r_1 r_2 e^{i(\\theta_1+\\theta_2)}, \\frac{z_1}{z_2} = \\frac{r_1}{r_2} e^{i(\\theta_1-\\theta_2)}, z^n = r^n(\\cos n\\theta + i\\sin n\\theta)",
+   "parts": [
+    {
+     "substr": "z_1 z_2",
+     "color": "#4C5FD5",
+     "note": "ko'paytirish"
+    },
+    {
+     "substr": "\\frac{z_1}{z_2}",
+     "color": "#B45309",
+     "note": "bo'lish"
+    },
+    {
+     "substr": "z^n",
+     "color": "#0E7C7B",
+     "note": "darajaga ko'tarish"
+    }
+   ]
+  },
+  "narr": [
+   "Kompleks sonlarni ko'paytirish, bo'lish va darajaga ko'tarish uchun quyidagi qoidalar mavjud.",
+   "Ko'paytirishda modullar ko'payadi, argumentlar qo'shiladi: z₁z₂ = r₁r₂e^{i(θ₁+θ₂)}.",
+   "Bo'lishda modullar bo'linadi, argumentlar ayiriladi: z₁/z₂ = (r₁/r₂)e^{i(θ₁-θ₂)}.",
+   "Darajaga ko'tarishda Muavr formulasi qo'llaniladi: zⁿ = rⁿ(cos nθ + i sin nθ)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Ildizlar",
+   "tex": "z^{1/n} = \\sqrt[n]{r}\\left(\\cos\\frac{\\theta + 2k\\pi}{n} + i\\sin\\frac{\\theta + 2k\\pi}{n}\\right), k = 0, \\ldots, n-1",
+   "parts": [
+    {
+     "substr": "z^{1/n}",
+     "color": "#4C5FD5",
+     "note": "n-darajali ildiz"
+    },
+    {
+     "substr": "k = 0, \\ldots, n-1",
+     "color": "#B45309",
+     "note": "ildizlar soni"
+    },
+    {
+     "substr": "z^n = 1",
+     "color": "#0E7C7B",
+     "note": "birlik ildizlari"
+    }
+   ]
+  },
+  "narr": [
+   "Kompleks sonlarning n-darajali ildizlarini topish uchun quyidagi formula qo'llaniladi.",
+   "Bu formula bo'yicha n ta ildiz mavjud, ular k = 0, 1, ..., n-1 uchun hisoblanadi.",
+   "Birlik ildizlari (zⁿ = 1) birlik aylanada muntazam n-burchakli yulduzchani hosil qiladi.",
+   "Bu ildizlar z = e^{2πik/n}, k = 0, ..., n-1 formulasi bilan beriladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "1-masala — O'nli kasrlarni tasniflash",
+   "problem": "O'nli kasrlarning har birini chekli, periodik yoki aperiodik sifatida tasniflang va mos keladigan sonni ratsional yoki irratsional ekanligini ko'rsating: (1) 0.375; (2) 0.272727...; (3) 1.101001000100001...; (4) 3.14159265...; (5) 0.123123123...",
+   "steps": [
+    {
+     "text": "0.375 chekli kasr, demak ratsional: 0.375 = 375/1000 = 3/8"
+    },
+    {
+     "text": "0.272727... periodik kasr (27 bloki takrorlanadi), demak ratsional: 0.27 = 27/99 = 3/11"
+    },
+    {
+     "text": "1.101001000100001... aperiodik kasr (birliklar orasidagi oraliqlar o'sib boradi), demak irratsional"
+    },
+    {
+     "text": "3.14159265... agar π ni anglatadi, u holda cheksiz va aperiodik, demak irratsional"
+    },
+    {
+     "text": "0.123123123... periodik kasr (123 bloki takrorlanadi), demak ratsional: 0.123 = 123/999 = 41/333"
+    }
+   ],
+   "result": "Prinsip: chekli yoki chekli muddatdan keyin periodik bo'lgan o'nli kasrlar aynan ratsional sonlardir"
+  },
+  "narr": [
+   "Birinchi masalada biz o'nli kasrlarni tahlil qilamiz.",
+   "0.375 kasri chekli, ya'ni oxirida to'xtaydi. Bunday kasrlar har doim ratsional sonlardir.",
+   "0.272727... kasri periodik, ya'ni 27 bloki cheksiz takrorlanadi. Bunday kasrlar ham ratsional sonlardir.",
+   "1.101001000100001... kasri aperiodik, ya'ni hech qanday takrorlanish yo'q. Bunday kasrlar irratsional sonlardir.",
+   "3.14159265... agar π ni anglatadigan bo'lsa, u cheksiz va aperiodik, demak irratsional.",
+   "0.123123123... kasri periodik, 123 bloki takrorlanadi, shuning uchun ratsional."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "2-masala — To'plamlarni interval yozuvida ifodalash",
+   "problem": "Har bir to'plamni interval yozuvida yozing va sonli o'qda tasvirlang: (1) {x ∈ R : -3 ≤ x < 4}; (2) {x ∈ R : x ≠ 3}",
+   "steps": [
+    {
+     "text": "{x ∈ R : -3 ≤ x < 4} = [-3, 4) - -3 uchi kiritilgan (kvadrat qavs), 4 chiqarilgan (aylanma)"
+    },
+    {
+     "text": "{x ∈ R : x ≠ 3} = (-∞, 3) ∪ (3, ∞) - barcha haqiqiy sonlar, 3 dan tashqari"
+    }
+   ],
+   "result": "Cheksizlik hech qachon kiritilmaydi, shuning uchun har doim aylanma qavs ishlatiladi"
+  },
+  "narr": [
+   "Ikkinchi masalada biz to'plamlarni interval yozuvida ifodalaymiz.",
+   "Birinchi to'plam {x ∈ R : -3 ≤ x < 4} [-3, 4) intervaliga to'g'ri keladi. Bu yerda -3 kiritilgan (kvadrat qavs), 4 esa chiqarilgan (aylanma).",
+   "Ikkinchi to'plam {x ∈ R : x ≠ 3} barcha haqiqiy sonlardan 3 ni chiqarib tashlashni anglatadi. Bu (-∞, 3) ∪ (3, ∞) ko'rinishida yoziladi.",
+   "Cheksizlik hech qachon kiritilmaydi, shuning uchun har doim aylanma qavs ishlatiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "3-masala — Intervalni tengsizlik ko'rinishida yozish",
+   "problem": "Har bir intervalni tengsizlik ko'rinishida yozing: a. [-2, 5); b. (-∞, 4]; c. (1, ∞)",
+   "steps": [
+    {
+     "text": "a. [-2, 5) = -2 ≤ x < 5 (chap uchi kiritilgan, o'ng uchi chiqarilgan)"
+    },
+    {
+     "text": "b. (-∞, 4] = x ≤ 4 (chap tomonga cheksiz, o'ng uchi kiritilgan)"
+    },
+    {
+     "text": "c. (1, ∞) = x > 1 (qat'iy katta, chunki aylanma qavs 1 ni chiqaradi)"
+    }
+   ],
+   "result": "Interval yozuvidagi qavslar tengsizlikdagi belgilarga mos keladi: kvadrat qavs tenglikni, aylanma qavs esa qat'iy tengsizlikni bildiradi"
+  },
+  "narr": [
+   "Uchinchi masalada biz intervalni tengsizlik ko'rinishida yozamiz.",
+   "Birinchi interval [-2, 5) -2 ≤ x < 5 tengsizligiga to'g'ri keladi. Bu yerda -2 kiritilgan (tenglik bor), 4 esa chiqarilgan (qat'iy tengsizlik).",
+   "Ikkinchi interval (-∞, 4] x ≤ 4 tengsizligiga to'g'ri keladi. Cheksizlik chap tomonga, 4 esa kiritilgan (tenglik bor).",
+   "Uchinchi interval (1, ∞) x > 1 tengsizligiga to'g'ri keladi. Bu yerda 1 chiqarilgan (qat'iy tengsizlik)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "4-masala — Sonlarni ratsional va irratsional sifatida tasniflash",
+   "problem": "Ratsional yoki irratsional sifatida tasniflang: a. √3; b. √25; c. √50; i. (1 + √5)(1 - √5)",
+   "steps": [
+    {
+     "text": "a. √3 to'liq kvadrat emas, shuning uchun irratsional"
+    },
+    {
+     "text": "b. √25 = 5 ∈ Z ⊆ Q, ratsional"
+    },
+    {
+     "text": "c. √50 = 5√2; √2 irratsional bo'lgani uchun, 5√2 irratsional"
+    },
+    {
+     "text": "i. (1 + √5)(1 - √5) = 1 - 5 = -4, ratsional (konjugatlar ko'paytmasi radikalni yo'q qiladi)"
+    }
+   ],
+   "result": "Konjugatlar ko'paytmasi har doim radikalni yo'q qiladi, shuning uchun ratsional son beradi"
+  },
+  "narr": [
+   "To'rtinchi masalada turli ifodalarni ratsional yoki irratsional sifatida tasniflaymiz.",
+   "√3 to'liq kvadrat emas (hech qanday butun sonning kvadrati 3 ga teng emas), shuning uchun irratsional.",
+   "√25 esa 5 ga teng, 5 butun son, demak ratsional.",
+   "√50 ni soddalashtirsak, 5√2 hosil bo'ladi. √2 irratsional bo'lgani uchun, 5√2 ham irratsional.",
+   "(1 + √5)(1 - √5) ifodasini ochamiz: 1 - 5 = -4. Bu butun son, demak ratsional. Konjugatlar ko'paytmasi har doim radikalni yo'q qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "5-masala — Kompleks sonlar ustida amallar",
+   "problem": "z₁ = 3 + 2i va z₂ = 1 - 4i berilgan; z₁ + z₂, z₁ - z₂, z₁z₂, z₁/z₂ ni hisoblang, har bir javobni a + bi ko'rinishida yozing",
+   "steps": [
+    {
+     "text": "Qo'shish: z₁ + z₂ = (3 + 1) + (2 - 4)i = 4 - 2i"
+    },
+    {
+     "text": "Ayirish: z₁ - z₂ = (3 - 1) + (2 + 4)i = 2 + 6i"
+    },
+    {
+     "text": "Ko'paytirish: z₁z₂ = (3·1 - 2·(-4)) + (3·(-4) + 2·1)i = (3 + 8) + (-12 + 2)i = 11 - 10i"
+    },
+    {
+     "text": "Bo'lish: z₁/z₂ = z₁z₂*/|z₂|² = (3 + 2i)(1 + 4i)/((1 - 4i)(1 + 4i)) = (3·1 - 2·4 + (3·4 + 2·1)i)/(1² + 4²) = (-5 + 14i)/17"
+    }
+   ],
+   "result": "z₁ + z₂ = 4 - 2i; z₁ - z₂ = 2 + 6i; z₁z₂ = 11 - 10i; z₁/z₂ = (-5 + 14i)/17"
+  },
+  "narr": [
+   "Beshinchi masalada kompleks sonlar ustida amallarni bajaramiz.",
+   "Qo'shishda haqiqiy va mavhum qismlar alohida qo'shiladi: z₁ + z₂ = (3 + 1) + (2 - 4)i = 4 - 2i.",
+   "Ayirishda ham haqiqiy va mavhum qismlar alohida ayiriladi: z₁ - z₂ = (3 - 1) + (2 + 4)i = 2 + 6i.",
+   "Ko'paytirishda (a + bi)(c + di) = (ac - bd) + (ad + bc)i formulasi qo'llaniladi: z₁z₂ = (3·1 - 2·(-4)) + (3·(-4) + 2·1)i = 11 - 10i.",
+   "Bo'lishda surat va maxrajni maxrajning kompleks konjugatiga ko'paytiramiz: z₁/z₂ = (-5 + 14i)/17."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]
