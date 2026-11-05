@@ -1,0 +1,518 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu darslikda birinchi to'rt hafta matematikasining asosiy mavzulari o'rganiladi.",
+   "Keling, birinchi misolni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 1 — Masofani hisoblash",
+   "problem": "Ushbu masofalarni hisoblang: d(3, 8), d(-2, 5), d(-4, -9), d(2, 8)",
+   "steps": [
+    "d(3, 8) = |3 - 8|",
+    "d(-2, 5) = |-2 - 5|",
+    "d(-4, -9) = |-4 - (-9)|",
+    "d(2, 8) = |2 - 8|"
+   ],
+   "result": "d(3, 8) = 5; d(-2, 5) = 7; d(-4, -9) = 5; d(2, 8) = 6"
+  },
+  "narr": [
+   "Birinchi misolda ikkita nuqta orasidagi masofani hisoblashni ko'rib chiqamiz.",
+   "Masofa formulasi |a - b| ga asoslangan.",
+   "Birinchi juft uchun: 3 minus 8, modulda 5 chiqadi.",
+   "Ikkinchi juft uchun: -2 minus 5, modulda 7 chiqadi.",
+   "Uchinchi juft uchun: -4 minus -9, bu -4 + 9 degani, modulda 5 chiqadi.",
+   "To'rtinchi juft uchun: 2 minus 8, modulda 6 chiqadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 2 — Uchburchak tengsizligini tekshirish",
+   "problem": "Uchburchak tengsizligini tekshiring: d(-3, 7), d(-3, 2) + d(2, 7)",
+   "steps": [
+    "d(-3, 7) = |-3 - 7|",
+    "d(-3, 2) = |-3 - 2|",
+    "d(2, 7) = |2 - 7|",
+    "d(-3, 2) + d(2, 7) = 5 + 5",
+    "Tengsizlikni tekshiring: d(-3, 7) ≤ d(-3, 2) + d(2, 7)"
+   ],
+   "result": "10 ≤ 10 (tenglik, chunki nuqtalar bir chiziqda ketma-ket joylashgan)"
+  },
+  "narr": [
+   "Endi uchburchak tengsizligini tekshiraylik.",
+   "Birinchi masofa: -3 dan 7 gacha bo'lgan masofa 10 ga teng.",
+   "Ikkinchi masofa: -3 dan 2 gacha 5 ga teng.",
+   "Uchinchi masofa: 2 dan 7 gacha yana 5 ga teng.",
+   "Yig'indisi 10 ga teng, bu birinchi masofaga teng.",
+   "Bu holatda tenglik bajariladi, chunki nuqtalar bir chiziqda ketma-ket joylashgan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Bir o'lchamli norma",
+   "bullets": [
+    "|a - b| formulasi bir o'lchamli norma holati",
+    "Bu formula ikki nuqta orasidagi masofani ifodalaydi"
+   ]
+  },
+  "narr": [
+   "E'tiboringizga qarab, |a - b| formulasi bir o'lchamli norma holati ekanligini ko'rasiz.",
+   "Bu formula ikkita nuqta orasidagi masofani hisoblashda qo'llaniladi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 20 — Ratsional va irratsional sonlarni aniqlash",
+   "problem": "Har bir sonni ratsional yoki irratsional ekanligini aniqlang; asoslang:",
+   "steps": [
+    "a. √49",
+    "b. √18",
+    "c. √3 + √2",
+    "d. √2 · √5",
+    "e. √2 + √8",
+    "f. (√3)²"
+   ]
+  },
+  "narr": [
+   "Keling, ratsional va irratsional sonlarni aniqlash masalasini ko'rib chiqaylik.",
+   "Birinchidan, 49 ning ildizi 7 ga teng, bu butun son, shuning uchun ratsional.",
+   "18 ning ildizini soddalashtirsak, 3√2 chiqadi, bu irratsional son.",
+   "√3 + √2 yig'indisi irratsional, chunki har ikki had irratsional.",
+   "√2 · √5 = √10, bu irratsional son.",
+   "√2 + √8 ni soddalashtirsak, √2 + 2√2 = 3√2, bu irratsional.",
+   "√3 ning kvadrati 3 ga teng, bu ratsional son."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 20 — Ratsional va irratsional sonlarni aniqlash (cont.)",
+   "problem": "",
+   "steps": [
+    "g. (1 + √2)(1 - √2)",
+    "h. √12"
+   ],
+   "result": "a. Ratsional (7); b. Irratsional (3√2); c. Irratsional; d. Irratsional (√10); e. Irratsional (3√2); f. Ratsional (3); g. Ratsional (-1); h. Irratsional (2√3)"
+  },
+  "narr": [
+   "(1 + √2)(1 - √2) konjugat ko'paytma, natijada 1 - 2 = -1 chiqadi, bu ratsional.",
+   "Oxirgi, √12 ni soddalashtirsak, 2√3 chiqadi, bu irratsional son."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Amaliy qoida",
+   "bullets": [
+    "Soddalashtirish tabiatni ochib beradi",
+    "(a + √b)(a - √b) ko'rinishidagi konjugat ko'paytmalar har doim ratsional"
+   ]
+  },
+  "narr": [
+   "Bu masalalardan olingan asosiy qoida shundaki, soddalashtirish jarayoni sonning tabiatini ochib beradi.",
+   "Shuningdek, konjugat ko'paytmalar (a + √b)(a - √b) har doim ratsional natija beradi."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 21 — Kompleks sonlarning arifmetik amallari",
+   "problem": "z1 = 3 + 2i, z2 = 1 - 4i berilgan; z1 + z2, z1 - z2, z1·z2, z1/z2 hisoblang.",
+   "steps": [
+    "z1 + z2 = (3 + 2i) + (1 - 4i)",
+    "z1 - z2 = (3 + 2i) - (1 - 4i)",
+    "z1·z2 = (3 + 2i)(1 - 4i)",
+    "z1/z2 = (3 + 2i)/(1 - 4i)"
+   ],
+   "result": "z1 + z2 = 4 - 2i; z1 - z2 = 2 + 6i; z1·z2 = 11 - 10i; z1/z2 = -1/17 + 10/17i"
+  },
+  "narr": [
+   "Endi kompleks sonlar ustida amallarni bajaramiz.",
+   "Birinchi qo'shish amali: haqiqiy va mavhum qismlarni alohida qo'shamiz.",
+   "Ayirish amali: haqiqiy va mavhum qismlarni alohida ayiramiz.",
+   "Ko'paytirish amali: har bir hadni ko'paytiramiz va i² = -1 ekanligini hisobga olamiz.",
+   "Bo'lish amali: surat va maxrajni maxrajning konjugatiga ko'paytiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 22 — Imaginar birlikning darajalari",
+   "problem": "i², i³, i⁴, i⁵, i¹⁸, i²⁷, i¹⁰⁰ ni hisoblang; takrorlanadigan naqshni va 4 ga bo'lishga asoslangan usulni tavsiflang.",
+   "steps": [
+    "i² = i·i = -1",
+    "i³ = i²·i = -1·i = -i",
+    "i⁴ = (i²)² = (-1)² = 1",
+    "i⁵ = i⁴·i = 1·i = i",
+    "i¹⁸: 18 ÷ 4 = 4·4 + 2, qoldiq 2, shuning uchun i¹⁸ = i² = -1",
+    "i²⁷: 27 ÷ 4 = 6·4 + 3, qoldiq 3, shuning uchun i²⁷ = i³ = -i",
+    "i¹⁰⁰: 100 ÷ 4 = 25·4 + 0, qoldiq 0, shuning uchun i¹⁰⁰ = i⁰ = 1"
+   ],
+   "result": "i² = -1; i³ = -i; i⁴ = 1; i⁵ = i; i¹⁸ = -1; i²⁷ = -i; i¹⁰⁰ = 1"
+  },
+  "narr": [
+   "Imaginar birlik i ning darajalarini hisoblashni ko'rib chiqaylik.",
+   "i² = i·i = -1",
+   "i³ = i²·i = -1·i = -i",
+   "i⁴ = (i²)² = (-1)² = 1",
+   "i⁵ = i⁴·i = 1·i = i",
+   "Katta darajalar uchun 4 ga bo'lib qoldiqni topamiz.",
+   "18 ni 4 ga bo'lganda qoldiq 2, shuning uchun i¹⁸ = i² = -1",
+   "27 ni 4 ga bo'lganda qoldiq 3, shuning uchun i²⁷ = i³ = -i",
+   "100 ni 4 ga bo'lganda qoldiq 0, shuning uchun i¹⁰⁰ = i⁰ = 1"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Imaginar birlikning davriy xossasi",
+   "bullets": [
+    "i ning darajalari 4 davr bilan takrorlanadi: 1, i, -1, -i, ...",
+    "iⁿ ni hisoblash uchun n ni 4 ga bo'lib qoldiqni topamiz",
+    "iⁿ = iʳ, bu yerda r - bo'linmaning qoldigi"
+   ]
+  },
+  "narr": [
+   "Imaginar birlikning darajalari 4 davr bilan takrorlanadi: 1, i, -1, -i va hokazo.",
+   "Katta darajalarni hisoblash uchun n ni 4 ga bo'lib qoldiqni topamiz.",
+   "Shunda iⁿ = iʳ bo'ladi, bu yerda r - bo'linmaning qoldigi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 23 — Kompleks sonlarning konjugati va moduli",
+   "problem": "3 + 4i, -2 + 5i, 6i, -7 uchun: konjugatini va modulini toping, z·z̄ = |z|² tekshiring.",
+   "steps": [
+    "3 + 4i uchun konjugat: 3 - 4i",
+    "3 + 4i uchun modul: √(3² + 4²) = 5",
+    "z·z̄ = (3 + 4i)(3 - 4i) = 9 - (4i)² = 9 - 16i² = 9 + 16 = 25",
+    "|z|² = 5² = 25",
+    "-2 + 5i uchun konjugat: -2 - 5i",
+    "-2 + 5i uchun modul: √((-2)² + 5²) = √29"
+   ]
+  },
+  "narr": [
+   "Kompleks sonlarning konjugati va modulini topishni ko'rib chiqaylik.",
+   "3 + 4i uchun konjugat 3 - 4i, moduli 5 ga teng.",
+   "z·z̄ = (3 + 4i)(3 - 4i) = 9 - 16i² = 9 + 16 = 25",
+   "|z|² = 5² = 25, shuning uchun ular teng.",
+   "-2 + 5i uchun konjugat -2 - 5i, moduli √29 ga teng.",
+   "6i uchun konjugat -6i, moduli 6 ga teng.",
+   "-7 uchun konjugat -7, moduli 7 ga teng.",
+   "Har bir holatda z·z̄ = |z|² tenglik bajariladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   1,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 23 — Kompleks sonlarning konjugati va moduli (cont.)",
+   "problem": "",
+   "steps": [
+    "6i uchun konjugat: -6i",
+    "6i uchun modul: √(0² + 6²) = 6",
+    "-7 uchun konjugat: -7",
+    "-7 uchun modul: √((-7)² + 0²) = 7"
+   ],
+   "result": "Konjugatlar: 3 - 4i, -2 - 5i, -6i, -7; Modullar: 5, √29, 6, 7; Har bir holatda z·z̄ = |z|² bajariladi"
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 24 — Kompleks kasrlarni soddalashtirish",
+   "problem": "a + bi ko'rinishida ifodalang: a. 1/(1 + i); b. 3 + 2/(2 - i); c. 1 + 3/(4 - i); d. 5/(2 - i)",
+   "steps": [
+    "a. 1/(1 + i) = (1 - i)/((1 + i)(1 - i)) = (1 - i)/(1 - i²) = (1 - i)/2 = 1/2 - (1/2)i",
+    "b. 3 + 2/(2 - i) = 3 + 2(2 + i)/((2 - i)(2 + i)) = 3 + (4 + 2i)/(4 - i²) = 3 + (4 + 2i)/5 = 3 + 4/5 + (2/5)i = 19/5 + (2/5)i",
+    "c. 1 + 3/(4 - i) = 1 + 3(4 + i)/((4 - i)(4 + i)) = 1 + (12 + 3i)/(16 - i²) = 1 + (12 + 3i)/17 = 1 + 12/17 + (3/17)i = 29/17 + (3/17)i",
+    "d. 5/(2 - i) = 5(2 + i)/((2 - i)(2 + i)) = (10 + 5i)/(4 - i²) = (10 + 5i)/5 = 2 + i"
+   ],
+   "result": "a. 1/2 - (1/2)i; b. 19/5 + (2/5)i; c. 29/17 + (3/17)i; d. 2 + i"
+  },
+  "narr": [
+   "Kompleks kasrlarni a + bi ko'rinishiga o'tkazishni ko'rib chiqaylik.",
+   "Har bir holatda maxrajning konjugatiga ko'paytiramiz.",
+   "Birinchi misol: 1/(1 + i) = (1 - i)/((1 + i)(1 - i)) = (1 - i)/2",
+   "Ikkinchi misol: 3 + 2/(2 - i) = 3 + 2(2 + i)/5 = 19/5 + (2/5)i",
+   "Uchinchi misol: 1 + 3/(4 - i) = 1 + 3(4 + i)/17 = 29/17 + (3/17)i",
+   "To'rtinchi misol: 5/(2 - i) = 5(2 + i)/5 = 2 + i"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 25 — Kompleks ildizlarni topish",
+   "problem": "C ustida yeching, qaysi yechilar haqiqiy ekanligini ko'rsating: a. x² + 9 = 0; b. x² - 4x + 13 = 0; c. 2x² + 4x + 10 = 0; d. x⁴ - 16 = 0",
+   "steps": [
+    "a. x² + 9 = 0 → x² = -9 → x = ±3i (haqiqiy emas)",
+    "b. x² - 4x + 13 = 0 → Diskriminant Δ = (-4)² - 4·13 = 16 - 52 = -36 → √Δ = 6i → x = (4 ± 6i)/2 = 2 ± 3i (haqiqiy emas)",
+    "c. 2x² + 4x + 10 = 0 → x² + 2x + 5 = 0 → Diskriminant Δ = 4 - 20 = -16 → √Δ = 4i → x = (-2 ± 4i)/2 = -1 ± 2i (haqiqiy emas)",
+    "d. x⁴ - 16 = 0 → x⁴ = 16 → x = ±2 (haqiqiy yechilar); C ustida to'liq to'plam: 2, -2, 2i, -2i"
+   ],
+   "result": "a. x = ±3i (haqiqiy emas); b. x = 2 ± 3i (haqiqiy emas); c. x = -1 ± 2i (haqiqiy emas); d. x = ±2 (haqiqiy), ±2i (haqiqiy emas)"
+  },
+  "narr": [
+   "Kompleks ildizlarni topish masalalarini ko'rib chiqaylik.",
+   "Birinchi tenglama: x² + 9 = 0, yechim x = ±3i, bu haqiqiy emas.",
+   "Ikkinchi tenglama: diskriminant manfiy, yechimlar kompleks.",
+   "Uchinchi tenglama: ham diskriminant manfiy, yechimlar kompleks.",
+   "To'rtinchi tenglama: x⁴ = 16, haqiqiy yechilar x = ±2, kompleks yechilar x = ±2i."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 26 — Kompleks sonlarning xossalari",
+   "problem": "2 + 3i, -1 + 4i, -3 - 2i, 4 - i uchun: haqiqiy qismini, mavhum qismini, modulini, kvadrantini toping.",
+   "steps": [
+    "2 + 3i: haqiqiy qism 2, mavhum qism 3, modul √13, kvadrant I",
+    "-1 + 4i: haqiqiy qism -1, mavhum qism 4, modul √17, kvadrant II",
+    "-3 - 2i: haqiqiy qism -3, mavhum qism -2, modul √13, kvadrant III",
+    "4 - i: haqiqiy qism 4, mavhum qism -1, modul √17, kvadrant IV"
+   ],
+   "result": "2 + 3i: (2, 3), √13, I; -1 + 4i: (-1, 4), √17, II; -3 - 2i: (-3, -2), √13, III; 4 - i: (4, -1), √17, IV"
+  },
+  "narr": [
+   "Kompleks sonlarning xossalarni ko'rib chiqaylik.",
+   "2 + 3i: haqiqiy qism 2, mavhum qism 3, modul √13, birinchi kvadrantda.",
+   "-1 + 4i: haqiqiy qism -1, mavhum qism 4, modul √17, ikkinchi kvadrantda.",
+   "-3 - 2i: haqiqiy qism -3, mavhum qism -2, modul √13, uchinchi kvadrantda.",
+   "4 - i: haqiqiy qism 4, mavhum qism -1, modul √17, to'rtinchi kvadrantda."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Modul xossasi",
+   "bullets": [
+    "Konjugatsiya a² + b² ni saqlaydi",
+    "Shuning uchun konjugat juftlari bir xil modulga ega"
+   ]
+  },
+  "narr": [
+   "E'tiboringizga qarab, modullar juftliklarga bo'linadi, chunki konjugatsiya a² + b² ni saqlaydi.",
+   "Masalan, 2 + 3i va 2 - 3i bir xil modulga ega."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 27 — Kompleks sonlarni trigonometrik va eksponensial shaklda ifodalash",
+   "problem": "Trigonometrik va eksponensial shaklda (θ radianda yozing): (1) √3 + i; (2) -1 + i; (3) -3 - i; (4) 2i; (5) -4",
+   "steps": [
+    "(1) √3 + i: r = 2, θ = π/6 → 2e^(iπ/6)",
+    "(2) -1 + i: r = √2, kvadrant II: θ = 3π/4 → √2e^(i3π/4)",
+    "(3) -3 - i: r = √(9 + 1) = √10, kvadrant III: θ = π + arctan(1/3) → √10e^(i(π + arctan(1/3)))",
+    "(4) 2i: r = 2, θ = π/2 → 2e^(iπ/2)",
+    "(5) -4: r = 4, θ = π → 4e^(iπ)"
+   ],
+   "result": "(1) 2e^(iπ/6); (2) √2e^(i3π/4); (3) √10e^(i(π + arctan(1/3))); (4) 2e^(iπ/2); (5) 4e^(iπ)"
+  },
+  "narr": [
+   "Kompleks sonlarni trigonometrik va eksponensial shaklda ifodalashni ko'rib chiqaylik.",
+   "Birinchi son: √3 + i, moduli 2, burchagi π/6, shuning uchun 2e^(iπ/6).",
+   "Ikkinchi son: -1 + i, moduli √2, ikkinchi kvadrantda, burchagi 3π/4.",
+   "Uchinchi son: -3 - i, moduli √10, uchinchi kvadrantda, burchagi π + arctan(1/3).",
+   "To'rtinchi son: 2i, moduli 2, burchagi π/2.",
+   "Beshinchi son: -4, moduli 4, burchagi π."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Burchakni topish qoidasi",
+   "bullets": [
+    "Har bir burchak tan θ = b/a dan kvadrantga qarab tuzatib olinadi",
+    "Birinchi kvadrantda θ = arctan(b/a)",
+    "Ikkinchi kvadrantda θ = π - arctan(|b/a|)",
+    "Uchinchi kvadrantda θ = π + arctan(|b/a|)",
+    "To'rtinchi kvadrantda θ = 2π - arctan(|b/a|)"
+   ]
+  },
+  "narr": [
+   "Burchakni topishda quyidagi qoidalardan foydalanamiz:",
+   "Birinchi kvadrantda θ = arctan(b/a)",
+   "Ikkinchi kvadrantda θ = π - arctan(|b/a|)",
+   "Uchinchi kvadrantda θ = π + arctan(|b/a|)",
+   "To'rtinchi kvadrantda θ = 2π - arctan(|b/a|)"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Masala 28 — Muavr formulasi yordamida hisoblash",
+   "problem": "Muavr formulasi yordamida hisoblang (1)(1 + i)⁶; (2)(3 + i)⁴; (3)(-1 + 3i)⁵; bittasini algebr tekshiring.",
+   "steps": [
+    "(1) 1 + i = √2e^(iπ/4), shuning uchun (1 + i)⁶ = (√2)⁶e^(i6π/4) = 8e^(i3π/2) = 8(0 - i) = -8i",
+    "(2) 3 + ni = √10e^(iarctan(1/3)), shuning uchun (3 + i)⁴ = (√10)⁴e^(i4arctan(1/3)) = 100e^(i4arctan(1/3))",
+    "(3) -1 + 3i = 2e^(i2π/3), shuning uchun (-1 + 3i)⁵ = 2⁵e^(i10π/3) = 32e^(i(3π + π/3)) = 32e^(iπ/3) = 32(cos(π/3) + i sin(π/3)) = 32(1/2 + i√3/2) = 16 + 16√3i"
+   ],
+   "result": "(1) -8i; (2) 100e^(i4arctan(1/3)); (3) 16 + 16√3i"
+  },
+  "narr": [
+   "Muavr formulasi yordamida kompleks sonlarning darajalarini hisoblaymiz.",
+   "Birinchi misol: 1 + ni = √2e^(iπ/4), shuning uchun (1 + i)⁶ = (√2)⁶e^(i6π/4) = 8e^(i3π/2) = -8i",
+   "Ikkinchi misol: 3 + i = √10e^(iarctan(1/3)), shuning uchun (3 + i)⁴ = 100e^(i4arctan(1/3))",
+   "Uchinchi misol: -1 + 3i = 2e^(i2π/3), shuning uchun (-1 + 3i)⁵ = 32e^(i10π/3) = 32e^(iπ/3) = 16 + 16√3i"
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Muavr formulasi",
+   "bullets": [
+    "(r e^(iθ))ⁿ = rⁿ e^(inθ)",
+    "Bu formula kompleks sonlarning darajalarini hisoblashda qulaylik beradi"
+   ]
+  },
+  "narr": [
+   "Muavr formulasi kompleks sonlarning darajalarini hisoblashda juda foydalidir.",
+   "Formula shunday ko'rinadi: (r e^(iθ))ⁿ = rⁿ e^(inθ)",
+   "Bu formula bizga trigonometrik ko'paytmalarni hisoblashdan qutqaradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ }
+]

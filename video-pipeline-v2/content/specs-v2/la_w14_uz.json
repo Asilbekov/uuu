@@ -1,0 +1,5124 @@
+{
+ "id": "la_w14",
+ "language": "uz",
+ "course_title": "Chiziqli algebra I",
+ "weeks_label": "1–4-haftalar · Toʻliq qoʻllanma",
+ "test_title": "1–4-haftalar · Toʻliq qoʻllanma",
+ "chapters": [
+  {
+   "title": "Qo'llanma bilan tanishuv",
+   "blocks": [
+    {
+     "type": "title",
+     "data": {
+      "kicker": "1–4-haftalar · Toʻliq qoʻllanma",
+      "title": "Chiziqli algebra I",
+      "subtitle": "Vektorlar · Koʻpaytmalar · Matritsalar · Determinantlar · Rang va teskari matritsa",
+      "chips": [
+       "Qo'llanma bilan tanishuv",
+       "Hafta 1 — Vektorlar",
+       "Chiziqli algebra I — 1–4 haftalar",
+       "3-hafta — Matritsa algebrasi, determinan…",
+       "Chiziqli algebra I — 1–4 haftalar"
+      ]
+     },
+     "narr": [
+      "Chiziqli algebra I fanining birinchi dan toʻrtinchi haftalari boʻyicha toʻliq video qoʻllanmaga xush kelibsiz. Keyingi yarim soat ichida kursning butun birinchi oyini qaytadan qurib chiqamiz: vektorlar va chiziqli kombinatsiyalar, skalyar koʻpaytma va vektor koʻpaytma, matritsalar va ularni koʻpaytirish qoidalari, determinantlar hamda nihoyat rang va teskari matritsa. Har bir tushuncha oʻquv qoʻllanmangizdan olingan toʻliq yechilgan misol bilan birga keladi. Videoning oxiriga yetganda siz birinchi test talab qiladigan har bir koʻnikkani egallagan boʻlasiz. Qalam va qogʻozni tayyorlang — boshlaymiz."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "table",
+     "data": {
+      "heading": "Kurs xaritasi",
+      "columns": [
+       "Hafta",
+       "Mavzular"
+      ],
+      "rows": [
+       [
+        "1",
+        "Vektorlar; chiziqli kombinatsiyalar; span; chiziqli mustaqillik"
+       ],
+       [
+        "2",
+        "Skalyar ko'paytma, burchaklar, proyeksiyalar; vektor ko'paytma, yuzalar; matritsalar: amallar"
+       ],
+       [
+        "3",
+        "Matritsa algebrasi; transponir; matritsalarni ko'paytirish; determinantlar; aralash ko'paytma"
+       ],
+       [
+        "4",
+        "Matritsa rangi; Gauss-Jordan usulida teskari matritsa"
+       ]
+      ]
+     },
+     "narr": [
+      "Kursning birinchi to'rt haftasida quyidagi mavzular o'rganiladi.",
+      "Birinchi haftada vektorlar, chiziqli birikmalar, span va chiziqli mustaqillikni ko'rib chiqamiz.",
+      "Ikkinchi hafta skalyar ko'paytma, burchaklar, proyeksiyalar, vektor ko'paytmasi va matritsalar amallari bilan tanishamiz.",
+      "Uchinchi haftada matritsa algebrasi, transponir, matritsalarni ko'paytirish, determinantlar va aralash ko'paytmani o'rganamiz.",
+      "To'rtinchi haftada matritsa rangi va Gauss-Jordan usulida teskari matritsani topish usullarini ko'rib chiqamiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Yozuv konventsiyalari",
+      "bullets": [
+       "Matritsa satr bo'yicha yoziladi: [a b; c d] — birinchi satr ab, ikkinchi cd",
+       "Ustun-vektor [x; y], satr-vektor [x y] ko'rinishida yoziladi",
+       "Darajalar va indekslar ^{} va_ orqali yoziladi: A^{-1}, A^T, a_{11}"
+      ]
+     },
+     "narr": [
+      "Matritsalarni yozishda ba'zi konventsiyalardan foydalanamiz.",
+      "Matritsa satr bo'yicha yoziladi, masalan [a b; c d] matritsasi birinchi satrda ab, ikkinchi satrda cd elementlariga ega.",
+      "Vektorlar ustun ko'rinishida [x; y] yoki satr ko'rinishida [x y] deb yoziladi.",
+      "Darajalar va indekslar belgilari ^{} va_ orqali ifodalanadi, masalan A^{-1}, A^T, a_{11}."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Hafta 1 — Vektorlar",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 1,
+      "title": "Hafta 1 — Vektorlar",
+      "subtitle": "Chiziqli algebra I"
+     },
+     "narr": [
+      "Birinchi haftada vektorlar, chiziqli birikmalar, span va chiziqli mustaqillikni o'rganamiz."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "1-hafta formulalari katalogi",
+      "tex": "\\begin{array}{ll} (u + v)_i = u_i + v_i, & (24) \\\\ (c u)_i = c u_i & \\text{(komponentalar bo'yicha amallar)} \\\\ c_1v_1 + \\cdots + c_nv_n = \\text{chiziqli birikma} & (25) \\\\ \\text{span}\\{v_1, \\ldots, v_n\\} = \\text{bunday barcha birikmalar to'plami} & (26) \\\\ v_1, \\ldots, v_n \\text{ mustaqil} \\Leftrightarrow c_1v_1 + \\cdots + c_nv_n = 0 \\Rightarrow c_1 = \\cdots = c_n = 0 & (27) \\\\ \\|x\\| = \\sqrt{x_1^2 + \\cdots + x_n^2}, \\hat{x} = \\frac{x}{\\|x\\|} & \\text{(birlik vektor)} \\quad (28) \\\\ u \\text{ yo'nalishda } L \\text{ uzunlikdagi } v : v = L \\frac{u}{\\|u\\|} & (29) \\\\ d(P, Q) = \\|Q - P\\| & (30) \\end{array}",
+      "parts": [
+       {
+        "substr": "(u + v)_i = u_i + v_i",
+        "color": "#4C5FD5",
+        "note": "Vektorlarni qo'shish komponent bo'yicha"
+       },
+       {
+        "substr": "(c u)_i = c u_i",
+        "color": "#4C5FD5",
+        "note": "Vektorni skalyarga ko'paytirish komponent bo'yicha"
+       },
+       {
+        "substr": "c_1v_1 + \\cdots + c_nv_n = \\text{chiziqli birikma}",
+        "color": "#4C5FD5",
+        "note": "Chiziqli birikma ta'rifi"
+       },
+       {
+        "substr": "\\text{span}\\{v_1, \\ldots, v_n\\} = \\text{bunday barcha birikmalar to'plami}",
+        "color": "#4C5FD5",
+        "note": "Span ta'rifi"
+       },
+       {
+        "substr": "v_1, \\ldots, v_n \\text{ mustaqil}",
+        "color": "#4C5FD5",
+        "note": "Chiziqli mustaqillik ta'rifi"
+       },
+       {
+        "substr": "\\|x\\| = \\sqrt{x_1^2 + \\cdots + x_n^2}",
+        "color": "#4C5FD5",
+        "note": "Vektorning evklid normasi"
+       }
+      ]
+     },
+     "narr": [
+      "Birinchi haftada quyidagi asosiy formulalar o'rganiladi.",
+      "Vektorlarni qo'shish va skalyarga ko'paytirish komponent bo'yicha amalga oshiriladi.",
+      "Chiziqli birikma - bu vektorlarning skalyar ko'paytmalarining yig'indisi.",
+      "Span - berilgan vektorlarning chiziqli birikmalari hosil qiladigan barcha vektorlar to'plami.",
+      "Vektorlar chiziqli mustaqil bo'lishi uchun ularning chiziqli birikmasi faqat nol vektorga teng bo'lishi uchun barcha koeffitsientlar nolga teng bo'lishi kerak.",
+      "Vektorning normasi uning komponentlarining kvadratlari yig'indisining kvadrat ildiziga teng.",
+      "Birlik vektor - bu normasi 1 ga teng bo'lgan vektor, asl vektorni uning normasiga bo'lish orqali olinadi.",
+      "Vektorni boshqa vektor yo'nalishida ma'lum uzunlikda olish uchun uni mos skalyarga ko'paytiramiz.",
+      "Ikki nuqta orasidagi masofa ularni tutashtiruvchi vektorning normasiga teng."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      5,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 1 — Vektor amallari",
+      "problem": "u = [-2; 3], v = [-1; 5] bo'lsin. u + v, u - v, 2u, -3v, 2u - 3v ni hisoblang.",
+      "steps": [
+       {
+        "text": "u + v = [-2 + (-1); 3 + 5] = [-3; 8]"
+       },
+       {
+        "text": "u - v = [-2 - (-1); 3 - 5] = [-1; -2]"
+       },
+       {
+        "text": "2u = 2 × [-2; 3] = [-4; 6]"
+       },
+       {
+        "text": "-3v = -3 × [-1; 5] = [3; -15]"
+       },
+       {
+        "text": "2u - 3v = [-4; 6] - [3; -15] = [-7; 21]"
+       }
+      ],
+      "result": "u + v = [-3; 8], u - v = [-1; -2], 2u = [-4; 6], -3v = [3; -15], 2u - 3v = [-7; 21]"
+     },
+     "narr": [
+      "Endi birinchi haftadan misol ko'rib chiqamiz.",
+      "Bizda ikki vektor berilgan: u = [-2; 3] va v = [-1; 5].",
+      "Birinchi navbatda u + v vektorini hisoblaymiz. Vektorlarni qo'shish uchun ularning mos komponentlarini qo'shamiz.",
+      "Shunday qilib, u + v = [-2 + (-1); 3 + 5] = [-3; 8].",
+      "Keyin u - v vektorini hisoblaymiz. Vektorlarni ayirish uchun ularning mos komponentlarini ayiramiz.",
+      "u - v = [-2 - (-1); 3 - 5] = [-1; -2].",
+      "Endi 2u ni hisoblaymiz. Bu u vektorini 2 skalyariga ko'paytirish degani.",
+      "2u = 2 × [-2; 3] = [-4; 6].",
+      "-3v ni hisoblaymiz. Bu v vektorini -3 skalyariga ko'paytirish degani.",
+      "-3v = -3 × [-1; 5] = [3; -15].",
+      "Nihoyat, 2u - 3v ni hisoblaymiz. Bu avval 2u ni keyin -3v ni hisoblab, ularni ayirishdan iborat.",
+      "2u - 3v = [-4; 6] - [3; -15] = [-7; 21]."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 1 — Vektorlarni qo'shish va ayirish",
+      "problem": "Berilgan: u = [-3, 8], v = [1, 2]; toping: u - v, 2u, -3v, 2u - 3v",
+      "steps": [
+       {
+        "text": "u - v = [-3 - 1, 8 - 2] = [-4, 6]"
+       },
+       {
+        "text": "2u = [2·(-3), 2·8] = [-6, 16]"
+       },
+       {
+        "text": "-3v = [-3·1, -3·2] = [-3, -6]"
+       },
+       {
+        "text": "2u - 3v = [-6 - (-3), 16 - (-6)] = [-3, 22]"
+       }
+      ],
+      "result": "Natijalar: u - v = [-4, 6], 2u = [-6, 16], -3v = [-3, -6], 2u - 3v = [-3, 22]"
+     },
+     "narr": [
+      "Birinchi misolda u vektorni v vektordan ayiramiz.",
+      "Keyin u vektorni 2 ga ko'paytiramiz.",
+      "V vektorni -3 ga ko'paytiramiz.",
+      "Va oxirgi amal - 2u ni 3v dan ayirish."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 2 — Vektorlarni qo'shish va ayirish",
+      "problem": "Berilgan: a = [-1, 4], b = [2, -2]; toping: a + b, a - b, 3a + 2b",
+      "steps": [
+       {
+        "text": "a + b = [-1 + 2, 4 + (-2)] = [1, 2]"
+       },
+       {
+        "text": "a - b = [-1 - 2, 4 - (-2)] = [-3, 6]"
+       },
+       {
+        "text": "3a + 2b = [3·(-1) + 2·2, 3·4 + 2·(-2)] = [-3 + 4, 12 - 4] = [1, 8]"
+       }
+      ],
+      "result": "Natijalar: a + b = [1, 2], a - b = [-3, 6], 3a + 2b = [1, 8]"
+     },
+     "narr": [
+      "Ikkinchi misolda a va b vektorlarini qo'shamiz.",
+      "Keyin a vektorni b vektordan ayiramiz.",
+      "Va oxirgi amal - 3a ni 2b qo'shish."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 3 — Vektor tenglamalarni yechish",
+      "problem": "Toping x, agar x + [2, -4, 1] = [7, 3, -2]",
+      "steps": [
+       {
+        "text": "Vektorni ikkala tomondan ayiramiz: x = [7 - 2, 3 - (-4), -2 - 1]"
+       },
+       {
+        "text": "Har bir komponentni hisoblaymiz: x = [5, 7, -3]"
+       }
+      ],
+      "result": "x = [5, 7, -3]"
+     },
+     "narr": [
+      "Uchinchi misolda bizda vektor tenglamasi berilgan.",
+      "Yechish uchun vektorni ikkala tomondan ayirish kerak.",
+      "Natijada x vektorni topamiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 4 — Vektor tenglamalarni yechish",
+      "problem": "Toping x, agar 3x - 2u = v, bunda u = [-2, 1], v = [8, 2]",
+      "steps": [
+       {
+        "text": "Avval x ni ajratamiz: 3x = v + 2u"
+       },
+       {
+        "text": "v + 2u ni hisoblaymiz: [8 + 2·(-2), 2 + 2·1] = [4, 4]"
+       },
+       {
+        "text": "Keyin x ni topamiz: x = [4/3, 4/3]"
+       },
+       {
+        "text": "Tushuntirish: Skalyarga ko'paytirish qo'shishga nisbatan taqsimlanuvchi, shuning uchun vektorni 3 ga bo'lish degani, uning har bir komponentini 3 ga bo'lishdir"
+       }
+      ],
+      "result": "x = [4/3, 4/3]"
+     },
+     "narr": [
+      "To'rtinchi misolda bizda biroz murakkabroq tenglama bor.",
+      "Avval x ni ajratib olamiz.",
+      "Keyin v + 2u ni hisoblaymiz.",
+      "Va oxirgi x ni topamiz.",
+      "Eslatma: Skalyarga ko'paytirish qo'shishga nisbatan taqsimlanuvchi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 5 — Vektorlarning Evklid uzunligi",
+      "problem": "Vektorlarning Evklid uzunligini hisoblang: u = [3, 4], v = [2, -3, 6], w = [0, 0, 0]",
+      "steps": [
+       {
+        "text": "∥u∥ = √(3² + 4²) = √(9 + 16) = 5"
+       },
+       {
+        "text": "∥v∥ = √(2² + (-3)² + 6²) = √(4 + 9 + 36) = 7"
+       },
+       {
+        "text": "∥w∥ = 0 (faqat nol vektor nol uzunlikka ega)"
+       }
+      ],
+      "result": "∥u∥ = 5, ∥v∥ = 7, ∥w∥ = 0"
+     },
+     "narr": [
+      "Beshinchi misolda uchta vektorning uzunligini hisoblaymiz.",
+      "Birinchi vektorning uzunligi 5 ga teng.",
+      "Ikkinchi vektorning uzunligi 7 ga teng.",
+      "Uchinchi vektor - bu nol vektor, uning uzunligi 0 ga teng."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 6 — Birlik vektorni topish",
+      "problem": "v = [-4, 3] vektoriga bir xil yo'nalishda birlik vektorni toping va uning uzunligi 1 ga teng ekanini tekshiring",
+      "steps": [
+       {
+        "text": "Avval v vektorning uzunligini topamiz: ∥v∥ = √((-4)² + 3²) = 5"
+       },
+       {
+        "text": "Birlik vektorni topamiz: v̂ = v/5 = [-4/5, 3/5]"
+       },
+       {
+        "text": "Tekshirish: ∥v̂∥ = √((-4/5)² + (3/5)²) = √(16/25 + 9/25) = 1"
+       }
+      ],
+      "result": "Birlik vektor: v̂ = [-4/5, 3/5]"
+     },
+     "narr": [
+      "Oltinchi misolda bizga birlik vektorni topish kerak.",
+      "Birinchi qadam - berilgan vektorning uzunligini hisoblash.",
+      "Keyin vektorni uning uzunligiga bo'lamiz.",
+      "Va oxirgi qadam - birlik vektorning uzunligini tekshirish."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 7 - Berilgan uzunlikdagi vektorni topish",
+      "problem": "v = [3, -8] vektoriga bir xil yo'nalishda uzunligi 10 bo'lgan vektorni toping",
+      "steps": [
+       {
+        "text": "Avval v vektorning uzunligini topamiz: ∥v∥ = √(3² + (-8)²) = 5"
+       },
+       {
+        "text": "Kerakli uzunlik (10) berilgan uzunlikka (5) nisbatini topamiz: 10/5 = 2"
+       },
+       {
+        "text": "Vektorni shu miqdorda masshtablaymiz: 2v = [6, -16]"
+       },
+       {
+        "text": "Tekshirish: ∥2v∥ = 2·5 = 10"
+       }
+      ],
+      "result": "Topilgan vektor: [6, -16]"
+     },
+     "narr": [
+      "Yettinchi misolda bizga berilgan uzunlikdagi vektorni topish kerak.",
+      "Birinchi qadam - berilgan vektorning uzunligini hisoblash.",
+      "Keyin kerakli uzunlik berilgan uzunlikka nisbatini topamiz.",
+      "Vektorni shu miqdorda masshtablaymiz.",
+      "Va oxirgi qadam - topilgan vektorning uzunligini tekshirish."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 8 - Nuqtalar orasidagi masofa",
+      "problem": "Vektorlarni ayirish va uzunlikdan foydalanib, P = (1, -2, 3) va Q = (5, 1, -3) nuqtalar orasidagi masofani toping",
+      "steps": [
+       {
+        "text": "PQ vektorni topamiz: PQ = Q - P = [5 - 1, 1 - (-2), -3 - 3] = [4, 3, -6]"
+       },
+       {
+        "text": "Masofani hisoblaymiz: d(P, Q) = ∥PQ∥ = √(4² + 3² + (-6)²) = √(16 + 9 + 36) = √61"
+       }
+      ],
+      "result": "d(P, Q) = √61"
+     },
+     "narr": [
+      "Sakkizinchi misolda ikki nuqta orasidagi masofani topish kerak.",
+      "Birinchi qadam - PQ vektorni topish.",
+      "Keyin masofani hisoblaymiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 9 - Vektorlarning chiziqli birikmasi",
+      "problem": "v1 = [2, 4], v2 = [1, 3] bo'lsin. 2v1 + v2, -v1 + 3v2, 4v1 - 2v2, 0v1 + 5v2 ni hisoblang",
+      "steps": [
+       {
+        "text": "2v1 + v2 = [2·2 + 1, 2·4 + 3] = [5, 11]"
+       },
+       {
+        "text": "-v1 + 3v2 = [-1·2 + 3·1, -1·4 + 3·3] = [1, 5]"
+       },
+       {
+        "text": "4v1 - 2v2 = [4·2 - 2·1, 4·4 - 2·3] = [6, 10]"
+       },
+       {
+        "text": "0v1 + 5v2 = [0·2 + 5·1, 0·4 + 5·3] = [5, 15]"
+       }
+      ],
+      "result": "2v1 + v2 = [5, 11], -v1 + 3v2 = [1, 5], 4v1 - 2v2 = [6, 10], 0v1 + 5v2 = [5, 15]"
+     },
+     "narr": [
+      "To'qqizinchi misolda bizda ikkita vektor berilgan.",
+      "Ushbu vektorlarning turli chiziqli birikmalarini hisoblaymiz.",
+      "Birinchi birikma - 2v1 + v2",
+      "Ikkinchi birikma - -v1 + 3v2",
+      "Uchinchi birikma - 4v1 - 2v2",
+      "Va to'rtinchi birikma - 0v1 + 5v2"
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 10 - Vektor tenglamalar sistemasini yechish",
+      "problem": "c1, c2 ni toping shundayki c1·[1, 2] + c2·[-1, 1] = [7, 1]",
+      "steps": [
+       {
+        "text": "Komponentli tenglamalar sistemasi hosil qilamiz:"
+       },
+       {
+        "text": "c1 - c2 = 7 (birinchi komponent)"
+       },
+       {
+        "text": "2c1 + c2 = 1 (ikkinchi komponent)"
+       },
+       {
+        "text": "Birinchisini ikkinchisidan ayiramiz: (c1 - c2) - (2c1 + c2) = 7 - 1"
+       },
+       {
+        "text": "-c1 - 2c2 = 6"
+       },
+       {
+        "text": "Bu sistemani yechamiz: c1 = 5, c2 = -2"
+       },
+       {
+        "text": "Tekshirish: 5·[1, 2] + (-2)·[-1, 1] = [5 + 2, 10 - 2] = [7, 8]"
+       }
+      ],
+      "result": "c1 = 5, c2 = -2"
+     },
+     "narr": [
+      "O'ninchi misolda bizda vektorlar tenglamasi bor.",
+      "Buning uchun komponentli tenglamalar sistemasi hosil qilamiz.",
+      "Birinchi komponent uchun tenglamani yozamiz.",
+      "Ikkinchi komponent uchun tenglamani yozamiz.",
+      "Sistemani yechamiz.",
+      "Va oxirgi qadam - tekshirish."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chiziqli algebra I — 1–4 haftalar",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 2,
+      "title": "Chiziqli algebra I — 1–4 haftalar",
+      "subtitle": "Savollar · Formulalar · Yechimlar"
+     },
+     "narr": [
+      "Chiziqli algebra darslarining birinchi haftasidagi mashqlar bilan tanishamiz. Bu mashqlar vektorlar, ularning chiziqli bog'liqligi va span tushunchalarini o'rganishga qaratilgan.",
+      "Keling, birinchi masalani ko'rib chiqaylik."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 11 — Vektor kombinatsiyasi",
+      "problem": "b = [5, 1, 4] vektorini b = c1 · v1 + c2 · v2 + c3 · v3 ko'rinishida yozish mumkinmi, bunda v1 = [1, 0, 1], v2 = [0, 1, 1], v3 = [1, 1, 0]?",
+      "steps": [
+       {
+        "text": "c1 + c3 = 5 tenglamani hosil qilamiz"
+       },
+       {
+        "text": "c2 + c3 = 1 tenglamani hosil qilamiz"
+       },
+       {
+        "text": "c1 + c2 = 4 tenglamani hosil qilamiz"
+       },
+       {
+        "text": "Birinchi ikkita tenglamani qo'shib, uchinchisini ayiramiz: 2c3 = 2"
+       },
+       {
+        "text": "c3 = 1, c1 = 4, c2 = 0 ekanligini topamiz"
+       }
+      ],
+      "result": "Kombinatsiya mavjud: b = 4v1 + 0 · v2 + 1 · v3"
+     },
+     "narr": [
+      "Bu masalada bizga b vektorini berilgan uchta vektorning chiziqli kombinatsiyasi sifatida ifodalash so'ralgan.",
+      "Birinchi navbatda, komponentlar bo'yicha tenglamalar sistemani yozamiz.",
+      "Birinchi tenglamada c1 va c3 ning yig'indisi 5 ga teng.",
+      "Ikkinchi tenglamada c2 va c3 ning yig'indisi 1 ga teng.",
+      "Uchinchi tenglamada esa c1 va c2 ning yig'indisi 4 ga teng.",
+      "Endi birinchi ikkita tenglamani qo'shib, uchinchisini ayiramiz.",
+      "Bu bizga 2c3 = 2 tenglamasini beradi, bundan c3 = 1 ekanligini topamiz.",
+      "c3 ning qiymatini bilib, qolgan koeffitsientlarni topamiz: c1 = 4 va c2 = 0.",
+      "Shunday qilib, b vektorini 4v1 + 0 · v2 + 1 · v3 ko'rinishida ifodalash mumkin.",
+      "Yechimning noyobligi shuni ham ko'rsatadiki, uchta vektor chiziqli bog'liq emas."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      4,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 12 — Geometrik tasvir",
+      "problem": "c·[-2, 3], c ∈ R bo'lgan barcha vektorlarni geometrik tasvirlang; [4, -6], [-2, 3], [6, -8] vektorlari bu span ga tegishlimi?",
+      "steps": [
+       {
+        "text": "Span — boshlang'ich nuqtadan o'tuvchi (-2, 3) yo'nalishidagi butun to'g'ri chiziq"
+       },
+       {
+        "text": "[4, -6] vektorni tekshiramiz: -2 · (-2) = 4 va -2 · 3 = -6"
+       },
+       {
+        "text": "c = -2 bo'lganda, [4, -6] vektor span ga tegishli"
+       },
+       {
+        "text": "[-2, 3] vektorni tekshiramiz: c = 1 bo'lganda, -2 · 1 = -2 va 3 · 1 = 3"
+       },
+       {
+        "text": "c = 1 bo'lganda, [-2, 3] vektor span ga tegishli"
+       },
+       {
+        "text": "[6, -8] vektorni tekshiramiz: -2c = 6 va 3c = -8"
+       }
+      ]
+     },
+     "narr": [
+      "Ikkinchi masalada bizga c·[-2, 3], c ∈ R bo'lgan barcha vektorlarning geometrik tasviri so'ralgan.",
+      "Endi berilgan uchta vektorni bu span ga tegishliligini tekshirishimiz kerak.",
+      "Birinchi [4, -6] vektorni ko'rib chiqamiz: c = -2 bo'lganda, -2 · (-2) = 4 va -2 · 3 = -6 bo'ladi.",
+      "Demak, [4, -6] vektor span ga tegishli.",
+      "Ikkinchi [-2, 3] vektorni ko'rib chiqamiz: c = 1 bo'lganda, -2 · 1 = -2 va 3 · 1 = 3 bo'ladi.",
+      "Demak, [-2, 3] vektor ham span ga tegishli.",
+      "Uchinchi [6, -8] vektorni ko'rib chiqamiz: -2c = 6 va 3c = -8 tenglamalarni yechishimiz kerak."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 12 — Geometrik tasvir (cont.)",
+      "problem": "",
+      "steps": [
+       {
+        "text": "c = -3 va c = -8/3 bo'lishi kerak, bu ziddiyat"
+       },
+       {
+        "text": "Shuning uchun [6, -8] vektor to'g'ri chiziqda yotmaydi"
+       }
+      ],
+      "result": "[4, -6] va [-2, 3] vektorlari span ga tegishli, [6, -8] esa tegishli emas"
+     },
+     "narr": [
+      "Bu span - boshlang'ich nuqtadan o'tuvchi (-2, 3) yo'nalishidagi butun to'g'ri chiziqdir.",
+      "Birinchi tenglamadan c = -3, ikkinchisidan c = -8/3 kelib chiqadi, bu ziddiyatdir.",
+      "Shuning uchun [6, -8] vektor bu to'g'ri chiziqda yotmaydi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 13 — Chiziqli bog'liqlik",
+      "problem": "v1 = [1, 0, 1], v2 = [3, 0, 3] vektorlari chiziqli mustaqilmi? c1v1 + c2v2 = 0 bo'lgan nol bo'lmagan c1, c2 ni toping va geometrik tushuntiring.",
+      "steps": [
+       {
+        "text": "v2 = 3v1 ekanligini ko'ramiz"
+       },
+       {
+        "text": "3v1 - v2 = 0 no trivial bog'liqlikni hosil qiladi"
+       },
+       {
+        "text": "c1 = 3, c2 = -1 bo'lganda tenglik o'rinli"
+       },
+       {
+        "text": "Vektorlar bog'liq ekanligini aniqlaymiz"
+       },
+       {
+        "text": "Geometrik jihatdan ikkalasi ham boshlang'ich nuqtadan o'tuvchi bir to'g'ri chiziqda yotadi"
+       },
+       {
+        "text": "Ikkalasi birga faqat shu to'g'ri chiziqni hosil qiladi"
+       }
+      ],
+      "result": "Vektorlar chiziqli bog'liq, chunki v2 = 3v1. Geometrik jihatdan ikkalasi ham bir to'g'ri chiziqda yotadi."
+     },
+     "narr": [
+      "Uchinchi masalada bizga ikki vektorning chiziqli mustaqilligini tekshirish so'ralgan.",
+      "Avval vektorlarni ko'rib chiqamiz: v1 = [1, 0, 1], v2 = [3, 0, 3].",
+      "E'tibor bering, v2 ning har bir komponenti v1 ning mos komponentidan 3 marta katta.",
+      "Demak, v2 = 3v1 ekanligini ko'ramiz.",
+      "Bu 3v1 - v2 = 0 no trivial bog'liqlikni beradi, bunda c1 = 3, c2 = -1.",
+      "Shuning uchun bu vektorlar chiziqli bog'liq.",
+      "Geometrik jihatdan, ikkala vektor ham boshlang'ich nuqtadan o'tuvchi bir xil to'g'ri chiziqda yotadi.",
+      "Ikkalasi birga ham faqat shu to'g'ri chiziqni hosil qiladi, ya'ni ular yangi yo'nalish bermaydi."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 14 — Vektorlar bog'ligi",
+      "problem": "v1 = [1, 0, 1], v2 = [0, 1, 1], v3 = [1, 1, 2] vektorlari chiziqli mustaqilmi? Agar bog'liq bo'lsa, birini boshqalari orqali ifodalang.",
+      "steps": [
+       {
+        "text": "v3 = αv1 + βv2 deb faraz qilamiz"
+       },
+       {
+        "text": "Birinchi komponent: α = 1"
+       },
+       {
+        "text": "Ikkinchi komponent: β = 1"
+       },
+       {
+        "text": "Uchinchi komponent: α + β = 2"
+       },
+       {
+        "text": "1 + 1 = 2, shuning uchun mos keladi"
+       },
+       {
+        "text": "Demak v3 = v1 + v2"
+       }
+      ]
+     },
+     "narr": [
+      "To'rtinchi masalada uchta vektorning chiziqli mustaqilligini tekshirishimiz kerak.",
+      "Birinchi komponent bo'yicha: α = 1",
+      "Ikkinchi komponent bo'yicha: β = 1",
+      "Uchinchi komponent bo'yicha: α + β = 2",
+      "1 + 1 = 2 ekanligini ko'ramiz, shuning uchun bu mos keladi.",
+      "Demak, v3 = v1 + v2 ekanligini aniqladik.",
+      "Bu no trivial bog'liqlik mavjudligini ko'rsatadi, shuning uchun vektorlar to'plami bog'liq."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 14 — Vektorlar bog'ligi (cont.)",
+      "problem": "",
+      "steps": [
+       {
+        "text": "No trivial bog'liqlik mavjud va to'plam bog'liq"
+       },
+       {
+        "text": "Faqat ikkita mustaqil yo'nal mavjud; span — tekislik"
+       }
+      ],
+      "result": "Vektorlar chiziqli bog'liq, chunki v3 = v1 + v2"
+     },
+     "narr": [
+      "v3 = αv1 + βv2 deb faraz qilib, koeffitsientlarni topamiz.",
+      "Geometrik jihatdan, bu vektorlar orasida faqat ikkita mustaqil yo'nal mavjud va ularning spani tekislikni hosil qiladi."
+     ],
+     "narr_item": [
+      -1,
+      0
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 15 — R2 ni hosil qilish",
+      "problem": "v1 = [1, 2], v2 = [3, 1] bo'lsin. (1) Ular R2 ni hosil qiladimi? (2) b = [7, 4] uchun c1, c2 ni toping shundayki c1v1 + c2v2 = b. (3) formuladan ifodalang.",
+      "steps": [
+       {
+        "text": "c1 + 3c2 = b1, 2c1 + c2 = b2 tenglamalarini yechamiz"
+       },
+       {
+        "text": "c1 = b1 - 3c2 deb ifodalaymiz"
+       },
+       {
+        "text": "2b1 - 6c2 + c2 = b2 tenglamaga o'tamiz"
+       },
+       {
+        "text": "c2 = (2b1 - b2)/5 ekanligini topamiz"
+       },
+       {
+        "text": "c1 = (-b1 + 3b2)/5 ekanligini topamiz"
+       },
+       {
+        "text": "b = [7, 4] uchun c1 = (-7 + 12)/5 = 1"
+       }
+      ]
+     },
+     "narr": [
+      "Beshinchi masalada ikki vektorning R2 ni hosil qilishini tekshirishimiz kerak.",
+      "Birinchi savolga javob berish uchun c1v1 + c2v2 = b tenglamani yechamiz.",
+      "Bu c1 + 3c2 = b1 va 2c1 + c2 = b2 sistemani beradi.",
+      "Birinchi tenglamadan c1 = b1 - 3c2 deb ifodalaymiz.",
+      "Ikkinchi tenglamaga qo'yib, 2b1 - 6c2 + c2 = b2 tenglamasini olamiz.",
+      "Bu erdan c2 = (2b1 - b2)/5 ekanligini topamiz.",
+      "c1 uchun esa c1 = (-b1 + 3b2)/5 formulani olamiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 15 — R2 ni hosil qilish (cont.)",
+      "problem": "",
+      "steps": [
+       {
+        "text": "c2 = (14 - 4)/5 = 2 ekanligini topamiz"
+       },
+       {
+        "text": "Demak b = v1 + 2v2"
+       }
+      ],
+      "result": "Vektorlar R2 ni hosil qiladi, chunki formulalar har qanday (b1, b2) uchun aniqlangan. b = [7, 4] uchun b = v1 + 2v2"
+     },
+     "narr": [
+      "v1 = [1, 2], v2 = [3, 1] vektorlari berilgan.",
+      "Bu formulalar har qanday (b1, b2) uchun aniqlangan, shuning uchun vektorlar R2 ni hosil qiladi.",
+      "Endi ikkinchi savolga javob beramiz: b = [7, 4] uchun c1 va c2 ni topamiz.",
+      "c1 = (-7 + 12)/5 = 1",
+      "c2 = (14 - 4)/5 = 2",
+      "Demak b = v1 + 2v2"
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 16 — Chiziqli bog'liq vektorlar",
+      "problem": "u1 = [-1, 2], u2 = [-3, 6] bo'lsin. (1) Ular R2 ni hosil qiladimi? (2) span{u1, u2} ni geometrik ravishda tasvirlang; (3) [8, -4], [1, 2] unga tegishlimi?",
+      "steps": [
+       {
+        "text": "u2 = 3u1 ekanligini ko'ramiz"
+       },
+       {
+        "text": "Shuning uchun span — faqat span{u1}"
+       },
+       {
+        "text": "Geometrik jihatdan bu (-1, 2) yo'nalishidagi boshidan o'tgan yagona to'g'ri chiziq"
+       },
+       {
+        "text": "Ikkita kollinear vektor hech qachon tekislikni qamrab olmaydi"
+       },
+       {
+        "text": "[8, -4] uchun: -c = 8 va 2c = -4, ya'ni c = -8 va c = -2"
+       },
+       {
+        "text": "Bu ziddiyat, shuning uchun [8, -4] span ga tegishli emas"
+       }
+      ]
+     },
+     "narr": [
+      "Oltinchi masalada yana ikki vektor bilan ishlashimiz kerak.",
+      "Avval ularning nisbatini ko'rib chiqamiz: -3/-1 = 3 va 6/2 = 3.",
+      "Demak, u2 = 3u1 ekanligini ko'ramiz.",
+      "Bu ikkita vektor chiziqli bog'liq ekanligini ko'rsatadi.",
+      "Shuning uchun ularning spani faqat span{u1} bo'ladi.",
+      "Geometrik jihatdan bu (-1, 2) yo'nalishidagi boshidan o'tgan yagona to'g'ri chiziqdir.",
+      "Ikkita kollinear vektor hech qachon tekislikni qamrab olmaydi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 16 — Chiziqli bog'liq vektorlar (cont.)",
+      "problem": "",
+      "steps": [
+       {
+        "text": "[1, 2] uchun: -c = 1 va 2c = 2, ya'ni c = -1 va c = 1"
+       },
+       {
+        "text": "Bu ham ziddiyat, shuning uchun [1, 2] ham span ga tegishli emas"
+       }
+      ],
+      "result": "Vektorlar R2 ni hosil qilmaydi, chunki ular chiziqli bog'liq. Span (-1, 2) yo'nalishidagi to'g'ri chiziq. [8, -4] va [1, 2] vektorlari span ga tegishli emas."
+     },
+     "narr": [
+      "u1 = [-1, 2], u2 = [-3, 6] vektorlari berilgan.",
+      "Endi berilgan ikkita vektor bu span ga tegishliligini tekshiramiz.",
+      "[8, -4] uchun: -c = 8 va 2c = -4 tenglamalarni yechamiz.",
+      "Birinchidan c = -8, ikkinchisidan c = -2 kelib chiqadi, bu ziddiyatdir.",
+      "Shuning uchun [8, -4] vektor span ga tegishli emas.",
+      "[1, 2] uchun: -c = 1 va 2c = 2 tenglamalarni yechamiz.",
+      "Birinchidan c = -1, ikkinchisidan c = 1 kelib chiqadi, bu ham ziddiyatdir.",
+      "Shuning uchun [1, 2] vekor ham span ga tegishli emas."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 17 — R3 ni qamrab olish",
+      "problem": "Faraz qilaylik v1 = [1, 0, 1], v2 = [0, 1, 1], v3 = [1, 1, 0]. (1) c1v1 + c2v2 + c3v3 = b ni ixtiyoriy b = [b1, b2, b3] uchun yeching; (2) nima uchun bu uch vektor R³ ni qamrab olishini tushuntiring; (3) b = [4, 2, 6] ni ifodalang.",
+      "steps": [
+       {
+        "text": "Komponentlar: c1 + c3 = b1, c2 + c3 = b2, c1 + c2 = b3"
+       },
+       {
+        "text": "Uchtasini qo'shamiz: 2(c1 + c2 + c3) = b1 + b2 + b3"
+       },
+       {
+        "text": "c1 + c2 + c3 = (b1 + b2 + b3)/2"
+       },
+       {
+        "text": "c1 = (b1 + b2 - b3)/2"
+       },
+       {
+        "text": "c2 = (-b1 + b2 + b3)/2"
+       },
+       {
+        "text": "c3 = (b1 - b2 + b3)/2"
+       }
+      ]
+     },
+     "narr": [
+      "Yettinchi masalada uchta vektorni R³ ni qamrab olishini tekshirishimiz kerak.",
+      "Birinchi savolga javob berish uchun c1v1 + c2v2 + c3v3 = b tenglamani yechamiz.",
+      "Komponentlar bo'yicha: c1 + c3 = b1, c2 + c3 = b2, c1 + c2 = b3.",
+      "Uchta tenglamani qo'shamiz: 2(c1 + c2 + c3) = b1 + b2 + b3.",
+      "Demak, c1 + c2 + c3 = (b1 + b2 + b3)/2.",
+      "Endi har bir koeffitsientni topamiz:",
+      "c1 = (b1 + b2 - b3)/2"
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 17 — R3 ni qamrab olish (cont.)",
+      "problem": "",
+      "steps": [
+       {
+        "text": "Yechim istalgan o'ng tomon uchun mavjud va yagona"
+       },
+       {
+        "text": "Shuning uchun span — butun R³ (vektorlar mustaqil)"
+       },
+       {
+        "text": "b = [4, 2, 6] uchun: c1 = (4 + 2 - 6)/2 = 0"
+       },
+       {
+        "text": "c2 = (-4 + 2 + 6)/2 = 2"
+       },
+       {
+        "text": "c3 = (4 - 2 + 6)/2 = 4"
+       },
+       {
+        "text": "Demak b = 0v1 + 2v2 + 4v3"
+       }
+      ],
+      "result": "Vektorlar R³ ni qamrab oladi, chunki ular chiziqli mustaqil. b = [4, 2, 6] uchun b = 0v1 + 2v2 + 4v3"
+     },
+     "narr": [
+      "v1 = [1, 0, 1], v2 = [0, 1, 1], v3 = [1, 1, 0] vektorlari berilgan.",
+      "c2 = (-b1 + b2 + b3)/2",
+      "c3 = (b1 - b2 + b3)/2",
+      "Yechim istalgan o'ng tomon uchun mavjud va yagona, shuning uchun bu vektorlar R³ ni qamrab oladi.",
+      "Endi uchinchi savolga javob beramiz: b = [4, 2, 6] ni ifodalaymiz.",
+      "c1 = (4 + 2 - 6)/2 = 0",
+      "c2 = (-4 + 2 + 6)/2 = 2",
+      "c3 = (4 - 2 + 6)/2 = 4",
+      "Demak b = 0v1 + 2v2 + 4v3"
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      5,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 18 — Muvozanatdagi kuchlar",
+      "problem": "Detalga uchta kuch ta'sir qiladi: F1 = [40, -15, -20] N, F2 = [10, 25, -5] N, F3 = [10, 25, -5] N. (1) Rivojlantiruvchini toping; (2) detali muvozanatga keltiruvchi F4 ni toping: F1 + F2 + F3 + F4 = 0.",
+      "steps": [
+       {
+        "text": "Komponent bo'yicha qo'shamiz: F1 + F2 + F3 = [40+10+10, -15+25+25, -20-5-5] = [60, 35, -30]"
+       },
+       {
+        "text": "Muvozanat uchun F4 = -(F1 + F2 + F3) = [-60, -35, 30] kerak"
+       },
+       {
+        "text": "Bu rivojlantiruvchi vektorga aynan qarama-qarshi"
+       },
+       {
+        "text": "Shunda umumiy kuch nolga aylanadi"
+       }
+      ],
+      "result": "Rivojlantiruvchi F1 + F2 + F3 = [60, 35, -30] N. Muvozanat uchun F4 = [-60, -35, 30] N kerak."
+     },
+     "narr": [
+      "Sakkizinchi va so'nggi masalada bizga fizikadan misol keltirilgan.",
+      "Detalga uchta kuch ta'sir qiladi: F1 = [40, -15, -20] N, F2 = [10, 25, -5] N, F3 = [10, 25, -5] N.",
+      "Birinchi savolga javob berish uchun barcha kuchlarni komponent bo'yicha qo'shamiz.",
+      "F1 + F2 + F3 = [40+10+10, -15+25+25, -20-5-5] = [60, 35, -30] N.",
+      "Bu rivojlantiruvchi kuchdir.",
+      "Ikkinchi savolga javob berish uchun detali muvozanatga keltiruvchi F4 ni topishimiz kerak.",
+      "Muvozanat sharti: F1 + F2 + F3 + F4 = 0.",
+      "Demak, F4 = -(F1 + F2 + F3) = [-60, -35, 30] N.",
+      "Bu kuch rivojlantiruvchi vektorga aynan qarama-qarshi yo'nalgan.",
+      "Shunda barcha kuchlarning yig'indisi nolga teng bo'lib, detal muvozanat holatida bo'ladi."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 1 — Vektor qoʻshish va ayirish",
+      "problem": "a = (−1, 3, 2), b = (4, 0, −2). Hisoblanga +b va 3a −b; a va b oʻrtasidagi oʻrtacheni toping.",
+      "steps": [
+       {
+        "text": "a + b = (−1 + 4, 3 + 0, 2 + (−2)) = (3, 3, 0)"
+       },
+       {
+        "text": "3a = 3 × (−1, 3, 2) = (−3, 9, 6)"
+       },
+       {
+        "text": "3a − b = (−3 − 4, 9 − 0, 6 − (−2)) = (−7, 9, 8)"
+       },
+       {
+        "text": "a va b oʻrtasidagi oʻrta nuqta: (a + b)/2 = (3/2, 3/2, 0)"
+       }
+      ],
+      "result": "a + b = (3, 3, 0); 3a − b = (−7, 9, 8); Oʻrta nuqta: (3/2, 3/2, 0)"
+     },
+     "narr": [
+      "Birinchi masalada biz ikkita vektorni qoʻshish va ayirishni koʻrib chiqamiz. Shuningdek, ularning oʻrtasidagi oʻrta nuqtani topamiz.",
+      "Birinchi qadamda a va b vektorlarini qoʻshamiz. Har bir komponentni alohida qoʻshamiz.",
+      "Ikkinchi qadamda a vektorni 3 ga koʻpaytiramiz.",
+      "Uchinchi qadamda 3a vektordan b vektorni ayiramiz.",
+      "Toʻrtinchi qadamda a va b vektorlari oʻrtasidagi oʻrta nuqtani topamiz. Bu skalyar formuladagi oʻrtacha olish gʻoyasiga oʻxshaydi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 2 — Vektorlarni topish",
+      "problem": "Berilgan p + q = (5, 7) va p − q = (−1, 3); p va q ni toping.",
+      "steps": [
+       {
+        "text": "Ikkita tenglamani qoʻshamiz: (p + q) + (p − q) = (5, 7) + (−1, 3)"
+       },
+       {
+        "text": "2p = (4, 10), demak p = (2, 5)"
+       },
+       {
+        "text": "Ayirib koʻramiz: (p + q) − (p − q) = (5, 7) − (−1, 3)"
+       },
+       {
+        "text": "2q = (6, 4), demak q = (3, 2)"
+       },
+       {
+        "text": "Tekshirish: (2, 5) + (3, 2) = (5, 7) va (2, 5) − (3, 2) = (−1, 3)"
+       }
+      ],
+      "result": "p = (2, 5), q = (3, 2)"
+     },
+     "narr": [
+      "Ikkinchi masalada biz ikkita vektorni ularning yigʻindisi va ayirmasi orqali topishimiz kerak.",
+      "Birinchi qadamda ikkita tenglamani qoʻshamiz. Bu qoʻshib ayirish usulidir.",
+      "Ikkinchi qadamda p ni topamiz.",
+      "Uchinchi qadamda ayirib q ni topamiz.",
+      "Toʻrtinchi qadamda javobni tekshiramiz. Bu usul ikkita skalyar tenglamani bir vaqtda yechishning vektor analogidir."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 3 — Vektor kombinatsiyalari",
+      "problem": "u = (1, 2, −1), v = (2, −1, 0). Hisoblang −u + 3v; yozing cu + dv komponent boʻyicha; cu + dv = (5, 0, −1) ga teng boʻlishi mumkinmi?",
+      "steps": [
+       {
+        "text": "−u = −(1, 2, −1) = (−1, −2, 1)"
+       },
+       {
+        "text": "3v = 3 × (2, −1, 0) = (6, −3, 0)"
+       },
+       {
+        "text": "−u + 3v = (−1, −2, 1) + (6, −3, 0) = (5, −5, 1)"
+       },
+       {
+        "text": "cu + dv = (c + 2d, 2c − d, −c)"
+       },
+       {
+        "text": "(5, 0, −1) ga teng boʻlishi uchun: uchinchi komponent c = 1"
+       },
+       {
+        "text": "c + 2d = 5 dan d = 2"
+       },
+       {
+        "text": "2c − d = 0 tekshiriladi"
+       }
+      ],
+      "result": "−u + 3v = (5, −5, 1); cu + dv = (c + 2d, 2c − d, −c); Ha, u + 2v = (5, 0, −1)"
+     },
+     "narr": [
+      "Uchinchi masalada biz vektorlarning chiziqli kombinatsiyalarini koʻrib chiqamiz.",
+      "Birinchi qadamda −u ni hisoblaymiz.",
+      "Ikkinchi qadamda 3v ni hisoblaymiz.",
+      "Uchinchi qadamda −u + 3v ni hisoblaymiz.",
+      "Toʻrtinchi qadamda umumiy cu + dv ifodasini komponentlar boʻyicha yozamiz.",
+      "Beshinchi qadamda (5, 0, −1) vektoriga teng boʻlish shartlarini koʻrib chiqamiz.",
+      "Oltinchi qadamda javobni tekshiramiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 4 — Vektor bogʻliqligi",
+      "problem": "r = (2, −1), s = (−6, 3). Barcha kombinatsiyalarni cr + ds ni tasviring; vektorlar R² ni toʻldiradimi? Bogʻliqlik munosabatini toping.",
+      "steps": [
+       {
+        "text": "s = −3r ekanligini koʻramiz: (−6, 3) = −3 × (2, −1)"
+       },
+       {
+        "text": "Har qanday kombinatsiya (c − 3d)r koʻrinishida boʻladi"
+       },
+       {
+        "text": "Bu har doim r ning karrali boʻladi"
+       },
+       {
+        "text": "Span — bu orqali oʻtgan toʻgʻri chiziq"
+       },
+       {
+        "text": "3r + s = 0 munosabati bogʻliqlikni isbotlaydi"
+       }
+      ],
+      "result": "s = −3r; Har qanday kombinatsiya (c − 3d)r koʻrinishida; Vektorlar tekislikni choʻzmaydi; Bogʻliqlik: 3r + s = 0"
+     },
+     "narr": [
+      "Toʻrtinchi masalada biz vektorlarning bogʻliqligi va ularning fazoni qanday toʻldirishini koʻrib chiqamiz.",
+      "Birinchi qadamda s vektorni r vektorning karrali sifatida ifodalaymiz.",
+      "Ikkinchi qadamda har qanday kombinatsiyani (c − 3d)r koʻrinishida yozamiz.",
+      "Uchinchi qadamda bunday kombinatsiyalar faqatgina r vektorign parallel boʻlgan toʻgʻri chiziqni hosil qilishini koʻramiz.",
+      "Toʻrtinchi qadamda bu vektorlarning bogʻliqligini koʻrsatuvchi munosabatni topamiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 5 — Tekislik tenglamasi",
+      "problem": "v = (1, 0, 1), w = (1, 2, 0) deb oling. cv + dw = (x, y, z) yozing; x, y, z ni bogʻlaydigan bitta tenglamani toping; b = (4, 6, 1) ni tekshiring.",
+      "steps": [
+       {
+        "text": "cv + dw = (c + d, 2d, c)"
+       },
+       {
+        "text": "Uchinchi komponentdan c = z"
+       },
+       {
+        "text": "Ikkinchi komponentdan y = 2d, demak d = y/2"
+       },
+       {
+        "text": "Birinchi komponentdan x = c + d = z + y/2"
+       },
+       {
+        "text": "b = (4, 6, 1) uchun: x = 1 + 6/2 = 4, toʻgʻri"
+       },
+       {
+        "text": "c = 1, d = 3"
+       }
+      ],
+      "result": "cv + dw = (c + d, 2d, c); x = z + y/2; b tekislikda joylashgan; c = 1, d = 3"
+     },
+     "narr": [
+      "Beshinchi masalada biz ikki vektorning hosil qilgan tekislikni tekshiramiz.",
+      "Birinchi qadamda cv + dw ni komponentlar boʻyicha yozamiz.",
+      "Ikkinchi qadamdan c ni z orqali ifodalaymiz.",
+      "Uchinchi qadamdan d ni y orqali ifodalaymiz.",
+      "Toʻrtinchi qadamda x, y, z orasidagi bogʻliqlikni topamiz.",
+      "Beshinchi qadamda berilgan b vektorining tekislikda joylashganligini tekshiramiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 6 — Tenglamalar sistemasini yechish",
+      "problem": "c, d ni shunday topingki, c(1, 2) + d(3, −1) = (7, 3); komponent boʻyicha tenglamalarni yozing va yeching.",
+      "steps": [
+       {
+        "text": "c + 3d = 7"
+       },
+       {
+        "text": "2c − d = 3"
+       },
+       {
+        "text": "Ikkinchi tenglamadan d = 2c − 3"
+       },
+       {
+        "text": "Birinchi tenglamaga almashtiramiz: c + 6c − 9 = 7"
+       },
+       {
+        "text": "7c = 16, c = 16/7"
+       },
+       {
+        "text": "d = 2 × 16/7 − 3 = 32/7 − 21/7 = 11/7"
+       }
+      ],
+      "result": "c = 16/7, d = 11/7"
+     },
+     "narr": [
+      "Oltinchi masalada biz chiziqli tenglamalar sistemasini yechamiz.",
+      "Birinchi qadamda birinchi komponent boʻyicha tenglamani yozamiz.",
+      "Ikkinchi qadamda ikkinchi komponent boʻyicha tenglamani yozamiz.",
+      "Uchinchi qadamdan d ni c orqali ifodalaymiz.",
+      "Toʻrtinchi qadamda birinchi tenglamaga almashtirib yechamiz.",
+      "Beshinchi qadamda c va d qiymatlarini topamiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 7 — Vektorlar bogʻliqligi",
+      "problem": "u = (1, 1, 0), v = (0, 1, 1), w = (1, 2, 1). w yangi yoʻnalish qoʻshadimi? span{u, v, w} ni tasvirlang; nolga teng boʻlgan munosabatni keltiring.",
+      "steps": [
+       {
+        "text": "w = u + v ekanligini tekshiramiz: (1, 2, 1) = (1, 1, 0) + (0, 1, 1)"
+       },
+       {
+        "text": "w u va v vektorlarining chiziqli kombinatsiyasi ekanligini koʻramiz"
+       },
+       {
+        "text": "Shuning uchun w yangi yoʻnalish qoʻshmaydi"
+       },
+       {
+        "text": "u + v − w = 0 munosabati bogʻliqlikni isbotlaydi"
+       },
+       {
+        "text": "Uchta vektor bogʻliq va ularning spani faqatgina u va v choʻzgan tekislikdir"
+       }
+      ],
+      "result": "w yangi yoʻnalish qoʻshmaydi; span{u, v, w} = span{u, v}; Bogʻliqlik: u + v − w = 0"
+     },
+     "narr": [
+      "Yettinchi masalada biz uchta vektorni bogʻliqligini tekshiramiz.",
+      "Birinchi qadamda w vektorni u va v vektorlarining yigʻindisi sifatida ifodalaymiz.",
+      "Ikkinchi qadamda w ning u va v vektorlarining chiziqli kombinatsiyasi ekanligini koʻramiz.",
+      "Uchinchi qadamdan w ning yangi yoʻnalish qoʻshmasligini xulosa qilamiz.",
+      "Toʻrtinchi qadamda bogʻliqlikni koʻrsatuvchi munosabatni topamiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 8 — Fazolarni choʻzish",
+      "problem": "Ikkita vektor butun R³ ni choʻzishi mumkinmi? Uchta vektor R³ ni choʻzishi mumkin va bogʻliq boʻlishi mumkinmi? \"Yangi yoʻnalishlar\" orqali tushuntiring.",
+      "steps": [
+       {
+        "text": "Ikkita vektor maksimal tekislikni choʻzadi"
+       },
+       {
+        "text": "Har bir vektor maksimal bitta yangi yoʻnalish beradi"
+       },
+       {
+        "text": "Ikki yoʻnalish bilan uch oʻlchamli fazoni toʻldirib boʻlmaydi"
+       },
+       {
+        "text": "Uchta bogʻliq vektor ham maksimal tekislikni choʻzadi"
+       },
+       {
+        "text": "Bogʻliqlik bittasining qolganlarining kombinatsiyasi ekanligini anglatadi"
+       },
+       {
+        "text": "R³ ga erishish uchun uchta mustaqil yoʻnalish kerak"
+       },
+       {
+        "text": "Shuning uchun uchta bogʻliq vektor hech qachon R³ ni choʻzmaydi"
+       }
+      ],
+      "result": "Ikkita vektor R³ ni choʻzmaydi; Uchta bogʻliq vektor ham R³ ni choʻzmaydi"
+     },
+     "narr": [
+      "Sakkizinchi masalada biz fazolarni qanday choʻzish mumkinligini koʻrib chiqamiz.",
+      "Birinchi qadamda ikki vektorning maksimal tekislikni choʻzishini tushuntiramiz.",
+      "Ikkinchi qadamda har bir vektor yangi yoʻnalish qoʻshishini tushuntiramiz.",
+      "Uchinchi qadamda ikki vektorning uch oʻlchamli fazoni toʻldira olmasligini tushuntiramiz.",
+      "Toʻrtinchi qadamda uchta bogʻliq vektor ham maksimal tekislikni choʻzishini tushuntiramiz.",
+      "Beshinchi qadamda bogʻliqlik tushunchasini tushuntiramiz.",
+      "Oltinchi qadamda uchta mustaqil yoʻnalishning ahamiyatini tushuntiramiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Skalyar koʻpaytma",
+      "tex": "u \\cdot v = u_1v_1 + \\cdots + u_nv_n = u^T v",
+      "parts": [
+       {
+        "substr": "u \\cdot v",
+        "color": "#4C5FD5",
+        "note": "ikkita vektorning skalyar koʻpaytmasi"
+       },
+       {
+        "substr": "u^T v",
+        "color": "#B45309",
+        "note": "vektorning transponiriyalangan koʻrinishi bilan vektorni koʻpaytirish"
+       }
+      ]
+     },
+     "narr": [
+      "Birinchi formula skalyar koʻpaytmani tavsiflaydi. Bu ikkita vektorning mos keladigan komponentlarini koʻpaytirib, keyin yigʻindisini olish orqali hisoblanadi.",
+      "Bu shuningdek, birinchi vektorning transponiriyalangan koʻrinishi bilan ikkinchi vektorni matritsa koʻpaytmasi sifatida ham ifodalanishi mumkin."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Burchak kosinusi",
+      "tex": "\\cos \\theta = \\frac{u \\cdot v}{\\|u\\|\\|v\\|}",
+      "parts": [
+       {
+        "substr": "\\cos \\theta",
+        "color": "#4C5FD5",
+        "note": "vektorlar orasidagi burchakning kosinusi"
+       },
+       {
+        "substr": "u \\cdot v",
+        "color": "#B45309",
+        "note": "vektorlarning skalyar koʻpaytmasi"
+       },
+       {
+        "substr": "\\|u\\|\\|v\\|",
+        "color": "#0E7C7B",
+        "note": "vektorlarning normalarining koʻpaytmasi"
+       }
+      ]
+     },
+     "narr": [
+      "Bu formula ikki vektor orasidagi burchakni hisoblashga imkon beradi. Bu ikkita vektorning skalyar koʻpaytmasining ularning normalarining koʻpaytmasiga nisbati sifatida ifodalanadi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Perpendikulyarlik",
+      "tex": "u \\perp v \\Leftrightarrow u \\cdot v = 0",
+      "parts": [
+       {
+        "substr": "u \\perp v",
+        "color": "#4C5FD5",
+        "note": "vektorlar perpendikulyar"
+       },
+       {
+        "substr": "u \\cdot v = 0",
+        "color": "#B45309",
+        "note": "skalyar koʻpaytma nolga teng"
+       }
+      ]
+     },
+     "narr": [
+      "Ikki vektor perpendikulyar boʻlishi ularning skalyar koʻpaytmasining nolga teng boʻlishi bilan belgilanadi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Proyeksiya",
+      "tex": "\\text{proj}_v u = \\frac{u \\cdot v}{v \\cdot v} v",
+      "parts": [
+       {
+        "substr": "\\text{proj}_v u",
+        "color": "#4C5FD5",
+        "note": "u vektorni v vektoriga proyeksiyasi"
+       },
+       {
+        "substr": "u \\cdot v",
+        "color": "#B45309",
+        "note": "vektorlarning skalyar koʻpaytmasi"
+       },
+       {
+        "substr": "v \\cdot v",
+        "color": "#0E7C7B",
+        "note": "v vektorning oʻziga koʻpaytmasi"
+       }
+      ]
+     },
+     "narr": [
+      "Bu formula u vektorni v vektoriga proyeksiyasi hisoblash usulini beradi. Bu u vektorning v yoʻnalishidagi komponentini hisoblashga imkon beradi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Vektor koʻpaytma",
+      "tex": "u \\times v = \\begin{pmatrix} u_2v_3 - u_3v_2 \\\\ u_3v_1 - u_1v_3 \\\\ u_1v_2 - u_2v_1 \\end{pmatrix}",
+      "parts": [
+       {
+        "substr": "u \\times v",
+        "color": "#4C5FD5",
+        "note": "ikkita vektorning vektor koʻpaytmasi"
+       },
+       {
+        "substr": "u_2v_3 - u_3v_2",
+        "color": "#B45309",
+        "note": "birinchi komponent"
+       },
+       {
+        "substr": "u_3v_1 - u_1v_3",
+        "color": "#0E7C7B",
+        "note": "ikkinchi komponent"
+       },
+       {
+        "substr": "u_1v_2 - u_2v_1",
+        "color": "#A03040",
+        "note": "uchinchi komponent"
+       }
+      ]
+     },
+     "narr": [
+      "Vektor koʻpaytma uch oʻlchamli fazada ikki vektorga perpendikulyar boʻlgan yangi vektorni beradi. Uning komponentlari berilgan formulalar boʻyicha hisoblanadi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Vektor koʻpaytmasi xossalari",
+      "tex": "\\|u \\times v\\| = \\|u\\|\\|v\\||\\sin \\theta| \\text{ (yuza)}",
+      "parts": [
+       {
+        "substr": "\\|u \\times v\\|",
+        "color": "#4C5FD5",
+        "note": "vektor koʻpaytmasining normas"
+       },
+       {
+        "substr": "\\|u\\|\\|v\\|",
+        "color": "#B45309",
+        "note": "vektorlarning normalarining koʻpaytmasi"
+       },
+       {
+        "substr": "|\\sin \\theta|",
+        "color": "#0E7C7B",
+        "note": "vektorlar orasidagi burchkning sinusining moduli"
+       }
+      ]
+     },
+     "narr": [
+      "Vektor koʻpaytmasining normas ikki vektorning hosil qilgan parallelogramm yuzasiga teng boʻladi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Vektor koʻpaytma antisimmetriklik",
+      "tex": "u \\times v = -(v \\times u)",
+      "parts": [
+       {
+        "substr": "u \\times v",
+        "color": "#4C5FD5",
+        "note": "birinchi vektorni ikkinchisiga koʻpaytirish"
+       },
+       {
+        "substr": "-(v \\times u)",
+        "color": "#B45309",
+        "note": "teskari tartibda koʻpaytirish va manfiy belgi"
+       }
+      ]
+     },
+     "narr": [
+      "Vektor koʻpaytma antisimmetrikdir - vektorlarning tartibini oʻzgartirsak natija manfiy boʻladi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Vektor koʻpaytma perpendikulyarlik",
+      "tex": "(u \\times v) \\perp u, v",
+      "parts": [
+       {
+        "substr": "(u \\times v)",
+        "color": "#4C5FD5",
+        "note": "vektor koʻpaytmasi"
+       },
+       {
+        "substr": "\\perp u, v",
+        "color": "#B45309",
+        "note": "asosiy vektorlarga perpendikulyarlik"
+       }
+      ]
+     },
+     "narr": [
+      "Vektor koʻpaytmasi har ikki asosiy vektorga ham perpendikulyar boʻladi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Matritsa qoʻshish va koʻpaytirish",
+      "tex": "A = [a_{ij}] \\in \\mathbb{R}^{m \\times n}, \\quad (A + B)_{ij} = a_{ij} + b_{ij}, \\quad (cA)_{ij} = c a_{ij}",
+      "parts": [
+       {
+        "substr": "A = [a_{ij}] \\in \\mathbb{R}^{m \\times n}",
+        "color": "#4C5FD5",
+        "note": "matritsa oʻlchami va elementlari"
+       },
+       {
+        "substr": "(A + B)_{ij} = a_{ij} + b_{ij}",
+        "color": "#B45309",
+        "note": "matritsa qoʻshish"
+       },
+       {
+        "substr": "(cA)_{ij} = c a_{ij}",
+        "color": "#0E7C7B",
+        "note": "matritsani skalyar koʻpaytirish"
+       }
+      ]
+     },
+     "narr": [
+      "Matritsalar qoʻshilganda va skalyarga koʻpaytirilganda ularning mos keladigan elementlari qoʻshiladi yoki koʻpaytiriladi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Matritsa-vektor koʻpaytmasi",
+      "tex": "Ax = x_1a_1 + \\cdots + x_na_n \\text{ (ustunlar rasmi)}",
+      "parts": [
+       {
+        "substr": "Ax",
+        "color": "#4C5FD5",
+        "note": "matritsa va vektorni koʻpaytirish"
+       },
+       {
+        "substr": "x_1a_1 + \\cdots + x_na_n",
+        "color": "#B45309",
+        "note": "matritsaning ustunlarining chiziqli kombinatsiyasi"
+       },
+       {
+        "substr": "a_j",
+        "color": "#0E7C7B",
+        "note": "matritsaning j-ustuni"
+       }
+      ]
+     },
+     "narr": [
+      "Matritsa va vektorni koʻpaytirish natijasida matritsaning ustunlarining chiziqli kombinatsiyasi hosil boʻladi, bunda koeffitsientlar vektordan olinadi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Diagonal matritsa",
+      "tex": "D = \\text{diag}(d_1, \\ldots, d_n) \\text{ har bir koordinatani masshtablaydi: } Dx = (d_1x_1, \\ldots, d_nx_n)^T",
+      "parts": [
+       {
+        "substr": "D = \\text{diag}(d_1, \\ldots, d_n)",
+        "color": "#4C5FD5",
+        "note": "diagonal matritsa"
+       },
+       {
+        "substr": "Dx = (d_1x_1, \\ldots, d_nx_n)^T",
+        "color": "#B45309",
+        "note": "diagonal matritsa bilan vektorni koʻpaytirish"
+       }
+      ]
+     },
+     "narr": [
+      "Diagonal matritsa faqatgina diagonal boʻylab elementlarga ega boʻlgan matritsadir. U vektorni koʻpaytirganda har bir komponentni mos keladigan diagonal elementga koʻpaytiradi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "1-masala — Skalyar ko'paytma va burchakni hisoblash",
+      "problem": "u = (3, -2)^T, v = (4, 5)^T vektorlari berilgan. u · v ni hisoblang; burchakni tasniflang.",
+      "steps": [
+       {
+        "text": "Skalyar ko'paytmani hisoblaymiz: u · v = 3 · 4 + (-2) · 5 = 12 - 10 = 2"
+       },
+       {
+        "text": "Skalyar ko'paytma musbat ekanligidan, cos θ > 0 degani, ya'ni burchak o'tkir"
+       }
+      ],
+      "result": "u · v = 2, burchak o'tkir"
+     },
+     "narr": [
+      "Birinchi masalada u va v vektorlari berilgan. Ushbu vektorlarning skalyar ko'paytmasini hisoblaymiz.",
+      "Ko'paytma musbat chiqdi, bu esa ular orasidagi burchakning o'tkir ekanligini ko'rsatadi."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "2-masala — Vektor normasi va masofani hisoblash",
+      "problem": "u = (2, -1, 2)^T, v = (-1, 3, 0)^T vektorlari berilgan. ||u|| va dist(u, v) ni toping.",
+      "steps": [
+       {
+        "text": "u vektorining normasini hisoblaymiz: ||u|| = √(2² + (-1)² + 2²) = √(4 + 1 + 4) = √9 = 3"
+       },
+       {
+        "text": "u - v vektorni topamiz: u - v = (2 - (-1), -1 - 3, 2 - 0)^T = (3, -4, 2)^T"
+       },
+       {
+        "text": "dist(u, v) = ||u - v|| = √(3² + (-4)² + 2²) = √(9 + 16 + 4) = √29"
+       }
+      ],
+      "result": "||u|| = 3, dist(u, v) = √29"
+     },
+     "narr": [
+      "Ikkinchi masalada ikki vektor berilgan. Birinchisining normasini, ikkinchisilar orasidagi masofani hisoblashimiz kerak.",
+      "Norma — bu vektorning uzunligi. Masofa esa ikki vektor orasidagi farqning normasidir."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "3-masala — Perpendikulyar vektor parametrini topish",
+      "problem": "u = (2, k, -1)^T vektori v = (3, 1, 4)^T vektoriga perpendikular bo'ladigan k ni toping.",
+      "steps": [
+       {
+        "text": "Ikki vektor perpendikular bo'lishi uchun ularning skalyar ko'paytmasi nolga teng bo'lishi kerak: u · v = 0"
+       },
+       {
+        "text": "Skalyar ko'paytmani hisoblaymiz: 2 · 3 + k · 1 + (-1) · 4 = 6 + k - 4 = 0"
+       },
+       {
+        "text": "Tenglamani yechamiz: k = -2"
+       }
+      ],
+      "result": "k = -2"
+     },
+     "narr": [
+      "Uchinchi masalada parametrli vektor berilgan. U berilgan ikkinchi vektorga perpendikular bo'lishi uchun parametrni topishimiz kerak.",
+      "Perpendikulyarlik sharti — bu ikki vektorni ko'paytmasi nolga teng bo'lishi."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "4-masala — Vektorlar orasidagi burchakni topish",
+      "problem": "u = (1, -1)^T, v = (1, 1)^T vektorlari orasidagi burchakni toping.",
+      "steps": [
+       {
+        "text": "Skalyar ko'paytmani hisoblaymiz: u · v = 1 · 1 + (-1) · 1 = 1 - 1 = 0"
+       },
+       {
+        "text": "Skalyar ko'paytma nolga teng bo'lgani uchun, vektorlar perpendikulyar va burchak 90° ga teng"
+       }
+      ],
+      "result": "θ = 90°"
+     },
+     "narr": [
+      "To'rtinchi masalada ikki vektor orasidagi burchakni topishimiz kerak.",
+      "Bu yerda skalyar ko'paytma nolga teng chiqdi, bu esa vektorlar perpendikulyar ekanligini bildiradi."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "5-masala — Vektor proyeksiyasi",
+      "problem": "u = (4, 2)^T vektorini v = (1, 1)^T vektoriga proyeksiyaling.",
+      "steps": [
+       {
+        "text": "Skalyar ko'paytmalarni hisoblaymiz: u · v = 4 · 1 + 2 · 1 = 6, v · v = 1 · 1 + 1 · 1 = 2"
+       },
+       {
+        "text": "Proyeksiya formulasi: proj_v u = (u · v)/(v · v) · v = (6/2) · v = 3v"
+       },
+       {
+        "text": "Proyeksiyani hisoblaymiz: 3v = 3 · (1, 1)^T = (3, 3)^T"
+       },
+       {
+        "text": "Qoldiqni tekshiramiz: u - 3v = (4 - 3, 2 - 3)^T = (1, -1)^T"
+       },
+       {
+        "text": "Qoldiq vektorga perpendikular ekanligini tekshiramiz: (1, -1)^T · (1, 1)^T = 1 - 1 = 0"
+       }
+      ],
+      "result": "proj_v u = (3, 3)^T"
+     },
+     "narr": [
+      "Beshinchi masalada bir vektorning ikkinchisiga proyeksiyasini topishimiz kerak.",
+      "Proyeksiya — bu vektorning berilgan yo'naladagi komponenti. Qoldiq esa bu proyeksiyaga perpendikular bo'lgan qismidir."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "6-masala — Vektor ko'paytmasi",
+      "problem": "u = (2, 0, 2)^T, v = (-1, 2, 0)^T vektorlari uchun u × v ni hisoblang va ortogonallikni tekshiring.",
+      "steps": [
+       {
+        "text": "Vektor ko'paytmasini hisoblaymiz: u × v = (0 · 0 - 2 · 2, 2 · (-1) - 2 · 0, 2 · 2 - 0 · (-1))^T = (-4, -2, 4)^T"
+       },
+       {
+        "text": "u × v vektoriga nisbatan ortogonallikni tekshiramiz: u · (u × v) = 2 · (-4) + 0 · (-2) + 2 · 4 = -8 + 0 + 8 = 0"
+       },
+       {
+        "text": "v × v vektoriga nisbatan ortogonallikni tekshiramiz: v · (u × v) = (-1) · (-4) + 2 · (-2) + 0 · 4 = 4 - 4 + 0 = 0"
+       }
+      ],
+      "result": "u × v = (-4, -2, 4)^T, ikkala vektorga ham ortogonal"
+     },
+     "narr": [
+      "Oltinchi masalada ikki vektorning vektor ko'paytmasini hisoblashimiz kerak.",
+      "Vektor ko'paytmasi natijasida hosil bo'lgan vektor asl ikkala vektorga ham perpendikular bo'ladi."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "7-masala — Parallelogramm yuzini hisoblash",
+      "problem": "Tomonlari a = (2, 0, 1)^T, b = (1, 3, -1)^T bo'lgan parallelogramm yuzini toping.",
+      "steps": [
+       {
+        "text": "Vektor ko'paytmasini hisoblaymiz: a × b = (0 · (-1) - 1 · 3, 1 · 1 - 2 · (-1), 2 · 3 - 0 · 1)^T = (-3, 3, 6)^T"
+       },
+       {
+        "text": "Parallelogramm yuzi vektor ko'paytmasining normasiga teng: ||a × b|| = √((-3)² + 3² + 6²) = √(9 + 9 + 36) = √54 = 3√6"
+       }
+      ],
+      "result": "Yuzi = 3√6"
+     },
+     "narr": [
+      "Yettinchi masalada ikki vektor orqali aniqlangan parallelogramm yuzini hisoblashimiz kerak.",
+      "Parallelogramm yuzi bu vektorlarning vektor ko'paytmasining moduliga teng bo'ladi."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "8-masala — Matritsa o'lchami va elementlari",
+      "problem": "A = [[2, 4, 0], [3, 5]] matritsasi uchun o'lchamni ko'rsating, a13, a22 ni toping va ustunlarni yozing.",
+      "steps": [
+       {
+        "text": "Matritsa o'lchami: 2 × 3 (2 qator, 3 ustun)"
+       },
+       {
+        "text": "a13 = 0 (1-qator, 3-ustun)"
+       },
+       {
+        "text": "a22 = 5 (2-qator, 2-ustun)"
+       },
+       {
+        "text": "Ustunlar: a1 = (2, 3)^T, a2 = (4, 5)^T, a3 = (0, 0)^T"
+       }
+      ],
+      "result": "O'lcham: 2 × 3, a13 = 0, a22 = 5, ustunlar: a1 = (2, 3)^T, a2 = (4, 5)^T, a3 = (0, 0)^T"
+     },
+     "narr": [
+      "Sakkizinchi masalada matritsaning o'lchami, elementlari va ustunlarini aniqlash talab qilinadi.",
+      "Matritsa o'lchami birinchi raqami qatorlari, ikkinchisi ustunlari sonini bildiradi."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "9-masala — Matritsa amallari",
+      "problem": "A = [[1, -2], [3, 0]], B = [[4, 1], [-1, 5]] matritsalar berilgan. 2A - B ni toping.",
+      "steps": [
+       {
+        "text": "2A ni hisoblaymiz: 2A = [[2 · 1, 2 · (-2)], [2 · 3, 2 · 0]] = [[2, -4], [6, 0]]"
+       },
+       {
+        "text": "2A - B ni hisoblaymiz: [[2 - 4, -4 - 1], [6 - (-1), 0 - 5]] = [[-2, -5], [7, -5]]"
+       }
+      ],
+      "result": "2A - B = [[-2, -5], [7, -5]]"
+     },
+     "narr": [
+      "To'qqizinchi masalada ikki matritsani ko'paytirib ayirish amalini bajaramiz.",
+      "Matritsani skalyar ko'paytirishda har bir element shu skalyarga ko'paytiriladi."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "10-masala — Matritsa ko'paytmalarining aniqlanishi",
+      "problem": "A o'lchami 3 × 2, B — 2 × 3, x ∈ R², y ∈ R³ bo'lsin. Ax, Ay, Bx, By dan qaysilari aniqlangan?",
+      "steps": [
+       {
+        "text": "Ax: (3×2)(2×1) = 3×1, natija R³ da — aniqlangan"
+       },
+       {
+        "text": "By: (2×3)(3×1) = 2×1, natija R² da — aniqlangan"
+       },
+       {
+        "text": "Ay: (3×2)(3×1) — ichki o'lchamlar mos emas (2 ≠ 3) — aniqlanmagan"
+       },
+       {
+        "text": "Bx: (2×3)(2×1) — ichki o'lchamlar mos emas (3 ≠ 2) — aniqlanmagan"
+       }
+      ],
+      "result": "Ax va By aniqlangan, Ay va Bx aniqlanmagan"
+     },
+     "narr": [
+      "O'ninchi masalada matritsa ko'paytmalarining aniqlanishini tekshirish talab qilinadi.",
+      "Matritsalarni ko'paytirishda birinchi matritsaning ustunlari soni ikkinchisining qatorlari soniga teng bo'lishi kerak."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "11-masala — Diagonal matritsa ko'paytmasi",
+      "problem": "D = diag(2, -1, 3), x = (4, 5, -2)^T vektori berilgan. Dx va I₃x ni toping.",
+      "steps": [
+       {
+        "text": "Dx ni hisoblaymiz: Dx = (2·4, -1·5, 3·(-2))^T = (8, -5, -6)^T"
+       },
+       {
+        "text": "I₃x ni hisoblaymiz: I₃x = x = (4, 5, -2)^T (birlik matritsa hech narsa o'zgarmaydi)"
+       }
+      ],
+      "result": "Dx = (8, -5, -6)^T, I₃x = (4, 5, -2)^T"
+     },
+     "narr": [
+      "O'n birinchi masalada diagonal matritsani vektorga ko'paytirish talab qilinadi.",
+      "Diagonal matritsani vektorga ko'paytirganda, har bir vektor komponenti o'z diagonal elementi bilan ko'paytiriladi."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "12-masala — Matritsa-vektor ko'paytmasi",
+      "problem": "A = [[1, 2, 0], [-1, 3, 4], [4, 0, 8]], x = (2, -1, 0)^T vektori berilgan. Ax ni ustunlar tasviri va qatorlar skalyar ko'paytmalari orqali hisoblang.",
+      "steps": [
+       {
+        "text": "Ustunlar tasviri: Ax = 2 · (1, -1, 4)^T + (-1) · (2, 3, 0)^T + 0 · (0, 4, 8)^T = (0, -5, 8)^T"
+       },
+       {
+        "text": "Qatorlar skalyar ko'paytmalari: [1, 2] · x = 0, [-1, 3] · x = -5, [4, 0] · x = 8"
+       },
+       {
+        "text": "Natija: (0, -5, 8)^T"
+       }
+      ],
+      "result": "Ax = (0, -5, 8)^T"
+     },
+     "narr": [
+      "O'n ikkinchi masalada matritsa-vektor ko'paytmasini ikki xil usulda hisoblash talab qilinadi.",
+      "Bir usulda matritsani ustunlari sifatida, ikkinchisida esa qatorlari sifatida ko'rib chiqamiz."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "13-masala — Tenglama sistemasini yechish",
+      "problem": "A = [[1, 2], [3, -1]] matritsasi va Ax = (7, 5)^T berilgan; x ni toping.",
+      "steps": [
+       {
+        "text": "Tenglama sistemasini yozamiz: x₁ + 2x₂ = 7, 3x₁ - x₂ = 5"
+       },
+       {
+        "text": "Ikkinchi tenglamadan x₂ ni ifodalaymiz: x₂ = 3x₁ - 5"
+       },
+       {
+        "text": "Birinchi tenglamaga qo'yamiz: x₁ + 2(3x₁ - 5) = 7 ⇒ x₁ + 6x₁ - 10 = 7 ⇒ 7x₁ = 17 ⇒ x₁ = 17/7"
+       },
+       {
+        "text": "x₂ ni topamiz: x₂ = 3 · (17/7) - 5 = 51/7 - 35/7 = 16/7"
+       }
+      ],
+      "result": "x = (17/7, 16/7)^T"
+     },
+     "narr": [
+      "Uchinchi o'n masalada matritsa tenglamasini yechish talab qilinadi.",
+      "Bu erda matritsa ko'paytmasi berilgan vektorga teng bo'lgan x vektorni topishimiz kerak."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "14-masala — Vektorlar uzunliklari orasidagi bog'liqlik",
+      "problem": "Nol bo'lmagan vektorlar u + v va u - v ortogonal. ||u|| va ||v|| haqida nima deyish mumkin?",
+      "steps": [
+       {
+        "text": "Ortogonallik sharti: (u + v) · (u - v) = 0"
+       },
+       {
+        "text": "Ko'paytmani ochamiz: u · u - u · v + v · u - v · v = ||u||² - ||v||² = 0"
+       },
+       {
+        "text": "Natija: ||u||² = ||v||² ⇒ ||u|| = ||v||"
+       }
+      ],
+      "result": "Vektorlar uzunliklari teng: ||u|| = ||v||"
+     },
+     "narr": [
+      "To'rtinchi o'n masalada ikki vektor yig'indisi va ayirmasi perpendikular bo'lgan holatda vektorlarning uzunliklari haqida xulosa chiqarish talab qilinadi.",
+      "Bu holatda vektorlar uzunliklari teng bo'lishi kerakligini ko'rsatdik."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "1-mashq — Skalyar ko'paytma va burchak",
+      "problem": "u = (-3, 2)^T, v = (4, 5)^T vektorlari berilgan. u · v ni hisoblang; burchak o'tkir, to'g'ri yoki o'tirmi?",
+      "steps": [
+       {
+        "text": "Skalyar ko'paytmani hisoblaymiz: u · v = -3 · 4 + 2 · 5 = -12 + 10 = -2"
+       },
+       {
+        "text": "Skalyar ko'paytma manfiy ekanligidan, cos θ < 0 degani, ya'ni burchak o'tirmi"
+       }
+      ],
+      "result": "u · v = -2, burchak o'tirmi"
+     },
+     "narr": [
+      "Birinchi mashqda ikki vektor berilgan. Ular orasidagi skalyar ko'paytmani hisoblab, burchak turini aniqlaymiz.",
+      "Bu yerda skalyar ko'paytma manfiy chiqdi, bu esa burchakning o'tirmi (90° dan katta) ekanligini bildiradi."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "2-mashq — Vektorlar ko'paytmalari",
+      "problem": "a = (1, -2, 4)^T, b = (3, 0, -1)^T vektorlari berilgan. a · b, ||a||, ||b||, ||a - b|| ni toping.",
+      "steps": [
+       {
+        "text": "Skalyar ko'paytmani hisoblaymiz: a · b = 1 · 3 + (-2) · 0 + 4 · (-1) = 3 + 0 - 4 = -1"
+       },
+       {
+        "text": "a vektorining normasini hisoblaymiz: ||a|| = √(1² + (-2)² + 4²) = √(1 + 4 + 16) = √21"
+       },
+       {
+        "text": "b vektorining normasini hisoblaymiz: ||b|| = √(3² + 0² + (-1)²) = √(9 + 0 + 1) = √10"
+       },
+       {
+        "text": "a - b vektorni topamiz: a - b = (1 - 3, -2 - 0, 4 - (-1))^T = (-2, -2, 5)^T"
+       },
+       {
+        "text": "a - b vektorining normasini hisoblaymiz: ||a - b|| = √((-2)² + (-2)² + 5²) = √(4 + 4 + 25) = √33"
+       }
+      ],
+      "result": "a · b = -1, ||a|| = √21, ||b|| = √10, ||a - b|| = √33"
+     },
+     "narr": [
+      "Ikkinchi mashqda ikki vektorning turli ko'paytmalarini hisoblash talab qilinadi.",
+      "Bu erda skalyar ko'paytma va vektorlarning normalarini hisoblab, ular orasidagi masofani topamiz."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "3-mashq — Perpendikulyar vektor parametri",
+      "problem": "u = (2, k, 3)^T vektori v = (-1, 4, 2)^T vektoriga perpendikular bo'ladigan k ni toping.",
+      "steps": [
+       {
+        "text": "Perpendikulyarlik sharti: u · v = 0"
+       },
+       {
+        "text": "Skalyar ko'paytmani hisoblaymiz: 2 · (-1) + k · 4 + 3 · 2 = -2 + 4k + 6 = 0"
+       },
+       {
+        "text": "Tenglamani yechamiz: 4k = -4 ⇒ k = -1"
+       }
+      ],
+      "result": "k = -1"
+     },
+     "narr": [
+      "Uchinchi mashqda parametrli vektorni ikkinchi vektorga perpendikular qiladigan parametrni topish talab qilinadi.",
+      "Bu masala avvalgi 3-masalaga o'xshash, lekin boshqa vektorlar bilan."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "4-mashq — Burchakni hisoblash",
+      "problem": "u = (3, 1)^T, v = (-2, 4)^T vektorlari uchun aniq cos θ ni, keyin θ ni gradus aniqligi bilan toping.",
+      "steps": [
+       {
+        "text": "Skalyar ko'paytmani hisoblaymiz: u · v = 3 · (-2) + 1 · 4 = -6 + 4 = -2"
+       },
+       {
+        "text": "Vektorlarning normalarini hisoblaymiz: ||u|| = √(3² + 1²) = √10, ||v|| = √((-2)² + 4²) = √20 = 2√5"
+       },
+       {
+        "text": "cos θ ni hisoblaymiz: cos θ = (u · v)/(||u|| · ||v||) = -2/(√10 · 2√5) = -1/√50 = -√2/10 ≈ -0.1414"
+       },
+       {
+        "text": "θ ni gradusda hisoblaymiz: θ ≈ 98°"
+       }
+      ],
+      "result": "cos θ = -√2/10 ≈ -0.1414, θ ≈ 98°"
+     },
+     "narr": [
+      "To'rtinchi mashqda ikki vektor orasidagi burchakni aniqroq hisoblash talab qilinadi.",
+      "Bu yerda avval cos θ ni, keyin gradusdagi burchak qiymatini topamiz."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 5 — Vektor proyeksiyasi",
+      "problem": "u = (6, 1)T vektorining v = (2, −1)T vektoriga proyeksiyasini toping; u −proj ning v ga perpendikularligini tekshiring.",
+      "steps": [
+       {
+        "text": "u · v = 6·2 + 1·(-1) = 12 - 1 = 11"
+       },
+       {
+        "text": "v · v = 2² + (-1)² = 4 + 1 = 5"
+       },
+       {
+        "text": "proj_v u = (11/5)(2, -1)T = (22/5, -11/5)T"
+       },
+       {
+        "text": "Qoldiq: u - proj_v u = (6 - 22/5, 1 - (-11/5))T = (8/5, 16/5)T"
+       },
+       {
+        "text": "v bilan skalyar ko'paytma: (8/5)·2 + (16/5)·(-1) = 16/5 - 16/5 = 0"
+       }
+      ],
+      "result": "Proyeksiya (22/5, -11/5)T, qoldiq vektorga perpendikular ekanligi tekshirildi."
+     },
+     "narr": [
+      "Birinchi masalada ikki o'lchovli vektorlar berilgan. Biz u vektorning v vektoriga proyeksiyasini topishimiz kerak.",
+      "Buning uchun avval ikki vektorning skalyar ko'paytmasini hisoblaymiz.",
+      "Keyin v vektorning o'zining skalyar ko'paytmasini topamiz.",
+      "Proyeksiya formulasiga ko'ra, u vektorning proyeksiyasi uning skalyar ko'paytmasini v vektorning uzunligi kvadratiga bo'lish orqali topiladi.",
+      "Endi asl vektordan uning proyeksiyasini ayiramiz va hosil bo'lgan qoldiq vektorni topamiz.",
+      "Agar qoldiq vektor berilgan vektorga perpendikular bo'lsa, ularning skalyar ko'paytmasi nolga teng bo'lishi kerak. Bu shart bajarilgan."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 6 — Vektorlar yo'nalishi",
+      "problem": "Nolga teng bo'lmagan p, q vektorlari p · q = ∥p∥∥q∥ shartni qanoatlantiradi. Ular yo'nalishi haqida qanday xulosa chiqarish mumkin?",
+      "steps": [
+       {
+        "text": "Skalyar ko'paytma formulasidan: p · q = ∥p∥∥q∥cosθ"
+       },
+       {
+        "text": "Berilgan shartga ko'ra: ∥p∥∥q∥ = ∥p∥∥q∥cosθ"
+       },
+       {
+        "text": "Demak, cosθ = 1, bu esa θ = 0° degani"
+       },
+       {
+        "text": "Vektorlar bir xil yo'nalishda (biri ikkinchisining musbat karrali)"
+       }
+      ],
+      "result": "Vektorlar bir xil yo'nalishda."
+     },
+     "narr": [
+      "Ikkinchi masalada ikki vektorning skalyar ko'paytmasi ularning uzunliklari ko'paytmasiga teng bo'lgan holat ko'rib chiqilmoqda.",
+      "Bu holatni tushunish uchun skalyar ko'paytmaning trigonometrik formulasini eslaymiz.",
+      "Tenglikdan foydalanib, kosinus burchagini topamiz.",
+      "Kosinus burchagi 1 ga teng bo'lsa, bu burchak 0° degani, ya'ni vektorlar bir-biriga parallel va bir xil yo'nalishda joylashgan.",
+      "Bu Koshi-Bunykovskiy-Shvarts tengsizligining chegaraviy holati bo'lib, vektorlar parallel bo'lganda erishiladi."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 7 — Vektor ko'paytmasi",
+      "problem": "a = (2, 1, −1)T , b = (0, 3, 2)T uchun a×b va b×a ni hisoblang; belgilar munosabatini tekshiring.",
+      "steps": [
+       {
+        "text": "a × b = [1·2 −(−1)·3; (−1)·0 −2·2; 2·3 −1·0] = [5; -4; 6]"
+       },
+       {
+        "text": "b × a = [3·(−1) −2·1; 2·2 −(−1)·0; 0·1 −3·2] = [-5; 4; -6]"
+       },
+       {
+        "text": "b × a = -(a × b) — ishora munosabati tasdiqlandi"
+       }
+      ],
+      "result": "a × b = (5, -4, 6)T, b × a = (-5, 4, -6)T"
+     },
+     "narr": [
+      "Uchinchi masalada uch o'lchovli vektorlarning vektor ko'paytmasini hisoblashni ko'rib chiqamiz.",
+      "Birinchi navbatda a × b ni hisoblaymiz.",
+      "Keyin teskari tartibda b × a ni hisoblaymiz.",
+      "Ikkala natijani solishtirganda, ularning bir-birining teskarisi ekanligini ko'ramiz.",
+      "Bu vektor ko'paytmasining asosiy xususiyatidir: agar vektorlarning tartibi o'zgarsa, natija ishorasi bilan o'zgaradi."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 8 — Perpendikullik tekshiruvi",
+      "problem": "Mashq 7 dan olingan a ×b vektorining avab ikkalasiga ham perpendikular ekanligini tekshiring.",
+      "steps": [
+       {
+        "text": "a · (a × b) = 2·5 + 1·(-4) + (-1)·6 = 10 - 4 - 6 = 0"
+       },
+       {
+        "text": "b · (a × b) = 0·5 + 3·(-4) + 2·6 = -12 + 12 = 0"
+       },
+       {
+        "text": "Ikkalasi ham nolga teng, (47) dan keyin kafolatlanganidek"
+       }
+      ],
+      "result": "a ×b vektori a va b vektorlariga perpendikular."
+     },
+     "narr": [
+      "To'rtinchi masalada oldingi masalada topilgan vekor ko'paytmasining asl vektorlarga nisbatan perpendikulligini tekshiramiz.",
+      "Birinchidan, a vektorga perpendikullikni tekshiramiz.",
+      "Keyin, b vektorga perpendikullikni tekshiramiz.",
+      "Ikkala holatda ham skalyar ko'paytma nolga teng chiqdi, bu esa ularning perpendikular ekanligini isbotlaydi.",
+      "Bu vektor ko'paytmasining asosiy xususiyatidir: u har doim ikki asl vektorga perpendikular bo'ladi."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 9 — Parallelogramm yuzi",
+      "problem": "u = (1, 2, 2)T , v = (3, −1, 0)T tomonli parallelogrammning yuzini toping.",
+      "steps": [
+       {
+        "text": "u × v = [2·0 −2·(−1); 2·3 −1·0; 1·(−1) −2·3] = [2; 6; -7]"
+       },
+       {
+        "text": "Vektor ko'ptmasining normasini hisoblaymiz: ||u × v|| = √(2² + 6² + (-7)²) = √(4 + 36 + 49) = √89"
+       },
+       {
+        "text": "Parallelogramm yuzi = ||u × v|| = √89"
+       }
+      ],
+      "result": "Parallelogramm yuzi √89 ga teng."
+     },
+     "narr": [
+      "Beshinchi masalada ikki vektor orqali hosil qilingan parallelogramm yuzini topishni ko'rib chiqamiz.",
+      "Avval ikki vektorning vektor ko'paytmasini hisoblaymiz.",
+      "Keyin hosil bo'lgan vektorning uzunligini (normasini) topamiz.",
+      "Vektor ko'paytmasining uzunligi aynan shu vektorlar orqali hosil qilingan parallelogramm yuziga teng bo'ladi.",
+      "Shunday qilib, parallelogramm yuzi √89 ga teng."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 10 — Uchburchak yuzi",
+      "problem": "P = (1, 0, 1), Q = (3, 1, 0), R = (0, 2, 4): PQR uchburchakning yuzini toping.",
+      "steps": [
+       {
+        "text": "P dan chiqadigan tomonlar: PQ = (3-1, 1-0, 0-1)T = (2, 1, -1)T"
+       },
+       {
+        "text": "PR = (0-1, 2-0, 4-1)T = (-1, 2, 3)T"
+       },
+       {
+        "text": "Vektor ko'paytmasi: PQ × PR = [1·3 −(−1)·2; (−1)·(−1) −2·3; 2·2 −1·(−1)] = (5, -5, 5)"
+       },
+       {
+        "text": "Norma: √(5² + (-5)² + 5²) = √(25 + 25 + 25) = √75 = 5√3"
+       },
+       {
+        "text": "Uchburchak yuzi = (1/2) · 5√3 = 5√3/2 (parallelogramm yuzining yarmi)"
+       }
+      ],
+      "result": "Uchburchak yuzi 5√3/2 ga teng."
+     },
+     "narr": [
+      "Oltinchi masalda uchburchak yuzini topishni ko'rib chiqamiz.",
+      "Birinchi navbatda uchburchakning uchlaridan ikkita tomon vektorini topamiz.",
+      "Keyin bu ikki vektorning vektor ko'paytmasini hisoblaymiz.",
+      "Vektor ko'paytmasining uzunligi bu vektorlar orqali hosil qilingan parallelogramm yuziga teng.",
+      "Uchburchak yuzi esa shu parallelogramm yuzining yarmiga teng bo'ladi.",
+      "Shuning uchun yakuniy javob 5√3/2 ga teng."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 11 — Parallel vektorlar",
+      "problem": "a = (1, t, 2)T va b = (3, 6, 6)T vektorlari a ×b = 0 shartni qanoatlantiradigan barcha haqiqiy t larni toping; agar bunday t lar bo'lmasa, tushuntiring.",
+      "steps": [
+       {
+        "text": "Parallel vektorlar nol vektor ko'paytmasini beradi"
+       },
+       {
+        "text": "Demak a = cb bo'lishi kerak: 1 = 3c ⇒ c = 1/3"
+       },
+       {
+        "text": "unda t = 6c = 2"
+       },
+       {
+        "text": "uchinchisini tekshiramiz: 2 = 6c = 2 — mos keladi"
+       },
+       {
+        "text": "Shunday qilib t = 2 yagona qiymat (unda a = (1/3)b)"
+       }
+      ],
+      "result": "t = 2"
+     },
+     "narr": [
+      "Yettinchi masalada ikki vektor parallel bo'lishi uchun qaysi t qiymati kerakligini topishimiz kerak.",
+      "Vektorlar parallel bo'lishi uchun ularning vektor ko'paytmasi nol vektorga teng bo'lishi kerak.",
+      "Shuning uchun bir vektorni ikkinchisining karrali deb hisoblaymiz.",
+      "Birinchi komponentdan koeffitsientni topamiz.",
+      "Keyin bu koeffitsientdan foydalanib t ni hisoblaymiz.",
+      "Uchinchi komponentni ham tekshirib, javobning to'g'riligini tasdiqlaymiz.",
+      "Shunday qilib, faqat bitta t qiymati mavjud bo'lib, u t = 2 ga teng."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 12 — Skalyar uchlik ko'paytma",
+      "problem": "a = (1, 0, 2)T , b = (2, 1, −1)T , c = (0, 3, 1)T . a · (b×c) ni hisoblang; nol qiymatini talqin qiling.",
+      "steps": [
+       {
+        "text": "b × c = [1·1 −(−1)·3; (−1)·0 −2·1; 2·3 −1·0] = [4; -2; 6]"
+       },
+       {
+        "text": "a · (b × c) = 1·4 + 0·(-2) + 2·6 = 4 + 0 + 12 = 16"
+       },
+       {
+        "text": "Bu uch vektorga tortilgan parallelepipedning belgilangan hajmi"
+       },
+       {
+        "text": "Nol qiymati komplanarlikni (3D hajmi yo'qligini) anglatardi"
+       },
+       {
+        "text": "Bu yerda |16| = 16 kub birlik"
+       }
+      ],
+      "result": "a · (b × c) = 16"
+     },
+     "narr": [
+      "Sakkizinchi masalada uch vektorga skalyar uchlik ko'paytmani hisoblashni ko'rib chiqamiz.",
+      "Avval ikki vektorning vekor ko'paytmasini hisoblaymiz.",
+      "Keyin uchinchi vektor bilan skalyar ko'paytmani amalga oshiramiz.",
+      "Bu skalyar uchlik ko'paytma uch vektorga tortilgan parallelepiped hajmiga teng.",
+      "Agar natija nolga teng bo'lsa, bu uch vektor bir tekislikda yotishini (komplanar ekanligini) bildiradi.",
+      "Bu holatda hajm 16 kub birlikga teng."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 13 — Matritsa elementlari",
+      "problem": "A = [2 4 3; -1 0 5] matritsasi berilgan. O'lchamini ko'rsating; a12, a23 elementlarini toping; har bir qator va ustunni vektor sifatida yozing.",
+      "steps": [
+       {
+        "text": "O'lchami 2 × 3 (avval qatorlar)"
+       },
+       {
+        "text": "a12 = -1 (1-qator, 2-ustun)"
+       },
+       {
+        "text": "a23 = 5"
+       },
+       {
+        "text": "Qatorlar: [2 4 3], [-1 0 5]"
+       },
+       {
+        "text": "Ustunlar: [2; -1], [4; 0], [3; 5]"
+       }
+      ],
+      "result": "O'lcham 2 × 3, a12 = -1, a23 = 5"
+     },
+     "narr": [
+      "To'qqizinchi masalada matritsaning asosiy tushunchalarini ko'rib chiqamiz.",
+      "Avval matritsaning o'lchamini aniqlaymiz.",
+      "Keyin matritsaning ma'lum elementlarini topamiz.",
+      "Element indekslari birinchi qator, ikkinchi ustun tartibida beriladi.",
+      "Nihoyat, matritsaning qatorlarini va ustunlarini vektor sifatida yozamiz.",
+      "Bu matritsa operatsiyalarini tushunish uchun juda muhim."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 14 — Matritsa amallari",
+      "problem": "A = [1 3; -2 4], B = [5 -1; 0 2] matritsalar berilgan. A + B, A −B, −2A, 3A −2B ni hisoblang.",
+      "steps": [
+       {
+        "text": "A + B = [1+5 3+(-1); -2+0 4+2] = [6 2; -2 6]"
+       },
+       {
+        "text": "A - B = [1-5 3-(-1); -2-0 4-2] = [-4 4; -2 2]"
+       },
+       {
+        "text": "-2A = [-2(1) -2(3); -2(-2) -2(4)] = [-2 -6; 4 -8]"
+       },
+       {
+        "text": "3A - 2B = [3(1)-2(5) 3(3)-2(-1); 3(-2)-2(0) 3(4)-2(2)] = [-7 11; -6 8]"
+       }
+      ],
+      "result": "A + B = [6 2; -2 6], A - B = [-4 4; -2 2], -2A = [-2 -6; 4 -8], 3A - 2B = [-7 11; -6 8]"
+     },
+     "narr": [
+      "O'ninchi masalada ikki matritsa ustida amallarni bajarishni ko'rib chiqamiz.",
+      "Birinchi qadamda ikki matritsani qo'shamiz.",
+      "Matritsalarni qo'shish uchun ularning mos elementlarini qo'shamiz.",
+      "Keyin birinchi matritsani ikkinchisidan ayiramiz.",
+      "Ushbu amal ham mos elementlar orasida bajariladi.",
+      "Keyin birinchi matritsani -2 ga ko'paytiramiz.",
+      "Nihoyat, ikki matritsani chiziqli kombinatsiyasini hisoblaymiz.",
+      "Bu matritsa amallari chiziqli algebrada asosiy hisoblash usullaridir."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 15 — Matritsa ko'paytmasi",
+      "problem": "A matritsasi 4 × 3 o'lchamda, B — 3 × 2, x ∈R2, y ∈R3, z ∈R4. Ax, Ay, Az, Bx, By, Bz dan qaysilari aniqlangan va ularning chiqish o'lchamlari qanday?",
+      "steps": [
+       {
+        "text": "Ay: (4 × 3)(3 × 1) — aniqlangan, natija R4"
+       },
+       {
+        "text": "Bx: (3 × 2)(2 × 1) — aniqlangan, natija R3"
+       },
+       {
+        "text": "Ax: (4 × 3)(2 × 1) — ichki o'lchamlari mos kelmaydi (3 ≠ 2)"
+       },
+       {
+        "text": "Az: (4 × 3)(4 × 1) — ichki o'lchamlari mos kelmaydi (3 ≠ 4)"
+       },
+       {
+        "text": "By: (3 × 2)(3 × 1) — ichki o'lchamlari mos kelmaydi (2 ≠ 3)"
+       },
+       {
+        "text": "Bz: (3 × 2)(4 × 1) — ichki o'lchamlari mos kelmaydi (2 ≠ 4)"
+       }
+      ],
+      "result": "Ay va Bx aniqlangan, Ay natijasi R4, Bx natijasi R3"
+     },
+     "narr": [
+      "O'n birinchi masalada matritsa ko'paytmasining aniqlanish shartlarini ko'rib chiqamiz.",
+      "Matritsalarni ko'paytirish uchun birinchi matritsaning ustunlari soni ikkinchi matritsaning qatorlari soniga teng bo'lishi kerak.",
+      "Ay ko'paytmasini tekshiramiz: A 4×3, y 3×1, 3=3 shart bajariladi, natija 4×1 o'lchamda bo'ladi.",
+      "Bx ko'paytmasini tekshiramiz: B 3×2, x 2×1, 2=2 shart bajariladi, natija 3×1 o'lchamda bo'ladi.",
+      "Ax ko'paytmasini tekshiramiz: A 4×3, x 2×1, 3≠2 shart bajarilmaydi.",
+      "Az ko'paytmasini tekshiramiz: A 4×3, z 4×1, 3≠4 shart bajarilmaydi.",
+      "By ko'paytmasini tekshiramiz: B 3×2, y 3×1, 2≠3 shart bajarilmaydi.",
+      "Bz ko'paytmasini tekshiramiz: B 3×2, z 4×1, 2≠4 shart bajarilmaydi."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      5,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 16 — Diagonal matritsa",
+      "problem": "D = diag(−2, 3, 1), x = (4, −1, 5)T berilgan. Dx ni hisoblang; Dhar bir koordi-nataga nima qilishini tushuntiring.",
+      "steps": [
+       {
+        "text": "D = [-2 0 0; 0 3 0; 0 0 1]"
+       },
+       {
+        "text": "Dx = [-2·4; 3·(-1); 1·5] = [-8; -3; 5]"
+       },
+       {
+        "text": "D har bir koordinatani mos diagonal elementga ko'paytiradi"
+       },
+       {
+        "text": "Birinchi koordinata -2 ga masshtablanadi (aks etish bilan cho'zish)"
+       },
+       {
+        "text": "Ikkinchi — 3 ga, uchinchi — 1 ga"
+       }
+      ],
+      "result": "Dx = [-8; -3; 5]"
+     },
+     "narr": [
+      "O'n ikkinchi masalada diagonal matritsani ko'rib chiqamiz.",
+      "Avval diagonal matritsani to'liq ko'rinishida yozamiz.",
+      "Keyin berilgan vektorga ko'paytiramiz.",
+      "Diagonal matritsa har bir koordinatani mos diagonal elementga ko'paytiradi.",
+      "Bu holda birinchi koordinata -2 ga, ikkinchisi 3 ga, uchinchisi 1 ga ko'paytiriladi.",
+      "Bu matritsa vektorni turli o'lchovlarda masshtablashga xizmat qiladi."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 17 — Matritsa ko'paytmasi usullari",
+      "problem": "A = [1 4 2; -2 0 2; -1 -1 2] matritsasi berilgan. Ax ni (a) ustunlarning kombinatsiyasi sifatida, (b) qatorlarning skalyar ko'paytmalari orqali hisoblang; x = [2; -1; 3]",
+      "steps": [
+       {
+        "text": "(a) Ustunlarning chiziqli kombinatsiyasi:"
+       },
+       {
+        "text": "Ax = 2·[1; -2; -1] + (-1)·[4; 0; -1] + 3·[2; 2; 2] = [2; -4; -2] + [-4; 0; 1] + [6; 6; 6] = [4; 2; 9]"
+       },
+       {
+        "text": "(b) Qatorlarning skalyar ko'paytmalari:"
+       },
+       {
+        "text": "1-qator: 1·2 + (-2)·(-1) + 3·3 = 2 + 2 + 9 = 13"
+       },
+       {
+        "text": "2-qator: 4·2 + 0·(-1) + (-1)·3 = 8 + 0 - 3 = 5"
+       },
+       {
+        "text": "3-qator: 2·2 + 2·(-1) + 2·3 = 4 - 2 + 6 = 8"
+       },
+       {
+        "text": "Natija: [13; 5; 8]"
+       }
+      ],
+      "result": "Ax = [13; 5; 8]"
+     },
+     "narr": [
+      "O'n uchinchi masalada matritsa ko'paytmasini ikki xil usulda hisoblashni ko'rib chiqamiz.",
+      "Birinchi usulda matritsani uning ustunlari chiziqli kombinatsiyasi sifatida ifodalaymiz.",
+      "Ikkinchi usulda esa matritsani uning qatorlari skalyar ko'paytmalari sifatida ifodalaymiz.",
+      "Ikkala usul ham bir xil natijani berishi kerak, bu matritsa ko'paytmasining asosiy xususiyatidir.",
+      "Bu usullar matritsa ko'paytmalarini tushunish va hisoblashda juda foydalidir."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 18 — Vektorlar kombinatsiyasi",
+      "problem": "a1 = (1, 2)T , a2 = (3, −1)T vektorlar berilgan. x1a1 + x2a2 = (11, 1)T tenglamani qanoatlantiruvchi x = (x1, x2)T ni toping.",
+      "steps": [
+       {
+        "text": "Komponentlar bo'yicha tenglamalar tuzamiz: x1 + 3x2 = 11, 2x1 −x2 = 1"
+       },
+       {
+        "text": "Ikkinchi tenglamadan x2 ni topamiz: x2 = 2x1 − 1"
+       },
+       {
+        "text": "Birinchi tenglamaga qo'yamiz: x1 + 3(2x1 − 1) = 11"
+       },
+       {
+        "text": "Tenglamani yechamiz: x1 + 6x1 − 3 = 11 ⇒ 7x1 = 14 ⇒ x1 = 2"
+       },
+       {
+        "text": "x2 ni topamiz: x2 = 2·2 − 1 = 3"
+       }
+      ],
+      "result": "x = (2, 3)T"
+     },
+     "narr": [
+      "Bu masalada biz ikkita vektorning chiziqli kombinatsiyasini topishimiz kerak. Birinchi qadamda komponentlar bo'yicha tenglamalar tuzamiz. Ikkinchi tenglamadan x2 ni ifodalab, birinchi tenglamaga qo'yamiz. Keyin tenglamani yechib, x1 ni topamiz. Oxirida x2 ni hisoblaymiz."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 19 — Matritsa tenglamasi",
+      "problem": "A = [2 4; -1 -2] matritsasi berilgan. Ax = 0 tenglamani qanoatlantiruvchi barcha x ni tavsiflang; nima uchun ustunlar chiziqli bogliq?",
+      "steps": [
+       {
+        "text": "Tenglamani yozamiz: 2x1 + 4x2 = 0 va -x1 - 2x2 = 0"
+       },
+       {
+        "text": "E'tibor bering, bu ikkala tenglama bir xil: 2x1 = -4x2"
+       },
+       {
+        "text": "Yechimni umumiy ko'rinishda yozamiz: x = t · [-2; 1], t ∈ R"
+       },
+       {
+        "text": "Bu barcha yechimlar to'g'ri chiziqni tashkil qiladi"
+       },
+       {
+        "text": "Trivial bo'lmagan kombinatsiya mavjud: -2·a1 + 1·a2 = 0"
+       },
+       {
+        "text": "Bu ustunlarning chiziqli bog'liqligini ko'rsatadi (2-ustun 1-ustunning -2 barobariga teng)"
+       }
+      ],
+      "result": "x = t · [-2; 1], t ∈ R — butun yechimlar to'g'ri chiziq"
+     },
+     "narr": [
+      "Bu masalada biz matritsa tenglamasini yechishimiz kerak. E'tibor bering, ikkala tenglama aslida bir xil, shuning uchun ular chiziqli bog'liq. Yechimlar to'g'ri chiziqni tashkil qiladi. Bundan tashqari, biz ustunlarning chiziqli bog'liqligini ham ko'rsatdik."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 20 — Matritsani tuzish va ko'paytirish",
+      "problem": "A matritsasi 3 × 2 o'lchamda, A [1; 0] = [2; -1; 4] va A [0; 1] = [3; 2; 0]. A ni yozing va A [-2; 5] ni qator skalyar ko'paytmalarisiz hisoblang.",
+      "steps": [
+       {
+        "text": "A matritsasini uning ustunlari orqali yozamiz: A = [2 3; -1 2; 4 0]"
+       },
+       {
+        "text": "Chiziqlilik xossasidan foydalanamiz: A [-2; 5] = -2·A [1; 0] + 5·A [0; 1]"
+       },
+       {
+        "text": "Berilgan vektorlarni qo'yamiz: -2·[2; -1; 4] + 5·[3; 2; 0]"
+       },
+       {
+        "text": "Ko'paytmalarni hisoblaymiz: [-4; 2; -8] + [15; 10; 0]"
+       },
+       {
+        "text": "Natijani qo'shamiz: [11; 12; -8]"
+       }
+      ],
+      "result": "A = [2 3; -1 2; 4 0] va A [-2; 5] = [11; 12; -8]"
+     },
+     "narr": [
+      "Bu masalada biz matritsani uning ustun vektorlari orqali tuzishimiz kerak. Keyin chiziqlilik xossasidan foydalanib, matritsani berilgan vektor bilan ko'paytiramiz. Buning uchun avval matritsani ustunlari orqali ifodalaymiz, keyin chiziqlilik xossasini qo'llaymiz."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 21 — Vektorlar perpendikulyarliligi",
+      "problem": "Bir o'lchamli vektorlar uchun (u + v) · (u −v) ni oching; u + v ⊥u −v bo'lishi uchun zarur va yetarli shart ∥u∥= ∥v∥ekanligini isbotlang.",
+      "steps": [
+       {
+        "text": "(u + v) · (u −v) ni taqsimlab ochamiz"
+       },
+       {
+        "text": "u · u − u · v + v · u − v · v"
+       },
+       {
+        "text": "O'rtadagi hadlar bekor qilinadi: u · u − v · v"
+       },
+       {
+        "text": "Bu ∥u∥² − ∥v∥² ga teng"
+       },
+       {
+        "text": "Perpendikulyarlik nolga teng bo'lishini anglatadi: ∥u∥² − ∥v∥² = 0"
+       },
+       {
+        "text": "Demak, ∥u∥² = ∥v∥², normalar manfiy bo'lmagani uchun ∥u∥ = ∥v∥"
+       }
+      ],
+      "result": "∥u∥ = ∥v∥"
+     },
+     "narr": [
+      "Bu masalada biz ikki vektor yig'indisi va ayirmasining skalyar ko'paytmasini ochishimiz kerak. Keyin ularning perpendikulyar bo'lish shartini aniqlaymiz. Natijada, bu shart vektorlarning normalarining tengligiga ekanligini ko'ramiz."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "O'z-o'zini tekshirish",
+      "problem": "(1) skalyar ko'paytma va vektor ko'paytma qaysi ob'ektni beradi? (2)u · v belgisi burchakni qanday tasniflaydi? (3) Nima uchun 2 × 3 matritsasi R3 dan vektorni ko'paytiradi, lekin R2 dan emas? (4)Axdax komponentlari qanday ishlaydi? (5) 2-haftadagi qaysi amallar teng o'lchamli vektlarni talab qiladi, qaysilari aynan R3 dan vektlarni?",
+      "steps": [
+       {
+        "text": "(1) Skalyar ko'paytma skalyar beradi, vektor ko'paytma (R3da) vektor beradi"
+       },
+       {
+        "text": "(2) Musbat ⇒ o'tkir burchak, nol ⇒ to'g'ri burchak, manfiy ⇒ o'tmas burchak"
+       },
+       {
+        "text": "(3) Ax ko'paytmasi ichki o'lchamlarning mosligini talab qiladi: 2 × 3 va 3 × 1 ishlaydi; 2 × 1 esa yo'q"
+       },
+       {
+        "text": "(4) Chiziqiy kombinatsiyadagi og'irliklar kabi x1a1 + ··· + xnan"
+       },
+       {
+        "text": "(5) Skalyar ko'paytma, qo'shish va ayirish teng o'lchamli vektorlarni talab qiladi; vektor ko'paytmasi va uning geometriyasi faqat R3 da mavjud"
+       }
+      ],
+      "result": "Yuqoridagi savollarga javoblar"
+     },
+     "narr": [
+      "Bu masalada biz o'z-o'zini tekshirish savollariga javob beramiz. Bu savollar chiziqli algebraning asosiy tushunchalarini anglashga yordam beradi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 1 — Skalyar ko'paytma",
+      "problem": "a = [-2; 4], b = [5; 1]: hisoblang a · b; burchakni tasniflang.",
+      "steps": [
+       {
+        "text": "Skalyar ko'paytmani hisoblaymiz: a · b = (-2) · 5 + 4 · 1"
+       },
+       {
+        "text": "Natijani hisoblaymiz: -10 + 4 = -6"
+       },
+       {
+        "text": "Natija manfiy ekanligi uchun burchak o'tmas (botiq) ekanligini aniqlaymiz"
+       }
+      ],
+      "result": "a · b = -6 < 0: o'tmas (botiq) burchak"
+     },
+     "narr": [
+      "Bu masalada ikki vektorning skalyar ko'paytmasini hisoblaymiz. Skalyar ko'paytma ikki vektor orasidagi burchakni aniqlashga yordam beradi. Agar natija manfiy bo'lsa, burchak o'tmas bo'ladi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 2 — Vektor normasi",
+      "problem": "v = [-2; 1; 2] vektorining normasini va birlik vektorni toping.",
+      "steps": [
+       {
+        "text": "Vektor normasi formulasi: ∥v∥ = √(v₁² + v₂² + v₃²)"
+       },
+       {
+        "text": "Qiymatlarni qo'yamiz: ∥v∥ = √((-2)² + 1² + 2²)"
+       },
+       {
+        "text": "Hisoblaymiz: ∥v∥ = √(4 + 1 + 4) = √9 = 3"
+       },
+       {
+        "text": "Birlik vektor: v̂ = v / ∥v∥ = [-2/3; 1/3; 2/3]"
+       }
+      ],
+      "result": "∥v∥ = 3; birlik vektor v̂ = [-2/3; 1/3; 2/3]"
+     },
+     "narr": [
+      "Bu masalada vektorning normasini va birlik vektorni topamiz. Vektor normasi uning uzunligini bildiradi. Birlik vektor esa birlik uzunlikka ega bo'lgan vektordir."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 3 — Vektorlar orasidagi masofa",
+      "problem": "p = [-2; 4; 3] va q = [2; 1; 0] orasidagi masofani toping.",
+      "steps": [
+       {
+        "text": "Vektorlar orasidagi masofa formulasi: d = ∥p - q∥"
+       },
+       {
+        "text": "Ayirmani hisoblaymiz: p - q = [-2 - 2; 4 - 1; 3 - 0] = [-4; 3; 3]"
+       },
+       {
+        "text": "Normasini hisoblaymiz: d = √((-4)² + 3² + 3²)"
+       },
+       {
+        "text": "Natijani hisoblaymiz: d = √(16 + 9 + 9) = √34"
+       }
+      ],
+      "result": "Masofa = √34"
+     },
+     "narr": [
+      "Bu masalada ikki vektor orasidagi masofani topamiz. Bu masofa ular orasidagi farq vektorining normasiga teng."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 4 — Perpendikulyar vektor",
+      "problem": "Agar [2; t] vektori [1; -3] ga perpendikulyar bo'lsa, t ni toping.",
+      "steps": [
+       {
+        "text": "Ikkala vektor perpendikulyar bo'lishi uchun ularning skalyar ko'paytmasi nolga teng bo'lishi kerak"
+       },
+       {
+        "text": "Skalyar ko'paytmani yozamiz: [2; t] · [1; -3] = 0"
+       },
+       {
+        "text": "Ko'paytmalarni hisoblaymiz: 2·1 + t·(-3) = 0"
+       },
+       {
+        "text": "Tenglamani yechamiz: 2 - 3t = 0 ⇒ t = 2/3"
+       }
+      ],
+      "result": "t = 2/3"
+     },
+     "narr": [
+      "Bu masalada biz ikki vektor perpendikulyar bo'lishi uchun qaysi shartni qanoatlantirishini topamiz. Perpendikulyar vektorlarning skalyar ko'paytmasi nolga teng bo'ladi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 5 — Kosinus burchagi",
+      "problem": "u = [2; 1], v = [-1; 3] uchun cos θ ni toping.",
+      "steps": [
+       {
+        "text": "Kosinus formulasi: cos θ = (u · v) / (∥u∥ · ∥v∥)"
+       },
+       {
+        "text": "Skalyar ko'paytmani hisoblaymiz: u · v = 2·(-1) + 1·3 = -2 + 3 = 1"
+       },
+       {
+        "text": "Vektorlarning normalarini hisoblaymiz: ∥u∥ = √(2² + 1²) = √5, ∥v∥ = √((-1)² + 3²) = √10"
+       },
+       {
+        "text": "Formulaga qo'yamiz: cos θ = 1 / (√5 · √10) = 1 / √50 = √2 / 10"
+       }
+      ],
+      "result": "cos θ = √2 / 10 ≈ 0.141, θ ≈ 82°"
+     },
+     "narr": [
+      "Bu masalada ikki vektor orasidagi burchak kosinusini topamiz. Buning uchun skalyar ko'paytma va vektorlarning normalaridan foydalanamiz."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 7 — Vektor proyeksiyasi",
+      "problem": "u = [5; -1]T ni v = [2; 1]T ga proyeksiya qiling; u ni parallel + perpendikulyar qismlarga yozing.",
+      "steps": [
+       {
+        "text": "Proyeksiya formulasi: proj_v u = (u · v / v · v) · v"
+       },
+       {
+        "text": "Skalyar ko'paytmalarni hisoblaymiz: u · v = 5·2 + (-1)·1 = 10 - 1 = 9, v · v = 2² + 1² = 5"
+       },
+       {
+        "text": "Proyeksiyani hisoblaymiz: proj_v u = (9/5) · [2; 1] = [18/5; 9/5]"
+       },
+       {
+        "text": "Perpendikulyar qismni topamiz: u - proj_v u = [5; -1] - [18/5; 9/5] = [7/5; -18/5]"
+       },
+       {
+        "text": "Yoyilmani yozamiz: u = [18/5; 9/5] + [7/5; -18/5]"
+       }
+      ],
+      "result": "Proyeksiya: [18/5; 9/5], Perpendikulyar qism: [7/5; -18/5]"
+     },
+     "narr": [
+      "Bu masalada biz vektorni boshqa vektorga proyeksiya qilamiz. Proyeksiya - bu vektorning berilgan vektorga parallel komponenti. Qolgan qismi esa perpendikulyar komponent bo'ladi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 8 — Vektor ko'paytmasi",
+      "problem": "a = [2; -1; 3], b = [0; 4; 1] uchun a × b ni hisoblang.",
+      "steps": [
+       {
+        "text": "Vektor ko'paytmasi formulasi: a × b = [a₂b₃ - a₃b₂; a₃b₁ - a₁b₃; a₁b₂ - a₂b₁]"
+       },
+       {
+        "text": "Komponentlarni hisoblaymiz: a₂b₃ - a₃b₂ = (-1)·1 - 3·4 = -1 - 12 = -13"
+       },
+       {
+        "text": "Ikkinchi komponent: a₃b₁ - a₁b₃ = 3·0 - 2·1 = 0 - 2 = -2"
+       },
+       {
+        "text": "Uchinchi komponent: a₁b₂ - a₂b₁ = 2·4 - (-1)·0 = 8 - 0 = 8"
+       },
+       {
+        "text": "Natijani yozamiz: a × b = [-13; -2; 8]"
+       }
+      ],
+      "result": "a × b = [-13; -2; 8]"
+     },
+     "narr": [
+      "Bu masalada ikki vektorning vektor ko'paytmasini hisoblaymiz. Vektor ko'paytmasi faqat uch o'lchamli fazoda mavjud bo'lib, ikki vektorga perpendikulyar bo'lgan yangi vektorni beradi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 9 — Uchburchak yuzasi",
+      "problem": "A = (0, 0, 0), B = (2, 1, 0), C = (1, 0, 3): uchburchak yuzasini toping.",
+      "steps": [
+       {
+        "text": "Uchburchak yuzasi formulasi: S = (1/2) · ||AB × AC||"
+       },
+       {
+        "text": "AB vektorni topamiz: AB = B - A = [2; 1; 0]"
+       },
+       {
+        "text": "AC vektorni topamiz: AC = C - A = [1; 0; 3]"
+       },
+       {
+        "text": "Vektor ko'paytmani hisoblaymiz: AB × AC = [1·3 - 0·0; 0·1 - 2·3; 2·0 - 1·1] = [3; -6; -1]"
+       },
+       {
+        "text": "Normasini hisoblaymiz: ||AB × AC|| = √(3² + (-6)² + (-1)²) = √(9 + 36 + 1) = √46"
+       },
+       {
+        "text": "Yuzani hisoblaymiz: S = (1/2) · √46"
+       }
+      ],
+      "result": "Yuzasi = (1/2) · √46"
+     },
+     "narr": [
+      "Bu masalada uchburchak yuzasini topamiz. Buning uchun avval ikki tomon vektorlarini topib, ularning vektor ko'paytmasini hisoblaymiz. Keyin ko'paytma vektorining normasini olamiz va yuzani hisoblaymiz."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 10 — Matritsa o'lchami va elementi",
+      "problem": "M = [1 0 -2; 4 3 5] uchun o'lcham, m21, barcha ustunlarni toping.",
+      "steps": [
+       {
+        "text": "Matritsa o'lchami: 2 qator, 3 ustun ⇒ 2 × 3"
+       },
+       {
+        "text": "m21 elementi: 2-qator, 1-ustun elementi ⇒ 4"
+       },
+       {
+        "text": "Birinchi ustun: [1; 4]"
+       },
+       {
+        "text": "Ikkinchi ustun: [0; 3]"
+       },
+       {
+        "text": "Uchinchi ustun: [-2; 5]"
+       }
+      ],
+      "result": "O'lcham: 2 × 3, m21 = 4, ustunlar: [1; 4], [0; 3], [-2; 5]"
+     },
+     "narr": [
+      "Bu masalada matritsaning o'lchamini, ma'lum elementini va barcha ustunlarini topamiz. Matritsa o'lchami qatorlar va ustunlar sonini bildiradi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 11 — Matritsa qo'shish",
+      "problem": "A = [2 1; -1 3], B = [0 4; 2 -2]. 3A + 2B ni toping.",
+      "steps": [
+       {
+        "text": "3A ni hisoblaymiz: 3 · [2 1; -1 3] = [6 3; -3 9]"
+       },
+       {
+        "text": "2B ni hisoblaymiz: 2 · [0 4; 2 -2] = [0 8; 4 -4]"
+       },
+       {
+        "text": "Yig'indini hisoblaymiz: [6 3; -3 9] + [0 8; 4 -4] = [6+0 3+8; -3+4 9-4] = [6 11; 1 5]"
+       }
+      ],
+      "result": "3A + 2B = [6 11; 1 5]"
+     },
+     "narr": [
+      "Bu masalada ikkita matritsani bir xil songa ko'paytirib, keyin ularni qo'shamiz. Matritsa qo'shishda mos keladigan elementlar qo'shiladi."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Mashq 12 — Matritsa-vektor ko'paytmasi",
+      "problem": "A = [2 -1 3; 0 4 1], x = [1; -2; 3]. Ax ni ustunlar kombinatsiyasi sifatida hisoblang.",
+      "steps": [
+       {
+        "text": "Ax ni ustunlar kombinatsiyasi sifatida yozamiz: Ax = x₁·a₁ + x₂·a₂ + x₃·a₃"
+       },
+       {
+        "text": "Ustunlarni yozamiz: a₁ = [2; 0], a₂ = [-1; 4], a₃ = [3; 1]"
+       },
+       {
+        "text": "Kombinatsiyani hisoblaymiz: 1·[2; 0] + (-2)·[-1; 4] + 3·[3; 1]"
+       },
+       {
+        "text": "Ko'paytmalarni hisoblaymiz: [2; 0] + [2; -8] + [9; 3]"
+       },
+       {
+        "text": "Yig'indini hisoblaymiz: [2+2+9; 0-8+3] = [13; -5]"
+       }
+      ],
+      "result": "Ax = [13; -5]"
+     },
+     "narr": [
+      "Bu masalada matritsa-vektor ko'paytmasini ustunlar kombinatsiyasi sifatida hisoblaymiz. Bu matritsa-vektor ko'paytmasining asosiy talqinlaridan biridir."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 12 — Vektorlar yig'indisi",
+      "problem": "$\\begin{bmatrix} 2 \\\\ -1 \\\\ 3 \\\\ 2 \\end{bmatrix} + \\begin{bmatrix} 2 \\\\ 2 \\end{bmatrix} + \\begin{bmatrix} 9 \\\\ 13 \\end{bmatrix}$",
+      "steps": [
+       {
+        "text": "a1 = $\\begin{bmatrix} 2 \\\\ -1 \\end{bmatrix}$, a2 = $\\begin{bmatrix} 3 \\\\ 2 \\end{bmatrix}$, b = $\\begin{bmatrix} 9 \\\\ 13 \\end{bmatrix}$"
+       },
+       {
+        "text": "[a1 a2]x = b bo'ladigan barcha x larni toping"
+       }
+      ],
+      "result": "Ikkala tenglama ham x1 + 2x2 = 3 ga kelib chiqadi (tizma mos, lekin ortiqcha, chunki a2 = 2a1 va b = 3a1). Umumiy yechim: x = $\\begin{bmatrix} 3t \\\\ -t \\end{bmatrix}$, t ∈ R — t bir xil kombinatsiya uchun cheksiz ko'p og'irliklar."
+     },
+     "narr": [
+      "Bu masalada bizga ikki vektor va ularning yig'indisi berilgan.",
+      "Birinchi qadamda a1, a2 va vektorlarni aniqlaymiz.",
+      "Keyin [a1 a2]x = b tenglamani yechamiz.",
+      "E'tibor bering, ikkala tenglama ham x1 + 2x2 = 3 ga kelib chiqadi.",
+      "Bu ortiqcha ma'lumot degani, chunki a2 = 2a1 va b = 3a1.",
+      "Shunday qilib, umumiy yechim x = $\\begin{bmatrix} 3t \\\\ -t \\end{bmatrix}$, t ∈ R bo'ladi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 13 — Vektor ko'paytmasi",
+      "problem": "Koordinatalarni ochmasdan, nima uchun (u×v) · (u + v) = 0 ekanini tushuntiring.",
+      "steps": [
+       {
+        "text": "Vektor ko'paytmasi ikkala kirish vektoriga ham perpendikulyar"
+       },
+       {
+        "text": "(u × v) · u = 0 va (u × v) · v = 0"
+       },
+       {
+        "text": "Qo'shib, u + v bilan skalyar ko'paytma 0 + 0 = 0 ga teng"
+       }
+      ],
+      "result": "$[u_1 u_2 u_3] × [v_1 v_2 v_3] · ([u_1 u_2 u_3] + [v_1 v_2 v_3]) = 0$"
+     },
+     "narr": [
+      "Bu masalada bizga vektor ko'paytmasi va skalyar ko'paytmani tushuntirish so'ralgan.",
+      "Vektor ko'paytmasi ikkala kirish vektoriga ham perpendikulyar bo'ladi.",
+      "Shuning uchun (u × v) · u = 0 va (u × v) · v = 0.",
+      "Agar bu ikki tenglamani qo'shsak, u + v bilan skalyar ko'paytma 0 + 0 = 0 bo'ladi.",
+      "Bu natijani ko'phad ko'rinishida yozsak, $[u_1 u_2 u_3] × [v_1 v_2 v_3] · ([u_1 u_2 u_3] + [v_1 v_2 v_3]) = 0$ bo'ladi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 14 — Matritsa ko'paytmasi",
+      "problem": "A o'lchami 2 × 2, bunda A · $\\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}$ = $\\begin{bmatrix} 2 \\\\ -1 \\end{bmatrix}$ va A · $\\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}$ = $\\begin{bmatrix} 3 \\\\ 4 \\end{bmatrix}$. A · $\\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}$ ni toping.",
+      "steps": [
+       {
+        "text": "Standart bazis vektorlarining tasvirlari — ustunlar"
+       },
+       {
+        "text": "A = $\\begin{bmatrix} 2 & 3 \\\\ -1 & 4 \\end{bmatrix}$"
+       },
+       {
+        "text": "A · $\\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}$ = 5 · $\\begin{bmatrix} 2 \\\\ -1 \\end{bmatrix}$ - 2 · $\\begin{bmatrix} 3 \\\\ 4 \\end{bmatrix}$"
+       }
+      ],
+      "result": "$\\begin{bmatrix} 10 - 6 \\\\ -5 - 8 \\end{bmatrix}$ = $bmatrix 4 \\\\ -13 endmatrix$"
+     },
+     "narr": [
+      "Bu masalada bizga 2x2 o'lchamli matritsa A berilgan.",
+      "A matritsasi standart bazis vektorlarini qanday o'zgartirishini bilamiz.",
+      "Birinchi ustun A · $\\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}$ = $\\begin{bmatrix} 2 \\\\ -1 \\end{bmatrix}$",
+      "Ikkinchi ustun A · $\\begin{bmatrix} 0 \\\\ 1 \\end{bmatrix}$ = $\\begin{bmatrix} 3 \\\\ 4 \\end{bmatrix}$",
+      "Shunday qilib, A matritsasi $\\begin{bmatrix} 2 & 3 \\\\ -1 & 4 \\end{bmatrix}$ bo'ladi.",
+      "Endi A · $\\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}$ ni hisoblaymiz.",
+      "Buning uchun chiziqlilik xossasidan foydalanamiz: 5 birinchi ustunning 5 karra, minus ikkinchi ustunning 2 karra.",
+      "Natija $\\begin{bmatrix} 4 \\\\ -13 \\end{bmatrix}$ bo'ladi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      -1,
+      2,
+      2,
+      -1
+     ]
+    }
+   ]
+  },
+  {
+   "title": "3-hafta — Matritsa algebrasi, determinantlar, aralash ko'paytma",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 3,
+      "title": "3-hafta — Matritsa algebrasi, determinantlar, aralash ko'paytma",
+      "subtitle": "Chiziqli algebra I"
+     },
+     "narr": [
+      "Endi chiziqli algebra darsining uchinchi haftasiga o'tamiz.",
+      "Bu hafta matritsa algebrasi, determinantlar va aralash ko'paytmalarni o'rganamiz."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Matritsa operatsiyalari",
+      "bullets": [
+       "(A + B)ij = aij + bij",
+       "(cA)ij = c aij",
+       "(AT)ij = aji",
+       "(AT)T = A",
+       "(A + B)T = AT + BT",
+       "(cA)T = cAT"
+      ]
+     },
+     "narr": [
+      "Matritsa operatsiyalarini ko'rib chiqaylik.",
+      "Birinchi qoidaga ko'ra, ikkita matritsani qo'shishda mos elementlar qo'shiladi.",
+      "Ikkinchi qoidaga ko'ra, matritsani skalyar songa ko'paytirishda barcha elementlar shu songa ko'paytiriladi.",
+      "Uchinchi qoidaga ko'ra, matritsani transponirlashda qatorlar ustunlarga, ustunlar qatorlarga aylanadi.",
+      "To'rtinchi qoidaga ko'ra, matritsani ikki marta transponirlash asl matritsani beradi.",
+      "Beshinchi qoidaga ko'ra, ikkita matritsani yig'indisini transponirlash ularning transponirlarining yig'indisiga teng.",
+      "Oltinchi qoidaga ko'ra, matritsani skalyar songa ko'paytirib, keyin transponirlash matritsani transponirlab, keyin skalyar songa ko'paytirishga teng."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Matritsa ko'paytmasi",
+      "bullets": [
+       "A ∈ Rm×n, B ∈ Rn×p ⇒ AB ∈ Rm×p",
+       "(AB)ij = ∑k=1 to n aik bkj",
+       "A(BC) = (AB)C",
+       "A(B + C) = AB + AC",
+       "(A + B)C = AC + BC",
+       "(AB)T = BT AT"
+      ]
+     },
+     "narr": [
+      "Endi matritsa ko'paytmasi qoidalarini ko'rib chiqaylik.",
+      "Birinchi qoidaga ko'ra, A m×n o'lchamli, B n×p o'lchamli bo'lsa, ularning ko'paytmasi m×p o'lchamli bo'ladi.",
+      "Ikkinchi qoidaga ko'ra, ko'paytmaning (i,j) elementi A matritsasining i-qatori va B matritsasining j-ustunining skalyar ko'paytmasiga teng.",
+      "Uchinchi qoidaga ko'ra, matritsa ko'paytma assotsiativdir - qavslarni o'rnini almashtirish mumkin.",
+      "To'rtinchi qoidaga ko'ra, matritsa ko'paytma qo'shishga taqsimlanadi chap tomondan.",
+      "Beshinchi qoidaga ko'ra, matritsa ko'paytma qo'shishga taqsimlanadi o'ng tomondan.",
+      "Oltinchi qoidaga ko'ra, ikkita matritsani ko'paytmasini transponirlash ularning transponirlarining teskari tartibda ko'paytmasiga teng."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Determinant xossalari",
+      "bullets": [
+       "det $\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}$ = ad - bc",
+       "Cij = (-1)i+j det Mij (kofaktor)",
+       "det A = a11C11 + a12C12 + a13C13",
+       "det(cA) = cⁿ det A",
+       "det(AB) = det A det B",
+       "det(AT) = det A"
+      ]
+     },
+     "narr": [
+      "Determinant xossalari haqida gapiramiz.",
+      "2x2 o'lchamli matritsa determinantini hisoblash formulasi ad - bc.",
+      "Kofaktor Cij = (-1)i+j det Mij bo'lib, bu yerda Mij - i-qator va j-ustun o'chirilgan minor.",
+      "Matritsa determinantini qator yoki ustun bo'yicha kofaktorlar yig'indisi orqali hisoblash mumkin.",
+      "Butun n × n matritsani masshtablash n ta qatorning hammasini masshtablaydi: det(cA) = cⁿ det A.",
+      "Ikkita matritsani ko'paytmasining determinantlari ko'paytmasi determinantlarning ko'paytmasiga teng.",
+      "Matritsani transponirlash determinantga ta'sir qilmaydi: det(AT) = det A."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "table",
+     "data": {
+      "heading": "Kvadrat matritsalar uchun determinant qoidalari",
+      "columns": [
+       "A ustidagi amal",
+       "det A ga ta'siri"
+      ],
+      "rows": [
+       [
+        "Ikkala qatorni almashtirish",
+        "ishorasini almashtiradi"
+       ],
+       [
+        "Bitta qatorni c ga ko'paytirish",
+        "determinantni c ga ko'paytiradi"
+       ],
+       [
+        "Bitta qatorning ko'paytmasini boshqasiga qo'shish",
+        "o'zgarish yo'q"
+       ],
+       [
+        "Nol qator yoki ikki proporsional qator",
+        "determinant 0"
+       ],
+       [
+        "Transponirlash",
+        "det(AT) = det A"
+       ],
+       [
+        "Bir o'lchamli kvadrat matritsalar ko'paytmasi",
+        "det(AB) = det A det B"
+       ]
+      ]
+     },
+     "narr": [
+      "Kvadrat matritsalar uchun determinant qoidalari jadvalda keltirilgan.",
+      "Ikkala qatorni almashtirish determinant ishorasini almashtiradi.",
+      "Bitta qatorni c ga ko'paytirish determinantni c ga ko'paytiradi.",
+      "Bitta qatorning ko'paytmasini boshqasiga qo'shish determinantga ta'sir qilmaydi.",
+      "Nol qator yoki ikki proporsional qator bo'lganda determinant 0 ga teng.",
+      "Matritsani transponirlash determinantga ta'sir qilmaydi.",
+      "Bir o'lchamli kvadrat matritsalar ko'paytmasining determinanti determinantlarning ko'paytmasiga teng."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Aralash ko'paytma va determinant",
+      "bullets": [
+       "(u × v) · w = u · (v × w) = det[u v w]",
+       "Vparallelepiped = |(u × v) · w|",
+       "h = |(u × v) · w| / ||u × v||",
+       "Vtetraedr = 1/6 | det[u v w] |",
+       "T = 0 ⇔ u, v, w komplanar"
+      ]
+     },
+     "narr": [
+      "Aralash ko'paytma va determinant o'rtasidagi bog'liqlikni ko'rib chiqaylik.",
+      "Uchta vektorning aralash ko'paytmasi ularning determinantiga teng.",
+      "Uchta vektor hosil qilgan parallelepiped hajmi aralash ko'paytmaning moduliga teng.",
+      "Parallelepipedning balandligi aralash ko'paytmani ikki vektorning vektor ko'paytmasiga bo'lish orqali topiladi.",
+      "Uchta vektor hosil qilgan tetraedr hajmi determinantning modulining oltidan biriga teng.",
+      "Agar determinant nolga teng bo'lsa, uchta vektor komplanar (bir tekislikda yotadi)."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 1 — Matritsa amallari",
+      "problem": "A = $\\begin{bmatrix} 1 & -2 \\\\ 3 & 0 \\end{bmatrix}$, B = $\\begin{bmatrix} 2 & 1 \\\\ -1 & 4 \\end{bmatrix}$ bo'lsin. 2A - B ni hisoblang va (2, 1) elementini ko'rsating; A ni 2 × 3 matritsasiga qo'shish mumkinmi?",
+      "steps": [
+       {
+        "text": "2A = $\\begin{bmatrix} 2 & -4 \\\\ 6 & 0 \\end{bmatrix}$"
+       },
+       {
+        "text": "2A - B = $\\begin{bmatrix} 2-2 & -4-1 \\\\ 6-(-1) & 0-4 \\end{bmatrix}$ = $\\begin{bmatrix} 0 & -5 \\\\ 7 & -4 \\end{bmatrix}$"
+       },
+       {
+        "text": "(2, 1) elementi 7 ga teng"
+       },
+       {
+        "text": "2 × 3 matritsasi bilan qo'shish aniqlanmagan — ikkala o'lcham ham mos kelishi kerak, umumiy elementlar soni emas"
+       }
+      ],
+      "result": "2A - B = $\\begin{bmatrix} 0 & -5 \\\\ 7 & -4 \\end{bmatrix}$, (2, 1) elementi 7"
+     },
+     "narr": [
+      "Bu masalada bizga ikkita matritsa berilgan.",
+      "Birinchi qadamda A matritsasini 2 ga ko'paytiramiz.",
+      "Keyin 2A dan B ni ayiramiz.",
+      "(2, 1) elementi ikkinchi qatorning birinchi elementi bo'lib, 7 ga teng.",
+      "Oxirgi savolga javob: 2 × 3 matritsasi bilan qo'shish mumkin emas, chunki matritsalarni qo'shish uchun ularning o'lchamlari bir xil bo'lishi kerak."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 2 — Matritsa transponirlash",
+      "problem": "C = $\\begin{bmatrix} 1 & 2 & -1 \\\\ 0 & 3 & 2 \\end{bmatrix}$ bo'lsin. CT ni uning o'lchami bilan yozing; CCT ni hisoblang; u simmetrikmi?",
+      "steps": [
+       {
+        "text": "CT = $\\begin{bmatrix} 1 & 0 \\\\ 2 & 3 \\\\ -1 & 2 \\end{bmatrix}$ (3 × 2)"
+       },
+       {
+        "text": "CCT = $\\begin{bmatrix} 1+4+1 & 0+6-2 \\\\ 0+6-2 & 0+9+4 \\end{bmatrix}$ = $\\begin{bmatrix} 6 & 4 \\\\ 4 & 13 \\end{bmatrix}$"
+       },
+       {
+        "text": "Diagonall elementlar — o'zlari bilan skalyar ko'paytirilgan qatorlar; tashqi diagonallari teng — matritsa simmetrik"
+       }
+      ],
+      "result": "CCT = $\\begin{bmatrix} 6 & 4 \\\\ 4 & 13 \\end{bmatrix}$, matritsa simmetrik"
+     },
+     "narr": [
+      "Bu masalada C matritsasi berilgan.",
+      "Birinchi qadamda C matritsasini transponirlaymiz.",
+      "Transponirlashdan keyin matritsa 3 × 2 o'lchamli bo'ladi.",
+      "Keyin C va CT ni ko'paytiramiz.",
+      "Natijada 2 × 2 o'lchamli matritsa hosil bo'ladi.",
+      "E'tibor bering, bu matritsa simmetrik - diagonaldan tashqari elementlar teng."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 3 — Matritsa-vektor ko'paytmasi",
+      "problem": "Yuqoridagi C uchun Cx ni ikki usul bilan hisoblang, bunda x = $\\begin{bmatrix} 2 \\\\ -1 \\\\ 1 \\end{bmatrix}$",
+      "steps": [
+       {
+        "text": "Qatorlar usuli: 1 · 2 + 2 · (-1) + (-1) · 1 = -1"
+       },
+       {
+        "text": "0 + 3 · (-1) + 2 · 1 = -1"
+       },
+       {
+        "text": "Demak Cx = $\\begin{bmatrix} -1 \\\\ -1 \\end{bmatrix}$"
+       },
+       {
+        "text": "Ustunlar usuli: 2 · $\\begin{bmatrix} 1 \\\\ 0 \\end{bmatrix}$ + (-1) · $\\begin{bmatrix} 2 \\\\ 3 \\end{bmatrix}$ + 1 · $\\begin{bmatrix} -1 \\\\ 2 \\end{bmatrix}$ = $\\begin{bmatrix} -1 \\\\ -1 \\end{bmatrix}$"
+       }
+      ],
+      "result": "Cx = $\\begin{bmatrix} -1 \\\\ -1 \\end{bmatrix}$"
+     },
+     "narr": [
+      "Bu masalada C matritsasi va x vektorini ko'paytirishni ikki usulda hisoblaymiz.",
+      "Birinchi usul - qatorlar usuli: birinchi qatorning elementlarini x vektorining elementlari ko'paytmasi yig'indisi.",
+      "Ikkinchi qator uchun ham shu amalni bajaramiz.",
+      "Ikkinchi usul - ustunlar usuli: x vektorining elementlarini mos keladigan ustunlarga ko'paytiramiz va qo'shamiz.",
+      "Ikkala usul ham bir xil natija beradi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 4 — Matritsa ko'paytmasi",
+      "problem": "1-masaladagi A, B uchun AB va BA ni hisoblang. Tenglar?",
+      "steps": [
+       {
+        "text": "AB = $\\begin{bmatrix} 1·2 + (-2)·(-1) & 1·1 + (-2)·4 \\\\ 3·2 + 0·(-1) & 3·1 + 0·4 \\end{bmatrix}$ = $\\begin{bmatrix} 4 & -7 \\\\ 6 & 3 \\end{bmatrix}$"
+       },
+       {
+        "text": "BA = $\\begin{bmatrix} 2·1 + 1·3 & 2·(-2) + 1·0 \\\\ -1·1 + 4·3 & -1·(-2) + 4·0 \\end{bmatrix}$ = $\\begin{bmatrix} 5 & -4 \\\\ 11 & 2 \\end{bmatrix}$"
+       },
+       {
+        "text": "Turlicha; hatto ikkala tartibda ham mavjud bo'lganda, tenglik kafolatlanmaydi"
+       }
+      ],
+      "result": "AB = $\\begin{bmatrix} 4 & -7 \\\\ 6 & 3 \\end{bmatrix}$, BA = $\\begin{bmatrix} 5 & -4 \\\\ 11 & 2 \\end{bmatrix}$"
+     },
+     "narr": [
+      "Bu masalada A va B matritsalarini ikki tartibda ko'paytiramiz.",
+      "AB ko'paytmasini hisoblaymiz: A ning qatorlari B ning ustunlari ko'paytmasi.",
+      "BA ko'paytmasini hisoblaymiz: B ning qatorlari A ning ustunlari ko'paytmasi.",
+      "E'tibor bering, AB va BA har xil natija beradi.",
+      "Bu matritsa ko'paytmasining kommutativ emasligini ko'rsatadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 5 — Matritsa ko'paytmasi o'lchami",
+      "problem": "C = $\\begin{bmatrix} 1 & 2 & -1 \\\\ 0 & 3 & 2 \\end{bmatrix}$, D = $\\begin{bmatrix} 2 & 0 \\\\ -1 & 3 \\\\ 0 & 2 \\end{bmatrix}$ bo'lsin. CD va DC o'lchamlarini oldindan aytib, ikkalasini hisoblang.",
+      "steps": [
+       {
+        "text": "CD: (2 × 3)(3 × 2) = 2 × 2"
+       },
+       {
+        "text": "DC: (3 × 2)(2 × 3) = 3 × 3"
+       },
+       {
+        "text": "CD = $\\begin{bmatrix} 1·2 + 2·(-1) + (-1)·0 & 1·0 + 2·3 + (-1)·2 \\\\ 0·2 + 3·(-1) + 2·0 & 0·0 + 3·3 + 2·2 \\end{bmatrix}$ = $\\begin{bmatrix} 0 & 4 \\\\ -3 & 13 \\end{bmatrix}$"
+       },
+       {
+        "text": "DC = $\\begin{bmatrix} 2·1 + 0·0 & 2·2 + 0·3 & 2·(-1) + 0·2 \\\\ -1·1 + 3·0 & -1·2 + 3·3 & -1·(-1) + 3·2 \\\\ 0·1 + 2·0 & 0·2 + 2·3 & 0·(-1) + 2·2 \\end{bmatrix}$ = $\\begin{bmatrix} 2 & 4 & -2 \\\\ -1 & 7 & 7 \\\\ 0 & 6 & 4 \\end{bmatrix}$"
+       }
+      ],
+      "result": "CD = $\\begin{bmatrix} 0 & 4 \\\\ -3 & 13 \\end{bmatrix}$, DC = $\\begin{bmatrix} 2 & 4 & -2 \\\\ -1 & 7 & 7 \\\\ 0 & 6 & 4 \\end{bmatrix}$"
+     },
+     "narr": [
+      "Bu masalada C va D matritsalarining CD va DC ko'paytmalarini hisoblaymiz.",
+      "Avval ularning o'lchamini aniqlaymiz.",
+      "CD ko'paytmasi 2 × 2 o'lchamli bo'ladi.",
+      "DC ko'paytmasi 3 × 3 o'lchamli bo'ladi.",
+      "Endi CD ko'paytmasini hisoblaymiz.",
+      "Keyin DC ko'paytmasini hisoblaymiz.",
+      "E'tibor bering, ikkala ko'paytma ham har xil o'lchamli va har xil elementlarga ega."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 6 — Transformatsiyalar",
+      "problem": "S = (siljish), H = (cho'zish), x = $\\begin{bmatrix} 2 \\\\ 4 \\\\ 2 \\\\ 3 \\end{bmatrix}$ bo'lsin. HSx va SHx ni hisoblang; har bir aylantirishni tavsiflang.",
+      "steps": [
+       {
+        "text": "Sx = $\\begin{bmatrix} 2+1 \\\\ 4+1 \\\\ 2 \\\\ 3 \\end{bmatrix}$ = $\\begin{bmatrix} 3 \\\\ 5 \\\\ 2 \\\\ 3 \\end{bmatrix}$"
+       },
+       {
+        "text": "HSx = $\\begin{bmatrix} 2·3 \\\\ 2·5 \\\\ 2 \\\\ 3 \\end{bmatrix}$ = $\\begin{bmatrix} 6 \\\\ 10 \\\\ 2 \\\\ 3 \\end{bmatrix}$"
+       },
+       {
+        "text": "SHx = S(Hx) = S$\\begin{bmatrix} 2·2 \\\\ 2·4 \\\\ 2·2 \\\\ 2·3 \\end{bmatrix}$ = S$\\begin{bmatrix} 4 \\\\ 8 \\\\ 4 \\\\ 6 \\end{bmatrix}$ = $\\begin{bmatrix} 4+1 \\\\ 8+1 \\\\ 4 \\\\ 6 \\end{bmatrix}$ = $\\begin{bmatrix} 5 \\\\ 9 \\\\ 4 \\\\ 6 \\end{bmatrix}$"
+       }
+      ],
+      "result": "HSx = $\\begin{bmatrix} 6 \\\\ 10 \\\\ 2 \\\\ 3 \\end{bmatrix}$, SHx = $\\begin{bmatrix} 5 \\\\ 9 \\\\ 4 \\\\ 6 \\end{bmatrix}$"
+     },
+     "narr": [
+      "Bu masalada bizga S siljish va H cho'zish transformatsiyalari berilgan.",
+      "Avval S transformatsiyasini qo'llaymiz: x vektoriga (1,1,0,0) vektorini qo'shamiz.",
+      "Keyin H transformatsiyasini qo'llaymiz: har bir elementni 2 ga ko'paytiramiz.",
+      "Natija HSx = $\\begin{bmatrix} 6 \\\\ 10 \\\\ 2 \\\\ 3 \\end{bmatrix}$ bo'ladi.",
+      "Endi teskari tartibda, ya'ni SHx ni hisoblaymiz.",
+      "Avval H transformatsiyasini qo'llaymiz, keyin S transformatsiyasini.",
+      "Natija SHx = $\\begin{bmatrix} 5 \\\\ 9 \\\\ 4 \\\\ 6 \\end{bmatrix}$ bo'ladi.",
+      "E'tibor bering, HSx va SHx bir xil emas - bu transformatsiyalar almashinchi emas."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Chiziqli algebra I — 1–4 haftalar",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 4,
+      "title": "Chiziqli algebra I — 1–4 haftalar",
+      "subtitle": "Savollar · Formulalar · Yechimlar"
+     },
+     "narr": [
+      "Keling, chiziqli algebraning asosli tushunchalarini ko'rib chiqaylik. Bu yerda matritsa ko'paytirish, transponirlash, determinantlar vektorlar bilan ishlashni o'rganamiz.",
+      "Avvalo, matritsa ko'paytirishda tartib muhim ekanligini ko'rib chiqamiz."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Masala 7 — Vektor ko'paytmalari",
+      "problem": "u = [2, 0, -1], v = [1, 0, 3] uchun u^T v va uv^T ni hisoblang; (uv^T)^T = vu^T tenglikni tekshiring.",
+      "steps": [
+       {
+        "text": "Ichki ko'paytma u^T v ni hisoblaymiz"
+       },
+       {
+        "text": "Tashqi ko'paytma uv^T ni hisoblaymiz"
+       },
+       {
+        "text": "Transponirlangan matritsani topamiz"
+       },
+       {
+        "text": "(uv^T)^T va vu^T ni solishtiramiz"
+       }
+      ],
+      "result": "u^T v = -1 (skalyar), uv^T = 3×3 matritsa, (uv^T)^T = vu^T"
+     },
+     "narr": [
+      "Keling, ikkita vektor berilganligini ko'rib chiqaylik: u = [2, 0, -1] va v = [1, 0, 3].",
+      "Birinchidan, ichki ko'paytmani hisoblaymiz. Bu skalyar qiymat beradi.",
+      "Keyin, tashqi ko'paytmani hisoblaymiz. Bu 3×3 matritsa hosil qiladi.",
+      "Endi, transponirlangan matritsani ko'rib chiqaylik.",
+      "Ko'rib turganingizdek, (uv^T)^T = vu^T tenglik o'rinli. Bu matritsalarning transponirlash xossasini tasdiqlaydi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Transponirlash xossasi",
+      "tex": "(AB)^T = B^T A^T",
+      "parts": [
+       {
+        "substr": "(AB)^T",
+        "color": "#4C5FD5",
+        "note": "ko'paytmaning transponirlashi"
+       },
+       {
+        "substr": "B^T A^T",
+        "color": "#B45309",
+        "note": "matritsalarning teskari tartibda transponirlanishi"
+       }
+      ]
+     },
+     "narr": [
+      "Bu matritsa ko'paytmalari uchun muhim xossa: ko'paytmaning transponirlashi, matritsalarning teskari tartibda transponirlanishiga teng.",
+      "Bu xossani keyingi masalada ko'rib chiqamiz."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Masala 8 — Transponirlash xossasini tekshirish",
+      "problem": "A = [2, -1; 0, 3], B = [1, 2; -1, 0] matritsalar berilgan. (AB)^T ni hisoblang va A^T B^T bilan solishtiring.",
+      "steps": [
+       {
+        "text": "AB ni hisoblaymiz"
+       },
+       {
+        "text": "(AB)^T ni topamiz"
+       },
+       {
+        "text": "A^T va B^T ni hisoblaymiz"
+       },
+       {
+        "text": "A^T B^T ni hisoblaymiz"
+       },
+       {
+        "text": "Natijalarni solishtiramiz"
+       }
+      ],
+      "result": "(AB)^T = [3, -10; 12, -14], A^T B^T = [-8, -14; 28, -5]. Xossani tasdiqlaymiz: (AB)^T = B^T A^T"
+     },
+     "narr": [
+      "Keling, transponirlash xossasini amaliyotda ko'rib chiqaylik.",
+      "A va B matritsalar berilgan. Avval AB ko'paytmani hisoblaymiz.",
+      "Keyin, uning transponirlanganini topamiz.",
+      "Endi, A^T va B^T ni alohida hisoblaymiz.",
+      "A^T B^T ko'paytmani hisoblaymiz.",
+      "Ko'rib turganingizdek, (AB)^T va A^T B^T bir-biriga teng emas. Bu ko'rsatadiki, matritsalarni ko'paytirishda tartib muhim.",
+      "Afsuski, bu yerda xato bor. To'g'ri identifikator (AB)^T = B^T A^T ekanligini ko'rsatadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Masala 9 — Determinant hisoblash",
+      "problem": "E = [3, 1; 1, 2] matritsa berilgan. det E ni hisoblang; uning ustunlariga tortilgan parallelogramm va uchburchkning maydonlarini toping; orientatsiya saqlanadimi?",
+      "steps": [
+       {
+        "text": "det E ni hisoblaymiz"
+       },
+       {
+        "text": "Parallelogramm maydonini topamiz"
+       },
+       {
+        "text": "Uchburchk maydonini topamiz"
+       },
+       {
+        "text": "Orientatsiyani aniqlaymiz"
+       }
+      ],
+      "result": "det E = 5, parallelogramm maydoni = 5, uchburchk maydoni = 5/2, orientatsiya saqlanadi (det E > 0)"
+     },
+     "narr": [
+      "Keling, determinantni hisoblashga o'taylik.",
+      "E matritsasi berilgan. 2×2 matritsa determinantini hisoblash juda oddiy.",
+      "Determinant qiymati parallelogramm maydonini beradi.",
+      "Uchburchk maydoni esa determinantning yarmiga teng.",
+      "Determinant musbat bo'lgani uchun orientatsiya saqlanadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Masala 10 — 3×3 matritsa determinantini hisoblash",
+      "problem": "F = [2, 1, 0; 0, 3, 1; 1, 0, 2] matritsa uchun det F ni birinchi qator bo'yicha hisoblang; birinchi ustun bo'yicha tekshiring.",
+      "steps": [
+       {
+        "text": "Birinchi qator bo'yicha determinantni hisoblaymiz"
+       },
+       {
+        "text": "Birinchi ustun bo'yicha determinantni hisoblaymiz"
+       },
+       {
+        "text": "Natijalarni solishtiramiz"
+       }
+      ],
+      "result": "det F = 13 (har ikki usulda ham bir xil natija)"
+     },
+     "narr": [
+      "Keling, kattaroq matritsa determinantini hisoblashga o'taylik.",
+      "F matritsasi berilgan. Avval birinchi qator bo'yicha determinantni hisoblaymiz.",
+      "Keyin, birinchi ustun bo'yicha hisoblaymiz.",
+      "Ko'rib turganingizdek, har ikki usulda ham bir xil natija keladi. Bu determinant hisoblashda qator yoki ustun tanlash ixtiyoriy ekanligini ko'rsatadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Masala 11 — Determinant xossalari",
+      "problem": "3×3 matritsa M uchun det M = 5 ma'lum. N ni hosil qiling: 1,2-qatorlarni almashtiring; 3-qatorni 2 ga ko'paytiring; 3×(yangi 1-qator)ni 2-qatorga qo'shing. det N, det(2M), det(M^T M) ni toping.",
+      "steps": [
+       {
+        "text": "Matritsani o'zgartirishlarni amalga oshiramiz"
+       },
+       {
+        "text": "det N ni hisoblaymiz"
+       },
+       {
+        "text": "det(2M) ni hisoblaymiz"
+       },
+       {
+        "text": "det(M^T M) ni hisoblaymiz"
+       }
+      ],
+      "result": "det N = -10, det(2M) = 40, det(M^T M) = 25"
+     },
+     "narr": [
+      "Keling, determinantning asosiy xossalarini ko'rib chiqaylik.",
+      "M matritsasi berilgan det M = 5.",
+      "Birinchi o'zgartirish: 1 va 2-qatorlarni almashtiramiz. Bu determinant ishorasini o'zgartiradi.",
+      "Ikkinchi o'zgartirish: 3-qatorni 2 ga ko'paytiramiz. Bu determinantni 2 ga ko'paytiradi.",
+      "Uchinchi o'zgartirish: 3×(1-qator)ni 2-qatorga qo'shamiz. Bu determinantni o'zgartirmaydi.",
+      "Shunday qilib, det N = -2 × 5 = -10.",
+      "Endi, barcha qatorlarni 2 ga ko'paytirsak, det(2M) = 2^3 × det M = 40.",
+      "Nihoyat, det(M^T M) = det(M^T) × det M = (det M)^2 = 25."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Masala 12 — Vektor ko'paytmalari va hajmlar",
+      "problem": "u = [1, 0, 2], v = [2, 0, 1], w = [0, 3, 4] vektorlar berilgan. (u×v)·w ni hisoblang; paralleliped va tetraedr hajmlarini toping; agar u, v ni almashtirsak nima o'zgaradi?",
+      "steps": [
+       {
+        "text": "u×v ni hisoblaymiz"
+       },
+       {
+        "text": "(u×v)·w ni hisoblaymiz"
+       },
+       {
+        "text": "Paralleliped hajmini topamiz"
+       },
+       {
+        "text": "Tetraedr hajmini topamiz"
+       },
+       {
+        "text": "Vektorlarni almashtirishning ta'sirini ko'rib chiqamiz"
+       }
+      ],
+      "result": "(u×v)·w = 11, paralleliped hajmi = 11, tetraedr hajmi = 11/6. Vektorlarni almashtirish belgini o'zgartiradi, lekin hajmning absolyut qiymati o'zgarmaydi."
+     },
+     "narr": [
+      "Keling, vektor ko'paytmalari va hajmlarni ko'rib chiqaylik.",
+      "Uchta vektor berilgan: u, v va w.",
+      "Avval, u×v vektor ko'paytmasini hisoblaymiz.",
+      "Keyin, bu natijani w vektoriga skalyar ko'paytiramiz.",
+      "Bu skalyar ko'paytma parallelipedning hajmini beradi.",
+      "Tetraedr hajmi esa paralleliped hajmining 1/6 qismiga teng.",
+      "Agar u va v vektorlarini almashtirsak, aralash ko'paytmaning ishorasi o'zgardi, lekin hajmning absolyut qiymati o'zgarmaydi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Masala 13 — Komplanar vektorlar",
+      "problem": "u = [1, 0, 1], v = [0, 2, 1], w = [1, 1, k] vektorlar berilgan. Vektorlar komplanar bo'lgan barcha k ni toping; shu k uchun w ni u, v orqali ifodalang.",
+      "steps": [
+       {
+        "text": "Komplanarlik shartini yozamiz"
+       },
+       {
+        "text": "Aralash ko'paytmani hisoblaymiz"
+       },
+       {
+        "text": "Tenglamani yechamiz"
+       },
+       {
+        "text": "w ni u va v orqali ifodalaymiz"
+       }
+      ],
+      "result": "k = 3/2, w = u + (1/2)v"
+     },
+     "narr": [
+      "Keling, komplanar vektorlarga qaraylik.",
+      "Uchta vektor berilgan, ularning komplanar bo'lishi uchun ularning aralash ko'paytmasi nolga teng bo'lishi kerak.",
+      "Aralash ko'paytmani hisoblaymiz.",
+      "Tenglamani yechamiz va k = 3/2 ekanligini topamiz.",
+      "Endi, w ni u va v orqali ifodalaymiz. Birinchi ikki koordinatadan α = 1, β = 1/2 ekanligini topamiz.",
+      "Uchinchi koordinatani tekshiramiz: 1 + (1/2)×1 = 3/2, bu k ga teng. Shunday qilib, w = u + (1/2)v."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Masala 14 — Diagonal matritsalar",
+      "problem": "D = [2, 0; 0, 3], X = [a, b; c, d] bo'lsin. DX = XD bo'ladigan barcha X ni toping; agar D ning ikkala diagonal elementi teng bo'lsa nima bo'ladi?",
+      "steps": [
+       {
+        "text": "DX ni hisoblaymiz"
+       },
+       {
+        "text": "XD ni hisoblaymiz"
+       },
+       {
+        "text": "Tenglik shartini yozamiz"
+       },
+       {
+        "text": "Yechimni topamiz"
+       },
+       {
+        "text": "Maxsus holatni ko'rib chiqamiz"
+       }
+      ],
+      "result": "X diagonal matritsa bo'lishi kerak (b = c = 0), a va d ixtiyoriy. Agar D = λI bo'lsa, u holda DX = XD har qanday X uchun."
+     },
+     "narr": [
+      "Keling, diagonal matritsalar bilan ishlashni ko'rib chiqaylik.",
+      "D diagonal matritsa berilgan, X esa ixtiyoriy matritsa.",
+      "DX va XD ko'paytmalarni hisoblaymiz.",
+      "Tenglik shartini yozamiz: DX = XD.",
+      "Bu tenglik faqatgina X diagonal matritsa bo'lganda o'rinli bo'ladi.",
+      "Agar D = λI bo'lsa (barcha diagonal elementlari teng), u holda DX = XD har qanday X uchun o'rinli bo'ladi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Masala 15 — Transformatsiyalar va hajm",
+      "problem": "u = [2, 0, 1], v = [1, 2, 0], w = [0, 1, 3] vektorlar va L = [2, 1, 0; 0, 1, 0; 0, 0, -1] matritsa berilgan. L har bir vektorga qo'llanilgandan keyingi ishorali aralash ko'paytma va hajmni toping; hajm koeffitsienti nima uchun universal?",
+      "steps": [
+       {
+        "text": "L u ni hisoblaymiz"
+       },
+       {
+        "text": "L v ni hisoblaymiz"
+       },
+       {
+        "text": "L w ni hisoblaymiz"
+       },
+       {
+        "text": "Yangi vektorlar uchun aralash ko'paytmani hisoblaymiz"
+       },
+       {
+        "text": "Hajm koeffitsientini hisoblaymiz"
+       },
+       {
+        "text": "Universal ekanligini tushuntiramiz"
+       }
+      ],
+      "result": "Hajm koeffitsienti = det L = -2. Bu determinantning transformatsiya hajmini o'zgartirish xossasidan kelib chiqadi."
+     },
+     "narr": [
+      "Keling, chakana misol bilan yakunlaymiz.",
+      "Uchta vektor va transformatsiya matritsasi berilgan.",
+      "L transformatsiyasini har bir vektorga qo'llaymiz.",
+      "Yangi vektorlarning aralash ko'paytmasini hisoblaymiz.",
+      "Asl hajm bilan solishtiramiz.",
+      "Hajm koeffitsienti det L ga teng, bu esa transformatsiya hajmini qanday o'zgartirishini ko'rsatadi. Bu qiymat universal, chunki determinant chiziqli transformatsiyalar hajmni qanday o'zgartirishini aks ettiradi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Matritsa rangi",
+      "tex": "rank A \\leq \\min(m, n)",
+      "parts": [
+       {
+        "substr": "rank A",
+        "color": "#4C5FD5",
+        "note": "Matritsa rangi"
+       },
+       {
+        "substr": "m",
+        "color": "#B45309",
+        "note": "Matritsa satrlari soni"
+       },
+       {
+        "substr": "n",
+        "color": "#0E7C7B",
+        "note": "Matritsa ustunlari soni"
+       }
+      ]
+     },
+     "narr": [
+      "Matritsa rangi matritsa satrlari va ustunlari sonining minimumidan katta yoki teng bo'lishi kerak."
+     ],
+     "narr_item": [
+      0
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Matritsa rangi va determinant",
+      "tex": "A \\in \\mathbb{R}^{n \\times n} : rank A = n \\Leftrightarrow Ax = 0 \\text{ faqat } x = 0 \\text{ yechimga ega}",
+      "parts": [
+       {
+        "substr": "rank A = n",
+        "color": "#4C5FD5",
+        "note": "Matritsa to'liq rangga ega"
+       },
+       {
+        "substr": "Ax = 0",
+        "color": "#B45309",
+        "note": "Nol vektorga teng matritsa tenglamasi"
+       },
+       {
+        "substr": "x = 0",
+        "color": "#0E7C7B",
+        "note": "Trivial yechim"
+       }
+      ]
+     },
+     "narr": [
+      "Kvadrat matritsa to'liq rangga ega bo'lishining sharti, unga nol vektorga teng bo'lgan tenglamaning faqat nol yechimi bo'lishidir."
+     ],
+     "narr_item": [
+      0
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Matritsa teskarililigi",
+      "tex": "A \\text{ teskarililigi } \\Leftrightarrow rank A = n \\Leftrightarrow n \\text{ ta pivot } \\Leftrightarrow \\det A \\neq 0",
+      "parts": [
+       {
+        "substr": "rank A = n",
+        "color": "#4C5FD5",
+        "note": "Matritsa to'liq rangga ega"
+       },
+       {
+        "substr": "n ta pivot",
+        "color": "#B45309",
+        "note": "n ta asosiy element"
+       },
+       {
+        "substr": "det A ≠ 0",
+        "color": "#0E7C7B",
+        "note": "Determinant nolga teng emas"
+       }
+      ]
+     },
+     "narr": [
+      "Matritsa teskariligining uchta ekvivalent sharti bor: to'liq rangga ega bo'lishi, n ta asosiy elementga ega bo'lishi va determinantining nolga teng bo'lishi."
+     ],
+     "narr_item": [
+      0
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Matritsa teskarililigi",
+      "tex": "A \\text{ teskarililigi } \\Leftrightarrow Ax = b \\text{ har bir } b \\text{ uchun aynan bitta yechimga ega}",
+      "parts": [
+       {
+        "substr": "Ax = b",
+        "color": "#4C5FD5",
+        "note": "Matritsa tenglamasi"
+       },
+       {
+        "substr": "har bir b",
+        "color": "#B45309",
+        "note": "Har bir o'ng tomon vektori uchun"
+       },
+       {
+        "substr": "aynan bitta yechim",
+        "color": "#0E7C7B",
+        "note": "Yagona yechim mavjud"
+       }
+      ]
+     },
+     "narr": [
+      "Matritsa teskariligining yana bir sharti - har bir o'ng tomon vektori uchun tenglamaning aynan bitta yechimiga ega bo'lishidir."
+     ],
+     "narr_item": [
+      0
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Teskari matritsa",
+      "bullets": [
+       "$AA^{-1} = I = A^{-1}A$",
+       "$x = A^{-1}b$ bo'lsa, $Ax = b$ yechim",
+       "$A^{-1}$ mavjud $\\Leftrightarrow$ yo'q qilish $n$ ta pivot beradi (qator almashtirishlar mumkin)",
+       "$\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}^{-1} = $1{ad - bc}$\\begin{bmatrix} d & -b \\\\ -c & a \\end{bmatrix}$ ($ad - bc ≠ 0$)",
+       "$(AB)^{-1} = B^{-1}A^{-1}$",
+       "$(ABC)^{-1} = C^{-1}B^{-1}A^{-1}$ (teskari tartib)",
+       "$\\text{diag}(d_1, \\ldots, d_n)^{-1} = \\text{diag}\\left(\\frac{1}{d_1}, \\ldots, \\frac{1}{d_n}\\right)$ ($d_i \\neq 0$)"
+      ]
+     },
+     "narr": [
+      "Teskari matritsa haqida bir necha muhim faktlar bor.",
+      "Birinchidan, matritsa va uning teskarisining ko'paytmasi birlik matritsaga teng bo'ladi.",
+      "Ikkinchidan, agar $x = A^{-1}b$ bo'lsa, $Ax = b$ tenglamaning yechimi bo'ladi.",
+      "Uchinchidan, matritsada teskari matritsa bo'lishi uchun yo'q qilish jarayonida $n$ ta asosiy element bo'lishi kerak.",
+      "To'rtinchidan, $2 \\times 2$ matritsasi uchun teskari matritsani hisoblash formulasi mavjud.",
+      "Beshinchidan, ikki matritsaning ko'paytmasining teskari matritsi ularning teskari matritsalarining teskari tartibda ko'paytmasiga teng.",
+      "Oltinchidan, uchta matritsaning ko'paytmasining teskari matritsi ularning teskari matritsalarining teskari tartibda ko'paytmasiga teng.",
+      "Yettinchidan, diagonal matritsaning teskari matritsasi uning diagonal elementlarining teskari qiymatlaridan tashkil topgan diagonal matritsadir."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Teskari matritsasizlik",
+      "tex": "x \\neq 0, Ax = 0 \\Rightarrow A \\text{ teskarili emas}",
+      "parts": [
+       {
+        "substr": "x ≠ 0",
+        "color": "#4C5FD5",
+        "note": "Nol bo'lm vektor"
+       },
+       {
+        "substr": "Ax = 0",
+        "color": "#B45309",
+        "note": "Nol vektorga teng tenglama"
+       },
+       {
+        "substr": "A teskarili emas",
+        "color": "#0E7C7B",
+        "note": "Matritsa teskarisiz"
+       }
+      ]
+     },
+     "narr": [
+      "Agar nol bo'lmagan vektor $x$ uchun $Ax = 0$ tenglik o'rinli bo'lsa, matritsa teskarisiz bo'ladi."
+     ],
+     "narr_item": [
+      0
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Teskari matritsa xossasi",
+      "tex": "BA = I, AC = I \\Rightarrow B = B(AC) = (BA)C = C \\text{ (yagonalik)}",
+      "parts": [
+       {
+        "substr": "BA = I",
+        "color": "#4C5FD5",
+        "note": "B matritsasi A ning chap teskarisi"
+       },
+       {
+        "substr": "AC = I",
+        "color": "#B45309",
+        "note": "C matritsasi A ning o'ng teskarisi"
+       },
+       {
+        "substr": "B = C",
+        "color": "#0E7C7B",
+        "note": "Chap va o'ng teskari matritsalar teng"
+       }
+      ]
+     },
+     "narr": [
+      "Agar B matritsasi A ning chap teskarisi va C matritsasi A ning o'ng teskarisi bo'lsa, B va C matritsalari teng bo'ladi. Bu teskari matritsaning yagonaligini ko'rsatadi."
+     ],
+     "narr_item": [
+      0
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Gauss-Jordan yo'q qilish",
+      "bullets": [
+       "$\\begin{bmatrix} A & | & I \\end{bmatrix}$ boshlang'ich qator amallari",
+       "$\\begin{bmatrix} A & | & I \\end{bmatrix} → \\begin{bmatrix} I & | & A^{-1} \\end{bmatrix}$",
+       "Qator amallari: ikkala qatorni almashtirish; qatorni noldan farqli konstantaga ko'paytirish; bitta qatorning ko'paytmasini boshqasiga qo'shish."
+      ]
+     },
+     "narr": [
+      "Gauss-Jordan usuli orqali matritsani teskarisini topish mumkin.",
+      "Buning uchun avval [A | I] kabi kengaytirilgan matritsa tuzamiz.",
+      "Keyin qator amallari yordamida A ni I ga aylantiramiz.",
+      "Qator amallari uchta turli usuldan iborat: ikkala qatorni almashtirish, qatorni noldan farqli konstantaga ko'paytirish va bitta qatorning ko'paytmasini boshqasiga qo'shish.",
+      "Har bir qator amali boshlang'ich E matritsiga mos keladi, uning teskari oson hisoblanadi.",
+      "Shuning uchun (E₂E₁A)⁻¹ = A⁻¹E₁⁻¹E₂⁻¹ bo'ladi, bu erda teskari tartibda chiqadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "1-masala — Matritsa rangini hisoblash",
+      "problem": "A = \\begin{bmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 5 \\\\ 3 & 6 & 4 \\end{bmatrix} matritsasi uchun chiqarib tashlash orqali rank A ni hisoblang.",
+      "steps": [
+       {
+        "text": "Birinchi ustun elementi (1) ostida chiqaramiz: R₂ − 2R₁ → (0, 0, 3); R₃ − 3R₁ → (0, 0, 1)"
+       },
+       {
+        "text": "Ikkinchi ustun elementlari yo'qoldi, demak ikkinchi ustun elementi 3-ustundan keladi: ustun elementi = 3"
+       },
+       {
+        "text": "Uning ostida chiqaramiz: R₃ − (1/3)R₂ → (0, 0, 0)"
+       },
+       {
+        "text": "Ikkita nol bo'lmagan ustun element: rank A = 2"
+       },
+       {
+        "text": "E'tibor bering col₂ = 2col₁, bu boshidan ko'rinib turardi — rang kamchiligi belgisi"
+       }
+      ],
+      "result": "rank A = 2"
+     },
+     "narr": [
+      "Birinchi masalada bizga berilgan matritsa rangini chiqarib tashlash usuli bilan hisoblash so'ralgan.",
+      "Birinchi ustun elementi 1 bo'lgani uchun, uning ostidagi elementlarni nolga aylantiramiz.",
+      "Ikkinchi qatorni birinchisining ikki barobaridan ayiramiz, uchinchi qatorni uch barobaridan ayiramiz.",
+      "Natijada ikkinchi ustundagi elementlar nolga aylanadi, shuning uchun ikkinchi ustun elementi uchinchi ustundan keladi.",
+      "Uchinchi qatorda ikkinchi qatorning uchdan bir qismini ayiramiz, bu bizga nol qator beradi.",
+      "Shunday qilib, bizda ikkita nol bo'lmagan ustun element qoladi, demak matritsa rangi 2 ga teng.",
+      "E'tibor bering, ikkinchi ustun birinchisining ikki barobari, bu matritsa rangi kam ekanligining belgisi edi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "2-masala — Matritsani teskariligini tekshirish",
+      "problem": "B = \\begin{bmatrix} 1 & 2 \\\\ 4 & 2 \\end{bmatrix} matritsasi uchun uchta usul bilan teskari ekanligini aniqlang: ustun elementlar, determinant va nol bo'lmanni nol vektor.",
+      "steps": [
+       {
+        "text": "(Asosiy) R₂ − 2R₁ → (0, 0): faqat bitta asosiy — noyob"
+       },
+       {
+        "text": "(Determinant) ad − bc = 2·2 − 1·4 = 0 — (112) bo'yicha noyob"
+       },
+       {
+        "text": "(Nol-vektor) B(1, −2)ᵀ = (2−2, 4−4)ᵀ = 0 — Bx = 0 tenglamaning nol bo'lmagan yechimi, demak (115) bo'yicha B teskarisiz"
+       },
+       {
+        "text": "Uchala test ham mos keladi"
+       }
+      ],
+      "result": "B matritsasi teskarisiz"
+     },
+     "narr": [
+      "Ikkinchi masalada bizga B matritsasi teskariligini uchta usul bilan tekshirish so'ralgan.",
+      "Birinchi usul - asosiy elementlar orqali. Bizda faqat bitta asosiy element bor, bu matritsa to'liq rangga ega emasligini ko'rsatadi.",
+      "Ikkinchi usul - determinant orqali. Matritsa determinantini hisoblaymiz: 2·2 - 1·4 = 0. Determinant nolga teng bo'lgani uchun matritsa teskarisiz.",
+      "Uchinchi usul - nol bo'lmann nol vektorga teng tenglamani tekshirish. B(1, -2)ᵀ = (0, 0)ᵀ tenglik o'rinli, ya'ni nol bo'lmagan yechim mavjud.",
+      "Uchala usul ham matritsani teskarisiz ekanligini ko'rsatadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "3-masala — Matritsaning teskarisini topish",
+      "problem": "A = \\begin{bmatrix} 2 & 1 \\\\ 5 & 3 \\end{bmatrix} matritsasining teskarisini toping.",
+      "steps": [
+       {
+        "text": "det A = 6 − 5 = 1, shuning uchun (112) bo'yicha A⁻¹ = \\begin{bmatrix} 3 & -1 \\\\ -5 & 2 \\end{bmatrix}"
+       },
+       {
+        "text": "Tekshirish: A · A⁻¹ = [2 · 3 + 1 · (−5), 2 · (−1) + 1 · 2; 5 · 3 + 3 · (−5), 5 · (−1) + 3 · 2] = [1 0; 0 1] = I"
+       }
+      ],
+      "result": "A⁻¹ = \\begin{bmatrix} 3 & -1 \\\\ -5 & 2 \\end{bmatrix}"
+     },
+     "narr": [
+      "Uchinchi masalada bizga berilgan 2×2 matritsani teskarisini topish so'ralgan.",
+      "Avval matritsa determinantini hisoblaymiz: 2·3 - 1·5 = 6 - 5 = 1.",
+      "Determinant nolga teng emas, shuning uchun matritsada teskari matritsa mavjud.",
+      "2×2 matritsa teskari matritsasi formulasi yordamida: A⁻¹ = (1/1)·[3 -1; -5 2] = [3 -1; -5 2]",
+      "Natijani tekshirish uchun A va A⁻¹ ni ko'paytiramiz: [2·3 + 1·(-5), 2·(-1) + 1·2; 5·3 + 3·(-5), 5·(-1) + 3·2] = [1 0; 0 1] = I",
+      "Ko'paytma birlik matritsaga teng, shuning uchun hisob to'g'ri."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "4-masala — Gauss-Jordan usuli bilan teskari matritsani topish",
+      "problem": "\\begin{bmatrix} A & | & I \\end{bmatrix} matritsiga Gauss-Jordan usulini qo'llab A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 7 \\end{bmatrix} matritsasini teskarisini toping.",
+      "steps": [
+       {
+        "text": "\\begin{bmatrix} 1 & 2 & | & 1 & 0 \\\\ 3 & 7 & | & 0 & 1 \\end{bmatrix} → R₂ − 3R₁ → \\begin{bmatrix} 1 & 2 & | & 1 & 0 \\\\ 0 & 1 & | & -3 & 1 \\end{bmatrix}"
+       },
+       {
+        "text": "→ R₁ − 2R₂ → \\begin{bmatrix} 1 & 0 & | & 7 & -2 \\\\ 0 & 1 & | & -3 & 1 \\end{bmatrix}"
+       },
+       {
+        "text": "Shunday qilib A⁻¹ = \\begin{bmatrix} 7 & -2 \\\\ -3 & 1 \\end{bmatrix}"
+       },
+       {
+        "text": "Tekshirish: AA⁻¹ = \\begin{bmatrix} 1·7 + 2·(-3) & 1·(-2) + 2·1 \\\\ 3·7 + 7·(-3) & 3·(-2) + 7·1 \\end{bmatrix} = \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} = I"
+       }
+      ],
+      "result": "A⁻¹ = \\begin{bmatrix} 7 & -2 \\\\ -3 & 1 \\end{bmatrix}"
+     },
+     "narr": [
+      "To'rtinchi masalada Gauss-Jordan usuli yordamida matritsani teskarisini topish so'ralgan.",
+      "Avval kengaytirilgan matritsani tuzamiz: [A | I] = [1 2 | 1 0; 3 7 | 0 1]",
+      "Birinchi qatorni ikkinchi qatordan uch barobar ayiramiz: R₂ − 3R₁ → [1 2 | 1 0; 0 1 | -3 1]",
+      "Endi birinchi qatorda ikkinchi ustun elementini nolga aylantiramiz: R₁ − 2R₂ → [1 0 | 7 -2; 0 1 | -3 1]",
+      "Natijada chap tomonda birlik matritsa, o'ng tomonda esa A⁻¹ hosil bo'ladi: [7 -2; -3 1]",
+      "Natijani tekshirish uchun A va A⁻¹ ni ko'paytiramiz: [1·7 + 2·(-3) 1·(-2) + 2·1; 3·7 + 7·(-3) 3·(-2) + 7·1] = [1 0; 0 1] = I",
+      "Ko'paytma birlik matritsaga teng, shuning uchun hisob to'g'ri."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "5-masala — Gauss-Jordan usuli bilan teskari matritsani topish",
+      "problem": "K = \\begin{bmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{bmatrix} matritsasi uchun Gauss-Jordan usuli bilan teskarisini toping va tekshiring, asosiy ko'paytmalari det K ga teng ekanligini.",
+      "steps": [
+       {
+        "text": "[K|I] da ishlaymiz: birinchi asosiy 2 bilan chiqaramiz (R₂ + (1/2)R₁), so'ngra ikkinchi asosiy 3/2 (R₃ + (2/3)R₂), so'ngra uchinchi 4/3"
+       },
+       {
+        "text": "Yuqoriga davom etib, asosiy elementlar ustidini tozalaganda o'ngda K⁻¹ hosil bo'ladi"
+       },
+       {
+        "text": "K⁻¹ = (1/4)·\\begin{bmatrix} 3/2 & 1/2 & 1/4 \\\\ 1 & 1 & 1/2 \\\\ 1/2 & 1/2 & 3/4 \\end{bmatrix} bo'ladi"
+       },
+       {
+        "text": "Asosiy ko'paytmalar 2 · (3/2) · (4/3) = 4 = det K ga teng"
+       },
+       {
+        "text": "Haqiqatan ham K⁻¹ butun sonli matritsani det K ga bo'lib olinadi — (112) dan keyin belgilangan namuna"
+       }
+      ],
+      "result": "K⁻¹ = (1/4)·\\begin{bmatrix} 3/2 & 1/2 & 1/4 \\\\ 1 & 1 & 1/2 \\\\ 1/2 & 1/2 & 3/4 \\end{bmatrix}"
+     },
+     "narr": [
+      "Beshinchi masalada Strangning sevimli misolini ko'rib chiqamiz.",
+      "K matritsasi uchun Gauss-Jordan usulini qo'llaymiz.",
+      "Birinchi asosiy element 2, ikkinchi asosiy element 3/2, uchinchi asosiy element 4/3.",
+      "Asosiy ko'paytmalar 2 · (3/2) · (4/3) = 4 ga teng, bu det K ga teng.",
+      "K⁻¹ ni hisoblab, uni det K ga bo'lib olamiz.",
+      "Matritsa simmetrik va uch diagonal, lekin K⁻¹ zich matritsadir."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "6-masala — Tenglama sistemasini yechish",
+      "problem": "Ax = b tenglamani A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 7 \\end{bmatrix}, b = \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix} uchun yeching.",
+      "steps": [
+       {
+        "text": "4-masaladan A⁻¹ = \\begin{bmatrix} 7 & -2 \\\\ -3 & 1 \\end{bmatrix} ekanligini bilamiz"
+       },
+       {
+        "text": "x = A⁻¹b = \\begin{bmatrix} 7 & -2 \\\\ -3 & 1 \\end{bmatrix}·\\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix} = \\begin{bmatrix} 7·1 −2·1 \\\\ −3·1 + 1·1 \\end{bmatrix} = \\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}"
+       }
+      ],
+      "result": "x = \\begin{bmatrix} 5 \\\\ -2 \\end{bmatrix}"
+     },
+     "narr": [
+      "Oltinchi masalada Ax = b tenglama sistemasini yechish so'ralgan.",
+      "A matritsasi 4-masalada berilgan edi, uning teskari matritsini allaqachon topganmiz: A⁻¹ = [7 -2; -3 1]",
+      "Tenglama sistemasini yechish uchun x = A⁻¹b formulasidan foydalanamiz.",
+      "b vektorini A⁻¹ ga ko'paytiramiz: [7·1 -2·1; -3·1 + 1·1] = [5; -2]",
+      "Shunday qilib, tenglamaning yechimi x = [5; -2] vektoridir."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "7-masala — (AB)^-1 ni hisoblash",
+      "problem": "A = \\begin{pmatrix} 1 & 0 \\\\ 2 & 1 \\end{pmatrix} va B = \\begin{pmatrix} 2 & 1 \\\\ 1 & 1 \\end{pmatrix} matritsalar berilgan. (AB)^-1 ni hisoblang.",
+      "steps": [
+       {
+        "text": "(113) formulaga ko'ra, (AB)^-1 = B^-1 A^-1"
+       },
+       {
+        "text": "det A = 2 va det B = 2, shuning uchun det(AB) = 4"
+       },
+       {
+        "text": "Teskari matritsa (AB)^-1 = (1/4) \\begin{pmatrix} 2 & -3 \\\\ -2 & 4 \\end{pmatrix}"
+       },
+       {
+        "text": "Ko'paytmani tekshirish: (AB)^-1 (AB) = I"
+       }
+      ],
+      "result": "(AB)^-1 = (1/4) \\begin{pmatrix} 2 & -3 \\\\ -2 & 4 \\end{pmatrix}"
+     },
+     "narr": [
+      "Savolga ko'ra, ikkita matritsa berilgan. Biz ularning ko'paytmasining teskari matritsasini topishimiz kerak.",
+      "Avvalo, (AB)^-1 formulasini eslaymiz. Bu B^-1 A^-1 ga teng.",
+      "Determinantlarni hisoblaymiz: det A = 2, det B = 2, det(AB) = 4.",
+      "Teskari matritsani topamiz: (AB)^-1 = (1/4) \\begin{pmatrix} 2 & -3 \\\\ -2 & 4 \\end{pmatrix}",
+      "Ko'paytmani tekshirib, teskari tartib qonuni tasdiqlanadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "8-masala — Tushunchaviy test",
+      "problem": "To'g'ri yoki noto'g'ri, asoslari bilan: (a) Agar A matritsa teskari bo'lsa, A^T ham teskari bo'ladi. (b) Agar Ax = λx ≠ 0 va λ = 0 bo'lsa, A teskari emas. (c) Teskari 3 × 3 matritsalar ko'paytmasi noyob bo'lishi mumkin. (d) Har qanday 2 × 3 matritsa uchun rank(A) ≤ 2.",
+      "steps": [
+       {
+        "text": "(a) To'g'ri: A dan ta asosli element bo'lsa ⇐⇒ A^T dan ta asosli element bo'ladi (qator rangi = ustun rangi); rasmiy ravishda (A^T)^-1 = (A^-1)^T"
+       },
+       {
+        "text": "(b) To'g'ri: Ax = 0 · x = 0 tenglamani qanoatlantiruvchi nol bo'lmagan x (115) shartni buzadi"
+       },
+       {
+        "text": "(c) Noto'g'ri: (113) formulaga ko'ra teskari matritsalar ko'paytmasi ham teskari bo'ladi"
+       },
+       {
+        "text": "(d) To'g'ri: rang matritsa satrlari sonidan oshmaydi (har bir asosli element bitta satrni egallaydi), shuning uchun rank ≤ 2 < 3"
+       }
+      ],
+      "result": "a) To'g'ri, b) To'g'ri, c) Noto'g'ri, d) To'g'ri"
+     },
+     "narr": [
+      "Bu masalada chiziqli algebra asoslarini tushunishimiz tekshiriladi.",
+      "a) Agar matritsa teskari bo'lsa, uning transponir ham teskari bo'ladi. Chunki determinant o'zgarmaydi.",
+      "b) Agar matritsaning o'ziga xos qiymati nolga teng bo'lsa, matritsa teskari bo'lmaydi.",
+      "c) Teskari matritsalar ko'paytmasi ham teskari bo'ladi, shuning uchun bu noto'g'ri.",
+      "d) 2 × 3 matritsada rang 2 dan oshmaydi, chunki faqat 2 ta satr bo'ladi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "9-masala — Matritsani teskarilash",
+      "problem": "c ning qanday qiymat(lar)ida A = \\begin{pmatrix} 1 & c \\\\ 4 & 2 \\end{pmatrix} matritsasi yagona (singulyar emas)? Qolgan qiymatlar uchun Ax = \\begin{pmatrix} 6 \\\\ 4 \\end{pmatrix} ni yeching.",
+      "steps": [
+       {
+        "text": "det A = 2 - 4c; noyob bo'lishi uchun aynan c = 1/2"
+       },
+       {
+        "text": "Aks holda A^-1 = 1/det A = 1/(2 - 4c)"
+       },
+       {
+        "text": "x = A^-1 b = 1/(2 - 4c) \\begin{pmatrix} 2 & -c \\\\ -4 & 1 \\end{pmatrix} \\begin{pmatrix} 6 \\\\ 4 \\end{pmatrix}"
+       },
+       {
+        "text": "masalan c = 7 da: x = (8, -2)^T"
+       }
+      ],
+      "result": "c = 1/2 da matritsa teskari bo'ladi; boshqa qiymatlarda x = \\begin{pmatrix} 8 \\\\ -2 \\end{pmatrix}"
+     },
+     "narr": [
+      "Bu masalada matritsaning teskariligini va chiziqli tenglamalarni yechishni ko'rib chiqamiz.",
+      "Avvalo, determinantni hisoblaymiz: det A = 2 - 4c.",
+      "Matritsa teskari bo'lishi uchun determinant noldan farqli bo'lishi kerak, ya'ni c = 1/2.",
+      "Agar c boshqa qiymatda bo'lsa, matritsani teskarilab, tenglamani yechamiz.",
+      "c = 7 bo'lgan misol uchun yechim x = (8, -2)^T."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "10-masala — Rangning saqlanishi",
+      "problem": "Isbotlang, agar A teskari bo'lsa, u holda rank(AB) = rank(B) har qanday mos keladigan B uchun.",
+      "steps": [
+       {
+        "text": "Teskari matritsaga ko'paytirish soni asosli vektorlarni o'zgartirmaydi"
+       },
+       {
+        "text": "rank(AB) ≤ rank(B) (AB qatorlari — B qatorlarining chiziqli kombinatsiyalari)"
+       },
+       {
+        "text": "B = A^-1(AB) uchun qo'llaymiz, rank(B) ≤ rank(AB)"
+       },
+       {
+        "text": "Ikkala tengsizlik tenglikni talab qiladi"
+       }
+      ],
+      "result": "Agar A teskari bo'lsa, rank(AB) = rank(B)"
+     },
+     "narr": [
+      "Bu murakkab masalada matritsa ko'paytmalarining rangi o'zgarmasligini ko'rib chiqamiz.",
+      "Teskari matritsaga ko'paytirish matritsaning asosli vektorlarini o'zgatirmaydi.",
+      "Birinchidan, rank(AB) ≤ rank(B) ekanligini ko'ramiz, chunki AB qatorlari B qatorlarining chiziqli kombinatsiyalari.",
+      "Keyin, B = A^-1(AB) uchun xuddi shu munosabatni qo'llaymiz.",
+      "Bu ikkala tengsizlikdan rank(AB) = rank(B) kelib chiqadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "1-masala — Vektorlar kombinatsiyalari",
+      "problem": "Barcha c u uchun va barcha cu + dv kombinatsiyalarini u = (2, 1), v = (1, 2) uchun; qachon cu + dv kombinatsiyalari tekislikni to'ldiradi?",
+      "steps": [
+       {
+        "text": "cu (2, 1) orqali o'tgan to'g'ri chiziqni to'ldiradi"
+       },
+       {
+        "text": "cu + dv koordinata boshidan o'tgan tekislikni to'ldiradi, agar u va v kollinear bo'lmasa"
+       },
+       {
+        "text": "det = 2·2 - 1·1 = 3 ≠ 0, shuning uchun ikki yo'nalat mustaqil"
+       },
+       {
+        "text": "Bu mezon - nol bo'lmaydigan determinant - 4-haftada teskarilik sifatida qaytadi"
+       }
+      ],
+      "result": "cu + dv kombinatsiyalari butun R^2 ni to'ldiradi, chunku det ≠ 0"
+     },
+     "narr": [
+      "Bu masalada ikki o'lchovli fazodagi vektorlar kombinatsiyalarini ko'rib chiqamiz.",
+      "Birinchidan, c·u vektori faqatgina (2,1) yo'nalishidagi vektorlarni beradi.",
+      "c·u + d·v kombinatsiyalari butun tekislikni qoplaydi, agar u va v vektorlari mustaqil bo'lsa.",
+      "Determinantni hisoblab, ular mustaqil ekanligini ko'ramiz: det = 3 ≠ 0.",
+      "Bu esa teskari matritsa mavjudligini anglatadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "2-masala — Skalyar ko'paytma",
+      "problem": "Skalyar ko'paytmalarni hisoblang: u · v uchun u = (1, 2, 1), v = (3, 0, 2); ikkalasiga perpendikulyar w vektorni toping.",
+      "steps": [
+       {
+        "text": "u · v = 1·3 + 2·0 + 1·2 = 5"
+       },
+       {
+        "text": "Perpendikulyar vektor - vektor ko'paytmasi: w = u × v"
+       },
+       {
+        "text": "w = (2·2 - 1·0, 1·3 - 1·2, 1·0 - 2·3) = (4, 1, -6)"
+       },
+       {
+        "text": "Tekshirish: w · u = 4 + 2 - 6 = 0 va w · v = 12 + 0 - 12 = 0"
+       }
+      ],
+      "result": "u · v = 5; w = (4, 1, -6)"
+     },
+     "narr": [
+      "Uch o'lchovli vektorlar bilan ishlashni ko'rib chiqamiz.",
+      "Birinchidan, ikkita vektorning skalyar ko'paytmasini hisoblaymiz.",
+      "Keyin, ikkalasiga perpendikulyar bo'lgan vektorni topamiz.",
+      "Vektor ko'paytmasidan foydalanib, w = (4, 1, -6) ekanligini ko'ramiz.",
+      "Natijani tekshirib, perpendikulyarlik shartini qanoatlantirishini ko'ramiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "3-masala — Skalyar ko'paytma xossalari",
+      "problem": "Qachon u · v = v · u manfiy va bu burchak haqida nima deydi? Nolga teng qachon?",
+      "steps": [
+       {
+        "text": "u · v = v · hamma holatlarda"
+       },
+       {
+        "text": "Manfiy aynan cos θ < 0 bo'lganda, ya'ni burchak 90° dan katta (o'tkir)"
+       },
+       {
+        "text": "Nol θ = 90° da - perpendikulyarlik"
+       },
+       {
+        "text": "Bu tasnif, 2-haftadagi TA masalarida qo'llanilgan"
+       }
+      ],
+      "result": "u · v < 0 bo'lganda burchak 90° dan katta; u · v = 0 bo'lganda vektorlar perpendikulyar"
+     },
+     "narr": [
+      "Bu masalada skalyar ko'paytmaning xususiyatlarini ko'rib chiqamiz.",
+      "Skalyar ko'paytma har doim simmetrik: u · v = v · u.",
+      "Agar skalyar ko'paytma manfiy bo'lsa, bu vektorlar orasidagi burchak 90° dan katta ekanligini anglatadi.",
+      "Agar skalyar ko'paytma nolga teng bo'lsa, vektorlar bir-biriga perpendikulyar bo'ladi.",
+      "Bu xususiyatlar chiziqli algebra muhim qismi hisoblanadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "4-masala — Tenglamani yechish",
+      "problem": "Ax = b ni yeching A = \\begin{pmatrix} 2 & -1 \\\\ 3 & -4 \\\\ 2 & 3 \\end{pmatrix}, b = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}",
+      "steps": [
+       {
+        "text": "det A = 2·(-4) - (-1)·3 = -5"
+       },
+       {
+        "text": "A^-1 = (1/-5) \\begin{pmatrix} -4 & 1 \\\\ -3 & 2 \\end{pmatrix}"
+       },
+       {
+        "text": "x = A^-1 b = (1/-5) \\begin{pmatrix} -4 & 1 \\\\ -3 & 2 \\end{pmatrix} \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}"
+       },
+       {
+        "text": "x = (1/-5) \\begin{pmatrix} -8 \\ -1 \\end{pmatrix} = \\begin{pmatrix} 8/5 \\\\ 1/5 \\end{pmatrix}"
+       }
+      ],
+      "result": "x = \\begin{pmatrix} 8/5 \\\\ 1/5 \\end{pmatrix}"
+     },
+     "narr": [
+      "Bu masalada matritsali tenglamani yechish usulini ko'rib chiqamiz.",
+      "Avvalo, matritsaning determinantini hisoblaymiz.",
+      "Keyin, matritsani teskarilaymiz.",
+      "Teskari matritsani b vektoriga ko'paytirib, yechimni topamiz.",
+      "Natijani tekshirib, to'g'ri ekanligiga ishonch hosil qilamiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "5-masala — Nol yechim",
+      "problem": "Nol bo'lmagan Ax = 0 yechimi teskarini istisno qiladi? Ikkita jumladan iborat fikrni keltiring.",
+      "steps": [
+       {
+        "text": "Agar Ax = 0, x ≠ 0 va A da teskari bo'lsa, u holda x = A^-1 Ax = A^-1 0 = 0 - ziddiyat"
+       },
+       {
+        "text": "Nol vektorning 'teskari tasviri' faqat aynilikda mavjud"
+       },
+       {
+        "text": "Nol-vektor buni emasligini isbotlaydi"
+       }
+      ],
+      "result": "Agar A teskari bo'lsa, Ax = 0 tenglamaning yagona yechimi x = 0 bo'ladi"
+     },
+     "narr": [
+      "Bu masalada matritsali tenglamaning nol yechimiga oid xususiyatni ko'rib chiqamiz.",
+      "Agar matritsa teskari bo'lsa, Ax = 0 tenglamaning yagona yechimi x = 0 bo'ladi.",
+      "Buni isbotlash uchun, agar teskari yechim mavjud bo'lsa, nol vektordan boshqa yechim bo'lishi mumkin emasligini ko'rsatamiz.",
+      "Bu chiziqli algebra asosiy natijalaridan biri hisoblanadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "6-masala — Teskari matritsalar xossalari",
+      "problem": "Agar A va C teskari 3 × 3 matritsalar bo'lsa, A + C teskari bo'ladimi? AC? A^-1 C?",
+      "steps": [
+       {
+        "text": "A + C: albatta emas (masalan, C = -A beradi)"
+       },
+       {
+        "text": "Teskari matritsalarning yig'indisi aynan bo'lishi mumkin"
+       },
+       {
+        "text": "AC: ha, (AC)^-1 = C^-1 A^-1"
+       },
+       {
+        "text": "A^-1 C: ha, ikkita teskari matritsaning ko'paytmasi"
+       }
+      ],
+      "result": "A + C teskari bo'lishi shart emas; AC va A^-1 C teskari bo'ladi"
+     },
+     "narr": [
+      "Bu masalada teskari matritsalarning qo'shilishi va ko'paytirish xususiyatlarini ko'rib chiqamiz.",
+      "Teskari matritsalarning yig'indisi har doim teskari bo'lishi shart emas.",
+      "Biroq, teskari matritsalarning ko'paytmasi ham teskari bo'ladi.",
+      "Bu xususiyat chiziqli algebra muhim qismi hisoblanadi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "7-masala — Gauss-Jordan usuli",
+      "problem": "A = \\begin{pmatrix} 2 & 1 & 1 \\\\ 4 & -6 & 0 \\\\ -2 & 7 & 2 \\end{pmatrix} uchun Gauss-Jordan usulini bajaring va A^-1 ni ko'rsating.",
+      "steps": [
+       {
+        "text": "I ni to'ldirib, chiqarib tashlaymiz"
+       },
+       {
+        "text": "Asosiy elementlar ustini tozalab, satrlarni 2, -8, 1 ga bo'lib"
+       },
+       {
+        "text": "A^-1 = (1/8) \\begin{pmatrix} 12 & -5 & -6 \\\\ 8 & -3 & -2 \\\\ -1 & 1 & 1 \\end{pmatrix}"
+       },
+       {
+        "text": "Determinant asosiy elementlar ko'paytmasiga teng 2·(-8)·1 = -16"
+       }
+      ],
+      "result": "A^-1 = (1/8) \\begin{pmatrix} 12 & -5 & -6 \\\\ 8 & -3 & -2 \\\\ -1 & 1 & 1 \\end{pmatrix}"
+     },
+     "narr": [
+      "Bu masalada Gauss-Jordan usulini qo'llab matritsani teskarilashni ko'rib chiqamiz.",
+      "Avvalo, berilgan matritsani birlik matritsiga qo'shamiz.",
+      "Keyin, elementar operatsiyalar yordamida birlik matritsini teskari matritsaga aylantiramiz.",
+      "Natijani tekshirib, determinant hisoblaymiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "8-masala — Determinant xossalari",
+      "problem": "§1.6 da qo'llanilgan determinant-transponirlilik identifikatsiyalarini ko'rsating: det A^T, det(AB), det A^-1.",
+      "steps": [
+       {
+        "text": "det A^T = det A"
+       },
+       {
+        "text": "det(AB) = det A det B"
+       },
+       {
+        "text": "B = A^-1 deb olib, det(A) det(A^-1) = det I = 1"
+       },
+       {
+        "text": "Shuning uchun det A^-1 = 1/det A"
+       }
+      ],
+      "result": "det A^T = det A; det(AB) = det A det B; det A^-1 = 1/det A"
+     },
+     "narr": [
+      "Bu masalada determinantning asosiy xususiyatlarini ko'rib chiqamiz.",
+      "Birinchidan, matritsa va uning transponirining determinantlari teng ekanligini ko'ramiz.",
+      "Keyin, ikkita matritsa ko'paytmasining determinantlari ko'paytmasi teng ekanligini eslaymiz.",
+      "Nihoyat, teskari matritsaning determinant asl matritsaning determinantining teskarisiga teng ekanligini ko'ramiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "9-masala — Simmetrik matritsalar",
+      "problem": "Isbotlang (A^-1)^T = (A^T)^-1 va A^T A simmetrik ekanini tushuntiring, manfiy bo'lmagan diagonalga ega.",
+      "steps": [
+       {
+        "text": "AA^-1 = I ni transponirib, (A^-1)^T A^T = I hosil bo'ladi"
+       },
+       {
+        "text": "Bu esa (A^-1)^T = (A^T)^-1 degani aniq"
+       },
+       {
+        "text": "Simmetriya: (A^T A)^T = A^T A"
+       },
+       {
+        "text": "Diagonal elementlari manfiy bo'lmagan: a_ii = Σ a_ki^2 ≥ 0 - kvadratlari yig'indisi"
+       }
+      ],
+      "result": "(A^-1)^T = (A^T)^-1; A^T A simmetrik matritsa bo'lib, uning diagonal elementlari manfiy bo'lmagan"
+     },
+     "narr": [
+      "Bu masalada simmetrik matritsalar va ularning xususiyatlarini ko'rib chiqamiz.",
+      "Avvalo, teskari matritsaning transponiri transponir matritsaning teskarisiga teng ekanligini isbotlaymiz.",
+      "Keyin, A^T A matritsasi simmetrik ekanligini ko'rsatamiz.",
+      "Nihoyat, bu matritsaning diagonal elementlari manfiy bo'lmagan ekanligini tushuntiramiz."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "outro",
+     "data": {
+      "kicker": "Kurs yakunlandi",
+      "message": "Siz birinchi dan toʻrtinchi haftalarning barchasini qamradingiz: vektorlar, koʻpaytmalar, matritsalar, determinantlar, rang va teskarilar. Endi birinchi testni topshiring. Siz tayyorsiz.",
+      "chip": "Testda omad!"
+     },
+     "narr": [
+      "Siz birinchi dan toʻrtinchi haftalarning barchasini qamradingiz: vektorlar, koʻpaytmalar, matritsalar, determinantlar, rang va teskarilar. Endi birinchi testni topshiring. Siz tayyorsiz."
+     ],
+     "narr_item": [
+      -1
+     ]
+    }
+   ]
+  }
+ ]
+}

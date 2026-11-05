@@ -1,0 +1,491 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Keling, kompleks sonlar bilan ishlashni boshlaymiz. Birinchi misolda ikki kompleks sonning bo'linishini ko'rib chiqamiz.",
+   "Bu yerda z1/z2 ifodasini hisoblash kerak. Buning uchun maxrajning konjugatiga ko'paytiramiz.",
+   "Natijada biz −5/17 + (14/17)i kompleks sonini hosil qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "6-masala — Kompleks konjugat va modul",
+   "problem": "3+4i, −2+5i, 6i, −7 sonlari uchun kompleks konjugatini va modulini toping; zz̄ = |z|² tekshiring.",
+   "steps": [
+    "z = a+bi bo'lsa, z̄ = a−bi va |z| = √(a²+b²)",
+    "3+4i: z̄ = 3−4i, |z| = 5, va (3−4i)(3+4i) = 9+16 = 25 = 5²",
+    "−2+5i: z̄ = −2−5i, |z| = √(4+25) = √29, va (−2−5i)(−2+5i) = 4+25 = 29",
+    "6i: z̄ = −6i, |z| = 6, va (−6i)(6i) = −36i² = 36",
+    "−7: z̄ = −7 (haqiqiy sonlar o'zlari bilan konjugat bo'ladi), |z| = 7, (−7)(−7) = 49"
+   ],
+   "result": "Barcha to'rtta tekshiruv mos keladi."
+  },
+  "narr": [
+   "Endi kompleks sonlarning konjugat va modulini topishni ko'rib chiqamiz.",
+   "Birinchi son 3+4i bo'lsin. Konjugati 3−4i, moduli esa 5 ga teng.",
+   "Tekshirish uchun z·z̄ ifodasini hisoblaymiz, bu |z|² ga teng bo'lishi kerak.",
+   "Ikkinchi son −2+5i uchun konjugati −2−5i, moduli √29 ga teng.",
+   "Uchinchi son 6i bo'lib, bu 0+6i ko'rinishida yoziladi. Konjugati −6i, moduli 6.",
+   "To'rtinchi son −7, bu haqiqiy son. Konjugati o'zi, moduli 7 ga teng.",
+   "Barcha holatlarda z·z̄ = |z|² tenglik o'rinli ekanligini ko'rdik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "7-masala — Kompleks sonni algebraik ko'rinishga keltirish",
+   "problem": "1/(1+i) ni a+bi ko'rinishida ifodalang.",
+   "steps": [
+    "Maxrajning konjugatiga ko'paytiramiz:",
+    "1/(1+i) = (1−i)/((1+i)(1−i)) = (1−i)/2 = 1/2 − i/2"
+   ],
+   "result": "1/2 − i/2"
+  },
+  "narr": [
+   "Keyingi masalada 1/(1+i) ifodasini oddiyroq ko'rinishga keltirish kerak.",
+   "Bu masalada maxrajning konjugatiga ko'paytirish usulidan foydalanamiz.",
+   "Natijada 1/2 − i/2 kompleks sonini hosil qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "8-masala — Kompleks tenglamani yechish",
+   "problem": "C da yeching: x² + 9 = 0.",
+   "steps": [
+    "Ko'chirib o'tganimizda, x² = −9 hosil bo'ladi",
+    "Demak x = ±√−9 = ±3i"
+   ],
+   "result": "Ikkala yechim ham haqiqiy bo'lmagan kompleks sonlar; haqiqiy yechimlar yo'q, chunki R da kvadrat hech qachon manfiy bo'lmaydi."
+  },
+  "narr": [
+   "Endi kompleks tenglamalarni yechishni ko'rib chiqamiz.",
+   "Bu oddiy kvadrat tenglama bo'lib, kompleks sonlar maydonida yechimlari mavjud.",
+   "Tenglama yechimi ±3i bo'lib, ikkalasi ham haqiqiy bo'lmagan kompleks sonlardir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "9-masala — Kompleks sonning xossalari",
+   "problem": "z = 2+3i uchun kompleks tekislikda haqiqiy qism, mavhum qism, modul va kvadrantni aniqlang. 2−3i uchun nima o'zgaradi?",
+   "steps": [
+    "(2, 3) nuqta birinchi kvadrantda joylashgan:",
+    "Re(z) = 2, Im(z) = 3, |z| = √(2²+3²) = √13",
+    "z = 2−3i uchun (2, −3) nuqta haqiqiy o'q bo'yicha aks ettirilgan nuqta:",
+    "haqiqiy qism va modul o'zgarmaydi, mavhum qism ishorasi o'zgaradi va nuqta to'rtinchi kvadrantga o'tadi"
+   ],
+   "result": "z = 2+3i: Re(z) = 2, Im(z) = 3, |z| = √13, birinchi kvadrant; z = 2−3i: Re(z) = 2, Im(z) = −3, |z| = √13, to'rtinchi kvadrant"
+  },
+  "narr": [
+   "Kompleks sonlarni kompleks tekislikda joylashtirishni ko'rib chiqamiz.",
+   "z = 2+3i soni uchun haqiqiy qism 2, mavhum qism 3, moduli √13 ga teng.",
+   "Bu son birinchi kvadrantda joylashgan.",
+   "Agar z = 2−3i bo'lsa, haqiqiy qism o'zgarmaydi, lekin mavhum qismning ishorasi o'zgaradi.",
+   "Shu sababli bu son to'rtinchi kvadrantda joylashadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "10-masala — Trigonometrik va eksponensial ko'rinish",
+   "problem": "1+i ni trigonometrik shaklda z = r(cos θ + i sin θ) va eksponensial shaklda z = re^{iθ} ko'rinishida yozing, θ radianda bo'lsin.",
+   "steps": [
+    "Bu yerda r = |1+i| = √(1+1) = √2",
+    "Ikkala koordinatami ham musbat, shuning uchun θ = arctan(1/1) = π/4",
+    "Shunday qilib, 1+i = √2(cos π/4 + i sin π/4) = √2 e^{iπ/4}"
+   ],
+   "result": "1+i = √2(cos π/4 + i sin π/4) = √2 e^{iπ/4}"
+  },
+  "narr": [
+   "Kompleks sonlarni trigonometrik va eksponensial ko'rinishlarda ifodalashni ko'rib chiqamiz.",
+   "1+i soni uchun avval modulini hisoblaymiz: r = √2.",
+   "Argumentni esa arctan(1/1) = π/4 topamiz.",
+   "Natijada 1+i ni trigonometrik va eksponensial ko'rinishlarda yozamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "11-masala — Muavr formulasi",
+   "problem": "Muavr formulasidan [r(cos θ +i sin θ)]^n = r^n(cos nθ +i sin θ) foydalanib (√3+i)^4 ni hisoblang; algebraik tekshiring.",
+   "steps": [
+    "Avval aylantiramiz: r = |√3+i| = √(3+1) = 2, θ = arctan(1/√3) = π/6",
+    "Muavr formulasiga ko'ra, (√3+i)^4 = 2^4(cos(4π/6) + i sin(4π/6)) = 16(cos(2π/3) + i sin(2π/3))",
+    "16(−1/2 + √3/2 i) = −8 + 8√3 i",
+    "Algebraik tekshirish:",
+    "(√3+i)^2 = 3 + 2√3 i + i² = 2 + 2√3 i",
+    "(2 + 2√3 i)^2 = 4 + 8√3 i + 12i² = −8 + 8√3 i"
+   ],
+   "result": "−8 + 8√3 i"
+  },
+  "narr": [
+   "Muavr formulasidan foydalanib (√3+i)^4 ni hisoblaymiz.",
+   "Avval sonni trigonometrik ko'rinishga keltiramiz: r = 2, θ = π/6.",
+   "Muavr formulasiga ko'ra, bu sonni to'rtinchi darajaga ko'targanimizda, radius 2^4 = 16 ga, argument esa 4π/6 = 2π/3 ga oshadi.",
+   "Natijani algebraik usulda ham tekshirib ko'ramiz.",
+   "Ikkala usul ham bir xil natijani beradi, bu esa hisob to'g'riligini tasdiqlaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "12-masala — Kub tenglamaning yechimlari",
+   "problem": "z³ = −8 tenglamaning barcha yechimlarini toping va ularni kompleks tekislikda tasvirlang.",
+   "steps": [
+    "Biz −8 = 8e^{i(π+2kπ)} deb yozamiz",
+    "Kub ildizlari moduli 8^{1/3} = 2 va argumentlari (π + 2kπ)/3, k = 0, 1, 2:",
+    "z₀ = 2e^{iπ/3} = 1 + √3 i, z₁ = 2e^{iπ} = −2, z₂ = 2e^{i5π/3} = 1 − √3 i",
+    "Geometrik jihatdan bu barchasi bir xil masofada joylashgan uchta nuqta, markazi koordinata boshida (radiusi 2) bo'lgan aylana bo'ylab"
+   ],
+   "result": "z₀ = 1 + √3 i, z₁ = −2, z₂ = 1 − √3 i"
+  },
+  "narr": [
+   "z³ = −8 tenglamaning barcha yechimlarini topamiz.",
+   "Bu tenglama uchta yechimga ega bo'ladi, chunki bu kub tenglama.",
+   "Yechimlarni kompleks tekislikda tasvirlasak, ular radiusi 2 bo'lgan aylanada joylashgan uchta nuqta bo'lishini ko'ramiz.",
+   "Bu nuqtalar orasidagi burchak 120° ga teng, ya'ni ular bir-biridan 120° masofada joylashgan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "13-masala — Sonlarning to'plamlarga tegishliligi",
+   "problem": "Har bir son uchun N, Z, Q, R, C to'plamlaridan unga tegishli bo'lgan eng kichigini ko'rsating: √0, −7, 5/8, 3.25, √16, √7, −√9, π, π², i, 4−3i.",
+   "steps": [
+    "0 ∈ N (kurs kelishuviga ko'ra) ⇒ eng kichik to'plam N",
+    "−7 ∈ Z",
+    "5/8 va 3.25 = 13/4 Q da joylashgan (chekli o'nli kasrlar)",
+    "√16 = 4 ∈ N",
+    "√7 irratsional (7 — to'liq kvadrat emas) ⇒ R",
+    "−√9 = −3 ∈ Z"
+   ]
+  },
+  "narr": [
+   "Har bir son qaysi sonlar to'plamiga tegishli ekanligini aniqlaymiz.",
+   "0 soni natural sonlar to'plamiga tegishli.",
+   "−7 butun son, shuning uchun Z to'plamiga.",
+   "5/8 va 3.25 ratsional sonlar, chunki ularni kasr ko'rinishida ifodalash mumkin.",
+   "√16 = 4, bu natural son.",
+   "√7 irratsional son, chunki 7 to'liq kvadrat emas.",
+   "−√9 = −3, bu butun son."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "13-masala — Sonlarning to'plamlarga tegishliligi (cont.)",
+   "problem": "",
+   "steps": [
+    "π va π² irratsional ⇒ R (kvadratga ko'tarish irratsionalni ratsional qilmaydi)",
+    "i va 4−3i haqiqiy emas ⇒ faqat C"
+   ],
+   "result": "0: N, −7: Z, 5/8: Q, 3.25: Q, √16: N, √7: R, −√9: Z, π: R, π²: R, i: C, 4−3i: C"
+  },
+  "narr": [
+   "π va π² irratsional sonlar, ularni ratsional kasr sifatida ifodalab bo'lmaydi.",
+   "i va 4−3i kompleks sonlar, ularning haqiqiy qismi yo'q."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "14-masala — To'g'ri va noto'g'ri da'volar",
+   "problem": "To'g'ri yoki noto'g'ri? Har bir noto'g'ri da'vuni tuzating: (1) N ⊆ Z; (2) Z ⊆ Q; (3) R ⊆ Q; (4) Q ⊆ R; (5) R ⊆ C; (6) har bir butun son natural; (7) har bir ratsional son haqiqiy; (8) har bir kompleks son haqiqiy; (9) har bir haqiqiy sonni kompleks sifatida yozish mumkin; (10) son bir vaqtda ratsional va haqiqiy bo'la olmaydi.",
+   "steps": [
+    "(1) To'g'ri",
+    "(2) To'g'ri",
+    "(3) Noto'g'ri — masalan, √2 ∈ R, lekin √2 ∉ Q; to'g'ri inkluziya Q ⊆ R",
+    "(4) To'g'ri",
+    "(5) To'g'ri",
+    "(6) Noto'g'ri — manfiy butun sonlar, masalan −3, natural emas"
+   ]
+  },
+  "narr": [
+   "Sonlar to'plamlari o'rtasidagi inkluziya munosabatlarini tekshiramiz.",
+   "Natural sonlar butun sonlarning to'plamining kichik to'plamidir.",
+   "Butun sonlar ratsional sonlarning to'plamining kichik to'plamidir.",
+   "Haqiqiy sonlarning ratsional sonlarga to'liq kirmasligini, masalan √2 haqiqiy, lekin ratsional emasligini ko'ramiz.",
+   "Ratsional sonlar haqiqiy sonlarning to'plamining kichik to'plamidir.",
+   "Barcha haqiqiy sonlar kompleks sonlardir.",
+   "Barcha natural sonlar musbat, shuning uchun manfiy butun sonlar natural emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "14-masala — To'g'ri va noto'g'ri da'volar (cont.)",
+   "problem": "",
+   "steps": [
+    "(7) To'g'ri",
+    "(8) Noto'g'ri — masalan, i kompleks, lekin haqiqiy emas",
+    "(9) To'g'ri — a = a+0i",
+    "(10) Noto'g'ri — har bir ratsional son haqiqiy (da'v (4)), shuning uchun ratsional sonlar ikkalasiga ham tegishli"
+   ],
+   "result": "Noto'g'ri da'volar: (3), (6), (8), (10)"
+  },
+  "narr": [
+   "Barcha ratsional sonlar haqiqiy sonlardir.",
+   "Kompleks sonlarning hammasi haqiqiy emas, masalan i soni.",
+   "Har qanday haqiqiy sonni kompleks son sifatida a+0i ko'rinishida yozish mumkin.",
+   "Ratsional sonlar ham haqiqiy sonlardir, shuning uchun ular bir vaqtda ikkala to'plamga ham tegishli."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "15-masala — Tushuntirish diagrammasi",
+   "problem": "N ⊂ Z ⊂ Q ⊂ R ⊂ C to'plamlarining tushuntirish diagrammasini chizing va √5, −2, 2/3, 2, π, −4i, 3+2i ni to'g'ri joylariga joylashtiring.",
+   "steps": [
+    "Beshta tushuntirish ovalini chizamiz, N (ichki) dan C (tashqi) gacha belgilar bilan",
+    "Joylashtirish: 5 ∈ N; −2 ∈ Z N; 2/3 ∈ Q Z; 2 va π ∈ R Q; −4i va 3+2i ∈ C R",
+    "Diagramma har yangi to'plam faqat sonlar qo'shilishini, hech narsani olib tashlamasligini ko'rsatadi"
+   ],
+   "result": "Diagramma: N ichki ovalda, undan keyin Z, keyin Q, keyin R, va tashqida C ovali. Sonlar tegishli bo'lgan oval ichiga joylashtirilgan."
+  },
+  "narr": [
+   "Sonlar to'plamlari o'rtasidagi ierarxik munosabatlarni diagramma orqali ko'rsatamiz.",
+   "Natural sonlar to'plami eng kichik, undan keyin butun sonlar, keyin ratsional sonlar, haqiqiy sonlar va eng katta to'plam kompleks sonlar.",
+   "Har bir son tegishli bo'lgan eng kichik to'plamga joylashtiriladi.",
+   "Masalan, 5 natural son, shuning uchun N to'plamiga; −2 butun son, lekin natural emas, shuning uchun Z to'plamiga va hokazo."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "16-masala — Sonlarni o'sish tartibida joylashtirish",
+   "problem": "O'sish tartibida joylashtiring: −5, −2, −3/2, 0, 2, 3/2, π/2; noaniq taqqoslashlarni asoslang.",
+   "steps": [
+    "Kvadratlar musbat qiymatlar tartibini beradi:",
+    "(√3/2)² = 3/4 ≈ 0.75; (π/2)² ≈ 2.467; (3/2)² = 2.25",
+    "Demak, √3/2 ≈ 0.866; π/2 ≈ 1.5708; 3/2 = 1.5",
+    "Shunday qilib, 3/2 < π/2",
+    "Manfiy sonlar uchun tartib teskari: −√5 ≈ −2.236 < −2 < −3/2",
+    "Yakunda: −√5 < −2 < −3/2 < √3/2 < 3/2 < π/2"
+   ],
+   "result": "−√5 < −2 < −3/2 < 0 < √3/2 < 3/2 < π/2"
+  },
+  "narr": [
+   "Turli xil sonlarni o'sish tartibida joylashtirishni ko'rib chiqamiz.",
+   "Bu erda manfiy sonlar, kasrlar va irratsional sonlar bor.",
+   "Taqqoslash uchun ba'zi sonlarning kvadratlarini olish kerak.",
+   "Musbat sonlar uchun kvadrat ildiz olish orqali ularni taqqoslaymiz.",
+   "Manfiy sonlar uchun esa teskari tartib qo'llaniladi.",
+   "Nihoyat, barcha sonlarni to'g'ri ketma-ketlikda joylashtiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "17-masala — Interval yozuvi",
+   "problem": "Har bir to'plamni interval yozuvida ifodalang: (1) −3 ≤ x < 4; (2) x > 2; (3) x ≤ −1; (4) −2 < x ≤ 5; (5) x ≠ 3; keyin har birini chiziqda tasvirlang.",
+   "steps": [
+    "(1) [−3, 4)",
+    "(2) (2, ∞)",
+    "(3) (−∞, −1]",
+    "(4) (−2, 5]",
+    "(5) (−∞, 3) ∪ (3, ∞)",
+    "Chiziqda: cheki kiritilgan joyda (≤, ≥) nuqta to'ldirilgan, kiritilmaganida (<, >) ochiq, cheksizliklarda qavs va (5) da ikkita nur"
+   ],
+   "result": "(1) [−3, 4); (2) (2, ∞); (3) (−∞, −1]; (4) (−2, 5]; (5) (−∞, 3) ∪ (3, ∞)"
+  },
+  "narr": [
+   "Interval yozuvidan foydalanib berilgan tengsizliklarni ifodalaymiz.",
+   "Birinchi tengslikda −3 dan 4 gacha bo'lgan oraliq, −3 kiritilgan, 4 kiritilmagan.",
+   "Ikkinchi tengslikda 2 dan cheksizlikkacha bo'lgan oraliq, 2 kiritilmagan.",
+   "Uchinchi tengslikda cheksizlikdan −1 gacha bo'lgan oraliq, −1 kiritilgan.",
+   "To'rtinchi tengslikda −2 dan 5 gacha bo'lgan oraliq, −2 kiritilmagan, 5 kiritilgan.",
+   "Beshinchi tengslikda butun sonlar o'qidan 3 nuqtasini chiqarib tashlab, ikki oraliq hosil qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "18-masala — Intervalni tengsizlik ko'rinishida yozish",
+   "problem": "Har bir intervalni tengsizlik ko'rinishida yozing: a. [−2, 5); b. (−∞, 4]; c. (1, ∞); d. (−3, 0] ∪ [2, 6); e. R [−1, 1].",
+   "steps": [
+    "a. −2 ≤ x < 5",
+    "b. x ≤ 4",
+    "c. x > 1",
+    "d. −3 < x ≤ 0 yoki 2 ≤ x < 6",
+    "e. x < −1 yoki x > 1; |x| > 1 ga ekvivalent"
+   ],
+   "result": "a. −2 ≤ x < 5; b. x ≤ 4; c. x > 1; d. −3 < x ≤ 0 yoki 2 ≤ x < 6; e. x < −1 yoki x > 1"
+  },
+  "narr": [
+   "Interval yozuvini tengsizlik ko'rinishiga o'tkazamiz.",
+   "Birinchi intervalda −2 dan 5 gacha bo'lgan oraliq, −2 kiritilgan, 5 kiritilmagan.",
+   "Ikkinchi intervalda 4 gacha bo'lgan barcha sonlar, 4 kiritilgan.",
+   "Uchinchi intervalda 1 dan katta barcha sonlar, 1 kiritilmagan.",
+   "To'rtinchi intervalda ikki qism: −3 dan 0 gacha va 2 dan 6 gacha.",
+   "Beshinchi intervalda −1 va 1 orasidagi sonlar chiqarib tashlangan, ya'ni |x| > 1 tengsizligi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "19-masala — Masofa metrikasi",
+   "problem": "d(a, b) = |a − b| bilan: d(3, 8), d(−2, 5), d(−4, −9), d(2, 8) ni hisoblang; a = −3, b = 2, c = 7 da d(a, c) ≤ d(a, b) + d(b, c) tekshiring.",
+   "steps": [
+    "d(3, 8) = |3 − 8| = 5",
+    "d(−2, 5) = |−2 − 5| = 7",
+    "d(−4, −9) = |−4 − (−9)| = 5",
+    "d(2, 8) = |2 − 8| = 6",
+    "a = −3, b = 2, c = 7 da:",
+    "d(a, c) = |−3 − 7| = 10"
+   ]
+  },
+  "narr": [
+   "Masofa metrikasi d(a, b) = |a − b| orqali ikki son orasidagi masofani hisoblaymiz.",
+   "Birinchi juftlik uchun 3 va 8 orasidagi masofa 5 ga teng.",
+   "Ikkinchi juftlik uchun −2 va 5 orasidagi masofa 7 ga teng.",
+   "Uchinchi juftlik uchun −4 va −9 orasidagi masofa 5 ga teng.",
+   "To'rtinchi juftlik uchun 2 va 8 orasidagi masofa 6 ga teng.",
+   "Keyin uchburchak tengsizligini tekshiramiz: a = −3, b = 2, c = 7 uchun d(a, c) ≤ d(a, b) + d(b, c).",
+   "Hisoblash natijasida ikkala taraf ham 10 ga teng, ya'ni tenglik holati bajariladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "19-masala — Masofa metrikasi (cont.)",
+   "problem": "",
+   "steps": [
+    "d(a, b) = |−3 − 2| = 5",
+    "d(b, c) = |2 − 7| = 5",
+    "d(a, b) + d(b, c) = 5 + 5 = 10",
+    "Demak, d(a, c) = d(a, b) + d(b, c), bu uchburchak tengsizligi tenglik holati"
+   ],
+   "result": "d(3, 8) = 5, d(−2, 5) = 7, d(−4, −9) = 5, d(2, 8) = 6; d(a, c) = d(a, b) + d(b, c) = 10"
+  },
+  "narr": [
+   ""
+  ],
+  "narr_item": [
+   -1
+  ]
+ }
+]
