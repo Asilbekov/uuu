@@ -65,6 +65,7 @@ while true; do
   ALLDONE=1
   for K in v7w1 v7w2 v5w1; do
     KD=video-pipeline-v2/kaggle/$K
+    [ -f /tmp/noship_$K ] && { log "$K skipped (noship flag)"; continue; }
     [ -d "$KD" ] || { log "$K no dir"; continue; }
     VIDS=$(vids_of $KD/render.py 2>/dev/null)
     [ -z "$VIDS" ] && { log "$K cannot read VIDEOS"; ALLDONE=0; sleep 600; continue; }
