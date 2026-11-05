@@ -1,0 +1,341 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu darsimizda chiziqli algebraning asosiy usullarini ko'rib chiqamiz, ayniqsa, matritsalar yordamida chiziqli tenglamalar sistemalarini yechish usullarini o'rganamiz.",
+   "Gauss usuli, LU-faktorizatsiya va boshqa muhim konseptsiyalarni tushunishga harakat qilamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Gauss usuli bilan yechim",
+   "problem": "A = \\begin{pmatrix} 2 & 1 & -1 \\\\ 4 & 3 & 1 \\\\ -2 & 1 & 2 \\end{pmatrix}, b = \\begin{pmatrix} 1 \\\\ 13 \\\\ 6 \\end{pmatrix} bo'lgan sistemani yeching.",
+   "steps": [
+    "Bosqich 1: birinchi asosiy element 2, ko'paytchi m21 = 4/2 = 2; R2 ← R2 - 2R1: (4x + 3y + z) - 2(2x + y - z) = 13 - 2·1, ya'ni y + 3z = 11.",
+    "Bosqich 2: m31 = -2/2 = -1; R3 ← R3 + R1: (-2x + y + 2z) + (2x + y - z) = 6 + 1, ya'ni 2y + z = 7.",
+    "Bosqich 3: ikkinchi asosiy element 1 (yangilangan 2-tenglamadagi y koeffitsienti), m32 = 2; R3 ← R3 - 2R2: (2y + z) - 2(y + 3z) = 7 - 2·11, ya'ni -5z = -15.",
+    "Asosiy elementlar 2, 1, -5 — ikkinchi va uchinchisi yangilangan tenglamalardan, asl diagonal emasdan olinadi.",
+    "Teskari almashtirish: z = 3, y = 2, x = 1, ya'ni (x, y, z) = (1, 2, 3).",
+    "Tekshirish: 2·1 + 2 - 3 = 1; 4·1 + 6 + 3 = 13; -2·1 + 2 + 6 = 6."
+   ],
+   "result": "(x, y, z) = (1, 2, 3)"
+  },
+  "narr": [
+   "Keling, birinchi misolni ko'rib chiqaylik. Gauss usuli yordamida berilgan matritsani qanday yechish mumkinligini ko'ramiz.",
+   "Birinchi qadamda, birinchi asosiy element 2 ekanligini ko'ramiz. Bu asosiy elementga nisbatan ikkinchi va uchinchi qatorlarni o'zgartiramiz.",
+   "Ikkinchi qatordan ikkinchi qatorning ikki barobari ayiriladi, bu esa yangi ikkinchi qator hosil qiladi: y + 3z = 11.",
+   "Uchinchi qatrga birinchi qator qo'shiladi, bu esa yangi uchinchi qator hosil qiladi: 2y + z = 7.",
+   "Endi, ikkinchi asosiy element 1 bo'lib, uchinchi qatordan ikkinchi qatarning ikki barobari ayiriladi: -5z = -15.",
+   "Bu tenglamadan z = 3 ekanligini topamiz. Keyin teskari almashtirish orqali y = 2 va x = 1 ekanligini aniqlaymiz.",
+   "Oxirgi tekshirish ko'rsatadiki, biz topgan yechim to'g'ri ekan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "matrix",
+  "data": {
+   "heading": "Kengaytirilgan matritsa bilan yechim",
+   "tex": "\\begin{pmatrix} 2 & 1 & -1 & 1 \\\\ 4 & 3 & 1 & 13 \\\\ -2 & 1 & 2 & 6 \\end{pmatrix} → \\begin{pmatrix} 2 & 1 & -1 & 1 \\\\ 0 & 1 & 3 & 11 \\\\ 0 & 2 & 1 & 7 \\end{pmatrix} → \\begin{pmatrix} 2 & 1 & -1 & 1 \\\\ 0 & 1 & 3 & 11 \\\\ 0 & 0 & -5 & -15 \\end{pmatrix}",
+   "steps": [
+    "Birinchi o'tkazish: R2 ← R2 - 2R1",
+    "Ikkinchi o'tkazish: R3 ← R3 + R1",
+    "Uchinchi o'tkazish: R3 ← R3 - 2R2"
+   ]
+  },
+  "narr": [
+   "Kengaytirilgan matritsa usulida ham bir xil amallar bajariladi, lekin barcha o'zgarishlar bir matritsada ko'rsatiladi.",
+   "Birinchi o'tkazishdan keyin ikkinchi qator o'zgaradi.",
+   "Ikkinchi o'tkazishdan keyin uchinchi qator o'zgaradi.",
+   "Uchinchi o'tkazishdan keyin esa matritsa yuqori uchburchak shakliga keladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Exclusionni matritsa koʻpaytirishi sifatida",
+   "problem": "3-misol amaliyotlarini exclusion matritsalari sifatida yozing.",
+   "steps": [
+    "R2 ← R2 - 2R1 uchun: E21 = \\begin{pmatrix} 1 & 0 & 0 \\\\ -2 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}",
+    "1-qatorni 3-qatorga qo'shish uchun: E31 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 1 & 0 & 1 \\end{pmatrix}",
+    "R3 ← R3 - 2R2 uchun: E32 = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & -2 & 1 \\end{pmatrix}",
+    "To'liq chiqarib tashlash: E32 · E31 · E21 · A = U va E32 · E31 · E21 · b = c",
+    "Bu yerda U = \\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 1 & 3 \\\\ 0 & 0 & -5 \\end{pmatrix}, c = \\begin{pmatrix} 1 \\\\ 11 \\\\ -15 \\end{pmatrix}"
+   ],
+   "result": "Exclusion matritsalari: E21, E31, E32"
+  },
+  "narr": [
+   "Endi, Gauss usolidagi har bir qator o'tkazishni matritsa ko'paytirishi sifatida ifodalash mumkinligini ko'ramiz.",
+   "Birinchi o'tkazish R2 ← R2 - 2R1 bo'lib, unga mos keladigan matritsa E21.",
+   "Ikkinchi o'tkazish 1-qatorni 3-qatorga qo'shish bo'lib, unga mos keladigan matritsa E31.",
+   "Uchinchi o'tkazish R3 ← R3 - 2R2 bo'lib, unga mos keladigan matritsa E32.",
+   "Bu matritsalarning ko'paytmasi asl matritsani yuqori uchburchak matritsaga aylantiradi.",
+   "Matritsalar ko'paytmasining tartibi muhim, chunki matritsa ko'paytirishi kommutativ emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Nol taklif etilgan asosiy element",
+   "problem": "y + z = 5, x + y + z = 6, 2x + 3y + 4z = 20 tenglamalar sistemasini yeching.",
+   "steps": [
+    "A = \\begin{pmatrix} 0 & 1 & 1 \\\\ 1 & 1 & 1 \\\\ 2 & 3 & 4 \\end{pmatrix}, b = \\begin{pmatrix} 5 \\\\ 6 \\\\ 20 \\end{pmatrix}",
+    "Birinchi taklif etilgan asosiy element nol — 1 va 2-qatorlarni almashtiramiz (almashtirish matritsasi P = \\begin{pmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix})",
+    "Qayta tartiblangan sistema: \\begin{pmatrix} 1 & 1 & 1 & 6 \\\\ 0 & 1 & 1 & 5 \\\\ 2 & 3 & 4 & 20 \\end{pmatrix}",
+    "Keyin R3 ← R3 - 2R1: (0, 1, 2 | 8)",
+    "Keyin R3 ← R3 - R2: (0, 0, 1 | 3)",
+    "Orqaga almashtirish: z = 3, y = 2, x = 1"
+   ],
+   "result": "(x, y, z) = (1, 2, 3)"
+  },
+  "narr": [
+   "Bu misolda birinchi taklif etilgan asosiy element nolga teng. Bu holatda qatorlarni almashtirish kerak.",
+   "Almashtirish matritsasi P yordamida birinchi va ikkinchi qatorlarni o'rnini almashtiramiz.",
+   "Keyin odatdagidek Gauss usilini qo'llaymiz.",
+   "Uchinchi qatordan birinchi qatarning ikki barobarini ayiramiz.",
+   "So'ngra, uchinchi qatordan ikkinchi qatorni ayiramiz.",
+   "Natijada yuqori uchburchak shaklga kelamiz va teskari almashtirish orqali yechimni topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Sistemaning nechta yechimi bor",
+   "problem": "x + y + z = 6, 2x + 3y + 4z = 20, 3x + 4y + 5z = k oilasini ko'rib chiqing. qanday k uchun yechimlar yo'q, qanday k uchun cheksiz ko'p?",
+   "steps": [
+    "R2 ← R2 - 2R1 va R3 ← R3 - 3R1 qo'llaymiz: y + 2z = 8 va y + 2z = k - 18 olinadi.",
+    "2-tenglamani 3-tenglamadan ayiramiz: 0 = k - 26.",
+    "Agar k ≠ 26 — yechimlar yo'q (k = 27 bo'lganda 0 = 1 — tenglamalar mos emas).",
+    "Agar k = 26 — oxirgi tenglama 0 = 0 bo'lib, cheklov qo'shmaydi.",
+    "Erkin o'zgaruvchi z = t uchun y = 8 - 2t va x = 6 - y - z = t - 2, ya'ni (x, y, z) = (t - 2, 8 - 2t, t), t ∈ R — cheksiz ko'p yechimlar."
+   ],
+   "result": "k ≠ 26 bo'lganda yechim yo'q, k = 26 bo'lganda cheksiz ko'p yechim mavjud"
+  },
+  "narr": [
+   "Bu misolda parametr k bilan chiziqli tenglamalar sistemasini ko'rib chiqamiz.",
+   "Gauss usilini qo'llaganimizdan keyin, ikki tenglama bir-biriga aylanadi.",
+   "Ushbu ikki tenglamani ayirsak, 0 = k - 26 tenglamaga kelamiz.",
+   "Agar k 26 ga teng bo'lmasa, bu ziddiyatli tenglama bo'ladi va yechim yo'q.",
+   "Agar k 26 ga teng bo'lsa, u holda cheksiz ko'p yechim mavjud bo'ladi, chunki bir o'zgaruvchi erkin bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "3 × 3 sistemalarning yechimlari",
+   "bullets": [
+    "Uchta asosiy element — yagona yechim",
+    "[000|d] qatori, d ≠ 0 — yechimlar yo'q",
+    "Uchta asosiy elementdan kam, ziddiyatli qator yo'q — cheksiz ko'p yechimlar",
+    "Bitta nol qati o'z-o'zidan moslikni kafolatlamaydi — boshqa qatorlarni tekshirish kerak"
+   ]
+  },
+  "narr": [
+   "3 × 3 chiziqli tenglamalar sistemalarining yechimlari uchun umumiy qoidalarni ko'rib chiqaylik.",
+   "Agar matritsada uchta asosiy element bo'lsa, sistema yagona yechimga ega.",
+   "Agar matritsada [000|d] qatori bo'lsa va d nolga teng bo'lmasa, sistema yechimga ega emas.",
+   "Agar matritsada uchta asosiy elementdan kam bo'lsa va ziddiyatli qator bo'lmasa, sistema cheksiz ko'p yechimga ega.",
+   "E'tibor bering, bitta nol qati o'z-o'zidan moslikni kafolatlamaydi — boshqa qatorlarni tekshirish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — LU-faktorizatsiya va qayta foydalanish",
+   "problem": "3-misol sistemasining A = LU ni yozing va Lc = b, Ux = c ni yeching.",
+   "steps": [
+    "3-misol ko'paytmalari: m21 = 2, m31 = -1, m32 = 2",
+    "Ushbu ko'paytmalarni diagonal ostiga joylaymiz: L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 2 & 1 \\end{pmatrix}",
+    "A = LU, U = \\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 1 & 3 \\\\ 0 & 0 & -5 \\end{pmatrix}",
+    "Ikkita bosqichda yechamiz: Lc = b orqali c1 = 1, c2 = 11, c3 = -15 beradi",
+    "Keyin Ux = c orqaga almashtirish orqali (1, 2, 3) olinadi"
+   ],
+   "result": "A = LU, L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ -1 & 2 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 1 & -1 \\\\ 0 & 1 & 3 \\\\ 0 & 0 & -5 \\end{pmatrix}"
+  },
+  "narr": [
+   "LU-faktorizatsiya usulida asl matritsani past va yuqori uchburchak matritsalarning ko'paytmasi sifatida ifodalaymiz.",
+   "L matritsasida diagonal ostidagi elementlar Gauss uslidagi ko'paytmalardan olinadi.",
+   "U matritsasi esa yuqori uchburchak matritsadir.",
+   "Sistemani ikki bosqichda yechamiz: avval Lc = b ni oldinga almashtirish usulida yechamiz.",
+   "Keyin Ux = c ni teskari almashtirish usulida yechamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "LU-faktorizatsiyaning afzalliklari",
+   "bullets": [
+    "Agar bir nechta sistemalar bir xil A matritsasi, lekin turli o'ng tomonlar bo'lganda LU-faktorizatsiya afzalroqdir",
+    "A bir marta ajratiladi, L va U qayta foydalaniladi",
+    "Agar qator almashtirishlar kerak bo'lsa, standart faktorizatsiya — PA = LU"
+   ]
+  },
+  "narr": [
+   "LU-faktorizatsiya usulining asosiy afzalliklari bor.",
+   "Agar bir nechta sistemalar bir xil A matritsasi, lekin turli o'ng tomonlar bo'lganda, LU-faktorizatsiya afzalroqdir.",
+   "Bunda A matritsasi bir marta ajratiladi, L va U matritsalari esa har bir sistema uchun qayta foydalaniladi.",
+   "Agar qator almashtirishlar kerak bo'lsa, standart faktorizatsiya PA = LU ko'rinishida bo'ladi, bunda P almashtirish matritsasi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — A va B mashqlari",
+   "problem": "Sistemalarni yeching: (A) x + y + z = 6, 2x + 3y + z = 11, x + 2y + 3z = 14; (B) y + 2z = 8, x + y + z = 6, 2x + 3y + z = 11.",
+   "steps": [
+    "(A) x ni chiqaramiz: R2 - 2R1 y - z = -1 beradi; R3 - R1 y + 2z = 8 beradi. Ayirish: 3z = 9, z = 3, y = z - 1 = 2, x = 6 - 2 - 3 = 1. Javob (1, 2, 3)",
+    "(A) Tekshirish: 1 + 2 + 3 = 6, 2 + 6 + 3 = 11, 1 + 4 + 9 = 14",
+    "(B) Birinchi tenglamada x yo'q (nol taklif etilgan asosiy element) — x ni chiqarishdan oldin birinchi ikki qatorni almashtiramiz",
+    "(B) Qayta tartiblangan sistema: x + y + z = 6, y + 2z = 8, 2x + 3y + z = 11",
+    "(B) x ni chiqaramiz: R3 - 2R1 y - z = -1 beradi; y + 2z = 8 bilan birga ayirish 3z = 9, z = 3, y = 2, x = 1 beradi",
+    "(B) Javob (1, 2, 3); tekshirish: 2 + 2·3 = 8, 1 + 2 + 3 = 6, 2 + 6 + 3 = 11"
+   ],
+   "result": "(A) (1, 2, 3); (B) (1, 2, 3)"
+  },
+  "narr": [
+   "Endi ikki xil sistemani yechamiz.",
+   "Birinchi sistemada oddiy Gauss usulini qo'llaymiz.",
+   "Ikkinchi sistemada esa birinchi tenglamada x yo'q, shuning uchun birinchi va ikkinchi qatorlarni almashtirishimiz kerak.",
+   "Almashtirgandan keyin odatdagidek yechamiz.",
+   "Ikkala sistema ham bir xil yechimga ega ekanligini ko'ramiz.",
+   "Bu ikkala sistema ham bir-biriga bog'liq ekanligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — C va D mashqlari",
+   "problem": "(C) qanday k uchun x + y + z = 6, 2x + 3y + 4z = 20, 3x + 4y + 5z = k sistemasida yechimlar bo'lmaydi, qanday k uchun cheksiz ko'p yechimlar borligini aniqlang. (D) R3 ← R3 - 4R1 operatsiyasining matritsasi topiling.",
+   "steps": [
+    "(C) Bu 6-misol oilasi: uchinchi tenglamani chiqarib tashlagandan so'ng u0 = k - 26 ga aylanadi",
+    "(C) Shuning uchun k ≠ 26 bo'lganda yechim yo'q, k = 26 bo'lganda cheksiz ko'p yechim mavjud: (x, y, z) = (t - 2, 8 - 2t, t), t ∈ R",
+    "(C) Yagona yechim beradigan k qiymati mavjud emas (koeffitsientlar matritsida faqat ikkita asosiy element bor)",
+    "(D) Amaliyot faqat 3-qatorni o'zgartiradi, undan 4·(1-qator) ayirilib: E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{pmatrix}",
+    "(D) E · A ko'paytmasining uchinchi qatori (A ning 3-qatori) -4 · (A ning 1-qatori) ga teng, qolgan qatorlar o'zgarmaydi"
+   ],
+   "result": "(C) k ≠ 26 bo'lganda yechim yo'q, k = 26 bo'lganda cheksiz ko'p yechim mavjud; (D) E = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ -4 & 0 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "C misoli avvalgi 6-misol bilan bir xil, parametr k bilan sistemani ko'rib chiqamiz.",
+   "Uchinchi tenglamani chiqarib tashlaganimizdan so'ng, 0 = k - 26 tenglamaga kelamiz.",
+   "Agar k 26 ga teng bo'lsa, cheksiz ko'p yechim mavjud, aks holda yechim yo'q.",
+   "Yagona yechim beradigan k qiymati mavjud emas, chunki koeffitsientlar matritsida faqat ikkita asosiy element bor.",
+   "D misolida esa R3 ← R3 - 4R1 operatsiyasiga mos keladigan matritsani topamiz.",
+   "Bu matritsani topish uchun, uchinchi qatordan birinchi qatarning to'rt barobarini ayirish kerakligini hisobga olamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Gauss-Jordan usuli bilan teskari matritsa",
+   "problem": "A = \\begin{pmatrix} 1 & 1 & 0 \\\\ 1 & 2 & 1 \\\\ 0 & 1 & 2 \\end{pmatrix} matritsaning teskarisini Gauss-Jordan usuli bilan toping.",
+   "steps": [
+    "[A|I] matritsasini yozamiz: \\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 1 & 2 & 1 & 0 & 1 & 0 \\\\ 0 & 1 & 2 & 0 & 0 & 1 \\end{pmatrix}",
+    "R2 ← R2 - R1: \\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 0 & 1 & 1 & -1 & 1 & 0 \\\\ 0 & 1 & 2 & 0 & 0 & 1 \\end{pmatrix}",
+    "R3 ← R3 - R2: \\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 0 & 1 & 1 & -1 & 1 & 0 \\\\ 0 & 0 & 1 & 1 & -1 & 1 \\end{pmatrix}",
+    "R2 ← R2 - R3: \\begin{pmatrix} 1 & 1 & 0 & 1 & 0 & 0 \\\\ 0 & 1 & 0 & -2 & 2 & -1 \\\\ 0 & 0 & 1 & 1 & -1 & 1 \\end{pmatrix}",
+    "R1 ← R1 - R2: \\begin{pmatrix} 1 & 0 & 0 & 3 & -2 & 1 \\\\ 0 & 1 & 0 & -2 & 2 & -1 \\\\ 0 & 0 & 1 & 1 & -1 & 1 \\end{pmatrix}",
+    "Endi [I|A⁻¹] shaklida: A⁻¹ = \\begin{pmatrix} 3 & -2 & 1 \\\\ -2 & 2 & -1 \\\\ 1 & -1 & 1 \\end{pmatrix}"
+   ],
+   "result": "A⁻¹ = \\begin{pmatrix} 3 & -2 & 1 \\\\ -2 & 2 & -1 \\\\ 1 & -1 & 1 \\end{pmatrix}"
+  },
+  "narr": [
+   "Oxirgi misolda Gauss-Jordan usuli bilan matritsaning teskarisini topamiz.",
+   "Buning uchun [A|I] matritsasini yozamiz, bu yerda I birlik matritsa.",
+   "Gauss usuliga o'xshash ravishda matritsani yuqori uchburchak shakliga keltiramiz.",
+   "Keyin qaytadan almashtirish usulini qo'llab, diagonal elementlarni 1 ga aylantiramiz.",
+   "Natijada [I|A⁻¹] shakliga kelamiz.",
+   "Bu holda, o'ng tomondagi matritsa asl matritsaning teskarisidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

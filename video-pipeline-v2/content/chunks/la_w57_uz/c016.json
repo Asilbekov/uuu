@@ -1,0 +1,217 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Matritsani teskarisini topish",
+   "subtitle": "Elementar operatsiyalar yordamida"
+  },
+  "narr": [
+   "Keling, matritsani teskarisini topish usulini ko'rib chiqaylik.",
+   "Matritsaning teskarisini topish uchun elementar operatsiyalardan foydalanamiz.",
+   "Bu jarayonda chap to'liq birlik matritsaga keltiramiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Matritsani teskarisini topish",
+   "problem": "A matritsasi berilgan, uning teskarisini toping:",
+   "steps": [
+    "1-qadam: [A|I] ni yozamiz",
+    "2-qadam: Birinchi asosiy element ostini chiqarish: R2 ← R2 - R1",
+    "3-qadam: Ikkinchi ostida: R3 ← R3 - R2",
+    "4-qadam: Uchinchisida ustida: R2 ← R2 - R3",
+    "5-qadam: Ikkinchisida ustida: R1 ← R1 - R2"
+   ],
+   "result": "Chap to'liq birlik matritsaga aylandi, shuning uchun A⁻¹ = [[3, -2, 1], [-2, 2, -1], [1, -1, 1]]"
+  },
+  "narr": [
+   "Bizga quyidagi matritsa berilgan:",
+   "Birinchi qadamda, berilgan matritsani birlik matritsa bilan birga yozamiz.",
+   "Ikkinchi qadamda, birinchi satrdagi birlik element ostidagi elementlarni nolga aylantiramiz.",
+   "Uchinchi qadamda, ikkinchi satrdagi birlik element ostidagi elementni nolga aylantiramiz.",
+   "To'rtinchi qadamda, uchinchi satrdagi birlik element ustidagi elementni nolga aylantiramiz.",
+   "Beshinchi qadamda, ikkinchi satrdagi birlik element ustidagi elementni nolga aylantiramiz.",
+   "Endi chap tomon birlik matritsaga aylandi, o'ng tomon esa matritsaning teskarisini beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Matritsada teskari yo'qligini ko'rsatish",
+   "problem": "[[1, 2], [2, 4]] matritsining teskarisi yo'qligini ko'rsating.",
+   "steps": [
+    "Gauss chiqarib tashlash usulini qo'llaymiz",
+    "R2 ← R2 - 2R1 amalini bajaramiz",
+    "Natijada chap blokda nol qator paydo bo'ldi"
+   ],
+   "result": "Chap blokda nol qator paydo bo'ldi — matritsa singulyar (notekis), teskarisi mavjud emas."
+  },
+  "narr": [
+   "Endi, teskarisi bo'lmagan matritsani ko'rib chiqaylik.",
+   "Gauss chiqarib tashlash usulini qo'llaymiz.",
+   "R2 ← R2 - 2R1 amalini bajaramiz.",
+   "Natijada chap blokda nol qator paydo bo'ldi.",
+   "Bu shuni anglatadiki, matritsa birlik matritsaga keltirib bo'lmaydi, ya'ni teskarisi mavjud emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "4-7 hafta — Transponirlash, almashtirishlar va vektorli fazolar",
+   "subtitle": "Chiziqli algebra I"
+  },
+  "narr": [
+   "Endi biz transponirlash, almashtirishlar va vektorli fazolar mavzusini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "6-haftani takrorlash: A = LU, LDU, PA = LU",
+   "bullets": [
+    "Gauss chiqarishi Ek · · · E1A = U beradi",
+    "A = LU: pastburchakli L va yuqori burchakli U",
+    "A = LDŪ: diagonal D va yuqori burchakli Ū",
+    "Agar bosh element nol bo'lsa, qatorlar almashtiriladi: PA = LU"
+   ]
+  },
+  "narr": [
+   "Gauss chiqarish jarayonini eslaylik.",
+   "Ushbu jarayonda biz elementar matritsalarni ko'paytirish orqali yuqori burchakli matritsaga o'tamiz.",
+   "A = LU dekompozitsiyasida L pastburchakli, U esa yuqori burchakli matritsadir.",
+   "Agar bosh element nol bo'lsa, qatorlarni almashtirish kerak bo'ladi.",
+   "Bu holda PA = LU dekompozitsiyasida P almashtirish matritsasi bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Transponirlash: ta'rif va asosiy identifikatlar",
+   "bullets": [
+    "Agar A — m × n matritsa bo'lsa, A^T o'lchami n × m bo'ladi",
+    "Elementlari (A^T)_ij = a_ji bo'ladi: ustunlar satrlarga aylanadi",
+    "(A^T)^T = A",
+    "(A + B)^T = A^T + B^T",
+    "(cA)^T = cA^T",
+    "(AB)^T = B^T A^T",
+    "(A⁻¹)^T = (A^T)⁻¹"
+   ]
+  },
+  "narr": [
+   "Transponirlash jarayonini ko'rib chiqaylik.",
+   "Agar A matritsa m × o'lchamda bo'lsa, uning transponirlashi A^T n × m o'lchamda bo'ladi.",
+   "Transponirlashda matritsaning ustunlari satrlarga aylanadi.",
+   "Transponir matritsani yana transponir qilsak, asl matritsaga qaytamiz.",
+   "Yig'indining transponiri transponirlarning yig'indisiga teng.",
+   "Skalyar ko'paytma uchun transponir ko'paytmani transponirga ko'paytirishga teng.",
+   "Ko'paytma uchun transponir ko'paytmaning teskarisida ko'paytuvchilar teskarisida joylashadi.",
+   "Invertirilgan matritsani transponir qilsak, teskarisini transponir qilganga teng bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Simmetrik va antimetrik matritsalar; A^T A ko'paytmasi",
+   "bullets": [
+    "Matritsa S simmetrik, agar S^T = S (s_ij = s_ji)",
+    "Matritsa K antimetrik, agar K^T = -K",
+    "Ixtiyoriy matritsa S + K ko'rinishida yoziladi, bunda S simmetrik, K antimetrik",
+    "(A^T A)^T = A^T A — A^T A har doim simmetrik",
+    "x^T A^T A x = ||Ax||^2 ≥ 0"
+   ]
+  },
+  "narr": [
+   "Simmetrik matritsa — bu o'ziga teskari matritsa, ya'ni S^T = S.",
+   "Antimetrik matritsa esa o'ziga teskari manfiyga teng, ya'ni K^T = -K.",
+   "Ixtiyoriy matritsani simmetrik va antimetrik qismlarga ajratib bo'ladi.",
+   "A^T A ko'paytmasi har doim simmetrik matritsadir.",
+   "x^T A^T A ifodasi Ax vektorining uzunligining kvadratiga teng va har doim manfiy bo'lmaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Almashtirish matritsalari: P^T = P⁻¹",
+   "bullets": [
+    "Almashtirish matritsasi birlik matritsaning satrlari almashtirilishidan hosil bo'ladi",
+    "Har bir satr va ustunda aynan bitta birlik bo'ladi",
+    "PA — matritsa A bilan almashtirilgan satrlar",
+    "AQ — matritsa A bilan almashtirilgan ustunlar",
+    "P^T P = I, ya'ni P⁻¹ = P^T",
+    "||Px|| = ||x||, det P = ±1",
+    "n tartibli almashtirishlar soni aynan n!"
+   ]
+  },
+  "narr": [
+   "Almashtirish matritsasi — bu birlik matritsaning satrlari almashtirilishidan hosil bo'ladi.",
+   "Ushbu matritsada har bir satr va ustunda aynan bitta birlik bo'ladi.",
+   "Chapdan ko'paytirish (PA) matritsa A ning satrlarini almashtiradi.",
+   "O'ngdan ko'paytirish (AQ) matritsa A ning ustunlarini almashtiradi.",
+   "Almashtirish matritsasi uchun P^T P = I, ya'ni P⁻¹ = P^T.",
+   "Almashtirish matritsasi vektorlarning uzunligini o'zgarmaydi.",
+   "Almashtirish matritsasi determinantining qiymati ±1 bo'ladi.",
+   "n tartibli almashtirishlar soni aynan n! ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ }
+]

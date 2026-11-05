@@ -1,0 +1,425 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Chiziqli algebra darsining 5-7 haftalarida biz chiziqli sistemalarni yechish usullarini, LU va LDU ajratmalarini hamda matritsa operatsiyalarini o'rganamiz.",
+   "Bugungi kunda Gauss chiqarib tashlash usuli, LU ajratma va matritsa teskarisini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — LU ajratma",
+   "problem": "A = [2 1; 5 2] va b = [1; 0] uchun LU ajratmani toping.",
+   "steps": [
+    "Birinchi qadam: m21 = 5/2",
+    "Ikkinchi qadam: R2 ← R2 - (5/2)R1",
+    "U = [2 1; 0 3/2]",
+    "L = [1 0; 5/2 1]",
+    "Tekshirish: L·U = A"
+   ],
+   "result": "L = [1 0; 5/2 1], U = [2 1; 0 3/2]"
+  },
+  "narr": [
+   "Keling, birinchi misolni ko'rib chiqaylik. Bu erda biz 2x2 matritsa berilgan.",
+   "Birinchi qadamda, birinchi ustundagi pastki elementni yuqori elementga bo'lamiz. m21 = 5/2.",
+   "Keyin ikkinchi qatorni birinchi qatorning 5/2 karra ayirib, yangi ikkinchi qator hosil qilamiz.",
+   "Natijada U matritsa hosil bo'ladi: [2 1; 0 3/2].",
+   "L matritsa esa burchak elementlardan tashkil topadi: [1 0; 5/2 1].",
+   "Tekshirib ko'ramiz: L matritsani U matritsaga ko'paytirsak, asl A matritsaga o'xshaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — LDU ajratma",
+   "problem": "A = [2 1; 5 2] uchun LDU ajratmani toping.",
+   "steps": [
+    "D matritsani diagonal elementlardan hosil qilamiz: D = [2 0; 0 3/2]",
+    "D⁻¹ ni hisoblaymiz: D⁻¹ = [1/2 0; 0 2/3]",
+    "D⁻¹U ni hisoblaymiz: [1 1/2; 0 1]",
+    "Tekshirish: A = L·D·D⁻¹U"
+   ],
+   "result": "L = [1 0; 5/2 1], D = [2 0; 0 3/2], D⁻¹U = [1 1/2; 0 1]"
+  },
+  "narr": [
+   "Endi LDU ajratmani ko'rib chiqaylik.",
+   "D matritsa diagonal elementlardan iborat: [2 0; 0 3/2].",
+   "D matritsaning teskarisini hisoblaymiz: [1/2 0; 0 2/3].",
+   "Keyin D⁻¹ ni U ga ko'paytiramiz: [1 1/2; 0 1].",
+   "Shunday qilib, A matritsani L, D va D⁻¹U ko'paytmalari sifatida ifodalaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 29 — 3×3 chiqarib tashlash",
+   "problem": "A = [1 3 1; 2 5/2 1; 1 4/3 6], b = [6; 10; 6] uchun Ax = b ni Gauss chiqarib tashlash usuli bilan yeching.",
+   "steps": [
+    "Kengaytirilgan matritsa: [1 3 1 | 6; 2 5/2 1 | 10; 1 4/3 6 | 6]",
+    "1-qadam: m21 = 2, m31 = 1; R2 - 2R1 = (0, -1, 0 | -2); R3 - R1 = (0, 1, 2 | 0)",
+    "2-qadam: m32 = -1; R3 + R2 = (0, 0, 2 | -2)",
+    "Orqaga almashtirish: z = -1, y = 2, x = 1",
+    "Tekshirish: A·x = b"
+   ],
+   "result": "x = [1; 2; -1]"
+  },
+  "narr": [
+   "Endi keling, 3x3 matritsa bilan ishlaydigan Gauss chiqarib tashlash usulini ko'rib chiqaylik.",
+   "Kengaytirilgan matritsani yozamiz: birinchi ustun A matritsasi, ikkinchi ustun b vektori.",
+   "Birinchi qadamda, birinchi ustundagi pastki elementlarni yo'qotamiz. m21 = 2, m31 = 1.",
+   "Ikkinchi qatorni birinchi qatorning 2 karra ayiramiz, uchinchi qatorni esa birinchi qatorning 1 karra ayiramiz.",
+   "Ikkinchi qadamda, ikkinchi ustundagi pastki elementni yo'qotamiz. m32 = -1.",
+   "Uchinchi qatorni ikkinchi qatorga qo'shamiz.",
+   "Endi orqaga almashtirishni bajaramiz: z = -1, y = 2, x = 1.",
+   "Tekshirib ko'ramiz: A matritsani x vektorga ko'paytirsak, b vektorga teng bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   3,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 30 — 3×3 chiqarib tashlash",
+   "problem": "A = [1 1 1; 2 3 2; 1 2 4], b = [2; 6; 1] uchun Ax = b ni Gauss chiqarib tashlash usuli bilan yeching.",
+   "steps": [
+    "Kengaytirilgan matritsa: [1 1 1 | 2; 2 3 2 | 6; 1 2 4 | 1]",
+    "1-qadam: m21 = 2, m31 = 1; R2 - 2R1 = (0, 1, 0 | 2); R3 - R1 = (0, 1, 3 | -1)",
+    "2-qadam: m32 = 1; R3 - R2 = (0, 0, 3 | -3)",
+    "Orqaga almashtirish: z = -1, y = 2, x = 1",
+    "Tekshirish: A·x = b"
+   ],
+   "result": "x = [1; 2; -1]"
+  },
+  "narr": [
+   "Yana bir 3x3 misolni ko'rib chiqaylik.",
+   "Kengaytirilgan matritsani yozamiz.",
+   "Birinchi qadamda, birinchi ustundagi pastki elementlarni yo'qotamiz.",
+   "Ikkinchi qadamda, ikkinchi ustundagi pastki elementni yo'qotamiz.",
+   "Orqaga almashtirishni bajaramiz: z = -1, y = 2, x = 1.",
+   "Tekshirib ko'ramiz: A matritsani x vektorga ko'paytirsak, b vektorga teng bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 31 — 3×3 chiqarib tashlash (cheksiz ko'p yechimlar)",
+   "problem": "A = [1 2 1; 2 4 2; 1 3 5], b = [4; 8; 2] uchun Ax = b ni Gauss chiqarib tashlash usuli bilan yeching.",
+   "steps": [
+    "Kengaytirilgan matritsa: [1 2 1 | 4; 2 4 2 | 8; 1 3 5 | 2]",
+    "1-qadam: m21 = 2, m31 = 1; R2 - 2R1 = (0, 0, 0 | 0); R3 - R1 = (0, 1, 4 | -2)",
+    "2-va3-qatorlarni almashtiramiz: [1 2 1 | 4; 0 1 4 | -2; 0 0 0 | 0]",
+    "Ozod o'zgaruvchi z = t: y = -2 - 4t, x = 4 - 2y - z = 8 + 7t",
+    "Cheksiz ko'p yechimlar: x = [8 + 7t; -2 - 4t; t], t ∈ R",
+    "Maxsus yechim: x = [1; 2; -1] (t = -1)",
+    "Tekshirish: A·x = b"
+   ],
+   "result": "Cheksiz ko'p yechimlar: x = [8 + 7t; -2 - 4t; t], t ∈ R"
+  },
+  "narr": [
+   "Bu misol cheksiz ko'p yechimlarga ega bo'lgan holatni ko'rsatadi.",
+   "Kengaytirilgan matritsani yozamiz.",
+   "Birinchi qadamda, ikkinchi qator birinchi qatorning ikki barobariga teng bo'lgani uchun, R2 - 2R1 = (0, 0, 0 | 0).",
+   "Uchinchi qatorni birinchi qatorga nisbatan o'zgartiramiz.",
+   "Ikkinchi va uchinchi qatorlarni almashtiramiz, chunki ikkinchi qatorda nol qator hosil bo'ldi.",
+   "Endi ozod o'zgaruvchi z = t deb belgilaymiz.",
+   "y ni z orqali ifodalaymiz: y = -2 - 4t.",
+   "Keyin x ni y va z orqali ifodalaymiz: x = 8 + 7t.",
+   "Shunday qilib, cheksiz ko'p yechimlar mavjud: x = [8 + 7t; -2 - 4t; t], barcha haqiqiy t lar uchun.",
+   "Maxsus yechim sifatida t = -1 ni olsak, x = [1; 2; -1] vektorini olamiz.",
+   "Tekshirib ko'ramiz: A matritsani bu x vektorga ko'paytirsak, b vektorga teng bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 32 — 3×3 chiqarib tashlash",
+   "problem": "A = [1 3 1; 2 5/2 1; 1 4 4], b = [6; 10; 5] uchun Ax = b ni Gauss chiqarib tashlash usuli bilan yeching.",
+   "steps": [
+    "Kengaytirilgan matritsa: [1 3 1 | 6; 2 5/2 1 | 10; 1 4 4 | 5]",
+    "1-qadam: m21 = 2, m31 = 1; R2 - 2R1 = (0, -1, 0 | -2); R3 - R1 = (0, 1, 3 | -1)",
+    "2-qadam: m32 = -1; R3 + R2 = (0, 0, 3 | -3)",
+    "Orqaga almashtirish: z = -1, y = 2, x = 1",
+    "Tekshirish: A·x = b"
+   ],
+   "result": "x = [1; 2; -1]"
+  },
+  "narr": [
+   "Yana bir 3x3 misolni ko'rib chiqaylik.",
+   "Kengaytirilgan matritsani yozamiz.",
+   "Birinchi qadamda, birinchi ustundagi pastki elementlarni yo'qotamiz.",
+   "Ikkinchi qadamda, ikkinchi ustundagi pastki elementni yo'qotamiz.",
+   "Orqaga almashtirishni bajaramiz: z = -1, y = 2, x = 1.",
+   "Tekshirib ko'ramiz: A matritsani x vektorga ko'paytirsak, b vektorga teng bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 33 — LU va LDU ajratma 3×3",
+   "problem": "A = [2 1 1; 2 3 2; -2 1 1] uchun LU va LDU ajratmani hisoblang.",
+   "steps": [
+    "m21 = 1, m31 = -1, m32 = 1; R2 - R1 = (0, 2, 1); R3 + R1 = (0, 2, 2); R3 - R2 = (0, 0, 1)",
+    "L = [1 0 0; 1 1 0; -1 1 1], U = [2 1 1; 0 2 1; 0 0 1]",
+    "Tekshirish: LU = A",
+    "D = [2 0 0; 0 2 0; 0 0 1]",
+    "D⁻¹U = [1 1/2 1/2; 0 1 1/2; 0 0 1]",
+    "A = LU = L·D·D⁻¹U"
+   ],
+   "result": "L = [1 0 0; 1 1 0; -1 1 1], U = [2 1 1; 0 2 1; 0 0 1], D = [2 0 0; 0 2 0; 0 0 1]"
+  },
+  "narr": [
+   "Endi keling, 3x3 matritsa bilan LU va LDU ajratmani ko'rib chiqaylik.",
+   "Birinchi qadamda, chiqarib tashlash koeffitsientlarini hisoblaymiz: m21 = 1, m31 = -1, m32 = 1.",
+   "Ushbu koeffitsientlar asosida L matritsani hosil qilamiz.",
+   "U matritsani esa chiqarib tashlash jarayonida hosil bo'lgan yuqori uchburchak matritsadan olamiz.",
+   "Tekshirib ko'ramiz: L matritsani U matritsaga ko'paytirsak, asl A matritsaga teng bo'ladi.",
+   "LDU ajratma uchun D matritsani diagonal elementlardan hosil qilamiz.",
+   "D matritsaning teskarisini hisoblaymiz va U ga ko'paytiramiz.",
+   "Shunday qilib, A matritsani L, D va D⁻¹U ko'paytmalari sifatida ifodalaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 34 — LU va LDU ajratma 3×3",
+   "problem": "A = [2 1 1; 4 5 3; -2 5 3] uchun LU va LDU ajratmani hisoblang.",
+   "steps": [
+    "m21 = 2, m31 = -1, m32 = 2; R2 - 2R1 = (0, 3, 1); R3 + R1 = (0, 6, 4); R3 - 2R2 = (0, 0, 2)",
+    "L = [1 0 0; 2 1 0; -1 2 1], U = [2 1 1; 0 3 1; 0 0 2]",
+    "Tekshirish: LU = A (uchinchi qator: -[2 1 1] + 2·[0 3 1] + [0 0 2] = [-2 5 3])",
+    "D = [2 0 0; 0 3 0; 0 0 2]",
+    "D⁻¹U = [1 1/2 1/2; 0 1 1/3; 0 0 1]",
+    "A = LU = L·D·D⁻¹U"
+   ],
+   "result": "L = [1 0 0; 2 1 0; -1 2 1], U = [2 1 1; 0 3 1; 0 0 2], D = [2 0 0; 0 3 0; 0 0 2]"
+  },
+  "narr": [
+   "Yana bir 3x3 matritsa bilan LU va LDU ajratmani ko'rib chiqaylik.",
+   "Chiqarib tashlash koeffitsientlarini hisoblaymiz: m21 = 2, m31 = -1, m32 = 2.",
+   "Ushbu koeffitsientlar asosida L va U matritsalarni hosil qilamiz.",
+   "Tekshirib ko'ramiz: L matritsani U matritsaga ko'paytirsak, asl A matritsaga teng bo'ladi.",
+   "LDU ajratma uchun D matritsani diagonal elementlardan hosil qilamiz.",
+   "D matritsaning teskarisini hisoblaymiz va U ga ko'paytiramiz.",
+   "Shunday qilib, A matritsani L, D va D⁻¹U ko'paytmalari sifatida ifodalaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 35 — LU va LDU ajratma 3×3",
+   "problem": "A = [2 1 1; 2 5/2 1; -2 11/5 5] uchun LU va LDU ajratmani hisoblang.",
+   "steps": [
+    "m21 = 1, m31 = -1, m32 = 3; R2 - R1 = (0, 4, 1); R3 + R1 = (0, 12, 6); R3 - 3R2 = (0, 0, 3)",
+    "L = [1 0 0; 1 1 0; -1 3 1], U = [2 1 1; 0 4 1; 0 0 3]",
+    "Tekshirish: LU = A (uchinchi qator: -[2 1 1] + 3·[0 4 1] + [0 0 3] = [-2 11 5])",
+    "D = [2 0 0; 0 4 0; 0 0 3]",
+    "D⁻¹U = [1 1/2 1/2; 0 1 1/4; 0 0 1]",
+    "A = LU = L·D·D⁻¹U"
+   ],
+   "result": "L = [1 0 0; 1 1 0; -1 3 1], U = [2 1 1; 0 4 1; 0 0 3], D = [2 0 0; 0 4 0; 0 0 3]"
+  },
+  "narr": [
+   "Yana bir 3x3 matritsa bilan LU va LDU ajratmani ko'rib chiqaylik.",
+   "Chiqarib tashlash koeffitsientlarini hisoblaymiz: m21 = 1, m31 = -1, m32 = 3.",
+   "Ushbu koeffitsientlar asosida L va U matritsalarni hosil qilamiz.",
+   "Tekshirib ko'ramiz: L matritsani U matritsaga ko'paytirsak, asl A matritsaga teng bo'ladi.",
+   "LDU ajratma uchun D matritsani diagonal elementlardan hosil qilamiz.",
+   "D matritsaning teskarisini hisoblaymiz va U ga ko'paytiramiz.",
+   "Shunday qilib, A matritsani L, D va D⁻¹U ko'paytmalari sifatida ifodalaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 36 — LU va LDU ajratma 3×3",
+   "problem": "A = [2 1 1; 4 4 3; -2 1 1] uchun LU va LDU ajratmani hisoblang.",
+   "steps": [
+    "m21 = 2, m31 = -1, m32 = 1; R2 - 2R1 = (0, 2, 1); R3 + R1 = (0, 2, 2); R3 - R2 = (0, 0, 1)",
+    "L = [1 0 0; 2 1 0; -1 1 1], U = [2 1 1; 0 2 1; 0 0 1]",
+    "Tekshirish: LU = A",
+    "D = [2 0 0; 0 2 0; 0 0 1]",
+    "D⁻¹U = [1 1/2 1/2; 0 1 1/2; 0 0 1]",
+    "A = LU = L·D·D⁻¹U"
+   ],
+   "result": "L = [1 0 0; 2 1 0; -1 1 1], U = [2 1 1; 0 2 1; 0 0 1], D = [2 0 0; 0 2 0; 0 0 1]"
+  },
+  "narr": [
+   "Yana bir 3x3 matritsa bilan LU va LDU ajratmani ko'rib chiqaylik.",
+   "Chiqarib tashlash koeffitsientlarini hisoblaymiz: m21 = 2, m31 = -1, m32 = 1.",
+   "Ushbu koeffitsientlar asosida L va U matritsalarni hosil qilamiz.",
+   "Tekshirib ko'ramiz: L matritsani U matritsaga ko'paytirsak, asl A matritsaga teng bo'ladi.",
+   "LDU ajratma uchun D matritsani diagonal elementlardan hosil qilamiz.",
+   "D matritsaning teskarisini hisoblaymiz va U ga ko'paytiramiz.",
+   "Shunday qilib, A matritsani L, D va D⁻¹U ko'paytmalari sifatida ifodalaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 37 — Qatorlarni almashtirish va PLU",
+   "problem": "A = [0 2 1; 1 1 0; 2 3 2] uchun qatorlarni almashtirish P va PA = LU tenglikni qanoatlantiruvchi omillarni toping.",
+   "steps": [
+    "1-va2-qatorlarni almashtirish (birinchi asosiy element nol): P = [0 1 0; 1 0 0; 0 0 1]",
+    "PA = [1 1 0; 0 2 1; 2 3 2]",
+    "Chiqarib tashlash: m31 = 2(R3 - 2R1 = (0, 1, 2)); m32 = 1/2(R3 - (1/2)R2 = (0, 0, 3/2))",
+    "L = [1 0 0; 0 1 0; 2 1/2 1], U = [1 1 0; 0 2 1; 0 0 3/2]",
+    "Tekshirish: LU = PA",
+    "Shunday qilib, PA = LU"
+   ],
+   "result": "P = [0 1 0; 1 0 0; 0 0 1], L = [1 0 0; 0 1 0; 2 1/2 1], U = [1 1 0; 0 2 1; 0 0 3/2]"
+  },
+  "narr": [
+   "Bu misolda biz qatorlarni almashtirish va PLU ajratmani ko'rib chiqamiz.",
+   "Agar birinchi asosiy element nol bo'lsa, qatorlarni almashtirish kerak.",
+   "1-va2-qatorlarni almashtiramiz va P matritsasini hosil qilamiz.",
+   "PA matritsani hosil qilamiz.",
+   "Endi chiqarib tashlash usulini qo'llaymiz: m31 = 2, m32 = 1/2.",
+   "L va U matritsalarni hosil qilamiz.",
+   "Tekshirib ko'ramiz: L matritsani U matritsaga ko'paytirsak, PA matritsaga teng bo'ladi.",
+   "Shunday qilib, PA = LU tenglikni qanoatlantiruvchi omillarni topdik."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 38 — Transponir va teskari",
+   "problem": "A = [1 2 0; 0 1 1; 2 0 1] uchun A^T ni hisoblang va (A^T)⁻¹ = (A⁻¹)^T tenglikni tekshiring.",
+   "steps": [
+    "A^T = [1 0 2; 2 1 0; 0 1 1]",
+    "det A = 5",
+    "(A^T)⁻¹ = (1/5)·[1 2 -2; -2 1 4; 2 -1 1]",
+    "A⁻¹ = (1/5)·[1 -2 2; 2 1 -1; -2 4 1]",
+    "(A⁻¹)^T = (1/5)·[1 2 -2; -2 1 4; 2 -1 1] = (A^T)⁻¹",
+    "Tenglik bajarilgan; tekshirish: A^T · (A^T)⁻¹ = I"
+   ],
+   "result": "(A^T)⁻¹ = (A⁻¹)^T = (1/5)·[1 2 -2; -2 1 4; 2 -1 1]"
+  },
+  "narr": [
+   "Oxirgi misolda biz matritsaning transponirini va teskarisini ko'rib chiqamiz.",
+   "A matritsaning transponirini A^T deb belgilaymiz, unda qatorlar ustunlarga, ustunlar esa qatorlarga aylanadi.",
+   "A matritsaning determinantini hisoblaymiz: det A = 5.",
+   "A^T matritsaning teskarisini hisoblaymiz.",
+   "A matritsaning teskarisini hisoblaymiz va uning transponirini olamiz.",
+   "Ikkala natijani solishtirsak, ular teng ekanligini ko'ramiz: (A^T)⁻¹ = (A⁻¹)^T.",
+   "Tekshirib ko'ramiz: A^T matritsani (A^T)⁻¹ ga ko'paytirsak, birlik matritsaga teng bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ }
+]

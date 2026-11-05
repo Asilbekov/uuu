@@ -1,0 +1,392 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Chiziqli algebra I",
+   "subtitle": "5–7 haftalar"
+  },
+  "narr": [
+   "Bu darsimizda chiziqli algebraning asosiy tushunchalarini, matritsa ajratmalarini va chiziqli tenglamalar sistemalarini yech usullarini oʻrganamiz.",
+   "Keling, mashqlardan boshlaymiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 39",
+   "problem": "Simmetrik A matritsasini LDL^T koʻrinishida ajrating.",
+   "steps": [
+    {
+     "text": "A = \\begin{pmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{pmatrix}"
+    },
+    {
+     "text": "Omillar: m21 = 1, m31 = 0, m32 = 1/3"
+    },
+    {
+     "text": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{pmatrix}"
+    },
+    {
+     "text": "D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{pmatrix}"
+    },
+    {
+     "text": "Tekshirish: L · D · L^T = A"
+    }
+   ],
+   "result": "A = LDL^T ajratma topildi."
+  },
+  "narr": [
+   "Birinchi mashqda simmetrik matritsani LDL^T koʻrinishida ajratishni koʻrib chiqamiz.",
+   "Berilgan A matritsasi quyidagicha: ikki birinchi qatorda ikkita va nol, ikkinchi qatorda ikkita, besh va bir, uchinchi qatorda nol, bir va uch.",
+   "Avval omillarni topamiz: m21 = 1, m31 = 0, m32 = 1/3.",
+   "L matritsasini birlik diagonal bilan va omillar bilan yozamiz.",
+   "D matritsasida diagonal elementlar qolganlari nol boʻladi.",
+   "Nihoyat, tekshirib koʻramiz: L matritsani D matritsiga va L transponirlanganiga koʻpaytirsak, asl A matritsasiga oʻtamiziz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 40",
+   "problem": "Ax = b tenglamani LU usuli bilan yeching. Eng yaqin qoʻshnilar tuzilishini talqin qiling.",
+   "steps": [
+    {
+     "text": "A = \\begin{pmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{pmatrix}, b = \\begin{pmatrix} 2 \\\\ 0 \\\\ 2 \\end{pmatrix}"
+    },
+    {
+     "text": "LU ajratma: L = \\begin{pmatrix} 1 & 0 & 0 \\\\ -1/2 & 1 & 0 \\\\ 0 & -2/3 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & -1 & 0 \\\\ 0 & 3/2 & -1 \\\\ 0 & 0 & 4/3 \\end{pmatrix}"
+    },
+    {
+     "text": "To'g'ri almashtirish: Ly = b, y = [2; 1; 8/3]"
+    },
+    {
+     "text": "Orqaga almashtirish: Ux = y, x = [2; 2; 2]"
+    },
+    {
+     "text": "Tekshirish: A · x = b"
+    },
+    {
+     "text": "Uch diagonallik tuzilishi: har bir noma'lum faqat eng yaqin qo'shnilar bilan bog'langan"
+    }
+   ],
+   "result": "x = [2; 2; 2]"
+  },
+  "narr": [
+   "Ikkinchi mashqda uch diagonallik modelini ko'rib chiqamiz.",
+   "Berilgan A matritsasi uch diagonal bo'lib, b matritsasi ikki, nol va ikkidan iborat.",
+   "Avval LU ajratmani topamiz. L matritsasida omillar asl belgilar bilan saqlanadi.",
+   "To'g'ri almashtirish jarayonida y vektorini topamiz.",
+   "Keyin orqaga almashtirish orqali x vektorini topamiz.",
+   "Tekshirib ko'ramiz: A matritsani x vektoriga ko'paytirsak, b vektoriga o'namiziz.",
+   "Uch diagonallik tuzilishi degani - har bir noma'lum faqat eng yaqin qo'shnilar bilan bog'langanligini anglatadi. Bu tuzilma yechimni arzon qiladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 6,
+   "title": "II darsning asosiy nuqtalari",
+   "subtitle": "5-hafto takrorlash"
+  },
+  "narr": [
+   "Endi ikkinchi darsning asosiy nuqtalarini ko'rib chiqamiz.",
+   "Chiziqli tenglamalar sistemasi uchta tasvirga ega: qatorli (tenglamalar - tekisliklar), matritsali (Ax = b) va ustunli (A ustunlarining b ni berishi uchun kombinatsiyasi)."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Qatorli amaliyotlar",
+   "bullets": [
+    "Ikkita tenglamani almashtirish (Ri ↔ Rj)",
+    "Tenglamani noldan farqli songa ko'paytirish (Ri ← c · Ri, c ≠ 0)",
+    "Boshqa tenglamaning ko'paytmasini qo'shish (Ri ← Ri + c · Rj)"
+   ]
+  },
+  "narr": [
+   "Qatorlar uchun uchta asosiy amaliyonga ruxsat beriladi.",
+   "Birinchisi, ikkita tenglamani almashtirish.",
+   "Ikkinchisi, tenglamani noldan farqli songa ko'paytirish.",
+   "Uchinchisi, boshqa tenglamaning ko'paytmasini qo'shish.",
+   "Bu amaliyotlar butun tenglamaga, o'ng qismni ham qatnashgan holda qo'llaniladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "3 × 3 tizim uchun protsedura",
+   "bullets": [
+    "Kengaytirilgan matritsani yozing",
+    "Birinchi nol bo'lmagan asosiy elementni tanlang (kerak bo'lsa qatorlarni almashtiring)",
+    "Uning ostidagi elementlarni chiqaring",
+    "Yangilangan matritsada ikkinchi asosiy elementni tanlang",
+    "Uning ostidagi elementni chiqaring",
+    "Ziddiyatni yoki erkin o'zgaruvchilarni tekshiring",
+    "Uchta asosiy element bo'lganda teskiri almashtirishni amalga oshiring",
+    "Yechimni asl tizimda tekshiring"
+   ]
+  },
+  "narr": [
+   "3 × 3 tizimni yechish uchun quyidagi protsedurani amalga oshiramiz.",
+   "Avval kengaytirilgan matritsani yozamiz.",
+   "Keyin birinchi nol bo'lmagan asosiy elementni tanlab, kerak bo'lsa qatorlarni almashtiramiz.",
+   "Uning ostidagi elementlarni chiqaramiz.",
+   "Yangilangan matritsada ikkinchi asosiy elementni tanlab, uning ostidagi elementni chiqaramiz.",
+   "Keyin ziddiyatni yoki erkin o'zgaruvchilarni tekshiramiz.",
+   "Uchta asosiy element bo'lganda teskiri almashtirishni amalga oshiramiz.",
+   "Nihoyat, yechimni asl tizimda tekshiramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Teskiri almashtirish formulalari",
+   "tex": "z = \\frac{c_3}{u_{33}}, \\quad y = \\frac{c_2 - u_{23} \\cdot z}{u_{22}}, \\quad x = \\frac{c_1 - u_{12} \\cdot y - u_{13} \\cdot z}{u_{11}}",
+   "parts": [
+    {
+     "substr": "z = \\frac{c_3}{u_{33}}",
+     "color": "#4C5FD5",
+     "note": "Uchinchi o'zgaruvchini hisoblash"
+    },
+    {
+     "substr": "y = \\frac{c_2 - u_{23} \\cdot z}{u_{22}}",
+     "color": "#B45309",
+     "note": "Ikkinchi o'zgaruvchini hisoblash"
+    },
+    {
+     "substr": "x = \\frac{c_1 - u_{12} \\cdot y - u_{13} \\cdot z}{u_{11}}",
+     "color": "#0E7C7B",
+     "note": "Birinchi o'zgaruvchini hisoblash"
+    }
+   ]
+  },
+  "narr": [
+   "Teskiri almashtirish formulalari quyidagicha:",
+   "Avval uchinchi o'zgaruvchini z ni topamiz.",
+   "Keyin ikkinchi o'zgaruvchini y ni topamiz.",
+   "Nihoyat, birinchi o'zgaruvchini x ni topamiz.",
+   "Bu formulalarda asosiy elementlar noldan farqli bo'lishi kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Odatiy xatolar",
+   "bullets": [
+    "O'ng qismni yangilashni unutish",
+    "O'zgarishidan keyin eski qatorni foydalanish",
+    "Ko'paytirchilar munosabati yo'nalishini chalkashtirish",
+    "Taklif qilingan nol asosiy elementni degeneratsiya isboti deb hisoblash"
+   ]
+  },
+  "narr": [
+   "Chiziqli sistemalarni yechishda odatiy xatolar:",
+   "Birinchidan, o'ng qismni yangilashni unutish.",
+   "Ikkinchidan, o'zgarishidan keyin eski qatorni foydalanish.",
+   "Uchinchidan, ko'paytirchilar munosabati yo'nalishini chalkashtirish.",
+   "To'rtinchidan, taklif qilingan nol asosiy elementni degeneratsiya isboti deb hisoblash."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1",
+   "problem": "A matritsasining LU va LDU ajratmalarini toping.",
+   "steps": [
+    {
+     "text": "A = \\begin{pmatrix} 2 & 4 & 2 \\\\ 4 & 11 & 7 \\\\ 2 & 7 & 8 \\end{pmatrix}"
+    },
+    {
+     "text": "Birinchi asosiy element 2 ostidagi elementlarni chiqaramiz: R2 ← R2 - 2R1 va R3 ← R3 - R1"
+    },
+    {
+     "text": "\\begin{pmatrix} 2 & 4 & 2 \\\\ 0 & 3 & 3 \\\\ 0 & 3 & 6 \\end{pmatrix}"
+    },
+    {
+     "text": "Keyin ikkinchi asosiy element 3 ostida: R3 ← R3 - R2"
+    },
+    {
+     "text": "\\begin{pmatrix} 2 & 4 & 2 \\\\ 0 & 3 & 3 \\\\ 0 & 0 & 3 \\end{pmatrix}"
+    },
+    {
+     "text": "Ko'paytchilar: m21 = 2, m31 = 1, m32 = 1"
+    }
+   ]
+  },
+  "narr": [
+   "Birinchi misolda A matritsasining LU va LDU ajratmalarini topamiz.",
+   "Berilgan A matritsasi ikki, to'rt va ikki; to'rt, o'n bir va yetti; ikki, yetti va sakkizdan iborat.",
+   "Avval birinchi asosiy element 2 ostidagi elementlarni chiqaramiz.",
+   "Bu amalni bajargandan keyin matritsa o'zgaradi.",
+   "Keyin ikkinchi asosiy element 3 ostida elementni chiqaramiz.",
+   "Ko'paytchilarni hisoblaymiz.",
+   "L va U matritsalarini yozamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 (cont.)",
+   "problem": "",
+   "steps": [
+    {
+     "text": "L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 1 & 1 & 1 \\end{pmatrix}, U = \\begin{pmatrix} 2 & 4 & 2 \\\\ 0 & 3 & 3 \\\\ 0 & 0 & 3 \\end{pmatrix}"
+    },
+    {
+     "text": "Normalash: D = \\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 3 \\end{pmatrix}, D^{-1}U = \\begin{pmatrix} 1 & 2 & 1 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 1 \\end{pmatrix}"
+    }
+   ],
+   "result": "A = LU va A = LDU ajratmalar topildi."
+  },
+  "narr": [
+   "Normalash jarayonida D matritsasini va D^{-1}U ni topamiz."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2",
+   "problem": "Faktorlar bo'yicha tizimni yeching.",
+   "steps": [
+    {
+     "text": "A = \\begin{pmatrix} 2 & 4 & 2 \\\\ 4 & 11 & 7 \\\\ 2 & 7 & 8 \\end{pmatrix}, b = \\begin{pmatrix} 8 \\\\ 22 \\\\ 17 \\end{pmatrix}"
+    },
+    {
+     "text": "To'g'ri almashtirish Ly = b: y1 = 8; 2y1 + y2 = 22, y2 = 6; y1 + y2 + y3 = 17, y3 = 3"
+    },
+    {
+     "text": "y = [8; 6; 3]"
+    },
+    {
+     "text": "Teskiri almashtirish Ux = y: 3x3 = 3, x3 = 1; 3x2 + 3x3 = 6, x2 = 1; 2x1 + 4x2 + 2x3 = 8, x1 = 1"
+    },
+    {
+     "text": "x = [1; 1; 1]"
+    },
+    {
+     "text": "LDU bilan hisoblash uch bosqamga bo'linadi: Ly = b, Dz = y, keyin (D^{-1}U)x = z"
+    }
+   ],
+   "result": "x = [1; 1; 1]"
+  },
+  "narr": [
+   "Ikkinchi misolda oldingi misoldagi ajratmalardan foydalanib, Ax = b sistemani yechamiz.",
+   "Berilgan b vektori sakkiz, yigirma ikki va o'n yettidan iborat.",
+   "To'g'ri almashtirish jarayonida y vektorini topamiz.",
+   "Keyin teskiri almashtirish orqali x vektorini topamiz.",
+   "LDU bilan hisoblash uch bosqamga bo'linadi: Ly = b, Dz = y, keyin (D^{-1}U)x = z.",
+   "Qatorlarni almashtirish kerak bo'lganda, standart shakl PA = LU yoki PA = LDU bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3",
+   "problem": "Gauss eliminatsiyasining to'liq misoli",
+   "steps": [
+    {
+     "text": "2x + y - z = 1"
+    },
+    {
+     "text": "4x + 3y + z = 13"
+    },
+    {
+     "text": "-2x + y + 2z = 6"
+    }
+   ],
+   "result": "Tizimni yechish kerak"
+  },
+  "narr": [
+   "Uchinchi misolda Gauss eliminatsiyasining to'liq misolini ko'rib chiqamiz.",
+   "Tizim uchta tenglamadan iborat:",
+   "Birinchi tenglama: ikki x yuz minus z birga teng bir",
+   "Ikkinchi tenglama: to'rt x uch y bir z teng o'n uchga",
+   "Uchinchi tenglama: minus ikki x y ikki z teng oltiga",
+   "Bu tizimni yechish kerak."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ }
+]

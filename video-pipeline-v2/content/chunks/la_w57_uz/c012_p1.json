@@ -1,0 +1,270 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chiziqli algebra I — 5–7 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Bu 5-7 haftalik chiziqli algebra darsining savollari, formulalari va yechimlaridan iborat material.",
+   "Keling, birinchi misolni ko'rib chiqaylik."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 16 — LU va LDU",
+   "problem": "A = \\begin{bmatrix} 2 & 1 & 1 \\\\ 2 & 3 & 2 \\\\ -2 & 1 & 1 \\end{bmatrix} matritsa uchun LU va LDLU ajratib chiqing.",
+   "steps": [
+    "m21 = 1, m31 = -1: R2 - R1 = (0, 2, 1); R3 + R1 = (0, 2, 2)",
+    "Ikkinchi asosiy element 2, m32 = 1: R3 - R2 = (0, 0, 1)",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 1 & 1 \\end{bmatrix}, U = \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "Tekshirish: LU = A",
+    "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 2 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}, D^{-1}U = \\begin{bmatrix} 1 & 1/2 & 1/2 \\\\ 0 & 1 & 1/2 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "A = LU = L · D · D^{-1}U"
+   ],
+   "result": "A = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ -1 & 1 & 1 \\end{bmatrix} \\begin{bmatrix} 2 & 1 & 1 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Mashq 16-da bizga berilgan A matritsasi uchun LU va LDU ajratishni topishimiz kerak.",
+   "Birinchi qadamda, birinchi ustundagi asosiy element 2 ga teng.",
+   "Ikkinchi qatorning birinchi elementi 2 bo'lgani uchun, m21 = 1 bo'ladi.",
+   "Uchinchi qatorning birinchi elementi -2 bo'lgani uchun, m31 = -1 bo'ladi.",
+   "Ikkinchi qatorni birinchisidan ayiramiz: R2 - R1 = (0, 2, 1)",
+   "Uchinchi qatorga birinchisini qo'shamiz: R3 + R1 = (0, 2, 2)",
+   "Endi ikkinchi ustundagi asosiy element 2 ga teng.",
+   "Uchinchi qatorning ikkinchi elementi 2 bo'lgani uchun, m32 = 1 bo'ladi.",
+   "Uchinchi qatordan ikkinchi qatorni ayiramiz: R3 - R2 = (0, 0, 1)",
+   "Shunday qilib, L va U matritsalarini hosil qilamiz.",
+   "L matritsasida diagonal elementlar 1 ga teng, pastki uchburchakda esa eliminatorlar joylashgan.",
+   "U matritsasi esa yuqori uchburchak shaklida bo'ladi.",
+   "Tekshirib ko'ramiz, LU ko'paytmasi asl A matritsasiga teng ekanligini.",
+   "Endi LDU ajratishni ko'rib chiqaylik.",
+   "D matritsasi U matritsasining diagonal elementlaridan tashkil topgan.",
+   "D^{-1}U matritsasini hisoblaymiz.",
+   "Nihoyat, A matritsasini L · D · D^{-1}U ko'paytmasi sifatida ifodalaymiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 17 — Qatorlarni almashtirish va PLU",
+   "problem": "A = \\begin{bmatrix} 0 & 2 & 1 \\\\ 1 & 1 & 0 \\\\ 2 & 3 & 2 \\end{bmatrix} matritsa uchun qatorlarni almashtirish P va PA = LU tenglikni qanoatlantiruvchi omillarni toping.",
+   "steps": [
+    "Nol birinchi asosiy element — 1 va 2-qatorlarni almashtiring",
+    "P = \\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}",
+    "PA = \\begin{bmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 2 & 3 & 2 \\end{bmatrix}",
+    "Chiqarib tashlash: m31 = 2 (R3 - 2R1 = (0, 1, 2))",
+    "m32 = 1/2 (R3 - (1/2)R2 = (0, 0, 3/2))",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & 1/2 & 1 \\end{bmatrix}"
+   ]
+  },
+  "narr": [
+   "Mashq 17-da bizga berilgan A matritsasida birinchi asosiy element nolga teng.",
+   "Shuning uchun, qatorlarni almashtirish kerak.",
+   "1 va 2-qatorlarni almashtiramiz, chunki ikkinchi qatorda birinchi ustunda noldan farqli element bor.",
+   "Permutatsiya matritsasi P ni yozamiz.",
+   "PA ko'paytmasini hisoblaymiz.",
+   "Endi, chiqarib tashlash jarayonini boshlaymiz.",
+   "Birinchi ustun bo'yicha, uchinchi qatorda 2 bor, shuning uchun m31 = 2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 17 — Qatorlarni almashtirish va PLU (cont.)",
+   "problem": "",
+   "steps": [
+    "U = \\begin{bmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 3/2 \\end{bmatrix}",
+    "Tekshirish: LU = PA",
+    "Shunday qilib, PA = LU"
+   ],
+   "result": "P = \\begin{bmatrix} 0 & 1 & 0 \\\\ 1 & 0 & 0 \\\\ 0 & 0 & 1 \\{bmatrix}, L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 2 & 1/2 & 1 \\end{bmatrix}, U = \\begin{bmatrix} 1 & 1 & 0 \\\\ 0 & 2 & 1 \\\\ 0 & 0 & 3/2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Uchinchi qatordan ikki birinchi qatorni ayiramiz: R3 - 2R1 = (0, 1, 2)",
+   "Endi ikkinchi ustun bo'yicha, uchinchi qatorda 1 bor, ikkinchi qatorda esa 2.",
+   "Shuning uchun m32 = 1/2 bo'ladi.",
+   "Uchinchi qatordan yarim ikkinchi qatorni ayiramiz: R3 - (1/2)R2 = (0, 0, 3/2)",
+   "L va U matritsalarini hosil qilamiz.",
+   "Tekshirib ko'ramiz, LU ko'paytmasi PA matritsasiga teng ekanligini.",
+   "Shunday qilib, PA = LU tenglikni qanoatlantiruvchi omillarni topdik."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 18 — Transponirovka va teskari",
+   "problem": "A = \\begin{bmatrix} 1 & 2 & 0 \\\\ 0 & 1 & 1 \\\\ 2 & 0 & 1 \\end{bmatrix} matritsa uchun A^T ni hisoblang va (A^T)^{-1} = (A^{-1})^T tenglikni tekshiring.",
+   "steps": [
+    "A^T = \\begin{bmatrix} 1 & 0 & 2 \\\\ 2 & 1 & 0 \\\\ 0 & 1 & 1 \\end{bmatrix}",
+    "det A = 1·(1-0) - 2·(0-2) + 0 = 5",
+    "(A^T)^{-1} = (1/5)·\\begin{bmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{bmatrix}",
+    "Alohida: A^{-1} = (1/5)·\\begin{bmatrix} 1 & -2 & 2 \\\\ 2 & 1 & -1 \\\\ -2 & 4 & 1 \\end{bmatrix}",
+    "(A^{-1})^T = (1/5)·\\begin{bmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{bmatrix} = (A^T)^{-1}",
+    "Tenglik bajarilgan; tekshirish: A^T · (A^T)^{-1} = I"
+   ],
+   "result": "(A^T)^{-1} = (A^{-1})^T = (1/5)·\\begin{bmatrix} 1 & 2 & -2 \\\\ -2 & 1 & 4 \\\\ 2 & -1 & 1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Mashq 18-da bizga A matritsasi berilgan.",
+   "Avval A matritsasining transponirovkasini hisoblaymiz.",
+   "Keyin, A matritsasining determinantini topamiz.",
+   "A^T matritsasining teskarisini hisoblaymiz.",
+   "A matritsasining teskarisini alohida hisoblaymiz.",
+   "Keyin, A^{-1} matritsasining transponirovkasini olamiz.",
+   "Ko'rib turganimizdek, ikkala natija bir-biriga teng.",
+   "Shunday qilib, (A^T)^{-1} = (A^{-1})^T tenglik bajarilgan.",
+   "Oxirgi tekshirish sifatida, A^T va (A^T)^{-1} ko'paytmasi birlik matritsaga teng ekanligini ko'ramiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   5,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 19 — Simmetrik LDL^T",
+   "problem": "Simmetrik A = \\begin{bmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{bmatrix} matritsani LDL^T ko'rinishida ajrating.",
+   "steps": [
+    "Ko'paytuvchilar m21 = 1, m31 = 0, m32 = 1/3",
+    "L = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{bmatrix}",
+    "D = \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{bmatrix}",
+    "Simmetrik matritsa uchun almashtirishsiz A = LDL^T",
+    "Tekshirish: L · D · L^T = A"
+   ],
+   "result": "A = \\begin{bmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 0 & 1/3 & 1 \\end{bmatrix} \\begin{bmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 8/3 \\end{bmatrix} \\begin{bmatrix} 1 & 1 & 0 \\\\ 0 & 1 & 1/3 \\\\ 0 & 0 & 1 \\end{bmatrix}"
+  },
+  "narr": [
+   "Mashq 19-da bizga simmetrik A matritsasi berilgan.",
+   "Simmetrik matritsalar uchun LDL^T ajratish qo'llaniladi.",
+   "Avval, eliminatorlarni topamiz.",
+   "Birinchi ustun bo'yicha, ikkinchi qatorda 2 bor, shuning uchun m21 = 1.",
+   "Uchinchi qatorda birinchi ustunda nol bor, shuning uchun m31 = 0.",
+   "Ikkinchi ustun bo'yicha, uchinchi qatorda 1 bor, ikkinchi qatorda esa 3.",
+   "Shuning uchun m32 = 1/3.",
+   "L va D matritsalarini hosil qilamiz.",
+   "Simmetrik matritsa uchun almashtirishsiz A = LDL^T tenglik bajariladi.",
+   "Tekshirib ko'ramiz, L · D · L^T ko'paytmasi asl A matritsasiga teng ekanligini."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Mashq 20 — Uch diagonal modeli",
+   "problem": "A = \\begin{bmatrix} 2 & -1 & 0 \\\\ -1 & 2 & -1 \\\\ 0 & -1 & 2 \\end{bmatrix}, b = \\begin{bmatrix} 2 \\\\ 0 \\\\ 2 \\end{bmatrix} vektor uchun Ax = b tenglamani LU bilan yeching. Eng yaqin qo'shnilar tuzilishini tushuntiring.",
+   "steps": [
+    "LU: m21 = -1/2 va m32 = -2/3",
+    "Shuning uchun L = \\begin{bmatrix} 1 & 0 & 0 \\\\ -1/2 & 1 & 0 \\\\ 0 & -2/3 & 1 \\end{bmatrix}",
+    "U = \\begin{bmatrix} 2 & -1 & 0 \\\\ 0 & 3/2 & -1 \\\\ 0 & 0 & 4/3 \\end{bmatrix}",
+    "To'g'ri almashtirish Ly = b: y1 = 2, y2 = 1, y3 = 8/3",
+    "Orq almashtirish Ux = y: x3 = 2, x2 = 2, x1 = 2",
+    "Shunday qilib, x = \\begin{bmatrix} 2 \\\\ 2 \\\\ 2 \\end{bmatrix}",
+    "Eng yaqin qo'shnilar tuzilishi: matritsada diagonal elementlar asosiy bo'lib, ularning yonida faqat qo'shni elementlar joylashgan"
+   ],
+   "result": "x = \\begin{bmatrix} 2 \\\\ 2 \\\\ 2 \\end{bmatrix}"
+  },
+  "narr": [
+   "Mashq 20-da bizga uch diagonal matritsa A va vektor b berilgan.",
+   "Uch diagonal matritsalar maxsus tuzilishga ega bo'lib, ularning yordamida tezroq yechim topish mumkin.",
+   "Avval, LU ajratishni amalga oshiramiz.",
+   "Birinchi ustun bo'yicha, ikkinchi qatorda -1 bor, birinchisida 2.",
+   "Shuning uchun m21 = -1/2.",
+   "Ikkinchi ustun bo'yicha, uchinchi qatorda -1 bor, ikkinchisida 3/2.",
+   "Shuning uchun m32 = -2/3.",
+   "L va U matritsalarini hosil qilamiz.",
+   "Endi, to'g'ri almashtirish jarayonini boshlaymiz: Ly = b.",
+   "Birinchi tenglamadan y1 = 2.",
+   "Ikkinchi tenglamadan y2 = 1.",
+   "Uchinchi tenglamadan y3 = 8/3.",
+   "Keyin, orq almashtirish jarayonini amalga oshiramiz: Ux = y.",
+   "Uchinchi tenglamadan x3 = 2.",
+   "Ikkinchi tenglamadan x2 = 2.",
+   "Birinchi tenglamadan x1 = 2.",
+   "Shunday qilib, yechim x = (2, 2, 2)^T.",
+   "Eng yaqin qo'shnilar tuzilishi - bu matritsada diagonal elementlar asosiy bo'lib, ularning yonida faqat qo'shni elementlar joylashgan, bu esa hisob-kitoblarni soddalashtiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6,
+   6
+  ]
+ }
+]
