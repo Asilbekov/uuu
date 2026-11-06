@@ -562,7 +562,7 @@
      "type": "example",
      "data": {
       "heading": "Mashq 1 — Ikkita toʻgʻri chiziq sistemasini yeching",
-      "problem": "$\\begin{bmatrix} 1 & 2 \\\\ 3 & 1 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 7 \\\\ 8 \\end{bmatrix}$",
+      "problem": "\\begin{bmatrix} 1 & 2 \\\\ 3 & 1 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 7 \\\\ 8 \\end{bmatrix}",
       "steps": [
        {
         "text": "R2 ← R2 - 3R1: (1-6)y = 8-21, ya'ni -5y = -13"
@@ -593,7 +593,7 @@
      "type": "example",
      "data": {
       "heading": "Mashq 2 — Parallel yoki ustma-ust tushadimi?",
-      "problem": "$\\begin{bmatrix} 2 & 4 \\\\ 1 & 2 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 6 \\\\ c \\end{bmatrix}$",
+      "problem": "\\begin{bmatrix} 2 & 4 \\\\ 1 & 2 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 6 \\\\ c \\end{bmatrix}",
       "steps": [
        {
         "text": "1-satr 2-satrdan ikki marta katta chap tomonda"
@@ -627,7 +627,7 @@
      "type": "example",
      "data": {
       "heading": "Mashq 3 — Bitta eliminatsiya bosqichi",
-      "problem": "$\\begin{bmatrix} 3 & 2 \\\\ 9 & 8 \\end{bmatrix}$",
+      "problem": "\\begin{bmatrix} 3 & 2 \\\\ 9 & 8 \\end{bmatrix}",
       "steps": [
        {
         "text": "λ21 = 9/3 = 3 ko'paytuvchisi"
@@ -658,7 +658,7 @@
      "type": "example",
      "data": {
       "heading": "Mashq 5 — Toʻliq chiqarib tashlash",
-      "problem": "$\\begin{bmatrix} 1 & 1 & 1 & | & 6 \\\\ 2 & 3 & 1 & | & 10 \\\\ 1 & 2 & 3 & | & 14 \\end{bmatrix}$",
+      "problem": "\\begin{bmatrix} 1 & 1 & 1 & | & 6 \\\\ 2 & 3 & 1 & | & 10 \\\\ 1 & 2 & 3 & | & 14 \\end{bmatrix}",
       "steps": [
        {
         "text": "R2 ← R2 - 2R1 → [0 1 -1 | -2]"
@@ -898,7 +898,7 @@
      "type": "example",
      "data": {
       "heading": "Mashq 11 — Aynan, lekin mos keladigan",
-      "problem": "$\\begin{bmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 0 & 1 & 1 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 3 \\\\ 6 \\\\ 2 \\end{bmatrix}$",
+      "problem": "\\begin{bmatrix} 1 & 2 & 1 \\\\ 2 & 4 & 2 \\\\ 0 & 1 & 1 \\end{bmatrix} \\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix} = \\begin{bmatrix} 3 \\\\ 6 \\\\ 2 \\end{bmatrix}",
       "steps": [
        {
         "text": "2-qatori o'ng tomoni (6 = 2 · 3) 1-qatordan ikki barobar katta"
@@ -3683,8 +3683,8 @@
     {
      "type": "example",
      "data": {
-      "heading": "Mashq 19 — Simmetrik $LDL^T$",
-      "problem": "Simmetrik $A = \\begin{pmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{pmatrix}$ ni $LDL^T$ ko'rinishida ajrating.",
+      "heading": "Mashq 19 — Simmetrik LDL^T",
+      "problem": "Simmetrik A = \\begin{pmatrix} 2 & 2 & 0 \\\\ 2 & 5 & 1 \\\\ 0 & 1 & 3 \\end{pmatrix} ni LDL^T ko'rinishida ajrating.",
       "steps": [
        {
         "text": "Asosiy element 2; $m_{21} = 2/2 = 1$ ($m_{31} = 0$): $R_2 - R_1 = (0, 3, 1)$"
@@ -3693,15 +3693,15 @@
         "text": "Ikkinchi asosiy element 3; $m_{32} = 1/3$: $R_3 - (1/3)R_2 = (0, 1, 3) - (0, 1, 1/3) = (0, 0, 8/3)$"
        }
       ],
-      "result": "Almashtirishsiz simmetrik $A$ uchun normalizlangan yuqori ko'paytma $L^T$ ga teng, ya'ni $A = LDL^T$"
+      "result": "Almashtirishsiz simmetrik A uchun normalizlangan yuqori ko'paytma L^T ga teng, ya'ni A = LDL^T"
      },
      "narr": [
-      "Bu masalada simmetrik matritsani $LDL^T$ ko'rinishida ajratamiz.",
-      "Bu yerda L pasttriangular matritsa, D diagonal matritsa, $L^T$ esa L ning transponiraniyasi.",
+      "Bu masalada simmetrik matritsani LDL^T ko'rinishida ajratamiz.",
+      "Bu yerda L pasttriangular matritsa, D diagonal matritsa, L^T esa L ning transponiraniyasi.",
       "Birinchi bosqichda birinchi ustun bo'yicha ko'paytirgichni topamiz.",
       "Ikkinchi bosqichda ikkinchi ustun qolgan elementni nolga keltirish uchun ko'paytirgichni topamiz.",
       "Simmetrik matritsa uchun bu dekompozitsiya juda foyali bo'ladi, chunki u matritsani kamroq elementlar bilan ifodalaydi.",
-      "Natijada $A = LDL^T$ ko'rinishida ifodalash mumkin bo'ladi."
+      "Natijada A = LDL^T ko'rinishida ifodalash mumkin bo'ladi."
      ],
      "narr_item": [
       -1,
@@ -8394,7 +8394,7 @@
       "problem": "A = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix}, P = \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix} uchun AP ni toping.",
       "steps": [
        {
-        "text": "AP = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{matrix} · \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}"
+        "text": "$AP = \\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix} · \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}$"
        },
        {
         "text": "Ko'paytmaning birinchi ustuni A ning ikkinchi ustuni"
