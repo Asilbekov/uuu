@@ -2,7 +2,7 @@
 # gen_watchdog.sh — генерация обязана жить: умерла → старт, стоит 30 мин без новых
 # чанков → kill+restart. Когда все 5 спеков собраны по idx-покрытию — выход.
 cd /home/z/my-project/uuu
-SPECS="ite_w14_uz ite_w57_uz la_w14_uz la_w57_uz math1_w14_uz"
+SPECS="math1_w14_uz"
 LOG=/tmp/gen_watchdog.log
 log() { echo "$(date +%T) $*" >> $LOG; }
 
@@ -29,7 +29,7 @@ EOF
 
 C_PREV=$(ls video-pipeline-v2/content/chunks/*/c*.json 2>/dev/null | grep -v _p | wc -l)
 while true; do
-  sleep 1800
+  sleep 600
   if all_done; then log "all 5 specs complete by idx — watchdog exits"; exit 0; fi
   MODE=$(cat /tmp/genmode 2>/dev/null || echo user)
   CONC=$([ "$MODE" = "internal" ] && echo 8 || echo 1)
@@ -41,7 +41,7 @@ while true; do
   elif [ "$C_NOW" -eq "$C_PREV" ]; then
     pkill -f gen_chunks; sleep 3
     start_gen $CONC
-    log "stall: $C_NOW chunks unchanged 30min → restarted CONC=$CONC"
+    log "stall: $C_NOW chunks unchanged 12min → restarted CONC=$CONC"
   else
     log "ok: $C_NOW chunks (+$((C_NOW-C_PREV))) CONC=$CONC"
   fi

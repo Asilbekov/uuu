@@ -63,7 +63,7 @@ ship_kernel() {
 
 while true; do
   ALLDONE=1
-  for K in v7w1 v7w2 v5w1; do
+  for K in v7w1 v7w2 v7w6; do
     KD=video-pipeline-v2/kaggle/$K
     [ -f /tmp/noship_$K ] && { log "$K skipped (noship flag)"; continue; }
     [ -d "$KD" ] || { log "$K no dir"; continue; }
@@ -97,6 +97,6 @@ while true; do
       log "$K $ST — waiting"
     fi
   done
-  [ $ALLDONE -eq 1 ] && { log "=== ALL SHIPPED: v7w1 v7w2 v5w1 ==="; break; }
+  [ $ALLDONE -eq 1 ] && { log "=== ALL SHIPPED: v7w1 v7w2 v7w6 ==="; break; }
   sleep 600
 done

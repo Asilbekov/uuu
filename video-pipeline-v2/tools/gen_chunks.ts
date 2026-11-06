@@ -250,15 +250,18 @@ async function callLLM(chunkText: string, feedback?: string): Promise<any[]> {
   const user = feedback
     ? `Предыдущая попытка имела ошибку: «${feedback}». Исправь и верни ВЕСЬ исправленный JSON-массив целиком.\n\nФРАГМЕНТ ГАЙДА (${specId}, ${LANG_NAME[lang]}):\n\n${chunkText}`
     : `ФРАГМЕНТ ГАЙДА (${specId}, ${LANG_NAME[lang]}, страницы ${''}):\n\n${chunkText}`;
-  const r = await zai.chat.completions.create({
-    messages: [
-      { role: 'assistant', content: SYSTEM },
-      { role: 'user', content: user },
-    ],
-    ...(MODEL ? { model: MODEL } : {}),
-    thinking: { type: 'disabled' },
-    max_tokens: 8192,
-  } as any);
+  const r = await Promise.race([
+    zai.chat.completions.create({
+      messages: [
+        { role: 'assistant', content: SYSTEM },
+        { role: 'user', content: user },
+      ],
+      ...(MODEL ? { model: MODEL } : {}),
+      thinking: { type: 'disabled' },
+      max_tokens: 8192,
+    } as any),
+    new Promise<never>((_, rej) => setTimeout(() => rej(new Error('LLM_TIMEOUT_300s')), 300000)),
+  ]);
   return extractJson(r.choices[0]?.message?.content || '');
 }
 
