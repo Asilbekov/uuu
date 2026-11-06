@@ -1,0 +1,578 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Math I — 1–4 haftalar",
+   "subtitle": "Savollar · Formulalar · Yechimlar"
+  },
+  "narr": [
+   "Keling, Math I kursining birinchi to'rt haftasidagi asosiy tushunchalarni ko'rib chiqaylik.",
+   "Bu bo'limda funksiyalar, ularning xossalari va turli turlari haqida bilamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Funksiyaning teskarisi",
+   "bullets": [
+    "$f^{-1}(f(x)) = x$ va $f(f^{-1}(y)) = y$",
+    "$f^{-1}$ grafigi = $f$ grafigining $y = x$ dagi aksi"
+   ]
+  },
+  "narr": [
+   "Funksiyaning teskarisini tushunish juda muhim.",
+   "Birinchidan, agar biz funksiyaning qiymatini olsak va unga teskarisini qo'llasak, biz asl argumentga qaytamiz.",
+   "Ikkinchidan, teskari funksiyaning grafigi asl funksiya grafigining $y = x$ chizig'iga nisbatan aksidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Funksiya sinflari",
+   "bullets": [
+    "Chiziqli funksiyalar",
+    "Ko'phad funksiyalar",
+    "Ratsional funksiyalar",
+    "Ildiz funksiyalari (algebraik)",
+    "Eksponensial va logarifmik funksiyalar",
+    "Trigonometrik funksiyalar (transsendent)"
+   ]
+  },
+  "narr": [
+   "§1.2 bo'limida turli funksiya sinflari o'rgatiladi.",
+   "Bu sinflar orasida chiziqli, ko'phad, ratsional, ildiz funksiyalari mavjud.",
+   "Shuningdek, eksponensial, logarifmik va trigonometrik funksiyalar ham kiradi.",
+   "Ko'phad funksiyalar hamma joyda silliq bo'ladi, ratsional funksiyalar esa maxraj nolga teng bo'lmagan joylarda aniqlangan bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "3.1.2 Eksponensial va logarifmik funksiyalar",
+   "subtitle": "§1.5, giperbolik funksiyalar chiqarilgan"
+  },
+  "narr": [
+   "Endi eksponensial va logarifmik funksiyalarga qaraylik.",
+   "Bu ikki funksiya bir-birining teskarisidir.",
+   "Daraja va logarifm qonunlari ko'paytirishni qo'shishga aylantiradi, bu esa kursdagi o'sish va pasayish modellarida qo'llaniladi."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Eksponensial funksiya xossalari",
+   "tex": "b^x > 0, \\quad b^{x+y} = b^x b^y, \\quad (b^x)^y = b^{xy}, \\quad b^{-x} = \\frac{1}{b^x}",
+   "parts": [
+    {
+     "substr": "b^x > 0",
+     "color": "#4C5FD5",
+     "note": "Har qanday haqiqiy x uchun b^x musbat son"
+    },
+    {
+     "substr": "b^{x+y} = b^x b^y",
+     "color": "#B45309",
+     "note": "Ko'paytirish qonuni"
+    },
+    {
+     "substr": "(b^x)^y = b^{xy}",
+     "color": "#0E7C7B",
+     "note": "Darajani darajaga ko'tarish qonuni"
+    },
+    {
+     "substr": "b^{-x} = \\frac{1}{b^x}",
+     "color": "#A03040",
+     "note": "Manfiy daraja"
+    }
+   ]
+  },
+  "narr": [
+   "Eksponensial funksiyalarning asosiy xossalari:",
+   "Birinchidan, har qanday haqiqiy x uchun b^x musbat son bo'ladi.",
+   "Ikkinchidan, b^{x+y} = b^x b^y, bu ko'paytirish qonuni degan ma'noni anglatadi.",
+   "Uchinchidan, (b^x)^y = b^{xy}, bu darajani darajaga ko'tarish qonunidir.",
+   "To'rtinchidan, b^{-x} = 1/b^x, bu manfiy darajaga ko'tarishni bildiradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Logarifm xossalari",
+   "tex": "\\log_b x = y \\Leftrightarrow b^y = x, \\quad x > 0, b > 0, b \\neq 1",
+   "parts": [
+    {
+     "substr": "\\log_b x = y \\Leftrightarrow b^y = x",
+     "color": "#4C5FD5",
+     "note": "Logarifm ta'rifi"
+    },
+    {
+     "substr": "x > 0, b > 0, b \\neq 1",
+     "color": "#B45309",
+     "note": "Logarifm aniqlanish shartlari"
+    }
+   ]
+  },
+  "narr": [
+   "Logarifmning asosiy ta'rifi shundan iboratki, logarifm asosining qanday darajaga ko'tarilishi argumentga teng bo'lishini bildiradi.",
+   "Logarifm aniqlanishi uchun argument va asos musbat sonlar bo'lishi kerak, asos esa 1 dan farqli bo'lishi shart."
+  ],
+  "narr_item": [
+   -1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Logarifm qonunlari",
+   "tex": "\\log_b(xy) = \\log_b x + \\log_b y, \\quad \\log_b \\frac{x}{y} = \\log_b x - \\log_b y, \\quad \\log_b x^n = n \\log_b x",
+   "parts": [
+    {
+     "substr": "\\log_b(xy) = \\log_b x + \\log_b y",
+     "color": "#4C5FD5",
+     "note": "Ko'paytma logarifmi"
+    },
+    {
+     "substr": "\\log_b \\frac{x}{y} = \\log_b x - \\log_b y",
+     "color": "#B45309",
+     "note": "Bo'linma logarifmi"
+    },
+    {
+     "substr": "\\log_b x^n = n \\log_b x",
+     "color": "#0E7C7B",
+     "note": "Darajaga ko'tarilgan logarifm"
+    }
+   ]
+  },
+  "narr": [
+   "Logarifmning uchta asosiy qonuni mavjud:",
+   "Birinchidan, ko'paytmaning logarifmi ko'paytmaning tarkibiy qismlari logarifmlari yig'indisiga teng.",
+   "Ikkinchidan, bo'linmaning logarifmi bo'luvchi va bo'linadagi logarifmlar ayirmasiga teng.",
+   "Uchinchidan, darajaga ko'tarilgan ifodaning logarifmi, darajani logarifmga ko'paytirishga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Asosni almashtirish va natural logarifm",
+   "tex": "\\log_b x = \\frac{\\ln x}{\\ln b} \\text{ (asosni almashtirish)}, \\quad b^x = e^{x \\ln b}",
+   "parts": [
+    {
+     "substr": "\\log_b x = \\frac{\\ln x}{\\ln b}",
+     "color": "#4C5FD5",
+     "note": "Asosni almashtirish formulasi"
+    },
+    {
+     "substr": "b^x = e^{x \\ln b}",
+     "color": "#B45309",
+     "note": "Ixtiyoriy asosli eksponensialni natural asosli ifodalash"
+    }
+   ]
+  },
+  "narr": [
+   "Asosni almashtirish formulasi yordamida istalgan asosli logarifmni natural logarifm orqali ifodalash mumkin.",
+   "Shuningdek, istalgan asosli eksponensial funksiyani natural asosli (e) orqali ham ifodalash mumkin."
+  ],
+  "narr_item": [
+   -1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Natural logarifmning asosiy qiymatlari",
+   "tex": "e^{\\ln x} = x, \\quad \\ln 1 = 0, \\quad \\ln e = 1",
+   "parts": [
+    {
+     "substr": "e^{\\ln x} = x",
+     "color": "#4C5FD5",
+     "note": "Natural logarifm va eksponensialning teskariligi"
+    },
+    {
+     "substr": "\\ln 1 = 0",
+     "color": "#B45309",
+     "note": "1 ning natural logarifmi 0 ga teng"
+    },
+    {
+     "substr": "\\ln e = 1",
+     "color": "#0E7C7B",
+     "note": "e ning natural logarifmi 1 ga teng"
+    }
+   ]
+  },
+  "narr": [
+   "Natural logarifmning bir nechta asosiy xossalari mavjud:",
+   "Birinchidan, natural logarifm va natural eksponensial funksiyalar bir-birining teskarisidir, shuning uchun ularni bir-biriga qo'llasak asl qiymatga qaytamiz.",
+   "Ikkinchidan, 1 ning natural logarifmi 0 ga teng, chunki e^0 = 1.",
+   "Uchinchidan, e ning natural logarifmi 1 ga teng, chunki e^1 = e."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "O'sish va pasayish modellari",
+   "tex": "A(t) = A_0 a^t = A_0 e^{kt}, \\quad k = \\ln a, \\quad a > 1 : \\text{o'sish}; \\quad 0 < a < 1 : \\text{pasayish}",
+   "parts": [
+    {
+     "substr": "A(t) = A_0 a^t = A_0 e^{kt}",
+     "color": "#4C5FD5",
+     "note": "Ikkala shaklda o'sish/pasayish modeli"
+    },
+    {
+     "substr": "k = \\ln a",
+     "color": "#B45309",
+     "note": "O'sish tezligi konstantasi"
+    },
+    {
+     "substr": "a > 1 : o'sish",
+     "color": "#0E7C7B",
+     "note": "O'sish holati"
+    },
+    {
+     "substr": "0 < a < 1 : pasayish",
+     "color": "#A03040",
+     "note": "Pasayish holati"
+    }
+   ]
+  },
+  "narr": [
+   "O'sish va pasayish modellarini ikki xil shaklda ifodalash mumkin:",
+   "Birinchidan, A(t) = A_0 a^t shakli, ikkinchidan, A(t) = A_0 e^{kt} shakli.",
+   "Bu ikki shakl orasidagi bog'liqlik k = ln a formula orqali beriladi.",
+   "Agar a > 1 bo'lsa, bu o'sish modeli, agar 0 < a < 1 bo'lsa, bu pasayish modelidir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Ikkiga ko'payish vaqti",
+   "tex": "N(t) = N_0 2^{t/T_d} = N_0 e^{kt}, \\quad k = \\frac{\\ln 2}{T_d}, \\quad T_d = \\frac{\\ln 2}{k}",
+   "parts": [
+    {
+     "substr": "N(t) = N_0 2^{t/T_d} = N_0 e^{kt}",
+     "color": "#4C5FD5",
+     "note": "Ikkiga ko'payish modeli"
+    },
+    {
+     "substr": "k = \\frac{\\ln 2}{T_d}",
+     "color": "#B45309",
+     "note": "O'sish tezligi konstantasi"
+    },
+    {
+     "substr": "T_d = \\frac{\\ln 2}{k}",
+     "color": "#0E7C7B",
+     "note": "Ikkiga ko'payish vaqti"
+    }
+   ]
+  },
+  "narr": [
+   "Ikkiga ko'payish vaqti - bu miqdorning ikki barobar bo'lishi uchun ketadigan vaqt.",
+   "Bu modelni N(t) = N_0 2^{t/T_d} yoki N(t) = N_0 e^{kt} shaklida ifodalash mumkin.",
+   "Bu ikki ifoda orasidagi bog'liqlik k = ln 2 / T_d formula bilan beriladi.",
+   "Agar biz o'sish tezligi konstantasini bilsak, ikki barobar o'sish vaqtini T_d = ln 2 / k formula topamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Daraja va radianlarni o'zgartirish",
+   "tex": "\\theta_{rad} = \\theta_{deg} \\cdot \\frac{\\pi}{180}",
+   "parts": [
+    {
+     "substr": "\\theta_{rad} = \\theta_{deg} \\cdot \\frac{\\pi}{180}",
+     "color": "#4C5FD5",
+     "note": "Darajadan radianga o'tish formulasi"
+    }
+   ]
+  },
+  "narr": [
+   "Trigonometriyada ikki burchak o'lchov birligi ishlatiladi: daraja va radian.",
+   "Ular o'rtasida quyidagi bog'liqlik mavjud: θ_radian = θ_daraja × π/180."
+  ],
+  "narr_item": [
+   -1,
+   0
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 3,
+   "title": "3.2 Math I: 2-hafta amaliy mashgʻuloti (funksiyalar)",
+   "subtitle": "Savollar va toʻliq yechimlar"
+  },
+  "narr": [
+   "Endi 2-haftadagi amaliy mashgʻulotlardagi masalalarni yechamiz.",
+   "Bu masalalar funksiyalar bilan ishlashni oʻrganishga yordam beradi."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Funksiyani aniqlash",
+   "problem": "Har bir munosabat y = f(x) funksiyasi sifatida belgilaydimi: a. y = 3x - 2; b. x² + y² = 9.",
+   "steps": [
+    {
+     "text": "a. y = 3x - 2 har bir x uchun ayni bir y ni beradi: funksiya (to'g'ri chiziq)."
+    },
+    {
+     "text": "b. Yechish orqali y = ±√(9 - x²) hosil bo'ladi: ko'p x (masalan x = 0) ikkita y = ±3 qiymatini beradi, shuning uchun vertikal to'g'ri chiziq aylana bilan ikki marta kesishadi; funksiya emas."
+    }
+   ],
+   "result": "a. Funksiya; b. Funksiya emas"
+  },
+  "narr": [
+   "Birinchi masalada, berilgan munosabatlar funksiya bo'lishini aniqlashimiz kerak.",
+   "a) y = 3x - 2 ifodasida har bir x qiymati uchun faqat bitta y qiymati mavjud, shuning uchun bu funksiya.",
+   "b) x² + y² = 9 aylanasi uchun, masalan x = 0 bo'lganda y = 3 va y = -3 ikkita qiymatga ega, ya'ni bir x qiymati ikkita y qiymatiga mos keladi, shuning uchun bu funksiya emas."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Funksiya qiymatlarini hisoblash",
+   "problem": "f(x) = 2x² - 3x + 1 deb belgilaymiz. Hisoblang va soddalashtiring: f(0), f(-2), f(a), f(a + h) va f(a + h) - f(a), h ≠ 0.",
+   "steps": [
+    {
+     "text": "f(0) = 1"
+    },
+    {
+     "text": "f(-2) = 2(4) + 6 + 1 = 15"
+    },
+    {
+     "text": "f(a) = 2a² - 3a + 1"
+    },
+    {
+     "text": "f(a + h) = 2(a + h)² - 3(a + h) + 1 = 2a² + 4ah + 2h² - 3a - 3h + 1"
+    },
+    {
+     "text": "Farq nisbati: (f(a + h) - f(a))/h = (4ah + 2h² - 3h)/h = 4a + 2h - 3"
+    },
+    {
+     "text": "Bu ifoda 3-4 haftalardagi hosilani (h → 0 bo'lganda 4a - 3 ga intiladi) oldindan aytib beradi."
+    }
+   ],
+   "result": "f(0) = 1; f(-2) = 15; f(a) = 2a² - 3a + 1; f(a + h) = 2a² + 4ah + 2h² - 3a - 3h + 1; (f(a + h) - f(a))/h = 4a + 2h - 3"
+  },
+  "narr": [
+   "Ikkinchi masalada berilgan funksiyaning turli qiymatlarini hisoblashimiz kerak.",
+   "Birinchidan, f(0) ni hisoblaymiz: 2(0)² - 3(0) + 1 = 1.",
+   "Ikkinchidan, f(-2) ni hisoblaymiz: 2(-2)² - 3(-2) + 1 = 2(4) + 6 + 1 = 15.",
+   "Uchinchidan, f(a) ni ifodalaymiz: 2a² - 3a + 1.",
+   "To'rtinchidan, f(a + h) ni hisoblaymiz: 2(a + h)² - 3(a + h) + 1 = 2a² + 4ah + 2h² - 3a - 3h + 1.",
+   "Beshinchidan, f(a + h) - f(a)/h ni hisoblaymiz: (4ah + 2h² - 3h)/h = 4a + 2h - 3.",
+   "Bu ifoda keyingi haftalarda o'rganadigan hosilaga asos bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Tabiiy aniqlanish sohasini topish",
+   "problem": "Tabiiy aniqlanish sohasini toping: a. f(x) = (x-1)/(x²+9); b. g(x) = √(5-2x). Interval yozuvida yozing.",
+   "steps": [
+    {
+     "text": "a. Maxraj x² + 9 ≥ 9 > 0 hech qachon nolga teng emas, shuning uchun soha — barcha R = (-∞, ∞)."
+    },
+    {
+     "text": "b. 5 - 2x ≥ 0 ⇔ x ≤ 5/2 kerak: soha (-∞, 5/2]."
+    }
+   ],
+   "result": "a. R = (-∞, ∞); b. (-∞, 5/2]"
+  },
+  "narr": [
+   "Uchinchi masalada funksiyalarning tabiiy aniqlanish sohasini topishimiz kerak.",
+   "a) f(x) = (x-1)/(x²+9) funksiyasida maxraj x² + 9 har doim musbat va noldan farqli, shuning uchun funksiya barcha haqiqiy sonlar uchun aniqlangan.",
+   "b) g(x) = √(5-2x) funksiyasida ildiz ostidagi ifoda manfiy bo'lishi mumkin emas, shuning uchun 5 - 2x ≥ 0 bo'lishi kerak, ya'ni x ≤ 5/2."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Funksiyalar kompozitsiyasi",
+   "problem": "f(x) = 2x - 3, g(x) = x² + 1 deb belgilaymiz. (f◦g)(x) va (g◦f)(x) ni toping; ular tengmi?",
+   "steps": [
+    {
+     "text": "(f◦g)(x) = f(g(x)) = 2(x²+1) - 3 = 2x² - 1"
+    },
+    {
+     "text": "(g◦f)(x) = g(2x-3) = (2x-3)² + 1 = 4x² - 12x + 10"
+    },
+    {
+     "text": "Ular farqli (masalan, x = 0 da: -1 va 10), bu tasdiqlaydiki: kompozitsiya umuman olganda kommutativ emas — avval kvadratga ko'tarib, keyin siljitish bilan avval siljitib, keyin kvadratga ko'tarish bir xil emas."
+    }
+   ],
+   "result": "(f◦g)(x) = 2x² - 1; (g◦f)(x) = 4x² - 12x + 10; ular teng emas"
+  },
+  "narr": [
+   "To'rtinchi masalada ikki funksiyaning kompozitsiyasini topishimiz kerak.",
+   "Birinchidan, (f◦g)(x) ni hisoblaymiz: f(g(x)) = 2(x²+1) - 3 = 2x² - 1.",
+   "Ikkinchidan, (g◦f)(x) ni hisoblaymiz: g(2x-3) = (2x-3)² + 1 = 4x² - 12x + 10.",
+   "Ushbu ikki ifoda bir-biriga teng emas, masalan x = 0 da birinchisi -1, ikkinchisi 10 ga teng.",
+   "Bu funksiyalar kompozitsiyasining odatda kommutativ emasligini, ya'ni f(g(x)) ≠ g(f(x)) ekanligini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 5 — Funksiyalarning juft va toq xossalari",
+   "problem": "Har bir funksiyani juft, toq yoki umumiy ko'rinishda ekanligini aniqlang: |x| + 1 va x/(x²+1); algebraik va grafik tekshiring.",
+   "steps": [
+    {
+     "text": "f(x) = |x| + 1: f(-x) = |-x| + 1 = |x| + 1 = f(x) — juft; grafik y o'qi bo'yicha aks ettirilma simmetriyaga ega."
+    },
+    {
+     "text": "g(x) = x/(x²+1): g(-x) = -x/(x²+1) = -g(x) — toq; grafik koordinata boshi atrofida 180° burilganda simmetrik."
+    }
+   ],
+   "result": "f(x) = |x| + 1 — juft funksiya; g(x) = x/(x²+1) — toq funksiya"
+  },
+  "narr": [
+   "Beshinchi masalada berilgan funksiyalarning juft yoki toq ekanligini aniqlashimiz kerak.",
+   "Birinchidan, f(x) = |x| + 1 funksiyasini tekshiramiz: f(-x) = |-x| + 1 = |x| + 1 = f(x), shuning uchun bu juft funksiya.",
+   "Juft funksiyalar grafigi y o'qi bo'yicha simmetrik bo'ladi.",
+   "Ikkinchidan, g(x) = x/(x²+1) funksiyasini tekshiramiz: g(-x) = -x/(x²+1) = -g(x), shuning uchun bu toq funksiya.",
+   "Toq funksiyalar grafigi koordinata boshi atrofida 180° burilganda simmetrik bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 6 — Funksiya turlari",
+   "problem": "Har bir funksiyani chiziqli, ko'phad, ratsional, ildiz, eksponensial, logarifmik yoki trigonometrik funksiya sifatida aniqlang.",
+   "steps": [
+    {
+     "text": "a) f(x) = 3x - 2 — chiziqli funksiya"
+    },
+    {
+     "text": "b) g(x) = x² + 1 — kvadrat funksiya (ko'phad funksiyasi)"
+    },
+    {
+     "text": "c) h(x) = (x-1)/(x²+9) — ratsional funksiya"
+    },
+    {
+     "text": "d) k(x) = √(5-2x) — ildiz funksiyasi"
+    },
+    {
+     "text": "e) m(x) = e^x — eksponensial funksiya"
+    },
+    {
+     "text": "f) n(x) = ln(x) — logarifmik funksiya"
+    },
+    {
+     "text": "g) p(x) = sin(x) — trigonometrik funksiya"
+    }
+   ],
+   "result": "a) Chiziqli; b) Ko'phad; c) Ratsional; d) Ildiz; e) Eksponensial; f) Logarifmik; g) Trigonometrik"
+  },
+  "narr": [
+   "Oltinchi masalada berilgan funksiyalarning turini aniqlashimiz kerak.",
+   "a) f(x) = 3x - 2 — bu chiziqli funksiya, chunki u x ning birinchi darajali ko'phadidir.",
+   "b) g(x) = x² + 1 — bu kvadrat funksiya, ya'ni ikkinchi darajali ko'phad.",
+   "c) h(x) = (x-1)/(x²+9) — bu ratsional funksiya, chunki u ikki ko'phadning nisbatidir.",
+   "d) k(x) = √(5-2x) — bu ildiz funksiyasi, chunki u ildiz ostida chiziqli ifodani o'z ichiga oladi.",
+   "e) m(x) = e^x — bu eksponensial funksiya, chunki u o'zgaruvchini daraja sifatida ko'rsatadi.",
+   "f) n(x) = ln(x) — bu logarifmik funksiya, chunki u natural logarifmdan foydalanadi.",
+   "g) p(x) = sin(x) — bu trigonometrik funksiya, chunki u trigonometrik funksiyadan foydalanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ }
+]

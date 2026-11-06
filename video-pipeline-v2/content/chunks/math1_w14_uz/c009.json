@@ -1,0 +1,326 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Chegaralar asoslari",
+   "subtitle": "Grafiklardan foydalanib chegaralarni topish"
+  },
+  "narr": [
+   "Keling, birinchi misolni ko'rib chiqaylik. Bu erda bizda x=10 da chap limitni aniqlashimiz kerak.",
+   "Grafikda ko'rinib turibdiki, chap tomondan egri chiziq (10, 0) nuqtaga yaqinlashadi. Shuning uchun chap limit 0 ga teng.",
+   "Endi ikkinchi misol: x=-2 da o'ng tomondan limitni topish kerak.",
+   "Grafikda ko'rinib turibdiki, x=-2 biroz o'ng tomonda grafik 3 balandlikda joylashgan, ya'ni bo'yalgan nuqta (-2, 3). Demak, o'ng limit 3 ga teng.",
+   "Uchinchi misol: x=-8 da chegarani ko'rib chiqaylik.",
+   "Grafikda x=-8 yaqinida egri chiziq -6 balandlikdagi ochiq doiraga yaqinlashadi, ya'ni limit -6 ga teng. Lekin f(-8)=-3, chunki bo'yalgan nuqta shu joyda. Limit va funksiya qiymati bir xil bo'lishi shart emas.",
+   "To'rtinchi misol: x=6 da chegaralarni ko'rib chiqaylik.",
+   "Chap tomondan egri chiziq (6, 2) ochiq nuqtaga tushadi, ya'ni chap limit 2 ga teng. O'ng tomondan egri chiziq esa bo'yalgan nuqtadan (6, 5) chiqadi, ya'ni o'ng limit 5 ga teng.",
+   "Ikkala bir tomonlama limitlar har xil ekanligi sababli, ikki tomonlama limit mavjud emas. Shuning uchun funksiya qiymati 5 ga teng bo'lishi mumkin emas."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 1 — Qismchali chiziqli grafik uchun chegaralarni topish",
+   "problem": "Berilgan funksiya: chap tomonda y = x + 1 to'g'ri chizig'i (ochiq nuqtagacha (1, 2)), bo'yalgan nuqta (1, 1); o'ng tomonda y = 3 - x to'g'ri chizig'i. Quyidagilarni toping:\n(50) limx→1⁻f(x);\n(51) limx→1⁺f(x);\n(52) limx→1f(x);\n(53) limx→2f(x);\n(54)f(1).",
+   "steps": [
+    "Chap shoxi y = x + 1 →2 (x→1⁻ da)",
+    "O'ng shoxi y = 3 - x →2 (x→1⁺ da)",
+    "Ikkala tomonlama limit: ikkala tomon ham 2 ga teng, ya'ni limx→1f(x) = 2 (hatto f(1) = 1 bo'lsa ham)",
+    "x = 2 da faqat o'ng shoxi mavjud: y = 3 - 2 = 1",
+    "f(1) = 1 (bo'yalgan nuqta)"
+   ],
+   "result": "(50) 2; (51) 2; (52) 2; (53) 1; (54) 1"
+  },
+  "narr": [
+   "Keling, birinchi misolni yechaylik. Bu erda bizda qismchali chiziqli funksiya berilgan.",
+   "Avval chap shoxini ko'rib chiqaylik: y = x + 1 to'g'ri chizig'i. x→1⁻ da (chap tomondan) bu chiziq (1, 2) ochiq nuqtaga yaqinlashadi. Shuning uchun chap limit 2 ga teng.",
+   "Endi o'ng shoxini ko'rib chiqaylik: y = 3 - x to'g'ri chizig'i. x→1⁺ da (o'ng tomondan) bu chiziq ham (1, 2) ochiq nuqtaga yaqinlashadi. Shuning uchun o'ng limit ham 2 ga teng.",
+   "Ikkala bir tomonlama limitlar teng bo'lgani uchun, ikki tomonlama limit ham mavjud va 2 ga teng. E'tibor bering, bu f(1) = 1 bilan bir xil emas, chunki limit funksiya nuqtasini e'tiborsiz qoldiradi.",
+   "x = 2 nuqtasida faqat o'ng shoxi mavjud, chunki chap shoxi faqat x=1 gacha davom etadi. Shuning uchun x→2 da limit 3 - 2 = 1 ga teng.",
+   "Nihoyat, f(1) funksiya qiymati bo'yalgan nuqta orqali aniqlanadi, ya'ni f(1) = 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 2 — Uchinchi grafik uchun chegaralarni topish",
+   "problem": "Berilgan funksiya: chap tomonda ochiq nuqtagacha (0, 1) tushadigan to'g'ri chiziq; o'ng tomonda bo'yalgan nuqtadan (0, -4) chiqib, x = 2 yaqinida nolni kesib o'tuvchi egri chiziq. Quyidagilarni toping:\n(55) limx→0⁻f(x);\n(56) limx→0⁺f(x);\n(57) limx→0f(x);\n(58) limx→2f(x).",
+   "steps": [
+    "Chap tomondan limit: x→0⁻ da funksiya 1 ga yaqinlashadi",
+    "O'ng tomondan limit: x→0⁺ da funksiya -4 ga yaqinlashadi",
+    "Ikkala tomonlama limit: 1 ≠ -4, shuning uchun ikki tomonlama limit mavjud emas",
+    "x = 2 da limit: o'ng shoxi x o'qini kesib o'tadi, ya'ni limit 0"
+   ],
+   "result": "(55) 1; (56) -4; (57) mavjud emas; (58) 0"
+  },
+  "narr": [
+   "Endi ikkinchi misolni ko'rib chiqaylik.",
+   "Chap tomondan x→0⁻ da funksiya 1 ga yaqinlashadi, chunki to'g'ri chiziq (0, 1) ochiq nuqtaga tushadi.",
+   "O'ng tomondan x→0⁺ da funksiya -4 ga yaqinlashadi, chunki bo'yalgan nuqta (0, -4) da joylashgan.",
+   "Ikkala bir tomonlama limitlar 1 va -4 ga teng, ular bir xil emasligi sababli, ikki tomonlama limit mavjud emas.",
+   "x = 2 nuqtasida, egri chiziq x o'qini kesib o'tadi, ya'ni funksiya qiymati 0 ga yaqinlashadi. Shuning uchun limit 0 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Misol 3 — To'rtinchi grafik uchun chegaralarni topish",
+   "problem": "Berilgan funksiya: uch qismli - chap tomonda ochiq nuqtagacha (-2, 0) ko'tariladigan to'g'ri chiziq; bo'yalgan nuqtadan (-2, 2) boshlab koordinata boshidan (2, -2) gacha pasayadigan kesma; ochiq nuqtadan (2, 2) boshlab ko'tariladigan to'g'ri chiziq. Quyidagilarni toping:\n(59) limx→-2⁻f(x);\n(60) limx→-2⁺f(x);\n(61) limx→-2f(x);\n(62) limx→2⁻f(x);\n(63) limx→2⁺f(x);\n(64) limx→2f(x).",
+   "steps": [
+    "x→-2⁻ da limit: 0",
+    "x→-2⁺ da limit: 2",
+    "x→-2 da ikki tomonlama limit: 0 ≠ 2, mavjud emas",
+    "x→2⁻ da limit: -2",
+    "x→2⁺ da limit: 2",
+    "x→2 da ikki tomonlama limit: -2 ≠ 2, mavjud emas"
+   ],
+   "result": "(59) 0; (60) 2; (61) mavjud emas; (62) -2; (63) 2; (64) mavjud emas"
+  },
+  "narr": [
+   "To'rtinchi va oxirgi misolni ko'rib chiqaylik.",
+   "x→-2⁻ da (chap tomondan) funksiya 0 ga yaqinlashadi, chunki to'g'ri chiziq (-2, 0) ochiq nuqtaga tushadi.",
+   "x→-2⁺ da (o'ng tomondan) funksiya 2 ga yaqinlashadi, chunki bo'yalgan nuqta (-2, 2) da joylashgan.",
+   "Ikkala bir tomonlama limitlar 0 va 2 ga teng, ular bir xil emasligi sababli, x→-2 da ikki tomonlama limit mavjud emas.",
+   "x→2⁻ da (chap tomondan) funksiya -2 ga yaqinlashadi, chunki kesma (2, -2) ochiq nuqtaga tushadi.",
+   "x→2⁺ da (o'ng tomondan) funksiya 2 ga yaqinlashadi, chunki to'g'ri chiziq (2, 2) ochiq nuqtadan boshlanadi.",
+   "Xuddi shu sababga ko'ra, x→2 da ikki tomonlama limit ham mavjud emas, chunki ikkala bir tomonlama limitlar -2 va 2 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Chegaralar qonunlari",
+   "subtitle": "Standart chegaralar va asosiy xossalari"
+  },
+  "narr": [
+   "Endi to'rtinchi haftaga o'tamiz, bu yerda chegaralarning qonunlarini, standart chegaralarni va asimptotikani o'rganamiz.",
+   "Chegara tushunchasini eslaylik: limx→a f(x) = L degani, f(x) ni L ga ixtiyoriy darajada yaqinlashtirish mumkin (x→a, x ≠ a).",
+   "Ikkala tomonlama chegaraning mavjudligi uchun ikkala bir tomonlama chegaraning ham mavjud va teng bo'lishi kerak.",
+   "Chegaralar qonunlari ikki funksiyaning chegaralari ma'lum bo'lganda, ularning yig'indisi, ayirmasi, ko'paytmasi va bo'linmasining chegaralarini hisoblash imkonini beradi.",
+   "Siqish teoremasi esa, agar bir funksiya ikkinchisidan katta va uchinchisidan kichik bo'lsa va ikkala chevrai chegarasi bir xil bo'lsa, u holda o'rta funksiyaning chegarasi ham shu qiymatda bo'ladi.",
+   "Nihoyat, biz ba'zi standart chegaralarni, trigonometrik, eksponensial va logarifmik funksiyalarning asosiy chegaralarini o'rganamiz."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Chegaralarning umumiy xossalari",
+   "bullets": [
+    "Chegara tushunchasi: limx→a f(x) = L degani, f(x) ni L ga ixtiyoriy darajada yaqinlashtirish mumkin (x→a, x ≠ a)",
+    "Ikkala tomonlama mezon: limx→a f(x) = L ⇔ limx→a⁻f(x) = limx→a⁺f(x) = L",
+    "Agar limit mavjud bo'lsa, u yagona bo'ladi"
+   ]
+  },
+  "narr": [
+   "Birinchi navbatda, chegaralarning umumiy xossalari bilan tanishamiz.",
+   "Chegara tushunchasini eslaylik: agar funksiya f(x) ni x a ga intilganda L ga intilayotgan bo'lsa, u holda limx→a f(x) = L deyiladi.",
+   "Ikkala tomonlama chegaraning mavjudligi uchun ikkala bir tomonlama chegaraning ham mavjud va teng bo'lishi kerak.",
+   "Shuningdek, agar limit mavjud bo'lsa, u faqat bitta qiymatga ega bo'ladi - ya'ni yagonadir."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Chegara qonunlari",
+   "bullets": [
+    "Agar limx→a f(x) = L va limx→a g(x) = M bo'lsa:",
+    "Yig'indi: limx→a[f(x) + g(x)] = L + M",
+    "Ayirma: limx→a[f(x) - g(x)] = L - M",
+    "Konstanta ko'paytma: limx→a c f(x) = cL",
+    "Ko'paytma: limx→a[f(x)g(x)] = LM",
+    "Bo'linma: limx→a f(x)/g(x) = L/M (M ≠ 0)"
+   ]
+  },
+  "narr": [
+   "Endi chegara qonunlarini ko'rib chiqaylik.",
+   "Agar ikkala funksiyaning chegaralari ma'lum bo'lsa, ularning yig'indisining chegarasi chegaralarning yig'indisiga teng.",
+   "Xuddi shunday, ayirmaning chegarasi chegaralarning ayirmasiga teng.",
+   "Konstanta ko'paytmaning chegarasi esa konstantaning chegaraga ko'paytmasiga teng.",
+   "Ko'paytmaning chegarasi chegaralarning ko'paytmasiga teng.",
+   "Bo'linmaning chegarasi esa chegaralarning bo'linmasiga teng, agar maxraj chegarasi nolga teng bo'lmasa."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Qo'shimcha chegara qonunlari",
+   "bullets": [
+    "Daraja: limx→a[f(x)]ⁿ = Lⁿ (n ∈ N)",
+    "Ildiz: limx→aⁿ√f(x) = ⁿ√L (n toq: istalgan L; n juft: L ≥ 0)",
+    "Asosiy: limx→a x = a, limx→a c = c",
+    "Ko'phadlar/ratsional funksiyalar: limx→a p(x) = p(a), limx→a p(x)/q(x) = p(a)/q(a) (q(a) ≠ 0)",
+    "Agar a yaqinida x ≠ a bo'lgan barcha joyda f(x) = g(x) bo'lsa, u holda limx→a f(x) = limx→a g(x)"
+   ]
+  },
+  "narr": [
+   "Qo'shimcha chegara qonunlarini ko'rib chiqaylik.",
+   "Funksiyaning n-darajasi chegarasi uning chegarasining n-darajasiga teng.",
+   "Ildiz funksiyasi uchun, agar ildiz darajasi toq bo'lsa, istalgan L uchun; agar juft bo'lsa, L ≥ 0 bo'lishi kerak.",
+   "Asosiy chegaralar: x ning o'zi a ga, konstanta esa o'ziga intiladi.",
+   "Ko'phadlar va ratsional funksiyalar uchun, funksiya qiymati nuqtada uning chegarasiga teng.",
+   "Agar ikkita funksiya a nuqtadan tashqari barcha joyda teng bo'lsa, ularning chegaralari ham teng bo'ladi. Bu ko'paytuvchilarni qisqartirish imkonini beradi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Siqish (Pinchlovchi) teoremasi",
+   "bullets": [
+    "Agar f(x) ≤ g(x) ≤ h(x) (a yaqinida, x ≠ a)",
+    "va limx→a f(x) = L = limx→a h(x)",
+    "u holda limx→a g(x) = L"
+   ]
+  },
+  "narr": [
+   "Siqish teoremasi yoki Pinchlovchi teoremasi juda foydali vositadir.",
+   "Agar bir funksiya ikkinchisidan katta va uchinchisidan kichik bo'lsa",
+   "va ikkala chevrai chegarasi bir xil L qiymatiga intilsa",
+   "u holda o'rta funksiyaning chegarasi ham shu L qiymatida bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Standart chegaralar",
+   "tex": "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1, \\quad \\lim_{x \\to 0} \\frac{1 - \\cos x}{x^2} = \\frac{1}{2}, \\quad \\lim_{x \\to 0} \\frac{e^x - 1}{x} = 1",
+   "parts": [
+    {
+     "substr": "\\frac{\\sin x}{x}",
+     "color": "#4C5FD5",
+     "note": "sinx/x ning x→0 dagi limiti 1 ga teng"
+    },
+    {
+     "substr": "\\frac{1 - \\cos x}{x^2}",
+     "color": "#B45309",
+     "note": "1-cosx/x² ning x→0 dagi limiti 1/2 ga teng"
+    },
+    {
+     "substr": "\\frac{e^x - 1}{x}",
+     "color": "#0E7C7B",
+     "note": "e^x-1/x ning x→0 dagi limiti 1 ga teng"
+    }
+   ]
+  },
+  "narr": [
+   "Endi ba'zi standart chegaralarni ko'rib chiqaylik.",
+   "Birinchidan, sinx/x ning x nolga intilgandagi limiti 1 ga teng.",
+   "Ikkinchidan, 1-cosx/x² ning x nolga intilgandagi limiti 1/2 ga teng.",
+   "Uchinchidan, eksponensial funksiya e^x-1/x ning x nolga intilgandagi limiti 1 ga teng."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Boshqa standart chegaralar",
+   "tex": "\\lim_{x \\to 0} \\frac{\\ln(1 + x)}{x} = 1, \\quad \\lim_{x \\to 0} (1 + x)^{1/x} = e, \\quad \\lim_{x \\to \\infty} \\frac{x^n}{e^x} = 0 \\quad (n \\in \\mathbb{N})",
+   "parts": [
+    {
+     "substr": "\\frac{\\ln(1 + x)}{x}",
+     "color": "#4C5FD5",
+     "note": "ln(1+x)/x ning x→0 dagi limiti 1 ga teng"
+    },
+    {
+     "substr": "(1 + x)^{1/x}",
+     "color": "#B45309",
+     "note": "(1+x)^{1/x} ning x→0 dagi limiti e ga teng"
+    },
+    {
+     "substr": "\\frac{x^n}{e^x}",
+     "color": "#0E7C7B",
+     "note": "x^n/e^x ning x→∞ dagi limiti 0 ga teng (har qanday natural n uchun)"
+    }
+   ]
+  },
+  "narr": [
+   "Yana bir qator muhim standart chegaralar mavjud.",
+   "Birinchidan, logarifmik funksiya ln(1+x)/x ning x nolga intilgandagi limiti 1 ga teng.",
+   "Ikkinchidan, (1+x)^{1/x} ifodasining x nolga intilgandagi limiti e ga teng, bu e sonining ta'rifi bilan bog'liq.",
+   "Uchinchidan, har qanday natural son n uchun, x^n/e^x ifodasining x cheksizlikka intilgandagi limiti 0 ga teng. Bu eksponensial funksiyaning polynomial funksiyalaridan tezroq o'sishini ko'rsatadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ }
+]

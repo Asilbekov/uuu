@@ -1,0 +1,317 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Funksiya turlari",
+   "subtitle": "Ko'phadli, ratsional, algebraik va transsendent funksiyalar"
+  },
+  "narr": [
+   "Keling, funksiyalarni turli toifalarga ajratamiz.",
+   "Funksiyalar quyidagi turlarga bo'linadi: ko'phadli, ratsional, algebraik yoki transsendent.",
+   "E'tibor bering, bir funksiya bir nechta toifalarga tegishli bo'lishi mumkin."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Funksiyalarni tasniflash",
+   "problem": "Quyidagi funksiyalarni ko'phadli, ratsional, algebraik yoki transsendent sifatida tasniflang: $x^2+4$ va $\\frac{x+1}{x^2+1}$",
+   "steps": [
+    "Birinchi funksiya $x^2+4$ ko'phaddir, shuning uchun algebraikdir.",
+    "Ikkinchi funksiya $\\frac{x+1}{x^2+1}$ ko'phadlar nisbati, demak ratsionaldir.",
+    "Ratsional funksiya algebraik bo'ladi, chunki u algebraik ifodalardan tashkil topgan."
+   ],
+   "result": "$x^2+4$ — ko'phadli va algebraik; $\\frac{x+1}{x^2+1}$ — ratsional va algebraik"
+  },
+  "narr": [
+   "Birinchidan, $x^2+4$ ko'phad ekanligini ko'ramiz. Ko'phadlar algebraik funksiyalardir, shuning uchun bu ikkala toifaga ham kiradi.",
+   "Ikkinchidan, $\\frac{x+1}{x^2+1}$ ko'phadlar nisbati, ya'ni ratsional funksiya.",
+   "Ratsional funksiyalar algebraik funksiyalarning kichik toifasidir, shuning uchun bu funksiya ham ratsional, ham algebraik hisoblanadi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Amaliy mashg'ulotlar",
+   "subtitle": "2-hafta, masalalar yechimi"
+  },
+  "narr": [
+   "Endi 2-haftadagi amaliy mashg'ulotlarning yechimlarini ko'rib chiqamiz."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Harorat o'sishi modeli",
+   "problem": "Sanoat kamerasidagi harorat $t=0$ da $20^\\circ$C dan $t=15$ da $80^\\circ$C gacha chiziqli o'sadi. (1) $T(t)$ ni toping; (2) qiyalik va siljishni tushuntiring; (3) $T(8)$ ni toping; (4) kamera qachon $60^\\circ$C ga yetadi? (5) fizik jihatdan mantiqiy aniqlanish sohasini ko'rsating.",
+   "steps": [
+    "Qiyalikni hisoblaymiz: $m = \\frac{80-20}{15-0} = 4$ °C/daq.",
+    "Shunday qilib, $T(t) = 20 + 4t$ chiziqli funksiya hosil bo'ladi.",
+    "Qiyalik - bu isitish tezligi: daqiga +4 gradus.",
+    "Siljish - bu boshlang'ich harorat: 20 °C.",
+    "$T(8) = 20 + 4 \\times 8 = 20 + 32 = 52$ °C.",
+    "$60^\\circ$C ga yetish vaqtini topamiz: $20 + 4t = 60$"
+   ]
+  },
+  "narr": [
+   "Bu masalada kamerdagi haroratning vaqtga bog'liq o'sishini ko'rib chiqamiz.",
+   "Avval qiyalikni topamiz, bu haroratning o'sish tezligidir.",
+   "Qiyalik $m = \\frac{80-20}{15-0} = 4$ °C/daq ekanligini ko'ramiz.",
+   "Shunday qilib, harorat funksiyasi $T(t) = 20 + 4t$ ko'rinishda bo'ladi.",
+   "Bu yerda 20 - bu siljish, ya'ni boshlang'ich harorat.",
+   "Endi $t=8$ daqiqadagi haroratni hisoblaymiz: $T(8) = 20 + 4 \\times 8 = 52$ °C.",
+   "Kameradagi harorat $60^\\circ$C ga yetganda vaqtni topish uchun tenglamani yechamiz."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 7 — Harorat o'sishi modeli (cont.)",
+   "problem": "",
+   "steps": [
+    "$4t = 40$, demak $t = 10$ daqiqa.",
+    "Fizik jihatdan, $t=0$ dan oldin harorat $20^\\circ$C dan past bo'lishi mumkin emas, shuning uchun aniqlanish sohasi $t \\geq 0$."
+   ],
+   "result": "$T(t) = 20 + 4t$; qiyalik = 4 °C/daq, siljish = 20 °C; $T(8) = 52$ °C; $60^\\circ$C ga $t=10$ daqiqada yetadi; aniqlanish sohasi $t \\geq 0$"
+  },
+  "narr": [
+   "$20 + 4t = 60$ tenglamadan $t=10$ daqiqa ekanligini ko'ramiz.",
+   "Fizik jihatdan, vaqt manfiy bo'lishi mumkin emas, shuning uchun aniqlanish sohasi $t \\geq 0$."
+  ],
+  "narr_item": [
+   0,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 8 — Uchinchi darajali ko'phad tahlili",
+   "problem": "$p(x) = x^3 - 4x$ uchun aniqlang: aniqlanish sohasi; o'qlar bilan kesishish; simmetriya; chekka xatti-harakatlar; noaniqlik nuqtalari.",
+   "steps": [
+    "Aniqlanish sohasi: $\\mathbb{R}$ (barcha haqiqiy sonlar, chunki bu ko'phad).",
+    "O'qlar bilan kesishish: $p(0) = 0$.",
+    "$x^3 - 4x = 0$ tenglamani yechamiz: $x(x-2)(x+2) = 0$",
+    "Yechimlar: $x = -2, 0, 2$ - barchasi koordinata boshidan o'tuvchi x o'qi bilan kesishish nuqtalari.",
+    "Simmetriya: $p(-x) = -x^3 + 4x = -p(x)$ - funksiya toq.",
+    "Chekka xatti-harakatlar: $x^3$ hadi musbat koeffitsientga ega, shuning uchun $x \\to +\\infty$ da $p(x) \\to +\\infty$, $x \\to -\\infty$ da $p(x) \\to -\\infty$.",
+    "Ko'phad hamma joyda aniqlangan: noaniqlik nuqtalari yo'q."
+   ],
+   "result": "Aniqlanish sohasi: $\\mathbb{R}$; kesishish nuqtalari: $(-2,0), (0,0), (2,0)$; toq funksiya; $x \\to \\pm\\infty$ da $p(x) \\to \\pm\\infty$; noaniqlik nuqtalari yo'q"
+  },
+  "narr": [
+   "Bu masalada uchinchi darajali ko'phadni tahlil qilamiz.",
+   "Avval aniqlanish sohasini ko'rib chiqamiz. Ko'phadlar barcha haqiqiy sonlar uchun aniqlangan, shuning uchun aniqlanish sohasi $\\mathbb{R}$.",
+   "Endi grafikning o'qlar bilan kesishish nuqtalarini topamiz.",
+   "$p(0) = 0$ ekanligini ko'ramiz, ya'ni grafik koordinata boshidan o'tadi.",
+   "$x^3 - 4x = 0$ tenglamani yechsak, $x = -2, 0, 2$ ildizlarini topamiz.",
+   "Simmetriyani tekshiramiz: $p(-x) = -x^3 + 4x = -p(x)$, demak funksiya toq.",
+   "Chekka xatti-harakatlarni ko'rib chiqamiz. Eng yuqori darajali had $x^3$ musbat koeffitsientga ega.",
+   "Shuning uchun $x$ mushtariq cheksizlikka intilganda $p(x)$ ham mushtariq cheksizlikka intiladi.",
+   "Aksincha, $x$ manfiy cheksizlikka intilganda $p(x)$ ham manfiy cheksizlikka intiladi.",
+   "Ko'phad barcha haqiqiy sonlar uchun aniqlangan, shuning uchun noaniqlik nuqtalari yo'q."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 9 — Elektron ta'minot narxi modeli",
+   "problem": "Elektron ta'minot yetkazib beruvchisi $0 \\leq E \\leq 200$ uchun $C(E) = 0.10E$ va $E > 200$ uchun $C(E) = 20 + 0.15(E - 200)$, kVt·ch da. (1) $C(150), C(200), C(350)$ ni toping; (2) tasvirlang; (3) model $E = 200$ da uzluksizmi? (4) har bir qiyalikning mohiyati; (5) bir cheklov.",
+   "steps": [
+    "$C(150) = 0.10 \\times 150 = 15$ $",
+    "$C(200) = 0.10 \\times 200 = 20$ $",
+    "$C(350) = 20 + 0.15 \\times (350 - 200) = 20 + 0.15 \\times 150 = 42.5$ $",
+    "Model ikki chiziqli qismdan iborat: 200 gacha qiyalik 0.10, keyin 0.15.",
+    "$E = 200$ da ikkala formula ham 20 $ ni beradi, demak funksiya uzluksiz.",
+    "Qiyaliklar - chekli narxlari: birinchi 200 kVt·ch uchun 0.10$/kVt·ch, undan ortig'i uchun 0.15$/kVt·ch.",
+    "Cheklov: narxning aynan 200 kVt·ch da saklanishi iste'molchini chegaradan biroz pastroqda to'xtashga undaydi."
+   ],
+   "result": "$C(150) = 15$ $, $C(200) = 20$ $, $C(350) = 42.5$ $; model ikki chiziqli qismdan iborat; $E = 200$ da uzluksiz; qiyaliklar - chekli narxlar; cheklov - narxning saklanishi iste'molchini chegaradan pastroqda to'xtashga undashi"
+  },
+  "narr": [
+   "Bu masalada elektron ta'minot narxining iste'mol miqdoriga bog'liqlik modelini ko'rib chiqamiz.",
+   "Model ikki qismdan iborat: birinchi 200 kVt·ch gacha narx chiziqli o'sadi, keyin boshqa qiyalikda davom etadi.",
+   "Avval berilgan nuqtalardagi narxlarni hisoblaymiz.",
+   "$C(150) = 0.10 \\times 150 = 15$ $ ekanligini ko'ramiz.",
+   "$C(200) = 0.10 \\times 200 = 20$ $ ekanligini ko'ramiz.",
+   "$C(350) = 20 + 0.15 \\times (350 - 200) = 42.5$ $ ekanligini ko'ramiz.",
+   "Modelni tasvirlaymiz: ikki chiziqli qismdan iborat grafik, 200 gacha qiyalik 0.10, keyin 0.15.",
+   "$E = 200$ da ikkala formula ham 20 $ ni beradi, demak funksiya uzluksiz.",
+   "Qiyaliklar bu erda chekli narxlarni ifodalaydi.",
+   "Birinchi 200 kVt·ch uchun narx 0.10$/kVt·ch, undan ortiq qismi uchun 0.15$/kVt·ch.",
+   "Bu modelning cheklash sharti: narxning aynan 200 kVt·ch da saklanishi iste'molchini chegaradan biroz pastroqda to'xtashga undaydi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 10 — Teskari funksiya topish",
+   "problem": "$f(x) = 4x - 7$ ga teskari funksiyani toping va aniqlanish sohalarini ko'rsating; $f(f^{-1}(x)) = x$ ekanligini tekshiring.",
+   "steps": [
+    "$y = 4x - 7$ tenglamadan $x$ ni $y$ orqali ifodalaymiz.",
+    "$y + 7 = 4x$",
+    "$x = \\frac{y + 7}{4}$",
+    "Shunday qilib, $f^{-1}(x) = \\frac{x + 7}{4}$",
+    "Aniqlanish sohasi: $\\mathbb{R}$ va qiymatlar to'plami: $\\mathbb{R}$",
+    "Tekshirish: $f(f^{-1}(x)) = 4 \\times \\frac{x + 7}{4} - 7 = x + 7 - 7 = x$",
+    "Ikkala funksiya ham to'g'ri chiziqlar (grafiklar $y = x$ ga nisbatan simmetrik)."
+   ],
+   "result": "$f^{-1}(x) = \\frac{x + 7}{4}$; aniqlanish sohasi va qiymatlar to'plami: $\\mathbb{R}$; $f(f^{-1}(x)) = x$ tenglik o'rinli"
+  },
+  "narr": [
+   "Bu masalada berilgan funksiyaning teskarisini topishni ko'rib chiqamiz.",
+   "$f(x) = 4x - 7$ chiziqli funksiya berilgan.",
+   "Teskari funksiyani topish uchun $y = 4x - 7$ tenglamadan $x$ ni $y$ orqali ifodalaymiz.",
+   "Avval tenglamani $x$ uchun yechamiz: $y + 7 = 4x$",
+   "Keyin $x = \\frac{y + 7}{4}$",
+   "Shunday qilib, teskari funksiya $f^{-1}(x) = \\frac{x + 7}{4}$ ko'rinishda bo'ladi.",
+   "Ikkala funksiya ham chiziqli bo'lgani uchun ularning aniqlanish sohalari va qiymatlar to'plami barcha haqiqiy sonlar $\\mathbb{R}$.",
+   "Tekshirib ko'ramiz: $f(f^{-1}(x)) = 4 \\times \\frac{x + 7}{4} - 7 = x + 7 - 7 = x$",
+   "Bu tenglik o'rinli ekanligini ko'ramiz, ya'ni biz to'g'ri teskari funksiyani topdik.",
+   "Ikkala funksiya ham to'g'ri chiziqlar, ularning grafiklari $y = x$ to'g'ri chiziqqa nisbatan simmetrik joylashgan."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   6,
+   6
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 11 — O'sish va yemirilish modellari",
+   "problem": "Har bir model uchun o'sish/yemirilishni aniqlang va boshlang'ich qiymatni hamda o'sish/yemirilish koeffitsiyentini ko'rsating: $A(t) = 500(1.08)^t$, $B(t) = 1200(0.85)^t$, $C(t) = 40e^{0.03t}$, $D(t) = 200e^{-0.4t}$.",
+   "steps": [
+    "A: o'sish, boshlang'ich qiymat 500, koeffitsient 1.08 (+%8 davr uchun).",
+    "B: yemirilish, boshlang'ich qiymat 1200, koeffitsient 0.85 (-15%).",
+    "C: o'sish, boshlang'ich qiymat 40, uzluksiz stavka $k = 0.03$.",
+    "D: yemirilish, boshlang'ich qiymat 200, uzluksiz stavka $k = -0.4$.",
+    "Ekt dagi $k$ belgisi yoki at dagi $a > 1$ bo'lishi yo'nalishni belgilaydi."
+   ],
+   "result": "A: o'sish, boshlang'ich 500, koeffitsient 1.08; B: yemirilish, boshlang'ich 1200, koeffitsient 0.85; C: o'sish, boshlang'ich 40, $k = 0.03$; D: yemirilish, boshlang'ich 200, $k = -0.4$"
+  },
+  "narr": [
+   "Bu masalada to'rtta turli o'sish va yemirilish modellarini ko'rib chiqamiz.",
+   "Birinchi model $A(t) = 500(1.08)^t$ - bu o'sish modeli, chunki asos 1 dan katta.",
+   "Boshlang'ich qiymat 500, koeffitsient 1.08 (+%8 har bir davr uchun).",
+   "Ikkinchi model $B(t) = 1200(0.85)^t$ - bu yemirilish modeli, chunki asos 1 dan kichik.",
+   "Boshlang'ich qiymat 1200, koeffitsient 0.85 (-15% har bir davrda).",
+   "Uchinchi model $C(t) = 40e^{0.03t}$ - bu uzluksiy o'sish modeli.",
+   "Boshlang'ich qiymat 40, uzluksiy o'sish stavkasi $k = 0.03$.",
+   "To'rtinchi model $D(t) = 200e^{-0.4t}$ - bu uzluksiy yemirilish modeli.",
+   "Boshlang'ich qiymat 200, uzluksiy yemirilish stavkasi $k = -0.4$.",
+   "E'tibor bering, eksponensial modellarda $a > 1$ bo'lsa o'sish, $a < 1$ bo'lsa yemirilish bo'ladi.",
+   "Uzluksiy modellarda esa $k > 0$ bo'lsa o'sish, $k < 0$ bo'lsa yemirilish bo'ladi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 12 — Tenglamani yechish",
+   "problem": "$2^{x+1} = 16$ tenglamani yeching.",
+   "steps": [
+    "16 ni 2 ning darajasi sifatida ifodalaymiz: $16 = 2^4$.",
+    "Shunday qilib, $2^{x+1} = 2^4$ tenglamaga kelamiz.",
+    "Asoslari teng bo'lgani uchun darajalarni tenglashtiramiz: $x + 1 = 4$.",
+    "Yechim: $x = 3$.",
+    "(Teng ikkala tomondan $\\log_2$ olish orqali ham yechish mumkin.)"
+   ],
+   "result": "$x = 3$"
+  },
+  "narr": [
+   "Bu masalada eksponensial tenglamani yechishni ko'rib chiqamiz.",
+   "$2^{x+1} = 16$ tenglama berilgan.",
+   "Avval o'ng tomondagi sonni chap tomondagi asosning darajasi sifatida ifodalaymiz.",
+   "16 ni 2 ning darajasi sifatida yozamiz: $16 = 2^4$.",
+   "Shunday qilib, $2^{x+1} = 2^4$ tenglamaga kelamiz.",
+   "Asoslari teng bo'lgani uchun darajalarni tenglashtiramiz: $x + 1 = 4$.",
+   "Bu oddiy chiziqli tenglama, yechimi $x = 3$.",
+   "Yana bir usul - ikkala tomonga $\\log_2$ ni qo'llash:",
+   "$\\log_2(2^{x+1}) = \\log_2(16)$",
+   "$x+1 = 4$, chunki $\\log_2(16) = 4$",
+   "Natija bir xil: $x = 3$."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   4,
+   4,
+   4,
+   4,
+   4
+  ]
+ }
+]
