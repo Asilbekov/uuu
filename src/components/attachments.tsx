@@ -25,6 +25,7 @@ import {
   Check,
   MonitorPlay,
   Loader2,
+  Play,
 } from 'lucide-react';
 // Perf: pdfjs-dist (~345 KB chunk) must NOT be in the initial bundle — it is
 // needed only when a PDF attachment is actually opened. next/dynamic defers
@@ -63,32 +64,92 @@ function attachmentOpenUrl(a: AttachmentItem): string {
 /* Inline media preview (audio player / video player / PDF modal)      */
 /* ------------------------------------------------------------------ */
 
+/*
+ * ZERO-AUTOLOAD RULE: opening the attachments window must NOT fetch any
+ * file. Audio / video / embed players are hidden behind a click-to-load
+ * facade; the <audio>/<video>/<iframe> element (and its src) is mounted
+ * only after the user presses the button. PDFs already work this way
+ * ("Show PDF" expands the inline viewer). Exception: blobUrl items are
+ * just-picked LOCAL files in the editor — no network cost, preview
+ * instantly so the creator gets immediate feedback.
+ */
+
 function AudioPreview({ item }: { item: AttachmentItem }) {
+  const [started, setStarted] = useState(false);
+  if (started || item.blobUrl) {
+    return (
+      <div className="mt-2">
+        <audio
+          controls
+          autoPlay={started}
+          preload="metadata"
+          src={attachmentFileUrl(item)}
+          className="w-full h-10"
+        />
+      </div>
+    );
+  }
   return (
-    <div className="mt-2">
-      <audio
-        controls
-        preload="metadata"
-        src={attachmentFileUrl(item)}
-        className="w-full h-10"
-      />
-    </div>
+    <button
+      type="button"
+      onClick={() => setStarted(true)}
+      aria-label="Play audio"
+      className="mt-2 inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full border border-black/15 bg-white text-xs font-medium hover:bg-muted active:scale-95 transition-all"
+    >
+      <Play className="w-3.5 h-3.5" /> Play audio
+    </button>
   );
 }
 
 function VideoPreview({ item }: { item: AttachmentItem }) {
+  const [started, setStarted] = useState(false);
+  if (started || item.blobUrl) {
+    return (
+      <video
+        controls
+        playsInline
+        autoPlay={started}
+        preload="metadata"
+        src={attachmentFileUrl(item)}
+        className="mt-2 w-full max-h-64 rounded-lg bg-black"
+      />
+    );
+  }
   return (
-    <video
-      controls
-      preload="metadata"
-      src={attachmentFileUrl(item)}
-      className="mt-2 w-full max-h-64 rounded-lg bg-black"
-    />
+    <button
+      type="button"
+      onClick={() => setStarted(true)}
+      aria-label="Play video"
+      className="mt-2 relative w-full aspect-video rounded-lg bg-black flex flex-col items-center justify-center gap-1.5 group"
+    >
+      <span className="w-12 h-12 rounded-full bg-cta text-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 group-active:scale-95">
+        <Play className="w-5 h-5 translate-x-0.5" />
+      </span>
+      <span className="text-[11px] font-medium text-white/80">Play video</span>
+    </button>
   );
 }
 
 /** Embedded external player (TED, YouTube, SoundCloud, VK ... via their official embed URL). */
 function EmbedPreview({ item }: { item: AttachmentItem }) {
+  const [started, setStarted] = useState(false);
+  if (!started) {
+    let host = '';
+    try { host = new URL(item.url).hostname.replace(/^www\./, ''); } catch { /* non-URL — no host chip */ }
+    return (
+      <button
+        type="button"
+        onClick={() => setStarted(true)}
+        aria-label="Load embedded player"
+        className="mt-2 relative w-full aspect-video rounded-lg bg-black flex flex-col items-center justify-center gap-1.5 group"
+      >
+        <span className="w-12 h-12 rounded-full bg-cta text-white flex items-center justify-center shadow-lg transition-transform group-hover:scale-110 group-active:scale-95">
+          <MonitorPlay className="w-5 h-5" />
+        </span>
+        <span className="text-[11px] font-medium text-white/80">{host ? `Load player · ${host}` : 'Load player'}</span>
+      </button>
+    );
+  }
   return (
     <div className="mt-2">
       <div className="relative w-full overflow-hidden rounded-lg bg-black" style={{ aspectRatio: '16 / 9' }}>
@@ -98,7 +159,6 @@ function EmbedPreview({ item }: { item: AttachmentItem }) {
           className="absolute inset-0 w-full h-full"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
           allowFullScreen
-          loading="lazy"
         />
       </div>
       <div className="flex justify-end mt-1">
@@ -164,6 +224,7 @@ export function PdfViewerModal({ item, onClose }: { item: AttachmentItem | null;
 /** One attachment row with preview, used in start / take / results panels. */
 function ViewerRow({ item }: { item: AttachmentItem }) {
   const [pdfExpanded, setPdfExpanded] = useState(false);
+  const [imgShown, setImgShown] = useState(false);
   return (
     <div className="py-2.5 border-b last:border-b-0">
       <div className="flex items-start gap-2.5">
@@ -194,7 +255,13 @@ function ViewerRow({ item }: { item: AttachmentItem }) {
             </div>
           )}
           {item.type === 'image' && (
-            <img src={attachmentFileUrl(item)} alt={item.title} className="mt-2 max-h-48 rounded-lg" />
+            item.blobUrl || imgShown ? (
+              <img src={attachmentFileUrl(item)} alt={item.title} className="mt-2 max-h-48 rounded-lg" />
+            ) : (
+              <Button size="sm" variant="outline" className="mt-2 h-7 text-xs rounded-full" onClick={() => setImgShown(true)}>
+                <ImageIcon className="w-3 h-3 mr-1" /> Show image
+              </Button>
+            )
           )}
           {item.type === 'link' && (
             <Button size="sm" variant="outline" className="mt-1.5 h-7 text-xs rounded-full" onClick={() => window.open(item.url, '_blank')}>
