@@ -1,0 +1,398 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Exam Crib Sheet",
+   "subtitle": "All Key Results on One Page"
+  },
+  "narr": [
+   "In this video, we'll go through all the key results from your exam crib sheet. Let's start with the first topic: two-period consumption model, also known as the Fisher model.",
+   "We'll cover the budget constraint, the Euler equation, and how consumption changes with interest rates.",
+   "Then we'll move on to life-cycle saving, efficiency wages, Shapiro-Stiglitz model, and Real Business Cycles. Finally, we'll look at some important numbers worth memorizing."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Two-period Consumption (Fisher Model)",
+   "bullets": [
+    "Budget constraint for saver/borrower: $C_1+\\frac{C_2}{1+r_{s,b}}=Y_1+\\frac{Y_2}{1+r_{s,b}}$",
+    "Both budget lines pass through $(Y_1,Y_2)$",
+    "Feasible set lies between the saver and borrower budget lines",
+    "Euler equation: $u'(C_1)=\\beta(1+r) u'(C_2)$",
+    "For log utility: $C_2=(1+r)\\beta C_1$",
+    "Optimal consumption: $C_1^*=\\frac{1}{1+\\beta}\\bigl(Y_1+\\frac{Y_2}{1+r}\\bigr)$, $C_2^*=\\frac{\\beta(1+r)}{1+\\beta}\\bigl(Y_1+\\frac{Y_2}{1+r}\\bigr)$"
+   ]
+  },
+  "narr": [
+   "The Fisher model describes consumption decisions over two periods. The budget constraint shows that the present value of consumption equals the present value of income.",
+   "Notice that both the saver and borrower budget lines pass through the endowment point $(Y_1,Y_2)$, representing the consumption if you didn't save or borrow.",
+   "The feasible set lies between these two budget lines, showing all possible consumption combinations.",
+   "The Euler equation equates the marginal utility of consumption today with the discounted marginal utility of consumption tomorrow.",
+   "For log utility, this simplifies to a nice relationship where consumption in period 2 is proportional to consumption in period 1.",
+   "The optimal consumption levels can be solved explicitly, showing how consumption depends on income and the interest rate."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Two-period Consumption: Interest Rate Effects",
+   "bullets": [
+    "For a borrower, a decrease in interest rate has two effects:",
+    "1. Substitution effect: $C_1$ increases",
+    "2. Income effect: $C_1$ increases, $C_2$ increases",
+    "Overall: $C_1$ rises",
+    "With log utility: $C_2$ is unchanged"
+   ]
+  },
+  "narr": [
+   "When interest rates fall, borrowers are affected by two forces.",
+   "First, the substitution effect makes current consumption cheaper relative to future consumption, leading to higher $C_1$.",
+   "Second, the income effect makes borrowers better off overall, increasing both $C_1$ and $C_2$.",
+   "Combined, these effects definitely increase $C_1$.",
+   "Interestingly, with log utility, the income and substitution effects on $C_2$ exactly offset each other, leaving $C_2$ unchanged."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Life-cycle Saving",
+   "bullets": [
+    "$\\int_0^T C dt=RY_0+\\frac{1}{2}gR^2$",
+    "$\\bar C=\\frac{R}{T}\\bigl(Y_0+\\frac{1}{2}gR\\bigr)$ (constant consumption)",
+    "$S(t)=Y(t)-\\bar C$",
+    "$W(t)=t\\bigl(Y_0+\\frac{1}{2}gt-\\bar C\\bigr)$ for $t<R$",
+    "$W(R)=(T-R)\\bar C$",
+    "$W(t)=(T-t)\\bar C$ for $t\\geq R$"
+   ]
+  },
+  "narr": [
+   "In the life-cycle model, we consider saving over a working life of length T.",
+   "The integral of consumption over time equals the present value of resources: initial wealth plus human wealth.",
+   "Optimal consumption is constant at this level, which depends on initial income, growth rate, and retirement age.",
+   "Saving at any time is simply current income minus this constant consumption level.",
+   "Wealth accumulation follows a quadratic pattern during working years.",
+   "After retirement, wealth declines linearly as it's drawn down for consumption."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Efficiency Wages",
+   "bullets": [
+    "Firm profit: $\\pi=F(eL)-wL$",
+    "First-order condition: $F'(eL)=w/e$",
+    "Solow condition: $we'(w)/e(w)=1$",
+    "Example: $e=\\bigl(\\frac{w-x}{x}\\bigr)^\\beta$, $x=(1-bu)w_a$",
+    "Solution: $w^*=\\frac{x}{1-\\beta}=\\frac{1-bu}{1-\\beta}w_a$",
+    "Unemployment rate: $u_{EQ}=\\beta/b$"
+   ]
+  },
+  "narr": [
+   "Efficiency wage models posit that higher wages increase worker productivity.",
+   "The firm maximizes profit, which depends on effective labor eL, where e is effort per worker.",
+   "The first-order condition shows that the marginal product of effective labor equals the real wage divided by effort.",
+   "The Solow condition characterizes how effort responds to wage changes.",
+   "In our example, effort increases with the wage premium over some reservation wage x.",
+   "Solving for the equilibrium wage and unemployment rate gives us these expressions."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Efficiency Wages: Effort and Costs",
+   "bullets": [
+    "Effort levels:",
+    "$e_u=\\bigl(\\frac{\\mu+\\beta}{1-\\beta}\\bigr)^{\\beta}$ (unemployed)",
+    "$e_n=\\bigl(\\frac{\\beta}{1-\\beta}\\bigr)^{\\beta}$ (employed)",
+    "Union premium: $u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}$",
+    "Cost ratio: $(1+\\mu)\\bigl(\\frac{\\beta}{\\mu+\\beta}\\bigr)^{\\beta}$"
+   ]
+  },
+  "narr": [
+   "We can calculate effort levels for unemployed and employed workers.",
+   "Unemployed workers exert higher effort in search, as captured by $e_u$.",
+   "Employed workers exert lower effort once employed, shown by $e_n$.",
+   "When unions are present, they negotiate a wage premium, affecting the unemployment rate.",
+   "The cost ratio compares the total cost of labor with and without unions, accounting for both wages and effort levels."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Efficiency Wages: Wage Rigidity",
+   "bullets": [
+    "Fixed wage cost: $C_{FIXED}=\\frac{w_a}{e(w_a,x')}$",
+    "Adjusting wage cost: $C_{ADJ}=\\frac{x'/(1-\\beta)}{e_0}$",
+    "Cost savings from wage cuts: merely 0.2–0.6 percentage points"
+   ]
+  },
+  "narr": [
+   "Even when conditions change, firms may keep wages fixed due to efficiency wage considerations.",
+   "The cost of maintaining a fixed wage can be compared to the cost of adjusting wages.",
+   "Interestingly, the potential cost savings from cutting wages are quite small, just 0.2 to 0.6 percentage points.",
+   "This helps explain why wages may remain sticky even when market conditions suggest they should fall."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Shapiro-Stiglitz Model",
+   "bullets": [
+    "Value functions:",
+    "$\\rho V_E=w-e-b(V_E-V_U)$",
+    "$\\rho V_S=w-(b+q)(V_S-V_U)$",
+    "$\\rho V_U=a(V_E-V_U)$",
+    "No-shirking condition (NSC): $w=e+\\frac{e}{q}\\bigl(\\rho+b\\frac{L}{L-N}\\bigr)$",
+    "Labor demand: $AF'(eL)=w/e$"
+   ]
+  },
+  "narr": [
+   "The Shapiro-Stiglitz model explains unemployment as an incentive device to prevent shirking.",
+   "The value of being employed, shirking, or unemployed evolves according to these Bellman equations.",
+   "The no-shirking condition determines the minimum wage that prevents workers from shirking.",
+   "This wage depends on the effort cost, job finding rate, separation rate, and unemployment rate.",
+   "Labor demand comes from the firm's optimization problem, equating the marginal product of effective labor to the real wage divided by effort."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Shapiro-Stiglitz: Comparative Statics",
+   "bullets": [
+    "$\\rho\\uparrow$ or $b\\uparrow$: NSC up $\\Rightarrow$ $N\\downarrow$, $w\\uparrow$",
+    "$A\\uparrow$: labor demand right $\\Rightarrow$ $N\\uparrow$, $w\\uparrow$",
+    "$L\\uparrow$: NSC down $\\Rightarrow$ $N\\uparrow$, $w\\downarrow$"
+   ]
+  },
+  "narr": [
+   "Let's see how the model responds to various changes.",
+   "When the discount rate or separation rate increases, the no-shirking condition shifts up, leading to less employment and higher wages.",
+   "When productivity increases, labor demand shifts right, increasing both employment and wages.",
+   "When the labor force increases, the no-shirking condition shifts down, increasing employment but decreasing wages."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Real Business Cycles (RBC)",
+   "bullets": [
+    "Production function: $\\hat y_t=\\alpha\\hat k_t+(1-\\alpha)(\\hat A_t+\\hat l_t)$",
+    "AR(1) technology shock: $\\hat A_t=\\varepsilon_{A,0}\\rho_A^{t}$",
+    "Example: $\\varepsilon_{A,0}=0.01$, $\\rho_A=0.95$ gives shocks of 1%, 0.95%, 0.9025%,...",
+    "Linearized rules:",
+    "$\\hat c=0.59\\hat k+0.38\\hat A-0.13\\hat g$",
+    "$\\hat l=-0.31\\hat k+0.35\\hat A+0.15\\hat g$",
+    "$\\hat k_{t+1}=0.95\\hat k+0.08\\hat A-0.004\\hat g$"
+   ]
+  },
+  "narr": [
+   "Real Business Cycle theory models business cycles as optimal responses to real shocks, primarily technology shocks.",
+   "The production function shows how output depends on capital, technology, and labor input.",
+   "Technology shocks follow an AR(1) process, meaning they persist over time.",
+   "For example, a 1% shock with 0.95 persistence gives subsequent shocks of 0.95%, 0.9025%, and so on.",
+   "The linearized rules show how consumption, labor, and capital respond to shocks.",
+   "Notice that capital is predetermined, which helps explain the persistence of business cycles."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "RBC: Propagation and Blanchard-Fischer",
+   "bullets": [
+    "Propagation mechanism: AR(1) persistence + predetermined capital accumulation",
+    "Blanchard-Fischer model:",
+    "Euler equation: $1-2\\theta E[C_{t+1}]=\\frac{1+\\rho}{1+A}(1-2\\theta C_t)\\Rightarrow E[C_{t+1}]=C_t$ (random walk)",
+    "Consumption and capital:",
+    "$C_t=AK_t+\\frac{A}{1-\\phi+A}e_t$"
+   ]
+  },
+  "narr": [
+   "The persistence of business cycles comes from two sources: the persistence of shocks themselves and the predetermined nature of capital.",
+   "In the Blanchard-Fischer model, the Euler equation implies that consumption follows a random walk.",
+   "Consumption and capital evolve according to these equations in response to shocks.",
+   "When a shock hits, consumption increases permanently by amount A.",
+   "Capital increases by an amount that approaches 1 as n grows large, but with a rate of approach determined by phi."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "RBC: Propagation and Blanchard-Fischer (cont.)",
+   "bullets": [
+    "$K_{t+1}=K_t+\\frac{1-\\phi}{1-\\phi+A}e_t$",
+    "Shock response:",
+    "$\\Delta C_{t+n}=A$",
+    "$\\Delta K_{t+n}=1-\\phi^n$",
+    "$\\Delta Y_{t+n}=A+\\phi^n(1-\\phi)$"
+   ]
+  },
+  "narr": [
+   "Output increases by a combination of the permanent consumption effect and a diminishing transitory effect from capital."
+  ],
+  "narr_item": [
+   0
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Fisher Model Calculation",
+   "problem": "Calculate optimal consumption when $\\beta=0.9$, $Y_1=100$, $Y_2=200$, $r=10\\%$. Is the agent a borrower or saver?",
+   "steps": [
+    "Calculate present value of income: $Y_1+\\frac{Y_2}{1+r}=100+\\frac{200}{1.1}=100+181.82=281.82$",
+    "Apply optimal consumption formula: $C_1^*=\\frac{1}{1+\\beta}\\times 281.82=\\frac{1}{1.9}\\times 281.82=148.33$",
+    "Calculate $C_2^*=(1+r)\\beta C_1^*=1.1\\times 0.9\\times 148.33=146.84$",
+    "Compare to income: Since $C_1^*>Y_1$, the agent is a borrower"
+   ],
+   "result": "Optimal consumption: $C_1^*=148.33$, $C_2^*=146.84$. The agent is a borrower."
+  },
+  "narr": [
+   "Let's work through an example using the Fisher model. Suppose we have a beta of 0.9, income of 100 in period 1 and 200 in period 2, and an interest rate of 10 percent.",
+   "First, we calculate the present value of income, which is the sum of current income and the discounted value of future income.",
+   "Using the optimal consumption formula, we find that consumption in period 1 is 148.33.",
+   "Consumption in period 2 is then calculated using the relationship between the two periods' consumption.",
+   "Since consumption in period 1 exceeds income in that period, the agent must be borrowing to finance this consumption."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Efficiency Wage Calculation",
+   "problem": "Calculate unemployment rate and cost ratio when $\\mu=f=0.15$, $\\beta=0.06$, $b=1$. Then do the same for $\\beta=0.03$.",
+   "steps": [
+    "For $\\beta=0.06$: $u_{EQ}=\\frac{\\beta}{b}=\\frac{0.06}{1}=0.06$ or 6%",
+    "Cost ratio: $(1+\\mu)\\bigl(\\frac{\\beta}{\\mu+\\beta}\\bigr)^{\\beta}=(1.15)\\bigl(\\frac{0.06}{0.21}\\bigr)^{0.06}=1.0667$",
+    "For $\\beta=0.03$: $u_{EQ}=\\frac{0.03}{1}=0.03$ or 3%",
+    "Cost ratio: $(1.15)\\bigl(\\frac{0.03}{0.18}\\bigr)^{0.03}=1.0898$"
+   ],
+   "result": "For $\\beta=0.06$: $u_{EQ}=6\\%$, cost ratio=1.0667. For $\\beta=0.03$: $u_{EQ}=3\\%$, cost ratio=1.0898."
+  },
+  "narr": [
+   "Now let's look at an efficiency wage calculation. Suppose we have a union premium of 0.15, bargaining power f of 0.15, beta of 0.06, and b of 1.",
+   "The equilibrium unemployment rate is simply beta divided by b, which gives us 6 percent.",
+   "The cost ratio, comparing union to non-union costs, is approximately 1.0667, meaning union costs are about 6.67% higher.",
+   "If we reduce beta to 0.03, the unemployment rate falls to 3 percent.",
+   "However, the cost ratio increases to 1.0898, showing that lower unemployment comes at a higher cost."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Wage Rigidity Comparison",
+   "problem": "Compare cost changes when unemployment rises from 6% to 9% under fixed and adjusting wage regimes.",
+   "steps": [
+    "For fixed wages: $\\Delta C_{FIXED}=-2.6\\%/-1.3\\%$",
+    "For adjusting wages: $\\Delta C_{ADJ}=-3.2\\%/-1.5\\%$",
+    "Interpretation: Wage rigidity reduces cost savings from higher unemployment"
+   ],
+   "result": "With fixed wages, costs decrease by 2.6% or 1.3% depending on parameters. With adjusting wages, costs decrease by 3.2% or 1.5%. Wage rigidity reduces these savings."
+  },
+  "narr": [
+   "Let's examine how costs change when unemployment increases from 6% to 9%.",
+   "Under fixed wages, the cost decrease is between 1.3% and 2.6%, depending on the specific parameters.",
+   "Under adjusting wages, the cost decrease is larger, between 1.5% and 3.2%.",
+   "This shows that wage rigidity reduces the potential cost savings that could be achieved from higher unemployment.",
+   "In other words, firms could save more by adjusting wages, but the efficiency wage model explains why they might not do so."
+  ],
+  "narr_item": [
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ }
+]

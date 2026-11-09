@@ -1,0 +1,266 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Life-cycle Saving",
+   "subtitle": "Modigliani and Brumberg, 1954"
+  },
+  "narr": [
+   "Today, we're exploring the life-cycle saving model developed by Modigliani and Brumberg in 1954. This model examines how individuals optimally allocate their consumption over their lifetime given their income patterns.",
+   "Let's begin with Problem 3, which considers an individual living from time zero to T with a specific utility function and income profile."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Life-cycle Optimization",
+   "problem": "An individual lives from $0$ to $T$ with lifetime utility $U=\\int_0^T u\\bigl(C(t)\\bigr) dt$, $u'>0$, $u''<0$. Income is $Y_0+gt$ for $0<t<R$ and $0$ for $R\\le t\\le T$, with $0<R<T$. The interest rate is zero, initial wealth is zero, there is no uncertainty.",
+   "steps": [
+    "(a) What is the lifetime budget constraint?",
+    "(b) What is the utility-maximizing path of consumption $C(t)$?",
+    "(c) (Optional) What is the path of wealth $W(t)$?"
+   ],
+   "result": ""
+  },
+  "narr": [
+   "The problem presents an individual with a lifetime utility function that depends on consumption over time, characterized by positive first derivative and negative second derivative, indicating diminishing marginal utility.",
+   "The individual has an income profile that grows linearly during their working years from time zero to R, followed by retirement from R to T with no income.",
+   "We're asked to determine three things: the lifetime budget constraint, the optimal consumption path, and optionally, the wealth path over time."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Solution (a) — Lifetime Budget Constraint",
+   "problem": "What is the lifetime budget constraint?",
+   "steps": [
+    "With zero initial wealth the present value of lifetime consumption cannot exceed the present value of lifetime income:",
+    "$\\int_0^T C(t) dt \\le \\int_0^T Y(t) dt$.",
+    "Income is positive only during the working life, so:",
+    "$\\int_0^T Y(t) dt=\\int_0^R (Y_0+gt) dt =\\Bigl[Y_0t+\\frac{1}{2}gt^2\\Bigr]_0^R =R Y_0+\\frac{1}{2}gR^2$."
+   ],
+   "result": "$\\boxed{ \\int_0^T C(t) dt \\le R Y_0+\\frac{1}{2}gR^2 . }$"
+  },
+  "narr": [
+   "Let's start with part (a), finding the lifetime budget constraint.",
+   "Since there's no initial wealth, the present value of lifetime consumption can't exceed the present value of lifetime income.",
+   "Given that income is only earned during the working years from 0 to R, we can calculate the total lifetime income as the integral of the income function over this period.",
+   "The income function is linear: Y_0 plus g times t. Integrating this from 0 to R gives us the total lifetime resources available for consumption."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Solution (b) — Utility-Maximizing Consumption Path",
+   "problem": "What is the utility-maximizing path of consumption $C(t)$?",
+   "steps": [
+    "Since $u''<0$ and both the interest rate and the discount rate are zero, the permanent-income logic of the PIH applies: utility maximization requires a constant consumption level $\\bar{C}$.",
+    "The budget constraint then spreads lifetime resources evenly over the lifetime $T$:",
+    "$\\bar{C}\\cdot T=R Y_0+\\frac{1}{2}gR^2$"
+   ],
+   "result": "$\\boxed{ \\bar{C}=\\frac{R}{T}\\Bigl(Y_0+\\frac{1}{2}gR\\Bigr). }$"
+  },
+  "narr": [
+   "Now for part (b), finding the utility-maximizing consumption path.",
+   "Given the utility function has a negative second derivative and both the interest rate and discount rate are zero, the permanent income hypothesis applies.",
+   "This means the optimal consumption path is constant over time, equal to the average lifetime consumption.",
+   "We can find this constant consumption level by dividing the total lifetime resources by the total lifetime T."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Solution (c) — Wealth Path",
+   "problem": "What is the path of wealth $W(t)$?",
+   "steps": [
+    "Saving is income minus consumption, $S(t)=Y(t)-\\bar{C}$.",
+    "During the working life: $W(t)=\\Bigl[Y_0\\tau+\\frac{1}{2}g\\tau^2-\\bar{C}\\tau\\Bigr]_0^t =t\\Bigl(Y_0+\\frac{1}{2}gt-\\bar{C}\\Bigr), 0\\le t<R$.",
+    "At retirement: $W(R)=R\\Bigl(Y_0+\\frac{1}{2}gR-\\bar{C}\\Bigr)=(T-R) \\bar{C}$.",
+    "During retirement: $W(t)=(T-R)\\bar{C}-\\int_R^t \\bar{C} d\\tau=(T-t) \\bar{C}, R\\le t\\le T$"
+   ],
+   "result": "$W(t)=t\\bigl(Y_0+\\frac{1}{2}gt-\\bar C\\bigr)$ for $t<R$; $W(R)=(T-R)\\bar C$; $W(t)=(T-t)\\bar C$ for $R\\le t\\le T$."
+  },
+  "narr": [
+   "For part (c), we determine the wealth path over the individual's lifetime.",
+   "Saving is simply income minus consumption, which gives us different expressions during working years and retirement.",
+   "During working years, wealth accumulates as the integral of saving, which gives us a quadratic function in time.",
+   "At retirement, we can show that wealth equals (T-R) times the constant consumption level, representing the resources needed to finance retirement.",
+   "During retirement, wealth declines linearly as the individual dissaves to finance consumption, reaching zero exactly at the end of life."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Life-Cycle Model Intuition",
+   "bullets": [
+    "Consumption is constant over lifetime due to linear utility and zero interest rate",
+    "Wealth follows a 'hump' shape: accumulates during working years, peaks at retirement, then declines",
+    "Individual dies with zero assets (no bequest motive)",
+    "Income growth during working years leads to wealth accumulation",
+    "Retirement is financed by dissaving accumulated wealth"
+   ]
+  },
+  "narr": [
+   "The life-cycle model reveals several important intuitions about optimal consumption and saving behavior.",
+   "First, consumption remains constant throughout life because of the linear utility function and zero interest rate.",
+   "Second, wealth follows a distinctive 'hump-shaped' pattern, increasing during working years as the individual saves, reaching a maximum at retirement, then declining during retirement as the individual dissaves.",
+   "Third, the individual optimally plans to die with zero assets, indicating no bequest motive in this model.",
+   "Fourth, the growth in income during working years allows the individual to accumulate wealth.",
+   "Finally, retirement is entirely financed by dissaving the wealth accumulated during working years."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Tutorial 4 — Unemployment",
+   "subtitle": "Shapiro–Stiglitz Model"
+  },
+  "narr": [
+   "Now, let's shift gears to a different topic: unemployment models, specifically the Shapiro-Stiglitz model of efficiency wages.",
+   "This model explains unemployment as an equilibrium outcome where firms pay wages above the market-clearing level to prevent shirking."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Value Functions",
+   "problem": "Following the lecture notes (pages 24–26), derive the value functions for a worker in state $S$ (employed and shirking) and state $U$ (unemployed), i.e. equations (28) and (29) of the notes.",
+   "steps": [
+    "Shirker ($S$): A shirking worker receives the wage $w$ but is caught shirking at hazard rate $q$ and fired; independently, the job breaks at rate $b$.",
+    "Unemployed ($U$): An unemployed worker has zero income and finds a job within $\\Delta t$ with probability $a\\Delta t$."
+   ],
+   "result": ""
+  },
+  "narr": [
+   "Problem 1 asks us to derive the value functions for two worker states: employed and shirking (state S), and unemployed (state U).",
+   "For a shirking worker, they receive the wage w but face two risks of job separation: being caught shirking at rate q, and job separation at rate b.",
+   "For an unemployed worker, they have zero income but can find a new job at rate a."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Solution (a) — Shirker's Value Function",
+   "problem": "Derive the value function for a worker in state S (employed and shirking)",
+   "steps": [
+    "Over a small interval $\\Delta t$ the worker is still employed $\\Delta t$ later with probability $e^{-(b+q)\\Delta t}$, otherwise unemployed.",
+    "The value function is: $V_S(\\Delta t) =\\int_0^{\\Delta t} e^{-(b+q)t} e^{-\\rho t} w dt +e^{-\\rho\\Delta t}\\Bigl[e^{-(b+q)\\Delta t} V_S(\\Delta t)+\\bigl(1-e^{-(b+q)\\Delta t}\\bigr) V_U(\\Delta t)\\Bigr]$",
+    "Simplifying and taking the limit as $\\Delta t \\to 0$ gives: $\\rho V_S=w-(b+q) (V_S-V_U)$"
+   ],
+   "result": "$\\boxed{ \\rho V_S=w-(b+q) (V_S-V_U). }$"
+  },
+  "narr": [
+   "Let's derive the value function for a shirking worker.",
+   "Over a small time interval, the worker remains employed with a certain probability, otherwise becomes unemployed.",
+   "The value function reflects the expected discounted value of future utility, which includes the wage received while employed and the expected value of being in either state after the time interval.",
+   "After some algebraic manipulation and taking the limit as the time interval approaches zero, we arrive at the flow value equation for a shirking worker."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Solution (b) — Unemployed Worker's Value Function",
+   "problem": "Derive the value function for a worker in state U (unemployed)",
+   "steps": [
+    "An unemployed worker has zero income and finds a job within $\\Delta t$ with probability $a\\Delta t$.",
+    "The value function is: $V_U(\\Delta t) =\\int_0^{\\Delta t} 0 dt +e^{-\\rho\\Delta t}\\Bigl[e^{-a\\Delta t} V_U(\\Delta t)+\\bigl(1-e^{-a\\Delta t}\\bigr) V_E(\\Delta t)\\Bigr]$",
+    "Simplifying and taking the limit as $\\Delta t \\to 0$ gives: $\\rho V_U=a (V_E-V_U)$"
+   ],
+   "result": "$\\boxed{ V_U=\\frac{a}{a+\\rho} V_E \\Longleftrightarrow \\rho V_U=a (V_E-V_U). }$"
+  },
+  "narr": [
+   "Now let's derive the value function for an unemployed worker.",
+   "An unemployed worker receives no income but can find a job at rate a, transitioning to the employed state.",
+   "The value function reflects the expected discounted value of being in either the unemployed or employed state after a small time interval.",
+   "After simplifying and taking the limit as the time interval approaches zero, we obtain the flow value equation for an unemployed worker."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Shapiro-Stiglitz Model Insights",
+   "bullets": [
+    "Firms pay efficiency wages above market-clearing level to prevent shirking",
+    "Unemployment arises as an equilibrium outcome to incentivize work effort",
+    "The no-shirking condition requires $V_E-V_U \\ge e/q$",
+    "Higher separation rates increase the cost of shirking",
+    "Higher job finding rates reduce the value of unemployment"
+   ]
+  },
+  "narr": [
+   "The Shapiro-Stiglitz model provides several important insights about unemployment and efficiency wages.",
+   "First, firms voluntarily pay wages above the market-clearing level to motivate workers and prevent shirking.",
+   "Second, unemployment emerges as an equilibrium outcome because it creates a threat of job loss that incentivizes work effort.",
+   "Third, the no-shirking condition requires that the value of employment exceeds the value of unemployment by at least the ratio of effort cost to detection rate.",
+   "Fourth, higher separation rates increase the cost of shirking, making it easier to prevent.",
+   "Finally, higher job finding rates reduce the value of unemployment, making it harder to motivate workers with the threat of unemployment."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ }
+]

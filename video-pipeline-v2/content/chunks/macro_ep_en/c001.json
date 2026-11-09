@@ -1,0 +1,878 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Real Business Cycles",
+   "subtitle": "Tutorial 5"
+  },
+  "narr": [
+   "Let's dive into real business cycles, or RBC for short.",
+   "We'll start by looking at the aggregate production function and how it responds to technology shocks.",
+   "Then we'll explore a simplified RBC model and its implications for consumption and capital accumulation."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Aggregate Production Function",
+   "tex": "Y_t=K_t^{\\alpha}(A_tL_t)^{1-\\alpha}",
+   "parts": [
+    {
+     "substr": "Y_t",
+     "color": "#4C5FD5",
+     "note": "Aggregate output"
+    },
+    {
+     "substr": "K_t",
+     "color": "#B45309",
+     "note": "Capital stock"
+    },
+    {
+     "substr": "A_t",
+     "color": "#0E7C7B",
+     "note": "Technology level"
+    },
+    {
+     "substr": "L_t",
+     "color": "#A03040",
+     "note": "Labor input"
+    },
+    {
+     "substr": "\\alpha",
+     "color": "#4C5FD5",
+     "note": "Output elasticity of capital"
+    }
+   ]
+  },
+  "narr": [
+   "The aggregate production function shows how output depends on capital, technology, and labor.",
+   "Here, Y represents output, K is capital, A is technology, and L is labor.",
+   "The parameter alpha measures how sensitive output is to changes in capital.",
+   "Taking logs and subtracting the balanced growth path gives us this equation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Log-Linearized Production",
+   "tex": "\\hat{y}_t=\\alpha\\hat{k}_t+(1-\\alpha)\\bigl(\\hat{A}_t+\\hat{l}_t\\bigr)",
+   "parts": [
+    {
+     "substr": "\\hat{y}_t",
+     "color": "#4C5FD5",
+     "note": "Output deviation from trend"
+    },
+    {
+     "substr": "\\hat{k}_t",
+     "color": "#B45309",
+     "note": "Capital deviation from trend"
+    },
+    {
+     "substr": "\\hat{A}_t",
+     "color": "#0E7C7B",
+     "note": "Technology shock"
+    },
+    {
+     "substr": "\\hat{l}_t",
+     "color": "#A03040",
+     "note": "Labor deviation from trend"
+    }
+   ]
+  },
+  "narr": [
+   "After log-linearization, we can see how deviations in output depend on deviations in capital, technology, and labor.",
+   "The technology shock has a direct effect on output, and an indirect effect through capital accumulation.",
+   "This equation forms the basis for understanding how technology shocks propagate through the economy."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Technology Shock Process",
+   "bullets": [
+    "Technology follows an AR(1) process: $\\hat{A}_t=\\rho_A\\hat{A}_{t-1}+\\varepsilon_{A,t}$",
+    "Persistence parameter: $\\rho_A=0.95$",
+    "After a one-time innovation: $\\hat{A}_t=\\varepsilon_{A,0} \\rho_A^{t}$ for $t\\ge 0$"
+   ]
+  },
+  "narr": [
+   "Technology shocks are modeled as an autoregressive process of order one.",
+   "The persistence parameter rho_A measures how long a shock's effect lasts.",
+   "With rho_A equal to 0.95, 95% of last period's technology deviation carries over to this period.",
+   "After a one-time shock, the technology deviation gradually decays over time."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Calibrated Policy Rules",
+   "tex": "\\begin{aligned}\n\\hat{c}_t &= 0.59 \\hat{k}_t+0.38 \\hat{A}_t-0.13 \\hat{g}_t, \\\\\n\\hat{l}_t &= -0.31 \\hat{k}_t+0.35 \\hat{A}_t+0.15 \\hat{g}_t, \\\\\n\\hat{k}_{t+1} &= 0.95 \\hat{k}_t+0.08 \\hat{A}_t-0.004 \\hat{g}_t.\n\\end{aligned}",
+   "parts": [
+    {
+     "substr": "\\hat{c}_t",
+     "color": "#4C5FD5",
+     "note": "Consumption deviation"
+    },
+    {
+     "substr": "\\hat{l}_t",
+     "color": "#B45309",
+     "note": "Labor deviation"
+    },
+    {
+     "substr": "\\hat{k}_{t+1}",
+     "color": "#0E7C7B",
+     "note": "Next period capital deviation"
+    },
+    {
+     "substr": "\\hat{g}_t",
+     "color": "#A03040",
+     "note": "Government spending shock"
+    }
+   ]
+  },
+  "narr": [
+   "These are the calibrated policy rules for consumption, labor, and capital accumulation.",
+   "They show how each variable responds to shocks in capital, technology, and government spending.",
+   "Consumption increases with both capital and technology shocks but decreases with government spending shocks.",
+   "Labor decreases with capital shocks but increases with technology and government spending shocks.",
+   "Capital accumulation is highly persistent with a coefficient of 0.95 on lagged capital."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Propagation Mechanisms",
+   "bullets": [
+    "Persistence of the AR(1) technology process",
+    "Gradual endogenous capital accumulation",
+    "Capital as a predetermined state variable"
+   ]
+  },
+  "narr": [
+   "There are two main propagation mechanisms in the RBC model.",
+   "First, the persistence of technology shocks means their effects last many periods.",
+   "Second, capital accumulation is gradual because capital is a predetermined state variable.",
+   "This means the effect of a shock builds up over time as capital adjusts."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Simplified RBC Model",
+   "tex": "E\\sum_{t=0}^{\\infty}\\frac{u(C_t)}{(1+\\rho)^t}",
+   "parts": [
+    {
+     "substr": "u(C_t)",
+     "color": "#4C5FD5",
+     "note": "Utility function"
+    },
+    {
+     "substr": "\\rho",
+     "color": "#B45309",
+     "note": "Discount rate"
+    },
+    {
+     "substr": "E",
+     "color": "#0E7C7B",
+     "note": "Expectation operator"
+    }
+   ]
+  },
+  "narr": [
+   "In the simplified RBC model, an infinite-lived representative agent maximizes expected discounted utility.",
+   "The utility function takes this form, where rho is the discount rate.",
+   "The agent cares about consumption in all future periods, but values future consumption less than present consumption."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Utility Function",
+   "tex": "u(C_t)=C_t-\\theta C_t^2",
+   "parts": [
+    {
+     "substr": "u(C_t)",
+     "color": "#4C5FD5",
+     "note": "Utility from consumption"
+    },
+    {
+     "substr": "\\theta",
+     "color": "#B45309",
+     "note": "Curvature parameter"
+    }
+   ]
+  },
+  "narr": [
+   "The utility function is quadratic, which simplifies the analysis.",
+   "The parameter theta captures the curvature of the utility function.",
+   "With this form, marginal utility is decreasing but remains positive."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Technology and Capital Accumulation",
+   "tex": "\\begin{aligned}\nY_t &= AK_t+e_t, \\\\\nK_{t+1} &= K_t+Y_t-C_t, \\\\\ne_t &= \\phi e_{t-1}+\\varepsilon_t.\n\\end{aligned}",
+   "parts": [
+    {
+     "substr": "Y_t",
+     "color": "#4C5FD5",
+     "note": "Output"
+    },
+    {
+     "substr": "K_t",
+     "color": "#B45309",
+     "note": "Capital stock"
+    },
+    {
+     "substr": "C_t",
+     "color": "#0E7C7B",
+     "note": "Consumption"
+    },
+    {
+     "substr": "e_t",
+     "color": "#A03040",
+     "note": "Technology shock"
+    }
+   ]
+  },
+  "narr": [
+   "The simplified model uses linear technology with additive disturbances.",
+   "Output depends on capital and a technology shock, with no depreciation.",
+   "Capital accumulates as output minus consumption.",
+   "Technology shocks follow an AR(1) process with persistence parameter phi."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Euler Equation",
+   "tex": "1-2\\theta E[C_{t+1}]=\\frac{1+\\rho}{1+A}\\bigl(1-2\\theta C_t\\bigr) \\xrightarrow{A=\\rho} E[C_{t+1}]=C_t",
+   "parts": [
+    {
+     "substr": "E[C_{t+1}]",
+     "color": "#4C5FD5",
+     "note": "Expected future consumption"
+    },
+    {
+     "substr": "C_t",
+     "color": "#B45309",
+     "note": "Current consumption"
+    },
+    {
+     "substr": "\\rho",
+     "color": "#0E7C7B",
+     "note": "Discount rate"
+    },
+    {
+     "substr": "A",
+     "color": "#A03040",
+     "note": "Interest rate"
+    }
+   ]
+  },
+  "narr": [
+   "The Euler equation describes optimal consumption intertemporally.",
+   "It equates the marginal utility of consumption today with the expected marginal utility of consumption tomorrow, discounted by the interest rate.",
+   "When the interest rate equals the discount rate, consumption follows a random walk.",
+   "This means expected future consumption equals current consumption."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Consumption Function",
+   "tex": "C_t=\\alpha+\\beta K_t+\\gamma e_t",
+   "parts": [
+    {
+     "substr": "C_t",
+     "color": "#4C5FD5",
+     "note": "Consumption"
+    },
+    {
+     "substr": "K_t",
+     "color": "#B45309",
+     "note": "Capital stock"
+    },
+    {
+     "substr": "e_t",
+     "color": "#0E7C7B",
+     "note": "Technology shock"
+    }
+   ]
+  },
+  "narr": [
+   "Using the method of undetermined coefficients, we assume consumption takes this linear form.",
+   "Consumption depends on a constant, the capital stock, and the technology shock.",
+   "We can solve for the coefficients alpha, beta, and gamma."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Solution Coefficients",
+   "tex": "\\beta=A, \\gamma=\\frac{A}{1-\\phi+A}, \\alpha=0",
+   "parts": [
+    {
+     "substr": "\\beta",
+     "color": "#4C5FD5",
+     "note": "Sensitivity to capital"
+    },
+    {
+     "substr": "\\gamma",
+     "color": "#B45309",
+     "note": "Sensitivity to technology shock"
+    },
+    {
+     "substr": "\\alpha",
+     "color": "#0E7C7B",
+     "note": "Constant term"
+    }
+   ]
+  },
+  "narr": [
+   "Solving the model gives us these coefficients for the consumption function.",
+   "The sensitivity to capital equals the interest rate A.",
+   "The sensitivity to technology shocks depends on both the interest rate and the persistence parameter phi.",
+   "The constant term is zero, meaning consumption is zero when both capital and the technology shock are zero."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Impulse Responses",
+   "tex": "\\begin{aligned}\n\\Delta C_{t+n}&=A \\forall n\\ge 0, \\\\\n\\Delta K_{t+n}&=1-\\phi^{n}, \\\\\n\\Delta Y_{t+n}&=A+\\phi^{n}(1-\\phi).\n\\end{aligned}",
+   "parts": [
+    {
+     "substr": "\\Delta C_{t+n}",
+     "color": "#4C5FD5",
+     "note": "Change in consumption"
+    },
+    {
+     "substr": "\\Delta K_{t+n}",
+     "color": "#B45309",
+     "note": "Change in capital"
+    },
+    {
+     "substr": "\\Delta Y_{t+n}",
+     "color": "#0E7C7B",
+     "note": "Change in output"
+    }
+   ]
+  },
+  "narr": [
+   "These equations show how consumption, capital, and output respond to a one-time technology shock.",
+   "Consumption increases permanently by the amount A and stays at that level.",
+   "Capital increases gradually over time, approaching 1 as n increases.",
+   "Output increases immediately by A plus an amount that decays over time."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Tutorial 2 — Consumption",
+   "subtitle": "Complete Solutions"
+  },
+  "narr": [
+   "Now let's turn to consumption decisions in a two-period model.",
+   "We'll start with Fisher's model under different borrowing and saving scenarios.",
+   "Then we'll examine a specific case with log utility and work through some numerical examples."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Fisher's Model with Different Saving and Borrowing Rates",
+   "problem": "Consider Fisher's model when the consumer can save at rate r_s and borrow at rate r_b, where r_s < r_b.",
+   "steps": [
+    {
+     "text": "(a) What is the budget constraint when he consumes less than his income in period one?"
+    },
+    {
+     "text": "(b) What is the budget constraint when he consumes more than his income in period one?"
+    },
+    {
+     "text": "(c) On a single graph show the two budget constraints; shade the combinations of (C1,C2) the consumer can choose."
+    },
+    {
+     "text": "(d) Add indifference curves and show three outcomes: saving, borrowing, neither."
+    },
+    {
+     "text": "(e) What determines first-period consumption in each of the three cases?"
+    }
+   ],
+   "result": "Saver: $C_1$ depends on $Y_1+\\frac{Y_2}{1+r_s}$; borrower: on $Y_1+\\frac{Y_2}{1+r_b}$; at the kink: only on $Y_1$."
+  },
+  "narr": [
+   "Let's examine Fisher's model with different interest rates for saving and borrowing.",
+   "When the consumer saves, he earns the saving rate r_s.",
+   "When he borrows, he pays the borrowing rate r_b, which is higher than r_s.",
+   "This creates a kinked budget constraint at the endowment point."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Saver's Budget Constraint",
+   "tex": "C_1+\\frac{C_2}{1+r_s}=Y_1+\\frac{Y_2}{1+r_s}",
+   "parts": [
+    {
+     "substr": "C_1",
+     "color": "#4C5FD5",
+     "note": "Period 1 consumption"
+    },
+    {
+     "substr": "C_2",
+     "color": "#B45309",
+     "note": "Period 2 consumption"
+    },
+    {
+     "substr": "Y_1",
+     "color": "#0E7C7B",
+     "note": "Period 1 income"
+    },
+    {
+     "substr": "Y_2",
+     "color": "#A03040",
+     "note": "Period 2 income"
+    }
+   ]
+  },
+  "narr": [
+   "For a consumer who saves in period 1, the budget constraint is given by this equation.",
+   "The slope is -1/(1+r_s), reflecting the saving rate.",
+   "This line passes through the endowment point (Y1,Y2).",
+   "Any point to the left of the endowment represents saving."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Borrower's Budget Constraint",
+   "tex": "C_1+\\frac{C_2}{1+r_b}=Y_1+\\frac{Y_2}{1+r_b}",
+   "parts": [
+    {
+     "substr": "C_1",
+     "color": "#4C5FD5",
+     "note": "Period 1 consumption"
+    },
+    {
+     "substr": "C_2",
+     "color": "#B45309",
+     "note": "Period 2 consumption"
+    },
+    {
+     "substr": "Y_1",
+     "color": "#0E7C7B",
+     "note": "Period 1 income"
+    },
+    {
+     "substr": "Y_2",
+     "color": "#A03040",
+     "note": "Period 2 income"
+    }
+   ]
+  },
+  "narr": [
+   "For a consumer who borrows in period 1, the budget constraint is given by this equation.",
+   "The slope is -1/(1+r_b), which is steeper than the saver's budget line because r_b > r_s.",
+   "This line also passes through the endowment point (Y1,Y2).",
+   "Any point to the right of the endowment represents borrowing."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Budget Constraint Graph",
+   "bullets": [
+    "Both lines pass through the endowment point E=(Y1,Y2)",
+    "The borrowing segment (right of E) is steeper with slope -(1+r_b)",
+    "The saving segment (left of E) is flatter with slope -(1+r_s)",
+    "The choice set is the area under the kinked frontier formed by the two segments"
+   ]
+  },
+  "narr": [
+   "When we plot both budget constraints, we get a kinked line at the endowment point.",
+   "The segment to the right is steeper, reflecting the higher borrowing rate.",
+   "The segment to the left is flatter, reflecting the lower saving rate.",
+   "The consumer can choose any combination of C1 and C2 under this kinked frontier."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Optimal Consumption Decisions",
+   "bullets": [
+    "Saver: tangency on the saver segment, C1 depends on Y1+Y2/(1+r_s)",
+    "Borrower: tangency on the borrowing segment, C1 depends on Y1+Y2/(1+r_b)",
+    "Neither: highest indifference curve passes through the endowment point, C1=Y1"
+   ]
+  },
+  "narr": [
+   "The optimal consumption decision depends on whether the consumer is a saver, borrower, or neither.",
+   "For a saver, the optimum occurs where an indifference curve is tangent to the saver's budget line.",
+   "For a borrower, it's tangent to the borrowing budget line.",
+   "At the kink point, the highest attainable indifference curve passes through the endowment point.",
+   "Borrowers discount future income more heavily because they face a higher interest rate."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Log Utility: Lagrangian, Closed-Form Solution, and Numerical Example",
+   "problem": "A representative consumer lives two periods with U(C1,C2)=ln C1+β ln C2, and present-value budget constraint C1+C2/(1+r)=Y1+Y2/(1+r).",
+   "steps": [
+    {
+     "text": "(a) Set up the Lagrangian and derive the first-order conditions."
+    },
+    {
+     "text": "(b) Solve for the optimal C1 and C2."
+    },
+    {
+     "text": "(c) For β=0.9, Y1=100, Y2=200, r=10%: calculate both consumption levels. Is he a saver or a borrower?"
+    },
+    {
+     "text": "(d) If he earns nothing in period one but earns (1+10%)·100+200 in period two, do the answers change?"
+    },
+    {
+     "text": "(e) In the context of (d), what happens to the budget line when the interest rate falls? Which effect dominates — income or substitution?"
+    }
+   ],
+   "result": "C1*=(1+β)^(-1)(Y1+Y2/(1+r)), C2*=(1+r)β C1*; (c) C1=148.33, C2=146.84 — a borrower; (d) No change: same PV=281.82; (e) Budget line pivots around (0,310); substitution and income effects offset on C2, so C1↑, C2 unchanged."
+  },
+  "narr": [
+   "Now let's consider a consumer with log utility who lives for two periods.",
+   "The utility function is U(C1,C2)=ln C1+β ln C2, where β is the discount factor.",
+   "The consumer faces a present-value budget constraint that equates the present value of consumption to the present value of income.",
+   "We'll set up the Lagrangian and derive the first-order conditions to find the optimal consumption path."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Lagrangian Setup",
+   "tex": "\\mathcal{L}=\\ln C_1+\\beta\\ln C_2+\\lambda\\Bigl(Y_1+\\frac{Y_2}{1+r}-C_1-\\frac{C_2}{1+r}\\Bigr)",
+   "parts": [
+    {
+     "substr": "\\mathcal{L}",
+     "color": "#4C5FD5",
+     "note": "Lagrangian function"
+    },
+    {
+     "substr": "\\lambda",
+     "color": "#B45309",
+     "note": "Lagrange multiplier"
+    }
+   ]
+  },
+  "narr": [
+   "The Lagrangian combines the utility function with the budget constraint.",
+   "Lambda is the Lagrange multiplier, which represents the marginal utility of wealth.",
+   "We need to maximize this function with respect to C1, C2, and lambda."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "First-Order Conditions",
+   "tex": "\\begin{aligned}\n\\frac{\\partial\\mathcal{L}}{\\partial C_1}&=0: \\frac{1}{C_1}=\\lambda, \\\\\n\\frac{\\partial\\mathcal{L}}{\\partial C_2}&=0: \\frac{\\beta}{C_2}=\\frac{\\lambda}{1+r}, \\\\\n\\frac{\\partial\\mathcal{L}}{\\partial\\lambda}&=0: C_1+\\frac{C_2}{1+r}=Y_1+\\frac{Y_2}{1+r}.\n\\end{aligned}",
+   "parts": [
+    {
+     "substr": "\\frac{1}{C_1}",
+     "color": "#4C5FD5",
+     "note": "Marginal utility of period 1 consumption"
+    },
+    {
+     "substr": "\\frac{\\beta}{C_2}",
+     "color": "#B45309",
+     "note": "Marginal utility of period 2 consumption"
+    }
+   ]
+  },
+  "narr": [
+   "The first-order conditions give us three equations.",
+   "The first equates the marginal utility of C1 to lambda.",
+   "The second equates the marginal utility of C2 to lambda discounted by the interest rate.",
+   "The third is simply the budget constraint."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Optimal Consumption",
+   "tex": "\\begin{aligned}\nC_1^*&=\\frac{1}{1+\\beta}\\Bigl(Y_1+\\frac{Y_2}{1+r}\\Bigr), \\\\\nC_2^*&=\\frac{\\beta(1+r)}{1+\\beta}\\Bigl(Y_1+\\frac{Y_2}{1+r}\\Bigr).\n\\end{aligned}",
+   "parts": [
+    {
+     "substr": "C_1^*",
+     "color": "#4C5FD5",
+     "note": "Optimal period 1 consumption"
+    },
+    {
+     "substr": "C_2^*",
+     "color": "#B45309",
+     "note": "Optimal period 2 consumption"
+    },
+    {
+     "substr": "Y_1+\\frac{Y_2}{1+r}",
+     "color": "#0E7C7B",
+     "note": "Present value of lifetime resources"
+    }
+   ]
+  },
+  "narr": [
+   "Solving the first-order conditions gives us these closed-form solutions for optimal consumption.",
+   "Period 1 consumption is a fraction of the present value of lifetime resources.",
+   "The fraction depends on the discount factor beta.",
+   "Period 2 consumption is determined by the Euler equation and equals (1+r) times beta times period 1 consumption."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Numerical Example",
+   "problem": "For β=0.9, Y1=100, Y2=200, r=10%: calculate both consumption levels. Is he a saver or a borrower?",
+   "steps": [
+    {
+     "text": "Calculate present value of lifetime resources"
+    },
+    {
+     "text": "Compute C1* using the formula"
+    },
+    {
+     "text": "Compute C2* using the formula"
+    },
+    {
+     "text": "Compare C1* to Y1 to determine if saving or borrowing"
+    }
+   ],
+   "result": "Present value = 100 + 200/1.1 = 281.82; C1* = 281.82/(1+0.9) = 148.33; C2* = 1.1×0.9×148.33 = 146.84; Since C1* > Y1, he is a borrower."
+  },
+  "narr": [
+   "Let's plug in some numbers to see how this works in practice.",
+   "With beta equal to 0.9, the consumer is somewhat patient but values present consumption more than future consumption.",
+   "The present value of lifetime resources is 100 plus 200 discounted by 10%, which equals 281.82.",
+   "Optimal period 1 consumption is this amount divided by 1.9, giving us 148.33.",
+   "Since this exceeds period 1 income of 100, the consumer is a borrower who will consume 48.33 more than his income in period 1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Alternative Income Path",
+   "problem": "If he earns nothing in period one but earns (1+10%)·100+200 in period two, do the answers change?",
+   "steps": [
+    {
+     "text": "Calculate new income path"
+    },
+    {
+     "text": "Calculate new present value of lifetime resources"
+    },
+    {
+     "text": "Compare to original present value"
+    },
+    {
+     "text": "Determine if consumption levels change"
+    }
+   ],
+   "result": "New income path: Y1'=0, Y2'=310; New present value: 0 + 310/1.1 = 281.82; Same as original; Consumption levels unchanged at (148.33, 146.84); He borrows more in period 1 (148.33 instead of 48.33)."
+  },
+  "narr": [
+   "Now let's consider a different income path where the consumer earns nothing in period 1 but more in period 2.",
+   "The new period 2 income is 110 plus 200, which equals 310.",
+   "The present value of this income path is still 281.82, the same as before.",
+   "Since the present value is unchanged, the optimal consumption path remains the same.",
+   "However, the consumer now needs to borrow more in period 1 to achieve this consumption path."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Interest Rate Change",
+   "problem": "In the context of the alternative income path, what happens to the budget line when the interest rate falls? Which effect dominates — income or substitution?",
+   "steps": [
+    {
+     "text": "Describe how budget line changes with lower interest rate"
+    },
+    {
+     "text": "Identify substitution effect of lower interest rate"
+    },
+    {
+     "text": "Identify income effect of lower interest rate"
+    },
+    {
+     "text": "Determine which effect dominates for each period's consumption"
+    }
+   ],
+   "result": "Budget line pivots around (0,310); Substitution effect: C1↑, C2↓; Income effect: C1↑, C2↑; Both effects raise C1; Effects offset for C2; C1 increases from 148.33 to 155.39 when r falls from 10% to 5%; C2 remains unchanged at 146.84."
+  },
+  "narr": [
+   "What happens when the interest rate falls with this new income path?",
+   "The budget line pivots around the endowment point (0,310) since period 2 income is fixed.",
+   "There are two effects at play: the substitution effect and the income effect.",
+   "The substitution effect makes consumption in period 1 relatively more attractive, so C1 increases and C2 decreases.",
+   "The income effect makes the borrower better off overall, so both C1 and C2 increase.",
+   "For C1, both effects work in the same direction, so consumption unambiguously increases.",
+   "For C2, the effects work in opposite directions and exactly offset each other with log utility.",
+   "Numerically, when r falls from 10% to 5%, C1 increases from 148.33 to 155.39 while C2 remains unchanged at 146.84."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   3,
+   3,
+   3
+  ]
+ }
+]

@@ -96,6 +96,15 @@ def build(spec_id, lang, chunks_dir, out_path):
         if isinstance(d.get('rows'), list):
             for row in d['rows']:
                 _sanitize_row(row)
+        # columns render via textContent (no mathSplit): $...$ → plain unicode text
+        if isinstance(d.get('columns'), list):
+            def _col_text(c):
+                if not isinstance(c, str) or '$' not in c:
+                    return c
+                t = c.replace('$$', ' ').replace(r'\%', '%')
+                t = re.sub(r'\$([^$]+)\$', lambda m: _tex_to_text(m.group(1)), t)
+                return re.sub(r'\s{2,}', ' ', t).strip()
+            d['columns'] = [_col_text(c) for c in d['columns']]
         # formula/matrix top-level tex: strip $-wrappers + unicode middle dot
         for key in ('tex',):
             v = d.get(key)
@@ -130,20 +139,35 @@ def build(spec_id, lang, chunks_dir, out_path):
     SUBPART_RE = _re.compile(
         r'(practical|workshop|homework|isa |session|catalog|example|exercise|assignment|'
         r'практ|семинар|домашн|каталог|упражн|задан|пример|maslahat|amaliy|uyga|katalog)', _re.I)
-    cur_week = None
+    # major non-week chapters: Tutorial N sections + named major parts
+    RANGE_GUARD_RE = _re.compile(
+        r'(?:week|tutorial|hafta|недел|chapter|module)[^0-9]{0,6}\d+\s*[–—-]\s*\d+', _re.I)
+    UNIT_RE = _re.compile(r'(?:week|tutorial|hafta|недел|chapter|module|part)[^0-9]{0,6}(\d+)', _re.I)
+    NAMED_MAJOR_RE = _re.compile(r'(formula catalog|crib sheet|theory essentials)', _re.I)
+    def major_key(t):
+        """chapter key if section title t starts a major chapter, else None"""
+        if RANGE_GUARD_RE.search(t):
+            return None
+        nums = UNIT_RE.findall(t)
+        if len(set(nums)) == 1 and nums:
+            if SUBPART_RE.search(t):
+                return None
+            return ('n', int(nums[0]))
+        if NAMED_MAJOR_RE.search(t):
+            return ('t', NAMED_MAJOR_RE.search(t).group(1).lower())
+        return None
+    cur_key = None
     for b in blocks:
         if b['type'] == 'section':
             t = str(b['data'].get('title') or '')
-            wn = week_nums(t)
-            if len(wn) == 1 and not SUBPART_RE.search(t):
-                if wn[0] != cur_week:
-                    if cur: chapters.append({'title': cur_title, 'blocks': cur}); cur = []
-                    sec_no += 1
-                    b['data']['num'] = sec_no
-                    cur_title = t
-                    cur_week = wn[0]
-                    cur.append(b)
-                    continue
+            key = major_key(t)
+            if key is not None and key != cur_key:
+                if cur: chapters.append({'title': cur_title, 'blocks': cur}); cur = []
+                sec_no += 1
+                b['data']['num'] = sec_no
+                cur_title = t
+                cur_key = key
+                cur.append(b)
                 continue
             continue
         cur.append(b)

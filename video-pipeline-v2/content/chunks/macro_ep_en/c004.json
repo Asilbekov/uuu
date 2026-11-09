@@ -1,0 +1,265 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Wage Rigidity in the Efficiency-Wage Model",
+   "subtitle": "Problem 4"
+  },
+  "narr": [
+   "Let's explore a fascinating problem about wage rigidity in the efficiency-wage model. We'll examine how unemployment affects unit costs and whether firms have an incentive to cut wages.",
+   "The problem sets up a scenario where equilibrium unemployment is 6%, but it rises to 9%. We need to compute the change in unit cost of effective labor under two scenarios: when the firm keeps the wage unchanged and when it optimally adjusts the wage. We'll do this for two different calibrations of the model parameters."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Wage Rigidity in the Efficiency-Wage Model",
+   "problem": "Let $u_{EQ}=6\\%$ and suppose unemployment rises to $9\\%$. Compute the change in the unit cost of effective labor if the firm (i) keeps the wage unchanged, (ii) optimally adjusts the wage, for the calibrations (1) $\\beta=0.06$, $b=1$ and (2) $\\beta=0.03$, $b=0.5$. How large is the incentive to cut wages?",
+   "steps": [
+    "Normalize $w_a=1$. At equilibrium $u_{EQ}=\\beta/b$, effort and cost are $e_0=(\\frac{\\beta}{1-\\beta})^{\\beta}$, $C_0=\\frac{w_a}{e_0}$.",
+    "After unemployment rises to $u_1$, market conditions worsen to $x'=(1-bu_1)w_a$.",
+    "(i) Fixed wage: the firm keeps $w=w_a$; workers' effort rises to $e(w_a,x')=(\\frac{w_a-x'}{x'})^{\\beta}$, and the unit cost becomes $C_{FIXED}=\\frac{w_a}{e(w_a,x')}$.",
+    "(ii) Adjusted wage: the firm re-optimizes to $w'=x'/(1-\\beta)$, which restores the original effort-cost ratio, so $e'=e_0$ and $C_{ADJ}=\\frac{w'}{e'}=\\frac{x'/(1-\\beta)}{e_0}$."
+   ],
+   "result": "\\Delta C_{FIXED}=-2.6\\%$, $\\Delta C_{ADJ}=-3.2\\%$, gain $0.6$ pp (case 1); $-1.3\\%$, $-1.5\\%$, $0.2$ pp (case 2) — wage cutting is not worth the adjustment."
+  },
+  "narr": [
+   "The problem begins by normalizing the wage to 1. At equilibrium, unemployment equals beta divided by b. The initial effort and cost are given by these formulas.",
+   "When unemployment rises to 9%, market conditions worsen according to this equation. The firm now faces a decision.",
+   "First scenario: the firm keeps the wage unchanged. Interestingly, workers' effort actually increases due to the discipline of unemployment. The new unit cost is calculated using this formula.",
+   "Second scenario: the firm optimally adjusts the wage. This restores the original effort-cost ratio, so effort remains at e_0, but the wage changes, affecting the unit cost.",
+   "The calculations show that a 3-percentage-point rise in unemployment lowers unit costs by only 1.3% to 3.2%. Optimally adjusting the wage saves at most a further 0.2 to 0.6 percentage points.",
+   "The incentive to renegotiate wages is tiny — this explains why wages remain rigid downward in the efficiency-wage model even when unemployment is high."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Cost Changes Under Different Scenarios",
+   "columns": [
+    "Calibration",
+    "ΔC fixed",
+    "ΔC adjusted",
+    "Gain from cutting"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "(1) $\\beta=0.06$, $b=1$"
+     },
+     {
+      "tex": "$-2.6\\%$"
+     },
+     {
+      "tex": "$-3.2\\%$"
+     },
+     {
+      "tex": "$0.6$ pp"
+     }
+    ],
+    [
+     {
+      "tex": "(2) $\\beta=0.03$, $b=0.5$"
+     },
+     {
+      "tex": "$-1.3\\%$"
+     },
+     {
+      "tex": "$-1.5\\%$"
+     },
+     {
+      "tex": "$0.2$ pp"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "This table summarizes our calculations. For both calibrations, we see the change in unit costs under fixed wage and adjusted wage scenarios, along with the gain from cutting wages.",
+   "As we can see, the potential savings from wage adjustment are quite small — only 0.6 percentage points in the first case and 0.2 in the second. This tiny incentive explains wage rigidity."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 5,
+   "title": "Tutorial 5 — Real-Business-Cycle Theory",
+   "subtitle": "Problem 1"
+  },
+  "narr": [
+   "Now let's shift gears to a different topic: Real-Business-Cycle theory. We'll examine how technology shocks drive macroeconomic fluctuations in the RBC model."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — Technology Shocks and Macroeconomic Fluctuations",
+   "problem": "Consider the RBC model with aggregate production $Y_t=K_t^{\\alpha}(A_tL_t)^{1-\\alpha}$, $0<\\alpha<1$, and $\\hat{x}_t\\equiv\\ln x_t-\\ln\\bar{x}_t$ denoting deviations from the balanced growth path.",
+   "steps": [
+    "(a) Technology follows $\\hat{A}_t=\\rho_A\\hat{A}_{t-1}+\\varepsilon_{A,t}$, $\\rho_A=0.95$. The economy starts on its BGP; at $t=0$ an unexpected positive innovation of 1 percent arrives ($\\varepsilon_{A,0}=0.01$) and there are no further innovations. (i) Compute $\\hat{A}_0,\\hat{A}_1,\\hat{A}_2$. (ii) Write $\\hat{A}_t$ for any $t\\ge0$. (iii) Explain what $\\rho_A$ means.",
+    "(b) The calibrated model gives the log-linearized rules $\\hat{c}_t=0.59\\hat{k}_t+0.38\\hat{A}_t-0.13\\hat{g}_t$, $\\hat{l}_t=-0.31\\hat{k}_t+0.35\\hat{A}_t+0.15\\hat{g}_t$, $\\hat{k}_{t+1}=0.95\\hat{k}_t+0.08\\hat{A}_t-0.004\\hat{g}_t$, with $\\alpha=1/3$, $\\hat{k}_0=0$, $\\hat{g}_t=0$ always. (i) Starting from the Cobb–Douglas production function, derive $\\hat{y}_t$. (ii) Compute the responses of $C$, $L$, $Y$ at $t=0$ and of $K$ at $t=1$. (iii) Continue for $t=1,2$ and complete the table.",
+    "(c) Using (b), explain: (i) why capital responds with a lag; (ii) why consumption can keep rising as the shock fades; (iii) the two mechanisms generating persistent fluctuations."
+   ],
+   "result": "(a) $\\hat A_t=0.01(0.95)^t$: $1.000\\%$, $0.950\\%$, $0.9025\\%$. (b) Table above; $\\hat y_t=\\frac13\\hat k_t+\\frac23(\\hat A_t+\\hat l_t)$. (c) Capital predetermined; consumption rule positive in $\\hat k,\\hat A$; propagation = AR(1) persistence + capital accumulation."
+  },
+  "narr": [
+   "We're working with an RBC model where output depends on capital, technology, and labor. The model uses log-deviations from the balanced growth path, denoted by hats.",
+   "Part (a) examines a technology shock process with persistence parameter rho_A = 0.95. We need to compute the technology deviations at t=0,1,2 and find a general formula.",
+   "At t=0, there's a 1% innovation. Since the economy starts at the balanced growth path, the previous deviation is zero. So the current deviation is just the innovation itself.",
+   "At t=1, there's no new innovation, so the deviation is just rho_A times the previous deviation.",
+   "At t=2, it's again rho_A times the previous deviation. This creates a geometric sequence.",
+   "The general formula for any t is this boxed expression. The persistence parameter rho_A = 0.95 means that 95% of the previous period's deviation remains each period - the shock fades gradually rather than disappearing immediately.",
+   "Part (b) gives us log-linearized rules for consumption, labor, and capital accumulation. We need to derive the output equation and compute responses.",
+   "Taking logs of the Cobb-Douglas production function and subtracting the balanced growth path expression gives us this equation for output deviations.",
+   "With alpha = 1/3, this simplifies to the boxed expression.",
+   "At t=0, with k_0 = 0 and A_0 = 0.01, we can compute the initial responses using the given rules.",
+   "At t=1, with A_1 = 0.0095 and k_1 = 0.0008, we continue computing the responses.",
+   "At t=2, with A_2 = 0.009025 and k_2 = 0.00152, we complete our calculations.",
+   "This table summarizes all the percentage deviations from the balanced growth path for variables at different time periods.",
+   "Part (c) asks us to explain three aspects of the model's dynamics.",
+   "Capital responds with a lag because it's a predetermined state variable. It's chosen at date t through investment and installed for date t+1, so it can't jump when the shock arrives.",
+   "Consumption can keep rising as the shock fades because the consumption rule is positive in both capital and technology. Although technology declines, the capital stock accumulates, and its positive contribution more than offsets the fading technology contribution over the first periods.",
+   "The two propagation mechanisms are: persistence in the AR(1) technology process and gradual endogenous capital accumulation. Together they turn a one-time innovation into a prolonged fluctuation."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   -1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Percentage Deviations from Balanced Growth Path",
+   "columns": [
+    "Variable (% dev. from BGP)",
+    "t = 0",
+    "t = 1",
+    "t = 2"
+   ],
+   "rows": [
+    [
+     {
+      "tex": "Technology, $\\hat{A}_t$"
+     },
+     {
+      "tex": "1.0000"
+     },
+     {
+      "tex": "0.9500"
+     },
+     {
+      "tex": "0.9025"
+     }
+    ],
+    [
+     {
+      "tex": "Capital, $\\hat{k}_t$"
+     },
+     {
+      "tex": "0.0000"
+     },
+     {
+      "tex": "0.0800"
+     },
+     {
+      "tex": "0.1520"
+     }
+    ],
+    [
+     {
+      "tex": "Consumption, $\\hat{c}_t$"
+     },
+     {
+      "tex": "0.3800"
+     },
+     {
+      "tex": "0.4082"
+     },
+     {
+      "tex": "0.4326"
+     }
+    ],
+    [
+     {
+      "tex": "Labor, $\\hat{l}_t$"
+     },
+     {
+      "tex": "0.3500"
+     },
+     {
+      "tex": "0.3077"
+     },
+     {
+      "tex": "0.2688"
+     }
+    ],
+    [
+     {
+      "tex": "Output, $\\hat{y}_t$"
+     },
+     {
+      "tex": "0.9000"
+     },
+     {
+      "tex": "0.8651"
+     },
+     {
+      "tex": "0.8315"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "This table shows the percentage deviations from the balanced growth path for various variables over three periods.",
+   "As we can see, technology starts at 1% and gradually declines due to the persistence parameter.",
+   "Capital starts at 0% (as given) but accumulates over time, showing a positive response.",
+   "Consumption initially rises from 0.38% to 0.41% and then to 0.43%, despite the technology shock fading.",
+   "Labor shows a declining response, from 0.35% to 0.31% to 0.27%.",
+   "Output, which combines all these effects, shows a declining pattern but remains positive throughout.",
+   "All entries represent levels of percentage deviation from the BGP, not growth rates between consecutive periods."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   -1
+  ]
+ }
+]

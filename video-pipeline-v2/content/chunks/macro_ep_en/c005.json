@@ -1,0 +1,211 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "A Simplified RBC Model with Additive Technology Shocks",
+   "subtitle": "Blanchard–Fischer"
+  },
+  "narr": [
+   "Today we're diving into a simplified Real Business Cycle model with additive technology shocks, following the work of Blanchard and Fischer. This model helps us understand how economies respond to unexpected changes in technology.",
+   "The model features a representative individual who makes consumption and investment decisions over time, facing uncertainty about future technology shocks."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 1 — First-Order Condition",
+   "problem": "Find the first-order condition (Euler equation) relating $C_t$ and expectations of $C_{t+1}$.",
+   "steps": [
+    "Start with the accumulation equation: $C_t=(1+A)K_t-K_{t+1}+e_t$",
+    "Set up the Bellman equation with the value function $V(K_t)$",
+    "Take the first-order condition with respect to $K_{t+1}$",
+    "Apply the envelope theorem to find $V'(K_t)$",
+    "Combine the equations to derive the Euler equation",
+    "Simplify using the assumption $A=\\rho$"
+   ],
+   "result": "$\\boxed{E[C_{t+1}]=C_t}$ — consumption follows a random walk"
+  },
+  "narr": [
+   "Let's tackle part (a): finding the first-order condition, or Euler equation, that relates current consumption to expected future consumption.",
+   "The accumulation equation tells us that consumption equals output minus investment, with output being linear in capital plus a technology shock.",
+   "The Bellman equation represents the value function, which maximizes current utility plus discounted expected future value.",
+   "Taking the derivative with respect to next period's capital gives us the first-order condition.",
+   "Using the envelope theorem, we can find how the value function changes with current capital.",
+   "Combining these equations and rearranging terms leads us to the Euler equation.",
+   "With the assumption that the interest rate $A$ equals the discount rate $\\rho$, the equation simplifies beautifully: expected future consumption equals current consumption. This means consumption follows a random walk - today's consumption is the best predictor of tomorrow's consumption, regardless of what we know today."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Capital Dynamics",
+   "problem": "Guess $C_t=\\alpha+\\beta K_t+\\gamma e_t$. What is $K_{t+1}$ as a function of $K_t$ and $e_t$?",
+   "steps": [
+    "Substitute the consumption guess into the accumulation equation",
+    "Collect like terms for $K_t$ and $e_t$",
+    "Simplify the expression"
+   ],
+   "result": "$\\boxed{K_{t+1}=-\\alpha+(1+A-\\beta)K_t+(1-\\gamma)e_t}$"
+  },
+  "narr": [
+   "Now for part (b), we're given a guess for the consumption function: linear in capital and the technology shock. We need to find how next period's capital depends on current capital and the shock.",
+   "Substituting this consumption guess into the capital accumulation equation, we can express next period's capital in terms of current variables.",
+   "Collecting like terms for capital and the shock, we get a simple linear relationship.",
+   "The result shows that next period's capital depends on a constant term, current capital, and the current technology shock, with coefficients that we'll determine in the next part."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Parameter Values",
+   "problem": "What values of $\\alpha,\\beta,\\gamma$ satisfy the first-order condition for all $K_t$ and $e_t$?",
+   "steps": [
+    "Write the Euler condition $E[C_{t+1}]=C_t$ for the guessed form",
+    "Take expectations, noting that $E_t[e_{t+1}]=\\phi e_t$",
+    "Substitute the expression for $K_{t+1}$ from part (b)",
+    "Collect terms for $K_t$ and $e_t$",
+    "Set up a system of equations by matching coefficients",
+    "Solve the system for $\\alpha, \\beta, \\gamma$"
+   ],
+   "result": "$\\boxed{\\beta=A, \\gamma=\\frac{A}{1-\\phi+A}, \\alpha=0}$"
+  },
+  "narr": [
+   "Part (c) asks us to find the specific values of $\\alpha, \\beta, \\gamma$ that satisfy the Euler equation for all possible values of capital and the technology shock.",
+   "Starting with the Euler equation and our guessed form of consumption, we take expectations, knowing that the expected value of next period's shock depends on the current shock through the autoregressive parameter $\\phi$.",
+   "Substituting the expression for next period's capital from part (b), we can express everything in terms of current variables.",
+   "Collecting terms for capital and the shock, we get an equation that must hold for all possible values.",
+   "By matching coefficients on both sides, we set up a system of three equations.",
+   "Solving this system, we find that $\\beta$ equals the interest rate $A$, $\\gamma$ depends on both $A$ and $\\phi$, and $\\alpha$ must be zero. The degenerate solution where $\\beta=\\gamma=0$ is ignored as it doesn't make economic sense."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 4 — Impulse Response to a One-Time Shock",
+   "problem": "If $e$ (and $\\varepsilon$) equal $0$ until period $t$, when a one-time positive realization $\\varepsilon_t=1-\\phi+A$ occurs (and $\\varepsilon=0$ again afterwards), what are the effects on the paths of $Y$, $K$, $C$?",
+   "steps": [
+    "Analyze the immediate impact on $\\Delta Y_t, \\Delta C_t, \\Delta K_{t+1}$",
+    "Examine the dynamics in period $t+1$ when $\\Delta e_{t+1}=\\phi \\Delta e_t$",
+    "Extend the analysis to subsequent periods $t+2, t+3, \\ldots$",
+    "Identify the long-run effects and transition dynamics",
+    "Consider special cases for different values of $\\phi$"
+   ],
+   "result": "$\\boxed{\\Delta C_{t+n}=A \\forall n\\ge0; \\Delta K_{t+n}=1-\\phi^{n}; \\Delta Y_{t+n}=A+\\phi^{n}(1-\\phi)}$"
+  },
+  "narr": [
+   "Finally, part (d) examines how the economy responds to a one-time positive technology shock. Initially, the shock increases output by $1-\\phi+A$, but consumption only increases by $A$.",
+   "The remaining increase in output, $(1-\\phi)$, is invested, causing capital to rise by $1-\\phi$ in the next period.",
+   "In the following period, the AR(1) nature of the technology shock means $e$ remains above its previous path even though the new shock is zero.",
+   "Consumption stays permanently higher by $A$, while capital continues to gradually increase toward its new long-run level, which is $1$ unit higher.",
+   "Output initially overshoots to $1-\\phi+A$ and then gradually converges down to a level $A$ higher than before.",
+   "The dynamics depend critically on the persistence parameter $\\phi$: when $\\phi=0$, there are no dynamics after the initial shock; when $0<\\phi<1$, capital builds up gradually and output decays monotonically; when $-1<\\phi<0$, both capital and output oscillate around their new long-run levels before settling."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ {
+  "type": "plot",
+  "data": {
+   "heading": "Impulse Response to a One-Time Shock",
+   "functions": [
+    {
+     "fn": "0.5*0.55**x + 0.1",
+     "tex": "\\hat{Y}_t",
+     "color": "#4C5FD5"
+    },
+    {
+     "fn": "0.1*(1 - 0.6**x)",
+     "tex": "\\hat{K}_t",
+     "color": "#B45309"
+    },
+    {
+     "fn": "0.1",
+     "tex": "\\hat{C}_t",
+     "color": "#0E7C7B"
+    }
+   ],
+   "x_range": [
+    0,
+    10
+   ],
+   "y_range": [
+    0,
+    0.65
+   ],
+   "x_label": "Periods after shock",
+   "y_label": "Deviation from steady state"
+  },
+  "narr": [
+   "This plot illustrates the impulse response functions for output, capital, and consumption following a one-time technology shock when $\\phi=0.5$ and $A=0.1$.",
+   "As we can see, output immediately jumps above its new steady-state level and then gradually converges down.",
+   "Capital builds up gradually over time, approaching its new long-run level.",
+   "Consumption jumps immediately by $A=0.1$ and remains at this higher level permanently, with no further dynamics."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Results",
+   "items": [
+    "Consumption follows a random walk: $E[C_{t+1}]=C_t$",
+    "Capital accumulation: $K_{t+1}=-\\alpha+(1+A-\\beta)K_t+(1-\\gamma)e_t$",
+    "Optimal parameters: $\\beta=A$, $\\gamma=\\frac{A}{1-\\phi+A}$, $\\alpha=0$",
+    "Impulse response: $\\Delta C_{t+n}=A$, $\\Delta K_{t+n}=1-\\phi^n$, $\\Delta Y_{t+n}=A+\\phi^n(1-\\phi)$"
+   ]
+  },
+  "narr": [
+   "Let's recap the key insights from this simplified RBC model.",
+   "First, we found that consumption follows a random walk - today's consumption is the best predictor of tomorrow's consumption.",
+   "Second, we derived how capital accumulates based on our linear consumption guess.",
+   "Third, we determined the optimal parameters that satisfy the Euler equation for all possible states.",
+   "Finally, we analyzed how the economy responds to a one-time technology shock, showing that consumption jumps immediately and stays higher, while capital gradually increases and output initially overshoots before converging to its new steady state."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

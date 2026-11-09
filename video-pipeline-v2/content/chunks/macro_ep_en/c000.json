@@ -1,0 +1,732 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "How to Use This Document",
+   "subtitle": "Guide to Intermediate Macroeconomics Exam Preparation"
+  },
+  "narr": [
+   "This guide prepares you for the Intermediate Macroeconomics exam. It covers every exercise from Tutorial 2, Tutorial 4, Tutorial 5, plus the efficiency-wage model from Lecture 5.",
+   "Every problem is reproduced with its original numbers and solved step by step: setup, key formulas, full derivation, and final result."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "table",
+  "data": {
+   "heading": "Tutorial and Lecture Overview",
+   "columns": [
+    "Source",
+    "Models",
+    "Key results"
+   ],
+   "rows": [
+    [
+     {
+      "text": "Tutorial 2"
+     },
+     {
+      "text": "Fisher two-period model with $r_s \\neq r_b$; Lagrangian with $\\ln$ utility; life-cycle saving (Modigliani)"
+     },
+     {
+      "text": "$C_1=\\frac{1}{1+\\beta}\\bigl(Y_1+\\frac{Y_2}{1+r}\\bigr)$; borrower/saver geometry; $W(R)=(T-R)C$"
+     }
+    ],
+    [
+     {
+      "text": "Tutorial 4"
+     },
+     {
+      "text": "Shapiro–Stiglitz value functions; NSC comparative statics; union wage premium (Summers)"
+     },
+     {
+      "text": "$\\rho V_S=w-(b+q)(V_S-V_U)$; $u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}=8.1\\%$"
+     }
+    ],
+    [
+     {
+      "text": "Tutorial 5"
+     },
+     {
+      "text": "RBC impulse responses; log-linearized policy rules; simplified RBC (Blanchard–Fischer)"
+     },
+     {
+      "text": "$\\tilde A_t=0.01(0.95)^t$; $E[C_{t+1}]=C_t$ (random walk); $\\gamma=\\frac{A}{1-\\phi+A}$"
+     }
+    ],
+    [
+     {
+      "text": "Lecture 5"
+     },
+     {
+      "text": "Efficiency wages: Solow condition, example $e=\\bigl(\\frac{w-x}{x}\\bigr)^\\beta$, wage rigidity"
+     },
+     {
+      "text": "$we'(w)/e(w)=1$; $w^*=\\frac{x}{1-\\beta}$; $u_{EQ}=\\beta/b$"
+     }
+    ]
+   ]
+  },
+  "narr": [
+   "Here's an overview of the models and key results we'll cover in this guide.",
+   "The first row covers Tutorial 2 on the Fisher two-period model, life-cycle saving, and the Modigliani framework.",
+   "Tutorial 4 introduces Shapiro-Stiglitz value functions, no-shirking conditions, and union wage premiums.",
+   "Tutorial 5 focuses on Real Business Cycle theory, including impulse responses and policy rules.",
+   "Finally, Lecture 5 covers efficiency wage models, the Solow condition, and wage rigidity."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Notation",
+   "bullets": [
+    "$\\hat{x}_t \\equiv \\ln x_t - \\ln \\bar{x}_t$ denotes the log deviation of a variable from its balanced-growth-path (BGP) value",
+    "$E_t[\\cdot]$ is the expectation conditional on period-$t$ information",
+    "A prime on a function ($e'$) is a derivative",
+    "$C_{t+1}$ is a time subscript"
+   ]
+  },
+  "narr": [
+   "Before we dive into the models, let's clarify some notation used throughout this guide.",
+   "The hat notation represents log deviations from the balanced growth path.",
+   "The E_t notation indicates expectations based on period t information.",
+   "A prime denotes a derivative, while subscripts indicate time periods."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Theory Essentials — Formula Catalog",
+   "subtitle": "Key Models and Results"
+  },
+  "narr": [
+   "Now let's explore the theoretical foundations of these models. We'll start with the two-period consumption model from Fisher."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Two-period consumption (Fisher)",
+   "bullets": [
+    "Budget constraints with different saving and borrowing rates",
+    "Optimal choice with log utility",
+    "Intertemporal substitution and income effects"
+   ]
+  },
+  "narr": [
+   "The Fisher two-period model examines consumption decisions across two periods with different saving and borrowing rates."
+  ],
+  "narr_item": [
+   -1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Budget constraints with different interest rates",
+   "tex": "\\text{If he consumes less than income in period 1 (saver): } C_1+\\frac{C_2}{1+r_s}=Y_1+\\frac{Y_2}{1+r_s}. \\text{ If he consumes more than income in period 1 (borrower): } C_1+\\frac{C_2}{1+r_b}=Y_1+\\frac{Y_2}{1+r_b}.",
+   "parts": [
+    {
+     "substr": "saver",
+     "color": "#4C5FD5",
+     "note": "First period consumption constraint"
+    },
+    {
+     "substr": "borrower",
+     "color": "#B45309",
+     "note": "First period consumption constraint"
+    }
+   ]
+  },
+  "narr": [
+   "The consumer faces a kinked budget constraint. For a saver who consumes less than income in period 1, the budget constraint uses the saving rate.",
+   "For a borrower who consumes more than income in period 1, the constraint uses the borrowing rate, which is typically higher than the saving rate.",
+   "Both lines pass through the endowment point (Y1, Y2), and the feasible set is the area between them."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "First-period consumption depends on present value",
+   "tex": "Y_1+\\frac{Y_2}{1+r_s} \\text{ for a saver}, \\quad Y_1+\\frac{Y_2}{1+r_b} \\text{ for a borrower}, \\quad \\text{and only } Y_1 \\text{ for a consumer at the kink}",
+   "parts": [
+    {
+     "substr": "saver",
+     "color": "#4C5FD5",
+     "note": "Present value with saving rate"
+    },
+    {
+     "substr": "borrower",
+     "color": "#B45309",
+     "note": "Present value with borrowing rate"
+    },
+    {
+     "substr": "kink",
+     "color": "#0E7C7B",
+     "note": "No borrowing or saving"
+    }
+   ]
+  },
+  "narr": [
+   "First-period consumption depends on the present value of lifetime resources at the relevant interest rate.",
+   "For a saver, it's the present value using the saving rate.",
+   "For a borrower, it's the present value using the higher borrowing rate.",
+   "At the kink point, where consumption equals income in both periods, the consumer simply consumes their first period income."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Optimal choice with log utility",
+   "tex": "\\mathcal{L} = \\ln C_1+\\beta\\ln C_2+\\lambda\\Bigl(Y_1+\\frac{Y_2}{1+r}-C_1-\\frac{C_2}{1+r}\\Bigr)",
+   "parts": [
+    {
+     "substr": "mathcal{L}",
+     "color": "#4C5FD5",
+     "note": "Lagrangian function"
+    },
+    {
+     "substr": "beta",
+     "color": "#B45309",
+     "note": "Discount factor"
+    }
+   ]
+  },
+  "narr": [
+   "To find the optimal consumption choice, we maximize utility with a log utility function subject to the budget constraint.",
+   "The Lagrangian incorporates the budget constraint with a multiplier lambda.",
+   "Beta represents the consumer's discount factor between the two periods."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "First-order conditions",
+   "tex": "\\frac{\\partial\\mathcal{L}}{\\partial C_1}=\\frac{1}{C_1}-\\lambda = 0, \\quad \\frac{\\partial\\mathcal{L}}{\\partial C_2}=\\frac{\\beta}{C_2}-\\frac{\\lambda}{1+r}=0, \\quad \\frac{\\partial\\mathcal{L}}{\\partial \\lambda}=0",
+   "parts": [
+    {
+     "substr": "partial C_1",
+     "color": "#4C5FD5",
+     "note": "Derivative with respect to C1"
+    },
+    {
+     "substr": "partial C_2",
+     "color": "#B45309",
+     "note": "Derivative with respect to C2"
+    },
+    {
+     "substr": "partial lambda",
+     "color": "#0E7C7B",
+     "note": "Budget constraint"
+    }
+   ]
+  },
+  "narr": [
+   "The first-order conditions come from taking partial derivatives of the Lagrangian with respect to C1, C2, and lambda.",
+   "The first condition equates the marginal utility of C1 to lambda.",
+   "The second condition equates the marginal utility of C2 to lambda discounted by the interest rate.",
+   "The third condition simply restates the budget constraint."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Euler equation (intertemporal optimality)",
+   "tex": "\\frac{1}{C_1}=\\frac{\\beta(1+r)}{C_2} \\Longrightarrow \\boxed{ C_2=(1+r) \\beta C_1 }",
+   "parts": [
+    {
+     "substr": "Euler equation",
+     "color": "#4C5FD5",
+     "note": "Intertemporal optimality condition"
+    },
+    {
+     "substr": "boxed",
+     "color": "#B45309",
+     "note": "Optimal consumption relationship"
+    }
+   ]
+  },
+  "narr": [
+   "By eliminating lambda from the first-order conditions, we derive the Euler equation.",
+   "This equation represents the intertemporal optimality condition.",
+   "It shows that the optimal consumption in period 2 equals consumption in period 1 multiplied by the interest factor and the discount factor."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Optimal consumption levels",
+   "tex": "\\boxed{ C_1^*=\\frac{1}{1+\\beta}\\Bigl(Y_1+\\frac{Y_2}{1+r}\\Bigr), \\quad C_2^*=\\frac{\\beta(1+r)}{1+\\beta}\\Bigl(Y_1+\\frac{Y_2}{1+r}\\Bigr) }",
+   "parts": [
+    {
+     "substr": "C_1^*",
+     "color": "#4C5FD5",
+     "note": "Optimal consumption in period 1"
+    },
+    {
+     "substr": "C_2^*",
+     "color": "#B45309",
+     "note": "Optimal consumption in period 2"
+    },
+    {
+     "substr": "boxed",
+     "color": "#0E7C7B",
+     "note": "Complete solution"
+    }
+   ]
+  },
+  "narr": [
+   "Substituting the Euler equation back into the budget constraint gives us the optimal consumption levels for both periods.",
+   "Consumption in period 1 is proportional to the present value of lifetime resources.",
+   "Consumption in period 2 is also proportional to this present value but adjusted by the interest factor and discount factor.",
+   "This shows that consumption is proportional to the present value of lifetime resources, also known as permanent income."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Interest-rate changes for a borrower",
+   "bullets": [
+    "Substitution effect: C1 becomes relatively cheaper",
+    "Income effect: borrower is better off",
+    "Net effect: C1 rises; for log utility, effects on C2 cancel"
+   ]
+  },
+  "narr": [
+   "Let's examine how changes in interest rates affect a borrower's consumption decisions.",
+   "When the interest rate falls, the budget line pivots around the endowment point.",
+   "The substitution effect makes first-period consumption relatively cheaper, leading to higher C1 and lower C2.",
+   "The income effect makes the borrower better off, increasing both C1 and C2.",
+   "For log utility, these two effects on C2 exactly cancel out, leaving only the increase in C1."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Life-cycle saving (Modigliani–Brumberg) and permanent income",
+   "bullets": [
+    "Lifetime utility maximization over working and retirement periods",
+    "Constant consumption level with no impatience",
+    "Hump-shaped wealth accumulation"
+   ]
+  },
+  "narr": [
+   "Now let's extend the model to a lifetime framework with the Modigliani-Brumberg life-cycle hypothesis.",
+   "This model examines consumption decisions over an entire lifetime, including working and retirement periods.",
+   "With no impatience and a zero interest rate, utility maximization requires a constant consumption level.",
+   "Wealth follows a hump-shaped pattern, accumulating during working years and decumulating during retirement."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Lifetime budget constraint",
+   "tex": "\\int_0^T C(t) dt=\\int_0^R (Y_0+gt) dt=R Y_0+\\frac{1}{2}gR^2",
+   "parts": [
+    {
+     "substr": "integral",
+     "color": "#4C5FD5",
+     "note": "Lifetime consumption"
+    },
+    {
+     "substr": "Y_0+gt",
+     "color": "#B45309",
+     "note": "Income during working life"
+    },
+    {
+     "substr": "R Y_0",
+     "color": "#0E7C7B",
+     "note": "Base income component"
+    },
+    {
+     "substr": "gR^2",
+     "color": "#A03040",
+     "note": "Growth income component"
+    }
+   ]
+  },
+  "narr": [
+   "The lifetime budget constraint equates the present value of consumption to the present value of income.",
+   "Income during the working life (0 to R) grows linearly from Y0 at rate g.",
+   "During retirement (R to T), income is zero.",
+   "The right-hand side represents the total lifetime resources, consisting of base income and growth components."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Constant consumption level",
+   "tex": "\\boxed{ \\bar{C}=\\frac{R}{T}\\Bigl(Y_0+\\frac{1}{2}gR\\Bigr) }",
+   "parts": [
+    {
+     "substr": "bar{C}",
+     "color": "#4C5FD5",
+     "note": "Constant consumption level"
+    },
+    {
+     "substr": "boxed",
+     "color": "#B45309",
+     "note": "Permanent consumption"
+    }
+   ]
+  },
+  "narr": [
+   "With no impatience and a zero interest rate, utility maximization requires a constant consumption level.",
+   "This constant consumption equals lifetime resources divided by the total lifetime length.",
+   "It represents the permanent income that the consumer can maintain throughout life.",
+   "This is the essence of the permanent income hypothesis."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Wealth path",
+   "tex": "W(t) =t\\Bigl(Y_0+\\frac{1}{2}gt-\\bar{C}\\Bigr), \\quad 0\\le t<R \\quad W(R) =(T-R) \\bar{C}, \\quad \\text{at retirement} \\quad W(t) =(T-t) \\bar{C}, \\quad R\\le t\\le T",
+   "parts": [
+    {
+     "substr": "W(t)",
+     "color": "#4C5FD5",
+     "note": "Wealth accumulation during working life"
+    },
+    {
+     "substr": "W(R)",
+     "color": "#B45309",
+     "note": "Wealth at retirement"
+    },
+    {
+     "substr": "W(t)",
+     "color": "#0E7C7B",
+     "note": "Wealth during retirement"
+    }
+   ]
+  },
+  "narr": [
+   "Wealth accumulation follows a specific pattern over the lifetime.",
+   "During working years, wealth increases as long as income exceeds the constant consumption level.",
+   "Wealth reaches its maximum at retirement, equal to the present value of remaining consumption.",
+   "During retirement, wealth declines linearly to zero exactly at the end of life."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Efficiency wages (Lecture 5)",
+   "bullets": [
+    "Firm maximizes profits with effort-dependent production",
+    "Solow condition: elasticity of effort with respect to wage equals 1",
+    "Efficiency wage creates involuntary unemployment"
+   ]
+  },
+  "narr": [
+   "Now let's turn to efficiency wage models, where wages affect worker effort.",
+   "Firms pay above-market wages to increase worker productivity.",
+   "The Solow condition characterizes the optimal efficiency wage.",
+   "Efficiency wages can create involuntary unemployment as workers compete for high-paying jobs."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Firm problem with effort-dependent production",
+   "tex": "\\pi=Y-wL \\text{ with } Y=F(eL), \\quad F'>0, F''<0, \\quad \\text{effort } e=e(w), \\quad e'>0",
+   "parts": [
+    {
+     "substr": "pi",
+     "color": "#4C5FD5",
+     "note": "Profit function"
+    },
+    {
+     "substr": "Y=F(eL)",
+     "color": "#B45309",
+     "note": "Production function with effort"
+    },
+    {
+     "substr": "e=e(w)",
+     "color": "#0E7C7B",
+     "note": "Effort function"
+    }
+   ]
+  },
+  "narr": [
+   "The firm maximizes profits, which equal output minus labor costs.",
+   "Output depends on both labor input and worker effort, which increases with wages.",
+   "The production function has positive but diminishing returns.",
+   "Higher wages increase worker effort but also labor costs."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "First-order conditions",
+   "tex": "F'\\bigl(e(w)L\\bigr) =\\frac{w}{e(w)}, \\quad \\frac{w e'(w)}{e(w)} =1",
+   "parts": [
+    {
+     "substr": "F'",
+     "color": "#4C5FD5",
+     "note": "Marginal product of labor"
+    },
+    {
+     "substr": "w/e(w)",
+     "color": "#B45309",
+     "note": "Effective wage"
+    },
+    {
+     "substr": "Solow condition",
+     "color": "#0E7C7B",
+     "note": "Optimality condition"
+    }
+   ]
+  },
+  "narr": [
+   "The first-order conditions for profit maximization yield two key equations.",
+   "The first equates the marginal product of labor to the effective wage (wage divided by effort).",
+   "The second is the Solow condition, which states that at the optimum, the elasticity of effort with respect to the wage equals 1.",
+   "The wage satisfying the Solow condition is the efficiency wage."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Worked example: Effort function and equilibrium wage",
+   "problem": "Given effort function $e=\\Bigl(\\frac{w-x}{x}\\Bigr)^{\\beta}$ and labor market conditions $x=(1-bu) w_a$, find the efficiency wage and equilibrium unemployment rate.",
+   "steps": [
+    {
+     "text": "Apply the Solow condition to the effort function"
+    },
+    {
+     "text": "Solve for the optimal wage $w^*$"
+    },
+    {
+     "text": "Find equilibrium unemployment rate $u_{EQ}$"
+    }
+   ],
+   "result": "$w^*=\\frac{x}{1-\\beta}=\\frac{1-bu}{1-\\beta} w_a$ and $u_{EQ}=\\frac{\\beta}{b}$"
+  },
+  "narr": [
+   "Let's work through a specific example of the efficiency wage model.",
+   "We have an effort function that depends on the wage relative to labor market conditions.",
+   "Labor market conditions are determined by the unemployment rate and the average wage.",
+   "Applying the Solow condition to this effort function gives us the optimal wage.",
+   "In equilibrium, the wage equals the average wage, allowing us to solve for the equilibrium unemployment rate.",
+   "The result shows that equilibrium unemployment depends only on the effort function parameters."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   2,
+   2
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Wage rigidity",
+   "bullets": [
+    "Firms may not adjust wages even with changing unemployment",
+    "Small gain from wage adjustment due to rising effort",
+    "Unemployment disciplines workers"
+   ]
+  },
+  "narr": [
+   "Even when economic conditions change, firms may not adjust wages due to efficiency wage considerations.",
+   "When unemployment rises, workers exert more effort to avoid job loss.",
+   "The potential gain from cutting wages is small because effort increases.",
+   "As a result, firms often maintain rigid wages despite changing economic conditions."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Shapiro–Stiglitz model: Value functions",
+   "tex": "\\rho V_E = w-e-b (V_E-V_U), \\quad \\rho V_S = w-(b+q) (V_S-V_U), \\quad \\rho V_U = a (V_E-V_U)",
+   "parts": [
+    {
+     "substr": "V_E",
+     "color": "#4C5FD5",
+     "note": "Value of employment"
+    },
+    {
+     "substr": "V_S",
+     "color": "#B45309",
+     "note": "Value of shirking"
+    },
+    {
+     "substr": "V_U",
+     "color": "#0E7C7B",
+     "note": "Value of unemployment"
+    },
+    {
+     "substr": "rho",
+     "color": "#A03040",
+     "note": "Discount rate"
+    }
+   ]
+  },
+  "narr": [
+   "The Shapiro-Stiglitz model extends efficiency wage theory to include shirking behavior.",
+   "Workers can either exert effort or shirk (provide zero effort).",
+   "The value functions represent the expected lifetime utility from different states.",
+   "The discount rate determines how future utility is valued relative to present utility."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "No-shirking condition (NSC)",
+   "tex": "\\boxed{ w=e+\\frac{e}{q}\\Bigl(\\rho+b \\frac{L}{L-N}\\Bigr) }",
+   "parts": [
+    {
+     "substr": "w",
+     "color": "#4C5FD5",
+     "note": "Efficiency wage"
+    },
+    {
+     "substr": "e/q",
+     "color": "#B45309",
+     "note": "Shirking cost"
+    },
+    {
+     "substr": "L/(L-N)",
+     "color": "#0E7C7B",
+     "note": "Labor market tightness"
+    },
+    {
+     "substr": "boxed",
+     "color": "#A03040",
+     "note": "NSC equation"
+    }
+   ]
+  },
+  "narr": [
+   "To prevent shirking, the wage must satisfy the no-shirking condition.",
+   "The wage must compensate workers for effort and the risk of being caught shirking.",
+   "The term L/(L-N) represents labor market tightness, which increases with employment.",
+   "The NSC is upward-sloping in employment, meaning higher wages are needed as employment increases.",
+   "Equilibrium occurs where this condition intersects labor demand, creating involuntary unemployment."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

@@ -1,0 +1,333 @@
+[
+ {
+  "type": "section",
+  "data": {
+   "num": 1,
+   "title": "Comparative Statics in the Shapiro-Stiglitz Model",
+   "subtitle": "Analyzing Changes in Labor Market Equilibrium"
+  },
+  "narr": [
+   "In this section, we'll explore the Shapiro-Stiglitz model and how different factors affect equilibrium employment and wages.",
+   "The model establishes equilibrium as the intersection of two curves in the employment-wage space."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Key Equations in the Model",
+   "bullets": [
+    "No-Shirking Condition (NSC): $w=e+\\frac{e}{q}\\left(\\rho+b\\frac{L}{L-N}\\right)$",
+    "Labor Demand: $AF'(eL)=\\frac{w}{e}$"
+   ]
+  },
+  "narr": [
+   "The model is built around two fundamental equations.",
+   "First, the No-Shirking Condition or NSC, which shows the wage needed to prevent workers from shirking.",
+   "Second, the labor demand equation, where firms hire effective labor until its marginal product equals its marginal cost.",
+   "The NSC curve is upward-sloping with a vertical asymptote at full employment N=L.",
+   "The labor demand curve is downward-sloping, showing how firms reduce hiring as wages increase."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 2 — Comparative Statics Analysis",
+   "problem": "Describe how each of the following affects equilibrium employment and the wage in the Shapiro-Stiglitz model: (a) an increase in workers' discount rate $\\rho$; (b) an increase in the job breakup rate $b$; (c) a positive multiplicative shock to production ($A\\uparrow$ in $AF(L)$); (d) an increase in the size of the labor force $L$.",
+   "steps": [
+    "Analyze each factor's effect on the NSC and labor demand curves",
+    "Determine the new equilibrium point and its implications for employment and wages"
+   ],
+   "result": "(a) $\\rho$ up: NSC shifts up, employment $\\downarrow$, wage $\\uparrow$\n(b) $b$ up: NSC shifts up, employment $\\downarrow$, wage $\\uparrow$\n(c) $A$ up: Labor demand shifts right, employment $\\uparrow$, wage $\\uparrow$\n(d) $L$ up: NSC shifts down, employment $\\uparrow$, wage $\\downarrow$"
+  },
+  "narr": [
+   "Let's analyze how different factors affect the equilibrium in the Shapiro-Stiglitz model.",
+   "For part (a), when workers' discount rate $\\rho$ increases, the wage needed to deter shirking rises at any employment level.",
+   "This happens because workers discount the future more, so being caught and fired matters less.",
+   "The employment rent shrinks, and only a higher wage can recreate it.",
+   "The labor demand curve remains unchanged, so we see employment falling and wages rising.",
+   "For part (b), an increase in the job breakup rate $b$ has a similar effect.",
+   "With jobs breaking more often, the value of holding a job is lower, making shirking less costly.",
+   "Firms must pay more to deter shirking, shifting the NSC up while labor demand stays the same.",
+   "Again, employment falls and wages rise.",
+   "For part (c), a positive technology shock $A\\uparrow$ shifts the labor demand curve to the right.",
+   "The NSC curve remains untouched as it doesn't depend on productivity.",
+   "With higher productivity, firms want to hire more workers at any given wage.",
+   "Both employment and wages increase in this scenario.",
+   "For part (d), an increase in the labor force $L$ has interesting effects.",
+   "The vertical labor supply line moves right, and the NSC shifts down.",
+   "At a given employment level $N$, $L-N$ is larger, meaning a shirker who is fired stays unemployed longer.",
+   "The expected cost of shirking rises, allowing firms to deter shirking with a lower wage.",
+   "Labor demand is unaffected, so employment rises while wages fall."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "type": "plot",
+  "data": {
+   "heading": "Shapiro-Stiglitz Comparative Statics",
+   "functions": [
+    {
+     "fn": "1.1 + 0.05/(1-x)",
+     "tex": "w=e+\\frac{e}{q}\\Bigl(\\rho+b\\frac{L}{L-N}\\Bigr)\\ \\text{(NSC)}",
+     "color": "#4C5FD5"
+    },
+    {
+     "fn": "2 - x",
+     "tex": "AF'(eL)=w/e\\ \\text{(labor demand)}",
+     "color": "#B45309"
+    }
+   ],
+   "x_range": [
+    0,
+    0.95
+   ],
+   "y_range": [
+    0.8,
+    2.1
+   ],
+   "x_label": "Employment N",
+   "y_label": "Wage w"
+  },
+  "narr": [
+   "This plot illustrates the comparative statics we just discussed.",
+   "The blue curve represents the No-Shirking Condition, which is upward sloping.",
+   "The orange curve shows labor demand, which is downward sloping.",
+   "When $\\rho$ or $b$ increases, the NSC curve shifts up, leading to lower employment and higher wages.",
+   "When $A$ increases, labor demand shifts right, increasing both employment and wages.",
+   "When $L$ increases, the NSC shifts down, increasing employment but decreasing wages."
+  ],
+  "narr_item": [
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "section",
+  "data": {
+   "num": 2,
+   "title": "Union Wage Premiums and Efficiency Wages",
+   "subtitle": "Summers (1988) Model Analysis"
+  },
+  "narr": [
+   "Now we turn to a model that examines union wage premiums within efficiency wage theory.",
+   "This model, developed by Summers in 1988, considers how unions affect labor market outcomes."
+  ],
+  "narr_item": [
+   -1,
+   -1
+  ]
+ },
+ {
+  "type": "concept",
+  "data": {
+   "heading": "Model Setup",
+   "bullets": [
+    "A fraction $f$ of workers belong to unions",
+    "Union wage: $w_u=(1+\\mu)w_n$",
+    "Average wage: $w_a=f w_u+(1-f)w_n$",
+    "Nonunion wage rule: $w_n=\\frac{1-bu}{1-\\beta} w_a$"
+   ]
+  },
+  "narr": [
+   "The model assumes that a fraction $f$ of workers belong to unions.",
+   "Union workers receive a wage premium, so $w_u=(1+\\mu)w_n$.",
+   "The average wage is a weighted combination of union and nonunion wages.",
+   "Nonunion employers set wages according to this efficiency wage rule, which depends on unemployment rate $u$ and the effort elasticity parameter $\\beta$."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "example",
+  "data": {
+   "heading": "Problem 3 — Union Wage Premium Analysis",
+   "problem": "In the efficiency-wage model, find the equilibrium unemployment rate and analyze cost differences between union and nonunion sectors.",
+   "steps": [
+    "Substitute the wage relationships into the nonunion wage rule",
+    "Solve for the equilibrium unemployment rate",
+    "Calculate the cost of effective labor in both sectors",
+    "Compare costs for different parameter values"
+   ],
+   "result": "(a) $u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}$\n(b) For $\\mu=f=0.15$, $\\beta=0.06$, $b=1$: $u\\approx 8.1\\%$, cost ratio $=1.0667$\n(c) For $\\beta=0.03$, $b=0.5$: cost ratio $=1.0898$"
+  },
+  "narr": [
+   "Let's solve this problem step by step.",
+   "First, we substitute the expressions for $w_a$ and $w_u$ into the nonunion wage rule.",
+   "This gives us $w_n = \\frac{1-bu}{1-\\beta}[f(1+\\mu)w_n+(1-f)w_n] = \\frac{1-bu}{1-\\beta}(1+\\mu f)w_n$.",
+   "Since $w_n$ is positive in equilibrium, we can cancel it from both sides.",
+   "Rearranging terms, we get $(1-bu)(1+\\mu f)=1-\\beta$.",
+   "Solving for $u$, we find $u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}$.",
+   "When $f=0$, this collapses to the standard result $u_{EQ}=\\beta/b$.",
+   "For part (b), with $\\mu=f=0.15$, $\\beta=0.06$, and $b=1$, we calculate $u=\\frac{0.06+(0.15)(0.15)}{1+(0.15)(0.15)}=\\frac{0.0825}{1.0225}\\approx 8.1\\%$.",
+   "This is higher than the $6\\%$ unemployment rate in the standard model without unions.",
+   "To find the cost of effective labor, we need to consider the effort function $e=\\left(\\frac{w-x}{x}\\right)^{\\beta}$ where $x=(1-bu)w_a$.",
+   "For union workers, the cost ratio is $\\frac{w_u/e_u}{w_n/e_n}=(1+\\mu)\\left(\\frac{\\beta}{\\mu+\\beta}\\right)^{\\beta}$.",
+   "With $\\mu=0.15$ and $\\beta=0.06$, this gives us $1.15\\left(\\frac{0.06}{0.21}\\right)^{0.06}\\approx 1.0667$.",
+   "Although union wages are $15\\%$ higher, the cost of effective labor is only about $6.7\\%$ higher because union workers exert more effort.",
+   "For part (c), with $\\beta=0.03$, the cost ratio becomes $1.15\\left(\\frac{0.03}{0.18}\\right)^{0.03}\\approx 1.0898$.",
+   "With a lower elasticity of effort ($\\beta$ smaller), effort responds less to the wage premium.",
+   "The union-sector cost of effective labor is now $9.0\\%$ higher, more than in part (b)."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   3,
+   3,
+   3
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Equilibrium Unemployment Rate",
+   "tex": "u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}",
+   "parts": [
+    {
+     "substr": "\\beta",
+     "color": "#4C5FD5",
+     "note": "effort elasticity parameter"
+    },
+    {
+     "substr": "\\mu",
+     "color": "#B45309",
+     "note": "union wage premium"
+    },
+    {
+     "substr": "f",
+     "color": "#0E7C7B",
+     "note": "fraction of union workers"
+    },
+    {
+     "substr": "b",
+     "color": "#A03040",
+     "note": "job breakup rate"
+    }
+   ]
+  },
+  "narr": [
+   "Here's the key formula for the equilibrium unemployment rate in the union model.",
+   "It depends on four parameters: the effort elasticity $\\beta$, the union wage premium $\\mu$,",
+   "the fraction of union workers $f$, and the job breakup rate $b$.",
+   "Notice that when there are no unions ($f=0$), this simplifies to the standard efficiency wage result $u=\\beta/b$."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "formula",
+  "data": {
+   "heading": "Cost Ratio of Effective Labor",
+   "tex": "\\frac{w_u/e_u}{w_n/e_n}=(1+\\mu)\\left(\\frac{\\beta}{\\mu+\\beta}\\right)^{\\beta}",
+   "parts": [
+    {
+     "substr": "1+\\mu",
+     "color": "#4C5FD5",
+     "note": "union wage premium factor"
+    },
+    {
+     "substr": "\\frac{\\beta}{\\mu+\\beta}",
+     "color": "#B45309",
+     "note": "effort response ratio"
+    },
+    {
+     "substr": "^{\\beta}",
+     "color": "#0E7C7B",
+     "note": "elasticity of effort with respect to wages"
+    }
+   ]
+  },
+  "narr": [
+   "This formula shows the ratio of effective labor costs between union and nonunion sectors.",
+   "The first term $(1+\\mu)$ represents the direct wage premium in the union sector.",
+   "The second term captures how union workers exert more effort in response to higher wages.",
+   "The exponent $\\beta$ measures how sensitive effort is to wage changes.",
+   "When $\\beta$ is small, effort responds less to wage premiums, making the cost ratio higher."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   1,
+   2
+  ]
+ },
+ {
+  "type": "recap",
+  "data": {
+   "heading": "Key Insights",
+   "items": [
+    "In the Shapiro-Stiglitz model, factors affecting job security ($\\rho$, $b$) reduce employment but increase wages",
+    "Technology shocks increase both employment and wages through the labor demand channel",
+    "Union wage premiums create unemployment but may not substantially increase labor costs due to increased effort",
+    "The cost advantage of nonunion sectors depends on the elasticity of effort with respect to wages"
+   ]
+  },
+  "narr": [
+   "Let's summarize the key insights from both models.",
+   "In the Shapiro-Stiglitz model, factors that reduce job security like higher discount rates or job breakup rates lead to lower employment but higher wages.",
+   "Technology shocks, on the other hand, increase both employment and wages by shifting labor demand.",
+   "In the union wage premium model, while unions create unemployment, they don't substantially increase labor costs because union workers exert more effort.",
+   "Finally, the cost advantage of nonunion sectors depends crucially on how sensitive effort is to wage changes, measured by the parameter $\\beta$."
+  ],
+  "narr_item": [
+   -1,
+   0,
+   1,
+   2,
+   3
+  ]
+ }
+]

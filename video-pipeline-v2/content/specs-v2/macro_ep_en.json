@@ -1,0 +1,3144 @@
+{
+ "id": "macro_ep",
+ "language": "en",
+ "course_title": "Intermediate Macroeconomics",
+ "weeks_label": "Exam Prep · Tutorials 2, 4, 5",
+ "test_title": "Exam Prep · Tutorials 2, 4, 5",
+ "chapters": [
+  {
+   "title": "How to use this guide",
+   "blocks": [
+    {
+     "type": "title",
+     "data": {
+      "kicker": "Exam Prep · Tutorials 2, 4, 5",
+      "title": "Intermediate Macroeconomics",
+      "subtitle": "Consumption · Unemployment · Real Business Cycles",
+      "chips": [
+       "How to use this guide",
+       "Theory Essentials — Formula Catalog",
+       "Tutorial 2 — Consumption",
+       "Tutorial 4 — Unemployment",
+       "Tutorial 5 — Real-Business-Cycle Theory",
+       "Exam Crib Sheet"
+      ]
+     },
+     "narr": [
+      "Welcome to the complete exam preparation guide for Intermediate Macroeconomics. Over the next forty minutes we build your full exam toolkit. First, the theory essentials: the Fisher two-period model with different saving and borrowing rates, life-cycle saving, efficiency wages and the Solow condition, Shapiro-Stiglitz shirking, and real business cycles. Then we solve every problem from Tutorial 2 on consumption, Tutorial 4 on unemployment, and Tutorial 5 on real business cycle theory - every Lagrangian, every derivative, every number, step by step. We finish with a one-page crib sheet of all key results. By the end you will be able to reproduce every solution on your own. Let's begin."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "table",
+     "data": {
+      "heading": "Tutorial and Lecture Overview",
+      "columns": [
+       "Source",
+       "Models",
+       "Key results"
+      ],
+      "rows": [
+       [
+        {
+         "text": "Tutorial 2"
+        },
+        {
+         "text": "Fisher two-period model with $r_s \\neq r_b$; Lagrangian with $\\ln$ utility; life-cycle saving (Modigliani)"
+        },
+        {
+         "text": "$C_1=\\frac{1}{1+\\beta}\\bigl(Y_1+\\frac{Y_2}{1+r}\\bigr)$; borrower/saver geometry; $W(R)=(T-R)C$"
+        }
+       ],
+       [
+        {
+         "text": "Tutorial 4"
+        },
+        {
+         "text": "Shapiro–Stiglitz value functions; NSC comparative statics; union wage premium (Summers)"
+        },
+        {
+         "text": "$\\rho V_S=w-(b+q)(V_S-V_U)$; $u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}=8.1\\%$"
+        }
+       ],
+       [
+        {
+         "text": "Tutorial 5"
+        },
+        {
+         "text": "RBC impulse responses; log-linearized policy rules; simplified RBC (Blanchard–Fischer)"
+        },
+        {
+         "text": "$\\tilde A_t=0.01(0.95)^t$; $E[C_{t+1}]=C_t$ (random walk); $\\gamma=\\frac{A}{1-\\phi+A}$"
+        }
+       ],
+       [
+        {
+         "text": "Lecture 5"
+        },
+        {
+         "text": "Efficiency wages: Solow condition, example $e=\\bigl(\\frac{w-x}{x}\\bigr)^\\beta$, wage rigidity"
+        },
+        {
+         "text": "$we'(w)/e(w)=1$; $w^*=\\frac{x}{1-\\beta}$; $u_{EQ}=\\beta/b$"
+        }
+       ]
+      ]
+     },
+     "narr": [
+      "Here's an overview of the models and key results we'll cover in this guide.",
+      "The first row covers Tutorial 2 on the Fisher two-period model, life-cycle saving, and the Modigliani framework.",
+      "Tutorial 4 introduces Shapiro-Stiglitz value functions, no-shirking conditions, and union wage premiums.",
+      "Tutorial 5 focuses on Real Business Cycle theory, including impulse responses and policy rules.",
+      "Finally, Lecture 5 covers efficiency wage models, the Solow condition, and wage rigidity."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Notation",
+      "bullets": [
+       "$\\hat{x}_t \\equiv \\ln x_t - \\ln \\bar{x}_t$ denotes the log deviation of a variable from its balanced-growth-path (BGP) value",
+       "$E_t[\\cdot]$ is the expectation conditional on period-$t$ information",
+       "A prime on a function ($e'$) is a derivative",
+       "$C_{t+1}$ is a time subscript"
+      ]
+     },
+     "narr": [
+      "Before we dive into the models, let's clarify some notation used throughout this guide.",
+      "The hat notation represents log deviations from the balanced growth path.",
+      "The E_t notation indicates expectations based on period t information.",
+      "A prime denotes a derivative, while subscripts indicate time periods."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Theory Essentials — Formula Catalog",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 1,
+      "title": "Theory Essentials — Formula Catalog",
+      "subtitle": "Key Models and Results"
+     },
+     "narr": [
+      "Now let's explore the theoretical foundations of these models. We'll start with the two-period consumption model from Fisher."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Two-period consumption (Fisher)",
+      "bullets": [
+       "Budget constraints with different saving and borrowing rates",
+       "Optimal choice with log utility",
+       "Intertemporal substitution and income effects"
+      ]
+     },
+     "narr": [
+      "The Fisher two-period model examines consumption decisions across two periods with different saving and borrowing rates."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Budget constraints with different interest rates",
+      "tex": "\\text{If he consumes less than income in period 1 (saver): } C_1+\\frac{C_2}{1+r_s}=Y_1+\\frac{Y_2}{1+r_s}. \\text{ If he consumes more than income in period 1 (borrower): } C_1+\\frac{C_2}{1+r_b}=Y_1+\\frac{Y_2}{1+r_b}.",
+      "parts": [
+       {
+        "substr": "saver",
+        "color": "#4C5FD5",
+        "note": "First period consumption constraint"
+       },
+       {
+        "substr": "borrower",
+        "color": "#B45309",
+        "note": "First period consumption constraint"
+       }
+      ]
+     },
+     "narr": [
+      "The consumer faces a kinked budget constraint. For a saver who consumes less than income in period 1, the budget constraint uses the saving rate.",
+      "For a borrower who consumes more than income in period 1, the constraint uses the borrowing rate, which is typically higher than the saving rate.",
+      "Both lines pass through the endowment point (Y1, Y2), and the feasible set is the area between them."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "First-period consumption depends on present value",
+      "tex": "Y_1+\\frac{Y_2}{1+r_s} \\text{ for a saver}, \\quad Y_1+\\frac{Y_2}{1+r_b} \\text{ for a borrower}, \\quad \\text{and only } Y_1 \\text{ for a consumer at the kink}",
+      "parts": [
+       {
+        "substr": "saver",
+        "color": "#4C5FD5",
+        "note": "Present value with saving rate"
+       },
+       {
+        "substr": "borrower",
+        "color": "#B45309",
+        "note": "Present value with borrowing rate"
+       },
+       {
+        "substr": "kink",
+        "color": "#0E7C7B",
+        "note": "No borrowing or saving"
+       }
+      ]
+     },
+     "narr": [
+      "First-period consumption depends on the present value of lifetime resources at the relevant interest rate.",
+      "For a saver, it's the present value using the saving rate.",
+      "For a borrower, it's the present value using the higher borrowing rate.",
+      "At the kink point, where consumption equals income in both periods, the consumer simply consumes their first period income."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Optimal choice with log utility",
+      "tex": "\\mathcal{L} = \\ln C_1+\\beta\\ln C_2+\\lambda\\Bigl(Y_1+\\frac{Y_2}{1+r}-C_1-\\frac{C_2}{1+r}\\Bigr)",
+      "parts": [
+       {
+        "substr": "mathcal{L}",
+        "color": "#4C5FD5",
+        "note": "Lagrangian function"
+       },
+       {
+        "substr": "beta",
+        "color": "#B45309",
+        "note": "Discount factor"
+       }
+      ]
+     },
+     "narr": [
+      "To find the optimal consumption choice, we maximize utility with a log utility function subject to the budget constraint.",
+      "The Lagrangian incorporates the budget constraint with a multiplier lambda.",
+      "Beta represents the consumer's discount factor between the two periods."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "First-order conditions",
+      "tex": "\\frac{\\partial\\mathcal{L}}{\\partial C_1}=\\frac{1}{C_1}-\\lambda = 0, \\quad \\frac{\\partial\\mathcal{L}}{\\partial C_2}=\\frac{\\beta}{C_2}-\\frac{\\lambda}{1+r}=0, \\quad \\frac{\\partial\\mathcal{L}}{\\partial \\lambda}=0",
+      "parts": [
+       {
+        "substr": "partial C_1",
+        "color": "#4C5FD5",
+        "note": "Derivative with respect to C1"
+       },
+       {
+        "substr": "partial C_2",
+        "color": "#B45309",
+        "note": "Derivative with respect to C2"
+       },
+       {
+        "substr": "partial lambda",
+        "color": "#0E7C7B",
+        "note": "Budget constraint"
+       }
+      ]
+     },
+     "narr": [
+      "The first-order conditions come from taking partial derivatives of the Lagrangian with respect to C1, C2, and lambda.",
+      "The first condition equates the marginal utility of C1 to lambda.",
+      "The second condition equates the marginal utility of C2 to lambda discounted by the interest rate.",
+      "The third condition simply restates the budget constraint."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Euler equation (intertemporal optimality)",
+      "tex": "\\frac{1}{C_1}=\\frac{\\beta(1+r)}{C_2} \\Longrightarrow \\boxed{ C_2=(1+r) \\beta C_1 }",
+      "parts": [
+       {
+        "substr": "Euler equation",
+        "color": "#4C5FD5",
+        "note": "Intertemporal optimality condition"
+       },
+       {
+        "substr": "boxed",
+        "color": "#B45309",
+        "note": "Optimal consumption relationship"
+       }
+      ]
+     },
+     "narr": [
+      "By eliminating lambda from the first-order conditions, we derive the Euler equation.",
+      "This equation represents the intertemporal optimality condition.",
+      "It shows that the optimal consumption in period 2 equals consumption in period 1 multiplied by the interest factor and the discount factor."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Optimal consumption levels",
+      "tex": "\\boxed{ C_1^*=\\frac{1}{1+\\beta}\\Bigl(Y_1+\\frac{Y_2}{1+r}\\Bigr), \\quad C_2^*=\\frac{\\beta(1+r)}{1+\\beta}\\Bigl(Y_1+\\frac{Y_2}{1+r}\\Bigr) }",
+      "parts": [
+       {
+        "substr": "C_1^*",
+        "color": "#4C5FD5",
+        "note": "Optimal consumption in period 1"
+       },
+       {
+        "substr": "C_2^*",
+        "color": "#B45309",
+        "note": "Optimal consumption in period 2"
+       },
+       {
+        "substr": "boxed",
+        "color": "#0E7C7B",
+        "note": "Complete solution"
+       }
+      ]
+     },
+     "narr": [
+      "Substituting the Euler equation back into the budget constraint gives us the optimal consumption levels for both periods.",
+      "Consumption in period 1 is proportional to the present value of lifetime resources.",
+      "Consumption in period 2 is also proportional to this present value but adjusted by the interest factor and discount factor.",
+      "This shows that consumption is proportional to the present value of lifetime resources, also known as permanent income."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Interest-rate changes for a borrower",
+      "bullets": [
+       "Substitution effect: C1 becomes relatively cheaper",
+       "Income effect: borrower is better off",
+       "Net effect: C1 rises; for log utility, effects on C2 cancel"
+      ]
+     },
+     "narr": [
+      "Let's examine how changes in interest rates affect a borrower's consumption decisions.",
+      "When the interest rate falls, the budget line pivots around the endowment point.",
+      "The substitution effect makes first-period consumption relatively cheaper, leading to higher C1 and lower C2.",
+      "The income effect makes the borrower better off, increasing both C1 and C2.",
+      "For log utility, these two effects on C2 exactly cancel out, leaving only the increase in C1."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Life-cycle saving (Modigliani–Brumberg) and permanent income",
+      "bullets": [
+       "Lifetime utility maximization over working and retirement periods",
+       "Constant consumption level with no impatience",
+       "Hump-shaped wealth accumulation"
+      ]
+     },
+     "narr": [
+      "Now let's extend the model to a lifetime framework with the Modigliani-Brumberg life-cycle hypothesis.",
+      "This model examines consumption decisions over an entire lifetime, including working and retirement periods.",
+      "With no impatience and a zero interest rate, utility maximization requires a constant consumption level.",
+      "Wealth follows a hump-shaped pattern, accumulating during working years and decumulating during retirement."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Lifetime budget constraint",
+      "tex": "\\int_0^T C(t) dt=\\int_0^R (Y_0+gt) dt=R Y_0+\\frac{1}{2}gR^2",
+      "parts": [
+       {
+        "substr": "integral",
+        "color": "#4C5FD5",
+        "note": "Lifetime consumption"
+       },
+       {
+        "substr": "Y_0+gt",
+        "color": "#B45309",
+        "note": "Income during working life"
+       },
+       {
+        "substr": "R Y_0",
+        "color": "#0E7C7B",
+        "note": "Base income component"
+       },
+       {
+        "substr": "gR^2",
+        "color": "#A03040",
+        "note": "Growth income component"
+       }
+      ]
+     },
+     "narr": [
+      "The lifetime budget constraint equates the present value of consumption to the present value of income.",
+      "Income during the working life (0 to R) grows linearly from Y0 at rate g.",
+      "During retirement (R to T), income is zero.",
+      "The right-hand side represents the total lifetime resources, consisting of base income and growth components."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Constant consumption level",
+      "tex": "\\boxed{ \\bar{C}=\\frac{R}{T}\\Bigl(Y_0+\\frac{1}{2}gR\\Bigr) }",
+      "parts": [
+       {
+        "substr": "bar{C}",
+        "color": "#4C5FD5",
+        "note": "Constant consumption level"
+       },
+       {
+        "substr": "boxed",
+        "color": "#B45309",
+        "note": "Permanent consumption"
+       }
+      ]
+     },
+     "narr": [
+      "With no impatience and a zero interest rate, utility maximization requires a constant consumption level.",
+      "This constant consumption equals lifetime resources divided by the total lifetime length.",
+      "It represents the permanent income that the consumer can maintain throughout life.",
+      "This is the essence of the permanent income hypothesis."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Wealth path",
+      "tex": "W(t) =t\\Bigl(Y_0+\\frac{1}{2}gt-\\bar{C}\\Bigr), \\quad 0\\le t<R \\quad W(R) =(T-R) \\bar{C}, \\quad \\text{at retirement} \\quad W(t) =(T-t) \\bar{C}, \\quad R\\le t\\le T",
+      "parts": [
+       {
+        "substr": "W(t)",
+        "color": "#4C5FD5",
+        "note": "Wealth accumulation during working life"
+       },
+       {
+        "substr": "W(R)",
+        "color": "#B45309",
+        "note": "Wealth at retirement"
+       },
+       {
+        "substr": "W(t)",
+        "color": "#0E7C7B",
+        "note": "Wealth during retirement"
+       }
+      ]
+     },
+     "narr": [
+      "Wealth accumulation follows a specific pattern over the lifetime.",
+      "During working years, wealth increases as long as income exceeds the constant consumption level.",
+      "Wealth reaches its maximum at retirement, equal to the present value of remaining consumption.",
+      "During retirement, wealth declines linearly to zero exactly at the end of life."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Efficiency wages (Lecture 5)",
+      "bullets": [
+       "Firm maximizes profits with effort-dependent production",
+       "Solow condition: elasticity of effort with respect to wage equals 1",
+       "Efficiency wage creates involuntary unemployment"
+      ]
+     },
+     "narr": [
+      "Now let's turn to efficiency wage models, where wages affect worker effort.",
+      "Firms pay above-market wages to increase worker productivity.",
+      "The Solow condition characterizes the optimal efficiency wage.",
+      "Efficiency wages can create involuntary unemployment as workers compete for high-paying jobs."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Firm problem with effort-dependent production",
+      "tex": "\\pi=Y-wL \\text{ with } Y=F(eL), \\quad F'>0, F''<0, \\quad \\text{effort } e=e(w), \\quad e'>0",
+      "parts": [
+       {
+        "substr": "pi",
+        "color": "#4C5FD5",
+        "note": "Profit function"
+       },
+       {
+        "substr": "Y=F(eL)",
+        "color": "#B45309",
+        "note": "Production function with effort"
+       },
+       {
+        "substr": "e=e(w)",
+        "color": "#0E7C7B",
+        "note": "Effort function"
+       }
+      ]
+     },
+     "narr": [
+      "The firm maximizes profits, which equal output minus labor costs.",
+      "Output depends on both labor input and worker effort, which increases with wages.",
+      "The production function has positive but diminishing returns.",
+      "Higher wages increase worker effort but also labor costs."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "First-order conditions",
+      "tex": "F'\\bigl(e(w)L\\bigr) =\\frac{w}{e(w)}, \\quad \\frac{w e'(w)}{e(w)} =1",
+      "parts": [
+       {
+        "substr": "F'",
+        "color": "#4C5FD5",
+        "note": "Marginal product of labor"
+       },
+       {
+        "substr": "w/e(w)",
+        "color": "#B45309",
+        "note": "Effective wage"
+       },
+       {
+        "substr": "Solow condition",
+        "color": "#0E7C7B",
+        "note": "Optimality condition"
+       }
+      ]
+     },
+     "narr": [
+      "The first-order conditions for profit maximization yield two key equations.",
+      "The first equates the marginal product of labor to the effective wage (wage divided by effort).",
+      "The second is the Solow condition, which states that at the optimum, the elasticity of effort with respect to the wage equals 1.",
+      "The wage satisfying the Solow condition is the efficiency wage."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Worked example: Effort function and equilibrium wage",
+      "problem": "Given effort function $e=\\Bigl(\\frac{w-x}{x}\\Bigr)^{\\beta}$ and labor market conditions $x=(1-bu) w_a$, find the efficiency wage and equilibrium unemployment rate.",
+      "steps": [
+       {
+        "text": "Apply the Solow condition to the effort function"
+       },
+       {
+        "text": "Solve for the optimal wage $w^*$"
+       },
+       {
+        "text": "Find equilibrium unemployment rate $u_{EQ}$"
+       }
+      ],
+      "result": "$w^*=\\frac{x}{1-\\beta}=\\frac{1-bu}{1-\\beta} w_a$ and $u_{EQ}=\\frac{\\beta}{b}$"
+     },
+     "narr": [
+      "Let's work through a specific example of the efficiency wage model.",
+      "We have an effort function that depends on the wage relative to labor market conditions.",
+      "Labor market conditions are determined by the unemployment rate and the average wage.",
+      "Applying the Solow condition to this effort function gives us the optimal wage.",
+      "In equilibrium, the wage equals the average wage, allowing us to solve for the equilibrium unemployment rate.",
+      "The result shows that equilibrium unemployment depends only on the effort function parameters."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Wage rigidity",
+      "bullets": [
+       "Firms may not adjust wages even with changing unemployment",
+       "Small gain from wage adjustment due to rising effort",
+       "Unemployment disciplines workers"
+      ]
+     },
+     "narr": [
+      "Even when economic conditions change, firms may not adjust wages due to efficiency wage considerations.",
+      "When unemployment rises, workers exert more effort to avoid job loss.",
+      "The potential gain from cutting wages is small because effort increases.",
+      "As a result, firms often maintain rigid wages despite changing economic conditions."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Shapiro–Stiglitz model: Value functions",
+      "tex": "\\rho V_E = w-e-b (V_E-V_U), \\quad \\rho V_S = w-(b+q) (V_S-V_U), \\quad \\rho V_U = a (V_E-V_U)",
+      "parts": [
+       {
+        "substr": "V_E",
+        "color": "#4C5FD5",
+        "note": "Value of employment"
+       },
+       {
+        "substr": "V_S",
+        "color": "#B45309",
+        "note": "Value of shirking"
+       },
+       {
+        "substr": "V_U",
+        "color": "#0E7C7B",
+        "note": "Value of unemployment"
+       },
+       {
+        "substr": "rho",
+        "color": "#A03040",
+        "note": "Discount rate"
+       }
+      ]
+     },
+     "narr": [
+      "The Shapiro-Stiglitz model extends efficiency wage theory to include shirking behavior.",
+      "Workers can either exert effort or shirk (provide zero effort).",
+      "The value functions represent the expected lifetime utility from different states.",
+      "The discount rate determines how future utility is valued relative to present utility."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "No-shirking condition (NSC)",
+      "tex": "\\boxed{ w=e+\\frac{e}{q}\\Bigl(\\rho+b \\frac{L}{L-N}\\Bigr) }",
+      "parts": [
+       {
+        "substr": "w",
+        "color": "#4C5FD5",
+        "note": "Efficiency wage"
+       },
+       {
+        "substr": "e/q",
+        "color": "#B45309",
+        "note": "Shirking cost"
+       },
+       {
+        "substr": "L/(L-N)",
+        "color": "#0E7C7B",
+        "note": "Labor market tightness"
+       },
+       {
+        "substr": "boxed",
+        "color": "#A03040",
+        "note": "NSC equation"
+       }
+      ]
+     },
+     "narr": [
+      "To prevent shirking, the wage must satisfy the no-shirking condition.",
+      "The wage must compensate workers for effort and the risk of being caught shirking.",
+      "The term L/(L-N) represents labor market tightness, which increases with employment.",
+      "The NSC is upward-sloping in employment, meaning higher wages are needed as employment increases.",
+      "Equilibrium occurs where this condition intersects labor demand, creating involuntary unemployment."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Aggregate Production Function",
+      "tex": "Y_t=K_t^{\\alpha}(A_tL_t)^{1-\\alpha}",
+      "parts": [
+       {
+        "substr": "Y_t",
+        "color": "#4C5FD5",
+        "note": "Aggregate output"
+       },
+       {
+        "substr": "K_t",
+        "color": "#B45309",
+        "note": "Capital stock"
+       },
+       {
+        "substr": "A_t",
+        "color": "#0E7C7B",
+        "note": "Technology level"
+       },
+       {
+        "substr": "L_t",
+        "color": "#A03040",
+        "note": "Labor input"
+       },
+       {
+        "substr": "\\alpha",
+        "color": "#4C5FD5",
+        "note": "Output elasticity of capital"
+       }
+      ]
+     },
+     "narr": [
+      "The aggregate production function shows how output depends on capital, technology, and labor.",
+      "Here, Y represents output, K is capital, A is technology, and L is labor.",
+      "The parameter alpha measures how sensitive output is to changes in capital.",
+      "Taking logs and subtracting the balanced growth path gives us this equation."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Log-Linearized Production",
+      "tex": "\\hat{y}_t=\\alpha\\hat{k}_t+(1-\\alpha)\\bigl(\\hat{A}_t+\\hat{l}_t\\bigr)",
+      "parts": [
+       {
+        "substr": "\\hat{y}_t",
+        "color": "#4C5FD5",
+        "note": "Output deviation from trend"
+       },
+       {
+        "substr": "\\hat{k}_t",
+        "color": "#B45309",
+        "note": "Capital deviation from trend"
+       },
+       {
+        "substr": "\\hat{A}_t",
+        "color": "#0E7C7B",
+        "note": "Technology shock"
+       },
+       {
+        "substr": "\\hat{l}_t",
+        "color": "#A03040",
+        "note": "Labor deviation from trend"
+       }
+      ]
+     },
+     "narr": [
+      "After log-linearization, we can see how deviations in output depend on deviations in capital, technology, and labor.",
+      "The technology shock has a direct effect on output, and an indirect effect through capital accumulation.",
+      "This equation forms the basis for understanding how technology shocks propagate through the economy."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Technology Shock Process",
+      "bullets": [
+       "Technology follows an AR(1) process: $\\hat{A}_t=\\rho_A\\hat{A}_{t-1}+\\varepsilon_{A,t}$",
+       "Persistence parameter: $\\rho_A=0.95$",
+       "After a one-time innovation: $\\hat{A}_t=\\varepsilon_{A,0} \\rho_A^{t}$ for $t\\ge 0$"
+      ]
+     },
+     "narr": [
+      "Technology shocks are modeled as an autoregressive process of order one.",
+      "The persistence parameter rho_A measures how long a shock's effect lasts.",
+      "With rho_A equal to 0.95, 95% of last period's technology deviation carries over to this period.",
+      "After a one-time shock, the technology deviation gradually decays over time."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Calibrated Policy Rules",
+      "tex": "\\begin{aligned}\n\\hat{c}_t &= 0.59 \\hat{k}_t+0.38 \\hat{A}_t-0.13 \\hat{g}_t, \\\\\n\\hat{l}_t &= -0.31 \\hat{k}_t+0.35 \\hat{A}_t+0.15 \\hat{g}_t, \\\\\n\\hat{k}_{t+1} &= 0.95 \\hat{k}_t+0.08 \\hat{A}_t-0.004 \\hat{g}_t.\n\\end{aligned}",
+      "parts": [
+       {
+        "substr": "\\hat{c}_t",
+        "color": "#4C5FD5",
+        "note": "Consumption deviation"
+       },
+       {
+        "substr": "\\hat{l}_t",
+        "color": "#B45309",
+        "note": "Labor deviation"
+       },
+       {
+        "substr": "\\hat{k}_{t+1}",
+        "color": "#0E7C7B",
+        "note": "Next period capital deviation"
+       },
+       {
+        "substr": "\\hat{g}_t",
+        "color": "#A03040",
+        "note": "Government spending shock"
+       }
+      ]
+     },
+     "narr": [
+      "These are the calibrated policy rules for consumption, labor, and capital accumulation.",
+      "They show how each variable responds to shocks in capital, technology, and government spending.",
+      "Consumption increases with both capital and technology shocks but decreases with government spending shocks.",
+      "Labor decreases with capital shocks but increases with technology and government spending shocks.",
+      "Capital accumulation is highly persistent with a coefficient of 0.95 on lagged capital."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Propagation Mechanisms",
+      "bullets": [
+       "Persistence of the AR(1) technology process",
+       "Gradual endogenous capital accumulation",
+       "Capital as a predetermined state variable"
+      ]
+     },
+     "narr": [
+      "There are two main propagation mechanisms in the RBC model.",
+      "First, the persistence of technology shocks means their effects last many periods.",
+      "Second, capital accumulation is gradual because capital is a predetermined state variable.",
+      "This means the effect of a shock builds up over time as capital adjusts."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Simplified RBC Model",
+      "tex": "E\\sum_{t=0}^{\\infty}\\frac{u(C_t)}{(1+\\rho)^t}",
+      "parts": [
+       {
+        "substr": "u(C_t)",
+        "color": "#4C5FD5",
+        "note": "Utility function"
+       },
+       {
+        "substr": "\\rho",
+        "color": "#B45309",
+        "note": "Discount rate"
+       },
+       {
+        "substr": "E",
+        "color": "#0E7C7B",
+        "note": "Expectation operator"
+       }
+      ]
+     },
+     "narr": [
+      "In the simplified RBC model, an infinite-lived representative agent maximizes expected discounted utility.",
+      "The utility function takes this form, where rho is the discount rate.",
+      "The agent cares about consumption in all future periods, but values future consumption less than present consumption."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Utility Function",
+      "tex": "u(C_t)=C_t-\\theta C_t^2",
+      "parts": [
+       {
+        "substr": "u(C_t)",
+        "color": "#4C5FD5",
+        "note": "Utility from consumption"
+       },
+       {
+        "substr": "\\theta",
+        "color": "#B45309",
+        "note": "Curvature parameter"
+       }
+      ]
+     },
+     "narr": [
+      "The utility function is quadratic, which simplifies the analysis.",
+      "The parameter theta captures the curvature of the utility function.",
+      "With this form, marginal utility is decreasing but remains positive."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Technology and Capital Accumulation",
+      "tex": "\\begin{aligned}\nY_t &= AK_t+e_t, \\\\\nK_{t+1} &= K_t+Y_t-C_t, \\\\\ne_t &= \\phi e_{t-1}+\\varepsilon_t.\n\\end{aligned}",
+      "parts": [
+       {
+        "substr": "Y_t",
+        "color": "#4C5FD5",
+        "note": "Output"
+       },
+       {
+        "substr": "K_t",
+        "color": "#B45309",
+        "note": "Capital stock"
+       },
+       {
+        "substr": "C_t",
+        "color": "#0E7C7B",
+        "note": "Consumption"
+       },
+       {
+        "substr": "e_t",
+        "color": "#A03040",
+        "note": "Technology shock"
+       }
+      ]
+     },
+     "narr": [
+      "The simplified model uses linear technology with additive disturbances.",
+      "Output depends on capital and a technology shock, with no depreciation.",
+      "Capital accumulates as output minus consumption.",
+      "Technology shocks follow an AR(1) process with persistence parameter phi."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Euler Equation",
+      "tex": "1-2\\theta E[C_{t+1}]=\\frac{1+\\rho}{1+A}\\bigl(1-2\\theta C_t\\bigr) \\xrightarrow{A=\\rho} E[C_{t+1}]=C_t",
+      "parts": [
+       {
+        "substr": "E[C_{t+1}]",
+        "color": "#4C5FD5",
+        "note": "Expected future consumption"
+       },
+       {
+        "substr": "C_t",
+        "color": "#B45309",
+        "note": "Current consumption"
+       },
+       {
+        "substr": "\\rho",
+        "color": "#0E7C7B",
+        "note": "Discount rate"
+       },
+       {
+        "substr": "A",
+        "color": "#A03040",
+        "note": "Interest rate"
+       }
+      ]
+     },
+     "narr": [
+      "The Euler equation describes optimal consumption intertemporally.",
+      "It equates the marginal utility of consumption today with the expected marginal utility of consumption tomorrow, discounted by the interest rate.",
+      "When the interest rate equals the discount rate, consumption follows a random walk.",
+      "This means expected future consumption equals current consumption."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Consumption Function",
+      "tex": "C_t=\\alpha+\\beta K_t+\\gamma e_t",
+      "parts": [
+       {
+        "substr": "C_t",
+        "color": "#4C5FD5",
+        "note": "Consumption"
+       },
+       {
+        "substr": "K_t",
+        "color": "#B45309",
+        "note": "Capital stock"
+       },
+       {
+        "substr": "e_t",
+        "color": "#0E7C7B",
+        "note": "Technology shock"
+       }
+      ]
+     },
+     "narr": [
+      "Using the method of undetermined coefficients, we assume consumption takes this linear form.",
+      "Consumption depends on a constant, the capital stock, and the technology shock.",
+      "We can solve for the coefficients alpha, beta, and gamma."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Solution Coefficients",
+      "tex": "\\beta=A, \\gamma=\\frac{A}{1-\\phi+A}, \\alpha=0",
+      "parts": [
+       {
+        "substr": "\\beta",
+        "color": "#4C5FD5",
+        "note": "Sensitivity to capital"
+       },
+       {
+        "substr": "\\gamma",
+        "color": "#B45309",
+        "note": "Sensitivity to technology shock"
+       },
+       {
+        "substr": "\\alpha",
+        "color": "#0E7C7B",
+        "note": "Constant term"
+       }
+      ]
+     },
+     "narr": [
+      "Solving the model gives us these coefficients for the consumption function.",
+      "The sensitivity to capital equals the interest rate A.",
+      "The sensitivity to technology shocks depends on both the interest rate and the persistence parameter phi.",
+      "The constant term is zero, meaning consumption is zero when both capital and the technology shock are zero."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Impulse Responses",
+      "tex": "\\begin{aligned}\n\\Delta C_{t+n}&=A \\forall n\\ge 0, \\\\\n\\Delta K_{t+n}&=1-\\phi^{n}, \\\\\n\\Delta Y_{t+n}&=A+\\phi^{n}(1-\\phi).\n\\end{aligned}",
+      "parts": [
+       {
+        "substr": "\\Delta C_{t+n}",
+        "color": "#4C5FD5",
+        "note": "Change in consumption"
+       },
+       {
+        "substr": "\\Delta K_{t+n}",
+        "color": "#B45309",
+        "note": "Change in capital"
+       },
+       {
+        "substr": "\\Delta Y_{t+n}",
+        "color": "#0E7C7B",
+        "note": "Change in output"
+       }
+      ]
+     },
+     "narr": [
+      "These equations show how consumption, capital, and output respond to a one-time technology shock.",
+      "Consumption increases permanently by the amount A and stays at that level.",
+      "Capital increases gradually over time, approaching 1 as n increases.",
+      "Output increases immediately by A plus an amount that decays over time."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Tutorial 2 — Consumption",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 2,
+      "title": "Tutorial 2 — Consumption",
+      "subtitle": "Complete Solutions"
+     },
+     "narr": [
+      "Now let's turn to consumption decisions in a two-period model.",
+      "We'll start with Fisher's model under different borrowing and saving scenarios.",
+      "Then we'll examine a specific case with log utility and work through some numerical examples."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 1 — Fisher's Model with Different Saving and Borrowing Rates",
+      "problem": "Consider Fisher's model when the consumer can save at rate r_s and borrow at rate r_b, where r_s < r_b.",
+      "steps": [
+       {
+        "text": "(a) What is the budget constraint when he consumes less than his income in period one?"
+       },
+       {
+        "text": "(b) What is the budget constraint when he consumes more than his income in period one?"
+       },
+       {
+        "text": "(c) On a single graph show the two budget constraints; shade the combinations of (C1,C2) the consumer can choose."
+       },
+       {
+        "text": "(d) Add indifference curves and show three outcomes: saving, borrowing, neither."
+       },
+       {
+        "text": "(e) What determines first-period consumption in each of the three cases?"
+       }
+      ],
+      "result": "Saver: $C_1$ depends on $Y_1+\\frac{Y_2}{1+r_s}$; borrower: on $Y_1+\\frac{Y_2}{1+r_b}$; at the kink: only on $Y_1$."
+     },
+     "narr": [
+      "Let's examine Fisher's model with different interest rates for saving and borrowing.",
+      "When the consumer saves, he earns the saving rate r_s.",
+      "When he borrows, he pays the borrowing rate r_b, which is higher than r_s.",
+      "This creates a kinked budget constraint at the endowment point."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Saver's Budget Constraint",
+      "tex": "C_1+\\frac{C_2}{1+r_s}=Y_1+\\frac{Y_2}{1+r_s}",
+      "parts": [
+       {
+        "substr": "C_1",
+        "color": "#4C5FD5",
+        "note": "Period 1 consumption"
+       },
+       {
+        "substr": "C_2",
+        "color": "#B45309",
+        "note": "Period 2 consumption"
+       },
+       {
+        "substr": "Y_1",
+        "color": "#0E7C7B",
+        "note": "Period 1 income"
+       },
+       {
+        "substr": "Y_2",
+        "color": "#A03040",
+        "note": "Period 2 income"
+       }
+      ]
+     },
+     "narr": [
+      "For a consumer who saves in period 1, the budget constraint is given by this equation.",
+      "The slope is -1/(1+r_s), reflecting the saving rate.",
+      "This line passes through the endowment point (Y1,Y2).",
+      "Any point to the left of the endowment represents saving."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Borrower's Budget Constraint",
+      "tex": "C_1+\\frac{C_2}{1+r_b}=Y_1+\\frac{Y_2}{1+r_b}",
+      "parts": [
+       {
+        "substr": "C_1",
+        "color": "#4C5FD5",
+        "note": "Period 1 consumption"
+       },
+       {
+        "substr": "C_2",
+        "color": "#B45309",
+        "note": "Period 2 consumption"
+       },
+       {
+        "substr": "Y_1",
+        "color": "#0E7C7B",
+        "note": "Period 1 income"
+       },
+       {
+        "substr": "Y_2",
+        "color": "#A03040",
+        "note": "Period 2 income"
+       }
+      ]
+     },
+     "narr": [
+      "For a consumer who borrows in period 1, the budget constraint is given by this equation.",
+      "The slope is -1/(1+r_b), which is steeper than the saver's budget line because r_b > r_s.",
+      "This line also passes through the endowment point (Y1,Y2).",
+      "Any point to the right of the endowment represents borrowing."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Budget Constraint Graph",
+      "bullets": [
+       "Both lines pass through the endowment point E=(Y1,Y2)",
+       "The borrowing segment (right of E) is steeper with slope -(1+r_b)",
+       "The saving segment (left of E) is flatter with slope -(1+r_s)",
+       "The choice set is the area under the kinked frontier formed by the two segments"
+      ]
+     },
+     "narr": [
+      "When we plot both budget constraints, we get a kinked line at the endowment point.",
+      "The segment to the right is steeper, reflecting the higher borrowing rate.",
+      "The segment to the left is flatter, reflecting the lower saving rate.",
+      "The consumer can choose any combination of C1 and C2 under this kinked frontier."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Optimal Consumption Decisions",
+      "bullets": [
+       "Saver: tangency on the saver segment, C1 depends on Y1+Y2/(1+r_s)",
+       "Borrower: tangency on the borrowing segment, C1 depends on Y1+Y2/(1+r_b)",
+       "Neither: highest indifference curve passes through the endowment point, C1=Y1"
+      ]
+     },
+     "narr": [
+      "The optimal consumption decision depends on whether the consumer is a saver, borrower, or neither.",
+      "For a saver, the optimum occurs where an indifference curve is tangent to the saver's budget line.",
+      "For a borrower, it's tangent to the borrowing budget line.",
+      "At the kink point, the highest attainable indifference curve passes through the endowment point.",
+      "Borrowers discount future income more heavily because they face a higher interest rate."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 2 — Log Utility: Lagrangian, Closed-Form Solution, and Numerical Example",
+      "problem": "A representative consumer lives two periods with U(C1,C2)=ln C1+β ln C2, and present-value budget constraint C1+C2/(1+r)=Y1+Y2/(1+r).",
+      "steps": [
+       {
+        "text": "(a) Set up the Lagrangian and derive the first-order conditions."
+       },
+       {
+        "text": "(b) Solve for the optimal C1 and C2."
+       },
+       {
+        "text": "(c) For β=0.9, Y1=100, Y2=200, r=10%: calculate both consumption levels. Is he a saver or a borrower?"
+       },
+       {
+        "text": "(d) If he earns nothing in period one but earns (1+10%)·100+200 in period two, do the answers change?"
+       },
+       {
+        "text": "(e) In the context of (d), what happens to the budget line when the interest rate falls? Which effect dominates — income or substitution?"
+       }
+      ],
+      "result": "C1*=(1+β)^(-1)(Y1+Y2/(1+r)), C2*=(1+r)β C1*; (c) C1=148.33, C2=146.84 — a borrower; (d) No change: same PV=281.82; (e) Budget line pivots around (0,310); substitution and income effects offset on C2, so C1↑, C2 unchanged."
+     },
+     "narr": [
+      "Now let's consider a consumer with log utility who lives for two periods.",
+      "The utility function is U(C1,C2)=ln C1+β ln C2, where β is the discount factor.",
+      "The consumer faces a present-value budget constraint that equates the present value of consumption to the present value of income.",
+      "We'll set up the Lagrangian and derive the first-order conditions to find the optimal consumption path."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Lagrangian Setup",
+      "tex": "\\mathcal{L}=\\ln C_1+\\beta\\ln C_2+\\lambda\\Bigl(Y_1+\\frac{Y_2}{1+r}-C_1-\\frac{C_2}{1+r}\\Bigr)",
+      "parts": [
+       {
+        "substr": "\\mathcal{L}",
+        "color": "#4C5FD5",
+        "note": "Lagrangian function"
+       },
+       {
+        "substr": "\\lambda",
+        "color": "#B45309",
+        "note": "Lagrange multiplier"
+       }
+      ]
+     },
+     "narr": [
+      "The Lagrangian combines the utility function with the budget constraint.",
+      "Lambda is the Lagrange multiplier, which represents the marginal utility of wealth.",
+      "We need to maximize this function with respect to C1, C2, and lambda."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "First-Order Conditions",
+      "tex": "\\begin{aligned}\n\\frac{\\partial\\mathcal{L}}{\\partial C_1}&=0: \\frac{1}{C_1}=\\lambda, \\\\\n\\frac{\\partial\\mathcal{L}}{\\partial C_2}&=0: \\frac{\\beta}{C_2}=\\frac{\\lambda}{1+r}, \\\\\n\\frac{\\partial\\mathcal{L}}{\\partial\\lambda}&=0: C_1+\\frac{C_2}{1+r}=Y_1+\\frac{Y_2}{1+r}.\n\\end{aligned}",
+      "parts": [
+       {
+        "substr": "\\frac{1}{C_1}",
+        "color": "#4C5FD5",
+        "note": "Marginal utility of period 1 consumption"
+       },
+       {
+        "substr": "\\frac{\\beta}{C_2}",
+        "color": "#B45309",
+        "note": "Marginal utility of period 2 consumption"
+       }
+      ]
+     },
+     "narr": [
+      "The first-order conditions give us three equations.",
+      "The first equates the marginal utility of C1 to lambda.",
+      "The second equates the marginal utility of C2 to lambda discounted by the interest rate.",
+      "The third is simply the budget constraint."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Optimal Consumption",
+      "tex": "\\begin{aligned}\nC_1^*&=\\frac{1}{1+\\beta}\\Bigl(Y_1+\\frac{Y_2}{1+r}\\Bigr), \\\\\nC_2^*&=\\frac{\\beta(1+r)}{1+\\beta}\\Bigl(Y_1+\\frac{Y_2}{1+r}\\Bigr).\n\\end{aligned}",
+      "parts": [
+       {
+        "substr": "C_1^*",
+        "color": "#4C5FD5",
+        "note": "Optimal period 1 consumption"
+       },
+       {
+        "substr": "C_2^*",
+        "color": "#B45309",
+        "note": "Optimal period 2 consumption"
+       },
+       {
+        "substr": "Y_1+\\frac{Y_2}{1+r}",
+        "color": "#0E7C7B",
+        "note": "Present value of lifetime resources"
+       }
+      ]
+     },
+     "narr": [
+      "Solving the first-order conditions gives us these closed-form solutions for optimal consumption.",
+      "Period 1 consumption is a fraction of the present value of lifetime resources.",
+      "The fraction depends on the discount factor beta.",
+      "Period 2 consumption is determined by the Euler equation and equals (1+r) times beta times period 1 consumption."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Numerical Example",
+      "problem": "For β=0.9, Y1=100, Y2=200, r=10%: calculate both consumption levels. Is he a saver or a borrower?",
+      "steps": [
+       {
+        "text": "Calculate present value of lifetime resources"
+       },
+       {
+        "text": "Compute C1* using the formula"
+       },
+       {
+        "text": "Compute C2* using the formula"
+       },
+       {
+        "text": "Compare C1* to Y1 to determine if saving or borrowing"
+       }
+      ],
+      "result": "Present value = 100 + 200/1.1 = 281.82; C1* = 281.82/(1+0.9) = 148.33; C2* = 1.1×0.9×148.33 = 146.84; Since C1* > Y1, he is a borrower."
+     },
+     "narr": [
+      "Let's plug in some numbers to see how this works in practice.",
+      "With beta equal to 0.9, the consumer is somewhat patient but values present consumption more than future consumption.",
+      "The present value of lifetime resources is 100 plus 200 discounted by 10%, which equals 281.82.",
+      "Optimal period 1 consumption is this amount divided by 1.9, giving us 148.33.",
+      "Since this exceeds period 1 income of 100, the consumer is a borrower who will consume 48.33 more than his income in period 1."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Alternative Income Path",
+      "problem": "If he earns nothing in period one but earns (1+10%)·100+200 in period two, do the answers change?",
+      "steps": [
+       {
+        "text": "Calculate new income path"
+       },
+       {
+        "text": "Calculate new present value of lifetime resources"
+       },
+       {
+        "text": "Compare to original present value"
+       },
+       {
+        "text": "Determine if consumption levels change"
+       }
+      ],
+      "result": "New income path: Y1'=0, Y2'=310; New present value: 0 + 310/1.1 = 281.82; Same as original; Consumption levels unchanged at (148.33, 146.84); He borrows more in period 1 (148.33 instead of 48.33)."
+     },
+     "narr": [
+      "Now let's consider a different income path where the consumer earns nothing in period 1 but more in period 2.",
+      "The new period 2 income is 110 plus 200, which equals 310.",
+      "The present value of this income path is still 281.82, the same as before.",
+      "Since the present value is unchanged, the optimal consumption path remains the same.",
+      "However, the consumer now needs to borrow more in period 1 to achieve this consumption path."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Interest Rate Change",
+      "problem": "In the context of the alternative income path, what happens to the budget line when the interest rate falls? Which effect dominates — income or substitution?",
+      "steps": [
+       {
+        "text": "Describe how budget line changes with lower interest rate"
+       },
+       {
+        "text": "Identify substitution effect of lower interest rate"
+       },
+       {
+        "text": "Identify income effect of lower interest rate"
+       },
+       {
+        "text": "Determine which effect dominates for each period's consumption"
+       }
+      ],
+      "result": "Budget line pivots around (0,310); Substitution effect: C1↑, C2↓; Income effect: C1↑, C2↑; Both effects raise C1; Effects offset for C2; C1 increases from 148.33 to 155.39 when r falls from 10% to 5%; C2 remains unchanged at 146.84."
+     },
+     "narr": [
+      "What happens when the interest rate falls with this new income path?",
+      "The budget line pivots around the endowment point (0,310) since period 2 income is fixed.",
+      "There are two effects at play: the substitution effect and the income effect.",
+      "The substitution effect makes consumption in period 1 relatively more attractive, so C1 increases and C2 decreases.",
+      "The income effect makes the borrower better off overall, so both C1 and C2 increase.",
+      "For C1, both effects work in the same direction, so consumption unambiguously increases.",
+      "For C2, the effects work in opposite directions and exactly offset each other with log utility.",
+      "Numerically, when r falls from 10% to 5%, C1 increases from 148.33 to 155.39 while C2 remains unchanged at 146.84."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 3 — Life-cycle Optimization",
+      "problem": "An individual lives from $0$ to $T$ with lifetime utility $U=\\int_0^T u\\bigl(C(t)\\bigr) dt$, $u'>0$, $u''<0$. Income is $Y_0+gt$ for $0<t<R$ and $0$ for $R\\le t\\le T$, with $0<R<T$. The interest rate is zero, initial wealth is zero, there is no uncertainty.",
+      "steps": [
+       {
+        "text": "(a) What is the lifetime budget constraint?"
+       },
+       {
+        "text": "(b) What is the utility-maximizing path of consumption $C(t)$?"
+       },
+       {
+        "text": "(c) (Optional) What is the path of wealth $W(t)$?"
+       }
+      ],
+      "result": ""
+     },
+     "narr": [
+      "The problem presents an individual with a lifetime utility function that depends on consumption over time, characterized by positive first derivative and negative second derivative, indicating diminishing marginal utility.",
+      "The individual has an income profile that grows linearly during their working years from time zero to R, followed by retirement from R to T with no income.",
+      "We're asked to determine three things: the lifetime budget constraint, the optimal consumption path, and optionally, the wealth path over time."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Solution (a) — Lifetime Budget Constraint",
+      "problem": "What is the lifetime budget constraint?",
+      "steps": [
+       {
+        "text": "With zero initial wealth the present value of lifetime consumption cannot exceed the present value of lifetime income:"
+       },
+       {
+        "text": "$\\int_0^T C(t) dt \\le \\int_0^T Y(t) dt$."
+       },
+       {
+        "text": "Income is positive only during the working life, so:"
+       },
+       {
+        "text": "$\\int_0^T Y(t) dt=\\int_0^R (Y_0+gt) dt =\\Bigl[Y_0t+\\frac{1}{2}gt^2\\Bigr]_0^R =R Y_0+\\frac{1}{2}gR^2$."
+       }
+      ],
+      "result": "$\\boxed{ \\int_0^T C(t) dt \\le R Y_0+\\frac{1}{2}gR^2 . }$"
+     },
+     "narr": [
+      "Let's start with part (a), finding the lifetime budget constraint.",
+      "Since there's no initial wealth, the present value of lifetime consumption can't exceed the present value of lifetime income.",
+      "Given that income is only earned during the working years from 0 to R, we can calculate the total lifetime income as the integral of the income function over this period.",
+      "The income function is linear: Y_0 plus g times t. Integrating this from 0 to R gives us the total lifetime resources available for consumption."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Solution (b) — Utility-Maximizing Consumption Path",
+      "problem": "What is the utility-maximizing path of consumption $C(t)$?",
+      "steps": [
+       {
+        "text": "Since $u''<0$ and both the interest rate and the discount rate are zero, the permanent-income logic of the PIH applies: utility maximization requires a constant consumption level $\\bar{C}$."
+       },
+       {
+        "text": "The budget constraint then spreads lifetime resources evenly over the lifetime $T$:"
+       },
+       {
+        "text": "$\\bar{C}\\cdot T=R Y_0+\\frac{1}{2}gR^2$"
+       }
+      ],
+      "result": "$\\boxed{ \\bar{C}=\\frac{R}{T}\\Bigl(Y_0+\\frac{1}{2}gR\\Bigr). }$"
+     },
+     "narr": [
+      "Now for part (b), finding the utility-maximizing consumption path.",
+      "Given the utility function has a negative second derivative and both the interest rate and discount rate are zero, the permanent income hypothesis applies.",
+      "This means the optimal consumption path is constant over time, equal to the average lifetime consumption.",
+      "We can find this constant consumption level by dividing the total lifetime resources by the total lifetime T."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Solution (c) — Wealth Path",
+      "problem": "What is the path of wealth $W(t)$?",
+      "steps": [
+       {
+        "text": "Saving is income minus consumption, $S(t)=Y(t)-\\bar{C}$."
+       },
+       {
+        "text": "During the working life: $W(t)=\\Bigl[Y_0\\tau+\\frac{1}{2}g\\tau^2-\\bar{C}\\tau\\Bigr]_0^t =t\\Bigl(Y_0+\\frac{1}{2}gt-\\bar{C}\\Bigr), 0\\le t<R$."
+       },
+       {
+        "text": "At retirement: $W(R)=R\\Bigl(Y_0+\\frac{1}{2}gR-\\bar{C}\\Bigr)=(T-R) \\bar{C}$."
+       },
+       {
+        "text": "During retirement: $W(t)=(T-R)\\bar{C}-\\int_R^t \\bar{C} d\\tau=(T-t) \\bar{C}, R\\le t\\le T$"
+       }
+      ],
+      "result": "$W(t)=t\\bigl(Y_0+\\frac{1}{2}gt-\\bar C\\bigr)$ for $t<R$; $W(R)=(T-R)\\bar C$; $W(t)=(T-t)\\bar C$ for $R\\le t\\le T$."
+     },
+     "narr": [
+      "For part (c), we determine the wealth path over the individual's lifetime.",
+      "Saving is simply income minus consumption, which gives us different expressions during working years and retirement.",
+      "During working years, wealth accumulates as the integral of saving, which gives us a quadratic function in time.",
+      "At retirement, we can show that wealth equals (T-R) times the constant consumption level, representing the resources needed to finance retirement.",
+      "During retirement, wealth declines linearly as the individual dissaves to finance consumption, reaching zero exactly at the end of life."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Life-Cycle Model Intuition",
+      "bullets": [
+       "Consumption is constant over lifetime due to linear utility and zero interest rate",
+       "Wealth follows a 'hump' shape: accumulates during working years, peaks at retirement, then declines",
+       "Individual dies with zero assets (no bequest motive)",
+       "Income growth during working years leads to wealth accumulation",
+       "Retirement is financed by dissaving accumulated wealth"
+      ]
+     },
+     "narr": [
+      "The life-cycle model reveals several important intuitions about optimal consumption and saving behavior.",
+      "First, consumption remains constant throughout life because of the linear utility function and zero interest rate.",
+      "Second, wealth follows a distinctive 'hump-shaped' pattern, increasing during working years as the individual saves, reaching a maximum at retirement, then declining during retirement as the individual dissaves.",
+      "Third, the individual optimally plans to die with zero assets, indicating no bequest motive in this model.",
+      "Fourth, the growth in income during working years allows the individual to accumulate wealth.",
+      "Finally, retirement is entirely financed by dissaving the wealth accumulated during working years."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Tutorial 4 — Unemployment",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 3,
+      "title": "Tutorial 4 — Unemployment",
+      "subtitle": "Shapiro–Stiglitz Model"
+     },
+     "narr": [
+      "Now, let's shift gears to a different topic: unemployment models, specifically the Shapiro-Stiglitz model of efficiency wages.",
+      "This model explains unemployment as an equilibrium outcome where firms pay wages above the market-clearing level to prevent shirking."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 1 — Value Functions",
+      "problem": "Following the lecture notes (pages 24–26), derive the value functions for a worker in state $S$ (employed and shirking) and state $U$ (unemployed), i.e. equations (28) and (29) of the notes.",
+      "steps": [
+       {
+        "text": "Shirker ($S$): A shirking worker receives the wage $w$ but is caught shirking at hazard rate $q$ and fired; independently, the job breaks at rate $b$."
+       },
+       {
+        "text": "Unemployed ($U$): An unemployed worker has zero income and finds a job within $\\Delta t$ with probability $a\\Delta t$."
+       }
+      ],
+      "result": ""
+     },
+     "narr": [
+      "Problem 1 asks us to derive the value functions for two worker states: employed and shirking (state S), and unemployed (state U).",
+      "For a shirking worker, they receive the wage w but face two risks of job separation: being caught shirking at rate q, and job separation at rate b.",
+      "For an unemployed worker, they have zero income but can find a new job at rate a."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Solution (a) — Shirker's Value Function",
+      "problem": "Derive the value function for a worker in state S (employed and shirking)",
+      "steps": [
+       {
+        "text": "Over a small interval $\\Delta t$ the worker is still employed $\\Delta t$ later with probability $e^{-(b+q)\\Delta t}$, otherwise unemployed."
+       },
+       {
+        "text": "The value function is: $V_S(\\Delta t) =\\int_0^{\\Delta t} e^{-(b+q)t} e^{-\\rho t} w dt +e^{-\\rho\\Delta t}\\Bigl[e^{-(b+q)\\Delta t} V_S(\\Delta t)+\\bigl(1-e^{-(b+q)\\Delta t}\\bigr) V_U(\\Delta t)\\Bigr]$"
+       },
+       {
+        "text": "Simplifying and taking the limit as $\\Delta t \\to 0$ gives: $\\rho V_S=w-(b+q) (V_S-V_U)$"
+       }
+      ],
+      "result": "$\\boxed{ \\rho V_S=w-(b+q) (V_S-V_U). }$"
+     },
+     "narr": [
+      "Let's derive the value function for a shirking worker.",
+      "Over a small time interval, the worker remains employed with a certain probability, otherwise becomes unemployed.",
+      "The value function reflects the expected discounted value of future utility, which includes the wage received while employed and the expected value of being in either state after the time interval.",
+      "After some algebraic manipulation and taking the limit as the time interval approaches zero, we arrive at the flow value equation for a shirking worker."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Solution (b) — Unemployed Worker's Value Function",
+      "problem": "Derive the value function for a worker in state U (unemployed)",
+      "steps": [
+       {
+        "text": "An unemployed worker has zero income and finds a job within $\\Delta t$ with probability $a\\Delta t$."
+       },
+       {
+        "text": "The value function is: $V_U(\\Delta t) =\\int_0^{\\Delta t} 0 dt +e^{-\\rho\\Delta t}\\Bigl[e^{-a\\Delta t} V_U(\\Delta t)+\\bigl(1-e^{-a\\Delta t}\\bigr) V_E(\\Delta t)\\Bigr]$"
+       },
+       {
+        "text": "Simplifying and taking the limit as $\\Delta t \\to 0$ gives: $\\rho V_U=a (V_E-V_U)$"
+       }
+      ],
+      "result": "$\\boxed{ V_U=\\frac{a}{a+\\rho} V_E \\Longleftrightarrow \\rho V_U=a (V_E-V_U). }$"
+     },
+     "narr": [
+      "Now let's derive the value function for an unemployed worker.",
+      "An unemployed worker receives no income but can find a job at rate a, transitioning to the employed state.",
+      "The value function reflects the expected discounted value of being in either the unemployed or employed state after a small time interval.",
+      "After simplifying and taking the limit as the time interval approaches zero, we obtain the flow value equation for an unemployed worker."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Shapiro-Stiglitz Model Insights",
+      "bullets": [
+       "Firms pay efficiency wages above market-clearing level to prevent shirking",
+       "Unemployment arises as an equilibrium outcome to incentivize work effort",
+       "The no-shirking condition requires $V_E-V_U \\ge e/q$",
+       "Higher separation rates increase the cost of shirking",
+       "Higher job finding rates reduce the value of unemployment"
+      ]
+     },
+     "narr": [
+      "The Shapiro-Stiglitz model provides several important insights about unemployment and efficiency wages.",
+      "First, firms voluntarily pay wages above the market-clearing level to motivate workers and prevent shirking.",
+      "Second, unemployment emerges as an equilibrium outcome because it creates a threat of job loss that incentivizes work effort.",
+      "Third, the no-shirking condition requires that the value of employment exceeds the value of unemployment by at least the ratio of effort cost to detection rate.",
+      "Fourth, higher separation rates increase the cost of shirking, making it easier to prevent.",
+      "Finally, higher job finding rates reduce the value of unemployment, making it harder to motivate workers with the threat of unemployment."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Key Equations in the Model",
+      "bullets": [
+       "No-Shirking Condition (NSC): $w=e+\\frac{e}{q}\\left(\\rho+b\\frac{L}{L-N}\\right)$",
+       "Labor Demand: $AF'(eL)=\\frac{w}{e}$"
+      ]
+     },
+     "narr": [
+      "The model is built around two fundamental equations.",
+      "First, the No-Shirking Condition or NSC, which shows the wage needed to prevent workers from shirking.",
+      "Second, the labor demand equation, where firms hire effective labor until its marginal product equals its marginal cost.",
+      "The NSC curve is upward-sloping with a vertical asymptote at full employment N=L.",
+      "The labor demand curve is downward-sloping, showing how firms reduce hiring as wages increase."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      0,
+      1,
+      1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 2 — Comparative Statics Analysis",
+      "problem": "Describe how each of the following affects equilibrium employment and the wage in the Shapiro-Stiglitz model: (a) an increase in workers' discount rate $\\rho$; (b) an increase in the job breakup rate $b$; (c) a positive multiplicative shock to production ($A\\uparrow$ in $AF(L)$); (d) an increase in the size of the labor force $L$.",
+      "steps": [
+       {
+        "text": "Analyze each factor's effect on the NSC and labor demand curves"
+       },
+       {
+        "text": "Determine the new equilibrium point and its implications for employment and wages"
+       }
+      ],
+      "result": "(a) $\\rho$ up: NSC shifts up, employment $\\downarrow$, wage $\\uparrow$\n(b) $b$ up: NSC shifts up, employment $\\downarrow$, wage $\\uparrow$\n(c) $A$ up: Labor demand shifts right, employment $\\uparrow$, wage $\\uparrow$\n(d) $L$ up: NSC shifts down, employment $\\uparrow$, wage $\\downarrow$"
+     },
+     "narr": [
+      "Let's analyze how different factors affect the equilibrium in the Shapiro-Stiglitz model.",
+      "For part (a), when workers' discount rate $\\rho$ increases, the wage needed to deter shirking rises at any employment level.",
+      "This happens because workers discount the future more, so being caught and fired matters less.",
+      "The employment rent shrinks, and only a higher wage can recreate it.",
+      "The labor demand curve remains unchanged, so we see employment falling and wages rising.",
+      "For part (b), an increase in the job breakup rate $b$ has a similar effect.",
+      "With jobs breaking more often, the value of holding a job is lower, making shirking less costly.",
+      "Firms must pay more to deter shirking, shifting the NSC up while labor demand stays the same.",
+      "Again, employment falls and wages rise.",
+      "For part (c), a positive technology shock $A\\uparrow$ shifts the labor demand curve to the right.",
+      "The NSC curve remains untouched as it doesn't depend on productivity.",
+      "With higher productivity, firms want to hire more workers at any given wage.",
+      "Both employment and wages increase in this scenario.",
+      "For part (d), an increase in the labor force $L$ has interesting effects.",
+      "The vertical labor supply line moves right, and the NSC shifts down.",
+      "At a given employment level $N$, $L-N$ is larger, meaning a shirker who is fired stays unemployed longer.",
+      "The expected cost of shirking rises, allowing firms to deter shirking with a lower wage.",
+      "Labor demand is unaffected, so employment rises while wages fall."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ]
+    },
+    {
+     "type": "plot",
+     "data": {
+      "heading": "Shapiro-Stiglitz Comparative Statics",
+      "functions": [
+       {
+        "fn": "1.1 + 0.05/(1-x)",
+        "tex": "w=e+\\frac{e}{q}\\Bigl(\\rho+b\\frac{L}{L-N}\\Bigr)\\ \\text{(NSC)}",
+        "color": "#4C5FD5"
+       },
+       {
+        "fn": "2 - x",
+        "tex": "AF'(eL)=w/e\\ \\text{(labor demand)}",
+        "color": "#B45309"
+       }
+      ],
+      "x_range": [
+       0,
+       0.95
+      ],
+      "y_range": [
+       0.8,
+       2.1
+      ],
+      "x_label": "Employment N",
+      "y_label": "Wage w"
+     },
+     "narr": [
+      "This plot illustrates the comparative statics we just discussed.",
+      "The blue curve represents the No-Shirking Condition, which is upward sloping.",
+      "The orange curve shows labor demand, which is downward sloping.",
+      "When $\\rho$ or $b$ increases, the NSC curve shifts up, leading to lower employment and higher wages.",
+      "When $A$ increases, labor demand shifts right, increasing both employment and wages.",
+      "When $L$ increases, the NSC shifts down, increasing employment but decreasing wages."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Model Setup",
+      "bullets": [
+       "A fraction $f$ of workers belong to unions",
+       "Union wage: $w_u=(1+\\mu)w_n$",
+       "Average wage: $w_a=f w_u+(1-f)w_n$",
+       "Nonunion wage rule: $w_n=\\frac{1-bu}{1-\\beta} w_a$"
+      ]
+     },
+     "narr": [
+      "The model assumes that a fraction $f$ of workers belong to unions.",
+      "Union workers receive a wage premium, so $w_u=(1+\\mu)w_n$.",
+      "The average wage is a weighted combination of union and nonunion wages.",
+      "Nonunion employers set wages according to this efficiency wage rule, which depends on unemployment rate $u$ and the effort elasticity parameter $\\beta$."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 3 — Union Wage Premium Analysis",
+      "problem": "In the efficiency-wage model, find the equilibrium unemployment rate and analyze cost differences between union and nonunion sectors.",
+      "steps": [
+       {
+        "text": "Substitute the wage relationships into the nonunion wage rule"
+       },
+       {
+        "text": "Solve for the equilibrium unemployment rate"
+       },
+       {
+        "text": "Calculate the cost of effective labor in both sectors"
+       },
+       {
+        "text": "Compare costs for different parameter values"
+       }
+      ],
+      "result": "(a) $u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}$\n(b) For $\\mu=f=0.15$, $\\beta=0.06$, $b=1$: $u\\approx 8.1\\%$, cost ratio $=1.0667$\n(c) For $\\beta=0.03$, $b=0.5$: cost ratio $=1.0898$"
+     },
+     "narr": [
+      "Let's solve this problem step by step.",
+      "First, we substitute the expressions for $w_a$ and $w_u$ into the nonunion wage rule.",
+      "This gives us $w_n = \\frac{1-bu}{1-\\beta}[f(1+\\mu)w_n+(1-f)w_n] = \\frac{1-bu}{1-\\beta}(1+\\mu f)w_n$.",
+      "Since $w_n$ is positive in equilibrium, we can cancel it from both sides.",
+      "Rearranging terms, we get $(1-bu)(1+\\mu f)=1-\\beta$.",
+      "Solving for $u$, we find $u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}$.",
+      "When $f=0$, this collapses to the standard result $u_{EQ}=\\beta/b$.",
+      "For part (b), with $\\mu=f=0.15$, $\\beta=0.06$, and $b=1$, we calculate $u=\\frac{0.06+(0.15)(0.15)}{1+(0.15)(0.15)}=\\frac{0.0825}{1.0225}\\approx 8.1\\%$.",
+      "This is higher than the $6\\%$ unemployment rate in the standard model without unions.",
+      "To find the cost of effective labor, we need to consider the effort function $e=\\left(\\frac{w-x}{x}\\right)^{\\beta}$ where $x=(1-bu)w_a$.",
+      "For union workers, the cost ratio is $\\frac{w_u/e_u}{w_n/e_n}=(1+\\mu)\\left(\\frac{\\beta}{\\mu+\\beta}\\right)^{\\beta}$.",
+      "With $\\mu=0.15$ and $\\beta=0.06$, this gives us $1.15\\left(\\frac{0.06}{0.21}\\right)^{0.06}\\approx 1.0667$.",
+      "Although union wages are $15\\%$ higher, the cost of effective labor is only about $6.7\\%$ higher because union workers exert more effort.",
+      "For part (c), with $\\beta=0.03$, the cost ratio becomes $1.15\\left(\\frac{0.03}{0.18}\\right)^{0.03}\\approx 1.0898$.",
+      "With a lower elasticity of effort ($\\beta$ smaller), effort responds less to the wage premium.",
+      "The union-sector cost of effective labor is now $9.0\\%$ higher, more than in part (b)."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Equilibrium Unemployment Rate",
+      "tex": "u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}",
+      "parts": [
+       {
+        "substr": "\\beta",
+        "color": "#4C5FD5",
+        "note": "effort elasticity parameter"
+       },
+       {
+        "substr": "\\mu",
+        "color": "#B45309",
+        "note": "union wage premium"
+       },
+       {
+        "substr": "f",
+        "color": "#0E7C7B",
+        "note": "fraction of union workers"
+       },
+       {
+        "substr": "b",
+        "color": "#A03040",
+        "note": "job breakup rate"
+       }
+      ]
+     },
+     "narr": [
+      "Here's the key formula for the equilibrium unemployment rate in the union model.",
+      "It depends on four parameters: the effort elasticity $\\beta$, the union wage premium $\\mu$,",
+      "the fraction of union workers $f$, and the job breakup rate $b$.",
+      "Notice that when there are no unions ($f=0$), this simplifies to the standard efficiency wage result $u=\\beta/b$."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "formula",
+     "data": {
+      "heading": "Cost Ratio of Effective Labor",
+      "tex": "\\frac{w_u/e_u}{w_n/e_n}=(1+\\mu)\\left(\\frac{\\beta}{\\mu+\\beta}\\right)^{\\beta}",
+      "parts": [
+       {
+        "substr": "1+\\mu",
+        "color": "#4C5FD5",
+        "note": "union wage premium factor"
+       },
+       {
+        "substr": "\\frac{\\beta}{\\mu+\\beta}",
+        "color": "#B45309",
+        "note": "effort response ratio"
+       },
+       {
+        "substr": "^{\\beta}",
+        "color": "#0E7C7B",
+        "note": "elasticity of effort with respect to wages"
+       }
+      ]
+     },
+     "narr": [
+      "This formula shows the ratio of effective labor costs between union and nonunion sectors.",
+      "The first term $(1+\\mu)$ represents the direct wage premium in the union sector.",
+      "The second term captures how union workers exert more effort in response to higher wages.",
+      "The exponent $\\beta$ measures how sensitive effort is to wage changes.",
+      "When $\\beta$ is small, effort responds less to wage premiums, making the cost ratio higher."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "recap",
+     "data": {
+      "heading": "Key Insights",
+      "items": [
+       "In the Shapiro-Stiglitz model, factors affecting job security ($\\rho$, $b$) reduce employment but increase wages",
+       "Technology shocks increase both employment and wages through the labor demand channel",
+       "Union wage premiums create unemployment but may not substantially increase labor costs due to increased effort",
+       "The cost advantage of nonunion sectors depends on the elasticity of effort with respect to wages"
+      ]
+     },
+     "narr": [
+      "Let's summarize the key insights from both models.",
+      "In the Shapiro-Stiglitz model, factors that reduce job security like higher discount rates or job breakup rates lead to lower employment but higher wages.",
+      "Technology shocks, on the other hand, increase both employment and wages by shifting labor demand.",
+      "In the union wage premium model, while unions create unemployment, they don't substantially increase labor costs because union workers exert more effort.",
+      "Finally, the cost advantage of nonunion sectors depends crucially on how sensitive effort is to wage changes, measured by the parameter $\\beta$."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 4 — Wage Rigidity in the Efficiency-Wage Model",
+      "problem": "Let $u_{EQ}=6\\%$ and suppose unemployment rises to $9\\%$. Compute the change in the unit cost of effective labor if the firm (i) keeps the wage unchanged, (ii) optimally adjusts the wage, for the calibrations (1) $\\beta=0.06$, $b=1$ and (2) $\\beta=0.03$, $b=0.5$. How large is the incentive to cut wages?",
+      "steps": [
+       {
+        "text": "Normalize $w_a=1$. At equilibrium $u_{EQ}=\\beta/b$, effort and cost are $e_0=(\\frac{\\beta}{1-\\beta})^{\\beta}$, $C_0=\\frac{w_a}{e_0}$."
+       },
+       {
+        "text": "After unemployment rises to $u_1$, market conditions worsen to $x'=(1-bu_1)w_a$."
+       },
+       {
+        "text": "(i) Fixed wage: the firm keeps $w=w_a$; workers' effort rises to $e(w_a,x')=(\\frac{w_a-x'}{x'})^{\\beta}$, and the unit cost becomes $C_{FIXED}=\\frac{w_a}{e(w_a,x')}$."
+       },
+       {
+        "text": "(ii) Adjusted wage: the firm re-optimizes to $w'=x'/(1-\\beta)$, which restores the original effort-cost ratio, so $e'=e_0$ and $C_{ADJ}=\\frac{w'}{e'}=\\frac{x'/(1-\\beta)}{e_0}$."
+       }
+      ],
+      "result": "Δ C_{FIXED}=-2.6\\%$, $Δ C_{ADJ}=-3.2\\%$, gain $0.6$ pp (case 1); $-1.3\\%$, $-1.5\\%$, $0.2$ pp (case 2) — wage cutting is not worth the adjustment."
+     },
+     "narr": [
+      "The problem begins by normalizing the wage to 1. At equilibrium, unemployment equals beta divided by b. The initial effort and cost are given by these formulas.",
+      "When unemployment rises to 9%, market conditions worsen according to this equation. The firm now faces a decision.",
+      "First scenario: the firm keeps the wage unchanged. Interestingly, workers' effort actually increases due to the discipline of unemployment. The new unit cost is calculated using this formula.",
+      "Second scenario: the firm optimally adjusts the wage. This restores the original effort-cost ratio, so effort remains at e_0, but the wage changes, affecting the unit cost.",
+      "The calculations show that a 3-percentage-point rise in unemployment lowers unit costs by only 1.3% to 3.2%. Optimally adjusting the wage saves at most a further 0.2 to 0.6 percentage points.",
+      "The incentive to renegotiate wages is tiny — this explains why wages remain rigid downward in the efficiency-wage model even when unemployment is high."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      -1
+     ]
+    },
+    {
+     "type": "table",
+     "data": {
+      "heading": "Cost Changes Under Different Scenarios",
+      "columns": [
+       "Calibration",
+       "ΔC fixed",
+       "ΔC adjusted",
+       "Gain from cutting"
+      ],
+      "rows": [
+       [
+        "(1) β=0.06 , b=1",
+        {
+         "tex": "-2.6\\%"
+        },
+        {
+         "tex": "-3.2\\%"
+        },
+        "0.6 pp"
+       ],
+       [
+        "(2) β=0.03 , b=0.5",
+        {
+         "tex": "-1.3\\%"
+        },
+        {
+         "tex": "-1.5\\%"
+        },
+        "0.2 pp"
+       ]
+      ]
+     },
+     "narr": [
+      "This table summarizes our calculations. For both calibrations, we see the change in unit costs under fixed wage and adjusted wage scenarios, along with the gain from cutting wages.",
+      "As we can see, the potential savings from wage adjustment are quite small — only 0.6 percentage points in the first case and 0.2 in the second. This tiny incentive explains wage rigidity."
+     ],
+     "narr_item": [
+      -1,
+      -1
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Tutorial 5 — Real-Business-Cycle Theory",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 4,
+      "title": "Tutorial 5 — Real-Business-Cycle Theory",
+      "subtitle": "Problem 1"
+     },
+     "narr": [
+      "Now let's shift gears to a different topic: Real-Business-Cycle theory. We'll examine how technology shocks drive macroeconomic fluctuations in the RBC model."
+     ],
+     "narr_item": [
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 1 — Technology Shocks and Macroeconomic Fluctuations",
+      "problem": "Consider the RBC model with aggregate production $Y_t=K_t^{\\alpha}(A_tL_t)^{1-\\alpha}$, $0<\\alpha<1$, and $\\hat{x}_t\\equiv\\ln x_t-\\ln\\bar{x}_t$ denoting deviations from the balanced growth path.",
+      "steps": [
+       {
+        "text": "(a) Technology follows $\\hat{A}_t=\\rho_A\\hat{A}_{t-1}+\\varepsilon_{A,t}$, $\\rho_A=0.95$. The economy starts on its BGP; at $t=0$ an unexpected positive innovation of 1 percent arrives ($\\varepsilon_{A,0}=0.01$) and there are no further innovations. (i) Compute $\\hat{A}_0,\\hat{A}_1,\\hat{A}_2$. (ii) Write $\\hat{A}_t$ for any $t\\ge0$. (iii) Explain what $\\rho_A$ means."
+       },
+       {
+        "text": "(b) The calibrated model gives the log-linearized rules $\\hat{c}_t=0.59\\hat{k}_t+0.38\\hat{A}_t-0.13\\hat{g}_t$, $\\hat{l}_t=-0.31\\hat{k}_t+0.35\\hat{A}_t+0.15\\hat{g}_t$, $\\hat{k}_{t+1}=0.95\\hat{k}_t+0.08\\hat{A}_t-0.004\\hat{g}_t$, with $\\alpha=1/3$, $\\hat{k}_0=0$, $\\hat{g}_t=0$ always. (i) Starting from the Cobb–Douglas production function, derive $\\hat{y}_t$. (ii) Compute the responses of $C$, $L$, $Y$ at $t=0$ and of $K$ at $t=1$. (iii) Continue for $t=1,2$ and complete the table."
+       },
+       {
+        "text": "(c) Using (b), explain: (i) why capital responds with a lag; (ii) why consumption can keep rising as the shock fades; (iii) the two mechanisms generating persistent fluctuations."
+       }
+      ],
+      "result": "(a) $\\hat A_t=0.01(0.95)^t$: $1.000\\%$, $0.950\\%$, $0.9025\\%$. (b) Table above; $\\hat y_t=\\frac13\\hat k_t+\\frac23(\\hat A_t+\\hat l_t)$. (c) Capital predetermined; consumption rule positive in $\\hat k,\\hat A$; propagation = AR(1) persistence + capital accumulation."
+     },
+     "narr": [
+      "We're working with an RBC model where output depends on capital, technology, and labor. The model uses log-deviations from the balanced growth path, denoted by hats.",
+      "Part (a) examines a technology shock process with persistence parameter rho_A = 0.95. We need to compute the technology deviations at t=0,1,2 and find a general formula.",
+      "At t=0, there's a 1% innovation. Since the economy starts at the balanced growth path, the previous deviation is zero. So the current deviation is just the innovation itself.",
+      "At t=1, there's no new innovation, so the deviation is just rho_A times the previous deviation.",
+      "At t=2, it's again rho_A times the previous deviation. This creates a geometric sequence.",
+      "The general formula for any t is this boxed expression. The persistence parameter rho_A = 0.95 means that 95% of the previous period's deviation remains each period - the shock fades gradually rather than disappearing immediately.",
+      "Part (b) gives us log-linearized rules for consumption, labor, and capital accumulation. We need to derive the output equation and compute responses.",
+      "Taking logs of the Cobb-Douglas production function and subtracting the balanced growth path expression gives us this equation for output deviations.",
+      "With alpha = 1/3, this simplifies to the boxed expression.",
+      "At t=0, with k_0 = 0 and A_0 = 0.01, we can compute the initial responses using the given rules.",
+      "At t=1, with A_1 = 0.0095 and k_1 = 0.0008, we continue computing the responses.",
+      "At t=2, with A_2 = 0.009025 and k_2 = 0.00152, we complete our calculations.",
+      "This table summarizes all the percentage deviations from the balanced growth path for variables at different time periods.",
+      "Part (c) asks us to explain three aspects of the model's dynamics.",
+      "Capital responds with a lag because it's a predetermined state variable. It's chosen at date t through investment and installed for date t+1, so it can't jump when the shock arrives.",
+      "Consumption can keep rising as the shock fades because the consumption rule is positive in both capital and technology. Although technology declines, the capital stock accumulates, and its positive contribution more than offsets the fading technology contribution over the first periods.",
+      "The two propagation mechanisms are: persistence in the AR(1) technology process and gradual endogenous capital accumulation. Together they turn a one-time innovation into a prolonged fluctuation."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      2,
+      -1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "table",
+     "data": {
+      "heading": "Percentage Deviations from Balanced Growth Path",
+      "columns": [
+       "Variable (% dev. from BGP)",
+       "t = 0",
+       "t = 1",
+       "t = 2"
+      ],
+      "rows": [
+       [
+        "Technology, A_t",
+        {
+         "tex": "1.0000"
+        },
+        {
+         "tex": "0.9500"
+        },
+        {
+         "tex": "0.9025"
+        }
+       ],
+       [
+        "Capital, k_t",
+        {
+         "tex": "0.0000"
+        },
+        {
+         "tex": "0.0800"
+        },
+        {
+         "tex": "0.1520"
+        }
+       ],
+       [
+        "Consumption, c_t",
+        {
+         "tex": "0.3800"
+        },
+        {
+         "tex": "0.4082"
+        },
+        {
+         "tex": "0.4326"
+        }
+       ],
+       [
+        "Labor, l_t",
+        {
+         "tex": "0.3500"
+        },
+        {
+         "tex": "0.3077"
+        },
+        {
+         "tex": "0.2688"
+        }
+       ],
+       [
+        "Output, y_t",
+        {
+         "tex": "0.9000"
+        },
+        {
+         "tex": "0.8651"
+        },
+        {
+         "tex": "0.8315"
+        }
+       ]
+      ]
+     },
+     "narr": [
+      "This table shows the percentage deviations from the balanced growth path for various variables over three periods.",
+      "As we can see, technology starts at 1% and gradually declines due to the persistence parameter.",
+      "Capital starts at 0% (as given) but accumulates over time, showing a positive response.",
+      "Consumption initially rises from 0.38% to 0.41% and then to 0.43%, despite the technology shock fading.",
+      "Labor shows a declining response, from 0.35% to 0.31% to 0.27%.",
+      "Output, which combines all these effects, shows a declining pattern but remains positive throughout.",
+      "All entries represent levels of percentage deviation from the BGP, not growth rates between consecutive periods."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      -1
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 1 — First-Order Condition",
+      "problem": "Find the first-order condition (Euler equation) relating $C_t$ and expectations of $C_{t+1}$.",
+      "steps": [
+       {
+        "text": "Start with the accumulation equation: $C_t=(1+A)K_t-K_{t+1}+e_t$"
+       },
+       {
+        "text": "Set up the Bellman equation with the value function $V(K_t)$"
+       },
+       {
+        "text": "Take the first-order condition with respect to $K_{t+1}$"
+       },
+       {
+        "text": "Apply the envelope theorem to find $V'(K_t)$"
+       },
+       {
+        "text": "Combine the equations to derive the Euler equation"
+       },
+       {
+        "text": "Simplify using the assumption $A=\\rho$"
+       }
+      ],
+      "result": "$\\boxed{E[C_{t+1}]=C_t}$ — consumption follows a random walk"
+     },
+     "narr": [
+      "Let's tackle part (a): finding the first-order condition, or Euler equation, that relates current consumption to expected future consumption.",
+      "The accumulation equation tells us that consumption equals output minus investment, with output being linear in capital plus a technology shock.",
+      "The Bellman equation represents the value function, which maximizes current utility plus discounted expected future value.",
+      "Taking the derivative with respect to next period's capital gives us the first-order condition.",
+      "Using the envelope theorem, we can find how the value function changes with current capital.",
+      "Combining these equations and rearranging terms leads us to the Euler equation.",
+      "With the assumption that the interest rate $A$ equals the discount rate $\\rho$, the equation simplifies beautifully: expected future consumption equals current consumption. This means consumption follows a random walk - today's consumption is the best predictor of tomorrow's consumption, regardless of what we know today."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 2 — Capital Dynamics",
+      "problem": "Guess $C_t=\\alpha+\\beta K_t+\\gamma e_t$. What is $K_{t+1}$ as a function of $K_t$ and $e_t$?",
+      "steps": [
+       {
+        "text": "Substitute the consumption guess into the accumulation equation"
+       },
+       {
+        "text": "Collect like terms for $K_t$ and $e_t$"
+       },
+       {
+        "text": "Simplify the expression"
+       }
+      ],
+      "result": "$\\boxed{K_{t+1}=-\\alpha+(1+A-\\beta)K_t+(1-\\gamma)e_t}$"
+     },
+     "narr": [
+      "Now for part (b), we're given a guess for the consumption function: linear in capital and the technology shock. We need to find how next period's capital depends on current capital and the shock.",
+      "Substituting this consumption guess into the capital accumulation equation, we can express next period's capital in terms of current variables.",
+      "Collecting like terms for capital and the shock, we get a simple linear relationship.",
+      "The result shows that next period's capital depends on a constant term, current capital, and the current technology shock, with coefficients that we'll determine in the next part."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 3 — Parameter Values",
+      "problem": "What values of $\\alpha,\\beta,\\gamma$ satisfy the first-order condition for all $K_t$ and $e_t$?",
+      "steps": [
+       {
+        "text": "Write the Euler condition $E[C_{t+1}]=C_t$ for the guessed form"
+       },
+       {
+        "text": "Take expectations, noting that $E_t[e_{t+1}]=\\phi e_t$"
+       },
+       {
+        "text": "Substitute the expression for $K_{t+1}$ from part (b)"
+       },
+       {
+        "text": "Collect terms for $K_t$ and $e_t$"
+       },
+       {
+        "text": "Set up a system of equations by matching coefficients"
+       },
+       {
+        "text": "Solve the system for $\\alpha, \\beta, \\gamma$"
+       }
+      ],
+      "result": "$\\boxed{\\beta=A, \\gamma=\\frac{A}{1-\\phi+A}, \\alpha=0}$"
+     },
+     "narr": [
+      "Part (c) asks us to find the specific values of $\\alpha, \\beta, \\gamma$ that satisfy the Euler equation for all possible values of capital and the technology shock.",
+      "Starting with the Euler equation and our guessed form of consumption, we take expectations, knowing that the expected value of next period's shock depends on the current shock through the autoregressive parameter $\\phi$.",
+      "Substituting the expression for next period's capital from part (b), we can express everything in terms of current variables.",
+      "Collecting terms for capital and the shock, we get an equation that must hold for all possible values.",
+      "By matching coefficients on both sides, we set up a system of three equations.",
+      "Solving this system, we find that $\\beta$ equals the interest rate $A$, $\\gamma$ depends on both $A$ and $\\phi$, and $\\alpha$ must be zero. The degenerate solution where $\\beta=\\gamma=0$ is ignored as it doesn't make economic sense."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 4 — Impulse Response to a One-Time Shock",
+      "problem": "If $e$ (and $\\varepsilon$) equal $0$ until period $t$, when a one-time positive realization $\\varepsilon_t=1-\\phi+A$ occurs (and $\\varepsilon=0$ again afterwards), what are the effects on the paths of $Y$, $K$, $C$?",
+      "steps": [
+       {
+        "text": "Analyze the immediate impact on $\\Delta Y_t, \\Delta C_t, \\Delta K_{t+1}$"
+       },
+       {
+        "text": "Examine the dynamics in period $t+1$ when $\\Delta e_{t+1}=\\phi \\Delta e_t$"
+       },
+       {
+        "text": "Extend the analysis to subsequent periods $t+2, t+3, \\ldots$"
+       },
+       {
+        "text": "Identify the long-run effects and transition dynamics"
+       },
+       {
+        "text": "Consider special cases for different values of $\\phi$"
+       }
+      ],
+      "result": "$\\boxed{\\Delta C_{t+n}=A \\forall n\\ge0; \\Delta K_{t+n}=1-\\phi^{n}; \\Delta Y_{t+n}=A+\\phi^{n}(1-\\phi)}$"
+     },
+     "narr": [
+      "Finally, part (d) examines how the economy responds to a one-time positive technology shock. Initially, the shock increases output by $1-\\phi+A$, but consumption only increases by $A$.",
+      "The remaining increase in output, $(1-\\phi)$, is invested, causing capital to rise by $1-\\phi$ in the next period.",
+      "In the following period, the AR(1) nature of the technology shock means $e$ remains above its previous path even though the new shock is zero.",
+      "Consumption stays permanently higher by $A$, while capital continues to gradually increase toward its new long-run level, which is $1$ unit higher.",
+      "Output initially overshoots to $1-\\phi+A$ and then gradually converges down to a level $A$ higher than before.",
+      "The dynamics depend critically on the persistence parameter $\\phi$: when $\\phi=0$, there are no dynamics after the initial shock; when $0<\\phi<1$, capital builds up gradually and output decays monotonically; when $-1<\\phi<0$, both capital and output oscillate around their new long-run levels before settling."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "plot",
+     "data": {
+      "heading": "Impulse Response to a One-Time Shock",
+      "functions": [
+       {
+        "fn": "0.5*0.55**x + 0.1",
+        "tex": "\\hat{Y}_t",
+        "color": "#4C5FD5"
+       },
+       {
+        "fn": "0.1*(1 - 0.6**x)",
+        "tex": "\\hat{K}_t",
+        "color": "#B45309"
+       },
+       {
+        "fn": "0.1",
+        "tex": "\\hat{C}_t",
+        "color": "#0E7C7B"
+       }
+      ],
+      "x_range": [
+       0,
+       10
+      ],
+      "y_range": [
+       0,
+       0.65
+      ],
+      "x_label": "Periods after shock",
+      "y_label": "Deviation from steady state"
+     },
+     "narr": [
+      "This plot illustrates the impulse response functions for output, capital, and consumption following a one-time technology shock when $\\phi=0.5$ and $A=0.1$.",
+      "As we can see, output immediately jumps above its new steady-state level and then gradually converges down.",
+      "Capital builds up gradually over time, approaching its new long-run level.",
+      "Consumption jumps immediately by $A=0.1$ and remains at this higher level permanently, with no further dynamics."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "recap",
+     "data": {
+      "heading": "Key Results",
+      "items": [
+       "Consumption follows a random walk: $E[C_{t+1}]=C_t$",
+       "Capital accumulation: $K_{t+1}=-\\alpha+(1+A-\\beta)K_t+(1-\\gamma)e_t$",
+       "Optimal parameters: $\\beta=A$, $\\gamma=\\frac{A}{1-\\phi+A}$, $\\alpha=0$",
+       "Impulse response: $\\Delta C_{t+n}=A$, $\\Delta K_{t+n}=1-\\phi^n$, $\\Delta Y_{t+n}=A+\\phi^n(1-\\phi)$"
+      ]
+     },
+     "narr": [
+      "Let's recap the key insights from this simplified RBC model.",
+      "First, we found that consumption follows a random walk - today's consumption is the best predictor of tomorrow's consumption.",
+      "Second, we derived how capital accumulates based on our linear consumption guess.",
+      "Third, we determined the optimal parameters that satisfy the Euler equation for all possible states.",
+      "Finally, we analyzed how the economy responds to a one-time technology shock, showing that consumption jumps immediately and stays higher, while capital gradually increases and output initially overshoots before converging to its new steady state."
+     ],
+     "narr_item": [
+      -1,
+      0,
+      1,
+      2,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Exam Crib Sheet",
+   "blocks": [
+    {
+     "type": "section",
+     "data": {
+      "num": 5,
+      "title": "Exam Crib Sheet",
+      "subtitle": "All Key Results on One Page"
+     },
+     "narr": [
+      "In this video, we'll go through all the key results from your exam crib sheet. Let's start with the first topic: two-period consumption model, also known as the Fisher model.",
+      "We'll cover the budget constraint, the Euler equation, and how consumption changes with interest rates.",
+      "Then we'll move on to life-cycle saving, efficiency wages, Shapiro-Stiglitz model, and Real Business Cycles. Finally, we'll look at some important numbers worth memorizing."
+     ],
+     "narr_item": [
+      -1,
+      -1,
+      -1
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Two-period Consumption (Fisher Model)",
+      "bullets": [
+       "Budget constraint for saver/borrower: $C_1+\\frac{C_2}{1+r_{s,b}}=Y_1+\\frac{Y_2}{1+r_{s,b}}$",
+       "Both budget lines pass through $(Y_1,Y_2)$",
+       "Feasible set lies between the saver and borrower budget lines",
+       "Euler equation: $u'(C_1)=\\beta(1+r) u'(C_2)$",
+       "For log utility: $C_2=(1+r)\\beta C_1$",
+       "Optimal consumption: $C_1^*=\\frac{1}{1+\\beta}\\bigl(Y_1+\\frac{Y_2}{1+r}\\bigr)$, $C_2^*=\\frac{\\beta(1+r)}{1+\\beta}\\bigl(Y_1+\\frac{Y_2}{1+r}\\bigr)$"
+      ]
+     },
+     "narr": [
+      "The Fisher model describes consumption decisions over two periods. The budget constraint shows that the present value of consumption equals the present value of income.",
+      "Notice that both the saver and borrower budget lines pass through the endowment point $(Y_1,Y_2)$, representing the consumption if you didn't save or borrow.",
+      "The feasible set lies between these two budget lines, showing all possible consumption combinations.",
+      "The Euler equation equates the marginal utility of consumption today with the discounted marginal utility of consumption tomorrow.",
+      "For log utility, this simplifies to a nice relationship where consumption in period 2 is proportional to consumption in period 1.",
+      "The optimal consumption levels can be solved explicitly, showing how consumption depends on income and the interest rate."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Two-period Consumption: Interest Rate Effects",
+      "bullets": [
+       "For a borrower, a decrease in interest rate has two effects:",
+       "1. Substitution effect: $C_1$ increases",
+       "2. Income effect: $C_1$ increases, $C_2$ increases",
+       "Overall: $C_1$ rises",
+       "With log utility: $C_2$ is unchanged"
+      ]
+     },
+     "narr": [
+      "When interest rates fall, borrowers are affected by two forces.",
+      "First, the substitution effect makes current consumption cheaper relative to future consumption, leading to higher $C_1$.",
+      "Second, the income effect makes borrowers better off overall, increasing both $C_1$ and $C_2$.",
+      "Combined, these effects definitely increase $C_1$.",
+      "Interestingly, with log utility, the income and substitution effects on $C_2$ exactly offset each other, leaving $C_2$ unchanged."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Life-cycle Saving",
+      "bullets": [
+       "$\\int_0^T C dt=RY_0+\\frac{1}{2}gR^2$",
+       "$\\bar C=\\frac{R}{T}\\bigl(Y_0+\\frac{1}{2}gR\\bigr)$ (constant consumption)",
+       "$S(t)=Y(t)-\\bar C$",
+       "$W(t)=t\\bigl(Y_0+\\frac{1}{2}gt-\\bar C\\bigr)$ for $t<R$",
+       "$W(R)=(T-R)\\bar C$",
+       "$W(t)=(T-t)\\bar C$ for $t\\geq R$"
+      ]
+     },
+     "narr": [
+      "In the life-cycle model, we consider saving over a working life of length T.",
+      "The integral of consumption over time equals the present value of resources: initial wealth plus human wealth.",
+      "Optimal consumption is constant at this level, which depends on initial income, growth rate, and retirement age.",
+      "Saving at any time is simply current income minus this constant consumption level.",
+      "Wealth accumulation follows a quadratic pattern during working years.",
+      "After retirement, wealth declines linearly as it's drawn down for consumption."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Efficiency Wages",
+      "bullets": [
+       "Firm profit: $\\pi=F(eL)-wL$",
+       "First-order condition: $F'(eL)=w/e$",
+       "Solow condition: $we'(w)/e(w)=1$",
+       "Example: $e=\\bigl(\\frac{w-x}{x}\\bigr)^\\beta$, $x=(1-bu)w_a$",
+       "Solution: $w^*=\\frac{x}{1-\\beta}=\\frac{1-bu}{1-\\beta}w_a$",
+       "Unemployment rate: $u_{EQ}=\\beta/b$"
+      ]
+     },
+     "narr": [
+      "Efficiency wage models posit that higher wages increase worker productivity.",
+      "The firm maximizes profit, which depends on effective labor eL, where e is effort per worker.",
+      "The first-order condition shows that the marginal product of effective labor equals the real wage divided by effort.",
+      "The Solow condition characterizes how effort responds to wage changes.",
+      "In our example, effort increases with the wage premium over some reservation wage x.",
+      "Solving for the equilibrium wage and unemployment rate gives us these expressions."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Efficiency Wages: Effort and Costs",
+      "bullets": [
+       "Effort levels:",
+       "$e_u=\\bigl(\\frac{\\mu+\\beta}{1-\\beta}\\bigr)^{\\beta}$ (unemployed)",
+       "$e_n=\\bigl(\\frac{\\beta}{1-\\beta}\\bigr)^{\\beta}$ (employed)",
+       "Union premium: $u=\\frac{\\beta+\\mu f}{b(1+\\mu f)}$",
+       "Cost ratio: $(1+\\mu)\\bigl(\\frac{\\beta}{\\mu+\\beta}\\bigr)^{\\beta}$"
+      ]
+     },
+     "narr": [
+      "We can calculate effort levels for unemployed and employed workers.",
+      "Unemployed workers exert higher effort in search, as captured by $e_u$.",
+      "Employed workers exert lower effort once employed, shown by $e_n$.",
+      "When unions are present, they negotiate a wage premium, affecting the unemployment rate.",
+      "The cost ratio compares the total cost of labor with and without unions, accounting for both wages and effort levels."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Efficiency Wages: Wage Rigidity",
+      "bullets": [
+       "Fixed wage cost: $C_{FIXED}=\\frac{w_a}{e(w_a,x')}$",
+       "Adjusting wage cost: $C_{ADJ}=\\frac{x'/(1-\\beta)}{e_0}$",
+       "Cost savings from wage cuts: merely 0.2–0.6 percentage points"
+      ]
+     },
+     "narr": [
+      "Even when conditions change, firms may keep wages fixed due to efficiency wage considerations.",
+      "The cost of maintaining a fixed wage can be compared to the cost of adjusting wages.",
+      "Interestingly, the potential cost savings from cutting wages are quite small, just 0.2 to 0.6 percentage points.",
+      "This helps explain why wages may remain sticky even when market conditions suggest they should fall."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Shapiro-Stiglitz Model",
+      "bullets": [
+       "Value functions:",
+       "$\\rho V_E=w-e-b(V_E-V_U)$",
+       "$\\rho V_S=w-(b+q)(V_S-V_U)$",
+       "$\\rho V_U=a(V_E-V_U)$",
+       "No-shirking condition (NSC): $w=e+\\frac{e}{q}\\bigl(\\rho+b\\frac{L}{L-N}\\bigr)$",
+       "Labor demand: $AF'(eL)=w/e$"
+      ]
+     },
+     "narr": [
+      "The Shapiro-Stiglitz model explains unemployment as an incentive device to prevent shirking.",
+      "The value of being employed, shirking, or unemployed evolves according to these Bellman equations.",
+      "The no-shirking condition determines the minimum wage that prevents workers from shirking.",
+      "This wage depends on the effort cost, job finding rate, separation rate, and unemployment rate.",
+      "Labor demand comes from the firm's optimization problem, equating the marginal product of effective labor to the real wage divided by effort."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Shapiro-Stiglitz: Comparative Statics",
+      "bullets": [
+       "$\\rho\\uparrow$ or $b\\uparrow$: NSC up $\\Rightarrow$ $N\\downarrow$, $w\\uparrow$",
+       "$A\\uparrow$: labor demand right $\\Rightarrow$ $N\\uparrow$, $w\\uparrow$",
+       "$L\\uparrow$: NSC down $\\Rightarrow$ $N\\uparrow$, $w\\downarrow$"
+      ]
+     },
+     "narr": [
+      "Let's see how the model responds to various changes.",
+      "When the discount rate or separation rate increases, the no-shirking condition shifts up, leading to less employment and higher wages.",
+      "When productivity increases, labor demand shifts right, increasing both employment and wages.",
+      "When the labor force increases, the no-shirking condition shifts down, increasing employment but decreasing wages."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "Real Business Cycles (RBC)",
+      "bullets": [
+       "Production function: $\\hat y_t=\\alpha\\hat k_t+(1-\\alpha)(\\hat A_t+\\hat l_t)$",
+       "AR(1) technology shock: $\\hat A_t=\\varepsilon_{A,0}\\rho_A^{t}$",
+       "Example: $\\varepsilon_{A,0}=0.01$, $\\rho_A=0.95$ gives shocks of 1%, 0.95%, 0.9025%,...",
+       "Linearized rules:",
+       "$\\hat c=0.59\\hat k+0.38\\hat A-0.13\\hat g$",
+       "$\\hat l=-0.31\\hat k+0.35\\hat A+0.15\\hat g$",
+       "$\\hat k_{t+1}=0.95\\hat k+0.08\\hat A-0.004\\hat g$"
+      ]
+     },
+     "narr": [
+      "Real Business Cycle theory models business cycles as optimal responses to real shocks, primarily technology shocks.",
+      "The production function shows how output depends on capital, technology, and labor input.",
+      "Technology shocks follow an AR(1) process, meaning they persist over time.",
+      "For example, a 1% shock with 0.95 persistence gives subsequent shocks of 0.95%, 0.9025%, and so on.",
+      "The linearized rules show how consumption, labor, and capital respond to shocks.",
+      "Notice that capital is predetermined, which helps explain the persistence of business cycles."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "RBC: Propagation and Blanchard-Fischer",
+      "bullets": [
+       "Propagation mechanism: AR(1) persistence + predetermined capital accumulation",
+       "Blanchard-Fischer model:",
+       "Euler equation: $1-2\\theta E[C_{t+1}]=\\frac{1+\\rho}{1+A}(1-2\\theta C_t)\\Rightarrow E[C_{t+1}]=C_t$ (random walk)",
+       "Consumption and capital:",
+       "$C_t=AK_t+\\frac{A}{1-\\phi+A}e_t$"
+      ]
+     },
+     "narr": [
+      "The persistence of business cycles comes from two sources: the persistence of shocks themselves and the predetermined nature of capital.",
+      "In the Blanchard-Fischer model, the Euler equation implies that consumption follows a random walk.",
+      "Consumption and capital evolve according to these equations in response to shocks.",
+      "When a shock hits, consumption increases permanently by amount A.",
+      "Capital increases by an amount that approaches 1 as n grows large, but with a rate of approach determined by phi."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {
+     "type": "concept",
+     "data": {
+      "heading": "RBC: Propagation and Blanchard-Fischer (cont.)",
+      "bullets": [
+       "$K_{t+1}=K_t+\\frac{1-\\phi}{1-\\phi+A}e_t$",
+       "Shock response:",
+       "$\\Delta C_{t+n}=A$",
+       "$\\Delta K_{t+n}=1-\\phi^n$",
+       "$\\Delta Y_{t+n}=A+\\phi^n(1-\\phi)$"
+      ]
+     },
+     "narr": [
+      "Output increases by a combination of the permanent consumption effect and a diminishing transitory effect from capital."
+     ],
+     "narr_item": [
+      0
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 1 — Fisher Model Calculation",
+      "problem": "Calculate optimal consumption when $\\beta=0.9$, $Y_1=100$, $Y_2=200$, $r=10\\%$. Is the agent a borrower or saver?",
+      "steps": [
+       {
+        "text": "Calculate present value of income: $Y_1+\\frac{Y_2}{1+r}=100+\\frac{200}{1.1}=100+181.82=281.82$"
+       },
+       {
+        "text": "Apply optimal consumption formula: $C_1^*=\\frac{1}{1+\\beta}\\times 281.82=\\frac{1}{1.9}\\times 281.82=148.33$"
+       },
+       {
+        "text": "Calculate $C_2^*=(1+r)\\beta C_1^*=1.1\\times 0.9\\times 148.33=146.84$"
+       },
+       {
+        "text": "Compare to income: Since $C_1^*>Y_1$, the agent is a borrower"
+       }
+      ],
+      "result": "Optimal consumption: $C_1^*=148.33$, $C_2^*=146.84$. The agent is a borrower."
+     },
+     "narr": [
+      "Let's work through an example using the Fisher model. Suppose we have a beta of 0.9, income of 100 in period 1 and 200 in period 2, and an interest rate of 10 percent.",
+      "First, we calculate the present value of income, which is the sum of current income and the discounted value of future income.",
+      "Using the optimal consumption formula, we find that consumption in period 1 is 148.33.",
+      "Consumption in period 2 is then calculated using the relationship between the two periods' consumption.",
+      "Since consumption in period 1 exceeds income in that period, the agent must be borrowing to finance this consumption."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 2 — Efficiency Wage Calculation",
+      "problem": "Calculate unemployment rate and cost ratio when $\\mu=f=0.15$, $\\beta=0.06$, $b=1$. Then do the same for $\\beta=0.03$.",
+      "steps": [
+       {
+        "text": "For $\\beta=0.06$: $u_{EQ}=\\frac{\\beta}{b}=\\frac{0.06}{1}=0.06$ or 6%"
+       },
+       {
+        "text": "Cost ratio: $(1+\\mu)\\bigl(\\frac{\\beta}{\\mu+\\beta}\\bigr)^{\\beta}=(1.15)\\bigl(\\frac{0.06}{0.21}\\bigr)^{0.06}=1.0667$"
+       },
+       {
+        "text": "For $\\beta=0.03$: $u_{EQ}=\\frac{0.03}{1}=0.03$ or 3%"
+       },
+       {
+        "text": "Cost ratio: $(1.15)\\bigl(\\frac{0.03}{0.18}\\bigr)^{0.03}=1.0898$"
+       }
+      ],
+      "result": "For $\\beta=0.06$: $u_{EQ}=6\\%$, cost ratio=1.0667. For $\\beta=0.03$: $u_{EQ}=3\\%$, cost ratio=1.0898."
+     },
+     "narr": [
+      "Now let's look at an efficiency wage calculation. Suppose we have a union premium of 0.15, bargaining power f of 0.15, beta of 0.06, and b of 1.",
+      "The equilibrium unemployment rate is simply beta divided by b, which gives us 6 percent.",
+      "The cost ratio, comparing union to non-union costs, is approximately 1.0667, meaning union costs are about 6.67% higher.",
+      "If we reduce beta to 0.03, the unemployment rate falls to 3 percent.",
+      "However, the cost ratio increases to 1.0898, showing that lower unemployment comes at a higher cost."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      3,
+      3
+     ]
+    },
+    {
+     "type": "example",
+     "data": {
+      "heading": "Problem 3 — Wage Rigidity Comparison",
+      "problem": "Compare cost changes when unemployment rises from 6% to 9% under fixed and adjusting wage regimes.",
+      "steps": [
+       {
+        "text": "For fixed wages: $\\Delta C_{FIXED}=-2.6\\%/-1.3\\%$"
+       },
+       {
+        "text": "For adjusting wages: $\\Delta C_{ADJ}=-3.2\\%/-1.5\\%$"
+       },
+       {
+        "text": "Interpretation: Wage rigidity reduces cost savings from higher unemployment"
+       }
+      ],
+      "result": "With fixed wages, costs decrease by 2.6% or 1.3% depending on parameters. With adjusting wages, costs decrease by 3.2% or 1.5%. Wage rigidity reduces these savings."
+     },
+     "narr": [
+      "Let's examine how costs change when unemployment increases from 6% to 9%.",
+      "Under fixed wages, the cost decrease is between 1.3% and 2.6%, depending on the specific parameters.",
+      "Under adjusting wages, the cost decrease is larger, between 1.5% and 3.2%.",
+      "This shows that wage rigidity reduces the potential cost savings that could be achieved from higher unemployment.",
+      "In other words, firms could save more by adjusting wages, but the efficiency wage model explains why they might not do so."
+     ],
+     "narr_item": [
+      0,
+      1,
+      2,
+      2,
+      2
+     ]
+    },
+    {
+     "type": "outro",
+     "data": {
+      "kicker": "Guide complete",
+      "message": "You are ready for the exam. Good luck!",
+      "chip": "Good luck on the test!"
+     },
+     "narr": [
+      "You are ready for the exam. Good luck!"
+     ],
+     "narr_item": [
+      -1
+     ]
+    }
+   ]
+  }
+ ]
+}
