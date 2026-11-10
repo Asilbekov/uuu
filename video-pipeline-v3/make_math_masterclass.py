@@ -117,6 +117,16 @@ AUDITED_TEXT_REPAIRS = {
     "12ln200/ln2 ≈92.1 часов": "12ln200/ln2 ≈91.7 часов",
     "k ≈0.0578 в час, t ≈92.1 часов": "k ≈0.0578 в час, t ≈91.7 часов",
     "≈31.5 месяцев": "≈29.2 месяцев",
+    # Numeric-base subscripts and complex-set membership lost in PDF extraction.
+    "13 в десятичной системе: 1310": "13 в десятичной системе: 13₁₀",
+    "13 в двоичной системе: 11012": "13 в двоичной системе: 1101₂",
+    "13 в восьмеричной системе: 158": "13 в восьмеричной системе: 15₈",
+    "13 в шестнадцатеричной системе: D16": "13 в шестнадцатеричной системе: D₁₆",
+    "1310 = 11012 = 158 = D16": "13₁₀ = 1101₂ = 15₈ = D₁₆",
+    "√-9 = -3 ∈ Z": "√(-9) = 3i ∈ C (не вещественно)",
+    "√-9 ∈ Z": "√(-9) ∈ C",
+    "√-9": "√(-9)",
+    "(1) √(1 + i); (2) −1 + i": "(1) 1 + i; (2) −1 + i",
 }
 
 
@@ -152,7 +162,40 @@ def repair_screen_text(value, *, key: str = "", complex_ocr: bool = False):
         text = text.replace("$2$", "√2").replace("$3$", "√3")
         text = text.replace("sqrt[3]{1 + √3i}", "1 + i√3")
         text = text.replace("sqrt[3]{1 - √3i}", "1 - i√3")
-        text = text.replace("(3 + i)^4", "(-1 + i√3)^4")
+        # Keep the clearly printed conditions and repair the PDF's mismatched answers.
+        text = text.replace("z = -1 + √3i", "z = -1 + 3i")
+        text = text.replace("(3 + i)^4 = -8 + 8√3i", "(3 + i)^4 = 28 + 96i")
+        text = text.replace("z^5 = -16 - 16√3i", "z^5 = -316 - 12i")
+        text = text.replace(
+            "Для z = -1 + 3i: |z| = √(1 + 3) = 2",
+            "Для z = -1 + 3i: |z| = √(1 + 9) = √10",
+        )
+        text = text.replace(
+            "Точка находится во втором квадранте, опорный угол равен π/3, поэтому θ = 2π/3",
+            "Точка находится во втором квадранте, опорный угол равен arctan(3), поэтому θ = π - arctan(3)",
+        )
+        text = text.replace("z = 2e^{i2π/3}", "z = √10·e^{i(π-arctan(3))}")
+        text = text.replace(
+            "Тогда z^5 = 2^5e^{i10π/3} = 32e^{i(10π/3-2π)} = 32e^{i4π/3}",
+            "Тогда z^5 = (√10)^5·e^{i5(π-arctan(3))} = 100√10·e^{i5(π-arctan(3))}",
+        )
+        text = text.replace(
+            "Преобразуем в алгебраическую форму: 32(-1/2 - i√3/2) = -16 - 16√3i",
+            "Преобразуем в алгебраическую форму: z^5 = -316 - 12i",
+        )
+        text = text.replace("r = √(3²+1²)=2, квадрант III", "r = √(3²+1²)=√10, квадрант III")
+        text = text.replace(
+            "θ = π + arctan(1/3): 2(cos(π + arctan(1/3)) + i·sin(π + arctan(1/3))) = 2·e^(i(π + arctan(1/3)))",
+            "θ = π + arctan(1/3): √10(cos(π + arctan(1/3)) + i·sin(π + arctan(1/3))) = √10·e^(i(π + arctan(1/3)))",
+        )
+        text = text.replace(
+            "100(cos(4·arctan(1/3)) + i·sin(4·arctan(1/3)))",
+            "28 + 96i",
+        )
+        text = text.replace(
+            "100√10(cos(5(π-arctan(3))) + i·sin(5(π-arctan(3))))",
+            "-316 - 12i",
+        )
         text = text.replace(
             "1 + i√3 = 2 cos(π/3) + i sin(π) = 2e",
             "1 + i√3 = 2(cos(π/3) + i sin(π/3)) = 2e",
@@ -315,9 +358,11 @@ def build(target_minutes: int = 195) -> tuple[dict, dict]:
             block["narr"], block["narr_item"] = kept, mapping
 
     # Regression checks for the audited OCR repairs above.
-    z = -1 + 1j * cmath.sqrt(3)
-    assert abs(z**4 - (-8 + 8j * cmath.sqrt(3))) < 1e-9
-    assert abs(z**5 - (-16 - 16j * cmath.sqrt(3))) < 1e-9
+    z = -1 + 3j
+    w = 3 + 1j
+    assert w**4 == 28 + 96j
+    assert z**5 == -316 - 12j
+    assert int("1101", 2) == int("15", 8) == int("D", 16) == 13
     assert abs((1 + 1j)**6 - (-8j)) < 1e-9
     assert 4**(3/2 + 1) == 32
     assert round(math.log(200) / (math.log(2)/12), 1) == 91.7
@@ -332,7 +377,11 @@ def build(target_minutes: int = 195) -> tuple[dict, dict]:
         [b.get("data", {}) for b in spec["chapters"][0]["blocks"]],
         ensure_ascii=False,
     )
-    for bad in ("(3 + i)^4", "$2$", "$3$", "sqrt[3]", "i sin(π) = 2e"):
+    for bad in (
+        "(√3 + i)^4", "(√3+i)^4", "−1+√3i", "-1 + √3i",
+        "-8 + 8√3i", "-16 - 16√3i", "$2$", "$3$", "sqrt[3]",
+        "i sin(π) = 2e", "√-9 ∈ Z", "r = √(3²+1²)=2",
+    ):
         assert bad not in complex_screen, f"unrepaired complex OCR: {bad}"
     all_screen = json.dumps(
         [b.get("data", {}) for c in spec["chapters"] for b in c["blocks"]],

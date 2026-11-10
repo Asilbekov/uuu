@@ -94,7 +94,10 @@ def validate(path: Path) -> dict:
             errors.append(f"block {index}: untranslated heading: {heading}")
         if id(block) in complex_blocks:
             complex_text = json.dumps(data, ensure_ascii=False)
-            for marker in ("$2$", "$3$", "sqrt[3]", "(3 + i)^4"):
+            for marker in (
+                "$2$", "$3$", "sqrt[3]", "(√3 + i)^4", "(√3+i)^4",
+                "−1+√3i", "-1 + √3i", "-8 + 8√3i", "-16 - 16√3i", "√-9 ∈ Z",
+            ):
                 if marker in complex_text:
                     errors.append(f"block {index}: suspect complex-number OCR: {marker}")
         if not isinstance(narration, list):
