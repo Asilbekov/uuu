@@ -45,7 +45,7 @@ export function ResultsView({
   startEditTestInTake,
   handleSaveTest,
   cycleDashView,
-  openStartTest,
+  restartTest,
   editorBody,
   chatEndRef,
   groupEndRef,
@@ -285,7 +285,7 @@ export function ResultsView({
           className="max-w-7xl mx-auto px-4 pt-3"
           style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}
         >
-          <Button onClick={() => openStartTest(currentTest!)} className="w-full h-9 lg:h-11 lg:text-base rounded-full bg-primary hover:bg-primary/90">
+          <Button onClick={() => restartTest(currentTest!)} className="w-full h-9 lg:h-11 lg:text-base rounded-full bg-primary hover:bg-primary/90">
             <RefreshCw className="w-4 h-4 mr-2" /> {t('retryTest')}
           </Button>
         </div>

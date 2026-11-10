@@ -36,7 +36,10 @@ export interface TakeTestViewProps {
   startEditTestInTake: () => void;
   selectAnswer: (questionId: string, answer: string) => void;
   submitTest: () => void;
-  openStartTest: (test: Test) => void;
+  // Results "Retry Test": restart THIS test straight into the take view at
+  // question 1, obeying the user's Start-page settings (shuffle Q / shuffle
+  // options / practice mode) — never navigates to the test card.
+  restartTest: (test: Test) => void;
   handleSaveTest: (fromTake?: boolean) => void;
   cycleDashView: () => void;
   // ── Editor sheet body + chat DOM refs owned by app-root ──────────────────

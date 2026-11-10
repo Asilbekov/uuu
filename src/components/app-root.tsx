@@ -2076,25 +2076,27 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     }
   };
 
-  const openStartTest = async (test: Test) => {
+  // Results "Retry Test" button: skip the test card and jump straight into
+  // the take view at question 1 — obeying the user's Start-page settings as
+  // they currently stand in the take store (shuffle questions / shuffle
+  // options / practice mode), NOT the test's published defaults.
+  const restartTestInTake = async (test: Test) => {
     setLoading(true);
     try {
-      const fullTest = await api.getTest(test.id);
+      const fullTest = dashFullTests[test.id] || await api.getTest(test.id);
       setCurrentTest(fullTest);
       const totalQ = fullTest.questions.length;
-      setSelectedQuestionCount(totalQ);
-      setStartRandomizeQ(fullTest.randomizeQuestions !== false);
-      setStartRandomizeO(fullTest.randomizeOptions !== false);
-      setPracticeMode(false);
+      const count = Math.min(Math.max(1, selectedQuestionCount || totalQ), totalQ);
+      setSelectedQuestionCount(count);
       setFilesOpen(false);
       setChatOpen(false);
       setGroupOpen(false);
       setEditOpen(false);
-      setPage('start-test');
+      await startTestWith(fullTest, count);
     } catch (e: any) {
       toast({ title: 'Error', description: e.message, variant: 'destructive' });
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const startTestWith = async (test: Test, count: number) => {
@@ -4201,14 +4203,14 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
           startEditTestInTake={() => { if (isGuestNow()) return wall('edit'); startEditTestInTake(); }}
           selectAnswer={selectAnswer}
           submitTest={submitTest}
-          openStartTest={(test) => {
+          restartTest={(test) => {
             if (isGuestNow()) {
               // Guests skip the start page: Retry restarts THIS test in place.
               if (test && currentTest && test.id === currentTest.id) startGuestTake(test);
               else wall('home');
               return;
             }
-            void openStartTest(test);
+            void restartTestInTake(test);
           }}
           handleSaveTest={handleSaveTest}
           cycleDashView={cycleDashView}
