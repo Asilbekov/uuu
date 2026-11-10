@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const DATABASE_URL =
   process.env.DATABASE_URL ||
-  'postgresql://neondb_owner:npg_0v7CLFZLp1GO@ep-green-haze-a16lqxjp-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require';
+  process.env.DATABASE_URL;
 
 // Override the datasource URL at runtime so Prisma connects to Neon
 const prisma = new PrismaClient({

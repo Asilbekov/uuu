@@ -51,6 +51,15 @@ function clientIp(req: NextRequest): string {
   return req.headers.get("x-real-ip") || "unknown";
 }
 
+function responseHeaders(response: Response, requestId: string): Response {
+  // Responses may contain private library data. Shared caches must never reuse
+  // them across sessions; the request id makes Vercel logs traceable.
+  response.headers.set("X-Request-Id", requestId);
+  response.headers.set("Cache-Control", "private, no-store");
+  response.headers.set("Vary", "Cookie");
+  return response;
+}
+
 function logRequest(
   requestId: string,
   method: string,
@@ -77,10 +86,10 @@ export function withApi(
 ) {
   return async (
     req: NextRequest,
-    routeCtx?: { params: Promise<Record<string, string>> }
+    routeCtx: { params: Promise<Record<string, string>> }
   ): Promise<Response> => {
     const startedAt = Date.now();
-    const requestId = Math.random().toString(36).slice(2, 10);
+    const requestId = crypto.randomUUID().slice(0, 12);
     const path = req.nextUrl.pathname;
     let status = 500;
 
@@ -103,11 +112,17 @@ export function withApi(
         requestId,
       });
       status = res.status;
-      return res;
+      return responseHeaders(res, requestId);
     } catch (error) {
       const { status: errStatus, body } = handleApiError(error);
       status = errStatus;
-      return NextResponse.json(body, { status: errStatus });
+      return responseHeaders(
+        NextResponse.json(body, {
+          status: errStatus,
+          headers: errStatus === 429 ? { "Retry-After": "60" } : undefined,
+        }),
+        requestId,
+      );
     } finally {
       logRequest(requestId, req.method, path, status, startedAt);
     }

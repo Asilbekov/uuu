@@ -19,24 +19,29 @@ export function getUser() {
   return currentUser;
 }
 
+export class ApiClientError extends Error {
+  constructor(message: string, public readonly status: number, public readonly code?: string) {
+    super(message);
+    this.name = 'ApiClientError';
+  }
+}
+
 async function apiFetch(path: string, options: RequestInit = {}) {
   // Same-origin fetch: the browser attaches the httpOnly session cookie
   // automatically — no identity header, nothing readable by scripts.
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(options.headers as Record<string, string>),
-    },
-  });
+  const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
+  const headers = new Headers(options.headers);
+  if (options.body && !isFormData && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
+  }
+  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
   if (!res.ok) {
     const error = await res.json().catch(() => ({ error: 'Request failed' }));
-    // For rate limit responses, return the body so callers can handle it
-    if (res.status === 429) {
-      return { ...error, rateLimited: true };
-    }
-    throw new Error(error.error || 'Request failed');
+    // Preserve the legacy 429 return contract used by the AI panels.
+    if (res.status === 429) return { ...error, rateLimited: true };
+    throw new ApiClientError(error.error || `Request failed (${res.status})`, res.status, error.code);
   }
+  if (res.status === 204) return null;
   return res.json();
 }
 

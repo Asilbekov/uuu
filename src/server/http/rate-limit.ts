@@ -1,91 +1,65 @@
-// ---------------------------------------------------------------------------
-// Rate limiting — ported from dubinc/dub
-// (apps/web/lib/upstash/assert-rate-limit.ts + ratelimit-policies.ts).
-//
-// dub enforces per-policy sliding-window limits through Upstash Redis. This
-// port keeps the EXACT same interface and policy table, but the limiter runs
-// on an in-process sliding window instead of Redis:
-//   * serverless-safe (each warm lambda enforces its own window — on Vercel
-//     the effective global budget is window × concurrent instances, which is
-//     the standard no-Redis compromise);
-//   * swapping in Upstash later is a one-file change (implement `limit()`
-//     with @upstash/ratelimit — the call sites do not move).
-// ---------------------------------------------------------------------------
+// Small dependency-free sliding-window limiter. It protects a warm serverless
+// instance; for a strict global limit configure Upstash in this one adapter.
 
 import { ApiError } from "./errors";
 
-// --------------------------------------------------------------- adapter ---
-
-type SlidingWindowState = Map<string, number[]>;
+type WindowState = Map<string, number[]>;
 
 const globalForLimiter = globalThis as unknown as {
-  __uuuRateWindows: Map<string, SlidingWindowState> | undefined;
+  __uuuRateWindow?: WindowState;
 };
+const hits: WindowState = globalForLimiter.__uuuRateWindow ?? new Map();
+globalForLimiter.__uuuRateWindow = hits;
 
-// Survive dev-server hot reloads like the Prisma singleton does
-const windows: Map<string, SlidingWindowState> =
-  globalForLimiter.__uuuRateWindows ?? new Map();
-globalForLimiter.__uuuRateWindows = windows;
+const MAX_KEYS = 10_000;
 
 function parseWindowMs(window: string): number {
-  const m = /^(\d+)\s*(ms|s|m|h|d)$/.exec(window.trim());
-  if (!m) return 60_000;
-  const n = Number(m[1]);
-  switch (m[2]) {
-    case "ms":
-      return n;
-    case "s":
-      return n * 1_000;
-    case "m":
-      return n * 60_000;
-    case "h":
-      return n * 3_600_000;
-    case "d":
-      return n * 86_400_000;
-    default:
-      return 60_000;
-  }
+  const match = /^(\d+)\s*(ms|s|m|h|d)$/.exec(window.trim());
+  if (!match) return 60_000;
+  const n = Number(match[1]);
+  const multiplier = { ms: 1, s: 1_000, m: 60_000, h: 3_600_000, d: 86_400_000 }[
+    match[2] as "ms" | "s" | "m" | "h" | "d"
+  ];
+  return n * multiplier;
 }
 
-/**
- * Sliding-window `limit()` — the same contract Upstash's Ratelimit exposes:
- * returns { success, reset } where `reset` is the epoch-ms instant the window
- * frees up again. Timestamps are pruned lazily; stale keys are dropped once
- * their whole window has passed so the map cannot grow unbounded.
- */
-function limit(bucket: string, attempts: number, windowMs: number) {
-  const now = Date.now();
-  let hits = windows.get(bucket);
-  if (!hits) {
-    hits = new Map<string, number[]>();
-    windows.set(bucket, hits);
-  }
-  const arr = hits.get(bucket) ?? [];
-  const fresh = arr.filter((t) => now - t < windowMs);
-  const success = fresh.length < attempts;
-  if (success) fresh.push(now);
-  hits.set(bucket, fresh);
-  const reset = fresh.length ? fresh[0] + windowMs : now + windowMs;
-  // Opportunistic global prune (cheap: only when the map grows)
-  if (hits.size > 5_000) {
-    for (const [k, v] of hits) {
-      const last = v[v.length - 1];
-      if (!last || now - last > windowMs) hits.delete(k);
+function prune(now: number) {
+  for (const [key, timestamps] of hits) {
+    if (!timestamps.length || now - timestamps[timestamps.length - 1] > 86_400_000) {
+      hits.delete(key);
     }
   }
-  return { success, reset };
+  // Bound memory even under a distributed attack with unique identifiers.
+  if (hits.size > MAX_KEYS) {
+    const excess = hits.size - MAX_KEYS;
+    let removed = 0;
+    for (const key of hits.keys()) {
+      hits.delete(key);
+      if (++removed >= excess) break;
+    }
+  }
 }
 
-// -------------------------------------------------------------- policies ---
+function limit(key: string, attempts: number, windowMs: number) {
+  const now = Date.now();
+  if (hits.size > 1_000 && Math.random() < 0.02) prune(now);
+  const fresh = (hits.get(key) ?? []).filter((time) => now - time < windowMs);
+  const success = fresh.length < attempts;
+  if (success) fresh.push(now);
+  hits.set(key, fresh);
+  return {
+    success,
+    reset: fresh.length ? fresh[0] + windowMs : now + windowMs,
+    remaining: Math.max(0, attempts - fresh.length),
+  };
+}
 
-export type RatelimitWindow = string; // "5 s" | "1 m" | "24 h" — dub's format
-
+export type RatelimitWindow = string;
 export type RatelimitMessageContext = {
   retryAfter: string;
   attempts: number;
   window: string;
 };
-
 export type RatelimitPolicy = {
   attempts: number;
   window: RatelimitWindow;
@@ -93,105 +67,49 @@ export type RatelimitPolicy = {
   message?: string | ((ctx: RatelimitMessageContext) => string);
 };
 
-const s = (n: number) => (n === 1 ? "1 second" : `${n} seconds`);
-const min = (n: number) => (n === 1 ? "1 minute" : `${n} minutes`);
+const seconds = (n: number) => `${n} second${n === 1 ? "" : "s"}`;
+const minutes = (n: number) => `${n} minute${n === 1 ? "" : "s"}`;
 
-/** Formats ms until reset as a human-friendly duration (dub's helper). */
 export const formatRetryAfter = (resetAt: number) => {
-  const seconds = Math.max(Math.ceil((resetAt - Date.now()) / 1000), 1);
-  if (seconds < 60) return s(seconds);
-  const minutes = Math.ceil(seconds / 60);
-  if (minutes < 60) return min(minutes);
-  const hours = Math.ceil(minutes / 60);
-  return `${hours} ${hours === 1 ? "hour" : "hours"}`;
+  const value = Math.max(Math.ceil((resetAt - Date.now()) / 1000), 1);
+  if (value < 60) return seconds(value);
+  const mins = Math.ceil(value / 60);
+  if (mins < 60) return minutes(mins);
+  const hours = Math.ceil(mins / 60);
+  return `${hours} hour${hours === 1 ? "" : "s"}`;
 };
 
-/**
- * The policy table — a direct adaptation of dub's RATELIMIT_POLICIES to this
- * product's write surface. Limits are deliberately generous: they exist to
- * stop abuse and runaway loops, never normal use.
- */
 export const RATELIMIT_POLICIES = {
-  // Auth brute-force protection (dub: login = 5/min)
-  login: {
-    attempts: 10,
-    window: "1 m",
-    keyPrefix: "rl:auth:login",
-  },
-  register: {
-    attempts: 5,
-    window: "1 m",
-    keyPrefix: "rl:auth:register",
-  },
-  // AI tutor endpoints — every call costs provider quota
-  ai: {
-    attempts: 20,
-    window: "1 m",
-    keyPrefix: "rl:ai",
-  },
-  // Free MT relay (public endpoint)
-  translate: {
-    attempts: 30,
-    window: "1 m",
-    keyPrefix: "rl:translate",
-  },
-  // Feed engagement signal — the client emits one per card view
-  feedSignal: {
-    attempts: 240,
-    window: "1 m",
-    keyPrefix: "rl:feed:signal",
-  },
-  // Group chat writes
-  chatSend: {
-    attempts: 60,
-    window: "1 m",
-    keyPrefix: "rl:chat:send",
-  },
-  // Test writes (create / update / copy / delete / share)
-  testWrite: {
-    attempts: 60,
-    window: "1 m",
-    keyPrefix: "rl:tests:write",
-  },
-  // Uploads (multipart) — heavier than JSON writes
-  upload: {
-    attempts: 30,
-    window: "1 m",
-    keyPrefix: "rl:upload",
-  },
+  login: { attempts: 10, window: "1 m", keyPrefix: "rl:auth:login" },
+  register: { attempts: 5, window: "1 m", keyPrefix: "rl:auth:register" },
+  ai: { attempts: 20, window: "1 m", keyPrefix: "rl:ai" },
+  translate: { attempts: 30, window: "1 m", keyPrefix: "rl:translate" },
+  feedSignal: { attempts: 240, window: "1 m", keyPrefix: "rl:feed:signal" },
+  chatSend: { attempts: 60, window: "1 m", keyPrefix: "rl:chat:send" },
+  testWrite: { attempts: 60, window: "1 m", keyPrefix: "rl:tests:write" },
+  upload: { attempts: 30, window: "1 m", keyPrefix: "rl:upload" },
 } as const satisfies Record<string, RatelimitPolicy>;
 
 export type RatelimitPolicyKey = keyof typeof RATELIMIT_POLICIES;
 
-/**
- * Enforces a rate limit policy for the given identifier, throwing a
- * rate_limit_exceeded ApiError when the limit is exceeded (dub's
- * assertRateLimit).
- */
 export async function assertRateLimit({
   policy,
   identifier,
 }: {
   policy: RatelimitPolicy;
-  identifier: string | string[]; // dynamic part(s) of the key, e.g. email or [email, ip]
+  identifier: string | string[];
 }) {
   const key = [
     policy.keyPrefix,
     ...(Array.isArray(identifier) ? identifier : [identifier]),
   ].join(":");
-
-  const { success, reset } = limit(
-    key,
-    policy.attempts,
-    parseWindowMs(policy.window)
-  );
-
+  const { success, reset } = limit(key, policy.attempts, parseWindowMs(policy.window));
   if (!success) {
     const retryAfter = formatRetryAfter(reset);
     const message =
       typeof policy.message === "function"
         ? policy.message({ retryAfter, attempts: policy.attempts, window: policy.window })
         : `Too many requests. Please try again in ${retryAfter}.`;
-    throw new ApiError({ code: "rate_limit_exceeded", message });
+    throw ApiError.rateLimitExceeded(message);
   }
 }

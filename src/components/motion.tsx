@@ -25,11 +25,11 @@ import React, { useEffect, useRef, useState } from 'react';
 export function useExitMount(open: boolean, durationMs = 220): boolean {
   const [mounted, setMounted] = useState(open);
   const mountedRef = useRef(open);
-  mountedRef.current = mounted;
+  useEffect(() => { mountedRef.current = mounted; }, [mounted]);
   useEffect(() => {
     if (open) {
-      setMounted(true);
-      return;
+      const frame = requestAnimationFrame(() => setMounted(true));
+      return () => cancelAnimationFrame(frame);
     }
     // Closing: keep rendering while the exit animation plays
     if (!mountedRef.current) return;
@@ -64,7 +64,9 @@ export function Collapse({
   // first open; afterwards it stays mounted forever (inert when closed).
   const [everOpened, setEverOpened] = useState(!keepMountedOnceShown);
   useEffect(() => {
-    if (open) setEverOpened(true);
+    if (!open) return;
+    const frame = requestAnimationFrame(() => setEverOpened(true));
+    return () => cancelAnimationFrame(frame);
   }, [open]);
 
   if (keepMountedOnceShown && !everOpened) return null;

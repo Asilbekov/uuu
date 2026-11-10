@@ -130,13 +130,16 @@ const PhotoshopColorPicker = dynamic(() => import('@/components/color-picker').t
 import type { Page, Question, Attachment, Test, GroupMessage, Attempt } from '@/lib/app-types';
 import { testBackgroundCss } from '@/lib/test-bg';
 import AuthView from '@/components/pages/auth-view';
-import ProfileView from '@/components/pages/profile-view';
-import HistoryView from '@/components/pages/history-view';
-import StartTestView from '@/components/pages/start-test-view';
-import TakeTestView from '@/components/pages/take-test-view';
 import DashboardView from '@/components/pages/dashboard-view';
 import type { FeedApi } from '@/components/pages/dashboard-view';
-import CreateEditView from '@/components/pages/create-edit-view';
+
+// Route-level code splitting: the first paint no longer downloads the editor,
+// results, charts and profile screens that the visitor may never open.
+const ProfileView = dynamic(() => import('@/components/pages/profile-view'));
+const HistoryView = dynamic(() => import('@/components/pages/history-view'));
+const StartTestView = dynamic(() => import('@/components/pages/start-test-view'));
+const TakeTestView = dynamic(() => import('@/components/pages/take-test-view'));
+const CreateEditView = dynamic(() => import('@/components/pages/create-edit-view'));
 import LangButton from '@/components/lang-button';
 import { CreatorStrip, TranslatingPill, topicBgClass, tagHash, coverBgFor, imgSrc, GLASS_TILE } from '@/components/shared-bits';
 import { readTestProgress, writeTestProgress, clearTestProgress, countAnsweredProgress, type SavedTestProgress } from '@/lib/test-progress';
@@ -1062,7 +1065,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       }
     });
     return () => cancelAnimationFrame(raf);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [viewingUser?.id]);
 
   // Library load failure — surface it once per attempt (v5 has no onError)
@@ -1073,7 +1076,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
     if (libraryErrorSeenRef.current === sig) return;
     libraryErrorSeenRef.current = sig;
     toast({ title: t('error'), variant: 'destructive' });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [viewingUser, libraryError]);
 
   const dashFetchedRef = React.useRef<Set<string>>(new Set());
@@ -1102,7 +1105,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
         preheatMedia(full);
       })
       .catch(() => { dashFetchedRef.current.delete(id); });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   // Idle scheduler: requestIdleCallback with a deadline so prefetches always
@@ -1121,7 +1124,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       dashQueuedRef.current.delete(id);
       startFullFetch(id);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [startFullFetch]);
 
   // Decode-ahead for the images the NEXT cards will render: creator avatar +
@@ -1165,7 +1168,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       // rank 0 = the most likely next card → fetch right now, not in idle
       prefetchFullTest(tests[i].id, rank === 0);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [tests, prefetchFullTest]);
   // Dashboard VIEW modes: tiktok1 = card swipe feed, tiktok2 = the same feed
   // opened from the library (back button in the header), library = shelves of
@@ -2497,7 +2500,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       if (!th) return prev;
       return { ...prev, [chatThreadId]: { ...th, messages: chatMessages, updatedAt: Date.now() } };
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [chatMessages, chatOpen]);
 
   // Persist changed threads to the DATABASE (per user) — debounced 1s,
@@ -2667,7 +2670,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       setChatMessages([]);
     }
     setChatInput('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [aiCardTestId]);
   // «Новый чат» in the dashboard AI window's drawer: a fresh conversation
   // about the SAME test; the previous threads stay in the list.
@@ -2687,7 +2690,7 @@ function AppRootInner({ authed, guestTest }: { authed: boolean; guestTest?: stri
       if (navNow().aiCardTestId) setAiCardTestId(null);
       if (dashGroupTestId) setDashGroupTestId(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [page]);
   const sendTestChatMessage = async (existingMessages?: { role: 'user' | 'assistant'; content: string }[]) => {
     // The conversation carries its OWN test context: the drawer can switch to
@@ -4265,8 +4268,16 @@ function AppRoot({ authed, guestTest }: { authed: boolean; guestTest?: string | 
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {
-        retry: 1,
+        retry: (failureCount, error) => {
+          // 4xx responses are deterministic; retrying them only adds load.
+          const status = (error as { status?: number })?.status;
+          if (status && status >= 400 && status < 500) return false;
+          return failureCount < 1;
+        },
+        staleTime: 20_000,
+        gcTime: 10 * 60_000,
         refetchOnWindowFocus: false,
+        refetchOnReconnect: true,
       },
     },
   }));

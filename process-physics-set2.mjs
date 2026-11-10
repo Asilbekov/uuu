@@ -165,7 +165,7 @@ async function main() {
 function generateInsertScript(questions) {
   const script = `const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient({
-  datasources: { db: { url: 'postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require' } }
+  datasources: { db: { url: process.env.DATABASE_URL } }
 });
 
 async function main() {

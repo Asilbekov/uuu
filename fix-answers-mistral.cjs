@@ -4,9 +4,9 @@
  * where VLM couldn't recognize the answer from photos
  */
 
-const MISTRAL_API_KEY = '8kXyiDpFhhbHjgUC2XtmtfURwODaeWMl';
+const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY;
 const MISTRAL_URL = 'https://api.mistral.ai/v1/chat/completions';
-const DB_URL = 'postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require';
+const DB_URL = process.env.DATABASE_URL;
 const TEST_ID = 'cmpwhq4wx0001p29fozc6m8v3';
 
 // Questions that had c:null from VLM (saved as 'A' by default)

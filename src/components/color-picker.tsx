@@ -53,10 +53,9 @@ export function PhotoshopColorPicker({
 
   // Re-sync when the value changes externally (e.g. Auto reset)
   useEffect(() => {
-    if (value && value.toUpperCase() !== hsvToHex(hsv.h, hsv.s, hsv.v)) {
-      setHsv(hexToHsv(value));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!value || value.toUpperCase() === hsvToHex(hsv.h, hsv.s, hsv.v)) return;
+    const frame = requestAnimationFrame(() => setHsv(hexToHsv(value)));
+    return () => cancelAnimationFrame(frame);
   }, [value]);
 
   const applySv = (clientX: number, clientY: number) => {

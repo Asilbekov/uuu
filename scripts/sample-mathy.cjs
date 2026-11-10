@@ -1,5 +1,5 @@
 // Dump sample of mathy plain options to design converter
-const DB_URL = 'postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require';
+const DB_URL = process.env.DATABASE_URL;
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient({ datasources: { db: { url: DB_URL } } });
 

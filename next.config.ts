@@ -1,11 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Production builds must fail on type errors instead of shipping them.
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
-  reactStrictMode: false,
-  output: 'standalone',
+  reactStrictMode: true,
+  output: "standalone",
+  compress: true,
+  experimental: {
+    optimizePackageImports: ["lucide-react", "recharts", "date-fns"],
+    // Keep CI / small Vercel builders deterministic: extra workers can exceed
+    // a 2 GiB memory limit even though the source compiles correctly.
+    webpackBuildWorker: false,
+    cpus: 1,
+  },
   // Perf: don't reveal the framework in response headers (smaller headers,
   // no fingerprinting). Compression itself is always on at the Vercel edge.
   poweredByHeader: false,

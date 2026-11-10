@@ -4,7 +4,7 @@ set -euo pipefail
 
 # CRITICAL: force Neon PostgreSQL URL so system-default SQLite DATABASE_URL
 # (exported by the sandbox image) cannot break `prisma db push` or the app.
-export DATABASE_URL='postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'
+export DATABASE_URL='${DATABASE_URL:?Set DATABASE_URL in the environment}'
 
 # 获取脚本所在目录（.zscripts）
 # 使用 $0 获取脚本路径（与 build.sh 保持一致）

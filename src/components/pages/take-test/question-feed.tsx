@@ -38,7 +38,9 @@ export function QuestionFeed({
 
   // Fresh state mirror for the event handlers (no stale closures).
   const takeStateRef = React.useRef({ idx: currentQuestionIdx, count: shuffledQuestions.length });
-  takeStateRef.current = { idx: currentQuestionIdx, count: shuffledQuestions.length };
+  React.useEffect(() => {
+    takeStateRef.current = { idx: currentQuestionIdx, count: shuffledQuestions.length };
+  }, [currentQuestionIdx, shuffledQuestions.length]);
   const takeSwiperRef = React.useRef<SwiperClass | null>(null);
   const takeFeedHostRef = React.useRef<HTMLDivElement | null>(null);
 

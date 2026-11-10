@@ -3,7 +3,7 @@
 // every user field lives in the database (Session table). Replaces the old
 // "user object in localStorage + spoofable x-user-id header" scheme.
 //
-//   * createSession(userId)  → new random token row (+180 days)
+//   * createSession(userId)  → new random token row (+30 days)
 //   * sessionCookie(token)   → Set-Cookie cookie structure
 //   * sessionUserId(req)     → cookie → DB lookup → userId | null
 //   * destroySession(req)    → delete the row (logout)
@@ -14,11 +14,11 @@ import { randomBytes } from "node:crypto";
 import { db } from "@/lib/db";
 
 export const SESSION_COOKIE = "uuu_session";
-const SESSION_TTL_DAYS = 180;
+const SESSION_TTL_DAYS = 30;
 
 /** Create a DB session row and return its opaque token. */
 export async function createSession(userId: string): Promise<string> {
-  const token = randomBytes(24).toString("hex"); // 48 chars
+  const token = randomBytes(32).toString("base64url"); // 256 bits, cookie-safe
   const expiresAt = new Date(Date.now() + SESSION_TTL_DAYS * 24 * 60 * 60 * 1000);
   await db.session.create({ data: { id: token, userId, expiresAt } });
   return token;

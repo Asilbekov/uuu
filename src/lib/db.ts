@@ -1,29 +1,31 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from "@prisma/client";
 
-// Neon PostgreSQL connection URL - hardcoded as fallback to prevent
-// system DATABASE_URL (e.g., SQLite) from overriding it
-const NEON_DATABASE_URL = 'postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'
+/**
+ * The connection string is configuration, never source code. In Vercel set
+ * DATABASE_URL to the Neon pooled URL; use the direct URL only for migrations.
+ */
+const databaseUrl = process.env.DATABASE_URL;
 
-// CRITICAL: Always ensure DATABASE_URL points to Neon PostgreSQL.
-// System env vars (like SQLite paths) must NOT override this.
-const effectiveUrl = process.env.DATABASE_URL?.startsWith('postgresql://')
-  ? process.env.DATABASE_URL
-  : NEON_DATABASE_URL
-
-// Set it in process.env BEFORE PrismaClient init so schema.prisma env("DATABASE_URL") resolves correctly
-process.env.DATABASE_URL = effectiveUrl
-
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+if (!databaseUrl) {
+  throw new Error(
+    "DATABASE_URL is not configured. Add it to .env.local or Vercel Environment Variables.",
+  );
 }
 
-export const db = globalForPrisma.prisma ?? new PrismaClient({
-  log: ['error'],
-  datasources: {
-    db: {
-      url: effectiveUrl,
-    },
-  },
-})
+if (!/^postgres(ql)?:\/\//.test(databaseUrl)) {
+  throw new Error("DATABASE_URL must be a PostgreSQL connection string");
+}
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = db
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+export const db =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
+    datasources: { db: { url: databaseUrl } },
+  });
+
+// Prevent a new connection pool on every Next.js development hot reload.
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = db;

@@ -83,7 +83,7 @@ export function PdfCanvasViewer({
       docRef.current?.destroy();
       docRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [url]);
 
   // Render the current page onto the canvas (fit width * zoom, hi-dpi aware)

@@ -177,22 +177,25 @@ export default function VersionTreeView({ testId, bookmarkIds, onToggleBookmark,
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchFamily = useCallback((id: string) => {
+  const fetchFamily = useCallback(async (id: string) => {
+    // Yield once so React can commit the navigation before the loading state
+    // changes; this also avoids synchronous cascading renders in effects.
+    await Promise.resolve();
     setLoading(true);
     setError(null);
-    api.getTestTree(id)
-      .then(data => {
-        setFamily(data);
-        if (!data.nodes.some(n => n.id === id)) {
-          setError(t('noResults'));
-        }
-      })
-      .catch(e => setError(e?.message || 'Error'))
-      .finally(() => setLoading(false));
+    try {
+      const data = await api.getTestTree(id);
+      setFamily(data);
+      if (!data.nodes.some(n => n.id === id)) setError(t('noResults'));
+    } catch (e: any) {
+      setError(e?.message || 'Error');
+    } finally {
+      setLoading(false);
+    }
   }, [t]);
 
   useEffect(() => {
-    fetchFamily(viewRootId);
+    void fetchFamily(viewRootId);
   }, [viewRootId, fetchFamily]);
 
   // apple tap → re-root the line at THAT version: its own line grows below it

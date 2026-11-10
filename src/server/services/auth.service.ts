@@ -14,6 +14,8 @@ import { hashPassword, verifyPassword } from "@/server/auth/password";
 import { ApiError } from "@/server/http/errors";
 
 const PUBLIC_USER_FIELDS = { id: true, email: true, name: true } as const;
+// A real bcrypt digest used only to equalize response timing for unknown emails.
+const TIMING_SAFE_DUMMY_HASH = "$2a$10$1BwAvCqxHDaLRdhJV3.wEuQt/T3SdUCVFRjhgpplrbGfYrW2PNx0C";
 
 export type PublicUser = { id: string; email: string; name: string };
 
@@ -61,7 +63,9 @@ export async function loginUser(input: {
 
   const user = await db.user.findUnique({ where: { email } });
   if (!user) {
-    // Same message for unknown email and wrong password (no account probing)
+    // Do comparable work for unknown accounts: response timing must not reveal
+    // whether an email is registered. The public error stays identical too.
+    verifyPassword(password, TIMING_SAFE_DUMMY_HASH);
     throw ApiError.unauthorized("Invalid email or password");
   }
 

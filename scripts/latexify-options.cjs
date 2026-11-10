@@ -5,7 +5,7 @@
  * using Mistral. Idempotent: fields that already contain LaTeX are skipped.
  * Usage: node scripts/latexify-options.cjs [--test=<testId>] [--limit=N]
  */
-const DB_URL = 'postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require';
+const DB_URL = process.env.DATABASE_URL;
 const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY || 'mstrl_naalPY3i3Et7CiwdCYCPFJhONOFzt0qI_13UuG1';
 const MISTRAL_URL = 'https://api.mistral.ai/v1/chat/completions';
 const MODEL = 'mistral-small-latest';

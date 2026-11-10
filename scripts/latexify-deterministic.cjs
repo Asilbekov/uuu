@@ -8,7 +8,7 @@
  *   node scripts/latexify-deterministic.cjs --apply    # writes to DB
  *   node scripts/latexify-deterministic.cjs --apply --test=<id> --limit=N
  */
-const DB_URL = 'postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require';
+const DB_URL = process.env.DATABASE_URL;
 const FS = require('fs');
 const katex = require('katex');
 const { PrismaClient } = require('@prisma/client');

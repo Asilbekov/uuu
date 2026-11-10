@@ -8,11 +8,23 @@ import { NextRequest } from "next/server";
 import type { z } from "zod";
 import { ApiError } from "./errors";
 
-/** Parse the JSON body, mapping malformed JSON to a 400 (dub's helper). */
+const MAX_JSON_BYTES = 2_000_000;
+
+/** Parse JSON with a hard payload ceiling and a stable 400/413 contract. */
 export async function parseRequestBody(req: Request): Promise<unknown> {
+  const declared = Number(req.headers.get("content-length") || 0);
+  if (declared > MAX_JSON_BYTES) {
+    throw ApiError.payloadTooLarge("JSON request body exceeds the 2 MB limit");
+  }
   try {
-    return await req.json();
-  } catch {
+    const text = await req.text();
+    // TextEncoder measures bytes, not UTF-16 code units (Cyrillic matters).
+    if (new TextEncoder().encode(text).byteLength > MAX_JSON_BYTES) {
+      throw ApiError.payloadTooLarge("JSON request body exceeds the 2 MB limit");
+    }
+    return JSON.parse(text);
+  } catch (error) {
+    if (error instanceof ApiError) throw error;
     throw ApiError.badRequest(
       "Invalid JSON format in request body. Please ensure the request body is a valid JSON object."
     );

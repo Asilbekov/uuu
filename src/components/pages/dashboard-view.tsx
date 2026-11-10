@@ -227,17 +227,20 @@ export default function DashboardView({
   const [treeLoading, setTreeLoading] = useState(false);
   const [treeError, setTreeError] = useState<string | null>(null);
   useEffect(() => {
-    if (!gridTreeMode || !gridTreeTestId) { setTreeFamily(null); setTreeError(null); return; }
     let alive = true;
-    setTreeLoading(true); setTreeError(null);
-    api.getTestTree(gridTreeTestId)
-      .then(d => { if (alive) setTreeFamily(d); })
-      .catch(e => { if (alive) { setTreeError(e?.message || 'Error'); setTreeFamily(null); } })
-      .finally(() => { if (alive) setTreeLoading(false); });
-    // Re-open / re-root also starts the grid from the top — the tapped test's
-    // card is the first cell of the new list.
-    requestAnimationFrame(() => dashFeedRef.current?.scrollTo({ top: 0 }));
-    return () => { alive = false; };
+    const frame = requestAnimationFrame(() => {
+      if (!gridTreeMode || !gridTreeTestId) {
+        setTreeFamily(null); setTreeError(null); return;
+      }
+      setTreeLoading(true); setTreeError(null);
+      api.getTestTree(gridTreeTestId)
+        .then(d => { if (alive) setTreeFamily(d); })
+        .catch(e => { if (alive) { setTreeError(e?.message || 'Error'); setTreeFamily(null); } })
+        .finally(() => { if (alive) setTreeLoading(false); });
+      // Re-open / re-root also starts the grid from the top.
+      dashFeedRef.current?.scrollTo({ top: 0 });
+    });
+    return () => { alive = false; cancelAnimationFrame(frame); };
   }, [gridTreeMode, gridTreeTestId]);
   const deleteId = useNavStore(s => s.deleteId);
   const setDeleteId = useNavStore(s => s.setDeleteId);
@@ -249,7 +252,7 @@ export default function DashboardView({
         .then(d => setTreeFamily(d))
         .catch(() => {});
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [deleteId]);
   // The card list of the tree grid: the selected test FIRST, then every test
   // that IS A VERSION of it — the whole descendant subtree, generation by
@@ -319,12 +322,13 @@ export default function DashboardView({
   useEffect(() => {
     let alive = true;
     dashSavedIdRef.current = curDashCardId;
-    setDashSaved(null);
-    if (!curDashCardId) return;
-    readTestProgress(progressUserId, curDashCardId).then(p => {
-      if (alive && dashSavedIdRef.current === curDashCardId) setDashSaved(p);
-    });
-    return () => { alive = false; };
+    const frame = requestAnimationFrame(() => setDashSaved(null));
+    if (curDashCardId) {
+      readTestProgress(progressUserId, curDashCardId).then(p => {
+        if (alive && dashSavedIdRef.current === curDashCardId) setDashSaved(p);
+      });
+    }
+    return () => { alive = false; cancelAnimationFrame(frame); };
   }, [curDashCardId, progressUserId]);
   const setDashTestIdx = useDashboardStore(s => s.setDashTestIdx);
   const libNarrow = useDashboardStore(s => s.libNarrow);
@@ -366,12 +370,14 @@ export default function DashboardView({
   // (onSlideChange), keyboard parity keeps its app-specific guards, and an
   // imperative FeedApi handle lets app-root jump to a card programmatically.
   const onDashCommitRef = React.useRef(onDashCommit);
-  onDashCommitRef.current = onDashCommit;
+  React.useEffect(() => { onDashCommitRef.current = onDashCommit; }, [onDashCommit]);
   // Files and tree feed modes are mutually exclusive — at most one of the
   // three swipers below is live at any moment (the others may hold STALE
   // instances of unmounted engines — always check .destroyed).
   const feedCountRef = React.useRef(0);
-  feedCountRef.current = filesFeedMode ? fileSlides.length : tests.length;
+  React.useEffect(() => {
+    feedCountRef.current = filesFeedMode ? fileSlides.length : tests.length;
+  }, [filesFeedMode, fileSlides.length, tests.length]);
   const feedIsSwipable = dashView === 'tiktok1' || dashView === 'tiktok2';
 
   const testsSwiperRef = React.useRef<SwiperClass | null>(null);
@@ -421,7 +427,7 @@ export default function DashboardView({
       },
     };
     return () => { feedApiRef.current = null; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const applyPendingSlide = (sw: SwiperClass) => {

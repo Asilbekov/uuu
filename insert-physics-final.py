@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 """
 Insert Physics Final questions into Neon DB
 Uses the extracted JSON and cleans up option text
@@ -10,7 +11,7 @@ import subprocess
 import sys
 
 JSON_PATH = '/home/z/my-project/upload/physics_final_questions.json'
-DB_URL = 'postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'
+DB_URL = os.environ["DATABASE_URL"]
 CREATOR_ID = 'cmp9z1mqf0000je3dx684zhoq'
 
 def clean_option_text(text):

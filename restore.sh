@@ -1,6 +1,6 @@
 #!/bin/bash
 # restore.sh — ONE-COMMAND sandbox recovery. Secrets injected via env at runtime.
-# Usage: GH_TOKEN=ghp_xxx KGAT=KGAT_xxx ZAI_KEY=xxx bash restore.sh
+# Usage: GH_TOKEN=... KGAT=... ZAI_KEY=... bash restore.sh
 set -u
 REPO=/home/z/my-project/uuu
 GH_TOKEN="${GH_TOKEN:?pass GH_TOKEN}"

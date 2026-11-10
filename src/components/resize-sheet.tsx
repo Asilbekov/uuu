@@ -42,14 +42,14 @@ export function useResizableSheet({ initialVh = 0.78, minVh = 0.35, onClose }: R
   const dragRef = useRef<{ startY: number; startH: number; lastY: number; lastT: number; vel: number } | null>(null);
 
   const vh = () => (typeof window !== 'undefined' ? window.innerHeight : 800);
-  const h = () => (height !== null ? height : vh() * initialVh);
+  const h = useCallback(() => (height !== null ? height : vh() * initialVh), [height, initialVh]);
 
   const onPointerDown = useCallback((e: React.PointerEvent) => {
     e.currentTarget.setPointerCapture?.(e.pointerId);
     dragRef.current = { startY: e.clientY, startH: h(), lastY: e.clientY, lastT: Date.now(), vel: 0 };
     setDragging(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [height, initialVh]);
+
+  }, [h]);
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
     const d = dragRef.current;
@@ -84,8 +84,8 @@ export function useResizableSheet({ initialVh = 0.78, minVh = 0.35, onClose }: R
     }
     // Otherwise snap back to at least the minimum usable height
     setHeight(Math.max(minPx, Math.min(vh(), cur)) || openPx);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [minVh, initialVh, onClose, height]);
+
+  }, [minVh, initialVh, onClose, h]);
 
   return {
     height,

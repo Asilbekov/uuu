@@ -3,7 +3,7 @@
 // releases/download/%) и перезальёт в канал, проставив свежий fallbackUrl.
 import { SQL } from 'bun';
 
-const DB = 'postgresql://neondb_owner:npg_omga5szZAf4l@ep-shiny-paper-aousfq8l-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require';
+const DB = process.env.DATABASE_URL;
 const RELEASE = 'https://github.com/Asilbekov/uuu/releases/download/course-videos-v2/';
 
 // video-id → (test-признак в title, язык)

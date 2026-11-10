@@ -16,8 +16,9 @@ export const metadata: Metadata = {
   keywords: ["тесты", "quiz", "education", "uuu", "библиотека знаний", "версии"],
   authors: [{ name: "uuu" }],
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/logo.svg",
   },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -26,14 +27,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ru" suppressHydrationWarning>
       <body
         className={`${bricolage.variable} antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />
-        {/* Real-user Core Web Vitals (LCP / INP / CLS) → Vercel dashboard */}
-        <SpeedInsights />
+        {/* The endpoint exists on Vercel only; avoid a local 404/MIME error. */}
+        {process.env.VERCEL === "1" ? <SpeedInsights /> : null}
       </body>
     </html>
   );
