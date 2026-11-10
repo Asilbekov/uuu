@@ -24,6 +24,23 @@ def norm(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip().casefold()
 
 
+def screen_notation_errors(value, path="data", key="") -> list[str]:
+    """Reject raw PDF/LaTeX notation in fields rendered as plain text."""
+    if isinstance(value, dict):
+        return [issue for k, v in value.items()
+                for issue in screen_notation_errors(v, f"{path}.{k}", k)]
+    if isinstance(value, list):
+        return [issue for i, v in enumerate(value)
+                for issue in screen_notation_errors(v, f"{path}[{i}]", key)]
+    if not isinstance(value, str) or key in {"tex", "substr", "fn"}:
+        return []
+    plain = re.sub(r"\$[^$]*\$", "", value)
+    issues = []
+    if re.search(r"\^\{|sqrt\[", plain):
+        issues.append(f"{path}: raw PDF exponent/root notation: {value[:100]}")
+    return issues
+
+
 def katex_errors(expressions: list[str]) -> list[str]:
     if not expressions:
         return []
@@ -65,11 +82,21 @@ def validate(path: Path) -> dict:
     narration_seen: dict[str, int] = {}
     types = collections.Counter()
     flex_count = 0
+    complex_blocks = {id(b) for b in spec.get("chapters", [{}])[0].get("blocks", [])}
     for index, block in enumerate(blocks):
         kind = block.get("type")
         types[kind] += 1
         data = block.get("data", {})
         narration = block.get("narr", [])
+        errors.extend(f"block {index}: {issue}" for issue in screen_notation_errors(data))
+        heading = data.get("heading", "")
+        if re.match(r"^(?:Problem|Example|Exercise)\b", heading, re.IGNORECASE):
+            errors.append(f"block {index}: untranslated heading: {heading}")
+        if id(block) in complex_blocks:
+            complex_text = json.dumps(data, ensure_ascii=False)
+            for marker in ("$2$", "$3$", "sqrt[3]", "(3 + i)^4"):
+                if marker in complex_text:
+                    errors.append(f"block {index}: suspect complex-number OCR: {marker}")
         if not isinstance(narration, list):
             errors.append(f"block {index}: narr must be a list")
             continue
@@ -93,6 +120,8 @@ def validate(path: Path) -> dict:
         if kind == "question":
             if not data.get("problem"):
                 errors.append(f"block {index}: question without a problem")
+            elif data["problem"].strip().endswith(":"):
+                errors.append(f"block {index}: question prompt has no actual items")
             flex_count += bool(data.get("flex"))
         # A sentence may explain screen content, but a long verbatim copy of a
         # bullet is almost always the old 'read the slide aloud' anti-pattern.
@@ -101,6 +130,14 @@ def validate(path: Path) -> dict:
         for segment in narration:
             if norm(segment) in screen_norms:
                 warnings.append(f"block {index}: narration exactly mirrors a screen item")
+    all_screen = json.dumps([b.get("data", {}) for b in blocks], ensure_ascii=False)
+    for marker in (
+        "V(T) = 100T/(T−50)", "R(n) = 100n/(1+20/n)", "100*x/(1+20/x)",
+        "ln(√x) + 3 = 2", "≈31.5 месяцев", "t ≈92.1 часов",
+        "d. x = 3; e. x = -14", "g(x) = 3/(x + 2) для x ≠ 2",
+    ):
+        if marker in all_screen:
+            errors.append(f"known mathematical regression in source text: {marker}")
     for expression in katex_errors(expressions):
         errors.append("KaTeX: " + expression)
     if spec.get("target_minutes") and not flex_count:

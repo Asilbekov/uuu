@@ -277,7 +277,10 @@ def build_audio(spec, times, workdir, out_wav):
         for p in pieces:
             if p: f.write(f"file '{p}'\n")
     sh(['ffmpeg','-y','-v','quiet','-f','concat','-safe','0','-i',lst,
-        '-af','loudnorm=I=-16:TP=-1.5:LRA=11','-c:a','pcm_s16le',out_wav])
+        '-af','loudnorm=I=-16:TP=-1.5:LRA=11',
+        # loudnorm internally oversamples to 192 kHz; restore the delivery
+        # intermediate's 24 kHz mono PCM instead of creating an 8× larger WAV.
+        '-ar',str(SR),'-ac','1','-c:a','pcm_s16le',out_wav])
     dur = float(sh(['ffprobe','-v','quiet','-show_entries','format=duration','-of','csv=p=0',out_wav]).stdout.strip())
     log(f'audio ok: {dur/60:.2f} min')
     return dur
@@ -548,7 +551,9 @@ def main():
     if not os.path.exists(os.path.join(comp_dir, 'comp.html')):
         sys.path.insert(0, ENGINE)
         import build_comp
-        build_comp.build(spec, times, comp_dir)
+        words_path = os.path.join(workdir, 'words.json')
+        words = json.load(open(words_path)) if os.path.exists(words_path) else {}
+        build_comp.build(spec, times, comp_dir, words)
     timeline = json.load(open(os.path.join(comp_dir, 'timeline.json')))
 
     if not os.path.exists(os.path.join(comp_dir, '.validated')):
@@ -563,6 +568,9 @@ def main():
         plan, n_frames, n_moves = frame_plan(comp_dir, timeline['total'])
         json.dump({'plan': plan, 'n_frames': n_frames}, open(plan_path, 'w'))
         log(f'plan: {n_frames} frames, {len(plan)} to capture ({n_frames-len(plan)} static reused), moves={n_moves}')
+    if a.plan_only:
+        log(f'plan-only: stopping before capture; {len(plan)} frames planned')
+        return
 
     frames_dir = os.path.join(workdir, 'frames')
     shoot(comp_dir, frames_dir, plan, a.workers)

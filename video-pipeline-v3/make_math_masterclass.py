@@ -10,8 +10,10 @@ from __future__ import annotations
 
 import argparse
 import copy
+import cmath
 import difflib
 import json
+import math
 import re
 from pathlib import Path
 
@@ -77,6 +79,113 @@ def normalize_problem(text: str) -> str:
     return re.sub(r"[^a-zа-я0-9]+", " ", text).strip()
 
 
+_SUPERSCRIPT = str.maketrans({
+    "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴",
+    "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹",
+    "+": "⁺", "-": "⁻", "n": "ⁿ", "i": "ⁱ",
+})
+
+
+AUDITED_TEXT_REPAIRS = {
+    # Function domains and ranges: recover parentheses confirmed by the steps.
+    "(5) Физически разумная область: t ≥ 0, то есть [0, ∞).":
+        "(5) Физически разумная область для описанного нагрева: 0 ≤ t ≤ 15, то есть [0, 15].",
+    "(4) t = 10 мин; (5) [0, ∞)": "(4) t = 10 мин; (5) [0, 15]",
+    "d. Нужно (x + 2)/(x - 1) ≥ 0 и x ≠ 1: критические точки -2 и 1; частное неотрицательно на (−∞, −2] ∪ (1, ∞)":
+        "d. Знаменатель не равен нулю: x ≠ 1, поэтому область (−∞, 1) ∪ (1, ∞)",
+    "d. (−∞, −2] ∪ (1, ∞).": "d. (−∞, 1) ∪ (1, ∞).",
+    "h(x) = √x + 3 − 2": "h(x) = √(x + 3) − 2",
+    "√x + 3 ≥ 0": "x + 3 ≥ 0",
+    "g(x) = √x + 2": "g(x) = √(x + 2)",
+    "(f ± g)(x) = x² − 1 ± √x + 2": "(f ± g)(x) = x² − 1 ± (√(x + 2) + 2)",
+    "(fg)(x) = (x² − 1)√x + 2": "(fg)(x) = (x² − 1)√(x + 2)",
+    "(f/g)(x) = (x² − 1)/√x + 2": "(f/g)(x) = (x² − 1)/√(x + 2)",
+    "(f + g)(x) = x² + √x + 1": "(f + g)(x) = x² + √(x + 2) + 1",
+    "(f − g)(x) = x² − √x − 3": "(f − g)(x) = x² − √(x + 2) − 3",
+    "√x + 2 ≠ 0": "√(x + 2) ≠ 0",
+    # Removable sensor singularity and saturating data model.
+    "V(T) = 100T/(T−50)": "V(T) = (T²−2500)/(T−50)",
+    "R(n) = 100n/(1+20/n)": "R(n) = 100n/(n+20)",
+    "100*x/(1+20/x)": "100*x/(x+20)",
+    "g(x) = 3/(x + 2) для x ≠ 2": "g(x) = 3/(x − 2) для x ≠ 2",
+    # Logarithmic equations and numerically checked approximations.
+    "ln(√x) + 3 = 2": "ln(√(x + 3)) = 2",
+    "d. x = 3; e. x = -14ln10/2 ≈-29.32":
+        "d. x = 3/2; e. x = -14ln10/ln3 ≈-29.34",
+    "≈-7.7181": "≈-7.7211",
+    "≈0.3536": "≈0.4934",
+    "12ln200/ln2 ≈92.1 часов": "12ln200/ln2 ≈91.7 часов",
+    "k ≈0.0578 в час, t ≈92.1 часов": "k ≈0.0578 в час, t ≈91.7 часов",
+    "≈31.5 месяцев": "≈29.2 месяцев",
+}
+
+
+def _readable_exponent(match: re.Match) -> str:
+    body = match.group(1)
+    if body and all(ord(char) in _SUPERSCRIPT for char in body):
+        return body.translate(_SUPERSCRIPT)
+    return "^(" + body + ")"
+
+
+def repair_screen_text(value, *, key: str = "", complex_ocr: bool = False):
+    """Repair PDF/OCR notation without touching intentional KaTeX fields.
+
+    The v2 source mixes KaTeX, Unicode and plain caret notation. Simple
+    exponents become typographic superscripts; compound ones become readable
+    e^(iπ/3)-style text. A small audited set repairs mathematical OCR losses,
+    not merely their appearance.
+    """
+    if isinstance(value, dict):
+        return {k: repair_screen_text(v, key=k, complex_ocr=complex_ocr)
+                for k, v in value.items()}
+    if isinstance(value, list):
+        return [repair_screen_text(v, key=key, complex_ocr=complex_ocr) for v in value]
+    if not isinstance(value, str):
+        return value
+    text = value
+    for old, new in AUDITED_TEXT_REPAIRS.items():
+        text = text.replace(old, new)
+    if key in {"tex", "substr", "fn"}:
+        return text
+    if complex_ocr:
+        text = text.replace("$1 + 3$", "√(1 + 3)")
+        text = text.replace("$2$", "√2").replace("$3$", "√3")
+        text = text.replace("sqrt[3]{1 + √3i}", "1 + i√3")
+        text = text.replace("sqrt[3]{1 - √3i}", "1 - i√3")
+        text = text.replace("(3 + i)^4", "(-1 + i√3)^4")
+        text = text.replace(
+            "1 + i√3 = 2 cos(π/3) + i sin(π) = 2e",
+            "1 + i√3 = 2(cos(π/3) + i sin(π/3)) = 2e",
+        )
+    text = text.replace("r^{1/n (", "r^(1/n) (")
+    text = re.sub(r"\^\{([^{}]+)\}", _readable_exponent, text)
+    text = re.sub(r"\^(-?\d+|[A-Za-z])", _readable_exponent, text)
+    text = re.sub(r"^Problem\s+(\d+)", r"Задача \1", text)
+    text = re.sub(r"^Example\s+(\d+)", r"Пример \1", text)
+    return text
+
+
+def question_problem(data: dict) -> str:
+    """Keep a question self-contained without leaking its worked answers."""
+    problem = data.get("problem", "").strip()
+    if not problem.endswith(":"):
+        return problem
+    heading = data.get("heading", "")
+    prompts = []
+    for step in data.get("steps", []):
+        text = step.get("text", "").strip()
+        if not text:
+            continue
+        if heading == "Задача 9" and text.startswith("Компания"):
+            continue  # covered by its own worked example immediately below
+        if "Определение рациональности" in heading:
+            # These source steps contain "expression = answer — reason";
+            # retain only the expression for the learner's question card.
+            text = re.split(r"\s+=\s+|\s+—\s+", text, maxsplit=1)[0]
+        prompts.append(text)
+    return problem + (" " + "; ".join(prompts) if prompts else "")
+
+
 def clean_narration(block: dict) -> None:
     seen = set()
     result, mapping = [], []
@@ -132,12 +241,16 @@ def build(target_minutes: int = 195) -> tuple[dict, dict]:
         coverage["masterclasses"].append(MASTER_CLASSES[chapter_index]["data"]["kind"])
         for original in original_chapter["blocks"]:
             block = copy.deepcopy(original)
+            block["data"] = repair_screen_text(
+                block.get("data", {}), complex_ocr=chapter_index == 0,
+            )
             clean_narration(block)
             if block.get("type") != "example":
                 chapter["blocks"].append(block)
                 continue
             data = block.get("data", {})
             problem = data.get("problem", "").strip()
+            standalone_problem = question_problem(data)
             normalized = normalize_problem(problem)
             duplicate_of = None
             if len(normalized) > 45:
@@ -150,7 +263,7 @@ def build(target_minutes: int = 195) -> tuple[dict, dict]:
                     "type": "question",
                     "data": {
                         "heading": "Проверка без повторного разбора",
-                        "problem": problem,
+                        "problem": standalone_problem,
                         "answer": data.get("result", "Сверьте решение с пособием"),
                         "hold": 10,
                         "flex": False,
@@ -175,7 +288,7 @@ def build(target_minutes: int = 195) -> tuple[dict, dict]:
                 "type": "question",
                 "data": {
                     "heading": "Сначала — самостоятельно",
-                    "problem": problem,
+                    "problem": standalone_problem,
                     "hold": 12,
                     "flex": True,
                     "mode": "solve",
@@ -200,6 +313,37 @@ def build(target_minutes: int = 195) -> tuple[dict, dict]:
                 kept.append(segment)
                 mapping.append(item)
             block["narr"], block["narr_item"] = kept, mapping
+
+    # Regression checks for the audited OCR repairs above.
+    z = -1 + 1j * cmath.sqrt(3)
+    assert abs(z**4 - (-8 + 8j * cmath.sqrt(3))) < 1e-9
+    assert abs(z**5 - (-16 - 16j * cmath.sqrt(3))) < 1e-9
+    assert abs((1 + 1j)**6 - (-8j)) < 1e-9
+    assert 4**(3/2 + 1) == 32
+    assert round(math.log(200) / (math.log(2)/12), 1) == 91.7
+    assert round(math.log(3500/120) / math.log(2**(1/6)), 1) == 29.2
+    assert round(math.log(211)/math.log(.5), 4) == -7.7211
+    assert round(math.log(.452)/math.log(.2), 4) == .4934
+    assert math.isclose(math.log(math.sqrt(math.exp(4))), 2)
+    assert round(100*1000/(1000 + 20), 1) == 98.0
+    assert math.isclose((51**2 - 2500)/(51 - 50), 51 + 50)
+    assert math.isclose(3/(0 - 2), -3/2) and math.isclose(3/(-4 - 2), -1/2)
+    complex_screen = json.dumps(
+        [b.get("data", {}) for b in spec["chapters"][0]["blocks"]],
+        ensure_ascii=False,
+    )
+    for bad in ("(3 + i)^4", "$2$", "$3$", "sqrt[3]", "i sin(π) = 2e"):
+        assert bad not in complex_screen, f"unrepaired complex OCR: {bad}"
+    all_screen = json.dumps(
+        [b.get("data", {}) for c in spec["chapters"] for b in c["blocks"]],
+        ensure_ascii=False,
+    )
+    for bad in (
+        "V(T) = 100T/(T−50)", "R(n) = 100n/(1+20/n)",
+        "ln(√x) + 3 = 2", "≈31.5 месяцев", "t ≈92.1 часов",
+        "d. x = 3; e. x = -14", "g(x) = 3/(x + 2) для x ≠ 2",
+    ):
+        assert bad not in all_screen, f"unrepaired mathematical source text: {bad}"
     return spec, coverage
 
 
