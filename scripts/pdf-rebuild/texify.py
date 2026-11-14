@@ -19,7 +19,7 @@ GREEK = {'α':'\\alpha ','β':'\\beta ','γ':'\\gamma ','δ':'\\delta ','ε':'\\
          'Δ':'\\Delta ','Λ':'\\Lambda ','Γ':'\\Gamma ','Ω':'\\Omega ','Π':'\\Pi '}
 SYMS = {'−':'-','·':'\\cdot ','×':'\\times ','≤':'\\leq ','≥':'\\geq ','≠':'\\neq ',
         '←':'\\leftarrow ','→':'\\rightarrow ','↔':'\\leftrightarrow ',
-        '∑':'\\sum ','∏':'\\prod ','√':'\\sqrt ','∞':'\\infty ','∥':'\\lVert ',
+        '∑':'\\sum ','∏':'\\prod ','∫':'\\int ','∮':'\\oint ','√':'\\sqrt ','∞':'\\infty ','∥':'\\lVert ',
         '⋯':'\\cdots ','…':'\\ldots ','≈':'\\approx ','∈':'\\in ','∉':'\\notin ',
         '∪':'\\cup ','∩':'\\cap ','⊂':'\\subset ','⊆':'\\subseteq ','∅':'\\varnothing ',
         '∀':'\\forall ','∃':'\\exists ','∘':'\\circ ','⊥':'\\perp ','±':'\\pm ',
@@ -28,8 +28,15 @@ SYMS = {'−':'-','·':'\\cdot ','×':'\\times ','≤':'\\leq ','≥':'\\geq ','
         '⟶':'\\longrightarrow ','⟵':'\\longleftarrow ',
         'ℝ':'\\mathbb{R} ','ℕ':'\\mathbb{N} ','ℤ':'\\mathbb{Z} ','ℂ':'\\mathbb{C} ',
         '′':"'",'°':'^\\circ '}
+# Words that look mathy by shape (ALL-CAPS<=4, Upper+lower 2-char) but are
+# plain prose/labels in these guides: course labels (ISA, LA, TA, EE, CS),
+# capitalized function words (At, In, If, We, So...), file extensions.
+NOT_MATH_WORDS = {'ISA','LA','TA','EE','CS','TED','QR','EAP','At','In','On','If','We',
+                  'So','No','Do','To','By','Or','An','Is','It','As','Of','Am','Be',
+                  'NOT','BE','FEW','ING','Bu','Va','MPa','kPa','ECTS','ASME','IEEE','ASCE','AIAA','ANS','INEN','SI','ASTM','BMES','PFD','CAD','CAM'}
+
 FUNCS = {'det','rank','span','null','dim','tr','rref','ref','lu','ldu','sin','cos',
-         'tan','exp','ln','log','max','min','sup','inf','ker','im','col','row',
+         'tan','exp','ln','log','max','min','sup','inf','ker','im',
          'proj','dist','norm','diag','trace','adj','codim','card','argmin','argmax',
          'lcm','gcd','gcd','lcm','mod','sgn','vec','id','Id','sqrt','lim','arctan','sec','csc','cot'}
 
@@ -41,7 +48,7 @@ TOKEN = re.compile(
     r'|[A-Za-z\u00c0-\u017f]+[\u0300-\u036f\u20d0-\u20df\u02bb\u02bc\u2019\']*[\u0300-\u036f\u20d0-\u20df\u02bb\u02bc\u2019\'A-Za-z\u00c0-\u017f]*'  # word (combining marks, UZ oʻ/gʻ, possessives, extended Latin like Sträng)
     r'|[0-9]+(?:[.,][0-9]+)?'
     r'|[\u0370-\u03ff\u2100-\u214f]'
-    r'|[=+<>≤≥≠←→↔∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×−–]'
+    r'|[=+<>≤≥≠←→↔∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×−–-]'
     r'|[()\[\]{}|,;:.!?/\']'
     r'|\s+'
     r'|.')
@@ -73,6 +80,8 @@ def repair_interleaved_frac(tex):
 def is_math_token(tok):
     if not tok or tok.isspace():
         return False
+    if tok in NOT_MATH_WORDS:
+        return False
     if re.fullmatch(r'\u27e6M\d+\u27e7', tok): return True
     if re.fullmatch(r'[\^_]\{(?:[^{}]|\{[^{}]*\})+\}', tok): return True
     if tok == '...': return True
@@ -86,7 +95,7 @@ def is_math_token(tok):
     if re.fullmatch(r'[0-9]+(?:[.,][0-9]+)?', tok): return True
     if tok in ('−', '–'): return True
     if tok and (0x370 <= ord(tok[0]) <= 0x3ff or 0x2100 <= ord(tok[0]) <= 0x214f): return True
-    if tok in '=+<>≤≥≠←→↔∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×': return True
+    if tok in '=+<>≤≥≠←→↔∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×−–-': return True
     if tok in '()|,/[]':
         if TEXT_BRACKETS and tok in '[]':
             return False
@@ -217,12 +226,20 @@ def math_run_to_tex(run):
     tex = tex.replace('$', r'\$')   # literal dollar inside math runs
     tex = re.sub(r'\\sqrt\s*\(([^()]*)\)', r'\\sqrt{\1}', tex)
     tex = re.sub(r'(?<![\\\w{}])(\d+)\s*/\s*(\d+)(?![\w}])', r'\\frac{\1}{\2}', tex)
+    # big-operator limits: \Sigma _{k=1}^{n} / \sum _{i}{j}^{} are limits,
+    # not stacked fractions — freeze them before the frac rules
+    # big-operator limits: '\Sigma _{k=1}^{n}' -> '\Sigma_{k=1}^{n}' (no
+    # space): the frac rules' \w lookbehind then correctly leaves them alone
+    tex = re.sub(r'\\(Sigma|sum|prod|int|oint|bigcup|bigcap)\s+(_\{[^}]*\})\s*(\^\{[^}]*\})',
+                 r'\\\1\2\3', tex)
     # stacked fractions from the original PDF: baseless ^{A}_{B} / _{B}^{A}
     # (3+ marker interleaves first, then simple pairs)
     tex = repair_interleaved_frac(tex)
     tex = re.sub(r'(?<![\w}\)])\^\{([^}]+)\}\s*_\{([^}]+)\}', r'\\frac{\1}{\2}', tex)
     tex = re.sub(r'(?<![\w}\)])_\{([^}]+)\}\s*\^\{([^}]+)\}', r'\\frac{\2}{\1}', tex)
     tex = repair_interleaved_frac(tex)
+    # decimal comma: RU numbers inside math must stay tight (8{,}3143)
+    tex = re.sub(r'(\d),(\d)', r'\1{,}\2', tex)
     return tex
 
 # When True (text-oriented guides: Introduction to Engineering / English for
@@ -245,6 +262,14 @@ TEXT_GUIDE = False
 def run_is_textmath(run_toks):
     """True if the pending run is natural language, not math (TEXT_GUIDE)."""
     joined = ''.join(run_toks)
+    # grammar-rule plus/minus with real words ('BE (am/are/is) + -ING') is
+    # text: a multi-letter lowercase word (not a FUNC) with no digits/markers
+    # wins over a bare + or -
+    words = re.findall(r'[a-z]{2,}', joined)
+    has_digits_or_marker = bool(re.search(r'\d|[\^_]\{|\u27e6', joined))
+    if (words and not has_digits_or_marker
+            and not all(w in FUNCS for w in words)):
+        return True
     if re.search(r'[=+<>≤≥≠←→↔⟹⟸⟺⟶⟵∑∏√∞∥⋯…≈∈∉∪∩⊂⊆∅∀∃∘⊥±⇒⇐⇔·×\u27e6]', joined):
         return False
     if re.search(r'[\^_]\{', joined):
@@ -280,6 +305,12 @@ def texify(s):
             lead = ' ' if cur_math[0].isspace() else ''
             trail = ' ' if cur_math[-1].isspace() else ''
             run = ''.join(cur_math).strip()
+            # a run with no letters, digits, greek or commands is just
+            # punctuation ('(' alone, ')' alone) -- keep it as plain text
+            if not re.search(r'[A-Za-z0-9\u0370-\u03ff\u2100-\u214f\\]', run):
+                parts.append(lead + run + trail)
+                cur_math = []
+                return
             if (run and mathworthy(cur_math)
                     and not (TEXT_GUIDE and run_is_textmath(cur_math))):
                 parts.append(lead + '\\(' + math_run_to_tex(run) + '\\)' + trail)
@@ -287,16 +318,31 @@ def texify(s):
                 parts.append(lead + run + trail)
             cur_math = []
     n = len(toks)
+    skip_until = -1
     for idx, t in enumerate(toks):
+        if idx < skip_until:
+            continue
+        # file-extension parenthetical '( .doc )' is plain text, never math
+        if (t == '(' and idx + 3 < n and toks[idx+1] == '.'
+                and re.fullmatch(r'[A-Za-z]{2,4}', toks[idx+2]) and toks[idx+3] == ')'):
+            flush_math()
+            parts.append(''.join(toks[idx:idx+4]))
+            skip_until = idx + 4
+            continue
         if t.isspace():
             if cur_math: cur_math.append(t)
             else: parts.append(t)
             continue
-        # short lowercase latin (dx, dy, dt) continues an open math run
-        if (cur_math and not is_math_token(t) and re.fullmatch(r'[a-z]{1,3}', t)):
+        # short lowercase latin continues an open math run — but ONLY real
+        # differentials (dx, dy, dt, dV, dm, dT...).  Function words (and, or,
+        # is, not; UZ postpositions da/ga/ka/ta) must stay text: math mode
+        # eats their spaces and they render glued italic ('O and o' -> 'Oando')
+        if (cur_math and not is_math_token(t)
+                and re.fullmatch(r'd[A-Za-z]', t)
+                and t.lower() not in ('da','di','ga','ka','ta','de','ke','ge','do')):
             j = idx + 1
             while j < n and toks[j].isspace(): j += 1
-            if j < n and (is_math_token(toks[j]) or re.fullmatch(r'[a-z]{1,3}', toks[j])):
+            if j < n and (is_math_token(toks[j]) or re.fullmatch(r'd[A-Za-z]', toks[j])):
                 cur_math.append(t)
                 continue
         if is_math_token(t):
@@ -315,8 +361,19 @@ def texify(s):
             if cur_math:
                 opens = sum(1 for u in cur_math if u == '(')
                 closes = sum(1 for u in cur_math if u == ')')
-                if opens > closes and not re.search(r'[А-Яа-яЁё]', t) and len(t.strip()) <= 3:
-                    cur_math.append(t)   # absorb short latin/punct while parens open
+                ABSORB_STOP = {'and','or','not','the','for','but','too','are','is','was',
+                               'has','had','did','does','all','any','one','two','six','ten',
+                               'of','to','at','in','on','doc','pdf','pptx','txt','csv',
+                               'da','ga','ka','va'}
+                if (opens > closes and not re.search(r'[А-Яа-яЁё]', t)
+                        and (re.fullmatch(r'[A-Za-z]', t)
+                             or (re.fullmatch(r'd[A-Za-z]', t)
+                                 and t not in ('da','di','ga','ka','ta','de','ke','ge','do'))
+                             or (not re.search(r'[A-Za-z]', t) and len(t.strip()) <= 2))):
+                    # single letters (u, v, x...), d? differentials (dx, dT)
+                    # and short punctuation only -- never whole words ('so',
+                    # 'as', 'too'...) which would glue to the math run
+                    cur_math.append(t)
                     continue
                 if opens > closes and (re.search(r'[А-Яа-яЁё]', t) or len(t.strip()) > 3):
                     # Cyrillic word, or any word longer than the short-punct
@@ -397,8 +454,14 @@ def sqrt_paren_to_brace(tex):
         i += 1
     return ''.join(out)
 
+# bare command leaks from damaged source lines: the backslash was lost and
+# literal 'frac{q}{...}' / 'sqrt{...}' reached the formula.  In math mode the
+# braces vanish -> renders glued ('fracq...').  Re-attach the backslash.
+BARE_CMD = re.compile(r'(?<![\\\w])(frac|sqrt|mathrm|mathbb|bar|hat|vec|tilde|dot|text|underbrace)\s*\{')
+
 def texify_formula(s):
     """Whole-line display formula -> LaTeX body for \\[ \\]."""
+    s = BARE_CMD.sub(lambda m: '\\' + m.group(1).strip() + '{', s)
     s, mats = protect_matrices(s)
     toks = TOKEN.findall(s)
     out = []
@@ -410,19 +473,48 @@ def texify_formula(s):
     tex = ''.join(out)
     tex = re.sub(r'(?<![\\\w{}])(\d+)\s*/\s*(\d+)(?![\w}])', r'\\frac{\1}{\2}', tex)
     tex = re.sub(r'(?<![\\\w{}])([a-zA-Z])\s*/\s*([a-zA-Z])(?![\w}])', r'\\frac{\1}{\2}', tex)
+    # big-operator limits: '\Sigma _{k=1}^{n}' -> '\Sigma_{k=1}^{n}' (no
+    # space): the frac rules' \w lookbehind then correctly leaves them alone
+    tex = re.sub(r'\\(Sigma|sum|prod|int|oint|bigcup|bigcap)\s+(_\{[^}]*\})\s*(\^\{[^}]*\})',
+                 r'\\\1\2\3', tex)
     tex = repair_interleaved_frac(tex)
     tex = re.sub(r'(?<![\w}\)])\^\{([^}]+)\}\s*_\{([^}]+)\}', r'\\frac{\1}{\2}', tex)
     tex = re.sub(r'(?<![\w}\)])_\{([^}]+)\}\s*\^\{([^}]+)\}', r'\\frac{\2}{\1}', tex)
     tex = repair_interleaved_frac(tex)
     tex = re.sub(r'([a-zA-Z])(_\{[^}]*\})\s*/\s*([a-zA-Z])(_\{[^}]*\})', r'\\frac{\1\2}{\3\4}', tex)
     tex = re.sub(r'\u27e6M(\d+)\u27e7', lambda m: mats[int(m.group(1))], tex)
-    # every Cyrillic word (incl. single letters like 'и' and abbreviations
-    # like 'т.е.') inside a display formula must be \text{...}: cmmi10 has
-    # no Cyrillic glyphs and renders them as blanks. Uzbek oʻ/gʻ words too
-    # (U+02BB has no glyph in cmmi10).
-    tex = re.sub(r'[А-Яа-яЁё]+(?:[.,;]+[А-Яа-яЁё]+)*[.,;]?|[A-Za-z]*[\u02bb\u02bc][A-Za-z\u02bb\u02bc]*|[A-Za-z]*[\u00c0-\u017f][A-Za-z\u00c0-\u017f]*',
-                 lambda m: ' \\text{' + m.group(0) + '} ', tex)
+    # ONE \text{...} group per Cyrillic/Uzbek PHRASE, not per word: separate
+    # per-word groups lose the inter-word spaces in math mode
+    # ('\text{эквивалентность} \text{установлена}' -> 'эквивалентностьустановлена').
+    # cmmi10 has no Cyrillic glyphs, so the words must be \text{} at all.
+    # UZ alternative: EVERY word of the phrase must carry oʻ/gʻ apostrophes.
+    tex = re.sub(
+        r'[А-Яа-яЁё]+(?:[\s.,;:«»()—–-]+[А-Яа-яЁё]+)*\s*[.,;:]?'
+        r'|[A-Za-z]*[\u02bb\u02bc][A-Za-z\u02bb\u02bc]*(?:[\s.,;:—–-]+[A-Za-z]*[\u02bb\u02bc][A-Za-z\u02bb\u02bc]*)*\s*[.,;:]?'
+        r'|[A-Za-z]*[\u02bb\u02bc][A-Za-z\u02bb\u02bc]*'
+        r'|[A-Za-z]*[\u00c0-\u017f][A-Za-z\u00c0-\u017f]*',
+        lambda m: ' \\text{' + m.group(0).strip() + '} ', tex)
+    # lowercase prose words inside display formulas (UZ 'mavjud emas',
+    # 'tebranish'...; EN 'odd numbers') render glued italic in math mode --
+    # wrap whole word-runs as one \text{} (FUNCS like sin/ln stay math)
+    def _prose_words(m):
+        ws = m.group(0).strip().split()
+        # wrap only runs with at least one >=3-letter word: 'is defined by'
+        # yes, 'Ax'/'By' variables stay math
+        if not ws or max(len(w) for w in ws) < 3:
+            return m.group(0)
+        return ' \\text{' + ' '.join(ws) + '} '
+    # runs of >=3-letter words, optionally with leading/trailing glue words
+    # ('is defined by') -- but 'Ax', 'By' style 2-letter variables stay math
+    GLUE = r'(?:is|by|of|to|in|at|on|as|an|or|and|the|when|for|with)'
+    tex = re.sub(
+        r'(?<![\\\w{])((?:' + GLUE + r'\s+)?[A-Za-z][a-z]{2,}(?:[\s.,;:—–-]+[A-Za-z][a-z]{2,})*(?:\s+' + GLUE + r')?)',
+        _prose_words, tex)
+    # unit symbols stay upright in display formulas: 400 MPa, 10 ppm
+    tex = re.sub(r'(?<![\w{])(MPa|kPa|GPa|kW|MW|kWh|kJ|MJ|GHz|MHz|kHz|mV|kV|mA|ppm|ECTS)\b',
+                 r'\\text{\1}', tex)
     tex = tex.replace('%', r'\%').replace('$', r'\$')
+    tex = re.sub(r'(\d),(\d)', r'\1{,}\2', tex)
     tex = sqrt_paren_to_brace(tex)
     return re.sub(r'\s+', ' ', tex).strip()
 
@@ -443,4 +535,4 @@ if __name__ == '__main__':
     for t in tests:
         print('IN :', t)
         print('OUT:', texify(t))
-        print()
+    tex = re.sub(r'(?<![\\w{])(MPa|kPa|GPa|kW|MW|kWh|kJ|MJ|GHz|MHz|kHz|mV|kV|mA|mm|cm|km|kg|mg|ppm|ECTS)', r'\\text{\\1}', tex)

@@ -231,9 +231,10 @@ def extract(pdf_path):
     header = {'left': '', 'right': ''}
     for pno, page in enumerate(doc):
         spans = iter_spans(page, pno)
-        if pno == 1:
-            # capture the running head before skipping the TOC page
-            hd = [s for s in spans if s['role'] == 'chrome' and s['bbox'][1] < 55]
+        if 1 <= pno <= 5 and not header.get('left'):
+            # capture the running head (the TOC page may have none)
+            hd = [s for s in spans if s['role'] == 'chrome' and s['bbox'][1] < 55
+                  and not re.fullmatch(r'\d{1,3}', s['text'].strip())]
             hd.sort(key=lambda s: s['bbox'][0])
             if len(hd) >= 2:
                 header = {'left': hd[0]['text'].strip(), 'right': hd[-1]['text'].strip()}

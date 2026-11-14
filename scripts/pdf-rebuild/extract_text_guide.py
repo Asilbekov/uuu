@@ -55,6 +55,17 @@ def collect(pdf_path):
             if t:
                 cover_lines.append(t)
 
+    # running foot sample from a body page (e.g. ITE '· Fall 2026', bottom-left)
+    footer = ''
+    if len(d) > 6:
+        ph = d[6].rect.height
+        for b in d[6].get_text('dict')['blocks']:
+            for l in b.get('lines', []):
+                if l['bbox'][1] > ph - 62:
+                    for s in l['spans']:
+                        if s['text'].strip() and not re.fullmatch(r'\d{1,3}', s['text'].strip()):
+                            footer = s['text'].strip()
+
     # running head sample from a body page
     header = {}
     if len(d) > 6:
@@ -116,7 +127,7 @@ def collect(pdf_path):
                 steps.append(s)
     leading = Counter(steps).most_common(1)[0][0] if steps else 14.5
     thr = round(leading + 1.5, 1)
-    return d, cover_lines, header, pages, toc_by_page, leading, thr
+    return d, cover_lines, header, footer, pages, toc_by_page, leading, thr
 
 
 def walk(pages, toc_by_page, thr):
@@ -161,18 +172,28 @@ def walk(pages, toc_by_page, thr):
                 cand_kind, cand_t = 'li', t.lstrip('•–— ').strip()
             elif rec['ital'] and rec['sz'] <= 9.2:
                 cand_kind = 'src'
-            elif rec['bold'] and rec['sz'] >= 11.2:
-                cand_kind = 'h3'
+            elif rec['bold'] and rec['sz'] >= 17.0:
+                cand_kind = 'h1'      # v1 chapter heads (History 19pt, ITE 20pt)
+            elif rec['bold'] and rec['sz'] >= 13.0:
+                cand_kind = 'h2'      # v1 section heads (History 14pt, ITE 14.5pt)
+            elif rec['bold'] and rec['sz'] >= 11.0:
+                cand_kind = 'h3'      # v1 sub-subject heads (History 11.5pt)
             else:
                 cand_kind = 'p'
             # --- try to merge into the current unit
-            if cur is not None and step <= thr:
+            # wrapped heading continuation of the SAME level (a big h1/h2 wraps
+            # onto the next line with the same size/bold; big headings have a
+            # larger leading than the body mode, so the guard is its own)
+            same_head = (cur is not None and cur['k'] == cand_kind
+                         and cand_kind in ('h1', 'h2') and rec['bold']
+                         and step <= max(thr, cur.get('_sz', 10) * 1.5))
+            if cur is not None and (step <= thr or same_head):
                 same_p = (cur['k'] in ('p', 'li') and cand_kind == 'p'
                           and cur.get('bold', False) == rec['bold']
                           and abs(cur['_sz'] - rec['sz']) <= 0.6)
                 head_wrap = (cur['k'] in ('h1', 'h2', 'h3')
                              and rec['bold'] and cand_kind in ('p', 'h3'))
-                if same_p or head_wrap:
+                if same_p or head_wrap or same_head:
                     cur['t'] = (cur['t'] + ' ' + cand_t).strip()
                     cur['_sz'] = rec['sz']
                     continue
@@ -265,7 +286,7 @@ REPAIR_CELLS = {
 
 
 def main(pdf_path, out_path):
-    d, cover_lines, header, pages, toc_by_page, leading, thr = collect(pdf_path)
+    d, cover_lines, header, footer, pages, toc_by_page, leading, thr = collect(pdf_path)
     units = walk(pages, toc_by_page, thr)
     units = cross_page_join(units)
     for u in units:
@@ -277,11 +298,11 @@ def main(pdf_path, out_path):
                          for row in u.get('rows', [])]
     # drop degenerate fragments
     units = [u for u in units if u['k'] == 'table' or u.get('t')]
-    data = {'cover': cover_lines, 'header': header, 'blocks': units}
+    data = {'cover': cover_lines, 'header': header, 'footer': footer, 'blocks': units}
     with open(out_path, 'w') as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
     print(f'{pdf_path.split("/")[-1]}: {len(units)} blocks {dict(Counter(u["k"] for u in units))}')
-    print(f'  leading={leading} thr={thr}; cover lines: {len(cover_lines)}; header: {header}')
+    print(f'  leading={leading} thr={thr}; cover lines: {len(cover_lines)}; header: {header}; footer: {footer!r}')
 
 
 if __name__ == '__main__':

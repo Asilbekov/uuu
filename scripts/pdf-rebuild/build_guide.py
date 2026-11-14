@@ -32,6 +32,11 @@ GUIDES = {
     'm14_ru':  {'pdf': 'Math_I_Weeks_1-4_RU.pdf', 'lang': 'ru'},
     'm14_en':  {'pdf': 'Math_I_Weeks_1-4_EN.pdf', 'lang': 'en'},
     'm14_uz':  {'pdf': 'Math_I_Weeks_1-4_UZ.pdf', 'lang': 'uz'},
+    'hi14_ru': {'pdf': 'History_of_Uzbekistan_Weeks_1-4_RU.pdf', 'lang': 'ru'},
+    'hi14_en': {'pdf': 'History_of_Uzbekistan_Weeks_1-4_EN.pdf', 'lang': 'en'},
+    'hi14_uz': {'pdf': 'History_of_Uzbekistan_Weeks_1-4_UZ.pdf', 'lang': 'uz'},
+    'ie14_ru': {'pdf': 'Introduction_to_Engineering_Weeks_1-4_RU.pdf', 'lang': 'ru'},
+    'ee14':    {'pdf': 'English_for_Engineering_I_Weeks_1-4_Rules_Questions_Answers.pdf', 'lang': 'en'},
     'ie57_en': {'pdf': 'Introduction_to_Engineering_Weeks_5-7_EN.pdf', 'lang': 'en'},
     'ie57_uz': {'pdf': 'Introduction_to_Engineering_Weeks_5-7_UZ.pdf', 'lang': 'uz'},
     'ee57_ru': {'pdf': 'English_for_Engineering_I_Weeks_5-7_RU.pdf', 'lang': 'ru'},
@@ -518,13 +523,13 @@ PATCHES = {
     'la14_ru': [
         # mojibake duplicate of the week-3 "Cx both ways" solution (the clean
         # copy sits in the preceding p-block)
-        {'kind': 'f', 're': r'^(remenne|rows)\. CTpoKH', 'action': 'skip'},
+        {'kind': 'f', 're': r'^(Pemenne|remenne|rows)[.\s]', 'action': 'skip'},
     ],
     'la14_en': [
-        {'kind': 'f', 're': r'^(remenne|rows)\. CTpoKH', 'action': 'skip'},
+        {'kind': 'f', 're': r'^(Pemenne|remenne|rows)[.\s]', 'action': 'skip'},
     ],
     'la14_uz': [
-        {'kind': 'f', 're': r'^(remenne|rows)\. CTpoKH', 'action': 'skip'},
+        {'kind': 'f', 're': r'^(Pemenne|remenne|rows)[.\s]', 'action': 'skip'},
     ],
     'la57_ru': [
         # scrambled LU chain (v1 draws the sub as one merged span)
@@ -607,14 +612,69 @@ PATCHES = {
 
 # ---------------------------------------------------------------- text helpers
 
+COVER_WORDS = [
+    # RU cover vocabulary
+    'УЧЕБНОЕ', 'ПОСОБИЕ', 'ОСЕНЬ', 'БАНК', 'ВОПРОСОВ', 'КАТАЛОГ', 'ФОРМУЛ',
+    'ПОЛНЫЕ', 'РЕШЕНИЯ', 'ПОДГОТОВКА', 'К', 'ТЕСТАМ', 'И', 'ЭКЗАМЕНУ',
+    'SAVOLLAR', 'TOPSHIRIQLAR', 'TESTLAR', 'ATAMALAR', 'FORMULALAR', 'QOIDALAR',
+    # EN
+    'TEXTBOOK', 'STUDY', 'COMPANION', 'GUIDE', 'FALL', 'RULES', 'QUESTIONS',
+    'ANSWERS', 'AND', 'TASKS', 'ALL', 'FROM', 'EVERY', 'COURSE', 'FILE',
+    # UZ
+    'O`QUV', 'OʻQUV', 'QO`LLANMA', 'QOʻLLANMA', 'HAMMASI', 'SAVOLLAR',
+    'TOPSHIRIQLAR', 'TESTLAR', 'ATAMALAR', 'FORMULALAR', 'QOIDALAR', 'YECHIMLAR',
+]
+
 def despace(s):
-    """'У Ч Е Б Н О Е' -> 'УЧЕБНОЕ' (letterspaced cover lines)."""
-    return re.sub(r'(?<=[А-ЯЁA-Z]) (?=[А-ЯЁA-Z0-9])', '', s)
+    """'У Ч Е Б Н О Е' -> 'УЧЕБНОЕ' (letterspaced cover lines), then re-space
+    glued uppercase words: 'УЧЕБНОЕПОСОБИЕ · ОСЕНЬ2026' -> 'УЧЕБНОЕ ПОСОБИЕ ·
+    ОСЕНЬ 2026'.  Greedy longest-match against the cover wordlist."""
+    s = re.sub(r'(?<=[\u02bb\u02bcA-ZА-ЯЁ0-9]) (?=[\u02bb\u02bcA-ZА-ЯЁ0-9])', '', s)
+    # split on separators that are already correct (· / digits boundaries)
+    parts = re.split(r'(·|–|—|\d+|\s+)', s)
+    out = []
+    for p in parts:
+        if p and re.match(r'^[A-ZА-ЯЁ\u02BB\u02BC`\']+$', p) and len(p) > 3:
+            words = sorted(COVER_WORDS, key=len, reverse=True)
+            res, rest = [], p
+            while rest:
+                for w in words:
+                    if rest.startswith(w) and len(w) > 1:
+                        res.append(w); rest = rest[len(w):]; break
+                else:
+                    # no word matches: keep one char (mixed-script leftovers)
+                    res.append(rest[0]); rest = rest[1:]
+                    # merge consecutive unmatched chars into one piece
+                    while rest and not any(rest.startswith(w) for w in words if len(w) > 1):
+                        res[-1] += rest[0]; rest = rest[1:]
+            out.append(' '.join(res))
+        else:
+            out.append(p)
+    # re-join: a digit group that directly follows/followed an uppercase word
+    # gets its separating space back ('ОСЕНЬ'+'2026' -> 'ОСЕНЬ 2026')
+    res = []
+    UPCH = re.compile(r'^[A-ZА-ЯЁ\u02bb\u02bc`]')
+    for i, p in enumerate(out):
+        if (i > 0 and p and p[0].isdigit() and res and res[-1]
+                and UPCH.match(res[-1][-1])):
+            res.append(' ')
+        elif (i > 0 and p and UPCH.match(p or ' ')
+              and res and res[-1] and res[-1][-1].isdigit()):
+            res.append(' ')
+        res.append(p)
+    return ''.join(res)
 
 def fix_merged_indices(t):
     """Original PDF renders 'E₂E₁A' with the whole '2E1A' as one sub-span:
     _{2E1A} -> _{2}E_{1}A,  _{2E1} -> _{2}E_{1} (visual reading restored).
     Math W1-4: scattered radical glyphs '√ √ √ 50' -> '√50'."""
+    # stacked fraction written as two adjacent sub markers ('1/6' from the
+    # v1 footnotes): _{1}_{6} -> \frac{1}{6} (a double subscript is a hard
+    # LaTeX error); letter pairs merge into one subscript
+    t = re.sub(r'_{(\d+)}_{(\d+)}', r'\1/\2', t)
+    t = re.sub(r'_{(\d+)}\^{(\d+)}', r'\2/\1', t)
+    t = re.sub(r'\^{(\d+)}_{(\d+)}', r'\1/\2', t)
+    t = re.sub(r'_{([A-Za-z]+)}_{([A-Za-z]+)}', r'_{\1\2}', t)
     t = re.sub(r'_\{(\d+)E(\d+)([A-Za-z]*)\}', r'_{\1}E_{\2}\3', t)
     t = re.sub(r'\^\{(\d+)([a-zA-Z])\}', r'^{\1}\2', t)
     t = re.sub(r'√(\s*√)+', '√', t)
@@ -930,6 +990,9 @@ def render_blocks(blocks, lang, guide_key):
             if frag_kind == 'drop' and k in ('p', 'f', 'q') and frag in b.get('t', ''):
                 skip = True
                 break
+            if frag_kind == 'eq' and k in ('p', 'f', 'q') and b.get('t', '').strip() == frag:
+                skip = True
+                break
             if frag_kind == 'has' and k in ('p', 'f', 'q') and frag in b.get('t', ''):
                 b = dict(b)
                 b['t'] = new_text
@@ -967,11 +1030,11 @@ def render_blocks(blocks, lang, guide_key):
             if 'title' in b:
                 b['title'] = fix_merged_indices(b['title'])
         if k == 'h1':
-            t = re.sub(r'^\d+\s+', '', b['t'])
+            t = re.sub(r'^\d+\.?\s+', '', b['t'])
             out.append('\\section{' + esc_text(despace(t)) + '}')
             in_qctx = False
         elif k == 'h2':
-            t = re.sub(r'^\d+\.\d+\s+', '', b['t'])
+            t = re.sub(r'^\d+(?:\.\d+)+\.?\s+', '', b['t'])
             out.append('\\subsection{' + esc_text(t) + '}')
             in_qctx = False
             m = re.match(r'^(\d+\.\d+)\s', b['t'])
@@ -980,7 +1043,16 @@ def render_blocks(blocks, lang, guide_key):
                 out.extend(render_catalog(CATALOGS[(guide_key, m.group(1))]))
                 skip_catalog = True
         elif k == 'h3':
-            out.append('\\medskip\\noindent{\\textbf{' + texify(b['t']) + '}}\\par\\smallskip')
+            if guide_key == 'ee14':
+                # English v1 guide: h3s carry their own original numbers
+                # ('2.2.1 You and your family') and were subsubsections listed
+                # in the v1 TOC — keep them verbatim (starred, no auto number
+                # that would double-number them) and add to the TOC.
+                tt = texify(b['t'])
+                out.append('\\subsubsection*{' + tt + '}')
+                out.append('\\addcontentsline{toc}{subsubsection}{' + tt + '}')
+            else:
+                out.append('\\medskip\\noindent{\\textbf{' + texify(b['t']) + '}}\\par\\smallskip')
             in_qctx = False
         elif k == 'q':
             label = b.get('label', '')
@@ -1032,6 +1104,15 @@ def render_blocks(blocks, lang, guide_key):
                 out.append('\\[' + repaired.strip() + '\\]')
                 prev_kind = 'f'
                 continue
+            # text-guide "formulas" made of prose words (English/Uzbek are
+            # Latin-script too): no sub/sup markers, no matrices, fewer than
+            # 2 real operators -> it is a text paragraph with inline math
+            if (guide_key.startswith(('hi14', 'ie14', 'ee14')) and '\u27e6' not in t
+                    and '[' not in t and not re.search(r'[\^_]\{', t)
+                    and len(re.findall(r'[=≤≥≠→⇒≈+×·∑√]', t)) < 2):
+                out.append(texify(t) + '\\par')
+                prev_kind = 'p'
+                continue
             cyr = len(re.findall(r'[А-Яа-яЁё]', t))
             lat = len(re.findall(r'[A-Za-z]', t))
             if (not b.get('disp') and cyr + lat > 0 and cyr / (cyr + lat) > 0.38
@@ -1063,7 +1144,8 @@ def render_blocks(blocks, lang, guide_key):
             else:
                 out.append(display_formula(texify_formula(t)))
         elif k == 'src':
-            src_t = apply_allowbreaks(texify(break_long_tokens_raw(b['t'])))
+            _st = re.sub(r'\\s*_\\{[^}]{1,4}\\}$', '', b['t'].strip())
+            src_t = apply_allowbreaks(texify(break_long_tokens_raw(_st)))
             if qindent and in_qctx:
                 out.append('{\\leftskip=18pt\\noindent\\footnotesize\\itshape ' + src_t + '\\par}')
             else:
@@ -1163,6 +1245,7 @@ PREAMBLE_RU = r"""\documentclass[11pt]{article}
 \fancyhead[R]{\small\itshape <<HR>>}
 \fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
+<<FOOT>>
 % v1 look: section numbers WITHOUT the trailing period that russian
 % polyglossia adds ("2.1 Заголовок", not "2.1. Заголовок")
 \titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{0.7em}{}
@@ -1184,16 +1267,26 @@ def build(key):
     from patches_m14 import PATCHES_M14_RU
     from patches_m14_extra import (PATCHES_M14_RU_EXTRA, PATCHES_M14_EN,
                                     PATCHES_M14_UZ)
-    CONTENT_PATCHES = {'la14_ru': PATCHES_RU, 'la14_en': PATCHES_EN,
-                       'la14_uz': PATCHES_UZ,
-                       'm14_ru': PATCHES_M14_RU + PATCHES_M14_RU_EXTRA,
-                       'm14_en': PATCHES_M14_EN,
-                       'm14_uz': PATCHES_M14_UZ}.get(key, [])
+    from patches_m14_fix2 import (PATCHES_M14_RU_FIX2, PATCHES_M14_EN_FIX2,
+                                   PATCHES_M14_UZ_FIX2)
+    from patches_la14_fix2 import (PATCHES_LA14_RU_FIX2, PATCHES_LA14_EN_FIX2,
+                                    PATCHES_LA14_UZ_FIX2)
+    from patches_m14_fix3 import P_RU as P_M14_RU_FIX3, P_EN as P_M14_EN_FIX3, P_UZ as P_M14_UZ_FIX3
+    from patches_w14_final import M14_RU as W14F_RU, M14_EN as W14F_EN, M14_UZ as W14F_UZ, EE14 as W14F_EE, LA14_UZ as W14F_LAUZ, LA14_RU as W14F_LARU, LA14_EN as W14F_LAEN
+    from patches_w14_final3 import R as W14F3_RU, E as W14F3_EN, U as W14F3_UZ
+    from patches_w14_final3 import IE14_RU, LA14_RU_DROPS
+    CONTENT_PATCHES = {'la14_ru': PATCHES_RU + PATCHES_LA14_RU_FIX2 + W14F_LARU + LA14_RU_DROPS, 'la14_en': PATCHES_EN + PATCHES_LA14_EN_FIX2 + W14F_LAEN,
+                       'la14_uz': PATCHES_UZ + PATCHES_LA14_UZ_FIX2 + W14F_LAUZ,
+                       'm14_ru': PATCHES_M14_RU + PATCHES_M14_RU_EXTRA + PATCHES_M14_RU_FIX2 + P_M14_RU_FIX3 + W14F_RU + W14F3_RU,
+                       'ee14': W14F_EE,
+                       'm14_en': PATCHES_M14_EN + PATCHES_M14_EN_FIX2 + P_M14_EN_FIX3 + W14F_EN + W14F3_EN,
+                       'm14_uz': PATCHES_M14_UZ + PATCHES_M14_UZ_FIX2 + P_M14_UZ_FIX3 + W14F_UZ + W14F3_UZ,
+                       'ie14_ru': IE14_RU}.get(key, [])
     cfg = GUIDES[key]
     import texify as _texify_mod
     # text-oriented guides: square brackets stay plain text (units '[h/day]',
     # templates '[the system]', '[Source: X]'), never bmatrix/math
-    _texify_mod.TEXT_BRACKETS = key.startswith(('ie57', 'ee57'))
+    _texify_mod.TEXT_BRACKETS = not key.startswith(('m14', 'm57', 'la14', 'la57'))
     # text-subject guides: demote word-only inline runs from math (We, If,
     # Bu, S1, T6, TED, QR, 96 km, a), b)... render as DejaVu text, not CM
     # math italic) — the v1 originals are ReportLab text documents
@@ -1222,12 +1315,14 @@ def build(key):
     lang_cmd = {'ru': 'russian', 'en': 'english', 'uz': 'english'}[lang]
     cyr = ('\\newfontfamily\\cyrillicfont{DejaVu Serif}\n'
            '\\newfontfamily\\cyrillicfontsf{DejaVu Sans}') if lang == 'ru' else '% no cyrillic fonts needed'
-    hr = data.get('header', {}).get('right') or '·'
+    hr = data.get('header', {}).get('right') or ''
     hl_head = data.get('header', {}).get('left') or hl
+    foot = data.get('footer', '') or ''
     preamble = (PREAMBLE_RU.replace('<<LANG>>', lang_cmd)
                 .replace('<<STRETCH>>', '4.0' if lang == 'uz' else '2.5')
                 .replace('<<CYRFONTS>>', cyr)
-                .replace('<<HL>>', esc_text(hl_head)).replace('<<HR>>', esc_text(hr)))
+                .replace('<<HL>>', esc_text(hl_head)).replace('<<HR>>', esc_text(hr))
+                .replace('<<FOOT>>', (r'\fancyfoot[L]{\small\itshape ' + esc_text(foot) + '}') if foot else ''))
 
     titlepage = r"""\begin{titlepage}
 \centering
